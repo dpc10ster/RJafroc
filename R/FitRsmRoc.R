@@ -1,0 +1,460 @@
+#' Fit the radiological search model (RSM) to ROC data
+#' 
+#' @description Fit an RSM-predicted ROC curve to a binned dataset
+#' 
+#' @usage FitRsmRoc(dataset, lesDistr, trt = 1, rdr = 1) 
+#' 
+#' 
+#' @param dataset The \strong{binned} dataset containing the data
+#' @param lesDistr The lesion distribution matrix
+#' @param trt The desired treatment, default is 1
+#' @param rdr The desired reader, default is 1
+#' 
+#' 
+#' @return The return value is a list with the following elements:
+#' @return \item{mu}{The mean of the diseased distribution relative 
+#'    to the non-diseased one} 
+#' @return \item{lambdP}{The Poisson parameter describing the distribution 
+#'    of latent NLs per case}
+#' @return \item{nuP}{The binomial success probability describing the distribution
+#'    of latent LLs per diseased case}
+#' @return \item{zetas}{The RSM cutoffs, zetas or thresholds} 
+#' @return \item{AUC}{The RSM fitted ROC-AUC} 
+#' @return \item{StdAUC}{The standard deviation of AUC} 
+#' @return \item{NLLIni}{The initial value of negative LL} 
+#' @return \item{NLLFin}{The final value of negative LL} 
+#' @return \item{ChisqrFitStats}{The chisquare goodness of fit results} 
+#' @return \item{covMat}{The covariance matrix of the parameters} 
+#' @return \item{fittedPlot}{A \pkg{ggplot2} object containing the fitted 
+#'    operating characteristic along with the empirical operating points. 
+#'    Use \code{print} to display the object} 
+#' 
+#' 
+#' @details 
+#' In the RSM: (1) The (random) number of latent NLs per case is Poisson distributed 
+#'    with mean parameter lambdaP, and the corresponding ratings are sampled from 
+#'    \eqn{N(0,1)}. The (2) The (random) number of latent LLs per diseased case is 
+#'    binomial distributed with success probability nuP and trial size equal to 
+#'    the number of lesions in the case, and the corresponding ratings are sampled from 
+#'    N(\eqn{mu},1). (3) A latent NL or LL is actually marked if its rating exceeds 
+#'    the lowest threshold zeta1. To avoid clutter error bars are only shown for the 
+#'    lowest and uppermost operating points. MLE ROC algorithms require binned datasets. 
+#'    Use \link{DfBinDataset} to perform the binning prior to calling this function. 
+#'    Because of the extra parameter, and the requirement to have five counts, 
+#'    the chi-square statistic often cannot be calculated. 
+#' 
+#' 
+#' @examples
+#' ## Test with included ROC data (some bins have zero counts)
+#' lesDistr <- UtilLesionDistribution(dataset02)
+#' retFit <- FitRsmRoc(dataset02, lesDistr)
+#' print(retFit$fittedPlot)
+#' 
+#' ## Test with included degenerate ROC data
+#' lesDistr <- UtilLesionDistribution(datasetDegenerate)
+#' retFit <- FitRsmRoc(datasetDegenerate, lesDistr);print(retFit$fittedPlot)
+#' 
+#' ## Test with single interior point data
+#' fp <- c(rep(1,7), rep(2, 3))
+#' tp <- c(rep(1,5), rep(2, 5))
+#' dataset <- Df2RJafrocDataset(fp, tp)
+#' lesDistr <- UtilLesionDistribution(dataset)
+#' retFit <- FitRsmRoc(dataset, lesDistr);print(retFit$fittedPlot)
+#' 
+#' ## Test with two interior data points
+#' fp <- c(rep(1,7), rep(2, 5), rep(3, 3))
+#' tp <- c(rep(1,3), rep(2, 5), rep(3, 7))
+#' dataset <- Df2RJafrocDataset(fp, tp)
+#' lesDistr <- UtilLesionDistribution(dataset)
+#' retFit <- FitRsmRoc(dataset, lesDistr);print(retFit$fittedPlot)
+#' 
+#' 
+#' ## Test with three interior data points
+#' fp <- c(rep(1,12), rep(2, 5), rep(3, 3), rep(4, 5)) #25
+#' tp <- c(rep(1,3), rep(2, 5), rep(3, 7), rep(4, 10)) #25
+#' dataset <- Df2RJafrocDataset(fp, tp)
+#' lesDistr <- UtilLesionDistribution(dataset)
+#' retFit <- FitRsmRoc(dataset, lesDistr);print(retFit$fittedPlot)
+#' 
+#' 
+#' @references 
+#' Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 
+#' paradigm. Phys Med Biol 51, 3449-3462.
+#' 
+#' Chakraborty DP (2006) ROC Curves predicted by a model of visual search. Phys Med Biol 51, 3463--3482.
+#'
+#' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
+#' Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
+#' \url{https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
+#' 
+#'  
+#' @importFrom bbmle mle2
+#' @importFrom stats lm
+#' @importFrom binom binom.confint
+#' 
+#' @export
+#' 
+FitRsmRoc <- function(dataset, lesDistr, trt = 1, rdr = 1){ 
+# since the ROC dataset is sometimes derived from a FROC dataset with multiple lesions, 
+# lesDist has to be supplied externally
+ 
+  if (missing(lesDistr)) stop("FitRsmRoc nees the lesDist argument")
+  maxLambdaP <- RJafrocEnv$maxLambdaP
+  minLambdaP <- RJafrocEnv$minLambdaP
+  maxNuP <- RJafrocEnv$maxNuP
+  minNuP <- RJafrocEnv$minNuP
+  maxMu <- RJafrocEnv$maxRsmMu
+  minMu <- RJafrocEnv$minMu
+  minZeta <- RJafrocEnv$minZeta
+  maxZeta <- RJafrocEnv$maxZeta
+  
+  modalityID <- dataset$modalityID[trt]
+  readerID <- dataset$readerID[rdr]
+  lesionNum <- dataset$lesionNum
+  class(lesDistr) <- "numeric"
+  
+  ret1 <- UtilBinCountsOpPts(dataset, trt, rdr) 
+  fpf <- ret1$fpf;tpf <- ret1$tpf;fpCounts <- ret1$fpCounts;tpCounts <- ret1$tpCounts;K1 <- sum(fpCounts);K2 <- sum(tpCounts)
+  if (isDataDegenerate (fpf, tpf)) {
+    if (max(tpf) > max(fpf)) { 
+      mu <- maxMu # technically infinity; but then vertical line does not plot
+      lambdaP <- -log(1 - fpf[length(fpf)]) # dpc
+      nuP <- max(tpf)
+      fittedPlot <- genericPlotRsmROC (mu, lambdaP, nuP, lesDistr, modalityID, readerID, fpf, tpf, K1, K2)
+      return(list(
+        mu = maxMu,
+        lambdaP = minLambdaP,
+        nuP = max(tpf),
+        zetas = NA,
+        AUC = (1+max(tpf))/2, 
+        StdAUC = 0,
+        NLLIni = NA,
+        NLLFin = NA,
+        ChisqrFitStats = list(NA,NA,NA),
+        covMat = NA,
+        fittedPlot = fittedPlot 
+      ))
+    } else { # right or bottom boundary of ROC
+      mu <- minMu # 
+      lambdaP <- maxLambdaP # dpc
+      nuP <- minNuP
+      fittedPlot <- genericPlotRsmROC (mu, lambdaP, nuP, lesDistr, modalityID, readerID, fpf, tpf, K1, K2)
+      return(list(
+        mu = minMu,
+        lambdaP = maxLambdaP,
+        nuP = minNuP,
+        zetas = NA,
+        AUC = (1+max(tpf))/2, 
+        StdAUC = 0,
+        NLLIni = NA,
+        NLLFin = NA,
+        ChisqrFitStats = list(NA,NA,NA),
+        covMat = NA,
+        fittedPlot = fittedPlot 
+      ))
+    }
+  }
+  
+  retCbm <- FitCbmRoc(dataset, trt = trt, rdr = rdr)
+  aucCbm <- retCbm$AUC
+  muIni <- retCbm$mu
+  lambdaPIni <- -log(1 - fpf[length(fpf)]) # dpc
+  
+  nuPIni <- retCbm$alpha # dpc
+  zetasIni <- retCbm$zetas
+  
+  mu <- muIni; lambdaP <- lambdaPIni;nuP <- nuPIni;zetas <- zetasIni
+  
+  # while (1){  
+  muFwd <- ForwardValue(mu, minMu, maxMu)
+  lambdaPFwd <- ForwardValue(lambdaP, minLambdaP, maxLambdaP)
+  nuPFwd <- ForwardValue(nuP, minNuP, maxNuP)
+  zetaFwd <- ForwardZetas(zetas)
+  
+  parameters <- c(muFwd, lambdaPFwd, nuPFwd, zetaFwd)
+  namesVector <- paste0("zetaFwd", 1:length(zetaFwd))
+  names(parameters) <- c("muFwd" ,"lambdaPFwd", "nuPFwd", namesVector)
+  RSMNLLAdd <- AddArguments(RSMNLL, length(zetaFwd))
+  
+  ret <- mle2(RSMNLLAdd, start = as.list(parameters), eval.only = TRUE,
+              data = list(fb = fpCounts, tb = tpCounts, lesDistr = lesDistr),
+              method = "BFGS", control = list(maxit = 2000))
+  
+  NLLIni <- ret@min
+  
+  ret <- mle2(RSMNLLAdd, start = as.list(parameters),
+              data = list(fb = fpCounts, tb = tpCounts, lesDistr = lesDistr),
+              method = "BFGS", control = list(maxit = 2000))
+  
+  if (ret@details$convergence != 0) stop("mle2 error in rsm fit")
+  
+  vcov <- ret@vcov
+  
+  mu <- InverseValue(ret@coef[1], minMu, maxMu)
+  lambdaP <- InverseValue(ret@coef[2], minLambdaP, maxLambdaP)
+  nuP <- InverseValue(ret@coef[3], minNuP, maxNuP)
+  zetas <- InverseZetas(ret@coef[4:length(ret@coef)])
+  
+  NLLFin <- ret@min
+  
+  AUC <- UtilAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
+  ## following checks out
+  ##temp <- tempAucRSM (c(ret@coef[1], ret@coef[2], ret@coef[3]), lesDistr)  
+  
+  covMat <- vcov[1:3,1:3]
+  StdAUC <- StdDevRsmAuc(ret@coef[1], ret@coef[2], ret@coef[3], covMat, lesDistr = lesDistr) ## !!!dpc!!! looks right; can it be proved?  
+  
+  ChisqrFitStats <- ChisqrGoodnessOfFitRsm(zetas, mu, lambdaP, nuP, lesDistr, fpCounts, tpCounts)
+  
+  fittedPlot <- genericPlotRsmROC (mu, lambdaP, nuP, lesDistr, modalityID, readerID, fpf, tpf, K1, K2)
+  #fittedPlot <- NA
+  
+  # calculate covariance matrix using un-transformed variables
+  namesVector <- c(c("mu", "lambdaP", "nuP"), paste0("zeta", 1:length(zetas)))
+  parameters <- c(list(mu, lambdaP, nuP), as.list(zetas))
+  names(parameters) <- namesVector
+  
+  RSMNLLAddNoTransf <- AddArguments2(RSMNLLNoTransf, length(zetas))
+  
+  # ret <- mle2(RSMNLLAddNoTransf, start = parameters, 
+  #             upper = c(mu = 10, lambdaP = 20, nuP = 0.9999, zeta1 = 3, zeta2 = 3, zeta3 = 3, zeta4 = 3), 
+  #             method = "L-BFGS-B", 
+  #             data = list(fb = fpCounts, tb = tpCounts, lesDistr = lesDistr))
+  # 
+  # ret <- mle2(RSMNLLAddNoTransf, start = parameters, fixed = as.vector("nuP"),
+  #             method = "BFGS", 
+  #             data = list(fb = fpCounts, tb = tpCounts, lesDistr = lesDistr))
+  # 
+  
+  if ((nuP < 0.98) && (nuP > 0.02) && (mu > 0.1)){
+    
+    ret <- suppressWarnings(mle2(RSMNLLAddNoTransf, start = parameters, 
+                method = "BFGS", 
+                data = list(fb = fpCounts, tb = tpCounts, lesDistr = lesDistr)))
+    
+    covMat <- ret@vcov
+    NLLChk <- ret@min
+    
+  } else {
+    
+    covMat <- NA
+    
+  }
+  
+  #   if (NLLChk < NLLFin) {
+  #     if (abs(NLLChk - NLLFin)/NLLFin > 1e-6) next else break
+  #   } else break
+  #   
+  # }
+  
+  return(list(
+    mu = mu,
+    lambdaP = lambdaP,
+    nuP = nuP,
+    zetas = zetas,
+    AUC = AUC, 
+    StdAUC = StdAUC,
+    NLLIni = NLLIni,
+    NLLFin = NLLFin,
+    ChisqrFitStats = ChisqrFitStats,
+    covMat = covMat,
+    fittedPlot = fittedPlot 
+  ))
+}
+
+
+
+
+###############################################################################
+RSMNLL <- function(muFwd, lambdaPFwd, nuPFwd, fb, tb, lesDistr){
+  maxLambdaP <- RJafrocEnv$maxLambdaP
+  minLambdaP <- RJafrocEnv$minLambdaP
+  maxNuP <- RJafrocEnv$maxNuP
+  minNuP <- RJafrocEnv$minNuP
+  maxMu <- RJafrocEnv$maxRsmMu
+  minMu <- RJafrocEnv$minMu
+  
+  mu <- InverseValue(muFwd, minMu, maxMu)
+  lambdaP <- InverseValue(lambdaPFwd, minLambdaP, maxLambdaP)
+  nuP <- InverseValue(nuPFwd, minNuP, maxNuP)
+  allParameters <- names(formals())
+  zetaPos <- grep("zetaFwd", allParameters)
+  zetas <- unlist(mget(allParameters[zetaPos]))
+  zetas <- InverseZetas(zetas)
+  
+  return(RsmInner(mu, lambdaP, nuP, lesDistr, zetas, fb, tb))
+}
+
+
+
+###############################################################################
+# RSM paradigm negative of log likelihood function, without transformations
+RSMNLLNoTransf <- function (mu, lambdaP, nuP, fb, tb, lesDistr){
+  
+  allParameters <- names(formals())
+  zetaPos <- regexpr("zeta", allParameters)
+  zetas <- unlist(mget(allParameters[which(zetaPos == 1)]))
+  L <- RsmInner(mu, lambdaP, nuP, lesDistr, zetas, fb, tb)
+  return(L)
+  
+}
+
+
+
+###############################################################################
+# inputs are transformed parameters; covMat is also wrt trans. parameters
+StdDevRsmAuc<-function(muFwd,lambdaPFwd,nuPFwd,covMatFwd, lesDistr)
+{
+  derivsFwd <- jacobian(func = tempAucRSM, c(muFwd,lambdaPFwd,nuPFwd), lesDistr = lesDistr) # this is for transformed variables
+  VarAz <- derivsFwd %*% covMatFwd %*% t(derivsFwd)
+  if (VarAz < 0 || is.na(VarAz)) return(NA) else return(sqrt(VarAz))
+}
+
+
+
+###############################################################################
+tempAucRSM <- function (forwardParms, lesDistr = lesDistr){
+  maxLambdaP <- RJafrocEnv$maxLambdaP
+  minLambdaP <- RJafrocEnv$minLambdaP
+  maxNuP <- RJafrocEnv$maxNuP
+  minNuP <- RJafrocEnv$minNuP
+  maxMu <- RJafrocEnv$maxRsmMu
+  minMu <- RJafrocEnv$minMu
+  
+  mu <- InverseValue(forwardParms[1], minMu, maxMu)
+  lambdaP <- InverseValue(forwardParms[2], minLambdaP, maxLambdaP)
+  nuP <- InverseValue(forwardParms[3], minNuP, maxNuP)
+  
+  maxFPF <- xROC(-20, lambdaP)
+  maxTPF <- yROC(-20, mu, lambdaP, nuP, lesDistr)
+  AUC <- integrate(intROC, 0, maxFPF, mu = mu, lambdaP = lambdaP, nuP = nuP, 
+                   lesDistr = lesDistr)$value
+  
+  AUC <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2
+  
+  return (AUC)
+}
+
+
+
+###############################################################################
+# this code was inspired by XZ
+ChisqrGoodnessOfFitRsm <- function(zetas, mu, lambdaP, nuP, lesDistr, fpCounts, tpCounts) {
+  fpf1 <- xROCVect(zetas, lambdaP)
+  tpf1 <- yROCVect(zetas, mu, lambdaP, nuP, lesDistr)
+  fpExpProb <- c(1, fpf1) - c(fpf1, 0)
+  tpExpProb <- c(1, tpf1) - c(tpf1, 0)
+  
+  retComb1 <- CombBins(rbind(fpCounts, tpCounts), rbind(fpExpProb, tpExpProb))
+  retComb1 <- CombBins(retComb1$obs[c(2, 1), , drop = FALSE], retComb1$prob[c(2, 1), , drop = FALSE])
+  obs1 <- retComb1$obs[c(2, 1), , drop = FALSE]; exp1 <- retComb1$prob[c(2, 1), , drop = FALSE] * rowSums(obs1)
+  fpGoodness1 <- rbind(obs1[1, ], exp1[1, ])
+  tpGoodness1 <- rbind(obs1[2, ], exp1[2, ])
+  
+  retComb2 <- CombBins(rbind(tpCounts, fpCounts), rbind(tpExpProb, fpExpProb))
+  retComb2 <- CombBins(retComb2$obs[c(2, 1), , drop = FALSE], retComb2$prob[c(2, 1), , drop = FALSE])
+  obs2 <- retComb2$obs; exp2 <- retComb2$prob * rowSums(obs2)
+  fpGoodness2 <- rbind(obs2[1, ], exp2[1, ])
+  tpGoodness2 <- rbind(obs2[2, ], exp2[2, ])
+  
+  if (ncol(fpGoodness1) >= ncol(fpGoodness2)){
+    fpGoodness <- fpGoodness1
+    tpGoodness <- tpGoodness1
+    nBinsComb <- ncol(fpGoodness1)
+  }else{
+    fpGoodness <- fpGoodness2
+    tpGoodness <- tpGoodness2
+    nBinsComb <- ncol(fpGoodness2)
+  }
+  
+  if (nBinsComb >= 4){ # dpc 10/10/2107; df calculation was wrong; extra bin compensates for extra parameter
+    chisq <- sum((fpGoodness[1, ] - fpGoodness[2, ])^2/fpGoodness[2, ]) + sum((tpGoodness[1, ] - tpGoodness[2, ])^2/tpGoodness[2, ])
+    df <- nBinsComb - 3
+    pVal <- pchisq(chisq, df, lower.tail = FALSE)
+  }else{
+    chisq <- NA
+    pVal <- NA
+    df <- NA
+  }
+  
+  return(list(
+    chisq = chisq,
+    pVal = pVal,
+    df = df
+  ))
+}
+
+
+
+genericPlotRsmROC <- function(mu, lambdaP, nuP, lesDistr, modalityID, readerID, fpf, tpf, K1, K2) {
+  
+  plotStep <- 0.01
+  plotZeta <- seq(from = -3, to = 10, by = plotStep)
+  plotFPF <- sapply(plotZeta, xROC, lambdaP = lambdaP)
+  plotTPF <- sapply(plotZeta, yROC, mu = mu, lambdaP = lambdaP, 
+                    nuP = nuP, lesDistr = lesDistr)
+  
+  fittedPlot <- commonCode(plotFPF,plotTPF,fpf,tpf,modalityID,readerID,K1,K2,color = "black")
+  
+  return(fittedPlot)
+}  
+
+genericPlotCbmROC <- function(mu, alpha, modalityID, readerID, fpf, tpf, K1, K2) {
+  
+  plotStep <- 0.01
+  plotZeta <- seq(from = -3, to = 10, by = plotStep)
+  plotFPF <- pnorm(-plotZeta)
+  plotTPF <- alpha*pnorm(mu-plotZeta) + (1-alpha)*pnorm(-plotZeta)
+  
+  fittedPlot <- commonCode(plotFPF,plotTPF,fpf,tpf,modalityID,readerID,K1,K2,color = "darkgrey")
+  
+  return(fittedPlot)
+}
+
+commonCode <- function (plotFPF,plotTPF,fpf,tpf,modalityID,readerID,K1,K2,color){
+  deltaFPF <- plotFPF[1:(length(plotFPF) - 1)] - plotFPF[2:length(plotFPF)]   
+  
+  ROCPoints <- rbind(data.frame(fpf = plotFPF, tpf = plotTPF))
+  ROCDashes <- rbind(data.frame(fpf = c(plotFPF[1], 1), tpf = c(plotTPF[1], 1)))
+  ROCOpPoints <- rbind(data.frame(fpf = fpf, tpf = tpf))  
+  
+  class <- paste("M-", modalityID,"\n", "R-", readerID, sep = "")
+  ROCPoints <- data.frame(fpf = ROCPoints$fpf, tpf = ROCPoints$tpf, color = color, 
+                          type = "individual")
+  ROCDashes <- data.frame(fpf = ROCDashes$fpf, tpf = ROCDashes$tpf, color = color, 
+                          type = "individual")
+  ROCOpPoints <- data.frame(fpf = ROCOpPoints$fpf, tpf = ROCOpPoints$tpf, color = color, 
+                            type = "individual")
+  
+  fittedPlot <- ggplot(mapping = aes(x = fpf, y = tpf, color = class)) + 
+    geom_line(data = ROCPoints, size = 2) + geom_line(data = ROCDashes, linetype = 3, size = 2) + 
+    geom_point(data = ROCOpPoints, size = 5) +  
+    xlab("FPF") + ylab("TPF")
+  
+  ciX <- binom.confint(x = fpf * K1, n = K1, methods = "exact")
+  ciY <- binom.confint(x = tpf * K2, n = K2, methods = "exact")
+  ciXUpper <- ciX$upper
+  ciXLower <- ciX$lower
+  ciYUpper <- ciY$upper
+  ciYLower <- ciY$lower
+  for (p in 1:length(fpf)){
+    if (((p != 1) && p != length(fpf))) next
+    ciX <- data.frame(fpf = c(ciXUpper[p], ciXLower[p]), tpf = c(tpf[p], tpf[p]))
+    ciY <- data.frame(fpf = c(fpf[p], fpf[p]), tpf = c(ciYUpper[p], ciYLower[p]))
+    fittedPlot <- fittedPlot + 
+      geom_line(data = ciY, aes(x = fpf, y = tpf), color = color) + 
+      geom_line(data = ciX, aes(x = fpf, y = tpf), color = color)
+    barRgt <- data.frame(fpf = c(ciXUpper[p], ciXUpper[p]), tpf = c(tpf[p] - 0.01, tpf[p] + 0.01))
+    barLft <- data.frame(fpf = c(ciXLower[p], ciXLower[p]), tpf = c(tpf[p] - 0.01, tpf[p] + 0.01))
+    barUp <- data.frame(fpf = c(fpf[p] - 0.01, fpf[p] + 0.01), tpf = c(ciYUpper[p], ciYUpper[p]))
+    barBtm <- data.frame(fpf = c(fpf[p] - 0.01, fpf[p] + 0.01), tpf = c(ciYLower[p], ciYLower[p]))
+    fittedPlot <- fittedPlot + 
+      geom_line(data = barRgt, aes(x = fpf, y = tpf), color = color) + 
+      geom_line(data = barLft, aes(x = fpf, y = tpf), color = color) + 
+      geom_line(data = barUp, aes(x = fpf, y = tpf), color = color) + 
+      geom_line(data = barBtm, aes(x = fpf, y = tpf), color = color)
+  }
+  return(fittedPlot)
+}
+
+

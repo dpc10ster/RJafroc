@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1527450782714.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1726888495",
+    "id" : "3468B73C",
+    "lastKnownWriteTime" : 1527454774,
+    "last_content_update" : 1527454774163,
+    "path" : "~/rjafroc/cran-comments.md",
+    "project_path" : "cran-comments.md",
+    "properties" : {
+        "cursorPosition" : "41,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "markdown"
+}

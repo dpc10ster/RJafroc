@@ -1,0 +1,85 @@
+gpfMyFOM <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue = NULL) {
+  if (!FOM %in% c("Wilcoxon", "HrAuc", "HrSe", "HrSp", "SongA1", 
+                  "SongA2", "AFROC1", "AFROC", "wAFROC1", "wAFROC",
+                  "JAFROC1", "JAFROC", "wJAFROC1", "wJAFROC", "FROC", # dpc 
+                  "MaxLLF", "MaxNLF", "MaxNLFAllCases", "ExpTrnsfmSp", "ROI",
+                  "ALROC", "PCL")){ # dpc 
+    errMsg <- paste0(FOM, " is not an available figure of merit.")
+    stop(errMsg)
+  }
+  fom <- NA
+  fom <- switch(FOM, 
+                "Wilcoxon" = TrapezoidalArea(nl, K1, ll, K2),
+                "HrAuc" = HrAuc(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
+                "HrSe" = HrSe(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
+                "HrSp" = HrSp(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
+                "SongA1" = SongA1(K1, K2, maxNL, maxLL, lesionNum, nl, ll),
+                "SongA2" = SongA2(K1, K2, maxNL, maxLL, lesionNum, nl, ll),
+                "AFROC1" = JAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL), # dpc 
+                "JAFROC1" = JAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
+                "AFROC" = JAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL), # dpc 
+                "JAFROC" = JAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
+                "wAFROC1" = wJAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc 
+                "wJAFROC1" = wJAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight),
+                "wAFROC" = wJAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc 
+                "wJAFROC" = wJAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight),
+                "FROC" = FROC(nl, ll, lesionID, lesionNum, K1, K2),
+                "ALROC" = LrocFoms(nl, ll, FPFValue)$ALroc,
+                "PCL" = LrocFoms(nl, ll, FPFValue)$PCL,
+                "MaxLLF" = MaxLLF(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
+                "MaxNLF" = MaxNLF(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
+                "MaxNLFAllCases" = MaxNLFAllCases(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
+                "ExpTrnsfmSp" = ExpTrnsfmSp(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
+                "ROI" = ROI(K1, K2, maxNL, lesionNum, nl, ll)
+  )
+  return(fom)
+} 
+
+
+FROC <- function(nl, ll, lesionID, lesionNum, K1, K2){
+  nl <- as.vector(nl[nl != -Inf])
+  ll <- ll[is.finite(lesionID)]
+  sumNumLL <- sum(lesionNum)
+  frocFOM <- 0
+  for (l in 1:length(nl)){
+    frocFOM <- frocFOM + sum(nl[l] < ll) + 0.5 * sum(nl[l] == ll)
+  }
+  return(frocFOM / (K1 + K2) / sumNumLL)
+}
+
+
+
+LrocFoms <- function (zk1, zk2Cl, FPFValue) {
+  zk1 <- drop(zk1)
+  zk2Cl <- drop(zk2Cl)
+  zk1 <- zk1[zk1 != -Inf]
+  lroc <- LrocOperatingPointsFromRatings( zk1, zk2Cl )
+  PCL <- (approx(lroc$FPF, lroc$PCL, xout = FPFValue))$y # computes PCL @ FPFValue
+  tempFpf <-c(lroc$FPF[lroc$FPF < FPFValue],FPFValue)
+  tempPcl <-c(lroc$PCL[lroc$FPF < FPFValue],PCL)
+  ALroc <- trapz(tempFpf, tempPcl) # computes trapezoidal area under LROC (0 to FPFValue)
+  return (list ( 
+    PCL = PCL,
+    ALroc = ALroc
+  ))  
+}
+
+
+
+Wilcoxon <- function (zk1, zk2)
+{
+  
+  K1 = length(zk1)
+  K2 = length(zk2)
+  
+  W <- 0
+  for (k1 in 1:K1) {
+    W <- W + sum(zk1[k1] < zk2)
+    W <- W + 0.5 * sum(zk1[k1] == zk2)
+  }
+  W <- W/K1/K2
+  
+  return (W)
+  
+}
+
