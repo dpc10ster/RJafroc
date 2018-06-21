@@ -3,6 +3,351 @@
         "definitions" : [
             {
                 "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/BMFuncs.cpp",
+                "kind" : 6,
+                "line" : 5,
+                "name" : "BMNLLInner(double, double, NumericVector, NumericVector, NumericVector)",
+                "parent_name" : "",
+                "usr" : "c:@F@BMNLLInner#d#d#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#S0_#"
+            }
+        ],
+        "file" : "/Users/Dev/rjafroc-master/src/BMFuncs.cpp",
+        "file_last_write" : 1511145261
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/CBMFuncs.cpp",
+                "kind" : 6,
+                "line" : 5,
+                "name" : "Qz(double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@Qz#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/CBMFuncs.cpp",
+                "kind" : 6,
+                "line" : 10,
+                "name" : "Pz(double, double, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@Pz#d#d#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/CBMFuncs.cpp",
+                "kind" : 6,
+                "line" : 15,
+                "name" : "CBMNLLInner(double, double, NumericVector, NumericVector, NumericVector)",
+                "parent_name" : "",
+                "usr" : "c:@F@CBMNLLInner#d#d#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#S0_#"
+            }
+        ],
+        "file" : "/Users/Dev/rjafroc-master/src/CBMFuncs.cpp",
+        "file_last_write" : 1511145261
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/Users/Dev/rjafroc-master/src/CommonFuncs.h",
+        "file_last_write" : 1511145261
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/Users/Dev/rjafroc-master/src/CorCBMFuncs.cpp",
+        "file_last_write" : 1511145261
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 6,
+                "name" : "maximum(NumericVector, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@maximum#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 16,
+                "name" : "comp_phi(double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@comp_phi#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 25,
+                "name" : "TrapezoidalArea(NumericVector, int, NumericVector, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@TrapezoidalArea#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#I#S0_#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 41,
+                "name" : "HrAuc(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@HrAuc#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 62,
+                "name" : "ROI(int, int, int, NumericVector, NumericMatrix, NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@ROI#I#I#I#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 109,
+                "name" : "HrSe(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@HrSe#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 130,
+                "name" : "HrSp(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@HrSp#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 148,
+                "name" : "SongA1(int, int, int, int, NumericVector, NumericMatrix, NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@SongA1#I#I#I#I#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 224,
+                "name" : "SongA2(int, int, int, int, NumericVector, NumericMatrix, NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@SongA2#I#I#I#I#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 289,
+                "name" : "JAFROC1(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@JAFROC1#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 315,
+                "name" : "JAFROC(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@JAFROC#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 341,
+                "name" : "wJAFROC1(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int, NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@wJAFROC1#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#S0_#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 361,
+                "name" : "wJAFROC(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int, NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@wJAFROC#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#S0_#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 381,
+                "name" : "MaxLLF(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@MaxLLF#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 402,
+                "name" : "MaxNLF(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@MaxNLF#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 418,
+                "name" : "MaxNLFAllCases(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@MaxNLFAllCases#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 434,
+                "name" : "ExpTrnsfmSp(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@ExpTrnsfmSp#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#"
+            }
+        ],
+        "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+        "file_last_write" : 1511145261
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 6,
+                "name" : "erf(double)",
+                "parent_name" : "",
+                "usr" : "c:@F@erf"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 11,
+                "name" : "erfVect(NumericVector)",
+                "parent_name" : "",
+                "usr" : "c:@F@erfVect#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 20,
+                "name" : "erfcpp(double)",
+                "parent_name" : "",
+                "usr" : "c:@F@erfcpp#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 25,
+                "name" : "xROC(double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@xROC#d#d#"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 30,
+                "name" : "xROCVect(NumericVector, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@xROCVect#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 40,
+                "name" : "yROC(double, double, double, double, NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@yROC#d#d#d#d#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 51,
+                "name" : "yROCVect(NumericVector, double, double, double, NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@yROCVect#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#d#d#d#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 66,
+                "name" : "yROCVectNuP(double, double, double, NumericVector, NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@yROCVectNuP#d#d#d#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 106,
+                "name" : "RsmInner(double, double, double, NumericMatrix, NumericVector, NumericVector, NumericVector)",
+                "parent_name" : "",
+                "usr" : "c:@F@RsmInner#d#d#d#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#S1_#"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 149,
+                "name" : "intROC(NumericVector, double, double, double, NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@intROC#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#d#d#d#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
+            }
+        ],
+        "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+        "file_last_write" : 1518468621
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/Users/Dev/rjafroc-master/src/SmAucInt.cpp",
+        "file_last_write" : 1511145261
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/Transforms.cpp",
+                "kind" : 6,
+                "line" : 6,
+                "name" : "ForwardValue(double, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@ForwardValue#d#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/rjafroc-master/src/Transforms.cpp",
+                "kind" : 6,
+                "line" : 12,
+                "name" : "InverseValue(double, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@InverseValue#d#d#d#"
+            }
+        ],
+        "file" : "/Users/Dev/rjafroc-master/src/Transforms.cpp",
+        "file_last_write" : 1511145261
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
                 "file" : "/Users/Dev/rjafroc/src/BMFuncs.cpp",
                 "kind" : 6,
                 "line" : 5,
