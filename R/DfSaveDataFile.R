@@ -106,7 +106,7 @@ SaveJAFROC <- function(dataset, fileName) {
   lesionWeights <- lesionWeights[lesionWeights != UNINITIALIZED]
   lesionWeights <- c(rep(0, K1), lesionWeights)
   dataSheet <- data.frame(CaseID = as.integer(caseIDs), LesionID = as.integer(lesionIDs), Weight = lesionWeights)
-  write.xlsx2(x = dataSheet, file = fileName, sheetName = "TRUTH", row.names = FALSE)
+  #write.xlsx2(x = dataSheet, file = fileName, sheetName = "TRUTH", row.names = FALSE)
   
   dataSheet <- NULL
   for (i in 1:I) {
@@ -121,7 +121,7 @@ SaveJAFROC <- function(dataset, fileName) {
     }
   }
   dataSheet <- data.frame(ReaderID = readerID[dataSheet[, 1]], ModalityID = modalityID[dataSheet[, 2]], CaseID = as.integer(dataSheet[, 3]), NL_Rating = signif(dataSheet[, 4], 6))
-  write.xlsx2(x = dataSheet, file = fileName, sheetName = "FP", row.names = FALSE, append = TRUE)
+  #write.xlsx2(x = dataSheet, file = fileName, sheetName = "FP", row.names = FALSE, append = TRUE)
   
   dataSheet <- NULL
   for (i in 1:I) {
@@ -136,7 +136,7 @@ SaveJAFROC <- function(dataset, fileName) {
     }
   }
   dataSheet <- data.frame(ReaderID = readerID[dataSheet[, 1]], ModalityID = modalityID[dataSheet[, 2]], CaseID = as.integer(dataSheet[, 3]), LesionID = as.integer(dataSheet[, 4]), LL_Rating = signif(dataSheet[, 5], 6))
-  write.xlsx2(x = dataSheet, file = fileName, sheetName = "TP", row.names = FALSE, append = TRUE)
+  #write.xlsx2(x = dataSheet, file = fileName, sheetName = "TP", row.names = FALSE, append = TRUE)
 } 
 
 

@@ -3,8 +3,8 @@
         "caseSensitive" : false,
         "filePatterns" : [
         ],
-        "path" : "~/rjafroc",
-        "query" : "UtilGoodnessOfFit",
+        "path" : "~/rjafroc-master",
+        "query" : "xlsx",
         "regex" : false
     }
 }

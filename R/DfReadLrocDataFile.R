@@ -51,7 +51,6 @@
 #' \url{https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 #'
 #'
-#' @import xlsx
 #' @import utils
 #' @export
 #'

@@ -12,8 +12,8 @@
   \tabular{ll}{
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
-    Version: \tab 1.0.2\cr
-    Date: \tab 2018-03-31\cr
+    Version: \tab 1.1.900\cr
+    Date: \tab 2018-06-31\cr
     License: \tab GPL-3\cr
     URL: \tab \url{http://www.devchakraborty.com}\cr
   }
