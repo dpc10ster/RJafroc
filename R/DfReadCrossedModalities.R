@@ -52,8 +52,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (truthFileIndex == 0) 
     stop("TRUTH table cannot be found in the dataset.")
-  # truthTable <- readColumns(sheets[[truthFileIndex]], startColumn=1, endColumn = 3, startRow=1, endRow=NULL)
-  #truthTable <- read.xlsx2(fileName, truthFileIndex, colIndex = 1:3, colClasses = rep("numeric", 3))
+  truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:3)
   
   for (i in 1:3){
     truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
@@ -100,8 +99,8 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   nlFileIndex <- which(!is.na(match(sheetNames, c("FP", "NL"))))
   if (nlFileIndex == 0) 
     stop("FP table cannot be found in the dataset.")
-  # NLTable <- readColumns(sheets[[nlFileIndex]], startColumn=1, endColumn = 4, startRow=1, endRow=NULL)
-  #NLTable <- read.xlsx2(fileName, nlFileIndex, colIndex = 1:5, colClasses = c(rep("character", 3), rep("numeric", 2)))
+
+  NLTable <- read.xlsx(fileName, nlFileIndex, cols = 1:5)
   
   for (i in 1:5){
     NLTable[grep("^\\s*$", NLTable[ , i]), i] <- NA
@@ -138,8 +137,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (llFileIndex == 0) 
     stop("TP table cannot be found in the dataset.")
-  # LLTable <- readColumns(sheets[[llFileIndex]], startColumn=1, endColumn = 5, startRow=1, endRow=NULL)
-  #LLTable <- read.xlsx2(fileName, llFileIndex, colIndex = 1:6, colClasses = c(rep("character", 3), rep("numeric", 3)))
+  LLTable <- read.xlsx(fileName, llFileIndex, cols = 1:6)
   
   for (i in 1:6){
     LLTable[grep("^\\s*$", LLTable[ , i]), i] <- NA

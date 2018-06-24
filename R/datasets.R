@@ -552,6 +552,32 @@
 #'
 #'
 "datasetDegenerate"
+#'
+#' includedRocData
+#'
+#' This is an abbreviated version of dataset02 designed to run CRAN checks 
+#' without setting off "excessive" execution time alarms
+#' 
+#' @format A list with 8 elements:
+#' \itemize{
+#' \item{\code{NL}}{ Ratings array [1:2, 1:5, 1:114, 1], of false positives, FPs}
+#' \item{\code{LL}}{ Ratings array [1:2, 1:5, 1:45, 1], of true positives, TPs}
+#' \item{\code{lesionNum}}{ array [1:45], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{ array [1:45, 1], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{ array [1:45, 1], weights (or clinical importance) of lesions, all set to 1}
+#' \item{\code{dataType}}{ "ROC", the data type}
+#' \item{\code{modalityID}}{ [1:2] "0" "1", modality labels}
+#' \item{\code{readerID}}{ [1:5] "0" "1" "2" ..., reader labels}
+#' }
+#'
+#' @keywords datasets
+#' 
+#' @examples
+#' str(includedRocData)
+#' PlotEmpiricalOperatingCharacteristics(dataset = includedRocData)$Plot
+#'
+#'
+#'
 
 
 

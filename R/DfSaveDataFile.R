@@ -98,6 +98,13 @@ SaveJAFROC <- function(dataset, fileName) {
     }
   }
   
+  # overall changes needed for openxlsx package
+  wb <- createWorkbook()
+  addWorksheet(wb, "TP")
+  addWorksheet(wb, "FP")
+  addWorksheet(wb, "TRUTH")
+  # end overall changes needed for openxlsx package
+  
   caseIDs <- c(1:K1, rep(K1 + 1:K2, lesionNum))
   lesionIDs <- as.vector(t(lesionID))
   lesionIDs <- lesionIDs[lesionIDs != UNINITIALIZED]
@@ -106,7 +113,8 @@ SaveJAFROC <- function(dataset, fileName) {
   lesionWeights <- lesionWeights[lesionWeights != UNINITIALIZED]
   lesionWeights <- c(rep(0, K1), lesionWeights)
   dataSheet <- data.frame(CaseID = as.integer(caseIDs), LesionID = as.integer(lesionIDs), Weight = lesionWeights)
-  #write.xlsx2(x = dataSheet, file = fileName, sheetName = "TRUTH", row.names = FALSE)
+  
+  writeData(wb, sheet = "TRUTH", x = dataSheet)
   
   dataSheet <- NULL
   for (i in 1:I) {
@@ -121,7 +129,7 @@ SaveJAFROC <- function(dataset, fileName) {
     }
   }
   dataSheet <- data.frame(ReaderID = readerID[dataSheet[, 1]], ModalityID = modalityID[dataSheet[, 2]], CaseID = as.integer(dataSheet[, 3]), NL_Rating = signif(dataSheet[, 4], 6))
-  #write.xlsx2(x = dataSheet, file = fileName, sheetName = "FP", row.names = FALSE, append = TRUE)
+  writeData(wb, sheet = "FP", x = dataSheet)
   
   dataSheet <- NULL
   for (i in 1:I) {
@@ -136,7 +144,8 @@ SaveJAFROC <- function(dataset, fileName) {
     }
   }
   dataSheet <- data.frame(ReaderID = readerID[dataSheet[, 1]], ModalityID = modalityID[dataSheet[, 2]], CaseID = as.integer(dataSheet[, 3]), LesionID = as.integer(dataSheet[, 4]), LL_Rating = signif(dataSheet[, 5], 6))
-  #write.xlsx2(x = dataSheet, file = fileName, sheetName = "TP", row.names = FALSE, append = TRUE)
+  writeData(wb, sheet = "TP", x = dataSheet) # openxlsx
+  saveWorkbook(wb, fileName, overwrite = TRUE)
 } 
 
 
@@ -152,11 +161,11 @@ SaveLrc <- function(dataset, fileName, dataDescription) {
   write(dataDescription, fileName)
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionNum <- dataset$lesionNum
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
-  maxNL <- dim(NL)[4]
-  dataType <- dataset$dataType
+  # lesionNum <- dataset$lesionNum
+  # lesionID <- dataset$lesionID
+  # lesionWeight <- dataset$lesionWeight
+  # maxNL <- dim(NL)[4]
+  # dataType <- dataset$dataType
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
@@ -223,11 +232,11 @@ SaveImrmc <- function(dataset, fileName, dataDescription) {
   }
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionNum <- dataset$lesionNum
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
-  maxNL <- dim(NL)[4]
-  dataType <- dataset$dataType
+  # lesionNum <- dataset$lesionNum
+  # lesionID <- dataset$lesionID
+  # lesionWeight <- dataset$lesionWeight
+  # maxNL <- dim(NL)[4]
+  # dataType <- dataset$dataType
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
@@ -281,11 +290,11 @@ SaveOrDbmMrmc <- function(dataset, fileName) {
   }
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionNum <- dataset$lesionNum
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
-  maxNL <- dim(NL)[4]
-  dataType <- dataset$dataType
+  # lesionNum <- dataset$lesionNum
+  # lesionID <- dataset$lesionID
+  # lesionWeight <- dataset$lesionWeight
+  # maxNL <- dim(NL)[4]
+  # dataType <- dataset$dataType
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
@@ -329,11 +338,11 @@ SaveLrc <- function(dataset, fileName, dataDscrpt) {
   write(dataDscrpt, fileName)
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionNum <- dataset$lesionNum
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
-  maxNL <- dim(NL)[4]
-  dataType <- dataset$dataType
+  # lesionNum <- dataset$lesionNum
+  # lesionID <- dataset$lesionID
+  # lesionWeight <- dataset$lesionWeight
+  # maxNL <- dim(NL)[4]
+  # dataType <- dataset$dataType
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
