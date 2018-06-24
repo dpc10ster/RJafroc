@@ -68,13 +68,20 @@ At least one of the combinations of \code{DataFileName} and \code{DataFileFormat
 }
 \examples{
 \dontrun{
+## Generate reports for a dataset object
 UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
              dataDescription = "MyROCData", overwrite = TRUE)
              
 UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
 dataDescription = "MyROCData",ReportFileFormat = "xlsx", overwrite = TRUE)
 
-## Generate a analysis report for a data file.
+UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
+             dataDescription = "MyROCData", overwrite = TRUE)
+             
+UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
+dataDescription = "MyROCData",ReportFileFormat = "xlsx", overwrite = TRUE)
+
+## Generate report for a data file
 fn <- system.file("extdata", "includedRocData.xlsx", 
 package = "RJafroc", mustWork = TRUE)
 UtilOutputReport(DataFileName = fn, method = "DBMH", FOM = "Wilcoxon",

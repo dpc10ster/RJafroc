@@ -51,13 +51,20 @@
 #' 
 #' @examples
 #' \dontrun{
+#' ## Generate reports for a dataset object
 #' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
 #'              dataDescription = "MyROCData", overwrite = TRUE)
 #'              
 #' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
 #' dataDescription = "MyROCData",ReportFileFormat = "xlsx", overwrite = TRUE)
 #' 
-#' ## Generate a analysis report for a data file.
+#' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
+#'              dataDescription = "MyROCData", overwrite = TRUE)
+#'              
+#' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
+#' dataDescription = "MyROCData",ReportFileFormat = "xlsx", overwrite = TRUE)
+#' 
+#' ## Generate report for a data file
 #' fn <- system.file("extdata", "includedRocData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' UtilOutputReport(DataFileName = fn, method = "DBMH", FOM = "Wilcoxon",
@@ -925,28 +932,40 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
       writeData(wb, sheet = "ANOVA", startRow = 26,  x = "TREATMENT X CASE ANOVAs (MS) for each reader, assuming fixed reader analysis", 
                 rowNames = FALSE, colNames = FALSE)
       mergeCells(wb, "ANOVA", rows = 26, cols = 1:(J + 2))
-      saveWorkbook(wb, "writeDataExample.xlsx", overwrite = TRUE)
+      # saveWorkbook(wb, "writeDataExample.xlsx", overwrite = TRUE)
     }else{
+      #############################################################    
+      # done with RRFC, now create contents of VarComp worksheet    
       addWorksheet(wb, "VarComp")
-      #varSheet <- createSheet(wb, sheetName = "VarComp")
-      addDataFrame(result$varComp, varSheet, col.names = FALSE, startRow = 2, colStyle = list("1" = center + numDf), rownamesStyle = centerbold)
-      rows <- createRow(varSheet, rowIndex = 1)
-      cells <- createCell(rows, colIndex = 1) 
-      setCellValue(cells[[1, 1]], "OR Variance Covariance Components")
-      setCellStyle(cells[[1, 1]], centerbold)
-      addMergedRegion(varSheet, 1, 1, 1, 2)
+      # addDataFrame(result$varComp, varSheet, col.names = FALSE, startRow = 2, colStyle = list("1" = center + numDf), rownamesStyle = centerbold)
+      writeData(wb, sheet = "VarComp", x = result$varComp, startRow = 2, rowNames = TRUE, colNames = FALSE)
       
+      # rows <- createRow(varSheet, rowIndex = 1)
+      # cells <- createCell(rows, colIndex = 1) 
+      # setCellValue(cells[[1, 1]], "OR Variance Covariance Components")
+      # setCellStyle(cells[[1, 1]], centerbold)
+      # addMergedRegion(varSheet, 1, 1, 1, 2)
+      writeData(wb, sheet = "VarComp", startRow = 1,  x = "OR FOM Variance Covariance Components", 
+                rowNames = FALSE, colNames = FALSE)
+      mergeCells(wb, "VarComp", rows = 1, cols = 1:2)
+
       result$varCovEachRdr[ , 1] <- readerID
-      addDataFrame(result$varCovEachRdr, varSheet, startRow = 10, row.names = FALSE, colStyle = list("1" = centerbold, "2" = center + numDf, "3" = center + numDf), colnamesStyle = centerbold)
-      rows <- createRow(varSheet, rowIndex = 9)
-      cells <- createCell(rows, colIndex = 1) 
-      setCellValue(cells[[1, 1]], "OR Variance Covariance Components for each reader, assuming fixed reader analysis")
-      setCellStyle(cells[[1, 1]], centerbold)
-      addMergedRegion(varSheet, 9, 9, 1, 3)
+      # addDataFrame(result$varCovEachRdr, varSheet, startRow = 10, row.names = FALSE, colStyle = list("1" = centerbold, "2" = center + numDf, "3" = center + numDf), colnamesStyle = centerbold)
+      writeData(wb, sheet = "VarComp", x = result$varCovEachRdr, startRow = 10, rowNames = FALSE, colNames = TRUE)
       
-      autoSizeColumn(varSheet, colIndex = 1:3)
+      # rows <- createRow(varSheet, rowIndex = 9)
+      # cells <- createCell(rows, colIndex = 1) 
+      # setCellValue(cells[[1, 1]], "OR Variance Covariance Components for each reader, assuming fixed reader analysis")
+      # setCellStyle(cells[[1, 1]], centerbold)
+      # addMergedRegion(varSheet, 9, 9, 1, 3)
+      writeData(wb, sheet = "VarComp", startRow = 9,  x = "OR Variance Covariance Components for each reader, assuming fixed reader analysis", 
+                rowNames = FALSE, colNames = FALSE)
+      mergeCells(wb, "VarComp", rows = 9, cols = 1:3)
+      # saveWorkbook(wb, "writeDataExample.xlsx", overwrite = TRUE)
+      
+      # autoSizeColumn(varSheet, colIndex = 1:3)
     }
-    saveWorkbook(wb, ReportFileName)
+    saveWorkbook(wb, ReportFileName, overwrite = overwrite)
     sucessfulOutput <- sprintf("The report has been saved to %s.", ReportFileName)
   }
   
