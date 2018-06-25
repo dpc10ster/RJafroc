@@ -4,7 +4,7 @@
 #' 
 #' @usage UtilOutputReport (dataset, DataFileName, DataFileFormat, delimiter = ",", dataset, 
 #'    dataDescription = "MyData", ReportFileName, ReportFileFormat = "txt",
-#'    method = "DBMH", FOM = "wJAFROC", alpha = 0.05, covEstMethod = "Jackknife", 
+#'    stMethod = "DBMH", FOM = "wJAFROC", alpha = 0.05, covEstMethod = "Jackknife", 
 #'    nBoots = 200, renumber = FALSE, overwrite = TRUE)
 
 #' 
@@ -15,15 +15,15 @@
 #'    see \link{DfReadDataFile} and "Details". Must be specified if \code{DataFileName}
 #'    is specified.
 #' @param delimiter See \link{DfReadDataFile}.
-#' @param dataDescription A description of the data, default is "MyData" 
+#' @param dataDescription A description of the data, default is \code{"MyData"} 
 #' @param ReportFileName The file name of the output report file. If this parameter 
 #'    is missing, the function will use \code{DataFileName} or \code{dataDescription} 
-#'    followed by the underscore separated concatenation of \code{method} 
+#'    followed by the underscore separated concatenation of \code{stMethod} 
 #'    and \code{FOM} as the output report file.
 #' @param ReportFileFormat The format of the output report. The two available formats are 
-#'    "txt" (the default) and "xlsx", corresponding to a formatted text file and an 
+#'    \code{"txt"} (the default) and \code{"xlsx"}, corresponding to a formatted text file and an 
 #'    Excel file, respectively.
-#' @param method The analysis method: \code{"ORH"} or \code{"DBMH"}.
+#' @param stMethod The significance testing method, \code{"ORH"} or \code{"DBMH"}.
 #' @param FOM See \link{StSignificanceTesting}.
 #' @param alpha See \link{StSignificanceTesting}.
 #' @param covEstMethod See \link{StSignificanceTesting}.
@@ -47,40 +47,38 @@
 #' 
 #' @examples
 #' 
-#' UtilOutputReport(dataset = dataset03, method = "DBMH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset03, stMethod = "DBMH", FOM = "Wilcoxon", 
 #'    dataDescription = "MyROCData0", overwrite = TRUE)
 #'
 #' \dontrun{
 #' ## Generate reports for a dataset object
-#' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, stMethod = "DBMH", FOM = "Wilcoxon", 
 #'              dataDescription = "MyROCData1", overwrite = TRUE)
 #'              
-#' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, stMethod = "DBMH", FOM = "Wilcoxon", 
 #' dataDescription = "MyROCData2",ReportFileFormat = "xlsx", overwrite = TRUE)
 #' 
-#' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, stMethod = "ORH", FOM = "Wilcoxon", 
 #'              dataDescription = "MyROCData3", overwrite = TRUE)
 #'              
-#' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, stMethod = "ORH", FOM = "Wilcoxon", 
 #' dataDescription = "MyROCData4",ReportFileFormat = "xlsx", overwrite = TRUE)
 #' 
 #' ## Generate report for a data file
 #' fn <- system.file("extdata", "includedRocData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
-#' UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", method = "DBMH", FOM = "Wilcoxon",
+#' UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", stMethod = "DBMH", FOM = "Wilcoxon",
 #'              overwrite = TRUE, ReportFileFormat = "xlsx")
 #'              
 #' ## Output report for an existing dataset
-#' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", overwrite = TRUE)
-#' 
-#' ## UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "Wilcoxon") # ERROR! as FOM is 
+#' ## UtilOutputReport(dataset = dataset05, stMethod = "DBMH", FOM = "Wilcoxon") # ERROR! as FOM is 
 #'    incompatible with FROC data
 #' 
-#' UtilOutputReport(dataset = dataset05, method = "ORH") # OK as default FOM is wJAFROC
+#' UtilOutputReport(dataset = dataset05, stMethod = "ORH") # OK as default FOM is "wJAFROC"
 #' 
-#' UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc")
+#' UtilOutputReport(dataset = dataset05, stMethod = "DBMH", FOM = "HrAuc")
 #' 
-#' UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
+#' UtilOutputReport(dataset = dataset05, stMethod = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
 #' }
 #'        
 #' @importFrom utils packageDescription
@@ -91,7 +89,7 @@
 UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = ",", 
                              dataDescription = "MyData", 
                              ReportFileName, ReportFileFormat = "txt",
-                             method = "DBMH", FOM = "wJAFROC", alpha = 0.05, 
+                             stMethod = "DBMH", FOM = "wJAFROC", alpha = 0.05, 
                              covEstMethod = "Jackknife", nBoots = 200, 
                              renumber = FALSE, overwrite = TRUE) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
@@ -129,23 +127,23 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     names(dataset$modalityID) <- modalityNames
     names(dataset$readerID) <- readerNames
   }
-  if (method == "DBMH") {
+  if (stMethod == "DBMH") {
     methodTxt <- "DBM-MRMC-HILLIS SIGNIFICANCE TESTING"
-    result <- StSignificanceTesting(dataset, FOM, alpha, method)
-  } else if (method == "ORH") {
+    result <- StSignificanceTesting(dataset, FOM, alpha, stMethod)
+  } else if (stMethod == "ORH") {
     methodTxt <- "OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING"
-    result <- StSignificanceTesting(dataset, FOM, alpha, method, covEstMethod, nBoots)
+    result <- StSignificanceTesting(dataset, FOM, alpha, stMethod, covEstMethod, nBoots)
   } else {
-    errMsg <- paste0(method, " is not a valid analysis method.")
+    errMsg <- paste0(stMethod, " is not a valid analysis stMethod.")
     stop(errMsg)
   }
   
   if (ReportFileFormat == "txt"){
     if (missing(ReportFileName)) {
       if (datasetSpecified) {
-        ReportFileName <- paste0(getwd(), "/", dataDescription, "_", method, "_", FOM, ".txt")
+        ReportFileName <- paste0(getwd(), "/", dataDescription, "_", stMethod, "_", FOM, ".txt")
       } else {
-        ReportFileName <- paste0(file_path_sans_ext(basename(DataFileName)), "_", method, "_", FOM, ".txt")
+        ReportFileName <- paste0(file_path_sans_ext(basename(DataFileName)), "_", stMethod, "_", FOM, ".txt")
       }
     }
     if (!overwrite) {
@@ -195,7 +193,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
     
     
-    write(sprintf(" Significance testing method:  %s", methodTxt), ReportFileName, append = TRUE)
+    write(sprintf(" Significance testing stMethod:  %s", methodTxt), ReportFileName, append = TRUE)
     write(sprintf(" Number of Readers          :  %d", J), ReportFileName, append = TRUE)
     write(sprintf(" Number of Treatments       :  %d", I), ReportFileName, append = TRUE)
     write(sprintf(" Number of Normal Cases     :  %d", K1), ReportFileName, append = TRUE)
@@ -291,7 +289,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
       }
     }
     write("\n\n\n", ReportFileName, append = TRUE)
-    if (method == "DBMH") {
+    if (stMethod == "DBMH") {
       if (J > 1) {
         write(sprintf(c(" ===========================================================================", " *****                          ANOVA Tables                           *****", " ===========================================================================\n", 
                         " TREATMENT X READER X CASE ANOVA\n", "Source            SS               DF             MS        ", "------   --------------------    ------   ------------------")), ReportFileName, append = TRUE)
@@ -348,7 +346,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
       
       write(sprintf("    a) Test for H0: Treatments have the same %s figure of merit.\n\n", FOM), ReportFileName, append = TRUE)
       write(c(" Source        DF    Mean Square      F value  Pr > F ", " ----------  ------  ---------------  -------  -------"), ReportFileName, append = TRUE)
-      if (method == "DBMH") {
+      if (stMethod == "DBMH") {
         if (result$pRRRC >= smallestDispalyedPval) {
           write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", I - 1, result$anovaY[1, 4], result$fRRRC, result$pRRRC), ReportFileName, append = TRUE)
         } else {
@@ -393,7 +391,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
         write(c(sprintf(" * H0: the %d treatments are equal.  To control the overall ", I), " type I error rate at .05, we conclude that treatment differences", " with p < .05 are significant only if the global test in ", 
                 " (a) is also significant (i.e, p < .05)."), ReportFileName, append = TRUE)
       }
-      if (method == "DBMH") {
+      if (stMethod == "DBMH") {
         write(" Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]\n\n", ReportFileName, append = TRUE)
       } else {
         write(" Error term: MS(TR) + J * max[Cov2 - Cov3, 0]\n\n", ReportFileName, append = TRUE)
@@ -405,7 +403,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
         write(sprintf("  %-10.10s  %10.8f  %10.8f  %7.2f  (%10.8f , %10.8f)", result$ciAvgRdrEachTrtRRRC[i, 1], result$ciAvgRdrEachTrtRRRC[i, 2], result$ciAvgRdrEachTrtRRRC[i, 3], result$ciAvgRdrEachTrtRRRC[i, 
                                                                                                                                                                                                                4], result$ciAvgRdrEachTrtRRRC[i, 5], result$ciAvgRdrEachTrtRRRC[i, 6]), ReportFileName, append = TRUE)
       }
-      if (method == "DBMH") {
+      if (stMethod == "DBMH") {
         write(" Error term: MS(R) + max[MS(C) - MS(RC), 0]\n\n\n", ReportFileName, append = TRUE)
       } else {
         write("\n\n\n", ReportFileName, append = TRUE)
@@ -419,7 +417,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     
     write(sprintf("    a) Test for H0: Treatments have the same %s figure of merit.\n\n", FOM), ReportFileName, append = TRUE)
     write(c(" Source        DF    Mean Square      F value  Pr > F ", " ----------  ------  ---------------  -------  -------"), ReportFileName, append = TRUE)
-    if (method == "DBMH") {
+    if (stMethod == "DBMH") {
       if (result$pFRRC >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", I - 1, result$anovaY[1, 4], result$fFRRC, result$pFRRC), ReportFileName, append = TRUE)
       } else {
@@ -469,7 +467,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
       write(c(sprintf(" * H0: the %d treatments are equal.  To control the overall ", I), " type I error rate at .05, we conclude that treatment differences", " with p < .05 are significant only if the global test in ", 
               " (a) is also significant (i.e, p < .05)."), ReportFileName, append = TRUE)
     }
-    if (method == "DBMH") {
+    if (stMethod == "DBMH") {
       write(" Error term: MS(TC) \n\n", ReportFileName, append = TRUE)
     } else {
       if (J > 1) {
@@ -486,7 +484,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
       write(sprintf("  %-10.10s  %10.8f  %10.8f  %7.2f  (%10.8f , %10.8f)", result$ciAvgRdrEachTrtFRRC[i, 1], result$ciAvgRdrEachTrtFRRC[i, 2], result$ciAvgRdrEachTrtFRRC[i, 3], result$ciAvgRdrEachTrtFRRC[i, 4], 
                     result$ciAvgRdrEachTrtFRRC[i, 5], result$ciAvgRdrEachTrtFRRC[i, 6]), ReportFileName, append = TRUE)
     }
-    if (method == "DBMH") {
+    if (stMethod == "DBMH") {
       write(" Error term: MS(C) \n\n\n", ReportFileName, append = TRUE)
     } else {
       if (J > 1) {
@@ -495,7 +493,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
         write(" Error term: Var - Cov1\n", ReportFileName, append = TRUE)
       }
     }
-    if (method == "DBMH") {
+    if (stMethod == "DBMH") {
       write(" TREATMENT X CASE ANOVAs for each reader\n\n", ReportFileName, append = TRUE)
       write("                        Sum of Squares", ReportFileName, append = TRUE)
       string <- " Source     df   "
@@ -549,7 +547,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
         }
       }
     }
-    if (method == "ORH") {
+    if (stMethod == "ORH") {
       string <- "\nReader  Var(Error)     Cov1   \n------  ----------  ----------"
       write(string, ReportFileName, append = TRUE)
       for (j in 1:J) {
@@ -565,7 +563,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
       
       write(sprintf("    a) Test for H0: Treatments have the same %s figure of merit.\n\n", FOM), ReportFileName, append = TRUE)
       write(c(" Source        DF    Mean Square      F value  Pr > F ", " ----------  ------  ---------------  -------  -------"), ReportFileName, append = TRUE)
-      if (method == "DBMH") {
+      if (stMethod == "DBMH") {
         if (result$pRRFC >= smallestDispalyedPval) {
           write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", I - 1, result$anovaY[1, 4], result$fRRFC, result$pRRFC), ReportFileName, append = TRUE)
         } else {
@@ -675,14 +673,14 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     colnames(readerID) <- c("Reader ID in output file", "Reader ID in input file")
     writeData(wb, sheet = "Summary", x = readerID, startRow = 5, startCol = 3, colNames = TRUE)
     
-    if (method == "DBMH"){
+    if (stMethod == "DBMH"){
       varEstMethod <- "Jackknife"
     }else{
       varEstMethod <- covEstMethod
     }
 
-    analysisInfo <- data.frame(info = c(K1, K2, FOM, method, varEstMethod))
-    rownames(analysisInfo) <- c("Number of non-diseased cases", "Number of diseased cases", "FOM", "Significance testing", "Variability estimation method")
+    analysisInfo <- data.frame(info = c(K1, K2, FOM, stMethod, varEstMethod))
+    rownames(analysisInfo) <- c("Number of non-diseased cases", "Number of diseased cases", "FOM", "Significance testing", "Variability estimation stMethod")
     writeData(wb, sheet = "Summary", x = analysisInfo, startRow = 7 + max(I, J), startCol = 1, rowNames = TRUE, colNames = FALSE)
     sty <- createStyle(halign = "center", valign = "center")
     addStyle(wb,  sheet = "Summary", style = sty, rows = seq(1, 11 + max(I, J)), cols = 1:4, gridExpand = TRUE)
@@ -774,7 +772,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     setColWidths(wb, sheet = "FRRC", cols = 1:9, widths = "auto", ignoreMergedCells = TRUE)
     setColWidths(wb, sheet = "FRRC", cols = 1, widths = 10)
     testTable <- data.frame(f = result$fFRRC, ddf = result$ddfFRRC, p = result$pFRRC)
-    if (method == "ORH"){
+    if (stMethod == "ORH"){
       testTable$ddf <- "Inf"
     }
     names(testTable) <- c("F statistic", "ddf", "P-value")
@@ -783,7 +781,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     diffTable <- result$ciDiffTrtFRRC
     diffTable[ , 1] <- diffTRName
     diffTable[ , 2] <- as.numeric(diffTable[ , 2])
-    if (method == "ORH"){
+    if (stMethod == "ORH"){
       diffTable[ , 4] <- "Inf"
     }
     
@@ -797,7 +795,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     ciTable$StdErr <- as.numeric(ciTable$StdErr)
     ciTable$DF <- as.numeric(ciTable$DF)
     ciTable[ , 1] <- modalityID
-    if (method == "ORH"){
+    if (stMethod == "ORH"){
       ciTable[ , 4] <- "Inf"
     }
     
@@ -812,7 +810,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     diffTableEchR <- result$ciDiffTrtEachRdr
     diffTableEchR$Reader <- readerNames
     diffTableEchR$Treatment <- trNames
-    if (method == "ORH"){
+    if (stMethod == "ORH"){
       diffTableEchR$DF <- "Inf"
     }
     
@@ -853,7 +851,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     addStyle(wb,  sheet = "RRFC", style = sty, rows = 1:(8 + nrow(diffTable) + nrow(ciTable)), 
              cols = 1:8, gridExpand = TRUE)
     
-    if (method == "DBMH"){
+    if (stMethod == "DBMH"){
       #############################################################    
       # done with RRFC, now create contents of ANOVA worksheet    
       addWorksheet(wb, "ANOVA")
