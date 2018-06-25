@@ -3,7 +3,7 @@
         "definitions" : [
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/BMFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/BMFuncs.cpp",
                 "kind" : 6,
                 "line" : 5,
                 "name" : "BMNLLInner(double, double, NumericVector, NumericVector, NumericVector)",
@@ -11,14 +11,14 @@
                 "usr" : "c:@F@BMNLLInner#d#d#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#S0_#"
             }
         ],
-        "file" : "/Users/Dev/rjafroc-master/src/BMFuncs.cpp",
-        "file_last_write" : 1511145261
+        "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/BMFuncs.cpp",
+        "file_last_write" : 1529537221
     },
     {
         "definitions" : [
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/CBMFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/CBMFuncs.cpp",
                 "kind" : 6,
                 "line" : 5,
                 "name" : "Qz(double, double)",
@@ -27,7 +27,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/CBMFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/CBMFuncs.cpp",
                 "kind" : 6,
                 "line" : 10,
                 "name" : "Pz(double, double, double, double)",
@@ -36,7 +36,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/CBMFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/CBMFuncs.cpp",
                 "kind" : 6,
                 "line" : 15,
                 "name" : "CBMNLLInner(double, double, NumericVector, NumericVector, NumericVector)",
@@ -44,26 +44,26 @@
                 "usr" : "c:@F@CBMNLLInner#d#d#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#S0_#"
             }
         ],
-        "file" : "/Users/Dev/rjafroc-master/src/CBMFuncs.cpp",
-        "file_last_write" : 1511145261
+        "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/CBMFuncs.cpp",
+        "file_last_write" : 1529537221
     },
     {
         "definitions" : [
         ],
-        "file" : "/Users/Dev/rjafroc-master/src/CommonFuncs.h",
-        "file_last_write" : 1511145261
+        "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/CommonFuncs.h",
+        "file_last_write" : 1529537221
     },
     {
         "definitions" : [
         ],
-        "file" : "/Users/Dev/rjafroc-master/src/CorCBMFuncs.cpp",
-        "file_last_write" : 1511145261
+        "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/CorCBMFuncs.cpp",
+        "file_last_write" : 1529537221
     },
     {
         "definitions" : [
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 6,
                 "name" : "maximum(NumericVector, int)",
@@ -72,7 +72,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 16,
                 "name" : "comp_phi(double, double)",
@@ -81,7 +81,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 25,
                 "name" : "TrapezoidalArea(NumericVector, int, NumericVector, int)",
@@ -90,7 +90,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 41,
                 "name" : "HrAuc(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
@@ -99,7 +99,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 62,
                 "name" : "ROI(int, int, int, NumericVector, NumericMatrix, NumericMatrix)",
@@ -108,7 +108,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 109,
                 "name" : "HrSe(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
@@ -117,7 +117,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 130,
                 "name" : "HrSp(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
@@ -126,7 +126,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 148,
                 "name" : "SongA1(int, int, int, int, NumericVector, NumericMatrix, NumericMatrix)",
@@ -135,7 +135,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 224,
                 "name" : "SongA2(int, int, int, int, NumericVector, NumericMatrix, NumericMatrix)",
@@ -144,7 +144,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 289,
                 "name" : "JAFROC1(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
@@ -153,7 +153,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 315,
                 "name" : "JAFROC(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
@@ -162,7 +162,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 341,
                 "name" : "wJAFROC1(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int, NumericMatrix)",
@@ -171,7 +171,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 361,
                 "name" : "wJAFROC(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int, NumericMatrix)",
@@ -180,7 +180,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 381,
                 "name" : "MaxLLF(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
@@ -189,7 +189,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 402,
                 "name" : "MaxNLF(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
@@ -198,7 +198,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 418,
                 "name" : "MaxNLFAllCases(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
@@ -207,7 +207,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 434,
                 "name" : "ExpTrnsfmSp(NumericMatrix, NumericMatrix, NumericVector, NumericVector, int, int)",
@@ -215,14 +215,14 @@
                 "usr" : "c:@F@ExpTrnsfmSp#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#I#I#"
             }
         ],
-        "file" : "/Users/Dev/rjafroc-master/src/MyFOM.cpp",
-        "file_last_write" : 1511145261
+        "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/MyFOM.cpp",
+        "file_last_write" : 1529537221
     },
     {
         "definitions" : [
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 6,
                 "name" : "erf(double)",
@@ -231,7 +231,7 @@
             },
             {
                 "column" : 15,
-                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 11,
                 "name" : "erfVect(NumericVector)",
@@ -240,7 +240,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 20,
                 "name" : "erfcpp(double)",
@@ -249,7 +249,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 25,
                 "name" : "xROC(double, double)",
@@ -258,7 +258,7 @@
             },
             {
                 "column" : 15,
-                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 30,
                 "name" : "xROCVect(NumericVector, double)",
@@ -267,7 +267,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 40,
                 "name" : "yROC(double, double, double, double, NumericMatrix)",
@@ -276,7 +276,7 @@
             },
             {
                 "column" : 15,
-                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 51,
                 "name" : "yROCVect(NumericVector, double, double, double, NumericMatrix)",
@@ -285,7 +285,7 @@
             },
             {
                 "column" : 15,
-                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 66,
                 "name" : "yROCVectNuP(double, double, double, NumericVector, NumericMatrix)",
@@ -294,7 +294,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 106,
                 "name" : "RsmInner(double, double, double, NumericMatrix, NumericVector, NumericVector, NumericVector)",
@@ -303,7 +303,7 @@
             },
             {
                 "column" : 15,
-                "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 149,
                 "name" : "intROC(NumericVector, double, double, double, NumericMatrix)",
@@ -311,20 +311,20 @@
                 "usr" : "c:@F@intROC#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#d#d#d#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
             }
         ],
-        "file" : "/Users/Dev/rjafroc-master/src/RsmFuncs.cpp",
-        "file_last_write" : 1518468621
+        "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/RsmFuncs.cpp",
+        "file_last_write" : 1529537221
     },
     {
         "definitions" : [
         ],
-        "file" : "/Users/Dev/rjafroc-master/src/SmAucInt.cpp",
-        "file_last_write" : 1511145261
+        "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/SmAucInt.cpp",
+        "file_last_write" : 1529537221
     },
     {
         "definitions" : [
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/Transforms.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/Transforms.cpp",
                 "kind" : 6,
                 "line" : 6,
                 "name" : "ForwardValue(double, double, double)",
@@ -333,7 +333,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/rjafroc-master/src/Transforms.cpp",
+                "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/Transforms.cpp",
                 "kind" : 6,
                 "line" : 12,
                 "name" : "InverseValue(double, double, double)",
@@ -341,8 +341,8 @@
                 "usr" : "c:@F@InverseValue#d#d#d#"
             }
         ],
-        "file" : "/Users/Dev/rjafroc-master/src/Transforms.cpp",
-        "file_last_write" : 1511145261
+        "file" : "/Users/Dev/Documents/GitHub/rjafroc-master/src/Transforms.cpp",
+        "file_last_write" : 1529537221
     },
     {
         "definitions" : [

@@ -2,11 +2,10 @@
 #' 
 #' @description  Generate a formatted report of the analysis and save to a text file
 #' 
-#' @usage UtilOutputReport (dataset, DataFileName, DataFileFormat, delimiter = ",", dataset, 
-#'    dataDescription = "MyData", ReportFileName, ReportFileFormat = "txt",
+#' @usage UtilOutputReport (dataset, DataFileName, DataFileFormat, delimiter = ",", 
+#'    dataDescription = "MyData", ReportFileName, ReportFileFormat = "txt", 
 #'    stMethod = "DBMH", FOM = "wJAFROC", alpha = 0.05, covEstMethod = "Jackknife", 
 #'    nBoots = 200, renumber = FALSE, overwrite = TRUE)
-
 #' 
 #' @param dataset The dataset object to be analyzed (not the file name), \link{RJafroc-package}.
 #' @param DataFileName A string variable containing the name of the data file 

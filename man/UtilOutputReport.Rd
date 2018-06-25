@@ -4,8 +4,8 @@
 \alias{UtilOutputReport}
 \title{Generate a formatted report file}
 \usage{
-UtilOutputReport (dataset, DataFileName, DataFileFormat, delimiter = ",", dataset, 
-   dataDescription = "MyData", ReportFileName, ReportFileFormat = "txt",
+UtilOutputReport (dataset, DataFileName, DataFileFormat, delimiter = ",", 
+   dataDescription = "MyData", ReportFileName, ReportFileFormat = "txt", 
    stMethod = "DBMH", FOM = "wJAFROC", alpha = 0.05, covEstMethod = "Jackknife", 
    nBoots = 200, renumber = FALSE, overwrite = TRUE)
 }
