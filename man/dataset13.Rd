@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataset13}
 \alias{dataset13}
-\title{dataset13}
+\title{Dobbins 3 FROC dataset}
 \format{A list with 8 elements:
 \itemize{
 \item{\code{NL}}{ Ratings array [1:4, 1:5, 1:158, 1:4], of non-lesion localizations, NLs}

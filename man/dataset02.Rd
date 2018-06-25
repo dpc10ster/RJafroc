@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataset02}
 \alias{dataset02}
-\title{dataset02}
+\title{Van Dyke ROC dataset}
 \format{A list with 8 elements:
 \itemize{
 \item{\code{NL}}{ Ratings array [1:2, 1:5, 1:114, 1], of false positives, FPs}

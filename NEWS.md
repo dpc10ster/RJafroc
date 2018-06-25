@@ -1,5 +1,13 @@
 Update History
-
+==========================
+## RJafroc 1.1.0
+### Major changes
+Replaced dependence on xlsx package, which requires rJava and JAVA, with dependence on
+openxlsx package. Was having considerable difficulty installing rJava correctly.
+Corrected errors in UtilOutputReport function.
+Added correlated contaminated binormal model (CORCBM) fitting and related functions. This
+makes RJafroc current with 2017 CORCBM publication.
+   
 ==========================
 ## RJafroc 1.0.2
 ### Minor bug
@@ -8,6 +16,7 @@ StSignificanceTestingCadVsRadiologists was not working for different numbers of 
    DfExtractDataset to include LROC datasets.
 Removed function SsFROCPowerGivenJK: FROC power is implemented in Online
   Appendix Chapter 19 (see email exchange with Kota Aoyagi)
+This package installed on SOLARIS.
    
 ==========================
 ## RJafroc 1.0.1

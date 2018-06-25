@@ -3,7 +3,7 @@
 \docType{data}
 \name{datasetDegenerate}
 \alias{datasetDegenerate}
-\title{datasetDegenerate}
+\title{Simulated degenerate ROC dataset; for testing purposes}
 \format{A list with 8 elements:
 \itemize{
 \item{\code{NL}}{ Ratings array [1, 1, 1:15, 1], of false positives, FPs}

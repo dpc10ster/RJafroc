@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataset06}
 \alias{dataset06}
-\title{dataset06}
+\title{Magnus FROC dataset}
 \format{A list with 8 elements:
 \itemize{
 \item{\code{NL}}{ Ratings array [1:2, 1:4, 1:89, 1:17], of non-lesion localizations, NLs}

@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataset14}
 \alias{dataset14}
-\title{dataset14}
+\title{Federica Zanca real (as opposed to inferred) ROC dataset}
 \format{A list with 8 elements:
 \itemize{
 \item{\code{NL}}{ Ratings array [1:2, 1:4, 1:200, 1], of false positives, FPs}

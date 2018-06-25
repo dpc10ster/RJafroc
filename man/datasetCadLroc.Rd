@@ -3,7 +3,7 @@
 \docType{data}
 \name{datasetCadLroc}
 \alias{datasetCadLroc}
-\title{datasetCadLroc}
+\title{Nico Karssemeijer LROC dataset (CAD vs. radiologists)}
 \format{A list with 9 elements:
 \itemize{
 \item{\code{NL}}{ Ratings array [1, 1:10, 1:200, 1], of false positives, FPs}

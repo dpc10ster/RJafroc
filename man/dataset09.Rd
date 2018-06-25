@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataset09}
 \alias{dataset09}
-\title{dataset09}
+\title{Nico Karssemeijer ROC dataset (CAD vs. radiologists)}
 \format{A list with 8 elements:
 \itemize{
 \item{\code{NL}}{ Ratings array [1, 1:10, 1:200, 1], of false positives, FPs}

@@ -2,11 +2,9 @@
     "dialog-state" : {
         "caseSensitive" : false,
         "filePatterns" : [
-            "*.r",
-            "*.R"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "Cannot use Wilcoxon with FROC or ROI data",
+        "query" : "Zhai X, Chakraborty DP (2017)",
         "regex" : false
     }
 }

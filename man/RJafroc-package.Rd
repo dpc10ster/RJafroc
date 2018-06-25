@@ -373,6 +373,8 @@
         \item \code{\link{Df2RJafrocDataset}}: Convert a ratings array to a 
            dataset object.
         \item \code{\link{DfBinDataset}}: Return a binned dataset.
+        \item \code{\link{DfCreateCorCbmDataset}}:Create paired dataset for 
+           testing \link{FitCorCbm}.
         \item \code{\link{DfExtractDataset}}: Extract a subset of modalities 
            and readers from a dataset.
         \item \code{\link{DfFroc2Afroc}}: Convert an FROC dataset to an AFROC 
@@ -386,6 +388,8 @@
         \item \code{\link{DfReadDataFile}}: Read a general data file.
         \item \code{\link{DfReadLrocDataFile}}: Read a LROC data file.
         \item \code{\link{DfSaveDataFile}}: Save ROC data file in a different format.
+        \item \code{\link{DfExtractCorCbmDataset}}: Extract two arms of a pairing 
+           from an MRMC ROC dataset suitable for using \link{FitCorCbm}.
   }
 }
 
@@ -398,6 +402,8 @@
            to ROC data.
         \item \code{\link{FitRsmRoc}}: Fit the radiological search model (RSM) 
            to ROC data.
+        \item \code{\link{FitCorCbm}}: Fit the correlated contaminated binormal model 
+             (CORCBM) to paired ROC data.
         \item \code{\link{FitRsmRoc}}: Fit the radiological search model (RSM) 
            to ROC data.
   }
@@ -418,6 +424,8 @@
         \item \code{\link{SimulateFrocDataset}}: Simulates an uncorrelated FROC dataset 
            using the RSM.
         \item \code{\link{SimulateRocDataset}}: Simulates an uncorrelated binormal 
+           model ROC dataset.
+        \item \code{\link{SimulateCorCbmDataset}}: Simulates an uncorrelated binormal 
            model ROC dataset.
   }
 }

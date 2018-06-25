@@ -3,7 +3,7 @@
 \docType{data}
 \name{datasetCrossedModality}
 \alias{datasetCrossedModality}
-\title{datasetCrossedModality}
+\title{John Thompson crossed modality FROC dataset}
 \format{A list with 9 elements:
 \itemize{
 \item{\code{NL}}{ Ratings array [1:2, 1:4, 1:11, 1:68, 1:5], of non-lesion localizations, NLs}

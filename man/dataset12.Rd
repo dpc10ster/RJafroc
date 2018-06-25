@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataset12}
 \alias{dataset12}
-\title{dataset12}
+\title{Dobbins 2 ROC dataset}
 \format{A list with 8 elements:
 \itemize{
 \item{\code{NL}}{ Ratings array [1:4, 1:5, 1:152, 1], of false positives, FPs}
