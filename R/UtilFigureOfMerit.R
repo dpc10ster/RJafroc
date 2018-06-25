@@ -97,7 +97,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   K1 <- K - K2  
   
   if (dataType != "ROC" && FOM == "Wilcoxon") 
-    stop("Cannot use Wilcoxon with FROC or ROI data")
+    stop("Cannot use Wilcoxon FOM with FROC or ROI data")
   
   if (dataType == "ROI" && FOM != "ROI") {
     errMsg <- paste0("ROI dataset cannot be analyzed using ", FOM, " figure of merit.")

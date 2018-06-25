@@ -2,8 +2,8 @@
 #' 
 #' @description  Generate a formatted report of the analysis and save to a text file
 #' 
-#' @usage UtilOutputReport (dataset, DataFileName, DataFileFormat = "JAFROC", delimiter = ",", dataset, 
-#'    dataDescription = deparse(substitute(dataset)), ReportFileName, ReportFileFormat = "txt",
+#' @usage UtilOutputReport (dataset, DataFileName, DataFileFormat, delimiter = ",", dataset, 
+#'    dataDescription = "MyData", ReportFileName, ReportFileFormat = "txt",
 #'    method = "DBMH", FOM = "wJAFROC", alpha = 0.05, covEstMethod = "Jackknife", 
 #'    nBoots = 200, renumber = FALSE, overwrite = TRUE)
 
@@ -12,18 +12,17 @@
 #' @param DataFileName A string variable containing the name of the data file 
 #'    to be analyzed, see \link{DfReadDataFile} and "Details".
 #' @param DataFileFormat The format of the data specified in \code{DataFileName}: 
-#'    see \link{DfReadDataFile} and "Details".
+#'    see \link{DfReadDataFile} and "Details". Must be specified if \code{DataFileName}
+#'    is specified.
 #' @param delimiter See \link{DfReadDataFile}.
-#' @param dataDescription Only needed if a dataset is not specified. 
-#'    It is a string descriptor of the dataset; the default is the variable 
-#'    name of \code{dataset} 
+#' @param dataDescription A description of the data, default is "MyData" 
 #' @param ReportFileName The file name of the output report file. If this parameter 
 #'    is missing, the function will use \code{DataFileName} or \code{dataDescription} 
 #'    followed by the underscore separated concatenation of \code{method} 
 #'    and \code{FOM} as the output report file.
 #' @param ReportFileFormat The format of the output report. The two available formats are 
-#'    "txt" and "xlsx", which correspond to a formatted text file and an 
-#'    Excel file, respectively. "txt" is the default.
+#'    "txt" (the default) and "xlsx", corresponding to a formatted text file and an 
+#'    Excel file, respectively.
 #' @param method The analysis method: \code{"ORH"} or \code{"DBMH"}.
 #' @param FOM See \link{StSignificanceTesting}.
 #' @param alpha See \link{StSignificanceTesting}.
@@ -40,63 +39,87 @@
 #' 
 #' 
 #' @details
-#' At least one of the combinations of \code{DataFileName} and \code{DataFileFormat} 
-#'    or \code{dataset} and \code{dataDescription} must be specified. 
-#'    If both are specified, the data file \code{DataFileName} is analyzed and 
-#'    the \code{dataset} is ignored.
+#' See examples
 #' 
 #' 
 #' @return A formatted report of the data analysis, patterned roughly on that of 
 #'    OR-DBM MRMC V2.5.
 #' 
 #' @examples
+#' 
+#' UtilOutputReport(dataset = dataset03, method = "DBMH", FOM = "Wilcoxon", 
+#'    dataDescription = "MyROCData0", overwrite = TRUE)
+#'
 #' \dontrun{
 #' ## Generate reports for a dataset object
 #' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
-#'              dataDescription = "MyROCData", overwrite = TRUE)
+#'              dataDescription = "MyROCData1", overwrite = TRUE)
 #'              
 #' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
-#' dataDescription = "MyROCData",ReportFileFormat = "xlsx", overwrite = TRUE)
+#' dataDescription = "MyROCData2",ReportFileFormat = "xlsx", overwrite = TRUE)
 #' 
 #' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
-#'              dataDescription = "MyROCData", overwrite = TRUE)
+#'              dataDescription = "MyROCData3", overwrite = TRUE)
 #'              
 #' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
-#' dataDescription = "MyROCData",ReportFileFormat = "xlsx", overwrite = TRUE)
+#' dataDescription = "MyROCData4",ReportFileFormat = "xlsx", overwrite = TRUE)
 #' 
 #' ## Generate report for a data file
 #' fn <- system.file("extdata", "includedRocData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
-#' UtilOutputReport(DataFileName = fn, method = "DBMH", FOM = "Wilcoxon",
-#'              overwrite = TRUE)
+#' UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", method = "DBMH", FOM = "Wilcoxon",
+#'              overwrite = TRUE, ReportFileFormat = "xlsx")
 #'              
 #' ## Output report for an existing dataset
-#' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
-#'              ReportFileName = "MyROCDataAnalysis.txt") 
 #' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", overwrite = TRUE)
-#' ## UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "Wilcoxon") # ERROR!
-#' UtilOutputReport(dataset = dataset05, method = "ORH") # default FOM is wJAFROC
+#' 
+#' ## UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "Wilcoxon") # ERROR! as FOM is 
+#'    incompatible with FROC data
+#' 
+#' UtilOutputReport(dataset = dataset05, method = "ORH") # OK as default FOM is wJAFROC
+#' 
 #' UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc")
+#' 
+#' UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
 #' }
 #'        
 #' @importFrom utils packageDescription
-#' @importFrom tools file_path_sans_ext   
+#' @importFrom tools file_path_sans_ext file_ext  
 #'     
 #' @export
 
-UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", delimiter = ",", 
-                             dataDescription = deparse(substitute(dataset)), 
+UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = ",", 
+                             dataDescription = "MyData", 
                              ReportFileName, ReportFileFormat = "txt",
                              method = "DBMH", FOM = "wJAFROC", alpha = 0.05, 
                              covEstMethod = "Jackknife", nBoots = 200, 
                              renumber = FALSE, overwrite = TRUE) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  if (missing(dataset) && !missing(DataFileName) && (DataFileFormat %in% c("JAFROC", "MRMC", "iMRMC"))) {
+  if (!missing(DataFileName) && missing(DataFileFormat)) 
+    stop("If DataFileName is specified, then DataFileFormat must be specified")
+  
+  if (!missing(DataFileName) && !(DataFileFormat %in% c("JAFROC", "MRMC", "iMRMC"))) 
+    stop("Dataset format has to be JAFROC or MRMC,  or iMRMC")
+  
+  if (!missing(DataFileName) && !(file_ext(DataFileName) %in% c("xls", "xlsx", "txt"))) 
+    stop("Dataset extension has to be xls or xlsx,  or txt")
+  
+  if (!missing(DataFileName) && (file_ext(DataFileName) %in% c("xls", "xlsx")) && (DataFileFormat ==  "txt")) 
+    stop("Inconsistent DataFileName and DataFileFormat")
+  
+  if (!missing(DataFileName) && (file_ext(DataFileName) == "txt") &&  (DataFileFormat ==  "JAFROC")) 
+    stop("Inconsistent DataFileName and DataFileFormat")
+
+  if (missing(dataset) && missing(DataFileName)) {
+    stop("Must specify either a data file or a dataset to be analyzed.")
+  }
+  
+  if (missing(dataset)) {
     dataset <- DfReadDataFile(DataFileName, DataFileFormat, delimiter, renumber)
-    inputDataList <- FALSE
-  } else if (!missing(dataset) && missing(DataFileName) && (DataFileFormat %in% c("JAFROC", "MRMC", "iMRMC"))) {
-    inputDataList <- TRUE
+    datasetSpecified <- FALSE
+  } else {
+    datasetSpecified <- TRUE
     modalityNames <- dataset$modalityID
     readerNames <- dataset$readerID
     if (renumber){
@@ -105,8 +128,6 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     }
     names(dataset$modalityID) <- modalityNames
     names(dataset$readerID) <- readerNames
-  } else {
-    stop("Please specify a data file or dataset to be analyzed.")
   }
   if (method == "DBMH") {
     methodTxt <- "DBM-MRMC-HILLIS SIGNIFICANCE TESTING"
@@ -121,7 +142,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
   
   if (ReportFileFormat == "txt"){
     if (missing(ReportFileName)) {
-      if (inputDataList) {
+      if (datasetSpecified) {
         ReportFileName <- paste0(getwd(), "/", dataDescription, "_", method, "_", FOM, ".txt")
       } else {
         ReportFileName <- paste0(file_path_sans_ext(basename(DataFileName)), "_", method, "_", FOM, ".txt")
@@ -149,7 +170,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     dateTime <- paste0("Run date: ", base::format(Sys.time(), "%b %d %Y %a %X %Z"))
     write(sprintf(dateTime), ReportFileName, append = TRUE)
     write(sprintf(" FOM selected         :     %s", FOM), ReportFileName, append = TRUE)
-    if (inputDataList) {
+    if (datasetSpecified) {
       write(sprintf(" Input  Data          :     %s", dataDescription), ReportFileName, append = TRUE)
     } else {
       write(sprintf(" Input  Data          :     %s", DataFileName), ReportFileName, append = TRUE)
@@ -603,15 +624,15 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     
   } else if (ReportFileFormat == "xlsx"){
     if (missing(ReportFileName)) {
-      if (inputDataList) {
+      if (datasetSpecified) {
         ReportFileName <- paste0(getwd(), "/", dataDescription, "Output", ".xlsx")
         summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), dataDescription, basename(ReportFileName)))
       } else {
-        ReportFileName <- paste0(file_path_sans_ext(DataFileName), "Output", ".xlsx")
+        ReportFileName <- paste0(file_path_sans_ext(basename(DataFileName)), "Output", ".xlsx")
         summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), basename(DataFileName), basename(ReportFileName)))
       }
     }else{
-      if (inputDataList) {
+      if (datasetSpecified) {
         summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), dataDescription, basename(ReportFileName)))
       } else {
         summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), basename(DataFileName), basename(ReportFileName)))
@@ -665,12 +686,12 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     writeData(wb, sheet = "Summary", x = analysisInfo, startRow = 7 + max(I, J), startCol = 1, rowNames = TRUE, colNames = FALSE)
     sty <- createStyle(halign = "center", valign = "center")
     addStyle(wb,  sheet = "Summary", style = sty, rows = seq(1, 11 + max(I, J)), cols = 1:4, gridExpand = TRUE)
-    setColWidths(wb, sheet = "Summary", cols = 1:4, widths = "auto")
+    setColWidths(wb, sheet = "Summary", cols = 1:4, widths = "auto", ignoreMergedCells = TRUE)
     
     #############################################################    
     # done with Summary, now create contents of FOMs worksheet    
     addWorksheet(wb, "FOMs")
-    setColWidths(wb, sheet = "FOMs", cols = 1:(J + 3), widths = "auto")
+    setColWidths(wb, sheet = "FOMs", cols = 1:(J + 3), widths = "auto", ignoreMergedCells = TRUE)
     setColWidths(wb, sheet = "FOMs", cols = 1, widths = 10)
     addStyle(wb,  sheet = "FOMs", style = sty, rows = 1:(I + 2), cols = 1:(J + 3), gridExpand = TRUE)
     fomArray <- as.data.frame(result$fomArray)
@@ -699,16 +720,11 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     }
     colnames(fomArray) <- colNames
     
-    if (I >= 2){
+    if (I == 2){
       mergeCells(wb, "FOMs", rows = 1, cols = 1:(J+3))
       mergeCells(wb, "FOMs", rows = 3:(I + 2), cols = (J+3))
-      # addMergedRegion(fomSheet, 1, 1, 1, J + 3)
-      # addMergedRegion(fomSheet, 3, 4, J + 3, J + 3)
-      # autoSizeColumn(fomSheet, colIndex = 1:(J + 3))
     }else{
       mergeCells(wb, "FOMs", rows = 1, cols = 1:(J+2))
-      # addMergedRegion(fomSheet, 1, 1, 1, (J + 2))
-      # autoSizeColumn(fomSheet, colIndex = 1:(J + 2))
     }
     
     writeData(wb, sheet = "FOMs", startRow = 1, x = "FOMs: reader vs. treatment", rowNames = FALSE, colNames = FALSE)
@@ -717,13 +733,12 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     #############################################################    
     # done with FOMs, now create contents of RRRC worksheet    
     addWorksheet(wb, "RRRC")
-    setColWidths(wb, sheet = "RRRC", cols = 1:8, widths = "auto")
+    setColWidths(wb, sheet = "RRRC", cols = 1:8, widths = "auto", ignoreMergedCells = TRUE)
     setColWidths(wb, sheet = "RRRC", cols = 1, widths = 10)
     testTable <- data.frame(f = result$fRRRC, ddf = result$ddfRRRC, p = result$pRRRC)
     names(testTable) <- c("F statistic", "ddf", "P-value")
     writeData(wb, sheet = "RRRC", x = testTable, rowNames = FALSE, colNames = TRUE)
-    # addDataFrame(testTable, rrrcSheet, row.names = FALSE, colStyle = list("1" = center + numDf, "2" = center + numDf, "3" = center + numDf), colnamesStyle = centerbold)
-    
+
     diffTRName <- NULL
     for (i in 1:I) {
       if (i == I) 
@@ -739,11 +754,6 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     names(diffTable) <- c("Difference",	"Estimate",	"StdErr",	"DF",	"t",	"Pr > t",	"Lower",	"Upper")
     writeData(wb, sheet = "RRRC", startRow = 5, x = diffTable, rowNames = FALSE, colNames = TRUE)
 
-    # rows <- createRow(rrrcSheet, rowIndex = 4)
-    # cells <- createCell(rows, colIndex = 1) 
-    # setCellValue(cells[[1, 1]], "95% CI's FOMs, treatment difference")
-    # setCellStyle(cells[[1, 1]], centerbold)
-    # addMergedRegion(rrrcSheet, 4, 4, 1, 8)
     mergeCells(wb, "RRRC", rows = 4, cols = 1:8)
     writeData(wb, sheet = "RRRC", startRow = 4, x = "95% CI's FOMs, treatment difference", rowNames = FALSE, colNames = FALSE)
     
@@ -755,28 +765,19 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     writeData(wb, sheet = "RRRC", startRow = 8 + nrow(diffTable), x = ciTable, rowNames = FALSE, colNames = TRUE)
     addStyle(wb,  sheet = "RRRC", style = sty, rows = 1:(8 + nrow(diffTable) + nrow(ciTable)), cols = 1:(J + 3), gridExpand = TRUE)
     
-    # addDataFrame(ciTable, rrrcSheet, row.names = FALSE, startRow = 8 + nrow(diffTable), colStyle = list("1" = centerbold, "2" = center + numDf, "3" = center + numDf, "4" = center + numDf, "5" = center + numDf, 
-    #                                                                                                     "6" = center + numDf), colnamesStyle = centerbold)
-    # rows <- createRow(rrrcSheet, rowIndex = 7 + nrow(diffTable))
-    # cells <- createCell(rows, colIndex = 1) 
-    # setCellValue(cells[[1, 1]], "95% CI's FOMs, each treatment")
     writeData(wb, sheet = "RRRC", startRow = 7 + nrow(diffTable), x = "95% CI's FOMs, each treatment", rowNames = FALSE, colNames = FALSE)
-    # setCellStyle(cells[[1, 1]], centerbold)
     mergeCells(wb, "RRRC", rows = 7 + nrow(diffTable), cols = 1:6)
-    # addMergedRegion(rrrcSheet, 7 + nrow(diffTable), 7 + nrow(diffTable), 1, 6)
-    # autoSizeColumn(rrrcSheet, colIndex = 1:8)
-    
+
     #############################################################    
     # done with RRRC, now create contents of FRRC worksheet    
     addWorksheet(wb, "FRRC")
-    setColWidths(wb, sheet = "FRRC", cols = 1:9, widths = "auto")
+    setColWidths(wb, sheet = "FRRC", cols = 1:9, widths = "auto", ignoreMergedCells = TRUE)
     setColWidths(wb, sheet = "FRRC", cols = 1, widths = 10)
     testTable <- data.frame(f = result$fFRRC, ddf = result$ddfFRRC, p = result$pFRRC)
     if (method == "ORH"){
       testTable$ddf <- "Inf"
     }
     names(testTable) <- c("F statistic", "ddf", "P-value")
-    # addDataFrame(testTable, frrcSheet, row.names = FALSE, colStyle = list("1" = center + numDf, "2" = center + numDf, "3" = center + numDf), colnamesStyle = centerbold)
     writeData(wb, sheet = "FRRC", x = testTable, rowNames = FALSE, colNames = TRUE)
 
     diffTable <- result$ciDiffTrtFRRC
@@ -787,18 +788,11 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     }
     
     names(diffTable) <- c("Difference",	"Estimate",	"StdErr",	"DF",	"t",	"Pr > t",	"Lower",	"Upper")
-    # addDataFrame(diffTable, frrcSheet, row.names = FALSE, startRow = 5, colStyle = list("1" = centerbold, "2" = center + numDf, "3" = center + numDf, "4" = center + numDf, "5" = center + numDf, 
-    #                                                                                     "6" = center + numDf, "7" = center + numDf, "8" = center + numDf), colnamesStyle = centerbold)
     writeData(wb, sheet = "FRRC", x = diffTable, startRow = 5, rowNames = FALSE, colNames = TRUE)
     
-    # rows <- createRow(frrcSheet, rowIndex = 4)
-    # cells <- createCell(rows, colIndex = 1) 
-    # setCellValue(cells[[1, 1]], "95% CI's FOMs, treatment difference")
     writeData(wb, sheet = "FRRC", startRow = 4, x = "95% CI's FOMs, treatment difference", rowNames = FALSE, colNames = FALSE)
     mergeCells(wb, "FRRC", rows = 4, cols = 1:8)
-    # setCellStyle(cells[[1, 1]], centerbold)
-    # addMergedRegion(frrcSheet, 4, 4, 1, 8)
-    
+
     ciTable <- result$ciAvgRdrEachTrtFRRC
     ciTable$StdErr <- as.numeric(ciTable$StdErr)
     ciTable$DF <- as.numeric(ciTable$DF)
@@ -808,16 +802,8 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     }
     
     names(ciTable) <- c("Treatment",	"Estimate",	"StdErr",	"DF",	"Lower",	"Upper")
-    # addDataFrame(ciTable, frrcSheet, row.names = FALSE, startRow = 8 + nrow(diffTable), 
-    # colStyle = list("1" = centerbold, "2" = center + numDf, "3" = center + numDf, "4" = center + numDf, "5" = center + numDf, 
-    # "6" = center + numDf), colnamesStyle = centerbold)
     writeData(wb, sheet = "FRRC", startRow = 8 + nrow(diffTable), x = ciTable, rowNames = FALSE, colNames = TRUE)
     
-    # rows <- createRow(frrcSheet, rowIndex = 7 + nrow(diffTable))
-    # cells <- createCell(rows, colIndex = 1) 
-    # setCellValue(cells[[1, 1]], "95% CI's FOMs, each treatment")
-    # setCellStyle(cells[[1, 1]], centerbold)
-    # addMergedRegion(frrcSheet, 7 + nrow(diffTable), 7 + nrow(diffTable), 1, 6)
     writeData(wb, sheet = "FRRC", startRow = 7 + nrow(diffTable), x = "95% CI's FOMs, each treatment", rowNames = FALSE, colNames = FALSE)
     mergeCells(wb, "FRRC", rows = 7 + nrow(diffTable), cols = 1:6)
     
@@ -831,18 +817,8 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     }
     
     names(diffTableEchR)[8:9] <- c("Lower",	"Upper")
-    # addDataFrame(diffTableEchR, frrcSheet, row.names = FALSE, startRow = 11 + nrow(diffTable) + nrow(ciTable), 
-    #              colStyle = list("1" = centerbold, "2" = centerbold, "3" = center + numDf, "4" = center + numDf, "5" = center + numDf, 
-    #                              "6" = center + numDf, "7" = center + numDf, "8" = center + numDf, "9" = center + numDf), colnamesStyle = centerbold)
-    
     writeData(wb, sheet = "FRRC", startRow = 11 + nrow(diffTable) + nrow(ciTable), 
               x = diffTableEchR, rowNames = FALSE, colNames = TRUE)
-    # rows <- createRow(frrcSheet, rowIndex = 10 + nrow(diffTable) + nrow(ciTable))
-    # cells <- createCell(rows, colIndex = 1) 
-    # setCellValue(cells[[1, 1]], "95% CI's FOMs, treatment difference, each reader")
-    # setCellStyle(cells[[1, 1]], centerbold)
-    # addMergedRegion(frrcSheet, 10 + nrow(diffTable) + nrow(ciTable), 10 + nrow(diffTable) + nrow(ciTable), 1, 9)
-    # autoSizeColumn(frrcSheet, colIndex = 1:9)
     addStyle(wb,  sheet = "FRRC", style = sty, rows = 1:(11 + nrow(diffTable) + nrow(ciTable) + nrow(diffTableEchR)), cols = 1:9, gridExpand = TRUE)
     writeData(wb, sheet = "FRRC", startRow = 10 + nrow(diffTable) + nrow(ciTable), 
               x = "95% CI's FOMs, treatment difference, each reader", rowNames = FALSE, colNames = FALSE)
@@ -851,26 +827,18 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     #############################################################    
     # done with FRRC, now create contents of RRFC worksheet    
     addWorksheet(wb, "RRFC")
-    setColWidths(wb, sheet = "RRFC", cols = 1:8, widths = "auto")
+    setColWidths(wb, sheet = "RRFC", cols = 1:8, widths = "auto", ignoreMergedCells = TRUE)
     setColWidths(wb, sheet = "RRFC", cols = 1, widths = 10)
     testTable <- data.frame(f = result$fRRFC, ddf = result$ddfRRFC, p = result$pRRFC)
     names(testTable) <- c("F statistic", "ddf", "P-value")
-    # addDataFrame(testTable, rrfcSheet, row.names = FALSE, colStyle = list("1" = center + numDf, "2" = center + numDf, "3" = center + numDf), colnamesStyle = centerbold)
     writeData(wb, sheet = "RRFC", x = testTable, rowNames = FALSE, colNames = TRUE)
     
     diffTable <- result$ciDiffTrtRRFC
     diffTable[ , 1] <- diffTRName
     diffTable[ , 2] <- as.numeric(diffTable[ , 2])
     names(diffTable) <- c("Difference",	"Estimate",	"StdErr",	"DF",	"t",	"Pr > t",	"Lower",	"Upper")
-    # addDataFrame(diffTable, rrfcSheet, row.names = FALSE, startRow = 5, colStyle = list("1" = centerbold, "2" = center + numDf, "3" = center + numDf, "4" = center + numDf, "5" = center + numDf, 
-    #                                                                                     "6" = center + numDf, "7" = center + numDf, "8" = center + numDf), colnamesStyle = centerbold)
     writeData(wb, sheet = "RRFC", startRow = 5, x = diffTable, rowNames = FALSE, colNames = TRUE)
     
-    # rows <- createRow(rrfcSheet, rowIndex = 4)
-    # cells <- createCell(rows, colIndex = 1) 
-    # setCellValue(cells[[1, 1]], "95% CI's FOMs, treatment difference")
-    # setCellStyle(cells[[1, 1]], centerbold)
-    # addMergedRegion(rrfcSheet, 4, 4, 1, 8)
     writeData(wb, sheet = "RRFC", startRow = 4, x = "95% CI's FOMs, treatment difference", rowNames = FALSE, colNames = FALSE)
     mergeCells(wb, "RRFC", rows = 4, cols = 1:8)
     
@@ -879,15 +847,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
     ciTable$DF <- as.numeric(ciTable$DF)
     ciTable[ , 1] <- modalityID
     names(ciTable) <- c("Treatment",	"Estimate",	"StdErr",	"DF",	"Lower",	"Upper")
-    # addDataFrame(ciTable, rrfcSheet, row.names = FALSE, startRow = 8 + nrow(diffTable), colStyle = list("1" = centerbold, "2" = center + numDf, "3" = center + numDf, "4" = center + numDf, "5" = center + numDf, 
-    #                                                                                                     "6" = center + numDf), colnamesStyle = centerbold)
     writeData(wb, sheet = "RRFC", startRow = 8 + nrow(diffTable), x = ciTable, rowNames = FALSE, colNames = TRUE)
-    # rows <- createRow(rrfcSheet, rowIndex = 7 + nrow(diffTable))
-    # cells <- createCell(rows, colIndex = 1) 
-    # setCellValue(cells[[1, 1]], "95% CI's FOMs, each treatment")
-    # setCellStyle(cells[[1, 1]], centerbold)
-    # addMergedRegion(rrfcSheet, 7 + nrow(diffTable), 7 + nrow(diffTable), 1, 6)
-    # autoSizeColumn(rrfcSheet, colIndex = 1:8)
     writeData(wb, sheet = "RRFC", startRow = 7 + nrow(diffTable), x = "95% CI's FOMs, each treatment", rowNames = FALSE, colNames = FALSE)
     mergeCells(wb, "RRFC", rows = 7 + nrow(diffTable), cols = 1:6)
     addStyle(wb,  sheet = "RRFC", style = sty, rows = 1:(8 + nrow(diffTable) + nrow(ciTable)), 
@@ -897,102 +857,52 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat = "JAFROC", d
       #############################################################    
       # done with RRFC, now create contents of ANOVA worksheet    
       addWorksheet(wb, "ANOVA")
-      setColWidths(wb, sheet = "ANOVA", cols = 1:9, widths = "auto")
+      setColWidths(wb, sheet = "ANOVA", cols = 1:9, widths = "auto", ignoreMergedCells = TRUE)
       setColWidths(wb, sheet = "ANOVA", cols = 1, widths = 10)
-      
-      # addDataFrame(result$varComp, anovaSheet, col.names = FALSE, startRow = 2, colStyle = list("1" = center + numDf), rownamesStyle = centerbold)
       writeData(wb, sheet = "ANOVA", x = result$varComp, startRow = 2, rowNames = TRUE, colNames = FALSE)
       
-      # rows <- createRow(anovaSheet, rowIndex = 1)
-      # cells <- createCell(rows, colIndex = 1) 
-      # setCellValue(cells[[1, 1]], "FOM variance components")
-      # setCellStyle(cells[[1, 1]], centerbold)
-      # addMergedRegion(anovaSheet, 1, 1, 1, 2)
       writeData(wb, sheet = "ANOVA", x = "FOM variance components", rowNames = FALSE, colNames = FALSE)
       mergeCells(wb, "ANOVA", rows = 1, cols = 1:2)
       
-      # addDataFrame(result$anovaY, anovaSheet, startRow = 10, row.names = FALSE, colStyle = list("1" = centerbold, "2" = center + numDf, "3" = center + numDf, "4" = center + numDf), colnamesStyle = centerbold)
       writeData(wb, sheet = "ANOVA", x = result$anovaY, startRow = 10, rowNames = FALSE, colNames = TRUE)
-      
-      # rows <- createRow(anovaSheet, rowIndex = 9)
-      # cells <- createCell(rows, colIndex = 1) 
-      # setCellValue(cells[[1, 1]], "TREATMENT X READER X CASE ANOVA")
-      # setCellStyle(cells[[1, 1]], centerbold)
-      # addMergedRegion(anovaSheet, 9, 9, 1, 4)
       writeData(wb, sheet = "ANOVA", startRow = 9,  x = "TREATMENT X READER X CASE ANOVA", rowNames = FALSE, colNames = FALSE)
       mergeCells(wb, "ANOVA", rows = 9, cols = 1:4)
 
       colnames(result$anovaYi) <- c("Source", "DF", rownames(fomArray))
-      # addDataFrame(result$anovaYi, anovaSheet, startRow = 21, row.names = FALSE, colStyle = list("1" = centerbold, "2" = center + numDf, "3" = center + numDf, "4" = center + numDf), colnamesStyle = centerbold)
       writeData(wb, sheet = "ANOVA", x = result$anovaYi, startRow = 21, rowNames = FALSE, colNames = TRUE)
       
-      # rows <- createRow(anovaSheet, rowIndex = 20)
-      # cells <- createCell(rows, colIndex = 1) 
-      # setCellValue(cells[[1, 1]], "READER X CASE ANOVA for each Trt")
-      # setCellStyle(cells[[1, 1]], centerbold)
-      # addMergedRegion(anovaSheet, 20, 20, 1, 4)
       writeData(wb, sheet = "ANOVA", startRow = 20,  x = "READER X CASE ANOVA for each Trt", rowNames = FALSE, colNames = FALSE)
       mergeCells(wb, "ANOVA", rows = 20, cols = 1:4)
 
       colnames(result$msAnovaEachRdr) <- c("Source", "DF", colnames(fomArray)[1:J])
-      # colStyle <- c(list(centerbold), list(center + numDf))
-      # for (j in 1:J){
-      #   colStyle <- c(colStyle, list(center + numDf))
-      # }
-      # names(colStyle) <- c(1:(J + 2))
-      
-      # addDataFrame(result$msAnovaEachRdr, anovaSheet, startRow = 27, row.names = FALSE, colStyle = colStyle, colnamesStyle = centerbold)
       writeData(wb, sheet = "ANOVA", x = result$msAnovaEachRdr, startRow = 27, rowNames = FALSE, colNames = TRUE)
       
-      # rows <- createRow(anovaSheet, rowIndex = 26)
-      # cells <- createCell(rows, colIndex = 1) 
-      # setCellValue(cells[[1, 1]], "TREATMENT X CASE ANOVAs (MS) for each reader, assuming fixed reader analysis")
-      # setCellStyle(cells[[1, 1]], centerbold)
-      # addMergedRegion(anovaSheet, 26, 26, 1, J + 2)
-      # autoSizeColumn(anovaSheet, colIndex = 1:(J + 2))
       writeData(wb, sheet = "ANOVA", startRow = 26,  
                 x = "TREATMENT X CASE ANOVAs (MS) for each reader, assuming fixed reader analysis", 
                 rowNames = FALSE, colNames = FALSE)
       mergeCells(wb, "ANOVA", rows = 26, cols = 1:(J + 2))
       addStyle(wb,  sheet = "ANOVA", style = sty, rows = 1:30, 
                cols = 1:(2+J), gridExpand = TRUE)
-      # saveWorkbook(wb, "writeDataExample.xlsx", overwrite = TRUE)
     } else {
       #############################################################    
       # done with RRFC, now create contents of VarComp worksheet    
       addWorksheet(wb, "VarComp")
-      setColWidths(wb, sheet = "VarComp", cols = 1:9, widths = "auto")
+      setColWidths(wb, sheet = "VarComp", cols = 1:9, widths = "auto", ignoreMergedCells = TRUE)
       setColWidths(wb, sheet = "VarComp", cols = 1, widths = 10)
       
-      # addDataFrame(result$varComp, varSheet, col.names = FALSE, startRow = 2, colStyle = list("1" = center + numDf), rownamesStyle = centerbold)
       writeData(wb, sheet = "VarComp", x = result$varComp, startRow = 2, rowNames = TRUE, colNames = FALSE)
-      
-      # rows <- createRow(varSheet, rowIndex = 1)
-      # cells <- createCell(rows, colIndex = 1) 
-      # setCellValue(cells[[1, 1]], "OR Variance Covariance Components")
-      # setCellStyle(cells[[1, 1]], centerbold)
-      # addMergedRegion(varSheet, 1, 1, 1, 2)
       writeData(wb, sheet = "VarComp", startRow = 1,  x = "OR FOM Variance Covariance Components", 
                 rowNames = FALSE, colNames = FALSE)
       mergeCells(wb, "VarComp", rows = 1, cols = 1:2)
 
       result$varCovEachRdr[ , 1] <- readerID
-      # addDataFrame(result$varCovEachRdr, varSheet, startRow = 10, row.names = FALSE, colStyle = list("1" = centerbold, "2" = center + numDf, "3" = center + numDf), colnamesStyle = centerbold)
       writeData(wb, sheet = "VarComp", x = result$varCovEachRdr, startRow = 10, rowNames = FALSE, colNames = TRUE)
       
-      # rows <- createRow(varSheet, rowIndex = 9)
-      # cells <- createCell(rows, colIndex = 1) 
-      # setCellValue(cells[[1, 1]], "OR Variance Covariance Components for each reader, assuming fixed reader analysis")
-      # setCellStyle(cells[[1, 1]], centerbold)
-      # addMergedRegion(varSheet, 9, 9, 1, 3)
       writeData(wb, sheet = "VarComp", startRow = 9,  x = "OR Variance Covariance Components for each reader, assuming fixed reader analysis", 
                 rowNames = FALSE, colNames = FALSE)
       mergeCells(wb, "VarComp", rows = 9, cols = 1:3)
       addStyle(wb,  sheet = "VarComp", style = sty, rows = 1:(10 + J), 
                cols = 1:3, gridExpand = TRUE)
-      # saveWorkbook(wb, "writeDataExample.xlsx", overwrite = TRUE)
-      
-      # autoSizeColumn(varSheet, colIndex = 1:3)
     }
     saveWorkbook(wb, ReportFileName, overwrite = overwrite)
     sucessfulOutput <- sprintf("The report has been saved to %s.", ReportFileName)

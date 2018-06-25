@@ -4,8 +4,8 @@
 \alias{UtilOutputReport}
 \title{Generate a formatted report file}
 \usage{
-UtilOutputReport (dataset, DataFileName, DataFileFormat = "JAFROC", delimiter = ",", dataset, 
-   dataDescription = deparse(substitute(dataset)), ReportFileName, ReportFileFormat = "txt",
+UtilOutputReport (dataset, DataFileName, DataFileFormat, delimiter = ",", dataset, 
+   dataDescription = "MyData", ReportFileName, ReportFileFormat = "txt",
    method = "DBMH", FOM = "wJAFROC", alpha = 0.05, covEstMethod = "Jackknife", 
    nBoots = 200, renumber = FALSE, overwrite = TRUE)
 }
@@ -16,13 +16,12 @@ UtilOutputReport (dataset, DataFileName, DataFileFormat = "JAFROC", delimiter = 
 to be analyzed, see \link{DfReadDataFile} and "Details".}
 
 \item{DataFileFormat}{The format of the data specified in \code{DataFileName}: 
-see \link{DfReadDataFile} and "Details".}
+see \link{DfReadDataFile} and "Details". Must be specified if \code{DataFileName}
+is specified.}
 
 \item{delimiter}{See \link{DfReadDataFile}.}
 
-\item{dataDescription}{Only needed if a dataset is not specified. 
-It is a string descriptor of the dataset; the default is the variable 
-name of \code{dataset}}
+\item{dataDescription}{A description of the data, default is "MyData"}
 
 \item{ReportFileName}{The file name of the output report file. If this parameter 
 is missing, the function will use \code{DataFileName} or \code{dataDescription} 
@@ -30,8 +29,8 @@ followed by the underscore separated concatenation of \code{method}
 and \code{FOM} as the output report file.}
 
 \item{ReportFileFormat}{The format of the output report. The two available formats are 
-"txt" and "xlsx", which correspond to a formatted text file and an 
-Excel file, respectively. "txt" is the default.}
+"txt" (the default) and "xlsx", corresponding to a formatted text file and an 
+Excel file, respectively.}
 
 \item{method}{The analysis method: \code{"ORH"} or \code{"DBMH"}.}
 
@@ -61,39 +60,44 @@ A formatted report of the data analysis, patterned roughly on that of
 Generate a formatted report of the analysis and save to a text file
 }
 \details{
-At least one of the combinations of \code{DataFileName} and \code{DataFileFormat} 
-   or \code{dataset} and \code{dataDescription} must be specified. 
-   If both are specified, the data file \code{DataFileName} is analyzed and 
-   the \code{dataset} is ignored.
+See examples
 }
 \examples{
+
+UtilOutputReport(dataset = dataset03, method = "DBMH", FOM = "Wilcoxon", 
+   dataDescription = "MyROCData0", overwrite = TRUE)
+
 \dontrun{
 ## Generate reports for a dataset object
 UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
-             dataDescription = "MyROCData", overwrite = TRUE)
+             dataDescription = "MyROCData1", overwrite = TRUE)
              
 UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
-dataDescription = "MyROCData",ReportFileFormat = "xlsx", overwrite = TRUE)
+dataDescription = "MyROCData2",ReportFileFormat = "xlsx", overwrite = TRUE)
 
 UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
-             dataDescription = "MyROCData", overwrite = TRUE)
+             dataDescription = "MyROCData3", overwrite = TRUE)
              
 UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
-dataDescription = "MyROCData",ReportFileFormat = "xlsx", overwrite = TRUE)
+dataDescription = "MyROCData4",ReportFileFormat = "xlsx", overwrite = TRUE)
 
 ## Generate report for a data file
 fn <- system.file("extdata", "includedRocData.xlsx", 
 package = "RJafroc", mustWork = TRUE)
-UtilOutputReport(DataFileName = fn, method = "DBMH", FOM = "Wilcoxon",
-             overwrite = TRUE)
+UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", method = "DBMH", FOM = "Wilcoxon",
+             overwrite = TRUE, ReportFileFormat = "xlsx")
              
 ## Output report for an existing dataset
-UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
-             ReportFileName = "MyROCDataAnalysis.txt") 
 UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", overwrite = TRUE)
-## UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "Wilcoxon") # ERROR!
-UtilOutputReport(dataset = dataset05, method = "ORH") # default FOM is wJAFROC
+
+## UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "Wilcoxon") # ERROR! as FOM is 
+   incompatible with FROC data
+
+UtilOutputReport(dataset = dataset05, method = "ORH") # OK as default FOM is wJAFROC
+
 UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc")
+
+UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
 }
        
 }

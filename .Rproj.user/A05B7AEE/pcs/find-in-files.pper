@@ -6,7 +6,7 @@
             "*.R"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "# openxlsx",
+        "query" : "Cannot use Wilcoxon with FROC or ROI data",
         "regex" : false
     }
 }
