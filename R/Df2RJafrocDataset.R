@@ -39,9 +39,8 @@
 #'    z2[i,j,] <- rnorm(K2) * sigma + mu
 #'  }
 #' }
-#' dataset <- Df2RJafrocDataset(z1, z2) ## note absence of lesionNum;  # an ROC dataset
+#' dataset <- Df2RJafrocDataset(z1, z2) ## note lesionNum consists of 1s; i.e., an ROC dataset
 #'
-#' 
 #' set.seed(1)
 #' mu <- 1;lambda <- 1;nu <- 1; zeta1 <- 0
 #' K1 <- 5;K2 <- 7
@@ -51,9 +50,9 @@
 #' NL <- drop(frocDataRaw$NL)
 #' LL <- drop(frocDataRaw$LL)
 #' dataset <- Df2RJafrocDataset(NL, LL, lesionNum = Lk2) 
-#' ## note presence of lesionNum, signalling an FROC dataset
+#' ## note lesionNum is not all 1s, signalling an FROC dataset
 #'
-#' ## Simulated FROC dataset, convert to dataset object, and display ROC, FROC and AFROC curves
+#' ## Simulate FROC dataset, convert to dataset object, display ROC, FROC and AFROC curves
 #' I <- 2;J <- 3;set.seed(1)
 #' K1 <- 25;K2 <- 35
 #' mu <- 1;nuP <- 0.8;lambdaP <- 1;zeta1 <- 0
