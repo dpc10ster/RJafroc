@@ -3,3 +3,6 @@
 ^README\.md$
 ^vignettes\/Sweave\.sty$
 ^cran-comments\.md$
+^\.travis\.yml$
+^README\.Rmd$
+^\.github$

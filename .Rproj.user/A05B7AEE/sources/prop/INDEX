@@ -146,6 +146,8 @@
 ~%2Frjafroc%2Ftests%2Ftestthat.R="6EEA924C"
 ~%2Frjafroc%2Fvignettes%2FRJafroc.Rnw="75D2E9FD"
 ~%2Frjafroc%2Fvignettes%2FRJafroc1.Rnw="378603B2"
+~%2Frjafroc-master%2F.Rbuildignore="BA4B69"
+~%2Frjafroc-master%2F.travis.yml="5B0727EE"
 ~%2Frjafroc-master%2FDESCRIPTION="C58F75C9"
 ~%2Frjafroc-master%2FMyData_DBMH_HrAuc.txt="6A7157C6"
 ~%2Frjafroc-master%2FMyROCData0_DBMH_Wilcoxon.txt="3E69C6A2"
