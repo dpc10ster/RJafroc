@@ -1,3 +1,9 @@
+RJafroc-master
+========
+
+[![Build Status](https://travis-ci.org/dpc10ster/rjafroc-master.svg?branch=master)](https://travis-ci.org/dpc10ster/rjafroc-master)
+[![codecov](https://codecov.io/gh/dpc10ster/rjafroc-master/branch/master/graph/badge.svg)](https://codecov.io/gh/dpc10ster/rjafroc-master)
+
 ### What is this repository for? ###
 
 * Modeling, Analysis, Validation and Visualization of ROC/FROC studies
