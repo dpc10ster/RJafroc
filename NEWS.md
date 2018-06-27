@@ -1,3 +1,8 @@
+RJafroc-master
+========
+
+[![Build Status](https://travis-ci.org/dpc10ster/rjafroc-master.svg?branch=master)](https://travis-ci.org/dpc10ster/rjafroc-master)
+
 Update History
 ==========================
 ## RJafroc 1.1.0

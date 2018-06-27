@@ -4,7 +4,7 @@
         "filePatterns" : [
         ],
         "path" : "~/rjafroc-master",
-        "query" : "Version",
+        "query" : "1.1.9000",
         "regex" : false
     }
 }
