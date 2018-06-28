@@ -1,2 +1,2 @@
 library("testthat")
-test_check("rjafroc-master")
+test_check("RJafroc")
