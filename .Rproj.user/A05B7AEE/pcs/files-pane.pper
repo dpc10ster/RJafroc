@@ -1,5 +1,5 @@
 {
-    "path" : "~/rjafroc-master/R",
+    "path" : "~/rjafroc-master/tests/testthat",
     "sortOrder" : [
         {
             "ascending" : true,
