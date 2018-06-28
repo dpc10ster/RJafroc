@@ -1,4 +1,4 @@
-source("~/rjafroc-master/R/real_roots.R")
+source("./R/real_roots.R")
 
 test_that("Distinct roots", {
 
