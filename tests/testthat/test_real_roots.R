@@ -5,6 +5,7 @@ test_that("Distinct roots", {
   roots <- real.roots(1, 7, 12)
 
   expect_true( is.numeric(roots) )
+  expect_length( roots, 2 )
   expect_lt( roots[1] , roots[2])
 })
 
