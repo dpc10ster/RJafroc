@@ -2,11 +2,14 @@ Update History
 ==========================
 ## RJafroc 1.1.0
 ### Major changes
-Replaced dependence on xlsx package, which requires rJava and JAVA, with dependence on
-openxlsx package. Was having considerable difficulty installing rJava correctly.
+Added travis-ci testing after each push; and build passing badges, etc. Real geeky stuff;
+Removed dependence on caTools package, which was not being supported; extracted function trapz() from it
+   and inserted directly into gpfMyFOM.R - see comments in that file of what led to this
+Removed dependence on xlsx package, which requires rJava and JAVA, replaced with dependence on
+   openxlsx package. Was having difficulty installing rJava correctly after each OSX or R update.
 Corrected errors in UtilOutputReport function.
 Added correlated contaminated binormal model (CORCBM) fitting and related functions. This
-makes RJafroc current with 2017 CORCBM publication.
+   makes package current with 2017 CORCBM publication.
    
 ==========================
 ## RJafroc 1.0.2

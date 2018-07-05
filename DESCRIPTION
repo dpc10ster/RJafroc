@@ -18,7 +18,6 @@ Imports:
     stats,
     bbmle,
     binom,
-    caTools,
     mvtnorm,
     numDeriv,
     Rcpp

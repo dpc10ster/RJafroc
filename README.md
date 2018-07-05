@@ -37,7 +37,6 @@ See NEWS.md
     stats,
     bbmle,
     binom,
-    caTools,
     mvtnorm,
     numDeriv,
     Rcpp

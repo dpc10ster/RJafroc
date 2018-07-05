@@ -142,7 +142,6 @@
 #' 
 #' 
 #' @import ggplot2
-#' @import caTools
 #' @export
 
 #' @export
