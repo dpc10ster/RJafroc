@@ -643,10 +643,10 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
           warningMsg <- paste0("WARNING! The file ", ReportFileName, " already exists. Do you want to replace it? Enter \"y\" to replace or \"n\" to stop.")
           message(warningMsg)
           readInput <- readline()
-        } else readInput <- TRUE
+        }
         if (readInput == "n") {
           stop("Output file exists.")
-        }
+        } else readInput <- TRUE
       }
     }
     
