@@ -10,6 +10,8 @@ Removed dependence on xlsx package, which requires rJava and JAVA, replaced with
 Corrected errors in UtilOutputReport function.
 Added correlated contaminated binormal model (CORCBM) fitting and related functions. This
    makes package current with 2017 CORCBM publication.
+Fixed bug in UtilOutputReport that was preventing overwriting of existing output file, even
+   when the user keys "y" in response to prompt
    
 ==========================
 ## RJafroc 1.0.2

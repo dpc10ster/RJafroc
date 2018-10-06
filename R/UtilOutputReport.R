@@ -155,7 +155,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
         }
         if (readInput == "n") {
           stop("Output file exists.")
-        }
+        } else readInput <- TRUE
       }
     }
     ciPercent <- 100 * (1 - alpha)
@@ -643,7 +643,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
           warningMsg <- paste0("WARNING! The file ", ReportFileName, " already exists. Do you want to replace it? Enter \"y\" to replace or \"n\" to stop.")
           message(warningMsg)
           readInput <- readline()
-        }
+        } else readInput <- TRUE
         if (readInput == "n") {
           stop("Output file exists.")
         }
@@ -901,7 +901,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
       addStyle(wb,  sheet = "VarComp", style = sty, rows = 1:(10 + J), 
                cols = 1:3, gridExpand = TRUE)
     }
-    saveWorkbook(wb, ReportFileName, overwrite = overwrite)
+    saveWorkbook(wb, ReportFileName, overwrite = TRUE)
     sucessfulOutput <- sprintf("The report has been saved to %s.", ReportFileName)
   }
   
