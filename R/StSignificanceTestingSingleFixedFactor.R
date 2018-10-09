@@ -7,10 +7,10 @@
 #'    is assumed.
 #' 
 #' @usage StSignificanceTestingSingleFixedFactor (dataset, 
-#'    FOM = "wJAFROC", alpha = 0.05) 
+#'    FOM = "wAFROC", alpha = 0.05) 
 #' 
 #' @param dataset A single-modality or single-reader dataset.
-#' @param FOM The figure of merit, default  \code{"wJAFROC"}, 
+#' @param FOM The figure of merit, default  \code{"wAFROC"}, 
 #'    see \link{UtilFigureOfMerit}.
 #' @param alpha The significance level (\code{alpha}, default 0.05) 
 #'    of the test of the null hypothesis that FOMs of all levels of 
@@ -53,7 +53,7 @@
 #' 
 #' @export
 
-StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wJAFROC", alpha = 0.05) {
+StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alpha = 0.05) {
   NL <- dataset$NL
   LL <- dataset$LL
   lesionNum <- dataset$lesionNum

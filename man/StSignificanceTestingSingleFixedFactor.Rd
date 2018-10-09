@@ -5,12 +5,12 @@
 \title{Perform significance testing for single fixed factor analysis}
 \usage{
 StSignificanceTestingSingleFixedFactor (dataset, 
-   FOM = "wJAFROC", alpha = 0.05)
+   FOM = "wAFROC", alpha = 0.05)
 }
 \arguments{
 \item{dataset}{A single-modality or single-reader dataset.}
 
-\item{FOM}{The figure of merit, default  \code{"wJAFROC"}, 
+\item{FOM}{The figure of merit, default  \code{"wAFROC"}, 
 see \link{UtilFigureOfMerit}.}
 
 \item{alpha}{The significance level (\code{alpha}, default 0.05) 

@@ -10,7 +10,7 @@ UtilFigureOfMerit(dataset, FOM = "wAFROC", FPFValue = 0.2)
 \item{dataset}{The dataset to be analyzed, see \link{RJafroc-package}}
 
 \item{FOM}{The figure of merit to be used in the calculation. 
-The default is \code{"wJAFROC"}}
+The default is \code{"wAFROC"}}
 
 \item{FPFValue}{Only needed for LROC data; where to evaluate a partial 
 curve based figure of merit. The default is 0.2.}

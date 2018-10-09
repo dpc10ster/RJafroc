@@ -1,11 +1,11 @@
 #' Fit the radiological search model (RSM) to ROC data
 #' 
-#' @description Fit an RSM-predicted ROC curve to a binned dataset
+#' @description Fit an RSM-predicted ROC curve to a binned ROC dataset
 #' 
 #' @usage FitRsmRoc(dataset, lesDistr, trt = 1, rdr = 1) 
 #' 
 #' 
-#' @param dataset The \strong{binned} dataset containing the data
+#' @param dataset The \strong{binned ROC} dataset containing the data
 #' @param lesDistr The lesion distribution matrix
 #' @param trt The desired treatment, default is 1
 #' @param rdr The desired reader, default is 1
@@ -31,17 +31,18 @@
 #' 
 #' 
 #' @details 
-#' In the RSM: (1) The (random) number of latent NLs per case is Poisson distributed 
+#' If dataset is FROC, first convert it to ROC, using \link{DfFroc2Roc}. MLE ROC algorithms 
+#'    require binned datasets. Use \link{DfBinDataset} to perform the binning prior to calling 
+#'    this function. 
+#'    In the RSM: (1) The (random) number of latent NLs per case is Poisson distributed 
 #'    with mean parameter lambdaP, and the corresponding ratings are sampled from 
 #'    \eqn{N(0,1)}. The (2) The (random) number of latent LLs per diseased case is 
 #'    binomial distributed with success probability nuP and trial size equal to 
 #'    the number of lesions in the case, and the corresponding ratings are sampled from 
 #'    N(\eqn{mu},1). (3) A latent NL or LL is actually marked if its rating exceeds 
 #'    the lowest threshold zeta1. To avoid clutter error bars are only shown for the 
-#'    lowest and uppermost operating points. MLE ROC algorithms require binned datasets. 
-#'    Use \link{DfBinDataset} to perform the binning prior to calling this function. 
-#'    Because of the extra parameter, and the requirement to have five counts, 
-#'    the chi-square statistic often cannot be calculated. 
+#'    lowest and uppermost operating points. Because of the extra parameter, and the 
+#'    requirement to have five counts, the chi-square statistic often cannot be calculated. 
 #' 
 #' 
 #' @examples

@@ -8,10 +8,12 @@ Removed dependence on caTools package, which was not being supported; extracted 
 Removed dependence on xlsx package, which requires rJava and JAVA, replaced with dependence on
    openxlsx package. Was having difficulty installing rJava correctly after each OSX or R update.
 Corrected errors in UtilOutputReport function.
-Added correlated contaminated binormal model (CORCBM) fitting and related functions. This
-   makes package current with 2017 CORCBM publication.
 Fixed bug in UtilOutputReport that was preventing overwriting of existing output file, even
    when the user keys "y" in response to prompt
+Added correlated contaminated binormal model (CORCBM) fitting and related functions to
+   make package current with 2017 CORCBM publication.
+Fixed error in PlotEmpiricalCharacteristics.R that was giving incorrect plots for other than
+   ROC and wAFROC plots
    
 ==========================
 ## RJafroc 1.0.2

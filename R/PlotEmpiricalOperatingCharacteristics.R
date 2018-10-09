@@ -96,8 +96,6 @@
 #' ## $ modalityID  : chr [1:5] "1" "2" "3" "4" "5"
 #' ## $ readerID    : chr [1:4] "1" "3" "4" "5"
 #' 
-#' @import ggplot2
-#' @import stats
 #' @export
 
 PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, 
@@ -330,13 +328,37 @@ GetLimits <- function (genPoints, opChType) {
 ####################################################################################################################
 genPoints <- function(genNL, genLL, modalityID, readerID, lesionNum, weights, modalities2Plot, rdrs2Plot, opChType) {
   
-  if (opChType == "ROC") genPoints <- ROCPoints(genNL, genLL, modalityID, readerID, modalities2Plot, rdrs2Plot)
-  if (opChType == "FROC") genPoints <- FROCPoints(genNL, genLL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot)
-  if (opChType == "AFROC") genPoints <- AFROCPoints(genNL, genLL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot)
-  if (opChType == "wAFROC") genPoints <- wAFROCPoints(genNL, genLL, modalityID, readerID, weights, modalities2Plot, rdrs2Plot)
-  if (opChType == "AFROC1") genPoints <- AFROC1Points(genNL, genLL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot)
-  if (opChType == "wAFROC1") genPoints <- wAFROC1Points(genNL, genLL, modalityID, readerID, weights, modalities2Plot, rdrs2Plot)
-  return(genPoints)
+  if (opChType == "ROC") {
+    genPoints <- ROCPoints(genNL, genLL, modalityID, readerID, 
+                           modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  if (opChType == "FROC") {
+    genPoints <- FROCPoints(genNL, genLL, modalityID, readerID, lesionNum, 
+                            modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  if (opChType == "AFROC") {
+    genPoints <- AFROCPoints(genNL, genLL, modalityID, readerID, lesionNum, # sic 
+                             modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  if (opChType == "wAFROC") {
+    genPoints <- wAFROCPoints(genNL, genLL, modalityID, readerID, weights, # sic 
+                              modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  if (opChType == "AFROC1") {
+    genPoints <- AFROC1Points(genNL, genLL, modalityID, readerID, lesionNum, # sic
+                              modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  if (opChType == "wAFROC1") {
+    genPoints <- wAFROC1Points(genNL, genLL, modalityID, readerID, weights, # sic 
+                               modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  stop("genPoints: Incorrect FOM")
 }
 
 
@@ -345,13 +367,37 @@ genPoints <- function(genNL, genLL, modalityID, readerID, lesionNum, weights, mo
 ####################################################################################################################
 genAvgPoints <- function(genNL, genLL, modalityID, readerID, lesionNum, weights, modalities2Plot, rdrs2Plot, opChType) {
   
-  if (opChType == "ROC") genPoints <- AvgROCPoints(genNL, genLL, modalityID, readerID, modalities2Plot, rdrs2Plot)
-  if (opChType == "FROC") genPoints <- AvgFROCPoints(genNL, genLL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot)
-  if (opChType == "AFROC") genPoints <- AvgAFROCPoints(genNL, genLL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot)
-  if (opChType == "wAFROC") genPoints <- AvgwAFROCPoints(genNL, genLL, modalityID, readerID, weights, modalities2Plot, rdrs2Plot)
-  if (opChType == "AFROC1") genPoints <- AvgAFROC1Points(genNL, genLL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot)
-  if (opChType == "wAFROC1") genPoints <- AvgwAFROC1Points(genNL, genLL, modalityID, readerID, weights, modalities2Plot, rdrs2Plot)
-  return(genPoints)
+  if (opChType == "ROC") {
+    genPoints <- AvgROCPoints(genNL, genLL, modalityID, readerID, 
+                              modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  if (opChType == "FROC") {
+    genPoints <- AvgFROCPoints(genNL, genLL, modalityID, readerID, lesionNum,
+                               modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  if (opChType == "AFROC") {
+    genPoints <- AvgAFROCPoints(genNL, genLL, modalityID, readerID, lesionNum, # sic
+                                modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  if (opChType == "wAFROC") {
+    genPoints <- AvgwAFROCPoints(genNL, genLL, modalityID, readerID, weights, # sic 
+                                 modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  if (opChType == "AFROC1") {
+    genPoints <- AvgAFROC1Points(genNL, genLL, modalityID, readerID, lesionNum, # sic 
+                                 modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  if (opChType == "wAFROC1") {
+    genPoints <- AvgwAFROC1Points(genNL, genLL, modalityID, readerID, weights, # sic
+                                  modalities2Plot, rdrs2Plot)
+    return(genPoints)
+  }
+  stop("genAvgPoints: Incorrect FOM")
 }
 
 
@@ -645,10 +691,7 @@ AvgFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Pl
   for (p in 1:length(avgNLF)) avgLLF[p] <- mean(avgLLFArray[, p])
   avgLLF <- c(0,avgLLF);avgNLF <- c(0,avgNLF)
   
-  if (length(modalityID) == 1)
-    class <- paste(paste("R: "), paste(readerID, collapse = " "), sep = "")
-  else
-    class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
+  class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
   FROCPoints <- data.frame(genAbscissa = avgNLF, genOrdinate = avgLLF, class = class, type = "rdrAveraged")
   return(FROCPoints)
 }
@@ -801,10 +844,7 @@ AvgAFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2P
   for (p in 1:length(sampledFPF)) avgLLF[p] <- mean(avgLLFArray[, p])
   avgLLF <- c(0,avgLLF);sampledFPF <- c(0,sampledFPF)
   
-  if (length(modalityID) == 1)
-    class <- paste(paste("R: "), paste(readerID, collapse = " "), sep = "")
-  else
-    class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
+  class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
   AFROCPoints <- data.frame(genAbscissa = sampledFPF, genOrdinate = avgLLF, class = class, type = "rdrAveraged")
   return(AFROCPoints)
 }
@@ -950,10 +990,7 @@ AvgAFROC1Points <- function(NL, LL, modalityID, readerID, lesionNum, modalities2
   for (p in 1:length(sampledFPF)) avgLLF[p] <- mean(avgLLFArray[, p])
   avgLLF <- c(0,avgLLF);sampledFPF <- c(0,sampledFPF)
   
-  if (length(modalityID) == 1)
-    class <- paste(paste("R: "), paste(readerID, collapse = " "), sep = "")
-  else
-    class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
+  class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
   AFROCPoints <- data.frame(genAbscissa = sampledFPF, genOrdinate = avgLLF, class = class, type = "rdrAveraged")
   return(AFROCPoints)
 }
@@ -978,7 +1015,6 @@ wAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, modalities
   dim(LL) <- c(I, J, K2, maxLL)
   modalityID <- modalityID[modalities2Plot]
   
-  
   J <- length(rdrs2Plot)
   NL <- NL[, rdrs2Plot, , ]
   LL <- LL[, rdrs2Plot, , ]
@@ -1001,7 +1037,8 @@ wAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, modalities
     }
   }
   
-  class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
+  #class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
+  class <- paste("M: ", modalityID[wAFROCPoints$Modality], "\n", "R: ", readerID[wAFROCPoints$Reader], sep = "")
   wAFROCPoints <- data.frame(genAbscissa = wAFROCPoints$FPF, genOrdinate = wAFROCPoints$wLLF, class = class, type = "individual")
   return(wAFROCPoints)
 }
@@ -1058,8 +1095,9 @@ AvgwAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, modalit
   avgwLLF <- c(0,avgwLLF,1);sampledFPF <- c(0,sampledFPF,1)
   
   class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
-  wAFROCPoints <- data.frame(genAbscissa = sampledFPF, genOrdinate = avgwLLF, class = class, type = "rdrAveraged")
-  return(wAFROCPoints)
+  #class <- paste("M: ", modalityID[wAFROCPoints$Modality], "\n", "R: ", readerID[wAFROCPoints$Reader], sep = "")
+  AvgwAFROCPoints <- data.frame(genAbscissa = sampledFPF, genOrdinate = avgwLLF, class = class, type = "rdrAveraged")
+  return(AvgwAFROCPoints)
 }
 
 
@@ -1158,10 +1196,7 @@ AvgwAFROC1Points <- function(NL, LL, modalityID, readerID, lesionWeights, modali
   for (p in 1:length(sampledFPF)) avgwLLF[p] <- mean(avgwLLFArray[, p])
   avgwLLF <- c(0,avgwLLF,1);sampledFPF <- c(0,sampledFPF,1)
   
-  if (length(modalityID) == 1)
-    class <- paste(paste("R: "), paste(readerID, collapse = " "), sep = "")
-  else
-    class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
+  class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
   wAFROC1Points <- data.frame(genAbscissa = sampledFPF, genOrdinate = avgwLLF, class = class, type = "rdrAveraged")
   return(wAFROC1Points)
 }
