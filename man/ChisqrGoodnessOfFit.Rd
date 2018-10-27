@@ -2,14 +2,14 @@
 % Please edit documentation in R/ChisqrGoodnessOfFit.R
 \name{ChisqrGoodnessOfFit}
 \alias{ChisqrGoodnessOfFit}
-\title{Compute the chisquare goodness of fit statistic for specified ROC data fitting model}
+\title{Compute the chisquare goodness of fit statistic for ROC fitting model}
 \usage{
 ChisqrGoodnessOfFit(zetas, lesDistr, fpCounts, tpCounts, parameters, model)
 }
 \arguments{
 \item{zetas}{The estimated thresholds of the fitting model}
 
-\item{lesDistr}{The lesion distribution matrix; \code{NA} for "BINORMAL" and "CBM}
+\item{lesDistr}{The lesion distribution matrix; \code{NA} for "BINORMAL" or "CBM"}
 
 \item{fpCounts}{The FP counts table}
 
