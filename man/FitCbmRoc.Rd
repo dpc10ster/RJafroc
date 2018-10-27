@@ -77,6 +77,11 @@ retFit <- FitCbmRoc(dataset);print(retFit$fittedPlot)
 ## Test with included ROC data (some bins have zero counts)
 retFit <- FitCbmRoc(dataset02, 2, 1);print(retFit$fittedPlot)
 
+## Test with TONY data for which chisqr can be calculated
+ds <- DfFroc2Roc(dataset01)
+retFit <- FitCbmRoc(ds, 2, 3);print(retFit$fittedPlot)
+retFit$ChisqrFitStats
+
 }
 \references{
 Dorfman DD, Berbaum KS (2000) A contaminated binormal model for ROC data: Part II. A formal model,

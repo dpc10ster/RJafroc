@@ -142,6 +142,7 @@
 #' 
 #' 
 #' @import ggplot2
+#' @importFrom stats var
 #' @export
 
 #' @export

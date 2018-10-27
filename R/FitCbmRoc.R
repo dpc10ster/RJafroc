@@ -57,6 +57,11 @@
 #'
 #' ## Test with included ROC data (some bins have zero counts)
 #' retFit <- FitCbmRoc(dataset02, 2, 1);print(retFit$fittedPlot)
+#' 
+#' ## Test with TONY data for which chisqr can be calculated
+#' ds <- DfFroc2Roc(dataset01)
+#' retFit <- FitCbmRoc(ds, 2, 3);print(retFit$fittedPlot)
+#' retFit$ChisqrFitStats
 #'
 #' @references
 #' Dorfman DD, Berbaum KS (2000) A contaminated binormal model for ROC data: Part II. A formal model,
@@ -79,9 +84,11 @@
 # there was an error in forward zetas and inverse zetas function
 # which had no effect on previous analysis with more than one operating points
 #
+#' @importFrom stats uniroot
+
 FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
-  minZeta <- RJafrocEnv$minZeta
-  maxZeta <- RJafrocEnv$maxZeta
+  # minZeta <- RJafrocEnv$minZeta
+  # maxZeta <- RJafrocEnv$maxZeta
   minMu <- RJafrocEnv$minMu
   maxMu <- RJafrocEnv$maxMu
   minAlpha <- RJafrocEnv$minAlpha
@@ -99,21 +106,24 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
   
   fp <- dataset$NL[1,1,,1]
   tp <- dataset$LL[1,1,,1]
+  plotStep <- 0.01
+  plotZeta <- seq(from = -3, to = 10, by = plotStep)
   K2 <- length(tp)
   K1 <- length(fp) - K2
   fp <- fp[1:K1]
   
   ret1 <- UtilBinCountsOpPts(dataset)
   fpf <- ret1$fpf;tpf <- ret1$tpf;fpCounts <- ret1$fpCounts;tpCounts <- ret1$tpCounts
-  if (any(fpf == 0)) InfFlag <- TRUE else InfFlag <- FALSE 
-  plotStep <- 0.01
-  plotZeta <- seq(from = -3, to = 10, by = plotStep)
+  if (any(fpf == 0)) InfFlag <- TRUE else InfFlag <- FALSE
   
   if (isDataDegenerate(fpf, tpf)) {
     if (max(fpf) >= max(tpf)) {
       mu <- 0; alpha <- 0; AUC <- 0.5
-      fpfPred <- c(0,1);tpfPred <- c(0,1)
-      fittedPlot <- genericPlotCbmROC (mu, alpha, modalityID, readerID, fpf, tpf, K1, K2)
+      #fpfPred <- c(0,1);tpfPred <- c(0,1)
+      fpfPred <- 1 - pnorm(plotZeta)
+      tpfPred <- (1 - alpha) * (1 - pnorm(plotZeta)) + alpha * (1 - pnorm(plotZeta, mean = mu))
+      fittedPlot <- genericPlotROC (fp, tp, fpfPred, tpfPred)
+      #fittedPlot <- genericPlotCbmROC (mu, alpha, modalityID, readerID, fpf, tpf, K1, K2)
     } else {
       alpha <- max(tpf)
       mu <- maxMu
@@ -121,7 +131,8 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
       ret <- Df2RJafrocDataset(fp, tp)
       fpfPred <- 1 - pnorm(plotZeta)
       tpfPred <- (1 - alpha) * (1 - pnorm(plotZeta)) + alpha * (1 - pnorm(plotZeta, mean = mu))
-      fittedPlot <- genericPlotCbmROC (mu, alpha, modalityID, readerID, fpf, tpf, K1, K2)
+      fittedPlot <- genericPlotROC (fp, tp, fpfPred, tpfPred)
+      #fittedPlot <- genericPlotCbmROC (mu, alpha, modalityID, readerID, fpf, tpf, K1, K2)
     }
     return(list(
       mu = mu,
@@ -137,7 +148,6 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
     ))
   }
   
-  lenZetas <- length(fpf)
   iniPntIndx <- which(tpf > fpf)
   iniPntIndx <- iniPntIndx[length(iniPntIndx)]
   alphaIni <- max(min(1 - (1 - tpf[iniPntIndx]) / (1 - fpf[iniPntIndx]), maxAlpha - 0.01), minAlpha + 0.01) ## !dpc! OK??
@@ -233,7 +243,6 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
     names(parameters) <- namesVector
     ret2 <- mle2(CBMNLLNew, start = parameters, method = "BFGS", fixed = fixList,
                  data = list(fi = fpCounts, ti = tpCounts, maxMu = maxMu))
-    NLLFin2 <- ret2@min
     allCoef <- ret2@coef
     for (i in 1:length(afterIndex)) {
       allCoef <- append(allCoef, fixList[[i]], after = afterIndex[i])
@@ -251,12 +260,12 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
   if (!nearDeg) {
     covMat <- vcov[1:2,1:2]
     StdAUC <- StdDevCbmAuc(ret@coef[1], ret@coef[2], covMat) ## !!!dpc!!! looks right; can it be proved?
-    ChisqrFitStats <- ChisqrGoodnessOfFitCbm(zetas, mu, alpha, fpCounts, tpCounts)
+    ChisqrFitStats <- ChisqrGoodnessOfFit(zetas, lesDistr = NULL, fpCounts, tpCounts,
+                                             parameters = c(mu, alpha), model = "CBM")
   } else {
     covMat <- NA
     StdAUC <- NA
     ChisqrFitStats <- NA
-    
   }
   fpfPred <- 1 - pnorm(plotZeta)
   tpfPred <- (1 - alpha) * (1 - pnorm(plotZeta)) + alpha * (1 - pnorm(plotZeta, mean = mu))
@@ -272,9 +281,6 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
     
     ret <- suppressWarnings(mle2(CBMNLLNewNoTransf, start = parameters, method = "BFGS",
                                  data = list(fi = fpCounts, ti = tpCounts)))
-    
-    NLLChk <- ret@min
-    
     covMat <- ret@vcov
   }else{
     covMat <- NA
@@ -355,11 +361,6 @@ nLLCBMNoTransf <- function (mu, alpha, fi, ti){
 # inputs are transformed parameters; covMat is also wrt trans. parameters
 StdDevCbmAuc <- function (muFwd, alphaFwd,covMatFwd)
 {
-  minMu <- RJafrocEnv$minMu
-  maxMu <- RJafrocEnv$maxMu
-  minAlpha <- RJafrocEnv$minAlpha
-  maxAlpha <- RJafrocEnv$maxAlpha
-  
   derivsFwd <- jacobian(func = tempAucCBM, c(muFwd,alphaFwd))
   VarAz <- derivsFwd %*% covMatFwd %*% t(derivsFwd)
   
@@ -399,68 +400,4 @@ tempAucCBM <- function (fwdParms){
 
 
 
-ChisqrGoodnessOfFitCbm <- function(zetas, mu, alpha, fpCounts, tpCounts) {
-  fpf1 <- pnorm(-zetas)
-  tpf1 <- (1 - alpha) * pnorm(-zetas) + alpha * pnorm(mu-zetas)
-  fpExpProb <- c(1, fpf1) - c(fpf1, 0)
-  tpExpProb <- c(1, tpf1) - c(tpf1, 0)
-  
-  retComb1 <- CombBins(rbind(fpCounts, tpCounts), rbind(fpExpProb, tpExpProb))
-  retComb1 <- CombBins(retComb1$obs[c(2, 1), , drop = FALSE], retComb1$prob[c(2, 1), , drop = FALSE])
-  obs1 <- retComb1$obs[c(2, 1), , drop = FALSE]; exp1 <- retComb1$prob[c(2, 1), , drop = FALSE] * rowSums(obs1)
-  fpGoodness1 <- rbind(obs1[1, ], exp1[1, ])
-  tpGoodness1 <- rbind(obs1[2, ], exp1[2, ])
-  
-  retComb2 <- CombBins(rbind(tpCounts, fpCounts), rbind(tpExpProb, fpExpProb))
-  retComb2 <- CombBins(retComb2$obs[c(2, 1), , drop = FALSE], retComb2$prob[c(2, 1), , drop = FALSE])
-  obs2 <- retComb2$obs; exp2 <- retComb2$prob * rowSums(obs2)
-  fpGoodness2 <- rbind(obs2[1, ], exp2[1, ])
-  tpGoodness2 <- rbind(obs2[2, ], exp2[2, ])
-  
-  if (ncol(fpGoodness1) >= ncol(fpGoodness2)){
-    fpGoodness <- fpGoodness1
-    tpGoodness <- tpGoodness1
-    nBinsComb <- ncol(fpGoodness1)
-  }else{
-    fpGoodness <- fpGoodness2
-    tpGoodness <- tpGoodness2
-    nBinsComb <- ncol(fpGoodness2)
-  }
-  
-  if (nBinsComb > 3){
-    chisq <- sum((fpGoodness[1, ] - fpGoodness[2, ])^2/fpGoodness[2, ]) + sum((tpGoodness[1, ] - tpGoodness[2, ])^2/tpGoodness[2, ])
-    df <- nBinsComb - 3
-    pVal <- pchisq(chisq, df, lower.tail = FALSE)
-  }else{
-    chisq <- NA
-    pVal <- NA
-    df <- NA
-  }
-  
-  return(list(
-    chisq = chisq,
-    pVal = pVal,
-    df = df
-  ))
-}
-
-# CBMNLLNew <- function (muFwd, alphaFwd, fi, ti, maxMu, zetaFwd1, zetaFwd2, 
-#           zetaFwd3, zetaFwd4) 
-# {
-#   minMu <- RJafrocEnv$minMu
-#   minAlpha <- RJafrocEnv$minAlpha
-#   maxAlpha <- RJafrocEnv$maxAlpha
-#   mu <- InverseValue(muFwd, minMu, maxMu)
-#   alpha <- InverseValue(alphaFwd, minAlpha, maxAlpha)
-#   allParameters <- names(formals())
-#   zetaPos <- regexpr("zeta", allParameters)
-#   zetaFwd <- unlist(mget(allParameters[which(zetaPos == 1)]))
-#   zeta <- InverseZetas(zetaFwd)
-#   if ((abs(zeta[1]) > 2) || (zeta[length(zeta)] > 10)) {
-#     return(1e+10)
-#   }
-#   zetas <- c(-Inf, zeta, Inf)
-#   L <- CBMNLLInner(mu, alpha, zetas, fi, ti)
-#   return(-L)
-# }
 

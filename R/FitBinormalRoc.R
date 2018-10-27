@@ -61,7 +61,12 @@
 #' dataset <- Df2RJafrocDataset(fp, tp)
 #' retFit <- FitBinormalRoc(dataset);print(retFit$fittedPlot)
 #'
+#' ## Test with TONY data for which chisqr can be calculated
+#' ds <- DfFroc2Roc(dataset01)
+#' retFit <- FitBinormalRoc(ds, 2, 3);print(retFit$fittedPlot)
+#' retFit$ChisqrFitStats
 #' 
+#'  
 #' ## Test with included degenerate ROC data
 #' \dontrun{
 #' retFit <- FitBinormalRoc(datasetDegenerate);print(retFit$fittedPlot)
@@ -89,17 +94,12 @@ FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
   minZeta <- RJafrocEnv$minZeta 
   maxZeta <- RJafrocEnv$maxZeta 
   
-  modalityID <- dataset$modalityID[trt]
-  readerID <- dataset$modalityID[rdr]
-  
   fp <- dataset$NL[trt,rdr,,1];fp <- fp[fp != -Inf]
   tp <- dataset$LL[trt,rdr,,1]
   lenZetas <- length(unique(c(fp, tp))) - 1
   zetas <- array(dim = lenZetas)
   plotZeta <- seq(-3, 8, by = 0.1)
   
-  K1 <- length(fp)
-  K2 <- length(tp)
   ret1 <- RawOpPtsROC2ROC(fp, tp) 
   fpCounts <- ret1$fpCounts;tpCounts <- ret1$tpCounts;fpf <- ret1$fpf;tpf <- ret1$tpf
   
@@ -139,7 +139,7 @@ FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
   a <- aIni; b <- bIni;zetas <- zetasIni
   
   # while (1){  
-    param <- c(a, b, zetas)
+    #param <- c(a, b, zetas)
     namesVector <- c(c("aFwd", "bFwd"), paste0("zetaFwd", 1:length(zetas)))
     aFwd <- ForwardValue(a, minA, maxA)
     bFwd <- ForwardValue(b, minB, maxB)
@@ -171,7 +171,8 @@ FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
     
     covMat <- vcov[1:2,1:2]
     StdAUC <- StdDevBinormalAuc1(ret@coef[1], ret@coef[2], covMat) ## !!!dpc!!! looks right; can it be proved?  
-    ChisqrFitStats <- ChisqrGoodnessOfFitBm(zetas, a, b, fpCounts, tpCounts)
+    ChisqrFitStats <- ChisqrGoodnessOfFit(zetas, lesDistr = NULL, fpCounts, tpCounts, 
+                                            parameters = c(a,b), model = "BINORMAL")
     
     fpfPred <- 1 - pnorm(plotZeta)
     tpfPred <- pnorm(a - b * plotZeta)
@@ -187,7 +188,7 @@ FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
     ret <- mle2(BMNLLNewNoTransf, start = parameters, method = "BFGS", 
                 data = list(fi = fpCounts, ti = tpCounts))
     
-    NLLChk <- ret@min
+    # NLLChk <- ret@min
     
   #   if (NLLChk < NLLFin) {
   #     if (abs(NLLChk - NLLFin)/NLLFin > 1e-6) next else break
@@ -285,51 +286,5 @@ tempAucBinormal <- function (fwdParms){
 }
 
 
-#' @import stats
-ChisqrGoodnessOfFitBm <- function(zetas, a, b, fpCounts, tpCounts) {
-  fpf1 <- pnorm(-zetas/b)
-  tpf1 <-  pnorm(a-zetas)
-  fpExpProb <- c(1, fpf1) - c(fpf1, 0)
-  tpExpProb <- c(1, tpf1) - c(tpf1, 0)
-  
-  retComb1 <- CombBins(rbind(fpCounts, tpCounts), rbind(fpExpProb, tpExpProb))
-  retComb1 <- CombBins(retComb1$obs[c(2, 1), , drop = FALSE], retComb1$prob[c(2, 1), , drop = FALSE])
-  obs1 <- retComb1$obs[c(2, 1), , drop = FALSE]; exp1 <- retComb1$prob[c(2, 1), , drop = FALSE] * rowSums(obs1)
-  fpGoodness1 <- rbind(obs1[1, ], exp1[1, ])
-  tpGoodness1 <- rbind(obs1[2, ], exp1[2, ])
-  
-  retComb2 <- CombBins(rbind(tpCounts, fpCounts), rbind(tpExpProb, fpExpProb))
-  retComb2 <- CombBins(retComb2$obs[c(2, 1), , drop = FALSE], retComb2$prob[c(2, 1), , drop = FALSE])
-  obs2 <- retComb2$obs; exp2 <- retComb2$prob * rowSums(obs2)
-  fpGoodness2 <- rbind(obs2[1, ], exp2[1, ])
-  tpGoodness2 <- rbind(obs2[2, ], exp2[2, ])
-  
-  if (ncol(fpGoodness1) >= ncol(fpGoodness2)){
-    fpGoodness <- fpGoodness1
-    tpGoodness <- tpGoodness1
-    nBinsComb <- ncol(fpGoodness1)
-  }else{
-    fpGoodness <- fpGoodness2
-    tpGoodness <- tpGoodness2
-    nBinsComb <- ncol(fpGoodness2)
-  }
-  
-  if (nBinsComb > 3){
-    chisq <- sum((fpGoodness[1, ] - fpGoodness[2, ])^2/fpGoodness[2, ]) + 
-      sum((tpGoodness[1, ] - tpGoodness[2, ])^2/tpGoodness[2, ])
-    df <- nBinsComb - 3
-    pVal <- pchisq(chisq, df, lower.tail = FALSE)
-  }else{
-    chisq <- NA
-    pVal <- NA
-    df <- NA
-  }
-  
-  return(list(
-    chisq = chisq,
-    pVal = pVal,
-    df = df
-  ))
-}
 
 

@@ -1,15 +1,30 @@
-genericPlotROC <- function(fp, tp, fpfPred, tpfPred, errBar = TRUE, legendPosition = c(1,0)) {
-  K1 <- length(fp)
-  K2 <- length(tp)
+genericPlotROC <- function(fp, tp, fpfPred, tpfPred, method = "ROC") {
   ret1 <- RawOpPtsROC2ROC(fp, tp) 
   fpf <- ret1$fpf;tpf <- ret1$tpf
-
-  plotGeneric <- rbind(data.frame(fpf = fpfPred, tpf = tpfPred))
-  plotOpPnts <- rbind(data.frame(fpf = fpf, tpf = tpf))
+  
+  color <- "black"
+  ROCPred <- rbind(data.frame(fpf = fpfPred, tpf = tpfPred))
+  ROCOpPoints <- rbind(data.frame(fpf = fpf, tpf = tpf))  
+  dfROCPred <- data.frame(fpf = ROCPred$fpf, tpf = ROCPred$tpf, color = color, 
+                          type = "individual")
+  dfROCPoints <- data.frame(fpf = ROCOpPoints$fpf, tpf = ROCOpPoints$tpf, color = color, 
+                            type = "individual")
+  
   fittedPlot <- ggplot(mapping = aes(x = fpf, y = tpf), color = "black") + 
-    geom_line(data = plotGeneric, size = 1) + geom_point(data = plotOpPnts, size = 4) +
-    theme(legend.position=legendPosition)
-  if (errBar){
+    geom_line(data = dfROCPred, size = 1) + 
+    geom_point(data = dfROCPoints, size = 4)
+  
+  if (method == "RSM"){
+    ROCDashes <- rbind(data.frame(fpf = c(fpfPred[1], 1), tpf = c(tpfPred[1], 1)))
+    dfROCDashes <- data.frame(fpf = ROCDashes$fpf, tpf = ROCDashes$tpf, color = color, 
+                              type = "individual")
+    fittedPlot <- fittedPlot +
+      geom_line(data = dfROCDashes, linetype = 3, size = 2)
+  }
+  
+  if (TRUE){
+    K1 <- length(fp)
+    K2 <- length(tp)
     ciX <- binom.confint(x = fpf * K1, n = K1, methods = "exact")
     ciY <- binom.confint(x = tpf * K2, n = K2, methods = "exact")
     ciXUpper <- ciX$upper
@@ -30,7 +45,8 @@ genericPlotROC <- function(fp, tp, fpfPred, tpfPred, errBar = TRUE, legendPositi
         geom_line(data = barRgt, aes(x = fpf, y = tpf), color = "black") + 
         geom_line(data = barLft, aes(x = fpf, y = tpf), color = "black") + 
         geom_line(data = barUp, aes(x = fpf, y = tpf), color = "black") + 
-        geom_line(data = barBtm, aes(x = fpf, y = tpf), color = "black")
+        geom_line(data = barBtm, aes(x = fpf, y = tpf), color = "black") +
+        xlab("FPF") + ylab("TPF")
     }
   }
   return(

@@ -1,3 +1,5 @@
+#' @importFrom stats approx
+
 gpfMyFOM <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue = NULL) {
   if (!FOM %in% c("Wilcoxon", "HrAuc", "HrSe", "HrSp", "SongA1", 
                   "SongA2", "AFROC1", "AFROC", "wAFROC1", "wAFROC",

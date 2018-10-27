@@ -1,12 +1,12 @@
 {
     "dialog-state" : {
-        "caseSensitive" : false,
+        "caseSensitive" : true,
         "filePatterns" : [
             "*.r",
             "*.R"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "LrocFoms",
+        "query" : "###importFrom",
         "regex" : false
     }
 }

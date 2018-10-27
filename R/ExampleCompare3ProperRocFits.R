@@ -146,7 +146,7 @@ ExampleCompare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
           AllResIndx <- AllResIndx + 1
           retCbm <- FitCbmRoc(binnedRocData, trt = i, rdr = j)
           retRsm <- FitRsmRoc(binnedRocData, trt = i, rdr = j, lesDistr = lesDistr) # fit to RSM, need lesDistr matrix
-          retCbm1 <- retCbm[-10] # saving plots genrerates Note in R CMD CHK; file size too large
+          retCbm1 <- retCbm[-10] # deleting plots as they generate Notes in R CMD CHK -> file size too large
           retRsm1 <- retRsm[-11] #   do:
           aucProproc <- UtilAucPROPROC(c1[i,j], da[i,j])
           allResults[[AllResIndx]] <- list(retRsm = retRsm1, retCbm = retCbm1, lesDistr = lesDistr, 
@@ -240,20 +240,20 @@ gpfPlotRsmPropCbm <- function(fileName, mu, lambdaP, nuP, lesDistr, c1, da,
 
   ij <- paste0("D", fileName, ", i = ", i, ", j = ", j)
   Model <- NULL # to get around R CMD CHK throwing a Note
-  fitPlot <- ggplot(data = plotCurve) + 
-    geom_line(mapping = aes(x = FPF, y = TPF, color = Model), size = 2) + 
-    geom_line(data = dashedRsm, aes(x = FPF, y = TPF, color = Model), linetype = 3, size = 2) + 
-    scale_color_manual(values = c("red", "darkblue", "black")) # color corresponds to order of plots in plotCurve
-
-  fitPlot <- fitPlot + 
-    geom_point(mapping = aes(x = FPF, y = TPF), data = plotOp, size = 5) +
-    theme(legend.position = "none") + 
-    ggtitle(ij) + theme(plot.title = element_text(size = 20,face="bold"))
-
   FPF <- fpf
   TPF <- tpf
   FPF <- FPF[ciIndx]
   TPF <- TPF[ciIndx]
+  fitPlot <- ggplot(data = plotCurve) + 
+    geom_line(mapping = aes(x = FPF, y = TPF, color = Model), size = 2) + 
+    geom_line(data = dashedRsm, aes(x = FPF, y = TPF, color = Model), linetype = 3, size = 2) + 
+    scale_color_manual(values = c("red", "darkblue", "black")) # color corresponds to order of plots in plotCurve
+  
+  fitPlot <- fitPlot + 
+    geom_point(mapping = aes(x = FPF, y = TPF), data = plotOp, size = 5) +
+    theme(legend.position = "none") + 
+    ggtitle(ij) + theme(plot.title = element_text(size = 20,face="bold"))
+  
   ciX <- binom.confint(x = FPF * K1, n = K1, methods = "exact")
   ciY <- binom.confint(x = TPF * K2, n = K2, methods = "exact")
   ciXUpper <- ciX$upper

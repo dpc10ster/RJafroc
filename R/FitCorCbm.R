@@ -66,6 +66,7 @@
 #' @importFrom bbmle mle2
 #' @importFrom Rcpp cppFunction
 #' @importFrom mvtnorm pmvnorm
+#' @importFrom stats cor
 #'
 #' @export
 #'

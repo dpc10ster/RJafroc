@@ -10,10 +10,12 @@ Removed dependence on xlsx package, which requires rJava and JAVA, replaced with
 Corrected errors in UtilOutputReport function.
 Fixed bug in UtilOutputReport that was preventing overwriting of existing output file, even
    when the user keys "y" in response to prompt
-Added correlated contaminated binormal model (CORCBM) fitting and related functions to
+Added correlated contaminated binormal model, CORCBM, fitting and related functions to
    make package current with 2017 CORCBM publication.
 Fixed error in PlotEmpiricalCharacteristics.R that was giving incorrect plots for other than
    ROC and wAFROC plots
+Added ChisqrGoodnessOfFit function, replacing 3 functions
+Cleaned up plotting code; using one function genericPlotROC(.R) instead of 3 
    
 ==========================
 ## RJafroc 1.0.2

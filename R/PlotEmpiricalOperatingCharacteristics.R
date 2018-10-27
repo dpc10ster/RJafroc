@@ -512,7 +512,7 @@ ROCPoints <- function(NL, LL, modalityID, readerID, modalities2Plot, readers2Plo
 }
 
 
-
+#' @importFrom stats approx
 ####################################################################################################################
 AvgROCPoints <- function(NL, LL, modalityID, readerID, modalities2Plot, readers2Plot) {
   I <- length(modalities2Plot)
