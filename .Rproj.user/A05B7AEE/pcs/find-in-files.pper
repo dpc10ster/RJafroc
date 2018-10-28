@@ -5,7 +5,7 @@
             "*.r",
             "*.R"
         ],
-        "path" : "~/rjafroc-master",
+        "path" : "~/Documents/GitHub/rjafroc-master",
         "query" : "ChisqrGoodnessOfFit",
         "regex" : false
     }

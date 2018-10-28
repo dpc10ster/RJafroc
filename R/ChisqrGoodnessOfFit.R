@@ -2,14 +2,13 @@
 #'
 #' @description Compute the chisquare goodness of fit statistic for specified ROC data fitting model
 #'
-#' @usage ChisqrGoodnessOfFit(lesDistr, fpCounts, tpCounts, parameters, model)
+#' @usage ChisqrGoodnessOfFit(fpCounts, tpCounts, parameters, model, lesDistr)
 #'
-#' @param zetas The estimated thresholds of the fitting model
-#' @param lesDistr The lesion distribution matrix; \code{NA} for "BINORMAL" or "CBM"
 #' @param fpCounts The FP counts table
 #' @param tpCounts The TP counts table
 #' @param parameters The parameters of the model including cutoffs, see details
 #' @param model The fitting model: "BINORMAL", "CBM" or "RSM
+#' @param lesDistr The lesion distribution matrix; not needed for "BINORMAL" or "CBM" models
 #'
 #'
 #' @return The return value is a list with the following elements:
@@ -22,16 +21,12 @@
 #' For model = "BINORMAL" the parameters are c(a,b,zetas).
 #' For model = "CBM" the parameters are c(mu,alpha,zetas).
 #' For model = "RSM" the parameters are c(mu,lambdaP,nuP,zetas).
-#' For conventional ROC models, lesDistr should be \code{NULL}.
-#'
-#'
-#'
 #'
 #'
 #' @importFrom stats pchisq
 
 # general code replaces three functions; dpc 10/27/18
-ChisqrGoodnessOfFit <- function(lesDistr, fpCounts, tpCounts, parameters, model) {
+ChisqrGoodnessOfFit <- function(fpCounts, tpCounts, parameters, model,lesDistr) {
   if (model == "BINORMAL") {
     a <- parameters[1]
     b <- parameters[2]
