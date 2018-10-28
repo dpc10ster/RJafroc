@@ -6,7 +6,7 @@
             "*.R"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "###importFrom",
+        "query" : "ChisqrGoodnessOfFit",
         "regex" : false
     }
 }

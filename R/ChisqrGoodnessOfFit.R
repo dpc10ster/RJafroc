@@ -2,13 +2,13 @@
 #'
 #' @description Compute the chisquare goodness of fit statistic for specified ROC data fitting model
 #'
-#' @usage ChisqrGoodnessOfFit(zetas, lesDistr, fpCounts, tpCounts, parameters, model)
+#' @usage ChisqrGoodnessOfFit(lesDistr, fpCounts, tpCounts, parameters, model)
 #'
 #' @param zetas The estimated thresholds of the fitting model
 #' @param lesDistr The lesion distribution matrix; \code{NA} for "BINORMAL" or "CBM"
 #' @param fpCounts The FP counts table
 #' @param tpCounts The TP counts table
-#' @param parameters The parameters of the model, see details
+#' @param parameters The parameters of the model including cutoffs, see details
 #' @param model The fitting model: "BINORMAL", "CBM" or "RSM
 #'
 #'
@@ -19,9 +19,9 @@
 #' 
 #'
 #' @details
-#' For model = "BINORMAL" the parameters are c(a,b).
-#' For model = "CBM" the parameters are c(mu,alpha).
-#' For model = "RSM" the parameters are c(mu,lambdaP, nuP).
+#' For model = "BINORMAL" the parameters are c(a,b,zetas).
+#' For model = "CBM" the parameters are c(mu,alpha,zetas).
+#' For model = "RSM" the parameters are c(mu,lambdaP,nuP,zetas).
 #' For conventional ROC models, lesDistr should be \code{NULL}.
 #'
 #'
@@ -31,16 +31,18 @@
 #' @importFrom stats pchisq
 
 # general code replaces three functions; dpc 10/27/18
-ChisqrGoodnessOfFit <- function(zetas, lesDistr, fpCounts, tpCounts, parameters, model) {
+ChisqrGoodnessOfFit <- function(lesDistr, fpCounts, tpCounts, parameters, model) {
   if (model == "BINORMAL") {
     a <- parameters[1]
     b <- parameters[2]
+    zetas <- parameters[3:length(parameters)]
     fpf1 <- pnorm(-zetas/b)
     tpf1 <-  pnorm(a-zetas)
     minDfVal <- 3
   } else if (model == "CBM") {
     mu <- parameters[1]
     alpha <- parameters[2]
+    zetas <- parameters[3:length(parameters)]
     fpf1 <- pnorm(-zetas)
     tpf1 <- (1 - alpha) * pnorm(-zetas) + alpha * pnorm(mu-zetas)
     minDfVal <- 3
@@ -48,6 +50,7 @@ ChisqrGoodnessOfFit <- function(zetas, lesDistr, fpCounts, tpCounts, parameters,
     mu <- parameters[1]
     lambdaP <- parameters[2]
     nuP <- parameters[3]
+    zetas <- parameters[4:length(parameters)]
     fpf1 <- xROCVect(zetas, lambdaP)
     tpf1 <- yROCVect(zetas, mu, lambdaP, nuP, lesDistr)
     minDfVal <- 4

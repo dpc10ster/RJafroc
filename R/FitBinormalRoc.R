@@ -171,8 +171,8 @@ FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
     
     covMat <- vcov[1:2,1:2]
     StdAUC <- StdDevBinormalAuc1(ret@coef[1], ret@coef[2], covMat) ## !!!dpc!!! looks right; can it be proved?  
-    ChisqrFitStats <- ChisqrGoodnessOfFit(zetas, lesDistr = NULL, fpCounts, tpCounts, 
-                                            parameters = c(a,b), model = "BINORMAL")
+    ChisqrFitStats <- ChisqrGoodnessOfFit(lesDistr = NULL, fpCounts, tpCounts, 
+                                            parameters = c(a,b,zetas), model = "BINORMAL")
     
     fpfPred <- 1 - pnorm(plotZeta)
     tpfPred <- pnorm(a - b * plotZeta)

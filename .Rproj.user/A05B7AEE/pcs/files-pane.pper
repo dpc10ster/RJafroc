@@ -6,6 +6,10 @@
             "columnIndex" : 4
         },
         {
+            "ascending" : false,
+            "columnIndex" : 3
+        },
+        {
             "ascending" : true,
             "columnIndex" : 2
         }

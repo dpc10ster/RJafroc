@@ -260,8 +260,8 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
   if (!nearDeg) {
     covMat <- vcov[1:2,1:2]
     StdAUC <- StdDevCbmAuc(ret@coef[1], ret@coef[2], covMat) ## !!!dpc!!! looks right; can it be proved?
-    ChisqrFitStats <- ChisqrGoodnessOfFit(zetas, lesDistr = NULL, fpCounts, tpCounts,
-                                             parameters = c(mu, alpha), model = "CBM")
+    ChisqrFitStats <- ChisqrGoodnessOfFit(lesDistr = NULL, fpCounts, tpCounts,
+                                             parameters = c(mu,alpha,zetas), model = "CBM")
   } else {
     covMat <- NA
     StdAUC <- NA

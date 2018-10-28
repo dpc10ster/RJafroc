@@ -229,8 +229,8 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   covMat <- vcov[1:3,1:3]
   StdAUC <- StdDevRsmAuc(ret@coef[1], ret@coef[2], ret@coef[3], covMat, lesDistr = lesDistr) ## !!!dpc!!! looks right; can it be proved?  
   
-  ChisqrFitStats <- ChisqrGoodnessOfFit(zetas, lesDistr, fpCounts, tpCounts,
-                                        parameters = c(mu, lambdaP, nuP), model = "RSM")
+  ChisqrFitStats <- ChisqrGoodnessOfFit(lesDistr, fpCounts, tpCounts,
+                                        parameters = c(mu,lambdaP,nuP,zetas), model = "RSM")
   
   fpfPred <- sapply(plotZeta, xROC, lambdaP = lambdaP)
   tpfPred <- sapply(plotZeta, yROC, mu = mu, lambdaP = lambdaP, 

@@ -4,20 +4,20 @@
 \alias{ChisqrGoodnessOfFit}
 \title{Compute the chisquare goodness of fit statistic for ROC fitting model}
 \usage{
-ChisqrGoodnessOfFit(zetas, lesDistr, fpCounts, tpCounts, parameters, model)
+ChisqrGoodnessOfFit(lesDistr, fpCounts, tpCounts, parameters, model)
 }
 \arguments{
-\item{zetas}{The estimated thresholds of the fitting model}
-
 \item{lesDistr}{The lesion distribution matrix; \code{NA} for "BINORMAL" or "CBM"}
 
 \item{fpCounts}{The FP counts table}
 
 \item{tpCounts}{The TP counts table}
 
-\item{parameters}{The parameters of the model, see details}
+\item{parameters}{The parameters of the model including cutoffs, see details}
 
 \item{model}{The fitting model: "BINORMAL", "CBM" or "RSM}
+
+\item{zetas}{The estimated thresholds of the fitting model}
 }
 \value{
 The return value is a list with the following elements:
@@ -32,8 +32,8 @@ The return value is a list with the following elements:
 Compute the chisquare goodness of fit statistic for specified ROC data fitting model
 }
 \details{
-For model = "BINORMAL" the parameters are c(a,b).
-For model = "CBM" the parameters are c(mu,alpha).
-For model = "RSM" the parameters are c(mu,lambdaP, nuP).
+For model = "BINORMAL" the parameters are c(a,b,zetas).
+For model = "CBM" the parameters are c(mu,alpha,zetas).
+For model = "RSM" the parameters are c(mu,lambdaP,nuP,zetas).
 For conventional ROC models, lesDistr should be \code{NULL}.
 }
