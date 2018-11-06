@@ -174,9 +174,13 @@ ExampleCompare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
           next
         }
       }
-      # safety comments
-      ##sysSavFileName <- paste0("/Users/Dev/RJafroc/inst/ANALYZED/RSM6/", retFileName)
-      ##save(allResults, file = sysSavFileName)
+      ### safety comments
+      ### to update allResults, make sure correct path is defined below
+      ### in git version it is rjafroc-master; in CRAN version it is rjafroc
+      ### uncomment the following two statements and run ret <- ExampleCompare3ProperRocFits(reAnalyze = TRUE)
+      ### the sytem files are updated on next build (the writes occur to savFileName, which are used to update system files) 
+      # savFileName <- paste0("/Users/Dev/rjafroc-master/inst/ANALYZED/RSM6/", retFileName) # git version
+      # save(allResults, file = savFileName)
     } else {
       load(sysAnalFileName)
       AllResIndx <- 0

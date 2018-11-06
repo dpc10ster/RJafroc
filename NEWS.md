@@ -15,7 +15,10 @@ Added correlated contaminated binormal model, CORCBM, fitting and related functi
 Fixed error in PlotEmpiricalCharacteristics.R that was giving incorrect plots for other than
    ROC and wAFROC plots
 Added ChisqrGoodnessOfFit function, replacing 3 functions
-Cleaned up plotting code; using one function genericPlotROC(.R) instead of 3 
+Cleaned up plotting code; using one function genericPlotROC(.R) instead of 3
+Updated results of CBM, PROPROC and RSM fitting after discovering error in df
+   calculation in RSM chisquare statistic; book results are wrong; only 2/236 fits
+   yield a valid chisquare statistic
    
 ==========================
 ## RJafroc 1.0.2
