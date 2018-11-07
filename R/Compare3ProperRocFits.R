@@ -6,7 +6,7 @@
 #'    fits obtained using Windows software downloaded from the Univ. of 
 #'    Iowa ROC website ca. June 2017.
 #' 
-#' @usage ExampleCompare3ProperRocFits(startIndx = 1, endIndx = 14, 
+#' @usage Compare3ProperRocFits(startIndx = 1, endIndx = 14, 
 #'    showPlot = FALSE, saveProprocLrcFile = FALSE, reAnalyze = FALSE) 
 #' 
 #' @param startIndx An integer in the range 1 to 14.
@@ -22,17 +22,27 @@
 #'    is \code{FALSE} in which case the previously saved results are used.
 #' 
 #' 
-#' @return The returned value \code{allResults} is a \code{list} containing all
-#'    results from the three parametric model fits. See details. 
+#' @return The returned value is a list of 2:
+#'    \code{allDatasetsResults} containing the fitting results and 
+#'    \code{allBinnedDatasets} containing the binned datasets used in the fitting.
+#'    See details. 
 #' 
-#' 
-#' @details allResults is a list-array with length equal to 
+#' @details allDatasetsResults is a list-array of length 
 #'    (\code{endIndx} - \code{startIndx} + 1), where each element of the list-array 
-#'    consists of 10 elements, see above. For example, \code{allResults[[1]]} 
-#'    corresponds to 
-#'    the dataset corresponding to \code{startIndx}. \code{allResults[[2]]} 
-#'    corresponds to the dataset corresponding to \code{startIndx+1}, etc.
-#' A specific member, e.g., \code{allResults[[1]]}, has the following structure:   
+#'    is a list with 10 elements. 
+#'    
+#' \itemize{
+#' \item{\code{allDatasetsResults[[1]][[1]]}}{parameters of treatment 1 reader 1 in dataset \code{startIndx}}
+#' \item{\code{allDatasetsResults[[1]][[2]]}}{parameters of treatment 1 reader 2 in dataset \code{startIndx}}
+#' \item{\code{allDatasetsResults[[1]][[IJ]]}}{parameters of treatment \code{I} reader \code{J} in dataset \code{startIndx}}
+#' \item{\code{allDatasetsResults[[2]][[1]]}}{parameters of treatment 1 reader 1 in dataset \code{startIndx+1}}
+#' \item{\code{allDatasetsResults[[2]][[2]]}}{parameters of treatment 1 reader 2 in dataset \code{startIndx+1}}
+#' \item{\code{allDatasetsResults[[2]][[IJ]]}}{parameters of treatment \code{I} reader \code{J} in dataset \code{startIndx+1}}
+#' \item{\code{allBinnedDatasets[[1]]}}{binned ROC dataset corresponding to dataset \code{startIndx}}
+#' \item{\code{allDatasetsResults[[2]][[IJ]]}}{binned ROC dataset corresponding to dataset  \code{startIndx+1}}
+#' }
+#'    
+#' A specific member, e.g., \code{allDatasetsResults[[1]][[1]]}, has the following structure:   
 #' \itemize{
 #' \item{\code{retRsm}}{ The RSM parameters following the output structure of \link{FitRsmRoc}}
 #' \item{\code{retCbm}}{ The CBM parameters following the output structure of \link{FitCbmRoc}}
@@ -50,33 +60,27 @@
 #' The PROPROC parameters were obtained by running Windows software OR 
 #'    DBM-MRMC 2.50 (Sept. 04, 2014, Build 4) with \strong{PROPROC} and 
 #'    \strong{area} selected. The \code{RSM} and \code{CBM} fits are implemented
-#'    in this package. The corresponding returned objects contain all relevant 
-#'    parameters. Chapter 18 of the author's book has further details. 
+#'    in this package. Chapter 19 of the author's book has further details. 
 #'    If \code{saveProprocLrcFile} 
-#'    is \code{TRUE}, the \code{.lrc} files will be written to the \code{File-Panes}
-#'    directory, \strong{overwriting} any existing files with the same names.
+#'    is \code{TRUE}, the \code{.lrc} files will be written to the \code{inst-MRMCRuns}
+#'    directory, to appropriate subdirectory, \strong{overwriting} any existing files.
 #' 
-#' ##  DPC notes on updating the results 2/17/18
-#' ##  First run PROPROC on all datasets
-#' ##  1. ret14 <- ExampleCompare3ProperRocFits(saveProprocLrcFile = TRUE) 
-#' ##     this generates 14 .lrc files in RJafroc
-#' ##  2. Move these files to VmWareShared folder
-#' ##  3. Start VmWare and Windows 8
-#' ##  4. Start OR DBM MRMC, select .lrc file, select PROPROC AUC and RUN ALL
-#' ##  5. Repeat for each dataset
-#' ##  6. Move 2 files (ending with .lroc and PROPROC area pooled.csv) from 
-#' ##     VmWareShared to RJafroc/inst/MRMCRuns to appropriate subdirectories.
-#' ##  7. Remove spaces in names of all "proproc area pooled.csv" files  
-#' ##  8. ret14 <- ExampleCompare3ProperRocFits(reAnalyze = TRUE) 
-#' ##     this generates new results files in RJafroc/inst/ANALYZED/RSM6
-#' ##
 #'  
 #' @examples
 #' \dontrun{
-#' ExampleCompare3ProperRocFits(1,1)$allResults
+#' ret <- Compare3ProperRocFits(1,2,reAnalyze = TRUE) # analyze first two datasets
+#' x <- ret$allDatasetsResults
+#' str(x[[1]][[1]]) # parameters for dataset 1 trt 1 and rdr 1
+#' str(x[[1]][[2]]) # parameters for dataset 1 trt 1 and rdr 2
+#' str(x[[1]][[10]])# parameters for dataset 1 trt 2 and rdr 5
+#' str(x[[1]][[11]])# error
+#' str(x[[2]][[1]]) # parameters for dataset 2 trt 1 and rdr 1
+#' str(x[[2]][[2]]) # parameters for dataset 2 trt 1 and rdr 2
+#' str(x[[2]][[10]])# parameters for dataset 2 trt 2 and rdr 5
+#' str(x[[3]][[1]]) # error
+#' 
 #' }
 #'
-#' 
 #' 
 #' @references 
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
@@ -90,10 +94,23 @@
 #' Acad Radiol \bold{7}, 427--437.
 #'  
 #' @export
-#' 
-ExampleCompare3ProperRocFits <- function(startIndx = 1, endIndx = 14, 
+Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14, 
                                          showPlot = FALSE, saveProprocLrcFile = FALSE, reAnalyze = FALSE)
 {
+  ####  DPC notes on updating the results 2/17/18
+  ####  First run PROPROC on all datasets
+  ####  1. ret14 <- Compare3ProperRocFits(saveProprocLrcFile = TRUE) 
+  ####     this generates 14 .lrc files in RJafroc
+  ####  2. Move these files to VmWareShared folder
+  ####  3. Start VmWare and Windows 8
+  ####  4. Start OR DBM MRMC, select .lrc file, select PROPROC AUC and RUN ALL
+  ####  5. Repeat for each dataset
+  ####  6. Move 2 files (ending with .lroc and PROPROC area pooled.csv) from 
+  ####     VmWareShared to RJafroc/inst/MRMCRuns to appropriate subdirectories.
+  ####  7. Remove spaces in names of all "proproc area pooled.csv" files  
+  ####  8. ret14 <- Compare3ProperRocFits(reAnalyze = TRUE) 
+  ####     this generates new results files in RJafroc/inst/ANALYZED/RSM6
+  ####
   options(warn = 2) # warnings as errors
   fileNames <-  c("TONY", "VD", "FR", 
                   "FED", "JT", "MAG", 
@@ -101,8 +118,9 @@ ExampleCompare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
                   "RUS", "DOB1", "DOB2", 
                   "DOB3", "FZR")
   if (!(startIndx %in% seq(1,14) && endIndx %in% seq(1,14))) stop("illegal values for startIndx and/ or endIndx")
-  AllBinnedDatasets <- as.list(array(dim = endIndx - startIndx + 1))
-  count <- 0
+  allBinnedDatasets <- as.list(array(dim = endIndx - startIndx + 1))
+  allDatasetsResults <- as.list(array(dim = endIndx - startIndx + 1)) # to prevent overwriting allResults with last dataset
+  #count <- 0
   for (f in startIndx:endIndx) {
     fileName <- fileNames[f]
     theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects
@@ -174,10 +192,13 @@ ExampleCompare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
           next
         }
       }
+      allDatasetsResults[[f-startIndx + 1]] <- allResults
+      allBinnedDatasets[[f-startIndx + 1]] <- binnedRocData
+      cat("\n")
       ### safety comments
       ### to update allResults, make sure correct path is defined below
       ### in git version it is rjafroc-master; in CRAN version it is rjafroc
-      ### uncomment the following two statements and run ret <- ExampleCompare3ProperRocFits(reAnalyze = TRUE)
+      ### uncomment the following two statements and run ret <- Compare3ProperRocFits(reAnalyze = TRUE)
       ### the sytem files are updated on next build (the writes occur to savFileName, which are used to update system files) 
       # savFileName <- paste0("/Users/Dev/rjafroc-master/inst/ANALYZED/RSM6/", retFileName) # git version
       # save(allResults, file = savFileName)
@@ -209,14 +230,15 @@ ExampleCompare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
           next
         }
       }
-      count <- count + 1
-      AllBinnedDatasets[[count]] <- binnedRocData
+      #count <- count + 1
+      allDatasetsResults[f-startIndx + 1] <- allResults
+      allBinnedDatasets[f-startIndx + 1] <- binnedRocData
       cat("\n\n\n")
     }
   }
   return(list(
-    allResults = allResults,
-    AllBinnedDatasets = AllBinnedDatasets
+    allDatasetsResults = allDatasetsResults,
+    allBinnedDatasets = allBinnedDatasets
   ))
 }
 

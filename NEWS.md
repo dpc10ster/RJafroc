@@ -19,6 +19,8 @@ Cleaned up plotting code; using one function genericPlotROC(.R) instead of 3
 Updated results of CBM, PROPROC and RSM fitting after discovering error in df
    calculation in RSM chisquare statistic; book results are wrong; only 2/236 fits
    yield a valid chisquare statistic
+Renamed ExampleCompare3ProperRocFits() to Compare3ProperRocFits()
+Corrected overwriting error in value returned by Compare3ProperRocFits()
    
 ==========================
 ## RJafroc 1.0.2

@@ -5,8 +5,8 @@
             "*.r",
             "*.R"
         ],
-        "path" : "~/Documents/GitHub/rjafroc-master",
-        "query" : "ChisqrGoodnessOfFit",
+        "path" : "~/rjafroc-master/R",
+        "query" : "revdep",
         "regex" : false
     }
 }

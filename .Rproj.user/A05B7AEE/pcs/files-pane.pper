@@ -1,6 +1,10 @@
 {
-    "path" : "~/rjafroc-master/inst/ANALYZED/RSM6",
+    "path" : "~/rjafroc-master",
     "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        },
         {
             "ascending" : false,
             "columnIndex" : 4
@@ -8,10 +12,6 @@
         {
             "ascending" : false,
             "columnIndex" : 3
-        },
-        {
-            "ascending" : true,
-            "columnIndex" : 2
         }
     ]
 }
