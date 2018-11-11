@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Dev P. Chakraborty" />
+
+<meta name="date" content="2018-11-11" />
+
+<title>RJafroc Documentation</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">RJafroc Documentation</h1>
+<h4 class="author"><em>Dev P. Chakraborty</em></h4>
+<h4 class="date"><em>2018-11-11</em></h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This vignette is intended for those seeking a quick transiton from Windows <em>JAFROC</em> to <em>RJafroc</em>. It is assumed that the user is familiar with the <em>JAFROC</em> data format and can analyze a dataset using the Windows program. First, let me describe the structure in <code>R</code> of an <code>RJafroc</code> dataset. Later I will tell you how to read a <em>JAFROC</em> format file to create an <code>RJafroc</code> dataset.</p>
+</div>
+<div id="an-roc-dataset" class="section level2">
+<h2>An ROC dataset</h2>
+<p>Let us start with a predefined dataset <code>{dataset3}</code> corresponding to the Franken ROC data. Let us examine the structure of this dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(dataset03)
+<span class="co">#&gt; List of 8</span>
+<span class="co">#&gt;  $ NL          : num [1:2, 1:4, 1:100, 1] 3 3 4 3 3 ...</span>
+<span class="co">#&gt;  $ LL          : num [1:2, 1:4, 1:67, 1] 5 5 4 4 5 4 4 5 2 2 ...</span>
+<span class="co">#&gt;  $ lesionNum   : int [1:67] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ lesionID    : num [1:67, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ lesionWeight: num [1:67, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ dataType    : chr &quot;ROC&quot;</span>
+<span class="co">#&gt;  $ modalityID  : Named chr [1:2] &quot;0&quot; &quot;1&quot;</span>
+<span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;0&quot; &quot;1&quot;</span>
+<span class="co">#&gt;  $ readerID    : Named chr [1:4] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot;</span>
+<span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:4] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot;</span></code></pre></div>
+<p>It shows a list with 8 members. The false positive ratings are contained in <code>{NL}</code>, an array with dimensions <code>[1:2,1:4,1:100,1]</code>. The first index corresponds to treatments, and since the dataset has 2 treatments, the corresponding dimension is 2. The second index corresponds to readers, and since the dataset has 4 readers, the corresponding dimension is 4. The third index corresponds to the total number of cases. Since the dataset has 100 cases, the corresponding dimension is 100. But, as you can see from the code below, the entries in this array for cases 34 through 100 are <code>-Inf</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataset03<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">34</span><span class="op">:</span><span class="dv">100</span>,<span class="dv">1</span>]
+<span class="co">#&gt;  [1] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf</span>
+<span class="co">#&gt; [15] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf</span>
+<span class="co">#&gt; [29] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf</span>
+<span class="co">#&gt; [43] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf</span>
+<span class="co">#&gt; [57] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf</span></code></pre></div>
+<p>This is because in the ROC paradigm false positive are not possible on diseased cases. So the actual FP ratings are contained in the first 33 elements of the array. How did I know that there are 34 non-diseased cases? This can be understood in several ways.</p>
+<ul>
+<li><code>LL</code> is an array with dimensions <code>[1:2,1:4,1:67,1]</code>. This implies 67 diseased cases, and by subtraction from 100, there must be 34 non-diseased cases.</li>
+<li>The list members <code>lesionNum</code>, <code>lesionID</code> and <code>lesionWeight</code> are all arrays with dimensions <code>[1:67,1]</code> containing ones. Again, these imply 67 diseased cases.</li>
+<li>The fields <code>lesionNum</code>, <code>lesionID</code> and <code>lesionWeight</code>, while not needed for ROC data, are needed, as we shall see later, for the FROC paradigm.</li>
+</ul>
+<p>The <code>dataType</code> list member is the character string <code>&quot;ROC&quot;</code>, characterizing the ROC dataset. Alternatives are <code>&quot;FROC&quot;</code> and <code>&quot;LROC&quot;</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataset03<span class="op">$</span>dataType
+<span class="co">#&gt; [1] &quot;ROC&quot;</span></code></pre></div>
+<p>The <code>modalityID</code> list member is a character string with two entries, “0” and “1”, corresponding to the two treatments (i.e., modalities). These can be longer strings, if you please, that label the two treatments.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataset03<span class="op">$</span>modalityID
+<span class="co">#&gt;   0   1 </span>
+<span class="co">#&gt; &quot;0&quot; &quot;1&quot;</span></code></pre></div>
+<p>The <code>readerID</code> list member is a character string with four entries, “0”, “1”, “2” and “3” corresponding to the four readers. These can be longer strings that label the four readers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataset03<span class="op">$</span>readerID
+<span class="co">#&gt;   0   1   2   3 </span>
+<span class="co">#&gt; &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot;</span></code></pre></div>
+<p>Here are the actual ratings for cases 1:34.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataset03<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">34</span>,<span class="dv">1</span>]
+<span class="co">#&gt;  [1]    3 -Inf    2    2    2    2    2    4 -Inf -Inf    4    2 -Inf    2</span>
+<span class="co">#&gt; [15]    4    2 -Inf    2 -Inf    2    4    2    3    2    2    2    4    3</span>
+<span class="co">#&gt; [29]    2    2    2    5    3 -Inf</span></code></pre></div>
+<p>This says that for treatment 1 and reader 1, (non-diseased) case 1 was rated 3, case 3 was rated 2, case 8 was rated 4, etc. The <code>-Inf</code> corresponds to the cases rated 1, which is is equivalent to a 1-rating. The reason for this is that the ratings are ordered labels. As far as the ordering is concerned, nothing is changed be replacing <code>-Inf</code> with 1 and vice-versa.</p>
+<p>As another example, for treatment 2 and reader 3,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataset03<span class="op">$</span>NL[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">34</span>,<span class="dv">1</span>]
+<span class="co">#&gt;  [1]    3 -Inf    2    2    2    2    4    4    2    3    2    2 -Inf    3</span>
+<span class="co">#&gt; [15]    2    4    2    3    2    2    2    2    2    4    2    2 -Inf    2</span>
+<span class="co">#&gt; [29]    2    2    2    4    2 -Inf</span></code></pre></div>
+<p>As you can see, there are no cases that are explicitly rated 1, so changing the <code>-Inf</code> to 1 does not change the ordering of the ratings.</p>
+</div>
+<div id="creating-a-dataset-from-a-jafroc-format-file" class="section level2">
+<h2>Creating a dataset from a JAFROC format file</h2>
+<p>There is a file <code>includedRocData.xlsx</code> that is part of the package intallation. Since it is a system file one must get its name as follows.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fileName &lt;-<span class="st"> &quot;includedRocData.xlsx&quot;</span>
+sysFileName &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="kw">paste0</span>(<span class="st">&quot;extdata/&quot;</span>,fileName), <span class="dt">package =</span> <span class="st">&quot;RJafroc&quot;</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>Next, one uses DfReadDataFile() as follows, assuming it is a JAFROC format file.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds &lt;-<span class="st"> </span><span class="kw">DfReadDataFile</span>(sysFileName)</code></pre></div>
+<p>Now ds is the desired dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(ds)
+<span class="co">#&gt; List of 8</span>
+<span class="co">#&gt;  $ NL          : num [1:2, 1:5, 1:114, 1] 1 3 2 3 2 2 1 2 3 2 ...</span>
+<span class="co">#&gt;  $ LL          : num [1:2, 1:5, 1:45, 1] 5 5 5 5 5 5 5 5 5 5 ...</span>
+<span class="co">#&gt;  $ lesionNum   : int [1:45] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ lesionID    : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ lesionWeight: num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ dataType    : chr &quot;ROC&quot;</span>
+<span class="co">#&gt;  $ modalityID  : Named chr [1:2] &quot;0&quot; &quot;1&quot;</span>
+<span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;0&quot; &quot;1&quot;</span>
+<span class="co">#&gt;  $ readerID    : Named chr [1:5] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...</span>
+<span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:5] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...</span></code></pre></div>
+<p>Analysis is illustrated for <code>dataset03</code>, but one could have used the newly created dataset <code>ds</code>.</p>
+</div>
+<div id="analyzing-the-roc-dataset" class="section level2">
+<h2>Analyzing the ROC dataset</h2>
+<p>This illustrates the <code>StSignificanceTesting()</code> function. The significance testing method is specified as <code>&quot;DBMH&quot;</code> and the figure of merit <code>FOM</code> is specified as “Wilcoxon”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(dataset03, <span class="dt">method =</span> <span class="st">&quot;DBMH&quot;</span>, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>)
+<span class="kw">print</span>(ret)
+<span class="co">#&gt; $fomArray</span>
+<span class="co">#&gt;           Rdr - 0   Rdr - 1   Rdr - 2   Rdr - 3</span>
+<span class="co">#&gt; Trt - 0 0.8534600 0.8649932 0.8573044 0.8152420</span>
+<span class="co">#&gt; Trt - 1 0.8496156 0.8435097 0.8401176 0.8143374</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $anovaY</span>
+<span class="co">#&gt;   Source           SS  DF          MS</span>
+<span class="co">#&gt; 1      T   0.02356541   1 0.023565410</span>
+<span class="co">#&gt; 2      R   0.20521800   3 0.068406000</span>
+<span class="co">#&gt; 3      C  52.52839868  99 0.530589886</span>
+<span class="co">#&gt; 4     TR   0.01506079   3 0.005020264</span>
+<span class="co">#&gt; 5     TC   6.41004881  99 0.064747968</span>
+<span class="co">#&gt; 6     RC  39.24295381 297 0.132131158</span>
+<span class="co">#&gt; 7    TRC  22.66007764 297 0.076296558</span>
+<span class="co">#&gt; 8  Total 121.08532315 799          NA</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $anovaYi</span>
+<span class="co">#&gt;   Source  DF          0          1</span>
+<span class="co">#&gt; 1      R   3 0.04926635 0.02415991</span>
+<span class="co">#&gt; 2      C  99 0.29396753 0.30137032</span>
+<span class="co">#&gt; 3     RC 297 0.10504787 0.10337984</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $varComp</span>
+<span class="co">#&gt;                  varComp</span>
+<span class="co">#&gt; Var(R)      3.775568e-05</span>
+<span class="co">#&gt; Var(C)      5.125091e-02</span>
+<span class="co">#&gt; Var(T*R)   -7.127629e-04</span>
+<span class="co">#&gt; Var(T*C)   -2.887147e-03</span>
+<span class="co">#&gt; Var(R*C)    2.791730e-02</span>
+<span class="co">#&gt; Var(Error)  7.629656e-02</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fRRRC</span>
+<span class="co">#&gt; [1] 4.694058</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ddfRRRC</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $pRRRC</span>
+<span class="co">#&gt; [1] 0.1188379</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtRRRC</span>
+<span class="co">#&gt;   Treatment   Estimate      StdErr DF        t    Pr &gt; t     CI Lower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span>
+<span class="co">#&gt;     CI Upper</span>
+<span class="co">#&gt; 1 0.02679926</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciAvgRdrEachTrtRRRC</span>
+<span class="co">#&gt;   Treatment      Area     StdErr        DF  CI Lower  CI Upper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.02440215  70.12179 0.7990828 0.8964170</span>
+<span class="co">#&gt; 2         1 0.8368951 0.02356642 253.64403 0.7904843 0.8833058</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fFRRC</span>
+<span class="co">#&gt; [1] 0.363956</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ndf</span>
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ddfFRRC</span>
+<span class="co">#&gt; [1] 99</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $pFRRC</span>
+<span class="co">#&gt; [1] 0.547697</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtFRRC</span>
+<span class="co">#&gt;   Treatment   Estimate     StdErr DF         t   Pr &gt; t    CI Lower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span>
+<span class="co">#&gt;     CI Upper</span>
+<span class="co">#&gt; 1 0.04655638</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciAvgRdrEachTrtFRRC</span>
+<span class="co">#&gt;   Treatment      Area     StdErr DF  CI Lower  CI Upper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.02710939 99 0.7939590 0.9015408</span>
+<span class="co">#&gt; 2         1 0.8368951 0.02744860 99 0.7824311 0.8913591</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ssAnovaEachRdr</span>
+<span class="co">#&gt;   Source DF            0           1           2            3</span>
+<span class="co">#&gt; 1      T  1 7.389761e-04  0.02307702  0.01476929 4.091217e-05</span>
+<span class="co">#&gt; 2      C 99 2.018360e+01 22.12074893 21.21043057 2.825657e+01</span>
+<span class="co">#&gt; 3     TC 99 9.064315e+00  7.94764631  6.06166901 5.996496e+00</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $msAnovaEachRdr</span>
+<span class="co">#&gt;   Source DF            0          1          2            3</span>
+<span class="co">#&gt; 1      T  1 0.0007389761 0.02307702 0.01476929 4.091217e-05</span>
+<span class="co">#&gt; 2      C 99 0.2038747746 0.22344191 0.21424677 2.854199e-01</span>
+<span class="co">#&gt; 3     TC 99 0.0915587344 0.08027926 0.06122898 6.057067e-02</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtEachRdr</span>
+<span class="co">#&gt;   Reader Treatment     Estimate     StdErr DF          t    Pr &gt; t</span>
+<span class="co">#&gt; 1      0     0 - 1 0.0038444143 0.04279223 99 0.08983908 0.9285966</span>
+<span class="co">#&gt; 2      1     0 - 1 0.0214834916 0.04006975 99 0.53615233 0.5930559</span>
+<span class="co">#&gt; 3      2     0 - 1 0.0171867933 0.03499399 99 0.49113552 0.6244176</span>
+<span class="co">#&gt; 4      3     0 - 1 0.0009045681 0.03480536 99 0.02598933 0.9793182</span>
+<span class="co">#&gt;      CI Lower   CI Upper</span>
+<span class="co">#&gt; 1 -0.08106465 0.08875348</span>
+<span class="co">#&gt; 2 -0.05802359 0.10099057</span>
+<span class="co">#&gt; 3 -0.05224888 0.08662247</span>
+<span class="co">#&gt; 4 -0.06815683 0.06996596</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fRRFC</span>
+<span class="co">#&gt; [1] 4.694058</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ddfRRFC</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $pRRFC</span>
+<span class="co">#&gt; [1] 0.1188379</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtRRFC</span>
+<span class="co">#&gt;   Treatment   Estimate      StdErr DF        t    Pr &gt; t     CI Lower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span>
+<span class="co">#&gt;     CI Upper</span>
+<span class="co">#&gt; 1 0.02679926</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciAvgRdrEachTrtRRFC</span>
+<span class="co">#&gt;   Treatment      Area     StdErr DF  CI Lower  CI Upper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.01109801  3 0.8124311 0.8830687</span>
+<span class="co">#&gt; 2         1 0.8368951 0.00777173  3 0.8121620 0.8616282</span></code></pre></div>
+</div>
+<div id="explanation-of-the-output" class="section level2">
+<h2>Explanation of the output</h2>
+<p>The function returns a long unwieldy list. Let us consider them one by one. The function <code>UtilOutputReport()</code> can generate an Excel file report, making it much easier to visualize the results. This is described in another vignette.</p>
+<div id="foms" class="section level3">
+<h3>FOMs</h3>
+<ul>
+<li><code>fomArray</code> contains the <code>[1:2,1:4]</code> FOM values.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>fomArray
+<span class="co">#&gt;           Rdr - 0   Rdr - 1   Rdr - 2   Rdr - 3</span>
+<span class="co">#&gt; Trt - 0 0.8534600 0.8649932 0.8573044 0.8152420</span>
+<span class="co">#&gt; Trt - 1 0.8496156 0.8435097 0.8401176 0.8143374</span></code></pre></div>
+<p>This shows the 2 x 4 array of FOM values.</p>
+</div>
+<div id="pseudovalue-anova-table" class="section level3">
+<h3>Pseudovalue ANOVA table</h3>
+<ul>
+<li><code>anovaY</code>, where the Y denotes that these are pseudovalue based, is the ANOVA table.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>anovaY
+<span class="co">#&gt;   Source           SS  DF          MS</span>
+<span class="co">#&gt; 1      T   0.02356541   1 0.023565410</span>
+<span class="co">#&gt; 2      R   0.20521800   3 0.068406000</span>
+<span class="co">#&gt; 3      C  52.52839868  99 0.530589886</span>
+<span class="co">#&gt; 4     TR   0.01506079   3 0.005020264</span>
+<span class="co">#&gt; 5     TC   6.41004881  99 0.064747968</span>
+<span class="co">#&gt; 6     RC  39.24295381 297 0.132131158</span>
+<span class="co">#&gt; 7    TRC  22.66007764 297 0.076296558</span>
+<span class="co">#&gt; 8  Total 121.08532315 799          NA</span></code></pre></div>
+</div>
+<div id="pseudovalue-anova-table-each-treatment" class="section level3">
+<h3>Pseudovalue ANOVA table, each treatment</h3>
+<ul>
+<li><code>anovaYi</code> is the ANOVA table for individual treatments.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>anovaYi
+<span class="co">#&gt;   Source  DF          0          1</span>
+<span class="co">#&gt; 1      R   3 0.04926635 0.02415991</span>
+<span class="co">#&gt; 2      C  99 0.29396753 0.30137032</span>
+<span class="co">#&gt; 3     RC 297 0.10504787 0.10337984</span></code></pre></div>
+<p>The 0 and 1 headers come from the treatment names.</p>
+</div>
+<div id="pseudovalue-variance-components" class="section level3">
+<h3>Pseudovalue Variance Components</h3>
+<ul>
+<li><code>varComp</code> is the variance components (needed for sample size estimation).</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>varComp
+<span class="co">#&gt;                  varComp</span>
+<span class="co">#&gt; Var(R)      3.775568e-05</span>
+<span class="co">#&gt; Var(C)      5.125091e-02</span>
+<span class="co">#&gt; Var(T*R)   -7.127629e-04</span>
+<span class="co">#&gt; Var(T*C)   -2.887147e-03</span>
+<span class="co">#&gt; Var(R*C)    2.791730e-02</span>
+<span class="co">#&gt; Var(Error)  7.629656e-02</span></code></pre></div>
+</div>
+<div id="random-reader-random-case-rrrc-analysis" class="section level3">
+<h3>Random-reader random-case (RRRC) analysis</h3>
+<ul>
+<li><code>fRRRC</code> is the F-statistic for testing the NH that the treatments have identical FOMs. RRRC means random-reader random-case generalization.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>fRRRC
+<span class="co">#&gt; [1] 4.694058</span></code></pre></div>
+<div id="f-statistic-and-p-value-for-rrrc-analysis" class="section level4">
+<h4>F-statistic and p-value for RRRC analysis</h4>
+<ul>
+<li><code>ddffRRRC</code> is the denominator degrees of freedom of the F-statistic.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ddffRRRC
+<span class="co">#&gt; NULL</span></code></pre></div>
+<ul>
+<li><code>pRRRC</code> is the p-value of the test.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>pRRRC
+<span class="co">#&gt; [1] 0.1188379</span></code></pre></div>
+</div>
+<div id="confidence-intervals-for-rrrc-analysis" class="section level4">
+<h4>Confidence Intervals for RRRC analysis</h4>
+<ul>
+<li><code>ciDiffTrtRRRC</code> is the 95% confidence interval of reader-averaged differences between treatments.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ciDiffTrtRRRC
+<span class="co">#&gt;   Treatment   Estimate      StdErr DF        t    Pr &gt; t     CI Lower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span>
+<span class="co">#&gt;     CI Upper</span>
+<span class="co">#&gt; 1 0.02679926</span></code></pre></div>
+<ul>
+<li><code>ciAvgRdrEachTrtRRRC</code> is the 95% confidence interval of reader-averaged FOMs for each treatments.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ciAvgRdrEachTrtRRRC
+<span class="co">#&gt;   Treatment      Area     StdErr        DF  CI Lower  CI Upper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.02440215  70.12179 0.7990828 0.8964170</span>
+<span class="co">#&gt; 2         1 0.8368951 0.02356642 253.64403 0.7904843 0.8833058</span></code></pre></div>
+</div>
+</div>
+<div id="fixed-reader-random-case-frrc-analysis" class="section level3">
+<h3>Fixed-reader random-case (FRRC) analysis</h3>
+<div id="f-statistic-and-p-value-for-rrrc-analysis-1" class="section level4">
+<h4>F-statistic and p-value for RRRC analysis</h4>
+<ul>
+<li><code>fFRRC</code> is the F-statistic for fixed-reader random-case analysis.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>fFRRC
+<span class="co">#&gt; [1] 0.363956</span></code></pre></div>
+<ul>
+<li><code>ndf</code> is the numerator degrees of freedom of the F-statistic, always one less than the number of treatments.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ndf
+<span class="co">#&gt; [1] 1</span></code></pre></div>
+<ul>
+<li><code>ddfFRRC</code> is the denominator degreesof freedom of the F-statistic, for fixed-reader random-case analysis.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ddfFRRC
+<span class="co">#&gt; [1] 99</span></code></pre></div>
+<ul>
+<li><code>pFRRC</code> is the p-value for fixed-reader random-case analysis.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>pFRRC
+<span class="co">#&gt; [1] 0.547697</span></code></pre></div>
+</div>
+<div id="confidence-intervals-for-frrc-analysis" class="section level4">
+<h4>Confidence Intervals for FRRC analysis</h4>
+<ul>
+<li><code>ciDiffTrtFRRC</code> is the 95% CI of reader-average differences between treatments for fixed-reader random-case analysis</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ciDiffTrtFRRC
+<span class="co">#&gt;   Treatment   Estimate     StdErr DF         t   Pr &gt; t    CI Lower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span>
+<span class="co">#&gt;     CI Upper</span>
+<span class="co">#&gt; 1 0.04655638</span></code></pre></div>
+<ul>
+<li><code>ciAvgRdrEachTrtRRFC</code> is the 95% CI of reader-average FOMs of each treatment for fixed-reader random-case analysis</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ciAvgRdrEachTrtRRFC
+<span class="co">#&gt;   Treatment      Area     StdErr DF  CI Lower  CI Upper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.01109801  3 0.8124311 0.8830687</span>
+<span class="co">#&gt; 2         1 0.8368951 0.00777173  3 0.8121620 0.8616282</span></code></pre></div>
+</div>
+<div id="anova-for-frrc-analysis" class="section level4">
+<h4>ANOVA for FRRC analysis</h4>
+<ul>
+<li><code>ssAnovaEachRdr</code> is the sum of squares ANOVA for each reader</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ssAnovaEachRdr
+<span class="co">#&gt;   Source DF            0           1           2            3</span>
+<span class="co">#&gt; 1      T  1 7.389761e-04  0.02307702  0.01476929 4.091217e-05</span>
+<span class="co">#&gt; 2      C 99 2.018360e+01 22.12074893 21.21043057 2.825657e+01</span>
+<span class="co">#&gt; 3     TC 99 9.064315e+00  7.94764631  6.06166901 5.996496e+00</span></code></pre></div>
+<ul>
+<li><code>msAnovaEachRdr</code> is the mean squares ANOVA for each reader</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>msAnovaEachRdr
+<span class="co">#&gt;   Source DF            0          1          2            3</span>
+<span class="co">#&gt; 1      T  1 0.0007389761 0.02307702 0.01476929 4.091217e-05</span>
+<span class="co">#&gt; 2      C 99 0.2038747746 0.22344191 0.21424677 2.854199e-01</span>
+<span class="co">#&gt; 3     TC 99 0.0915587344 0.08027926 0.06122898 6.057067e-02</span></code></pre></div>
+</div>
+<div id="confidence-intervals-for-frrc-analysis-1" class="section level4">
+<h4>Confidence Intervals for FRRC analysis</h4>
+<ul>
+<li><code>ciDiffTrtFRRC</code> is the CI for reader-averaged treatment differences, for fixed-reader random-case analysis</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ciDiffTrtFRRC
+<span class="co">#&gt;   Treatment   Estimate     StdErr DF         t   Pr &gt; t    CI Lower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span>
+<span class="co">#&gt;     CI Upper</span>
+<span class="co">#&gt; 1 0.04655638</span></code></pre></div>
+</div>
+</div>
+<div id="random-reader-fixed-case-rrfc-analysis" class="section level3">
+<h3>Random-reader fixed-case (RRFC) analysis</h3>
+<div id="f-statistic-and-p-value-for-rrfc-analysis" class="section level4">
+<h4>F-statistic and p-value for RRFC analysis</h4>
+<ul>
+<li><code>fRRFC</code> is the F-statistic for for random-reader fixed-case analysis</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>fRRFC
+<span class="co">#&gt; [1] 4.694058</span></code></pre></div>
+<ul>
+<li><code>ddfRRFC</code> is the ddf for for random-reader fixed-case analysis</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ddfRRFC
+<span class="co">#&gt; [1] 3</span></code></pre></div>
+<ul>
+<li><code>pRRFC</code> is the p-value for for random-reader fixed-case analysis</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>pRRFC
+<span class="co">#&gt; [1] 0.1188379</span></code></pre></div>
+</div>
+<div id="confidence-intervals-for-rrfc-analysis" class="section level4">
+<h4>Confidence Intervals for RRFC analysis</h4>
+<ul>
+<li><code>ciDiffTrtRRFC</code> is the CI for reader-averaged inter-treatment FOM differences for random-reader fixed-case analysis</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ciDiffTrtRRFC
+<span class="co">#&gt;   Treatment   Estimate      StdErr DF        t    Pr &gt; t     CI Lower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span>
+<span class="co">#&gt;     CI Upper</span>
+<span class="co">#&gt; 1 0.02679926</span></code></pre></div>
+<ul>
+<li><code>ciAvgRdrEachTrtRRFC</code> is the CI for treatment FOMs for each reader for random-reader fixed-case analysis</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ciAvgRdrEachTrtRRFC
+<span class="co">#&gt;   Treatment      Area     StdErr DF  CI Lower  CI Upper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.01109801  3 0.8124311 0.8830687</span>
+<span class="co">#&gt; 2         1 0.8368951 0.00777173  3 0.8121620 0.8616282</span></code></pre></div>
+</div>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

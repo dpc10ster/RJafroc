@@ -1,4 +1,4 @@
-#' Extract a subset of modalities and readers from a dataset
+#' Extract a subset of treatments and readers from a dataset
 #' 
 #' @description Extract a dataset consisting of a subset of treatments/readers from a larger dataset 
 #' 
@@ -7,12 +7,12 @@
 #' 
 #' @param dataset The original dataset from which the subset is to be extracted;
 #'    can be ROC, FROC or LROC
-#' @param trts A vector contains the indices of the modalities to be extracted. 
-#'    \strong{If this parameter is not supplied, all modalities are extracted.}
+#' @param trts A vector contains the indices of the treatments to be extracted. 
+#'    \strong{If this parameter is not supplied, all treatments are extracted.}
 #' @param rdrs A vector contains the indices of the readers to be extracted. 
 #'    \strong{If this parameter is not supplied, all readers are extracted.}
 #' 
-#' @return A new dataset containing only the specified modalities and readers that were
+#' @return A new dataset containing only the specified treatments and readers that were
 #' extracted from the original dataset
 #' 
 #' @details \strong{Note} that \code{trts} and \code{rdrs} are the vectors of \strong{indices} 
@@ -21,11 +21,11 @@
 #' 
 #' @examples 
 #' ## Extract the data corresponding to the second reader in the 
-#' ## first modality from an included ROC dataset
+#' ## first treatment from an included ROC dataset
 #' dataset1_2 <- DfExtractDataset(dataset05, trts = 1, rdrs = 2)
 #' 
 #' ## Extract the data of the first and third reader in all 
-#' ## modality from the included ROC dataset
+#' ## treatment from the included ROC dataset
 #' datasetA_123 <- DfExtractDataset(dataset05, rdrs = c(1, 3))
 #' 
 #' @export
@@ -36,7 +36,7 @@ DfExtractDataset <- function(dataset, trts, rdrs){
     if (all(trts <= I)){
       I <- length(trts)
     }else{
-      stop("Modality index/indices cannot exceed the total number of modalities in the original dataset.")
+      stop("Modality index/indices cannot exceed the total number of treatments in the original dataset.")
     }
   }else{
     trts <- 1:I

@@ -1,7 +1,7 @@
 #' Fit the contaminated binormal model (CBM) to selected treatment and 
 #'    reader in an ROC dataset
 #'
-#' @description Fit the CBM-predicted ROC curve for specified modality and reader
+#' @description Fit the CBM-predicted ROC curve for specified treatment and reader
 #'
 #' @usage FitCbmRoc(dataset, trt = 1, rdr = 1)
 #'

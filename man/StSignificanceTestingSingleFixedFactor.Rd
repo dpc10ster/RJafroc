@@ -8,7 +8,7 @@ StSignificanceTestingSingleFixedFactor (dataset,
    FOM = "wAFROC", alpha = 0.05)
 }
 \arguments{
-\item{dataset}{A single-modality or single-reader dataset.}
+\item{dataset}{A single-treatment or single-reader dataset.}
 
 \item{FOM}{The figure of merit, default  \code{"wAFROC"}, 
 see \link{UtilFigureOfMerit}.}
@@ -36,8 +36,8 @@ The return value is a list containing:
 }
 \description{
 Significance testing for datasets with single reader in 
-   multiple (at least two) modalities, or single modality with multiple 
-   (at least two) readers, where reader or modality, respectively, is 
+   multiple (at least two) treatments, or single treatment with multiple 
+   (at least two) readers, where reader or treatment, respectively, is 
    regarded as a fixed factor and a common case-set, regarded as random, 
    is assumed.
 }
@@ -48,10 +48,10 @@ This function performs implements Hillis et al. 2005, Eqn. 23.
    significant, the F-test must also be significant.}
 }
 \examples{
-## Create a single modality ROC dataset with one modality and four readers
+## Create a single treatment ROC dataset with one treatment and four readers
 singleFactorData <- DfExtractDataset(dataset02, 1, 1:4)
 
-## Performs single modality fixed reader analysis
+## Performs single treatment fixed reader analysis
 StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "Wilcoxon")
 
 }

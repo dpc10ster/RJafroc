@@ -26,13 +26,13 @@ The return value is a list containing three objects:
 Fit the Correlated Contaminated Binormal Model (CORCBM) 
    to a paired ROC dataset.
    The \strong{ROC} dataset has to be formatted as a 
-   \strong{single modality}, \strong{two-reader} dataset, even though the actual 
+   \strong{single treatment}, \strong{two-reader} dataset, even though the actual 
    pairing may be different, see details.
 }
 \details{
 The conditions (X, Y) can be two readers interpreting images in the same 
-   modality, the same reader interpreting images in different modalities, or 
-   different readers interpreting images in 2 different modalities. Function 
+   treatment, the same reader interpreting images in different treatments, or 
+   different readers interpreting images in 2 different treatments. Function 
    \link{DfExtractCorCbmDataset} can be used to construct a dataset suitable for 
    \code{FitCorCbm}. With reference to the returned values, and assuming R bins 
    in condition X and L bins in conditon Y, 

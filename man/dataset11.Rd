@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:115, 20], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:115, 20] weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID}}{ [1:4] "1" "2" ..., modality labels}
+\item{\code{modalityID}}{ [1:4] "1" "2" ..., treatment labels}
 \item{\code{readerID}}{ [1:5] "1" "2" ..., reader labels}
 }}
 \usage{
@@ -28,7 +28,7 @@ The case set consisted of 158 subjects, of which 43 were non-diseased and
 the rest had 1 - 20 pulmonary nodules independently verified, using with CT 
 images, by 3 experts who did not participate in the observer study. The 
 study used FROC paradigm data collection. There are 
-4 modalities labeled 1 - 4 (conventional chest x-ray, CXR, CXR augmented
+4 treatments labeled 1 - 4 (conventional chest x-ray, CXR, CXR augmented
 with dual-energy (CXR+DE), VolumeRad digital tomosynthesis images and 
 VolumeRad augmented with DE (VolumeRad+DE).
 }

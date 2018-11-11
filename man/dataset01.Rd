@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:89, 1:2], labels of lesions on diseased cases}
 \item{\code{lesionWeight}}{ array [1:89, 1:2], weights (or clinical importance) of lesions}
 \item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID}}{ [1:2] "BT" "DM", modality labels}
+\item{\code{modalityID}}{ [1:2] "BT" "DM", treatment labels}
 \item{\code{readerID}}{ [1:5] "1" "2" "3" "4" ..., reader labels}
 }}
 \usage{
@@ -20,11 +20,11 @@ dataset01
 }
 \description{
 This is referred to in the book as the "TONY" dataset. It consists of 185 cases, 
-89 of which are diseased, interpreted in two modalities
+89 of which are diseased, interpreted in two treatments
 ("BT" = breast tomosynthesis and "DM" = digital mammography) by five radiologists using the FROC paradigm. 
 The diseased cases had at most two cancers (lesions) per case while the maximum number of 
 non-lesion localizations (NLs) per case, over the entire dataset, was 3. The example below displays
-the wAFROC plot for the first modality and first reader.
+the wAFROC plot for the first treatment and first reader.
 }
 \examples{
 str(dataset01)

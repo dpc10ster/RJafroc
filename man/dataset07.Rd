@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:81, 1:3], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:81, 1:3] weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID}}{ [1:5] "1" "2", ..., modality labels}
+\item{\code{modalityID}}{ [1:5] "1" "2", ..., treatment labels}
 \item{\code{readerID}}{ [1:7] "1" "2" ..., reader labels}
 }}
 \usage{
@@ -20,7 +20,7 @@ dataset07
 }
 \description{
 This is referred to in the book as the "OPT" dataset (for OptiMam). It consists of 162 cases, 
-81 of which are diseased, interpreted in five modalities (see reference, basically different ways
+81 of which are diseased, interpreted in five treatments (see reference, basically different ways
 of acquiring the images) by seven radiologists using the FROC paradigm.
 }
 \examples{

@@ -2,33 +2,33 @@
 % Please edit documentation in R/DfReadCrossedModalities.R
 \name{DfReadCrossedModalities}
 \alias{DfReadCrossedModalities}
-\title{Read a crossed-modality data file}
+\title{Read a crossed-treatment data file}
 \usage{
 DfReadCrossedModalities (fileName, renumber = FALSE)
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file that contains the dataset, 
 which must be an extended-JAFROC format data file containing an 
-additional modality factor.}
+additional treatment factor.}
 
 \item{renumber}{If \code{TRUE}, consecutive integers (starting from 1) will be used 
-as the modality and reader IDs. Otherwise, modality and reader IDs in the 
+as the treatment and reader IDs. Otherwise, treatment and reader IDs in the 
 original data file will be used. The default is \code{FALSE}.}
 }
 \value{
 A dataset with the specified structure, similar to a standard 
-   \pkg{RJafroc}(see \link{RJafroc-package}). Because of the extra modality factor, 
+   \pkg{RJafroc}(see \link{RJafroc-package}). Because of the extra treatment factor, 
    \code{NL} and \code{LL} are each five dimensional arrays. There are also two 
-   modality IDS: \code{modalityID1} and \code{modalityID2}.
+   treatment IDS: \code{modalityID1} and \code{modalityID2}.
 }
 \description{
-Read an crossed-modality data file, in which the 
-two modality factors are crossed
+Read an crossed-treatment data file, in which the 
+two treatment factors are crossed
 }
 \details{
 The data format is  similar to the JAFROC format (see \link{RJafroc-package}). 
-   The notable difference is that there are two modality factors. A sample crossed 
-   modality file "includedCrossedModalitiesData.xlsx" is in the \code{inst\\extdata} 
+   The notable difference is that there are two treatment factors. A sample crossed 
+   treatment file "includedCrossedModalitiesData.xlsx" is in the \code{inst\\extdata} 
    subdirectory of \code{RJafroc}.
 }
 \examples{
@@ -44,7 +44,7 @@ str(crossedData)
 \references{
 Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
 methods and x-ray tube current-time product  on nodule detection in an 
-anthropomorphic thorax phantom: a crossed-modality JAFROC observer study. 
+anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study. 
 Medical Physics. 43(3):1265-1274.
 
 Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 

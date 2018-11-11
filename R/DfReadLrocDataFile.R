@@ -14,7 +14,7 @@
 #'    with the \strong{crucial difference} that there are two types of LL (TP) events: 
 #'    those representing correct localizations and those representing incorrect 
 #'    localizations. Also, every diseased case has one lesion and NLs are not possible 
-#'    on diseased cases. \code{J} is one plus the number of readers. The first modality 
+#'    on diseased cases. \code{J} is one plus the number of readers. The first treatment 
 #'    is CAD, followed by the readers. 
 #'
 #' @return The \strong{LROC} dataset. 
@@ -29,7 +29,7 @@
 #' \item{\code{lesionID}}{ array [1:K2], as in standard JAFROC/ROC format dataset, ones}
 #' \item{\code{lesionWeight}}{ array [1:K2], weights (or clinical importances) of lesions}
 #' \item{\code{dataType}}{ "LROC", the data type}
-#' \item{\code{modalityID}}{ [1:I], modality labels}
+#' \item{\code{modalityID}}{ [1:I], treatment labels}
 #' \item{\code{readerID}}{ [1:J], reader labels}
 #' }
 #'

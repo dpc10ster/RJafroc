@@ -3,7 +3,7 @@
 \docType{data}
 \name{datasetCrossedModality}
 \alias{datasetCrossedModality}
-\title{John Thompson crossed modality FROC dataset}
+\title{John Thompson crossed treatment FROC dataset}
 \format{A list with 9 elements:
 \itemize{
 \item{\code{NL}}{ Ratings array [1:2, 1:4, 1:11, 1:68, 1:5], of non-lesion localizations, NLs}
@@ -12,17 +12,17 @@
 \item{\code{lesionID}}{ array [1:34, 3], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:34, 3] weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID1}}{ [1:2] "F" "I", modality labels}
-\item{\code{modalityID2}}{ [1:4] "20" "40"  "60"  "80", modality labels}
+\item{\code{modalityID1}}{ [1:2] "F" "I", treatment labels}
+\item{\code{modalityID2}}{ [1:4] "20" "40"  "60"  "80", treatment labels}
 \item{\code{readerID}}{ [1:11] "1" "10" "11" ..., reader labels}
 }}
 \usage{
 datasetCrossedModality
 }
 \description{
-This is a crossed modality dataset, see book Section 18.5. There are two modality factors. 
-The first modality factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
-algorithms. The second modality factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
+This is a crossed treatment dataset, see book Section 18.5. There are two treatment factors. 
+The first treatment factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
+algorithms. The second treatment factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
 represent the mAs values of the image acquisition. The factors are fully crossed. The function 
 \link{StSignificanceTestingCrossedModalities} analyzes such datasets.
 }
@@ -34,7 +34,7 @@ str(datasetCrossedModality)
 \references{
 Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
 methods and x-ray tube current-time product  on nodule detection in an 
-anthropomorphic thorax phantom: a crossed-modality JAFROC observer study. 
+anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study. 
 Medical Physics. 43(3):1265-1274.
 }
 \keyword{datasets}

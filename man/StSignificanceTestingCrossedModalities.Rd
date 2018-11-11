@@ -2,15 +2,15 @@
 % Please edit documentation in R/StSignificanceTestingCrossedModalities.R
 \name{StSignificanceTestingCrossedModalities}
 \alias{StSignificanceTestingCrossedModalities}
-\title{Perform significance testing using crossed modalities analysis}
+\title{Perform significance testing using crossed treatments analysis}
 \usage{
 StSignificanceTestingCrossedModalities(crossedData, avgIndx, FOM = "wAFROC", 
 alpha = 0.05, option = "ALL")
 }
 \arguments{
-\item{crossedData}{The crossed modalities dataset}
+\item{crossedData}{The crossed treatments dataset}
 
-\item{avgIndx}{The index of the modality to be averaged over}
+\item{avgIndx}{The index of the treatment to be averaged over}
 
 \item{FOM}{See \link{StSignificanceTesting}.}
 
@@ -22,8 +22,8 @@ alpha = 0.05, option = "ALL")
 The return list contains the same items with \link{StSignificanceTesting}.
 }
 \description{
-Performs ORH analysis for specified crossed modalities dataset 
-   averaged over specified modality factor
+Performs ORH analysis for specified crossed treatments dataset 
+   averaged over specified treatment factor
 }
 \examples{
 \dontrun{ 

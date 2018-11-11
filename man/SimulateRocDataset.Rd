@@ -21,7 +21,7 @@ SimulateRocDataset(K1, K2, a, b, seed = NULL)
 An ROC dataset
 }
 \description{
-Simulates a binormal model ROC dataset for a single modality and reader
+Simulates a binormal model ROC dataset for a single treatment and reader
 }
 \details{
 See book Chapter 6 for details

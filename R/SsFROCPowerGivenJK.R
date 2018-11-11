@@ -10,9 +10,9 @@
 #' #' 
 #' #' @param dataset The pilot dataset to be analyzed, see \link{RJafroc-package},
 #' #'    for variability information. The dataType can be "ROC", "FROC", or "LROC".
-#' #' @param trts The indices of the modalities in the pilot dataset that
-#' #'    will be regarded as representative of null hypothesis modalities. 
-#' #'    Two or more modalities, specified by indices, e.g., c(1,2,3).
+#' #' @param trts The indices of the treatments in the pilot dataset that
+#' #'    will be regarded as representative of null hypothesis treatments. 
+#' #'    Two or more treatments, specified by indices, e.g., c(1,2,3).
 #' #' @param rdrs The indices of the readers  in the pilot dataset
 #' #'    that will be regarded as representative of the NH readers;
 #' #'    this can be used for example to exclude an atypical reader.
@@ -28,7 +28,7 @@
 #' #'    power using wAFROC methodology.}
 #' #' 
 #' #' ## potential project for summer student
-#' #' @note The pilot dataset must have at least 2 modalities; this is a
+#' #' @note The pilot dataset must have at least 2 treatments; this is a
 #' #'    temporary limitation to be removed in a future update
 #' #'    
 #' #'    

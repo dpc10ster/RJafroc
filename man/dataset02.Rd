@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:45, 1], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:45, 1], weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ [1:2] "0" "1", modality labels}
+\item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
 \item{\code{readerID}}{ [1:5] "0" "1" "2" ..., reader labels}
 }}
 \usage{
@@ -20,13 +20,13 @@ dataset02
 }
 \description{
 This is referred to in the book as the "VD" dataset. It consists of 114 cases,
-   45 of which are diseased, interpreted in two modalities ("0" = single spin echo 
+   45 of which are diseased, interpreted in two treatments ("0" = single spin echo 
    MRI, "1" = cine-MRI) by five radiologists using the ROC 
    paradigm. Each diseased cases had an aortic dissection; the ROC paradigm 
    generates one rating per case.  Often referred to in the ROC literature as the 
    Van Dyke dataset, which, along with the Franken dataset, has been widely 
    used to illustrate advances in ROC methodology. The example below displays 
-   the ROC plot for the first modality and first reader.
+   the ROC plot for the first treatment and first reader.
 }
 \examples{
 str(dataset02)

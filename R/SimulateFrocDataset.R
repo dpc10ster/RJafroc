@@ -1,7 +1,7 @@
 #' Simulates an MRMC uncorrelated FROC dataset using the RSM
 #' 
 #' @description  Simulates an uncorrelated MRMC FROC dataset for specified numbers of
-#'    readers and modalities 
+#'    readers and treatments 
 #' 
 #' @usage SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, lesionNum) 
 #' 
@@ -9,7 +9,7 @@
 #' @param lambda The intrinsic lambda parameter of the RSM (not the physical parameter)
 #' @param nu     The intrinsic nu parameter of the RSM (not the physical parameter)
 #' @param zeta1  The lowest reporting threshold
-#' @param I      The number of modalities
+#' @param I      The number of treatments
 #' @param J      The number of readers
 #' @param K1     The number of non-diseased cases
 #' @param K2     The number of diseased cases

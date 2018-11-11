@@ -41,7 +41,7 @@ list with the following elements:
 
 \item{varR}{The variance of the radiologists}
 
-\item{varError}{The variance of the error term in the single-modality 
+\item{varError}{The variance of the error term in the single-treatment 
    multiple-reader OR model}
 
 \item{cov2}{The covariance of the error term}
@@ -104,7 +104,7 @@ If \code{method = "dualModality"} the return value is a list
 }
 \description{
 Significance testing, comparing CAD vs. a group of radiologists 
-   interpreting the same cases, an example of single modality analysis
+   interpreting the same cases, an example of single treatment analysis
 }
 \details{
 PCL is the probability of a correct localization. The LROC is the plot of PCL 
@@ -113,16 +113,16 @@ PCL is the probability of a correct localization. The LROC is the plot of PCL
    under the LROC
    from FPF = 0 to FPF = \code{FPFValue}. If \code{method = "singleModality"} 
    the first \strong{reader} is assumed to be CAD. If 
-   \code{method = "dualModality"} the first \strong{modality} is assumed to be CAD. 
+   \code{method = "dualModality"} the first \strong{treatment} is assumed to be CAD. 
    The NH is that the FOM of CAD equals the average of the readers. The 
    \code{method = "singleModality"} analysis uses an adaptation of the 
-   single-modality multiple-reader Obuchowski Rockette (OR) model described in a 
+   single-treatment multiple-reader Obuchowski Rockette (OR) model described in a 
    paper by Hillis (2007), section 5.3. The adaptation is characterized by 3 
    parameters
    \code{VarR}, \code{Var} and \code{Cov2}, which are returned by the function. 
    The \code{method = "dualModality"} analysis replicates CAD data as many times as
-   necessary so as to form one "modality" of an MRMC pairing, the other 
-   "modality" being the 
+   necessary so as to form one "treatment" of an MRMC pairing, the other 
+   "treatment" being the 
    radiologists. Standard RRRC DBMH/ORH analysis is applied. The 
    method, described 
    in Kooi et al gives exactly the same final results (F-statistic, ddf and p-value) 

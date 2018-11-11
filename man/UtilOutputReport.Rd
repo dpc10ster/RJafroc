@@ -43,8 +43,8 @@ Excel file, respectively.}
 \item{nBoots}{See \link{StSignificanceTesting}.}
 
 \item{renumber}{A logical variable: if \code{TRUE}, consecutive integers 
-(staring from 1) will be used as the modality and reader IDs in the 
-output report. Otherwise, modality and reader IDs in the original data 
+(staring from 1) will be used as the treatment and reader IDs in the 
+output report. Otherwise, treatment and reader IDs in the original data 
 file will be used. This option may be needed for aesthetics.}
 
 \item{overwrite}{A \code{logical} variable: if \code{FALSE}, a warning will 

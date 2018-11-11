@@ -61,7 +61,7 @@ A specific member, e.g., \code{allDatasetsResults[[1]][[1]]}, has the following 
 \item{\code{c1}}{ The \code{c}-parameter of PROPROC}
 \item{\code{da}}{ The \code{d_sub_a} parameter of PROPROC}
 \item{\code{aucProp}}{ The \code{PROPROC} AUC}
-\item{\code{I}}{ The number of modalities}
+\item{\code{I}}{ The number of treatments}
 \item{\code{J}}{ The number of readers}
 \item{\code{K1}}{ The number of non-diseased cases}
 \item{\code{K2}}{ The number of diseased cases}

@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:40, 1], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:40, 1], weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ [1:3] "1" "2" "3", modality labels}
+\item{\code{modalityID}}{ [1:3] "1" "2" "3", treatment labels}
 \item{\code{readerID}}{ [1:8] "1" "2" ..., reader labels}
 }}
 \usage{
@@ -21,7 +21,7 @@ dataset10
 \description{
 This is referred to in the book as the "RUS" dataset. It consists of 90 cases, 
 40 of which are diseased, the images were
-acquired at three dose levels, which can be regarded as modalities.
+acquired at three dose levels, which can be regarded as treatments.
 "0" = conventional film radiographs, "1" = digitized  images viewed on monitors, Eight 
 radiologists interpreted the cases using the FROC paradigm. These have been reduced to 
 ROC data by using the highest ratings (the original FROC data is lost).

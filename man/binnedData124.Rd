@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:5000, 1], lesions labels on diseased cases, all set to one}
 \item{\code{lesionWeight}}{ array [1:5000, 1], weights, all set to one}
 \item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ "1", modality label}
+\item{\code{modalityID}}{ "1", treatment label}
 \item{\code{readerID}}{ [1:2] "1" "2",  reader labels}
 }}
 \usage{

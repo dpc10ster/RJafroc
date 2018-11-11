@@ -47,12 +47,12 @@ figure of merit. The default is 0.2.}
 \value{
 For \code{method = "DBMH"}  the returned value is a list with 22 members:
 
-\item{fomArray}{The figure of merit array for each modality-reader 
+\item{fomArray}{The figure of merit array for each treatment-reader 
    combination}
 
-\item{anovaY}{The ANOVA table of the pseudovalues over all modalities}
+\item{anovaY}{The ANOVA table of the pseudovalues over all treatments}
 
-\item{anovaYi}{The ANOVA table of the pseudovalues for each modality}
+\item{anovaYi}{The ANOVA table of the pseudovalues for each treatment}
 
 \item{varComp}{The variance components of the pseudovalue model underlying 
    the analysis, 6 values, in the following order: c("Var(R)", "Var(C)", 
@@ -68,10 +68,10 @@ For \code{method = "DBMH"}  the returned value is a list with 22 members:
    test of the NH}
 
 \item{ciDiffTrtRRRC}{For RRRC analysis, the confidence intervals and related 
-   test statistics for the FOM differences between pairs of modalities}
+   test statistics for the FOM differences between pairs of treatments}
 
 \item{ciAvgRdrEachTrtRRRC}{For RRRC analysis, the confidence intervals 
-   and related test statistics for rdr. avg. FOM in each modality}
+   and related test statistics for rdr. avg. FOM in each treatment}
 
 \item{fFRRC}{For \strong{fixed-reader random-case} (FRRC) analysis, the 
    F-statistic for rejecting the NH}
@@ -83,10 +83,10 @@ For \code{method = "DBMH"}  the returned value is a list with 22 members:
    test of the NH}
 
 \item{ciDiffTrtFRRC}{For FRRC analysis, the confidence intervals and related 
-   test statistics for the FOM differences between pairs of modalities}
+   test statistics for the FOM differences between pairs of treatments}
 
 \item{ciAvgRdrEachTrtFRRC}{For FRRC analysis, the confidence intervals and 
-   related tests for rdr. avg. FOM in each modality}
+   related tests for rdr. avg. FOM in each treatment}
 
 \item{ssAnovaEachRdr}{The sum of squares table of the ANOVA of the 
    pseudovalues for each reader (based on data for the specified reader)}
@@ -95,7 +95,7 @@ For \code{method = "DBMH"}  the returned value is a list with 22 members:
    pseudovalues for each reader (based on data for the specified reader)}
 
 \item{ciDiffTrtEachRdr}{The confidence intervals and related tests of the 
-   FOM differences between pairs of modalities for each reader}
+   FOM differences between pairs of treatments for each reader}
 
 \item{fRRFC}{For \strong{random-reader fixed-case} (RRFC) analysis, 
    the F statistic}
@@ -106,10 +106,10 @@ For \code{method = "DBMH"}  the returned value is a list with 22 members:
 \item{pRRFC}{For RRFC analysis, the p-value for rejecting the NH}
 
 \item{ciDiffTrtRRFC}{For RRFC analysis, the confidence intervals and 
-   related test statistics for the FOM differences between pairs of modalities}
+   related test statistics for the FOM differences between pairs of treatments}
 
 \item{ciAvgRdrEachTrtRRFC}{For RRFC analysis, the confidence intervals 
-   and related tests for reader averaged FOM in each modality}
+   and related tests for reader averaged FOM in each treatment}
 
 For method = "ORH" the return value is a list with with 21 members:
 

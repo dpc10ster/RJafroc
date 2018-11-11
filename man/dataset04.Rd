@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:100, 1:3], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:100, 1:3] weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID}}{ [1:5] "1" "2" ... modality labels}
+\item{\code{modalityID}}{ [1:5] "1" "2" ... treatment labels}
 \item{\code{readerID}}{ [1:4] "1" "3" "4" "5" reader labels}
 }}
 \usage{
@@ -21,7 +21,7 @@ dataset04
 \description{
 This is referred to in the book as the "FED" dataset. It consists of 200 mammograms, 
 100 of which contained one to 3 simulated microcalcifications,
-interpreted in five modalities (basically different image processing algorithms), by four 
+interpreted in five treatments (basically different image processing algorithms), by four 
 radiologists using the FROC paradigm. The maximum number of NLs per case, over the entire 
 dataset was 7 and the dataset contained at least one diseased mammogram with 3 lesions.
 }

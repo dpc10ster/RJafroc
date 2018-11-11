@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:80, 1], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:80, 1], weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ [1] "1" modality label}
+\item{\code{modalityID}}{ [1] "1" treatment label}
 \item{\code{readerID}}{ [1:10] "1" "2" ..., reader labels}
 }}
 \usage{
@@ -23,7 +23,7 @@ This is referred to in the book as the "NICO" dataset. It consists of 200 mammog
 80 of which contain one malignant mass, 
 interpreted by a CAD system and nine radiologists using the 
 LROC paradigm. The first reader is CAD. The highest rating method was used to convert this to an ROC 
-dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this \strong{one-modality}
+dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this \strong{one-treatment}
 data requires methods described in the book, specifically, the function  
 \link{StSignificanceTestingSingleFixedFactor} analyzes such datasets.
 }

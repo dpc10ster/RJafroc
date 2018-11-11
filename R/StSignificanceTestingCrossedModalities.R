@@ -1,14 +1,14 @@
-#' Perform significance testing using crossed modalities analysis
+#' Perform significance testing using crossed treatments analysis
 #' 
-#' @description  Performs ORH analysis for specified crossed modalities dataset 
-#'    averaged over specified modality factor
+#' @description  Performs ORH analysis for specified crossed treatments dataset 
+#'    averaged over specified treatment factor
 #' 
 #' @usage StSignificanceTestingCrossedModalities(crossedData, avgIndx, FOM = "wAFROC", 
 #' alpha = 0.05, option = "ALL") 
 #' 
 #' 
-#' @param crossedData The crossed modalities dataset
-#' @param avgIndx The index of the modality to be averaged over
+#' @param crossedData The crossed treatments dataset
+#' @param avgIndx The index of the treatment to be averaged over
 #' @param FOM See \link{StSignificanceTesting}.
 #' @param alpha See \link{StSignificanceTesting}.
 #' @param option See \link{StSignificanceTesting}.
@@ -56,7 +56,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   }    
   
   if (I < 2) {
-    stop("The analysis requires at least 2 modalities")
+    stop("The analysis requires at least 2 treatments")
   }
   
   ret <- EstimateVarCovCrossed(NL, LL, lesionNum, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)

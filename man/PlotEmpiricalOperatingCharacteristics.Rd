@@ -10,7 +10,7 @@ PlotEmpiricalOperatingCharacteristics(dataset, trts = 1,
 \arguments{
 \item{dataset}{Dataset to be used for plotting}
 
-\item{trts}{List or vector: \strong{integer} indices of modalities to be plotted}
+\item{trts}{List or vector: \strong{integer} indices of treatments to be plotted}
 
 \item{rdrs}{List or vector: \strong{integer} indices of readers to be plotted}
 
@@ -31,8 +31,8 @@ points and connecting lines are shown. To avoid clutter, if there are more than 
 operating points, they are not shown}
 
 \item{Points}{Data frame with four columns: abscissa, ordinate, class (which 
-codes modality and reader) and type, which can be \code{"individual"}, \code{"continuous"} or 
-\code{"average"}; \code{"individual"} refers to a one modality and one reader.}
+codes treatment and reader) and type, which can be \code{"individual"}, \code{"continuous"} or 
+\code{"average"}; \code{"individual"} refers to a one treatment and one reader.}
 }
 \description{
 Plot empirical operating characteristics (operating points connected by straight 
@@ -49,14 +49,14 @@ If both of \code{trts} and \code{rdrs} are vectors, all combinations of treatmen
    and readers are plotted. See Example 1.
 
 If both \code{trts} and \code{rdrs} are lists, they must have the same length. 
-   Only the combination of modality and reader at the same position in their 
+   Only the combination of treatment and reader at the same position in their 
    respective lists are plotted. If some elements of the treatments and / or 
    readers lists are vectors, the average operating characteristic over the 
    implied treatments and / or readers are plotted. See Example 2.
 }
 \examples{
 ## Example 1
-## Plot individual empirical ROC plots for all combinations of modalities
+## Plot individual empirical ROC plots for all combinations of treatments
 ## 1 and 2 and readers 1, 2 and 3. Six operating characteristics are plotted.
 
 ret <- PlotEmpiricalOperatingCharacteristics(dataset = 
@@ -66,11 +66,11 @@ print(ret$Plot)
 ## Example 2
 ## Empirical ROC, FROC, AFROC and wAFROC plots. Each plot consists of
 ## three parts (see Example 3 for correspondences between indices and string identifiers 
-## for modalities and readers):
-## (1) plot for the 1st modality (string ID "1") and the 2nd reader (string ID "3") 
-## (2) plot for the 2nd modality (string ID "2") AVERAGED over the 2nd and 3rd readers 
+## for treatments and readers):
+## (1) plot for the 1st treatment (string ID "1") and the 2nd reader (string ID "3") 
+## (2) plot for the 2nd treatment (string ID "2") AVERAGED over the 2nd and 3rd readers 
 ##     (string IDs "3" and "4"), and 
-## (3) plot AVERAGED over the first two modalities (string IDs "1" and "2") AND over 
+## (3) plot AVERAGED over the first two treatments (string IDs "1" and "2") AND over 
 ## the 1st, 2nd and 3rd readers (string IDs "1", "3" and "4") 
 
 plotT <- list(1, 2, c(1:2))
@@ -91,7 +91,7 @@ ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
 print(ret$Plot)
 
 ##Example 3
-## Correspondences between indices and string identifiers for modalities and 
+## Correspondences between indices and string identifiers for treatments and 
 ## readers in this dataset. Apparently reader "2" did not complete the study.
 
 str(dataset04)

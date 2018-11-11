@@ -50,7 +50,7 @@
 #' \item{\code{c1}}{ The \code{c}-parameter of PROPROC}
 #' \item{\code{da}}{ The \code{d_sub_a} parameter of PROPROC}
 #' \item{\code{aucProp}}{ The \code{PROPROC} AUC}
-#' \item{\code{I}}{ The number of modalities}
+#' \item{\code{I}}{ The number of treatments}
 #' \item{\code{J}}{ The number of readers}
 #' \item{\code{K1}}{ The number of non-diseased cases}
 #' \item{\code{K2}}{ The number of diseased cases}
@@ -120,7 +120,6 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
   if (!(startIndx %in% seq(1,14) && endIndx %in% seq(1,14))) stop("illegal values for startIndx and/ or endIndx")
   allBinnedDatasets <- as.list(array(dim = endIndx - startIndx + 1))
   allDatasetsResults <- as.list(array(dim = endIndx - startIndx + 1)) # to prevent overwriting allResults with last dataset
-  #count <- 0
   for (f in startIndx:endIndx) {
     fileName <- fileNames[f]
     theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects
@@ -230,9 +229,8 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
           next
         }
       }
-      #count <- count + 1
-      allDatasetsResults[f-startIndx + 1] <- allResults
-      allBinnedDatasets[f-startIndx + 1] <- binnedRocData
+      allDatasetsResults[[f-startIndx + 1]] <- allResults
+      allBinnedDatasets[[f-startIndx + 1]] <- binnedRocData
       cat("\n\n\n")
     }
   }

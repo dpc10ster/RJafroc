@@ -1,6 +1,6 @@
 #' Simulates an individual binormal model ROC dataset
 #' 
-#' @description  Simulates a binormal model ROC dataset for a single modality and reader
+#' @description  Simulates a binormal model ROC dataset for a single treatment and reader
 #' 
 #' @usage SimulateRocDataset(K1, K2, a, b, seed = NULL) 
 #' 

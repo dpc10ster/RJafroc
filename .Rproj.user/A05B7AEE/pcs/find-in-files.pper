@@ -6,7 +6,7 @@
             "*.R"
         ],
         "path" : "~/rjafroc-master/R",
-        "query" : "revdep",
+        "query" : "modality",
         "regex" : false
     }
 }

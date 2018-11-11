@@ -9,8 +9,8 @@ DfExtractCorCbmDataset(dataset, trts, rdrs)
 \arguments{
 \item{dataset}{The original dataset from which the pairing is to be extracted}
 
-\item{trts}{A vector, maximum length 2, contains the indices of the modality
-or modalities to be extracted}
+\item{trts}{A vector, maximum length 2, contains the indices of the treatment
+or treatments to be extracted}
 
 \item{rdrs}{A vector, maximum length 2, contains the indices of the reader or
 readers to be extracted}
@@ -21,8 +21,8 @@ A new dataset in which the number of treatments is one and the number of readers
 \description{
 Extract a paired dataset from a larger dataset. The pairing could be
 two readers in the same
-modality, or different readers in different modalities, or the same reader
-in different modalities. If necessary
+treatment, or different readers in different treatments, or the same reader
+in different treatments. If necessary
 The data is binned to 5 bins in each condition.
 }
 \details{
@@ -37,16 +37,16 @@ The utility of this software is
 in designing a ratings simulator that is statistically matched to a real dataset.
 }
 \examples{
-## Extract the paired data corresponding to the second and third readers in the first modality
+## Extract the paired data corresponding to the second and third readers in the first treatment
 ##from the include ROC dataset
 dataset11_23 <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3))
 
-## Extract the paired data corresponding to the third reader in the first and second modalities
+## Extract the paired data corresponding to the third reader in the first and second treatments
 dataset12_33 <- DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = 3)
 
 ## Extract the data corresponding to the first reader in the first
-## modality paired with the data
-## from the third reader in the second modality
+## treatment paired with the data
+## from the third reader in the second treatment
 ## (the indices are at different positions in the respective arrays)
 dataset12_13 <- DfExtractCorCbmDataset(dataset05,
 trts = c(1,2), rdrs = c(1,3))

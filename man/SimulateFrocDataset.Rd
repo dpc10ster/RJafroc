@@ -15,7 +15,7 @@ SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, lesionNum)
 
 \item{zeta1}{The lowest reporting threshold}
 
-\item{I}{The number of modalities}
+\item{I}{The number of treatments}
 
 \item{J}{The number of readers}
 
@@ -30,7 +30,7 @@ The return value is an FROC dataset.
 }
 \description{
 Simulates an uncorrelated MRMC FROC dataset for specified numbers of
-   readers and modalities
+   readers and treatments
 }
 \details{
 See book chapters on the Radiological Search Model (RSM) for details. 

@@ -41,7 +41,7 @@ The return value is a list with the following elements:
    Use \code{print()} to display the object}
 }
 \description{
-Fit the CBM-predicted ROC curve for specified modality and reader
+Fit the CBM-predicted ROC curve for specified treatment and reader
 }
 \details{
 In  CBM ratings from diseased cases

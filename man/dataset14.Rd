@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:100, 1], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:100, 1], weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ [1:2] "1" "2", modality labels}
+\item{\code{modalityID}}{ [1:2] "1" "2", treatment labels}
 \item{\code{readerID}}{ [1:4] "1" "2" ..., reader labels}
 }}
 \usage{
@@ -20,7 +20,7 @@ dataset14
 }
 \description{
 This is referred to in the book as the "FZR" dataset. It is a real ROC study, 
-conducted on the same images and using the same radiologists, on modalities
+conducted on the same images and using the same radiologists, on treatments
 "4" and "5" of dataset04. This was compared to highest rating inferred ROC
 data from dataset04 to conclude, erroneously, that the highest rating assumption
 is invalid. See book Section 13.6.2.

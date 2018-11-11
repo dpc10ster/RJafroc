@@ -19,7 +19,7 @@
 #'    or \code{"iMRMC"} data files.
 #' @param renumber A logical variable: if \code{TRUE}, consecutive integers 
 #'    (starting from 1) will be used as the 
-#'    modality and reader IDs. Otherwise, modality 
+#'    treatment and reader IDs. Otherwise, treatment 
 #'    and reader IDs in the original data file will be used.
 #' 
 #' @return A dataset with the structure specified in \link{RJafroc-package}.
@@ -552,7 +552,7 @@ ReadImrmc <- function(fileName, renumber) {
   
   modalityID <- as.character(sort(unique(c(fpTable[, 3], tpTable[, 3]))))
   if (I != length(modalityID)) {
-    errMsg <- "The number of modalities in the dataset is different from the number in the study description."
+    errMsg <- "The number of treatments in the dataset is different from the number in the study description."
     stop(errMsg)
   }
   

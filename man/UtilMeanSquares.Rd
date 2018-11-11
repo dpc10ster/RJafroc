@@ -23,11 +23,11 @@ Calculates the mean squares used in the DBMH and ORH methods
 }
 \details{
 For \code{DBMH} method, \code{msT, msTR, msTC, msTRC} will not be available 
-   if the dataset contains only one modality. Similarly, 
+   if the dataset contains only one treatment. Similarly, 
    \code{msR, msTR, msRC, msTRC} will not be returned for single reader dataset. 
    For \code{ORH} method, \code{msT, msR, msTR} will be returned for multiple 
-   reader multiple modality dataset. \code{msT} is not available for single 
-   modality dataset, and \code{msR} is not available for single reader dataset.
+   reader multiple treatment dataset. \code{msT} is not available for single 
+   treatment dataset, and \code{msR} is not available for single reader dataset.
 }
 \examples{
 UtilMeanSquares(dataset02, FOM = "Wilcoxon")

@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:47, 1:3], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:67, 1] weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID}}{ [1:2] "1" "2", modality labels}
+\item{\code{modalityID}}{ [1:2] "1" "2", treatment labels}
 \item{\code{readerID}}{ [1:4] "1" "2" "3" "4", reader labels}
 }}
 \usage{
@@ -20,7 +20,7 @@ dataset05
 }
 \description{
 This is referred to in the book as the "JT" dataset. It consists of 92 cases, 47 of 
-which are diseased, interpreted in two modalities 
+which are diseased, interpreted in two treatments 
 ("1" = CT images acquired for attenuation correction, "2" = diagnostic CT images), by nine 
 radiographers using the FROC paradigm. Each case was a slice of an anthropomorphic phantom
 47 with inserted nodular lesions (max 3 per slice). The maximum number of NLs per case, over the entire 
@@ -35,6 +35,6 @@ PlotEmpiricalOperatingCharacteristics(dataset = dataset05, opChType = "wAFROC")$
 \references{
 Thompson JD  et al. Effect of reconstruction methods and x-ray tube 
 current-time product  on nodule detection in an anthropomorphic thorax phantom: 
-a crossed-modality JAFROC observer study. Medical Physics. 2016;43(3):1265-1274.
+a crossed-treatment JAFROC observer study. Medical Physics. 2016;43(3):1265-1274.
 }
 \keyword{datasets}

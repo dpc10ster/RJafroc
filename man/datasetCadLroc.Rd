@@ -13,7 +13,7 @@
 \item{\code{lesionID}}{ array [1:80, 1], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:80, 1], weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "LROC", the data type}
-\item{\code{modalityID}}{ [1:2] "0" "1", modality labels}
+\item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
 \item{\code{readerID}}{ [1:10] "1" "2" ..., reader labels}
 }}
 \usage{

@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:42, 1:15], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:42, 1:15] weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID}}{ [1:2] "1" "2", modality labels}
+\item{\code{modalityID}}{ [1:2] "1" "2", treatment labels}
 \item{\code{readerID}}{ [1:4] "1" "2" ..., reader labels}
 }}
 \usage{
@@ -21,7 +21,7 @@ dataset06
 \description{
 This is referred to in the book as the "MAG" dataset (after Magnus Bath, 
 who conducted the JAFROC analysis). It consists of 100 cases, 69 of which are diseased, 
-interpreted in two modalities ("1" = conventional chest, "1" = chest tomosynthesis) by four 
+interpreted in two treatments ("1" = conventional chest, "1" = chest tomosynthesis) by four 
 radiologists using the FROC paradigm.
 }
 \examples{

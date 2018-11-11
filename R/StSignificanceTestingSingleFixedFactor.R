@@ -1,15 +1,15 @@
 #' Perform significance testing for single fixed factor analysis
 #' 
 #' @description  Significance testing for datasets with single reader in 
-#'    multiple (at least two) modalities, or single modality with multiple 
-#'    (at least two) readers, where reader or modality, respectively, is 
+#'    multiple (at least two) treatments, or single treatment with multiple 
+#'    (at least two) readers, where reader or treatment, respectively, is 
 #'    regarded as a fixed factor and a common case-set, regarded as random, 
 #'    is assumed.
 #' 
 #' @usage StSignificanceTestingSingleFixedFactor (dataset, 
 #'    FOM = "wAFROC", alpha = 0.05) 
 #' 
-#' @param dataset A single-modality or single-reader dataset.
+#' @param dataset A single-treatment or single-reader dataset.
 #' @param FOM The figure of merit, default  \code{"wAFROC"}, 
 #'    see \link{UtilFigureOfMerit}.
 #' @param alpha The significance level (\code{alpha}, default 0.05) 
@@ -33,10 +33,10 @@
 #'    significant, the F-test must also be significant.}
 #' 
 #' @examples 
-#' ## Create a single modality ROC dataset with one modality and four readers
+#' ## Create a single treatment ROC dataset with one treatment and four readers
 #' singleFactorData <- DfExtractDataset(dataset02, 1, 1:4)
 #' 
-#' ## Performs single modality fixed reader analysis
+#' ## Performs single treatment fixed reader analysis
 #' StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "Wilcoxon")
 #' 
 #' @references 
@@ -120,7 +120,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alph
     nPairs <- choose(I, 2)
     iPair <- 1
     iniNA <- rep(NA, nPairs)
-    ret <- data.frame(modality = iniNA, diff = iniNA, tVal = iniNA, df = iniNA, pVal = iniNA, ciLower = iniNA, ciUpper = iniNA )
+    ret <- data.frame(treatment = iniNA, diff = iniNA, tVal = iniNA, df = iniNA, pVal = iniNA, ciLower = iniNA, ciUpper = iniNA )
     for (i in 1:(I - 1)){
       for (ip in (i + 1):I){
         retTmp <- t.test(pseudoValues[i, 1, ], pseudoValues[ip, 1, ], paired = TRUE, conf.level = 1 - alpha)
@@ -132,9 +132,9 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alph
     }
     names(ret) <- c("Modality", "Difference", "t", "DF", "Pr > t", "CI Lower", "CI Upper")
   }else if (I > 1 && J > 1){
-    stop("The number of modalities and readers are both greater than 1. Perform MRMC analysis using StSignificanceTesting.")
+    stop("The number of treatments and readers are both greater than 1. Perform MRMC analysis using StSignificanceTesting.")
   }else{
-    stop("One of the number of readers and modalities must be 1 and the other one should be greater thant 1.")
+    stop("One of the number of readers and treatments must be 1 and the other one should be greater thant 1.")
   }
   return(list(
     f = fDbmFixed,

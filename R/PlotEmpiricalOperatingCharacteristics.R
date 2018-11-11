@@ -8,7 +8,7 @@
 #'    rdrs = 1, opChType = "ROC")
 #' 
 #' @param dataset Dataset to be used for plotting
-#' @param trts List or vector: \strong{integer} indices of modalities to be plotted
+#' @param trts List or vector: \strong{integer} indices of treatments to be plotted
 #' @param rdrs List or vector: \strong{integer} indices of readers to be plotted
 #' @param opChType Type of operating characteristic to be plotted:  
 #'    \code{"ROC"}(the default), \code{"FROC"}, \code{"AFROC"},  \code{"wAFROC"},
@@ -23,7 +23,7 @@
 #'    and readers are plotted. See Example 1.
 #' 
 #' If both \code{trts} and \code{rdrs} are lists, they must have the same length. 
-#'    Only the combination of modality and reader at the same position in their 
+#'    Only the combination of treatment and reader at the same position in their 
 #'    respective lists are plotted. If some elements of the treatments and / or 
 #'    readers lists are vectors, the average operating characteristic over the 
 #'    implied treatments and / or readers are plotted. See Example 2.
@@ -40,13 +40,13 @@
 #' operating points, they are not shown}
 #' 
 #' @return \item{Points}{Data frame with four columns: abscissa, ordinate, class (which 
-#' codes modality and reader) and type, which can be \code{"individual"}, \code{"continuous"} or 
-#' \code{"average"}; \code{"individual"} refers to a one modality and one reader.}
+#' codes treatment and reader) and type, which can be \code{"individual"}, \code{"continuous"} or 
+#' \code{"average"}; \code{"individual"} refers to a one treatment and one reader.}
 #' 
 #' 
 #' @examples
 #' ## Example 1
-#' ## Plot individual empirical ROC plots for all combinations of modalities
+#' ## Plot individual empirical ROC plots for all combinations of treatments
 #' ## 1 and 2 and readers 1, 2 and 3. Six operating characteristics are plotted.
 #' 
 #' ret <- PlotEmpiricalOperatingCharacteristics(dataset = 
@@ -56,11 +56,11 @@
 #' ## Example 2
 #' ## Empirical ROC, FROC, AFROC and wAFROC plots. Each plot consists of
 #' ## three parts (see Example 3 for correspondences between indices and string identifiers 
-#' ## for modalities and readers):
-#' ## (1) plot for the 1st modality (string ID "1") and the 2nd reader (string ID "3") 
-#' ## (2) plot for the 2nd modality (string ID "2") AVERAGED over the 2nd and 3rd readers 
+#' ## for treatments and readers):
+#' ## (1) plot for the 1st treatment (string ID "1") and the 2nd reader (string ID "3") 
+#' ## (2) plot for the 2nd treatment (string ID "2") AVERAGED over the 2nd and 3rd readers 
 #' ##     (string IDs "3" and "4"), and 
-#' ## (3) plot AVERAGED over the first two modalities (string IDs "1" and "2") AND over 
+#' ## (3) plot AVERAGED over the first two treatments (string IDs "1" and "2") AND over 
 #' ## the 1st, 2nd and 3rd readers (string IDs "1", "3" and "4") 
 #' 
 #' plotT <- list(1, 2, c(1:2))
@@ -81,7 +81,7 @@
 #' print(ret$Plot)
 #' 
 #' ##Example 3
-#' ## Correspondences between indices and string identifiers for modalities and 
+#' ## Correspondences between indices and string identifiers for treatments and 
 #' ## readers in this dataset. Apparently reader "2" did not complete the study.
 #' 
 #' str(dataset04)
@@ -124,7 +124,7 @@ PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1,
 
 
 
-gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, modalities2Plot, readers2Plot, opChType) { #dpc
+gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2Plot, readers2Plot, opChType) { #dpc
   
   genNL <- dataset$NL
   genLL <- dataset$LL
@@ -135,50 +135,50 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, modalities2P
   
   # handle operating points
   # first handle no list arguments; gen stands for generic
-  if (!is.list(modalities2Plot) && !is.list(readers2Plot)) {
+  if (!is.list(treatments2Plot) && !is.list(readers2Plot)) {
     genPoints <- genPoints(genNL, genLL, modalityID, readerID, 
-                           lesionNum, weights, modalities2Plot, readers2Plot, opChType)
+                           lesionNum, weights, treatments2Plot, readers2Plot, opChType)
   } else {
     # now handle lists case, must be identical lengths
-    if (is.list(modalities2Plot) && is.list(readers2Plot) && length(modalities2Plot) == length(readers2Plot)) {
+    if (is.list(treatments2Plot) && is.list(readers2Plot) && length(treatments2Plot) == length(readers2Plot)) {
       genPoints <- data.frame(genAbscissa = NULL, genOrdinate = NULL)
       for (i in 1:length(readers2Plot)) {
-        if (length(modalities2Plot[[i]]) == 1 && (length(readers2Plot[[i]]) == 1)) {
+        if (length(treatments2Plot[[i]]) == 1 && (length(readers2Plot[[i]]) == 1)) {
           tempGenPoints <- genPoints(genNL, genLL, modalityID, readerID,  
-                                     lesionNum, weights, modalities2Plot[[i]], readers2Plot[[i]], opChType)
+                                     lesionNum, weights, treatments2Plot[[i]], readers2Plot[[i]], opChType)
           genPoints <- rbind(genPoints, tempGenPoints)
         } else {
           tempGenPoints <- genAvgPoints(genNL, genLL, modalityID, readerID, 
-                                        lesionNum, weights, modalities2Plot[[i]], readers2Plot[[i]], opChType)
+                                        lesionNum, weights, treatments2Plot[[i]], readers2Plot[[i]], opChType)
           genPoints <- rbind(genPoints, tempGenPoints)
         }
       }
-    } else if (is.list(modalities2Plot) && length(readers2Plot) == 1) {
+    } else if (is.list(treatments2Plot) && length(readers2Plot) == 1) {
       readers2Plot <- readers2Plot[[1]]
       genPoints <- data.frame(genAbscissa = NULL, genOrdinate = NULL)
-      for (i in 1:length(modalities2Plot)) {
-        if (length(modalities2Plot[[i]]) == 1) {
+      for (i in 1:length(treatments2Plot)) {
+        if (length(treatments2Plot[[i]]) == 1) {
           tempGenPoints <- genPoints(genNL, genLL, modalityID, readerID, 
-                                     lesionNum, weights, modalities2Plot[[i]], readers2Plot, opChType)
+                                     lesionNum, weights, treatments2Plot[[i]], readers2Plot, opChType)
           genPoints <- rbind(genPoints, tempGenPoints)
         } else {
           tempGenPoints <- genAvgPoints(genNL, genLL, modalityID, readerID, 
-                                        lesionNum, weights, modalities2Plot[[i]], readers2Plot, opChType)
+                                        lesionNum, weights, treatments2Plot[[i]], readers2Plot, opChType)
           genPoints <- rbind(genPoints, tempGenPoints)
         }
       }
-    } else if (is.list(readers2Plot) && length(modalities2Plot) == 1) {
-      if (is.list(modalities2Plot))
-        modalities2Plot <- modalities2Plot[[1]]
+    } else if (is.list(readers2Plot) && length(treatments2Plot) == 1) {
+      if (is.list(treatments2Plot))
+        treatments2Plot <- treatments2Plot[[1]]
       genPoints <- data.frame(genAbscissa = NULL, genOrdinate = NULL)
       for (i in 1:length(readers2Plot)) {
         if (length(readers2Plot[[i]]) == 1) {
           tempGenPoints <- genPoints(genNL, genLL, modalityID, readerID, 
-                                     lesionNum, weights, modalities2Plot, readers2Plot[[i]], opChType)
+                                     lesionNum, weights, treatments2Plot, readers2Plot[[i]], opChType)
           genPoints <- rbind(genPoints, tempGenPoints)
         } else {
           tempGenPoints <- genAvgPoints(genNL, genLL, modalityID, readerID, 
-                                        lesionNum, weights, modalities2Plot, readers2Plot[[i]], opChType)
+                                        lesionNum, weights, treatments2Plot, readers2Plot[[i]], opChType)
           genPoints <- rbind(genPoints, tempGenPoints)
         }
       }
@@ -202,7 +202,7 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, modalities2P
   
   # handle plots
   # no lists
-  if (!is.list(modalities2Plot) && !is.list(readers2Plot)) {
+  if (!is.list(treatments2Plot) && !is.list(readers2Plot)) {
     mr <- unlist(strsplit(as.character(genPoints$class), split = "\n"))
     dim(mr) <- c(2, round(length(mr)/2))
     genPoints <- cbind(genPoints, data.frame(Modality = mr[1, ], Reader = mr[2, ]))
@@ -216,13 +216,13 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, modalities2P
       if (genPoints$type[index] == "individual")
         shapeVector[n] <- 16 #http://www.sthda.com/english/wiki/ggplot2-point-shapes
     }
-    if (length(modalities2Plot) == 1) {
+    if (length(treatments2Plot) == 1) {
       if (length(readers2Plot) > 1){
-        # one modality multiple readers
+        # one treatment multiple readers
         genPlot <- with(genPoints, {
           tempGenPlot <- ggplot()
           mStrings <- unique(as.character(genPoints$Modality))
-          for (i in 1:length(modalities2Plot)) {
+          for (i in 1:length(treatments2Plot)) {
             tempGenPlot <- tempGenPlot +
               geom_line(data = genPoints, aes(x = genAbscissa, y = genOrdinate, color = class))
           }
@@ -232,11 +232,11 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, modalities2P
         })
       }
       if (length(readers2Plot) == 1){
-        # one modality one reader
+        # one treatment one reader
         genPlot <- with(genPoints, {
           tempGenPlot <- ggplot()
           mStrings <- unique(as.character(genPoints$Modality))
-          for (i in 1:length(modalities2Plot)) {
+          for (i in 1:length(treatments2Plot)) {
             tempGenPlot <- tempGenPlot +
               geom_line(data = genPoints, aes(x = genAbscissa, y = genOrdinate))
           }
@@ -245,11 +245,11 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, modalities2P
         })
       }
     } else {
-      # multiple modalities and one or more readers
+      # multiple treatments and one or more readers
       genPlot <- with(genPoints, {
         tempGenPlot <- ggplot()
         mStrings <- unique(as.character(genPoints$Modality))
-        for (i in 1:length(modalities2Plot)) {
+        for (i in 1:length(treatments2Plot)) {
           tempGenPlot <- tempGenPlot +
             geom_line(data = genPoints[genPoints$Modality == mStrings[i], ],
                       aes(x = genAbscissa, y = genOrdinate, color = Reader, linetype = Modality))
@@ -326,36 +326,36 @@ GetLimits <- function (genPoints, opChType) {
 
 
 ####################################################################################################################
-genPoints <- function(genNL, genLL, modalityID, readerID, lesionNum, weights, modalities2Plot, rdrs2Plot, opChType) {
+genPoints <- function(genNL, genLL, modalityID, readerID, lesionNum, weights, treatments2Plot, rdrs2Plot, opChType) {
   
   if (opChType == "ROC") {
     genPoints <- ROCPoints(genNL, genLL, modalityID, readerID, 
-                           modalities2Plot, rdrs2Plot)
+                           treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   if (opChType == "FROC") {
     genPoints <- FROCPoints(genNL, genLL, modalityID, readerID, lesionNum, 
-                            modalities2Plot, rdrs2Plot)
+                            treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   if (opChType == "AFROC") {
     genPoints <- AFROCPoints(genNL, genLL, modalityID, readerID, lesionNum, # sic 
-                             modalities2Plot, rdrs2Plot)
+                             treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   if (opChType == "wAFROC") {
     genPoints <- wAFROCPoints(genNL, genLL, modalityID, readerID, weights, # sic 
-                              modalities2Plot, rdrs2Plot)
+                              treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   if (opChType == "AFROC1") {
     genPoints <- AFROC1Points(genNL, genLL, modalityID, readerID, lesionNum, # sic
-                              modalities2Plot, rdrs2Plot)
+                              treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   if (opChType == "wAFROC1") {
     genPoints <- wAFROC1Points(genNL, genLL, modalityID, readerID, weights, # sic 
-                               modalities2Plot, rdrs2Plot)
+                               treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   stop("genPoints: Incorrect FOM")
@@ -365,36 +365,36 @@ genPoints <- function(genNL, genLL, modalityID, readerID, lesionNum, weights, mo
 
 
 ####################################################################################################################
-genAvgPoints <- function(genNL, genLL, modalityID, readerID, lesionNum, weights, modalities2Plot, rdrs2Plot, opChType) {
+genAvgPoints <- function(genNL, genLL, modalityID, readerID, lesionNum, weights, treatments2Plot, rdrs2Plot, opChType) {
   
   if (opChType == "ROC") {
     genPoints <- AvgROCPoints(genNL, genLL, modalityID, readerID, 
-                              modalities2Plot, rdrs2Plot)
+                              treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   if (opChType == "FROC") {
     genPoints <- AvgFROCPoints(genNL, genLL, modalityID, readerID, lesionNum,
-                               modalities2Plot, rdrs2Plot)
+                               treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   if (opChType == "AFROC") {
     genPoints <- AvgAFROCPoints(genNL, genLL, modalityID, readerID, lesionNum, # sic
-                                modalities2Plot, rdrs2Plot)
+                                treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   if (opChType == "wAFROC") {
     genPoints <- AvgwAFROCPoints(genNL, genLL, modalityID, readerID, weights, # sic 
-                                 modalities2Plot, rdrs2Plot)
+                                 treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   if (opChType == "AFROC1") {
     genPoints <- AvgAFROC1Points(genNL, genLL, modalityID, readerID, lesionNum, # sic 
-                                 modalities2Plot, rdrs2Plot)
+                                 treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   if (opChType == "wAFROC1") {
     genPoints <- AvgwAFROC1Points(genNL, genLL, modalityID, readerID, weights, # sic
-                                  modalities2Plot, rdrs2Plot)
+                                  treatments2Plot, rdrs2Plot)
     return(genPoints)
   }
   stop("genAvgPoints: Incorrect FOM")
@@ -474,18 +474,18 @@ RawOpPtsROC2ROC1 <- function (fp, tp) {
 
 
 ####################################################################################################################
-ROCPoints <- function(NL, LL, modalityID, readerID, modalities2Plot, readers2Plot) {
-  I <- length(modalities2Plot)
+ROCPoints <- function(NL, LL, modalityID, readerID, treatments2Plot, readers2Plot) {
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
   K1 <- K - K2
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, 1)
   dim(LL) <- c(I, J, K2, 1)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(readers2Plot)
   
@@ -514,18 +514,18 @@ ROCPoints <- function(NL, LL, modalityID, readerID, modalities2Plot, readers2Plo
 
 #' @importFrom stats approx
 ####################################################################################################################
-AvgROCPoints <- function(NL, LL, modalityID, readerID, modalities2Plot, readers2Plot) {
-  I <- length(modalities2Plot)
+AvgROCPoints <- function(NL, LL, modalityID, readerID, treatments2Plot, readers2Plot) {
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
   K1 <- K - K2
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, 1)
   dim(LL) <- c(I, J, K2, 1)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(readers2Plot)
   NL <- NL[, readers2Plot, , ]
@@ -586,9 +586,9 @@ RawOpPtsFROC2FROC <- function (nl, ll, sumLL, K) {
 
 
 ####################################################################################################################
-FROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot) {
+FROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- length(modalities2Plot)
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
@@ -596,11 +596,11 @@ FROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plot,
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, maxLL)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   
   J <- length(rdrs2Plot)
@@ -633,9 +633,9 @@ FROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plot,
 
 # not sure what this does;
 ####################################################################################################################
-AvgFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot) {
+AvgFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- length(modalities2Plot)
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
@@ -643,11 +643,11 @@ AvgFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Pl
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, maxLL)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(rdrs2Plot)
   NL <- NL[, rdrs2Plot, , ]
@@ -748,9 +748,9 @@ FROC2AFROC1 <- function (fp, ll, sumLL, K) {
 
 
 ####################################################################################################################
-AFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot) {
+AFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- length(modalities2Plot)
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
@@ -758,11 +758,11 @@ AFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plot
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, maxLL)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(rdrs2Plot)
   NL <- NL[, rdrs2Plot, , ]
@@ -796,9 +796,9 @@ AFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plot
 
 
 ####################################################################################################################
-AvgAFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot) {
+AvgAFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- length(modalities2Plot)
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
@@ -806,11 +806,11 @@ AvgAFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, modalities2P
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, maxLL)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(rdrs2Plot)
   NL <- NL[, rdrs2Plot, , ]
@@ -899,20 +899,20 @@ FROC2wAFROC1 <- function (fp, ll, weights, K1, K2) {
 
 
 ####################################################################################################################
-AFROC1Points <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot) {
+AFROC1Points <- function(NL, LL, modalityID, readerID, lesionNum, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- length(modalities2Plot)
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, maxLL)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(rdrs2Plot)
   NL <- NL[, rdrs2Plot, , ]
@@ -943,20 +943,20 @@ AFROC1Points <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plo
 
 
 ####################################################################################################################
-AvgAFROC1Points <- function(NL, LL, modalityID, readerID, lesionNum, modalities2Plot, rdrs2Plot) {
+AvgAFROC1Points <- function(NL, LL, modalityID, readerID, lesionNum, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- length(modalities2Plot)
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, maxLL)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(rdrs2Plot)
   NL <- NL[, rdrs2Plot, , ]
@@ -999,9 +999,9 @@ AvgAFROC1Points <- function(NL, LL, modalityID, readerID, lesionNum, modalities2
 
 
 ####################################################################################################################
-wAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, modalities2Plot, rdrs2Plot) {
+wAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- length(modalities2Plot)
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
@@ -1009,11 +1009,11 @@ wAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, modalities
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, maxLL)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(rdrs2Plot)
   NL <- NL[, rdrs2Plot, , ]
@@ -1047,9 +1047,9 @@ wAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, modalities
 
 
 ####################################################################################################################
-AvgwAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, modalities2Plot, rdrs2Plot) {
+AvgwAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- length(modalities2Plot)
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
@@ -1057,11 +1057,11 @@ AvgwAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, modalit
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, maxLL)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(rdrs2Plot)
   NL <- NL[, rdrs2Plot, , ]
@@ -1102,9 +1102,9 @@ AvgwAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, modalit
 
 
 ####################################################################################################################
-wAFROC1Points <- function(NL, LL, modalityID, readerID, lesionWeights, modalities2Plot, rdrs2Plot) {
+wAFROC1Points <- function(NL, LL, modalityID, readerID, lesionWeights, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- length(modalities2Plot)
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
@@ -1112,11 +1112,11 @@ wAFROC1Points <- function(NL, LL, modalityID, readerID, lesionWeights, modalitie
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, maxLL)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(rdrs2Plot)
   NL <- NL[, rdrs2Plot, , ]
@@ -1149,9 +1149,9 @@ wAFROC1Points <- function(NL, LL, modalityID, readerID, lesionWeights, modalitie
 
 
 ####################################################################################################################
-AvgwAFROC1Points <- function(NL, LL, modalityID, readerID, lesionWeights, modalities2Plot, rdrs2Plot) {
+AvgwAFROC1Points <- function(NL, LL, modalityID, readerID, lesionWeights, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- length(modalities2Plot)
+  I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
@@ -1159,11 +1159,11 @@ AvgwAFROC1Points <- function(NL, LL, modalityID, readerID, lesionWeights, modali
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   
-  NL <- NL[modalities2Plot, , , ]
-  LL <- LL[modalities2Plot, , , ]
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, maxLL)
-  modalityID <- modalityID[modalities2Plot]
+  modalityID <- modalityID[treatments2Plot]
   
   J <- length(rdrs2Plot)
   NL <- NL[, rdrs2Plot, , ]

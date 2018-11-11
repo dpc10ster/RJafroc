@@ -42,10 +42,10 @@
 #'    figure of merit. The default is 0.2.
 #' 
 #' @return For \code{method = "DBMH"}  the returned value is a list with 22 members:
-#' @return \item{fomArray}{The figure of merit array for each modality-reader 
+#' @return \item{fomArray}{The figure of merit array for each treatment-reader 
 #'    combination}
-#' @return \item{anovaY}{The ANOVA table of the pseudovalues over all modalities}
-#' @return \item{anovaYi}{The ANOVA table of the pseudovalues for each modality}
+#' @return \item{anovaY}{The ANOVA table of the pseudovalues over all treatments}
+#' @return \item{anovaYi}{The ANOVA table of the pseudovalues for each treatment}
 #' @return \item{varComp}{The variance components of the pseudovalue model underlying 
 #'    the analysis, 6 values, in the following order: c("Var(R)", "Var(C)", 
 #'    "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")}
@@ -56,9 +56,9 @@
 #' @return \item{pRRRC}{For RRRC analysis, the p-value of the significance 
 #'    test of the NH}
 #' @return \item{ciDiffTrtRRRC}{For RRRC analysis, the confidence intervals and related 
-#'    test statistics for the FOM differences between pairs of modalities}
+#'    test statistics for the FOM differences between pairs of treatments}
 #' @return \item{ciAvgRdrEachTrtRRRC}{For RRRC analysis, the confidence intervals 
-#'    and related test statistics for rdr. avg. FOM in each modality}
+#'    and related test statistics for rdr. avg. FOM in each treatment}
 #' @return \item{fFRRC}{For \strong{fixed-reader random-case} (FRRC) analysis, the 
 #'    F-statistic for rejecting the NH}
 #' @return \item{ddfFRRC}{For FRRC analysis, the denominator degrees of freedom 
@@ -66,24 +66,24 @@
 #' @return \item{pFRRC}{For FRRC analysis, the p-value of the significance 
 #'    test of the NH}
 #' @return \item{ciDiffTrtFRRC}{For FRRC analysis, the confidence intervals and related 
-#'    test statistics for the FOM differences between pairs of modalities}
+#'    test statistics for the FOM differences between pairs of treatments}
 #' @return \item{ciAvgRdrEachTrtFRRC}{For FRRC analysis, the confidence intervals and 
-#'    related tests for rdr. avg. FOM in each modality}
+#'    related tests for rdr. avg. FOM in each treatment}
 #' @return \item{ssAnovaEachRdr}{The sum of squares table of the ANOVA of the 
 #'    pseudovalues for each reader (based on data for the specified reader)}
 #' @return \item{msAnovaEachRdr}{The mean squares table of the ANOVA of the 
 #'    pseudovalues for each reader (based on data for the specified reader)}
 #' @return \item{ciDiffTrtEachRdr}{The confidence intervals and related tests of the 
-#'    FOM differences between pairs of modalities for each reader}
+#'    FOM differences between pairs of treatments for each reader}
 #' @return \item{fRRFC}{For \strong{random-reader fixed-case} (RRFC) analysis, 
 #'    the F statistic}
 #' @return \item{ddfRRFC}{For RRFC analysis, the denominator degrees of freedom 
 #'    of the F statistic}
 #' @return \item{pRRFC}{For RRFC analysis, the p-value for rejecting the NH}
 #' @return \item{ciDiffTrtRRFC}{For RRFC analysis, the confidence intervals and 
-#'    related test statistics for the FOM differences between pairs of modalities}
+#'    related test statistics for the FOM differences between pairs of treatments}
 #' @return \item{ciAvgRdrEachTrtRRFC}{For RRFC analysis, the confidence intervals 
-#'    and related tests for reader averaged FOM in each modality}
+#'    and related tests for reader averaged FOM in each treatment}
 #' 
 #' 
 #' @return For method = "ORH" the return value is a list with with 21 members:
@@ -216,7 +216,7 @@ StDBMHAnalysis <- function(dataset, FOM = "wJAFROC", alpha = 0.05, option = "ALL
   }    
   
   if (I < 2) {
-    stop("The analysis requires at least 2 modalities; use StSignificanceTestingSingleFixedFactor()")
+    stop("The analysis requires at least 2 treatments; use StSignificanceTestingSingleFixedFactor()")
   }
   
   fomArray <- UtilFigureOfMerit(dataset, FOM)

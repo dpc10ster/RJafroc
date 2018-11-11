@@ -1,7 +1,7 @@
 #' Significance testing, CAD vs. radiologists
 #' 
 #' @description  Significance testing, comparing CAD vs. a group of radiologists 
-#'    interpreting the same cases, an example of single modality analysis
+#'    interpreting the same cases, an example of single treatment analysis
 #' 
 #' @usage StSignificanceTestingCadVsRadiologists (dataset, FOM = "Wilcoxon", 
 #'    option = "RRRC", method = "singleModality", FPFValue = 0.2)
@@ -27,16 +27,16 @@
 #'    under the LROC
 #'    from FPF = 0 to FPF = \code{FPFValue}. If \code{method = "singleModality"} 
 #'    the first \strong{reader} is assumed to be CAD. If 
-#'    \code{method = "dualModality"} the first \strong{modality} is assumed to be CAD. 
+#'    \code{method = "dualModality"} the first \strong{treatment} is assumed to be CAD. 
 #'    The NH is that the FOM of CAD equals the average of the readers. The 
 #'    \code{method = "singleModality"} analysis uses an adaptation of the 
-#'    single-modality multiple-reader Obuchowski Rockette (OR) model described in a 
+#'    single-treatment multiple-reader Obuchowski Rockette (OR) model described in a 
 #'    paper by Hillis (2007), section 5.3. The adaptation is characterized by 3 
 #'    parameters
 #'    \code{VarR}, \code{Var} and \code{Cov2}, which are returned by the function. 
 #'    The \code{method = "dualModality"} analysis replicates CAD data as many times as
-#'    necessary so as to form one "modality" of an MRMC pairing, the other 
-#'    "modality" being the 
+#'    necessary so as to form one "treatment" of an MRMC pairing, the other 
+#'    "treatment" being the 
 #'    radiologists. Standard RRRC DBMH/ORH analysis is applied. The 
 #'    method, described 
 #'    in Kooi et al gives exactly the same final results (F-statistic, ddf and p-value) 
@@ -54,7 +54,7 @@
 #' @return \item{avgDiffFom}{The mean of the difference FOM, RAD - CAD} 
 #' @return \item{ciAvgDiffFom}{The 95-percent CI of the average difference, RAD - CAD}
 #' @return \item{varR}{The variance of the radiologists}
-#' @return \item{varError}{The variance of the error term in the single-modality 
+#' @return \item{varError}{The variance of the error term in the single-treatment 
 #'    multiple-reader OR model} 
 #' @return \item{cov2}{The covariance of the error term}
 #' @return \item{tstat}{The observed value of the t-statistic; it's square is 
@@ -148,7 +148,7 @@
 #' @export
 StSignificanceTestingCadVsRadiologists <- function(dataset, FOM = "Wilcoxon", 
   option = "RRRC", method = "singleModality", FPFValue = 0.2) {
-  if (length(dataset$NL[,1,1,1]) != 1) stop("dataset has to be single-modality multiple-readers with CAD as the first reader")
+  if (length(dataset$NL[,1,1,1]) != 1) stop("dataset has to be single-treatment multiple-readers with CAD as the first reader")
   if ((dataset$dataType == "ROC") && (FOM %in% c("PCL", "ALROC"))) stop("Cannot use LROC FOM with ROC data")
   if (option == "RRFC") {
     ret <- RRFC(dataset, FOM = FOM, FPFValue = FPFValue)

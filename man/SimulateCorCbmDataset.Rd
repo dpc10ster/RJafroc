@@ -35,7 +35,7 @@ rhoNor = 0.3, rhoAbn2 = 0.8)
 The return value is the desired dataset, suitable for testing FitCorCbm
 }
 \description{
-Simulates single modality 2-reader binned ROC dataset, simulated according to the CORCBM model,
+Simulates single treatment 2-reader binned ROC dataset, simulated according to the CORCBM model,
 for the purpose of testing the fitting program \link{FitCorCbm}
 }
 \details{

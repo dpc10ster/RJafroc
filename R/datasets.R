@@ -2,11 +2,11 @@
 #' TONY FROC dataset
 #'
 #' This is referred to in the book as the "TONY" dataset. It consists of 185 cases, 
-#' 89 of which are diseased, interpreted in two modalities
+#' 89 of which are diseased, interpreted in two treatments
 #' ("BT" = breast tomosynthesis and "DM" = digital mammography) by five radiologists using the FROC paradigm. 
 #' The diseased cases had at most two cancers (lesions) per case while the maximum number of 
 #' non-lesion localizations (NLs) per case, over the entire dataset, was 3. The example below displays
-#' the wAFROC plot for the first modality and first reader.
+#' the wAFROC plot for the first treatment and first reader.
 #' 
 #' @format A list with 8 elements:
 #' \itemize{
@@ -16,7 +16,7 @@
 #' \item{\code{lesionID}}{ array [1:89, 1:2], labels of lesions on diseased cases}
 #' \item{\code{lesionWeight}}{ array [1:89, 1:2], weights (or clinical importance) of lesions}
 #' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "BT" "DM", modality labels}
+#' \item{\code{modalityID}}{ [1:2] "BT" "DM", treatment labels}
 #' \item{\code{readerID}}{ [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -36,13 +36,13 @@
 #' Van Dyke ROC dataset
 #'
 #' This is referred to in the book as the "VD" dataset. It consists of 114 cases,
-#'    45 of which are diseased, interpreted in two modalities ("0" = single spin echo 
+#'    45 of which are diseased, interpreted in two treatments ("0" = single spin echo 
 #'    MRI, "1" = cine-MRI) by five radiologists using the ROC 
 #'    paradigm. Each diseased cases had an aortic dissection; the ROC paradigm 
 #'    generates one rating per case.  Often referred to in the ROC literature as the 
 #'    Van Dyke dataset, which, along with the Franken dataset, has been widely 
 #'    used to illustrate advances in ROC methodology. The example below displays 
-#'    the ROC plot for the first modality and first reader.
+#'    the ROC plot for the first treatment and first reader.
 #' 
 #' @format A list with 8 elements:
 #' \itemize{
@@ -52,7 +52,7 @@
 #' \item{\code{lesionID}}{ array [1:45, 1], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:45, 1], weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "0" "1", modality labels}
+#' \item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
 #' \item{\code{readerID}}{ [1:5] "0" "1" "2" ..., reader labels}
 #' }
 #'
@@ -73,7 +73,7 @@
 #' Franken ROC dataset
 #'
 #' This is referred to in the book as the "FR" dataset. It consists of 100 cases, 
-#' 69 of which are diseased, interpreted in two modalities,
+#' 69 of which are diseased, interpreted in two treatments,
 #' "0" = conventional film radiographs, "1" = digitized  images viewed on monitors, by four 
 #' radiologists using the ROC paradigm. Often referred to in the ROC literature as the 
 #' Franken-dataset, which, along the the Van Dyke dataset, has been widely used to illustrate
@@ -87,7 +87,7 @@
 #' \item{\code{lesionID}}{ array [1:67, 1], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:67, 1], weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "0" "1", modality labels}
+#' \item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
 #' \item{\code{readerID}}{ [1:4] "0" "1" "2" ..., reader labels}
 #' }
 #'
@@ -109,7 +109,7 @@
 #'
 #' This is referred to in the book as the "FED" dataset. It consists of 200 mammograms, 
 #' 100 of which contained one to 3 simulated microcalcifications,
-#' interpreted in five modalities (basically different image processing algorithms), by four 
+#' interpreted in five treatments (basically different image processing algorithms), by four 
 #' radiologists using the FROC paradigm. The maximum number of NLs per case, over the entire 
 #' dataset was 7 and the dataset contained at least one diseased mammogram with 3 lesions.
 #' 
@@ -121,7 +121,7 @@
 #' \item{\code{lesionID}}{ array [1:100, 1:3], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:100, 1:3] weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:5] "1" "2" ... modality labels}
+#' \item{\code{modalityID}}{ [1:5] "1" "2" ... treatment labels}
 #' \item{\code{readerID}}{ [1:4] "1" "3" "4" "5" reader labels}
 #' }
 #'
@@ -141,7 +141,7 @@
 #' John Thompson FROC dataset
 #'
 #' This is referred to in the book as the "JT" dataset. It consists of 92 cases, 47 of 
-#' which are diseased, interpreted in two modalities 
+#' which are diseased, interpreted in two treatments 
 #' ("1" = CT images acquired for attenuation correction, "2" = diagnostic CT images), by nine 
 #' radiographers using the FROC paradigm. Each case was a slice of an anthropomorphic phantom
 #' 47 with inserted nodular lesions (max 3 per slice). The maximum number of NLs per case, over the entire 
@@ -155,7 +155,7 @@
 #' \item{\code{lesionID}}{ array [1:47, 1:3], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:67, 1] weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "1" "2", modality labels}
+#' \item{\code{modalityID}}{ [1:2] "1" "2", treatment labels}
 #' \item{\code{readerID}}{ [1:4] "1" "2" "3" "4", reader labels}
 #' }
 #'
@@ -163,7 +163,7 @@
 #'
 #' @references Thompson JD  et al. Effect of reconstruction methods and x-ray tube 
 #' current-time product  on nodule detection in an anthropomorphic thorax phantom: 
-#' a crossed-modality JAFROC observer study. Medical Physics. 2016;43(3):1265-1274.
+#' a crossed-treatment JAFROC observer study. Medical Physics. 2016;43(3):1265-1274.
 #' 
 #' @examples
 #' str(dataset05)
@@ -177,7 +177,7 @@
 #'
 #' This is referred to in the book as the "MAG" dataset (after Magnus Bath, 
 #' who conducted the JAFROC analysis). It consists of 100 cases, 69 of which are diseased, 
-#' interpreted in two modalities ("1" = conventional chest, "1" = chest tomosynthesis) by four 
+#' interpreted in two treatments ("1" = conventional chest, "1" = chest tomosynthesis) by four 
 #' radiologists using the FROC paradigm.  
 #' 
 #' @format A list with 8 elements:
@@ -188,7 +188,7 @@
 #' \item{\code{lesionID}}{ array [1:42, 1:15], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:42, 1:15] weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "1" "2", modality labels}
+#' \item{\code{modalityID}}{ [1:2] "1" "2", treatment labels}
 #' \item{\code{readerID}}{ [1:4] "1" "2" ..., reader labels}
 #' }
 #'
@@ -209,7 +209,7 @@
 #' Lucy Warren FROC dataset
 #'
 #' This is referred to in the book as the "OPT" dataset (for OptiMam). It consists of 162 cases, 
-#' 81 of which are diseased, interpreted in five modalities (see reference, basically different ways
+#' 81 of which are diseased, interpreted in five treatments (see reference, basically different ways
 #' of acquiring the images) by seven radiologists using the FROC paradigm.  
 #' 
 #' @format A list with 8 elements:
@@ -220,7 +220,7 @@
 #' \item{\code{lesionID}}{ array [1:81, 1:3], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:81, 1:3] weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:5] "1" "2", ..., modality labels}
+#' \item{\code{modalityID}}{ [1:5] "1" "2", ..., treatment labels}
 #' \item{\code{readerID}}{ [1:7] "1" "2" ..., reader labels}
 #' }
 #'
@@ -241,7 +241,7 @@
 #' Monica Penedo ROC dataset
 #'
 #' This is referred to in the book as the "PEN" dataset. It consists of 112 cases, 
-#' 64 of which are diseased, interpreted in five modalities (basically different image compression
+#' 64 of which are diseased, interpreted in five treatments (basically different image compression
 #' algorithms) by five 
 #' radiologists using the FROC paradigm (the inferred ROC dataset is included; the original FROC data
 #' is lost). 
@@ -254,7 +254,7 @@
 #' \item{\code{lesionID}}{ array [1:64, 1], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:64, 1], weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:5] "0" "1", modality labels}
+#' \item{\code{modalityID}}{ [1:5] "0" "1", treatment labels}
 #' \item{\code{readerID}}{ [1:5] "0" "1" "2" ..., reader labels}
 #' }
 #'
@@ -279,7 +279,7 @@
 #' 80 of which contain one malignant mass, 
 #' interpreted by a CAD system and nine radiologists using the 
 #' LROC paradigm. The first reader is CAD. The highest rating method was used to convert this to an ROC 
-#' dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this \strong{one-modality}
+#' dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this \strong{one-treatment}
 #' data requires methods described in the book, specifically, the function  
 #' \link{StSignificanceTestingSingleFixedFactor} analyzes such datasets.
 #' 
@@ -291,7 +291,7 @@
 #' \item{\code{lesionID}}{ array [1:80, 1], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:80, 1], weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1] "1" modality label}
+#' \item{\code{modalityID}}{ [1] "1" treatment label}
 #' \item{\code{readerID}}{ [1:10] "1" "2" ..., reader labels}
 #' }
 #'
@@ -312,7 +312,7 @@
 #'
 #' This is referred to in the book as the "RUS" dataset. It consists of 90 cases, 
 #' 40 of which are diseased, the images were
-#' acquired at three dose levels, which can be regarded as modalities.
+#' acquired at three dose levels, which can be regarded as treatments.
 #' "0" = conventional film radiographs, "1" = digitized  images viewed on monitors, Eight 
 #' radiologists interpreted the cases using the FROC paradigm. These have been reduced to 
 #' ROC data by using the highest ratings (the original FROC data is lost). 
@@ -325,7 +325,7 @@
 #' \item{\code{lesionID}}{ array [1:40, 1], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:40, 1], weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:3] "1" "2" "3", modality labels}
+#' \item{\code{modalityID}}{ [1:3] "1" "2" "3", treatment labels}
 #' \item{\code{readerID}}{ [1:8] "1" "2" ..., reader labels}
 #' }
 #'
@@ -355,7 +355,7 @@
 #' the rest had 1 - 20 pulmonary nodules independently verified, using with CT 
 #' images, by 3 experts who did not participate in the observer study. The 
 #' study used FROC paradigm data collection. There are 
-#' 4 modalities labeled 1 - 4 (conventional chest x-ray, CXR, CXR augmented
+#' 4 treatments labeled 1 - 4 (conventional chest x-ray, CXR, CXR augmented
 #' with dual-energy (CXR+DE), VolumeRad digital tomosynthesis images and 
 #' VolumeRad augmented with DE (VolumeRad+DE). 
 #' 
@@ -367,7 +367,7 @@
 #' \item{\code{lesionID}}{ array [1:115, 20], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:115, 20] weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:4] "1" "2" ..., modality labels}
+#' \item{\code{modalityID}}{ [1:4] "1" "2" ..., treatment labels}
 #' \item{\code{readerID}}{ [1:5] "1" "2" ..., reader labels}
 #' }
 #'
@@ -398,7 +398,7 @@
 #' \item{\code{lesionID}}{ array [1:88, 1], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:88, 1], weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "0" "1", modality labels}
+#' \item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
 #' \item{\code{readerID}}{ [1:4] "0" "1" "2" ..., reader labels}
 #' }
 #'
@@ -418,7 +418,7 @@
 #' Dobbins 3 FROC dataset
 #'
 #' This is referred to in the code as the "DOB3" dataset. This is a subset of DOB1 which includes
-#' data for lesions not-visible on CXR, but visible to truth panel on all modalities.  
+#' data for lesions not-visible on CXR, but visible to truth panel on all treatments.  
 #' 
 #' @format A list with 8 elements:
 #' \itemize{
@@ -428,7 +428,7 @@
 #' \item{\code{lesionID}}{ array [1:106, 15], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:106, 15] weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:4] "1" "2" ..., modality labels}
+#' \item{\code{modalityID}}{ [1:4] "1" "2" ..., treatment labels}
 #' \item{\code{readerID}}{ [1:5] "1" "2" ..., reader labels}
 #' }
 #'
@@ -448,7 +448,7 @@
 #' Federica Zanca real (as opposed to inferred) ROC dataset
 #'
 #' This is referred to in the book as the "FZR" dataset. It is a real ROC study, 
-#' conducted on the same images and using the same radiologists, on modalities
+#' conducted on the same images and using the same radiologists, on treatments
 #' "4" and "5" of dataset04. This was compared to highest rating inferred ROC
 #' data from dataset04 to conclude, erroneously, that the highest rating assumption
 #' is invalid. See book Section 13.6.2.
@@ -461,7 +461,7 @@
 #' \item{\code{lesionID}}{ array [1:100, 1], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:100, 1], weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "1" "2", modality labels}
+#' \item{\code{modalityID}}{ [1:2] "1" "2", treatment labels}
 #' \item{\code{readerID}}{ [1:4] "1" "2" ..., reader labels}
 #' }
 #'
@@ -497,7 +497,7 @@
 #' \item{\code{lesionID}}{ array [1:80, 1], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:80, 1], weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "LROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "0" "1", modality labels}
+#' \item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
 #' \item{\code{readerID}}{ [1:10] "1" "2" ..., reader labels}
 #' }
 #'
@@ -513,11 +513,11 @@
 "datasetCadLroc"
 #'
 #' 
-#' John Thompson crossed modality FROC dataset
+#' John Thompson crossed treatment FROC dataset
 #'
-#' This is a crossed modality dataset, see book Section 18.5. There are two modality factors. 
-#' The first modality factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
-#' algorithms. The second modality factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
+#' This is a crossed treatment dataset, see book Section 18.5. There are two treatment factors. 
+#' The first treatment factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
+#' algorithms. The second treatment factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
 #' represent the mAs values of the image acquisition. The factors are fully crossed. The function 
 #' \link{StSignificanceTestingCrossedModalities} analyzes such datasets.
 #' 
@@ -529,8 +529,8 @@
 #' \item{\code{lesionID}}{ array [1:34, 3], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:34, 3] weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID1}}{ [1:2] "F" "I", modality labels}
-#' \item{\code{modalityID2}}{ [1:4] "20" "40"  "60"  "80", modality labels}
+#' \item{\code{modalityID1}}{ [1:2] "F" "I", treatment labels}
+#' \item{\code{modalityID2}}{ [1:4] "20" "40"  "60"  "80", treatment labels}
 #' \item{\code{readerID}}{ [1:11] "1" "10" "11" ..., reader labels}
 #' }
 #'
@@ -538,7 +538,7 @@
 #'
 #' @references Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
 #' methods and x-ray tube current-time product  on nodule detection in an 
-#' anthropomorphic thorax phantom: a crossed-modality JAFROC observer study. 
+#' anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study. 
 #' Medical Physics. 43(3):1265-1274.
 #' 
 #' @examples
@@ -563,7 +563,7 @@
 #' \item{\code{lesionID}}{ array [1:10, 1], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:10, 1], weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ "1", modality label}
+#' \item{\code{modalityID}}{ "1", treatment label}
 #' \item{\code{readerID}}{ "1", reader label}
 #' }
 #'
@@ -580,7 +580,7 @@
 #'
 #' A binned dataset suitable for analysis by \link{FitCorCbm}. It was generated by
 #'    \link{DfCreateCorCbmDataset} by setting the \code{seed} variable to 123. Note
-#'    the formatting of the data as a single modality two reader dataset, even though
+#'    the formatting of the data as a single treatment two reader dataset, even though
 #'    the actual pairing might be different, see \link{FitCorCbm}. The dataset is 
 #'    intentionally large so as to demonstrate the asymptotic convergence of ML estimates, 
 #'    produced by \link{FitCorCbm}, to the population values. The data was generated
@@ -596,7 +596,7 @@
 #' \item{\code{lesionID}}{ array [1:5000, 1], lesions labels on diseased cases, all set to one}
 #' \item{\code{lesionWeight}}{ array [1:5000, 1], weights, all set to one}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ "1", modality label}
+#' \item{\code{modalityID}}{ "1", treatment label}
 #' \item{\code{readerID}}{ [1:2] "1" "2",  reader labels}
 #' }
 #'
@@ -626,7 +626,7 @@
 #' \item{\code{lesionID}}{ array [1:5000, 1], lesions labels on diseased cases, all set to one}
 #' \item{\code{lesionWeight}}{ array [1:5000, 1], weights, all set to one}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ "1", modality label}
+#' \item{\code{modalityID}}{ "1", treatment label}
 #' \item{\code{readerID}}{ [1:2] "1" "2",  reader labels}
 #' }
 #'
@@ -656,7 +656,7 @@
 #' \item{\code{lesionID}}{ array [1:5000, 1], lesions labels on diseased cases, all set to one}
 #' \item{\code{lesionWeight}}{ array [1:5000, 1], weights, all set to one}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ "1", modality label}
+#' \item{\code{modalityID}}{ "1", treatment label}
 #' \item{\code{readerID}}{ [1:2] "1" "2",  reader labels}
 #' }
 #'

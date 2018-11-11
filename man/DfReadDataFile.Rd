@@ -25,7 +25,7 @@ or \code{"iMRMC"} data files.}
 
 \item{renumber}{A logical variable: if \code{TRUE}, consecutive integers 
 (starting from 1) will be used as the 
-modality and reader IDs. Otherwise, modality 
+treatment and reader IDs. Otherwise, treatment 
 and reader IDs in the original data file will be used.}
 }
 \value{

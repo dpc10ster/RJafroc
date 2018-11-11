@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{ array [1:64, 1], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:64, 1], weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ [1:5] "0" "1", modality labels}
+\item{\code{modalityID}}{ [1:5] "0" "1", treatment labels}
 \item{\code{readerID}}{ [1:5] "0" "1" "2" ..., reader labels}
 }}
 \usage{
@@ -20,7 +20,7 @@ dataset08
 }
 \description{
 This is referred to in the book as the "PEN" dataset. It consists of 112 cases, 
-64 of which are diseased, interpreted in five modalities (basically different image compression
+64 of which are diseased, interpreted in five treatments (basically different image compression
 algorithms) by five 
 radiologists using the FROC paradigm (the inferred ROC dataset is included; the original FROC data
 is lost).
