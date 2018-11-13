@@ -2,7 +2,7 @@ Update History
 ==========================
 ## RJafroc 1.1.0
 ### Major changes
-Added travis-ci testing after each push; and build passing badges, etc. Real geeky stuff;
+Added travis-ci testing after each push; and build passing badges, etc. 
 Removed dependence on caTools package, which was not being supported; extracted function trapz() from it
    and inserted directly into gpfMyFOM.R - see comments in that file of what led to this
 Removed dependence on xlsx package, which requires rJava and JAVA, replaced with dependence on
@@ -15,12 +15,14 @@ Added correlated contaminated binormal model, CORCBM, fitting and related functi
 Fixed error in PlotEmpiricalCharacteristics.R that was giving incorrect plots for other than
    ROC and wAFROC plots
 Added ChisqrGoodnessOfFit function, replacing 3 functions
-Cleaned up plotting code; using one function genericPlotROC(.R) instead of 3
+Cleaned up plotting code; using one function genericPlotROC.R instead of 3 functions
 Updated results of CBM, PROPROC and RSM fitting after discovering error in df
    calculation in RSM chisquare statistic; book results are wrong; only 2/236 fits
    yield a valid chisquare statistic
 Renamed ExampleCompare3ProperRocFits() to Compare3ProperRocFits()
 Corrected overwriting error in value returned by Compare3ProperRocFits()
+Added two vignettes: QuickStartDBMH and QuickStartDBMHExcelOutput
+Checked downstream dependencies - none as of Nov 11, 2018: revdep("rjafroc") yields character(0)
    
 ==========================
 ## RJafroc 1.0.2

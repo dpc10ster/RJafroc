@@ -2,11 +2,9 @@
     "dialog-state" : {
         "caseSensitive" : true,
         "filePatterns" : [
-            "*.r",
-            "*.R"
         ],
-        "path" : "~/rjafroc-master/R",
-        "query" : "modality",
+        "path" : "~/Dropbox/rjafroc-1.1.0",
+        "query" : "1.1.0.9000",
         "regex" : false
     }
 }

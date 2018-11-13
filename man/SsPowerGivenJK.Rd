@@ -4,7 +4,8 @@
 \alias{SsPowerGivenJK}
 \title{Statistical power for specified numbers of readers and cases in an ROC study}
 \usage{
-SsPowerGivenJK(J, K, effectSize, method, option = "ALL", alpha = 0.05, ...)
+SsPowerGivenJK(J, K, effectSize, method, option = "ALL", alpha = 0.05,
+  ...)
 }
 \arguments{
 \item{J}{The number of readers in the pivotal study}

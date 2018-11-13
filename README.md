@@ -15,7 +15,7 @@ See NEWS.md
 
 ### How do I get set up? ###
 
-* Navigate to https://github.com/dpc10ster/rjafroc
+* Navigate to https://github.com/dpc10ster/rjafroc-master
 * Clone this repository to Desktop.
 * Install current versions of R and RStudio.
 * Open RJafroc.Rproj.
@@ -29,10 +29,11 @@ See NEWS.md
 * You should see two binormal model ROC curves, one with a decided hook.
 * Study the RJafroc.pdf file (https://cran.r-project.org/web/packages/RJafroc/RJafroc.pdf)
 * Dependencies
-    openxlsx
-    tools,
+Imports:
+    openxlsx,
     ggplot2,
     stringr,
+    tools,
     utils,
     stats,
     bbmle,
@@ -40,6 +41,10 @@ See NEWS.md
     mvtnorm,
     numDeriv,
     Rcpp
+Suggests:
+    testthat,
+    knitr,
+    rmarkdown
 * Database configuration
   NA
 * How to run tests
