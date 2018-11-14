@@ -1,5 +1,10 @@
 Update History
 ==========================
+## RJafroc 1.1.1.9000
+### Major changes
+TBA
+
+==========================
 ## RJafroc 1.1.0
 ### Major changes
 Added travis-ci testing after each push; and build passing badges, etc. 
