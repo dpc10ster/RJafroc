@@ -3,8 +3,8 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "~/Dropbox/rjafroc-1.1.0",
-        "query" : "1.1.0.9000",
+        "path" : "~/Dropbox/rjafrocCurrent",
+        "query" : "erf(",
         "regex" : false
     }
 }
