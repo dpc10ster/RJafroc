@@ -4,6 +4,19 @@
   
 *  devtools::check(): 0 errors | 0 warnings | 0 notes
 
+* devtools::check_rhub()
+   2 Notes (arch 'i386' and arch 'x64') CPU time > 5 s: these examples of maximum likelihood fitting from clinical
+      datasets are as minimal as I can make them while illustrating the analytical techniques
+   Similar note on Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+   In all cases time is still less than 7s
+   1 Note on Ubuntu Linux 16.04 LTS, R-release, GCC regarding possibly misspelled words, all FPs
+   Debian Linux, R-devel, GCC ASAN/UBSAN: OK
+   1 Error on Fedora Linux, R-devel, clang, gfortran: 
+      Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+      there is no package called lattice
+      I believe this is a false positive as my package does not depend on *lattice*
+      See independent check on R-hub builder below, which gives different error
+
 * travis(https://travis-ci.org): 
    oldrel: OK
    release: OK
@@ -14,7 +27,7 @@
    R-devel: OK
    R-oldrelease: 1 Note regarding 4 possibly mis-spelled words, all FPs
    
-*  R-hub builder (https://builder.r-hub.io)   
+*  Independent checks on R-hub builder (https://builder.r-hub.io)   
    macOS 10.9 Mavericks, R-oldrel (experimental): OK
    macOS 10.11 El Capitan, R-release (experimental): OK
    Debian, Linux, R-devel, GCC: OK
