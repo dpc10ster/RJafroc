@@ -1,13 +1,13 @@
 {
-    "path" : "~/Documents/GitHub/rjafroc-master/inst/doc",
+    "path" : "~/rjafroc-master/inst",
     "sortOrder" : [
         {
-            "ascending" : false,
-            "columnIndex" : 4
+            "ascending" : true,
+            "columnIndex" : 2
         },
         {
             "ascending" : false,
-            "columnIndex" : 2
+            "columnIndex" : 4
         },
         {
             "ascending" : false,
