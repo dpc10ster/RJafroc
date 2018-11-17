@@ -347,3 +347,10 @@ for each reader for random-reader fixed-case analysis
 ret$ciAvgRdrEachTrtRRFC
 ```             
 
+## ORH significance testing
+Simply change `stMethod = "DBMH"` to `stMethod = "ORH"`.
+
+```{r}
+ret <- StSignificanceTesting(dataset03, method = "ORH", FOM = "Wilcoxon")
+str(ret)
+```

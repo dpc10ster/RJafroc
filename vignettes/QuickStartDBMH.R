@@ -109,3 +109,7 @@ ret$ciDiffTrtRRFC
 ## ------------------------------------------------------------------------
 ret$ciAvgRdrEachTrtRRFC
 
+## ------------------------------------------------------------------------
+ret <- StSignificanceTesting(dataset03, method = "ORH", FOM = "Wilcoxon")
+str(ret)
+

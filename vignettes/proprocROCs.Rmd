@@ -21,7 +21,7 @@ vignette: >
 ```
 
 ## Helper functions
-```{r}
+```{r echo=FALSE}
 Transform2ab <- function (d_a, c){
   b <- -(c+1)/(c-1)
   a <- (d_a/sqrt(2))*sqrt(1+b^2)
@@ -87,7 +87,10 @@ rocY <- function (x, a, b) {
   return(y)
 }
 ```
+
+## Definitions of PROPROC parameters in terms of binormal model parameters
   
+\[c=\frac{b-1}{b+1};{{d}_{a}}=\frac{\sqrt{2}a}{\sqrt{1+{{b}^{2}}}}\] 
 
 ## Main code and output
   

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty" />
 
-<meta name="date" content="2018-11-14" />
+<meta name="date" content="2018-11-17" />
 
 <title>RJafroc Documentation</title>
 
@@ -280,7 +280,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">RJafroc Documentation</h1>
 <h4 class="author"><em>Dev P. Chakraborty</em></h4>
-<h4 class="date"><em>2018-11-14</em></h4>
+<h4 class="date"><em>2018-11-17</em></h4>
 
 
 
@@ -301,6 +301,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>This illustrates the <code>UtilOutputReport()</code> function. The significance testing method is specified as <code>&quot;DBMH&quot;</code> and the figure of merit <code>FOM</code> is specified as “Wilcoxon”. Note the option <code>ReportFileFormat = &quot;xlsx&quot;</code> telling the function to create an Excel output file</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">UtilOutputReport</span>(dataset03, <span class="dt">stMethod =</span> <span class="st">&quot;DBMH&quot;</span>, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileFormat =</span> <span class="st">&quot;xlsx&quot;</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; The report has been saved to /Users/Dev/Documents/GitHub/rjafroc-master/vignettes/MyDataOutput.xlsx.</span></a></code></pre></div>
+</div>
+<div id="orh-significance-testing" class="section level2">
+<h2>ORH significance testing</h2>
+<p>Simply change <code>stMethod = &quot;DBMH&quot;</code> to <code>stMethod = &quot;ORH&quot;</code>.</p>
 </div>
 
 

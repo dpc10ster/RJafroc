@@ -6,7 +6,7 @@
   library(RJafroc)
   library(ggplot2)
 
-## ------------------------------------------------------------------------
+## ----echo=FALSE----------------------------------------------------------
 BMPoints <- function(a, b){
   plotZeta <- seq(-20, 20, by = 0.01)
   FPF <- 1 - pnorm(plotZeta)

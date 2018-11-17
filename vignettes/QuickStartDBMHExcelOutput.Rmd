@@ -41,4 +41,7 @@ UtilOutputReport(dataset03, stMethod = "DBMH", FOM = "Wilcoxon", overwrite = TRU
 ```             
 
 
+## ORH significance testing
+Simply change `stMethod = "DBMH"` to `stMethod = "ORH"`.
+
 

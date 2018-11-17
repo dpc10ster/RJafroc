@@ -27,7 +27,7 @@ vignette: >
   Binormal model fits invariably lead to ROC curves that inappropriately cross the chance diagonal, leading to a prediction of a region of the ROC curve where performance is worse than chance, even for expert observers. By convention, such curves are termed *improper*. This vignette illustrates improper ROCs predicted by the binormal model.
   
   
-```{r, fig1, fig.align = "center"}
+```{r, fig.align = "center"}
   aArray <- c(0.7, 0.7, 1.5, 2)
   bArray <- c(0.5, 1.5, 0.5, 0.5)
   chance_diag <- data.frame(x = c(0,1), y = c(0,1))
@@ -43,7 +43,7 @@ The red plot is the clearest example of an improper ROC. This type of curve occu
 
 ## Reason for improper ROCs
 The reason for the "hook"" becomes apparent upon examination of the pdfs. 
-```{r}
+```{r, echo=FALSE}
 # x is rocX, i.e., FPF
 rocY <- function (x, a, b) {
   y <- pnorm(a + b*qnorm(x))
