@@ -3,6 +3,7 @@ Update History
 ## RJafroc 1.1.1.9000
 ### Major changes
 Added vignette improperROCs.Rmd
+Added vignette degenerateROCs.Rmd
 
 
 ==========================
