@@ -5,6 +5,8 @@ Update History
 Added vignette improperROCs.Rmd
 Added vignette degenerateROCs.Rmd
 Added vignette proprocROCs.Rmd
+Added vignette metzEqn36.Rmd
+Added vignette cbmPlots.Rmd
 
 
 ==========================
