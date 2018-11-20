@@ -18,6 +18,7 @@
   }
 }
 
+
 \section{Abbreviations and definitions}{
   \itemize{
     \item \emph{a}: The separation or "a" parameter of the binormal model
@@ -366,6 +367,15 @@
   }
 }
 }
+
+\section{Vignettes}{
+
+\code{browseVignettes(package = "RJafroc")}
+
+}
+
+
+
 
 \section{Df: Datafile Related Functions}{
   \itemize{    

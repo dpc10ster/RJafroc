@@ -1,0 +1,13 @@
+pandoc: 2.2.1
+pkgdown: 1.1.0.9000
+pkgdown_sha: ~
+articles:
+  QuickStartDBMH: QuickStartDBMH.html
+  QuickStartDBMHExcelOutput: QuickStartDBMHExcelOutput.html
+  SampleSizeROC: SampleSizeROC.html
+  cbmPlots: cbmPlots.html
+  degenerateROCs: degenerateROCs.html
+  improperROCs: improperROCs.html
+  metzEqn36: metzEqn36.html
+  proprocROCs: proprocROCs.html
+
