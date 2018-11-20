@@ -368,14 +368,6 @@
 }
 }
 
-\section{Vignettes}{
-
-\code{browseVignettes(package = "RJafroc")}
-
-}
-
-
-
 
 \section{Df: Datafile Related Functions}{
   \itemize{    

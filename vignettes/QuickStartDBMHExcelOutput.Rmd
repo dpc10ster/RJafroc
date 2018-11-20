@@ -1,10 +1,10 @@
 ---
-title: "RJafroc Documentation"
+title: "Quick Start: DBMH-ORH Analysis Excel Output"
 author: "Dev P. Chakraborty"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Quick Start: DBMH Analysis Excel Output}
+  %\VignetteIndexEntry{Quick Start: DBMH-ORH Analysis Excel Output}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,5 +1,5 @@
 ---
-title: "RJafroc Documentation"
+title: "Sample Size ROC"
 author: "Dev P. Chakraborty"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
