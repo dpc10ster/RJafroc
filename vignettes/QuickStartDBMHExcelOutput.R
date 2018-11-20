@@ -6,5 +6,8 @@ knitr::opts_chunk$set(
 library(RJafroc)
 
 ## ------------------------------------------------------------------------
-UtilOutputReport(dataset03, stMethod = "DBMH", FOM = "Wilcoxon", overwrite = TRUE, ReportFileFormat = "xlsx")
+UtilOutputReport(dataset03, stMethod = "DBMH", FOM = "Wilcoxon", overwrite = TRUE, ReportFileName = "DBMH.xlsx", ReportFileFormat = "xlsx")
+
+## ------------------------------------------------------------------------
+UtilOutputReport(dataset03, stMethod = "ORH", FOM = "Wilcoxon", overwrite = TRUE, ReportFileName = "ORH.xlsx", ReportFileFormat = "xlsx")
 

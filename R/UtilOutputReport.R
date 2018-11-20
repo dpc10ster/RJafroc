@@ -93,39 +93,38 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
                              renumber = FALSE, overwrite = TRUE) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  if (!missing(DataFileName) && missing(DataFileFormat)) 
-    stop("If DataFileName is specified, then DataFileFormat must be specified")
-  
-  if (!missing(DataFileName) && !(DataFileFormat %in% c("JAFROC", "MRMC", "iMRMC"))) 
-    stop("Dataset format has to be JAFROC or MRMC,  or iMRMC")
-  
-  if (!missing(DataFileName) && !(file_ext(DataFileName) %in% c("xls", "xlsx", "txt"))) 
-    stop("Dataset extension has to be xls or xlsx,  or txt")
-  
-  if (!missing(DataFileName) && (file_ext(DataFileName) %in% c("xls", "xlsx")) && (DataFileFormat ==  "txt")) 
-    stop("Inconsistent DataFileName and DataFileFormat")
-  
-  if (!missing(DataFileName) && (file_ext(DataFileName) == "txt") &&  (DataFileFormat ==  "JAFROC")) 
-    stop("Inconsistent DataFileName and DataFileFormat")
+  if (!missing(DataFileName)) {
+    if (missing(DataFileFormat)) 
+       stop("If DataFileName is specified, then DataFileFormat must be specified")
+    if (!(DataFileFormat %in% c("JAFROC", "MRMC", "iMRMC"))) 
+       stop("data file format has to be JAFROC or MRMC,  or iMRMC")
+    if (!(file_ext(DataFileName) %in% c("xls", "xlsx", "txt"))) 
+       stop("Dataset extension has to be xls or xlsx,  or txt")
+    if ((file_ext(DataFileName) %in% c("xls", "xlsx")) && (DataFileFormat ==  "txt")) 
+       stop("Inconsistent DataFileName and DataFileFormat")
+    if ((file_ext(DataFileName) == "txt") &&  (DataFileFormat ==  "JAFROC")) 
+       stop("Inconsistent DataFileName and DataFileFormat")
+  }
 
   if (missing(dataset) && missing(DataFileName)) {
-    stop("Must specify either a data file or a dataset to be analyzed.")
+    stop("Must specify either a data file or a dataset object to be analyzed.")
+  } else {
+    if (missing(dataset)) {
+      datasetSpecified <- FALSE
+      dataset <- DfReadDataFile(DataFileName, DataFileFormat, delimiter, renumber)
+    } else {
+      datasetSpecified <- TRUE
+      modalityNames <- dataset$modalityID
+      readerNames <- dataset$readerID
+      if (renumber){
+        dataset$modalityID <- 1:length(modalityNames)
+        dataset$readerID <- 1:length(readerNames)
+      }
+      names(dataset$modalityID) <- modalityNames
+      names(dataset$readerID) <- readerNames
+    }
   }
   
-  if (missing(dataset)) {
-    dataset <- DfReadDataFile(DataFileName, DataFileFormat, delimiter, renumber)
-    datasetSpecified <- FALSE
-  } else {
-    datasetSpecified <- TRUE
-    modalityNames <- dataset$modalityID
-    readerNames <- dataset$readerID
-    if (renumber){
-      dataset$modalityID <- 1:length(modalityNames)
-      dataset$readerID <- 1:length(readerNames)
-    }
-    names(dataset$modalityID) <- modalityNames
-    names(dataset$readerID) <- readerNames
-  }
   if (stMethod == "DBMH") {
     methodTxt <- "DBM-MRMC-HILLIS SIGNIFICANCE TESTING"
     result <- StSignificanceTesting(dataset, FOM, alpha, stMethod)
@@ -133,7 +132,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     methodTxt <- "OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING"
     result <- StSignificanceTesting(dataset, FOM, alpha, stMethod, covEstMethod, nBoots)
   } else {
-    errMsg <- paste0(stMethod, " is not a valid analysis stMethod.")
+    errMsg <- paste0(stMethod, " is not a valid analysis method.")
     stop(errMsg)
   }
   

@@ -1,10 +1,10 @@
 ---
-title: "Quick Start: Running DBM analysis"
+title: "Ch10: Quick Start: Running DBMH-ORH analysis"
 author: "Dev P. Chakraborty"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Quick Start: Running DBM analysis}
+  %\VignetteIndexEntry{Quick Start: Running DBMH-ORH analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

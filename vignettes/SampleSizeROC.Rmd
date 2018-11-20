@@ -1,5 +1,5 @@
 ---
-title: "Sample Size ROC"
+title: "Ch11: Sample Size ROC"
 author: "Dev P. Chakraborty"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

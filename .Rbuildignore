@@ -10,3 +10,5 @@
 ^README\.Rmd$
 ^\.github$
 ^codecov.yml$
+^docs$
+^_pkgdown\.yml$

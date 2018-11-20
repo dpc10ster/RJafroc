@@ -1,5 +1,5 @@
 ---
-title: "Degenerate datasets in the binormal model"
+title: "Ch20: degenerate datasets in the binormal model"
 author: "Dev P. Chakraborty"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

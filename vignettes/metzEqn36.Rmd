@@ -1,11 +1,11 @@
 ---
-title: "PROPROC ROCs and pdfs"
+title: "Ch20: Metz Eqn36"
 author: "Dev P. Chakraborty"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 fig.width: 4
 vignette: >
-  %\VignetteIndexEntry{PROPROC ROCs}
+  %\VignetteIndexEntry{Metz Eqn36 numerical check}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
