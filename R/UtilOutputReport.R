@@ -150,6 +150,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
                    DataFileName,
                    methodTxt,
                    overwrite,
+                   covEstMethod,
                    UNINITIALIZED)
   } else if (ReportFileFormat == "xlsx"){
     sucessfulOutput <- OutputExcelFile(dataset,
@@ -163,6 +164,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
                     DataFileName,
                     methodTxt,
                     overwrite,
+                    covEstMethod,
                     UNINITIALIZED)
   }
   
@@ -182,6 +184,7 @@ OutputTextFile <- function(dataset,
                            DataFileName,
                            methodTxt,
                            overwrite,
+                           covEstMethod,
                            UNINITIALIZED)
 {
   if (missing(ReportFileName)) {
@@ -674,6 +677,7 @@ OutputExcelFile <- function(dataset,
                             DataFileName,
                             methodTxt,
                             overwrite,
+                            covEstMethod,
                             UNINITIALIZED)
 {
   if (missing(ReportFileName)) {
