@@ -10,18 +10,18 @@ UtilOutputReport (dataset, DataFileName, DataFileFormat, delimiter = ",",
    nBoots = 200, renumber = FALSE, overwrite = TRUE)
 }
 \arguments{
-\item{dataset}{The dataset object to be analyzed (not the file name), \link{RJafroc-package}.}
+\item{dataset}{The dataset object to be analyzed (not the file name), see \code{Dataset} in \link{RJafroc-package}.}
 
 \item{DataFileName}{A string variable containing the name of the data file 
-to be analyzed, see \link{DfReadDataFile} and "Details".}
+to be analyzed, in the form \code{baseName.ext}, see \link{DfReadDataFile}.}
 
 \item{DataFileFormat}{The format of the data specified in \code{DataFileName}: 
-see \link{DfReadDataFile} and "Details". Must be specified if \code{DataFileName}
-is specified.}
+see \link{DfReadDataFile}. Must be specified if \code{DataFileName}
+is specified. Valid values are "JAFROC", "MRMC" or "iMRMC"}
 
-\item{delimiter}{See \link{DfReadDataFile}.}
+\item{delimiter}{used in text input data file, See \link{DfReadDataFile}.}
 
-\item{dataDescription}{A description of the data, default is \code{"MyData"}}
+\item{dataDescription}{Optional description of the data, default is \code{"MyData"}}
 
 \item{ReportFileName}{The file name of the output report file. If this parameter 
 is missing, the function will use \code{DataFileName} or \code{dataDescription} 
@@ -29,18 +29,18 @@ followed by the underscore separated concatenation of \code{stMethod}
 and \code{FOM} as the output report file.}
 
 \item{ReportFileFormat}{The format of the output report. The two available formats are 
-\code{"txt"} (the default) and \code{"xlsx"}, corresponding to a formatted text file and an 
+\code{"txt"} (the default) and \code{"xlsx"}, corresponding to a formatted text file or an 
 Excel file, respectively.}
 
-\item{stMethod}{The significance testing method, \code{"ORH"} or \code{"DBMH"}.}
+\item{stMethod}{The significance testing method, \code{"ORH"} or (the default) \code{"DBMH"}.}
 
-\item{FOM}{See \link{StSignificanceTesting}.}
+\item{FOM}{The figure of merit; see \link{StSignificanceTesting}.}
 
 \item{alpha}{See \link{StSignificanceTesting}.}
 
-\item{covEstMethod}{See \link{StSignificanceTesting}.}
+\item{covEstMethod}{See \link{StSignificanceTesting}; only needed for \code{"ORH"} analysis.}
 
-\item{nBoots}{See \link{StSignificanceTesting}.}
+\item{nBoots}{See \link{StSignificanceTesting}; only needed for \code{"ORH"} analysis.}
 
 \item{renumber}{A logical variable: if \code{TRUE}, consecutive integers 
 (staring from 1) will be used as the treatment and reader IDs in the 
