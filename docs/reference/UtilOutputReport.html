@@ -151,26 +151,26 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset object to be analyzed (not the file name), <a href='RJafroc-package.html'>RJafroc-package</a>.</p></td>
+      <td><p>The dataset object to be analyzed (not the file name), see <code>Dataset</code> in <a href='RJafroc-package.html'>RJafroc-package</a>.</p></td>
     </tr>
     <tr>
       <th>DataFileName</th>
       <td><p>A string variable containing the name of the data file 
-to be analyzed, see <a href='DfReadDataFile.html'>DfReadDataFile</a> and "Details".</p></td>
+to be analyzed, in the form <code>baseName.ext</code>, see <a href='DfReadDataFile.html'>DfReadDataFile</a>.</p></td>
     </tr>
     <tr>
       <th>DataFileFormat</th>
       <td><p>The format of the data specified in <code>DataFileName</code>: 
-see <a href='DfReadDataFile.html'>DfReadDataFile</a> and "Details". Must be specified if <code>DataFileName</code>
-is specified.</p></td>
+see <a href='DfReadDataFile.html'>DfReadDataFile</a>. Must be specified if <code>DataFileName</code>
+is specified. Valid values are "JAFROC", "MRMC" or "iMRMC"</p></td>
     </tr>
     <tr>
       <th>delimiter</th>
-      <td><p>See <a href='DfReadDataFile.html'>DfReadDataFile</a>.</p></td>
+      <td><p>used in text input data file, See <a href='DfReadDataFile.html'>DfReadDataFile</a>.</p></td>
     </tr>
     <tr>
       <th>dataDescription</th>
-      <td><p>A description of the data, default is <code>"MyData"</code></p></td>
+      <td><p>Optional description of the data, default is <code>"MyData"</code></p></td>
     </tr>
     <tr>
       <th>ReportFileName</th>
@@ -182,16 +182,16 @@ and <code>FOM</code> as the output report file.</p></td>
     <tr>
       <th>ReportFileFormat</th>
       <td><p>The format of the output report. The two available formats are 
-<code>"txt"</code> (the default) and <code>"xlsx"</code>, corresponding to a formatted text file and an 
+<code>"txt"</code> (the default) and <code>"xlsx"</code>, corresponding to a formatted text file or an 
 Excel file, respectively.</p></td>
     </tr>
     <tr>
       <th>stMethod</th>
-      <td><p>The significance testing method, <code>"ORH"</code> or <code>"DBMH"</code>.</p></td>
+      <td><p>The significance testing method, <code>"ORH"</code> or (the default) <code>"DBMH"</code>.</p></td>
     </tr>
     <tr>
       <th>FOM</th>
-      <td><p>See <a href='StSignificanceTesting.html'>StSignificanceTesting</a>.</p></td>
+      <td><p>The figure of merit; see <a href='StSignificanceTesting.html'>StSignificanceTesting</a>.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -199,11 +199,11 @@ Excel file, respectively.</p></td>
     </tr>
     <tr>
       <th>covEstMethod</th>
-      <td><p>See <a href='StSignificanceTesting.html'>StSignificanceTesting</a>.</p></td>
+      <td><p>See <a href='StSignificanceTesting.html'>StSignificanceTesting</a>; only needed for <code>"ORH"</code> analysis.</p></td>
     </tr>
     <tr>
       <th>nBoots</th>
-      <td><p>See <a href='StSignificanceTesting.html'>StSignificanceTesting</a>.</p></td>
+      <td><p>See <a href='StSignificanceTesting.html'>StSignificanceTesting</a>; only needed for <code>"ORH"</code> analysis.</p></td>
     </tr>
     <tr>
       <th>renumber</th>
