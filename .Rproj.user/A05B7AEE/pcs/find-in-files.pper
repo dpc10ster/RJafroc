@@ -2,25 +2,9 @@
     "dialog-state" : {
         "caseSensitive" : true,
         "filePatterns" : [
-            "*.r",
-            "*.R",
-            "*.rnw",
-            "*.Rnw",
-            "*.rmd",
-            "*.Rmd",
-            "*.rmarkdown",
-            "*.Rmarkdown",
-            "*.rhtml",
-            "*.Rhtml",
-            "*.rd",
-            "*.Rd",
-            "*.h",
-            "*.hpp",
-            "*.c",
-            "*.cpp"
         ],
-        "path" : "~/Documents/GitHub/rjafroc-master",
-        "query" : "RJafroc Documentation",
+        "path" : "~/rjafroc-master/vignettes",
+        "query" : "zeta",
         "regex" : false
     }
 }

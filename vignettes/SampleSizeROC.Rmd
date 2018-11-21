@@ -21,12 +21,34 @@ library(RJafroc)
 This vignette illustrates sample size estimation for the ROC paradigm.
 
 
-## Generating the Excel output file
+## Vignette 1: Illustrating the F-distribution
 
 
-```{r}
-UtilOutputReport(dataset03, stMethod = "DBMH", FOM = "Wilcoxon", overwrite = TRUE, ReportFileFormat = "xlsx")
+```{r, fig.align = "center"}
+library(ggplot2)
+ndf <- 1;ddf <- 10;ncp <- c(0,2,5,10)
+fCrit <- qf(0.95, ndf,ddf)
+cat("critical value of x for rejecting NH is ", fCrit,"\n")
+x <- seq(1, 20, 0.1)
+myLabel <- c("A", "B", "C", "D")
+myLabelIndx <- 1
+for (i in 1:length(ncp))
+{
+  y <- df(x,ndf,ddf,ncp=ncp[i])
+  cat("ndf = ", ndf, ", ddf = ", ddf, ", ncp = ", ncp[i], ", prob > fCrit = ", 
+      1-pf(fCrit, ndf, ddf, ncp = ncp[i]), "\n")
+  curveData <- data.frame(x = x, pdf = y)
+  curvePlot <- ggplot(data = curveData, mapping = aes(x = x, y = pdf)) + 
+    geom_line() +
+    ggtitle(myLabel[myLabelIndx]);myLabelIndx <- myLabelIndx + 1
+  print(curvePlot)
+}
 ```             
 
+
+(A) Corresponds to `ncp = 0`, which yields the usual (aka *central*) F-distribution that was used in the previous two chapters (9 and 10). The integral under this distribution is unity (this is true for all plots above). The critical value, denoted `fCrit` in the code, is that value of `x` such that the probability of exceeding `x` is $\alpha$; in the current example `fCrit` = `r qf(0.95, ndf,ddf)`. Notice the use of the quantile function `qf()` to determine this value, also that the default value of `ncp`, namely zero, is used; specifically, one does not pass a 4th argument to `qf()`. The decision rule for rejecting the NH uses the NH distribution of the F-statistic, i.e., the decision rule is to reject the NH if F >= $\alpha$. As expected, the second line of the output lists `prob > fCrit` = `r 1-pf(fCrit, ndf, ddf, ncp = ncp[1])` because this is how `fCrit` was defined. 
+(B) corresponds to `ncp = 2`. It is noticeably shifted to the right, thereby making it more likely that the observed value of the F-statistic will exceed the critical value determined for the NH distribution. This time `prob > fCrit` = `r 1-pf(fCrit, ndf, ddf, ncp = ncp[2])`, which is called *statistical power*. 
+(C) corresponds to `ncp = 5`, `prob > fCrit` = `r 1-pf(fCrit, ndf, ddf, ncp = ncp[3])`. 
+(D) corresponds to `ncp = 10`, `prob > fCrit` is  `r 1-pf(fCrit, ndf, ddf, ncp = ncp[4])`. The effect of the shift is obvious in plots (C) and (D). Considering a vertical line at `x = 4.10`, most of the distribution in plot (D), more than 67% to be precise, lies to the right of this line, so the NH is more than 67% likely to be rejected. Of course, what causes the shift is the non-centrality parameter. The larger that non-centrality parameter is, the greater the shift to the right.
 
 
