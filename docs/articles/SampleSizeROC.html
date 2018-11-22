@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ch11: Sample Size ROC • RJafroc</title>
+<title>Ch11: Vignette 1: Sample Size ROC from first principles • RJafroc</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Ch11: Sample Size ROC">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Ch11: Vignette 1: Sample Size ROC from first principles">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -59,7 +59,7 @@
       <a href="../articles/QuickStartDBMHExcelOutput.html">Ch10: Quick Start: DBMH-ORH Analysis Excel Output</a>
     </li>
     <li>
-      <a href="../articles/SampleSizeROC.html">Ch11: Sample Size ROC</a>
+      <a href="../articles/SampleSizeROC.html">Ch11: Vignette 1: Sample Size ROC from first principles</a>
     </li>
     <li>
       <a href="../articles/cbmPlots.html">Ch20: CBM plots</a>
@@ -94,10 +94,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Ch11: Sample Size ROC</h1>
+      <h1>Ch11: Vignette 1: Sample Size ROC from first principles</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2018-11-20</h4>
+            <h4 class="date">2018-11-21</h4>
       
       
       <div class="hidden name"><code>SampleSizeROC.Rmd</code></div>
@@ -111,11 +111,96 @@
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>This vignette illustrates sample size estimation for the ROC paradigm.</p>
 </div>
-<div id="generating-the-excel-output-file" class="section level2">
+<div id="illustrating-the-f-distribution" class="section level2">
 <h2 class="hasAnchor">
-<a href="#generating-the-excel-output-file" class="anchor"></a>Generating the Excel output file</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">stMethod =</span> <span class="st">"DBMH"</span>, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileFormat =</span> <span class="st">"xlsx"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; The report has been saved to /Users/Dev/Documents/GitHub/rjafroc-master/vignettes/MyDataOutput.xlsx.</span></a></code></pre></div>
+<a href="#illustrating-the-f-distribution" class="anchor"></a>Illustrating the F-distribution</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">ndf &lt;-<span class="st"> </span><span class="dv">1</span>;ddf &lt;-<span class="st"> </span><span class="dv">10</span>;ncp &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">fCrit &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf</a></span>(<span class="fl">0.95</span>, ndf,ddf)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"critical value of x for rejecting NH is "</span>, fCrit,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; critical value of x for rejecting NH is  4.964603</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">1</span>, <span class="dv">20</span>, <span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">myLabel &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(ncp))</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">{</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">  y &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df</a></span>(x,ndf,ddf,<span class="dt">ncp=</span>ncp[i])</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ndf = "</span>, ndf, <span class="st">", ddf = "</span>, ddf, <span class="st">", ncp = "</span>, ncp[i], <span class="st">", prob &gt; fCrit = "</span>, </a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">      <span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">pf</a></span>(fCrit, ndf, ddf, <span class="dt">ncp =</span> ncp[i]), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">  curveData &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">x =</span> x, <span class="dt">pdf =</span> y)</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">  curvePlot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> curveData, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pdf)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="st">    </span><span class="kw">ggtitle</span>(myLabel[myLabelIndx]);myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(curvePlot)</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">}</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt; ndf =  1 , ddf =  10 , ncp =  0 , prob &gt; fCrit =  0.05</span></a></code></pre></div>
+<p><img src="SampleSizeROC_files/figure-html/unnamed-chunk-1-1.png" width="700" style="display: block; margin: auto;"></p>
+<pre><code>#&gt; ndf =  1 , ddf =  10 , ncp =  2 , prob &gt; fCrit =  0.2490518</code></pre>
+<p><img src="SampleSizeROC_files/figure-html/unnamed-chunk-1-2.png" width="700" style="display: block; margin: auto;"></p>
+<pre><code>#&gt; ndf =  1 , ddf =  10 , ncp =  5 , prob &gt; fCrit =  0.5238753</code></pre>
+<p><img src="SampleSizeROC_files/figure-html/unnamed-chunk-1-3.png" width="700" style="display: block; margin: auto;"></p>
+<pre><code>#&gt; ndf =  1 , ddf =  10 , ncp =  10 , prob &gt; fCrit =  0.8128068</code></pre>
+<p><img src="SampleSizeROC_files/figure-html/unnamed-chunk-1-4.png" width="700" style="display: block; margin: auto;"></p>
+<div id="comments" class="section level3">
+<h3 class="hasAnchor">
+<a href="#comments" class="anchor"></a>Comments</h3>
+<ol style="list-style-type: upper-alpha">
+<li>Corresponds to <code>ncp = 0</code>, which yields the usual (aka <em>central</em>) F-distribution that was used in the previous two chapters (9 and 10). The integral under this distribution is unity (this is true for all plots above). The critical value, denoted <code>fCrit</code> in the code, is that value of <code>x</code> such that the probability of exceeding <code>x</code> is <span class="math inline">\(\alpha\)</span>; in the current example <code>fCrit</code> = 4.9646027. Notice the use of the quantile function <code><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf()</a></code> to determine this value, also that the default value of <code>ncp</code>, namely zero, is used; specifically, one does not pass a 4th argument to <code><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf()</a></code>. The decision rule for rejecting the NH uses the NH distribution of the F-statistic, i.e., the decision rule is to reject the NH if F &gt;= <span class="math inline">\(\alpha\)</span>. As expected, the second line of the output lists <code>prob &gt; fCrit</code> = 0.05 because this is how <code>fCrit</code> was defined.</li>
+<li>corresponds to <code>ncp = 2</code>. It is noticeably shifted to the right, thereby making it more likely that the observed value of the F-statistic will exceed the critical value determined for the NH distribution. This time <code>prob &gt; fCrit</code> = 0.2490518, which is called <em>statistical power</em>.</li>
+<li>corresponds to <code>ncp = 5</code>, <code>prob &gt; fCrit</code> = 0.5238753.</li>
+<li>corresponds to <code>ncp = 10</code>, <code>prob &gt; fCrit</code> is 0.8128068. The effect of the shift is obvious in plots (C) and (D). Considering a vertical line at <code>x = 4.10</code>, most of the distribution in plot (D), more than 67% to be precise, lies to the right of this line, so the NH is more than 67% likely to be rejected. Of course, what causes the shift is the non-centrality parameter. The larger that non-centrality parameter is, the greater the shift to the right.</li>
+</ol>
+</div>
+</div>
+<div id="vignette-2-sample-size-estimation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#vignette-2-sample-size-estimation" class="anchor"></a>Vignette 2: Sample size estimation</h2>
+<p>The Van Dyke dataset in file <code>VanDyke.lrc</code>, in <code>"MRMC"</code> format, is regarded as a pilot study. The command <code>rocData &lt;- DfReadDataFile(fileName, format = "MRMC")</code> reads the data and saves it to a <code>dataset</code> object <code>rocData</code>. The next line uses the function <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> to apply <code>"DBMH"</code> analysis using the <code>"Wilcoxon"</code> figure of merit. The next line extracts the needed variance components. The Y implies pseudovalue based values. The next line extracts the effect size, <code>effectSize</code> and prints it out.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">alpha &lt;-<span class="st"> </span><span class="fl">0.05</span>;<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"alpha = "</span>, alpha, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; alpha =  0.05</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">fileName &lt;-<span class="st"> "VanDyke.lrc"</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#fileName &lt;- "Franken1.lrc"</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">rocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(fileName, <span class="dt">format =</span> <span class="st">"MRMC"</span>)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">retDbm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="dt">dataset =</span> rocData, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>) </a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">varYTR &lt;-<span class="st"> </span>retDbm<span class="op">$</span>varComp<span class="op">$</span>varComp[<span class="dv">3</span>];varYTC &lt;-<span class="st"> </span>retDbm<span class="op">$</span>varComp<span class="op">$</span>varComp[<span class="dv">4</span>];varYEps &lt;-<span class="st"> </span>retDbm<span class="op">$</span>varComp<span class="op">$</span>varComp[<span class="dv">6</span>]</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">effectSize &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ciDiffTrtRRRC<span class="op">$</span>Estimate</a></code></pre></div>
+<p>The observed effect size is <code>R effectSize</code></p>
+<div id="random-reader-random-case-rrrc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#random-reader-random-case-rrrc" class="anchor"></a>Random reader random case (RRRC)</h3>
+<p>The following code illustrates random reader random case sample size estimation. Assumed are 10 readers and 163 cases: <code>J &lt;- 10; K &lt;- 163</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">#RRRC</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">163</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(K<span class="op">*</span>varYTR<span class="op">+</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(J<span class="op">*</span>varYTC,<span class="dv">0</span>)<span class="op">+</span>varYEps)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">MS &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilMeanSquares.html">UtilMeanSquares</a></span>(rocData, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>)</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">ddf &lt;-<span class="st"> </span>(MS<span class="op">$</span>msTR<span class="op">+</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(MS<span class="op">$</span>msTC<span class="op">-</span>MS<span class="op">$</span>msTRC,<span class="dv">0</span>))<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(MS<span class="op">$</span>msTR<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span>(J<span class="dv">-1</span>)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">FCrit &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf</a></span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">pf</a></span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</a></code></pre></div>
+<p>The next line calculates the non centrality parameter, <code>ncp</code> = 8.1269825. Note that <code>effectSize</code> enters as the <strong>square</strong>. Using the <code>UtilMeanSquares</code> function, the next line extracts the needed mean squares. The following line calculates <code>ddf</code> = 34.3342678. The remaining lines calculate the critical value of the F-distribution, <code>FCrit</code> = 4.1270572 and the statistical power = 0.7911126.</p>
+</div>
+<div id="fixed-reader-random-case-frrc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#fixed-reader-random-case-frrc" class="anchor"></a>Fixed reader random case (FRRC)</h3>
+<p>The following code illustrates fixed reader random case sample size estimation. Assumed are 10 readers and 133 cases: <code>J &lt;- 10; K &lt;- 133</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">#FRRC</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">133</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(J<span class="op">*</span>varYTC,<span class="dv">0</span>)<span class="op">+</span>varYEps)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">ddf &lt;-<span class="st"> </span>(K<span class="dv">-1</span>)</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">FCrit &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf</a></span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">pf</a></span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</a></code></pre></div>
+<p>This time non centrality parameter, <code>ncp</code> = 7.9873835, <code>ddf</code> = 132, <code>FCrit</code> = 3.912875 and statistical power = 0.8011167.</p>
+</div>
+<div id="random-reader-fixed-case-rrfc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#random-reader-fixed-case-rrfc" class="anchor"></a>Random reader fixed case (RRFC)</h3>
+<p>The following code illustrates random reader random case sample size estimation. Assumed are 10 readers and 53 cases: <code>J &lt;- 10; K &lt;- 5</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co">#RRFC</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">53</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(K<span class="op">*</span>varYTR<span class="op">+</span>varYEps)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">ddf &lt;-<span class="st"> </span>(J<span class="dv">-1</span>)</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">FCrit &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf</a></span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">pf</a></span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</a></code></pre></div>
+<p>This time non centrality parameter, <code>ncp</code> = 10.0487164, <code>ddf</code> = 9, <code>FCrit</code> = 5.117355 and statistical power = 0.8049666.</p>
+</div>
 </div>
   </div>
 
@@ -125,7 +210,8 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#generating-the-excel-output-file">Generating the Excel output file</a></li>
+      <li><a href="#illustrating-the-f-distribution">Illustrating the F-distribution</a></li>
+      <li><a href="#vignette-2-sample-size-estimation">Vignette 2: Sample size estimation</a></li>
       </ul>
 </div>
       </div>

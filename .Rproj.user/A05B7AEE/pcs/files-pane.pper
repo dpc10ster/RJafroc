@@ -1,13 +1,13 @@
 {
-    "path" : "~/rjafroc-master/vignettes",
+    "path" : "~/Documents/GitHub/rjafroc-master/vignettes",
     "sortOrder" : [
-        {
-            "ascending" : true,
-            "columnIndex" : 2
-        },
         {
             "ascending" : false,
             "columnIndex" : 4
+        },
+        {
+            "ascending" : true,
+            "columnIndex" : 2
         },
         {
             "ascending" : false,
