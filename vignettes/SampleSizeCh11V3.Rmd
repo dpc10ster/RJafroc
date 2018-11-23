@@ -1,0 +1,77 @@
+---
+title: "Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method"
+author: "Dev P. Chakraborty"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ROC sample size}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(RJafroc)
+library(ggplot2)
+```
+
+## Introduction
+This illustrates the `RJafroc` implementation of sample-size estimation. Default $\alpha$ is 0.05 and default power 1-$\beta$ is 0.8. Three functions are provided. Each of these functions can be used with `"DBMH"` (illustrated here) or `"ORH"` (next vignette) significance testing. Illustrated below are random-reader random-case (RRRC) options only, `option = "RRRC"`. The user should experiment with fixed-reader random-case (FRRC) and random-reader fixed-case (RRFC) options.
+
+* `SsPowerGivenJK()` 
+    Statistical power for specified numbers of readers and cases in an ROC study.
+* `SsPowerTable()` 
+    Generate a power table, i.e., combinations of numbers of readers and cases yielding the desired power.
+* `SsSampleSizeKGivenJ` 
+    Number of cases, for specified number of readers, to achieve desired power.
+
+## Illustration of `SsPowerGivenJK()` using `method = "DBMH"`
+```{r}
+retDbm <- StSignificanceTesting(data = dataset02, FOM = "Wilcoxon", method = "DBMH")
+effectSize <- retDbm$ciDiffTrtRRRC$Estimate
+varCompDBM <- retDbm$varComp
+varYTR <- varCompDBM$varComp[3]
+varYTC <- varCompDBM$varComp[4]
+varYEps <- varCompDBM$varComp[6]
+power <- SsPowerGivenJK(J = 10, K = 163, effectSize, method = "DBMH", option = "RRRC",
+                        varYTR = varYTR, varYTC = varYTC, varYEps = varYEps)
+````
+The returned value is a list containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic. 
+```{r}
+str(power)
+````
+
+Expected power is `r power$powerRRRC`.
+
+
+## Illustration of `SsPowerTable()` using `method = "DBMH"`
+```{r}
+powTab <- SsPowerTable(effectSize = effectSize, desiredPower = 0.8,  
+                       method = "DBMH", option = "RRRC", varYTR = varYTR, varYTC = varYTC, varYEps = varYEps)
+````
+
+Now show the power table `powTab`.
+
+```{r}
+powTab
+````
+
+## Illustration of `SsSampleSizeKGivenJ()` using `method = "DBMH"`
+```{r}
+ncases <- SsSampleSizeKGivenJ(J = 10, effectSize = effectSize, desiredPower = 0.8,  
+                       method = "DBMH", option = "RRRC", varYTR = varYTR, varYTC = varYTC, varYEps = varYEps)
+````
+
+`ncases` is a list containing the number of cases `ncases$K` and expected power `ncases$power`. 
+
+```{r}
+str(ncases)
+````
+
+The required number of cases is `r ncases$K` and expected power is `r ncases$power`.
+
+
+

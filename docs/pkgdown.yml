@@ -1,9 +1,12 @@
-pandoc: 2.2.1
-pkgdown: 1.1.0.9000
+pandoc: 1.19.2.1
+pkgdown: 1.2.0
 pkgdown_sha: ~
 articles:
   QuickStartDBMH: QuickStartDBMH.html
   QuickStartDBMHExcelOutput: QuickStartDBMHExcelOutput.html
+  SampleSizeCh11V1: SampleSizeCh11V1.html
+  SampleSizeCh11V2: SampleSizeCh11V2.html
+  SampleSizeCh11V3: SampleSizeCh11V3.html
   SampleSizeROC: SampleSizeROC.html
   cbmPlots: cbmPlots.html
   degenerateROCs: degenerateROCs.html

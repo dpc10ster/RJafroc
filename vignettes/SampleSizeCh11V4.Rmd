@@ -1,0 +1,76 @@
+---
+title: "Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method"
+author: "Dev P. Chakraborty"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ROC sample size}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(RJafroc)
+```
+
+## Introduction
+This illustrates the `RJafroc` implementation of sample-size estimation using `"ORH"` method for significance testing.
+
+## Illustration of `SsPowerGivenJK()` using `method = "ORH"`
+```{r}
+retORH <- StSignificanceTesting(data = dataset02, FOM = "Wilcoxon", method = "ORH")
+varTR <- retORH$varComp$varCov[2];varTR <- max(varTR,0)
+cov1 <- retORH$varComp$varCov[3]
+cov2 <- retORH$varComp$varCov[4]
+cov3 <- retORH$varComp$varCov[5]
+varEps <- retORH$varComp$varCov[6]
+effectSize <- retORH$ciDiffTrtRRRC$Estimate
+KStar <- length(dataset02$NL[1,1,,1])
+power <- SsPowerGivenJK(6, 251, effectSize, method = "ORH", option = "RRRC", 
+             cov1 = cov1, cov2 = cov2, cov3 = cov3,
+             varEps = varEps, varTR = varTR, KStar = KStar)
+````
+The returned value is a list containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic. 
+```{r}
+str(power)
+````
+
+Expected power is `r power$powerRRRC`.
+
+
+## Illustration of `SsPowerTable()` using `method = "ORH"`
+```{r}
+powTab <- SsPowerTable(effectSize = effectSize,
+             method = "ORH", option = "RRRC", 
+             cov1 = cov1, cov2 = cov2, cov3 = cov3,
+             varEps = varEps, varTR = varTR, KStar = KStar)
+````
+
+Now show the power table `powTab`.
+
+```{r}
+powTab
+````
+
+## Illustration of `SsSampleSizeKGivenJ()` using `method = "ORH"`
+```{r}
+ncases <- SsSampleSizeKGivenJ(J = 10, effectSize = effectSize,  
+             method = "ORH", option = "RRRC", 
+             cov1 = cov1, cov2 = cov2, cov3 = cov3,
+             varEps = varEps, varTR = varTR, KStar = KStar)
+````
+
+`ncases` is a list containing the number of cases `ncases$K` and expected power `ncases$power`. 
+
+```{r}
+str(ncases)
+````
+
+The required number of cases is `r ncases$K` and expected power is `r ncases$power`.
+
+
+
