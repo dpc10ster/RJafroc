@@ -37,7 +37,6 @@
 #'@note This algorithm is more robust than the binormal model.
 #'
 #' @examples
-#' RShowDoc("cbmPlots", package = "RJafroc")
 #' 
 #' ## Test with included ROC data
 #' retFit <- FitCbmRoc(dataset02);print(retFit$fittedPlot)

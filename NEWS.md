@@ -8,6 +8,7 @@ Added vignette proprocROCs.Rmd
 Added vignette metzEqn36.Rmd
 Added vignette cbmPlots.Rmd
 Added pkgdown to create website of documentation
+Simplied ROC sample size routines; still in progress
 
 
 ==========================

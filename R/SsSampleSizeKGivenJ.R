@@ -1,19 +1,16 @@
 #' Number of cases, for specified number of readers, to achieve desired power
 #' 
 #' @description  Number of cases to achieve the desired power, for 
-#'   specified number of readers J, and specified DBM or OR variance components.
+#'   specified number of readers J, and specified DBMH or ORH analysis method
 #' 
-#' @usage SsSampleSizeKGivenJ (J, alpha = 0.05, effectSize = 0.05, 
-#'   desiredPower = 0.8, option = "ALL", method = "DBMH", ...) 
-#' 
-#' 
-#' @param J {The number of readers in the pivotal study}
-#' @param alpha The significance level of the study, default value is 0.05.
-#' @param effectSize The effect size to be used in the study, default value is 0.05.
-#' @param desiredPower The desired statistical power, default value is 0.8.
+#' @param dataset The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study.
+#' @param J The number of readers in the pivotal study.
+#' @param alpha The significance level of the study, default is 0.05.
+#' @param effectSize The effect size to be used in the pivotal study, default value is \code{NULL}.
+#' @param desiredPower The desired statistical power, default is 0.8.
 #' @param option Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).
 #' @param method "DBMH" (default) or "ORH".
-#' @param ...  Other necessary parameters, OR or DBM variance components, see details
+#' @param ... Other parameters, OR or DBM variance components, passed internally, see details
 #' 
 #'
 #' @return A list of two elements:
@@ -21,13 +18,11 @@
 #'    to just achieve the desired statistical power.}
 #' @return \item{power}{The predicted statistical power.}
 #' 
-#' @details Regarding other parameters (...), see details in \link{SsPowerGivenJK}.
-#'    An additional parameter \code{KStar}, the number of cases in the pilot study, 
-#'    \strong{is required when using OR variability parameters}.
-#'
-#'
-#'
-#'@note The procedure is valid for ROC studies only; for FROC studies see Online Appendix Chapter 19.
+#' @details Other parameters \code{...} are reserved for internal use. The default \code{effectSize}
+#'     uses the observed effect size in the pilot study. A numeric value over-rides the default value.
+#' 
+#' 
+#' @note The procedure is valid for ROC studies only; for FROC studies see Online Appendix Chapter 19.
 #'
 #'
 #' 
@@ -40,73 +35,56 @@
 #' Statistics in Medicine, 24:10, 1579--607.
 #' 
 #' @examples
-#' ## Following is an example of sample size calculation using the DBM variance 
-#' ## components and jackknifing (the default) to
-#' ## estimate the variance components
-#' retDbm <- StSignificanceTesting(data = dataset02, 
-#' FOM = "Wilcoxon", method = "DBMH")
-#' effectSize <- retDbm$ciDiffTrtRRRC$Estimate
-#' varCompDBM <- retDbm$varComp
-#' varYTR <- varCompDBM$varComp[3]
-#' varYTC <- varCompDBM$varComp[4]
-#' varYEps <- varCompDBM$varComp[6]
-#' SsSampleSizeKGivenJ(J = 6, varYTR = varYTR, varYTC = varYTC, varYEps = varYEps, 
-#'                  effectSize =effectSize)
-#'                      
-#' ## Following is an example of sample size calculation using the OR variance components
-#' retOR <- StSignificanceTesting(data = dataset02, FOM = "Wilcoxon", 
-#' covEstMethod = "Jackknife", method = "ORH")
-#' effectSize <- retOR$ciDiffTrtRRRC$Estimate
-#' varCompOR <- retOR$varComp
-#' varTR <- varCompOR$varCov[2]
-#' cov1 <- varCompOR$varCov[3]
-#' cov2 <- varCompOR$varCov[4]
-#' cov3 <- varCompOR$varCov[5]
-#' varEps <- varCompOR$varCov[6]
-#' KStar <- 114
-#' SsSampleSizeKGivenJ(J = 6, cov1 = cov1, cov2 = cov2, cov3 = cov3, varTR = varTR, varEps= varEps, 
-#'                 KStar = KStar, effectSize =effectSize, method = "ORH")
+#' ## An example using the DBM method
+#' SsSampleSizeKGivenJ(dataset02, J = 6, method = "DBMH")
+#' 
+#' ## An example using the OR method
+#' SsSampleSizeKGivenJ(dataset02, J = 6, method = "ORH")
+#' 
 #'
 #' \dontrun{ 
-#' ## Following is an example of power calculations using the DBM variance components, 
-#' ## and scanning the number of readers
-#' retDbm <- StSignificanceTesting(data = dataset02, 
-#' FOM = "Wilcoxon", method = "DBMH")                     
-#' effectSize <- retDbm$ciDiffTrtRRRC$Estimate
-#' varYTR <- retDbm$varComp$varComp[3]
-#' varYTC <- retDbm$varComp$varComp[4]
-#' varYEps <- retDbm$varComp$varComp[6]
-#' effectSize <- retDbm$ciDiffTrtRRRC$Estimate
+## Example of power calculations using the DBM variance components, 
+## and scanning the number of readers
 #' for (J in 6:10) {
-#'  ret <- SsSampleSizeKGivenJ(J = J, varYTR = varYTR, varYTC = varYTC, 
-#'  varYEps = varYEps, effectSize =effectSize) 
+#'  ret <- SsSampleSizeKGivenJ(dataset02, J = J, option = "RRRC") 
 #'  message("# of readers = ", J, " estimated # of cases = ", ret$K, ", predicted power = ",
 #'     signif(ret$powerRRRC,3), "\n")
 #' }
-#' 
-#' ## Following is an example of power calculations using the ORH variance components, 
-#' ## using bootstrap to estimate variance components
-#' retOR <- StSignificanceTesting(data = dataset02, FOM = "Wilcoxon", 
-#' covEstMethod = "Bootstrap", method = "ORH")
-#' effectSize <- retOR$ciDiffTrtRRRC$Estimate
-#' varCompOR <- retOR$varComp
-#' varTR <- varCompOR$varCov[2]
-#' cov1 <- varCompOR$varCov[3]
-#' cov2 <- varCompOR$varCov[4]
-#' cov3 <- varCompOR$varCov[5]
-#' varEps <- varCompOR$varCov[6]
-#' KStar <- length(dataset02$NL[1,1,,1])
-#' SsSampleSizeKGivenJ(J = 6, cov1 = cov1, cov2 = cov2, cov3 = cov3, 
-#' varTR = varTR, varEps= varEps, 
-#'                  KStar = KStar, effectSize =effectSize, method = "ORH")
 #' }
 #' 
 #' @export
 
-SsSampleSizeKGivenJ <- function(J, alpha = 0.05, effectSize = 0.05, 
+SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL, 
                                 desiredPower = 0.8, option = "ALL", method = "DBMH", ...) {
-  allParameters <- c(as.list(environment()), list(...))
-  allParameters <- allParameters[ - which(names(allParameters) == "desiredPower")]
+  
+  if (!(option %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect option.")
+  if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
+  
+  extraArgs <- list(...)
+  if (!is.null(dataset)){
+    if (method == "DBMH") {
+      ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
+      if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+      varYTR <- ret$varComp$varComp[3]
+      varYTC <- ret$varComp$varComp[4]
+      varYEps <- ret$varComp$varComp[6]
+      calculatedParameters <- list(varYTR = varYTR, varYTC = varYTC, varYEps = varYEps, effectSize = effectSize)
+    } else if (method == "ORH") {
+      ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "ORH")
+      if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+      varTR <- ret$varComp$varCov[2]
+      cov1 <- ret$varComp$varCov[3]
+      cov2 <- ret$varComp$varCov[4]
+      cov3 <- ret$varComp$varCov[5]
+      varEps <- ret$varComp$varCov[6]
+      KStar <- length(dataset$NL[1,1,,1])
+      calculatedParameters <- list(cov1 = cov1,cov2 = cov2, cov3 = cov3, varEps = varEps, 
+                                   varTR = varTR, effectSize = effectSize, KStar = KStar)
+    } else stop("1:method must be DBMH or ORH")
+  } else {
+    calculatedParameters <- c(extraArgs, list(effectSize = effectSize))
+  }
+  
   K <- 1
   power <- 0
   if (option == "RRRC" || option == "ALL"){
@@ -117,8 +95,8 @@ SsSampleSizeKGivenJ <- function(J, alpha = 0.05, effectSize = 0.05,
         break
       }
       K <- K + 1
-      allParameters$option <- "RRRC"
-      power <- do.call("SsPowerGivenJK", c(allParameters, list(K = K)))
+      power <- do.call("SsPowerGivenJK", 
+                       c(list(J = J, K = K, option = "RRRC", method = method, alpha = alpha), calculatedParameters))
       power <- power$powerRRRC
     }
     powerRRRC <- power
@@ -132,8 +110,8 @@ SsSampleSizeKGivenJ <- function(J, alpha = 0.05, effectSize = 0.05,
         break
       }
       K <- K + 1
-      allParameters$option <- "FRRC"
-      power <- do.call("SsPowerGivenJK", c(allParameters, list(K = K)))
+      power <- do.call("SsPowerGivenJK", 
+                       c(list(J = J, K = K, option = "FRRC", method = method, alpha = alpha), calculatedParameters))
       power <- power$powerFRRC
     }
     powerFRRC <- power
@@ -147,8 +125,8 @@ SsSampleSizeKGivenJ <- function(J, alpha = 0.05, effectSize = 0.05,
         break
       }
       K <- K + 1
-      allParameters$option <- "RRFC"
-      power <- do.call("SsPowerGivenJK", c(allParameters, list(K = K)))
+      power <- do.call("SsPowerGivenJK", 
+                       c(list(J = J, K = K, option = "RRFC", method = method, alpha = alpha), calculatedParameters))
       power <- power$powerRRFC
     }
     powerRRFC <- power

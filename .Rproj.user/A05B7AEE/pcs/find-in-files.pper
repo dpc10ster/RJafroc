@@ -3,8 +3,8 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "~/rjafroc-master/vignettes",
-        "query" : "zeta",
+        "path" : "~/rjafroc-master",
+        "query" : "RShowDoc",
         "regex" : false
     }
 }

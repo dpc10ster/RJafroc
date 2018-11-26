@@ -4,21 +4,21 @@
 \alias{SsPowerTable}
 \title{Generate a power table}
 \usage{
-SsPowerTable(effectSize, alpha = 0.05, desiredPower = 0.8, 
-   method = "DBMH", option = "ALL", ...)
+SsPowerTable(dataset, effectSize = NULL, alpha = 0.05,
+  desiredPower = 0.8, method = "DBMH", option = "ALL")
 }
 \arguments{
-\item{effectSize}{The postulated effect size}
+\item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study.}
 
-\item{alpha}{The The size of the test, default is 0.05}
+\item{effectSize}{The effect size to be used in the \bold{pivotal} study, default value is \code{NULL}.}
 
-\item{desiredPower}{The desired statistical power, default is 0.8}
+\item{alpha}{The The size of the test, default is 0.05.}
 
-\item{method}{Analysis method, "DBMH" or "ORH", the default is "DBMH"}
+\item{desiredPower}{The desired statistical power, default is 0.8.}
 
-\item{option}{Desired generalization; the default is "RRRC", for random-reader random-cases}
+\item{method}{Analysis method, "DBMH" or "ORH", the default is "DBMH".}
 
-\item{...}{Other necessary parameters, OR or DBM variance components, see details}
+\item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
 }
 \value{
 A data frame containing following three columns.
@@ -28,52 +28,24 @@ A data frame containing following three columns.
 \item{numCases}{The number of cases in the pivotal study.}
 
 \item{power}{The calculated statistical power corresponding to the indicated
-numbers of readers and cases.}
+    numbers of readers and cases.}
 }
 \description{
 Generate combinations of numbers of readers J and numbers of cases K
-   for desired power and specified generalizations (i.e.,  RRRC or FRRC or RRFC)
+   for desired power and specified generalization(s)
 }
 \details{
-Regarding other parameters (...), see details in \link{SsPowerGivenJK}
+The default \code{effectSize}
+    uses the observed effect size in the pilot study. A numeric value over-rides the default value.
 }
 \note{
 The procedure is valid for ROC studies only; for FROC studies see Online Appendix Chapter 19.
 }
 \examples{
 ## Example of sample size calculation with DBM method
-retDbm <- StSignificanceTesting (dataset02, FOM = "Wilcoxon", method = "DBMH")
-effectSize <- retDbm$ciDiffTrtRRRC$Estimate
-varYTR <- retDbm$varComp$varComp[3]
-varYTC <- retDbm$varComp$varComp[4]
-varYEps <- retDbm$varComp$varComp[6]
-powTab <- SsPowerTable(
-effectSize = effectSize, 
-method = "DBMH", 
-varYTR = varYTR, 
-varYTC = varYTC, 
-varYEps = varYEps)
-print(powTab)
+SsPowerTable(dataset02, method = "DBMH")
 
 ## Example of sample size calculation with OR method
-retOR <- StSignificanceTesting (dataset02, FOM = "Wilcoxon", method = "ORH") 
-effectSize <- retOR$ciDiffTrtRRRC$Estimate
-varCompOR <- retOR$varComp
-varTR <- varCompOR$varCov[2]
-cov1 <- varCompOR$varCov[3]
-cov2 <- varCompOR$varCov[4]
-cov3 <- varCompOR$varCov[5]
-varEps <- varCompOR$varCov[6]
-KStar <- length(dataset02$NL[1,1,,1])
-powTab <- SsPowerTable(
-effectSize = effectSize, 
-method = "ORH",
-KStar = KStar,
-varTR = varTR, 
-cov1 = cov1, 
-cov2 = cov2, 
-cov3 = cov3, 
-varEps = varEps) 
-print(powTab)
+SsPowerTable(dataset02, method = "ORH")
 
 }

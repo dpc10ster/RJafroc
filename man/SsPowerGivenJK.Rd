@@ -4,24 +4,24 @@
 \alias{SsPowerGivenJK}
 \title{Statistical power for specified numbers of readers and cases in an ROC study}
 \usage{
-SsPowerGivenJK(J, K, effectSize, method, option = "ALL", alpha = 0.05,
-  ...)
+SsPowerGivenJK(dataset, J, K, method = "DBMH", option = "ALL",
+  alpha = 0.05, ...)
 }
 \arguments{
-\item{J}{The number of readers in the pivotal study}
+\item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study. If 
+missing, then variance components and effectSize must be passed as additional parameters.}
 
-\item{K}{The number of cases in the pivotal study}
+\item{J}{The number of readers in the pivotal study.}
 
-\item{effectSize}{The effect size to be used in the calculation, 
-the sign is unimportant, see Ch 11 in book for guidance.}
+\item{K}{The number of cases in the pivotal study.}
 
-\item{method}{"DBMH" or "ORH"}
+\item{method}{"DBMH" or "ORH".}
 
-\item{option}{"RRRC", "FRRC", "RRFC" or "ALL"; the default is "ALL"}
+\item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
 
 \item{alpha}{The significance level, default is 0.05.}
 
-\item{...}{Other necessary parameters, OR or DBM variance components, see details}
+\item{...}{Other parameters, OR or DBM variance components, passed internally, see details}
 }
 \value{
 The expected statistical power.
@@ -31,52 +31,14 @@ Calculate the statistical power for specified numbers of readers J,
    cases K, analysis method and DBM or OR variances components
 }
 \details{
-Regarding other parameters (...) needed are 
-   \strong{either} 
-   the set of of DBM variance components, i.e, 
-   (\code{varYTR}, \code{varYTC}, and \code{varYEps}),
-   \strong{or}
-   the set of OR covariance matrix elements, the treatment-reader variance and 
-   number of cases in pilot study 
-   i.e, (\code{cov1}, \code{cov2}, \code{cov3}, \code{varEps}, \code{varTR} and 
-   \code{KStar}).
-    
-If both of are given, DBM variance components are used and the OR values are ignored.
-
-Either numeric values, for example, of \code{varYTR}, \code{varYTC}, \code{varYEps}
-   can be supplied, \strong{provided they are in that order}, 
-   or the function call must explicitly state, for example, 
-   \code{cov1 = value1}, \code{cov2 = value2}, \code{cov3 = value3}, 
-   \code{varTR = value4}, \code{varEps = value5}, 
-   \code{KStar = value6}, i.e., in any order.
+Other parameters \code{...} are reserved for internal use.
 }
 \examples{
 ## An example of sample size calculation with DBM variance componements
-retDbm <- StSignificanceTesting(data = dataset02, 
-FOM = "Wilcoxon", method = "DBMH")
-effectSize <- retDbm$ciDiffTrtRRRC$Estimate
-varCompDBM <- retDbm$varComp
-varYTR <- varCompDBM$varComp[3]
-varYTC <- varCompDBM$varComp[4]
-varYEps <- varCompDBM$varComp[6]
-## should give close to 80\% power for RRRC
-SsPowerGivenJK(6, 251, effectSize, "DBMH", varYTR = varYTR, varYTC = varYTC, 
-             varYEps = varYEps)
+SsPowerGivenJK(dataset02, 6, 251, method = "DBMH")
                      
 ## An example of sample size calculation with OR variance componements.
-retOR <- StSignificanceTesting(data = dataset02, 
-FOM = "Wilcoxon", covEstMethod = "Jackknife", method = "ORH")
-effectSize <- retOR$ciDiffTrtRRRC$Estimate
-varCompOR <- retOR$varComp
-varTR <- varCompOR$varCov[2]
-cov1 <- varCompOR$varCov[3]
-cov2 <- varCompOR$varCov[4]
-cov3 <- varCompOR$varCov[5]
-varEps <- varCompOR$varCov[6]
-KStar <- length(dataset02$NL[1,1,,1])
-## same sample size as above, different method, should again give close to 80\% power for RRRC
-SsPowerGivenJK(6, 251, effectSize, "ORH", cov1 = cov1, cov2 = cov2, cov3 = cov3, 
-             varEps = varEps, varTR = varTR, KStar = KStar)
+SsPowerGivenJK(dataset02, 6, 251, method = "ORH")
 
 }
 \references{
