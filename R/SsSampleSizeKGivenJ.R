@@ -3,7 +3,8 @@
 #' @description  Number of cases to achieve the desired power, for 
 #'   specified number of readers J, and specified DBMH or ORH analysis method
 #' 
-#' @param dataset The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study.
+#' @param dataset The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study. If 
+#'     missing, then variance components and effectSize must be passed as additional parameters.
 #' @param J The number of readers in the pivotal study.
 #' @param alpha The significance level of the study, default is 0.05.
 #' @param effectSize The effect size to be used in the pivotal study, default value is \code{NULL}.
@@ -61,7 +62,7 @@ SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL,
   if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
   
   extraArgs <- list(...)
-  if (!is.null(dataset)){
+  if (!missing(dataset)){
     if (method == "DBMH") {
       ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
       if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate

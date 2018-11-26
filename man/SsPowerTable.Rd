@@ -21,14 +21,14 @@ SsPowerTable(dataset, effectSize = NULL, alpha = 0.05,
 \item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
 }
 \value{
-A data frame containing following three columns.
+A list containing up to 3 (depending on \code{options}) dataframes. 
+    Each dataframe contains 3 arrays:
 
-\item{numReaders}{The number of readers in the pivotal study.}
+\item{numReaders}{The numbers of readers in the pivotal study.}
 
-\item{numCases}{The number of cases in the pivotal study.}
+\item{numCases}{The numbers of cases in the pivotal study.}
 
-\item{power}{The calculated statistical power corresponding to the indicated
-    numbers of readers and cases.}
+\item{power}{The estimated statistical powers.}
 }
 \description{
 Generate combinations of numbers of readers J and numbers of cases K

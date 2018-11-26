@@ -11,11 +11,11 @@
 #' @param option Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).
 #' 
 #' 
-#' @return A data frame containing following three columns.
-#' @return \item{numReaders}{The number of readers in the pivotal study.}  
-#' @return \item{numCases}{The number of cases in the pivotal study.}
-#' @return \item{power}{The calculated statistical power corresponding to the indicated
-#'     numbers of readers and cases.}
+#' @return A list containing up to 3 (depending on \code{options}) dataframes. 
+#'     Each dataframe contains 3 arrays:
+#' @return \item{numReaders}{The numbers of readers in the pivotal study.}  
+#' @return \item{numCases}{The numbers of cases in the pivotal study.}
+#' @return \item{power}{The estimated statistical powers.}
 #' 
 #' @details The default \code{effectSize}
 #'     uses the observed effect size in the pilot study. A numeric value over-rides the default value.
@@ -47,8 +47,7 @@ SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower 
     varYTR <- varCompDBM$varComp[3]
     varYTC <- varCompDBM$varComp[4]
     varYEps <- varCompDBM$varComp[6]
-    allParameters <- list(dataset = NULL, 
-                          method = method, 
+    allParameters <- list(method = method, 
                           varYTR = varYTR, 
                           varYTC = varYTC, 
                           varYEps = varYEps, 
@@ -62,8 +61,7 @@ SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower 
     cov3 <- ret$varComp$varCov[5]
     varEps <- ret$varComp$varCov[6]
     KStar <- length(dataset$NL[1,1,,1])
-    allParameters <- list(dataset = NULL, 
-                          method = method,
+    allParameters <- list(method = method,
                           varTR = varTR,
                           cov1 = cov1, 
                           cov2 = cov2, 

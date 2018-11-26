@@ -8,7 +8,8 @@ SsSampleSizeKGivenJ(dataset, J, alpha = 0.05, effectSize = NULL,
   desiredPower = 0.8, option = "ALL", method = "DBMH", ...)
 }
 \arguments{
-\item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study.}
+\item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study. If 
+missing, then variance components and effectSize must be passed as additional parameters.}
 
 \item{J}{The number of readers in the pivotal study.}
 

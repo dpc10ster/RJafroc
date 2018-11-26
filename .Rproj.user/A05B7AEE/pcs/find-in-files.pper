@@ -2,9 +2,11 @@
     "dialog-state" : {
         "caseSensitive" : true,
         "filePatterns" : [
+            "*.r",
+            "*.R"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "RShowDoc",
+        "query" : "SsSampleSizeKGivenJ",
         "regex" : false
     }
 }
