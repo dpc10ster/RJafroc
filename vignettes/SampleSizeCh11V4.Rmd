@@ -1,0 +1,60 @@
+---
+title: "Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method"
+author: "Dev P. Chakraborty"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ROC sample size}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(RJafroc)
+```
+
+## Introduction
+This illustrates the `RJafroc` implementation of sample-size estimation using `"ORH"` method for significance testing.
+
+## Illustration of `SsPowerGivenJK()` using `method = "ORH"`
+```{r}
+power <- SsPowerGivenJK(dataset02, 6, 251, method = "ORH", option = "RRRC")
+````
+The returned value is a list containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic. 
+```{r}
+str(power)
+````
+
+Expected power is `r power$powerRRRC`.
+
+
+## Illustration of `SsPowerTable()` using `method = "ORH"`
+```{r}
+powTab <- SsPowerTable(dataset02, method = "ORH", option = "RRRC")
+````
+
+Now show the power table `powTab`.
+
+```{r}
+powTab
+````
+
+## Illustration of `SsSampleSizeKGivenJ()` using `method = "ORH"`
+```{r}
+ncases <- SsSampleSizeKGivenJ(dataset02, J = 10, method = "ORH", option = "RRRC")
+````
+
+`ncases` is a list containing the number of cases `ncases$K` and expected power `ncases$power`. 
+
+```{r}
+str(ncases)
+````
+
+The required number of cases is `r ncases$K` and expected power is `r ncases$power`.
+
+
+
