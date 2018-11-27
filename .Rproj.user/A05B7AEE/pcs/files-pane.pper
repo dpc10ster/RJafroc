@@ -1,13 +1,13 @@
 {
-    "path" : "~/rjafroc-master/docs",
+    "path" : "~/rjafroc-master/doc",
     "sortOrder" : [
-        {
-            "ascending" : true,
-            "columnIndex" : 2
-        },
         {
             "ascending" : false,
             "columnIndex" : 4
+        },
+        {
+            "ascending" : true,
+            "columnIndex" : 2
         },
         {
             "ascending" : false,
