@@ -33,7 +33,7 @@
 <meta property="og:title" content="Generate a power table — SsPowerTable" />
 
 <meta property="og:description" content="Generate combinations of numbers of readers J and numbers of cases K
-   for desired power and specified generalizations (i.e.,  RRRC or FRRC or RRFC)" />
+   for desired power and specified generalization(s)" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,10 +99,10 @@
       <a href="../articles/SampleSizeCh11V2.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/SampleSizeCh11V3.html">Chapter 11, Vignette 1: ROC sample size from first principles</a>
+      <a href="../articles/SampleSizeCh11V3.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/SampleSizeROC.html">Chapter 11, Vignette 1: ROC sample size from first principles</a>
+      <a href="../articles/SampleSizeCh11V4.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
       <a href="../articles/cbmPlots.html">Ch20: CBM plots</a>
@@ -148,56 +148,57 @@
     <div class="ref-description">
     
     <p>Generate combinations of numbers of readers J and numbers of cases K
-   for desired power and specified generalizations (i.e.,  RRRC or FRRC or RRFC)</p>
+   for desired power and specified generalization(s)</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>SsPowerTable</span>(<span class='no'>effectSize</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>desiredPower</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
-   <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>SsPowerTable</span>(<span class='no'>dataset</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>desiredPower</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>dataset</th>
+      <td><p>The <b>pilot</b> ROC dataset to be used to extrapolate to the <b>pivotal</b> study.</p></td>
+    </tr>
+    <tr>
       <th>effectSize</th>
-      <td><p>The postulated effect size</p></td>
+      <td><p>The effect size to be used in the <b>pivotal</b> study, default value is <code>NULL</code>.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>The The size of the test, default is 0.05</p></td>
+      <td><p>The The size of the test, default is 0.05.</p></td>
     </tr>
     <tr>
       <th>desiredPower</th>
-      <td><p>The desired statistical power, default is 0.8</p></td>
+      <td><p>The desired statistical power, default is 0.8.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>Analysis method, "DBMH" or "ORH", the default is "DBMH"</p></td>
+      <td><p>Analysis method, "DBMH" or "ORH", the default is "DBMH".</p></td>
     </tr>
     <tr>
       <th>option</th>
-      <td><p>Desired generalization; the default is "RRRC", for random-reader random-cases</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Other necessary parameters, OR or DBM variance components, see details</p></td>
+      <td><p>Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame containing following three columns.</p>
-<dt>numReaders</dt><dd><p>The number of readers in the pivotal study.</p></dd>
+    <p>A list containing up to 3 (depending on <code>options</code>) dataframes. 
+    Each dataframe contains 3 arrays:</p>
+<dt>numReaders</dt><dd><p>The numbers of readers in the pivotal study.</p></dd>
 
-<dt>numCases</dt><dd><p>The number of cases in the pivotal study.</p></dd>
+<dt>numCases</dt><dd><p>The numbers of cases in the pivotal study.</p></dd>
 
-<dt>power</dt><dd><p>The calculated statistical power corresponding to the indicated
-numbers of readers and cases.</p></dd>
+<dt>power</dt><dd><p>The estimated statistical powers.</p></dd>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Regarding other parameters (...), see details in <a href='SsPowerGivenJK.html'>SsPowerGivenJK</a></p>
+    <p>The default <code>effectSize</code>
+    uses the observed effect size in the pilot study. A numeric value over-rides the default value.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -206,18 +207,7 @@ numbers of readers and cases.</p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example of sample size calculation with DBM method</span>
-<span class='no'>retDbm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span> (<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='no'>effectSize</span> <span class='kw'>&lt;-</span> <span class='no'>retDbm</span>$<span class='no'>ciDiffTrtRRRC</span>$<span class='no'>Estimate</span>
-<span class='no'>varYTR</span> <span class='kw'>&lt;-</span> <span class='no'>retDbm</span>$<span class='no'>varComp</span>$<span class='no'>varComp</span>[<span class='fl'>3</span>]
-<span class='no'>varYTC</span> <span class='kw'>&lt;-</span> <span class='no'>retDbm</span>$<span class='no'>varComp</span>$<span class='no'>varComp</span>[<span class='fl'>4</span>]
-<span class='no'>varYEps</span> <span class='kw'>&lt;-</span> <span class='no'>retDbm</span>$<span class='no'>varComp</span>$<span class='no'>varComp</span>[<span class='fl'>6</span>]
-<span class='no'>powTab</span> <span class='kw'>&lt;-</span> <span class='fu'>SsPowerTable</span>(
-<span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='no'>effectSize</span>,
-<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>,
-<span class='kw'>varYTR</span> <span class='kw'>=</span> <span class='no'>varYTR</span>,
-<span class='kw'>varYTC</span> <span class='kw'>=</span> <span class='no'>varYTC</span>,
-<span class='kw'>varYEps</span> <span class='kw'>=</span> <span class='no'>varYEps</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>powTab</span>)</div><div class='output co'>#&gt; $powerTableRRRC
+<span class='fu'>SsPowerTable</span>(<span class='no'>dataset02</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $powerTableRRRC
 #&gt;    numReaders numCases power
 #&gt; 1           3    &gt;2000  &lt;NA&gt;
 #&gt; 2           4     1089   0.8
@@ -442,25 +432,7 @@ numbers of readers and cases.</p></dd>
 #&gt; 19         21      &lt;20  &lt;NA&gt;
 #&gt; </div><div class='input'>
 <span class='co'>## Example of sample size calculation with OR method</span>
-<span class='no'>retOR</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span> (<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)
-<span class='no'>effectSize</span> <span class='kw'>&lt;-</span> <span class='no'>retOR</span>$<span class='no'>ciDiffTrtRRRC</span>$<span class='no'>Estimate</span>
-<span class='no'>varCompOR</span> <span class='kw'>&lt;-</span> <span class='no'>retOR</span>$<span class='no'>varComp</span>
-<span class='no'>varTR</span> <span class='kw'>&lt;-</span> <span class='no'>varCompOR</span>$<span class='no'>varCov</span>[<span class='fl'>2</span>]
-<span class='no'>cov1</span> <span class='kw'>&lt;-</span> <span class='no'>varCompOR</span>$<span class='no'>varCov</span>[<span class='fl'>3</span>]
-<span class='no'>cov2</span> <span class='kw'>&lt;-</span> <span class='no'>varCompOR</span>$<span class='no'>varCov</span>[<span class='fl'>4</span>]
-<span class='no'>cov3</span> <span class='kw'>&lt;-</span> <span class='no'>varCompOR</span>$<span class='no'>varCov</span>[<span class='fl'>5</span>]
-<span class='no'>varEps</span> <span class='kw'>&lt;-</span> <span class='no'>varCompOR</span>$<span class='no'>varCov</span>[<span class='fl'>6</span>]
-<span class='no'>KStar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>dataset02</span>$<span class='no'>NL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,<span class='fl'>1</span>])
-<span class='no'>powTab</span> <span class='kw'>&lt;-</span> <span class='fu'>SsPowerTable</span>(
-<span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='no'>effectSize</span>,
-<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>,
-<span class='kw'>KStar</span> <span class='kw'>=</span> <span class='no'>KStar</span>,
-<span class='kw'>varTR</span> <span class='kw'>=</span> <span class='no'>varTR</span>,
-<span class='kw'>cov1</span> <span class='kw'>=</span> <span class='no'>cov1</span>,
-<span class='kw'>cov2</span> <span class='kw'>=</span> <span class='no'>cov2</span>,
-<span class='kw'>cov3</span> <span class='kw'>=</span> <span class='no'>cov3</span>,
-<span class='kw'>varEps</span> <span class='kw'>=</span> <span class='no'>varEps</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>powTab</span>)</div><div class='output co'>#&gt; $powerTableRRRC
+<span class='fu'>SsPowerTable</span>(<span class='no'>dataset02</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $powerTableRRRC
 #&gt;    numReaders numCases power
 #&gt; 1           3    &gt;2000  &lt;NA&gt;
 #&gt; 2           4     1089   0.8

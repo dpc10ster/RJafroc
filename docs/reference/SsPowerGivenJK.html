@@ -99,10 +99,10 @@
       <a href="../articles/SampleSizeCh11V2.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/SampleSizeCh11V3.html">Chapter 11, Vignette 1: ROC sample size from first principles</a>
+      <a href="../articles/SampleSizeCh11V3.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/SampleSizeROC.html">Chapter 11, Vignette 1: ROC sample size from first principles</a>
+      <a href="../articles/SampleSizeCh11V4.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
       <a href="../articles/cbmPlots.html">Ch20: CBM plots</a>
@@ -152,32 +152,32 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>SsPowerGivenJK</span>(<span class='no'>J</span>, <span class='no'>K</span>, <span class='no'>effectSize</span>, <span class='no'>method</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset</span>, <span class='no'>J</span>, <span class='no'>K</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>dataset</th>
+      <td><p>The <b>pilot</b> ROC dataset to be used to extrapolate to the <b>pivotal</b> study. If 
+missing, then variance components and effectSize must be passed as additional parameters.</p></td>
+    </tr>
+    <tr>
       <th>J</th>
-      <td><p>The number of readers in the pivotal study</p></td>
+      <td><p>The number of readers in the pivotal study.</p></td>
     </tr>
     <tr>
       <th>K</th>
-      <td><p>The number of cases in the pivotal study</p></td>
-    </tr>
-    <tr>
-      <th>effectSize</th>
-      <td><p>The effect size to be used in the calculation, 
-the sign is unimportant, see Ch 11 in book for guidance.</p></td>
+      <td><p>The number of cases in the pivotal study.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>"DBMH" or "ORH"</p></td>
+      <td><p>"DBMH" or "ORH".</p></td>
     </tr>
     <tr>
       <th>option</th>
-      <td><p>"RRRC", "FRRC", "RRFC" or "ALL"; the default is "ALL"</p></td>
+      <td><p>Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -185,7 +185,7 @@ the sign is unimportant, see Ch 11 in book for guidance.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other necessary parameters, OR or DBM variance components, see details</p></td>
+      <td><p>Other parameters, OR or DBM variance components, passed internally, see details</p></td>
     </tr>
     </table>
     
@@ -195,22 +195,7 @@ the sign is unimportant, see Ch 11 in book for guidance.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Regarding other parameters (...) needed are 
-   <strong>either</strong> 
-   the set of of DBM variance components, i.e, 
-   (<code>varYTR</code>, <code>varYTC</code>, and <code>varYEps</code>),
-   <strong>or</strong>
-   the set of OR covariance matrix elements, the treatment-reader variance and 
-   number of cases in pilot study 
-   i.e, (<code>cov1</code>, <code>cov2</code>, <code>cov3</code>, <code>varEps</code>, <code>varTR</code> and 
-   <code>KStar</code>).</p>    
-<p>If both of are given, DBM variance components are used and the OR values are ignored.</p>
-<p>Either numeric values, for example, of <code>varYTR</code>, <code>varYTC</code>, <code>varYEps</code>
-   can be supplied, <strong>provided they are in that order</strong>, 
-   or the function call must explicitly state, for example, 
-   <code>cov1 = value1</code>, <code>cov2 = value2</code>, <code>cov3 = value3</code>, 
-   <code>varTR = value4</code>, <code>varEps = value5</code>, 
-   <code>KStar = value6</code>, i.e., in any order.</p>
+    <p>Other parameters <code>...</code> are reserved for internal use.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -226,16 +211,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## An example of sample size calculation with DBM variance componements</span>
-<span class='no'>retDbm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dataset02</span>,
-<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='no'>effectSize</span> <span class='kw'>&lt;-</span> <span class='no'>retDbm</span>$<span class='no'>ciDiffTrtRRRC</span>$<span class='no'>Estimate</span>
-<span class='no'>varCompDBM</span> <span class='kw'>&lt;-</span> <span class='no'>retDbm</span>$<span class='no'>varComp</span>
-<span class='no'>varYTR</span> <span class='kw'>&lt;-</span> <span class='no'>varCompDBM</span>$<span class='no'>varComp</span>[<span class='fl'>3</span>]
-<span class='no'>varYTC</span> <span class='kw'>&lt;-</span> <span class='no'>varCompDBM</span>$<span class='no'>varComp</span>[<span class='fl'>4</span>]
-<span class='no'>varYEps</span> <span class='kw'>&lt;-</span> <span class='no'>varCompDBM</span>$<span class='no'>varComp</span>[<span class='fl'>6</span>]
-<span class='co'>## should give close to 80% power for RRRC</span>
-<span class='fu'>SsPowerGivenJK</span>(<span class='fl'>6</span>, <span class='fl'>251</span>, <span class='no'>effectSize</span>, <span class='st'>"DBMH"</span>, <span class='kw'>varYTR</span> <span class='kw'>=</span> <span class='no'>varYTR</span>, <span class='kw'>varYTC</span> <span class='kw'>=</span> <span class='no'>varYTC</span>,
-             <span class='kw'>varYEps</span> <span class='kw'>=</span> <span class='no'>varYEps</span>)</div><div class='output co'>#&gt; $powerRRRC
+<span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset02</span>, <span class='fl'>6</span>, <span class='fl'>251</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $powerRRRC
 #&gt; [1] 0.8005403
 #&gt; 
 #&gt; $ncpRRRC
@@ -272,19 +248,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; [1] 6.607891
 #&gt; </div><div class='input'>
 <span class='co'>## An example of sample size calculation with OR variance componements.</span>
-<span class='no'>retOR</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dataset02</span>,
-<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"Jackknife"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)
-<span class='no'>effectSize</span> <span class='kw'>&lt;-</span> <span class='no'>retOR</span>$<span class='no'>ciDiffTrtRRRC</span>$<span class='no'>Estimate</span>
-<span class='no'>varCompOR</span> <span class='kw'>&lt;-</span> <span class='no'>retOR</span>$<span class='no'>varComp</span>
-<span class='no'>varTR</span> <span class='kw'>&lt;-</span> <span class='no'>varCompOR</span>$<span class='no'>varCov</span>[<span class='fl'>2</span>]
-<span class='no'>cov1</span> <span class='kw'>&lt;-</span> <span class='no'>varCompOR</span>$<span class='no'>varCov</span>[<span class='fl'>3</span>]
-<span class='no'>cov2</span> <span class='kw'>&lt;-</span> <span class='no'>varCompOR</span>$<span class='no'>varCov</span>[<span class='fl'>4</span>]
-<span class='no'>cov3</span> <span class='kw'>&lt;-</span> <span class='no'>varCompOR</span>$<span class='no'>varCov</span>[<span class='fl'>5</span>]
-<span class='no'>varEps</span> <span class='kw'>&lt;-</span> <span class='no'>varCompOR</span>$<span class='no'>varCov</span>[<span class='fl'>6</span>]
-<span class='no'>KStar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>dataset02</span>$<span class='no'>NL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,<span class='fl'>1</span>])
-<span class='co'>## same sample size as above, different method, should again give close to 80% power for RRRC</span>
-<span class='fu'>SsPowerGivenJK</span>(<span class='fl'>6</span>, <span class='fl'>251</span>, <span class='no'>effectSize</span>, <span class='st'>"ORH"</span>, <span class='kw'>cov1</span> <span class='kw'>=</span> <span class='no'>cov1</span>, <span class='kw'>cov2</span> <span class='kw'>=</span> <span class='no'>cov2</span>, <span class='kw'>cov3</span> <span class='kw'>=</span> <span class='no'>cov3</span>,
-             <span class='kw'>varEps</span> <span class='kw'>=</span> <span class='no'>varEps</span>, <span class='kw'>varTR</span> <span class='kw'>=</span> <span class='no'>varTR</span>, <span class='kw'>KStar</span> <span class='kw'>=</span> <span class='no'>KStar</span>)</div><div class='output co'>#&gt; $powerRRRC
+<span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset02</span>, <span class='fl'>6</span>, <span class='fl'>251</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $powerRRRC
 #&gt; [1] 0.8005403
 #&gt; 
 #&gt; $ncpRRRC
