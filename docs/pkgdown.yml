@@ -2,15 +2,15 @@ pandoc: 1.19.2.1
 pkgdown: 1.2.0
 pkgdown_sha: ~
 articles:
-  QuickStartDBMHCh10V1: QuickStartDBMHCh10V1.html
-  QuickStartDBMHExcelOutputCh10V2: QuickStartDBMHExcelOutputCh10V2.html
-  SampleSizeCh11V1: SampleSizeCh11V1.html
-  SampleSizeCh11V2: SampleSizeCh11V2.html
-  SampleSizeCh11V3: SampleSizeCh11V3.html
-  SampleSizeCh11V4: SampleSizeCh11V4.html
-  cbmPlotsCh20V5: cbmPlotsCh20V5.html
-  degenerateROCsCh20V2: degenerateROCsCh20V2.html
-  improperROCsCh20V1: improperROCsCh20V1.html
-  metzEqn36Ch20V4: metzEqn36Ch20V4.html
-  proprocROCsCh20V3: proprocROCsCh20V3.html
+  Ch10V1QuickStartDBMH: Ch10V1QuickStartDBMH.html
+  Ch10V2QuickStartDBMHExcel: Ch10V2QuickStartDBMHExcel.html
+  Ch11V1SampleSize: Ch11V1SampleSize.html
+  Ch11V2SampleSize: Ch11V2SampleSize.html
+  Ch11V3SampleSize: Ch11V3SampleSize.html
+  Ch11V4SampleSize: Ch11V4SampleSize.html
+  Ch20V1improperROCs: Ch20V1improperROCs.html
+  Ch20V2degenerateROCs: Ch20V2degenerateROCs.html
+  Ch20V3proprocROCs: Ch20V3proprocROCs.html
+  Ch20V4metzEqn36: Ch20V4metzEqn36.html
+  Ch20V5cbmPlots: Ch20V5cbmPlots.html
 
