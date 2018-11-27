@@ -7,8 +7,11 @@ Added vignette degenerateROCs.Rmd
 Added vignette proprocROCs.Rmd
 Added vignette metzEqn36.Rmd
 Added vignette cbmPlots.Rmd
+Added sample size vignettes and started using chapter and vignette # file naming convention
 Added pkgdown to create website of documentation
-Simplied ROC sample size routines; still in progress
+Simplied ROC sample size routines; variance components are calculated internally
+Added sample size routine checks to testthat; removed dummy tests
+
 
 
 ==========================

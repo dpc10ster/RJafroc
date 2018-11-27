@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty" />
 
-<meta name="date" content="2018-11-24" />
+<meta name="date" content="2018-11-27" />
 
 <title>Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</title>
 
@@ -72,7 +72,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</h1>
 <h4 class="author"><em>Dev P. Chakraborty</em></h4>
-<h4 class="date"><em>2018-11-24</em></h4>
+<h4 class="date"><em>2018-11-27</em></h4>
 
 
 
@@ -82,17 +82,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="illustration-of-sspowergivenjk-using-method-orh" class="section level2">
 <h2>Illustration of <code>SsPowerGivenJK()</code> using <code>method = &quot;ORH&quot;</code></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">retORH &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(<span class="dt">data =</span> dataset02, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;ORH&quot;</span>)
-varTR &lt;-<span class="st"> </span>retORH<span class="op">$</span>varComp<span class="op">$</span>varCov[<span class="dv">2</span>];varTR &lt;-<span class="st"> </span><span class="kw">max</span>(varTR,<span class="dv">0</span>)
-cov1 &lt;-<span class="st"> </span>retORH<span class="op">$</span>varComp<span class="op">$</span>varCov[<span class="dv">3</span>]
-cov2 &lt;-<span class="st"> </span>retORH<span class="op">$</span>varComp<span class="op">$</span>varCov[<span class="dv">4</span>]
-cov3 &lt;-<span class="st"> </span>retORH<span class="op">$</span>varComp<span class="op">$</span>varCov[<span class="dv">5</span>]
-varEps &lt;-<span class="st"> </span>retORH<span class="op">$</span>varComp<span class="op">$</span>varCov[<span class="dv">6</span>]
-effectSize &lt;-<span class="st"> </span>retORH<span class="op">$</span>ciDiffTrtRRRC<span class="op">$</span>Estimate
-KStar &lt;-<span class="st"> </span><span class="kw">length</span>(dataset02<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,,<span class="dv">1</span>])
-power &lt;-<span class="st"> </span><span class="kw">SsPowerGivenJK</span>(<span class="dv">6</span>, <span class="dv">251</span>, effectSize, <span class="dt">method =</span> <span class="st">&quot;ORH&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;RRRC&quot;</span>, 
-             <span class="dt">cov1 =</span> cov1, <span class="dt">cov2 =</span> cov2, <span class="dt">cov3 =</span> cov3,
-             <span class="dt">varEps =</span> varEps, <span class="dt">varTR =</span> varTR, <span class="dt">KStar =</span> KStar)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">power &lt;-<span class="st"> </span><span class="kw">SsPowerGivenJK</span>(dataset02, <span class="dv">6</span>, <span class="dv">251</span>, <span class="dt">method =</span> <span class="st">&quot;ORH&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;RRRC&quot;</span>)</code></pre></div>
 <p>The returned value is a list containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(power)
 <span class="co">#&gt; List of 4</span>
@@ -104,10 +94,7 @@ power &lt;-<span class="st"> </span><span class="kw">SsPowerGivenJK</span>(<span
 </div>
 <div id="illustration-of-sspowertable-using-method-orh" class="section level2">
 <h2>Illustration of <code>SsPowerTable()</code> using <code>method = &quot;ORH&quot;</code></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">powTab &lt;-<span class="st"> </span><span class="kw">SsPowerTable</span>(<span class="dt">effectSize =</span> effectSize,
-             <span class="dt">method =</span> <span class="st">&quot;ORH&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;RRRC&quot;</span>, 
-             <span class="dt">cov1 =</span> cov1, <span class="dt">cov2 =</span> cov2, <span class="dt">cov3 =</span> cov3,
-             <span class="dt">varEps =</span> varEps, <span class="dt">varTR =</span> varTR, <span class="dt">KStar =</span> KStar)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">powTab &lt;-<span class="st"> </span><span class="kw">SsPowerTable</span>(dataset02, <span class="dt">method =</span> <span class="st">&quot;ORH&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;RRRC&quot;</span>)</code></pre></div>
 <p>Now show the power table <code>powTab</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">powTab
 <span class="co">#&gt;    numReaders numCases power</span>
@@ -212,10 +199,7 @@ power &lt;-<span class="st"> </span><span class="kw">SsPowerGivenJK</span>(<span
 </div>
 <div id="illustration-of-sssamplesizekgivenj-using-method-orh" class="section level2">
 <h2>Illustration of <code>SsSampleSizeKGivenJ()</code> using <code>method = &quot;ORH&quot;</code></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw">SsSampleSizeKGivenJ</span>(<span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">effectSize =</span> effectSize,  
-             <span class="dt">method =</span> <span class="st">&quot;ORH&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;RRRC&quot;</span>, 
-             <span class="dt">cov1 =</span> cov1, <span class="dt">cov2 =</span> cov2, <span class="dt">cov3 =</span> cov3,
-             <span class="dt">varEps =</span> varEps, <span class="dt">varTR =</span> varTR, <span class="dt">KStar =</span> KStar)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw">SsSampleSizeKGivenJ</span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">&quot;ORH&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;RRRC&quot;</span>)</code></pre></div>
 <p><code>ncases</code> is a list containing the number of cases <code>ncases$K</code> and expected power <code>ncases$power</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(ncases)
 <span class="co">#&gt; List of 2</span>

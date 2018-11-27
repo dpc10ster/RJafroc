@@ -63,6 +63,7 @@ SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL,
   
   extraArgs <- list(...)
   if (!missing(dataset)){
+    if (dataset$dataType != "ROC") stop("Dataset must be of type ROC")
     if (method == "DBMH") {
       ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
       if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate

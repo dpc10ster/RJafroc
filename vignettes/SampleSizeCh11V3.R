@@ -7,28 +7,19 @@ library(RJafroc)
 library(ggplot2)
 
 ## ------------------------------------------------------------------------
-retDbm <- StSignificanceTesting(data = dataset02, FOM = "Wilcoxon", method = "DBMH")
-effectSize <- retDbm$ciDiffTrtRRRC$Estimate
-varCompDBM <- retDbm$varComp
-varYTR <- varCompDBM$varComp[3]
-varYTC <- varCompDBM$varComp[4]
-varYEps <- varCompDBM$varComp[6]
-power <- SsPowerGivenJK(J = 10, K = 163, effectSize, method = "DBMH", option = "RRRC",
-                        varYTR = varYTR, varYTC = varYTC, varYEps = varYEps)
+power <- SsPowerGivenJK(dataset02, J = 6, K = 112)
 
 ## ------------------------------------------------------------------------
 str(power)
 
 ## ------------------------------------------------------------------------
-powTab <- SsPowerTable(effectSize = effectSize, desiredPower = 0.8,  
-                       method = "DBMH", option = "RRRC", varYTR = varYTR, varYTC = varYTC, varYEps = varYEps)
+powTab <- SsPowerTable(dataset02, method = "DBMH")
 
 ## ------------------------------------------------------------------------
 powTab
 
 ## ------------------------------------------------------------------------
-ncases <- SsSampleSizeKGivenJ(J = 10, effectSize = effectSize, desiredPower = 0.8,  
-                       method = "DBMH", option = "RRRC", varYTR = varYTR, varYTC = varYTC, varYEps = varYEps)
+ncases <- SsSampleSizeKGivenJ(dataset02, J = 10, method = "DBMH", option = "RRRC")
 
 ## ------------------------------------------------------------------------
 str(ncases)

@@ -49,6 +49,7 @@ SsPowerGivenJK <- function(dataset, J, K, method = "DBMH", option = "ALL", alpha
   
   args <- list(...)
   if ((!missing(dataset) && (length(args) == 0))){
+    if (dataset$dataType != "ROC") stop("Dataset must be of type ROC")
     if (method == "DBMH") {
       ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
       effectSize <- ret$ciDiffTrtRRRC$Estimate

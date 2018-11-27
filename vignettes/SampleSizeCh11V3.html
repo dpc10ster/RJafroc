@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty" />
 
-<meta name="date" content="2018-11-23" />
+<meta name="date" content="2018-11-27" />
 
 <title>Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</title>
 
@@ -72,13 +72,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</h1>
 <h4 class="author"><em>Dev P. Chakraborty</em></h4>
-<h4 class="date"><em>2018-11-23</em></h4>
+<h4 class="date"><em>2018-11-27</em></h4>
 
 
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>This illustrates the <code>RJafroc</code> implementation of sample-size estimation. Default <span class="math inline">\(\alpha\)</span> is 0.05 and default power 1-<span class="math inline">\(\beta\)</span> is 0.8. Three functions are provided. Each of these functions can be used with <code>&quot;DBMH&quot;</code> (illustrated here) or <code>&quot;ORH&quot;</code> (next vignette) significance testing.</p>
+<p>This illustrates the <code>RJafroc</code> implementation of sample-size estimation. Default <span class="math inline">\(\alpha\)</span> is 0.05 and default power 1-<span class="math inline">\(\beta\)</span> is 0.8. Three functions are provided. Each of these functions can be used with <code>&quot;DBMH&quot;</code> (illustrated here) or <code>&quot;ORH&quot;</code> (next vignette) significance testing. Illustrated below are random-reader random-case (RRRC) options only, <code>option = &quot;RRRC&quot;</code>. The user should experiment with fixed-reader random-case (FRRC) and random-reader fixed-case (RRFC) options.</p>
 <ul>
 <li><code>SsPowerGivenJK()</code> Statistical power for specified numbers of readers and cases in an ROC study.</li>
 <li><code>SsPowerTable()</code> Generate a power table, i.e., combinations of numbers of readers and cases yielding the desired power.</li>
@@ -87,29 +87,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="illustration-of-sspowergivenjk-using-method-dbmh" class="section level2">
 <h2>Illustration of <code>SsPowerGivenJK()</code> using <code>method = &quot;DBMH&quot;</code></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">retDbm &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(<span class="dt">data =</span> dataset02, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;DBMH&quot;</span>)
-effectSize &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ciDiffTrtRRRC<span class="op">$</span>Estimate
-varCompDBM &lt;-<span class="st"> </span>retDbm<span class="op">$</span>varComp
-varYTR &lt;-<span class="st"> </span>varCompDBM<span class="op">$</span>varComp[<span class="dv">3</span>]
-varYTC &lt;-<span class="st"> </span>varCompDBM<span class="op">$</span>varComp[<span class="dv">4</span>]
-varYEps &lt;-<span class="st"> </span>varCompDBM<span class="op">$</span>varComp[<span class="dv">6</span>]
-power &lt;-<span class="st"> </span><span class="kw">SsPowerGivenJK</span>(<span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">K =</span> <span class="dv">163</span>, effectSize, <span class="dt">method =</span> <span class="st">&quot;DBMH&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;RRRC&quot;</span>,
-                        <span class="dt">varYTR =</span> varYTR, <span class="dt">varYTC =</span> varYTC, <span class="dt">varYEps =</span> varYEps)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">power &lt;-<span class="st"> </span><span class="kw">SsPowerGivenJK</span>(dataset02, <span class="dt">J =</span> <span class="dv">6</span>, <span class="dt">K =</span> <span class="dv">112</span>)</code></pre></div>
 <p>The returned value is a list containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(power)
-<span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ powerRRRC: num 0.802</span>
-<span class="co">#&gt;  $ ncpRRRC  : num 8.13</span>
-<span class="co">#&gt;  $ ddfHRRRC : num 63.1</span>
-<span class="co">#&gt;  $ fRRRC    : num 3.99</span></code></pre></div>
-<p>Expected power is 0.8015625.</p>
+<span class="co">#&gt; List of 12</span>
+<span class="co">#&gt;  $ powerRRRC: num 0.556</span>
+<span class="co">#&gt;  $ ncpRRRC  : num 4.8</span>
+<span class="co">#&gt;  $ ddfHRRRC : num 23.1</span>
+<span class="co">#&gt;  $ fRRRC    : num 4.28</span>
+<span class="co">#&gt;  $ powerFRRC: num 0.663</span>
+<span class="co">#&gt;  $ ncpFRRC  : num 5.76</span>
+<span class="co">#&gt;  $ ddfHFRRC : num 111</span>
+<span class="co">#&gt;  $ fFRRC    : num 3.93</span>
+<span class="co">#&gt;  $ powerRRFC: num 0.729</span>
+<span class="co">#&gt;  $ ncpRRFC  : num 10.3</span>
+<span class="co">#&gt;  $ ddfHRRFC : num 5</span>
+<span class="co">#&gt;  $ fRRFC    : num 6.61</span></code></pre></div>
+<p>Expected power is 0.5555789.</p>
 </div>
 <div id="illustration-of-sspowertable-using-method-dbmh" class="section level2">
 <h2>Illustration of <code>SsPowerTable()</code> using <code>method = &quot;DBMH&quot;</code></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">powTab &lt;-<span class="st"> </span><span class="kw">SsPowerTable</span>(<span class="dt">effectSize =</span> effectSize, <span class="dt">desiredPower =</span> <span class="fl">0.8</span>,  
-                       <span class="dt">method =</span> <span class="st">&quot;DBMH&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;RRRC&quot;</span>, <span class="dt">varYTR =</span> varYTR, <span class="dt">varYTC =</span> varYTC, <span class="dt">varYEps =</span> varYEps)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">powTab &lt;-<span class="st"> </span><span class="kw">SsPowerTable</span>(dataset02, <span class="dt">method =</span> <span class="st">&quot;DBMH&quot;</span>)</code></pre></div>
 <p>Now show the power table <code>powTab</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">powTab
+<span class="co">#&gt; $powerTableRRRC</span>
 <span class="co">#&gt;    numReaders numCases power</span>
 <span class="co">#&gt; 1           3    &gt;2000  &lt;NA&gt;</span>
 <span class="co">#&gt; 2           4     1089   0.8</span>
@@ -208,12 +209,134 @@ power &lt;-<span class="st"> </span><span class="kw">SsPowerGivenJK</span>(<span
 <span class="co">#&gt; 95         97      104 0.803</span>
 <span class="co">#&gt; 96         98      104 0.804</span>
 <span class="co">#&gt; 97         99      104 0.804</span>
-<span class="co">#&gt; 98        100      103   0.8</span></code></pre></div>
+<span class="co">#&gt; 98        100      103   0.8</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $powerTableFRRC</span>
+<span class="co">#&gt;    numReaders numCases power</span>
+<span class="co">#&gt; 1           3      209 0.800</span>
+<span class="co">#&gt; 2           4      182 0.801</span>
+<span class="co">#&gt; 3           5      166 0.802</span>
+<span class="co">#&gt; 4           6      155 0.801</span>
+<span class="co">#&gt; 5           7      147 0.801</span>
+<span class="co">#&gt; 6           8      141 0.801</span>
+<span class="co">#&gt; 7           9      137 0.802</span>
+<span class="co">#&gt; 8          10      133 0.801</span>
+<span class="co">#&gt; 9          11      130 0.801</span>
+<span class="co">#&gt; 10         12      128 0.803</span>
+<span class="co">#&gt; 11         13      126 0.803</span>
+<span class="co">#&gt; 12         14      124 0.802</span>
+<span class="co">#&gt; 13         15      122 0.801</span>
+<span class="co">#&gt; 14         16      121 0.802</span>
+<span class="co">#&gt; 15         17      120 0.803</span>
+<span class="co">#&gt; 16         18      119 0.803</span>
+<span class="co">#&gt; 17         19      118 0.803</span>
+<span class="co">#&gt; 18         20      117 0.802</span>
+<span class="co">#&gt; 19         21      116 0.802</span>
+<span class="co">#&gt; 20         22      115 0.801</span>
+<span class="co">#&gt; 21         23      115 0.803</span>
+<span class="co">#&gt; 22         24      114 0.802</span>
+<span class="co">#&gt; 23         25      114 0.803</span>
+<span class="co">#&gt; 24         26      113 0.802</span>
+<span class="co">#&gt; 25         27      113 0.803</span>
+<span class="co">#&gt; 26         28      112 0.801</span>
+<span class="co">#&gt; 27         29      112 0.803</span>
+<span class="co">#&gt; 28         30      111 0.801</span>
+<span class="co">#&gt; 29         31      111 0.802</span>
+<span class="co">#&gt; 30         32      111 0.803</span>
+<span class="co">#&gt; 31         33      110 0.801</span>
+<span class="co">#&gt; 32         34      110 0.802</span>
+<span class="co">#&gt; 33         35      110 0.803</span>
+<span class="co">#&gt; 34         36      110 0.804</span>
+<span class="co">#&gt; 35         37      109 0.801</span>
+<span class="co">#&gt; 36         38      109 0.802</span>
+<span class="co">#&gt; 37         39      109 0.803</span>
+<span class="co">#&gt; 38         40      109 0.803</span>
+<span class="co">#&gt; 39         41      108 0.800</span>
+<span class="co">#&gt; 40         42      108 0.801</span>
+<span class="co">#&gt; 41         43      108 0.802</span>
+<span class="co">#&gt; 42         44      108 0.802</span>
+<span class="co">#&gt; 43         45      108 0.803</span>
+<span class="co">#&gt; 44         46      108 0.804</span>
+<span class="co">#&gt; 45         47      107 0.800</span>
+<span class="co">#&gt; 46         48      107 0.801</span>
+<span class="co">#&gt; 47         49      107 0.801</span>
+<span class="co">#&gt; 48         50      107 0.802</span>
+<span class="co">#&gt; 49         51      107 0.802</span>
+<span class="co">#&gt; 50         52      107 0.803</span>
+<span class="co">#&gt; 51         53      107 0.803</span>
+<span class="co">#&gt; 52         54      106 0.800</span>
+<span class="co">#&gt; 53         55      106 0.800</span>
+<span class="co">#&gt; 54         56      106 0.801</span>
+<span class="co">#&gt; 55         57      106 0.801</span>
+<span class="co">#&gt; 56         58      106 0.802</span>
+<span class="co">#&gt; 57         59      106 0.802</span>
+<span class="co">#&gt; 58         60      106 0.802</span>
+<span class="co">#&gt; 59         61      106 0.803</span>
+<span class="co">#&gt; 60         62      106 0.803</span>
+<span class="co">#&gt; 61         63      106 0.803</span>
+<span class="co">#&gt; 62         64      106 0.804</span>
+<span class="co">#&gt; 63         65      105 0.800</span>
+<span class="co">#&gt; 64         66      105 0.800</span>
+<span class="co">#&gt; 65         67      105 0.801</span>
+<span class="co">#&gt; 66         68      105 0.801</span>
+<span class="co">#&gt; 67         69      105 0.801</span>
+<span class="co">#&gt; 68         70      105 0.802</span>
+<span class="co">#&gt; 69         71      105 0.802</span>
+<span class="co">#&gt; 70         72      105 0.802</span>
+<span class="co">#&gt; 71         73      105 0.802</span>
+<span class="co">#&gt; 72         74      105 0.802</span>
+<span class="co">#&gt; 73         75      105 0.803</span>
+<span class="co">#&gt; 74         76      105 0.803</span>
+<span class="co">#&gt; 75         77      105 0.803</span>
+<span class="co">#&gt; 76         78      105 0.803</span>
+<span class="co">#&gt; 77         79      105 0.804</span>
+<span class="co">#&gt; 78         80      105 0.804</span>
+<span class="co">#&gt; 79         81      104 0.800</span>
+<span class="co">#&gt; 80         82      104 0.800</span>
+<span class="co">#&gt; 81         83      104 0.801</span>
+<span class="co">#&gt; 82         84      104 0.801</span>
+<span class="co">#&gt; 83         85      104 0.801</span>
+<span class="co">#&gt; 84         86      104 0.801</span>
+<span class="co">#&gt; 85         87      104 0.801</span>
+<span class="co">#&gt; 86         88      104 0.801</span>
+<span class="co">#&gt; 87         89      104 0.802</span>
+<span class="co">#&gt; 88         90      104 0.802</span>
+<span class="co">#&gt; 89         91      104 0.802</span>
+<span class="co">#&gt; 90         92      104 0.802</span>
+<span class="co">#&gt; 91         93      104 0.802</span>
+<span class="co">#&gt; 92         94      104 0.802</span>
+<span class="co">#&gt; 93         95      104 0.802</span>
+<span class="co">#&gt; 94         96      104 0.803</span>
+<span class="co">#&gt; 95         97      104 0.803</span>
+<span class="co">#&gt; 96         98      104 0.803</span>
+<span class="co">#&gt; 97         99      104 0.803</span>
+<span class="co">#&gt; 98        100      104 0.803</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $powerTableRRFC</span>
+<span class="co">#&gt;    numReaders numCases power</span>
+<span class="co">#&gt; 1           3    &gt;2000  &lt;NA&gt;</span>
+<span class="co">#&gt; 2           4    &gt;2000  &lt;NA&gt;</span>
+<span class="co">#&gt; 3           5      289   0.8</span>
+<span class="co">#&gt; 4           6      151 0.801</span>
+<span class="co">#&gt; 5           7      102   0.8</span>
+<span class="co">#&gt; 6           8       78 0.803</span>
+<span class="co">#&gt; 7           9       63 0.804</span>
+<span class="co">#&gt; 8          10       53 0.805</span>
+<span class="co">#&gt; 9          11       45 0.801</span>
+<span class="co">#&gt; 10         12       40 0.805</span>
+<span class="co">#&gt; 11         13       36 0.808</span>
+<span class="co">#&gt; 12         14       32 0.803</span>
+<span class="co">#&gt; 13         15       29 0.801</span>
+<span class="co">#&gt; 14         16       27 0.806</span>
+<span class="co">#&gt; 15         17       25 0.807</span>
+<span class="co">#&gt; 16         18       23 0.803</span>
+<span class="co">#&gt; 17         19       22 0.811</span>
+<span class="co">#&gt; 18         20       20   0.8</span>
+<span class="co">#&gt; 19         21      &lt;20  &lt;NA&gt;</span></code></pre></div>
 </div>
 <div id="illustration-of-sssamplesizekgivenj-using-method-dbmh" class="section level2">
 <h2>Illustration of <code>SsSampleSizeKGivenJ()</code> using <code>method = &quot;DBMH&quot;</code></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw">SsSampleSizeKGivenJ</span>(<span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">effectSize =</span> effectSize, <span class="dt">desiredPower =</span> <span class="fl">0.8</span>,  
-                       <span class="dt">method =</span> <span class="st">&quot;DBMH&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;RRRC&quot;</span>, <span class="dt">varYTR =</span> varYTR, <span class="dt">varYTC =</span> varYTC, <span class="dt">varYEps =</span> varYEps)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw">SsSampleSizeKGivenJ</span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">&quot;DBMH&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;RRRC&quot;</span>)</code></pre></div>
 <p><code>ncases</code> is a list containing the number of cases <code>ncases$K</code> and expected power <code>ncases$power</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(ncases)
 <span class="co">#&gt; List of 2</span>
