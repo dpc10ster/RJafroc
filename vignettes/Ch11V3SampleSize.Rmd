@@ -19,7 +19,7 @@ library(ggplot2)
 ```
 
 ## Introduction
-This illustrates the `RJafroc` implementation of sample-size estimation. Default $\alpha$ is 0.05 and default power 1-$\beta$ is 0.8. Three functions are provided. Each of these functions can be used with `"DBMH"` (illustrated here) or `"ORH"` (next vignette) significance testing. Illustrated below are random-reader random-case (RRRC) options only, `option = "RRRC"`. The user should experiment with fixed-reader random-case (FRRC) and random-reader fixed-case (RRFC) options.
+This illustrates the `RJafroc` implementation of sample-size estimation. Default $\alpha$ is 0.05 and default power 1-$\beta$ is 0.8. Three functions are provided. Each of these functions can be used with `method "DBMH"` (illustrated here, the default) or `method = "ORH"` (next vignette) significance testing. Illustrated below are random-reader random-case (RRRC) options only, `option = "RRRC"`. The user should experiment with fixed-reader random-case (FRRC) and random-reader fixed-case (RRFC) options.
 
 * `SsPowerGivenJK()` 
     Statistical power for specified numbers of readers and cases in an ROC study.
@@ -29,10 +29,14 @@ This illustrates the `RJafroc` implementation of sample-size estimation. Default
     Number of cases, for specified number of readers, to achieve desired power.
 
 ## Illustration of `SsPowerGivenJK()` using `method = "DBMH"`
+
+The selected dataset corresponds to the Van Dyke data.
 ```{r}
 power <- SsPowerGivenJK(dataset02, J = 6, K = 112)
 ````
-The returned value is a list containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic. 
+
+The returned value is a list containing the expected power `power`, the non-centrality parameter `ncp`, the denominator degrees of freedom `ddf` and the F-statistic `f`. The numerator degrees of freedom `ndf` is always `I - 1`, i.e., unity for this dataset.
+
 ```{r}
 str(power)
 ````
@@ -41,6 +45,7 @@ Expected power is `r power$powerRRRC`.
 
 
 ## Illustration of `SsPowerTable()` using `method = "DBMH"`
+
 ```{r}
 powTab <- SsPowerTable(dataset02, method = "DBMH")
 ````
@@ -52,17 +57,45 @@ powTab
 ````
 
 ## Illustration of `SsSampleSizeKGivenJ()` using `method = "DBMH"`
+
+This function ilustrates how the number of cases for 10 readers, used in Vignette 2, were chosen. In each example, the default value of the `desiredPower` argument is used, namely 0.8 (if the argument is absent, its default value is used).
+
+### RRRC
+
 ```{r}
 ncases <- SsSampleSizeKGivenJ(dataset02, J = 10, method = "DBMH", option = "RRRC")
+str(ncases)
 ````
 
 `ncases` is a list containing the number of cases `ncases$K` and expected power `ncases$power`. 
 
+#### Non default value of `desiredPower`
+This is illustrated below for 90% desired power.
+
+
 ```{r}
+ncases <- SsSampleSizeKGivenJ(dataset02, J = 10, method = "DBMH", option = "RRRC", desiredPower = 0.9)
 str(ncases)
 ````
 
 The required number of cases is `r ncases$K` and expected power is `r ncases$power`.
 
+### FRRC
+
+```{r}
+ncases <- SsSampleSizeKGivenJ(dataset02, J = 10, method = "DBMH", option = "FRRC")
+str(ncases)
+````
+
+The required number of cases is `r ncases$K` and expected power is `r ncases$power`.
+
+### RRFC
+
+```{r}
+ncases <- SsSampleSizeKGivenJ(dataset02, J = 10, method = "DBMH", option = "RRFC")
+str(ncases)
+````
+
+The required number of cases is `r ncases$K` and expected power is `r ncases$power`.
 
 

@@ -24,7 +24,9 @@ This illustrates the `RJafroc` implementation of sample-size estimation using `"
 ```{r}
 power <- SsPowerGivenJK(dataset02, 6, 251, method = "ORH", option = "RRRC")
 ````
+
 The returned value is a list containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic. 
+
 ```{r}
 str(power)
 ````
