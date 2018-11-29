@@ -106,7 +106,7 @@
       <h1>Chapter 11, Vignette 1: Background on the F distribution</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2018-11-27</h4>
+            <h4 class="date">2018-11-29</h4>
       
       
       <div class="hidden name"><code>Ch11V1SampleSize.Rmd</code></div>
@@ -115,13 +115,26 @@
 
     
     
-<div id="illustrating-the-f-distribution" class="section level2">
+<div id="introduction" class="section level2">
 <h2 class="hasAnchor">
-<a href="#illustrating-the-f-distribution" class="anchor"></a>Illustrating the F-distribution</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ndf &lt;-<span class="st"> </span><span class="dv">1</span>;ddf &lt;-<span class="st"> </span><span class="dv">10</span>;ncp &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">10</span>)
+<a href="#introduction" class="anchor"></a>Introduction</h2>
+<p>Since it plays such a central role in sample size estimation, it is helpful to examine the behavior of the F-distribution. In the following <code>ndf</code> = numerator degrees of freedom, <code>ddf</code> = denominator degrees of freedom and <code>ncp</code> = non-centrality parameter (i.e., the delta appearing in Eqn. (11.6)).</p>
+<p>The use of three functions is demonstrated.</p>
+<ul>
+<li><p><code><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf(p,ndf,ddf)</a></code> is the <em>quantile</em> function of the F-distribution for specified values of <code>ndf</code> and <code>ddf</code>, i.e., the value <code>x</code> such that fraction <code>p</code> of the area under the F-distribution lies to the right of <code>x</code>. Since it is not included as a parameter, the default value, i.e., zero, of <code>ncp</code> is used. This is called the <em>central</em> F-distribution.</p></li>
+<li><p><code><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df(x,ndf,ddf,ncp)</a></code> is the <em>pdf</em> or probability density function of the F-distribution for specified values of <code>ndf</code>, <code>ddf</code> and <code>ncp</code>.</p></li>
+<li><p><code><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">pf(x,ndf,ddf,ncp)</a></code> is the probability (or cumulative) distribution function of the F-distribution for specified values of <code>ndf</code>, <code>ddf</code> and <code>ncp</code>.</p></li>
+</ul>
+<p>In the following four values of <code>ncp</code> are considered 0, 2, 5, 10.</p>
+</div>
+<div id="illustrating-the-f-distribution-for-ndf-2-ddf-10" class="section level2">
+<h2 class="hasAnchor">
+<a href="#illustrating-the-f-distribution-for-ndf-2-ddf-10" class="anchor"></a>Illustrating the F-distribution for <code>ndf</code> = 2, <code>ddf</code> = 10</h2>
+<p>In the following <code>fCrit</code> is the critical value of the F distribution, i.e., that value such that fraction <span class="math inline">\(\alpha\)</span> of the area is to the right of the critical value. It is usually denoted <span class="math inline">\({{F}_{1-\alpha ,ndf,ddf}}\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ndf &lt;-<span class="st"> </span><span class="dv">2</span>;ddf &lt;-<span class="st"> </span><span class="dv">10</span>;ncp &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">10</span>)
 fCrit &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf</a></span>(<span class="fl">0.95</span>, ndf,ddf)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"critical value of x for rejecting NH is "</span>, fCrit,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)
-<span class="co">#&gt; critical value of x for rejecting NH is  4.964603</span>
+<span class="co">#&gt; critical value of x for rejecting NH is  4.102821</span>
 x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">1</span>, <span class="dv">20</span>, <span class="fl">0.1</span>)
 myLabel &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)
 myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span>
@@ -130,30 +143,123 @@ myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span>
   y &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df</a></span>(x,ndf,ddf,<span class="dt">ncp=</span>ncp[i])
   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ndf = "</span>, ndf, <span class="st">", ddf = "</span>, ddf, <span class="st">", ncp = "</span>, ncp[i], <span class="st">", prob &gt; fCrit = "</span>, 
       <span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">pf</a></span>(fCrit, ndf, ddf, <span class="dt">ncp =</span> ncp[i]), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)
+}  
+<span class="co">#&gt; ndf =  2 , ddf =  10 , ncp =  0 , prob &gt; fCrit =  0.05 </span>
+<span class="co">#&gt; ndf =  2 , ddf =  10 , ncp =  2 , prob &gt; fCrit =  0.177584 </span>
+<span class="co">#&gt; ndf =  2 , ddf =  10 , ncp =  5 , prob &gt; fCrit =  0.3876841 </span>
+<span class="co">#&gt; ndf =  2 , ddf =  10 , ncp =  10 , prob &gt; fCrit =  0.6769776</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(ncp))
+{
+  y &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df</a></span>(x,ndf,ddf,<span class="dt">ncp=</span>ncp[i])
   curveData &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">x =</span> x, <span class="dt">pdf =</span> y)
   curvePlot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> curveData, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pdf)) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">ggtitle</span>(myLabel[myLabelIndx]);myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(curvePlot)
 }
-<span class="co">#&gt; ndf =  1 , ddf =  10 , ncp =  0 , prob &gt; fCrit =  0.05</span></code></pre></div>
-<p><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-1-1.png" width="700" style="display: block; margin: auto;"></p>
-<pre><code>#&gt; ndf =  1 , ddf =  10 , ncp =  2 , prob &gt; fCrit =  0.2490518</code></pre>
-<p><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-1-2.png" width="700" style="display: block; margin: auto;"></p>
-<pre><code>#&gt; ndf =  1 , ddf =  10 , ncp =  5 , prob &gt; fCrit =  0.5238753</code></pre>
-<p><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-1-3.png" width="700" style="display: block; margin: auto;"></p>
-<pre><code>#&gt; ndf =  1 , ddf =  10 , ncp =  10 , prob &gt; fCrit =  0.8128068</code></pre>
-<p><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-1-4.png" width="700" style="display: block; margin: auto;"></p>
+fCrit_2_<span class="dv">10</span> &lt;-<span class="st"> </span>fCrit</code></pre></div>
+<p><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-1-1.png" width="700"><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-1-2.png" width="700"><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-1-3.png" width="700"><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-1-4.png" width="700"></p>
 <div id="comments" class="section level3">
 <h3 class="hasAnchor">
 <a href="#comments" class="anchor"></a>Comments</h3>
 <ol style="list-style-type: upper-alpha">
-<li>Corresponds to <code>ncp = 0</code>, which yields the usual (aka <em>central</em>) F-distribution that was used in the previous two chapters (9 and 10). The integral under this distribution is unity (this is true for all plots above). The critical value, <code>fCrit</code> in the code, is that value of <code>x</code> such that the probability of exceeding <code>x</code> is <span class="math inline">\(\alpha\)</span>; in the current example <code>fCrit</code> = 4.9646027. Notice the use of the quantile function <code><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf()</a></code> to determine this value, also that the default value of <code>ncp</code>, namely zero, is used; specifically, one does not pass a 4th argument to <code><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf()</a></code>. <strong>The decision rule for rejecting the NH uses the NH distribution of the F-statistic</strong>, i.e., reject the NH if F &gt;= <code>fCrit</code>. As expected, <code>prob &gt; fCrit</code> = 0.05 because this is how <code>fCrit</code> was defined.</li>
-<li>Corresponds to <code>ncp = 2</code>. It is noticeably shifted to the right as compared to A, thereby making it more likely that the observed value of the F-statistic will exceed the critical value determined for the NH distribution. In fact, <code>prob &gt; fCrit</code> = 0.2490518, which is the <em>statistical power</em>.</li>
-<li>Corresponds to <code>ncp = 5</code>, and now <code>prob &gt; fCrit</code> = 0.5238753.</li>
-<li>Corresponds to <code>ncp = 10</code>, and now <code>prob &gt; fCrit</code> is 0.8128068. The effect of the shift is obvious in plots (C) and (D). Considering a vertical line at <code>x = 4.10</code>, most of the distribution in plot (D), more than 0.8128068, to be precise, lies to the right of this line, so the NH is more than 0.8128068 likely to be rejected. Of course, what causes the shift is the increased value of the non-centrality parameter. The larger that non-centrality parameter, the greater the shift to the right.</li>
+<li>Corresponds to <code>ncp = 0</code>, which yields the usual (aka <em>central</em>) F-distribution that was used in the previous two chapters (9 and 10). The integral under this distribution is unity (this is true for all plots above). The critical value, <code>fCrit</code> in the code, is that value of <code>x</code> such that the probability of exceeding <code>x</code> is <span class="math inline">\(\alpha\)</span>; in the current example <code>fCrit</code> = 4.102821. Notice the use of the quantile function <code><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf()</a></code> to determine this value, also that the default value of <code>ncp</code>, namely zero, is used; specifically, one does not pass a 4th argument to <code><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf()</a></code>. <strong>The decision rule for rejecting the NH uses the NH distribution of the F-statistic</strong>, i.e., reject the NH if F &gt;= <code>fCrit</code>. As expected, <code>prob &gt; fCrit</code> = 0.05 because this is how <code>fCrit</code> was defined.</li>
+<li>Corresponds to <code>ncp = 2</code>. It is noticeably shifted to the right as compared to A, thereby making it more likely that the observed value of the F-statistic will exceed the critical value determined for the NH distribution. In fact, <code>prob &gt; fCrit</code> = 0.177584, which is the <em>statistical power</em>.</li>
+<li>Corresponds to <code>ncp = 5</code>, and now <code>prob &gt; fCrit</code> = 0.3876841.</li>
+<li>Corresponds to <code>ncp = 10</code>, and now <code>prob &gt; fCrit</code> is 0.6769776. The effect of the shift is obvious in plots (C) and (D). Considering a vertical line at <code>x = 4.10</code>, most of the distribution in plot (D), more than 0.6769776, to be precise, lies to the right of this line, so the NH is more than 0.6769776 likely to be rejected. Of course, what causes the shift is the increased value of the non-centrality parameter. The larger that non-centrality parameter, the greater the shift to the right.</li>
 </ol>
 </div>
+</div>
+<div id="illustrating-the-f-distribution-for-ndf-2-ddf-100" class="section level2">
+<h2 class="hasAnchor">
+<a href="#illustrating-the-f-distribution-for-ndf-2-ddf-100" class="anchor"></a>Illustrating the F-distribution for <code>ndf</code> = 2, <code>ddf</code> = 100</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ndf &lt;-<span class="st"> </span><span class="dv">2</span>;ddf &lt;-<span class="st"> </span><span class="dv">100</span>
+fCrit &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf</a></span>(<span class="fl">0.95</span>, ndf,ddf)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"critical value of x for rejecting NH is "</span>, fCrit,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)
+<span class="co">#&gt; critical value of x for rejecting NH is  3.087296</span>
+x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">1</span>, <span class="dv">20</span>, <span class="fl">0.1</span>)
+myLabel &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"E"</span>, <span class="st">"F"</span>, <span class="st">"G"</span>, <span class="st">"H"</span>)
+myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(ncp))
+{
+  y &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df</a></span>(x,ndf,ddf,<span class="dt">ncp=</span>ncp[i])
+  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ndf = "</span>, ndf, <span class="st">", ddf = "</span>, ddf, <span class="st">", ncp = "</span>, ncp[i], <span class="st">", prob &gt; fCrit = "</span>, 
+      <span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">pf</a></span>(fCrit, ndf, ddf, <span class="dt">ncp =</span> ncp[i]), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)
+}  
+<span class="co">#&gt; ndf =  2 , ddf =  100 , ncp =  0 , prob &gt; fCrit =  0.05 </span>
+<span class="co">#&gt; ndf =  2 , ddf =  100 , ncp =  2 , prob &gt; fCrit =  0.2199264 </span>
+<span class="co">#&gt; ndf =  2 , ddf =  100 , ncp =  5 , prob &gt; fCrit =  0.4910802 </span>
+<span class="co">#&gt; ndf =  2 , ddf =  100 , ncp =  10 , prob &gt; fCrit =  0.8029764</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(ncp))
+{
+  y &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df</a></span>(x,ndf,ddf,<span class="dt">ncp=</span>ncp[i])
+  curveData &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">x =</span> x, <span class="dt">pdf =</span> y)
+  curvePlot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> curveData, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pdf)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(myLabel[myLabelIndx]);myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(curvePlot)
+}
+fCrit_2_<span class="dv">100</span> &lt;-<span class="st"> </span>fCrit</code></pre></div>
+<p><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-2-2.png" width="700"><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-2-3.png" width="700"><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-2-4.png" width="700"></p>
+<div id="comments-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#comments-1" class="anchor"></a>Comments</h3>
+<ol start="5" style="list-style-type: upper-alpha">
+<li>Corresponds to <code>ncp = 0</code>. The critical value is <code>fCrit_2_100</code> = 3.0872959. Notice the decrease compared to the previous value, i.e., 4.102821, for ddf = 10.</li>
+<li>Corresponds to <code>ncp = 2</code>, and <code>prob &gt; fCrit_2_100</code> = 0.2199264, greater than the previous value 0.177584.</li>
+<li>Corresponds to <code>ncp = 5</code>, and now <code>prob &gt; fCrit_2_100</code> = 0.4910802.</li>
+<li>Corresponds to <code>ncp = 10</code>, and now <code>prob &gt; fCrit_2_100</code> is 0.8029764.</li>
+</ol>
+</div>
+</div>
+<div id="illustrating-the-f-distribution-for-ndf-1-ddf-100" class="section level2">
+<h2 class="hasAnchor">
+<a href="#illustrating-the-f-distribution-for-ndf-1-ddf-100" class="anchor"></a>Illustrating the F-distribution for <code>ndf</code> = 1, <code>ddf</code> = 100</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ndf &lt;-<span class="st"> </span><span class="dv">1</span>;ddf &lt;-<span class="st"> </span><span class="dv">100</span>
+fCrit &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">qf</a></span>(<span class="fl">0.95</span>, ndf,ddf)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"critical value of x for rejecting NH is "</span>, fCrit,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)
+<span class="co">#&gt; critical value of x for rejecting NH is  3.936143</span>
+x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">1</span>, <span class="dv">20</span>, <span class="fl">0.1</span>)
+myLabel &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"I &lt;- "</span>, <span class="st">"J"</span>, <span class="st">"K"</span>, <span class="st">"L"</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(ncp))
+{
+  y &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df</a></span>(x,ndf,ddf,<span class="dt">ncp=</span>ncp[i])
+  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ndf = "</span>, ndf, <span class="st">", ddf = "</span>, ddf, <span class="st">", ncp = "</span>, ncp[i], <span class="st">", prob &gt; fCrit = "</span>, 
+      <span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">pf</a></span>(fCrit, ndf, ddf, <span class="dt">ncp =</span> ncp[i]), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)
+}  
+<span class="co">#&gt; ndf =  1 , ddf =  100 , ncp =  0 , prob &gt; fCrit =  0.05 </span>
+<span class="co">#&gt; ndf =  1 , ddf =  100 , ncp =  2 , prob &gt; fCrit =  0.2883607 </span>
+<span class="co">#&gt; ndf =  1 , ddf =  100 , ncp =  5 , prob &gt; fCrit =  0.6004962 </span>
+<span class="co">#&gt; ndf =  1 , ddf =  100 , ncp =  10 , prob &gt; fCrit =  0.8793619</span>
+myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(ncp))
+{
+  y &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Fdist">df</a></span>(x,ndf,ddf,<span class="dt">ncp=</span>ncp[i])
+  curveData &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">x =</span> x, <span class="dt">pdf =</span> y)
+  curvePlot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> curveData, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pdf)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(myLabel[myLabelIndx]);myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(curvePlot)
+}
+fCrit_1_<span class="dv">100</span> &lt;-<span class="st"> </span>fCrit</code></pre></div>
+<p><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-3-1.png" width="700"><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-3-2.png" width="700"><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-3-3.png" width="700"><img src="Ch11V1SampleSize_files/figure-html/unnamed-chunk-3-4.png" width="700"></p>
+<div id="comments-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#comments-2" class="anchor"></a>Comments</h3>
+<ol style="list-style-type: upper-roman">
+<li>Corresponds to <code>ncp = 0</code>. The critical value is <code>fCrit_1_100</code> = 3.936143. Notice the increase compared to the corresponding value for <code>ndf = 2</code>, i.e., 3.0872959.</li>
+</ol>
+<ol start="10" style="list-style-type: upper-alpha">
+<li>Corresponds to <code>ncp = 2</code>, and <code>prob &gt; fCrit_1_100</code> = 0.2883607, larger than the previous value 0.2199264.</li>
+<li>Corresponds to <code>ncp = 5</code>, and now <code>prob &gt; fCrit_1_100</code> = 0.6004962, larger than the previous value 0.4910802.</li>
+<li>Corresponds to <code>ncp = 10</code>, and now <code>prob &gt; fCrit_1_100</code> is 0.8793619, larger than the previous value 0.8029764.</li>
+</ol>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2 class="hasAnchor">
+<a href="#summary" class="anchor"></a>Summary</h2>
+<p>Power increases with increasing <code>ddf</code> and <code>ncp</code>; the effect of increasing <code>ncp</code> is quite dramatic. Decreasing <code>ndf</code> also increases power. At first glance this may seem counterintuitive, as <code>fCrit</code> has gone up, but can be explained by the differing shapes of the two distributions: the pdf is broader for <code>ndf</code> = 1 as compared to <code>ndf</code> = 2 (compare plot L to H).</p>
 </div>
   </div>
 
@@ -162,7 +268,11 @@ myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span>
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#illustrating-the-f-distribution">Illustrating the F-distribution</a></li>
+<li><a href="#introduction">Introduction</a></li>
+      <li><a href="#illustrating-the-f-distribution-for-ndf-2-ddf-10">Illustrating the F-distribution for <code>ndf</code> = 2, <code>ddf</code> = 10</a></li>
+      <li><a href="#illustrating-the-f-distribution-for-ndf-2-ddf-100">Illustrating the F-distribution for <code>ndf</code> = 2, <code>ddf</code> = 100</a></li>
+      <li><a href="#illustrating-the-f-distribution-for-ndf-1-ddf-100">Illustrating the F-distribution for <code>ndf</code> = 1, <code>ddf</code> = 100</a></li>
+      <li><a href="#summary">Summary</a></li>
       </ul>
 </div>
       </div>

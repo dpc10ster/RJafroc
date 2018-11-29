@@ -106,7 +106,7 @@
       <h1>Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2018-11-27</h4>
+            <h4 class="date">2018-11-29</h4>
       
       
       <div class="hidden name"><code>Ch11V3SampleSize.Rmd</code></div>
@@ -118,7 +118,7 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>This illustrates the <code>RJafroc</code> implementation of sample-size estimation. Default <span class="math inline">\(\alpha\)</span> is 0.05 and default power 1-<span class="math inline">\(\beta\)</span> is 0.8. Three functions are provided. Each of these functions can be used with <code>"DBMH"</code> (illustrated here) or <code>"ORH"</code> (next vignette) significance testing. Illustrated below are random-reader random-case (RRRC) options only, <code>option = "RRRC"</code>. The user should experiment with fixed-reader random-case (FRRC) and random-reader fixed-case (RRFC) options.</p>
+<p>This illustrates the <code>RJafroc</code> implementation of sample-size estimation. Default <span class="math inline">\(\alpha\)</span> is 0.05 and default power 1-<span class="math inline">\(\beta\)</span> is 0.8. Three functions are provided. Each of these functions can be used with <code>method "DBMH"</code> (illustrated here, the default) or <code>method = "ORH"</code> (next vignette) significance testing. Illustrated below are random-reader random-case (RRRC) options only, <code>option = "RRRC"</code>. The user should experiment with fixed-reader random-case (FRRC) and random-reader fixed-case (RRFC) options.</p>
 <ul>
 <li>
 <code><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK()</a></code> Statistical power for specified numbers of readers and cases in an ROC study.</li>
@@ -132,8 +132,9 @@
 <h2 class="hasAnchor">
 <a href="#illustration-of-sspowergivenjk-using-method-dbmh" class="anchor"></a>Illustration of <code><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK()</a></code> using <code>method = "DBMH"</code>
 </h2>
+<p>The selected dataset corresponds to the Van Dyke data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">power &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">6</span>, <span class="dt">K =</span> <span class="dv">112</span>)</code></pre></div>
-<p>The returned value is a list containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic.</p>
+<p>The returned value is a list containing the expected power <code>power</code>, the non-centrality parameter <code>ncp</code>, the denominator degrees of freedom <code>ddf</code> and the F-statistic <code>f</code>. The numerator degrees of freedom <code>ndf</code> is always <code>I - 1</code>, i.e., unity for this dataset.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(power)
 <span class="co">#&gt; List of 12</span>
 <span class="co">#&gt;  $ powerRRRC: num 0.556</span>
@@ -385,13 +386,49 @@
 <h2 class="hasAnchor">
 <a href="#illustration-of-sssamplesizekgivenj-using-method-dbmh" class="anchor"></a>Illustration of <code><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ()</a></code> using <code>method = "DBMH"</code>
 </h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</code></pre></div>
-<p><code>ncases</code> is a list containing the number of cases <code>ncases$K</code> and expected power <code>ncases$power</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ncases)
+<p>This function ilustrates how the number of cases for 10 readers, used in Vignette 2, were chosen. In each example, the default value of the <code>desiredPower</code> argument is used, namely 0.8 (if the argument is absent, its default value is used).</p>
+<div id="rrrc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#rrrc" class="anchor"></a>RRRC</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ncases)
 <span class="co">#&gt; List of 2</span>
 <span class="co">#&gt;  $ KRRRC    : num 163</span>
 <span class="co">#&gt;  $ powerRRRC: num 0.802</span></code></pre></div>
-<p>The required number of cases is 163 and expected power is 0.8015625.</p>
+<p><code>ncases</code> is a list containing the number of cases <code>ncases$K</code> and expected power <code>ncases$power</code>.</p>
+<div id="non-default-value-of-desiredpower" class="section level4">
+<h4 class="hasAnchor">
+<a href="#non-default-value-of-desiredpower" class="anchor"></a>Non default value of <code>desiredPower</code>
+</h4>
+<p>This is illustrated below for 90% desired power.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>, <span class="dt">desiredPower =</span> <span class="fl">0.9</span>)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ncases)
+<span class="co">#&gt; List of 2</span>
+<span class="co">#&gt;  $ KRRRC    : num 236</span>
+<span class="co">#&gt;  $ powerRRRC: num 0.9</span></code></pre></div>
+<p>The required number of cases is 236 and expected power is 0.9003501.</p>
+</div>
+</div>
+<div id="frrc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#frrc" class="anchor"></a>FRRC</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"FRRC"</span>)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ncases)
+<span class="co">#&gt; List of 2</span>
+<span class="co">#&gt;  $ KFRRC    : num 133</span>
+<span class="co">#&gt;  $ powerFRRC: num 0.801</span></code></pre></div>
+<p>The required number of cases is 133 and expected power is 0.8011167.</p>
+</div>
+<div id="rrfc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#rrfc" class="anchor"></a>RRFC</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"RRFC"</span>)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ncases)
+<span class="co">#&gt; List of 2</span>
+<span class="co">#&gt;  $ KRRFC    : num 53</span>
+<span class="co">#&gt;  $ powerRRFC: num 0.805</span></code></pre></div>
+<p>The required number of cases is 53 and expected power is 0.8049666.</p>
+</div>
 </div>
   </div>
 

@@ -20,7 +20,7 @@ library(ggplot2)
 ```
 
 ## Introduction
-The starting point is a **pilot** study. The variability information in this study, obtained by running the significance testing function `StSignificanceTesting()`, is used to infer the necessary numbers of readers and cases, in the **pivotal** study, to achieve the desired power. In this example the Van Dyke dataset is regarded as the pilot study. Shown below, and the reader should confirm, is a first principles implementation of the relevant formulae in **Chapter 11**.  
+The starting point is a **pilot** study. The variability in this dataset (specifically the variance components, subsequently converted to mean squares), obtained by running the significance testing function `StSignificanceTesting()`, is used to extrapolate to the necessary numbers of readers and cases, in the **pivotal** study, to achieve the desired power. In this example, the observed effect size in the pilot study is used as the anticipated effect size for the pivotal study – this is generally not a good idea as discussed in **Chapter 11** under "Cautionary notes". Shown below, and the reader should confirm, is a first principles implementation of the relevant formulae in **Chapter 11**.  
 
 
 ## Sample size estimation using the DBMH method
@@ -49,6 +49,7 @@ This illustrates random reader random case sample size estimation. Assumed are 1
 
 \[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\left( \sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2} \right)+K\sigma _{Y;\tau R}^{2}+J\max \left( \sigma _{Y;\tau C}^{2},0 \right)}\]
 
+\[{{F}_{\left. AH \right|R}}\equiv \frac{MST}{MSTC}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( K-1 \right),\Delta }}\]
 Also, 
 
 \[\sigma _{Y;\tau }^{2}={{d}^{2}}/2\]
@@ -73,7 +74,11 @@ str(MS)
 The next line calculates `ddf` = `r ddf`. The remaining lines calculate the critical value of the F-distribution, `FCrit` = `r qf(1 - alpha, 1, ddf)` and statistical power = `r Power1`, which by design is close to 80%, i.e., the numbers of readers and cases were chosen to achieve this value. 
 
 ### Fixed reader random case (FRRC)
-This code illustrates fixed reader random case sample size estimation. Assumed are 10 readers and 133 cases `r J <- 10; K <- 133` in the pivotal study.  
+This code illustrates fixed reader random case sample size estimation. Assumed are 10 readers and 133 cases `r J <- 10; K <- 133` in the pivotal study. The formulae are:
+
+\[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2}+J\sigma _{Y;\tau C}^{2}}\] 
+
+\[{{F}_{\left. AH \right|R}}\equiv \frac{MST}{MSTC}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( K-1 \right),\Delta }}\] 
 
 ```{r}
 #FRRC
@@ -85,7 +90,11 @@ Power2 <- 1-pf(FCrit, 1, ddf, ncp = ncp)
 This time non centrality parameter, `ncp` = `r ncp`, `ddf` = `r ddf`, `FCrit` = `r qf(1 - alpha, 1, ddf)` and statistical power = `r Power2`. Again, be design, this is close to 80%. Note that when readers are regarded as a fixed effect, fewer cases are needed to achieve the desired power. Freezing out a source of variability results in a more stable measurement and hence fewer cases are needed to acheve the desired power.
 
 ### Random reader fixed case (RRFC)
-This code illustrates random reader random case sample size estimation. Assumed are 10 readers and 53 cases `r J <- 10; K <- 53` in the pivotal study.
+This code illustrates random reader random case sample size estimation. Assumed are 10 readers and 53 cases `r J <- 10; K <- 53` in the pivotal study. The formulae are:
+
+\[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2}+K\sigma _{Y;\tau R}^{2}}\] 
+
+\[{{F}_{\left. AH \right|C}}\equiv \frac{MST}{MSTR}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( J-1 \right),\Delta }}\]
 
 ```{r}
 #RRFC
