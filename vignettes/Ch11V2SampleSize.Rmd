@@ -24,7 +24,7 @@ The starting point is a **pilot** study. The variability in this dataset (specif
 
 
 ## Sample size estimation using the DBMH method
-The Van Dyke dataset in file `VanDyke.lrc`, in `"MRMC"` format, is regarded as a pilot study. The command `rocData <- DfReadDataFile(fileName, format = "MRMC")` reads the data and saves it to a `dataset` object `rocData`. The next line uses the function `StSignificanceTesting()` to apply `method = "DBMH"` analysis, the default, using the `FOM = "Wilcoxon"` figure of merit. The next line extracts the variance components `varYTR`, `varYTC` and `varYEps` (the Y's denote pseudovalue based values). The next line extracts the effect size.
+The Van Dyke dataset in file `VanDyke.lrc`, in `"MRMC"` format, is regarded as a pilot study. The command `rocData <- DfReadDataFile(fileName, format = "MRMC")` reads the data and saves it to a `dataset` object `rocData`. [For more on data formats click here](https://dpc10ster.github.io/rjafroc-master/reference/RJafroc-package.html). The next line uses the function `StSignificanceTesting()` to apply `method = "DBMH"` analysis, the default, using the `FOM = "Wilcoxon"` figure of merit. The next line extracts the variance components `varYTR`, `varYTC` and `varYEps` (the Y's denote pseudovalue based values). The next line extracts the effect size.
 
 ```{r}
 alpha <- 0.05
@@ -48,6 +48,8 @@ For example, the treatment-reader pseudovalue variance component is the third el
 This illustrates random reader random case sample size estimation. Assumed are 10 readers and 163 cases `r J <- 10; K <- 163` in the pivotal study. The non-centrality parameter is defined by:
 
 \[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\left( \sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2} \right)+K\sigma _{Y;\tau R}^{2}+J\max \left( \sigma _{Y;\tau C}^{2},0 \right)}\]
+
+The sampling distribution of the F-statistic under the AH is:
 
 \[{{F}_{\left. AH \right|R}}\equiv \frac{MST}{MSTC}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( K-1 \right),\Delta }}\]
 Also, 
@@ -78,6 +80,8 @@ This code illustrates fixed reader random case sample size estimation. Assumed a
 
 \[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2}+J\sigma _{Y;\tau C}^{2}}\] 
 
+The sampling distribution of the F-statistic under the AH is:
+
 \[{{F}_{\left. AH \right|R}}\equiv \frac{MST}{MSTC}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( K-1 \right),\Delta }}\] 
 
 ```{r}
@@ -93,6 +97,8 @@ This time non centrality parameter, `ncp` = `r ncp`, `ddf` = `r ddf`, `FCrit` = 
 This code illustrates random reader random case sample size estimation. Assumed are 10 readers and 53 cases `r J <- 10; K <- 53` in the pivotal study. The formulae are:
 
 \[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2}+K\sigma _{Y;\tau R}^{2}}\] 
+
+The sampling distribution of the F-statistic under the AH is:
 
 \[{{F}_{\left. AH \right|C}}\equiv \frac{MST}{MSTR}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( J-1 \right),\Delta }}\]
 

@@ -86,7 +86,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alph
       ciHalfWidth <- qt(alpha/2, df, lower.tail = FALSE) * stdErr
       fomStats[j, ] <- c(readerID[j], fomArray[j], stdErr, df, fomArray[j] - ciHalfWidth, fomArray[j] + ciHalfWidth)
     }
-    names(fomStats) <- c("Reader", "Area", "stdErr", "DF", "CI Lower", "CI Upper")
+    names(fomStats) <- c("Reader", "Area", "stdErr", "DF", "CILower", "CIUpper")
     
     nPairs <- choose(J, 2)
     jPair <- 1
@@ -101,7 +101,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alph
         jPair <- jPair + 1
       }
     }
-    names(ret) <- c("Reader", "Difference", "t", "DF", "Pr > t", "CI Lower", "CI Upper")
+    names(ret) <- c("Reader", "Difference", "t", "DF", "PrGTt", "CILower", "CIUpper")
   } else if (I != 1 && J == 1){
     fDbmFixed <- MS$msT / MS$msTC
     ddf <- (I - 1) * (K - 1)
@@ -115,7 +115,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alph
       ciHalfWidth <- qt(alpha/2, df, lower.tail = FALSE) * stdErr
       fomStats[i, ] <- c(modalityID[i], fomArray[i], stdErr, df, fomArray[i] - ciHalfWidth, fomArray[i] + ciHalfWidth)
     }
-    names(fomStats) <- c("Modality", "Area", "stdErr", "DF", "CI Lower", "CI Upper")
+    names(fomStats) <- c("Modality", "Area", "stdErr", "DF", "CILower", "CIUpper")
     
     nPairs <- choose(I, 2)
     iPair <- 1
@@ -130,7 +130,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alph
         iPair <- iPair + 1
       }
     }
-    names(ret) <- c("Modality", "Difference", "t", "DF", "Pr > t", "CI Lower", "CI Upper")
+    names(ret) <- c("Modality", "Difference", "t", "DF", "PrGTt", "CILower", "CIUpper")
   }else if (I > 1 && J > 1){
     stop("The number of treatments and readers are both greater than 1. Perform MRMC analysis using StSignificanceTesting.")
   }else{
