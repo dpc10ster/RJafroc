@@ -11,7 +11,12 @@ Added sample size vignettes and started using chapter and vignette # file naming
 Added pkgdown to create website of documentation
 Simplied ROC sample size routines; variance components are calculated internally
 Added sample size routine checks to testthat; removed dummy tests
-
+Still working on sample size vignettes, basically replacing book code in Chapter 11
+   with vignettes; discovered some errors
+Removed @usage sections in .R files; can conflict with actual usage; this is automatically generated
+Fixed huge lines, spilling over well past column 90, 
+   in UtilOutputReport(), making it easier for me to see what is going on.
+Need to add UtilOutputReport to testthat.   
 
 
 ==========================

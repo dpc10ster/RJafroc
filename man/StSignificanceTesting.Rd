@@ -4,9 +4,9 @@
 \alias{StSignificanceTesting}
 \title{Perform significance testing, DBMH or ORH}
 \usage{
-StSignificanceTesting (dataset, FOM = "wJAFROC", alpha = 0.05, 
-   method = "DBMH", covEstMethod = "Jackknife", nBoots = 200, option = "ALL", 
-   VarCompFlag = FALSE, FPFValue = 0.2)
+StSignificanceTesting(dataset, FOM = "wJAFROC", alpha = 0.05,
+  method = "DBMH", covEstMethod = "Jackknife", nBoots = 200,
+  option = "ALL", VarCompFlag = FALSE, FPFValue = 0.2)
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \link{RJafroc-package}}

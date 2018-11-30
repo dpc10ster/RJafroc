@@ -4,7 +4,7 @@
 \alias{UtilAucBinormal}
 \title{Binormal model AUC function}
 \usage{
-UtilAucBinormal (a, b)
+UtilAucBinormal(a, b)
 }
 \arguments{
 \item{a}{The \code{a} parameter of the binormal model (separation of 

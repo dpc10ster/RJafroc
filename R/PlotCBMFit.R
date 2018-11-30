@@ -2,8 +2,6 @@
 #' 
 #' @description  Plot the CBM-predicted ROC curve with provided CBM parameters
 #' 
-#' @usage PlotCbmFit (mu, alpha) 
-#' 
 #' @param mu vector: the mean(s) of the z-samples of the diseased distribution(s) where the disease is visible
 #' @param alpha vector: the proportion(s) of the diseased distribution(s) where the disease is visible
 #' 

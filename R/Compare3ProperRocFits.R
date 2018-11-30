@@ -6,9 +6,6 @@
 #'    fits obtained using Windows software downloaded from the Univ. of 
 #'    Iowa ROC website ca. June 2017.
 #' 
-#' @usage Compare3ProperRocFits(startIndx = 1, endIndx = 14, 
-#'    showPlot = FALSE, saveProprocLrcFile = FALSE, reAnalyze = FALSE) 
-#' 
 #' @param startIndx An integer in the range 1 to 14.
 #' @param endIndx An integer in the range 1 to 14, greater than or equal 
 #'    to \code{startIndx}.

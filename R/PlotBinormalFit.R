@@ -2,9 +2,6 @@
 #' 
 #' @description Plot the binormal-predicted ROC curve with provided parameters 
 #' 
-#' @usage PlotBinormalFit(a, b) 
-#' 
-#' 
 #' @param a vector: the mean(s) of the diseased distribution(s).
 #' @param b vector: the standard deviations(s) of the diseased distribution(s).
 #' 

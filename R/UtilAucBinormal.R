@@ -4,8 +4,6 @@
 #'    specified parameters. See also \link{UtilAucsRSM}, \link{UtilAucPROPROC} 
 #'    and \link{UtilAucCBM}}
 #' 
-#' @usage UtilAucBinormal (a, b)
-#' 
 #' @param a The \code{a} parameter of the binormal model (separation of 
 #'    non-diseased and diseased pdfs)
 #' @param b The \code{b} parameter of the binormal model (std. dev. of 

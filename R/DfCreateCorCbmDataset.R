@@ -3,12 +3,6 @@
 #' @description The paired dataset is generated using bivariate sampling; 
 #' details are in referenced publication 
 #' 
-#' @usage  DfCreateCorCbmDataset(
-#'    seed = 123, K1 = 50,
-#'    K2 = 50, desiredNumBins = 5, 
-#'    muX = 1.5, muY = 3, 
-#'    alphaX = 0.4, alphaY = 0.7, 
-#'    rhoNor = 0.3, rhoAbn2 = 0.8) 
 #'    
 #' @param seed The seed variable, default is 123; set to NULL for truly random seed 
 #' 

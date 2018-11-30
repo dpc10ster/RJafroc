@@ -4,8 +4,8 @@
 \alias{StSignificanceTestingCadVsRadiologists}
 \title{Significance testing, CAD vs. radiologists}
 \usage{
-StSignificanceTestingCadVsRadiologists (dataset, FOM = "Wilcoxon", 
-   option = "RRRC", method = "singleModality", FPFValue = 0.2)
+StSignificanceTestingCadVsRadiologists(dataset, FOM = "Wilcoxon",
+  option = "RRRC", method = "singleModality", FPFValue = 0.2)
 }
 \arguments{
 \item{dataset}{\strong{The dataset must be ROC or LROC.}}

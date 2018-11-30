@@ -3,8 +3,6 @@
 #' @description Read an crossed-treatment data file, in which the 
 #' two treatment factors are crossed
 #' 
-#' @usage DfReadCrossedModalities (fileName, renumber = FALSE)
-#' 
 #' @param fileName A string specifying the name of the file that contains the dataset, 
 #'    which must be an extended-JAFROC format data file containing an 
 #'    additional treatment factor.

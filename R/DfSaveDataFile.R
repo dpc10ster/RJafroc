@@ -3,9 +3,6 @@
 #' @description Save ROC data file in a different format so it can be analyzed 
 #'    with alternate software
 #' 
-#' @usage DfSaveDataFile(dataset, fileName, format = "JAFROC", 
-#'    dataDescription = paste0(deparse(substitute(dataset)), " Data File"))
-#' 
 #' @param dataset {The dataset to be saved in the specified format, 
 #'    see \link{RJafroc-package}}
 #' @param fileName {The file name of the output data file. The extension 

@@ -4,8 +4,8 @@
 \alias{Compare3ProperRocFits}
 \title{Compare three proper-ROC curve fitting models}
 \usage{
-Compare3ProperRocFits(startIndx = 1, endIndx = 14, 
-   showPlot = FALSE, saveProprocLrcFile = FALSE, reAnalyze = FALSE)
+Compare3ProperRocFits(startIndx = 1, endIndx = 14, showPlot = FALSE,
+  saveProprocLrcFile = FALSE, reAnalyze = FALSE)
 }
 \arguments{
 \item{startIndx}{An integer in the range 1 to 14.}

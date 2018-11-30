@@ -4,9 +4,6 @@
 #'    lines) for specified treatments and readers, or if desired, plots only 
 #'    (no operating points) averaged over specified treatments and / or readers
 #' 
-#' @usage PlotEmpiricalOperatingCharacteristics(dataset, trts = 1, 
-#'    rdrs = 1, opChType = "ROC")
-#' 
 #' @param dataset Dataset to be used for plotting
 #' @param trts List or vector: \strong{integer} indices of treatments to be plotted
 #' @param rdrs List or vector: \strong{integer} indices of readers to be plotted

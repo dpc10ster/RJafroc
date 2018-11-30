@@ -4,7 +4,7 @@
 \alias{UtilAucPROPROC}
 \title{PROPROC AUC function}
 \usage{
-UtilAucPROPROC (c1, da)
+UtilAucPROPROC(c1, da)
 }
 \arguments{
 \item{c1}{The c-parameter of the PROPROC model, since \strong{c is a reserved 

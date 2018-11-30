@@ -4,8 +4,8 @@
 \alias{StSignificanceTestingSingleFixedFactor}
 \title{Perform significance testing for single fixed factor analysis}
 \usage{
-StSignificanceTestingSingleFixedFactor (dataset, 
-   FOM = "wAFROC", alpha = 0.05)
+StSignificanceTestingSingleFixedFactor(dataset, FOM = "wAFROC",
+  alpha = 0.05)
 }
 \arguments{
 \item{dataset}{A single-treatment or single-reader dataset.}

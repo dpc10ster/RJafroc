@@ -6,8 +6,6 @@
 #' in different treatments. If necessary
 #' The data is binned to 5 bins in each condition.
 #'
-#' @usage DfExtractCorCbmDataset(dataset, trts, rdrs)
-#'
 #'
 #' @param dataset The original dataset from which the pairing is to be extracted
 #' @param trts A vector, maximum length 2, contains the indices of the treatment

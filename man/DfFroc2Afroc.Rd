@@ -4,7 +4,7 @@
 \alias{DfFroc2Afroc}
 \title{Convert an FROC dataset to an AFROC dataset}
 \usage{
-DfFroc2Afroc (dataset)
+DfFroc2Afroc(dataset)
 }
 \arguments{
 \item{dataset}{The dataset to be converted, \link{RJafroc-package}.}

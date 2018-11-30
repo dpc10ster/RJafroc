@@ -4,10 +4,11 @@
 \alias{UtilOutputReport}
 \title{Generate a formatted report file}
 \usage{
-UtilOutputReport (dataset, DataFileName, DataFileFormat, delimiter = ",", 
-   dataDescription = "MyData", ReportFileName, ReportFileFormat = "txt", 
-   stMethod = "DBMH", FOM = "wJAFROC", alpha = 0.05, covEstMethod = "Jackknife", 
-   nBoots = 200, renumber = FALSE, overwrite = TRUE)
+UtilOutputReport(dataset, DataFileName, DataFileFormat, delimiter = ",",
+  dataDescription = "MyData", ReportFileName, ReportFileFormat = "txt",
+  stMethod = "DBMH", FOM = "wJAFROC", alpha = 0.05,
+  covEstMethod = "Jackknife", nBoots = 200, renumber = FALSE,
+  overwrite = TRUE)
 }
 \arguments{
 \item{dataset}{The dataset object to be analyzed (not the file name), see \code{Dataset} in \link{RJafroc-package}.}
@@ -64,8 +65,7 @@ See examples
 }
 \examples{
 
-UtilOutputReport(dataset = dataset03, stMethod = "DBMH", FOM = "Wilcoxon", 
-   dataDescription = "MyROCData0", overwrite = TRUE)
+UtilOutputReport(dataset = dataset03, FOM = "Wilcoxon", overwrite = TRUE)
 
 \dontrun{
 ## Generate reports for a dataset object

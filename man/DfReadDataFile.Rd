@@ -4,8 +4,8 @@
 \alias{DfReadDataFile}
 \title{Read a data file}
 \usage{
-DfReadDataFile(fileName, format = "JAFROC", 
-   delimiter = ",", renumber = FALSE)
+DfReadDataFile(fileName, format = "JAFROC", delimiter = ",",
+  renumber = FALSE)
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file. 

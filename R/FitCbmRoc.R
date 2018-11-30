@@ -3,8 +3,6 @@
 #'
 #' @description Fit the CBM-predicted ROC curve for specified treatment and reader
 #'
-#' @usage FitCbmRoc(dataset, trt = 1, rdr = 1)
-#'
 #' @param dataset The dataset containing the data
 #' @param trt The desired treatment, default is 1
 #' @param rdr The desired reader, default is 1

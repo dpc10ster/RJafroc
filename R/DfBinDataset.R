@@ -4,8 +4,6 @@
 #' ratings in a dataset and returns the corresponding binned dataset in which the ratings are integers
 #' 1, 2,...., with higher values representing greater confidence in presence of disease
 #'
-#' @usage DfBinDataset(dataset, desiredNumBins = 7, opChType)
-#'
 #'
 #' @param dataset The dataset to be binned, with structure as in \link{RJafroc-package}.
 #' @param desiredNumBins The desired number of bins. The default is 7.

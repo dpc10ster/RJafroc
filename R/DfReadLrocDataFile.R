@@ -5,8 +5,6 @@
 #'    actually included radiologists and residents; the following usage 
 #'    includes only the radiologists
 #'
-#' @usage DfReadLrocDataFile (RADIOLOGISTS = TRUE)
-#'
 #' @param RADIOLOGISTS Logical; if TRUE, the default, only radiologists are 
 #'    analyzed otherwise all readers are analyzed
 #'

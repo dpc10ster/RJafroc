@@ -4,7 +4,7 @@
 \alias{PlotCbmFit}
 \title{Plot CBM fitted curve}
 \usage{
-PlotCbmFit (mu, alpha)
+PlotCbmFit(mu, alpha)
 }
 \arguments{
 \item{mu}{vector: the mean(s) of the z-samples of the diseased distribution(s) where the disease is visible}

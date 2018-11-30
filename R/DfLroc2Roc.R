@@ -4,9 +4,6 @@
 #' @description Converts an LROC dataset to a ROC dataset
 #'  
 #' 
-#' @usage DfLroc2Roc (dataset) 
-#' 
-#' 
 #' @param dataset The \strong{LROC} dataset to be converted.
 #' 
 #' @details The conversion is effected by taking the maximum rating on each diseased case, 

@@ -2,9 +2,6 @@
 #' 
 #' @description Read a disk file and create a dataset object from it.
 #' 
-#' @usage DfReadDataFile(fileName, format = "JAFROC", 
-#'    delimiter = ",", renumber = FALSE) 
-#' 
 #' @param fileName A string specifying the name of the file. 
 #'    The file-extension must match the format specified below
 #' @param format A string specifying the format of the data in the file. 

@@ -6,9 +6,6 @@
 #'    regarded as a fixed factor and a common case-set, regarded as random, 
 #'    is assumed.
 #' 
-#' @usage StSignificanceTestingSingleFixedFactor (dataset, 
-#'    FOM = "wAFROC", alpha = 0.05) 
-#' 
 #' @param dataset A single-treatment or single-reader dataset.
 #' @param FOM The figure of merit, default  \code{"wAFROC"}, 
 #'    see \link{UtilFigureOfMerit}.

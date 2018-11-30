@@ -2,7 +2,6 @@
 #'
 #' @description Compute the chisquare goodness of fit statistic for specified ROC data fitting model
 #'
-#' @usage ChisqrGoodnessOfFit(fpCounts, tpCounts, parameters, model, lesDistr)
 #'
 #' @param fpCounts The FP counts table
 #' @param tpCounts The TP counts table

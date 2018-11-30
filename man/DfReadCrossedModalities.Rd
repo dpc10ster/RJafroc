@@ -4,7 +4,7 @@
 \alias{DfReadCrossedModalities}
 \title{Read a crossed-treatment data file}
 \usage{
-DfReadCrossedModalities (fileName, renumber = FALSE)
+DfReadCrossedModalities(fileName, renumber = FALSE)
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file that contains the dataset, 

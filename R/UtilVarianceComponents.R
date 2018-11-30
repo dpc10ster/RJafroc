@@ -6,10 +6,6 @@
 #' #'    variance components for Obuchowski-Rockette (OR) methods for 
 #' #'    the specified dataset.
 #' #'
-#' #' @usage UtilVarianceComponents (dataset, FOM = "wJAFROC", 
-#' #'    method = "DBMH", covEstMethod = "Jackknife", nBoots = 200)
-#' #'
-#' #'
 #' #' @param dataset {The dataset to be analyzed, see \link{RJafroc-package}}
 #' #' @param FOM {The figure of merit to be used in the analysis, default 
 #' #'    is \code{"wJAFROC"}, see \link{UtilFigureOfMerit}}

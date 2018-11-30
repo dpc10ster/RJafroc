@@ -3,8 +3,6 @@
 #' @description Converts an FROC dataset to a AFROC dataset, where only the highest rated mark on each non-diseased case is counted 
 #' and all lesion localizations are counted 
 #' 
-#' @usage DfFroc2Afroc (dataset) 
-#' 
 #' 
 #' @param dataset The dataset to be converted, \link{RJafroc-package}.
 #' 

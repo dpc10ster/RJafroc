@@ -4,8 +4,8 @@
 \alias{PlotEmpiricalOperatingCharacteristics}
 \title{Plot empirical operating characteristics for specified dataset, treatment and reader}
 \usage{
-PlotEmpiricalOperatingCharacteristics(dataset, trts = 1, 
-   rdrs = 1, opChType = "ROC")
+PlotEmpiricalOperatingCharacteristics(dataset, trts = 1, rdrs = 1,
+  opChType = "ROC")
 }
 \arguments{
 \item{dataset}{Dataset to be used for plotting}

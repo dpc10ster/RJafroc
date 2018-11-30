@@ -3,9 +3,6 @@
 #' @description  Significance testing, comparing CAD vs. a group of radiologists 
 #'    interpreting the same cases, an example of single treatment analysis
 #' 
-#' @usage StSignificanceTestingCadVsRadiologists (dataset, FOM = "Wilcoxon", 
-#'    option = "RRRC", method = "singleModality", FPFValue = 0.2)
-#' 
 #' @param dataset \strong{The dataset must be ROC or LROC.}
 #' @param FOM The desired FOM, default is \code{"Wilcoxon"} for ROC data, or ROC data 
 #'    inferred from LROC data; 

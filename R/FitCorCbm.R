@@ -7,9 +7,6 @@
 #'    pairing may be different, see details.
 #'
 #'
-#' @usage FitCorCbm(dataset)
-#'
-#'
 #' @param dataset A \strong{paired ROC} dataset
 #'
 #'

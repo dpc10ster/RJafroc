@@ -5,8 +5,6 @@
 #'    parameters are more meaningful but they depend on \eqn{\mu}. The intrinsic 
 #'    parameters are independent of \eqn{\mu}. See book for details.
 #' 
-#'  @usage UtilIntrinsic2PhysicalRSM (mu, lambda, nu)  
-#' 
 #' @param mu The mean of the Gaussian distribution for the ratings of latent LLs, 
 #'    i.e. continuous ratings of lesions that were found by the search mechanism 
 #'    ~ N(\eqn{\mu},1). The corresponding distribution for the ratings of 

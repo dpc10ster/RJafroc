@@ -31,8 +31,6 @@ Convert \strong{physical} RSM parameters \eqn{\lambda}' and \eqn{\nu}' to the
    parameters are independent of \eqn{\mu}. See book for details.
 }
 \details{
-@usage UtilIntrinsic2PhysicalRSM (mu, lambda, nu)
-
 RSM is the Radiological Search Model described in the book. A latent mark 
    becomes an actual mark if the corresponding rating exceeds the lowest reporting 
    threshold zeta1. See also \link{UtilIntrinsic2PhysicalRSM}.

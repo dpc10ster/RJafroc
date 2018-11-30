@@ -2,9 +2,6 @@
 #' 
 #' @description Fit an RSM-predicted ROC curve to a binned ROC dataset
 #' 
-#' @usage FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1) 
-#' 
-#' 
 #' @param binnedRocData The \strong{binned ROC} dataset containing the data
 #' @param lesDistr The lesion distribution matrix
 #' @param trt The desired treatment, default is 1

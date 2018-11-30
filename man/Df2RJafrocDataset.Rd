@@ -4,7 +4,7 @@
 \alias{Df2RJafrocDataset}
 \title{Convert ratings arrays to an RJafroc dataset}
 \usage{
-Df2RJafrocDataset (NL, LL, ...)
+Df2RJafrocDataset(NL, LL, ...)
 }
 \arguments{
 \item{NL}{Non-lesion localizations array (or FP array for ROC data).}

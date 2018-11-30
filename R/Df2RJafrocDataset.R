@@ -3,8 +3,6 @@
 #' @description Converts ratings arrays, ROC or FROC, \emph{not LROC}, to an \pkg{RJafroc} dataset, thereby allowing the 
 #' user to leverage the file I/O, plotting and analyses capabilities of \pkg{RJafroc}. 
 #' 
-#' @usage Df2RJafrocDataset (NL, LL, ...) 
-#' 
 #' 
 #' @param NL Non-lesion localizations array (or FP array for ROC data). 
 #' @param LL Lesion localizations  array (or TP array for ROC data). 

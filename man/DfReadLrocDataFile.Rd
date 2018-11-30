@@ -4,7 +4,7 @@
 \alias{DfReadLrocDataFile}
 \title{Read a LROC data file}
 \usage{
-DfReadLrocDataFile (RADIOLOGISTS = TRUE)
+DfReadLrocDataFile(RADIOLOGISTS = TRUE)
 }
 \arguments{
 \item{RADIOLOGISTS}{Logical; if TRUE, the default, only radiologists are 

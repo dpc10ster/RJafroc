@@ -3,9 +3,6 @@
 #' @description Fit the binormal model-predicted ROC curve for an individual dataset. 
 #'    This is the R equivalent of ROCFIT or RSCORE
 #' 
-#' @usage FitBinormalRoc(dataset, trt = 1, rdr = 1) 
-#' 
-#' 
 #' @param dataset The ROC dataset
 #' @param trt The desired treatment, default is 1
 #' @param rdr The desired reader, default is 1

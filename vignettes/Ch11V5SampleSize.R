@@ -12,5 +12,5 @@ retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "D
 str(retDbm$ciDiffTrtRRRC)
 
 ## ------------------------------------------------------------------------
-effectSize <- abs(retDbm$ciDiffTrtRRRC$Estimate) + 2*retDbm$ciDiffTrtRRRC$StdErr
+effectSizeOpt <- abs(retDbm$ciDiffTrtRRRC$Estimate) + 2*retDbm$ciDiffTrtRRRC$StdErr
 

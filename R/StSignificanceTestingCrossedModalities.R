@@ -3,9 +3,6 @@
 #' @description  Performs ORH analysis for specified crossed treatments dataset 
 #'    averaged over specified treatment factor
 #' 
-#' @usage StSignificanceTestingCrossedModalities(crossedData, avgIndx, FOM = "wAFROC", 
-#' alpha = 0.05, option = "ALL") 
-#' 
 #' 
 #' @param crossedData The crossed treatments dataset
 #' @param avgIndx The index of the treatment to be averaged over

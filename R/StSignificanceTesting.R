@@ -9,11 +9,6 @@
 #'    Excel-formatted, files produced by \link{UtilOutputReport}. 
 #'
 #'  
-#' @usage StSignificanceTesting (dataset, FOM = "wJAFROC", alpha = 0.05, 
-#'    method = "DBMH", covEstMethod = "Jackknife", nBoots = 200, option = "ALL", 
-#'    VarCompFlag = FALSE, FPFValue = 0.2)
-#' 
-#' 
 #' @param dataset The dataset to be analyzed, see \link{RJafroc-package}
 #' @param FOM The figure of merit, default \code{"wJAFROC"}, 
 #'    see \link{UtilFigureOfMerit}

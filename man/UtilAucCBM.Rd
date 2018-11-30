@@ -4,7 +4,7 @@
 \alias{UtilAucCBM}
 \title{CBM AUC function}
 \usage{
-UtilAucCBM (mu, alpha)
+UtilAucCBM(mu, alpha)
 }
 \arguments{
 \item{mu}{The \code{mu} parameter of CBM (separation of non-diseased 

@@ -3,8 +3,6 @@
 #' @description {Returns the CBM ROC-AUC
 #' See also \link{UtilAucsRSM}, \link{UtilAucPROPROC} and \link{UtilAucBinormal}}
 #' 
-#' @usage UtilAucCBM (mu, alpha)
-#' 
 #' @param mu The \code{mu} parameter of CBM (separation of non-diseased 
 #'    and diseased pdfs)
 #' @param alpha The \code{alpha} parameter of CBM, i.e., the fraction 

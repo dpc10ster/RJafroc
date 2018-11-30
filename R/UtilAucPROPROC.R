@@ -4,8 +4,6 @@
 #'    parameters. See also \link{UtilAucsRSM}, \link{UtilAucBinormal} 
 #'    and \link{UtilAucCBM}.}
 #' 
-#' @usage UtilAucPROPROC (c1, da)
-#' 
 #' @param c1 The c-parameter of the PROPROC model, since \strong{c is a reserved 
 #'    function in R}. 
 #' @param da The da-parameter of the PROPROC model.

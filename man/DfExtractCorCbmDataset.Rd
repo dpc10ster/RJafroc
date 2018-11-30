@@ -4,7 +4,7 @@
 \alias{DfExtractCorCbmDataset}
 \title{Extract two arms of a pairing from an MRMC ROC dataset}
 \usage{
-DfExtractCorCbmDataset(dataset, trts, rdrs)
+DfExtractCorCbmDataset(dataset, trts = 1, rdrs = 1)
 }
 \arguments{
 \item{dataset}{The original dataset from which the pairing is to be extracted}

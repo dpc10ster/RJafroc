@@ -6,12 +6,6 @@
 #'    for non-diseased and diseased cases), for up to 2 sets of search model parameters.
 #'    This function is useful as an instructional tool towards understanding the RSM.
 #' 
-#' @usage PlotRsmOperatingCharacteristics (mu, lambda, nu, lesDistr, 
-#'    lesionWeights, type = "ALL", legendPosition = c(1,0), 
-#'    legendDirection = "horizontal", legendJustification = c(0,1), 
-#'    nlfRange = NULL, llfRange = NULL, nlfAlpha = NULL,myNegInf = -3)
-#' 
-#' 
 #' @param mu Array, max length 2. The mean(s) of the Gaussian distribution(s) for the 
 #'    ratings of latent LLs (continuous ratings of lesions that are found by the 
 #'    observer's search mechanism)

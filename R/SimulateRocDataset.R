@@ -2,8 +2,6 @@
 #' 
 #' @description  Simulates a binormal model ROC dataset for a single treatment and reader
 #' 
-#' @usage SimulateRocDataset(K1, K2, a, b, seed = NULL) 
-#' 
 #' @param K1     The number of non-diseased cases
 #' @param K2     The number of diseased cases
 #' @param a      The \eqn{a} parameter of the binormal model

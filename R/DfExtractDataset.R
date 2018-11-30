@@ -2,8 +2,6 @@
 #' 
 #' @description Extract a dataset consisting of a subset of treatments/readers from a larger dataset 
 #' 
-#' @usage DfExtractDataset(dataset, trts, rdrs) 
-#' 
 #' 
 #' @param dataset The original dataset from which the subset is to be extracted;
 #'    can be ROC, FROC or LROC

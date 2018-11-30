@@ -4,8 +4,8 @@
 \alias{DfSaveDataFile}
 \title{Save ROC data file in a different format}
 \usage{
-DfSaveDataFile(dataset, fileName, format = "JAFROC", 
-   dataDescription = paste0(deparse(substitute(dataset)), " Data File"))
+DfSaveDataFile(dataset, fileName, format = "JAFROC",
+  dataDescription = paste0(deparse(substitute(dataset)), " Data File"))
 }
 \arguments{
 \item{dataset}{{The dataset to be saved in the specified format, 

@@ -4,7 +4,7 @@
 \alias{DfLroc2Roc}
 \title{Convert an LROC dataset to a ROC dataset}
 \usage{
-DfLroc2Roc (dataset)
+DfLroc2Roc(dataset)
 }
 \arguments{
 \item{dataset}{The \strong{LROC} dataset to be converted.}

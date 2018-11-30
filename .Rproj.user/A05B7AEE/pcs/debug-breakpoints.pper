@@ -1,6 +1,21 @@
 {
     "debugBreakpointsState" : {
         "breakpoints" : [
+            {
+                "editor_line_number" : 91,
+                "editor_state" : 1,
+                "function_name" : "UtilOutputReport",
+                "function_steps" : "3",
+                "id" : 2,
+                "is_package_breakpoint" : true,
+                "is_pending_debug_completion" : false,
+                "line_number" : 91,
+                "needs_updated_steps" : false,
+                "package_name" : "RJafroc",
+                "path" : "~/rjafroc-master/R/UtilOutputReport.R",
+                "state" : 1,
+                "type" : 0
+            }
         ]
     }
 }

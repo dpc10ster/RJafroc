@@ -6,7 +6,7 @@
             "*.R"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "Pr > t",
+        "query" : "@usage",
         "regex" : false
     }
 }

@@ -2,8 +2,6 @@
 #' 
 #' @description Extracts the lesion distribution matrix for a dataset.
 #' 
-#' @usage UtilLesionDistribution(dataset) 
-#' 
 #' @param dataset The supplied dataset
 #'
 #' @return The lesion distribution matrix
