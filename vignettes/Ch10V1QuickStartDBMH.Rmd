@@ -348,7 +348,7 @@ ret$ciAvgRdrEachTrtRRFC
 ```             
 
 ## ORH significance testing
-Simply change `stMethod = "DBMH"` to `stMethod = "ORH"`.
+Simply change `method = "DBMH"` to `method = "ORH"`.
 
 ```{r}
 ret <- StSignificanceTesting(dataset03, method = "ORH", FOM = "Wilcoxon")

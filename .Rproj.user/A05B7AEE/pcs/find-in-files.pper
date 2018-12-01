@@ -3,10 +3,24 @@
         "caseSensitive" : true,
         "filePatterns" : [
             "*.r",
-            "*.R"
+            "*.R",
+            "*.rnw",
+            "*.Rnw",
+            "*.rmd",
+            "*.Rmd",
+            "*.rmarkdown",
+            "*.Rmarkdown",
+            "*.rhtml",
+            "*.Rhtml",
+            "*.rd",
+            "*.Rd",
+            "*.h",
+            "*.hpp",
+            "*.c",
+            "*.cpp"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "@usage",
+        "query" : "stMethod",
         "regex" : false
     }
 }

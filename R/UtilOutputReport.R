@@ -13,12 +13,12 @@
 #' @param dataDescription Optional description of the data, default is \code{"MyData"} 
 #' @param ReportFileName The file name of the output report file. If this parameter 
 #'    is missing, the function will use \code{DataFileName} or \code{dataDescription} 
-#'    followed by the underscore separated concatenation of \code{stMethod} 
+#'    followed by the underscore separated concatenation of \code{method} 
 #'    and \code{FOM} as the output report file.
 #' @param ReportFileFormat The format of the output report. The two available formats are 
 #'    \code{"txt"} (the default) and \code{"xlsx"}, corresponding to a formatted text file or an 
 #'    Excel file, respectively.
-#' @param stMethod The significance testing method, \code{"ORH"} or (the default) \code{"DBMH"}.
+#' @param method The significance testing method, \code{"ORH"} or (the default) \code{"DBMH"}.
 #' @param FOM The figure of merit; see \link{StSignificanceTesting}.
 #' @param alpha See \link{StSignificanceTesting}.
 #' @param covEstMethod See \link{StSignificanceTesting}; only needed for \code{"ORH"} analysis.
@@ -34,11 +34,11 @@
 #' 
 #' 
 #' @details
-#' See examples
+#' A formatted report of the data analysis, patterned roughly on that of 
+#'    OR-DBM MRMC V2.5, is written to the output file.
 #' 
 #' 
-#' @return A formatted report of the data analysis, patterned roughly on that of 
-#'    OR-DBM MRMC V2.5.
+#' @return sigTestResult The object returned by \link{StSignificanceTesting}.
 #' 
 #' @examples
 #' 
@@ -46,33 +46,33 @@
 #'
 #' \dontrun{
 #' ## Generate reports for a dataset object
-#' UtilOutputReport(dataset = dataset02, stMethod = "DBMH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
 #'              dataDescription = "MyROCData1", overwrite = TRUE)
 #'              
-#' UtilOutputReport(dataset = dataset02, stMethod = "DBMH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
 #' dataDescription = "MyROCData2",ReportFileFormat = "xlsx", overwrite = TRUE)
 #' 
-#' UtilOutputReport(dataset = dataset02, stMethod = "ORH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
 #'              dataDescription = "MyROCData3", overwrite = TRUE)
 #'              
-#' UtilOutputReport(dataset = dataset02, stMethod = "ORH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
 #' dataDescription = "MyROCData4",ReportFileFormat = "xlsx", overwrite = TRUE)
 #' 
 #' ## Generate report for a data file
 #' fn <- system.file("extdata", "includedRocData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
-#' UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", stMethod = "DBMH", FOM = "Wilcoxon",
+#' UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", method = "DBMH", FOM = "Wilcoxon",
 #'              overwrite = TRUE, ReportFileFormat = "xlsx")
 #'              
 #' ## Output report for an existing dataset
-#' ## UtilOutputReport(dataset = dataset05, stMethod = "DBMH", FOM = "Wilcoxon") # ERROR! as FOM is 
+#' ## UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "Wilcoxon") # ERROR! as FOM is 
 #'    incompatible with FROC data
 #' 
-#' UtilOutputReport(dataset = dataset05, stMethod = "ORH") # OK as default FOM is "wJAFROC"
+#' UtilOutputReport(dataset = dataset05, method = "ORH") # OK as default FOM is "wJAFROC"
 #' 
-#' UtilOutputReport(dataset = dataset05, stMethod = "DBMH", FOM = "HrAuc")
+#' UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc")
 #' 
-#' UtilOutputReport(dataset = dataset05, stMethod = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
+#' UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
 #' }
 #'        
 #' @importFrom utils packageDescription
@@ -83,7 +83,7 @@
 UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = ",", 
                              dataDescription = "MyData", 
                              ReportFileName, ReportFileFormat = "txt",
-                             stMethod = "DBMH", FOM = "wJAFROC", alpha = 0.05, 
+                             method = "DBMH", FOM = "wJAFROC", alpha = 0.05, 
                              covEstMethod = "Jackknife", nBoots = 200, 
                              renumber = FALSE, overwrite = TRUE) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
@@ -109,11 +109,9 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
       dataset <- DfReadDataFile(DataFileName, DataFileFormat, delimiter, renumber)
     } else {
       datasetSpecified <- TRUE
-      modalityNames <- dataset$modalityID
-      readerNames <- dataset$readerID
       if (renumber){
-        dataset$modalityID <- 1:length(modalityNames)
-        dataset$readerID <- 1:length(readerNames)
+        dataset$modalityID <- 1:length(dataset$modalityID)
+        dataset$readerID <- 1:length(dataset$readerID)
       }
     }
   }
@@ -122,55 +120,93 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
     stop("Inconsistent dataset and FOM")
   }
   
-  if (stMethod == "DBMH") {
+  if (method == "DBMH") {
     methodTxt <- "DBM-MRMC-HILLIS SIGNIFICANCE TESTING"
-    result <- StSignificanceTesting(dataset, FOM, alpha, stMethod)
-  } else if (stMethod == "ORH") {
+    sigTestResult <- StSignificanceTesting(dataset, FOM, alpha, method)
+  } else if (method == "ORH") {
     methodTxt <- "OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING"
-    result <- StSignificanceTesting(dataset, FOM, alpha, stMethod, covEstMethod, nBoots)
+    sigTestResult <- StSignificanceTesting(dataset, FOM, alpha, method, covEstMethod, nBoots)
   } else {
-    errMsg <- paste0(stMethod, " is not a valid analysis method.")
+    errMsg <- paste0(method, " is not a valid analysis method.")
     stop(errMsg)
   }
-  sucessfulOutput <- "Method failed"
-  if (ReportFileFormat == "txt"){
-    sucessfulOutput <- OutputTextFile(dataset,
-                                      result,
-                                      stMethod,
-                                      alpha,
-                                      FOM,
-                                      ReportFileName, 
-                                      datasetSpecified, 
-                                      dataDescription,
-                                      DataFileName,
-                                      methodTxt,
-                                      overwrite,
-                                      covEstMethod,
-                                      UNINITIALIZED)
-  } else if (ReportFileFormat == "xlsx"){
-    sucessfulOutput <- OutputExcelFile(dataset,
-                                       result,
-                                       stMethod,
-                                       alpha,
-                                       FOM,
-                                       ReportFileName, 
-                                       datasetSpecified, 
-                                       dataDescription,
-                                       DataFileName,
-                                       methodTxt,
-                                       overwrite,
-                                       covEstMethod,
-                                       UNINITIALIZED)
-  }
   
-  message(sucessfulOutput)
+    #sucessfulOutput <- "Method failed"
+    if (ReportFileFormat == "txt"){
+      if (missing(ReportFileName)) {
+        if (datasetSpecified) {
+          ReportFileName <- paste0(getwd(), "/", 
+                                   dataDescription, 
+                                   "Output", ".txt")
+        } else {
+          ReportFileName <- paste0(file_path_sans_ext(basename(DataFileName)), 
+                                   "Output", ".txt")
+        }
+      }
+      sucessfulOutput <- OutputTextFile(dataset,
+                                        sigTestResult,
+                                        method,
+                                        alpha,
+                                        FOM,
+                                        ReportFileName, 
+                                        datasetSpecified, 
+                                        dataDescription,
+                                        DataFileName,
+                                        methodTxt,
+                                        overwrite,
+                                        covEstMethod,
+                                        UNINITIALIZED)
+    } else if (ReportFileFormat == "xlsx"){
+      if (missing(ReportFileName)) {
+        if (datasetSpecified) {
+          ReportFileName <- paste0(getwd(), "/", 
+                                   dataDescription, 
+                                   "Output", ".xlsx")
+          summaryInfo <- data.frame(summaryInfo = 
+                                      c(base::format(Sys.time(), "%b/%d/%Y"), 
+                                        dataDescription, 
+                                        basename(ReportFileName)))
+        } else {
+          ReportFileName <- paste0(file_path_sans_ext(basename(DataFileName)), 
+                                   "Output", ".xlsx")
+          summaryInfo <- data.frame(summaryInfo = 
+                                      c(base::format(Sys.time(), "%b/%d/%Y"), 
+                                        basename(DataFileName), basename(ReportFileName)))
+        }
+      }else{
+        if (datasetSpecified) {
+          summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), 
+                                                    dataDescription, basename(ReportFileName)))
+        } else {
+          summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), 
+                                                    basename(DataFileName), basename(ReportFileName)))
+        }
+      }
+      rownames(summaryInfo) <- c("Date", "Input file", "Output file")
+      sucessfulOutput <- OutputExcelFile(dataset,
+                                         sigTestResult,
+                                         method,
+                                         alpha,
+                                         FOM,
+                                         ReportFileName, 
+                                         datasetSpecified, 
+                                         dataDescription,
+                                         DataFileName,
+                                         methodTxt,
+                                         overwrite,
+                                         covEstMethod,
+                                         summaryInfo,
+                                         UNINITIALIZED)
+    }
+    #message(sucessfulOutput)
+  return(sigTestResult)
 } 
 
 
 
 OutputTextFile <- function(dataset,
-                           result,
-                           stMethod,
+                           sigTestResult,
+                           method,
                            alpha,
                            FOM,
                            ReportFileName, 
@@ -182,13 +218,6 @@ OutputTextFile <- function(dataset,
                            covEstMethod,
                            UNINITIALIZED)
 {
-  if (missing(ReportFileName)) {
-    if (datasetSpecified) {
-      ReportFileName <- paste0(getwd(), "/", dataDescription, "_", stMethod, "_", FOM, ".txt")
-    } else {
-      ReportFileName <- paste0(file_path_sans_ext(basename(DataFileName)), "_", stMethod, "_", FOM, ".txt")
-    }
-  }
   if (!overwrite) {
     if (file.exists(ReportFileName)) {
       readInput <- ""
@@ -216,7 +245,7 @@ OutputTextFile <- function(dataset,
   write(sprintf(paste("R version:", R.version$version.string)), ReportFileName, append = TRUE)
   write(sprintf(paste("RJafroc version:", packageVersion("RJafroc"))), ReportFileName, append = TRUE)
   dateTime <- paste0("Run date: ", base::format(Sys.time(), "%b %d %Y %a %X %Z"))
-  write(sprintf(dateTime), ReportFileName, append = TRUE)
+  if (ReportFileName != "") write(sprintf(dateTime), ReportFileName, append = TRUE)
   write(sprintf(" FOM selected         :     %s", FOM), 
         ReportFileName, append = TRUE)
   if (datasetSpecified) {
@@ -246,7 +275,7 @@ OutputTextFile <- function(dataset,
   nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
   
   
-  write(sprintf(" Significance testing stMethod:  %s", methodTxt), ReportFileName, append = TRUE)
+  write(sprintf(" Significance testing method:  %s", methodTxt), ReportFileName, append = TRUE)
   write(sprintf(" Number of Readers          :  %d", J), ReportFileName, append = TRUE)
   write(sprintf(" Number of Treatments       :  %d", I), ReportFileName, append = TRUE)
   write(sprintf(" Number of Normal Cases     :  %d", K1), ReportFileName, append = TRUE)
@@ -355,7 +384,7 @@ OutputTextFile <- function(dataset,
   for (j in 1:J) {
     string <- sprintf("%-10.10s    ", dataset$readerID[j])
     for (i in 1:I) {
-      string <- paste0(string, sprintf("%10.8f", result$fomArray[i, j]))
+      string <- paste0(string, sprintf("%10.8f", sigTestResult$fomArray[i, j]))
       if (i < I) {
         string <- paste0(string, "   ")
       }
@@ -368,7 +397,7 @@ OutputTextFile <- function(dataset,
         ReportFileName, append = TRUE)
   for (i in 1:I) {
     string <- paste0(sprintf("%-10.10s    %10.8f", 
-                             dataset$modalityID[i], mean(result$fomArray[i, ])))
+                             dataset$modalityID[i], mean(sigTestResult$fomArray[i, ])))
     write(string, ReportFileName, append = TRUE)
   }
   write("\n\n", ReportFileName, append = TRUE)
@@ -380,13 +409,13 @@ OutputTextFile <- function(dataset,
         write(sprintf("%-10.10s - %-10.10s    %10.8f", 
                       dataset$modalityID[i], 
                       dataset$modalityID[ip], 
-                      mean(result$fomArray[i, ]) - mean(result$fomArray[ip, ])), 
+                      mean(sigTestResult$fomArray[i, ]) - mean(sigTestResult$fomArray[ip, ])), 
               ReportFileName, append = TRUE)
       }
     }
   }
   write("\n\n\n", ReportFileName, append = TRUE)
-  if (stMethod == "DBMH") {
+  if (method == "DBMH") {
     if (J > 1) {
       write(sprintf(c(" ===========================================================================", 
                       " *****                          ANOVA Tables                           *****", 
@@ -397,16 +426,16 @@ OutputTextFile <- function(dataset,
             ReportFileName, append = TRUE)
       for (l in 1:7) {
         write(sprintf(" %5s   %20.8f    %6d   %18.8f", 
-                      result$anovaY[l, 1], 
-                      result$anovaY[l, 2], 
-                      result$anovaY[l, 3], 
-                      result$anovaY[l, 4]), 
+                      sigTestResult$anovaY[l, 1], 
+                      sigTestResult$anovaY[l, 2], 
+                      sigTestResult$anovaY[l, 3], 
+                      sigTestResult$anovaY[l, 4]), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" %5s   %20.8f    %6d", 
-                    result$anovaY[8, 1], 
-                    result$anovaY[8, 2], 
-                    result$anovaY[8, 3]), 
+                    sigTestResult$anovaY[8, 1], 
+                    sigTestResult$anovaY[8, 2], 
+                    sigTestResult$anovaY[8, 3]), 
             ReportFileName, append = TRUE)
       write("\n\n", ReportFileName, append = TRUE)
       write(" TREATMENT X READER X CASE ANOVA", 
@@ -428,9 +457,9 @@ OutputTextFile <- function(dataset,
       }
       write(string, ReportFileName, append = TRUE)
       for (l in 1:3) {
-        string <- sprintf("     %2s %6d   ", result$anovaYi[l, 1], result$anovaYi[l, 2])
+        string <- sprintf("     %2s %6d   ", sigTestResult$anovaYi[l, 1], sigTestResult$anovaYi[l, 2])
         for (i in 1:I) {
-          string <- paste0(string, sprintf("%10.8f", result$anovaYi[l, i + 2]))
+          string <- paste0(string, sprintf("%10.8f", sigTestResult$anovaYi[l, i + 2]))
           if (i < I) {
             string <- paste0(string, "   ")
           }
@@ -445,9 +474,9 @@ OutputTextFile <- function(dataset,
             " DBM variance component and covariance estimates\n", 
             "     DBM Component             Estimate    ", 
             " -----------------------  ----------------", 
-            sprintf(" Var(R)                  %16.8f", result$varComp$varComp[1]), 
-            sprintf(" Var(C)                  %16.8f", result$varComp$varComp[2]), sprintf(" Var(T*R)                %16.8f", result$varComp$varComp[3]), sprintf(" Var(T*C)                %16.8f", result$varComp$varComp[4]), 
-            sprintf(" Var(R*C)                %16.8f", result$varComp$varComp[5]), sprintf(" Var(Error)              %16.8f", result$varComp$varComp[6])), ReportFileName, append = TRUE)
+            sprintf(" Var(R)                  %16.8f", sigTestResult$varComp$varComp[1]), 
+            sprintf(" Var(C)                  %16.8f", sigTestResult$varComp$varComp[2]), sprintf(" Var(T*R)                %16.8f", sigTestResult$varComp$varComp[3]), sprintf(" Var(T*C)                %16.8f", sigTestResult$varComp$varComp[4]), 
+            sprintf(" Var(R*C)                %16.8f", sigTestResult$varComp$varComp[5]), sprintf(" Var(Error)              %16.8f", sigTestResult$varComp$varComp[6])), ReportFileName, append = TRUE)
     
   } else {
     write(c(" ===========================================================================", 
@@ -457,15 +486,15 @@ OutputTextFile <- function(dataset,
             "     OR Component             Estimate    ", 
             " -----------------------  ----------------", 
             sprintf(" Var(R)                  %16.8f", 
-                    result$varComp$varCov[1]), 
+                    sigTestResult$varComp$varCov[1]), 
             sprintf(" Var(T*R)                %16.8f", 
-                    result$varComp$varCov[2]), 
+                    sigTestResult$varComp$varCov[2]), 
             sprintf(" COV1                    %16.8f", 
-                    result$varComp$varCov[3]), 
+                    sigTestResult$varComp$varCov[3]), 
             sprintf(" COV2                    %16.8f", 
-                    result$varComp$varCov[4]), sprintf(" COV3                    %16.8f", result$varComp$varCov[5]), 
+                    sigTestResult$varComp$varCov[4]), sprintf(" COV3                    %16.8f", sigTestResult$varComp$varCov[5]), 
             sprintf(" Var(Error)              %16.8f", 
-                    result$varComp$varCov[6])), ReportFileName, append = TRUE)
+                    sigTestResult$varComp$varCov[6])), ReportFileName, append = TRUE)
   }
   
   smallestDispalyedPval <- 1e-04
@@ -482,53 +511,53 @@ OutputTextFile <- function(dataset,
     write(c(" Source        DF    Mean Square      F value  Pr > F ", 
             " ----------  ------  ---------------  -------  -------"), 
           ReportFileName, append = TRUE)
-    if (stMethod == "DBMH") {
-      if (result$pRRRC >= smallestDispalyedPval) {
+    if (method == "DBMH") {
+      if (sigTestResult$pRRRC >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                       I - 1, 
-                      result$anovaY[1, 4], 
-                      result$fRRRC, 
-                      result$pRRRC), 
+                      sigTestResult$anovaY[1, 4], 
+                      sigTestResult$fRRRC, 
+                      sigTestResult$pRRRC), 
               ReportFileName, append = TRUE)
       } else {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
-                      I - 1, result$anovaY[1, 4], 
-                      result$fRRRC, 
+                      I - 1, sigTestResult$anovaY[1, 4], 
+                      sigTestResult$fRRRC, 
                       smallestDispalyedPval), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    result$ddfRRRC, 
-                    result$anovaY[4, 4] + max(result$anovaY[5, 4] - result$anovaY[7, 4])), 
+                    sigTestResult$ddfRRRC, 
+                    sigTestResult$anovaY[4, 4] + max(sigTestResult$anovaY[5, 4] - sigTestResult$anovaY[7, 4])), 
             ReportFileName, append = TRUE)
       write(" Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]\n", 
             ReportFileName, append = TRUE)
     } else {
-      if (result$pRRRC >= smallestDispalyedPval) {
+      if (sigTestResult$pRRRC >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
-                      I - 1, result$msT, result$fRRRC, result$pRRRC), 
+                      I - 1, sigTestResult$msT, sigTestResult$fRRRC, sigTestResult$pRRRC), 
               ReportFileName, append = TRUE)
       } else {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
-                      I - 1, result$msT, result$fRRRC, smallestDispalyedPval), 
+                      I - 1, sigTestResult$msT, sigTestResult$fRRRC, smallestDispalyedPval), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    result$ddfRRRC, 
-                    result$msTR + max(J * (result$varComp[3, 2] - result$varComp[4, 2]), 0)), 
+                    sigTestResult$ddfRRRC, 
+                    sigTestResult$msTR + max(J * (sigTestResult$varComp[3, 2] - sigTestResult$varComp[4, 2]), 0)), 
             ReportFileName, append = TRUE)
       write(" Error term: MS(TR) + J * max[Cov2 - Cov3, 0]\n", 
             ReportFileName, append = TRUE)
     }
     
-    if (result$pRRRC < alpha) {
+    if (sigTestResult$pRRRC < alpha) {
       write(sprintf(" Conclusion: The %s FOMs of treatments are not equal,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
-                    FOM, I - 1, result$ddfRRRC, result$fRRRC, result$pRRRC), 
+                    FOM, I - 1, sigTestResult$ddfRRRC, sigTestResult$fRRRC, sigTestResult$pRRRC), 
             ReportFileName, 
             append = TRUE)
     } else {
       write(sprintf(" Conclusion: The %s FOMs of treatments are not significantly different,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
-                    FOM, I - 1, result$ddfRRRC, result$fRRRC, result$pRRRC), 
+                    FOM, I - 1, sigTestResult$ddfRRRC, sigTestResult$fRRRC, sigTestResult$pRRRC), 
             ReportFileName, append = TRUE)
     }
     write(sprintf("    b) %d%% confidence intervals for treatment differences\n", ciPercent), 
@@ -543,13 +572,13 @@ OutputTextFile <- function(dataset,
           write(sprintf("%-10.10s - %-10.10s  %8.5f  %8.5f  %7.2f  %6.2f  %7.4f  %8.5f , %8.5f\n", 
                         dataset$modalityID[i], 
                         dataset$modalityID[ip], 
-                        result$ciDiffTrtRRRC[ii, 2], 
-                        result$ciDiffTrtRRRC[ii, 3], 
-                        result$ciDiffTrtRRRC[ii, 4], 
-                        result$ciDiffTrtRRRC[ii, 5], 
-                        result$ciDiffTrtRRRC[ii, 6], 
-                        result$ciDiffTrtRRRC[ii, 7], 
-                        result$ciDiffTrtRRRC[ii, 8]), 
+                        sigTestResult$ciDiffTrtRRRC[ii, 2], 
+                        sigTestResult$ciDiffTrtRRRC[ii, 3], 
+                        sigTestResult$ciDiffTrtRRRC[ii, 4], 
+                        sigTestResult$ciDiffTrtRRRC[ii, 5], 
+                        sigTestResult$ciDiffTrtRRRC[ii, 6], 
+                        sigTestResult$ciDiffTrtRRRC[ii, 7], 
+                        sigTestResult$ciDiffTrtRRRC[ii, 8]), 
                 ReportFileName, append = TRUE)
           ii <- ii + 1
         }
@@ -564,7 +593,7 @@ OutputTextFile <- function(dataset,
               " with p < .05 are significant only if the global test in ", 
               " (a) is also significant (i.e, p < .05)."), ReportFileName, append = TRUE)
     }
-    if (stMethod == "DBMH") {
+    if (method == "DBMH") {
       write(" Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]\n\n", ReportFileName, append = TRUE)
     } else {
       write(" Error term: MS(TR) + J * max[Cov2 - Cov3, 0]\n\n", ReportFileName, append = TRUE)
@@ -578,14 +607,14 @@ OutputTextFile <- function(dataset,
           ReportFileName, append = TRUE)
     for (i in 1:I) {
       write(sprintf("  %-10.10s  %10.8f  %10.8f  %7.2f  (%10.8f , %10.8f)", 
-                    result$ciAvgRdrEachTrtRRRC[i, 1], 
-                    result$ciAvgRdrEachTrtRRRC[i, 2], 
-                    result$ciAvgRdrEachTrtRRRC[i, 3], result$ciAvgRdrEachTrtRRRC[i,4], 
-                    result$ciAvgRdrEachTrtRRRC[i, 5], 
-                    result$ciAvgRdrEachTrtRRRC[i, 6]), 
+                    sigTestResult$ciAvgRdrEachTrtRRRC[i, 1], 
+                    sigTestResult$ciAvgRdrEachTrtRRRC[i, 2], 
+                    sigTestResult$ciAvgRdrEachTrtRRRC[i, 3], sigTestResult$ciAvgRdrEachTrtRRRC[i,4], 
+                    sigTestResult$ciAvgRdrEachTrtRRRC[i, 5], 
+                    sigTestResult$ciAvgRdrEachTrtRRRC[i, 6]), 
             ReportFileName, append = TRUE)
     }
-    if (stMethod == "DBMH") {
+    if (method == "DBMH") {
       write(" Error term: MS(R) + max[MS(C) - MS(RC), 0]\n\n\n", ReportFileName, append = TRUE)
     } else {
       write("\n\n\n", ReportFileName, append = TRUE)
@@ -604,72 +633,72 @@ OutputTextFile <- function(dataset,
   write(c(" Source        DF    Mean Square      F value  Pr > F ", 
           " ----------  ------  ---------------  -------  -------"), 
         ReportFileName, append = TRUE)
-  if (stMethod == "DBMH") {
-    if (result$pFRRC >= smallestDispalyedPval) {
+  if (method == "DBMH") {
+    if (sigTestResult$pFRRC >= smallestDispalyedPval) {
       write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                     I - 1, 
-                    result$anovaY[1, 4], 
-                    result$fFRRC, 
-                    result$pFRRC), 
+                    sigTestResult$anovaY[1, 4], 
+                    sigTestResult$fFRRC, 
+                    sigTestResult$pFRRC), 
             ReportFileName, append = TRUE)
     } else {
       write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                     I - 1, 
-                    result$anovaY[1, 4], 
-                    result$fFRRC, 
+                    sigTestResult$anovaY[1, 4], 
+                    sigTestResult$fFRRC, 
                     smallestDispalyedPval), 
             ReportFileName, append = TRUE)
     }
     write(sprintf(" Error       %6.2f  %15.8f", 
-                  result$ddfFRRC, result$anovaY[5, 4]), 
+                  sigTestResult$ddfFRRC, sigTestResult$anovaY[5, 4]), 
           ReportFileName, append = TRUE)
     write("  Error term: MS(TC)\n", ReportFileName, append = TRUE)
   } else {
-    if (result$pFRRC >= smallestDispalyedPval) {
+    if (sigTestResult$pFRRC >= smallestDispalyedPval) {
       write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                     I - 1, 
-                    result$msT, 
-                    result$fFRRC, 
-                    result$pFRRC), 
+                    sigTestResult$msT, 
+                    sigTestResult$fFRRC, 
+                    sigTestResult$pFRRC), 
             ReportFileName, append = TRUE)
     } else {
       write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                     I - 1, 
-                    result$msT, 
-                    result$fFRRC, 
+                    sigTestResult$msT, 
+                    sigTestResult$fFRRC, 
                     smallestDispalyedPval), 
             ReportFileName, append = TRUE)
     }
     if (J > 1) {
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    result$ddfFRRC, 
-                    (result$varComp[1, 2] - result$varComp[2, 2] + (J - 1) * (result$varComp[3, 2] - result$varComp[4, 2]))), 
+                    sigTestResult$ddfFRRC, 
+                    (sigTestResult$varComp[1, 2] - sigTestResult$varComp[2, 2] + (J - 1) * (sigTestResult$varComp[3, 2] - sigTestResult$varComp[4, 2]))), 
             ReportFileName, append = TRUE)
       write(" Error term: Var - Cov1 + (J - 1) * ( Cov2 - Cov3 )\n", 
             ReportFileName, append = TRUE)
     } else {
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    result$ddfFRRC, (result$varComp[1, 2] - result$varComp[2, 2])), 
+                    sigTestResult$ddfFRRC, (sigTestResult$varComp[1, 2] - sigTestResult$varComp[2, 2])), 
             ReportFileName, append = TRUE)
       write(" Error term: Var - Cov1\n", 
             ReportFileName, append = TRUE)
     }
   }
   
-  if (result$pFRRC < alpha) {
+  if (sigTestResult$pFRRC < alpha) {
     write(sprintf(" Conclusion: The %s FOMs of treatments are not equal,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
                   FOM, I - 1, 
-                  result$ddfFRRC, 
-                  result$fFRRC, 
-                  result$pFRRC), 
+                  sigTestResult$ddfFRRC, 
+                  sigTestResult$fFRRC, 
+                  sigTestResult$pFRRC), 
           ReportFileName, append = TRUE)
   } else {
     write(sprintf(" Conclusion: The %s FOMs of treatments are not significantly different,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
                   FOM, 
                   I - 1, 
-                  result$ddfFRRC, 
-                  result$fFRRC, 
-                  result$pFRRC), 
+                  sigTestResult$ddfFRRC, 
+                  sigTestResult$fFRRC, 
+                  sigTestResult$pFRRC), 
           ReportFileName, append = TRUE)
   }
   
@@ -685,13 +714,13 @@ OutputTextFile <- function(dataset,
         write(sprintf("%-10.10s - %-10.10s  %8.5f  %8.5f  %7.2f  %6.2f  %7.4f  %8.5f , %8.5f\n", 
                       dataset$modalityID[i], 
                       dataset$modalityID[ip], 
-                      result$ciDiffTrtFRRC[ii, 2], 
-                      result$ciDiffTrtFRRC[ii, 3], 
-                      result$ciDiffTrtFRRC[ii,4], 
-                      result$ciDiffTrtFRRC[ii, 5], 
-                      result$ciDiffTrtFRRC[ii, 6], 
-                      result$ciDiffTrtFRRC[ii, 7], 
-                      result$ciDiffTrtFRRC[ii, 8]), 
+                      sigTestResult$ciDiffTrtFRRC[ii, 2], 
+                      sigTestResult$ciDiffTrtFRRC[ii, 3], 
+                      sigTestResult$ciDiffTrtFRRC[ii,4], 
+                      sigTestResult$ciDiffTrtFRRC[ii, 5], 
+                      sigTestResult$ciDiffTrtFRRC[ii, 6], 
+                      sigTestResult$ciDiffTrtFRRC[ii, 7], 
+                      sigTestResult$ciDiffTrtFRRC[ii, 8]), 
               ReportFileName, append = TRUE)
         ii <- ii + 1
       }
@@ -707,7 +736,7 @@ OutputTextFile <- function(dataset,
             " (a) is also significant (i.e, p < .05)."), 
           ReportFileName, append = TRUE)
   }
-  if (stMethod == "DBMH") {
+  if (method == "DBMH") {
     write(" Error term: MS(TC) \n\n", 
           ReportFileName, append = TRUE)
   } else {
@@ -729,15 +758,15 @@ OutputTextFile <- function(dataset,
         ReportFileName, append = TRUE)
   for (i in 1:I) {
     write(sprintf("  %-10.10s  %10.8f  %10.8f  %7.2f  (%10.8f , %10.8f)", 
-                  result$ciAvgRdrEachTrtFRRC[i, 1], 
-                  result$ciAvgRdrEachTrtFRRC[i, 2], 
-                  result$ciAvgRdrEachTrtFRRC[i, 3], 
-                  result$ciAvgRdrEachTrtFRRC[i, 4], 
-                  result$ciAvgRdrEachTrtFRRC[i, 5], 
-                  result$ciAvgRdrEachTrtFRRC[i, 6]), 
+                  sigTestResult$ciAvgRdrEachTrtFRRC[i, 1], 
+                  sigTestResult$ciAvgRdrEachTrtFRRC[i, 2], 
+                  sigTestResult$ciAvgRdrEachTrtFRRC[i, 3], 
+                  sigTestResult$ciAvgRdrEachTrtFRRC[i, 4], 
+                  sigTestResult$ciAvgRdrEachTrtFRRC[i, 5], 
+                  sigTestResult$ciAvgRdrEachTrtFRRC[i, 6]), 
           ReportFileName, append = TRUE)
   }
-  if (stMethod == "DBMH") {
+  if (method == "DBMH") {
     write(" Error term: MS(C) \n\n\n", 
           ReportFileName, append = TRUE)
   } else {
@@ -749,7 +778,7 @@ OutputTextFile <- function(dataset,
             ReportFileName, append = TRUE)
     }
   }
-  if (stMethod == "DBMH") {
+  if (method == "DBMH") {
     write(" TREATMENT X CASE ANOVAs for each reader\n\n", 
           ReportFileName, append = TRUE)
     write("                        Sum of Squares", 
@@ -762,13 +791,13 @@ OutputTextFile <- function(dataset,
     for (j in 1:J) string <- paste0(string, sprintf("-----------   ", dataset$readerID[j]))
     write(string, ReportFileName, append = TRUE)
     string <- sprintf("      T %6d   ", I - 1)
-    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", result$ssAnovaEachRdr[1, j + 2]))
+    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", sigTestResult$ssAnovaEachRdr[1, j + 2]))
     write(string, ReportFileName, append = TRUE)
     string <- sprintf("      C %6d   ", K - 1)
-    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", result$ssAnovaEachRdr[2, j + 2]))
+    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", sigTestResult$ssAnovaEachRdr[2, j + 2]))
     write(string, ReportFileName, append = TRUE)
     string <- sprintf("     TC %6d   ", (I - 1) * (K - 1))
-    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", result$ssAnovaEachRdr[3, j + 2]))
+    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", sigTestResult$ssAnovaEachRdr[3, j + 2]))
     write(c(string, "\n\n"), ReportFileName, append = TRUE)
     write("                        Mean Squares", ReportFileName, append = TRUE)
     string <- " Source     df   "
@@ -778,13 +807,13 @@ OutputTextFile <- function(dataset,
     for (j in 1:J) string <- paste0(string, sprintf("-----------   ", dataset$readerID[j]))
     write(string, ReportFileName, append = TRUE)
     string <- sprintf("      T %6d   ", I - 1)
-    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", result$msAnovaEachRdr[1, j + 2]))
+    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", sigTestResult$msAnovaEachRdr[1, j + 2]))
     write(string, ReportFileName, append = TRUE)
     string <- sprintf("      C %6d   ", K - 1)
-    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", result$msAnovaEachRdr[2, j + 2]))
+    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", sigTestResult$msAnovaEachRdr[2, j + 2]))
     write(string, ReportFileName, append = TRUE)
     string <- sprintf("     TC %6d   ", (I - 1) * (K - 1))
-    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", result$msAnovaEachRdr[3, j + 2]))
+    for (j in 1:J) string <- paste0(string, sprintf("%11.7f   ", sigTestResult$msAnovaEachRdr[3, j + 2]))
     write(c(string, "\n\n\n\n"), ReportFileName, append = TRUE)
   }
   
@@ -804,27 +833,27 @@ OutputTextFile <- function(dataset,
                         dataset$readerID[j], 
                         dataset$modalityID[i], 
                         dataset$modalityID[ip], 
-                        result$ciDiffTrtEachRdr[l, 3], 
-                        result$ciDiffTrtEachRdr[l, 4], 
-                        result$ciDiffTrtEachRdr[l, 5], 
-                        result$ciDiffTrtEachRdr[l, 6], 
-                        result$ciDiffTrtEachRdr[l, 7], 
-                        result$ciDiffTrtEachRdr[l, 8], 
-                        result$ciDiffTrtEachRdr[l, 9]), 
+                        sigTestResult$ciDiffTrtEachRdr[l, 3], 
+                        sigTestResult$ciDiffTrtEachRdr[l, 4], 
+                        sigTestResult$ciDiffTrtEachRdr[l, 5], 
+                        sigTestResult$ciDiffTrtEachRdr[l, 6], 
+                        sigTestResult$ciDiffTrtEachRdr[l, 7], 
+                        sigTestResult$ciDiffTrtEachRdr[l, 8], 
+                        sigTestResult$ciDiffTrtEachRdr[l, 9]), 
                 ReportFileName, append = TRUE)
           l <- l + 1
         }
       }
     }
   }
-  if (stMethod == "ORH") {
+  if (method == "ORH") {
     string <- "\nReader  Var(Error)     Cov1   \n------  ----------  ----------"
     write(string, ReportFileName, append = TRUE)
     for (j in 1:J) {
       write(sprintf("%-6.6s  %10.8s  %10.8s", 
-                    result$varCovEachRdr[j, 1], 
-                    result$varCovEachRdr[j, 2], 
-                    result$varCovEachRdr[j, 3]), 
+                    sigTestResult$varCovEachRdr[j, 1], 
+                    sigTestResult$varCovEachRdr[j, 2], 
+                    sigTestResult$varCovEachRdr[j, 3]), 
             ReportFileName, append = TRUE)
     }
   }
@@ -843,64 +872,64 @@ OutputTextFile <- function(dataset,
     write(c(" Source        DF    Mean Square      F value  Pr > F ", 
             " ----------  ------  ---------------  -------  -------"), 
           ReportFileName, append = TRUE)
-    if (stMethod == "DBMH") {
-      if (result$pRRFC >= smallestDispalyedPval) {
+    if (method == "DBMH") {
+      if (sigTestResult$pRRFC >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                       I - 1, 
-                      result$anovaY[1, 4], 
-                      result$fRRFC, 
-                      result$pRRFC), 
+                      sigTestResult$anovaY[1, 4], 
+                      sigTestResult$fRRFC, 
+                      sigTestResult$pRRFC), 
               ReportFileName, append = TRUE)
       } else {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                       I - 1, 
-                      result$anovaY[1, 4], 
-                      result$fRRFC, 
+                      sigTestResult$anovaY[1, 4], 
+                      sigTestResult$fRRFC, 
                       smallestDispalyedPval), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    result$ddfRRFC, 
-                    result$anovaY[4, 4]), 
+                    sigTestResult$ddfRRFC, 
+                    sigTestResult$anovaY[4, 4]), 
             ReportFileName, append = TRUE)
     } else {
-      if (result$pRRFC >= smallestDispalyedPval) {
+      if (sigTestResult$pRRFC >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                       I - 1, 
-                      result$msT, 
-                      result$fRRFC, 
-                      result$pRRFC), 
+                      sigTestResult$msT, 
+                      sigTestResult$fRRFC, 
+                      sigTestResult$pRRFC), 
               ReportFileName, append = TRUE)
       } else {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                       I - 1, 
-                      result$msT, 
-                      result$fRRFC, 
+                      sigTestResult$msT, 
+                      sigTestResult$fRRFC, 
                       smallestDispalyedPval), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    result$ddfRRFC, 
-                    result$msTR), 
+                    sigTestResult$ddfRRFC, 
+                    sigTestResult$msTR), 
             ReportFileName, append = TRUE)
     }
     write(" Error term: MS(TR)\n", 
           ReportFileName, append = TRUE)
     
-    if (result$pRRFC < alpha) {
+    if (sigTestResult$pRRFC < alpha) {
       write(sprintf(" Conclusion: The %s FOMs of treatments are not equal,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
                     FOM, 
                     I - 1, 
-                    result$ddfRRFC, 
-                    result$fRRFC, 
-                    result$pRRFC), ReportFileName, append = TRUE)
+                    sigTestResult$ddfRRFC, 
+                    sigTestResult$fRRFC, 
+                    sigTestResult$pRRFC), ReportFileName, append = TRUE)
     } else {
       write(sprintf(" Conclusion: The %s FOMs of treatments are not significantly different,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
                     FOM, 
                     I - 1, 
-                    result$ddfRRFC, 
-                    result$fRRFC, 
-                    result$pRRFC), 
+                    sigTestResult$ddfRRFC, 
+                    sigTestResult$fRRFC, 
+                    sigTestResult$pRRFC), 
             ReportFileName, append = TRUE)
     }
     write(sprintf("    b) %d%% confidence intervals for treatment differences\n", ciPercent), 
@@ -915,13 +944,13 @@ OutputTextFile <- function(dataset,
           write(sprintf("%-10.10s - %-10.10s  %8.5f  %8.5f  %7.2f  %6.2f  %7.4f  %8.5f , %8.5f\n", 
                         dataset$modalityID[i], 
                         dataset$modalityID[ip], 
-                        result$ciDiffTrtRRFC[ii, 2], 
-                        result$ciDiffTrtRRFC[ii, 3], 
-                        result$ciDiffTrtRRFC[ii, 4], 
-                        result$ciDiffTrtRRFC[ii, 5], 
-                        result$ciDiffTrtRRFC[ii, 6], 
-                        result$ciDiffTrtRRFC[ii, 7], 
-                        result$ciDiffTrtRRFC[ii, 8]), 
+                        sigTestResult$ciDiffTrtRRFC[ii, 2], 
+                        sigTestResult$ciDiffTrtRRFC[ii, 3], 
+                        sigTestResult$ciDiffTrtRRFC[ii, 4], 
+                        sigTestResult$ciDiffTrtRRFC[ii, 5], 
+                        sigTestResult$ciDiffTrtRRFC[ii, 6], 
+                        sigTestResult$ciDiffTrtRRFC[ii, 7], 
+                        sigTestResult$ciDiffTrtRRFC[ii, 8]), 
                 ReportFileName, append = TRUE)
           ii <- ii + 1
         }
@@ -948,12 +977,12 @@ OutputTextFile <- function(dataset,
           ReportFileName, append = TRUE)
     for (i in 1:I) {
       write(sprintf("  %-10.10s  %10.8f  %10.8f  %7.2f  (%10.8f , %10.8f)", 
-                    result$ciAvgRdrEachTrtRRFC[i, 1], 
-                    result$ciAvgRdrEachTrtRRFC[i, 2], 
-                    result$ciAvgRdrEachTrtRRFC[i, 3], 
-                    result$ciAvgRdrEachTrtRRFC[i,4], 
-                    result$ciAvgRdrEachTrtRRFC[i, 5], 
-                    result$ciAvgRdrEachTrtRRFC[i, 6]), 
+                    sigTestResult$ciAvgRdrEachTrtRRFC[i, 1], 
+                    sigTestResult$ciAvgRdrEachTrtRRFC[i, 2], 
+                    sigTestResult$ciAvgRdrEachTrtRRFC[i, 3], 
+                    sigTestResult$ciAvgRdrEachTrtRRFC[i,4], 
+                    sigTestResult$ciAvgRdrEachTrtRRFC[i, 5], 
+                    sigTestResult$ciAvgRdrEachTrtRRFC[i, 6]), 
             ReportFileName, append = TRUE)
     }
   }
@@ -963,8 +992,8 @@ OutputTextFile <- function(dataset,
 }
 
 OutputExcelFile <- function(dataset,
-                            result,
-                            stMethod,
+                            sigTestResult,
+                            method,
                             alpha,
                             FOM,
                             ReportFileName, 
@@ -974,34 +1003,9 @@ OutputExcelFile <- function(dataset,
                             methodTxt,
                             overwrite,
                             covEstMethod,
+                            summaryInfo, 
                             UNINITIALIZED)
 {
-  if (missing(ReportFileName)) {
-    if (datasetSpecified) {
-      ReportFileName <- paste0(getwd(), "/", 
-                               dataDescription, 
-                               "Output", ".xlsx")
-      summaryInfo <- data.frame(summaryInfo = 
-                                  c(base::format(Sys.time(), "%b/%d/%Y"), 
-                                    dataDescription, 
-                                    basename(ReportFileName)))
-    } else {
-      ReportFileName <- paste0(file_path_sans_ext(basename(DataFileName)), 
-                               "Output", ".xlsx")
-      summaryInfo <- data.frame(summaryInfo = 
-                                  c(base::format(Sys.time(), "%b/%d/%Y"), 
-                                    basename(DataFileName), basename(ReportFileName)))
-    }
-  }else{
-    if (datasetSpecified) {
-      summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), 
-                                                dataDescription, basename(ReportFileName)))
-    } else {
-      summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), 
-                                                basename(DataFileName), basename(ReportFileName)))
-    }
-  }
-  rownames(summaryInfo) <- c("Date", "Input file", "Output file")
   if (!overwrite) {
     if (file.exists(ReportFileName)) {
       readInput <- ""
@@ -1040,18 +1044,18 @@ OutputExcelFile <- function(dataset,
   colnames(readerID) <- c("Reader ID in output file", "Reader ID in input file")
   writeData(wb, sheet = "Summary", x = readerID, startRow = 5, startCol = 3, colNames = TRUE)
   
-  if (stMethod == "DBMH"){
+  if (method == "DBMH"){
     varEstMethod <- "Jackknife"
   }else{
     varEstMethod <- covEstMethod
   }
   
-  analysisInfo <- data.frame(info = c(K1, K2, FOM, stMethod, varEstMethod))
+  analysisInfo <- data.frame(info = c(K1, K2, FOM, method, varEstMethod))
   rownames(analysisInfo) <- c("Number of non-diseased cases", 
                               "Number of diseased cases", 
                               "FOM", 
                               "Significance testing", 
-                              "Variability estimation stMethod")
+                              "Variability estimation method")
   writeData(wb, sheet = "Summary", 
             x = analysisInfo, 
             startRow = 7 + max(I, J), 
@@ -1070,7 +1074,7 @@ OutputExcelFile <- function(dataset,
   setColWidths(wb, sheet = "FOMs", cols = 1:(J + 3), widths = "auto", ignoreMergedCells = TRUE)
   setColWidths(wb, sheet = "FOMs", cols = 1, widths = 10)
   addStyle(wb,  sheet = "FOMs", style = sty, rows = 1:(I + 2), cols = 1:(J + 3), gridExpand = TRUE)
-  fomArray <- as.data.frame(result$fomArray)
+  fomArray <- as.data.frame(sigTestResult$fomArray)
   if (I == 2){
     fomArray <- cbind(fomArray, apply(fomArray, 1, mean), diff(rev(apply(fomArray, 1, mean))))
   }else{
@@ -1117,7 +1121,7 @@ OutputExcelFile <- function(dataset,
   addWorksheet(wb, "RRRC")
   setColWidths(wb, sheet = "RRRC", cols = 1:8, widths = "auto", ignoreMergedCells = TRUE)
   setColWidths(wb, sheet = "RRRC", cols = 1, widths = 10)
-  testTable <- data.frame(f = result$fRRRC, ddf = result$ddfRRRC, p = result$pRRRC)
+  testTable <- data.frame(f = sigTestResult$fRRRC, ddf = sigTestResult$ddfRRRC, p = sigTestResult$pRRRC)
   names(testTable) <- c("F statistic", "ddf", "P-value")
   writeData(wb, sheet = "RRRC", x = testTable, rowNames = FALSE, colNames = TRUE)
   
@@ -1130,7 +1134,7 @@ OutputExcelFile <- function(dataset,
     }
   }
   
-  diffTable <- result$ciDiffTrtRRRC
+  diffTable <- sigTestResult$ciDiffTrtRRRC
   diffTable[ , 1] <- diffTRName
   diffTable[ , 2] <- as.numeric(diffTable[ , 2])
   names(diffTable) <- c("Difference",	"Estimate",	"StdErr",	"DF",	"t",	"Pr > t",	"Lower",	"Upper")
@@ -1143,7 +1147,7 @@ OutputExcelFile <- function(dataset,
   writeData(wb, sheet = "RRRC", startRow = 4, x = "95% CI's FOMs, treatment difference", 
             rowNames = FALSE, colNames = FALSE)
   
-  ciTable <- result$ciAvgRdrEachTrtRRRC
+  ciTable <- sigTestResult$ciAvgRdrEachTrtRRRC
   ciTable$StdErr <- as.numeric(ciTable$StdErr)
   ciTable$DF <- as.numeric(ciTable$DF)
   ciTable[ , 1] <- modalityID
@@ -1165,17 +1169,17 @@ OutputExcelFile <- function(dataset,
   addWorksheet(wb, "FRRC")
   setColWidths(wb, sheet = "FRRC", cols = 1:9, widths = "auto", ignoreMergedCells = TRUE)
   setColWidths(wb, sheet = "FRRC", cols = 1, widths = 10)
-  testTable <- data.frame(f = result$fFRRC, ddf = result$ddfFRRC, p = result$pFRRC)
-  if (stMethod == "ORH"){
+  testTable <- data.frame(f = sigTestResult$fFRRC, ddf = sigTestResult$ddfFRRC, p = sigTestResult$pFRRC)
+  if (method == "ORH"){
     testTable$ddf <- "Inf"
   }
   names(testTable) <- c("F statistic", "ddf", "P-value")
   writeData(wb, sheet = "FRRC", x = testTable, rowNames = FALSE, colNames = TRUE)
   
-  diffTable <- result$ciDiffTrtFRRC
+  diffTable <- sigTestResult$ciDiffTrtFRRC
   diffTable[ , 1] <- diffTRName
   diffTable[ , 2] <- as.numeric(diffTable[ , 2])
-  if (stMethod == "ORH"){
+  if (method == "ORH"){
     diffTable[ , 4] <- "Inf"
   }
   
@@ -1190,11 +1194,11 @@ OutputExcelFile <- function(dataset,
             rowNames = FALSE, colNames = FALSE)
   mergeCells(wb, "FRRC", rows = 4, cols = 1:8)
   
-  ciTable <- result$ciAvgRdrEachTrtFRRC
+  ciTable <- sigTestResult$ciAvgRdrEachTrtFRRC
   ciTable$StdErr <- as.numeric(ciTable$StdErr)
   ciTable$DF <- as.numeric(ciTable$DF)
   ciTable[ , 1] <- modalityID
-  if (stMethod == "ORH"){
+  if (method == "ORH"){
     ciTable[ , 4] <- "Inf"
   }
   
@@ -1213,10 +1217,10 @@ OutputExcelFile <- function(dataset,
   
   readerNames <- rep(readerID, choose(I, 2))
   trNames <- rep(diffTRName, J)
-  diffTableEchR <- result$ciDiffTrtEachRdr
+  diffTableEchR <- sigTestResult$ciDiffTrtEachRdr
   diffTableEchR$Reader <- readerNames
   diffTableEchR$Treatment <- trNames
-  if (stMethod == "ORH"){
+  if (method == "ORH"){
     diffTableEchR$DF <- "Inf"
   }
   
@@ -1240,11 +1244,11 @@ OutputExcelFile <- function(dataset,
   addWorksheet(wb, "RRFC")
   setColWidths(wb, sheet = "RRFC", cols = 1:8, widths = "auto", ignoreMergedCells = TRUE)
   setColWidths(wb, sheet = "RRFC", cols = 1, widths = 10)
-  testTable <- data.frame(f = result$fRRFC, ddf = result$ddfRRFC, p = result$pRRFC)
+  testTable <- data.frame(f = sigTestResult$fRRFC, ddf = sigTestResult$ddfRRFC, p = sigTestResult$pRRFC)
   names(testTable) <- c("F statistic", "ddf", "P-value")
   writeData(wb, sheet = "RRFC", x = testTable, rowNames = FALSE, colNames = TRUE)
   
-  diffTable <- result$ciDiffTrtRRFC
+  diffTable <- sigTestResult$ciDiffTrtRRFC
   diffTable[ , 1] <- diffTRName
   diffTable[ , 2] <- as.numeric(diffTable[ , 2])
   names(diffTable) <- c("Difference",	"Estimate",	"StdErr",	"DF",	"t",	"Pr > t",	"Lower",	"Upper")
@@ -1255,7 +1259,7 @@ OutputExcelFile <- function(dataset,
             x = "95% CI's FOMs, treatment difference", rowNames = FALSE, colNames = FALSE)
   mergeCells(wb, "RRFC", rows = 4, cols = 1:8)
   
-  ciTable <- result$ciAvgRdrEachTrtRRFC
+  ciTable <- sigTestResult$ciAvgRdrEachTrtRRFC
   ciTable$StdErr <- as.numeric(ciTable$StdErr)
   ciTable$DF <- as.numeric(ciTable$DF)
   ciTable[ , 1] <- modalityID
@@ -1268,7 +1272,7 @@ OutputExcelFile <- function(dataset,
   addStyle(wb,  sheet = "RRFC", style = sty, rows = 1:(8 + nrow(diffTable) + nrow(ciTable)), 
            cols = 1:8, gridExpand = TRUE)
   
-  if (stMethod == "DBMH"){
+  if (method == "DBMH"){
     #############################################################    
     # done with RRFC, now create contents of ANOVA worksheet    
     addWorksheet(wb, "ANOVA")
@@ -1279,7 +1283,7 @@ OutputExcelFile <- function(dataset,
     setColWidths(wb, sheet = "ANOVA", 
                  cols = 1, widths = 10)
     writeData(wb, sheet = "ANOVA", 
-              x = result$varComp, 
+              x = sigTestResult$varComp, 
               startRow = 2, 
               rowNames = TRUE, 
               colNames = FALSE)
@@ -1291,7 +1295,7 @@ OutputExcelFile <- function(dataset,
     mergeCells(wb, "ANOVA", rows = 1, cols = 1:2)
     
     writeData(wb, sheet = "ANOVA", 
-              x = result$anovaY, 
+              x = sigTestResult$anovaY, 
               startRow = 10, 
               rowNames = FALSE, 
               colNames = TRUE)
@@ -1302,9 +1306,9 @@ OutputExcelFile <- function(dataset,
               colNames = FALSE)
     mergeCells(wb, "ANOVA", rows = 9, cols = 1:4)
     
-    colnames(result$anovaYi) <- c("Source", "DF", rownames(fomArray))
+    colnames(sigTestResult$anovaYi) <- c("Source", "DF", rownames(fomArray))
     writeData(wb, sheet = "ANOVA", 
-              x = result$anovaYi, 
+              x = sigTestResult$anovaYi, 
               startRow = 21, 
               rowNames = FALSE, 
               colNames = TRUE)
@@ -1316,9 +1320,9 @@ OutputExcelFile <- function(dataset,
               colNames = FALSE)
     mergeCells(wb, "ANOVA", rows = 20, cols = 1:4)
     
-    colnames(result$msAnovaEachRdr) <- c("Source", "DF", colnames(fomArray)[1:J])
+    colnames(sigTestResult$msAnovaEachRdr) <- c("Source", "DF", colnames(fomArray)[1:J])
     writeData(wb, sheet = "ANOVA", 
-              x = result$msAnovaEachRdr, 
+              x = sigTestResult$msAnovaEachRdr, 
               startRow = 27, 
               rowNames = FALSE, 
               colNames = TRUE)
@@ -1337,7 +1341,7 @@ OutputExcelFile <- function(dataset,
     setColWidths(wb, sheet = "VarComp", cols = 1, widths = 10)
     
     writeData(wb, sheet = "VarComp", 
-              x = result$varComp, 
+              x = sigTestResult$varComp, 
               startRow = 2, 
               rowNames = TRUE, 
               colNames = FALSE)
@@ -1348,9 +1352,9 @@ OutputExcelFile <- function(dataset,
               colNames = FALSE)
     mergeCells(wb, "VarComp", rows = 1, cols = 1:2)
     
-    result$varCovEachRdr[ , 1] <- readerID
+    sigTestResult$varCovEachRdr[ , 1] <- readerID
     writeData(wb, sheet = "VarComp", 
-              x = result$varCovEachRdr, 
+              x = sigTestResult$varCovEachRdr, 
               startRow = 10, 
               rowNames = FALSE, 
               colNames = TRUE)

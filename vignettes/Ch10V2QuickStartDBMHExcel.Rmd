@@ -37,16 +37,16 @@ and the figure of merit `FOM` is specified as "Wilcoxon". Note the option `Repor
 the function to create an Excel output file
 
 ```{r}
-UtilOutputReport(dataset03, stMethod = "DBMH", FOM = "Wilcoxon", overwrite = TRUE, ReportFileName = "DBMH.xlsx", ReportFileFormat = "xlsx")
+UtilOutputReport(dataset03, method = "DBMH", FOM = "Wilcoxon", overwrite = TRUE, ReportFileName = "DBMH.xlsx", ReportFileFormat = "xlsx")
 ```             
 
 
 ## ORH significance testing
-Simply change `stMethod = "DBMH"` to `stMethod = "ORH"`.
+Simply change `method = "DBMH"` to `method = "ORH"`.
 
 
 ```{r}
-UtilOutputReport(dataset03, stMethod = "ORH", FOM = "Wilcoxon", overwrite = TRUE, ReportFileName = "ORH.xlsx", ReportFileFormat = "xlsx")
+UtilOutputReport(dataset03, method = "ORH", FOM = "Wilcoxon", overwrite = TRUE, ReportFileName = "ORH.xlsx", ReportFileFormat = "xlsx")
 ```             
 
 

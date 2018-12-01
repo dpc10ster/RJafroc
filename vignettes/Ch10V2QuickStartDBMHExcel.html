@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty" />
 
-<meta name="date" content="2018-11-29" />
+<meta name="date" content="2018-11-30" />
 
 <title>Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</title>
 
@@ -72,7 +72,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</h1>
 <h4 class="author"><em>Dev P. Chakraborty</em></h4>
-<h4 class="date"><em>2018-11-29</em></h4>
+<h4 class="date"><em>2018-11-30</em></h4>
 
 
 
@@ -91,13 +91,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="generating-the-excel-output-file" class="section level2">
 <h2>Generating the Excel output file</h2>
 <p>This illustrates the <code>UtilOutputReport()</code> function. The significance testing method is specified as <code>&quot;DBMH&quot;</code> and the figure of merit <code>FOM</code> is specified as “Wilcoxon”. Note the option <code>ReportFileFormat = &quot;xlsx&quot;</code> telling the function to create an Excel output file</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">UtilOutputReport</span>(dataset03, <span class="dt">stMethod =</span> <span class="st">&quot;DBMH&quot;</span>, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileName =</span> <span class="st">&quot;DBMH.xlsx&quot;</span>, <span class="dt">ReportFileFormat =</span> <span class="st">&quot;xlsx&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">UtilOutputReport</span>(dataset03, <span class="dt">method =</span> <span class="st">&quot;DBMH&quot;</span>, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileName =</span> <span class="st">&quot;DBMH.xlsx&quot;</span>, <span class="dt">ReportFileFormat =</span> <span class="st">&quot;xlsx&quot;</span>)
 <span class="co">#&gt; The report has been saved to DBMH.xlsx.</span></code></pre></div>
 </div>
 <div id="orh-significance-testing" class="section level2">
 <h2>ORH significance testing</h2>
-<p>Simply change <code>stMethod = &quot;DBMH&quot;</code> to <code>stMethod = &quot;ORH&quot;</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">UtilOutputReport</span>(dataset03, <span class="dt">stMethod =</span> <span class="st">&quot;ORH&quot;</span>, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileName =</span> <span class="st">&quot;ORH.xlsx&quot;</span>, <span class="dt">ReportFileFormat =</span> <span class="st">&quot;xlsx&quot;</span>)
+<p>Simply change <code>method = &quot;DBMH&quot;</code> to <code>method = &quot;ORH&quot;</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">UtilOutputReport</span>(dataset03, <span class="dt">method =</span> <span class="st">&quot;ORH&quot;</span>, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileName =</span> <span class="st">&quot;ORH.xlsx&quot;</span>, <span class="dt">ReportFileFormat =</span> <span class="st">&quot;xlsx&quot;</span>)
 <span class="co">#&gt; The report has been saved to ORH.xlsx.</span></code></pre></div>
 </div>
 

@@ -6,7 +6,7 @@
 \usage{
 UtilOutputReport(dataset, DataFileName, DataFileFormat, delimiter = ",",
   dataDescription = "MyData", ReportFileName, ReportFileFormat = "txt",
-  stMethod = "DBMH", FOM = "wJAFROC", alpha = 0.05,
+  method = "DBMH", FOM = "wJAFROC", alpha = 0.05,
   covEstMethod = "Jackknife", nBoots = 200, renumber = FALSE,
   overwrite = TRUE)
 }
@@ -26,14 +26,14 @@ is specified. Valid values are "JAFROC", "MRMC" or "iMRMC"}
 
 \item{ReportFileName}{The file name of the output report file. If this parameter 
 is missing, the function will use \code{DataFileName} or \code{dataDescription} 
-followed by the underscore separated concatenation of \code{stMethod} 
+followed by the underscore separated concatenation of \code{method} 
 and \code{FOM} as the output report file.}
 
 \item{ReportFileFormat}{The format of the output report. The two available formats are 
 \code{"txt"} (the default) and \code{"xlsx"}, corresponding to a formatted text file or an 
 Excel file, respectively.}
 
-\item{stMethod}{The significance testing method, \code{"ORH"} or (the default) \code{"DBMH"}.}
+\item{method}{The significance testing method, \code{"ORH"} or (the default) \code{"DBMH"}.}
 
 \item{FOM}{The figure of merit; see \link{StSignificanceTesting}.}
 
@@ -54,14 +54,14 @@ until the user inputs "y" or "n" to determine whether to overwrite the
 existing file. If \code{TRUE}, an existing file will be silently overwritten.}
 }
 \value{
-A formatted report of the data analysis, patterned roughly on that of 
-   OR-DBM MRMC V2.5.
+sigTestResult The object returned by \link{StSignificanceTesting}.
 }
 \description{
 Generate a formatted report of the analysis and save to a text file
 }
 \details{
-See examples
+A formatted report of the data analysis, patterned roughly on that of 
+   OR-DBM MRMC V2.5, is written to the output file.
 }
 \examples{
 
@@ -69,33 +69,33 @@ UtilOutputReport(dataset = dataset03, FOM = "Wilcoxon", overwrite = TRUE)
 
 \dontrun{
 ## Generate reports for a dataset object
-UtilOutputReport(dataset = dataset02, stMethod = "DBMH", FOM = "Wilcoxon", 
+UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
              dataDescription = "MyROCData1", overwrite = TRUE)
              
-UtilOutputReport(dataset = dataset02, stMethod = "DBMH", FOM = "Wilcoxon", 
+UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
 dataDescription = "MyROCData2",ReportFileFormat = "xlsx", overwrite = TRUE)
 
-UtilOutputReport(dataset = dataset02, stMethod = "ORH", FOM = "Wilcoxon", 
+UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
              dataDescription = "MyROCData3", overwrite = TRUE)
              
-UtilOutputReport(dataset = dataset02, stMethod = "ORH", FOM = "Wilcoxon", 
+UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
 dataDescription = "MyROCData4",ReportFileFormat = "xlsx", overwrite = TRUE)
 
 ## Generate report for a data file
 fn <- system.file("extdata", "includedRocData.xlsx", 
 package = "RJafroc", mustWork = TRUE)
-UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", stMethod = "DBMH", FOM = "Wilcoxon",
+UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", method = "DBMH", FOM = "Wilcoxon",
              overwrite = TRUE, ReportFileFormat = "xlsx")
              
 ## Output report for an existing dataset
-## UtilOutputReport(dataset = dataset05, stMethod = "DBMH", FOM = "Wilcoxon") # ERROR! as FOM is 
+## UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "Wilcoxon") # ERROR! as FOM is 
    incompatible with FROC data
 
-UtilOutputReport(dataset = dataset05, stMethod = "ORH") # OK as default FOM is "wJAFROC"
+UtilOutputReport(dataset = dataset05, method = "ORH") # OK as default FOM is "wJAFROC"
 
-UtilOutputReport(dataset = dataset05, stMethod = "DBMH", FOM = "HrAuc")
+UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc")
 
-UtilOutputReport(dataset = dataset05, stMethod = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
+UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
 }
        
 }
