@@ -14,10 +14,16 @@ expect_known_output(
   FitCbmRoc(dataset02), 
   tmp, print = TRUE, update = TRUE)
 
-tmp <- tempfile()
-expect_known_output(
-  FitCorCbm(DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))), 
-  tmp, print = TRUE, update = TRUE)
+test_that("skip example", {
+  skip_on_cran()
+  skip_on_os("mac")
+  skip_on_os("travis")
+  tmp <- tempfile()
+  expect_known_output(
+    skip_on_os("mac"),
+    FitCorCbm(DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))), 
+    tmp, print = TRUE, update = TRUE)
+})
 
 tmp <- tempfile()
 expect_known_output(
