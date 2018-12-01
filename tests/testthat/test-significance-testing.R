@@ -26,22 +26,27 @@ test_that("SignificanceTestingORH", {
   expect_known_output(
     StSignificanceTesting(dataset05, FOM = "wAFROC"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     StSignificanceTesting(dataset05, FOM = "MaxNLF"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     StSignificanceTesting(dataset05, FOM = "ExpTrnsfmSp"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     StSignificanceTesting(dataset05, FOM = "HrSp"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     StSignificanceTesting(dataset05, FOM = "MaxLLF"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     StSignificanceTesting(dataset05, FOM = "HrSe"), 
@@ -54,6 +59,18 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   expect_known_output(
     StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "Wilcoxon"), 
     tmp, print = TRUE, update = TRUE)
+  
+  tmp <- tempfile()
+  singleFactorData <- DfExtractDataset(dataset05, 1, 1:4)
+  expect_known_output(
+    StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "wAFROC"), 
+    tmp, print = TRUE, update = TRUE)
+  
+  # tmp <- tempfile()
+  # singleFactorData <- DfExtractDataset(dataset05, 1, 4)
+  # expect_known_output(
+  #   StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "wAFROC"), 
+  #   tmp, print = TRUE, update = TRUE)
 })
 
 test_that("StSignificanceTestingCrossedModalities", {

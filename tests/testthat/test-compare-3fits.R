@@ -5,10 +5,12 @@ test_that("Compare3ProperRocFits", {
   expect_known_output(
     Compare3ProperRocFits(1,1,reAnalyze = TRUE), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     Compare3ProperRocFits(), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     Compare3ProperRocFits(5,5,showPlot = TRUE), 

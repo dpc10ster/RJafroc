@@ -33,54 +33,67 @@ test_that("UtilFigureOfMerit", {
   expect_known_output(
     UtilFigureOfMerit(dataset = dataset02, FOM = "Wilcoxon"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "wAFROC"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "wAFROC1"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "AFROC1"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "MaxLLF"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "MaxNLF"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "MaxNLFAllCases"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "ExpTrnsfmSp"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "SongA2"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "SongA1"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "HrSp"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "HrSe"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "HrAuc"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilFigureOfMerit(dataset = datasetCadLroc, FOM = "ALROC", FPFValue = 0.2), 
@@ -92,30 +105,37 @@ test_that("UtilPseudoValues", {
   expect_known_output(
     UtilPseudoValues(dataset05), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilPseudoValues(dataset02, FOM = "Wilcoxon"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilPseudoValues(dataset02, FOM = "MaxNLF"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilPseudoValues(dataset02, FOM = "ExpTrnsfmSp"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilPseudoValues(dataset02, FOM = "HrSp"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilPseudoValues(dataset02, FOM = "MaxLLF"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilPseudoValues(dataset02, FOM = "HrSe"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilPseudoValues(dataset02, FOM = "MaxLLF"), 
@@ -134,10 +154,12 @@ test_that("UtilLesionDistribution", {
   expect_known_output(
     UtilLesionWeights (UtilLesionDistribution(dataset01)), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilLesionWeights (UtilLesionDistribution(dataset02)), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     UtilLesionWeights (UtilLesionDistribution(datasetCadLroc)), 

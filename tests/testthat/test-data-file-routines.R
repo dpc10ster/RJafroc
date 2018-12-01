@@ -84,6 +84,7 @@ test_that("DfExtractCorCbmDataset", {
   expect_known_output(
     DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3)), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = c(1,3)), 
@@ -144,12 +145,14 @@ test_that("DfReadDataFile MRMC", {
   expect_known_output(
     DfReadDataFile(fileName, format = "MRMC"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   fileName <- system.file(
     "extdata", "includedRocData.lrc", package = "RJafroc", mustWork = TRUE)
   expect_known_output(
     DfReadDataFile(fileName, format = "MRMC"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   fileName <- system.file(
     "extdata", "includedRocData.imrmc", package = "RJafroc", mustWork = TRUE)
@@ -167,6 +170,7 @@ test_that("DfReadDataFile JAFROC", {
   expect_known_output(
     DfReadDataFile(fileName), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   fileName <- system.file(
     "extdata", "includedFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -196,6 +200,7 @@ test_that("DfSaveDataFile", {
   expect_known_output(
     DfSaveDataFile(dataset = dataset02, fileName = "rocData2.csv", format = "MRMC"), 
     tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_known_output(
     DfSaveDataFile(
