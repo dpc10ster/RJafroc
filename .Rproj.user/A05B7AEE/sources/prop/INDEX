@@ -358,6 +358,8 @@
 ~%2Frjafroc-master%2Ftests%2Ftestthat%2Ftest-significance-testing.R="AC0C8AF6"
 ~%2Frjafroc-master%2Ftests%2Ftestthat%2Ftest-simulate-datasets.R="3FDA4425"
 ~%2Frjafroc-master%2Ftests%2Ftestthat%2Ftest-trying_to_break_openxlsx.R="A65D33B6"
+~%2Frjafroc-master%2Ftests%2Ftestthat%2Ftest-util.R="C1EBEA97"
+~%2Frjafroc-master%2Ftests%2Ftestthat%2Ftest-utils.R="852DB484"
 ~%2Frjafroc-master%2Ftests%2Ftestthat%2Ftest-v3_0_0_bugs.R="445B479C"
 ~%2Frjafroc-master%2Ftests%2Ftestthat%2Ftest-worksheet_renaming.R="9FFFA056"
 ~%2Frjafroc-master%2Ftests%2Ftestthat%2Ftest-write_data_to_sheetData_NAs.R="FC622CE7"

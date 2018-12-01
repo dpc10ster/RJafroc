@@ -20,7 +20,7 @@
             "*.cpp"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "stMethod",
+        "query" : "test_that(\"UtilMeanSquaresDBMH\", {",
         "regex" : false
     }
 }
