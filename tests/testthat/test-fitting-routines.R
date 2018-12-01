@@ -21,13 +21,10 @@ test_that("FitCbmRoc", {
     tmp, print = TRUE, update = TRUE)
 })
 
-test_that("skip FitCorCbm", {
+test_that("FitCorCbm", {
   skip_on_cran()
-  skip_on_os("mac")
-  skip_on_travis()
   tmp <- tempfile()
   expect_known_output(
-    skip_on_os("mac"),
     FitCorCbm(DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))), 
     tmp, print = TRUE, update = TRUE)
 })
