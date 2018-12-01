@@ -1,13 +1,13 @@
 context("Plotting routines")
 
-test_that("PlotEmpiricalOperatingCharacteristicsInd", {
+test_that("PlotEmpiricalOperatingCharacteristics Independent", {
   tmp <- tempfile()
   expect_known_output(
     PlotEmpiricalOperatingCharacteristics(dataset = dataset02, trts = c(1:2), rdrs = c(1:3)), 
     tmp, print = TRUE, update = TRUE)
 })
 
-test_that("PlotEmpiricalOperatingCharacteristicsAvg", {
+test_that("PlotEmpiricalOperatingCharacteristics Avgerage", {
   plotT <- list(1, 2, c(1:2))
   plotR <- list(2, c(2:3), c(1:3))
   tmp <- tempfile()
@@ -41,5 +41,38 @@ test_that("PlotRsmOperatingCharacteristics", {
     PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
                                     lesDistr = lesDistr, lesionWeights = lesionWeights, 
                                     legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), 
+    tmp, print = TRUE, update = TRUE)
+})
+
+test_that("PlotOperatingCharacteristics", {
+  tmp <- tempfile()
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset04, trts = c(1), rdrs = c(1)), 
+    tmp, print = TRUE, update = TRUE)
+  plotT <- list(1, 2, c(1:2))
+  plotR <- list(2, c(2:3), c(1:3))
+  tmp <- tempfile()
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, rdrs = plotR, opChType = "FROC"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC1"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC1"), 
     tmp, print = TRUE, update = TRUE)
 })

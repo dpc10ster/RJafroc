@@ -96,6 +96,30 @@ test_that("UtilPseudoValues", {
   expect_known_output(
     UtilPseudoValues(dataset02, FOM = "Wilcoxon"), 
     tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilPseudoValues(dataset02, FOM = "MaxNLF"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilPseudoValues(dataset02, FOM = "ExpTrnsfmSp"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilPseudoValues(dataset02, FOM = "HrSp"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilPseudoValues(dataset02, FOM = "MaxLLF"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilPseudoValues(dataset02, FOM = "HrSe"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilPseudoValues(dataset02, FOM = "MaxLLF"), 
+    tmp, print = TRUE, update = TRUE)
 })
 
 test_that("UtilMeanSquaresDBMH", {
@@ -104,4 +128,22 @@ test_that("UtilMeanSquaresDBMH", {
     UtilMeanSquares(dataset02, FOM = "Wilcoxon"), 
     tmp, print = TRUE, update = TRUE)
 })
+
+test_that("UtilLesionDistribution", {
+  tmp <- tempfile()
+  expect_known_output(
+    UtilLesionWeights (UtilLesionDistribution(dataset01)), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilLesionWeights (UtilLesionDistribution(dataset02)), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilLesionWeights (UtilLesionDistribution(datasetCadLroc)), 
+    tmp, print = TRUE, update = TRUE)
+})
+
+
+
 
