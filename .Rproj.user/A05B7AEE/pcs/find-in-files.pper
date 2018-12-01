@@ -19,8 +19,8 @@
             "*.c",
             "*.cpp"
         ],
-        "path" : "~/rjafroc-master",
-        "query" : "test_that(\"UtilMeanSquaresDBMH\", {",
+        "path" : "~/Documents/GitHub/rjafroc-master/tests",
+        "query" : "fileext",
         "regex" : false
     }
 }

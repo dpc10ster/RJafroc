@@ -10,10 +10,10 @@ IN THE SOFTWARE.
 
 R version: R version 3.5.1 (2018-07-02)
 RJafroc version: 1.1.1.9000
-Run date: Dec 01 2018 Sat 07:48:02 EST
+Run date: Dec 01 2018 Sat 10:35:29 EST
  FOM selected         :     Wilcoxon
  Input  Data          :     MyData
- Output Data Filename :     /Users/Dev/rjafroc-master/tests/testthat/MyDataOutput.txt
+ Output Data Filename :     /Users/Dev/Documents/GitHub/rjafroc-master/tests/testthat/MyDataOutput.txt
 
 ================================================================================
 
