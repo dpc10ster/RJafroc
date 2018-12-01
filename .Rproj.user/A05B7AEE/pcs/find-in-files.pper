@@ -19,8 +19,8 @@
             "*.c",
             "*.cpp"
         ],
-        "path" : "~/Documents/GitHub/rjafroc-master/tests",
-        "query" : "fileext",
+        "path" : "~/Documents/GitHub/rjafroc-master",
+        "query" : "www.devchakraborty.com",
         "regex" : false
     }
 }
