@@ -17,7 +17,8 @@ Removed @usage sections in .R files; can conflict with actual usage; this field 
 Fixed huge lines, spilling over well past column 90, 
    in UtilOutputReport(), making it easier for me to see what is going on.
 stMethod changed to method, for conformity with rest of code.
-Added UtilOutputReport to testthat (not yet checking excel write routines).  
+Added UtilOutputReport to testthat (not yet checking excel write routines).
+Included excel write routine in testthat!
 
 
 ==========================
