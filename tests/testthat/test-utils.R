@@ -21,11 +21,11 @@ test_that("UtilAucsRSM", {
   mu <- 1;lambdaP <- 1;nuP <- 1
   lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
   x <- 0.8470065
-  expect_equal(UtilAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC, 
-               x, tolerance = 1e-6, scale = x)
+  expect_equal(
+    UtilAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC, x, tolerance = 1e-6, scale = x)
   x <- 0.8071583
-  expect_equal(UtilAucsRSM(mu, lambdaP, nuP, lesDistr)$aucAFROC, 
-               x, tolerance = 1e-6, scale = x)
+  expect_equal(
+    UtilAucsRSM(mu, lambdaP, nuP, lesDistr)$aucAFROC, x, tolerance = 1e-6, scale = x)
 })
 
 test_that("UtilFigureOfMerit", {
@@ -35,7 +35,51 @@ test_that("UtilFigureOfMerit", {
     tmp, print = TRUE, update = TRUE)
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "Wilcoxon"), 
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "wAFROC"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "wAFROC1"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "AFROC1"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "MaxLLF"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "MaxNLF"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "MaxNLFAllCases"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "ExpTrnsfmSp"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "SongA2"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "SongA1"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "HrSp"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "HrSe"), 
+    tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "HrAuc"), 
     tmp, print = TRUE, update = TRUE)
   tmp <- tempfile()
   expect_known_output(
