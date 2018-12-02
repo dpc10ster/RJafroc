@@ -12,6 +12,29 @@ test_that("SignificanceTestingDBMH", {
   expect_known_output(
     StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH"), 
     tmp, print = TRUE, update = TRUE)
+
+  tmp <- tempfile()
+  expect_known_output(
+    StSignificanceTesting(dataset02, option = "RRRC"), 
+    tmp, print = TRUE, update = TRUE)
+  
+  tmp <- tempfile()
+  expect_known_output(
+    StSignificanceTesting(dataset02, option = "FRRC"), 
+    tmp, print = TRUE, update = TRUE)
+  
+  tmp <- tempfile()
+  expect_known_output(
+    StSignificanceTesting(dataset02, option = "RRFC"), 
+    tmp, print = TRUE, update = TRUE)
+  
+  tmp <- tempfile()
+  expect_known_output(
+    StSignificanceTesting(dataset02, VarCompFlag = TRUE), 
+    tmp, print = TRUE, update = TRUE)
+  
+  expect_error(
+    StSignificanceTesting(datasetCadLroc, FOM = "wAFROC", option = "RRFC"))
 })
 
 test_that("SignificanceTestingORH", {
@@ -87,6 +110,16 @@ test_that("StSignificanceTestingCadVsRadiologists", {
   tmp <- tempfile()
   expect_known_output(
     StSignificanceTestingCadVsRadiologists (dataset09, FOM = "Wilcoxon", method = "singleModality"), 
+    tmp, print = TRUE, update = TRUE)
+  
+  tmp <- tempfile()
+  expect_known_output(
+    StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "Wilcoxon", method = "singleModality"), 
+    tmp, print = TRUE, update = TRUE)
+  
+  tmp <- tempfile()
+  expect_known_output(
+    StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "ALROC", method = "singleModality"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()

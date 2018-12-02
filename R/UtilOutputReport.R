@@ -42,30 +42,30 @@
 #' 
 #' @examples
 #' 
-#' UtilOutputReport(dataset = dataset03, FOM = "Wilcoxon", overwrite = TRUE)
+#' UtilOutputReport(dataset = dataset03, overwrite = TRUE)
 #'
 #' \dontrun{
 #' ## Generate reports for a dataset object
-#' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, method = "DBMH", 
 #'              dataDescription = "MyROCData1", overwrite = TRUE)
 #'              
-#' UtilOutputReport(dataset = dataset02, method = "DBMH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, method = "DBMH", 
 #' dataDescription = "MyROCData2",ReportFileFormat = "xlsx", overwrite = TRUE)
 #' 
-#' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, method = "ORH", 
 #'              dataDescription = "MyROCData3", overwrite = TRUE)
 #'              
-#' UtilOutputReport(dataset = dataset02, method = "ORH", FOM = "Wilcoxon", 
+#' UtilOutputReport(dataset = dataset02, method = "ORH", 
 #' dataDescription = "MyROCData4",ReportFileFormat = "xlsx", overwrite = TRUE)
 #' 
 #' ## Generate report for a data file
 #' fn <- system.file("extdata", "includedRocData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
-#' UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", method = "DBMH", FOM = "Wilcoxon",
+#' UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", method = "DBMH",
 #'              overwrite = TRUE, ReportFileFormat = "xlsx")
 #'              
 #' ## Output report for an existing dataset
-#' ## UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "Wilcoxon") # ERROR! as FOM is 
+#' ## UtilOutputReport(dataset = dataset05, method = "DBMH") # ERROR! as FOM is 
 #'    incompatible with FROC data
 #' 
 #' UtilOutputReport(dataset = dataset05, method = "ORH") # OK as default FOM is "wJAFROC"
@@ -83,7 +83,7 @@
 UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = ",", 
                              dataDescription = "MyData", 
                              ReportFileName, ReportFileFormat = "txt",
-                             method = "DBMH", FOM = "wJAFROC", alpha = 0.05, 
+                             method = "DBMH", FOM = "Wilcoxon", alpha = 0.05, 
                              covEstMethod = "Jackknife", nBoots = 200, 
                              renumber = FALSE, overwrite = TRUE) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
@@ -93,8 +93,8 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
       stop("If DataFileName is specified, then DataFileFormat must be specified")
     if (!(DataFileFormat %in% c("JAFROC", "MRMC", "iMRMC"))) 
       stop("data file format has to be JAFROC or MRMC,  or iMRMC")
-    if (!(file_ext(DataFileName) %in% c("xls", "xlsx", "txt"))) 
-      stop("Dataset extension has to be xls or xlsx,  or txt")
+    if (!(file_ext(DataFileName) %in% c("xls", "xlsx", "lrc"))) 
+      stop("Dataset extension has to be xls or xlsx,  or lrc")
     if ((file_ext(DataFileName) %in% c("xls", "xlsx")) && (DataFileFormat ==  "txt")) 
       stop("Inconsistent DataFileName and DataFileFormat")
     if ((file_ext(DataFileName) == "txt") &&  (DataFileFormat ==  "JAFROC")) 

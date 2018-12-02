@@ -3,24 +3,10 @@
         "caseSensitive" : true,
         "filePatterns" : [
             "*.r",
-            "*.R",
-            "*.rnw",
-            "*.Rnw",
-            "*.rmd",
-            "*.Rmd",
-            "*.rmarkdown",
-            "*.Rmarkdown",
-            "*.rhtml",
-            "*.Rhtml",
-            "*.rd",
-            "*.Rd",
-            "*.h",
-            "*.hpp",
-            "*.c",
-            "*.cpp"
+            "*.R"
         ],
         "path" : "~/Documents/GitHub/rjafroc-master",
-        "query" : "FitCorCbm",
+        "query" : "UtilOutputReport",
         "regex" : false
     }
 }
