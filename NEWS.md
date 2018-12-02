@@ -18,7 +18,15 @@ Fixed huge lines, spilling over well past column 90,
    in UtilOutputReport(), making it easier for me to see what is going on.
 stMethod changed to method, for conformity with rest of code.
 Added UtilOutputReport to testthat (not yet checking excel write routines).
-Included excel write routine in testthat!
+Included excel write routine in testthat
+Raised coverge to 82% using devtools::test_coverage() as guide - excellent software!
+Added ROI to rjafroc-package.Rd file
+Added ROI dataset
+Renamed binnedData123.RData to datasetBinned123.RData, etc, which causes
+    all datasets to be listed sequentially
+Next: Need to add ROI capability to significance testing function
+Started working on corresponding vignette, Ch30V1RoiParadigm.Rms.
+
 
 
 ==========================

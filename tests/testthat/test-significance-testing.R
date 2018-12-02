@@ -89,11 +89,11 @@ test_that("StSignificanceTestingSingleFixedFactor", {
     StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "wAFROC"), 
     tmp, print = TRUE, update = TRUE)
   
-  # tmp <- tempfile()
-  # singleFactorData <- DfExtractDataset(dataset05, 1, 4)
-  # expect_known_output(
-  #   StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "wAFROC"), 
-  #   tmp, print = TRUE, update = TRUE)
+  tmp <- tempfile()
+  singleFactorData <- DfExtractDataset(dataset05, 1:2, 4)
+  expect_known_output(
+    StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "wAFROC"),
+    tmp, print = TRUE, update = TRUE)
 })
 
 test_that("StSignificanceTestingCrossedModalities", {

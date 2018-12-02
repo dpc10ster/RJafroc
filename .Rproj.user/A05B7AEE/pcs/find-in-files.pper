@@ -2,11 +2,9 @@
     "dialog-state" : {
         "caseSensitive" : true,
         "filePatterns" : [
-            "*.r",
-            "*.R"
         ],
         "path" : "~/Documents/GitHub/rjafroc-master",
-        "query" : "UtilOutputReport",
+        "query" : "dataset01",
         "regex" : false
     }
 }

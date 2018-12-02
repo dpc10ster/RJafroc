@@ -223,13 +223,36 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
              software automatically assigns equal weighting, e.g., 
              \code{dataset05$lesionWeight[40,]} is \code{c(0.5,0.5)}, corresponding to 
              equal weights (1/2) to each lesion on an image with two lesions.
-          \item \code{dataType}: a string variable: "\code{ROC}", "\code{ROI}" or "\code{FROC}".
-          \item \code{modalityID}: a string vector of length \eqn{I}, which labels the 
+          \item \code{dataType}: a \code{character} variable: "\code{ROC}", "\code{LROC}", "\code{ROI}" or "\code{FROC}".
+          \item \code{modalityID}: a \code{character} vector of length \eqn{I}, which labels the 
              modalities in the dataset.
-          \item \code{readerID}: a string vector of length \eqn{J}, which labels the 
+          \item \code{readerID}: a \code{character} vector of length \eqn{J}, which labels the 
              readers. For example, \code{NL[1, 2, , ]} indicates the NL-rating of the 
              reader identified with the second label in \code{readerID} using the 
              modality identified with the first label in \code{modalityID}.
+    }
+  }
+  
+  \subsection{ROI data structure, example \code{TBA}}{
+    \itemize{
+          \item \code{NL}: a floating-point array with dimension \code{c(I, J, K, Q)} 
+             that contains the ratings of Q quadrants for each non-diseased case (k <= K1). 
+             For k > K1,  
+             elements contain valid ratings while the rest are filled with \code{-Inf}s.
+          \item \code{LL}: a floating-point array with dimension  
+             \code{c(I, J, K2, 1)} that contains the ratings of all \emph{correct} 
+             localization (CL) marks. A \code{-Inf} indicates a case with no CL mark. 
+          \item \code{LLIl}: a floating-point array with dimension  
+             \code{c(I, J, K2, 1)} that contains the ratings of all \emph{incorrect} 
+             localization (IL) marks. A \code{-Inf} indicates a case with no IL mark.
+          \item \code{lesionNum}: same as general case. 
+          \item \code{lesionID}: lesionID: an integer vector with length K2 
+             containing ones.
+          \item \code{lesionWeight}: a floating point array with dimension 
+             \code{c(K2, 1)} containing ones.
+          \item \code{dataType}: a \code{character} variable: "\code{ROI}".
+          \item \code{modalityID}: same as general case.
+          \item \code{readerID}: same as general case.
     }
   }
   
@@ -249,7 +272,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
              containing ones.
           \item \code{lesionWeight}: a floating point array with dimension 
              \code{c(K2, 1)} containing ones.
-          \item \code{dataType}: a string variable: "\code{LROC}".
+          \item \code{dataType}: a \code{character} variable: "\code{LROC}".
           \item \code{modalityID}: same as general case.
           \item \code{readerID}: same as general case.
     }
@@ -266,7 +289,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
           \item \code{lesionNum}: same as general case. 
           \item \code{lesionID}: same as general case.
           \item \code{lesionWeight}: same as general case.
-          \item \code{dataType}: a string variable: "\code{ROC}" or "\code{FROC}".
+          \item \code{dataType}: a \code{character} variable: "\code{ROC}" or "\code{FROC}".
           \item \code{modalityID1}: same as general case, corresponding to first 
              modality factor.
           \item \code{modalityID2}: same as general case, corresponding to second 
@@ -303,9 +326,9 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
           }
             \item \samp{TP} worksheet consists of
           \itemize{
-                  \item \samp{ReaderID}, a string field uniquely labeling the readers 
+                  \item \samp{ReaderID}, a \code{character} field uniquely labeling the readers 
                      (radiologists).
-                  \item \samp{ModalityID}, a string field uniquely labeling the 
+                  \item \samp{ModalityID}, a \code{character} field uniquely labeling the 
                      modalities.
                   \item \samp{CaseID}, see \samp{Truth} worksheet. A non-diseased 
                      case in this field will generate an error.

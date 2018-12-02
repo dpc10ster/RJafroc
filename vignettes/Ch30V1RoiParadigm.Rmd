@@ -1,0 +1,80 @@
+---
+title: "Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm"
+author: "Dev P. Chakraborty"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: myRefs.bib
+fig_caption: yes
+fig.width: 4
+vignette: >
+  %\VignetteIndexEntry{ROI data structure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE}
+  knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+  )
+  library(RJafroc)
+```
+
+## Introduction
+* In the region-of-interest (ROI) paradigm [@RN1233,@RN55] each case is regarded as consisting of ${{Q}_{k}}$ (${{Q}_{k}}\ge 1$) "quadrants" or ROIs, where *k* is the case index ($k=1,2,...,K$). Here $K$ is the total number of cases (i.e., case-level-normal plus case-level-abnormal cases). Each ROI needs to be classified as either ROI-level-normal (i.e., it has no lesions) or ROI-level-abnormal (i.e., it has at least one lesion). **Note the distinction between case-level truth and ROI-level truth states.** One can have ROI-level-normals in a case-level-abnormal case. A case-level-abnormal case must contain at least one ROI-level-abnormal ROI and a case-level normal cannot have any ROI-level-abnormal ROIs.
+
+* The observer gives a single rating to each ROI, denoted ${{R}_{k}}$. The rating can be an integer or quasi- continuous (e.g., 0 – 100), or a floating point value, as long as higher numbers represent greater confidence in presence of one or more lesions in the ROI.
+
+* The ROI paradigm is not restricted to 4 or even a constant number of ROIs per case. That is the reason for the k-subscript in ${{Q}_{k}}$.
+
+* The ROI data structure is a special case of the FROC data stucture in the sense that the number of ratings per case is an a-priori known value.
+
+* ROI-level-normal ratings are stored in the `NL` field and ROI-level-abnormal ratings are stored in the `LL` field.
+
+
+## An example ROI dataset
+  
+```{r}
+str(datasetROI)
+datasetROI$NL[1,1,1,]
+mean(datasetROI$NL[,,1:50,])
+datasetROI$NL[1,1,51,]
+datasetROI$lesionNum[1]
+datasetROI$LL[1,1,1,]
+```             
+
+* This is a 2-treatment 5-reader dataset, with 50 non-diseased cases and 40 diseased cases, and ${{Q}_{k}}=4$ for all *k*. 
+
+* For treatment 1, reader 1, case 1 (the 1st non-diseased case) the 4 ratings are `r datasetROI$NL[1,1,1,]`. The mean of all ratings on non-diseased cases is `r mean(datasetROI$NL[,,1:50,])`.
+
+* For treatment 1, reader 1, case 51 (the 1st diseased case) the NL ratings are `r datasetROI$NL[1,1,51,][is.finite(datasetROI$NL[1,1,51,])]`. There are only two finite values because this case has two ROI-level-abnormal ROIs, and 2 plus 2 makes for the assumed 4-ROIs per case. The corresponding `$lesionNum` field is `r datasetROI$lesionNum[1]`. The ratings of the 2 ROI-level-abnormal ROIs on this case are datasetROI$LL[1,1,1,][is.finite(datasetROI$LL[1,1,1,])].
+
+
+
+* Look for a file "ROI_Example.xlsx" which should be in the folder "C:\Users\Dev1\Documents\JAFROC Data" in my computer. Of course, in your computer Dev1 should be your user name. This Excel workbook consists of three worksheets named Truth, FP and TP. In this example   = 4 (and there are 50 normal cases (labeled 1-50 under column CaseID in the Truth worksheet) and 40 abnormal cases (labeled 51-90 in the Truth worksheet) and there is data for 5 readers in two modalities in this Excel workbook. 
+
+* The LesionID field for each normal case (e.g., CaseID = 1 in the Truth worksheet) is zero. Now look in the FP worksheet for ReaderID = 1, ModalityID = 1 and CaseID = 1. There are 4 entries here, corresponding to the 4 ROI-level-normal regions in this case. Search as you will, you will not find CaseID = 1 in the TP worksheet. In fact the lowest CaseID number in the TP worksheet is 51, which corresponds to the first abnormal case.  There are two entries for this case in the TP worksheet, corresponding to the two ROI-level abnormal regions in this case. Confirm this by looking for this case number in the Truth worksheet where you will find that there are two entries with LesionID = 2 and 3, corresponding to the LesionID's listed for this case in the TP worksheet.  If you now look in the FP worksheet for CaseID = 51, you will find 2 entries corresponding to the two ROI-level-normal regions in this case. Satisfy yourself that for, each reader and modality, each normal case gives 4 entries in the FP worksheet and that for each abnormal case, the sum of the number of entries in the TP and FP worksheets is always 4. 
+
+
+## Main code and output
+  
+```{r, fig.show='hold', echo=FALSE}
+```             
+
+
+## Comments
+Plots A - D show ROC curves predicted by the CBM model; the corresponding values of the $mu$ and $alpha$ parameters are indicated above the plots. For small $mu$ and/or $alpha$  the curve approaches the chance diagonal, consistent with the notion that if the lesion is not visible, performance can be no better than chance level.
+
+## pdf plots
+```  
+
+## Comments
+The dark line is the diseased distribution. The grey line is the non-diseased distribution. The bimodal diseased distribution is clearly evident in plots F and H. 
+
+## likelihood ratio plots
+```  
+
+## Comments
+Close examination of the region near the flat part shows it does not plateau at zero; rather the minimum is at 1 - $alpha$, explaining the non-zero limiting slope of the predicted curve near (1, 1).
+
+## References

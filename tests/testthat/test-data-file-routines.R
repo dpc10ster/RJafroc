@@ -188,10 +188,20 @@ test_that("DfExtractDataset", {
     tmp, print = TRUE, update = TRUE)
 })
 
-test_that("DfSaveDataFile", {
+test_that("DfSaveDataFile, all formats, including ROI", {
   tmp <- tempfile()
   expect_known_output(
     DfSaveDataFile(dataset = dataset05, fileName = "rocData2.xlsx", format = "JAFROC"), 
+    tmp, print = TRUE, update = TRUE)
+  
+  tmp <- tempfile()
+  expect_known_output(
+    DfSaveDataFile(dataset = dataset02, fileName = "rocData2.imrmc", format = "iMRMC"), 
+    tmp, print = TRUE, update = TRUE)
+  
+  tmp <- tempfile()
+  expect_known_output(
+    DfSaveDataFile(datasetROI, fileName = "roiData.xlsx", format = "JAFROC"), 
     tmp, print = TRUE, update = TRUE)
 })
 
