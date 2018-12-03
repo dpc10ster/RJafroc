@@ -181,6 +181,19 @@ test_that("DfReadDataFile JAFROC", {
 })
 
 
+
+test_that("DfReadDataFile ROI dataset", {
+  tmp <- tempfile()
+  fileName <- system.file(
+    "extdata", "includedRoiData.xlsx", package = "RJafroc", mustWork = TRUE)
+  expect_known_output(
+    DfReadDataFile(fileName), 
+    tmp, print = TRUE, update = TRUE)
+  ds <- DfReadDataFile(fileName)
+  expect_equal(ds$dataType, "ROI")
+})
+
+
 test_that("DfExtractDataset", {
   tmp <- tempfile()
   expect_known_output(

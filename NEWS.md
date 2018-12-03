@@ -25,7 +25,7 @@ Added ROI dataset
 Renamed binnedData123.RData to datasetBinned123.RData, etc, which causes
     all datasets to be listed sequentially
 Next: Need to add ROI capability to significance testing function
-Started working on corresponding vignette, Ch30V1RoiParadigm.Rms.
+Completed first ROI vignette, Ch30V1RoiParadigm.Rmd.
 
 
 
