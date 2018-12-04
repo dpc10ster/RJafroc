@@ -2,9 +2,11 @@
     "dialog-state" : {
         "caseSensitive" : true,
         "filePatterns" : [
+            "*.r",
+            "*.R"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "ROI",
+        "query" : "RawOpPtsROC2ROC1",
         "regex" : false
     }
 }

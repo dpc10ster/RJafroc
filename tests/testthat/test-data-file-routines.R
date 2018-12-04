@@ -8,25 +8,23 @@ test_that("Df2RJafrocDataset", {
   expect_known_output(
     Df2RJafrocDataset(NL, LL), 
     tmp, print = TRUE, update = TRUE)
-})
-
-test_that("Df2RJafrocDataset", {
-  set.seed(1)
-  mu <- 1;lambda <- 1;nu <- 1; zeta1 <- 0
-  K1 <- 5;K2 <- 7
-  Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
-  frocDataRaw <- SimulateFrocDataset(
-    mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, lesionNum = Lk2)
-  NL <- drop(frocDataRaw$NL)
-  LL <- drop(frocDataRaw$LL)
+  
+  I <- 2;J <- 3;set.seed(1)
+  K1 <- 25;K2 <- 35
+  z1 <- array(dim = c(I, J, K1))
+  z2 <- array(dim = c(I, J, K2))
+  mu <- 2;sigma <- 1.5
+  for (i in 1:I) {
+    for (j in 1:J) {
+      z1[i,j,1:K1] <- rnorm(K1)
+      z2[i,j,] <- rnorm(K2) * sigma + mu
+    }
+  }
   tmp <- tempfile()
   expect_known_output(
-    Df2RJafrocDataset(NL, LL, lesionNum = Lk2), 
+    Df2RJafrocDataset(z1, z2), 
     tmp, print = TRUE, update = TRUE)
-})
 
-
-test_that("Df2RJafrocDataset", {
   I <- 2;J <- 3;set.seed(1)
   K1 <- 25;K2 <- 35
   mu <- 1;nuP <- 0.8;lambdaP <- 1;zeta1 <- 0
@@ -36,7 +34,6 @@ test_that("Df2RJafrocDataset", {
   z1 <- array(-Inf,dim = c(I,J,K1+K2,40))
   z2 <- array(-Inf,dim = c(I,J,K2,40))
   dimNL <- array(dim=c(I,J,2)) 
-  ## the last value (2) accommodates case and location indices
   dimLL <- array(dim=c(I,J,2))
   for (i in 1:I) {
     for (j in 1:J) {

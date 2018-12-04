@@ -35,4 +35,9 @@ test_that("FitRsmRoc", {
   expect_known_output(
     FitRsmRoc(dataset02, UtilLesionDistribution(dataset02)), 
     tmp, print = TRUE, update = TRUE)
+
+  tmp <- tempfile()
+  expect_known_output(
+    FitRsmRoc(datasetDegenerate, UtilLesionDistribution(datasetDegenerate)), 
+    tmp, print = TRUE, update = TRUE)
 })
