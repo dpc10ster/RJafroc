@@ -1,7 +1,7 @@
 #' Calculate empirical figures of merit (FOMs) for specified dataset
 #' 
 #' @description  Calculate the specified empirical figure of merit
-#' for each treatment-reader combination in the ROC, FROC or LROC dataset
+#' for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset
 #' 
 #' @param dataset The dataset to be analyzed, see \link{RJafroc-package}
 #' @param FOM The figure of merit to be used in the calculation. 
@@ -14,7 +14,7 @@
 #' 
 #' @details The allowed FOMs depend on the type of dataset (i.e., \code{dataType} 
 #'    field of dataset object). 
-#'    For \strong{ROC datasets:} the \code{"Wilcoxon"} is allowed.
+#'    For \strong{ROC datasets:} only \code{"Wilcoxon"} is allowed.
 #'    For \strong{FROC datasets:} The following FOMs are allowed:
 #'    \code{"AFROC1"}, 
 #'    \code{"AFROC"}, 
@@ -27,8 +27,9 @@
 #'    \code{"HrSp"}, 
 #'    \code{"MaxLLF"}, 
 #'    \code{"MaxNLF"}, 
-#'    \code{"MaxNLFAllCases"}, and 
-#'    \code{"ExpTrnsfmSp"}. 
+#'    \code{"MaxNLFAllCases"}, 
+#'    \code{"ExpTrnsfmSp"}, and 
+#'    \code{"ROI"}. 
 #'    The \code{"MaxLLF"}, \code{"MaxNLF"} and \code{"MaxNLFAllCases"} FOMs 
 #'    correspond to ordinate, and abscissa, respectively, of the highest point 
 #'    on the FROC operating characteristic obtained by counting all the marks). 
@@ -51,6 +52,8 @@
 #' UtilFigureOfMerit(dataset = dataset01) 
 #' #LROC data
 #' UtilFigureOfMerit(dataset = datasetCadLroc, FOM = "ALROC", FPFValue = 0.2) 
+#' #ROI data
+#' UtilFigureOfMerit(datasetROI) 
 #' 
 #' @references
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
@@ -72,12 +75,27 @@
 #' Swensson RG (1996) Unified measurement of observer performance in detecting and localizing target objects on images, 
 #' Med Phys 23:10, 1709--1725.
 
-#'  
+#' @import dplyr  
 #' @export
 
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
+  
   dataType <- dataset$dataType
+  if (dataType == "ROI" && FOM != "ROI") {
+    cat("Incorrect FOM supplied, changing to 'ROI'\n")
+    FOM <- "ROI"
+  }
+ 
+  if (!(dataType %in% c("ROC", "LROC")) && FOM == "Wilcoxon")
+    stop("Cannot use `Wilcoxon` FOM with `FROC` or `ROI` data.")
+  
+  if (dataType != "ROI" && FOM == "ROI") {
+    errMsg <- paste0("Only ROI data can be analyzed using ROI figure of merit.")
+    stop(errMsg)
+  }
+  
   if (dataType == "LROC") {
+    if (!between(FPFValue, 0, 1)) stop("FPFValue is outside valid range")
     if (FOM %in% c("Wilcoxon", "ALROC", "PCL")) {
       NL <- dataset$NL
       LL <- dataset$LLCl
@@ -88,26 +106,14 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     NL <- dataset$NL
     LL <- dataset$LL
   }
+  
   I <- dim(NL)[1]
   J <- dim(NL)[2]
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
   K1 <- K - K2  
   
-  if (dataType != "ROC" && FOM == "Wilcoxon") 
-    stop("Cannot use Wilcoxon FOM with FROC or ROI data")
-  
-  if (dataType == "ROI" && FOM != "ROI") {
-    errMsg <- paste0("ROI dataset cannot be analyzed using ", FOM, " figure of merit.")
-    stop(errMsg)
-  }
-  
-  if (dataType != "ROI" && FOM == "ROI") {
-    errMsg <- paste0("Only ROI data is allowed to be analyzed using ROI figure of merit.")
-    stop(errMsg)
-  }
-  
-  if (K1 == 0 && (FOM != "JAFROC1" && FOM != "wJAFROC1" && FOM != "AFROC1" && FOM != "wAFROC1")) {
+  if (K1 == 0 && !(FOM %in% c("JAFROC1", "wJAFROC1", "AFROC1", "wAFROC1"))) {
     errMsg <- paste0("Only JAFROC1/AFROC1 or wJAFROC1/wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
     stop(errMsg)
   }

@@ -21,12 +21,12 @@ An \code{c(I, J)} array, where the row names are the IDs of the
 }
 \description{
 Calculate the specified empirical figure of merit
-for each treatment-reader combination in the ROC, FROC or LROC dataset
+for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset
 }
 \details{
 The allowed FOMs depend on the type of dataset (i.e., \code{dataType} 
    field of dataset object). 
-   For \strong{ROC datasets:} the \code{"Wilcoxon"} is allowed.
+   For \strong{ROC datasets:} only \code{"Wilcoxon"} is allowed.
    For \strong{FROC datasets:} The following FOMs are allowed:
    \code{"AFROC1"}, 
    \code{"AFROC"}, 
@@ -39,8 +39,9 @@ The allowed FOMs depend on the type of dataset (i.e., \code{dataType}
    \code{"HrSp"}, 
    \code{"MaxLLF"}, 
    \code{"MaxNLF"}, 
-   \code{"MaxNLFAllCases"}, and 
-   \code{"ExpTrnsfmSp"}. 
+   \code{"MaxNLFAllCases"}, 
+   \code{"ExpTrnsfmSp"}, and 
+   \code{"ROI"}. 
    The \code{"MaxLLF"}, \code{"MaxNLF"} and \code{"MaxNLFAllCases"} FOMs 
    correspond to ordinate, and abscissa, respectively, of the highest point 
    on the FROC operating characteristic obtained by counting all the marks). 
@@ -62,6 +63,8 @@ UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "Wilcoxon")
 UtilFigureOfMerit(dataset = dataset01) 
 #LROC data
 UtilFigureOfMerit(dataset = datasetCadLroc, FOM = "ALROC", FPFValue = 0.2) 
+#ROI data
+UtilFigureOfMerit(datasetROI) 
 
 }
 \references{

@@ -14,7 +14,7 @@
 
 <meta name="date" content="2018-12-03" />
 
-<title>Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</title>
+<title>Chapter 30, Vignette 1: Significance testing for the ROI paradigm</title>
 
 
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<h1 class="title toc-ignore">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</h1>
+<h1 class="title toc-ignore">Chapter 30, Vignette 1: Significance testing for the ROI paradigm</h1>
 <h4 class="author"><em>Dev P. Chakraborty</em></h4>
 <h4 class="date"><em>2018-12-03</em></h4>
 
@@ -79,11 +79,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <ul>
-<li><p>In the region-of-interest (ROI) paradigm <span class="citation">(Obuchowski 1997,<span class="citation">Obuchowski, Lieber, and Powell (2000)</span>)</span> each case is regarded as consisting of <span class="math inline">\({{Q}_{k}}\)</span> (<span class="math inline">\({{Q}_{k}}\ge 1\)</span>) “quadrants” or regions or ROIs, where <em>k</em> is the case index (<span class="math inline">\(k=1,2,...,K\)</span>). Here <span class="math inline">\(K\)</span> is the total number of cases (i.e., case-level normal plus case-level abnormal cases). Each ROI needs to be classified as either ROI-level-normal (i.e., it has no lesions) or ROI-level-abnormal (i.e., it has at least one lesion). <strong>Note the distinction between case-level truth and ROI-level truth states.</strong> One can have ROI-level-normals in a case-level-abnormal case. A case-level-abnormal case must contain at least one ROI-level-abnormal ROI and a case-level normal cannot have any ROI-level-abnormal ROIs.</p></li>
-<li><p>The observer gives a single rating to each ROI, denoted <span class="math inline">\({{R}_{k}}\)</span>. The rating can be an integer or quasi- continuous (e.g., 0 – 100), or a floating point value, as long as higher numbers represent greater confidence in presence of one or more lesions in the ROI.</p></li>
+<li><p>TBA</p></li>
+<li><p>TBA</p></li>
 <li><p>The ROI paradigm is not restricted to 4 or even a constant number of ROIs per case. That is the reason for the <em>k</em> subscript in <span class="math inline">\({{Q}_{k}}\)</span>.</p></li>
-<li><p>The ROI data structure is a special case of the FROC data stucture, the essential difference being that the number of ratings per case is an a-priori known value.</p></li>
-<li><p>ROI-level-normal ratings are stored in the <code>NL</code> field and ROI-level-abnormal ratings are stored in the <code>LL</code> field.</p></li>
+<li><p>TBA</p></li>
+<li><p>TBA</p></li>
 </ul>
 </div>
 <div id="an-example-roi-dataset" class="section level2">
@@ -160,16 +160,8 @@ ds<span class="op">$</span>dataType
 <h2>Next</h2>
 <p>The next vignette illustrates significance testing for this paradigm.</p>
 </div>
-<div id="references" class="section level2 unnumbered">
+<div id="references" class="section level2">
 <h2>References</h2>
-<div id="refs" class="references">
-<div id="ref-RN1233">
-<p>Obuchowski, Nancy A. 1997. “Nonparametric Analysis of Clustered Roc Curve Data.” Journal Article. <em>Biometrics</em> 53: 567–78.</p>
-</div>
-<div id="ref-RN55">
-<p>Obuchowski, Nancy A., Michael L. Lieber, and Kimerly A. Powell. 2000. “Data Analysis for Detection and Localization of Multiple Abnormalities with Application to Mammography.” Journal Article. <em>Acad. Radiol.</em> 7 (7): 516–25.</p>
-</div>
-</div>
 </div>
 
 

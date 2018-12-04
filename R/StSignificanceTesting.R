@@ -171,14 +171,20 @@
 #'      
 #' @export
 StSignificanceTesting <- function(dataset, FOM = "wJAFROC", alpha = 0.05, method = "DBMH", 
-                                covEstMethod = "Jackknife", nBoots = 200, option = "ALL", 
-                                VarCompFlag = FALSE, FPFValue = 0.2)
+                                  covEstMethod = "Jackknife", nBoots = 200, option = "ALL", 
+                                  VarCompFlag = FALSE, FPFValue = 0.2)
 {
+  if (dataset$dataType == "ROI") {
+    method <- "ORH"
+    covEstMethod <- "DeLong" 
+    FOM <- "ROI"
+    cat("ROI dataset: using method = `ORH``, covEstMethod = `DeLong`` and FOM = `ROI`.\n")
+  }
   if (method == "DBMH"){
     return(StDBMHAnalysis(dataset, FOM, alpha, option, FPFValue = FPFValue))
-  }else if (method == "ORH"){
+  } else if (method == "ORH"){
     return(StORHAnalysis(dataset, FOM, alpha, covEstMethod, nBoots, option, FPFValue = FPFValue))
-  }else{
+  } else {
     errMsg <- sprintf("%s is not a valid analysis method.", method)
     stop(errMsg)
   }

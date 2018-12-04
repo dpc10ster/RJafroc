@@ -35,6 +35,11 @@ test_that("SignificanceTestingDBMH", {
   
   expect_error(
     StSignificanceTesting(datasetCadLroc, FOM = "wAFROC", option = "RRFC"))
+
+  tmp <- tempfile()
+  expect_known_output(
+    StSignificanceTesting(datasetROI), 
+    tmp, print = TRUE, update = TRUE)
 })
 
 test_that("SignificanceTestingORH", {

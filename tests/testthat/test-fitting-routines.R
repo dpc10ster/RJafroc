@@ -22,6 +22,7 @@ test_that("FitCbmRoc", {
 })
 
 test_that("FitCorCbm", {
+  skip_on_travis()
   skip_on_cran()
   tmp <- tempfile()
   expect_known_output(
