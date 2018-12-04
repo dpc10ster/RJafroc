@@ -178,9 +178,10 @@ StSignificanceTesting <- function(dataset, FOM = "wJAFROC", alpha = 0.05, method
     method <- "ORH"
     covEstMethod <- "DeLong" 
     FOM <- "ROI"
-    cat("ROI dataset: using method = `ORH``, covEstMethod = `DeLong`` and FOM = `ROI`.\n")
+    cat("ROI dataset: using method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.\n")
   }
   if (method == "DBMH"){
+    if (covEstMethod != "Jackknife") stop("For DBMH method covariance estimation method must be jackknife")
     return(StDBMHAnalysis(dataset, FOM, alpha, option, FPFValue = FPFValue))
   } else if (method == "ORH"){
     return(StORHAnalysis(dataset, FOM, alpha, covEstMethod, nBoots, option, FPFValue = FPFValue))

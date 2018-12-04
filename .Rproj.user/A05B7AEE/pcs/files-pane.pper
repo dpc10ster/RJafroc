@@ -1,13 +1,13 @@
 {
-    "path" : "~/rjafroc-master/R",
+    "path" : "~/rjafroc-master/tests/testthat",
     "sortOrder" : [
-        {
-            "ascending" : false,
-            "columnIndex" : 4
-        },
         {
             "ascending" : true,
             "columnIndex" : 2
+        },
+        {
+            "ascending" : false,
+            "columnIndex" : 4
         },
         {
             "ascending" : false,
