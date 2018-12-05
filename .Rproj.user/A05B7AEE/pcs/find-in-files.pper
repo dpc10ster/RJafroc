@@ -6,7 +6,7 @@
             "*.R"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "\\link",
+        "query" : "FOM = ",
         "regex" : false
     }
 }

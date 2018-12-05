@@ -2,15 +2,15 @@
     "debugBreakpointsState" : {
         "breakpoints" : [
             {
-                "editor_line_number" : 1221,
+                "editor_line_number" : 1222,
                 "editor_state" : 1,
                 "function_name" : "gpfEstimateVarCov",
                 "function_steps" : "8,4,4,3,4",
                 "id" : 3,
                 "is_package_breakpoint" : true,
                 "is_pending_debug_completion" : false,
-                "line_number" : 1221,
-                "needs_updated_steps" : false,
+                "line_number" : 1222,
+                "needs_updated_steps" : true,
                 "package_name" : "RJafroc",
                 "path" : "~/rjafroc-master/R/StSignificanceTesting.R",
                 "state" : 1,

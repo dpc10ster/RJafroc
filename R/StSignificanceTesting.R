@@ -2,11 +2,12 @@
 #' 
 #' @description  Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
 #'    significance testing with Hillis' improvements, for specified dataset; 
-#'    significance testing refers to analysis designed to assign a P-value for 
-#'    rejecting a null hypothesis (NH); the most common NH is that the reader-averaged 
+#'    significance testing refers to analysis designed to assign a P-value, 
+#'    and other statistics, for 
+#'    rejecting the null hypothesis (NH) that the reader-averaged 
 #'    figure of merit (FOM) difference between treatments is zero. The results of 
-#'    the analysis are better visualized in the text or, preferably, 
-#'    Excel-formatted, files produced by \code{\link{UtilOutputReport}}. 
+#'    the analysis are better visualized in the text or  
+#'    Excel-formatted files produced by \code{\link{UtilOutputReport}}. 
 #'
 #'  
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}
@@ -169,7 +170,7 @@
 #'
 #'      
 #' @export
-StSignificanceTesting <- function(dataset, FOM = "wJAFROC", alpha = 0.05, method = "DBMH", 
+StSignificanceTesting <- function(dataset, FOM = "Wilcoxon", alpha = 0.05, method = "DBMH", 
                                   covEstMethod = "Jackknife", nBoots = 200, option = "ALL", 
                                   VarCompFlag = FALSE, FPFValue = 0.2)
 {
