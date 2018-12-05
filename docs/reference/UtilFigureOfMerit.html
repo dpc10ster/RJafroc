@@ -33,7 +33,7 @@
 <meta property="og:title" content="Calculate empirical figures of merit (FOMs) for specified dataset — UtilFigureOfMerit" />
 
 <meta property="og:description" content="Calculate the specified empirical figure of merit
-for each treatment-reader combination in the ROC, FROC or LROC dataset" />
+for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,6 +105,9 @@ for each treatment-reader combination in the ROC, FROC or LROC dataset" />
       <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
+      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
@@ -118,6 +121,12 @@ for each treatment-reader combination in the ROC, FROC or LROC dataset" />
     </li>
     <li>
       <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -148,7 +157,7 @@ for each treatment-reader combination in the ROC, FROC or LROC dataset" />
     <div class="ref-description">
     
     <p>Calculate the specified empirical figure of merit
-for each treatment-reader combination in the ROC, FROC or LROC dataset</p>
+for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset</p>
     
     </div>
 
@@ -182,7 +191,7 @@ curve based figure of merit. The default is 0.2.</p></td>
 
     <p>The allowed FOMs depend on the type of dataset (i.e., <code>dataType</code> 
    field of dataset object). 
-   For <strong>ROC datasets:</strong> the <code>"Wilcoxon"</code> is allowed.
+   For <strong>ROC datasets:</strong> only <code>"Wilcoxon"</code> is allowed.
    For <strong>FROC datasets:</strong> The following FOMs are allowed:
    <code>"AFROC1"</code>, 
    <code>"AFROC"</code>, 
@@ -195,8 +204,9 @@ curve based figure of merit. The default is 0.2.</p></td>
    <code>"HrSp"</code>, 
    <code>"MaxLLF"</code>, 
    <code>"MaxNLF"</code>, 
-   <code>"MaxNLFAllCases"</code>, and 
-   <code>"ExpTrnsfmSp"</code>. 
+   <code>"MaxNLFAllCases"</code>, 
+   <code>"ExpTrnsfmSp"</code>, and 
+   <code>"ROI"</code>. 
    The <code>"MaxLLF"</code>, <code>"MaxNLF"</code> and <code>"MaxNLFAllCases"</code> FOMs 
    correspond to ordinate, and abscissa, respectively, of the highest point 
    on the FROC operating characteristic obtained by counting all the marks). 
@@ -240,7 +250,10 @@ Med Phys 23:10, 1709--1725.</p>
 <span class='fu'>UtilFigureOfMerit</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ALROC"</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6   Rdr - 7
 #&gt; Trt - 1 0.1005382 0.1075944 0.1089236 0.1447396 0.1189063 0.1000335 0.1345511
 #&gt;           Rdr - 8   Rdr - 9  Rdr - 10
-#&gt; Trt - 1 0.1222135 0.1060417 0.1054167</div><div class='input'>
+#&gt; Trt - 1 0.1222135 0.1060417 0.1054167</div><div class='input'><span class='co'>#ROI data</span>
+<span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetROI</span>)</div><div class='output co'>#&gt; Incorrect FOM supplied, changing to 'ROI'</div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5
+#&gt; Trt - 1 0.9057239 0.8842834 0.8579279 0.9350207 0.8352103
+#&gt; Trt - 2 0.9297186 0.9546035 0.8937652 0.9531716 0.8770076</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

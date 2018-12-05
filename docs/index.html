@@ -12,29 +12,30 @@
 <script src="pkgdown.js"></script><meta property="og:title" content="Modeling, Analysis, Validation and Visualization of Observer Performance Studies in Diagnostic Radiology">
 <meta property="og:description" content="Tools for quantitative assessment of medical imaging systems, radiologists or computer aided ('CAD') algorithms. 
     Implements methods described in a book: 'Chakraborty' 'DP' (2017), &quot;Observer Performance Methods for Diagnostic Imaging - 
-    Foundations, Modeling, and Applications with R-Based Examples&quot;, Taylor-Francis &lt;https://www.crcpress.com/9781482214840&gt; 
+    Foundations, Modeling, and Applications with R-Based Examples&quot;, Taylor-Francis 
     and its Online Appendices &lt;https://github.com/dpc10ster/onlinebookk21778&gt;. Data collection paradigms include receiver 
     operating characteristic ('ROC') and a location specific extension, namely free-response 'ROC' ('FROC'). 
-    'ROC' data consists of a single rating per image, where the rating is the perceived confidence level the image is of a diseased patient. 
-    'FROC' data consists of a variable number (including zero) of mark-rating pairs per image, where a mark is the location of a clinically 
-    reportable suspicious region and the rating is the corresponding confidence level that it is a true lesion. The software supersedes 
-    the current Windows version of 'JAFROC' software &lt;http://www.devchakraborty.com&gt; which is no longer supported. 
-    'RJafroc' is derived from it being an enhanced R version of original Windows 'JAFROC'. Implemented are a number of figures of merit 
-    quantifying performance, functions for visualizing operating characteristics; three ROC ratings data curve-fitting algorithms: 
-    the 'binormal' model ('BM'), the contaminated binormal model ('CBM') and the radiological search model ('RSM'). Also implemented is 
-    maximum likelihood fitting of paired ROC data utilizing the correlated 'CBM' model ('CORCBM'). Unlike the 'BM', 'CBM', 'CORCBM'    
-    and the 'RSM' predict proper ROC curves that do not cross the chance diagonal or display inappropriate hooks, usually near the upper 
-    right corner of the plots. 'RSM' fitting yields measures of search and lesion-classification performances, in addition to the usual 
-    case-classification performance measured by the area under the 'ROC' curve. Search performance is the ability to find lesions while 
-    avoiding finding non-lesions. Lesion-classification performance is the ability to discriminate between found lesions and non-lesions. 
-    For fully crossed study designs, termed multiple-reader multiple-case, significance testing of reader-averaged figure-of-merit 
-    differences between modalities is implemented via both 'Dorfman', 'Berbaum' and 'Metz' ('DBM') and the 'Obuchowski' and 'Rockette' 
-    ('OR') methods, both substantially improved by 'Hillis'. Single treatment analysis allows comparison of performance of a group of 
-    radiologists to a specified value, or comparison of 'CAD' performance to a group of radiologists interpreting the same cases. Sample 
-    size estimation tools are provided for 'ROC' studies that allow estimation of relevant variances from a pilot study to predict required 
-    numbers of readers and cases in a pivotal study. 'FROC' sample size estimation is implemented in Online Appendix Chapter 19 available 
-    at &lt;https://github.com/dpc10ster/onlinebookk21778&gt;. Utility and data file manipulation functions allow data to be read in any of the 
-    currently used input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files.">
+    'ROC' data consists of a single rating per image, where the rating is the perceived confidence level the image is of a 
+    diseased patient. 'FROC' data consists of a variable number (including zero) of mark-rating pairs per image, where a mark 
+    is the location of a clinically reportable suspicious region and the rating is the corresponding confidence level that it 
+    is a true lesion. The software supersedes the current Windows version of 'JAFROC' software &lt;http://www.devchakraborty.com&gt; 
+    which is no longer supported. 'RJafroc' is derived from it being an enhanced R version of original Windows 'JAFROC'. 
+    Implemented are a number of figures of merit quantifying performance, functions for visualizing operating characteristics; 
+    three ROC ratings data curve-fitting algorithms: the 'binormal' model ('BM'), the contaminated 'binormal' model ('CBM') and 
+    the radiological search model ('RSM'). Also implemented is maximum likelihood fitting of paired ROC data, utilizing the 
+    correlated 'CBM' model ('CORCBM') model. Unlike the 'BM' which predicts 'improper' ROC curves, 'CBM', 'CORCBM'  and the 'RSM' 
+    predict proper ROC curves that do not cross the chance diagonal or display inappropriate hooks, usually near the upper right 
+    corner of the plots. 'RSM' fitting yields measures of search and lesion-classification performances, in addition to the usual 
+    case-classification performance measured by the area under the 'ROC' curve. Search performance is the ability to find lesions 
+    while avoiding finding non-lesions. Lesion-classification performance is the ability to discriminate between found lesions 
+    and non-lesions. For fully crossed study designs, termed multiple-reader multiple-case, significance testing of reader-averaged 
+    figure-of-merit differences between modalities is implemented via both 'Dorfman', 'Berbaum' and 'Metz' ('DBM') and the 
+    'Obuchowski' and 'Rockette' ('OR') methods, both substantially improved by 'Hillis'. Single treatment analysis allows 
+    comparison of performance of a group of radiologists to a specified value, or comparison of 'CAD' performance to a group 
+    of radiologists interpreting the same cases. Sample size estimation tools are provided for 'ROC' and 'FROC' studies that 
+    allow estimation of relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study. 
+    Utility and data file manipulation functions allow data to be read in any of the currently used input formats, including Excel, 
+    and the results of the analysis can be viewed in text or Excel output files.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -95,6 +96,9 @@
       <a href="articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
+      <a href="articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
       <a href="articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
@@ -108,6 +112,12 @@
     </li>
     <li>
       <a href="articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>

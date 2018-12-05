@@ -71,6 +71,9 @@
       <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
+      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
@@ -84,6 +87,12 @@
     </li>
     <li>
       <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -106,7 +115,7 @@
       <h1>Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2018-11-29</h4>
+            <h4 class="date">2018-12-04</h4>
       
       
       <div class="hidden name"><code>Ch11V2SampleSize.Rmd</code></div>
@@ -123,7 +132,7 @@
 <div id="sample-size-estimation-using-the-dbmh-method" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sample-size-estimation-using-the-dbmh-method" class="anchor"></a>Sample size estimation using the DBMH method</h2>
-<p>The Van Dyke dataset in file <code>VanDyke.lrc</code>, in <code>"MRMC"</code> format, is regarded as a pilot study. The command <code>rocData &lt;- DfReadDataFile(fileName, format = "MRMC")</code> reads the data and saves it to a <code>dataset</code> object <code>rocData</code>. The next line uses the function <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> to apply <code>method = "DBMH"</code> analysis, the default, using the <code>FOM = "Wilcoxon"</code> figure of merit. The next line extracts the variance components <code>varYTR</code>, <code>varYTC</code> and <code>varYEps</code> (the Y’s denote pseudovalue based values). The next line extracts the effect size.</p>
+<p>The Van Dyke dataset in file <code>VanDyke.lrc</code>, in <code>"MRMC"</code> format, is regarded as a pilot study. The command <code>rocData &lt;- DfReadDataFile(fileName, format = "MRMC")</code> reads the data and saves it to a <code>dataset</code> object <code>rocData</code>. <a href="https://dpc10ster.github.io/rjafroc-master/reference/RJafroc-package.html">For more on data formats click here</a>. The next line uses the function <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> to apply <code>method = "DBMH"</code> analysis, the default, using the <code>FOM = "Wilcoxon"</code> figure of merit. The next line extracts the variance components <code>varYTR</code>, <code>varYTC</code> and <code>varYEps</code> (the Y’s denote pseudovalue based values). The next line extracts the effect size.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha &lt;-<span class="st"> </span><span class="fl">0.05</span>
 fileName &lt;-<span class="st"> "VanDyke.lrc"</span>
 <span class="co">#fileName &lt;- "Franken1.lrc"</span>
@@ -146,6 +155,7 @@ effectSize &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ciDiffTr
 <a href="#random-reader-random-case-rrrc" class="anchor"></a>Random reader random case (RRRC)</h3>
 <p>This illustrates random reader random case sample size estimation. Assumed are 10 readers and 163 cases in the pivotal study. The non-centrality parameter is defined by:</p>
 <p><span class="math display">\[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\left( \sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2} \right)+K\sigma _{Y;\tau R}^{2}+J\max \left( \sigma _{Y;\tau C}^{2},0 \right)}\]</span></p>
+<p>The sampling distribution of the F-statistic under the AH is:</p>
 <p><span class="math display">\[{{F}_{\left. AH \right|R}}\equiv \frac{MST}{MSTC}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( K-1 \right),\Delta }}\]</span> Also,</p>
 <p><span class="math display">\[\sigma _{Y;\tau }^{2}={{d}^{2}}/2\]</span></p>
 <p>where <code>d</code> is the observed effect size, i.e., <code>effectSize</code>. The formulae for calculating the mean-squares are in <span class="citation">(Hillis and Berbaum 2004)</span>, implemented in <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code>.</p>
@@ -174,6 +184,7 @@ Power1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-
 <a href="#fixed-reader-random-case-frrc" class="anchor"></a>Fixed reader random case (FRRC)</h3>
 <p>This code illustrates fixed reader random case sample size estimation. Assumed are 10 readers and 133 cases in the pivotal study. The formulae are:</p>
 <p><span class="math display">\[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2}+J\sigma _{Y;\tau C}^{2}}\]</span></p>
+<p>The sampling distribution of the F-statistic under the AH is:</p>
 <p><span class="math display">\[{{F}_{\left. AH \right|R}}\equiv \frac{MST}{MSTC}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( K-1 \right),\Delta }}\]</span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#FRRC</span>
 ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(J<span class="op">*</span>varYTC,<span class="dv">0</span>)<span class="op">+</span>varYEps)
@@ -187,6 +198,7 @@ Power2 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-
 <a href="#random-reader-fixed-case-rrfc" class="anchor"></a>Random reader fixed case (RRFC)</h3>
 <p>This code illustrates random reader random case sample size estimation. Assumed are 10 readers and 53 cases in the pivotal study. The formulae are:</p>
 <p><span class="math display">\[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2}+K\sigma _{Y;\tau R}^{2}}\]</span></p>
+<p>The sampling distribution of the F-statistic under the AH is:</p>
 <p><span class="math display">\[{{F}_{\left. AH \right|C}}\equiv \frac{MST}{MSTR}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( J-1 \right),\Delta }}\]</span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#RRFC</span>
 ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(K<span class="op">*</span>varYTR<span class="op">+</span>varYEps)

@@ -108,6 +108,9 @@
       <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
+      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
@@ -121,6 +124,12 @@
     </li>
     <li>
       <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -158,8 +167,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>StSignificanceTestingSingleFixedFactor</span> (<span class='no'>dataset</span>,
-   <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
+    <pre class="usage"><span class='fu'>StSignificanceTestingSingleFixedFactor</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,19 +240,19 @@ Statistics in medicine 33, 330-360.</p>
 #&gt; [1] 0.001576444
 #&gt; 
 #&gt; $fomStats
-#&gt;   Reader              Area             stdErr  DF          CI Lower
+#&gt;   Reader              Area             stdErr  DF           CILower
 #&gt; 1      0 0.919645732689211 0.0301255163700399 113 0.859961651339663
 #&gt; 2      1  0.85877616747182 0.0363753334990573 113 0.786710071176329
 #&gt; 3      2 0.903864734299517 0.0282594117842767 113 0.847877742703897
 #&gt; 4      3 0.973107890499195  0.017338833155504 113 0.938756534796343
-#&gt;            CI Upper
+#&gt;             CIUpper
 #&gt; 1 0.979329814038759
 #&gt; 2  0.93084226376731
 #&gt; 3 0.959851725895137
 #&gt; 4  1.00745924620205
 #&gt; 
 #&gt; $diffFomStats
-#&gt;   Reader  Difference          t  DF       Pr &gt; t     CI Lower      CI Upper
+#&gt;   Reader  Difference          t  DF        PrGTt      CILower       CIUpper
 #&gt; 1  0 - 1  0.06086957  2.0545714 113 0.0422268728  0.002174313  0.1195648174
 #&gt; 2  0 - 2  0.01578100  0.6104293 113 0.5428032056 -0.035437058  0.0669990546
 #&gt; 3  0 - 3 -0.05346216 -1.9761947 113 0.0505695484 -0.107059194  0.0001348783

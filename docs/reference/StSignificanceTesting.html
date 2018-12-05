@@ -110,6 +110,9 @@
       <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
+      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
@@ -123,6 +126,12 @@
     </li>
     <li>
       <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -162,9 +171,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>StSignificanceTesting</span> (<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wJAFROC"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-   <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"Jackknife"</span>, <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>,
-   <span class='kw'>VarCompFlag</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+    <pre class="usage"><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wJAFROC"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"Jackknife"</span>, <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>200</span>,
+  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>, <span class='kw'>VarCompFlag</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -420,13 +429,13 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; [1] 0.05166569
 #&gt; 
 #&gt; $ciDiffTrtRRRC
-#&gt;   Treatment    Estimate     StdErr       DF         t     Pr &gt; t   CI Lower
+#&gt;   Treatment    Estimate     StdErr       DF         t      PrGTt    CILower
 #&gt; 1     0 - 1 -0.04380032 0.02074862 15.25967 -2.110999 0.05166569 -0.0879595
-#&gt;       CI Upper
+#&gt;        CIUpper
 #&gt; 1 0.0003588544
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRRC
-#&gt;   Treatment      Area     StdErr       DF  CI Lower  CI Upper
+#&gt;   Treatment      Area     StdErr       DF   CILower   CIUpper
 #&gt; 1         0 0.8970370 0.03317360 12.74465 0.8252236 0.9688505
 #&gt; 2         1 0.9408374 0.02156637 12.71019 0.8941378 0.9875369
 #&gt; 
@@ -440,24 +449,24 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; [1] 0.01927984
 #&gt; 
 #&gt; $ciDiffTrtFRRC
-#&gt;   Treatment    Estimate     StdErr  DF         t     Pr &gt; t    CI Lower
+#&gt;   Treatment    Estimate     StdErr  DF         t      PrGTt     CILower
 #&gt; 1     0 - 1 -0.04380032 0.01871748 Inf -2.340075 0.01927984 -0.08048591
-#&gt;      CI Upper
+#&gt;       CIUpper
 #&gt; 1 -0.00711473
 #&gt; 
 #&gt; $ciAvgRdrEachTrtFRRC
-#&gt;   Treatment      Area     StdErr  DF  CI Lower  CI Upper
+#&gt;   Treatment      Area     StdErr  DF   CILower   CIUpper
 #&gt; 1         0 0.8970370 0.02428971 Inf 0.8494301 0.9446440
 #&gt; 2         1 0.9408374 0.01677632 Inf 0.9079564 0.9737183
 #&gt; 
 #&gt; $ciDiffTrtEachRdr
-#&gt;   Reader Treatment    Estimate     StdErr  DF          t     Pr &gt; t    CI Lower
+#&gt;   Reader Treatment    Estimate     StdErr  DF          t      PrGTt     CILower
 #&gt; 1      0     0 - 1 -0.02818035 0.02551213 Inf -1.1045864 0.26933885 -0.07818322
 #&gt; 2      1     0 - 1 -0.04653784 0.02630183 Inf -1.7693768 0.07683102 -0.09808848
 #&gt; 3      2     0 - 1 -0.01787440 0.03120965 Inf -0.5727202 0.56683414 -0.07904418
 #&gt; 4      3     0 - 1 -0.02624799 0.01729129 Inf -1.5179891 0.12901715 -0.06013829
 #&gt; 5      4     0 - 1 -0.10016103 0.04405746 Inf -2.2734182 0.02300099 -0.18651207
-#&gt;       CI Upper
+#&gt;        CIUpper
 #&gt; 1  0.021822507
 #&gt; 2  0.005012792
 #&gt; 3  0.043295388
@@ -482,13 +491,13 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; [1] 0.04195875
 #&gt; 
 #&gt; $ciDiffTrtRRFC
-#&gt;   Treatment    Estimate     StdErr DF         t     Pr &gt; t    CI Lower
+#&gt;   Treatment    Estimate     StdErr DF         t      PrGTt     CILower
 #&gt; 1     0 - 1 -0.04380032 0.01484629  4 -2.950254 0.04195875 -0.08502022
-#&gt;      CI Upper
+#&gt;       CIUpper
 #&gt; 1 -0.00258042
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRFC
-#&gt;   Treatment      Area     StdErr DF  CI Lower  CI Upper
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
 #&gt; 1         0 0.8970370 0.02482994  4 0.8280981 0.9659760
 #&gt; 2         1 0.9408374 0.01615303  4 0.8959894 0.9856854
 #&gt; </div><div class='input'>

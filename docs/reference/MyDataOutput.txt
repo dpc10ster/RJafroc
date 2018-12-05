@@ -1,0 +1,303 @@
+RJafroc SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
+IN THE SOFTWARE.
+
+================================================================================
+
+R version: R version 3.5.1 (2018-07-02)
+RJafroc version: 1.1.1.9000
+Run date: Dec 04 2018 Tue 20:51:16 EST
+ FOM selected         :     Wilcoxon
+ Input  Data          :     MyData
+ Output Data Filename :     /Users/Dev/rjafroc-master/docs/reference/MyDataOutput.txt
+
+================================================================================
+
+ Significance testing method:  DBM-MRMC-HILLIS SIGNIFICANCE TESTING
+ Number of Readers          :  4
+ Number of Treatments       :  2
+ Number of Normal Cases     :  33
+ Number of Abnormal Cases   :  67
+ Fraction of Normal Cases   :  0.330000
+
+================================================================================
+
+ Modality IDs in the input file are:  0, 1
+
+ Modality IDs in the output file are: 0, 1
+
+ Reader IDs in the input file are:    0, 1, 2, 3
+
+ Reader IDs in the output file are:   0, 1, 2, 3
+
+================================================================================
+
+ ====================================================================
+ *****                        Overview                          *****
+ ====================================================================
+ Three analyses are presented: 
+ (1) Analysis 1 treats both readers and cases as random samples
+     --results apply to the reader and case populations;
+ (2) Analysis 2 treats only cases as a random sample
+     --results apply to the population of cases but only for the
+     readers used in this study; and
+ (3) Analysis 3 treats only readers as a random sample
+     --results apply to the population of readers but only for the
+     cases used in this study.
+
+ For all three analyses, the null hypothesis of equal treatments is
+ tested in part (a), treatment difference 95% confidence intervals
+ are given in part (b), and treatment 95% confidence intervals are
+ given in part (c).  Parts (a) and (b) are based on the treatment x
+ reader x case ANOVA while part (c) is based on the reader x case
+ ANOVA for the specified treatment; these ANOVA tables are displayed
+ before the analyses.  Different error terms are used as indicated
+ for parts (a), (b), and (c) according to whether readers and cases
+ are treated as fixed or random factors.  Note that the treatment
+ confidence intervals in part (c) are based only on the data for the
+ specified treatment, rather than the pooled data.  Treatment
+ difference 95% confidence intervals for each reader are presented
+ in part (d) of Analysis 2; each interval is based on the treatment
+ x case ANOVA table (not included) for the specified reader.
+
+ ===========================================================================
+ *****                            Estimates                            *****
+ ===========================================================================
+
+                        TREATMENT
+              -----------------------
+  READER      0            1         
+----------    ----------   ----------
+0             0.85345997   0.84961556
+1             0.86499322   0.84350972
+2             0.85730439   0.84011759
+3             0.81524197   0.81433740
+
+
+ TREATMENT MEANS (averaged across readers)
+----------    -----------------------------
+0             0.84774989
+1             0.83689507
+
+
+
+ TREATMENT MEAN DIFFERENCES
+----------   ----------    -----------
+0          - 1             0.01085482
+
+
+
+
+ ===========================================================================
+ *****                          ANOVA Tables                           *****
+ ===========================================================================
+
+ TREATMENT X READER X CASE ANOVA
+
+Source            SS               DF             MS        
+------   --------------------    ------   ------------------
+     T             0.02356541         1           0.02356541
+     R             0.20521800         3           0.06840600
+     C            52.52839868        99           0.53058989
+    TR             0.01506079         3           0.00502026
+    TC             6.41004881        99           0.06474797
+    RC            39.24295381       297           0.13213116
+   TRC            22.66007764       297           0.07629656
+ Total           121.08532315       799
+
+
+
+ TREATMENT X READER X CASE ANOVA
+
+
+
+                        Mean Squares
+ Source     df   0            1         
+ ------    ---   ----------   ----------   
+      R      3   0.04926635   0.02415991
+      C     99   0.29396753   0.30137032
+     RC    297   0.10504787   0.10337984
+ ===========================================================================
+ *****                  Variance Components Estimates                  *****
+ ===========================================================================
+
+ DBM variance component and covariance estimates
+
+     DBM Component             Estimate    
+ -----------------------  ----------------
+ Var(R)                        0.00003776
+ Var(C)                        0.05125091
+ Var(T*R)                     -0.00071276
+ Var(T*C)                     -0.00288715
+ Var(R*C)                      0.02791730
+ Var(Error)                    0.07629656
+
+
+ ===========================================================================
+ *****           Analysis 1: Random Readers and Random Cases           *****
+ ===========================================================================
+
+
+ (Results apply to the population of readers and cases)
+
+
+    a) Test for H0: Treatments have the same Wilcoxon figure of merit.
+
+
+ Source        DF    Mean Square      F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        1       0.02356541     4.69   0.1188
+ Error         3.00      -0.00652833
+ Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]
+
+ Conclusion: The Wilcoxon FOMs of treatments are not significantly different,
+             F(1,3.00) = 4.69, p = 0.1188.
+
+
+    b) 95% confidence intervals for treatment differences
+
+       Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
+----------   ----------  --------  --------  -------  ------  -------  -------------------
+0          - 1            0.01085   0.00501     3.00    2.17   0.1188  -0.00509 ,  0.02680
+
+
+
+ H0: the two treatments are equal.
+ Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]
+
+
+    c) 95% treatment confidence intervals based on reader x case ANOVAs
+       for each treatment (each analysis is based only on data for the
+       specified treatment
+
+  Treatment     Area      Std Error     DF     95% Confidence Interval 
+  ----------  ----------  ----------  -------  -------------------------
+  0           0.84774989  0.02440215    70.12  (0.79908282 , 0.89641696)
+  1           0.83689507  0.02356642   253.64  (0.79048429 , 0.88330585)
+ Error term: MS(R) + max[MS(C) - MS(RC), 0]
+
+
+
+ ===========================================================================
+ *****           Analysis 2: Fixed Readers and Random Cases            *****
+ ===========================================================================
+
+
+ (Results apply to the population of cases but only for the readers
+ used in this study)
+
+
+    a) Test for H0: Treatments have the same Wilcoxon figure of merit.
+
+
+ Source        DF    Mean Square      F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        1       0.02356541     0.36   0.5477
+ Error        99.00       0.06474797
+  Error term: MS(TC)
+
+ Conclusion: The Wilcoxon FOMs of treatments are not significantly different,
+             F(1,99.00) = 0.36, p = 0.5477.
+
+
+    b) 95% confidence intervals for treatment differences
+
+       Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
+----------   ----------  --------  --------  -------  ------  -------  -------------------
+0          - 1            0.01085   0.01799    99.00    0.60   0.5477  -0.02485 ,  0.04656
+
+
+
+ H0: the two treatments are equal.
+ Error term: MS(TC) 
+
+
+    c) 95% treatment confidence intervals based on reader x case ANOVAs
+       for each treatment (each analysis is based only on data for the
+       specified treatment
+
+  Treatment     Area      Std Error     DF     95% Confidence Interval 
+  ----------  ----------  ----------  -------  -------------------------
+  0           0.84774989  0.02710939    99.00  (0.79395898 , 0.90154079)
+  1           0.83689507  0.02744860    99.00  (0.78243109 , 0.89135905)
+ Error term: MS(C) 
+
+
+
+ TREATMENT X CASE ANOVAs for each reader
+
+
+                        Sum of Squares
+ Source     df   0             1             2             3             
+ ------    ---   -----------   -----------   -----------   -----------   
+      T      1     0.0007390     0.0230770     0.0147693     0.0000409   
+      C     99    20.1836027    22.1207489    21.2104306    28.2565703   
+     TC     99     9.0643147     7.9476463     6.0616690     5.9964964   
+
+
+
+                        Mean Squares
+ Source     df   0             1             2             3             
+ ------    ---   -----------   -----------   -----------   -----------   
+      T      1     0.0007390     0.0230770     0.0147693     0.0000409   
+      C     99     0.2038748     0.2234419     0.2142468     0.2854199   
+     TC     99     0.0915587     0.0802793     0.0612290     0.0605707   
+
+
+
+
+
+    d) Treatment-by-case ANOVA CIs for each reader 
+       (each analysis is based only on data for the specified reader)
+
+  Reader         Treatment        Estimate  StdErr       DF      t     Pr > t          95% CI      
+---------- ---------- ----------  --------  --------  -------  ------  -------  -------------------
+0          0         -1            0.00384   0.04279    99.00    0.09   0.9286  -0.08106 ,  0.08875
+1          0         -1            0.02148   0.04007    99.00    0.54   0.5931  -0.05802 ,  0.10099
+2          0         -1            0.01719   0.03499    99.00    0.49   0.6244  -0.05225 ,  0.08662
+3          0         -1            0.00090   0.03481    99.00    0.03   0.9793  -0.06816 ,  0.06997
+
+
+
+ ===========================================================================
+ *****           Analysis 3: Random Readers and Fixed Cases            *****
+ ===========================================================================
+ (Results apply to the population of readers but only for the cases used in this study)
+
+
+    a) Test for H0: Treatments have the same Wilcoxon figure of merit.
+
+
+ Source        DF    Mean Square      F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        1       0.02356541     4.69   0.1188
+ Error         3.00       0.00502026
+ Error term: MS(TR)
+
+ Conclusion: The Wilcoxon FOMs of treatments are not significantly different,
+             F(1,3.00) = 4.69, p = 0.1188.
+
+
+    b) 95% confidence intervals for treatment differences
+
+       Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
+----------   ----------  --------  --------  -------  ------  -------  -------------------
+0          - 1            0.01085   0.00501     3.00    2.17   0.1188  -0.00509 ,  0.02680
+
+
+
+ H0: the two treatments are equal.
+
+
+
+    c) Reader-by-case ANOVAs for each treatment (each analysis is based only on data for the
+       specified treatment
+
+  Treatment     Area      Std Error     DF     95% Confidence Interval 
+  ----------  ----------  ----------  -------  -------------------------
+  0           0.84774989  0.01109801     3.00  (0.81243106 , 0.88306871)
+  1           0.83689507  0.00777173     3.00  (0.81216196 , 0.86162818)

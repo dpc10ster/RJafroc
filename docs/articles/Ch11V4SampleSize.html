@@ -71,6 +71,9 @@
       <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
+      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
@@ -84,6 +87,12 @@
     </li>
     <li>
       <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -106,7 +115,7 @@
       <h1>Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2018-11-29</h4>
+            <h4 class="date">2018-12-04</h4>
       
       
       <div class="hidden name"><code>Ch11V4SampleSize.Rmd</code></div>
@@ -118,14 +127,14 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>This illustrates the <code>RJafroc</code> implementation of sample-size estimation using <code>"ORH"</code> method for significance testing.</p>
+<p>The use of the functions introduced in vignette 3, but this time using the ORH method to estimate the variance components, is illustrated here. The reader should confirm that these give the same results as the corresponding ones obtained using the DBMH method. When the figure of merit is the empirical AUC, the two methods can be shown to be identical.</p>
 </div>
 <div id="illustration-of-sspowergivenjk-using-method-orh" class="section level2">
 <h2 class="hasAnchor">
 <a href="#illustration-of-sspowergivenjk-using-method-orh" class="anchor"></a>Illustration of <code><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK()</a></code> using <code>method = "ORH"</code>
 </h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">power &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(dataset02, <span class="dv">6</span>, <span class="dv">251</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</code></pre></div>
-<p>The returned value is a list containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic.</p>
+<p>The returned value is a <code>list</code> containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic (the numerator degrees of freedom is always one less than the number of treatments, i.e., unity in this example).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(power)
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ powerRRRC: num 0.801</span>
@@ -240,18 +249,35 @@
 <span class="co">#&gt; 96         98      104 0.804</span>
 <span class="co">#&gt; 97         99      104 0.804</span>
 <span class="co">#&gt; 98        100      103   0.8</span></code></pre></div>
+<p>Since the default <code>FOM = "Wilcoxon"</code>, the table is identical to that generated in vignette 3, which used <code>method = "DBMH"</code>.</p>
 </div>
-<div id="illustration-of-sssamplesizekgivenj-using-method-orh" class="section level2">
+<div id="illustrations-of-sssamplesizekgivenj-using-method-orh" class="section level2">
 <h2 class="hasAnchor">
-<a href="#illustration-of-sssamplesizekgivenj-using-method-orh" class="anchor"></a>Illustration of <code><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ()</a></code> using <code>method = "ORH"</code>
+<a href="#illustrations-of-sssamplesizekgivenj-using-method-orh" class="anchor"></a>Illustrations of <code><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ()</a></code> using <code>method = "ORH"</code>
 </h2>
+<div id="for-rrrc-generalization" class="section level3">
+<h3 class="hasAnchor">
+<a href="#for-rrrc-generalization" class="anchor"></a>For RRRC generalization</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</code></pre></div>
-<p><code>ncases</code> is a list containing the number of cases <code>ncases$K</code> and expected power <code>ncases$power</code>.</p>
+<p><code>ncases</code> is a list containing the number of cases <code>ncases$KRRRC</code> and expected power <code>ncases$powerRRRC</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ncases)
 <span class="co">#&gt; List of 2</span>
 <span class="co">#&gt;  $ KRRRC    : num 163</span>
 <span class="co">#&gt;  $ powerRRRC: num 0.802</span></code></pre></div>
 <p>The required number of cases is 163 and expected power is 0.8015625.</p>
+</div>
+<div id="for-frrc-generalization" class="section level3">
+<h3 class="hasAnchor">
+<a href="#for-frrc-generalization" class="anchor"></a>For FRRC generalization</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"FRRC"</span>)</code></pre></div>
+<p>The required number of cases is 133 and expected power is 0.8011167.</p>
+</div>
+<div id="for-rrfc-generalization" class="section level3">
+<h3 class="hasAnchor">
+<a href="#for-rrfc-generalization" class="anchor"></a>For RRFC generalization</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRFC"</span>)</code></pre></div>
+<p>The required number of cases is 53 and expected power is 0.8049666.</p>
+</div>
 </div>
   </div>
 
@@ -263,7 +289,7 @@
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#illustration-of-sspowergivenjk-using-method-orh">Illustration of <code><a href="--/reference/SsPowerGivenJK-html">SsPowerGivenJK()</a></code> using <code>method = "ORH"</code></a></li>
       <li><a href="#illustration-of-sspowertable-using-method-orh">Illustration of <code><a href="--/reference/SsPowerTable-html">SsPowerTable()</a></code> using <code>method = "ORH"</code></a></li>
-      <li><a href="#illustration-of-sssamplesizekgivenj-using-method-orh">Illustration of <code><a href="--/reference/SsSampleSizeKGivenJ-html">SsSampleSizeKGivenJ()</a></code> using <code>method = "ORH"</code></a></li>
+      <li><a href="#illustrations-of-sssamplesizekgivenj-using-method-orh">Illustrations of <code><a href="--/reference/SsSampleSizeKGivenJ-html">SsSampleSizeKGivenJ()</a></code> using <code>method = "ORH"</code></a></li>
       </ul>
 </div>
       </div>

@@ -71,6 +71,9 @@
       <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
+      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
@@ -84,6 +87,12 @@
     </li>
     <li>
       <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -106,7 +115,7 @@
       <h1>Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2018-11-29</h4>
+            <h4 class="date">2018-12-04</h4>
       
       
       <div class="hidden name"><code>Ch10V2QuickStartDBMHExcel.Rmd</code></div>
@@ -132,15 +141,231 @@
 <h2 class="hasAnchor">
 <a href="#generating-the-excel-output-file" class="anchor"></a>Generating the Excel output file</h2>
 <p>This illustrates the <code><a href="../reference/UtilOutputReport.html">UtilOutputReport()</a></code> function. The significance testing method is specified as <code>"DBMH"</code> and the figure of merit <code>FOM</code> is specified as “Wilcoxon”. Note the option <code>ReportFileFormat = "xlsx"</code> telling the function to create an Excel output file</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">stMethod =</span> <span class="st">"DBMH"</span>, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileName =</span> <span class="st">"DBMH.xlsx"</span>, <span class="dt">ReportFileFormat =</span> <span class="st">"xlsx"</span>)
-<span class="co">#&gt; The report has been saved to DBMH.xlsx.</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileName =</span> <span class="st">"DBMH.xlsx"</span>, <span class="dt">ReportFileFormat =</span> <span class="st">"xlsx"</span>)
+<span class="co">#&gt; $fomArray</span>
+<span class="co">#&gt;           Rdr - 0   Rdr - 1   Rdr - 2   Rdr - 3</span>
+<span class="co">#&gt; Trt - 0 0.8534600 0.8649932 0.8573044 0.8152420</span>
+<span class="co">#&gt; Trt - 1 0.8496156 0.8435097 0.8401176 0.8143374</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $anovaY</span>
+<span class="co">#&gt;   Source           SS  DF          MS</span>
+<span class="co">#&gt; 1      T   0.02356541   1 0.023565410</span>
+<span class="co">#&gt; 2      R   0.20521800   3 0.068406000</span>
+<span class="co">#&gt; 3      C  52.52839868  99 0.530589886</span>
+<span class="co">#&gt; 4     TR   0.01506079   3 0.005020264</span>
+<span class="co">#&gt; 5     TC   6.41004881  99 0.064747968</span>
+<span class="co">#&gt; 6     RC  39.24295381 297 0.132131158</span>
+<span class="co">#&gt; 7    TRC  22.66007764 297 0.076296558</span>
+<span class="co">#&gt; 8  Total 121.08532315 799          NA</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $anovaYi</span>
+<span class="co">#&gt;   Source  DF          0          1</span>
+<span class="co">#&gt; 1      R   3 0.04926635 0.02415991</span>
+<span class="co">#&gt; 2      C  99 0.29396753 0.30137032</span>
+<span class="co">#&gt; 3     RC 297 0.10504787 0.10337984</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $varComp</span>
+<span class="co">#&gt;                  varComp</span>
+<span class="co">#&gt; Var(R)      3.775568e-05</span>
+<span class="co">#&gt; Var(C)      5.125091e-02</span>
+<span class="co">#&gt; Var(T*R)   -7.127629e-04</span>
+<span class="co">#&gt; Var(T*C)   -2.887147e-03</span>
+<span class="co">#&gt; Var(R*C)    2.791730e-02</span>
+<span class="co">#&gt; Var(Error)  7.629656e-02</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fRRRC</span>
+<span class="co">#&gt; [1] 4.694058</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ddfRRRC</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $pRRRC</span>
+<span class="co">#&gt; [1] 0.1188379</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtRRRC</span>
+<span class="co">#&gt;   Treatment   Estimate      StdErr DF        t     PrGTt      CILower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span>
+<span class="co">#&gt;      CIUpper</span>
+<span class="co">#&gt; 1 0.02679926</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciAvgRdrEachTrtRRRC</span>
+<span class="co">#&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.02440215  70.12179 0.7990828 0.8964170</span>
+<span class="co">#&gt; 2         1 0.8368951 0.02356642 253.64403 0.7904843 0.8833058</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fFRRC</span>
+<span class="co">#&gt; [1] 0.363956</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ndf</span>
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ddfFRRC</span>
+<span class="co">#&gt; [1] 99</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $pFRRC</span>
+<span class="co">#&gt; [1] 0.547697</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtFRRC</span>
+<span class="co">#&gt;   Treatment   Estimate     StdErr DF         t    PrGTt     CILower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span>
+<span class="co">#&gt;      CIUpper</span>
+<span class="co">#&gt; 1 0.04655638</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciAvgRdrEachTrtFRRC</span>
+<span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.02710939 99 0.7939590 0.9015408</span>
+<span class="co">#&gt; 2         1 0.8368951 0.02744860 99 0.7824311 0.8913591</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ssAnovaEachRdr</span>
+<span class="co">#&gt;   Source DF            0           1           2            3</span>
+<span class="co">#&gt; 1      T  1 7.389761e-04  0.02307702  0.01476929 4.091217e-05</span>
+<span class="co">#&gt; 2      C 99 2.018360e+01 22.12074893 21.21043057 2.825657e+01</span>
+<span class="co">#&gt; 3     TC 99 9.064315e+00  7.94764631  6.06166901 5.996496e+00</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $msAnovaEachRdr</span>
+<span class="co">#&gt;   Source DF            0          1          2            3</span>
+<span class="co">#&gt; 1      T  1 0.0007389761 0.02307702 0.01476929 4.091217e-05</span>
+<span class="co">#&gt; 2      C 99 0.2038747746 0.22344191 0.21424677 2.854199e-01</span>
+<span class="co">#&gt; 3     TC 99 0.0915587344 0.08027926 0.06122898 6.057067e-02</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtEachRdr</span>
+<span class="co">#&gt;   Reader Treatment     Estimate     StdErr DF          t     PrGTt</span>
+<span class="co">#&gt; 1      0     0 - 1 0.0038444143 0.04279223 99 0.08983908 0.9285966</span>
+<span class="co">#&gt; 2      1     0 - 1 0.0214834916 0.04006975 99 0.53615233 0.5930559</span>
+<span class="co">#&gt; 3      2     0 - 1 0.0171867933 0.03499399 99 0.49113552 0.6244176</span>
+<span class="co">#&gt; 4      3     0 - 1 0.0009045681 0.03480536 99 0.02598933 0.9793182</span>
+<span class="co">#&gt;       CILower    CIUpper</span>
+<span class="co">#&gt; 1 -0.08106465 0.08875348</span>
+<span class="co">#&gt; 2 -0.05802359 0.10099057</span>
+<span class="co">#&gt; 3 -0.05224888 0.08662247</span>
+<span class="co">#&gt; 4 -0.06815683 0.06996596</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fRRFC</span>
+<span class="co">#&gt; [1] 4.694058</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ddfRRFC</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $pRRFC</span>
+<span class="co">#&gt; [1] 0.1188379</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtRRFC</span>
+<span class="co">#&gt;   Treatment   Estimate      StdErr DF        t     PrGTt      CILower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span>
+<span class="co">#&gt;      CIUpper</span>
+<span class="co">#&gt; 1 0.02679926</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciAvgRdrEachTrtRRFC</span>
+<span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.01109801  3 0.8124311 0.8830687</span>
+<span class="co">#&gt; 2         1 0.8368951 0.00777173  3 0.8121620 0.8616282</span></code></pre></div>
 </div>
 <div id="orh-significance-testing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#orh-significance-testing" class="anchor"></a>ORH significance testing</h2>
-<p>Simply change <code>stMethod = "DBMH"</code> to <code>stMethod = "ORH"</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">stMethod =</span> <span class="st">"ORH"</span>, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileName =</span> <span class="st">"ORH.xlsx"</span>, <span class="dt">ReportFileFormat =</span> <span class="st">"xlsx"</span>)
-<span class="co">#&gt; The report has been saved to ORH.xlsx.</span></code></pre></div>
+<p>Simply change <code>method = "DBMH"</code> to <code>method = "ORH"</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileName =</span> <span class="st">"ORH.xlsx"</span>, <span class="dt">ReportFileFormat =</span> <span class="st">"xlsx"</span>)
+<span class="co">#&gt; $fomArray</span>
+<span class="co">#&gt;           Rdr - 0   Rdr - 1   Rdr - 2   Rdr - 3</span>
+<span class="co">#&gt; Trt - 0 0.8534600 0.8649932 0.8573044 0.8152420</span>
+<span class="co">#&gt; Trt - 1 0.8496156 0.8435097 0.8401176 0.8143374</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $msT</span>
+<span class="co">#&gt; [1] 0.0002356541</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $msTR</span>
+<span class="co">#&gt; [1] 5.020264e-05</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $varComp</span>
+<span class="co">#&gt;                   varCov</span>
+<span class="co">#&gt; Var(R)      2.331994e-05</span>
+<span class="co">#&gt; Var(T*R)   -6.838915e-04</span>
+<span class="co">#&gt; COV1        7.916821e-04</span>
+<span class="co">#&gt; COV2        4.836377e-04</span>
+<span class="co">#&gt; COV3        5.125091e-04</span>
+<span class="co">#&gt; Var(Error)  1.525776e-03</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fRRRC</span>
+<span class="co">#&gt; [1] 4.694058</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ndf</span>
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ddfRRRC</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $pRRRC</span>
+<span class="co">#&gt; [1] 0.1188379</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtRRRC</span>
+<span class="co">#&gt;   Treatment   Estimate      StdErr DF        t     PrGTt      CILower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span>
+<span class="co">#&gt;      CIUpper</span>
+<span class="co">#&gt; 1 0.02679926</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciAvgRdrEachTrtRRRC</span>
+<span class="co">#&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.02440215  70.12179 0.7990828 0.8964170</span>
+<span class="co">#&gt; 2         1 0.8368951 0.02356642 253.64403 0.7904843 0.8833058</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fFRRC</span>
+<span class="co">#&gt; [1] 0.363956</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ddfFRRC</span>
+<span class="co">#&gt; [1] Inf</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $pFRRC</span>
+<span class="co">#&gt; [1] 0.5463174</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtFRRC</span>
+<span class="co">#&gt;   Treatment   Estimate     StdErr  DF         t     PrGTt     CILower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.01799277 Inf 0.6032876 0.5463174 -0.02441037</span>
+<span class="co">#&gt;   CIUpper</span>
+<span class="co">#&gt; 1 0.04612</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciAvgRdrEachTrtFRRC</span>
+<span class="co">#&gt;   Treatment      Area     StdErr  DF   CILower   CIUpper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.02710939 Inf 0.7946165 0.9008833</span>
+<span class="co">#&gt; 2         1 0.8368951 0.02744860 Inf 0.7830968 0.8906933</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtEachRdr</span>
+<span class="co">#&gt;   Reader Treatment     Estimate     StdErr  DF          t     PrGTt</span>
+<span class="co">#&gt; 1      0     0 - 1 0.0038444143 0.04279223 Inf 0.08983908 0.9284151</span>
+<span class="co">#&gt; 2      1     0 - 1 0.0214834916 0.04006975 Inf 0.53615233 0.5918533</span>
+<span class="co">#&gt; 3      2     0 - 1 0.0171867933 0.03499399 Inf 0.49113552 0.6233306</span>
+<span class="co">#&gt; 4      3     0 - 1 0.0009045681 0.03480536 Inf 0.02598933 0.9792659</span>
+<span class="co">#&gt;       CILower    CIUpper</span>
+<span class="co">#&gt; 1 -0.08002681 0.08771564</span>
+<span class="co">#&gt; 2 -0.05705178 0.10001876</span>
+<span class="co">#&gt; 3 -0.05140017 0.08577376</span>
+<span class="co">#&gt; 4 -0.06731269 0.06912183</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $varCovEachRdr</span>
+<span class="co">#&gt;   Reader         Var         Cov1</span>
+<span class="co">#&gt; 0      0 0.001477168 0.0005615802</span>
+<span class="co">#&gt; 1      1 0.001518606 0.0007158133</span>
+<span class="co">#&gt; 2      2 0.001377379 0.0007650890</span>
+<span class="co">#&gt; 3      3 0.001729953 0.0011242462</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fRRFC</span>
+<span class="co">#&gt; [1] 4.694058</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ddfRRFC</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $pRRFC</span>
+<span class="co">#&gt; [1] 0.1188379</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciDiffTrtRRFC</span>
+<span class="co">#&gt;   Treatment   Estimate      StdErr DF        t     PrGTt      CILower</span>
+<span class="co">#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span>
+<span class="co">#&gt;      CIUpper</span>
+<span class="co">#&gt; 1 0.02679926</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ciAvgRdrEachTrtRRFC</span>
+<span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span>
+<span class="co">#&gt; 1         0 0.8477499 0.01109801  3 0.8124311 0.8830687</span>
+<span class="co">#&gt; 2         1 0.8368951 0.00777173  3 0.8121620 0.8616282</span></code></pre></div>
 </div>
   </div>
 
