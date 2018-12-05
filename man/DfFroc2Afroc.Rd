@@ -7,7 +7,7 @@
 DfFroc2Afroc(dataset)
 }
 \arguments{
-\item{dataset}{The dataset to be converted, \link{RJafroc-package}.}
+\item{dataset}{The dataset to be converted, \code{\link{RJafroc-package}}.}
 }
 \value{
 An AFROC dataset

@@ -6,9 +6,9 @@
 #' #'    variance components for Obuchowski-Rockette (OR) methods for 
 #' #'    the specified dataset.
 #' #'
-#' #' @param dataset {The dataset to be analyzed, see \link{RJafroc-package}}
+#' #' @param dataset {The dataset to be analyzed, see \code{\link{RJafroc-package}}}
 #' #' @param FOM {The figure of merit to be used in the analysis, default 
-#' #'    is \code{"wJAFROC"}, see \link{UtilFigureOfMerit}}
+#' #'    is \code{"wJAFROC"}, see \code{\link{UtilFigureOfMerit}}}
 #' #' @param method The analysis method to be used. There are two options: 
 #' #'    \code{"DBMH"} (default) or \code{"ORH"}, representing the 
 #' #'    Dorfman-Berbaum-Metz and ther Obuchowski-Rockette methods, respectively.

@@ -4,7 +4,7 @@
 #' and all lesion localizations are counted 
 #' 
 #' 
-#' @param dataset The dataset to be converted, \link{RJafroc-package}.
+#' @param dataset The dataset to be converted, \code{\link{RJafroc-package}}.
 #' 
 #' @return An AFROC dataset
 #' 

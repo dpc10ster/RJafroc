@@ -8,7 +8,7 @@
 #' 
 #' @param dataset A single-treatment or single-reader dataset.
 #' @param FOM The figure of merit, default  \code{"wAFROC"}, 
-#'    see \link{UtilFigureOfMerit}.
+#'    see \code{\link{UtilFigureOfMerit}}.
 #' @param alpha The significance level (\code{alpha}, default 0.05) 
 #'    of the test of the null hypothesis that FOMs of all levels of 
 #'    the fixed factor are identical.

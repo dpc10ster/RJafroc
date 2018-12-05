@@ -19,7 +19,7 @@
 #'    treatment and reader IDs. Otherwise, treatment 
 #'    and reader IDs in the original data file will be used.
 #' 
-#' @return A dataset with the structure specified in \link{RJafroc-package}.
+#' @return A dataset with the structure specified in \code{\link{RJafroc-package}}.
 #' 
 #' @examples
 #' \dontrun{

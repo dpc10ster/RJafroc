@@ -33,7 +33,7 @@ Convert \strong{physical} RSM parameters \eqn{\lambda}' and \eqn{\nu}' to the
 \details{
 RSM is the Radiological Search Model described in the book. A latent mark 
    becomes an actual mark if the corresponding rating exceeds the lowest reporting 
-   threshold zeta1. See also \link{UtilIntrinsic2PhysicalRSM}.
+   threshold zeta1. See also \code{\link{UtilIntrinsic2PhysicalRSM}}.
 }
 \examples{
 mu <- 2;lambdaP <- 10;nuP <- 0.9

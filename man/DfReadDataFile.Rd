@@ -29,7 +29,7 @@ treatment and reader IDs. Otherwise, treatment
 and reader IDs in the original data file will be used.}
 }
 \value{
-A dataset with the structure specified in \link{RJafroc-package}.
+A dataset with the structure specified in \code{\link{RJafroc-package}}.
 }
 \description{
 Read a disk file and create a dataset object from it.

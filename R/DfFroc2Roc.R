@@ -3,7 +3,7 @@
 #' @description Convert an FROC dataset to a highest rating inferred ROC dataset
 #'  
 #' 
-#' @param dataset The FROC dataset to be converted, \link{RJafroc-package}.
+#' @param dataset The FROC dataset to be converted, \code{\link{RJafroc-package}}.
 #' 
 #' @return An ROC dataset
 #' 

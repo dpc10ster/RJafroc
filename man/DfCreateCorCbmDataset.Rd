@@ -2,7 +2,7 @@
 % Please edit documentation in R/DfCreateCorCbmDataset.R
 \name{DfCreateCorCbmDataset}
 \alias{DfCreateCorCbmDataset}
-\title{Create paired dataset for testing \link{FitCorCbm}}
+\title{Create paired dataset for testing \code{\link{FitCorCbm}}}
 \usage{
 DfCreateCorCbmDataset(seed = 123, K1 = 50, K2 = 50,
   desiredNumBins = 5, muX = 1.5, muY = 3, alphaX = 0.4,
@@ -31,7 +31,7 @@ DfCreateCorCbmDataset(seed = 123, K1 = 50, K2 = 50,
 visible in both conditions}
 }
 \value{
-The return value is the desired dataset, suitable for testing \link{FitCorCbm}
+The return value is the desired dataset, suitable for testing \code{\link{FitCorCbm}}.
 }
 \description{
 The paired dataset is generated using bivariate sampling; 

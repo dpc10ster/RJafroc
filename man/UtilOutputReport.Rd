@@ -11,16 +11,17 @@ UtilOutputReport(dataset, DataFileName, DataFileFormat, delimiter = ",",
   overwrite = TRUE)
 }
 \arguments{
-\item{dataset}{The dataset object to be analyzed (not the file name), see \code{Dataset} in \link{RJafroc-package}.}
+\item{dataset}{The dataset object to be analyzed (not the file name), see \code{Dataset} 
+in \code{\link{RJafroc-package}}.}
 
 \item{DataFileName}{A string variable containing the name of the data file 
-to be analyzed, in the form \code{baseName.ext}, see \link{DfReadDataFile}.}
+to be analyzed, in the form \code{baseName.ext}, see \code{\link{DfReadDataFile}}.}
 
 \item{DataFileFormat}{The format of the data specified in \code{DataFileName}: 
-see \link{DfReadDataFile}. Must be specified if \code{DataFileName}
+see \code{\link{DfReadDataFile}}. Must be specified if \code{DataFileName}
 is specified. Valid values are "JAFROC", "MRMC" or "iMRMC"}
 
-\item{delimiter}{used in text input data file, See \link{DfReadDataFile}.}
+\item{delimiter}{used in text input data file, See \code{\link{DfReadDataFile}}.}
 
 \item{dataDescription}{Optional description of the data, default is \code{"MyData"}}
 
@@ -35,13 +36,13 @@ Excel file, respectively.}
 
 \item{method}{The significance testing method, \code{"ORH"} or (the default) \code{"DBMH"}.}
 
-\item{FOM}{The figure of merit; see \link{StSignificanceTesting}.}
+\item{FOM}{The figure of merit; see \code{\link{StSignificanceTesting}}.}
 
-\item{alpha}{See \link{StSignificanceTesting}.}
+\item{alpha}{See \code{\link{StSignificanceTesting}}.}
 
-\item{covEstMethod}{See \link{StSignificanceTesting}; only needed for \code{"ORH"} analysis.}
+\item{covEstMethod}{See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis.}
 
-\item{nBoots}{See \link{StSignificanceTesting}; only needed for \code{"ORH"} analysis.}
+\item{nBoots}{See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis.}
 
 \item{renumber}{A logical variable: if \code{TRUE}, consecutive integers 
 (staring from 1) will be used as the treatment and reader IDs in the 
@@ -54,7 +55,7 @@ until the user inputs "y" or "n" to determine whether to overwrite the
 existing file. If \code{TRUE}, an existing file will be silently overwritten.}
 }
 \value{
-sigTestResult The object returned by \link{StSignificanceTesting}.
+sigTestResult The object returned by \code{\link{StSignificanceTesting}}.
 }
 \description{
 Generate a formatted report of the analysis and save to a text file

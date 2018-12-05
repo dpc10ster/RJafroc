@@ -24,7 +24,7 @@ This is a crossed treatment dataset, see book Section 18.5. There are two treatm
 The first treatment factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
 algorithms. The second treatment factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
 represent the mAs values of the image acquisition. The factors are fully crossed. The function 
-\link{StSignificanceTestingCrossedModalities} analyzes such datasets.
+\code{\link{StSignificanceTestingCrossedModalities}} analyzes such datasets.
 }
 \examples{
 str(datasetCrossedModality)

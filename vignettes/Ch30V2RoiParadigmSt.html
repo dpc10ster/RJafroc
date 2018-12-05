@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty" />
 
-<meta name="date" content="2018-12-04" />
+<meta name="date" content="2018-12-05" />
 
 <title>Chapter 30, Vignette 2: Significance testing for the ROI paradigm</title>
 
@@ -72,95 +72,219 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</h1>
 <h4 class="author"><em>Dev P. Chakraborty</em></h4>
-<h4 class="date"><em>2018-12-04</em></h4>
+<h4 class="date"><em>2018-12-05</em></h4>
 
 
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <ul>
-<li><p>TBA</p></li>
-<li><p>TBA</p></li>
-<li><p>TBA</p></li>
-<li><p>TBA</p></li>
+<li><p>For an ROI dataset calling <code>StSignificanceTesting()</code> automatically defaults to <code>method = &quot;ORH&quot;</code>, <code>covEstMethod = &quot;DeLong&quot;</code> and <code>FOM = &quot;ROI&quot;</code>.</p></li>
+<li><p>The covariance estimation method is based on the original DeLong method <span class="citation">(E. R. DeLong, DeLong, and Clarke-Pearson 1988)</span>, which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by <span class="citation">(Obuchowski 1997)</span> to ROI data.</p></li>
+<li><p>The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by <span class="citation">(Obuchowski 1997)</span> for estimating the covariance matrix. Once the covariances are known, <code>method = &quot;ORH&quot;</code> can be applied to perform the significance testing, as described in <span class="citation">(Chakraborty 2017, Chapter 10)</span>.</p></li>
 </ul>
 </div>
-<div id="an-example-roi-dataset" class="section level2">
-<h2>An example ROI dataset</h2>
-<p>An example is <code>datasetROI</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(datasetROI)
-<span class="co">#&gt; List of 8</span>
-<span class="co">#&gt;  $ NL          : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span>
-<span class="co">#&gt;  $ LL          : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...</span>
-<span class="co">#&gt;  $ lesionNum   : int [1:40] 2 3 2 2 3 3 1 2 3 3 ...</span>
-<span class="co">#&gt;  $ lesionID    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...</span>
-<span class="co">#&gt;  $ lesionWeight: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...</span>
-<span class="co">#&gt;  $ dataType    : chr &quot;ROI&quot;</span>
-<span class="co">#&gt;  $ modalityID  : Named chr [1:2] &quot;1&quot; &quot;2&quot;</span>
-<span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;1&quot; &quot;2&quot;</span>
-<span class="co">#&gt;  $ readerID    : Named chr [1:5] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...</span>
-<span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:5] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...</span>
-datasetROI<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,]
-<span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span>
-<span class="kw">mean</span>(datasetROI<span class="op">$</span>NL[,,<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,])
-<span class="co">#&gt; [1] 0.1014348</span>
-datasetROI<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">51</span>,]
-<span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span>
-datasetROI<span class="op">$</span>lesionNum[<span class="dv">1</span>]
-<span class="co">#&gt; [1] 2</span>
-datasetROI<span class="op">$</span>LL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,]
-<span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span>
-x &lt;-<span class="st"> </span>datasetROI<span class="op">$</span>LL;<span class="kw">mean</span>(x[<span class="kw">is.finite</span>(x)])
-<span class="co">#&gt; [1] 1.815513</span></code></pre></div>
+<div id="the-roi-figure-of-merit" class="section level2">
+<h2>The ROI figure of merit</h2>
+<p>Let <span class="math inline">\({{X}_{kr}}\)</span> denote the rating for the r<sup>th</sup> <strong>lesion-containing</strong> ROI in the k<sup>th</sup> case and let <span class="math inline">\(n_{k}^{L}\)</span> be the total number of lesion-containing ROIs in the k<sup>th</sup> case. Similarly, let <span class="math inline">\({{Y}_{kr}}\)</span> denote the rating for the r<sup>th</sup> <strong>lesion-free</strong> ROI in the k<sup>th</sup> case and <span class="math inline">\(n_{k}^{N}\)</span> denote the total number of lesion-free ROIs in the k<sup>th</sup> case. Let <span class="math inline">\({{N}_{L}}\)</span> denote the total number of lesion-containing ROIs in the image set and <span class="math inline">\({{N}_{N}}\)</span> denote the total number of lesion-free ROIs. These are given by <span class="math inline">\({{N}_{L}}=\sum\nolimits_{k}{n_{k}^{L}}\)</span> and <span class="math inline">\({{N}_{N}}=\sum\nolimits_{k}{n_{k}^{N}}\)</span>. The ROI figure of merit <span class="math inline">\(\theta\)</span> is defined by: <span class="math display">\[\theta =\frac{1}{{{N}_{L}}{{N}_{N}}}\sum\nolimits_{k}{\sum\nolimits_{{{k}'}}{\sum\limits_{r=1}^{n_{k}^{L}}{\sum\limits_{{r}'=1}^{n_{k'}^{N}}{\psi ({{X}_{kr}},{{Y}_{{k}'{r}'}})}}}}\]</span></p>
+<p>Here the kernel function is defined by:</p>
+<p><span class="math display">\[\psi (X,Y)=\left\{ \begin{align}
+  &amp; 1.0\ \ \ \text{if}\ Y&lt;X \\ 
+ &amp; 0.5\ \ \ \text{if}\ Y=X \\ 
+ &amp; 0.0\ \ \ \text{if}\ Y&gt;X \\ 
+\end{align} \right.\]</span></p>
+<p>The ROIs are <em>effectively regarded as mini-cases</em> and one calculates the FOM as the Wilcoxon statistic considering the mini-cases as actual cases. The correlations between the ratings of ROIs on the same case are accounted for in the analysis.</p>
+</div>
+<div id="calculation-of-the-roi-figure-of-merit." class="section level2">
+<h2>Calculation of the ROI figure of merit.</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">UtilFigureOfMerit</span>(datasetROI)
+<span class="co">#&gt; Incorrect FOM supplied, changing to 'ROI'</span>
+<span class="co">#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5</span>
+<span class="co">#&gt; Trt - 1 0.9057239 0.8842834 0.8579279 0.9350207 0.8352103</span>
+<span class="co">#&gt; Trt - 2 0.9297186 0.9546035 0.8937652 0.9531716 0.8770076</span>
+fom &lt;-<span class="st"> </span><span class="kw">UtilFigureOfMerit</span>(datasetROI, <span class="dt">FOM =</span> <span class="st">&quot;ROI&quot;</span>)</code></pre></div>
 <ul>
-<li><p>This is a 2-treatment 5-reader dataset, with 50 non-diseased cases and 40 diseased cases, and <span class="math inline">\({{Q}_{k}}=4\)</span> for all <em>k</em>.</p></li>
-<li><p>For treatment 1, reader 1, case 1 (the 1st non-diseased case) the 4 ratings are 0.949868, -0.0582497, -0.776378, 0.012073. The mean of all ratings on non-diseased cases is 0.1014348.</p></li>
-<li><p>For treatment 1, reader 1, case 51 (the 1st diseased case) the NL ratings are 1.01867, 0.3471. There are only two finite values because this case has two ROI-level-abnormal regions, and 2 plus 2 makes for the assumed 4-regions per case. The corresponding <code>$lesionNum</code> field is 2. The ratings of the 2 ROI-level-abnormal ROIs on this case are 1.56928, 2.05945. The mean rating over all ROI-level-abnormal ROIs is 1.8155127.</p></li>
+<li>If the correct <code>FOM</code> is not supplied, it defaults to <code>FOM = ROI</code>.<br />
+</li>
+<li>This is a 2-treatment 5-reader dataset.<br />
+</li>
+<li>For treatment 1, reader 1 the figure of merit is 0.9057239.<br />
+</li>
+<li>For treatment 2, reader 5 the figure of merit is 0.8770076.<br />
+</li>
+<li>Etc.</li>
 </ul>
 </div>
-<div id="the-roi-excel-data-file" class="section level2">
-<h2>The ROI Excel data file</h2>
-<p>An Excel file in JAFROC format containing simulated ROI data corresponding to <code>datasetROI</code>, is included with the distribution. The first command (below) finds the location of the file and the second command uses <code>DfReadDataFile</code> to read it and save it to a dataset object <code>ds</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fileName &lt;-<span class="st"> </span><span class="kw">system.file</span>(
-    <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;includedRoiData.xlsx&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;RJafroc&quot;</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)
-ds &lt;-<span class="st"> </span><span class="kw">DfReadDataFile</span>(fileName)
-ds<span class="op">$</span>dataType
-<span class="co">#&gt; [1] &quot;ROI&quot;</span></code></pre></div>
-<p>The <code>DfReadDataFile</code> function automatically recognizes that this is an <em>ROI</em> dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets:</p>
+<div id="significance-testing" class="section level2">
+<h2>Significance testing</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(datasetROI)
+<span class="co">#&gt; ROI dataset: using method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.</span>
+<span class="kw">str</span>(ret)
+<span class="co">#&gt; List of 22</span>
+<span class="co">#&gt;  $ fomArray           : num [1:2, 1:5] 0.906 0.93 0.884 0.955 0.858 ...</span>
+<span class="co">#&gt;   ..- attr(*, &quot;dimnames&quot;)=List of 2</span>
+<span class="co">#&gt;   .. ..$ : chr [1:2] &quot;Trt - 1&quot; &quot;Trt - 2&quot;</span>
+<span class="co">#&gt;   .. ..$ : chr [1:5] &quot;Rdr - 1&quot; &quot;Rdr - 2&quot; &quot;Rdr - 3&quot; &quot;Rdr - 4&quot; ...</span>
+<span class="co">#&gt;  $ msT                : num 0.00361</span>
+<span class="co">#&gt;  $ msTR               : num 0.000207</span>
+<span class="co">#&gt;  $ varComp            :'data.frame': 6 obs. of  1 variable:</span>
+<span class="co">#&gt;   ..$ varCov: num [1:6] 0.001082 0.000153 0.000247 0.000187 0.000154 ...</span>
+<span class="co">#&gt;  $ fRRRC              : num 9.76</span>
+<span class="co">#&gt;  $ ndf                : num 1</span>
+<span class="co">#&gt;  $ ddfRRRC            : num 12.8</span>
+<span class="co">#&gt;  $ pRRRC              : num 0.00817</span>
+<span class="co">#&gt;  $ ciDiffTrtRRRC      :'data.frame': 1 obs. of  8 variables:</span>
+<span class="co">#&gt;   ..$ Treatment: chr &quot;1 - 2&quot;</span>
+<span class="co">#&gt;   ..$ Estimate : num -0.038</span>
+<span class="co">#&gt;   ..$ StdErr   : num 0.0122</span>
+<span class="co">#&gt;   ..$ DF       : num 12.8</span>
+<span class="co">#&gt;   ..$ t        : num -3.12</span>
+<span class="co">#&gt;   ..$ PrGTt    : num 0.00817</span>
+<span class="co">#&gt;   ..$ CILower  : num -0.0643</span>
+<span class="co">#&gt;   ..$ CIUpper  : num -0.0117</span>
+<span class="co">#&gt;  $ ciAvgRdrEachTrtRRRC:'data.frame': 2 obs. of  6 variables:</span>
+<span class="co">#&gt;   ..$ Treatment: Factor w/ 2 levels &quot;1&quot;,&quot;2&quot;: 1 2</span>
+<span class="co">#&gt;   ..$ Area     : num [1:2] 0.884 0.922</span>
+<span class="co">#&gt;   ..$ StdErr   : num [1:2(1d)] 0.0232 0.0197</span>
+<span class="co">#&gt;   ..$ DF       : num [1:2(1d)] 12.2 10.1</span>
+<span class="co">#&gt;   ..$ CILower  : num [1:2] 0.833 0.878</span>
+<span class="co">#&gt;   ..$ CIUpper  : num [1:2] 0.934 0.966</span>
+<span class="co">#&gt;  $ fFRRC              : num 16.6</span>
+<span class="co">#&gt;  $ ddfFRRC            : num Inf</span>
+<span class="co">#&gt;  $ pFRRC              : num 4.58e-05</span>
+<span class="co">#&gt;  $ ciDiffTrtFRRC      :'data.frame': 1 obs. of  8 variables:</span>
+<span class="co">#&gt;   ..$ Treatment: chr &quot;1 - 2&quot;</span>
+<span class="co">#&gt;   ..$ Estimate : num -0.038</span>
+<span class="co">#&gt;   ..$ StdErr   : num 0.00933</span>
+<span class="co">#&gt;   ..$ DF       : num Inf</span>
+<span class="co">#&gt;   ..$ t        : num -4.08</span>
+<span class="co">#&gt;   ..$ PrGTt    : num 4.58e-05</span>
+<span class="co">#&gt;   ..$ CILower  : num -0.0563</span>
+<span class="co">#&gt;   ..$ CIUpper  : num -0.0197</span>
+<span class="co">#&gt;  $ ciAvgRdrEachTrtFRRC:'data.frame': 2 obs. of  6 variables:</span>
+<span class="co">#&gt;   ..$ Treatment: Factor w/ 2 levels &quot;1&quot;,&quot;2&quot;: 1 2</span>
+<span class="co">#&gt;   ..$ Area     : num [1:2] 0.884 0.922</span>
+<span class="co">#&gt;   ..$ StdErr   : num [1:2(1d)] 0.0163 0.0129</span>
+<span class="co">#&gt;   ..$ DF       : num [1:2(1d)] Inf Inf</span>
+<span class="co">#&gt;   ..$ CILower  : num [1:2] 0.852 0.896</span>
+<span class="co">#&gt;   ..$ CIUpper  : num [1:2] 0.916 0.947</span>
+<span class="co">#&gt;  $ ciDiffTrtEachRdr   :'data.frame': 5 obs. of  9 variables:</span>
+<span class="co">#&gt;   ..$ Reader   : Factor w/ 5 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 2 3 4 5</span>
+<span class="co">#&gt;   ..$ Treatment: Factor w/ 1 level &quot;1 - 2&quot;: 1 1 1 1 1</span>
+<span class="co">#&gt;   ..$ Estimate : num [1:5] -0.024 -0.0703 -0.0358 -0.0182 -0.0418</span>
+<span class="co">#&gt;   ..$ StdErr   : num [1:5] 0.01025 0.01448 0.01648 0.00928 0.01398</span>
+<span class="co">#&gt;   ..$ DF       : num [1:5] Inf Inf Inf Inf Inf</span>
+<span class="co">#&gt;   ..$ t        : num [1:5] -2.34 -4.86 -2.17 -1.96 -2.99</span>
+<span class="co">#&gt;   ..$ PrGTt    : num [1:5] 1.93e-02 1.20e-06 2.97e-02 5.05e-02 2.79e-03</span>
+<span class="co">#&gt;   ..$ CILower  : num [1:5] -0.0441 -0.0987 -0.0681 -0.0363 -0.0692</span>
+<span class="co">#&gt;   ..$ CIUpper  : num [1:5] -3.90e-03 -4.19e-02 -3.53e-03 3.88e-05 -1.44e-02</span>
+<span class="co">#&gt;  $ varCovEachRdr      :'data.frame': 5 obs. of  3 variables:</span>
+<span class="co">#&gt;   ..$ Reader: Factor w/ 5 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 2 3 4 5</span>
+<span class="co">#&gt;   ..$ Var   : num [1:5] 0.000269 0.000227 0.000481 0.000168 0.000522</span>
+<span class="co">#&gt;   ..$ Cov1  : num [1:5] 0.000216 0.000122 0.000345 0.000125 0.000424</span>
+<span class="co">#&gt;  $ fRRFC              : num 17.5</span>
+<span class="co">#&gt;  $ ddfRRFC            : num 4</span>
+<span class="co">#&gt;  $ pRRFC              : num 0.0139</span>
+<span class="co">#&gt;  $ ciDiffTrtRRFC      :'data.frame': 1 obs. of  8 variables:</span>
+<span class="co">#&gt;   ..$ Treatment: chr &quot;1 - 2&quot;</span>
+<span class="co">#&gt;   ..$ Estimate : num -0.038</span>
+<span class="co">#&gt;   ..$ StdErr   : num 0.00909</span>
+<span class="co">#&gt;   ..$ DF       : num 4</span>
+<span class="co">#&gt;   ..$ t        : num -4.18</span>
+<span class="co">#&gt;   ..$ PrGTt    : num 0.0139</span>
+<span class="co">#&gt;   ..$ CILower  : num -0.0633</span>
+<span class="co">#&gt;   ..$ CIUpper  : num -0.0128</span>
+<span class="co">#&gt;  $ ciAvgRdrEachTrtRRFC:'data.frame': 2 obs. of  6 variables:</span>
+<span class="co">#&gt;   ..$ Treatment: Factor w/ 2 levels &quot;1&quot;,&quot;2&quot;: 1 2</span>
+<span class="co">#&gt;   ..$ Area     : num [1:2] 0.884 0.922</span>
+<span class="co">#&gt;   ..$ StdErr   : num [1:2(1d)] 0.0175 0.0157</span>
+<span class="co">#&gt;   ..$ DF       : num [1:2(1d)] 4 4</span>
+<span class="co">#&gt;   ..$ CILower  : num [1:2] 0.835 0.878</span>
+<span class="co">#&gt;   ..$ CIUpper  : num [1:2] 0.932 0.965</span></code></pre></div>
 <ul>
-<li>The <code>Truth</code> worksheet - this indicates which cases are diseased and which are non-diseased and the number of ROI-level-abnormal region on each case.
-<ul>
-<li>There are 50 normal cases (labeled 1-50) under column <code>CaseID</code> and 40 abnormal cases (labeled 51-90).<br />
-</li>
-<li>The <code>LesionID</code> field for each normal case (e.g., <code>CaseID</code> = 1) is zero and there is one row per case. For abnormal cases, this field has a variable number of entries, ranging from 1 to 4. As an example, there are two rows for <code>CaseID</code> = 51 in the Excel file: one with <code>LesionID</code> = 2 and one with <code>LesionID</code> = 3.<br />
-</li>
-<li>The <code>Weights</code> field is always zero (this field is not used in ROI analysis).<br />
-</li>
-</ul></li>
-<li>The <code>FP</code> (or <code>NL</code>) worksheet - this lists the ratings of ROI-level-normal regions.
-<ul>
-<li>For <code>ReaderID</code> = 1, <code>ModalityID</code> = 1 and <code>CaseID</code> = 1 there are 4 rows, corresponding to the 4 ROI-level-normal regions in this case. The corresponding ratings are 0.949868, -0.0582497, -0.776378, 0.012073. The pattern repeats for other treatments and readers, but the rating are, of course, different.<br />
-</li>
-<li>Each <code>CaseID</code> is represented in the <code>FP</code> worksheet (a rare exception could occur if a case-level abnormal case has 4 abnormal regions).</li>
-</ul></li>
-<li>The <code>TP</code> (or <code>LL</code>) worksheet - this lists the ratings of ROI-level-abnormal regions.
-<ul>
-<li>Because normal cases generate TPs, one does not find any entry with <code>CaseID</code> = 1-50 in the <code>TP</code> worksheet.<br />
-</li>
-<li>The lowest <code>CaseID</code> in the <code>TP</code> worksheet is 51, which corresponds to the first abnormal case.<br />
-</li>
-<li>There are two entries for this case, corresponding to the two ROI-level-abnormal regions present in this case. Recall that corresponding to this <code>CaseID</code> in the <code>Truth</code> worksheet there were two entries with <code>LesionID</code> = 2 and 3. These must match the <code>LesionID</code>’s listed for this case in the <code>TP</code> worksheet. Complementing these two entries, in the <code>FP</code> worksheet for <code>CaseID</code> = 51, there are 2 entries corresponding to the two ROI-level-normal regions in this case.<br />
-</li>
-<li>One should be satisfied that for each abnormal case the sum of the number of entries in the <code>TP</code> and <code>FP</code> worksheets is always 4.</li>
-</ul></li>
+<li><p>While <code>ret</code> is a list with many (22) members, their meaning should be clear from the notation. As examples:</p></li>
+<li><p>The variance components are given by:</p></li>
 </ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>varComp
+<span class="co">#&gt;                  varCov</span>
+<span class="co">#&gt; Var(R)     0.0010823592</span>
+<span class="co">#&gt; Var(T*R)   0.0001526084</span>
+<span class="co">#&gt; COV1       0.0002465125</span>
+<span class="co">#&gt; COV2       0.0001870571</span>
+<span class="co">#&gt; COV3       0.0001543764</span>
+<span class="co">#&gt; Var(Error) 0.0003333119</span></code></pre></div>
+<div id="rrrc-analysis" class="section level3">
+<h3>RRRC analysis</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>fRRRC
+<span class="co">#&gt; [1] 9.763602</span>
+ret<span class="op">$</span>ddfRRRC
+<span class="co">#&gt; [1] 12.82259</span>
+ret<span class="op">$</span>pRRRC
+<span class="co">#&gt; [1] 0.008173042</span></code></pre></div>
+<ul>
+<li><p>The F-statistic is 9.7636016, with <code>ndf = 1</code> and <code>ddf</code> = 12.8225898, which yields a p-value of 0.008173.</p></li>
+<li><p>The confidence interval for the reader averaged difference between the two treatments is given by:</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ciDiffTrtRRRC
+<span class="co">#&gt;   Treatment    Estimate     StdErr       DF         t       PrGTt</span>
+<span class="co">#&gt; 1     1 - 2 -0.03802005 0.01216768 12.82259 -3.124676 0.008173042</span>
+<span class="co">#&gt;       CILower     CIUpper</span>
+<span class="co">#&gt; 1 -0.06434373 -0.01169636</span></code></pre></div>
 </div>
-<div id="next" class="section level2">
-<h2>Next</h2>
-<p>The next vignette illustrates significance testing for this paradigm.</p>
+<div id="frrc-analysis" class="section level3">
+<h3>FRRC analysis</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>fFRRC
+<span class="co">#&gt; [1] 16.6135</span>
+ret<span class="op">$</span>ddfFRRC
+<span class="co">#&gt; [1] Inf</span>
+ret<span class="op">$</span>pFRRC
+<span class="co">#&gt; [1] 4.582365e-05</span></code></pre></div>
+<ul>
+<li><p>The F-statistic is 16.6135014, with <code>ndf = 1</code> and <code>ddf</code> = <code>Inf</code>, which yields a p-value of 4.582365110^{-5}.</p></li>
+<li><p>The confidence interval for the reader averaged difference between the two treatments is given by:</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ciDiffTrtFRRC
+<span class="co">#&gt;   Treatment    Estimate      StdErr  DF         t        PrGTt     CILower</span>
+<span class="co">#&gt; 1     1 - 2 -0.03802005 0.009327861 Inf -4.075966 4.582365e-05 -0.05630232</span>
+<span class="co">#&gt;       CIUpper</span>
+<span class="co">#&gt; 1 -0.01973778</span></code></pre></div>
 </div>
-<div id="references" class="section level2">
+<div id="rrfc-analysis" class="section level3">
+<h3>RRFC analysis</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>fRRFC
+<span class="co">#&gt; [1] 17.48107</span>
+ret<span class="op">$</span>ddfRRFC
+<span class="co">#&gt; [1] 4</span>
+ret<span class="op">$</span>pRRFC
+<span class="co">#&gt; [1] 0.01390667</span></code></pre></div>
+<ul>
+<li><p>The F-statistic is 17.4810666, with <code>ndf = 1</code> and <code>ddf</code> = 4, which yields a p-value of 0.0139067.</p></li>
+<li><p>The confidence interval for the reader averaged difference between the two treatments is given by:</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>ciDiffTrtRRFC
+<span class="co">#&gt;   Treatment    Estimate     StdErr DF         t      PrGTt     CILower</span>
+<span class="co">#&gt; 1     1 - 2 -0.03802005 0.00909345  4 -4.181037 0.01390667 -0.06326751</span>
+<span class="co">#&gt;       CIUpper</span>
+<span class="co">#&gt; 1 -0.01277258</span></code></pre></div>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>TBA</p>
+</div>
+<div id="references" class="section level2 unnumbered">
 <h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-RN2680">
+<p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples</em>. Book. Boca Raton, FL: CRC Press.</p>
+</div>
+<div id="ref-RN112">
+<p>DeLong, E. R., D. M. DeLong, and D. L. Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” Journal Article. <em>Biometrics</em> 44: 837–45.</p>
+</div>
+<div id="ref-RN1233">
+<p>Obuchowski, Nancy A. 1997. “Nonparametric Analysis of Clustered Roc Curve Data.” Journal Article. <em>Biometrics</em> 53: 567–78.</p>
+</div>
+</div>
 </div>
 
 

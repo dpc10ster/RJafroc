@@ -6,11 +6,11 @@
 #' 
 #' @param crossedData The crossed treatments dataset
 #' @param avgIndx The index of the treatment to be averaged over
-#' @param FOM See \link{StSignificanceTesting}.
-#' @param alpha See \link{StSignificanceTesting}.
-#' @param option See \link{StSignificanceTesting}.
+#' @param FOM See \code{\link{StSignificanceTesting}}
+#' @param alpha See \code{\link{StSignificanceTesting}}
+#' @param option See \code{\link{StSignificanceTesting}}
 #' 
-#' @return The return list contains the same items with \link{StSignificanceTesting}.
+#' @return The return list contains the same items with \code{\link{StSignificanceTesting}}.
 #' 
 #' @examples
 #' \dontrun{ 

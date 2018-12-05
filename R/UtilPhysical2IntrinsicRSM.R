@@ -23,7 +23,7 @@
 #' 
 #' @details RSM is the Radiological Search Model described in the book. A latent mark 
 #'    becomes an actual mark if the corresponding rating exceeds the lowest reporting 
-#'    threshold zeta1. See also \link{UtilIntrinsic2PhysicalRSM}.
+#'    threshold zeta1. See also \code{\link{UtilIntrinsic2PhysicalRSM}}.
 #' 
 #' @references
 #' Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 

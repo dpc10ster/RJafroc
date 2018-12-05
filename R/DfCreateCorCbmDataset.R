@@ -1,4 +1,4 @@
-#' Create paired dataset for testing \link{FitCorCbm}
+#' Create paired dataset for testing \code{\link{FitCorCbm}}
 #' 
 #' @description The paired dataset is generated using bivariate sampling; 
 #' details are in referenced publication 
@@ -21,7 +21,7 @@
 #' @details The ROC data is bined to 5 bins in each condition. 
 #'    
 #'     
-#' @return The return value is the desired dataset, suitable for testing \link{FitCorCbm}
+#' @return The return value is the desired dataset, suitable for testing \code{\link{FitCorCbm}}.
 #' 
 #' 
 #' 

@@ -28,8 +28,8 @@
 #' 
 #' 
 #' @details 
-#' If dataset is FROC, first convert it to ROC, using \link{DfFroc2Roc}. MLE ROC algorithms 
-#'    require binned datasets. Use \link{DfBinDataset} to perform the binning prior to calling 
+#' If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. MLE ROC algorithms 
+#'    require binned datasets. Use \code{\link{DfBinDataset}} to perform the binning prior to calling 
 #'    this function. 
 #'    In the RSM: (1) The (random) number of latent NLs per case is Poisson distributed 
 #'    with mean parameter lambdaP, and the corresponding ratings are sampled from 

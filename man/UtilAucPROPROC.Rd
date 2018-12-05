@@ -17,8 +17,8 @@ PROPROC model-predicted ROC-AUC for the specified parameters
 }
 \description{
 {Returns the PROPROC ROC-AUC corresponding to specified 
-   parameters. See also \link{UtilAucsRSM}, \link{UtilAucBinormal} 
-   and \link{UtilAucCBM}.}
+   parameters. See also \code{\link{UtilAucsRSM}}, \code{\link{UtilAucBinormal}} 
+   and \code{\link{UtilAucCBM}}}
 }
 \examples{
 c1 <- .2;da <- 1.5

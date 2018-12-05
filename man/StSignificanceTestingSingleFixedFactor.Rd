@@ -11,7 +11,7 @@ StSignificanceTestingSingleFixedFactor(dataset, FOM = "wAFROC",
 \item{dataset}{A single-treatment or single-reader dataset.}
 
 \item{FOM}{The figure of merit, default  \code{"wAFROC"}, 
-see \link{UtilFigureOfMerit}.}
+see \code{\link{UtilFigureOfMerit}}.}
 
 \item{alpha}{The significance level (\code{alpha}, default 0.05) 
 of the test of the null hypothesis that FOMs of all levels of 

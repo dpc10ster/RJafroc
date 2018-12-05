@@ -2,9 +2,9 @@
 #' 
 #' Calculates the mean squares used in the DBMH and ORH methods
 #' 
-#' @param dataset The dataset to be analyzed, see \link{RJafroc-package}.
+#' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}.
 #' @param FOM The figure of merit to be used in the calculation. The default 
-#'    is \code{"wJAFROC"}. See \link{UtilFigureOfMerit}.
+#'    is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.
 #' @param method The method, in which the mean squares are calculated. The two 
 #'    valid options are \code{"DBMH"} (default) and \code{"ORH"}. 
 #' 

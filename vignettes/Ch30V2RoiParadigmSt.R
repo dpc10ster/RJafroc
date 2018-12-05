@@ -6,17 +6,37 @@
   library(RJafroc)
 
 ## ------------------------------------------------------------------------
-str(datasetROI)
-datasetROI$NL[1,1,1,]
-mean(datasetROI$NL[,,1:50,])
-datasetROI$NL[1,1,51,]
-datasetROI$lesionNum[1]
-datasetROI$LL[1,1,1,]
-x <- datasetROI$LL;mean(x[is.finite(x)])
+UtilFigureOfMerit(datasetROI)
+fom <- UtilFigureOfMerit(datasetROI, FOM = "ROI")
 
 ## ------------------------------------------------------------------------
-fileName <- system.file(
-    "extdata", "includedRoiData.xlsx", package = "RJafroc", mustWork = TRUE)
-ds <- DfReadDataFile(fileName)
-ds$dataType
+ret <- StSignificanceTesting(datasetROI)
+str(ret)
+
+## ------------------------------------------------------------------------
+ret$varComp
+
+## ------------------------------------------------------------------------
+ret$fRRRC
+ret$ddfRRRC
+ret$pRRRC
+
+## ------------------------------------------------------------------------
+ret$ciDiffTrtRRRC
+
+## ------------------------------------------------------------------------
+ret$fFRRC
+ret$ddfFRRC
+ret$pFRRC
+
+## ------------------------------------------------------------------------
+ret$ciDiffTrtFRRC
+
+## ------------------------------------------------------------------------
+ret$fRRFC
+ret$ddfRRFC
+ret$pRRFC
+
+## ------------------------------------------------------------------------
+ret$ciDiffTrtRRFC
 

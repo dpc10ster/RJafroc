@@ -7,7 +7,7 @@
 UtilFigureOfMerit(dataset, FOM = "wAFROC", FPFValue = 0.2)
 }
 \arguments{
-\item{dataset}{The dataset to be analyzed, see \link{RJafroc-package}}
+\item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}}
 
 \item{FOM}{The figure of merit to be used in the calculation. 
 The default is \code{"wAFROC"}}

@@ -25,7 +25,7 @@ ROC data. Note that the \code{LL} field is split into two, \code{LLCl}, represen
 positives where the lesions were correctly localized, and \code{LLIl}, representing true 
 positives where the lesions were incorrectly localized. The first reader is CAD
 and the remaining readers are radiologists. The function 
-\link{StSignificanceTestingSingleFixedFactor} analyzes such datasets.
+\code{\link{StSignificanceTestingSingleFixedFactor}} analyzes such datasets.
 }
 \examples{
 str(datasetCadLroc)

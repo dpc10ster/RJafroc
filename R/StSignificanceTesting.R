@@ -6,22 +6,21 @@
 #'    rejecting a null hypothesis (NH); the most common NH is that the reader-averaged 
 #'    figure of merit (FOM) difference between treatments is zero. The results of 
 #'    the analysis are better visualized in the text or, preferably, 
-#'    Excel-formatted, files produced by \link{UtilOutputReport}. 
+#'    Excel-formatted, files produced by \code{\link{UtilOutputReport}}. 
 #'
 #'  
-#' @param dataset The dataset to be analyzed, see \link{RJafroc-package}
-#' @param FOM The figure of merit, default \code{"wJAFROC"}, 
-#'    see \link{UtilFigureOfMerit}
+#' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}
+#' @param FOM The figure of merit, default \code{"wJAFROC"}, \code{\link{UtilFigureOfMerit}}
 #' @param alpha The significance level of the test of the null hypothesis that all 
-#'    treatment effects are zero; the default alpha is 0.05
+#'    treatment effects are zero; the default is 0.05
 #' @param method The significance testing method to be used. There are two options: 
 #'    \code{"DBMH"} (the default) or \code{"ORH"}, representing the Dorfman-Berbaum-Metz
 #'    and the Obuchowski-Rockette significance testing methods, respectively. 
-#' @param covEstMethod The method used to estimate the covariance matrix 
-#'    in ORH analysis; it can be \code{"Jackknife"}, \code{"Bootstrap"} 
-#'    or \code{"DeLong"}, the last assumes \code{FOM = "Wilcoxon"}, otherwise 
-#'    an error results. This parameter is not relevant if the analysis method 
-#'    is \code{"DBMH"}
+#' @param covEstMethod (Parameter not relevant if the analysis method 
+#'    is \code{"DBMH"}). Method used to estimate the covariance matrix 
+#'    in ORH analysis. \code{"Jackknife"}, the default, \code{"Bootstrap"} 
+#'    or \code{"DeLong"}; the last assumes \code{FOM = "Wilcoxon"}, otherwise 
+#'    an error results. 
 #' @param nBoots The number of bootstraps (default is 200), relevant only if 
 #'    the \code{"Bootstrap"} method is used to estimate the covariance matrix
 #'    in the ORH method 
@@ -83,7 +82,7 @@
 #' 
 #' @return For method = "ORH" the return value is a list with with 21 members:
 #' @return \item{fomArray}{Figures of merit array. See the return of 
-#'    \link{UtilFigureOfMerit}}
+#'    \code{\link{UtilFigureOfMerit}}}
 #' @return \item{msT}{Mean square of the figure of merit corresponding to 
 #'    the treatment effect}
 #' @return \item{msTR}{Mean square of the figure of merit corresponding to 

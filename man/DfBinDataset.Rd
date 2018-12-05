@@ -7,7 +7,7 @@
 DfBinDataset(dataset, desiredNumBins = 7, opChType)
 }
 \arguments{
-\item{dataset}{The dataset to be binned, with structure as in \link{RJafroc-package}.}
+\item{dataset}{The dataset to be binned, with structure as in \code{\link{RJafroc-package}}.}
 
 \item{desiredNumBins}{The desired number of bins. The default is 7.}
 

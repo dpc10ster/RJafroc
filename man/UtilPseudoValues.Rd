@@ -7,10 +7,10 @@
 UtilPseudoValues(dataset, FOM = "wJAFROC")
 }
 \arguments{
-\item{dataset}{The dataset to be analyzed, see \link{RJafroc-package}.}
+\item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}.}
 
 \item{FOM}{The figure of merit to be used in the calculation. 
-The default is \code{"wJAFROC"}. See \link{UtilFigureOfMerit}.}
+The default is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
 }
 \value{
 An \code{c(I, J, K)} array containing the pseudovalues of the datasets.

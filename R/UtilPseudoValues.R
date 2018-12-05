@@ -2,9 +2,9 @@
 #' 
 #' Calculates centered pseudovalues using the jackknife
 #' 
-#' @param dataset The dataset to be analyzed, see \link{RJafroc-package}.
+#' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}.
 #' @param FOM The figure of merit to be used in the calculation. 
-#'    The default is \code{"wJAFROC"}. See \link{UtilFigureOfMerit}.
+#'    The default is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.
 #' 
 #' @return An \code{c(I, J, K)} array containing the pseudovalues of the datasets.
 #' 

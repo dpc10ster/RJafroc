@@ -7,10 +7,10 @@
 UtilMeanSquares(dataset, FOM = "wJAFROC", method = "DBMH")
 }
 \arguments{
-\item{dataset}{The dataset to be analyzed, see \link{RJafroc-package}.}
+\item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}.}
 
 \item{FOM}{The figure of merit to be used in the calculation. The default 
-is \code{"wJAFROC"}. See \link{UtilFigureOfMerit}.}
+is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
 
 \item{method}{The method, in which the mean squares are calculated. The two 
 valid options are \code{"DBMH"} (default) and \code{"ORH"}.}

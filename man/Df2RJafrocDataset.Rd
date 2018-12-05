@@ -16,7 +16,7 @@ Df2RJafrocDataset(NL, LL, ...)
 the numbers of lesions in each diseased case in the dataset.}
 }
 \value{
-A dataset with the structure described in \link{RJafroc-package}.
+A dataset with the structure described in \code{\link{RJafroc-package}}.
 }
 \description{
 Converts ratings arrays, ROC or FROC, \emph{not LROC}, to an \pkg{RJafroc} dataset, thereby allowing the 

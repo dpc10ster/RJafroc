@@ -19,8 +19,8 @@ observer's search mechanism)}
 parameter(s), which model the random numbers of latent NLs (suspicious 
 regions that do not correspond to actual lesions) per case, for up to two 
 treatments. The corresponding \emph{physical} parameters are \code{lambda/mu}. 
-Two conversion functions are provided: \link{UtilIntrinsic2PhysicalRSM} and 
-\link{UtilPhysical2IntrinsicRSM}.}
+Two conversion functions are provided: \code{\link{UtilIntrinsic2PhysicalRSM}} and 
+\code{\link{UtilPhysical2IntrinsicRSM}}.}
 
 \item{nu}{Array, max length 2. The binomial distribution success probability 
 \emph{intrinsic} parameters, which model the random numbers of latent LLs 

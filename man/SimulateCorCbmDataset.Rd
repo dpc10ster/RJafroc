@@ -34,7 +34,7 @@ The return value is the desired dataset, suitable for testing FitCorCbm
 }
 \description{
 Simulates single treatment 2-reader binned ROC dataset, simulated according to the CORCBM model,
-for the purpose of testing the fitting program \link{FitCorCbm}
+for the purpose of testing the fitting program \code{\link{FitCorCbm}}.
 }
 \details{
 X and Y refer to the two arms of the pairing. \code{muX} and \code{alphaX} refer to the univariate CBM parameters

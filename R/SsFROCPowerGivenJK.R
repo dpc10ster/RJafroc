@@ -6,7 +6,7 @@
 #' #'    ROC/FROC/LROC paradigms, 
 #' #'    for J readers and K cases in the pivotal study.
 #' #' 
-#' #' @param dataset The pilot dataset to be analyzed, see \link{RJafroc-package},
+#' #' @param dataset The pilot dataset to be analyzed, see \code{\link{RJafroc-package}},
 #' #'    for variability information. The dataType can be "ROC", "FROC", or "LROC".
 #' #' @param trts The indices of the treatments in the pilot dataset that
 #' #'    will be regarded as representative of null hypothesis treatments. 

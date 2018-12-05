@@ -10,7 +10,7 @@
 #' \code{lesionNum} \strong{must} be specified if an FROC dataset is to be returned. It is a \code{K2}-length array specifying
 #' the numbers of lesions in each diseased case in the dataset.
 #' 
-#' @return A dataset with the structure described in \link{RJafroc-package}.
+#' @return A dataset with the structure described in \code{\link{RJafroc-package}}.
 #' 
 #' @details The function "senses" the data type (ROC or FROC) from the the absence or presence of \code{lesionNum}. 
 #' ROC data can be \code{NL[1:K1]} and \code{LL[1:K2]} or \code{NL[1:I,1:J,1:K1]} and \code{LL[1:I,1:J,1:K2]}. 

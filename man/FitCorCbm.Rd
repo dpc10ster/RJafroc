@@ -33,7 +33,7 @@ Fit the Correlated Contaminated Binormal Model (CORCBM)
 The conditions (X, Y) can be two readers interpreting images in the same 
    treatment, the same reader interpreting images in different treatments, or 
    different readers interpreting images in 2 different treatments. Function 
-   \link{DfExtractCorCbmDataset} can be used to construct a dataset suitable for 
+   \code{\link{DfExtractCorCbmDataset}} can be used to construct a dataset suitable for 
    \code{FitCorCbm}. With reference to the returned values, and assuming R bins 
    in condition X and L bins in conditon Y, 
    \code{FPCounts} is the R x L matrix containing the counts for non-diseased cases, 

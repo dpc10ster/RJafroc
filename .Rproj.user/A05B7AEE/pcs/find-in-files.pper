@@ -2,10 +2,11 @@
     "dialog-state" : {
         "caseSensitive" : true,
         "filePatterns" : [
-            "*.Rmd"
+            "*.r",
+            "*.R"
         ],
-        "path" : "~/rjafroc-master/vignettes",
-        "query" : "fig.",
+        "path" : "~/rjafroc-master",
+        "query" : "\\link",
         "regex" : false
     }
 }

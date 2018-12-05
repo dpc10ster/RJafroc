@@ -25,7 +25,7 @@ interpreted by a CAD system and nine radiologists using the
 LROC paradigm. The first reader is CAD. The highest rating method was used to convert this to an ROC 
 dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this \strong{one-treatment}
 data requires methods described in the book, specifically, the function  
-\link{StSignificanceTestingSingleFixedFactor} analyzes such datasets.
+\code{\link{StSignificanceTestingSingleFixedFactor}} analyzes such datasets.
 }
 \examples{
 str(dataset09)

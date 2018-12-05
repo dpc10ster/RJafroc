@@ -21,7 +21,7 @@ the success probability of the binomial distribution(s) describing
 the random number of latent LLs (suspicious regions that correspond 
 to actual lesions) per diseased case.}
 
-\item{lesDistr}{See \link{PlotRsmOperatingCharacteristics}.}
+\item{lesDistr}{See \code{\link{PlotRsmOperatingCharacteristics}}.}
 }
 \value{
 A list containing the ROC and AFROC AUCs corresponding to the 
@@ -29,8 +29,8 @@ A list containing the ROC and AFROC AUCs corresponding to the
 }
 \description{
 {Returns the ROC and AFROC AUCs corresponding to 
-   specified RSM parameters. See also \link{UtilAucPROPROC}, 
-   \link{UtilAucBinormal} and \link{UtilAucCBM}}
+   specified RSM parameters. See also \code{\link{UtilAucPROPROC}}, 
+   \code{\link{UtilAucBinormal}} and \code{\link{UtilAucCBM}}}
 }
 \details{
 The RSM parameters (\code{mu}, \code{lambdaP} and 

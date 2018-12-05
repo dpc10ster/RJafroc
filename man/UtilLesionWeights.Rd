@@ -10,7 +10,7 @@ UtilLesionWeights(lesDistr)
 \item{lesDistr}{The supplied lesion distribution matrix}
 }
 \value{
-The lesion weights matrix, see \link{PlotRsmOperatingCharacteristics}
+The lesion weights matrix, see \code{\link{PlotRsmOperatingCharacteristics}}
 }
 \description{
 Computes the lesion weights  matrix, assuming equal weights.

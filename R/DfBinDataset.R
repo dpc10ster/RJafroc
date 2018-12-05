@@ -5,7 +5,7 @@
 #' 1, 2,...., with higher values representing greater confidence in presence of disease
 #'
 #'
-#' @param dataset The dataset to be binned, with structure as in \link{RJafroc-package}.
+#' @param dataset The dataset to be binned, with structure as in \code{\link{RJafroc-package}}.
 #' @param desiredNumBins The desired number of bins. The default is 7.
 #' @param opChType The operating characteristic relevant to the binning operation: 
 #' \code{"ROC"}, \code{"FROC"}, \code{"AFROC"}, or \code{"wAFROC"}. 

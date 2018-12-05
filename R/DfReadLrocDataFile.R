@@ -8,7 +8,7 @@
 #' @param RADIOLOGISTS Logical; if TRUE, the default, only radiologists are 
 #'    analyzed otherwise all readers are analyzed
 #'
-#' @details The data format is similar to the JAFROC format (see \link{RJafroc-package}) 
+#' @details The data format is similar to the JAFROC format (see \code{\link{RJafroc-package}}) 
 #'    with the \strong{crucial difference} that there are two types of LL (TP) events: 
 #'    those representing correct localizations and those representing incorrect 
 #'    localizations. Also, every diseased case has one lesion and NLs are not possible 

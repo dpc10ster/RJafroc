@@ -1,8 +1,8 @@
 #' RSM ROC/AFROC AUC calculator
 #' 
 #' @description {Returns the ROC and AFROC AUCs corresponding to 
-#'    specified RSM parameters. See also \link{UtilAucPROPROC}, 
-#'    \link{UtilAucBinormal} and \link{UtilAucCBM}}
+#'    specified RSM parameters. See also \code{\link{UtilAucPROPROC}}, 
+#'    \code{\link{UtilAucBinormal}} and \code{\link{UtilAucCBM}}}
 #' 
 #' @param mu The mean(s) of the Gaussian distribution(s) for the 
 #'    ratings of latent LLs (continuous ratings of lesions that 
@@ -18,7 +18,7 @@
 #'    the random number of latent LLs (suspicious regions that correspond 
 #'    to actual lesions) per diseased case.
 #' 
-#' @param lesDistr See \link{PlotRsmOperatingCharacteristics}.
+#' @param lesDistr See \code{\link{PlotRsmOperatingCharacteristics}}.
 #' 
 #' @details The RSM parameters (\code{mu}, \code{lambdaP} and 
 #'    \code{nuP}) can be vectors, provided they are of the same length; 

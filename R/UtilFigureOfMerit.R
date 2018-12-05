@@ -3,7 +3,7 @@
 #' @description  Calculate the specified empirical figure of merit
 #' for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset
 #' 
-#' @param dataset The dataset to be analyzed, see \link{RJafroc-package}
+#' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}
 #' @param FOM The figure of merit to be used in the calculation. 
 #'    The default is \code{"wAFROC"}
 #' @param FPFValue Only needed for LROC data; where to evaluate a partial 

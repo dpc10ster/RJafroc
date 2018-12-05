@@ -3,13 +3,14 @@
 #' @description  Generate a formatted report of the analysis and save to a text file
 #' 
 #' 
-#' @param dataset The dataset object to be analyzed (not the file name), see \code{Dataset} in \link{RJafroc-package}.
+#' @param dataset The dataset object to be analyzed (not the file name), see \code{Dataset} 
+#'    in \code{\link{RJafroc-package}}.
 #' @param DataFileName A string variable containing the name of the data file 
-#'    to be analyzed, in the form \code{baseName.ext}, see \link{DfReadDataFile}.
+#'    to be analyzed, in the form \code{baseName.ext}, see \code{\link{DfReadDataFile}}.
 #' @param DataFileFormat The format of the data specified in \code{DataFileName}: 
-#'    see \link{DfReadDataFile}. Must be specified if \code{DataFileName}
+#'    see \code{\link{DfReadDataFile}}. Must be specified if \code{DataFileName}
 #'    is specified. Valid values are "JAFROC", "MRMC" or "iMRMC"
-#' @param delimiter used in text input data file, See \link{DfReadDataFile}.
+#' @param delimiter used in text input data file, See \code{\link{DfReadDataFile}}.
 #' @param dataDescription Optional description of the data, default is \code{"MyData"} 
 #' @param ReportFileName The file name of the output report file. If this parameter 
 #'    is missing, the function will use \code{DataFileName} or \code{dataDescription} 
@@ -19,10 +20,10 @@
 #'    \code{"txt"} (the default) and \code{"xlsx"}, corresponding to a formatted text file or an 
 #'    Excel file, respectively.
 #' @param method The significance testing method, \code{"ORH"} or (the default) \code{"DBMH"}.
-#' @param FOM The figure of merit; see \link{StSignificanceTesting}.
-#' @param alpha See \link{StSignificanceTesting}.
-#' @param covEstMethod See \link{StSignificanceTesting}; only needed for \code{"ORH"} analysis.
-#' @param nBoots See \link{StSignificanceTesting}; only needed for \code{"ORH"} analysis.
+#' @param FOM The figure of merit; see \code{\link{StSignificanceTesting}}.
+#' @param alpha See \code{\link{StSignificanceTesting}}.
+#' @param covEstMethod See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis.
+#' @param nBoots See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis.
 #' @param renumber A logical variable: if \code{TRUE}, consecutive integers 
 #'    (staring from 1) will be used as the treatment and reader IDs in the 
 #'    output report. Otherwise, treatment and reader IDs in the original data 
@@ -38,7 +39,7 @@
 #'    OR-DBM MRMC V2.5, is written to the output file.
 #' 
 #' 
-#' @return sigTestResult The object returned by \link{StSignificanceTesting}.
+#' @return sigTestResult The object returned by \code{\link{StSignificanceTesting}}.
 #' 
 #' @examples
 #' 

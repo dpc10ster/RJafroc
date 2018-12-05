@@ -12,14 +12,14 @@ StSignificanceTestingCrossedModalities(crossedData, avgIndx,
 
 \item{avgIndx}{The index of the treatment to be averaged over}
 
-\item{FOM}{See \link{StSignificanceTesting}.}
+\item{FOM}{See \code{\link{StSignificanceTesting}}}
 
-\item{alpha}{See \link{StSignificanceTesting}.}
+\item{alpha}{See \code{\link{StSignificanceTesting}}}
 
-\item{option}{See \link{StSignificanceTesting}.}
+\item{option}{See \code{\link{StSignificanceTesting}}}
 }
 \value{
-The return list contains the same items with \link{StSignificanceTesting}.
+The return list contains the same items with \code{\link{StSignificanceTesting}}.
 }
 \description{
 Performs ORH analysis for specified crossed treatments dataset 

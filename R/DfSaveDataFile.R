@@ -4,15 +4,15 @@
 #'    with alternate software
 #' 
 #' @param dataset {The dataset to be saved in the specified format, 
-#'    see \link{RJafroc-package}}
+#'    see \code{\link{RJafroc-package}}}.
 #' @param fileName {The file name of the output data file. The extension 
-#'    of the data file must match the corresponding format, see \link{RJafroc-package}}
+#'    of the data file must match the corresponding format, see \code{\link{RJafroc-package}}}
 #' @param format {The format of the data file, which can be \code{"JAFROC"}, 
-#'    \code{"MRMC"} or \code{"iMRMC"}, see \link{RJafroc-package}}
+#'    \code{"MRMC"} or \code{"iMRMC"}, see \code{\link{RJafroc-package}}}.
 #' @param dataDescription {An optional string variable describing the data file, the 
 #'    default value is the variable name of \code{dataset} The description appears on 
 #'    the first line of *.lrc or *imrmc data file. This parameter is not used 
-#'    when saving dataset in other formats}
+#'    when saving dataset in other formats}.
 #' 
 #' @examples
 #' \dontrun{

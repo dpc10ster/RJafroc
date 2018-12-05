@@ -41,8 +41,8 @@
 #'    
 #' A specific member, e.g., \code{allDatasetsResults[[1]][[1]]}, has the following structure:   
 #' \itemize{
-#' \item{\code{retRsm}}{ The RSM parameters following the output structure of \link{FitRsmRoc}}
-#' \item{\code{retCbm}}{ The CBM parameters following the output structure of \link{FitCbmRoc}}
+#' \item{\code{retRsm}}{ The RSM parameters following the output structure of \code{\link{FitRsmRoc}}}
+#' \item{\code{retCbm}}{ The CBM parameters following the output structure of \code{\link{FitCbmRoc}}}
 #' \item{\code{lesDistr}}{ The lesion distribution matrix}
 #' \item{\code{c1}}{ The \code{c}-parameter of PROPROC}
 #' \item{\code{da}}{ The \code{d_sub_a} parameter of PROPROC}
