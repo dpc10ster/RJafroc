@@ -42,10 +42,8 @@ Here the kernel function is defined by:
 The ROIs are *effectively regarded as mini-cases* and one calculates the FOM as the Wilcoxon statistic considering the mini-cases as actual cases. The correlations between the ratings of ROIs on the same case are accounted for in the analysis.
 
 
-## An example
+## Calculation of the ROI figure of merit.
 
-Illustrated below is calculation of the ROI figure of merit.
-  
 ```{r}
 UtilFigureOfMerit(datasetROI)
 fom <- UtilFigureOfMerit(datasetROI, FOM = "ROI")
@@ -60,9 +58,12 @@ fom <- UtilFigureOfMerit(datasetROI, FOM = "ROI")
 ## Significance testing
 ```{r}
 ret <- StSignificanceTesting(datasetROI)
+str(ret)
 ```             
 
-* The variance components are given by
+* While `ret` is a list with many (22) members, their meaning should be clear from the notation. As examples:  
+
++    The variance components are given by:
 
 ```{r}
 ret$varComp
