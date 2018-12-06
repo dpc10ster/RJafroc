@@ -89,14 +89,14 @@ UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", method = "DBMH",
              overwrite = TRUE, ReportFileFormat = "xlsx")
              
 ## Output report for an existing dataset
-## UtilOutputReport(dataset = dataset05, method = "DBMH") # ERROR! as FOM is 
+## UtilOutputReport(dataset05, method = "DBMH") # ERROR as FOM is 
    incompatible with FROC data
 
-UtilOutputReport(dataset = dataset05, method = "ORH") # OK as default FOM is "wJAFROC"
+UtilOutputReport(dataset05, method = "ORH", FOM = "wAFROC")
 
-UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc")
+UtilOutputReport(dataset05, method = "DBMH", FOM = "HrAuc")
 
-UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
+UtilOutputReport(dataset05, method = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
 }
        
 }

@@ -4,7 +4,7 @@
 \alias{UtilMeanSquares}
 \title{Calculate mean squares}
 \usage{
-UtilMeanSquares(dataset, FOM = "wJAFROC", method = "DBMH")
+UtilMeanSquares(dataset, FOM = "Wilcoxon", method = "DBMH")
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}.}
@@ -31,7 +31,6 @@ For \code{DBMH} method, \code{msT, msTR, msTC, msTRC} will not be available
 }
 \examples{
 UtilMeanSquares(dataset02, FOM = "Wilcoxon")
-
-UtilMeanSquares(dataset05, method = "ORH")
+UtilMeanSquares(dataset05, FOM = "wAFROC", method = "ORH")
 
 }

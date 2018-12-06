@@ -77,6 +77,8 @@ The PROPROC parameters were obtained by running Windows software OR
    directory, to appropriate subdirectory, \strong{overwriting} any existing files.
 }
 \examples{
+ret <- Compare3ProperRocFits(1,1) # analyze first two datasets
+
 \dontrun{
 ret <- Compare3ProperRocFits(1,2,reAnalyze = TRUE) # analyze first two datasets
 x <- ret$allDatasetsResults
@@ -88,7 +90,6 @@ str(x[[2]][[1]]) # parameters for dataset 2 trt 1 and rdr 1
 str(x[[2]][[2]]) # parameters for dataset 2 trt 1 and rdr 2
 str(x[[2]][[10]])# parameters for dataset 2 trt 2 and rdr 5
 str(x[[3]][[1]]) # error
-
 }
 
 

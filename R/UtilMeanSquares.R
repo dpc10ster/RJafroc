@@ -20,12 +20,11 @@
 #' 
 #' @examples
 #' UtilMeanSquares(dataset02, FOM = "Wilcoxon")
-#' 
-#' UtilMeanSquares(dataset05, method = "ORH")
+#' UtilMeanSquares(dataset05, FOM = "wAFROC", method = "ORH")
 #' 
 #' @export
 
-UtilMeanSquares <- function(dataset, FOM = "wJAFROC", method = "DBMH"){
+UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
   NL <- dataset$NL
   LL <- dataset$LL
   lesionNum <- dataset$lesionNum

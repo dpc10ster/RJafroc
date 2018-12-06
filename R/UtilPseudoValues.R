@@ -10,12 +10,11 @@
 #' 
 #' @examples
 #' UtilPseudoValues(dataset02, FOM = "Wilcoxon")[1,1,1:10]
-#' 
-#' UtilPseudoValues(dataset05)[1,1,1:10] # default FOM is wAFROC for this FROC dataset
+#' UtilPseudoValues(dataset05, FOM = "wAFROC")[1,1,1:10] # default FOM is wAFROC for this FROC dataset
 #' 
 #' @export
 
-UtilPseudoValues <- function(dataset, FOM = "wJAFROC"){
+UtilPseudoValues <- function(dataset, FOM = "Wilcoxon"){
   NL <- dataset$NL
   LL <- dataset$LL
   lesionNum <- dataset$lesionNum

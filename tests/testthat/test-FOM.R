@@ -35,63 +35,67 @@ test_that("ROC and FROC FOMs", {
     UtilFigureOfMerit(dataset = dataset02, FOM = "Wilcoxon"), 
     tmp, print = TRUE, update = TRUE)
   
+  expect_error(UtilFigureOfMerit(dataset01, FOM = "Wilcoxon")) 
+    
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "wAFROC"), 
+    UtilFigureOfMerit(dataset01, FOM = "HrAuc"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "wAFROC1"), 
+    UtilFigureOfMerit(dataset01, FOM = "wAFROC1"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "AFROC1"), 
+    UtilFigureOfMerit(dataset01, FOM = "AFROC1"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "MaxLLF"), 
+    UtilFigureOfMerit(dataset01, FOM = "MaxLLF"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "MaxNLF"), 
+    UtilFigureOfMerit(dataset01, FOM = "MaxNLF"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "MaxNLFAllCases"), 
+    UtilFigureOfMerit(dataset01, FOM = "MaxNLFAllCases"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "ExpTrnsfmSp"), 
+    UtilFigureOfMerit(dataset01, FOM = "ExpTrnsfmSp"), 
+    tmp, print = TRUE, update = TRUE)
+  
+  skip_on_cran()
+  skip_on_travis()
+  tmp <- tempfile()
+  expect_known_output(
+    UtilFigureOfMerit(dataset01, FOM = "SongA2"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "SongA2"), 
+    UtilFigureOfMerit(dataset01, FOM = "SongA1"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "SongA1"), 
+    UtilFigureOfMerit(dataset01, FOM = "HrSp"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "HrSp"), 
+    UtilFigureOfMerit(dataset01, FOM = "HrSe"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "HrSe"), 
-    tmp, print = TRUE, update = TRUE)
-  
-  tmp <- tempfile()
-  expect_known_output(
-    UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "HrAuc"), 
+    UtilFigureOfMerit(dataset01, FOM = "HrAuc"), 
     tmp, print = TRUE, update = TRUE)
 })
