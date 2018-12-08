@@ -18,20 +18,19 @@ library(RJafroc)
 ```
 
 ## Introduction
-This vignette is intended for those seeking a quick transiton from Windows *JAFROC* to *RJafroc*.
-It is assumed that the user is familiar with the *JAFROC* data format and can analyze a dataset using the
-Windows program. First, let me describe the structure in `R` of an `RJafroc` dataset. Later I will tell you
-how to read a *JAFROC*  format file to create an `RJafroc` dataset.
+This vignette is intended for those seeking a quick transition from Windows *JAFROC* to *RJafroc*.
+Described first is the structure of an `RJafroc` dataset followed by how to read
+a *JAFROC*  format file to create an `RJafroc` dataset.
 
 ## An ROC dataset
-Let us start with a predefined dataset `{dataset3}` corresponding to the Franken ROC data.
-Let us examine the structure of this dataset.
+`{dataset3}` corresponding to the Franken ROC data is predefined.
+The following code shows the structure of this dataset.
 
 ```{r}
 str(dataset03)
 ```             
 
-It shows a list with 8 members. The false positive ratings are contained in `{NL}`, an array
+It is a list with 8 members. The false positive ratings are contained in `{NL}`, an array
 with dimensions `[1:2,1:4,1:100,1]`. The first index corresponds to treatments, and since the 
 dataset has 2 treatments, the corresponding dimension is 2. The second index corresponds to 
 readers, and since the dataset has 4 readers, the corresponding dimension is 4. The third index 

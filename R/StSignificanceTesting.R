@@ -174,7 +174,7 @@ StSignificanceTesting <- function(dataset, FOM = "Wilcoxon", alpha = 0.05, metho
 
 
 
-StDBMHAnalysis <- function(dataset, FOM = "wJAFROC", alpha = 0.05, option = "ALL", 
+StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL", 
                            VarCompFlag = FALSE, FPFValue = 0.2) {
   NL <- dataset$NL
   LL <- dataset$LL
@@ -606,7 +606,7 @@ StDBMHAnalysis <- function(dataset, FOM = "wJAFROC", alpha = 0.05, option = "ALL
 
 
 
-StORHAnalysis <- function(dataset, FOM = "wJAFROC", alpha = 0.05, covEstMethod = "Jackknife", 
+StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jackknife", 
                           nBoots = 200, option = "ALL", VarCompFlag = FALSE, FPFValue = 0.2)  {
   dataType <- dataset$dataType
   if (dataType != "LROC") {

@@ -5,7 +5,7 @@
   Modeling, Analysis, Validation and Visualization of Observer Performance Studies in Diagnostic Radiology
 }
 \description{
-RJafroc implements software for assessing medical imaging systems, radiologists or computer aided detection algorithms. Models of   observer performance are implemented, including the binormal model (BM), the contaminated binormal model (CBM), the correlated   contaminated binormal model (CORCBM), and the radiological search model (RSM). The software and applications are described in a book - \strong{Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017} and its Online Appendices \url{https://github.com/dpc10ster/onlinebookk21778}. Observer performance data collection paradigms are the receiver operating characteristic (ROC) and its location specific extensions, primarily free-response ROC (FROC) and the location ROC (LROC). ROC data consists of single ratings per images.A rating is the perceived confidence level that the image is that of a diseased patient. FROC data consists of a variable number  (including zero) of mark-rating pairs per image, where a mark is the location of a clinically reportable suspicious region and   the rating is the corresponding confidence level that it is a true lesion. LROC data consists of a rating and a forced localizati on of the most suspicious region on every image. RJafroc supersedes the Windows version of \strong{JAFROC} software V4.2.1, \url{http://www.devchakraborty.com}. Data file related function names are preceded by \emph{Df}, curve fitting functions by  \emph{Fit}, included data sets by \emph{dataset}, plotting functions by \emph{Plot}, significance testing functions by \emph{St}, sample size related functions by \emph{Ss}, data simulation functions by \emph{Simulate} and utility functions by \emph{Util}.   RJafroc implements a number of figures of merit (FOMs) for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC (AFROC) and weighted AFROC (wAFROC) curves. Four maximum likelihood curve -fitting algorithms are implemented: the binormal model (BM), the contaminated binormal model (CBM), the correlated contaminated binormal model (CORCBM) and the radiological search model (RSM). Unlike the binormal model, CBM, CORCBM and RSM predict "proper" ROC curves that do not cross the chance diagonal or display inappropriate "hooks", typically near the upper right corner of the plots. RSM fitting additionally yields measures of search and lesion-classification performances. Search performance is \emph{the ability to find lesions while avoiding finding non-lesions}. Lesion-classification performance is the ability to correctly classify found lesions from found non-lesions. For fully crossed study designs significance testing of reader-averaged FOM differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods, both substantially improved by Hillis. Also implemented are single treatment analyses, which allow comparison of performance of a group of radiologists to a specified value, or comparison to CAD to a group of radiologists interpreting the same cases. Crossed-modality analysis is implemented wherein there are two crossed treatment factors and the desire is to determined performance in each treatment factor averaged over all levels of the other factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve a desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international collaborations. The package is used extensively in the cited book.
+RJafroc implements software for assessing medical imaging systems, radiologists or computer aided detection algorithms. Models of   observer performance are implemented, including the binormal model (BM), the contaminated binormal model (CBM), the correlated   contaminated binormal model (CORCBM), and the radiological search model (RSM). The software and applications are described in a book - \strong{Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017} and its Online Appendices \url{https://github.com/dpc10ster/onlinebookk21778}. Observer performance data collection paradigms are the receiver operating characteristic (ROC) and its location specific extensions, primarily free-response ROC (FROC) and the location ROC (LROC). ROC data consists of single ratings per images.A rating is the perceived confidence level that the image is that of a diseased patient. FROC data consists of a variable number  (including zero) of mark-rating pairs per image, where a mark is the location of a clinically reportable suspicious region and   the rating is the corresponding confidence level that it is a true lesion. LROC data consists of a rating and a forced localizati on of the most suspicious region on every image. RJafroc supersedes the deprecated Windows version of \strong{JAFROC} software V4.2.1, \url{http://www.devchakraborty.com}. Package functions are organized as follows. Data file related function names are preceded by \emph{Df}, curve fitting functions by \emph{Fit}, included data sets by \emph{dataset}, plotting functions by \emph{Plot}, significance testing functions by \emph{St}, sample size related functions by \emph{Ss}, data simulation functions by \emph{Simulate} and utility functions by \emph{Util}.Implemented are a number of figures of merit (FOMs) for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC (AFROC) and weighted AFROC (wAFROC) curves. Four maximum likelihood curve-fitting algorithms are implemented: the binormal model (BM), the contaminated binormal model (CBM), the correlated contaminated binormal model (CORCBM) and the radiological search model (RSM). Unlike the binormal model, CBM, CORCBM and RSM predict "proper" ROC curves that do not cross the chance diagonal or display inappropriate "hooks", typically near the upper right corner of the plots. RSM fitting additionally yields measures of search and lesion-classification performances. Search performance is \emph{the ability to find lesions while avoiding finding non-lesions}. Lesion-classification performance is the ability to correctly classify found lesions from found non-lesions. For fully crossed study designs significance testing of reader-averaged FOM differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods, both substantially improved by Hillis. Also implemented are single treatment analyses, which allow comparison of performance of a group of radiologists to a specified value, or comparison to CAD to a group of radiologists interpreting the same cases. Crossed-modality analysis is implemented wherein there are two crossed treatment factors and the desire is to determined performance in each treatment factor averaged over all levels of the other factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve a desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international collaborations. The package is used extensively in the cited book.
 }
 \details{
   \tabular{ll}{
@@ -68,11 +68,11 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
     \item Intrinsic: Used in connection with RSM; a parameter that is independent of 
        the RSM \eqn{\mu} parameter, but whose meaning may not be as transparent as 
        the corresponding physical parameter
-    \item J: total number of readers, indexed by \eqn{j}
-    \item JAFROC file format: A .xlsx file format, applicable to ROCX, FROC and 
+    \item J: number of readers, indexed by \code{j}
+    \item JAFROC file format: A .xlsx format file, applicable to ROC, ROI, FROC and 
        LROC paradigms
-    \item JAFROC FOM: trapezoidal area under AFROC curve; this term is obsolete; 
-       use AFROC-AUC instead
+    \item JAFROC AUC: trapezoidal area under AFROC curve; deprecated, 
+       use AFROC AUC instead
     \item JAFROC: jackknife AFROC: Windows software for analyzing observer performance 
        data: no longer updated, replaced by current package; the name is a misnomer 
        as the jackknife is used only for significance testing; alternatively, 
@@ -164,7 +164,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
     \item TP: true positive, a diseased case classified as diseased
     \item TPF: number of TPs divided by number of diseased cases
     \item Treatment/modality: used interchangeably, for example, computed tomography 
-       (CT) images vs. magnetic resonance images (MRI)
+       (CT) images vs. magnetic resonance imaging (MRI) images
     \item wAFROC curve: plot of weighted LLF (ordinate) vs. FPF, where FPF is 
        inferred using highest rating of NL marks on \strong{non-diseased cases ONLY}
     \item wAFROC1 curve: plot of weighted LLF (ordinate) vs. FPF1, where FPF1 is 
@@ -177,8 +177,8 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
 }
 
 \section{Dataset}{
-  Dataset, an object, can be created by the user or read from an external text of 
-     Excel file. The dataset is a list generally containing 8 elements (9 elements 
+  An R object either created by the user or read from an external text or 
+     Excel file. It is a list generally containing 8 members (9 members 
      for crossed-modality or LROC datasets): \strong{Note: \code{-Inf} is used to 
      indicate the ratings of unmarked lesions and/or to indicate unavailable array 
      items. An example of the latter would be if the maximum number of NLs in a 
@@ -186,7 +186,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
      "empty" positions would be filled with \code{-Inf}s. Do not use \code{NA} to 
      denote a rating.}
   
-  \strong{Note}: \bold{the word "dataset" used in this package always represents an 
+  \strong{Note}: \bold{"dataset" in this package always represents an 
      \code{R} object with one of the following structures:}
   \subsection{General data structure, example \code{dataset02} and \code{dataset05}}{
     \itemize{
@@ -502,12 +502,13 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
 }
 
 \author{
-  Creator: Dev Chakraborty <dpc10ster@gmail.com>.
-  Creator: Xuetong Zhai <xuetong.zhai@gmail.com>.
-  Contributor: Lucy D'Agostino McGowan <ld.mcgowan@vanderbilt.edu>.
-  Contributor: Alejandro RodriguezRuiz <Alejandro.RodriguezRuiz@radboudumc.nl>.
+\itemize{
+  \item Creator: Dev Chakraborty \email{dpc10ster@gmail.com}.
+  \item Creator: Xuetong Zhai \email{xuetong.zhai@gmail.com}.
+  \item Contributor: Lucy D'Agostino McGowan \email{ld.mcgowan@vanderbilt.edu}.
+  \item Contributor: Alejandro RodriguezRuiz \email{Alejandro.RodriguezRuiz@radboudumc.nl}.
 }
-
+}
 
 \references{
 \bold{Basics of ROC}

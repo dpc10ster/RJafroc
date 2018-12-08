@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty" />
 
-<meta name="date" content="2018-12-05" />
+<meta name="date" content="2018-12-07" />
 
 <title>Chapter 30, Vignette 2: Significance testing for the ROI paradigm</title>
 
@@ -72,7 +72,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</h1>
 <h4 class="author"><em>Dev P. Chakraborty</em></h4>
-<h4 class="date"><em>2018-12-05</em></h4>
+<h4 class="date"><em>2018-12-07</em></h4>
 
 
 
@@ -80,8 +80,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Introduction</h2>
 <ul>
 <li><p>For an ROI dataset calling <code>StSignificanceTesting()</code> automatically defaults to <code>method = &quot;ORH&quot;</code>, <code>covEstMethod = &quot;DeLong&quot;</code> and <code>FOM = &quot;ROI&quot;</code>.</p></li>
-<li><p>The covariance estimation method is based on the original DeLong method <span class="citation">(E. R. DeLong, DeLong, and Clarke-Pearson 1988)</span>, which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by <span class="citation">(Obuchowski 1997)</span> to ROI data.</p></li>
-<li><p>The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by <span class="citation">(Obuchowski 1997)</span> for estimating the covariance matrix. Once the covariances are known, <code>method = &quot;ORH&quot;</code> can be applied to perform the significance testing, as described in <span class="citation">(Chakraborty 2017, Chapter 10)</span>.</p></li>
+<li><p>The covariance estimation method is based on the original DeLong method <span class="citation">(E. R. DeLong, DeLong, and Clarke-Pearson 1988)</span>, which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by <span class="citation">(Nancy A. Obuchowski 1997)</span> to ROI data.</p></li>
+<li><p>The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by <span class="citation">(Nancy A. Obuchowski 1997)</span> for estimating the covariance matrix. Once the covariances are known, <code>method = &quot;ORH&quot;</code> can be applied to perform significance testing, as described in <span class="citation">(N. A. Obuchowski and Rockette 1995)</span> and <span class="citation">(Chakraborty 2017, Chapter 10)</span>.</p></li>
 </ul>
 </div>
 <div id="the-roi-figure-of-merit" class="section level2">
@@ -202,7 +202,7 @@ fom &lt;-<span class="st"> </span><span class="kw">UtilFigureOfMerit</span>(data
 <span class="co">#&gt;   ..$ CILower  : num [1:2] 0.835 0.878</span>
 <span class="co">#&gt;   ..$ CIUpper  : num [1:2] 0.932 0.965</span></code></pre></div>
 <ul>
-<li><p>While <code>ret</code> is a list with many (22) members, their meaning should be clear from the notation. As examples:</p></li>
+<li><p>While <code>ret</code> is a list with many (22) members, their meanings should be clear from the notation. As an example:</p></li>
 <li><p>The variance components are given by:</p></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret<span class="op">$</span>varComp
@@ -230,6 +230,9 @@ ret<span class="op">$</span>pRRRC
 <span class="co">#&gt; 1     1 - 2 -0.03802005 0.01216768 12.82259 -3.124676 0.008173042</span>
 <span class="co">#&gt;       CILower     CIUpper</span>
 <span class="co">#&gt; 1 -0.06434373 -0.01169636</span></code></pre></div>
+<ul>
+<li>The FOm difference treatment 1 minus 2 is -0.03802, which is significant, p-value = 0.008173, F-statistic = 9.7636016, ddf = 12.8225898. The confidence interval is (-0.0643437, -0.0116964).</li>
+</ul>
 </div>
 <div id="frrc-analysis" class="section level3">
 <h3>FRRC analysis</h3>
@@ -270,7 +273,7 @@ ret<span class="op">$</span>pRRFC
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
-<p>TBA</p>
+<p>The list variable <code>ret</code> also contains the results of <code>FRRC</code> and <code>RRFC</code> analyses. Extractin them is left as an exercise to the reader.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2>References</h2>
@@ -280,6 +283,9 @@ ret<span class="op">$</span>pRRFC
 </div>
 <div id="ref-RN112">
 <p>DeLong, E. R., D. M. DeLong, and D. L. Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” Journal Article. <em>Biometrics</em> 44: 837–45.</p>
+</div>
+<div id="ref-RN1450">
+<p>Obuchowski, N. A., and H.E. Rockette. 1995. “Hypothesis Testing of the Diagnostic Accuracy for Multiple Diagnostic Tests: An Anova Approach with Dependent Observations.” Journal Article. <em>Communications in Statistics: Simulation and Computation</em> 24: 285–308.</p>
 </div>
 <div id="ref-RN1233">
 <p>Obuchowski, Nancy A. 1997. “Nonparametric Analysis of Clustered Roc Curve Data.” Journal Article. <em>Biometrics</em> 53: 567–78.</p>
