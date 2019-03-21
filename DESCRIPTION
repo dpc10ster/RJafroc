@@ -8,7 +8,7 @@ Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "
              person("Lucy","D'Agostino McGowan", role = c("ctb"), email = "ld.mcgowan@vanderbilt.edu"),
              person("Alejandro","RodriguezRuiz", role = c("ctb"), email = "Alejandro.RodriguezRuiz@radboudumc.nl"))
 Depends:
-    R (>= 3.3.0)
+    R (>= 3.5.0)
 Imports:
     openxlsx,
     ggplot2,
