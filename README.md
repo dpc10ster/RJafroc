@@ -10,7 +10,7 @@ RJafroc-master
 * Modeling, Analysis, Validation and Visualization of ROC/FROC studies
 * Extends and replaces Windown version of software (JAFROC: https://www.devchakraborty.com)
 
-### RJafrSeeoc code development history ###
+### RJafroc code development history ###
 * TBA
 
 ### How do I get set up? ###
