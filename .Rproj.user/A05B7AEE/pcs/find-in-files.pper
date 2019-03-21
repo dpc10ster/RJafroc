@@ -2,11 +2,9 @@
     "dialog-state" : {
         "caseSensitive" : true,
         "filePatterns" : [
-            "*.r",
-            "*.R"
         ],
         "path" : "~/rjafroc-master",
-        "query" : "FOM = ",
+        "query" : "ROC sample size",
         "regex" : false
     }
 }

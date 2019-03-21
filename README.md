@@ -36,7 +36,7 @@ RJafroc-master
     Rcpp
 * For example, to install the first two above-listed packages, use the following command at the Console prompt:
    install.packages(c("openxlsx", "ggplot2"))
-* Click on Install and Restart (upper right panel). If errors result from missing packages, install those packages.
+* Click on Build > Install and Restart (upper right panel). If errors result from missing packages, install those packages.
 * A successful Install and Restart will result in the following line in the Console window:
   library(RJafroc)
 * Thats it! RJafroc has been installed to your computer and is visible to any other R project in any directory.
