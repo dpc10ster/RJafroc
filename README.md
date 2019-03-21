@@ -47,9 +47,10 @@ RJafroc-master
 * Oila! You should see myProject.RProj in the Files menu.
 * Click on Packages and scroll down to find RJafroc, and check the box next to it. This results in RJafroc being loaded to the current workspace.The following line appears in the Console window (this is the hidden directory referrred to above).
   library("RJafroc", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
-* Click on RJafroc in the packages window. A help window opens up. I find it convenient to put this in its own window by clicking the "out" arrow button (hover message: Show in new window). You can access all documentation fron here.   
+* Click on RJafroc in the packages window. A help window opens up. I find it convenient to put this in its own window by clicking the "out" arrow button (hover message: Show in new window). You can access all documentation from here.
+* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc-master/.
 * Put your data and other files, if any, in myProject.
-* 
+* TBA
 
 ### Contribution guidelines ###
 
