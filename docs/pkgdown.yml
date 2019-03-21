@@ -1,7 +1,8 @@
-pandoc: 1.19.2.1
-pkgdown: 1.2.0
+pandoc: '2.4'
+pkgdown: 1.2.0.9000
 pkgdown_sha: ~
 articles:
+  Ch00V1DataFormat: Ch00V1DataFormat.html
   Ch10V1QuickStartDBMH: Ch10V1QuickStartDBMH.html
   Ch10V2QuickStartDBMHExcel: Ch10V2QuickStartDBMHExcel.html
   Ch11V1SampleSize: Ch11V1SampleSize.html

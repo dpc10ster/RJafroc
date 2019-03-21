@@ -86,6 +86,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+    </li>
+    <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
     <li>
@@ -159,19 +162,19 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wJAFROC"</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset to be analyzed, see <a href='RJafroc-package.html'>RJafroc-package</a>.</p></td>
+      <td><p>The dataset to be analyzed, see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p></td>
     </tr>
     <tr>
       <th>FOM</th>
       <td><p>The figure of merit to be used in the calculation. 
-The default is <code>"wJAFROC"</code>. See <a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a>.</p></td>
+The default is <code>"wJAFROC"</code>. See <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code>.</p></td>
     </tr>
     </table>
     
@@ -182,8 +185,7 @@ The default is <code>"wJAFROC"</code>. See <a href='UtilFigureOfMerit.html'>Util
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1]  0.97931941  0.88699915  0.88699915  0.97931941 -0.09159562  0.97931941
-#&gt;  [7]  0.97931941  0.97931941  0.97931941  0.97931941</div><div class='input'>
-<span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>)[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>] <span class='co'># default FOM is wAFROC for this FROC dataset</span></div><div class='output co'>#&gt;  [1] 0.3519020 0.5829223 0.2748952 1.0156270 1.0156270 1.0156270 1.0156270
+#&gt;  [7]  0.97931941  0.97931941  0.97931941  0.97931941</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>] <span class='co'># default FOM is wAFROC for this FROC dataset</span></div><div class='output co'>#&gt;  [1] 0.3519020 0.5829223 0.2748952 1.0156270 1.0156270 1.0156270 1.0156270
 #&gt;  [8] 0.4729126 1.0156270 1.0156270</div><div class='input'>
 </div></pre>
   </div>
@@ -206,7 +208,7 @@ The default is <code>"wJAFROC"</code>. See <a href='UtilFigureOfMerit.html'>Util
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
       </footer>
    </div>

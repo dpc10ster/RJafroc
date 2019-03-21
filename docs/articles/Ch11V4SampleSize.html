@@ -53,6 +53,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+    </li>
+    <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
     <li>
@@ -115,7 +118,7 @@
       <h1>Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2018-12-04</h4>
+            <h4 class="date">2019-03-21</h4>
       
       
       <div class="hidden name"><code>Ch11V4SampleSize.Rmd</code></div>
@@ -133,122 +136,122 @@
 <h2 class="hasAnchor">
 <a href="#illustration-of-sspowergivenjk-using-method-orh" class="anchor"></a>Illustration of <code><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK()</a></code> using <code>method = "ORH"</code>
 </h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">power &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(dataset02, <span class="dv">6</span>, <span class="dv">251</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">power &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(dataset02, <span class="dv">6</span>, <span class="dv">251</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a></code></pre></div>
 <p>The returned value is a <code>list</code> containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic (the numerator degrees of freedom is always one less than the number of treatments, i.e., unity in this example).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(power)
-<span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ powerRRRC: num 0.801</span>
-<span class="co">#&gt;  $ ncpRRRC  : num 8.91</span>
-<span class="co">#&gt;  $ ddfHRRRC : num 16.1</span>
-<span class="co">#&gt;  $ fRRRC    : num 4.49</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(power)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; List of 4</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt;  $ powerRRRC: num 0.801</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;  $ ncpRRRC  : num 8.91</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;  $ ddfHRRRC : num 16.1</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;  $ fRRRC    : num 4.49</span></a></code></pre></div>
 <p>Expected power is 0.8005403.</p>
 </div>
 <div id="illustration-of-sspowertable-using-method-orh" class="section level2">
 <h2 class="hasAnchor">
 <a href="#illustration-of-sspowertable-using-method-orh" class="anchor"></a>Illustration of <code><a href="../reference/SsPowerTable.html">SsPowerTable()</a></code> using <code>method = "ORH"</code>
 </h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">powTab &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerTable.html">SsPowerTable</a></span>(dataset02, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">powTab &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerTable.html">SsPowerTable</a></span>(dataset02, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a></code></pre></div>
 <p>Now show the power table <code>powTab</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">powTab
-<span class="co">#&gt;    numReaders numCases power</span>
-<span class="co">#&gt; 1           3    &gt;2000  &lt;NA&gt;</span>
-<span class="co">#&gt; 2           4     1089   0.8</span>
-<span class="co">#&gt; 3           5      344 0.801</span>
-<span class="co">#&gt; 4           6      251 0.801</span>
-<span class="co">#&gt; 5           7      211 0.801</span>
-<span class="co">#&gt; 6           8      188 0.801</span>
-<span class="co">#&gt; 7           9      173 0.801</span>
-<span class="co">#&gt; 8          10      163 0.802</span>
-<span class="co">#&gt; 9          11      155 0.801</span>
-<span class="co">#&gt; 10         12      149 0.802</span>
-<span class="co">#&gt; 11         13      144 0.801</span>
-<span class="co">#&gt; 12         14      140 0.802</span>
-<span class="co">#&gt; 13         15      137 0.802</span>
-<span class="co">#&gt; 14         16      134 0.802</span>
-<span class="co">#&gt; 15         17      131 0.801</span>
-<span class="co">#&gt; 16         18      129 0.801</span>
-<span class="co">#&gt; 17         19      127 0.801</span>
-<span class="co">#&gt; 18         20      126 0.802</span>
-<span class="co">#&gt; 19         21      124 0.801</span>
-<span class="co">#&gt; 20         22      123 0.802</span>
-<span class="co">#&gt; 21         23      122 0.802</span>
-<span class="co">#&gt; 22         24      121 0.803</span>
-<span class="co">#&gt; 23         25      120 0.802</span>
-<span class="co">#&gt; 24         26      119 0.802</span>
-<span class="co">#&gt; 25         27      118 0.802</span>
-<span class="co">#&gt; 26         28      117 0.801</span>
-<span class="co">#&gt; 27         29      117 0.803</span>
-<span class="co">#&gt; 28         30      116 0.802</span>
-<span class="co">#&gt; 29         31      115 0.801</span>
-<span class="co">#&gt; 30         32      115 0.803</span>
-<span class="co">#&gt; 31         33      114 0.801</span>
-<span class="co">#&gt; 32         34      114 0.803</span>
-<span class="co">#&gt; 33         35      113 0.801</span>
-<span class="co">#&gt; 34         36      113 0.802</span>
-<span class="co">#&gt; 35         37      112   0.8</span>
-<span class="co">#&gt; 36         38      112 0.802</span>
-<span class="co">#&gt; 37         39      112 0.803</span>
-<span class="co">#&gt; 38         40      111 0.801</span>
-<span class="co">#&gt; 39         41      111 0.802</span>
-<span class="co">#&gt; 40         42      111 0.803</span>
-<span class="co">#&gt; 41         43      110 0.801</span>
-<span class="co">#&gt; 42         44      110 0.802</span>
-<span class="co">#&gt; 43         45      110 0.802</span>
-<span class="co">#&gt; 44         46      110 0.803</span>
-<span class="co">#&gt; 45         47      109 0.801</span>
-<span class="co">#&gt; 46         48      109 0.802</span>
-<span class="co">#&gt; 47         49      109 0.802</span>
-<span class="co">#&gt; 48         50      109 0.803</span>
-<span class="co">#&gt; 49         51      108   0.8</span>
-<span class="co">#&gt; 50         52      108 0.801</span>
-<span class="co">#&gt; 51         53      108 0.802</span>
-<span class="co">#&gt; 52         54      108 0.802</span>
-<span class="co">#&gt; 53         55      108 0.803</span>
-<span class="co">#&gt; 54         56      107   0.8</span>
-<span class="co">#&gt; 55         57      107 0.801</span>
-<span class="co">#&gt; 56         58      107 0.801</span>
-<span class="co">#&gt; 57         59      107 0.802</span>
-<span class="co">#&gt; 58         60      107 0.802</span>
-<span class="co">#&gt; 59         61      107 0.803</span>
-<span class="co">#&gt; 60         62      107 0.803</span>
-<span class="co">#&gt; 61         63      106   0.8</span>
-<span class="co">#&gt; 62         64      106 0.801</span>
-<span class="co">#&gt; 63         65      106 0.801</span>
-<span class="co">#&gt; 64         66      106 0.802</span>
-<span class="co">#&gt; 65         67      106 0.802</span>
-<span class="co">#&gt; 66         68      106 0.802</span>
-<span class="co">#&gt; 67         69      106 0.803</span>
-<span class="co">#&gt; 68         70      106 0.803</span>
-<span class="co">#&gt; 69         71      106 0.804</span>
-<span class="co">#&gt; 70         72      105   0.8</span>
-<span class="co">#&gt; 71         73      105 0.801</span>
-<span class="co">#&gt; 72         74      105 0.801</span>
-<span class="co">#&gt; 73         75      105 0.801</span>
-<span class="co">#&gt; 74         76      105 0.802</span>
-<span class="co">#&gt; 75         77      105 0.802</span>
-<span class="co">#&gt; 76         78      105 0.802</span>
-<span class="co">#&gt; 77         79      105 0.803</span>
-<span class="co">#&gt; 78         80      105 0.803</span>
-<span class="co">#&gt; 79         81      105 0.803</span>
-<span class="co">#&gt; 80         82      105 0.803</span>
-<span class="co">#&gt; 81         83      104   0.8</span>
-<span class="co">#&gt; 82         84      104   0.8</span>
-<span class="co">#&gt; 83         85      104 0.801</span>
-<span class="co">#&gt; 84         86      104 0.801</span>
-<span class="co">#&gt; 85         87      104 0.801</span>
-<span class="co">#&gt; 86         88      104 0.801</span>
-<span class="co">#&gt; 87         89      104 0.802</span>
-<span class="co">#&gt; 88         90      104 0.802</span>
-<span class="co">#&gt; 89         91      104 0.802</span>
-<span class="co">#&gt; 90         92      104 0.802</span>
-<span class="co">#&gt; 91         93      104 0.802</span>
-<span class="co">#&gt; 92         94      104 0.803</span>
-<span class="co">#&gt; 93         95      104 0.803</span>
-<span class="co">#&gt; 94         96      104 0.803</span>
-<span class="co">#&gt; 95         97      104 0.803</span>
-<span class="co">#&gt; 96         98      104 0.804</span>
-<span class="co">#&gt; 97         99      104 0.804</span>
-<span class="co">#&gt; 98        100      103   0.8</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">powTab</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">#&gt;    numReaders numCases power</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; 1           3    &gt;2000  &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt; 2           4     1089   0.8</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; 3           5      344 0.801</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; 4           6      251 0.801</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt; 5           7      211 0.801</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; 6           8      188 0.801</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; 7           9      173 0.801</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; 8          10      163 0.802</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt; 9          11      155 0.801</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt; 10         12      149 0.802</span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt; 11         13      144 0.801</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="co">#&gt; 12         14      140 0.802</span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="co">#&gt; 13         15      137 0.802</span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="co">#&gt; 14         16      134 0.802</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="co">#&gt; 15         17      131 0.801</span></a>
+<a class="sourceLine" id="cb4-18" title="18"><span class="co">#&gt; 16         18      129 0.801</span></a>
+<a class="sourceLine" id="cb4-19" title="19"><span class="co">#&gt; 17         19      127 0.801</span></a>
+<a class="sourceLine" id="cb4-20" title="20"><span class="co">#&gt; 18         20      126 0.802</span></a>
+<a class="sourceLine" id="cb4-21" title="21"><span class="co">#&gt; 19         21      124 0.801</span></a>
+<a class="sourceLine" id="cb4-22" title="22"><span class="co">#&gt; 20         22      123 0.802</span></a>
+<a class="sourceLine" id="cb4-23" title="23"><span class="co">#&gt; 21         23      122 0.802</span></a>
+<a class="sourceLine" id="cb4-24" title="24"><span class="co">#&gt; 22         24      121 0.803</span></a>
+<a class="sourceLine" id="cb4-25" title="25"><span class="co">#&gt; 23         25      120 0.802</span></a>
+<a class="sourceLine" id="cb4-26" title="26"><span class="co">#&gt; 24         26      119 0.802</span></a>
+<a class="sourceLine" id="cb4-27" title="27"><span class="co">#&gt; 25         27      118 0.802</span></a>
+<a class="sourceLine" id="cb4-28" title="28"><span class="co">#&gt; 26         28      117 0.801</span></a>
+<a class="sourceLine" id="cb4-29" title="29"><span class="co">#&gt; 27         29      117 0.803</span></a>
+<a class="sourceLine" id="cb4-30" title="30"><span class="co">#&gt; 28         30      116 0.802</span></a>
+<a class="sourceLine" id="cb4-31" title="31"><span class="co">#&gt; 29         31      115 0.801</span></a>
+<a class="sourceLine" id="cb4-32" title="32"><span class="co">#&gt; 30         32      115 0.803</span></a>
+<a class="sourceLine" id="cb4-33" title="33"><span class="co">#&gt; 31         33      114 0.801</span></a>
+<a class="sourceLine" id="cb4-34" title="34"><span class="co">#&gt; 32         34      114 0.803</span></a>
+<a class="sourceLine" id="cb4-35" title="35"><span class="co">#&gt; 33         35      113 0.801</span></a>
+<a class="sourceLine" id="cb4-36" title="36"><span class="co">#&gt; 34         36      113 0.802</span></a>
+<a class="sourceLine" id="cb4-37" title="37"><span class="co">#&gt; 35         37      112   0.8</span></a>
+<a class="sourceLine" id="cb4-38" title="38"><span class="co">#&gt; 36         38      112 0.802</span></a>
+<a class="sourceLine" id="cb4-39" title="39"><span class="co">#&gt; 37         39      112 0.803</span></a>
+<a class="sourceLine" id="cb4-40" title="40"><span class="co">#&gt; 38         40      111 0.801</span></a>
+<a class="sourceLine" id="cb4-41" title="41"><span class="co">#&gt; 39         41      111 0.802</span></a>
+<a class="sourceLine" id="cb4-42" title="42"><span class="co">#&gt; 40         42      111 0.803</span></a>
+<a class="sourceLine" id="cb4-43" title="43"><span class="co">#&gt; 41         43      110 0.801</span></a>
+<a class="sourceLine" id="cb4-44" title="44"><span class="co">#&gt; 42         44      110 0.802</span></a>
+<a class="sourceLine" id="cb4-45" title="45"><span class="co">#&gt; 43         45      110 0.802</span></a>
+<a class="sourceLine" id="cb4-46" title="46"><span class="co">#&gt; 44         46      110 0.803</span></a>
+<a class="sourceLine" id="cb4-47" title="47"><span class="co">#&gt; 45         47      109 0.801</span></a>
+<a class="sourceLine" id="cb4-48" title="48"><span class="co">#&gt; 46         48      109 0.802</span></a>
+<a class="sourceLine" id="cb4-49" title="49"><span class="co">#&gt; 47         49      109 0.802</span></a>
+<a class="sourceLine" id="cb4-50" title="50"><span class="co">#&gt; 48         50      109 0.803</span></a>
+<a class="sourceLine" id="cb4-51" title="51"><span class="co">#&gt; 49         51      108   0.8</span></a>
+<a class="sourceLine" id="cb4-52" title="52"><span class="co">#&gt; 50         52      108 0.801</span></a>
+<a class="sourceLine" id="cb4-53" title="53"><span class="co">#&gt; 51         53      108 0.802</span></a>
+<a class="sourceLine" id="cb4-54" title="54"><span class="co">#&gt; 52         54      108 0.802</span></a>
+<a class="sourceLine" id="cb4-55" title="55"><span class="co">#&gt; 53         55      108 0.803</span></a>
+<a class="sourceLine" id="cb4-56" title="56"><span class="co">#&gt; 54         56      107   0.8</span></a>
+<a class="sourceLine" id="cb4-57" title="57"><span class="co">#&gt; 55         57      107 0.801</span></a>
+<a class="sourceLine" id="cb4-58" title="58"><span class="co">#&gt; 56         58      107 0.801</span></a>
+<a class="sourceLine" id="cb4-59" title="59"><span class="co">#&gt; 57         59      107 0.802</span></a>
+<a class="sourceLine" id="cb4-60" title="60"><span class="co">#&gt; 58         60      107 0.802</span></a>
+<a class="sourceLine" id="cb4-61" title="61"><span class="co">#&gt; 59         61      107 0.803</span></a>
+<a class="sourceLine" id="cb4-62" title="62"><span class="co">#&gt; 60         62      107 0.803</span></a>
+<a class="sourceLine" id="cb4-63" title="63"><span class="co">#&gt; 61         63      106   0.8</span></a>
+<a class="sourceLine" id="cb4-64" title="64"><span class="co">#&gt; 62         64      106 0.801</span></a>
+<a class="sourceLine" id="cb4-65" title="65"><span class="co">#&gt; 63         65      106 0.801</span></a>
+<a class="sourceLine" id="cb4-66" title="66"><span class="co">#&gt; 64         66      106 0.802</span></a>
+<a class="sourceLine" id="cb4-67" title="67"><span class="co">#&gt; 65         67      106 0.802</span></a>
+<a class="sourceLine" id="cb4-68" title="68"><span class="co">#&gt; 66         68      106 0.802</span></a>
+<a class="sourceLine" id="cb4-69" title="69"><span class="co">#&gt; 67         69      106 0.803</span></a>
+<a class="sourceLine" id="cb4-70" title="70"><span class="co">#&gt; 68         70      106 0.803</span></a>
+<a class="sourceLine" id="cb4-71" title="71"><span class="co">#&gt; 69         71      106 0.804</span></a>
+<a class="sourceLine" id="cb4-72" title="72"><span class="co">#&gt; 70         72      105   0.8</span></a>
+<a class="sourceLine" id="cb4-73" title="73"><span class="co">#&gt; 71         73      105 0.801</span></a>
+<a class="sourceLine" id="cb4-74" title="74"><span class="co">#&gt; 72         74      105 0.801</span></a>
+<a class="sourceLine" id="cb4-75" title="75"><span class="co">#&gt; 73         75      105 0.801</span></a>
+<a class="sourceLine" id="cb4-76" title="76"><span class="co">#&gt; 74         76      105 0.802</span></a>
+<a class="sourceLine" id="cb4-77" title="77"><span class="co">#&gt; 75         77      105 0.802</span></a>
+<a class="sourceLine" id="cb4-78" title="78"><span class="co">#&gt; 76         78      105 0.802</span></a>
+<a class="sourceLine" id="cb4-79" title="79"><span class="co">#&gt; 77         79      105 0.803</span></a>
+<a class="sourceLine" id="cb4-80" title="80"><span class="co">#&gt; 78         80      105 0.803</span></a>
+<a class="sourceLine" id="cb4-81" title="81"><span class="co">#&gt; 79         81      105 0.803</span></a>
+<a class="sourceLine" id="cb4-82" title="82"><span class="co">#&gt; 80         82      105 0.803</span></a>
+<a class="sourceLine" id="cb4-83" title="83"><span class="co">#&gt; 81         83      104   0.8</span></a>
+<a class="sourceLine" id="cb4-84" title="84"><span class="co">#&gt; 82         84      104   0.8</span></a>
+<a class="sourceLine" id="cb4-85" title="85"><span class="co">#&gt; 83         85      104 0.801</span></a>
+<a class="sourceLine" id="cb4-86" title="86"><span class="co">#&gt; 84         86      104 0.801</span></a>
+<a class="sourceLine" id="cb4-87" title="87"><span class="co">#&gt; 85         87      104 0.801</span></a>
+<a class="sourceLine" id="cb4-88" title="88"><span class="co">#&gt; 86         88      104 0.801</span></a>
+<a class="sourceLine" id="cb4-89" title="89"><span class="co">#&gt; 87         89      104 0.802</span></a>
+<a class="sourceLine" id="cb4-90" title="90"><span class="co">#&gt; 88         90      104 0.802</span></a>
+<a class="sourceLine" id="cb4-91" title="91"><span class="co">#&gt; 89         91      104 0.802</span></a>
+<a class="sourceLine" id="cb4-92" title="92"><span class="co">#&gt; 90         92      104 0.802</span></a>
+<a class="sourceLine" id="cb4-93" title="93"><span class="co">#&gt; 91         93      104 0.802</span></a>
+<a class="sourceLine" id="cb4-94" title="94"><span class="co">#&gt; 92         94      104 0.803</span></a>
+<a class="sourceLine" id="cb4-95" title="95"><span class="co">#&gt; 93         95      104 0.803</span></a>
+<a class="sourceLine" id="cb4-96" title="96"><span class="co">#&gt; 94         96      104 0.803</span></a>
+<a class="sourceLine" id="cb4-97" title="97"><span class="co">#&gt; 95         97      104 0.803</span></a>
+<a class="sourceLine" id="cb4-98" title="98"><span class="co">#&gt; 96         98      104 0.804</span></a>
+<a class="sourceLine" id="cb4-99" title="99"><span class="co">#&gt; 97         99      104 0.804</span></a>
+<a class="sourceLine" id="cb4-100" title="100"><span class="co">#&gt; 98        100      103   0.8</span></a></code></pre></div>
 <p>Since the default <code>FOM = "Wilcoxon"</code>, the table is identical to that generated in vignette 3, which used <code>method = "DBMH"</code>.</p>
 </div>
 <div id="illustrations-of-sssamplesizekgivenj-using-method-orh" class="section level2">
@@ -258,24 +261,24 @@
 <div id="for-rrrc-generalization" class="section level3">
 <h3 class="hasAnchor">
 <a href="#for-rrrc-generalization" class="anchor"></a>For RRRC generalization</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a></code></pre></div>
 <p><code>ncases</code> is a list containing the number of cases <code>ncases$KRRRC</code> and expected power <code>ncases$powerRRRC</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ncases)
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ KRRRC    : num 163</span>
-<span class="co">#&gt;  $ powerRRRC: num 0.802</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ncases)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt; List of 2</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt;  $ KRRRC    : num 163</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt;  $ powerRRRC: num 0.802</span></a></code></pre></div>
 <p>The required number of cases is 163 and expected power is 0.8015625.</p>
 </div>
 <div id="for-frrc-generalization" class="section level3">
 <h3 class="hasAnchor">
 <a href="#for-frrc-generalization" class="anchor"></a>For FRRC generalization</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"FRRC"</span>)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"FRRC"</span>)</a></code></pre></div>
 <p>The required number of cases is 133 and expected power is 0.8011167.</p>
 </div>
 <div id="for-rrfc-generalization" class="section level3">
 <h3 class="hasAnchor">
 <a href="#for-rrfc-generalization" class="anchor"></a>For RRFC generalization</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRFC"</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRFC"</span>)</a></code></pre></div>
 <p>The required number of cases is 53 and expected power is 0.8049666.</p>
 </div>
 </div>
@@ -302,7 +305,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
       </footer>
 </div>

@@ -53,6 +53,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+    </li>
+    <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
     <li>
@@ -115,7 +118,7 @@
       <h1>Chapter 11, Vignette 5: On choosing a realistic effect size</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2018-12-04</h4>
+            <h4 class="date">2019-03-21</h4>
       
       
       <div class="hidden name"><code>Ch11V5SampleSize.Rmd</code></div>
@@ -139,25 +142,25 @@
 <h2 class="hasAnchor">
 <a href="#illustration-of-sspowergivenjk-using-method-orh" class="anchor"></a>Illustration of <code><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK()</a></code> using <code>method = "ORH"</code>
 </h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fileName &lt;-<span class="st"> "VanDyke.lrc"</span>
-rocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(fileName, <span class="dt">format =</span> <span class="st">"MRMC"</span>)
-retDbm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="dt">dataset =</span> rocData, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(retDbm<span class="op">$</span>ciDiffTrtRRRC)
-<span class="co">#&gt; 'data.frame':    1 obs. of  8 variables:</span>
-<span class="co">#&gt;  $ Treatment: chr "0 - 1"</span>
-<span class="co">#&gt;  $ Estimate : num -0.0438</span>
-<span class="co">#&gt;  $ StdErr   : num 0.0207</span>
-<span class="co">#&gt;  $ DF       : num 15.3</span>
-<span class="co">#&gt;  $ t        : num -2.11</span>
-<span class="co">#&gt;  $ PrGTt    : num 0.0517</span>
-<span class="co">#&gt;  $ CILower  : num -0.088</span>
-<span class="co">#&gt;  $ CIUpper  : num 0.000359</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">fileName &lt;-<span class="st"> "VanDyke.lrc"</span></a>
+<a class="sourceLine" id="cb1-2" title="2">rocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(fileName, <span class="dt">format =</span> <span class="st">"MRMC"</span>)</a>
+<a class="sourceLine" id="cb1-3" title="3">retDbm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="dt">dataset =</span> rocData, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>)</a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(retDbm<span class="op">$</span>ciDiffTrtRRRC)</a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt; 'data.frame':    1 obs. of  8 variables:</span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt;  $ Treatment: chr "0 - 1"</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt;  $ Estimate : num -0.0438</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt;  $ StdErr   : num 0.0207</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt;  $ DF       : num 15.3</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;  $ t        : num -2.11</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;  $ PrGTt    : num 0.0517</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;  $ CILower  : num -0.088</span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt;  $ CIUpper  : num 0.000359</span></a></code></pre></div>
 <ul>
 <li><p>Lacking any other information, the observed effect-size is the best estimate of the effect-size to be anticipated. The output shows that the FOM difference, for treatment 0 minus treatment 1, is -0.0438003. In the actual study treatment <code>1</code> is the new modality which hopes to improve upont <code>0</code>, the conventional modality. Since the sign is negative, the difference is going the right way and is justified in moving forward with planning a pivotal study. [If the difference went the other way, there is little justification for a pivotal study].</p></li>
 <li><p>The standared error of the difference is 0.0207486.</p></li>
 <li><p>An optimistic, but not unduly so, effect size is given by:</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">effectSizeOpt &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(retDbm<span class="op">$</span>ciDiffTrtRRRC<span class="op">$</span>Estimate) <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>retDbm<span class="op">$</span>ciDiffTrtRRRC<span class="op">$</span>StdErr</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">effectSizeOpt &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(retDbm<span class="op">$</span>ciDiffTrtRRRC<span class="op">$</span>Estimate) <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>retDbm<span class="op">$</span>ciDiffTrtRRRC<span class="op">$</span>StdErr</a></code></pre></div>
 <p>The observed effect-size is a realization of a random variable. The lower limit of the 95% confidence interval is given by -0.0879595 and the upper limit by 3.588544410^{-4}. CI’s generated like this, with independent sets of data, are expected to encompass the true value with 95% probability. The lower end (greatest magnitude of the difference) of the confidence interval is -0.0852976, and this is the optimistic estimate. Since the sign is immaterial, one uses as the optimistic estimate the value 0.0852976. <strong>While the sign is immaterial for sample size estimates, the decision to conduct the pivotal most certainly is material - if the sign went the other way, with the new modality lower than the conventional modality, one would be unjustified in conducting a pivotal study.</strong></p>
 </div>
 <div id="references" class="section level2 unnumbered">
@@ -165,7 +168,7 @@ retDbm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSi
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
 <div id="ref-RN1983">
-<p>ICRU. 2008. “Statistical Analysis and Power Estimation.” Book Section. In <em>JOURNAL of the Icru</em>, 8:37–40. doi:<a href="https://doi.org/10.1093/jicru/ndn012">10.1093/jicru/ndn012</a>.</p>
+<p>ICRU. 2008. “Statistical Analysis and Power Estimation.” Book Section. In <em>JOURNAL of the Icru</em>, 8:37–40. <a href="https://doi.org/10.1093/jicru/ndn012">https://doi.org/10.1093/jicru/ndn012</a>.</p>
 </div>
 </div>
 </div>
@@ -191,7 +194,7 @@ retDbm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSi
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
       </footer>
 </div>

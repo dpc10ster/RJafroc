@@ -78,6 +78,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+    </li>
+    <li>
       <a href="articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
     <li>
@@ -151,26 +154,36 @@
 <div id="rjafroc-code-development-history" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rjafroc-code-development-history" class="anchor"></a>RJafroc code development history</h3>
-<p>See NEWS.md</p>
+<ul>
+<li>TBA</li>
+</ul>
 </div>
 <div id="how-do-i-get-set-up" class="section level3">
 <h3 class="hasAnchor">
 <a href="#how-do-i-get-set-up" class="anchor"></a>How do I get set up?</h3>
 <ul>
-<li>Navigate to <a href="https://github.com/dpc10ster/rjafroc-master" class="uri">https://github.com/dpc10ster/rjafroc-master</a>
-</li>
-<li>Clone this repository to Desktop.</li>
-<li>Install current versions of R and RStudio.</li>
-<li>Open RJafroc.Rproj.</li>
-<li>Find RJafroc in Packages and click on it - this will open the help files.</li>
-<li>Click on any function and run the example(s) by higlighting, copying and pasting into the Console window.</li>
-<li>For example, click on PlotBinormalFit, find the example, copy it and paste it into the Console window: binormalPlot &lt;- PlotBinormalFit(c(1, 2), c(0.5, 0.5)) print(binormalPlot)</li>
-<li>You should see two binormal model ROC curves, one with a decided hook.</li>
-<li>Study the RJafroc.pdf file (<a href="https://cran.r-project.org/web/packages/RJafroc/RJafroc.pdf" class="uri">https://cran.r-project.org/web/packages/RJafroc/RJafroc.pdf</a>)</li>
-<li>Dependencies Imports: openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, numDeriv, Rcpp Suggests: testthat, knitr, rmarkdown</li>
-<li>Database configuration NA</li>
-<li>How to run tests TBA</li>
-<li>Deployment instructions TBA</li>
+<li>Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example.</li>
+<li>I find the GitHub desktop app useful in mananging my downloads/uploads from Git.</li>
+<li>Install R and RStudio.</li>
+<li>Navigate to the rjafroc directory.</li>
+<li>Open RJafroc.Rproj. This will open RStudio.</li>
+<li>Navigate to File menu (lower-right window) and click on DESCRIPTION file.</li>
+<li>Install all packages listed under Imports, e.g.,<br>
+openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, numDeriv, Rcpp</li>
+<li>For example, to install the first two above-listed packages, use the following command at the Console prompt: install.packages(c(“openxlsx”, “ggplot2”))</li>
+<li>Click on Install and Restart (upper right panel). If errors result from missing packages, install those packages.</li>
+<li>A successful Install and Restart will result in the following line in the Console window: library(RJafroc)</li>
+<li>Thats it! RJafroc has been installed to your computer and is visible to any other R project in any directory.</li>
+<li>You will not need to access the RJafroc folder again (unless you reinstall a new version of the software).</li>
+<li>All necessary files of the installation are in a hidden directory that you do not normally need to worry about.</li>
+<li>Create an empty directory, e..g., myProject. In my computer it is /Users/Dev/Downloads/myProject.</li>
+<li>Starting from RStudio &gt; File &gt; New Project &gt; Existing Directory &gt; myProject &gt; Create Project.</li>
+<li>Oila! You should see myProject.RProj in the Files menu.</li>
+<li>Click on Packages and scroll down to find RJafroc, and check the box next to it. This results in RJafroc being loaded to the current workspace. The following line appears in the Console window (this is the hidden directory referrred to above). library(“RJafroc”, lib.loc=“/Library/Frameworks/R.framework/Versions/3.5/Resources/library”)</li>
+<li>Click on RJafroc in the packages window. A help window opens up. I find it convenient to put this in its own window by clicking the “out” arrow button (hover message: Show in new window). You can access all documentation from here.</li>
+<li>Preliminary documentation (vignettes) is available at <a href="https://dpc10ster.github.io/rjafroc-master/" class="uri">https://dpc10ster.github.io/rjafroc-master/</a>.</li>
+<li>Put your data and other files, if any, in myProject.</li>
+<li>TBA</li>
 </ul>
 </div>
 <div id="contribution-guidelines" class="section level3">
@@ -185,12 +198,12 @@
 <div id="who-do-i-talk-to" class="section level3">
 <h3 class="hasAnchor">
 <a href="#who-do-i-talk-to" class="anchor"></a>Who do I talk to?</h3>
-<p><a href="mailto:dpc10ster@gmail.com">dpc10ster@gmail.com</a> <a href="https://www.devchakraborty.com" class="uri">https://www.devchakraborty.com</a></p>
+<p><a href="mailto:dpc10ster@gmail.com" class="email">dpc10ster@gmail.com</a></p>
 </div>
 </div>
   </div>
 
-  <div class="col-md-3" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
@@ -230,7 +243,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
       </footer>
 </div>

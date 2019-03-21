@@ -88,6 +88,9 @@ ratings in a dataset and returns the corresponding binned dataset in which the r
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+    </li>
+    <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
     <li>
@@ -170,7 +173,7 @@ ratings in a dataset and returns the corresponding binned dataset in which the r
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset to be binned, with structure as in <a href='RJafroc-package.html'>RJafroc-package</a>.</p></td>
+      <td><p>The dataset to be binned, with structure as in <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p></td>
     </tr>
     <tr>
       <th>desiredNumBins</th>
@@ -231,7 +234,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class='no'>fpf</span> <span class='kw'>&lt;-</span> <span class='no'>y</span>$<span class='no'>genAbscissa</span>[-<span class='fl'>1</span>];<span class='no'>fpf</span> <span class='kw'>&lt;-</span> <span class='no'>fpf</span>[-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>fpf</span>)]
 <span class='no'>tpf</span> <span class='kw'>&lt;-</span> <span class='no'>y</span>$<span class='no'>genOrdinate</span>[-<span class='fl'>1</span>];<span class='no'>tpf</span> <span class='kw'>&lt;-</span> <span class='no'>tpf</span>[-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>tpf</span>)]
 <span class='no'>plotOpPnts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>rbind</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>fpf</span> <span class='kw'>=</span> <span class='no'>fpf</span>, <span class='kw'>tpf</span> <span class='kw'>=</span> <span class='no'>tpf</span>))
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>x</span> + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plotOpPnts</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>fpf</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>tpf</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>x</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plotOpPnts</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>fpf</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>tpf</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>)
 <span class='no'>xx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>datasetB</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>xx</span>$<span class='no'>Points</span>)
@@ -262,7 +265,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
       </footer>
    </div>

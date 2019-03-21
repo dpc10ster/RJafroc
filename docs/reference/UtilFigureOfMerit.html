@@ -87,6 +87,9 @@ for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+    </li>
+    <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
     <li>
@@ -168,56 +171,56 @@ for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset to be analyzed, see <a href='RJafroc-package.html'>RJafroc-package</a></p></td>
+      <td><p>The dataset to be analyzed, <code><a href='RJafroc-package.html'>RJafroc-package</a></code></p></td>
     </tr>
     <tr>
       <th>FOM</th>
-      <td><p>The figure of merit to be used in the calculation. 
-The default is <code>"wAFROC"</code></p></td>
+      <td><p>The figure of merit; the default is <code>"wAFROC"</code></p></td>
     </tr>
     <tr>
       <th>FPFValue</th>
-      <td><p>Only needed for LROC data; where to evaluate a partial 
+      <td><p>Only needed for <code>LROC</code> data; where to evaluate a partial 
 curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(I, J)</a></code> array, where the row names are the IDs of the 
-   treatments and column names are the IDs of the readers.</p>
+    <p>An <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(I, J)</a></code> array, where the row names are <code>modalityID</code>'s of the 
+   treatments and column names are the <code>readerID</code>'s of the readers.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The allowed FOMs depend on the type of dataset (i.e., <code>dataType</code> 
-   field of dataset object). 
-   For <strong>ROC datasets:</strong> only <code>"Wilcoxon"</code> is allowed.
-   For <strong>FROC datasets:</strong> The following FOMs are allowed:
-   <code>"AFROC1"</code>, 
-   <code>"AFROC"</code>, 
-   <code>"wAFROC1"</code>, 
-   <code>"wAFROC"</code> (the default), 
-   <code>"HrAuc"</code>, 
-   <code>"SongA1"</code>, 
-   <code>"SongA2"</code>,  
-   <code>"HrSe"</code>, 
-   <code>"HrSp"</code>, 
-   <code>"MaxLLF"</code>, 
-   <code>"MaxNLF"</code>, 
-   <code>"MaxNLFAllCases"</code>, 
-   <code>"ExpTrnsfmSp"</code>, and 
-   <code>"ROI"</code>. 
-   The <code>"MaxLLF"</code>, <code>"MaxNLF"</code> and <code>"MaxNLFAllCases"</code> FOMs 
+    <p>The allowed FOMs depend on the <code>dataType</code> field of the 
+   <code>dataset</code> object.</p>
+<p>For a <strong><code>dataType = "ROC" dataset</code> only <code>FOM = "Wilcoxon"</code> is allowed</strong>.</p>   
+<p>For a <strong><code>dataType = "FROC"</code></strong> dataset the following FOMs are allowed:</p><ul>
+<li><p><code>FOM = "AFROC1"</code></p></li>
+<li><p><code>FOM = "AFROC"</code></p></li>
+<li><p><code>FOM = "wAFROC1"</code></p></li>
+<li><p><code>FOM = "wAFROC"</code> (the default)</p></li>
+<li><p><code>FOM = "HrAuc"</code></p></li>
+<li><p><code>FOM = "SongA1"</code></p></li>
+<li><p><code>FOM = "SongA2"</code></p></li>
+<li><p><code>FOM = "HrSe"</code></p></li>
+<li><p><code>FOM = "HrSp"</code></p></li>
+<li><p><code>FOM = "MaxLLF"</code></p></li>
+<li><p><code>FOM = "MaxNLF"</code></p></li>
+<li><p><code>FOM = "MaxNLFAllCases"</code></p></li>
+<li><p><code>FOM = "ExpTrnsfmSp"</code></p></li>
+</ul><p><code>"MaxLLF"</code>, <code>"MaxNLF"</code> and <code>"MaxNLFAllCases"</code>
    correspond to ordinate, and abscissa, respectively, of the highest point 
-   on the FROC operating characteristic obtained by counting all the marks). 
+   on the FROC operating characteristic obtained by counting all the marks. 
    The <code>"ExpTrnsfmSp"</code> FOM is described in the paper by Popescu. 
    Given the large number of FOMs possible with FROC data, it is appropriate 
-   to make a recommendation: <strong>it is recommended that one use the wAFROC FOM.</strong>
-   For <strong>LROC datasets:</strong> The following FOMs are allowed:<code>"Wilcoxon"</code> for 
-   ROC data inferred from LROC data, which ignores localization information; 
-   or <code>"PCL"</code> or <code>"ALROC"</code>, in which case one needs to specify an 
-   additional argument, <code>FPFValue</code>: the desired FPF at which to evaluate 
-   PCL or ALROC; the default is 0.2.</p>
+   to make a recommendation: <strong>it is recommended that one use the wAFROC FOM.</strong></p>   
+<p>For a <strong><code>dataType = "ROI"</code> dataset only <code>FOM = "ROI"</code> is allowed</strong>.</p>   
+<p>For a <strong><code>dataType = "LROC"</code></strong> dataset the following FOMs are allowed:</p><ul>
+<li><p><code>FOM = "Wilcoxon"</code> for ROC data inferred from LROC data</p></li>
+<li><p><code>FOM = "PCL"</code> the probability of correct localization at specified <code>FPFValue</code></p></li>
+<li><p><code>FOM = "ALROC"</code> the area under the LROC from zero to specified <code>FPFValue</code></p></li>
+</ul><p><code>FPFValue</code> is the desired FPF at which to evaluate <code>PCL</code> or <code>ALROC</code>; 
+      the default is 0.2.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -237,23 +240,27 @@ Med Phys 23:10, 1709--1725.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># ROC data</span>
-<span class='fu'>UtilFigureOfMerit</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</div><div class='output co'>#&gt;           Rdr - 0   Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4
+    <pre class="examples"><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'># ROC data</span></div><div class='output co'>#&gt;           Rdr - 0   Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4
 #&gt; Trt - 0 0.9196457 0.8587762 0.9038647 0.9731079 0.8297907
-#&gt; Trt - 1 0.9478261 0.9053140 0.9217391 0.9993559 0.9299517</div><div class='input'><span class='co'># FROC dataset, converted to ROC, Wilcoxon FOM</span>
-<span class='fu'>UtilFigureOfMerit</span>(<span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span>(<span class='no'>dataset01</span>), <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</div><div class='output co'>#&gt;            Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5
+#&gt; Trt - 1 0.9478261 0.9053140 0.9217391 0.9993559 0.9299517</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span>(<span class='no'>dataset01</span>), <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'># FROC dataset, converted to ROC</span></div><div class='output co'>#&gt;            Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5
 #&gt; Trt - BT 0.7959972 0.8652271 0.8411751 0.8311096 0.8465590
-#&gt; Trt - DM 0.6689490 0.7211493 0.7841175 0.7979284 0.7061096</div><div class='input'><span class='co'># FROC dataset, default wAFROC FOM</span>
-<span class='fu'>UtilFigureOfMerit</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset01</span>)</div><div class='output co'>#&gt;            Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5
+#&gt; Trt - DM 0.6689490 0.7211493 0.7841175 0.7979284 0.7061096</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset01</span>) <span class='co'># FROC dataset, default wAFROC FOM</span></div><div class='output co'>#&gt;            Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5
 #&gt; Trt - BT 0.7602704 0.8406191 0.8171524 0.8153090 0.8278324
-#&gt; Trt - DM 0.6425854 0.7049977 0.7518434 0.7724426 0.6836962</div><div class='input'><span class='co'>#LROC data</span>
-<span class='fu'>UtilFigureOfMerit</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ALROC"</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - DM 0.6425854 0.7049977 0.7518434 0.7724426 0.6836962</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;          Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6  Rdr - 7
+#&gt; Trt - 1 0.628125 0.7585417 0.7494792 0.8670313 0.8005208 0.7686979 0.786875
+#&gt;         Rdr - 8   Rdr - 9  Rdr - 10
+#&gt; Trt - 1    0.84 0.7652083 0.7913542</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"PCL"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3 Rdr - 4 Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - 1 0.5916667 0.6945313 0.6520833 0.80625   0.725 0.6598214 0.7684524
+#&gt;         Rdr - 8 Rdr - 9 Rdr - 10
+#&gt; Trt - 1 0.74375   0.675    0.675</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ALROC"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6   Rdr - 7
 #&gt; Trt - 1 0.1005382 0.1075944 0.1089236 0.1447396 0.1189063 0.1000335 0.1345511
 #&gt;           Rdr - 8   Rdr - 9  Rdr - 10
-#&gt; Trt - 1 0.1222135 0.1060417 0.1054167</div><div class='input'><span class='co'>#ROI data</span>
-<span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetROI</span>)</div><div class='output co'>#&gt; Incorrect FOM supplied, changing to 'ROI'</div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5
+#&gt; Trt - 1 0.1222135 0.1060417 0.1054167</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetROI</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ROI"</span>) <span class='co'>#ROI data</span></div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5
 #&gt; Trt - 1 0.9057239 0.8842834 0.8579279 0.9350207 0.8352103
-#&gt; Trt - 2 0.9297186 0.9546035 0.8937652 0.9531716 0.8770076</div><div class='input'>
+#&gt; Trt - 2 0.9297186 0.9546035 0.8937652 0.9531716 0.8770076</div><span class='co'># NOT RUN {</span>
+<span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>) <span class='co'>#error</span>
+<span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset01</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'>#error</span>
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -279,7 +286,7 @@ Med Phys 23:10, 1709--1725.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
       </footer>
    </div>

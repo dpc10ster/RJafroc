@@ -86,6 +86,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+    </li>
+    <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
     <li>
@@ -159,19 +162,19 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wJAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset to be analyzed, see <a href='RJafroc-package.html'>RJafroc-package</a>.</p></td>
+      <td><p>The dataset to be analyzed, see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p></td>
     </tr>
     <tr>
       <th>FOM</th>
       <td><p>The figure of merit to be used in the calculation. The default 
-is <code>"wJAFROC"</code>. See <a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a>.</p></td>
+is <code>"wJAFROC"</code>. See <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code>.</p></td>
     </tr>
     <tr>
       <th>method</th>
@@ -221,8 +224,7 @@ valid options are <code>"DBMH"</code> (default) and <code>"ORH"</code>.</p></td>
 #&gt; 
 #&gt; $msCSingleR
 #&gt; [1] 0.12224980 0.21274824 0.13653391 0.01728937 0.16605281
-#&gt; </div><div class='input'>
-<span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset05</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $msT
+#&gt; </div><div class='input'><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $msT
 #&gt; [1] 0.02739718
 #&gt; 
 #&gt; $msR
@@ -254,7 +256,7 @@ valid options are <code>"DBMH"</code> (default) and <code>"ORH"</code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
       </footer>
    </div>

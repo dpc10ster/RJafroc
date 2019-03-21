@@ -86,6 +86,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+    </li>
+    <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
     <li>
@@ -170,22 +173,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset object to be analyzed (not the file name), see <code>Dataset</code> in <a href='RJafroc-package.html'>RJafroc-package</a>.</p></td>
+      <td><p>The dataset object to be analyzed (not the file name), see <code>Dataset</code> 
+in <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p></td>
     </tr>
     <tr>
       <th>DataFileName</th>
       <td><p>A string variable containing the name of the data file 
-to be analyzed, in the form <code>baseName.ext</code>, see <a href='DfReadDataFile.html'>DfReadDataFile</a>.</p></td>
+to be analyzed, in the form <code>baseName.ext</code>, see <code><a href='DfReadDataFile.html'>DfReadDataFile</a></code>.</p></td>
     </tr>
     <tr>
       <th>DataFileFormat</th>
       <td><p>The format of the data specified in <code>DataFileName</code>: 
-see <a href='DfReadDataFile.html'>DfReadDataFile</a>. Must be specified if <code>DataFileName</code>
+see <code><a href='DfReadDataFile.html'>DfReadDataFile</a></code>. Must be specified if <code>DataFileName</code>
 is specified. Valid values are "JAFROC", "MRMC" or "iMRMC"</p></td>
     </tr>
     <tr>
       <th>delimiter</th>
-      <td><p>used in text input data file, See <a href='DfReadDataFile.html'>DfReadDataFile</a>.</p></td>
+      <td><p>used in text input data file, See <code><a href='DfReadDataFile.html'>DfReadDataFile</a></code>.</p></td>
     </tr>
     <tr>
       <th>dataDescription</th>
@@ -210,19 +214,19 @@ Excel file, respectively.</p></td>
     </tr>
     <tr>
       <th>FOM</th>
-      <td><p>The figure of merit; see <a href='StSignificanceTesting.html'>StSignificanceTesting</a>.</p></td>
+      <td><p>The figure of merit; see <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>See <a href='StSignificanceTesting.html'>StSignificanceTesting</a>.</p></td>
+      <td><p>See <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>.</p></td>
     </tr>
     <tr>
       <th>covEstMethod</th>
-      <td><p>See <a href='StSignificanceTesting.html'>StSignificanceTesting</a>; only needed for <code>"ORH"</code> analysis.</p></td>
+      <td><p>See <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>; only needed for <code>"ORH"</code> analysis.</p></td>
     </tr>
     <tr>
       <th>nBoots</th>
-      <td><p>See <a href='StSignificanceTesting.html'>StSignificanceTesting</a>; only needed for <code>"ORH"</code> analysis.</p></td>
+      <td><p>See <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>; only needed for <code>"ORH"</code> analysis.</p></td>
     </tr>
     <tr>
       <th>renumber</th>
@@ -242,7 +246,7 @@ existing file. If <code>TRUE</code>, an existing file will be silently overwritt
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>sigTestResult The object returned by <a href='StSignificanceTesting.html'>StSignificanceTesting</a>.</p>
+    <p>sigTestResult The object returned by <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -389,14 +393,14 @@ UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", method = "DBMH",
              overwrite = TRUE, ReportFileFormat = "xlsx")
              
 ## Output report for an existing dataset
-## UtilOutputReport(dataset = dataset05, method = "DBMH") # ERROR! as FOM is 
+## UtilOutputReport(dataset05, method = "DBMH") # ERROR as FOM is 
    incompatible with FROC data
 
-UtilOutputReport(dataset = dataset05, method = "ORH") # OK as default FOM is "wJAFROC"
+UtilOutputReport(dataset05, method = "ORH", FOM = "wAFROC")
 
-UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc")
+UtilOutputReport(dataset05, method = "DBMH", FOM = "HrAuc")
 
-UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
+UtilOutputReport(dataset05, method = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
 # }
 <div class='input'>       
 </div></pre>
@@ -422,7 +426,7 @@ UtilOutputReport(dataset = dataset05, method = "DBMH", FOM = "HrAuc", ReportFile
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
       </footer>
    </div>

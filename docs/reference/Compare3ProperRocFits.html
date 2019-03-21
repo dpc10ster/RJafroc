@@ -90,6 +90,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+    </li>
+    <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
     <li>
@@ -224,8 +227,8 @@ is <code>FALSE</code> in which case the previously saved results are used.</p></
 <li><p><code>allDatasetsResults[[2]][[IJ]]</code>binned ROC dataset corresponding to dataset  <code>startIndx+1</code></p></li>
 </ul>
     <p>A specific member, e.g., <code>allDatasetsResults[[1]][[1]]</code>, has the following structure:</p><ul>
-<li><p><code>retRsm</code> The RSM parameters following the output structure of <a href='FitRsmRoc.html'>FitRsmRoc</a></p></li>
-<li><p><code>retCbm</code> The CBM parameters following the output structure of <a href='FitCbmRoc.html'>FitCbmRoc</a></p></li>
+<li><p><code>retRsm</code> The RSM parameters following the output structure of <code><a href='FitRsmRoc.html'>FitRsmRoc</a></code></p></li>
+<li><p><code>retCbm</code> The CBM parameters following the output structure of <code><a href='FitCbmRoc.html'>FitCbmRoc</a></code></p></li>
 <li><p><code>lesDistr</code> The lesion distribution matrix</p></li>
 <li><p><code>c1</code> The <code>c</code>-parameter of PROPROC</p></li>
 <li><p><code>da</code> The <code>d_sub_a</code> parameter of PROPROC</p></li>
@@ -255,7 +258,21 @@ Acad Radiol <b>7</b>, 427--437.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>Compare3ProperRocFits</span>(<span class='fl'>1</span>,<span class='fl'>1</span>) <span class='co'># analyze first two datasets</span></div><div class='output co'>#&gt; TONY  i, j, mu, lambdaP,	nuP, c,	da,	alpha, muCbm,	AUC-RSM, AUC-PROPROC, AUC-CBM, chisq, p-value,  df
+#&gt; TONY 1 1 1.781369 1.04022 0.7291649 -0.1322804 1.197239 0.7749217 1.830609 0.8132081 0.8014164 0.8117065 NA NA NA 
+#&gt; TONY 1 2 2.295082 2.19112 0.9142191 -0.08696513 1.771176 0.9239212 2.044606 0.8929724 0.8947898 0.8934768 NA NA NA 
+#&gt; TONY 1 3 2.655093 9.936086 0.9071586 -0.1444419 1.481935 0.8554276 1.873801 0.8521674 0.8526605 0.8485104 NA NA NA 
+#&gt; TONY 1 4 1.2083 1.018576 0.9898557 0.08046016 1.513757 0.98 1.511092 0.8636642 0.8577776 0.8502061 NA NA NA 
+#&gt; TONY 1 5 0.8165321 0.2462473 0.7901189 0.2225588 1.740157 0.98 1.681789 0.852543 0.8909392 0.8751639 NA NA NA 
+#&gt; TONY 2 1 1.206195 1.059105 0.4778519 -0.08174248 0.6281251 0.5978306 1.165617 0.6785134 0.6716574 0.6764148 NA NA NA 
+#&gt; TONY 2 2 1.036831 2.213588 0.9766908 0.04976448 0.9738786 0.98 0.967137 0.7573916 0.7544739 0.7479117 NA NA NA 
+#&gt; TONY 2 3 2.043029 2.478914 0.7302316 -0.1326126 1.155871 0.7535052 1.717341 0.7926479 0.7931787 0.7921278 1.352244 0.2448863 1 
+#&gt; TONY 2 4 1.01982 0.6164271 0.9800383 0.1182226 1.620176 0.98 1.535907 0.8845014 0.8740274 0.8540462 NA NA NA 
+#&gt; TONY 2 5 0.7743919 1.824999 0.9806003 0.0781033 0.8928816 0.98 0.859122 0.74064 0.7360989 0.7236727 NA NA NA 
+#&gt; 
+#&gt; 
+#&gt; </div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>Compare3ProperRocFits</span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='kw'>reAnalyze</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='co'># analyze first two datasets</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>ret</span>$<span class='no'>allDatasetsResults</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>x</span><span class='kw'>[[</span><span class='fl'>1</span>]]<span class='kw'>[[</span><span class='fl'>1</span>]]) <span class='co'># parameters for dataset 1 trt 1 and rdr 1</span>
@@ -266,7 +283,6 @@ Acad Radiol <b>7</b>, 427--437.</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>x</span><span class='kw'>[[</span><span class='fl'>2</span>]]<span class='kw'>[[</span><span class='fl'>2</span>]]) <span class='co'># parameters for dataset 2 trt 1 and rdr 2</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>x</span><span class='kw'>[[</span><span class='fl'>2</span>]]<span class='kw'>[[</span><span class='fl'>10</span>]])<span class='co'># parameters for dataset 2 trt 2 and rdr 5</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>x</span><span class='kw'>[[</span><span class='fl'>3</span>]]<span class='kw'>[[</span><span class='fl'>1</span>]]) <span class='co'># error</span>
-
 <span class='co'># }</span><div class='input'>
 
 </div></pre>
@@ -294,7 +310,7 @@ Acad Radiol <b>7</b>, 427--437.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
       </footer>
    </div>

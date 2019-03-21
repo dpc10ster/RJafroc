@@ -34,11 +34,12 @@
 
 <meta property="og:description" content="Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
    significance testing with Hillis' improvements, for specified dataset; 
-   significance testing refers to analysis designed to assign a P-value for 
-   rejecting a null hypothesis (NH); the most common NH is that the reader-averaged 
+   significance testing refers to analysis designed to assign a P-value, 
+   and other statistics, for 
+   rejecting the null hypothesis (NH) that the reader-averaged 
    figure of merit (FOM) difference between treatments is zero. The results of 
-   the analysis are better visualized in the text or, preferably, 
-   Excel-formatted, files produced by UtilOutputReport." />
+   the analysis are better visualized in the text or  
+   Excel-formatted files produced by UtilOutputReport." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -91,6 +92,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+    </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
@@ -163,15 +167,16 @@
     
     <p>Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
    significance testing with Hillis' improvements, for specified dataset; 
-   significance testing refers to analysis designed to assign a P-value for 
-   rejecting a null hypothesis (NH); the most common NH is that the reader-averaged 
+   significance testing refers to analysis designed to assign a P-value, 
+   and other statistics, for 
+   rejecting the null hypothesis (NH) that the reader-averaged 
    figure of merit (FOM) difference between treatments is zero. The results of 
-   the analysis are better visualized in the text or, preferably, 
-   Excel-formatted, files produced by <a href='UtilOutputReport.html'>UtilOutputReport</a>.</p>
+   the analysis are better visualized in the text or  
+   Excel-formatted files produced by <code><a href='UtilOutputReport.html'>UtilOutputReport</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wJAFROC"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+    <pre class="usage"><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
   <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"Jackknife"</span>, <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>200</span>,
   <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>, <span class='kw'>VarCompFlag</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
     
@@ -180,17 +185,16 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset to be analyzed, see <a href='RJafroc-package.html'>RJafroc-package</a></p></td>
+      <td><p>The dataset to be analyzed, see <code><a href='RJafroc-package.html'>RJafroc-package</a></code></p></td>
     </tr>
     <tr>
       <th>FOM</th>
-      <td><p>The figure of merit, default <code>"wJAFROC"</code>, 
-see <a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></p></td>
+      <td><p>The figure of merit, default <code>"Wilcoxon"</code>, <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code></p></td>
     </tr>
     <tr>
       <th>alpha</th>
       <td><p>The significance level of the test of the null hypothesis that all 
-treatment effects are zero; the default alpha is 0.05</p></td>
+treatment effects are zero; the default is 0.05</p></td>
     </tr>
     <tr>
       <th>method</th>
@@ -200,26 +204,28 @@ and the Obuchowski-Rockette significance testing methods, respectively.</p></td>
     </tr>
     <tr>
       <th>covEstMethod</th>
-      <td><p>The method used to estimate the covariance matrix 
-in ORH analysis; it can be <code>"Jackknife"</code>, <code>"Bootstrap"</code> 
-or <code>"DeLong"</code>, the last assumes <code>FOM = "Wilcoxon"</code>, otherwise 
-an error results. This parameter is not relevant if the analysis method 
-is <code>"DBMH"</code></p></td>
+      <td><p>This parameter is not relevant if
+   <code>method = "DBMH"</code>. Specifies covariance matrix estimation method
+   in ORH analysis.</p><ul>
+<li><p><code>"Jackknife"</code>, the default,</p></li>
+<li><p><code>"Bootstrap"</code>, in which case <code>nBoots</code> is relevant</p></li>
+<li><p><code>"DeLong"</code>; the last assumes <code>FOM = "Wilcoxon"</code>, otherwise 
+   an error results.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>nBoots</th>
-      <td><p>The number of bootstraps (default is 200), relevant only if 
-the <code>"Bootstrap"</code> method is used to estimate the covariance matrix
-in the ORH method</p></td>
+      <td><p>The number of bootstraps (defaults to 200), relevant only if 
+<code>covEstMethod = "Bootstrap"</code> and <code>method = "ORH"</code></p></td>
     </tr>
     <tr>
       <th>option</th>
-      <td><p>Determines which factors are regarded as random vs. fixed: 
-<code>"RRRC"</code> = random-reader random case, 
-<code>"FRRC"</code> = fixed-reader random case, 
-<code>"RRFC"</code> = random-reader fixed case, 
-<code>"ALL"</code> outputs the results of <code>"RRRC"</code>, <code>"FRRC"</code> 
-and <code>"RRFC"</code> analyses</p></td>
+      <td><p>Determines which factors are regarded as random vs. fixed:</p><ul>
+<li><p><code>"RRRC"</code> = random-reader random case,</p></li>
+<li><p><code>"FRRC"</code> = fixed-reader random case,</p></li>
+<li><p><code>"RRFC"</code> = random-reader fixed case,</p></li>
+<li><p><code>"ALL"</code> = outputs the results of <code>"RRRC"</code>, <code>"FRRC"</code> and <code>"RRFC"</code> analyses</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>VarCompFlag</th>
@@ -303,7 +309,7 @@ figure of merit. The default is 0.2.</p></td>
 For method = "ORH" the return value is a list with with 21 members:
 
 <dt>fomArray</dt><dd><p>Figures of merit array. See the return of 
-   <a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></p></dd>
+   <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code></p></dd>
 
 <dt>msT</dt><dd><p>Mean square of the figure of merit corresponding to 
    the treatment effect</p></dd>
@@ -365,38 +371,126 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>retDbmRoc</span>  <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,
-<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><span class='co'># NOT RUN {</span>
-<span class='no'>retDbmwJAFROC</span>  <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>) <span class='co'># default is weighted JAFROC</span>
-
-<span class='no'>retDbmHrAuc</span>  <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>,
-<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"HrAuc"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retDbmHrAuc</span>)
-
-<span class='no'>retDbmSongA1</span>  <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>,
-<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retDbmSongA1</span>)
-
-<span class='no'>retDbmSongA2</span>  <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>,
-<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA2"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retDbmSongA2</span>)
-
-<span class='no'>retDbmwJafroc1</span>  <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>,
-<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wJAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retDbmwJafroc1</span>)
-
-<span class='no'>retDbmJafroc1</span>  <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>,
-<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"JAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retDbmJafroc1</span>)
-
-<span class='no'>retDbmJAFROC</span>  <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>,
-<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"JAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retDbmJAFROC</span>)
-
-<span class='co'># }</span><div class='input'>
-<span class='no'>retOR</span> <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,
-<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retOR</span>)</div><div class='output co'>#&gt; $fomArray
+    <pre class="examples"><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr - 0   Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4
+#&gt; Trt - 0 0.9196457 0.8587762 0.9038647 0.9731079 0.8297907
+#&gt; Trt - 1 0.9478261 0.9053140 0.9217391 0.9993559 0.9299517
+#&gt; 
+#&gt; $anovaY
+#&gt;   Source          SS   DF         MS
+#&gt; 1      T   0.5467634    1 0.54676344
+#&gt; 2      R   1.7493072    4 0.43732680
+#&gt; 3      C  44.8462969  113 0.39686988
+#&gt; 4     TR   0.2512700    4 0.06281749
+#&gt; 5     TC  11.2828335  113 0.09984808
+#&gt; 6     RC  29.1544793  452 0.06450106
+#&gt; 7    TRC  18.0671646  452 0.03997160
+#&gt; 8  Total 105.8981150 1139         NA
+#&gt; 
+#&gt; $anovaYi
+#&gt;   Source  DF          0          1
+#&gt; 1      R   4 0.35141967 0.14872462
+#&gt; 2      C 113 0.33629430 0.16042367
+#&gt; 3     RC 452 0.06043607 0.04403659
+#&gt; 
+#&gt; $varComp
+#&gt;                 varComp
+#&gt; Var(R)     0.0015349993
+#&gt; Var(C)     0.0272492343
+#&gt; Var(T*R)   0.0002004025
+#&gt; Var(T*C)   0.0119752962
+#&gt; Var(R*C)   0.0122647286
+#&gt; Var(Error) 0.0399716032
+#&gt; 
+#&gt; $fRRRC
+#&gt; [1] 4.456319
+#&gt; 
+#&gt; $ddfRRRC
+#&gt; [1] 15.25967
+#&gt; 
+#&gt; $pRRRC
+#&gt; [1] 0.05166569
+#&gt; 
+#&gt; $ciDiffTrtRRRC
+#&gt;   Treatment    Estimate     StdErr       DF         t      PrGTt    CILower
+#&gt; 1     0 - 1 -0.04380032 0.02074862 15.25967 -2.110999 0.05166569 -0.0879595
+#&gt;        CIUpper
+#&gt; 1 0.0003588544
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRRC
+#&gt;   Treatment      Area     StdErr       DF   CILower   CIUpper
+#&gt; 1         0 0.8970370 0.03317360 12.74465 0.8252236 0.9688505
+#&gt; 2         1 0.9408374 0.02156637 12.71019 0.8941378 0.9875369
+#&gt; 
+#&gt; $fFRRC
+#&gt; [1] 5.475953
+#&gt; 
+#&gt; $ndf
+#&gt; [1] 1
+#&gt; 
+#&gt; $ddfFRRC
+#&gt; [1] 113
+#&gt; 
+#&gt; $pFRRC
+#&gt; [1] 0.02103497
+#&gt; 
+#&gt; $ciDiffTrtFRRC
+#&gt;   Treatment    Estimate     StdErr  DF         t      PrGTt     CILower
+#&gt; 1     0 - 1 -0.04380032 0.01871748 113 -2.340075 0.02103497 -0.08088303
+#&gt;        CIUpper
+#&gt; 1 -0.006717613
+#&gt; 
+#&gt; $ciAvgRdrEachTrtFRRC
+#&gt;   Treatment      Area     StdErr  DF   CILower   CIUpper
+#&gt; 1         0 0.8970370 0.02428971 113 0.8489147 0.9451593
+#&gt; 2         1 0.9408374 0.01677632 113 0.9076004 0.9740743
+#&gt; 
+#&gt; $ssAnovaEachRdr
+#&gt;   Source  DF           0          1           2          3          4
+#&gt; 1      T   1  0.04526554  0.1234489  0.01821116 0.03927054  0.5718372
+#&gt; 2      C 113 13.81422735 24.0405509 15.42833162 1.95369866 18.7639677
+#&gt; 3     TC 113  4.19224664  4.4557943  6.27380494 1.92578596 12.5023663
+#&gt; 
+#&gt; $msAnovaEachRdr
+#&gt;   Source  DF          0          1          2          3         4
+#&gt; 1      T   1 0.04526554 0.12344893 0.01821116 0.03927054 0.5718372
+#&gt; 2      C 113 0.12224980 0.21274824 0.13653391 0.01728937 0.1660528
+#&gt; 3     TC 113 0.03709953 0.03943181 0.05552040 0.01704235 0.1106404
+#&gt; 
+#&gt; $ciDiffTrtEachRdr
+#&gt;   Reader Treatment    Estimate     StdErr  DF          t      PrGTt     CILower
+#&gt; 1      0     0 - 1 -0.02818035 0.02551213 113 -1.1045864 0.27168532 -0.07872449
+#&gt; 2      1     0 - 1 -0.04653784 0.02630183 113 -1.7693768 0.07952866 -0.09864651
+#&gt; 3      2     0 - 1 -0.01787440 0.03120965 113 -0.5727202 0.56797197 -0.07970634
+#&gt; 4      3     0 - 1 -0.02624799 0.01729129 113 -1.5179891 0.13180998 -0.06050515
+#&gt; 5      4     0 - 1 -0.10016103 0.04405746 113 -2.2734182 0.02489049 -0.18744681
+#&gt;        CIUpper
+#&gt; 1  0.022363782
+#&gt; 2  0.005570821
+#&gt; 3  0.043957543
+#&gt; 4  0.008009174
+#&gt; 5 -0.012875255
+#&gt; 
+#&gt; $fRRFC
+#&gt; [1] 8.704
+#&gt; 
+#&gt; $ddfRRFC
+#&gt; [1] 4
+#&gt; 
+#&gt; $pRRFC
+#&gt; [1] 0.04195875
+#&gt; 
+#&gt; $ciDiffTrtRRFC
+#&gt;   Treatment    Estimate     StdErr DF         t      PrGTt     CILower
+#&gt; 1     0 - 1 -0.04380032 0.01484629  4 -2.950254 0.04195875 -0.08502022
+#&gt;       CIUpper
+#&gt; 1 -0.00258042
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRFC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         0 0.8970370 0.02482994  4 0.8280981 0.9659760
+#&gt; 2         1 0.9408374 0.01615303  4 0.8959894 0.9856854
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $fomArray
 #&gt;           Rdr - 0   Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4
 #&gt; Trt - 0 0.9196457 0.8587762 0.9038647 0.9731079 0.8297907
 #&gt; Trt - 1 0.9478261 0.9053140 0.9217391 0.9993559 0.9299517
@@ -500,7 +594,15 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
 #&gt; 1         0 0.8970370 0.02482994  4 0.8280981 0.9659760
 #&gt; 2         1 0.9408374 0.01615303  4 0.8959894 0.9856854
-#&gt; </div><div class='input'>
+#&gt; </div><span class='co'># NOT RUN {</span>
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"HrAuc"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA2"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wJAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"JAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"JAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
+<span class='co'># }</span><div class='input'>
 
 </div></pre>
   </div>
@@ -525,7 +627,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
       </footer>
    </div>
