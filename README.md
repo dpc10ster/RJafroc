@@ -10,26 +10,18 @@ RJafroc-master
 * Modeling, Analysis, Validation and Visualization of ROC/FROC studies
 * Extends and replaces Windown version of software (JAFROC: https://www.devchakraborty.com)
 
-### RJafroc code development history ###
-See NEWS.md
+### RJafrSeeoc code development history ###
+* TBA
 
 ### How do I get set up? ###
 
-* Navigate to https://github.com/dpc10ster/rjafroc-master
-* Clone this repository to Desktop.
+* Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example. 
+* I find the GitHub desktop app useful in mananging my downloads/uploads from Git.
 * Install current versions of R and RStudio.
-* Open RJafroc.Rproj.
-* Find RJafroc in Packages and click on it - this will open the help files.
-* Click on any function and run the example(s) by higlighting, copying and pasting
-     into the Console window.
-* For example, click on PlotBinormalFit, find the example, copy it and paste it
-     into the Console window:
-     binormalPlot <- PlotBinormalFit(c(1, 2), c(0.5, 0.5))
-     print(binormalPlot)
-* You should see two binormal model ROC curves, one with a decided hook.
-* Study the RJafroc.pdf file (https://cran.r-project.org/web/packages/RJafroc/RJafroc.pdf)
-* Dependencies
-Imports:
+* Navigate to the rjafroc directory.
+* Open RJafroc.Rproj. This will open RStudio. 
+* Navigate to File menu (lower-right window) and click on DESCRIPTION file.
+* Install all packages listed under Imports, e.g.,    
     openxlsx,
     ggplot2,
     stringr,
@@ -39,18 +31,25 @@ Imports:
     bbmle,
     binom,
     mvtnorm,
+    dplyr,
     numDeriv,
     Rcpp
-Suggests:
-    testthat,
-    knitr,
-    rmarkdown
-* Database configuration
-  NA
-* How to run tests
-  TBA
-* Deployment instructions
-  TBA
+* For example, to install the first two above-listed packages, use the following command at the Console prompt:
+   install.packages(c("openxlsx", "ggplot2"))
+* Click on Install and Restart (upper right panel). If errors result from missing packages, install those packages
+* A successful Install and Restart will result in the following line in the Console window:
+  library(RJafroc)
+* Thats it! RJafroc has been installed to your computer and is available from any other R project.
+* You will not need to access the RJafroc folder again (unless you reinstall a new version of the software). 
+* All necessary files of the installation are in a hidden directory that you do not normally need to worry about.
+* Create an empty directory, e..g., myProject. In my computer it is in /Users/Dev/Downloads/myProject.
+* Starting from RStudio > File > New Project > Existing Directory > myProject > Create Project.
+* Oila! You should see myProject.RProj in the Files menu.
+* Click on Packages and scroll down to find RJafroc, and check the box next to it. This results in RJafroc being loaded to the current workspace.The following line appears in the Console window (this is the hidden directory referrred to above).
+  library("RJafroc", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
+* Click on RJafroc in the packages window. A help window opens up. I find it convenient to put this in its own window by clicking the "out" arrow button (hover message: Show in new window). You can access all documentation fron here.   
+* Put your data and other files, if any, in myProject.
+* 
 
 ### Contribution guidelines ###
 
@@ -64,4 +63,4 @@ Suggests:
 ### Who do I talk to? ###
 
 dpc10ster@gmail.com
-https://www.devchakraborty.com
+
