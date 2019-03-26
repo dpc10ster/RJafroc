@@ -10,18 +10,18 @@ Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "
 Depends:
     R (>= 3.5.0)
 Imports:
-    openxlsx,
-    ggplot2,
-    stringr,
-    tools,
-    utils,
-    stats,
     bbmle,
     binom,
-    mvtnorm,
     dplyr,
+    ggplot2,
+    mvtnorm,
     numDeriv,
-    Rcpp
+    openxlsx,
+    Rcpp,
+    stats,
+    stringr,
+    tools,
+    utils
 Suggests:
     testthat,
     knitr,
