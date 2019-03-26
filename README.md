@@ -24,14 +24,20 @@ RJafroc-master
 library(devtools)
 ```
 * Install RJafroc directly from GitHub:
-* install_github("dpc10ster/rjafroc-master")
+```
+install_github("dpc10ster/rjafroc-master")
+```
 * Hit Enter on any prompts.
 * Lots of activity and compilation of C code ....
 * Load RJafroc:
-* library(RJafroc)
+```
+library(RJafroc)
+```
 * Test the installation:
-* cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-* print(cbmPlot)
+```
+cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
+print(cbmPlot)
+```
 * You should see two ROC plots in the Plots window.
 * Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc-master/.
 * Put your data and other files, if any, in myProject.
@@ -58,10 +64,14 @@ library(devtools)
     numDeriv,
     Rcpp
 * For example, to install the first two above-listed packages, use the following command at the Console prompt:
-   install.packages(c("openxlsx", "ggplot2"))
+```
+install.packages(c("openxlsx", "ggplot2"))
+```
 * Click on Build > Install and Restart (upper right panel). If errors result from missing packages, install those packages.
 * A successful Install and Restart will result in the following line in the Console window:
-  library(RJafroc)
+```
+library(RJafroc)
+```
 * Thats it! RJafroc has been installed to your computer and is visible to any other R project in any directory.
 * You will not need to access the RJafroc folder again (unless you reinstall a new version of the software). 
 * All necessary files of the installation are in a hidden directory that you do not normally need to worry about.
@@ -72,8 +82,10 @@ library(devtools)
   library("RJafroc", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
 * Click on RJafroc in the packages window. A help window opens up. I find it convenient to put this in its own window by clicking the "out" arrow button (hover message: Show in new window). You can access all documentation from here.
 * Test the installation:
-* cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-* print(cbmPlot)
+```
+cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
+print(cbmPlot)
+```
 * You should see two ROC plots in the Plots window.
 * Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc-master/.
 * Put your data and other files, if any, in myProject.
