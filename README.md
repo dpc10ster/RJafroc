@@ -5,15 +5,15 @@ RJafroc-master
 [![codecov](https://codecov.io/gh/dpc10ster/rjafroc-master/branch/master/graph/badge.svg)](https://codecov.io/gh/dpc10ster/rjafroc-master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rjafroc)](https://cran.r-project.org/package=rjafroc)
 
-### What is this repository for? ###
+## What is this repository for? ##
 * Modeling, Analysis, Validation and Visualization of ROC/FROC studies
 * Extends and replaces Windown version of software (JAFROC: https://www.devchakraborty.com)
 
-### RJafroc code development history ###
+## RJafroc code development history ##
 * The C++ code in src directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub. Those proficient with GitHub can ignore the following directions.  
 
-### How do I get set up? Short version: install directly from GitHub ###
-## * Install R and RStudio.##
+# How do I get set up? Short version: install directly from GitHub #
+* Install R and RStudio.
 * Create an empty directory, e.g., myProject. In my computer it is /Users/Dev/Downloads/myProject.
 * Open RStudio. 
 * Starting from RStudio > File > New Project > Existing Directory > myProject > Create Project.
