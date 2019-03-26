@@ -13,7 +13,7 @@ RJafroc-master
 * The C++ code in `src` directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub. Those proficient with GitHub can ignore the following directions.  
 
 # How do I get set up? #
-##Short version: install directly from GitHub using package devtools ##
+## Short version: install directly from GitHub using package devtools ##
 * Install `R` and `RStudio`.
 * Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
 * Open `RStudio`. 
