@@ -10,7 +10,7 @@ RJafroc-master
 * Extends and replaces Windown version of software (JAFROC: https://www.devchakraborty.com)
 
 ### RJafroc code development history ###
-* The C++ code is src directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub.   
+* The C++ code in src directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub.   
 
 ### How do I get set up? Short version, install directly from GitHub ###
 * Install R and RStudio.
