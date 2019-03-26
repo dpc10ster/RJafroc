@@ -6,15 +6,23 @@ RJafroc-master
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rjafroc)](https://cran.r-project.org/package=rjafroc)
 
 ### What is this repository for? ###
-
 * Modeling, Analysis, Validation and Visualization of ROC/FROC studies
 * Extends and replaces Windown version of software (JAFROC: https://www.devchakraborty.com)
 
 ### RJafroc code development history ###
-* TBA
+* The C++ code is src directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub.   
 
-### How do I get set up? ###
+### How do I get set up? Short version ###
+* Install R and RStudio.
+* Create an empty directory, e.g., myProject. In my computer it is /Users/Dev/Downloads/myProject.
+* Open RStudio. 
+* Starting from RStudio > File > New Project > Existing Directory > myProject > Create Project.
+* Oila! You should see myProject.RProj in the Files menu.
+* Install the devtools package: 
+** Packages > Install > devtools
+** library(devtools)
 
+### How do I get set up? Long version###
 * Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example. 
 * I find the GitHub desktop app useful in mananging my downloads/uploads from Git.
 * Install R and RStudio.
@@ -42,7 +50,7 @@ RJafroc-master
 * Thats it! RJafroc has been installed to your computer and is visible to any other R project in any directory.
 * You will not need to access the RJafroc folder again (unless you reinstall a new version of the software). 
 * All necessary files of the installation are in a hidden directory that you do not normally need to worry about.
-* Create an empty directory, e..g., myProject. In my computer it is /Users/Dev/Downloads/myProject.
+* Create an empty directory, e.g., myProject. In my computer it is /Users/Dev/Downloads/myProject.
 * Starting from RStudio > File > New Project > Existing Directory > myProject > Create Project.
 * Oila! You should see myProject.RProj in the Files menu.
 * Click on Packages and scroll down to find RJafroc, and check the box next to it. This results in RJafroc being loaded to the current workspace. The following line appears in the Console window (this is the hidden directory referrred to above).
