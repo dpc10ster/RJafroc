@@ -19,7 +19,7 @@ RJafroc-master
 * Starting from `RStudio` > `File` > `New Project` > `Existing Directory` > `myProject` > `Create Project`.
 * Oila! You should see `myProject.RProj` in the Files menu.
 * Install the `devtools` package: 
-* `Packages` > `Install` > `devtools`.
+* Starting from `RStudio` > `Packages` > `Install` > `devtools`.
 ```
 library(devtools)
 ```
@@ -38,7 +38,7 @@ library(RJafroc)
 cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
-* You should see two ROC plots in the Plots window.
+* You should see two ROC plots in the `Plots` window.
 * Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc-master/.
 * Put your data and other files, if any, in `myProject`.
 * TBA
@@ -88,7 +88,7 @@ library(RJafroc)
 cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
-* You should see two ROC plots in the Plots window.
+* You should see two ROC plots in the `Plots` window.
 * Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc-master/.
 * Put your data and other files, if any, in myProject.
 * TBA
