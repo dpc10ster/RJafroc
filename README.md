@@ -12,7 +12,8 @@ RJafroc-master
 # RJafroc code development history #
 * The C++ code in `src` directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub. Those proficient with GitHub can ignore the following directions.  
 
-# How do I get set up? Short version: install directly from GitHub using package devtools #
+# How do I get set up? #
+##Short version: install directly from GitHub using package devtools ##
 * Install `R` and `RStudio`.
 * Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
 * Open `RStudio`. 
@@ -43,7 +44,7 @@ print(cbmPlot)
 * Put your data and other files, if any, in `myProject`.
 * TBA
 
-# How do I get set up? Long version: download the package and install from the download #
+## Long version: download the package and install from the download ##
 * Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example. 
 * I find the GitHub desktop app useful in mananging my downloads/uploads from Git.
 * Install `R` and `RStudio`.
