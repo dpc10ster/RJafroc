@@ -13,7 +13,7 @@ RJafroc-master
 * The C++ code in src directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub. Those proficient with GitHub can ignore the following directions.  
 
 ### How do I get set up? Short version: install directly from GitHub ###
-* Install R and RStudio.
+## * Install R and RStudio.##
 * Create an empty directory, e.g., myProject. In my computer it is /Users/Dev/Downloads/myProject.
 * Open RStudio. 
 * Starting from RStudio > File > New Project > Existing Directory > myProject > Create Project.
@@ -31,6 +31,9 @@ RJafroc-master
 * cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 * print(cbmPlot)
 * You should see two ROC plots in the Plots window.
+* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc-master/.
+* Put your data and other files, if any, in myProject.
+* TBA
 
 ### How do I get set up? Long version: download the package and install from the download ###
 * Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example. 
