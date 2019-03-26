@@ -20,7 +20,7 @@ RJafroc-master
 * Oila! You should see myProject.RProj in the Files menu.
 * Install the devtools package: 
 * Packages > Install > devtools
-* library(devtools)
+* '''library(devtools)'''
 * Install RJafroc directly from GitHub:
 * install_github("dpc10ster/rjafroc-master")
 * Hit Enter on any prompts.
