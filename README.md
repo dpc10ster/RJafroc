@@ -20,7 +20,6 @@ RJafroc-master
 * Oila! You should see myProject.RProj in the Files menu.
 * Install the devtools package: 
 * Packages > Install > devtools
-
 ```
 library(devtools)
 ```
