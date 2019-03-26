@@ -10,11 +10,11 @@ RJafroc-master
 * Extends and replaces Windown version of software (JAFROC: https://www.devchakraborty.com)
 
 # RJafroc code development history #
-* The C++ code in src directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub. Those proficient with GitHub can ignore the following directions.  
+* The C++ code in `src` directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub. Those proficient with GitHub can ignore the following directions.  
 
 # How do I get set up? Short version: install directly from GitHub using package devtools #
 * Install R and RStudio.
-* Create an empty directory, e.g., myProject. In my computer it is /Users/Dev/Downloads/myProject.
+* Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
 * Open RStudio. 
 * Starting from RStudio > File > New Project > Existing Directory > myProject > Create Project.
 * Oila! You should see myProject.RProj in the Files menu.
@@ -40,7 +40,7 @@ print(cbmPlot)
 ```
 * You should see two ROC plots in the Plots window.
 * Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc-master/.
-* Put your data and other files, if any, in myProject.
+* Put your data and other files, if any, in `myProject`.
 * TBA
 
 # How do I get set up? Long version: download the package and install from the download #
