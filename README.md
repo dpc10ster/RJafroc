@@ -13,23 +13,23 @@ RJafroc-master
 * The C++ code in `src` directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub. Those proficient with GitHub can ignore the following directions.  
 
 # How do I get set up? Short version: install directly from GitHub using package devtools #
-* Install R and RStudio.
+* Install `R` and `RStudio`.
 * Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
-* Open RStudio. 
-* Starting from RStudio > File > New Project > Existing Directory > myProject > Create Project.
-* Oila! You should see myProject.RProj in the Files menu.
-* Install the devtools package: 
-* Packages > Install > devtools
+* Open `RStudio`. 
+* Starting from `RStudio` > `File` > `New Project` > `Existing Directory` > `myProject` > `Create Project`.
+* Oila! You should see `myProject.RProj` in the Files menu.
+* Install the `devtools` package: 
+* `Packages` > `Install` > `devtools`.
 ```
 library(devtools)
 ```
-* Install RJafroc directly from GitHub:
+* Install `RJafroc` directly from `GitHub` (this is where `devtools` is used):
 ```
 install_github("dpc10ster/rjafroc-master")
 ```
 * Hit Enter on any prompts.
-* Lots of activity and compilation of C code ....
-* Load RJafroc:
+* Lots of activity and compilation of C++ code ....
+* Load `RJafroc`:
 ```
 library(RJafroc)
 ```
@@ -46,10 +46,10 @@ print(cbmPlot)
 # How do I get set up? Long version: download the package and install from the download #
 * Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example. 
 * I find the GitHub desktop app useful in mananging my downloads/uploads from Git.
-* Install R and RStudio.
-* Navigate to the rjafroc directory.
-* Open RJafroc.Rproj. This will open RStudio. 
-* Navigate to File menu (lower-right window) and click on DESCRIPTION file.
+* Install `R` and `RStudio`.
+* Navigate to the `rjafroc` directory.
+* Open `RJafroc.Rproj`. This will open `RStudio`. 
+* Navigate to `File` menu (lower-right window) and click on DESCRIPTION file.
 * Install all packages listed under Imports, e.g.,    
     openxlsx,
     ggplot2,
@@ -72,15 +72,17 @@ install.packages(c("openxlsx", "ggplot2"))
 ```
 library(RJafroc)
 ```
-* Thats it! RJafroc has been installed to your computer and is visible to any other R project in any directory.
-* You will not need to access the RJafroc folder again (unless you reinstall a new version of the software). 
+* Thats it! `RJafroc` has been installed to your computer and is visible to any other `R` project in any directory.
+* You will not need to access the `RJafroc` folder again (unless you reinstall a new version of the software). 
 * All necessary files of the installation are in a hidden directory that you do not normally need to worry about.
-* Create an empty directory, e.g., myProject. In my computer it is /Users/Dev/Downloads/myProject.
-* Starting from RStudio > File > New Project > Existing Directory > myProject > Create Project.
-* Oila! You should see myProject.RProj in the Files menu.
-* Click on Packages and scroll down to find RJafroc, and check the box next to it. This results in RJafroc being loaded to the current workspace. The following line appears in the Console window (this is the hidden directory referrred to above).
+* Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
+* Starting from `RStudio` > `File` > `New Project` > `Existing Directory` > `myProject` > `Create Project`.
+* Oila! You should see `myProject.RProj` in the Files menu.
+* Click on `Packages` and scroll down to find `RJafroc`, and check the box next to it. This results in `RJafroc` being loaded to the current workspace. The following line appears in the Console window (this is the hidden directory referrred to above).
+```
   library("RJafroc", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
-* Click on RJafroc in the packages window. A help window opens up. I find it convenient to put this in its own window by clicking the "out" arrow button (hover message: Show in new window). You can access all documentation from here.
+```  
+* Click on `RJafroc` in the packages window. A help window opens up. I find it convenient to put this in its own window by clicking the "out" arrow button (hover message: Show in new window). You can access all documentation from here.
 * Test the installation:
 ```
 cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
