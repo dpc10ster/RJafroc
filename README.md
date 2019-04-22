@@ -51,7 +51,7 @@ print(cbmPlot)
 * Put your data and other files, if any, in `myProject`.
 * TBA
 
-## Long version: download the package and install from the download ##
+## Long version: download the `RJafroc` package and install from the downloaded files ##
 * Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example. 
 * I find the GitHub desktop app useful in mananging my downloads/uploads from Git.
 * Install `R` and `RStudio`.
