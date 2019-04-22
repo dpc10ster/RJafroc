@@ -23,6 +23,7 @@ RJafroc-master
 * Oila! You should see `myProject.RProj` in the Files menu.
 * Install the `devtools` package as shown below: 
 * Starting from `RStudio` > `Packages` > `Install` > `devtools`.
+* Load `devtools` as shown below:
 ```
 library(devtools)
 ```
