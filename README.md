@@ -15,7 +15,7 @@ RJafroc-master
 # Those already familiar with installing R packages from GitHub can ignore the following directions. #  
 
 # How do I get set up? #
-## Short version: install directly from GitHub using package devtools ##
+## Short version: install directly from GitHub using package `devtools` ##
 * Install `R` and `RStudio`.
 * Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
 * Open `RStudio`. 
