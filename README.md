@@ -7,7 +7,7 @@ RJafroc-master
 
 # What is this repository for? #
 * Modeling, Analysis, Validation and Visualization of ROC/FROC studies
-* Extends and replaces Windown version of software (JAFROC: https://www.devchakraborty.com)
+* Extends and replaces *obsolete* Windown version of software (JAFROC: https://www.devchakraborty.com)
 
 # RJafroc code development history #
 * The C++ code in `src` directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub. Those familiar with GitHub can ignore the following directions.  
@@ -17,9 +17,9 @@ RJafroc-master
 * Install `R` and `RStudio`.
 * Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
 * Open `RStudio`. 
-* Starting from `RStudio` > `File` > `New Project` > `Existing Directory` > `myProject` > `Create Project`.
+* Starting from `RStudio` > `File` > `New Project` > `Existing Directory` > Select `myProject` > `Create Project`.
 * Oila! You should see `myProject.RProj` in the Files menu.
-* Install the `devtools` package: 
+* Install the `devtools` package as shown below: 
 * Starting from `RStudio` > `Packages` > `Install` > `devtools`.
 ```
 library(devtools)
@@ -28,9 +28,9 @@ library(devtools)
 ```
 install_github("dpc10ster/rjafroc-master")
 ```
-* Hit Enter on any prompts.
+* Hit Enter on any prompts...
 * Lots of activity and compilation of C++ code ....
-* Load `RJafroc`:
+* Load `RJafroc` as shown below:
 ```
 library(RJafroc)
 ```
@@ -41,6 +41,7 @@ print(cbmPlot)
 ```
 * You should see two ROC plots in the `Plots` window.
 * Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc-master/.
+* Be sure to study these examples and make full use of the online documentation.
 * Put your data and other files, if any, in `myProject`.
 * TBA
 
