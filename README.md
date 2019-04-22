@@ -7,10 +7,13 @@ RJafroc-master
 
 # What is this repository for? #
 * Modeling, Analysis, Validation and Visualization of ROC/FROC studies
-* Extends and replaces *obsolete* Windown version of software (JAFROC: https://www.devchakraborty.com)
+* Extends and replaces *obsolete* Windows version of software (JAFROC: https://www.devchakraborty.com)
 
 # RJafroc code development history #
-* The C++ code in `src` directory was mostly written by a student who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler, I do not have a Solaris machine to test, and I am not proficient in C++. Long story short, the CRAN version got removed and there is not much I can do about it. Hence the decision to distribute the code directly from GitHub. Those familiar with GitHub can ignore the following directions.  
+## RJafroc is longer distributed via CRAN ##
+* The C++ code in `src` directory was mostly written by a student (Xuetong Zhai) who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler. I do not have a Solaris machine to test my fix on, none of my users employ Solaris, even books on compiled code in R packages stay away from Solaris, and I am not proficient in C++. Long story short, the CRAN version was removed and there is not much I can do about it (keeping up with rarely used compilers is not a good use of my time). Hence the decision to distribute the code directly using GitHub. 
+
+# Those already familiar with GitHub can ignore the following directions. #  
 
 # How do I get set up? #
 ## Short version: install directly from GitHub using package devtools ##
