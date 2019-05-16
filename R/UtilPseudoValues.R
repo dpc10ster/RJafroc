@@ -58,7 +58,11 @@ UtilPseudoValues <- function(dataset, FOM = "Wilcoxon"){
           ll <- LL[i, j, -k, ]
           dim(nl) <- c(K - 1, maxNL)
           dim(ll) <- c(K2 - 1, max(lesionNum))
-          jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum[-k], lesionID[-k, ], lesionWeight[-k, ], maxNL, maxLL, K1, K2 - 1, FOM)
+          lesID <- lesionID[-k, ]
+          dim(lesID) <- c(K2 - 1, max(lesionNum))
+          lesWght <- lesionWeight[-k, ]
+          dim(lesWght) <- c(K2 - 1, max(lesionNum))
+          jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum[-k], lesID, lesWght, maxNL, maxLL, K1, K2 - 1, FOM)
           pseudoValues[i, j, k] <- fomArray[i, j] * K2 - jkFOMArray[i, j, k] * (K2 - 1)
         }
         pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
@@ -81,7 +85,11 @@ UtilPseudoValues <- function(dataset, FOM = "Wilcoxon"){
             ll <- LL[i, j, -(k - K1), ]
             dim(nl) <- c(K - 1, maxNL)
             dim(ll) <- c(K2 - 1, max(lesionNum))
-            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum[-(k - K1)], lesionID[-(k - K1), ], lesionWeight[-(k - K1), ], maxNL, maxLL, K1, K2 - 1, FOM)
+            lesWght <- lesionWeight[-(k - K1), ]
+            dim(lesWght) <- c(K2 - 1, max(lesionNum))
+            lesID <- lesionID[-(k - K1), ]
+            dim(lesID) <- c(K2 - 1, max(lesionNum))
+            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum[-(k - K1)], lesID, lesWght, maxNL, maxLL, K1, K2 - 1, FOM)
           }
           pseudoValues[i, j, k] <- fomArray[i, j] * K - jkFOMArray[i, j, k] * (K - 1)
         }

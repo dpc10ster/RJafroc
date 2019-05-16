@@ -346,8 +346,8 @@ double wJAFROC1( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per
     for( int nn = 0 ; nn < max_cases[ 0 ] + max_cases[ 1 ] ; nn++ ) {
       for( int nles = 0 ; nles < n_lesions_per_image[ na ] ; nles++ ) {
         double fp = UNINITIALIZED ;
-        for( int abn_index = 0 ; abn_index < max_nl ; abn_index++ )
-          if( nl(nn, abn_index) > fp ) fp = nl(nn, abn_index) ;
+          for( int nor_index = 0 ; nor_index < max_nl ; nor_index++ )
+            if( nl(nn, nor_index) > fp ) fp = nl(nn, nor_index) ;
           ret += weights(na, nles) *  comp_phi( fp, ll(na, nles) ) ;
       }
     }
@@ -361,19 +361,19 @@ double wJAFROC1( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per
 double wJAFROC( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll, NumericMatrix weights )
 {
   double  ret = 0.0 ;
-  
+
   for( int na = 0 ; na < max_cases[ 1 ] ; na++ ) {
     for( int nn = 0 ; nn < max_cases[ 0 ] ; nn++ ) {
       for( int nles = 0 ; nles < n_lesions_per_image[ na ] ; nles++ ) {
         double fp = UNINITIALIZED ;
-        for( int abn_index = 0 ; abn_index < max_nl ; abn_index++ )
-          if( nl(nn, abn_index) > fp ) fp = nl(nn, abn_index) ;
+          for( int nor_index = 0 ; nor_index < max_nl ; nor_index++ )
+            if( nl(nn, nor_index) > fp ) fp = nl(nn, nor_index) ; // this captures the highest value on normal case nn
           ret += weights(na, nles) *  comp_phi( fp, ll(na, nles) ) ;
       }
     }
   }
   ret /= (double)max_cases[ 0 ] *  (double)max_cases[ 1 ] ;
-  
+
   return (double)ret ;
 }
 

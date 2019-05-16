@@ -3,8 +3,8 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "~/rjafroc-master",
-        "query" : "ROC sample size",
+        "path" : "~/Documents/GitHub/rjafroc-master",
+        "query" : "wJAFROC_dpc",
         "regex" : false
     }
 }

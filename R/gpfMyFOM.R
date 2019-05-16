@@ -10,20 +10,22 @@ gpfMyFOM <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1
     stop(errMsg)
   }
   fom <- NA
-  fom <- switch(FOM, 
+  # fom <- wJAFROC_dpc(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight)
+  # fom <- wJAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight)
+  fom <- switch(FOM,
                 "Wilcoxon" = TrapezoidalArea(nl, K1, ll, K2),
                 "HrAuc" = HrAuc(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
                 "HrSe" = HrSe(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
                 "HrSp" = HrSp(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
                 "SongA1" = SongA1(K1, K2, maxNL, maxLL, lesionNum, nl, ll),
                 "SongA2" = SongA2(K1, K2, maxNL, maxLL, lesionNum, nl, ll),
-                "AFROC1" = JAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL), # dpc 
+                "AFROC1" = JAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL), # dpc
                 "JAFROC1" = JAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "AFROC" = JAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL), # dpc 
+                "AFROC" = JAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL), # dpc
                 "JAFROC" = JAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "wAFROC1" = wJAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc 
+                "wAFROC1" = wJAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
                 "wJAFROC1" = wJAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight),
-                "wAFROC" = wJAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc 
+                "wAFROC" = wJAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
                 "wJAFROC" = wJAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight),
                 "FROC" = FROC(nl, ll, lesionID, lesionNum, K1, K2),
                 "ALROC" = LrocFoms(nl, ll, FPFValue)$ALroc,
@@ -93,5 +95,34 @@ trapz = function(x, y)
 { ### computes the integral of y with respect to x using trapezoidal integration. 
   idx = 2:length(x)
   return (as.double( (x[idx] - x[idx-1]) %*% (y[idx] + y[idx-1])) / 2)
+}
+
+
+comp_phidpc <- function(a,b)
+{
+  ret <- 0
+  if (a < b) return (1) else if (a == b) return (0.5)
+  return(ret)
+}
+
+
+wJAFROC_dpc <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights)
+{
+  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  ret <-  0.0
+  
+  for (na in 1:max_cases[2]) {
+    for (nn in 1:max_cases[1]) {
+      for (nles in  1:n_lesions_per_image[na]) {
+        fp  <- UNINITIALIZED
+        for (nor_index in 1:max_nl)
+          if (nl[nn, nor_index] > fp ) fp = nl[nn, nor_index] ## this captures the highest value on normal case nn
+          ret  <-  ret + weights[na, nles] *  comp_phidpc( fp, ll[na, nles] ) ;
+      }
+    }
+  }
+  ret  <- ret / (max_cases[1] * max_cases[2])
+  
+  return (ret)
 }
 
