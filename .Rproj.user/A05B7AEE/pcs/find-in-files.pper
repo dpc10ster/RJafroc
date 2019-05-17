@@ -4,7 +4,7 @@
         "filePatterns" : [
         ],
         "path" : "~/Documents/GitHub/rjafroc-master",
-        "query" : "wJAFROC_dpc",
+        "query" : "output: rmarkdown::",
         "regex" : false
     }
 }
