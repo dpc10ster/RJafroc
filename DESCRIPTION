@@ -22,6 +22,10 @@ Imports:
     stringr,
     tools,
     utils
+Suggests:
+    testthat,
+    knitr,
+    rmarkdown
 LinkingTo: Rcpp
 Description: Tools for quantitative assessment of medical imaging systems, radiologists or computer aided ('CAD') algorithms. 
     Implements methods described in a book: 'Chakraborty' 'DP' (2017), "Observer Performance Methods for Diagnostic Imaging - 
@@ -49,6 +53,7 @@ Description: Tools for quantitative assessment of medical imaging systems, radio
     allow estimation of relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study. 
     Utility and data file manipulation functions allow data to be read in any of the currently used input formats, including Excel, 
     and the results of the analysis can be viewed in text or Excel output files.
+VignetteBuilder: knitr
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/rjafroc-master/
