@@ -3,8 +3,8 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "~/Documents/GitHub/rjafroc-master",
-        "query" : "expect_known_output",
+        "path" : "~/Documents/GitHub/rjafroc",
+        "query" : "rjafroc-master",
         "regex" : false
     }
 }

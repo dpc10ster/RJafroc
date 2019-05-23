@@ -1,15 +1,15 @@
 RJafroc
 ========
 
-[![Build Status](https://travis-ci.org/dpc10ster/rjafroc-master.svg?branch=master)](https://travis-ci.org/dpc10ster/rjafroc-master)
-[![codecov](https://codecov.io/gh/dpc10ster/rjafroc-master/branch/master/graph/badge.svg)](https://codecov.io/gh/dpc10ster/rjafroc-master)
+[![Build Status](https://travis-ci.org/dpc10ster/rjafroc.svg?branch=master)](https://travis-ci.org/dpc10ster/rjafroc)
+[![codecov](https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg)](https://codecov.io/gh/dpc10ster/rjafroc)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rjafroc)](https://cran.r-project.org/package=rjafroc)
 
 # What is this repository for? #
 * Modeling, Analysis, Validation and Visualization of ROC/FROC studies
 * Extends and replaces *obsolete* Windows version of software (JAFROC: http://www.devchakraborty.com)
 
-# Preliminary documentation (vignettes) available at https://dpc10ster.github.io/rjafroc-master/ #
+# Preliminary documentation (vignettes) available at https://dpc10ster.github.io/rjafroc/ #
 
 # `RJafroc` is longer distributed via CRAN - please ignore version 1.1.0 at https://github.com/cran/RJafroc #
 * The C++ code in the RJafroc package was written by a student (Xuetong Zhai) who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler. I do not have a Solaris machine to test my fixes, none of my users employ Solaris, even books on compiled code in R packages stay away from Solaris, and I am not proficient in C++. Long story short, the CRAN version was removed and there is not much I can do about it (keeping up with rarely used compilers is not a good use of my time; replacing the C++ code with R code would considerably slow down the algorithms, rendering them almost useless). Hence the decision to distribute the code directly using GitHub.
@@ -32,7 +32,7 @@ library(devtools)
 ```
 * Install `RJafroc` directly from `GitHub` (this is where `devtools` is used):
 ```
-install_github("dpc10ster/rjafroc-master")
+install_github("dpc10ster/rjafroc")
 ```
 * Hit Enter on any prompts...
 * Lots of activity and compilation of C++ code ....
@@ -46,7 +46,7 @@ cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
 * You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc-master/.
+* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc/.
 * Be sure to study these examples and make full use of the online documentation.
 * Put your data and other files, if any, in `myProject`.
 * TBA
@@ -97,7 +97,7 @@ cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
 * You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc-master/.
+* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc/.
 * Put your data and other files, if any, in myProject.
 * TBA
 

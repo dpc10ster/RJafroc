@@ -56,6 +56,6 @@ Description: Tools for quantitative assessment of medical imaging systems, radio
 VignetteBuilder: knitr
 License: GPL-3
 LazyData: true
-URL: https://dpc10ster.github.io/rjafroc-master/
+URL: https://dpc10ster.github.io/rjafroc/
 RoxygenNote: 6.1.1
 Encoding: UTF-8
