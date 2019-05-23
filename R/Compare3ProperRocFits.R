@@ -180,11 +180,11 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
             print(compPlot)
           }
           # follows same format as RSM Vs. Others.xlsx
-          cat(fileName, i, j, x$retRsm$mu, x$retRsm$lambdaP, x$retRsm$nuP, 
-              c1[i,j], da[i,j], 
+          cat(fileName, i, j, x$retRsm$mu, x$retRsm$lambdaP, x$retRsm$nuP,
+              c1[i,j], da[i,j],
               x$retCbm$alpha, x$retCbm$mu,
-              x$retRsm$AUC, x$aucProp, x$retCbm$AUC, 
-              x$retRsm$ChisqrFitStats[[1]], x$retRsm$ChisqrFitStats[[2]], 
+              x$retRsm$AUC, x$aucProp, x$retCbm$AUC,
+              x$retRsm$ChisqrFitStats[[1]], x$retRsm$ChisqrFitStats[[2]],
               x$retRsm$ChisqrFitStats[[3]],"\n")
           next
         }
