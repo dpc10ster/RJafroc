@@ -9,7 +9,7 @@ RJafroc
 * Modeling, Analysis, Validation and Visualization of ROC/FROC studies
 * Extends and replaces *obsolete* Windows version of software (JAFROC: http://www.devchakraborty.com)
 
-# Preliminary documentation (vignettes) available at https://dpc10ster.github.io/rjafroc/ #
+# Preliminary documentation (vignettes) available at https://dpc10ster.github.io/RJafroc/ #
 
 # `RJafroc` is longer distributed via CRAN - please ignore version 1.1.0 at https://github.com/cran/RJafroc #
 * The C++ code in the RJafroc package was written by a student (Xuetong Zhai) who is no longer working for me. Unfortunately, the code does not pass the Solaris compiler. I do not have a Solaris machine to test my fixes, none of my users employ Solaris, even books on compiled code in R packages stay away from Solaris, and I am not proficient in C++. Long story short, the CRAN version was removed and there is not much I can do about it (keeping up with rarely used compilers is not a good use of my time; replacing the C++ code with R code would considerably slow down the algorithms, rendering them almost useless). Hence the decision to distribute the code directly using GitHub.
