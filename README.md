@@ -1,4 +1,4 @@
-RJafroc-master
+RJafroc
 ========
 
 [![Build Status](https://travis-ci.org/dpc10ster/rjafroc-master.svg?branch=master)](https://travis-ci.org/dpc10ster/rjafroc-master)
