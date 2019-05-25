@@ -1,15 +1,20 @@
 {
     "args" : [
-        "-I/Applications/RStudio.app/Contents/Resources/resources/libclang/builtin-headers/3.5",
-        "-I/Applications/RStudio.app/Contents/Resources/resources/libclang/builtin-headers/libc++/3.5",
-        "-I/Library/Frameworks/R.framework/Versions/3.6/Resources/library/Rcpp/include",
+        "-isystem",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+        "-I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.1/include",
+        "-I/usr/local/include",
+        "-I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
+        "-I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.1/include",
+        "-I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+        "-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include",
         "-I/Library/Frameworks/R.framework/Resources/include",
         "-DNDEBUG",
         "-isysroot",
         "-I/usr/local/include",
         "-fPIC"
     ],
-    "hash" : "1558120461",
+    "hash" : "1558814324",
     "is_cpp" : true,
     "pch" : "Rcpp"
 }
