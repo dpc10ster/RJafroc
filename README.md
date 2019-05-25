@@ -46,7 +46,7 @@ cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
 * You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/rjafroc/.
+* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/.
 * Be sure to study these examples and make full use of the online documentation.
 * Put your data and other files, if any, in `myProject`.
 * TBA
