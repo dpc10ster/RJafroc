@@ -18,7 +18,7 @@ library(RJafroc)
 ```
 
 ## Introduction
-This vignette illustrates signficance testing using the DBMH method. But, 
+This vignette illustrates significance testing using the DBMH method. But, 
 instead of the unwieldy output in *QuickStartDBMH.html*, it generates an 
 Excel output file containing the following worksheets:
 

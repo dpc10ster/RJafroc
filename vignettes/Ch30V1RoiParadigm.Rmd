@@ -21,17 +21,17 @@ vignette: >
 ```
 
 ## Introduction
-* In the region-of-interest (ROI) paradigm [@RN1233,@RN55] each case is regarded as consisting of ${{Q}_{k}}$ (${{Q}_{k}}\ge 1$) "quadrants" or regions or ROIs, where *k* is the case index ($k=1,2,...,K$). Here $K$ is the total number of cases (i.e., case-level normal plus case-level abnormal cases). Each ROI needs to be classified, by the investigaor, as either ROI-level-normal (i.e., it has no lesions) or ROI-level-abnormal (i.e., it has at least one lesion). **Note the distinction between case-level truth and ROI-level truth states.** One can have ROI-level-normals in a case-level-abnormal case. A case-level-abnormal case must contain at least one ROI-level-abnormal region and a case-level normal cannot have any ROI-level-abnormal regions.
+* In the region-of-interest (ROI) paradigm [@RN1233,@RN55] each case is regarded as consisting of ${{Q}_{k}}$ (${{Q}_{k}}\ge 1$) "quadrants" or regions or ROIs, where *k* is the case index ($k=1,2,...,K$). Here $K$ is the total number of cases (i.e., case-level normal plus case-level abnormal cases). Each ROI needs to be classified, by the investigator, as either ROI-level-normal (i.e., it has no lesions) or ROI-level-abnormal (i.e., it has at least one lesion). **Note the distinction between case-level truth and ROI-level truth states.** One can have ROI-level-normals in a case-level-abnormal case. A case-level-abnormal case must contain at least one ROI-level-abnormal region and a case-level normal cannot have any ROI-level-abnormal regions.
 
 * The observer gives a single rating to each ROI, denoted ${{R}_{k}}$. The rating can be an integer or quasi- continuous (e.g., 0 – 100), or a floating point value, as long as higher numbers represent greater confidence in presence of one or more lesions in the ROI.
 
 * The ROI paradigm is not restricted to 4 or even a constant number of ROIs per case. That is the reason for the *k* subscript in ${{Q}_{k}}$.
 
-* The ROI data structure is a special case of the FROC data stucture, the essential difference being that the number of ratings per case is an a-priori known value.
+* The ROI data structure is a special case of the FROC data structure, the essential difference being that the number of ratings per case is an a-priori known value.
 
 * ROI-level-normal ratings are stored in the `NL` field and ROI-level-abnormal ratings are stored in the `LL` field.  
 
-* One can think of the ROI paradimg as similar to the FROC paradigm, but with localization accuracy restricted to belonging to a region (one cannot distinguish muttiple lesions within a region). Unlike the FROC paradigm, a rating *is required* for every ROI.
+* One can think of the ROI paradigm as similar to the FROC paradigm, but with localization accuracy restricted to belonging to a region (one cannot distinguish multiple lesions within a region). Unlike the FROC paradigm, a rating *is required* for every ROI.
 
 
 ## An example ROI dataset
@@ -47,7 +47,7 @@ datasetROI$lesionNum[1]
 datasetROI$LL[1,1,1,]
 x <- datasetROI$LL;mean(x[is.finite(x)])
 ```             
-Examination of the output reveasl that:
+Examination of the output reveals that:
 
 * This is a 2-treatment 5-reader dataset, with 50 non-diseased cases and 40 diseased cases, and ${{Q}_{k}}=4$ for all *k*.   
 

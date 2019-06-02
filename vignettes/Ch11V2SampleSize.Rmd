@@ -91,7 +91,7 @@ ddf <- (K-1)
 FCrit <- qf(1 - alpha, 1, ddf)
 Power2 <- 1-pf(FCrit, 1, ddf, ncp = ncp)
 ````
-This time non centrality parameter, `ncp` = `r ncp`, `ddf` = `r ddf`, `FCrit` = `r qf(1 - alpha, 1, ddf)` and statistical power = `r Power2`. Again, be design, this is close to 80%. Note that when readers are regarded as a fixed effect, fewer cases are needed to achieve the desired power. Freezing out a source of variability results in a more stable measurement and hence fewer cases are needed to acheve the desired power.
+This time non centrality parameter, `ncp` = `r ncp`, `ddf` = `r ddf`, `FCrit` = `r qf(1 - alpha, 1, ddf)` and statistical power = `r Power2`. Again, be design, this is close to 80%. Note that when readers are regarded as a fixed effect, fewer cases are needed to achieve the desired power. Freezing out a source of variability results in a more stable measurement and hence fewer cases are needed to achieve the desired power.
 
 ### Random reader fixed case (RRFC)
 This code illustrates random reader random case sample size estimation. Assumed are 10 readers and 53 cases `r J <- 10; K <- 53` in the pivotal study. The formulae are:

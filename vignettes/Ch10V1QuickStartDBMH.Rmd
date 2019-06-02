@@ -99,7 +99,7 @@ the ordering of the ratings.
 
 ## Creating a dataset from a JAFROC format file
 
-There is a file `includedRocData.xlsx` that is part of the package intallation. Since it is a system
+There is a file `includedRocData.xlsx` that is part of the package installation. Since it is a system
 file one must get its name as follows.
 
 ```{r}
