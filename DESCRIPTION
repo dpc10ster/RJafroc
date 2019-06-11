@@ -3,10 +3,8 @@ Type: Package
 Title: Modeling, Analysis, Validation and Visualization of Observer Performance Studies in Diagnostic Radiology
 Version: 1.1.1.9000
 Date: 2018-11-10
-Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "dpc10ster@gmail.com"),
-             person("Xuetong", "Zhai", role = "aut", email = "xuetong.zhai@gmail.com"),
-             person("Lucy","D'Agostino McGowan", role = c("ctb"), email = "ld.mcgowan@vanderbilt.edu"),
-             person("Alejandro","RodriguezRuiz", role = c("ctb"), email = "Alejandro.RodriguezRuiz@radboudumc.nl"))
+Author: Peter Phillips
+Maintainer: Peter Phillips <peter.phillips@cumbria.ac.uk>
 Depends:
     R (>= 3.5.0)
 Imports:
