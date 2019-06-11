@@ -12,3 +12,6 @@
 ^codecov.yml$
 ^docs$
 ^_pkgdown\.yml$
+^.vscode$
+^.git$
+

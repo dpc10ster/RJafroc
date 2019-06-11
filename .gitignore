@@ -1,9 +1,10 @@
 Meta
-doc
+docs
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+.vscode
 src/*.o
 src/*.so
 src/*.dll
