@@ -1,10 +1,5 @@
-context("gg and ggplot is generated from PlotCbmFit")
+context("General tests")
 library(RJafroc)
-
-test_that("Class is gg and ggplot", {
-cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-expect_is( (cbmPlot),c("gg","ggplot") )
-})
 
 test_that("dataset04 - lesion number is expected", {
 expect_equal(length(dataset04$lesionNum),100)
@@ -28,7 +23,7 @@ test_that("PlotBinormalFit should be a gg and ggplot", {
   aArray <- c(0.7, 0.7, 1.5, 2)
   bArray <- c(0.5, 1.5, 0.5, 0.5)
   p <- PlotBinormalFit(aArray, bArray)
-  expect_is( (cbmPlot),c("gg","ggplot") )
+  expect_is( (p),c("gg","ggplot") )
 })
 
 test_that("CBMPoints from Ch20V2degenerateROCs",{
