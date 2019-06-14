@@ -2,7 +2,7 @@ Package: RJafroc
 Type: Package
 Title: Modeling, Analysis, Validation and Visualization of Observer Performance Studies in Diagnostic Radiology
 Version: 1.1.1.9000
-Date: 2018-11-10
+Date: 2019-06-12
 Author: Peter Phillips
 Maintainer: Peter Phillips <peter.phillips@cumbria.ac.uk>
 Depends:
