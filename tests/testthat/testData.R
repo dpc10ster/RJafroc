@@ -19,13 +19,6 @@ ds <- DfReadDataFile(fileName)
 expect_equal(ds$dataType,c("FROC"))
 })
 
-test_that("PlotBinormalFit should be a gg and ggplot", {
-  aArray <- c(0.7, 0.7, 1.5, 2)
-  bArray <- c(0.5, 1.5, 0.5, 0.5)
-  p <- PlotBinormalFit(aArray, bArray)
-  expect_is( (p),c("gg","ggplot") )
-})
-
 test_that("CBMPoints from Ch20V2degenerateROCs",{
   CBMPoints <- function(mu, alpha){
   plotZeta <- seq(-20, 20, by = 0.01)
