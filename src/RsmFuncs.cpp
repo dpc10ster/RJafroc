@@ -2,8 +2,9 @@
 #include "CommonFuncs.h"
 using namespace Rcpp;
 
-/* This function clashes with with std::erf(double) in math.h (since C++11)
-   See <https://en.cppreference.com/w/cpp/numeric/math/erf>
+/* This function clashes with with std::erf(double) in cmath (since C++11). See 
+   - <https://en.cppreference.com/w/cpp/numeric/math/erf>
+   - <http://www.cplusplus.com/reference/cmath/erf/>
    It does not appear to be called by any of the *.R *.Rmd *.Rd or *.cpp files
    This function could be renamed and call the std:erf, once all CRAN platforms
    are using C++11.
