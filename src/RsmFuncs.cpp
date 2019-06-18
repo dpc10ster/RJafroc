@@ -2,10 +2,16 @@
 #include "CommonFuncs.h"
 using namespace Rcpp;
 
+/* This function clashes with with std::erf(double) in math.h (since C++11)
+   See <https://en.cppreference.com/w/cpp/numeric/math/erf>
+   It does not appear to be called by any of the *.R *.Rmd *.Rd or *.cpp files
+   This function could be renamed and call the std:erf, once all CRAN platforms
+   are using C++11.
 // [[Rcpp::export]]
 double erf(double x){
   return 2 * R::pnorm(sqrt(2.0) * x, 0, 1, 1, 0) - 1;
 }
+*/
 
 // [[Rcpp::export]]
 NumericVector erfVect(NumericVector x){
@@ -17,6 +23,7 @@ NumericVector erfVect(NumericVector x){
   return erfx;
 }
 
+/* Candidate for Rcpp::export, if required */
 double erfcpp(double x){
   return 2 * R::pnorm(sqrt(2.0) * x, 0, 1, 1, 0) - 1;
 }
