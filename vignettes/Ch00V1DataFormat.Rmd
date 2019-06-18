@@ -43,7 +43,7 @@ dataset04$lesionNum[1]
 dataset04$LL[1,1,1,]
 x <- dataset04$LL;mean(x[is.finite(x)])
 ```             
-Examination of the output reveasl that:
+Examination of the output reveals that:
 
 * This is a 5-treatment 4-reader dataset, with 100 non-diseased cases and 100 diseased cases.   
 

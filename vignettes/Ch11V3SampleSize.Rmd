@@ -58,7 +58,7 @@ powTab
 
 ## Illustration of `SsSampleSizeKGivenJ()` using `method = "DBMH"`
 
-This function ilustrates how the number of cases for 10 readers, used in Vignette 2, were chosen. In all but one example the default value of the `desiredPower` argument is used, namely 0.8 (if the argument is absent, its default value is used).
+This function illustrates how the number of cases for 10 readers, used in Vignette 2, were chosen. In all but one example the default value of the `desiredPower` argument is used, namely 0.8 (if the argument is absent, its default value is used).
 
 ### RRRC
 
