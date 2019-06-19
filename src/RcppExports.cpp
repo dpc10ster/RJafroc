@@ -303,14 +303,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// erf
-double erf(double x);
-RcppExport SEXP _RJafroc_erf(SEXP xSEXP) {
+// erfcpp
+double erfcpp(double x);
+RcppExport SEXP _RJafroc_erfcpp(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(erf(x));
+    rcpp_result_gen = Rcpp::wrap(erfcpp(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -473,7 +473,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RJafroc_MaxNLF", (DL_FUNC) &_RJafroc_MaxNLF, 6},
     {"_RJafroc_MaxNLFAllCases", (DL_FUNC) &_RJafroc_MaxNLFAllCases, 6},
     {"_RJafroc_ExpTrnsfmSp", (DL_FUNC) &_RJafroc_ExpTrnsfmSp, 6},
-    {"_RJafroc_erf", (DL_FUNC) &_RJafroc_erf, 1},
+    {"_RJafroc_erfcpp", (DL_FUNC) &_RJafroc_erfcpp, 1},
     {"_RJafroc_erfVect", (DL_FUNC) &_RJafroc_erfVect, 1},
     {"_RJafroc_xROC", (DL_FUNC) &_RJafroc_xROC, 2},
     {"_RJafroc_xROCVect", (DL_FUNC) &_RJafroc_xROCVect, 2},
