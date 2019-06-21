@@ -10,19 +10,20 @@
 # 
 # })
 
-# test_that("Compare3ProperRocFits - THIS DOES NOT WORK", {
-#   tmp <- tempfile(tmpdir = paste0(getwd(),"/tests/testthat"))
-# 
-#   #The first run always succeeds
-#   y <- Compare3ProperRocFits(1,1,reAnalyze = FALSE)$allDatasetsResults[[1]][[1]]$retRsm$mu
-#   expect_known_output(y, tmp, print = TRUE)
-# 
-#   # Subsequent runs will suceed only if the file is unchanged
-#   # This will succeed:
-#   y <- Compare3ProperRocFits(1,1,reAnalyze = FALSE)$allDatasetsResults[[1]][[1]]$retRsm$mu
-#   expect_known_output(y, tmp, print = TRUE)
-# 
-# })
+test_that("Compare3ProperRocFits - THIS DOES NOT WORK", {
+  tmp <- tempfile(tmpdir = paste0(getwd(),"/tests/testthat"))
+  tmp <- tempfile()
+  
+  #The first run always succeeds
+  y <- Compare3ProperRocFits(1,1,reAnalyze = FALSE)$allDatasetsResults[[1]][[1]]$retRsm$mu
+  expect_known_output(y, tmp, print = TRUE)
+
+  # Subsequent runs will suceed only if the file is unchanged
+  # This will succeed:
+  y <- Compare3ProperRocFits(1,1,reAnalyze = FALSE)$allDatasetsResults[[1]][[1]]$retRsm$mu
+  expect_known_output(y, tmp, print = TRUE)
+
+})
 
 
 
