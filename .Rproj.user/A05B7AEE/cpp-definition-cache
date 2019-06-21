@@ -3,6 +3,351 @@
         "definitions" : [
             {
                 "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/BMFuncs.cpp",
+                "kind" : 6,
+                "line" : 5,
+                "name" : "BMNLLInner(double, double, Rcpp::NumericVector, Rcpp::NumericVector, Rcpp::NumericVector)",
+                "parent_name" : "",
+                "usr" : "c:@F@BMNLLInner#d#d#I#I#I#"
+            }
+        ],
+        "file" : "/Users/Dev/RJafroc/src/BMFuncs.cpp",
+        "file_last_write" : 1530069185.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/CBMFuncs.cpp",
+                "kind" : 6,
+                "line" : 5,
+                "name" : "Qz(double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@Qz#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/CBMFuncs.cpp",
+                "kind" : 6,
+                "line" : 10,
+                "name" : "Pz(double, double, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@Pz#d#d#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/CBMFuncs.cpp",
+                "kind" : 6,
+                "line" : 15,
+                "name" : "CBMNLLInner(double, double, Rcpp::NumericVector, Rcpp::NumericVector, Rcpp::NumericVector)",
+                "parent_name" : "",
+                "usr" : "c:@F@CBMNLLInner#d#d#I#I#I#"
+            }
+        ],
+        "file" : "/Users/Dev/RJafroc/src/CBMFuncs.cpp",
+        "file_last_write" : 1530069185.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/Users/Dev/RJafroc/src/CommonFuncs.h",
+        "file_last_write" : 1511145261.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/Users/Dev/RJafroc/src/CorCBMFuncs.cpp",
+        "file_last_write" : 1511145261.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 6,
+                "name" : "maximum(Rcpp::NumericVector, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@maximum#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 16,
+                "name" : "comp_phi(double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@comp_phi#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 25,
+                "name" : "TrapezoidalArea(Rcpp::NumericVector, int, Rcpp::NumericVector, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@TrapezoidalArea#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 41,
+                "name" : "HrAuc(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@HrAuc#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 62,
+                "name" : "ROI(int, int, int, Rcpp::NumericVector, Rcpp::NumericMatrix, Rcpp::NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@ROI#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 109,
+                "name" : "HrSe(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@HrSe#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 130,
+                "name" : "HrSp(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@HrSp#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 148,
+                "name" : "SongA1(int, int, int, int, Rcpp::NumericVector, Rcpp::NumericMatrix, Rcpp::NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@SongA1#I#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 224,
+                "name" : "SongA2(int, int, int, int, Rcpp::NumericVector, Rcpp::NumericMatrix, Rcpp::NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@SongA2#I#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 289,
+                "name" : "JAFROC1(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@JAFROC1#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 315,
+                "name" : "JAFROC(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@JAFROC#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 341,
+                "name" : "wJAFROC1(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int, Rcpp::NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@wJAFROC1#I#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 361,
+                "name" : "wJAFROC(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int, Rcpp::NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@wJAFROC#I#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 381,
+                "name" : "MaxLLF(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@MaxLLF#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 402,
+                "name" : "MaxNLF(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@MaxNLF#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 418,
+                "name" : "MaxNLFAllCases(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@MaxNLFAllCases#I#I#I#I#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+                "kind" : 6,
+                "line" : 434,
+                "name" : "ExpTrnsfmSp(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@ExpTrnsfmSp#I#I#I#I#I#I#"
+            }
+        ],
+        "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
+        "file_last_write" : 1558814324.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 6,
+                "name" : "erf(double)",
+                "parent_name" : "",
+                "usr" : "c:@F@erf"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 11,
+                "name" : "erfVect(Rcpp::NumericVector)",
+                "parent_name" : "",
+                "usr" : "c:@F@erfVect#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 20,
+                "name" : "erfcpp(double)",
+                "parent_name" : "",
+                "usr" : "c:@F@erfcpp#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 25,
+                "name" : "xROC(double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@xROC#d#d#"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 30,
+                "name" : "xROCVect(Rcpp::NumericVector, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@xROCVect#I#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 40,
+                "name" : "yROC(double, double, double, double, Rcpp::NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@yROC#d#d#d#d#I#"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 51,
+                "name" : "yROCVect(Rcpp::NumericVector, double, double, double, Rcpp::NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@yROCVect#I#d#d#d#I#"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 66,
+                "name" : "yROCVectNuP(double, double, double, Rcpp::NumericVector, Rcpp::NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@yROCVectNuP#d#d#d#I#I#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 106,
+                "name" : "RsmInner(double, double, double, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, Rcpp::NumericVector)",
+                "parent_name" : "",
+                "usr" : "c:@F@RsmInner#d#d#d#I#I#I#I#"
+            },
+            {
+                "column" : 15,
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+                "kind" : 6,
+                "line" : 149,
+                "name" : "intROC(Rcpp::NumericVector, double, double, double, Rcpp::NumericMatrix)",
+                "parent_name" : "",
+                "usr" : "c:@F@intROC#I#d#d#d#I#"
+            }
+        ],
+        "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
+        "file_last_write" : 1518468621.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/Users/Dev/RJafroc/src/SmAucInt.cpp",
+        "file_last_write" : 1511145261.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/Transforms.cpp",
+                "kind" : 6,
+                "line" : 6,
+                "name" : "ForwardValue(double, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@ForwardValue#d#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/Dev/RJafroc/src/Transforms.cpp",
+                "kind" : 6,
+                "line" : 12,
+                "name" : "InverseValue(double, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@InverseValue#d#d#d#"
+            }
+        ],
+        "file" : "/Users/Dev/RJafroc/src/Transforms.cpp",
+        "file_last_write" : 1511145261.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
                 "file" : "/Users/Dev/rjafroc/src/BMFuncs.cpp",
                 "kind" : 6,
                 "line" : 5,
