@@ -4,14 +4,14 @@ context("Significance testing: StSignificanceTestingCadVsRadiologists")
 test_that("StSignificanceTestingCadVsRadiologists", {
   tmp <- tempfile()
   expect_known_output(
-    StSignificanceTestingCadVsRadiologists (dataset09, FOM = "Wilcoxon", method = "dualModality"), 
+    StSignificanceTestingCadVsRadiologists (dataset09, FOM = "Wilcoxon", method = "singleModality"), 
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    StSignificanceTestingCadVsRadiologists (dataset09, FOM = "Wilcoxon", method = "singleModality"), 
+    StSignificanceTestingCadVsRadiologists (dataset09, FOM = "Wilcoxon", method = "dualModality"),
     tmp, print = TRUE, update = TRUE)
-  
+
   expect_error(
     StSignificanceTestingCadVsRadiologists(dataset09, FOM = "PCL"))
   
@@ -20,24 +20,24 @@ test_that("StSignificanceTestingCadVsRadiologists", {
   
   tmp <- tempfile()
   expect_known_output(
-    StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "Wilcoxon", option = "RRFC"), 
+    StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "Wilcoxon", option = "RRFC"),
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "Wilcoxon", method = "singleModality"), 
+    StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "Wilcoxon", method = "singleModality"),
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "Wilcoxon", method = "dualModality"), 
+    StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "Wilcoxon", method = "dualModality"),
     tmp, print = TRUE, update = TRUE)
   
   tmp <- tempfile()
   expect_known_output(
-    StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "PCL", method = "singleModality"), 
+    StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "PCL", method = "singleModality"),
     tmp, print = TRUE, update = TRUE)
-  
+
   tmp <- tempfile()
   expect_known_output(
     StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "PCL", method = "dualModality"), 
@@ -58,7 +58,7 @@ test_that("StSignificanceTestingCadVsRadiologists", {
     StSignificanceTestingCadVsRadiologists (
       datasetCadLroc, FOM = "PCL", option = "RRRC", method = "singleModality", FPFValue = 0.05), 
     tmp, print = TRUE, update = TRUE)
-
+  
   tmp <- tempfile()
   expect_known_output(
     StSignificanceTestingCadVsRadiologists (

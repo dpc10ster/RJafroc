@@ -10,7 +10,8 @@
 # 
 # })
 
-# following works after warn not set to 2 in Compare3RocFits
+# following works after warn NOT set to 2 in Compare3RocFits.R
+# as per Peter Philips' bug fix
 test_that("Compare3ProperRocFits", {
   tmp <- tempfile(tmpdir = paste0(getwd(),"/tests/testthat"))
   tmp <- tempfile()
