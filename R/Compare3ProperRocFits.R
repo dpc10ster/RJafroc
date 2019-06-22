@@ -109,7 +109,7 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
   ####  8. ret14 <- Compare3ProperRocFits(reAnalyze = TRUE) 
   ####     this generates new results files in RJafroc/inst/ANALYZED/RSM6
   ####
-  options(warn = 2) # warnings as errors
+#  options(warn = 2) # warnings as errors
   fileNames <-  c("TONY", "VD", "FR", 
                   "FED", "JT", "MAG", 
                   "OPT", "PEN", "NICO",
