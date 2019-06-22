@@ -1,13 +1,13 @@
 {
-    "path" : "~/RJafroc/R",
+    "path" : "~/RJafroc",
     "sortOrder" : [
-        {
-            "ascending" : true,
-            "columnIndex" : 2
-        },
         {
             "ascending" : false,
             "columnIndex" : 4
+        },
+        {
+            "ascending" : true,
+            "columnIndex" : 2
         },
         {
             "ascending" : false,
