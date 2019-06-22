@@ -2,9 +2,10 @@ context("Simulate data sets")
 
 test_that("SimulateCorCbmDataset", {
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     SimulateCorCbmDataset(), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
 })
 
 test_that("SimulateFrocDataset", {
@@ -14,11 +15,12 @@ test_that("SimulateFrocDataset", {
   mu <- 1;lambda <- 1;nu <- 1 ;zeta1 <- -1
   I <- 2; J <- 5
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     SimulateFrocDataset(
       mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
       I = I, J = J, K1 = K1, K2 = K2, lesionNum = lesionNum), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
 })
 
 test_that("SimulateRocDataset", {
@@ -26,8 +28,9 @@ test_that("SimulateRocDataset", {
   K1 <- 5;K2 <- 7;
   a <- 1.5;b <- 0.5
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     SimulateRocDataset(K1 = K1, K2 = K2,a = a, b = b), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
 })
 

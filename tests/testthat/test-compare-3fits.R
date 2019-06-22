@@ -18,7 +18,7 @@ test_that("Compare3ProperRocFits", {
 
   #The first run always succeeds
   y <- Compare3ProperRocFits(1,1,reAnalyze = TRUE)$allDatasetsResults[[1]][[1]]$retRsm$mu
-  expect_known_output(y, tmp, print = TRUE)
+  expect_warning(expect_known_output(y, tmp, print = TRUE), "Creating reference output")
 
   # Subsequent runs will suceed only if the file is unchanged
   # This will succeed:
