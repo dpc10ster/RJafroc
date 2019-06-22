@@ -1,16 +1,17 @@
-test_that("mtcarsExample - THIS WORKS", {
-  tmp <- tempfile()
+# test_that("mtcarsExample - THIS WORKS", {
+#   tmp <- tempfile()
+# 
+#   # The first run always succeeds
+#   expect_known_output(mtcars[1:10, ], tmp, print = TRUE)
+# 
+#   # Subsequent runs will suceed only if the file is unchanged
+#   # This will succeed:
+#   expect_known_output(mtcars[1:10, ], tmp, print = TRUE)
+# 
+# })
 
-  # The first run always succeeds
-  expect_known_output(mtcars[1:10, ], tmp, print = TRUE)
-
-  # Subsequent runs will suceed only if the file is unchanged
-  # This will succeed:
-  expect_known_output(mtcars[1:10, ], tmp, print = TRUE)
-
-})
-
-test_that("Compare3ProperRocFits - THIS DOES NOT WORK", {
+# following works after warn not set to 2 in Compare3RocFits
+test_that("Compare3ProperRocFits", {
   tmp <- tempfile(tmpdir = paste0(getwd(),"/tests/testthat"))
   tmp <- tempfile()
 
@@ -26,10 +27,9 @@ test_that("Compare3ProperRocFits - THIS DOES NOT WORK", {
 })
 
 
-
-test_that("known hash - THIS WORKS", {
-
-  expect_known_hash(Compare3ProperRocFits(1,1,reAnalyze = FALSE), hash = '6a90170dda')
-
-})
+# test_that("known hash - THIS WORKS", {
+# 
+#   expect_known_hash(Compare3ProperRocFits(1,1,reAnalyze = FALSE), hash = '6a90170dda')
+# 
+# })
 
