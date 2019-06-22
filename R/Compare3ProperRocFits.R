@@ -109,7 +109,12 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
   ####  8. ret14 <- Compare3ProperRocFits(reAnalyze = TRUE) 
   ####     this generates new results files in RJafroc/inst/ANALYZED/RSM6
   ####
-#  options(warn = 2) # warnings as errors
+  # 
+  # uncomment following line to debug and check for math underflow errors
+  # Peter Philips showed me (06/21/19) that this line was causing testthat failures
+  # in function expect_known_output()
+  # 
+  #options(warn = 2) # warnings as errors
   fileNames <-  c("TONY", "VD", "FR", 
                   "FED", "JT", "MAG", 
                   "OPT", "PEN", "NICO",
