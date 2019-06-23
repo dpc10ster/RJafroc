@@ -77,8 +77,8 @@ ExpTrnsfmSp <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll) 
     .Call('_RJafroc_ExpTrnsfmSp', PACKAGE = 'RJafroc', nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll)
 }
 
-erf <- function(x) {
-    .Call('_RJafroc_erf', PACKAGE = 'RJafroc', x)
+erfcpp <- function(x) {
+    .Call('_RJafroc_erfcpp', PACKAGE = 'RJafroc', x)
 }
 
 erfVect <- function(x) {
