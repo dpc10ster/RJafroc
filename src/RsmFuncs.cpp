@@ -3,7 +3,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-double erf(double x){
+double erfcpp(double x){
   return 2 * R::pnorm(sqrt(2.0) * x, 0, 1, 1, 0) - 1;
 }
 
@@ -15,10 +15,6 @@ NumericVector erfVect(NumericVector x){
     erfx[il] = 2 * R::pnorm(sqrt(2.0) * x[il], 0, 1, 1, 0) - 1;
   }
   return erfx;
-}
-
-double erfcpp(double x){
-  return 2 * R::pnorm(sqrt(2.0) * x, 0, 1, 1, 0) - 1;
 }
 
 // [[Rcpp::export]]

@@ -461,7 +461,7 @@ xROCVect <- function(zeta, lambdaP) {
   return (FPF);
 }
 
-
-erfcpp <- function(x){
-  return (2 * pnorm(sqrt(2) * x) - 1)
+# R-only implementation of erf function
+erf_R <- function(x){
+ return (2 * pnorm(sqrt(2) * x) - 1)
 }
