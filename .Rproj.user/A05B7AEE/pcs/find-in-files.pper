@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "approx(",
+        "query" : "expect_warning",
         "regex" : false
     }
 }

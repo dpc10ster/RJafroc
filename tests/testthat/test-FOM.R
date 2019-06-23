@@ -1,115 +1,137 @@
-context("UtilFigureOfMerit tests")
+## DPC note 6/23/19: updated incomplete applications of expect_known_output
+context("UtilFigureOfMerit tests over all datasets")
 
-test_that("ROI paradigm", {
-  fom <- UtilFigureOfMerit(datasetROI, FOM = "ROI")
-  expect_equal(fom[1,3], 0.8579279, tolerance = 1e-7)
+test_that("ROC dataset dataset02: FOM = Wilcoxon", {
+  dataset <- dataset02
+  FOM = "Wilcoxon"
   
   tmp <- tempfile()
   expect_warning(expect_known_output(
-    UtilFigureOfMerit(datasetROI, FOM = "ROI"), 
+    UtilFigureOfMerit(dataset, FOM = FOM), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    UtilFigureOfMerit(dataset, FOM = FOM), 
+    tmp, print = TRUE, update = TRUE)
+  
 })
 
 
-test_that("LROC FOM tests", {
-  fom <- UtilFigureOfMerit(datasetCadLroc, FOM = "Wilcoxon")
-  expect_equal(fom[6], 0.7686979, tolerance = 1e-7)
+test_that("FROC dataset: all FOMs except ...", {
   
-  fom <- UtilFigureOfMerit(datasetCadLroc, FOM = "PCL", FPFValue = 0.2)
-  expect_equal(fom[6], 0.6598214, tolerance = 1e-7)
+  # cannot use Wilcoxon with FROC dataset
+  # correct usage is HrAuc
+  dataset <- dataset01
+  expect_error(UtilFigureOfMerit(dataset, FOM = "Wilcoxon")) 
   
-  fom <- UtilFigureOfMerit(datasetCadLroc, FOM = "ALROC")
-  expect_equal(fom[6], 0.1000335, tolerance = 1e-6)
+  ## cycle through all FOMs possible with FROC data (except the excessive computation time ones)
+  FOM_arr <- c("HrAuc","wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases","ExpTrnsfmSp",
+               "HrSp", "HrSe")
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(datasetCadLroc, FOM = "ALROC"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-})
-
-
-test_that("ROC and FROC FOMs", {
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset = dataset02, FOM = "Wilcoxon"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  expect_error(UtilFigureOfMerit(dataset01, FOM = "Wilcoxon")) 
+  for (i in 1:length(FOM_arr)) {
     
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "HrAuc"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
+    FOM  <- FOM_arr[i]
+    
+    tmp <- tempfile()
+    expect_warning(expect_known_output(
+      UtilFigureOfMerit(dataset, FOM = FOM), 
+      tmp, print = TRUE, update = TRUE),
+      "Creating reference output")
+    
+    expect_known_output(
+      UtilFigureOfMerit(dataset, FOM = FOM), 
+      tmp, print = TRUE, update = TRUE)
+    
+  }
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "wAFROC1"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "AFROC1"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "MaxLLF"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "MaxNLF"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "MaxNLFAllCases"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "ExpTrnsfmSp"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
+})
+
+
+test_that("FROC data: excessive computation time FOMs", {
   
   skip_on_cran()
   skip_on_travis()
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "SongA2"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "SongA1"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
+  dataset <- dataset01
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "HrSp"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
+  FOM_arr <- c("SongA2","SongA1") 
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "HrSe"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
+  for (i in 1:length(FOM_arr)) {
+    
+    FOM  <- FOM_arr[i]
+    
+    tmp <- tempfile()
+    expect_warning(expect_known_output(
+      UtilFigureOfMerit(dataset, FOM = FOM), 
+      tmp, print = TRUE, update = TRUE),
+      "Creating reference output")
+    
+    expect_known_output(
+      UtilFigureOfMerit(dataset, FOM = FOM), 
+      tmp, print = TRUE, update = TRUE)
+    
+  }
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilFigureOfMerit(dataset01, FOM = "HrAuc"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
 })
+
+
+test_that("ROI paradigm", {
+  
+  dataset <- datasetROI
+  FOM <- "ROI"
+  
+  tmp <- tempfile()
+  expect_warning(expect_known_output(
+    UtilFigureOfMerit(dataset, FOM = FOM),
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
+  
+  expect_known_output(
+    UtilFigureOfMerit(dataset, FOM = FOM), 
+    tmp, print = TRUE, update = TRUE)
+  
+})
+
+
+test_that("LROC paradigm: FOM = Wilcoxon", {
+  
+  dataset <- datasetCadLroc
+  FOM_arr <- c("Wilcoxon", "ALROC") 
+  
+  for (i in 1:length(FOM_arr)) {
+    
+    FOM <- FOM_arr[i]
+    
+    tmp <- tempfile()
+    expect_warning(expect_known_output(
+      UtilFigureOfMerit(dataset, FOM = FOM),
+      tmp, print = TRUE, update = TRUE),
+      "Creating reference output")
+    
+    expect_known_output(
+      UtilFigureOfMerit(dataset, FOM = FOM),
+      tmp, print = TRUE, update = TRUE)
+    
+  }
+  
+})
+
+
+test_that("LROC paradigm: FOM = PCL@FPFValue", {
+  
+  dataset <- datasetCadLroc
+  FOM <- "PCL" 
+  
+  tmp <- tempfile()
+  expect_warning(expect_known_output(
+    UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2),
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
+  
+  expect_known_output(
+    UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2), 
+    tmp, print = TRUE, update = TRUE)
+  
+}) 
+
