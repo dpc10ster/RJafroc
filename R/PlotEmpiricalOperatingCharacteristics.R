@@ -543,7 +543,7 @@ AvgROCPoints <- function(NL, LL, modalityID, readerID, treatments2Plot, readers2
       fpf <- ret$fpf;tpf <- ret$tpf
       FPF <- c(0,fpf,1)
       TPF <- c(0,tpf,1)
-      temp <- (approx(FPF, TPF, xout = sampledFPF))$y
+      temp <- (approx(FPF, TPF, xout = sampledFPF, ties = min))$y
       avgTPF <- avgTPF + temp
     }
   }
@@ -679,7 +679,7 @@ AvgFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, treatments2Pl
   avgIndex <- 1
   for (i in 1:I) {
     for (j in 1:J) {
-      temp <- (approx(NLF[[j]], LLF[[j]], xout = avgNLF))$y
+      temp <- (approx(NLF[[j]], LLF[[j]], xout = avgNLF, ties = min))$y
       avgLLFArray[avgIndex, 1:length(temp)] <- temp
       avgIndex <- avgIndex + 1
     }
@@ -832,7 +832,7 @@ AvgAFROCPoints <- function(NL, LL, modalityID, readerID, lesionNum, treatments2P
       fpf <- ret$fpf;llf <- ret$llf
       FPF <- c(0,fpf,1)
       LLF <- c(0,llf,1)
-      temp <- (approx(FPF, LLF, xout = sampledFPF))$y
+      temp <- (approx(FPF, LLF, xout = sampledFPF, ties = min))$y
       avgLLFArray[avgIndex, 1:length(temp)] <- temp
       avgIndex <- avgIndex + 1
     }
@@ -978,7 +978,7 @@ AvgAFROC1Points <- function(NL, LL, modalityID, readerID, lesionNum, treatments2
       fpf <- ret$fpf;llf <- ret$llf
       FPF <- c(0,fpf,1)
       LLF <- c(0,llf,1)
-      temp <- (approx(FPF, LLF, xout = sampledFPF))$y
+      temp <- (approx(FPF, LLF, xout = sampledFPF, ties = min))$y
       avgLLFArray[avgIndex, 1:length(temp)] <- temp
       avgIndex <- avgIndex + 1
     }
@@ -1082,7 +1082,7 @@ AvgwAFROCPoints <- function(NL, LL, modalityID, readerID, lesionWeights, treatme
       ret <- FROC2wAFROC(fp, ll, weights, K1, K2)
       FPF <- ret$fpf;wLLF <- ret$wllf
       FPF <- c(0,FPF,1);wLLF <- c(0,wLLF,1)
-      temp <- (approx(FPF, wLLF, xout = sampledFPF))$y
+      temp <- (approx(FPF, wLLF, xout = sampledFPF, ties = min))$y
       avgwLLFArray[avgIndex, 1:length(temp)] <- temp
       avgIndex <- avgIndex + 1
     }
@@ -1184,7 +1184,7 @@ AvgwAFROC1Points <- function(NL, LL, modalityID, readerID, lesionWeights, treatm
       ret <- FROC2wAFROC1(fp, ll, weights, K1, K2)
       FPF <- ret$fpf;wLLF <- ret$wllf
       FPF <- c(0,FPF,1);wLLF <- c(0,wLLF,1)
-      temp <- (approx(FPF, wLLF, xout = sampledFPF))$y
+      temp <- (approx(FPF, wLLF, xout = sampledFPF, ties = min))$y
       avgwLLFArray[avgIndex, 1:length(temp)] <- temp
       avgIndex <- avgIndex + 1
     }

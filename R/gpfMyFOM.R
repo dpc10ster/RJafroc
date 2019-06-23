@@ -58,7 +58,7 @@ LrocFoms <- function (zk1, zk2Cl, FPFValue) {
   zk2Cl <- drop(zk2Cl)
   zk1 <- zk1[zk1 != -Inf]
   lroc <- LrocOperatingPointsFromRatings( zk1, zk2Cl )
-  PCL <- (approx(lroc$FPF, lroc$PCL, xout = FPFValue))$y # computes PCL @ FPFValue
+  PCL <- (approx(lroc$FPF, lroc$PCL, xout = FPFValue, ties = min))$y # computes PCL @ FPFValue
   tempFpf <-c(lroc$FPF[lroc$FPF < FPFValue],FPFValue)
   tempPcl <-c(lroc$PCL[lroc$FPF < FPFValue],PCL)
   ALroc <- trapz(tempFpf, tempPcl) # computes trapezoidal area under LROC (0 to FPFValue)

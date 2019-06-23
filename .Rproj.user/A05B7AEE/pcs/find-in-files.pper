@@ -3,8 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "~/Documents/GitHub/rjafroc",
-        "query" : "Rjafroc",
+        "path" : "",
+        "projectRelative" : true,
+        "query" : "expect_warning",
         "regex" : false
     }
 }
