@@ -18,10 +18,12 @@ test_that("Compare3ProperRocFits", {
     tmp, print = TRUE, update = TRUE)
 })
 
-# alternate way of testing
-test_that("known hash", {
-
-  expect_known_hash(Compare3ProperRocFits(1,1,reAnalyze = TRUE), hash = '6a90170dda')
-
-})
+# # alternate way of testing
+# using this causes failure on Travis; hash depends on platform?
+# test_that("known hash", {
+# 
+#   expect_known_hash(Compare3ProperRocFits(1,1,reAnalyze = TRUE), hash = '6a90170dda') # value from my machine
+#   expect_known_hash(Compare3ProperRocFits(1,1,reAnalyze = TRUE), hash = 'ee6f623095') # value from Peter
+# 
+# })
 
