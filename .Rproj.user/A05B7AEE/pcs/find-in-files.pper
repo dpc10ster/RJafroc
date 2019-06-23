@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "expect_warning",
+        "query" : "CallPmvnormal",
         "regex" : false
     }
 }
