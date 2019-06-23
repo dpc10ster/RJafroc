@@ -29,63 +29,74 @@ test_that("UtilAucsRSM", {
 
 test_that("UtilPseudoValues", {
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilPseudoValues(dataset05, FOM = "wAFROC"), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
   
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilPseudoValues(dataset02, FOM = "Wilcoxon"), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
   
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilPseudoValues(dataset05, FOM = "MaxNLF"), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
   
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilPseudoValues(dataset05, FOM = "ExpTrnsfmSp"), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
   
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilPseudoValues(dataset05, FOM = "HrSp"), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
   
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilPseudoValues(dataset05, FOM = "MaxLLF"), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
   
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilPseudoValues(dataset05, FOM = "HrSe"), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
   
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilPseudoValues(dataset05, FOM = "MaxLLF"), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
 })
 
 test_that("UtilMeanSquaresDBMH", {
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilMeanSquares(dataset02, FOM = "Wilcoxon"), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
 })
 
 test_that("UtilLesionDistribution", {
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilLesionWeights (UtilLesionDistribution(dataset01)), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
   
   tmp <- tempfile()
-  expect_known_output(
+  expect_warning(expect_known_output(
     UtilLesionWeights (UtilLesionDistribution(dataset05)), 
-    tmp, print = TRUE, update = TRUE)
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
   
 })
 
