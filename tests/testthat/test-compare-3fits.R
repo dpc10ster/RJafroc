@@ -5,7 +5,9 @@ test_that("Compare3ProperRocFits", {
   expect_warning(expect_known_output(
     # save time by using previously saved values 
     # reAnalyze = FALSE to recompute the values
-    Compare3ProperRocFits(1,1,reAnalyze = FALSE),
+    # unfortunately this causes Failures on Travis; differences are in the 6th decimal place
+    # so reverted to original way
+    Compare3ProperRocFits(1,1,reAnalyze = TRUE),
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
   
