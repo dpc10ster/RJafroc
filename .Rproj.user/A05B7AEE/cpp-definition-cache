@@ -225,9 +225,9 @@
                 "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 6,
-                "name" : "erf(double)",
+                "name" : "erfcpp(double)",
                 "parent_name" : "",
-                "usr" : "c:@F@erf"
+                "usr" : "c:@F@erfcpp#d#"
             },
             {
                 "column" : 15,
@@ -242,16 +242,7 @@
                 "column" : 8,
                 "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
-                "line" : 20,
-                "name" : "erfcpp(double)",
-                "parent_name" : "",
-                "usr" : "c:@F@erfcpp#d#"
-            },
-            {
-                "column" : 8,
-                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
-                "kind" : 6,
-                "line" : 25,
+                "line" : 21,
                 "name" : "xROC(double, double)",
                 "parent_name" : "",
                 "usr" : "c:@F@xROC#d#d#"
@@ -260,7 +251,7 @@
                 "column" : 15,
                 "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
-                "line" : 30,
+                "line" : 26,
                 "name" : "xROCVect(Rcpp::NumericVector, double)",
                 "parent_name" : "",
                 "usr" : "c:@F@xROCVect#I#d#"
@@ -269,7 +260,7 @@
                 "column" : 8,
                 "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
-                "line" : 40,
+                "line" : 36,
                 "name" : "yROC(double, double, double, double, Rcpp::NumericMatrix)",
                 "parent_name" : "",
                 "usr" : "c:@F@yROC#d#d#d#d#I#"
@@ -278,7 +269,7 @@
                 "column" : 15,
                 "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
-                "line" : 51,
+                "line" : 47,
                 "name" : "yROCVect(Rcpp::NumericVector, double, double, double, Rcpp::NumericMatrix)",
                 "parent_name" : "",
                 "usr" : "c:@F@yROCVect#I#d#d#d#I#"
@@ -287,7 +278,7 @@
                 "column" : 15,
                 "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
-                "line" : 66,
+                "line" : 62,
                 "name" : "yROCVectNuP(double, double, double, Rcpp::NumericVector, Rcpp::NumericMatrix)",
                 "parent_name" : "",
                 "usr" : "c:@F@yROCVectNuP#d#d#d#I#I#"
@@ -296,7 +287,7 @@
                 "column" : 8,
                 "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
-                "line" : 106,
+                "line" : 102,
                 "name" : "RsmInner(double, double, double, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, Rcpp::NumericVector)",
                 "parent_name" : "",
                 "usr" : "c:@F@RsmInner#d#d#d#I#I#I#I#"
@@ -305,14 +296,14 @@
                 "column" : 15,
                 "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
-                "line" : 149,
+                "line" : 145,
                 "name" : "intROC(Rcpp::NumericVector, double, double, double, Rcpp::NumericMatrix)",
                 "parent_name" : "",
                 "usr" : "c:@F@intROC#I#d#d#d#I#"
             }
         ],
         "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
-        "file_last_write" : 1518468621.000000
+        "file_last_write" : 1561312558.000000
     },
     {
         "definitions" : [
