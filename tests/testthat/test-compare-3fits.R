@@ -4,8 +4,9 @@ test_that("Compare3ProperRocFits", {
   tmp <- tempfile()
   expect_warning(expect_known_output(
     # save time by using previously saved values 
-    # reAnalyze = FALSE to recompute the values
+    # reAnalyze = FALSE to use stored values
     # unfortunately this causes Failures on Travis; differences are in the 6th decimal place
+    # which causes failure in hasg test below
     # so reverted to original way
     Compare3ProperRocFits(1,1,reAnalyze = TRUE),
     tmp, print = TRUE, update = TRUE),
