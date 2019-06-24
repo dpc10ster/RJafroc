@@ -1,17 +1,17 @@
 {
-    "path" : "~/Documents/GitHub/RJafroc/tests/testthat",
+    "path" : "~/RJafroc/tests/testthat/goodValues",
     "sortOrder" : [
         {
             "ascending" : false,
             "columnIndex" : 4
         },
         {
-            "ascending" : false,
-            "columnIndex" : 3
-        },
-        {
             "ascending" : true,
             "columnIndex" : 2
+        },
+        {
+            "ascending" : false,
+            "columnIndex" : 3
         }
     ]
 }
