@@ -1,16 +1,13 @@
 test_that("Df2RJafrocDataset", {
   set.seed(1)
-  NL <- rnorm(5)
-  LL <- rnorm(7)*1.5 + 2
+  z1 <- rnorm(5)
+  z2 <- rnorm(7)*1.5 + 2
+  # ds1 <- Df2RJafrocDataset(z1, z2)
+  # save(ds1, file = "Df2RJafrocDataset.ds1")
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    Df2RJafrocDataset(NL, LL), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    Df2RJafrocDataset(NL, LL), 
-    tmp, print = TRUE)
+  load("Df2RJafrocDataset.ds1")
+  expect_equal(Df2RJafrocDataset(z1, z2), # an ROC dataset stored in ds1
+               ds1)
   
   set.seed(1)
   I <- 2;J <- 3
@@ -24,15 +21,12 @@ test_that("Df2RJafrocDataset", {
       z2[i,j,] <- rnorm(K2) * sigma + mu
     }
   }
+  # ds2 <- Df2RJafrocDataset(z1, z2)
+  # save(ds2, file = "Df2RJafrocDataset.ds2")
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    Df2RJafrocDataset(z1, z2),
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    Df2RJafrocDataset(z1, z2),
-    tmp, print = TRUE)
+  load("Df2RJafrocDataset.ds2")
+  expect_equal(Df2RJafrocDataset(z1, z2), # an ROC dataset
+               ds2)
   
   set.seed(1)
   I <- 2;J <- 3
@@ -58,14 +52,11 @@ test_that("Df2RJafrocDataset", {
   z1 <- z1[,,,1:max(dimNL[,,2])]
   z2 <- z2[,,,1:max(dimLL[,,2])]
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    Df2RJafrocDataset(z1, z2, lesionNum = Lk2),
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    Df2RJafrocDataset(z1, z2, lesionNum = Lk2),
-    tmp, print = TRUE)
+  # ds3 <- Df2RJafrocDataset(z1, z2, lesionNum = Lk2)
+  # save(ds3, file = "Df2RJafrocDataset.ds3")
+  load("Df2RJafrocDataset.ds3")
+  expect_equal(Df2RJafrocDataset(z1, z2, lesionNum = Lk2), # an FROC dataset
+               ds3)
   
 })
 
