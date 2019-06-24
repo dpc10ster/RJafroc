@@ -1,7 +1,10 @@
 test_that("Df2RJafrocDataset", {
+  
   set.seed(1)
   z1 <- rnorm(5)
   z2 <- rnorm(7)*1.5 + 2
+  # uncomment next 3 lines to create a 1 modality 1 reaader ROC dataset
+  # setwd("~/Documents/GitHub/RJafroc/tests/testthat")
   # ds1 <- Df2RJafrocDataset(z1, z2)
   # save(ds1, file = "Df2RJafrocDataset.ds1")
   
@@ -21,6 +24,8 @@ test_that("Df2RJafrocDataset", {
       z2[i,j,] <- rnorm(K2) * sigma + mu
     }
   }
+  # uncomment next 3 lines to create a 2 modality 3 reaader ROC dataset
+  # setwd("~/Documents/GitHub/RJafroc/tests/testthat")
   # ds2 <- Df2RJafrocDataset(z1, z2)
   # save(ds2, file = "Df2RJafrocDataset.ds2")
   
@@ -51,7 +56,8 @@ test_that("Df2RJafrocDataset", {
   }
   z1 <- z1[,,,1:max(dimNL[,,2])]
   z2 <- z2[,,,1:max(dimLL[,,2])]
-  
+  # uncomment next 3 lines to create a 2 modality 3 reaader FROC dataset
+  # setwd("~/Documents/GitHub/RJafroc/tests/testthat")
   # ds3 <- Df2RJafrocDataset(z1, z2, lesionNum = Lk2)
   # save(ds3, file = "Df2RJafrocDataset.ds3")
   load("Df2RJafrocDataset.ds3")
@@ -61,313 +67,313 @@ test_that("Df2RJafrocDataset", {
 })
 
 
-test_that("DfBinDatasetROC", {
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfBinDataset(dataset05, opChType = "ROC"), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfBinDataset(dataset05, opChType = "ROC"), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfBinDatasetAFROC", {
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfBinDataset(dataset05, opChType = "AFROC"), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfBinDataset(dataset05, opChType = "AFROC"), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfCreateCorCbmDataset", {
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfCreateCorCbmDataset(), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfCreateCorCbmDataset(), 
-    tmp, print = TRUE)
-})
-
-
-test_that("DfExtractCorCbmDataset", {
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3)), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3)), 
-    tmp, print = TRUE)
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = c(1,3)), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = c(1,3)), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfFroc2Afroc", {
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfFroc2Afroc(dataset05), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfFroc2Afroc(dataset05), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfFroc2Roc", {
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfFroc2Roc(dataset05), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfFroc2Roc(dataset05), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfReadLrocDataFile", {
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfReadLrocDataFile(), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfReadLrocDataFile(), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfLroc2Roc", {
-  
-  dataset <- DfReadLrocDataFile()
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfLroc2Roc(dataset), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfLroc2Roc(dataset), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfReadCrossedModalities", {
-  
-  crossedFileName <- system.file(
-    "extdata", 
-    "includedCrossedModalitiesData.xlsx", 
-    package = "RJafroc", 
-    mustWork = TRUE)
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfReadCrossedModalities(crossedFileName), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfReadCrossedModalities(crossedFileName), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfReadDataFile MRMC", {
-  
-  fileName <- system.file(
-    "extdata", "includedRocData.csv", package = "RJafroc", mustWork = TRUE)
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfReadDataFile(fileName, format = "MRMC"), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfReadDataFile(fileName, format = "MRMC"), 
-    tmp, print = TRUE)
-  
-  fileName <- system.file(
-    "extdata", "includedRocData.lrc", package = "RJafroc", mustWork = TRUE)
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfReadDataFile(fileName, format = "MRMC"), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfReadDataFile(fileName, format = "MRMC"), 
-    tmp, print = TRUE)
-  
-  fileName <- system.file(
-
-        "extdata", "includedRocData.imrmc", package = "RJafroc", mustWork = TRUE)
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfReadDataFile(fileName, format = "iMRMC"), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfReadDataFile(fileName, format = "iMRMC"), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfReadDataFile JAFROC", {
-  
-  fileName <- system.file(
-    "extdata", "includedRocData.xlsx", package = "RJafroc", mustWork = TRUE)
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfReadDataFile(fileName), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfReadDataFile(fileName), 
-    tmp, print = TRUE)
-  
-  fileName <- system.file(
-    "extdata", "includedFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfReadDataFile(fileName, renumber = TRUE), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfReadDataFile(fileName, renumber = TRUE), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfReadDataFile ROI dataset", {
-  
-  fileName <- system.file(
-    "extdata", "includedRoiData.xlsx", package = "RJafroc", mustWork = TRUE)
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfReadDataFile(fileName), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfReadDataFile(fileName), 
-    tmp, print = TRUE)
-  
-  ds <- DfReadDataFile(fileName)
-  expect_equal(ds$dataType, "ROI")
-  
-})
-
-
-test_that("DfExtractDataset", {
-  
-  dataset <- dataset05
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfExtractDataset(dataset, rdrs = c(1, 3)), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfExtractDataset(dataset, rdrs = c(1, 3)), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfSaveDataFile, all formats, including ROI", {
-  
-  dataset <- dataset05
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfSaveDataFile(dataset, fileName = "rocData2.xlsx", format = "JAFROC"), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfSaveDataFile(dataset, fileName = "rocData2.xlsx", format = "JAFROC"), 
-    tmp, print = TRUE)
-  
-  dataset <- datasetROI
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfSaveDataFile(dataset, fileName = "roiData.xlsx", format = "JAFROC"), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfSaveDataFile(dataset, fileName = "roiData.xlsx", format = "JAFROC"), 
-    tmp, print = TRUE)
-  
-})
-
-
-test_that("DfSaveDataFile", {
-  
-  dataset <- dataset02
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfSaveDataFile(dataset, fileName = "rocData2.imrmc", format = "iMRMC"), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfSaveDataFile(dataset, fileName = "rocData2.imrmc", format = "iMRMC"), 
-    tmp, print = TRUE)
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfSaveDataFile(dataset, fileName = "rocData2.csv", format = "MRMC"), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfSaveDataFile(dataset, fileName = "rocData2.csv", format = "MRMC"), 
-    tmp, print = TRUE)
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    DfSaveDataFile(
-      dataset = dataset, fileName = "rocData2.lrc", format = "MRMC"), 
-    tmp, print = TRUE), "Creating reference output")
-  
-  expect_known_output(
-    DfSaveDataFile(
-      dataset = dataset, fileName = "rocData2.lrc", format = "MRMC"), 
-    tmp, print = TRUE)
-  
-})
-
-
-
-
+# test_that("DfBinDatasetROC", {
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfBinDataset(dataset05, opChType = "ROC"), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfBinDataset(dataset05, opChType = "ROC"), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfBinDatasetAFROC", {
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfBinDataset(dataset05, opChType = "AFROC"), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfBinDataset(dataset05, opChType = "AFROC"), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfCreateCorCbmDataset", {
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfCreateCorCbmDataset(), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfCreateCorCbmDataset(), 
+#     tmp, print = TRUE)
+# })
+# 
+# 
+# test_that("DfExtractCorCbmDataset", {
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3)), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3)), 
+#     tmp, print = TRUE)
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = c(1,3)), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = c(1,3)), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfFroc2Afroc", {
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfFroc2Afroc(dataset05), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfFroc2Afroc(dataset05), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfFroc2Roc", {
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfFroc2Roc(dataset05), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfFroc2Roc(dataset05), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfReadLrocDataFile", {
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfReadLrocDataFile(), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfReadLrocDataFile(), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfLroc2Roc", {
+#   
+#   dataset <- DfReadLrocDataFile()
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfLroc2Roc(dataset), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfLroc2Roc(dataset), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfReadCrossedModalities", {
+#   
+#   crossedFileName <- system.file(
+#     "extdata", 
+#     "includedCrossedModalitiesData.xlsx", 
+#     package = "RJafroc", 
+#     mustWork = TRUE)
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfReadCrossedModalities(crossedFileName), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfReadCrossedModalities(crossedFileName), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfReadDataFile MRMC", {
+#   
+#   fileName <- system.file(
+#     "extdata", "includedRocData.csv", package = "RJafroc", mustWork = TRUE)
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfReadDataFile(fileName, format = "MRMC"), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfReadDataFile(fileName, format = "MRMC"), 
+#     tmp, print = TRUE)
+#   
+#   fileName <- system.file(
+#     "extdata", "includedRocData.lrc", package = "RJafroc", mustWork = TRUE)
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfReadDataFile(fileName, format = "MRMC"), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfReadDataFile(fileName, format = "MRMC"), 
+#     tmp, print = TRUE)
+#   
+#   fileName <- system.file(
+# 
+#         "extdata", "includedRocData.imrmc", package = "RJafroc", mustWork = TRUE)
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfReadDataFile(fileName, format = "iMRMC"), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfReadDataFile(fileName, format = "iMRMC"), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfReadDataFile JAFROC", {
+#   
+#   fileName <- system.file(
+#     "extdata", "includedRocData.xlsx", package = "RJafroc", mustWork = TRUE)
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfReadDataFile(fileName), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfReadDataFile(fileName), 
+#     tmp, print = TRUE)
+#   
+#   fileName <- system.file(
+#     "extdata", "includedFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfReadDataFile(fileName, renumber = TRUE), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfReadDataFile(fileName, renumber = TRUE), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfReadDataFile ROI dataset", {
+#   
+#   fileName <- system.file(
+#     "extdata", "includedRoiData.xlsx", package = "RJafroc", mustWork = TRUE)
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfReadDataFile(fileName), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfReadDataFile(fileName), 
+#     tmp, print = TRUE)
+#   
+#   ds <- DfReadDataFile(fileName)
+#   expect_equal(ds$dataType, "ROI")
+#   
+# })
+# 
+# 
+# test_that("DfExtractDataset", {
+#   
+#   dataset <- dataset05
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfExtractDataset(dataset, rdrs = c(1, 3)), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfExtractDataset(dataset, rdrs = c(1, 3)), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfSaveDataFile, all formats, including ROI", {
+#   
+#   dataset <- dataset05
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfSaveDataFile(dataset, fileName = "rocData2.xlsx", format = "JAFROC"), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfSaveDataFile(dataset, fileName = "rocData2.xlsx", format = "JAFROC"), 
+#     tmp, print = TRUE)
+#   
+#   dataset <- datasetROI
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfSaveDataFile(dataset, fileName = "roiData.xlsx", format = "JAFROC"), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfSaveDataFile(dataset, fileName = "roiData.xlsx", format = "JAFROC"), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# test_that("DfSaveDataFile", {
+#   
+#   dataset <- dataset02
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfSaveDataFile(dataset, fileName = "rocData2.imrmc", format = "iMRMC"), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfSaveDataFile(dataset, fileName = "rocData2.imrmc", format = "iMRMC"), 
+#     tmp, print = TRUE)
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfSaveDataFile(dataset, fileName = "rocData2.csv", format = "MRMC"), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfSaveDataFile(dataset, fileName = "rocData2.csv", format = "MRMC"), 
+#     tmp, print = TRUE)
+#   
+#   tmp <- tempfile()
+#   expect_warning(expect_known_output(
+#     DfSaveDataFile(
+#       dataset = dataset, fileName = "rocData2.lrc", format = "MRMC"), 
+#     tmp, print = TRUE), "Creating reference output")
+#   
+#   expect_known_output(
+#     DfSaveDataFile(
+#       dataset = dataset, fileName = "rocData2.lrc", format = "MRMC"), 
+#     tmp, print = TRUE)
+#   
+# })
+# 
+# 
+# 
+# 
