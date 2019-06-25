@@ -93,7 +93,7 @@
 #'  
 #' @export
 Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14, 
-                                         showPlot = FALSE, saveProprocLrcFile = FALSE, reAnalyze = FALSE)
+                                  showPlot = FALSE, saveProprocLrcFile = FALSE, reAnalyze = FALSE)
 {
   ####  DPC notes on updating the results 2/17/18
   ####  First run PROPROC on all datasets (see book Chapter 20)
@@ -110,11 +110,12 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
   ####     this generates new results files in RJafroc/inst/ANALYZED/RSM6
   ####
   # 
-  # uncomment following line to debug and check for math underflow errors
   # Peter Philips showed me (06/21/19) that this line was causing testthat failures
   # in function expect_known_output()
   # 
-  #options(warn = 2) # warnings as errors
+  options(warn = 2) # warnings AS errors
+  # NOTE added 6/25/19 - this is matched at exit with: 
+  # options(warn = 0) # warnings NOT as errors 
   fileNames <-  c("TONY", "VD", "FR", 
                   "FED", "JT", "MAG", 
                   "OPT", "PEN", "NICO",
@@ -212,7 +213,7 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
         for (j in 1:J){
           AllResIndx <- AllResIndx + 1
           x <- allResults[[AllResIndx]]
-           if (showPlot) {
+          if (showPlot) {
             empOp <- UtilBinCountsOpPts(binnedRocData, trt = i, rdr = j)
             fpf <- empOp$fpf; tpf <- empOp$tpf
             compPlot <- gpfPlotRsmPropCbm(
@@ -237,6 +238,9 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
       # cat("\n\n\n")
     }
   }
+  
+  options(warn = 0) # warnings NOT as errors
+  
   return(list(
     allDatasetsResults = allDatasetsResults,
     allBinnedDatasets = allBinnedDatasets
@@ -264,7 +268,7 @@ gpfPlotRsmPropCbm <- function(fileName, mu, lambdaP, nuP, lesDistr, c1, da,
   plotCurve <- as.data.frame(plotCurve)
   plotOp <- data.frame(FPF = fpf, TPF = tpf)
   plotOp <- as.data.frame(plotOp)
-
+  
   ij <- paste0("D", fileName, ", i = ", i, ", j = ", j)
   Model <- NULL # to get around R CMD CHK throwing a Note
   FPF <- fpf

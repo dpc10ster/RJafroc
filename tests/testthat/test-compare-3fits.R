@@ -17,6 +17,18 @@ test_that("Compare3ProperRocFits", {
     # reAnalyze = TRUE to recompute the values
     Compare3ProperRocFits(1,1,reAnalyze = TRUE),
     tmp, print = TRUE, update = TRUE)
+
+######################################################################    
+  tmp <- tempfile()
+  expect_warning(expect_known_output(
+    Compare3ProperRocFits(3,3,reAnalyze = FALSE, showPlot = TRUE),
+    tmp, print = TRUE, update = TRUE),
+    "Creating reference output")
+  
+  expect_known_output(
+    Compare3ProperRocFits(3,3,reAnalyze = FALSE, showPlot = TRUE),
+    tmp, print = TRUE, update = TRUE)
+  
 })
 
 # # alternate way of testing

@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "CallPmvnormal",
+        "query" : "# uncomment",
         "regex" : false
     }
 }

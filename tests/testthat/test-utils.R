@@ -1,6 +1,18 @@
+test_that("UtilIntrinsic2Physical", {
+  mu <- 2;lambda <- 20;nu <- 1.1512925 
+  # goodValues <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
+  # save(goodValues, file = "goodValues/UtilIntrinsic2PhysicalRSM")
+  
+  load("goodValues/UtilIntrinsic2PhysicalRSM")
+  currentValues <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
+  expect_equal(goodValues, currentValues)
+})
+
+
 test_that("UtilAucBinormal", {
   a <- 2;b <- 0.7
-  expect_equal(UtilAucBinormal(a,b), 0.9493375)
+  x <- 0.9493375
+  expect_equal(UtilAucBinormal(a,b), x, tolerance = 1e-6, scale = x)
 })
 
 test_that("UtilAucCBM", {
@@ -28,54 +40,29 @@ test_that("UtilAucsRSM", {
 
 
 test_that("UtilPseudoValues", {
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilPseudoValues(dataset05, FOM = "wAFROC"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilPseudoValues(dataset02, FOM = "Wilcoxon"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
+  dataset <- dataset05
+  # "Wilcoxon" will generate error, skipping "SongA1" and "SongA2"
+  FOM_arr <- c("AFROC", "AFROC1", "wAFROC", "wAFROC1", "MaxNLF", "MaxLLF", "MaxNLFAllCases", 
+               "ExpTrnsfmSp", "HrSp", "HrSe")
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilPseudoValues(dataset05, FOM = "MaxNLF"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
+  for (i in 1:length(FOM_arr)) {
+    FOM <- FOM_arr[i]
+    
+    tmp <- tempfile()
+    expect_warning(expect_known_output(
+      UtilPseudoValues(dataset, FOM = FOM), 
+      tmp, print = TRUE, update = TRUE),
+      "Creating reference output")
+    
+    expect_known_output(
+      UtilPseudoValues(dataset05, FOM = FOM), 
+      tmp, print = TRUE, update = TRUE)
+    
+  }
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilPseudoValues(dataset05, FOM = "ExpTrnsfmSp"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilPseudoValues(dataset05, FOM = "HrSp"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilPseudoValues(dataset05, FOM = "MaxLLF"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilPseudoValues(dataset05, FOM = "HrSe"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    UtilPseudoValues(dataset05, FOM = "MaxLLF"), 
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
 })
+
 
 test_that("UtilMeanSquaresDBMH", {
   tmp <- tempfile()
@@ -85,6 +72,7 @@ test_that("UtilMeanSquaresDBMH", {
     "Creating reference output")
 })
 
+
 test_that("UtilLesionDistribution", {
   tmp <- tempfile()
   expect_warning(expect_known_output(
@@ -92,13 +80,22 @@ test_that("UtilLesionDistribution", {
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
   
+  expect_known_output(
+    UtilLesionWeights (UtilLesionDistribution(dataset01)), 
+    tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_warning(expect_known_output(
     UtilLesionWeights (UtilLesionDistribution(dataset05)), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
   
+  expect_known_output(
+    UtilLesionWeights (UtilLesionDistribution(dataset05)), 
+    tmp, print = TRUE, update = TRUE)
+  
 })
+
 
 
 
