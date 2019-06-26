@@ -70,6 +70,11 @@ test_that("UtilMeanSquaresDBMH", {
     UtilMeanSquares(dataset02, FOM = "Wilcoxon"), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    UtilMeanSquares(dataset02, FOM = "Wilcoxon"), 
+    tmp, print = TRUE, update = TRUE)
+  
 })
 
 

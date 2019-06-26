@@ -7,6 +7,11 @@ test_that("PlotBinormalFit", {
     PlotBinormalFit(c(1, 2), c(0.5, 0.5)), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    PlotBinormalFit(c(1, 2), c(0.5, 0.5)), 
+    tmp, print = TRUE, update = TRUE)
+
 })
 
 test_that("PlotCbmFit", {
@@ -16,6 +21,11 @@ test_that("PlotCbmFit", {
     PlotCbmFit(c(1, 2), c(0.5, 0.5)), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    PlotCbmFit(c(1, 2), c(0.5, 0.5)), 
+    tmp, print = TRUE, update = TRUE)
+  
 })
 
 test_that("PlotRsmOperatingCharacteristics", {
@@ -32,6 +42,13 @@ test_that("PlotRsmOperatingCharacteristics", {
                                     legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
+                                    lesDistr = lesDistr, lesionWeights = lesionWeights, 
+                                    legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), 
+    tmp, print = TRUE, update = TRUE)
+  
 })
 
 test_that("PlotOperatingCharacteristics", {
@@ -44,12 +61,20 @@ test_that("PlotOperatingCharacteristics", {
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
   
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR), # ROC
+    tmp, print = TRUE, update = TRUE)
+  
   Sys.sleep(0.2)
   tmp <- tempfile()
   expect_warning(expect_known_output(
     PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "FROC"), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "FROC"), 
+    tmp, print = TRUE, update = TRUE)
   
   Sys.sleep(0.2)
   tmp <- tempfile()
@@ -58,12 +83,20 @@ test_that("PlotOperatingCharacteristics", {
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
   
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC"), 
+    tmp, print = TRUE, update = TRUE)
+  
   Sys.sleep(0.2)
   tmp <- tempfile()
   expect_warning(expect_known_output(
     PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC"), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC"), 
+    tmp, print = TRUE, update = TRUE)
   
   Sys.sleep(0.2)
   tmp <- tempfile()
@@ -72,11 +105,19 @@ test_that("PlotOperatingCharacteristics", {
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
   
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC1"), 
+    tmp, print = TRUE, update = TRUE)
+  
   Sys.sleep(0.2)
   tmp <- tempfile()
   expect_warning(expect_known_output(
     PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC1"), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC1"), 
+    tmp, print = TRUE, update = TRUE)
   
 })

@@ -10,10 +10,10 @@ IN THE SOFTWARE.
 
 R version: R version 3.6.0 (2019-04-26)
 RJafroc version: 1.1.1.9000
-Run date: Jun 25 2019 Tue 16:16:12 EDT
+Run date: Jun 26 2019 Wed 14:34:40 EDT
  FOM selected         :     MaxNLF
  Input  Data          :     MyData
- Output Data Filename :     /Users/Dev/Documents/GitHub/RJafroc/tests/testthat/MyDataOutput.txt
+ Output Data Filename :     /Users/Dev/RJafroc/tests/testthat/MyDataOutput.txt
 
 ================================================================================
 

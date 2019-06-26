@@ -1,3 +1,5 @@
+# TODO::DPC add sample size tests for an FROC dataset
+
 context("ROC sample size routines")
 
 test_that("SsPowerGivenJKDBMH", {
@@ -6,6 +8,11 @@ test_that("SsPowerGivenJKDBMH", {
     SsPowerGivenJK(dataset02, 6, 251, method = "DBMH"), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    SsPowerGivenJK(dataset02, 6, 251, method = "DBMH"), 
+    tmp, print = TRUE, update = TRUE)
+  
 })
 
 test_that("SsPowerGivenJKORH", {
@@ -14,6 +21,11 @@ test_that("SsPowerGivenJKORH", {
     SsPowerGivenJK(dataset02, 6, 251, method = "ORH"), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    SsPowerGivenJK(dataset02, 6, 251, method = "ORH"), 
+    tmp, print = TRUE, update = TRUE)
+  
 })
 
 test_that("SsSampleSizeKGivenJ", {
@@ -22,6 +34,11 @@ test_that("SsSampleSizeKGivenJ", {
     SsSampleSizeKGivenJ(dataset02, J = 6, method = "DBMH"), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    SsSampleSizeKGivenJ(dataset02, J = 6, method = "DBMH"), 
+    tmp, print = TRUE, update = TRUE)
+  
 })
 
 test_that("SsPowerTable", {
@@ -30,6 +47,11 @@ test_that("SsPowerTable", {
     SsPowerTable(dataset02, method = "DBMH"), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    SsPowerTable(dataset02, method = "DBMH"), 
+    tmp, print = TRUE, update = TRUE)
+  
 })
 
 

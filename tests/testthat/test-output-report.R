@@ -6,6 +6,10 @@ test_that("UtilOutputReport text format", {
     UtilOutputReport(dataset03, overwrite = TRUE), # ROC
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    UtilOutputReport(dataset03, overwrite = TRUE), # ROC
+    tmp, print = TRUE, update = TRUE)
 
   tmp <- tempfile()
   expect_warning(expect_known_output(
@@ -13,11 +17,23 @@ test_that("UtilOutputReport text format", {
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
   
+  expect_known_output(
+    UtilOutputReport(dataset05, overwrite = TRUE, FOM = "MaxLLF" ), # FROC
+    tmp, print = TRUE, update = TRUE)
+  
+  expect_known_output(
+    UtilOutputReport(dataset05, overwrite = TRUE, FOM = "MaxLLF" ), # FROC
+    tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   expect_warning(expect_known_output(
     UtilOutputReport(dataset05, overwrite = TRUE, FOM = "MaxNLF", method = "ORH" ), # FROC
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    UtilOutputReport(dataset05, overwrite = TRUE, FOM = "MaxNLF", method = "ORH" ), # FROC
+    tmp, print = TRUE, update = TRUE)
 })
 
 test_that("UtilOutputReportExcel", {
@@ -26,6 +42,10 @@ test_that("UtilOutputReportExcel", {
     UtilOutputReport(dataset03, ReportFileFormat = "xlsx", overwrite = TRUE), 
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    UtilOutputReport(dataset03, ReportFileFormat = "xlsx", overwrite = TRUE), 
+    tmp, print = TRUE, update = TRUE)
 })
 
 test_that("UtilOutputReport Error", {

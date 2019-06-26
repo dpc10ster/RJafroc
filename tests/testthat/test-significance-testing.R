@@ -1,149 +1,90 @@
 context("Significance testing excluding CAD")
 
-test_that("SignificanceTestingDBMH", {
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset02, option = "RRRC"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset02, option = "FRRC"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset02, option = "RRFC"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  ds <- DfExtractDataset(dataset02, rdrs = 1) # to test single reader dataset
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(ds),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset02, VarCompFlag = TRUE),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(datasetROI),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
+test_that("SignificanceTestingAllCombinations", {
+# spent most time on this; dpc 06/26/19  
+  dataset_arr <- list(dataset02, dataset05)
+  FOM_arr <- c("Wilcoxon", "HrAuc", "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
+  method_arr <- c("DBMH", "ORH")
+  options_arr <- c("RRRC", "FRRC", "RRFC")
+  ## cycle through all representative datasets, FOMs, methods and options
+  for (d in 1:length(dataset_arr)) {
+    dataset <- dataset_arr[[d]]
+    for (i in 1:length(FOM_arr)) {
+      for (j in 1:length(method_arr)) {
+        for (k in 1:length(options_arr)) {
+          if ((dataset$dataType == "ROC") && (FOM_arr[i] != "Wilcoxon")) {
+            
+            # for ROC data, only Wilcoxon FOM is allowed
+            expect_error(
+              StSignificanceTesting(dataset, FOM = FOM_arr[i], method = method_arr[j]), option = options_arr[k])
+            
+          } else if ((dataset$dataType == "FROC") && (FOM_arr[i] == "Wilcoxon")) {
+            
+            # for FROC data, Wilcoxon FOM is NOT allowed
+            expect_error(
+              StSignificanceTesting(dataset, FOM = FOM_arr[i], method = method_arr[j]), option = options_arr[k])
+            
+          } else {
+            
+            tmp <- tempfile()
+            expect_warning(expect_known_output(
+              StSignificanceTesting(dataset, FOM = FOM_arr[i], method = method_arr[j], option = options_arr[k]),
+              tmp, print = TRUE, update = TRUE),
+              "Creating reference output")
+            
+            expect_known_output(
+              StSignificanceTesting(dataset, FOM = FOM_arr[i], method = method_arr[j], option = options_arr[k]),
+              tmp, print = TRUE, update = TRUE)
+            
+          }
+          
+        }  
+      }
+    }
+  }
 })
 
-test_that("SignificanceTestingORH", {
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-})
-
-test_that("SignificanceTestingORH", {
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset05, FOM = "wAFROC"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset05, FOM = "MaxNLF"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset05, FOM = "ExpTrnsfmSp"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset05, FOM = "HrSp"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset05, FOM = "MaxLLF"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset05, FOM = "HrSe"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset05, FOM = "MaxNLF", method = "ORH"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset05, FOM = "MaxLLF", method = "ORH"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  skip_on_cran()
-  skip_on_travis()
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset05, FOM = "MaxNLF", covEstMethod = "Bootstrap", method = "ORH"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    StSignificanceTesting(dataset05, FOM = "MaxLLF", covEstMethod = "Bootstrap", method = "ORH"),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  expect_error(StSignificanceTesting(dataset05, FOM = "MaxNLF", covEstMethod = "Bootstrap", method = "DBMH"))
-})
-
-
+# TODO::DPC needs updating to meet quality of code above 6/26/19
 test_that("StSignificanceTestingSingleFixedFactor", {
+  
   tmp <- tempfile()
   singleFactorData <- DfExtractDataset(dataset02, 1, 1:4)
   expect_warning(expect_known_output(
     StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "Wilcoxon"),
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
-
+  
+  expect_known_output(
+    StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "Wilcoxon"),
+    tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   singleFactorData <- DfExtractDataset(dataset05, 1, 1:4)
   expect_warning(expect_known_output(
     StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "wAFROC"),
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
-
+  
+  expect_known_output(
+    StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "wAFROC"),
+    tmp, print = TRUE, update = TRUE)
+  
   tmp <- tempfile()
   singleFactorData <- DfExtractDataset(dataset05, 1:2, 4)
   expect_warning(expect_known_output(
     StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "wAFROC"),
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "wAFROC"),
+    tmp, print = TRUE, update = TRUE)
+  
 })
 
+
 test_that("StSignificanceTestingCrossedModalities", {
+  
   tmp <- tempfile()
   crossedFileName <- system.file(
     "extdata", "includedCrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -152,5 +93,10 @@ test_that("StSignificanceTestingCrossedModalities", {
     StSignificanceTestingCrossedModalities(datasetCrossedModality, 1),
     tmp, print = TRUE, update = TRUE),
     "Creating reference output")
+  
+  expect_known_output(
+    StSignificanceTestingCrossedModalities(datasetCrossedModality, 1),
+    tmp, print = TRUE, update = TRUE)
+  
 })
 

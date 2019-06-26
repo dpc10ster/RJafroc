@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "# uncomment",
+        "query" : "expect_warning(expect_known_output(",
         "regex" : false
     }
 }
