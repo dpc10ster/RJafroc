@@ -1,6 +1,10 @@
 context("Significance testing excluding CAD")
 
 test_that("SignificanceTestingAllCombinations", {
+
+  skip_on_travis()
+  skip_on_cran()
+  
 # spent most time on this; dpc 06/26/19  
   dataset_arr <- list(dataset02, dataset05)
   FOM_arr <- c("Wilcoxon", "HrAuc", "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")

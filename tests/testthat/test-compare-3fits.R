@@ -1,6 +1,10 @@
 # following works after `warn` option in `option`` NOT set to 2 in Compare3RocFits.R
 # as per Peter Philips' bug fix
 test_that("Compare3ProperRocFits", {
+  
+  skip_on_cran()
+  skip_on_travis()
+  
   tmp <- tempfile()
   expect_warning(expect_known_output(
     # save time by using previously saved values 
@@ -18,7 +22,6 @@ test_that("Compare3ProperRocFits", {
     Compare3ProperRocFits(1,1,reAnalyze = TRUE),
     tmp, print = TRUE, update = TRUE)
 
-######################################################################    
   tmp <- tempfile()
   expect_warning(expect_known_output(
     Compare3ProperRocFits(3,3,reAnalyze = FALSE, showPlot = TRUE),

@@ -2,6 +2,10 @@ context("Significance testing: StSignificanceTestingCadVsRadiologists")
 
 
 test_that("StSignificanceTestingCadVsRadiologists", {
+  
+  skip_on_travis()
+  skip_on_cran()
+  
   tmp <- tempfile()
   expect_warning(expect_known_output(
     StSignificanceTestingCadVsRadiologists (dataset09, FOM = "Wilcoxon", method = "singleModality"), 
@@ -158,5 +162,6 @@ test_that("StSignificanceTestingCadVsRadiologists", {
     StSignificanceTestingCadVsRadiologists (
       datasetCadLroc7, FOM = "PCL", option = "RRRC", method = "singleModality", FPFValue = 0.05), 
     tmp, print = TRUE, update = TRUE)
+  
 })
 
