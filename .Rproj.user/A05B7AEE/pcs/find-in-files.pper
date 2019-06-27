@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "",
+        "path" : "/tests/testthat",
         "projectRelative" : true,
-        "query" : "expect_warning(expect_known_output(",
+        "query" : ".csv",
         "regex" : false
     }
 }

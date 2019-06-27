@@ -319,10 +319,10 @@ test_that("DfSaveDataFile", {
   # uncomment lines to save dataset as Excel file in folder goodValues
   # DfSaveDataFile(dataset, fileName = "goodValues/dataset02.csv", format = "MRMC")
   
-  DfSaveDataFile(dataset, fileName = "tempValues//dataset02.csv", format = "MRMC")
+  DfSaveDataFile(dataset, fileName = "tempValues/dataset02.csv", format = "MRMC")
   xx <- file("goodValues/dataset02.csv", open = "rt")
   xx1 <- readLines(xx)
-  yy <- file("tempValues//dataset02.csv", open = "rt")
+  yy <- file("tempValues/dataset02.csv", open = "rt")
   yy1 <- readLines(yy)
   close(xx)
   close(yy)
