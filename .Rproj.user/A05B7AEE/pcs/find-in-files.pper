@@ -5,7 +5,7 @@
         ],
         "path" : "/tests/testthat",
         "projectRelative" : true,
-        "query" : "tmp <- tempfile",
+        "query" : "DfCreateCorCbmDataset0",
         "regex" : false
     }
 }
