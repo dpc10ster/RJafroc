@@ -5,7 +5,7 @@
         ],
         "path" : "/tests/testthat",
         "projectRelative" : true,
-        "query" : ".csv",
+        "query" : "tmp <- tempfile",
         "regex" : false
     }
 }

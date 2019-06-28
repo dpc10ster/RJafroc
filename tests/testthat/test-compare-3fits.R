@@ -1,45 +1,27 @@
-# following works after `warn` option in `option`` NOT set to 2 in Compare3RocFits.R
-# as per Peter Philips' bug fix
 test_that("Compare3ProperRocFits", {
   
   skip_on_cran()
   skip_on_travis()
   
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    # save time by using previously saved values 
-    # reAnalyze = FALSE to use stored values
-    # unfortunately this causes Failures on Travis; differences are in the 6th decimal place
-    # which causes failure in hasg test below
-    # so reverted to original way
+  fn <- paste0(test_path(), '/tempValues/Compare3ProperRocFits01')
+  if (!file.exists(fn)) {
+    expect_known_output(Compare3ProperRocFits(1,1,reAnalyze = TRUE),
+                        fn, print = TRUE, update = TRUE)
+  }
+  expect_known_output(
     Compare3ProperRocFits(1,1,reAnalyze = TRUE),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
+    fn, print = TRUE, update = FALSE)
+  
+  fn <- paste0(test_path(), '/tempValues/Compare3ProperRocFits02')
+  if (!file.exists(fn)) {
+    expect_known_output(
+      Compare3ProperRocFits(3,3,reAnalyze = TRUE, showPlot = TRUE),
+      fn, print = TRUE, update = TRUE)
+  }
   
   expect_known_output(
-    # this time calculate from scratch 
-    # reAnalyze = TRUE to recompute the values
-    Compare3ProperRocFits(1,1,reAnalyze = TRUE),
-    tmp, print = TRUE, update = TRUE)
-
-  tmp <- tempfile()
-  expect_warning(expect_known_output(
-    Compare3ProperRocFits(3,3,reAnalyze = FALSE, showPlot = TRUE),
-    tmp, print = TRUE, update = TRUE),
-    "Creating reference output")
-  
-  expect_known_output(
-    Compare3ProperRocFits(3,3,reAnalyze = FALSE, showPlot = TRUE),
-    tmp, print = TRUE, update = TRUE)
+    Compare3ProperRocFits(3,3,reAnalyze = TRUE, showPlot = TRUE),
+    fn, print = TRUE, update = FALSE)
   
 })
-
-# # alternate way of testing
-# using this causes failure on Travis; hash depends on platform?
-# test_that("known hash", {
-# 
-#   expect_known_hash(Compare3ProperRocFits(1,1,reAnalyze = TRUE), hash = '6a90170dda') # value from my machine
-#   expect_known_hash(Compare3ProperRocFits(1,1,reAnalyze = TRUE), hash = 'ee6f623095') # value from Peter
-# 
-# })
 
