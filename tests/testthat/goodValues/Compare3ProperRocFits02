@@ -1,0 +1,2187 @@
+$allDatasetsResults
+$allDatasetsResults[[1]]
+$allDatasetsResults[[1]][[1]]
+$allDatasetsResults[[1]][[1]]$retRsm
+$allDatasetsResults[[1]][[1]]$retRsm$mu
+[1] 2.544238
+
+$allDatasetsResults[[1]][[1]]$retRsm$lambdaP
+[1] 1.522355
+
+$allDatasetsResults[[1]][[1]]$retRsm$nuP
+[1] 0.8147231
+
+$allDatasetsResults[[1]][[1]]$retRsm$zetas
+  zetaFwd1   zetaFwd2   zetaFwd3   zetaFwd4 
+-2.4654223  0.6672213  1.1466278  2.0711927 
+
+$allDatasetsResults[[1]][[1]]$retRsm$AUC
+[1] 0.8732135
+
+$allDatasetsResults[[1]][[1]]$retRsm$StdAUC
+           [,1]
+[1,] 0.03449465
+
+$allDatasetsResults[[1]][[1]]$retRsm$NLLIni
+[1] 127.2033
+
+$allDatasetsResults[[1]][[1]]$retRsm$NLLFin
+[1] 124.9752
+
+$allDatasetsResults[[1]][[1]]$retRsm$ChisqrFitStats
+$allDatasetsResults[[1]][[1]]$retRsm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[1]]$retRsm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[1]]$retRsm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[1]]$retRsm$covMat
+                 mu      lambdaP          nuP        zeta1       zeta2
+mu       0.21065636  0.057981793 -0.011239332   0.98768281 0.038767378
+lambdaP  0.05798179  0.171806726 -0.004515663   2.94867437 0.055950531
+nuP     -0.01123933 -0.004515663  0.005596124   0.01225591 0.004780188
+zeta1    0.98768281  2.948674373  0.012255913 101.17047941 1.492634517
+zeta2    0.03876738  0.055950531  0.004780188   1.49263452 0.069765842
+zeta3    0.06556570  0.045205129  0.003410839   1.16076287 0.055341646
+zeta4    0.14303562  0.046224930 -0.003107128   0.97814510 0.045375773
+              zeta3        zeta4
+mu      0.065565696  0.143035620
+lambdaP 0.045205129  0.046224930
+nuP     0.003410839 -0.003107128
+zeta1   1.160762867  0.978145098
+zeta2   0.055341646  0.045375773
+zeta3   0.068360871  0.065999230
+zeta4   0.065999230  0.128346953
+
+
+$allDatasetsResults[[1]][[1]]$retCbm
+$allDatasetsResults[[1]][[1]]$retCbm$mu
+[1] 2.412568
+
+$allDatasetsResults[[1]][[1]]$retCbm$alpha
+[1] 0.8179164
+
+$allDatasetsResults[[1]][[1]]$retCbm$zetas
+  zetaFwd1   zetaFwd2   zetaFwd3   zetaFwd4 
+-0.7749626  0.4649445  0.9401484  1.9185693 
+
+$allDatasetsResults[[1]][[1]]$retCbm$AUC
+[1] 0.8729622
+
+$allDatasetsResults[[1]][[1]]$retCbm$StdAUC
+           [,1]
+[1,] 0.03454068
+
+$allDatasetsResults[[1]][[1]]$retCbm$NLLIni
+[1] 127.8384
+
+$allDatasetsResults[[1]][[1]]$retCbm$NLLFin
+[1] 125.0509
+
+$allDatasetsResults[[1]][[1]]$retCbm$ChisqrFitStats
+$allDatasetsResults[[1]][[1]]$retCbm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[1]]$retCbm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[1]]$retCbm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[1]]$retCbm$covMat
+                mu        alpha        zeta1       zeta2       zeta3
+mu     0.189422890 -0.012721641 -0.003575918 0.016601271 0.047999143
+alpha -0.012721641  0.006100816  0.004286894 0.006640916 0.005079581
+zeta1 -0.003575918  0.004286894  0.047428274 0.021545163 0.016791291
+zeta2  0.016601271  0.006640916  0.021545163 0.049983167 0.042844403
+zeta3  0.047999143  0.005079581  0.016791291 0.042844403 0.062205421
+zeta4  0.129324586 -0.003467565  0.006240242 0.029919271 0.056245774
+             zeta4
+mu     0.129324586
+alpha -0.003467565
+zeta1  0.006240242
+zeta2  0.029919271
+zeta3  0.056245774
+zeta4  0.122632404
+
+
+$allDatasetsResults[[1]][[1]]$lesDistr
+     [,1] [,2]
+[1,]    1    1
+
+$allDatasetsResults[[1]][[1]]$c1
+[1] -0.2898743
+
+$allDatasetsResults[[1]][[1]]$da
+[1] 1.570202
+
+$allDatasetsResults[[1]][[1]]$aucProp
+[1] 0.8699226
+
+$allDatasetsResults[[1]][[1]]$I
+[1] 2
+
+$allDatasetsResults[[1]][[1]]$J
+[1] 4
+
+$allDatasetsResults[[1]][[1]]$K1
+[1] 33
+
+$allDatasetsResults[[1]][[1]]$K2
+[1] 67
+
+
+$allDatasetsResults[[1]][[2]]
+$allDatasetsResults[[1]][[2]]$retRsm
+$allDatasetsResults[[1]][[2]]$retRsm$mu
+[1] 2.363073
+
+$allDatasetsResults[[1]][[2]]$retRsm$lambdaP
+[1] 1.247093
+
+$allDatasetsResults[[1]][[2]]$retRsm$nuP
+[1] 0.8703881
+
+$allDatasetsResults[[1]][[2]]$retRsm$zetas
+  zetaFwd1   zetaFwd2   zetaFwd3 
+-2.8792078  0.5250674  1.4700503 
+
+$allDatasetsResults[[1]][[2]]$retRsm$AUC
+[1] 0.8952279
+
+$allDatasetsResults[[1]][[2]]$retRsm$StdAUC
+           [,1]
+[1,] 0.03233731
+
+$allDatasetsResults[[1]][[2]]$retRsm$NLLIni
+[1] 99.72061
+
+$allDatasetsResults[[1]][[2]]$retRsm$NLLFin
+[1] 97.73157
+
+$allDatasetsResults[[1]][[2]]$retRsm$ChisqrFitStats
+$allDatasetsResults[[1]][[2]]$retRsm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[2]]$retRsm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[2]]$retRsm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[2]]$retRsm$covMat
+                  mu      lambdaP          nuP        zeta1       zeta2
+mu       0.207251616  0.032666719 -0.009507237   0.92247249 0.043205414
+lambdaP  0.032666719  0.082126610 -0.003884319   2.08092446 0.021896767
+nuP     -0.009507237 -0.003884319  0.004194844   0.01607437 0.003114278
+zeta1    0.922472488  2.080924465  0.016074374 265.98370667 1.400211196
+zeta2    0.043205414  0.021896767  0.003114278   1.40021120 0.061064133
+zeta3    0.113291024  0.021221399 -0.001238165   0.94820502 0.044743254
+               zeta3
+mu       0.113291024
+lambdaP  0.021221399
+nuP     -0.001238165
+zeta1    0.948205024
+zeta2    0.044743254
+zeta3    0.092736749
+
+
+$allDatasetsResults[[1]][[2]]$retCbm
+$allDatasetsResults[[1]][[2]]$retCbm$mu
+[1] 2.324116
+
+$allDatasetsResults[[1]][[2]]$retCbm$alpha
+[1] 0.8796571
+
+$allDatasetsResults[[1]][[2]]$retCbm$zetas
+  zetaFwd1   zetaFwd2   zetaFwd3 
+-0.5599662  0.4816835  1.3965204 
+
+$allDatasetsResults[[1]][[2]]$retCbm$AUC
+[1] 0.8957135
+
+$allDatasetsResults[[1]][[2]]$retCbm$StdAUC
+           [,1]
+[1,] 0.03223745
+
+$allDatasetsResults[[1]][[2]]$retCbm$NLLIni
+[1] 98.30823
+
+$allDatasetsResults[[1]][[2]]$retCbm$NLLFin
+[1] 97.82786
+
+$allDatasetsResults[[1]][[2]]$retCbm$ChisqrFitStats
+$allDatasetsResults[[1]][[2]]$retCbm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[2]]$retCbm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[2]]$retCbm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[2]]$retCbm$covMat
+                 mu        alpha         zeta1       zeta2       zeta3
+mu     0.1795909157 -0.011740834 -0.0007468015 0.028297496  0.09710858
+alpha -0.0117408340  0.004822435  0.0043296466 0.004499515 -0.00113963
+zeta1 -0.0007468015  0.004329647  0.0475179665 0.023997491  0.01254387
+zeta2  0.0282974963  0.004499515  0.0239974906 0.049761950  0.03858435
+zeta3  0.0971085840 -0.001139630  0.0125438726 0.038584345  0.08825967
+
+
+$allDatasetsResults[[1]][[2]]$lesDistr
+     [,1] [,2]
+[1,]    1    1
+
+$allDatasetsResults[[1]][[2]]$c1
+[1] -0.2546095
+
+$allDatasetsResults[[1]][[2]]$da
+[1] 1.767044
+
+$allDatasetsResults[[1]][[2]]$aucProp
+[1] 0.8948537
+
+$allDatasetsResults[[1]][[2]]$I
+[1] 2
+
+$allDatasetsResults[[1]][[2]]$J
+[1] 4
+
+$allDatasetsResults[[1]][[2]]$K1
+[1] 33
+
+$allDatasetsResults[[1]][[2]]$K2
+[1] 67
+
+
+$allDatasetsResults[[1]][[3]]
+$allDatasetsResults[[1]][[3]]$retRsm
+$allDatasetsResults[[1]][[3]]$retRsm$mu
+[1] 2.762367
+
+$allDatasetsResults[[1]][[3]]$retRsm$lambdaP
+[1] 9.726699
+
+$allDatasetsResults[[1]][[3]]$retRsm$nuP
+[1] 0.9546031
+
+$allDatasetsResults[[1]][[3]]$retRsm$zetas
+ zetaFwd1  zetaFwd2  zetaFwd3  zetaFwd4 
+0.9900852 1.9315101 2.2933648 2.6602809 
+
+$allDatasetsResults[[1]][[3]]$retRsm$AUC
+[1] 0.8781708
+
+$allDatasetsResults[[1]][[3]]$retRsm$StdAUC
+           [,1]
+[1,] 0.03615487
+
+$allDatasetsResults[[1]][[3]]$retRsm$NLLIni
+[1] 126.3248
+
+$allDatasetsResults[[1]][[3]]$retRsm$NLLFin
+[1] 123.7029
+
+$allDatasetsResults[[1]][[3]]$retRsm$ChisqrFitStats
+$allDatasetsResults[[1]][[3]]$retRsm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[3]]$retRsm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[3]]$retRsm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[3]]$retRsm$covMat
+                  mu     lambdaP         nuP       zeta1       zeta2
+mu        1.39805497   125.83221  0.08466077   2.1179409   1.6095225
+lambdaP 125.83220631 12857.61764 13.04307899 217.2253092 162.2216690
+nuP       0.08466077    13.04308  0.03134768   0.2266433   0.1643397
+zeta1     2.11794088   217.22531  0.22664329   3.6815604   2.7452102
+zeta2     1.60952253   162.22167  0.16433966   2.7452102   2.0624273
+zeta3     1.50657659   149.21339  0.14460773   2.5235582   1.8991895
+zeta4     1.45517002   141.15572  0.12881912   2.3854153   1.7993030
+              zeta3       zeta4
+mu        1.5065766   1.4551700
+lambdaP 149.2133856 141.1557195
+nuP       0.1446077   0.1288191
+zeta1     2.5235582   2.3854153
+zeta2     1.8991895   1.7993030
+zeta3     1.7595348   1.6707957
+zeta4     1.6707957   1.6002112
+
+
+$allDatasetsResults[[1]][[3]]$retCbm
+$allDatasetsResults[[1]][[3]]$retCbm$mu
+[1] 1.874166
+
+$allDatasetsResults[[1]][[3]]$retCbm$alpha
+[1] 0.9228989
+
+$allDatasetsResults[[1]][[3]]$retCbm$zetas
+  zetaFwd1   zetaFwd2   zetaFwd3   zetaFwd4 
+-0.8211312  0.7561776  1.2507987  1.6934949 
+
+$allDatasetsResults[[1]][[3]]$retCbm$AUC
+[1] 0.8760383
+
+$allDatasetsResults[[1]][[3]]$retCbm$StdAUC
+[1] NA
+
+$allDatasetsResults[[1]][[3]]$retCbm$NLLIni
+[1] 124.5624
+
+$allDatasetsResults[[1]][[3]]$retCbm$NLLFin
+[1] 123.9238
+
+$allDatasetsResults[[1]][[3]]$retCbm$ChisqrFitStats
+[1] NA
+
+$allDatasetsResults[[1]][[3]]$retCbm$covMat
+[1] NA
+
+
+$allDatasetsResults[[1]][[3]]$lesDistr
+     [,1] [,2]
+[1,]    1    1
+
+$allDatasetsResults[[1]][[3]]$c1
+[1] -0.1354152
+
+$allDatasetsResults[[1]][[3]]$da
+[1] 1.649668
+
+$allDatasetsResults[[1]][[3]]$aucProp
+[1] 0.8782924
+
+$allDatasetsResults[[1]][[3]]$I
+[1] 2
+
+$allDatasetsResults[[1]][[3]]$J
+[1] 4
+
+$allDatasetsResults[[1]][[3]]$K1
+[1] 33
+
+$allDatasetsResults[[1]][[3]]$K2
+[1] 67
+
+
+$allDatasetsResults[[1]][[4]]
+$allDatasetsResults[[1]][[4]]$retRsm
+$allDatasetsResults[[1]][[4]]$retRsm$mu
+[1] 2.556439
+
+$allDatasetsResults[[1]][[4]]$retRsm$lambdaP
+[1] 8.058881
+
+$allDatasetsResults[[1]][[4]]$retRsm$nuP
+[1] 0.8880143
+
+$allDatasetsResults[[1]][[4]]$retRsm$zetas
+zetaFwd1 zetaFwd2 zetaFwd3 zetaFwd4 
+1.587191 1.841817 1.945190 2.422197 
+
+$allDatasetsResults[[1]][[4]]$retRsm$AUC
+[1] 0.8375849
+
+$allDatasetsResults[[1]][[4]]$retRsm$StdAUC
+           [,1]
+[1,] 0.04470846
+
+$allDatasetsResults[[1]][[4]]$retRsm$NLLIni
+[1] 128.0408
+
+$allDatasetsResults[[1]][[4]]$retRsm$NLLFin
+[1] 123.2047
+
+$allDatasetsResults[[1]][[4]]$retRsm$ChisqrFitStats
+$allDatasetsResults[[1]][[4]]$retRsm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[4]]$retRsm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[4]]$retRsm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[4]]$retRsm$covMat
+                 mu    lambdaP          nuP       zeta1       zeta2      zeta3
+mu       -0.6377261  -29.11047 -0.330859651  -1.8162624  -1.5978716  -1.511949
+lambdaP -29.1104695 -872.89828 -6.872369571 -54.2450254 -48.6140786 -46.448194
+nuP      -0.3308597   -6.87237 -0.009920728  -0.4135311  -0.3788057  -0.366160
+zeta1    -1.8162624  -54.24503 -0.413531107  -3.3498615  -3.0034075  -2.870099
+zeta2    -1.5978716  -48.61408 -0.378805744  -3.0034075  -2.6847522  -2.564441
+zeta3    -1.5119488  -46.44819 -0.366160018  -2.8700988  -2.5644412  -2.446442
+zeta4    -1.2174696  -39.77411 -0.336664473  -2.4602614  -2.1919018  -2.087922
+              zeta4
+mu       -1.2174696
+lambdaP -39.7741105
+nuP      -0.3366645
+zeta1    -2.4602614
+zeta2    -2.1919018
+zeta3    -2.0879224
+zeta4    -1.7538243
+
+
+$allDatasetsResults[[1]][[4]]$retCbm
+$allDatasetsResults[[1]][[4]]$retCbm$mu
+[1] 1.829199
+
+$allDatasetsResults[[1]][[4]]$retCbm$alpha
+[1] 0.8288088
+
+$allDatasetsResults[[1]][[4]]$retCbm$zetas
+ zetaFwd1  zetaFwd2  zetaFwd3  zetaFwd4 
+0.3442287 0.7406081 0.8932324 1.5331606 
+
+$allDatasetsResults[[1]][[4]]$retCbm$AUC
+[1] 0.8332395
+
+$allDatasetsResults[[1]][[4]]$retCbm$StdAUC
+           [,1]
+[1,] 0.04247864
+
+$allDatasetsResults[[1]][[4]]$retCbm$NLLIni
+[1] 123.4235
+
+$allDatasetsResults[[1]][[4]]$retCbm$NLLFin
+[1] 123.2226
+
+$allDatasetsResults[[1]][[4]]$retCbm$ChisqrFitStats
+$allDatasetsResults[[1]][[4]]$retCbm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[4]]$retCbm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[4]]$retCbm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[4]]$retCbm$covMat
+                mu         alpha        zeta1      zeta2         zeta3
+mu     0.313912699 -0.0714506244 -0.005000767 0.04276410  0.0628904277
+alpha -0.071450624  0.0272397593  0.016667223 0.00469281 -0.0005707446
+zeta1 -0.005000767  0.0166672233  0.050457402 0.03998842  0.0362629792
+zeta2  0.042764101  0.0046928097  0.039988421 0.05068254  0.0494095042
+zeta3  0.062890428 -0.0005707446  0.036262979 0.04940950  0.0549872146
+zeta4  0.144814755 -0.0225035592  0.023010455 0.04692210  0.0569736165
+            zeta4
+mu     0.14481475
+alpha -0.02250356
+zeta1  0.02301046
+zeta2  0.04692210
+zeta3  0.05697362
+zeta4  0.10075851
+
+
+$allDatasetsResults[[1]][[4]]$lesDistr
+     [,1] [,2]
+[1,]    1    1
+
+$allDatasetsResults[[1]][[4]]$c1
+[1] -0.1350382
+
+$allDatasetsResults[[1]][[4]]$da
+[1] 1.393996
+
+$allDatasetsResults[[1]][[4]]$aucProp
+[1] 0.8378661
+
+$allDatasetsResults[[1]][[4]]$I
+[1] 2
+
+$allDatasetsResults[[1]][[4]]$J
+[1] 4
+
+$allDatasetsResults[[1]][[4]]$K1
+[1] 33
+
+$allDatasetsResults[[1]][[4]]$K2
+[1] 67
+
+
+$allDatasetsResults[[1]][[5]]
+$allDatasetsResults[[1]][[5]]$retRsm
+$allDatasetsResults[[1]][[5]]$retRsm$mu
+[1] 2.380544
+
+$allDatasetsResults[[1]][[5]]$retRsm$lambdaP
+[1] 1.728556
+
+$allDatasetsResults[[1]][[5]]$retRsm$nuP
+[1] 0.8164726
+
+$allDatasetsResults[[1]][[5]]$retRsm$zetas
+  zetaFwd1   zetaFwd2   zetaFwd3   zetaFwd4 
+-0.9117341  0.7246755  1.4353191  2.1171563 
+
+$allDatasetsResults[[1]][[5]]$retRsm$AUC
+[1] 0.8612657
+
+$allDatasetsResults[[1]][[5]]$retRsm$StdAUC
+           [,1]
+[1,] 0.03731655
+
+$allDatasetsResults[[1]][[5]]$retRsm$NLLIni
+[1] 135.5167
+
+$allDatasetsResults[[1]][[5]]$retRsm$NLLFin
+[1] 133.0669
+
+$allDatasetsResults[[1]][[5]]$retRsm$ChisqrFitStats
+$allDatasetsResults[[1]][[5]]$retRsm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[5]]$retRsm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[5]]$retRsm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[5]]$retRsm$covMat
+                 mu    lambdaP        nuP      zeta1      zeta2      zeta3
+mu       1.81865189  6.6573029 0.07676013 12.1629088  2.9060279  2.1007527
+lambdaP  6.65730288 27.5692336 0.39583915 50.5286016 11.9834371  8.3952094
+nuP      0.07676013  0.3958392 0.01383214  0.7470153  0.1810621  0.1222531
+zeta1   12.16290880 50.5286016 0.74701532 93.0141339 22.0364136 15.4198982
+zeta2    2.90602788 11.9834371 0.18106212 22.0364136  5.2598903  3.6835409
+zeta3    2.10075267  8.3952094 0.12225309 15.4198982  3.6835409  2.6185341
+zeta4    1.88100315  7.2426632 0.09793515 13.2791185  3.1742589  2.2730491
+              zeta4
+mu       1.88100315
+lambdaP  7.24266318
+nuP      0.09793515
+zeta1   13.27911852
+zeta2    3.17425889
+zeta3    2.27304908
+zeta4    2.01474863
+
+
+$allDatasetsResults[[1]][[5]]$retCbm
+$allDatasetsResults[[1]][[5]]$retCbm$mu
+[1] 2.165314
+
+$allDatasetsResults[[1]][[5]]$retCbm$alpha
+[1] 0.8265576
+
+$allDatasetsResults[[1]][[5]]$retCbm$zetas
+  zetaFwd1   zetaFwd2   zetaFwd3   zetaFwd4 
+-0.6942354  0.4287419  1.1678022  1.8905693 
+
+$allDatasetsResults[[1]][[5]]$retCbm$AUC
+[1] 0.861312
+
+$allDatasetsResults[[1]][[5]]$retCbm$StdAUC
+           [,1]
+[1,] 0.03685321
+
+$allDatasetsResults[[1]][[5]]$retCbm$NLLIni
+[1] 133.1319
+
+$allDatasetsResults[[1]][[5]]$retCbm$NLLFin
+[1] 133.0663
+
+$allDatasetsResults[[1]][[5]]$retCbm$ChisqrFitStats
+$allDatasetsResults[[1]][[5]]$retCbm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[5]]$retCbm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[5]]$retCbm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[5]]$retCbm$covMat
+               mu         alpha         zeta1       zeta2         zeta3
+mu     0.21375405 -0.0246346596 -0.0150227703 0.013533588  0.0791702317
+alpha -0.02463466  0.0094135944  0.0082288017 0.008231984 -0.0002670089
+zeta1 -0.01502277  0.0082288017  0.0502371725 0.024972423  0.0119919233
+zeta2  0.01353359  0.0082319839  0.0249724235 0.048588305  0.0361641885
+zeta3  0.07917023 -0.0002670089  0.0119919233 0.036164188  0.0708088004
+zeta4  0.13803056 -0.0099677296  0.0008691855 0.027174771  0.0749044510
+              zeta4
+mu     0.1380305634
+alpha -0.0099677296
+zeta1  0.0008691855
+zeta2  0.0271747705
+zeta3  0.0749044510
+zeta4  0.1208344852
+
+
+$allDatasetsResults[[1]][[5]]$lesDistr
+     [,1] [,2]
+[1,]    1    1
+
+$allDatasetsResults[[1]][[5]]$c1
+[1] -0.216146
+
+$allDatasetsResults[[1]][[5]]$da
+[1] 1.534587
+
+$allDatasetsResults[[1]][[5]]$aucProp
+[1] 0.8615427
+
+$allDatasetsResults[[1]][[5]]$I
+[1] 2
+
+$allDatasetsResults[[1]][[5]]$J
+[1] 4
+
+$allDatasetsResults[[1]][[5]]$K1
+[1] 33
+
+$allDatasetsResults[[1]][[5]]$K2
+[1] 67
+
+
+$allDatasetsResults[[1]][[6]]
+$allDatasetsResults[[1]][[6]]$retRsm
+$allDatasetsResults[[1]][[6]]$retRsm$mu
+[1] 2.643896
+
+$allDatasetsResults[[1]][[6]]$retRsm$lambdaP
+[1] 9.875314
+
+$allDatasetsResults[[1]][[6]]$retRsm$nuP
+[1] 0.9779294
+
+$allDatasetsResults[[1]][[6]]$retRsm$zetas
+zetaFwd1 zetaFwd2 zetaFwd3 
+1.585266 1.741479 2.418013 
+
+$allDatasetsResults[[1]][[6]]$retRsm$AUC
+[1] 0.8715031
+
+$allDatasetsResults[[1]][[6]]$retRsm$StdAUC
+           [,1]
+[1,] 0.03858359
+
+$allDatasetsResults[[1]][[6]]$retRsm$NLLIni
+[1] 107.4743
+
+$allDatasetsResults[[1]][[6]]$retRsm$NLLFin
+[1] 103.1662
+
+$allDatasetsResults[[1]][[6]]$retRsm$ChisqrFitStats
+$allDatasetsResults[[1]][[6]]$retRsm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[6]]$retRsm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[6]]$retRsm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[6]]$retRsm$covMat
+                mu     lambdaP        nuP      zeta1      zeta2      zeta3
+mu       1.4764395   40.747004 0.14026088  2.0465375  1.9235587  1.6239365
+lambdaP 40.7470041 1411.495392 8.05315902 71.1735872 66.3457961 52.8359920
+nuP      0.1402609    8.053159 0.08405139  0.4178159  0.3848467  0.2783878
+zeta1    2.0465375   71.173587 0.41781587  3.6079046  3.3617518  2.6726336
+zeta2    1.9235587   66.345796 0.38484673  3.3617518  3.1367538  2.4979612
+zeta3    1.6239365   52.835992 0.27838783  2.6726336  2.4979612  2.0291652
+
+
+$allDatasetsResults[[1]][[6]]$retCbm
+$allDatasetsResults[[1]][[6]]$retCbm$mu
+[1] 1.812674
+
+$allDatasetsResults[[1]][[6]]$retCbm$alpha
+[1] 0.9160775
+
+$allDatasetsResults[[1]][[6]]$retCbm$zetas
+ zetaFwd1  zetaFwd2  zetaFwd3 
+0.1803706 0.4400089 1.4147218 
+
+$allDatasetsResults[[1]][[6]]$retCbm$AUC
+[1] 0.8664635
+
+$allDatasetsResults[[1]][[6]]$retCbm$StdAUC
+[1] NA
+
+$allDatasetsResults[[1]][[6]]$retCbm$NLLIni
+[1] 103.7174
+
+$allDatasetsResults[[1]][[6]]$retCbm$NLLFin
+[1] 103.3437
+
+$allDatasetsResults[[1]][[6]]$retCbm$ChisqrFitStats
+[1] NA
+
+$allDatasetsResults[[1]][[6]]$retCbm$covMat
+[1] NA
+
+
+$allDatasetsResults[[1]][[6]]$lesDistr
+     [,1] [,2]
+[1,]    1    1
+
+$allDatasetsResults[[1]][[6]]$c1
+[1] -0.1199651
+
+$allDatasetsResults[[1]][[6]]$da
+[1] 1.597243
+
+$allDatasetsResults[[1]][[6]]$aucProp
+[1] 0.87064
+
+$allDatasetsResults[[1]][[6]]$I
+[1] 2
+
+$allDatasetsResults[[1]][[6]]$J
+[1] 4
+
+$allDatasetsResults[[1]][[6]]$K1
+[1] 33
+
+$allDatasetsResults[[1]][[6]]$K2
+[1] 67
+
+
+$allDatasetsResults[[1]][[7]]
+$allDatasetsResults[[1]][[7]]$retRsm
+$allDatasetsResults[[1]][[7]]$retRsm$mu
+[1] 2.641412
+
+$allDatasetsResults[[1]][[7]]$retRsm$lambdaP
+[1] 2.137379
+
+$allDatasetsResults[[1]][[7]]$retRsm$nuP
+[1] 0.784759
+
+$allDatasetsResults[[1]][[7]]$retRsm$zetas
+  zetaFwd1   zetaFwd2   zetaFwd3   zetaFwd4 
+-1.8585648  0.9798793  1.5482016  2.4576368 
+
+$allDatasetsResults[[1]][[7]]$retRsm$AUC
+[1] 0.8552573
+
+$allDatasetsResults[[1]][[7]]$retRsm$StdAUC
+           [,1]
+[1,] 0.03809136
+
+$allDatasetsResults[[1]][[7]]$retRsm$NLLIni
+[1] 132.6265
+
+$allDatasetsResults[[1]][[7]]$retRsm$NLLFin
+[1] 127.9418
+
+$allDatasetsResults[[1]][[7]]$retRsm$ChisqrFitStats
+$allDatasetsResults[[1]][[7]]$retRsm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[7]]$retRsm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[7]]$retRsm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[7]]$retRsm$covMat
+                 mu      lambdaP          nuP        zeta1       zeta2
+mu       0.50913929  1.329809502 -0.019584924   8.17108547  0.39794232
+lambdaP  1.32980950  5.919581944  0.001421514  36.82322701  1.74340568
+nuP     -0.01958492  0.001421514  0.008847231   0.06716652  0.01001663
+zeta1    8.17108547 36.823227012  0.067166520 235.76691760 11.03310271
+zeta2    0.39794232  1.743405681  0.010016626  11.03310271  0.55950737
+zeta3    0.36034080  1.374492756  0.005295995   8.66911475  0.44009094
+zeta4    0.43092027  1.291501750 -0.006969292   8.04305331  0.40233804
+              zeta3        zeta4
+mu      0.360340801  0.430920275
+lambdaP 1.374492756  1.291501750
+nuP     0.005295995 -0.006969292
+zeta1   8.669114753  8.043053306
+zeta2   0.440090935  0.402338042
+zeta3   0.373986498  0.355973414
+zeta4   0.355973414  0.408699708
+
+
+$allDatasetsResults[[1]][[7]]$retCbm
+$allDatasetsResults[[1]][[7]]$retCbm$mu
+[1] 2.340719
+
+$allDatasetsResults[[1]][[7]]$retCbm$alpha
+[1] 0.7860465
+
+$allDatasetsResults[[1]][[7]]$retCbm$zetas
+  zetaFwd1   zetaFwd2   zetaFwd3   zetaFwd4 
+-1.1440894  0.5396677  1.1709343  2.1447012 
+
+$allDatasetsResults[[1]][[7]]$retCbm$AUC
+[1] 0.8545476
+
+$allDatasetsResults[[1]][[7]]$retCbm$StdAUC
+           [,1]
+[1,] 0.03825439
+
+$allDatasetsResults[[1]][[7]]$retCbm$NLLIni
+[1] 131.8453
+
+$allDatasetsResults[[1]][[7]]$retCbm$NLLFin
+[1] 128.0437
+
+$allDatasetsResults[[1]][[7]]$retCbm$ChisqrFitStats
+$allDatasetsResults[[1]][[7]]$retCbm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[7]]$retCbm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[7]]$retCbm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[7]]$retCbm$covMat
+                mu        alpha         zeta1       zeta2       zeta3
+mu     0.211201986 -0.021858828 -0.0109768762 0.007162315 0.058181762
+alpha -0.021858828  0.009358093  0.0059204606 0.010639484 0.005297638
+zeta1 -0.010976876  0.005920461  0.0589366367 0.019694513 0.012540980
+zeta2  0.007162315  0.010639484  0.0196945129 0.055325284 0.043701732
+zeta3  0.058181762  0.005297638  0.0125409797 0.043701732 0.069291980
+zeta4  0.146139924 -0.008725812  0.0001346445 0.025368772 0.065624468
+              zeta4
+mu     0.1461399243
+alpha -0.0087258119
+zeta1  0.0001346445
+zeta2  0.0253687723
+zeta3  0.0656244676
+zeta4  0.1363108398
+
+
+$allDatasetsResults[[1]][[7]]$lesDistr
+     [,1] [,2]
+[1,]    1    1
+
+$allDatasetsResults[[1]][[7]]$c1
+[1] -0.3551936
+
+$allDatasetsResults[[1]][[7]]$da
+[1] 1.401807
+
+$allDatasetsResults[[1]][[7]]$aucProp
+[1] 0.8541372
+
+$allDatasetsResults[[1]][[7]]$I
+[1] 2
+
+$allDatasetsResults[[1]][[7]]$J
+[1] 4
+
+$allDatasetsResults[[1]][[7]]$K1
+[1] 33
+
+$allDatasetsResults[[1]][[7]]$K2
+[1] 67
+
+
+$allDatasetsResults[[1]][[8]]
+$allDatasetsResults[[1]][[8]]$retRsm
+$allDatasetsResults[[1]][[8]]$retRsm$mu
+[1] 3.287996
+
+$allDatasetsResults[[1]][[8]]$retRsm$lambdaP
+[1] 9.371198
+
+$allDatasetsResults[[1]][[8]]$retRsm$nuP
+[1] 0.7186006
+
+$allDatasetsResults[[1]][[8]]$retRsm$zetas
+zetaFwd1 zetaFwd2 zetaFwd3 zetaFwd4 
+1.646943 1.848658 2.109785 2.691161 
+
+$allDatasetsResults[[1]][[8]]$retRsm$AUC
+[1] 0.8234519
+
+$allDatasetsResults[[1]][[8]]$retRsm$StdAUC
+           [,1]
+[1,] 0.04054005
+
+$allDatasetsResults[[1]][[8]]$retRsm$NLLIni
+[1] 128.91
+
+$allDatasetsResults[[1]][[8]]$retRsm$NLLFin
+[1] 122.4996
+
+$allDatasetsResults[[1]][[8]]$retRsm$ChisqrFitStats
+$allDatasetsResults[[1]][[8]]$retRsm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[8]]$retRsm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[8]]$retRsm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[8]]$retRsm$covMat
+                mu     lambdaP        nuP       zeta1       zeta2       zeta3
+mu       3.2037936   91.879105 0.12171570   4.7514755   4.3714628   3.9723104
+lambdaP 91.8791050 3004.910853 5.80486276 156.1481734 143.3154688 129.1935619
+nuP      0.1217157    5.804863 0.02700152   0.3109685   0.2854718   0.2546826
+zeta1    4.7514755  156.148173 0.31096846   8.1334170   7.4650495   6.7286516
+zeta2    4.3714628  143.315469 0.28547183   7.4650495   6.8573665   6.1819598
+zeta3    3.9723104  129.193562 0.25468265   6.7286516   6.1819598   5.5835742
+zeta4    3.4771833  108.803073 0.19736615   5.6588171   5.2023059   4.7087114
+              zeta4
+mu        3.4771833
+lambdaP 108.8030735
+nuP       0.1973661
+zeta1     5.6588171
+zeta2     5.2023059
+zeta3     4.7087114
+zeta4     4.0335586
+
+
+$allDatasetsResults[[1]][[8]]$retCbm
+$allDatasetsResults[[1]][[8]]$retCbm$mu
+[1] 2.533668
+
+$allDatasetsResults[[1]][[8]]$retCbm$alpha
+[1] 0.6892561
+
+$allDatasetsResults[[1]][[8]]$retCbm$zetas
+ zetaFwd1  zetaFwd2  zetaFwd3  zetaFwd4 
+0.3097191 0.6351807 1.0393255 1.8202339 
+
+$allDatasetsResults[[1]][[8]]$retCbm$AUC
+[1] 0.8194009
+
+$allDatasetsResults[[1]][[8]]$retCbm$StdAUC
+           [,1]
+[1,] 0.03968962
+
+$allDatasetsResults[[1]][[8]]$retCbm$NLLIni
+[1] 122.6812
+
+$allDatasetsResults[[1]][[8]]$retCbm$NLLFin
+[1] 122.5604
+
+$allDatasetsResults[[1]][[8]]$retCbm$ChisqrFitStats
+$allDatasetsResults[[1]][[8]]$retCbm$ChisqrFitStats$chisq
+[1] NA
+
+$allDatasetsResults[[1]][[8]]$retCbm$ChisqrFitStats$pVal
+[1] NA
+
+$allDatasetsResults[[1]][[8]]$retCbm$ChisqrFitStats$df
+[1] NA
+
+
+$allDatasetsResults[[1]][[8]]$retCbm$covMat
+               mu        alpha       zeta1       zeta2       zeta3       zeta4
+mu     0.44387432 -0.043336645 -0.03865587 -0.01954108 0.039066035  0.22353712
+alpha -0.04333665  0.011487917  0.01266928  0.01235481 0.007720106 -0.01239744
+zeta1 -0.03865587  0.012669280  0.04947290  0.04450156 0.035032774  0.00577745
+zeta2 -0.01954108  0.012354806  0.04450156  0.05444089 0.046104887  0.02132037
+zeta3  0.03906603  0.007720106  0.03503277  0.04610489 0.063781250  0.05832702
+zeta4  0.22353712 -0.012397436  0.00577745  0.02132037 0.058327018  0.16405247
+
+
+$allDatasetsResults[[1]][[8]]$lesDistr
+     [,1] [,2]
+[1,]    1    1
+
+$allDatasetsResults[[1]][[8]]$c1
+[1] -0.4420007
+
+$allDatasetsResults[[1]][[8]]$da
+[1] 0.9836615
+
+$allDatasetsResults[[1]][[8]]$aucProp
+[1] 0.8252824
+
+$allDatasetsResults[[1]][[8]]$I
+[1] 2
+
+$allDatasetsResults[[1]][[8]]$J
+[1] 4
+
+$allDatasetsResults[[1]][[8]]$K1
+[1] 33
+
+$allDatasetsResults[[1]][[8]]$K2
+[1] 67
+
+
+
+
+$allBinnedDatasets
+$allBinnedDatasets[[1]]
+$allBinnedDatasets[[1]]$NL
+, , 1, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    3    4    3    4
+[2,]    3    3    3    1
+
+, , 2, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    2    1    2
+[2,]    3    1    1    3
+
+, , 3, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    3    2    1
+[2,]    4    1    2    4
+
+, , 4, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    2    2    1
+[2,]    3    1    2    1
+
+, , 5, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    2    2    1
+[2,]    1    1    2    3
+
+, , 6, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    1    1    1
+[2,]    1    1    2    1
+
+, , 7, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    3    5    5
+[2,]    5    3    4    3
+
+, , 8, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    4    2
+[2,]    4    4    4    1
+
+, , 9, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    2    2    1
+[2,]    1    2    2    1
+
+, , 10, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    1    1    1
+[2,]    2    1    3    1
+
+, , 11, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    1    3    4
+[2,]    3    1    2    1
+
+, , 12, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    2    2    1
+[2,]    1    1    2    3
+
+, , 13, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    2    1    1
+[2,]    1    1    1    1
+
+, , 14, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    2    3    1
+[2,]    2    1    3    1
+
+, , 15, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    2    3    1
+[2,]    2    1    2    1
+
+, , 16, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    3    2    1
+[2,]    2    1    4    1
+
+, , 17, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    2    2    5
+[2,]    1    1    2    5
+
+, , 18, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    2    4    2
+[2,]    3    3    3    2
+
+, , 19, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    1    1
+[2,]    1    3    2    1
+
+, , 20, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    1    2    1
+[2,]    2    1    2    1
+
+, , 21, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    3    1    2
+[2,]    2    3    2    2
+
+, , 22, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    2    2    3
+[2,]    3    3    2    1
+
+, , 23, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    3    2    2    1
+[2,]    2    4    2    1
+
+, , 24, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    3    2    3
+[2,]    2    3    4    4
+
+, , 25, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    3    2    1
+[2,]    1    1    2    1
+
+, , 26, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    1    2    1
+[2,]    2    1    2    2
+
+, , 27, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    3    2    4
+[2,]    2    3    1    4
+
+, , 28, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    3    1    1    1
+[2,]    2    1    2    1
+
+, , 29, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    1    2    1
+[2,]    2    3    2    1
+
+, , 30, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    1    3    1
+[2,]    2    1    2    1
+
+, , 31, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    1    2    4
+[2,]    2    1    2    4
+
+, , 32, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    2    2    1
+[2,]    4    3    4    1
+
+, , 33, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    3    2    2    1
+[2,]    3    2    2    1
+
+, , 34, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 35, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 36, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 37, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 38, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 39, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 40, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 41, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 42, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 43, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 44, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 45, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 46, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 47, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 48, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 49, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 50, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 51, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 52, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 53, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 54, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 55, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 56, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 57, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 58, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 59, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 60, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 61, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 62, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 63, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 64, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 65, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 66, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 67, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 68, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 69, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 70, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 71, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 72, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 73, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 74, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 75, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 76, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 77, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 78, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 79, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 80, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 81, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 82, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 83, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 84, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 85, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 86, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 87, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 88, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 89, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 90, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 91, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 92, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 93, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 94, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 95, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 96, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 97, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 98, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 99, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+, , 100, 1
+
+     [,1] [,2] [,3] [,4]
+[1,] -Inf -Inf -Inf -Inf
+[2,] -Inf -Inf -Inf -Inf
+
+
+$allBinnedDatasets[[1]]$LL
+, , 1, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    4
+[2,]    5    4    4    5
+
+, , 2, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    4    5    3
+[2,]    2    2    4    4
+
+, , 3, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 4, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    4    5
+
+, , 5, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    5    5
+[2,]    4    4    4    5
+
+, , 6, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 7, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    5    5
+[2,]    4    3    3    5
+
+, , 8, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    3    2    1
+[2,]    1    4    3    5
+
+, , 9, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    3    1    4
+[2,]    5    4    5    4
+
+, , 10, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    3
+[2,]    5    4    5    5
+
+, , 11, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    2    1
+[2,]    1    1    2    1
+
+, , 12, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    4    5
+
+, , 13, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    3    4
+[2,]    2    2    3    4
+
+, , 14, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    4    4    4    5
+
+, , 15, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    1    2    1
+[2,]    1    1    3    1
+
+, , 16, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    3    4    2
+[2,]    4    4    4    5
+
+, , 17, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    3    4
+[2,]    4    1    3    1
+
+, , 18, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    3    4    5    5
+
+, , 19, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    3    4    5
+
+, , 20, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    3    4    5    1
+[2,]    5    4    2    2
+
+, , 21, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    3    4    5    4
+
+, , 22, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 23, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 24, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 25, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    5    5
+[2,]    5    4    5    5
+
+, , 26, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    3    4    5
+[2,]    5    4    5    5
+
+, , 27, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    4    5
+[2,]    3    4    4    5
+
+, , 28, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    2    3    1
+[2,]    2    3    2    3
+
+, , 29, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    3    3    3    2
+[2,]    2    2    4    2
+
+, , 30, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 31, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    2    3    1
+[2,]    3    1    3    1
+
+, , 32, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 33, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    2    4
+[2,]    5    4    2    4
+
+, , 34, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    2    4
+[2,]    4    1    1    4
+
+, , 35, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    3    4    2    4
+[2,]    3    3    2    1
+
+, , 36, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    3    5    5
+
+, , 37, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    3    2
+[2,]    3    4    5    1
+
+, , 38, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 39, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    3    5    5
+
+, , 40, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    2    1
+[2,]    4    3    1    1
+
+, , 41, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    2    4
+[2,]    5    3    3    4
+
+, , 42, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 43, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    4    4    5    5
+
+, , 44, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 45, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 46, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    4    4
+[2,]    5    3    5    1
+
+, , 47, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    3    5    4
+
+, , 48, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    3    5    4
+[2,]    5    4    4    5
+
+, , 49, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    3    4    2    1
+[2,]    2    4    3    1
+
+, , 50, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    1    2    2
+[2,]    4    3    2    4
+
+, , 51, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    1    4    2
+[2,]    4    4    4    2
+
+, , 52, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    4    1
+[2,]    4    3    2    1
+
+, , 53, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    3    5    5
+
+, , 54, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    5    5
+[2,]    5    4    5    5
+
+, , 55, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    4    5
+[2,]    5    3    5    5
+
+, , 56, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 57, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    3    4    5
+[2,]    3    4    4    2
+
+, , 58, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    2    3    4    2
+[2,]    2    4    4    3
+
+, , 59, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    4    5
+[2,]    5    4    5    4
+
+, , 60, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    3    2    2    1
+[2,]    4    1    1    1
+
+, , 61, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    4
+[2,]    4    4    5    5
+
+, , 62, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    3    5
+[2,]    2    3    2    1
+
+, , 63, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 64, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    4    5    5
+[2,]    5    4    5    5
+
+, , 65, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    1    2    2    1
+[2,]    3    2    3    1
+
+, , 66, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    3    4
+[2,]    3    3    4    3
+
+, , 67, 1
+
+     [,1] [,2] [,3] [,4]
+[1,]    5    3    5    4
+[2,]    4    4    4    3
+
+
+$allBinnedDatasets[[1]]$lesionNum
+ [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[39] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+$allBinnedDatasets[[1]]$lesionID
+      [,1]
+ [1,]    1
+ [2,]    1
+ [3,]    1
+ [4,]    1
+ [5,]    1
+ [6,]    1
+ [7,]    1
+ [8,]    1
+ [9,]    1
+[10,]    1
+[11,]    1
+[12,]    1
+[13,]    1
+[14,]    1
+[15,]    1
+[16,]    1
+[17,]    1
+[18,]    1
+[19,]    1
+[20,]    1
+[21,]    1
+[22,]    1
+[23,]    1
+[24,]    1
+[25,]    1
+[26,]    1
+[27,]    1
+[28,]    1
+[29,]    1
+[30,]    1
+[31,]    1
+[32,]    1
+[33,]    1
+[34,]    1
+[35,]    1
+[36,]    1
+[37,]    1
+[38,]    1
+[39,]    1
+[40,]    1
+[41,]    1
+[42,]    1
+[43,]    1
+[44,]    1
+[45,]    1
+[46,]    1
+[47,]    1
+[48,]    1
+[49,]    1
+[50,]    1
+[51,]    1
+[52,]    1
+[53,]    1
+[54,]    1
+[55,]    1
+[56,]    1
+[57,]    1
+[58,]    1
+[59,]    1
+[60,]    1
+[61,]    1
+[62,]    1
+[63,]    1
+[64,]    1
+[65,]    1
+[66,]    1
+[67,]    1
+
+$allBinnedDatasets[[1]]$lesionWeight
+      [,1]
+ [1,]    1
+ [2,]    1
+ [3,]    1
+ [4,]    1
+ [5,]    1
+ [6,]    1
+ [7,]    1
+ [8,]    1
+ [9,]    1
+[10,]    1
+[11,]    1
+[12,]    1
+[13,]    1
+[14,]    1
+[15,]    1
+[16,]    1
+[17,]    1
+[18,]    1
+[19,]    1
+[20,]    1
+[21,]    1
+[22,]    1
+[23,]    1
+[24,]    1
+[25,]    1
+[26,]    1
+[27,]    1
+[28,]    1
+[29,]    1
+[30,]    1
+[31,]    1
+[32,]    1
+[33,]    1
+[34,]    1
+[35,]    1
+[36,]    1
+[37,]    1
+[38,]    1
+[39,]    1
+[40,]    1
+[41,]    1
+[42,]    1
+[43,]    1
+[44,]    1
+[45,]    1
+[46,]    1
+[47,]    1
+[48,]    1
+[49,]    1
+[50,]    1
+[51,]    1
+[52,]    1
+[53,]    1
+[54,]    1
+[55,]    1
+[56,]    1
+[57,]    1
+[58,]    1
+[59,]    1
+[60,]    1
+[61,]    1
+[62,]    1
+[63,]    1
+[64,]    1
+[65,]    1
+[66,]    1
+[67,]    1
+
+$allBinnedDatasets[[1]]$dataType
+[1] "ROC"
+
+$allBinnedDatasets[[1]]$modalityID
+  0   1 
+"0" "1" 
+
+$allBinnedDatasets[[1]]$readerID
+  0   1   2   3 
+"0" "1" "2" "3" 
+
+
+
