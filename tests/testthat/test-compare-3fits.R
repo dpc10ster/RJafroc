@@ -13,7 +13,7 @@ test_that("Compare3ProperRocFits", {
   set.seed(1)
   expect_known_output(
     Compare3ProperRocFits(1,1,reAnalyze = TRUE),
-    fn, print = TRUE, update = FALSE)
+    fn, print = TRUE, update = FALSE, tolerance = 0.00001)
   
   set.seed(1)
   fn <- paste0(test_path(), '/goodValues/Compare3ProperRocFits02')
@@ -22,11 +22,11 @@ test_that("Compare3ProperRocFits", {
       Compare3ProperRocFits(3,3,reAnalyze = TRUE, showPlot = TRUE),
       fn, print = TRUE, update = TRUE)
   }
-  
+
   set.seed(1)
   expect_known_output(
     Compare3ProperRocFits(3,3,reAnalyze = TRUE, showPlot = TRUE),
-    fn, print = TRUE, update = FALSE)
-  
+    fn, print = TRUE, update = FALSE, tolerance = 0.00001)
+
 })
 
