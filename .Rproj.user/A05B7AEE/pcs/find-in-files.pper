@@ -5,7 +5,7 @@
         ],
         "path" : "/tests/testthat",
         "projectRelative" : true,
-        "query" : "DfCreateCorCbmDataset0",
+        "query" : "fn <- paste0(test_path()",
         "regex" : false
     }
 }
