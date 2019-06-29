@@ -1,3 +1,5 @@
+context("CORCBM routines")
+
 test_that("DfCreate/ExtractCorCbmDataset", {
 
   fn <- paste0(test_path(), '/goodValues/DfCreateCorCbmDataset01')

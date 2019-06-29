@@ -1,3 +1,5 @@
+context("Data file saving and reading routines")
+
 test_that("Df2RJafrocDataset", {
 
   # generate the ratings

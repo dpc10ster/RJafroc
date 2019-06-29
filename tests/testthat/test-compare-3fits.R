@@ -1,5 +1,10 @@
 # long history behind this, see GitHub discussion with Peter
 # basic lesson: dont use expect_known_output() with Compare3ProperRocFits()
+# 
+
+context("Compare3ProperRocFits routines - these have inherent randomness; hence need to use tolerance")
+
+
 test_that("Compare3ProperRocFits", {
   
   skip_on_cran()
