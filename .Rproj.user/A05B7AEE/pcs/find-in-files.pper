@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "/tests/testthat",
+        "path" : "",
         "projectRelative" : true,
-        "query" : "fn <- paste0(test_path()",
+        "query" : "ReadImrmc",
         "regex" : false
     }
 }

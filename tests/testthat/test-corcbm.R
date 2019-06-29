@@ -2,7 +2,7 @@ test_that("DfCreate/ExtractCorCbmDataset", {
 
   fn <- paste0(test_path(), '/goodValues/DfCreateCorCbmDataset01')
   if (!file.exists(fn)) {
-   expect_known_output(
+  expect_known_output(
       DfCreateCorCbmDataset(), 
       fn, print = TRUE, update = TRUE)
   }
