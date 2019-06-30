@@ -10,10 +10,10 @@ IN THE SOFTWARE.
 
 R version: R version 3.6.0 (2019-04-26)
 RJafroc version: 1.1.1.9000
-Run date: Jun 27 2019 Thu 18:00:34 EDT
- FOM selected         :     MaxNLF
+Run date: Jun 30 2019 Sun 14:24:56 EDT
+ FOM selected         :     HrSe
  Input  Data          :     MyData
- Output Data Filename :     /Users/Dev/Documents/GitHub/RJafroc/tests/testthat/MyDataOutput.txt
+ Output Data Filename :     /Users/Dev/RJafroc/tests/testthat/MyDataOutput.txt
 
 ================================================================================
 
@@ -85,27 +85,27 @@ Run date: Jun 27 2019 Thu 18:00:34 EDT
               -----------------------
   READER      1            2         
 ----------    ----------   ----------
-1             0.84444444   1.48888889
-2             0.08888889   0.06666667
-3             0.46666667   0.75555556
-4             0.44444444   0.28888889
-5             0.82222222   0.53333333
-6             0.44444444   0.68888889
-7             0.20000000   0.13333333
-8             0.48888889   0.31111111
-9             0.37777778   0.73333333
+1             0.93617021   1.00000000
+2             0.82978723   0.95744681
+3             0.89361702   0.95744681
+4             0.70212766   0.85106383
+5             0.82978723   0.85106383
+6             0.95744681   1.00000000
+7             0.87234043   0.93617021
+8             0.89361702   0.91489362
+9             0.89361702   0.97872340
 
 
  TREATMENT MEANS (averaged across readers)
 ----------    -----------------------------
-1             0.46419753
-2             0.55555556
+1             0.86761229
+2             0.93853428
 
 
 
  TREATMENT MEAN DIFFERENCES
 ----------   ----------    -----------
-1          - 2             -0.09135802
+1          - 2             -0.07092199
 
 
 
@@ -118,12 +118,12 @@ Run date: Jun 27 2019 Thu 18:00:34 EDT
 
      OR Component             Estimate    
  -----------------------  ----------------
- Var(R)                        0.07669497
- Var(T*R)                      0.02587095
- COV1                          0.00369702
- COV2                          0.00287582
- COV3                          0.00242902
- Var(Error)                    0.02539907
+ Var(R)                        0.00322962
+ Var(T*R)                     -0.00143651
+ COV1                          0.00053998
+ COV2                          0.00094551
+ COV3                          0.00030524
+ Var(Error)                    0.00357874
 
 
  ===========================================================================
@@ -134,24 +134,24 @@ Run date: Jun 27 2019 Thu 18:00:34 EDT
  (Results apply to the population of readers and cases)
 
 
-    a) Test for H0: Treatments have the same MaxNLF figure of merit.
+    a) Test for H0: Treatments have the same HrSe figure of merit.
 
 
  Source        DF    Mean Square      F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.03755830     0.73   0.4127
- Error         9.42       0.04712620
+ Treatment        1       0.02263468     3.37   0.0673
+ Error       390.91       0.00096197
  Error term: MS(TR) + J * max[Cov2 - Cov3, 0]
 
- Conclusion: The MaxNLF FOMs of treatments are not significantly different,
-             F(1,9.42) = 0.73, p = 0.4127.
+ Conclusion: The HrSe FOMs of treatments are not significantly different,
+             F(1,390.91) = 3.37, p = 0.0673.
 
 
     b) 95% confidence intervals for treatment differences
 
        Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
 ----------   ----------  --------  --------  -------  ------  -------  -------------------
-1          - 2           -0.09136   0.10661     9.42   -0.86   0.4127  -0.33089 ,  0.14817
+1          - 2           -0.07092   0.03866   390.91   -1.83   0.0673  -0.14692 ,  0.00508
 
 
 
@@ -165,8 +165,8 @@ Run date: Jun 27 2019 Thu 18:00:34 EDT
 
   Treatment     Area      Std Error     DF     95% Confidence Interval 
   ----------  ----------  ----------  -------  -------------------------
-  1           0.46419753  0.10047597    17.44  (0.25261895 , 0.67577611)
-  2           0.55555556  0.15314639    10.02  (0.21440131 , 0.89670980)
+  1           0.86761229  0.04775270   106.17  (0.77293969 , 0.96228489)
+  2           0.93853428  0.02437899    22.09  (0.88798701 , 0.98908155)
 
 
 
@@ -180,24 +180,24 @@ Run date: Jun 27 2019 Thu 18:00:34 EDT
  used in this study)
 
 
-    a) Test for H0: Treatments have the same MaxNLF figure of merit.
+    a) Test for H0: Treatments have the same HrSe figure of merit.
 
 
  Source        DF    Mean Square      F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.03755830     1.49   0.2229
+ Treatment        1       0.02263468     2.77   0.0958
 
  Error term: Var - Cov1 + (J - 1) * ( Cov2 - Cov3 )
 
- Conclusion: The MaxNLF FOMs of treatments are not significantly different,
-             F(1,Inf) = 1.49, p = 0.2229.
+ Conclusion: The HrSe FOMs of treatments are not significantly different,
+             F(1,Inf) = 2.77, p = 0.0958.
 
 
     b) 95% confidence intervals for treatment differences
 
        Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
 ----------   ----------  --------  --------  -------  ------  -------  -------------------
-1          - 2           -0.09136   0.07495      Inf   -1.22   0.2229  -0.23825 ,  0.05553
+1          - 2           -0.07092   0.04259      Inf   -1.67   0.0958  -0.15439 ,  0.01254
 
 
 
@@ -210,8 +210,8 @@ Run date: Jun 27 2019 Thu 18:00:34 EDT
 
   Treatment     Area      Std Error     DF     95% Confidence Interval 
   ----------  ----------  ----------  -------  -------------------------
-  1           0.46419753  0.07512043      Inf  (0.31696420 , 0.61143087)
-  2           0.55555556  0.07151036      Inf  (0.41539782 , 0.69571329)
+  1           0.86761229  0.04473322      Inf  (0.77993679 , 0.95528780)
+  2           0.93853428  0.02179735      Inf  (0.89581226 , 0.98125630)
  Error term: Var - Cov1 + (J - 1) * ( Cov2 - Cov3 )
 
     d) Treatment-by-case ANOVA CIs for each reader 
@@ -219,27 +219,27 @@ Run date: Jun 27 2019 Thu 18:00:34 EDT
 
   Reader         Treatment        Estimate  StdErr       DF      t     Pr > t          95% CI      
 ---------- ---------- ----------  --------  --------  -------  ------  -------  -------------------
-1          1         -2           -0.64444   0.34141      Inf   -1.89   0.0591  -1.31360 ,  0.02471
-2          1         -2            0.02222   0.07252      Inf    0.31   0.7593  -0.11992 ,  0.16437
-3          1         -2           -0.28889   0.25851      Inf   -1.12   0.2638  -0.79556 ,  0.21778
-4          1         -2            0.15556   0.12966      Inf    1.20   0.2303  -0.09858 ,  0.40969
-5          1         -2            0.28889   0.21376      Inf    1.35   0.1766  -0.13008 ,  0.70786
-6          1         -2           -0.24444   0.17897      Inf   -1.37   0.1720  -0.59521 ,  0.10632
-7          1         -2            0.06667   0.14825      Inf    0.45   0.6529  -0.22390 ,  0.35723
-8          1         -2            0.17778   0.23118      Inf    0.77   0.4419  -0.27532 ,  0.63088
-9          1         -2           -0.35556   0.17897      Inf   -1.99   0.0470  -0.70632 , -0.00479
+1          1         -2           -0.06383   0.05096      Inf   -1.25   0.2104  -0.16371 ,  0.03605
+2          1         -2           -0.12766   0.08179      Inf   -1.56   0.1186  -0.28797 ,  0.03265
+3          1         -2           -0.06383   0.06668      Inf   -0.96   0.3385  -0.19453 ,  0.06687
+4          1         -2           -0.14894   0.09596      Inf   -1.55   0.1206  -0.33701 ,  0.03914
+5          1         -2           -0.02128   0.10076      Inf   -0.21   0.8328  -0.21876 ,  0.17621
+6          1         -2           -0.04255   0.04208      Inf   -1.01   0.3119  -0.12503 ,  0.03992
+7          1         -2           -0.06383   0.09025      Inf   -0.71   0.4794  -0.24072 ,  0.11306
+8          1         -2           -0.02128   0.08033      Inf   -0.26   0.7911  -0.17873 ,  0.13617
+9          1         -2           -0.08511   0.07234      Inf   -1.18   0.2394  -0.22690 ,  0.05669
 
 Reader  Var(Error)     Cov1   
 ------  ----------  ----------
-1         0.056613    -0.00166
-2         0.003404    0.000774
-3         0.042008    0.008594
-4         0.011811    0.003404
-5         0.026299    0.003451
-6         0.024702    0.008688
-7         0.010777    -0.00021
-8         0.030056    0.003334
-9         0.022917    0.006903
+1         0.001298           0
+2         0.003954    0.000609
+3         0.002951    0.000727
+4         0.007299    0.002695
+5         0.005823    0.000747
+6         0.000885           0
+7         0.003718    -0.00035
+8         0.003758    0.000531
+9         0.002518    -9.83770
 
 
 
@@ -249,24 +249,24 @@ Reader  Var(Error)     Cov1
  (Results apply to the population of readers but only for the cases used in this study)
 
 
-    a) Test for H0: Treatments have the same MaxNLF figure of merit.
+    a) Test for H0: Treatments have the same HrSe figure of merit.
 
 
  Source        DF    Mean Square      F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.03755830     0.80   0.3981
- Error         8.00       0.04712620
+ Treatment        1       0.02263468    23.53   0.0013
+ Error         8.00       0.00096197
  Error term: MS(TR)
 
- Conclusion: The MaxNLF FOMs of treatments are not significantly different,
-             F(1,8.00) = 0.80, p = 0.3981.
+ Conclusion: The HrSe FOMs of treatments are not equal,
+             F(1,8.00) = 23.53, p = 0.0013.
 
 
     b) 95% confidence intervals for treatment differences
 
        Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
 ----------   ----------  --------  --------  -------  ------  -------  -------------------
-1          - 2           -0.09136   0.10234     8.00   -0.89   0.3981  -0.32734 ,  0.14463
+1          - 2           -0.07092   0.01462     8.00   -4.85   0.0013  -0.10464 , -0.03721
 
 
 
@@ -279,5 +279,5 @@ Reader  Var(Error)     Cov1
 
   Treatment     Area      Std Error     DF     95% Confidence Interval 
   ----------  ----------  ----------  -------  -------------------------
-  1           0.46419753  0.08268841     8.00  (0.27351773 , 0.65487734)
-  2           0.55555556  0.14477645     8.00  (0.22170047 , 0.88941064)
+  1           0.86761229  0.02501892     8.00  (0.80991855 , 0.92530604)
+  2           0.93853428  0.01891253     8.00  (0.89492191 , 0.98214665)
