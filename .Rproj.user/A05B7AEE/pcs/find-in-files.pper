@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "",
+        "path" : "/tests/testthat",
         "projectRelative" : true,
-        "query" : "MaxLLF",
+        "query" : "fn <- paste0(test_path(),",
         "regex" : false
     }
 }

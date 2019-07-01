@@ -43,16 +43,23 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
   
   if (method == "DBMH") {
     pseudoValues <- UtilPseudoValues(dataset, FOM)
+    #
+    # extensive changes made here DPC 6/30/19 for DBMH method
+    # basically redefine K as number of diseased cases or number of non-diseased
+    # case, or all cases, depending on the FOM
+    # these changes affect FOMs that do NOT involve all cases
+    # No changes are needed for ORH method
+    #
+    if (FOM %in% c("MaxLLF", "HrSe")) {
+      Ktemp <- K2 # K should be # of diseased cases
+    } else if (FOM %in% c("MaxNLF", "HrSp", "MaxNLFAllCases", "ExpTrnsfmSp")) {
+      Ktemp <- K1 # K should be # of non-diseased cases
+    } else {
+      Ktemp <- K # K should be # of all cases
+    }
+    # end changes
     
     if (I != 1 ) {
-      if (FOM %in% c("MaxLLF", "HrSe")) {
-        Ktemp <- K2 # K should be # of diseased cases
-      } else if (FOM %in% c("MaxNLF", "HrSp", "MaxNLFAllCases", "ExpTrnsfmSp")) {
-        Ktemp <- K1 # K should be # of non-diseased cases
-      } else {
-        Ktemp <- K # K should be # of all cases
-      }
-      
       msT <- 0
       for (i in 1:I) {
         msT <- msT + (mean(pseudoValues[i, , ]) - mean(pseudoValues))^2
@@ -158,8 +165,6 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
         msCSingleR = msCSingleR
       ))
     }
-    
-    
   } else if (method == "ORH"){
     
     if (I == 1 && J == 1){
@@ -210,8 +215,9 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
     }
     
   } else {
-    errMsg <- sprintf("%s is not a valid method.", method)
+    errMsg <- sprintf("%s is not a valid method; must use 'DBMH' or 'ORH'", method)
     stop(errMsg)
   }
   
 }
+

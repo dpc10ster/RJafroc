@@ -10,10 +10,10 @@ IN THE SOFTWARE.
 
 R version: R version 3.6.0 (2019-04-26)
 RJafroc version: 1.1.1.9000
-Run date: Jun 30 2019 Sun 14:24:56 EDT
+Run date: Jun 30 2019 Sun 20:23:16 EDT
  FOM selected         :     HrSe
  Input  Data          :     MyData
- Output Data Filename :     /Users/Dev/RJafroc/tests/testthat/MyDataOutput.txt
+ Output Data Filename :     /Users/Dev/Documents/GitHub/RJafroc/tests/testthat/MyDataOutput.txt
 
 ================================================================================
 
