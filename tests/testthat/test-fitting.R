@@ -94,7 +94,7 @@ test_that("FitRsmRoc", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(FitRsmRoc(dataset02, UtilLesionDistribution(dataset02))[1:8], ret)
+  expect_equal(FitRsmRoc(dataset02, UtilLesionDistribution(dataset02))[1:8], ret, tolerance = 1e-6)
   # end of test
 
   fn <- paste0(test_path(), "/goodValues/Fitting/RsmRocDegenerate")
@@ -104,7 +104,7 @@ test_that("FitRsmRoc", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(FitRsmRoc(datasetDegenerate, UtilLesionDistribution(datasetDegenerate))[1:8], ret)
+  expect_equal(FitRsmRoc(datasetDegenerate, UtilLesionDistribution(datasetDegenerate))[1:8], ret, tolerance = 1e-6)
   # end of test
   
 })
