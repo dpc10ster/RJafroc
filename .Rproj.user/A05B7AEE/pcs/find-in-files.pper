@@ -5,7 +5,7 @@
         ],
         "path" : "/tests/testthat",
         "projectRelative" : true,
-        "query" : "fn <- paste0(test_path(),",
+        "query" : "ReadLines",
         "regex" : false
     }
 }
