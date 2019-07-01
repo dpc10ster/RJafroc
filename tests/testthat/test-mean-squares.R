@@ -26,6 +26,7 @@ test_that("UtilMeanSquares", {
           
           fn <- paste0(test_path(), "/goodValues/MeanSquares/", dataset_arr_str[d], FOM_arr[i],"-", method_arr[j])
           if (!file.exists(fn)) {
+            warning(paste0("File not found - generating new ",fn))
             ret <- UtilMeanSquares(dataset, FOM = FOM_arr[i], method = method_arr[j])
             saveRDS(ret, file = fn)
           }

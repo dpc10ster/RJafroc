@@ -10,6 +10,7 @@ test_that("Df2RJafrocDataset", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/Df2RJafrocDataset-1")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- Df2RJafrocDataset(z1, z2)
     saveRDS(ds, file = fn)
   }
@@ -35,6 +36,7 @@ test_that("Df2RJafrocDataset", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/Df2RJafrocDataset-2")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- Df2RJafrocDataset(z1, z2)
     saveRDS(ds, file = fn)
   }
@@ -71,6 +73,7 @@ test_that("Df2RJafrocDataset", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/Df2RJafrocDataset-3")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- Df2RJafrocDataset(z1, z2, lesionNum = Lk2) # an FROC dataset
     saveRDS(ds, file = fn)
   }
@@ -86,6 +89,7 @@ test_that("DfBinDataset (ROC&AFROC)", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfBinDatasetROC")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfBinDataset(dataset05, opChType = "ROC") # JT FROC
     saveRDS(ds, file = fn)
   }
@@ -96,6 +100,7 @@ test_that("DfBinDataset (ROC&AFROC)", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfBinDatasetAFROC")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfBinDataset(dataset05, opChType = "AFROC")
     saveRDS(ds, file = fn)
   }
@@ -111,6 +116,7 @@ test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfCreateCorCbmDataset")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfCreateCorCbmDataset()
     saveRDS(ds, file = fn)
   }
@@ -122,6 +128,7 @@ test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfExtractCorCbmDataset-1")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3))
     saveRDS(ds, file = fn)
   }
@@ -132,6 +139,7 @@ test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfExtractCorCbmDataset-2")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = c(1,3))
     saveRDS(ds, file = fn)
   }
@@ -142,6 +150,7 @@ test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfExtractCorCbmDataset-3")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = 2)
     saveRDS(ds, file = fn)
   }
@@ -157,6 +166,7 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfFroc2Roc")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfFroc2Roc(dataset05)
     saveRDS(ds, file = fn)
   }
@@ -167,6 +177,7 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfReadLrocDataFile")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfReadLrocDataFile()
     saveRDS(ds, file = fn)
   }
@@ -177,6 +188,7 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfLroc2Roc")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfLroc2Roc(DfReadLrocDataFile())
     saveRDS(ds, file = fn)
   }
@@ -191,6 +203,7 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfReadCrossedModalities")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfReadCrossedModalities(crossedFileName)
     saveRDS(ds, file = fn)
   }
@@ -221,6 +234,7 @@ test_that("DfReadDataFile, non_JAFROC, see below", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfReadDataFile_csv")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     temp <- DfReadDataFile(fileName, format = "MRMC")
     saveRDS(temp, file = fn)
   }
@@ -234,6 +248,7 @@ test_that("DfReadDataFile, non_JAFROC, see below", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfReadDataFile_lrc")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfReadDataFile(fileName, format = "MRMC")
     saveRDS(ds, file = fn)
   }
@@ -247,6 +262,7 @@ test_that("DfReadDataFile, non_JAFROC, see below", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfReadDataFile-imrmc")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfReadDataFile(fileName, format = "iMRMC")
     saveRDS(ds, file = fn)
   }
@@ -259,6 +275,7 @@ test_that("DfReadDataFile, non_JAFROC, see below", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfReadDataFile_txt")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfReadDataFile(fileName, format = "MRMC")
     saveRDS(ds, file = fn)
   }
@@ -277,6 +294,7 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfReadDataFile-roc-jafroc")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfReadDataFile(fileName)
     saveRDS(ds, file = fn)
   }
@@ -290,6 +308,7 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfReadDataFile-froc-jafroc")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfReadDataFile(fileName)
     saveRDS(ds, file = fn)
   }
@@ -304,6 +323,7 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfReadDataFile-froc-jafroc-renum")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfReadDataFile(fileName, renumber = TRUE)
     saveRDS(ds, file = fn)
   }
@@ -317,6 +337,7 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfReadDataFile-jafroc-roi")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfReadDataFile(fileName)
     saveRDS(ds, file = fn)
   }
@@ -336,6 +357,7 @@ test_that("DfFroc2Afroc, DfExtractDataset", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfFroc2Afroc")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfFroc2Afroc(dataset05)
     saveRDS(ds, file = fn)
   }
@@ -346,6 +368,7 @@ test_that("DfFroc2Afroc, DfExtractDataset", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfExtractDataset")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ds <- DfExtractDataset(dataset05, rdrs = c(1, 3))
     saveRDS(ds, file = fn)
   }
@@ -361,6 +384,7 @@ test_that("DfsaveDataFile", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfSaveDataFile.xlsx")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     DfSaveDataFile(dataset05, fileName = fn, format = "JAFROC")
   }
 
@@ -377,6 +401,7 @@ test_that("DfsaveDataFile", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfSaveDataFile-roi.xlsx")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     DfSaveDataFile(datasetROI, fileName = fn, format = "JAFROC")
   }
 
@@ -392,6 +417,7 @@ test_that("DfsaveDataFile", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfSaveDataFile.imrmc") # sic file ext must be imrmc
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     DfSaveDataFile(dataset02, fileName = fn, format = "iMRMC")
   }
 
@@ -410,6 +436,7 @@ test_that("DfsaveDataFile", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfSaveDataFile.csv") # sic file ext must be csv
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     DfSaveDataFile(dataset02, fileName = fn, format = "MRMC")
   }
   
@@ -427,6 +454,7 @@ test_that("DfsaveDataFile", {
 
   fn <- paste0(test_path(), "/goodValues/Df2RJafrocDataset/DfSaveDataFile.lrc") # sic file ext must be lrc
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     DfSaveDataFile(dataset02, fileName = fn, format = "MRMC")
   }
   

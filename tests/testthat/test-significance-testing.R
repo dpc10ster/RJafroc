@@ -29,6 +29,7 @@ test_that("SignificanceTestingAllCombinations", {
           fn <- paste0(test_path(), "/goodValues/SigTest/", 
                        dataset_arr_str[d], FOM_arr[i], method_arr[j])
           if (!file.exists(fn)) {
+            warning(paste0("File not found - generating new ",fn))
             ret <- StSignificanceTesting(dataset, FOM = FOM_arr[i], method = method_arr[j])
             saveRDS(ret, file = fn)
           }
@@ -59,6 +60,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   
   fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_02_1_14")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
     saveRDS(ret, file = fn)
   }
@@ -69,6 +71,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   
   fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_1_14")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
     saveRDS(ret, file = fn)
   }
@@ -79,6 +82,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   
   fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_12_4")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
     saveRDS(ret, file = fn)
   }
@@ -102,6 +106,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
 # 
 #   fn <- paste0(test_path(), "/goodValues/SigTest/CrossedModalities")
 #   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
 #     ret <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
 #     saveRDS(ret, file = fn)
 #   }

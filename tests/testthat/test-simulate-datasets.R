@@ -4,6 +4,7 @@ test_that("SimulateCorCbmDataset", {
 
   fn <- paste0(test_path(), "/goodValues/SimulateDs/SimulateCorCbmDataset")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- SimulateCorCbmDataset()
     saveRDS(ret, file = fn)
   }
@@ -24,6 +25,7 @@ test_that("SimulateFrocDataset", {
 
   fn <- paste0(test_path(), "/goodValues/SimulateDs/SimulateFrocDataset")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- SimulateFrocDataset(
       mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
       I = I, J = J, K1 = K1, K2 = K2, lesionNum = lesionNum)
@@ -50,6 +52,7 @@ test_that("SimulateRocDataset", {
 
   fn <- paste0(test_path(), "/goodValues/SimulateDs/SimulateRocDataset")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- SimulateRocDataset(K1 = K1, K2 = K2,a = a, b = b)
     saveRDS(ret, file = fn)
   }
