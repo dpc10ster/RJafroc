@@ -28,6 +28,7 @@ test_that("StSignificanceTestingCadVsRadiologists", {
           
           fn <- paste0(test_path(), "/goodValues/SigTestCad/", dataset_arr_str[d], method_arr[j], fom_arr[i])
           if (!file.exists(fn)) {
+            warning(paste0("File not found - generating new ",fn))
             ret <- StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j])
             saveRDS(ret, file = fn)
           }  

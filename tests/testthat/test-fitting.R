@@ -15,6 +15,7 @@ test_that("FitBinormalRoc", {
 
   fn <- paste0(test_path(), "/goodValues/Fitting/BinormalRoc02")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- FitBinormalRoc(dataset02)[1:7]
     saveRDS(ret, file = fn)
   }
@@ -30,6 +31,7 @@ test_that("FitBinormalRoc", {
 
   fn <- paste0(test_path(), "/goodValues/Fitting/BinormalRoc05")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- FitBinormalRoc(DfBinDataset(dataset05, desiredNumBins = 5, opChType = "ROC"))
     ret <- ret[1:7]
     saveRDS(ret, file = fn)
@@ -48,6 +50,7 @@ test_that("FitCbmRoc", {
 
   fn <- paste0(test_path(), "/goodValues/Fitting/CbmRoc")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- FitCbmRoc(dataset02)[1:7]
     saveRDS(ret, file = fn)
   }
@@ -66,6 +69,7 @@ test_that("FitCorCbm", {
 
   fn <- paste0(test_path(), "/goodValues/Fitting/CorCbm")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- FitCorCbm(DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7)))
     ret <- ret$fitCorCbmRet
     ret <- ret[1:10] # leave out covariance matrix and plots
@@ -89,6 +93,7 @@ test_that("FitRsmRoc", {
   
   fn <- paste0(test_path(), "/goodValues/Fitting/RsmRoc")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- FitRsmRoc(dataset02, UtilLesionDistribution(dataset02))[1:8]
     saveRDS(ret, file = fn)
   }
@@ -99,6 +104,7 @@ test_that("FitRsmRoc", {
 
   fn <- paste0(test_path(), "/goodValues/Fitting/RsmRocDegenerate")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- FitRsmRoc(datasetDegenerate, UtilLesionDistribution(datasetDegenerate))[1:8]
     saveRDS(ret, file = fn)
   }

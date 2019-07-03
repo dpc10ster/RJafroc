@@ -10,6 +10,7 @@ test_that("ROC dataset dataset02: FOM = Wilcoxon", {
 
   fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritROC-", FOM)
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- UtilFigureOfMerit(dataset, FOM = FOM)
     saveRDS(ret, file = fn)
   }
@@ -38,6 +39,7 @@ test_that("FROC dataset: all FOMs except ...", {
 
     fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritFROC-", FOM)
     if (!file.exists(fn)) {
+      warning(paste0("File not found - generating new ",fn))
       ret <- UtilFigureOfMerit(dataset, FOM = FOM)
       saveRDS(ret, file = fn)
     }
@@ -66,6 +68,7 @@ test_that("FROC data: excessive computation time FOMs", {
 
     fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritFROC-", FOM)
     if (!file.exists(fn)) {
+      warning(paste0("File not found - generating new ",fn))
       ret <- UtilFigureOfMerit(dataset, FOM = FOM)
       saveRDS(ret, file = fn)
     }
@@ -86,6 +89,7 @@ test_that("ROI paradigm", {
 
   fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritROI")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- UtilFigureOfMerit(dataset, FOM = FOM)
     saveRDS(ret, file = fn)
   }
@@ -108,6 +112,7 @@ test_that("LROC paradigm: FOM = Wilcoxon, ALROC", {
 
     fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritLROC-", FOM)
     if (!file.exists(fn)) {
+      warning(paste0("File not found - generating new ",fn))
       ret <- UtilFigureOfMerit(dataset, FOM = FOM)
       saveRDS(ret, file = fn)
     }
@@ -128,6 +133,7 @@ test_that("LROC paradigm: FOM = PCL@FPFValue", {
 
   fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritLROC-", FOM)
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     ret <- UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2)
     saveRDS(ret, file = fn)
   }

@@ -36,6 +36,7 @@ test_that("Compare3ProperRocFits", {
   set.seed(1)
   fn <- paste0(test_path(), "/goodValues/Compare3ProperRocFits/Compare3ProperRocFits01")
   if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
     x <- Compare3ProperRocFits(1,1,reAnalyze = TRUE)
     x1 <- x; x <- x$allDatasetsResults;x <- x[[1]][[1]]$retRsm
     x[9:10] <- NULL # remove the covariance matrices ...Peter's input
