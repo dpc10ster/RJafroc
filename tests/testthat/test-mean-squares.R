@@ -32,7 +32,9 @@ test_that("UtilMeanSquares", {
           }
           
           ret <- readRDS(fn)
-          expect_equal(UtilMeanSquares(dataset, FOM = FOM_arr[i], method = method_arr[j]), ret)
+          expect_equal(UtilMeanSquares(dataset, FOM = FOM_arr[i], method = method_arr[j]), ret,
+            info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j])
+          )
           # end of test
           
           #  }

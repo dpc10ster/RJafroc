@@ -38,7 +38,9 @@ test_that("SignificanceTestingAllCombinations", {
           # causes failure in R CMD check but not in devtools::test(); go figure 6/30/19 !!!dpc!!!
           ret1 <- StSignificanceTesting(dataset, FOM = FOM_arr[i],method = method_arr[j])
           ret1 <- ret1[c(-2,-3)] # removed anovaY and anovaYi list members
-          expect_equal(ret1, ret) # now it works
+          expect_equal(ret1, ret,
+            info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j])
+          )
           # end of test
           
         }
