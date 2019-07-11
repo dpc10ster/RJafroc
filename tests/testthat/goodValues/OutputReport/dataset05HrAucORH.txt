@@ -8,9 +8,9 @@ IN THE SOFTWARE.
 
 ================================================================================
 
-R version: R version 3.6.0 (2019-04-26)
+R version: R version 3.6.1 (2019-07-05)
 RJafroc version: 1.1.1.9000
-Run date: Jun 30 2019 Sun 22:33:44 EDT
+Run date: Jul 11 2019 Thu 17:37:19 EDT
  FOM selected         :     HrAuc
  Input  Data          :     MyData
  Output Data Filename :     ./goodValues/OutputReport/dataset05HrAucORH.txt

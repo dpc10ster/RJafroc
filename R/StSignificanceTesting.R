@@ -411,8 +411,13 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         CIRRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRRC) * stdErrRRRC, diffTRMeans[i] + qt(alpha/2, ddfRRRC) * stdErrRRRC))
         
       }
-      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, Estimate = diffTRMeans, StdErr = rep(stdErrRRRC, choose(I, 2)), DF = rep(ddfRRRC, choose(I, 2)), t = tStat, p = tPr, CI = CIRRRC)
-      colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
+                                  Estimate = diffTRMeans, 
+                                  StdErr = rep(stdErrRRRC, choose(I, 2)), 
+                                  DF = rep(ddfRRRC, choose(I, 2)), 
+                                  t = tStat, p = tPr, CILower = CIRRRC[1],  CIUpper = CIRRRC[2])
+      #colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+      #colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CIRRRC")
       
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)
@@ -428,6 +433,7 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
       }
       ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, Area = trMeans, StdErr = stdErrSingleRRRC, DF = dfSingleRRRC, CI = CISingleRRRC, row.names = NULL)
       colnames(ciAvgRdrEachTrtRRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
+      # colnames(ciAvgRdrEachTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CIRRRC")
     } else {
       fRRRC <- NA
       ddfRRRC <- NA
