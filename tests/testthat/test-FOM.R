@@ -45,7 +45,9 @@ test_that("FROC dataset: all FOMs except ...", {
     }
 
     ret1 <- readRDS(fn)
-    expect_equal(UtilFigureOfMerit(dataset, FOM = FOM), ret1)
+    expect_equal(UtilFigureOfMerit(dataset, FOM = FOM), ret1,
+      info = paste0("FOM = ",FOM)
+    )
     # end of test
 
   }
@@ -74,7 +76,9 @@ test_that("FROC data: excessive computation time FOMs", {
     }
 
     ret1 <- readRDS(fn)
-    expect_equal(UtilFigureOfMerit(dataset, FOM = FOM), ret1)
+    expect_equal(UtilFigureOfMerit(dataset, FOM = FOM), ret1,
+      info = paste0("FOM = ",FOM)
+    )
     # end of test
 
   }
@@ -118,7 +122,9 @@ test_that("LROC paradigm: FOM = Wilcoxon, ALROC", {
     }
 
     ret1 <- readRDS(fn)
-    expect_equal(UtilFigureOfMerit(dataset, FOM = FOM), ret1)
+    expect_equal(UtilFigureOfMerit(dataset, FOM = FOM), ret1,
+      info = paste0("FOM = ",FOM)
+    )
     # end of test
 
   }

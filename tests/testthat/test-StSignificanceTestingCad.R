@@ -33,7 +33,9 @@ test_that("StSignificanceTestingCadVsRadiologists", {
             saveRDS(ret, file = fn)
           }  
           ret <- readRDS(fn)
-          expect_equal(StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j]), ret)
+          expect_equal(StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j]), ret, 
+            info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",fom_arr[i],", method = ",method_arr[j])
+          )
           # end of test
           
         } else if ((dataset$dataType == "ROC") && (fom_arr[i] != "Wilcoxon")) {
