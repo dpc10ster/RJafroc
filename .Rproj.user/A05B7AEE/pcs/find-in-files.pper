@@ -5,7 +5,7 @@
         ],
         "path" : "/tests/testthat",
         "projectRelative" : true,
-        "query" : "ReadLines",
+        "query" : "expect_equ",
         "regex" : false
     }
 }

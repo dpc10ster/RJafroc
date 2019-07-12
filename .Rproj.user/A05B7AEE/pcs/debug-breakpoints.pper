@@ -1,36 +1,6 @@
 {
     "debugBreakpointsState" : {
         "breakpoints" : [
-            {
-                "editor_line_number" : 444,
-                "editor_state" : 1,
-                "function_name" : "StDBMHAnalysis",
-                "function_steps" : "76,3,3",
-                "id" : 7,
-                "is_package_breakpoint" : true,
-                "is_pending_debug_completion" : false,
-                "line_number" : 444,
-                "needs_updated_steps" : false,
-                "package_name" : "RJafroc",
-                "path" : "~/RJafroc/R/StSignificanceTesting.R",
-                "state" : 1,
-                "type" : 0
-            },
-            {
-                "editor_line_number" : 422,
-                "editor_state" : 2,
-                "function_name" : "StDBMHAnalysis",
-                "function_steps" : "",
-                "id" : 10,
-                "is_package_breakpoint" : true,
-                "is_pending_debug_completion" : false,
-                "line_number" : 422,
-                "needs_updated_steps" : false,
-                "package_name" : "RJafroc",
-                "path" : "~/RJafroc/R/StSignificanceTesting.R",
-                "state" : 2,
-                "type" : 0
-            }
         ]
     }
 }

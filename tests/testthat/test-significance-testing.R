@@ -2,7 +2,7 @@ context("Significance testing excluding CAD")
 
 test_that("SignificanceTestingAllCombinations", {
   
-  skip_on_travis()
+  # skip_on_travis()
   skip_on_cran()
   
   dataset_arr <- list(dataset02, dataset05)
@@ -34,11 +34,15 @@ test_that("SignificanceTestingAllCombinations", {
             saveRDS(ret, file = fn)
           }
           
-          ret <- readRDS(fn);ret <- ret[c(-2,-3)] # removed anovaY and anovaYi list members
+          ret <- readRDS(fn)
+          # attributes(ret) <- NULL
+          # ret <- ret[c(-2,-3)] # removed anovaY and anovaYi list members
           # causes failure in R CMD check but not in devtools::test(); go figure 6/30/19 !!!dpc!!!
+          # causes failure in R CMD check but not in devtools::test(); go figure 7/12/19 !!!dpc!!!
           ret1 <- StSignificanceTesting(dataset, FOM = FOM_arr[i],method = method_arr[j])
-          ret1 <- ret1[c(-2,-3)] # removed anovaY and anovaYi list members
-          expect_equal(ret1, ret,
+          # attributes(ret1) <- NULL
+          # ret1 <- ret1[c(-2,-3)] # removed anovaY and anovaYi list members
+          expect_equivalent(ret1, ret, # could use expect_equivalent and then I don't have to set attributes to NULL
             info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j])
           )
           # end of test
@@ -68,7 +72,8 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon"), ret)
+  ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
+  expect_equal(ret1, ret)
   # end of test
   
   fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_1_14")
@@ -79,7 +84,8 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4)), ret)
+  ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
+  expect_equal(ret1, ret)
   # end of test
   
   fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_12_4")
@@ -90,7 +96,8 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4)), ret)
+  ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
+  expect_equal(ret1, ret)
   # end of test
   
 })
@@ -100,22 +107,23 @@ test_that("StSignificanceTestingSingleFixedFactor", {
 # Probably need to set attributes explicitly
 # Replacing expect_equal with expect_equivalent may fix this: DID NOT WORK
 # Temporary fix: just comment out the test
-# 
-# test_that("StSignificanceTestingCrossedModalities", {
-# 
-#   crossedFileName <- system.file(
-#     "extdata", "includedCrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
-# 
-#   fn <- paste0(test_path(), "/goodValues/SigTest/CrossedModalities")
-#   if (!file.exists(fn)) {
-#     warning(paste0("File not found - generating new ",fn))
-#     ret <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
-#     saveRDS(ret, file = fn)
-#   }
-# 
-#   ret <- readRDS(fn)
-#   expect_equivalent(StSignificanceTestingCrossedModalities(datasetCrossedModality, 1), ret) # !!!dpc!!! 7/1/19
-#   # end of test
-# 
-# })
+# 7/12/19: added this back; passed on new version of R 3.6.1
+test_that("StSignificanceTestingCrossedModalities", {
+
+  crossedFileName <- system.file(
+    "extdata", "includedCrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
+
+  fn <- paste0(test_path(), "/goodValues/SigTest/CrossedModalities")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+    saveRDS(ret, file = fn)
+  }
+
+  ret <- readRDS(fn)
+  ret1 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+  expect_equivalent(ret1, ret) # !!!dpc!!! 7/1/19
+  # end of test
+
+})
 

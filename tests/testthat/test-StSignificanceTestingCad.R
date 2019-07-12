@@ -3,7 +3,7 @@ context("Significance testing: StSignificanceTestingCadVsRadiologists")
 
 test_that("StSignificanceTestingCadVsRadiologists", {
   
-  skip_on_travis()
+  # skip_on_travis()
   skip_on_cran()
   
   dataset_arr <- list(dataset09, datasetCadLroc, dataset01, dataset02)
@@ -33,7 +33,8 @@ test_that("StSignificanceTestingCadVsRadiologists", {
             saveRDS(ret, file = fn)
           }  
           ret <- readRDS(fn)
-          expect_equal(StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j]), ret, 
+          ret1 <- StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j])
+          expect_equivalent(ret1, ret, 
             info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",fom_arr[i],", method = ",method_arr[j])
           )
           # end of test
