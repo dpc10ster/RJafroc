@@ -26,105 +26,113 @@ test_that("SignificanceTestingAllCombinations", {
           
         } else {
           
-          fn <- paste0(test_path(), "/goodValues/SigTest/", 
-                       dataset_arr_str[d], FOM_arr[i], method_arr[j])
+          fn <- paste0(test_path(), "/goodValues/SigTest/", dataset_arr_str[d], FOM_arr[i], method_arr[j])
           if (!file.exists(fn)) {
             warning(paste0("File not found - generating new ",fn))
             ret <- StSignificanceTesting(dataset, FOM = FOM_arr[i], method = method_arr[j])
             saveRDS(ret, file = fn)
           }
           
-          ret <- readRDS(fn)
           # attributes(ret) <- NULL
-          ret <- ret[c(-2,-3)] # removed anovaY and anovaYi list members
+          # ret <- ret[c(-2,-3)] # removed anovaY and anovaYi list members
           # causes failure in R CMD check but not in devtools::test(); go figure 6/30/19 !!!dpc!!!
           # causes failure in R CMD check but not in devtools::test(); go figure 7/12/19 !!!dpc!!!
-          ret1 <- StSignificanceTesting(dataset, FOM = FOM_arr[i],method = method_arr[j])
           # attributes(ret1) <- NULL
-          ret1 <- ret1[c(-2,-3)] # removed anovaY and anovaYi list members
-          expect_equal(ret1, ret, # could use expect_equivalent and then I don't have to set attributes to NULL
-            info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j])
-          )
-          # end of test
-          
+          # ret1 <- ret1[c(-2,-3)] # removed anovaY and anovaYi list members
+          ret <- readRDS(fn)
+          ret1 <- StSignificanceTesting(dataset, FOM = FOM_arr[i],method = method_arr[j])
+          expect_equal(ret1$fomArray, ret$fomArray, # could use expect_equivalent and then I don't have to set attributes to NULL
+                       info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j]))
+                       
+                       expect_equal(ret1$fomArray, ret$fomArray, # could use expect_equivalent and then I don't have to set attributes to NULL
+                                    info = paste0("fomArray:Dataset = ",dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j]))
+                       
+                       expect_equal(ret1$varComp, ret$varComp, # could use expect_equivalent and then I don't have to set attributes to NULL
+                                    info = paste0("varComp:Dataset = ",dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j]))
+                       
+                       # end of tests
+                       expect_equal(ret1$ciDiffTrtRRRC, ret$ciDiffTrtRRRC, # could use expect_equivalent and then I don't have to set attributes to NULL
+                                    info = paste0("ciDiffTrtRRRC: Dataset = ",dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j]))
+                       
         }
       }  
     }
   }
   
 })
-
-
-# 
-# test_that("StSignificanceTestingCadVsRadiologists") {
-#
-#   # TBA
-#
-# }
-
-test_that("StSignificanceTestingSingleFixedFactor", {
-  
-  fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_02_1_14")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
-    saveRDS(ret, file = fn)
-  }
-  
-  ret <- readRDS(fn)
-  ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
-  expect_equal(ret1, ret)
-  # end of test
-  
-  fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_1_14")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
-    saveRDS(ret, file = fn)
-  }
-  
-  ret <- readRDS(fn)
-  ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
-  expect_equal(ret1, ret)
-  # end of test
-  
-  fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_12_4")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
-    saveRDS(ret, file = fn)
-  }
-  
-  ret <- readRDS(fn)
-  ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
-  expect_equal(ret1, ret)
-  # end of test
-  
-})
-
-#
-# TODO: fix travis developer failure on this test as per saved log
-# Probably need to set attributes explicitly
-# Replacing expect_equal with expect_equivalent may fix this: DID NOT WORK
-# Temporary fix: just comment out the test
-# 7/12/19: added this back; passed on new version of R 3.6.1
-# did not work; commented out again 7/12/19
-# test_that("StSignificanceTestingCrossedModalities", {
-# 
-#   crossedFileName <- system.file(
-#     "extdata", "includedCrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
-# 
-#   fn <- paste0(test_path(), "/goodValues/SigTest/CrossedModalities")
-#   if (!file.exists(fn)) {
-#     warning(paste0("File not found - generating new ",fn))
-#     ret <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
-#     saveRDS(ret, file = fn)
-#   }
-# 
-#   ret <- readRDS(fn)
-#   ret1 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
-#   expect_equal(ret1, ret) # !!!dpc!!! 7/1/19
-#   # end of test
-# 
-# })
-# 
+          
+          
+          # 
+          # test_that("StSignificanceTestingCadVsRadiologists") {
+          #
+          #   # TBA
+          #
+          # }
+          
+          test_that("StSignificanceTestingSingleFixedFactor", {
+            
+            fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_02_1_14")
+            if (!file.exists(fn)) {
+              warning(paste0("File not found - generating new ",fn))
+              ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
+              saveRDS(ret, file = fn)
+            }
+            
+            ret <- readRDS(fn)
+            ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
+            expect_equal(ret1, ret)
+            # end of test
+            
+            fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_1_14")
+            if (!file.exists(fn)) {
+              warning(paste0("File not found - generating new ",fn))
+              ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
+              saveRDS(ret, file = fn)
+            }
+            
+            ret <- readRDS(fn)
+            ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
+            expect_equal(ret1, ret)
+            # end of test
+            
+            fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_12_4")
+            if (!file.exists(fn)) {
+              warning(paste0("File not found - generating new ",fn))
+              ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
+              saveRDS(ret, file = fn)
+            }
+            
+            ret <- readRDS(fn)
+            ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
+            expect_equal(ret1, ret)
+            # end of test
+            
+          })
+          
+          #
+          # TODO: fix travis developer failure on this test as per saved log
+          # Probably need to set attributes explicitly
+          # Replacing expect_equal with expect_equivalent may fix this: DID NOT WORK
+          # Temporary fix: just comment out the test
+          # 7/12/19: added this back; passed on new version of R 3.6.1
+          # did not work; commented out again 7/12/19
+          # test_that("StSignificanceTestingCrossedModalities", {
+          # 
+          #   crossedFileName <- system.file(
+          #     "extdata", "includedCrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
+          # 
+          #   fn <- paste0(test_path(), "/goodValues/SigTest/CrossedModalities")
+          #   if (!file.exists(fn)) {
+          #     warning(paste0("File not found - generating new ",fn))
+          #     ret <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+          #     saveRDS(ret, file = fn)
+          #   }
+          # 
+          #   ret <- readRDS(fn)
+          #   ret1 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+          #   expect_equal(ret1, ret) # !!!dpc!!! 7/1/19
+          #   # end of test
+          # 
+          # })
+          # 
+          

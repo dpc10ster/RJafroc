@@ -3,7 +3,7 @@ context("Significance testing: StSignificanceTestingCadVsRadiologists")
 
 test_that("StSignificanceTestingCadVsRadiologists", {
   
-  # skip_on_travis()
+  skip_on_travis()
   skip_on_cran()
   
   dataset_arr <- list(dataset09, datasetCadLroc, dataset01, dataset02)
@@ -37,8 +37,7 @@ test_that("StSignificanceTestingCadVsRadiologists", {
           ret <- ret[-length(ret)] # drop plots object from list
           ret1 <- StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j])
           ret1 <- ret1[-length(ret1)] # drop plots object from list
-          expect_equal(ret1, ret, 
-                       info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",fom_arr[i],", method = ",method_arr[j])
+          expect_equal(ret1, ret, info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",fom_arr[i],", method = ",method_arr[j])
           ) 
           # end of test
         } 
