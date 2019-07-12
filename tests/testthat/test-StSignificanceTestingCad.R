@@ -34,7 +34,7 @@ test_that("StSignificanceTestingCadVsRadiologists", {
           }  
           ret <- readRDS(fn)
           ret1 <- StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j])
-          expect_equivalent(ret1, ret, 
+          expect_equal(ret1, ret, # expect_equivalent does not work on Travis
             info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",fom_arr[i],", method = ",method_arr[j])
           )
           # end of test
