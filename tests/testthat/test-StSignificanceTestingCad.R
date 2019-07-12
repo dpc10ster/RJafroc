@@ -17,14 +17,15 @@ test_that("StSignificanceTestingCadVsRadiologists", {
       for (j in 1:length(method_arr)) {
         
         if ((dataset$dataType == "ROC") && (fom_arr[i] != "Wilcoxon")){
-          
           expect_error(StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j]))
           
-        } else if ((dataset$dataType == "ROC") && (fom_arr[i] %in% c("PCL", "ALROC"))) {
-          
+        } else if (dataset$dataType == "FROC") {
+          # DPC: FROC unimplemented at this time 6/30/19 
           expect_error(StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j]))
+          # end of test
           
-        } else if (((dataset$dataType == "LROC") && (fom_arr[i] %in% c("Wilcoxon", "ALROC", "PCL")))) {
+        } else if ((dataset$dataType == "LROC") && (fom_arr[i] %in% c("ALROC", "PCL")) || ((dataset$dataType == "ROC") && (fom_arr[i] == "Wilcoxon"))) {
+          if (length(dataset$NL[,1,1,1]) != 1) next
           
           fn <- paste0(test_path(), "/goodValues/SigTestCad/", dataset_arr_str[d], method_arr[j], fom_arr[i])
           if (!file.exists(fn)) {
@@ -33,23 +34,14 @@ test_that("StSignificanceTestingCadVsRadiologists", {
             saveRDS(ret, file = fn)
           }  
           ret <- readRDS(fn)
+          ret <- ret[-length(ret)] # drop plots object from list
           ret1 <- StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j])
-          expect_equal(ret1, ret, # expect_equivalent does not work on Travis
-            info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",fom_arr[i],", method = ",method_arr[j])
-          )
+          ret1 <- ret1[-length(ret1)] # drop plots object from list
+          expect_equal(ret1, ret, 
+                       info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",fom_arr[i],", method = ",method_arr[j])
+          ) 
           # end of test
-          
-        } else if ((dataset$dataType == "ROC") && (fom_arr[i] != "Wilcoxon")) {
-          
-          expect_error(StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j]))
-          # end of test
-          
-        } else if (dataset$dataType == "FROC") {
-          # DPC: FROC unimplemented at this time 6/30/19 
-          expect_error(StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j]))
-          # end of test
-          
-        }
+        } 
         
       }
     }

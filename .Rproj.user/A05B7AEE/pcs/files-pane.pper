@@ -1,5 +1,5 @@
 {
-    "path" : "~/RJafroc.Rcheck",
+    "path" : "~/RJafroc/tests/testthat/goodValues/SigTestCad",
     "sortOrder" : [
         {
             "ascending" : false,
