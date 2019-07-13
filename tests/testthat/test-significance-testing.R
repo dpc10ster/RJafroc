@@ -29,21 +29,23 @@ test_that("SignificanceTestingAllCombinations", {
           fn <- paste0(test_path(), "/goodValues/SigTest/", dataset_arr_str[d], FOM_arr[i], method_arr[j])
           if (!file.exists(fn)) {
             warning(paste0("File not found - generating new ",fn))
-            ret <- StSignificanceTesting(dataset, FOM = FOM_arr[i], method = method_arr[j])
-            saveRDS(ret, file = fn)
+            GoodValues <- StSignificanceTesting(dataset, FOM = FOM_arr[i], method = method_arr[j])
+            saveRDS(GoodValues, file = fn)
           }
           
-          # attributes(ret) <- NULL
-          # ret <- ret[c(-2,-3)] # removed anovaY and anovaYi list members
+          # attributes(GoodValues) <- NULL
+          # GoodValues <- GoodValues[c(-2,-3)] # removed anovaY and anovaYi list members
           # causes failure in R CMD check but not in devtools::test(); go figure 6/30/19 !!!dpc!!!
           # causes failure in R CMD check but not in devtools::test(); go figure 7/12/19 !!!dpc!!!
-          # attributes(ret1) <- NULL
-          # ret1 <- ret1[c(-2,-3)] # removed anovaY and anovaYi list members
-          ret <- readRDS(fn)
-          ret1 <- StSignificanceTesting(dataset, FOM = FOM_arr[i],method = method_arr[j])
-          for (i1 in 1:length(ret1)) {
-            expect_equal(ret1[[i1]], ret[[i1]], # could use expect_equivalent and then I don't have to set attributes to NULL??
-                         info = paste0("List member = ", i1, "Dataset = ", dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j]))
+          # attributes(CurrentValues) <- NULL
+          # CurrentValues <- CurrentValues[c(-2,-3)] # removed anovaY and anovaYi list members
+          GoodValues <- readRDS(fn)
+          CurrentValues <- StSignificanceTesting(dataset, FOM = FOM_arr[i],method = method_arr[j])
+          if (length(CurrentValues) != length(GoodValues)) stop(paste0("Incorrect list lengths", 
+            "Dataset = ", dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j]))
+          for (listMem in 1:length(CurrentValues)) {
+            expect_equal(CurrentValues[[listMem]], GoodValues[[listMem]], # could use expect_equivalent and then I don't have to set attributes to NULL??
+                         info = paste0("List member = ", listMem, ", Dataset = ", dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j]))
           }
           # end of tests
         }
@@ -66,37 +68,37 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_02_1_14")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
-    saveRDS(ret, file = fn)
+    GoodValues <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
+    saveRDS(GoodValues, file = fn)
   }
   
-  ret <- readRDS(fn)
-  ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
-  expect_equal(ret1, ret)
+  GoodValues <- readRDS(fn)
+  CurrentValues <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
+  expect_equal(CurrentValues, GoodValues)
   # end of test
   
   fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_1_14")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
-    saveRDS(ret, file = fn)
+    GoodValues <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
+    saveRDS(GoodValues, file = fn)
   }
   
-  ret <- readRDS(fn)
-  ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
-  expect_equal(ret1, ret)
+  GoodValues <- readRDS(fn)
+  CurrentValues <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
+  expect_equal(CurrentValues, GoodValues)
   # end of test
   
   fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_12_4")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
-    saveRDS(ret, file = fn)
+    GoodValues <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
+    saveRDS(GoodValues, file = fn)
   }
   
-  ret <- readRDS(fn)
-  ret1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
-  expect_equal(ret1, ret)
+  GoodValues <- readRDS(fn)
+  CurrentValues <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
+  expect_equal(CurrentValues, GoodValues)
   # end of test
   
 })
@@ -116,13 +118,13 @@ test_that("StSignificanceTestingSingleFixedFactor", {
 #   fn <- paste0(test_path(), "/goodValues/SigTest/CrossedModalities")
 #   if (!file.exists(fn)) {
 #     warning(paste0("File not found - generating new ",fn))
-#     ret <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
-#     saveRDS(ret, file = fn)
+#     GoodValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+#     saveRDS(GoodValues, file = fn)
 #   }
 # 
-#   ret <- readRDS(fn)
-#   ret1 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
-#   expect_equal(ret1, ret) # !!!dpc!!! 7/1/19
+#   GoodValues <- readRDS(fn)
+#   CurrentValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+#   expect_equal(CurrentValues, GoodValues) # !!!dpc!!! 7/1/19
 #   # end of test
 # 
 # })
