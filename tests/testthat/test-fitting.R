@@ -13,7 +13,7 @@ context("Fitting routines")
 
 test_that("FitBinormalRoc", {
 
-  fn <- paste0(test_path(), "/goodValues/Fitting/BinormalRoc02")
+  fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- FitBinormalRoc(dataset02)[1:7]
@@ -29,7 +29,7 @@ test_that("FitBinormalRoc", {
 
 test_that("FitBinormalRoc", {
 
-  fn <- paste0(test_path(), "/goodValues/Fitting/BinormalRoc05")
+  fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc05", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- FitBinormalRoc(DfBinDataset(dataset05, desiredNumBins = 5, opChType = "ROC"))
@@ -48,7 +48,7 @@ test_that("FitBinormalRoc", {
 
 test_that("FitCbmRoc", {
 
-  fn <- paste0(test_path(), "/goodValues/Fitting/CbmRoc")
+  fn <- paste0(test_path(), "/goodValues361/Fitting/CbmRoc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- FitCbmRoc(dataset02)[1:7]
@@ -67,7 +67,7 @@ test_that("FitCorCbm", {
   skip_on_travis()
   skip_on_cran()
 
-  fn <- paste0(test_path(), "/goodValues/Fitting/CorCbm")
+  fn <- paste0(test_path(), "/goodValues361/Fitting/CorCbm", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- FitCorCbm(DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7)))
@@ -91,7 +91,7 @@ test_that("FitRsmRoc", {
   skip_on_cran()
   skip_on_travis()
   
-  fn <- paste0(test_path(), "/goodValues/Fitting/RsmRoc")
+  fn <- paste0(test_path(), "/goodValues361/Fitting/RsmRoc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- FitRsmRoc(dataset02, UtilLesionDistribution(dataset02))[1:8]
@@ -102,7 +102,7 @@ test_that("FitRsmRoc", {
   expect_equal(FitRsmRoc(dataset02, UtilLesionDistribution(dataset02))[1:8], ret, tolerance = 1e-6)
   # end of test
 
-  fn <- paste0(test_path(), "/goodValues/Fitting/RsmRocDegenerate")
+  fn <- paste0(test_path(), "/goodValues361/Fitting/RsmRocDegenerate", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- FitRsmRoc(datasetDegenerate, UtilLesionDistribution(datasetDegenerate))[1:8]

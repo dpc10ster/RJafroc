@@ -2,7 +2,7 @@ context("CORCBM routines")
 
 test_that("DfCreate/ExtractCorCbmDataset", {
 
-  fn <- paste0(test_path(), "/goodValues/CORCBM/DfCreateCorCbmDataset")
+  fn <- paste0(test_path(), "/goodValues361/CORCBM/DfCreateCorCbmDataset", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ds <- DfCreateCorCbmDataset()
@@ -13,7 +13,7 @@ test_that("DfCreate/ExtractCorCbmDataset", {
   expect_equal(DfCreateCorCbmDataset(), ds)
   # end of test
 
-  fn <- paste0(test_path(), '/goodValues/CORCBM/DfExtractCorCbmDataset')
+  fn <- paste0(test_path(), '/goodValues361/CORCBM/DfExtractCorCbmDataset', ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ds <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3))

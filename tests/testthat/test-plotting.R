@@ -2,7 +2,7 @@ context("Plotting routines")
 
 test_that("PlotBinormalFit", {
   
-  fn <- paste0(test_path(), "/goodValues/Plots/Binormal")
+  fn <- paste0(test_path(), "/goodValues361/Plots/Binormal", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotBinormalFit(c(1, 2), c(0.5, 0.5))
@@ -18,7 +18,7 @@ test_that("PlotBinormalFit", {
 test_that("PlotCbmFit", {
   Sys.sleep(0.2)
   
-  fn <- paste0(test_path(), "/goodValues/Plots/Cbm")
+  fn <- paste0(test_path(), "/goodValues361/Plots/Cbm", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
@@ -40,7 +40,7 @@ test_that("PlotRsmOperatingCharacteristics", {
                          c(0.2,  0.3,  0.5, -Inf), 
                          c(0.3,  0.4, 0.2,  0.1))
   
-  fn <- paste0(test_path(), "/goodValues/Plots/Rsm")
+  fn <- paste0(test_path(), "/goodValues361/Plots/Rsm", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
@@ -63,7 +63,7 @@ test_that("PlotOperatingCharacteristics", {
   plotT <- list(1, 2, c(1:2), c(1:2))
   plotR <- list(2, c(2:3), c(1:3), 1)
   
-  fn <- paste0(test_path(), "/goodValues/Plots/ds04-ROC")
+  fn <- paste0(test_path(), "/goodValues361/Plots/ds04-ROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR) # ROC
@@ -74,7 +74,7 @@ test_that("PlotOperatingCharacteristics", {
   expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR), ret)
   # end of test
   
-  fn <- paste0(test_path(), "/goodValues/Plots/ds04-FROC")
+  fn <- paste0(test_path(), "/goodValues361/Plots/ds04-FROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "FROC") # FROC
@@ -87,7 +87,7 @@ test_that("PlotOperatingCharacteristics", {
   
   Sys.sleep(0.2)
   
-  fn <- paste0(test_path(), "/goodValues/Plots/ds04-AFROC")
+  fn <- paste0(test_path(), "/goodValues361/Plots/ds04-AFROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC") # AFROC
@@ -100,7 +100,7 @@ test_that("PlotOperatingCharacteristics", {
   
   Sys.sleep(0.2)
   
-  fn <- paste0(test_path(), "/goodValues/Plots/ds04-wAFROC")
+  fn <- paste0(test_path(), "/goodValues361/Plots/ds04-wAFROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC") # AFROC
@@ -113,7 +113,7 @@ test_that("PlotOperatingCharacteristics", {
   
   Sys.sleep(0.2)
   
-  fn <- paste0(test_path(), "/goodValues/Plots/ds04-AFROC1")
+  fn <- paste0(test_path(), "/goodValues361/Plots/ds04-AFROC1", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC1") # AFROC1
@@ -126,7 +126,7 @@ test_that("PlotOperatingCharacteristics", {
   
   Sys.sleep(0.2)
   
-  fn <- paste0(test_path(), "/goodValues/Plots/ds04-wAFROC1")
+  fn <- paste0(test_path(), "/goodValues361/Plots/ds04-wAFROC1", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC1") # wAFROC1

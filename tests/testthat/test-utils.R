@@ -1,7 +1,7 @@
 test_that("UtilIntrinsic2Physical", {
   mu <- 2;lambda <- 20;nu <- 1.1512925
 
-  fn <- paste0(test_path(), "/goodValues/Utils/Intrinsic2PhysicalRSM")
+  fn <- paste0(test_path(), "/goodValues361/Utils/Intrinsic2PhysicalRSM", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
@@ -18,7 +18,7 @@ test_that("UtilIntrinsic2Physical", {
 test_that("UtilAucBinormal", {
   a <- 2;b <- 0.7
 
-  fn <- paste0(test_path(), "/goodValues/Utils/AucBinormal")
+  fn <- paste0(test_path(), "/goodValues361/Utils/AucBinormal", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- UtilAucBinormal(a,b)
@@ -34,7 +34,7 @@ test_that("UtilAucBinormal", {
 test_that("UtilAucCBM", {
   mu <- 2;alpha <- 0.8
 
-  fn <- paste0(test_path(), "/goodValues/Utils/AucCbm")
+  fn <- paste0(test_path(), "/goodValues361/Utils/AucCbm", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- UtilAucCBM(mu,alpha)
@@ -50,7 +50,7 @@ test_that("UtilAucCBM", {
 test_that("UtilAucPROPROC", {
   c1 <- .2;da <- 1.5
 
-  fn <- paste0(test_path(), "/goodValues/Utils/AucPROPROC")
+  fn <- paste0(test_path(), "/goodValues361/Utils/AucPROPROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- UtilAucPROPROC(c1,da)
@@ -67,7 +67,7 @@ test_that("UtilAucsRSM", {
   mu <- 1;lambdaP <- 1;nuP <- 1
   lesDistr <- rbind(c(1, 0.9), c(2, 0.1))
 
-    fn <- paste0(test_path(), "/goodValues/Utils/AucRSM")
+    fn <- paste0(test_path(), "/goodValues361/Utils/AucRSM", ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
       ret <- UtilAucsRSM(mu, lambdaP, nuP, lesDistr)
@@ -90,7 +90,7 @@ test_that("UtilPseudoValues", {
 
   for (i in 1:length(FOM_arr)) {
 
-    fn <- paste0(test_path(), "/goodValues/Utils/PseudoValues", "-", FOM_arr[i])
+    fn <- paste0(test_path(), "/goodValues361/Utils/PseudoValues", "-", FOM_arr[i], ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
       ret <- UtilPseudoValues(dataset, FOM = FOM_arr[i])
@@ -110,7 +110,7 @@ test_that("UtilPseudoValues", {
 
 test_that("UtilMeanSquaresDBMH", {
 
-  fn <- paste0(test_path(), "/goodValues/Utils/PseudoValues", "-", "Wilcoxon")
+  fn <- paste0(test_path(), "/goodValues361/Utils/PseudoValues", "-", "Wilcoxon", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- UtilPseudoValues(dataset02, FOM = "Wilcoxon")
@@ -127,7 +127,7 @@ test_that("UtilMeanSquaresDBMH", {
 
 test_that("UtilLesionDistribution", {
 
-    fn <- paste0(test_path(), "/goodValues/Utils/LesionWeights01")
+    fn <- paste0(test_path(), "/goodValues361/Utils/LesionWeights01", ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
       ret <- UtilLesionWeights (UtilLesionDistribution(dataset01))
@@ -138,7 +138,7 @@ test_that("UtilLesionDistribution", {
     expect_equal(UtilLesionWeights (UtilLesionDistribution(dataset01)), ret)
     # end of test
 
-    fn <- paste0(test_path(), "/goodValues/Utils/LesionWeights05")
+    fn <- paste0(test_path(), "/goodValues361/Utils/LesionWeights05", ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
       ret <- UtilLesionWeights (UtilLesionDistribution(dataset05))

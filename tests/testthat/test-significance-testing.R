@@ -26,7 +26,7 @@ test_that("SignificanceTestingAllCombinations", {
           
         } else {
           
-          fn <- paste0(test_path(), "/goodValues/SigTest/", dataset_arr_str[d], FOM_arr[i], method_arr[j])
+          fn <- paste0(test_path(), "/goodValues361/SigTest/", dataset_arr_str[d], FOM_arr[i], method_arr[j], ".rds")
           if (!file.exists(fn)) {
             warning(paste0("File not found - generating new ",fn))
             GoodValues <- StSignificanceTesting(dataset, FOM = FOM_arr[i], method = method_arr[j])
@@ -65,7 +65,7 @@ test_that("SignificanceTestingAllCombinations", {
 
 test_that("StSignificanceTestingSingleFixedFactor", {
   
-  fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_02_1_14")
+  fn <- paste0(test_path(), "/goodValues361/SigTest/SingleFixedFactor_02_1_14", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     GoodValues <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
@@ -77,7 +77,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   expect_equal(CurrentValues, GoodValues)
   # end of test
   
-  fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_1_14")
+  fn <- paste0(test_path(), "/goodValues361/SigTest/SingleFixedFactor_05_1_14", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     GoodValues <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4))
@@ -89,7 +89,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   expect_equal(CurrentValues, GoodValues)
   # end of test
   
-  fn <- paste0(test_path(), "/goodValues/SigTest/SingleFixedFactor_05_12_4")
+  fn <- paste0(test_path(), "/goodValues361/SigTest/SingleFixedFactor_05_12_4", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     GoodValues <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4))
@@ -115,7 +115,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
 #   crossedFileName <- system.file(
 #     "extdata", "includedCrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
 # 
-#   fn <- paste0(test_path(), "/goodValues/SigTest/CrossedModalities")
+#   fn <- paste0(test_path(), "/goodValues361/SigTest/CrossedModalities", ".rds")
 #   if (!file.exists(fn)) {
 #     warning(paste0("File not found - generating new ",fn))
 #     GoodValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)

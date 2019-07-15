@@ -24,13 +24,13 @@ test_that("UtilOutputReport text format", {
           
         } else {
           
-          fn <- paste0(test_path(), "/goodValues/OutputReport/",dataset_arr_str[d], 
+          fn <- paste0(test_path(), "/goodValues361/OutputReport/",dataset_arr_str[d], 
                        FOM_arr[i], method_arr[j], ".txt") # MUST be text format !! dpc 6/30/19
           if (!file.exists(fn)) {
             UtilOutputReport(dataset, FOM = FOM_arr[i], method = method_arr[j], ReportFileName = fn, overwrite = TRUE)
           }
           
-          fn2 <- paste0(test_path(), "/goodValues/OutputReport/",dataset_arr_str[d], 
+          fn2 <- paste0(test_path(), "/goodValues361/OutputReport/",dataset_arr_str[d], 
                         FOM_arr[i], method_arr[j], "Temp.txt")
           UtilOutputReport(dataset, FOM = FOM_arr[i], method = method_arr[j], ReportFileName = fn2, overwrite = TRUE)
           xx <- file(fn, open = "rt")
@@ -52,12 +52,12 @@ test_that("UtilOutputReport text format", {
 
 test_that("UtilOutputReportExcel", {
 
-  fn <- paste0(test_path(), "/goodValues/OutputReport/", "dataset03", ".xlsx")
+  fn <- paste0(test_path(), "/goodValues361/OutputReport/", "dataset03", ".xlsx")
   if (!file.exists(fn)) {
     UtilOutputReport(dataset03, ReportFileName = fn, ReportFileFormat = "xlsx", overwrite = TRUE)
   }
 
-  fn1 <- paste0(test_path(), "/goodValues/OutputReport/", "dataset03", "1.xlsx")
+  fn1 <- paste0(test_path(), "/goodValues361/OutputReport/", "dataset03", "1.xlsx")
   UtilOutputReport(dataset03, ReportFileName = fn1, ReportFileFormat = "xlsx", overwrite = TRUE)
   for (i in 2:6) { # there are 3 worksheets in Excel file; skip summary sheet which has date stuff
     dfGood <- readWorkbook(fn, i) # check each sheet individually

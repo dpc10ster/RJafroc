@@ -412,6 +412,7 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         
       }
       # START DPC edits; 7/11/19; no substantive changes, just more consistent usage; did universal search for data.frame 
+      # pulled critical fix #23, Peter, shown below ...
       ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
                                   Estimate = diffTRMeans, 
                                   StdErr = rep(stdErrRRRC, choose(I, 2)), 
@@ -435,8 +436,8 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
       }
       ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, 
                                         Area = trMeans, 
-                                        StdErr = as.vector(stdErrSingleRRRC), 
-                                        DF = as.vector(dfSingleRRRC), 
+                                        StdErr = as.vector(stdErrSingleRRRC), # this was the critical fix, Peter
+                                        DF = as.vector(dfSingleRRRC),  # this was the critical fix, Peter
                                         CILower = CISingleRRRC[,1], 
                                         CIUpper = CISingleRRRC[,2], 
                                         row.names = NULL)

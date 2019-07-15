@@ -31,16 +31,16 @@ context("Compare3ProperRocFits routines - these have inherent randomness; hence 
 test_that("Compare3ProperRocFits", {
   
   skip_on_cran()
-  skip_on_travis()
+  #skip_on_travis()
     
   set.seed(1)
-  fn <- paste0(test_path(), "/goodValues/Compare3ProperRocFits/Compare3ProperRocFits01")
+  fn <- paste0(test_path(), "/goodValues361/Compare3ProperRocFits/Compare3ProperRocFits01.rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     x <- Compare3ProperRocFits(1,1,reAnalyze = TRUE)
     x1 <- x; x <- x$allDatasetsResults;x <- x[[1]][[1]]$retRsm
     x[9:10] <- NULL # remove the covariance matrices ...Peter's input
-    saveRDS(x, fn) # a per Peter's suggestion to  use this more portable method
+    saveRDS(x, fn) # as per Peter's suggestion to  use this more portable method
   }
   
   set.seed(1)

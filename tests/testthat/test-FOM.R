@@ -8,7 +8,7 @@ test_that("ROC dataset dataset02: FOM = Wilcoxon", {
   dataset <- dataset02
   FOM = "Wilcoxon"
 
-  fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritROC-", FOM)
+  fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritROC-", FOM, ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- UtilFigureOfMerit(dataset, FOM = FOM)
@@ -37,7 +37,7 @@ test_that("FROC dataset: all FOMs except ...", {
 
     FOM  <- FOM_arr[i]
 
-    fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritFROC-", FOM)
+    fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritFROC-", FOM, ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
       ret <- UtilFigureOfMerit(dataset, FOM = FOM)
@@ -68,7 +68,7 @@ test_that("FROC data: excessive computation time FOMs", {
 
     FOM  <- FOM_arr[i]
 
-    fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritFROC-", FOM)
+    fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritFROC-", FOM, ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
       ret <- UtilFigureOfMerit(dataset, FOM = FOM)
@@ -91,7 +91,7 @@ test_that("ROI paradigm", {
   dataset <- datasetROI
   FOM <- "ROI"
 
-  fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritROI")
+  fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritROI", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- UtilFigureOfMerit(dataset, FOM = FOM)
@@ -114,7 +114,7 @@ test_that("LROC paradigm: FOM = Wilcoxon, ALROC", {
 
     FOM <- FOM_arr[i]
 
-    fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritLROC-", FOM)
+    fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritLROC-", FOM, ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
       ret <- UtilFigureOfMerit(dataset, FOM = FOM)
@@ -137,7 +137,7 @@ test_that("LROC paradigm: FOM = PCL@FPFValue", {
   dataset <- datasetCadLroc
   FOM <- "PCL"
 
-  fn <- paste0(test_path(), "/goodValues/FOM/UtilFigureOfMeritLROC-", FOM)
+  fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritLROC-", FOM, ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2)

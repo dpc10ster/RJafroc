@@ -3,7 +3,7 @@ context("Significance testing: StSignificanceTestingCadVsRadiologists")
 
 test_that("StSignificanceTestingCadVsRadiologists", {
   
-  skip_on_travis()
+  #skip_on_travis()
   skip_on_cran()
   
   dataset_arr <- list(dataset09, datasetCadLroc, dataset01, dataset02)
@@ -27,7 +27,8 @@ test_that("StSignificanceTestingCadVsRadiologists", {
         } else if ((dataset$dataType == "LROC") && (fom_arr[i] %in% c("ALROC", "PCL")) || ((dataset$dataType == "ROC") && (fom_arr[i] == "Wilcoxon"))) {
           if (length(dataset$NL[,1,1,1]) != 1) next
           
-          fn <- paste0(test_path(), "/goodValues/SigTestCad/", dataset_arr_str[d], method_arr[j], fom_arr[i])
+          fn <- paste0(test_path(), "/goodValues361/SigTestCad/", 
+                       dataset_arr_str[d], method_arr[j], fom_arr[i], ".rds")
           if (!file.exists(fn)) {
             warning(paste0("File not found - generating new ",fn))
             ret <- StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j])
