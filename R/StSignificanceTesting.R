@@ -435,8 +435,8 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
       }
       ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, 
                                         Area = trMeans, 
-                                        StdErr = stdErrSingleRRRC, 
-                                        DF = dfSingleRRRC, 
+                                        StdErr = as.vector(stdErrSingleRRRC), 
+                                        DF = as.vector(dfSingleRRRC), 
                                         CILower = CISingleRRRC[,1], 
                                         CIUpper = CISingleRRRC[,2], 
                                         row.names = NULL)
@@ -491,8 +491,8 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
     }
     ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID, 
                                       Area = trMeans, 
-                                      StdErr = stdErrSingleFRRC, 
-                                      DF = dfSingleFRRC, 
+                                      StdErr = as.vector(stdErrSingleFRRC), 
+                                      DF = as.vector(dfSingleFRRC), 
                                       CILower = CISingleFRRC[,1], 
                                       CIUpper = CISingleFRRC[,2], 
                                       row.names = NULL)
@@ -613,8 +613,8 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
       }
       ciAvgRdrEachTrtRRFC <- data.frame(Treatment = modalityID, 
                                         Area = trMeans, 
-                                        StdErr = stdErrSingleRRFC, 
-                                        DF = dfSingleRRFC, 
+                                        StdErr = as.vector(stdErrSingleRRFC), 
+                                        DF = as.vector(dfSingleRRFC), 
                                         CILower = CISingleRRFC[,1], 
                                         CIUpper = CISingleRRFC[,2], 
                                         row.names = NULL)
@@ -840,8 +840,8 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       }
       ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, 
                                         Area = trMeans, 
-                                        StdErr = stdErrSingleRRRC, 
-                                        DF = dfSingleRRRC, 
+                                        StdErr = as.vector(stdErrSingleRRRC), 
+                                        DF = as.vector(dfSingleRRRC), 
                                         CILower = CISingleRRRC[,1], 
                                         CIUpper = CISingleRRRC[,2], 
                                         row.names = NULL)
@@ -900,8 +900,8 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
     }
     ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID, 
                                       Area = trMeans, 
-                                      StdErr = stdErrSingleFRRC, 
-                                      DF = dfSingleFRRC, 
+                                      StdErr = as.vector(stdErrSingleFRRC), 
+                                      DF = as.vector(dfSingleFRRC), 
                                       CILower = CISingleFRRC[,1], 
                                       CIUpper = CISingleFRRC[,2], 
                                       row.names = NULL)
@@ -996,8 +996,8 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       }
       ciAvgRdrEachTrtRRFC <- data.frame(Treatment = modalityID, 
                                         Area = trMeans, 
-                                        StdErr = stdErrSingleRRFC, 
-                                        DF = dfSingleRRFC, 
+                                        StdErr = as.vector(stdErrSingleRRFC), 
+                                        DF = as.vector(dfSingleRRFC), 
                                         CILower = CISingleRRFC[,1], 
                                         CIUpper = CISingleRRFC[,2], 
                                         row.names = NULL)
