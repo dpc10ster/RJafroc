@@ -14,6 +14,10 @@
 #' 
 #' @export
 
+# UtilPseudoValues.R had errors insofar as it was dropping the 1 dimension in 
+# lesionID and lesionWeight; was affecting StSingleModality when used with 
+# wAFROC FOM. This part of the code needs further checking; 
+# no essential changes made in MyFOM.cpp and gpfMyFOM.R
 UtilPseudoValues <- function(dataset, FOM = "Wilcoxon"){
   NL <- dataset$NL
   LL <- dataset$LL

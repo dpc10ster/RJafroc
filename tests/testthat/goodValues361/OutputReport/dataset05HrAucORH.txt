@@ -8,31 +8,44 @@ IN THE SOFTWARE.
 
 ================================================================================
 
-R version: R version 3.5.1 (2018-07-02)
-RJafroc version: 1.1.1.9000
-Run date: Dec 03 2018 Mon 20:57:55 EST
- FOM selected         :     Wilcoxon
- Input  Data          :     /Users/Dev/rjafroc-master/inst/extdata/includedRocData.lrc
- Output Data Filename :     includedRocDataOutput.txt
+R version: R version 3.6.0 (2019-04-26)
+RJafroc version: 1.2.0
+Run date: Jul 15 2019 Mon 12:39:24 EDT
+ FOM selected         :     HrAuc
+ Input  Data          :     MyData
+ Output Data Filename :     ./goodValues361/OutputReport/dataset05HrAucORH.txt
 
 ================================================================================
 
- Significance testing method:  DBM-MRMC-HILLIS SIGNIFICANCE TESTING
- Number of Readers          :  5
+ Significance testing method:  OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING
+ Number of Readers          :  9
  Number of Treatments       :  2
- Number of Normal Cases     :  69
- Number of Abnormal Cases   :  45
- Fraction of Normal Cases   :  0.605263
+ Number of Normal Cases     :  45
+ Number of Abnormal Cases   :  47
+ Fraction of Normal Cases   :  0.489130
+ Min number of lesions per diseased case   :  1
+ Max number of lesions per diseased case   :  3
+ Mean number of lesions per diseased case  :  1.255319
+ Total number of lesions                   :  59
+ Inc. Loc. Frac.          :  0.161348
+
 
 ================================================================================
 
- Modality IDs in the input file are:  0, 1
+ Avg. number of non-lesion localization marks per reader on non-diseased cases: 0.509877
+ Avg. number of non-lesion localization marks per reader on diseased cases:  0.382979
+ Avg. number of lesion localization marks per reader :  0.997636
 
- Modality IDs in the output file are: 0, 1
 
- Reader IDs in the input file are:    0, 1, 2, 3, 4
+================================================================================
 
- Reader IDs in the output file are:   0, 1, 2, 3, 4
+ Modality IDs in the input file are:  1, 2
+
+ Modality IDs in the output file are: 1, 2
+
+ Reader IDs in the input file are:    1, 2, 3, 4, 5, 6, 7, 8, 9
+
+ Reader IDs in the output file are:   1, 2, 3, 4, 5, 6, 7, 8, 9
 
 ================================================================================
 
@@ -70,72 +83,47 @@ Run date: Dec 03 2018 Mon 20:57:55 EST
 
                         TREATMENT
               -----------------------
-  READER      0            1         
+  READER      1            2         
 ----------    ----------   ----------
-0             0.91964573   0.94782609
-1             0.85877617   0.90531401
-2             0.90386473   0.92173913
-3             0.97310789   0.99935588
-4             0.82979066   0.92995169
+1             0.85886525   0.89148936
+2             0.89314421   0.97612293
+3             0.88226950   0.88274232
+4             0.73026005   0.84822695
+5             0.71418440   0.83995272
+6             0.92907801   0.90898345
+7             0.91891253   0.95248227
+8             0.87919622   0.93380615
+9             0.81442080   0.85697400
 
 
  TREATMENT MEANS (averaged across readers)
 ----------    -----------------------------
-0             0.89703704
-1             0.94083736
+1             0.84670344
+2             0.89897557
 
 
 
  TREATMENT MEAN DIFFERENCES
 ----------   ----------    -----------
-0          - 1             -0.04380032
+1          - 2             -0.05227213
 
 
 
 
- ===========================================================================
- *****                          ANOVA Tables                           *****
- ===========================================================================
-
- TREATMENT X READER X CASE ANOVA
-
-Source            SS               DF             MS        
-------   --------------------    ------   ------------------
-     T             0.54676344         1           0.54676344
-     R             1.74930720         4           0.43732680
-     C            44.84629692       113           0.39686988
-    TR             0.25126996         4           0.06281749
-    TC            11.28283352       113           0.09984808
-    RC            29.15447929       452           0.06450106
-   TRC            18.06716464       452           0.03997160
- Total           105.89811497      1139
-
-
-
- TREATMENT X READER X CASE ANOVA
-
-
-
-                        Mean Squares
- Source     df   0            1         
- ------    ---   ----------   ----------   
-      R      4   0.35141967   0.14872462
-      C    113   0.33629430   0.16042367
-     RC    452   0.06043607   0.04403659
  ===========================================================================
  *****                  Variance Components Estimates                  *****
  ===========================================================================
 
- DBM variance component and covariance estimates
+ Obuchowski-Rockette variance component and covariance estimates
 
-     DBM Component             Estimate    
+     OR Component             Estimate    
  -----------------------  ----------------
- Var(R)                        0.00153500
- Var(C)                        0.02724923
- Var(T*R)                      0.00020040
- Var(T*C)                      0.01197530
- Var(R*C)                      0.01226473
- Var(Error)                    0.03997160
+ Var(R)                        0.00221163
+ Var(T*R)                     -0.00214704
+ COV1                          0.00181425
+ COV2                          0.00130213
+ COV3                          0.00104824
+ Var(Error)                    0.00542869
 
 
  ===========================================================================
@@ -146,29 +134,29 @@ Source            SS               DF             MS
  (Results apply to the population of readers and cases)
 
 
-    a) Test for H0: Treatments have the same Wilcoxon figure of merit.
+    a) Test for H0: Treatments have the same HrAuc figure of merit.
 
 
  Source        DF    Mean Square      F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.54676344     4.46   0.0517
- Error        15.26       0.12269397
- Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]
+ Treatment        1       0.01229569     3.51   0.0652
+ Error        66.49       0.00121352
+ Error term: MS(TR) + J * max[Cov2 - Cov3, 0]
 
- Conclusion: The Wilcoxon FOMs of treatments are not significantly different,
-             F(1,15.26) = 4.46, p = 0.0517.
+ Conclusion: The HrAuc FOMs of treatments are not significantly different,
+             F(1,66.49) = 3.51, p = 0.0652.
 
 
     b) 95% confidence intervals for treatment differences
 
        Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
 ----------   ----------  --------  --------  -------  ------  -------  -------------------
-0          - 1           -0.04380   0.02075    15.26   -2.11   0.0517  -0.08796 ,  0.00036
+1          - 2           -0.05227   0.02788    66.49   -1.87   0.0652  -0.10793 ,  0.00339
 
 
 
  H0: the two treatments are equal.
- Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]
+ Error term: MS(TR) + J * max[Cov2 - Cov3, 0]
 
 
     c) 95% treatment confidence intervals based on reader x case ANOVAs
@@ -177,9 +165,9 @@ Source            SS               DF             MS
 
   Treatment     Area      Std Error     DF     95% Confidence Interval 
   ----------  ----------  ----------  -------  -------------------------
-  0           0.89703704  0.03317360    12.74  (0.82522360 , 0.96885048)
-  1           0.94083736  0.02156637    12.71  (0.89413783 , 0.98753689)
- Error term: MS(R) + max[MS(C) - MS(RC), 0]
+  1           0.84670344  0.04271446    58.00  (0.76120119 , 0.93220569)
+  2           0.89897557  0.04136549   363.74  (0.81763003 , 0.98032111)
+
 
 
 
@@ -192,30 +180,29 @@ Source            SS               DF             MS
  used in this study)
 
 
-    a) Test for H0: Treatments have the same Wilcoxon figure of merit.
+    a) Test for H0: Treatments have the same HrAuc figure of merit.
 
 
  Source        DF    Mean Square      F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.54676344     5.48   0.0210
- Error       113.00       0.09984808
-  Error term: MS(TC)
+ Treatment        1       0.01229569     2.18   0.1400
 
- Conclusion: The Wilcoxon FOMs of treatments are not equal,
-             F(1,113.00) = 5.48, p = 0.0210.
+ Error term: Var - Cov1 + (J - 1) * ( Cov2 - Cov3 )
+
+ Conclusion: The HrAuc FOMs of treatments are not significantly different,
+             F(1,Inf) = 2.18, p = 0.1400.
 
 
     b) 95% confidence intervals for treatment differences
 
        Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
 ----------   ----------  --------  --------  -------  ------  -------  -------------------
-0          - 1           -0.04380   0.01872   113.00   -2.34   0.0210  -0.08088 , -0.00672
+1          - 2           -0.05227   0.03542      Inf   -1.48   0.1400  -0.12169 ,  0.01715
 
 
 
  H0: the two treatments are equal.
- Error term: MS(TC) 
-
+ Error term: Var - Cov1 + (J - 1) * ( Cov2 - Cov3 )
 
     c) 95% treatment confidence intervals based on reader x case ANOVAs
        for each treatment (each analysis is based only on data for the
@@ -223,45 +210,36 @@ Source            SS               DF             MS
 
   Treatment     Area      Std Error     DF     95% Confidence Interval 
   ----------  ----------  ----------  -------  -------------------------
-  0           0.89703704  0.02428971   113.00  (0.84891474 , 0.94515933)
-  1           0.94083736  0.01677632   113.00  (0.90760044 , 0.97407428)
- Error term: MS(C) 
-
-
-
- TREATMENT X CASE ANOVAs for each reader
-
-
-                        Sum of Squares
- Source     df   0             1             2             3             4             
- ------    ---   -----------   -----------   -----------   -----------   -----------   
-      T      1     0.0452655     0.1234489     0.0182112     0.0392705     0.5718372   
-      C    113    13.8142273    24.0405509    15.4283316     1.9536987    18.7639677   
-     TC    113     4.1922466     4.4557943     6.2738049     1.9257860    12.5023663   
-
-
-
-                        Mean Squares
- Source     df   0             1             2             3             4             
- ------    ---   -----------   -----------   -----------   -----------   -----------   
-      T      1     0.0452655     0.1234489     0.0182112     0.0392705     0.5718372   
-      C    113     0.1222498     0.2127482     0.1365339     0.0172894     0.1660528   
-     TC    113     0.0370995     0.0394318     0.0555204     0.0170424     0.1106404   
-
-
-
-
+  1           0.84670344  0.04109073      Inf  (0.76616709 , 0.92723980)
+  2           0.89897557  0.04281153      Inf  (0.81506652 , 0.98288462)
+ Error term: Var - Cov1 + (J - 1) * ( Cov2 - Cov3 )
 
     d) Treatment-by-case ANOVA CIs for each reader 
        (each analysis is based only on data for the specified reader)
 
   Reader         Treatment        Estimate  StdErr       DF      t     Pr > t          95% CI      
 ---------- ---------- ----------  --------  --------  -------  ------  -------  -------------------
-0          0         -1           -0.02818   0.02551   113.00   -1.10   0.2717  -0.07872 ,  0.02236
-1          0         -1           -0.04654   0.02630   113.00   -1.77   0.0795  -0.09865 ,  0.00557
-2          0         -1           -0.01787   0.03121   113.00   -0.57   0.5680  -0.07971 ,  0.04396
-3          0         -1           -0.02625   0.01729   113.00   -1.52   0.1318  -0.06051 ,  0.00801
-4          0         -1           -0.10016   0.04406   113.00   -2.27   0.0249  -0.18745 , -0.01288
+1          1         -2           -0.03262   0.12205      Inf   -0.27   0.7892  -0.27184 ,  0.20659
+2          1         -2           -0.08298   0.03347      Inf   -2.48   0.0132  -0.14858 , -0.01738
+3          1         -2           -0.00047   0.09393      Inf   -0.01   0.9960  -0.18457 ,  0.18362
+4          1         -2           -0.11797   0.13336      Inf   -0.88   0.3764  -0.37934 ,  0.14341
+5          1         -2           -0.12577   0.08080      Inf   -1.56   0.1196  -0.28414 ,  0.03260
+6          1         -2            0.02009   0.05639      Inf    0.36   0.7216  -0.09043 ,  0.13062
+7          1         -2           -0.03357   0.03816      Inf   -0.88   0.3791  -0.10837 ,  0.04123
+8          1         -2           -0.05461   0.05428      Inf   -1.01   0.3143  -0.16099 ,  0.05177
+9          1         -2           -0.04255   0.09124      Inf   -0.47   0.6410  -0.22139 ,  0.13628
+
+Reader  Var(Error)     Cov1   
+------  ----------  ----------
+1         0.011353    0.003905
+2         0.000653    9.301827
+3         0.006594    0.002182
+4         0.010775    0.001883
+5         0.010489    0.007225
+6         0.001743    0.000153
+7         0.000765    3.716165
+8         0.002376    0.000903
+9         0.004106    -5.62809
 
 
 
@@ -271,24 +249,24 @@ Source            SS               DF             MS
  (Results apply to the population of readers but only for the cases used in this study)
 
 
-    a) Test for H0: Treatments have the same Wilcoxon figure of merit.
+    a) Test for H0: Treatments have the same HrAuc figure of merit.
 
 
  Source        DF    Mean Square      F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.54676344     8.70   0.0420
- Error         4.00       0.06281749
+ Treatment        1       0.01229569    10.13   0.0129
+ Error         8.00       0.00121352
  Error term: MS(TR)
 
- Conclusion: The Wilcoxon FOMs of treatments are not equal,
-             F(1,4.00) = 8.70, p = 0.0420.
+ Conclusion: The HrAuc FOMs of treatments are not equal,
+             F(1,8.00) = 10.13, p = 0.0129.
 
 
     b) 95% confidence intervals for treatment differences
 
        Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
 ----------   ----------  --------  --------  -------  ------  -------  -------------------
-0          - 1           -0.04380   0.01485     4.00   -2.95   0.0420  -0.08502 , -0.00258
+1          - 2           -0.05227   0.01642     8.00   -3.18   0.0129  -0.09014 , -0.01440
 
 
 
@@ -301,5 +279,5 @@ Source            SS               DF             MS
 
   Treatment     Area      Std Error     DF     95% Confidence Interval 
   ----------  ----------  ----------  -------  -------------------------
-  0           0.89703704  0.02482994     4.00  (0.82809808 , 0.96597599)
-  1           0.94083736  0.01615303     4.00  (0.89598936 , 0.98568536)
+  1           0.84670344  0.02603087     8.00  (0.78667616 , 0.90673073)
+  2           0.89897557  0.01592989     8.00  (0.86224118 , 0.93570997)

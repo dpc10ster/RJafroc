@@ -76,7 +76,12 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alph
     pValue <- pf(fDbmFixed, J - 1, ddf, lower.tail = FALSE)
     
     iniNA <- rep(NA, J)
-    fomStats <- data.frame(reader = iniNA, Area = iniNA, stdErr = iniNA, df = iniNA, ciLower = iniNA, ciUpper = iniNA )
+    fomStats <- data.frame(reader = iniNA, 
+                           Area = iniNA, 
+                           stdErr = iniNA, 
+                           df = iniNA, 
+                           ciLower = iniNA, 
+                           ciUpper = iniNA )
     for (j in 1: J){
       stdErr <- sqrt(MS$msCSingleR[j] / K / I)
       df <- K - 1
@@ -88,7 +93,13 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alph
     nPairs <- choose(J, 2)
     jPair <- 1
     iniNA <- rep(NA, nPairs)
-    ret <- data.frame(reader = iniNA, diff = iniNA, tVal = iniNA, df = iniNA, pVal = iniNA, ciLower = iniNA, ciUpper = iniNA )
+    ret <- data.frame(reader = iniNA, 
+                      diff = iniNA, 
+                      tVal = iniNA, 
+                      df = iniNA, 
+                      pVal = iniNA, 
+                      ciLower = iniNA, 
+                      ciUpper = iniNA )
     for (j in 1:(J - 1)){
       for (jp in (j + 1):J){
         retTmp <- t.test(pseudoValues[1, j, ], pseudoValues[1, jp, ], paired = TRUE, conf.level = 1 - alpha)
@@ -105,7 +116,12 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alph
     pValue <- pf(fDbmFixed, I - 1, ddf, lower.tail = FALSE)
     
     iniNA <- rep(NA, I)
-    fomStats <- data.frame(reader = iniNA, Area = iniNA, stdErr = iniNA, df = iniNA, ciLower = iniNA, ciUpper = iniNA )
+    fomStats <- data.frame(reader = iniNA, 
+                           Area = iniNA, 
+                           stdErr = iniNA, 
+                           df = iniNA, 
+                           ciLower = iniNA, 
+                           ciUpper = iniNA )
     for (i in 1: I){
       stdErr <- sqrt(MS$msCSingleT[i] / K / J)
       df <- K - 1
@@ -117,7 +133,13 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alph
     nPairs <- choose(I, 2)
     iPair <- 1
     iniNA <- rep(NA, nPairs)
-    ret <- data.frame(treatment = iniNA, diff = iniNA, tVal = iniNA, df = iniNA, pVal = iniNA, ciLower = iniNA, ciUpper = iniNA )
+    ret <- data.frame(treatment = iniNA, 
+                      diff = iniNA, 
+                      tVal = iniNA, 
+                      df = iniNA, 
+                      pVal = iniNA, 
+                      ciLower = iniNA, 
+                      ciUpper = iniNA )
     for (i in 1:(I - 1)){
       for (ip in (i + 1):I){
         retTmp <- t.test(pseudoValues[i, 1, ], pseudoValues[ip, 1, ], paired = TRUE, conf.level = 1 - alpha)

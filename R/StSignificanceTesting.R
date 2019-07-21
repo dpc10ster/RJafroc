@@ -411,9 +411,17 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         CIRRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRRC) * stdErrRRRC, diffTRMeans[i] + qt(alpha/2, ddfRRRC) * stdErrRRRC))
         
       }
-      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, Estimate = diffTRMeans, StdErr = rep(stdErrRRRC, choose(I, 2)), DF = rep(ddfRRRC, choose(I, 2)), t = tStat, p = tPr, CI = CIRRRC)
-      colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
-      
+      # START DPC edits; 7/11/19; no substantive changes, just more consistent usage; did universal search for data.frame 
+      # pulled critical fix #23, Peter, shown below ...
+      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
+                                  Estimate = diffTRMeans, 
+                                  StdErr = rep(stdErrRRRC, choose(I, 2)), 
+                                  DF = rep(ddfRRRC, choose(I, 2)), 
+                                  t = tStat, 
+                                  PrGTt = tPr, # renamed this consistently
+                                  CILower = CIRRRC[,1],  # instead of adding CIRRC and then using a names() to split out the two values
+                                  CIUpper = CIRRRC[,2]) # do:
+      #attributes(ciDiffTrtRRRC) <- NULL
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)
       stdErrSingleRRRC <- array(dim = I)
@@ -426,8 +434,15 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         if (length(ciTemp) == 2) CISingleRRRC[i, ] <- ciTemp
         
       }
-      ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, Area = trMeans, StdErr = stdErrSingleRRRC, DF = dfSingleRRRC, CI = CISingleRRRC, row.names = NULL)
-      colnames(ciAvgRdrEachTrtRRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
+      ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, 
+                                        Area = trMeans, 
+                                        StdErr = as.vector(stdErrSingleRRRC), # this was the critical fix, Peter
+                                        DF = as.vector(dfSingleRRRC),  # this was the critical fix, Peter
+                                        CILower = CISingleRRRC[,1], 
+                                        CIUpper = CISingleRRRC[,2], 
+                                        row.names = NULL)
+      #attributes(ciAvgRdrEachTrtRRRC) <- NULL
+      # END DPC edits; 7/11/19; no substantive changes
     } else {
       fRRRC <- NA
       ddfRRRC <- NA
@@ -455,8 +470,15 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
       tPr[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
       CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC, diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
     }
-    ciDiffTrtFRRC <- data.frame(Treatment = diffTRName, Estimate = diffTRMeans, StdErr = rep(stdErrFRRC, choose(I, 2)), DF = rep(ddfFRRC, choose(I, 2)), t = tStat, p = tPr, CI = CIFRRC)
-    colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+    ciDiffTrtFRRC <- data.frame(Treatment = diffTRName, 
+                                Estimate = diffTRMeans, 
+                                StdErr = rep(stdErrFRRC, choose(I, 2)), 
+                                DF = rep(ddfFRRC, choose(I, 2)), 
+                                t = tStat, 
+                                PrGTt = tPr, 
+                                CILower = CIFRRC[,1], 
+                                CIUpper = CIFRRC[,2])
+    #colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     
     dfSingleFRRC <- array(dim = I)
     msDenSingleFRRC <- array(dim = I)
@@ -468,8 +490,14 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
       stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J/K)
       CISingleFRRC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
     }
-    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID, Area = trMeans, StdErr = stdErrSingleFRRC, DF = dfSingleFRRC, CI = CISingleFRRC, row.names = NULL)
-    colnames(ciAvgRdrEachTrtFRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
+    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID, 
+                                      Area = trMeans, 
+                                      StdErr = as.vector(stdErrSingleFRRC), 
+                                      DF = as.vector(dfSingleFRRC), 
+                                      CILower = CISingleFRRC[,1], 
+                                      CIUpper = CISingleFRRC[,2], 
+                                      row.names = NULL)
+    #colnames(ciAvgRdrEachTrtFRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     
     ssTFRRC <- array(0, dim = c(J))
     ssCFRRC <- array(0, dim = c(J))
@@ -532,8 +560,16 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
       tPr[n] <- 2 * pt(abs(tStat[n]), dfReaderFRRC[n], lower.tail = FALSE)
       CIReaderFRRC[n, ] <- sort(c(diffTRMeansFRRC[n] - qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n], diffTRMeansFRRC[n] + qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n]))
     }
-    ciDiffTrtEachRdr <- data.frame(Reader = readerNames, Treatment = trNames, Estimate = diffTRMeansFRRC, StdErr = stdErrFRRC, DF = dfReaderFRRC, t = tStat, p = tPr, CI = CIReaderFRRC)
-    colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+    ciDiffTrtEachRdr <- data.frame(Reader = readerNames, 
+                                   Treatment = trNames, 
+                                   Estimate = diffTRMeansFRRC, 
+                                   StdErr = stdErrFRRC, 
+                                   DF = dfReaderFRRC, 
+                                   t = tStat, 
+                                   PrGTt = tPr, 
+                                   CILower = CIReaderFRRC[,1],
+                                   CIUpper = CIReaderFRRC[,2])
+    #colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     if (option == "FRRC")
       return(list(fomArray = fomArray, anovaY = anovaY, anovaYi = msSingleTable, varComp = varComp, 
                   fFRRC = fFRRC, ddfFRRC = ddfFRRC, pFRRC = pFRRC, ciDiffTrtFRRC = ciDiffTrtFRRC, ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
@@ -556,8 +592,15 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
         CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC, diffTRMeans[i] + qt(alpha/2, ddfRRFC) * stdErrRRFC))
       }
-      ciDiffTrtRRFC <- data.frame(Treatment = diffTRName, Estimate = diffTRMeans, StdErr = rep(stdErrRRFC, choose(I, 2)), DF = rep(ddfRRFC, choose(I, 2)), t = tStat, p = tPr, CI = CIRRFC)
-      colnames(ciDiffTrtRRFC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+      ciDiffTrtRRFC <- data.frame(Treatment = diffTRName, 
+                                  Estimate = diffTRMeans, 
+                                  StdErr = rep(stdErrRRFC, choose(I, 2)), 
+                                  DF = rep(ddfRRFC, choose(I, 2)), 
+                                  t = tStat, 
+                                  PrGTt = tPr, 
+                                  CILower = CIRRFC[,1],
+                                  CIUpper = CIRRFC[,2])
+      #colnames(ciDiffTrtRRFC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
       
       dfSingleRRFC <- array(dim = I)
       msDenSingleRRFC <- array(dim = I)
@@ -569,8 +612,14 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         stdErrSingleRRFC[i] <- sqrt(msDenSingleRRFC[i]/J/K)
         CISingleRRFC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i], trMeans[i] + qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i]))
       }
-      ciAvgRdrEachTrtRRFC <- data.frame(Treatment = modalityID, Area = trMeans, StdErr = stdErrSingleRRFC, DF = dfSingleRRFC, CI = CISingleRRFC, row.names = NULL)
-      colnames(ciAvgRdrEachTrtRRFC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
+      ciAvgRdrEachTrtRRFC <- data.frame(Treatment = modalityID, 
+                                        Area = trMeans, 
+                                        StdErr = as.vector(stdErrSingleRRFC), 
+                                        DF = as.vector(dfSingleRRFC), 
+                                        CILower = CISingleRRFC[,1], 
+                                        CIUpper = CISingleRRFC[,2], 
+                                        row.names = NULL)
+      #colnames(ciAvgRdrEachTrtRRFC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     } else {
       fRRFC <- NA
       ddfRRFC <- NA
@@ -764,8 +813,15 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
           CIRRRC[i, ] <- ci
         }
       }
-      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, Estimate = diffTRMeans, StdErr = rep(stdErrRRRC, choose(I, 2)), DF = rep(ddfRRRC, choose(I, 2)), t = tStat, p = tPr, CI = CIRRRC)
-      colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
+                                  Estimate = diffTRMeans, 
+                                  StdErr = rep(stdErrRRRC, choose(I, 2)), 
+                                  DF = rep(ddfRRRC, choose(I, 2)), 
+                                  t = tStat, 
+                                  PrGTt = tPr, 
+                                  CILower = CIRRRC[,1],
+                                  CIUpper = CIRRRC[,2])
+      #colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
       
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)
@@ -783,8 +839,14 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
         }
         
       }
-      ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, Area = trMeans, StdErr = stdErrSingleRRRC, DF = dfSingleRRRC, CI = CISingleRRRC, row.names = NULL)
-      colnames(ciAvgRdrEachTrtRRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
+      ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, 
+                                        Area = trMeans, 
+                                        StdErr = as.vector(stdErrSingleRRRC), 
+                                        DF = as.vector(dfSingleRRRC), 
+                                        CILower = CISingleRRRC[,1], 
+                                        CIUpper = CISingleRRRC[,2], 
+                                        row.names = NULL)
+      #colnames(ciAvgRdrEachTrtRRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     } else {
       fRRRC <- NA
       ddfRRRC <- NA
@@ -817,8 +879,15 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       tPr[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
       CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC, diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
     }
-    ciDiffTrtFRRC <- data.frame(Treatment = diffTRName, Estimate = diffTRMeans, StdErr = rep(stdErrFRRC, choose(I, 2)), DF = rep(ddfFRRC, choose(I, 2)), t = tStat, p = tPr, CI = CIFRRC)
-    colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+    ciDiffTrtFRRC <- data.frame(Treatment = diffTRName, 
+                                Estimate = diffTRMeans, 
+                                StdErr = rep(stdErrFRRC, choose(I, 2)),
+                                DF = rep(ddfFRRC, choose(I, 2)), 
+                                t = tStat, 
+                                PrGTt = tPr, 
+                                CILower = CIFRRC[,1],
+                                CIUpper = CIFRRC[,2])
+    #colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     
     dfSingleFRRC <- array(dim = I)
     msDenSingleFRRC <- array(dim = I)
@@ -830,8 +899,14 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J)
       CISingleFRRC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
     }
-    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID, Area = trMeans, StdErr = stdErrSingleFRRC, DF = dfSingleFRRC, CI = CISingleFRRC, row.names = NULL)
-    colnames(ciAvgRdrEachTrtFRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
+    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID, 
+                                      Area = trMeans, 
+                                      StdErr = as.vector(stdErrSingleFRRC), 
+                                      DF = as.vector(dfSingleFRRC), 
+                                      CILower = CISingleFRRC[,1], 
+                                      CIUpper = CISingleFRRC[,2], 
+                                      row.names = NULL)
+    #colnames(ciAvgRdrEachTrtFRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     
     diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
     for (j in 1:J) {
@@ -864,8 +939,16 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       tPr[n] <- 2 * pt(abs(tStat[n]), dfReaderFRRC[n], lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
       CIReaderFRRC[n, ] <- sort(c(diffTRMeansFRRC[n] - qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n], diffTRMeansFRRC[n] + qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n]))
     }
-    ciDiffTrtEachRdr <- data.frame(Reader = readerNames, Treatment = trNames, Estimate = diffTRMeansFRRC, StdErr = stdErrFRRC, DF = dfReaderFRRC, t = tStat, p = tPr, CI = CIReaderFRRC)
-    colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+    ciDiffTrtEachRdr <- data.frame(Reader = readerNames, 
+                                   Treatment = trNames, 
+                                   Estimate = diffTRMeansFRRC, 
+                                   StdErr = stdErrFRRC, 
+                                   DF = dfReaderFRRC, 
+                                   t = tStat, 
+                                   PrGTt = tPr, 
+                                   CILower = CIReaderFRRC[,1],
+                                   CIUpper = CIReaderFRRC[,2])
+    #colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     
     varCovEachRdr <- data.frame(readerID, varEchRder, cov1EchRder)
     colnames(varCovEachRdr) <- c("Reader", "Var", "Cov1")
@@ -892,8 +975,15 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
         tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
         CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC, diffTRMeans[i] + qt(alpha/2, ddfRRFC) * stdErrRRFC))
       }
-      ciDiffTrtRRFC <- data.frame(Treatment = diffTRName, Estimate = diffTRMeans, StdErr = rep(stdErrRRFC, choose(I, 2)), DF = rep(ddfRRFC, choose(I, 2)), t = tStat, p = tPr, CI = CIRRFC)
-      colnames(ciDiffTrtRRFC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+      ciDiffTrtRRFC <- data.frame(Treatment = diffTRName, 
+                                  Estimate = diffTRMeans, 
+                                  StdErr = rep(stdErrRRFC, choose(I, 2)), 
+                                  DF = rep(ddfRRFC, choose(I, 2)), 
+                                  t = tStat, 
+                                  PrGTt = tPr, 
+                                  CILower = CIRRFC[,1],
+                                  CIUpper = CIRRFC[,2])
+      #colnames(ciDiffTrtRRFC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
       
       dfSingleRRFC <- array(dim = I)
       msDenSingleRRFC <- array(dim = I)
@@ -905,8 +995,14 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
         stdErrSingleRRFC[i] <- sqrt(msDenSingleRRFC[i]/J)
         CISingleRRFC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i], trMeans[i] + qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i]))
       }
-      ciAvgRdrEachTrtRRFC <- data.frame(Treatment = modalityID, Area = trMeans, StdErr = stdErrSingleRRFC, DF = dfSingleRRFC, CI = CISingleRRFC, row.names = NULL)
-      colnames(ciAvgRdrEachTrtRRFC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
+      ciAvgRdrEachTrtRRFC <- data.frame(Treatment = modalityID, 
+                                        Area = trMeans, 
+                                        StdErr = as.vector(stdErrSingleRRFC), 
+                                        DF = as.vector(dfSingleRRFC), 
+                                        CILower = CISingleRRFC[,1], 
+                                        CIUpper = CISingleRRFC[,2], 
+                                        row.names = NULL)
+      #colnames(ciAvgRdrEachTrtRRFC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     } else {
       fRRFC <- NA
       ddfRRFC <- NA

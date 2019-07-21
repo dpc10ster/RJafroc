@@ -41,31 +41,46 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
   K2 <- dim(LL)[3]
   K1 <- K - K2
   
-  if (method == "DBMH"){
+  if (method == "DBMH") {
     pseudoValues <- UtilPseudoValues(dataset, FOM)
+    #
+    # extensive changes made here DPC 6/30/19 for DBMH method
+    # basically redefine K as number of diseased cases or number of non-diseased
+    # case, or all cases, depending on the FOM
+    # these changes affect FOMs that do NOT involve all cases
+    # No changes are needed for ORH method
+    #
+    if (FOM %in% c("MaxLLF", "HrSe")) {
+      Ktemp <- K2 # K should be # of diseased cases
+    } else if (FOM %in% c("MaxNLF", "HrSp", "MaxNLFAllCases", "ExpTrnsfmSp")) {
+      Ktemp <- K1 # K should be # of non-diseased cases
+    } else {
+      Ktemp <- K # K should be # of all cases
+    }
+    # end changes
     
-    if (I != 1 ){
+    if (I != 1 ) {
       msT <- 0
       for (i in 1:I) {
         msT <- msT + (mean(pseudoValues[i, , ]) - mean(pseudoValues))^2
       }
-      msT <- msT * K * J/(I - 1)
+      msT <- msT * Ktemp * J/(I - 1)
       
       msTC <- 0
       for (i in 1:I) {
-        for (k in 1:K) {
+        for (k in 1:Ktemp) { # K should be # of diseased cases
           msTC <- msTC + (mean(pseudoValues[i, , k]) - mean(pseudoValues[i, , ]) - mean(pseudoValues[, , k]) + mean(pseudoValues))^2
         }
-      }
-      msTC <- msTC * J/((I - 1) * (K - 1))
-      
-      msCSingleT <- rep(0, I)
-      for (i in 1:I){
-        for (k in 1:K) {
-          msCSingleT[i] <- msCSingleT[i] + (mean(pseudoValues[i, , k]) - mean(pseudoValues[i, , ]))^2
+        msTC <- msTC * J/((I - 1) * (Ktemp)) 
+        
+        msCSingleT <- rep(0, I)
+        for (i in 1:I){
+          for (k in 1:Ktemp) {
+            msCSingleT[i] <- msCSingleT[i] + (mean(pseudoValues[i, , k]) - mean(pseudoValues[i, , ]))^2
+          }
+          msCSingleT[i] <- msCSingleT[i] * J/(Ktemp - 1)
         }
-        msCSingleT[i] <- msCSingleT[i] * J/(K - 1)
-      }
+      } 
     }
     
     if (J != 1){
@@ -73,30 +88,30 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
       for (j in 1:J) {
         msR <- msR + (mean(pseudoValues[, j, ]) - mean(pseudoValues))^2
       }
-      msR <- msR * K * I/(J - 1)
+      msR <- msR * Ktemp * I/(J - 1)
       
       msRC <- 0
       for (j in 1:J) {
-        for (k in 1:K) {
+        for (k in 1:Ktemp) {
           msRC <- msRC + (mean(pseudoValues[, j, k]) - mean(pseudoValues[, j, ]) - mean(pseudoValues[, , k]) + mean(pseudoValues))^2
         }
       }
-      msRC <- msRC * I/((J - 1) * (K - 1))
+      msRC <- msRC * I/((J - 1) * (Ktemp - 1))
       
       msCSingleR <- rep(0, J)
       for (j in 1:J){
-        for (k in 1:K) {
+        for (k in 1:Ktemp) {
           msCSingleR[j] <- msCSingleR[j] + (mean(pseudoValues[, j, k]) - mean(pseudoValues[, j, ]))^2
         }
-        msCSingleR[j] <- msCSingleR[j] * I/(K - 1)
+        msCSingleR[j] <- msCSingleR[j] * I/(Ktemp - 1)
       }
     }
     
     msC <- 0
-    for (k in 1:K) {
+    for (k in 1:Ktemp) {
       msC <- msC + (mean(pseudoValues[, , k]) - mean(pseudoValues))^2
     }
-    msC <- msC * I * J/(K - 1)
+    msC <- msC * I * J/(Ktemp - 1)
     
     if (I != 1 && J != 1){
       msTR <- 0
@@ -105,39 +120,39 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
           msTR <- msTR + (mean(pseudoValues[i, j, ]) - mean(pseudoValues[i, , ]) - mean(pseudoValues[, j, ]) + mean(pseudoValues))^2
         }
       }
-      msTR <- msTR * K/((I - 1) * (J - 1))
+      msTR <- msTR * Ktemp/((I - 1) * (J - 1))
       
       msTRC <- 0
       for (i in 1:I) {
         for (j in 1:J) {
-          for (k in 1:K) {
+          for (k in 1:Ktemp) {
             msTRC <- msTRC + (pseudoValues[i, j, k] - mean(pseudoValues[i, j, ]) - mean(pseudoValues[i, , k]) - mean(pseudoValues[, j, k]) + 
                                 mean(pseudoValues[i, , ]) + mean(pseudoValues[, j, ]) + mean(pseudoValues[, , k]) - mean(pseudoValues))^2
           }
         }
       }
-      msTRC <- msTRC/((I - 1) * (J - 1) * (K - 1))
+      msTRC <- msTRC/((I - 1) * (J - 1) * (Ktemp - 1))
     }
     
-    if (I == 1 && J == 1){
+    if (I == 1 && J == 1) {
       return(list(
         msC = msC
       ))
-    }else if (I == 1){
+    } else if (I == 1) {
       return(list(
         msR = msR,
         msC = msC,
         msRC = msRC,
         msCSingleR = msCSingleR
       ))
-    }else if (J == 1){
+    } else if (J == 1) {
       return(list(
         msT = msT,
         msC = msC,
         msTC = msTC, 
         msCSingleT = msCSingleT
       ))
-    }else{
+    } else {
       return(list(
         msT = msT,
         msR = msR,
@@ -148,14 +163,15 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
         msTRC = msTRC, 
         msCSingleT = msCSingleT,
         msCSingleR = msCSingleR
-        
       ))
     }
-  }else if (method == "ORH"){
+  } else if (method == "ORH"){
+    
     if (I == 1 && J == 1){
       errMsg <- "The mean squares cannot be calculated for single reader single treatment dataset."
       stop(errMsg)
     }
+    
     fomArray <- UtilFigureOfMerit(dataset, FOM)
     fomMean <- mean(fomArray)
     
@@ -167,7 +183,7 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
       msT <- J * msT/(I - 1)
     }
     
-    if (J != 1){
+    if (J != 1) {
       msR <- 0
       for (j in 1:J) {
         msR <- msR + (mean(fomArray[, j]) - fomMean)^2
@@ -188,19 +204,20 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
         msR = msR,
         msTR = msTR
       ))
-    }else if (I == 1){
+    } else if (I == 1) {
       return(list(
         msR = msR
       ))
-    }else if (J == 1){
+    }else if (J == 1) {
       return(list(
         msT = msT
       ))
     }
     
-  }else{
-    errMsg <- sprintf("%s is not a valid method.", method)
+  } else {
+    errMsg <- sprintf("%s is not a valid method; must use 'DBMH' or 'ORH'", method)
     stop(errMsg)
   }
   
 }
+
