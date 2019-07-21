@@ -9,7 +9,7 @@ IN THE SOFTWARE.
 ================================================================================
 
 R version: R version 3.6.0 (2019-04-26)
-RJafroc version: 1.1.1.9000
+RJafroc version: 1.2.0
 Run date: Jul 15 2019 Mon 12:39:24 EDT
  FOM selected         :     HrAuc
  Input  Data          :     MyData

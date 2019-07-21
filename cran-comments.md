@@ -1,10 +1,12 @@
-## Test environments; OS and R.version.string
-*  "local OS X 10.13.5", "R version 3.5.1 (2018-07-02)"
-*  R CMD check results: 0 errors | 0 warnings | 0 notes
-  
-*  devtools::check(): 0 errors | 0 warnings | 0 notes
+## This is a new submission ##
+A C++11 compilation error on Solaris resulted in archival of the previous version. Archived on 2019-01-17.
+This error has been corrected.
 
-* devtools::check_rhub()
+## Test environments; OS and R.version.string ##
+*  OSX "x86_64-apple-darwin15.6.0", "R version 3.6.1 (2019-07-05)"
+── R CMD check results ────
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+# devtools::check_rhub()
    2 Notes (arch 'i386' and arch 'x64') CPU time > 5 s: these examples of maximum likelihood fitting from clinical
       datasets are as minimal as I can make them while illustrating the analytical techniques
    Similar note on Windows Server 2008 R2 SP1, R-devel, 32/64 bit
@@ -47,7 +49,7 @@
 * This is a new release.
 No. This is an update of a previous version.
 
-## Reverse dependencies
+## Reverse dependencies ##
 None, see below.
 
 ---
@@ -57,10 +59,8 @@ Not applicable, no downstream dependencies, see below.
 
 
 * FAILURE SUMMARY (from last attempted submission)
-Previous version (1.0.2) installed on every platform except
-r-oldrel-windows-ix86+x86_64, on which it generated an ERROR
-in namespaceExport(ns, exports): undefined exports: %s!=%, %s!==%, very long output involving stri_xxx. 
-The new version passes all windows tests (see lines 5 - 8) including R-oldrelease.
+Previous version installed on every platform except Solaris resulting in archival of the package on CRAN
+The c-code compilation error on Solaris has been corrected in this version
 
 
 * All revdep maintainers were notified of the release on RELEASE DATE.
