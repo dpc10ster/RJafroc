@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "/tests/testthat",
+        "path" : "",
         "projectRelative" : true,
-        "query" : "expect_equ",
+        "query" : "https://dpc10ster.github.io/rjafroc/",
         "regex" : false
     }
 }
