@@ -17,7 +17,12 @@ has been corrected (see `devtools::check_rhub` below).
 * The checks were conducted across 20 platforms implemented in `devtools`
 * Most relevant to the error which resulted in archival of the previous version, the check on Solaris (Oracle Solaris 10, x86, 32 bit, R-patched (experimental)) resulted in no errors, warnings or notes.
 * A summary of the checks follows
-** dsadkfjlkasjf
+* On 7 platforms the checks ran with no errors, warnings or notes.
+* One platform (`Ubuntu Linux 16.04 LTS, R-devel with rchk`) generated an error, which we believe is a false positive, generating the following error message:
+<< Function Rcpp::Rcpp_protect(SEXPREC*)
+    [PB] has possible protection stack imbalance /opt/R-svn/packages/lib/Rcpp/include/Rcpp/protection/Shield.h:25
+>>
+flags _every_ function implemented in Cpp as.
 ** adfjalkfjalkdsfj
 ** jdflasalkdsfjlkajs
 2 Notes (arch 'i386' and arch 'x64') CPU time > 5 s: these examples of maximum likelihood fitting from clinical
@@ -31,32 +36,6 @@ has been corrected (see `devtools::check_rhub` below).
       there is no package called lattice
       I believe this is a false positive as my package does not depend on *lattice*
       See independent check on R-hub builder below, which gives different error
-
-* travis(https://travis-ci.org): 
-   oldrel: OK
-   release: OK
-   devel: OK
-   
-*  win-builder ( https://win-builder.r-project.org)
-   R-release: OK
-   R-devel: OK
-   R-oldrelease: 1 Note regarding 4 possibly mis-spelled words, all FPs
-   
-*  Independent checks on R-hub builder (https://builder.r-hub.io)   
-   macOS 10.9 Mavericks, R-oldrel (experimental): OK
-   macOS 10.11 El Capitan, R-release (experimental): OK
-   Debian, Linux, R-devel, GCC: OK
-   Debian Linux, R-release, GCC: OK
-   Debian Linux, R-patched, GCC: OK
-   Ubuntu Linux 16.04 LTS, R-release, GCC: OK
-   
-   Fedora Linux, R-devel, clang, gfortran: WARNING, unable to start device PNG, in 
-      vignette that produces no plots.
-   Fedora Linux, R-devel, do: 
-      Both of these appear to be related to an unresolved issue on this platform (https://github.com/r-hub/rhub/issues/92)
-   Ubuntu Linux 16.04 LTS, R-devel, GCC: PREPERROR
-   Oracle Solaris 10, x86, 32 bit, R-patched (experimental): 1 Warning, Vignette
-      builder function Pandoc not available on this platform; known issue (https://github.com/rstudio/DT/issues/395)
 
 ## Reverse dependencies ##
 None.
