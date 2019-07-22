@@ -1,12 +1,16 @@
 ## This is a new submission ##
-A C++11 compilation error on Solaris resulted in archival of the previous version. Archived on 2019-01-17.
+A C++11 compilation error on Solaris resulted in archival of the previous version on 2019-01-17.
 This error has been corrected.
 
 ## Test environments; OS and R.version.string ##
 *  OSX "x86_64-apple-darwin15.6.0", "R version 3.6.1 (2019-07-05)"
-── R CMD check results ────
-0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+   R CMD check ran with 0 errors, warnings or notes
+   Windows portability was tested on win-builder.r-project.org
+   Both release and development versions of R generated 1 Note, stating that this was a new submission, and that the previous one was archived, as noted above.The old-release version generated an additional note stating that the installed size is 6.2Mb, and two sub-directories of 1Mb or more: were identified (doc: 2.1Mb and libs: 1.7Mb). We have taken care to minimize file size by compressing all image files used in the vignettes. 
+   
+   
 # devtools::check_rhub()
+   
    2 Notes (arch 'i386' and arch 'x64') CPU time > 5 s: these examples of maximum likelihood fitting from clinical
       datasets are as minimal as I can make them while illustrating the analytical techniques
    Similar note on Windows Server 2008 R2 SP1, R-devel, 32/64 bit
