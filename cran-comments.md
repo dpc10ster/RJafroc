@@ -4,9 +4,10 @@ This error has been corrected.
 
 ## Test environments ##
 1. OSX "x86_64-apple-darwin15.6.0", "R version 3.6.1 (2019-07-05)"
-*  R CMD check ran with 0 errors, warnings or notes
-1. Windows portability was tested on win-builder.r-project.org
-   Both release and development versions of R generated 1 Note, stating that this was a new submission, and that the previous one was archived, as noted above.The old-release version generated an additional note stating that the installed size is 6.2Mb, and two sub-directories of 1Mb or more: were identified (doc: 2.1Mb and libs: 1.7Mb). We have taken care to minimize file size by compressing all image files used in the vignettes. 
+* R CMD check ran with 0 errors, warnings or notes
+2. Windows portability was tested on win-builder.r-project.org
+* Both release and development versions of R generated 1 Note, stating that this was a new submission, and that the previous one was archived, which is expected. 
+* The old-release version generated an additional note stating that the installed size is 6.2Mb, and two sub-directories of 1Mb or more: were identified (doc: 2.1Mb and libs: 1.7Mb). We have taken care to minimize file size by compressing all image files used in the vignettes. 
    
    
 # devtools::check_rhub()
