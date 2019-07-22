@@ -12,11 +12,14 @@ has been corrected (see `devtools::check_rhub` below).
 * Both `release` and `development` versions of `R` generated 1 Note, which was expected, stating that this was a new submission, and that the previous submission had been archived. 
 * The `old-release` version generated an additional note stating that the installed size is 6.2Mb, and two sub-directories of 1Mb or more: were identified (`doc`: 2.1Mb and `libs`: 1.7Mb). 
 * _We have taken care to minimize file size by compressing all image files used in the vignettes, which we feel make an essential contribution to the usability of this package_.   
-### Cross platform checks using `devtools::check_rhub()` ###  
+### Cross platform portability ###
+* This was checked using `devtools::check_rhub()`
 * The checks were conducted across 20 platforms implemented in `devtools`
 * Most relevant to the error which resulted in archival of the previous version, the check on Solaris (Oracle Solaris 10, x86, 32 bit, R-patched (experimental)) resulted in no errors, warnings or notes.
 * A summary of the checks follows
-** 
+** dsadkfjlkasjf
+** adfjalkfjalkdsfj
+** jdflasalkdsfjlkajs
 2 Notes (arch 'i386' and arch 'x64') CPU time > 5 s: these examples of maximum likelihood fitting from clinical
       datasets are as minimal as I can make them while illustrating the analytical techniques
    Similar note on Windows Server 2008 R2 SP1, R-devel, 32/64 bit
