@@ -4,7 +4,7 @@ has been corrected (see __Other platform portability__ below).
 
 # Test environments #
 ## OSX ##
-* "x86_64-apple-darwin15.6.0", "R version 3.6.1 (2019-07-05)" 
+* `"x86_64-apple-darwin15.6.0", "R version 3.6.1 (2019-07-05)"` 
 * `R CMD check` ran with no errors, warnings or notes
 ## Travis (https://travis-ci.org) ##
 * No errors, warnings or notes on `oldrel`,`release` or `developer`. 
