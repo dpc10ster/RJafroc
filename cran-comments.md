@@ -4,10 +4,9 @@ This error has been corrected.
 
 ## Test environments ##
 ### OSX "x86_64-apple-darwin15.6.0", "R version 3.6.1 (2019-07-05)" ###
-* R CMD check ran with 0 errors, warnings or notes
-### Travis(https://travis-ci.org) generated 0 errors, warnings or notes on oldrel,release or developer ###
-
-### Windows portability was tested on win-builder.r-project.org ###
+* R CMD check ran with no errors, warnings or notes
+### Travis(https://travis-ci.org) generated no errors, warnings or notes on oldrel,release or developer ###
+### Windows portability was tested on https://win-builder.r-project.org ###
 * Both release and development versions of R generated 1 Note, which was expected, stating that this was a new submission, and that the previous submission had been archived. 
 * The old-release version generated an additional note stating that the installed size is 6.2Mb, and two sub-directories of 1Mb or more: were identified (doc: 2.1Mb and libs: 1.7Mb). 
 * _We have taken care to minimize file size by compressing all image files used in the vignettes_.    
