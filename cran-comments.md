@@ -1,4 +1,4 @@
-# This is a new submission #
+# Overall #
 A C++11 compilation error on Solaris resulted in archival of the previous version on 2019-01-17.
 This error has been corrected.
 
