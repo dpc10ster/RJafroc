@@ -27,8 +27,8 @@ has been corrected (see __Other platform portability__ below).
 > Compilation used the following non-portable flag(s):
 > ‘-Wdate-time’ ‘-Werror=format-security’ ‘-Wformat’
 * The remaining platforms generated 1-2 Notes, falling in the following categories:
-* The expected Note stating that this is a new submission (see Windows portability #2).
-* A Note relating to file size exceeding 5 Mb (similar to Windows portability, #3)
+* The expected Note stating that this is a new submission (see __Windows portability #2__).
+* A Note relating to file size exceeding 5 Mb (similar to __Windows portability, #3__)
 
 # Reverse dependencies #
 None.
