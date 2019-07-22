@@ -1,19 +1,21 @@
 # Overall #
-A C++11 compilation error on Solaris resulted in archival of the previous version on 2019-01-17.
-This error has been corrected.
+A `C++11` compilation error on `Solaris` resulted in archival of the previous version on 2019-01-17.
+This error has been corrected (see `devtools::check_rhub` below).
 
 ## Test environments ##
 ### OSX "x86_64-apple-darwin15.6.0", "R version 3.6.1 (2019-07-05)" ###
-* R CMD check ran with no errors, warnings or notes
-### Travis(https://travis-ci.org) generated no errors, warnings or notes on oldrel,release or developer ###
+* `R CMD check` ran with no errors, warnings or notes
+### Travis (https://travis-ci.org) generated no errors, warnings or notes on oldrel,release or developer ###
 ### Windows portability was tested on https://win-builder.r-project.org ###
-* Both release and development versions of R generated 1 Note, which was expected, stating that this was a new submission, and that the previous submission had been archived. 
-* The old-release version generated an additional note stating that the installed size is 6.2Mb, and two sub-directories of 1Mb or more: were identified (doc: 2.1Mb and libs: 1.7Mb). 
-* _We have taken care to minimize file size by compressing all image files used in the vignettes_.    
-   
-### devtools::check_rhub() ###
-   
-   2 Notes (arch 'i386' and arch 'x64') CPU time > 5 s: these examples of maximum likelihood fitting from clinical
+* Both `release` and `development` versions of `R` generated 1 Note, which was expected, stating that this was a new submission, and that the previous submission had been archived. 
+* The `old-release` version generated an additional note stating that the installed size is 6.2Mb, and two sub-directories of 1Mb or more: were identified (`doc`: 2.1Mb and `libs`: 1.7Mb). 
+* _We have taken care to minimize file size by compressing all image files used in the vignettes, which we feel make an essential contribution to the usability of this package_.   
+### Cross platform checks using `devtools::check_rhub()` ###  
+* The checks were conducted across 20 platforms implemented in `devtools`
+* Most relevant to the error which resulted in archival of the previous version, the check on Solaris (Oracle Solaris 10, x86, 32 bit, R-patched (experimental)) resulted in no errors, warnings or notes.
+* A summary of the checks follows
+** 
+2 Notes (arch 'i386' and arch 'x64') CPU time > 5 s: these examples of maximum likelihood fitting from clinical
       datasets are as minimal as I can make them while illustrating the analytical techniques
    Similar note on Windows Server 2008 R2 SP1, R-devel, 32/64 bit
    In all cases time is still less than 7s
@@ -51,29 +53,12 @@ This error has been corrected.
    Oracle Solaris 10, x86, 32 bit, R-patched (experimental): 1 Warning, Vignette
       builder function Pandoc not available on this platform; known issue (https://github.com/rstudio/DT/issues/395)
 
-
-* This is a new release.
-No. This is an update of a previous version.
-
 ## Reverse dependencies ##
-None, see below.
+None.
 
----
-
-* I have run R CMD check on the downstream dependencies.
-Not applicable, no downstream dependencies, see below.
+## FAILURE SUMMARY (from last attempted submission) ##
+* The error which resulted in archival of the previous submission has been corrected.
 
 
-* FAILURE SUMMARY (from last attempted submission)
-Previous version installed on every platform except Solaris resulting in archival of the package on CRAN
-The c-code compilation error on Solaris has been corrected in this version
-
-
-* All revdep maintainers were notified of the release on RELEASE DATE.
+## All revdep maintainers were notified of the release on RELEASE DATE. ##
 Not applicable.
-revdep("rjafroc")
-character(0)
-revdep_check()
-revdep_check_save_summary()
-revdep_check_print_problems()
-No ERRORs or WARNINGs found :)
