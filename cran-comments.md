@@ -1,6 +1,6 @@
 # Overall #
-A `C++11` compilation error on `Solaris` resulted in archival of the previous version on 2019-01-17.
-This error has been corrected (see `devtools::check_rhub` below).
+A `C++11` compilation error on `Solaris`, which resulted in archival of the previous version on 2019-01-17,
+has been corrected (see `devtools::check_rhub` below).
 
 ## Test environments ##
 ### OSX "x86_64-apple-darwin15.6.0", "R version 3.6.1 (2019-07-05)" ###
