@@ -9,7 +9,7 @@ RJafroc
 * Modeling, Analysis, Validation and Visualization of ROC/FROC studies
 * Extends and replaces the *obsolete* Windows software (JAFROC: http://www.devchakraborty.com)
 
-# Documentation (vignettes) available at https://dpc10ster.github.io/RJafroc/ #
+# Documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/ #
 
 # My wiki is at https://github.com/dpc10ster/RJafroc/wiki #
 
