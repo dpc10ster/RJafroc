@@ -1,5 +1,5 @@
 # Overall #
-A `C++11` compilation error on `Solaris`, which resulted in archival of the previous version on 2019-01-17,
+A `C++11` compilation error on `Solaris`, which resulted in archiving of the previous version on 2019-01-17,
 has been corrected (see __Other platform portability__ below).
 
 # Test environments #
@@ -10,14 +10,14 @@ has been corrected (see __Other platform portability__ below).
 * No errors, warnings or notes on `oldrel`,`release` or `developer`. 
 ## Windows portability ##
 * This was tested on https://win-builder.r-project.org 
-* Both `release` and `development` versions of `R` generated 1 Note, which was expected, stating that this was a new submission, and that the previous submission had been archived.The Note states:
+* Both `release` and `development` versions of `R` generated 1 Note, which was expected, stating that this was a new submission, and that the previous submission had been archived. The Note states:
 > CRAN repository db overrides:
 > X-CRAN-Comment: Archived on 2019-01-17 as installation errors were
 >   not corrected.
 > 
 > With C++11 on Solaris, as needed for R-devel.
 * The `old-release` version generated an additional note stating that the installed size is 6.2Mb, and two sub-directories of 1Mb or more: were identified (`doc`: 2.1Mb and `libs`: 1.7Mb). 
-* _We have taken care to minimize file size by compressing all image files used in the vignettes, which we feel make an essential contribution to the usability of this package_.   
+* _We have taken care to minimize file sizes by compressing all image files used in the vignettes, which we feel make an essential contribution to the usability of this package_.   
 ## Other platform portability ##
 * This was checked using `devtools::check_rhub()`
 * The checks were conducted across 20 platforms implemented in `devtools`
