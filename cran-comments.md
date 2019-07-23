@@ -16,8 +16,8 @@ has been corrected (see __Other platform portability__ below).
 >   not corrected.
 > 
 > With C++11 on Solaris, as needed for R-devel.
-1. The `old-release` version generated an additional note stating that the installed size is 6.2Mb, and two sub-directories of 1Mb or more: were identified (`doc`: 2.1Mb and `libs`: 1.7Mb). 
-1. _We have taken care to minimize file sizes by compressing all image files used in the vignettes, which we feel make an essential contribution to the usability of this package_.   
+3. The `old-release` version generated an additional note stating that the installed size is 6.2Mb, and two sub-directories of 1Mb or more: were identified (`doc`: 2.1Mb and `libs`: 1.7Mb). 
+3. _We have taken care to minimize file sizes by compressing all image files used in the vignettes, which we feel make an essential contribution to the usability of this package_.   
 ## Other platform portability ##
 1. This was checked using `devtools::check_rhub()`
 1. The checks were conducted across 20 platforms implemented in `devtools`
