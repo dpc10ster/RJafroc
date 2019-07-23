@@ -21,7 +21,7 @@ has been corrected (see __Other platform portability__ below).
 ## Other platform portability ##
 * This was checked using `devtools::check_rhub()`
 * The checks were conducted across 20 platforms implemented in `devtools`
-* Most relevant to the error which resulted in archival of the previous version, the check on Solaris (Oracle Solaris 10, x86, 32 bit, R-patched (experimental)) resulted in no errors, warnings or notes.
+* Most relevant to the error which resulted in archiving of the previous version, the check on Solaris (Oracle Solaris 10, x86, 32 bit, R-patched (experimental)) resulted in no errors, warnings or notes.
 ### A summary of the checks follows ###
 * On 7 platforms the checks ran with no errors, warnings or notes.
 * One platform (`Ubuntu Linux 16.04 LTS, R-devel with rchk`) generated an error, which we believe is a false positive unrelated to our package, as it generated the following error message, suggesting the error is coming from package `Rcpp`: 
