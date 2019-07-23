@@ -7,7 +7,7 @@ Update History
 * Corrected error that was causing `Solaris` failure (Peter Philips)
 * Corrected error in `UtilPseudoValues.R` that was caught by `testthat`
 * Corrected `StSignificanceTesting.R` that was caught by `testthat` (Peter Philips)
-* R CMD check generates `testthat` failure when run under `RStudio`, see following output, but not when run as
+* `R CMD check` generates `testthat` failure when run under `RStudio`, see following output, but not when run as
 `devtools::test()`:
 > * checking tests ...
 >   Running ‘testthat.R’ [158s/160s]
