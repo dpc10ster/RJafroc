@@ -2,9 +2,11 @@ Update History
 ==========================
 ## RJafroc 1.2.0 ##
 ### Major changes ###
+* Corrected all references to package name to `RJafroc` (note capitalization)
+* Checked downstream dependencies - none as of July 23, 2019: revdep("RJafroc") yields character(0)
 * Corrected error that was causing `Solaris` failure (Peter Philips)
 * Corrected error in `UtilPseudoValues.R` that was caught by `testthat`
-* Corrected `StSignificanceTesting.R` that was caused by `testthat` (Peter Philips)
+* Corrected `StSignificanceTesting.R` that was caught by `testthat` (Peter Philips)
 * R CMD check generates `testthat` failure when run under `RStudio`, see following output, but not when run as
 `devtools::test()`:
 > * checking tests ...
@@ -21,26 +23,26 @@ Update History
 >   List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBMH
 ## RJafroc 1.1.0 ##
 ### Major changes ###
-* Added travis-ci testing after each push; and build passing badges, etc. 
-* Removed dependence on caTools package, which was not being supported; extracted function trapz() from it
-   and inserted directly into gpfMyFOM.R - see comments in that file of what led to this
-* Removed dependence on xlsx package, which requires rJava and JAVA, replaced with dependence on
-   openxlsx package. Was having difficulty installing rJava correctly after each OSX or R update.
-* Corrected errors in UtilOutputReport function.
-* Fixed bug in UtilOutputReport that was preventing overwriting of existing output file, even
+* Added `travis-ci` testing after each push; and build passing badges, etc. 
+* Removed dependence on `caTools` package, which was not being supported; extracted function `trapz()` from it
+   and inserted directly into `gpfMyFOM.R` - see comments in that file of what led to this
+* Removed dependence on `xlsx` package, which requires `rJava` and `JAVA`, replaced with dependence on
+   `openxlsx` package. Was having difficulty installing `rJava` correctly after each `OSX` or `R` update.
+* Corrected errors in `UtilOutputReport.R`.
+* Fixed bug in `UtilOutputReport` that was preventing overwriting of existing output file, even
    when the user keys "y" in response to prompt
-* Added correlated contaminated binormal model, CORCBM, fitting and related functions to
+* Added correlated contaminated binormal model, `CORCBM`, fitting and related functions to
    make package current with 2017 CORCBM publication.
-* Fixed error in PlotEmpiricalCharacteristics.R that was giving incorrect plots for other than
-   ROC and wAFROC plots
-* Added ChisqrGoodnessOfFit function, replacing 3 functions
-* Cleaned up plotting code; using one function genericPlotROC.R instead of 3 functions
+* Fixed error in `PlotEmpiricalCharacteristics.R` that was giving incorrect plots for other than
+   `ROC` and `wAFROC` plots
+* Added `ChisqrGoodnessOfFit` function, replacing 3 functions
+* Cleaned up plotting code; using one function `genericPlotROC.R` instead of 3 functions
 * Updated results of CBM, PROPROC and RSM fitting after discovering error in df
    calculation in RSM chisquare statistic; book results are wrong; only 2/236 fits
    yield a valid chisquare statistic
-* Renamed ExampleCompare3ProperRocFits() to Compare3ProperRocFits()
-* Corrected overwriting error in value returned by Compare3ProperRocFits()
-* Added two vignettes: QuickStartDBMH and QuickStartDBMHExcelOutput
+* Renamed `ExampleCompare3ProperRocFits()` to `Compare3ProperRocFits()`
+* Corrected overwriting error in value returned by `Compare3ProperRocFits()`
+* Added two vignettes: `QuickStartDBMH` and `QuickStartDBMHExcelOutput`
 * Checked downstream dependencies - none as of Nov 11, 2018: revdep("rjafroc") yields character(0)
    
 ==========================
