@@ -31,9 +31,9 @@ has been corrected (see __Other platform portability__ below).
 > * checking compilation flags used ... WARNING
 > Compilation used the following non-portable flag(s):
 > ‘-Wdate-time’ ‘-Werror=format-security’ ‘-Wformat’
-1. The remaining platforms generated 1-2 Notes, falling in the following categories:
-1. The expected Note stating that this is a new submission (see __Windows portability #2__).
-1. A Note relating to file size exceeding 5 Mb (similar to __Windows portability, #3__)
+3. The remaining platforms generated 1-2 Notes, falling in the following categories:
+3. The expected Note stating that this is a new submission (see __Windows portability #2__).
+3. A Note relating to file size exceeding 5 Mb (similar to __Windows portability, #3__)
 
 # Reverse dependencies #
 None.
