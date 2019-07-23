@@ -2,9 +2,9 @@ Update History
 ==========================
 ## RJafroc 1.2.0 ##
 ### Major changes ###
-* Corrected error that was causing Solaris failure (Peter Philips)
-* Corrected error in pseudovalue function that was caught by testthat
-* Corrected significance testing function that was causing failure in testthat (Peter Philips)
+* Corrected error that was causing `Solaris` failure (Peter Philips)
+* Corrected error in pseudovalue function that was caught by `testthat`
+* Corrected significance testing function that was causing failure in `testthat` (Peter Philips)
 * R CMD check generates `testthat` failure when run under `RStudio`, see following output, but not when run as
 `devtools::test()`:
 > * checking tests ...
