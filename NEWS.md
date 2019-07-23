@@ -43,7 +43,7 @@ Update History
 * Renamed `ExampleCompare3ProperRocFits()` to `Compare3ProperRocFits()`
 * Corrected overwriting error in value returned by `Compare3ProperRocFits()`
 * Added two vignettes: `QuickStartDBMH` and `QuickStartDBMHExcelOutput`
-* Checked downstream dependencies - none as of Nov 11, 2018: revdep("rjafroc") yields character(0)
+* Checked downstream dependencies - none as of Nov 11, 2018: `revdep("rjafroc")` yields `character(0)`
    
 ==========================
 ## RJafroc 1.0.2 ##
@@ -51,7 +51,7 @@ Update History
 * StSignificanceTestingCadVsRadiologists was not working for different numbers of readers.
    As noted by Alejandro, the number of readers was hard coded. Fixed this and extended
    DfExtractDataset to include LROC datasets.
-* Removed function SsFROCPowerGivenJK: FROC power is implemented in Online
+* Removed function `SsFROCPowerGivenJK`: FROC power is implemented in Online
   Appendix Chapter 19 (see email exchange with Kota Aoyagi)
 * This package installed on SOLARIS.
    
@@ -90,8 +90,8 @@ Update History
 
 ## RJafroc 0.1.0 ##
 ### Major change ###
-* A "shiny" based GUI has been added, accessed by the function RJafrocGui(). This allows a user only interested in
-analyzing a data file to access the underlying code in a "user friendly way. The GUI is similar in functionality to
+* A "shiny" based GUI has been added, accessed by the function `RJafrocGui()`. This allows a user only interested in
+analyzing a data file to access the underlying code in a "user friendly" way. The GUI is similar in functionality to
 that of Windows JAFROC 4.2.1 software.
 
 ### Minor bug and aesthetic fixes ###
@@ -104,4 +104,4 @@ that of Windows JAFROC 4.2.1 software.
 * A bug in the plotting of AFROC curves for a dataset containing only non-diseased cases has been fixed.
 
 ## RJafroc 0.0.1 ##
-* Original version posted to CRAN website (with Xuetong help)
+* Original version posted to CRAN (with Xuetong help)
