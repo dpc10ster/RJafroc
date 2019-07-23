@@ -40,7 +40,7 @@ has been corrected (see __Other platform portability__ below).
 None.
 
 # FAILURE SUMMARY (from last attempted submission) #
-* The `Solaris` error which resulted in archival of the previous submission has been corrected.
+* The `Solaris` error, which resulted in archiving of the previous submission, has been corrected.
 
 # All revdep maintainers were notified of the release on RELEASE DATE. #
 Not applicable.
