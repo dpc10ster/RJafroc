@@ -8,12 +8,12 @@ IN THE SOFTWARE.
 
 ================================================================================
 
-R version: R version 3.6.0 (2019-04-26)
+R version: R version 3.6.1 (2019-07-05)
 RJafroc version: 1.2.0
-Run date: May 24 2019 Fri 17:24:41 EDT
+Run date: Jul 23 2019 Tue 14:55:10 EDT
  FOM selected         :     Wilcoxon
  Input  Data          :     MyData
- Output Data Filename :     /Users/Dev/Documents/GitHub/rjafroc/docs/reference/MyDataOutput.txt
+ Output Data Filename :     /Users/Dev/RJafroc/docs/reference/MyDataOutput.txt
 
 ================================================================================
 

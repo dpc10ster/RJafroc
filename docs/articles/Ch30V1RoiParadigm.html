@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@
       <h1>Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2019-05-24</h4>
+            <h4 class="date">2019-07-23</h4>
       
       
       <div class="hidden name"><code>Ch30V1RoiParadigm.Rmd</code></div>
@@ -131,43 +131,43 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <ul>
-<li><p>In the region-of-interest (ROI) paradigm <span class="citation">(Obuchowski 1997,@RN55)</span> each case is regarded as consisting of <span class="math inline">\({{Q}_{k}}\)</span> (<span class="math inline">\({{Q}_{k}}\ge 1\)</span>) “quadrants” or regions or ROIs, where <em>k</em> is the case index (<span class="math inline">\(k=1,2,...,K\)</span>). Here <span class="math inline">\(K\)</span> is the total number of cases (i.e., case-level normal plus case-level abnormal cases). Each ROI needs to be classified, by the investigaor, as either ROI-level-normal (i.e., it has no lesions) or ROI-level-abnormal (i.e., it has at least one lesion). <strong>Note the distinction between case-level truth and ROI-level truth states.</strong> One can have ROI-level-normals in a case-level-abnormal case. A case-level-abnormal case must contain at least one ROI-level-abnormal region and a case-level normal cannot have any ROI-level-abnormal regions.</p></li>
+<li><p>In the region-of-interest (ROI) paradigm <span class="citation">(Obuchowski 1997,<span class="citation">@RN55</span>)</span> each case is regarded as consisting of <span class="math inline">\({{Q}_{k}}\)</span> (<span class="math inline">\({{Q}_{k}}\ge 1\)</span>) “quadrants” or regions or ROIs, where <em>k</em> is the case index (<span class="math inline">\(k=1,2,...,K\)</span>). Here <span class="math inline">\(K\)</span> is the total number of cases (i.e., case-level normal plus case-level abnormal cases). Each ROI needs to be classified, by the investigator, as either ROI-level-normal (i.e., it has no lesions) or ROI-level-abnormal (i.e., it has at least one lesion). <strong>Note the distinction between case-level truth and ROI-level truth states.</strong> One can have ROI-level-normals in a case-level-abnormal case. A case-level-abnormal case must contain at least one ROI-level-abnormal region and a case-level normal cannot have any ROI-level-abnormal regions.</p></li>
 <li><p>The observer gives a single rating to each ROI, denoted <span class="math inline">\({{R}_{k}}\)</span>. The rating can be an integer or quasi- continuous (e.g., 0 – 100), or a floating point value, as long as higher numbers represent greater confidence in presence of one or more lesions in the ROI.</p></li>
 <li><p>The ROI paradigm is not restricted to 4 or even a constant number of ROIs per case. That is the reason for the <em>k</em> subscript in <span class="math inline">\({{Q}_{k}}\)</span>.</p></li>
-<li><p>The ROI data structure is a special case of the FROC data stucture, the essential difference being that the number of ratings per case is an a-priori known value.</p></li>
+<li><p>The ROI data structure is a special case of the FROC data structure, the essential difference being that the number of ratings per case is an a-priori known value.</p></li>
 <li><p>ROI-level-normal ratings are stored in the <code>NL</code> field and ROI-level-abnormal ratings are stored in the <code>LL</code> field.</p></li>
-<li><p>One can think of the ROI paradimg as similar to the FROC paradigm, but with localization accuracy restricted to belonging to a region (one cannot distinguish muttiple lesions within a region). Unlike the FROC paradigm, a rating <em>is required</em> for every ROI.</p></li>
+<li><p>One can think of the ROI paradigm as similar to the FROC paradigm, but with localization accuracy restricted to belonging to a region (one cannot distinguish multiple lesions within a region). Unlike the FROC paradigm, a rating <em>is required</em> for every ROI.</p></li>
 </ul>
 </div>
 <div id="an-example-roi-dataset" class="section level2">
 <h2 class="hasAnchor">
 <a href="#an-example-roi-dataset" class="anchor"></a>An example ROI dataset</h2>
 <p>An example simulated ROI dataset is included as <code>datasetROI</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(datasetROI)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt; List of 8</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt;  $ NL          : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt;  $ LL          : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...</span></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt;  $ lesionNum   : int [1:40] 2 3 2 2 3 3 1 2 3 3 ...</span></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt;  $ lesionID    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt;  $ lesionWeight: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...</span></a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt;  $ dataType    : chr "ROI"</span></a>
-<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt;  $ modalityID  : Named chr [1:2] "1" "2"</span></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "1" "2"</span></a>
-<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;  $ readerID    : Named chr [1:5] "1" "2" "3" "4" ...</span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span></a>
-<a class="sourceLine" id="cb1-13" title="13">datasetROI<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,]</a>
-<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span></a>
-<a class="sourceLine" id="cb1-15" title="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(datasetROI<span class="op">$</span>NL[,,<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,])</a>
-<a class="sourceLine" id="cb1-16" title="16"><span class="co">#&gt; [1] 0.1014348</span></a>
-<a class="sourceLine" id="cb1-17" title="17">datasetROI<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">51</span>,]</a>
-<a class="sourceLine" id="cb1-18" title="18"><span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span></a>
-<a class="sourceLine" id="cb1-19" title="19">datasetROI<span class="op">$</span>lesionNum[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb1-20" title="20"><span class="co">#&gt; [1] 2</span></a>
-<a class="sourceLine" id="cb1-21" title="21">datasetROI<span class="op">$</span>LL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,]</a>
-<a class="sourceLine" id="cb1-22" title="22"><span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span></a>
-<a class="sourceLine" id="cb1-23" title="23">x &lt;-<span class="st"> </span>datasetROI<span class="op">$</span>LL;<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(x[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/is.finite">is.finite</a></span>(x)])</a>
-<a class="sourceLine" id="cb1-24" title="24"><span class="co">#&gt; [1] 1.815513</span></a></code></pre></div>
-<p>Examination of the output reveasl that:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(datasetROI)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; List of 8</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt;  $ NL          : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt;  $ LL          : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt;  $ lesionNum   : int [1:40] 2 3 2 2 3 3 1 2 3 3 ...</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt;  $ lesionID    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt;  $ lesionWeight: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt;  $ dataType    : chr "ROI"</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt;  $ modalityID  : Named chr [1:2] "1" "2"</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "1" "2"</span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt;  $ readerID    : Named chr [1:5] "1" "2" "3" "4" ...</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">datasetROI<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,]</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(datasetROI<span class="op">$</span>NL[,,<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,])</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt; [1] 0.1014348</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">datasetROI<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">51</span>,]</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">datasetROI<span class="op">$</span>lesionNum[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt; [1] 2</span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">datasetROI<span class="op">$</span>LL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,]</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">x &lt;-<span class="st"> </span>datasetROI<span class="op">$</span>LL;<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(x[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/is.finite">is.finite</a></span>(x)])</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt; [1] 1.815513</span></a></code></pre></div>
+<p>Examination of the output reveals that:</p>
 <ul>
 <li><p>This is a 2-treatment 5-reader dataset, with 50 non-diseased cases and 40 diseased cases, and <span class="math inline">\({{Q}_{k}}=4\)</span> for all <em>k</em>.</p></li>
 <li><p>For treatment 1, reader 1, case 1 (the 1st non-diseased case) the 4 ratings are 0.949868, -0.0582497, -0.776378, 0.012073. The mean of all ratings on non-diseased cases is 0.1014348.</p></li>
@@ -180,11 +180,11 @@
 <h2 class="hasAnchor">
 <a href="#the-roi-excel-data-file" class="anchor"></a>The ROI Excel data file</h2>
 <p>An Excel file in JAFROC format containing simulated ROI data corresponding to <code>datasetROI</code>, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object <code>ds</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">fileName &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(</a>
-<a class="sourceLine" id="cb2-2" title="2">    <span class="st">"extdata"</span>, <span class="st">"includedRoiData.xlsx"</span>, <span class="dt">package =</span> <span class="st">"RJafroc"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2-3" title="3">ds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(fileName)</a>
-<a class="sourceLine" id="cb2-4" title="4">ds<span class="op">$</span>dataType</a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; [1] "ROI"</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">fileName &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">    <span class="st">"extdata"</span>, <span class="st">"includedRoiData.xlsx"</span>, <span class="dt">package =</span> <span class="st">"RJafroc"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">ds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(fileName)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">ds<span class="op">$</span>dataType</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; [1] "ROI"</span></a></code></pre></div>
 <p>The <code>DfReadDataFile</code> function automatically recognizes that this is an <em>ROI</em> dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets:</p>
 <p><img src="images/ROI-Truth-1.png" style="width:40.0%"><img src="images/ROI-Truth-2.png" style="width:40.0%"></p>
 <ul>
@@ -235,6 +235,9 @@
 <div id="ref-RN1233">
 <p>Obuchowski, Nancy A. 1997. “Nonparametric Analysis of Clustered Roc Curve Data.” Journal Article. <em>Biometrics</em> 53: 567–78.</p>
 </div>
+<div id="ref-RN55">
+<p>Obuchowski, Nancy A., Michael L. Lieber, and Kimerly A. Powell. 2000. “Data Analysis for Detection and Localization of Multiple Abnormalities with Application to Mammography.” Journal Article. <em>Acad. Radiol.</em> 7 (7): 516–25.</p>
+</div>
 </div>
 </div>
   </div>
@@ -257,7 +260,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dev Chakraborty, Xuetong Zhai.</p>
+  <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">

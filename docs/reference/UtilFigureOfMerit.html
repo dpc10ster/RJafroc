@@ -64,7 +64,7 @@ for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -249,7 +249,13 @@ Med Phys 23:10, 1709--1725.</p>
 #&gt; Trt - DM 0.6425854 0.7049977 0.7518434 0.7724426 0.6836962</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;          Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6  Rdr - 7
 #&gt; Trt - 1 0.628125 0.7585417 0.7494792 0.8670313 0.8005208 0.7686979 0.786875
 #&gt;         Rdr - 8   Rdr - 9  Rdr - 10
-#&gt; Trt - 1    0.84 0.7652083 0.7913542</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"PCL"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt; <span class='error'>Error in regularize.values(x, y, ties, missing(ties)): (converted from warning) collapsing to unique 'x' values</span></div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ALROC"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt; <span class='error'>Error in regularize.values(x, y, ties, missing(ties)): (converted from warning) collapsing to unique 'x' values</span></div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetROI</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ROI"</span>) <span class='co'>#ROI data</span></div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5
+#&gt; Trt - 1    0.84 0.7652083 0.7913542</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"PCL"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3 Rdr - 4 Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - 1 0.5916667 0.6945313 0.6458333 0.80625   0.725 0.6598214 0.7684524
+#&gt;         Rdr - 8 Rdr - 9 Rdr - 10
+#&gt; Trt - 1  0.7375   0.675    0.675</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ALROC"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - 1 0.1005382 0.1075944 0.1088715 0.1447396 0.1189063 0.1000335 0.1345511
+#&gt;           Rdr - 8   Rdr - 9  Rdr - 10
+#&gt; Trt - 1 0.1221875 0.1060417 0.1054167</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetROI</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ROI"</span>) <span class='co'>#ROI data</span></div><div class='output co'>#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5
 #&gt; Trt - 1 0.9057239 0.8842834 0.8579279 0.9350207 0.8352103
 #&gt; Trt - 2 0.9297186 0.9546035 0.8937652 0.9531716 0.8770076</div><span class='co'># NOT RUN {</span>
 <span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>) <span class='co'>#error</span>
@@ -276,7 +282,7 @@ Med Phys 23:10, 1709--1725.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Dev Chakraborty, Xuetong Zhai.</p>
+  <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">

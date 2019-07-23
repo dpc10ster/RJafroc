@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -244,13 +244,17 @@ codes treatment and reader) and type, which can be <code>"individual"</code>, <c
 
 <span class='no'>plotT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>))
 <span class='no'>plotR</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fl'>2</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>:<span class='fl'>3</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>))
-<span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>)</div><div class='output co'>#&gt; <span class='error'>Error in regularize.values(x, y, ties, missing(ties)): (converted from warning) collapsing to unique 'x' values</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>,
-                  <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"FROC"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in regularize.values(x, y, ties, missing(ties)): (converted from warning) collapsing to unique 'x' values</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-3.png' alt='' width='700' height='433' /></div><div class='input'>
+                  <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"FROC"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>,
-                  <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"AFROC"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in regularize.values(x, y, ties, missing(ties)): (converted from warning) collapsing to unique 'x' values</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-4.png' alt='' width='700' height='433' /></div><div class='input'>
+                  <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"AFROC"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>,
-                  <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in regularize.values(x, y, ties, missing(ties)): (converted from warning) collapsing to unique 'x' values</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-5.png' alt='' width='700' height='433' /></div><div class='input'>
+                  <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##Example 3</span>
 <span class='co'>## Correspondences between indices and string identifiers for treatments and </span>
 <span class='co'>## readers in this dataset. Apparently reader "2" did not complete the study.</span>
@@ -295,7 +299,7 @@ codes treatment and reader) and type, which can be <code>"individual"</code>, <c
 
       <footer>
       <div class="copyright">
-  <p>Developed by Dev Chakraborty, Xuetong Zhai.</p>
+  <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
