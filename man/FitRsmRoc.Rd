@@ -63,6 +63,7 @@ If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. MLE
    requirement to have five counts, the chi-square statistic often cannot be calculated.
 }
 \examples{
+\dontrun{
 ## Test with included ROC data (some bins have zero counts)
 lesDistr <- UtilLesionDistribution(dataset02)
 retFit <- FitRsmRoc(dataset02, lesDistr)
@@ -100,7 +101,7 @@ rocData <- DfFroc2Roc(dataset01)
 retFit <- FitRsmRoc(rocData, lesDistr, trt = 2, rdr = 3)
 print(retFit$fittedPlot)
 retFit$ChisqrFitStats
-
+}
 
 }
 \references{

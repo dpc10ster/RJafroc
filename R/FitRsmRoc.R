@@ -43,6 +43,7 @@
 #' 
 #' 
 #' @examples
+#' \dontrun{
 #' ## Test with included ROC data (some bins have zero counts)
 #' lesDistr <- UtilLesionDistribution(dataset02)
 #' retFit <- FitRsmRoc(dataset02, lesDistr)
@@ -80,7 +81,7 @@
 #' retFit <- FitRsmRoc(rocData, lesDistr, trt = 2, rdr = 3)
 #' print(retFit$fittedPlot)
 #' retFit$ChisqrFitStats
-#' 
+#' }
 #' 
 #' @references 
 #' Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 

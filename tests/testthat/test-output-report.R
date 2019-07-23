@@ -3,6 +3,8 @@ context("Output report")
 # options not needed as output file produces all three options DPC 6/30/19
 test_that("UtilOutputReport text format", {
   
+  skip_on_cran()
+  
   dataset_arr <- list(dataset02, dataset05)
   dataset_arr_str <- c("dataset02", "dataset05")
   FOM_arr <- c("Wilcoxon", "HrAuc") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
@@ -59,7 +61,7 @@ test_that("UtilOutputReportExcel", {
   # }
   # fn1 <- paste0(test_path(), "/goodValues361/OutputReport/", "dataset03", "1.xlsx")
   # UtilOutputReport(dataset03, ReportFileName = fn1, ReportFileFormat = "xlsx", overwrite = TRUE)
-  # for (i in 2:6) { # there are 3 worksheets in Excel file; skip summary sheet which has date stuff
+  # for (i in 2:6) { # there are 6 worksheets in Excel file; skip summary sheet which has date stuff
   #   dfGood <- readWorkbook(fn, i) # check each sheet individually
   #   dfCurrent <- readWorkbook(fn1, i)    # do:
   #   expect_equivalent(dfGood, dfCurrent)# works!

@@ -33,6 +33,7 @@ This version chooses ctffs so as to maximize empirical AUC (this yields a
 unique choice of ctffs which gives the reader the maximum deserved credit).
 }
 \examples{
+\dontrun{
 binned <- DfBinDataset(dataset05, opChType = "ROC")
 PlotEmpiricalOperatingCharacteristics(dataset05, 
 trts= c(1,2), rdrs = seq(1,9), opChType = "ROC")$Plot
@@ -45,7 +46,6 @@ trts= c(1,2), rdrs = seq(1,9), opChType = "AFROC")$Plot
 PlotEmpiricalOperatingCharacteristics(binned, trts= c(1,2), 
 rdrs = seq(1,9), opChType = "AFROC")$Plot
 
-\dontrun{
 library(ggplot2)
 dataset <- SimulateRocDataset(K1 = 5000, K2 = 7000, a = 1, b = 0.5, seed = 123)
 datasetB <- DfBinDataset(dataset, desiredNumBins = 7, opChType = "ROC")

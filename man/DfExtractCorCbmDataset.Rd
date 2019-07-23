@@ -37,6 +37,8 @@ The utility of this software is
 in designing a ratings simulator that is statistically matched to a real dataset.
 }
 \examples{
+
+\dontrun{
 ## Extract the paired data corresponding to the second and third readers in the first treatment
 ##from the include ROC dataset
 dataset11_23 <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3))
@@ -50,5 +52,5 @@ dataset12_33 <- DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = 3)
 ## (the indices are at different positions in the respective arrays)
 dataset12_13 <- DfExtractCorCbmDataset(dataset05,
 trts = c(1,2), rdrs = c(1,3))
-
+}
 }

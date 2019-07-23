@@ -43,9 +43,11 @@
 #' 
 #' @examples
 #' 
+#' \dontrun{
+#' # moved here since it was writing MyDataOutput.txt to 
+#' project root directory, which was caught by Ubuntu (#13) and CRAN
 #' UtilOutputReport(dataset = dataset03, overwrite = TRUE)
 #'
-#' \dontrun{
 #' ## Generate reports for a dataset object
 #' UtilOutputReport(dataset = dataset02, method = "DBMH", 
 #'              dataDescription = "MyROCData1", overwrite = TRUE)
@@ -140,7 +142,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
                                    dataDescription, 
                                    "Output", ".txt")
         } else {
-          ReportFileName <- paste0(file_path_sans_ext(basename(DataFileName)), 
+          ReportFileName <- paste0(getwd(), "/", file_path_sans_ext(basename(DataFileName)), 
                                    "Output", ".txt")
         }
       }
@@ -168,7 +170,7 @@ UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = 
                                         dataDescription, 
                                         basename(ReportFileName)))
         } else {
-          ReportFileName <- paste0(file_path_sans_ext(basename(DataFileName)), 
+          ReportFileName <- paste0(getwd(), "/", file_path_sans_ext(basename(DataFileName)), 
                                    "Output", ".xlsx")
           summaryInfo <- data.frame(summaryInfo = 
                                       c(base::format(Sys.time(), "%b/%d/%Y"), 

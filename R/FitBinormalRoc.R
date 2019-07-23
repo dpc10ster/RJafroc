@@ -36,6 +36,7 @@
 #' 
 #' 
 #' @examples
+#' \dontrun{
 #' ## Test with an included ROC dataset
 #' retFit <- FitBinormalRoc(dataset02);print(retFit$fittedPlot)
 #' 
@@ -62,10 +63,8 @@
 #' ds <- DfFroc2Roc(dataset01)
 #' retFit <- FitBinormalRoc(ds, 2, 3);print(retFit$fittedPlot)
 #' retFit$ChisqrFitStats
-#' 
 #'  
 #' ## Test with included degenerate ROC data
-#' \dontrun{
 #' retFit <- FitBinormalRoc(datasetDegenerate);print(retFit$fittedPlot)
 #' }
 #' 

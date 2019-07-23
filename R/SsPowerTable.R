@@ -25,12 +25,14 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' ## Example of sample size calculation with DBM method
 #' SsPowerTable(dataset02, method = "DBMH")
 #' 
 #' ## Example of sample size calculation with OR method
 #' SsPowerTable(dataset02, method = "ORH")
-#' 
+#' }
+#'  
 #' @export
 
 SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower = 0.8, 

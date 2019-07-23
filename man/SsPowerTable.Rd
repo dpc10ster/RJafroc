@@ -42,10 +42,12 @@ The default \code{effectSize}
 The procedure is valid for ROC studies only; for FROC studies see Online Appendix Chapter 19.
 }
 \examples{
+\dontrun{
 ## Example of sample size calculation with DBM method
 SsPowerTable(dataset02, method = "DBMH")
 
 ## Example of sample size calculation with OR method
 SsPowerTable(dataset02, method = "ORH")
-
+}
+ 
 }
