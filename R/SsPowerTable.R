@@ -25,7 +25,7 @@
 #'
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## Example of sample size calculation with DBM method
 #' SsPowerTable(dataset02, method = "DBMH")
 #' 

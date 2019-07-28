@@ -139,6 +139,7 @@ ret1M <- StSignificanceTestingCadVsRadiologists (dataset09,
 FOM = "Wilcoxon", method = "singleModality")
 
 \dontrun{
+## takes longer than 5 sec on OSX
 ret2M <- StSignificanceTestingCadVsRadiologists (dataset09, 
 FOM = "Wilcoxon", method = "dualModality")
 

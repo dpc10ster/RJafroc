@@ -56,7 +56,7 @@ In the binormal model ratings (more accurately the latent decision variables)
    count.
 }
 \examples{
-\dontrun{
+\donttest{
 ## Test with an included ROC dataset
 retFit <- FitBinormalRoc(dataset02);print(retFit$fittedPlot)
 

@@ -118,7 +118,7 @@
 #' @examples
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
-#' \dontrun{
+#' \donttest{
 #' StSignificanceTesting(dataset05, FOM = "wAFROC")
 #' StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBMH") 
 #' StSignificanceTesting(dataset05, FOM = "SongA1", method = "DBMH") 

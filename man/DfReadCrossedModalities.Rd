@@ -33,7 +33,7 @@ The data format is  similar to the JAFROC format (see \code{\link{RJafroc-packag
 }
 \examples{
 
-\dontrun{
+\donttest{
 crossedFileName <- system.file("extdata", 
    "includedCrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
 crossedData <- DfReadCrossedModalities(crossedFileName)

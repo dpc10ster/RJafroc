@@ -15,7 +15,7 @@
 #'    when saving dataset in other formats}.
 #' 
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' DfSaveDataFile(dataset = dataset05, 
 #'    fileName = "rocData2.xlsx", format = "JAFROC")
 #' DfSaveDataFile(dataset = dataset02, 

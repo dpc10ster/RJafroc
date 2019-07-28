@@ -46,7 +46,7 @@ The ROC data is bined to 5 bins in each condition.
 dataset <- DfCreateCorCbmDataset()
 
 \dontrun{
-## this takes long time!! used to show asymptotic convergence of ML estimates 
+## this takes very long time!! used to show asymptotic convergence of ML estimates 
 dataset <- DfCreateCorCbmDataset(K1 = 5000, K2 = 5000)
 }
 

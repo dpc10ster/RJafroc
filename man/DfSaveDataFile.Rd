@@ -27,7 +27,7 @@ Save ROC data file in a different format so it can be analyzed
    with alternate software
 }
 \examples{
-\dontrun{
+\donttest{
 DfSaveDataFile(dataset = dataset05, 
    fileName = "rocData2.xlsx", format = "JAFROC")
 DfSaveDataFile(dataset = dataset02, 

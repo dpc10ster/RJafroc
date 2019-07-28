@@ -13,7 +13,7 @@
 #' @return The return list contains the same items with \code{\link{StSignificanceTesting}}.
 #' 
 #' @examples
-#' \dontrun{ 
+#' \donttest{ 
 #' ## read the raw data file in extdata directory
 #' crossedFileName <- system.file("extdata", "includedCrossedModalitiesData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)

@@ -43,7 +43,7 @@
 #' 
 #' 
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## Test with included ROC data (some bins have zero counts)
 #' lesDistr <- UtilLesionDistribution(dataset02)
 #' retFit <- FitRsmRoc(dataset02, lesDistr)

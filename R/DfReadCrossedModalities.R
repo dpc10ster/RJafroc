@@ -22,7 +22,7 @@
 #' 
 #' @examples
 #' 
-#' \dontrun{
+#' \donttest{
 #' crossedFileName <- system.file("extdata", 
 #'    "includedCrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
 #' crossedData <- DfReadCrossedModalities(crossedFileName)

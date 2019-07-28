@@ -36,7 +36,7 @@
 #' 
 #' 
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## Test with an included ROC dataset
 #' retFit <- FitBinormalRoc(dataset02);print(retFit$fittedPlot)
 #' 

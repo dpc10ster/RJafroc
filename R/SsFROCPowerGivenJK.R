@@ -31,7 +31,7 @@
 #' #'    
 #' #'    
 #' #' @examples 
-#' #' \dontrun{
+#' #' \donttest{
 #' #' SsFROCPowerGivenJK(dataset04, trts = c(1,2), rdrs = c(1,2,3,4), 
 #' #'    effectSizeROC = seq(0.01, 0.09, 0.005), J = 5, K = 200)
 #' #'

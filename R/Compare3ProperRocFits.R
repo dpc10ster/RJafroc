@@ -67,18 +67,24 @@
 #' ret <- Compare3ProperRocFits(1,1) # analyze first two datasets
 #' 
 #' \dontrun{
+#' ## takes longer than 5 sec on OSX
 #' ret <- Compare3ProperRocFits(1,2,reAnalyze = TRUE) # analyze first two datasets
 #' x <- ret$allDatasetsResults
 #' str(x[[1]][[1]]) # parameters for dataset 1 trt 1 and rdr 1
 #' str(x[[1]][[2]]) # parameters for dataset 1 trt 1 and rdr 2
 #' str(x[[1]][[10]])# parameters for dataset 1 trt 2 and rdr 5
-#' str(x[[1]][[11]])# error
 #' str(x[[2]][[1]]) # parameters for dataset 2 trt 1 and rdr 1
 #' str(x[[2]][[2]]) # parameters for dataset 2 trt 1 and rdr 2
 #' str(x[[2]][[10]])# parameters for dataset 2 trt 2 and rdr 5
-#' str(x[[3]][[1]]) # error
 #' }
 #'
+#' \dontrun{ 
+#' ## these examples will cause errors; 
+#' ##these are intended to illustrate the structure of the functions return object
+#' str(x[[1]][[11]])# error
+#' str(x[[3]][[1]]) # error
+#' }
+#' 
 #' 
 #' @references 
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
