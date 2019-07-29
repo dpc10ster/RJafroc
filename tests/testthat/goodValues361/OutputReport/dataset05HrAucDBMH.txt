@@ -1,0 +1,326 @@
+RJafroc SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
+IN THE SOFTWARE.
+
+================================================================================
+
+R version: R version 3.6.1 (2019-07-05)
+RJafroc version: 1.2.0
+Run date: Jul 29 2019 Mon 09:19:50 EDT
+ FOM selected         :     HrAuc
+ Input  Data          :     dataset
+ Output Data Filename :     ./goodValues361/OutputReport/dataset05HrAucDBMH.txt
+
+================================================================================
+
+ Significance testing method:  DBM-MRMC-HILLIS SIGNIFICANCE TESTING: MyDataDescription: 
+ Number of Readers          :  9
+ Number of Treatments       :  2
+ Number of Normal Cases     :  45
+ Number of Abnormal Cases   :  47
+ Fraction of Normal Cases   :  0.489130
+ Min number of lesions per diseased case   :  1
+ Max number of lesions per diseased case   :  3
+ Mean number of lesions per diseased case  :  1.255319
+ Total number of lesions                   :  59
+ Inc. Loc. Frac.          :  0.161348
+
+
+================================================================================
+
+ Avg. number of non-lesion localization marks per reader on non-diseased cases: 0.509877
+ Avg. number of non-lesion localization marks per reader on diseased cases:  0.382979
+ Avg. number of lesion localization marks per reader :  0.997636
+
+
+================================================================================
+
+ Modality IDs in the input file are:  1, 2
+
+ Modality IDs in the output file are: 1, 2
+
+ Reader IDs in the input file are:    1, 2, 3, 4, 5, 6, 7, 8, 9
+
+ Reader IDs in the output file are:   1, 2, 3, 4, 5, 6, 7, 8, 9
+
+================================================================================
+
+ ====================================================================
+ *****                        Overview                          *****
+ ====================================================================
+ Three analyses are presented: 
+ (1) Analysis 1 treats both readers and cases as random samples
+     --results apply to the reader and case populations;
+ (2) Analysis 2 treats only cases as a random sample
+     --results apply to the population of cases but only for the
+     readers used in this study; and
+ (3) Analysis 3 treats only readers as a random sample
+     --results apply to the population of readers but only for the
+     cases used in this study.
+
+ For all three analyses, the null hypothesis of equal treatments is
+ tested in part (a), treatment difference 95% confidence intervals
+ are given in part (b), and treatment 95% confidence intervals are
+ given in part (c).  Parts (a) and (b) are based on the treatment x
+ reader x case ANOVA while part (c) is based on the reader x case
+ ANOVA for the specified treatment; these ANOVA tables are displayed
+ before the analyses.  Different error terms are used as indicated
+ for parts (a), (b), and (c) according to whether readers and cases
+ are treated as fixed or random factors.  Note that the treatment
+ confidence intervals in part (c) are based only on the data for the
+ specified treatment, rather than the pooled data.  Treatment
+ difference 95% confidence intervals for each reader are presented
+ in part (d) of Analysis 2; each interval is based on the treatment
+ x case ANOVA table (not included) for the specified reader.
+
+ ===========================================================================
+ *****                            Estimates                            *****
+ ===========================================================================
+
+                        TREATMENT
+              -----------------------
+  READER      1            2         
+----------    ----------   ----------
+1             0.85886525   0.89148936
+2             0.89314421   0.97612293
+3             0.88226950   0.88274232
+4             0.73026005   0.84822695
+5             0.71418440   0.83995272
+6             0.92907801   0.90898345
+7             0.91891253   0.95248227
+8             0.87919622   0.93380615
+9             0.81442080   0.85697400
+
+
+ TREATMENT MEANS (averaged across readers)
+----------    -----------------------------
+1             0.84670344
+2             0.89897557
+
+
+
+ TREATMENT MEAN DIFFERENCES
+----------   ----------    -----------
+1          - 2             -0.05227213
+
+
+
+
+ ===========================================================================
+ *****                          ANOVA Tables                           *****
+ ===========================================================================
+
+ TREATMENT X READER X CASE ANOVA
+
+Source            SS               DF             MS        
+------   --------------------    ------   ------------------
+     T             1.13120350         1           1.13120350
+     R             5.27623066         8           0.65952883
+     C            55.82349116        91           0.61344496
+    TR             0.89314716         8           0.11164340
+    TC            20.79022710        91           0.22846403
+    RC            71.32075503       728           0.09796807
+   TRC            48.61282976       728           0.06677587
+ Total           203.84788437      1655
+
+
+
+ TREATMENT X READER X CASE ANOVA
+
+
+
+                        Mean Squares
+ Source     df   1            2         
+ ------    ---   ----------   ----------   
+      R      8   0.56105777   0.21011446
+      C     91   0.56306715   0.27884184
+     RC    728   0.09095622   0.07378772
+ ===========================================================================
+ *****                  Variance Components Estimates                  *****
+ ===========================================================================
+
+ DBM variance component and covariance estimates
+
+     DBM Component             Estimate    
+ -----------------------  ----------------
+ Var(R)                        0.00280812
+ Var(C)                        0.01965493
+ Var(T*R)                      0.00048769
+ Var(T*C)                      0.01796535
+ Var(R*C)                      0.01559610
+ Var(Error)                    0.06677587
+
+
+ ===========================================================================
+ *****           Analysis 1: Random Readers and Random Cases           *****
+ ===========================================================================
+
+
+ (Results apply to the population of readers and cases)
+
+
+    a) Test for H0: Treatments have the same HrAuc figure of merit.
+
+
+ Source        DF    Mean Square      F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        1       1.13120350     4.14   0.0475
+ Error        47.95       0.27333156
+ Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]
+
+ Conclusion: The HrAuc FOMs of treatments are not equal,
+             F(1,47.95) = 4.14, p = 0.0475.
+
+
+    b) 95% confidence intervals for treatment differences
+
+       Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
+----------   ----------  --------  --------  -------  ------  -------  -------------------
+1          - 2           -0.05227   0.02569    47.95   -2.03   0.0475  -0.10394 , -0.00061
+
+
+
+ H0: the two treatments are equal.
+ Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]
+
+
+    c) 95% treatment confidence intervals based on reader x case ANOVAs
+       for each treatment (each analysis is based only on data for the
+       specified treatment
+
+  Treatment     Area      Std Error     DF     95% Confidence Interval 
+  ----------  ----------  ----------  -------  -------------------------
+  1           0.84670344  0.03532405    27.13  (0.77424048 , 0.91916640)
+  2           0.89897557  0.02239222    31.23  (0.85332021 , 0.94463094)
+ Error term: MS(R) + max[MS(C) - MS(RC), 0]
+
+
+
+ ===========================================================================
+ *****           Analysis 2: Fixed Readers and Random Cases            *****
+ ===========================================================================
+
+
+ (Results apply to the population of cases but only for the readers
+ used in this study)
+
+
+    a) Test for H0: Treatments have the same HrAuc figure of merit.
+
+
+ Source        DF    Mean Square      F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        1       1.13120350     4.95   0.0285
+ Error        91.00       0.22846403
+  Error term: MS(TC)
+
+ Conclusion: The HrAuc FOMs of treatments are not equal,
+             F(1,91.00) = 4.95, p = 0.0285.
+
+
+    b) 95% confidence intervals for treatment differences
+
+       Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
+----------   ----------  --------  --------  -------  ------  -------  -------------------
+1          - 2           -0.05227   0.02349    91.00   -2.23   0.0285  -0.09893 , -0.00561
+
+
+
+ H0: the two treatments are equal.
+ Error term: MS(TC) 
+
+
+    c) 95% treatment confidence intervals based on reader x case ANOVAs
+       for each treatment (each analysis is based only on data for the
+       specified treatment
+
+  Treatment     Area      Std Error     DF     95% Confidence Interval 
+  ----------  ----------  ----------  -------  -------------------------
+  1           0.84670344  0.02607744    91.00  (0.79490381 , 0.89850307)
+  2           0.89897557  0.01835117    91.00  (0.86252322 , 0.93542792)
+ Error term: MS(C) 
+
+
+
+ TREATMENT X CASE ANOVAs for each reader
+
+
+                        Sum of Squares
+ Source     df   1             2             3             4             5             6             7             8             9             
+ ------    ---   -----------   -----------   -----------   -----------   -----------   -----------   -----------   -----------   -----------   
+      T      1     0.0489593     0.3167316     0.0000103     0.6401448     0.7276129     0.0185744     0.0518387     0.1371832     0.0832956   
+      C     91    14.1415236     6.3004143    13.8169337    25.3810213    24.6373995     8.7565420     5.3048739    10.0188927    18.7866453   
+     TC     91     7.6740661     4.7927527     5.3877158     8.9612918    14.1243018     5.2362635     5.5886587     6.1648119    11.4731945   
+
+
+
+                        Mean Squares
+ Source     df   1             2             3             4             5             6             7             8             9             
+ ------    ---   -----------   -----------   -----------   -----------   -----------   -----------   -----------   -----------   -----------   
+      T      1     0.0489593     0.3167316     0.0000103     0.6401448     0.7276129     0.0185744     0.0518387     0.1371832     0.0832956   
+      C     91     0.1554014     0.0692353     0.1518344     0.2789123     0.2707407     0.0962257     0.0582953     0.1100977     0.2064467   
+     TC     91     0.0843304     0.0526676     0.0592057     0.0984757     0.1552121     0.0575414     0.0614138     0.0677452     0.1260791   
+
+
+
+
+
+    d) Treatment-by-case ANOVA CIs for each reader 
+       (each analysis is based only on data for the specified reader)
+
+  Reader         Treatment        Estimate  StdErr       DF      t     Pr > t          95% CI      
+---------- ---------- ----------  --------  --------  -------  ------  -------  -------------------
+1          1         -2           -0.03262   0.04282    91.00   -0.76   0.4481  -0.11767 ,  0.05243
+2          1         -2           -0.08298   0.03384    91.00   -2.45   0.0161  -0.15019 , -0.01577
+3          1         -2           -0.00047   0.03588    91.00   -0.01   0.9895  -0.07174 ,  0.07079
+4          1         -2           -0.11797   0.04627    91.00   -2.55   0.0125  -0.20987 , -0.02606
+5          1         -2           -0.12577   0.05809    91.00   -2.17   0.0330  -0.24115 , -0.01038
+6          1         -2            0.02009   0.03537    91.00    0.57   0.5713  -0.05016 ,  0.09035
+7          1         -2           -0.03357   0.03654    91.00   -0.92   0.3607  -0.10615 ,  0.03901
+8          1         -2           -0.05461   0.03838    91.00   -1.42   0.1581  -0.13084 ,  0.02162
+9          1         -2           -0.04255   0.05235    91.00   -0.81   0.4184  -0.14655 ,  0.06144
+
+
+
+ ===========================================================================
+ *****           Analysis 3: Random Readers and Fixed Cases            *****
+ ===========================================================================
+ (Results apply to the population of readers but only for the cases used in this study)
+
+
+    a) Test for H0: Treatments have the same HrAuc figure of merit.
+
+
+ Source        DF    Mean Square      F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        1       1.13120350    10.13   0.0129
+ Error         8.00       0.11164340
+ Error term: MS(TR)
+
+ Conclusion: The HrAuc FOMs of treatments are not equal,
+             F(1,8.00) = 10.13, p = 0.0129.
+
+
+    b) 95% confidence intervals for treatment differences
+
+       Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
+----------   ----------  --------  --------  -------  ------  -------  -------------------
+1          - 2           -0.05227   0.01642     8.00   -3.18   0.0129  -0.09014 , -0.01440
+
+
+
+ H0: the two treatments are equal.
+
+
+
+    c) Reader-by-case ANOVAs for each treatment (each analysis is based only on data for the
+       specified treatment
+
+  Treatment     Area      Std Error     DF     95% Confidence Interval 
+  ----------  ----------  ----------  -------  -------------------------
+  1           0.84670344  0.02603087     8.00  (0.78667616 , 0.90673073)
+  2           0.89897557  0.01592989     8.00  (0.86224118 , 0.93570997)
