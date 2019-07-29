@@ -6,7 +6,7 @@ having been archived, as described in __Overall__ below.
 > Found the following files/directories:
 >   ‘MyDataOutput.txt’
 * This error, which was due to an example in `UtilOutputReport.R` writing to the package directory, has been corrected. The advice from CRAN - using `tempfile()` or a user-specified file name - has been adopted. I have checked that the package does not write to any location within the package directory. All instances of `getwd()` have been removed.
-* All examples consuming CPU time in excess of 5 seconds, have been surrounded by `\dontrun` brackets. e
+* All examples consuming CPU time in excess of 5 seconds have been surrounded by `\dontrun` brackets.
 * As advised in the email from CRAN, instances of `\dontrun` have been replaced by `\donttest`.
 * The package size has been reduced to meet CRAN guidelines. 
 * The package was checked on a Debian platform and yielded one Note, identical to that on Windows, which is a false positive.
