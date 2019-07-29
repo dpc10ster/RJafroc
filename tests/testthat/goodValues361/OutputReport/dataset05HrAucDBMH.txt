@@ -8,16 +8,16 @@ IN THE SOFTWARE.
 
 ================================================================================
 
-R version: R version 3.6.0 (2019-04-26)
+R version: R version 3.6.1 (2019-07-05)
 RJafroc version: 1.2.0
-Run date: Jul 15 2019 Mon 12:39:23 EDT
+Run date: Jul 29 2019 Mon 09:19:50 EDT
  FOM selected         :     HrAuc
- Input  Data          :     MyData
+ Input  Data          :     dataset
  Output Data Filename :     ./goodValues361/OutputReport/dataset05HrAucDBMH.txt
 
 ================================================================================
 
- Significance testing method:  DBM-MRMC-HILLIS SIGNIFICANCE TESTING
+ Significance testing method:  DBM-MRMC-HILLIS SIGNIFICANCE TESTING: MyDataDescription: 
  Number of Readers          :  9
  Number of Treatments       :  2
  Number of Normal Cases     :  45

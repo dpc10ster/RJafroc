@@ -22,7 +22,7 @@
 #' @return A dataset with the structure specified in \code{\link{RJafroc-package}}.
 #' 
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' fileName <- system.file("extdata", "includedRocData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' RocDataXlsx <- DfReadDataFile(fileName)

@@ -38,7 +38,7 @@
 #'    The indices of the parameters held fixed are in \code{fitCorCbmRet$fixParam}.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' dataset <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))
 #' ret <- FitCorCbm(dataset)
 #' print(ret$fitCorCbmRet)
@@ -64,7 +64,7 @@
 # $rhoAbn2
 # [1] 0.9582393
 # 
-#' ret <- FitCorCbm(binnedData123)
+#' ret <- FitCorCbm(datasetBinned123)
 #' print(ret$fitCorCbmRet)
 #' print(ret$stats)
 #' print(ret$fittedPlot)

@@ -52,7 +52,7 @@ SsSampleSizeKGivenJ(dataset02, J = 6, method = "DBMH")
 SsSampleSizeKGivenJ(dataset02, J = 6, method = "ORH")
 
 
-\dontrun{ 
+\donttest{ 
 for (J in 6:10) {
  ret <- SsSampleSizeKGivenJ(dataset02, J = J, option = "RRRC") 
  message("# of readers = ", J, " estimated # of cases = ", ret$K, ", predicted power = ",

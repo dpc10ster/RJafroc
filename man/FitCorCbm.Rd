@@ -49,14 +49,14 @@ The conditions (X, Y) can be two readers interpreting images in the same
    The indices of the parameters held fixed are in \code{fitCorCbmRet$fixParam}.
 }
 \examples{
-\dontrun{
+\donttest{
 dataset <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))
 ret <- FitCorCbm(dataset)
 print(ret$fitCorCbmRet)
 print(ret$stats)
 print(ret$fittedPlot)
 
-ret <- FitCorCbm(binnedData123)
+ret <- FitCorCbm(datasetBinned123)
 print(ret$fitCorCbmRet)
 print(ret$stats)
 print(ret$fittedPlot)

@@ -35,7 +35,7 @@ A dataset with the structure specified in \code{\link{RJafroc-package}}.
 Read a disk file and create a dataset object from it.
 }
 \examples{
-\dontrun{
+\donttest{
 fileName <- system.file("extdata", "includedRocData.xlsx", 
 package = "RJafroc", mustWork = TRUE)
 RocDataXlsx <- DfReadDataFile(fileName)

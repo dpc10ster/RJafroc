@@ -33,7 +33,7 @@ This version chooses ctffs so as to maximize empirical AUC (this yields a
 unique choice of ctffs which gives the reader the maximum deserved credit).
 }
 \examples{
-\dontrun{
+\donttest{
 binned <- DfBinDataset(dataset05, opChType = "ROC")
 PlotEmpiricalOperatingCharacteristics(dataset05, 
 trts= c(1,2), rdrs = seq(1,9), opChType = "ROC")$Plot

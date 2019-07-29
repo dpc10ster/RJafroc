@@ -43,7 +43,7 @@
 #' SsSampleSizeKGivenJ(dataset02, J = 6, method = "ORH")
 #' 
 #'
-#' \dontrun{ 
+#' \donttest{ 
 ## Example of power calculations using the DBM variance components, 
 ## and scanning the number of readers
 #' for (J in 6:10) {

@@ -113,7 +113,7 @@ Next, one uses DfReadDataFile() as follows, assuming it is a JAFROC format file.
 ds <- DfReadDataFile(sysFileName)
 ``` 
 
-Now ds is the desired dataset.
+Here `ds` is the desired dataset.
 
 ```{r}
 str(ds)
@@ -134,8 +134,8 @@ print(ret)
 
 ## Explanation of the output
 The function returns a long unwieldy list. Let us consider them one by one.
-The function `UtilOutputReport()` can generate an Excel file report, making it much
-easier to visualize the results. This is described in another vignette.
+The function `UtilOutputReport()`, which can generate an Excel file report, making it much
+easier to visualize the results, is described in another vignette.
 
 ### FOMs
 * `fomArray` contains the `[1:2,1:4]` FOM values.

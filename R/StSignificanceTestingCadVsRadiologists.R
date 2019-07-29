@@ -97,7 +97,7 @@
 #' ret1M <- StSignificanceTestingCadVsRadiologists (dataset09, 
 #' FOM = "Wilcoxon", method = "singleModality")
 #' 
-#' \dontrun{
+#' \donttest{
 #' ret2M <- StSignificanceTestingCadVsRadiologists (dataset09, 
 #' FOM = "Wilcoxon", method = "dualModality")
 #' 

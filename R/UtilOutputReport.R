@@ -1,81 +1,62 @@
-#' Generate a formatted report file
+#' Generate a text formatted report file or an Excel file
 #' 
-#' @description  Generate a formatted report of the analysis and save to a text file
+#' @description  Generates a formatted report of the analysis 
+#'    and saves it to a text or an Excel file
 #' 
-#' 
-#' @param dataset The dataset object to be analyzed (not the file name), see \code{Dataset} 
+#' @param dataset The dataset object to be analyzed (\emph{not the file name}), see \code{Dataset} 
 #'    in \code{\link{RJafroc-package}}.
-#' @param DataFileName A string variable containing the name of the data file 
-#'    to be analyzed, in the form \code{baseName.ext}, see \code{\link{DfReadDataFile}}.
-#' @param DataFileFormat The format of the data specified in \code{DataFileName}: 
-#'    see \code{\link{DfReadDataFile}}. Must be specified if \code{DataFileName}
-#'    is specified. Valid values are "JAFROC", "MRMC" or "iMRMC"
-#' @param delimiter used in text input data file, See \code{\link{DfReadDataFile}}.
-#' @param dataDescription Optional description of the data, default is \code{"MyData"} 
-#' @param ReportFileName The file name of the output report file. If this parameter 
-#'    is missing, the function will use \code{DataFileName} or \code{dataDescription} 
-#'    followed by the underscore separated concatenation of \code{method} 
-#'    and \code{FOM} as the output report file.
-#' @param ReportFileFormat The format of the output report. The two available formats are 
-#'    \code{"txt"} (the default) and \code{"xlsx"}, corresponding to a formatted text file or an 
-#'    Excel file, respectively.
+#'    
+#' @param dataDescription A short string describing the dataset, 
+#'    the default is "MyDataDescription: ";
+#'    it is inserted, for reference, in the output file.
+#'    
+#' @param ReportFileBaseName The file bse name (sans extension) for the desired report; 
+#'    the default is NULL, in which case the system generates a temporary text file, 
+#'    whose name will be displayed.  
+#'    
+#' @param ReportFileExt The report file extension determines the type of output. 
+#'    \code{txt}, the default, for 
+#'    a text file, \code{xlsx} for an Excel file.
+#'    
 #' @param method The significance testing method, \code{"ORH"} or (the default) \code{"DBMH"}.
+#' 
 #' @param FOM The figure of merit; see \code{\link{StSignificanceTesting}}.
-#' @param alpha See \code{\link{StSignificanceTesting}}.
-#' @param covEstMethod See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis.
-#' @param nBoots See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis.
+#' 
+#' @param alpha See \code{\link{StSignificanceTesting}}; the default is 0.05.
+#' 
+#' @param covEstMethod See \code{\link{StSignificanceTesting}}; only needed 
+#'     for method = \code{"ORH"}; the default is "Jackknife".
+#' 
+#' @param nBoots See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis;
+#'     the default is 200.
+#' 
 #' @param renumber A logical variable: if \code{TRUE}, consecutive integers 
 #'    (staring from 1) will be used as the treatment and reader IDs in the 
 #'    output report. Otherwise, treatment and reader IDs in the original data 
-#'    file will be used. This option may be needed for aesthetics.
-#' @param overwrite A \code{logical} variable: if \code{FALSE}, a warning will 
+#'    file will be used. This option may be needed for aesthetics. The default
+#'    is FALSE.
+#'    
+#' @param overWrite A \code{logical} variable: if \code{FALSE}, a warning will 
 #'    be issued if the report file already exists and the program will wait 
 #'    until the user inputs "y" or "n" to determine whether to overwrite the 
-#'    existing file. If \code{TRUE}, an existing file will be silently overwritten.
+#'    existing file. If \code{TRUE}, the existing file will be silently overwritten. The
+#'    default is \code{FALSE}.
 #' 
 #' 
 #' @details
-#' A formatted report of the data analysis, patterned roughly on that of 
-#'    OR-DBM MRMC V2.5, is written to the output file.
+#' A formatted report of the data analysis is written to the output file in 
+#'    either text or Excel format.
 #' 
 #' 
 #' @return sigTestResult The object returned by \code{\link{StSignificanceTesting}}.
 #' 
 #' @examples
 #' 
-#' \dontrun{
-#' # moved here since it was writing MyDataOutput.txt to 
-#' project root directory, which was caught by Ubuntu (#13) and CRAN
-#' UtilOutputReport(dataset = dataset03, overwrite = TRUE)
+#' \donttest{
+#' UtilOutputReport(dataset03) # text output is created in a temporary file
 #'
-#' ## Generate reports for a dataset object
-#' UtilOutputReport(dataset = dataset02, method = "DBMH", 
-#'              dataDescription = "MyROCData1", overwrite = TRUE)
-#'              
-#' UtilOutputReport(dataset = dataset02, method = "DBMH", 
-#' dataDescription = "MyROCData2",ReportFileFormat = "xlsx", overwrite = TRUE)
-#' 
-#' UtilOutputReport(dataset = dataset02, method = "ORH", 
-#'              dataDescription = "MyROCData3", overwrite = TRUE)
-#'              
-#' UtilOutputReport(dataset = dataset02, method = "ORH", 
-#' dataDescription = "MyROCData4",ReportFileFormat = "xlsx", overwrite = TRUE)
-#' 
-#' ## Generate report for a data file
-#' fn <- system.file("extdata", "includedRocData.xlsx", 
-#' package = "RJafroc", mustWork = TRUE)
-#' UtilOutputReport(DataFileName = fn, DataFileFormat = "JAFROC", method = "DBMH",
-#'              overwrite = TRUE, ReportFileFormat = "xlsx")
-#'              
-#' ## Output report for an existing dataset
-#' ## UtilOutputReport(dataset05, method = "DBMH") # ERROR as FOM is 
-#'    incompatible with FROC data
-#' 
-#' UtilOutputReport(dataset05, method = "ORH", FOM = "wAFROC")
-#' 
-#' UtilOutputReport(dataset05, method = "DBMH", FOM = "HrAuc")
-#' 
-#' UtilOutputReport(dataset05, method = "DBMH", FOM = "HrAuc", ReportFileFormat = "xlsx")
+#' UtilOutputReport(dataset03, ReportFileExt = "xlsx") # Excel output is created in a temporary file
+#'
 #' }
 #'        
 #' @importFrom utils packageDescription
@@ -83,158 +64,101 @@
 #'     
 #' @export
 
-UtilOutputReport <- function(dataset, DataFileName, DataFileFormat, delimiter = ",", 
-                             dataDescription = "MyData", 
-                             ReportFileName, ReportFileFormat = "txt",
+UtilOutputReport <- function(dataset, dataDescription = "MyDataDescription: ", 
+                             ReportFileBaseName = NULL, ReportFileExt = "txt", 
                              method = "DBMH", FOM = "Wilcoxon", alpha = 0.05, 
                              covEstMethod = "Jackknife", nBoots = 200, 
-                             renumber = FALSE, overwrite = TRUE) {
-  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+                             renumber = FALSE, overWrite = FALSE) {
   
-  if (!missing(DataFileName)) {
-    if (missing(DataFileFormat)) 
-      stop("If DataFileName is specified, then DataFileFormat must be specified")
-    if (!(DataFileFormat %in% c("JAFROC", "MRMC", "iMRMC"))) 
-      stop("data file format has to be JAFROC or MRMC,  or iMRMC")
-    if (!(file_ext(DataFileName) %in% c("xls", "xlsx", "lrc"))) 
-      stop("Dataset extension has to be xls or xlsx,  or lrc")
-    if ((file_ext(DataFileName) %in% c("xls", "xlsx")) && (DataFileFormat ==  "txt")) 
-      stop("Inconsistent DataFileName and DataFileFormat")
-    if ((file_ext(DataFileName) == "txt") &&  (DataFileFormat ==  "JAFROC")) 
-      stop("Inconsistent DataFileName and DataFileFormat")
-  }
-  
-  if (missing(dataset) && missing(DataFileName)) {
-    stop("Must specify either a data file or a dataset object to be analyzed.")
-  } else {
-    if (missing(dataset)) {
-      datasetSpecified <- FALSE
-      dataset <- DfReadDataFile(DataFileName, DataFileFormat, delimiter, renumber)
-    } else {
-      datasetSpecified <- TRUE
-      if (renumber){
-        dataset$modalityID <- 1:length(dataset$modalityID)
-        dataset$readerID <- 1:length(dataset$readerID)
-      }
-    }
+  if (!isValidDataset(dataset)) {
+    stop("Must specify a valid dataset object.")
   }
   
   if (!isValidFom(dataset, FOM)) {
-    stop("Inconsistent dataset and FOM")
+    stop("Inconsistent dataset - FOM combination")
   }
   
+  if (renumber){
+    dataset$modalityID <- 1:length(dataset$modalityID)
+    dataset$readerID <- 1:length(dataset$readerID)
+  }
+  
+  ReportFileExt <- tolower(ReportFileExt)
+  if (!(ReportFileExt %in% c("txt", "xlsx"))) {
+    stop("Incorrect file extension specified: must be txt or xlsx")
+  }
+  
+  if (is.null(ReportFileBaseName)) {
+    ReportFileName <- tempfile(pattern = "RJafrocUtilOutputReport", fileext = paste0(".", ReportFileExt))
+  } else {
+    ReportFileName <- paste0(ReportFileBaseName, ".", ReportFileExt)
+    if (!overWrite) {
+      if (file.exists(ReportFileName)) {
+        readInput <- ""
+        while (readInput != "y" && readInput != "n") {
+          warningMsg <- paste0("WARNING! The file ", ReportFileName, 
+                               " already exists. Do you want to replace it? Enter \"y\" to replace or \"n\" to stop.")
+          message(warningMsg)
+          readInput <- tolower(readline())
+        }
+        if (readInput == "n") {
+          stop("Execution cancelled by user.")
+        } 
+      }
+    }
+  }
+  cat("\nOutput file name is: \t", ReportFileName, "\n")
+  
   if (method == "DBMH") {
-    methodTxt <- "DBM-MRMC-HILLIS SIGNIFICANCE TESTING"
+    methodTxt <- paste0("DBM-MRMC-HILLIS SIGNIFICANCE TESTING: ", dataDescription)
     sigTestResult <- StSignificanceTesting(dataset, FOM, alpha, method)
   } else if (method == "ORH") {
-    methodTxt <- "OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING"
+    methodTxt <- paste0("OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING: ", dataDescription)
     sigTestResult <- StSignificanceTesting(dataset, FOM, alpha, method, covEstMethod, nBoots)
   } else {
     errMsg <- paste0(method, " is not a valid analysis method.")
     stop(errMsg)
   }
   
-    #sucessfulOutput <- "Method failed"
-    if (ReportFileFormat == "txt"){
-      if (missing(ReportFileName)) {
-        if (datasetSpecified) {
-          ReportFileName <- paste0(getwd(), "/", 
-                                   dataDescription, 
-                                   "Output", ".txt")
-        } else {
-          ReportFileName <- paste0(getwd(), "/", file_path_sans_ext(basename(DataFileName)), 
-                                   "Output", ".txt")
-        }
-      }
-      sucessfulOutput <- OutputTextFile(dataset,
-                                        sigTestResult,
-                                        method,
-                                        alpha,
-                                        FOM,
-                                        ReportFileName, 
-                                        datasetSpecified, 
-                                        dataDescription,
-                                        DataFileName,
-                                        methodTxt,
-                                        overwrite,
-                                        covEstMethod,
-                                        UNINITIALIZED)
-    } else if (ReportFileFormat == "xlsx"){
-      if (missing(ReportFileName)) {
-        if (datasetSpecified) {
-          ReportFileName <- paste0(getwd(), "/", 
-                                   dataDescription, 
-                                   "Output", ".xlsx")
-          summaryInfo <- data.frame(summaryInfo = 
-                                      c(base::format(Sys.time(), "%b/%d/%Y"), 
-                                        dataDescription, 
-                                        basename(ReportFileName)))
-        } else {
-          ReportFileName <- paste0(getwd(), "/", file_path_sans_ext(basename(DataFileName)), 
-                                   "Output", ".xlsx")
-          summaryInfo <- data.frame(summaryInfo = 
-                                      c(base::format(Sys.time(), "%b/%d/%Y"), 
-                                        basename(DataFileName), basename(ReportFileName)))
-        }
-      }else{
-        if (datasetSpecified) {
-          summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), 
-                                                    dataDescription, basename(ReportFileName)))
-        } else {
-          summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), 
-                                                    basename(DataFileName), basename(ReportFileName)))
-        }
-      }
-      rownames(summaryInfo) <- c("Date", "Input file", "Output file")
-      sucessfulOutput <- OutputExcelFile(dataset,
-                                         sigTestResult,
-                                         method,
-                                         alpha,
-                                         FOM,
-                                         ReportFileName, 
-                                         datasetSpecified, 
-                                         dataDescription,
-                                         DataFileName,
-                                         methodTxt,
-                                         overwrite,
-                                         covEstMethod,
-                                         summaryInfo,
-                                         UNINITIALIZED)
-    }
-    #message(sucessfulOutput)
+  if (ReportFileExt == "txt"){
+    sucessfulOutput <- OutputTextFile(dataset,
+                                      method,
+                                      methodTxt,
+                                      ReportFileName,
+                                      alpha,
+                                      FOM,
+                                      sigTestResult)
+  } else {
+    summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), 
+                                              basename(ReportFileName)))
+    rownames(summaryInfo) <- c("Date", "Output file")
+    sucessfulOutput <- OutputExcelFile(dataset,
+                                       method,
+                                       methodTxt,
+                                       ReportFileName,
+                                       covEstMethod,
+                                       summaryInfo,
+                                       alpha,
+                                       FOM,
+                                       sigTestResult)
+  }
+  
   return(sigTestResult)
+  
 } 
 
 
 
 OutputTextFile <- function(dataset,
-                           sigTestResult,
                            method,
+                           methodTxt,
+                           ReportFileName,
                            alpha,
                            FOM,
-                           ReportFileName, 
-                           datasetSpecified, 
-                           dataDescription,
-                           DataFileName,
-                           methodTxt,
-                           overwrite,
-                           covEstMethod,
-                           UNINITIALIZED)
+                           sigTestResult)
 {
-  if (!overwrite) {
-    if (file.exists(ReportFileName)) {
-      readInput <- ""
-      while (readInput != "y" && readInput != "n") {
-        warningMsg <- paste0("WARNING! The file ", ReportFileName, 
-                             " already exists. Do you want to replace it? Enter \"y\" to replace or \"n\" to stop.")
-        message(warningMsg)
-        readInput <- readline()
-      }
-      if (readInput == "n") {
-        stop("Output file exists.")
-      } else readInput <- TRUE
-    }
-  }
+  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  datasetName <- deparse(substitute(dataset))
   ciPercent <- 100 * (1 - alpha)
   write(sprintf(c("RJafroc SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR ", 
                   "IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, ", 
@@ -248,16 +172,11 @@ OutputTextFile <- function(dataset,
   write(sprintf(paste("R version:", R.version$version.string)), ReportFileName, append = TRUE)
   write(sprintf(paste("RJafroc version:", packageVersion("RJafroc"))), ReportFileName, append = TRUE)
   dateTime <- paste0("Run date: ", base::format(Sys.time(), "%b %d %Y %a %X %Z"))
-  if (ReportFileName != "") write(sprintf(dateTime), ReportFileName, append = TRUE)
+  write(sprintf(dateTime), ReportFileName, append = TRUE)
   write(sprintf(" FOM selected         :     %s", FOM), 
         ReportFileName, append = TRUE)
-  if (datasetSpecified) {
-    write(sprintf(" Input  Data          :     %s", dataDescription), 
-          ReportFileName, append = TRUE)
-  } else {
-    write(sprintf(" Input  Data          :     %s", DataFileName), 
-          ReportFileName, append = TRUE)
-  }
+  write(sprintf(" Input  Data          :     %s", datasetName),
+        ReportFileName, append = TRUE)
   write(sprintf(" Output Data Filename :     %s\n", ReportFileName), 
         ReportFileName, append = TRUE)
   write(sprintf("================================================================================\n"), 
@@ -995,36 +914,15 @@ OutputTextFile <- function(dataset,
 }
 
 OutputExcelFile <- function(dataset,
-                            sigTestResult,
                             method,
+                            methodTxt,
+                            ReportFileName,
+                            covEstMethod,
+                            summaryInfo,
                             alpha,
                             FOM,
-                            ReportFileName, 
-                            datasetSpecified, 
-                            dataDescription,
-                            DataFileName,
-                            methodTxt,
-                            overwrite,
-                            covEstMethod,
-                            summaryInfo, 
-                            UNINITIALIZED)
+                            sigTestResult)
 {
-  if (!overwrite) {
-    if (file.exists(ReportFileName)) {
-      readInput <- ""
-      while (readInput != "y" && readInput != "n") {
-        warningMsg <- paste0("WARNING! The file ", 
-                             ReportFileName, 
-                             " already exists. Do you want to replace it? Enter \"y\" to replace or \"n\" to stop.")
-        message(warningMsg)
-        readInput <- readline()
-      }
-      if (readInput == "n") {
-        stop("Output file exists.")
-      } else readInput <- TRUE
-    }
-  }
-  
   NL <- dataset$NL
   LL <- dataset$LL
   I <- length(dataset$NL[,1,1,1])
@@ -1374,8 +1272,6 @@ OutputExcelFile <- function(dataset,
   return(sucessfulOutput)
 }
 
-isValidFom <- function (dataset, FOM){
-  if ((dataset$dataType == "ROC") && (FOM != "Wilcoxon")) return (FALSE)
-  if ((dataset$dataType == "FROC") && (FOM == "Wilcoxon")) return (FALSE)
-  return(TRUE)
-}
+
+
+

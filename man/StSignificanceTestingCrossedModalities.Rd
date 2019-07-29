@@ -26,7 +26,7 @@ Performs ORH analysis for specified crossed treatments dataset
    averaged over specified treatment factor
 }
 \examples{
-\dontrun{ 
+\donttest{ 
 ## read the raw data file in extdata directory
 crossedFileName <- system.file("extdata", "includedCrossedModalitiesData.xlsx", 
 package = "RJafroc", mustWork = TRUE)
