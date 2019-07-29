@@ -37,7 +37,7 @@
 
 # Response to CRAN evaluation #
 * The package size has been reduced to meet CRAN guidelines.
-* The DESCRIPTION section has been modified to include references to the methods in the required format.
+* The DESCRIPTION section has been modified to include references to the methods.
 * The package title has beed reduced to less than 65 characters.
 * The LICENSE file has been removed as well as the reference to it in the DESCRIPTION file.
 * All examples consuming CPU time in excess of 5 seconds have been wrapped by `\dontrun`.
