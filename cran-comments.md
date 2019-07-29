@@ -12,6 +12,7 @@ having been archived, as described in __Overall__ below.
 * The package was checked on a Debian platform and yielded one Note, identical to that on Windows, which is a false positive.
 * Additional checks of the package were run on OSX and Windows.
 * The package was checked using `devtools::check(run_dont_test = TRUE)` as advised in the documentation of `devtools`.
+* The package passed all Travis checks.
 
 # Overall #
 A `C++11` compilation error on `Solaris`, which resulted in archiving of the previous version on 2019-01-17,
