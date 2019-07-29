@@ -36,6 +36,8 @@
 #'
 #' @examples
 #' 
+#' \dontrun{
+#' ## CPU time 8.7 sec on Ubuntu (#13)
 #' ## Test with included ROC data
 #' retFit <- FitCbmRoc(dataset02);print(retFit$fittedPlot)
 #'
@@ -52,7 +54,8 @@
 #' fp <- c(rep(1,7), rep(2, 5), rep(3, 3))
 #' tp <- c(rep(1,3), rep(2, 5), rep(3, 7))
 #' dataset <- Df2RJafrocDataset(fp, tp)
-#' retFit <- FitCbmRoc(dataset);print(retFit$fittedPlot)
+#' retFit <- FitCbmRo
+#' c(dataset);print(retFit$fittedPlot)
 #'
 #' ## Test with included ROC data (some bins have zero counts)
 #' retFit <- FitCbmRoc(dataset02, 2, 1);print(retFit$fittedPlot)
@@ -61,7 +64,8 @@
 #' ds <- DfFroc2Roc(dataset01)
 #' retFit <- FitCbmRoc(ds, 2, 3);print(retFit$fittedPlot)
 #' retFit$ChisqrFitStats
-#'
+#' }
+#' 
 #' @references
 #' Dorfman DD, Berbaum KS (2000) A contaminated binormal model for ROC data: Part II. A formal model,
 #' Acad Radiol, 7:6, 427--437.
