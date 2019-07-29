@@ -79,7 +79,8 @@ The PROPROC parameters were obtained by running Windows software OR
 \examples{
 ret <- Compare3ProperRocFits(1,1) # analyze first two datasets
 
-\donttest{
+\dontrun{
+## takes longer than 5 sec on OSX
 ret <- Compare3ProperRocFits(1,2,reAnalyze = TRUE) # analyze first two datasets
 x <- ret$allDatasetsResults
 str(x[[1]][[1]]) # parameters for dataset 1 trt 1 and rdr 1

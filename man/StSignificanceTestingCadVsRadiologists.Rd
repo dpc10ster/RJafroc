@@ -138,7 +138,8 @@ The extension of the code to FROC will be addressed in a future update.
 ret1M <- StSignificanceTestingCadVsRadiologists (dataset09, 
 FOM = "Wilcoxon", method = "singleModality")
 
-\donttest{
+\dontrun{
+## takes longer than 5 sec on OSX
 ret2M <- StSignificanceTestingCadVsRadiologists (dataset09, 
 FOM = "Wilcoxon", method = "dualModality")
 
