@@ -1,6 +1,8 @@
 Update History
 ==========================
 ## RJafroc 1.2.0 ##
+### Difference between cran and master branches ###
+The `cran` branch meets the file-size limits of CRAN packages. The `tests` and `vignettes` in the `master` branch causes it to exceed the file-size limits of CRAN packages.
 ### Major changes ###
 * Corrected all references to package name to `RJafroc` (note capitalization)
 * Checked downstream dependencies - none as of July 23, 2019: revdep("RJafroc") yields character(0)
