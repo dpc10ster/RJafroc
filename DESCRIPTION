@@ -30,7 +30,7 @@ Suggests:
 LinkingTo: Rcpp
 Description: Tools for quantitative assessment of diagnostic medical imaging systems, radiologists or computer aided detection ('CAD') algorithms.
 VignetteBuilder: knitr
-License: GPL-3 | file LICENSE
+License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/
 RoxygenNote: 6.1.1
