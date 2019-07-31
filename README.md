@@ -13,8 +13,8 @@ RJafroc
 
 # My wiki is at https://github.com/dpc10ster/RJafroc/wiki #
 
-# A CRAN version of RJafroc is in preparation #
-Thanks to help from Dr. Peter Phillips, a version of `RJafroc` that should pass CRAN tests is close to completion. As usual, the most current version of the software is available right here.
+# A CRAN version of RJafroc has been published #
+Thanks to help from Dr. Peter Phillips, version 1.2.0 of `RJafroc` has passed CRAN tests. This version is on the `cran` branch. The complete (all vignettes and tests) current version of the software is available on the `master` branch. The `development` branch is for ongoing work.
 
 # Those already familiar with installing R packages from GitHub can ignore the following directions #  
 
