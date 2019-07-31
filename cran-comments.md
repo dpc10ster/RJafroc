@@ -55,7 +55,7 @@ having been archived, as described in __Overall__ below.
 * The package was checked using `devtools::check(run_dont_test = TRUE)` as advised in the documentation of `devtools`.
 * The package passed all Travis checks.
 
-# CRAN comments from original submission ... #
+# cran-comments.md from original submission #
 
 # Overall #
 A `C++11` compilation error on `Solaris`, which resulted in archiving of the previous version on 2019-01-17,
