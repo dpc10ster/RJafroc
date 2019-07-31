@@ -233,33 +233,35 @@ Acad Radiol, 7:6, 427--437.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='co'>## CPU time 8.7 sec on Ubuntu (#13)</span>
 <span class='co'>## Test with included ROC data</span>
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>dataset02</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitCbmRoc-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>dataset02</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)
+
 <span class='co'>## Test with included degenerate ROC data (yes! CBM can fit such data)</span>
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>datasetDegenerate</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitCbmRoc-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>datasetDegenerate</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)
+
 <span class='co'>## Test with single interior point data</span>
 <span class='no'>fp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>7</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>))
 <span class='no'>tp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>5</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>))
 <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span>(<span class='no'>fp</span>, <span class='no'>tp</span>)
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>dataset</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitCbmRoc-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>dataset</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)
+
 <span class='co'>## Test with two interior data points</span>
 <span class='no'>fp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>7</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>3</span>, <span class='fl'>3</span>))
 <span class='no'>tp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>3</span>, <span class='fl'>7</span>))
 <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span>(<span class='no'>fp</span>, <span class='no'>tp</span>)
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>dataset</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitCbmRoc-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='no'>FitCbmRo</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>dataset</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)
+
 <span class='co'>## Test with included ROC data (some bins have zero counts)</span>
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>dataset02</span>, <span class='fl'>2</span>, <span class='fl'>1</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitCbmRoc-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>dataset02</span>, <span class='fl'>2</span>, <span class='fl'>1</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)
+
 <span class='co'>## Test with TONY data for which chisqr can be calculated</span>
 <span class='no'>ds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span>(<span class='no'>dataset01</span>)
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>ds</span>, <span class='fl'>2</span>, <span class='fl'>3</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitCbmRoc-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>retFit</span>$<span class='no'>ChisqrFitStats</span></div><div class='output co'>#&gt; $chisq
-#&gt; [1] 1.449787
-#&gt; 
-#&gt; $pVal
-#&gt; [1] 0.4843762
-#&gt; 
-#&gt; $df
-#&gt; [1] 2
-#&gt; </div><div class='input'>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='no'>ds</span>, <span class='fl'>2</span>, <span class='fl'>3</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)
+<span class='no'>retFit</span>$<span class='no'>ChisqrFitStats</span>
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

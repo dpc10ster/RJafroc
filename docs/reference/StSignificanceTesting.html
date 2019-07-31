@@ -594,15 +594,971 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
 #&gt; 1         0 0.8970370 0.02482994  4 0.8280981 0.9659760
 #&gt; 2         1 0.9408374 0.01615303  4 0.8959894 0.9856854
-#&gt; </div><span class='co'># NOT RUN {</span>
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"HrAuc"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA2"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wJAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"JAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"JAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)
-<span class='co'># }</span><div class='input'>
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)</div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4  Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - 1 0.7244681 0.8809693 0.8095745 0.6133176 0.577305 0.8493302 0.8927896
+#&gt; Trt - 2 0.8023641 0.9685579 0.8459811 0.7514184 0.720922 0.8718676 0.9369582
+#&gt;           Rdr - 8   Rdr - 9
+#&gt; Trt - 1 0.8026005 0.7639874
+#&gt; Trt - 2 0.8994878 0.8190307
+#&gt; 
+#&gt; $anovaY
+#&gt;   Source          SS   DF         MS
+#&gt; 1      T   2.5205406    1 2.52054062
+#&gt; 2      R  13.4963319    8 1.68704149
+#&gt; 3      C  70.1368924   91 0.77073508
+#&gt; 4     TR   0.6828268    8 0.08535334
+#&gt; 5     TC  34.2104485   91 0.37593899
+#&gt; 6     RC  91.6729348  728 0.12592436
+#&gt; 7    TRC  54.4372558  728 0.07477645
+#&gt; 8  Total 267.1572307 1655         NA
+#&gt; 
+#&gt; $anovaYi
+#&gt;   Source  DF         1          2
+#&gt; 1      R   8 1.1508797 0.62151513
+#&gt; 2      C  91 0.7536569 0.39301721
+#&gt; 3     RC 728 0.1044848 0.09621601
+#&gt; 
+#&gt; $varComp
+#&gt;                 varComp
+#&gt; Var(R)     0.0084268491
+#&gt; Var(C)     0.0190915654
+#&gt; Var(T*R)   0.0001149662
+#&gt; Var(T*C)   0.0334625049
+#&gt; Var(R*C)   0.0255739554
+#&gt; Var(Error) 0.0747764502
+#&gt; 
+#&gt; $fRRRC
+#&gt; [1] 6.521182
+#&gt; 
+#&gt; $ddfRRRC
+#&gt; [1] 164.0528
+#&gt; 
+#&gt; $pRRRC
+#&gt; [1] 0.01157058
+#&gt; 
+#&gt; $ciDiffTrtRRRC
+#&gt;   Treatment    Estimate     StdErr       DF         t      PrGTt    CILower
+#&gt; 1     1 - 2 -0.07802732 0.03055509 164.0528 -2.553661 0.01157058 -0.1383592
+#&gt;       CIUpper
+#&gt; 1 -0.01769539
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRRC
+#&gt;   Treatment      Area     StdErr       DF   CILower   CIUpper
+#&gt; 1         1 0.7682602 0.04662591 19.57042 0.6708632 0.8656572
+#&gt; 2         2 0.8462875 0.03330282 17.46510 0.7761670 0.9164081
+#&gt; 
+#&gt; $fFRRC
+#&gt; [1] 6.704653
+#&gt; 
+#&gt; $ndf
+#&gt; [1] 1
+#&gt; 
+#&gt; $ddfFRRC
+#&gt; [1] 91
+#&gt; 
+#&gt; $pFRRC
+#&gt; [1] 0.01119609
+#&gt; 
+#&gt; $ciDiffTrtFRRC
+#&gt;   Treatment    Estimate     StdErr DF         t      PrGTt   CILower
+#&gt; 1     1 - 2 -0.07802732 0.03013412 91 -2.589335 0.01119609 -0.137885
+#&gt;       CIUpper
+#&gt; 1 -0.01816959
+#&gt; 
+#&gt; $ciAvgRdrEachTrtFRRC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.7682602 0.03016975 91 0.7083317 0.8281887
+#&gt; 2         2 0.8462875 0.02178666 91 0.8030110 0.8895641
+#&gt; 
+#&gt; $ssAnovaEachRdr
+#&gt;   Source DF          1         2           3          4         5           6
+#&gt; 1      T  1  0.2791181 0.3529015  0.06097033  0.8773051  0.948789  0.02336505
+#&gt; 2      C 91 25.7394987 6.7592847 17.89884237 26.2338757 30.479301 12.87302755
+#&gt; 3     TC 91 12.3616885 4.8130098  8.61960833 11.3246350 13.674718 10.84003100
+#&gt;            7         8          9
+#&gt; 1 0.08973995  0.431809  0.1393694
+#&gt; 2 6.28387811 14.374241 21.1678782
+#&gt; 3 6.18611206  7.741450 13.0864517
+#&gt; 
+#&gt; $msAnovaEachRdr
+#&gt;   Source DF         1          2          3         4         5          6
+#&gt; 1      T  1 0.2791181 0.35290151 0.06097033 0.8773051 0.9487890 0.02336505
+#&gt; 2      C 91 0.2828516 0.07427785 0.19669058 0.2882843 0.3349374 0.14146184
+#&gt; 3     TC 91 0.1358427 0.05289022 0.09472097 0.1244465 0.1502716 0.11912122
+#&gt;            7          8         9
+#&gt; 1 0.08973995 0.43180896 0.1393694
+#&gt; 2 0.06905361 0.15795870 0.2326140
+#&gt; 3 0.06797925 0.08507088 0.1438072
+#&gt; 
+#&gt; $ciDiffTrtEachRdr
+#&gt;   Reader Treatment    Estimate     StdErr DF          t       PrGTt    CILower
+#&gt; 1      1     1 - 2 -0.07789598 0.05434246 91 -1.4334276 0.155162626 -0.1858406
+#&gt; 2      2     1 - 2 -0.08758865 0.03390851 91 -2.5830873 0.011386438 -0.1549438
+#&gt; 3      3     1 - 2 -0.03640662 0.04537787 91 -0.8022989 0.424470369 -0.1265442
+#&gt; 4      4     1 - 2 -0.13810087 0.05201307 91 -2.6551185 0.009359286 -0.2414184
+#&gt; 5      5     1 - 2 -0.14361702 0.05715570 91 -2.5127329 0.013740646 -0.2571498
+#&gt; 6      6     1 - 2 -0.02253743 0.05088803 91 -0.4428827 0.658901563 -0.1236203
+#&gt; 7      7     1 - 2 -0.04416864 0.03844229 91 -1.1489595 0.253583707 -0.1205295
+#&gt; 8      8     1 - 2 -0.09688731 0.04300427 91 -2.2529698 0.026664234 -0.1823100
+#&gt; 9      9     1 - 2 -0.05504334 0.05591281 91 -0.9844495 0.327504771 -0.1661073
+#&gt;       CIUpper
+#&gt; 1  0.03004864
+#&gt; 2 -0.02023355
+#&gt; 3  0.05373095
+#&gt; 4 -0.03478329
+#&gt; 5 -0.03008424
+#&gt; 6  0.07854539
+#&gt; 7  0.03219225
+#&gt; 8 -0.01146462
+#&gt; 9  0.05602059
+#&gt; 
+#&gt; $fRRFC
+#&gt; [1] 29.53066
+#&gt; 
+#&gt; $ddfRRFC
+#&gt; [1] 8
+#&gt; 
+#&gt; $pRRFC
+#&gt; [1] 0.0006202254
+#&gt; 
+#&gt; $ciDiffTrtRRFC
+#&gt;   Treatment    Estimate     StdErr DF         t        PrGTt    CILower
+#&gt; 1     1 - 2 -0.07802732 0.01435853  8 -5.434212 0.0006202254 -0.1111382
+#&gt;       CIUpper
+#&gt; 1 -0.04491648
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRFC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.7682602 0.03728205  8 0.6822877 0.8542328
+#&gt; 2         2 0.8462875 0.02739748  8 0.7831088 0.9094663
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"HrAuc"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr - 1   Rdr - 2   Rdr - 3  Rdr - 4   Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - 1 0.8588652 0.8931442 0.8822695 0.730260 0.7141844 0.9290780 0.9189125
+#&gt; Trt - 2 0.8914894 0.9761229 0.8827423 0.848227 0.8399527 0.9089835 0.9524823
+#&gt;           Rdr - 8   Rdr - 9
+#&gt; Trt - 1 0.8791962 0.8144208
+#&gt; Trt - 2 0.9338061 0.8569740
+#&gt; 
+#&gt; $anovaY
+#&gt;   Source          SS   DF         MS
+#&gt; 1      T   1.1312035    1 1.13120350
+#&gt; 2      R   5.2762307    8 0.65952883
+#&gt; 3      C  55.8234912   91 0.61344496
+#&gt; 4     TR   0.8931472    8 0.11164340
+#&gt; 5     TC  20.7902271   91 0.22846403
+#&gt; 6     RC  71.3207550  728 0.09796807
+#&gt; 7    TRC  48.6128298  728 0.06677587
+#&gt; 8  Total 203.8478844 1655         NA
+#&gt; 
+#&gt; $anovaYi
+#&gt;   Source  DF          1          2
+#&gt; 1      R   8 0.56105777 0.21011446
+#&gt; 2      C  91 0.56306715 0.27884184
+#&gt; 3     RC 728 0.09095622 0.07378772
+#&gt; 
+#&gt; $varComp
+#&gt;                 varComp
+#&gt; Var(R)     0.0028081154
+#&gt; Var(C)     0.0196549288
+#&gt; Var(T*R)   0.0004876905
+#&gt; Var(T*C)   0.0179653521
+#&gt; Var(R*C)   0.0155961025
+#&gt; Var(Error) 0.0667758651
+#&gt; 
+#&gt; $fRRRC
+#&gt; [1] 4.138576
+#&gt; 
+#&gt; $ddfRRRC
+#&gt; [1] 47.95164
+#&gt; 
+#&gt; $pRRRC
+#&gt; [1] 0.04746731
+#&gt; 
+#&gt; $ciDiffTrtRRRC
+#&gt;   Treatment    Estimate     StdErr       DF         t      PrGTt    CILower
+#&gt; 1     1 - 2 -0.05227213 0.02569477 47.95164 -2.034349 0.04746731 -0.1039363
+#&gt;        CIUpper
+#&gt; 1 -0.000607988
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRRC
+#&gt;   Treatment      Area     StdErr       DF   CILower   CIUpper
+#&gt; 1         1 0.8467034 0.03532405 27.12797 0.7742405 0.9191664
+#&gt; 2         2 0.8989756 0.02239222 31.23396 0.8533202 0.9446309
+#&gt; 
+#&gt; $fFRRC
+#&gt; [1] 4.951342
+#&gt; 
+#&gt; $ndf
+#&gt; [1] 1
+#&gt; 
+#&gt; $ddfFRRC
+#&gt; [1] 91
+#&gt; 
+#&gt; $pFRRC
+#&gt; [1] 0.02854189
+#&gt; 
+#&gt; $ciDiffTrtFRRC
+#&gt;   Treatment    Estimate     StdErr DF         t      PrGTt     CILower
+#&gt; 1     1 - 2 -0.05227213 0.02349139 91 -2.225161 0.02854189 -0.09893489
+#&gt;        CIUpper
+#&gt; 1 -0.005609366
+#&gt; 
+#&gt; $ciAvgRdrEachTrtFRRC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.8467034 0.02607744 91 0.7949038 0.8985031
+#&gt; 2         2 0.8989756 0.01835117 91 0.8625232 0.9354279
+#&gt; 
+#&gt; $ssAnovaEachRdr
+#&gt;   Source DF           1         2            3          4          5          6
+#&gt; 1      T  1  0.04895931 0.3167316 1.028341e-05  0.6401448  0.7276129 0.01857441
+#&gt; 2      C 91 14.14152357 6.3004143 1.381693e+01 25.3810213 24.6373995 8.75654196
+#&gt; 3     TC 91  7.67406615 4.7927527 5.387716e+00  8.9612918 14.1243018 5.23626346
+#&gt;            7          8           9
+#&gt; 1 0.05183866  0.1371832  0.08329561
+#&gt; 2 5.30487393 10.0188927 18.78664528
+#&gt; 3 5.58865869  6.1648119 11.47319453
+#&gt; 
+#&gt; $msAnovaEachRdr
+#&gt;   Source DF          1          2            3          4         5          6
+#&gt; 1      T  1 0.04895931 0.31673155 1.028341e-05 0.64014475 0.7276129 0.01857441
+#&gt; 2      C 91 0.15540136 0.06923532 1.518344e-01 0.27891232 0.2707407 0.09622574
+#&gt; 3     TC 91 0.08433040 0.05266761 5.920567e-02 0.09847573 0.1552121 0.05754136
+#&gt;            7          8          9
+#&gt; 1 0.05183866 0.13718324 0.08329561
+#&gt; 2 0.05829532 0.11009772 0.20644665
+#&gt; 3 0.06141383 0.06774519 0.12607906
+#&gt; 
+#&gt; $ciDiffTrtEachRdr
+#&gt;   Reader Treatment      Estimate     StdErr DF           t      PrGTt
+#&gt; 1      1     1 - 2 -0.0326241135 0.04281670 91 -0.76194840 0.44806112
+#&gt; 2      2     1 - 2 -0.0829787234 0.03383708 91 -2.45230142 0.01610224
+#&gt; 3      3     1 - 2 -0.0004728132 0.03587589 91 -0.01317913 0.98951373
+#&gt; 4      4     1 - 2 -0.1179669031 0.04626853 91 -2.54961427 0.01245695
+#&gt; 5      5     1 - 2 -0.1257683215 0.05808766 91 -2.16514697 0.03299256
+#&gt; 6      6     1 - 2  0.0200945626 0.03536805 91  0.56815578 0.57132850
+#&gt; 7      7     1 - 2 -0.0335697400 0.03653879 91 -0.91874248 0.36065911
+#&gt; 8      8     1 - 2 -0.0546099291 0.03837605 91 -1.42302100 0.15814934
+#&gt; 9      9     1 - 2 -0.0425531915 0.05235312 91 -0.81281100 0.41844785
+#&gt;       CILower     CIUpper
+#&gt; 1 -0.11767422  0.05242599
+#&gt; 2 -0.15019193 -0.01576552
+#&gt; 3 -0.07173587  0.07079024
+#&gt; 4 -0.20987365 -0.02606015
+#&gt; 5 -0.24115232 -0.01038432
+#&gt; 6 -0.05015973  0.09034885
+#&gt; 7 -0.10614956  0.03901008
+#&gt; 8 -0.13083924  0.02161939
+#&gt; 9 -0.14654623  0.06143985
+#&gt; 
+#&gt; $fRRFC
+#&gt; [1] 10.13229
+#&gt; 
+#&gt; $ddfRRFC
+#&gt; [1] 8
+#&gt; 
+#&gt; $pRRFC
+#&gt; [1] 0.01293647
+#&gt; 
+#&gt; $ciDiffTrtRRFC
+#&gt;   Treatment    Estimate     StdErr DF         t      PrGTt     CILower
+#&gt; 1     1 - 2 -0.05227213 0.01642163  8 -3.183126 0.01293647 -0.09014048
+#&gt;       CIUpper
+#&gt; 1 -0.01440378
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRFC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.8467034 0.02603087  8 0.7866762 0.9067307
+#&gt; 2         2 0.8989756 0.01592989  8 0.8622412 0.9357100
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - 1 0.8687943 0.8924350 0.8877069 0.7290780 0.7276596 0.9217494 0.9189125
+#&gt; Trt - 2 0.9066194 0.9761229 0.8957447 0.8468085 0.8394799 0.9170213 0.9513002
+#&gt;          Rdr - 8   Rdr - 9
+#&gt; Trt - 1 0.884870 0.8231678
+#&gt; Trt - 2 0.934279 0.8654846
+#&gt; 
+#&gt; $anovaY
+#&gt;   Source          SS   DF         MS
+#&gt; 1      T   1.1701879    1 1.17018790
+#&gt; 2      R   5.0736487    8 0.63420608
+#&gt; 3      C  52.9690122   91 0.58207706
+#&gt; 4     TR   0.6774732    8 0.08468415
+#&gt; 5     TC  21.3527068   91 0.23464513
+#&gt; 6     RC  70.1156297  728 0.09631268
+#&gt; 7    TRC  48.3642304  728 0.06643438
+#&gt; 8  Total 199.7228889 1655         NA
+#&gt; 
+#&gt; $anovaYi
+#&gt;   Source  DF          1          2
+#&gt; 1      R   8 0.51745098 0.20143926
+#&gt; 2      C  91 0.55736487 0.25935732
+#&gt; 3     RC 728 0.08915823 0.07358883
+#&gt; 
+#&gt; $varComp
+#&gt;                 varComp
+#&gt; Var(R)     0.0028241502
+#&gt; Var(C)     0.0176418685
+#&gt; Var(T*R)   0.0001983671
+#&gt; Var(T*C)   0.0186900830
+#&gt; Var(R*C)   0.0149391479
+#&gt; Var(Error) 0.0664343825
+#&gt; 
+#&gt; $fRRRC
+#&gt; [1] 4.627171
+#&gt; 
+#&gt; $ddfRRRC
+#&gt; [1] 71.34537
+#&gt; 
+#&gt; $pRRRC
+#&gt; [1] 0.03485704
+#&gt; 
+#&gt; $ciDiffTrtRRRC
+#&gt;   Treatment    Estimate     StdErr       DF         t      PrGTt    CILower
+#&gt; 1     1 - 2 -0.05316522 0.02471553 71.34537 -2.151086 0.03485704 -0.1024424
+#&gt;        CIUpper
+#&gt; 1 -0.003887996
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRRC
+#&gt;   Treatment      Area     StdErr       DF   CILower   CIUpper
+#&gt; 1         1 0.8504859 0.03450229 29.02711 0.7799237 0.9210482
+#&gt; 2         2 0.9036512 0.02162504 29.55901 0.8594593 0.9478430
+#&gt; 
+#&gt; $fFRRC
+#&gt; [1] 4.987054
+#&gt; 
+#&gt; $ndf
+#&gt; [1] 1
+#&gt; 
+#&gt; $ddfFRRC
+#&gt; [1] 91
+#&gt; 
+#&gt; $pFRRC
+#&gt; [1] 0.02798952
+#&gt; 
+#&gt; $ciDiffTrtFRRC
+#&gt;   Treatment    Estimate     StdErr DF         t      PrGTt   CILower
+#&gt; 1     1 - 2 -0.05316522 0.02380705 91 -2.233171 0.02798952 -0.100455
+#&gt;       CIUpper
+#&gt; 1 -0.00587544
+#&gt; 
+#&gt; $ciAvgRdrEachTrtFRRC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.8504859 0.02594506 91 0.7989493 0.9020226
+#&gt; 2         2 0.9036512 0.01769840 91 0.8684955 0.9388069
+#&gt; 
+#&gt; $ssAnovaEachRdr
+#&gt;   Source DF           1         2            3          4          5
+#&gt; 1      T  1  0.06581381 0.3221689  0.002971905  0.6375816  0.5751742
+#&gt; 2      C 91 11.72811189 6.3670725 12.953904208 25.4153795 24.8551950
+#&gt; 3     TC 91  7.98950379 4.8663505  5.460352291  9.1334347 13.3610303
+#&gt;             6          7         8           9
+#&gt; 1 0.001028341 0.04825232 0.1122974  0.08237267
+#&gt; 2 9.140597684 5.36985807 9.7144609 17.54006217
+#&gt; 3 5.020487305 5.65802864 6.0714103 12.15633941
+#&gt; 
+#&gt; $msAnovaEachRdr
+#&gt;   Source DF          1          2           3         4         5           6
+#&gt; 1      T  1 0.06581381 0.32216890 0.002971905 0.6375816 0.5751742 0.001028341
+#&gt; 2      C 91 0.12888035 0.06996783 0.142350596 0.2792899 0.2731340 0.100446128
+#&gt; 3     TC 91 0.08779674 0.05347638 0.060003871 0.1003674 0.1468245 0.055170190
+#&gt;            7          8          9
+#&gt; 1 0.04825232 0.11229739 0.08237267
+#&gt; 2 0.05900943 0.10675232 0.19274794
+#&gt; 3 0.06217614 0.06671879 0.13358615
+#&gt; 
+#&gt; $ciDiffTrtEachRdr
+#&gt;   Reader Treatment     Estimate     StdErr DF          t      PrGTt     CILower
+#&gt; 1      1     1 - 2 -0.037825059 0.04368781 91 -0.8658035 0.38887487 -0.12460553
+#&gt; 2      2     1 - 2 -0.083687943 0.03409589 91 -2.4544874 0.01601086 -0.15141525
+#&gt; 3      3     1 - 2 -0.008037825 0.03611692 91 -0.2225501 0.82438441 -0.07977965
+#&gt; 4      4     1 - 2 -0.117730496 0.04671082 91 -2.5204119 0.01346397 -0.21051579
+#&gt; 5      5     1 - 2 -0.111820331 0.05649635 91 -1.9792489 0.05081050 -0.22404338
+#&gt; 6      6     1 - 2  0.004728132 0.03463166 91  0.1365263 0.89170683 -0.06406341
+#&gt; 7      7     1 - 2 -0.032387707 0.03676486 91 -0.8809418 0.38067008 -0.10541659
+#&gt; 8      8     1 - 2 -0.049408983 0.03808423 91 -1.2973607 0.19778650 -0.12505863
+#&gt; 9      9     1 - 2 -0.042316785 0.05388921 91 -0.7852553 0.43434361 -0.14936108
+#&gt;         CIUpper
+#&gt; 1  0.0489554120
+#&gt; 2 -0.0159606387
+#&gt; 3  0.0637040018
+#&gt; 4 -0.0249451990
+#&gt; 5  0.0004027206
+#&gt; 6  0.0735196731
+#&gt; 7  0.0406411782
+#&gt; 8  0.0262406608
+#&gt; 9  0.0647275057
+#&gt; 
+#&gt; $fRRFC
+#&gt; [1] 13.81826
+#&gt; 
+#&gt; $ddfRRFC
+#&gt; [1] 8
+#&gt; 
+#&gt; $pRRFC
+#&gt; [1] 0.005894272
+#&gt; 
+#&gt; $ciDiffTrtRRFC
+#&gt;   Treatment    Estimate     StdErr DF         t       PrGTt     CILower
+#&gt; 1     1 - 2 -0.05316522 0.01430214  8 -3.717292 0.005894272 -0.08614601
+#&gt;       CIUpper
+#&gt; 1 -0.02018444
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRFC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.8504859 0.02499882  8 0.7928386 0.9081333
+#&gt; 2         2 0.9036512 0.01559757  8 0.8676831 0.9396192
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA2"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - 1 0.8524823 0.8907801 0.8825059 0.7241135 0.7248227 0.9033097 0.9167849
+#&gt; Trt - 2 0.8427896 0.9756501 0.8806147 0.8373522 0.8326241 0.8803783 0.9494090
+#&gt;           Rdr - 8   Rdr - 9
+#&gt; Trt - 1 0.8782506 0.8170213
+#&gt; Trt - 2 0.9234043 0.8453901
+#&gt; 
+#&gt; $anovaY
+#&gt;   Source          SS   DF         MS
+#&gt; 1      T   0.7285249    1 0.72852493
+#&gt; 2      R   5.0697330    8 0.63371662
+#&gt; 3      C  55.5554986   91 0.61049999
+#&gt; 4     TR   0.9356828    8 0.11696035
+#&gt; 5     TC  21.4719085   91 0.23595504
+#&gt; 6     RC  76.9761232  728 0.10573643
+#&gt; 7    TRC  55.5779319  728 0.07634331
+#&gt; 8  Total 216.3154029 1655         NA
+#&gt; 
+#&gt; $anovaYi
+#&gt;   Source  DF          1          2
+#&gt; 1      R   8 0.49486075 0.25581621
+#&gt; 2      C  91 0.56700925 0.27944578
+#&gt; 3     RC 728 0.09374477 0.08833498
+#&gt; 
+#&gt; $varComp
+#&gt;                 varComp
+#&gt; Var(R)     0.0026487128
+#&gt; Var(C)     0.0191751015
+#&gt; Var(T*R)   0.0004414895
+#&gt; Var(T*C)   0.0177346361
+#&gt; Var(R*C)   0.0146965599
+#&gt; Var(Error) 0.0763433131
+#&gt; 
+#&gt; $fRRRC
+#&gt; [1] 2.634123
+#&gt; 
+#&gt; $ddfRRRC
+#&gt; [1] 44.73314
+#&gt; 
+#&gt; $pRRRC
+#&gt; [1] 0.1116172
+#&gt; 
+#&gt; $ciDiffTrtRRRC
+#&gt;   Treatment    Estimate     StdErr       DF         t     PrGTt     CILower
+#&gt; 1     1 - 2 -0.04194904 0.02584663 44.73314 -1.622998 0.1116172 -0.09401541
+#&gt;      CIUpper
+#&gt; 1 0.01011732
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRRC
+#&gt;   Treatment      Area     StdErr       DF   CILower   CIUpper
+#&gt; 1         1 0.8433412 0.03419405 30.61872 0.7735668 0.9131157
+#&gt; 2         2 0.8852903 0.02323288 24.41783 0.8373833 0.9331972
+#&gt; 
+#&gt; $fFRRC
+#&gt; [1] 3.087558
+#&gt; 
+#&gt; $ndf
+#&gt; [1] 1
+#&gt; 
+#&gt; $ddfFRRC
+#&gt; [1] 91
+#&gt; 
+#&gt; $pFRRC
+#&gt; [1] 0.08225646
+#&gt; 
+#&gt; $ciDiffTrtFRRC
+#&gt;   Treatment    Estimate     StdErr DF         t      PrGTt     CILower
+#&gt; 1     1 - 2 -0.04194904 0.02387341 91 -1.757145 0.08225646 -0.08937064
+#&gt;       CIUpper
+#&gt; 1 0.005472555
+#&gt; 
+#&gt; $ciAvgRdrEachTrtFRRC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.8433412 0.02616856 91 0.7913606 0.8953219
+#&gt; 2         2 0.8852903 0.01837103 91 0.8487985 0.9217821
+#&gt; 
+#&gt; $ssAnovaEachRdr
+#&gt;   Source DF            1        2            3          4          5
+#&gt; 1      T  1  0.004321602 0.331334 1.645345e-04  0.5898589  0.5345727
+#&gt; 2      C 91 13.924750601 6.490342 1.375939e+01 25.3120428 24.8731581
+#&gt; 3     TC 91 11.098150480 4.962491 5.969273e+00  9.7969959 13.6193865
+#&gt;             6          7           8           9
+#&gt; 1  0.02418915 0.04895931  0.09378726  0.03702027
+#&gt; 2 13.04520880 5.55742084 10.17058286 19.39872809
+#&gt; 3  6.66370609 5.65347129  6.69571653 12.59064892
+#&gt; 
+#&gt; $msAnovaEachRdr
+#&gt;   Source DF           1          2            3         4         5          6
+#&gt; 1      T  1 0.004321602 0.33133399 0.0001645345 0.5898589 0.5345727 0.02418915
+#&gt; 2      C 91 0.153019237 0.07132243 0.1512020679 0.2781543 0.2733314 0.14335394
+#&gt; 3     TC 91 0.121957698 0.05453287 0.0655964105 0.1076593 0.1496636 0.07322754
+#&gt;            7          8          9
+#&gt; 1 0.04895931 0.09378726 0.03702027
+#&gt; 2 0.06107056 0.11176465 0.21317284
+#&gt; 3 0.06212606 0.07357930 0.13835878
+#&gt; 
+#&gt; $ciDiffTrtEachRdr
+#&gt;   Reader Treatment     Estimate     StdErr DF           t      PrGTt
+#&gt; 1      1     1 - 2  0.009692671 0.05149033 91  0.18824255 0.85110566
+#&gt; 2      2     1 - 2 -0.084869976 0.03443105 91 -2.46492558 0.01558087
+#&gt; 3      3     1 - 2  0.001891253 0.03776253 91  0.05008279 0.96016618
+#&gt; 4      4     1 - 2 -0.113238771 0.04837788 91 -2.34071369 0.02143187
+#&gt; 5      5     1 - 2 -0.107801418 0.05703995 91 -1.88992824 0.06195068
+#&gt; 6      6     1 - 2  0.022931442 0.03989866 91  0.57474217 0.56688389
+#&gt; 7      7     1 - 2 -0.032624113 0.03675005 91 -0.88772967 0.37702653
+#&gt; 8      8     1 - 2 -0.045153664 0.03999438 91 -1.12900037 0.26186515
+#&gt; 9      9     1 - 2 -0.028368794 0.05484341 91 -0.51726898 0.60622347
+#&gt;       CILower      CIUpper
+#&gt; 1 -0.09258655  0.111971891
+#&gt; 2 -0.15326303 -0.016476925
+#&gt; 3 -0.07311938  0.076901886
+#&gt; 4 -0.20933549 -0.017142051
+#&gt; 5 -0.22110428  0.005501441
+#&gt; 6 -0.05632234  0.102185228
+#&gt; 7 -0.10562358  0.040375355
+#&gt; 8 -0.12459758  0.034290249
+#&gt; 9 -0.13730849  0.080570901
+#&gt; 
+#&gt; $fRRFC
+#&gt; [1] 6.22882
+#&gt; 
+#&gt; $ddfRRFC
+#&gt; [1] 8
+#&gt; 
+#&gt; $pRRFC
+#&gt; [1] 0.0371869
+#&gt; 
+#&gt; $ciDiffTrtRRFC
+#&gt;   Treatment    Estimate     StdErr DF        t     PrGTt     CILower
+#&gt; 1     1 - 2 -0.04194904 0.01680812  8 -2.49576 0.0371869 -0.08070864
+#&gt;        CIUpper
+#&gt; 1 -0.003189446
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRFC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.8433412 0.02444704  8 0.7869662 0.8997162
+#&gt; 2         2 0.8852903 0.01757717  8 0.8447572 0.9258233
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wJAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - 1 0.7427729 0.8822271 0.7890264 0.6459490 0.6378739 0.8107655 0.8780643
+#&gt; Trt - 2 0.8097441 0.9692800 0.8720899 0.7603492 0.7558010 0.8720706 0.9432046
+#&gt;           Rdr - 8   Rdr - 9
+#&gt; Trt - 1 0.8102451 0.7751503
+#&gt; Trt - 2 0.8843085 0.8335646
+#&gt; 
+#&gt; $anovaY
+#&gt;   Source          SS   DF         MS
+#&gt; 1      T   2.7113227    1 2.71132271
+#&gt; 2      R   9.4725180    8 1.18406475
+#&gt; 3      C  63.9011774   91 0.70221074
+#&gt; 4     TR   0.1800666    8 0.02250832
+#&gt; 5     TC  29.3856670   91 0.32291942
+#&gt; 6     RC  71.5832344  728 0.09832862
+#&gt; 7    TRC  44.0119542  728 0.06045598
+#&gt; 8  Total 221.2459403 1655         NA
+#&gt; 
+#&gt; $anovaYi
+#&gt;   Source  DF          1          2
+#&gt; 1      R   8 0.70533444 0.50123863
+#&gt; 2      C  91 0.65733668 0.36779348
+#&gt; 3     RC 728 0.08466051 0.07412409
+#&gt; 
+#&gt; $varComp
+#&gt;                  varComp
+#&gt; Var(R)      0.0061069771
+#&gt; Var(C)      0.0189677048
+#&gt; Var(T*R)   -0.0004124746
+#&gt; Var(T*C)    0.0291626041
+#&gt; Var(R*C)    0.0189363188
+#&gt; Var(Error)  0.0604559811
+#&gt; 
+#&gt; $fRRRC
+#&gt; [1] 9.514356
+#&gt; 
+#&gt; $ddfRRRC
+#&gt; [1] 1282.353
+#&gt; 
+#&gt; $pRRRC
+#&gt; [1] 0.002082295
+#&gt; 
+#&gt; $ciDiffTrtRRRC
+#&gt;   Treatment    Estimate     StdErr       DF         t       PrGTt   CILower
+#&gt; 1     1 - 2 -0.08092644 0.02623619 1282.353 -3.084535 0.002082295 -0.132397
+#&gt;       CIUpper
+#&gt; 1 -0.02945588
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRRC
+#&gt;   Treatment      Area     StdErr       DF   CILower   CIUpper
+#&gt; 1         1 0.7746749 0.03928729 26.26448 0.6939583 0.8553916
+#&gt; 2         2 0.8556014 0.03098441 20.12031 0.7909938 0.9202090
+#&gt; 
+#&gt; $fFRRC
+#&gt; [1] 8.396283
+#&gt; 
+#&gt; $ndf
+#&gt; [1] 1
+#&gt; 
+#&gt; $ddfFRRC
+#&gt; [1] 91
+#&gt; 
+#&gt; $pFRRC
+#&gt; [1] 0.00471003
+#&gt; 
+#&gt; $ciDiffTrtFRRC
+#&gt;   Treatment    Estimate     StdErr DF         t      PrGTt    CILower  CIUpper
+#&gt; 1     1 - 2 -0.08092644 0.02792845 91 -2.897634 0.00471003 -0.1364029 -0.02545
+#&gt; 
+#&gt; $ciAvgRdrEachTrtFRRC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.7746749 0.02817596 91 0.7187069 0.8306430
+#&gt; 2         2 0.8556014 0.02107593 91 0.8137366 0.8974661
+#&gt; 
+#&gt; $ssAnovaEachRdr
+#&gt;   Source DF          1         2          3          4          5          6
+#&gt; 1      T  1  0.2063163 0.3485974  0.3173792  0.6020212  0.6397126  0.1728826
+#&gt; 2      C 91 23.2651883 6.2636064 14.9957997 20.2161595 25.4306913 12.1786379
+#&gt; 3     TC 91 11.1544746 3.9967071  7.2324578 11.6876009 11.2092547  8.0483186
+#&gt;           7          8          9
+#&gt; 1 0.1951899  0.2523276  0.1569625
+#&gt; 2 5.7590084 14.3424581 13.0328623
+#&gt; 3 5.7834212  6.5901699  7.6952165
+#&gt; 
+#&gt; $msAnovaEachRdr
+#&gt;   Source DF         1          2          3         4         5          6
+#&gt; 1      T  1 0.2063163 0.34859741 0.31737924 0.6020212 0.6397126 0.17288261
+#&gt; 2      C 91 0.2556614 0.06883084 0.16478901 0.2221556 0.2794581 0.13383119
+#&gt; 3     TC 91 0.1225766 0.04391986 0.07947756 0.1284352 0.1231786 0.08844306
+#&gt;            7          8          9
+#&gt; 1 0.19518991 0.25232759 0.15696248
+#&gt; 2 0.06328581 0.15760943 0.14321827
+#&gt; 3 0.06355408 0.07241945 0.08456282
+#&gt; 
+#&gt; $ciDiffTrtEachRdr
+#&gt;   Reader Treatment    Estimate     StdErr DF         t       PrGTt    CILower
+#&gt; 1      1     1 - 2 -0.06697117 0.05162083 91 -1.297367 0.197784260 -0.1695096
+#&gt; 2      2     1 - 2 -0.08705288 0.03089951 91 -2.817290 0.005939808 -0.1484310
+#&gt; 3      3     1 - 2 -0.08306352 0.04156649 91 -1.998329 0.048665773 -0.1656302
+#&gt; 4      4     1 - 2 -0.11440025 0.05284003 91 -2.165030 0.033001802 -0.2193605
+#&gt; 5      5     1 - 2 -0.11792707 0.05174743 91 -2.278897 0.025012189 -0.2207170
+#&gt; 6      6     1 - 2 -0.06130512 0.04384832 91 -1.398118 0.165476116 -0.1484044
+#&gt; 7      7     1 - 2 -0.06514030 0.03717002 91 -1.752496 0.083056811 -0.1389740
+#&gt; 8      8     1 - 2 -0.07406337 0.03967790 91 -1.866615 0.065175577 -0.1528786
+#&gt; 9      9     1 - 2 -0.05841428 0.04287566 91 -1.362411 0.176430685 -0.1435815
+#&gt;         CIUpper
+#&gt; 1  0.0355672603
+#&gt; 2 -0.0256748087
+#&gt; 3 -0.0004967975
+#&gt; 4 -0.0094400136
+#&gt; 5 -0.0151371678
+#&gt; 6  0.0257941841
+#&gt; 7  0.0086933771
+#&gt; 8  0.0047519097
+#&gt; 9  0.0267529529
+#&gt; 
+#&gt; $fRRFC
+#&gt; [1] 120.4587
+#&gt; 
+#&gt; $ddfRRFC
+#&gt; [1] 8
+#&gt; 
+#&gt; $pRRFC
+#&gt; [1] 4.219684e-06
+#&gt; 
+#&gt; $ciDiffTrtRRFC
+#&gt;   Treatment    Estimate      StdErr DF         t        PrGTt     CILower
+#&gt; 1     1 - 2 -0.08092644 0.007373461  8 -10.97537 4.219684e-06 -0.09792967
+#&gt;       CIUpper
+#&gt; 1 -0.06392321
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRFC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.7746749 0.02918652  8 0.7073707 0.8419792
+#&gt; 2         2 0.8556014 0.02460408  8 0.7988643 0.9123385
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"JAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - 1 0.7471444 0.8856853 0.7941231 0.6552137 0.6369749 0.8118091 0.8819086
+#&gt; Trt - 2 0.7970707 0.9636146 0.8769344 0.7471444 0.7546979 0.8672623 0.9367170
+#&gt;           Rdr - 8   Rdr - 9
+#&gt; Trt - 1 0.8145726 0.7784635
+#&gt; Trt - 2 0.8849484 0.8221260
+#&gt; 
+#&gt; $anovaY
+#&gt;   Source          SS   DF         MS
+#&gt; 1      T   2.1238485    1 2.12384848
+#&gt; 2      R   9.6334648    8 1.20418310
+#&gt; 3      C  53.0953405   91 0.58346528
+#&gt; 4     TR   0.2070386    8 0.02587983
+#&gt; 5     TC  22.1540037   91 0.24345059
+#&gt; 6     RC  64.2655140  728 0.08827680
+#&gt; 7    TRC  42.5649592  728 0.05846835
+#&gt; 8  Total 194.0441693 1655         NA
+#&gt; 
+#&gt; $anovaYi
+#&gt;   Source  DF          1          2
+#&gt; 1      R   8 0.70206158 0.52800134
+#&gt; 2      C  91 0.49992187 0.32699400
+#&gt; 3     RC 728 0.07299324 0.07375192
+#&gt; 
+#&gt; $varComp
+#&gt;                  varComp
+#&gt; Var(R)      0.0062418197
+#&gt; Var(C)      0.0172336798
+#&gt; Var(T*R)   -0.0003542231
+#&gt; Var(T*C)    0.0205535821
+#&gt; Var(R*C)    0.0149042272
+#&gt; Var(Error)  0.0584683506
+#&gt; 
+#&gt; $fRRRC
+#&gt; [1] 10.07222
+#&gt; 
+#&gt; $ddfRRRC
+#&gt; [1] 531.0852
+#&gt; 
+#&gt; $pRRRC
+#&gt; [1] 0.001592393
+#&gt; 
+#&gt; $ciDiffTrtRRRC
+#&gt;   Treatment   Estimate     StdErr       DF         t       PrGTt    CILower
+#&gt; 1     1 - 2 -0.0716245 0.02256831 531.0852 -3.173676 0.001592393 -0.1159586
+#&gt;       CIUpper
+#&gt; 1 -0.02729039
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRRC
+#&gt;   Treatment      Area     StdErr       DF   CILower   CIUpper
+#&gt; 1         1 0.7784328 0.03692580 20.68807 0.7015708 0.8552948
+#&gt; 2         2 0.8500573 0.03071695 17.51430 0.7853949 0.9147197
+#&gt; 
+#&gt; $fFRRC
+#&gt; [1] 8.723941
+#&gt; 
+#&gt; $ndf
+#&gt; [1] 1
+#&gt; 
+#&gt; $ddfFRRC
+#&gt; [1] 91
+#&gt; 
+#&gt; $pFRRC
+#&gt; [1] 0.003996482
+#&gt; 
+#&gt; $ciDiffTrtFRRC
+#&gt;   Treatment   Estimate     StdErr DF         t       PrGTt    CILower
+#&gt; 1     1 - 2 -0.0716245 0.02424964 91 -2.953632 0.003996482 -0.1197934
+#&gt;       CIUpper
+#&gt; 1 -0.02345557
+#&gt; 
+#&gt; $ciAvgRdrEachTrtFRRC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.7784328 0.02457174 91 0.7296241 0.8272416
+#&gt; 2         2 0.8500573 0.01987260 91 0.8105828 0.8895318
+#&gt; 
+#&gt; $ssAnovaEachRdr
+#&gt;   Source DF          1         2          3          4          5          6
+#&gt; 1      T  1  0.1146613 0.2793566  0.3154551  0.3887579  0.6374995  0.1414527
+#&gt; 2      C 91 19.2562952 6.8483622 12.4457498 15.9208884 19.2814221 10.7728160
+#&gt; 3     TC 91 11.1434952 2.8931531  5.8271839 11.4003430  9.7998607  7.0796460
+#&gt;           7          8         9
+#&gt; 1 0.1381822  0.2278268  0.087695
+#&gt; 2 5.7299689 11.2282570 15.877095
+#&gt; 3 3.8573061  5.4215039  7.296471
+#&gt; 
+#&gt; $msAnovaEachRdr
+#&gt;   Source DF         1          2          3         4         5          6
+#&gt; 1      T  1 0.1146613 0.27935657 0.31545509 0.3887579 0.6374995 0.14145267
+#&gt; 2      C 91 0.2116076 0.07525673 0.13676648 0.1749548 0.2118838 0.11838259
+#&gt; 3     TC 91 0.1224560 0.03179289 0.06403499 0.1252785 0.1076908 0.07779831
+#&gt;            7          8         9
+#&gt; 1 0.13818220 0.22782684 0.0876950
+#&gt; 2 0.06296669 0.12338744 0.1744736
+#&gt; 3 0.04238798 0.05957697 0.0801810
+#&gt; 
+#&gt; $ciDiffTrtEachRdr
+#&gt;   Reader Treatment    Estimate     StdErr DF          t       PrGTt    CILower
+#&gt; 1      1     1 - 2 -0.04992631 0.05159541 91 -0.9676501 0.335783893 -0.1524143
+#&gt; 2      2     1 - 2 -0.07792926 0.02628973 91 -2.9642473 0.003873016 -0.1301506
+#&gt; 3      3     1 - 2 -0.08281135 0.03731039 91 -2.2195253 0.028936227 -0.1569238
+#&gt; 4      4     1 - 2 -0.09193073 0.05218664 91 -1.7615759 0.081499599 -0.1955931
+#&gt; 5      5     1 - 2 -0.11772292 0.04838495 91 -2.4330480 0.016927435 -0.2138337
+#&gt; 6      6     1 - 2 -0.05545321 0.04112502 91 -1.3484054 0.180874551 -0.1371430
+#&gt; 7      7     1 - 2 -0.05480840 0.03035585 91 -1.8055299 0.074298492 -0.1151066
+#&gt; 8      8     1 - 2 -0.07037583 0.03598821 91 -1.9555244 0.053589042 -0.1418620
+#&gt; 9      9     1 - 2 -0.04366249 0.04175003 91 -1.0458074 0.298419986 -0.1265938
+#&gt;        CIUpper
+#&gt; 1  0.052561644
+#&gt; 2 -0.025707940
+#&gt; 3 -0.008698849
+#&gt; 4  0.011731622
+#&gt; 5 -0.021612150
+#&gt; 6  0.026236602
+#&gt; 7  0.005489772
+#&gt; 8  0.001110334
+#&gt; 9  0.039268819
+#&gt; 
+#&gt; $fRRFC
+#&gt; [1] 82.06579
+#&gt; 
+#&gt; $ddfRRFC
+#&gt; [1] 8
+#&gt; 
+#&gt; $pRRFC
+#&gt; [1] 1.766134e-05
+#&gt; 
+#&gt; $ciDiffTrtRRFC
+#&gt;   Treatment   Estimate      StdErr DF         t        PrGTt     CILower
+#&gt; 1     1 - 2 -0.0716245 0.007906431  8 -9.059017 1.766134e-05 -0.08985676
+#&gt;       CIUpper
+#&gt; 1 -0.05339224
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRFC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.7784328 0.02911873  8 0.7112849 0.8455807
+#&gt; 2         2 0.8500573 0.02525238  8 0.7918252 0.9082894
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"JAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr - 1   Rdr - 2   Rdr - 3   Rdr - 4   Rdr - 5   Rdr - 6   Rdr - 7
+#&gt; Trt - 1 0.7301318 0.8843691 0.8141243 0.6248588 0.5789077 0.8506591 0.8960452
+#&gt; Trt - 2 0.7892655 0.9629002 0.8512241 0.7384181 0.7197740 0.8670433 0.9306968
+#&gt;           Rdr - 8   Rdr - 9
+#&gt; Trt - 1 0.8073446 0.7676083
+#&gt; Trt - 2 0.8996234 0.8077213
+#&gt; 
+#&gt; $anovaY
+#&gt;   Source         SS   DF         MS
+#&gt; 1      T   1.918202    1 1.91820230
+#&gt; 2      R  13.544116    8 1.69301448
+#&gt; 3      C  57.884536   91 0.63609380
+#&gt; 4     TR   0.628953    8 0.07861913
+#&gt; 5     TC  26.574936   91 0.29203226
+#&gt; 6     RC  80.717060  728 0.11087508
+#&gt; 7    TRC  51.769491  728 0.07111194
+#&gt; 8  Total 233.037294 1655         NA
+#&gt; 
+#&gt; $anovaYi
+#&gt;   Source  DF          1          2
+#&gt; 1      R   8 1.12617576 0.64545785
+#&gt; 2      C  91 0.58359246 0.34453361
+#&gt; 3     RC 728 0.08980408 0.09218294
+#&gt; 
+#&gt; $varComp
+#&gt;                 varComp
+#&gt; Var(R)     8.557784e-03
+#&gt; Var(C)     1.690547e-02
+#&gt; Var(T*R)   8.159989e-05
+#&gt; Var(T*C)   2.454670e-02
+#&gt; Var(R*C)   1.988157e-02
+#&gt; Var(Error) 7.111194e-02
+#&gt; 
+#&gt; $fRRRC
+#&gt; [1] 6.403839
+#&gt; 
+#&gt; $ddfRRRC
+#&gt; [1] 116.1292
+#&gt; 
+#&gt; $pRRRC
+#&gt; [1] 0.01272572
+#&gt; 
+#&gt; $ciDiffTrtRRRC
+#&gt;   Treatment    Estimate     StdErr       DF         t      PrGTt    CILower
+#&gt; 1     1 - 2 -0.06806863 0.02689842 116.1292 -2.530581 0.01272572 -0.1213437
+#&gt;       CIUpper
+#&gt; 1 -0.01479354
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRRC
+#&gt;   Treatment      Area     StdErr       DF   CILower   CIUpper
+#&gt; 1         1 0.7726721 0.04423210 16.55345 0.6791584 0.8661858
+#&gt; 2         2 0.8407407 0.03292886 15.47824 0.7707429 0.9107385
+#&gt; 
+#&gt; $fFRRC
+#&gt; [1] 6.56846
+#&gt; 
+#&gt; $ndf
+#&gt; [1] 1
+#&gt; 
+#&gt; $ddfFRRC
+#&gt; [1] 91
+#&gt; 
+#&gt; $pFRRC
+#&gt; [1] 0.01202163
+#&gt; 
+#&gt; $ciDiffTrtFRRC
+#&gt;   Treatment    Estimate     StdErr DF         t      PrGTt    CILower
+#&gt; 1     1 - 2 -0.06806863 0.02655922 91 -2.562901 0.01202163 -0.1208253
+#&gt;       CIUpper
+#&gt; 1 -0.01531201
+#&gt; 
+#&gt; $ciAvgRdrEachTrtFRRC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.7726721 0.02654848 91 0.7199368 0.8254074
+#&gt; 2         2 0.8407407 0.02039861 91 0.8002214 0.8812601
+#&gt; 
+#&gt; $ssAnovaEachRdr
+#&gt;   Source DF          1        2           3          4          5          6
+#&gt; 1      T  1  0.1608526 0.283688  0.06331422  0.5932031  0.9127923  0.0123483
+#&gt; 2      C 91 21.1315083 7.284142 14.97562124 20.5182120 22.9368789 11.7053593
+#&gt; 3     TC 91 12.1263391 3.647782  7.20824188 10.7208073 12.1137990  9.3816601
+#&gt;            7          8           9
+#&gt; 1 0.05523374  0.3917067  0.07401641
+#&gt; 2 6.35217029 11.3077158 22.38998839
+#&gt; 3 4.13566649  6.5717375 12.43839331
+#&gt; 
+#&gt; $msAnovaEachRdr
+#&gt;   Source DF         1          2          3         4         5         6
+#&gt; 1      T  1 0.1608526 0.28368796 0.06331422 0.5932031 0.9127923 0.0123483
+#&gt; 2      C 91 0.2322144 0.08004552 0.16456727 0.2254749 0.2520536 0.1286303
+#&gt; 3     TC 91 0.1332565 0.04008551 0.07921145 0.1178111 0.1331187 0.1030952
+#&gt;            7         8          9
+#&gt; 1 0.05523374 0.3917067 0.07401641
+#&gt; 2 0.06980407 0.1242606 0.24604383
+#&gt; 3 0.04544688 0.0722169 0.13668564
+#&gt; 
+#&gt; $ciDiffTrtEachRdr
+#&gt;   Reader Treatment    Estimate     StdErr DF          t       PrGTt     CILower
+#&gt; 1      1     1 - 2 -0.05913371 0.05382267 91 -1.0986766 0.274807495 -0.16604583
+#&gt; 2      2     1 - 2 -0.07853107 0.02951990 91 -2.6602762 0.009227523 -0.13716872
+#&gt; 3      3     1 - 2 -0.03709981 0.04149684 91 -0.8940394 0.373659300 -0.11952819
+#&gt; 4      4     1 - 2 -0.11355932 0.05060741 91 -2.2439267 0.027262577 -0.21408473
+#&gt; 5      5     1 - 2 -0.14086629 0.05379483 91 -2.6185840 0.010342550 -0.24772312
+#&gt; 6      6     1 - 2 -0.01638418 0.04734131 91 -0.3460864 0.730076685 -0.11042187
+#&gt; 7      7     1 - 2 -0.03465160 0.03143208 91 -1.1024278 0.273182818 -0.09708757
+#&gt; 8      8     1 - 2 -0.09227872 0.03962237 91 -2.3289548 0.022075779 -0.17098370
+#&gt; 9      9     1 - 2 -0.04011299 0.05451080 91 -0.7358725 0.463700899 -0.14839200
+#&gt;       CIUpper
+#&gt; 1  0.04777841
+#&gt; 2 -0.01989343
+#&gt; 3  0.04532857
+#&gt; 4 -0.01303391
+#&gt; 5 -0.03400946
+#&gt; 6  0.07765351
+#&gt; 7  0.02778437
+#&gt; 8 -0.01357374
+#&gt; 9  0.06816601
+#&gt; 
+#&gt; $fRRFC
+#&gt; [1] 24.39867
+#&gt; 
+#&gt; $ddfRRFC
+#&gt; [1] 8
+#&gt; 
+#&gt; $pRRFC
+#&gt; [1] 0.001135776
+#&gt; 
+#&gt; $ciDiffTrtRRFC
+#&gt;   Treatment    Estimate     StdErr DF         t       PrGTt     CILower
+#&gt; 1     1 - 2 -0.06806863 0.01378047  8 -4.939501 0.001135776 -0.09984645
+#&gt;       CIUpper
+#&gt; 1 -0.03629082
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRFC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1         1 0.7726721 0.03687975  8 0.6876273 0.8577170
+#&gt; 2         2 0.8407407 0.02792022  8 0.7763566 0.9051249
+#&gt; </div><div class='input'>
 
 </div></pre>
   </div>

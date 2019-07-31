@@ -198,16 +198,14 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'>## read the raw data file in extdata directory</span>
+    <pre class="examples"><div class='input'><span class='co'>## read the raw data file in extdata directory</span>
 <span class='no'>crossedFileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"includedCrossedModalitiesData.xlsx"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>crossedData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='DfReadCrossedModalities.html'>DfReadCrossedModalities</a></span>(<span class='no'>crossedFileName</span>)
 <span class='no'>retCrossed1</span> <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span>(<span class='no'>crossedData</span>, <span class='fl'>1</span>)
 
 <span class='co'>## read the built in dataset</span>
-<span class='no'>retCrossed2</span> <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span>(<span class='no'>datasetCrossedModality</span>, <span class='fl'>1</span>)
-<span class='co'># }</span><div class='input'>
+<span class='no'>retCrossed2</span> <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span>(<span class='no'>datasetCrossedModality</span>, <span class='fl'>1</span>)</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -272,13 +272,11 @@ Statistics in Medicine, 24:10, 1579--607.</p>
 #&gt; [1] 0.8008112
 #&gt; </div><div class='input'>
 
-</div><span class='co'># NOT RUN {</span>
-<span class='kw'>for</span> (<span class='no'>J</span> <span class='kw'>in</span> <span class='fl'>6</span>:<span class='fl'>10</span>) {
+</div><div class='input'><span class='kw'>for</span> (<span class='no'>J</span> <span class='kw'>in</span> <span class='fl'>6</span>:<span class='fl'>10</span>) {
  <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>SsSampleSizeKGivenJ</span>(<span class='no'>dataset02</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='no'>J</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>)
  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/message'>message</a></span>(<span class='st'>"# of readers = "</span>, <span class='no'>J</span>, <span class='st'>" estimated # of cases = "</span>, <span class='no'>ret</span>$<span class='no'>K</span>, <span class='st'>", predicted power = "</span>,
     <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>signif</a></span>(<span class='no'>ret</span>$<span class='no'>powerRRRC</span>,<span class='fl'>3</span>), <span class='st'>"\n"</span>)
-}
-<span class='co'># }</span><div class='input'>
+}</div><div class='output co'>#&gt; <span class='message'># of readers = 6 estimated # of cases = 251, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 7 estimated # of cases = 211, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 8 estimated # of cases = 188, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 9 estimated # of cases = 173, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 10 estimated # of cases = 163, predicted power = 0.802</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

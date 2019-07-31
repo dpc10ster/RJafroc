@@ -260,11 +260,8 @@ Rating-Method Data, Journal of Mathematical Psychology 6, 487-496.</p>
 #&gt; $df
 #&gt; [1] 2
 #&gt; </div><div class='input'>
- 
-## Test with included degenerate ROC data
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>datasetDegenerate</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)
-<span class='co'># }</span><div class='input'>
+<span class='co'>## Test with included degenerate ROC data</span>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>datasetDegenerate</span>);<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Data is degenerate; binormal model cannot fit it unambiguously: use CBM or RSM method</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'>
  
 
 </div></pre>
