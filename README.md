@@ -14,7 +14,7 @@ RJafroc
 # My wiki is at https://github.com/dpc10ster/RJafroc/wiki #
 
 # A CRAN version of RJafroc has been published #
-Thanks to help from Dr. Peter Phillips, version 1.2.0 of `RJafroc` has passed CRAN tests. This version is on the `cran` branch. The complete (all vignettes and tests) current version of the software is available on the `master` branch. The `development` branch is for ongoing work.
+Thanks to help from Dr. Peter Phillips, version 1.2.0 of `RJafroc` has passed CRAN tests. This version is on the `cran` branch. The complete (all vignettes and tests) and current version of the software is available on the `master` branch. The `development` branch is for ongoing work (Version 1.2.0.9000).
 
 # Those already familiar with installing R packages from GitHub can ignore the following directions #  
 

@@ -1,5 +1,7 @@
 Update History
 ==========================
+## RJafroc 1.2.0.9000 ##
+TBA
 ## RJafroc 1.2.0 ##
 ### Major changes ###
 * Corrected all references to package name to `RJafroc` (note capitalization)

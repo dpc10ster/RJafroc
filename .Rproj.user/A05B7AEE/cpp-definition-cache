@@ -3,7 +3,7 @@
         "definitions" : [
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/BMFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/BMFuncs.cpp",
                 "kind" : 6,
                 "line" : 5,
                 "name" : "BMNLLInner(double, double, Rcpp::NumericVector, Rcpp::NumericVector, Rcpp::NumericVector)",
@@ -11,14 +11,14 @@
                 "usr" : "c:@F@BMNLLInner#d#d#I#I#I#"
             }
         ],
-        "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/BMFuncs.cpp",
+        "file" : "/Users/Dev/RJafroc/src/BMFuncs.cpp",
         "file_last_write" : 1530069185.000000
     },
     {
         "definitions" : [
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/CBMFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/CBMFuncs.cpp",
                 "kind" : 6,
                 "line" : 5,
                 "name" : "Qz(double, double)",
@@ -27,7 +27,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/CBMFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/CBMFuncs.cpp",
                 "kind" : 6,
                 "line" : 10,
                 "name" : "Pz(double, double, double, double)",
@@ -36,7 +36,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/CBMFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/CBMFuncs.cpp",
                 "kind" : 6,
                 "line" : 15,
                 "name" : "CBMNLLInner(double, double, Rcpp::NumericVector, Rcpp::NumericVector, Rcpp::NumericVector)",
@@ -44,26 +44,26 @@
                 "usr" : "c:@F@CBMNLLInner#d#d#I#I#I#"
             }
         ],
-        "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/CBMFuncs.cpp",
+        "file" : "/Users/Dev/RJafroc/src/CBMFuncs.cpp",
         "file_last_write" : 1530069185.000000
     },
     {
         "definitions" : [
         ],
-        "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/CommonFuncs.h",
+        "file" : "/Users/Dev/RJafroc/src/CommonFuncs.h",
         "file_last_write" : 1511145261.000000
     },
     {
         "definitions" : [
         ],
-        "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/CorCBMFuncs.cpp",
+        "file" : "/Users/Dev/RJafroc/src/CorCBMFuncs.cpp",
         "file_last_write" : 1511145261.000000
     },
     {
         "definitions" : [
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 6,
                 "name" : "maximum(Rcpp::NumericVector, int)",
@@ -72,7 +72,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 16,
                 "name" : "comp_phi(double, double)",
@@ -81,7 +81,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 25,
                 "name" : "TrapezoidalArea(Rcpp::NumericVector, int, Rcpp::NumericVector, int)",
@@ -90,7 +90,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 41,
                 "name" : "HrAuc(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
@@ -99,7 +99,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 62,
                 "name" : "ROI(int, int, int, Rcpp::NumericVector, Rcpp::NumericMatrix, Rcpp::NumericMatrix)",
@@ -108,7 +108,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 109,
                 "name" : "HrSe(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
@@ -117,7 +117,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 130,
                 "name" : "HrSp(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
@@ -126,7 +126,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 148,
                 "name" : "SongA1(int, int, int, int, Rcpp::NumericVector, Rcpp::NumericMatrix, Rcpp::NumericMatrix)",
@@ -135,7 +135,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 224,
                 "name" : "SongA2(int, int, int, int, Rcpp::NumericVector, Rcpp::NumericMatrix, Rcpp::NumericMatrix)",
@@ -144,7 +144,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 289,
                 "name" : "JAFROC1(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
@@ -153,7 +153,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 315,
                 "name" : "JAFROC(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
@@ -162,7 +162,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 341,
                 "name" : "wJAFROC1(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int, Rcpp::NumericMatrix)",
@@ -171,7 +171,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 361,
                 "name" : "wJAFROC(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int, Rcpp::NumericMatrix)",
@@ -180,7 +180,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 381,
                 "name" : "MaxLLF(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
@@ -189,7 +189,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 402,
                 "name" : "MaxNLF(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
@@ -198,7 +198,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 418,
                 "name" : "MaxNLFAllCases(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
@@ -207,7 +207,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+                "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
                 "kind" : 6,
                 "line" : 434,
                 "name" : "ExpTrnsfmSp(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
@@ -215,14 +215,14 @@
                 "usr" : "c:@F@ExpTrnsfmSp#I#I#I#I#I#I#"
             }
         ],
-        "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/MyFOM.cpp",
+        "file" : "/Users/Dev/RJafroc/src/MyFOM.cpp",
         "file_last_write" : 1558814324.000000
     },
     {
         "definitions" : [
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 6,
                 "name" : "erfcpp(double)",
@@ -231,7 +231,7 @@
             },
             {
                 "column" : 15,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 11,
                 "name" : "erfVect(Rcpp::NumericVector)",
@@ -240,7 +240,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 21,
                 "name" : "xROC(double, double)",
@@ -249,7 +249,7 @@
             },
             {
                 "column" : 15,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 26,
                 "name" : "xROCVect(Rcpp::NumericVector, double)",
@@ -258,7 +258,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 36,
                 "name" : "yROC(double, double, double, double, Rcpp::NumericMatrix)",
@@ -267,7 +267,7 @@
             },
             {
                 "column" : 15,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 47,
                 "name" : "yROCVect(Rcpp::NumericVector, double, double, double, Rcpp::NumericMatrix)",
@@ -276,7 +276,7 @@
             },
             {
                 "column" : 15,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 62,
                 "name" : "yROCVectNuP(double, double, double, Rcpp::NumericVector, Rcpp::NumericMatrix)",
@@ -285,7 +285,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 102,
                 "name" : "RsmInner(double, double, double, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, Rcpp::NumericVector)",
@@ -294,7 +294,7 @@
             },
             {
                 "column" : 15,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/RsmFuncs.cpp",
+                "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
                 "kind" : 6,
                 "line" : 145,
                 "name" : "intROC(Rcpp::NumericVector, double, double, double, Rcpp::NumericMatrix)",
@@ -302,20 +302,20 @@
                 "usr" : "c:@F@intROC#I#d#d#d#I#"
             }
         ],
-        "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/RsmFuncs.cpp",
+        "file" : "/Users/Dev/RJafroc/src/RsmFuncs.cpp",
         "file_last_write" : 1561312558.000000
     },
     {
         "definitions" : [
         ],
-        "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/SmAucInt.cpp",
+        "file" : "/Users/Dev/RJafroc/src/SmAucInt.cpp",
         "file_last_write" : 1511145261.000000
     },
     {
         "definitions" : [
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/Transforms.cpp",
+                "file" : "/Users/Dev/RJafroc/src/Transforms.cpp",
                 "kind" : 6,
                 "line" : 6,
                 "name" : "ForwardValue(double, double, double)",
@@ -324,7 +324,7 @@
             },
             {
                 "column" : 8,
-                "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/Transforms.cpp",
+                "file" : "/Users/Dev/RJafroc/src/Transforms.cpp",
                 "kind" : 6,
                 "line" : 12,
                 "name" : "InverseValue(double, double, double)",
@@ -332,7 +332,7 @@
                 "usr" : "c:@F@InverseValue#d#d#d#"
             }
         ],
-        "file" : "/Users/Dev/Documents/GitHub/RJafroc/src/Transforms.cpp",
+        "file" : "/Users/Dev/RJafroc/src/Transforms.cpp",
         "file_last_write" : 1511145261.000000
     }
 ]
