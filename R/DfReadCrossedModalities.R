@@ -77,7 +77,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
     stop(errorMsg)
   }
   
-  caseID <- as.integer(truthTable[[1]])  # all 3 have same lenghts
+  caseID <- as.integer(truthTable[[1]])  # all 3 have same lengths
   lesionID <- as.integer(truthTable[[2]])
   weights <- truthTable[[3]]
   
@@ -96,7 +96,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   
   nlFileIndex <- which(!is.na(match(sheetNames, c("FP", "NL"))))
   if (nlFileIndex == 0) 
-    stop("FP table cannot be found in the dataset.")
+    stop("FP/NL table cannot be found in the dataset.")
 
   NLTable <- read.xlsx(fileName, nlFileIndex, cols = 1:5)
   
@@ -114,7 +114,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   for (i in 4:5) {
     if (any(is.na(as.numeric(as.character(NLTable[, i]))))) {
       naLines <- which(is.na(as.numeric(as.character(NLTable[, i])))) + 1
-      errorMsg <- paste0("There are unavailable cell(s) at the line(s) ", paste(naLines, collapse = ", "), " in the FP table.")
+      errorMsg <- paste0("There are missing cell(s) at line(s) ", paste(naLines, collapse = ", "), " in the FP table.")
       stop(errorMsg)
     }
   }
@@ -134,7 +134,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (llFileIndex == 0) 
-    stop("TP table cannot be found in the dataset.")
+    stop("TP/LL table cannot be found in the dataset.")
   LLTable <- read.xlsx(fileName, llFileIndex, cols = 1:6)
   
   for (i in 1:6){
@@ -151,7 +151,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   for (i in 4:6) {
     if (any(is.na(as.numeric(as.character(LLTable[, i]))))) {
       naLines <- which(is.na(as.numeric(as.character(LLTable[, i])))) + 1
-      errorMsg <- paste0("There are unavailable cell(s) at the line(s) ", paste(naLines, collapse = ", "), " in the TP table.")
+      errorMsg <- paste0("There are missing cell(s) at line(s) ", paste(naLines, collapse = ", "), " in the TP table.")
       stop(errorMsg)
     }
   }

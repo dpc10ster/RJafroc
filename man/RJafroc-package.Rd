@@ -178,9 +178,9 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
 
 \section{Dataset}{
   An R object either created by the user or read from an external text or 
-     Excel file. It is a list generally containing 8 members (9 members 
+     Excel file. It is a \code{list} generally containing 8 members (9 members 
      for crossed-modality or LROC datasets): \strong{Note: \code{-Inf} is used to 
-     indicate the ratings of unmarked lesions and/or to indicate unavailable array 
+     indicate the ratings of unmarked lesions and/or to indicate missing array 
      items. An example of the latter would be if the maximum number of NLs in a 
      dataset was 4, but some images had fewer than 4 NLs, in which case the corresponding 
      "empty" positions would be filled with \code{-Inf}s. Do not use \code{NA} to 
@@ -195,7 +195,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
              K1 locations of the third index corresponds to NL marks on non-diseased 
              cases and the remaining locations correspond to NL marks on diseased 
              cases. The 4th dimension allows for the possibility of multiple NL marks 
-             on a case. For \bold{FROC} datasets unavailable NL ratings are assigned 
+             on a case. For \bold{FROC} datasets unavailable or missing NL ratings are assigned 
              \code{-Inf}. For \bold{ROC} datasets FP ratings are assigned to the first 
              \code{K1} elements of \code{NL[,,1:K1,1]} and the remaining \code{K2} 
              elements of \code{NL[,,(K1+1):K,1]} are set to \code{-Inf}. When 

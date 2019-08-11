@@ -5,7 +5,7 @@
 \title{Read a data file}
 \usage{
 DfReadDataFile(fileName, format = "JAFROC", delimiter = ",",
-  renumber = FALSE)
+  renumber = FALSE, splitPlot = FALSE)
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file. 
@@ -27,6 +27,9 @@ or \code{"iMRMC"} data files.}
 (starting from 1) will be used as the 
 treatment and reader IDs. Otherwise, treatment 
 and reader IDs in the original data file will be used.}
+
+\item{splitPlot}{A logical variable, default \code{FALSE}, denoting a split plot design.
+If \code{TRUE} each reader interprets one case in all modalities. TBA.}
 }
 \value{
 A dataset with the structure specified in \code{\link{RJafroc-package}}.

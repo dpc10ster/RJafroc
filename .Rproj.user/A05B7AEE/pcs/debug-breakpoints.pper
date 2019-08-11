@@ -1,6 +1,51 @@
 {
     "debugBreakpointsState" : {
         "breakpoints" : [
+            {
+                "editor_line_number" : 318,
+                "editor_state" : 1,
+                "function_name" : "ReadJAFROCSplitPlot",
+                "function_steps" : "69",
+                "id" : 20,
+                "is_package_breakpoint" : true,
+                "is_pending_debug_completion" : false,
+                "line_number" : 318,
+                "needs_updated_steps" : false,
+                "package_name" : "RJafroc",
+                "path" : "~/GitHub/RJafroc/R/DfReadDataFile.R",
+                "state" : 1,
+                "type" : 0
+            },
+            {
+                "editor_line_number" : 635,
+                "editor_state" : 1,
+                "function_name" : "ReadJAFROC",
+                "function_steps" : "67",
+                "id" : 24,
+                "is_package_breakpoint" : true,
+                "is_pending_debug_completion" : false,
+                "line_number" : 635,
+                "needs_updated_steps" : true,
+                "package_name" : "RJafroc",
+                "path" : "~/GitHub/RJafroc/R/DfReadDataFile.R",
+                "state" : 1,
+                "type" : 0
+            },
+            {
+                "editor_line_number" : 645,
+                "editor_state" : 1,
+                "function_name" : "ReadJAFROC",
+                "function_steps" : "68",
+                "id" : 26,
+                "is_package_breakpoint" : true,
+                "is_pending_debug_completion" : false,
+                "line_number" : 645,
+                "needs_updated_steps" : true,
+                "package_name" : "RJafroc",
+                "path" : "~/GitHub/RJafroc/R/DfReadDataFile.R",
+                "state" : 1,
+                "type" : 0
+            }
         ]
     }
 }
