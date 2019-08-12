@@ -28,9 +28,8 @@ The Van Dyke dataset in file `VanDyke.lrc`, in `"MRMC"` format, is regarded as a
 
 ```{r}
 alpha <- 0.05
-fileName <- "VanDyke.lrc"
-#fileName <- "Franken1.lrc"
-rocData <- DfReadDataFile(fileName, format = "MRMC")
+rocData <- dataset02 ##"VanDyke.lrc"
+#fileName <- dataset03 ## "Franken1.lrc"
 retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "DBMH") 
 varYTR <- retDbm$varComp$varComp[3];varYTC <- retDbm$varComp$varComp[4];varYEps <- retDbm$varComp$varComp[6]
 effectSize <- retDbm$ciDiffTrtRRRC$Estimate

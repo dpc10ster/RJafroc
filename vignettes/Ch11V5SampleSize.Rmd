@@ -31,8 +31,8 @@ library(RJafroc)
 
 ## Illustration of `SsPowerGivenJK()` using `method = "ORH"`
 ```{r}
-fileName <- "VanDyke.lrc"
-rocData <- DfReadDataFile(fileName, format = "MRMC")
+rocData <- dataset02 ##"VanDyke.lrc"
+#fileName <- dataset03 ## "Franken1.lrc"
 retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "DBMH")
 str(retDbm$ciDiffTrtRRRC)
 ````

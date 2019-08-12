@@ -77,12 +77,14 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
   wb <- loadWorkbook(fileName)
   sheetNames <- toupper(names(wb))
   
+  # find the position of the TRUTH worksheet
+  # this way it does not matter where it is (1st, 2nd or 3rd tab position) in the workbook
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (truthFileIndex == 0) 
     stop("TRUTH table cannot be found in the dataset.")
   truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:4)
   
-  ## fill empty rows with NAs
+  ## fill empty rows with NAs (and delete them)
   for (i in 1:4){
     truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
   }
@@ -114,7 +116,7 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
   truthCaseID <- as.integer(truthTable[[1]])  # all 3 columns have same lengths
   truthlesionID <- as.integer(truthTable[[2]])
   truthWeights <- truthTable[[3]]
-  truthReaderID <- as.character(truthTable[[4]])
+  #truthReaderID <- as.character(truthTable[[4]])
   
   normalCases <- sort(unique(truthCaseID[truthlesionID == 0]))
   abnormalCases <- sort(unique(truthCaseID[truthlesionID > 0]))
@@ -135,7 +137,7 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
     stop("FP/NL table cannot be found in the dataset.")
   NLTable <- read.xlsx(fileName, nlFileIndex, cols = 1:4)
   
-  ## fill empty rows with NAs
+  ## fill empty rows with NAs (and delete them)
   for (i in 1:4){
     NLTable[grep("^\\s*$", NLTable[ , i]), i] <- NA
   }
@@ -175,7 +177,7 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
     stop("TP/LL table cannot be found in the dataset.")
   LLTable <- read.xlsx(fileName, llFileIndex, cols = 1:5)
   
-  ## fill empty rows with NAs
+  ## fill empty rows with NAs (and delete them)
   for (i in 1:5){
     LLTable[grep("^\\s*$", LLTable[ , i]), i] <- NA
   }
@@ -187,7 +189,7 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
       LLTable <- LLTable[1:(nrow(LLTable) - max(naRows)), ]
     }
   }
-  
+
   for (i in 3:5) {
     if (any(is.na(as.numeric(as.character(LLTable[, i]))))) {
       naLines <- which(is.na(as.numeric(as.character(LLTable[, i])))) + 1
@@ -307,13 +309,11 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
   
   if (isROCDataset(NL, LL, truthCaseID)) {
     fileType <- "ROC"
-  } else {
-    if (isROIDataset(NL, LL, lesionNum)) {
-      fileType <- "ROI"
-    } else {
-      fileType <- "FROC"
-    }
-  }
+  } else if (isROIDataset(NL, LL, lesionNum)) {
+    fileType <- "ROI" # not yet implemented
+  } else if (isSplitPlotRocDataset (truthTable, NLTable, LLTable)) {
+    fileType <- "SplitPlotRoc" 
+  } else  fileType <- "FROC"
   
   modalityNames <- modalityID
   readerNames <- readerID
@@ -335,6 +335,60 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
               modalityID = modalityID, 
               readerID = readerID))
 } 
+
+
+
+isSplitPlotRocDataset <- function(truthTable, NLTable, LLTable)
+{
+  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  modalityID <- unique(NLTable[[2]])
+  readerID <- unique(truthTable[[4]])
+  I <- length(modalityID) # number of modalities
+  J <- length(readerID) # number of readers
+  K <- length(truthTable[[1]]) # total number of cases read by all readers
+  Kj <- array(dim = J) # total number of cases read by reader j
+  K1j <- array(dim = J) # total number of normal cases read by reader j
+  K2j <- array(dim = J) # total number of abnormal cases read by reader j
+  Knested <- array(dim = c(J, K)) # IDs of cases read by reader j
+  K1nested <- array(dim = c(J, K)) # IDs of normal cases read by reader j
+  K2nested <- array(dim = c(J, K)) # IDs of abnormal cases read by reader j
+  for (j in 1:J) {
+    temp <- truthTable[[1]][which(truthTable[[4]] == j)]
+    temp1 <- truthTable[[1]][which((truthTable[[4]] == j) & (truthTable[[2]] == 0))]
+    temp2 <- truthTable[[1]][which((truthTable[[4]] == j) & (truthTable[[2]] == 1))]
+    Kj[j] <- length(temp)
+    K1j[j] <- length(temp1)
+    K2j[j] <- length(temp2)
+    Knested[j,1:Kj[j]] <- temp
+    K1nested[j,1:K1j[j]] <- temp1
+    K2nested[j,1:K2j[j]] <- temp2
+  }
+  
+  for (j in 1:J) {
+    cat("\nj = ", j, "\n")
+    cat("Cases, non-diseased followed by diseased", "\n")
+    cat(K1nested[j,1:K1j[j]],"\n")
+    cat(K2nested[j,1:K2j[j]],"\n")
+    cat("Non-diseased ratings, in modality 1 followed by modality 2", "\n")
+    cat(NLTable[[4]][which((NLTable[[1]] == j) & (NLTable[[3]] %in% K1nested[j,]) & (NLTable[[2]] == 1))],"\n")
+    cat(NLTable[[4]][which((NLTable[[1]] == j) & (NLTable[[3]] %in% K1nested[j,]) & (NLTable[[2]] == 2))],"\n")
+    cat("Diseased ratings, in modality 1 followed by modality 2", "\n")
+    cat(LLTable[[5]][which((LLTable[[1]] == j) & (LLTable[[3]] %in% K2nested[j,]) & (LLTable[[2]] == 1))],"\n")
+    cat(LLTable[[5]][which((LLTable[[1]] == j) & (LLTable[[3]] %in% K2nested[j,]) & (LLTable[[2]] == 2))],"\n")
+  }
+  # inspect NL table
+  
+  # tests for ROC data
+  if (!all(is.finite(NLTable[[4]]))) return (FALSE)
+  if (!all(is.finite(LLTable[[5]]))) return (FALSE)
+  for (j in 1:J) {
+    if (!(sum(NLTable[[3]] %in% K1nested[j,1:K1j[j]]) == I*K1j[j])) return (FALSE)
+    if (!(sum(LLTable[[3]] %in% K2nested[j,1:K2j[j]]) == I*K2j[j])) return (FALSE)
+    if (!(nrow(NLTable) == I*sum(K1j))) return (FALSE)
+    if (!(nrow(LLTable) == I*sum(K2j))) return (FALSE)
+  }
+  return (TRUE)
+}
 
 
 
@@ -408,7 +462,7 @@ ReadJAFROC <- function(fileName, renumber) {
     stop("TRUTH table cannot be found in the dataset.")
   truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:3)
   
-  ## fill empty rows with NAs
+  ## fill empty rows with NAs (and delete them)
   for (i in 1:3){
     truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
   }
@@ -460,7 +514,7 @@ ReadJAFROC <- function(fileName, renumber) {
     stop("FP/NL table cannot be found in the dataset.")
   NLTable <- read.xlsx(fileName, nlFileIndex, cols = 1:4)
   
-  ## fill empty rows with NAs
+  ## fill empty rows with NAs (and delete them)
   for (i in 1:4){
     NLTable[grep("^\\s*$", NLTable[ , i]), i] <- NA
   }
@@ -500,7 +554,7 @@ ReadJAFROC <- function(fileName, renumber) {
     stop("TP/LL table cannot be found in the dataset.")
   LLTable <- read.xlsx(fileName, llFileIndex, cols = 1:5)
   
-  ## fill empty rows with NAs
+  ## fill empty rows with NAs (and delete them)
   for (i in 1:5){
     LLTable[grep("^\\s*$", LLTable[ , i]), i] <- NA
   }
@@ -636,7 +690,7 @@ ReadJAFROC <- function(fileName, renumber) {
     fileType <- "ROC"
   } else {
     if (isROIDataset(NL, LL, lesionNum)) {
-      fileType <- "ROI"
+      fileType <- "ROI" # not yet implemented
     } else {
       fileType <- "FROC"
     }
