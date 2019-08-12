@@ -37,7 +37,7 @@ DfLroc2Roc <- function (dataset){
   return (list(
     NL = dataset$NL,
     LL = LL,
-    lesionNum = dataset$lesionNum,
+    lesionVector = dataset$lesionVector,
     lesionID = dataset$lesionID,
     lesionWeight = dataset$lesionWeight,
     dataType = "ROC",

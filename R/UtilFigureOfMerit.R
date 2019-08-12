@@ -132,7 +132,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     stop(errMsg)
   }
   
-  lesionNum <- dataset$lesionNum
+  lesionVector <- dataset$lesionVector
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
@@ -143,8 +143,8 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
       nl <- NL[i, j, , ]
       ll <- LL[i, j, , ]
       dim(nl) <- c(K, maxNL)
-      dim(ll) <- c(K2, max(lesionNum))
-      fomArray[i, j] <- gpfMyFOM(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue = FPFValue)
+      dim(ll) <- c(K2, max(lesionVector))
+      fomArray[i, j] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue = FPFValue)
     }
   }
   modalityID <- dataset$modalityID

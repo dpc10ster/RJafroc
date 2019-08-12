@@ -27,7 +27,7 @@
 UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionNum <- dataset$lesionNum
+  lesionVector <- dataset$lesionVector
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]

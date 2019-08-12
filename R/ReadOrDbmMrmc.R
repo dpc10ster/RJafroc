@@ -51,7 +51,7 @@ ReadOrDbmMrmc <- function(fileName, delimiter, renumber) {
     }
   }
   
-  lesionNum <- rep(1, K2)
+  lesionVector <- rep(1, K2)
   lesionID <- array(1, dim = c(K2, 1))
   lesionWeight <- lesionID
   maxNL <- 1
@@ -68,5 +68,5 @@ ReadOrDbmMrmc <- function(fileName, delimiter, renumber) {
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  return(list(NL = NL, LL = LL, lesionNum = lesionNum, lesionID = lesionID, lesionWeight = lesionWeight, dataType = dataType, modalityID = modalityID, readerID = readerID))
+  return(list(NL = NL, LL = LL, lesionVector = lesionVector, lesionID = lesionID, lesionWeight = lesionWeight, dataType = dataType, modalityID = modalityID, readerID = readerID))
 } 

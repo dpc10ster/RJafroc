@@ -227,19 +227,19 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
     stop(errorMsg)
   }
   
-  lesionNum <- as.vector(table(truthCaseID[truthCaseID %in% abnormalCases]))
-  # for (k2 in 1:length(abnormalCases)) { lesionNum[k2] <- sum(truthCaseID == abnormalCases[k2]) }
+  lesionVector <- as.vector(table(truthCaseID[truthCaseID %in% abnormalCases]))
+  # for (k2 in 1:length(abnormalCases)) { lesionVector[k2] <- sum(truthCaseID == abnormalCases[k2]) }
   
-  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionNum)))
-  lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionNum)))
+  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector)))
+  lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionVector)))
   
   for (k2 in 1:length(abnormalCases)) {
     k <- which(truthCaseID == abnormalCases[k2])
-    lesionIDTable[k2, ] <- c(sort(truthlesionID[k]), rep(UNINITIALIZED, max(lesionNum) - length(k)))
+    lesionIDTable[k2, ] <- c(sort(truthlesionID[k]), rep(UNINITIALIZED, max(lesionVector) - length(k)))
     if (all(truthWeights[k] == 0)) {
-      lesionWeight[k2, 1:length(k)] <- 1/lesionNum[k2]
+      lesionWeight[k2, 1:length(k)] <- 1/lesionVector[k2]
     } else {
-      lesionWeight[k2, ] <- c(truthWeights[k][order(truthlesionID[k])], rep(UNINITIALIZED, max(lesionNum) - length(k)))
+      lesionWeight[k2, ] <- c(truthWeights[k][order(truthlesionID[k])], rep(UNINITIALIZED, max(lesionVector) - length(k)))
       sumWeight <- sum(lesionWeight[k2, lesionWeight[k2, ] != UNINITIALIZED])
       if (sumWeight != 1){
         if (sumWeight <= 1.01 && sumWeight >= 0.99){
@@ -284,7 +284,7 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
     }
   }
   
-  LL <- array(dim = c(I, J, K2, max(lesionNum)))
+  LL <- array(dim = c(I, J, K2, max(lesionVector)))
   for (i in 1:I) {
     for (j in 1:J) {
       k <- (LLModalityID == modalityID[i]) & (LLReaderID == readerID[j])
@@ -309,7 +309,7 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
   
   if (isROCDataset(NL, LL, truthCaseID)) {
     fileType <- "ROC"
-  } else if (isROIDataset(NL, LL, lesionNum)) {
+  } else if (isROIDataset(NL, LL, lesionVector)) {
     fileType <- "ROI" # not yet implemented
   } else if (isSplitPlotRocDataset (truthTable, NLTable, LLTable)) {
     fileType <- "SplitPlotRoc" 
@@ -328,7 +328,7 @@ ReadJAFROCSplitPlot <- function(fileName, renumber) {
   
   return(list(NL = NL, 
               LL = LL, 
-              lesionNum = lesionNum, 
+              lesionVector = lesionVector, 
               truthlesionID = lesionIDTable, 
               lesionWeight = lesionWeight, 
               dataType = fileType, 
@@ -402,21 +402,21 @@ isROCDataset <- function(NL, LL, truthCaseID)
   K2 <- length(LL[1,1,,1])
   K1 <- K - K2
   maxNL <- length(NL[1,1,1,])
-  lesionNum <- length(LL[1,1,1,])
+  lesionVector <- length(LL[1,1,1,])
   
   if (max(table(truthCaseID)) != 1) return (FALSE) # number of occurrences of each truthCaseID value
   if (maxNL != 1) return (FALSE)
   if (all((NL[, , (K1 + 1):K, ] != UNINITIALIZED))) return (FALSE) 
   if (any((NL[, , 1:K1, ] == UNINITIALIZED))) return (FALSE) 
-  if (max(lesionNum) != 1) return (FALSE)
+  if (max(lesionVector) != 1) return (FALSE)
   if (any((LL[, , 1:K2, ] == UNINITIALIZED))) return (FALSE)
   return (TRUE)
 }
 
 ##stop("ROI paradigm not yet implemented")
-isROIDataset <- function(NL, LL, lesionNum)
+isROIDataset <- function(NL, LL, lesionVector)
 {
-  return (FALSE)
+  ##return (FALSE)
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
   I <- length(NL[,1,1,1])
@@ -425,7 +425,7 @@ isROIDataset <- function(NL, LL, lesionNum)
   K2 <- length(LL[1,1,,1])
   K1 <- K - K2
   maxNL <- length(NL[1,1,1,])
-  lesionNum <- length(LL[1,1,1,])
+  lesionVector <- length(LL[1,1,1,])
   
   isROI <- TRUE
   for (i in 1:I) {
@@ -435,14 +435,14 @@ isROIDataset <- function(NL, LL, lesionNum)
         break
       }
       temp <- LL[i, j, , ] != UNINITIALIZED
-      dim(temp) <- c(K2, max(lesionNum))
-      if (!all(lesionNum == rowSums(temp))) {
+      dim(temp) <- c(K2, max(lesionVector))
+      if (!all(lesionVector == rowSums(temp))) {
         isROI <- FALSE
         break
       }
       temp <- NL[i, j, (K1 + 1):K, ] == UNINITIALIZED
       dim(temp) <- c(K2, maxNL)
-      if (!all(lesionNum == rowSums(temp))) {
+      if (!all(lesionVector == rowSums(temp))) {
         isROI <- FALSE
         break
       }
@@ -606,19 +606,19 @@ ReadJAFROC <- function(fileName, renumber) {
     stop(errorMsg)
   }
   
-  lesionNum <- as.vector(table(truthCaseID[truthCaseID %in% abnormalCases]))
-  # for (k2 in 1:length(abnormalCases)) { lesionNum[k2] <- sum(truthCaseID == abnormalCases[k2]) }
+  lesionVector <- as.vector(table(truthCaseID[truthCaseID %in% abnormalCases]))
+  # for (k2 in 1:length(abnormalCases)) { lesionVector[k2] <- sum(truthCaseID == abnormalCases[k2]) }
   
-  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionNum)))
-  lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionNum)))
+  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector)))
+  lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionVector)))
   
   for (k2 in 1:length(abnormalCases)) {
     k <- which(truthCaseID == abnormalCases[k2])
-    lesionIDTable[k2, ] <- c(sort(truthlesionID[k]), rep(UNINITIALIZED, max(lesionNum) - length(k)))
+    lesionIDTable[k2, ] <- c(sort(truthlesionID[k]), rep(UNINITIALIZED, max(lesionVector) - length(k)))
     if (all(truthWeights[k] == 0)) {
-      lesionWeight[k2, 1:length(k)] <- 1/lesionNum[k2]
+      lesionWeight[k2, 1:length(k)] <- 1/lesionVector[k2]
     } else {
-      lesionWeight[k2, ] <- c(truthWeights[k][order(truthlesionID[k])], rep(UNINITIALIZED, max(lesionNum) - length(k)))
+      lesionWeight[k2, ] <- c(truthWeights[k][order(truthlesionID[k])], rep(UNINITIALIZED, max(lesionVector) - length(k)))
       sumWeight <- sum(lesionWeight[k2, lesionWeight[k2, ] != UNINITIALIZED])
       if (sumWeight != 1){
         if (sumWeight <= 1.01 && sumWeight >= 0.99){
@@ -663,7 +663,7 @@ ReadJAFROC <- function(fileName, renumber) {
     }
   }
   
-  LL <- array(dim = c(I, J, K2, max(lesionNum)))
+  LL <- array(dim = c(I, J, K2, max(lesionVector)))
   for (i in 1:I) {
     for (j in 1:J) {
       k <- (LLModalityID == modalityID[i]) & (LLReaderID == readerID[j])
@@ -689,7 +689,7 @@ ReadJAFROC <- function(fileName, renumber) {
   if (isROCDataset(NL, LL, truthCaseID)) {
     fileType <- "ROC"
   } else {
-    if (isROIDataset(NL, LL, lesionNum)) {
+    if (isROIDataset(NL, LL, lesionVector)) {
       fileType <- "ROI" # not yet implemented
     } else {
       fileType <- "FROC"
@@ -709,7 +709,7 @@ ReadJAFROC <- function(fileName, renumber) {
   
   return(list(NL = NL, 
               LL = LL, 
-              lesionNum = lesionNum, 
+              lesionVector = lesionVector, 
               truthlesionID = lesionIDTable, 
               lesionWeight = lesionWeight, 
               dataType = fileType, 
@@ -838,7 +838,7 @@ ReadLrc <- function(fileName, renumber) {
   NLTemp <- array(UNINITIALIZED, dim = c(I, J, K, 1))
   NLTemp[, , 1:K1, ] <- NL
   NL <- NLTemp
-  lesionNum <- rep(1, K2)
+  lesionVector <- rep(1, K2)
   truthlesionID <- array(1, dim = c(K2, 1))
   lesionWeight <- truthlesionID
   maxNL <- 1
@@ -857,7 +857,7 @@ ReadLrc <- function(fileName, renumber) {
   
   return(list(NL = NL, 
               LL = LL, 
-              lesionNum = lesionNum, 
+              lesionVector = lesionVector, 
               truthlesionID = truthlesionID, 
               lesionWeight = lesionWeight, 
               dataType = dataType, 
@@ -969,7 +969,7 @@ ReadImrmc <- function(fileName, renumber) {
     }
   }
   
-  lesionNum <- rep(1, K2)
+  lesionVector <- rep(1, K2)
   truthlesionID <- array(1, dim = c(K2, 1))
   lesionWeight <- truthlesionID
   maxNL <- 1
@@ -988,7 +988,7 @@ ReadImrmc <- function(fileName, renumber) {
   
   return(list(NL = NL, 
               LL = LL, 
-              lesionNum = lesionNum, 
+              lesionVector = lesionVector, 
               truthlesionID = truthlesionID, 
               lesionWeight = lesionWeight, 
               dataType = dataType, 

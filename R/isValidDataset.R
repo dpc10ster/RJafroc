@@ -8,7 +8,7 @@ isValidDataset <- function(dataset) {
     J <- length(dataset$NL[1,,1,1])
     K <- length(dataset$NL[1,1,,1])
     
-    if (!is.vector(dataset$lesionNum))  return (FALSE)
+    if (!is.vector(dataset$lesionVector))  return (FALSE)
     if (!is.array(dataset$lesionWeight))  return (FALSE)
     if (!is.array(dataset$lesionID))  return (FALSE)
     
@@ -16,7 +16,7 @@ isValidDataset <- function(dataset) {
     
     K2 <- length(dataset$LL[1,1,,1])
     
-    if (length(dataset$lesionNum) != K2) return (FALSE)
+    if (length(dataset$lesionVector) != K2) return (FALSE)
     if (length(dataset$lesionID[,1]) != K2) return (FALSE)
     if (length(dataset$lesionWeight[,1]) != K2) return (FALSE)
     if (length(dataset$modalityID) != I) return (FALSE)
@@ -31,7 +31,7 @@ isValidDataset <- function(dataset) {
     J <- length(dataset$NL[1,,1,1])
     K <- length(dataset$NL[1,1,,1])
     
-    if (!is.vector(dataset$lesionNum))  return (FALSE)
+    if (!is.vector(dataset$lesionVector))  return (FALSE)
     if (!is.array(dataset$lesionWeight))  return (FALSE)
     if (!is.array(dataset$lesionID))  return (FALSE)
     
@@ -39,7 +39,7 @@ isValidDataset <- function(dataset) {
     
     K2 <- length(dataset$LL[1,1,,1])
     
-    if (length(dataset$lesionNum) != K2) return (FALSE)
+    if (length(dataset$lesionVector) != K2) return (FALSE)
     if (length(dataset$lesionID[,1]) != K2) return (FALSE)
     if (length(dataset$lesionWeight[,1]) != K2) return (FALSE)
     if (length(dataset$modalityID) != I) return (FALSE)

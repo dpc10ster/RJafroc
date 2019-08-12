@@ -181,19 +181,19 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
     stop(errorMsg)
   }
   
-  lesionNum <- as.vector(table(caseID[caseID %in% abnormalCases]))
-  # for (k2 in 1:length(abnormalCases)) { lesionNum[k2] <- sum(caseID == abnormalCases[k2]) }
+  lesionVector <- as.vector(table(caseID[caseID %in% abnormalCases]))
+  # for (k2 in 1:length(abnormalCases)) { lesionVector[k2] <- sum(caseID == abnormalCases[k2]) }
   
-  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionNum)))
-  lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionNum)))
+  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector)))
+  lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionVector)))
   
   for (k2 in 1:length(abnormalCases)) {
     k <- which(caseID == abnormalCases[k2])
-    lesionIDTable[k2, ] <- c(sort(lesionID[k]), rep(UNINITIALIZED, max(lesionNum) - length(k)))
+    lesionIDTable[k2, ] <- c(sort(lesionID[k]), rep(UNINITIALIZED, max(lesionVector) - length(k)))
     if (all(weights[k] == 0)) {
-      lesionWeight[k2, 1:length(k)] <- 1/lesionNum[k2]
+      lesionWeight[k2, 1:length(k)] <- 1/lesionVector[k2]
     } else {
-      lesionWeight[k2, ] <- c(weights[k][order(lesionID[k])], rep(UNINITIALIZED, max(lesionNum) - length(k)))
+      lesionWeight[k2, ] <- c(weights[k][order(lesionID[k])], rep(UNINITIALIZED, max(lesionVector) - length(k)))
       sumWeight <- sum(lesionWeight[k2, lesionWeight[k2, ] != UNINITIALIZED])
       if (sumWeight != 1){
         if (sumWeight <= 1.01 && sumWeight >= 0.99){
@@ -245,7 +245,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
     }
   }
   
-  LL <- array(dim = c(I1, I2, J, K2, max(lesionNum)))
+  LL <- array(dim = c(I1, I2, J, K2, max(lesionVector)))
   for (i1 in 1:I1) {
     for (i2 in 1:I2) {
       for (j in 1:J) {
@@ -277,14 +277,14 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
           break
         }
         temp <- LL[i1, i2, j, , ] != UNINITIALIZED
-        dim(temp) <- c(K2, max(lesionNum))
-        if (!all(lesionNum == rowSums(temp))) {
+        dim(temp) <- c(K2, max(lesionVector))
+        if (!all(lesionVector == rowSums(temp))) {
           isROI <- FALSE
           break
         }
         temp <- NL[i1, i2, j, (K1 + 1):K, ] == UNINITIALIZED
         dim(temp) <- c(K2, maxNL)
-        if (!all(lesionNum == rowSums(temp))) {
+        if (!all(lesionVector == rowSums(temp))) {
           isROI <- FALSE
           break
         }
@@ -316,5 +316,5 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   names(modalityID2) <- modality2Names
   names(readerID) <- readerNames
   
-  return(list(NL = NL, LL = LL, lesionNum = lesionNum, lesionID = lesionIDTable, lesionWeight = lesionWeight, dataType = fileType, modalityID1 = modalityID1, modalityID2 = modalityID2, readerID = readerID))
+  return(list(NL = NL, LL = LL, lesionVector = lesionVector, lesionID = lesionIDTable, lesionWeight = lesionWeight, dataType = fileType, modalityID1 = modalityID1, modalityID2 = modalityID2, readerID = readerID))
 } 

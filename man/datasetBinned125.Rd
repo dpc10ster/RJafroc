@@ -8,7 +8,7 @@
 \itemize{
 \item{\code{NL}}{ Ratings array [1, 1:2, 1:10000, 1], of non-lesion localizations, NLs}
 \item{\code{LL}}{ Ratings array [1, 1:2, 1:5000, 1], of lesion localizations, LLs}
-\item{\code{lesionNum}}{ array [1:5000], number of lesions per diseased case, all set to one}
+\item{\code{lesionVector}}{ array [1:5000], number of lesions per diseased case, all set to one}
 \item{\code{lesionID}}{ array [1:5000, 1], lesions labels on diseased cases, all set to one}
 \item{\code{lesionWeight}}{ array [1:5000, 1], weights, all set to one}
 \item{\code{dataType}}{ "ROC", the data type}

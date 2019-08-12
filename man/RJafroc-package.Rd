@@ -204,7 +204,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
           \item \code{LL}: a floating-point array with dimension  
              \code{c(I, J, K2, maxLL)} that contains the ratings of all LL marks. 
              For ROC datasets \code{TP} ratings are assigned to \code{LL[,,1:K2,1]}.
-          \item \code{lesionNum}: a integer vector with length \code{K2}, whose 
+          \item \code{lesionVector}: a integer vector with length \code{K2}, whose 
              elements indicate the number of lesions in each diseased case. 
           \item \code{lesionID}: an integer array with dimension [K2, maxLL]. 
              Its contents label lesions on diseased cases. For example,  
@@ -245,7 +245,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
           \item \code{LLIl}: a floating-point array with dimension  
              \code{c(I, J, K2, 1)} that contains the ratings of all \emph{incorrect} 
              localization (IL) marks. A \code{-Inf} indicates a case with no IL mark.
-          \item \code{lesionNum}: same as general case. 
+          \item \code{lesionVector}: same as general case. 
           \item \code{lesionID}: lesionID: an integer vector with length K2 
              containing ones.
           \item \code{lesionWeight}: a floating point array with dimension 
@@ -267,7 +267,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
           \item \code{LLIl}: a floating-point array with dimension  
              \code{c(I, J, K2, 1)} that contains the ratings of all \emph{incorrect} 
              localization (IL) marks. A \code{-Inf} indicates a case with no IL mark.
-          \item \code{lesionNum}: same as general case. 
+          \item \code{lesionVector}: same as general case. 
           \item \code{lesionID}: lesionID: an integer vector with length K2 
              containing ones.
           \item \code{lesionWeight}: a floating point array with dimension 
@@ -286,7 +286,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
           \item \code{LL}: a floating-point array with dimension  
              \code{c(I1, I2, J, K2, maxLL)}that contains the ratings of all LL marks. 
              Note the existence of two modality indices.
-          \item \code{lesionNum}: same as general case. 
+          \item \code{lesionVector}: same as general case. 
           \item \code{lesionID}: same as general case.
           \item \code{lesionWeight}: same as general case.
           \item \code{dataType}: a \code{character} variable: "\code{ROC}" or "\code{FROC}".

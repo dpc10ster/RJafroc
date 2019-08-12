@@ -178,7 +178,7 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
                            VarCompFlag = FALSE, FPFValue = 0.2) {
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionNum <- dataset$lesionNum
+  lesionVector <- dataset$lesionVector
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
@@ -213,8 +213,8 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
           nl <- NL[i, j, -k, ]
           ll <- LL[i, j, , ]
           dim(nl) <- c(K - 1, maxNL)
-          dim(ll) <- c(K2, max(lesionNum))
-          jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
+          dim(ll) <- c(K2, max(lesionVector))
+          jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
           pseudoValues[i, j, k] <- fomArray[i, j] * K1 - jkFOMArray[i, j, k] * (K1 - 1)
         }
         pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
@@ -229,12 +229,12 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
           nl <- NL[i, j, -(k + K1), ]
           ll <- LL[i, j, -k, ]
           dim(nl) <- c(K - 1, maxNL)
-          dim(ll) <- c(K2 - 1, max(lesionNum))
+          dim(ll) <- c(K2 - 1, max(lesionVector))
           lesionIDJk <- lesionID[-k, ]
-          dim(lesionIDJk) <- c(K2 -1, max(lesionNum))
+          dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
           lesionWeightJk <- lesionWeight[-k, ]
-          dim(lesionWeightJk) <- c(K2 -1, max(lesionNum))
-          jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
+          dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
+          jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
           pseudoValues[i, j, k] <- fomArray[i, j] * K2 - jkFOMArray[i, j, k] * (K2 - 1)
         }
         pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
@@ -250,18 +250,18 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
             nl <- NL[i, j, -k, ]
             ll <- LL[i, j, , ]
             dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2, max(lesionNum))
-            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
+            dim(ll) <- c(K2, max(lesionVector))
+            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
           } else {
             nl <- NL[i, j, -k, ]
             ll <- LL[i, j, -(k - K1), ]
             dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2 - 1, max(lesionNum))
+            dim(ll) <- c(K2 - 1, max(lesionVector))
             lesionIDJk <- lesionID[-(k - K1), ]
-            dim(lesionIDJk) <- c(K2 -1, max(lesionNum))
+            dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
             lesionWeightJk <- lesionWeight[-(k - K1), ]
-            dim(lesionWeightJk) <- c(K2 -1, max(lesionNum))
-            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum[-(k - K1)], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
+            dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
+            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-(k - K1)], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
           }
           pseudoValues[i, j, k] <- fomArray[i, j] * K - jkFOMArray[i, j, k] * (K - 1)
         }
@@ -671,7 +671,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       LL <- dataset$LLCl
     } else stop("incorrect FOM for LROC data")
   }
-  lesionNum <- dataset$lesionNum
+  lesionVector <- dataset$lesionVector
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
@@ -686,7 +686,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
   K1 <- K - K2
   
   dim(NL) <- c(I, J, K, maxNL)
-  dim(LL) <- c(I, J, K2, max(lesionNum))
+  dim(LL) <- c(I, J, K2, max(lesionVector))
   
   if (!option %in% c("RRRC", "FRRC", "RRFC", "ALL")){
     errMsg <- sprintf("%s is not an available option.", option)
@@ -702,7 +702,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
   trMeans <- rowMeans(fomArray)
   fomMean <- mean(fomArray)
   
-  ret <- gpfEstimateVarCov(fomArray, NL, LL, lesionNum, lesionID, 
+  ret <- gpfEstimateVarCov(fomArray, NL, LL, lesionVector, lesionID, 
                            lesionWeight, maxNL, maxLL, FOM, covEstMethod, nBoots, FPFValue = FPFValue)
   var <- ret$var
   cov1 <- ret$cov1
@@ -746,8 +746,8 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
     ll <- LL[i, , , ]
     dim(fomSingle) <- c(1, J)
     dim(nl) <- c(1, J, K, maxNL)
-    dim(ll) <- c(1, J, K2, max(lesionNum))
-    ret <- gpfEstimateVarCov(fomSingle, nl, ll, lesionNum, lesionID, 
+    dim(ll) <- c(1, J, K2, max(lesionVector))
+    ret <- gpfEstimateVarCov(fomSingle, nl, ll, lesionVector, lesionID, 
                              lesionWeight, maxNL, maxLL, FOM, covEstMethod, nBoots, FPFValue = FPFValue)
     varSingle[i] <- ret$var
     if (J > 1) {
@@ -765,8 +765,8 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
     ll <- LL[, j, , ]
     dim(fomSingle) <- c(I, 1)
     dim(nl) <- c(I, 1, K, maxNL)
-    dim(ll) <- c(I, 1, K2, max(lesionNum))
-    ret <- gpfEstimateVarCov(fomSingle, nl, ll, lesionNum, lesionID, 
+    dim(ll) <- c(I, 1, K2, max(lesionVector))
+    ret <- gpfEstimateVarCov(fomSingle, nl, ll, lesionVector, lesionID, 
                              lesionWeight, maxNL, maxLL, FOM, covEstMethod, nBoots, FPFValue = FPFValue)
     varEchRder[j] <- ret$var
     cov1EchRder[j] <- ret$cov1
@@ -1045,7 +1045,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
 
 
 #' @importFrom stats runif
-gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID, 
+gpfEstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, 
                               lesionWeight, maxNL, maxLL, FOM, covEstMethod, nBoots, FPFValue = FPFValue) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   I <- dim(NL)[1]
@@ -1063,8 +1063,8 @@ gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID,
             nl <- NL[i, j, -k, ]
             ll <- LL[i, j, , ]
             dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2, max(lesionNum))
-            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
+            dim(ll) <- c(K2, max(lesionVector))
+            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
           }
         }
       }
@@ -1076,12 +1076,12 @@ gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID,
             nl <- NL[i, j, -(k + K1), ]
             ll <- LL[i, j, -k, ]
             dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2 - 1, max(lesionNum))
+            dim(ll) <- c(K2 - 1, max(lesionVector))
             lesionIDJk <- lesionID[-k, ]
-            dim(lesionIDJk) <- c(K2 -1, max(lesionNum))
+            dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
             lesionWeightJk <- lesionWeight[-k, ]
-            dim(lesionWeightJk) <- c(K2 -1, max(lesionNum))
-            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
+            dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
+            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
           }
         }
       }
@@ -1094,19 +1094,19 @@ gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID,
               nl <- NL[i, j, -k, ]
               ll <- LL[i, j, , ]
               dim(nl) <- c(K - 1, maxNL)
-              dim(ll) <- c(K2, max(lesionNum))
-              jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum, lesionID, 
+              dim(ll) <- c(K2, max(lesionVector))
+              jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, 
                                               lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM, FPFValue = FPFValue)
             } else {
               nl <- NL[i, j, , ]
               ll <- LL[i, j, -(k - K1), ]
               dim(nl) <- c(K, maxNL)
-              dim(ll) <- c(K2 - 1, max(lesionNum))
+              dim(ll) <- c(K2 - 1, max(lesionVector))
               lesionIDJk <- lesionID[-(k - K1), ]
-              dim(lesionIDJk) <- c(K2 -1, max(lesionNum))
+              dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
               lesionWeightJk <- lesionWeight[-(k - K1), ]
-              dim(lesionWeightJk) <- c(K2 -1, max(lesionNum))
-              jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionNum[-(k - K1)], lesionIDJk, 
+              dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
+              jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-(k - K1)], lesionIDJk, 
                                               lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM, FPFValue = FPFValue)
             }
           }
@@ -1128,8 +1128,8 @@ gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID,
             NLbs <- NL[i, j, kBs, ]
             LLbs <- LL[i, j, , ]
             dim(NLbs) <- c(K1, maxNL)
-            dim(LLbs) <- c(K2, max(lesionNum))
-            fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM)
+            dim(LLbs) <- c(K2, max(lesionVector))
+            fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM)
           }
         }
       }
@@ -1142,12 +1142,12 @@ gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID,
             NLbs <- NL[i, j, c(1:K1, (kBs + K1)), ]
             LLbs <- LL[i, j, kBs, ]
             dim(NLbs) <- c(K, maxNL)
-            dim(LLbs) <- c(K2, max(lesionNum))
+            dim(LLbs) <- c(K2, max(lesionVector))
             lesionIDBs <- lesionID[kBs, ]
-            dim(lesionIDBs) <- c(K2, max(lesionNum))
+            dim(lesionIDBs) <- c(K2, max(lesionVector))
             lesionWeightBs <- lesionWeight[kBs, ]
-            dim(lesionWeightBs) <- c(K2, max(lesionNum))
-            fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionNum[kBs], lesionIDBs, lesionWeightBs, maxNL, maxLL, K1, K2, FOM)
+            dim(lesionWeightBs) <- c(K2, max(lesionVector))
+            fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionVector[kBs], lesionIDBs, lesionWeightBs, maxNL, maxLL, K1, K2, FOM)
           }
         }
       }
@@ -1161,15 +1161,15 @@ gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID,
         for (i in 1:I) {
           for (j in 1:J) {
             NLbs <- NL[i, j, c(k1bs, k2bs + K1), ]
-            lesionNumbs <- lesionNum[k2bs]            
-            LLbs <- LL[i, j, k2bs,1:max(lesionNumbs)] 
+            lesionVectorbs <- lesionVector[k2bs]            
+            LLbs <- LL[i, j, k2bs,1:max(lesionVectorbs)] 
             dim(NLbs) <- c(K, maxNL)
-            dim(LLbs) <- c(K2, max(lesionNumbs))  
+            dim(LLbs) <- c(K2, max(lesionVectorbs))  
             lesionIDBs <- lesionID[k2bs, ]
-            dim(lesionIDBs) <- c(K2, max(lesionNum))
+            dim(lesionIDBs) <- c(K2, max(lesionVector))
             lesionWeightBs <- lesionWeight[k2bs, ]
-            dim(lesionWeightBs) <- c(K2, max(lesionNum))
-            fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionNumbs, lesionIDBs, 
+            dim(lesionWeightBs) <- c(K2, max(lesionVector))
+            fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionVectorbs, lesionIDBs, 
                                             lesionWeightBs, maxNL, maxLL, K1, K2, FOM, FPFValue = FPFValue)
           }
         }
@@ -1190,13 +1190,13 @@ gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID,
       I01 <- length(kI01)
       I10 <- K2
       N <- sum((NL[1, 1, , ] != UNINITIALIZED))
-      M <- sum(lesionNum)
+      M <- sum(lesionVector)
       V01 <- array(dim = c(I, J, I01, maxNL))
-      V10 <- array(dim = c(I, J, I10, max(lesionNum)))
+      V10 <- array(dim = c(I, J, I10, max(lesionVector)))
       for (i in 1:I) {
         for (j in 1:J) {
           for (k in 1:I10) {
-            for (el in 1:lesionNum[k]) {
+            for (el in 1:lesionVector[k]) {
               V10[i, j, k, el] <- (sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) < LL[i, j, k, el]) 
                                    + 0.5 * sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) == LL[i, j, k, el]))/N
             }
@@ -1221,9 +1221,9 @@ gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID,
               for (k in 1:I10) {
                 s10[i, ip, j, jp] <- (s10[i, ip, j, jp]
                                       + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])])
-                                         - lesionNum[k] * fomArray[i, j])
+                                         - lesionVector[k] * fomArray[i, j])
                                       * (sum(V10[ip, jp, k, !is.na(V10[ip, jp, k, ])]) 
-                                         - lesionNum[k] * fomArray[ip, jp]))
+                                         - lesionVector[k] * fomArray[ip, jp]))
               }
               for (k in 1:I01) {
                 s01[i, ip, j, jp] <- (s01[i, ip, j, jp] 
@@ -1240,7 +1240,7 @@ gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID,
                 }                  
                 s11[i, ip, j, jp] <- (s11[i, ip, j, jp] 
                                       + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])]) 
-                                         - lesionNum[k] * fomArray[i, j]) 
+                                         - lesionVector[k] * fomArray[i, j]) 
                                       * (sum(V01[ip, jp, k + K1 - allAbn, !is.na(V01[ip, jp, k + K1 - allAbn, ])]) 
                                          - numKI01[K1 + k] * fomArray[ip, jp]))
               }
@@ -1270,7 +1270,7 @@ gpfEstimateVarCov <- function(fomArray, NL, LL, lesionNum, lesionID,
           nl <- NL[i, j, 1:K1, ]
           ll <- cbind(NL[i, j, (K1 + 1):K, ], LL[i, j, , ])
           dim(nl) <- c(K1, maxNL)
-          dim(ll) <- c(K2, maxNL + max(lesionNum))
+          dim(ll) <- c(K2, maxNL + max(lesionVector))
           fp <- apply(nl, 1, max)
           tp <- apply(ll, 1, max)
           for (k in 1:K2) {

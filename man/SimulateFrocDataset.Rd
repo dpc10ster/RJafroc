@@ -4,7 +4,7 @@
 \alias{SimulateFrocDataset}
 \title{Simulates an MRMC uncorrelated FROC dataset using the RSM}
 \usage{
-SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, lesionNum)
+SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, lesionVector)
 }
 \arguments{
 \item{mu}{The intrinsic mu parameter of the RSM}
@@ -23,7 +23,7 @@ SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, lesionNum)
 
 \item{K2}{The number of diseased cases}
 
-\item{lesionNum}{A K2 length array containing the numbers of lesions per diseased case}
+\item{lesionVector}{A K2 length array containing the numbers of lesions per diseased case}
 }
 \value{
 The return value is an FROC dataset.
@@ -39,13 +39,13 @@ See book chapters on the Radiological Search Model (RSM) for details.
 \examples{
 set.seed(1) 
 K1 <- 5;K2 <- 7;
-maxLL <- 2;lesionNum <- floor(runif(K2, 1, maxLL + 1))
+maxLL <- 2;lesionVector <- floor(runif(K2, 1, maxLL + 1))
 mu <- 1;lambda <- 1;nu <- 1 ;zeta1 <- -1
 I <- 2; J <- 5
 
 frocDataRaw <- SimulateFrocDataset(
   mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
-  I = I, J = J, K1 = K1, K2 = K2, lesionNum = lesionNum )
+  I = I, J = J, K1 = K1, K2 = K2, lesionVector = lesionVector )
   
 ## plot the data
 ret <- PlotEmpiricalOperatingCharacteristics(frocDataRaw, trts= 1, 

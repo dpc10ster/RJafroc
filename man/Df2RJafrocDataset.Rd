@@ -12,7 +12,7 @@ Df2RJafrocDataset(NL, LL, ...)
 \item{LL}{Lesion localizations  array (or TP array for ROC data).}
 
 \item{...}{Other elements of \pkg{RJafroc} dataset that may, depending on the context, need to be specified. 
-\code{lesionNum} \strong{must} be specified if an FROC dataset is to be returned. It is a \code{K2}-length array specifying
+\code{lesionVector} \strong{must} be specified if an FROC dataset is to be returned. It is a \code{K2}-length array specifying
 the numbers of lesions in each diseased case in the dataset.}
 }
 \value{
@@ -23,7 +23,7 @@ Converts ratings arrays, ROC or FROC, \emph{not LROC}, to an \pkg{RJafroc} datas
 user to leverage the file I/O, plotting and analyses capabilities of \pkg{RJafroc}.
 }
 \details{
-The function "senses" the data type (ROC or FROC) from the the absence or presence of \code{lesionNum}. 
+The function "senses" the data type (ROC or FROC) from the the absence or presence of \code{lesionVector}. 
 ROC data can be \code{NL[1:K1]} and \code{LL[1:K2]} or \code{NL[1:I,1:J,1:K1]} and \code{LL[1:I,1:J,1:K2]}. 
 FROC data can be \code{NL[1:K1,1:maxNL]} and \code{LL[1:K2, 1:maxLL]} or \code{NL[1:I,1:J,1:K1,1:maxNL]} and 
 \code{LL[1:I,1:J,1:K2,1:maxLL]}. 
@@ -48,18 +48,18 @@ for (i in 1:I) {
    z2[i,j,] <- rnorm(K2) * sigma + mu
  }
 }
-dataset <- Df2RJafrocDataset(z1, z2) ## note lesionNum consists of 1s; i.e., an ROC dataset
+dataset <- Df2RJafrocDataset(z1, z2) ## note lesionVector consists of 1s; i.e., an ROC dataset
 
 set.seed(1)
 mu <- 1;lambda <- 1;nu <- 1; zeta1 <- 0
 K1 <- 5;K2 <- 7
 Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
 frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, 
-lesionNum = Lk2)
+lesionVector = Lk2)
 NL <- drop(frocDataRaw$NL)
 LL <- drop(frocDataRaw$LL)
-dataset <- Df2RJafrocDataset(NL, LL, lesionNum = Lk2) 
-## note lesionNum is not all 1s, signalling an FROC dataset
+dataset <- Df2RJafrocDataset(NL, LL, lesionVector = Lk2) 
+## note lesionVector is not all 1s, signalling an FROC dataset
 
 ## Simulate FROC dataset, convert to dataset object, display ROC, FROC and AFROC curves
 I <- 2;J <- 3;set.seed(1)
@@ -76,7 +76,7 @@ dimLL <- array(dim=c(I,J,2))
 for (i in 1:I) {
   for (j in 1:J) {
     frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, 
-    J = 1, K1, K2, lesionNum = Lk2)
+    J = 1, K1, K2, lesionVector = Lk2)
     dimNL[i,j,] <- dim(drop(frocDataRaw$NL))
     dimLL[i,j,] <- dim(drop(frocDataRaw$LL))
     z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$NL) # drop the excess location indices
@@ -86,7 +86,7 @@ for (i in 1:I) {
 z1 <- z1[,,,1:max(dimNL[,,2])]
 z2 <- z2[,,,1:max(dimLL[,,2])]
 
-dataset <- Df2RJafrocDataset(z1, z2, lesionNum = Lk2)
+dataset <- Df2RJafrocDataset(z1, z2, lesionVector = Lk2)
 
 retPlot <- PlotEmpiricalOperatingCharacteristics(dataset, 
 trts = seq(1,I), rdrs = seq(1,J), opChType = "ROC")

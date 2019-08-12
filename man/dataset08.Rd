@@ -8,7 +8,7 @@
 \itemize{
 \item{\code{NL}}{ Ratings array [1:5, 1:5, 1:112, 1], of false positives, FPs}
 \item{\code{LL}}{ Ratings array [1:5, 1:5, 1:64, 1], of true positives, TPs}
-\item{\code{lesionNum}}{ array [1:64], number of lesions per diseased case, all set to 1}
+\item{\code{lesionVector}}{ array [1:64], number of lesions per diseased case, all set to 1}
 \item{\code{lesionID}}{ array [1:64, 1], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:64, 1], weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "ROC", the data type}

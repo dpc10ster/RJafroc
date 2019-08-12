@@ -337,7 +337,7 @@ dualModalityMethod <- function(dataset, FOM = "Wilcoxon", option = "RRRC", FPFVa
       NL = combinedNL,
       LLCl = combinedLLCl,
       LLIl = combinedLLIl,
-      lesionNum = rep(1,K2),
+      lesionVector = rep(1,K2),
       lesionID = lesionID,
       lesionWeight = lesionWeight,
       dataType = dataType,
@@ -348,7 +348,7 @@ dualModalityMethod <- function(dataset, FOM = "Wilcoxon", option = "RRRC", FPFVa
     datasetCombined <- list(
       NL = combinedNL,
       LL = combinedLLCl,
-      lesionNum = rep(1,K2),
+      lesionVector = rep(1,K2),
       lesionID = lesionID,
       lesionWeight = lesionWeight,
       dataType = dataType,
@@ -599,14 +599,14 @@ DiffFomAnal2007Hillis53 <- function (dataset, FOM = "Wilcoxon", FPFValue = 0.2, 
   } else if (FOM == "ALROC") {
     for (j in 1:(J+1)) thetajc[j] <- (LrocFoms(zjk1[j,], zjk2[j,], FPFValue))$ALroc # do:
   } else if (FOM == "wAFROC") {
-    lesionNum <- dataset$lesionNum
+    lesionVector <- dataset$lesionVector
     lesionWeight <- dataset$lesionWeight
     K <- length(dataset$NL[1,1,,1])
     K2 <- length(dataset$LL[1,1,,1])
     K1 <- K - K2
     maxNL <-  length(dataset$NL[1,1,1,])
     maxLL <-  length(dataset$LL[1,1,1,])
-    thetajc <- wJAFROC(zjk1, zjk2, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight)
+    thetajc <- wJAFROC(zjk1, zjk2, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight)
   } else stop("incorrect FOM")  
   
   Psijc <- thetajc[2:(J+1)] - thetajc[1]

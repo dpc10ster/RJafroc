@@ -7,12 +7,12 @@
 #' @param NL Non-lesion localizations array (or FP array for ROC data). 
 #' @param LL Lesion localizations  array (or TP array for ROC data). 
 #' @param ... Other elements of \pkg{RJafroc} dataset that may, depending on the context, need to be specified. 
-#' \code{lesionNum} \strong{must} be specified if an FROC dataset is to be returned. It is a \code{K2}-length array specifying
+#' \code{lesionVector} \strong{must} be specified if an FROC dataset is to be returned. It is a \code{K2}-length array specifying
 #' the numbers of lesions in each diseased case in the dataset.
 #' 
 #' @return A dataset with the structure described in \code{\link{RJafroc-package}}.
 #' 
-#' @details The function "senses" the data type (ROC or FROC) from the the absence or presence of \code{lesionNum}. 
+#' @details The function "senses" the data type (ROC or FROC) from the the absence or presence of \code{lesionVector}. 
 #' ROC data can be \code{NL[1:K1]} and \code{LL[1:K2]} or \code{NL[1:I,1:J,1:K1]} and \code{LL[1:I,1:J,1:K2]}. 
 #' FROC data can be \code{NL[1:K1,1:maxNL]} and \code{LL[1:K2, 1:maxLL]} or \code{NL[1:I,1:J,1:K1,1:maxNL]} and 
 #' \code{LL[1:I,1:J,1:K2,1:maxLL]}. 
@@ -37,18 +37,18 @@
 #'    z2[i,j,] <- rnorm(K2) * sigma + mu
 #'  }
 #' }
-#' dataset <- Df2RJafrocDataset(z1, z2) ## note lesionNum consists of 1s; i.e., an ROC dataset
+#' dataset <- Df2RJafrocDataset(z1, z2) ## note lesionVector consists of 1s; i.e., an ROC dataset
 #'
 #' set.seed(1)
 #' mu <- 1;lambda <- 1;nu <- 1; zeta1 <- 0
 #' K1 <- 5;K2 <- 7
 #' Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
 #' frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, 
-#' lesionNum = Lk2)
+#' lesionVector = Lk2)
 #' NL <- drop(frocDataRaw$NL)
 #' LL <- drop(frocDataRaw$LL)
-#' dataset <- Df2RJafrocDataset(NL, LL, lesionNum = Lk2) 
-#' ## note lesionNum is not all 1s, signalling an FROC dataset
+#' dataset <- Df2RJafrocDataset(NL, LL, lesionVector = Lk2) 
+#' ## note lesionVector is not all 1s, signalling an FROC dataset
 #'
 #' ## Simulate FROC dataset, convert to dataset object, display ROC, FROC and AFROC curves
 #' I <- 2;J <- 3;set.seed(1)
@@ -65,7 +65,7 @@
 #' for (i in 1:I) {
 #'   for (j in 1:J) {
 #'     frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, 
-#'     J = 1, K1, K2, lesionNum = Lk2)
+#'     J = 1, K1, K2, lesionVector = Lk2)
 #'     dimNL[i,j,] <- dim(drop(frocDataRaw$NL))
 #'     dimLL[i,j,] <- dim(drop(frocDataRaw$LL))
 #'     z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$NL) # drop the excess location indices
@@ -75,7 +75,7 @@
 #' z1 <- z1[,,,1:max(dimNL[,,2])]
 #' z2 <- z2[,,,1:max(dimLL[,,2])]
 #'
-#' dataset <- Df2RJafrocDataset(z1, z2, lesionNum = Lk2)
+#' dataset <- Df2RJafrocDataset(z1, z2, lesionVector = Lk2)
 #'
 #' retPlot <- PlotEmpiricalOperatingCharacteristics(dataset, 
 #' trts = seq(1,I), rdrs = seq(1,J), opChType = "ROC")
@@ -97,7 +97,7 @@ Df2RJafrocDataset <- function(NL, LL, ...)  {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   inputList <- list(...)
   if (length(inputList) == 0) dataType <- "ROC" 
-  else if (names(inputList) == "lesionNum") dataType <- "FROC" else stop("unknown data type")
+  else if (names(inputList) == "lesionVector") dataType <- "FROC" else stop("unknown data type")
   
   if (is.vector(NL)) {
     I <- 1
@@ -108,9 +108,9 @@ Df2RJafrocDataset <- function(NL, LL, ...)  {
     NL1[,,1:K1,1] <- NL
     NL <- NL1
     dim(LL) <- c(1,1,K2,1)
-    if (dataType == "ROC") lesionNum <- rep(1, K2) else 
-      lesionNum <- FrocDataDescriptor(inputList)$lesionNum
-    if (dataType == "ROC") lesionID <- as.matrix(lesionNum, c(K2, 1)) else 
+    if (dataType == "ROC") lesionVector <- rep(1, K2) else 
+      lesionVector <- FrocDataDescriptor(inputList)$lesionVector
+    if (dataType == "ROC") lesionID <- as.matrix(lesionVector, c(K2, 1)) else 
       lesionID <- FrocDataDescriptor(inputList)$lesionID
     if (dataType == "ROC") lesionWeight <- lesionID else 
       lesionWeight <- FrocDataDescriptor(inputList)$lesionWeight
@@ -118,7 +118,7 @@ Df2RJafrocDataset <- function(NL, LL, ...)  {
     readerID <- "1"
     dataset <- list(NL = NL, 
                     LL = LL, 
-                    lesionNum = lesionNum, 
+                    lesionVector = lesionVector, 
                     lesionID = lesionID, 
                     lesionWeight = lesionWeight, 
                     dataType = dataType, 
@@ -153,21 +153,21 @@ Df2RJafrocDataset <- function(NL, LL, ...)  {
       dim(NL) <- c(I,J,K1+K2,nLdim[2])
       dim(LL) <- c(I,J,K2,lLdim[2])
     }
-    if (dataType == "ROC") lesionNum <- rep(1, K2) else 
-      lesionNum <- FrocDataDescriptor(inputList)$lesionNum
-    if (dataType == "ROC") lesionID <- as.matrix(lesionNum, c(K2, 1)) else 
+    if (dataType == "ROC") lesionVector <- rep(1, K2) else 
+      lesionVector <- FrocDataDescriptor(inputList)$lesionVector
+    if (dataType == "ROC") lesionID <- as.matrix(lesionVector, c(K2, 1)) else 
       lesionID <- FrocDataDescriptor(inputList)$lesionID
     if (dataType == "ROC") lesionWeight <- lesionID else 
       lesionWeight <- FrocDataDescriptor(inputList)$lesionWeight
     for (k in 1:K2){
-      lesionID[k, 1:lesionNum[k]] <- seq(1:lesionNum[k])
-      lesionWeight[k, 1:lesionNum[k]] <- rep(1/lesionNum[k], lesionNum[k])
+      lesionID[k, 1:lesionVector[k]] <- seq(1:lesionVector[k])
+      lesionWeight[k, 1:lesionVector[k]] <- rep(1/lesionVector[k], lesionVector[k])
     }
     modalityID <- as.character(seq(1:I))
     readerID <- as.character(seq(1:J))
     dataset <- list(NL = NL, 
                     LL = LL, 
-                    lesionNum = lesionNum, 
+                    lesionVector = lesionVector, 
                     lesionID = lesionID, 
                     lesionWeight = lesionWeight, 
                     dataType = dataType, 
@@ -196,12 +196,12 @@ Df2RJafrocDataset <- function(NL, LL, ...)  {
       dim(LL) <- c(I,J,K2,lLdim[3])
     }
     if (dataType == "ROC") {
-      lesionNum <- rep(1, K2)
-      lesionID <- as.matrix(lesionNum, c(K2, 1))
+      lesionVector <- rep(1, K2)
+      lesionID <- as.matrix(lesionVector, c(K2, 1))
       lesionWeight <- lesionID
     } else {
       temp1 <- FrocDataDescriptor(inputList)
-      lesionNum <- temp1$lesionNum
+      lesionVector <- temp1$lesionVector
       lesionID <- temp1$lesionID
       lesionWeight <- temp1$lesionWeight
     }
@@ -209,7 +209,7 @@ Df2RJafrocDataset <- function(NL, LL, ...)  {
     readerID <- as.character(seq(1:J))
     dataset <- list(NL = NL, 
                     LL = LL, 
-                    lesionNum = lesionNum, 
+                    lesionVector = lesionVector, 
                     lesionID = lesionID, 
                     lesionWeight = lesionWeight, 
                     dataType = dataType, 
@@ -225,12 +225,12 @@ Df2RJafrocDataset <- function(NL, LL, ...)  {
     K1 <- nLdim[3]
     K2 <- lLdim[3]
     if (dataType == "ROC") {
-      lesionNum <- rep(1, K2)
-      lesionID <- as.matrix(lesionNum, c(K2, 1))
+      lesionVector <- rep(1, K2)
+      lesionID <- as.matrix(lesionVector, c(K2, 1))
       lesionWeight <- lesionID
     } else {
       temp1 <- FrocDataDescriptor(inputList)
-      lesionNum <- temp1$lesionNum
+      lesionVector <- temp1$lesionVector
       lesionID <- temp1$lesionID
       lesionWeight <- temp1$lesionWeight
     }
@@ -238,7 +238,7 @@ Df2RJafrocDataset <- function(NL, LL, ...)  {
     readerID <- as.character(seq(1:J))
     dataset <- list(NL = NL, 
                     LL = LL, 
-                    lesionNum = lesionNum, 
+                    lesionVector = lesionVector, 
                     lesionID = lesionID, 
                     lesionWeight = lesionWeight, 
                     dataType = dataType, 
@@ -252,17 +252,17 @@ Df2RJafrocDataset <- function(NL, LL, ...)  {
 
 #################################################################################################
 FrocDataDescriptor <- function(inputList) {
-  K2 <- length(inputList$lesionNum)
+  K2 <- length(inputList$lesionVector)
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  lesionNum <- inputList$lesionNum
-  lesionID <- array(UNINITIALIZED, dim = c(K2, max(lesionNum)))
+  lesionVector <- inputList$lesionVector
+  lesionID <- array(UNINITIALIZED, dim = c(K2, max(lesionVector)))
   lesionWeight <- lesionID
   for (k in 1:K2){
-    lesionID[k, 1:lesionNum[k]] <- seq(1:lesionNum[k])
-    lesionWeight[k, 1:lesionNum[k]] <- rep(1/lesionNum[k], lesionNum[k])
+    lesionID[k, 1:lesionVector[k]] <- seq(1:lesionVector[k])
+    lesionWeight[k, 1:lesionVector[k]] <- rep(1/lesionVector[k], lesionVector[k])
   }
   return(list (
-    lesionNum = lesionNum,
+    lesionVector = lesionVector,
     lesionID = lesionID,
     lesionWeight = lesionWeight))
 }

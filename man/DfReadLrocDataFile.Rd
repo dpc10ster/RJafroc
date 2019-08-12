@@ -32,7 +32,7 @@ The return value is a list with the following elements:
 \item{\code{NL}}{ [1, 1:J, 1:K1, 1] array containing the FP ratings}
 \item{\code{LLCl}}{ [1, 1:J, 1:K2, 1] array containing the TP correct localization ratings}
 \item{\code{LLIl}}{ [1, 1:J, 1:K2, 1] array containing the TP incorrect localization ratings}
-\item{\code{lesionNum}}{ array [1:K2], as in standard JAFROC/ROC format dataset, ones}
+\item{\code{lesionVector}}{ array [1:K2], as in standard JAFROC/ROC format dataset, ones}
 \item{\code{lesionID}}{ array [1:K2], as in standard JAFROC/ROC format dataset, ones}
 \item{\code{lesionWeight}}{ array [1:K2], weights (or clinical importances) of lesions}
 \item{\code{dataType}}{ "LROC", the data type}

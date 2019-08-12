@@ -53,7 +53,7 @@
 StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alpha = 0.05) {
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionNum <- dataset$lesionNum
+  lesionVector <- dataset$lesionVector
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
