@@ -16,6 +16,10 @@ RJafroc
 # A CRAN version of RJafroc has been published #
 Thanks to help from Dr. Peter Phillips, version 1.2.0 of `RJafroc` has passed CRAN tests. This version is on the `cran` branch. The complete (all vignettes and tests) and current version of the software is available on the `master` branch. The `development` branch is for ongoing work (Version 1.2.0.9000).
 
+# The splitplot branch #
+This branch is for a collaboration (with Dr. Jason Cai) on extending current __RJafroc__ signficance testing to a split-plot design, where each reader interprets a subset of cases (non-diseased and diseased) in both modalities and no two readers interpret the same case-modality combination. 
+
+
 # Those already familiar with installing R packages from GitHub can ignore the following directions #  
 
 # How do I get set up? #
