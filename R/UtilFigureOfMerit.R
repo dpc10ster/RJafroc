@@ -96,7 +96,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   }
   
   if (dataType == "ROI" && FOM != "ROI") {
-    cat("Incorrect FOM supplied, changing to 'ROI'\n")
+    cat("Incorrect FOM supplied for ROI data, changing to 'ROI'\n")
     FOM <- "ROI"
   }
  

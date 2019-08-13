@@ -2,26 +2,10 @@
     "dialog-state" : {
         "caseSensitive" : true,
         "filePatterns" : [
-            "*.r",
-            "*.R",
-            "*.rnw",
-            "*.Rnw",
-            "*.rmd",
-            "*.Rmd",
-            "*.rmarkdown",
-            "*.Rmarkdown",
-            "*.rhtml",
-            "*.Rhtml",
-            "*.rd",
-            "*.Rd",
-            "*.h",
-            "*.hpp",
-            "*.c",
-            "*.cpp"
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "lesionNum",
+        "query" : "K1 == 0 && !(FOM %in% c(\"JAFROC1\", \"wJAFROC1\", \"AFROC1\"",
         "regex" : false
     }
 }

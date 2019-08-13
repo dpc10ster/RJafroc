@@ -425,24 +425,53 @@ isROIDataset <- function(NL, LL, lesionVector)
   K2 <- length(LL[1,1,,1])
   K1 <- K - K2
   maxNL <- length(NL[1,1,1,])
-  lesionVector <- length(LL[1,1,1,])
-  
+  lesionVector <- array(dim = K2)
+  for (k in 1:K2) {
+    lesionVector[k] <- sum(is.finite(LL[1,1,k,]))
+  }
+
   isROI <- TRUE
   for (i in 1:I) {
     for (j in 1:J) {
+      # in following code, non-diseased cases with non-diseased 
+      # ROIS (i.e., -Infs) are counted
+      # On such cases, all ROIs are marked and one does not expect any missing 
+      # entries; if a missing entry is found, then dataset is not ROI
+      # In the include Roi dataset, all caseIDs < 51 correspond to non-diseased cases
+      # For each such case, one has 4 ratings, i.e., Q = 4, assumed constant for all 
+      # cases
       if (any(NL[i, j, 1:K1, ] == UNINITIALIZED)) {
         isROI <- FALSE
         break
       }
+      # in following code, diseased cases with diseased 
+      # ROIS (i.e., not = -Infs) are counted
+      # These must sum to the lesionVector for that case
+      # note: this test may be redundant with above definition:
+      #  lesionVector[k] <- sum(is.finite(LL[1,1,k,]))
       temp <- LL[i, j, , ] != UNINITIALIZED
       dim(temp) <- c(K2, max(lesionVector))
       if (!all(lesionVector == rowSums(temp))) {
         isROI <- FALSE
         break
       }
-      temp <- NL[i, j, (K1 + 1):K, ] == UNINITIALIZED
+      # in following code, diseased cases (dc) with non-diseased 
+      # (nd) ROIS (i.e., -Infs) are counted
+      temp <- NL[i, j, (K1 + 1):K, ] == UNINITIALIZED # this is the array of nd counts on dcs
       dim(temp) <- c(K2, maxNL)
-      if (!all(lesionVector == rowSums(temp))) {
+      if (!all(lesionVector == rowSums(temp))) { 
+        # sum of nd counts on dcs must equal that of diseased counts on
+        # dcs (each empty count makes space for a LL count so total number of marks
+        # per case is the same and equal to 4 for this dataset)
+        # As an example, on FP sheet, for case 57, i = j = 1, there are three rated regions:
+        # NL[1,1,57,]
+        # [1] -0.967084 -0.394129  0.264821      -Inf
+        # This means that there can be only one lesion on this case: 
+        # lesionVector[7]
+        # [1] 1 
+        # and this diseased case can (rather must) have only one LL mark:
+        # LL[1,1,7,]
+        # [1] 0.535298     -Inf     -Inf     -Inf
         isROI <- FALSE
         break
       }
