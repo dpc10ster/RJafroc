@@ -29,7 +29,8 @@ treatment and reader IDs. Otherwise, treatment
 and reader IDs in the original data file will be used.}
 
 \item{splitPlot}{A logical variable, default \code{FALSE}, denoting a split plot design.
-If \code{TRUE} each reader interprets one case in all modalities. TBA.}
+If \code{TRUE} each reader interprets one case in all modalities. Currently only
+ROC dataset is supported.}
 }
 \value{
 A dataset with the structure specified in \code{\link{RJafroc-package}}.

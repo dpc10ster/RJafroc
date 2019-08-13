@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "K1 == 0 && !(FOM %in% c(\"JAFROC1\", \"wJAFROC1\", \"AFROC1\"",
+        "query" : "SplitPlotData.xlsx",
         "regex" : false
     }
 }
