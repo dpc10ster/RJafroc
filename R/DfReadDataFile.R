@@ -69,9 +69,9 @@ DfReadDataFile <- function(fileName, format = "JAFROC", delimiter = ",", renumbe
 } 
 
 ##
-## added this 07/10/2019 to read split plot data file
+## added ReadJAFROCSplitPlot 07/10/2019 to read split plot data file
 ## later realized that the other function, formely called
-## ReadJAFROC is no longer needed
+## original ReadJAFROC is no longer needed and has been deleted
 ## Renamed ReadJAFROCSplitPlot to ReadJAFROC 
 ##  
 ReadJAFROC <- function(fileName, renumber, splitPlot) {
@@ -80,7 +80,8 @@ ReadJAFROC <- function(fileName, renumber, splitPlot) {
   sheetNames <- toupper(names(wb))
   
   # find the position of the TRUTH worksheet
-  # this way it does not matter where it is (1st, 2nd or 3rd tab position) in the workbook
+  # this way it does not matter where it is 
+  # (1st, 2nd or 3rd tab position) in the workbook
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (truthFileIndex == 0) 
     stop("TRUTH table cannot be found in the dataset.")
@@ -89,7 +90,11 @@ ReadJAFROC <- function(fileName, renumber, splitPlot) {
   rdrs <- unique(readerColumn); nrdrs <- length(rdrs)
   dim(readerColumn) <- c(nrdrs, length(readerColumn)/nrdrs)
   
-  ## fill empty rows with NAs (and delete them)
+  ## ?? fill empty rows with NAs (and delete them) ??
+  ## The caret ^ and the dollar sign $ are metacharacters that respectively 
+  ## match the empty string at the beginning and end of a line.
+  ## *
+  ## The preceding item will be matched zero or more times.
   for (i in 1:4){
     truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
   }
@@ -121,8 +126,7 @@ ReadJAFROC <- function(fileName, renumber, splitPlot) {
   truthCaseID <- as.integer(truthTable[[1]])  # all 3 columns have same lengths
   truthlesionID <- as.integer(truthTable[[2]])
   truthWeights <- truthTable[[3]]
-  #truthReaderID <- as.character(truthTable[[4]])
-  
+
   normalCases <- sort(unique(truthCaseID[truthlesionID == 0]))
   abnormalCases <- sort(unique(truthCaseID[truthlesionID > 0]))
   allCases <- c(normalCases, abnormalCases)
@@ -485,272 +489,6 @@ isROIDataset <- function(NL, LL, lesionVector)
   return (isROI)
 }
 
-
-# ReadJAFROC <- function(fileName, renumber) {
-#   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-#   wb <- loadWorkbook(fileName)
-#   sheetNames <- toupper(names(wb))
-#   
-#   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
-#   if (truthFileIndex == 0) 
-#     stop("TRUTH table cannot be found in the dataset.")
-#   truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:3)
-#   
-#   ## fill empty rows with NAs (and delete them)
-#   for (i in 1:3){
-#     truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
-#   }
-#   
-#   ## delete empty rows
-#   naRows <- colSums(is.na(truthTable))
-#   if (max(naRows) > 0) {
-#     if (max(naRows) == min(naRows)) {
-#       truthTable <- truthTable[1:(nrow(truthTable) - max(naRows)), ]
-#     }
-#   }
-#   
-#   for (i in 1:2) {
-#     if (any((as.numeric(as.character(truthTable[, i]))) %% 1 != 0 )) {
-#       naLines <- which(!is.integer(as.numeric(as.character(truthTable[, i])))) + 1
-#       errorMsg <- paste0("There are non-integer values(s) for CaseID or LesionID at the line(s) ", 
-#                          paste(naLines, collapse = ", "), " in the TRUTH table.")
-#       stop(errorMsg)
-#     }
-#   }
-#   
-#   if (any(is.na(as.numeric(as.character(truthTable[, 3]))))) {
-#     naLines <- which(is.na(as.numeric(as.character(truthTable[, 3])))) + 1
-#     errorMsg <- paste0("There are non-numeric values(s) for truthWeights at the line(s) ", 
-#                        paste(naLines, collapse = ", "), " in the TRUTH table.")
-#     stop(errorMsg)
-#   }
-#   
-#   truthCaseID <- as.integer(truthTable[[1]])  # all 3 have same lengths
-#   truthlesionID <- as.integer(truthTable[[2]])
-#   truthWeights <- truthTable[[3]]
-#   
-#   normalCases <- sort(unique(truthCaseID[truthlesionID == 0]))
-#   abnormalCases <- sort(unique(truthCaseID[truthlesionID > 0]))
-#   allCases <- c(normalCases, abnormalCases)
-#   K1 <- length(normalCases)
-#   K2 <- length(abnormalCases)
-#   K <- (K1 + K2)
-#   
-#   if (anyDuplicated(cbind(truthCaseID, truthlesionID))) {
-#     naLines <- which(duplicated(cbind(truthCaseID, truthlesionID))) + 1
-#     errorMsg <- paste0("Line(s) ", paste(naLines, collapse = ", "), 
-#                        " in the TRUTH table are duplicated with previous line(s) .")
-#     stop(errorMsg)
-#   }
-#   
-#   nlFileIndex <- which(!is.na(match(sheetNames, c("FP", "NL"))))
-#   if (nlFileIndex == 0) 
-#     stop("FP/NL table cannot be found in the dataset.")
-#   NLTable <- read.xlsx(fileName, nlFileIndex, cols = 1:4)
-#   
-#   ## fill empty rows with NAs (and delete them)
-#   for (i in 1:4){
-#     NLTable[grep("^\\s*$", NLTable[ , i]), i] <- NA
-#   }
-#   
-#   ## delete empty rows
-#   naRows <- colSums(is.na(NLTable))
-#   if (max(naRows) > 0) {
-#     if (max(naRows) == min(naRows)) {
-#       NLTable <- NLTable[1:(nrow(NLTable) - max(naRows)), ]
-#     }
-#   }
-#   
-#   for (i in 3:4) {
-#     if (any(is.na(as.numeric(as.character(NLTable[, i]))))) {
-#       naLines <- which(is.na(as.numeric(as.character(NLTable[, i])))) + 1
-#       errorMsg <- paste0("There are missing cell(s) at line(s) ", 
-#                          paste(naLines, collapse = ", "), " in the FP table.")
-#       stop(errorMsg)
-#     }
-#   }
-#   
-#   NLReaderID <- as.character(NLTable[[1]])
-#   
-#   NLModalityID <- as.character(NLTable[[2]])
-#   
-#   NLCaseID <- NLTable[[3]]
-#   if (any(!(NLCaseID %in% truthCaseID))) {
-#     naCases <- NLCaseID[which(!(NLCaseID %in% truthCaseID))]
-#     errorMsg <- paste0("Case(s) ", paste(unique(naCases), collapse = ", "), 
-#                        " in the FP table cannot be found in TRUTH table.")
-#     stop(errorMsg)
-#   }
-#   NLRating <- NLTable[[4]]
-#   
-#   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
-#   if (llFileIndex == 0) 
-#     stop("TP/LL table cannot be found in the dataset.")
-#   LLTable <- read.xlsx(fileName, llFileIndex, cols = 1:5)
-#   
-#   ## fill empty rows with NAs (and delete them)
-#   for (i in 1:5){
-#     LLTable[grep("^\\s*$", LLTable[ , i]), i] <- NA
-#   }
-#   
-#   ## delete empty rows
-#   naRows <- colSums(is.na(LLTable))
-#   if (max(naRows) > 0) {
-#     if (max(naRows) == min(naRows)) {
-#       LLTable <- LLTable[1:(nrow(LLTable) - max(naRows)), ]
-#     }
-#   }
-#   
-#   for (i in 3:5) {
-#     if (any(is.na(as.numeric(as.character(LLTable[, i]))))) {
-#       naLines <- which(is.na(as.numeric(as.character(LLTable[, i])))) + 1
-#       errorMsg <- paste0("There are missing cell(s) at line(s) ", 
-#                          paste(naLines, collapse = ", "), " in the TP table.")
-#       stop(errorMsg)
-#     }
-#   }
-#   
-#   LLReaderID <- as.character(LLTable[[1]])
-#   
-#   LLModalityID <- as.character(LLTable[[2]])
-#   
-#   LLCaseID <- LLTable[[3]]
-#   LLLesionID <- LLTable[[4]]
-#   for (i in 1:nrow(LLTable)) {
-#     lineNum <- which((truthCaseID == LLCaseID[i]) & (truthlesionID == LLLesionID[i]))
-#     if (!length(lineNum)) {
-#       errorMsg <- paste0("Modality ", LLTable[i, 2], 
-#                          " Reader(s) ", LLTable[i, 1], 
-#                          " Case(s) ", LLTable[i, 3], 
-#                          " Lesion(s) ", LLTable[i, 4], 
-#                          " cannot be found in TRUTH table .")
-#       stop(errorMsg)
-#     }
-#   }
-#   
-#   LLRating <- LLTable[[5]]
-#   
-#   if (anyDuplicated(LLTable[, 1:4])) {
-#     naLines <- which(duplicated(LLTable[, 1:4]))
-#     errorMsg <- paste0("Modality ", paste(LLTable[naLines, 2], collapse = ", "), 
-#                        " Reader(s) ", paste(LLTable[naLines, 1], collapse = ", "), 
-#                        " Case(s) ", paste(LLTable[naLines, 3], collapse = ", "), " Lesion(s) ", 
-#                        paste(LLTable[naLines, 4], collapse = ", "), 
-#                        " have multiple ratings in TP table .")
-#     stop(errorMsg)
-#   }
-#   
-#   lesionVector <- as.vector(table(truthCaseID[truthCaseID %in% abnormalCases]))
-#   # for (k2 in 1:length(abnormalCases)) { lesionVector[k2] <- sum(truthCaseID == abnormalCases[k2]) }
-#   
-#   lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector)))
-#   lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionVector)))
-#   
-#   for (k2 in 1:length(abnormalCases)) {
-#     k <- which(truthCaseID == abnormalCases[k2])
-#     lesionIDTable[k2, ] <- c(sort(truthlesionID[k]), rep(UNINITIALIZED, max(lesionVector) - length(k)))
-#     if (all(truthWeights[k] == 0)) {
-#       lesionWeight[k2, 1:length(k)] <- 1/lesionVector[k2]
-#     } else {
-#       lesionWeight[k2, ] <- c(truthWeights[k][order(truthlesionID[k])], rep(UNINITIALIZED, max(lesionVector) - length(k)))
-#       sumWeight <- sum(lesionWeight[k2, lesionWeight[k2, ] != UNINITIALIZED])
-#       if (sumWeight != 1){
-#         if (sumWeight <= 1.01 && sumWeight >= 0.99){
-#           lesionWeight[k2, ] <- lesionWeight[k2, ] / sumWeight
-#         }else{
-#           errorMsg <- paste0("The sum of the truthWeights of Case ", k2, " is not 1.")
-#           stop(errorMsg)
-#         }
-#       }
-#     }
-#   }
-#   
-#   modalityID <- as.character(sort(unique(c(NLModalityID, LLModalityID))))
-#   I <- length(modalityID)
-#   
-#   readerID <- as.character(sort(unique(c(NLReaderID, LLReaderID))))
-#   J <- length(readerID)
-#   
-#   maxNL <- 0
-#   for (i in modalityID) {
-#     for (j in readerID) {
-#       k <- (NLModalityID == i) & (NLReaderID == j)
-#       if ((sum(k) == 0)) 
-#         next
-#       maxNL <- max(maxNL, max(table(NLCaseID[k])))
-#     }
-#   }
-#   
-#   NL <- array(dim = c(I, J, K, maxNL))
-#   for (i in 1:I) {
-#     for (j in 1:J) {
-#       k <- (NLModalityID == modalityID[i]) & (NLReaderID == readerID[j])
-#       if ((sum(k) == 0)) 
-#         next
-#       caseNLTable <- table(NLCaseID[k])
-#       IDs <- as.numeric(unlist(attr(caseNLTable, "dimnames")))
-#       for (k1 in 1:length(IDs)) {
-#         for (el in 1:caseNLTable[k1]) {
-#           NL[i, j, which(IDs[k1] == allCases), el] <- NLRating[k][which(NLCaseID[k] == IDs[k1])][el]
-#         }
-#       }
-#     }
-#   }
-#   
-#   LL <- array(dim = c(I, J, K2, max(lesionVector)))
-#   for (i in 1:I) {
-#     for (j in 1:J) {
-#       k <- (LLModalityID == modalityID[i]) & (LLReaderID == readerID[j])
-#       if ((sum(k) == 0)) 
-#         next
-#       caseLLTable <- table(LLCaseID[k])
-#       IDs <- as.numeric(unlist(attr(caseLLTable, "dimnames")))
-#       for (k1 in 1:length(IDs)) {
-#         for (el in 1:caseLLTable[k1]) {
-#           kk <- which(IDs[k1] == abnormalCases)
-#           ll <- which(LLLesionID[k][which(LLCaseID[k] == IDs[k1])][el] == lesionIDTable[which(IDs[k1] == abnormalCases), ])
-#           LL[i, j, kk, ll] <- LLRating[k][which(LLCaseID[k] == IDs[k1])][el]
-#         }
-#       }
-#     }
-#   }
-#   
-#   lesionWeight[is.na(lesionWeight)] <- UNINITIALIZED
-#   lesionIDTable[is.na(lesionIDTable)] <- UNINITIALIZED
-#   NL[is.na(NL)] <- UNINITIALIZED
-#   LL[is.na(LL)] <- UNINITIALIZED
-#   
-#   if (isROCDataset(NL, LL, truthCaseID)) {
-#     fileType <- "ROC"
-#   } else {
-#     if (isROIDataset(NL, LL, lesionVector)) {
-#       fileType <- "ROI" # not yet implemented
-#     } else {
-#       fileType <- "FROC"
-#     }
-#   }
-#   
-#   modalityNames <- modalityID
-#   readerNames <- readerID
-#   
-#   if (renumber){
-#     modalityID <- 1:I
-#     readerID <- 1:J
-#   }
-#   
-#   names(modalityID) <- modalityNames
-#   names(readerID) <- readerNames
-#   
-#   return(list(NL = NL, 
-#               LL = LL, 
-#               lesionVector = lesionVector, 
-#               truthlesionID = lesionIDTable, 
-#               lesionWeight = lesionWeight, 
-#               dataType = fileType, 
-#               modalityID = modalityID, 
-#               readerID = readerID))
-# } 
-# 
 
 ReadLrc <- function(fileName, renumber) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
