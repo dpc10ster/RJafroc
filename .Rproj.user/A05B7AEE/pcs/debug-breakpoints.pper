@@ -2,17 +2,47 @@
     "debugBreakpointsState" : {
         "breakpoints" : [
             {
-                "editor_line_number" : 98,
+                "editor_line_number" : 365,
                 "editor_state" : 1,
-                "function_name" : "ReadJAFROC",
-                "function_steps" : "12",
-                "id" : 4,
+                "function_name" : "isCrossedRocDataset",
+                "function_steps" : "8",
+                "id" : 12,
                 "is_package_breakpoint" : true,
                 "is_pending_debug_completion" : false,
-                "line_number" : 98,
+                "line_number" : 365,
                 "needs_updated_steps" : false,
                 "package_name" : "RJafroc",
-                "path" : "~/Documents/GitHub/RJafroc/R/DfReadDataFile.R",
+                "path" : "~/GitHub/RJafroc/R/DfReadDataFile.R",
+                "state" : 1,
+                "type" : 0
+            },
+            {
+                "editor_line_number" : 374,
+                "editor_state" : 1,
+                "function_name" : "isCrossedRocDataset",
+                "function_steps" : "17",
+                "id" : 13,
+                "is_package_breakpoint" : true,
+                "is_pending_debug_completion" : false,
+                "line_number" : 374,
+                "needs_updated_steps" : false,
+                "package_name" : "RJafroc",
+                "path" : "~/GitHub/RJafroc/R/DfReadDataFile.R",
+                "state" : 1,
+                "type" : 0
+            },
+            {
+                "editor_line_number" : 356,
+                "editor_state" : 1,
+                "function_name" : "isCrossedRocDataset",
+                "function_steps" : "4",
+                "id" : 14,
+                "is_package_breakpoint" : true,
+                "is_pending_debug_completion" : false,
+                "line_number" : 356,
+                "needs_updated_steps" : false,
+                "package_name" : "RJafroc",
+                "path" : "~/GitHub/RJafroc/R/DfReadDataFile.R",
                 "state" : 1,
                 "type" : 0
             }

@@ -85,10 +85,7 @@ ReadJAFROC <- function(fileName, renumber, splitPlot) {
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (truthFileIndex == 0) 
     stop("TRUTH table cannot be found in the dataset.")
-  truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:4)
-  readerColumn <- scan(text = truthTable$ReaderID, sep = ",", quiet = TRUE)
-  rdrs <- unique(readerColumn); nrdrs <- length(rdrs)
-  dim(readerColumn) <- c(nrdrs, length(readerColumn)/nrdrs)
+  TruthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:4)
   
   ## ?? fill empty rows with NAs (and delete them) ??
   ## The caret ^ and the dollar sign $ are metacharacters that respectively 
@@ -96,36 +93,36 @@ ReadJAFROC <- function(fileName, renumber, splitPlot) {
   ## *
   ## The preceding item will be matched zero or more times.
   for (i in 1:4){
-    truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
+    TruthTable[grep("^\\s*$", TruthTable[ , i]), i] <- NA
   }
   
   ## delete empty rows
-  naRows <- colSums(is.na(truthTable))
+  naRows <- colSums(is.na(TruthTable))
   if (max(naRows) > 0) {
     if (max(naRows) == min(naRows)) {
-      truthTable <- truthTable[1:(nrow(truthTable) - max(naRows)), ]
+      TruthTable <- TruthTable[1:(nrow(TruthTable) - max(naRows)), ]
     }
   }
   
   for (i in 1:2) {
-    if (any((as.numeric(as.character(truthTable[, i]))) %% 1 != 0 )) {
-      naLines <- which(!is.integer(as.numeric(as.character(truthTable[, i])))) + 1
+    if (any((as.numeric(as.character(TruthTable[, i]))) %% 1 != 0 )) {
+      naLines <- which(!is.integer(as.numeric(as.character(TruthTable[, i])))) + 1
       errorMsg <- paste0("There are non-integer values(s) for CaseID or LesionID at the line(s) ", 
                          paste(naLines, collapse = ", "), " in the TRUTH table.")
       stop(errorMsg)
     }
   }
   
-  if (any(is.na(as.numeric(as.character(truthTable[, 3]))))) {
-    naLines <- which(is.na(as.numeric(as.character(truthTable[, 3])))) + 1
+  if (any(is.na(as.numeric(as.character(TruthTable[, 3]))))) {
+    naLines <- which(is.na(as.numeric(as.character(TruthTable[, 3])))) + 1
     errorMsg <- paste0("There are non-numeric values(s) for truthWeights at the line(s) ", 
                        paste(naLines, collapse = ", "), " in the TRUTH table.")
     stop(errorMsg)
   }
   
-  truthCaseID <- as.integer(truthTable[[1]])  # all 3 columns have same lengths
-  truthlesionID <- as.integer(truthTable[[2]])
-  truthWeights <- truthTable[[3]]
+  truthCaseID <- as.integer(TruthTable[[1]])  # all 3 columns have same lengths
+  truthlesionID <- as.integer(TruthTable[[2]])
+  truthWeights <- TruthTable[[3]]
 
   normalCases <- sort(unique(truthCaseID[truthlesionID == 0]))
   abnormalCases <- sort(unique(truthCaseID[truthlesionID > 0]))
@@ -158,7 +155,7 @@ ReadJAFROC <- function(fileName, renumber, splitPlot) {
       NLTable <- NLTable[1:(nrow(NLTable) - max(naRows)), ]
     }
   }
-  
+
   for (i in 3:4) {
     if (any(is.na(as.numeric(as.character(NLTable[, i]))))) {
       naLines <- which(is.na(as.numeric(as.character(NLTable[, i])))) + 1
@@ -315,12 +312,14 @@ ReadJAFROC <- function(fileName, renumber, splitPlot) {
   lesionIDTable[is.na(lesionIDTable)] <- UNINITIALIZED
   NL[is.na(NL)] <- UNINITIALIZED
   LL[is.na(LL)] <- UNINITIALIZED
-  
+
+  temp <- isCrossedRocDataset (TruthTable, NLTable, LLTable)
+    
   if (isROCDataset(NL, LL, truthCaseID)) {
     fileType <- "ROC"
   } else if (isROIDataset(NL, LL, lesionVector)) {
     fileType <- "ROI" # not yet implemented
-  } else if (splitPlot && isSplitPlotRocDataset (truthTable, NLTable, LLTable)) {
+  } else if (splitPlot && isSplitPlotRocDataset (TruthTable, NLTable, LLTable)) {
     # since FROC is so general, must first eliminate a user-declared splitPlot dataset
     # isSplitPlotRocDataset checks for a valid splitPlot dataset 
     fileType <- "SplitPlotRoc"
@@ -348,15 +347,24 @@ ReadJAFROC <- function(fileName, renumber, splitPlot) {
               readerID = readerID))
 } 
 
-
-isSplitPlotRocDataset <- function(truthTable, NLTable, LLTable)
+# still working on this
+isCrossedRocDataset <- function(TruthTable, NLTable, LLTable)
 {
-  # UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  modalityID <- unique(NLTable[[2]])
-  readerID <- unique(truthTable[[4]])
-  I <- length(modalityID) # number of modalities
+  # examine TRUTH worksheet 
+  readerColumn <- scan(text = TruthTable$ReaderID, sep = ",", quiet = TRUE)
+  readerColumn <- strsplit(TruthTable$ReaderID, split = ",")
+  readerID <- unique(readerColumn) 
   J <- length(readerID) # number of readers
-  K <- length(truthTable[[1]]) # total number of cases read by all readers
+  dim(readerColumn) <- c(J, length(readerColumn)/J)
+  for (j in 1:J) { 
+    # this shows user intends this to be a fully crossed file
+    if (!all(readerColumn[j,] == readerColumn[j,1])) return (FALSE)
+  }
+  
+  # examine NL worksheet 
+  modalityID <- unique(NLTable[[2]])
+  I <- length(modalityID) # number of modalities
+  K <- length(TruthTable[[1]]) # total number of cases read by all readers
   Kj <- array(dim = J) # total number of cases read by reader j
   K1j <- array(dim = J) # total number of normal cases read by reader j
   K2j <- array(dim = J) # total number of abnormal cases read by reader j
@@ -364,9 +372,62 @@ isSplitPlotRocDataset <- function(truthTable, NLTable, LLTable)
   K1nested <- array(dim = c(J, K)) # IDs of normal cases read by reader j
   K2nested <- array(dim = c(J, K)) # IDs of abnormal cases read by reader j
   for (j in 1:J) {
-    temp <- truthTable[[1]][which(truthTable[[4]] == j)]
-    temp1 <- truthTable[[1]][which((truthTable[[4]] == j) & (truthTable[[2]] == 0))]
-    temp2 <- truthTable[[1]][which((truthTable[[4]] == j) & (truthTable[[2]] == 1))]
+    temp <- TruthTable[[1]][which(TruthTable[[4]] == j)]
+    temp1 <- TruthTable[[1]][which((TruthTable[[4]] == j) & (TruthTable[[2]] == 0))]
+    temp2 <- TruthTable[[1]][which((TruthTable[[4]] == j) & (TruthTable[[2]] == 1))]
+    Kj[j] <- length(temp)
+    K1j[j] <- length(temp1)
+    K2j[j] <- length(temp2)
+    Knested[j,1:Kj[j]] <- temp
+    K1nested[j,1:K1j[j]] <- temp1
+    K2nested[j,1:K2j[j]] <- temp2
+  }
+  
+  for (j in 1:J) {
+    cat("\nj = ", j, "\n")
+    cat("Cases, non-diseased followed by diseased", "\n")
+    cat(K1nested[j,1:K1j[j]],"\n")
+    cat(K2nested[j,1:K2j[j]],"\n")
+    cat("Non-diseased ratings, in modality 1 followed by modality 2", "\n")
+    cat(NLTable[[4]][which((NLTable[[1]] == j) & (NLTable[[3]] %in% K1nested[j,]) & (NLTable[[2]] == 1))],"\n")
+    cat(NLTable[[4]][which((NLTable[[1]] == j) & (NLTable[[3]] %in% K1nested[j,]) & (NLTable[[2]] == 2))],"\n")
+    cat("Diseased ratings, in modality 1 followed by modality 2", "\n")
+    cat(LLTable[[5]][which((LLTable[[1]] == j) & (LLTable[[3]] %in% K2nested[j,]) & (LLTable[[2]] == 1))],"\n")
+    cat(LLTable[[5]][which((LLTable[[1]] == j) & (LLTable[[3]] %in% K2nested[j,]) & (LLTable[[2]] == 2))],"\n")
+  }
+  # inspect NL table
+  
+  # tests for ROI data
+  if (!all(is.finite(NLTable[[4]]))) return (FALSE)
+  if (!all(is.finite(LLTable[[5]]))) return (FALSE)
+  for (j in 1:J) {
+    if (!(sum(NLTable[[3]] %in% K1nested[j,1:K1j[j]]) == I*K1j[j])) return (FALSE)
+    if (!(sum(LLTable[[3]] %in% K2nested[j,1:K2j[j]]) == I*K2j[j])) return (FALSE)
+    if (!(nrow(NLTable) == I*sum(K1j))) return (FALSE)
+    if (!(nrow(LLTable) == I*sum(K2j))) return (FALSE)
+  }
+  return (TRUE)
+}
+
+
+isSplitPlotRocDataset <- function(TruthTable, NLTable, LLTable)
+{
+  # UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  modalityID <- unique(NLTable[[2]])
+  readerID <- unique(TruthTable[[4]])
+  I <- length(modalityID) # number of modalities
+  J <- length(readerID) # number of readers
+  K <- length(TruthTable[[1]]) # total number of cases read by all readers
+  Kj <- array(dim = J) # total number of cases read by reader j
+  K1j <- array(dim = J) # total number of normal cases read by reader j
+  K2j <- array(dim = J) # total number of abnormal cases read by reader j
+  Knested <- array(dim = c(J, K)) # IDs of cases read by reader j
+  K1nested <- array(dim = c(J, K)) # IDs of normal cases read by reader j
+  K2nested <- array(dim = c(J, K)) # IDs of abnormal cases read by reader j
+  for (j in 1:J) {
+    temp <- TruthTable[[1]][which(TruthTable[[4]] == j)]
+    temp1 <- TruthTable[[1]][which((TruthTable[[4]] == j) & (TruthTable[[2]] == 0))]
+    temp2 <- TruthTable[[1]][which((TruthTable[[4]] == j) & (TruthTable[[2]] == 1))]
     Kj[j] <- length(temp)
     K1j[j] <- length(temp1)
     K2j[j] <- length(temp2)
@@ -638,7 +699,6 @@ ReadLrc <- function(fileName, renumber) {
 }
 
 
-
 splitWhiteSpaces <- function(string) {
   whiteSpaces <- c("", " ", "\t")
   string <- unlist(strsplit(string, split = " |\t"))
@@ -698,18 +758,18 @@ ReadImrmc <- function(fileName, renumber) {
     stop(errMsg)
   }
   
-  truthTable <- dataTable[as.numeric(dataTable[, 1]) == -1, ]
-  if (any(!(caseId %in% as.numeric(truthTable[, 2])))) {
-    errMsg <- sprintf("Case %d cannot be found in rows recording truth states.", caseId[!(caseId %in% as.numeric(truthTable[, 2]))])
+  TruthTable <- dataTable[as.numeric(dataTable[, 1]) == -1, ]
+  if (any(!(caseId %in% as.numeric(TruthTable[, 2])))) {
+    errMsg <- sprintf("Case %d cannot be found in rows recording truth states.", caseId[!(caseId %in% as.numeric(TruthTable[, 2]))])
     stop(errMsg)
   }
   
-  if (any(!(as.numeric(truthTable[, 4]) %in% c(0, 1)))) {
+  if (any(!(as.numeric(TruthTable[, 4]) %in% c(0, 1)))) {
     errMsg <- "Cases' truth states must be 0 or 1."
     stop(errMsg)
   }
-  normalCases <- unique(as.numeric(truthTable[as.numeric(truthTable[, 4]) == 0, 2]))
-  abnormalCases <- unique(as.numeric(truthTable[as.numeric(truthTable[, 4]) == 1, 2]))
+  normalCases <- unique(as.numeric(TruthTable[as.numeric(TruthTable[, 4]) == 0, 2]))
+  abnormalCases <- unique(as.numeric(TruthTable[as.numeric(TruthTable[, 4]) == 1, 2]))
   
   fpTable <- dataTable[(as.numeric(dataTable[, 2]) %in% normalCases) & as.numeric(dataTable[, 1]) != -1, ]
   tpTable <- dataTable[(as.numeric(dataTable[, 2]) %in% abnormalCases) & as.numeric(dataTable[, 1]) != -1, ]
