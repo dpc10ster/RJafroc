@@ -1,56 +1,11 @@
-#' Read a data file 
-#' 
-#' @description Read a disk file and create a dataset object from it.
-#' 
-#' @param fileName A string specifying the name of the file. 
-#'    The file-extension must match the format specified below
-#' @param format A string specifying the format of the data in the file. 
-#'    It can be \code{"JAFROC"} (the default), \code{"MRMC"} or \code{"iMRMC"}. 
-#'    For \code{"MRMC"} the format is determined by the data file extension 
-#'    as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,  
-#'    \code{.csv} or \code{.txt} or \code{.lrc}. For file extension 
-#'    \code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.
-#' @param delimiter The string delimiter to be used for the \code{"MRMC"} 
-#'    format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.
-#'    This parameter is not used when reading \code{"JAFROC"} 
-#'    or \code{"iMRMC"} data files.
-#' @param sequentialNames A logical variable: if \code{TRUE}, consecutive integers 
-#'    (starting from 1) will be used as the 
-#'    treatment and reader IDs. Otherwise, treatment 
-#'    and reader IDs in the original data file will be used.
-#' 
-#' @return A dataset with the structure specified in \code{\link{RJafroc-package}}.
-#' 
-#' @examples
-#' \donttest{
-#' fileName <- system.file("extdata", "includedRocData.xlsx", 
-#' package = "RJafroc", mustWork = TRUE)
-#' RocDataXlsx <- DfReadDataFile(fileName)
-#' 
-#' fileName <- system.file("extdata", "includedRocData.csv", 
-#' package = "RJafroc", mustWork = TRUE)
-#' RocDataCsv<- DfReadDataFile(fileName, format = "MRMC")
-#' 
-#' fileName <- system.file("extdata", "includedRocData.imrmc", 
-#' package = "RJafroc", mustWork = TRUE)
-#' RocDataImrmc<- DfReadDataFile(fileName, format = "iMRMC")
-#' 
-#' fileName <- system.file("extdata", "includedFrocData.xlsx", 
-#' package = "RJafroc", mustWork = TRUE)
-#' FrocDataXlsx <- DfReadDataFile(fileName, sequentialNames = TRUE)
-#' 
-#' }
-#' 
 #' @importFrom tools file_ext
 #' @importFrom stringr str_trim
-#' 
 #' @export
-
-DfReadDataFile <- function(fileName, format = "JAFROC", delimiter = ",", sequentialNames = FALSE) {
+DfReadDataFileOld <- function(fileName, format = "JAFROC", delimiter = ",", sequentialNames = FALSE) {
   if (format == "JAFROC") {
     if (!(file_ext(fileName) %in% c("xls", "xlsx"))) 
       stop("The extension of JAFROC data file must be \"*.xls\" or \"*.xlsx\" ")
-    return(ReadJAFROC(fileName, sequentialNames))
+    return(ReadJAFROCOld(fileName, sequentialNames))
   } else if (format == "iMRMC") {
     return(ReadImrmc(fileName, sequentialNames))
   } else if (format == "MRMC") {
@@ -66,7 +21,7 @@ DfReadDataFile <- function(fileName, format = "JAFROC", delimiter = ",", sequent
 } 
 
 
-ReadJAFROC <- function(fileName, sequentialNames) {
+ReadJAFROCOld <- function(fileName, sequentialNames) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   wb <- loadWorkbook(fileName)
   sheetNames <- toupper(names(wb))
@@ -112,8 +67,8 @@ ReadJAFROC <- function(fileName, sequentialNames) {
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
   
-  if (anyDuplicated(cbind(caseID, lesionID))) {
-    naLines <- which(duplicated(cbind(caseID, lesionID))) + 1
+  if (anyDuplicated(cbind(caseID, lesionID, weights))) {
+    naLines <- which(duplicated(cbind(caseID, lesionID, weights))) + 1
     errorMsg <- paste0("Line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table are duplicated with previous line(s) .")
     stop(errorMsg)
   }
@@ -201,19 +156,19 @@ ReadJAFROC <- function(fileName, sequentialNames) {
     stop(errorMsg)
   }
   
-  lesionNum <- as.vector(table(caseID[caseID %in% abnormalCases]))
-  # for (k2 in 1:length(abnormalCases)) { lesionNum[k2] <- sum(caseID == abnormalCases[k2]) }
+  lesionVector <- as.vector(table(caseID[caseID %in% abnormalCases]))
+  # for (k2 in 1:length(abnormalCases)) { lesionVector[k2] <- sum(caseID == abnormalCases[k2]) }
   
-  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionNum)))
-  lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionNum)))
+  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector)))
+  lesionIDLabels <- array(dim = c(length(abnormalCases), max(lesionVector)))
   
   for (k2 in 1:length(abnormalCases)) {
     k <- which(caseID == abnormalCases[k2])
-    lesionIDTable[k2, ] <- c(sort(lesionID[k]), rep(UNINITIALIZED, max(lesionNum) - length(k)))
+    lesionIDLabels[k2, ] <- c(sort(lesionID[k]), rep(UNINITIALIZED, max(lesionVector) - length(k)))
     if (all(weights[k] == 0)) {
-      lesionWeight[k2, 1:length(k)] <- 1/lesionNum[k2]
+      lesionWeight[k2, 1:length(k)] <- 1/lesionVector[k2]
     } else {
-      lesionWeight[k2, ] <- c(weights[k][order(lesionID[k])], rep(UNINITIALIZED, max(lesionNum) - length(k)))
+      lesionWeight[k2, ] <- as.numeric(c(weights[k][order(lesionID[k])], rep(UNINITIALIZED, max(lesionVector) - length(k))))
       sumWeight <- sum(lesionWeight[k2, lesionWeight[k2, ] != UNINITIALIZED])
       if (sumWeight != 1){
         if (sumWeight <= 1.01 && sumWeight >= 0.99){
@@ -258,7 +213,7 @@ ReadJAFROC <- function(fileName, sequentialNames) {
     }
   }
   
-  LL <- array(dim = c(I, J, K2, max(lesionNum)))
+  LL <- array(dim = c(I, J, K2, max(lesionVector)))
   for (i in 1:I) {
     for (j in 1:J) {
       k <- (LLModalityID == modalityID[i]) & (LLReaderID == readerID[j])
@@ -270,7 +225,7 @@ ReadJAFROC <- function(fileName, sequentialNames) {
         for (el in 1:caseLLTable[k1]) {
           x1 <- which(IDs[k1] == abnormalCases)
           x2 <- which(LLCaseID[k] == IDs[k1])
-          x3 <- lesionIDTable[which(IDs[k1] == abnormalCases), ]
+          x3 <- lesionIDLabels[which(IDs[k1] == abnormalCases), ]
           x4 <- which(LLLesionID[k][x2][el] == x3)
           x5 <- which(LLCaseID[k] == IDs[k1])
           LL[i, j, x1, x4] <- LLRating[k][x5][el]
@@ -280,7 +235,7 @@ ReadJAFROC <- function(fileName, sequentialNames) {
   }
   
   lesionWeight[is.na(lesionWeight)] <- UNINITIALIZED
-  lesionIDTable[is.na(lesionIDTable)] <- UNINITIALIZED
+  lesionIDLabels[is.na(lesionIDLabels)] <- UNINITIALIZED
   NL[is.na(NL)] <- UNINITIALIZED
   LL[is.na(LL)] <- UNINITIALIZED
   
@@ -292,14 +247,14 @@ ReadJAFROC <- function(fileName, sequentialNames) {
         break
       }
       temp <- LL[i, j, , ] != UNINITIALIZED
-      dim(temp) <- c(K2, max(lesionNum))
-      if (!all(lesionNum == rowSums(temp))) {
+      dim(temp) <- c(K2, max(lesionVector))
+      if (!all(lesionVector == rowSums(temp))) {
         isROI <- FALSE
         break
       }
       temp <- NL[i, j, (K1 + 1):K, ] == UNINITIALIZED
       dim(temp) <- c(K2, maxNL)
-      if (!all(lesionNum == rowSums(temp))) {
+      if (!all(lesionVector == rowSums(temp))) {
         isROI <- FALSE
         break
       }
@@ -327,7 +282,7 @@ ReadJAFROC <- function(fileName, sequentialNames) {
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  return(list(NL = NL, LL = LL, lesionNum = lesionNum, lesionID = lesionIDTable, lesionWeight = lesionWeight, dataType = fileType, modalityID = modalityID, readerID = readerID))
+  return(list(NL = NL, LL = LL, lesionVector = lesionVector, lesionID = lesionIDLabels, lesionWeight = lesionWeight, dataType = fileType, modalityID = modalityID, readerID = readerID))
 } 
 
 
@@ -451,7 +406,7 @@ ReadLrc <- function(fileName, sequentialNames) {
   NLTemp <- array(UNINITIALIZED, dim = c(I, J, K, 1))
   NLTemp[, , 1:K1, ] <- NL
   NL <- NLTemp
-  lesionNum <- rep(1, K2)
+  lesionVector <- rep(1, K2)
   lesionID <- array(1, dim = c(K2, 1))
   lesionWeight <- lesionID
   maxNL <- 1
@@ -468,7 +423,7 @@ ReadLrc <- function(fileName, sequentialNames) {
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  return(list(NL = NL, LL = LL, lesionNum = lesionNum, lesionID = lesionID, lesionWeight = lesionWeight, dataType = dataType, modalityID = modalityID, readerID = readerID))
+  return(list(NL = NL, LL = LL, lesionVector = lesionVector, lesionID = lesionID, lesionWeight = lesionWeight, dataType = dataType, modalityID = modalityID, readerID = readerID))
 }
 
 splitWhiteSpaces <- function(string) {
@@ -573,7 +528,7 @@ ReadImrmc <- function(fileName, sequentialNames) {
     }
   }
   
-  lesionNum <- rep(1, K2)
+  lesionVector <- rep(1, K2)
   lesionID <- array(1, dim = c(K2, 1))
   lesionWeight <- lesionID
   maxNL <- 1
@@ -590,7 +545,7 @@ ReadImrmc <- function(fileName, sequentialNames) {
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  return(list(NL = NL, LL = LL, lesionNum = lesionNum, lesionID = lesionID, lesionWeight = lesionWeight, dataType = dataType, modalityID = modalityID, readerID = readerID))
+  return(list(NL = NL, LL = LL, lesionVector = lesionVector, lesionID = lesionID, lesionWeight = lesionWeight, dataType = dataType, modalityID = modalityID, readerID = readerID))
 } 
 
 

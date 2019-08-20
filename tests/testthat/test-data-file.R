@@ -289,7 +289,7 @@ context("Data file saving and reading routines")
 
 test_that("Toy datasets", {
   fileName <- system.file(
-    "extdata", "/toyFiles/Truth/OK.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/FROC/OK.xlsx", package = "RJafroc", mustWork = TRUE)
   
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/OK.xlsx", ".rds")
   if (!file.exists(fn)) {
@@ -300,30 +300,38 @@ test_that("Toy datasets", {
   
   ds <- readRDS(fn)
   expect_equal(DfReadDataFile(fileName), ds)
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/Truth/missing2CellsRow5and7.xlsx", package = "RJafroc", mustWork = TRUE)
-  expect_error(DfReadDataFile(fileName))
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/Truth/missing1CellRow5.xlsx", package = "RJafroc", mustWork = TRUE)
-  expect_error(DfReadDataFile(fileName))
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/Truth/non-integerCaseID.xlsx", package = "RJafroc", mustWork = TRUE)
-  expect_error(DfReadDataFile(fileName))
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/Truth/non-integerLesionID.xlsx", package = "RJafroc", mustWork = TRUE)
-  expect_error(DfReadDataFile(fileName))
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/Truth/incorrectWeights.xlsx", package = "RJafroc", mustWork = TRUE)
-  expect_error(DfReadDataFile(fileName))
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/Truth/duplicatedRow.xlsx", package = "RJafroc", mustWork = TRUE)
-  expect_error(DfReadDataFile(fileName))
+  # 
+  # fileName <- system.file(
+  #   "extdata", "/toyFiles/ROC/missing2CellsRow5and7.xlsx", package = "RJafroc", mustWork = TRUE)
+  # expect_error(DfReadDataFile(fileName))
+  # 
+  # fileName <- system.file(
+  #   "extdata", "/toyFiles/ROC/missing1CellRow5.xlsx", package = "RJafroc", mustWork = TRUE)
+  # expect_error(DfReadDataFile(fileName))
+  # 
+  # fileName <- system.file(
+  #   "extdata", "/toyFiles/ROC/non-integerCaseID.xlsx", package = "RJafroc", mustWork = TRUE)
+  # expect_error(DfReadDataFile(fileName))
+  # 
+  # fileName <- system.file(
+  #   "extdata", "/toyFiles/ROC/non-integerLesionID.xlsx", package = "RJafroc", mustWork = TRUE)
+  # expect_error(DfReadDataFile(fileName))
+  # 
+  # fileName <- system.file(
+  #   "extdata", "/toyFiles/ROC/incorrectWeights.xlsx", package = "RJafroc", mustWork = TRUE)
+  # expect_error(DfReadDataFile(fileName))
+  # 
+  # fileName <- system.file(
+  #   "extdata", "/toyFiles/ROC/duplicatedRow.xlsx", package = "RJafroc", mustWork = TRUE)
+  # expect_error(DfReadDataFile(fileName))
+  # 
+  # fileName <- system.file(
+  #   "extdata", "/toyFiles/FROC/OK.xlsx", package = "RJafroc", mustWork = TRUE)
+  # expect_error(DfReadDataFile(fileName))
+  # 
+  # dsOld <- DfReadDataFileOld(fileName)
+  # dsNew <- DfReadDataFile(fileName)
+  # expect_equal(dsOld, dsNew)
   
 })
 
