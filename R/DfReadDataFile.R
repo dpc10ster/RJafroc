@@ -191,7 +191,8 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
   
   #temp <- isCrossedRocDataset (TruthTable, NLTable, LLTable)
   
-  if (isROCDataset(NL, LL, Truth_CaseIDColumn)) {
+  if (paradigm == "ROC") {
+    if (!isROCDataset (NL, LL, Truth_CaseIDColumn)) stop("Data file does not appear to be ROC paradigm")
     fileType <- "ROC"
   } else if (isROIDataset(NL, LL, lesionVector)) {
     fileType <- "ROI" # not yet implemented
@@ -200,7 +201,7 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
     # isSplitPlotRocDataset checks for a valid splitPlot dataset 
     fileType <- "SplitPlotRoc"
     # the following is the most general data structure, all else having been eliminated
-  } else  fileType <- "FROC"
+  } else if (paradigm == "FROC") fileType <- "FROC"
   
   modalityNames <- modalityID
   readerNames <- readerID
@@ -555,17 +556,17 @@ isSplitPlotRocDataset <- function(TruthTable, NLTable, LLTable)
 isROCDataset <- function(NL, LL, Truth_CaseIDColumn)
 {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  
+
   K <- length(NL[1,1,,1])
   K2 <- length(LL[1,1,,1])
   K1 <- K - K2
   maxNL <- length(NL[1,1,1,])
   maxLL <- length(LL[1,1,1,])
-  
+
   if (max(table(Truth_CaseIDColumn)) != 1) return (FALSE) # number of occurrences of each Truth_CaseIDColumn value
   if (maxNL != 1) return (FALSE)
-  if (all((NL[, , (K1 + 1):K, ] != UNINITIALIZED))) return (FALSE) 
-  if (any((NL[, , 1:K1, ] == UNINITIALIZED))) return (FALSE) 
+  if (all((NL[, , (K1 + 1):K, ] != UNINITIALIZED))) return (FALSE)
+  if (any((NL[, , 1:K1, ] == UNINITIALIZED))) return (FALSE)
   if (maxLL != 1) return (FALSE)
   if (any((LL[, , 1:K2, ] == UNINITIALIZED))) return (FALSE)
   return (TRUE)
