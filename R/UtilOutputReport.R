@@ -30,7 +30,7 @@
 #' @param nBoots See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis;
 #'     the default is 200.
 #' 
-#' @param renumber A logical variable: if \code{TRUE}, consecutive integers 
+#' @param sequentialNames A logical variable: if \code{TRUE}, consecutive integers 
 #'    (staring from 1) will be used as the treatment and reader IDs in the 
 #'    output report. Otherwise, treatment and reader IDs in the original data 
 #'    file will be used. This option may be needed for aesthetics. The default
@@ -68,7 +68,7 @@ UtilOutputReport <- function(dataset, dataDescription = "MyDataDescription: ",
                              ReportFileBaseName = NULL, ReportFileExt = "txt", 
                              method = "DBMH", FOM = "Wilcoxon", alpha = 0.05, 
                              covEstMethod = "Jackknife", nBoots = 200, 
-                             renumber = FALSE, overWrite = FALSE) {
+                             sequentialNames = FALSE, overWrite = FALSE) {
   
   if (!isValidDataset(dataset)) {
     stop("Must specify a valid dataset object.")
@@ -78,7 +78,7 @@ UtilOutputReport <- function(dataset, dataDescription = "MyDataDescription: ",
     stop("Inconsistent dataset - FOM combination")
   }
   
-  if (renumber){
+  if (sequentialNames){
     dataset$modalityID <- 1:length(dataset$modalityID)
     dataset$readerID <- 1:length(dataset$readerID)
   }

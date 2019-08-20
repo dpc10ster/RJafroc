@@ -6,7 +6,7 @@
 #' @param fileName A string specifying the name of the file that contains the dataset, 
 #'    which must be an extended-JAFROC format data file containing an 
 #'    additional treatment factor.
-#' @param renumber If \code{TRUE}, consecutive integers (starting from 1) will be used 
+#' @param sequentialNames If \code{TRUE}, consecutive integers (starting from 1) will be used 
 #'    as the treatment and reader IDs. Otherwise, treatment and reader IDs in the 
 #'    original data file will be used. The default is \code{FALSE}. 
 #' 
@@ -42,7 +42,7 @@
 #' 
 #' @import openxlsx
 #' @export
-DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
+DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   wb <- loadWorkbook(fileName)
   sheetNames <- toupper(names(wb))
@@ -306,7 +306,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   modality2Names <- modalityID2
   readerNames <- readerID
   
-  if (renumber){
+  if (sequentialNames){
     modalityID1 <- 1:I1
     modalityID2 <- 1:I2
     readerID <- 1:J

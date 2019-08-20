@@ -7,7 +7,7 @@
 UtilOutputReport(dataset, dataDescription = "MyDataDescription: ",
   ReportFileBaseName = NULL, ReportFileExt = "txt", method = "DBMH",
   FOM = "Wilcoxon", alpha = 0.05, covEstMethod = "Jackknife",
-  nBoots = 200, renumber = FALSE, overWrite = FALSE)
+  nBoots = 200, sequentialNames = FALSE, overWrite = FALSE)
 }
 \arguments{
 \item{dataset}{The dataset object to be analyzed (\emph{not the file name}), see \code{Dataset} 
@@ -37,7 +37,7 @@ for method = \code{"ORH"}; the default is "Jackknife".}
 \item{nBoots}{See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis;
 the default is 200.}
 
-\item{renumber}{A logical variable: if \code{TRUE}, consecutive integers 
+\item{sequentialNames}{A logical variable: if \code{TRUE}, consecutive integers 
 (staring from 1) will be used as the treatment and reader IDs in the 
 output report. Otherwise, treatment and reader IDs in the original data 
 file will be used. This option may be needed for aesthetics. The default

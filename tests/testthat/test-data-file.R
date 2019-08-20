@@ -357,19 +357,19 @@ test_that("Toy datasets", {
 #   expect_equal(DfReadDataFile(fileName), ds)
 #   # end of test
 # 
-#   # check renumber option
+#   # check sequentialNames option
 #   fileName <- system.file(
 #     "extdata", "includedFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
 # 
 #   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-froc-jafroc-renum", ".rds")
 #   if (!file.exists(fn)) {
 #     warning(paste0("File not found - generating new ",fn))
-#     ds <- DfReadDataFile(fileName, renumber = TRUE)
+#     ds <- DfReadDataFile(fileName, sequentialNames = TRUE)
 #     saveRDS(ds, file = fn)
 #   }
 # 
 #   ds <- readRDS(fn)
-#   expect_equal(DfReadDataFile(fileName, renumber = TRUE), ds)
+#   expect_equal(DfReadDataFile(fileName, sequentialNames = TRUE), ds)
 #   # end of test
 # 
 #   fileName <- system.file(
