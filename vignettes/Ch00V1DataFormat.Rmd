@@ -56,7 +56,7 @@ Examination of the output reveals that:
 An Excel file in JAFROC format containing simulated ROI data corresponding to `dataset04`, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object `ds`.  
 ```{r}
 fileName <- system.file(
-    "extdata", "includedFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
 ds <- DfReadDataFile(fileName)
 ds$dataType
 ```             

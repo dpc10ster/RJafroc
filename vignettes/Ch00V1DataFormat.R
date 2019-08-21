@@ -16,7 +16,7 @@ x <- dataset04$LL;mean(x[is.finite(x)])
 
 ## ------------------------------------------------------------------------
 fileName <- system.file(
-    "extdata", "includedFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
 ds <- DfReadDataFile(fileName)
 ds$dataType
 

@@ -196,7 +196,7 @@
 #   # end of test
 # 
 #   crossedFileName <- system.file("extdata",
-#                                  "includedCrossedModalitiesData.xlsx",
+#                                  "CrossedModalitiesData.xlsx",
 #                                  package = "RJafroc", mustWork = TRUE)
 # 
 #   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadCrossedModalities", ".rds")
@@ -228,7 +228,7 @@
 #   #
 # 
 #   fileName <- system.file(
-#     "extdata", "includedRocData.csv", package = "RJafroc", mustWork = TRUE)
+#     "extdata", "RocData.csv", package = "RJafroc", mustWork = TRUE)
 # 
 #   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile_csv", ".rds")
 #   if (!file.exists(fn)) {
@@ -242,7 +242,7 @@
 #   # end of test
 # 
 #   fileName <- system.file(
-#     "extdata", "includedRocData.lrc", package = "RJafroc", mustWork = TRUE)
+#     "extdata", "RocData.lrc", package = "RJafroc", mustWork = TRUE)
 # 
 #   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile_lrc", ".rds")
 #   if (!file.exists(fn)) {
@@ -256,7 +256,7 @@
 #   # end of test
 # 
 #   fileName <- system.file(
-#     "extdata", "includedRocData.imrmc", package = "RJafroc", mustWork = TRUE)
+#     "extdata", "RocData.imrmc", package = "RJafroc", mustWork = TRUE)
 # 
 #   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-imrmc", ".rds")
 #   if (!file.exists(fn)) {
@@ -269,7 +269,7 @@
 #   expect_equal(DfReadDataFile(fileName, format = "iMRMC"), ds)
 #   # end of test
 # 
-#   fileName <- system.file("extdata", "includedRocData.txt", package = "RJafroc", mustWork = TRUE)
+#   fileName <- system.file("extdata", "RocData.txt", package = "RJafroc", mustWork = TRUE)
 # 
 #   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile_txt", ".rds")
 #   if (!file.exists(fn)) {
@@ -339,7 +339,7 @@ test_that("Toy datasets", {
 # test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
 # 
 #   fileName <- system.file(
-#     "extdata", "includedRocData.xlsx", package = "RJafroc", mustWork = TRUE)
+#     "extdata", "RocData.xlsx", package = "RJafroc", mustWork = TRUE)
 # 
 #   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-roc-jafroc", ".rds")
 #   if (!file.exists(fn)) {
@@ -353,7 +353,7 @@ test_that("Toy datasets", {
 #   # end of test
 # 
 #   fileName <- system.file(
-#     "extdata", "includedFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
+#     "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
 # 
 #   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-froc-jafroc", ".rds")
 #   if (!file.exists(fn)) {
@@ -368,7 +368,7 @@ test_that("Toy datasets", {
 # 
 #   # check sequentialNames option
 #   fileName <- system.file(
-#     "extdata", "includedFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
+#     "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
 # 
 #   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-froc-jafroc-renum", ".rds")
 #   if (!file.exists(fn)) {
@@ -382,7 +382,7 @@ test_that("Toy datasets", {
 #   # end of test
 # 
 #   fileName <- system.file(
-#     "extdata", "includedRoiData.xlsx", package = "RJafroc", mustWork = TRUE)
+#     "extdata", "RoiData.xlsx", package = "RJafroc", mustWork = TRUE)
 # 
 #   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-jafroc-roi", ".rds")
 #   if (!file.exists(fn)) {

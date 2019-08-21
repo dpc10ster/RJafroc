@@ -4,24 +4,11 @@
         "filePatterns" : [
             "*.r",
             "*.R",
-            "*.rnw",
-            "*.Rnw",
-            "*.rmd",
-            "*.Rmd",
-            "*.rmarkdown",
-            "*.Rmarkdown",
-            "*.rhtml",
-            "*.Rhtml",
-            "*.rd",
-            "*.Rd",
-            "*.h",
-            "*.hpp",
-            "*.c",
-            "*.cpp"
+            "*.Rmd"
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "renumber",
+        "query" : "included",
         "regex" : false
     }
 }

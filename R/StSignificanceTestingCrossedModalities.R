@@ -15,7 +15,7 @@
 #' @examples
 #' \donttest{ 
 #' ## read the raw data file in extdata directory
-#' crossedFileName <- system.file("extdata", "includedCrossedModalitiesData.xlsx", 
+#' crossedFileName <- system.file("extdata", "CrossedModalitiesData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' crossedData <- DfReadCrossedModalities(crossedFileName)
 #' retCrossed1 <- StSignificanceTestingCrossedModalities(crossedData, 1)

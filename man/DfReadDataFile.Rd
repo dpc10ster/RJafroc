@@ -40,19 +40,19 @@ Read a disk file and create a dataset object from it.
 }
 \examples{
 \donttest{
-fileName <- system.file("extdata", "includedRocData.xlsx", 
+fileName <- system.file("extdata", "RocData.xlsx", 
 package = "RJafroc", mustWork = TRUE)
 RocDataXlsx <- DfReadDataFile(fileName)
 
-fileName <- system.file("extdata", "includedRocData.csv", 
+fileName <- system.file("extdata", "RocData.csv", 
 package = "RJafroc", mustWork = TRUE)
 RocDataCsv<- DfReadDataFile(fileName, format = "MRMC")
 
-fileName <- system.file("extdata", "includedRocData.imrmc", 
+fileName <- system.file("extdata", "RocData.imrmc", 
 package = "RJafroc", mustWork = TRUE)
 RocDataImrmc<- DfReadDataFile(fileName, format = "iMRMC")
 
-fileName <- system.file("extdata", "includedFrocData.xlsx", 
+fileName <- system.file("extdata", "FrocData.xlsx", 
 package = "RJafroc", mustWork = TRUE)
 FrocDataXlsx <- DfReadDataFile(fileName, sequentialNames = TRUE)
 

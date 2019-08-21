@@ -57,12 +57,12 @@ Examination of the output reveals that:
 * The ratings of the 2 ROI-level-diseased ROIs on this case are `r datasetROI$LL[1,1,1,][is.finite(datasetROI$LL[1,1,1,])]`. The mean rating over all ROI-level-diseased ROIs is `r mean(datasetROI$LL[is.finite(datasetROI$LL)])`.  
 
 ## The ROI  Excel data file
-An Excel file in JAFROC format containing simulated ROI data corresponding to `datasetROI`, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object `ds`.  
+An Excel file in JAFROC format containing simulated ROI data corresponding to `datasetROI`, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object `ds`. !!!DPC!!! 
 ```{r}
-fileName <- system.file(
-    "extdata", "includedRoiData.xlsx", package = "RJafroc", mustWork = TRUE)
-ds <- DfReadDataFile(fileName)
-ds$dataType
+## fileName <- system.file(
+##     "extdata", "RoiData.xlsx", package = "RJafroc", mustWork = TRUE)
+## ds <- DfReadDataFile(fileName)
+## ds$dataType
 ```             
 The `DfReadDataFile` function automatically recognizes that this is an *ROI* dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets: 
 

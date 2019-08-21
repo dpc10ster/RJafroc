@@ -26,19 +26,19 @@
 #' 
 #' @examples
 #' \donttest{
-#' fileName <- system.file("extdata", "includedRocData.xlsx", 
+#' fileName <- system.file("extdata", "RocData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' RocDataXlsx <- DfReadDataFile(fileName)
 #' 
-#' fileName <- system.file("extdata", "includedRocData.csv", 
+#' fileName <- system.file("extdata", "RocData.csv", 
 #' package = "RJafroc", mustWork = TRUE)
 #' RocDataCsv<- DfReadDataFile(fileName, format = "MRMC")
 #' 
-#' fileName <- system.file("extdata", "includedRocData.imrmc", 
+#' fileName <- system.file("extdata", "RocData.imrmc", 
 #' package = "RJafroc", mustWork = TRUE)
 #' RocDataImrmc<- DfReadDataFile(fileName, format = "iMRMC")
 #' 
-#' fileName <- system.file("extdata", "includedFrocData.xlsx", 
+#' fileName <- system.file("extdata", "FrocData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' FrocDataXlsx <- DfReadDataFile(fileName, sequentialNames = TRUE)
 #' 
@@ -597,7 +597,7 @@ isROIDataset <- function(NL, LL, Truth_LesionIDColumn)
       # ROIs (i.e., -Infs) are counted
       # On such cases, all ROIs are marked and one does not expect any missing 
       # entries; if a missing entry is found, then dataset is not ROI.
-      # As an example, in includedRoiData.xlsx all caseIDs < 51 correspond to non-diseased cases
+      # As an example, in RoiData.xlsx all caseIDs < 51 correspond to non-diseased cases
       # For each such case, one has 4 ratings, i.e., Q = 4, assumed constant for all 
       # cases
       if (any(NL[i, j, 1:K1, ] == UNINITIALIZED)) {
