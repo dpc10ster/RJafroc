@@ -1,3 +1,12 @@
+# check new vs. old data file read codes
+# this is actually implemented in testthat
+# but is kind of easier to run from here, as all Run Source options are available
+dsNew <- DfReadDataFile("~/GitHub/RJafroc/inst/extdata/toyFiles/FROC/OK.xlsx")
+dsOld <- DfReadDataFile("~/GitHub/RJafroc/inst/extdata/toyFiles/FROC/OK.xlsx", newFormat = FALSE)
+library(testthat)
+expect_equal(dsNew, dsOld)
+
+#overwrite crossed modality data file
 save(datasetCrossedModality, file = "~/GitHub/RJafroc/data/datasetCrossedModality.RData")
 
 ## read the raw data file in extdata directory

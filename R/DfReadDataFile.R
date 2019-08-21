@@ -20,7 +20,8 @@
 #'    and reader IDs in the original data file will be used.
 #' @param splitPlot A logical variable, default \code{FALSE}, denoting a split plot design.
 #'    If \code{TRUE} each reader interprets one case in all modalities. Currently only
-#'    ROC dataset is supported. 
+#'    ROC dataset is supported. Note that the Excel input file must use the new format
+#'    with 3-additional columns, and the \code{newFormat} option must be \code{TRUE}
 #' @param newFormat This only applies to the \code{"JAFROC"} format. 
 #'    The default is \code{TRUE}, resulting in the new extended read 
 #'    function being used. If \code{FALSE}, the original function, as in version 
@@ -55,11 +56,12 @@
 
 DfReadDataFile <- function (fileName, format = "JAFROC", delimiter = ",", sequentialNames = FALSE, splitPlot = FALSE, newFormat = TRUE) 
 {
+  if (!newFormat && splitPlot) stop("Split plot analysis is only possible with the new Excel data file format (with 6 columns in the Truth worksheet).\n")
   if (format == "JAFROC") {
     if (!(file_ext(fileName) %in% c("xls", "xlsx"))) 
       stop("The extension of JAFROC data file must be \"*.xls\" or \"*.xlsx\" ")
     if (!newFormat) 
-      return((DfReadDataFileOld(fileName, sequentialNames = FALSE))) 
+      return((DfReadDataFileOld(fileName, sequentialNames))) 
     else 
       return(ReadJAFROC(fileName, sequentialNames, splitPlot))
   } else {
@@ -101,11 +103,11 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (truthFileIndex == 0) 
     stop("TRUTH table cannot be found in the dataset.")
-  TruthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:7)
-  paradigm <- toupper(TruthTable[,6][which(!is.na(TruthTable[,6]))])
+  TruthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:6)
+  paradigm <- (toupper(TruthTable[,6][which(!is.na(TruthTable[,6]))]))[1]
+  design <- (toupper(TruthTable[,6][which(!is.na(TruthTable[,6]))]))[2]
   if (!(paradigm %in% c("FROC", "ROC"))) stop("Unsupported paradigm.\n")
-  design <- toupper(TruthTable[,7][which(!is.na(TruthTable[,7]))])
-  if (!(design %in% c("CROSSED", "CROSSED"))) stop("Unsupported design.\n")
+  if (!(design %in% c("CROSSED", "SPLIT-PLOT"))) stop("Unsupported design.\n")
   retTruth <- checkTruthTable(TruthTable)
   Truth_CaseIDColumn <- retTruth$Truth_CaseIDColumn
   lesionVector <- retTruth$lesionVector
@@ -123,7 +125,7 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
     stop("FP/NL table cannot be found in the dataset.")
   NLTable <- read.xlsx(fileName, nlFileIndex, cols = 1:4)
   retNL <- checkNLTable(retTruth, NLTable)
-  NLReaderID <- retNL$NLReaderID
+  ## NLReaderID <- retNL$NLReaderID
   ###################### END CHECK NL TABLE #################################
   
   
@@ -905,7 +907,7 @@ ReadImrmc <- function(fileName, sequentialNames)
   lesionVector <- rep(1, K2)
   lesionID <- array(1, dim = c(K2, 1))
   lesionWeight <- lesionID
-  maxNL <- 1
+  #maxNL <- 1
   dataType <- "ROC"
   
   modalityNames <- modalityID
@@ -931,7 +933,7 @@ ReadImrmc <- function(fileName, sequentialNames)
 } 
 
 
-DfReadDataFileOld <- function(fileName, sequentialNames = FALSE) {
+DfReadDataFileOld <- function(fileName, sequentialNames) {
     return(ReadJAFROCOld(fileName, sequentialNames))
 } 
 

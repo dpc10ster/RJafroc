@@ -30,7 +30,8 @@ and reader IDs in the original data file will be used.}
 
 \item{splitPlot}{A logical variable, default \code{FALSE}, denoting a split plot design.
 If \code{TRUE} each reader interprets one case in all modalities. Currently only
-ROC dataset is supported.}
+ROC dataset is supported. Note that the Excel input file must use the new format
+with 3-additional columns, and the \code{newFormat} option must be \code{TRUE}}
 
 \item{newFormat}{This only applies to the \code{"JAFROC"} format. 
 The default is \code{TRUE}, resulting in the new extended read 
