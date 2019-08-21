@@ -10,6 +10,17 @@
 #'    as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,  
 #'    \code{.csv} or \code{.txt} or \code{.lrc}. For file extension 
 #'    \code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.
+#'    The presence of a second format parameter \code{newFormat}, see below, may be
+#'    confusing, so here goes: \code{format} distinguishes between different file
+#'    formats for FROC and ROC data (like Excel format, text format etc.), it is an 
+#'    \emph{inter-variable}, while \code{newFormat} distinguishes between 
+#'    different \emph{study designs}, e.g., fully-crossed or split-plot, within 
+#'    the Excel format, like an \emph{inter-variable}.    
+#' @param newFormat This only applies to the \code{"JAFROC"} format. 
+#'    The default is \code{TRUE}, resulting in the new extended read 
+#'    function being used. If \code{FALSE}, the original function, as in version 
+#'    1.2.0 is used. The extended read function has 3 additional columns
+#'    in the \code{Truth} worksheet.    
 #' @param delimiter The string delimiter to be used for the \code{"MRMC"} 
 #'    format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.
 #'    This parameter is not used when reading \code{"JAFROC"} 
@@ -22,11 +33,6 @@
 #'    If \code{TRUE} each reader interprets one case in all modalities. Currently only
 #'    ROC dataset is supported. Note that the Excel input file must use the new format
 #'    with 3-additional columns, and the \code{newFormat} option must be \code{TRUE}
-#' @param newFormat This only applies to the \code{"JAFROC"} format. 
-#'    The default is \code{TRUE}, resulting in the new extended read 
-#'    function being used. If \code{FALSE}, the original function, as in version 
-#'    1.2.0 is used. The extended read function has 3 additional columns
-#'    in the \code{Truth} worksheet.    
 #' 
 #' @return A dataset with the structure specified in \code{\link{RJafroc-package}}.
 #' 
@@ -54,7 +60,7 @@
 #' @importFrom stringr str_trim
 #' @export
 
-DfReadDataFile <- function (fileName, format = "JAFROC", delimiter = ",", sequentialNames = FALSE, splitPlot = FALSE, newFormat = TRUE) 
+DfReadDataFile <- function (fileName, format = "JAFROC", newFormat = TRUE, delimiter = ",", sequentialNames = FALSE, splitPlot = FALSE) 
 {
   if (!newFormat && splitPlot) stop("Split plot analysis is only possible with the new Excel data file format (with 6 columns in the Truth worksheet).\n")
   if (format == "JAFROC") {
