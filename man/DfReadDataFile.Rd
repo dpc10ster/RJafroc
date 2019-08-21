@@ -5,7 +5,7 @@
 \title{Read a data file}
 \usage{
 DfReadDataFile(fileName, format = "JAFROC", delimiter = ",",
-  sequentialNames = FALSE, splitPlot = FALSE)
+  sequentialNames = FALSE, splitPlot = FALSE, newFormat = TRUE)
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file. 
@@ -31,6 +31,12 @@ and reader IDs in the original data file will be used.}
 \item{splitPlot}{A logical variable, default \code{FALSE}, denoting a split plot design.
 If \code{TRUE} each reader interprets one case in all modalities. Currently only
 ROC dataset is supported.}
+
+\item{newFormat}{This only applies to the \code{"JAFROC"} format. 
+The default is \code{TRUE}, resulting in the new extended read 
+function being used. If \code{FALSE}, the original function, as in version 
+1.2.0 is used. The extended read function has 3 additional columns
+in the \code{Truth} worksheet.}
 }
 \value{
 A dataset with the structure specified in \code{\link{RJafroc-package}}.

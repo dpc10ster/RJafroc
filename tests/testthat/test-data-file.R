@@ -330,7 +330,7 @@ test_that("Toy datasets", {
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/OK.xlsx", package = "RJafroc", mustWork = TRUE)
 
-  dsOld <- DfReadDataFileOld(fileName)
+  dsOld <- DfReadDataFile(fileName, newFormat = FALSE)
   dsNew <- DfReadDataFile(fileName)
   expect_equal(dsOld, dsNew)
   
