@@ -19,10 +19,10 @@ as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,
 \code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.
 The presence of a second format parameter \code{newFormat}, see below, may be
 confusing, so here goes: \code{format} distinguishes between different file
-formats for FROC and ROC data (like Excel format, text format etc.), it is an 
-\emph{inter-variable}, while \code{newFormat} distinguishes between 
-different \emph{study designs}, e.g., fully-crossed or split-plot, within 
-the Excel format, like an \emph{inter-variable}.}
+formats for FROC and ROC data (like Excel format, text format etc.), analogous to an 
+\bold{inter-distinction}, while \code{newFormat} distinguishes between 
+different \bold{study designs}, e.g., fully-crossed or split-plot, within 
+the Excel format, analogous to an \bold{intra-distinction}.}
 
 \item{newFormat}{This only applies to the \code{"JAFROC"} format. 
 The default is \code{TRUE}, resulting in the new extended read 

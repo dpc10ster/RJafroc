@@ -42,8 +42,11 @@ test_that("DfReadDataFile and toy datasets", {
   expect_warning(expect_error(DfReadDataFile(fileName)))
   
   fileName <- system.file(
-    "extdata", "/toyFiles/FROC/OK.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/ROC/incorrectSheetName.xlsx", package = "RJafroc", mustWork = TRUE)
+ expect_error(DfReadDataFile(fileName))
   
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/OK.xlsx", package = "RJafroc", mustWork = TRUE)
   dsOld <- DfReadDataFile(fileName, newFormat = FALSE)
   dsNew <- DfReadDataFile(fileName)
   expect_equal(dsOld, dsNew)

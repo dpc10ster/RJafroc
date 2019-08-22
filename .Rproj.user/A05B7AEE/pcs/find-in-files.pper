@@ -8,7 +8,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "\\emph",
+        "query" : "\\bold",
         "regex" : false
     }
 }

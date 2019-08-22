@@ -1,5 +1,5 @@
 {
-    "path" : "~/GitHub/RJafroc/inst/extdata",
+    "path" : "~/GitHub/RJafroc/tests/testthat",
     "sortOrder" : [
         {
             "ascending" : false,

@@ -1,6 +1,36 @@
 {
     "debugBreakpointsState" : {
         "breakpoints" : [
+            {
+                "editor_line_number" : 500,
+                "editor_state" : 1,
+                "function_name" : "isCrossedRocDataset",
+                "function_steps" : "22",
+                "id" : 19,
+                "is_package_breakpoint" : true,
+                "is_pending_debug_completion" : false,
+                "line_number" : 500,
+                "needs_updated_steps" : true,
+                "package_name" : "RJafroc",
+                "path" : "~/GitHub/RJafroc/R/DfReadDataFile.R",
+                "state" : 1,
+                "type" : 0
+            },
+            {
+                "editor_line_number" : 212,
+                "editor_state" : 1,
+                "function_name" : "ReadJAFROC",
+                "function_steps" : "47",
+                "id" : 25,
+                "is_package_breakpoint" : true,
+                "is_pending_debug_completion" : false,
+                "line_number" : 212,
+                "needs_updated_steps" : false,
+                "package_name" : "RJafroc",
+                "path" : "~/GitHub/RJafroc/R/DfReadDataFile.R",
+                "state" : 1,
+                "type" : 0
+            }
         ]
     }
 }

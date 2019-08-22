@@ -12,10 +12,10 @@
 #'    \code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.
 #'    The presence of a second format parameter \code{newFormat}, see below, may be
 #'    confusing, so here goes: \code{format} distinguishes between different file
-#'    formats for FROC and ROC data (like Excel format, text format etc.), it is an 
-#'    \emph{inter-variable}, while \code{newFormat} distinguishes between 
-#'    different \emph{study designs}, e.g., fully-crossed or split-plot, within 
-#'    the Excel format, like an \emph{inter-variable}.    
+#'    formats for FROC and ROC data (like Excel format, text format etc.), analogous to an 
+#'    \bold{inter-distinction}, while \code{newFormat} distinguishes between 
+#'    different \bold{study designs}, e.g., fully-crossed or split-plot, within 
+#'    the Excel format, analogous to an \bold{intra-distinction}.    
 #' @param newFormat This only applies to the \code{"JAFROC"} format. 
 #'    The default is \code{TRUE}, resulting in the new extended read 
 #'    function being used. If \code{FALSE}, the original function, as in version 
@@ -67,7 +67,7 @@ DfReadDataFile <- function (fileName, format = "JAFROC", newFormat = TRUE, delim
     if (!(file_ext(fileName) %in% c("xls", "xlsx"))) 
       stop("The extension of JAFROC data file must be \"*.xls\" or \"*.xlsx\" ")
     if (!newFormat) 
-      return((DfReadDataFileOld(fileName, sequentialNames))) 
+      return((ReadJAFROCOld(fileName, sequentialNames))) 
     else 
       return(ReadJAFROC(fileName, sequentialNames, splitPlot))
   } else {
@@ -206,7 +206,8 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
   
   LL[is.na(LL)] <- UNINITIALIZED
   
-  #temp <- isCrossedRocDataset (TruthTable, NLTable, LLTable)
+  temp <- isCrossedRocDataset (TruthTable, NLTable, LLTable)
+  temp <- isSplitPlotRocDataset (TruthTable, NLTable, LLTable)
   
   if (paradigm == "ROC") {
     if (!isROCDataset (NL, LL, Truth_CaseIDColumn)) stop("Data file does not appear to be ROC paradigm")
@@ -258,11 +259,10 @@ checkTruthTable <- function (TruthTable)
   }
   if (errorMsg != "") stop(errorMsg)
   
-  errorMsg <- ""
   for (i in 1:2) { 
     # Truth_CaseIDColumn and Truth_LesionIDColumn checks
     # no empty cells in Truth worksheet
-    # now check that Truth_CaseIDColumn and lesionIDs are integers, if not it stop
+    # now check that Truth_CaseIDColumn and lesionIDs are integers, if not stop
     # with an error message indicating which line is at fault
     ID <- ((as.numeric(as.character(TruthTable[, i])) %% 1) != 0) 
     if (any(ID)) {
@@ -299,7 +299,7 @@ checkTruthTable <- function (TruthTable)
   }
   
   # this duplicates original Xuetong code below, but what the hell
-  if (length(abnormalCases) == length(Truth_LesionIDColumn)) {
+  if (length(abnormalCases) == length(Truth_LesionIDColumn[Truth_LesionIDColumn >= 1])) {
     # looks like single lesion per abn. case data, therefore
     # weights should be zero or one
     wghts <- as.numeric(as.character(TruthTable[, 3]))
@@ -321,7 +321,8 @@ checkTruthTable <- function (TruthTable)
   errorMsg <- ""
   for (k2 in 1:length(abnormalCases)) {
     k <- which(Truth_CaseIDColumn == abnormalCases[k2])
-    lesionIDLabels[k2, ] <- c(sort(Truth_LesionIDColumn[k]), rep(UNINITIALIZED, max(Truth_LesionIDColumn) - length(k)))
+    lesionIDLabels[k2, ] <- c(sort(Truth_LesionIDColumn[k]), 
+                              rep(UNINITIALIZED, max(Truth_LesionIDColumn) - length(k)))
     if (all(Truth_WeightColumn[k] == 0)) {
       lesionWeight[k2, 1:length(k)] <- 1/Truth_LesionIDColumn[k2]
     } else {
@@ -455,18 +456,44 @@ checkLLTable <- function (retTruth, retNL, LLTable)
 isCrossedRocDataset <- function(TruthTable, NLTable, LLTable)
 {
   # examine TRUTH worksheet 
-  readerColumn <- strsplit(TruthTable$ReaderID, split = ",", fixed = TRUE)
-  readerID <- unique(readerColumn) 
-  K <- length(readerColumn)# total number of cases read by all readers
-  J <- length(readerID[[1]]) # number of readers
+  K <- length(TruthTable[[1]])  # total number of cases read by each reader
+  readerIDColumn <- strsplit(TruthTable$ReaderID, split = ",", fixed = TRUE)
+  readerID <- unlist(unique(readerIDColumn)) 
+  J <- length(readerID) # number of readers
+
+  K1 <- length(TruthTable[[2]][TruthTable[[2]] == 0]) 
+  K2 <- length(TruthTable[[2]][TruthTable[[2]] > 0]) 
+  if (K != (K1 + K2)) stop ("Unknown error in isCrossedRocDataset")
   
+  K <- length(readerIDColumn)# total number of cases read by each reader
+  readerID <- unlist(unique(readerIDColumn)) 
+  J <- length(readerID) # number of readers
+  
+  modalityIDColumn <- strsplit(TruthTable$ModalityID, split = ",", fixed = TRUE)
+  modalityID <- unlist(unique(modalityIDColumn)) 
+  I <- length(modalityID)
+
   rdrColInt <- scan(text = TruthTable$ReaderID, sep = ",", quiet = TRUE)
   dim(rdrColInt) <- c(J, length(rdrColInt)/J)
   for (k in 1:K) { 
     # this shows user intends this to be a fully crossed file
-    if (!all(readerColumn[[k]] == readerColumn[[1]])) return (FALSE)
+    if (!all(readerIDColumn[[k]] == readerIDColumn[[1]])) return (FALSE)
   }
-  if (length(TruthTable[[1]]) != K)  return (FALSE) # total number of cases read by all readers
+  
+  for (i in 1:5)
+  {
+    if (length(TruthTable[[i]]) != K) return (FALSE) 
+  }
+  
+  for (i in 1:4)
+  {
+    if (length(NLTable[[i]]) != (I*J*K1)) return (FALSE) 
+  }
+  
+  for (i in 1:5)
+  {
+    if (length(LLTable[[i]]) != (I*J*K2)) return (FALSE) 
+  }
   
   # examine NL worksheet 
   modalityID <- unique(NLTable[[2]])
@@ -571,13 +598,13 @@ isSplitPlotRocDataset <- function(TruthTable, NLTable, LLTable)
 isROCDataset <- function(NL, LL, Truth_CaseIDColumn)
 {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-
+  
   K <- length(NL[1,1,,1])
   K2 <- length(LL[1,1,,1])
   K1 <- K - K2
   maxNL <- length(NL[1,1,1,])
   maxLL <- length(LL[1,1,1,])
-
+  
   if (max(table(Truth_CaseIDColumn)) != 1) return (FALSE) # number of occurrences of each Truth_CaseIDColumn value
   if (maxNL != 1) return (FALSE)
   if (all((NL[, , (K1 + 1):K, ] != UNINITIALIZED))) return (FALSE)
@@ -936,11 +963,6 @@ ReadImrmc <- function(fileName, sequentialNames)
     dataType = dataType, 
     modalityID = modalityID, 
     readerID = readerID))
-} 
-
-
-DfReadDataFileOld <- function(fileName, sequentialNames) {
-    return(ReadJAFROCOld(fileName, sequentialNames))
 } 
 
 
