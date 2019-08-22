@@ -206,8 +206,8 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
   
   LL[is.na(LL)] <- UNINITIALIZED
   
-  temp <- isCrossedRocDataset (TruthTable, NLTable, LLTable)
-  temp <- isSplitPlotRocDataset (TruthTable, NLTable, LLTable)
+  # temp <- isCrossedRocDataset (TruthTable, NLTable, LLTable)
+  # temp <- isSplitPlotRocDataset (TruthTable, NLTable, LLTable)
   
   if (paradigm == "ROC") {
     if (!isROCDataset (NL, LL, Truth_CaseIDColumn)) stop("Data file does not appear to be ROC paradigm")
