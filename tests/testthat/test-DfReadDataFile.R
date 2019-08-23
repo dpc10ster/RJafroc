@@ -47,10 +47,10 @@ test_that("DfReadDataFile and toy datasets", {
   
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/OK.xlsx", package = "RJafroc", mustWork = TRUE)
-  dsOld <- DfReadDataFile(fileName, plus3ColumnsTruthSheet = FALSE)
+  dsOld <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
   dsNew <- DfReadDataFile(fileName)
   expect_equal(dsOld, dsNew)
-  expect_error(DfReadDataFile(fileName, plus3ColumnsTruthSheet = FALSE, splitPlot = TRUE))
+  expect_error(DfReadDataFile(fileName, newExcelFileFormat = FALSE, splitPlot = TRUE))
   
 })
 

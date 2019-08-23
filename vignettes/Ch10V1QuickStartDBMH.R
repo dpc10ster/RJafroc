@@ -31,7 +31,7 @@ fileName <- "RocData.xlsx"
 sysFileName <- system.file(paste0("extdata/",fileName), package = "RJafroc", mustWork = TRUE)
 
 ## ------------------------------------------------------------------------
-ds <- DfReadDataFile(sysFileName, plus3ColumnsTruthSheet = FALSE) ##!!!DPC!!!
+ds <- DfReadDataFile(sysFileName, newExcelFileFormat = FALSE) ##!!!DPC!!!
 
 ## ------------------------------------------------------------------------
 str(ds)

@@ -10,11 +10,10 @@
 #'    as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,  
 #'    \code{.csv} or \code{.txt} or \code{.lrc}. For file extension 
 #'    \code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.
-#' @param plus3ColumnsTruthSheet This only applies to the \code{"JAFROC"} format. 
-#'    The default is \code{TRUE}, resulting in the new extended read 
-#'    function being used. The extended read function has 3 additional columns
+#' @param newExcelFileFormat This argument only applies to the \code{"JAFROC"} format. 
+#'    The default is \code{TRUE}: the function accommodates 3 additional columns
 #'    in the \code{Truth} worksheet. If \code{FALSE}, the original function, as in version 
-#'    1.2.0 is used.     
+#'    1.2.0 is used, and the three extra columns, if present, are ignored.     
 #' @param delimiter The string delimiter to be used for the \code{"MRMC"} 
 #'    format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.
 #'    This parameter is not used when reading \code{"JAFROC"} 
@@ -26,11 +25,23 @@
 #' @param splitPlot A logical variable, default \code{FALSE}, denoting a split plot design.
 #'    If \code{TRUE} each reader interprets one case in all modalities. Currently only
 #'    ROC dataset is supported. Note that the Excel input file must use the new format
-#'    with 3-additional columns, and the \code{plus3ColumnsTruthSheet} option must be \code{TRUE}
+#'    with 3-additional columns, and the \code{newExcelFileFormat} option must be \code{TRUE}
 #' 
 #' @return A dataset with the structure specified in \code{\link{RJafroc-package}}.
 #' 
 #' @examples
+#' fileName <- system.file("extdata", "toyFiles/ROC/OK.xlsx", 
+#' package = "RJafroc", mustWork = TRUE)
+#' dsNew <- DfReadDataFile(fileName)
+#' dsOld <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
+#' testthat::expect_equal(dsNew, dsOld)
+#'
+#' fileName <- system.file("extdata", "toyFiles/FROC/OK.xlsx", 
+#' package = "RJafroc", mustWork = TRUE)
+#' ds1New <- DfReadDataFile(fileName)
+#' ds1Old <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
+#' testthat::expect_equal(ds1New, ds1Old)
+#' 
 #' \donttest{
 #' fileName <- system.file("extdata", "RocData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
@@ -54,16 +65,16 @@
 #' @importFrom stringr str_trim
 #' @export
 
-DfReadDataFile <- function (fileName, format = "JAFROC", plus3ColumnsTruthSheet = TRUE, delimiter = ",", sequentialNames = FALSE, splitPlot = FALSE) 
+DfReadDataFile <- function (fileName, format = "JAFROC", newExcelFileFormat = TRUE, delimiter = ",", sequentialNames = FALSE, splitPlot = FALSE) 
 {
   
-  if (!plus3ColumnsTruthSheet && splitPlot) 
+  if (!newExcelFileFormat && splitPlot) 
     stop("Split plot analysis is only possible with the new Excel data file format (with 6 columns in the Truth worksheet).\n")
   
   if (format == "JAFROC") {
     if (!(file_ext(fileName) %in% c("xls", "xlsx"))) 
       stop("The extension of JAFROC data file must be \"*.xls\" or \"*.xlsx\" ")
-    if (!plus3ColumnsTruthSheet) 
+    if (!newExcelFileFormat) 
       return((ReadJAFROCOld(fileName, sequentialNames))) 
     else 
       return(ReadJAFROC(fileName, sequentialNames, splitPlot))
@@ -132,7 +143,7 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
   ###################### END CHECK NL TABLE #################################
   
   
-  ###################### START CHECK NL TABLE ###############################
+  ###################### START CHECK LL TABLE ###############################
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (llFileIndex == 0) 
     stop("TP/LL table cannot be found in the dataset.")
@@ -204,7 +215,7 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
   LL[is.na(LL)] <- UNINITIALIZED
   
   if ((paradigm == "ROC") && (design == "CROSSED") && !isCrossedRocDataset (TruthTable, NLTable, LLTable)) 
-    stop("Data design does not appear to be fully-crossed")
+    stop("Data design does not appear to be fully-crossed ROC")
   #temp <- isSplitPlotRocDataset (TruthTable, NLTable, LLTable)
   
   if (paradigm == "ROC") {
