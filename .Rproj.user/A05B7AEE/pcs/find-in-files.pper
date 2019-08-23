@@ -8,7 +8,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "\\bold",
+        "query" : "plus3ColumnsTruthSheet",
         "regex" : false
     }
 }

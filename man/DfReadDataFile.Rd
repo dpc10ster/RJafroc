@@ -4,8 +4,9 @@
 \alias{DfReadDataFile}
 \title{Read a data file}
 \usage{
-DfReadDataFile(fileName, format = "JAFROC", newFormat = TRUE,
-  delimiter = ",", sequentialNames = FALSE, splitPlot = FALSE)
+DfReadDataFile(fileName, format = "JAFROC",
+  plus3ColumnsTruthSheet = TRUE, delimiter = ",",
+  sequentialNames = FALSE, splitPlot = FALSE)
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file. 
@@ -16,19 +17,13 @@ It can be \code{"JAFROC"} (the default), \code{"MRMC"} or \code{"iMRMC"}.
 For \code{"MRMC"} the format is determined by the data file extension 
 as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,  
 \code{.csv} or \code{.txt} or \code{.lrc}. For file extension 
-\code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.
-The presence of a second format parameter \code{newFormat}, see below, may be
-confusing, so here goes: \code{format} distinguishes between different file
-formats for FROC and ROC data (like Excel format, text format etc.), analogous to an 
-\bold{inter-distinction}, while \code{newFormat} distinguishes between 
-different \bold{study designs}, e.g., fully-crossed or split-plot, within 
-the Excel format, analogous to an \bold{intra-distinction}.}
+\code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.}
 
-\item{newFormat}{This only applies to the \code{"JAFROC"} format. 
+\item{plus3ColumnsTruthSheet}{This only applies to the \code{"JAFROC"} format. 
 The default is \code{TRUE}, resulting in the new extended read 
-function being used. If \code{FALSE}, the original function, as in version 
-1.2.0 is used. The extended read function has 3 additional columns
-in the \code{Truth} worksheet.}
+function being used. The extended read function has 3 additional columns
+in the \code{Truth} worksheet. If \code{FALSE}, the original function, as in version 
+1.2.0 is used.}
 
 \item{delimiter}{The string delimiter to be used for the \code{"MRMC"} 
 format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.
@@ -43,7 +38,7 @@ and reader IDs in the original data file will be used.}
 \item{splitPlot}{A logical variable, default \code{FALSE}, denoting a split plot design.
 If \code{TRUE} each reader interprets one case in all modalities. Currently only
 ROC dataset is supported. Note that the Excel input file must use the new format
-with 3-additional columns, and the \code{newFormat} option must be \code{TRUE}}
+with 3-additional columns, and the \code{plus3ColumnsTruthSheet} option must be \code{TRUE}}
 }
 \value{
 A dataset with the structure specified in \code{\link{RJafroc-package}}.

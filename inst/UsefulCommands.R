@@ -3,9 +3,10 @@
 # but is kind of easier to run from here, as all Run Source options are available
 ds <- DfReadDataFile("~/GitHub/RJafroc/inst/extdata/toyFiles/ROC/OK.xlsx")
 dsNew <- DfReadDataFile("~/GitHub/RJafroc/inst/extdata/toyFiles/FROC/OK.xlsx")
-dsOld <- DfReadDataFile("~/GitHub/RJafroc/inst/extdata/toyFiles/FROC/OK.xlsx", newFormat = FALSE)
+dsOld <- DfReadDataFile("~/GitHub/RJafroc/inst/extdata/toyFiles/FROC/OK.xlsx", plus3ColumnsTruthSheet = FALSE)
 library(testthat)
 expect_equal(dsNew, dsOld)
+
 
 #overwrite crossed modality data file
 save(datasetCrossedModality, file = "~/GitHub/RJafroc/data/datasetCrossedModality.RData")
