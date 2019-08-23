@@ -2,14 +2,14 @@
     "debugBreakpointsState" : {
         "breakpoints" : [
             {
-                "editor_line_number" : 101,
+                "editor_line_number" : 496,
                 "editor_state" : 1,
-                "function_name" : "ReadJAFROC",
-                "function_steps" : "3",
-                "id" : 26,
+                "function_name" : "isCrossedRocDataset",
+                "function_steps" : "19",
+                "id" : 7,
                 "is_package_breakpoint" : true,
                 "is_pending_debug_completion" : false,
-                "line_number" : 101,
+                "line_number" : 496,
                 "needs_updated_steps" : false,
                 "package_name" : "RJafroc",
                 "path" : "~/GitHub/RJafroc/R/DfReadDataFile.R",

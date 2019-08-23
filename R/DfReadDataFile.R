@@ -206,8 +206,8 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
   
   LL[is.na(LL)] <- UNINITIALIZED
   
-  # temp <- isCrossedRocDataset (TruthTable, NLTable, LLTable)
-  # temp <- isSplitPlotRocDataset (TruthTable, NLTable, LLTable)
+  isCrossedRocDataset (TruthTable, NLTable, LLTable)
+  #temp <- isSplitPlotRocDataset (TruthTable, NLTable, LLTable)
   
   if (paradigm == "ROC") {
     if (!isROCDataset (NL, LL, Truth_CaseIDColumn)) stop("Data file does not appear to be ROC paradigm")
@@ -246,6 +246,11 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
 checkTruthTable <- function (TruthTable) 
 {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  
+  K <- length(TruthTable[[1]])  # total number of cases read by each reader
+  K1 <- length(TruthTable[[2]][TruthTable[[2]] == 0]) 
+  K2 <- length(TruthTable[[2]][TruthTable[[2]] > 0]) 
+  if (K != (K1 + K2)) stop ("Unknown error: cases dont add up, in checkTruthTable")
   
   errorMsg <- ""
   for (i in 1:4) { # check for empty cells in Truth worksheet
@@ -455,90 +460,70 @@ checkLLTable <- function (retTruth, retNL, LLTable)
 # still working on this
 isCrossedRocDataset <- function(TruthTable, NLTable, LLTable)
 {
-  # examine TRUTH worksheet 
   K <- length(TruthTable[[1]])  # total number of cases read by each reader
-  readerIDColumn <- strsplit(TruthTable$ReaderID, split = ",", fixed = TRUE)
-  readerID <- unlist(unique(readerIDColumn)) 
-  J <- length(readerID) # number of readers
-
   K1 <- length(TruthTable[[2]][TruthTable[[2]] == 0]) 
   K2 <- length(TruthTable[[2]][TruthTable[[2]] > 0]) 
-  if (K != (K1 + K2)) stop ("Unknown error in isCrossedRocDataset")
+  if (K != (K1 + K2)) stop ("Unknown error: cases dont add up, in isCrossedRocDataset")
   
-  K <- length(readerIDColumn)# total number of cases read by each reader
+  readerIDColumn <- strsplit(TruthTable$ReaderID, split = ",", fixed = TRUE)
   readerID <- unlist(unique(readerIDColumn)) 
   J <- length(readerID) # number of readers
   
   modalityIDColumn <- strsplit(TruthTable$ModalityID, split = ",", fixed = TRUE)
   modalityID <- unlist(unique(modalityIDColumn)) 
   I <- length(modalityID)
-
-  rdrColInt <- scan(text = TruthTable$ReaderID, sep = ",", quiet = TRUE)
-  dim(rdrColInt) <- c(J, length(rdrColInt)/J)
-  for (k in 1:K) { 
-    # this shows user intends this to be a fully crossed file
-    if (!all(readerIDColumn[[k]] == readerIDColumn[[1]])) return (FALSE)
-  }
   
-  for (i in 1:5)
-  {
-    if (length(TruthTable[[i]]) != K) return (FALSE) 
-  }
+  # check lengths of all three worksheets
+  for (i in 1:5) if (length(TruthTable[[i]]) != K) return (FALSE) 
+  for (i in 1:4) if (length(NLTable[[i]]) != (I*J*K1)) return (FALSE) 
+  for (i in 1:5) if (length(LLTable[[i]]) != (I*J*K2)) return (FALSE) 
   
-  for (i in 1:4)
-  {
-    if (length(NLTable[[i]]) != (I*J*K1)) return (FALSE) 
+  # examine TRUTH worksheet 
+  caseID <- TruthTable$CaseID 
+  designArray <- array(dim = c(I, J, K)) 
+  for (i in 1:I) {
+    for (j in 1:J) {
+      for (k in 1:K) {
+        designArray[which(modalityID == modalityID[i]),
+                    which(readerID == readerID[j]),
+                    which(caseID == caseID[k])] <- 1
+      }
+    }
   }
-  
-  for (i in 1:5)
-  {
-    if (length(LLTable[[i]]) != (I*J*K2)) return (FALSE) 
-  }
+  if (!all(designArray == 1)) return (FALSE)
   
   # examine NL worksheet 
-  modalityID <- unique(NLTable[[2]])
-  I <- length(modalityID) # number of modalities
-  Kj <- array(dim = J) # total number of cases read by reader j
-  K1j <- array(dim = J) # total number of normal cases read by reader j
-  K2j <- array(dim = J) # total number of abnormal cases read by reader j
-  Knested <- array(dim = c(J, K)) # IDs of cases read by reader j
-  K1nested <- array(dim = c(J, K)) # IDs of normal cases read by reader j
-  K2nested <- array(dim = c(J, K)) # IDs of abnormal cases read by reader j
-  for (j in 1:J) {
-    temp <- TruthTable[[1]][which(TruthTable[[4]] == j)]
-    temp1 <- TruthTable[[1]][which((TruthTable[[4]] == j) & (TruthTable[[2]] == 0))]
-    temp2 <- TruthTable[[1]][which((TruthTable[[4]] == j) & (TruthTable[[2]] == 1))]
-    Kj[j] <- length(temp)
-    K1j[j] <- length(temp1)
-    K2j[j] <- length(temp2)
-    Knested[j,1:Kj[j]] <- temp
-    K1nested[j,1:K1j[j]] <- temp1
-    K2nested[j,1:K2j[j]] <- temp2
+  caseID <- NLTable$CaseID 
+  readerIDColumn <- strsplit(NLTable$ReaderID, split = ",", fixed = TRUE)
+  readerID <- unlist(unique(readerIDColumn)) 
+
+  modalityIDColumn <- strsplit(NLTable$ModalityID, split = ",", fixed = TRUE)
+  modalityID <- unlist(unique(modalityIDColumn)) 
+
+  designArray <- array(dim = c(I, J, K)) 
+  for (i in 1:I) {
+    for (j in 1:J) {
+      for (k in 1:K) {
+        designArray[which(modalityID == modalityID[i]),
+                    which(readerID == readerID[j]),
+                    which(caseID == caseID[k])] <- 1
+      }
+    }
   }
+  if (!all(designArray == 1)) return (FALSE)
   
-  for (j in 1:J) {
-    cat("\nj = ", j, "\n")
-    cat("Cases, non-diseased followed by diseased", "\n")
-    cat(K1nested[j,1:K1j[j]],"\n")
-    cat(K2nested[j,1:K2j[j]],"\n")
-    cat("Non-diseased ratings, in modality 1 followed by modality 2", "\n")
-    cat(NLTable[[4]][which((NLTable[[1]] == j) & (NLTable[[3]] %in% K1nested[j,]) & (NLTable[[2]] == 1))],"\n")
-    cat(NLTable[[4]][which((NLTable[[1]] == j) & (NLTable[[3]] %in% K1nested[j,]) & (NLTable[[2]] == 2))],"\n")
-    cat("Diseased ratings, in modality 1 followed by modality 2", "\n")
-    cat(LLTable[[5]][which((LLTable[[1]] == j) & (LLTable[[3]] %in% K2nested[j,]) & (LLTable[[2]] == 1))],"\n")
-    cat(LLTable[[5]][which((LLTable[[1]] == j) & (LLTable[[3]] %in% K2nested[j,]) & (LLTable[[2]] == 2))],"\n")
+  designArray <- array(dim = c(I, J, K1)) 
+  for (i in 1:I) {
+    for (j in 1:J) {
+      for (k in 1:K1) {
+        designArray[which(modalityID == modalityID[i]),
+                    which(readerID == readerID[j]),
+                    which(caseID == caseID[k])] <- 1
+      }
+    }
   }
-  # inspect NL table
+  if (!all(designArray == 1)) return (FALSE)
   
-  # tests for ROI data
-  if (!all(is.finite(NLTable[[4]]))) return (FALSE)
-  if (!all(is.finite(LLTable[[5]]))) return (FALSE)
-  for (j in 1:J) {
-    if (!(sum(NLTable[[3]] %in% K1nested[j,1:K1j[j]]) == I*K1j[j])) return (FALSE)
-    if (!(sum(LLTable[[3]] %in% K2nested[j,1:K2j[j]]) == I*K2j[j])) return (FALSE)
-    if (!(nrow(NLTable) == I*sum(K1j))) return (FALSE)
-    if (!(nrow(LLTable) == I*sum(K2j))) return (FALSE)
-  }
   return (TRUE)
 }
 
