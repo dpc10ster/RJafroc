@@ -26,3 +26,5 @@ devtools::check(run_dont_test =  TRUE)
 devtools::build_vignettes()
 
 devtools::check_failures("~/GitHub/RJafroc.Rcheck")
+
+

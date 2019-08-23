@@ -270,7 +270,7 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
     }
   }
   
-  K <- length(pseudoValues[1, 1, ])
+  # K <- length(pseudoValues[1, 1, ]) # unnecessary DPC 8/23/19
   msT <- 0
   for (i in 1:I) {
     msT <- msT + (mean(pseudoValues[i, , ]) - mean(pseudoValues))^2
