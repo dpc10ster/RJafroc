@@ -8,20 +8,19 @@
 
   Program Name:          StSignificanceTesting.sas
 
-  Program Purpose:       Implement Obuchowski-Rockette model for the MRMC study design, including
-						 both fully crossed and split-plot designs (cases nested within reader)
+  Program Purpose:       Implement Obuchowski-Rockette model for the MRMC study design, including both fully crossed and split-plot designs (cases nested within reader)
 
   Macro Parameters       dataset: the dataset to be analyzed, assign file path and name.
-						 FOM: the figure of merit, can be AFROC, AFROC1, wAFROC (the default), wAFROC1, HrAuc, MaxLLF, MaxNLF, MaxNLFAllCases, HrSe, HrSp, ROC,
-							  LLF@#, NLF@#, NLFAllCases@#, Se@#, Sp@#. # is the cutpoint. Ratings >= # are considered as abnormal in the calculation of LLF, NLF,
-					          NLFAllCases, Se and Sp.
-				         nboots: the number of bootstraps (default is 200).
-						 seed: seed number used in resampling (bootstrapping). The default uses the time of day from the computer's clock as the initial seed.
-					     alpha: the significance level of the test of the null hypothesis that all treatment effects are zero. the default alpha is 0.05.
-						 option: Determines which factors are regarded as random vs. fixed: "RRRC" = random-reader random case, "FRRC" = fixed-reader random case, 
-								 "RRFC" = random-reader fixed case, "ALL" outputs the results of "RRRC", "FRRC" and "RRFC" analyses
+                         FOM: the figure of merit, can be AFROC, AFROC1, wAFROC (the default), wAFROC1, HrAuc, MaxLLF, MaxNLF, MaxNLFAllCases, HrSe, HrSp, ROC,
+                              LLF@#, NLF@#, NLFAllCases@#, Se@#, Sp@#. # is the cutpoint. Ratings >= # are considered as abnormal in the calculation of LLF, NLF,
+                              NLFAllCases, Se and Sp.
+                         nboots: the number of bootstraps (default is 200).
+                         seed: seed number used in resampling (bootstrapping). The default uses the time of day from the computer's clock as the initial seed.
+                         alpha: the significance level of the test of the null hypothesis that all treatment effects are zero. the default alpha is 0.05.
+                         option: Determines which factors are regarded as random vs. fixed: "RRRC" = random-reader random case, "FRRC" = fixed-reader random case, 
+                                 "RRFC" = random-reader fixed case, "ALL" outputs the results of "RRRC", "FRRC" and "RRFC" analyses
 
-  Notes				     High ratings indicate high confidence in abnormality 				
+  Notes	                 High ratings indicate high confidence in abnormality 				
 
 -------------------------------------------------------------------------------
 MODIFICATION HISTORY:
