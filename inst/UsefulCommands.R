@@ -22,3 +22,4 @@ library(testthat)
 expect_equal(crossedData, datasetCrossedModality)
 
 devtools::check(run_dont_test =  TRUE)
+devtools::build_vignettes()

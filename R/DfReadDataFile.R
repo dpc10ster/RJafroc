@@ -206,7 +206,10 @@ ReadJAFROC <- function(fileName, sequentialNames, splitPlot)
   
   LL[is.na(LL)] <- UNINITIALIZED
   
-  isCrossedRocDataset (TruthTable, NLTable, LLTable)
+  if ((paradigm == "ROC") && 
+      (design == "CROSSED") && 
+      !isCrossedRocDataset (TruthTable, NLTable, LLTable)) 
+    stop("Data design does not appear to be fully-crossed")
   #temp <- isSplitPlotRocDataset (TruthTable, NLTable, LLTable)
   
   if (paradigm == "ROC") {
@@ -250,7 +253,7 @@ checkTruthTable <- function (TruthTable)
   K <- length(TruthTable[[1]])  # total number of cases read by each reader
   K1 <- length(TruthTable[[2]][TruthTable[[2]] == 0]) 
   K2 <- length(TruthTable[[2]][TruthTable[[2]] > 0]) 
-  if (K != (K1 + K2)) stop ("Unknown error: cases dont add up, in checkTruthTable")
+  if (K != (K1 + K2)) stop ("Cases dont add up in checkTruthTable()")
   
   errorMsg <- ""
   for (i in 1:4) { # check for empty cells in Truth worksheet
@@ -397,7 +400,6 @@ checkNLTable <- function (retTruth, NLTable)
 }
 
 
-
 checkLLTable <- function (retTruth, retNL, LLTable) 
 {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
@@ -463,7 +465,7 @@ isCrossedRocDataset <- function(TruthTable, NLTable, LLTable)
   K <- length(TruthTable[[1]])  # total number of cases read by each reader
   K1 <- length(TruthTable[[2]][TruthTable[[2]] == 0]) 
   K2 <- length(TruthTable[[2]][TruthTable[[2]] > 0]) 
-  if (K != (K1 + K2)) stop ("Unknown error: cases dont add up, in isCrossedRocDataset")
+  if (K != (K1 + K2)) stop ("Cases dont add up in isCrossedRocDataset()")
   
   readerIDColumn <- strsplit(TruthTable$ReaderID, split = ",", fixed = TRUE)
   readerID <- unlist(unique(readerIDColumn)) 
@@ -490,27 +492,15 @@ isCrossedRocDataset <- function(TruthTable, NLTable, LLTable)
       }
     }
   }
-  if (!all(designArray == 1)) return (FALSE)
+  if (any(is.na(designArray))) return (FALSE)
   
   # examine NL worksheet 
-  caseID <- NLTable$CaseID 
+  caseID <- unique(NLTable$CaseID )
   readerIDColumn <- strsplit(NLTable$ReaderID, split = ",", fixed = TRUE)
   readerID <- unlist(unique(readerIDColumn)) 
-
+  
   modalityIDColumn <- strsplit(NLTable$ModalityID, split = ",", fixed = TRUE)
   modalityID <- unlist(unique(modalityIDColumn)) 
-
-  designArray <- array(dim = c(I, J, K)) 
-  for (i in 1:I) {
-    for (j in 1:J) {
-      for (k in 1:K) {
-        designArray[which(modalityID == modalityID[i]),
-                    which(readerID == readerID[j]),
-                    which(caseID == caseID[k])] <- 1
-      }
-    }
-  }
-  if (!all(designArray == 1)) return (FALSE)
   
   designArray <- array(dim = c(I, J, K1)) 
   for (i in 1:I) {
@@ -522,8 +512,27 @@ isCrossedRocDataset <- function(TruthTable, NLTable, LLTable)
       }
     }
   }
-  if (!all(designArray == 1)) return (FALSE)
+  if (any(is.na(designArray))) return (FALSE)
   
+  # examine LL worksheet 
+  caseID <- unique(LLTable$CaseID )
+  readerIDColumn <- strsplit(LLTable$ReaderID, split = ",", fixed = TRUE)
+  readerID <- unlist(unique(readerIDColumn)) 
+  
+  modalityIDColumn <- strsplit(LLTable$ModalityID, split = ",", fixed = TRUE)
+  modalityID <- unlist(unique(modalityIDColumn)) 
+  
+  designArray <- array(dim = c(I, J, K2)) 
+  for (i in 1:I) {
+    for (j in 1:J) {
+      for (k in 1:K2) {
+        designArray[which(modalityID == modalityID[i]),
+                    which(readerID == readerID[j]),
+                    which(caseID == caseID[k])] <- 1
+      }
+    }
+  }
+  if (any(is.na(designArray))) return (FALSE)
   return (TRUE)
 }
 

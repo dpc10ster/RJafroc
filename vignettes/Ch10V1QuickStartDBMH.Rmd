@@ -110,9 +110,9 @@ sysFileName <- system.file(paste0("extdata/",fileName), package = "RJafroc", mus
 Next, one uses DfReadDataFile() as follows, assuming it is a JAFROC format file.
 
 ```{r}
-ds <- DfReadDataFile(sysFileName)
+ds <- DfReadDataFile(sysFileName, newFormat = FALSE) ##!!!DPC!!!
 ``` 
-
+, 
 Here `ds` is the desired dataset.
 
 ```{r}
