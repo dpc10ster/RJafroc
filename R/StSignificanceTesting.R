@@ -342,6 +342,25 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
     return (varComp)
   }
   
+  varCompDBM <- list(
+    varR = varR,
+    varC = varC,
+    varTR = varTR,
+    varTC = varTC,
+    varRC = varRC,
+    varErr = varErr
+  )
+  
+  varCompOR <- UtilDBM2ORVarComp (K, varCompDBM)
+  df <- data.frame(
+    varR = varCompOR$varR,
+    varTR = varCompOR$varTR,
+    Cov1 = varCompOR$Cov1,
+    Cov2 = varCompOR$Cov2,
+    Cov3 = varCompOR$Cov3,
+    varErr = varCompOR$varErr
+  )
+
   msArray <- c(msT, msR, msC, msTR, msTC, msRC, msTRC)
   dfArray <- c(I - 1, J - 1, K - 1, (I - 1) * (J - 1), (I - 1) * (K - 1), (J - 1) * (K - 1), (I - 1) * (J - 1) * (K - 1))
   ssArray <- msArray * dfArray
