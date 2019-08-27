@@ -21,12 +21,12 @@ treatment effects are zero; the default is 0.05}
 and the Obuchowski-Rockette significance testing methods, respectively.}
 
 \item{covEstMethod}{This parameter is not relevant if
-   \code{method = "DBMH"}. Specifies covariance matrix estimation method
-   in ORH analysis.
+   \code{method = "DBMH"}: it specifies the covariance matrix estimation method
+   in ORH analysis; for \code{method = "DBMH"} the jackknife is always used.
    \itemize{ 
    \item \code{"Jackknife"}, the default, 
    \item \code{"Bootstrap"}, in which case \code{nBoots} is relevant 
-   \item \code{"DeLong"}; the last assumes \code{FOM = "Wilcoxon"}, otherwise 
+   \item \code{"DeLong"}; the last requires \code{FOM = "Wilcoxon"}, otherwise 
    an error results.
 }}
 
@@ -48,7 +48,7 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
 figure of merit. The default is 0.2.}
 }
 \value{
-For \code{method = "DBMH"}  the returned value is a list with 22 members:
+\strong{For \code{method = "DBMH"}  the returned value is a list with 22 members:}
 
 \item{fomArray}{The figure of merit array for each treatment-reader 
    combination}
@@ -57,9 +57,13 @@ For \code{method = "DBMH"}  the returned value is a list with 22 members:
 
 \item{anovaYi}{The ANOVA table of the pseudovalues for each treatment}
 
-\item{varComp}{The variance components of the pseudovalue model underlying 
+\item{varCompDBM}{The variance components of the pseudovalue model underlying 
    the analysis, 6 values, in the following order: c("Var(R)", "Var(C)", 
    "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")}
+
+\item{varCompOR}{The variance components of the figure of merit model underlying 
+   the analysis, 6 values, in
+the following order: c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")}
 
 \item{fRRRC}{For \strong{random-reader random-case} (RRRC) analysis, the 
    F-statistic for rejecting the null hypothesis of no treatment effect}
@@ -114,7 +118,7 @@ For \code{method = "DBMH"}  the returned value is a list with 22 members:
 \item{ciAvgRdrEachTrtRRFC}{For RRFC analysis, the confidence intervals 
    and related tests for reader averaged FOM in each treatment}
 
-For method = "ORH" the return value is a list with with 21 members:
+\strong{For method = "ORH" the return value is a list with with 21 members:}
 
 \item{fomArray}{Figures of merit array. See the return of 
    \code{\link{UtilFigureOfMerit}}}
@@ -125,7 +129,11 @@ For method = "ORH" the return value is a list with with 21 members:
 \item{msTR}{Mean square of the figure of merit corresponding to 
    the treatment-reader effect}
 
-\item{varComp}{The variance components of the pseudovalue model underlying 
+\item{varCompDBM}{The variance components of the pseudovalue model underlying 
+   the analysis, 6 values, in the following order: c("Var(R)", "Var(C)", 
+   "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")}
+
+\item{varCompOR}{The variance components of the figure of merit model underlying 
    the analysis, 6 values, in
 the following order: c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")}
 
@@ -177,6 +185,7 @@ Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR)
 \examples{
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
+
 \donttest{
 StSignificanceTesting(dataset05, FOM = "wAFROC")
 StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBMH") 

@@ -67,6 +67,7 @@ SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL,
     if (method == "DBMH") {
       ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
       if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+      stop("this needs fixing")
       varYTR <- ret$varComp$varComp[3]
       varYTC <- ret$varComp$varComp[4]
       varYEps <- ret$varComp$varComp[6]
@@ -74,6 +75,7 @@ SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL,
     } else if (method == "ORH") {
       ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "ORH")
       if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+      stop("this needs fixing")
       varTR <- ret$varComp$varCov[2]
       cov1 <- ret$varComp$varCov[3]
       cov2 <- ret$varComp$varCov[4]

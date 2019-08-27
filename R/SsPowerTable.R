@@ -45,6 +45,7 @@ SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower 
   if (method == "DBMH") {
     ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
     if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+    stop("this needs fixing")
     varCompDBM <- ret$varComp
     varYTR <- varCompDBM$varComp[3]
     varYTC <- varCompDBM$varComp[4]
@@ -57,6 +58,7 @@ SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower 
   } else if (method == "ORH") {
     ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "ORH")
     if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+    stop("this needs fixing")
     varTR <- ret$varComp$varCov[2]
     cov1 <- ret$varComp$varCov[3]
     cov2 <- ret$varComp$varCov[4]

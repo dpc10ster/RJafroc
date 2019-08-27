@@ -368,6 +368,7 @@ dualModalityMethod <- function(dataset, FOM = "Wilcoxon", option = "RRRC", FPFVa
   ddf <-  stats1$ddfRRRC
   ndf <- 1
   pval <-  stats1$pRRRC
+  stop("this needs fixing")
   varR <- stats1$varComp$varCov[1]
   varTR <- stats1$varComp$varCov[2]
   varError <- stats1$varComp$varCov[6]

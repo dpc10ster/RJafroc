@@ -53,6 +53,7 @@ SsPowerGivenJK <- function(dataset, J, K, method = "DBMH", option = "ALL", alpha
     if (method == "DBMH") {
       ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
       effectSize <- ret$ciDiffTrtRRRC$Estimate
+      stop("this needs fixing")
       varYTR <- ret$varComp$varComp[3]
       varYTC <- ret$varComp$varComp[4]
       varYEps <- ret$varComp$varComp[6]

@@ -18,12 +18,12 @@
 #'    \code{"DBMH"} (the default) or \code{"ORH"}, representing the Dorfman-Berbaum-Metz
 #'    and the Obuchowski-Rockette significance testing methods, respectively. 
 #' @param covEstMethod This parameter is not relevant if
-#'    \code{method = "DBMH"}. Specifies covariance matrix estimation method
-#'    in ORH analysis.
+#'    \code{method = "DBMH"}: it specifies the covariance matrix estimation method
+#'    in ORH analysis; for \code{method = "DBMH"} the jackknife is always used.
 #'    \itemize{ 
 #'    \item \code{"Jackknife"}, the default, 
 #'    \item \code{"Bootstrap"}, in which case \code{nBoots} is relevant 
-#'    \item \code{"DeLong"}; the last assumes \code{FOM = "Wilcoxon"}, otherwise 
+#'    \item \code{"DeLong"}; the last requires \code{FOM = "Wilcoxon"}, otherwise 
 #'    an error results.
 #' }   
 #' @param nBoots The number of bootstraps (defaults to 200), relevant only if 
@@ -40,14 +40,17 @@
 #' @param FPFValue Only needed for LROC data; where to evaluate a partial curve based
 #'    figure of merit. The default is 0.2.
 #' 
-#' @return For \code{method = "DBMH"}  the returned value is a list with 22 members:
+#' @return \strong{For \code{method = "DBMH"}  the returned value is a list with 22 members:}
 #' @return \item{fomArray}{The figure of merit array for each treatment-reader 
 #'    combination}
 #' @return \item{anovaY}{The ANOVA table of the pseudovalues over all treatments}
 #' @return \item{anovaYi}{The ANOVA table of the pseudovalues for each treatment}
-#' @return \item{varComp}{The variance components of the pseudovalue model underlying 
+#' @return \item{varCompDBM}{The variance components of the pseudovalue model underlying 
 #'    the analysis, 6 values, in the following order: c("Var(R)", "Var(C)", 
 #'    "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")}
+#' @return \item{varCompOR}{The variance components of the figure of merit model underlying 
+#'    the analysis, 6 values, in
+#' the following order: c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")}
 #' @return \item{fRRRC}{For \strong{random-reader random-case} (RRRC) analysis, the 
 #'    F-statistic for rejecting the null hypothesis of no treatment effect}
 #' @return \item{ddfRRRC}{For RRRC analysis, the denominator degrees of freedom 
@@ -85,14 +88,17 @@
 #'    and related tests for reader averaged FOM in each treatment}
 #' 
 #' 
-#' @return For method = "ORH" the return value is a list with with 21 members:
+#' @return \strong{For method = "ORH" the return value is a list with with 21 members:}
 #' @return \item{fomArray}{Figures of merit array. See the return of 
 #'    \code{\link{UtilFigureOfMerit}}}
 #' @return \item{msT}{Mean square of the figure of merit corresponding to 
 #'    the treatment effect}
 #' @return \item{msTR}{Mean square of the figure of merit corresponding to 
 #'    the treatment-reader effect}
-#' @return \item{varComp}{The variance components of the pseudovalue model underlying 
+#' @return \item{varCompDBM}{The variance components of the pseudovalue model underlying 
+#'    the analysis, 6 values, in the following order: c("Var(R)", "Var(C)", 
+#'    "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")}
+#' @return \item{varCompOR}{The variance components of the figure of merit model underlying 
 #'    the analysis, 6 values, in
 #' the following order: c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")}
 #' @return \item{fRRRC}{Same as \code{DBMH} method}
@@ -118,6 +124,7 @@
 #' @examples
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
+#' 
 #' \donttest{
 #' StSignificanceTesting(dataset05, FOM = "wAFROC")
 #' StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBMH") 
@@ -154,43 +161,47 @@ StSignificanceTesting <- function(dataset, FOM = "Wilcoxon", alpha = 0.05, metho
                                   covEstMethod = "Jackknife", nBoots = 200, option = "ALL", 
                                   VarCompFlag = FALSE, FPFValue = 0.2)
 {
+  
+  if (dataset$dataType == "LROC") stop ("LROC paradigm is not handled by StSignificanceTesting")  # !!!DPC!!!
+  
   if (dataset$dataType == "ROI") {
     method <- "ORH"
     covEstMethod <- "DeLong" 
     FOM <- "ROI"
-    cat("ROI dataset: using method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.\n")
+    cat("ROI dataset: forcing method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.\n")
   }
+  
   if (method == "DBMH"){
-    if (covEstMethod != "Jackknife") stop("For DBMH method covariance estimation method must be jackknife")
+    
+    if (covEstMethod != "Jackknife") 
+      stop("For DBMH method covariance estimation method must be jackknife")
+    
     return(StDBMHAnalysis(dataset, FOM, alpha, option, FPFValue = FPFValue))
+    
   } else if (method == "ORH"){
+    
     return(StORHAnalysis(dataset, FOM, alpha, covEstMethod, nBoots, option, FPFValue = FPFValue))
+    
   } else {
+    
     errMsg <- sprintf("%s is not a valid analysis method.", method)
     stop(errMsg)
+    
   }
+  
 }
 
 
 
 
 StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL", 
-                           VarCompFlag = FALSE, FPFValue = 0.2) {
+                           VarCompFlag = FALSE, FPFValue = FPFValue) {
   NL <- dataset$NL
-  LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
-  maxNL <- dim(NL)[4]
-  maxLL <- dim(LL)[4]
-  dataType <- dataset$dataType
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
   J <- length(readerID)
   K <- dim(NL)[3]
-  K2 <- dim(LL)[3]
-  K1 <- K - K2
   
   if (!option %in% c("RRRC", "FRRC", "RRFC", "ALL")){
     errMsg <- sprintf("%s is not a valid option.", option)
@@ -201,173 +212,39 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
     stop("The analysis requires at least 2 treatments; use StSignificanceTestingSingleFixedFactor()")
   }
   
-  fomArray <- UtilFigureOfMerit(dataset, FOM)
+  fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue = FPFValue)
   trMeans <- rowMeans(fomArray)
   
-  if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
-    jkFOMArray <- array(dim = c(I, J, K1))
-    pseudoValues <- array(dim = c(I, J, K1))
-    for (i in 1:I) {
-      for (j in 1:J) {
-        for (k in 1:K1) {
-          nl <- NL[i, j, -k, ]
-          ll <- LL[i, j, , ]
-          dim(nl) <- c(K - 1, maxNL)
-          dim(ll) <- c(K2, max(lesionVector))
-          jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
-          pseudoValues[i, j, k] <- fomArray[i, j] * K1 - jkFOMArray[i, j, k] * (K1 - 1)
-        }
-        pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
-      }
-    }
-  } else if (FOM %in% c("MaxLLF", "HrSe")) {
-    jkFOMArray <- array(dim = c(I, J, K2))
-    pseudoValues <- array(dim = c(I, J, K2))
-    for (i in 1:I) {
-      for (j in 1:J) {
-        for (k in 1:K2) {
-          nl <- NL[i, j, -(k + K1), ]
-          ll <- LL[i, j, -k, ]
-          dim(nl) <- c(K - 1, maxNL)
-          dim(ll) <- c(K2 - 1, max(lesionVector))
-          lesionIDJk <- lesionID[-k, ]
-          dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
-          lesionWeightJk <- lesionWeight[-k, ]
-          dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
-          jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
-          pseudoValues[i, j, k] <- fomArray[i, j] * K2 - jkFOMArray[i, j, k] * (K2 - 1)
-        }
-        pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
-      }
-    }
-  } else {
-    jkFOMArray <- array(dim = c(I, J, K))
-    pseudoValues <- array(dim = c(I, J, K))
-    for (i in 1:I) {
-      for (j in 1:J) {
-        for (k in 1:K) {
-          if (k <= K1) {
-            nl <- NL[i, j, -k, ]
-            ll <- LL[i, j, , ]
-            dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2, max(lesionVector))
-            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
-          } else {
-            nl <- NL[i, j, -k, ]
-            ll <- LL[i, j, -(k - K1), ]
-            dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2 - 1, max(lesionVector))
-            lesionIDJk <- lesionID[-(k - K1), ]
-            dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
-            lesionWeightJk <- lesionWeight[-(k - K1), ]
-            dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
-            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-(k - K1)], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
-          }
-          pseudoValues[i, j, k] <- fomArray[i, j] * K - jkFOMArray[i, j, k] * (K - 1)
-        }
-        pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
-      }
-    }
-  }
+  ret <- varComponentsJackknife(dataset, FOM, FPFValue = FPFValue)
+  pseudoValues <- ret$pseudoValues
+  varCompDBM <- ret$varCompDBM
+  varCompOR <- ret$varCompOR
+  msArray <- ret$msPseudovalues
+  msT <- msArray$msT
+  msTR <- msArray$msTR
+  msTC <- msArray$msTC
+  msTRC <- msArray$msTRC
   
-  # K <- length(pseudoValues[1, 1, ]) # unnecessary DPC 8/23/19
-  msT <- 0
-  for (i in 1:I) {
-    msT <- msT + (mean(pseudoValues[i, , ]) - mean(pseudoValues))^2
-  }
-  msT <- msT * K * J/(I - 1)
-  
-  
-  msR <- 0
-  for (j in 1:J) {
-    msR <- msR + (mean(pseudoValues[, j, ]) - mean(pseudoValues))^2
-  }
-  msR <- msR * K * I/(J - 1)
-  
-  
-  msC <- 0
-  for (k in 1:K) {
-    msC <- msC + (mean(pseudoValues[, , k]) - mean(pseudoValues))^2
-  }
-  msC <- msC * I * J/(K - 1)
-  
-  
-  msTR <- 0
-  for (i in 1:I) {
-    for (j in 1:J) {
-      msTR <- msTR + (mean(pseudoValues[i, j, ]) - mean(pseudoValues[i, , ]) - mean(pseudoValues[, j, ]) + mean(pseudoValues))^2
-    }
-  }
-  msTR <- msTR * K/((I - 1) * (J - 1))
-  
-  
-  msTC <- 0
-  for (i in 1:I) {
-    for (k in 1:K) {
-      msTC <- msTC + (mean(pseudoValues[i, , k]) - mean(pseudoValues[i, , ]) - mean(pseudoValues[, , k]) + mean(pseudoValues))^2
-    }
-  }
-  msTC <- msTC * J/((I - 1) * (K - 1))
-  
-  
-  msRC <- 0
-  for (j in 1:J) {
-    for (k in 1:K) {
-      msRC <- msRC + (mean(pseudoValues[, j, k]) - mean(pseudoValues[, j, ]) - mean(pseudoValues[, , k]) + mean(pseudoValues))^2
-    }
-  }
-  msRC <- msRC * I/((J - 1) * (K - 1))
-  
-  msTRC <- 0
-  for (i in 1:I) {
-    for (j in 1:J) {
-      for (k in 1:K) {
-        msTRC <- msTRC + (pseudoValues[i, j, k] - mean(pseudoValues[i, j, ]) - mean(pseudoValues[i, , k]) - mean(pseudoValues[, j, k]) + 
-                            mean(pseudoValues[i, , ]) + mean(pseudoValues[, j, ]) + mean(pseudoValues[, , k]) - mean(pseudoValues))^2
-      }
-    }
-  }
-  msTRC <- msTRC/((I - 1) * (J - 1) * (K - 1))
-  
-  varR <- (msR - msTR - msRC + msTRC)/(I * K)
-  varC <- (msC - msTC - msRC + msTRC)/(I * J)
-  varTR <- (msTR - msTRC)/K
-  varTC <- (msTC - msTRC)/J
-  varRC <- (msRC - msTRC)/I
-  varErr <- msTRC
-  varComp <- c(varR, varC, varTR, varTC, varRC, varErr)
-  varCompName <- c("Var(R)", "Var(C)", "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")
-  varComp <- data.frame(varComp, row.names = varCompName)
-  if (VarCompFlag){
-    return (varComp)
-  }
-  
-  varCompDBM <- list(
-    varR = varR,
-    varC = varC,
-    varTR = varTR,
-    varTC = varTC,
-    varRC = varRC,
-    varErr = varErr
-  )
-  
-  varCompOR <- UtilDBM2ORVarComp (K, varCompDBM)
-  df <- data.frame(
-    varR = varCompOR$varR,
-    varTR = varCompOR$varTR,
-    Cov1 = varCompOR$Cov1,
-    Cov2 = varCompOR$Cov2,
-    Cov3 = varCompOR$Cov3,
-    varErr = varCompOR$varErr
-  )
-
-  msArray <- c(msT, msR, msC, msTR, msTC, msRC, msTRC)
-  dfArray <- c(I - 1, J - 1, K - 1, (I - 1) * (J - 1), (I - 1) * (K - 1), (J - 1) * (K - 1), (I - 1) * (J - 1) * (K - 1))
-  ssArray <- msArray * dfArray
+  # msArray <- c(msT, msR, msC, msTR, msTC, msRC, msTRC)
+  dfArray <- c(I - 1, 
+               J - 1, 
+               K - 1, 
+               (I - 1) * (J - 1), 
+               (I - 1) * (K - 1), 
+               (J - 1) * (K - 1), 
+               (I - 1) * (J - 1) * (K - 1))
+  ssArray <- unlist(msArray) * dfArray
   msArray <- c(msArray, NA)
   dfArray <- c(dfArray, sum(dfArray))
   ssArray <- c(ssArray, sum(ssArray))
-  sourceArray <- c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total")
+  sourceArray <- c("T", 
+                   "R", 
+                   "C", 
+                   "TR", 
+                   "TC", 
+                   "RC", 
+                   "TRC", 
+                   "Total")
   anovaY <- data.frame(Source = sourceArray, SS = ssArray, DF = dfArray, MS = msArray)
   
   msRSingle <- array(0, dim = c(I))
@@ -470,8 +347,17 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
       ciAvgRdrEachTrtRRRC <- NA
     }
     if (option == "RRRC")
-      return(list(fomArray = fomArray, anovaY = anovaY, anovaYi = msSingleTable, varComp = varComp, 
-                  fRRRC = fRRRC, ddfRRRC = ddfRRRC, pRRRC = pRRRC, ciDiffTrtRRRC = ciDiffTrtRRRC, ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC))
+      return(list(
+        fomArray = fomArray, 
+        anovaY = anovaY, 
+        anovaYi = msSingleTable, 
+        varCompDBM = varCompDBM, 
+        varCompOR = varCompOR, 
+        fRRRC = fRRRC, 
+        ddfRRRC = ddfRRRC, 
+        pRRRC = pRRRC, 
+        ciDiffTrtRRRC = ciDiffTrtRRRC, 
+        ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC))
   }
   
   if (option %in% c("FRRC", "ALL")) {
@@ -590,9 +476,20 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
                                    CIUpper = CIReaderFRRC[,2])
     #colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     if (option == "FRRC")
-      return(list(fomArray = fomArray, anovaY = anovaY, anovaYi = msSingleTable, varComp = varComp, 
-                  fFRRC = fFRRC, ddfFRRC = ddfFRRC, pFRRC = pFRRC, ciDiffTrtFRRC = ciDiffTrtFRRC, ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
-                  ssAnovaEachRdr = ssTableFRRC, msAnovaEachRdr = msTableFRRC, ciDiffTrtEachRdr = ciDiffTrtEachRdr))
+      return(list(
+        fomArray = fomArray, 
+        anovaY = anovaY, 
+        anovaYi = msSingleTable, 
+        varCompDBM = varCompDBM, 
+        varCompOR = varCompOR, 
+        fFRRC = fFRRC, 
+        ddfFRRC = ddfFRRC, 
+        pFRRC = pFRRC, 
+        ciDiffTrtFRRC = ciDiffTrtFRRC, 
+        ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
+        ssAnovaEachRdr = ssTableFRRC, 
+        msAnovaEachRdr = msTableFRRC, 
+        ciDiffTrtEachRdr = ciDiffTrtEachRdr))
   }
   
   if (option %in% c("RRFC", "ALL")) {
@@ -647,15 +544,26 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
       ciAvgRdrEachTrtRRFC <- NA
     }
     if (option == "RRFC")
-      return(list(fomArray = fomArray, anovaY = anovaY, anovaYi = msSingleTable, varComp = varComp, 
-                  fRRFC = fRRFC, ddfRRFC = ddfRRFC, pRRFC = pRRFC, ciDiffTrtRRFC = ciDiffTrtRRFC, ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
+      return(list(
+        fomArray = fomArray, 
+        anovaY = anovaY, 
+        anovaYi = msSingleTable, 
+        varCompDBM = varCompDBM, 
+        varCompOR = varCompOR, 
+        fRRFC = fRRFC, 
+        ddfRRFC = ddfRRFC, 
+        pRRFC = pRRFC, 
+        ciDiffTrtRRFC = ciDiffTrtRRFC, 
+        ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC
+      ))
   }
   
   return(list(
     fomArray = fomArray, 
     anovaY = anovaY, 
     anovaYi = msSingleTable, 
-    varComp = varComp, 
+    varCompDBM = varCompDBM, 
+    varCompOR = varCompOR, 
     fRRRC = fRRRC, 
     ddfRRRC = ddfRRRC, 
     pRRRC = pRRRC, 
@@ -673,10 +581,11 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
 
 
 
-
 StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jackknife", 
-                          nBoots = 200, option = "ALL", VarCompFlag = FALSE, FPFValue = 0.2)  {
+                          nBoots = 200, option = "ALL", VarCompFlag = FALSE, FPFValue = FPFValue)  {
+  
   dataType <- dataset$dataType
+  
   if (dataType != "LROC") {
     NL <- dataset$NL
     LL <- dataset$LL
@@ -690,22 +599,18 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       LL <- dataset$LLCl
     } else stop("incorrect FOM for LROC data")
   }
-  lesionVector <- dataset$lesionVector
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
+  
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
-  dataType <- dataset$dataType
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
   J <- length(readerID)
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
-  K1 <- K - K2
   
   dim(NL) <- c(I, J, K, maxNL)
-  dim(LL) <- c(I, J, K2, max(lesionVector))
+  dim(LL) <- c(I, J, K2, maxLL)
   
   if (!option %in% c("RRRC", "FRRC", "RRFC", "ALL")){
     errMsg <- sprintf("%s is not an available option.", option)
@@ -719,76 +624,70 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
   
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue = FPFValue)
   trMeans <- rowMeans(fomArray)
-  fomMean <- mean(fomArray)
   
-  ret <- gpfEstimateVarCov(fomArray, NL, LL, lesionVector, lesionID, 
-                           lesionWeight, maxNL, maxLL, FOM, covEstMethod, nBoots, FPFValue = FPFValue)
-  var <- ret$var
-  cov1 <- ret$cov1
-  cov2 <- ret$cov2
-  cov3 <- ret$cov3
+  varCompBoth <- gpfEstimateVarCov(dataset, FOM, FPFValue = FPFValue, nBoots, covEstMethod)
+  varCompDBM <- varCompBoth$varCompDBM
+  varCompOR <- varCompBoth$varCompOR
+  cov1 <- varCompOR$Cov1
+  cov2 <- varCompOR$Cov2
+  cov3 <- varCompOR$Cov3
   
-  msT <- 0
-  for (i in 1:I) {
-    msT <- msT + (mean(fomArray[i, ]) - fomMean)^2
-  }
-  msT <- J * msT/(I - 1)
-  
-  msR <- 0
-  for (j in 1:J) {
-    msR <- msR + (mean(fomArray[, j]) - fomMean)^2
-  }
-  msR <- I * msR/(J - 1)
-  
-  msTR <- 0
-  for (i in 1:I) {
-    for (j in 1:J) {
-      msTR <- msTR + (fomArray[i, j] - mean(fomArray[i, ]) - mean(fomArray[, j]) + fomMean)^2
-    }
-  }
-  msTR <- msTR/((J - 1) * (I - 1))
-  
-  varTR <- msTR - var + cov1 + max(cov2 - cov3, 0)
-  varR <- (msR - var - (I - 1) * cov1 + cov2 + (I - 1) * cov3 - varTR)/I
-  varCovArray <- c(varR, varTR, cov1, cov2, cov3, var)
-  nameArray <- c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")
-  varComp <- data.frame(varCov = varCovArray, row.names = nameArray)
   if (VarCompFlag){
-    return (varComp)
+    return (varCompBoth)
   }
   
-  varSingle <- vector(length = I)
-  cov2Single <- vector(length = I)
+  retMS <- fomMeanSquares(fomArray)
+  msT <- retMS$msT
+  msTR <- retMS$msTR
+  
+  varEachTrt <- vector(length = I)
+  cov2EachTrt <- vector(length = I)
   for (i in 1:I) {
     fomSingle <- fomArray[i, ]
+    dim(fomSingle) <- c(1, J)
     nl <- NL[i, , , ]
     ll <- LL[i, , , ]
+    lesionVector <- dataset$lesionVector
+    lesionID <- dataset$lesionID
+    lesionWeight <- dataset$lesionWeight
     dim(fomSingle) <- c(1, J)
     dim(nl) <- c(1, J, K, maxNL)
-    dim(ll) <- c(1, J, K2, max(lesionVector))
-    ret <- gpfEstimateVarCov(fomSingle, nl, ll, lesionVector, lesionID, 
-                             lesionWeight, maxNL, maxLL, FOM, covEstMethod, nBoots, FPFValue = FPFValue)
-    varSingle[i] <- ret$var
+    dim(ll) <- c(1, J, K2, maxLL)
+    ret <- EstimateVarCov(fomSingle, nl, ll, lesionVector, lesionID, lesionWeight, maxNL, FOM, covEstMethod, nBoots)
+    varEachTrt[i] <- ret$var
     if (J > 1) {
-      cov2Single[i] <- ret$cov2
+      cov2EachTrt[i] <- ret$cov2
     } else {
-      cov2Single[i] <- 0
+      cov2EachTrt[i] <- 0
+    }
+  }
+
+
+  varEachTrt <- vector(length = I)
+  cov2EachTrt <- vector(length = I)
+  for (i in 1:I) {
+    fomSingle <- fomArray[i, ]
+    dim(fomSingle) <- c(1, J)
+    dsi <- DfExtractDataset(dataset, trts = i)
+    varCompOR <- (gpfEstimateVarCov(dsi, FOM, FPFValue = FPFValue, nBoots, covEstMethod))$varCompOR
+    varEachTrt[i] <- varCompOR$varErr
+    cov2EachTrt[i] <- varCompOR$Cov2
+    if (J > 1) {
+      cov2EachTrt[i] <- ret$cov2
+    } else {
+      cov2EachTrt[i] <- 0
     }
   }
   
-  varEchRder <- vector(length = J)
-  cov1EchRder <- vector(length = J)
+  varEachRdr <- vector(length = J)
+  cov1EachRdr <- vector(length = J)
   for (j in 1:J) {
     fomSingle <- fomArray[, j]
-    nl <- NL[, j, , ]
-    ll <- LL[, j, , ]
     dim(fomSingle) <- c(I, 1)
-    dim(nl) <- c(I, 1, K, maxNL)
-    dim(ll) <- c(I, 1, K2, max(lesionVector))
-    ret <- gpfEstimateVarCov(fomSingle, nl, ll, lesionVector, lesionID, 
-                             lesionWeight, maxNL, maxLL, FOM, covEstMethod, nBoots, FPFValue = FPFValue)
-    varEchRder[j] <- ret$var
-    cov1EchRder[j] <- ret$cov1
+    dsj <- DfExtractDataset(dataset, rdrs = j)
+    varCompBoth <- gpfEstimateVarCov(dsj, FOM, FPFValue = FPFValue, nBoots, covEstMethod)
+    varEachRdr[j] <- varCompOR$varErr
+    cov1EachRdr[j] <- varCompOR$Cov1
   }
   
   msRSingle <- array(0, dim = c(I))
@@ -847,7 +746,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       stdErrSingleRRRC <- array(dim = I)
       CISingleRRRC <- array(dim = c(I, 2))
       for (i in 1:I) {
-        msDenSingleRRRC[i] <- msRSingle[i] + max(J * cov2Single[i], 0)
+        msDenSingleRRRC[i] <- msRSingle[i] + max(J * cov2EachTrt[i], 0)
         dfSingleRRRC[i] <- msDenSingleRRRC[i]^2/msRSingle[i]^2 * (J - 1)
         stdErrSingleRRRC[i] <- sqrt(msDenSingleRRRC[i]/J)
         ci <- sort(c(trMeans[i] - qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i], trMeans[i] + qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i]))
@@ -874,8 +773,18 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       ciAvgRdrEachTrtRRRC <- NA
     }
     if (option == "RRRC"){
-      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
-                  fRRRC = fRRRC, ddfRRRC = ddfRRRC, pRRRC = pRRRC, ciDiffTrtRRRC = ciDiffTrtRRRC, ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC))
+      return(list(
+        fomArray = fomArray, 
+        msT = msT, 
+        msTR = msTR, 
+        varCompDBM = varCompDBM,
+        varCompOR = varCompOR,
+        fRRRC = fRRRC, 
+        ddfRRRC = ddfRRRC, 
+        pRRRC = pRRRC, 
+        ciDiffTrtRRRC = ciDiffTrtRRRC, 
+        ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC
+      ))
     }
   }
   
@@ -913,7 +822,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
     stdErrSingleFRRC <- array(dim = I)
     CISingleFRRC <- array(dim = c(I, 2))
     for (i in 1:I) {
-      msDenSingleFRRC[i] <- varSingle[i] + (J - 1) * cov2Single[i]
+      msDenSingleFRRC[i] <- varEachTrt[i] + (J - 1) * cov2EachTrt[i]
       dfSingleFRRC[i] <- Inf
       stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J)
       CISingleFRRC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
@@ -941,7 +850,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
     }
     
     diffTRMeansFRRC <- as.vector(t(diffTRMeansFRRC))
-    stdErrFRRC <- sqrt(2 * (varEchRder - cov1EchRder))
+    stdErrFRRC <- sqrt(2 * (varEachRdr - cov1EachRdr))
     stdErrFRRC <- rep(stdErrFRRC, choose(I, 2))
     dim(stdErrFRRC) <- c(J, choose(I, 2))
     stdErrFRRC <- as.vector(t(stdErrFRRC))
@@ -969,7 +878,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
                                    CIUpper = CIReaderFRRC[,2])
     #colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     
-    varCovEachRdr <- data.frame(readerID, varEchRder, cov1EchRder)
+    varCovEachRdr <- data.frame(readerID, varEachRdr, cov1EachRdr)
     colnames(varCovEachRdr) <- c("Reader", "Var", "Cov1")
     if (option == "FRRC"){
       return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
@@ -1030,7 +939,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       ciAvgRdrEachTrtRRFC <- NA
     }
     if (option == "RRFC"){
-      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
+      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varCompDBM = varCompDBM, varCompOR = varCompOR,
                   fRRFC = fRRFC, ddfRRFC = ddfRRFC, pRRFC = pRRFC, ciDiffTrtRRFC = ciDiffTrtRRFC, ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
     }
   }
@@ -1039,7 +948,8 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
     fomArray = fomArray, 
     msT = msT, 
     msTR = msTR, 
-    varComp = varComp, 
+    varCompDBM = varCompDBM, 
+    varCompOR = varCompOR, 
     fRRRC = fRRRC, 
     ndf = I - 1, 
     ddfRRRC = ddfRRRC, 
@@ -1064,265 +974,52 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
 
 
 #' @importFrom stats runif
-gpfEstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, 
-                              lesionWeight, maxNL, maxLL, FOM, covEstMethod, nBoots, FPFValue = FPFValue) {
-  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  I <- dim(NL)[1]
-  J <- dim(NL)[2]
-  K <- dim(NL)[3]
-  K2 <- dim(LL)[3]
+gpfEstimateVarCov <- function(dataset, FOM, FPFValue = FPFValue, nBoots, covEstMethod) {
   
-  K1 <- K - K2
   if (covEstMethod == "Jackknife") {
-    if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
-      jkFOMArray <- array(dim = c(I, J, K1))
-      for (i in 1:I) {
-        for (j in 1:J) {
-          for (k in 1:K1) {
-            nl <- NL[i, j, -k, ]
-            ll <- LL[i, j, , ]
-            dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2, max(lesionVector))
-            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
-          }
-        }
-      }
-    } else if (FOM %in% c("MaxLLF", "HrSe")) {
-      jkFOMArray <- array(dim = c(I, J, K2))
-      for (i in 1:I) {
-        for (j in 1:J) {
-          for (k in 1:K2) {
-            nl <- NL[i, j, -(k + K1), ]
-            ll <- LL[i, j, -k, ]
-            dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2 - 1, max(lesionVector))
-            lesionIDJk <- lesionID[-k, ]
-            dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
-            lesionWeightJk <- lesionWeight[-k, ]
-            dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
-            jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
-          }
-        }
-      }
-    } else {
-      jkFOMArray <- array(dim = c(I, J, K))
-      for (i in 1:I) {
-        for (j in 1:J) {
-          for (k in 1:K) {
-            if (k <= K1) {
-              nl <- NL[i, j, -k, ]
-              ll <- LL[i, j, , ]
-              dim(nl) <- c(K - 1, maxNL)
-              dim(ll) <- c(K2, max(lesionVector))
-              jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, 
-                                              lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM, FPFValue = FPFValue)
-            } else {
-              nl <- NL[i, j, , ]
-              ll <- LL[i, j, -(k - K1), ]
-              dim(nl) <- c(K, maxNL)
-              dim(ll) <- c(K2 - 1, max(lesionVector))
-              lesionIDJk <- lesionID[-(k - K1), ]
-              dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
-              lesionWeightJk <- lesionWeight[-(k - K1), ]
-              dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
-              jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-(k - K1)], lesionIDJk, 
-                                              lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM, FPFValue = FPFValue)
-            }
-          }
-        }
-      }
-    }
-    Cov <- ResamplingEstimateVarCovs(jkFOMArray)
-    var <- Cov$var * (K - 1)^2/K  # see paper by Efron and Stein
-    cov1 <- Cov$cov1 * (K - 1)^2/K
-    cov2 <- Cov$cov2 * (K - 1)^2/K
-    cov3 <- Cov$cov3 * (K - 1)^2/K
-  } else if (covEstMethod == "Bootstrap") {
-    if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
-      fomBsArray <- array(dim = c(I, J, nBoots))
-      for (b in 1:nBoots) {
-        kBs <- ceiling(runif(K1) * K1)
-        for (i in 1:I) {
-          for (j in 1:J) {
-            NLbs <- NL[i, j, kBs, ]
-            LLbs <- LL[i, j, , ]
-            dim(NLbs) <- c(K1, maxNL)
-            dim(LLbs) <- c(K2, max(lesionVector))
-            fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM)
-          }
-        }
-      }
-    } else if (FOM %in% c("MaxLLF", "HrSe")) {
-      fomBsArray <- array(dim = c(I, J, nBoots))
-      for (b in 1:nBoots) {
-        kBs <- ceiling(runif(K2) * K2)
-        for (i in 1:I) {
-          for (j in 1:J) {
-            NLbs <- NL[i, j, c(1:K1, (kBs + K1)), ]
-            LLbs <- LL[i, j, kBs, ]
-            dim(NLbs) <- c(K, maxNL)
-            dim(LLbs) <- c(K2, max(lesionVector))
-            lesionIDBs <- lesionID[kBs, ]
-            dim(lesionIDBs) <- c(K2, max(lesionVector))
-            lesionWeightBs <- lesionWeight[kBs, ]
-            dim(lesionWeightBs) <- c(K2, max(lesionVector))
-            fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionVector[kBs], lesionIDBs, lesionWeightBs, maxNL, maxLL, K1, K2, FOM)
-          }
-        }
-      }
-    } else { # original code had errors; see Fadi RRRC code; Aug 9, 2017 !!dpc!!!
-      ## however, following code needs checking
-      ##stop("this code needs checking; contact Dr. Chakraborty with dataset and code that lands here; 8/9/2017")
-      fomBsArray <- array(dim = c(I, J, nBoots))
-      for (b in 1:nBoots) {
-        k1bs <- ceiling(runif(K1) * K1)
-        k2bs <- ceiling(runif(K2) * K2)
-        for (i in 1:I) {
-          for (j in 1:J) {
-            NLbs <- NL[i, j, c(k1bs, k2bs + K1), ]
-            lesionVectorbs <- lesionVector[k2bs]            
-            LLbs <- LL[i, j, k2bs,1:max(lesionVectorbs)] 
-            dim(NLbs) <- c(K, maxNL)
-            dim(LLbs) <- c(K2, max(lesionVectorbs))  
-            lesionIDBs <- lesionID[k2bs, ]
-            dim(lesionIDBs) <- c(K2, max(lesionVector))
-            lesionWeightBs <- lesionWeight[k2bs, ]
-            dim(lesionWeightBs) <- c(K2, max(lesionVector))
-            fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionVectorbs, lesionIDBs, 
-                                            lesionWeightBs, maxNL, maxLL, K1, K2, FOM, FPFValue = FPFValue)
-          }
-        }
-      }
-    }
-    Cov <- ResamplingEstimateVarCovs(fomBsArray)
-    var <- Cov$var
-    cov1 <- Cov$cov1
-    cov2 <- Cov$cov2
-    cov3 <- Cov$cov3
-  } else if (covEstMethod == "DeLong") {
-    if (!FOM %in% c("Wilcoxon", "HrAuc", "ROI")) 
-      stop("DeLong\"s method can only be used for trapezoidal figures of merit.")
     
-    if (FOM == "ROI") {
-      kI01 <- which(apply((NL[1, 1, , ] != UNINITIALIZED), 1, any))
-      numKI01 <- rowSums((NL[1, 1, , ] != UNINITIALIZED))
-      I01 <- length(kI01)
-      I10 <- K2
-      N <- sum((NL[1, 1, , ] != UNINITIALIZED))
-      M <- sum(lesionVector)
-      V01 <- array(dim = c(I, J, I01, maxNL))
-      V10 <- array(dim = c(I, J, I10, max(lesionVector)))
-      for (i in 1:I) {
-        for (j in 1:J) {
-          for (k in 1:I10) {
-            for (el in 1:lesionVector[k]) {
-              V10[i, j, k, el] <- (sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) < LL[i, j, k, el]) 
-                                   + 0.5 * sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) == LL[i, j, k, el]))/N
-            }
-          }
-          for (k in 1:I01) {
-            for (el in 1:maxNL) {
-              if (NL[i, j, kI01[k], el] == UNINITIALIZED) 
-                next
-              V01[i, j, k, el] <- (sum(NL[i, j, kI01[k], el] < as.vector(LL[i, j, , ][LL[i, j, , ] != UNINITIALIZED])) 
-                                   + 0.5 * sum(NL[i, j, kI01[k], el] == as.vector(LL[i, j, , ][LL[i, j, , ] != UNINITIALIZED])))/M
-            }
-          }
-        }
-      }
-      s10 <- array(0, dim = c(I, I, J, J))
-      s01 <- array(0, dim = c(I, I, J, J))
-      s11 <- array(0, dim = c(I, I, J, J))
-      for (i in 1:I) {
-        for (ip in 1:I) {
-          for (j in 1:J) {
-            for (jp in 1:J) {
-              for (k in 1:I10) {
-                s10[i, ip, j, jp] <- (s10[i, ip, j, jp]
-                                      + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])])
-                                         - lesionVector[k] * fomArray[i, j])
-                                      * (sum(V10[ip, jp, k, !is.na(V10[ip, jp, k, ])]) 
-                                         - lesionVector[k] * fomArray[ip, jp]))
-              }
-              for (k in 1:I01) {
-                s01[i, ip, j, jp] <- (s01[i, ip, j, jp] 
-                                      + (sum(V01[i, j, k, !is.na(V01[i, j, k, ])]) 
-                                         - numKI01[kI01[k]] * fomArray[i, j]) 
-                                      * (sum(V01[ip, jp, k, !is.na(V01[ip, jp, k, ])]) 
-                                         - numKI01[kI01[k]] * fomArray[ip, jp]))
-              }
-              allAbn <- 0
-              for (k in 1:K2) {
-                if (all(NL[ip, jp, k + K1, ] == UNINITIALIZED)) {
-                  allAbn <- allAbn + 1
-                  next
-                }                  
-                s11[i, ip, j, jp] <- (s11[i, ip, j, jp] 
-                                      + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])]) 
-                                         - lesionVector[k] * fomArray[i, j]) 
-                                      * (sum(V01[ip, jp, k + K1 - allAbn, !is.na(V01[ip, jp, k + K1 - allAbn, ])]) 
-                                         - numKI01[K1 + k] * fomArray[ip, jp]))
-              }
-            }
-          }
-        }
-      }
-      s10 <- s10 * I10/(I10 - 1)/M
-      s01 <- s01 * I01/(I01 - 1)/N
-      s11 <- s11 * K/(K - 1)
-      S <- array(0, dim = c(I, I, J, J))
-      for (i in 1:I) {
-        for (ip in 1:I) {
-          for (j in 1:J) {
-            for (jp in 1:J) {
-              S[i, ip, j, jp] <- s10[i, ip, j, jp]/M + s01[i, ip, j, jp]/N + s11[i, ip, j, jp]/(M * N) + s11[ip, i, jp, j]/(M * N)
-            }
-          }
-        }
-      }
-    } else {
-      # ROC
-      V10 <- array(dim = c(I, J, K2))
-      V01 <- array(dim = c(I, J, K1))
-      for (i in 1:I) {
-        for (j in 1:J) {
-          nl <- NL[i, j, 1:K1, ]
-          ll <- cbind(NL[i, j, (K1 + 1):K, ], LL[i, j, , ])
-          dim(nl) <- c(K1, maxNL)
-          dim(ll) <- c(K2, maxNL + max(lesionVector))
-          fp <- apply(nl, 1, max)
-          tp <- apply(ll, 1, max)
-          for (k in 1:K2) {
-            V10[i, j, k] <- (sum(fp < tp[k]) + 0.5 * sum(fp == tp[k]))/K1
-          }
-          for (k in 1:K1) {
-            V01[i, j, k] <- (sum(fp[k] < tp) + 0.5 * sum(fp[k] == tp))/K2
-          }
-        }
-      }
-      s10 <- array(dim = c(I, I, J, J))
-      s01 <- array(dim = c(I, I, J, J))
-      for (i in 1:I) {
-        for (ip in 1:I) {
-          for (j in 1:J) {
-            for (jp in 1:J) {
-              s10[i, ip, j, jp] <- sum((V10[i, j, ] - fomArray[i, j]) * (V10[ip, jp, ] - fomArray[ip, jp]))/(K2 - 1)
-              s01[i, ip, j, jp] <- sum((V01[i, j, ] - fomArray[i, j]) * (V01[ip, jp, ] - fomArray[ip, jp]))/(K1 - 1)
-            }
-          }
-        }
-      }
-      S <- s10/K2 + s01/K1
-    }
-    Cov <- VarCovs(S)
-    var <- Cov$var
-    cov1 <- Cov$cov1
-    cov2 <- Cov$cov2
-    cov3 <- Cov$cov3
+    ret <- varComponentsJackknife(dataset, FOM, FPFValue = FPFValue)
+    
+  } else if (covEstMethod == "Bootstrap") {
+    
+    ret <- varComponentsBootstrap (dataset, FOM, FPFValue = FPFValue, nBoots)
+    
+  } else if (covEstMethod == "DeLong") {
+    
+    ret <- varComponentsDeLong (dataset, FOM)
+    
   } else stop("incorrect covariance estimation method specified")
   
-  return(list(var = var, cov1 = cov1, cov2 = cov2, cov3 = cov3))
-} 
+  return(ret)
+  
+}  
+
+
+
+
+ResamplingEstimateVarCovs <- function(resampleMatrix) {
+  I <- dim(resampleMatrix)[1]
+  J <- dim(resampleMatrix)[2]
+  covariances <- array(dim = c(I, I, J, J))
+  
+  if (I == 1) {
+    temp1 <- 0
+  }
+  for (i in 1:I) {
+    for (ip in 1:I) {
+      for (j in 1:J) {
+        for (jp in 1:J) {
+          covariances[i, ip, j, jp] <- cov(resampleMatrix[i, j, ], resampleMatrix[ip, jp, ])
+        }
+      }
+    }
+  }
+  
+  ret <- VarCovs(covariances)
+  return(list(var = ret$var, cov1 = ret$cov1, cov2 = ret$cov2, cov3 = ret$cov3))
+}
+
+
 
 
 VarCovs <- function(covariances) {
@@ -1336,7 +1033,7 @@ VarCovs <- function(covariances) {
       count <- count + 1
     }
   }
-  var <- var/count
+  if (count > 0) var <- var/count else var <- NaN
   
   cov1 <- 0
   count <- 0
@@ -1350,7 +1047,7 @@ VarCovs <- function(covariances) {
       }
     }
   }
-  cov1 <- cov1/count
+  if (count > 0) cov1 <- cov1/count else cov1 <- NaN
   
   cov2 <- 0
   count <- 0
@@ -1364,8 +1061,7 @@ VarCovs <- function(covariances) {
       }
     }
   }
-  # cov2 <- cov2 / (I*J*(J-1)) # OK, DPC
-  cov2 <- cov2/count
+  if (count > 0) cov2 <- cov2/count else cov2 <- NaN
   
   cov3 <- 0
   count <- 0
@@ -1383,30 +1079,599 @@ VarCovs <- function(covariances) {
       }
     }
   }
-  
-  # cov3 <- cov3 / (I*(I-1)*J*(J-1)) # not OK; general advice; better to let computer do the thinking
-  cov3 <- cov3/count
+  if (count > 0) cov3 <- cov3/count else cov3 <- NaN
   
   return(list(var = var, cov1 = cov1, cov2 = cov2, cov3 = cov3))
 } 
 
 
-ResamplingEstimateVarCovs <- function(resampleMatrix) {
-  I <- dim(resampleMatrix)[1]
-  J <- dim(resampleMatrix)[2]
-  covariances <- array(dim = c(I, I, J, J))
+
+jackknifePseudoValuesNormals <- function (dataset, FOM, FPFValue = FPFValue)
+{
+  NL <- dataset$NL
+  LL <- dataset$LL
+  lesionVector <- dataset$lesionVector
+  lesionID <- dataset$lesionID
+  lesionWeight <- dataset$lesionWeight
   
+  I <- length(NL[,1,1,1])
+  J <- length(NL[1,,1,1])
+  K <- length(NL[1,1,,1])
+  K2 <- length(LL[1,1,,1])
+  K1 <- (K - K2)
+  maxNL <- length(NL[1,1,1,])
+  maxLL <- length(LL[1,1,1,])
+  
+  fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue = FPFValue)
+  
+  jkFOMArray <- array(dim = c(I, J, K1))
+  pseudoValues <- array(dim = c(I, J, K1))
   for (i in 1:I) {
-    for (ip in 1:I) {
-      for (j in 1:J) {
-        for (jp in 1:J) {
-          covariances[i, ip, j, jp] <- cov(resampleMatrix[i, j, ], resampleMatrix[ip, jp, ])
+    for (j in 1:J) {
+      for (k in 1:K1) {
+        nl <- NL[i, j, -k, ]
+        ll <- LL[i, j, , ]
+        dim(nl) <- c(K - 1, maxNL)
+        dim(ll) <- c(K2, maxLL)
+        jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, 
+                                        lesionVector, lesionID, 
+                                        lesionWeight, maxNL, 
+                                        maxLL, K1 - 1, K2, 
+                                        FOM, FPFValue = FPFValue)
+        pseudoValues[i, j, k] <- fomArray[i, j] * K1 - jkFOMArray[i, j, k] * (K1 - 1)
+      }
+      pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
+    }
+  }
+  return(list (
+    pseudoValues = pseudoValues,
+    jkFOMArray = jkFOMArray
+  ))
+}
+
+
+
+
+jackknifePseudoValuesAbnormals <- function (dataset, FOM, FPFValue = FPFValue)
+{
+  NL <- dataset$NL
+  LL <- dataset$LL
+  lesionVector <- dataset$lesionVector
+  lesionID <- dataset$lesionID
+  lesionWeight <- dataset$lesionWeight
+  
+  I <- length(NL[,1,1,1])
+  J <- length(NL[1,,1,1])
+  K <- length(NL[1,1,,1])
+  K2 <- length(LL[1,1,,1])
+  K1 <- (K - K2)
+  
+  fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue = FPFValue)
+  
+  maxNL <- length(NL[1,1,1,])
+  maxLL <- length(LL[1,1,1,])
+  jkFOMArray <- array(dim = c(I, J, K2))
+  pseudoValues <- array(dim = c(I, J, K2))
+  for (i in 1:I) {
+    for (j in 1:J) {
+      for (k in 1:K2) {
+        nl <- NL[i, j, -(k + K1), ]
+        ll <- LL[i, j, -k, ]
+        dim(nl) <- c(K - 1, maxNL)
+        dim(ll) <- c(K2 - 1, maxLL)
+        lesionIDJk <- lesionID[-k, ]
+        dim(lesionIDJk) <- c(K2 -1, maxLL)
+        lesionWeightJk <- lesionWeight[-k, ]
+        dim(lesionWeightJk) <- c(K2 -1, maxLL)
+        jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-k], lesionIDJk, 
+                                        lesionWeightJk, maxNL, maxLL, 
+                                        K1, K2 - 1, FOM, FPFValue = FPFValue)
+        pseudoValues[i, j, k] <- fomArray[i, j] * K2 - jkFOMArray[i, j, k] * (K2 - 1)
+      }
+      pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
+    }
+  }
+  return(list (
+    pseudoValues = pseudoValues,
+    jkFOMArray = jkFOMArray
+  ))
+}
+
+
+
+
+jackknifePseudoValues <- function (dataset, FOM, FPFValue = FPFValue) 
+{
+  NL <- dataset$NL
+  LL <- dataset$LL
+  lesionVector <- dataset$lesionVector
+  lesionID <- dataset$lesionID
+  lesionWeight <- dataset$lesionWeight
+  
+  I <- length(NL[,1,1,1])
+  J <- length(NL[1,,1,1])
+  K <- length(NL[1,1,,1])
+  K2 <- length(LL[1,1,,1])
+  K1 <- (K - K2)
+  maxNL <- length(NL[1,1,1,])
+  maxLL <- length(LL[1,1,1,])
+  
+  fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue = FPFValue)
+  
+  jkFOMArray <- array(dim = c(I, J, K))
+  pseudoValues <- array(dim = c(I, J, K))
+  for (i in 1:I) {
+    for (j in 1:J) {
+      for (k in 1:K) {
+        if (k <= K1) {
+          nl <- NL[i, j, -k, ]
+          ll <- LL[i, j, , ]
+          dim(nl) <- c(K - 1, maxNL)
+          dim(ll) <- c(K2, maxLL)
+          jkFOMArray[i, j, k] <- gpfMyFOM(
+            nl, ll, 
+            lesionVector, lesionID, 
+            lesionWeight, maxNL, maxLL, K1 - 1, 
+            K2, FOM, FPFValue = FPFValue)
+        } else {
+          nl <- NL[i, j, -k, ]
+          ll <- LL[i, j, -(k - K1), ]
+          dim(nl) <- c(K - 1, maxNL)
+          dim(ll) <- c(K2 - 1, maxLL)
+          lesionIDJk <- lesionID[-(k - K1), ]
+          dim(lesionIDJk) <- c(K2 -1, maxLL)
+          lesionWeightJk <- lesionWeight[-(k - K1), ]
+          dim(lesionWeightJk) <- c(K2 -1, maxLL)
+          jkFOMArray[i, j, k] <- gpfMyFOM(
+            nl, ll, 
+            lesionVector[-(k - K1)], lesionIDJk, 
+            lesionWeightJk, maxNL, 
+            maxLL, K1, 
+            K2 - 1, FOM, FPFValue = FPFValue)
+        }
+        pseudoValues[i, j, k] <- fomArray[i, j] * K - jkFOMArray[i, j, k] * (K - 1)
+      }
+      pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
+    }
+  }
+  return(list (
+    pseudoValues = pseudoValues,
+    jkFOMArray = jkFOMArray
+  ))
+}
+
+
+
+
+fomMeanSquares <- function(fomArray){
+  
+  I <- length(fomArray[,1])
+  J <- length(fomArray[1,])
+  
+  fomMean <- mean(fomArray)
+  
+  msT <- 0
+  for (i in 1:I) {
+    msT <- msT + (mean(fomArray[i, ]) - fomMean)^2
+  }
+  msT <- J * msT/(I - 1)
+  
+  msR <- 0
+  for (j in 1:J) {
+    msR <- msR + (mean(fomArray[, j]) - fomMean)^2
+  }
+  msR <- I * msR/(J - 1)
+  
+  msTR <- 0
+  for (i in 1:I) {
+    for (j in 1:J) {
+      msTR <- msTR + (fomArray[i, j] - mean(fomArray[i, ]) - mean(fomArray[, j]) + fomMean)^2
+    }
+  }
+  msTR <- msTR/((J - 1) * (I - 1))
+  return(list(
+    msT = msT,
+    msR = msR,
+    msTR = msTR
+  ))  
+}
+
+
+
+
+pseudoValueMeanSquares <- function (pseudoValues)
+{
+  I <- length(pseudoValues[,1,1])
+  J <- length(pseudoValues[1,,1])
+  K <- length(pseudoValues[1,1,])
+  
+  msT <- 0
+  for (i in 1:I) {
+    msT <- msT + (mean(pseudoValues[i, , ]) - mean(pseudoValues))^2
+  }
+  msT <- msT * K * J/(I - 1)
+  
+  
+  msR <- 0
+  for (j in 1:J) {
+    msR <- msR + (mean(pseudoValues[, j, ]) - mean(pseudoValues))^2
+  }
+  msR <- msR * K * I/(J - 1)
+  
+  
+  msC <- 0
+  for (k in 1:K) {
+    msC <- msC + (mean(pseudoValues[, , k]) - mean(pseudoValues))^2
+  }
+  msC <- msC * I * J/(K - 1)
+  
+  
+  msTR <- 0
+  for (i in 1:I) {
+    for (j in 1:J) {
+      msTR <- msTR + (mean(pseudoValues[i, j, ]) - mean(pseudoValues[i, , ]) - mean(pseudoValues[, j, ]) + mean(pseudoValues))^2
+    }
+  }
+  msTR <- msTR * K/((I - 1) * (J - 1))
+  
+  
+  msTC <- 0
+  for (i in 1:I) {
+    for (k in 1:K) {
+      msTC <- msTC + (mean(pseudoValues[i, , k]) - mean(pseudoValues[i, , ]) - mean(pseudoValues[, , k]) + mean(pseudoValues))^2
+    }
+  }
+  msTC <- msTC * J/((I - 1) * (K - 1))
+  
+  
+  msRC <- 0
+  for (j in 1:J) {
+    for (k in 1:K) {
+      msRC <- msRC + (mean(pseudoValues[, j, k]) - mean(pseudoValues[, j, ]) - mean(pseudoValues[, , k]) + mean(pseudoValues))^2
+    }
+  }
+  msRC <- msRC * I/((J - 1) * (K - 1))
+  
+  msTRC <- 0
+  for (i in 1:I) {
+    for (j in 1:J) {
+      for (k in 1:K) {
+        msTRC <- msTRC + 
+          (pseudoValues[i, j, k] - mean(pseudoValues[i, j, ]) - mean(pseudoValues[i, , k]) - mean(pseudoValues[, j, k]) + 
+             mean(pseudoValues[i, , ]) + mean(pseudoValues[, j, ]) + mean(pseudoValues[, , k]) - mean(pseudoValues))^2
+      }
+    }
+  }
+  msTRC <- msTRC/((I - 1) * (J - 1) * (K - 1))
+  
+  return(list(
+    msT = msT,
+    msR = msR,
+    msC = msC,
+    msTR = msTR,
+    msTC = msTC,
+    msRC = msRC,
+    msTRC = msTRC
+  )) 
+}
+
+
+
+
+varComponentsJackknife <- function(dataset, FOM, FPFValue = FPFValue) {
+  
+  I <- length(dataset$NL[,1,1,1])
+  J <- length(dataset$NL[1,,1,1])
+  K <- length(dataset$NL[1,1,,1])
+  
+  if (I == 1) {
+    temp = 1.0
+  }
+  
+  if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+    ret <- jackknifePseudoValuesNormals(dataset, FOM, FPFValue = FPFValue)
+  } else if (FOM %in% c("MaxLLF", "HrSe")) {
+    ret <- jackknifePseudoValuesAbnormals(dataset, FOM, FPFValue = FPFValue)
+  } else {
+    ret <- jackknifePseudoValues(dataset, FOM, FPFValue = FPFValue) 
+  }
+  jkFOMArray <- ret$jkFOMArray
+  pseudoValues <- ret$pseudoValues
+  
+  msPseudovalues <- pseudoValueMeanSquares(pseudoValues)
+  # msT <- msPseudovalues$msT
+  msR <- msPseudovalues$msR
+  msC <- msPseudovalues$msC
+  msTR <- msPseudovalues$msTR
+  msTC <- msPseudovalues$msTC
+  msRC <- msPseudovalues$msRC
+  msTRC <- msPseudovalues$msTRC
+  
+  varR <- (msR - msTR - msRC + msTRC)/(I * K)
+  varC <- (msC - msTC - msRC + msTRC)/(I * J)
+  varTR <- (msTR - msTRC)/K
+  varTC <- (msTC - msTRC)/J
+  varRC <- (msRC - msTRC)/I
+  varErr <- msTRC
+  varComp <- c(varR, varC, varTR, varTC, varRC, varErr)
+  varCompName <- c("Var(R)", "Var(C)", "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")
+  varComp <- data.frame(varComp, row.names = varCompName)
+  
+  # if (VarCompFlag){
+  #   return (varComp)
+  # }
+  
+  varCompDBM <- list(
+    varR = varR,
+    varC = varC,
+    varTR = varTR,
+    varTC = varTC,
+    varRC = varRC,
+    varErr = varErr
+  )
+  
+  varCompDBM <- data.frame(
+    varR = varR,
+    varC = varC,
+    varTR = varTR,
+    varTC = varTC,
+    varRC = varRC,
+    varErr = varErr
+  )
+  
+  varCompOR <- UtilDBM2ORVarComp (K, varCompDBM)
+  varCompOR <- data.frame(
+    varR = varCompOR$varR,
+    varTR = varCompOR$varTR,
+    Cov1 = varCompOR$Cov1,
+    Cov2 = varCompOR$Cov2,
+    Cov3 = varCompOR$Cov3,
+    varErr = varCompOR$varErr
+  )
+  
+  return(list(
+    jkFOMArray = jkFOMArray,
+    pseudoValues = pseudoValues,
+    varCompDBM = varCompDBM,
+    varCompOR = varCompOR,
+    msPseudovalues = msPseudovalues 
+  ))
+  
+}
+
+
+
+
+varComponentsBootstrap <- function(dataset, FOM, FPFValue = FPFValue, nBoots) {
+  
+  NL <- dataset$NL
+  LL <- dataset$LL
+  lesionVector <- dataset$lesionVector
+  lesionID <- dataset$lesionID
+  lesionWeight <- dataset$lesionWeight
+  
+  I <- length(NL[,1,1,1])
+  J <- length(NL[1,,1,1])
+  K <- length(NL[1,1,,1])
+  K2 <- length(LL[1,1,,1])
+  K1 <- (K - K2)
+  maxNL <- length(NL[1,1,1,])
+  maxLL <- length(LL[1,1,1,])
+  
+  if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+    fomBsArray <- array(dim = c(I, J, nBoots))
+    for (b in 1:nBoots) {
+      kBs <- ceiling(runif(K1) * K1)
+      for (i in 1:I) {
+        for (j in 1:J) {
+          NLbs <- NL[i, j, kBs, ]
+          LLbs <- LL[i, j, , ]
+          dim(NLbs) <- c(K1, maxNL)
+          dim(LLbs) <- c(K2, maxLL)
+          fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, 
+                                          lesionVector, lesionID, 
+                                          lesionWeight, maxNL, 
+                                          maxLL, K1, K2, 
+                                          FOM, FPFValue = FPFValue)
+        }
+      }
+    }
+  } else if (FOM %in% c("MaxLLF", "HrSe")) {
+    fomBsArray <- array(dim = c(I, J, nBoots))
+    for (b in 1:nBoots) {
+      kBs <- ceiling(runif(K2) * K2)
+      for (i in 1:I) {
+        for (j in 1:J) {
+          NLbs <- NL[i, j, c(1:K1, (kBs + K1)), ]
+          LLbs <- LL[i, j, kBs, ]
+          dim(NLbs) <- c(K, maxNL)
+          dim(LLbs) <- c(K2, maxLL)
+          lesionIDBs <- lesionID[kBs, ]
+          dim(lesionIDBs) <- c(K2, maxLL)
+          lesionWeightBs <- lesionWeight[kBs, ]
+          dim(lesionWeightBs) <- c(K2, maxLL)
+          fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, 
+                                          lesionVector[kBs], lesionIDBs, 
+                                          lesionWeightBs, maxNL, maxLL, 
+                                          K1, K2, FOM, FPFValue = FPFValue)
+        }
+      }
+    }
+  } else { # original code had errors; see Fadi RRRC code; Aug 9, 2017 !!dpc!!!
+    ## however, following code needs checking
+    ##stop("this code needs checking; contact Dr. Chakraborty with dataset and code that lands here; 8/9/2017")
+    fomBsArray <- array(dim = c(I, J, nBoots))
+    for (b in 1:nBoots) {
+      k1bs <- ceiling(runif(K1) * K1)
+      k2bs <- ceiling(runif(K2) * K2)
+      for (i in 1:I) {
+        for (j in 1:J) {
+          NLbs <- NL[i, j, c(k1bs, k2bs + K1), ]
+          lesionVectorbs <- lesionVector[k2bs]            
+          LLbs <- LL[i, j, k2bs,1:max(lesionVectorbs)] 
+          dim(NLbs) <- c(K, maxNL)
+          dim(LLbs) <- c(K2, max(lesionVectorbs))  
+          lesionIDBs <- lesionID[k2bs, ]
+          dim(lesionIDBs) <- c(K2, maxLL)
+          lesionWeightBs <- lesionWeight[k2bs, ]
+          dim(lesionWeightBs) <- c(K2, maxLL)
+          fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionVectorbs, lesionIDBs, 
+                                          lesionWeightBs, maxNL, maxLL, K1, K2, FOM, FPFValue = FPFValue)
         }
       }
     }
   }
+  Cov <- ResamplingEstimateVarCovs(fomBsArray)
+  var <- Cov$var
+  cov1 <- Cov$cov1
+  cov2 <- Cov$cov2
+  cov3 <- Cov$cov3
   
-  ret <- VarCovs(covariances)
-  return(list(var = ret$var, cov1 = ret$cov1, cov2 = ret$cov2, cov3 = ret$cov3))
+  return(list(var = var, cov1 = cov1, cov2 = cov2, cov3 = cov3))
+  
 }
 
+
+
+
+varComponentsDeLong <- function(dataset, FOM)
+{
+  
+  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  NL <- dataset$NL
+  LL <- dataset$LL
+  lesionVector <- dataset$lesionVector
+  
+  I <- length(NL[,1,1,1])
+  J <- length(NL[1,,1,1])
+  K <- length(NL[1,1,,1])
+  K2 <- length(LL[1,1,,1])
+  K1 <- (K - K2)
+  maxNL <- length(NL[1,1,1,])
+  maxLL <- length(LL[1,1,1,])
+  if ((maxLL != 1) || (maxLL != 1)) stop("dataset error in varComponentsDeLong")
+  
+  fomArray <- UtilFigureOfMerit(dataset, FOM)
+  
+  if (!FOM %in% c("Wilcoxon", "HrAuc", "ROI")) 
+    stop("DeLong\"s method can only be used for trapezoidal figures of merit.")
+  
+  if (FOM == "ROI") {
+    kI01 <- which(apply((NL[1, 1, , ] != UNINITIALIZED), 1, any))
+    numKI01 <- rowSums((NL[1, 1, , ] != UNINITIALIZED))
+    I01 <- length(kI01)
+    I10 <- K2
+    N <- sum((NL[1, 1, , ] != UNINITIALIZED))
+    M <- sum(lesionVector)
+    V01 <- array(dim = c(I, J, I01, maxNL))
+    V10 <- array(dim = c(I, J, I10, maxLL))
+    for (i in 1:I) {
+      for (j in 1:J) {
+        for (k in 1:I10) {
+          for (el in 1:lesionVector[k]) {
+            V10[i, j, k, el] <- (sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) < LL[i, j, k, el]) 
+                                 + 0.5 * sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) == LL[i, j, k, el]))/N
+          }
+        }
+        for (k in 1:I01) {
+          for (el in 1:maxNL) {
+            if (NL[i, j, kI01[k], el] == UNINITIALIZED) 
+              next
+            V01[i, j, k, el] <- (sum(NL[i, j, kI01[k], el] < as.vector(LL[i, j, , ][LL[i, j, , ] != UNINITIALIZED])) 
+                                 + 0.5 * sum(NL[i, j, kI01[k], el] == as.vector(LL[i, j, , ][LL[i, j, , ] != UNINITIALIZED])))/M
+          }
+        }
+      }
+    }
+    s10 <- array(0, dim = c(I, I, J, J))
+    s01 <- array(0, dim = c(I, I, J, J))
+    s11 <- array(0, dim = c(I, I, J, J))
+    for (i in 1:I) {
+      for (ip in 1:I) {
+        for (j in 1:J) {
+          for (jp in 1:J) {
+            for (k in 1:I10) {
+              s10[i, ip, j, jp] <- (s10[i, ip, j, jp]
+                                    + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])])
+                                       - lesionVector[k] * fomArray[i, j])
+                                    * (sum(V10[ip, jp, k, !is.na(V10[ip, jp, k, ])]) 
+                                       - lesionVector[k] * fomArray[ip, jp]))
+            }
+            for (k in 1:I01) {
+              s01[i, ip, j, jp] <- (s01[i, ip, j, jp] 
+                                    + (sum(V01[i, j, k, !is.na(V01[i, j, k, ])]) 
+                                       - numKI01[kI01[k]] * fomArray[i, j]) 
+                                    * (sum(V01[ip, jp, k, !is.na(V01[ip, jp, k, ])]) 
+                                       - numKI01[kI01[k]] * fomArray[ip, jp]))
+            }
+            allAbn <- 0
+            for (k in 1:K2) {
+              if (all(NL[ip, jp, k + K1, ] == UNINITIALIZED)) {
+                allAbn <- allAbn + 1
+                next
+              }                  
+              s11[i, ip, j, jp] <- (s11[i, ip, j, jp] 
+                                    + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])]) 
+                                       - lesionVector[k] * fomArray[i, j]) 
+                                    * (sum(V01[ip, jp, k + K1 - allAbn, !is.na(V01[ip, jp, k + K1 - allAbn, ])]) 
+                                       - numKI01[K1 + k] * fomArray[ip, jp]))
+            }
+          }
+        }
+      }
+    }
+    s10 <- s10 * I10/(I10 - 1)/M
+    s01 <- s01 * I01/(I01 - 1)/N
+    s11 <- s11 * K/(K - 1)
+    S <- array(0, dim = c(I, I, J, J))
+    for (i in 1:I) {
+      for (ip in 1:I) {
+        for (j in 1:J) {
+          for (jp in 1:J) {
+            S[i, ip, j, jp] <- s10[i, ip, j, jp]/M + s01[i, ip, j, jp]/N + s11[i, ip, j, jp]/(M * N) + s11[ip, i, jp, j]/(M * N)
+          }
+        }
+      }
+    }
+  } else {
+    # ROC
+    V10 <- array(dim = c(I, J, K2))
+    V01 <- array(dim = c(I, J, K1))
+    for (i in 1:I) {
+      for (j in 1:J) {
+        nl <- NL[i, j, 1:K1, ]
+        ll <- cbind(NL[i, j, (K1 + 1):K, ], LL[i, j, , ])
+        dim(nl) <- c(K1, maxNL)
+        dim(ll) <- c(K2, maxNL + maxLL)
+        fp <- apply(nl, 1, max)
+        tp <- apply(ll, 1, max)
+        for (k in 1:K2) {
+          V10[i, j, k] <- (sum(fp < tp[k]) + 0.5 * sum(fp == tp[k]))/K1
+        }
+        for (k in 1:K1) {
+          V01[i, j, k] <- (sum(fp[k] < tp) + 0.5 * sum(fp[k] == tp))/K2
+        }
+      }
+    }
+    s10 <- array(dim = c(I, I, J, J))
+    s01 <- array(dim = c(I, I, J, J))
+    for (i in 1:I) {
+      for (ip in 1:I) {
+        for (j in 1:J) {
+          for (jp in 1:J) {
+            s10[i, ip, j, jp] <- sum((V10[i, j, ] - fomArray[i, j]) * (V10[ip, jp, ] - fomArray[ip, jp]))/(K2 - 1)
+            s01[i, ip, j, jp] <- sum((V01[i, j, ] - fomArray[i, j]) * (V01[ip, jp, ] - fomArray[ip, jp]))/(K1 - 1)
+          }
+        }
+      }
+    }
+    S <- s10/K2 + s01/K1
+  }
+  Cov <- VarCovs(S)
+  var <- Cov$var
+  cov1 <- Cov$cov1
+  cov2 <- Cov$cov2
+  cov3 <- Cov$cov3
+  
+  return(list(var = var, cov1 = cov1, cov2 = cov2, cov3 = cov3))
+}

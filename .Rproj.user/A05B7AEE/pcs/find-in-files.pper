@@ -2,13 +2,10 @@
     "dialog-state" : {
         "caseSensitive" : true,
         "filePatterns" : [
-            "*.r",
-            "*.R",
-            "*.Rmd"
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "UtilDBM2ORVarComp",
+        "query" : "VarCovs",
         "regex" : false
     }
 }

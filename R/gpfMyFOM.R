@@ -1,6 +1,10 @@
 #' @importFrom stats approx
 
-gpfMyFOM <- function(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue = NULL) {
+gpfMyFOM <- function(nl, ll, 
+                     lesionVector, lesionID, 
+                     lesionWeight, maxNL, 
+                     maxLL, K1, K2, 
+                     FOM, FPFValue = NULL) {
   if (!FOM %in% c("Wilcoxon", "HrAuc", "HrSe", "HrSp", "SongA1", 
                   "SongA2", "AFROC1", "AFROC", "wAFROC1", "wAFROC",
                   "JAFROC1", "JAFROC", "wJAFROC1", "wJAFROC", "FROC", # dpc 
