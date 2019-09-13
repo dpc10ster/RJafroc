@@ -170,11 +170,21 @@ StSignificanceTesting <- function(dataset, FOM = "Wilcoxon", alpha = 0.05, metho
     FOM <- "ROI"
     cat("ROI dataset: forcing method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.\n")
   }
+
+  if (!option %in% c("RRRC", "FRRC", "RRFC", "ALL")){
+    errMsg <- sprintf("%s is not a valid option.", option)
+    stop(errMsg)
+  }    
+  
+  if (length(dataset$modalityID) < 2) {
+    stop("This analysis requires at least 2 treatments; \nUse StSignificanceTestingSingleFixedFactor() for single treatment analysis.")
+  }
+  
   
   if (method == "DBMH"){
     
     if (covEstMethod != "Jackknife") 
-      stop("For DBMH method covariance estimation method must be jackknife")
+      stop("For DBMH method covariance estimation method covEstMethod must be Jackknife")
     
     return(StDBMHAnalysis(dataset, FOM, alpha, option, FPFValue = FPFValue))
     
@@ -195,7 +205,8 @@ StSignificanceTesting <- function(dataset, FOM = "Wilcoxon", alpha = 0.05, metho
 
 
 StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL", 
-                           VarCompFlag = FALSE, FPFValue = FPFValue) {
+                           VarCompFlag = FALSE, FPFValue = FPFValue) 
+{
   NL <- dataset$NL
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
@@ -203,29 +214,31 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
   J <- length(readerID)
   K <- dim(NL)[3]
   
-  if (!option %in% c("RRRC", "FRRC", "RRFC", "ALL")){
-    errMsg <- sprintf("%s is not a valid option.", option)
-    stop(errMsg)
-  }    
-  
-  if (I < 2) {
-    stop("The analysis requires at least 2 treatments; use StSignificanceTestingSingleFixedFactor()")
-  }
-  
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue = FPFValue)
-  trMeans <- rowMeans(fomArray)
+  trtMeans <- rowMeans(fomArray)
   
-  ret <- varComponentsJackknife(dataset, FOM, FPFValue = FPFValue)
-  pseudoValues <- ret$pseudoValues
-  varCompDBM <- ret$varCompDBM
-  varCompOR <- ret$varCompOR
-  msArray <- ret$msPseudovalues
-  msT <- msArray$msT
-  msTR <- msArray$msTR
-  msTC <- msArray$msTC
-  msTRC <- msArray$msTRC
+  psVals <- pseudoValues(dataset, FOM, FPFValue = FPFValue)
   
-  # msArray <- c(msT, msR, msC, msTR, msTC, msRC, msTRC)
+  mSquares <- pseudoValueMeanSquares(psVals)
+  msT <- mSquares$msT
+  msR <- mSquares$msR
+  msC <- mSquares$msC
+  msTR <- mSquares$msTR
+  msTC <- mSquares$msTC
+  msRC <- mSquares$msRC
+  msTRC <- mSquares$msTRC
+  
+  varR <- (msR - msTR - msRC + msTRC)/(I * K)
+  varC <- (msC - msTC - msRC + msTRC)/(I * J)
+  varTR <- (msTR - msTRC)/K
+  varTC <- (msTC - msTRC)/J
+  varRC <- (msRC - msTRC)/I
+  varErr <- msTRC
+  
+  varCompDBM <- c(varR, varC, varTR, varTC, varRC, varErr)
+  varCompName <- c("Var(R)", "Var(C)", "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")
+  varCompDBM <- data.frame(varCompDBM, row.names = varCompName)  
+
   dfArray <- c(I - 1, 
                J - 1, 
                K - 1, 
@@ -233,8 +246,8 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
                (I - 1) * (K - 1), 
                (J - 1) * (K - 1), 
                (I - 1) * (J - 1) * (K - 1))
-  ssArray <- unlist(msArray) * dfArray
-  msArray <- c(msArray, NA)
+  ssArray <- unlist(mSquares) * dfArray
+  msArray <- c(mSquares, NA)
   dfArray <- c(dfArray, sum(dfArray))
   ssArray <- c(ssArray, sum(ssArray))
   sourceArray <- c("T", 
@@ -252,19 +265,18 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
   msRCSingle <- array(0, dim = c(I))
   for (i in 1:I) {
     for (j in 1:J) {
-      msRSingle[i] <- msRSingle[i] + (mean(pseudoValues[i, j, ]) - mean(pseudoValues[i, , ]))^2
+      msRSingle[i] <- msRSingle[i] + (mean(psVals[i, j, ]) - mean(psVals[i, , ]))^2
     }
     msRSingle[i] <- msRSingle[i] * K/(J - 1)
     
-    
     for (k in 1:K) {
-      msCSingle[i] <- msCSingle[i] + (mean(pseudoValues[i, , k]) - mean(pseudoValues[i, , ]))^2
+      msCSingle[i] <- msCSingle[i] + (mean(psVals[i, , k]) - mean(psVals[i, , ]))^2
     }
     msCSingle[i] <- msCSingle[i] * J/(K - 1)
     
     for (j in 1:J) {
       for (k in 1:K) {
-        msRCSingle[i] <- msRCSingle[i] + (mean(pseudoValues[i, j, k]) - mean(pseudoValues[i, j, ]) - mean(pseudoValues[i, , k]) + mean(pseudoValues[i, , ]))^2
+        msRCSingle[i] <- msRCSingle[i] + (mean(psVals[i, j, k]) - mean(psVals[i, j, ]) - mean(psVals[i, , k]) + mean(psVals[i, , ]))^2
       }
     }
     msRCSingle[i] <- msRCSingle[i]/((J - 1) * (K - 1))
@@ -282,7 +294,7 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
     if (i == I) 
       break
     for (ip in (i + 1):I) {
-      diffTRMeans[ii] <- trMeans[i] - trMeans[ip]
+      diffTRMeans[ii] <- trtMeans[i] - trtMeans[ip]
       diffTRName[ii] <- paste(modalityID[i], modalityID[ip], sep = " - ")
       ii <- ii + 1
     }
@@ -326,12 +338,12 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         msDenSingleRRRC[i] <- msRSingle[i] + max(msCSingle[i] - msRCSingle[i], 0)
         dfSingleRRRC[i] <- msDenSingleRRRC[i]^2/msRSingle[i]^2 * (J - 1)
         stdErrSingleRRRC[i] <- sqrt(msDenSingleRRRC[i]/J/K)
-        ciTemp <- sort(c(trMeans[i] - qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i], trMeans[i] + qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i]))
+        ciTemp <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i], trtMeans[i] + qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i]))
         if (length(ciTemp) == 2) CISingleRRRC[i, ] <- ciTemp
         
       }
       ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, 
-                                        Area = trMeans, 
+                                        Area = trtMeans, 
                                         StdErr = as.vector(stdErrSingleRRRC), # this was the critical fix, Peter
                                         DF = as.vector(dfSingleRRRC),  # this was the critical fix, Peter
                                         CILower = CISingleRRRC[,1], 
@@ -352,7 +364,6 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         anovaY = anovaY, 
         anovaYi = msSingleTable, 
         varCompDBM = varCompDBM, 
-        varCompOR = varCompOR, 
         fRRRC = fRRRC, 
         ddfRRRC = ddfRRRC, 
         pRRRC = pRRRC, 
@@ -393,10 +404,10 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
       msDenSingleFRRC[i] <- msCSingle[i]
       dfSingleFRRC[i] <- (K - 1)
       stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J/K)
-      CISingleFRRC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
+      CISingleFRRC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trtMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
     }
     ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID, 
-                                      Area = trMeans, 
+                                      Area = trtMeans, 
                                       StdErr = as.vector(stdErrSingleFRRC), 
                                       DF = as.vector(dfSingleFRRC), 
                                       CILower = CISingleFRRC[,1], 
@@ -409,18 +420,18 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
     ssTCFRRC <- array(0, dim = c(J))
     for (j in 1:J) {
       for (i in 1:I) {
-        ssTFRRC[j] <- ssTFRRC[j] + (mean(pseudoValues[i, j, ]) - mean(pseudoValues[, j, ]))^2
+        ssTFRRC[j] <- ssTFRRC[j] + (mean(psVals[i, j, ]) - mean(psVals[, j, ]))^2
       }
       ssTFRRC[j] <- ssTFRRC[j] * K
       
       for (k in 1:K) {
-        ssCFRRC[j] <- ssCFRRC[j] + (mean(pseudoValues[, j, k]) - mean(pseudoValues[, j, ]))^2
+        ssCFRRC[j] <- ssCFRRC[j] + (mean(psVals[, j, k]) - mean(psVals[, j, ]))^2
       }
       ssCFRRC[j] <- ssCFRRC[j] * I
       
       for (i in 1:I) {
         for (k in 1:K) {
-          ssTCFRRC[j] <- ssTCFRRC[j] + (mean(pseudoValues[i, j, k]) - mean(pseudoValues[i, j, ]) - mean(pseudoValues[, j, k]) + mean(pseudoValues[, j, ]))^2
+          ssTCFRRC[j] <- ssTCFRRC[j] + (mean(psVals[i, j, k]) - mean(psVals[i, j, ]) - mean(psVals[, j, k]) + mean(psVals[, j, ]))^2
         }
       }
     }
@@ -481,7 +492,6 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         anovaY = anovaY, 
         anovaYi = msSingleTable, 
         varCompDBM = varCompDBM, 
-        varCompOR = varCompOR, 
         fFRRC = fFRRC, 
         ddfFRRC = ddfFRRC, 
         pFRRC = pFRRC, 
@@ -526,10 +536,10 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         msDenSingleRRFC[i] <- msRSingle[i]
         dfSingleRRFC[i] <- (J - 1)
         stdErrSingleRRFC[i] <- sqrt(msDenSingleRRFC[i]/J/K)
-        CISingleRRFC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i], trMeans[i] + qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i]))
+        CISingleRRFC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i], trtMeans[i] + qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i]))
       }
       ciAvgRdrEachTrtRRFC <- data.frame(Treatment = modalityID, 
-                                        Area = trMeans, 
+                                        Area = trtMeans, 
                                         StdErr = as.vector(stdErrSingleRRFC), 
                                         DF = as.vector(dfSingleRRFC), 
                                         CILower = CISingleRRFC[,1], 
@@ -549,7 +559,6 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
         anovaY = anovaY, 
         anovaYi = msSingleTable, 
         varCompDBM = varCompDBM, 
-        varCompOR = varCompOR, 
         fRRFC = fRRFC, 
         ddfRRFC = ddfRRFC, 
         pRRFC = pRRFC, 
@@ -563,7 +572,6 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
     anovaY = anovaY, 
     anovaYi = msSingleTable, 
     varCompDBM = varCompDBM, 
-    varCompOR = varCompOR, 
     fRRRC = fRRRC, 
     ddfRRRC = ddfRRRC, 
     pRRRC = pRRRC, 
@@ -582,96 +590,52 @@ StDBMHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, option = "ALL",
 
 
 StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jackknife", 
-                          nBoots = 200, option = "ALL", VarCompFlag = FALSE, FPFValue = FPFValue)  {
+                          nBoots = 200, option = "ALL", VarCompFlag = FALSE, FPFValue = FPFValue)  
+{
   
-  dataType <- dataset$dataType
-  
-  if (dataType != "LROC") {
-    NL <- dataset$NL
-    LL <- dataset$LL
-  } else {
-    if (FOM == "Wilcoxon"){
-      dataset <- DfLroc2Roc(dataset)
-      NL <- dataset$NL
-      LL <- dataset$LL
-    } else if (FOM %in% c("PCL", "ALROC")){
-      NL <- dataset$NL
-      LL <- dataset$LLCl
-    } else stop("incorrect FOM for LROC data")
-  }
-  
-  maxNL <- dim(NL)[4]
-  maxLL <- dim(LL)[4]
+  # ret <- ExtractRatings (dataset, FOM) # handles LROC also, using dataType member
+  # NL <- ret$NL
+  # LL <- ret$LL
+  # 
+  # maxNL <- dim(NL)[4]
+  # maxLL <- dim(LL)[4]
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
   J <- length(readerID)
-  K <- dim(NL)[3]
-  K2 <- dim(LL)[3]
-  
-  dim(NL) <- c(I, J, K, maxNL)
-  dim(LL) <- c(I, J, K2, maxLL)
-  
-  if (!option %in% c("RRRC", "FRRC", "RRFC", "ALL")){
-    errMsg <- sprintf("%s is not an available option.", option)
-    stop(errMsg)
-  }    
+  K <- dim(dataset$NL)[3]
+  # K2 <- dim(LL)[3]
+  # 
+  # dim(NL) <- c(I, J, K, maxNL)
+  # dim(LL) <- c(I, J, K2, maxLL)
   
   if (!covEstMethod %in% c("Jackknife", "Bootstrap", "DeLong")) {
-    errMsg <- paste0(covEstMethod, " is not an allowed covariance estimation method.")
+    errMsg <- paste0(covEstMethod, " is not an allowed covariance estimation method for ORH analysis.")
     stop(errMsg)
   }
   
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue = FPFValue)
-  trMeans <- rowMeans(fomArray)
+  fomMean <- mean(fomArray)
+  trtMeans <- rowMeans(fomArray)
   
-  varCompBoth <- gpfEstimateVarCov(dataset, FOM, FPFValue = FPFValue, nBoots, covEstMethod)
-  varCompDBM <- varCompBoth$varCompDBM
-  varCompOR <- varCompBoth$varCompOR
-  cov1 <- varCompOR$Cov1
-  cov2 <- varCompOR$Cov2
-  cov3 <- varCompOR$Cov3
+  ret <- UtilVarComponentsOR(dataset, FOM = FOM, covEstMethod, nBoots, FPFValue = FPFValue)
+  varComp <- ret$varComp
+  meanSquares <- ret$meanSquares
+  msT <- meanSquares$msT
+  msR <- meanSquares$msR
+  msTR <- meanSquares$msTR
   
-  if (VarCompFlag){
-    return (varCompBoth)
-  }
-  
-  retMS <- fomMeanSquares(fomArray)
-  msT <- retMS$msT
-  msTR <- retMS$msTR
-  
-  varEachTrt <- vector(length = I)
-  cov2EachTrt <- vector(length = I)
-  for (i in 1:I) {
-    fomSingle <- fomArray[i, ]
-    dim(fomSingle) <- c(1, J)
-    nl <- NL[i, , , ]
-    ll <- LL[i, , , ]
-    lesionVector <- dataset$lesionVector
-    lesionID <- dataset$lesionID
-    lesionWeight <- dataset$lesionWeight
-    dim(fomSingle) <- c(1, J)
-    dim(nl) <- c(1, J, K, maxNL)
-    dim(ll) <- c(1, J, K2, maxLL)
-    ret <- EstimateVarCov(fomSingle, nl, ll, lesionVector, lesionID, lesionWeight, maxNL, FOM, covEstMethod, nBoots)
-    varEachTrt[i] <- ret$var
-    if (J > 1) {
-      cov2EachTrt[i] <- ret$cov2
-    } else {
-      cov2EachTrt[i] <- 0
-    }
-  }
-
-
   varEachTrt <- vector(length = I)
   cov2EachTrt <- vector(length = I)
   for (i in 1:I) {
     fomSingle <- fomArray[i, ]
     dim(fomSingle) <- c(1, J)
     dsi <- DfExtractDataset(dataset, trts = i)
-    varCompOR <- (gpfEstimateVarCov(dsi, FOM, FPFValue = FPFValue, nBoots, covEstMethod))$varCompOR
-    varEachTrt[i] <- varCompOR$varErr
-    cov2EachTrt[i] <- varCompOR$Cov2
+    temp <- UtilVarComponentsOR(dsi, FOM = FOM, covEstMethod, nBoots, FPFValue = FPFValue)
+    
+    ret <- gpfEstimateVarCov(dsi, FOM, FPFValue = FPFValue, nBoots, covEstMethod)
+    varCompOR <- ret$varCompOR
+    varEachTrt[i] <- ret$var
     if (J > 1) {
       cov2EachTrt[i] <- ret$cov2
     } else {
@@ -685,14 +649,14 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
     fomSingle <- fomArray[, j]
     dim(fomSingle) <- c(I, 1)
     dsj <- DfExtractDataset(dataset, rdrs = j)
-    varCompBoth <- gpfEstimateVarCov(dsj, FOM, FPFValue = FPFValue, nBoots, covEstMethod)
-    varEachRdr[j] <- varCompOR$varErr
-    cov1EachRdr[j] <- varCompOR$Cov1
+    ret <- gpfEstimateVarCov(dsj, FOM, FPFValue = FPFValue, nBoots, covEstMethod)
+    varEachRdr[j] <- ret$var
+    cov1EachRdr[j] <- ret$cov1
   }
   
   msRSingle <- array(0, dim = c(I))
   for (i in 1:I) {
-    msRSingle[i] <- sum((fomArray[i, ] - trMeans[i])^2)/(J - 1)
+    msRSingle[i] <- sum((fomArray[i, ] - trtMeans[i])^2)/(J - 1)
   }
   
   diffTRMeans <- array(dim = choose(I, 2))
@@ -702,13 +666,17 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
     if (i == I) 
       break
     for (ip in (i + 1):I) {
-      diffTRMeans[ii] <- trMeans[i] - trMeans[ip]
+      diffTRMeans[ii] <- trtMeans[i] - trtMeans[ip]
       diffTRName[ii] <- paste(modalityID[i], modalityID[ip], sep = " - ")
       ii <- ii + 1
     }
   }
   
   msNum <- msT
+  cov1 <- varComp$varCov[3]
+  cov2 <- varComp$varCov[4]
+  cov3 <- varComp$varCov[5]
+  var <- varComp$varCov[6]
   
   # ************ RRRC ****************
   if (option %in% c("RRRC", "ALL")) {
@@ -749,7 +717,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
         msDenSingleRRRC[i] <- msRSingle[i] + max(J * cov2EachTrt[i], 0)
         dfSingleRRRC[i] <- msDenSingleRRRC[i]^2/msRSingle[i]^2 * (J - 1)
         stdErrSingleRRRC[i] <- sqrt(msDenSingleRRRC[i]/J)
-        ci <- sort(c(trMeans[i] - qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i], trMeans[i] + qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i]))
+        ci <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i], trtMeans[i] + qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i]))
         if (length(ci) == 0){
           CISingleRRRC[i, ] <- c(NA, NA)
         }else{
@@ -758,7 +726,7 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
         
       }
       ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, 
-                                        Area = trMeans, 
+                                        Area = trtMeans, 
                                         StdErr = as.vector(stdErrSingleRRRC), 
                                         DF = as.vector(dfSingleRRRC), 
                                         CILower = CISingleRRRC[,1], 
@@ -825,10 +793,10 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
       msDenSingleFRRC[i] <- varEachTrt[i] + (J - 1) * cov2EachTrt[i]
       dfSingleFRRC[i] <- Inf
       stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J)
-      CISingleFRRC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
+      CISingleFRRC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trtMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
     }
     ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID, 
-                                      Area = trMeans, 
+                                      Area = trtMeans, 
                                       StdErr = as.vector(stdErrSingleFRRC), 
                                       DF = as.vector(dfSingleFRRC), 
                                       CILower = CISingleFRRC[,1], 
@@ -921,10 +889,10 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
         msDenSingleRRFC[i] <- msRSingle[i]
         dfSingleRRFC[i] <- (J - 1)
         stdErrSingleRRFC[i] <- sqrt(msDenSingleRRFC[i]/J)
-        CISingleRRFC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i], trMeans[i] + qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i]))
+        CISingleRRFC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i], trtMeans[i] + qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i]))
       }
       ciAvgRdrEachTrtRRFC <- data.frame(Treatment = modalityID, 
-                                        Area = trMeans, 
+                                        Area = trtMeans, 
                                         StdErr = as.vector(stdErrSingleRRFC), 
                                         DF = as.vector(dfSingleRRFC), 
                                         CILower = CISingleRRFC[,1], 
@@ -974,21 +942,28 @@ StORHAnalysis <- function(dataset, FOM = FOM, alpha = 0.05, covEstMethod = "Jack
 
 
 #' @importFrom stats runif
-gpfEstimateVarCov <- function(dataset, FOM, FPFValue = FPFValue, nBoots, covEstMethod) {
+gpfEstimateVarCov <- function(dataset, FOM, FPFValue = FPFValue, nBoots, covEstMethod) 
+{
   
   if (covEstMethod == "Jackknife") {
     
     ret <- varComponentsJackknife(dataset, FOM, FPFValue = FPFValue)
     
-  } else if (covEstMethod == "Bootstrap") {
+  } 
+  
+  else if (covEstMethod == "Bootstrap") {
     
     ret <- varComponentsBootstrap (dataset, FOM, FPFValue = FPFValue, nBoots)
     
-  } else if (covEstMethod == "DeLong") {
+  } 
+  
+  else if (covEstMethod == "DeLong") {
     
     ret <- varComponentsDeLong (dataset, FOM)
     
-  } else stop("incorrect covariance estimation method specified")
+  } 
+  
+  else stop("incorrect covariance estimation method specified")
   
   return(ret)
   
@@ -1002,9 +977,6 @@ ResamplingEstimateVarCovs <- function(resampleMatrix) {
   J <- dim(resampleMatrix)[2]
   covariances <- array(dim = c(I, I, J, J))
   
-  if (I == 1) {
-    temp1 <- 0
-  }
   for (i in 1:I) {
     for (ip in 1:I) {
       for (j in 1:J) {
@@ -1015,14 +987,14 @@ ResamplingEstimateVarCovs <- function(resampleMatrix) {
     }
   }
   
-  ret <- VarCovs(covariances)
+  ret <- ORVarianceCovariances(covariances)
   return(list(var = ret$var, cov1 = ret$cov1, cov2 = ret$cov2, cov3 = ret$cov3))
 }
 
 
 
 
-VarCovs <- function(covariances) {
+ORVarianceCovariances <- function(covariances) {
   var <- 0
   count <- 0
   I <- dim(covariances)[1]
@@ -1234,50 +1206,50 @@ jackknifePseudoValues <- function (dataset, FOM, FPFValue = FPFValue)
       pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
     }
   }
-  return(list (
-    pseudoValues = pseudoValues,
-    jkFOMArray = jkFOMArray
+  return(list(
+    jkFOMArray = jkFOMArray,
+    pseudoValues = pseudoValues
   ))
 }
 
 
 
 
-fomMeanSquares <- function(fomArray){
-  
-  I <- length(fomArray[,1])
-  J <- length(fomArray[1,])
-  
-  fomMean <- mean(fomArray)
-  
-  msT <- 0
-  for (i in 1:I) {
-    msT <- msT + (mean(fomArray[i, ]) - fomMean)^2
-  }
-  msT <- J * msT/(I - 1)
-  
-  msR <- 0
-  for (j in 1:J) {
-    msR <- msR + (mean(fomArray[, j]) - fomMean)^2
-  }
-  msR <- I * msR/(J - 1)
-  
-  msTR <- 0
-  for (i in 1:I) {
-    for (j in 1:J) {
-      msTR <- msTR + (fomArray[i, j] - mean(fomArray[i, ]) - mean(fomArray[, j]) + fomMean)^2
-    }
-  }
-  msTR <- msTR/((J - 1) * (I - 1))
-  return(list(
-    msT = msT,
-    msR = msR,
-    msTR = msTR
-  ))  
-}
-
-
-
+# fomMeanSquares <- function(fomArray){
+#   
+#   I <- length(fomArray[,1])
+#   J <- length(fomArray[1,])
+#   
+#   fomMean <- mean(fomArray)
+#   
+#   msT <- 0
+#   for (i in 1:I) {
+#     msT <- msT + (mean(fomArray[i, ]) - fomMean)^2
+#   }
+#   msT <- J * msT/(I - 1)
+#   
+#   msR <- 0
+#   for (j in 1:J) {
+#     msR <- msR + (mean(fomArray[, j]) - fomMean)^2
+#   }
+#   msR <- I * msR/(J - 1)
+#   
+#   msTR <- 0
+#   for (i in 1:I) {
+#     for (j in 1:J) {
+#       msTR <- msTR + (fomArray[i, j] - mean(fomArray[i, ]) - mean(fomArray[, j]) + fomMean)^2
+#     }
+#   }
+#   msTR <- msTR/((J - 1) * (I - 1))
+#   return(list(
+#     msT = msT,
+#     msR = msR,
+#     msTR = msTR
+#   ))  
+# }
+# 
+# 
+# 
 
 pseudoValueMeanSquares <- function (pseudoValues)
 {
@@ -1357,6 +1329,28 @@ pseudoValueMeanSquares <- function (pseudoValues)
 
 
 
+pseudoValues <- function(dataset, FOM, FPFValue = FPFValue) {
+  
+  I <- length(dataset$NL[,1,1,1])
+  J <- length(dataset$NL[1,,1,1])
+  K <- length(dataset$NL[1,1,,1])
+  
+  if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+    
+    ret <- jackknifePseudoValuesNormals(dataset, FOM, FPFValue = FPFValue)
+    
+  } else if (FOM %in% c("MaxLLF", "HrSe")) {
+    
+    ret <- jackknifePseudoValuesAbnormals(dataset, FOM, FPFValue = FPFValue)
+    
+  } else {
+    
+    ret <- jackknifePseudoValues(dataset, FOM, FPFValue = FPFValue)
+    
+  }
+  return(ret$pseudoValues)
+}
+
 
 varComponentsJackknife <- function(dataset, FOM, FPFValue = FPFValue) {
   
@@ -1364,85 +1358,31 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue = FPFValue) {
   J <- length(dataset$NL[1,,1,1])
   K <- length(dataset$NL[1,1,,1])
   
-  if (I == 1) {
-    temp = 1.0
-  }
-  
   if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+    
     ret <- jackknifePseudoValuesNormals(dataset, FOM, FPFValue = FPFValue)
+    
   } else if (FOM %in% c("MaxLLF", "HrSe")) {
+    
     ret <- jackknifePseudoValuesAbnormals(dataset, FOM, FPFValue = FPFValue)
+    
   } else {
-    ret <- jackknifePseudoValues(dataset, FOM, FPFValue = FPFValue) 
+    
+    ret <- jackknifePseudoValues(dataset, FOM, FPFValue = FPFValue)
+    
   }
-  jkFOMArray <- ret$jkFOMArray
-  pseudoValues <- ret$pseudoValues
   
-  msPseudovalues <- pseudoValueMeanSquares(pseudoValues)
-  # msT <- msPseudovalues$msT
-  msR <- msPseudovalues$msR
-  msC <- msPseudovalues$msC
-  msTR <- msPseudovalues$msTR
-  msTC <- msPseudovalues$msTC
-  msRC <- msPseudovalues$msRC
-  msTRC <- msPseudovalues$msTRC
-  
-  varR <- (msR - msTR - msRC + msTRC)/(I * K)
-  varC <- (msC - msTC - msRC + msTRC)/(I * J)
-  varTR <- (msTR - msTRC)/K
-  varTC <- (msTC - msTRC)/J
-  varRC <- (msRC - msTRC)/I
-  varErr <- msTRC
-  varComp <- c(varR, varC, varTR, varTC, varRC, varErr)
-  varCompName <- c("Var(R)", "Var(C)", "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")
-  varComp <- data.frame(varComp, row.names = varCompName)
-  
-  # if (VarCompFlag){
-  #   return (varComp)
-  # }
-  
-  varCompDBM <- list(
-    varR = varR,
-    varC = varC,
-    varTR = varTR,
-    varTC = varTC,
-    varRC = varRC,
-    varErr = varErr
-  )
-  
-  varCompDBM <- data.frame(
-    varR = varR,
-    varC = varC,
-    varTR = varTR,
-    varTC = varTC,
-    varRC = varRC,
-    varErr = varErr
-  )
-  
-  varCompOR <- UtilDBM2ORVarComp (K, varCompDBM)
-  varCompOR <- data.frame(
-    varR = varCompOR$varR,
-    varTR = varCompOR$varTR,
-    Cov1 = varCompOR$Cov1,
-    Cov2 = varCompOR$Cov2,
-    Cov3 = varCompOR$Cov3,
-    varErr = varCompOR$varErr
-  )
-  
-  return(list(
-    jkFOMArray = jkFOMArray,
-    pseudoValues = pseudoValues,
-    varCompDBM = varCompDBM,
-    varCompOR = varCompOR,
-    msPseudovalues = msPseudovalues 
-  ))
+  Cov <- ResamplingEstimateVarCovs(ret$pseudoValues)
+
+  return(Cov)
   
 }
 
 
 
 
-varComponentsBootstrap <- function(dataset, FOM, FPFValue = FPFValue, nBoots) {
+varComponentsBootstrap <- function(dataset, FOM, FPFValue = FPFValue, nBoots) 
+{
   
   NL <- dataset$NL
   LL <- dataset$LL
@@ -1667,7 +1607,7 @@ varComponentsDeLong <- function(dataset, FOM)
     }
     S <- s10/K2 + s01/K1
   }
-  Cov <- VarCovs(S)
+  Cov <- ORVarianceCovariances(S)
   var <- Cov$var
   cov1 <- Cov$cov1
   cov2 <- Cov$cov2

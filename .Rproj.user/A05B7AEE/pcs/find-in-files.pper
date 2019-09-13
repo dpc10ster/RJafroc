@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "VarCovs",
+        "query" : "EstimateVarCov",
         "regex" : false
     }
 }

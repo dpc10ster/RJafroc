@@ -5,7 +5,37 @@
 \margl1440\margr1440\vieww13600\viewh13720\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\b\fs24 \cf0 OldCode\
+\f0\b\fs48 \cf0 JAFROC\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\b0\fs24 \cf0 JAFROC Version 4.2.1\
+     DBM Component            Estimate    \
+ -----------------------  ----------------\
+ Var(R)                         0.00182911\
+ Var(C)                         0.04347403\
+ Var(T*R)                      -0.00024010\
+ Var(T*C)                       0.00076895\
+ Var(R*C)                       0.02403484\
+ Var(T*R*C) + Var(Error)        0.09253638\
+ \
+ Obuchowski-Rockette variance component and covariance estimates\
+ (for sample size estimation for future studies)\
+ Note: These are unbiased ANOVA estimates which can be negative\
+ \
+     OR Component             Estimate    \
+ -----------------------  ----------------\
+ Reader                         0.00182911\
+ Treatment*Reader              -0.00024010\
+ COV1                           0.00033754\
+ COV2                           0.00022121\
+ COV3                           0.00021737\
+ ERROR                          0.00080407\
+ \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs48 \cf0 OldCode
+\fs24 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f1\b0 \cf0 \
@@ -14,8 +44,7 @@ fomArray1\
 [1,] 0.90235 0.8315 0.78865 0.8798\
 [2,] 0.84140 0.7730 0.77115 0.8480\
 \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 ret\
+ret\
 $var\
 [1] 0.0008040723\
 \
@@ -36,6 +65,13 @@ COV1        0.0003375446\
 COV2        0.0002212156\
 COV3        0.0002173707\
 Var(Error)  0.0008040723\
+\
+msT\
+[1] 0.00355957\
+msR\
+[1] 0.004121148\
+msTR\
+[1] 0.0002225836\
 \
 jkFOMArray[1, 1, 1:10]\
  [1] 0.9017677 0.9017677 0.9017677 0.9017677 0.9017677 0.9017677 0.9017677 0.9039394 0.9017677 0.9023232\
@@ -75,62 +111,18 @@ $cov3\
 [1] NaN\
 \
 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\b NewCode
-\f1\b0 \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 fomArray\
-        Rdr - 1 Rdr - 3 Rdr - 4 Rdr - 5\
-Trt - 4 0.90235  0.8315 0.78865  0.8798\
-Trt - 5 0.84140  0.7730 0.77115  0.8480\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0          varR         varTR         Cov1         Cov2         Cov3       varErr\
-1 0.001829108 -0.0002400991 0.0003375446 0.0002212156 0.0002173707 0.0008040723\
-\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 \
-varEachTrt\
-[1] 0.0007265150 0.0008816296\
-\
-cov2EachTrt\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 [1] 0.0002204290 0.0002220023\
-\
-\
-jkFOMArray[1,1,1:10]\
- [1] 0.9017677 0.9017677 0.9017677 0.9017677 0.9017677 0.9017677 0.9017677 0.9039394 0.9017677 0.9023232\
-\
-msPseudovalues\
-$msT\
-[1] NaN\
-\
-$msR\
-[1] 0.5155542\
-\
-$msC\
-[1] 0.2775604\
-\
-$msTR\
-[1] NaN\
-\
-$msTC\
-[1] Inf\
-\
-$msRC\
-[1] 0.1012172\
-\
-$msTRC\
-[1] Inf\
-\
-\
-retMS\
-$msT\
-[1] 0.00355957\
-\
-$msR\
-[1] 0.004121148\
-\
-$msTR\
-[1] 0.0002225836\
+\f0\b\fs48 \cf0 NewCode
+\f1\b0\fs24 \
+> resDBMHNew <- StSignificanceTesting(ds, FOM = "HrAuc")\
+> resDBMHNew$varCompDBM\
+              varCompDBM\
+Var(R)      0.0018291081\
+Var(C)      0.0434741356\
+Var(T*R)   -0.0002400991\
+Var(T*C)    0.0007689872\
+Var(R*C)    0.0240347896\
+Var(Error)  0.0925365554\
 \
 }
