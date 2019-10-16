@@ -141,7 +141,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       break
     for (ip in (i + 1):I) {
       diffTRMeans[ii] <- trMeans[i] - trMeans[ip]
-      diffTRName[ii] <- paste(modalityID[i], modalityID[ip], sep = " - ")
+      diffTRName[ii] <- paste(modalityID[i], modalityID[ip], sep = "-")
       ii <- ii + 1
     }
   }

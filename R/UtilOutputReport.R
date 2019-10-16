@@ -434,52 +434,52 @@ OutputTextFile <- function(dataset,
             " ----------  ------  ---------------  -------  -------"), 
           ReportFileName, append = TRUE)
     if (method == "DBMH") {
-      if (sigTestResult$pRRRC >= smallestDispalyedPval) {
+      if (sigTestResult$FTestStatsRRRC$pRRRC >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                       I - 1, 
                       sigTestResult$anovaY[1, 4], 
-                      sigTestResult$fRRRC, 
-                      sigTestResult$pRRRC), 
+                      sigTestResult$FTestStatsRRRC$fRRRC, 
+                      sigTestResult$FTestStatsRRRC$pRRRC), 
               ReportFileName, append = TRUE)
       } else {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                       I - 1, sigTestResult$anovaY[1, 4], 
-                      sigTestResult$fRRRC, 
+                      sigTestResult$FTestStatsRRRC$fRRRC, 
                       smallestDispalyedPval), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    sigTestResult$ddfRRRC, 
+                    sigTestResult$FTestStatsRRRC$ddfRRRC, 
                     sigTestResult$anovaY[4, 4] + max(sigTestResult$anovaY[5, 4] - sigTestResult$anovaY[7, 4])), 
             ReportFileName, append = TRUE)
       write(" Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]\n", 
             ReportFileName, append = TRUE)
     } else {
-      if (sigTestResult$pRRRC >= smallestDispalyedPval) {
+      if (sigTestResult$FTestStatsRRRC$ddfRRRC >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
-                      I - 1, sigTestResult$msT, sigTestResult$fRRRC, sigTestResult$pRRRC), 
+                      I - 1, sigTestResult$msT, sigTestResult$FTestStatsRRRC$fRRRC, sigTestResult$FTestStatsRRRC$ddfRRRC), 
               ReportFileName, append = TRUE)
       } else {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
-                      I - 1, sigTestResult$msT, sigTestResult$fRRRC, smallestDispalyedPval), 
+                      I - 1, sigTestResult$msT, sigTestResult$FTestStatsRRRC$fRRRC, smallestDispalyedPval), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    sigTestResult$ddfRRRC, 
+                    sigTestResult$FTestStatsRRRC$ddfRRRC, 
                     sigTestResult$msTR + max(J * (sigTestResult$varComp[3, 2] - sigTestResult$varComp[4, 2]), 0)), 
             ReportFileName, append = TRUE)
       write(" Error term: MS(TR) + J * max[Cov2 - Cov3, 0]\n", 
             ReportFileName, append = TRUE)
     }
     
-    if (sigTestResult$pRRRC < alpha) {
+    if (sigTestResult$FTestStatsRRRC$ddfRRRC < alpha) {
       write(sprintf(" Conclusion: The %s FOMs of treatments are not equal,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
-                    FOM, I - 1, sigTestResult$ddfRRRC, sigTestResult$fRRRC, sigTestResult$pRRRC), 
+                    FOM, I - 1, sigTestResult$FTestStatsRRRC$ddfRRRC, sigTestResult$FTestStatsRRRC$fRRRC, sigTestResult$FTestStatsRRRC$ddfRRRC), 
             ReportFileName, 
             append = TRUE)
     } else {
       write(sprintf(" Conclusion: The %s FOMs of treatments are not significantly different,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
-                    FOM, I - 1, sigTestResult$ddfRRRC, sigTestResult$fRRRC, sigTestResult$pRRRC), 
+                    FOM, I - 1, sigTestResult$FTestStatsRRRC$ddfRRRC, sigTestResult$FTestStatsRRRC$fRRRC, sigTestResult$FTestStatsRRRC$ddfRRRC), 
             ReportFileName, append = TRUE)
     }
     write(sprintf("    b) %d%% confidence intervals for treatment differences\n", ciPercent), 
@@ -556,71 +556,71 @@ OutputTextFile <- function(dataset,
           " ----------  ------  ---------------  -------  -------"), 
         ReportFileName, append = TRUE)
   if (method == "DBMH") {
-    if (sigTestResult$pFRRC >= smallestDispalyedPval) {
+    if (sigTestResult$FTestStatsFRRC$ddfFRRC >= smallestDispalyedPval) {
       write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                     I - 1, 
                     sigTestResult$anovaY[1, 4], 
-                    sigTestResult$fFRRC, 
-                    sigTestResult$pFRRC), 
+                    sigTestResult$FTestStatsFRRC$fFRRC, 
+                    sigTestResult$FTestStatsFRRC$ddfFRRC), 
             ReportFileName, append = TRUE)
     } else {
       write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                     I - 1, 
                     sigTestResult$anovaY[1, 4], 
-                    sigTestResult$fFRRC, 
+                    sigTestResult$FTestStatsFRRC$fFRRC, 
                     smallestDispalyedPval), 
             ReportFileName, append = TRUE)
     }
     write(sprintf(" Error       %6.2f  %15.8f", 
-                  sigTestResult$ddfFRRC, sigTestResult$anovaY[5, 4]), 
+                  sigTestResult$FTestStatsFRRC$ddfFRRC, sigTestResult$anovaY[5, 4]), 
           ReportFileName, append = TRUE)
     write("  Error term: MS(TC)\n", ReportFileName, append = TRUE)
   } else {
-    if (sigTestResult$pFRRC >= smallestDispalyedPval) {
+    if (sigTestResult$FTestStatsFRRC$ddfFRRC >= smallestDispalyedPval) {
       write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                     I - 1, 
                     sigTestResult$msT, 
-                    sigTestResult$fFRRC, 
-                    sigTestResult$pFRRC), 
+                    sigTestResult$FTestStatsFRRC$fFRRC, 
+                    sigTestResult$FTestStatsFRRC$ddfFRRC), 
             ReportFileName, append = TRUE)
     } else {
       write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                     I - 1, 
                     sigTestResult$msT, 
-                    sigTestResult$fFRRC, 
+                    sigTestResult$FTestStatsFRRC$fFRRC, 
                     smallestDispalyedPval), 
             ReportFileName, append = TRUE)
     }
     if (J > 1) {
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    sigTestResult$ddfFRRC, 
+                    sigTestResult$FTestStatsFRRC$ddfFRRC, 
                     (sigTestResult$varComp[1, 2] - sigTestResult$varComp[2, 2] + (J - 1) * (sigTestResult$varComp[3, 2] - sigTestResult$varComp[4, 2]))), 
             ReportFileName, append = TRUE)
       write(" Error term: Var - Cov1 + (J - 1) * ( Cov2 - Cov3 )\n", 
             ReportFileName, append = TRUE)
     } else {
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    sigTestResult$ddfFRRC, (sigTestResult$varComp[1, 2] - sigTestResult$varComp[2, 2])), 
+                    sigTestResult$FTestStatsFRRC$ddfFRRC, (sigTestResult$varComp[1, 2] - sigTestResult$varComp[2, 2])), 
             ReportFileName, append = TRUE)
       write(" Error term: Var - Cov1\n", 
             ReportFileName, append = TRUE)
     }
   }
   
-  if (sigTestResult$pFRRC < alpha) {
+  if (sigTestResult$FTestStatsFRRC$ddfFRRC < alpha) {
     write(sprintf(" Conclusion: The %s FOMs of treatments are not equal,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
                   FOM, I - 1, 
-                  sigTestResult$ddfFRRC, 
-                  sigTestResult$fFRRC, 
-                  sigTestResult$pFRRC), 
+                  sigTestResult$FTestStatsFRRC$ddfFRRC, 
+                  sigTestResult$FTestStatsFRRC$fFRRC, 
+                  sigTestResult$FTestStatsFRRC$ddfFRRC), 
           ReportFileName, append = TRUE)
   } else {
     write(sprintf(" Conclusion: The %s FOMs of treatments are not significantly different,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
                   FOM, 
                   I - 1, 
-                  sigTestResult$ddfFRRC, 
-                  sigTestResult$fFRRC, 
-                  sigTestResult$pFRRC), 
+                  sigTestResult$FTestStatsFRRC$ddfFRRC, 
+                  sigTestResult$FTestStatsFRRC$fFRRC, 
+                  sigTestResult$FTestStatsFRRC$ddfFRRC), 
           ReportFileName, append = TRUE)
   }
   
@@ -795,63 +795,63 @@ OutputTextFile <- function(dataset,
             " ----------  ------  ---------------  -------  -------"), 
           ReportFileName, append = TRUE)
     if (method == "DBMH") {
-      if (sigTestResult$pRRFC >= smallestDispalyedPval) {
+      if (sigTestResult$FTestStatsRRFC$pRRFC >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                       I - 1, 
                       sigTestResult$anovaY[1, 4], 
-                      sigTestResult$fRRFC, 
-                      sigTestResult$pRRFC), 
+                      sigTestResult$FTestStatsRRFC$fRRFC, 
+                      sigTestResult$FTestStatsRRFC$pRRFC), 
               ReportFileName, append = TRUE)
       } else {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                       I - 1, 
                       sigTestResult$anovaY[1, 4], 
-                      sigTestResult$fRRFC, 
+                      sigTestResult$FTestStatsRRFC$fRRFC, 
                       smallestDispalyedPval), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    sigTestResult$ddfRRFC, 
+                    sigTestResult$FTestStatsRRFC$ddfRRFC, 
                     sigTestResult$anovaY[4, 4]), 
             ReportFileName, append = TRUE)
     } else {
-      if (sigTestResult$pRRFC >= smallestDispalyedPval) {
+      if (sigTestResult$FTestStatsRRFC$pRRFC >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                       I - 1, 
                       sigTestResult$msT, 
-                      sigTestResult$fRRFC, 
-                      sigTestResult$pRRFC), 
+                      sigTestResult$FTestStatsRRFC$fRRFC, 
+                      sigTestResult$FTestStatsRRFC$pRRFC), 
               ReportFileName, append = TRUE)
       } else {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                       I - 1, 
                       sigTestResult$msT, 
-                      sigTestResult$fRRFC, 
+                      sigTestResult$FTestStatsRRFC$fRRFC, 
                       smallestDispalyedPval), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" Error       %6.2f  %15.8f", 
-                    sigTestResult$ddfRRFC, 
+                    sigTestResult$FTestStatsRRFC$ddfRRFC, 
                     sigTestResult$msTR), 
             ReportFileName, append = TRUE)
     }
     write(" Error term: MS(TR)\n", 
           ReportFileName, append = TRUE)
     
-    if (sigTestResult$pRRFC < alpha) {
+    if (sigTestResult$FTestStatsRRFC$pRRFC < alpha) {
       write(sprintf(" Conclusion: The %s FOMs of treatments are not equal,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
                     FOM, 
                     I - 1, 
-                    sigTestResult$ddfRRFC, 
-                    sigTestResult$fRRFC, 
-                    sigTestResult$pRRFC), ReportFileName, append = TRUE)
+                    sigTestResult$FTestStatsRRFC$ddfRRFC, 
+                    sigTestResult$FTestStatsRRFC$fRRFC, 
+                    sigTestResult$FTestStatsRRFC$pRRFC), ReportFileName, append = TRUE)
     } else {
       write(sprintf(" Conclusion: The %s FOMs of treatments are not significantly different,\n             F(%d,%3.2f) = %3.2f, p = %6.4f.\n\n", 
                     FOM, 
                     I - 1, 
-                    sigTestResult$ddfRRFC, 
-                    sigTestResult$fRRFC, 
-                    sigTestResult$pRRFC), 
+                    sigTestResult$FTestStatsRRFC$ddfRRFC, 
+                    sigTestResult$FTestStatsRRFC$fRRFC, 
+                    sigTestResult$FTestStatsRRFC$pRRFC), 
             ReportFileName, append = TRUE)
     }
     write(sprintf("    b) %d%% confidence intervals for treatment differences\n", ciPercent), 
@@ -1022,7 +1022,7 @@ OutputExcelFile <- function(dataset,
   addWorksheet(wb, "RRRC")
   setColWidths(wb, sheet = "RRRC", cols = 1:8, widths = "auto", ignoreMergedCells = TRUE)
   setColWidths(wb, sheet = "RRRC", cols = 1, widths = 10)
-  testTable <- data.frame(f = sigTestResult$fRRRC, ddf = sigTestResult$ddfRRRC, p = sigTestResult$pRRRC)
+  testTable <- data.frame(f = sigTestResult$FTestStatsRRRC$fRRRC, ddf = sigTestResult$FTestStatsRRRC$ddfRRRC, p = sigTestResult$FTestStatsRRRC$ddfRRRC)
   names(testTable) <- c("F statistic", "ddf", "P-value")
   writeData(wb, sheet = "RRRC", x = testTable, rowNames = FALSE, colNames = TRUE)
   
@@ -1031,14 +1031,14 @@ OutputExcelFile <- function(dataset,
     if (i == I) 
       break
     for (ip in (i + 1):I) {
-      diffTRName <- c(diffTRName, paste(modalityID[i], modalityID[ip], sep = " - "))
+      diffTRName <- c(diffTRName, paste(modalityID[i], modalityID[ip], sep = "-"))
     }
   }
   
   diffTable <- sigTestResult$ciDiffTrtRRRC
   diffTable[ , 1] <- diffTRName
   diffTable[ , 2] <- as.numeric(diffTable[ , 2])
-  names(diffTable) <- c("Difference",	"Estimate",	"StdErr",	"DF",	"t",	"Pr > t",	"Lower",	"Upper")
+  names(diffTable) <- c("Difference",	"Estimate",	"StdErr",	"DF",	"t",	"Pr>t",	"Lower",	"Upper")
   writeData(wb, sheet = "RRRC", 
             startRow = 5, 
             x = diffTable, 
@@ -1070,7 +1070,7 @@ OutputExcelFile <- function(dataset,
   addWorksheet(wb, "FRRC")
   setColWidths(wb, sheet = "FRRC", cols = 1:9, widths = "auto", ignoreMergedCells = TRUE)
   setColWidths(wb, sheet = "FRRC", cols = 1, widths = 10)
-  testTable <- data.frame(f = sigTestResult$fFRRC, ddf = sigTestResult$ddfFRRC, p = sigTestResult$pFRRC)
+  testTable <- data.frame(f = sigTestResult$FTestStatsFRRC$fFRRC, ddf = sigTestResult$FTestStatsFRRC$ddfFRRC, p = sigTestResult$FTestStatsFRRC$ddfFRRC)
   if (method == "ORH"){
     testTable$ddf <- "Inf"
   }
@@ -1145,7 +1145,7 @@ OutputExcelFile <- function(dataset,
   addWorksheet(wb, "RRFC")
   setColWidths(wb, sheet = "RRFC", cols = 1:8, widths = "auto", ignoreMergedCells = TRUE)
   setColWidths(wb, sheet = "RRFC", cols = 1, widths = 10)
-  testTable <- data.frame(f = sigTestResult$fRRFC, ddf = sigTestResult$ddfRRFC, p = sigTestResult$pRRFC)
+  testTable <- data.frame(f = sigTestResult$FTestStatsRRFC$fRRFC, ddf = sigTestResult$FTestStatsRRFC$ddfRRFC, p = sigTestResult$FTestStatsRRFC$pRRFC)
   names(testTable) <- c("F statistic", "ddf", "P-value")
   writeData(wb, sheet = "RRFC", x = testTable, rowNames = FALSE, colNames = TRUE)
   

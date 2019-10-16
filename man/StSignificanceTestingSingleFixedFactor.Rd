@@ -5,7 +5,7 @@
 \title{Perform significance testing for single fixed factor analysis}
 \usage{
 StSignificanceTestingSingleFixedFactor(dataset, FOM = "wAFROC",
-  alpha = 0.05)
+  alpha = 0.05, FPFValue = 0.2)
 }
 \arguments{
 \item{dataset}{A single-treatment or single-reader dataset.}
@@ -35,8 +35,8 @@ The return value is a list containing:
    pairings of the levels of the fixed factor}
 }
 \description{
-Significance testing for datasets with single reader in 
-   multiple (at least two) treatments, or single treatment with multiple 
+Significance testing for datasets with a single reader in 
+   multiple (at least two) treatments, or a single treatment with multiple 
    (at least two) readers, where reader or treatment, respectively, is 
    regarded as a fixed factor and a common case-set, regarded as random, 
    is assumed.

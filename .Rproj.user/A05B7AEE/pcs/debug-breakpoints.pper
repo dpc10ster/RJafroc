@@ -1,66 +1,6 @@
 {
     "debugBreakpointsState" : {
         "breakpoints" : [
-            {
-                "editor_line_number" : 119,
-                "editor_state" : 1,
-                "function_name" : "ORHAnalysis",
-                "function_steps" : "43,4,8",
-                "id" : 41,
-                "is_package_breakpoint" : true,
-                "is_pending_debug_completion" : false,
-                "line_number" : 119,
-                "needs_updated_steps" : false,
-                "package_name" : "RJafroc",
-                "path" : "~/GitHub/RJafroc/R/ORHAnalysis.R",
-                "state" : 1,
-                "type" : 0
-            },
-            {
-                "editor_line_number" : 634,
-                "editor_state" : 1,
-                "function_name" : "StORHAnalysis",
-                "function_steps" : "19,4,5",
-                "id" : 78,
-                "is_package_breakpoint" : true,
-                "is_pending_debug_completion" : false,
-                "line_number" : 634,
-                "needs_updated_steps" : false,
-                "package_name" : "RJafroc",
-                "path" : "~/GitHub/RJafroc/R/StSignificanceTesting.R",
-                "state" : 1,
-                "type" : 0
-            },
-            {
-                "editor_line_number" : 50,
-                "editor_state" : 1,
-                "function_name" : "UtilVarComponentsOR",
-                "function_steps" : "29",
-                "id" : 80,
-                "is_package_breakpoint" : true,
-                "is_pending_debug_completion" : false,
-                "line_number" : 50,
-                "needs_updated_steps" : false,
-                "package_name" : "RJafroc",
-                "path" : "~/GitHub/RJafroc/R/UtilVarComponentsOR.R",
-                "state" : 1,
-                "type" : 0
-            },
-            {
-                "editor_line_number" : 622,
-                "editor_state" : 1,
-                "function_name" : "StORHAnalysis",
-                "function_steps" : "12",
-                "id" : 81,
-                "is_package_breakpoint" : true,
-                "is_pending_debug_completion" : false,
-                "line_number" : 622,
-                "needs_updated_steps" : false,
-                "package_name" : "RJafroc",
-                "path" : "~/GitHub/RJafroc/R/StSignificanceTesting.R",
-                "state" : 1,
-                "type" : 0
-            }
         ]
     }
 }

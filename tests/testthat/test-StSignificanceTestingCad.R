@@ -1,209 +1,366 @@
-context("Significance testing: StSignificanceTestingCadVsRadiologists")
+context("StSignificanceTestingCadVsRadiologists")
 
-
-test_that("StSignificanceTestingCadVsRadiologists", {
+test_that("1T-RRFC Wilcoxon", {
   
-  #skip_on_travis()
-  skip_on_cran()
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadLroc", "1T-RRFC", "Wilcoxon", ".rds")
   
-  dataset_arr <- list(dataset09, datasetCadLroc, dataset01, dataset02)
-  dataset_arr_str <- c("dataset09", "datasetCadLroc", "dataset01", "dataset02")
-  fom_arr <- c("Wilcoxon", "PCL", "ALROC")
-  method_arr <- c("singleModality", "dualModality")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRFC")
+    saveRDS(ret, file = fn)
+  }
   
-  for (d in 1:length(dataset_arr)) {
-    dataset <- dataset_arr[[d]]
-    for (i in 1:length(fom_arr)) {
-      for (j in 1:length(method_arr)) {
-        
-        if ((dataset$dataType == "ROC") && (fom_arr[i] != "Wilcoxon")){
-          expect_error(StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j]))
-          
-        } else if (dataset$dataType == "FROC") {
-          # DPC: FROC unimplemented at this time 6/30/19 
-          expect_error(StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j]))
-          # end of test
-          
-        } else if ((dataset$dataType == "LROC") && (fom_arr[i] %in% c("ALROC", "PCL")) || ((dataset$dataType == "ROC") && (fom_arr[i] == "Wilcoxon"))) {
-          if (length(dataset$NL[,1,1,1]) != 1) next
-          
-          fn <- paste0(test_path(), "/goodValues361/SigTestCad/", 
-                       dataset_arr_str[d], method_arr[j], fom_arr[i], ".rds")
-          if (!file.exists(fn)) {
-            warning(paste0("File not found - generating new ",fn))
-            ret <- StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j])
-            saveRDS(ret, file = fn)
-          }  
-          ret <- readRDS(fn)
-          ret <- ret[-length(ret)] # drop plots object from list
-          ret1 <- StSignificanceTestingCadVsRadiologists (dataset, FOM = fom_arr[i], method = method_arr[j])
-          ret1 <- ret1[-length(ret1)] # drop plots object from list
-          expect_equal(ret1, ret, info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",fom_arr[i],", method = ",method_arr[j])
-          ) 
-          # end of test
-        } 
-        
-      }
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRFC")
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
     }
   }
   
+})
+
+
+
+test_that("1T-RRFC PCL", {
   
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (dataset09, FOM = "Wilcoxon", method = "singleModality"), 
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (dataset09, FOM = "Wilcoxon", method = "singleModality"), 
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (dataset09, FOM = "Wilcoxon", method = "dualModality"),
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (dataset09, FOM = "Wilcoxon", method = "dualModality"),
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # expect_error(
-  #   StSignificanceTestingCadVsRadiologists(dataset09, FOM = "PCL"))
-  # 
-  # expect_error(
-  #   StSignificanceTesting(datasetCadLroc, FOM = "wAFROC", option = "RRFC"))
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "Wilcoxon", option = "RRFC"),
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "Wilcoxon", option = "RRFC"),
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "Wilcoxon", method = "singleModality"),
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "Wilcoxon", method = "singleModality"),
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "Wilcoxon", method = "dualModality"),
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "Wilcoxon", method = "dualModality"),
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "PCL", method = "singleModality"),
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "PCL", method = "singleModality"),
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "PCL", method = "dualModality"), 
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "PCL", method = "dualModality"), 
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "ALROC", method = "singleModality"), 
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "ALROC", method = "singleModality"), 
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "ALROC", method = "dualModality"), 
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (datasetCadLroc, FOM = "ALROC", method = "dualModality"), 
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (
-  #     datasetCadLroc, FOM = "PCL", option = "RRRC", method = "singleModality", FPFValue = 0.05), 
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (
-  #     datasetCadLroc, FOM = "PCL", option = "RRRC", method = "singleModality", FPFValue = 0.05), 
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (
-  #     datasetCadLroc, FOM = "PCL", option = "RRRC", method = "dualModality", FPFValue = 0.05), 
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (
-  #     datasetCadLroc, FOM = "PCL", option = "RRRC", method = "dualModality", FPFValue = 0.05), 
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (
-  #     datasetCadLroc, FOM = "PCL", option = "RRFC", method = "singleModality", FPFValue = 0.05), 
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (
-  #     datasetCadLroc, FOM = "PCL", option = "RRFC", method = "singleModality", FPFValue = 0.05), 
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (
-  #     datasetCadLroc, FOM = "PCL", option = "RRFC", method = "dualModality", FPFValue = 0.05), 
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (
-  #     datasetCadLroc, FOM = "PCL", option = "RRFC", method = "dualModality", FPFValue = 0.05), 
-  #   tmp, print = TRUE, update = TRUE)
-  # 
-  # datasetCadLroc7 <- DfExtractDataset(datasetCadLroc, rdrs = seq(1:7))
-  # tmp <- tempfile()
-  # expect_warning(expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (
-  #     datasetCadLroc7, FOM = "PCL", option = "RRRC", method = "singleModality", FPFValue = 0.05), 
-  #   tmp, print = TRUE, update = TRUE),
-  #   "Creating reference output")
-  # 
-  # expect_known_output(
-  #   StSignificanceTestingCadVsRadiologists (
-  #     datasetCadLroc7, FOM = "PCL", option = "RRRC", method = "singleModality", FPFValue = 0.05), 
-  #   tmp, print = TRUE, update = TRUE)
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadLroc", "1T-RRFC", "PCL", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 0.2)
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 0.2)
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
   
 })
+
+
+
+test_that("1T-RRFC ALROC", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadLroc", "1T-RRFC", "ALROC", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 0.2)
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 0.2)
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
+
+test_that("1T-RRRC Wilcoxon", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadLroc", "1T-RRRC", "Wilcoxon", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRRC")
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRRC")
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
+
+test_that("1T-RRRC PCL", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadLroc", "1T-RRRC", "PCL", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 0.2)
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 0.2)
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
+
+test_that("1T-RRRC ALROC", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadLroc", "1T-RRRC", "ALROC", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 0.2)
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 0.2)
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
+
+test_that("2T-RRRC Wilcoxon", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadLroc", "2T-RRRC", "Wilcoxon", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "Wilcoxon", method = "2T-RRRC", FPFValue = 0.2)
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "Wilcoxon", method = "2T-RRRC", FPFValue = 0.2)
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
+
+test_that("2T-RRRC PCL", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadLroc", "2T-RRRC", "PCL", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 0.2)
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 0.2)
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
+
+test_that("2T-RRRC ALROC", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadLroc", "2T-RRRC", "ALROC", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 0.2)
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 0.2)
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
+
+test_that("1T-RRFC FROC HrAuc", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadSimuFroc", "1T-RRFC", "HrAuc", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRFC")
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRFC")
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
+
+test_that("1T-RRFC FROC wAFROC", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadSimuFroc", "1T-RRFC", "wAFROC", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRFC")
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRFC")
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
+
+test_that("1T-RRRC FROC HrAuc", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadSimuFroc", "1T-RRRC", "HrAuc", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRRC")
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRRC")
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
+
+test_that("1T-RRRC FROC wAFROC", {
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
+               "datasetCadSimuFroc", "1T-RRRC", "wAFROC", ".rds")
+  
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRRC")
+    saveRDS(ret, file = fn)
+  }
+  
+  GoodValues <- readRDS(fn) # good values
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRRC")
+  
+  for (i in 1:length(GoodValues))
+  {
+    for (j in 1:length(GoodValues[[i]]))
+    {
+      good <- GoodValues[[i]][j]
+      current <- GoodValues[[i]][j]
+      expect_equal(good, current)  
+    }
+  }
+  
+})
+
+
 

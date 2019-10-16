@@ -2,16 +2,18 @@
 % Please edit documentation in R/StSignificanceTesting.R
 \name{StSignificanceTesting}
 \alias{StSignificanceTesting}
-\title{Perform significance testing, DBMH or ORH}
+\title{Perform DBM or OR significance testing}
 \usage{
 StSignificanceTesting(dataset, FOM = "Wilcoxon", alpha = 0.05,
   method = "DBMH", covEstMethod = "Jackknife", nBoots = 200,
-  option = "ALL", VarCompFlag = FALSE, FPFValue = 0.2)
+  option = "ALL", FPFValue, tempOrgCode = FALSE)
 }
 \arguments{
-\item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}}
+\item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
+\bold{Must have two or
+more treatments and two or more readers.}}
 
-\item{FOM}{The figure of merit, default \code{"Wilcoxon"}, \code{\link{UtilFigureOfMerit}}}
+\item{FOM}{The figure of merit, default \code{"Wilcoxon"}, see \code{\link{UtilFigureOfMerit}}}
 
 \item{alpha}{The significance level of the test of the null hypothesis that all 
 treatment effects are zero; the default is 0.05}
@@ -20,9 +22,8 @@ treatment effects are zero; the default is 0.05}
 \code{"DBMH"} (the default) or \code{"ORH"}, representing the Dorfman-Berbaum-Metz
 and the Obuchowski-Rockette significance testing methods, respectively.}
 
-\item{covEstMethod}{This parameter is not relevant if
-   \code{method = "DBMH"}: it specifies the covariance matrix estimation method
-   in ORH analysis; for \code{method = "DBMH"} the jackknife is always used.
+\item{covEstMethod}{The covariance matrix estimation method
+   in \code{ORH} analysis (for \code{method = "DBMH"} the jackknife is always used).
    \itemize{ 
    \item \code{"Jackknife"}, the default, 
    \item \code{"Bootstrap"}, in which case \code{nBoots} is relevant 
@@ -38,56 +39,45 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
    \item \code{"RRRC"} = random-reader random case, 
    \item \code{"FRRC"} = fixed-reader random case, 
    \item \code{"RRFC"} = random-reader fixed case, 
-   \item \code{"ALL"} = outputs the results of \code{"RRRC"}, \code{"FRRC"} and \code{"RRFC"} analyses
+   \item \code{"ALL"} = outputs the results of \code{"RRRC"}, \code{"FRRC"} 
+   and \code{"RRFC"} analyses
 }}
 
-\item{VarCompFlag}{If TRUE, only the appropriate (DBM or OR) variance components 
-(six in all) are returned, default is FALSE}
-
 \item{FPFValue}{Only needed for LROC data; where to evaluate a partial curve based
-figure of merit. The default is 0.2.}
+figure of merit.}
+
+\item{tempOrgCode, }{default FALSE; if TRUE, then code from version 0.0.1 of RJafroc
+is used (see RJafroc_0.0.1.tar). This is intended to check against errors 
+that crept in subsequent to 
+the original version as I attempted to improve the organization of the code and the output.
+As implicit in the name of this temporary flag, it will eventually be removed.}
 }
 \value{
-\strong{For \code{method = "DBMH"}  the returned value is a list with 22 members:}
+\strong{For \code{method = "DBMH"}  the returned list has 15 members:}
 
-\item{fomArray}{The figure of merit array for each treatment-reader 
-   combination}
+\item{fomArray}{Figure of merit array: see return of \code{\link{UtilFigureOfMerit}}}
 
-\item{anovaY}{The ANOVA table of the pseudovalues over all treatments}
+\item{anovaY}{ ANOVA table of the pseudovalues, over all treatments}
 
-\item{anovaYi}{The ANOVA table of the pseudovalues for each treatment}
+\item{anovaYi}{ANOVA table of the pseudovalues, for each treatment}
 
-\item{varCompDBM}{The variance components of the pseudovalue model underlying 
-   the analysis, 6 values, in the following order: c("Var(R)", "Var(C)", 
-   "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")}
+\item{varComp}{The variance components of the DBM pseudovalue mode; 
+   6 values, in the following order: \code{varR}, \code{varC}, 
+   \code{varTR}, \code{varTC}, \code{varRC} and \code{varErr}}
 
-\item{varCompOR}{The variance components of the figure of merit model underlying 
-   the analysis, 6 values, in
-the following order: c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")}
-
-\item{fRRRC}{For \strong{random-reader random-case} (RRRC) analysis, the 
-   F-statistic for rejecting the null hypothesis of no treatment effect}
-
-\item{ddfRRRC}{For RRRC analysis, the denominator degrees of freedom 
-   of the F statistic}
-
-\item{pRRRC}{For RRRC analysis, the p-value of the significance 
-   test of the NH}
+\item{FTestStatsRRRC}{Results of the F-test for RRRC \strong{random reader random case}
+   analysis; contains the following items: \code{fRRRC} - the value of the F-statistic, 
+   \code{ndfRRRC} - the numerator degrees of freedom, \code{ddfRRRC} - 
+   the denominator degrees of freedom and \code{pRRRC} - the pvalue}
 
 \item{ciDiffTrtRRRC}{For RRRC analysis, the confidence intervals and related 
-   test statistics for the FOM differences between pairs of treatments}
+   statistics for the FOM differences between pairs of treatments}
 
 \item{ciAvgRdrEachTrtRRRC}{For RRRC analysis, the confidence intervals 
    and related test statistics for rdr. avg. FOM in each treatment}
 
-\item{fFRRC}{For \strong{fixed-reader random-case} (FRRC) analysis, the 
-   F-statistic for rejecting the NH}
-
-\item{ddfFRRC}{For FRRC analysis, the denominator degrees of freedom 
-   of the F-statistic}
-
-\item{pFRRC}{For FRRC analysis, the p-value of the significance 
-   test of the NH}
+\item{FTestStatsFRRC}{As for \code{FTestStatsRRRC} except that this is 
+   for \strong{fixed-reader random-case} (FRRC) analysis}
 
 \item{ciDiffTrtFRRC}{For FRRC analysis, the confidence intervals and related 
    test statistics for the FOM differences between pairs of treatments}
@@ -95,22 +85,14 @@ the following order: c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)
 \item{ciAvgRdrEachTrtFRRC}{For FRRC analysis, the confidence intervals and 
    related tests for rdr. avg. FOM in each treatment}
 
-\item{ssAnovaEachRdr}{The sum of squares table of the ANOVA of the 
+\item{msAnovaEachRdrFRRC}{The mean squares table of the ANOVA of the 
    pseudovalues for each reader (based on data for the specified reader)}
 
-\item{msAnovaEachRdr}{The mean squares table of the ANOVA of the 
-   pseudovalues for each reader (based on data for the specified reader)}
-
-\item{ciDiffTrtEachRdr}{The confidence intervals and related tests of the 
+\item{ciDiffTrtEachRdrFRRC}{The confidence intervals and related tests of the 
    FOM differences between pairs of treatments for each reader}
 
-\item{fRRFC}{For \strong{random-reader fixed-case} (RRFC) analysis, 
-   the F statistic}
-
-\item{ddfRRFC}{For RRFC analysis, the denominator degrees of freedom 
-   of the F statistic}
-
-\item{pRRFC}{For RRFC analysis, the p-value for rejecting the NH}
+\item{FTestStatsRRFC}{As for \code{FTestStatsRRRC} except that this is 
+   for \strong{random-reader fixed-case} (RRFC) analysis}
 
 \item{ciDiffTrtRRFC}{For RRFC analysis, the confidence intervals and 
    related test statistics for the FOM differences between pairs of treatments}
@@ -118,63 +100,47 @@ the following order: c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)
 \item{ciAvgRdrEachTrtRRFC}{For RRFC analysis, the confidence intervals 
    and related tests for reader averaged FOM in each treatment}
 
-\strong{For method = "ORH" the return value is a list with with 21 members:}
+\strong{For method = "ORH" the return list has 14 members:}
 
-\item{fomArray}{Figures of merit array. See the return of 
-   \code{\link{UtilFigureOfMerit}}}
+\item{fomArray}{Figure of merit array: see return of \code{\link{UtilFigureOfMerit}}}
 
-\item{msT}{Mean square of the figure of merit corresponding to 
-   the treatment effect}
+\item{meanSquares}{List with 3 members: \code{msT}, \code{msR}, \code{msTR}}
 
-\item{msTR}{Mean square of the figure of merit corresponding to 
-   the treatment-reader effect}
+\item{varComp}{The variance components of the OR figure of merit model; 
+   6 values, listed in the following order: \code{varR}, \code{varTR}, \code{cov1}, 
+   \code{cov2}, \code{cov3} and \code{var}}
 
-\item{varCompDBM}{The variance components of the pseudovalue model underlying 
-   the analysis, 6 values, in the following order: c("Var(R)", "Var(C)", 
-   "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")}
+\item{FTestStatsRRRC}{Results of the F-test for RRRC \strong{random reader random case}
+   analysis; contains the following items: \code{fRRRC} - the value of the F-statistic, 
+   \code{ndfRRRC} - the numerator degrees of freedom, \code{ddfRRRC} - 
+   the denominator degrees of freedom and \code{pRRRC} - the pvalue}
 
-\item{varCompOR}{The variance components of the figure of merit model underlying 
-   the analysis, 6 values, in
-the following order: c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")}
+\item{ciDiffTrtRRRC}{Same as in \code{DBMH} method}
 
-\item{fRRRC}{Same as \code{DBMH} method}
+\item{ciAvgRdrEachTrtRRRC}{Same as in \code{DBMH} method}
 
-\item{ddfRRRC}{Same as \code{DBMH} method}
+\item{FTestStatsFRRC}{Same as \code{FTestStatsRRRC}, but 
+   now treating reader as a fixed effect}
 
-\item{pRRRC}{Same as \code{DBMH} method}
+\item{ciDiffTrtFRRC}{Same as in \code{DBMH} method}
 
-\item{ciDiffTrtRRRC}{Same as \code{DBMH} method}
+\item{ciAvgRdrEachTrtFRRC}{Same as in \code{DBMH} method}
 
-\item{ciAvgRdrEachTrtRRRC}{Same as \code{DBMH} method}
+\item{ciDiffTrtEachRdrFRRC}{Same as in \code{DBMH} method}
 
-\item{fFRRC}{Same as \code{DBMH} method}
-
-\item{ddfFRRC}{Same as \code{DBMH} method}
-
-\item{pFRRC}{Same as \code{DBMH} method}
-
-\item{ciDiffTrtFRRC}{Same as \code{DBMH} method}
-
-\item{ciAvgRdrEachTrtFRRC}{Same as \code{DBMH} method}
-
-\item{ciDiffTrtEachRdr}{Same as \code{DBMH} method}
-
-\item{varCovEachRdr}{Obuchowski-Rockette Variance and Cov1 
+\item{varCovEachRdr}{Var and Cov1 
    estimates for each reader}
 
-\item{fRRFC}{Same as \code{DBMH} method}
+\item{FTestStatsRRFC}{Same as \code{FTestStatsRRRC}, but 
+   now treating case as a fixed effect}
 
-\item{ddfRRFC}{Same as \code{DBMH} method}
+\item{ciDiffTrtRRFC}{Same as in \code{DBMH} method}
 
-\item{pRRFC}{Same as \code{DBMH} method}
-
-\item{ciDiffTrtRRFC}{Same as \code{DBMH} method}
-
-\item{ciAvgRdrEachTrtRRFC}{Same as \code{DBMH} method}
+\item{ciAvgRdrEachTrtRRFC}{Same as in \code{DBMH} method}
 }
 \description{
 Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
-   significance testing with Hillis' improvements, for specified dataset; 
+   significance testing (with Hillis' improvements), for specified dataset; 
    significance testing refers to analysis designed to assign a P-value, 
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 

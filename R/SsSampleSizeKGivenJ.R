@@ -11,7 +11,6 @@
 #' @param desiredPower The desired statistical power, default is 0.8.
 #' @param option Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).
 #' @param method "DBMH" (default) or "ORH".
-#' @param ... Other parameters, OR or DBM variance components, passed internally, see details
 #' 
 #'
 #' @return A list of two elements:
@@ -56,38 +55,107 @@
 #' @export
 
 SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL, 
-                                desiredPower = 0.8, option = "ALL", method = "DBMH", ...) {
+                                desiredPower = 0.8, option = "ALL", method = "DBMH") {
   
   if (!(option %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect option.")
   if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
   
-  extraArgs <- list(...)
-  if (!missing(dataset)){
-    if (dataset$dataType != "ROC") stop("Dataset must be of type ROC")
-    if (method == "DBMH") {
-      ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
-      if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
-      stop("this needs fixing")
-      varYTR <- ret$varComp$varComp[3]
-      varYTC <- ret$varComp$varComp[4]
-      varYEps <- ret$varComp$varComp[6]
-      calculatedParameters <- list(varYTR = varYTR, varYTC = varYTC, varYEps = varYEps, effectSize = effectSize)
-    } else if (method == "ORH") {
-      ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "ORH")
-      if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
-      stop("this needs fixing")
-      varTR <- ret$varComp$varCov[2]
-      cov1 <- ret$varComp$varCov[3]
-      cov2 <- ret$varComp$varCov[4]
-      cov3 <- ret$varComp$varCov[5]
-      varEps <- ret$varComp$varCov[6]
-      KStar <- length(dataset$NL[1,1,,1])
-      calculatedParameters <- list(cov1 = cov1,cov2 = cov2, cov3 = cov3, varEps = varEps, 
-                                   varTR = varTR, effectSize = effectSize, KStar = KStar)
-    } else stop("1:method must be DBMH or ORH")
-  } else {
-    calculatedParameters <- c(extraArgs, list(effectSize = effectSize))
+  if (dataset$dataType != "ROC") stop("Dataset must be of type ROC")
+  if (method == "DBMH") {
+    ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
+    if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+    varYTR <- ret$varComp$varTR
+    varYTC <- ret$varComp$varTC
+    varYEps <- ret$varComp$varErr
+    ret <- searchNumCasesDBM (J, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option)
+  } else if (method == "ORH") {
+    ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "ORH")
+    if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+    varTR <- ret$varComp$varTR
+    cov1 <- ret$varComp$cov1
+    cov2 <- ret$varComp$cov2
+    cov3 <- ret$varComp$cov3
+    varEps <- ret$varComp$var
+    effectSize <- ret$ciDiffTrtRRRC$Estimate
+    KStar <- length(dataset$NL[1,1,,1])
+    ret <- searchNumCasesOR (J, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, option)
+  } else stop("method must be DBMH or ORH")
+  
+  return(ret)
+} 
+
+
+searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option)
+{
+  
+  if (option == "RRRC" || option == "ALL"){
+    K <- 1
+    power <- 0
+    while (power <= desiredPower) {
+      if (K > 2000) {
+        break
+      }
+      K <- K + 1
+      ret <- powerStatsGivenJKDBMH (J, K, option, varYTR, varYTC, varYEps, effectSize, alpha)
+      power <- ret$powerRRRC
+    }
+    powerRRRC <- power
+    KRRRC <- K
   }
+  
+  if (option == "FRRC" || option == "ALL") {
+    K <- 1
+    power <- 0
+    while (power < desiredPower) {
+      if (K > 2000) {
+        break
+      }
+      K <- K + 1
+      ret <- powerStatsGivenJKDBMH (J, K, option, varYTR, varYTC, varYEps, effectSize, alpha)
+      power <- ret$powerFRRC
+    }
+    powerFRRC <- power
+    KFRRC <- K
+  } 
+  
+  if (option == "RRFC" || option == "ALL") {
+    K <- 1
+    power <- 0
+    while (power < desiredPower) {
+      if (K > 2000) {
+        break
+      }
+      K <- K + 1
+      ret <- powerStatsGivenJKDBMH (J, K, option, varYTR, varYTC, varYEps, effectSize, alpha)
+      power <- ret$powerRRFC
+    }
+    powerRRFC <- power
+    KRRFC <- K
+  } 
+  
+  if (option == "ALL"){
+    return(data.frame(KRRRC = KRRRC, 
+                      powerRRRC = powerRRRC,
+                      KFRRC = KFRRC, 
+                      powerFRRC = powerFRRC, 
+                      KRRFC = KRRFC, 
+                      powerRRFC = powerRRFC))
+  }else if (option == "RRRC"){
+    return(data.frame(KRRRC = KRRRC, 
+                      powerRRRC = powerRRRC
+    ))
+  }else if (option == "FRRC"){
+    return(data.frame(KFRRC = KFRRC, 
+                      powerFRRC = powerFRRC))
+  }else if (option == "RRFC"){
+    return(data.frame(KRRFC = KRRFC, 
+                      powerRRFC = powerRRFC))
+  }
+  
+}
+
+searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, option)
+{
   
   K <- 1
   power <- 0
@@ -99,9 +167,8 @@ SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL,
         break
       }
       K <- K + 1
-      power <- do.call("SsPowerGivenJK", 
-                       c(list(J = J, K = K, option = "RRRC", method = method, alpha = alpha), calculatedParameters))
-      power <- power$powerRRRC
+      ret <- powerStatsGivenJKORH (J, K, option, varTR, cov1, cov2, cov3, varEps, effectSize, KStar, alpha)
+      power <- ret$powerRRRC
     }
     powerRRRC <- power
     KRRRC <- K
@@ -114,9 +181,8 @@ SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL,
         break
       }
       K <- K + 1
-      power <- do.call("SsPowerGivenJK", 
-                       c(list(J = J, K = K, option = "FRRC", method = method, alpha = alpha), calculatedParameters))
-      power <- power$powerFRRC
+      ret <- powerStatsGivenJKORH (J, K, option, varTR, cov1, cov2, cov3, varEps, effectSize, KStar, alpha)
+      power <- ret$powerFRRC
     }
     powerFRRC <- power
     KFRRC <- K
@@ -129,22 +195,31 @@ SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL,
         break
       }
       K <- K + 1
-      power <- do.call("SsPowerGivenJK", 
-                       c(list(J = J, K = K, option = "RRFC", method = method, alpha = alpha), calculatedParameters))
-      power <- power$powerRRFC
+      ret <- powerStatsGivenJKORH (J, K, option, varTR, cov1, cov2, cov3, varEps, effectSize, KStar, alpha)
+      power <- ret$powerRRFC
     }
     powerRRFC <- power
     KRRFC <- K
   } 
+  
   if (option == "ALL"){
-    return(list(KRRRC = KRRRC, powerRRRC = powerRRRC,
-                KFRRC = KFRRC, powerFRRC = powerFRRC,
-                KRRFC = KRRFC, powerRRFC = powerRRFC))
+    return(data.frame(KRRRC = KRRRC, 
+                      powerRRRC = powerRRRC,
+                      KFRRC = KFRRC, 
+                      powerFRRC = powerFRRC, 
+                      KRRFC = KRRFC, 
+                      powerRRFC = powerRRFC))
   }else if (option == "RRRC"){
-    return(list(KRRRC = KRRRC, powerRRRC = powerRRRC))
+    return(data.frame(KRRRC = KRRRC, 
+                      powerRRRC = powerRRRC
+    ))
   }else if (option == "FRRC"){
-    return(list(KFRRC = KFRRC, powerFRRC = powerFRRC))
+    return(data.frame(KFRRC = KFRRC, 
+                      powerFRRC = powerFRRC))
   }else if (option == "RRFC"){
-    return(list(KRRFC = KRRFC, powerRRFC = powerRRFC))
+    return(data.frame(KRRFC = KRRFC, 
+                      powerRRFC = powerRRFC))
   }
-} 
+  
+}
+

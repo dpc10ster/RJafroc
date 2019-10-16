@@ -12,7 +12,7 @@ UtilFigureOfMerit(dataset, FOM = "wAFROC", FPFValue = 0.2)
 \item{FOM}{The figure of merit; the default is \code{"wAFROC"}}
 
 \item{FPFValue}{Only needed for \code{LROC} data; where to evaluate a partial 
-curve based figure of merit. The default is 0.2.}
+curve based figure of merit.}
 }
 \value{
 An \code{c(I, J)} array, where the row names are \code{modalityID}'s of the 

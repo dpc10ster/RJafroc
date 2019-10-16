@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "",
+        "path" : "/R",
         "projectRelative" : true,
-        "query" : "EstimateVarCov",
+        "query" : "UtilVarComponentsOR",
         "regex" : false
     }
 }
