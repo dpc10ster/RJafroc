@@ -3,9 +3,10 @@
 #' Calculates \strong{centered} jackknife pseudovalues AND jackknife FOM values
 #' 
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}.
-#' 
 #' @param FOM The figure of merit to be used in the calculation. 
 #'    The default is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.
+#' @param FPFValue Only needed for \code{LROC} data; where to evaluate a partial 
+#'    curve based figure of merit.
 #' 
 #' @return A list containing two \code{c(I, J, K)} arrays containing the pseudovalues
 #'    and the jackknife FOM values of the datasets.
@@ -23,7 +24,7 @@
 # wAFROC FOM. This part of the code needs further checking; 
 # no essential changes made in MyFOM.cpp and gpfMyFOM.R.
 # 
-UtilPseudoValues <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2){
+UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2){
   dataType <- dataset$dataType
   if (dataType != "LROC") {
     NL <- dataset$NL

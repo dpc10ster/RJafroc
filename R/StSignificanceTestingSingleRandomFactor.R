@@ -4,8 +4,10 @@
 #'    a single treatment.
 #' 
 #' @param dataset A single-treatment multipe reader dataset.
-#' @param FOM The figure of merit, default  \code{"wAFROC"}, 
-#'    see \code{\link{UtilFigureOfMerit}}.
+#' @param theta0 The comparison value that the average FOM is compared to.
+#' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}.
+#' @param FPFValue Only needed for \code{LROC} data; where to evaluate a partial 
+#'    curve based figure of merit.
 #' @param alpha The significance level (\code{alpha}, default 0.05) 
 #'    of the test of the null hypothesis that FOMs of all levels of 
 #'    the fixed factor are identical.
@@ -44,7 +46,8 @@
 #' 
 #' @export
 
-StSignificanceTestingSingleRandomFactor <- function(dataset, FOM = "wAFROC", alpha = 0.05, theta0) {
+StSignificanceTestingSingleRandomFactor <- function(dataset, theta0, FOM, 
+                                                    FPFValue = 0.2, alpha = 0.05) {
   
   if (dataset$dataType == "LROC") stop("Dataset must NOT be LROC")
   

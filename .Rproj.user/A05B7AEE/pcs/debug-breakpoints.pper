@@ -1,6 +1,21 @@
 {
     "debugBreakpointsState" : {
         "breakpoints" : [
+            {
+                "editor_line_number" : 50,
+                "editor_state" : 1,
+                "function_name" : "UtilVarComponentsOR",
+                "function_steps" : "24",
+                "id" : 80,
+                "is_package_breakpoint" : true,
+                "is_pending_debug_completion" : false,
+                "line_number" : 50,
+                "needs_updated_steps" : false,
+                "package_name" : "RJafroc",
+                "path" : "~/GitHub/RJafroc/R/UtilVarComponentsOR.R",
+                "state" : 1,
+                "type" : 0
+            }
         ]
     }
 }

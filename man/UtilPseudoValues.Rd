@@ -4,13 +4,16 @@
 \alias{UtilPseudoValues}
 \title{Calculate pseudovalues}
 \usage{
-UtilPseudoValues(dataset, FOM = "Wilcoxon", FPFValue = 0.2)
+UtilPseudoValues(dataset, FOM, FPFValue = 0.2)
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}.}
 
 \item{FOM}{The figure of merit to be used in the calculation. 
 The default is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
+
+\item{FPFValue}{Only needed for \code{LROC} data; where to evaluate a partial 
+curve based figure of merit.}
 }
 \value{
 A list containing two \code{c(I, J, K)} arrays containing the pseudovalues

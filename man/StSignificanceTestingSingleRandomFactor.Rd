@@ -4,14 +4,18 @@
 \alias{StSignificanceTestingSingleRandomFactor}
 \title{Perform significance testing for single fixed factor analysis}
 \usage{
-StSignificanceTestingSingleRandomFactor(dataset, FOM = "wAFROC",
-  alpha = 0.05, theta0)
+StSignificanceTestingSingleRandomFactor(dataset, theta0, FOM,
+  FPFValue = 0.2, alpha = 0.05)
 }
 \arguments{
 \item{dataset}{A single-treatment multipe reader dataset.}
 
-\item{FOM}{The figure of merit, default  \code{"wAFROC"}, 
-see \code{\link{UtilFigureOfMerit}}.}
+\item{theta0}{The comparison value that the average FOM is compared to.}
+
+\item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}.}
+
+\item{FPFValue}{Only needed for \code{LROC} data; where to evaluate a partial 
+curve based figure of merit.}
 
 \item{alpha}{The significance level (\code{alpha}, default 0.05) 
 of the test of the null hypothesis that FOMs of all levels of 

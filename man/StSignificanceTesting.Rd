@@ -4,9 +4,9 @@
 \alias{StSignificanceTesting}
 \title{Perform DBM or OR significance testing}
 \usage{
-StSignificanceTesting(dataset, FOM = "Wilcoxon", alpha = 0.05,
+StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha = 0.05,
   method = "DBMH", covEstMethod = "Jackknife", nBoots = 200,
-  option = "ALL", FPFValue, tempOrgCode = FALSE)
+  option = "ALL", tempOrgCode = FALSE)
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
@@ -14,6 +14,9 @@ StSignificanceTesting(dataset, FOM = "Wilcoxon", alpha = 0.05,
 more treatments and two or more readers.}}
 
 \item{FOM}{The figure of merit, default \code{"Wilcoxon"}, see \code{\link{UtilFigureOfMerit}}}
+
+\item{FPFValue}{Only needed for LROC data; where to evaluate a partial curve based
+figure of merit.}
 
 \item{alpha}{The significance level of the test of the null hypothesis that all 
 treatment effects are zero; the default is 0.05}
@@ -42,9 +45,6 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
    \item \code{"ALL"} = outputs the results of \code{"RRRC"}, \code{"FRRC"} 
    and \code{"RRFC"} analyses
 }}
-
-\item{FPFValue}{Only needed for LROC data; where to evaluate a partial curve based
-figure of merit.}
 
 \item{tempOrgCode, }{default FALSE; if TRUE, then code from version 0.0.1 of RJafroc
 is used (see RJafroc_0.0.1.tar). This is intended to check against errors 

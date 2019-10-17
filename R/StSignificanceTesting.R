@@ -14,6 +14,8 @@
 #'     \bold{Must have two or
 #'     more treatments and two or more readers.} 
 #' @param FOM The figure of merit, default \code{"Wilcoxon"}, see \code{\link{UtilFigureOfMerit}}
+#' @param FPFValue Only needed for LROC data; where to evaluate a partial curve based
+#'    figure of merit.
 #' @param alpha The significance level of the test of the null hypothesis that all 
 #'    treatment effects are zero; the default is 0.05
 #' @param method The significance testing method to be used. There are two options: 
@@ -37,8 +39,6 @@
 #'    \item \code{"ALL"} = outputs the results of \code{"RRRC"}, \code{"FRRC"} 
 #'    and \code{"RRFC"} analyses
 #' }    
-#' @param FPFValue Only needed for LROC data; where to evaluate a partial curve based
-#'    figure of merit.
 #' @param tempOrgCode, default FALSE; if TRUE, then code from version 0.0.1 of RJafroc
 #'    is used (see RJafroc_0.0.1.tar). This is intended to check against errors 
 #'    that crept in subsequent to 
@@ -139,8 +139,8 @@
 #'
 #'      
 #' @export
-StSignificanceTesting <- function(dataset, FOM = "Wilcoxon", alpha = 0.05, method = "DBMH", 
-                                  covEstMethod = "Jackknife", nBoots = 200, option = "ALL", FPFValue, tempOrgCode = FALSE)
+StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBMH", 
+                                  covEstMethod = "Jackknife", nBoots = 200, option = "ALL", tempOrgCode = FALSE)
 {
   
   if (dataset$dataType == "ROI") {

@@ -7,11 +7,12 @@
 #'    is assumed.
 #' 
 #' @param dataset A single-treatment or single-reader dataset.
-#' @param FOM The figure of merit, default  \code{"wAFROC"}, 
-#'    see \code{\link{UtilFigureOfMerit}}.
+#' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}.
 #' @param alpha The significance level (\code{alpha}, default 0.05) 
 #'    of the test of the null hypothesis that FOMs of all levels of 
 #'    the fixed factor are identical.
+#' @param FPFValue Only needed for \code{LROC} data; where to evaluate a partial 
+#'    curve based figure of merit.
 #' 
 #' @return The return value is a list containing:
 #' @return \item{f}{The observed F-statistic for testing the null 
@@ -50,7 +51,7 @@
 #' 
 #' @export
 
-StSignificanceTestingSingleFixedFactor <- function(dataset, FOM = "wAFROC", alpha = 0.05, FPFValue = 0.2) { # FPFValue only needed for LROC data
+StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, alpha = 0.05, FPFValue = 0.2) { # FPFValue only needed for LROC data
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
