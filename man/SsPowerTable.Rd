@@ -8,9 +8,11 @@ SsPowerTable(dataset, effectSize = NULL, alpha = 0.05,
   desiredPower = 0.8, method = "DBMH", option = "ALL")
 }
 \arguments{
-\item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study.}
+\item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate 
+to the \bold{pivotal} study.}
 
-\item{effectSize}{The effect size to be used in the \bold{pivotal} study, default value is \code{NULL}.}
+\item{effectSize}{The effect size to be used in the \bold{pivotal} study, 
+default value is \code{NULL}. See Details.}
 
 \item{alpha}{The The size of the test, default is 0.05.}
 
@@ -35,8 +37,8 @@ Generate combinations of numbers of readers J and numbers of cases K
    for desired power and specified generalization(s)
 }
 \details{
-The default \code{effectSize}
-    uses the observed effect size in the pilot study. A numeric value over-rides the default value.
+The default \code{effectSize} uses the observed effect size in the 
+   pilot study. A numeric value over-rides the default value.
 }
 \note{
 The procedure is valid for ROC studies only; for FROC studies see Online Appendix Chapter 19.

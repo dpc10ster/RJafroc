@@ -3,22 +3,23 @@
 #' @description  Generates a formatted report of the analysis 
 #'    and saves it to a text or an Excel file
 #' 
-#' @param dataset The dataset object to be analyzed (\emph{not the file name}), see \code{Dataset} 
-#'    in \code{\link{RJafroc-package}}.
+#' @param dataset The dataset object to be analyzed (\emph{not the file name}), 
+#' see \code{Dataset} in \code{\link{RJafroc-package}}.
 #'    
 #' @param dataDescription A short string describing the dataset, 
 #'    the default is "MyDataDescription: ";
 #'    it is inserted, for reference, in the output file.
 #'    
-#' @param ReportFileBaseName The file bse name (sans extension) for the desired report; 
-#'    the default is NULL, in which case the system generates a temporary text file, 
-#'    whose name will be displayed.  
+#' @param ReportFileBaseName The file base name (sans the extension) for the 
+#'    desired report; the default is NULL, in which case the system generates 
+#'    a temporary text file, whose name is displayed.  
 #'    
 #' @param ReportFileExt The report file extension determines the type of output. 
 #'    \code{txt}, the default, for 
 #'    a text file, \code{xlsx} for an Excel file.
 #'    
-#' @param method The significance testing method, \code{"ORH"} or (the default) \code{"DBMH"}.
+#' @param method The significance testing method, \code{"ORH"} or 
+#'    (the default) \code{"DBMH"}.
 #' 
 #' @param FOM The figure of merit; see \code{\link{StSignificanceTesting}}.
 #' 
@@ -27,8 +28,8 @@
 #' @param covEstMethod See \code{\link{StSignificanceTesting}}; only needed 
 #'     for method = \code{"ORH"}; the default is "Jackknife".
 #' 
-#' @param nBoots See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis;
-#'     the default is 200.
+#' @param nBoots See \code{\link{StSignificanceTesting}}; only needed for 
+#'    \code{"ORH"} analysis; the default is 200.
 #' 
 #' @param sequentialNames A logical variable: if \code{TRUE}, consecutive integers 
 #'    (staring from 1) will be used as the treatment and reader IDs in the 
@@ -39,8 +40,8 @@
 #' @param overWrite A \code{logical} variable: if \code{FALSE}, a warning will 
 #'    be issued if the report file already exists and the program will wait 
 #'    until the user inputs "y" or "n" to determine whether to overwrite the 
-#'    existing file. If \code{TRUE}, the existing file will be silently overwritten. The
-#'    default is \code{FALSE}.
+#'    existing file. If \code{TRUE}, the existing file will be silently overwritten. 
+#'    The default is \code{FALSE}.
 #' 
 #' 
 #' @details
@@ -53,9 +54,10 @@
 #' @examples
 #' 
 #' \donttest{
-#' UtilOutputReport(dataset03) # text output is created in a temporary file
-#'
-#' UtilOutputReport(dataset03, ReportFileExt = "xlsx") # Excel output is created in a temporary file
+#'  # text output is created in a temporary file
+#' UtilOutputReport(dataset03, FOM = "Wilcoxon")
+#' # Excel output is created in a temporary file
+#' UtilOutputReport(dataset03, FOM = "Wilcoxon", ReportFileExt = "xlsx") 
 #'
 #' }
 #'        
@@ -66,7 +68,7 @@
 
 UtilOutputReport <- function(dataset, dataDescription = "MyDataDescription: ", 
                              ReportFileBaseName = NULL, ReportFileExt = "txt", 
-                             method = "DBMH", FOM = "Wilcoxon", alpha = 0.05, 
+                             method = "DBMH", FOM, alpha = 0.05, 
                              covEstMethod = "Jackknife", nBoots = 200, 
                              sequentialNames = FALSE, overWrite = FALSE) {
   
@@ -111,10 +113,10 @@ UtilOutputReport <- function(dataset, dataDescription = "MyDataDescription: ",
   
   if (method == "DBMH") {
     methodTxt <- paste0("DBM-MRMC-HILLIS SIGNIFICANCE TESTING: ", dataDescription)
-    sigTestResult <- StSignificanceTesting(dataset, FOM, alpha, method)
+      sigTestResult <- StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha, method)
   } else if (method == "ORH") {
     methodTxt <- paste0("OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING: ", dataDescription)
-    sigTestResult <- StSignificanceTesting(dataset, FOM, alpha, method, covEstMethod, nBoots)
+    sigTestResult <- StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha, method, covEstMethod, nBoots)
   } else {
     errMsg <- paste0(method, " is not a valid analysis method.")
     stop(errMsg)

@@ -216,7 +216,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
       }
       S <- s10/K2 + s01/K1
     }
-    Cov <- VarCovs(S)
+    Cov <- ResamplingEstimateVarCovs(S)
     var <- Cov$var
     cov1 <- Cov$cov1
     cov2 <- Cov$cov2

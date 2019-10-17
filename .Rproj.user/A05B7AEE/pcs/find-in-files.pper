@@ -5,7 +5,7 @@
         ],
         "path" : "/R",
         "projectRelative" : true,
-        "query" : "FOM = ",
+        "query" : "StDBMHAnalysis",
         "regex" : false
     }
 }

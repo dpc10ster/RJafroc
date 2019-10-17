@@ -405,7 +405,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            dataset.
         \item \code{\link{DfFroc2Roc}}: Convert an FROC dataset to a highest 
            rating inferred ROC dataset.
-        \item \code{\link{DfLroc2Roc}}: Convert an LROC dataset to a highest 
+        \item \code{\link{DfDatasetLroc2Roc}}: Convert an LROC dataset to a highest 
            rating inferred ROC dataset.
         \item \code{\link{DfReadCrossedModalities}}: Read a crossed-modalities 
            data file.

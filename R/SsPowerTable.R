@@ -3,8 +3,10 @@
 #' @description  Generate combinations of numbers of readers J and numbers of cases K
 #'    for desired power and specified generalization(s)
 #' 
-#' @param dataset The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study.
-#' @param effectSize The effect size to be used in the \bold{pivotal} study, default value is \code{NULL}.
+#' @param dataset The \bold{pilot} ROC dataset to be used to extrapolate 
+#'    to the \bold{pivotal} study.
+#' @param effectSize The effect size to be used in the \bold{pivotal} study, 
+#'    default value is \code{NULL}. See Details.
 #' @param alpha The The size of the test, default is 0.05.
 #' @param desiredPower The desired statistical power, default is 0.8.
 #' @param method Analysis method, "DBMH" or "ORH", the default is "DBMH".
@@ -17,8 +19,8 @@
 #' @return \item{numCases}{The numbers of cases in the pivotal study.}
 #' @return \item{power}{The estimated statistical powers.}
 #' 
-#' @details The default \code{effectSize}
-#'     uses the observed effect size in the pilot study. A numeric value over-rides the default value.
+#' @details The default \code{effectSize} uses the observed effect size in the 
+#'    pilot study. A numeric value over-rides the default value.
 #' 
 #' 
 #'@note The procedure is valid for ROC studies only; for FROC studies see Online Appendix Chapter 19.
@@ -45,33 +47,19 @@ SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower 
   if (method == "DBMH") {
     ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
     if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
-    varYTR <- ret$varCompDBM$varCompDBM[3]
-    varYTC <- ret$varCompDBM$varCompDBM[4]
-    varYEps <- ret$varCompDBM$varCompDBM[6]
-    allParameters <- list(method = method, 
-                          varYTR = varYTR, 
-                          varYTC = varYTC, 
-                          varYEps = varYEps, 
-                          effectSize = effectSize)
+    varYTR <- ret$varComp$varTR
+    varYTC <- ret$varComp$varTC
+    varYEps <- ret$varComp$varErr
   } else if (method == "ORH") {
-    stop("this needs fixing")
     ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "ORH")
     if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
-    varTR <- ret$varComp$varCov[2]
-    cov1 <- ret$varComp$varCov[3]
-    cov2 <- ret$varComp$varCov[4]
-    cov3 <- ret$varComp$varCov[5]
-    varEps <- ret$varComp$varCov[6]
+    varTR <- ret$varComp$varTR
+    cov1 <- ret$varComp$cov1
+    cov2 <- ret$varComp$cov2
+    cov3 <- ret$varComp$cov3
+    varEps <- ret$varComp$var
     KStar <- length(dataset$NL[1,1,,1])
-    allParameters <- list(method = method,
-                          varTR = varTR,
-                          cov1 = cov1, 
-                          cov2 = cov2, 
-                          cov3 = cov3,
-                          varEps = varEps,
-                          effectSize = effectSize,
-                          KStar = KStar)
-  } else stop("1:method must be DBMH or ORH")
+  } else stop("method must be DBMH or ORH")
   
   if (option != "ALL"){
     nCases <- 2000
@@ -80,9 +68,17 @@ SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower 
     while (nCases >= 20) {
       j <- j + 1
       if (j > 100) break
-      ret <- do.call("SsSampleSizeKGivenJ", c(allParameters, J = j))
-      nCases <- ret[[1]]
-      power <- ret[[2]]
+      if (method == "DBMH") {
+        ret <- searchNumCasesDBM (J = j, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option)
+      }
+      else { 
+        ret <- searchNumCasesOR (J = j, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, option)
+      }
+      
+      ret <- MyLittleHelper (j, ret, randomSampleSize, option)
+      nCases <- ret$nCases
+      power <- ret$power
+      
       if (nCases > 2000) {
         randomSampleSize <- rbind(randomSampleSize, c(j, ">2000", NA))
       } else if (nCases < 20) {
@@ -90,23 +86,43 @@ SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower 
       } else {
         randomSampleSize <- rbind(randomSampleSize, c(j, nCases, signif(power, 3)))
       }
+      
+      if (nCases > 2000) {
+        randomSampleSize <- rbind(randomSampleSize, c(j, ">2000", NA))
+      } else if (nCases < 20) {
+        randomSampleSize <- rbind(randomSampleSize, c(j, "<20", NA))
+      } else {
+        randomSampleSize <- rbind(randomSampleSize, c(j, nCases, signif(power, 3)))
+      }
+      
     }
+    
     randomSampleSize <- data.frame(numReaders = randomSampleSize[, 1], 
-                                   numCases = randomSampleSize[, 2], power = randomSampleSize[, 3])
-    return(randomSampleSize)
+                                   numCases = randomSampleSize[, 2], 
+                                   power = randomSampleSize[, 3], 
+                                   stringsAsFactors = FALSE)
+    
+    # return(randomSampleSize)
   } else {
     powerTable <- list()
     for (option in c("RRRC", "FRRC", "RRFC")){
-      allParameters$option <- option
       randomSampleSize <- NULL
       nCases <- 2000
       j <- 2
       while (nCases >= 20) {
         j <- j + 1
         if (j > 100) break
-        ret <- do.call("SsSampleSizeKGivenJ", c(allParameters, J = j))
-        nCases <- ret[[1]]
-        power <- ret[[2]]
+        if (method == "DBMH") {
+          ret <- searchNumCasesDBM (J = j, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option)
+        }
+        else { 
+          ret <- searchNumCasesOR (J = j, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, option)
+        }
+        
+        ret <- MyLittleHelper (j, ret, randomSampleSize, option)
+        nCases <- ret$nCases
+        power <- ret$power
+        
         if (nCases > 2000) {
           randomSampleSize <- rbind(randomSampleSize, c(j, ">2000", NA))
         } else if (nCases < 20) {
@@ -114,7 +130,9 @@ SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower 
         } else {
           randomSampleSize <- rbind(randomSampleSize, c(j, nCases, signif(power, 3)))
         }
+        
       }
+      
       randomSampleSize <- data.frame(numReaders = randomSampleSize[, 1], 
                                      numCases = randomSampleSize[, 2], 
                                      power = randomSampleSize[, 3], 
@@ -125,3 +143,27 @@ SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower 
     return(powerTable)
   }
 } 
+
+
+
+MyLittleHelper <- function(j, ret, randomSampleSize, option) 
+{
+  if (option == "RRRC")
+  {
+    nCases <- ret$KRRRC
+    power <- ret$powerRRRC
+  } else if (option == "FRRC") {
+    nCases <- ret$KFRRC
+    power <- ret$powerFRRC
+  } else if (option == "RRFC") {
+    nCases <- ret$KRRFC
+    power <- ret$powerRRFC
+  } else stop("Incorrect option flag.")
+  
+  return(list(
+    nCases = nCases,
+    power = power
+  ))
+}
+
+
