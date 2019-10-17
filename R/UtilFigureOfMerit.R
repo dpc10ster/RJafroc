@@ -1,7 +1,8 @@
 #' Calculate empirical figures of merit (FOMs) for specified dataset
 #' 
 #' @description  Calculate the specified empirical figure of merit
-#' for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset
+#'    for each treatment-reader combination in the 
+#'    ROC, FROC, ROI or LROC dataset
 #' 
 #' @param dataset The dataset to be analyzed, \code{\link{RJafroc-package}}
 #' @param FOM The figure of merit; the default is \code{"wAFROC"}

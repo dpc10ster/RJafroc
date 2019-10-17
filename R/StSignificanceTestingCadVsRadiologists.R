@@ -1,11 +1,14 @@
 #' Significance testing: standalone CAD vs. radiologists
 #' 
-#' @description  Comparing standalone CAD vs. 
-#'    a group of radiologists interpreting the same cases; \strong{standalone CAD} 
-#'    ideally means that all the 
-#'    designer-level mark-rating pairs provided by the CAD algorithm are available,
-#'    not just the one or two marks usually displayed to the radiologist. Details of
-#'    the method are in a pdf file that will be uploaded to GitHub.
+#' @description  Comparing standalone CAD vs. a group of radiologists interpreting 
+#'    the same cases; \strong{standalone CAD} (ideally) means that all the 
+#'    \bold{designer-level} mark-rating pairs provided by the CAD algorithm 
+#'    are available, not just the one or two marks usually displayed to the 
+#'    radiologist. At the very minimum, location-level information, such as in
+#'    the LROC paradigm, should be used. Ideally the FROC paradigm should be used.
+#'    A severe statistical power penalty is paid if one uses the ROC paradigm. 
+#'    Details of the method are in a pdf file that will be uploaded to GitHub and 
+#'    in my 2017 book.
 #'  
 #' @param dataset \strong{The dataset to be analzed; must be single-treatment  
 #'    multiple-readers, where the first reader is CAD.}
@@ -18,9 +21,7 @@
 #'    it gives identical summary statistics, e.g., p-value, as "1T-RRRC".}
 #' @param alpha Significance level of the test, defaults to 0.05.
 #' @param FPFValue For LROC data and FOM = \code{"PCL"} or FOM = \code{"ALROC"}, 
-#'    where to 
-#'    evaluate a partial curve based
-#'    figure of merit, see details.
+#'    where to evaluate a partial curve based figure of merit, see details.
 #' @param plots Flag, default is FALSE, i.e., a plot is not displayed. 
 #'    If TRUE, it displays the appropriate operating characteristic for all 
 #'    readers and CAD.

@@ -20,7 +20,8 @@ An \code{c(I, J)} array, where the row names are \code{modalityID}'s of the
 }
 \description{
 Calculate the specified empirical figure of merit
-for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset
+   for each treatment-reader combination in the 
+   ROC, FROC, ROI or LROC dataset
 }
 \details{
 The allowed FOMs depend on the \code{dataType} field of the 

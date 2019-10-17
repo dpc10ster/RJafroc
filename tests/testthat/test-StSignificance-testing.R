@@ -1,6 +1,9 @@
 context("Significance testing routines excluding CAD")
 test_that("SignificanceTestingAllCombinations", {
 
+  # dataset = an ROC and an FROC dataset; dataset02, dataset05
+  # FOM = "Wilcoxon", "HrAuc"
+  # method = "DBMH", "ORH"
   dataset_arr <- list(dataset02, dataset05) # deparse(substitute(dataset02)) does not work below
   dataset_arr_str <- c("dataset02", "dataset05")
   FOM_arr <- c("Wilcoxon", "HrAuc") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")

@@ -6,9 +6,10 @@
 #' 
 #' @param dataset The \strong{LROC} dataset to be converted.
 #' 
-#' @details The conversion is effected by taking the maximum rating on each diseased case, 
-#'    which could be a TPCl (true positive correct localization) or a TPIl 
-#'    (true positive incorrect localization) rating, whichever has the higher rating.
+#' @details For the diseased cases one takes the maximum rating on each diseased case, 
+#'    which could be a LLCl ("true positive" correct localization) or a LLIl 
+#'    ("true positive" incorrect localization) rating, whichever has the higher rating.
+#'    For non-diseased cases the NL arrays are identical.
 #' 
 #' 
 #' @return An ROC dataset  
@@ -21,21 +22,32 @@
 #' 
 #' @export
 
-DfDatasetLroc2Roc <- function (dataset){
-
+DfDatasetLroc2Roc <- function (dataset) #  !!!in tests!!!
+  {
+  
   if (dataset$dataType != "LROC") stop("This function requires an LROC dataset.")
   
-  LLCl <- dataset$LLCl[1,,,1]
-  LLIl <- dataset$LLIl[1,,,1]
+  LLCl <- dataset$LLCl[,,,1]
+  LLIl <- dataset$LLIl[,,,1]
   I <- length(dataset$LLCl[,1,1,1])
   J <- length(dataset$LLCl[1,,1,1])
   K2 <- length(dataset$LLCl[1,1,,1])
   
-  LL <- pmax(LLCl,LLIl)
-  dim(LL) <- c(I, J, K2, 1)
+  dim(LLCl) <- c(I,J,K2)
+  dim(LLIl) <- c(I,J,K2)
+
+    LL <- dataset$LLCl
+  dim(LL) <- c(I,J,K2,1)
+  
+  for (i in 1:I) {
+    # For the diseased cases one takes the maximum rating on each diseased case, 
+    #    which could be a LLCl ("true positive" correct localization) or a LLIl 
+    #    ("true positive" incorrect localization) rating, whichever has the higher rating.
+    LL[i,,,1] <- pmax(LLCl[i,,],LLIl[i,,])
+  }
   
   return (list(
-    NL = dataset$NL,
+    NL = dataset$NL, # For non-diseased cases the NL arrays are identical.
     LL = LL,
     lesionVector = dataset$lesionVector,
     lesionID = dataset$lesionID,

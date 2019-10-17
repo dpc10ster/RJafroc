@@ -16,9 +16,7 @@ it can be any valid FOM, e.g., \code{"HrAuc"}, \code{"wAFROC"}, etc;
 for LROC data it must be \code{"Wilcoxon"}, or \code{"PCL"} or \code{"ALROC"}.}
 
 \item{FPFValue}{For LROC data and FOM = \code{"PCL"} or FOM = \code{"ALROC"}, 
-where to 
-evaluate a partial curve based
-figure of merit, see details.}
+where to evaluate a partial curve based figure of merit, see details.}
 
 \item{method}{The desired analysis: "1T-RRFC","1T-RRRC" (the default) or "2T-RRRC",
 see manuscript for details. \strong{Note: method "2T-RRRC" is not implemented 
@@ -110,12 +108,15 @@ If \code{method = "2T-RRRC"} the return value is a list
 \item{Plots}{see above.}
 }
 \description{
-Comparing standalone CAD vs. 
-   a group of radiologists interpreting the same cases; \strong{standalone CAD} 
-   ideally means that all the 
-   designer-level mark-rating pairs provided by the CAD algorithm are available,
-   not just the one or two marks usually displayed to the radiologist. Details of
-   the method are in a pdf file that will be uploaded to GitHub.
+Comparing standalone CAD vs. a group of radiologists interpreting 
+   the same cases; \strong{standalone CAD} (ideally) means that all the 
+   \bold{designer-level} mark-rating pairs provided by the CAD algorithm 
+   are available, not just the one or two marks usually displayed to the 
+   radiologist. At the very minimum, location-level information, such as in
+   the LROC paradigm, should be used. Ideally the FROC paradigm should be used.
+   A severe statistical power penalty is paid if one uses the ROC paradigm. 
+   Details of the method are in a pdf file that will be uploaded to GitHub and 
+   in my 2017 book.
 }
 \details{
 \itemize{

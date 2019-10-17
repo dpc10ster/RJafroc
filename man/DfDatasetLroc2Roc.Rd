@@ -16,9 +16,10 @@ An ROC dataset
 Converts an LROC dataset to an ROC dataset
 }
 \details{
-The conversion is effected by taking the maximum rating on each diseased case, 
-   which could be a TPCl (true positive correct localization) or a TPIl 
-   (true positive incorrect localization) rating, whichever has the higher rating.
+For the diseased cases one takes the maximum rating on each diseased case, 
+   which could be a LLCl ("true positive" correct localization) or a LLIl 
+   ("true positive" incorrect localization) rating, whichever has the higher rating.
+   For non-diseased cases the NL arrays are identical.
 }
 \examples{
 str(datasetCadLroc)
