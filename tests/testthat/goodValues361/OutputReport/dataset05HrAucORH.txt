@@ -1,0 +1,283 @@
+RJafroc SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
+IN THE SOFTWARE.
+
+================================================================================
+
+R version: R version 3.6.1 (2019-07-05)
+RJafroc version: 1.2.0.9000
+Run date: Jul 29 2019 Mon 09:19:51 EDT
+ FOM selected         :     HrAuc
+ Input  Data          :     dataset
+ Output Data Filename :     ./goodValues361/OutputReport/dataset05HrAucORH.txt
+
+================================================================================
+
+ Significance testing method:  OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING: MyDataDescription: 
+ Number of Readers          :  9
+ Number of Treatments       :  2
+ Number of Normal Cases     :  45
+ Number of Abnormal Cases   :  47
+ Fraction of Normal Cases   :  0.489130
+ Min number of lesions per diseased case   :  1
+ Max number of lesions per diseased case   :  3
+ Mean number of lesions per diseased case  :  1.255319
+ Total number of lesions                   :  59
+ Inc. Loc. Frac.          :  0.161348
+
+
+================================================================================
+
+ Avg. number of non-lesion localization marks per reader on non-diseased cases: 0.509877
+ Avg. number of non-lesion localization marks per reader on diseased cases:  0.382979
+ Avg. number of lesion localization marks per reader :  0.997636
+
+
+================================================================================
+
+ Modality IDs in the input file are:  1, 2
+
+ Modality IDs in the output file are: 1, 2
+
+ Reader IDs in the input file are:    1, 2, 3, 4, 5, 6, 7, 8, 9
+
+ Reader IDs in the output file are:   1, 2, 3, 4, 5, 6, 7, 8, 9
+
+================================================================================
+
+ ====================================================================
+ *****                        Overview                          *****
+ ====================================================================
+ Three analyses are presented: 
+ (1) Analysis 1 treats both readers and cases as random samples
+     --results apply to the reader and case populations;
+ (2) Analysis 2 treats only cases as a random sample
+     --results apply to the population of cases but only for the
+     readers used in this study; and
+ (3) Analysis 3 treats only readers as a random sample
+     --results apply to the population of readers but only for the
+     cases used in this study.
+
+ For all three analyses, the null hypothesis of equal treatments is
+ tested in part (a), treatment difference 95% confidence intervals
+ are given in part (b), and treatment 95% confidence intervals are
+ given in part (c).  Parts (a) and (b) are based on the treatment x
+ reader x case ANOVA while part (c) is based on the reader x case
+ ANOVA for the specified treatment; these ANOVA tables are displayed
+ before the analyses.  Different error terms are used as indicated
+ for parts (a), (b), and (c) according to whether readers and cases
+ are treated as fixed or random factors.  Note that the treatment
+ confidence intervals in part (c) are based only on the data for the
+ specified treatment, rather than the pooled data.  Treatment
+ difference 95% confidence intervals for each reader are presented
+ in part (d) of Analysis 2; each interval is based on the treatment
+ x case ANOVA table (not included) for the specified reader.
+
+ ===========================================================================
+ *****                            Estimates                            *****
+ ===========================================================================
+
+                        TREATMENT
+              -----------------------
+  READER      1            2         
+----------    ----------   ----------
+1             0.85886525   0.89148936
+2             0.89314421   0.97612293
+3             0.88226950   0.88274232
+4             0.73026005   0.84822695
+5             0.71418440   0.83995272
+6             0.92907801   0.90898345
+7             0.91891253   0.95248227
+8             0.87919622   0.93380615
+9             0.81442080   0.85697400
+
+
+ TREATMENT MEANS (averaged across readers)
+----------    -----------------------------
+1             0.84670344
+2             0.89897557
+
+
+
+ TREATMENT MEAN DIFFERENCES
+----------   ----------    -----------
+1          - 2             -0.05227213
+
+
+
+
+ ===========================================================================
+ *****                  Variance Components Estimates                  *****
+ ===========================================================================
+
+ Obuchowski-Rockette variance component and covariance estimates
+
+     OR Component             Estimate    
+ -----------------------  ----------------
+ Var(R)                        0.00221163
+ Var(T*R)                     -0.00214704
+ COV1                          0.00181425
+ COV2                          0.00130213
+ COV3                          0.00104824
+ Var(Error)                    0.00542869
+
+
+ ===========================================================================
+ *****           Analysis 1: Random Readers and Random Cases           *****
+ ===========================================================================
+
+
+ (Results apply to the population of readers and cases)
+
+
+    a) Test for H0: Treatments have the same HrAuc figure of merit.
+
+
+ Source        DF    Mean Square      F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        1       0.01229569     3.51   0.0652
+ Error        66.49       0.00121352
+ Error term: MS(TR) + J * max[Cov2 - Cov3, 0]
+
+ Conclusion: The HrAuc FOMs of treatments are not significantly different,
+             F(1,66.49) = 3.51, p = 0.0652.
+
+
+    b) 95% confidence intervals for treatment differences
+
+       Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
+----------   ----------  --------  --------  -------  ------  -------  -------------------
+1          - 2           -0.05227   0.02788    66.49   -1.87   0.0652  -0.10793 ,  0.00339
+
+
+
+ H0: the two treatments are equal.
+ Error term: MS(TR) + J * max[Cov2 - Cov3, 0]
+
+
+    c) 95% treatment confidence intervals based on reader x case ANOVAs
+       for each treatment (each analysis is based only on data for the
+       specified treatment
+
+  Treatment     Area      Std Error     DF     95% Confidence Interval 
+  ----------  ----------  ----------  -------  -------------------------
+  1           0.84670344  0.04271446    58.00  (0.76120119 , 0.93220569)
+  2           0.89897557  0.04136549   363.74  (0.81763003 , 0.98032111)
+
+
+
+
+ ===========================================================================
+ *****           Analysis 2: Fixed Readers and Random Cases            *****
+ ===========================================================================
+
+
+ (Results apply to the population of cases but only for the readers
+ used in this study)
+
+
+    a) Test for H0: Treatments have the same HrAuc figure of merit.
+
+
+ Source        DF    Mean Square      F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        1       0.01229569     2.18   0.1400
+
+ Error term: Var - Cov1 + (J - 1) * ( Cov2 - Cov3 )
+
+ Conclusion: The HrAuc FOMs of treatments are not significantly different,
+             F(1,Inf) = 2.18, p = 0.1400.
+
+
+    b) 95% confidence intervals for treatment differences
+
+       Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
+----------   ----------  --------  --------  -------  ------  -------  -------------------
+1          - 2           -0.05227   0.03542      Inf   -1.48   0.1400  -0.12169 ,  0.01715
+
+
+
+ H0: the two treatments are equal.
+ Error term: Var - Cov1 + (J - 1) * ( Cov2 - Cov3 )
+
+    c) 95% treatment confidence intervals based on reader x case ANOVAs
+       for each treatment (each analysis is based only on data for the
+       specified treatment
+
+  Treatment     Area      Std Error     DF     95% Confidence Interval 
+  ----------  ----------  ----------  -------  -------------------------
+  1           0.84670344  0.04109073      Inf  (0.76616709 , 0.92723980)
+  2           0.89897557  0.04281153      Inf  (0.81506652 , 0.98288462)
+ Error term: Var - Cov1 + (J - 1) * ( Cov2 - Cov3 )
+
+    d) Treatment-by-case ANOVA CIs for each reader 
+       (each analysis is based only on data for the specified reader)
+
+  Reader         Treatment        Estimate  StdErr       DF      t     Pr > t          95% CI      
+---------- ---------- ----------  --------  --------  -------  ------  -------  -------------------
+1          1         -2           -0.03262   0.12205      Inf   -0.27   0.7892  -0.27184 ,  0.20659
+2          1         -2           -0.08298   0.03347      Inf   -2.48   0.0132  -0.14858 , -0.01738
+3          1         -2           -0.00047   0.09393      Inf   -0.01   0.9960  -0.18457 ,  0.18362
+4          1         -2           -0.11797   0.13336      Inf   -0.88   0.3764  -0.37934 ,  0.14341
+5          1         -2           -0.12577   0.08080      Inf   -1.56   0.1196  -0.28414 ,  0.03260
+6          1         -2            0.02009   0.05639      Inf    0.36   0.7216  -0.09043 ,  0.13062
+7          1         -2           -0.03357   0.03816      Inf   -0.88   0.3791  -0.10837 ,  0.04123
+8          1         -2           -0.05461   0.05428      Inf   -1.01   0.3143  -0.16099 ,  0.05177
+9          1         -2           -0.04255   0.09124      Inf   -0.47   0.6410  -0.22139 ,  0.13628
+
+Reader  Var(Error)     Cov1   
+------  ----------  ----------
+1         0.011353    0.003905
+2         0.000653    9.301827
+3         0.006594    0.002182
+4         0.010775    0.001883
+5         0.010489    0.007225
+6         0.001743    0.000153
+7         0.000765    3.716165
+8         0.002376    0.000903
+9         0.004106    -5.62809
+
+
+
+ ===========================================================================
+ *****           Analysis 3: Random Readers and Fixed Cases            *****
+ ===========================================================================
+ (Results apply to the population of readers but only for the cases used in this study)
+
+
+    a) Test for H0: Treatments have the same HrAuc figure of merit.
+
+
+ Source        DF    Mean Square      F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        1       0.01229569    10.13   0.0129
+ Error         8.00       0.00121352
+ Error term: MS(TR)
+
+ Conclusion: The HrAuc FOMs of treatments are not equal,
+             F(1,8.00) = 10.13, p = 0.0129.
+
+
+    b) 95% confidence intervals for treatment differences
+
+       Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
+----------   ----------  --------  --------  -------  ------  -------  -------------------
+1          - 2           -0.05227   0.01642     8.00   -3.18   0.0129  -0.09014 , -0.01440
+
+
+
+ H0: the two treatments are equal.
+
+
+
+    c) Reader-by-case ANOVAs for each treatment (each analysis is based only on data for the
+       specified treatment
+
+  Treatment     Area      Std Error     DF     95% Confidence Interval 
+  ----------  ----------  ----------  -------  -------------------------
+  1           0.84670344  0.02603087     8.00  (0.78667616 , 0.90673073)
+  2           0.89897557  0.01592989     8.00  (0.86224118 , 0.93570997)
