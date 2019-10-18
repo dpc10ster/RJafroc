@@ -1,13 +1,13 @@
 {
-    "path" : "~/GitHub/RJafroc/tests/testthat/goodValues361/Df2RJafrocDataset",
+    "path" : "~/GitHub/RJafroc/R",
     "sortOrder" : [
-        {
-            "ascending" : false,
-            "columnIndex" : 4
-        },
         {
             "ascending" : true,
             "columnIndex" : 2
+        },
+        {
+            "ascending" : false,
+            "columnIndex" : 4
         },
         {
             "ascending" : false,

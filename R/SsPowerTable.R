@@ -28,6 +28,10 @@
 #'
 #' @examples
 #' \donttest{
+#' ## Examples with CPU or elapsed time > 5s
+#' ##              user system elapsed
+#' ## SsPowerTable 20.033  0.037  20.077    
+#'
 #' ## Example of sample size calculation with DBM method
 #' SsPowerTable(dataset02, method = "DBMH")
 #' 

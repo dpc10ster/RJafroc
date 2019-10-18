@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "/R",
+        "path" : "/tests/testthat",
         "projectRelative" : true,
-        "query" : "StDBMHAnalysis",
+        "query" : "info",
         "regex" : false
     }
 }
