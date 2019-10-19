@@ -16,7 +16,7 @@ This branch compares the significance testing functions with the original/old Xu
 test_that("Compare current to original code: DBMH", {
 ...
 }
-```
+
 test_that("Compare current to original code: ORH", {
 ...
 }
