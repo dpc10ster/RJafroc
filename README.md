@@ -20,8 +20,7 @@ test_that("Compare current to original code: DBMH", {
 test_that("Compare current to original code: ORH", {
 ...
 }
-
-
+```
 ## DBMH and ORH variance components vs. those obtained from Windows version of JAFROC
 ```
 test_that("Ensure that DBM varComp values match those from Windows JAFROC", {
