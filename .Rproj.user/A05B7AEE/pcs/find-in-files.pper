@@ -1,11 +1,11 @@
 {
     "dialog-state" : {
-        "caseSensitive" : true,
+        "caseSensitive" : false,
         "filePatterns" : [
         ],
-        "path" : "/tests/testthat",
+        "path" : "",
         "projectRelative" : true,
-        "query" : "info",
+        "query" : "CrossedModalitiesData.xlsx",
         "regex" : false
     }
 }
