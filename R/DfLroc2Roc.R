@@ -1,41 +1,53 @@
 #' Convert an LROC dataset to a ROC dataset
 #' 
 #'  
-#' @description Converts an LROC dataset to a ROC dataset
+#' @description Converts an LROC dataset to an ROC dataset
 #'  
 #' 
 #' @param dataset The \strong{LROC} dataset to be converted.
 #' 
-#' @details The conversion is effected by taking the maximum rating on each diseased case, 
-#' which could be a TPCl or a TPIl, whichever has the higher rating.
+#' @details For the diseased cases one takes the maximum rating on each diseased case, 
+#'    which could be a LLCl ("true positive" correct localization) or a LLIl 
+#'    ("true positive" incorrect localization) rating, whichever has the higher rating.
+#'    For non-diseased cases the NL arrays are identical.
 #' 
 #' 
 #' @return An ROC dataset  
 #'
 #' @examples
-#' dataset <- DfReadLrocDataFile()
-#' str(dataset)
-#' rocDataSet <- DfLroc2Roc(dataset)
+#' str(datasetCadLroc)
+#' rocDataSet <- DfLroc2Roc(datasetCadLroc)
 #' str(rocDataSet)
 #' 
 #' 
 #' @export
 
-DfLroc2Roc <- function (dataset){
-  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
- 
-  NL <- dataset$NL[1,,,1]
-  LLCl <- dataset$LLCl[1,,,1]
-  LLIl <- dataset$LLIl[1,,,1]
-  LL <- pmax(LLCl,LLIl)
-  K1 <- length(NL[1,])
-  K2 <- length(LLCl[1,])
-  K1 <- K1 - K2  # sic
-  J <- length(NL[,1])
-  dim(LL) <- c(1, J, K2, 1)
+DfLroc2Roc <- function (dataset) #  !!!in tests!!!
+  {
+  
+  if (dataset$dataType != "LROC") stop("This function requires an LROC dataset.")
+  
+  LLCl <- dataset$LLCl[,,,1]
+  LLIl <- dataset$LLIl[,,,1]
+  I <- length(dataset$LLCl[,1,1,1])
+  J <- length(dataset$LLCl[1,,1,1])
+  K2 <- length(dataset$LLCl[1,1,,1])
+  
+  dim(LLCl) <- c(I,J,K2)
+  dim(LLIl) <- c(I,J,K2)
 
+    LL <- dataset$LLCl
+  dim(LL) <- c(I,J,K2,1)
+  
+  for (i in 1:I) {
+    # For the diseased cases one takes the maximum rating on each diseased case, 
+    #    which could be a LLCl ("true positive" correct localization) or a LLIl 
+    #    ("true positive" incorrect localization) rating, whichever has the higher rating.
+    LL[i,,,1] <- pmax(LLCl[i,,],LLIl[i,,])
+  }
+  
   return (list(
-    NL = dataset$NL,
+    NL = dataset$NL, # For non-diseased cases the NL arrays are identical.
     LL = LL,
     lesionVector = dataset$lesionVector,
     lesionID = dataset$lesionID,

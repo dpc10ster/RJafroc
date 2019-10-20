@@ -2,32 +2,17 @@
     "debugBreakpointsState" : {
         "breakpoints" : [
             {
-                "editor_line_number" : 1135,
+                "editor_line_number" : 8,
                 "editor_state" : 1,
-                "function_name" : "gpfEstimateVarCov",
-                "function_steps" : "8,3,3",
-                "id" : 22,
-                "is_package_breakpoint" : true,
+                "function_name" : "CompareLists",
+                "function_steps" : "2,4,8",
+                "id" : 3,
+                "is_package_breakpoint" : false,
                 "is_pending_debug_completion" : false,
-                "line_number" : 1135,
+                "line_number" : 8,
                 "needs_updated_steps" : false,
-                "package_name" : "RJafroc",
-                "path" : "~/GitHub/RJafroc/R/StSignificanceTesting.R",
-                "state" : 1,
-                "type" : 0
-            },
-            {
-                "editor_line_number" : 756,
-                "editor_state" : 1,
-                "function_name" : "StORHAnalysis",
-                "function_steps" : "43",
-                "id" : 23,
-                "is_package_breakpoint" : true,
-                "is_pending_debug_completion" : false,
-                "line_number" : 756,
-                "needs_updated_steps" : false,
-                "package_name" : "RJafroc",
-                "path" : "~/GitHub/RJafroc/R/StSignificanceTesting.R",
+                "package_name" : "",
+                "path" : "~/GitHub/RJafroc/inst/testsToInclude/temp1.R",
                 "state" : 1,
                 "type" : 0
             }

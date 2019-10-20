@@ -7,6 +7,8 @@
 #'    is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.
 #' @param method The method, in which the mean squares are calculated. The two 
 #'    valid options are \code{"DBMH"} (default) and \code{"ORH"}. 
+#' @param FPFValue Only needed for \code{LROC} data; where to evaluate a partial 
+#'    curve based figure of merit.
 #' 
 #' @return A list containing all possible mean squares
 #' 
@@ -24,15 +26,27 @@
 #' 
 #' @export
 
-UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
-  NL <- dataset$NL
-  LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
-  maxNL <- dim(NL)[4]
-  maxLL <- dim(LL)[4]
+UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH", FPFValue){
   dataType <- dataset$dataType
+  if (dataType != "LROC") {
+    NL <- dataset$NL
+    LL <- dataset$LL
+  } else {
+    if (FOM == "Wilcoxon"){
+      datasetRoc <- DfLroc2Roc(dataset)
+      NL <- datasetRoc$NL
+      LL <- datasetRoc$LL
+    } else if (FOM %in% c("PCL", "ALROC")){
+      NL <- dataset$NL
+      LL <- dataset$LLCl
+    } else stop("incorrect FOM for LROC data")
+  }
+  # lesionVector <- dataset$lesionVector
+  # lesionID <- dataset$lesionID
+  # lesionWeight <- dataset$lesionWeight
+  # maxNL <- dim(NL)[4]
+  # maxLL <- dim(LL)[4]
+  # dataType <- dataset$dataType
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
@@ -42,7 +56,7 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
   K1 <- K - K2
   
   if (method == "DBMH") {
-    pseudoValues <- UtilPseudoValues(dataset, FOM)
+    pseudoValues <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
     #
     # extensive changes made here DPC 6/30/19 for DBMH method
     # basically redefine K as number of diseased cases or number of non-diseased
@@ -172,7 +186,7 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH"){
       stop(errMsg)
     }
     
-    fomArray <- UtilFigureOfMerit(dataset, FOM)
+    fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
     fomMean <- mean(fomArray)
     
     if (I != 1){

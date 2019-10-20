@@ -6,26 +6,27 @@
 \usage{
 UtilOutputReport(dataset, dataDescription = "MyDataDescription: ",
   ReportFileBaseName = NULL, ReportFileExt = "txt", method = "DBMH",
-  FOM = "Wilcoxon", alpha = 0.05, covEstMethod = "Jackknife",
-  nBoots = 200, sequentialNames = FALSE, overWrite = FALSE)
+  FOM, alpha = 0.05, covEstMethod = "Jackknife", nBoots = 200,
+  sequentialNames = FALSE, overWrite = FALSE)
 }
 \arguments{
-\item{dataset}{The dataset object to be analyzed (\emph{not the file name}), see \code{Dataset} 
-in \code{\link{RJafroc-package}}.}
+\item{dataset}{The dataset object to be analyzed (\emph{not the file name}), 
+see \code{Dataset} in \code{\link{RJafroc-package}}.}
 
 \item{dataDescription}{A short string describing the dataset, 
 the default is "MyDataDescription: ";
 it is inserted, for reference, in the output file.}
 
-\item{ReportFileBaseName}{The file bse name (sans extension) for the desired report; 
-the default is NULL, in which case the system generates a temporary text file, 
-whose name will be displayed.}
+\item{ReportFileBaseName}{The file base name (sans the extension) for the 
+desired report; the default is NULL, in which case the system generates 
+a temporary text file, whose name is displayed.}
 
 \item{ReportFileExt}{The report file extension determines the type of output. 
 \code{txt}, the default, for 
 a text file, \code{xlsx} for an Excel file.}
 
-\item{method}{The significance testing method, \code{"ORH"} or (the default) \code{"DBMH"}.}
+\item{method}{The significance testing method, \code{"ORH"} or 
+(the default) \code{"DBMH"}.}
 
 \item{FOM}{The figure of merit; see \code{\link{StSignificanceTesting}}.}
 
@@ -34,8 +35,8 @@ a text file, \code{xlsx} for an Excel file.}
 \item{covEstMethod}{See \code{\link{StSignificanceTesting}}; only needed 
 for method = \code{"ORH"}; the default is "Jackknife".}
 
-\item{nBoots}{See \code{\link{StSignificanceTesting}}; only needed for \code{"ORH"} analysis;
-the default is 200.}
+\item{nBoots}{See \code{\link{StSignificanceTesting}}; only needed for 
+\code{"ORH"} analysis; the default is 200.}
 
 \item{sequentialNames}{A logical variable: if \code{TRUE}, consecutive integers 
 (staring from 1) will be used as the treatment and reader IDs in the 
@@ -46,8 +47,8 @@ is FALSE.}
 \item{overWrite}{A \code{logical} variable: if \code{FALSE}, a warning will 
 be issued if the report file already exists and the program will wait 
 until the user inputs "y" or "n" to determine whether to overwrite the 
-existing file. If \code{TRUE}, the existing file will be silently overwritten. The
-default is \code{FALSE}.}
+existing file. If \code{TRUE}, the existing file will be silently overwritten. 
+The default is \code{FALSE}.}
 }
 \value{
 sigTestResult The object returned by \code{\link{StSignificanceTesting}}.
@@ -63,9 +64,10 @@ A formatted report of the data analysis is written to the output file in
 \examples{
 
 \donttest{
-UtilOutputReport(dataset03) # text output is created in a temporary file
-
-UtilOutputReport(dataset03, ReportFileExt = "xlsx") # Excel output is created in a temporary file
+ # text output is created in a temporary file
+UtilOutputReport(dataset03, FOM = "Wilcoxon")
+# Excel output is created in a temporary file
+UtilOutputReport(dataset03, FOM = "Wilcoxon", ReportFileExt = "xlsx") 
 
 }
        

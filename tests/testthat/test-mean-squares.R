@@ -28,17 +28,15 @@ test_that("UtilMeanSquares", {
                        dataset_arr_str[d], FOM_arr[i],"-", method_arr[j], ".rds")
           if (!file.exists(fn)) {
             warning(paste0("File not found - generating new ",fn))
-            ret <- UtilMeanSquares(dataset, FOM = FOM_arr[i], method = method_arr[j])
-            saveRDS(ret, file = fn)
+            x1 <- UtilMeanSquares(dataset, FOM = FOM_arr[i], method = method_arr[j])
+            saveRDS(x1, file = fn)
           }
           
-          ret <- readRDS(fn)
-          expect_equal(UtilMeanSquares(dataset, FOM = FOM_arr[i], method = method_arr[j]), ret,
+          x1 <- readRDS(fn)
+          x2 <- UtilMeanSquares(dataset, FOM = FOM_arr[i], method = method_arr[j])
+          expect_equal(x1, x2,
             info = paste0("Dataset = ",dataset_arr_str[[d]],", FOM = ",FOM_arr[i],", method = ",method_arr[j])
           )
-          # end of test
-          
-          #  }
         }  
       }
     }

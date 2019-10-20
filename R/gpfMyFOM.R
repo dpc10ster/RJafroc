@@ -1,6 +1,10 @@
 #' @importFrom stats approx
 
-gpfMyFOM <- function(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue = NULL) {
+gpfMyFOM <- function(nl, ll, 
+                     lesionVector, lesionID, 
+                     lesionWeight, maxNL, 
+                     maxLL, K1, K2, 
+                     FOM, FPFValue = NULL) {
   if (!FOM %in% c("Wilcoxon", "HrAuc", "HrSe", "HrSp", "SongA1", 
                   "SongA2", "AFROC1", "AFROC", "wAFROC1", "wAFROC",
                   "JAFROC1", "JAFROC", "wJAFROC1", "wJAFROC", "FROC", # dpc 
@@ -58,7 +62,15 @@ LrocFoms <- function (zk1, zk2Cl, FPFValue) {
   zk2Cl <- drop(zk2Cl)
   zk1 <- zk1[zk1 != -Inf]
   lroc <- LrocOperatingPointsFromRatings( zk1, zk2Cl )
-  PCL <- (approx(lroc$FPF, lroc$PCL, xout = FPFValue, ties = min))$y # computes PCL @ FPFValue
+  #PCL <- (approx(lroc$FPF, lroc$PCL, xout = FPFValue))$y # version 1.1.0
+  PCL <- (approx(lroc$FPF, lroc$PCL, xout = FPFValue, ties = min))$y # post version 1.1.0
+  # the ties argument above removes the warnings I was getting like:
+  ## Warning message: 
+  ## In regularize.values(x, y, ties, missing(ties)) :
+  ##   collapsing to unique 'x' values 
+  # but the FOM changed slightly, e.g. from 0.4625 to 0.45 for PCL-0.05
+  # also ALROC-0.05 changed slightly 
+  # No changes noted for 0.2 and 1.
   tempFpf <-c(lroc$FPF[lroc$FPF < FPFValue],FPFValue)
   tempPcl <-c(lroc$PCL[lroc$FPF < FPFValue],PCL)
   ALroc <- trapz(tempFpf, tempPcl) # computes trapezoidal area under LROC (0 to FPFValue)

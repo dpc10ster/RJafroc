@@ -4,7 +4,7 @@
 \alias{UtilMeanSquares}
 \title{Calculate mean squares}
 \usage{
-UtilMeanSquares(dataset, FOM = "Wilcoxon", method = "DBMH")
+UtilMeanSquares(dataset, FOM = "Wilcoxon", method = "DBMH", FPFValue)
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}.}
@@ -14,6 +14,9 @@ is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
 
 \item{method}{The method, in which the mean squares are calculated. The two 
 valid options are \code{"DBMH"} (default) and \code{"ORH"}.}
+
+\item{FPFValue}{Only needed for \code{LROC} data; where to evaluate a partial 
+curve based figure of merit.}
 }
 \value{
 A list containing all possible mean squares
