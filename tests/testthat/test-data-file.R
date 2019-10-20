@@ -209,12 +209,12 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- DfDatasetLroc2Roc(DfReadLrocDataFile())
+    ds <- DfLroc2Roc(DfReadLrocDataFile())
     saveRDS(ds, file = fn)
   }
 
   ds <- readRDS(fn)
-  expect_equal(DfDatasetLroc2Roc(DfReadLrocDataFile()), ds)
+  expect_equal(DfLroc2Roc(DfReadLrocDataFile()), ds)
 
 })
 

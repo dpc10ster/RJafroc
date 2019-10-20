@@ -24,7 +24,7 @@ test_that("SimulateLrocFromFrocDataset", {
     expect_equal(val1, val2)
   }
 
-  rocDataset <- DfDatasetLroc2Roc(datasetCadLroc)
+  rocDataset <- DfLroc2Roc(datasetCadLroc)
   ret1 <- UtilFigureOfMerit(datasetCadLroc, FOM = "Wilcoxon")
   ret2 <- UtilFigureOfMerit(rocDataset, FOM = "Wilcoxon")    
   

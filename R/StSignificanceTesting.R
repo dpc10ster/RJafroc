@@ -323,7 +323,7 @@ jackknifePseudoValuesNormals <- function (dataset, FOM, FPFValue)
     LL <- dataset$LL
   } else { # LROC dataset
     if (FOM == "Wilcoxon"){
-      datasetRoc <- DfDatasetLroc2Roc(dataset)
+      datasetRoc <- DfLroc2Roc(dataset)
       NL <- datasetRoc$NL
       LL <- datasetRoc$LL
     } else if (FOM %in% c("PCL", "ALROC")){
@@ -382,7 +382,7 @@ jackknifePseudoValuesAbnormals <- function (dataset, FOM, FPFValue)
     LL <- dataset$LL
   } else {
     if (FOM == "Wilcoxon"){
-      dataset <- DfDatasetLroc2Roc(dataset)
+      dataset <- DfLroc2Roc(dataset)
       NL <- dataset$NL
       LL <- dataset$LL
     } else if (FOM %in% c("PCL", "ALROC")){
@@ -443,7 +443,7 @@ jackknifePseudoValues <- function (dataset, FOM, FPFValue)
     LL <- dataset$LL
   } else {
     if (FOM == "Wilcoxon"){
-      datasetRoc <- DfDatasetLroc2Roc(dataset)
+      datasetRoc <- DfLroc2Roc(dataset)
       NL <- datasetRoc$NL
       LL <- datasetRoc$LL
     } else if (FOM %in% c("PCL", "ALROC")){

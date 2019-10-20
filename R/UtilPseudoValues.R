@@ -31,7 +31,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2){
     LL <- dataset$LL
   } else {
     if (FOM == "Wilcoxon"){
-      datasetRoc <- DfDatasetLroc2Roc(dataset)
+      datasetRoc <- DfLroc2Roc(dataset)
       NL <- datasetRoc$NL
       LL <- datasetRoc$LL
     } else if (FOM %in% c("PCL", "ALROC")){

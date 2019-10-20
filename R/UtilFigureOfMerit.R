@@ -122,7 +122,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
         LL <- dataset$LL
       } else {
         if (FOM == "Wilcoxon"){
-          datasetRoc <- DfDatasetLroc2Roc(dataset)
+          datasetRoc <- DfLroc2Roc(dataset)
           NL <- datasetRoc$NL
           LL <- datasetRoc$LL
         } else if (FOM %in% c("PCL", "ALROC")){

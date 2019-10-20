@@ -16,13 +16,13 @@
 #'
 #' @examples
 #' str(datasetCadLroc)
-#' rocDataSet <- DfDatasetLroc2Roc(datasetCadLroc)
+#' rocDataSet <- DfLroc2Roc(datasetCadLroc)
 #' str(rocDataSet)
 #' 
 #' 
 #' @export
 
-DfDatasetLroc2Roc <- function (dataset) #  !!!in tests!!!
+DfLroc2Roc <- function (dataset) #  !!!in tests!!!
   {
   
   if (dataset$dataType != "LROC") stop("This function requires an LROC dataset.")

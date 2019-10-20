@@ -230,7 +230,7 @@ addPlot <- function(dataset, ret, FOM) {
     names(ret1) <- retNames
   } else if ((dataType == "LROC") && (FOM == "Wilcoxon"))  {
     if (dataType == "LROC") {
-      datasetRoc <- DfDatasetLroc2Roc(dataset)
+      datasetRoc <- DfLroc2Roc(dataset)
       rocPlots <- PlotEmpiricalOperatingCharacteristics(datasetRoc, rdrs = 1:length(zjk1[,1]))$Plot
     }
     retNames <- names(ret)
@@ -292,7 +292,7 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
     }
     combinedLLIl[2,,,1] <- zjk2Il[2:(J+1),]
   } else if ((dataType == "LROC") && (FOM == "Wilcoxon")) {
-    datasetRoc <- DfDatasetLroc2Roc(dataset)
+    datasetRoc <- DfLroc2Roc(dataset)
     dataType <- datasetRoc$dataType
     NL <- datasetRoc$NL
     LL <- datasetRoc$LL
@@ -433,7 +433,7 @@ dataset2ratings <- function (dataset, FOM){
       zjk2 <- dataset$LLCl[,,1:K2,1]
       zjk2Il <- dataset$LLIl[,,1:K2,1]
     } else if (FOM == "Wilcoxon")  {
-      datasetRoc <- DfDatasetLroc2Roc(dataset)
+      datasetRoc <- DfLroc2Roc(dataset)
       zjk1 <- datasetRoc$NL[,,1:K1,1]
       zjk2 <- datasetRoc$LL[,,1:K2,1]
       zjk2Il <- NA
