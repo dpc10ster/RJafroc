@@ -11,7 +11,7 @@
 #' @param J      The number of readers
 #' @param K1     The number of non-diseased cases
 #' @param K2     The number of diseased cases
-#' @param lesionNum    A K2 length array containing the numbers of lesions per diseased case
+#' @param lesionVector    A K2 length array containing the numbers of lesions per diseased case
 #' 
 #' @return The return value is an FROC dataset.
 #' 
@@ -21,13 +21,13 @@
 #' @examples
 #' set.seed(1) 
 #' K1 <- 5;K2 <- 7;
-#' maxLL <- 2;lesionNum <- floor(runif(K2, 1, maxLL + 1))
+#' maxLL <- 2;lesionVector <- floor(runif(K2, 1, maxLL + 1))
 #' mu <- 1;lambda <- 1;nu <- 1 ;zeta1 <- -1
 #' I <- 2; J <- 5
 #' 
 #' frocDataRaw <- SimulateFrocDataset(
 #'   mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
-#'   I = I, J = J, K1 = K1, K2 = K2, lesionNum = lesionNum )
+#'   I = I, J = J, K1 = K1, K2 = K2, lesionVector = lesionVector )
 #'   
 #' ## plot the data
 #' ret <- PlotEmpiricalOperatingCharacteristics(frocDataRaw, trts= 1, 
@@ -43,7 +43,7 @@
 #' 
 #' @export
 
-SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, lesionNum){
+SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, lesionVector){
   lambdaP <- lambda/mu
   nuP <- 1-exp(-nu*mu)
   nNL <- rpois(I * J * (K1 + K2), lambdaP)
@@ -61,13 +61,13 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, lesionNum){
     }
   }
   
-  maxLL <- max(lesionNum)
+  maxLL <- max(lesionVector)
   LL <- array(-Inf, dim = c(I,J,K2, maxLL))
   
   for (i in 1:I) {
     for (j in 1:J) {  
       for (k in 1:K2){
-        nLL <- rbinom(1, lesionNum[k], nuP)
+        nLL <- rbinom(1, lesionVector[k], nuP)
         ll <- rnorm(nLL, mu)
         ll <- ll[order(ll, decreasing = TRUE)]
         ll[ll < zeta1] <- -Inf
@@ -77,8 +77,8 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, lesionNum){
       lesID <- array(dim = c(K2, maxLL))
       lesWght <- array(dim = c(K2, maxLL))
       for (k in 1:K2){
-        lesID[k, ] <- c(1:lesionNum[k], rep(-Inf, maxLL - lesionNum[k]))
-        lesWght[k, ] <- c(rep(1 / lesionNum[k], lesionNum[k]), rep(-Inf, maxLL - lesionNum[k]))
+        lesID[k, ] <- c(1:lesionVector[k], rep(-Inf, maxLL - lesionVector[k]))
+        lesWght[k, ] <- c(rep(1 / lesionVector[k], lesionVector[k]), rep(-Inf, maxLL - lesionVector[k]))
       }
     }
   }  
@@ -87,7 +87,7 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, lesionNum){
   dataset <- list(
     NL = NL, 
     LL = LL,
-    lesionNum = lesionNum,
+    lesionVector = lesionVector,
     lesionID = lesID,
     lesionWeight = lesWght,
     dataType = "FROC",

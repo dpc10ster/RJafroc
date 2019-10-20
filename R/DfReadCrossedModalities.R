@@ -6,13 +6,13 @@
 #' @param fileName A string specifying the name of the file that contains the dataset, 
 #'    which must be an extended-JAFROC format data file containing an 
 #'    additional treatment factor.
-#' @param renumber If \code{TRUE}, consecutive integers (starting from 1) will be used 
+#' @param sequentialNames If \code{TRUE}, consecutive integers (starting from 1) will be used 
 #'    as the treatment and reader IDs. Otherwise, treatment and reader IDs in the 
 #'    original data file will be used. The default is \code{FALSE}. 
 #' 
 #' @details The data format is  similar to the JAFROC format (see \code{\link{RJafroc-package}}). 
 #'    The notable difference is that there are two treatment factors. A sample crossed 
-#'    treatment file "includedCrossedModalitiesData.xlsx" is in the \code{inst\\extdata} 
+#'    treatment file "CrossedModalitiesData.xlsx" is in the \code{inst\\extdata} 
 #'    subdirectory of \code{RJafroc}.
 #' 
 #' @return A dataset with the specified structure, similar to a standard 
@@ -24,7 +24,7 @@
 #' 
 #' \donttest{
 #' crossedFileName <- system.file("extdata", 
-#'    "includedCrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
+#'    "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
 #' crossedData <- DfReadCrossedModalities(crossedFileName)
 #' str(crossedData)
 #' }
@@ -42,7 +42,7 @@
 #' 
 #' @import openxlsx
 #' @export
-DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
+DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   wb <- loadWorkbook(fileName)
   sheetNames <- toupper(names(wb))
@@ -77,7 +77,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
     stop(errorMsg)
   }
   
-  caseID <- as.integer(truthTable[[1]])  # all 3 have same lenghts
+  caseID <- as.integer(truthTable[[1]])  # all 3 have same lengths
   lesionID <- as.integer(truthTable[[2]])
   weights <- truthTable[[3]]
   
@@ -96,7 +96,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   
   nlFileIndex <- which(!is.na(match(sheetNames, c("FP", "NL"))))
   if (nlFileIndex == 0) 
-    stop("FP table cannot be found in the dataset.")
+    stop("FP/NL table cannot be found in the dataset.")
 
   NLTable <- read.xlsx(fileName, nlFileIndex, cols = 1:5)
   
@@ -114,7 +114,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   for (i in 4:5) {
     if (any(is.na(as.numeric(as.character(NLTable[, i]))))) {
       naLines <- which(is.na(as.numeric(as.character(NLTable[, i])))) + 1
-      errorMsg <- paste0("There are unavailable cell(s) at the line(s) ", paste(naLines, collapse = ", "), " in the FP table.")
+      errorMsg <- paste0("There are missing cell(s) at line(s) ", paste(naLines, collapse = ", "), " in the FP table.")
       stop(errorMsg)
     }
   }
@@ -134,7 +134,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (llFileIndex == 0) 
-    stop("TP table cannot be found in the dataset.")
+    stop("TP/LL table cannot be found in the dataset.")
   LLTable <- read.xlsx(fileName, llFileIndex, cols = 1:6)
   
   for (i in 1:6){
@@ -151,7 +151,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   for (i in 4:6) {
     if (any(is.na(as.numeric(as.character(LLTable[, i]))))) {
       naLines <- which(is.na(as.numeric(as.character(LLTable[, i])))) + 1
-      errorMsg <- paste0("There are unavailable cell(s) at the line(s) ", paste(naLines, collapse = ", "), " in the TP table.")
+      errorMsg <- paste0("There are missing cell(s) at line(s) ", paste(naLines, collapse = ", "), " in the TP table.")
       stop(errorMsg)
     }
   }
@@ -181,19 +181,19 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
     stop(errorMsg)
   }
   
-  lesionNum <- as.vector(table(caseID[caseID %in% abnormalCases]))
-  # for (k2 in 1:length(abnormalCases)) { lesionNum[k2] <- sum(caseID == abnormalCases[k2]) }
+  lesionVector <- as.vector(table(caseID[caseID %in% abnormalCases]))
+  # for (k2 in 1:length(abnormalCases)) { lesionVector[k2] <- sum(caseID == abnormalCases[k2]) }
   
-  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionNum)))
-  lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionNum)))
+  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector)))
+  lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionVector)))
   
   for (k2 in 1:length(abnormalCases)) {
     k <- which(caseID == abnormalCases[k2])
-    lesionIDTable[k2, ] <- c(sort(lesionID[k]), rep(UNINITIALIZED, max(lesionNum) - length(k)))
+    lesionIDTable[k2, ] <- c(sort(lesionID[k]), rep(UNINITIALIZED, max(lesionVector) - length(k)))
     if (all(weights[k] == 0)) {
-      lesionWeight[k2, 1:length(k)] <- 1/lesionNum[k2]
+      lesionWeight[k2, 1:length(k)] <- 1/lesionVector[k2]
     } else {
-      lesionWeight[k2, ] <- c(weights[k][order(lesionID[k])], rep(UNINITIALIZED, max(lesionNum) - length(k)))
+      lesionWeight[k2, ] <- c(weights[k][order(lesionID[k])], rep(UNINITIALIZED, max(lesionVector) - length(k)))
       sumWeight <- sum(lesionWeight[k2, lesionWeight[k2, ] != UNINITIALIZED])
       if (sumWeight != 1){
         if (sumWeight <= 1.01 && sumWeight >= 0.99){
@@ -245,7 +245,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
     }
   }
   
-  LL <- array(dim = c(I1, I2, J, K2, max(lesionNum)))
+  LL <- array(dim = c(I1, I2, J, K2, max(lesionVector)))
   for (i1 in 1:I1) {
     for (i2 in 1:I2) {
       for (j in 1:J) {
@@ -277,14 +277,14 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
           break
         }
         temp <- LL[i1, i2, j, , ] != UNINITIALIZED
-        dim(temp) <- c(K2, max(lesionNum))
-        if (!all(lesionNum == rowSums(temp))) {
+        dim(temp) <- c(K2, max(lesionVector))
+        if (!all(lesionVector == rowSums(temp))) {
           isROI <- FALSE
           break
         }
         temp <- NL[i1, i2, j, (K1 + 1):K, ] == UNINITIALIZED
         dim(temp) <- c(K2, maxNL)
-        if (!all(lesionNum == rowSums(temp))) {
+        if (!all(lesionVector == rowSums(temp))) {
           isROI <- FALSE
           break
         }
@@ -306,7 +306,7 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   modality2Names <- modalityID2
   readerNames <- readerID
   
-  if (renumber){
+  if (sequentialNames){
     modalityID1 <- 1:I1
     modalityID2 <- 1:I2
     readerID <- 1:J
@@ -316,5 +316,5 @@ DfReadCrossedModalities <- function(fileName, renumber = FALSE) {
   names(modalityID2) <- modality2Names
   names(readerID) <- readerNames
   
-  return(list(NL = NL, LL = LL, lesionNum = lesionNum, lesionID = lesionIDTable, lesionWeight = lesionWeight, dataType = fileType, modalityID1 = modalityID1, modalityID2 = modalityID2, readerID = readerID))
+  return(list(NL = NL, LL = LL, lesionVector = lesionVector, lesionID = lesionIDTable, lesionWeight = lesionWeight, dataType = fileType, modalityID1 = modalityID1, modalityID2 = modalityID2, readerID = readerID))
 } 

@@ -5,117 +5,59 @@ RJafroc
 [![codecov](https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg)](https://codecov.io/gh/dpc10ster/rjafroc)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rjafroc)](https://cran.r-project.org/package=rjafroc)
 
-# What is this repository for? #
-* Modeling, Analysis, Validation and Visualization of ROC/FROC studies
-* Extends and replaces the *obsolete* Windows software (JAFROC: http://www.devchakraborty.com)
+# The `OldCode` branch #
 
-# Documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/ #
 
-# My wiki is at https://github.com/dpc10ster/RJafroc/wiki #
+# The `VarCompDiscrepancy` branch #
+This branch is for a collaboration (with Dr. Jason Cai) who noted the discrepancy when comparing jackknife vs bootstrap for `includedFrocData.xlsx` using `HrAuc` FOM. The bootstrap values are quite stable w.r.t. `nBoots` (200, 1000), while the jackknife values are very different. His independent SAS implementation agrees with my bootstrap implementation, and with his jackknife implementation. Something is wrong with my jackknife implementation. This branch is a diversion from the split plot branch to fix this issue. When done, it should be merged with split plot.
 
-# A CRAN version of RJafroc has been published #
-Thanks to help from Dr. Peter Phillips, version 1.2.0 of `RJafroc` has passed CRAN tests. This version is on the `cran` branch. The complete (all vignettes and tests) and current version of the software is available on the `master` branch. The `development` branch is for ongoing work (Version 1.2.0.9000).
+While working on this I got an email from a user that the sample size routines in the Online Appendix were not working. This led to major updates of all 
+   1. sample size and significance testing functions. 
+   1. sample size and significance testing functions. 
 
-# Those already familiar with installing R packages from GitHub can ignore the following directions #  
 
-# How do I get set up? #
-## Short version: install directly from GitHub using package `devtools` ##
-* Install `R` and `RStudio`.
-* Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
-* Open `RStudio`. 
-* Starting from `RStudio` > `File` > `New Project` > `Existing Directory` > Select `myProject` > `Create Project`.
-* Oila! You should see `myProject.RProj` in the Files menu.
-* Install the `devtools` package as shown below: 
-* Starting from `RStudio` > `Packages` > `Install` > `devtools`.
-* Load `devtools` as shown below:
-```
-library(devtools)
-```
-* Install `RJafroc` directly from `GitHub` (this is where `devtools` is used):
-```
-install_github("dpc10ster/rjafroc")
-```
-* Hit Enter on any prompts...
-* Lots of activity and compilation of C++ code ....
-* Load `RJafroc` as shown below:
-```
-library(RJafroc)
-```
-* Test the installation:
-```
-cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-print(cbmPlot)
-```
-* You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/.
-* Be sure to study these examples and make full use of the online documentation.
-* Put your data and other files, if any, in `myProject`.
-* TBA
 
-## Long version: download the `RJafroc` package and install from the downloaded files ##
-* Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example. 
-* I find the GitHub desktop app useful in mananging my downloads/uploads from Git.
-* Install `R` and `RStudio`.
-* Navigate to the `rjafroc` directory.
-* Open `RJafroc.Rproj`. This will open `RStudio`. 
-* Navigate to `File` menu (lower-right window) and click on DESCRIPTION file.
-* Install all packages listed under Imports, e.g.,    
-    openxlsx,
-    ggplot2,
-    stringr,
-    tools,
-    utils,
-    stats,
-    bbmle,
-    binom,
-    mvtnorm,
-    dplyr,
-    numDeriv,
-    Rcpp
-* For example, to install the first two above-listed packages, use the following command at the Console prompt:
+# The `OldCode` branch #
+This branch compares the significance testing functions with the original/old Xuetong Zhai code, in the first posted version of RJafroc (0.0.1) - this version does not have an C++-Code. Functions from here were copied over and unit test (`testthat`) functions written to compare:
+
+## New/current code vs. old code for DBMH/ORH methods,
 ```
-install.packages(c("openxlsx", "ggplot2"))
+test_that("Compare current to original code: DBMH", {
+...
+}
+
+test_that("Compare current to original code: ORH", {
+...
+}
 ```
-* Click on Build > Install and Restart (upper right panel). If errors result from missing packages, install those packages.
-* A successful Install and Restart will result in the following line in the Console window:
+
+The old code is invoked by a new flag `tempOrgCode` in `StSignificanceTesting()`:
+
 ```
-library(RJafroc)
+StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha = 0.05,
+  method = "DBMH", covEstMethod = "Jackknife", nBoots = 200,
+  option = "ALL", tempOrgCode = FALSE)
 ```
-* Thats it! `RJafroc` has been installed to your computer and is visible to any other `R` project in any directory.
-* You will not need to access the `RJafroc` folder again (unless you reinstall a new version of the software). 
-* All necessary files of the installation are in a hidden directory that you do not normally need to worry about.
-* Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
-* Starting from `RStudio` > `File` > `New Project` > `Existing Directory` > `myProject` > `Create Project`.
-* Oila! You should see `myProject.RProj` in the Files menu.
-* Click on `Packages` and scroll down to find `RJafroc`, and check the box next to it. This results in `RJafroc` being loaded to the current workspace. The following line appears in the Console window (this is the hidden directory referrred to above).
+
+## DBMH and ORH variance components vs. those obtained from Windows version of JAFROC
 ```
-  library("RJafroc", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
-```  
-* Click on `RJafroc` in the packages window. A help window opens up. I find it convenient to put this in its own window by clicking the "out" arrow button (hover message: Show in new window). You can access all documentation from here.
-* Test the installation:
+test_that("Ensure that DBM varComp values match those from Windows JAFROC", {
+...
+}
+
+test_that("Ensure that OR varComp values match those from Windows JAFROC", {
+...
+}
 ```
-cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-print(cbmPlot)
+## DBMH vs ORH using current code for an ROC and an FROC dataset
 ```
-* You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/.
-* Put your data and other files, if any, in myProject.
-* TBA
+test_that("Compare DBMH to ORH for dataset02, ROC", {
+...
+}
 
-### Contibutor guidelines ###
-* As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.
+test_that("Compare DBMH to ORH for dataset05, FROC, HrAuc", {
+...
+}
+```
 
-* We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.
-
-* Examples of unacceptable behavior by participants include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.
-
-* Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. Project maintainers who do not follow the Code of Conduct may be removed from the project team.
-
-* Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting one or more of the project maintainers.
-
-* These guidelines are adapted from content on the `devtools` GitHub page.
-
-### Who do I talk to? ###
-
-dpc10ster@gmail.com
 

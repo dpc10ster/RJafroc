@@ -9,7 +9,7 @@
 \item{\code{NL}}{ Ratings array [1, 1:10, 1:200, 1], of false positives, FPs}
 \item{\code{LLCl}}{ Ratings array [1, 1:10, 1:80, 1], of true positives with correct localization, TPCls}
 \item{\code{LLIl}}{ Ratings array [1, 1:10, 1:80, 1], of true positives with incorrect localization, TPIls}
-\item{\code{lesionNum}}{ array [1:80], number of lesions per diseased case, all set to 1}
+\item{\code{lesionVector}}{ array [1:80], number of lesions per diseased case, all set to 1}
 \item{\code{lesionID}}{ array [1:80, 1], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:80, 1], weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "LROC", the data type}

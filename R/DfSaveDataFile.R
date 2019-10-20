@@ -62,7 +62,7 @@ SaveJAFROC <- function(dataset, fileName) {
   }
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionNum <- dataset$lesionNum
+  lesionVector <- dataset$lesionVector
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
@@ -85,7 +85,7 @@ SaveJAFROC <- function(dataset, fileName) {
     for (i in 1:I) {
       for (j in 1:J) {
         for (k in 1:K2) {
-          for (l in 1:lesionNum[k]) {
+          for (l in 1:lesionVector[k]) {
             if (LL[i, j, k, l] == UNINITIALIZED) {
               LL[i, j, k, l] <- -2000
             }
@@ -102,7 +102,7 @@ SaveJAFROC <- function(dataset, fileName) {
   addWorksheet(wb, "TRUTH")
   # end overall changes needed for openxlsx package
   
-  caseIDs <- c(1:K1, rep(K1 + 1:K2, lesionNum))
+  caseIDs <- c(1:K1, rep(K1 + 1:K2, lesionVector))
   lesionIDs <- as.vector(t(lesionID))
   lesionIDs <- lesionIDs[lesionIDs != UNINITIALIZED]
   lesionIDs <- c(rep(0, K1), lesionIDs)
@@ -132,7 +132,7 @@ SaveJAFROC <- function(dataset, fileName) {
   for (i in 1:I) {
     for (j in 1:J) {
       for (k in 1:K2) {
-        for (l in 1:lesionNum[k]) {
+        for (l in 1:lesionVector[k]) {
           if (LL[i, j, k, l] != UNINITIALIZED) {
             dataSheet <- rbind(dataSheet, c(j, i, k + K1, lesionID[k, l], LL[i, j, k, l]))
           }
@@ -158,7 +158,7 @@ SaveLrc <- function(dataset, fileName, dataDescription) {
   write(dataDescription, fileName)
   NL <- dataset$NL
   LL <- dataset$LL
-  # lesionNum <- dataset$lesionNum
+  # lesionVector <- dataset$lesionVector
   # lesionID <- dataset$lesionID
   # lesionWeight <- dataset$lesionWeight
   # maxNL <- dim(NL)[4]
@@ -229,7 +229,7 @@ SaveImrmc <- function(dataset, fileName, dataDescription) {
   }
   NL <- dataset$NL
   LL <- dataset$LL
-  # lesionNum <- dataset$lesionNum
+  # lesionVector <- dataset$lesionVector
   # lesionID <- dataset$lesionID
   # lesionWeight <- dataset$lesionWeight
   # maxNL <- dim(NL)[4]
@@ -287,7 +287,7 @@ SaveOrDbmMrmc <- function(dataset, fileName) {
   }
   NL <- dataset$NL
   LL <- dataset$LL
-  # lesionNum <- dataset$lesionNum
+  # lesionVector <- dataset$lesionVector
   # lesionID <- dataset$lesionID
   # lesionWeight <- dataset$lesionWeight
   # maxNL <- dim(NL)[4]
@@ -335,7 +335,7 @@ SaveLrc <- function(dataset, fileName, dataDscrpt) {
   write(dataDscrpt, fileName)
   NL <- dataset$NL
   LL <- dataset$LL
-  # lesionNum <- dataset$lesionNum
+  # lesionVector <- dataset$lesionVector
   # lesionID <- dataset$lesionID
   # lesionWeight <- dataset$lesionWeight
   # maxNL <- dim(NL)[4]

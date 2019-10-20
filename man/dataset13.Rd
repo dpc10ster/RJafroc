@@ -8,7 +8,7 @@
 \itemize{
 \item{\code{NL}}{ Ratings array [1:4, 1:5, 1:158, 1:4], of non-lesion localizations, NLs}
 \item{\code{LL}}{ Ratings array [1:4, 1:5, 1:106, 1:15], of lesion localizations, LLs}
-\item{\code{lesionNum}}{ array [1:106], number of lesions per diseased case, all set to 1}
+\item{\code{lesionVector}}{ array [1:106], number of lesions per diseased case, all set to 1}
 \item{\code{lesionID}}{ array [1:106, 15], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:106, 15] weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "FROC", the data type}

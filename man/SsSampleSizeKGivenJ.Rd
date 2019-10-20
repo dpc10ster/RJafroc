@@ -5,7 +5,7 @@
 \title{Number of cases, for specified number of readers, to achieve desired power}
 \usage{
 SsSampleSizeKGivenJ(dataset, J, alpha = 0.05, effectSize = NULL,
-  desiredPower = 0.8, option = "ALL", method = "DBMH", ...)
+  desiredPower = 0.8, option = "ALL", method = "DBMH")
 }
 \arguments{
 \item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study. If 
@@ -22,8 +22,6 @@ missing, then variance components and effectSize must be passed as additional pa
 \item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
 
 \item{method}{"DBMH" (default) or "ORH".}
-
-\item{...}{Other parameters, OR or DBM variance components, passed internally, see details}
 }
 \value{
 A list of two elements:

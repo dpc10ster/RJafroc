@@ -1,12 +1,13 @@
 #' Calculate empirical figures of merit (FOMs) for specified dataset
 #' 
 #' @description  Calculate the specified empirical figure of merit
-#' for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset
+#'    for each treatment-reader combination in the 
+#'    ROC, FROC, ROI or LROC dataset
 #' 
 #' @param dataset The dataset to be analyzed, \code{\link{RJafroc-package}}
 #' @param FOM The figure of merit; the default is \code{"wAFROC"}
 #' @param FPFValue Only needed for \code{LROC} data; where to evaluate a partial 
-#'    curve based figure of merit. The default is 0.2.
+#'    curve based figure of merit.
 #' 
 #' @return An \code{c(I, J)} array, where the row names are \code{modalityID}'s of the 
 #'    treatments and column names are the \code{readerID}'s of the readers.
@@ -96,10 +97,10 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   }
   
   if (dataType == "ROI" && FOM != "ROI") {
-    cat("Incorrect FOM supplied, changing to 'ROI'\n")
+    cat("Incorrect FOM supplied for ROI data, changing to 'ROI'\n")
     FOM <- "ROI"
   }
- 
+  
   if (!(dataType %in% c("ROC", "LROC")) && FOM == "Wilcoxon")
     stop("Cannot use `Wilcoxon` FOM with `FROC` or `ROI` data.")
   
@@ -109,11 +110,29 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   }
   
   if (dataType == "LROC") {
-    if (!between(FPFValue, 0, 1)) stop("FPFValue is outside valid range")
+    if (FOM != "Wilcoxon") { 
+      if (!between(FPFValue, 0, 1)) stop("FPFValue is outside valid range")
+    }
+  }
+  
+  if (dataType == "LROC") {
     if (FOM %in% c("Wilcoxon", "ALROC", "PCL")) {
-      NL <- dataset$NL
-      LL <- dataset$LLCl
-      #fomArray <- lroc2fomMrmc (dataset, FOM, FPFValue)
+      if (dataType != "LROC") {
+        NL <- dataset$NL
+        LL <- dataset$LL
+      } else {
+        if (FOM == "Wilcoxon"){
+          datasetRoc <- DfLroc2Roc(dataset)
+          NL <- datasetRoc$NL
+          LL <- datasetRoc$LL
+        } else if (FOM %in% c("PCL", "ALROC")){
+          NL <- dataset$NL
+          LL <- dataset$LLCl
+        } else stop("incorrect FOM for LROC data")
+      }
+      # NL <- dataset$NL # this code was incorrect 10/25/29
+      # LL <- dataset$LLCl # this code was incorrect 10/25/29
+      ##fomArray <- lroc2fomMrmc (dataset, FOM, FPFValue)
     } else stop("Incorrect FOM specified for LROC data")
     #return(fomArray)
   } else {
@@ -132,7 +151,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     stop(errMsg)
   }
   
-  lesionNum <- dataset$lesionNum
+  lesionVector <- dataset$lesionVector
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
@@ -143,14 +162,14 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
       nl <- NL[i, j, , ]
       ll <- LL[i, j, , ]
       dim(nl) <- c(K, maxNL)
-      dim(ll) <- c(K2, max(lesionNum))
-      fomArray[i, j] <- gpfMyFOM(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue = FPFValue)
+      dim(ll) <- c(K2, max(lesionVector))
+      fomArray[i, j] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
     }
   }
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
-  rownames(fomArray) <- paste("Trt", modalityID, sep = " - ")
-  colnames(fomArray) <- paste("Rdr", readerID, sep = " - ")
+  rownames(fomArray) <- paste("Trt", sep = "", modalityID)
+  colnames(fomArray) <- paste("Rdr", sep = "", readerID)
   return(fomArray)
 } 
 

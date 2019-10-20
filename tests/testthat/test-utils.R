@@ -15,6 +15,7 @@ test_that("UtilIntrinsic2Physical", {
 })
 
 
+
 test_that("UtilAucBinormal", {
   a <- 2;b <- 0.7
 
@@ -30,6 +31,8 @@ test_that("UtilAucBinormal", {
   # end of test
 
 })
+
+
 
 test_that("UtilAucCBM", {
   mu <- 2;alpha <- 0.8
@@ -47,6 +50,8 @@ test_that("UtilAucCBM", {
 
 })
 
+
+
 test_that("UtilAucPROPROC", {
   c1 <- .2;da <- 1.5
 
@@ -62,6 +67,8 @@ test_that("UtilAucPROPROC", {
   # end of test
 
 })
+
+
 
 test_that("UtilAucsRSM", {
   mu <- 1;lambdaP <- 1;nuP <- 1
@@ -79,6 +86,7 @@ test_that("UtilAucsRSM", {
     # end of test
 
 })
+
 
 
 test_that("UtilPseudoValues", {
@@ -108,6 +116,7 @@ test_that("UtilPseudoValues", {
 })
 
 
+
 test_that("UtilMeanSquaresDBMH", {
 
   fn <- paste0(test_path(), "/goodValues361/Utils/PseudoValues", "-", "Wilcoxon", ".rds")
@@ -117,8 +126,9 @@ test_that("UtilMeanSquaresDBMH", {
     saveRDS(ret, file = fn)
   }
 
-  ret <- readRDS(fn)
-  expect_equal(UtilPseudoValues(dataset02, FOM = "Wilcoxon"), ret)
+  ret1 <- readRDS(fn)
+  ret2 <- UtilPseudoValues(dataset02, FOM = "Wilcoxon")
+  expect_equal(ret2, ret1)
   # end of test
 
 })

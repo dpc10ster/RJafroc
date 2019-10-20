@@ -5,7 +5,7 @@
 \title{Statistical power for specified numbers of readers and cases in an ROC study}
 \usage{
 SsPowerGivenJK(dataset, J, K, method = "DBMH", option = "ALL",
-  alpha = 0.05, ...)
+  alpha = 0.05)
 }
 \arguments{
 \item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study. If 
@@ -20,8 +20,6 @@ missing, then variance components and effectSize must be passed as additional pa
 \item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
 
 \item{alpha}{The significance level, default is 0.05.}
-
-\item{...}{Other parameters, OR or DBM variance components, passed internally, see details}
 }
 \value{
 The expected statistical power.
@@ -30,15 +28,13 @@ The expected statistical power.
 Calculate the statistical power for specified numbers of readers J, 
    cases K, analysis method and DBM or OR variances components
 }
-\details{
-Other parameters \code{...} are reserved for internal use.
-}
 \examples{
 ## An example of sample size calculation with DBM variance componements
 SsPowerGivenJK(dataset02, 6, 251, method = "DBMH")
                      
 ## An example of sample size calculation with OR variance componements.
 SsPowerGivenJK(dataset02, 6, 251, method = "ORH")
+
 
 }
 \references{

@@ -1,4 +1,4 @@
-context("Data file saving and reading routines")
+context("Df2RJafrocDataset")
 
 test_that("Df2RJafrocDataset", {
 
@@ -44,6 +44,12 @@ test_that("Df2RJafrocDataset", {
   ds <- readRDS(fn)
   expect_equal(Df2RJafrocDataset(z1, z2), ds)
   # end of test
+  #
+})
+
+
+
+test_that("SimulateFrocDataset", {
 
   # generate the ratings
   # a FROC dataset
@@ -61,7 +67,7 @@ test_that("Df2RJafrocDataset", {
   for (i in 1:I) {
     for (j in 1:J) {
       frocDataRaw <- SimulateFrocDataset(
-        mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, lesionNum = Lk2)
+        mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, lesionVector = Lk2)
       dimNL[i,j,] <- dim(drop(frocDataRaw$NL))
       dimLL[i,j,] <- dim(drop(frocDataRaw$LL))
       z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$NL) # drop the excess location indices
@@ -74,15 +80,16 @@ test_that("Df2RJafrocDataset", {
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/Df2RJafrocDataset-3", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- Df2RJafrocDataset(z1, z2, lesionNum = Lk2) # an FROC dataset
+    ds <- Df2RJafrocDataset(z1, z2, lesionVector = Lk2) # an FROC dataset
     saveRDS(ds, file = fn)
   }
 
   ds <- readRDS(fn)
-  expect_equal(Df2RJafrocDataset(z1, z2, lesionNum = Lk2), ds) # an FROC dataset
+  expect_equal(Df2RJafrocDataset(z1, z2, lesionVector = Lk2), ds) # an FROC dataset
   # end of test
 
 })
+
 
 
 test_that("DfBinDataset (ROC&AFROC)", {
@@ -110,6 +117,7 @@ test_that("DfBinDataset (ROC&AFROC)", {
   # end of test
 
 })
+
 
 
 test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
@@ -162,6 +170,7 @@ test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
 })
 
 
+
 test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfFroc2Roc", ".rds")
@@ -173,8 +182,13 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
 
   ds <- readRDS(fn)
   expect_equal(DfFroc2Roc(dataset05), ds)
-  # end of test
+  
+})
+  
 
+
+test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
+  
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadLrocDataFile", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -184,9 +198,15 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
 
   ds <- readRDS(fn)
   expect_equal(DfReadLrocDataFile(), ds)
-  # end of test
+  
+})
 
+
+
+test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
+  
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfLroc2Roc", ".rds")
+  
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ds <- DfLroc2Roc(DfReadLrocDataFile())
@@ -195,10 +215,14 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
 
   ds <- readRDS(fn)
   expect_equal(DfLroc2Roc(DfReadLrocDataFile()), ds)
-  # end of test
 
+})
+
+
+test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
+  
   crossedFileName <- system.file("extdata",
-                                 "includedCrossedModalitiesData.xlsx",
+                                 "CrossedModalitiesData.xlsx",
                                  package = "RJafroc", mustWork = TRUE)
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadCrossedModalities", ".rds")
@@ -213,6 +237,7 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
   # end of test
 
 })
+
 
 
 test_that("DfReadDataFile, non_JAFROC, see below", {
@@ -230,7 +255,7 @@ test_that("DfReadDataFile, non_JAFROC, see below", {
   #
 
   fileName <- system.file(
-    "extdata", "includedRocData.csv", package = "RJafroc", mustWork = TRUE)
+    "extdata", "RocData.csv", package = "RJafroc", mustWork = TRUE)
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile_csv", ".rds")
   if (!file.exists(fn)) {
@@ -241,10 +266,14 @@ test_that("DfReadDataFile, non_JAFROC, see below", {
 
   ds <- readRDS(fn)
   expect_equal(DfReadDataFile(fileName, format = "MRMC"), ds)
-  # end of test
 
+})
+
+
+
+test_that("DfReadDataFile, non_JAFROC, see below", {
   fileName <- system.file(
-    "extdata", "includedRocData.lrc", package = "RJafroc", mustWork = TRUE)
+    "extdata", "RocData.lrc", package = "RJafroc", mustWork = TRUE)
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile_lrc", ".rds")
   if (!file.exists(fn)) {
@@ -253,12 +282,17 @@ test_that("DfReadDataFile, non_JAFROC, see below", {
     saveRDS(ds, file = fn)
   }
 
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, format = "MRMC"), ds)
-  # end of test
+  ds1 <- readRDS(fn)
+  ds2 <- DfReadDataFile(fileName, format = "MRMC")
+  expect_equal(ds2, ds1)
 
+})
+
+
+
+test_that("DfReadDataFile, non_JAFROC, see below", {
   fileName <- system.file(
-    "extdata", "includedRocData.imrmc", package = "RJafroc", mustWork = TRUE)
+    "extdata", "RocData.imrmc", package = "RJafroc", mustWork = TRUE)
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-imrmc", ".rds")
   if (!file.exists(fn)) {
@@ -269,9 +303,13 @@ test_that("DfReadDataFile, non_JAFROC, see below", {
 
   ds <- readRDS(fn)
   expect_equal(DfReadDataFile(fileName, format = "iMRMC"), ds)
-  # end of test
 
-  fileName <- system.file("extdata", "includedRocData.txt", package = "RJafroc", mustWork = TRUE)
+})
+
+
+
+test_that("DfReadDataFile, non_JAFROC, see below", {
+  fileName <- system.file("extdata", "RocData.txt", package = "RJafroc", mustWork = TRUE)
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile_txt", ".rds")
   if (!file.exists(fn)) {
@@ -282,15 +320,15 @@ test_that("DfReadDataFile, non_JAFROC, see below", {
 
   ds <- readRDS(fn)
   expect_equal(DfReadDataFile(fileName, format = "MRMC"), ds)
-  # end of test
 
 })
+
 
 
 test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
 
   fileName <- system.file(
-    "extdata", "includedRocData.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "RocData.xlsx", package = "RJafroc", mustWork = TRUE)
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-roc-jafroc", ".rds")
   if (!file.exists(fn)) {
@@ -299,12 +337,26 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
     saveRDS(ds, file = fn)
   }
 
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName), ds)
-  # end of test
+  ds1 <- readRDS(fn)
+  ds2 <- DfReadDataFile(fileName)
+  
+  expect_equal(ds1, ds2)
+  
+  # expect_equal(ds1$NL, ds2$NL)
+  # expect_equal(ds1$LL, ds2$LL)
+  # expect_equal(ds1$lesionVector, ds2$lesionVector)
+  # expect_equal(ds1$lesionID, ds2$lesionID)
+  # expect_equal(ds1$lesionWeight, ds2$lesionWeight)
+  # expect_equal(ds1$dataType, ds2$dataType)
+  # expect_equal(ds1$modalityID, ds2$modalityID)
+  # expect_equal(ds1$readerID, ds2$readerID)
+})
 
-  fileName <- system.file(
-    "extdata", "includedFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
+
+
+test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
+    fileName <- system.file(
+    "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-froc-jafroc", ".rds")
   if (!file.exists(fn)) {
@@ -315,42 +367,51 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
 
   ds <- readRDS(fn)
   expect_equal(DfReadDataFile(fileName), ds)
-  # end of test
 
-  # check renumber option
+})
+
+
+
+test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
+  # check sequentialNames option
   fileName <- system.file(
-    "extdata", "includedFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-froc-jafroc-renum", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadDataFile(fileName, renumber = TRUE)
+    ds <- DfReadDataFile(fileName, sequentialNames = TRUE)
     saveRDS(ds, file = fn)
   }
 
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, renumber = TRUE), ds)
-  # end of test
-
-  fileName <- system.file(
-    "extdata", "includedRoiData.xlsx", package = "RJafroc", mustWork = TRUE)
-
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-jafroc-roi", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadDataFile(fileName)
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName), ds)
-  # end of test
-
-  ds <- DfReadDataFile(fileName)
-  expect_equal(ds$dataType, "ROI")
-  # end of test
+  ds1 <- readRDS(fn)
+  ds2 <- DfReadDataFile(fileName, sequentialNames = TRUE)
+  expect_equal(ds2, ds1)
 
 })
+
+
+
+# test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
+#   fileName <- system.file(
+#     "extdata", "RoiData.xlsx", package = "RJafroc", mustWork = TRUE)
+# 
+#   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-jafroc-roi", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     ds <- DfReadDataFile(fileName)
+#     saveRDS(ds, file = fn)
+#   }
+# 
+#   ds1 <- readRDS(fn)
+#   ds2 <- DfReadDataFile(fileName)
+#   expect_equal(ds2, ds1)
+# 
+#   ds <- DfReadDataFile(fileName)
+#   expect_equal(ds$dataType, "ROI")
+# 
+# })
+
 
 
 test_that("DfFroc2Afroc, DfExtractDataset", {
@@ -364,8 +425,15 @@ test_that("DfFroc2Afroc, DfExtractDataset", {
 
   ds <- readRDS(fn)
   expect_equal(DfFroc2Afroc(dataset05), ds)
-  # end of test
 
+  
+})
+
+
+
+
+test_that("DfFroc2Afroc, DfExtractDataset", {
+  
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfExtractDataset", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -375,9 +443,9 @@ test_that("DfFroc2Afroc, DfExtractDataset", {
 
   ds <- readRDS(fn)
   expect_equal(DfExtractDataset(dataset05, rdrs = c(1, 3)), ds)
-  # end of test
 
 })
+
 
 
 test_that("DfsaveDataFile", {
@@ -396,9 +464,14 @@ test_that("DfsaveDataFile", {
     expect_equivalent(dfGood, dfCurrent)# works!
   }
   unlink(fn1)
-  # end of test
+
+})
 
 
+
+  
+test_that("DfsaveDataFile", {
+  
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfSaveDataFile-roi.xlsx")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -413,8 +486,13 @@ test_that("DfsaveDataFile", {
     expect_equivalent(dfGood, dfCurrent)# works!
   }
   unlink(fn1)
-  # end of test
+  
+})
 
+
+
+
+test_that("DfsaveDataFile", {
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfSaveDataFile.imrmc") # sic file ext must be imrmc
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -431,15 +509,19 @@ test_that("DfsaveDataFile", {
   close(yy)
   expect_equivalent(xx1, yy1)# works!
   unlink(fn1)
-  # end of test
+
+})
 
 
+
+
+test_that("DfsaveDataFile", {
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfSaveDataFile.csv") # sic file ext must be csv
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     DfSaveDataFile(dataset02, fileName = fn, format = "MRMC")
   }
-  
+
   fn1 <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/myTemp.csv") # sic file ext must be csv
   DfSaveDataFile(dataset02, fileName = fn1, format = "MRMC")
   xx <- file(fn, open = "rt")
@@ -450,14 +532,19 @@ test_that("DfsaveDataFile", {
   close(yy)
   expect_equivalent(xx1, yy1)# works!
   unlink(fn1)
-  # end test
 
+})
+
+
+
+
+test_that("DfsaveDataFile", {
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfSaveDataFile.lrc") # sic file ext must be lrc
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     DfSaveDataFile(dataset02, fileName = fn, format = "MRMC")
   }
-  
+
   fn1 <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/myTemp.lrc") # sic file ext must be lrc
   DfSaveDataFile(dataset02, fileName = fn1, format = "MRMC")
   xx <- file(fn, open = "rt")
@@ -468,7 +555,6 @@ test_that("DfsaveDataFile", {
   close(yy)
   expect_equivalent(xx1, yy1)# works!
   unlink(fn1)
-  # end test
-  
+
 })
 

@@ -11,7 +11,7 @@
 #' #' @param lambda The RSM \eqn{\lambda} parameter
 #' #' @param nu     The RSM \eqn{\nu} parameter
 #' #' @param zeta1  The lowest reporting threshold
-#' #' @param lesionNum A K2 length array containing the numbers of lesions per diseased case
+#' #' @param lesionVector A K2 length array containing the numbers of lesions per diseased case
 #' #' 
 #' #' @return The return value is a list with following elements:
 #' #' @return \item{dataset}{The ROI dataset.}
