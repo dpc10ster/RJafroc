@@ -1,8 +1,8 @@
 context("LROC related Df conversion functions")
 
-test_that("SimulateLrocFromFrocDataset", {
+test_that("DfFroc2Lroc", {
   
-  dsLroc <- SimulateLrocFromFrocDataset(dataset05)
+  dsLroc <- DfFroc2Lroc(dataset05)
   ret1 <- UtilFigureOfMerit(dataset05, FOM = "HrAuc")
   ret2 <- UtilFigureOfMerit(dsLroc, FOM = "Wilcoxon")
 
@@ -13,7 +13,7 @@ test_that("SimulateLrocFromFrocDataset", {
     expect_equal(val1, val2)
   }
 
-  frocDataset <- SimulateFrocFromLrocDataset(datasetCadLroc)
+  frocDataset <- DfLroc2Froc(datasetCadLroc)
   ret1 <- UtilFigureOfMerit(datasetCadLroc, FOM = "Wilcoxon")
   ret2 <- UtilFigureOfMerit(frocDataset, FOM = "HrAuc")
 

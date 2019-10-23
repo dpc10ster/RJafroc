@@ -1,11 +1,11 @@
 {
     "dialog-state" : {
-        "caseSensitive" : true,
+        "caseSensitive" : false,
         "filePatterns" : [
         ],
-        "path" : "/R",
+        "path" : "",
         "projectRelative" : true,
-        "query" : "ties",
+        "query" : "SimulateLrocFromFrocDataset",
         "regex" : false
     }
 }

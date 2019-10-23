@@ -21,13 +21,13 @@
 #' 
 #' @examples 
 #' 
-#' frocDataset <- SimulateFrocFromLrocDataset(datasetCadLroc)
+#' frocDataset <- DfLroc2Froc(datasetCadLroc)
 #' lrocAuc <- UtilFigureOfMerit(datasetCadLroc, FOM = "Wilcoxon")
 #' frocHrAuc <- UtilFigureOfMerit(frocDataset, FOM = "HrAuc")   
 #' 
 #' @export
 
-SimulateFrocFromLrocDataset <- function(dataset)  #  !!!in tests!!!
+DfLroc2Froc <- function(dataset)  #  !!!in tests!!!
 {
   if (dataset$dataType != "LROC") 
     stop("This function requires an LROC dataset")

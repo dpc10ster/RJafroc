@@ -1,4 +1,4 @@
-#' Simulates an "AUC-equivalent" equivalent LROC dataset from a FROC dataset
+#' Simulates an "AUC-equivalent" LROC dataset from an FROC dataset
 #' 
 #' @description  Simulates a multiple-treatment multiple-reader "AUC-equivalent" 
 #'    LROC dataset from a supplied FROC dataset.
@@ -9,28 +9,27 @@
 #' 
 #' @details The FROC paradigm can have 0 or more marks per case. However, 
 #'    LROC is restricted to \bold{exactly one mark per case}. For the NL array 
-#'    of the LROC data, for non-disesed casese the \bold{highest} rating of the 
+#'    of the LROC data, for non-disesed cases, the \bold{highest} rating of the 
 #'    FROC marks, or -Inf if there are no marks, is copied to case index 
 #'    k1 = 1 to k1 = K1 of the LROC dataset. The LL array is created by copying the
 #'    LL array of the FROC dataset to the LLCl array of the LROC dataset, from 
 #'    diseased case index k2 = 1 to k2 = K2. For diseased cases, the 
 #'    \bold{highest} rated NL 
 #'    array of the FROC dataset is copied to the NL array of the FROC dataset, 
-#'    starting at case index k1 = K1+1 to k1 = K1+K2. Any zero ratings are replace by -Infs. The 
+#'    starting at case index k1 = K1+1 to k1 = K1+K2. All zero ratings are replace by -Infs. The 
 #'    equivalent FROC dataset has the same HrAuc as the original LROC dataset. 
 #'    See example. The main use of this function is to test the Significance 
-#'    testing functions using MRMC LROC datasets, which I currently don't have. The ROC AUCs
-#'    under the two datasets are guaranteed to be identical.
+#'    testing functions using MRMC LROC datasets, which I currently don't have.
 #' 
 #' @examples 
 #' 
-#' lrocDataset <- SimulateLrocFromFrocDataset(dataset05)
+#' lrocDataset <- DfFroc2Lroc(dataset05)
 #' frocHrAuc <- UtilFigureOfMerit(dataset05, FOM = "HrAuc")   
 #' lrocWilcoxonAuc <- UtilFigureOfMerit(lrocDataset, FOM = "Wilcoxon")
 #' 
 #' @export
 
-SimulateLrocFromFrocDataset <- function(dataset) #  !!!in tests!!!
+DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctions.R
 {
   if (dataset$dataType != "FROC") 
     stop("This function requires an FROC dataset")

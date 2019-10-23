@@ -1,7 +1,7 @@
 #' Significance testing: standalone CAD vs. radiologists
 #' 
 #' @description  Comparing standalone CAD vs. a group of radiologists interpreting 
-#'    the same cases; \strong{standalone CAD} (ideally) means that all the 
+#'    the same cases; (ideally) \strong{standalone CAD} means that all the 
 #'    \bold{designer-level} mark-rating pairs provided by the CAD algorithm 
 #'    are available, not just the one or two marks usually displayed to the 
 #'    radiologist. At the very minimum, location-level information, such as in
@@ -161,7 +161,7 @@ StSignificanceTestingCadVsRadiologists <- function(dataset, FOM, FPFValue = 0.2,
   } else stop("incorrect method specified")
   
   if ((dataset$dataType != "LROC") && (method == "2T-RRRC")) {
-    stop("2T-RRRC for non LROC data is not implemented")
+    stop("2T-RRRC for non LROC data (not implemented) is unnecessary as 1T-method should be used instead.")
   }
   
   if (plots) ret <- addPlot (dataset, ret, FOM)
@@ -199,63 +199,57 @@ SingleModalityRRFC <- function(dataset, FOM, FPFValue, alpha){ # FPFValue not us
 
 
 
-addPlot <- function(dataset, ret, FOM) {
-  ret1 <- dataset2ratings(dataset, FOM)
-  zjk1 <- ret1$zjk1
-  zjk2 <- ret1$zjk2
+# Formerly
+# Anal2007Hillis53
+# Anal2007Hillis53
+# Anal2007Hillis53
+# Handles all datasets
+SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha = 0.05)
+{  
+
+  ret <- DiffFomVarCov2(dataset, FOM, FPFValue) # VarCov2 (subtract first reader FOMs before getting covariance)
+  varError <- ret$var;  Cov2 <- ret$cov2
   
-  dataType <- dataset$dataType
-  if (dataType == "ROC") {
-    # fixed one of hard coding errors noticed by Alejandro
-    rocPlots <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]))$Plot
-    retNames <- names(ret)
-    retNames <- c(retNames, "Plots")
-    len <- length(ret)
-    ret1 <- vector("list", len+1)
-    for (i in 1:len){
-      ret1[[i]] <- ret[[i]]
-    }
-    ret1[[len+1]] <- rocPlots
-    names(ret1) <- retNames
-  } else if ((dataType == "LROC") && ((FOM == "PCL") || (FOM == "ALROC")))  {
-    if (dataType == "LROC") lrocPlots <- LrocPlots (zjk1, zjk2, seq(1,length(zjk1[,1])-1))$lrocPlot
-    retNames <- names(ret)
-    retNames <- c(retNames, "Plots")
-    len <- length(ret)
-    ret1 <- vector("list", len+1)
-    for (i in 1:len){
-      ret1[[i]] <- ret[[i]]
-    }
-    ret1[[len+1]] <- lrocPlots
-    names(ret1) <- retNames
-  } else if ((dataType == "LROC") && (FOM == "Wilcoxon"))  {
-    if (dataType == "LROC") {
-      datasetRoc <- DfLroc2Roc(dataset)
-      rocPlots <- PlotEmpiricalOperatingCharacteristics(datasetRoc, rdrs = 1:length(zjk1[,1]))$Plot
-    }
-    retNames <- names(ret)
-    retNames <- c(retNames, "Plots")
-    len <- length(ret)
-    ret1 <- vector("list", len+1)
-    for (i in 1:len){
-      ret1[[i]] <- ret[[i]]
-    }
-    ret1[[len+1]] <- rocPlots
-    names(ret1) <- retNames
-  } else if ((dataType == "FROC") && (FOM %in% c("Wilcoxon", "AFROC", "wAFROC")))  {
-    afrocPlots <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "AFROC")$Plot
-    retNames <- names(ret)
-    retNames <- c(retNames, "Plots")
-    len <- length(ret)
-    ret1 <- vector("list", len+1)
-    for (i in 1:len){
-      ret1[[i]] <- ret[[i]]
-    }
-    ret1[[len+1]] <- afrocPlots
-    names(ret1) <- retNames
-  }else stop("data type has to be ROC, FROC or LROC")
+  J <- length(dataset$NL[1,,1,1]) - 1 # number of radiologists minus CAD reader
+  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   
-  return(ret1)
+  Psijc <- thetajc[2:(J+1)] - thetajc[1] # subract CAD from RAD, my Eqn. 13
+  
+  MSR <- 0 # 1st un-numbered equation on page 607
+  avgDiffFom <- mean(Psijc)
+  for (j in 1:J){
+    MSR <- MSR + (Psijc[j] - avgDiffFom)^2
+  }
+  MSR <- MSR / (J - 1)
+  
+  # Compared to equations in 2013 Hillis paper, in paragraph following Table I
+  # OK; 10/14/19
+  MSdenOR_single <- MSR + max(J * Cov2, 0) #  # 2nd un-numbered equation on page 607
+  DdfhSingle <- MSdenOR_single^2 / (MSR^2 / (J - 1))  # 3rd un-numbered equation on page 607
+  TstatStar <- avgDiffFom / sqrt(MSdenOR_single/J) # in-text equation on line 1 on page 607
+  # BUT with theta0 = 0
+  pval <- 1 - pt(abs(TstatStar),DdfhSingle) + pt(-abs(TstatStar),DdfhSingle) # two tailed probability
+  
+  CIAvgDiffFom <- array(dim=2)
+  CIAvgDiffFom[1] <- qt(alpha/2,df = DdfhSingle)  # Equation 25 on page 607
+  CIAvgDiffFom[2] <- qt(1-alpha/2,df = DdfhSingle)
+  CIAvgDiffFom <- CIAvgDiffFom * sqrt(MSdenOR_single/J)
+  CIAvgDiffFom <- CIAvgDiffFom + avgDiffFom
+  CIAvgRad <- mean(thetajc[2:(J+1)]) + CIAvgDiffFom - mean(Psijc)
+  return (list (
+    fomCAD = thetajc[1],
+    fomRAD = thetajc[-1],
+    avgRadFom = mean(thetajc[-1]),
+    CIAvgRad = CIAvgRad,
+    avgDiffFom = avgDiffFom,
+    CIAvgDiffFom = CIAvgDiffFom,
+    varR = var(as.numeric(thetajc[-1])),
+    varError = varError, 
+    cov2 = Cov2, 
+    Tstat = TstatStar,
+    df = DdfhSingle,
+    pval = pval
+  ))
 }
 
 
@@ -408,6 +402,68 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
 }
 
 
+
+addPlot <- function(dataset, ret, FOM) {
+  ret1 <- dataset2ratings(dataset, FOM)
+  zjk1 <- ret1$zjk1
+  zjk2 <- ret1$zjk2
+  
+  dataType <- dataset$dataType
+  if (dataType == "ROC") {
+    # fixed one of hard coding errors noticed by Alejandro
+    rocPlots <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]))$Plot
+    retNames <- names(ret)
+    retNames <- c(retNames, "Plots")
+    len <- length(ret)
+    ret1 <- vector("list", len+1)
+    for (i in 1:len){
+      ret1[[i]] <- ret[[i]]
+    }
+    ret1[[len+1]] <- rocPlots
+    names(ret1) <- retNames
+  } else if ((dataType == "LROC") && ((FOM == "PCL") || (FOM == "ALROC")))  {
+    if (dataType == "LROC") lrocPlots <- LrocPlots (zjk1, zjk2, seq(1,length(zjk1[,1])-1))$lrocPlot
+    retNames <- names(ret)
+    retNames <- c(retNames, "Plots")
+    len <- length(ret)
+    ret1 <- vector("list", len+1)
+    for (i in 1:len){
+      ret1[[i]] <- ret[[i]]
+    }
+    ret1[[len+1]] <- lrocPlots
+    names(ret1) <- retNames
+  } else if ((dataType == "LROC") && (FOM == "Wilcoxon"))  {
+    if (dataType == "LROC") {
+      datasetRoc <- DfLroc2Roc(dataset)
+      rocPlots <- PlotEmpiricalOperatingCharacteristics(datasetRoc, rdrs = 1:length(zjk1[,1]))$Plot
+    }
+    retNames <- names(ret)
+    retNames <- c(retNames, "Plots")
+    len <- length(ret)
+    ret1 <- vector("list", len+1)
+    for (i in 1:len){
+      ret1[[i]] <- ret[[i]]
+    }
+    ret1[[len+1]] <- rocPlots
+    names(ret1) <- retNames
+  } else if ((dataType == "FROC") && (FOM %in% c("Wilcoxon", "AFROC", "wAFROC")))  {
+    afrocPlots <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "AFROC")$Plot
+    retNames <- names(ret)
+    retNames <- c(retNames, "Plots")
+    len <- length(ret)
+    ret1 <- vector("list", len+1)
+    for (i in 1:len){
+      ret1[[i]] <- ret[[i]]
+    }
+    ret1[[len+1]] <- afrocPlots
+    names(ret1) <- retNames
+  }else stop("data type has to be ROC, FROC or LROC")
+  
+  return(ret1)
+}
+
+
+
 # extracts three ratings arrays from the 
 # dataset; the first is always dataset$NL
 # The second depends on the FOM, and the 
@@ -513,57 +569,4 @@ DiffFomVarCov2 <- function (dataset, FOM, FPFValue) # for difference FOM, radiol
 }
 
 
-
-# Formerly
-# Anal2007Hillis53
-# Anal2007Hillis53
-# Anal2007Hillis53
-# Handles all datasets
-SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha = 0.05)
-{  
-
-  ret <- DiffFomVarCov2(dataset, FOM, FPFValue) # VarCov2 (subtract first reader FOMs before getting covariance)
-  varError <- ret$var;  Cov2 <- ret$cov2
-  
-  J <- length(dataset$NL[1,,1,1]) - 1 # number of radiologists minus CAD reader
-  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  
-  Psijc <- thetajc[2:(J+1)] - thetajc[1] # subract CAD from RAD, my Eqn. 13
-  
-  MSR <- 0 # 1st un-numbered equation on page 607
-  avgDiffFom <- mean(Psijc)
-  for (j in 1:J){
-    MSR <- MSR + (Psijc[j] - avgDiffFom)^2
-  }
-  MSR <- MSR / (J - 1)
-  
-  # Compared to equations in 2013 Hillis paper, in paragraph following Table I
-  # OK; 10/14/19
-  MSdenOR_single <- MSR + max(J * Cov2, 0) #  # 2nd un-numbered equation on page 607
-  DdfhSingle <- MSdenOR_single^2 / (MSR^2 / (J - 1))  # 3rd un-numbered equation on page 607
-  TstatStar <- avgDiffFom / sqrt(MSdenOR_single/J) # in-text equation on line 1 on page 607
-  # BUT with theta0 = 0
-  pval <- 1 - pt(abs(TstatStar),DdfhSingle) + pt(-abs(TstatStar),DdfhSingle) # two tailed probability
-  
-  CIAvgDiffFom <- array(dim=2)
-  CIAvgDiffFom[1] <- qt(alpha/2,df = DdfhSingle)  # Equation 25 on page 607
-  CIAvgDiffFom[2] <- qt(1-alpha/2,df = DdfhSingle)
-  CIAvgDiffFom <- CIAvgDiffFom * sqrt(MSdenOR_single/J)
-  CIAvgDiffFom <- CIAvgDiffFom + avgDiffFom
-  CIAvgRad <- mean(thetajc[2:(J+1)]) + CIAvgDiffFom - mean(Psijc)
-  return (list (
-    fomCAD = thetajc[1],
-    fomRAD = thetajc[-1],
-    avgRadFom = mean(thetajc[-1]),
-    CIAvgRad = CIAvgRad,
-    avgDiffFom = avgDiffFom,
-    CIAvgDiffFom = CIAvgDiffFom,
-    varR = var(as.numeric(thetajc[-1])),
-    varError = varError, 
-    cov2 = Cov2, 
-    Tstat = TstatStar,
-    df = DdfhSingle,
-    pval = pval
-  ))
-}
 
