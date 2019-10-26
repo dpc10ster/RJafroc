@@ -1,3 +1,5 @@
+# this is used with StOldCode.R
+
 EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeight, maxNL, fom, covEstMethod, nBoots) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   I <- dim(NL)[1]

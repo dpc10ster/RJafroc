@@ -1,11 +1,11 @@
 {
     "dialog-state" : {
-        "caseSensitive" : false,
+        "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "",
+        "path" : "/R",
         "projectRelative" : true,
-        "query" : "SimulateLrocFromFrocDataset",
+        "query" : "ROCPoints",
         "regex" : false
     }
 }

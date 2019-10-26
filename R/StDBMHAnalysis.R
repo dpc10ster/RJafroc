@@ -10,7 +10,8 @@ StDBMHAnalysis <- function(dataset, FOM, alpha, option, FPFValue)
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   trtMeans <- rowMeans(fomArray)
   
-  psVals <- pseudoValues(dataset, FOM, FPFValue)
+  psVals <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
+  # psVals <- pseudoValues(dataset, FOM, FPFValue)
   
   mSquares <- pseudoValueMeanSquares(psVals)
   msT <- mSquares$msT
@@ -28,8 +29,6 @@ StDBMHAnalysis <- function(dataset, FOM, alpha, option, FPFValue)
   varRC <- (msRC - msTRC)/I
   varErr <- msTRC
   
-  # varComp <- c(varR, varC, varTR, varTC, varRC, varErr)
-  # varCompName <- c("Var(R)", "Var(C)", "Var(T*R)", "Var(T*C)", "Var(R*C)", "Var(Error)")
   varComp <- data.frame(varR = varR, 
                            varC = varC, 
                            varTR = varTR, 

@@ -1,3 +1,4 @@
+# this function is needed with OldCode
 MyFOM <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   K <- length(nl[, 1])

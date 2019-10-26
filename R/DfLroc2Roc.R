@@ -23,7 +23,7 @@
 #' @export
 
 DfLroc2Roc <- function (dataset) #  !!!in tests!!!
-  {
+{
   
   if (dataset$dataType != "LROC") stop("This function requires an LROC dataset.")
   
@@ -35,15 +35,17 @@ DfLroc2Roc <- function (dataset) #  !!!in tests!!!
   
   dim(LLCl) <- c(I,J,K2)
   dim(LLIl) <- c(I,J,K2)
-
-    LL <- dataset$LLCl
+  
+  LL <- dataset$LLCl
   dim(LL) <- c(I,J,K2,1)
   
   for (i in 1:I) {
-    # For the diseased cases one takes the maximum rating on each diseased case, 
-    #    which could be a LLCl ("true positive" correct localization) or a LLIl 
-    #    ("true positive" incorrect localization) rating, whichever has the higher rating.
-    LL[i,,,1] <- pmax(LLCl[i,,],LLIl[i,,])
+    for (j in 1:J) {
+      # For the diseased cases one takes the maximum rating on each diseased case, 
+      #    which could be a LLCl ("true positive" correct localization) or a LLIl 
+      #    ("true positive" incorrect localization) rating, whichever has the higher rating.
+      LL[i,j,,1] <- pmax(LLCl[i,j,],LLIl[i,j,])
+    }
   }
   
   return (list(

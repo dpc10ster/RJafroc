@@ -5,20 +5,70 @@
 \margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 \
+\f0\fs72 \cf0 Checking LROC FOMs: done\
+
+\fs24 \
 \
+\
+Need checking:\
 StSignificanceTestingSingleRandomFactor\
 StORHAnalysis\
 StSignificanceTestingSingleFixedFactor\
 UtilMeanSquares\
 UtilVarComponentsOR\
 \
-\
+Checked StSignificanceTesting DBM vs. OR on simulated LROC dataset using FROC dataset dataset05 - looks consistent\
 \
 combine 3 jackknifePseudoValuesXX functions\
 \
+
+\fs72 Sample size FROC\
+
+\fs24 \
+LROC data simulator - easy: just simulate FROC data and the use DfFroc2Lroc\
 \
-convert LROC to faux-FROC data\
+set.seed(1)\
+K1 <- 5\
+K2 <- 5\
+mu <- 2\
+lambda <- 1\
+lesionVector <- rep(1, 5)\
+nu <- 0.8\
+zeta1 <- -3\
+frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, lesionVector)\
+lrocData <- DfFroc2Lroc(frocData)\
+\
+\
+Browse[2]> zk1\
+ [1]  1.267283 -2.889059 -2.889059 -2.889059 -2.889059      -Inf      -Inf      -Inf      -Inf      -Inf\
+Browse[2]> zk2Cl\
+[1] 1.931844     -Inf     -Inf 2.214086 3.330079\
+\
+\
+Interpolation\
+lroc$FPF[lroc$FPF > FPFValue][1]\
+lroc$FPF[lroc$FPF > FPFValue][1]\
+\
+\
+Check LROC FOM using small dataset\
+\
+dataset$NL[1,1,,1]\
+ [1]     -Inf     -Inf     -Inf     -Inf 1.424443     -Inf     -Inf     -Inf     -Inf     -Inf\
+\
+dataset$LLCl[1,1,,1]\
+[1] 0.5542791 1.2046176      -Inf 3.4596787 2.7326570\
+\
+dataset$LLIl[1,1,,1]\
+[1]        -Inf        -Inf -0.08929126        -Inf        -Inf\
 \
 check all documentation for correct arguments and default values\
-}
+\
+Fix UtilPseudoValues for MaxNLF and MaxLLF FOMs.\
+Test varComponentsJackknife\
+Compare covariances with those obtained from DBMH method\
+\
+Eliminated: \
+pseudoValues, \
+jackknifePseudoValuesNormals, \
+jackknifePseudoValuesAbnormals, \
+jackknifePseudoValues}

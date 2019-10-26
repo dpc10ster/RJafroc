@@ -109,7 +109,7 @@ If \code{method = "2T-RRRC"} the return value is a list
 }
 \description{
 Comparing standalone CAD vs. a group of radiologists interpreting 
-   the same cases; \strong{standalone CAD} (ideally) means that all the 
+   the same cases; (ideally) \strong{standalone CAD} means that all the 
    \bold{designer-level} mark-rating pairs provided by the CAD algorithm 
    are available, not just the one or two marks usually displayed to the 
    radiologist. At the very minimum, location-level information, such as in

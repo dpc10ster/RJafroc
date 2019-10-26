@@ -55,22 +55,26 @@ FROC <- function(nl, ll, lesionID, lesionVector, K1, K2){
   return(frocFOM / (K1 + K2) / sumNumLL)
 }
 
-
-
+# major changes 10/25/19
+# replaced interpolation function (approx) with that shown below
+# did search on available R functions - none satisfied my simple need 
+# see ChkLrocFoms.xlsx
 LrocFoms <- function (zk1, zk2Cl, FPFValue) {
   zk1 <- drop(zk1)
   zk2Cl <- drop(zk2Cl)
-  zk1 <- zk1[zk1 != -Inf]
   lroc <- LrocOperatingPointsFromRatings( zk1, zk2Cl )
-  #PCL <- (approx(lroc$FPF, lroc$PCL, xout = FPFValue))$y # version 1.1.0
-  PCL <- (approx(lroc$FPF, lroc$PCL, xout = FPFValue, ties = min))$y # post version 1.1.0
-  # the ties argument above removes the warnings I was getting like:
-  ## Warning message: 
-  ## In regularize.values(x, y, ties, missing(ties)) :
-  ##   collapsing to unique 'x' values 
-  # but the FOM changed slightly, e.g. from 0.4625 to 0.45 for PCL-0.05
-  # also ALROC-0.05 changed slightly 
-  # No changes noted for 0.2 and 1.
+  # this is my simple interpolation code, 
+  # in the spirit of empirical values, no smoothing assumptions
+  # find values of x (lowerX and upperX) immediately surrounding x = FPFValue
+  # then perform linear interpolation
+  x <- FPFValue
+  lowerX <- max(lroc$FPF[lroc$FPF < x]) # the ordering of the 4 inequalities is critical
+  upperX <- min(lroc$FPF[lroc$FPF >= x])
+  lowerY <- max(lroc$PCL[lroc$FPF < x])
+  upperY <- min(lroc$PCL[lroc$FPF >= x])
+  f <- (x - lowerX)/(upperX - lowerX)
+  PCL <- f * (upperY - lowerY) + lowerY
+  # end my code
   tempFpf <-c(lroc$FPF[lroc$FPF < FPFValue],FPFValue)
   tempPcl <-c(lroc$PCL[lroc$FPF < FPFValue],PCL)
   ALroc <- trapz(tempFpf, tempPcl) # computes trapezoidal area under LROC (0 to FPFValue)
@@ -103,8 +107,8 @@ Wilcoxon <- function (zk1, zk2)
 # copied from caTools; July 5th, 2018, after threatening email that CaTools and my package would be 
 # archived, whatever that means; see email from Kurt Hornik <Kurt.Hornik@wu.ac.at> dated 7/5/2018
 # 
-trapz = function(x, y) 
-{ ### computes the integral of y with respect to x using trapezoidal integration. 
+trapz = function(x, y)
+{ ### computes the integral of y with respect to x using trapezoidal integration.
   idx = 2:length(x)
   return (as.double( (x[idx] - x[idx-1]) %*% (y[idx] + y[idx-1])) / 2)
 }

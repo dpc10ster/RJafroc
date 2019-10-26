@@ -44,7 +44,6 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2){
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
-  dataType <- dataset$dataType
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)

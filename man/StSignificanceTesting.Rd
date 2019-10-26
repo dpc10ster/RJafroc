@@ -10,13 +10,12 @@ StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha = 0.05,
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-\bold{Must have two or
-more treatments and two or more readers.}}
+\bold{Must have two or more treatments and two or more readers.}}
 
-\item{FOM}{The figure of merit, default \code{"Wilcoxon"}, see \code{\link{UtilFigureOfMerit}}}
+\item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}}
 
 \item{FPFValue}{Only needed for LROC data; where to evaluate a partial curve based
-figure of merit.}
+figure of merit. The default is 0.2.}
 
 \item{alpha}{The significance level of the test of the null hypothesis that all 
 treatment effects are zero; the default is 0.05}
@@ -29,8 +28,8 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
    in \code{ORH} analysis (for \code{method = "DBMH"} the jackknife is always used).
    \itemize{ 
    \item \code{"Jackknife"}, the default, 
-   \item \code{"Bootstrap"}, in which case \code{nBoots} is relevant 
-   \item \code{"DeLong"}; the last requires \code{FOM = "Wilcoxon"}, otherwise 
+   \item \code{"Bootstrap"}, in which case \code{nBoots} (above) is relevant 
+   \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon"}, otherwise 
    an error results.
 }}
 
