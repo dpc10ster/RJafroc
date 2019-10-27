@@ -14,8 +14,8 @@ StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha = 0.05,
 
 \item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}}
 
-\item{FPFValue}{Only needed for LROC data; where to evaluate a partial curve based
-figure of merit. The default is 0.2.}
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
 
 \item{alpha}{The significance level of the test of the null hypothesis that all 
 treatment effects are zero; the default is 0.05}

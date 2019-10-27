@@ -5,8 +5,8 @@
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}.
 #' @param FOM The figure of merit to be used in the calculation. 
 #'    The default is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.
-#' @param FPFValue Only needed for \code{LROC} data; where to evaluate a partial 
-#'    curve based figure of merit.
+#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+#'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
 #' @return A list containing two \code{c(I, J, K)} arrays containing the pseudovalues
 #'    and the jackknife FOM values of the datasets.

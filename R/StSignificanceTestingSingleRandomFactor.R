@@ -6,11 +6,12 @@
 #' @param dataset A single-treatment multipe reader dataset.
 #' @param theta0 The comparison value that the average FOM is compared to.
 #' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}.
-#' @param FPFValue Only needed for \code{LROC} data; where to evaluate a partial 
-#'    curve based figure of merit.
+#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+#'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' @param alpha The significance level (\code{alpha}, default 0.05) 
 #'    of the test of the null hypothesis that FOMs of all levels of 
 #'    the fixed factor are identical.
+#' 
 #' 
 #' @return The return value is a list containing:
 #' @return \item{f}{The observed F-statistic for testing the null 
@@ -21,9 +22,11 @@
 #' @return \item{pValue}{The p-value for rejecting the NH.}
 #' @return \item{fomStats}{Statistics for FOM for each level of the fixed factor.}
 #' 
+#' 
 #' @details This function performs implements Hillis et al. 2005, Eqn. 23. 
 #'    Following an overall F-test, reader-pairings are compared using paired 
 #'    t-tests.
+#' 
 #' 
 #' @examples 
 #' ## Create a single treatment ROC dataset with one treatment and four readers

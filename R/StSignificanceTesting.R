@@ -13,8 +13,8 @@
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
 #'     \bold{Must have two or more treatments and two or more readers.} 
 #' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}
-#' @param FPFValue Only needed for LROC data; where to evaluate a partial curve based
-#'    figure of merit. The default is 0.2.
+#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+#'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' @param alpha The significance level of the test of the null hypothesis that all 
 #'    treatment effects are zero; the default is 0.05
 #' @param method The significance testing method to be used. There are two options: 
@@ -313,202 +313,6 @@ ORVarianceCovariances <- function(covariances) {
 
 
 
-# jackknifePseudoValuesNormals <- function (dataset, FOM, FPFValue)
-# {
-#   dataType <- dataset$dataType
-#   if (dataType != "LROC") {
-#     NL <- dataset$NL
-#     LL <- dataset$LL
-#   } else { # LROC dataset
-#     if (FOM == "Wilcoxon"){
-#       datasetRoc <- DfLroc2Roc(dataset)
-#       NL <- datasetRoc$NL
-#       LL <- datasetRoc$LL
-#     } else if (FOM %in% c("PCL", "ALROC")){
-#       NL <- dataset$NL
-#       LL <- dataset$LLCl
-#     } else stop("incorrect FOM for LROC data")
-#   }
-#   lesionVector <- dataset$lesionVector
-#   lesionID <- dataset$lesionID
-#   lesionWeight <- dataset$lesionWeight
-#   
-#   I <- length(NL[,1,1,1])
-#   J <- length(NL[1,,1,1])
-#   K <- length(NL[1,1,,1])
-#   K2 <- length(LL[1,1,,1])
-#   K1 <- (K - K2)
-#   maxNL <- length(NL[1,1,1,])
-#   maxLL <- length(LL[1,1,1,])
-#   
-#   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-#   
-#   # !!!DPC NOW!!! replace with UtilPseudovalues
-#   jkFOMArray <- array(dim = c(I, J, K1))
-#   pseudoValues <- array(dim = c(I, J, K1))
-#   for (i in 1:I) {
-#     for (j in 1:J) {
-#       for (k in 1:K1) {
-#         nl <- NL[i, j, -k, ]
-#         ll <- LL[i, j, , ]
-#         dim(nl) <- c(K - 1, maxNL)
-#         dim(ll) <- c(K2, maxLL)
-#         jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, 
-#                                         lesionVector, lesionID, 
-#                                         lesionWeight, maxNL, 
-#                                         maxLL, K1 - 1, K2, 
-#                                         FOM, FPFValue)
-#         pseudoValues[i, j, k] <- fomArray[i, j] * K1 - jkFOMArray[i, j, k] * (K1 - 1)
-#       }
-#       pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
-#     }
-#   }
-#   return(list (
-#     pseudoValues = pseudoValues,
-#     jkFOMArray = jkFOMArray
-#   ))
-# }
-# 
-
-
-
-# jackknifePseudoValuesAbnormals <- function (dataset, FOM, FPFValue)
-# {
-#   dataType <- dataset$dataType
-#   if (dataType != "LROC") {
-#     NL <- dataset$NL
-#     LL <- dataset$LL
-#   } else {
-#     if (FOM == "Wilcoxon"){
-#       dataset <- DfLroc2Roc(dataset)
-#       NL <- dataset$NL
-#       LL <- dataset$LL
-#     } else if (FOM %in% c("PCL", "ALROC")){
-#       NL <- dataset$NL
-#       LL <- dataset$LLCl
-#     } else stop("incorrect FOM for LROC data")
-#   }
-#   lesionVector <- dataset$lesionVector
-#   lesionID <- dataset$lesionID
-#   lesionWeight <- dataset$lesionWeight
-#   
-#   I <- length(NL[,1,1,1])
-#   J <- length(NL[1,,1,1])
-#   K <- length(NL[1,1,,1])
-#   K2 <- length(LL[1,1,,1])
-#   K1 <- (K - K2)
-#   
-#   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-#   
-#   maxNL <- length(NL[1,1,1,])
-#   maxLL <- length(LL[1,1,1,])
-#   # !!!DPC NOW!!! replace with UtilPseudovalues
-#   jkFOMArray <- array(dim = c(I, J, K2))
-#   pseudoValues <- array(dim = c(I, J, K2))
-#   for (i in 1:I) {
-#     for (j in 1:J) {
-#       for (k in 1:K2) {
-#         nl <- NL[i, j, -(k + K1), ]
-#         ll <- LL[i, j, -k, ]
-#         dim(nl) <- c(K - 1, maxNL)
-#         dim(ll) <- c(K2 - 1, maxLL)
-#         lesionIDJk <- lesionID[-k, ]
-#         dim(lesionIDJk) <- c(K2 -1, maxLL)
-#         lesionWeightJk <- lesionWeight[-k, ]
-#         dim(lesionWeightJk) <- c(K2 -1, maxLL)
-#         jkFOMArray[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-k], lesionIDJk, 
-#                                         lesionWeightJk, maxNL, maxLL, 
-#                                         K1, K2 - 1, FOM, FPFValue)
-#         pseudoValues[i, j, k] <- fomArray[i, j] * K2 - jkFOMArray[i, j, k] * (K2 - 1)
-#       }
-#       pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
-#     }
-#   }
-#   return(list (
-#     pseudoValues = pseudoValues,
-#     jkFOMArray = jkFOMArray
-#   ))
-# }
-# 
-
-
-
-# jackknifePseudoValues <- function (dataset, FOM, FPFValue) 
-# {
-#   dataType <- dataset$dataType
-#   if (dataType != "LROC") {
-#     NL <- dataset$NL
-#     LL <- dataset$LL
-#   } else {
-#     if (FOM == "Wilcoxon"){
-#       datasetRoc <- DfLroc2Roc(dataset)
-#       NL <- datasetRoc$NL
-#       LL <- datasetRoc$LL
-#     } else if (FOM %in% c("PCL", "ALROC")){
-#       NL <- dataset$NL
-#       LL <- dataset$LLCl
-#     } else stop("incorrect FOM for LROC data")
-#   }
-#   lesionVector <- dataset$lesionVector
-#   lesionID <- dataset$lesionID
-#   lesionWeight <- dataset$lesionWeight
-#   
-#   I <- length(NL[,1,1,1])
-#   J <- length(NL[1,,1,1])
-#   K <- length(NL[1,1,,1])
-#   K2 <- length(LL[1,1,,1])
-#   K1 <- (K - K2)
-#   maxNL <- length(NL[1,1,1,])
-#   maxLL <- length(LL[1,1,1,])
-#   
-#   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-#   
-#   ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-#   # !!!DPC NOW!!! replace with UtilPseudovalues
-#   # jkFOMArray <- array(dim = c(I, J, K))
-#   # pseudoValues <- array(dim = c(I, J, K))
-#   # for (i in 1:I) {
-#   #   for (j in 1:J) {
-#   #     for (k in 1:K) {
-#   #       if (k <= K1) {
-#   #         nl <- NL[i, j, -k, ]
-#   #         ll <- LL[i, j, , ]
-#   #         dim(nl) <- c(K - 1, maxNL)
-#   #         dim(ll) <- c(K2, maxLL)
-#   #         jkFOMArray[i, j, k] <- gpfMyFOM(
-#   #           nl, ll, 
-#   #           lesionVector, lesionID, 
-#   #           lesionWeight, maxNL, maxLL, K1 - 1, 
-#   #           K2, FOM, FPFValue)
-#   #       } else {
-#   #         nl <- NL[i, j, -k, ]
-#   #         ll <- LL[i, j, -(k - K1), ]
-#   #         dim(nl) <- c(K - 1, maxNL)
-#   #         dim(ll) <- c(K2 - 1, maxLL)
-#   #         lesionIDJk <- lesionID[-(k - K1), ]
-#   #         dim(lesionIDJk) <- c(K2 -1, maxLL)
-#   #         lesionWeightJk <- lesionWeight[-(k - K1), ]
-#   #         dim(lesionWeightJk) <- c(K2 -1, maxLL)
-#   #         jkFOMArray[i, j, k] <- gpfMyFOM(
-#   #           nl, ll, 
-#   #           lesionVector[-(k - K1)], lesionIDJk, 
-#   #           lesionWeightJk, maxNL, 
-#   #           maxLL, K1, 
-#   #           K2 - 1, FOM, FPFValue)
-#   #       }
-#   #       pseudoValues[i, j, k] <- fomArray[i, j] * K - jkFOMArray[i, j, k] * (K - 1)
-#   #     }
-#   #     pseudoValues[i, j, ] <- pseudoValues[i, j, ] + (fomArray[i, j] - mean(pseudoValues[i, j, ]))
-#   #   }
-#   # }
-#   return(list(
-#     jkFOMArray = ret$jkFomValues,
-#     pseudoValues = ret$jkPseudoValues
-#   ))
-# }
-# 
-
-
 
 pseudoValueMeanSquares <- function (pseudoValues)
 {
@@ -575,15 +379,15 @@ pseudoValueMeanSquares <- function (pseudoValues)
   }
   msTRC <- msTRC/((I - 1) * (J - 1) * (K - 1))
   
-  return(list(
-    msT = msT,
-    msR = msR,
-    msC = msC,
-    msTR = msTR,
-    msTC = msTC,
-    msRC = msRC,
-    msTRC = msTRC
-  )) 
+  mSquares <- data.frame(msT = msT,
+                         msR = msR,
+                         msC = msC,
+                         msTR = msTR,
+                         msTC = msTC,
+                         msRC = msRC,
+                         msTRC = msTRC)
+  
+  return(mSquares) 
 }
 
 

@@ -3,28 +3,24 @@
 #' @description  Number of cases to achieve the desired power, for 
 #'   specified number of readers J, and specified DBMH or ORH analysis method
 #' 
-#' @param dataset The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study. If 
-#'     missing, then variance components and effectSize must be passed as additional parameters.
-#' @param J The number of readers in the pivotal study.
+#' @param dataset The \bold{pilot} The \strong{pilot} ROC dataset.
+#' @param FOM The figure of merit.
+#' @param J The number of readers in the \strong{pivotal} study.
+#' @param effectSize The effect size to be used in the \strong{pivotal} study.
+#' @param method "DBMH" (default) or "ORH".
 #' @param alpha The significance level of the study, default is 0.05.
-#' @param effectSize The effect size to be used in the pivotal study, default value is \code{NULL}.
 #' @param desiredPower The desired statistical power, default is 0.8.
 #' @param option Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).
-#' @param method "DBMH" (default) or "ORH".
 #' 
-#'
 #' @return A list of two elements:
 #' @return \item{K}{The minimum number of cases K in the pivotal study 
 #'    to just achieve the desired statistical power.}
 #' @return \item{power}{The predicted statistical power.}
 #' 
-#' @details Other parameters \code{...} are reserved for internal use. The default \code{effectSize}
-#'     uses the observed effect size in the pilot study. A numeric value over-rides the default value.
+#' @details The default \code{effectSize} uses the observed effect size in the pilot 
+#'    study. A numeric value over-rides the default value.
 #' 
 #' 
-#' @note The procedure is valid for ROC studies only; for FROC studies see Online Appendix Chapter 19.
-#'
-#'
 #' 
 #' @references 
 #' Hillis SL, Obuchowski NA, Berbaum KS (2011) Power Estimation for Multireader ROC Methods: 
@@ -54,13 +50,12 @@
 #' 
 #' @export
 
-SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL, 
-                                desiredPower = 0.8, option = "ALL", method = "DBMH") {
+SsSampleSizeKGivenJ <- function(dataset, J, FOM = "Wilcoxon", effectSize = NULL, 
+                                method = "DBMH", alpha = 0.05, desiredPower = 0.8, option = "ALL") {
   
   if (!(option %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect option.")
   if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
   
-  if (dataset$dataType != "ROC") stop("Dataset must be of type ROC")
   if (method == "DBMH") {
     ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
     if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
@@ -85,6 +80,7 @@ SsSampleSizeKGivenJ <- function(dataset, J, alpha = 0.05, effectSize = NULL,
 } 
 
 
+
 searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option)
 {
   
@@ -96,7 +92,7 @@ searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, des
         break
       }
       K <- K + 1
-      ret <- powerStatsGivenJKDBMH (J, K, option, varYTR, varYTC, varYEps, effectSize, alpha)
+      ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, option)
       power <- ret$powerRRRC
     }
     powerRRRC <- power
@@ -111,7 +107,7 @@ searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, des
         break
       }
       K <- K + 1
-      ret <- powerStatsGivenJKDBMH (J, K, option, varYTR, varYTC, varYEps, effectSize, alpha)
+      ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, option)
       power <- ret$powerFRRC
     }
     powerFRRC <- power
@@ -126,7 +122,7 @@ searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, des
         break
       }
       K <- K + 1
-      ret <- powerStatsGivenJKDBMH (J, K, option, varYTR, varYTC, varYEps, effectSize, alpha)
+      ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, option)
       power <- ret$powerRRFC
     }
     powerRRFC <- power
@@ -154,6 +150,8 @@ searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, des
   
 }
 
+
+
 searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, option)
 {
   
@@ -167,7 +165,7 @@ searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alp
         break
       }
       K <- K + 1
-      ret <- powerStatsGivenJKORH (J, K, option, varTR, cov1, cov2, cov3, varEps, effectSize, KStar, alpha)
+      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, option)
       power <- ret$powerRRRC
     }
     powerRRRC <- power
@@ -181,7 +179,7 @@ searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alp
         break
       }
       K <- K + 1
-      ret <- powerStatsGivenJKORH (J, K, option, varTR, cov1, cov2, cov3, varEps, effectSize, KStar, alpha)
+      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, option)
       power <- ret$powerFRRC
     }
     powerFRRC <- power
@@ -195,7 +193,7 @@ searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alp
         break
       }
       K <- K + 1
-      ret <- powerStatsGivenJKORH (J, K, option, varTR, cov1, cov2, cov3, varEps, effectSize, KStar, alpha)
+      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, option)
       power <- ret$powerRRFC
     }
     powerRRFC <- power

@@ -2,24 +2,31 @@
 % Please edit documentation in R/SsPowerGivenJK.R
 \name{SsPowerGivenJK}
 \alias{SsPowerGivenJK}
-\title{Statistical power for specified numbers of readers and cases in an ROC study}
+\title{Statistical power for specified numbers of readers and cases in an ROC or FROC study}
 \usage{
-SsPowerGivenJK(dataset, J, K, method = "DBMH", option = "ALL",
-  alpha = 0.05)
+SsPowerGivenJK(dataset, FOM, J, K, effectSize = NULL, method = "DBMH",
+  option = "ALL", alpha = 0.05, FPFValue = 0.2)
 }
 \arguments{
-\item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study. If 
-missing, then variance components and effectSize must be passed as additional parameters.}
+\item{dataset}{The dataset to be used to extrapolate to the \bold{pivotal} study.}
+
+\item{FOM}{The figure of merit}
 
 \item{J}{The number of readers in the pivotal study.}
 
 \item{K}{The number of cases in the pivotal study.}
 
-\item{method}{"DBMH" or "ORH".}
+\item{effectSize}{The effect size. The default is NULL in which case the observed
+effect size is used.}
+
+\item{method}{"DBMH" (the default) or "ORH".}
 
 \item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
 
 \item{alpha}{The significance level, default is 0.05.}
+
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
 The expected statistical power.
@@ -30,10 +37,10 @@ Calculate the statistical power for specified numbers of readers J,
 }
 \examples{
 ## An example of sample size calculation with DBM variance componements
-SsPowerGivenJK(dataset02, 6, 251, method = "DBMH")
+SsPowerGivenJK(dataset02, FOM = "Wilcoxon", 6, 251, method = "DBMH")
                      
 ## An example of sample size calculation with OR variance componements.
-SsPowerGivenJK(dataset02, 6, 251, method = "ORH")
+SsPowerGivenJK(dataset02, FOM = "Wilcoxon", 6, 251, method = "ORH")
 
 
 }

@@ -11,8 +11,8 @@
 #' @param alpha The significance level (\code{alpha}, default 0.05) 
 #'    of the test of the null hypothesis that FOMs of all levels of 
 #'    the fixed factor are identical.
-#' @param FPFValue Only needed for \code{LROC} data; where to evaluate a partial 
-#'    curve based figure of merit.
+#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+#'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
 #' @return The return value is a list containing:
 #' @return \item{f}{The observed F-statistic for testing the null 

@@ -15,8 +15,8 @@ multiple-readers, where the first reader is CAD.}}
 it can be any valid FOM, e.g., \code{"HrAuc"}, \code{"wAFROC"}, etc; 
 for LROC data it must be \code{"Wilcoxon"}, or \code{"PCL"} or \code{"ALROC"}.}
 
-\item{FPFValue}{For LROC data and FOM = \code{"PCL"} or FOM = \code{"ALROC"}, 
-where to evaluate a partial curve based figure of merit, see details.}
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
 
 \item{method}{The desired analysis: "1T-RRFC","1T-RRRC" (the default) or "2T-RRRC",
 see manuscript for details. \strong{Note: method "2T-RRRC" is not implemented 

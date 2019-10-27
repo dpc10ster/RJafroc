@@ -5,6 +5,7 @@
 #' 
 #' @param dataset The \bold{pilot} ROC dataset to be used to extrapolate 
 #'    to the \bold{pivotal} study.
+#' @param FOM The figure of merit.
 #' @param effectSize The effect size to be used in the \bold{pivotal} study, 
 #'    default value is \code{NULL}. See Details.
 #' @param alpha The The size of the test, default is 0.05.
@@ -29,19 +30,19 @@
 #' @examples
 #' \donttest{
 #' ## Examples with CPU or elapsed time > 5s
-#' ##              user system elapsed
+#' ##              user    system elapsed
 #' ## SsPowerTable 20.033  0.037  20.077    
 #'
 #' ## Example of sample size calculation with DBM method
-#' SsPowerTable(dataset02, method = "DBMH")
+#' SsPowerTable(dataset02, FOM = "Wilcoxon", method = "DBMH")
 #' 
 #' ## Example of sample size calculation with OR method
-#' SsPowerTable(dataset02, method = "ORH")
+#' SsPowerTable(dataset02, FOM = "Wilcoxon", method = "ORH")
 #' }
 #'  
 #' @export
 
-SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower = 0.8, 
+SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredPower = 0.8, 
                          method = "DBMH", option = "ALL") {
   
   if (!(option %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect option.")
@@ -49,13 +50,13 @@ SsPowerTable <- function(dataset, effectSize = NULL, alpha = 0.05, desiredPower 
   if (dataset$dataType != "ROC") stop("Dataset must be of type ROC")
   
   if (method == "DBMH") {
-    ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "DBMH")
+    ret <- StSignificanceTesting(dataset, FOM, method = "DBMH")
     if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
     varYTR <- ret$varComp$varTR
     varYTC <- ret$varComp$varTC
     varYEps <- ret$varComp$varErr
   } else if (method == "ORH") {
-    ret <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "ORH")
+    ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
     if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
     varTR <- ret$varComp$varTR
     cov1 <- ret$varComp$cov1

@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "/R",
+        "path" : "",
         "projectRelative" : true,
-        "query" : "ROCPoints",
+        "query" : "SsPowerTable",
         "regex" : false
     }
 }

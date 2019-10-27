@@ -4,12 +4,14 @@
 \alias{SsPowerTable}
 \title{Generate a power table}
 \usage{
-SsPowerTable(dataset, effectSize = NULL, alpha = 0.05,
+SsPowerTable(dataset, FOM, effectSize = NULL, alpha = 0.05,
   desiredPower = 0.8, method = "DBMH", option = "ALL")
 }
 \arguments{
 \item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate 
 to the \bold{pivotal} study.}
+
+\item{FOM}{The figure of merit.}
 
 \item{effectSize}{The effect size to be used in the \bold{pivotal} study, 
 default value is \code{NULL}. See Details.}
@@ -46,14 +48,14 @@ The procedure is valid for ROC studies only; for FROC studies see Online Appendi
 \examples{
 \donttest{
 ## Examples with CPU or elapsed time > 5s
-##              user system elapsed
+##              user    system elapsed
 ## SsPowerTable 20.033  0.037  20.077    
 
 ## Example of sample size calculation with DBM method
-SsPowerTable(dataset02, method = "DBMH")
+SsPowerTable(dataset02, FOM = "Wilcoxon", method = "DBMH")
 
 ## Example of sample size calculation with OR method
-SsPowerTable(dataset02, method = "ORH")
+SsPowerTable(dataset02, FOM = "Wilcoxon", method = "ORH")
 }
  
 }

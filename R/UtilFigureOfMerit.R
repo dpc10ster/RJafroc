@@ -6,8 +6,8 @@
 #' 
 #' @param dataset The dataset to be analyzed, \code{\link{RJafroc-package}}
 #' @param FOM The figure of merit; the default is \code{"wAFROC"}
-#' @param FPFValue Only needed for \code{LROC} data; where to evaluate a partial 
-#'    curve based figure of merit.
+#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+#'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
 #' @return An \code{c(I, J)} array, where the row names are \code{modalityID}'s of the 
 #'    treatments and column names are the \code{readerID}'s of the readers.
@@ -48,8 +48,8 @@
 #'    \item \code{FOM = "PCL"} the probability of correct localization at specified \code{FPFValue}
 #'    \item \code{FOM = "ALROC"} the area under the LROC from zero to specified \code{FPFValue} 
 #'    }
-#'    \code{FPFValue} is the desired FPF at which to evaluate \code{PCL} or \code{ALROC}; 
-#'       the default is 0.2.
+#'    \code{FPFValue} The FPF at which to evaluate \code{PCL} or \code{ALROC}; 
+#'       the default is 0.2; only needed for LROC data.
 #' 
 #'
 #' @examples

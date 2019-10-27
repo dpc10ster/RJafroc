@@ -20,8 +20,8 @@
 #'    for non-LROC data. It is an obsolete method, included here only to show that
 #'    it gives identical summary statistics, e.g., p-value, as "1T-RRRC".}
 #' @param alpha Significance level of the test, defaults to 0.05.
-#' @param FPFValue For LROC data and FOM = \code{"PCL"} or FOM = \code{"ALROC"}, 
-#'    where to evaluate a partial curve based figure of merit, see details.
+#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+#'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' @param plots Flag, default is FALSE, i.e., a plot is not displayed. 
 #'    If TRUE, it displays the appropriate operating characteristic for all 
 #'    readers and CAD.

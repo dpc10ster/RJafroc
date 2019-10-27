@@ -10,10 +10,11 @@ StDBMHAnalysis <- function(dataset, FOM, alpha, option, FPFValue)
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   trtMeans <- rowMeans(fomArray)
   
-  psVals <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
-  # psVals <- pseudoValues(dataset, FOM, FPFValue)
+  ret <- UtilVarComponentsDBM(dataset, FOM, FPFValue)
+  mSquares <- ret$mSquares
+  varComp <- ret$varComp
+  psVals <- ret$psVals
   
-  mSquares <- pseudoValueMeanSquares(psVals)
   msT <- mSquares$msT
   msR <- mSquares$msR
   msC <- mSquares$msC
@@ -21,20 +22,6 @@ StDBMHAnalysis <- function(dataset, FOM, alpha, option, FPFValue)
   msTC <- mSquares$msTC
   msRC <- mSquares$msRC
   msTRC <- mSquares$msTRC
-  
-  varR <- (msR - msTR - msRC + msTRC)/(I * K)
-  varC <- (msC - msTC - msRC + msTRC)/(I * J)
-  varTR <- (msTR - msTRC)/K
-  varTC <- (msTC - msTRC)/J
-  varRC <- (msRC - msTRC)/I
-  varErr <- msTRC
-  
-  varComp <- data.frame(varR = varR, 
-                           varC = varC, 
-                           varTR = varTR, 
-                           varTC = varTC, 
-                           varRC = varRC, 
-                           varErr = varErr)  
   
   msArray <- c(msT, msR, msC, msTR, msTC, msRC, msTRC)
   dfArray <- c(I - 1, J - 1, K - 1, (I - 1) * (J - 1), (I - 1) * (K - 1), (J - 1) * (K - 1), (I - 1) * (J - 1) * (K - 1))

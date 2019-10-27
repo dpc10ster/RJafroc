@@ -7,8 +7,8 @@
 #'    is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.
 #' @param method The method, in which the mean squares are calculated. The two 
 #'    valid options are \code{"DBMH"} (default) and \code{"ORH"}. 
-#' @param FPFValue Only needed for \code{LROC} data; where to evaluate a partial 
-#'    curve based figure of merit.
+#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+#'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
 #' @return A list containing all possible mean squares
 #' 
@@ -26,7 +26,7 @@
 #' 
 #' @export
 
-UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH", FPFValue){
+UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH", FPFValue = 0.2){
   dataType <- dataset$dataType
   if (dataType != "LROC") {
     NL <- dataset$NL

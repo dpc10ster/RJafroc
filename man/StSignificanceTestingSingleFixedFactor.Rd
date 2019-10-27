@@ -16,8 +16,8 @@ StSignificanceTestingSingleFixedFactor(dataset, FOM, alpha = 0.05,
 of the test of the null hypothesis that FOMs of all levels of 
 the fixed factor are identical.}
 
-\item{FPFValue}{Only needed for \code{LROC} data; where to evaluate a partial 
-curve based figure of merit.}
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
 The return value is a list containing:
