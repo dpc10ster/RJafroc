@@ -407,6 +407,10 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            rating inferred ROC dataset.
         \item \code{\link{DfLroc2Roc}}: Convert an LROC dataset to a highest 
            rating inferred ROC dataset.
+        \item \code{\link{DfLroc2Froc}}: Simulates an 
+           "AUC-equivalent" FROC dataset from a supplied LROC dataset.
+        \item \code{\link{DfFroc2Lroc}}: Simulates an 
+           "AUC-equivalent" LROC dataset from a supplied FROC dataset.
         \item \code{\link{DfReadCrossedModalities}}: Read a crossed-modalities 
            data file.
         \item \code{\link{DfReadDataFile}}: Read a general data file.
@@ -451,6 +455,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            model ROC dataset.
         \item \code{\link{SimulateCorCbmDataset}}: Simulates an uncorrelated binormal 
            model ROC dataset.
+        \item \code{\link{SimulateLrocDataset}}: Simulates an uncorrelated LROC dataset.
   }
 }
 
@@ -498,6 +503,10 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
         \item \code{\link{UtilPhysical2IntrinsicRSM}}: Convert from physical to 
            intrinsic RSM parameters.  
         \item \code{\link{UtilPseudoValues}}: Return jackknife pseudovalues.  
+        \item \code{\link{UtilVarComponentsDBM}}: Utility for Dorfman-Berbaum-Metz 
+           variance components.  
+        \item \code{\link{UtilVarComponentsOR}}: Utility for Obuchowski-Rockette 
+           variance components.  
   }
 }
 
