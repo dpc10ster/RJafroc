@@ -1,7 +1,7 @@
 Package: RJafroc
 Type: Package
 Title: Analyzing Diagnostic Observer Performance Studies
-Version: 1.2.0
+Version: 1.2.0.9000
 Date: 2019-07-21
 Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "dpc10ster@gmail.com"),
              person("Peter", "Philips", role = c("aut"), email = "peter.phillips@cumbria.ac.uk"),

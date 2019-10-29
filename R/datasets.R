@@ -110,8 +110,9 @@
 #' This is referred to in the book as the "FED" dataset. It consists of 200 mammograms, 
 #' 100 of which contained one to 3 simulated microcalcifications,
 #' interpreted in five treatments (basically different image processing algorithms), by four 
-#' radiologists using the FROC paradigm. The maximum number of NLs per case, over the entire 
-#' dataset was 7 and the dataset contained at least one diseased mammogram with 3 lesions.
+#' radiologists using the FROC paradigm and a 5-point rating scale. The maximum number of NLs 
+#' per case, over the entire dataset was 7 and the dataset contained at least one diseased 
+#' mammogram with 3 lesions.
 #' 
 #' @format A list with 8 elements:
 #' \itemize{

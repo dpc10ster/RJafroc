@@ -1,6 +1,5 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2509
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset77 ZapfDingbatsITC;\f2\fnil\fcharset134 PingFangSC-Regular;
-}
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
 \margl1440\margr1440\vieww10800\viewh8400\viewkind0
@@ -26,7 +25,9 @@ combine 3 jackknifePseudoValuesXX functions\
 \fs72 Sample size FROC\
 
 \fs24 \
-LROC data simulator - easy: just simulate FROC data and the use DfFroc2Lroc\
+
+\fs72 LROC data simulator - easy: just simulate FROC data and the use DfFroc2Lroc: done
+\fs24 \
 \
 set.seed(1)\
 K1 <- 5\
@@ -40,31 +41,12 @@ frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, les
 lrocData <- DfFroc2Lroc(frocData)\
 \
 \
-Browse[2]> zk1\
- [1]  1.267283 -2.889059 -2.889059 -2.889059 -2.889059      -Inf      -Inf      -Inf      -Inf      -Inf\
-Browse[2]> zk2Cl\
-[1] 1.931844     -Inf     -Inf 2.214086 3.330079\
-\
-\
-Interpolation\
-lroc$FPF[lroc$FPF > FPFValue][1]\
-lroc$FPF[lroc$FPF > FPFValue][1]\
-\
-\
-Check LROC FOM using small dataset\
-\
-dataset$NL[1,1,,1]\
- [1]     -Inf     -Inf     -Inf     -Inf 1.424443     -Inf     -Inf     -Inf     -Inf     -Inf\
-\
-dataset$LLCl[1,1,,1]\
-[1] 0.5542791 1.2046176      -Inf 3.4596787 2.7326570\
-\
-dataset$LLIl[1,1,,1]\
-[1]        -Inf        -Inf -0.08929126        -Inf        -Inf\
-\
 check all documentation for correct arguments and default values\
 \
-Fix UtilPseudoValues for MaxNLF and MaxLLF FOMs.\
+
+\fs72 Fix UtilPseudoValues for MaxNLF and MaxLLF FOMs.\
+
+\fs24 \
 Test varComponentsJackknife\
 Compare covariances with those obtained from DBMH method\
 \
@@ -75,213 +57,4 @@ jackknifePseudoValuesAbnormals, \
 jackknifePseudoValues\
 \
 \
-> devtools::test()\
-Loading RJafroc\
-Testing RJafroc\
-
-\f1 \uc0\u10004 
-\f0  |  OK F W S | Context\
-
-\f1 \uc0\u10004 
-\f0  |   1       | Compare3ProperRocFits [7.8 s]\
-
-\f1 \uc0\u10004 
-\f0  |   2       | CORCBM routines [1.2 s]\
-
-\f1 \uc0\u10004 
-\f0  |  31       | Df2RJafrocDataset [8.0 s]\
-
-\f1 \uc0\u10004 
-\f0  |  12       | DfReadDataFile [0.5 s]\
-
-\f1 \uc0\u10004 
-\f0  |   6       | Fitting routines [90.6 s]\
-
-\f1 \uc0\u10004 
-\f0  |  38       | LROC related Df conversion functions\
-
-\f1 \uc0\u10004 
-\f0  |  15       | CheckLrocFomsVsHandCalculatedValues\
-
-\f1 \uc0\u10004 
-\f0  |  40       | UtilMeanSquares [1.8 s]\
-
-\f1 \uc0\u10004 
-\f0  |   9       | Plotting routines [2.5 s]\
-
-\f1 \uc0\u10006 
-\f0  |   0 5     | Sample Size ROC [1.4 s]\
-\uc0\u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
-SsPowerGivenJK.R:56: error: SsPowerGivenJK:DBMH: expected values are obtained for dataset02\
-argument "FOM" is missing, with no default\
-1: expect_equivalent(SsPowerGivenJK(dataset02, J = 6, K = 111, option = "RRRC")$powerRRRC, 0.5526116, tolerance = 5e-08)\
-2: quasi_label(enquo(object), label, arg = "object")\
-3: eval_bare(get_expr(quo), get_env(quo))\
-4: SsPowerGivenJK(dataset02, J = 6, K = 111, option = "RRRC")\
-5: StSignificanceTesting(dataset, FOM, FPFValue, method = "DBMH") at /Users/Dev/GitHub/RJafroc/R/SsPowerGivenJK.R:56\
-6: StDBMHAnalysis(dataset, FOM, alpha, option, FPFValue) at /Users/Dev/GitHub/RJafroc/R/StSignificanceTesting.R:176\
-7: UtilFigureOfMerit(dataset, FOM, FPFValue) at /Users/Dev/GitHub/RJafroc/R/StDBMHAnalysis.R:10\
-\
-SsPowerGivenJK.R:63: error: SsPowerGivenJK:ORH: expected values are obtained for dataset02\
-argument "FOM" is missing, with no default\
-1: expect_equivalent(SsPowerGivenJK(dataset02, J = 6, K = 111, option = "RRRC", method = "ORH")$powerRRRC, 0.5526116, tolerance = 5e-08)\
-2: quasi_label(enquo(object), label, arg = "object")\
-3: eval_bare(get_expr(quo), get_env(quo))\
-4: SsPowerGivenJK(dataset02, J = 6, K = 111, option = "RRRC", method = "ORH")\
-5: StSignificanceTesting(dataset, FOM, FPFValue, method = "ORH") at /Users/Dev/GitHub/RJafroc/R/SsPowerGivenJK.R:63\
-6: StORHAnalysis(dataset, FOM, alpha, covEstMethod, nBoots, option, FPFValue) at /Users/Dev/GitHub/RJafroc/R/StSignificanceTesting.R:178\
-7: UtilFigureOfMerit(dataset, FOM, FPFValue) at /Users/Dev/GitHub/RJafroc/R/StORHAnalysis.R:15\
-\
-SsSampleSizeKGivenJ.R:70: error: SsSampleSizeKGivenJ:DBMH: expected values are obtained for dataset02\
-argument is of length zero\
-1: expect_equal(SsSampleSizeKGivenJ(dataset02, J = 6, option = "RRRC")$KRRRC, 251)\
-2: quasi_label(enquo(object), label, arg = "object")\
-3: eval_bare(get_expr(quo), get_env(quo))\
-4: SsSampleSizeKGivenJ(dataset02, J = 6, option = "RRRC")\
-5: searchNumCasesDBM(J, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option) at /Users/Dev/GitHub/RJafroc/R/SsSampleSizeKGivenJ.R:70\
-\
-SsSampleSizeKGivenJ.R:81: error: SsSampleSizeKGivenJ:ORH: expected values are obtained for dataset02\
-argument is of length zero\
-1: expect_equal(SsSampleSizeKGivenJ(dataset02, J = 6, option = "RRRC", method = "ORH")$KRRRC, 251)\
-2: quasi_label(enquo(object), label, arg = "object")\
-3: eval_bare(get_expr(quo), get_env(quo))\
-4: SsSampleSizeKGivenJ(dataset02, J = 6, option = "RRRC", method = "ORH")\
-5: searchNumCasesOR(J, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, option) at /Users/Dev/GitHub/RJafroc/R/SsSampleSizeKGivenJ.R:81\
-\
-test-sample-size-roc.R:20: error: (unknown)\
-argument is of length zero\
-1: SsPowerTable(dataset02) at /Users/Dev/GitHub/RJafroc/tests/testthat/test-sample-size-roc.R:20\
-2: searchNumCasesDBM(J = j, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option) at /Users/Dev/GitHub/RJafroc/R/SsPowerTable.R:120\
-\uc0\u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
-
-\f1 \uc0\u10006 
-\f0  |   0 4     | ROC sample size routines [0.5 s]\
-\uc0\u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
-test-sample-size.R:7: error: SsPowerGivenJKDBMH\
-Must use Wilcoxon figure of merit with ROC data.\
-1: expect_warning(expect_known_output(SsPowerGivenJK(dataset02, 6, 251, method = "DBMH"), tmp, print = TRUE, update = TRUE), "Creating reference output") at /Users/Dev/GitHub/RJafroc/tests/testthat/test-sample-size.R:7\
-2: quasi_capture(enquo(object), label, capture_warnings)\
-3: .capture(act$val <- eval_bare(get_expr(.quo), get_env(.quo)), ...)\
-4: withCallingHandlers(code, warning = function(condition) \{\
-       out$push(condition)\
-       invokeRestart("muffleWarning")\
-   \})\
-5: eval_bare(get_expr(.quo), get_env(.quo))\
-6: expect_known_output(SsPowerGivenJK(dataset02, 6, 251, method = "DBMH"), tmp, print = TRUE, update = TRUE)\
-7: append(act, eval_with_output(object, print = print, width = width))\
-8: eval_with_output(object, print = print, width = width)\
-9: withr::with_output_sink(temp, withVisible(code))\
-10: force(code)\
-11: withVisible(code)\
-12: SsPowerGivenJK(dataset02, 6, 251, method = "DBMH")\
-13: StSignificanceTesting(dataset, FOM, FPFValue, method = "DBMH") at /Users/Dev/GitHub/RJafroc/R/SsPowerGivenJK.R:56\
-14: StDBMHAnalysis(dataset, FOM, alpha, option, FPFValue) at /Users/Dev/GitHub/RJafroc/R/StSignificanceTesting.R:176\
-15: UtilFigureOfMerit(dataset, FOM, FPFValue) at /Users/Dev/GitHub/RJafroc/R/StDBMHAnalysis.R:10\
-16: stop(errMsg) at /Users/Dev/GitHub/RJafroc/R/UtilFigureOfMerit.R:96\
-\
-test-sample-size.R:20: error: SsPowerGivenJKORH\
-Must use Wilcoxon figure of merit with ROC data.\
-1: expect_warning(expect_known_output(SsPowerGivenJK(dataset02, 6, 251, method = "ORH"), tmp, print = TRUE, update = TRUE), "Creating reference output") at /Users/Dev/GitHub/RJafroc/tests/testthat/test-sample-size.R:20\
-2: quasi_capture(enquo(object), label, capture_warnings)\
-3: .capture(act$val <- eval_bare(get_expr(.quo), get_env(.quo)), ...)\
-4: withCallingHandlers(code, warning = function(condition) \{\
-       out$push(condition)\
-       invokeRestart("muffleWarning")\
-   \})\
-5: eval_bare(get_expr(.quo), get_env(.quo))\
-6: expect_known_output(SsPowerGivenJK(dataset02, 6, 251, method = "ORH"), tmp, print = TRUE, update = TRUE)\
-7: append(act, eval_with_output(object, print = print, width = width))\
-8: eval_with_output(object, print = print, width = width)\
-9: withr::with_output_sink(temp, withVisible(code))\
-10: force(code)\
-11: withVisible(code)\
-12: SsPowerGivenJK(dataset02, 6, 251, method = "ORH")\
-13: StSignificanceTesting(dataset, FOM, FPFValue, method = "ORH") at /Users/Dev/GitHub/RJafroc/R/SsPowerGivenJK.R:63\
-14: StORHAnalysis(dataset, FOM, alpha, covEstMethod, nBoots, option, FPFValue) at /Users/Dev/GitHub/RJafroc/R/StSignificanceTesting.R:178\
-15: UtilFigureOfMerit(dataset, FOM, FPFValue) at /Users/Dev/GitHub/RJafroc/R/StORHAnalysis.R:15\
-16: stop(errMsg) at /Users/Dev/GitHub/RJafroc/R/UtilFigureOfMerit.R:96\
-\
-test-sample-size.R:33: error: SsSampleSizeKGivenJ\
-argument is of length zero\
-1: expect_warning(expect_known_output(SsSampleSizeKGivenJ(dataset02, J = 6, method = "DBMH"), tmp, print = TRUE, update = TRUE), "Creating reference output") at /Users/Dev/GitHub/RJafroc/tests/testthat/test-sample-size.R:33\
-2: quasi_capture(enquo(object), label, capture_warnings)\
-3: .capture(act$val <- eval_bare(get_expr(.quo), get_env(.quo)), ...)\
-4: withCallingHandlers(code, warning = function(condition) \{\
-       out$push(condition)\
-       invokeRestart("muffleWarning")\
-   \})\
-5: eval_bare(get_expr(.quo), get_env(.quo))\
-6: expect_known_output(SsSampleSizeKGivenJ(dataset02, J = 6, method = "DBMH"), tmp, print = TRUE, update = TRUE)\
-7: append(act, eval_with_output(object, print = print, width = width))\
-8: eval_with_output(object, print = print, width = width)\
-9: withr::with_output_sink(temp, withVisible(code))\
-10: force(code)\
-11: withVisible(code)\
-12: SsSampleSizeKGivenJ(dataset02, J = 6, method = "DBMH")\
-13: searchNumCasesDBM(J, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option) at /Users/Dev/GitHub/RJafroc/R/SsSampleSizeKGivenJ.R:70\
-\
-test-sample-size.R:46: error: SsPowerTable\
-argument is of length zero\
-1: expect_warning(expect_known_output(SsPowerTable(dataset02, method = "DBMH"), tmp, print = TRUE, update = TRUE), "Creating reference output") at /Users/Dev/GitHub/RJafroc/tests/testthat/test-sample-size.R:46\
-2: quasi_capture(enquo(object), label, capture_warnings)\
-3: .capture(act$val <- eval_bare(get_expr(.quo), get_env(.quo)), ...)\
-4: withCallingHandlers(code, warning = function(condition) \{\
-       out$push(condition)\
-       invokeRestart("muffleWarning")\
-   \})\
-5: eval_bare(get_expr(.quo), get_env(.quo))\
-6: expect_known_output(SsPowerTable(dataset02, method = "DBMH"), tmp, print = TRUE, update = TRUE)\
-7: append(act, eval_with_output(object, print = print, width = width))\
-8: eval_with_output(object, print = print, width = width)\
-9: withr::with_output_sink(temp, withVisible(code))\
-10: force(code)\
-11: withVisible(code)\
-12: SsPowerTable(dataset02, method = "DBMH")\
-13: searchNumCasesDBM(J = j, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option) at /Users/Dev/GitHub/RJafroc/R/SsPowerTable.R:120\
-\uc0\u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
-
-\f1 \uc0\u10004 
-\f0  |   3       | Simulate data sets\
-
-\f1 \uc0\u10004 
-\f0  |   6       | Check DBM varComp against JAFROC output [0.8 s]\
-
-\f1 \uc0\u10004 
-\f0  |   6       | Check OR varComp against JAFROC output [0.8 s]\
-
-\f1 \uc0\u10004 
-\f0  |  69       | Compare current to original codes: DBMH [1.0 s]\
-
-\f1 \uc0\u10004 
-\f0  |  69       | Compare current to original codes: ORH [1.2 s]\
-
-\f1 \uc0\u10004 
-\f0  | 226       | Compare DBMH to ORH [1.8 s]\
-
-\f1 \uc0\u10004 
-\f0  |  36     1 | Significance testing routines excluding CAD [1.3 s]\
-\uc0\u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
-test-StSignificance-testing.R:22: skip: SignificanceTestingAllCombinations\
-Reason: On Mac\
-\uc0\u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \u9472 \
-
-\f1 \uc0\u10004 
-\f0  | 321       | StSignificanceTestingCadVsRadiologists [11.3 s]\
-
-\f1 \uc0\u10004 
-\f0  | 171       | UtilFigureOfMerit [0.1 s]\
-
-\f1 \uc0\u10004 
-\f0  |  18       | utils [0.7 s]\
-\
-
-\f2 \'a8\'54\'a8\'54
-\f0  Results 
-\f2 \'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54\'a8\'54
-\f0 \
-Duration: 133.8 s\
-\
-OK:       1079\
-Failed:   9\
-Warnings: 0\
-Skipped:  1}
+}

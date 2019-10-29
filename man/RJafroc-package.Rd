@@ -491,7 +491,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            physical RSM parameters. 
         \item \code{\link{UtilLesionDistribution}}: Calculates the lesion distribution  
            matrix.
-        \item \code{\link{UtilLesionWeights}}: Calculates the lesion weights  matrix.
+        \item \code{\link{UtilLesionWeightsDistr}}: Calculates the lesion weights  matrix.
         \item \code{\link{UtilMeanSquares}}: Calculates the mean squares used in the 
            DBMH and ORH methods.  
         \item \code{\link{UtilOutputReport}}: Generate a formatted report file.

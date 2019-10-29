@@ -1,4 +1,4 @@
-rm(list = ls()) #mainwAFROCPowerDBMH.R # LOCK lines numbers
+rm(list = ls()) #mainwAFROCPowerORH.R 
 library(ggplot2)
 library(RJafroc)
 
@@ -35,27 +35,27 @@ muMed <- median(mu[1:2,]) # instead of average, use median to get representative
 nuMed <- median(nuP[1:2,]) # do:
 lambdaMed <- median(lambdaP[1:2,]) # do:
 
-nLesDistr <- allResults[[1]]$lesDistr
+lesDistr <- allResults[[1]]$lesDistr
 # construct lesion weights, assuming equally weighted lesions
-lesionWeights <- matrix(-Inf, nrow = nrow(nLesDistr), ncol = nrow(nLesDistr))
-for (l in 1:nrow(nLesDistr)){
-  nLes <- nLesDistr[l, 1]
-  lesionWeights[l, 1:nLes] <- 1/nLes
+lesWghtDistr <- matrix(-Inf, nrow = nrow(lesDistr), ncol = nrow(lesDistr))
+for (l in 1:nrow(lesDistr)){
+  nLes <- lesDistr[l, 1]
+  lesWghtDistr[l, 1:nLes] <- 1/nLes
 }
 # calculate NH values for ROC-AUC and wAFROC-AUC
 aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                            lesDistr = nLesDistr, lesionWeights = lesionWeights, type = "ROC")$aucROC
+                                            lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, type = "ROC")$aucROC
 aucAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                              lesDistr = nLesDistr, lesionWeights = lesionWeights, type = "wAFROC")$aucwAFROC
+                                              lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, type = "wAFROC")$aucwAFROC
 
 # following calculates effect sizes: ROC-ES and wAFROC-ES
 deltaMu <- seq(0.01, 0.2, 0.01) # values of deltaMu to scan below
 esRoc <- array(dim = length(deltaMu));eswAfroc <- array(dim = length(deltaMu))
 for (i in 1:length(deltaMu)) {
   esRoc[i] <- PlotRsmOperatingCharacteristics(muMed + deltaMu[i], lambdaMed, nuMed, lesDistr = 
-                                                nLesDistr, lesionWeights = lesionWeights, type = "ROC")$aucROC - aucRocNH
+                                                lesDistr, lesWghtDistr = lesWghtDistr, type = "ROC")$aucROC - aucRocNH
   eswAfroc[i] <- PlotRsmOperatingCharacteristics(muMed+ deltaMu[i], lambdaMed, nuMed, lesDistr = 
-                                                   nLesDistr, lesionWeights = lesionWeights, type = "wAFROC")$aucwAFROC - aucAfrocNH
+                                                   lesDistr, lesWghtDistr = lesWghtDistr, type = "wAFROC")$aucwAFROC - aucAfrocNH
   cat("ES ROC, wAFROC = ", esRoc[i], eswAfroc[i],"\n")
 }
 cat("\n")
@@ -65,24 +65,31 @@ effectSizeROC <- seq(0.01, 0.1, 0.001)
 effectSizewAFROC <- effectSizeROC*a$coefficients[1] # r2 = summary(a)$r.squared
 
 frocData <- get(sprintf("dataset%02d", 4))
+KStar <- length(frocData$NL[1,1,,1])
 JTest <- 5;KTest <- 100
 rocData <- DfFroc2Roc(frocData)
-varCompROC <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBMH", option = "RRRC")$varComp
-varCompwAFROC <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBMH", option = "RRRC")$varComp
+varCompROC <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "ORH", option = "RRRC")$varComp
+varCompwAFROC <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "ORH", option = "RRRC")$varComp
 
 cat("JTest = ", JTest, "KTest = ", KTest, "\n")
 powerROC <- array(dim = length(effectSizeROC));powerwAFROC <- array(dim = length(effectSizeROC))
 for (i in 1:length(effectSizeROC)) {
-  varYTR <- varCompROC$varTR
-  varYTC <- varCompROC$varTC
-  varYEps <- varCompROC$varErr
-  ret <- SsPowerGivenJKDbmVarComp (J = JTest, K = KTest, effectSize = effectSizeROC[i], varYTR, varYTC, varYEps, alpha  = 0.05, option = "RRRC")
+  varTR <- varCompROC$varTR
+  cov1 <- varCompROC$cov1
+  cov2 <- varCompROC$cov2
+  cov3 <- varCompROC$cov3
+  varEps <- varCompROC$var
+  ret <- SsPowerGivenJKOrVarComp (J = JTest, K = KTest, KStar = KStar,  
+                                  effectSize = effectSizeROC[i], varTR, cov1, cov2, cov3, varEps, alpha  = 0.05, option = "RRRC")
   powerROC[i] <- ret$powerRRRC
 
-  varYTR <- varCompwAFROC$varTR
-  varYTC <- varCompwAFROC$varTC
-  varYEps <- varCompwAFROC$varErr
-  ret <- SsPowerGivenJKDbmVarComp (J = JTest, K = KTest, effectSize = effectSizewAFROC[i], varYTR, varYTC, varYEps, alpha  = 0.05, option = "RRRC")
+  varTR <- varCompwAFROC$varTR
+  cov1 <- varCompwAFROC$cov1
+  cov2 <- varCompwAFROC$cov2
+  cov3 <- varCompwAFROC$cov3
+  varEps <- varCompwAFROC$var
+  ret <- SsPowerGivenJKOrVarComp (J = JTest, K = KTest, KStar = KStar,  
+                                  effectSize = effectSizewAFROC[i], varTR, cov1, cov2, cov3, varEps, alpha  = 0.05, option = "RRRC")
   powerwAFROC[i] <- ret$powerRRRC
 
   cat("ROC effect size = ", effectSizeROC[i], ", wAFROC effect size = ", effectSizewAFROC[i], 

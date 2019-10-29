@@ -140,23 +140,23 @@ test_that("UtilLesionDistribution", {
     fn <- paste0(test_path(), "/goodValues361/Utils/LesionWeights01", ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
-      ret <- UtilLesionWeights (UtilLesionDistribution(dataset01))
+      ret <- UtilLesionWeightsDistr (dataset01)
       saveRDS(ret, file = fn)
     }
 
     ret <- readRDS(fn)
-    expect_equal(UtilLesionWeights (UtilLesionDistribution(dataset01)), ret)
+    expect_equal(UtilLesionWeightsDistr (dataset01), ret)
     # end of test
 
     fn <- paste0(test_path(), "/goodValues361/Utils/LesionWeights05", ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
-      ret <- UtilLesionWeights (UtilLesionDistribution(dataset05))
+      ret <- UtilLesionWeightsDistr (dataset05)
       saveRDS(ret, file = fn)
     }
 
     ret <- readRDS(fn)
-    expect_equal(UtilLesionWeights (UtilLesionDistribution(dataset05)), ret)
+    expect_equal(UtilLesionWeightsDistr (dataset05), ret)
     # end of test
 
 })
