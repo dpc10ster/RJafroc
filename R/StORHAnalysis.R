@@ -15,7 +15,7 @@ StORHAnalysis <- function(dataset, FOM, alpha = 0.05, covEstMethod = "Jackknife"
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   trtMeans <- rowMeans(fomArray)
   
-  ret <- UtilVarComponentsOR(dataset, FOM = FOM, covEstMethod, nBoots, FPFValue)
+  ret <- UtilVarComponentsOR(dataset, FOM, covEstMethod, nBoots, FPFValue)
   varComp <-  ret$varComp
   meanSquares <- ret$meanSquares
   

@@ -42,7 +42,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
        bimodal, with a peak at zero and one at \eqn{\mu}, the integrated fraction 
        at \eqn{\mu} is \eqn{\alpha} (not to be confused with \eqn{\alpha} of NH testing)
     \item CI: The (1-\eqn{\alpha}) confidence interval for the stated statistic
-    \item Crossed modality: a dataset containing two modality factors, with 
+    \item Crossed modality: a dataset containing two modality (treatment) factors, with 
        the levels of the two factors crossed, see paper by Thompson et al  
     \item DBM: Dorfman-Berbaum-Metz, a significance testing method for 
        detecting a treatment effect in MRMC studies
@@ -62,9 +62,9 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
     \item FRRC: Analysis that treats readers as fixed and cases as random factors
     \item I: total number of modalities, indexed by \eqn{i}
     \item image/case: used interchangeably; a case can consist of several images 
-       of the same patient in the same modality
+       of the same patient in the same treatment
     \item iMRMC: A text file format used for ROC data by FDA/CDRH researchers
-    \item individual dataset: A single modality single reader dataset.
+    \item individual dataset: A single treatment single reader dataset.
     \item Intrinsic: Used in connection with RSM; a parameter that is independent of 
        the RSM \eqn{\mu} parameter, but whose meaning may not be as transparent as 
        the corresponding physical parameter
@@ -96,7 +96,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
     \item maxLL: maximum number of lesions per case in dataset
     \item maxNL: maximum number of NL marks per case in dataset
     \item MRMC: multiple reader multiple case (each reader interprets each case in 
-       each modality, i.e. fully crossed study design)
+       each treatment, i.e. fully crossed study design)
     \item ndf: Numerator degrees of freedom of appropriate \eqn{F}-test, usually 
        number of treatments minus one
     \item NH: The null hypothesis that all treatment effects are zero; rejected 

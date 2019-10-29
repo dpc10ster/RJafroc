@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "UtilLesionWeights",
+        "query" : "modality",
         "regex" : false
     }
 }

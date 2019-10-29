@@ -558,7 +558,7 @@ varComponentsDeLong <- function(dataset, FOM)
   K1 <- (K - K2)
   maxNL <- length(NL[1,1,1,])
   maxLL <- length(LL[1,1,1,])
-  if ((maxLL != 1) || (maxLL != 1)) stop("dataset error in varComponentsDeLong")
+  # if ((maxLL != 1) || (maxLL != 1)) stop("dataset error in varComponentsDeLong")
   
   fomArray <- UtilFigureOfMerit(dataset, FOM)
   

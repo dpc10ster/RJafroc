@@ -19,18 +19,22 @@ vignette: >
   )
   library(RJafroc)
 ```
+## Note to self (10/29/19) !!!DPC!!!
+The FOM and DeLong method implementations need checking with a toy dataset.
+
+
 
 ## Introduction
-* For an ROI dataset calling `StSignificanceTesting()` automatically defaults to `method = "ORH"`, `covEstMethod = "DeLong"` and `FOM = "ROI"`.  
+* For an ROI dataset `StSignificanceTesting()` automatically defaults to `method = "ORH"`, `covEstMethod = "DeLong"` and `FOM = "ROI"`.  
 
-* The covariance estimation method is based on the original DeLong method [@RN112], which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by [@RN1233] to ROI data.  
+* The covariance estimation method is based on the original DeLong method [@RN112], which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by [@RN1233] to ROI data, see formula below.  
 
 * The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by [@RN1233] for estimating the covariance matrix. Once the covariances are known, `method = "ORH"` can be applied to perform significance testing, as described in [@RN1450] and [@RN2680, Chapter 10].
 
 ## The ROI figure of merit  
 Let ${{X}_{kr}}$ denote the rating for the r^th^ **lesion-containing** ROI in the k^th^ case and let $n_{k}^{L}$ be the total number of lesion-containing ROIs in the k^th^ case. Similarly, let ${{Y}_{kr}}$ denote the rating for the r^th^ **lesion-free** ROI in the k^th^ case and $n_{k}^{N}$ denote the total number of lesion-free ROIs in the k^th^ case. Let ${{N}_{L}}$ denote the total number of lesion-containing ROIs in the image set and ${{N}_{N}}$ denote the total number of lesion-free ROIs. These are given by ${{N}_{L}}=\sum\nolimits_{k}{n_{k}^{L}}$ and ${{N}_{N}}=\sum\nolimits_{k}{n_{k}^{N}}$. The ROI figure of merit $\theta$\ is defined by: \[\theta =\frac{1}{{{N}_{L}}{{N}_{N}}}\sum\nolimits_{k}{\sum\nolimits_{{{k}'}}{\sum\limits_{r=1}^{n_{k}^{L}}{\sum\limits_{{r}'=1}^{n_{k'}^{N}}{\psi ({{X}_{kr}},{{Y}_{{k}'{r}'}})}}}}\]    
 
-Here the kernel function is defined by:
+The kernel function $\Psi(X,Y)$ is defined by:
 
 \[\psi (X,Y)=\left\{ \begin{align}
   & 1.0\ \ \ \text{if}\ Y<X \\ 
@@ -45,7 +49,7 @@ The ROIs are *effectively regarded as mini-cases* and one calculates the FOM as 
 ## Calculation of the ROI figure of merit.
 
 ```{r}
-UtilFigureOfMerit(datasetROI)
+UtilFigureOfMerit(datasetROI, FOM = "ROI")
 fom <- UtilFigureOfMerit(datasetROI, FOM = "ROI")
 ```             
 
@@ -56,6 +60,9 @@ fom <- UtilFigureOfMerit(datasetROI, FOM = "ROI")
 * Etc.  
 
 ## Significance testing
+
+When `dataset$dataType == "ROI"` the FOM defaults to "ROI" (meaning the above formula) and the covariance estimation method defaults to `covEstMethod = "DeLong"`.
+
 ```{r}
 ret <- StSignificanceTesting(datasetROI, FOM = "Wilcoxon")
 str(ret)
@@ -72,9 +79,10 @@ ret$varComp
 ### RRRC analysis  
 
 ```{r}
-ret$fRRRC
-ret$ddfRRRC
-ret$pRRRC
+ret$FTestStatsRRRC$fRRRC
+ret$FTestStatsRRRC$ndfRRRC
+ret$FTestStatsRRRC$ddfRRRC
+ret$FTestStatsRRRC$pRRRC
 ```             
 
 * The F-statistic is `r ret$fRRRC`, with `ndf = 1` and `ddf` = `r ret$ddfRRRC`, which yields a p-value of `r ret$pRRRC`.   
@@ -85,17 +93,18 @@ ret$pRRRC
 ret$ciDiffTrtRRRC
 ```             
 
-* The FOm difference treatment 1 minus 2 is `r ret$ciDiffTrtRRRC$Estimate`, which is significant, p-value = `r ret$pRRRC`, F-statistic = `r ret$fRRRC`, ddf = `r ret$ddfRRRC`. The confidence interval is (`r ret$ciDiffTrtRRRC$CILower`, `r ret$ciDiffTrtRRRC$CIUpper`).
+* The FOM difference (treatment 1 minus 2) is `r ret$ciDiffTrtRRRC$Estimate`, which is significant, p-value = `r ret$ciDiffTrtRRRC$PrGTt`, F-statistic = `r ret$FTestStatsRRRC$fRRRC`, ddf = `r ret$FTestStatsRRRC$ddfRRRC`. The confidence interval is (`r ret$ciDiffTrtRRRC$CILower`, `r ret$ciDiffTrtRRRC$CIUpper`).
 
 ### FRRC analysis  
 
 ```{r}
-ret$fFRRC
-ret$ddfFRRC
-ret$pFRRC
+ret$FTestStatsFRRC$fFRRC
+ret$FTestStatsFRRC$ndfFRRC
+ret$FTestStatsFRRC$ddfFRRC
+ret$FTestStatsFRRC$pFRRC
 ```             
 
-* The F-statistic is `r ret$fFRRC`, with `ndf = 1` and `ddf` = `Inf`, which yields a p-value of `r ret$pFRRC`. 
+* The F-statistic is `r ret$FTestStatsFRRC$fFRRC`, with `ndf = 1` and `ddf` = `Inf`, which yields a p-value of `r ret$FTestStatsFRRC$pFRRC`. 
 
 *  The confidence interval for the reader averaged difference between the two treatments is given by:
     
@@ -106,12 +115,14 @@ ret$ciDiffTrtFRRC
 ### RRFC analysis  
 
 ```{r}
-ret$fRRFC
-ret$ddfRRFC
-ret$pRRFC
+ret$FTestStatsRRFC$fRRFC
+ret$FTestStatsRRFC$ndfRRFC
+ret$FTestStatsRRFC$ddfRRFC
+ret$FTestStatsRRFC$pRRFC
+
 ```             
 
-* The F-statistic is `r ret$fRRFC`, with `ndf = 1` and `ddf` = `r ret$ddfRRFC`, which yields a p-value of `r ret$pRRFC`. 
+* The F-statistic is `r ret$FTestStatsRRFC$fRRFC`, with `ndf = 1` and `ddf` = `r ret$FTestStatsRRFC$ddfRRFC`, which yields a p-value of `r ret$FTestStatsRRFC$pRRFC`. 
 
 * The confidence interval for the reader averaged difference between the two treatments is given by:
     
@@ -120,7 +131,6 @@ ret$ciDiffTrtRRFC
 ```             
 
 ## Summary  
-The `list` variable `ret` also contains the results of `FRRC` and `RRFC` analyses. Extracting them is left as an exercise for the reader.
-
+TBA
 
 ## References  

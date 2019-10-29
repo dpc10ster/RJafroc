@@ -495,7 +495,11 @@ dataset2ratings <- function (dataset, FOM){
       zjk2Il <- NA
     } 
   } else if ((dataType == "FROC") && FOM %in% c("HrAuc", "AFROC", "wAFROC")) {
-    zjk1 <- dataset$NL # not used; original dataset is used
+    zjk1 <- dataset$NL
+    zjk2 <- dataset$LL
+    zjk2Il <- NA
+  } else if ((dataType == "ROI") && FOM == "ROI") {
+    zjk1 <- dataset$NL 
     zjk2 <- dataset$LL
     zjk2Il <- NA
   } else stop("incorrect FOM or dataType")
