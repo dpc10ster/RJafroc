@@ -20,10 +20,10 @@
 #' @export
 UtilLesionDistribution <- function(dataset)
 {  
-  lesionNum <- dataset$lesionNum
-  lesDistr <- table(lesionNum)
+  lesionVector <- dataset$lesionVector
+  lesDistr <- table(lesionVector)
   if (length(lesDistr) == 1) {
-    lesDistr <- c(lesionNum[1], 1)
+    lesDistr <- c(lesionVector[1], 1)
     dim(lesDistr) <- c(1, 2)
   }else{
     lesDistr <- t(rbind(as.numeric(unlist(attr(lesDistr, "dimnames"))), as.vector(lesDistr)))

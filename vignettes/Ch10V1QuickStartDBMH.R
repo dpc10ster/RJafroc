@@ -27,11 +27,11 @@ dataset03$NL[1,1,1:34,1]
 dataset03$NL[2,3,1:34,1]
 
 ## ------------------------------------------------------------------------
-fileName <- "includedRocData.xlsx"
+fileName <- "RocData.xlsx"
 sysFileName <- system.file(paste0("extdata/",fileName), package = "RJafroc", mustWork = TRUE)
 
 ## ------------------------------------------------------------------------
-ds <- DfReadDataFile(sysFileName)
+ds <- DfReadDataFile(sysFileName, newExcelFileFormat = FALSE) ##!!!DPC!!!
 
 ## ------------------------------------------------------------------------
 str(ds)

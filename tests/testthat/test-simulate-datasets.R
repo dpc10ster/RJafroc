@@ -19,7 +19,7 @@ test_that("SimulateCorCbmDataset", {
 test_that("SimulateFrocDataset", {
   set.seed(1)
   K1 <- 5;K2 <- 7;
-  maxLL <- 2;lesionNum <- floor(runif(K2, 1, maxLL + 1))
+  maxLL <- 2;lesionVector <- floor(runif(K2, 1, maxLL + 1))
   mu <- 1;lambda <- 1;nu <- 1 ;zeta1 <- -1
   I <- 2; J <- 5
 
@@ -28,18 +28,18 @@ test_that("SimulateFrocDataset", {
     warning(paste0("File not found - generating new ",fn))
     ret <- SimulateFrocDataset(
       mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
-      I = I, J = J, K1 = K1, K2 = K2, lesionNum = lesionNum)
+      I = I, J = J, K1 = K1, K2 = K2, lesionVector = lesionVector)
     saveRDS(ret, file = fn)
   }
   
   set.seed(1)
   K1 <- 5;K2 <- 7;
-  maxLL <- 2;lesionNum <- floor(runif(K2, 1, maxLL + 1))
+  maxLL <- 2;lesionVector <- floor(runif(K2, 1, maxLL + 1))
   mu <- 1;lambda <- 1;nu <- 1 ;zeta1 <- -1
   ret <- readRDS(fn)
   expect_equal(SimulateFrocDataset(
     mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
-    I = I, J = J, K1 = K1, K2 = K2, lesionNum = lesionNum), ret)
+    I = I, J = J, K1 = K1, K2 = K2, lesionVector = lesionVector), ret)
   # end of test
 
 })

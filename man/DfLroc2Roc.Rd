@@ -13,16 +13,17 @@ DfLroc2Roc(dataset)
 An ROC dataset
 }
 \description{
-Converts an LROC dataset to a ROC dataset
+Converts an LROC dataset to an ROC dataset
 }
 \details{
-The conversion is effected by taking the maximum rating on each diseased case, 
-which could be a TPCl or a TPIl, whichever has the higher rating.
+For the diseased cases one takes the maximum rating on each diseased case, 
+   which could be a LLCl ("true positive" correct localization) or a LLIl 
+   ("true positive" incorrect localization) rating, whichever has the higher rating.
+   For non-diseased cases the NL arrays are identical.
 }
 \examples{
-dataset <- DfReadLrocDataFile()
-str(dataset)
-rocDataSet <- DfLroc2Roc(dataset)
+str(datasetCadLroc)
+rocDataSet <- DfLroc2Roc(datasetCadLroc)
 str(rocDataSet)
 
 

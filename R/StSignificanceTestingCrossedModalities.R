@@ -15,7 +15,7 @@
 #' @examples
 #' \donttest{ 
 #' ## read the raw data file in extdata directory
-#' crossedFileName <- system.file("extdata", "includedCrossedModalitiesData.xlsx", 
+#' crossedFileName <- system.file("extdata", "CrossedModalitiesData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' crossedData <- DfReadCrossedModalities(crossedFileName)
 #' retCrossed1 <- StSignificanceTestingCrossedModalities(crossedData, 1)
@@ -29,7 +29,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                                    alpha = 0.05, option = "ALL"){
   NL <- crossedData$NL
   LL <- crossedData$LL
-  lesionNum <- crossedData$lesionNum
+  lesionVector <- crossedData$lesionVector
   lesionID <- crossedData$lesionID
   lesionWeight <- crossedData$lesionWeight
   maxNL <- dim(NL)[5]
@@ -56,7 +56,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
     stop("The analysis requires at least 2 treatments")
   }
   
-  ret <- EstimateVarCovCrossed(NL, LL, lesionNum, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
+  ret <- EstimateVarCovCrossed(NL, LL, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
   var <- ret$var
   cov1 <- ret$cov1
   cov2 <- ret$cov2
@@ -98,16 +98,16 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       nl <- NL[ , i, , , ]
       ll <- LL[ , i, , , ]
       dim(nl) <- c(length(crossedData$modalityID1), 1, J, K, maxNL)
-      dim(ll) <- c(length(crossedData$modalityID1), 1, J, K2, max(lesionNum))
+      dim(ll) <- c(length(crossedData$modalityID1), 1, J, K2, max(lesionVector))
     }else{
       nl <- NL[ i, , , , ]
       ll <- LL[ i, , , , ]
       dim(nl) <- c(1, length(crossedData$modalityID2), J, K, maxNL)
-      dim(ll) <- c(1, length(crossedData$modalityID2), J, K2, max(lesionNum))
+      dim(ll) <- c(1, length(crossedData$modalityID2), J, K2, max(lesionVector))
     }
     
     
-    ret <- EstimateVarCovCrossed(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
+    ret <- EstimateVarCovCrossed(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
     varSingle[i] <- ret$var
     if (J > 1) {
       cov2Single[i] <- ret$cov2
@@ -122,8 +122,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
     nl <- NL[ , , j, , ]
     ll <- LL[ , , j, , ]
     dim(nl) <- c(length(crossedData$modalityID1), length(crossedData$modalityID2), 1, K, maxNL)
-    dim(ll) <- c(length(crossedData$modalityID1), length(crossedData$modalityID2), 1, K2, max(lesionNum))
-    ret <- EstimateVarCovCrossed(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
+    dim(ll) <- c(length(crossedData$modalityID1), length(crossedData$modalityID2), 1, K2, max(lesionVector))
+    ret <- EstimateVarCovCrossed(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
     varEchRder[j] <- ret$var
     cov1EchRder[j] <- ret$cov1
   }
@@ -141,7 +141,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       break
     for (ip in (i + 1):I) {
       diffTRMeans[ii] <- trMeans[i] - trMeans[ip]
-      diffTRName[ii] <- paste(modalityID[i], modalityID[ip], sep = " - ")
+      diffTRName[ii] <- paste(modalityID[i], modalityID[ip], sep = "-")
       ii <- ii + 1
     }
   }
@@ -399,7 +399,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
 
 #' @importFrom stats cov
 #' 
-EstimateVarCovCrossed <- function(NL, LL, lesionNum, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx) {
+EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   Dim <- dim(NL)
   I1 <- dim(NL)[1]
@@ -418,8 +418,8 @@ EstimateVarCovCrossed <- function(NL, LL, lesionNum, lesionID, lesionWeight, max
             nl <- NL[i1, i2, j, -k, ]
             ll <- LL[i1, i2, j, , ]
             dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2, max(lesionNum))
-            jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
+            dim(ll) <- c(K2, max(lesionVector))
+            jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
           }
         }
       }
@@ -433,12 +433,12 @@ EstimateVarCovCrossed <- function(NL, LL, lesionNum, lesionID, lesionWeight, max
             nl <- NL[i1, i2, j, -(k + K1), ]
             ll <- LL[i1, i2, j, -k, ]
             dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2 - 1, max(lesionNum))
+            dim(ll) <- c(K2 - 1, max(lesionVector))
             lesionIDJk <- lesionID[-k, ]
-            dim(lesionIDJk) <- c(K2 -1, max(lesionNum))
+            dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
             lesionWeightJk <- lesionWeight[-k, ]
-            dim(lesionWeightJk) <- c(K2 -1, max(lesionNum))
-            jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionNum[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
+            dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
+            jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionVector[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
           }
         }
       }
@@ -453,18 +453,18 @@ EstimateVarCovCrossed <- function(NL, LL, lesionNum, lesionID, lesionWeight, max
               nl <- NL[i1, i2, j, -k, ]
               ll <- LL[i1, i2, j, , ]
               dim(nl) <- c(K - 1, maxNL)
-              dim(ll) <- c(K2, max(lesionNum))
-              jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
+              dim(ll) <- c(K2, max(lesionVector))
+              jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
             } else {
               nl <- NL[i1, i2, j, -k, ]
               ll <- LL[i1, i2, j, -(k - K1), ]
               dim(nl) <- c(K - 1, maxNL)
-              dim(ll) <- c(K2 - 1, max(lesionNum))
+              dim(ll) <- c(K2 - 1, max(lesionVector))
               lesionIDJk <- lesionID[-(k - K1), ]
-              dim(lesionIDJk) <- c(K2 -1, max(lesionNum))
+              dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
               lesionWeightJk <- lesionWeight[-(k - K1), ]
-              dim(lesionWeightJk) <- c(K2 -1, max(lesionNum))
-              jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionNum[-(k - K1)], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
+              dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
+              jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionVector[-(k - K1)], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
             }
           }
         }

@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "UtilOutputReport",
+        "query" : "modality",
         "regex" : false
     }
 }

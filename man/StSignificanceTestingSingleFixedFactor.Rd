@@ -4,18 +4,20 @@
 \alias{StSignificanceTestingSingleFixedFactor}
 \title{Perform significance testing for single fixed factor analysis}
 \usage{
-StSignificanceTestingSingleFixedFactor(dataset, FOM = "wAFROC",
-  alpha = 0.05)
+StSignificanceTestingSingleFixedFactor(dataset, FOM, alpha = 0.05,
+  FPFValue = 0.2)
 }
 \arguments{
 \item{dataset}{A single-treatment or single-reader dataset.}
 
-\item{FOM}{The figure of merit, default  \code{"wAFROC"}, 
-see \code{\link{UtilFigureOfMerit}}.}
+\item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}.}
 
 \item{alpha}{The significance level (\code{alpha}, default 0.05) 
 of the test of the null hypothesis that FOMs of all levels of 
 the fixed factor are identical.}
+
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
 The return value is a list containing:
@@ -35,8 +37,8 @@ The return value is a list containing:
    pairings of the levels of the fixed factor}
 }
 \description{
-Significance testing for datasets with single reader in 
-   multiple (at least two) treatments, or single treatment with multiple 
+Significance testing for datasets with a single reader in 
+   multiple (at least two) treatments, or a single treatment with multiple 
    (at least two) readers, where reader or treatment, respectively, is 
    regarded as a fixed factor and a common case-set, regarded as random, 
    is assumed.

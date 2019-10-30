@@ -1,11 +1,11 @@
-#' Fit the radiological search model (RSM) to ROC data
+#' Fit the radiological search model (RSM) to an ROC dataset
 #' 
-#' @description Fit an RSM-predicted ROC curve to a binned ROC dataset
+#' @description Fit an RSM-predicted ROC curve to a \strong{binned single-modality single-treatment ROC dataset}
 #' 
 #' @param binnedRocData The \strong{binned ROC} dataset containing the data
 #' @param lesDistr The lesion distribution matrix
-#' @param trt The desired treatment, default is 1
-#' @param rdr The desired reader, default is 1
+#' @param trt The selected treatment, default is 1
+#' @param rdr The selected reader, default is 1
 #' 
 #' 
 #' @return The return value is a list with the following elements:
@@ -120,8 +120,8 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   #minZeta <- RJafrocEnv$minZeta
   #maxZeta <- RJafrocEnv$maxZeta
   
-  modalityID <- binnedRocData$modalityID[trt]
-  readerID <- binnedRocData$readerID[rdr]
+  # modalityID <- binnedRocData$modalityID[trt]
+  # readerID <- binnedRocData$readerID[rdr]
   class(lesDistr) <- "numeric"
   
   fp <- binnedRocData$NL[trt,rdr,,1];fp <- fp[fp != -Inf]
@@ -131,7 +131,7 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   
   ret1 <- UtilBinCountsOpPts(binnedRocData, trt, rdr) 
   fpf <- ret1$fpf;tpf <- ret1$tpf;fpCounts <- ret1$fpCounts;tpCounts <- ret1$tpCounts
-  K1 <- sum(fpCounts);K2 <- sum(tpCounts)
+  # K1 <- sum(fpCounts);K2 <- sum(tpCounts)
   if (isDataDegenerate (fpf, tpf)) {
     if (max(tpf) > max(fpf)) { 
       mu <- maxMu # technically infinity; but then vertical line does not plot

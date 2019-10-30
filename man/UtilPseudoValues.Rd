@@ -4,22 +4,28 @@
 \alias{UtilPseudoValues}
 \title{Calculate pseudovalues}
 \usage{
-UtilPseudoValues(dataset, FOM = "Wilcoxon")
+UtilPseudoValues(dataset, FOM, FPFValue = 0.2)
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}.}
 
 \item{FOM}{The figure of merit to be used in the calculation. 
 The default is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
+
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
-An \code{c(I, J, K)} array containing the pseudovalues of the datasets.
+A list containing two \code{c(I, J, K)} arrays containing the pseudovalues
+   and the jackknife FOM values of the datasets.
 }
 \description{
-Calculates centered pseudovalues using the jackknife
+Calculates \strong{centered} jackknife pseudovalues AND jackknife FOM values
 }
 \examples{
-UtilPseudoValues(dataset02, FOM = "Wilcoxon")[1,1,1:10]
-UtilPseudoValues(dataset05, FOM = "wAFROC")[1,1,1:10] # default FOM is wAFROC for this FROC dataset
+UtilPseudoValues(dataset02, FOM = "Wilcoxon")$jkPseudoValues[1,1,1:10]
+UtilPseudoValues(dataset02, FOM = "Wilcoxon")$jkFomValues[1,1,1:10]
+UtilPseudoValues(dataset05, FOM = "wAFROC")$jkPseudoValues[1,1,1:10]
+UtilPseudoValues(dataset05, FOM = "wAFROC")$jkFomValues[1,1,1:10]
 
 }

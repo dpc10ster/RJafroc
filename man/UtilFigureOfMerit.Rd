@@ -11,8 +11,8 @@ UtilFigureOfMerit(dataset, FOM = "wAFROC", FPFValue = 0.2)
 
 \item{FOM}{The figure of merit; the default is \code{"wAFROC"}}
 
-\item{FPFValue}{Only needed for \code{LROC} data; where to evaluate a partial 
-curve based figure of merit. The default is 0.2.}
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
 An \code{c(I, J)} array, where the row names are \code{modalityID}'s of the 
@@ -20,7 +20,8 @@ An \code{c(I, J)} array, where the row names are \code{modalityID}'s of the
 }
 \description{
 Calculate the specified empirical figure of merit
-for each treatment-reader combination in the ROC, FROC, ROI or LROC dataset
+   for each treatment-reader combination in the 
+   ROC, FROC, ROI or LROC dataset
 }
 \details{
 The allowed FOMs depend on the \code{dataType} field of the 
@@ -59,8 +60,8 @@ The allowed FOMs depend on the \code{dataType} field of the
    \item \code{FOM = "PCL"} the probability of correct localization at specified \code{FPFValue}
    \item \code{FOM = "ALROC"} the area under the LROC from zero to specified \code{FPFValue} 
    }
-   \code{FPFValue} is the desired FPF at which to evaluate \code{PCL} or \code{ALROC}; 
-      the default is 0.2.
+   \code{FPFValue} The FPF at which to evaluate \code{PCL} or \code{ALROC}; 
+      the default is 0.2; only needed for LROC data.
 }
 \examples{
 UtilFigureOfMerit(dataset02, FOM = "Wilcoxon") # ROC data

@@ -32,12 +32,12 @@ Excel output file containing the following worksheets:
 
 ## Generating the Excel output file
 
-This illustrates the `UtilOutputReport()` function. The significance testing `method` is "DBMH"
-and the figure of merit `FOM` is  "Wilcoxon", both being the defaults. Note `ReportFileExt` = "xlsx"` telling
+This illustrates the `UtilOutputReport()` function. The significance testing `method` is "DBMH", the default, 
+and the figure of merit `FOM` is  "Wilcoxon". Note `ReportFileExt` = "xlsx"` telling
 the function to create an Excel output file. The Excel output is created in a temporary file.
 
 ```{r}
-ret <- UtilOutputReport(dataset03, overWrite = TRUE, ReportFileExt = "xlsx")
+ret <- UtilOutputReport(dataset03, FOM = "Wilcoxon", overWrite = TRUE, ReportFileExt = "xlsx")
 ```             
 
 
@@ -46,7 +46,7 @@ Simply change `method = "DBMH"` (the default) to `method = "ORH"`.
 
 
 ```{r}
-ret <- UtilOutputReport(dataset03, method = "ORH", overWrite = TRUE, ReportFileExt = "xlsx")
+ret <- UtilOutputReport(dataset03, FOM = "Wilcoxon", method = "ORH", overWrite = TRUE, ReportFileExt = "xlsx")
 ```             
 
 

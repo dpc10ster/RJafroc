@@ -8,7 +8,7 @@
 \itemize{
 \item{\code{NL}}{ Ratings array [1:5, 1:4, 1:200, 1:7], of non-lesion localizations, NLs}
 \item{\code{LL}}{ Ratings array [1:5, 1:4, 1:100, 1:3], of lesion localizations, LLs}
-\item{\code{lesionNum}}{ array [1:100], number of lesions per diseased case}
+\item{\code{lesionVector}}{ array [1:100], number of lesions per diseased case}
 \item{\code{lesionID}}{ array [1:100, 1:3], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{ array [1:100, 1:3] weights (or clinical importance) of lesions, all set to 1}
 \item{\code{dataType}}{ "FROC", the data type}
@@ -22,8 +22,9 @@ dataset04
 This is referred to in the book as the "FED" dataset. It consists of 200 mammograms, 
 100 of which contained one to 3 simulated microcalcifications,
 interpreted in five treatments (basically different image processing algorithms), by four 
-radiologists using the FROC paradigm. The maximum number of NLs per case, over the entire 
-dataset was 7 and the dataset contained at least one diseased mammogram with 3 lesions.
+radiologists using the FROC paradigm and a 5-point rating scale. The maximum number of NLs 
+per case, over the entire dataset was 7 and the dataset contained at least one diseased 
+mammogram with 3 lesions.
 }
 \examples{
 str(dataset04)

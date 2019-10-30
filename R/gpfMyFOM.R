@@ -1,6 +1,10 @@
 #' @importFrom stats approx
 
-gpfMyFOM <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue = NULL) {
+gpfMyFOM <- function(nl, ll, 
+                     lesionVector, lesionID, 
+                     lesionWeight, maxNL, 
+                     maxLL, K1, K2, 
+                     FOM, FPFValue = NULL) {
   if (!FOM %in% c("Wilcoxon", "HrAuc", "HrSe", "HrSp", "SongA1", 
                   "SongA2", "AFROC1", "AFROC", "wAFROC1", "wAFROC",
                   "JAFROC1", "JAFROC", "wJAFROC1", "wJAFROC", "FROC", # dpc 
@@ -10,40 +14,40 @@ gpfMyFOM <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, maxLL, K1
     stop(errMsg)
   }
   fom <- NA
-  # fom <- wJAFROC_dpc(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight)
-  # fom <- wJAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight)
+  # fom <- wJAFROC_dpc(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight)
+  # fom <- wJAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight)
   fom <- switch(FOM,
                 "Wilcoxon" = TrapezoidalArea(nl, K1, ll, K2),
-                "HrAuc" = HrAuc(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "HrSe" = HrSe(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "HrSp" = HrSp(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "SongA1" = SongA1(K1, K2, maxNL, maxLL, lesionNum, nl, ll),
-                "SongA2" = SongA2(K1, K2, maxNL, maxLL, lesionNum, nl, ll),
-                "AFROC1" = JAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL), # dpc
-                "JAFROC1" = JAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "AFROC" = JAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL), # dpc
-                "JAFROC" = JAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "wAFROC1" = wJAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
-                "wJAFROC1" = wJAFROC1(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight),
-                "wAFROC" = wJAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
-                "wJAFROC" = wJAFROC(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL, lesionWeight),
-                "FROC" = FROC(nl, ll, lesionID, lesionNum, K1, K2),
+                "HrAuc" = HrAuc(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "HrSe" = HrSe(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "HrSp" = HrSp(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "SongA1" = SongA1(K1, K2, maxNL, maxLL, lesionVector, nl, ll),
+                "SongA2" = SongA2(K1, K2, maxNL, maxLL, lesionVector, nl, ll),
+                "AFROC1" = JAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL), # dpc
+                "JAFROC1" = JAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "AFROC" = JAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL), # dpc
+                "JAFROC" = JAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "wAFROC1" = wJAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
+                "wJAFROC1" = wJAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight),
+                "wAFROC" = wJAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
+                "wJAFROC" = wJAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight),
+                "FROC" = FROC(nl, ll, lesionID, lesionVector, K1, K2),
                 "ALROC" = LrocFoms(nl, ll, FPFValue)$ALroc,
                 "PCL" = LrocFoms(nl, ll, FPFValue)$PCL,
-                "MaxLLF" = MaxLLF(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "MaxNLF" = MaxNLF(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "MaxNLFAllCases" = MaxNLFAllCases(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "ExpTrnsfmSp" = ExpTrnsfmSp(nl, ll, lesionNum, c(K1, K2), maxNL, maxLL),
-                "ROI" = ROI(K1, K2, maxNL, lesionNum, nl, ll)
+                "MaxLLF" = MaxLLF(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "MaxNLF" = MaxNLF(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "MaxNLFAllCases" = MaxNLFAllCases(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "ExpTrnsfmSp" = ExpTrnsfmSp(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "ROI" = ROI(K1, K2, maxNL, lesionVector, nl, ll)
   )
   return(fom)
 } 
 
 
-FROC <- function(nl, ll, lesionID, lesionNum, K1, K2){
+FROC <- function(nl, ll, lesionID, lesionVector, K1, K2){
   nl <- as.vector(nl[nl != -Inf])
   ll <- ll[is.finite(lesionID)]
-  sumNumLL <- sum(lesionNum)
+  sumNumLL <- sum(lesionVector)
   frocFOM <- 0
   for (l in 1:length(nl)){
     frocFOM <- frocFOM + sum(nl[l] < ll) + 0.5 * sum(nl[l] == ll)
@@ -51,14 +55,26 @@ FROC <- function(nl, ll, lesionID, lesionNum, K1, K2){
   return(frocFOM / (K1 + K2) / sumNumLL)
 }
 
-
-
+# major changes 10/25/19
+# replaced interpolation function (approx) with that shown below
+# did search on available R functions - none satisfied my simple need 
+# see ChkLrocFoms.xlsx
 LrocFoms <- function (zk1, zk2Cl, FPFValue) {
   zk1 <- drop(zk1)
   zk2Cl <- drop(zk2Cl)
-  zk1 <- zk1[zk1 != -Inf]
   lroc <- LrocOperatingPointsFromRatings( zk1, zk2Cl )
-  PCL <- (approx(lroc$FPF, lroc$PCL, xout = FPFValue, ties = min))$y # computes PCL @ FPFValue
+  # this is my simple interpolation code, 
+  # in the spirit of empirical values, no smoothing assumptions
+  # find values of x (lowerX and upperX) immediately surrounding x = FPFValue
+  # then perform linear interpolation
+  x <- FPFValue
+  lowerX <- max(lroc$FPF[lroc$FPF < x]) # the ordering of the 4 inequalities is critical
+  upperX <- min(lroc$FPF[lroc$FPF >= x])
+  lowerY <- max(lroc$PCL[lroc$FPF < x])
+  upperY <- min(lroc$PCL[lroc$FPF >= x])
+  f <- (x - lowerX)/(upperX - lowerX)
+  PCL <- f * (upperY - lowerY) + lowerY
+  # end my code
   tempFpf <-c(lroc$FPF[lroc$FPF < FPFValue],FPFValue)
   tempPcl <-c(lroc$PCL[lroc$FPF < FPFValue],PCL)
   ALroc <- trapz(tempFpf, tempPcl) # computes trapezoidal area under LROC (0 to FPFValue)
@@ -91,8 +107,8 @@ Wilcoxon <- function (zk1, zk2)
 # copied from caTools; July 5th, 2018, after threatening email that CaTools and my package would be 
 # archived, whatever that means; see email from Kurt Hornik <Kurt.Hornik@wu.ac.at> dated 7/5/2018
 # 
-trapz = function(x, y) 
-{ ### computes the integral of y with respect to x using trapezoidal integration. 
+trapz = function(x, y)
+{ ### computes the integral of y with respect to x using trapezoidal integration.
   idx = 2:length(x)
   return (as.double( (x[idx] - x[idx-1]) %*% (y[idx] + y[idx-1])) / 2)
 }

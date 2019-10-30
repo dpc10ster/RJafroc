@@ -2,166 +2,169 @@
 % Please edit documentation in R/StSignificanceTestingCadVsRadiologists.R
 \name{StSignificanceTestingCadVsRadiologists}
 \alias{StSignificanceTestingCadVsRadiologists}
-\title{Significance testing, CAD vs. radiologists}
+\title{Significance testing: standalone CAD vs. radiologists}
 \usage{
-StSignificanceTestingCadVsRadiologists(dataset, FOM = "Wilcoxon",
-  option = "RRRC", method = "singleModality", FPFValue = 0.2)
+StSignificanceTestingCadVsRadiologists(dataset, FOM, FPFValue = 0.2,
+  method = "1T-RRRC", alpha = 0.05, plots = FALSE)
 }
 \arguments{
-\item{dataset}{\strong{The dataset must be ROC or LROC.}}
+\item{dataset}{\strong{The dataset to be analzed; must be single-treatment
+multiple-readers, where the first reader is CAD.}}
 
-\item{FOM}{The desired FOM, default is \code{"Wilcoxon"} for ROC data, or ROC data 
-inferred from LROC data; 
-for LROC data the choices are \code{"PCL"} and \code{"ALROC"}.}
+\item{FOM}{The desired FOM; for ROC data it must be \code{"Wilcoxon"}, for FROC data 
+it can be any valid FOM, e.g., \code{"HrAuc"}, \code{"wAFROC"}, etc; 
+for LROC data it must be \code{"Wilcoxon"}, or \code{"PCL"} or \code{"ALROC"}.}
 
-\item{option}{The desired generalization, the default is \code{"RRRC"}; 
-another possibility is \code{"RRFC"}.}
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
 
-\item{method}{\code{"singleModality"}, the default, or \code{"dualModality"},
-see details.}
+\item{method}{The desired analysis: "1T-RRFC","1T-RRRC" (the default) or "2T-RRRC",
+see manuscript for details. \strong{Note: method "2T-RRRC" is not implemented 
+for non-LROC data. It is an obsolete method, included here only to show that
+it gives identical summary statistics, e.g., p-value, as "1T-RRRC".}}
 
-\item{FPFValue}{Only needed for LROC data; where to evaluate a partial curve based
-   figure of merit, see details. The default is 0.2.
+\item{alpha}{Significance level of the test, defaults to 0.05.}
 
-## potential project for summer student}
+\item{plots}{Flag, default is FALSE, i.e., a plot is not displayed. 
+If TRUE, it displays the appropriate operating characteristic for all 
+readers and CAD.}
 }
 \value{
-If \code{method = "singleModality"} the return value is a 
-list with the following elements:
+If \code{method = "1T-RRRC"} the return value is a 
+   list with the following elements:
 
-\item{fomCAD}{The observed FOM for CAD}
+\item{fomCAD}{The observed FOM for CAD.}
 
-\item{fomRAD}{The observed FOM array for the readers}
+\item{fomRAD}{The observed FOM array for the readers.}
 
-\item{avgRadFom}{The average FOM of the readers}
+\item{avgRadFom}{The average FOM of the readers.}
 
-\item{avgDiffFom}{The mean of the difference FOM, RAD - CAD}
+\item{avgDiffFom}{The mean of the difference FOM, RAD - CAD.}
 
-\item{ciAvgDiffFom}{The 95-percent CI of the average difference, RAD - CAD}
+\item{ciAvgDiffFom}{The 95-percent CI of the average difference, RAD - CAD.}
 
-\item{varR}{The variance of the radiologists}
+\item{varR}{The variance of the radiologists.}
 
 \item{varError}{The variance of the error term in the single-treatment 
-   multiple-reader OR model}
+   multiple-reader OR model.}
 
-\item{cov2}{The covariance of the error term}
+\item{cov2}{The covariance of the error term.}
 
 \item{tstat}{The observed value of the t-statistic; it's square is 
-   equivalent to an F-statistic}
+   equivalent to an F-statistic.}
 
-\item{df}{The degrees of freedom of the t-statistic}
+\item{df}{The degrees of freedom of the t-statistic.}
 
-\item{pval}{The p-value for rejecting the NH}
+\item{pval}{The p-value for rejecting the NH.}
 
-\item{Plots}{Empirical operating characteristic plots 
-   corresponding to specified FOM}
-
-If \code{method = "dualModality"} the return value is a list 
-   with the following elements:
-
-\item{fomCAD}{The observed FOM for CAD}
-
-\item{fomRAD}{The observed FOM array for the readers}
-
-\item{avgRadFom}{The average FOM of the readers}
-
-\item{avgDiffFom}{The mean of the difference FOM, RAD - CAD}
-
-\item{ciDiffFom}{A data frame containing the statistics associated 
-   with the average difference, RAD - CAD}
-
-\item{ciAvgRdrEachTrt}{A data frame containing the statistics 
-   associated with the average FOM in each treatment}
-
-\item{varR}{The variance of the pure reader term in the OR model}
-
-\item{varTR}{The variance of the treatment-reader term error 
-   term in the OR model}
-
-\item{cov1}{The covariance1 of the error term - same reader, 
-   different treatments}
-
-\item{cov2}{The covariance2 of the error term  - 
-   different readers, same treatment}
-
-\item{cov3}{The covariance3 of the error term  - different readers, 
-   different treatments}
-
-\item{varError}{The variance of the pure error term in the OR model}
-
-\item{Fstat}{The observed value of the F-statistic}
-
-\item{ndf}{The numerator degrees of freedom of the F-statistic}
-
-\item{ddf}{The denominator degrees of freedom of the F-statistic}
-
-\item{pval}{The p-value for rejecting the NH}
-
-\item{Plots}{Empirical operating characteristic plots corresponding 
-   to specified FOM, i.e., if \code{FOM} = \code{"Wilcoxon"} an ROC plot
+\item{Plots}{If argument plots = TRUE, a \pkg{ggplot} object 
+   containing empirical operating characteristics  
+   corresponding to specified FOM. For example, if \code{FOM} = 
+   \code{"Wilcoxon"} an ROC plot object
    is produced where reader 1 is CAD. If an LROC FOM is selected, an LROC
    plot is displayed.}
+
+If \code{method = "2T-RRRC"} the return value is a list 
+   with the following elements:
+
+\item{fomCAD}{The observed FOM for CAD.}
+
+\item{fomRAD}{The observed FOM array for the readers.}
+
+\item{avgRadFom}{The average FOM of the readers.}
+
+\item{avgDiffFom}{The mean of the difference FOM, RAD - CAD.}
+
+\item{ciDiffFom}{A data frame containing the statistics associated 
+   with the average difference, RAD - CAD.}
+
+\item{ciAvgRdrEachTrt}{A data frame containing the statistics 
+   associated with the average FOM in each "treatment".}
+
+\item{varR}{The variance of the pure reader term in the OR model.}
+
+\item{varTR}{The variance of the treatment-reader term error 
+   term in the OR model.}
+
+\item{cov1}{The covariance1 of the error term - same reader, 
+   different treatments.}
+
+\item{cov2}{The covariance2 of the error term  - 
+   different readers, same treatment.}
+
+\item{cov3}{The covariance3 of the error term  - different readers, 
+   different treatments.}
+
+\item{varError}{The variance of the pure error term in the OR model.}
+
+\item{FStat}{The observed value of the F-statistic.}
+
+\item{ndf}{The numerator degrees of freedom of the F-statistic.}
+
+\item{ddf}{The denominator degrees of freedom of the F-statistic.}
+
+\item{pval}{The p-value for rejecting the NH.}
+
+\item{Plots}{see above.}
 }
 \description{
-Significance testing, comparing CAD vs. a group of radiologists 
-   interpreting the same cases, an example of single treatment analysis
+Comparing standalone CAD vs. a group of radiologists interpreting 
+   the same cases; (ideally) \strong{standalone CAD} means that all the 
+   \bold{designer-level} mark-rating pairs provided by the CAD algorithm 
+   are available, not just the one or two marks usually displayed to the 
+   radiologist. At the very minimum, location-level information, such as in
+   the LROC paradigm, should be used. Ideally the FROC paradigm should be used.
+   A severe statistical power penalty is paid if one uses the ROC paradigm. 
+   Details of the method are in a pdf file that will be uploaded to GitHub and 
+   in my 2017 book.
 }
 \details{
-PCL is the probability of a correct localization. The LROC is the plot of PCL 
-   (ordinate) vs. FPF. For LROC data \code{"PCL"} means interpolated PCL value 
-   at specified \code{"FPFValue"}. \code{"ALROC"} is the trapezoidal area 
-   under the LROC
-   from FPF = 0 to FPF = \code{FPFValue}. If \code{method = "singleModality"} 
-   the first \strong{reader} is assumed to be CAD. If 
-   \code{method = "dualModality"} the first \strong{treatment} is assumed to be CAD. 
-   The NH is that the FOM of CAD equals the average of the readers. The 
-   \code{method = "singleModality"} analysis uses an adaptation of the 
+\itemize{
+   \item{\strong{PCL} is the probability of a correct localization.} 
+   \item{The LROC is the plot of PCL (ordinate) vs. FPF.} 
+   \item{For LROC data, FOM = "PCL" means the interpolated PCL value 
+   at the specified \code{FPFValue}.}
+   \item{For FOM = "ALROC" the trapezoidal area under the LROC
+   from FPF = 0 to FPF = \code{FPFValue} is used.} 
+   \item{If \code{method = "1T-RRRC"} the first \strong{reader} is assumed to be CAD.} 
+   \item{If \code{method = "2T-RRRC"} the first \strong{treatment} is assumed to be CAD.} 
+   \item{The NH is that the FOM of CAD equals the average of the readers.} 
+   \item{The \code{method = "1T-RRRC"} analysis uses an adaptation of the 
    single-treatment multiple-reader Obuchowski Rockette (OR) model described in a 
-   paper by Hillis (2007), section 5.3. The adaptation is characterized by 3 
-   parameters
-   \code{VarR}, \code{Var} and \code{Cov2}, which are returned by the function. 
-   The \code{method = "dualModality"} analysis replicates CAD data as many times as
+   paper by Hillis (2007), section 5.3. It is characterized by 3 parameters
+   \code{VarR}, \code{Var} and \code{Cov2}, where the latter two are estimated 
+   using the jackknife.} 
+   \item{For \code{method = "2T-RRRC"} the analysis replicates the CAD data as many times as
    necessary so as to form one "treatment" of an MRMC pairing, the other 
-   "treatment" being the 
-   radiologists. Standard RRRC DBMH/ORH analysis is applied. The 
-   method, described 
-   in Kooi et al gives exactly the same final results (F-statistic, ddf and p-value) 
-   as \code{"singleModality"} but the intermediate quantities are questionable. 
-   The method is characterized by 6 OR parameters \code{VarR}, \code{VarTR}, 
-   \code{Var}, \code{Cov1}, \code{Cov2} and \code{Cov3}, which are returned 
-   by the function.
-}
-\note{
-The extension of the code to FROC will be addressed in a future update.
+   "treatment" being the radiologists. Then standard ORH analysis is applied. The 
+   method is described in Kooi et al. It gives exactly the same final results 
+   (F-statistic, ddf and p-value) as \code{"1T-RRRC"} but the intermediate quantities 
+   are meaningless.}
+   }
 }
 \examples{
 ret1M <- StSignificanceTestingCadVsRadiologists (dataset09, 
-FOM = "Wilcoxon", method = "singleModality")
+FOM = "Wilcoxon", method = "1T-RRRC")
 
 \dontrun{
 ## takes longer than 5 sec on OSX
-ret2M <- StSignificanceTestingCadVsRadiologists (dataset09, 
-FOM = "Wilcoxon", method = "dualModality")
-
 retLroc1M <- StSignificanceTestingCadVsRadiologists (datasetCadLroc, 
-FOM = "PCL", option = "RRRC", method = "singleModality", FPFValue = 0.05)
+FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
 
 retLroc2M <- StSignificanceTestingCadVsRadiologists (datasetCadLroc, 
-FOM = "PCL", option = "RRRC", method = "dualModality", FPFValue = 0.05)
+FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
 
 ## test with fewer readers
 dataset09a <- DfExtractDataset(dataset09, rdrs = seq(1:7))
 ret1M7 <- StSignificanceTestingCadVsRadiologists (dataset09a, 
-FOM = "Wilcoxon", method = "singleModality")
-ret2M7 <- StSignificanceTestingCadVsRadiologists (dataset09a, 
-FOM = "Wilcoxon", method = "dualModality")
+FOM = "Wilcoxon", method = "1T-RRRC")
 
 datasetCadLroc7 <- DfExtractDataset(datasetCadLroc, rdrs = seq(1:7))
 ret1MLroc7 <- StSignificanceTestingCadVsRadiologists (datasetCadLroc7, 
-FOM = "PCL", option = "RRRC", method = "singleModality", FPFValue = 0.05)
+FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
 
 ret2MLroc7 <- StSignificanceTestingCadVsRadiologists (datasetCadLroc7, 
-FOM = "PCL", option = "RRRC", method = "dualModality", FPFValue = 0.05)
+FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
 }
 
 }

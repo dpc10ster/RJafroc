@@ -48,9 +48,9 @@ non-diseased cases? This can be understood in several ways.
 
 * `LL` is an array with dimensions `[1:2,1:4,1:67,1]`. This implies 67 diseased cases, and by 
     subtraction from 100, there must be 34 non-diseased cases.
-* The list members `lesionNum`, `lesionID` and `lesionWeight` are all arrays with dimensions
+* The list members `lesionVector`, `lesionID` and `lesionWeight` are all arrays with dimensions
     `[1:67,1]` containing ones. Again, these imply 67 diseased cases.
-* The fields `lesionNum`, `lesionID` and `lesionWeight`, while not needed for ROC data, 
+* The fields `lesionVector`, `lesionID` and `lesionWeight`, while not needed for ROC data, 
     are needed, as we shall see later, for the FROC paradigm.
 
 The `dataType` list member is the character string `"ROC"`,
@@ -99,20 +99,20 @@ the ordering of the ratings.
 
 ## Creating a dataset from a JAFROC format file
 
-There is a file `includedRocData.xlsx` that is part of the package installation. Since it is a system
+There is a file `RocData.xlsx` that is part of the package installation. Since it is a system
 file one must get its name as follows.
 
 ```{r}
-fileName <- "includedRocData.xlsx"
+fileName <- "RocData.xlsx"
 sysFileName <- system.file(paste0("extdata/",fileName), package = "RJafroc", mustWork = TRUE)
 ``` 
 
 Next, one uses DfReadDataFile() as follows, assuming it is a JAFROC format file.
 
 ```{r}
-ds <- DfReadDataFile(sysFileName)
+ds <- DfReadDataFile(sysFileName, newExcelFileFormat = FALSE) ##!!!DPC!!!
 ``` 
-
+, 
 Here `ds` is the desired dataset.
 
 ```{r}

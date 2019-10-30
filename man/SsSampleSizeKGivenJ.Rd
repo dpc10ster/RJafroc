@@ -4,26 +4,26 @@
 \alias{SsSampleSizeKGivenJ}
 \title{Number of cases, for specified number of readers, to achieve desired power}
 \usage{
-SsSampleSizeKGivenJ(dataset, J, alpha = 0.05, effectSize = NULL,
-  desiredPower = 0.8, option = "ALL", method = "DBMH", ...)
+SsSampleSizeKGivenJ(dataset, J, FOM = "Wilcoxon", effectSize = NULL,
+  method = "DBMH", alpha = 0.05, desiredPower = 0.8,
+  option = "ALL")
 }
 \arguments{
-\item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate to the \bold{pivotal} study. If 
-missing, then variance components and effectSize must be passed as additional parameters.}
+\item{dataset}{The \bold{pilot} The \strong{pilot} ROC dataset.}
 
-\item{J}{The number of readers in the pivotal study.}
+\item{J}{The number of readers in the \strong{pivotal} study.}
+
+\item{FOM}{The figure of merit.}
+
+\item{effectSize}{The effect size to be used in the \strong{pivotal} study.}
+
+\item{method}{"DBMH" (default) or "ORH".}
 
 \item{alpha}{The significance level of the study, default is 0.05.}
-
-\item{effectSize}{The effect size to be used in the pivotal study, default value is \code{NULL}.}
 
 \item{desiredPower}{The desired statistical power, default is 0.8.}
 
 \item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
-
-\item{method}{"DBMH" (default) or "ORH".}
-
-\item{...}{Other parameters, OR or DBM variance components, passed internally, see details}
 }
 \value{
 A list of two elements:
@@ -38,11 +38,8 @@ Number of cases to achieve the desired power, for
   specified number of readers J, and specified DBMH or ORH analysis method
 }
 \details{
-Other parameters \code{...} are reserved for internal use. The default \code{effectSize}
-    uses the observed effect size in the pilot study. A numeric value over-rides the default value.
-}
-\note{
-The procedure is valid for ROC studies only; for FROC studies see Online Appendix Chapter 19.
+The default \code{effectSize} uses the observed effect size in the pilot 
+   study. A numeric value over-rides the default value.
 }
 \examples{
 ## An example using the DBM method

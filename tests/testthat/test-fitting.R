@@ -66,7 +66,8 @@ test_that("FitCorCbm", {
 
   skip_on_travis()
   skip_on_cran()
-
+  skip_on_os("mac")
+  
   fn <- paste0(test_path(), "/goodValues361/Fitting/CorCbm", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))

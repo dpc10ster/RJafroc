@@ -4,14 +4,14 @@
 \alias{DfReadCrossedModalities}
 \title{Read a crossed-treatment data file}
 \usage{
-DfReadCrossedModalities(fileName, renumber = FALSE)
+DfReadCrossedModalities(fileName, sequentialNames = FALSE)
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file that contains the dataset, 
 which must be an extended-JAFROC format data file containing an 
 additional treatment factor.}
 
-\item{renumber}{If \code{TRUE}, consecutive integers (starting from 1) will be used 
+\item{sequentialNames}{If \code{TRUE}, consecutive integers (starting from 1) will be used 
 as the treatment and reader IDs. Otherwise, treatment and reader IDs in the 
 original data file will be used. The default is \code{FALSE}.}
 }
@@ -28,14 +28,14 @@ two treatment factors are crossed
 \details{
 The data format is  similar to the JAFROC format (see \code{\link{RJafroc-package}}). 
    The notable difference is that there are two treatment factors. A sample crossed 
-   treatment file "includedCrossedModalitiesData.xlsx" is in the \code{inst\\extdata} 
+   treatment file "CrossedModalitiesData.xlsx" is in the \code{inst\\extdata} 
    subdirectory of \code{RJafroc}.
 }
 \examples{
 
 \donttest{
 crossedFileName <- system.file("extdata", 
-   "includedCrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
+   "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
 crossedData <- DfReadCrossedModalities(crossedFileName)
 str(crossedData)
 }

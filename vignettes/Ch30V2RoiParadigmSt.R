@@ -10,32 +10,36 @@ UtilFigureOfMerit(datasetROI)
 fom <- UtilFigureOfMerit(datasetROI, FOM = "ROI")
 
 ## ------------------------------------------------------------------------
-ret <- StSignificanceTesting(datasetROI)
+ret <- StSignificanceTesting(datasetROI, FOM = "Wilcoxon")
 str(ret)
 
 ## ------------------------------------------------------------------------
 ret$varComp
 
 ## ------------------------------------------------------------------------
-ret$fRRRC
-ret$ddfRRRC
-ret$pRRRC
+ret$FTestStatsRRRC$fRRRC
+ret$FTestStatsRRRC$ndfRRRC
+ret$FTestStatsRRRC$ddfRRRC
+ret$FTestStatsRRRC$pRRRC
 
 ## ------------------------------------------------------------------------
 ret$ciDiffTrtRRRC
 
 ## ------------------------------------------------------------------------
-ret$fFRRC
-ret$ddfFRRC
-ret$pFRRC
+ret$FTestStatsFRRC$fFRRC
+ret$FTestStatsFRRC$ndfFRRC
+ret$FTestStatsFRRC$ddfFRRC
+ret$FTestStatsFRRC$pFRRC
 
 ## ------------------------------------------------------------------------
 ret$ciDiffTrtFRRC
 
 ## ------------------------------------------------------------------------
-ret$fRRFC
-ret$ddfRRFC
-ret$pRRFC
+ret$FTestStatsRRFC$fRRFC
+ret$FTestStatsRRFC$ndfRRFC
+ret$FTestStatsRRFC$ddfRRFC
+ret$FTestStatsRRFC$pRRFC
+
 
 ## ------------------------------------------------------------------------
 ret$ciDiffTrtRRFC

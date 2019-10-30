@@ -19,7 +19,7 @@
 #' \itemize{
 #' \item{\code{NL}}{ Ratings array [1:I, 1:J, 1:(K1+K2), 1], of false positives, FPs}
 #' \item{\code{LL}}{ Ratings array [1:I, 1:J, 1:K2, 1], of true positives, TPs}
-#' \item{\code{lesionNum}}{ array [1:K2], number of lesions per diseased case}
+#' \item{\code{lesionVector}}{ array [1:K2], number of lesions per diseased case}
 #' \item{\code{lesionID}}{ array [1:K2, 1], labels of lesions on diseased cases}
 #' \item{\code{lesionWeight}}{ array [1:K2, 1], weights (or clinical importances) of lesions}
 #' \item{\code{dataType}}{ "ROC", the data type}
@@ -41,7 +41,7 @@
 #' nu <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$nu
 #' Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
 #' frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, 
-#' K1, K2, lesionNum = Lk2)
+#' K1, K2, lesionVector = Lk2)
 #' hrData <- DfFroc2Roc(frocDataRaw)
 #' print("frocDataRaw$NL[1,1,,] = ");print(frocDataRaw$NL[1,1,,])
 #' print("hrData$NL[1,1,1:K1,] = ");print(hrData$NL[1,1,1:K1,])
@@ -90,7 +90,7 @@ DfFroc2Roc <- function (dataset){
   K1 <- K - K2 
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
-  lesionNum <- dataset$lesionNum
+  lesionVector <- dataset$lesionVector
   
   # # unmarked FROC images can have -Infs; these belong in the lowest ROC bin;
   # # -Inf is not allowed as an ROC rating (will throw off binning alg)
@@ -118,14 +118,14 @@ DfFroc2Roc <- function (dataset){
   # add the fourth "unnecessary" dimension
   dim(LL) <- c(dim(LL), 1)
   
-  lesionNum <- rep(1, times = K2)
-  lesionID <- lesionNum
+  lesionVector <- rep(1, times = K2)
+  lesionID <- lesionVector
   dim(lesionID) <- c(K2, 1)
   lesionWeight <- lesionID 
   dataset$NL <- NL[,,,1, drop = FALSE]
   dataset$NL[,,(K1+1):K,1] <- UNINITIALIZED
   dataset$LL <- LL
-  dataset$lesionNum <- lesionNum
+  dataset$lesionVector <- lesionVector
   dataset$lesionID <- lesionID
   dataset$lesionWeight <- lesionWeight
   dataset$dataType <- "ROC"

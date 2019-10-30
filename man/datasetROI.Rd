@@ -8,7 +8,7 @@
 \itemize{
 \item{\code{NL}}{ Ratings array [1:2, 1:5, 1:90, 1:4], of non-lesion localizations, NLs}
 \item{\code{LL}}{ Ratings array [1:2, 1:5, 1:40, 1:4], of lesion localizations, LLs}
-\item{\code{lesionNum}}{ array [1:40], number of lesions per diseased case, varies between 1 and 4}
+\item{\code{lesionVector}}{ array [1:40], number of lesions per diseased case, varies between 1 and 4}
 \item{\code{lesionID}}{ array [1:40, 1:4], labels of lesions on diseased cases}
 \item{\code{lesionWeight}}{ array [1:40, 1:4] weights (or clinical importance) of lesions, set to 1 divided by number of lesions in the case}
 \item{\code{dataType}}{ "ROI", the data type}

@@ -5,7 +5,7 @@
 \title{RSM predicted operating characteristics, ROC pdfs and different FOMs
    possible with FROC data}
 \usage{
-PlotRsmOperatingCharacteristics(mu, lambda, nu, lesDistr, lesionWeights,
+PlotRsmOperatingCharacteristics(mu, lambda, nu, lesDistr, lesWghtDistr,
   type = "ALL", legendPosition = c(1, 0),
   legendDirection = "horizontal", legendJustification = c(0, 1),
   nlfRange = NULL, llfRange = NULL, nlfAlpha = NULL, myNegInf = -3)
@@ -29,22 +29,25 @@ correspond to actual lesions) per diseased case for up to two treatments;
 the corresponding \emph{physical} parameter is \code{1 - exp(nu*mu)}, 
 the success probability of the binomial distribution(s).}
 
-\item{lesDistr}{Array, [1:maxLL,1:2]. The probability mass function of the 
+\item{lesDistr}{Array, [1:maxLL,1:maxLL]. The probability mass function of the 
 lesion distribution for diseased cases. The first column contains the 
 actual numbers of lesions per case. 
 The second column contains the fraction of diseased cases with the number 
 of lesions specified in the first column. 
-The second column must sum to unity.}
+The second column must sum to unity. Use \link{UtilLesionDistribution} to 
+get this.}
 
-\item{lesionWeights}{Array, [1:maxLL,1:maxLL]. The weights (or clinical importances) 
+\item{lesWghtDistr}{Array, [1:maxLL,1:maxLL]. The probability mass function of the 
+lesion weights for diseased cases. The weights (or clinical importances) 
 of the lesions. The 1st row contains the weight of the lesion on cases
 with one lesion only, necessarily 1; the remaining elements of the row are 
 \code{-Inf}. The 2nd row contains the weights of the 2 lesions on cases with 
 2 lesions only, the remaining elements of the row, if any, are \code{-Inf}. 
 Excluding the \code{-Inf}, each row must sum to 1. 
 The default is equal weighting, e.g., weights are 1/3, 1/3, 1/3 on row 3.
-This parameter is not to be confused with the lesionWeights field in an FROC
-dataset with enumerates the weights of lesions on individual cases.}
+This parameter is not to be confused with the lesWghtDistr field in an FROC
+dataset with enumerates the weights of lesions on individual cases. Use 
+\link{UtilLesionWeightsDistr} to get this.}
 
 \item{type}{The type of operating characteristic desired: can be "\code{ROC}", 
 "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or "\code{pdfs}" or "\code{ALL}". 
@@ -77,7 +80,7 @@ This is used in the code to demonstrate continuity of the slope of the
 ROC at the end point; Online Appendix 17.H.3}
 }
 \value{
-A list of 6 elements containing six \pkg{ggplot2} objects 
+A list of elements containing five \pkg{ggplot2} objects 
    (ROCPlot, AFROCPlot wAFROCPlot, FROCPlot and PDFPlot) and two area measures 
    (each of which can have up to two elements), the area under the search 
    model predicted ROC curves in up to two treatments, the area under the search 
@@ -109,9 +112,9 @@ RSM is the Radiological Search Model described in the book.
 For \code{lesDistr}, the sum over the second column must equal one. 
    If all cases contain same number of lesions, simply supply this number instead of 
    the matrix. If the argument is missing, the default value 
-   of one lesion per diseased case applies. 
+   of one lesion per diseased case is used. 
   
-In \code{lesionWeights}, the sum over each row (excluding \code{-Inf}) must be one. 
+In \code{lesWghtDistr}, the sum over each row (excluding \code{-Inf}) must be one. 
    The value \code{-Inf} should be assigned if the corresponding lesion 
    does not exist. Equal lesion weighting is applied if this argument is missing.
 
@@ -120,7 +123,7 @@ In \code{lesionWeights}, the sum over each row (excluding \code{-Inf}) must be o
    first column of \code{lesDistr} will be c(1,2,4). The second column might be
    c(0.8, 0.15, 0.05), which sums to one, meaning 80\% of cases have only one 
    lesion, 15\% have two lesions and 5\% have three lesions. The 
-   \code{lesionWeights} matrix will be 
+   \code{lesWghtDistr} matrix will be 
    \code{[1:3,1:3]}, where each row will sum to one (excluding negative infinities).
 }
 \examples{
@@ -133,12 +136,12 @@ lesDistr <- rbind(c(1, 0.2), c(2, 0.4), c(3, 0.1), c(4, 0.3))
 ## On cases with one lesion the weights are 1, on cases with 2 lesions the weights
 ## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and
 ## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: 
-lesionWeights <- rbind(c(1.0, -Inf, -Inf, -Inf), 
+lesWghtDistr <- rbind(c(1.0, -Inf, -Inf, -Inf), 
                        c(0.4,  0.6, -Inf, -Inf), 
                        c(0.2,  0.3,  0.5, -Inf), 
                        c(0.3,  0.4, 0.2,  0.1))
 ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
-   lesDistr = lesDistr, lesionWeights = lesionWeights, 
+   lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, 
    legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
    print(ret$ROCPlot)
    print(ret$AFROCPlot)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/FitRsmRoc.R
 \name{FitRsmRoc}
 \alias{FitRsmRoc}
-\title{Fit the radiological search model (RSM) to ROC data}
+\title{Fit the radiological search model (RSM) to an ROC dataset}
 \usage{
 FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)
 }
@@ -11,9 +11,9 @@ FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)
 
 \item{lesDistr}{The lesion distribution matrix}
 
-\item{trt}{The desired treatment, default is 1}
+\item{trt}{The selected treatment, default is 1}
 
-\item{rdr}{The desired reader, default is 1}
+\item{rdr}{The selected reader, default is 1}
 }
 \value{
 The return value is a list with the following elements:
@@ -46,7 +46,7 @@ The return value is a list with the following elements:
    Use \code{print} to display the object}
 }
 \description{
-Fit an RSM-predicted ROC curve to a binned ROC dataset
+Fit an RSM-predicted ROC curve to a \strong{binned single-modality single-treatment ROC dataset}
 }
 \details{
 If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. MLE ROC algorithms 

@@ -23,7 +23,7 @@
 #' \item{\code{NL}}{ [1, 1:J, 1:K1, 1] array containing the FP ratings}
 #' \item{\code{LLCl}}{ [1, 1:J, 1:K2, 1] array containing the TP correct localization ratings}
 #' \item{\code{LLIl}}{ [1, 1:J, 1:K2, 1] array containing the TP incorrect localization ratings}
-#' \item{\code{lesionNum}}{ array [1:K2], as in standard JAFROC/ROC format dataset, ones}
+#' \item{\code{lesionVector}}{ array [1:K2], as in standard JAFROC/ROC format dataset, ones}
 #' \item{\code{lesionID}}{ array [1:K2], as in standard JAFROC/ROC format dataset, ones}
 #' \item{\code{lesionWeight}}{ array [1:K2], weights (or clinical importances) of lesions}
 #' \item{\code{dataType}}{ "LROC", the data type}
@@ -133,7 +133,7 @@ DfReadLrocDataFile <- function (RADIOLOGISTS = TRUE)
     NL = zjk1,
     LLCl = zjk2Cl,
     LLIl = zjk2Il,
-    lesionNum = rep(1,length(zjk2Cl[1,1,,1])),
+    lesionVector = rep(1,length(zjk2Cl[1,1,,1])),
     lesionID = rep(1,length(zjk2Cl[1,1,,1])),
     lesionWeight = rep(0,length(zjk2Cl[1,1,,1])),
     dataType = "LROC",

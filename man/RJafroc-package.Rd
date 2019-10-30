@@ -2,7 +2,7 @@
 \alias{RJafroc-package}
 \docType{package}
 \title{
-  Modeling, Analysis, Validation and Visualization of Observer Performance Studies in Diagnostic Radiology
+  RJafroc: Analyzing Diagnostic Observer Performance Studies
 }
 \description{
 RJafroc implements software for assessing medical imaging systems, radiologists or computer aided detection algorithms. Models of   observer performance are implemented, including the binormal model (BM), the contaminated binormal model (CBM), the correlated   contaminated binormal model (CORCBM), and the radiological search model (RSM). The software and applications are described in a book - \strong{Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017} and its Online Appendices \url{https://github.com/dpc10ster/onlinebookk21778}. Observer performance data collection paradigms are the receiver operating characteristic (ROC) and its location specific extensions, primarily free-response ROC (FROC) and the location ROC (LROC). ROC data consists of single ratings per images.A rating is the perceived confidence level that the image is that of a diseased patient. FROC data consists of a variable number  (including zero) of mark-rating pairs per image, where a mark is the location of a clinically reportable suspicious region and   the rating is the corresponding confidence level that it is a true lesion. LROC data consists of a rating and a forced localizati on of the most suspicious region on every image. RJafroc supersedes the deprecated Windows version of \strong{JAFROC} software V4.2.1, \url{http://www.devchakraborty.com}. Package functions are organized as follows. Data file related function names are preceded by \emph{Df}, curve fitting functions by \emph{Fit}, included data sets by \emph{dataset}, plotting functions by \emph{Plot}, significance testing functions by \emph{St}, sample size related functions by \emph{Ss}, data simulation functions by \emph{Simulate} and utility functions by \emph{Util}.Implemented are a number of figures of merit (FOMs) for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC (AFROC) and weighted AFROC (wAFROC) curves. Four maximum likelihood curve-fitting algorithms are implemented: the binormal model (BM), the contaminated binormal model (CBM), the correlated contaminated binormal model (CORCBM) and the radiological search model (RSM). Unlike the binormal model, CBM, CORCBM and RSM predict "proper" ROC curves that do not cross the chance diagonal or display inappropriate "hooks", typically near the upper right corner of the plots. RSM fitting additionally yields measures of search and lesion-classification performances. Search performance is \emph{the ability to find lesions while avoiding finding non-lesions}. Lesion-classification performance is the ability to correctly classify found lesions from found non-lesions. For fully crossed study designs significance testing of reader-averaged FOM differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods, both substantially improved by Hillis. Also implemented are single treatment analyses, which allow comparison of performance of a group of radiologists to a specified value, or comparison to CAD to a group of radiologists interpreting the same cases. Crossed-modality analysis is implemented wherein there are two crossed treatment factors and the desire is to determined performance in each treatment factor averaged over all levels of the other factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve a desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international collaborations. The package is used extensively in the cited book.
@@ -11,7 +11,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
   \tabular{ll}{
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
-    Version: \tab 1.2.0\cr
+    Version: \tab 1.2.0.9000\cr
     Date: \tab 2018-06-31\cr
     License: \tab GPL-3\cr
     URL: \tab \url{https://dpc10ster.github.io/RJafroc/}\cr
@@ -42,7 +42,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
        bimodal, with a peak at zero and one at \eqn{\mu}, the integrated fraction 
        at \eqn{\mu} is \eqn{\alpha} (not to be confused with \eqn{\alpha} of NH testing)
     \item CI: The (1-\eqn{\alpha}) confidence interval for the stated statistic
-    \item Crossed modality: a dataset containing two modality factors, with 
+    \item Crossed modality: a dataset containing two modality (treatment) factors, with 
        the levels of the two factors crossed, see paper by Thompson et al  
     \item DBM: Dorfman-Berbaum-Metz, a significance testing method for 
        detecting a treatment effect in MRMC studies
@@ -62,9 +62,9 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
     \item FRRC: Analysis that treats readers as fixed and cases as random factors
     \item I: total number of modalities, indexed by \eqn{i}
     \item image/case: used interchangeably; a case can consist of several images 
-       of the same patient in the same modality
+       of the same patient in the same treatment
     \item iMRMC: A text file format used for ROC data by FDA/CDRH researchers
-    \item individual dataset: A single modality single reader dataset.
+    \item individual dataset: A single treatment single reader dataset.
     \item Intrinsic: Used in connection with RSM; a parameter that is independent of 
        the RSM \eqn{\mu} parameter, but whose meaning may not be as transparent as 
        the corresponding physical parameter
@@ -96,7 +96,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
     \item maxLL: maximum number of lesions per case in dataset
     \item maxNL: maximum number of NL marks per case in dataset
     \item MRMC: multiple reader multiple case (each reader interprets each case in 
-       each modality, i.e. fully crossed study design)
+       each treatment, i.e. fully crossed study design)
     \item ndf: Numerator degrees of freedom of appropriate \eqn{F}-test, usually 
        number of treatments minus one
     \item NH: The null hypothesis that all treatment effects are zero; rejected 
@@ -178,9 +178,9 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
 
 \section{Dataset}{
   An R object either created by the user or read from an external text or 
-     Excel file. It is a list generally containing 8 members (9 members 
+     Excel file. It is a \code{list} generally containing 8 members (9 members 
      for crossed-modality or LROC datasets): \strong{Note: \code{-Inf} is used to 
-     indicate the ratings of unmarked lesions and/or to indicate unavailable array 
+     indicate the ratings of unmarked lesions and/or to indicate missing array 
      items. An example of the latter would be if the maximum number of NLs in a 
      dataset was 4, but some images had fewer than 4 NLs, in which case the corresponding 
      "empty" positions would be filled with \code{-Inf}s. Do not use \code{NA} to 
@@ -195,7 +195,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
              K1 locations of the third index corresponds to NL marks on non-diseased 
              cases and the remaining locations correspond to NL marks on diseased 
              cases. The 4th dimension allows for the possibility of multiple NL marks 
-             on a case. For \bold{FROC} datasets unavailable NL ratings are assigned 
+             on a case. For \bold{FROC} datasets unavailable or missing NL ratings are assigned 
              \code{-Inf}. For \bold{ROC} datasets FP ratings are assigned to the first 
              \code{K1} elements of \code{NL[,,1:K1,1]} and the remaining \code{K2} 
              elements of \code{NL[,,(K1+1):K,1]} are set to \code{-Inf}. When 
@@ -204,7 +204,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
           \item \code{LL}: a floating-point array with dimension  
              \code{c(I, J, K2, maxLL)} that contains the ratings of all LL marks. 
              For ROC datasets \code{TP} ratings are assigned to \code{LL[,,1:K2,1]}.
-          \item \code{lesionNum}: a integer vector with length \code{K2}, whose 
+          \item \code{lesionVector}: a integer vector with length \code{K2}, whose 
              elements indicate the number of lesions in each diseased case. 
           \item \code{lesionID}: an integer array with dimension [K2, maxLL]. 
              Its contents label lesions on diseased cases. For example,  
@@ -245,7 +245,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
           \item \code{LLIl}: a floating-point array with dimension  
              \code{c(I, J, K2, 1)} that contains the ratings of all \emph{incorrect} 
              localization (IL) marks. A \code{-Inf} indicates a case with no IL mark.
-          \item \code{lesionNum}: same as general case. 
+          \item \code{lesionVector}: same as general case. 
           \item \code{lesionID}: lesionID: an integer vector with length K2 
              containing ones.
           \item \code{lesionWeight}: a floating point array with dimension 
@@ -267,7 +267,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
           \item \code{LLIl}: a floating-point array with dimension  
              \code{c(I, J, K2, 1)} that contains the ratings of all \emph{incorrect} 
              localization (IL) marks. A \code{-Inf} indicates a case with no IL mark.
-          \item \code{lesionNum}: same as general case. 
+          \item \code{lesionVector}: same as general case. 
           \item \code{lesionID}: lesionID: an integer vector with length K2 
              containing ones.
           \item \code{lesionWeight}: a floating point array with dimension 
@@ -286,7 +286,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
           \item \code{LL}: a floating-point array with dimension  
              \code{c(I1, I2, J, K2, maxLL)}that contains the ratings of all LL marks. 
              Note the existence of two modality indices.
-          \item \code{lesionNum}: same as general case. 
+          \item \code{lesionVector}: same as general case. 
           \item \code{lesionID}: same as general case.
           \item \code{lesionWeight}: same as general case.
           \item \code{dataType}: a \code{character} variable: "\code{ROC}" or "\code{FROC}".
@@ -407,6 +407,10 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            rating inferred ROC dataset.
         \item \code{\link{DfLroc2Roc}}: Convert an LROC dataset to a highest 
            rating inferred ROC dataset.
+        \item \code{\link{DfLroc2Froc}}: Simulates an 
+           "AUC-equivalent" FROC dataset from a supplied LROC dataset.
+        \item \code{\link{DfFroc2Lroc}}: Simulates an 
+           "AUC-equivalent" LROC dataset from a supplied FROC dataset.
         \item \code{\link{DfReadCrossedModalities}}: Read a crossed-modalities 
            data file.
         \item \code{\link{DfReadDataFile}}: Read a general data file.
@@ -451,6 +455,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            model ROC dataset.
         \item \code{\link{SimulateCorCbmDataset}}: Simulates an uncorrelated binormal 
            model ROC dataset.
+        \item \code{\link{SimulateLrocDataset}}: Simulates an uncorrelated LROC dataset.
   }
 }
 
@@ -491,13 +496,17 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            physical RSM parameters. 
         \item \code{\link{UtilLesionDistribution}}: Calculates the lesion distribution  
            matrix.
-        \item \code{\link{UtilLesionWeights}}: Calculates the lesion weights  matrix.
+        \item \code{\link{UtilLesionWeightsDistr}}: Calculates the lesion weights  matrix.
         \item \code{\link{UtilMeanSquares}}: Calculates the mean squares used in the 
            DBMH and ORH methods.  
         \item \code{\link{UtilOutputReport}}: Generate a formatted report file.
         \item \code{\link{UtilPhysical2IntrinsicRSM}}: Convert from physical to 
            intrinsic RSM parameters.  
         \item \code{\link{UtilPseudoValues}}: Return jackknife pseudovalues.  
+        \item \code{\link{UtilVarComponentsDBM}}: Utility for Dorfman-Berbaum-Metz 
+           variance components.  
+        \item \code{\link{UtilVarComponentsOR}}: Utility for Obuchowski-Rockette 
+           variance components.  
   }
 }
 
