@@ -3,7 +3,11 @@
 #' @description Fit an RSM-predicted ROC curve to a \strong{binned single-modality single-treatment ROC dataset}
 #' 
 #' @param binnedRocData The \strong{binned ROC} dataset containing the data
-#' @param lesDistr The lesion distribution matrix
+#' @param lesDistr Array [1:maxLL,1:2]. The probability mass function of the 
+#'    lesion distribution for diseased cases. The first column contains the 
+#'    actual numbers of lesions per case. The second column contains the fraction 
+#'    of diseased cases with the number of lesions specified in the first column. 
+#'    The second column must sum to unity. 
 #' @param trt The selected treatment, default is 1
 #' @param rdr The selected reader, default is 1
 #' 

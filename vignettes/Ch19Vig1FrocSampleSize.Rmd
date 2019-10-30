@@ -149,16 +149,16 @@ p <- ggplot(data = df, aes(x = es_ROC, y = es_wAFROC)) +
 print(p)
 ````             
 
-The plot is very close to linear. This makes it easy to design an interpolation function. In the following code block the first line fits `eswAfroc` vs. `esRoc` using the linear model `lm()` function constrained to pass through the origin (the minus one): `a <- lm(eswAfroc ~ -1 + esRoc)`. One expects this constraint since for `deltaMu = 0` the effect size must be zero no matter how it is measured. 
+The plot is very close to linear. This makes it easy to design an interpolation function. In the following code block the first line fits `eswAfroc` vs. `esRoc` using the linear model `lm()` function constrained to pass through the origin (the minus one): `slope <- lm(eswAfroc ~ -1 + esRoc)`. One expects this constraint since for `deltaMu = 0` the effect size must be zero no matter how it is measured. 
 
 ```{r}
-a<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin
+slope<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin
 effectSizeROC <- seq(0.01, 0.1, 0.01)
-effectSizewAFROC <- effectSizeROC*a$coefficients[1] # r2 = summary(a)$r.squared
+effectSizewAFROC <- effectSizeROC*slope$coefficients[1] # r2 = summary(slope)$r.squared
 ````
 
 
-The slope of the straight line fit is `a`, where a = `r a$coefficients[1]`. Therefore, the conversion from ROC to wAFROC effect size is: `effectSizewAFROC = a  x effectSizeROC`. **The wAFROC effect size is twice the ROC effect size.** All that remains is to calculate the variance componenents using the two FOMs:
+The slope of the straight line fit is `slope`, where slope = `r slope$coefficients[1]` and `R2` = `r summary(slope)$r.squared`. Therefore, the conversion from ROC to wAFROC effect size is: `effectSizewAFROC = slope . effectSizeROC`. **The wAFROC effect size is twice the ROC effect size.** All that remains is to calculate the variance componenents using the two FOMs:
 
 ## Computing the respective variance components
 

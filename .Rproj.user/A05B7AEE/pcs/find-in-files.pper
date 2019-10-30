@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "modality",
+        "query" : "UtilLesionWeightsDistr",
         "regex" : false
     }
 }

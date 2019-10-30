@@ -24,25 +24,21 @@
 #'    the corresponding \emph{physical} parameter is \code{1 - exp(nu*mu)}, 
 #'    the success probability of the binomial distribution(s).
 #' 
-#' @param lesDistr Array, [1:maxLL,1:maxLL]. The probability mass function of the 
+#' @param lesDistr Array [1:maxLL,1:2]. The probability mass function of the 
 #'    lesion distribution for diseased cases. The first column contains the 
-#'    actual numbers of lesions per case. 
-#'    The second column contains the fraction of diseased cases with the number 
-#'    of lesions specified in the first column. 
-#'    The second column must sum to unity. Use \link{UtilLesionDistribution} to 
-#'    get this.
+#'    actual numbers of lesions per case. The second column contains the fraction 
+#'    of diseased cases with the number of lesions specified in the first column. 
+#'    The second column must sum to unity. 
 #' 
 #' @param lesWghtDistr Array, [1:maxLL,1:maxLL]. The probability mass function of the 
-#'    lesion weights for diseased cases. The weights (or clinical importances) 
-#'    of the lesions. The 1st row contains the weight of the lesion on cases
-#'    with one lesion only, necessarily 1; the remaining elements of the row are 
-#'    \code{-Inf}. The 2nd row contains the weights of the 2 lesions on cases with 
-#'    2 lesions only, the remaining elements of the row, if any, are \code{-Inf}. 
-#'    Excluding the \code{-Inf}, each row must sum to 1. 
+#'    lesion weights for diseased cases. The 1st row contains the weight of the 
+#'    lesion on cases with one lesion only, necessarily 1; the remaining elements 
+#'    of the row are \code{-Inf}. The 2nd row contains the weights of the 2 lesions 
+#'    on cases with 2 lesions only, the remaining elements of the row, if any, 
+#'    are \code{-Inf}. Excluding the \code{-Inf}, each row must sum to 1. 
 #'    The default is equal weighting, e.g., weights are 1/3, 1/3, 1/3 on row 3.
 #'    This parameter is not to be confused with the lesWghtDistr field in an FROC
-#'    dataset with enumerates the weights of lesions on individual cases. Use 
-#'    \link{UtilLesionWeightsDistr} to get this.
+#'    dataset with enumerates the weights of lesions on individual cases. 
 #' 
 #' @param type The type of operating characteristic desired: can be "\code{ROC}", 
 #'    "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or "\code{pdfs}" or "\code{ALL}". 

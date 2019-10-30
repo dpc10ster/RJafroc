@@ -1,13 +1,13 @@
 {
-    "path" : "~/GitHub/RJafroc/vignettes",
+    "path" : "~/GitHub/RJafroc",
     "sortOrder" : [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "ascending" : false,
+            "columnIndex" : 4
         },
         {
             "ascending" : true,
-            "columnIndex" : 4
+            "columnIndex" : 2
         },
         {
             "ascending" : false,
