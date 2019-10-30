@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
     </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -96,19 +96,22 @@
       <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
-      <a href="../articles/Ch11V1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11V2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11V3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -166,16 +169,16 @@
 
     <pre class="usage"><span class='fu'>UtilOutputReport</span>(<span class='no'>dataset</span>, <span class='kw'>dataDescription</span> <span class='kw'>=</span> <span class='st'>"MyDataDescription: "</span>,
   <span class='kw'>ReportFileBaseName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ReportFileExt</span> <span class='kw'>=</span> <span class='st'>"txt"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>,
-  <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"Jackknife"</span>,
-  <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>renumber</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>overWrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='no'>FOM</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"Jackknife"</span>, <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>200</span>,
+  <span class='kw'>sequentialNames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>overWrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset object to be analyzed (<em>not the file name</em>), see <code>Dataset</code> 
-in <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p></td>
+      <td><p>The dataset object to be analyzed (<em>not the file name</em>), 
+see <code>Dataset</code> in <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p></td>
     </tr>
     <tr>
       <th>dataDescription</th>
@@ -185,9 +188,9 @@ it is inserted, for reference, in the output file.</p></td>
     </tr>
     <tr>
       <th>ReportFileBaseName</th>
-      <td><p>The file bse name (sans extension) for the desired report; 
-the default is NULL, in which case the system generates a temporary text file, 
-whose name will be displayed.</p></td>
+      <td><p>The file base name (sans the extension) for the 
+desired report; the default is NULL, in which case the system generates 
+a temporary text file, whose name is displayed.</p></td>
     </tr>
     <tr>
       <th>ReportFileExt</th>
@@ -197,7 +200,8 @@ a text file, <code>xlsx</code> for an Excel file.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>The significance testing method, <code>"ORH"</code> or (the default) <code>"DBMH"</code>.</p></td>
+      <td><p>The significance testing method, <code>"ORH"</code> or 
+(the default) <code>"DBMH"</code>.</p></td>
     </tr>
     <tr>
       <th>FOM</th>
@@ -214,11 +218,11 @@ for method = <code>"ORH"</code>; the default is "Jackknife".</p></td>
     </tr>
     <tr>
       <th>nBoots</th>
-      <td><p>See <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>; only needed for <code>"ORH"</code> analysis;
-the default is 200.</p></td>
+      <td><p>See <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>; only needed for 
+<code>"ORH"</code> analysis; the default is 200.</p></td>
     </tr>
     <tr>
-      <th>renumber</th>
+      <th>sequentialNames</th>
       <td><p>A logical variable: if <code>TRUE</code>, consecutive integers 
 (staring from 1) will be used as the treatment and reader IDs in the 
 output report. Otherwise, treatment and reader IDs in the original data 
@@ -230,8 +234,8 @@ is FALSE.</p></td>
       <td><p>A <code>logical</code> variable: if <code>FALSE</code>, a warning will 
 be issued if the report file already exists and the program will wait 
 until the user inputs "y" or "n" to determine whether to overwrite the 
-existing file. If <code>TRUE</code>, the existing file will be silently overwritten. The
-default is <code>FALSE</code>.</p></td>
+existing file. If <code>TRUE</code>, the existing file will be silently overwritten. 
+The default is <code>FALSE</code>.</p></td>
     </tr>
     </table>
     
@@ -247,11 +251,12 @@ default is <code>FALSE</code>.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-</div><div class='input'><span class='fu'>UtilOutputReport</span>(<span class='no'>dataset03</span>) <span class='co'># text output is created in a temporary file</span></div><div class='output co'>#&gt; 
-#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmptSb5ZX/RJafrocUtilOutputReport9c181e4b37fd.txt </div><div class='output co'>#&gt; $fomArray
-#&gt;           Rdr - 0   Rdr - 1   Rdr - 2   Rdr - 3
-#&gt; Trt - 0 0.8534600 0.8649932 0.8573044 0.8152420
-#&gt; Trt - 1 0.8496156 0.8435097 0.8401176 0.8143374
+</div><div class='input'> <span class='co'># text output is created in a temporary file</span>
+<span class='fu'>UtilOutputReport</span>(<span class='no'>dataset03</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</div><div class='output co'>#&gt; 
+#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpQpynAT/RJafrocUtilOutputReport1111250310535.txt </div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr0      Rdr1      Rdr2      Rdr3
+#&gt; Trt0 0.8534600 0.8649932 0.8573044 0.8152420
+#&gt; Trt1 0.8496156 0.8435097 0.8401176 0.8143374
 #&gt; 
 #&gt; $anovaY
 #&gt;   Source           SS  DF          MS
@@ -265,110 +270,81 @@ default is <code>FALSE</code>.</p></td>
 #&gt; 8  Total 121.08532315 799          NA
 #&gt; 
 #&gt; $anovaYi
-#&gt;   Source  DF          0          1
+#&gt;   Source  DF       Trt0       Trt1
 #&gt; 1      R   3 0.04926635 0.02415991
 #&gt; 2      C  99 0.29396753 0.30137032
 #&gt; 3     RC 297 0.10504787 0.10337984
 #&gt; 
 #&gt; $varComp
-#&gt;                  varComp
-#&gt; Var(R)      3.775568e-05
-#&gt; Var(C)      5.125091e-02
-#&gt; Var(T*R)   -7.127629e-04
-#&gt; Var(T*C)   -2.887147e-03
-#&gt; Var(R*C)    2.791730e-02
-#&gt; Var(Error)  7.629656e-02
+#&gt;           varR       varC         varTR        varTC     varRC     varErr
+#&gt; 1 3.775568e-05 0.05125091 -0.0007127629 -0.002887147 0.0279173 0.07629656
 #&gt; 
-#&gt; $fRRRC
-#&gt; [1] 4.694058
-#&gt; 
-#&gt; $ddfRRRC
-#&gt; [1] 3
-#&gt; 
-#&gt; $pRRRC
-#&gt; [1] 0.1188379
+#&gt; $FTestStatsRRRC
+#&gt;      fRRRC ndfRRRC ddfRRRC     pRRRC
+#&gt; 1 4.694058       1       3 0.1188379
 #&gt; 
 #&gt; $ciDiffTrtRRRC
-#&gt;   Treatment   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
+#&gt;     TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower
+#&gt; 1 Trt0-Trt1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
 #&gt;      CIUpper
 #&gt; 1 0.02679926
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRRC
 #&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper
-#&gt; 1         0 0.8477499 0.02440215  70.12179 0.7990828 0.8964170
-#&gt; 2         1 0.8368951 0.02356642 253.64403 0.7904843 0.8833058
+#&gt; 1      Trt0 0.8477499 0.02440215  70.12179 0.7990828 0.8964170
+#&gt; 2      Trt1 0.8368951 0.02356642 253.64403 0.7904843 0.8833058
 #&gt; 
-#&gt; $fFRRC
-#&gt; [1] 0.363956
-#&gt; 
-#&gt; $ndf
-#&gt; [1] 1
-#&gt; 
-#&gt; $ddfFRRC
-#&gt; [1] 99
-#&gt; 
-#&gt; $pFRRC
-#&gt; [1] 0.547697
+#&gt; $FTestStatsFRRC
+#&gt;      fFRRC ndfFRRC ddfFRRC    pFRRC
+#&gt; 1 0.363956       1      99 0.547697
 #&gt; 
 #&gt; $ciDiffTrtFRRC
 #&gt;   Treatment   Estimate     StdErr DF         t    PrGTt     CILower    CIUpper
-#&gt; 1     0 - 1 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675 0.04655638
+#&gt; 1 Trt0-Trt1 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675 0.04655638
 #&gt; 
 #&gt; $ciAvgRdrEachTrtFRRC
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
-#&gt; 1         0 0.8477499 0.02710939 99 0.7939590 0.9015408
-#&gt; 2         1 0.8368951 0.02744860 99 0.7824311 0.8913591
+#&gt; 1      Trt0 0.8477499 0.02710939 99 0.7939590 0.9015408
+#&gt; 2      Trt1 0.8368951 0.02744860 99 0.7824311 0.8913591
 #&gt; 
-#&gt; $ssAnovaEachRdr
-#&gt;   Source DF            0           1           2            3
-#&gt; 1      T  1 7.389761e-04  0.02307702  0.01476929 4.091217e-05
-#&gt; 2      C 99 2.018360e+01 22.12074893 21.21043057 2.825657e+01
-#&gt; 3     TC 99 9.064315e+00  7.94764631  6.06166901 5.996496e+00
-#&gt; 
-#&gt; $msAnovaEachRdr
-#&gt;   Source DF            0          1          2            3
+#&gt; $msAnovaEachRdrFRRC
+#&gt;   Source DF         Rdr0       Rdr1       Rdr2         Rdr3
 #&gt; 1      T  1 0.0007389761 0.02307702 0.01476929 4.091217e-05
 #&gt; 2      C 99 0.2038747746 0.22344191 0.21424677 2.854199e-01
 #&gt; 3     TC 99 0.0915587344 0.08027926 0.06122898 6.057067e-02
 #&gt; 
-#&gt; $ciDiffTrtEachRdr
+#&gt; $ciDiffTrtEachRdrFRRC
 #&gt;   Reader Treatment     Estimate     StdErr DF          t     PrGTt     CILower
-#&gt; 1      0     0 - 1 0.0038444143 0.04279223 99 0.08983908 0.9285966 -0.08106465
-#&gt; 2      1     0 - 1 0.0214834916 0.04006975 99 0.53615233 0.5930559 -0.05802359
-#&gt; 3      2     0 - 1 0.0171867933 0.03499399 99 0.49113552 0.6244176 -0.05224888
-#&gt; 4      3     0 - 1 0.0009045681 0.03480536 99 0.02598933 0.9793182 -0.06815683
+#&gt; 1   Rdr0 Trt0-Trt1 0.0038444143 0.04279223 99 0.08983908 0.9285966 -0.08106465
+#&gt; 2   Rdr1 Trt0-Trt1 0.0214834916 0.04006975 99 0.53615233 0.5930559 -0.05802359
+#&gt; 3   Rdr2 Trt0-Trt1 0.0171867933 0.03499399 99 0.49113552 0.6244176 -0.05224888
+#&gt; 4   Rdr3 Trt0-Trt1 0.0009045681 0.03480536 99 0.02598933 0.9793182 -0.06815683
 #&gt;      CIUpper
 #&gt; 1 0.08875348
 #&gt; 2 0.10099057
 #&gt; 3 0.08662247
 #&gt; 4 0.06996596
 #&gt; 
-#&gt; $fRRFC
-#&gt; [1] 4.694058
-#&gt; 
-#&gt; $ddfRRFC
-#&gt; [1] 3
-#&gt; 
-#&gt; $pRRFC
-#&gt; [1] 0.1188379
+#&gt; $FTestStatsRRFC
+#&gt;      fRRFC ndfRRFC ddfRRFC     pRRFC
+#&gt; 1 4.694058       1       3 0.1188379
 #&gt; 
 #&gt; $ciDiffTrtRRFC
 #&gt;   Treatment   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
+#&gt; 1 Trt0-Trt1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
 #&gt;      CIUpper
 #&gt; 1 0.02679926
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRFC
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
-#&gt; 1         0 0.8477499 0.01109801  3 0.8124311 0.8830687
-#&gt; 2         1 0.8368951 0.00777173  3 0.8121620 0.8616282
-#&gt; </div><div class='input'>
-<span class='fu'>UtilOutputReport</span>(<span class='no'>dataset03</span>, <span class='kw'>ReportFileExt</span> <span class='kw'>=</span> <span class='st'>"xlsx"</span>) <span class='co'># Excel output is created in a temporary file</span></div><div class='output co'>#&gt; 
-#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmptSb5ZX/RJafrocUtilOutputReport9c185c48d294.xlsx </div><div class='output co'>#&gt; $fomArray
-#&gt;           Rdr - 0   Rdr - 1   Rdr - 2   Rdr - 3
-#&gt; Trt - 0 0.8534600 0.8649932 0.8573044 0.8152420
-#&gt; Trt - 1 0.8496156 0.8435097 0.8401176 0.8143374
+#&gt; 1      Trt0 0.8477499 0.01109801  3 0.8124311 0.8830687
+#&gt; 2      Trt1 0.8368951 0.00777173  3 0.8121620 0.8616282
+#&gt; </div><div class='input'><span class='co'># Excel output is created in a temporary file</span>
+<span class='fu'>UtilOutputReport</span>(<span class='no'>dataset03</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>ReportFileExt</span> <span class='kw'>=</span> <span class='st'>"xlsx"</span>)</div><div class='output co'>#&gt; 
+#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpQpynAT/RJafrocUtilOutputReport11112424d03b4.xlsx </div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr0      Rdr1      Rdr2      Rdr3
+#&gt; Trt0 0.8534600 0.8649932 0.8573044 0.8152420
+#&gt; Trt1 0.8496156 0.8435097 0.8401176 0.8143374
 #&gt; 
 #&gt; $anovaY
 #&gt;   Source           SS  DF          MS
@@ -382,104 +358,75 @@ default is <code>FALSE</code>.</p></td>
 #&gt; 8  Total 121.08532315 799          NA
 #&gt; 
 #&gt; $anovaYi
-#&gt;   Source  DF          0          1
+#&gt;   Source  DF       Trt0       Trt1
 #&gt; 1      R   3 0.04926635 0.02415991
 #&gt; 2      C  99 0.29396753 0.30137032
 #&gt; 3     RC 297 0.10504787 0.10337984
 #&gt; 
 #&gt; $varComp
-#&gt;                  varComp
-#&gt; Var(R)      3.775568e-05
-#&gt; Var(C)      5.125091e-02
-#&gt; Var(T*R)   -7.127629e-04
-#&gt; Var(T*C)   -2.887147e-03
-#&gt; Var(R*C)    2.791730e-02
-#&gt; Var(Error)  7.629656e-02
+#&gt;           varR       varC         varTR        varTC     varRC     varErr
+#&gt; 1 3.775568e-05 0.05125091 -0.0007127629 -0.002887147 0.0279173 0.07629656
 #&gt; 
-#&gt; $fRRRC
-#&gt; [1] 4.694058
-#&gt; 
-#&gt; $ddfRRRC
-#&gt; [1] 3
-#&gt; 
-#&gt; $pRRRC
-#&gt; [1] 0.1188379
+#&gt; $FTestStatsRRRC
+#&gt;      fRRRC ndfRRRC ddfRRRC     pRRRC
+#&gt; 1 4.694058       1       3 0.1188379
 #&gt; 
 #&gt; $ciDiffTrtRRRC
-#&gt;   Treatment   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
+#&gt;     TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower
+#&gt; 1 Trt0-Trt1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
 #&gt;      CIUpper
 #&gt; 1 0.02679926
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRRC
 #&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper
-#&gt; 1         0 0.8477499 0.02440215  70.12179 0.7990828 0.8964170
-#&gt; 2         1 0.8368951 0.02356642 253.64403 0.7904843 0.8833058
+#&gt; 1      Trt0 0.8477499 0.02440215  70.12179 0.7990828 0.8964170
+#&gt; 2      Trt1 0.8368951 0.02356642 253.64403 0.7904843 0.8833058
 #&gt; 
-#&gt; $fFRRC
-#&gt; [1] 0.363956
-#&gt; 
-#&gt; $ndf
-#&gt; [1] 1
-#&gt; 
-#&gt; $ddfFRRC
-#&gt; [1] 99
-#&gt; 
-#&gt; $pFRRC
-#&gt; [1] 0.547697
+#&gt; $FTestStatsFRRC
+#&gt;      fFRRC ndfFRRC ddfFRRC    pFRRC
+#&gt; 1 0.363956       1      99 0.547697
 #&gt; 
 #&gt; $ciDiffTrtFRRC
 #&gt;   Treatment   Estimate     StdErr DF         t    PrGTt     CILower    CIUpper
-#&gt; 1     0 - 1 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675 0.04655638
+#&gt; 1 Trt0-Trt1 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675 0.04655638
 #&gt; 
 #&gt; $ciAvgRdrEachTrtFRRC
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
-#&gt; 1         0 0.8477499 0.02710939 99 0.7939590 0.9015408
-#&gt; 2         1 0.8368951 0.02744860 99 0.7824311 0.8913591
+#&gt; 1      Trt0 0.8477499 0.02710939 99 0.7939590 0.9015408
+#&gt; 2      Trt1 0.8368951 0.02744860 99 0.7824311 0.8913591
 #&gt; 
-#&gt; $ssAnovaEachRdr
-#&gt;   Source DF            0           1           2            3
-#&gt; 1      T  1 7.389761e-04  0.02307702  0.01476929 4.091217e-05
-#&gt; 2      C 99 2.018360e+01 22.12074893 21.21043057 2.825657e+01
-#&gt; 3     TC 99 9.064315e+00  7.94764631  6.06166901 5.996496e+00
-#&gt; 
-#&gt; $msAnovaEachRdr
-#&gt;   Source DF            0          1          2            3
+#&gt; $msAnovaEachRdrFRRC
+#&gt;   Source DF         Rdr0       Rdr1       Rdr2         Rdr3
 #&gt; 1      T  1 0.0007389761 0.02307702 0.01476929 4.091217e-05
 #&gt; 2      C 99 0.2038747746 0.22344191 0.21424677 2.854199e-01
 #&gt; 3     TC 99 0.0915587344 0.08027926 0.06122898 6.057067e-02
 #&gt; 
-#&gt; $ciDiffTrtEachRdr
+#&gt; $ciDiffTrtEachRdrFRRC
 #&gt;   Reader Treatment     Estimate     StdErr DF          t     PrGTt     CILower
-#&gt; 1      0     0 - 1 0.0038444143 0.04279223 99 0.08983908 0.9285966 -0.08106465
-#&gt; 2      1     0 - 1 0.0214834916 0.04006975 99 0.53615233 0.5930559 -0.05802359
-#&gt; 3      2     0 - 1 0.0171867933 0.03499399 99 0.49113552 0.6244176 -0.05224888
-#&gt; 4      3     0 - 1 0.0009045681 0.03480536 99 0.02598933 0.9793182 -0.06815683
+#&gt; 1   Rdr0 Trt0-Trt1 0.0038444143 0.04279223 99 0.08983908 0.9285966 -0.08106465
+#&gt; 2   Rdr1 Trt0-Trt1 0.0214834916 0.04006975 99 0.53615233 0.5930559 -0.05802359
+#&gt; 3   Rdr2 Trt0-Trt1 0.0171867933 0.03499399 99 0.49113552 0.6244176 -0.05224888
+#&gt; 4   Rdr3 Trt0-Trt1 0.0009045681 0.03480536 99 0.02598933 0.9793182 -0.06815683
 #&gt;      CIUpper
 #&gt; 1 0.08875348
 #&gt; 2 0.10099057
 #&gt; 3 0.08662247
 #&gt; 4 0.06996596
 #&gt; 
-#&gt; $fRRFC
-#&gt; [1] 4.694058
-#&gt; 
-#&gt; $ddfRRFC
-#&gt; [1] 3
-#&gt; 
-#&gt; $pRRFC
-#&gt; [1] 0.1188379
+#&gt; $FTestStatsRRFC
+#&gt;      fRRFC ndfRRFC ddfRRFC     pRRFC
+#&gt; 1 4.694058       1       3 0.1188379
 #&gt; 
 #&gt; $ciDiffTrtRRFC
 #&gt;   Treatment   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1     0 - 1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
+#&gt; 1 Trt0-Trt1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
 #&gt;      CIUpper
 #&gt; 1 0.02679926
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRFC
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
-#&gt; 1         0 0.8477499 0.01109801  3 0.8124311 0.8830687
-#&gt; 2         1 0.8368951 0.00777173  3 0.8121620 0.8616282
+#&gt; 1      Trt0 0.8477499 0.01109801  3 0.8124311 0.8830687
+#&gt; 2      Trt1 0.8368951 0.00777173  3 0.8121620 0.8616282
 #&gt; </div><div class='input'>
 </div><div class='input'>       
 </div></pre>

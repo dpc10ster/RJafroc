@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Calculate pseudovalues — UtilPseudoValues" />
 
-<meta property="og:description" content="Calculates centered pseudovalues using the jackknife" />
+<meta property="og:description" content="Calculates centered jackknife pseudovalues AND jackknife FOM values" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
     </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -95,19 +95,22 @@
       <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
-      <a href="../articles/Ch11V1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11V2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11V3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -158,11 +161,11 @@
 
     <div class="ref-description">
     
-    <p>Calculates centered pseudovalues using the jackknife</p>
+    <p>Calculates <strong>centered</strong> jackknife pseudovalues AND jackknife FOM values</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset</span>, <span class='no'>FOM</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,17 +179,25 @@
       <td><p>The figure of merit to be used in the calculation. 
 The default is <code>"wJAFROC"</code>. See <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code>.</p></td>
     </tr>
+    <tr>
+      <th>FPFValue</th>
+      <td><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(I, J, K)</a></code> array containing the pseudovalues of the datasets.</p>
+    <p>A list containing two <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(I, J, K)</a></code> arrays containing the pseudovalues
+   and the jackknife FOM values of the datasets.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1]  0.97931941  0.88699915  0.88699915  0.97931941 -0.09159562  0.97931941
-#&gt;  [7]  0.97931941  0.97931941  0.97931941  0.97931941</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>] <span class='co'># default FOM is wAFROC for this FROC dataset</span></div><div class='output co'>#&gt;  [1] 0.3519020 0.5829223 0.2748952 1.0156270 1.0156270 1.0156270 1.0156270
-#&gt;  [8] 0.4729126 1.0156270 1.0156270</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>jkPseudoValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1]  0.97931941  0.88699915  0.88699915  0.97931941 -0.09159562  0.97931941
+#&gt;  [7]  0.97931941  0.97931941  0.97931941  0.97931941</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>jkFomValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.9191176 0.9199346 0.9199346 0.9191176 0.9285948 0.9191176 0.9191176
+#&gt;  [8] 0.9191176 0.9191176 0.9191176</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)$<span class='no'>jkPseudoValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.3519020 0.5829223 0.2748952 1.0156270 1.0156270 1.0156270 1.0156270
+#&gt;  [8] 0.4729126 1.0156270 1.0156270</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)$<span class='no'>jkFomValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.7285622 0.7260235 0.7294084 0.7212685 0.7212685 0.7212685 0.7212685
+#&gt;  [8] 0.7272324 0.7212685 0.7212685</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

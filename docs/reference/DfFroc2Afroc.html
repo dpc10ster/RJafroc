@@ -64,7 +64,7 @@ and all lesion localizations are counted" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@ and all lesion localizations are counted" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
     </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -96,19 +96,22 @@ and all lesion localizations are counted" />
       <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
-      <a href="../articles/Ch11V1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11V2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11V3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -190,7 +193,7 @@ of diseased cases. This is because LLs are only possible on diseased cases. The
 structure is shown below:</p><ul>
 <li><p><code>NL</code> Ratings array [1:I, 1:J, 1:(K1+K2), 1:maxNL], of non-lesion localizations, NLs</p></li>
 <li><p><code>LL</code> Ratings array [1:I, 1:J, 1:K2, 1:maxLL], of lesion localizations, LLs</p></li>
-<li><p><code>lesionNum</code> array [1:K2], number of lesions per diseased case</p></li>
+<li><p><code>lesionVector</code> array [1:K2], number of lesions per diseased case</p></li>
 <li><p><code>lesionID</code> array [1:K2, 1:maxLL], labels of lesions on diseased cases</p></li>
 <li><p><code>lesionWeight</code> array [1:K2, 1:maxLL], weights (or clinical importances) of lesions</p></li>
 <li><p><code>dataType</code> "FROC", the data type</p></li>
@@ -205,7 +208,7 @@ structure is shown below:</p><ul>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>p</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='DfFroc2Afroc-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>afrocDataSet</span>)</div><div class='output co'>#&gt; List of 8
 #&gt;  $ NL          : num [1:2, 1:9, 1:92, 1] 6 5 -Inf -Inf 8 ...
 #&gt;  $ LL          : num [1:2, 1:9, 1:47, 1:3] 5 9 -Inf 10 8 ...
-#&gt;  $ lesionNum   : int [1:47] 1 1 1 2 2 1 1 1 1 1 ...
+#&gt;  $ lesionVector: int [1:47] 1 1 1 2 2 1 1 1 1 1 ...
 #&gt;  $ lesionID    : num [1:47, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
 #&gt;  $ lesionWeight: num [1:47, 1:3] 1 1 1 0.5 0.5 1 1 1 1 1 ...
 #&gt;  $ dataType    : chr "FROC"

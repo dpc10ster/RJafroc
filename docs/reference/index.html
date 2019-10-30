@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
     </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -92,19 +92,22 @@
       <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
-      <a href="../articles/Ch11V1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11V2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11V3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -217,9 +220,21 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="DfFroc2Lroc.html">DfFroc2Lroc()</a></code> </p>
+        </td>
+        <td><p>Simulates an "AUC-equivalent" LROC dataset from an FROC dataset</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="DfFroc2Roc.html">DfFroc2Roc()</a></code> </p>
         </td>
         <td><p>Convert an FROC dataset to an ROC dataset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="DfLroc2Froc.html">DfLroc2Froc()</a></code> </p>
+        </td>
+        <td><p>Simulates an "AUC-equivalent" FROC dataset from an LROC dataset</p></td>
       </tr><tr>
         
         <td>
@@ -274,7 +289,7 @@
         <td>
           <p><code><a href="FitRsmRoc.html">FitRsmRoc()</a></code> </p>
         </td>
-        <td><p>Fit the radiological search model (RSM) to ROC data</p></td>
+        <td><p>Fit the radiological search model (RSM) to an ROC dataset</p></td>
       </tr><tr>
         
         <td>
@@ -305,7 +320,7 @@
         <td>
           <p><code><a href="RJafroc-package.html">RJafroc-package</a></code> </p>
         </td>
-        <td><p>Modeling, Analysis, Validation and Visualization of Observer Performance Studies in Diagnostic Radiology</p></td>
+        <td><p>RJafroc: Analyzing Diagnostic Observer Performance Studies</p></td>
       </tr><tr>
         
         <td>
@@ -321,6 +336,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="SimulateLrocDataset.html">SimulateLrocDataset()</a></code> </p>
+        </td>
+        <td><p>Simulates an uncorrelated FLROC FrocDataset using the RSM</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="SimulateRocDataset.html">SimulateRocDataset()</a></code> </p>
         </td>
         <td><p>Simulates an individual binormal model ROC dataset</p></td>
@@ -329,7 +350,19 @@
         <td>
           <p><code><a href="SsPowerGivenJK.html">SsPowerGivenJK()</a></code> </p>
         </td>
-        <td><p>Statistical power for specified numbers of readers and cases in an ROC study</p></td>
+        <td><p>Statistical power for specified numbers of readers and cases in an ROC or FROC study</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="SsPowerGivenJKDbmVarComp.html">SsPowerGivenJKDbmVarComp()</a></code> </p>
+        </td>
+        <td><p>Power given J, K and Dorfman-Berbaum-Metz variance components</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="SsPowerGivenJKOrVarComp.html">SsPowerGivenJKOrVarComp()</a></code> </p>
+        </td>
+        <td><p>Power given J, K and Obuchowski-Rockette variance components</p></td>
       </tr><tr>
         
         <td>
@@ -347,13 +380,13 @@
         <td>
           <p><code><a href="StSignificanceTesting.html">StSignificanceTesting()</a></code> </p>
         </td>
-        <td><p>Perform significance testing, DBMH or ORH</p></td>
+        <td><p>Perform DBM or OR significance testing</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="StSignificanceTestingCadVsRadiologists.html">StSignificanceTestingCadVsRadiologists()</a></code> </p>
         </td>
-        <td><p>Significance testing, CAD vs. radiologists</p></td>
+        <td><p>Significance testing: standalone CAD vs. radiologists</p></td>
       </tr><tr>
         
         <td>
@@ -364,6 +397,12 @@
         
         <td>
           <p><code><a href="StSignificanceTestingSingleFixedFactor.html">StSignificanceTestingSingleFixedFactor()</a></code> </p>
+        </td>
+        <td><p>Perform significance testing for single fixed factor analysis</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="StSignificanceTestingSingleRandomFactor.html">StSignificanceTestingSingleRandomFactor()</a></code> </p>
         </td>
         <td><p>Perform significance testing for single fixed factor analysis</p></td>
       </tr><tr>
@@ -411,9 +450,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="UtilLesionWeights.html">UtilLesionWeights()</a></code> </p>
+          <p><code><a href="UtilLesionWeightsDistr.html">UtilLesionWeightsDistr()</a></code> </p>
         </td>
-        <td><p>Lesion weights matrix</p></td>
+        <td><p>Lesion weights distribution</p></td>
       </tr><tr>
         
         <td>
@@ -438,6 +477,18 @@
           <p><code><a href="UtilPseudoValues.html">UtilPseudoValues()</a></code> </p>
         </td>
         <td><p>Calculate pseudovalues</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM()</a></code> </p>
+        </td>
+        <td><p>Utility for Dorfman-Berbaum-Metz variance components</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="UtilVarComponentsOR.html">UtilVarComponentsOR()</a></code> </p>
+        </td>
+        <td><p>Utility for Obuchowski-Rockette variance components</p></td>
       </tr><tr>
         
         <td>
@@ -546,6 +597,12 @@
           <p><code><a href="datasetCadLroc.html">datasetCadLroc</a></code> </p>
         </td>
         <td><p>Nico Karssemeijer LROC dataset (CAD vs. radiologists)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="datasetCadSimuFroc.html">datasetCadSimuFroc</a></code> </p>
+        </td>
+        <td><p>Simulated FROC CAD vs. RAD dataset</p></td>
       </tr><tr>
         
         <td>
