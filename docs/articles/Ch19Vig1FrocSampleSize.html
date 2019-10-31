@@ -80,6 +80,9 @@
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
+    </li>
+    <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
@@ -121,7 +124,7 @@
       <h1>Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2019-10-29</h4>
+            <h4 class="date">2019-10-31</h4>
       
       
       <div class="hidden name"><code>Ch19Vig1FrocSampleSize.Rmd</code></div>
@@ -202,8 +205,9 @@
 <a class="sourceLine" id="cb7-5" data-line-number="5">                                              <span class="dt">lesDistr =</span> lesDistr, </a>
 <a class="sourceLine" id="cb7-6" data-line-number="6">                                              <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">type =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC</a></code></pre></div>
 <ul>
-<li><p>The plotting function <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> returns a number of other objects, most importantly the plot, but here we use only the AUC. Additionally, it calls for the <strong>intrinsic</strong> RSM parameters, which is why we had to convert the <strong>physical</strong> to the <strong>intrinsic</strong> values.</p></li>
-<li><p>One has <code>aucRocNH = 0.8791301</code> and <code>aucwAfrocNH = 0.7198311</code>. Note that the wAFROC-FOM is smaller than the ROC-FOM as it includes the localization constraint.</p></li>
+<li><p>The plotting function <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> returns a number of other objects, most importantly the plot, but here we use only the AUC, which is obtained by numerical integration of the predicted operating characteristics. However, it calls for the <strong>intrinsic</strong> RSM parameters, which is why we had to convert the <strong>physical</strong> to the <strong>intrinsic</strong> values.</p></li>
+<li>One has <code>aucRocNH = 0.8791301</code> and <code>aucwAfrocNH = 0.7198311</code>. Note that the wAFROC-FOM is smaller than the ROC-FOM as it includes the localization constraint.</li>
+<li><p>To induce the alternative hypothesis condition, one increments <span class="math inline">\(\mu_{NH}\)</span> by <span class="math inline">\(\Delta_{\mu}\)</span>. The resulting ROC-AUC and wAFROC-AUC are calculated, again by numerical integration of the RSM predicted ROC and wAFROC curves, leading to the corresponding effect-sizes (note that in each equation below one takes the difference between the AH value minus the NH value):</p></li>
 <li><p>The next step is to calculate the effect size (new value minus the NH value) using ROC and wAFROC FOMs for a series of specifed <code>deltaMu</code> values. This generates values that can be used to interpolate a wAFROC effect size for a specified ROC effect size.</p></li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">deltaMu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="fl">0.01</span>, <span class="fl">0.2</span>, <span class="fl">0.01</span>) <span class="co"># values of deltaMu to scan below</span></a>
@@ -249,11 +253,11 @@
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>)) </a>
 <a class="sourceLine" id="cb9-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(p)</a></code></pre></div>
 <p><img src="Ch19Vig1FrocSampleSize_files/figure-html/unnamed-chunk-9-1.png" width="700" style="display: block; margin: auto;"></p>
-<p>The plot is very close to linear. This makes it easy to design an interpolation function. In the following code block the first line fits <code>eswAfroc</code> vs. <code>esRoc</code> using the linear model <code><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm()</a></code> function constrained to pass through the origin (the minus one): <code>a &lt;- lm(eswAfroc ~ -1 + esRoc)</code>. One expects this constraint since for <code>deltaMu = 0</code> the effect size must be zero no matter how it is measured.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">a&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(eswAfroc<span class="op">~-</span><span class="dv">1</span><span class="op">+</span>esRoc) <span class="co"># fit values to straight line thru origin</span></a>
+<p>The plot is very close to linear. This makes it easy to design an interpolation function. In the following code block the first line fits <code>eswAfroc</code> vs. <code>esRoc</code> using the linear model <code><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm()</a></code> function constrained to pass through the origin (the minus one): <code>scaleFactor &lt;- lm(eswAfroc ~ -1 + esRoc)</code>. One expects this constraint since for <code>deltaMu = 0</code> the effect size must be zero no matter how it is measured.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">scaleFactor&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(eswAfroc<span class="op">~-</span><span class="dv">1</span><span class="op">+</span>esRoc) <span class="co"># fit values to straight line thru origin</span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">effectSizeROC &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">effectSizewAFROC &lt;-<span class="st"> </span>effectSizeROC<span class="op">*</span>a<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="co"># r2 = summary(a)$r.squared</span></a></code></pre></div>
-<p>The slope of the straight line fit is <code>a</code>, where a = 2.1688609. Therefore, the conversion from ROC to wAFROC effect size is: <code>effectSizewAFROC = a  x effectSizeROC</code>. <strong>The wAFROC effect size is twice the ROC effect size.</strong> All that remains is to calculate the variance componenents using the two FOMs:</p>
+<a class="sourceLine" id="cb10-3" data-line-number="3">effectSizewAFROC &lt;-<span class="st"> </span>effectSizeROC<span class="op">*</span>scaleFactor<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="co"># r2 = summary(scaleFactor)$r.squared</span></a></code></pre></div>
+<p>The scaleFactor of the straight line fit is <code>scaleFactor</code>, where scaleFactor = 2.1688609 and <code>R2</code> = 0.9999904. Therefore, the conversion from ROC to wAFROC effect size is: <code>effectSizewAFROC = scaleFactor * effectSizeROC</code>. <strong>The wAFROC effect size is twice the ROC effect size.</strong> All that remains is to calculate the variance componenents using the two FOMs:</p>
 </div>
 <div id="computing-the-respective-variance-components" class="section level2">
 <h2 class="hasAnchor">

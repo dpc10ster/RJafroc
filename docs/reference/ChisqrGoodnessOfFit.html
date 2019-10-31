@@ -113,6 +113,9 @@
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
+    </li>
+    <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
@@ -188,7 +191,13 @@
     </tr>
     <tr>
       <th>lesDistr</th>
-      <td><p>The lesion distribution matrix; not needed for "BINORMAL" or "CBM" models</p></td>
+      <td><p>The lesion distribution matrix; not needed for "BINORMAL" 
+or "CBM" models. Array [1:maxLL,1:2]. The probability mass function of the 
+lesion distribution for diseased cases. The first column contains the 
+actual numbers of lesions per case. 
+The second column contains the fraction of diseased cases with the number 
+of lesions specified in the first column. 
+The second column must sum to unity.</p></td>
     </tr>
     </table>
     

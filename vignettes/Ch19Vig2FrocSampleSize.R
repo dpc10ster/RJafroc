@@ -7,8 +7,8 @@ library(RJafroc)
 library(ggplot2)
 
 ## ------------------------------------------------------------------------
-frocData <- dataset04
-ret <- SsFrocNhRsmModel(frocData, c(0.7, 0.2, 0.1))
+frocNhData <- DfExtractDataset(dataset04, trts = c(1,2))
+ret <- SsFrocNhRsmModel(frocNhData, lesionPmf = c(0.7, 0.2, 0.1))
 muMed <- ret$muMed
 lambdaMed <- ret$lambdaMed
 nuMed <- ret$nuMed
@@ -25,29 +25,23 @@ aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed,
                                                lesWghtDistr = lesWghtDistr, type = "wAFROC")$aucwAFROC
 
 ## ------------------------------------------------------------------------
-temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBMH", option = "RRRC")
-varCompwAFROC <- temp2$varComp
+varCompwAFROC  <- StSignificanceTesting(frocNhData, FOM = "wAFROC", method = "DBMH", option = "RRRC")$varComp
 
 ## ------------------------------------------------------------------------
-
 ROC_ES <- 0.05
 effectSizewAFROC <- scaleFactor * ROC_ES
-JTest <- 5;KTest <- 100
+J <- 5;K <- 100
 
 varYTR <- varCompwAFROC$varTR 
 varYTC <- varCompwAFROC$varTC
 varYEps <- varCompwAFROC$varErr
-ret <- SsPowerGivenJKDbmVarComp (J = JTest, K = KTest, effectSize = effectSizewAFROC, 
+ret <- SsPowerGivenJKDbmVarComp (J = J, K = K, effectSize = effectSizewAFROC, 
                                  varYTR, varYTC, varYEps, option = "RRRC")
 powerwAFROC <- ret$powerRRRC
   
 cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, ", Power-wAFROC = ", powerwAFROC, "\n")
 
 ## ------------------------------------------------------------------------
-
-ROC_ES <- 0.05
-effectSizewAFROC <- scaleFactor * ROC_ES
-JTest <- 5
 
 varYTR <- varCompwAFROC$varTR 
 varYTC <- varCompwAFROC$varTC
@@ -56,5 +50,13 @@ ret2 <- SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = effectSizewAFROC
                       list(varYTR = varYTR, varYTC = varYTC, varYEps = varYEps))
 
 cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, 
-    ", nCasesRRRC = ", ret2$KRRRC, ", Power-wAFROC = ", ret2$powerRRRC, "\n")
+    ", K80RRRC = ", ret2$KRRRC, ", Power-wAFROC = ", ret2$powerRRRC, "\n")
+
+## ------------------------------------------------------------------------
+
+ret3 <- SsPowerGivenJK(dataset = NULL, J = 6, K = ret2$KRRRC, effectSize = effectSizewAFROC, method = "DBMH", 
+                    list(varYTR = varYTR, varYTC = varYTC, varYEps = varYEps))
+
+cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, 
+    ", powerRRRC = ", ret3$powerRRRC, "\n")
 
