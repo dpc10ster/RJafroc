@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 bibliography: myRefs.bib
 vignette: >
-  %\VignetteIndexEntry{FROC sample size}
+  %\VignetteIndexEntry{FROC sample size 1}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -85,13 +85,16 @@ for (i in 1:I) {
 
 I recommend taking the median of each of the parameters, over all treatment-reader indices, as representing the average NH dataset. The median is less sensitive to outliers than the mean.  
 
+
 ```{r}
 muMed <- median(RsmParms[,,1]) 
 lambdaPMed <- median(RsmParms[,,2])
 nuPMed <- median(RsmParms[,,3])
 ````
 
+
 The defining values of the fitting model are `muMed` = `r muMed`,  `lambdaPMed` = `r lambdaPMed` and `nuPMed` = `r nuPMed`. Note that these obey the constraints `lambdaPMed > 0` and `0 < nuP < 1`. One then converts the physical parameters to the intrinsic values:
+
 
 ````{r}
 temp <- UtilPhysical2IntrinsicRSM(muMed, lambdaPMed, nuPMed)
@@ -100,7 +103,6 @@ nuMed <- temp$nu
 ````
 
 In terms of intrinsic parameters, the defining values of the fitting model are `muMed` = `r muMed`,  `lambdaMed` = `r lambdaMed` and `nuMed` = `r nuMed`. We are now ready to calcuate the expected NH FOMs using the ROC -AUC and the wAFROC FOM.  
-
 
 ```{r}
 aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
@@ -112,9 +114,10 @@ aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed,
 ````
 
 
-* The plotting function `PlotRsmOperatingCharacteristics()` returns a number of other objects, most importantly the plot, but here we use only the AUC. Additionally, it calls for the **intrinsic** RSM parameters, which is why we had to convert the **physical** to the **intrinsic** values. 
+* The plotting function `PlotRsmOperatingCharacteristics()` returns a number of other objects, most importantly the plot, but here we use only the AUC, which is obtained by numerical integration of the predicted operating characteristics. However, it calls for the **intrinsic** RSM parameters, which is why we had to convert the **physical** to the **intrinsic** values. 
 
 * One has `aucRocNH = `r aucRocNH`` and `aucwAfrocNH = `r aucwAfrocNH``. Note that the wAFROC-FOM is smaller than the ROC-FOM as it includes the localization constraint. 
+* To induce the alternative hypothesis condition, one increments $\mu_{NH}$ by $\Delta_{\mu}$. The resulting ROC-AUC and wAFROC-AUC are calculated, again by numerical integration of the RSM predicted ROC and wAFROC curves, leading to the corresponding effect-sizes (note that in each equation below one takes the difference between the AH value minus the NH value):
 
 * The next step is to calculate the effect size (new value minus the NH value) using ROC and wAFROC FOMs for a series of specifed `deltaMu` values. This generates values that can be used to interpolate a wAFROC effect size for a specified ROC effect size. 
 
@@ -149,16 +152,16 @@ p <- ggplot(data = df, aes(x = es_ROC, y = es_wAFROC)) +
 print(p)
 ````             
 
-The plot is very close to linear. This makes it easy to design an interpolation function. In the following code block the first line fits `eswAfroc` vs. `esRoc` using the linear model `lm()` function constrained to pass through the origin (the minus one): `slope <- lm(eswAfroc ~ -1 + esRoc)`. One expects this constraint since for `deltaMu = 0` the effect size must be zero no matter how it is measured. 
+The plot is very close to linear. This makes it easy to design an interpolation function. In the following code block the first line fits `eswAfroc` vs. `esRoc` using the linear model `lm()` function constrained to pass through the origin (the minus one): `scaleFactor <- lm(eswAfroc ~ -1 + esRoc)`. One expects this constraint since for `deltaMu = 0` the effect size must be zero no matter how it is measured. 
 
 ```{r}
-slope<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin
+scaleFactor<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin
 effectSizeROC <- seq(0.01, 0.1, 0.01)
-effectSizewAFROC <- effectSizeROC*slope$coefficients[1] # r2 = summary(slope)$r.squared
+effectSizewAFROC <- effectSizeROC*scaleFactor$coefficients[1] # r2 = summary(scaleFactor)$r.squared
 ````
 
 
-The slope of the straight line fit is `slope`, where slope = `r slope$coefficients[1]` and `R2` = `r summary(slope)$r.squared`. Therefore, the conversion from ROC to wAFROC effect size is: `effectSizewAFROC = slope . effectSizeROC`. **The wAFROC effect size is twice the ROC effect size.** All that remains is to calculate the variance componenents using the two FOMs:
+The scaleFactor of the straight line fit is `scaleFactor`, where scaleFactor = `r scaleFactor$coefficients[1]` and `R2` = `r summary(scaleFactor)$r.squared`. Therefore, the conversion from ROC to wAFROC effect size is: `effectSizewAFROC = scaleFactor * effectSizeROC`. **The wAFROC effect size is twice the ROC effect size.** All that remains is to calculate the variance componenents using the two FOMs:
 
 ## Computing the respective variance components
 

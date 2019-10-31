@@ -4,18 +4,24 @@
 \alias{SsSampleSizeKGivenJ}
 \title{Number of cases, for specified number of readers, to achieve desired power}
 \usage{
-SsSampleSizeKGivenJ(dataset, J, FOM = "Wilcoxon", effectSize = NULL,
+SsSampleSizeKGivenJ(dataset, ..., J, FOM, effectSize = NULL,
   method = "DBMH", alpha = 0.05, desiredPower = 0.8,
   option = "ALL")
 }
 \arguments{
-\item{dataset}{The \bold{pilot} The \strong{pilot} ROC dataset.}
+\item{dataset}{The \bold{pilot} dataset. If set to NULL 
+then variance components must be supplied.}
+
+\item{...}{Optional variance components, varYTR, varYTC and varYEps. These are
+needed if dataset is not supplied.}
 
 \item{J}{The number of readers in the \strong{pivotal} study.}
 
-\item{FOM}{The figure of merit.}
+\item{FOM}{The figure of merit. Not needed if variance components are supplied.}
 
-\item{effectSize}{The effect size to be used in the \strong{pivotal} study.}
+\item{effectSize}{The effect size to be used in the \strong{pivotal} study.
+Default is NULL. Must be supplied if dataset is set to NULL and variance 
+components are supplied.}
 
 \item{method}{"DBMH" (default) or "ORH".}
 
@@ -23,13 +29,15 @@ SsSampleSizeKGivenJ(dataset, J, FOM = "Wilcoxon", effectSize = NULL,
 
 \item{desiredPower}{The desired statistical power, default is 0.8.}
 
-\item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
+\item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
+(the default).}
 }
 \value{
 A list of two elements:
 
 \item{K}{The minimum number of cases K in the pivotal study 
-   to just achieve the desired statistical power.}
+   to just achieve the desired statistical power. This is calculated 
+   for each value of option.}
 
 \item{power}{The predicted statistical power.}
 }
@@ -38,22 +46,31 @@ Number of cases to achieve the desired power, for
   specified number of readers J, and specified DBMH or ORH analysis method
 }
 \details{
-The default \code{effectSize} uses the observed effect size in the pilot 
-   study. A numeric value over-rides the default value.
+\code{effectSize} = NULL uses the \strong{observed} effect size in 
+   the pilot study. A numeric value over-rides the default value. This 
+   argument must be supplied if dataset = NULL and variance compenents 
+   (the optional ... arguments) are supplied.
 }
 \examples{
-## An example using the DBM method
-SsSampleSizeKGivenJ(dataset02, J = 6, method = "DBMH")
+## the following two should give identical results
+SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBMH")
+a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$varComp
+SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBMH", 
+   list(varYTR = a$varTR, varYTC = a$varTC, varYEps = a$varErr))
 
-## An example using the OR method
-SsSampleSizeKGivenJ(dataset02, J = 6, method = "ORH")
-
+## the following two should give identical results
+SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "ORH")
+a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp
+KStar <- length(dataset02$NL[1,1,,1])
+SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "ORH", 
+   list(KStar = KStar, varTR = a$varTR, cov1 = a$cov1, cov2 = a$cov2, 
+   cov3 = a$cov3, varEps = a$var))
 
 \donttest{ 
 for (J in 6:10) {
- ret <- SsSampleSizeKGivenJ(dataset02, J = J, option = "RRRC") 
- message("# of readers = ", J, " estimated # of cases = ", ret$K, ", predicted power = ",
-    signif(ret$powerRRRC,3), "\\n")
+ ret <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = J, option = "RRRC") 
+ message("# of readers = ", J, " estimated # of cases = ", ret$K, 
+ ", predicted power = ", signif(ret$powerRRRC,3), "\\n")
 }
 }
 

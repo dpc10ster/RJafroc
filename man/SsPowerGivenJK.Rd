@@ -2,13 +2,17 @@
 % Please edit documentation in R/SsPowerGivenJK.R
 \name{SsPowerGivenJK}
 \alias{SsPowerGivenJK}
-\title{Statistical power for specified numbers of readers and cases in an ROC or FROC study}
+\title{Statistical power for specified numbers of readers and cases}
 \usage{
-SsPowerGivenJK(dataset, FOM, J, K, effectSize = NULL, method = "DBMH",
-  option = "ALL", alpha = 0.05, FPFValue = 0.2)
+SsPowerGivenJK(dataset, ..., FOM, J, K, effectSize = NULL,
+  method = "DBMH", option = "ALL", alpha = 0.05, FPFValue = 0.2)
 }
 \arguments{
-\item{dataset}{The dataset to be used to extrapolate to the \bold{pivotal} study.}
+\item{dataset}{The \bold{pilot} dataset. If set to NULL 
+then variance components must be supplied.}
+
+\item{...}{Optional variance components, varYTR, varYTC and varYEps. These are
+needed if dataset is not supplied.}
 
 \item{FOM}{The figure of merit}
 
@@ -16,8 +20,10 @@ SsPowerGivenJK(dataset, FOM, J, K, effectSize = NULL, method = "DBMH",
 
 \item{K}{The number of cases in the pivotal study.}
 
-\item{effectSize}{The effect size. The default is NULL in which case the observed
-effect size is used.}
+\item{effectSize}{The effect size to be used in the \strong{pivotal} study.
+Default is NULL, which uses the observed effect size in the pilot dataset. 
+Must be supplied if dataset is set to NULL and variance 
+components are supplied.}
 
 \item{method}{"DBMH" (the default) or "ORH".}
 
@@ -35,13 +41,25 @@ The expected statistical power.
 Calculate the statistical power for specified numbers of readers J, 
    cases K, analysis method and DBM or OR variances components
 }
+\details{
+The default \code{effectSize} uses the observed effect size in the pilot 
+   study. A numeric value over-rides the default value. This argument must be supplied 
+   if dataset = NULL and variance compenents (the ... arguments) are supplied.
+}
 \examples{
-## An example of sample size calculation with DBM variance componements
-SsPowerGivenJK(dataset02, FOM = "Wilcoxon", 6, 251, method = "DBMH")
+## the following two should give identical results
+SsPowerGivenJK(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 251, method = "DBMH")
+a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$varComp
+SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, method = "DBMH", 
+                    list(varYTR = a$varTR, varYTC = a$varTC, varYEps = a$varErr))
                      
-## An example of sample size calculation with OR variance componements.
-SsPowerGivenJK(dataset02, FOM = "Wilcoxon", 6, 251, method = "ORH")
-
+## the following two should give identical results
+SsPowerGivenJK(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 251, method = "ORH")
+a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp
+KStar <- length(dataset02$NL[1,1,,1])
+SsPowerGivenJK(dataset = NULL, effectSize = 0.05, J = 6, K = 251, method = "ORH", 
+   list(KStar = KStar, varTR = a$varTR, cov1 = a$cov1, cov2 = a$cov2, 
+   cov3 = a$cov3, varEps = a$var))
 
 }
 \references{
