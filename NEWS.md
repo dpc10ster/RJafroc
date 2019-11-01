@@ -24,10 +24,10 @@
 * `DfLroc2Froc`(): Simulates an "AUC-equivalent" FROC dataset from an LROC dataset.
 * `DfLroc2Roc`(): convert LROC dataset to ROC dataset.
 
-## variance component input
+## Variance component input
 * `SignificanceTesting` functions now accept variance components, without having to specify a dataset.
 
-## affected and new functions 
+## Affected and new functions 
 * `UtilVarComponentsDBM()`: 
 * `UtilVarComponentsOR()`:
 * `SsPowerGivenJKDbmVarComp`:
@@ -38,11 +38,11 @@
 * `SsSampleSizeKGivenJ`:
 * `SsPowerGivenJK`:
 
-## needs further testing 
+## Needs further testing 
 * `StSignificanceTestingSingleFixedFactor`:
 * `StSignificanceTestingSingleRandomFactor`:
 
-## extension needed 
+## Extension needed 
 * `PlotRsmOperatingCharacteristics`: to include LROC data (there is an addPlot routine in `StSignificanceTestingCadVsRadiologists` that could be moved over).
 
 # RJafroc 1.2.0
