@@ -10,7 +10,7 @@ Update History
 #### Significance testing functions ####
 * Corrected errors in `StSignificanceTesting()` and related functions affecting `method = "ORH"` and `covEstMethod = "Jackknife"`. I messed up while trying to simplify XZ code. 
 * Ran Windows `JAFROC` and saved results to validate current significance testing functions. Included unit tests in `tests/testthat`.
-* Ran first XZ CRAN upload (version 0.01.1) code (`StOldCode.R`) to compare against current significance testing code. Included unit tests in `tests/testthat`.
+* Ran first XZ CRAN upload (version 0.0.1) code (`StOldCode.R`) to compare against current significance testing code. Included unit tests in `tests/testthat`.
 * test-St-Compare2JAFROC.R
 * test-St-Compare2Org.R
 * test-St-CompareDBM2OR.R
