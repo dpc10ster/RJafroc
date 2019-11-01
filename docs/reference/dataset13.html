@@ -64,7 +64,7 @@ data for lesions not-visible on CXR, but visible to truth panel on all treatment
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@ data for lesions not-visible on CXR, but visible to truth panel on all treatment
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
     </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -96,19 +96,25 @@ data for lesions not-visible on CXR, but visible to truth panel on all treatment
       <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
-      <a href="../articles/Ch11V1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11V2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11V3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -171,7 +177,7 @@ data for lesions not-visible on CXR, but visible to truth panel on all treatment
     <p>A list with 8 elements:</p><ul>
 <li><p><code>NL</code> Ratings array [1:4, 1:5, 1:158, 1:4], of non-lesion localizations, NLs</p></li>
 <li><p><code>LL</code> Ratings array [1:4, 1:5, 1:106, 1:15], of lesion localizations, LLs</p></li>
-<li><p><code>lesionNum</code> array [1:106], number of lesions per diseased case, all set to 1</p></li>
+<li><p><code>lesionVector</code> array [1:106], number of lesions per diseased case, all set to 1</p></li>
 <li><p><code>lesionID</code> array [1:106, 15], labels of lesions on diseased cases, all set to 1</p></li>
 <li><p><code>lesionWeight</code> array [1:106, 15] weights (or clinical importance) of lesions, all set to 1</p></li>
 <li><p><code>dataType</code> "FROC", the data type</p></li>
@@ -190,7 +196,7 @@ for the Detection and Management of Pulmonary Nodules. Radiology. 2016;282(1):23
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>dataset13</span>)</div><div class='output co'>#&gt; List of 8
 #&gt;  $ NL          : num [1:4, 1:5, 1:158, 1:4] -Inf 3 -Inf 4 5 ...
 #&gt;  $ LL          : num [1:4, 1:5, 1:106, 1:15] -Inf -Inf -Inf -Inf -Inf ...
-#&gt;  $ lesionNum   : int [1:106] 3 1 7 2 3 6 10 1 4 5 ...
+#&gt;  $ lesionVector: int [1:106] 3 1 7 2 3 6 10 1 4 5 ...
 #&gt;  $ lesionID    : num [1:106, 1:15] 2 3 1 2 1 2 1 2 1 2 ...
 #&gt;  $ lesionWeight: num [1:106, 1:15] 0.333 1 0.143 0.5 0.333 ...
 #&gt;  $ dataType    : chr "FROC"

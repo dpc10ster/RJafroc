@@ -22,7 +22,7 @@ The use of the functions introduced in vignette 3, but this time using the ORH m
 
 ## Illustration of `SsPowerGivenJK()` using `method = "ORH"`
 ```{r}
-power <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon", 6, 251, method = "ORH", option = "RRRC")
+power <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon", J = 6, K = 251, method = "ORH", option = "RRRC")
 ````
 
 The returned value is a `list` containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic (the numerator degrees of freedom is always one less than the number of treatments, i.e., unity in this example). 

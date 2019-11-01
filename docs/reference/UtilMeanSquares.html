@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
     </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -95,19 +95,25 @@
       <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
-      <a href="../articles/Ch11V1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11V2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11V3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -162,7 +168,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>,
+  <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,6 +187,11 @@ is <code>"wJAFROC"</code>. See <code><a href='UtilFigureOfMerit.html'>UtilFigure
       <th>method</th>
       <td><p>The method, in which the mean squares are calculated. The two 
 valid options are <code>"DBMH"</code> (default) and <code>"ORH"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>FPFValue</th>
+      <td><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     </table>
     

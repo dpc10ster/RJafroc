@@ -15,7 +15,13 @@ ChisqrGoodnessOfFit(fpCounts, tpCounts, parameters, model, lesDistr)
 
 \item{model}{The fitting model: "BINORMAL", "CBM" or "RSM}
 
-\item{lesDistr}{The lesion distribution matrix; not needed for "BINORMAL" or "CBM" models}
+\item{lesDistr}{The lesion distribution matrix; not needed for "BINORMAL" 
+or "CBM" models. Array [1:maxLL,1:2]. The probability mass function of the 
+lesion distribution for diseased cases. The first column contains the 
+actual numbers of lesions per case. 
+The second column contains the fraction of diseased cases with the number 
+of lesions specified in the first column. 
+The second column must sum to unity.}
 }
 \value{
 The return value is a list with the following elements:

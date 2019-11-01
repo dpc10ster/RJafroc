@@ -9,7 +9,11 @@ FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)
 \arguments{
 \item{binnedRocData}{The \strong{binned ROC} dataset containing the data}
 
-\item{lesDistr}{The lesion distribution matrix}
+\item{lesDistr}{Array [1:maxLL,1:2]. The probability mass function of the 
+lesion distribution for diseased cases. The first column contains the 
+actual numbers of lesions per case. The second column contains the fraction 
+of diseased cases with the number of lesions specified in the first column. 
+The second column must sum to unity.}
 
 \item{trt}{The selected treatment, default is 1}
 

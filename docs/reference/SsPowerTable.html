@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
     </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -96,19 +96,25 @@
       <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
-      <a href="../articles/Ch11V1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11V2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11V3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -164,7 +170,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>SsPowerTable</span>(<span class='no'>dataset</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+    <pre class="usage"><span class='fu'>SsPowerTable</span>(<span class='no'>dataset</span>, <span class='no'>FOM</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
   <span class='kw'>desiredPower</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -172,11 +178,17 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The <b>pilot</b> ROC dataset to be used to extrapolate to the <b>pivotal</b> study.</p></td>
+      <td><p>The <b>pilot</b> ROC dataset to be used to extrapolate 
+to the <b>pivotal</b> study.</p></td>
+    </tr>
+    <tr>
+      <th>FOM</th>
+      <td><p>The figure of merit.</p></td>
     </tr>
     <tr>
       <th>effectSize</th>
-      <td><p>The effect size to be used in the <b>pivotal</b> study, default value is <code>NULL</code>.</p></td>
+      <td><p>The effect size to be used in the <b>pivotal</b> study, 
+default value is <code>NULL</code>. See Details.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -209,8 +221,8 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The default <code>effectSize</code>
-    uses the observed effect size in the pilot study. A numeric value over-rides the default value.</p>
+    <p>The default <code>effectSize</code> uses the observed effect size in the 
+   pilot study. A numeric value over-rides the default value.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -218,8 +230,12 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Example of sample size calculation with DBM method</span>
-<span class='fu'>SsPowerTable</span>(<span class='no'>dataset02</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $powerTableRRRC
+    <pre class="examples"><div class='input'><span class='co'>## Examples with CPU or elapsed time &gt; 5s</span>
+<span class='co'>##              user    system elapsed</span>
+<span class='co'>## SsPowerTable 20.033  0.037  20.077    </span>
+
+<span class='co'>## Example of sample size calculation with DBM method</span>
+<span class='fu'>SsPowerTable</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $powerTableRRRC
 #&gt;    numReaders numCases power
 #&gt; 1           3    &gt;2000  &lt;NA&gt;
 #&gt; 2           4     1089   0.8
@@ -444,7 +460,7 @@
 #&gt; 19         21      &lt;20  &lt;NA&gt;
 #&gt; </div><div class='input'>
 <span class='co'>## Example of sample size calculation with OR method</span>
-<span class='fu'>SsPowerTable</span>(<span class='no'>dataset02</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $powerTableRRRC
+<span class='fu'>SsPowerTable</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $powerTableRRRC
 #&gt;    numReaders numCases power
 #&gt; 1           3    &gt;2000  &lt;NA&gt;
 #&gt; 2           4     1089   0.8

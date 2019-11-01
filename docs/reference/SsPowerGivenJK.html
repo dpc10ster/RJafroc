@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Statistical power for specified numbers of readers and cases in an ROC study — SsPowerGivenJK • RJafroc</title>
+<title>Statistical power for specified numbers of readers and cases — SsPowerGivenJK • RJafroc</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Statistical power for specified numbers of readers and cases in an ROC study — SsPowerGivenJK" />
+<meta property="og:title" content="Statistical power for specified numbers of readers and cases — SsPowerGivenJK" />
 
 <meta property="og:description" content="Calculate the statistical power for specified numbers of readers J, 
    cases K, analysis method and DBM or OR variances components" />
@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
     </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -96,19 +96,25 @@
       <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
-      <a href="../articles/Ch11V1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11V2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11V3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -152,7 +158,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Statistical power for specified numbers of readers and cases in an ROC study</h1>
+    <h1>Statistical power for specified numbers of readers and cases</h1>
     
     <div class="hidden name"><code>SsPowerGivenJK.Rd</code></div>
     </div>
@@ -164,16 +170,25 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset</span>, <span class='no'>J</span>, <span class='no'>K</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset</span>, <span class='no'>...</span>, <span class='no'>FOM</span>, <span class='no'>J</span>, <span class='no'>K</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The <b>pilot</b> ROC dataset to be used to extrapolate to the <b>pivotal</b> study. If 
-missing, then variance components and effectSize must be passed as additional parameters.</p></td>
+      <td><p>The <b>pilot</b> dataset. If set to NULL 
+then variance components must be supplied.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Optional variance components, varYTR, varYTC and varYEps. These are
+needed if dataset is not supplied.</p></td>
+    </tr>
+    <tr>
+      <th>FOM</th>
+      <td><p>The figure of merit</p></td>
     </tr>
     <tr>
       <th>J</th>
@@ -184,8 +199,15 @@ missing, then variance components and effectSize must be passed as additional pa
       <td><p>The number of cases in the pivotal study.</p></td>
     </tr>
     <tr>
+      <th>effectSize</th>
+      <td><p>The effect size to be used in the <strong>pivotal</strong> study.
+Default is NULL, which uses the observed effect size in the pilot dataset. 
+Must be supplied if dataset is set to NULL and variance 
+components are supplied.</p></td>
+    </tr>
+    <tr>
       <th>method</th>
-      <td><p>"DBMH" or "ORH".</p></td>
+      <td><p>"DBMH" (the default) or "ORH".</p></td>
     </tr>
     <tr>
       <th>option</th>
@@ -196,8 +218,9 @@ missing, then variance components and effectSize must be passed as additional pa
       <td><p>The significance level, default is 0.05.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other parameters, OR or DBM variance components, passed internally, see details</p></td>
+      <th>FPFValue</th>
+      <td><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     </table>
     
@@ -207,7 +230,9 @@ missing, then variance components and effectSize must be passed as additional pa
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Other parameters <code>...</code> are reserved for internal use.</p>
+    <p>The default <code>effectSize</code> uses the observed effect size in the pilot 
+   study. A numeric value over-rides the default value. This argument must be supplied 
+   if dataset = NULL and variance compenents (the ... arguments) are supplied.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -222,80 +247,28 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## An example of sample size calculation with DBM variance componements</span>
-<span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset02</span>, <span class='fl'>6</span>, <span class='fl'>251</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $powerRRRC
-#&gt; [1] 0.8005403
-#&gt; 
-#&gt; $ncpRRRC
-#&gt; [1] 8.910481
-#&gt; 
-#&gt; $ddfHRRRC
-#&gt; [1] 16.12704
-#&gt; 
-#&gt; $fRRRC
-#&gt; [1] 4.48825
-#&gt; 
-#&gt; $powerFRRC
-#&gt; [1] 0.9474318
-#&gt; 
-#&gt; $ncpFRRC
-#&gt; [1] 12.91865
-#&gt; 
-#&gt; $ddfHFRRC
-#&gt; [1] 250
-#&gt; 
-#&gt; $fFRRC
-#&gt; [1] 3.878924
-#&gt; 
-#&gt; $powerRRFC
-#&gt; [1] 0.8873071
-#&gt; 
-#&gt; $ncpRRFC
-#&gt; [1] 16.00271
-#&gt; 
-#&gt; $ddfHRRFC
-#&gt; [1] 5
-#&gt; 
-#&gt; $fRRFC
-#&gt; [1] 6.607891
-#&gt; </div><div class='input'>
-<span class='co'>## An example of sample size calculation with OR variance componements.</span>
-<span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset02</span>, <span class='fl'>6</span>, <span class='fl'>251</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $powerRRRC
-#&gt; [1] 0.8005403
-#&gt; 
-#&gt; $ncpRRRC
-#&gt; [1] 8.910481
-#&gt; 
-#&gt; $ddfHRRRC
-#&gt; [1] 16.12704
-#&gt; 
-#&gt; $fRRRC
-#&gt; [1] 4.48825
-#&gt; 
-#&gt; $powerFRRC
-#&gt; [1] 0.9474318
-#&gt; 
-#&gt; $ncpFRRC
-#&gt; [1] 12.91865
-#&gt; 
-#&gt; $ddfHFRRC
-#&gt; [1] 250
-#&gt; 
-#&gt; $fFRRC
-#&gt; [1] 3.878924
-#&gt; 
-#&gt; $powerRRFC
-#&gt; [1] 0.8873071
-#&gt; 
-#&gt; $ncpRRFC
-#&gt; [1] 16.00271
-#&gt; 
-#&gt; $ddfHRRFC
-#&gt; [1] 5
-#&gt; 
-#&gt; $fRRFC
-#&gt; [1] 6.607891
-#&gt; </div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'>## the following two should give identical results</span>
+<span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>251</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt;   powerRRRC  ncpRRRC ddfHRRRC   fRRRC powerFRRC  ncpFRRC ddfHFRRC    fFRRC
+#&gt; 1  0.892282 11.61145 16.12704 4.48825 0.9832992 16.83458      250 3.878924
+#&gt;   powerRRFC ncpRRFC ddfHRRFC    fRRFC
+#&gt; 1 0.9494449 20.8535        5 6.607891</div><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilVarComponentsDBM.html'>UtilVarComponentsDBM</a></span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>varComp</span>
+<span class='fu'>SsPowerGivenJK</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>251</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>,
+                    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>varYTR</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varTR</span>, <span class='kw'>varYTC</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varTC</span>, <span class='kw'>varYEps</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varErr</span>))</div><div class='output co'>#&gt;   powerRRRC  ncpRRRC ddfHRRRC   fRRRC powerFRRC  ncpFRRC ddfHFRRC    fFRRC
+#&gt; 1  0.892282 11.61145 16.12704 4.48825 0.9832992 16.83458      250 3.878924
+#&gt;   powerRRFC ncpRRFC ddfHRRFC    fRRFC
+#&gt; 1 0.9494449 20.8535        5 6.607891</div><div class='input'>
+<span class='co'>## the following two should give identical results</span>
+<span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>251</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt;   powerRRRC  ncpRRRC ddfHRRRC   fRRRC powerFRRC  ncpFRRC ddfHFRRC    fFRRC
+#&gt; 1  0.892282 11.61145 16.12704 4.48825 0.9832992 16.83458      250 3.878924
+#&gt;   powerRRFC ncpRRFC ddfHRRFC    fRRFC
+#&gt; 1 0.9494449 20.8535        5 6.607891</div><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilVarComponentsOR.html'>UtilVarComponentsOR</a></span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>varComp</span>
+<span class='no'>KStar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>dataset02</span>$<span class='no'>NL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,<span class='fl'>1</span>])
+<span class='fu'>SsPowerGivenJK</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>251</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>,
+   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>KStar</span> <span class='kw'>=</span> <span class='no'>KStar</span>, <span class='kw'>varTR</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varTR</span>, <span class='kw'>cov1</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>cov1</span>, <span class='kw'>cov2</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>cov2</span>,
+   <span class='kw'>cov3</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>cov3</span>, <span class='kw'>varEps</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>var</span>))</div><div class='output co'>#&gt;   powerRRRC  ncpRRRC ddfHRRRC   fRRRC powerFRRC  ncpFRRC ddfHFRRC    fFRRC
+#&gt; 1  0.892282 11.61145 16.12704 4.48825 0.9832992 16.83458      250 3.878924
+#&gt;   powerRRFC ncpRRFC ddfHRRFC    fRRFC
+#&gt; 1 0.9494449 20.8535        5 6.607891</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

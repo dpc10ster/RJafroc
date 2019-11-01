@@ -6,7 +6,7 @@ knitr::opts_chunk$set(
 library(RJafroc)
 
 ## ------------------------------------------------------------------------
-power <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon", 6, 251, method = "ORH", option = "RRRC")
+power <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon", J = 6, K = 251, method = "ORH", option = "RRRC")
 
 ## ------------------------------------------------------------------------
 str(power)

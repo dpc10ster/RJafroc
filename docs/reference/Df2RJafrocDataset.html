@@ -64,7 +64,7 @@ user to leverage the file I/O, plotting and analyses capabilities of RJafroc." /
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@ user to leverage the file I/O, plotting and analyses capabilities of RJafroc." /
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
     </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -96,19 +96,25 @@ user to leverage the file I/O, plotting and analyses capabilities of RJafroc." /
       <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
-      <a href="../articles/Ch11V1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11V2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11V3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
-      <a href="../articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
       <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -180,7 +186,7 @@ user to leverage the file I/O, plotting and analyses capabilities of <span class
     <tr>
       <th>...</th>
       <td><p>Other elements of <span class="pkg">RJafroc</span> dataset that may, depending on the context, need to be specified. 
-<code>lesionNum</code> <strong>must</strong> be specified if an FROC dataset is to be returned. It is a <code>K2</code>-length array specifying
+<code>lesionVector</code> <strong>must</strong> be specified if an FROC dataset is to be returned. It is a <code>K2</code>-length array specifying
 the numbers of lesions in each diseased case in the dataset.</p></td>
     </tr>
     </table>
@@ -191,7 +197,7 @@ the numbers of lesions in each diseased case in the dataset.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function "senses" the data type (ROC or FROC) from the the absence or presence of <code>lesionNum</code>. 
+    <p>The function "senses" the data type (ROC or FROC) from the the absence or presence of <code>lesionVector</code>. 
 ROC data can be <code>NL[1:K1]</code> and <code>LL[1:K2]</code> or <code>NL[1:I,1:J,1:K1]</code> and <code>LL[1:I,1:J,1:K2]</code>. 
 FROC data can be <code>NL[1:K1,1:maxNL]</code> and <code>LL[1:K2, 1:maxLL]</code> or <code>NL[1:I,1:J,1:K1,1:maxNL]</code> and 
 <code>LL[1:I,1:J,1:K2,1:maxLL]</code>. 
@@ -217,18 +223,18 @@ Consecutive characters/integers starting from "1" are assigned to <code>lesionID
    <span class='no'>z2</span>[<span class='no'>i</span>,<span class='no'>j</span>,] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='no'>K2</span>) * <span class='no'>sigma</span> + <span class='no'>mu</span>
  }
 }
-<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span>(<span class='no'>z1</span>, <span class='no'>z2</span>) <span class='co'>## note lesionNum consists of 1s; i.e., an ROC dataset</span>
+<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span>(<span class='no'>z1</span>, <span class='no'>z2</span>) <span class='co'>## note lesionVector consists of 1s; i.e., an ROC dataset</span>
 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
 <span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>;<span class='no'>lambda</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>;<span class='no'>nu</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>; <span class='no'>zeta1</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>
 <span class='no'>K1</span> <span class='kw'>&lt;-</span> <span class='fl'>5</span>;<span class='no'>K2</span> <span class='kw'>&lt;-</span> <span class='fl'>7</span>
 <span class='no'>Lmax</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>;<span class='no'>Lk2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>floor</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='no'>K2</span>, <span class='fl'>1</span>, <span class='no'>Lmax</span> + <span class='fl'>1</span>))
 <span class='no'>frocDataRaw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SimulateFrocDataset.html'>SimulateFrocDataset</a></span>(<span class='no'>mu</span>, <span class='no'>lambda</span>, <span class='no'>nu</span>, <span class='no'>zeta1</span>, <span class='kw'>I</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>K1</span>, <span class='no'>K2</span>,
-<span class='kw'>lesionNum</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
+<span class='kw'>lesionVector</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
 <span class='no'>NL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/drop'>drop</a></span>(<span class='no'>frocDataRaw</span>$<span class='no'>NL</span>)
 <span class='no'>LL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/drop'>drop</a></span>(<span class='no'>frocDataRaw</span>$<span class='no'>LL</span>)
-<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span>(<span class='no'>NL</span>, <span class='no'>LL</span>, <span class='kw'>lesionNum</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
-<span class='co'>## note lesionNum is not all 1s, signalling an FROC dataset</span>
+<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span>(<span class='no'>NL</span>, <span class='no'>LL</span>, <span class='kw'>lesionVector</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
+<span class='co'>## note lesionVector is not all 1s, signalling an FROC dataset</span>
 
 <span class='co'>## Simulate FROC dataset, convert to dataset object, display ROC, FROC and AFROC curves</span>
 <span class='no'>I</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>;<span class='no'>J</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>;<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
@@ -245,7 +251,7 @@ Consecutive characters/integers starting from "1" are assigned to <code>lesionID
 <span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='no'>I</span>) {
   <span class='kw'>for</span> (<span class='no'>j</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='no'>J</span>) {
     <span class='no'>frocDataRaw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SimulateFrocDataset.html'>SimulateFrocDataset</a></span>(<span class='no'>mu</span>, <span class='no'>lambda</span>, <span class='no'>nu</span>, <span class='no'>zeta1</span>, <span class='kw'>I</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-    <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>K1</span>, <span class='no'>K2</span>, <span class='kw'>lesionNum</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
+    <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>K1</span>, <span class='no'>K2</span>, <span class='kw'>lesionVector</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
     <span class='no'>dimNL</span>[<span class='no'>i</span>,<span class='no'>j</span>,] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/drop'>drop</a></span>(<span class='no'>frocDataRaw</span>$<span class='no'>NL</span>))
     <span class='no'>dimLL</span>[<span class='no'>i</span>,<span class='no'>j</span>,] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dim'>dim</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/drop'>drop</a></span>(<span class='no'>frocDataRaw</span>$<span class='no'>LL</span>))
     <span class='no'>z1</span>[<span class='no'>i</span>,<span class='no'>j</span>,,<span class='fl'>1</span>:<span class='no'>dimNL</span>[<span class='no'>i</span>,<span class='no'>j</span>,<span class='fl'>2</span>]] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/drop'>drop</a></span>(<span class='no'>frocDataRaw</span>$<span class='no'>NL</span>) <span class='co'># drop the excess location indices</span>
@@ -255,7 +261,7 @@ Consecutive characters/integers starting from "1" are assigned to <code>lesionID
 <span class='no'>z1</span> <span class='kw'>&lt;-</span> <span class='no'>z1</span>[,,,<span class='fl'>1</span>:<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='no'>dimNL</span>[,,<span class='fl'>2</span>])]
 <span class='no'>z2</span> <span class='kw'>&lt;-</span> <span class='no'>z2</span>[,,,<span class='fl'>1</span>:<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='no'>dimLL</span>[,,<span class='fl'>2</span>])]
 
-<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span>(<span class='no'>z1</span>, <span class='no'>z2</span>, <span class='kw'>lesionNum</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
+<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span>(<span class='no'>z1</span>, <span class='no'>z2</span>, <span class='kw'>lesionVector</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
 
 <span class='no'>retPlot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>dataset</span>,
 <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>1</span>,<span class='no'>I</span>), <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>1</span>,<span class='no'>J</span>), <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)

@@ -75,9 +75,9 @@ p <- ggplot(data = df, aes(x = es_ROC, y = es_wAFROC)) +
 print(p)
 
 ## ------------------------------------------------------------------------
-a<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin
+scaleFactor<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin
 effectSizeROC <- seq(0.01, 0.1, 0.01)
-effectSizewAFROC <- effectSizeROC*a$coefficients[1] # r2 = summary(a)$r.squared
+effectSizewAFROC <- effectSizeROC*scaleFactor$coefficients[1] # r2 = summary(scaleFactor)$r.squared
 
 ## ------------------------------------------------------------------------
 temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBMH", option = "RRRC")

@@ -1,7 +1,57 @@
 Update History
 ==========================
 ## RJafroc 1.2.0.9000 ##
-TBA
+### Major changes ###
+
+#### Added FROC sample size vignettes ####
+* `Ch19Vig1FrocSampleSize.Rmd`:
+* `Ch19Vig2FrocSampleSize.Rmd`:
+
+#### Significance testing functions ####
+* Corrected errors in `StSignificanceTesting()` and related functions affecting `method = "ORH"` and `covEstMethod = "Jackknife"`. I messed up while trying to simplify XZ code. 
+* Ran Windows `JAFROC` on virtual Windows 8 machine and saved results to validate current significance testing functions. Included unit tests in `tests/testthat`.
+* Ran first XZ CRAN upload (version 0.0.1) code (`StOldCode.R`) to compare against current significance testing code. Included unit tests in `tests/testthat`.
+* test-St-Compare2JAFROC.R
+* test-St-Compare2Org.R
+* test-St-CompareDBM2OR.R
+
+#### CAD and LROC #### 
+* Corrected interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the `approx` function did not work for small datasets. Wrote my own simple interpolation code. See `LrocFoms()` in `gpfMyFOM.R`. See **ChkLrocFoms.xlsx** in `inst/StSigTesting` for details on hand calculation of LROC FOMs. 
+* LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions.
+* Most FOM related functions now accept `FPFValue` to accommodate LROC datasets.
+* CAD results updated; see `CadFunctionTests.R` in `inst/CadTesting`. See **CadTestingNicoData.xlsx** in `inst/CadTesting`. Included unit tests in `tests/testthat`.
+* `StSignificanceTestingCadVsRadiologists()`: cleaned up and now runs all FOMs.
+* `SimulateLrocDataset()`: FROC to LROC simulator based on RSM. Could be used for NH testing.
+* `DfFroc2Lroc`(): Simulates an "AUC-equivalent" LROC dataset from an FROC dataset.
+* `DfLroc2Froc`(): Simulates an "AUC-equivalent" FROC dataset from an LROC dataset.
+* `DfLroc2Roc`(): convert LROC dataset to ROC dataset.
+
+#### variance component input #### 
+* `SignificanceTesting` functions now accept variance components, without having to specify a dataset.
+
+#### affected and new functions #### 
+* `UtilVarComponentsDBM()`: 
+* `UtilVarComponentsOR()`:
+* `SsPowerGivenJKDbmVarComp`:
+* `SsPowerGivenJKOrVarComp`:
+* `StSignificanceTestingCadVsRadiologists`:
+* `UtilLesionDistribution`:
+* `UtilLesionWeightsDistr`:
+* `SsSampleSizeKGivenJ`:
+* `SsPowerGivenJK`:
+
+#### FROC sample size #### 
+* `SsFrocNhRsmModel`:
+
+#### needs further testing #### 
+* `StSignificanceTestingSingleFixedFactor`:
+* `StSignificanceTestingSingleRandomFactor`:
+
+#### extension needed #### 
+* `PlotRsmOperatingCharacteristics`: to include LROC data (there is an addPlot routine in `StSignificanceTestingCadVsRadiologists` that could be moved over).
+
+
+
 ## RJafroc 1.2.0 ##
 ### Major changes ###
 * Corrected all references to package name to `RJafroc` (note capitalization)

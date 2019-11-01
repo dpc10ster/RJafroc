@@ -5,12 +5,42 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modeling, Analysis, Validation and Visualization of Observer Performance Studies in Diagnostic Radiology • RJafroc</title>
+<title>Analyzing Diagnostic Observer Performance Studies • RJafroc</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Modeling, Analysis, Validation and Visualization of Observer Performance Studies in Diagnostic Radiology">
-<meta property="og:description" content="Tools for quantitative assessment of diagnostic medical imaging systems, radiologists or computer aided detection ('CAD') algorithms.">
+<script src="pkgdown.js"></script><meta property="og:title" content="Analyzing Diagnostic Observer Performance Studies">
+<meta property="og:description" content="Tools for quantitative assessment of medical imaging systems, radiologists 
+    or computer aided detection ('CAD') algorithms. Implements methods described in the book: 
+    'Chakraborty' (2017) &lt;ISBN:978-1482214840&gt;. Data collection paradigms include receiver 
+    operating characteristic ('ROC') and a location specific extension, namely free-response 
+    'ROC' ('FROC'). 'ROC' data consists of a single rating per image, where the rating is the 
+    perceived confidence level the image is of a diseased patient. 'FROC' data consists of a 
+    variable number (including zero) of mark-rating pairs per image, where a mark is the 
+    location of a clinically relevant suspicious region and the rating is the corresponding 
+    confidence level that it is a true lesion. The name 'RJafroc' is derived from it being an 
+    enhanced R version of original Windows 'JAFROC' &lt;http://www.devchakraborty.com&gt;. Implemented 
+    are a number of figures of merit quantifying performance, functions for visualizing 
+    operating characteristics and three ROC ratings data curve-fitting algorithms: the 'binormal' 
+    model ('BM'), the contaminated 'binormal' model ('CBM') and the 'radiological' search model 
+    ('RSM') 'Chakraborty' (2006) &lt;{doi:10.1088/0031-9155/51/14/012}&gt; . Also implemented is maximum 
+    likelihood fitting of paired ROC data, utilizing the correlated 'CBM' model ('CORCBM') model. 
+    Unlike the 'BM', which predicts 'improper' ROC curves, 'CBM', 'CORCBM' and the 'RSM' predict 
+    proper ROC curves that do not cross the chance diagonal. 'RSM' fitting yields measures of search 
+    and lesion-classification performances, in addition to the usual case-classification 
+    performance measured by the area under the 'ROC' curve. Search performance is the ability to 
+    find lesions while avoiding finding non-lesions. Lesion-classification performance is the ability 
+    to discriminate between found lesions and non-lesions. A number of significance testing algorithms 
+    are implement. For fully-crossed factorial study designs, termed multiple-reader multiple-case, 
+    significance testing of reader-averaged figure-of-merit differences between 'modalities' is 
+    implemented using either 'pseudovalue'-based or figure of merit-based methods. Single treatment analysis 
+    allows comparison of performance of a group of radiologists to a specified value, or comparison of 
+    'CAD' performance to a group of radiologists interpreting the same cases. Sample size estimation 
+    tools are provided for 'ROC' and 'FROC' studies that allow estimation of relevant variances 
+    from a pilot study, in order to predict required numbers of readers and cases in a pivotal study. 
+    Utility and data file manipulation functions allow data to be read in any of the currently used 
+    input formats, including Excel, and the results of the analysis can be viewed in text 
+    or Excel output files.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -30,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
       </span>
     </div>
 
@@ -53,7 +83,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/Ch00V1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
     </li>
     <li>
       <a href="articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -62,19 +92,25 @@
       <a href="articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
-      <a href="articles/Ch11V1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+      <a href="articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="articles/Ch11V2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
     </li>
     <li>
-      <a href="articles/Ch11V3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
     </li>
     <li>
-      <a href="articles/Ch11V4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
     </li>
     <li>
-      <a href="articles/Ch11V5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+      <a href="articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
       <a href="articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -126,22 +162,25 @@
 <ul>
 <li>Modeling, Analysis, Validation and Visualization of ROC/FROC studies</li>
 <li>Extends and replaces the <em>obsolete</em> Windows software (JAFROC: <a href="http://www.devchakraborty.com" class="uri">http://www.devchakraborty.com</a>)</li>
+<li>I know the Windows software is much easier to use, so I am keeping it online, but I cannot maintain or extend it. Sorry.</li>
 </ul>
 </div>
-<div id="documentation-vignettes-is-available-at-httpsdpc10ster-github-iorjafroc" class="section level1">
+<div id="documentation-articles-or-vignettes-is-available-at-httpsdpc10ster-github-iorjafroc" class="section level1">
 <h1 class="hasAnchor">
-<a href="#documentation-vignettes-is-available-at-httpsdpc10ster-github-iorjafroc" class="anchor"></a>Documentation (vignettes) is available at <a href="https://dpc10ster.github.io/RJafroc/" class="uri">https://dpc10ster.github.io/RJafroc/</a>
+<a href="#documentation-articles-or-vignettes-is-available-at-httpsdpc10ster-github-iorjafroc" class="anchor"></a>Documentation (articles or vignettes) is available at <a href="https://dpc10ster.github.io/RJafroc/" class="uri">https://dpc10ster.github.io/RJafroc/</a>
 </h1>
+<p>This is highly recommended to familiarize oneself with the code. It has some <code>QuickStart</code> vignettes that will enable one already familiar with the Windows software to run the R code.</p>
 </div>
 <div id="my-wiki-is-at-httpsgithub-comdpc10sterrjafrocwiki" class="section level1">
 <h1 class="hasAnchor">
 <a href="#my-wiki-is-at-httpsgithub-comdpc10sterrjafrocwiki" class="anchor"></a>My wiki is at <a href="https://github.com/dpc10ster/RJafroc/wiki" class="uri">https://github.com/dpc10ster/RJafroc/wiki</a>
 </h1>
+<p>This is still under development and may be dropped in future in favor of an online book.</p>
 </div>
-<div id="a-cran-version-of-rjafroc-is-in-preparation" class="section level1">
+<div id="a-cran-version-of-rjafroc-has-been-published" class="section level1">
 <h1 class="hasAnchor">
-<a href="#a-cran-version-of-rjafroc-is-in-preparation" class="anchor"></a>A CRAN version of RJafroc is in preparation</h1>
-<p>Thanks to help from Dr. Peter Phillips, a version of <code>RJafroc</code> that should pass CRAN tests is close to completion. As usual, the most current version of the software is available right here.</p>
+<a href="#a-cran-version-of-rjafroc-has-been-published" class="anchor"></a>A CRAN version of <code>RJafroc</code> has been published</h1>
+<p>Thanks to help from Dr. Peter Phillips, version 1.2.0 of <code>RJafroc</code> has passed CRAN tests. This version is on the <code>cran</code> branch. <strong>The complete (all vignettes and tests) and most current and tested version of the software is on the <code>master</code> branch.</strong> The <code>development</code> branch is for ongoing development work (Version 1.2.0.9000). When finished and tested, the <code>development</code> branch should be merged with <code>master</code>, then file-size-limited and merged to CRAN branch, and then submitted to CRAN.</p>
 </div>
 <div id="those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions" class="section level1">
 <h1 class="hasAnchor">
@@ -263,9 +302,7 @@ print(cbmPlot)</code></pre>
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a> | file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
 </ul>
 </div>
 <div class="developers">

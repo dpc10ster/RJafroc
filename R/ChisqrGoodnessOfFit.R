@@ -7,7 +7,13 @@
 #' @param tpCounts The TP counts table
 #' @param parameters The parameters of the model including cutoffs, see details
 #' @param model The fitting model: "BINORMAL", "CBM" or "RSM
-#' @param lesDistr The lesion distribution matrix; not needed for "BINORMAL" or "CBM" models
+#' @param lesDistr The lesion distribution matrix; not needed for "BINORMAL" 
+#'    or "CBM" models. Array [1:maxLL,1:2]. The probability mass function of the 
+#'    lesion distribution for diseased cases. The first column contains the 
+#'    actual numbers of lesions per case. 
+#'    The second column contains the fraction of diseased cases with the number 
+#'    of lesions specified in the first column. 
+#'    The second column must sum to unity. 
 #'
 #'
 #' @return The return value is a list with the following elements:
