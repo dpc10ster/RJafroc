@@ -2,26 +2,53 @@ Update History
 ==========================
 ## RJafroc 1.2.0.9000 ##
 ### Major changes ###
-* Corrected errors in `StSignificanceTesting()` and related functions affecting `method = "ORH"` and `covEstMethod = "Jackknife"`.
-* Ran Windows `JAFROC` to validate significance testing functions. Included these unit tests in `tests/testthat`.
-* Ran first R upload (0.1.1) code to compare against current significance testing code. Included these unit tests in `tests/testthat`. 
-* Corrected interpolation error in LROC PCL and ALROC FOMs. See **ChkLrocFoms.xlsx** in `inst/StSigTesting`. Hand calculations showed that the `approx` function did not work for small datasets. Wrote my own simple interpolation code.
+
+#### Added sample size vignettes ####
+* `Ch19Vig1FrocSampleSize.Rmd`:
+* `Ch19Vig2FrocSampleSize.Rmd`:
+
+#### Significance testing functions ####
+* Corrected errors in `StSignificanceTesting()` and related functions affecting `method = "ORH"` and `covEstMethod = "Jackknife"`. I messed up while trying to simplify XZ code. 
+* Ran Windows `JAFROC` and saved results to validate current significance testing functions. Included unit tests in `tests/testthat`.
+* Ran first XZ CRAN upload (version 0.01.1) code (`StOldCode.R`) to compare against current significance testing code. Included unit tests in `tests/testthat`.
+* test-St-Compare2JAFROC.R
+* test-St-Compare2Org.R
+* test-St-CompareDBM2OR.R
+
+#### CAD and LROC #### 
+* Corrected interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the `approx` function did not work for small datasets. Wrote my own simple interpolation code. See **ChkLrocFoms.xlsx** in `inst/StSigTesting`. 
 * LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions.
 * Most FOM related functions now accept `FPFValue` to accommodate LROC datasets.
-* CAD results updated; see `CadFunctionTests.R` in `inst/CadTesting`.
+* CAD results updated; see `CadFunctionTests.R` in `inst/CadTesting`. See **CadTestingNicoData.xlsx** in `inst/CadTesting`. Included unit tests in `tests/testthat`.
 * `SimulateLrocDataset`: FROC to LROC simulator based on RSM. Could be used for NH testing.
 * `DfFroc2Lroc`: Simulates an "AUC-equivalent" LROC dataset from an FROC dataset.
 * `DfLroc2Froc`: Simulates an "AUC-equivalent" FROC dataset from an LROC dataset.
 * `DfLroc2Roc`: convert LROC dataset to ROC dataset.
-* St functions now accept variance components, without having to specify a dataset.
-* `UtilVarComponentsDBM()`, `UtilVarComponentsOR()`
+
+#### variance component input #### 
+* SignificanceTesting functions now accept variance components, without having to specify a dataset.
+
+#### affected and new functions #### 
+* `UtilVarComponentsDBM()`: 
+* `UtilVarComponentsOR()`:
 * `SsPowerGivenJKDbmVarComp`:
 * `SsPowerGivenJKOrVarComp`:
-* `StSignificanceTestingCadVsRadiologists`: significance testing: standalone CAD vs. radiologists
-* `StSignificanceTestingSingleFixedFactor`:
-* `StSignificanceTestingSingleRandomFactor`:
+* `StSignificanceTestingCadVsRadiologists`:
 * `UtilLesionDistribution`:
 * `UtilLesionWeightsDistr`:
+* `SsSampleSizeKGivenJ`:
+* `SsPowerGivenJK`:
+
+#### FROC sample size #### 
+* `SsFrocNhRsmModel`:
+
+#### needs further testing #### 
+* `StSignificanceTestingSingleFixedFactor`:
+* `StSignificanceTestingSingleRandomFactor`:
+
+#### extension needed #### 
+* `PlotRsmOperatingCharacteristics`: to include LROC data
+
 
 
 ## RJafroc 1.2.0 ##
