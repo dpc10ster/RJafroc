@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "%\\VignetteIndexEntry",
+        "query" : "MyFOM",
         "regex" : false
     }
 }

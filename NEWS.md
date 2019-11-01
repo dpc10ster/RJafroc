@@ -1,7 +1,29 @@
 Update History
 ==========================
 ## RJafroc 1.2.0.9000 ##
-TBA
+### Major changes ###
+* Corrected errors in `StSignificanceTesting()` and related functions affecting `method = "ORH"` and `covEstMethod = "Jackknife"`.
+* Ran Windows `JAFROC` to validate significance testing functions. Included these unit tests in `tests/testthat`.
+* Ran first R upload (0.1.1) code to compare against current significance testing code. Included these unit tests in `tests/testthat`. 
+* Corrected interpolation error in LROC PCL and ALROC FOMs. See **ChkLrocFoms.xlsx** in `inst/StSigTesting`. Hand calculations showed that the `approx` function did not work for small datasets. Wrote my own simple interpolation code.
+* LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions.
+* Most FOM related functions now accept `FPFValue` to accommodate LROC datasets.
+* CAD results updated; see `CadFunctionTests.R` in `inst/CadTesting`.
+* `SimulateLrocDataset`: FROC to LROC simulator based on RSM. Could be used for NH testing.
+* `DfFroc2Lroc`: Simulates an "AUC-equivalent" LROC dataset from an FROC dataset.
+* `DfLroc2Froc`: Simulates an "AUC-equivalent" FROC dataset from an LROC dataset.
+* `DfLroc2Roc`: convert LROC dataset to ROC dataset.
+* St functions now accept variance components, without having to specify a dataset.
+* `UtilVarComponentsDBM()`, `UtilVarComponentsOR()`
+* `SsPowerGivenJKDbmVarComp`:
+* `SsPowerGivenJKOrVarComp`:
+* `StSignificanceTestingCadVsRadiologists`: significance testing: standalone CAD vs. radiologists
+* `StSignificanceTestingSingleFixedFactor`:
+* `StSignificanceTestingSingleRandomFactor`:
+* `UtilLesionDistribution`:
+* `UtilLesionWeightsDistr`:
+
+
 ## RJafroc 1.2.0 ##
 ### Major changes ###
 * Corrected all references to package name to `RJafroc` (note capitalization)
