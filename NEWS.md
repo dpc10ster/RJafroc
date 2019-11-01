@@ -3,7 +3,7 @@ Update History
 ## RJafroc 1.2.0.9000 ##
 ### Major changes ###
 
-#### Added sample size vignettes ####
+#### Added FROC sample size vignettes ####
 * `Ch19Vig1FrocSampleSize.Rmd`:
 * `Ch19Vig2FrocSampleSize.Rmd`:
 
