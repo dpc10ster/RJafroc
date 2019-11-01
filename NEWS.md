@@ -1,15 +1,19 @@
 # RJafroc 1.2.0.9000
 
-## Added FROC sample size vignettes
-* `Ch19Vig1FrocSampleSize.Rmd`:
-* `Ch19Vig2FrocSampleSize.Rmd`:
-* `SsFrocNhRsmModel`:
+## Added FROC sample size vignettes and functions
+* `Ch19Vig1FrocSampleSize.Rmd`: Compares FROC power to ROC power.
+* `Ch19Vig2FrocSampleSize.Rmd`: FROC power calculation for a number of situations.
+* `SsFrocNhRsmModel()`: constructs an RSM-based model, which allows one to relate an ROC effect size to a wAFROC effect size, and returns parameters of model to allow FOM estimation for ROC and wAFROC. Following functions are used to calculate the lesion distribution and lesion weights arrays:
+* `UtilLesionDistribution`:
+* `UtilLesionWeightsDistr`:
 
 ## Significance testing functions
-* `StSignificanceTesting()`: corrected errors affecting `method = "ORH"` and `covEstMethod = "Jackknife"`. I messed up while trying to simplify XZ code. 
-* Ran Windows `JAFROC` on virtual Windows 8 machine and saved results to validate current significance testing functions. Included unit tests in `tests/testthat`.
+* `StSignificanceTesting()`: corrects errors affecting `method = "ORH"` and `covEstMethod = "Jackknife"`. I messed up while trying to simplify XZ code. It calls:
+* StDBMHAnalysis(): 
+* StORHAnalysis(): 
+* Ran Windows `JAFROC` on virtual Windows 8 machine and saved results (inst/VarCompDiscrepancy/includedFrocData_Inferred_ROC.txt) to validate current significance testing functions. Included unit tests in `tests/testthat`.
 * Ran first XZ CRAN upload (version 0.0.1) code (`StOldCode.R`) to compare against current significance testing code. Included unit tests in `tests/testthat`.
-* test-St-Compare2JAFROC.R
+* test-St-Compare2JAFROC.R: compares
 * test-St-Compare2Org.R
 * test-St-CompareDBM2OR.R
 
@@ -33,8 +37,6 @@
 * `SsPowerGivenJKDbmVarComp`:
 * `SsPowerGivenJKOrVarComp`:
 * `StSignificanceTestingCadVsRadiologists`:
-* `UtilLesionDistribution`:
-* `UtilLesionWeightsDistr`:
 * `SsSampleSizeKGivenJ`:
 * `SsPowerGivenJK`:
 
@@ -44,6 +46,7 @@
 
 ## Extension needed 
 * `PlotRsmOperatingCharacteristics`: to include LROC data (there is an addPlot routine in `StSignificanceTestingCadVsRadiologists` that could be moved over).
+* Need a function that checks validity of FOM for dataset: `isValidFom`?
 
 # RJafroc 1.2.0
 * Corrected all references to package name to `RJafroc` (note capitalization)
