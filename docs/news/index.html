@@ -162,22 +162,21 @@
 <h1 class="page-header">
 <a href="#rjafroc-1-2-0-9000" class="anchor"></a>RJafroc 1.2.0.9000<small> Unreleased </small>
 </h1>
-<div id="major-changes" class="section level2">
+<div id="added-froc-sample-size-vignettes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"></a>Major changes</h2>
-<div id="added-froc-sample-size-vignettes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#added-froc-sample-size-vignettes" class="anchor"></a>Added FROC sample size vignettes</h3>
+<a href="#added-froc-sample-size-vignettes" class="anchor"></a>Added FROC sample size vignettes</h2>
 <ul>
 <li>
 <code>Ch19Vig1FrocSampleSize.Rmd</code>:</li>
 <li>
 <code>Ch19Vig2FrocSampleSize.Rmd</code>:</li>
+<li>
+<code>SsFrocNhRsmModel</code>:</li>
 </ul>
 </div>
-<div id="significance-testing-functions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#significance-testing-functions" class="anchor"></a>Significance testing functions</h3>
+<div id="significance-testing-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#significance-testing-functions" class="anchor"></a>Significance testing functions</h2>
 <ul>
 <li>
 <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code>: corrected errors affecting <code>method = "ORH"</code> and <code>covEstMethod = "Jackknife"</code>. I messed up while trying to simplify XZ code.</li>
@@ -188,9 +187,9 @@
 <li>test-St-CompareDBM2OR.R</li>
 </ul>
 </div>
-<div id="cad-and-lroc" class="section level3">
-<h3 class="hasAnchor">
-<a href="#cad-and-lroc" class="anchor"></a>CAD and LROC</h3>
+<div id="cad-and-lroc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#cad-and-lroc" class="anchor"></a>CAD and LROC</h2>
 <ul>
 <li>Corrected interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the <code>approx</code> function did not work for small datasets. Wrote my own simple interpolation code. See <code>LrocFoms()</code> in <code>gpfMyFOM.R</code>. See <strong>ChkLrocFoms.xlsx</strong> in <code>inst/StSigTesting</code> for details on hand calculation of LROC FOMs.</li>
 <li>LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions.</li>
@@ -208,17 +207,17 @@
 <code>DfLroc2Roc</code>(): convert LROC dataset to ROC dataset.</li>
 </ul>
 </div>
-<div id="variance-component-input" class="section level3">
-<h3 class="hasAnchor">
-<a href="#variance-component-input" class="anchor"></a>variance component input</h3>
+<div id="variance-component-input" class="section level2">
+<h2 class="hasAnchor">
+<a href="#variance-component-input" class="anchor"></a>variance component input</h2>
 <ul>
 <li>
 <code>SignificanceTesting</code> functions now accept variance components, without having to specify a dataset.</li>
 </ul>
 </div>
-<div id="affected-and-new-functions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#affected-and-new-functions" class="anchor"></a>affected and new functions</h3>
+<div id="affected-and-new-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#affected-and-new-functions" class="anchor"></a>affected and new functions</h2>
 <ul>
 <li>
 <code><a href="../reference/UtilVarComponentsDBM.html">UtilVarComponentsDBM()</a></code>:</li>
@@ -240,17 +239,9 @@
 <code>SsPowerGivenJK</code>:</li>
 </ul>
 </div>
-<div id="froc-sample-size" class="section level3">
-<h3 class="hasAnchor">
-<a href="#froc-sample-size" class="anchor"></a>FROC sample size</h3>
-<ul>
-<li>
-<code>SsFrocNhRsmModel</code>:</li>
-</ul>
-</div>
-<div id="needs-further-testing" class="section level3">
-<h3 class="hasAnchor">
-<a href="#needs-further-testing" class="anchor"></a>needs further testing</h3>
+<div id="needs-further-testing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#needs-further-testing" class="anchor"></a>needs further testing</h2>
 <ul>
 <li>
 <code>StSignificanceTestingSingleFixedFactor</code>:</li>
@@ -258,23 +249,19 @@
 <code>StSignificanceTestingSingleRandomFactor</code>:</li>
 </ul>
 </div>
-<div id="extension-needed" class="section level3">
-<h3 class="hasAnchor">
-<a href="#extension-needed" class="anchor"></a>extension needed</h3>
+<div id="extension-needed" class="section level2">
+<h2 class="hasAnchor">
+<a href="#extension-needed" class="anchor"></a>extension needed</h2>
 <ul>
 <li>
 <code>PlotRsmOperatingCharacteristics</code>: to include LROC data (there is an addPlot routine in <code>StSignificanceTestingCadVsRadiologists</code> that could be moved over).</li>
 </ul>
 </div>
 </div>
-</div>
     <div id="rjafroc-1-2-0" class="section level1">
 <h1 class="page-header">
 <a href="#rjafroc-1-2-0" class="anchor"></a>RJafroc 1.2.0<small> 2019-07-31 </small>
 </h1>
-<div id="major-changes-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Corrected all references to package name to <code>RJafroc</code> (note capitalization)</li>
 <li>Checked downstream dependencies - none as of July 23, 2019: revdep(“RJafroc”) yields character(0)</li>
@@ -298,14 +285,10 @@
    Component "Source": Attributes: &lt; Component "levels": 3 string mismatches &gt;
    List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBMH</code></pre>
 </div>
-</div>
     <div id="rjafroc-1-1-0" class="section level1">
 <h1 class="page-header">
 <a href="#rjafroc-1-1-0" class="anchor"></a>RJafroc 1.1.0<small> 2018-11-14 </small>
 </h1>
-<div id="major-changes-2" class="section level2">
-<h2 class="hasAnchor">
-<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Added <code>travis-ci</code> testing after each push; and build passing badges, etc.</li>
 <li>Removed dependence on <code>caTools</code> package, which was not being supported; extracted function <code>trapz()</code> from it and inserted directly into <code>gpfMyFOM.R</code> - see comments in that file of what led to this</li>
@@ -327,28 +310,20 @@
 </li>
 </ul>
 </div>
-</div>
     <div id="rjafroc-1-0-2" class="section level1">
 <h1 class="page-header">
 <a href="#rjafroc-1-0-2" class="anchor"></a>RJafroc 1.0.2<small> 2018-05-31 </small>
 </h1>
-<div id="minor-bug" class="section level2">
-<h2 class="hasAnchor">
-<a href="#minor-bug" class="anchor"></a>Minor bug</h2>
 <ul>
 <li>StSignificanceTestingCadVsRadiologists was not working for different numbers of readers. As noted by Alejandro, the number of readers was hard coded. Fixed this and extended DfExtractDataset to include LROC datasets.</li>
 <li>Removed function <code>SsFROCPowerGivenJK</code>: FROC power is implemented in Online Appendix Chapter 19 (see email exchange with Kota Aoyagi)</li>
 <li>This version installed on SOLARIS!</li>
 </ul>
 </div>
-</div>
     <div id="rjafroc-1-0-1" class="section level1">
 <h1 class="page-header">
 <a href="#rjafroc-1-0-1" class="anchor"></a>RJafroc 1.0.1<small> 2018-02-18 </small>
 </h1>
-<div id="minor-bug-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#minor-bug-1" class="anchor"></a>Minor bug</h2>
 <ul>
 <li>Package was not installing on Solaris - overloading errors. Changed sqrt(2) in RsmFuncs.cpp to sqrt(2.0). However, Solaris is incompatible with ggplot2; so will recommend that Solaris version not be distributed on CRAN.</li>
 <li>Sorry, but I’m not sure what’s different between the CRAN Solaris machine and R-hub’s Solaris machine. You could prepare a new package submission for CRAN with the caveat that, since you do not have access to a Solaris machine, your fix is speculative and may yet fail to compile on the CRAN Solaris machine.</li>
@@ -356,14 +331,10 @@
 </li>
 </ul>
 </div>
-</div>
     <div id="rjafroc-1-0-0" class="section level1">
 <h1 class="page-header">
 <a href="#rjafroc-1-0-0" class="anchor"></a>RJafroc 1.0.0<small> 2018-02-04 </small>
 </h1>
-<div id="major-changes-3" class="section level2">
-<h2 class="hasAnchor">
-<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Renamed functions for better organization;</li>
 <li>Removed shiny GUI interface</li>
@@ -371,43 +342,28 @@
 <li>CAD vs. radiologist analysis, both single modality and dual modality</li>
 </ul>
 </div>
-</div>
     <div id="rjafroc-0-1-1" class="section level1">
 <h1 class="page-header">
 <a href="#rjafroc-0-1-1" class="anchor"></a>RJafroc 0.1.1<small> 2015-08-14 </small>
 </h1>
-<div id="bug-fixes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>A critcal error in the <em>p</em> value calculation that gave incorrect <em>p</em> value (possibly exceeding one) when the first modality performed better than 2nd has been fixed. Thanks to Lucy D’Agostino McGowan for pointing out the error and the fix. This error, which does not occur in Windows version of JAFROC V 4.2.1, was not noticed as in all example files the 2nd modality performed better.</li>
+<li>An error in the <em>p</em> value calculation that gave incorrect <em>p</em> value (possibly exceeding one) when the first modality performed better than 2nd has been fixed. Thanks to Lucy D’Agostino McGowan for pointing out the error and the fix. This error, which does not occur in Windows version of JAFROC V 4.2.1, was not noticed as in all example files the 2nd modality performed better.</li>
 </ul>
-</div>
 </div>
     <div id="rjafroc-0-1-0" class="section level1">
 <h1 class="page-header">
 <a href="#rjafroc-0-1-0" class="anchor"></a>RJafroc 0.1.0<small> 2015-07-30 </small>
 </h1>
-<div id="major-change" class="section level2">
-<h2 class="hasAnchor">
-<a href="#major-change" class="anchor"></a>Major change</h2>
 <ul>
-<li>A “shiny” based GUI has been added, accessed by the function <code>RJafrocGui()</code>. This allows a user only interested in analyzing a data file to access the underlying code in a “user friendly” way. The GUI is similar in functionality to that of Windows JAFROC 4.2.1 software.</li>
-</ul>
-<div id="minor-bug-and-aesthetic-fixes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#minor-bug-and-aesthetic-fixes" class="anchor"></a>Minor bug and aesthetic fixes</h3>
-<ul>
+<li><p>A “shiny” based GUI has been added, accessed by the function <code>RJafrocGui()</code>. This allows a user only interested in analyzing a data file to access the underlying code in a “user friendly” way. The GUI is similar in functionality to that of Windows JAFROC 4.2.1 software.</p></li>
 <li>For the curve plotting functions, legend position and direction are automatically decided if they are not explicityly specified.</li>
 <li>The the output number of significant digits for statistical power in power table has been set to 3.</li>
 <li>Variance and covariance calculation error for ROI data has been fixed.</li>
 <li>A bug in the JAFROC data reading function that caused an error when encountering non-numeric values has been fixed.</li>
 <li>Floating point ratings are rounded to 6 significant digits when saving a dataset in JAFROC format.</li>
 <li>A bug in the plotting routine that affected plots for a single rating FROC dataset has been fixed.</li>
-<li>A bug in the plotting of AFROC curves for a dataset containing only non-diseased cases has been fixed.</li>
+<li><p>A bug in the plotting of AFROC curves for a dataset containing only non-diseased cases has been fixed.</p></li>
 </ul>
-</div>
-</div>
 </div>
     <div id="rjafroc-0-0-1" class="section level1">
 <h1 class="page-header">
