@@ -156,60 +156,136 @@
 <a href="#rjafroc" class="anchor"></a>RJafroc</h1></div>
 
 </div>
-<div id="the-oldcode-branch" class="section level1">
+<div id="what-is-this-repository-for" class="section level1">
 <h1 class="hasAnchor">
-<a href="#the-oldcode-branch" class="anchor"></a>The <code>OldCode</code> branch</h1>
+<a href="#what-is-this-repository-for" class="anchor"></a>What is this repository for?</h1>
+<ul>
+<li>Modeling, Analysis, Validation and Visualization of ROC/FROC studies</li>
+<li>Extends and replaces the <em>obsolete</em> Windows software (JAFROC: <a href="http://www.devchakraborty.com" class="uri">http://www.devchakraborty.com</a>)</li>
+<li>I know the Windows software is much easier to use, so I am keeping it online, but I cannot maintain or extend it. Sorry.</li>
+</ul>
 </div>
-<div id="the-varcompdiscrepancy-branch" class="section level1">
+<div id="documentation-articles-or-vignettes-is-available-at-httpsdpc10ster-github-iorjafroc" class="section level1">
 <h1 class="hasAnchor">
-<a href="#the-varcompdiscrepancy-branch" class="anchor"></a>The <code>VarCompDiscrepancy</code> branch</h1>
-<p>This branch is for a collaboration (with Dr. Jason Cai) who noted the discrepancy when comparing jackknife vs bootstrap for <code>includedFrocData.xlsx</code> using <code>HrAuc</code> FOM. The bootstrap values are quite stable w.r.t. <code>nBoots</code> (200, 1000), while the jackknife values are very different. His independent SAS implementation agrees with my bootstrap implementation, and with his jackknife implementation. Something is wrong with my jackknife implementation. This branch is a diversion from the split plot branch to fix this issue. When done, it should be merged with split plot.</p>
-<p>While working on this I got an email from a user that the sample size routines in the Online Appendix were not working. This led to major updates of all</p>
-<ol>
-<li>sample size and significance testing functions.</li>
-<li>sample size and significance testing functions.</li>
-</ol>
+<a href="#documentation-articles-or-vignettes-is-available-at-httpsdpc10ster-github-iorjafroc" class="anchor"></a>Documentation (articles or vignettes) is available at <a href="https://dpc10ster.github.io/RJafroc/" class="uri">https://dpc10ster.github.io/RJafroc/</a>
+</h1>
+<p>This is highly recommended to familiarize oneself with the code. It has some <code>QuickStart</code> vignettes that will enable one already familiar with the Windows software to run the R code.</p>
 </div>
-<div id="the-oldcode-branch-1" class="section level1">
+<div id="my-wiki-is-at-httpsgithub-comdpc10sterrjafrocwiki" class="section level1">
 <h1 class="hasAnchor">
-<a href="#the-oldcode-branch-1" class="anchor"></a>The <code>OldCode</code> branch</h1>
-<p>This branch compares the significance testing functions with the original/old Xuetong Zhai code, in the first posted version of RJafroc (0.0.1) - this version does not have an C++-Code. Functions from here were copied over and unit test (<code>testthat</code>) functions written to compare:</p>
-<div id="newcurrent-code-vs-old-code-for-dbmhorh-methods" class="section level2">
-<h2 class="hasAnchor">
-<a href="#newcurrent-code-vs-old-code-for-dbmhorh-methods" class="anchor"></a>New/current code vs. old code for DBMH/ORH methods,</h2>
-<pre><code>test_that("Compare current to original code: DBMH", {
-...
-}
-
-test_that("Compare current to original code: ORH", {
-...
-}</code></pre>
-<p>The old code is invoked by a new flag <code>tempOrgCode</code> in <code><a href="reference/StSignificanceTesting.html">StSignificanceTesting()</a></code>:</p>
-<pre><code><a href="reference/StSignificanceTesting.html">StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha = 0.05,
-  method = "DBMH", covEstMethod = "Jackknife", nBoots = 200,
-  option = "ALL", tempOrgCode = FALSE)</a></code></pre>
+<a href="#my-wiki-is-at-httpsgithub-comdpc10sterrjafrocwiki" class="anchor"></a>My wiki is at <a href="https://github.com/dpc10ster/RJafroc/wiki" class="uri">https://github.com/dpc10ster/RJafroc/wiki</a>
+</h1>
+<p>This is still under development and may be dropped in future in favor of an online book.</p>
 </div>
-<div id="dbmh-and-orh-variance-components-vs-those-obtained-from-windows-version-of-jafroc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#dbmh-and-orh-variance-components-vs-those-obtained-from-windows-version-of-jafroc" class="anchor"></a>DBMH and ORH variance components vs. those obtained from Windows version of JAFROC</h2>
-<pre><code>test_that("Ensure that DBM varComp values match those from Windows JAFROC", {
-...
-}
-
-test_that("Ensure that OR varComp values match those from Windows JAFROC", {
-...
-}</code></pre>
+<div id="a-cran-version-of-rjafroc-has-been-published" class="section level1">
+<h1 class="hasAnchor">
+<a href="#a-cran-version-of-rjafroc-has-been-published" class="anchor"></a>A CRAN version of <code>RJafroc</code> has been published</h1>
+<p>Thanks to help from Dr. Peter Phillips, version 1.2.0 of <code>RJafroc</code> has passed CRAN tests. This version is on the <code>cran</code> branch. <strong>The complete (all vignettes and tests) and most current and tested version of the software is on the <code>master</code> branch.</strong> The <code>development</code> branch is for ongoing development work (Version 1.2.0.9000). When finished and tested, the <code>development</code> branch should be merged with <code>master</code>, then file-size-limited and merged to CRAN branch, and then submitted to CRAN.</p>
 </div>
-<div id="dbmh-vs-orh-using-current-code-for-an-roc-and-an-froc-dataset" class="section level2">
+<div id="those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions" class="section level1">
+<h1 class="hasAnchor">
+<a href="#those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions" class="anchor"></a>Those already familiar with installing R packages from GitHub can ignore the following directions</h1>
+</div>
+<div id="how-do-i-get-set-up" class="section level1">
+<h1 class="hasAnchor">
+<a href="#how-do-i-get-set-up" class="anchor"></a>How do I get set up?</h1>
+<div id="short-version-install-directly-from-github-using-package-devtools" class="section level2">
 <h2 class="hasAnchor">
-<a href="#dbmh-vs-orh-using-current-code-for-an-roc-and-an-froc-dataset" class="anchor"></a>DBMH vs ORH using current code for an ROC and an FROC dataset</h2>
-<pre><code>test_that("Compare DBMH to ORH for dataset02, ROC", {
-...
-}
-
-test_that("Compare DBMH to ORH for dataset05, FROC, HrAuc", {
-...
-}</code></pre>
+<a href="#short-version-install-directly-from-github-using-package-devtools" class="anchor"></a>Short version: install directly from GitHub using package <code>devtools</code>
+</h2>
+<ul>
+<li>Install <code>R</code> and <code>RStudio</code>.</li>
+<li>Create an empty directory, e.g., <code>myProject</code>. In my computer it is <code>/Users/Dev/Downloads/myProject</code>.</li>
+<li>Open <code>RStudio</code>.</li>
+<li>Starting from <code>RStudio</code> &gt; <code>File</code> &gt; <code>New Project</code> &gt; <code>Existing Directory</code> &gt; Select <code>myProject</code> &gt; <code>Create Project</code>.</li>
+<li>Oila! You should see <code>myProject.RProj</code> in the Files menu.</li>
+<li>Install the <code>devtools</code> package as shown below:</li>
+<li>Starting from <code>RStudio</code> &gt; <code>Packages</code> &gt; <code>Install</code> &gt; <code>devtools</code>.</li>
+<li>Load <code>devtools</code> as shown below:</li>
+</ul>
+<pre><code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(devtools)</a></code></pre>
+<ul>
+<li>Install <code>RJafroc</code> directly from <code>GitHub</code> (this is where <code>devtools</code> is used):</li>
+</ul>
+<pre><code>install_github("dpc10ster/rjafroc")</code></pre>
+<ul>
+<li>Hit Enter on any prompts…</li>
+<li>Lots of activity and compilation of C++ code ….</li>
+<li>Load <code>RJafroc</code> as shown below:</li>
+</ul>
+<pre><code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(RJafroc)</a></code></pre>
+<ul>
+<li>Test the installation:</li>
+</ul>
+<pre><code>cbmPlot &lt;- PlotCbmFit(c(1, 2), c(0.5, 0.5))
+print(cbmPlot)</code></pre>
+<ul>
+<li>You should see two ROC plots in the <code>Plots</code> window.</li>
+<li>Preliminary documentation (vignettes) is available at <a href="https://dpc10ster.github.io/RJafroc/" class="uri">https://dpc10ster.github.io/RJafroc/</a>.</li>
+<li>Be sure to study these examples and make full use of the online documentation.</li>
+<li>Put your data and other files, if any, in <code>myProject</code>.</li>
+<li>TBA</li>
+</ul>
+</div>
+<div id="long-version-download-the-rjafroc-package-and-install-from-the-downloaded-files" class="section level2">
+<h2 class="hasAnchor">
+<a href="#long-version-download-the-rjafroc-package-and-install-from-the-downloaded-files" class="anchor"></a>Long version: download the <code>RJafroc</code> package and install from the downloaded files</h2>
+<ul>
+<li>Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example.</li>
+<li>I find the GitHub desktop app useful in mananging my downloads/uploads from Git.</li>
+<li>Install <code>R</code> and <code>RStudio</code>.</li>
+<li>Navigate to the <code>rjafroc</code> directory.</li>
+<li>Open <code>RJafroc.Rproj</code>. This will open <code>RStudio</code>.</li>
+<li>Navigate to <code>File</code> menu (lower-right window) and click on DESCRIPTION file.</li>
+<li>Install all packages listed under Imports, e.g.,<br>
+openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, numDeriv, Rcpp</li>
+<li>For example, to install the first two above-listed packages, use the following command at the Console prompt:</li>
+</ul>
+<pre><code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages(c("openxlsx", "ggplot2"))</a></code></pre>
+<ul>
+<li>Click on Build &gt; Install and Restart (upper right panel). If errors result from missing packages, install those packages.</li>
+<li>A successful Install and Restart will result in the following line in the Console window:</li>
+</ul>
+<pre><code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(RJafroc)</a></code></pre>
+<ul>
+<li>Thats it! <code>RJafroc</code> has been installed to your computer and is visible to any other <code>R</code> project in any directory.</li>
+<li>You will not need to access the <code>RJafroc</code> folder again (unless you reinstall a new version of the software).</li>
+<li>All necessary files of the installation are in a hidden directory that you do not normally need to worry about.</li>
+<li>Create an empty directory, e.g., <code>myProject</code>. In my computer it is <code>/Users/Dev/Downloads/myProject</code>.</li>
+<li>Starting from <code>RStudio</code> &gt; <code>File</code> &gt; <code>New Project</code> &gt; <code>Existing Directory</code> &gt; <code>myProject</code> &gt; <code>Create Project</code>.</li>
+<li>Oila! You should see <code>myProject.RProj</code> in the Files menu.</li>
+<li>Click on <code>Packages</code> and scroll down to find <code>RJafroc</code>, and check the box next to it. This results in <code>RJafroc</code> being loaded to the current workspace. The following line appears in the Console window (this is the hidden directory referrred to above).</li>
+</ul>
+<pre><code><a href="https://www.rdocumentation.org/packages/base/topics/library">  library("RJafroc", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")</a></code></pre>
+<ul>
+<li>Click on <code>RJafroc</code> in the packages window. A help window opens up. I find it convenient to put this in its own window by clicking the “out” arrow button (hover message: Show in new window). You can access all documentation from here.</li>
+<li>Test the installation:</li>
+</ul>
+<pre><code>cbmPlot &lt;- PlotCbmFit(c(1, 2), c(0.5, 0.5))
+print(cbmPlot)</code></pre>
+<ul>
+<li>You should see two ROC plots in the <code>Plots</code> window.</li>
+<li>Preliminary documentation (vignettes) is available at <a href="https://dpc10ster.github.io/RJafroc/" class="uri">https://dpc10ster.github.io/RJafroc/</a>.</li>
+<li>Put your data and other files, if any, in myProject.</li>
+<li>TBA</li>
+</ul>
+<div id="contibutor-guidelines" class="section level3">
+<h3 class="hasAnchor">
+<a href="#contibutor-guidelines" class="anchor"></a>Contibutor guidelines</h3>
+<ul>
+<li><p>As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.</p></li>
+<li><p>We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.</p></li>
+<li><p>Examples of unacceptable behavior by participants include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.</p></li>
+<li><p>Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. Project maintainers who do not follow the Code of Conduct may be removed from the project team.</p></li>
+<li><p>Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting one or more of the project maintainers.</p></li>
+<li><p>These guidelines are adapted from content on the <code>devtools</code> GitHub page.</p></li>
+</ul>
+</div>
+<div id="who-do-i-talk-to" class="section level3">
+<h3 class="hasAnchor">
+<a href="#who-do-i-talk-to" class="anchor"></a>Who do I talk to?</h3>
+<p><a href="mailto:dpc10ster@gmail.com" class="email">dpc10ster@gmail.com</a></p>
+</div>
 </div>
 </div>
 
