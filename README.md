@@ -17,7 +17,7 @@ This is highly recommended to familiarize oneself with the code. It has some `Qu
 This is still under development and may be dropped in future in favor of an online book.
 
 # A CRAN version of `RJafroc` has been published #
-Thanks to help from Dr. Peter Phillips, version 1.2.0 of `RJafroc` has passed CRAN tests. This version is on the `cran` branch. **The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `development` branch is for ongoing development work (Version 1.2.0.9000). When finished and tested, the `development` branch should be merged with `master`, then file-size-limited and merged to CRAN version, and then submitted to CRAN.
+Thanks to help from Dr. Peter Phillips, version 1.2.0 of `RJafroc` has passed CRAN tests. This version is on the `cran` branch. **The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `development` branch is for ongoing development work (Version 1.2.0.9000). When finished and tested, the `development` branch should be merged with `master`, then file-size-limited and merged to CRAN branch, and then submitted to CRAN.
 
 # Those already familiar with installing R packages from GitHub can ignore the following directions #  
 
