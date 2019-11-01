@@ -142,71 +142,71 @@
 <h2 class="hasAnchor">
 <a href="#constructing-the-nh-model-for-the-dataset" class="anchor"></a>Constructing the NH model for the dataset</h2>
 <p>One starts by extracting the first two treatments from <code>dataset04</code>, which represent the NH dataset, see previous vignette. Next one constructs the NH model - note that the lesion distribution <code>lesionPmf</code> can be specified here independently of that in the pilot dataset. This allows some control over selection of the diseased cases in the pivotal study.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">frocNhData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfExtractDataset.html">DfExtractDataset</a></span>(dataset04, <span class="dt">trts =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsFrocNhRsmModel.html">SsFrocNhRsmModel</a></span>(frocNhData, <span class="dt">lesionPmf =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.7</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>))</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">muMed &lt;-<span class="st"> </span>ret<span class="op">$</span>muMed</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">lambdaMed &lt;-<span class="st"> </span>ret<span class="op">$</span>lambdaMed</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">nuMed &lt;-<span class="st"> </span>ret<span class="op">$</span>nuMed</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">lesDistr &lt;-<span class="st"> </span>ret<span class="op">$</span>lesDistr</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">lesWghtDistr &lt;-<span class="st"> </span>ret<span class="op">$</span>lesWghtDistr</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">scaleFactor &lt;-<span class="st"> </span>ret<span class="op">$</span>scaleFactor</a></code></pre></div>
-<p>The fitting model is defined by <code>muMed = r muMed</code>, <code>lambdaMed = 5.6140941</code> and <code>nuMed = 0.3696988</code> and <code>lesionPmf</code>. The effect size scale factor is 2.1542102.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">aucRocNH &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(muMed, lambdaMed, nuMed, </a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">                                            <span class="dt">lesDistr =</span> lesDistr, </a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">                                            <span class="dt">lesWghtDistr =</span> lesWghtDistr, <span class="dt">type =</span> <span class="st">"ROC"</span>)<span class="op">$</span>aucROC</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">aucwAfrocNH &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(muMed, lambdaMed, nuMed, </a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">                                               <span class="dt">lesDistr =</span> lesDistr, </a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">                                               <span class="dt">lesWghtDistr =</span> lesWghtDistr, <span class="dt">type =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">frocNhData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfExtractDataset.html">DfExtractDataset</a></span>(dataset04, <span class="dt">trts =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1-2" title="2">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsFrocNhRsmModel.html">SsFrocNhRsmModel</a></span>(frocNhData, <span class="dt">lesionPmf =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.7</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>))</a>
+<a class="sourceLine" id="cb1-3" title="3">muMed &lt;-<span class="st"> </span>ret<span class="op">$</span>muMed</a>
+<a class="sourceLine" id="cb1-4" title="4">lambdaMed &lt;-<span class="st"> </span>ret<span class="op">$</span>lambdaMed</a>
+<a class="sourceLine" id="cb1-5" title="5">nuMed &lt;-<span class="st"> </span>ret<span class="op">$</span>nuMed</a>
+<a class="sourceLine" id="cb1-6" title="6">lesDistr &lt;-<span class="st"> </span>ret<span class="op">$</span>lesDistr</a>
+<a class="sourceLine" id="cb1-7" title="7">lesWghtDistr &lt;-<span class="st"> </span>ret<span class="op">$</span>lesWghtDistr</a>
+<a class="sourceLine" id="cb1-8" title="8">scaleFactor &lt;-<span class="st"> </span>ret<span class="op">$</span>scaleFactor</a></code></pre></div>
+<p>The fitting model is defined by <code>muMed = r muMed</code>, <code>lambdaMed = 5.6140942</code> and <code>nuMed = 0.3696988</code> and <code>lesionPmf</code>. The effect size scale factor is 2.1542102.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">aucRocNH &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(muMed, lambdaMed, nuMed, </a>
+<a class="sourceLine" id="cb2-2" title="2">                                            <span class="dt">lesDistr =</span> lesDistr, </a>
+<a class="sourceLine" id="cb2-3" title="3">                                            <span class="dt">lesWghtDistr =</span> lesWghtDistr, <span class="dt">type =</span> <span class="st">"ROC"</span>)<span class="op">$</span>aucROC</a>
+<a class="sourceLine" id="cb2-4" title="4">aucwAfrocNH &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(muMed, lambdaMed, nuMed, </a>
+<a class="sourceLine" id="cb2-5" title="5">                                               <span class="dt">lesDistr =</span> lesDistr, </a>
+<a class="sourceLine" id="cb2-6" title="6">                                               <span class="dt">lesWghtDistr =</span> lesWghtDistr, <span class="dt">type =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC</a></code></pre></div>
 <p>The null hypothesis ROC AUC is 0.8790725 and the corresponding NH wAFROC AUC is 0.7231709.</p>
 </div>
 <div id="extracting-the-wafroc-variance-components" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extracting-the-wafroc-variance-components" class="anchor"></a>Extracting the wAFROC variance components</h2>
 <p>The next code block applies <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> to <code>frocNhData</code>, using <code>FOM = "wAFROC"</code> and extracts the variance components.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">varCompwAFROC  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(frocNhData, <span class="dt">FOM =</span> <span class="st">"wAFROC"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)<span class="op">$</span>varComp</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">varCompwAFROC  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(frocNhData, <span class="dt">FOM =</span> <span class="st">"wAFROC"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)<span class="op">$</span>varComp</a></code></pre></div>
 </div>
 <div id="wafroc-power-for-specified-roc-effect-size-number-of-readers-j-and-number-of-cases-k" class="section level2">
 <h2 class="hasAnchor">
 <a href="#wafroc-power-for-specified-roc-effect-size-number-of-readers-j-and-number-of-cases-k" class="anchor"></a>wAFROC power for specified ROC effect size, number of readers J and number of cases K</h2>
 <p>The following example is for ROC effect size = 0.05, 5 readers (<code>J</code>) and 100 cases (<code>K</code>) in the <strong>pivotal study</strong>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">ROC_ES &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">effectSizewAFROC &lt;-<span class="st"> </span>scaleFactor <span class="op">*</span><span class="st"> </span>ROC_ES</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">J &lt;-<span class="st"> </span><span class="dv">5</span>;K &lt;-<span class="st"> </span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">varYTR &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTR </a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">varYTC &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTC</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">varYEps &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varErr</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJKDbmVarComp.html">SsPowerGivenJKDbmVarComp</a></span> (<span class="dt">J =</span> J, <span class="dt">K =</span> K, <span class="dt">effectSize =</span> effectSizewAFROC, </a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">                                 varYTR, varYTC, varYEps, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">powerwAFROC &lt;-<span class="st"> </span>ret<span class="op">$</span>powerRRRC</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">  </a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ROC-ES = "</span>, ROC_ES, <span class="st">", wAFROC-ES = "</span>, ROC_ES <span class="op">*</span><span class="st"> </span>scaleFactor, <span class="st">", Power-wAFROC = "</span>, powerwAFROC, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.1077105 , Power-wAFROC =  0.976293</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">ROC_ES &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb4-2" title="2">effectSizewAFROC &lt;-<span class="st"> </span>scaleFactor <span class="op">*</span><span class="st"> </span>ROC_ES</a>
+<a class="sourceLine" id="cb4-3" title="3">J &lt;-<span class="st"> </span><span class="dv">5</span>;K &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5">varYTR &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTR </a>
+<a class="sourceLine" id="cb4-6" title="6">varYTC &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTC</a>
+<a class="sourceLine" id="cb4-7" title="7">varYEps &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varErr</a>
+<a class="sourceLine" id="cb4-8" title="8">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJKDbmVarComp.html">SsPowerGivenJKDbmVarComp</a></span> (<span class="dt">J =</span> J, <span class="dt">K =</span> K, <span class="dt">effectSize =</span> effectSizewAFROC, </a>
+<a class="sourceLine" id="cb4-9" title="9">                                 varYTR, varYTC, varYEps, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a>
+<a class="sourceLine" id="cb4-10" title="10">powerwAFROC &lt;-<span class="st"> </span>ret<span class="op">$</span>powerRRRC</a>
+<a class="sourceLine" id="cb4-11" title="11">  </a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ROC-ES = "</span>, ROC_ES, <span class="st">", wAFROC-ES = "</span>, ROC_ES <span class="op">*</span><span class="st"> </span>scaleFactor, <span class="st">", Power-wAFROC = "</span>, powerwAFROC, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.1077105 , Power-wAFROC =  0.976293</span></a></code></pre></div>
 </div>
 <div id="wafroc-number-of-cases-for-80-power-for-a-given-number-of-readers-j" class="section level2">
 <h2 class="hasAnchor">
 <a href="#wafroc-number-of-cases-for-80-power-for-a-given-number-of-readers-j" class="anchor"></a>wAFROC number of cases for 80% power for a given number of readers J</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">varYTR &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTR </a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">varYTC &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTC</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">varYEps &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varErr</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">ret2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(<span class="dt">dataset =</span> <span class="ot">NULL</span>, <span class="dt">J =</span> <span class="dv">6</span>, <span class="dt">effectSize =</span> effectSizewAFROC, <span class="dt">method =</span> <span class="st">"DBMH"</span>, </a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">                      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">varYTR =</span> varYTR, <span class="dt">varYTC =</span> varYTC, <span class="dt">varYEps =</span> varYEps))</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ROC-ES = "</span>, ROC_ES, <span class="st">", wAFROC-ES = "</span>, ROC_ES <span class="op">*</span><span class="st"> </span>scaleFactor, </a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="st">", K80RRRC = "</span>, ret2<span class="op">$</span>KRRRC, <span class="st">", Power-wAFROC = "</span>, ret2<span class="op">$</span>powerRRRC, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.1077105 , K80RRRC =  42 , Power-wAFROC =  0.804794</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"></a>
+<a class="sourceLine" id="cb5-2" title="2">varYTR &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTR </a>
+<a class="sourceLine" id="cb5-3" title="3">varYTC &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTC</a>
+<a class="sourceLine" id="cb5-4" title="4">varYEps &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varErr</a>
+<a class="sourceLine" id="cb5-5" title="5">ret2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(<span class="dt">dataset =</span> <span class="ot">NULL</span>, <span class="dt">J =</span> <span class="dv">6</span>, <span class="dt">effectSize =</span> effectSizewAFROC, <span class="dt">method =</span> <span class="st">"DBMH"</span>, </a>
+<a class="sourceLine" id="cb5-6" title="6">                      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">varYTR =</span> varYTR, <span class="dt">varYTC =</span> varYTC, <span class="dt">varYEps =</span> varYEps))</a>
+<a class="sourceLine" id="cb5-7" title="7"></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ROC-ES = "</span>, ROC_ES, <span class="st">", wAFROC-ES = "</span>, ROC_ES <span class="op">*</span><span class="st"> </span>scaleFactor, </a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="st">", K80RRRC = "</span>, ret2<span class="op">$</span>KRRRC, <span class="st">", Power-wAFROC = "</span>, ret2<span class="op">$</span>powerRRRC, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.1077105 , K80RRRC =  42 , Power-wAFROC =  0.804794</span></a></code></pre></div>
 </div>
 <div id="wafroc-power-for-a-given-number-of-readers-j-and-cases-k" class="section level2">
 <h2 class="hasAnchor">
 <a href="#wafroc-power-for-a-given-number-of-readers-j-and-cases-k" class="anchor"></a>wAFROC Power for a given number of readers J and cases K</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">ret3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(<span class="dt">dataset =</span> <span class="ot">NULL</span>, <span class="dt">J =</span> <span class="dv">6</span>, <span class="dt">K =</span> ret2<span class="op">$</span>KRRRC, <span class="dt">effectSize =</span> effectSizewAFROC, <span class="dt">method =</span> <span class="st">"DBMH"</span>, </a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">                    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">varYTR =</span> varYTR, <span class="dt">varYTC =</span> varYTC, <span class="dt">varYEps =</span> varYEps))</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ROC-ES = "</span>, ROC_ES, <span class="st">", wAFROC-ES = "</span>, ROC_ES <span class="op">*</span><span class="st"> </span>scaleFactor, </a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="st">", powerRRRC = "</span>, ret3<span class="op">$</span>powerRRRC, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.1077105 , powerRRRC =  0.804794</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"></a>
+<a class="sourceLine" id="cb6-2" title="2">ret3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(<span class="dt">dataset =</span> <span class="ot">NULL</span>, <span class="dt">J =</span> <span class="dv">6</span>, <span class="dt">K =</span> ret2<span class="op">$</span>KRRRC, <span class="dt">effectSize =</span> effectSizewAFROC, <span class="dt">method =</span> <span class="st">"DBMH"</span>, </a>
+<a class="sourceLine" id="cb6-3" title="3">                    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">varYTR =</span> varYTR, <span class="dt">varYTC =</span> varYTC, <span class="dt">varYEps =</span> varYEps))</a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ROC-ES = "</span>, ROC_ES, <span class="st">", wAFROC-ES = "</span>, ROC_ES <span class="op">*</span><span class="st"> </span>scaleFactor, </a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="st">", powerRRRC = "</span>, ret3<span class="op">$</span>powerRRRC, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.1077105 , powerRRRC =  0.804794</span></a></code></pre></div>
 <p>The estimated power is close to 80% as the number of cases (<code>ret2$KRRRC = 42</code>) was chosen deliberately from the previous code block.</p>
 </div>
 <div id="references" class="section level2">

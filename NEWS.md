@@ -1,5 +1,3 @@
-Update History
-==========================
 # RJafroc 1.2.0.9000 #
 ## Major changes ##
 
@@ -50,8 +48,6 @@ Update History
 ### extension needed ### 
 * `PlotRsmOperatingCharacteristics`: to include LROC data (there is an addPlot routine in `StSignificanceTestingCadVsRadiologists` that could be moved over).
 
-
-
 # RJafroc 1.2.0 #
 ## Major changes ##
 * Corrected all references to package name to `RJafroc` (note capitalization)
@@ -101,7 +97,6 @@ Update History
 * Added two vignettes: `QuickStartDBMH` and `QuickStartDBMHExcelOutput`
 * Checked downstream dependencies - none as of Nov 11, 2018: `revdep("rjafroc")` yields `character(0)`
    
-==========================
 # RJafroc 1.0.2 #
 ## Minor bug ##
 * StSignificanceTestingCadVsRadiologists was not working for different numbers of readers.
@@ -111,7 +106,6 @@ Update History
   Appendix Chapter 19 (see email exchange with Kota Aoyagi)
 * This version installed on SOLARIS!
    
-==========================
 
 # RJafroc 1.0.1 #
 ## Minor bug ##
@@ -133,7 +127,6 @@ Update History
    that the issue you're bumping to is (not) documented explicitly in the R manuals, 
    I'm not sure how much success you would have._
 
-==========================
 
 # RJafroc 1.0.0 #
 ## Major changes ##
