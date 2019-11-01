@@ -1,4 +1,4 @@
-# RJafroc 1.2.0.9000
+# RJafroc (development version)
 
 ## Added FROC sample size vignettes
 * `Ch19Vig1FrocSampleSize.Rmd`:
