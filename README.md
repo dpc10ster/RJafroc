@@ -6,22 +6,23 @@ RJafroc
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rjafroc)](https://cran.r-project.org/package=rjafroc)
 
 # What is this repository for? #
-* Modeling, Analysis, Validation and Visualization of ROC/FROC studies
-* Extends and replaces the *obsolete* Windows software (JAFROC: http://www.devchakraborty.com)
+* Modeling, Analysis, Validation and Visualization of ROC/FROC/LROC studies.
+* Extends and replaces Windows `JAFROC` software at http://www.devchakraborty.com.
 * I know the Windows software is much easier to use, so I am keeping it online, but I cannot maintain or extend it. Sorry.
+* This repository also serves as the online appendix to my book: **Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017**.
 
 # Update History #
-* See `NEWS.md`.
-* Current version is 1.2.0.9000
+* See https://dpc10ster.github.io/RJafroc/news/index.html.
+* Current version is 1.2.0.9000.
 
 # Branch designations #
-**The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `development` branch is for ongoing development/experimental work. When finished and tested, the `development` branch should be merged with `master`, then file-size-limited and merged to CRAN branch, and then submitted to CRAN.
+**The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `development` branch is for ongoing development/experimental work. When finished and tested, the `development` branch should be merged with `master`, then file-size-limited and merged to CRAN branch, and then submitted to CRAN. The website is pushed from `master` branch.
 
 # Documentation (articles or vignettes) is available at https://dpc10ster.github.io/RJafroc/ #
-This is highly recommended to familiarize oneself with the code. It has some `QuickStart` vignettes that will enable one already familiar with the Windows software to run the R code.
+Highly recommended in order to familiarize oneself with the code. It has some `QuickStart` vignettes that will enable one already familiar with the Windows software to run the R code.
 
 # My wiki is at https://github.com/dpc10ster/RJafroc/wiki #
-This is still under development and may be dropped in future in favor of an online book.
+This is under development and **may be dropped in future** in favor of an online book, or extended vignettes.
 
 # A CRAN version of `RJafroc` has been published #
 Thanks to help from Dr. Peter Phillips, version 1.2.0 of `RJafroc` has passed CRAN tests. This version is on the `cran` branch. 

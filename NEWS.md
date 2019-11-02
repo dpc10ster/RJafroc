@@ -4,7 +4,7 @@
 * `Ch19Vig1FrocSampleSize.Rmd`: Compares FROC power to ROC power.
 * `Ch19Vig2FrocSampleSize.Rmd`: FROC power calculation for a number of situations.
 * `SsFrocNhRsmModel()`: constructs an RSM-based model, which allows one to relate an ROC effect size to a wAFROC effect size, and returns parameters of model to allow FOM estimation for ROC and wAFROC. Following functions are used to calculate the lesion distribution and lesion weights arrays:
-* `UtilLesionDistribution`:
+* `UtilLesionDistribution`: 
 * `UtilLesionWeightsDistr`:
 
 ## Significance testing functions
@@ -13,30 +13,29 @@
 * StORHAnalysis(): 
 * Ran Windows `JAFROC` on virtual Windows 8 machine and saved results (inst/VarCompDiscrepancy/includedFrocData_Inferred_ROC.txt) to validate current significance testing functions. Included unit tests in `tests/testthat`.
 * Ran first XZ CRAN upload (version 0.0.1) code (`StOldCode.R`) to compare against current significance testing code. Included unit tests in `tests/testthat`.
-* test-St-Compare2JAFROC.R: compares
-* test-St-Compare2Org.R
-* test-St-CompareDBM2OR.R
+* test-St-Compare2JAFROC.R: compares current code to Windows JAFROC results.
+* test-St-Compare2Org.R: compares current code to RJafroc 0.0.1.
+* test-St-CompareDBM2OR.R: compares current code DBM to current code OR results, when appropriate.
 
 ## CAD and LROC 
-* Corrected interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the `approx` function did not work for small datasets. Wrote my own simple interpolation code. See `LrocFoms()` in `gpfMyFOM.R`. See **ChkLrocFoms.xlsx** in `inst/StSigTesting` for details on hand calculation of LROC FOMs. 
-* LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions.
+* `gpfMyFOM()`:  interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the `approx` function did not work for small datasets. Wrote my own simple interpolation code. See `LrocFoms()` in `gpfMyFOM.R`. See **ChkLrocFoms.xlsx** in `inst/StSigTesting` for details on hand calculation of LROC FOMs. 
+* LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions. **These changes only affected values at small `FPFValue`, 0.2 or less.**
 * Most FOM related functions now accept `FPFValue` to accommodate LROC datasets.
-* CAD results updated; see `CadFunctionTests.R` in `inst/CadTesting`. See **CadTestingNicoData.xlsx** in `inst/CadTesting`. Included unit tests in `tests/testthat`.
+* `StSignificanceTestingCadVsRadiologists()`: CAD results updated (only values for `FPFValue` 0.2 or less were affected); see `CadFunctionTests.R` in `inst/CadTesting`. See **CadTestingNicoData.xlsx** in `inst/CadTesting`. Included unit tests in `tests/testthat`.
 * `StSignificanceTestingCadVsRadiologists()`: cleaned up and now runs all FOMs.
-* `SimulateLrocDataset()`: FROC to LROC simulator based on RSM. Could be used for NH testing.
-* `DfFroc2Lroc`(): Simulates an "AUC-equivalent" LROC dataset from an FROC dataset.
+* `SimulateLrocDataset()`: FROC to LROC simulator based on RSM. Could be used for NH testing. RSM can now predict all paradigm data.
+* `DfFroc2Lroc`(): Simulates an "AUC-equivalent" LROC dataset from an FROC dataset. This is neat!
 * `DfLroc2Froc`(): Simulates an "AUC-equivalent" FROC dataset from an LROC dataset.
 * `DfLroc2Roc`(): convert LROC dataset to ROC dataset.
 
 ## Variance component input
 * `SignificanceTesting` functions now accept variance components, without having to specify a dataset.
 
-## Affected and new functions 
+## Other affected functions and new functions 
 * `UtilVarComponentsDBM()`: 
 * `UtilVarComponentsOR()`:
 * `SsPowerGivenJKDbmVarComp`:
 * `SsPowerGivenJKOrVarComp`:
-* `StSignificanceTestingCadVsRadiologists`:
 * `SsSampleSizeKGivenJ`:
 * `SsPowerGivenJK`:
 
@@ -45,8 +44,12 @@
 * `StSignificanceTestingSingleRandomFactor`:
 
 ## Extension needed 
-* `PlotRsmOperatingCharacteristics`: to include LROC data (there is an addPlot routine in `StSignificanceTestingCadVsRadiologists` that could be moved over).
+* `PlotRsmOperatingCharacteristics()`: to include LROC data (there is an addPlot routine in `StSignificanceTestingCadVsRadiologists` that could be moved over).
 * Need a function that checks validity of FOM for dataset: `isValidFom`?
+* Need to compare predicted curves for LROC and FROC data: does `SimulateLrocDataset()` predict **both** flattening out of LROC plot and wAFROC going to (1,1)?
+
+
+
 
 # RJafroc 1.2.0
 * Corrected all references to package name to `RJafroc` (note capitalization)
