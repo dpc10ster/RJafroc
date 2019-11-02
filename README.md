@@ -9,7 +9,7 @@ RJafroc
 * Modeling, Analysis, Validation and Visualization of ROC/FROC/LROC studies.
 * Extends and replaces Windows `JAFROC` software at http://www.devchakraborty.com.
 * I know the Windows software is much easier to use, so I am keeping it online, but I cannot maintain or extend it. Sorry.
-* This repository also serves as the online appendix to my book: **Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017**.
+* This repository also serves as the **Online Appendix** to my book: **Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017**.
 
 # Update History #
 * See https://dpc10ster.github.io/RJafroc/news/index.html.
