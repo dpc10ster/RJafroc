@@ -162,16 +162,20 @@
 <h1 class="page-header">
 <a href="#rjafroc-1-2-0-9000" class="anchor"></a>RJafroc 1.2.0.9000<small> Unreleased </small>
 </h1>
-<div id="added-froc-sample-size-vignettes" class="section level2">
+<div id="added-froc-sample-size-vignettes-and-functions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#added-froc-sample-size-vignettes" class="anchor"></a>Added FROC sample size vignettes</h2>
+<a href="#added-froc-sample-size-vignettes-and-functions" class="anchor"></a>Added FROC sample size vignettes and functions</h2>
 <ul>
 <li>
-<code>Ch19Vig1FrocSampleSize.Rmd</code>:</li>
+<code>Ch19Vig1FrocSampleSize.Rmd</code>: Compares FROC power to ROC power.</li>
 <li>
-<code>Ch19Vig2FrocSampleSize.Rmd</code>:</li>
+<code>Ch19Vig2FrocSampleSize.Rmd</code>: FROC power calculation for a number of situations.</li>
 <li>
-<code>SsFrocNhRsmModel</code>:</li>
+<code><a href="../reference/SsFrocNhRsmModel.html">SsFrocNhRsmModel()</a></code>: constructs an RSM-based model, which allows one to relate an ROC effect size to a wAFROC effect size, and returns parameters of model to allow FOM estimation for ROC and wAFROC. Following functions are used to calculate the lesion distribution and lesion weights arrays:</li>
+<li>
+<code>UtilLesionDistribution</code>:</li>
+<li>
+<code>UtilLesionWeightsDistr</code>:</li>
 </ul>
 </div>
 <div id="significance-testing-functions" class="section level2">
@@ -179,28 +183,33 @@
 <a href="#significance-testing-functions" class="anchor"></a>Significance testing functions</h2>
 <ul>
 <li>
-<code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code>: corrected errors affecting <code>method = "ORH"</code> and <code>covEstMethod = "Jackknife"</code>. I messed up while trying to simplify XZ code.</li>
-<li>Ran Windows <code>JAFROC</code> on virtual Windows 8 machine and saved results to validate current significance testing functions. Included unit tests in <code>tests/testthat</code>.</li>
+<code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code>: corrects errors affecting <code>method = "ORH"</code> and <code>covEstMethod = "Jackknife"</code>. I messed up while trying to simplify XZ code. It calls:</li>
+<li>StDBMHAnalysis():</li>
+<li>StORHAnalysis():</li>
+<li>Ran Windows <code>JAFROC</code> on virtual Windows 8 machine and saved results (inst/VarCompDiscrepancy/includedFrocData_Inferred_ROC.txt) to validate current significance testing functions. Included unit tests in <code>tests/testthat</code>.</li>
 <li>Ran first XZ CRAN upload (version 0.0.1) code (<code>StOldCode.R</code>) to compare against current significance testing code. Included unit tests in <code>tests/testthat</code>.</li>
-<li>test-St-Compare2JAFROC.R</li>
-<li>test-St-Compare2Org.R</li>
-<li>test-St-CompareDBM2OR.R</li>
+<li>test-St-Compare2JAFROC.R: compares current code to Windows JAFROC results.</li>
+<li>test-St-Compare2Org.R: compares current code to RJafroc 0.0.1.</li>
+<li>test-St-CompareDBM2OR.R: compares current code DBM to current code OR results, when appropriate.</li>
 </ul>
 </div>
 <div id="cad-and-lroc" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cad-and-lroc" class="anchor"></a>CAD and LROC</h2>
 <ul>
-<li>Corrected interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the <code>approx</code> function did not work for small datasets. Wrote my own simple interpolation code. See <code>LrocFoms()</code> in <code>gpfMyFOM.R</code>. See <strong>ChkLrocFoms.xlsx</strong> in <code>inst/StSigTesting</code> for details on hand calculation of LROC FOMs.</li>
-<li>LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions.</li>
+<li>
+<code>gpfMyFOM()</code>: interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the <code>approx</code> function did not work for small datasets. Wrote my own simple interpolation code. See <code>LrocFoms()</code> in <code>gpfMyFOM.R</code>. See <strong>ChkLrocFoms.xlsx</strong> in <code>inst/StSigTesting</code> for details on hand calculation of LROC FOMs.</li>
+<li>LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions. <strong>These changes only affected values at small <code>FPFValue</code>, 0.2 or less.</strong>
+</li>
 <li>Most FOM related functions now accept <code>FPFValue</code> to accommodate LROC datasets.</li>
-<li>CAD results updated; see <code>CadFunctionTests.R</code> in <code>inst/CadTesting</code>. See <strong>CadTestingNicoData.xlsx</strong> in <code>inst/CadTesting</code>. Included unit tests in <code>tests/testthat</code>.</li>
+<li>
+<code><a href="../reference/StSignificanceTestingCadVsRadiologists.html">StSignificanceTestingCadVsRadiologists()</a></code>: CAD results updated (only values for <code>FPFValue</code> 0.2 or less were affected); see <code>CadFunctionTests.R</code> in <code>inst/CadTesting</code>. See <strong>CadTestingNicoData.xlsx</strong> in <code>inst/CadTesting</code>. Included unit tests in <code>tests/testthat</code>.</li>
 <li>
 <code><a href="../reference/StSignificanceTestingCadVsRadiologists.html">StSignificanceTestingCadVsRadiologists()</a></code>: cleaned up and now runs all FOMs.</li>
 <li>
-<code><a href="../reference/SimulateLrocDataset.html">SimulateLrocDataset()</a></code>: FROC to LROC simulator based on RSM. Could be used for NH testing.</li>
+<code><a href="../reference/SimulateLrocDataset.html">SimulateLrocDataset()</a></code>: FROC to LROC simulator based on RSM. Could be used for NH testing. RSM can now predict all paradigm data.</li>
 <li>
-<code>DfFroc2Lroc</code>(): Simulates an “AUC-equivalent” LROC dataset from an FROC dataset.</li>
+<code>DfFroc2Lroc</code>(): Simulates an “AUC-equivalent” LROC dataset from an FROC dataset. This is neat!</li>
 <li>
 <code>DfLroc2Froc</code>(): Simulates an “AUC-equivalent” FROC dataset from an LROC dataset.</li>
 <li>
@@ -215,9 +224,9 @@
 <code>SignificanceTesting</code> functions now accept variance components, without having to specify a dataset.</li>
 </ul>
 </div>
-<div id="affected-and-new-functions" class="section level2">
+<div id="other-affected-functions-and-new-functions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#affected-and-new-functions" class="anchor"></a>Affected and new functions</h2>
+<a href="#other-affected-functions-and-new-functions" class="anchor"></a>Other affected functions and new functions</h2>
 <ul>
 <li>
 <code><a href="../reference/UtilVarComponentsDBM.html">UtilVarComponentsDBM()</a></code>:</li>
@@ -227,12 +236,6 @@
 <code>SsPowerGivenJKDbmVarComp</code>:</li>
 <li>
 <code>SsPowerGivenJKOrVarComp</code>:</li>
-<li>
-<code>StSignificanceTestingCadVsRadiologists</code>:</li>
-<li>
-<code>UtilLesionDistribution</code>:</li>
-<li>
-<code>UtilLesionWeightsDistr</code>:</li>
 <li>
 <code>SsSampleSizeKGivenJ</code>:</li>
 <li>
@@ -254,7 +257,9 @@
 <a href="#extension-needed" class="anchor"></a>Extension needed</h2>
 <ul>
 <li>
-<code>PlotRsmOperatingCharacteristics</code>: to include LROC data (there is an addPlot routine in <code>StSignificanceTestingCadVsRadiologists</code> that could be moved over).</li>
+<code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code>: to include LROC data (there is an addPlot routine in <code>StSignificanceTestingCadVsRadiologists</code> that could be moved over).</li>
+<li>Need a function that checks validity of FOM for dataset: <code>isValidFom</code>?</li>
+<li>Need to compare predicted curves for LROC and FROC data: does <code><a href="../reference/SimulateLrocDataset.html">SimulateLrocDataset()</a></code> predict <strong>both</strong> flattening out of LROC plot and wAFROC going to (1,1)?</li>
 </ul>
 </div>
 </div>
