@@ -164,16 +164,27 @@ StSignificanceTestingCadVsRadiologists <- function(dataset, FOM, FPFValue = 0.2,
     stop("2T-RRRC for non LROC data (not implemented) is unnecessary as 1T-method should be used instead.")
   }
   
-  if (plots) ret <- addPlot (dataset, ret, FOM)
+  if (plots) {
+    genericPlot <- addPlot (dataset, FOM)
+    retNames <- names(ret)
+    retNames <- c(retNames, "Plots")
+    len <- length(ret)
+    ret1 <- vector("list", len+1)
+    for (i in 1:len){
+      ret1[[i]] <- ret[[i]]
+    }
+    ret1[[len+1]] <- genericPlot
+    names(ret1) <- retNames
+  } else ret1 <- ret
   
-  return(ret)
+  return(ret1)
   
 }
 
 
 
 # Handles all dataTypes
-SingleModalityRRFC <- function(dataset, FOM, FPFValue, alpha){ # FPFValue not used
+SingleModalityRRFC <- function(dataset, FOM, FPFValue, alpha){
   thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   Psijc <- thetajc[-1] - thetajc[1]
   ret <- t.test(Psijc, conf.level = 1-alpha)
@@ -204,7 +215,7 @@ SingleModalityRRFC <- function(dataset, FOM, FPFValue, alpha){ # FPFValue not us
 # Anal2007Hillis53
 # Anal2007Hillis53
 # Handles all datasets
-SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha = 0.05)
+SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha)
 {  
 
   ret <- DiffFomVarCov2(dataset, FOM, FPFValue) # VarCov2 (subtract first reader FOMs before getting covariance)
@@ -256,16 +267,16 @@ SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha = 0.05)
 
 DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
 {
+  K <- length(dataset$NL[1,1,,1])
   dataType <- dataset$dataType
   if ((dataType == "LROC") && (FOM %in% c("PCL", "ALROC"))) 
   {
     ret1 <- dataset2ratings(dataset, FOM)
-    FP <- ret1$zjk1
     TP <- ret1$zjk2
     zjk2Il <- ret1$zjk2Il
-    K1 <- length(FP[1,])
     K2 <- length(TP[1,])
-    K <- K1 + K2
+    K1 <- K - K2
+    FP <- ret1$zjk1[,1:K1]
     J <- length(FP[,1]) - 1
     combinedNL <- array(-Inf, dim=c(2,J,K,1))
     for (j in 1:J){
@@ -403,7 +414,7 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
 
 
 
-addPlot <- function(dataset, ret, FOM) {
+addPlot <- function(dataset, FOM) {
   ret1 <- dataset2ratings(dataset, FOM)
   zjk1 <- ret1$zjk1
   zjk2 <- ret1$zjk2
@@ -411,55 +422,19 @@ addPlot <- function(dataset, ret, FOM) {
   dataType <- dataset$dataType
   if (dataType == "ROC") {
     # fixed one of hard coding errors noticed by Alejandro
-    rocPlots <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]))$Plot
-    retNames <- names(ret)
-    retNames <- c(retNames, "Plots")
-    len <- length(ret)
-    ret1 <- vector("list", len+1)
-    for (i in 1:len){
-      ret1[[i]] <- ret[[i]]
-    }
-    ret1[[len+1]] <- rocPlots
-    names(ret1) <- retNames
+    genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]))$Plot
   } else if ((dataType == "LROC") && ((FOM == "PCL") || (FOM == "ALROC")))  {
-    if (dataType == "LROC") lrocPlots <- LrocPlots (zjk1, zjk2, seq(1,length(zjk1[,1])-1))$lrocPlot
-    retNames <- names(ret)
-    retNames <- c(retNames, "Plots")
-    len <- length(ret)
-    ret1 <- vector("list", len+1)
-    for (i in 1:len){
-      ret1[[i]] <- ret[[i]]
-    }
-    ret1[[len+1]] <- lrocPlots
-    names(ret1) <- retNames
+    if (dataType == "LROC") genericPlot <- LrocPlots (zjk1, zjk2, seq(1,length(zjk1[,1])-1))$lrocPlot
   } else if ((dataType == "LROC") && (FOM == "Wilcoxon"))  {
     if (dataType == "LROC") {
       datasetRoc <- DfLroc2Roc(dataset)
-      rocPlots <- PlotEmpiricalOperatingCharacteristics(datasetRoc, rdrs = 1:length(zjk1[,1]))$Plot
+      genericPlot <- PlotEmpiricalOperatingCharacteristics(datasetRoc, rdrs = 1:length(zjk1[,1]))$Plot
     }
-    retNames <- names(ret)
-    retNames <- c(retNames, "Plots")
-    len <- length(ret)
-    ret1 <- vector("list", len+1)
-    for (i in 1:len){
-      ret1[[i]] <- ret[[i]]
-    }
-    ret1[[len+1]] <- rocPlots
-    names(ret1) <- retNames
   } else if ((dataType == "FROC") && (FOM %in% c("Wilcoxon", "AFROC", "wAFROC")))  {
-    afrocPlots <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "AFROC")$Plot
-    retNames <- names(ret)
-    retNames <- c(retNames, "Plots")
-    len <- length(ret)
-    ret1 <- vector("list", len+1)
-    for (i in 1:len){
-      ret1[[i]] <- ret[[i]]
-    }
-    ret1[[len+1]] <- afrocPlots
-    names(ret1) <- retNames
+    genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "AFROC")$Plot
   }else stop("data type has to be ROC, FROC or LROC")
   
-  return(ret1)
+  return(genericPlot)
 }
 
 
@@ -480,17 +455,17 @@ dataset2ratings <- function (dataset, FOM){
   } else stop("Incorrect data type") # should never get here
   
   if (dataType == "ROC") {
-    zjk1 <- dataset$NL[,,1:K1,1]
+    zjk1 <- drop(dataset$NL)
     zjk2 <- dataset$LL[,,1:K2,1]
     zjk2Il <- NA
   } else if (dataType == "LROC") {
     if (FOM %in% c("ALROC", "PCL")) {
-      zjk1 <- dataset$NL[,,1:K1,1]
+      zjk1 <- drop(dataset$NL)
       zjk2 <- dataset$LLCl[,,1:K2,1]
       zjk2Il <- dataset$LLIl[,,1:K2,1]
     } else if (FOM == "Wilcoxon")  {
       datasetRoc <- DfLroc2Roc(dataset)
-      zjk1 <- datasetRoc$NL[,,1:K1,1]
+      zjk1 <- drop(datasetRoc$NL)
       zjk2 <- datasetRoc$LL[,,1:K2,1]
       zjk2Il <- NA
     } 
