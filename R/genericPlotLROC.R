@@ -45,8 +45,6 @@ LrocOperatingPointsFromRatings <- function( zk1, zk2Cl )
 LrocPlots <- function (zjk1, zjk2,doJ) 
 {
   J <- length(zjk1[,1])
-  # linetype <- c(1:J) 
-  # plotchar <- seq(13,13+J,1)
   j <- 1;zjk1Temp <- zjk1[j,];zk2Temp <- zjk2[j,]
   lroc <- LrocOperatingPointsFromRatings( zjk1Temp, zk2Temp )
   FPF <- lroc$FPF;PCL <- lroc$PCL
