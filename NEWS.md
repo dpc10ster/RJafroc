@@ -44,7 +44,7 @@
 * `StSignificanceTestingSingleRandomFactor`:
 
 ## Extension needed 
-* `PlotRsmOperatingCharacteristics()`: to include LROC data (there is an addPlot routine in `StSignificanceTestingCadVsRadiologists` that could be moved over).
+* `PlotRsmOperatingCharacteristics()`: to include LROC data (there is an addPlot routine in `StSignificanceTestingCadVsRadiologists` that could be moved over). Done. The function has been renamed to `CadVsRadPlots()`. An error in `dataset2ratings()` has been corrected.
 * Need a function that checks validity of FOM for dataset: `isValidFom`?
 * Need to compare predicted curves for LROC and FROC data: does `SimulateLrocDataset()` predict **both** flattening out of LROC plot and wAFROC going to (1,1)?
 

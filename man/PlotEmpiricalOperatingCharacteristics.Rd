@@ -37,7 +37,8 @@ codes treatment and reader) and type, which can be \code{"individual"}, \code{"c
 \description{
 Plot empirical operating characteristics (operating points connected by straight 
    lines) for specified treatments and readers, or if desired, plots only 
-   (no operating points) averaged over specified treatments and / or readers
+   (no operating points) averaged over specified treatments and / or readers.
+   \strong{This function is currently limited to ROC or FROC datasets.}
 }
 \details{
 The \code{trts} and \code{rdrs} are vectors or lists of \strong{integer}  

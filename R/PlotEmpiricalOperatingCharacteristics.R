@@ -2,7 +2,8 @@
 #' 
 #' Plot empirical operating characteristics (operating points connected by straight 
 #'    lines) for specified treatments and readers, or if desired, plots only 
-#'    (no operating points) averaged over specified treatments and / or readers
+#'    (no operating points) averaged over specified treatments and / or readers.
+#'    \strong{This function is currently limited to ROC or FROC datasets.}
 #' 
 #' @param dataset Dataset to be used for plotting
 #' @param trts List or vector: \strong{integer} indices of treatments to be plotted
