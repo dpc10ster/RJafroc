@@ -10,7 +10,7 @@ DfFroc2Roc(dataset)
 \item{dataset}{The FROC dataset to be converted, \code{\link{RJafroc-package}}.}
 }
 \value{
-An ROC dataset
+An ROC dataset with \strong{finite ratings} in NL[,,1:K1,1] and LL[,,1:K2,1].
 }
 \description{
 Convert an FROC dataset to a highest rating inferred ROC dataset
@@ -23,8 +23,8 @@ FPs are only possible on non-diseased cases.}The second member of the list is \c
 Its 3rd dimension has length K2, the number of diseased cases.  \strong{This is 
 because TPs are only possible on diseased cases}. For each case the  
 inferred ROC rating is the highest of all FROC ratings on that case. If a case has 
-no marks, a \strong{finite} ROC rating, guaranteed to be smaller than the rating on 
-any marked case, is assigned to it. The structure is shown below:
+no marks, a \strong{finite ROC rating, guaranteed to be smaller than the rating on 
+any marked case}, is assigned to it. The dataset structure is shown below:
 \itemize{
 \item{\code{NL}}{ Ratings array [1:I, 1:J, 1:(K1+K2), 1], of false positives, FPs}
 \item{\code{LL}}{ Ratings array [1:I, 1:J, 1:K2, 1], of true positives, TPs}
