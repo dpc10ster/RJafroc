@@ -1,5 +1,11 @@
 # RJafroc 1.2.0.9000
 
+## Extended plotting function to LROC data
+* `PlotEmpiricalOperatingCharacteristics()` now accepts ROC, FROC **and** LROC datasets. 
+* Simplified code.
+* Included in unit tests.
+* Compact notation: `individual` datasets --> `1T1R` datasets.
+
 ## Added FROC sample size vignettes and functions
 * `Ch19Vig1FrocSampleSize.Rmd`: Compares FROC power to ROC power.
 * `Ch19Vig2FrocSampleSize.Rmd`: FROC power calculation for a number of situations.
@@ -31,7 +37,7 @@
 ## Variance component input
 * `SignificanceTesting` functions now accept variance components, without having to specify a dataset.
 
-## Other affected functions and new functions 
+## Other affected functions and new functions: 
 * `UtilVarComponentsDBM()`: 
 * `UtilVarComponentsOR()`:
 * `SsPowerGivenJKDbmVarComp`:
@@ -43,8 +49,10 @@
 * `StSignificanceTestingSingleFixedFactor`:
 * `StSignificanceTestingSingleRandomFactor`:
 
-## Extension needed 
-* `PlotRsmOperatingCharacteristics()`: to include LROC data (there is an addPlot routine in `StSignificanceTestingCadVsRadiologists` that could be moved over). Done. The function has been renamed to `CadVsRadPlots()`. An error in `dataset2ratings()` has been corrected.
+## Extensions needed 
+* `PlotRsmOperatingCharacteristics()`: to include LROC data - **DONE**.
+* The `addPlot` routine in `StSignificanceTestingCadVsRadiologists` has been renamed to `CadVsRadPlots()`. It should be deprecated in future as `PlotRsmOperatingCharacteristics()` has more consistent visual output (and capabilities like handling lists of treatments and readers). 
+* An error in `dataset2ratings()` has been corrected.
 * Need a function that checks validity of FOM for dataset: `isValidFom`?
 * Need to compare predicted curves for LROC and FROC data: does `SimulateLrocDataset()` predict **both** flattening out of LROC plot and wAFROC going to (1,1)?
 

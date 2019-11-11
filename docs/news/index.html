@@ -162,6 +162,17 @@
 <h1 class="page-header">
 <a href="#rjafroc-1-2-0-9000" class="anchor"></a>RJafroc 1.2.0.9000<small> Unreleased </small>
 </h1>
+<div id="extended-plotting-function-to-lroc-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#extended-plotting-function-to-lroc-data" class="anchor"></a>Extended plotting function to LROC data</h2>
+<ul>
+<li>
+<code><a href="../reference/PlotEmpiricalOperatingCharacteristics.html">PlotEmpiricalOperatingCharacteristics()</a></code> now accepts ROC, FROC <strong>and</strong> LROC datasets.</li>
+<li>Simplified code.</li>
+<li>Included in unit tests.</li>
+<li>Compact notation: <code>individual</code> datasets –&gt; <code>1T1R</code> datasets.</li>
+</ul>
+</div>
 <div id="added-froc-sample-size-vignettes-and-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#added-froc-sample-size-vignettes-and-functions" class="anchor"></a>Added FROC sample size vignettes and functions</h2>
@@ -226,7 +237,7 @@
 </div>
 <div id="other-affected-functions-and-new-functions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-affected-functions-and-new-functions" class="anchor"></a>Other affected functions and new functions</h2>
+<a href="#other-affected-functions-and-new-functions" class="anchor"></a>Other affected functions and new functions:</h2>
 <ul>
 <li>
 <code><a href="../reference/UtilVarComponentsDBM.html">UtilVarComponentsDBM()</a></code>:</li>
@@ -252,12 +263,14 @@
 <code>StSignificanceTestingSingleRandomFactor</code>:</li>
 </ul>
 </div>
-<div id="extension-needed" class="section level2">
+<div id="extensions-needed" class="section level2">
 <h2 class="hasAnchor">
-<a href="#extension-needed" class="anchor"></a>Extension needed</h2>
+<a href="#extensions-needed" class="anchor"></a>Extensions needed</h2>
 <ul>
 <li>
-<code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code>: to include LROC data (there is an addPlot routine in <code>StSignificanceTestingCadVsRadiologists</code> that could be moved over).</li>
+<code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code>: to include LROC data - <strong>DONE</strong>.</li>
+<li>The <code>addPlot</code> routine in <code>StSignificanceTestingCadVsRadiologists</code> has been renamed to <code>CadVsRadPlots()</code>. It should be deprecated in future as <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> has more consistent visual output (and capabilities like handling lists of treatments and readers).</li>
+<li>An error in <code>dataset2ratings()</code> has been corrected.</li>
 <li>Need a function that checks validity of FOM for dataset: <code>isValidFom</code>?</li>
 <li>Need to compare predicted curves for LROC and FROC data: does <code><a href="../reference/SimulateLrocDataset.html">SimulateLrocDataset()</a></code> predict <strong>both</strong> flattening out of LROC plot and wAFROC going to (1,1)?</li>
 </ul>
