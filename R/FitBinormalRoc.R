@@ -1,6 +1,6 @@
 #' Fit the binormal model to selected treatment and reader in an ROC dataset
 #' 
-#' @description Fit the binormal model-predicted ROC curve for an individual dataset. 
+#' @description Fit the binormal model-predicted ROC curve for a dataset. 
 #'    This is the R equivalent of ROCFIT or RSCORE
 #' 
 #' @param dataset The ROC dataset

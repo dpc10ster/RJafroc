@@ -2,7 +2,7 @@
 % Please edit documentation in R/SimulateRocDataset.R
 \name{SimulateRocDataset}
 \alias{SimulateRocDataset}
-\title{Simulates an individual binormal model ROC dataset}
+\title{Simulates a binormal model ROC dataset}
 \usage{
 SimulateRocDataset(K1, K2, a, b, seed = NULL)
 }

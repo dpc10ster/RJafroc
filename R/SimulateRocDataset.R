@@ -1,4 +1,4 @@
-#' Simulates an individual binormal model ROC dataset
+#' Simulates a binormal model ROC dataset
 #' 
 #' @description  Simulates a binormal model ROC dataset for a single treatment and reader
 #' 
