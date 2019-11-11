@@ -4,7 +4,7 @@
 * `PlotEmpiricalOperatingCharacteristics()` now accepts ROC, FROC **and** LROC datasets. 
 * Simplified code.
 * Included in unit tests.
-* Compact notation: `individual` datasets --> `1T1R` datasets.
+* Added `legend.position` argument to allow better positioning of legend.
 
 ## Added FROC sample size vignettes and functions
 * `Ch19Vig1FrocSampleSize.Rmd`: Compares FROC power to ROC power.
@@ -33,6 +33,7 @@
 * `DfFroc2Lroc`(): Simulates an "AUC-equivalent" LROC dataset from an FROC dataset. This is neat!
 * `DfLroc2Froc`(): Simulates an "AUC-equivalent" FROC dataset from an LROC dataset.
 * `DfLroc2Roc`(): convert LROC dataset to ROC dataset.
+* An error in `dataset2ratings()` has been corrected.
 
 ## Variance component input
 * `SignificanceTesting` functions now accept variance components, without having to specify a dataset.
@@ -52,7 +53,6 @@
 ## Extensions needed 
 * `PlotRsmOperatingCharacteristics()`: to include LROC data - **DONE**.
 * The `addPlot` routine in `StSignificanceTestingCadVsRadiologists` has been renamed to `CadVsRadPlots()`. It should be deprecated in future as `PlotRsmOperatingCharacteristics()` has more consistent visual output (and capabilities like handling lists of treatments and readers). 
-* An error in `dataset2ratings()` has been corrected.
 * Need a function that checks validity of FOM for dataset: `isValidFom`?
 * Need to compare predicted curves for LROC and FROC data: does `SimulateLrocDataset()` predict **both** flattening out of LROC plot and wAFROC going to (1,1)?
 

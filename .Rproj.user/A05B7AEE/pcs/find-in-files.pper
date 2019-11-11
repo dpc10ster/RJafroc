@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "",
+        "path" : "/R",
         "projectRelative" : true,
-        "query" : "individual",
+        "query" : "type =",
         "regex" : false
     }
 }

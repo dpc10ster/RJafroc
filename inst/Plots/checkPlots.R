@@ -7,6 +7,8 @@ PlotEmpiricalOperatingCharacteristics(dataset04, opChType = "wAFROC")
 PlotEmpiricalOperatingCharacteristics(dataset04, opChType = "AFROC1")
 PlotEmpiricalOperatingCharacteristics(dataset04, opChType = "wAFROC1")
 
+PlotEmpiricalOperatingCharacteristics(dataset04, trts = seq(1,5), rdrs = seq(1,4), opChType = "wAFROC", legend.position = c(0.8, 0.4))
+
 plotT <- list(1, 2)
 plotR <- list(seq(1,4), seq(1,4)) # only 4 readers
 PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR,  opChType = "ROC")

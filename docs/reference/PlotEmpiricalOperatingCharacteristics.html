@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot empirical operating characteristics — PlotEmpiricalOperatingCharacteristics • RJafroc</title>
+<title>Plot empirical operating characteristics, ROC, FROC or LROC — PlotEmpiricalOperatingCharacteristics • RJafroc</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Plot empirical operating characteristics — PlotEmpiricalOperatingCharacteristics" />
+<meta property="og:title" content="Plot empirical operating characteristics, ROC, FROC or LROC — PlotEmpiricalOperatingCharacteristics" />
 
 <meta property="og:description" content="Plot empirical operating characteristics (operating points connected by straight 
    lines) for specified modalities and readers, or, if desired, plots 
@@ -159,7 +159,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot empirical operating characteristics</h1>
+    <h1>Plot empirical operating characteristics, ROC, FROC or LROC</h1>
     
     <div class="hidden name"><code>PlotEmpiricalOperatingCharacteristics.Rd</code></div>
     </div>
@@ -173,7 +173,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='no'>dataset</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)</pre>
+  <span class='no'>opChType</span>, <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.8</span>, <span class='fl'>0.2</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,37 +184,40 @@
     </tr>
     <tr>
       <th>trts</th>
-      <td><p>List or vector: <strong>integer</strong> indices of modalities to be plotted.</p></td>
+      <td><p>List or vector: <strong>integer</strong> indices of modalities to be plotted.
+Default is 1.</p></td>
     </tr>
     <tr>
       <th>rdrs</th>
-      <td><p>List or vector: <strong>integer</strong> indices of readers to be plotted.</p></td>
+      <td><p>List or vector: <strong>integer</strong> indices of readers to be plotted.
+Default is 1.</p></td>
     </tr>
     <tr>
       <th>opChType</th>
       <td><p>Type of operating characteristic to be plotted:
-<code>"ROC"</code>(the default), <code>"FROC"</code>, <code>"AFROC"</code>,  <code>"wAFROC"</code>,
+<code>"ROC"</code>, <code>"FROC"</code>, <code>"AFROC"</code>,  <code>"wAFROC"</code>,
 <code>"AFROC1"</code>, <code>"wAFROC1"</code>, or <code>"LROC"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>legend.position</th>
+      <td><p>Where to position the legend. The default is c(0.8, 0.2), 
+i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <span class="pkg">ggplot2</span> object containing the operating characteristic plot(s) 
-and a data frame containing the points defining the operating characteristics 
-are returned. For example, the returned objects for <code>"ROC"</code> operating 
-characteristics are as follows:</p>
+and a data frame containing the points defining the operating characteristics.</p>
 <dt>Plot</dt><dd><p><span class="pkg">ggplot2</span> object. 
 For continuous or averaged data, operating characteristics curves are plotted 
-<strong>without</strong> showing operating points. For binned single-treatment single-reader 
-(1T1R) data, both operating 
+<strong>without</strong> showing operating points. For binned (individual) data, both operating 
 points and connecting lines are shown. To avoid clutter, if there are more than 20 
 operating points, they are not shown.</p></dd>
 
 <dt>Points</dt><dd><p>Data frame with four columns: abscissa, ordinate, class (which 
-codes modality and reader) and type, which can be <code>"1T1R"</code>, 
-<code>"continuous"</code> or <code>"average"</code>; <code>"1T1R"</code> refers to a one 
-modality and one reader.</p></dd>
+codes modality and reader) and type, which can be <code>"individual"</code>, 
+<code>"continuous"</code>, i.e., more than 20 operating points, or <code>"rdrAveraged"</code>.</p></dd>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -222,10 +225,10 @@ modality and one reader.</p></dd>
     <p>The <code>trts</code> and <code>rdrs</code> are vectors or lists of <strong>integer</strong>  
    indices, not the corresponding <strong>string</strong> IDs. For example, if the string 
    ID of the first reader is "0", the value in <code>rdrs</code> should be 
-   <strong>1</strong> not <strong>0</strong>. The plot legend will display the string IDs.</p>
+   <strong>1</strong> not <strong>0</strong>. The legend will display the string IDs.</p>
 <p>If both of <code>trts</code> and <code>rdrs</code> are vectors, all combinations of modalities 
    and readers are plotted. See Example 1.</p>
-<p>If both <code>trts</code> and <code>rdrs</code> are lists, they must have the same length. 
+<p>If both <code>trts</code> and <code>rdrs</code> are <code>lists</code>, they must have the same length. 
    Only the combination of modality and reader at the same position in their 
    respective lists are plotted. If some elements of the modalities and / or 
    readers lists are vectors, the average operating characteristic over the 
@@ -235,11 +238,11 @@ modality and one reader.</p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example 1</span>
-<span class='co'>## Plot 1T1R empirical ROC plots for all combinations of modalities</span>
+<span class='co'>## Plot individual empirical ROC plots for all combinations of modalities</span>
 <span class='co'>## 1 and 2 and readers 1, 2 and 3. Six operating characteristics are plotted.</span>
 
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span>
-<span class='no'>dataset02</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>), <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>))
+<span class='no'>dataset02</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>), <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>), <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Example 2</span>
 <span class='co'>## Empirical ROC, FROC, AFROC and wAFROC plots. Each plot consists of</span>
@@ -256,7 +259,7 @@ modality and one reader.</p></dd>
 <span class='no'>plotT</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>))
 <span class='no'>plotR</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fl'>2</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>:<span class='fl'>3</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>))
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>,
-   <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>)
+   <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>,
    <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"FROC"</span>)

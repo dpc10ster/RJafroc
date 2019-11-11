@@ -2,39 +2,40 @@
 % Please edit documentation in R/PlotEmpiricalOperatingCharacteristics.R
 \name{PlotEmpiricalOperatingCharacteristics}
 \alias{PlotEmpiricalOperatingCharacteristics}
-\title{Plot empirical operating characteristics}
+\title{Plot empirical operating characteristics, ROC, FROC or LROC}
 \usage{
 PlotEmpiricalOperatingCharacteristics(dataset, trts = 1, rdrs = 1,
-  opChType = "ROC")
+  opChType, legend.position = c(0.8, 0.2))
 }
 \arguments{
 \item{dataset}{Dataset object.}
 
-\item{trts}{List or vector: \strong{integer} indices of modalities to be plotted.}
+\item{trts}{List or vector: \strong{integer} indices of modalities to be plotted.
+Default is 1.}
 
-\item{rdrs}{List or vector: \strong{integer} indices of readers to be plotted.}
+\item{rdrs}{List or vector: \strong{integer} indices of readers to be plotted.
+Default is 1.}
 
 \item{opChType}{Type of operating characteristic to be plotted:
-\code{"ROC"}(the default), \code{"FROC"}, \code{"AFROC"},  \code{"wAFROC"},
+\code{"ROC"}, \code{"FROC"}, \code{"AFROC"},  \code{"wAFROC"},
 \code{"AFROC1"}, \code{"wAFROC1"}, or \code{"LROC"}.}
+
+\item{legend.position}{Where to position the legend. The default is c(0.8, 0.2), 
+i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).}
 }
 \value{
 A \pkg{ggplot2} object containing the operating characteristic plot(s) 
-and a data frame containing the points defining the operating characteristics 
-are returned. For example, the returned objects for \code{"ROC"} operating 
-characteristics are as follows:
+and a data frame containing the points defining the operating characteristics.
 
 \item{Plot}{\pkg{ggplot2} object. 
 For continuous or averaged data, operating characteristics curves are plotted 
-\strong{without} showing operating points. For binned single-treatment single-reader 
-(1T1R) data, both operating 
+\strong{without} showing operating points. For binned (individual) data, both operating 
 points and connecting lines are shown. To avoid clutter, if there are more than 20 
 operating points, they are not shown.}
 
 \item{Points}{Data frame with four columns: abscissa, ordinate, class (which 
-codes modality and reader) and type, which can be \code{"1T1R"}, 
-\code{"continuous"} or \code{"average"}; \code{"1T1R"} refers to a one 
-modality and one reader.}
+codes modality and reader) and type, which can be \code{"individual"}, 
+\code{"continuous"}, i.e., more than 20 operating points, or \code{"rdrAveraged"}.}
 }
 \description{
 Plot empirical operating characteristics (operating points connected by straight 
@@ -45,12 +46,12 @@ Plot empirical operating characteristics (operating points connected by straight
 The \code{trts} and \code{rdrs} are vectors or lists of \strong{integer}  
    indices, not the corresponding \strong{string} IDs. For example, if the string 
    ID of the first reader is "0", the value in \code{rdrs} should be 
-   \strong{1} not \strong{0}. The plot legend will display the string IDs. 
+   \strong{1} not \strong{0}. The legend will display the string IDs. 
 
 If both of \code{trts} and \code{rdrs} are vectors, all combinations of modalities 
    and readers are plotted. See Example 1.
 
-If both \code{trts} and \code{rdrs} are lists, they must have the same length. 
+If both \code{trts} and \code{rdrs} are \code{lists}, they must have the same length. 
    Only the combination of modality and reader at the same position in their 
    respective lists are plotted. If some elements of the modalities and / or 
    readers lists are vectors, the average operating characteristic over the 
@@ -60,11 +61,11 @@ For \code{LROC} datasets, \code{opChType} can be "ROC" or "LROC".
 }
 \examples{
 ## Example 1
-## Plot 1T1R empirical ROC plots for all combinations of modalities
+## Plot individual empirical ROC plots for all combinations of modalities
 ## 1 and 2 and readers 1, 2 and 3. Six operating characteristics are plotted.
 
 ret <- PlotEmpiricalOperatingCharacteristics(dataset = 
-dataset02, trts = c(1:2), rdrs = c(1:3))
+dataset02, trts = c(1:2), rdrs = c(1:3), opChType = "ROC")
 print(ret$Plot)
 
 ## Example 2
@@ -82,7 +83,7 @@ print(ret$Plot)
 plotT <- list(1, 2, c(1:2))
 plotR <- list(2, c(2:3), c(1:3))
 ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, 
-   trts = plotT, rdrs = plotR)
+   trts = plotT, rdrs = plotR, opChType = "ROC")
 print(ret$Plot)
 
 ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
