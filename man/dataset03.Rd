@@ -28,7 +28,7 @@ advances in ROC methodology.
 }
 \examples{
 str(dataset03)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset03)$Plot
+PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
 
 
 }

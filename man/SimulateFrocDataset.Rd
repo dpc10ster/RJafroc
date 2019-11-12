@@ -48,8 +48,7 @@ frocDataRaw <- SimulateFrocDataset(
   I = I, J = J, K1 = K1, K2 = K2, lesionVector = lesionVector )
   
 ## plot the data
-ret <- PlotEmpiricalOperatingCharacteristics(frocDataRaw, trts= 1, 
-   rdrs = 1, opChType = "FROC")
+ret <- PlotEmpiricalOperatingCharacteristics(frocDataRaw, opChType = "FROC")
 print(ret$Plot)
 
 }

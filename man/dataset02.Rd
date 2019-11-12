@@ -30,7 +30,7 @@ This is referred to in the book as the "VD" dataset. It consists of 114 cases,
 }
 \examples{
 str(dataset02)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset02)$Plot
+PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot
 
 
 

@@ -63,7 +63,7 @@
 #' 
 #' @examples
 #' str(dataset02)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset02)$Plot
+#' PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot
 #'
 #'
 #'
@@ -99,7 +99,7 @@
 #' 
 #' @examples
 #' str(dataset03)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset03)$Plot
+#' PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
 #'
 #'
 "dataset03"
@@ -268,7 +268,7 @@
 #' 
 #' @examples
 #' str(dataset08)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset08)$Plot
+#' PlotEmpiricalOperatingCharacteristics(dataset = dataset08, opChType = "ROC")$Plot
 #'
 #'
 "dataset08"
@@ -303,7 +303,7 @@
 #' 
 #' @examples
 #' str(dataset09)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10)$Plot
+#' PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
 #'
 #'
 "dataset09"
@@ -339,7 +339,7 @@
 #' 
 #' @examples
 #' str(dataset10)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset10)$Plot
+#' PlotEmpiricalOperatingCharacteristics(dataset = dataset10, opChType = "ROC")$Plot
 #'
 #'
 "dataset10"

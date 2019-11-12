@@ -43,8 +43,11 @@ If dataset is FROC, it is converted to an ROC dataset. The search model
     FOMs. See 2nd FROC SS vignette. Equally weighted lesions is assumed.
 }
 \examples{
+ 
+\donttest{
 SsFrocNhRsmModel(dataset02, c(0.7, 0.2, 0.1))
 ## the next one should match the vignette 
 SsFrocNhRsmModel(DfExtractDataset(dataset04, trts = c(1,2)), c(0.69, 0.2, 0.11))
+}
 
 }

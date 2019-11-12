@@ -30,11 +30,14 @@
 #'     returned are the lesDist and lesWghtDist arrays, which are needed for computing
 #'     FOMs. See 2nd FROC SS vignette. Equally weighted lesions is assumed.
 #' 
-#' @examples 
+#' @examples
+#'  
+#' \donttest{
 #' SsFrocNhRsmModel(dataset02, c(0.7, 0.2, 0.1))
 #' ## the next one should match the vignette 
 #' SsFrocNhRsmModel(DfExtractDataset(dataset04, trts = c(1,2)), c(0.69, 0.2, 0.11))
-#'
+#' }
+#' 
 #' @importFrom stats median   
 #' @export
 #' 

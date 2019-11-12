@@ -28,7 +28,7 @@ ROC data by using the highest ratings (the original FROC data is lost).
 }
 \examples{
 str(dataset10)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset10)$Plot
+PlotEmpiricalOperatingCharacteristics(dataset = dataset10, opChType = "ROC")$Plot
 
 
 }

@@ -422,16 +422,18 @@ CadVsRadPlots <- function(dataset, FOM) {
   dataType <- dataset$dataType
   if (dataType == "ROC") {
     # fixed one of hard coding errors noticed by Alejandro
-    genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]))$Plot
+    genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
   } else if ((dataType == "LROC") && ((FOM == "PCL") || (FOM == "ALROC")))  {
     if (dataType == "LROC") genericPlot <- LrocPlots (zjk1, zjk2, seq(1,length(zjk1[,1])-1))$lrocPlot
   } else if ((dataType == "LROC") && (FOM == "Wilcoxon"))  {
     if (dataType == "LROC") {
       datasetRoc <- DfLroc2Roc(dataset)
-      genericPlot <- PlotEmpiricalOperatingCharacteristics(datasetRoc, rdrs = 1:length(zjk1[,1]))$Plot
+      genericPlot <- PlotEmpiricalOperatingCharacteristics(datasetRoc, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
     }
-  } else if ((dataType == "FROC") && (FOM %in% c("Wilcoxon", "AFROC", "wAFROC")))  {
-    genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "AFROC")$Plot
+  } else if ((dataType == "FROC") && (FOM %in% c("HrAuc", "AFROC", "wAFROC")))  {
+    if (FOM == "HrAuc") genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
+    if (FOM == "AFROC") genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "AFROC")$Plot
+    if (FOM == "wAFROC") genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "wAFROC")$Plot
   }else stop("data type has to be ROC, FROC or LROC")
   
   return(genericPlot)

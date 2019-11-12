@@ -25,8 +25,7 @@
 #'    a = a, b = b)
 #'   
 #' ## plot the data
-#' ret <- PlotEmpiricalOperatingCharacteristics(rocDataRaw, trts= 1, 
-#'    rdrs = 1, opChType = "ROC")
+#' ret <- PlotEmpiricalOperatingCharacteristics(rocDataRaw, trts= 1, rdrs = 1, opChType = "ROC")
 #' print(ret$Plot)
 #' 
 #' @importFrom stats rnorm

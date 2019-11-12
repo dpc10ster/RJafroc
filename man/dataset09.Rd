@@ -29,7 +29,7 @@ data requires methods described in the book, specifically, the function
 }
 \examples{
 str(dataset09)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10)$Plot
+PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
 
 
 }

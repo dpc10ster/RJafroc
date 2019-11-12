@@ -34,8 +34,7 @@ rocDataRaw <- SimulateRocDataset(K1 = K1, K2 = K2,
    a = a, b = b)
   
 ## plot the data
-ret <- PlotEmpiricalOperatingCharacteristics(rocDataRaw, trts= 1, 
-   rdrs = 1, opChType = "ROC")
+ret <- PlotEmpiricalOperatingCharacteristics(rocDataRaw, trts= 1, rdrs = 1, opChType = "ROC")
 print(ret$Plot)
 
 }

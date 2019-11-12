@@ -38,7 +38,7 @@ any marked case}, is assigned to it. The dataset structure is shown below:
 }
 \examples{
 rocDataSet <- DfFroc2Roc(dataset05)
-p <- PlotEmpiricalOperatingCharacteristics(rocDataSet, trts = 1, rdrs = 1)
+p <- PlotEmpiricalOperatingCharacteristics(rocDataSet, trts = 1, rdrs = 1, opChType = "ROC")
 print(p$Plot)
 str(rocDataSet)
 
