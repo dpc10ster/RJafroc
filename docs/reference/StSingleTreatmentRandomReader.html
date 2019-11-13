@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Utility for Obuchowski-Rockette variance components — UtilVarComponentsOR • RJafroc</title>
+<title>Significance testing for single random factor — StSingleTreatmentRandomReader • RJafroc</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Utility for Obuchowski-Rockette variance components — UtilVarComponentsOR" />
+<meta property="og:title" content="Significance testing for single random factor — StSingleTreatmentRandomReader" />
 
-<meta property="og:description" content="Utility for Obuchowski-Rockette variance components" />
+<meta property="og:description" content="Significance testing for datasets with multiple readers in 
+   a single treatment, compare average FOM to specified NH value." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -157,30 +158,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Utility for Obuchowski-Rockette variance components</h1>
+    <h1>Significance testing for single random factor</h1>
     
-    <div class="hidden name"><code>UtilVarComponentsOR.Rd</code></div>
+    <div class="hidden name"><code>StSingleTreatmentRandomReader.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Utility for Obuchowski-Rockette variance components</p>
+    <p>Significance testing for datasets with multiple readers in 
+   a single treatment, compare average FOM to specified NH value.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset</span>, <span class='no'>FOM</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"Jackknife"</span>, <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>200</span>)</pre>
+    <pre class="usage"><span class='fu'>StSingleTreatmentRandomReader</span>(<span class='no'>dataset</span>, <span class='no'>fomNh</span>, <span class='no'>FOM</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset object</p></td>
+      <td><p>A single-treatment multipe-reader dataset.</p></td>
+    </tr>
+    <tr>
+      <th>fomNh</th>
+      <td><p>The comparison value that the reader average FOM is compared to.</p></td>
     </tr>
     <tr>
       <th>FOM</th>
-      <td><p>The figure of merit</p></td>
+      <td><p>The figure of merit, see <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code>.</p></td>
     </tr>
     <tr>
       <th>FPFValue</th>
@@ -188,30 +194,75 @@
 where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     <tr>
-      <th>covEstMethod</th>
-      <td><p>The covariance estimation method, "jackknife" 
-(the default) or "bootstrap".</p></td>
-    </tr>
-    <tr>
-      <th>nBoots</th>
-      <td><p>The number of bootstraps, defaults to 200</p></td>
+      <th>alpha</th>
+      <td><p>The significance level (<code>alpha</code>, default 0.05) 
+of the test of the null hypothesis that the reader averaged FOMs and the specified
+NH value fomNh are identical.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list object containing the variance components.</p>
+    <p>The return value is a list containing:</p><ul>
+<li><p><code>fom</code>   Observed reader FOMs.</p></li>
+<li><p><code>avgFom</code>   Average reader FOM.</p></li>
+<li><p><code>CIAvgFom</code>   Confidence interval of the reader averaged FOM.</p></li>
+<li><p><code>vaR</code>   Reader variance term of the Obuchowski-Rockette model.</p></li>
+<li><p><code>cov2</code>   cov2 of the Obuchowski-Rockette model.</p></li>
+<li><p><code>var</code>   Error term of the Obuchowski-Rockette model.</p></li>
+<li><p><code>Tstat</code>   The observed value of the t-statistic.</p></li>
+<li><p><code>df</code>   The degrees of freedom associated with the t-statistic.</p></li>
+<li><p><code>pValue</code>   The p-value for rejecting the NH.</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The variance components are obtained using <a href='StSignificanceTesting.html'>StSignificanceTesting</a> 
-    with <code>method = "ORH"</code>.</p>
+    <p>This function performs implements Hillis et al. 2005, Eqn. 23.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Hillis SL, Obuchowski NA, Schartz KM, Berbaum KS (2005) A comparison of the Dorfman-Berbaum-Metz and Obuchowski-Rockette methods for receiver operating characteristic (ROC) data, 
+Statistics in Medicine, 24(10), 1579-607.</p>
+<p>Hillis SL (2007) A comparison of denominator degrees of freedom methods 
+for multiple observer ROC studies, Statistics in Medicine. 26:596-619.</p>
+<p>Hillis SL (2014) A marginal mean ANOVA approach for analyzing multireader multicase radiological imaging data,
+Statistics in medicine 33, 330-360.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>varComp</span></div><div class='output co'>#&gt;          varR        varTR         cov1         cov2         cov3          var
-#&gt; 1 0.001534999 0.0002004025 0.0003466137 0.0003440748 0.0002390284 0.0008022883</div><div class='input'>
-  
+    <pre class="examples"><div class='input'><span class='co'>## Create a single treatment ROC dataset with four readers</span>
+<span class='no'>singleFactorData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='DfExtractDataset.html'>DfExtractDataset</a></span>(<span class='no'>dataset02</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>1</span>,<span class='fl'>4</span>))
+
+<span class='co'>## Perform single-treatment random-reader analysis</span>
+<span class='fu'>StSingleTreatmentRandomReader</span>(<span class='no'>singleFactorData</span>, <span class='kw'>fomNh</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</div><div class='output co'>#&gt; $fom
+#&gt;           Rdr0      Rdr1      Rdr2      Rdr3
+#&gt; Trt0 0.9196457 0.8587762 0.9038647 0.9731079
+#&gt; 
+#&gt; $avgFom
+#&gt; [1] 0.9138486
+#&gt; 
+#&gt; $CIAvgFom
+#&gt; [1] 0.8436480 0.9840493
+#&gt; 
+#&gt; $varR
+#&gt; [1] 0.002225974
+#&gt; 
+#&gt; $cov2
+#&gt; [1] 0.0004051924
+#&gt; 
+#&gt; $var
+#&gt; [1] 0.0008324853
+#&gt; 
+#&gt; $Tstat
+#&gt; [1] 3.671227
+#&gt; 
+#&gt; $df
+#&gt; [1] 8.959168
+#&gt; 
+#&gt; $pval
+#&gt; [1] 0.005185003
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -222,6 +273,8 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

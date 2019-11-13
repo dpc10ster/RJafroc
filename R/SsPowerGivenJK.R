@@ -60,7 +60,7 @@
 #' @export
 #' @importFrom stats qf pf
 #' 
-SsPowerGivenJK <- function(dataset, ..., FOM, J, K, effectSize = NULL, method = "DBMH", option = "ALL", alpha = 0.05, FPFValue = 0.2) {
+SsPowerGivenJK <- function(dataset, ..., FOM, FPFValue = 0.2, J, K, effectSize = NULL, method = "DBMH", option = "ALL", alpha = 0.05) {
   
   if (!(option %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect option.")
   if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")

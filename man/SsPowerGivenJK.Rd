@@ -4,8 +4,8 @@
 \alias{SsPowerGivenJK}
 \title{Statistical power for specified numbers of readers and cases}
 \usage{
-SsPowerGivenJK(dataset, ..., FOM, J, K, effectSize = NULL,
-  method = "DBMH", option = "ALL", alpha = 0.05, FPFValue = 0.2)
+SsPowerGivenJK(dataset, ..., FOM, FPFValue = 0.2, J, K,
+  effectSize = NULL, method = "DBMH", option = "ALL", alpha = 0.05)
 }
 \arguments{
 \item{dataset}{The \bold{pilot} dataset. If set to NULL 
@@ -15,6 +15,9 @@ then variance components must be supplied.}
 needed if dataset is not supplied.}
 
 \item{FOM}{The figure of merit}
+
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
 
 \item{J}{The number of readers in the pivotal study.}
 
@@ -30,9 +33,6 @@ components are supplied.}
 \item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
 
 \item{alpha}{The significance level, default is 0.05.}
-
-\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
-where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
 The expected statistical power.

@@ -24,7 +24,7 @@
 * test-St-CompareDBM2OR.R: compares current code DBM to current code OR results, when appropriate.
 
 ## CAD and LROC 
-* `gpfMyFOM()`:  interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the `approx` function did not work for small datasets. Wrote my own simple interpolation code. See `LrocFoms()` in `gpfMyFOM.R`. See **ChkLrocFoms.xlsx** in `inst/StSigTesting` for details on hand calculation of LROC FOMs. 
+* `gpfMyFOM()`: interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the `approx` function did not work for small datasets. Wrote my own simple interpolation code. See `LrocFoms()` in `gpfMyFOM.R`. See **ChkLrocFoms.xlsx** in `inst/StSigTesting` for details on hand calculation of LROC FOMs. 
 * LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions. **These changes only affected values at small `FPFValue`, 0.2 or less.**
 * Most FOM related functions now accept `FPFValue` to accommodate LROC datasets.
 * `StSignificanceTestingCadVsRadiologists()`: CAD results updated (only values for `FPFValue` 0.2 or less were affected); see `CadFunctionTests.R` in `inst/CadTesting`. See **CadTestingNicoData.xlsx** in `inst/CadTesting`. Included unit tests in `tests/testthat`.
@@ -45,16 +45,17 @@
 * `SsPowerGivenJKOrVarComp`:
 * `SsSampleSizeKGivenJ`:
 * `SsPowerGivenJK`:
+* `StSingleTreatmentRandomReader`:
+* Ensured that `FPFValue` argument immediately follows `FOM`, where applicable.
 
 ## Needs further testing 
 * `StSignificanceTestingSingleFixedFactor`:
-* `StSignificanceTestingSingleRandomFactor`:
 
 ## Extensions needed 
-* `PlotRsmOperatingCharacteristics()`: to include LROC data - **DONE**.
 * The `addPlot` routine in `StSignificanceTestingCadVsRadiologists` has been renamed to `CadVsRadPlots()`. It should be deprecated in future as `PlotRsmOperatingCharacteristics()` has more consistent visual output (and capabilities like handling lists of treatments and readers). 
 * Need a function that checks validity of FOM for dataset: `isValidFom`?
 * Need to compare predicted curves for LROC and FROC data: does `SimulateLrocDataset()` predict **both** flattening out of LROC plot and wAFROC going to (1,1)?
+* Split plot analysis
 
 
 

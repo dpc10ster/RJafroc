@@ -170,8 +170,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset</span>, <span class='no'>...</span>, <span class='no'>FOM</span>, <span class='no'>J</span>, <span class='no'>K</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+    <pre class="usage"><span class='fu'>SsPowerGivenJK</span>(<span class='no'>dataset</span>, <span class='no'>...</span>, <span class='no'>FOM</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='no'>J</span>, <span class='no'>K</span>,
+  <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,6 +189,11 @@ needed if dataset is not supplied.</p></td>
     <tr>
       <th>FOM</th>
       <td><p>The figure of merit</p></td>
+    </tr>
+    <tr>
+      <th>FPFValue</th>
+      <td><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     <tr>
       <th>J</th>
@@ -216,11 +221,6 @@ components are supplied.</p></td>
     <tr>
       <th>alpha</th>
       <td><p>The significance level, default is 0.05.</p></td>
-    </tr>
-    <tr>
-      <th>FPFValue</th>
-      <td><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
-where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     </table>
     

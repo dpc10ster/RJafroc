@@ -26,7 +26,7 @@
 #' 
 #' @export
 
-UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", method = "DBMH", FPFValue = 0.2){
+UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBMH"){
   dataType <- dataset$dataType
   if (dataType != "LROC") {
     NL <- dataset$NL

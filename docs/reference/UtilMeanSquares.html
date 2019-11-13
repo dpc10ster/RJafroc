@@ -168,8 +168,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>,
-  <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,14 +184,14 @@
 is <code>"wJAFROC"</code>. See <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code>.</p></td>
     </tr>
     <tr>
-      <th>method</th>
-      <td><p>The method, in which the mean squares are calculated. The two 
-valid options are <code>"DBMH"</code> (default) and <code>"ORH"</code>.</p></td>
-    </tr>
-    <tr>
       <th>FPFValue</th>
       <td><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
 where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>The method, in which the mean squares are calculated. The two 
+valid options are <code>"DBMH"</code> (default) and <code>"ORH"</code>.</p></td>
     </tr>
     </table>
     

@@ -19,7 +19,7 @@
 #'   
 #' @export
 #' 
-UtilVarComponentsOR <- function (dataset, FOM, covEstMethod = "Jackknife", nBoots = 200, FPFValue = 0.2)
+UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2, covEstMethod = "Jackknife", nBoots = 200)
 {
   ret <- dataset2ratings (dataset, FOM)
   

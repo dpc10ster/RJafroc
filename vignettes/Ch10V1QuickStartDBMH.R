@@ -37,7 +37,7 @@ ds <- DfReadDataFile(sysFileName, newExcelFileFormat = FALSE) ##!!!DPC!!!
 str(ds)
 
 ## ------------------------------------------------------------------------
-ret <- StSignificanceTesting(dataset03, method = "DBMH", FOM = "Wilcoxon")
+ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "DBMH")
 print(ret)
 
 ## ------------------------------------------------------------------------
@@ -53,13 +53,13 @@ ret$anovaYi
 ret$varComp
 
 ## ------------------------------------------------------------------------
-ret$fRRRC
+ret$FTestStatsRRRC$fRRRC
 
 ## ------------------------------------------------------------------------
-ret$ddffRRRC
+ret$FTestStatsRRRC$ddfRRRC
 
 ## ------------------------------------------------------------------------
-ret$pRRRC
+ret$FTestStatsRRRC$pRRRC
 
 ## ------------------------------------------------------------------------
 ret$ciDiffTrtRRRC
@@ -68,40 +68,37 @@ ret$ciDiffTrtRRRC
 ret$ciAvgRdrEachTrtRRRC
 
 ## ------------------------------------------------------------------------
-ret$fFRRC
+ret$FTestStatsFRRC$fFRRC
 
 ## ------------------------------------------------------------------------
-ret$ndf
+ret$FTestStatsFRRC$ndfFRRC
 
 ## ------------------------------------------------------------------------
-ret$ddfFRRC
+ret$FTestStatsFRRC$ddfFRRC
 
 ## ------------------------------------------------------------------------
-ret$pFRRC
-
-## ------------------------------------------------------------------------
-ret$ciDiffTrtFRRC
-
-## ------------------------------------------------------------------------
-ret$ciAvgRdrEachTrtRRFC
-
-## ------------------------------------------------------------------------
-ret$ssAnovaEachRdr
-
-## ------------------------------------------------------------------------
-ret$msAnovaEachRdr
+ret$FTestStatsFRRC$pFRRC
 
 ## ------------------------------------------------------------------------
 ret$ciDiffTrtFRRC
 
 ## ------------------------------------------------------------------------
-ret$fRRFC
+ret$ciAvgRdrEachTrtFRRC
 
 ## ------------------------------------------------------------------------
-ret$ddfRRFC
+ret$msAnovaEachRdrFRRC
 
 ## ------------------------------------------------------------------------
-ret$pRRFC
+ret$ciDiffTrtFRRC
+
+## ------------------------------------------------------------------------
+ret$FTestStatsRRFC$fRRFC
+
+## ------------------------------------------------------------------------
+ret$FTestStatsRRFC$ddfRRFC
+
+## ------------------------------------------------------------------------
+ret$FTestStatsRRFC$pRRFC
 
 ## ------------------------------------------------------------------------
 ret$ciDiffTrtRRFC
@@ -110,6 +107,6 @@ ret$ciDiffTrtRRFC
 ret$ciAvgRdrEachTrtRRFC
 
 ## ------------------------------------------------------------------------
-ret <- StSignificanceTesting(dataset03, method = "ORH", FOM = "Wilcoxon")
+ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "ORH")
 str(ret)
 

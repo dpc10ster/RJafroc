@@ -252,6 +252,9 @@
 <code>SsSampleSizeKGivenJ</code>:</li>
 <li>
 <code>SsPowerGivenJK</code>:</li>
+<li>
+<code>StSingleTreatmentRandomReader</code>:</li>
+<li>Ensured that <code>FPFValue</code> argument immediately follows <code>FOM</code>, where applicable.</li>
 </ul>
 </div>
 <div id="needs-further-testing" class="section level2">
@@ -260,19 +263,16 @@
 <ul>
 <li>
 <code>StSignificanceTestingSingleFixedFactor</code>:</li>
-<li>
-<code>StSignificanceTestingSingleRandomFactor</code>:</li>
 </ul>
 </div>
 <div id="extensions-needed" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extensions-needed" class="anchor"></a>Extensions needed</h2>
 <ul>
-<li>
-<code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code>: to include LROC data - <strong>DONE</strong>.</li>
 <li>The <code>addPlot</code> routine in <code>StSignificanceTestingCadVsRadiologists</code> has been renamed to <code>CadVsRadPlots()</code>. It should be deprecated in future as <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> has more consistent visual output (and capabilities like handling lists of treatments and readers).</li>
 <li>Need a function that checks validity of FOM for dataset: <code>isValidFom</code>?</li>
 <li>Need to compare predicted curves for LROC and FROC data: does <code><a href="../reference/SimulateLrocDataset.html">SimulateLrocDataset()</a></code> predict <strong>both</strong> flattening out of LROC plot and wAFROC going to (1,1)?</li>
+<li>Split plot analysis</li>
 </ul>
 </div>
 </div>

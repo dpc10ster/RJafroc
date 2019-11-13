@@ -1,39 +1,40 @@
-#' Perform significance testing for single fixed factor analysis
+#' Significance testing for single random factor
 #' 
 #' @description  Significance testing for datasets with multiple readers in 
-#'    a single treatment.
+#'    a single treatment, compare average FOM to specified NH value.
 #' 
-#' @param dataset A single-treatment multipe reader dataset.
-#' @param theta0 The comparison value that the average FOM is compared to.
+#' @param dataset A single-treatment multipe-reader dataset.
+#' @param fomNh The comparison value that the reader average FOM is compared to.
 #' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}.
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' @param alpha The significance level (\code{alpha}, default 0.05) 
-#'    of the test of the null hypothesis that FOMs of all levels of 
-#'    the fixed factor are identical.
+#'    of the test of the null hypothesis that the reader averaged FOMs and the specified
+#'    NH value fomNh are identical.
 #' 
 #' 
 #' @return The return value is a list containing:
-#' @return \item{f}{The observed F-statistic for testing the null 
-#'    hypothesis of no treatment effect.}
-#' @return \item{ddf}{The denominator degrees of freedom of the F statistic. 
-#'    The numerator degrees of freedom is always the number of levels of the 
-#'    fixed factor minus one.}
-#' @return \item{pValue}{The p-value for rejecting the NH.}
-#' @return \item{fomStats}{Statistics for FOM for each level of the fixed factor.}
-#' 
+#' \itemize{
+#' \item{\code{fom}}   {Observed reader FOMs.}
+#' \item{\code{avgFom}}   {Average reader FOM.} 
+#' \item{\code{CIAvgFom}}   {Confidence interval of the reader averaged FOM.}
+#' \item{\code{vaR}}   {Reader variance term of the Obuchowski-Rockette model.}
+#' \item{\code{cov2}}   {cov2 of the Obuchowski-Rockette model.}
+#' \item{\code{var}}   {Error term of the Obuchowski-Rockette model.}
+#' \item{\code{Tstat}}   {The observed value of the t-statistic.}
+#' \item{\code{df}}   {The degrees of freedom associated with the t-statistic.}
+#' \item{\code{pValue}}   {The p-value for rejecting the NH.}
+#' }
 #' 
 #' @details This function performs implements Hillis et al. 2005, Eqn. 23. 
-#'    Following an overall F-test, reader-pairings are compared using paired 
-#'    t-tests.
 #' 
 #' 
 #' @examples 
-#' ## Create a single treatment ROC dataset with one treatment and four readers
-#' singleFactorData <- DfExtractDataset(dataset02, 1, 1:4)
+#' ## Create a single treatment ROC dataset with four readers
+#' singleFactorData <- DfExtractDataset(dataset02, trts = 1, rdrs = seq(1,4))
 #' 
-#' ## Performs single treatment fixed reader analysis
-#' StSignificanceTestingSingleFixedFactor(singleFactorData, FOM = "Wilcoxon")
+#' ## Perform single-treatment random-reader analysis
+#' StSingleTreatmentRandomReader(singleFactorData, fomNh = 0.8, FOM = "Wilcoxon")
 #' 
 #' @references 
 #' Hillis SL, Obuchowski NA, Schartz KM, Berbaum KS (2005) A comparison of the Dorfman-Berbaum-Metz and Obuchowski-Rockette methods for receiver operating characteristic (ROC) data, 
@@ -49,17 +50,14 @@
 #' 
 #' @export
 
-StSignificanceTestingSingleRandomFactor <- function(dataset, theta0, FOM, 
-                                                    FPFValue = 0.2, alpha = 0.05) {
+StSingleTreatmentRandomReader <- function(dataset, fomNh, FOM, FPFValue = 0.2, alpha = 0.05) {
   
-  if (dataset$dataType == "LROC") stop("Dataset must NOT be LROC")
-  
-  ret <- gpfEstimateVarCov(dataset, FOM, covEstMethod = "Jackknife")
-  varError <- ret$var;  Cov2 <- ret$cov2
+  ret <- gpfEstimateVarCov(dataset, FOM, FPFValue, covEstMethod = "Jackknife")
+  var <- ret$var;  Cov2 <- ret$cov2
   
   NL <- drop(dataset$NL)
-  J <- length(NL[,1]) # number of radiologists including CAD reader
-  thetajc <- UtilFigureOfMerit(dataset, FOM)
+  J <- length(NL[,1]) # number of radiologists
+  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   
   MSR <- 0
   avgFom <- mean(thetajc)
@@ -70,7 +68,7 @@ StSignificanceTestingSingleRandomFactor <- function(dataset, theta0, FOM,
   
   MSdenOR_single <- MSR + max(J * Cov2, 0)
   DdfhSingle <- MSdenOR_single^2 / (MSR^2 / (J - 1))
-  TstatStar <- abs(avgFom - theta0) / sqrt(MSdenOR_single/J)
+  TstatStar <- abs(avgFom - fomNh) / sqrt(MSdenOR_single/J)
   pval <- 1 - pt(abs(TstatStar),DdfhSingle) + pt(-abs(TstatStar),DdfhSingle)
   
   CIAvgFom <- array(dim=2)
@@ -83,8 +81,8 @@ StSignificanceTestingSingleRandomFactor <- function(dataset, theta0, FOM,
     avgFom = avgFom,
     CIAvgFom = CIAvgFom,
     varR = var(as.numeric(thetajc)),
-    varError = varError, 
     cov2 = Cov2, 
+    var = var, 
     Tstat = TstatStar,
     df = DdfhSingle,
     pval = pval

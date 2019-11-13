@@ -6,7 +6,7 @@
   library(RJafroc)
 
 ## ------------------------------------------------------------------------
-UtilFigureOfMerit(datasetROI)
+UtilFigureOfMerit(datasetROI, FOM = "ROI")
 fom <- UtilFigureOfMerit(datasetROI, FOM = "ROI")
 
 ## ------------------------------------------------------------------------

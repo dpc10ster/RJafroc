@@ -128,7 +128,7 @@ This illustrates the `StSignificanceTesting()` function. The significance testin
 and the figure of merit `FOM` is specified as "Wilcoxon".
 
 ```{r}
-ret <- StSignificanceTesting(dataset03, method = "DBMH", FOM = "Wilcoxon")
+ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "DBMH")
 print(ret)
 ```             
 
@@ -180,28 +180,28 @@ ret$varComp
 
 ### Random-reader random-case (RRRC) analysis
 
-* `fRRRC` is the F-statistic for testing the NH that the
+* `ret$FTestStatsRRRC$fRRRC` is the F-statistic for testing the NH that the
 treatments have identical FOMs. RRRC means random-reader random-case generalization.
 
 
 ```{r}
-ret$fRRRC
+ret$FTestStatsRRRC$fRRRC
 ```             
 
 #### F-statistic and p-value for RRRC analysis
-* `ddffRRRC` is the denominator degrees of freedom of the 
+* `ret$FTestStatsRRRC$ddfRRRC` is the denominator degrees of freedom of the 
 F-statistic.
 
 
 ```{r}
-ret$ddffRRRC
+ret$FTestStatsRRRC$ddfRRRC
 ```             
 
-* `pRRRC` is the p-value of the test.
+* `ret$FTestStatsRRRC$pRRRC` is the p-value of the test.
 
 
 ```{r}
-ret$pRRRC
+ret$FTestStatsRRRC$pRRRC
 ```             
 
 #### Confidence Intervals for RRRC analysis
@@ -226,35 +226,35 @@ ret$ciAvgRdrEachTrtRRRC
 
 #### F-statistic and p-value for RRRC analysis
 
-* `fFRRC` is the F-statistic for fixed-reader
+* `ret$FTestStatsFRRC$fFRRC` is the F-statistic for fixed-reader
 random-case analysis.
 
 
 ```{r}
-ret$fFRRC
+ret$FTestStatsFRRC$fFRRC
 ```             
 
-* `ndf` is the numerator degrees of freedom of the F-statistic,
+* `ret$FTestStatsFRRC$ndfFRRC` is the numerator degrees of freedom of the F-statistic,
 always one less than the number of treatments.
 
 
 ```{r}
-ret$ndf
+ret$FTestStatsFRRC$ndfFRRC
 ```             
 
-* `ddfFRRC` is the denominator degreesof freedom of the F-statistic,
+* `ret$FTestStatsFRRC$ddfFRRC` is the denominator degreesof freedom of the F-statistic,
 for fixed-reader random-case analysis.
 
 
 ```{r}
-ret$ddfFRRC
+ret$FTestStatsFRRC$ddfFRRC
 ```             
 
-* `pFRRC` is the p-value for fixed-reader random-case analysis.
+* `ret$FTestStatsFRRC$pFRRC` is the p-value for fixed-reader random-case analysis.
 
 
 ```{r}
-ret$pFRRC
+ret$FTestStatsFRRC$pFRRC
 ```             
 
 #### Confidence Intervals for FRRC analysis
@@ -267,31 +267,24 @@ differences between treatments for fixed-reader random-case analysis
 ret$ciDiffTrtFRRC
 ```             
 
-* `ciAvgRdrEachTrtRRFC` is the 95% CI of reader-average
+* `ret$ciAvgRdrEachTrtFRRC` is the 95% CI of reader-average
 FOMs of each treatment for fixed-reader random-case analysis
 
 
 ```{r}
-ret$ciAvgRdrEachTrtRRFC
+ret$ciAvgRdrEachTrtFRRC
 ```             
 
 #### ANOVA for FRRC analysis
 
-* `ssAnovaEachRdr` is the sum of squares ANOVA
+* `ret$msAnovaEachRdrFRRC` is the mean-squares ANOVA
 for each reader
 
 
 ```{r}
-ret$ssAnovaEachRdr
+ret$msAnovaEachRdrFRRC
 ```             
 
-* `msAnovaEachRdr` is the mean squares ANOVA
-for each reader
-
-
-```{r}
-ret$msAnovaEachRdr
-```             
 
 #### Confidence Intervals for FRRC analysis
 
@@ -306,26 +299,26 @@ ret$ciDiffTrtFRRC
 ### Random-reader fixed-case (RRFC) analysis
 
 #### F-statistic and p-value for RRFC analysis
-* `fRRFC` is the F-statistic for
+* `ret$FTestStatsRRFC$fRRFC` is the F-statistic for
 for random-reader fixed-case analysis
 
 
 ```{r}
-ret$fRRFC
+ret$FTestStatsRRFC$fRRFC
 ```             
 
-* `ddfRRFC` is the ddf for for random-reader fixed-case analysis
+* `ret$FTestStatsRRFC$ddfRRFC` is the ddf for for random-reader fixed-case analysis
 
 
 ```{r}
-ret$ddfRRFC
+ret$FTestStatsRRFC$ddfRRFC
 ```             
 
-* `pRRFC` is the p-value for for random-reader fixed-case analysis
+* `ret$FTestStatsRRFC$pRRFC` is the p-value for for random-reader fixed-case analysis
 
 
 ```{r}
-ret$pRRFC
+ret$FTestStatsRRFC$pRRFC
 ```             
 
 #### Confidence Intervals for RRFC analysis
@@ -350,6 +343,6 @@ ret$ciAvgRdrEachTrtRRFC
 Simply change `method = "DBMH"` to `method = "ORH"`.
 
 ```{r}
-ret <- StSignificanceTesting(dataset03, method = "ORH", FOM = "Wilcoxon")
+ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "ORH")
 str(ret)
 ```

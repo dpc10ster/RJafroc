@@ -4,20 +4,20 @@
 \alias{StSignificanceTestingSingleFixedFactor}
 \title{Perform significance testing for single fixed factor analysis}
 \usage{
-StSignificanceTestingSingleFixedFactor(dataset, FOM, alpha = 0.05,
-  FPFValue = 0.2)
+StSignificanceTestingSingleFixedFactor(dataset, FOM, FPFValue = 0.2,
+  alpha = 0.05)
 }
 \arguments{
 \item{dataset}{A single-treatment or single-reader dataset.}
 
 \item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}.}
 
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
+
 \item{alpha}{The significance level (\code{alpha}, default 0.05) 
 of the test of the null hypothesis that FOMs of all levels of 
 the fixed factor are identical.}
-
-\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
-where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
 The return value is a list containing:

@@ -1,4 +1,4 @@
-StDBMHAnalysis <- function(dataset, FOM, alpha, option, FPFValue) 
+StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option) 
 {
   NL <- dataset$NL
   modalityID <- dataset$modalityID

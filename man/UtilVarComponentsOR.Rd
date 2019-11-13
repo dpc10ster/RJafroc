@@ -4,21 +4,21 @@
 \alias{UtilVarComponentsOR}
 \title{Utility for Obuchowski-Rockette variance components}
 \usage{
-UtilVarComponentsOR(dataset, FOM, covEstMethod = "Jackknife",
-  nBoots = 200, FPFValue = 0.2)
+UtilVarComponentsOR(dataset, FOM, FPFValue = 0.2,
+  covEstMethod = "Jackknife", nBoots = 200)
 }
 \arguments{
 \item{dataset}{The dataset object}
 
 \item{FOM}{The figure of merit}
 
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.}
+
 \item{covEstMethod}{The covariance estimation method, "jackknife" 
 (the default) or "bootstrap".}
 
 \item{nBoots}{The number of bootstraps, defaults to 200}
-
-\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
-where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
 A list object containing the variance components.

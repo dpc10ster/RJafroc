@@ -176,8 +176,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>StSignificanceTestingSingleFixedFactor</span>(<span class='no'>dataset</span>, <span class='no'>FOM</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+    <pre class="usage"><span class='fu'>StSignificanceTestingSingleFixedFactor</span>(<span class='no'>dataset</span>, <span class='no'>FOM</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,15 +191,15 @@
       <td><p>The figure of merit, see <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code>.</p></td>
     </tr>
     <tr>
+      <th>FPFValue</th>
+      <td><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
+where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
+    </tr>
+    <tr>
       <th>alpha</th>
       <td><p>The significance level (<code>alpha</code>, default 0.05) 
 of the test of the null hypothesis that FOMs of all levels of 
 the fixed factor are identical.</p></td>
-    </tr>
-    <tr>
-      <th>FPFValue</th>
-      <td><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
-where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     </table>
     

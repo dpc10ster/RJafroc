@@ -13,7 +13,7 @@
 
 <meta name="author" content="Dev P. Chakraborty" />
 
-<meta name="date" content="2019-10-29" />
+<meta name="date" content="2019-11-12" />
 
 <title>Chapter 30, Vignette 2: Significance testing for the ROI paradigm</title>
 
@@ -304,26 +304,26 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</h1>
 <h4 class="author">Dev P. Chakraborty</h4>
-<h4 class="date">2019-10-29</h4>
+<h4 class="date">2019-11-12</h4>
 
 
 
-<div id="note-to-self" class="section level2">
-<h2>Note to self</h2>
+<div id="note-to-self-102919-dpc" class="section level2">
+<h2>Note to self (10/29/19) !!!DPC!!!</h2>
 <p>The FOM and DeLong method implementations need checking with a toy dataset.</p>
 </div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <ul>
-<li><p>For an ROI dataset calling <code>StSignificanceTesting()</code> automatically defaults to <code>method = &quot;ORH&quot;</code>, <code>covEstMethod = &quot;DeLong&quot;</code> and <code>FOM = &quot;ROI&quot;</code>.</p></li>
-<li><p>The covariance estimation method is based on the original DeLong method <span class="citation">(DeLong, DeLong, and Clarke-Pearson 1988)</span>, which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by <span class="citation">(Obuchowski 1997)</span> to ROI data.</p></li>
+<li><p>For an ROI dataset <code>StSignificanceTesting()</code> automatically defaults to <code>method = &quot;ORH&quot;</code>, <code>covEstMethod = &quot;DeLong&quot;</code> and <code>FOM = &quot;ROI&quot;</code>.</p></li>
+<li><p>The covariance estimation method is based on the original DeLong method <span class="citation">(DeLong, DeLong, and Clarke-Pearson 1988)</span>, which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by <span class="citation">(Obuchowski 1997)</span> to ROI data, see formula below.</p></li>
 <li><p>The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by <span class="citation">(Obuchowski 1997)</span> for estimating the covariance matrix. Once the covariances are known, <code>method = &quot;ORH&quot;</code> can be applied to perform significance testing, as described in <span class="citation">(Obuchowski and Rockette 1995)</span> and <span class="citation">(Chakraborty 2017, Chapter 10)</span>.</p></li>
 </ul>
 </div>
 <div id="the-roi-figure-of-merit" class="section level2">
 <h2>The ROI figure of merit</h2>
 <p>Let <span class="math inline">\({{X}_{kr}}\)</span> denote the rating for the r<sup>th</sup> <strong>lesion-containing</strong> ROI in the k<sup>th</sup> case and let <span class="math inline">\(n_{k}^{L}\)</span> be the total number of lesion-containing ROIs in the k<sup>th</sup> case. Similarly, let <span class="math inline">\({{Y}_{kr}}\)</span> denote the rating for the r<sup>th</sup> <strong>lesion-free</strong> ROI in the k<sup>th</sup> case and <span class="math inline">\(n_{k}^{N}\)</span> denote the total number of lesion-free ROIs in the k<sup>th</sup> case. Let <span class="math inline">\({{N}_{L}}\)</span> denote the total number of lesion-containing ROIs in the image set and <span class="math inline">\({{N}_{N}}\)</span> denote the total number of lesion-free ROIs. These are given by <span class="math inline">\({{N}_{L}}=\sum\nolimits_{k}{n_{k}^{L}}\)</span> and <span class="math inline">\({{N}_{N}}=\sum\nolimits_{k}{n_{k}^{N}}\)</span>. The ROI figure of merit <span class="math inline">\(\theta\)</span> is defined by: <span class="math display">\[\theta =\frac{1}{{{N}_{L}}{{N}_{N}}}\sum\nolimits_{k}{\sum\nolimits_{{{k}'}}{\sum\limits_{r=1}^{n_{k}^{L}}{\sum\limits_{{r}'=1}^{n_{k'}^{N}}{\psi ({{X}_{kr}},{{Y}_{{k}'{r}'}})}}}}\]</span></p>
-<p>Here the kernel function is defined by:</p>
+<p>The kernel function <span class="math inline">\(\Psi(X,Y)\)</span> is defined by:</p>
 <p><span class="math display">\[\psi (X,Y)=\left\{ \begin{align}
   &amp; 1.0\ \ \ \text{if}\ Y&lt;X \\ 
  &amp; 0.5\ \ \ \text{if}\ Y=X \\ 
@@ -333,12 +333,11 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 <div id="calculation-of-the-roi-figure-of-merit." class="section level2">
 <h2>Calculation of the ROI figure of merit.</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">UtilFigureOfMerit</span>(datasetROI)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; Incorrect FOM supplied for ROI data, changing to 'ROI'</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt;           Rdr1      Rdr2      Rdr3      Rdr4      Rdr5</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; Trt1 0.9057239 0.8842834 0.8579279 0.9350207 0.8352103</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; Trt2 0.9297186 0.9546035 0.8937652 0.9531716 0.8770076</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">fom &lt;-<span class="st"> </span><span class="kw">UtilFigureOfMerit</span>(datasetROI, <span class="dt">FOM =</span> <span class="st">&quot;ROI&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">UtilFigureOfMerit</span>(datasetROI, <span class="dt">FOM =</span> <span class="st">&quot;ROI&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt;           Rdr1      Rdr2      Rdr3      Rdr4      Rdr5</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; Trt1 0.9057239 0.8842834 0.8579279 0.9350207 0.8352103</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; Trt2 0.9297186 0.9546035 0.8937652 0.9531716 0.8770076</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">fom &lt;-<span class="st"> </span><span class="kw">UtilFigureOfMerit</span>(datasetROI, <span class="dt">FOM =</span> <span class="st">&quot;ROI&quot;</span>)</a></code></pre></div>
 <ul>
 <li>If the correct <code>FOM</code> is not supplied, it defaults to <code>FOM = ROI</code>.<br />
 </li>
@@ -353,6 +352,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 <div id="significance-testing" class="section level2">
 <h2>Significance testing</h2>
+<p>When <code>dataset$dataType == &quot;ROI&quot;</code> the FOM defaults to “ROI” (meaning the above formula) and the covariance estimation method defaults to <code>covEstMethod = &quot;DeLong&quot;</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">ret &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(datasetROI, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; ROI dataset: forcing method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">str</span>(ret)</a>
