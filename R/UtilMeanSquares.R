@@ -82,10 +82,10 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
       
       msTC <- 0
       for (i in 1:I) {
-        for (k in 1:Ktemp) { # K should be # of diseased cases
+        for (k in 1:Ktemp) { 
           msTC <- msTC + (mean(pseudoValues[i, , k]) - mean(pseudoValues[i, , ]) - mean(pseudoValues[, , k]) + mean(pseudoValues))^2
         }
-        msTC <- msTC * J/((I - 1) * (Ktemp)) 
+        msTC <- msTC * J/((I - 1) * (Ktemp - 1)) # Error noted by Erin Greco; minus one was missing 
         
         msCSingleT <- rep(0, I)
         for (i in 1:I){

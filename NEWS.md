@@ -1,5 +1,13 @@
 # RJafroc 1.2.0.9000
 
+## Split plot dataset
+* Modifications to `DfRedDataFile()` still in progress
+
+
+## Error in MS_TC noted by Erin Greco
+* The missing "-1": `UtilMeanSquares()` line 88 `msTC <- msTC * J/((I - 1) * (Ktemp - 1))` has been corrected
+* Reset goodValues values in `test-StSignificance-testing.R` at line 128
+
 ## Extended plotting function to LROC data
 * `PlotEmpiricalOperatingCharacteristics()` now accepts ROC, FROC **and** LROC datasets. 
 * Simplified code.

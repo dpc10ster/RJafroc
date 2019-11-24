@@ -57,7 +57,7 @@ An Excel file in JAFROC format containing simulated ROI data corresponding to `d
 ```{r}
 fileName <- system.file(
     "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
-ds <- DfReadDataFile(fileName)
+ds <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
 ds$dataType
 ```             
 The `DfReadDataFile` function automatically recognizes that this is an *ROI* dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets: 

@@ -5,7 +5,7 @@
 \title{Read a data file}
 \usage{
 DfReadDataFile(fileName, format = "JAFROC", newExcelFileFormat = TRUE,
-  delimiter = ",", sequentialNames = FALSE, splitPlot = FALSE)
+  delimiter = ",", sequentialNames = FALSE)
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file. 
@@ -21,7 +21,7 @@ as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,
 \item{newExcelFileFormat}{This argument only applies to the \code{"JAFROC"} format. 
 The default is \code{TRUE}: the function accommodates 3 additional columns
 in the \code{Truth} worksheet. If \code{FALSE}, the original function, as in version 
-1.2.0 is used, and the three extra columns, if present, are ignored.}
+1.2.0 is used, and the three extra columns, if present, throws an error.}
 
 \item{delimiter}{The string delimiter to be used for the \code{"MRMC"} 
 format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.
@@ -32,11 +32,6 @@ or \code{"iMRMC"} data files.}
 (starting from 1) will be used as the 
 treatment and reader IDs (i.e., names). Otherwise, treatment 
 and reader IDs in the original data file will be used.}
-
-\item{splitPlot}{A logical variable, default \code{FALSE}, denoting a split plot design.
-If \code{TRUE} each reader interprets one case in all modalities. Currently only
-ROC dataset is supported. Note that the Excel input file must use the new format
-with 3-additional columns, and the \code{newExcelFileFormat} option must be \code{TRUE}}
 }
 \value{
 A dataset with the structure specified in \code{\link{RJafroc-package}}.
@@ -47,15 +42,15 @@ Read a disk file and create a dataset object from it.
 \examples{
 fileName <- system.file("extdata", "toyFiles/ROC/OK.xlsx", 
 package = "RJafroc", mustWork = TRUE)
-dsNew <- DfReadDataFile(fileName)
-dsOld <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
-testthat::expect_equal(dsNew, dsOld)
+ds <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 
 fileName <- system.file("extdata", "toyFiles/FROC/OK.xlsx", 
 package = "RJafroc", mustWork = TRUE)
-ds1New <- DfReadDataFile(fileName)
+ds <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+
+fileName <- system.file("extdata", "toyFiles/FROC/OK-OldFormat.xlsx",
+package = "RJafroc", mustWork = TRUE)
 ds1Old <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
-testthat::expect_equal(ds1New, ds1Old)
 
 \donttest{
 fileName <- system.file("extdata", "RocData.xlsx", 
@@ -73,7 +68,6 @@ RocDataImrmc<- DfReadDataFile(fileName, format = "iMRMC")
 fileName <- system.file("extdata", "FrocData.xlsx", 
 package = "RJafroc", mustWork = TRUE)
 FrocDataXlsx <- DfReadDataFile(fileName, sequentialNames = TRUE)
-
 }
 
 }

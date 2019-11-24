@@ -333,12 +333,12 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-roc-jafroc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadDataFile(fileName)
+    ds <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
     saveRDS(ds, file = fn)
   }
 
   ds1 <- readRDS(fn)
-  ds2 <- DfReadDataFile(fileName)
+  ds2 <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
   
   expect_equal(ds1, ds2)
   
@@ -361,12 +361,12 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-froc-jafroc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadDataFile(fileName)
+    ds <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
     saveRDS(ds, file = fn)
   }
 
   ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName), ds)
+  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = FALSE), ds)
 
 })
 
@@ -380,12 +380,12 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-froc-jafroc-renum", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadDataFile(fileName, sequentialNames = TRUE)
+    ds <- DfReadDataFile(fileName, sequentialNames = TRUE, newExcelFileFormat = FALSE)
     saveRDS(ds, file = fn)
   }
 
   ds1 <- readRDS(fn)
-  ds2 <- DfReadDataFile(fileName, sequentialNames = TRUE)
+  ds2 <- DfReadDataFile(fileName, sequentialNames = TRUE, newExcelFileFormat = FALSE)
   expect_equal(ds2, ds1)
 
 })

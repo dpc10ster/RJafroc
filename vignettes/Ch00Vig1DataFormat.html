@@ -13,7 +13,7 @@
 
 <meta name="author" content="Dev P. Chakraborty" />
 
-<meta name="date" content="2019-11-12" />
+<meta name="date" content="2019-11-16" />
 
 <title>Chapter 00, Vignette 1: JAFROC data format</title>
 
@@ -304,7 +304,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Chapter 00, Vignette 1: JAFROC data format</h1>
 <h4 class="author">Dev P. Chakraborty</h4>
-<h4 class="date">2019-11-12</h4>
+<h4 class="date">2019-11-16</h4>
 
 
 
@@ -358,7 +358,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>An Excel file in JAFROC format containing simulated ROI data corresponding to <code>dataset04</code>, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object <code>ds</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">fileName &lt;-<span class="st"> </span><span class="kw">system.file</span>(</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">    <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;FrocData.xlsx&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;RJafroc&quot;</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">ds &lt;-<span class="st"> </span><span class="kw">DfReadDataFile</span>(fileName)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">ds &lt;-<span class="st"> </span><span class="kw">DfReadDataFile</span>(fileName, <span class="dt">newExcelFileFormat =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">ds<span class="op">$</span>dataType</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; [1] &quot;FROC&quot;</span></a></code></pre></div>
 <p>The <code>DfReadDataFile</code> function automatically recognizes that this is an <em>ROI</em> dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets:</p>

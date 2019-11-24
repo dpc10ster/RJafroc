@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "",
+        "path" : "/R",
         "projectRelative" : true,
-        "query" : "dataset, FOM,",
+        "query" : "ReadJAFROCOldFormat",
         "regex" : false
     }
 }
