@@ -1,8 +1,11 @@
 # RJafroc 1.2.0.9000
 
 ## Split plot dataset
-* Modifications to `DfRedDataFile()` still in progress
-
+* Modifications to `DfRedDataFile()` to allow for split plot datasets completed.
+* Must use `newExcelFileFormat = TRUE` as otherwise the code defaults to the old Excel format.
+* The new format includes more stringent tests, IMHO, to catch data entry errors:
+* `TruthTableStr` is created in `checkTruthTable()` which is used in subsequent read NL and LL worksheets. 
+* Work to be done to include split plot in significance testing.
 
 ## Error in MS_TC noted by Erin Greco
 * The missing "-1": `UtilMeanSquares()` line 88 `msTC <- msTC * J/((I - 1) * (Ktemp - 1))` has been corrected

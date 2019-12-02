@@ -265,7 +265,14 @@ ReadJAFROCOldFormat <- function(fileName, sequentialNames) {
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  return(list(NL = NL, LL = LL, lesionVector = lesionVector, lesionID = lesionIDLabels, lesionWeight = lesionWeight, dataType = fileType, modalityID = modalityID, readerID = readerID))
+  return(list(NL = NL, 
+              LL = LL, 
+              lesionVector = lesionVector, 
+              lesionID = lesionIDLabels, 
+              lesionWeight = lesionWeight, 
+              dataType = fileType, 
+              modalityID = modalityID, 
+              readerID = readerID))
 } 
 
 

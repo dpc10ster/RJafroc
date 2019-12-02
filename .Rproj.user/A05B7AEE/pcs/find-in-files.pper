@@ -5,7 +5,7 @@
         ],
         "path" : "/R",
         "projectRelative" : true,
-        "query" : "ReadJAFROCOldFormat",
+        "query" : "grep(\"^\\\\s*$\"",
         "regex" : false
     }
 }

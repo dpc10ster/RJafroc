@@ -162,6 +162,26 @@
 <h1 class="page-header">
 <a href="#rjafroc-1-2-0-9000" class="anchor"></a>RJafroc 1.2.0.9000<small> Unreleased </small>
 </h1>
+<div id="split-plot-dataset" class="section level2">
+<h2 class="hasAnchor">
+<a href="#split-plot-dataset" class="anchor"></a>Split plot dataset</h2>
+<ul>
+<li>Modifications to <code>DfRedDataFile()</code> to allow for split plot datasets completed.</li>
+<li>Must use <code>newExcelFileFormat = TRUE</code> as otherwise the code defaults to the old Excel format.</li>
+<li>The new format includes more stringent tests, IMHO, to catch data entry errors:</li>
+<li>
+<code>TruthTableStr</code> is created in <code>checkTruthTable()</code> which is used in subsequent read NL and LL worksheets.</li>
+<li>Work to be done to include split plot in significance testing.</li>
+</ul>
+</div>
+<div id="error-in-ms_tc-noted-by-erin-greco" class="section level2">
+<h2 class="hasAnchor">
+<a href="#error-in-ms_tc-noted-by-erin-greco" class="anchor"></a>Error in MS_TC noted by Erin Greco</h2>
+<ul>
+<li>The missing “-1”: <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code> line 88 <code>msTC &lt;- msTC * J/((I - 1) * (Ktemp - 1))</code> has been corrected</li>
+<li>Reset goodValues values in <code>test-StSignificance-testing.R</code> at line 128</li>
+</ul>
+</div>
 <div id="extended-plotting-function-to-lroc-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extended-plotting-function-to-lroc-data" class="anchor"></a>Extended plotting function to LROC data</h2>
