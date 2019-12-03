@@ -31,7 +31,7 @@ context("Compare3ProperRocFits")
 test_that("Compare3ProperRocFits routines - these have inherent randomness; hence need to use tolerance", {
   
   skip_on_cran()
-  #skip_on_travis()
+  skip_on_travis()
     
   set.seed(1)
   fn <- paste0(test_path(), "/goodValues361/Compare3ProperRocFits/Compare3ProperRocFits01.rds")

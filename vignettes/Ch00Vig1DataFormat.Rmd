@@ -1,5 +1,5 @@
 ---
-title: "Chapter 00, Vignette 1: JAFROC data format"
+title: "Chapter 00, Vignette 1: JAFROC Excel file data format"
 author: "Dev P. Chakraborty"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -21,23 +21,23 @@ vignette: >
 ```
 
 ## Introduction
-* In the free-response ROC (FROC) paradigm [@RN2453] the observer searches the image for signs of localized disease and marks those regions that are sufficiently suspicious for disease presence. FROC data consists of mark-rating pairs, where a mark is a location that was considered sufficiently suspicious for presence of a localized lesion and the rating is the corresponding confidence level. By adopting a proximity criterion, each mark is classified by the investigator as a lesion localization (LL) - if it is close to a real lesion - or a non-lesion localization (NL) otherwise. 
+* In the Free-response Receiver Operating Characteristic (FROC) paradigm [@RN2453] the observer searches each image for signs of **localized disease** and marks and rates localized regions that are sufficiently suspicious for disease presence. FROC data consists of **mark-rating pairs**, where each mark is a localized-region that was considered sufficiently suspicious for presence of a lesion and the rating is the corresponding confidence level. By adopting a proximity criterion, each mark is classified by the investigator as a lesion localization (LL) - if it is close to a real lesion - or a non-lesion localization (NL) otherwise. 
 
-* The observer gives a single rating to each ROI, denoted ${{R}_{k}}$. The rating can be an integer or quasi- continuous (e.g., 0 – 100), or a floating point value, as long as higher numbers represent greater confidence in presence of one or more lesions in the ROI.
+* The observer assigns a rating to each region. The rating can be an integer or quasi-continuous (e.g., 0 – 100), or a floating point value, as long as higher numbers represent greater confidence in presence of a lesion at the indicated region.
 
-* ROI-level-normal ratings are stored in the `NL` field and ROI-level-abnormal ratings are stored in the `LL` field.  
+## The Excel data format
+The Excel file has three worsheets. These are named `Truth`, `NL` or `FP` and `LL` or `TP`. 
 
-* One can think of the ROI paradimg as similar to the FROC paradigm, but with localization accuracy restricted to belonging to a region (one cannot distinguish muttiple lesions within a region). Unlike the FROC paradigm, a rating *is required* for every ROI.
+* NL ratings are stored in the `NL` field and LL ratings are stored in the `LL` field.  
 
+## An example FROC dataset
 
-## An example ROI dataset
-
-An example simulated ROI dataset is included as `dataset04`.
+An example simulated FROC dataset is included as `dataset04`.
   
 ```{r}
 str(dataset04)
 dataset04$NL[1,1,1,]
-mean(dataset04$NL[,,1:50,])
+mean(dataset04$NL[,,1:100,])
 dataset04$NL[1,1,51,]
 dataset04$lesionNum[1]
 dataset04$LL[1,1,1,]
@@ -47,29 +47,28 @@ Examination of the output reveals that:
 
 * This is a 5-treatment 4-reader dataset, with 100 non-diseased cases and 100 diseased cases.   
 
-* For treatment 1, reader 1, case 1 (the 1st non-diseased case) the 4 ratings are `r dataset04$NL[1,1,1,]`. The mean of all ratings on non-diseased cases is `r mean(dataset04$NL[,,1:50,])`.  
+* For treatment 1, reader 1, case 1 (the 1st non-diseased case) the 4 ratings are `r dataset04$NL[1,1,1,]`. The mean of all ratings on non-diseased cases is `r mean(dataset04$NL[,,1:100,])`.  
 
-* For treatment 1, reader 1, case 51 (the 1st diseased case) the NL ratings are `r dataset04$NL[1,1,51,][is.finite(dataset04$NL[1,1,51,])]`. There are only two finite values because this case has two ROI-level-abnormal regions, and 2 plus 2 makes for the assumed 4-regions per case. The corresponding `$lesionNum` field is `r dataset04$lesionNum[1]`.   
-* The ratings of the 2 ROI-level-abnormal ROIs on this case are `r dataset04$LL[1,1,1,][is.finite(dataset04$LL[1,1,1,])]`. The mean rating over all ROI-level-abnormal ROIs is `r mean(dataset04$LL[is.finite(dataset04$LL)])`.  
+* For treatment 1, reader 1, case 101 (the 1st diseased case) the NL ratings are `r dataset04$NL[1,1,101,][is.finite(dataset04$NL[1,1,101,])]`. The corresponding `$lesionVector` field is `r dataset04$Vector[1]`.   
 
-## The FROC  Excel data file
-An Excel file in JAFROC format containing simulated ROI data corresponding to `dataset04`, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object `ds`.  
+## The FROC Excel data file
+An Excel file in JAFROC format containing corresponding to `dataset04`, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object `ds`.  
 ```{r}
 fileName <- system.file(
     "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
 ds <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
 ds$dataType
 ```             
-The `DfReadDataFile` function automatically recognizes that this is an *ROI* dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets: 
+The `DfReadDataFile` function recognizes that this is an *FROC* dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets: 
 
 ![](images/FROC-TP-Truth-1.png){width=40%}![](images/FROC-TP-Truth-2.png){width=40%}
 ![](images/FROC-TP-Truth-3.png){width=40%}![](images/FROC-TP-Truth-4.png){width=40%}
 ![](images/FROC-TP-Truth-5.png){width=40%}
 
 
-* The `Truth` worksheet - this indicates which cases are diseased and which are non-diseased and the number of ROI-level-abnormal region on each case.  
-    + There are 50 normal cases (labeled 1-50) under column `CaseID` and 40 abnormal cases (labeled 51-90).  
-    + The `LesionID` field for each normal case (e.g., `CaseID` = 1) is zero and there is one row per case. For abnormal cases, this field has a variable number of entries, ranging from 1 to 4. As an example, there are two rows for `CaseID` = 51 in the Excel file: one with `LesionID` = 2 and one with `LesionID` = 3.   
+* The `Truth` worksheet - this indicates which cases are diseased and which are non-diseased.  
+    + There are 100 normal cases (labeled 1-100) under column `CaseID` and 100 abnormal cases (labeled 101-200).  
+    + The `LesionID` field for each normal case (e.g., `CaseID` = 1) is zero and there is one row per case. For abnormal cases, this field has a variable number of entries, ranging from 1 to 3. As an example, there are two rows for `CaseID` = 51 in the Excel file: one with `LesionID` = 2 and one with `LesionID` = 3.   
     + The `Weights` field is always zero (this field is not used in ROI analysis).  
 
 ![](images/ROI-FP-1.png){width=40%}

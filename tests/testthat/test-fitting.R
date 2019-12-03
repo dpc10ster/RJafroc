@@ -12,7 +12,7 @@ context("Fitting routines")
 
 
 test_that("FitBinormalRoc", {
-
+  skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -28,7 +28,7 @@ test_that("FitBinormalRoc", {
 
 
 test_that("FitBinormalRoc", {
-
+  skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc05", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -47,7 +47,7 @@ test_that("FitBinormalRoc", {
 
 
 test_that("FitCbmRoc", {
-
+  skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/CbmRoc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
