@@ -1,7 +1,7 @@
 # RJafroc 1.2.0.9000
 
 ## Split plot dataset
-* Modifications to `DfRedDataFile()` to allow for split plot datasets completed.
+* Modifications to `DfReadDataFile()` to allow for split plot datasets completed.
 * Must use `newExcelFileFormat = TRUE` as otherwise the code defaults to the old Excel format.
 * The new format includes more stringent tests, IMHO, to catch data entry errors:
 * `TruthTableStr` is created in `checkTruthTable()` which is used in subsequent read NL and LL worksheets. 

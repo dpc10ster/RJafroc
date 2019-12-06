@@ -66,22 +66,22 @@ An Excel file in JAFROC format containing simulated ROI data corresponding to `d
 ```             
 The `DfReadDataFile` function automatically recognizes that this is an *ROI* dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets: 
 
-![](images/ROI-Truth-1.png){width=40%}
-![](images/ROI-Truth-2.png){width=40%}
+![](images/ROI-Truth-1.png){width=100%}
+![](images/ROI-Truth-2.png){width=100%}
 
 * The `Truth` worksheet - this indicates which cases are diseased and which are non-diseased and the number of ROI-level-diseased region on each case.  
     + There are 50 non-diseased cases (labeled 1-50) under column `CaseID` and 40 diseased cases (labeled 51-90).  
     + The `LesionID` field for each non-diseased case (e.g., `CaseID` = 1) is zero and there is one row per case. For diseased cases, this field has a variable number of entries, ranging from 1 to 4. As an example, there are two rows for `CaseID` = 51 in the Excel file: one with `LesionID` = `r datasetROI$lesionID[1,][1]` and one with `LesionID` = `r datasetROI$lesionID[1,][2]`.   
     + The `Weights` field is always zero (this field is not used in ROI analysis).  
 
-![](images/ROI-FP-1.png){width=40%}
-![](images/ROI-FP-2.png){width=40%}
+![](images/ROI-FP-1.png){width=100%}
+![](images/ROI-FP-2.png){width=100%}
 
 * The `FP` (or `NL`)  worksheet - this lists the ratings of ROI-level-non-diseased regions.  
     + For `ReaderID` = 1, `ModalityID` = 1 and `CaseID` = 1 there are 4 rows, corresponding to the 4 ROI-level-non-diseased regions in this case. The corresponding ratings are `r datasetROI$NL[1,1,1,][is.finite(datasetROI$NL[1,1,1,])]`. The pattern repeats for other treatments and readers, but the rating are, of course, different.  
     + Each `CaseID` is represented in the `FP` worksheet (a rare exception could occur if a case-level diseased case has 4 diseased regions).
 
-![](images/ROI-TP-1.png){width=40%}
+![](images/ROI-TP-1.png){width=100%}
 
 * The `TP` (or `LL`) worksheet - this lists the ratings of ROI-level-diseased regions.  
     + Because non-diseased cases generate TPs, one does not find any entry with `CaseID` = 1-50 in the `TP` worksheet.   
