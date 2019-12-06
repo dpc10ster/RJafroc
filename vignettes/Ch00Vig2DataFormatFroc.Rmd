@@ -82,7 +82,7 @@ x$lesionWeight
 
 ## The false positive (FP) ratings
 These are found in the `FP` or `NL` worksheet, see below.
-![](images/FrocCrNL.png){width=100%}
+![](images/frocCrNL.png){width=100%}
 
 * It consists of 4 columns, of equal length. **The common length is unpredictable.** It could be zero if the dataset has no NL marks (a distinct possibility if the lesions are very easy to find and the modality and/or observer has high performance). All one knows is that the common length is an integer greater than or equal to zero.
 * In the example dataset, the common length is `r sum(x$NL != -Inf)`.
@@ -127,7 +127,7 @@ x$NL[2,3,1,]
 ## The true positive (TP) ratings
 These are found in the `TP` or `LL` worksheet, see below.
 
-![](images/FrocCrLL.png){width=100%}
+![](images/frocCrLL.png){width=100%}
 
 * This worksheet can only have diseased cases. The presence of a non-diseased case in this worksheet will generate an error.
 * Again, the common vertical length, 10 in this example, is a-priori unpredictable. Given the structure of the `Truth` worsheet for this dataset, the maximum length would be 9 times 2 times 3, assuming every lesion is marked (for each modality, reader and diseased case). The 9 comes from the total number of non-zero entries in the `LesionID` column of the `Truth` worksheet.
