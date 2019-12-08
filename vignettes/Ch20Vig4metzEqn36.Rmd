@@ -1,6 +1,6 @@
 ---
 title: "Chapter 20, Vignette 4: Metz Eqn36 numerical check"
-author: "Dev P. Chakraborty"
+author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 fig.width: 4

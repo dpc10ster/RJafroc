@@ -1,6 +1,6 @@
 ---
 title: "Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm"
-author: "Dev P. Chakraborty"
+author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 bibliography: myRefs.bib

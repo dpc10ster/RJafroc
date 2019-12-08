@@ -6,6 +6,10 @@
 * The new format includes more stringent tests, IMHO, to catch data entry errors:
 * `TruthTableStr` is created in `checkTruthTable()` which is used in subsequent read NL and LL worksheets. 
 * Work to be done to include split plot in significance testing.
+* Corrected `dataset03` which had `-Inf`s for 1-ratings; need to check other ROC data files.
+* Added vignettes describing data format using toyFiles and use of `DfReadDataFile()`.
+* Corrected error in old DfReadDataFile function.
+* Passes R CMD check with file size note.
 
 ## Error in MS_TC noted by Erin Greco
 * The missing "-1": `UtilMeanSquares()` line 88 `msTC <- msTC * J/((I - 1) * (Ktemp - 1))` has been corrected

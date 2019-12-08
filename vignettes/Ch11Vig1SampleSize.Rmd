@@ -1,6 +1,6 @@
 ---
 title: "Chapter 11, Vignette 1: Background on the F distribution"
-author: "Dev P. Chakraborty"
+author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >

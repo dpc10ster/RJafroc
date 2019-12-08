@@ -1,6 +1,6 @@
 ---
 title: "Chapter 11, Vignette 2: ROC-DBMH sample size from first principles"
-author: "Dev P. Chakraborty"
+author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 bibliography: myRefs.bib

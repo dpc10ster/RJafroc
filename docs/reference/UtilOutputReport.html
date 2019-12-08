@@ -99,10 +99,10 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
     </li>
     <li>
-      <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
     </li>
     <li>
-      <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
@@ -126,25 +126,25 @@
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
-      <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
-      <a href="../articles/Ch20V2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
     </li>
     <li>
-      <a href="../articles/Ch20V3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
     </li>
     <li>
-      <a href="../articles/Ch20V4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
     </li>
     <li>
-      <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
     </li>
     <li>
-      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
     </li>
     <li>
-      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -265,10 +265,10 @@ The default is <code>FALSE</code>.</p></td>
     <pre class="examples"><div class='input'>
 </div><div class='input'> <span class='co'># text output is created in a temporary file</span>
 <span class='fu'>UtilOutputReport</span>(<span class='no'>dataset03</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</div><div class='output co'>#&gt; 
-#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpqCN6sS/RJafrocUtilOutputReport6804729beef0.txt </div><div class='output co'>#&gt; $fomArray
-#&gt;           Rdr0      Rdr1      Rdr2      Rdr3
-#&gt; Trt0 0.8534600 0.8649932 0.8573044 0.8152420
-#&gt; Trt1 0.8496156 0.8435097 0.8401176 0.8143374
+#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//Rtmpkwyu39/RJafrocUtilOutputReport96d4328cbffb.txt </div><div class='output co'>#&gt; $fomArray
+#&gt;           RdrREADER_1 RdrREADER_2 RdrREADER_3 RdrREADER_4
+#&gt; TrtTREAT1   0.8534600   0.8649932   0.8573044   0.8152420
+#&gt; TrtTREAT2   0.8496156   0.8435097   0.8401176   0.8143374
 #&gt; 
 #&gt; $anovaY
 #&gt;   Source           SS  DF          MS
@@ -282,7 +282,7 @@ The default is <code>FALSE</code>.</p></td>
 #&gt; 8  Total 121.08532315 799          NA
 #&gt; 
 #&gt; $anovaYi
-#&gt;   Source  DF       Trt0       Trt1
+#&gt;   Source  DF  TrtTREAT1  TrtTREAT2
 #&gt; 1      R   3 0.04926635 0.02415991
 #&gt; 2      C  99 0.29396753 0.30137032
 #&gt; 3     RC 297 0.10504787 0.10337984
@@ -296,67 +296,69 @@ The default is <code>FALSE</code>.</p></td>
 #&gt; 1 4.694058       1       3 0.1188379
 #&gt; 
 #&gt; $ciDiffTrtRRRC
-#&gt;     TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1 Trt0-Trt1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
+#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
 #&gt;      CIUpper
 #&gt; 1 0.02679926
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRRC
 #&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper
-#&gt; 1      Trt0 0.8477499 0.02440215  70.12179 0.7990828 0.8964170
-#&gt; 2      Trt1 0.8368951 0.02356642 253.64403 0.7904843 0.8833058
+#&gt; 1 TrtTREAT1 0.8477499 0.02440215  70.12179 0.7990828 0.8964170
+#&gt; 2 TrtTREAT2 0.8368951 0.02356642 253.64403 0.7904843 0.8833058
 #&gt; 
 #&gt; $FTestStatsFRRC
 #&gt;      fFRRC ndfFRRC ddfFRRC    pFRRC
 #&gt; 1 0.363956       1      99 0.547697
 #&gt; 
 #&gt; $ciDiffTrtFRRC
-#&gt;   Treatment   Estimate     StdErr DF         t    PrGTt     CILower    CIUpper
-#&gt; 1 Trt0-Trt1 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675 0.04655638
+#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675
+#&gt;      CIUpper
+#&gt; 1 0.04655638
 #&gt; 
 #&gt; $ciAvgRdrEachTrtFRRC
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
-#&gt; 1      Trt0 0.8477499 0.02710939 99 0.7939590 0.9015408
-#&gt; 2      Trt1 0.8368951 0.02744860 99 0.7824311 0.8913591
+#&gt; 1 TrtTREAT1 0.8477499 0.02710939 99 0.7939590 0.9015408
+#&gt; 2 TrtTREAT2 0.8368951 0.02744860 99 0.7824311 0.8913591
 #&gt; 
 #&gt; $msAnovaEachRdrFRRC
-#&gt;   Source DF         Rdr0       Rdr1       Rdr2         Rdr3
-#&gt; 1      T  1 0.0007389761 0.02307702 0.01476929 4.091217e-05
-#&gt; 2      C 99 0.2038747746 0.22344191 0.21424677 2.854199e-01
-#&gt; 3     TC 99 0.0915587344 0.08027926 0.06122898 6.057067e-02
+#&gt;   Source DF  RdrREADER_1 RdrREADER_2 RdrREADER_3  RdrREADER_4
+#&gt; 1      T  1 0.0007389761  0.02307702  0.01476929 4.091217e-05
+#&gt; 2      C 99 0.2038747746  0.22344191  0.21424677 2.854199e-01
+#&gt; 3     TC 99 0.0915587344  0.08027926  0.06122898 6.057067e-02
 #&gt; 
 #&gt; $ciDiffTrtEachRdrFRRC
-#&gt;   Reader Treatment     Estimate     StdErr DF          t     PrGTt     CILower
-#&gt; 1   Rdr0 Trt0-Trt1 0.0038444143 0.04279223 99 0.08983908 0.9285966 -0.08106465
-#&gt; 2   Rdr1 Trt0-Trt1 0.0214834916 0.04006975 99 0.53615233 0.5930559 -0.05802359
-#&gt; 3   Rdr2 Trt0-Trt1 0.0171867933 0.03499399 99 0.49113552 0.6244176 -0.05224888
-#&gt; 4   Rdr3 Trt0-Trt1 0.0009045681 0.03480536 99 0.02598933 0.9793182 -0.06815683
-#&gt;      CIUpper
-#&gt; 1 0.08875348
-#&gt; 2 0.10099057
-#&gt; 3 0.08662247
-#&gt; 4 0.06996596
+#&gt;        Reader           Treatment     Estimate     StdErr DF          t
+#&gt; 1 RdrREADER_1 TrtTREAT1-TrtTREAT2 0.0038444143 0.04279223 99 0.08983908
+#&gt; 2 RdrREADER_2 TrtTREAT1-TrtTREAT2 0.0214834916 0.04006975 99 0.53615233
+#&gt; 3 RdrREADER_3 TrtTREAT1-TrtTREAT2 0.0171867933 0.03499399 99 0.49113552
+#&gt; 4 RdrREADER_4 TrtTREAT1-TrtTREAT2 0.0009045681 0.03480536 99 0.02598933
+#&gt;       PrGTt     CILower    CIUpper
+#&gt; 1 0.9285966 -0.08106465 0.08875348
+#&gt; 2 0.5930559 -0.05802359 0.10099057
+#&gt; 3 0.6244176 -0.05224888 0.08662247
+#&gt; 4 0.9793182 -0.06815683 0.06996596
 #&gt; 
 #&gt; $FTestStatsRRFC
 #&gt;      fRRFC ndfRRFC ddfRRFC     pRRFC
 #&gt; 1 4.694058       1       3 0.1188379
 #&gt; 
 #&gt; $ciDiffTrtRRFC
-#&gt;   Treatment   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1 Trt0-Trt1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
+#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt      CILower
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
 #&gt;      CIUpper
 #&gt; 1 0.02679926
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRFC
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
-#&gt; 1      Trt0 0.8477499 0.01109801  3 0.8124311 0.8830687
-#&gt; 2      Trt1 0.8368951 0.00777173  3 0.8121620 0.8616282
+#&gt; 1 TrtTREAT1 0.8477499 0.01109801  3 0.8124311 0.8830687
+#&gt; 2 TrtTREAT2 0.8368951 0.00777173  3 0.8121620 0.8616282
 #&gt; </div><div class='input'><span class='co'># Excel output is created in a temporary file</span>
 <span class='fu'>UtilOutputReport</span>(<span class='no'>dataset03</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>ReportFileExt</span> <span class='kw'>=</span> <span class='st'>"xlsx"</span>)</div><div class='output co'>#&gt; 
-#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpqCN6sS/RJafrocUtilOutputReport68045b640958.xlsx </div><div class='output co'>#&gt; $fomArray
-#&gt;           Rdr0      Rdr1      Rdr2      Rdr3
-#&gt; Trt0 0.8534600 0.8649932 0.8573044 0.8152420
-#&gt; Trt1 0.8496156 0.8435097 0.8401176 0.8143374
+#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//Rtmpkwyu39/RJafrocUtilOutputReport96d4369011aa.xlsx </div><div class='output co'>#&gt; $fomArray
+#&gt;           RdrREADER_1 RdrREADER_2 RdrREADER_3 RdrREADER_4
+#&gt; TrtTREAT1   0.8534600   0.8649932   0.8573044   0.8152420
+#&gt; TrtTREAT2   0.8496156   0.8435097   0.8401176   0.8143374
 #&gt; 
 #&gt; $anovaY
 #&gt;   Source           SS  DF          MS
@@ -370,7 +372,7 @@ The default is <code>FALSE</code>.</p></td>
 #&gt; 8  Total 121.08532315 799          NA
 #&gt; 
 #&gt; $anovaYi
-#&gt;   Source  DF       Trt0       Trt1
+#&gt;   Source  DF  TrtTREAT1  TrtTREAT2
 #&gt; 1      R   3 0.04926635 0.02415991
 #&gt; 2      C  99 0.29396753 0.30137032
 #&gt; 3     RC 297 0.10504787 0.10337984
@@ -384,61 +386,63 @@ The default is <code>FALSE</code>.</p></td>
 #&gt; 1 4.694058       1       3 0.1188379
 #&gt; 
 #&gt; $ciDiffTrtRRRC
-#&gt;     TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1 Trt0-Trt1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
+#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
 #&gt;      CIUpper
 #&gt; 1 0.02679926
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRRC
 #&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper
-#&gt; 1      Trt0 0.8477499 0.02440215  70.12179 0.7990828 0.8964170
-#&gt; 2      Trt1 0.8368951 0.02356642 253.64403 0.7904843 0.8833058
+#&gt; 1 TrtTREAT1 0.8477499 0.02440215  70.12179 0.7990828 0.8964170
+#&gt; 2 TrtTREAT2 0.8368951 0.02356642 253.64403 0.7904843 0.8833058
 #&gt; 
 #&gt; $FTestStatsFRRC
 #&gt;      fFRRC ndfFRRC ddfFRRC    pFRRC
 #&gt; 1 0.363956       1      99 0.547697
 #&gt; 
 #&gt; $ciDiffTrtFRRC
-#&gt;   Treatment   Estimate     StdErr DF         t    PrGTt     CILower    CIUpper
-#&gt; 1 Trt0-Trt1 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675 0.04655638
+#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675
+#&gt;      CIUpper
+#&gt; 1 0.04655638
 #&gt; 
 #&gt; $ciAvgRdrEachTrtFRRC
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
-#&gt; 1      Trt0 0.8477499 0.02710939 99 0.7939590 0.9015408
-#&gt; 2      Trt1 0.8368951 0.02744860 99 0.7824311 0.8913591
+#&gt; 1 TrtTREAT1 0.8477499 0.02710939 99 0.7939590 0.9015408
+#&gt; 2 TrtTREAT2 0.8368951 0.02744860 99 0.7824311 0.8913591
 #&gt; 
 #&gt; $msAnovaEachRdrFRRC
-#&gt;   Source DF         Rdr0       Rdr1       Rdr2         Rdr3
-#&gt; 1      T  1 0.0007389761 0.02307702 0.01476929 4.091217e-05
-#&gt; 2      C 99 0.2038747746 0.22344191 0.21424677 2.854199e-01
-#&gt; 3     TC 99 0.0915587344 0.08027926 0.06122898 6.057067e-02
+#&gt;   Source DF  RdrREADER_1 RdrREADER_2 RdrREADER_3  RdrREADER_4
+#&gt; 1      T  1 0.0007389761  0.02307702  0.01476929 4.091217e-05
+#&gt; 2      C 99 0.2038747746  0.22344191  0.21424677 2.854199e-01
+#&gt; 3     TC 99 0.0915587344  0.08027926  0.06122898 6.057067e-02
 #&gt; 
 #&gt; $ciDiffTrtEachRdrFRRC
-#&gt;   Reader Treatment     Estimate     StdErr DF          t     PrGTt     CILower
-#&gt; 1   Rdr0 Trt0-Trt1 0.0038444143 0.04279223 99 0.08983908 0.9285966 -0.08106465
-#&gt; 2   Rdr1 Trt0-Trt1 0.0214834916 0.04006975 99 0.53615233 0.5930559 -0.05802359
-#&gt; 3   Rdr2 Trt0-Trt1 0.0171867933 0.03499399 99 0.49113552 0.6244176 -0.05224888
-#&gt; 4   Rdr3 Trt0-Trt1 0.0009045681 0.03480536 99 0.02598933 0.9793182 -0.06815683
-#&gt;      CIUpper
-#&gt; 1 0.08875348
-#&gt; 2 0.10099057
-#&gt; 3 0.08662247
-#&gt; 4 0.06996596
+#&gt;        Reader           Treatment     Estimate     StdErr DF          t
+#&gt; 1 RdrREADER_1 TrtTREAT1-TrtTREAT2 0.0038444143 0.04279223 99 0.08983908
+#&gt; 2 RdrREADER_2 TrtTREAT1-TrtTREAT2 0.0214834916 0.04006975 99 0.53615233
+#&gt; 3 RdrREADER_3 TrtTREAT1-TrtTREAT2 0.0171867933 0.03499399 99 0.49113552
+#&gt; 4 RdrREADER_4 TrtTREAT1-TrtTREAT2 0.0009045681 0.03480536 99 0.02598933
+#&gt;       PrGTt     CILower    CIUpper
+#&gt; 1 0.9285966 -0.08106465 0.08875348
+#&gt; 2 0.5930559 -0.05802359 0.10099057
+#&gt; 3 0.6244176 -0.05224888 0.08662247
+#&gt; 4 0.9793182 -0.06815683 0.06996596
 #&gt; 
 #&gt; $FTestStatsRRFC
 #&gt;      fRRFC ndfRRFC ddfRRFC     pRRFC
 #&gt; 1 4.694058       1       3 0.1188379
 #&gt; 
 #&gt; $ciDiffTrtRRFC
-#&gt;   Treatment   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1 Trt0-Trt1 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
+#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt      CILower
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
 #&gt;      CIUpper
 #&gt; 1 0.02679926
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRFC
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
-#&gt; 1      Trt0 0.8477499 0.01109801  3 0.8124311 0.8830687
-#&gt; 2      Trt1 0.8368951 0.00777173  3 0.8121620 0.8616282
+#&gt; 1 TrtTREAT1 0.8477499 0.01109801  3 0.8124311 0.8830687
+#&gt; 2 TrtTREAT2 0.8368951 0.00777173  3 0.8121620 0.8616282
 #&gt; </div><div class='input'>
 </div><div class='input'>       
 </div></pre>
