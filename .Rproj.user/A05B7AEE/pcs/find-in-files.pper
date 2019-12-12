@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "/R",
+        "path" : "/vignettes",
         "projectRelative" : true,
-        "query" : "grep(\"^\\\\s*$\"",
+        "query" : "author:",
         "regex" : false
     }
 }
