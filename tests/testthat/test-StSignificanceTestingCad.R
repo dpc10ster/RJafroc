@@ -63,12 +63,12 @@ test_that("1T-RRFC PCL 0.2", {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 0.2)
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRFC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 0.2)
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRFC")
   
   for (i in 1:length(GoodValues))
   {
@@ -147,12 +147,12 @@ test_that("1T-RRFC ALROC 0.2", {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 0.2)
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRFC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 0.2)
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRFC")
   
   for (i in 1:length(GoodValues))
   {
@@ -260,12 +260,12 @@ test_that("1T-RRRC PCL 0.2", {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 0.2)
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 0.2)
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRRC")
   
   for (i in 1:length(GoodValues))
   {
@@ -344,12 +344,12 @@ test_that("1T-RRRC ALROC 0.2", {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 0.2)
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 0.2)
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRRC")
   
   for (i in 1:length(GoodValues))
   {
@@ -456,12 +456,12 @@ test_that("2T-RRRC PCL 0.2", {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 0.2)
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "2T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 0.2)
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "2T-RRRC")
   
   for (i in 1:length(GoodValues))
   {
@@ -540,12 +540,12 @@ test_that("2T-RRRC ALROC 0.2", {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 0.2)
+    ret <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "2T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 0.2)
+  CurrentValues <- StSignificanceTestingCadVsRadiologists(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "2T-RRRC")
   
   for (i in 1:length(GoodValues))
   {

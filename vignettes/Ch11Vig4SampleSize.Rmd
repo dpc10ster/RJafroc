@@ -1,6 +1,6 @@
 ---
 title: "Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method"
-author: "Dev P. Chakraborty"
+author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >

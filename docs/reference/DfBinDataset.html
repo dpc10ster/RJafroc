@@ -88,13 +88,22 @@ ratings in a dataset and returns the corresponding binned dataset in which the r
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
     </li>
     <li>
-      <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
     </li>
     <li>
-      <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
@@ -118,25 +127,25 @@ ratings in a dataset and returns the corresponding binned dataset in which the r
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
-      <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
-      <a href="../articles/Ch20V2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
     </li>
     <li>
-      <a href="../articles/Ch20V3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
     </li>
     <li>
-      <a href="../articles/Ch20V4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
     </li>
     <li>
-      <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
     </li>
     <li>
-      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
     </li>
     <li>
-      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -236,14 +245,14 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>fomOrg</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cat'>cat</a></span>(<span class='st'>"fomOrg = "</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>fomOrg</span>), <span class='st'>"\n"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cat'>cat</a></span>(<span class='st'>"fomBinned = "</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>fomBinned</span>), <span class='st'>"\n"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>dataset</span>)$<span class='no'>Plot</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>datasetB</span>)$<span class='no'>Points</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>dataset</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)$<span class='no'>Plot</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>datasetB</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)$<span class='no'>Points</span>
 <span class='no'>fpf</span> <span class='kw'>&lt;-</span> <span class='no'>y</span>$<span class='no'>genAbscissa</span>[-<span class='fl'>1</span>];<span class='no'>fpf</span> <span class='kw'>&lt;-</span> <span class='no'>fpf</span>[-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>fpf</span>)]
 <span class='no'>tpf</span> <span class='kw'>&lt;-</span> <span class='no'>y</span>$<span class='no'>genOrdinate</span>[-<span class='fl'>1</span>];<span class='no'>tpf</span> <span class='kw'>&lt;-</span> <span class='no'>tpf</span>[-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>tpf</span>)]
 <span class='no'>plotOpPnts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>rbind</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>fpf</span> <span class='kw'>=</span> <span class='no'>fpf</span>, <span class='kw'>tpf</span> <span class='kw'>=</span> <span class='no'>tpf</span>))
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>x</span> + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>plotOpPnts</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>fpf</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>tpf</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>)
-<span class='no'>xx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>datasetB</span>)
+<span class='no'>xx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>datasetB</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>xx</span>$<span class='no'>Points</span>)
 <span class='co'># }</span><div class='input'>
 

@@ -1,6 +1,6 @@
 ---
 title: "Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC"
-author: "Dev P. Chakraborty"
+author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 bibliography: myRefs.bib

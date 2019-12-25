@@ -27,7 +27,7 @@ is lost).
 }
 \examples{
 str(dataset08)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset08)$Plot
+PlotEmpiricalOperatingCharacteristics(dataset = dataset08, opChType = "ROC")$Plot
 
 
 }

@@ -53,7 +53,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
     </li>
     <li>
       <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -124,7 +133,7 @@
       <h1>Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2019-11-01</h4>
+            <h4 class="date">2019-12-06</h4>
       
       
       <div class="hidden name"><code>Ch30V1RoiParadigm.Rmd</code></div>
@@ -191,7 +200,7 @@
 <a class="sourceLine" id="cb2-3" title="3"><span class="co">## ds &lt;- DfReadDataFile(fileName)</span></a>
 <a class="sourceLine" id="cb2-4" title="4"><span class="co">## ds$dataType</span></a></code></pre></div>
 <p>The <code>DfReadDataFile</code> function automatically recognizes that this is an <em>ROI</em> dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets:</p>
-<p><img src="images/ROI-Truth-1.png" style="width:40.0%"><img src="images/ROI-Truth-2.png" style="width:40.0%"></p>
+<p><img src="images/ROI-Truth-1.png" style="width:100.0%"><img src="images/ROI-Truth-2.png" style="width:100.0%"></p>
 <ul>
 <li>The <code>Truth</code> worksheet - this indicates which cases are diseased and which are non-diseased and the number of ROI-level-diseased region on each case.
 <ul>
@@ -203,7 +212,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="images/ROI-FP-1.png" style="width:40.0%"><img src="images/ROI-FP-2.png" style="width:40.0%"></p>
+<p><img src="images/ROI-FP-1.png" style="width:100.0%"><img src="images/ROI-FP-2.png" style="width:100.0%"></p>
 <ul>
 <li>The <code>FP</code> (or <code>NL</code>) worksheet - this lists the ratings of ROI-level-non-diseased regions.
 <ul>
@@ -213,7 +222,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="images/ROI-TP-1.png" style="width:40.0%"></p>
+<p><img src="images/ROI-TP-1.png" style="width:100.0%"></p>
 <ul>
 <li>The <code>TP</code> (or <code>LL</code>) worksheet - this lists the ratings of ROI-level-diseased regions.
 <ul>

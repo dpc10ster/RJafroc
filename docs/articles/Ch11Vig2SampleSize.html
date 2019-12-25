@@ -53,13 +53,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
     </li>
     <li>
-      <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
     </li>
     <li>
-      <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
@@ -83,25 +92,25 @@
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
-      <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
-      <a href="../articles/Ch20V2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
     </li>
     <li>
-      <a href="../articles/Ch20V3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
     </li>
     <li>
-      <a href="../articles/Ch20V4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
     </li>
     <li>
-      <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
     </li>
     <li>
-      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
     </li>
     <li>
-      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -122,9 +131,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</h1>
-                        <h4 class="author">Dev P. Chakraborty</h4>
+                        <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2019-11-01</h4>
+            <h4 class="date">2019-12-22</h4>
       
       
       <div class="hidden name"><code>Ch11Vig2SampleSize.Rmd</code></div>
@@ -175,12 +184,12 @@
 <a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt;  $ msR       : num 0.437</span></a>
 <a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt;  $ msC       : num 0.397</span></a>
 <a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt;  $ msTR      : num 0.0628</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;  $ msTC      : num 0.0517</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;  $ msTC      : num 0.0521</span></a>
 <a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt;  $ msRC      : num 0.0645</span></a>
 <a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt;  $ msTRC     : num 0.04</span></a>
 <a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt;  $ msCSingleT: num [1:2] 0.336 0.16</span></a>
 <a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt;  $ msCSingleR: num [1:5] 0.1222 0.2127 0.1365 0.0173 0.1661</span></a></code></pre></div>
-<p>The next line calculates <code>ddf</code> = 12.6596695. The remaining lines calculate the critical value of the F-distribution, <code>FCrit</code> = 4.6928005 and statistical power = , which by design is close to 80%, i.e., the numbers of readers and cases were chosen to achieve this value.</p>
+<p>The next line calculates <code>ddf</code> = 12.822129. The remaining lines calculate the critical value of the F-distribution, <code>FCrit</code> = 4.680382 and statistical power = , which by design is close to 80%, i.e., the numbers of readers and cases were chosen to achieve this value.</p>
 </div>
 <div id="fixed-reader-random-case-frrc" class="section level3">
 <h3 class="hasAnchor">

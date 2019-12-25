@@ -124,7 +124,7 @@
       <h1>Chapter 00, Vignette 1: JAFROC data format</h1>
                         <h4 class="author">Dev P. Chakraborty</h4>
             
-            <h4 class="date">2019-11-01</h4>
+            <h4 class="date">2019-12-02</h4>
       
       
       <div class="hidden name"><code>Ch00Vig1DataFormat.Rmd</code></div>
@@ -186,7 +186,7 @@
 <p>An Excel file in JAFROC format containing simulated ROI data corresponding to <code>dataset04</code>, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object <code>ds</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">fileName &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(</a>
 <a class="sourceLine" id="cb2-2" title="2">    <span class="st">"extdata"</span>, <span class="st">"FrocData.xlsx"</span>, <span class="dt">package =</span> <span class="st">"RJafroc"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2-3" title="3">ds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(fileName)</a>
+<a class="sourceLine" id="cb2-3" title="3">ds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(fileName, <span class="dt">newExcelFileFormat =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb2-4" title="4">ds<span class="op">$</span>dataType</a>
 <a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; [1] "FROC"</span></a></code></pre></div>
 <p>The <code>DfReadDataFile</code> function automatically recognizes that this is an <em>ROI</em> dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets:</p>

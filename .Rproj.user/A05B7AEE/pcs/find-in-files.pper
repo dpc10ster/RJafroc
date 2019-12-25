@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "",
+        "path" : "/vignettes",
         "projectRelative" : true,
-        "query" : "MyFOMOldCode",
+        "query" : "author:",
         "regex" : false
     }
 }

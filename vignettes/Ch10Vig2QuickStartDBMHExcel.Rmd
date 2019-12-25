@@ -1,0 +1,49 @@
+---
+title: "Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output"
+author: "Dev P. Chakraborty, PhD"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quick Start}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(RJafroc)
+```
+
+## Introduction
+This vignette illustrates significance testing using the DBMH method. But, instead of the unwieldy output in *QuickStartDBMH.html*, it generates an Excel output file containing the following worksheets:
+
+* `Summary`
+* `FOMs`
+* `RRRC`
+* `FRRC`
+* `RRFC`
+* `ANOVA`
+
+
+## Generating the Excel output file
+
+This illustrates the `UtilOutputReport()` function. The significance testing `method` is "DBMH", the default, and the figure of merit `FOM` is  "Wilcoxon". Note `ReportFileExt` = "xlsx"` telling
+the function to create an Excel output file. The Excel output is created in a temporary file.
+
+```{r}
+ret <- UtilOutputReport(dataset03, FOM = "Wilcoxon", overWrite = TRUE, ReportFileExt = "xlsx")
+```             
+
+
+## ORH significance testing
+Simply change `method = "DBMH"` (the default) to `method = "ORH"`.
+
+
+```{r}
+ret <- UtilOutputReport(dataset03, FOM = "Wilcoxon", method = "ORH", overWrite = TRUE, ReportFileExt = "xlsx")
+```             
+
+

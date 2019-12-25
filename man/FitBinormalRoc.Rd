@@ -42,7 +42,7 @@ The returned value is a list with the following elements:
    points. Use \code{print()} to display the object}
 }
 \description{
-Fit the binormal model-predicted ROC curve for an individual dataset. 
+Fit the binormal model-predicted ROC curve for a dataset. 
    This is the R equivalent of ROCFIT or RSCORE
 }
 \details{

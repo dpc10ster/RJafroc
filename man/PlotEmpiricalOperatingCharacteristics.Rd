@@ -2,103 +2,111 @@
 % Please edit documentation in R/PlotEmpiricalOperatingCharacteristics.R
 \name{PlotEmpiricalOperatingCharacteristics}
 \alias{PlotEmpiricalOperatingCharacteristics}
-\title{Plot empirical operating characteristics for specified dataset, treatment and reader}
+\title{Plot empirical operating characteristics, ROC, FROC or LROC}
 \usage{
 PlotEmpiricalOperatingCharacteristics(dataset, trts = 1, rdrs = 1,
-  opChType = "ROC")
+  opChType, legend.position = c(0.8, 0.2))
 }
 \arguments{
-\item{dataset}{Dataset to be used for plotting}
+\item{dataset}{Dataset object.}
 
-\item{trts}{List or vector: \strong{integer} indices of treatments to be plotted}
+\item{trts}{List or vector: \strong{integer} indices of modalities to be plotted.
+Default is 1.}
 
-\item{rdrs}{List or vector: \strong{integer} indices of readers to be plotted}
+\item{rdrs}{List or vector: \strong{integer} indices of readers to be plotted.
+Default is 1.}
 
 \item{opChType}{Type of operating characteristic to be plotted:
-\code{"ROC"}(the default), \code{"FROC"}, \code{"AFROC"},  \code{"wAFROC"},
-\code{"AFROC1"}, or \code{"wAFROC1"}}
+\code{"ROC"}, \code{"FROC"}, \code{"AFROC"},  \code{"wAFROC"},
+\code{"AFROC1"}, \code{"wAFROC1"}, or \code{"LROC"}.}
+
+\item{legend.position}{Where to position the legend. The default is c(0.8, 0.2), 
+i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).}
 }
 \value{
 A \pkg{ggplot2} object containing the operating characteristic plot(s) 
-and a data frame containing the points defining the operating characteristics 
-are returned. For example, the returned objects for \code{"ROC"} operating 
-characteristics are as follows:
+and a data frame containing the points defining the operating characteristics.
 
 \item{Plot}{\pkg{ggplot2} object. 
 For continuous or averaged data, operating characteristics curves are plotted 
-\strong{without} showing operating points. For binned individual data, both operating 
+\strong{without} showing operating points. For binned (individual) data, both operating 
 points and connecting lines are shown. To avoid clutter, if there are more than 20 
-operating points, they are not shown}
+operating points, they are not shown.}
 
 \item{Points}{Data frame with four columns: abscissa, ordinate, class (which 
-codes treatment and reader) and type, which can be \code{"individual"}, \code{"continuous"} or 
-\code{"average"}; \code{"individual"} refers to a one treatment and one reader.}
+codes modality and reader) and type, which can be \code{"individual"}, 
+\code{"continuous"}, i.e., more than 20 operating points, or \code{"rdrAveraged"}.}
 }
 \description{
 Plot empirical operating characteristics (operating points connected by straight 
-   lines) for specified treatments and readers, or if desired, plots only 
-   (no operating points) averaged over specified treatments and / or readers
+   lines) for specified modalities and readers, or, if desired, plots 
+   (no operating points) averaged over specified modalities and / or readers.
 }
 \details{
 The \code{trts} and \code{rdrs} are vectors or lists of \strong{integer}  
    indices, not the corresponding \strong{string} IDs. For example, if the string 
    ID of the first reader is "0", the value in \code{rdrs} should be 
-   \strong{1} not \strong{0}. The legend shows the string IDs. 
+   \strong{1} not \strong{0}. The legend will display the string IDs. 
 
-If both of \code{trts} and \code{rdrs} are vectors, all combinations of treatments 
+If both of \code{trts} and \code{rdrs} are vectors, all combinations of modalities 
    and readers are plotted. See Example 1.
 
-If both \code{trts} and \code{rdrs} are lists, they must have the same length. 
-   Only the combination of treatment and reader at the same position in their 
-   respective lists are plotted. If some elements of the treatments and / or 
+If both \code{trts} and \code{rdrs} are \code{lists}, they must have the same length. 
+   Only the combination of modality and reader at the same position in their 
+   respective lists are plotted. If some elements of the modalities and / or 
    readers lists are vectors, the average operating characteristic over the 
-   implied treatments and / or readers are plotted. See Example 2.
+   implied modalities and / or readers are plotted. See Example 2.
+   
+For \code{LROC} datasets, \code{opChType} can be "ROC" or "LROC".
 }
 \examples{
 ## Example 1
-## Plot individual empirical ROC plots for all combinations of treatments
+## Plot individual empirical ROC plots for all combinations of modalities
 ## 1 and 2 and readers 1, 2 and 3. Six operating characteristics are plotted.
 
 ret <- PlotEmpiricalOperatingCharacteristics(dataset = 
-dataset02, trts = c(1:2), rdrs = c(1:3))
+dataset02, trts = c(1:2), rdrs = c(1:3), opChType = "ROC")
 print(ret$Plot)
 
 ## Example 2
 ## Empirical ROC, FROC, AFROC and wAFROC plots. Each plot consists of
-## three parts (see Example 3 for correspondences between indices and string identifiers 
-## for treatments and readers):
-## (1) plot for the 1st treatment (string ID "1") and the 2nd reader (string ID "3") 
-## (2) plot for the 2nd treatment (string ID "2") AVERAGED over the 2nd and 3rd readers 
-##     (string IDs "3" and "4"), and 
-## (3) plot AVERAGED over the first two treatments (string IDs "1" and "2") AND over 
-## the 1st, 2nd and 3rd readers (string IDs "1", "3" and "4") 
+## three sub-plots (see Example 3 for correspondences between indices and  
+## string identifiers for modalities and readers):
+## (1) sub-plot, with operating points, for the 1st modality (string ID "1") and the 2nd 
+## reader (string ID "3"), labeled M:1 R:3 
+## (2) sub-plot, no operating points, for the 2nd modality (string ID "2") AVERAGED 
+## over the 2nd and 3rd readers (string IDs "3" and "4"), labeled M:2  R: 3 4 
+## (3) sub-plot, no operating points, AVERAGED over the first two modalities 
+## (string IDs "1" and "2") AND over the 1st, 2nd and 3rd readers 
+## (string IDs "1", "3" and "4"), labeled M: 1 2  R: 1  3 4 
 
 plotT <- list(1, 2, c(1:2))
 plotR <- list(2, c(2:3), c(1:3))
-ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, rdrs = plotR)
+ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, 
+   trts = plotT, rdrs = plotR, opChType = "ROC")
 print(ret$Plot)
 
-ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, rdrs = plotR,
-                  opChType = "FROC")               
+ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
+   rdrs = plotR, opChType = "FROC")               
 print(ret$Plot)
 
-ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, rdrs = plotR,
-                  opChType = "AFROC")
+ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
+   rdrs = plotR, opChType = "AFROC")
 print(ret$Plot)
 
-ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, rdrs = plotR,
-                  opChType = "wAFROC")                  
+ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
+   rdrs = plotR, opChType = "wAFROC")                  
 print(ret$Plot)
 
 ##Example 3
-## Correspondences between indices and string identifiers for treatments and 
+## Correspondences between indices and string identifiers for modalities and 
 ## readers in this dataset. Apparently reader "2" did not complete the study.
 
 str(dataset04)
 
 ## List of 8
-## $ NL          : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf -Inf -Inf -Inf ...
-## $ LL          : num [1:5, 1:4, 1:100, 1:3] 5 4 4 3 5 5 4 2 4 5 ...
+## NL          : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
+## LL          : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...
 ## $ lesionVector   : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...
 ## $ lesionID    : num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
 ## $ lesionWeight: num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...

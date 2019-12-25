@@ -51,7 +51,7 @@
 #' 
 #' @export
 
-StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, alpha = 0.05, FPFValue = 0.2) { # FPFValue only needed for LROC data
+StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05) { # FPFValue only needed for LROC data
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)

@@ -26,6 +26,7 @@ Imports:
 Suggests:
     testthat,
     knitr,
+    kableExtra,
     rmarkdown
 LinkingTo: Rcpp
 Description: Tools for quantitative assessment of medical imaging systems, radiologists 

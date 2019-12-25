@@ -1,8 +1,9 @@
 ---
 title: "Chapter 11, Vignette 1: Background on the F distribution"
-author: "Dev P. Chakraborty"
+author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
+bibliography: myRefs.bib
 vignette: >
   %\VignetteIndexEntry{ROC sample size background}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,36 +16,37 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 library(ggplot2)
+library(kableExtra)
 ```
 
 ## Introduction
-Since it plays such a central role in sample size estimation, it is helpful to examine the behavior of the F-distribution. In the following `ndf` = numerator degrees of freedom, `ddf` = denominator degrees of freedom and `ncp` = non-centrality parameter (i.e., the delta appearing in Eqn. (11.6)). 
+Since it plays an important role in sample size estimation, it is helpful to examine the behavior of the F-distribution. In the following `ndf` = numerator degrees of freedom, `ddf` = denominator degrees of freedom and `ncp` = non-centrality parameter (i.e., the $\Delta$ appearing in Eqn. (11.6) of [@RN2680]). 
 
-The use of three functions is demonstrated. 
+The use of three `R` functions is demonstrated. 
 
-* `qf(p,ndf,ddf)` is the *quantile* function of the F-distribution for specified values of `ndf` and `ddf`, i.e., the value `x` such that fraction `p` of the area under the F-distribution lies to the right of `x`. Since it is not included as a parameter, the default value, i.e., zero, of `ncp` is used. This is called the *central* F-distribution. 
+* `qf(p,ndf,ddf)` is the *quantile* function of the F-distribution for specified values of `p`, `ndf` and `ddf`, i.e., the value `x` such that fraction `p` of the area under the F-distribution lies to the right of `x`. Since `ncp` is not included as a parameter, the default value, i.e., zero, is used. This is called the *central* F-distribution. 
 
-* `df(x,ndf,ddf,ncp)` is the *pdf* or probability density function of the F-distribution for specified values of `ndf`, `ddf` and `ncp`. 
+* `df(x,ndf,ddf,ncp)` is the probability density function (*pdf*) of the F-distribution, as a function of `x`, for specified values of `ndf`, `ddf` and `ncp`. 
 
 * `pf(x,ndf,ddf,ncp)` is the probability (or cumulative) distribution function of the F-distribution for specified values of `ndf`, `ddf` and `ncp`.
 
-In the following four values of `ncp` are considered `r ncp <- c(0,2,5,10)` `r ncp`. 
 
-## Illustrating the F-distribution for `ndf` = 2, `ddf` = 10
-In the following `fCrit` is the critical value of the F distribution, i.e., that value such that fraction $\alpha$ of the area is to the right of the critical value. It is usually denoted ${{F}_{1-\alpha ,ndf,ddf}}$.
+## Effect of `ncp` for `ndf` = 2 and `ddf` = 10
+* Four values of `ncp` are considered `r ncp <- c(0,2,5,10)` (`r ncp`) for `ddf` = 10. 
+* `fCrit` is the critical value of the F distribution, i.e., that value such that fraction $\alpha$ of the area is to the right of the critical value, i.e., `fCrit` is identical in statistical notation to  ${{F}_{1-\alpha ,ndf,ddf}}$.
 
 ```{r, fig.show='hold'}
 ndf <- 2;ddf <- 10;ncp <- c(0,2,5,10)
-fCrit <- qf(0.95, ndf,ddf)
-cat("critical value of x for rejecting NH is ", fCrit,"\n")
+alpha <- 0.05
+fCrit <- qf(1-alpha, ndf,ddf)
 x <- seq(1, 20, 0.1)
 myLabel <- c("A", "B", "C", "D")
 myLabelIndx <- 1
+pFgtFCrit <- NULL
 for (i in 1:length(ncp))
 {
   y <- df(x,ndf,ddf,ncp=ncp[i])
-  cat("ndf = ", ndf, ", ddf = ", ddf, ", ncp = ", ncp[i], ", prob > fCrit = ", 
-      1-pf(fCrit, ndf, ddf, ncp = ncp[i]), "\n")
+  pFgtFCrit <- c(pFgtFCrit, 1-pf(fCrit, ndf, ddf, ncp = ncp[i]))
 }  
 for (i in 1:length(ncp))
 {
@@ -55,31 +57,62 @@ for (i in 1:length(ncp))
     ggtitle(myLabel[myLabelIndx]);myLabelIndx <- myLabelIndx + 1
   print(curvePlot)
 }
-fCrit_2_10 <- fCrit
+fCrit_2_10 <- fCrit # convention fCrit_ndf_ddf
 ```             
 
-### Comments
 
-(A) Corresponds to `ncp = 0`, which yields the usual (aka *central*) F-distribution that was used in the previous two chapters (9 and 10). The integral under this distribution is unity (this is true for all plots above). The critical value, `fCrit` in the code, is that value of `x` such that the probability of exceeding `x` is $\alpha$; in the current example `fCrit` = `r qf(0.95, ndf,ddf)`. Notice the use of the quantile function `qf()` to determine this value, also that the default value of `ncp`, namely zero, is used; specifically, one does not pass a 4th argument to `qf()`. **The decision rule for rejecting the NH uses the NH distribution of the F-statistic**, i.e., reject the NH if F >= `fCrit`. As expected, `prob > fCrit` = `r 1-pf(fCrit, ndf, ddf, ncp = ncp[1])` because this is how `fCrit` was defined. 
-(B) Corresponds to `ncp = 2`. It is noticeably shifted to the right as compared to A, thereby making it more likely that the observed value of the F-statistic will exceed the critical value determined for the NH distribution. In fact, `prob > fCrit` = `r 1-pf(fCrit, ndf, ddf, ncp = ncp[2])`, which is the *statistical power*. 
-(C) Corresponds to `ncp = 5`, and now `prob > fCrit` = `r 1-pf(fCrit, ndf, ddf, ncp = ncp[3])`. 
-(D) Corresponds to `ncp = 10`, and now `prob > fCrit` is  `r 1-pf(fCrit, ndf, ddf, ncp = ncp[4])`. 
-The effect of the shift is obvious in plots (C) and (D). Considering a vertical line at `x = 4.10`, most of the distribution in plot (D), more than `r 1-pf(fCrit, ndf, ddf, ncp = ncp[4])`, to be precise, lies to the right of this line, so the NH is more than `r 1-pf(fCrit, ndf, ddf, ncp = ncp[4])` likely to be rejected. Of course, what causes the shift is the increased value of the non-centrality parameter. The larger that non-centrality parameter, the greater the shift to the right.
+```{r, echo=FALSE}
+rowNames <- LETTERS[seq(1, 4)]
+myTab <- data.frame(ndf = rep(ndf, 4), ddf = rep(ddf, 4), 
+                    fCrit = rep(fCrit, 4), ncp = ncp, 
+                    pFgtFCrit = pFgtFCrit)
+row.names(myTab) <- rowNames
+kable(myTab)
+```             
 
-## Illustrating the F-distribution for `ndf` = 2, `ddf` = 100
+## Comments
 
-```{r, fig.show='hold'}
+### Fig. A 
+* This corresponds to `ncp = 0`, i.e., the *central* F-distribution. 
+* The integral under this distribution is unity (this is also true for all plots in this vignette). 
+* The critical value, `fCrit` in the above code block, is the value of `x` such that the probability of exceeding `x` is $\alpha$. The corresponding parameter `alpha` is defined above as `r alpha`.
+* In the current example `fCrit` = `r qf(1-alpha, ndf,ddf)`. Notice the use of the quantile function `qf()` to determine this value, and the default value of `ncp`, namely zero, is used; specifically, one does not pass a 4th argument to `qf()`. 
+* **The decision rule for rejecting the NH uses the NH distribution of the F-statistic**, i.e., reject the NH if F >= `fCrit`. As expected, `prob > fCrit` = `r 1-pf(fCrit, ndf, ddf, ncp = ncp[1])` because this is how `fCrit` was defined.   
+
+### Fig. B 
+* This corresponds to `ncp = 2`, `ndf` = 2 and `ddf` = 10. 
+* The distribution is slightly shifted to the right as compared to Fig. A, thereby making it more likely that the observed value of the F-statistic will exceed the critical value determined for the NH distribution. 
+* In fact, `prob > fCrit` = `r 1-pf(fCrit, ndf, ddf, ncp = ncp[2])`, i.e., the *statistical power* (compare this to Fig. A where `prob > fCrit`  was 0.05).  
+
+### Fig. C 
+* This corresponds to `ncp = 5`, `ndf` = 2 and `ddf` = 10.
+* Now `prob > fCrit` = `r 1-pf(fCrit, ndf, ddf, ncp = ncp[3])`. 
+* Power has increased compared to Fig. B.
+
+### Fig. D 
+* This corresponds to `ncp = 10`, `ndf` = 2 and `ddf` = 10.
+* Now `prob > fCrit` is  `r 1-pf(fCrit, ndf, ddf, ncp = ncp[4])`. 
+* Power has increased compared to Fig. C.
+* The effect of the shift is most obvious in Fig. C and Fig. D. 
+* Considering a vertical line at `x ` = `r fCrit_2_10`, fraction `r 1-pf(fCrit, ndf, ddf, ncp = ncp[4])` of the probability distribution in Fig. D lies to the right of this line
+* Therefore the NH is likely to be rejected with probability `r 1-pf(fCrit, ndf, ddf, ncp = ncp[4])`. 
+
+### Summary 
+The larger that non-centrality parameter, the greater the shift to the right of the F-distribution, and the greater the statistical power.
+
+## Effect of `ncp` for `ndf` = 2 and `ddf` = 100
+
+```{r, fig.show='hold', echo=FALSE}
 ndf <- 2;ddf <- 100
-fCrit <- qf(0.95, ndf,ddf)
-cat("critical value of x for rejecting NH is ", fCrit,"\n")
+fCrit <- qf(1-alpha, ndf,ddf)
 x <- seq(1, 20, 0.1)
 myLabel <- c("E", "F", "G", "H")
 myLabelIndx <- 1
+pFgtFCrit <- NULL
 for (i in 1:length(ncp))
 {
   y <- df(x,ndf,ddf,ncp=ncp[i])
-  cat("ndf = ", ndf, ", ddf = ", ddf, ", ncp = ", ncp[i], ", prob > fCrit = ", 
-      1-pf(fCrit, ndf, ddf, ncp = ncp[i]), "\n")
+  pFgtFCrit <- c(pFgtFCrit, 1-pf(fCrit, ndf, ddf, ncp = ncp[i]))
 }  
 for (i in 1:length(ncp))
 {
@@ -90,29 +123,57 @@ for (i in 1:length(ncp))
     ggtitle(myLabel[myLabelIndx]);myLabelIndx <- myLabelIndx + 1
   print(curvePlot)
 }
-fCrit_2_100 <- fCrit
+fCrit_2_100 <- fCrit # convention fCrit_ndf_ddf
 ```             
 
-### Comments
 
-(E) Corresponds to `ncp = 0`. The critical value is `fCrit_2_100` = `r qf(0.95, ndf,ddf)`. Notice the decrease compared to the previous value, i.e., `r qf(0.95, ndf,10)`, for ddf = 10. 
-(F) Corresponds to `ncp = 2`, and `prob > fCrit_2_100` = `r 1-pf(fCrit_2_100, ndf, ddf, ncp = ncp[2])`, greater than the previous value `r 1-pf(fCrit_2_10, ndf, 10, ncp = ncp[2])`. 
-(G) Corresponds to `ncp = 5`, and now `prob > fCrit_2_100` = `r 1-pf(fCrit_2_100, ndf, ddf, ncp = ncp[3])`. 
-(H) Corresponds to `ncp = 10`, and now `prob > fCrit_2_100` is  `r 1-pf(fCrit_2_100, ndf, ddf, ncp = ncp[4])`. 
+```{r, echo=FALSE}
+rowNames <- LETTERS[seq(5, 8)]
+temp <- data.frame(ndf = rep(ndf, 4), ddf = rep(ddf, 4), 
+                    fCrit = rep(fCrit, 4), ncp = ncp, 
+                    pFgtFCrit = pFgtFCrit)
+row.names(temp) <- rowNames
+myTab <- rbind(myTab, temp)
+kable(myTab)
+```             
 
-## Illustrating the F-distribution for `ndf` = 1, `ddf` = 100
+## Comments
 
-```{r, fig.show='hold'}
+* All comparisons in this sections are at the same values of `ncp` defined above. 
+* And between `ddf` = 100 and `ddf` = 10. 
+
+### Fig. E 
+* This corresponds to `ncp` = 0, `ndf` = 2 and `ddf` = 100. 
+* The critical value is `fCrit_2_100` = `r qf(1-alpha, ndf,ddf)`. Notice the decrease compared to the previous value for `ncp` = 0, i.e., `r qf(1-alpha, ndf, 10)`, for `ddf` = 10. 
+* One expects that increasing `ddf` will make it more likely that the NH will be rejected, and this is confirmed below.
+* All else equal, statistical power increases with increasing `ddf`.
+
+### Fig. F 
+* This corresponds to `ncp` = 2, `ndf` = 2 and `ddf` = 100. 
+* The probability of exceeding the critical value is  `prob > fCrit_2_100` = `r 1-pf(fCrit_2_100, ndf, ddf, ncp = ncp[2])`, greater than the previous value, i.e., `r 1-pf(fCrit_2_10, ndf, 10, ncp = ncp[2])` for `ddf` = 10.
+
+### Fig. G 
+* This corresponds to `ncp = 5`, `ndf` = 2 and `ddf` = 100.
+* The probability of exceeding the critical value is `prob > fCrit_2_100` = `r 1-pf(fCrit_2_100, ndf, ddf, ncp = ncp[3])`.
+* This is greater than the previous value, i.e., `r 1-pf(fCrit_2_10, ndf, 10, ncp = ncp[3])` for `ddf` = 10. 
+
+### Fig. H 
+* This corresponds to `ncp = 10`, `ndf` = 2 and `ddf` = 100. 
+* The probability of exceeding the critical value is `prob > fCrit_2_100` is  `r 1-pf(fCrit_2_100, ndf, ddf, ncp = ncp[4])`. 
+* This is greater than the previous value, i.e., `r 1-pf(fCrit_2_10, ndf, 10, ncp = ncp[4])` for `ddf` = 10. 
+
+## Effect of `ncp` for `ndf` = 1, `ddf` = 100
+
+```{r, fig.show='hold', echo=FALSE}
 ndf <- 1;ddf <- 100
-fCrit <- qf(0.95, ndf,ddf)
-cat("critical value of x for rejecting NH is ", fCrit,"\n")
+fCrit <- qf(1-alpha, ndf,ddf)
 x <- seq(1, 20, 0.1)
-myLabel <- c("I <- ", "J", "K", "L")
+myLabel <- c("I", "J", "K", "L")
+pFgtFCrit <- NULL
 for (i in 1:length(ncp))
 {
   y <- df(x,ndf,ddf,ncp=ncp[i])
-  cat("ndf = ", ndf, ", ddf = ", ddf, ", ncp = ", ncp[i], ", prob > fCrit = ", 
-      1-pf(fCrit, ndf, ddf, ncp = ncp[i]), "\n")
+  pFgtFCrit <- c(pFgtFCrit, 1-pf(fCrit, ndf, ddf, ncp = ncp[i]))
 }  
 myLabelIndx <- 1
 for (i in 1:length(ncp))
@@ -124,15 +185,50 @@ for (i in 1:length(ncp))
     ggtitle(myLabel[myLabelIndx]);myLabelIndx <- myLabelIndx + 1
   print(curvePlot)
 }
-fCrit_1_100 <- fCrit
+fCrit_1_100 <- fCrit # convention fCrit_ndf_ddf
 ```             
 
-### Comments
 
-(I) Corresponds to `ncp = 0`. The critical value is `fCrit_1_100` = `r qf(0.95, ndf,ddf)`. Notice the increase compared to the corresponding value for `ndf = 2`, i.e., `r qf(0.95, 2,100)`.
-(J) Corresponds to `ncp = 2`, and `prob > fCrit_1_100` = `r 1-pf(fCrit_1_100, ndf, ddf, ncp = ncp[2])`, larger than the previous value `r 1-pf(fCrit_2_100, 2, 100, ncp = ncp[2])`. 
-(K) Corresponds to `ncp = 5`, and now `prob > fCrit_1_100` = `r 1-pf(fCrit_1_100, ndf, ddf, ncp = ncp[3])`, larger than the previous value `r 1-pf(fCrit_2_100, 2, 100, ncp = ncp[3])`. 
-(L) Corresponds to `ncp = 10`, and now `prob > fCrit_1_100` is  `r 1-pf(fCrit_1_100, ndf, ddf, ncp = ncp[4])`, larger than the previous value `r 1-pf(fCrit_2_100, 2, 100, ncp = ncp[4])`. 
+```{r, echo=FALSE}
+rowNames <- LETTERS[seq(9, 12)]
+temp <- data.frame(ndf = rep(ndf, 4), ddf = rep(ddf, 4), 
+                    fCrit = rep(fCrit, 4), ncp = ncp, 
+                    pFgtFCrit = pFgtFCrit)
+row.names(temp) <- rowNames
+myTab <- rbind(myTab, temp)
+kable(myTab)
+```             
+
+
+## Comments
+
+* All comparisons in this sections are at the same values of `ncp` defined above and at `ddf` = 100.
+* And between `ndf` = 1 and `ndf` = 2. 
+
+### Fig. I 
+* This corresponds to `ncp` = 0, `ndf` = 1 and `ddf` = 100. 
+* The critical value is `fCrit_1_100` = `r qf(1-alpha, ndf,ddf)`. 
+* Notice the increase in the critical value as compared to the corresponding value for `ndf = 2`, i.e., `r qf(1-alpha, 2,100)`.
+* One might expect power to decrease, **but see below**.
+
+### Fig. J 
+* This corresponds to `ncp` = 2, `ndf` = 1 and `ddf` = 100.
+* Now `prob > fCrit_1_100` = `r 1-pf(fCrit_1_100, ndf, ddf, ncp = ncp[2])`, larger than the previous value `r 1-pf(fCrit_2_100, 2, 100, ncp = ncp[2])`.
+* The power has actually increased.
+
+### Fig. K 
+* This corresponds to `ncp` = 5, `ndf` = 1 and `ddf` = 100`', 
+* Now `prob > fCrit_1_100` = `r 1-pf(fCrit_1_100, ndf, ddf, ncp = ncp[3])`, larger than the previous value `r 1-pf(fCrit_2_100, 2, 100, ncp = ncp[3])`. 
+* Again, the power has actually increased.
+
+### Fig. L 
+* This corresponds to `ncp` = 10, `ndf` = 1 and `ddf` = 100
+* Now `prob > fCrit_1_100` is  `r 1-pf(fCrit_1_100, ndf, ddf, ncp = ncp[4])`, larger than the previous value `r 1-pf(fCrit_2_100, 2, 100, ncp = ncp[4])`. 
+* The power has actually increased.
 
 ## Summary
-Power increases with increasing `ddf` and `ncp`; the effect of increasing `ncp` is quite dramatic. Decreasing `ndf` also increases power. At first glance this may seem counterintuitive, as `fCrit` has gone up, but can be explained by the differing shapes of the two distributions: the pdf is broader for `ndf` = 1 as compared to `ndf` = 2 (compare plot L to H). 
+* Power increases with increasing `ddf` and `ncp`. 
+* The effect of increasing `ncp` is quite dramatic. This is because power depends on the square of `ncp`. 
+* Decreasing `ndf` also **increases** power. At first glance this may seem counterintuitive, as `fCrit` has gone up, but is explained by the differing shapes of the two distributions: the pdf is broader for `ndf` = 1 as compared to `ndf` = 2 (compare Fig. L to H). 
+
+## References

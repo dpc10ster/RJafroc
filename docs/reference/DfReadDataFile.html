@@ -86,13 +86,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
     </li>
     <li>
-      <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
     </li>
     <li>
-      <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
@@ -116,25 +125,25 @@
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
-      <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
-      <a href="../articles/Ch20V2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
     </li>
     <li>
-      <a href="../articles/Ch20V3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
     </li>
     <li>
-      <a href="../articles/Ch20V4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
     </li>
     <li>
-      <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
     </li>
     <li>
-      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
     </li>
     <li>
-      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -168,8 +177,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"JAFROC"</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>delimiter</span> <span class='kw'>=</span> <span class='st'>","</span>, <span class='kw'>sequentialNames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>splitPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"JAFROC"</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>delimiter</span> <span class='kw'>=</span> <span class='st'>","</span>, <span class='kw'>sequentialNames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,9 +200,10 @@ as specified in <a href='http://perception.radiology.uiowa.edu/'>http://percepti
     <tr>
       <th>newExcelFileFormat</th>
       <td><p>This argument only applies to the <code>"JAFROC"</code> format. 
-The default is <code>TRUE</code>: the function accommodates 3 additional columns
+The default is <code>FALSE</code>. if <code>TRUE</code> the function accommodates 3 
+additional columns
 in the <code>Truth</code> worksheet. If <code>FALSE</code>, the original function, as in version 
-1.2.0 is used, and the three extra columns, if present, are ignored.</p></td>
+1.2.0 is used, and the three extra columns, if present, throws an error.</p></td>
     </tr>
     <tr>
       <th>delimiter</th>
@@ -209,13 +219,6 @@ or <code>"iMRMC"</code> data files.</p></td>
 treatment and reader IDs (i.e., names). Otherwise, treatment 
 and reader IDs in the original data file will be used.</p></td>
     </tr>
-    <tr>
-      <th>splitPlot</th>
-      <td><p>A logical variable, default <code>FALSE</code>, denoting a split plot design.
-If <code>TRUE</code> each reader interprets one case in all modalities. Currently only
-ROC dataset is supported. Note that the Excel input file must use the new format
-with 3-additional columns, and the <code>newExcelFileFormat</code> option must be <code>TRUE</code></p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -224,17 +227,24 @@ with 3-additional columns, and the <code>newExcelFileFormat</code> option must b
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/ROC/OK.xlsx"</span>,
+    <pre class="examples"><div class='input'><span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/ROC/rocCr.xlsx"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>dsNew</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>)
-<span class='no'>dsOld</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='kw pkg'>testthat</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/testthat/topics/equality-expectations'>expect_equal</a></span>(<span class='no'>dsNew</span>, <span class='no'>dsOld</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/FROC/OK.xlsx"</span>,
+<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/FROC/frocSp.xlsx"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>ds1New</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>)
-<span class='no'>ds1Old</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='kw pkg'>testthat</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/testthat/topics/equality-expectations'>expect_equal</a></span>(<span class='no'>ds1New</span>, <span class='no'>ds1Old</span>)</div><div class='input'><span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"RocData.xlsx"</span>,
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+{
+<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/FROC/frocCr.xlsx"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/FROC/frocOld.xlsx"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='kw pkg'>testthat</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/testthat/topics/equality-expectations'>expect_equal</a></span>(<span class='no'>x</span>,<span class='no'>x1</span>)
+}</div><div class='input'><span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"RocData.xlsx"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>RocDataXlsx</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>)
 

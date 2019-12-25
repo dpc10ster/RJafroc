@@ -1,4 +1,4 @@
-#' Simulates an individual binormal model ROC dataset
+#' Simulates a binormal model ROC dataset
 #' 
 #' @description  Simulates a binormal model ROC dataset for a single treatment and reader
 #' 
@@ -25,8 +25,7 @@
 #'    a = a, b = b)
 #'   
 #' ## plot the data
-#' ret <- PlotEmpiricalOperatingCharacteristics(rocDataRaw, trts= 1, 
-#'    rdrs = 1, opChType = "ROC")
+#' ret <- PlotEmpiricalOperatingCharacteristics(rocDataRaw, trts= 1, rdrs = 1, opChType = "ROC")
 #' print(ret$Plot)
 #' 
 #' @importFrom stats rnorm

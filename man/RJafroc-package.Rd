@@ -64,7 +64,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
     \item image/case: used interchangeably; a case can consist of several images 
        of the same patient in the same treatment
     \item iMRMC: A text file format used for ROC data by FDA/CDRH researchers
-    \item individual dataset: A single treatment single reader dataset.
+    \item individual: A single-treatment single-reader dataset.
     \item Intrinsic: Used in connection with RSM; a parameter that is independent of 
        the RSM \eqn{\mu} parameter, but whose meaning may not be as transparent as 
        the corresponding physical parameter

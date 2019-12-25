@@ -173,9 +173,9 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   
   if (!tempOrgCode) {
     if (method == "DBMH"){
-      return(StDBMHAnalysis(dataset, FOM, alpha, option, FPFValue)) # current code
+      return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, option)) # current code
     } else if (method == "ORH"){
-      return(StORHAnalysis(dataset, FOM, alpha, covEstMethod, nBoots, option, FPFValue)) # current code
+      return(StORHAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, option)) # current code
     } else {
       errMsg <- sprintf("%s is not a valid analysis method.", method)
       stop(errMsg)

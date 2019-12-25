@@ -86,13 +86,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00Vig1DataFormat.html">Chapter 00, Vignette 1: JAFROC data format</a>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
     </li>
     <li>
-      <a href="../articles/Ch10V1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
     </li>
     <li>
-      <a href="../articles/Ch10V2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
@@ -116,25 +125,25 @@
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
-      <a href="../articles/Ch20V1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
-      <a href="../articles/Ch20V2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
     </li>
     <li>
-      <a href="../articles/Ch20V3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
     </li>
     <li>
-      <a href="../articles/Ch20V4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
     </li>
     <li>
-      <a href="../articles/Ch20V5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
     </li>
     <li>
-      <a href="../articles/Ch30V1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
     </li>
     <li>
-      <a href="../articles/Ch30V2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -181,7 +190,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An ROC dataset</p>
+    <p>An ROC dataset with <strong>finite ratings</strong> in NL[,,1:K1,1] and LL[,,1:K2,1].</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -192,8 +201,8 @@ FPs are only possible on non-diseased cases.</strong>The second member of the li
 Its 3rd dimension has length K2, the number of diseased cases.  <strong>This is 
 because TPs are only possible on diseased cases</strong>. For each case the  
 inferred ROC rating is the highest of all FROC ratings on that case. If a case has 
-no marks, a <strong>finite</strong> ROC rating, guaranteed to be smaller than the rating on 
-any marked case, is assigned to it. The structure is shown below:</p><ul>
+no marks, a <strong>finite ROC rating, guaranteed to be smaller than the rating on 
+any marked case</strong>, is assigned to it. The dataset structure is shown below:</p><ul>
 <li><p><code>NL</code> Ratings array [1:I, 1:J, 1:(K1+K2), 1], of false positives, FPs</p></li>
 <li><p><code>LL</code> Ratings array [1:I, 1:J, 1:K2, 1], of true positives, TPs</p></li>
 <li><p><code>lesionVector</code> array [1:K2], number of lesions per diseased case</p></li>
@@ -207,7 +216,7 @@ any marked case, is assigned to it. The structure is shown below:</p><ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>rocDataSet</span> <span class='kw'>&lt;-</span> <span class='fu'>DfFroc2Roc</span>(<span class='no'>dataset05</span>)
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>rocDataSet</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>rocDataSet</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>p</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='DfFroc2Roc-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>rocDataSet</span>)</div><div class='output co'>#&gt; List of 8
 #&gt;  $ NL          : num [1:2, 1:9, 1:92, 1] 6 5 0 0 8 6 0 0 2 5 ...
 #&gt;  $ LL          : num [1:2, 1:9, 1:47, 1] 5 9 0 10 8 9 0 7 0 5 ...

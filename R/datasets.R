@@ -63,7 +63,7 @@
 #' 
 #' @examples
 #' str(dataset02)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset02)$Plot
+#' PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot
 #'
 #'
 #'
@@ -73,7 +73,7 @@
 #' Franken ROC dataset
 #'
 #' This is referred to in the book as the "FR" dataset. It consists of 100 cases, 
-#' 69 of which are diseased, interpreted in two treatments,
+#' 67 of which are diseased, interpreted in two treatments,
 #' "0" = conventional film radiographs, "1" = digitized  images viewed on monitors, by four 
 #' radiologists using the ROC paradigm. Often referred to in the ROC literature as the 
 #' Franken-dataset, which, along the the Van Dyke dataset, has been widely used to illustrate
@@ -87,8 +87,8 @@
 #' \item{\code{lesionID}}{ array [1:67, 1], labels of lesions on diseased cases, all set to 1}
 #' \item{\code{lesionWeight}}{ array [1:67, 1], weights (or clinical importance) of lesions, all set to 1}
 #' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
-#' \item{\code{readerID}}{ [1:4] "0" "1" "2" ..., reader labels}
+#' \item{\code{modalityID}}{ [1:2] "TREAT1" "TREAT2", the treatment labels}
+#' \item{\code{readerID}}{ [1:4] "READER_1" "READER_2" "READER_3" "READER_4", the reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -99,7 +99,7 @@
 #' 
 #' @examples
 #' str(dataset03)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset03)$Plot
+#' PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
 #'
 #'
 "dataset03"
@@ -268,7 +268,7 @@
 #' 
 #' @examples
 #' str(dataset08)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset08)$Plot
+#' PlotEmpiricalOperatingCharacteristics(dataset = dataset08, opChType = "ROC")$Plot
 #'
 #'
 "dataset08"
@@ -303,7 +303,7 @@
 #' 
 #' @examples
 #' str(dataset09)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10)$Plot
+#' PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
 #'
 #'
 "dataset09"
@@ -339,7 +339,7 @@
 #' 
 #' @examples
 #' str(dataset10)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset10)$Plot
+#' PlotEmpiricalOperatingCharacteristics(dataset = dataset10, opChType = "ROC")$Plot
 #'
 #'
 "dataset10"

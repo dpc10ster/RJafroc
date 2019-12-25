@@ -1,5 +1,5 @@
-StORHAnalysis <- function(dataset, FOM, alpha = 0.05, covEstMethod = "Jackknife", 
-                          nBoots = 200, option = "ALL", FPFValue)  
+StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "Jackknife", 
+                          nBoots = 200, option = "ALL")  
 {
   
   modalityID <- dataset$modalityID
@@ -15,7 +15,7 @@ StORHAnalysis <- function(dataset, FOM, alpha = 0.05, covEstMethod = "Jackknife"
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   trtMeans <- rowMeans(fomArray)
   
-  ret <- UtilVarComponentsOR(dataset, FOM, covEstMethod, nBoots, FPFValue)
+  ret <- UtilVarComponentsOR(dataset, FOM, FPFValue, covEstMethod, nBoots)
   varComp <-  ret$varComp
   meanSquares <- ret$meanSquares
   
