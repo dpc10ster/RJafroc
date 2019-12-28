@@ -13,7 +13,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2019-12-12" />
+<meta name="date" content="2019-12-27" />
 
 <title>Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</title>
 
@@ -304,7 +304,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2019-12-12</h4>
+<h4 class="date">2019-12-27</h4>
 
 
 
@@ -347,26 +347,104 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb1-2" title="2">                        <span class="dt">package =</span> <span class="st">&quot;RJafroc&quot;</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb1-3" title="3">x &lt;-<span class="st"> </span><span class="kw">DfReadDataFile</span>(rocSp, <span class="dt">newExcelFileFormat =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb1-4" title="4"><span class="kw">str</span>(x)</a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt; List of 8</span></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt;  $ NL          : num [1:2, 1:3, 1:30, 1] 1 1 -Inf -Inf -Inf ...</span></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt;  $ LL          : num [1:2, 1:3, 1:15, 1] 5 2.3 -Inf -Inf -Inf ...</span></a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt;  $ lesionVector: int [1:15] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt;  $ lesionID    : num [1:15, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;  $ lesionWeight: num [1:15, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;  $ dataType    : chr &quot;ROC-SPLIT-PLOT&quot;</span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;  $ modalityID  : Named chr [1:2] &quot;1&quot; &quot;2&quot;</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt; List of 12</span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt;  $ NL           : num [1:2, 1:3, 1:30, 1] 1 1 -Inf -Inf -Inf ...</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt;  $ LL           : num [1:2, 1:3, 1:15, 1] 5 2.3 -Inf -Inf -Inf ...</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt;  $ lesionVector : int [1:15] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt;  $ lesionID     : num [1:15, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;  $ lesionWeight : num [1:15, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;  $ dataType     : chr &quot;ROC&quot;</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;  $ modalityID   : Named chr [1:2] &quot;1&quot; &quot;2&quot;</span></a>
 <a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;1&quot; &quot;2&quot;</span></a>
-<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt;  $ readerID    : Named chr [1:3] &quot;1&quot; &quot;4&quot; &quot;5&quot;</span></a>
-<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:3] &quot;1&quot; &quot;4&quot; &quot;5&quot;</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt;  $ readerID     : Named chr [1:3] &quot;1&quot; &quot;4&quot; &quot;5&quot;</span></a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:3] &quot;1&quot; &quot;4&quot; &quot;5&quot;</span></a>
+<a class="sourceLine" id="cb1-16" title="16"><span class="co">#&gt;  $ design       : chr &quot;SPLIT-PLOT&quot;</span></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="co">#&gt;  $ normalCases  : int [1:15] 6 7 8 9 10 21 22 23 24 25 ...</span></a>
+<a class="sourceLine" id="cb1-18" title="18"><span class="co">#&gt;  $ abnormalCases: int [1:15] 16 17 18 19 20 36 37 38 39 40 ...</span></a>
+<a class="sourceLine" id="cb1-19" title="19"><span class="co">#&gt;  $ truthTableStr: num [1:2, 1:3, 1:30, 1:2] 1 1 NA NA NA NA 1 1 NA NA ...</span></a></code></pre></div>
 <ul>
 <li>Flag <code>newExcelFileFormat</code> <strong>must</strong> be set to <code>TRUE</code> for split plot data.</li>
-<li>The dataset object <code>x</code> is a <code>list</code> variable with 8 members.</li>
-<li>Note that the <code>dataType</code> member is ROC-SPLIT-PLOT.</li>
+<li>The dataset object <code>x</code> is a <code>list</code> variable with 12 members.</li>
 <li>There are 15 diseased cases in the dataset (the number of 1’s in the <code>LesionID</code> column of the <code>Truth</code> worksheet) and 15 non-diseased cases (the number of 0’s in the <code>LesionID</code> column).</li>
+<li><code>x$NL</code>, with dimension [2, 3, 30, 1], contains the ratings of normal cases. The extra values in the third dimension, filled with <code>NAs</code>, are needed for compatibility with FROC datasets.</li>
+<li><code>x$LL</code>, with dimension [2, 3, 15, 1], contains the ratings of abnormal cases.</li>
 <li>The <code>x$lesionVector</code> member is a vector with 15 ones representing the 15 diseased cases in the dataset.</li>
 <li>The <code>x$lesionID</code> member is an array with 15 ones (this member is needed for compatibility with FROC datasets).</li>
 <li>The <code>x$lesionWeight</code> member is an array with 15 ones (this member is needed for compatibility with FROC datasets).</li>
+<li>The <code>dataType</code> member is ROC which specifies the data collection method (“ROC”, “FROC”, “LROC” or “ROI”).</li>
+<li>The <code>x$modalityID</code> member is a vector with two elements <code>&quot;1&quot;</code> and <code>&quot;2&quot;</code>, naming the two modalities.</li>
+<li>The <code>x$readerID</code> member is a vector with three elements <code>&quot;1&quot;</code>, <code>&quot;4&quot;</code> and <code>&quot;5&quot;</code>, naming the three modalities.</li>
+<li>The <code>x$design</code> member is SPLIT-PLOT; specifies the dataset design, which can be either “CROSSED” or “SPLIT-PLOT”.</li>
+<li>The <code>x$normalCases</code> member lists the names of the normal cases, 6, 7, 8, 9, 10, 21, 22, 23, 24, 25, 46, 47, 48, 49, 50.</li>
+<li>The <code>x$abnormalCases</code> member lists the names of the abnormal cases, 16, 17, 18, 19, 20, 36, 37, 38, 39, 40, 51, 52, 53, 54, 55.</li>
+<li>The <code>x$truthTableStr</code> member quantifies the structure of the dataset, as explained next. <strong>It is used in the <code>DfReadDataFile()</code> function to check for data entry errors.</strong></li>
 </ul>
+</div>
+<div id="the-truthtablestr-member" class="section level2">
+<h2>The <code>truthTableStr</code> member</h2>
+<ul>
+<li>This is a <code>2 x 3 x 30 x 2</code> array, i.e., I x J x K x (maximum number of lesions per case plus 1). The <code>plus 1</code> is needed to accommodate normal cases with <code>lesionID</code> = 0.</li>
+<li>Each entry in this array is either <code>1</code>, meaning the corresponding interpretation exists, or <code>NA</code>, meaning the corresponding interpretation does not exist.</li>
+<li>For example, <code>x$truthTableStr[1,1,1,1]</code> is 1. This means that an interpretation exists for the first treatment (<code>modalityID</code> = 1), first reader (<code>readerID</code> = 1) and first (normal) case (<code>caseID</code> = 6 and <code>lesionID</code> = 0). This example corresponds to row 2 in the <code>TRUTH</code> worksheet.</li>
+<li>The following shows that the first reader interprets the first five normal cases in both modalities.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">x<span class="op">$</span>truthTableStr[,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; [1,]    1    1    1    1    1   NA   NA   NA   NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt; [2,]    1    1    1    1    1   NA   NA   NA   NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; [1,]    NA</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; [2,]    NA</span></a></code></pre></div>
+<ul>
+<li>In the following all elements are <code>NA</code> because normal cases correspond to lesionID = 1.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">x<span class="op">$</span>truthTableStr[,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; [1,]    NA</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt; [2,]    NA</span></a></code></pre></div>
+<ul>
+<li>The following shows that the second reader interprets the next group of five normal cases, indexed 6 through 10, in both modalities.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">x<span class="op">$</span>truthTableStr[,<span class="dv">2</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; [1,]   NA   NA   NA   NA   NA    1    1    1    1     1    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt; [2,]   NA   NA   NA   NA   NA    1    1    1    1     1    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; [1,]    NA</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt; [2,]    NA</span></a></code></pre></div>
+<ul>
+<li>The following shows that the third reader interprets the next group of five normal cases, indexed 11 through 15, in both modalities.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">x<span class="op">$</span>truthTableStr[,<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA     1     1     1     1</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA     1     1     1     1</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt; [1,]     1</span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="co">#&gt; [2,]     1</span></a></code></pre></div>
+<ul>
+<li>The following shows that the first reader interprets the first group of five abnormal cases, indexed 16 through 20, in both modalities.</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">x<span class="op">$</span>truthTableStr[,<span class="dv">1</span>,<span class="dv">16</span><span class="op">:</span><span class="dv">30</span>,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; [1,]    1    1    1    1    1   NA   NA   NA   NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt; [2,]    1    1    1    1    1   NA   NA   NA   NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt; [1,]    NA</span></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt; [2,]    NA</span></a></code></pre></div>
+<ul>
+<li>In the following all elements are <code>NA</code> because abnormal cases correspond to <code>lesionID</code> = 2.</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">x<span class="op">$</span>truthTableStr[,<span class="dv">1</span>,<span class="dv">16</span><span class="op">:</span><span class="dv">30</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA    NA    NA    NA    NA</span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt; [1,]    NA</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co">#&gt; [2,]    NA</span></a></code></pre></div>
 </div>
 <div id="the-false-positive-fp-ratings" class="section level2">
 <h2>The false positive (FP) ratings</h2>
@@ -380,27 +458,27 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </li>
 <li><code>NL_Rating</code>: the floating point ratings of non-diseased cases. Each row of this worksheet yields a rating corresponding to the values of <code>ReaderID</code>, <code>ModalityID</code> and <code>CaseID</code> for that row.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">x<span class="op">$</span>NL[,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; [1,]    1    2  0.1    1    1 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt; [2,]    1    2  0.3    1    1 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;      [,14] [,15]</span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; [1,]  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; [2,]  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb2-8" title="8">x<span class="op">$</span>NL[,<span class="dv">2</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf  0.2  0.2    1    3     3  -Inf  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf  2.0  1.0    1    1     2  -Inf  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt;      [,14] [,15]</span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; [1,]  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt; [2,]  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb2-15" title="15">x<span class="op">$</span>NL[,<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span></a>
-<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf 0.234     5     2</span></a>
-<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf 3.000     2     2</span></a>
-<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt;      [,14] [,15]</span></a>
-<a class="sourceLine" id="cb2-20" title="20"><span class="co">#&gt; [1,]     2  2.00</span></a>
-<a class="sourceLine" id="cb2-21" title="21"><span class="co">#&gt; [2,]     2  0.33</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">x<span class="op">$</span>NL[,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; [1,]    1    2  0.1    1    1 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf  -Inf</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt; [2,]    1    2  0.3    1    1 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf  -Inf</span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt; [1,]  -Inf</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt; [2,]  -Inf</span></a>
+<a class="sourceLine" id="cb8-8" title="8">x<span class="op">$</span>NL[,<span class="dv">2</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf  0.2  0.2    1    3     3  -Inf  -Inf  -Inf  -Inf</span></a>
+<a class="sourceLine" id="cb8-11" title="11"><span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf  2.0  1.0    1    1     2  -Inf  -Inf  -Inf  -Inf</span></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb8-13" title="13"><span class="co">#&gt; [1,]  -Inf</span></a>
+<a class="sourceLine" id="cb8-14" title="14"><span class="co">#&gt; [2,]  -Inf</span></a>
+<a class="sourceLine" id="cb8-15" title="15">x<span class="op">$</span>NL[,<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb8-17" title="17"><span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf 0.234     5     2     2</span></a>
+<a class="sourceLine" id="cb8-18" title="18"><span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf 3.000     2     2     2</span></a>
+<a class="sourceLine" id="cb8-19" title="19"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb8-20" title="20"><span class="co">#&gt; [1,]  2.00</span></a>
+<a class="sourceLine" id="cb8-21" title="21"><span class="co">#&gt; [2,]  0.33</span></a></code></pre></div>
 <ul>
 <li>The first line of the above code shows the ratings, in both modalities, of the first five non-diseased cases with <code>CaseID</code>s <code>6,7,8,9,10</code> (indexed 1, 2, 3, 4, 5 and appearing in the first five columns) interpreted by the first reader (<code>ReaderID</code> 1).</li>
 <li>The second line shows the ratings, in both modalities, of the next five non-diseased cases with <code>CaseID</code>s <code>21,22,23,24,25</code> (indexed 6, 7, 8, 9, 10and appearing in the next five columns) interpreted by the second reader (<code>ReaderID</code> 4).</li>
@@ -421,27 +499,27 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </li>
 <li><code>LL_Rating</code>: the floating point ratings of diseased cases. Each row of this worksheet yields a rating corresponding to the values of <code>ReaderID</code>, <code>ModalityID</code> and <code>CaseID</code> for that row.</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">x<span class="op">$</span>LL[,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; [1,]  5.0  5.5  4.9    4  3.7 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; [2,]  2.3  4.1  5.7    5  6.0 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;      [,14] [,15]</span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; [1,]  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt; [2,]  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb3-8" title="8">x<span class="op">$</span>LL[,<span class="dv">2</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf 2.70 2.90 5.10 4.90 4.990  -Inf  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf 5.22 4.77 5.33 4.99 1.999  -Inf  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;      [,14] [,15]</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; [1,]  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt; [2,]  -Inf  -Inf</span></a>
-<a class="sourceLine" id="cb3-15" title="15">x<span class="op">$</span>LL[,<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span></a>
-<a class="sourceLine" id="cb3-17" title="17"><span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf   5.4   2.7   5.8</span></a>
-<a class="sourceLine" id="cb3-18" title="18"><span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf   5.4   2.7   5.8</span></a>
-<a class="sourceLine" id="cb3-19" title="19"><span class="co">#&gt;      [,14] [,15]</span></a>
-<a class="sourceLine" id="cb3-20" title="20"><span class="co">#&gt; [1,]   4.7     5</span></a>
-<a class="sourceLine" id="cb3-21" title="21"><span class="co">#&gt; [2,]   4.7     5</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">x<span class="op">$</span>LL[,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; [1,]  5.0  5.5  4.9    4  3.7 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf  -Inf</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt; [2,]  2.3  4.1  5.7    5  6.0 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf  -Inf</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt; [1,]  -Inf</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; [2,]  -Inf</span></a>
+<a class="sourceLine" id="cb9-8" title="8">x<span class="op">$</span>LL[,<span class="dv">2</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf 2.70 2.90 5.10 4.90 4.990  -Inf  -Inf  -Inf  -Inf</span></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf 5.22 4.77 5.33 4.99 1.999  -Inf  -Inf  -Inf  -Inf</span></a>
+<a class="sourceLine" id="cb9-12" title="12"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt; [1,]  -Inf</span></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; [2,]  -Inf</span></a>
+<a class="sourceLine" id="cb9-15" title="15">x<span class="op">$</span>LL[,<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></a>
+<a class="sourceLine" id="cb9-17" title="17"><span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf   5.4   2.7   5.8   4.7</span></a>
+<a class="sourceLine" id="cb9-18" title="18"><span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf   5.4   2.7   5.8   4.7</span></a>
+<a class="sourceLine" id="cb9-19" title="19"><span class="co">#&gt;      [,15]</span></a>
+<a class="sourceLine" id="cb9-20" title="20"><span class="co">#&gt; [1,]     5</span></a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="co">#&gt; [2,]     5</span></a></code></pre></div>
 <ul>
 <li>The first line of code shows the ratings, in both modalities, of the first five diseased cases with <code>CaseID</code>s <code>16,17,18,19,20</code> (indexed 1, 2, 3, 4, 5and appearing in the first five columns) interpreted by the first reader (<code>ReaderID</code> 1).</li>
 <li>The second line shows the ratings, in both modalities, of the next five diseased cases with <code>CaseID</code>s <code>36,37,38,39,40</code> (indexed 6, 7, 8, 9, 10and appearing in the next five columns) interpreted by the second reader (<code>ReaderID</code> 4).</li>

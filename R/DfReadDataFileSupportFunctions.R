@@ -412,8 +412,7 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
   }
   
   lesionVector  <- as.vector(table(caseID[caseID %in% abnormalCases]))
-  # for (k2 in 1:length(abnormalCases)) { lesionVector [k2] <- sum(caseID == abnormalCases[k2]) }
-  
+
   lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector )))
   lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionVector )))
   
@@ -531,8 +530,19 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
   
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
+  truthTableStr <- array(1, dim = c(I, J, K, length(unique(lesionID))))
   
-  return(list(NL = NL, LL = LL, lesionVector  = lesionVector , lesionID = lesionIDTable, lesionWeight = lesionWeight, dataType = fileType, modalityID = modalityID, readerID = readerID))
+  return(list(
+    NL = NL, 
+    LL = LL, 
+    lesionVector  = lesionVector , 
+    lesionID = lesionIDTable, 
+    lesionWeight = lesionWeight, 
+    dataType = fileType, 
+    design = "CROSSED",
+    modalityID = modalityID, 
+    readerID = readerID,
+    truthTableStr = truthTableStr))
 } 
 
 

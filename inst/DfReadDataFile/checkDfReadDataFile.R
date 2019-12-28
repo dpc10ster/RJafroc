@@ -9,9 +9,6 @@ x <- DfReadDataFile(rocCr, newExcelFileFormat = TRUE)
 
 # assign("last.warning", NULL, envir = baseenv())
 
-rocCr <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 
-                        package = "RJafroc", mustWork = TRUE)
-x <- DfReadDataFile(rocCr, newExcelFileFormat = TRUE)
 x1 <- DfReadDataFile(rocCr, newExcelFileFormat = FALSE)
 testthat::expect_equal(x, x1)
 rm(x1)
@@ -48,6 +45,10 @@ dupRow <- system.file("extdata", "toyFiles/ROC/duplicatedRow.xlsx",
                       package = "RJafroc", mustWork = TRUE)
 testthat::expect_error(DfReadDataFile(dupRow, newExcelFileFormat = TRUE))
 
+# following uses non-integer caseIDs; it will not work
+rocSpText <- system.file("extdata", "toyFiles/ROC/rocSpText.xlsx", 
+                      package = "RJafroc", mustWork = TRUE)
+testthat::expect_error(DfReadDataFile(rocSpText, newExcelFileFormat = TRUE))
 
 ###########################################################################
 frocCr <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx", 
