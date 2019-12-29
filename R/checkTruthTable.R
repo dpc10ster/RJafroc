@@ -67,26 +67,6 @@ checkTruthTable <- function (truthTable)
   }
   if (errorMsg != "") stop(errorMsg)
   
-  I <- length(unlist(strsplit(truthTable$ModalityID[1],split = ",")))
-  isReaderIDArray <- is.character(truthTable$ReaderID[1]) && (nchar(truthTable$ReaderID[1]) > 1)
-  if (isReaderIDArray) {
-    J <- length(unlist(strsplit(truthTable$ReaderID[1],split = ",")))
-    
-    readerIDArray <- array(dim = c(J,L))
-    x <- sort(trimws(unlist(strsplit(truthTable$ReaderID,split = ","))))
-    for (j in 1:J) readerIDArray[j,] <- x[((j-1)*L + 1):(j*L)]
-    readerIDUnique <- unique(readerIDArray)
-  }
-  else {
-    J <- length(unique(truthTable$ReaderID))
-    readerIDUnique <- unique(readerID)
-  }
-  
-  modalityIDArray <- array(dim = c(I,L))
-  x <- sort(trimws(unlist(strsplit(truthTable$ModalityID,split = ","))))
-  for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]
-  modalityIDUnique <- unique(modalityIDArray)
-  
   lesionIDUnique <- unique(lesionIDCol)
   
   lesionVector <- as.vector(table(caseID[caseID %in% abnormalCases]))
@@ -113,6 +93,32 @@ checkTruthTable <- function (truthTable)
       }
     }
   }
+  
+  I <- length(unlist(strsplit(truthTable$ModalityID[1],split = ",")))
+  isReaderIDArray <- is.character(truthTable$ReaderID[1]) && (nchar(truthTable$ReaderID[1]) > 1)
+  
+  if (isReaderIDArray) {
+    J <- length(unlist(strsplit(truthTable$ReaderID[1],split = ",")))
+    
+    readerIDArray <- array(dim = c(J,L))
+    x <- sort(trimws(unlist(strsplit(truthTable$ReaderID,split = ","))))
+    for (j in 1:J) readerIDArray[j,] <- x[((j-1)*L + 1):(j*L)]
+    readerIDUnique <- unique(readerIDArray)
+  }
+  else {
+    J <- length(unique(truthTable$ReaderID))
+    readerIDUnique <- unique(readerID)
+    # following fixed single reader datasets, ROC and FROC
+    readerIDArray <- array(dim = c(J,L))
+    for (j in 1:J) readerIDArray[j,] <- readerIDUnique[j]
+  }
+ 
+  # assuming >1 modalities for each reader: balanced data
+  # following code will break with single modality dataset
+  modalityIDArray <- array(dim = c(I,L))
+  x <- sort(trimws(unlist(strsplit(truthTable$ModalityID,split = ","))))
+  for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]
+  modalityIDUnique <- unique(modalityIDArray)
   
   truthTableStr <- array(dim = c(I, J, K, length(unique(lesionIDCol))))
   for (i in 1:I) {

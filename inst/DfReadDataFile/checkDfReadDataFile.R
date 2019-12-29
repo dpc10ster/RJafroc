@@ -1,5 +1,9 @@
 rm(list = ls())
 ###########################################################################
+rocCr1R <- system.file("extdata", "toyFiles/ROC/rocCr1R.xlsx",
+                        package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(rocCr1R, newExcelFileFormat = TRUE)
+
 rocSp <- system.file("extdata", "toyFiles/ROC/rocSp.xlsx",
 package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(rocSp, newExcelFileFormat = TRUE)
@@ -52,6 +56,10 @@ rocSpText <- system.file("extdata", "toyFiles/ROC/rocSpText.xlsx",
 testthat::expect_error(DfReadDataFile(rocSpText, newExcelFileFormat = TRUE))
 
 ###########################################################################
+frocCr1R <- system.file("extdata", "toyFiles/FROC/frocCr1R.xlsx",
+                        package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(frocCr1R, newExcelFileFormat = TRUE)
+
 frocCr <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx", 
                       package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(frocCr, newExcelFileFormat = TRUE)
