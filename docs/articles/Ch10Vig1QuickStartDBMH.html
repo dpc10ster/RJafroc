@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis • RJafroc</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -38,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -127,13 +128,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2019-12-22</h4>
+            <h4 class="date">2019-12-29</h4>
       
       
       <div class="hidden name"><code>Ch10Vig1QuickStartDBMH.Rmd</code></div>
@@ -154,7 +156,7 @@
 <h2 class="hasAnchor">
 <a href="#an-roc-dataset" class="anchor"></a>An ROC dataset</h2>
 <p>Dataset <code>dataset03</code> corresponding to the Franken ROC data <span class="citation">(Franken et al. 1992)</span> is predefined. The following code shows the structure of this dataset.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(dataset03)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(dataset03)</a>
 <a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt; List of 8</span></a>
 <a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt;  $ NL          : num [1:2, 1:4, 1:100, 1] 3 3 4 3 3 3 4 1 1 3 ...</span></a>
 <a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt;  $ LL          : num [1:2, 1:4, 1:67, 1] 5 5 4 4 5 4 4 5 2 2 ...</span></a>
@@ -167,7 +169,7 @@
 <a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;  $ readerID    : Named chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span></a>
 <a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span></a></code></pre></div>
 <ul>
-<li>It is a list with 8 members. The false positive ratings are contained in <code>{NL}</code>, an array with dimensions <code>[1:2,1:4,1:100,1]</code>. The first index corresponds to treatments, and since the dataset has 2 treatments, the corresponding dimension is 2. The second index corresponds to readers, and since the dataset has 4 readers, the corresponding dimension is 4. The third index corresponds to the total number of cases. Since the dataset has 100 cases, the corresponding dimension is 100. But, as you can see from the code below, the entries in this array for cases 34 through 100 are <code>-Inf</code>: i.e., <code><a href="https://www.rdocumentation.org/packages/base/topics/all">all(dataset03$NL[1,1,34:100,1] == -Inf)</a></code> = TRUE.</li>
+<li>It is a list with 8 members. The false positive ratings are contained in <code>{NL}</code>, an array with dimensions <code>[1:2,1:4,1:100,1]</code>. The first index corresponds to treatments, and since the dataset has 2 treatments, the corresponding dimension is 2. The second index corresponds to readers, and since the dataset has 4 readers, the corresponding dimension is 4. The third index corresponds to the total number of cases. Since the dataset has 100 cases, the corresponding dimension is 100. But, as you can see from the code below, the entries in this array for cases 34 through 100 are <code>-Inf</code>: i.e., <code><a href="https://rdrr.io/r/base/all.html">all(dataset03$NL[1,1,34:100,1] == -Inf)</a></code> = TRUE.</li>
 <li><p>This is because in the ROC paradigm false positive are not possible on diseased cases. So the actual FP ratings are contained in the first 33 elements of the array. How did I know that there are 33 non-diseased cases? This can be understood in several ways.</p></li>
 <li>
 <code>LL</code> is an array with dimensions <code>[1:2,1:4,1:67,1]</code>. This implies 67 diseased cases, and by subtraction from 100, there must be 33 non-diseased cases.</li>
@@ -201,21 +203,25 @@
 <a href="#creating-a-dataset-from-a-jafroc-format-file" class="anchor"></a>Creating a dataset from a JAFROC format file</h2>
 <p>There is a file <code>RocData.xlsx</code> that is part of the package installation. Since it is a system file one must get its name as follows.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">fileName &lt;-<span class="st"> "RocData.xlsx"</span></a>
-<a class="sourceLine" id="cb7-2" title="2">sysFileName &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"extdata/"</span>,fileName), <span class="dt">package =</span> <span class="st">"RJafroc"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-2" title="2">sysFileName &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"extdata/"</span>,fileName), <span class="dt">package =</span> <span class="st">"RJafroc"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Next, one uses <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> as follows, assuming it is a JAFROC format file.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">ds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(sysFileName, <span class="dt">newExcelFileFormat =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ds)</a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; List of 8</span></a>
-<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt;  $ NL          : num [1:2, 1:5, 1:114, 1] 1 3 2 3 2 2 1 2 3 2 ...</span></a>
-<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;  $ LL          : num [1:2, 1:5, 1:45, 1] 5 5 5 5 5 5 5 5 5 5 ...</span></a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt;  $ lesionVector: int [1:45] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt;  $ lesionID    : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt;  $ lesionWeight: num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb8-9" title="9"><span class="co">#&gt;  $ dataType    : chr "ROC"</span></a>
-<a class="sourceLine" id="cb8-10" title="10"><span class="co">#&gt;  $ modalityID  : Named chr [1:2] "0" "1"</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(ds)</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; List of 12</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt;  $ NL           : num [1:2, 1:5, 1:114, 1] 1 3 2 3 2 2 1 2 3 2 ...</span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;  $ LL           : num [1:2, 1:5, 1:45, 1] 5 5 5 5 5 5 5 5 5 5 ...</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt;  $ lesionVector : int [1:45] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt;  $ lesionID     : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt;  $ lesionWeight : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="co">#&gt;  $ dataType     : chr "ROC"</span></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="co">#&gt;  $ modalityID   : Named chr [1:2] "0" "1"</span></a>
 <a class="sourceLine" id="cb8-11" title="11"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "0" "1"</span></a>
-<a class="sourceLine" id="cb8-12" title="12"><span class="co">#&gt;  $ readerID    : Named chr [1:5] "0" "1" "2" "3" ...</span></a>
-<a class="sourceLine" id="cb8-13" title="13"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-12" title="12"><span class="co">#&gt;  $ readerID     : Named chr [1:5] "0" "1" "2" "3" ...</span></a>
+<a class="sourceLine" id="cb8-13" title="13"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span></a>
+<a class="sourceLine" id="cb8-14" title="14"><span class="co">#&gt;  $ design       : chr "CROSSED"</span></a>
+<a class="sourceLine" id="cb8-15" title="15"><span class="co">#&gt;  $ normalCases  : int [1:69] 1 2 3 4 5 6 7 8 9 10 ...</span></a>
+<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt;  $ abnormalCases: int [1:45] 70 71 72 73 74 75 76 77 78 79 ...</span></a>
+<a class="sourceLine" id="cb8-17" title="17"><span class="co">#&gt;  $ truthTableStr: num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span></a></code></pre></div>
 <p>Analysis is illustrated for <code>dataset03</code>, but one could have used the newly created dataset <code>ds</code>.</p>
 </div>
 <div id="analyzing-the-roc-dataset" class="section level2">
@@ -223,7 +229,7 @@
 <a href="#analyzing-the-roc-dataset" class="anchor"></a>Analyzing the ROC dataset</h2>
 <p>This illustrates the <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> function. The significance testing method is specified as <code>"DBMH"</code> and the figure of merit <code>FOM</code> is specified as “Wilcoxon”.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>)</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(ret)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(ret)</a>
 <a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; $fomArray</span></a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt;           RdrREADER_1 RdrREADER_2 RdrREADER_3 RdrREADER_4</span></a>
 <a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; TrtTREAT1   0.8534600   0.8649932   0.8573044   0.8152420</span></a>
@@ -255,10 +261,10 @@
 <a class="sourceLine" id="cb9-31" title="31"><span class="co">#&gt; 1 4.694058       1       3 0.1188379</span></a>
 <a class="sourceLine" id="cb9-32" title="32"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb9-33" title="33"><span class="co">#&gt; $ciDiffTrtRRRC</span></a>
-<a class="sourceLine" id="cb9-34" title="34"><span class="co">#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt</span></a>
-<a class="sourceLine" id="cb9-35" title="35"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379</span></a>
-<a class="sourceLine" id="cb9-36" title="36"><span class="co">#&gt;        CILower    CIUpper</span></a>
-<a class="sourceLine" id="cb9-37" title="37"><span class="co">#&gt; 1 -0.005089627 0.02679926</span></a>
+<a class="sourceLine" id="cb9-34" title="34"><span class="co">#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
+<a class="sourceLine" id="cb9-35" title="35"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
+<a class="sourceLine" id="cb9-36" title="36"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb9-37" title="37"><span class="co">#&gt; 1 0.02679926</span></a>
 <a class="sourceLine" id="cb9-38" title="38"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb9-39" title="39"><span class="co">#&gt; $ciAvgRdrEachTrtRRRC</span></a>
 <a class="sourceLine" id="cb9-40" title="40"><span class="co">#&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper</span></a>
@@ -270,10 +276,10 @@
 <a class="sourceLine" id="cb9-46" title="46"><span class="co">#&gt; 1 0.363956       1      99 0.547697</span></a>
 <a class="sourceLine" id="cb9-47" title="47"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb9-48" title="48"><span class="co">#&gt; $ciDiffTrtFRRC</span></a>
-<a class="sourceLine" id="cb9-49" title="49"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt</span></a>
-<a class="sourceLine" id="cb9-50" title="50"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697</span></a>
-<a class="sourceLine" id="cb9-51" title="51"><span class="co">#&gt;       CILower    CIUpper</span></a>
-<a class="sourceLine" id="cb9-52" title="52"><span class="co">#&gt; 1 -0.02484675 0.04655638</span></a>
+<a class="sourceLine" id="cb9-49" title="49"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower</span></a>
+<a class="sourceLine" id="cb9-50" title="50"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span></a>
+<a class="sourceLine" id="cb9-51" title="51"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb9-52" title="52"><span class="co">#&gt; 1 0.04655638</span></a>
 <a class="sourceLine" id="cb9-53" title="53"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb9-54" title="54"><span class="co">#&gt; $ciAvgRdrEachTrtFRRC</span></a>
 <a class="sourceLine" id="cb9-55" title="55"><span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span></a>
@@ -303,10 +309,10 @@
 <a class="sourceLine" id="cb9-79" title="79"><span class="co">#&gt; 1 4.694058       1       3 0.1188379</span></a>
 <a class="sourceLine" id="cb9-80" title="80"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb9-81" title="81"><span class="co">#&gt; $ciDiffTrtRRFC</span></a>
-<a class="sourceLine" id="cb9-82" title="82"><span class="co">#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt</span></a>
-<a class="sourceLine" id="cb9-83" title="83"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379</span></a>
-<a class="sourceLine" id="cb9-84" title="84"><span class="co">#&gt;        CILower    CIUpper</span></a>
-<a class="sourceLine" id="cb9-85" title="85"><span class="co">#&gt; 1 -0.005089627 0.02679926</span></a>
+<a class="sourceLine" id="cb9-82" title="82"><span class="co">#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
+<a class="sourceLine" id="cb9-83" title="83"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
+<a class="sourceLine" id="cb9-84" title="84"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb9-85" title="85"><span class="co">#&gt; 1 0.02679926</span></a>
 <a class="sourceLine" id="cb9-86" title="86"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb9-87" title="87"><span class="co">#&gt; $ciAvgRdrEachTrtRRFC</span></a>
 <a class="sourceLine" id="cb9-88" title="88"><span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span></a>
@@ -406,10 +412,10 @@
 <code>ciDiffTrtRRRC</code> is the 95% confidence interval of reader-averaged differences between treatments.</li>
 </ul>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">ret<span class="op">$</span>ciDiffTrtRRRC</a>
-<a class="sourceLine" id="cb17-2" title="2"><span class="co">#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt</span></a>
-<a class="sourceLine" id="cb17-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379</span></a>
-<a class="sourceLine" id="cb17-4" title="4"><span class="co">#&gt;        CILower    CIUpper</span></a>
-<a class="sourceLine" id="cb17-5" title="5"><span class="co">#&gt; 1 -0.005089627 0.02679926</span></a></code></pre></div>
+<a class="sourceLine" id="cb17-2" title="2"><span class="co">#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb17-5" title="5"><span class="co">#&gt; 1 0.02679926</span></a></code></pre></div>
 <ul>
 <li>
 <code>ciAvgRdrEachTrtRRRC</code> is the 95% confidence interval of reader-averaged FOMs for each treatments.</li>
@@ -459,10 +465,10 @@
 <code>ciDiffTrtFRRC</code> is the 95% CI of reader-average differences between treatments for fixed-reader random-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">ret<span class="op">$</span>ciDiffTrtFRRC</a>
-<a class="sourceLine" id="cb23-2" title="2"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt</span></a>
-<a class="sourceLine" id="cb23-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697</span></a>
-<a class="sourceLine" id="cb23-4" title="4"><span class="co">#&gt;       CILower    CIUpper</span></a>
-<a class="sourceLine" id="cb23-5" title="5"><span class="co">#&gt; 1 -0.02484675 0.04655638</span></a></code></pre></div>
+<a class="sourceLine" id="cb23-2" title="2"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower</span></a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span></a>
+<a class="sourceLine" id="cb23-4" title="4"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb23-5" title="5"><span class="co">#&gt; 1 0.04655638</span></a></code></pre></div>
 <ul>
 <li>
 <code>ret$ciAvgRdrEachTrtFRRC</code> is the 95% CI of reader-average FOMs of each treatment for fixed-reader random-case analysis</li>
@@ -493,10 +499,10 @@
 <code>ciDiffTrtFRRC</code> is the CI for reader-averaged treatment differences, for fixed-reader random-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">ret<span class="op">$</span>ciDiffTrtFRRC</a>
-<a class="sourceLine" id="cb26-2" title="2"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt</span></a>
-<a class="sourceLine" id="cb26-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697</span></a>
-<a class="sourceLine" id="cb26-4" title="4"><span class="co">#&gt;       CILower    CIUpper</span></a>
-<a class="sourceLine" id="cb26-5" title="5"><span class="co">#&gt; 1 -0.02484675 0.04655638</span></a></code></pre></div>
+<a class="sourceLine" id="cb26-2" title="2"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower</span></a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span></a>
+<a class="sourceLine" id="cb26-4" title="4"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb26-5" title="5"><span class="co">#&gt; 1 0.04655638</span></a></code></pre></div>
 </div>
 </div>
 <div id="random-reader-fixed-case-rrfc-analysis" class="section level3">
@@ -532,10 +538,10 @@
 <code>ciDiffTrtRRFC</code> is the CI for reader-averaged inter-treatment FOM differences for random-reader fixed-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">ret<span class="op">$</span>ciDiffTrtRRFC</a>
-<a class="sourceLine" id="cb30-2" title="2"><span class="co">#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt</span></a>
-<a class="sourceLine" id="cb30-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379</span></a>
-<a class="sourceLine" id="cb30-4" title="4"><span class="co">#&gt;        CILower    CIUpper</span></a>
-<a class="sourceLine" id="cb30-5" title="5"><span class="co">#&gt; 1 -0.005089627 0.02679926</span></a></code></pre></div>
+<a class="sourceLine" id="cb30-2" title="2"><span class="co">#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
+<a class="sourceLine" id="cb30-4" title="4"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb30-5" title="5"><span class="co">#&gt; 1 0.02679926</span></a></code></pre></div>
 <ul>
 <li>
 <code>ciAvgRdrEachTrtRRFC</code> is the CI for treatment FOMs for each reader for random-reader fixed-case analysis</li>
@@ -552,7 +558,7 @@
 <a href="#orh-significance-testing" class="anchor"></a>ORH significance testing</h2>
 <p>Simply change <code>method = "DBMH"</code> to <code>method = "ORH"</code>.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>)</a>
-<a class="sourceLine" id="cb32-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ret)</a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(ret)</a>
 <a class="sourceLine" id="cb32-3" title="3"><span class="co">#&gt; List of 14</span></a>
 <a class="sourceLine" id="cb32-4" title="4"><span class="co">#&gt;  $ fomArray            : num [1:2, 1:4] 0.853 0.85 0.865 0.844 0.857 ...</span></a>
 <a class="sourceLine" id="cb32-5" title="5"><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></a>
@@ -677,17 +683,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

@@ -16,13 +16,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -45,6 +47,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -71,7 +74,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -161,6 +164,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -227,39 +231,40 @@ and reader IDs in the original data file will be used.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/ROC/rocCr.xlsx"</span>,
+    <pre class="examples"><div class='input'><span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/ROC/rocCr.xlsx"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/FROC/frocSp.xlsx"</span>,
+<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/FROC/frocSp.xlsx"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 {
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/FROC/frocCr.xlsx"</span>,
+<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/FROC/frocCr.xlsx"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/FROC/frocOld.xlsx"</span>,
-<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='kw pkg'>testthat</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/testthat/topics/equality-expectations'>expect_equal</a></span>(<span class='no'>x</span>,<span class='no'>x1</span>)
-}</div><div class='input'><span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"RocData.xlsx"</span>,
+<span class='kw pkg'>testthat</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/testthat/man/equality-expectations.html'>expect_equal</a></span>(<span class='no'>x</span>,<span class='no'>x1</span>)
+}
+
+<span class='co'># \donttest{</span>
+<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"RocData.xlsx"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>RocDataXlsx</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>)
 
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"RocData.csv"</span>,
+<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"RocData.csv"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>RocDataCsv</span><span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"MRMC"</span>)
 
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"RocData.imrmc"</span>,
+<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"RocData.imrmc"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>RocDataImrmc</span><span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"iMRMC"</span>)
 
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"FrocData.xlsx"</span>,
+<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"FrocData.xlsx"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>FrocDataXlsx</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>sequentialNames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='input'>
-</div></pre>
+<span class='no'>FrocDataXlsx</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>sequentialNames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -274,19 +279,23 @@ and reader IDs in the original data file will be used.</p></td>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

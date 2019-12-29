@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method • RJafroc</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -38,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -127,13 +128,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2019-12-22</h4>
+            <h4 class="date">2019-12-29</h4>
       
       
       <div class="hidden name"><code>Ch11Vig4SampleSize.Rmd</code></div>
@@ -149,11 +151,11 @@
 </div>
 <div id="illustration-of-sspowergivenjk-using-method-orh" class="section level2">
 <h2 class="hasAnchor">
-<a href="#illustration-of-sspowergivenjk-using-method-orh" class="anchor"></a>Illustration of <code><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK()</a></code> using <code>method = "ORH"</code>
+<a href="#illustration-of-sspowergivenjk-using-method-orh" class="anchor"></a>Illustration of <code>SsPowerGivenJK()</code> using <code>method = "ORH"</code>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">power &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(dataset02, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">J =</span> <span class="dv">6</span>, <span class="dt">K =</span> <span class="dv">251</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a></code></pre></div>
 <p>The returned value is a <code>list</code> containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic (the numerator degrees of freedom is always one less than the number of treatments, i.e., unity in this example).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(power)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(power)</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; 'data.frame':    1 obs. of  4 variables:</span></a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt;  $ powerRRRC: num 0.801</span></a>
 <a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;  $ ncpRRRC  : num 8.91</span></a>
@@ -163,7 +165,7 @@
 </div>
 <div id="illustration-of-sspowertable-using-method-orh" class="section level2">
 <h2 class="hasAnchor">
-<a href="#illustration-of-sspowertable-using-method-orh" class="anchor"></a>Illustration of <code><a href="../reference/SsPowerTable.html">SsPowerTable()</a></code> using <code>method = "ORH"</code>
+<a href="#illustration-of-sspowertable-using-method-orh" class="anchor"></a>Illustration of <code>SsPowerTable()</code> using <code>method = "ORH"</code>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">powTab &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerTable.html">SsPowerTable</a></span>(dataset02, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a></code></pre></div>
 <p>Now show the power table <code>powTab</code>.</p>
@@ -369,14 +371,14 @@
 </div>
 <div id="illustrations-of-sssamplesizekgivenj-using-method-orh" class="section level2">
 <h2 class="hasAnchor">
-<a href="#illustrations-of-sssamplesizekgivenj-using-method-orh" class="anchor"></a>Illustrations of <code><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ()</a></code> using <code>method = "ORH"</code>
+<a href="#illustrations-of-sssamplesizekgivenj-using-method-orh" class="anchor"></a>Illustrations of <code>SsSampleSizeKGivenJ()</code> using <code>method = "ORH"</code>
 </h2>
 <div id="for-rrrc-generalization" class="section level3">
 <h3 class="hasAnchor">
 <a href="#for-rrrc-generalization" class="anchor"></a>For RRRC generalization</h3>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">ncases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(dataset02, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a></code></pre></div>
 <p><code>ncases</code> is a list containing the number of cases <code>ncases$KRRRC</code> and expected power <code>ncases$powerRRRC</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ncases)</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(ncases)</a>
 <a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt; 'data.frame':    1 obs. of  2 variables:</span></a>
 <a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt;  $ KRRRC    : num 163</span></a>
 <a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt;  $ powerRRRC: num 0.802</span></a></code></pre></div>
@@ -403,9 +405,9 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#illustration-of-sspowergivenjk-using-method-orh">Illustration of <code><a href="--/reference/SsPowerGivenJK-html">SsPowerGivenJK()</a></code> using <code>method = "ORH"</code></a></li>
-      <li><a href="#illustration-of-sspowertable-using-method-orh">Illustration of <code><a href="--/reference/SsPowerTable-html">SsPowerTable()</a></code> using <code>method = "ORH"</code></a></li>
-      <li><a href="#illustrations-of-sssamplesizekgivenj-using-method-orh">Illustrations of <code><a href="--/reference/SsSampleSizeKGivenJ-html">SsSampleSizeKGivenJ()</a></code> using <code>method = "ORH"</code></a></li>
+      <li><a href="#illustration-of-sspowergivenjk-using-method-orh">Illustration of <code>SsPowerGivenJK()</code> using <code>method = "ORH"</code></a></li>
+      <li><a href="#illustration-of-sspowertable-using-method-orh">Illustration of <code>SsPowerTable()</code> using <code>method = "ORH"</code></a></li>
+      <li><a href="#illustrations-of-sssamplesizekgivenj-using-method-orh">Illustrations of <code>SsSampleSizeKGivenJ()</code> using <code>method = "ORH"</code></a></li>
       </ul>
 </div>
       </div>
@@ -413,17 +415,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

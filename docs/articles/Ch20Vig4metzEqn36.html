@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 20, Vignette 4: Metz Eqn36 numerical check • RJafroc</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Chapter 20, Vignette 4: Metz Eqn36 numerical check">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -38,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -127,13 +128,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Chapter 20, Vignette 4: Metz Eqn36 numerical check</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2019-12-22</h4>
+            <h4 class="date">2019-12-29</h4>
       
       
       <div class="hidden name"><code>Ch20Vig4metzEqn36.Rmd</code></div>
@@ -156,19 +158,19 @@
 <a class="sourceLine" id="cb1-5" title="5">    da  &lt;-<span class="st">  </span>d_a1[i,j]</a>
 <a class="sourceLine" id="cb1-6" title="6">    ret &lt;-<span class="st"> </span><span class="kw">GetLimits</span>(da,C)</a>
 <a class="sourceLine" id="cb1-7" title="7">    LL &lt;-<span class="st"> </span>ret<span class="op">$</span>LL;UL &lt;-<span class="st"> </span>ret<span class="op">$</span>UL</a>
-<a class="sourceLine" id="cb1-8" title="8">    vc  &lt;-<span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span> (LL, UL, <span class="dt">length.out =</span> npts)</a>
+<a class="sourceLine" id="cb1-8" title="8">    vc  &lt;-<span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span> (LL, UL, <span class="dt">length.out =</span> npts)</a>
 <a class="sourceLine" id="cb1-9" title="9">    TPF  &lt;-<span class="st">  </span><span class="kw">TruePositiveFraction</span> (vc, da, C)</a>
 <a class="sourceLine" id="cb1-10" title="10">    FPF &lt;-<span class="st"> </span><span class="kw">FalsePositiveFraction</span> (vc, da, C)</a>
-<a class="sourceLine" id="cb1-11" title="11">    FPF &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rev">rev</a></span>(FPF);TPF &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rev">rev</a></span>(TPF)</a>
-<a class="sourceLine" id="cb1-12" title="12">    df2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF)</a>
+<a class="sourceLine" id="cb1-11" title="11">    FPF &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rev.html">rev</a></span>(FPF);TPF &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rev.html">rev</a></span>(TPF)</a>
+<a class="sourceLine" id="cb1-12" title="12">    df2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF)</a>
 <a class="sourceLine" id="cb1-13" title="13">    <span class="co"># do integral numerically</span></a>
 <a class="sourceLine" id="cb1-14" title="14">    numAuc &lt;-<span class="st"> </span><span class="kw">trapz</span>(FPF, TPF)</a>
 <a class="sourceLine" id="cb1-15" title="15">    <span class="co"># Implement Eqn. 36 from Metz-Pan paper </span></a>
-<a class="sourceLine" id="cb1-16" title="16">    rho &lt;-<span class="st"> </span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>C<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>C<span class="op">^</span><span class="dv">2</span>);sigma &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">rbind</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, rho), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(rho, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb1-17" title="17">    lower &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="op">-</span><span class="ot">Inf</span>,<span class="dv">2</span>);upper &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span>da<span class="op">/</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">sqrt</a></span>(<span class="dv">2</span>),<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb1-18" title="18">    aucProproc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">pnorm</a></span>(da<span class="op">/</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">sqrt</a></span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pmvnorm</span>(lower, upper, <span class="dt">sigma =</span> sigma)</a>
-<a class="sourceLine" id="cb1-19" title="19">    aucProproc &lt;-<span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric">as.numeric</a></span>(aucProproc)</a>
-<a class="sourceLine" id="cb1-20" title="20">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"i = "</span>, i,<span class="st">"j = "</span>, j,<span class="st">"C = "</span>, C, <span class="st">", da = "</span>, da, <span class="st">"aucProproc ="</span>, aucProproc, <span class="st">"Norm. Diff. = "</span>, (aucProproc<span class="op">-</span>numAuc)<span class="op">/</span>aucProproc,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb1-16" title="16">    rho &lt;-<span class="st"> </span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>C<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>C<span class="op">^</span><span class="dv">2</span>);sigma &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, rho), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(rho, <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb1-17" title="17">    lower &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="op">-</span><span class="ot">Inf</span>,<span class="dv">2</span>);upper &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span>da<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="dv">2</span>),<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1-18" title="18">    aucProproc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(da<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pmvnorm</span>(lower, upper, <span class="dt">sigma =</span> sigma)</a>
+<a class="sourceLine" id="cb1-19" title="19">    aucProproc &lt;-<span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(aucProproc)</a>
+<a class="sourceLine" id="cb1-20" title="20">    <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"i = "</span>, i,<span class="st">"j = "</span>, j,<span class="st">"C = "</span>, C, <span class="st">", da = "</span>, da, <span class="st">"aucProproc ="</span>, aucProproc, <span class="st">"Norm. Diff. = "</span>, (aucProproc<span class="op">-</span>numAuc)<span class="op">/</span>aucProproc,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
 <a class="sourceLine" id="cb1-21" title="21">  }</a>
 <a class="sourceLine" id="cb1-22" title="22">}</a>
 <a class="sourceLine" id="cb1-23" title="23"><span class="co">#&gt; i =  1 j =  1 C =  -0.1322804 , da =  1.197239 aucProproc = 0.8014164 Norm. Diff. =  3.520017e-08 </span></a>
@@ -204,17 +206,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

@@ -2,6 +2,7 @@
 
 ## Extended dataset object structure
 * Additional members added 12/27/2019 by DPC
+* Ann discovered bug in code: does not handle single reader properly
 * Make it easier to correlate the NL and LL values with those in the Excel file and catch data entry errors in `DfReadDataFile()`
    + design = design,
    +  normalCases = normalCases,
