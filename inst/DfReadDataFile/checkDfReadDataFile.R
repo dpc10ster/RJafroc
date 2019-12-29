@@ -1,3 +1,4 @@
+rm(list = ls())
 ###########################################################################
 rocSp <- system.file("extdata", "toyFiles/ROC/rocSp.xlsx",
 package = "RJafroc", mustWork = TRUE)
@@ -55,7 +56,7 @@ frocCr <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx",
                       package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(frocCr, newExcelFileFormat = TRUE)
 
-frocOld <- system.file("extdata", "toyFiles/FROC/frocOld.xlsx", 
+frocOld <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx", 
                        package = "RJafroc", mustWork = TRUE)
 x1 <- DfReadDataFile(frocOld, newExcelFileFormat = FALSE)
 testthat::expect_equal(x,x1)

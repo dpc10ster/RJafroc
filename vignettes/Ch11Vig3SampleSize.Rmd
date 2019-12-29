@@ -2,7 +2,7 @@
 title: "Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 vignette: >
   %\VignetteIndexEntry{ROC sample size using DBMH}
   %\VignetteEngine{knitr::rmarkdown}

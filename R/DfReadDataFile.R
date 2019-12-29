@@ -40,8 +40,6 @@
 #' package = "RJafroc", mustWork = TRUE)
 #' x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 #' 
-#' fileName <- system.file("extdata", "toyFiles/FROC/frocOld.xlsx",
-#' package = "RJafroc", mustWork = TRUE)
 #' x1 <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
 #' testthat::expect_equal(x,x1)
 #' }

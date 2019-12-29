@@ -2,7 +2,7 @@
 title: "Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 bibliography: myRefs.bib
 fig_caption: yes
 fig.width: 4

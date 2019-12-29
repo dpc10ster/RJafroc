@@ -76,21 +76,16 @@ checkTruthTable <- function (truthTable)
     x <- sort(trimws(unlist(strsplit(truthTable$ReaderID,split = ","))))
     for (j in 1:J) readerIDArray[j,] <- x[((j-1)*L + 1):(j*L)]
     readerIDUnique <- unique(readerIDArray)
-    
-    modalityIDArray <- array(dim = c(I,L))
-    x <- sort(trimws(unlist(strsplit(truthTable$ModalityID,split = ","))))
-    for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]
-    modalityIDUnique <- unique(modalityIDArray)
   }
   else {
     J <- length(unique(truthTable$ReaderID))
     readerIDUnique <- unique(readerID)
-    
-    modalityIDArray <- array(dim = c(I,L))
-    x <- sort(trimws(unlist(strsplit(truthTable$ModalityID,split = ","))))
-    for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]
-    modalityIDUnique <- unique(modalityIDArray)
   }
+  
+  modalityIDArray <- array(dim = c(I,L))
+  x <- sort(trimws(unlist(strsplit(truthTable$ModalityID,split = ","))))
+  for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]
+  modalityIDUnique <- unique(modalityIDArray)
   
   lesionIDUnique <- unique(lesionIDCol)
   

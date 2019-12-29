@@ -5,7 +5,7 @@
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "DfReadDataFile",
+        "query" : "frocOld.xlsx",
         "regex" : false
     }
 }

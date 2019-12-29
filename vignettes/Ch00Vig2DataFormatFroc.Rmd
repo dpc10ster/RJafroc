@@ -2,7 +2,7 @@
 title: "Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 bibliography: myRefs.bib
 fig_caption: yes
 fig.width: 4
@@ -21,8 +21,8 @@ vignette: >
 ```
 
 ## Introduction
-* The purpose of this vignette is to explain the data format of the input Excel file for FROC datasets.
-* In the Free-response Receiver Operating Characteristic (FROC) paradigm {[@RN2453] and [@RN2680]} the observer searches each case for signs of **localized disease** and marks and rates localized regions that are sufficiently suspicious for disease presence. 
+* The purpose of this vignette is to explain the data format of the input Excel file for FROC datasets. Details on the FROC paradigm are in my book [@RN2680].
+* In the Free-response Receiver Operating Characteristic (FROC) paradigm [@RN2453] the observer searches each case for signs of **localized disease** and marks and rates localized regions that are sufficiently suspicious for disease presence. 
 * FROC data consists of **mark-rating pairs**, where each mark is a localized-region that was considered sufficiently suspicious for presence of a localized lesion and the rating is the corresponding confidence level. 
 * By adopting a proximity criterion, each mark is classified by the investigator as a lesion localization (`LL`) - if it is close to a real lesion - or a non-lesion localization (`NL`) otherwise. 
 * The observer assigns a rating to each region. The rating, as in the ROC paradigm, can be an integer or quasi-continuous (e.g., 0 – 100), or a floating point value, as long as higher numbers represent greater confidence in presence of a lesion at the indicated region.
@@ -34,19 +34,19 @@ The Excel file has three worsheets. These are named `Truth`, `NL` or `FP` and `L
 
 The `Truth` worksheet contains 6 columns: `CaseID`, `LesionID`, `Weight`, `ReaderID`, `ModalityID` and `Paradigm`. 
 
-* The first five columns contain **at least** as many rows as there are cases (images) in the dataset. 
+* Since a diseased case may have more than one lesion, the first five columns contain **at least** as many rows as there are cases (images) in the dataset. 
 * `CaseID`: unique **integers**, one per case, representing the cases in the dataset. 
 * `LesionID`: integers 0, 1, 2, etc., with each 0 representing a non-diseased case, 1 representing the *first* lesion on a diseased case, 2 representing the second lesion on a diseased case, if present, and so on. 
 * The non-diseased cases are labeled `1`, `2` and `3`, while the diseased cases are labeled `70`, `71`, `72`, `73` and `74`.
-* `Weight`: floating point; 0, for each non-diseased case, or values for each diseased case that add up to unity.  
-* Diseased case `70` has two lesions, with `LesionID`s 1 and 2, and weights 0.3 and 0.7. Diseased case `71` has one lesion, with LesionID 1, and weight 1. Diseased case `72` has three lesions, with `LesionID`s 1, 2 and 3 and weights 1/3 each. Diseased case `73` has two lesions, with `LesionID`s 1, and 2 and weights 0.1 and 0.9. Diseased case `74` has one lesion, with `LesionID` 1 and weight 1.
-* `ReaderID`: a comma-separated listing of readers, each represented by a unique **integer**, that have interpreted the case. In the example shown below each cell has the value `0, 1, 2`. **Each cell has to be text formatted.**
-* `ModalityID`: a comma-separated listing of modalities (or treatments), each represented by a unique **integer**, that apply to each case. In the example each cell has the value `0, 1`. **Each cell has to be text formatted.**
-* `Paradigm`: In the example shown below, the contents are `FROC` and `crossed`. It informs the software that this is an FROC dataset and the design is "crossed", as in **Vignette #1**.
-* There are 5 diseased cases in the dataset (the number of 1's in the `LesionID` column of the `Truth` worksheet). 
 * There are 3 non-diseased cases in the dataset (the number of 0's in the `LesionID` column).
+* There are 5 diseased cases in the dataset (the number of 1's in the `LesionID` column of the `Truth` worksheet). 
 * There are 3 readers in the dataset (each cell in the `ReaderID` column contains `0, 1, 2`).
 * There are 2 modalities in the dataset (each cell in the `ModalityID` column contains `0, 1`).
+* `Weight`: floating point; 0, for each non-diseased case, or values for each diseased case that add up to unity.  
+* Diseased case `70` has two lesions, with `LesionID`s 1 and 2, and weights 0.3 and 0.7. Diseased case `71` has one lesion, with `LesionID` = 1, and `Weight` = 1. Diseased case `72` has three lesions, with `LesionID`s 1, 2 and 3 and weights 1/3 each. Diseased case `73` has two lesions, with `LesionID`s 1, and 2 and weights 0.1 and 0.9. Diseased case `74` has one lesion, with `LesionID` = 1 and `Weight` = 1.
+* `ReaderID`: a comma-separated listing of readers, each represented by a unique **integer**, that have interpreted the case. In the example shown below each cell has the value `0, 1, 2`. **Each cell has to be text formatted. Otherwise Excel will not accept it.**
+* `ModalityID`: a comma-separated listing of modalities (or treatments), each represented by a unique **integer**, that apply to each case. In the example each cell has the value `0, 1`. **Each cell has to be text formatted.**
+* `Paradigm`: In the example shown below, the contents are `FROC` and `crossed`. It informs the software that this is an `FROC` dataset and the design is "crossed", as in **Vignette #1**.
 
 ![](images/frocCrTruth.png){width=100%}
 
@@ -70,7 +70,7 @@ x$lesionID
 ```             
 
 * This shows that the lesions on the first diseased case are labeled 1 and 2. The `-Inf` is a filler used to denote a missing value. The second diseased case has one lesion labeled 1. The third diseased case has three lesions labeled 1, 2 and 3, etc.
-* The `lesionWeight` member is the clinical importance of each lesion. Lacking specific clinical reasons, the lesions should be equally weighted, as is *not* true for this dataset.
+* The `lesionWeight` member is the clinical importance of each lesion. Lacking specific clinical reasons, the lesions should be equally weighted; this is *not* true for this toy dataset.
 
 ```{r}
 x$lesionWeight
@@ -93,7 +93,7 @@ These are found in the `FP` or `NL` worksheet, see below.
 * Rows 21 and 22 show that `caseID` = 71 got two `NL` marks, rated `r x$NL[2,3,5,1:2]`. 
 * That this is the *only* case with two marks determines the length of the fourth dimension of the `x$NL` list member, `r length(x$NL[1,1,1,])` in the current example. Absent this case, the length would have been one.
 * In general, the case with the most `NL` marks determines the length of the fourth dimension of the `x$NL` list member.
-* The reader should convince oneself that the ratings in `x$NL` reflect the contents of the FP worksheet.
+* The reader should convince oneself that the ratings in `x$NL` reflect the contents of the `FP` worksheet.
 
 ## The true positive (TP) ratings
 These are found in the `TP` or `LL` worksheet, see below.
@@ -101,17 +101,11 @@ These are found in the `TP` or `LL` worksheet, see below.
 ![](images/frocCrLL.png){width=100%}
 
 * This worksheet can only have diseased cases. The presence of a non-diseased case in this worksheet will generate an error.
-* Again, the common vertical length, 10 in this example, is a-priori unpredictable. Given the structure of the `Truth` worsheet for this dataset, the maximum length would be 9 times 2 times 3, assuming every lesion is marked (for each modality, reader and diseased case). The 9 comes from the total number of non-zero entries in the `LesionID` column of the `Truth` worksheet.
+* The common vertical length, 31 in this example, is a-priori unpredictable. Given the structure of the `Truth` worsheet for this dataset, the maximum length would be 9 times 2 times 3, assuming every lesion is marked for each modality, reader and diseased case. The 9 comes from the total number of non-zero entries in the `LesionID` column of the `Truth` worksheet.
 * The fact that the length is smaller than the maximum length means that there are combinations of modality, reader and diseased cases on which some lesions were not marked.
-* As an example, the solitary lesion of `CaseID` equal to `70` was marked (and rated `r x$LL[1,1,1,1]`) in `ModalityID` `0` and `ReaderID` `0`, but not in `ModalityID` `1` and `ReaderID` `0`. 
+* As an example, the first lesion in `CaseID` equal to `70` was marked (and rated `r x$LL[1,1,1,1]`) in `ModalityID` `0` and `ReaderID` `0`. 
 * The length of the fourth dimension of the `x$LL` list member, `r length(x$LL[1,1,1,])` in the present example, is determined by the diseased case with the most lesions in the `Truth` worksheet.
-
-```{r}
-x$LL[1,1,1,1]
-x$LL[2,1,1,1]
-length(x$LL[1,1,1,])
-```             
-
+* The reader should convince oneself that the ratings in `x$LL` reflect the contents of the `TP` worksheet.
 
 ## Summary  
 * The FROC dataset has far less regularity in structure as compared to an ROC dataset.

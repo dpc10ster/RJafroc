@@ -353,10 +353,9 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
   }
   
   NLReaderID <- as.character(NLTable[[1]])
-  
   NLModalityID <- as.character(NLTable[[2]])
-  
   NLCaseID <- NLTable[[3]]
+  
   if (any(!(NLCaseID %in% caseID))) {
     naCases <- NLCaseID[which(!(NLCaseID %in% caseID))]
     errorMsg <- paste0("Case(s) ", paste(unique(naCases), collapse = ", "), " in the FP table cannot be found in TRUTH table.")
@@ -412,7 +411,7 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
   }
   
   lesionVector  <- as.vector(table(caseID[caseID %in% abnormalCases]))
-
+  
   lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector )))
   lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionVector )))
   
@@ -530,7 +529,12 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
   
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
-  truthTableStr <- array(1, dim = c(I, J, K, length(unique(lesionID))))
+  
+  truthTableStr <- array(dim = c(I, J, K, length(unique(lesionID))))
+  truthTableStr[,,1:K1,1] <- 1
+  for (k2 in 1:K2) {
+      truthTableStr[,,k2+K1,(1:lesionVector[k2])+1] <- 1
+  }
   
   return(list(
     NL = NL, 
@@ -539,9 +543,13 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
     lesionID = lesionIDTable, 
     lesionWeight = lesionWeight, 
     dataType = fileType, 
-    design = "CROSSED",
     modalityID = modalityID, 
     readerID = readerID,
+    # these are the additional members added 12/27/2019 by DPC
+    # makes it easier to correlate the NL and LL values with those in the Excel file
+    design = "CROSSED", # default when using old read function
+    normalCases = normalCases,
+    abnormalCases = abnormalCases,
     truthTableStr = truthTableStr))
 } 
 

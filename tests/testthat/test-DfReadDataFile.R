@@ -24,17 +24,6 @@ test_that("DfReadDataFile toy ROC datasets", {
     saveRDS(temp, file = fn)
   }
   
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
-  ##expect_error(DfReadDataFile(fileName, newExcelFileFormat = FALSE)) NOOOOO!
-  # instructive comment ...
-  # reading a split plot ROC dataset with newExcelFileFormat = FALSE 
-  # incorrectly yields an FROC dataset
-  dsx <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
-  dsx <- dsx[-6] # delete the data type FROC
-  ds <- ds[-6]# delete the data type ROC
-  expect_equal(dsx, ds)
-  
   ## The failed checks apply to the Truth Sheet only
   fileName <- system.file(
     "extdata", "/toyFiles/ROC/missing2CellsRow5and7.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -92,7 +81,7 @@ test_that("DfReadDataFile toy FROC datasets", {
   expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
   
   fileName <- system.file(
-    "extdata", "/toyFiles/FROC/frocOld.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
   
   expect_equal(DfReadDataFile(fileName, newExcelFileFormat = FALSE), ds)
   
