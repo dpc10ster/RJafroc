@@ -3,9 +3,9 @@
         "caseSensitive" : true,
         "filePatterns" : [
         ],
-        "path" : "/vignettes",
+        "path" : "",
         "projectRelative" : true,
-        "query" : "author:",
+        "query" : "frocOld.xlsx",
         "regex" : false
     }
 }

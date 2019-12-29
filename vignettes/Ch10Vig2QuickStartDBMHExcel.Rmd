@@ -2,7 +2,7 @@
 title: "Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 vignette: >
   %\VignetteIndexEntry{Quick Start}
   %\VignetteEngine{knitr::rmarkdown}

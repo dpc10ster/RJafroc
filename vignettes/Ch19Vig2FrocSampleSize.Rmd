@@ -2,7 +2,7 @@
 title: "Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 bibliography: myRefs.bib
 vignette: >
   %\VignetteIndexEntry{FROC sample size 2}

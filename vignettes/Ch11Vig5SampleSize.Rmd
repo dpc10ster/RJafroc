@@ -2,7 +2,7 @@
 title: "Chapter 11, Vignette 5: On choosing a realistic effect size"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 bibliography: myRefs.bib
 vignette: >
   %\VignetteIndexEntry{ROC sample size}

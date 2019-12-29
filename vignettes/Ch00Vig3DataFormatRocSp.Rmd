@@ -2,7 +2,7 @@
 title: "Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 bibliography: myRefs.bib
 fig_caption: yes
 fig.width: 4
@@ -55,12 +55,60 @@ str(x)
 ```             
 
 * Flag `newExcelFileFormat` **must** be set to `TRUE` for split plot data. 
-* The dataset object `x` is a `list` variable with 8 members. 
-* Note that the `dataType` member is `r x$dataType`. 
+* The dataset object `x` is a `list` variable with `r length(x)` members. 
 * There are 15 diseased cases in the dataset (the number of 1's in the `LesionID` column of the `Truth` worksheet) and 15 non-diseased cases (the number of 0's in the `LesionID` column). 
+* `x$NL`, with dimension [2, 3, 30, 1], contains the ratings of normal cases. The extra values in the third dimension, filled with `NAs`, are needed for compatibility with FROC datasets.
+* `x$LL`, with dimension [2, 3, 15, 1], contains the ratings of abnormal cases.
 * The `x$lesionVector` member is a vector with 15 ones representing the 15 diseased cases in the dataset. 
 * The `x$lesionID` member is an array with 15 ones (this member is needed for compatibility with FROC datasets).
 * The `x$lesionWeight` member is an array with 15 ones (this member is needed for compatibility with FROC datasets).
+* The `dataType` member is `r x$dataType` which specifies the data collection method ("ROC", "FROC", "LROC" or "ROI"). 
+* The `x$modalityID` member is a vector with two elements `"1"` and `"2"`, naming the two modalities. 
+* The `x$readerID` member is a vector with three elements `"1"`, `"4"` and `"5"`, naming the three modalities. 
+* The `x$design` member is `r x$design`; specifies the dataset design, which can be either "CROSSED" or "SPLIT-PLOT". 
+* The `x$normalCases` member lists the names of the normal cases, `r x$normalCases`. 
+* The `x$abnormalCases` member lists the names of the abnormal cases, `r x$abnormalCases`. 
+* The `x$truthTableStr` member quantifies the structure of the dataset, as explained next. **It is used in the `DfReadDataFile()` function to check for data entry errors.**
+
+## The `truthTableStr` member 
+* This is a `2 x 3 x 30 x 2` array, i.e., I x J x K x (maximum number of lesions per case plus 1). The `plus 1 ` is needed to accommodate normal cases with `lesionID` = 0. 
+* Each entry in this array is either `1`, meaning the corresponding interpretation exists, or `NA`,  meaning the corresponding interpretation does not exist. 
+* For example, `x$truthTableStr[1,1,1,1]` is `r x$truthTableStr[1,1,1,1]`. This means that an interpretation exists for the first treatment (`modalityID` = 1), first reader (`readerID` = 1) and first (normal) case (`caseID` = 6 and `lesionID` = 0). This example corresponds to row 2 in the `TRUTH` worksheet.
+* The following shows that the first reader interprets the first five normal cases in both modalities. 
+
+```{r}
+x$truthTableStr[,1,1:15,1]
+```             
+
+* In the following all elements are `NA` because normal cases correspond to lesionID = 1. 
+
+```{r}
+x$truthTableStr[,1,1:15,2]
+```             
+
+* The following shows that the second reader interprets the next group of five normal cases, indexed 6 through 10, in both modalities. 
+
+```{r}
+x$truthTableStr[,2,1:15,1]
+```             
+
+* The following shows that the third reader interprets the next group of five normal cases, indexed 11 through 15, in both modalities. 
+
+```{r}
+x$truthTableStr[,3,1:15,1]
+```             
+
+* The following shows that the first reader interprets the first group of five abnormal cases, indexed 16 through 20, in both modalities. 
+
+```{r}
+x$truthTableStr[,1,16:30,2]
+```             
+
+* In the following all elements are `NA` because abnormal cases correspond to `lesionID` = 2.
+
+```{r}
+x$truthTableStr[,1,16:30,1]
+```             
 
 ## The false positive (FP) ratings
 These are found in the `FP` or `NL` worksheet, see below.

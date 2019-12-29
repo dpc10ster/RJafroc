@@ -40,8 +40,6 @@
 #' package = "RJafroc", mustWork = TRUE)
 #' x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 #' 
-#' fileName <- system.file("extdata", "toyFiles/FROC/frocOld.xlsx",
-#' package = "RJafroc", mustWork = TRUE)
 #' x1 <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
 #' testthat::expect_equal(x,x1)
 #' }
@@ -111,21 +109,20 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   # this way it does not matter where it is, i.e., 1st, 2nd or 3rd tab position in the workbook
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (length(truthFileIndex) == 0) stop("TRUTH table worksheet cannot be found in the Excel file.")
-  TruthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:6)
-  truth <- checkTruthTable(TruthTable) 
+  truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:6)
+  truth <- checkTruthTable(truthTable) 
   
-  TruthTableStr <- truth$TruthTableStr
-  TruthDataType <- truth$dataType
-  TruthCaseID <-  truth$caseID # these need not be unique for FROC datasets
-  paradigm <- truth$paradigm
+  truthTableStr <- truth$truthTableStr
+  truthCaseID <-  truth$caseID # these need not be unique for FROC datasets
+  dataType <- truth$dataType
   design <- truth$design
   lesionWeight <- truth$lesionWeight
   lesionVector <- truth$lesionVector
-  lesionIDLabels <- truth$lesionIDLabels
   lesionID <- truth$lesionID
+  lesionIDCol <- truth$lesionIDCol
   normalCases <- truth$normalCases
   abnormalCases <- truth$abnormalCases
-
+  
   allCases <- c(normalCases, abnormalCases)
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
@@ -165,13 +162,13 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   NLCaseIDColumn <- NLTable[[3]]
   NLRatingColumn <- NLTable[[4]]
   
-  if (any(!(NLCaseIDColumn %in% TruthCaseID))) {
-    naCases <- NLCaseIDColumn[which(!(NLCaseIDColumn %in% TruthCaseID))]
+  if (any(!(NLCaseIDColumn %in% truthCaseID))) {
+    naCases <- NLCaseIDColumn[which(!(NLCaseIDColumn %in% truthCaseID))]
     errorMsg <- paste0("Case(s) ", paste(unique(naCases), collapse = ", "), 
                        " in the FP table cannot be found in TRUTH table.")
     stop(errorMsg)
   }
-
+  
   ########################### CHECK LL TABLE ################################
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (length(llFileIndex) == 0) stop("TP/LL table worksheet cannot be found in the Excel file.")
@@ -204,7 +201,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   LLRatingColumn <- LLTable[[5]]
   
   for (i in 1:nrow(LLTable)) {
-    lineNum <- which((TruthCaseID == LLCaseIDColumn[i]) & (lesionID == LLLesionIDColumn[i]))
+    lineNum <- which((truthCaseID == LLCaseIDColumn[i]) & (lesionIDCol == LLLesionIDColumn[i]))
     if (!length(lineNum)) {
       errorMsg <- paste0("Modality ", LLTable[i, 2], 
                          " Reader(s) ", LLTable[i, 1], 
@@ -214,20 +211,13 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     }
   }
   
-  # if (any(!(LLCaseIDColumn %in% TruthCaseID))) {
-  #   naCases <- LLCaseIDColumn[which(!(LLCaseIDColumn %in% TruthCaseID))]
-  #   errorMsg <- paste0("Case(s) ", paste(unique(naCases), collapse = ", "), 
-  #                      " in the TP table cannot be found in TRUTH table.")
-  #   stop(errorMsg)
-  # }
-  # 
   if (any(LLCaseIDColumn %in% normalCases)) {
     errorMsg <- paste0("Normal case(s) found in TP table.")
     stop(errorMsg)
   }
   
   for (i in 1:nrow(LLTable)) {
-    lineNum <- which((TruthCaseID == LLCaseIDColumn[i]) & (lesionID == LLLesionIDColumn[i]))
+    lineNum <- which((truthCaseID == LLCaseIDColumn[i]) & (lesionIDCol == LLLesionIDColumn[i]))
     if (!length(lineNum)) {
       errorMsg <- paste0("Modality ", LLTable[i, 2], " Reader(s) ", 
                          LLTable[i, 1], " Case(s) ", LLTable[i, 3], " Lesion(s) ", 
@@ -245,7 +235,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
                        " have multiple ratings in TP table .")
     stop(errorMsg)
   }
-
+  
   modalityIDUnique <- as.character(sort(unique(c(NLModalityIDColumn, LLModalityIDColumn))))
   I <- length(modalityIDUnique)
   readerIDUnique <- as.character(sort(unique(c(NLReaderIDColumn, LLReaderIDColumn))))
@@ -272,8 +262,13 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
       caseNLTable <- table(NLCaseIDColumn[casePresent_ij]) 
       caseIDs_ij <- as.numeric(unlist(attr(caseNLTable, "dimnames")))
       for (k1 in 1:length(caseIDs_ij)) {
-        if (TruthTableStr[i,j,which(caseIDs_ij[k1] == allCases),1] != 1) # ,1: for normal cases, the fourth dimension is lesionID = 0, which occupies the first position
-          stop("incorrect TruthCaseID in NL/FP worksheet")
+        if (caseIDs_ij[k1] %in% normalCases) {
+          if (truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 1] != 1) # ,1: for normal cases, the fourth dimension is lesionIDCol = 0, which occupies the first position
+            stop("incorrect truthCaseID in NL/FP worksheet")
+        } else if (caseIDs_ij[k1] %in% abnormalCases) {
+          if (truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 2] != 1) # ,1: for normal cases, the fourth dimension is lesionIDCol = 0, which occupies the first position
+            stop("incorrect truthCaseID in NL/FP worksheet")
+        } else stop("Should never get here")
         for (el in 1:caseNLTable[k1]) {
           NL[i, j, which(caseIDs_ij[k1] == allCases), el] <- 
             NLRatingColumn[casePresent_ij][which(NLCaseIDColumn[casePresent_ij] == 
@@ -294,13 +289,13 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
       caseLLTable <- table(LLCaseIDColumn[casePresent_ij])
       caseIDs_ij <- as.numeric(unlist(attr(caseLLTable, "dimnames")))
       for (k2 in 1:length(caseIDs_ij)) {
+        k2p <- which(caseIDs_ij[k2] == abnormalCases)
+        x2 <- which(LLCaseIDColumn[casePresent_ij] == caseIDs_ij[k2])
+        x3 <- lesionID[k2p, ]
         for (el in 1:caseLLTable[k2]) {
-          k2p <- which(caseIDs_ij[k2] == abnormalCases)
-          x2 <- which(LLCaseIDColumn[casePresent_ij] == caseIDs_ij[k2])
-          x3 <- lesionIDLabels[k2p, ]
           elp <- which(LLLesionIDColumn[casePresent_ij][x2][el] == x3)
-          if (TruthTableStr[i,j,which(caseIDs_ij[k2] == allCases),elp+1] != 1) # elp+1 because lesionID = 0 occupies first position, etc.
-            stop("incorrect TruthCaseID in LL/TP worksheet")
+          if (truthTableStr[i,j,which(caseIDs_ij[k2] == allCases),elp+1] != 1) # elp+1 because lesionIDCol = 0 occupies first position, etc.
+            stop("incorrect truthCaseID in LL/TP worksheet")
           LL[i, j, k2p, elp] <- LLRatingColumn[casePresent_ij][x2][el]
         }
       }
@@ -308,10 +303,10 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   }
   LL[is.na(LL)] <- UNINITIALIZED
   lesionWeight[is.na(lesionWeight)] <- UNINITIALIZED
-  lesionID[is.na(lesionID)] <- UNINITIALIZED
+  lesionIDCol[is.na(lesionIDCol)] <- UNINITIALIZED
   
-  if (paradigm == "ROC" && design != "SPLIT-PLOT") {
-    if (!(((max(table(TruthCaseID)) == 1) && (maxNL == 1)) 
+  if (dataType == "ROC" && design == "CROSSED") {
+    if (!(((max(table(truthCaseID)) == 1) && (maxNL == 1)) 
           && (all((NL[, , (K1 + 1):K, ] == UNINITIALIZED))) 
           && (all((NL[, , 1:K1, ] != UNINITIALIZED)))
           && (all((LL[, , 1:K2, ] != UNINITIALIZED))))) {
@@ -330,14 +325,21 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   names(modalityIDUnique) <- modalityNames
   names(readerIDUnique) <- readerNames
   
-  return(list(NL = NL, 
-              LL = LL, 
-              lesionVector = lesionVector,
-              lesionID = lesionIDLabels, 
-              lesionWeight = lesionWeight, 
-              dataType = TruthDataType, 
-              modalityID = modalityIDUnique, 
-              readerID = readerIDUnique))
+  return(list(
+    NL = NL, 
+    LL = LL, 
+    lesionVector = lesionVector,
+    lesionID = lesionID, 
+    lesionWeight = lesionWeight, 
+    dataType = dataType, 
+    modalityID = modalityIDUnique, 
+    readerID = readerIDUnique,
+    # these are the additional members added 12/27/2019 by DPC
+    # makes it easier to correlate the NL and LL values with those in the Excel file
+    design = design,
+    normalCases = normalCases,
+    abnormalCases = abnormalCases,
+    truthTableStr = truthTableStr))
 } 
 
 

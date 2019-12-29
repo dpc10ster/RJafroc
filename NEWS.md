@@ -1,5 +1,14 @@
 # RJafroc 1.2.0.9000
 
+## Extended dataset object structure
+* Additional members added 12/27/2019 by DPC
+* Make it easier to correlate the NL and LL values with those in the Excel file and catch data entry errors in `DfReadDataFile()`
+   + design = design,
+   +  normalCases = normalCases,
+   +  abnormalCases = abnormalCases,
+   +  truthTableStr = truthTableStr
+* Need to update all datasets and check all occurences where `DfReadDataFile()` is used
+
 ## Split plot dataset
 * Modifications to `DfReadDataFile()` to allow for split plot datasets completed.
 * Must use `newExcelFileFormat = TRUE` as otherwise the code defaults to the old Excel format.
@@ -11,7 +20,8 @@
 * Corrected error in old DfReadDataFile function.
 * Passes R CMD check with file size note.
 
-## Error in MS_TC noted by Erin Greco
+## Error in MS_TC corrected
+* Noted by Erin Greco
 * The missing "-1": `UtilMeanSquares()` line 88 `msTC <- msTC * J/((I - 1) * (Ktemp - 1))` has been corrected
 * Reset goodValues values in `test-StSignificance-testing.R` at line 128
 

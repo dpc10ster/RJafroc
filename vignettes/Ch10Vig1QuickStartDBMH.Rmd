@@ -2,7 +2,7 @@
 title: "Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 bibliography: myRefs.bib
 vignette: >
   %\VignetteIndexEntry{Quick Start: Running DBMH-ORH analysis}
