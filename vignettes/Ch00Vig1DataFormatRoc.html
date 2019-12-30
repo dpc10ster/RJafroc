@@ -396,8 +396,8 @@ summary {
 <li><code>LesionID</code>: integers 0 or 1, with each 0 representing a non-diseased case and each 1 representing a diseased case.</li>
 <li>In the current toy dataset, the non-diseased cases are labeled <code>1</code>, <code>2</code> and <code>3</code>, while the diseased cases are labeled <code>70</code>, <code>71</code>, <code>72</code>, <code>73</code> and <code>74</code>. The values do not have to be consecutive integers; they need not be ordered; the only requirement is that they be <strong>unique integers</strong>.</li>
 <li><code>Weight</code>: Not used for ROC data, a floating point value, typically filled in with 0 or 1.</li>
-<li><code>ReaderID</code>: a comma-separated listing of reader labels, each represented by a <strong>unique integer</strong>, that have interpreted the case. In the example shown below each cell has the value <code>0, 1, 2, 3, 4</code> meaning that each of these readers has interpreted all cases (hence the “crossed” design). <strong>Each cell has to be text formatted. Otherwise Excel will not accept it.</strong></li>
-<li><code>ModalityID</code>: a comma-separated listing of modalities (or treatments), each represented by a <strong>unique integer</strong>, that apply to each case. In the example each cell has the value <code>0, 1</code>. <strong>Each cell has to be text formatted.</strong></li>
+<li><code>ReaderID</code>: a <strong>comma-separated</strong> listing of reader labels (one or more readers), each represented by a <strong>unique integer</strong>, that have interpreted the case. In the example shown below each cell has the value <code>0, 1, 2, 3, 4</code> meaning that each of these readers has interpreted all cases (hence the “crossed” design). <strong>With multiple readers each cell in this column has to be text formatted as otherwise Excel will not accept it.</strong></li>
+<li><code>ModalityID</code>: a comma-separated listing of modalities (two or more modalities), each represented by a <strong>unique integer</strong>, that are applied to each case. In the example each cell has the value <code>0, 1</code>. <strong>Each cell has to be text formatted.</strong></li>
 <li><code>Paradigm</code>: this column contains two cells, <code>ROC</code> and <code>crossed</code>. It informs the software that this is an ROC dataset, and the design is crossed, meaning each reader has interpreted each case in each modality (in statistical terminology: modality and reader factors are “crossed”).</li>
 <li>There are 5 diseased cases in the dataset (the number of 1’s in the <code>LesionID</code> column of the <code>Truth</code> worksheet).</li>
 <li>There are 3 non-diseased cases in the dataset (the number of 0’s in the <code>LesionID</code> column).</li>
@@ -500,6 +500,52 @@ str(x)
 <li>The value of <code>x$LL[1,2,2,1]</code>, i.e., 3, corresponds to row 8 of the TP table, i.e., to <code>ModalityID</code> = 0, <code>ReaderID</code> = 1 and <code>CaseID</code> = 71.</li>
 <li>There are no -Inf values in <code>x$LL</code>: <code>any(x$LL == -Inf)</code> = FALSE.</li>
 </ul>
+</div>
+<div id="correspondence-using-the-which-function" class="section level2">
+<h2>Correspondence using the <code>which</code> function</h2>
+<ul>
+<li>Converting from <strong>names</strong> to integer-indices (indicating position in an array) can be confusing.</li>
+<li>The following example uses the <code>which</code> function to help out.</li>
+<li>The first line says that the <code>abnormalCase</code> named 70 corresponds to position (or index) 1 in the LL array case dimension.</li>
+<li>The second line prints the NL rating for <code>modalityID</code> = 0, <code>readerID</code> = 1 and <code>normalCase</code> = 1.</li>
+<li>The third line prints the LL rating for <code>modalityID</code> = 0, <code>readerID</code> = 1 and <code>abnormalCase</code> = 70.</li>
+<li>The last line shows what happens if one enters an invalid value for the name; the result is a <code>numeric(0)</code>.</li>
+<li>The reader is encouraged to examine the correspondence between the NL and LL ratings and the Excel file using this method.</li>
+</ul>
+<pre class="r"><code>which(x$abnormalCases == 70)
+#&gt; [1] 1
+x$NL[which(x$modalityID == &quot;0&quot;),which(x$readerID == &quot;1&quot;),which(x$normalCases == 1),1]
+#&gt; [1] 2
+x$LL[which(x$modalityID == &quot;0&quot;),which(x$readerID == &quot;1&quot;),which(x$abnormalCases == 70),1]
+#&gt; [1] 5
+x$LL[which(x$modalityID == &quot;a&quot;),which(x$readerID == &quot;1&quot;),which(x$abnormalCases == 70),1]
+#&gt; numeric(0)</code></pre>
+</div>
+<div id="a-single-reader-dataset" class="section level2">
+<h2>A single reader dataset</h2>
+<ul>
+<li>A single reader dataset is allowed.</li>
+<li>A single reader treatment is <strong>not</strong> allowed.</li>
+</ul>
+<pre class="r"><code>rocCr1R &lt;- system.file(&quot;extdata&quot;, &quot;toyFiles/ROC/rocCr1R.xlsx&quot;,
+                        package = &quot;RJafroc&quot;, mustWork = TRUE)
+x &lt;- DfReadDataFile(rocCr1R, newExcelFileFormat = TRUE)
+str(x)
+#&gt; List of 12
+#&gt;  $ NL           : num [1:2, 1, 1:8, 1] 2 3 3 2 2 ...
+#&gt;  $ LL           : num [1:2, 1, 1:5, 1] 5 5 3 3 5 5 5 5 5 5
+#&gt;  $ lesionVector : int [1:5] 1 1 1 1 1
+#&gt;  $ lesionID     : num [1:5, 1] 1 1 1 1 1
+#&gt;  $ lesionWeight : num [1:5, 1] 1 1 1 1 1
+#&gt;  $ dataType     : chr &quot;ROC&quot;
+#&gt;  $ modalityID   : Named chr [1:2] &quot;0&quot; &quot;1&quot;
+#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;0&quot; &quot;1&quot;
+#&gt;  $ readerID     : Named chr &quot;1&quot;
+#&gt;   ..- attr(*, &quot;names&quot;)= chr &quot;1&quot;
+#&gt;  $ design       : chr &quot;CROSSED&quot;
+#&gt;  $ normalCases  : int [1:3] 1 2 3
+#&gt;  $ abnormalCases: int [1:5] 70 71 72 73 74
+#&gt;  $ truthTableStr: num [1:2, 1, 1:8, 1:2] 1 1 1 1 1 1 NA NA NA NA ...</code></pre>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2>References</h2>

@@ -1,22 +1,22 @@
+# assign("last.warning", NULL, envir = baseenv())
+
 rm(list = ls())
 ###########################################################################
 rocCr1R <- system.file("extdata", "toyFiles/ROC/rocCr1R.xlsx",
                         package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(rocCr1R, newExcelFileFormat = TRUE)
 
-rocSp <- system.file("extdata", "toyFiles/ROC/rocSp.xlsx",
-package = "RJafroc", mustWork = TRUE)
-x <- DfReadDataFile(rocSp, newExcelFileFormat = TRUE)
-
 rocCr <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",
-                        package = "RJafroc", mustWork = TRUE)
+                     package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(rocCr, newExcelFileFormat = TRUE)
-
-# assign("last.warning", NULL, envir = baseenv())
 
 x1 <- DfReadDataFile(rocCr, newExcelFileFormat = FALSE)
 testthat::expect_equal(x, x1)
 rm(x1)
+
+rocSp <- system.file("extdata", "toyFiles/ROC/rocSp.xlsx",
+package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(rocSp, newExcelFileFormat = TRUE)
 
 msngCell <- system.file("extdata", "toyFiles/ROC/missing1CellRow5.xlsx", 
                       package = "RJafroc", mustWork = TRUE)
