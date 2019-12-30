@@ -40,7 +40,7 @@ The `Truth` worksheet contains 6 columns: `CaseID`, `LesionID`, `Weight`, `Reade
 * In the current toy dataset, the non-diseased cases are labeled `1`, `2` and `3`, while the diseased cases are labeled `70`, `71`, `72`, `73` and `74`. The values do not have to be consecutive integers; they need not be ordered; the only requirement is that they be **unique integers**.
 * `Weight`: Not used for ROC data, a floating point value, typically filled in with 0 or 1. 
 * `ReaderID`: a **comma-separated** listing of reader labels (one or more readers), each represented by a **unique integer**, that have interpreted the case. In the example shown below each cell has the value `0, 1, 2, 3, 4` meaning that each of these readers has interpreted all cases (hence the "crossed" design). **With multiple readers each cell in this column has to be text formatted as otherwise Excel will not accept it.**
-* `ModalityID`: a comma-separated listing of modalities (two or more modalities), each represented by a **unique integer**, that are applied to each case. In the example each cell has the value `0, 1`. **Each cell has to be text formatted.**
+* `ModalityID`: a comma-separated listing of modalities (one or more modalities), each represented by a **unique integer**, that are applied to each case. In the example each cell has the value `0, 1`. **With multiple modalities each cell has to be text formatted as otherwise Excel will not accept it.**
 * `Paradigm`: this column contains two cells, `ROC` and `crossed`. It informs the software that this is an ROC dataset, and the design is crossed, meaning each reader has interpreted each case in each modality (in statistical terminology: modality and reader factors are "crossed"). 
 * There are 5 diseased cases in the dataset (the number of 1's in the `LesionID` column of the `Truth` worksheet). 
 * There are 3 non-diseased cases in the dataset (the number of 0's in the `LesionID` column).
@@ -137,9 +137,6 @@ x$LL[which(x$modalityID == "a"),which(x$readerID == "1"),which(x$abnormalCases =
 
 
 ## A single reader dataset 
-
-* A single reader dataset is allowed.
-* A single reader treatment is **not** allowed.
 
 ```{r}
 rocCr1R <- system.file("extdata", "toyFiles/ROC/rocCr1R.xlsx",
