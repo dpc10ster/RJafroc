@@ -113,8 +113,9 @@ checkTruthTable <- function (truthTable)
     for (j in 1:J) readerIDArray[j,] <- readerIDUnique[j]
   }
  
-  # assuming >1 modalities for each reader: balanced data
-  # following code will break with single modality dataset
+  # assuming > 1 modalities for each reader: balanced data
+  # following code should break with single modality dataset
+  # but it does not; go figure
   modalityIDArray <- array(dim = c(I,L))
   x <- sort(trimws(unlist(strsplit(truthTable$ModalityID,split = ","))))
   for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]

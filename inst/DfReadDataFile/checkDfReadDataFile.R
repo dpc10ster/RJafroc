@@ -6,6 +6,11 @@ rocCr1R <- system.file("extdata", "toyFiles/ROC/rocCr1R.xlsx",
                         package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(rocCr1R, newExcelFileFormat = TRUE)
 
+rocCr1T <- system.file("extdata", "toyFiles/ROC/rocCr1T.xlsx",
+                       package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(rocCr1T, newExcelFileFormat = TRUE)
+#testthat::expect_error(DfReadDataFile(rocCr1T, newExcelFileFormat = TRUE)) # ??
+
 rocCr <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",
                      package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(rocCr, newExcelFileFormat = TRUE)
@@ -59,6 +64,11 @@ testthat::expect_error(DfReadDataFile(rocSpText, newExcelFileFormat = TRUE))
 frocCr1R <- system.file("extdata", "toyFiles/FROC/frocCr1R.xlsx",
                         package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(frocCr1R, newExcelFileFormat = TRUE)
+
+frocCr1T <- system.file("extdata", "toyFiles/FROC/frocCr1T.xlsx",
+                       package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(frocCr1T, newExcelFileFormat = TRUE)
+#testthat::expect_error(DfReadDataFile(frocCr1T, newExcelFileFormat = TRUE)) # ??
 
 frocCr <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx", 
                       package = "RJafroc", mustWork = TRUE)
