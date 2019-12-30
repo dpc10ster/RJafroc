@@ -176,10 +176,10 @@
 <li>
 <code>Weight</code>: Not used for ROC data, a floating point value, typically filled in with 0 or 1.</li>
 <li>
-<code>ReaderID</code>: a comma-separated listing of reader labels, each represented by a <strong>unique integer</strong>, that have interpreted the case. In the example shown below each cell has the value <code>0, 1, 2, 3, 4</code> meaning that each of these readers has interpreted all cases (hence the “crossed” design). <strong>Each cell has to be text formatted. Otherwise Excel will not accept it.</strong>
+<code>ReaderID</code>: a <strong>comma-separated</strong> listing of reader labels (one or more readers), each represented by a <strong>unique integer</strong>, that have interpreted the case. In the example shown below each cell has the value <code>0, 1, 2, 3, 4</code> meaning that each of these readers has interpreted all cases (hence the “crossed” design). <strong>With multiple readers each cell in this column has to be text formatted as otherwise Excel will not accept it.</strong>
 </li>
 <li>
-<code>ModalityID</code>: a comma-separated listing of modalities (or treatments), each represented by a <strong>unique integer</strong>, that apply to each case. In the example each cell has the value <code>0, 1</code>. <strong>Each cell has to be text formatted.</strong>
+<code>ModalityID</code>: a comma-separated listing of modalities (one or more modalities), each represented by a <strong>unique integer</strong>, that are applied to each case. In the example each cell has the value <code>0, 1</code>. <strong>With multiple modalities each cell has to be text formatted as otherwise Excel will not accept it.</strong>
 </li>
 <li>
 <code>Paradigm</code>: this column contains two cells, <code>ROC</code> and <code>crossed</code>. It informs the software that this is an ROC dataset, and the design is crossed, meaning each reader has interpreted each case in each modality (in statistical terminology: modality and reader factors are “crossed”).</li>
@@ -302,6 +302,50 @@
 <li>There are no -Inf values in <code>x$LL</code>: <code><a href="https://rdrr.io/r/base/any.html">any(x$LL == -Inf)</a></code> = FALSE.</li>
 </ul>
 </div>
+<div id="correspondence-using-the-which-function" class="section level2">
+<h2 class="hasAnchor">
+<a href="#correspondence-using-the-which-function" class="anchor"></a>Correspondence using the <code>which</code> function</h2>
+<ul>
+<li>Converting from <strong>names</strong> to integer-indices (indicating position in an array) can be confusing.</li>
+<li>The following example uses the <code>which</code> function to help out.</li>
+<li>The first line says that the <code>abnormalCase</code> named 70 corresponds to position (or index) 1 in the LL array case dimension.</li>
+<li>The second line prints the NL rating for <code>modalityID</code> = 0, <code>readerID</code> = 1 and <code>normalCase</code> = 1.</li>
+<li>The third line prints the LL rating for <code>modalityID</code> = 0, <code>readerID</code> = 1 and <code>abnormalCase</code> = 70.</li>
+<li>The last line shows what happens if one enters an invalid value for the name; the result is a <code><a href="https://rdrr.io/r/base/numeric.html">numeric(0)</a></code>.</li>
+<li>The reader is encouraged to examine the correspondence between the NL and LL ratings and the Excel file using this method.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(x<span class="op">$</span>abnormalCases <span class="op">==</span><span class="st"> </span><span class="dv">70</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; [1] 1</span></a>
+<a class="sourceLine" id="cb2-3" title="3">x<span class="op">$</span>NL[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(x<span class="op">$</span>modalityID <span class="op">==</span><span class="st"> "0"</span>),<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(x<span class="op">$</span>readerID <span class="op">==</span><span class="st"> "1"</span>),<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(x<span class="op">$</span>normalCases <span class="op">==</span><span class="st"> </span><span class="dv">1</span>),<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt; [1] 2</span></a>
+<a class="sourceLine" id="cb2-5" title="5">x<span class="op">$</span>LL[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(x<span class="op">$</span>modalityID <span class="op">==</span><span class="st"> "0"</span>),<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(x<span class="op">$</span>readerID <span class="op">==</span><span class="st"> "1"</span>),<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(x<span class="op">$</span>abnormalCases <span class="op">==</span><span class="st"> </span><span class="dv">70</span>),<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; [1] 5</span></a>
+<a class="sourceLine" id="cb2-7" title="7">x<span class="op">$</span>LL[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(x<span class="op">$</span>modalityID <span class="op">==</span><span class="st"> "a"</span>),<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(x<span class="op">$</span>readerID <span class="op">==</span><span class="st"> "1"</span>),<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(x<span class="op">$</span>abnormalCases <span class="op">==</span><span class="st"> </span><span class="dv">70</span>),<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt; numeric(0)</span></a></code></pre></div>
+</div>
+<div id="a-single-reader-dataset" class="section level2">
+<h2 class="hasAnchor">
+<a href="#a-single-reader-dataset" class="anchor"></a>A single reader dataset</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">rocCr1R &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"toyFiles/ROC/rocCr1R.xlsx"</span>,</a>
+<a class="sourceLine" id="cb3-2" title="2">                        <span class="dt">package =</span> <span class="st">"RJafroc"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb3-3" title="3">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(rocCr1R, <span class="dt">newExcelFileFormat =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(x)</a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt; List of 12</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;  $ NL           : num [1:2, 1, 1:8, 1] 2 3 3 2 2 ...</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;  $ LL           : num [1:2, 1, 1:5, 1] 5 5 3 3 5 5 5 5 5 5</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt;  $ lesionVector : int [1:5] 1 1 1 1 1</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;  $ lesionID     : num [1:5, 1] 1 1 1 1 1</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;  $ lesionWeight : num [1:5, 1] 1 1 1 1 1</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt;  $ dataType     : chr "ROC"</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt;  $ modalityID   : Named chr [1:2] "0" "1"</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "0" "1"</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt;  $ readerID     : Named chr "1"</span></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="co">#&gt;   ..- attr(*, "names")= chr "1"</span></a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt;  $ design       : chr "CROSSED"</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="co">#&gt;  $ normalCases  : int [1:3] 1 2 3</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="co">#&gt;  $ abnormalCases: int [1:5] 70 71 72 73 74</span></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="co">#&gt;  $ truthTableStr: num [1:2, 1, 1:8, 1:2] 1 1 1 1 1 1 NA NA NA NA ...</span></a></code></pre></div>
+</div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
@@ -329,6 +373,8 @@
       <li><a href="#the-true-positive-tp-ratings">The true positive (TP) ratings</a></li>
       <li><a href="#correspondence-between-nl-member-of-dataset-and-the-fp-worksheet">Correspondence between <code>NL</code> member of dataset and the <code>FP</code> worksheet</a></li>
       <li><a href="#correspondence-between-ll-member-of-dataset-and-the-tp-worksheet">Correspondence between <code>LL</code> member of dataset and the <code>TP</code> worksheet</a></li>
+      <li><a href="#correspondence-using-the-which-function">Correspondence using the <code>which</code> function</a></li>
+      <li><a href="#a-single-reader-dataset">A single reader dataset</a></li>
       <li><a href="#references">References</a></li>
       </ul>
 </div>
