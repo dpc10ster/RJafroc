@@ -61,6 +61,10 @@ rocSpText <- system.file("extdata", "toyFiles/ROC/rocSpText.xlsx",
 testthat::expect_error(DfReadDataFile(rocSpText, newExcelFileFormat = TRUE))
 
 ###########################################################################
+frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormalCasesFirst.xlsx",
+                        package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = TRUE)
+
 frocCr1R <- system.file("extdata", "toyFiles/FROC/frocCr1R.xlsx",
                         package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(frocCr1R, newExcelFileFormat = TRUE)

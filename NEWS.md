@@ -1,8 +1,12 @@
 # RJafroc 1.2.0.9000
 
 ## Extended dataset object structure
+* Lost `development` branch while using `GitHub`; decided to do `Git` manually
+* Why is `.gitignore` not working?
 * Additional members added 12/27/2019 by DPC
 * Ann discovered bug in code: does not handle single reader properly
+* Ann uncovered another bug in code: did not handle diseased cases first in Excel Truth sheet
+* Both bugs have been fixed 
 * Make it easier to correlate the NL and LL values with those in the Excel file and catch data entry errors in `DfReadDataFile()`
    + design = design,
    +  normalCases = normalCases,

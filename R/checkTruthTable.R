@@ -67,7 +67,7 @@ checkTruthTable <- function (truthTable)
   }
   if (errorMsg != "") stop(errorMsg)
   
-  lesionIDUnique <- unique(lesionIDCol)
+  lesionIDUnique <- sort(unique(lesionIDCol)) # fix to bug when abnormal cases occur first
   
   lesionVector <- as.vector(table(caseID[caseID %in% abnormalCases]))
   lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector)))
@@ -121,22 +121,22 @@ checkTruthTable <- function (truthTable)
   for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]
   modalityIDUnique <- unique(modalityIDArray)
   
-  truthTableStr <- array(dim = c(I, J, K, length(unique(lesionIDCol))))
+  truthTableStr <- array(dim = c(I, J, K, length(lesionIDUnique)))
   for (i in 1:I) {
     for (j in 1:J) {
-      for (el in unique(lesionIDCol)) { 
-        el1 <- which(unique(lesionIDCol) == el)
+      for (el in lesionIDUnique) { 
+        el1 <- which(lesionIDUnique == el)
         if (!isReaderIDArray) {
           casePresent_ij <- (
             (modalityIDArray[i,] == modalityIDUnique[i]) & 
               (readerID == readerIDUnique[j]) &
-              (lesionIDCol == unique(lesionIDCol)[el1])
+              (lesionIDCol == lesionIDUnique[el1])
           )
         } else {
           casePresent_ij <- (
             (modalityIDArray[i,] == modalityIDUnique[i]) & 
               (readerIDArray[j,] == readerIDUnique[j]) &
-              (lesionIDCol == unique(lesionIDCol)[el1])
+              (lesionIDCol == lesionIDUnique[el1])
           )
         }
         if ((sum(casePresent_ij) == 0)) next 

@@ -28,17 +28,25 @@
 #'    lesion distribution for diseased cases. The first column contains the 
 #'    actual numbers of lesions per case. The second column contains the fraction 
 #'    of diseased cases with the number of lesions specified in the first column. 
-#'    The second column must sum to unity. 
+#'    The second column must sum to unity. See \link{UtilLesionDistribution}. 
 #' 
-#' @param lesWghtDistr Array, [1:maxLL,1:maxLL]. The probability mass function of the 
-#'    lesion weights for diseased cases. The 1st row contains the weight of the 
-#'    lesion on cases with one lesion only, necessarily 1; the remaining elements 
+#' @param lesWghtDistr The lesion weights distribution, an [1:maxLL,1:maxLL] array. 
+#'    The probability mass function of the 
+#'    lesion weights for diseased cases. \code{maxLL} is the maximum number of lesions in
+#'    the dataset. The 1st row contains the weight of the 
+#'    lesion on cases with one lesion only, necessarily 1, assuming the dataset 
+#'    has cases with only one lesion; the remaining elements 
 #'    of the row are \code{-Inf}. The 2nd row contains the weights of the 2 lesions 
 #'    on cases with 2 lesions only, the remaining elements of the row, if any, 
-#'    are \code{-Inf}. Excluding the \code{-Inf}, each row must sum to 1. 
-#'    The default is equal weighting, e.g., weights are 1/3, 1/3, 1/3 on row 3.
-#'    This parameter is not to be confused with the lesWghtDistr field in an FROC
-#'    dataset with enumerates the weights of lesions on individual cases. 
+#'    are \code{-Inf}, assuming the dataset 
+#'    has cases with two lesion. Excluding the \code{-Inf}, each row must sum to 1. 
+#'    The default is equal weighting, e.g., weights are 1/3, 1/3, 1/3 on row 3, 
+#'    assuming the dataset has cases with three lesions.
+#'    This parameter is not to be confused with the lesionWeight list member in an FROC
+#'    dataset which enumerates the weights of lesions on individual cases. See 
+#'    \link{UtilLesionWeightsDistr}.
+#' 
+#'    \link{UtilLesionWeightsDistr}. 
 #' 
 #' @param type The type of operating characteristic desired: can be "\code{ROC}", 
 #'    "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or "\code{pdfs}" or "\code{ALL}". 
@@ -234,14 +242,13 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   wAFROCDashes <- data.frame(FPF = NULL, wLLF= NULL, Treatment = NULL)
   abnPDFPoints <- data.frame(pdf = NULL, highestZSample = NULL, Treatment = NULL)
   norPDFPoints <- data.frame(pdf = NULL, highestZSample = NULL, Treatment = NULL)
-  aucROC <- rep(NA, length(mu))
-  aucAFROC <- aucROC
-  aucwAFROC <- aucROC
-  aucFROC <- aucROC
-  lambdaP <- lambda
+  aucROC <- rep(NA, length(mu));aucAFROC <- aucROC;aucwAFROC <- aucROC;aucFROC <- aucROC;lambdaP <- lambda
   nuP <- nu
+  
   for (i in 1:length(mu)){
-    if (nu[i] < 0 ) stop("nu must be non-negative")
+    if (mu[i] <= 0 ) stop("mu must be greater than zero")
+    if (lambda[i] < 0 ) stop("lambda must be greater than zero")
+    if (nu[i] < 0 ) stop("nu must be greater than zero")
     
     lambdaP[i] <- lambda[i] / mu[i]
     if (abs(nu[i] * mu[i]) <= 1e-6 ) nuP[i] <- 1e-6 else nuP[i] <- (1-exp(-nu[i] * mu[i]))
@@ -420,7 +427,7 @@ intAFROC <- function(FPF, mu, lambdaP, nuP){
 }
 
 ywAFROC <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
-  # returns wLLFL, the ordinate of wAFROC curve
+  # returns wLLF, the ordinate of wAFROC curve
   fl <- lesDistr[, 2] / sum(lesDistr[, 2])
   wLLF <- 0
   for (L in 1:nrow(lesDistr)){
@@ -428,9 +435,9 @@ ywAFROC <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
     # nLesion is the first element in the row L of lesDistr, 
     # which is the number of lesions for this lesion weights distributions condition
     wLLFTmp <- 0
-    for (l in 1:nLesion){
-      # l is the number of sucesses with number of lesions nLesion
-      wLLFTmp <- wLLFTmp + sum(lesWghtDistr[L, 1:l]) * dbinom(l, nLesion, nuP) * (1 - pnorm(zeta - mu))
+    for (el in 1:nLesion){
+      # el is the number of sucesses with number of lesions = nLesion
+      wLLFTmp <- wLLFTmp + sum(lesWghtDistr[L, 1:el]) * dbinom(el, nLesion, nuP) * (1 - pnorm(zeta - mu))
       
     }
     wLLF <- wLLF + fl[L] * wLLFTmp
