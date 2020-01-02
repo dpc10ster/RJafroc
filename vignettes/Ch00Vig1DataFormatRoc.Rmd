@@ -21,7 +21,7 @@ vignette: >
 ```
 
 ## Introduction
-* The purpose of this vignette is to explain the data format of the input Excel file and to introduce the capabilities of the function `DfReadDataFile()`. Background on observer performance methods are in my book [@RN2680]}.
+* The purpose of this vignette is to explain the data format of the input Excel file and to introduce the capabilities of the function `DfReadDataFile()`. Background on observer performance methods are in my book [@RN2680].
 * I will start with Receiver Operating Characteristic (ROC) data [@RN1766] as this is by far the simplest paradigm.
 * In the ROC paradigm the observer assigns a rating to each image. A rating is an ordered numeric label, and, in our convention, higher values represent greater certainty or **confidence level** for presence of disease. With human observers, a 5 (or 6) point rating scale is typically used, with 1 representing highest confidence for *absence* of disease and 5 (or 6) representing highest confidence for *presence* of disease. Intermediate values represent intermediate confidence levels for presence or absence of disease. 
 * Note that location information, if applicable, associated with the disease, is not collected. 

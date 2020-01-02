@@ -21,7 +21,12 @@
 UtilLesionDistribution <- function(dataset)
 {  
   lesionVector <- dataset$lesionVector
-  lesDistr <- table(lesionVector)
+  nLes <- sort(unique(lesionVector))
+  lesDistr1 <- table(lesionVector)
+  lesDistr <- matrix(-Inf, nrow = max(lesionVector), ncol = 2)
+  for (i in nLes) {
+    lesDistr[i,1] <- attributes(lesDistr1)
+  }
   if (length(lesDistr) == 1) {
     lesDistr <- c(lesionVector[1], 1)
     dim(lesDistr) <- c(1, 2)

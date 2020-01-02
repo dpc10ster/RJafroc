@@ -30,10 +30,12 @@
 UtilLesionWeightsDistr <- function(dataset)
 { 
   lesDistr <- UtilLesionDistribution(dataset)
-  lesWghtDistr <- matrix(-Inf, nrow = nrow(lesDistr), ncol = nrow(lesDistr))
-  for (row in 1:nrow(lesDistr)){
+  dim1 <- max(lesDistr[,1])
+  lesWghtDistr <- matrix(-Inf, nrow = dim1, ncol = dim1)
+  for (row in 1:
+       length(lesDistr[,1])){
     nLes <- lesDistr[row, 1]
-    lesWghtDistr[row, 1:nLes] <- 1/nLes
+    lesWghtDistr[nLes, 1:nLes] <- 1/nLes
   }
   return(lesWghtDistr)
 }
