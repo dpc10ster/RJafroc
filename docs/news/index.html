@@ -119,6 +119,9 @@
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
     </li>
     <li>
+      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
+    </li>
+    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
@@ -179,8 +182,12 @@
 <h2 class="hasAnchor">
 <a href="#extended-dataset-object-structure" class="anchor"></a>Extended dataset object structure</h2>
 <ul>
+<li>Lost <code>development</code> branch while using <code>GitHub</code>; decided to do <code>Git</code> manually</li>
+<li>Why is <code>.gitignore</code> not working?</li>
 <li>Additional members added 12/27/2019 by DPC</li>
 <li>Ann discovered bug in code: does not handle single reader properly</li>
+<li>Ann uncovered another bug in code: did not handle diseased cases first in Excel Truth sheet</li>
+<li>Both bugs have been fixed</li>
 <li>Make it easier to correlate the NL and LL values with those in the Excel file and catch data entry errors in <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code>
 <ul>
 <li>design = design,</li>
@@ -239,7 +246,8 @@
 <li>
 <code><a href="../reference/SsFrocNhRsmModel.html">SsFrocNhRsmModel()</a></code>: constructs an RSM-based model, which allows one to relate an ROC effect size to a wAFROC effect size, and returns parameters of model to allow FOM estimation for ROC and wAFROC. Following functions are used to calculate the lesion distribution and lesion weights arrays:</li>
 <li>
-<code>UtilLesionDistribution</code>:</li>
+<code>UtilLesionDistribution</code>: reenamed to <code>UtilnLesionDistr</code>
+</li>
 <li>
 <code>UtilLesionWeightsDistr</code>:</li>
 </ul>

@@ -29,7 +29,7 @@
 #' @export
 UtilLesionWeightsDistr <- function(dataset)
 { 
-  lesDistr <- UtilLesionDistribution(dataset)
+  lesDistr <- UtilLesionDistr(dataset)
   dim1 <- max(lesDistr[,1])
   lesWghtDistr <- matrix(-Inf, nrow = dim1, ncol = dim1)
   for (row in 1:

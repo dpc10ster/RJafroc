@@ -95,23 +95,23 @@ test_that("FitRsmRoc", {
   fn <- paste0(test_path(), "/goodValues361/Fitting/RsmRoc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- FitRsmRoc(dataset02, UtilLesionDistribution(dataset02))[1:8]
+    ret <- FitRsmRoc(dataset02, UtilLesionDistr(dataset02))[1:8]
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(FitRsmRoc(dataset02, UtilLesionDistribution(dataset02))[1:8], ret, tolerance = 1e-6)
+  expect_equal(FitRsmRoc(dataset02, UtilLesionDistr(dataset02))[1:8], ret, tolerance = 1e-6)
   # end of test
 
   fn <- paste0(test_path(), "/goodValues361/Fitting/RsmRocDegenerate", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- FitRsmRoc(datasetDegenerate, UtilLesionDistribution(datasetDegenerate))[1:8]
+    ret <- FitRsmRoc(datasetDegenerate, UtilLesionDistr(datasetDegenerate))[1:8]
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(FitRsmRoc(datasetDegenerate, UtilLesionDistribution(datasetDegenerate))[1:8], ret, tolerance = 1e-6)
+  expect_equal(FitRsmRoc(datasetDegenerate, UtilLesionDistr(datasetDegenerate))[1:8], ret, tolerance = 1e-6)
   # end of test
   
 })

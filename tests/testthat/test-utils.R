@@ -135,31 +135,31 @@ test_that("UtilMeanSquaresDBMH", {
 
 
 
-test_that("UtilLesionDistribution and UtilLesionWeightsDistr", {
+test_that("UtilLesionDistr and UtilLesionWeightsDistr", {
   
   ret <- array(1, dim = c(1,1)) 
   expect_equal(UtilLesionWeightsDistr (dataset02), ret)
   
   ret <- array(c(1, 1), dim = c(1,2)) 
-  expect_equal(UtilLesionDistribution (dataset02), ret)
+  expect_equal(UtilLesionDistr (dataset02), ret)
   
   ret <- array(c(c(1, 0.5), c(-Inf, 0.5)), dim = c(2,2)) 
   expect_equal(UtilLesionWeightsDistr (dataset01), ret)
   
   ret <- array(c(c(1, 2), c(0.93258427, 0.06741573)), dim = c(2,2)) 
-  expect_equal(UtilLesionDistribution (dataset01), ret)
+  expect_equal(UtilLesionDistr (dataset01), ret)
   
   ret <- array(c(c(1, 0.5, 0.333333), c(-Inf, 0.5, 0.333333), c(-Inf, -Inf, 0.333333)), dim = c(3,3)) 
   expect_equal(UtilLesionWeightsDistr (dataset05), ret, tolerance = 1e-6, scale = 1)
   
   ret <- array(c(c(1, 2, 3), c(0.78723404, 0.17021277, 0.04255319)), dim = c(3,2)) 
-  expect_equal(UtilLesionDistribution (dataset05), ret)
+  expect_equal(UtilLesionDistr (dataset05), ret)
   
   ret <- array(c(1, 1), dim = c(1,2))
-  expect_equal(UtilLesionDistribution (datasetCadLroc), ret)
+  expect_equal(UtilLesionDistr (datasetCadLroc), ret)
   
   ret <- array(c(c(1, 2, 3, 4), c(0.125, 0.375, 0.4, 0.1)), dim = c(4,2))
-  expect_equal(UtilLesionDistribution (datasetROI), ret)
+  expect_equal(UtilLesionDistr (datasetROI), ret)
   
 })
 

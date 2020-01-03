@@ -3,5 +3,5 @@ frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormal
                                         package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = TRUE)
 
-lesDistr <- UtilLesionDistribution(x)
+lesDistr <- UtilLesionDistr(x)
 lesWghts <- UtilLesionWeightsDistr(x)

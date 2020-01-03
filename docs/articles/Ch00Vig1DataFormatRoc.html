@@ -87,6 +87,9 @@
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
     </li>
     <li>
+      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
+    </li>
+    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
@@ -135,7 +138,7 @@
       <h1>Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2019-12-29</h4>
+            <h4 class="date">2020-01-02</h4>
       
       
       <div class="hidden name"><code>Ch00Vig1DataFormatRoc.Rmd</code></div>
@@ -148,7 +151,7 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <ul>
-<li>The purpose of this vignette is to explain the data format of the input Excel file and to introduce the capabilities of the function <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code>. Background on observer performance methods are in my book <span class="citation">(Chakraborty 2017)</span>}.</li>
+<li>The purpose of this vignette is to explain the data format of the input Excel file and to introduce the capabilities of the function <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code>. Background on observer performance methods are in my book <span class="citation">(Chakraborty 2017)</span>.</li>
 <li>I will start with Receiver Operating Characteristic (ROC) data <span class="citation">(Metz 1978)</span> as this is by far the simplest paradigm.</li>
 <li>In the ROC paradigm the observer assigns a rating to each image. A rating is an ordered numeric label, and, in our convention, higher values represent greater certainty or <strong>confidence level</strong> for presence of disease. With human observers, a 5 (or 6) point rating scale is typically used, with 1 representing highest confidence for <em>absence</em> of disease and 5 (or 6) representing highest confidence for <em>presence</em> of disease. Intermediate values represent intermediate confidence levels for presence or absence of disease.</li>
 <li>Note that location information, if applicable, associated with the disease, is not collected.</li>

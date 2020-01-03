@@ -133,7 +133,7 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
   for (f in startIndx:endIndx) {
     fileName <- fileNames[f]
     theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects
-    lesDistr <- UtilLesionDistribution(theData) # RSM ROC fitting needs to know lesDistr
+    lesDistr <- UtilLesionDistr(theData) # RSM ROC fitting needs to know lesDistr
     
     # convert to HR ROC data; and remove negative infinities
     rocData <- DfFroc2Roc(theData)

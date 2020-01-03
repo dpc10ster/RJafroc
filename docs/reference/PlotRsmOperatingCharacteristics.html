@@ -127,6 +127,9 @@
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
     </li>
     <li>
+      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
+    </li>
+    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
@@ -228,19 +231,26 @@ the success probability of the binomial distribution(s).</p></td>
 lesion distribution for diseased cases. The first column contains the 
 actual numbers of lesions per case. The second column contains the fraction 
 of diseased cases with the number of lesions specified in the first column. 
-The second column must sum to unity.</p></td>
+The second column must sum to unity. See <a href='UtilnLesionDistr.html'>UtilnLesionDistr</a>.</p></td>
     </tr>
     <tr>
       <th>lesWghtDistr</th>
-      <td><p>Array, [1:maxLL,1:maxLL]. The probability mass function of the 
-lesion weights for diseased cases. The 1st row contains the weight of the 
-lesion on cases with one lesion only, necessarily 1; the remaining elements 
-of the row are <code>-Inf</code>. The 2nd row contains the weights of the 2 lesions 
-on cases with 2 lesions only, the remaining elements of the row, if any, 
-are <code>-Inf</code>. Excluding the <code>-Inf</code>, each row must sum to 1. 
-The default is equal weighting, e.g., weights are 1/3, 1/3, 1/3 on row 3.
-This parameter is not to be confused with the lesWghtDistr field in an FROC
-dataset with enumerates the weights of lesions on individual cases.</p></td>
+      <td><p>The lesion weights distribution, an [1:maxLL,1:maxLL] array. 
+   The probability mass function of the 
+   lesion weights for diseased cases. <code>maxLL</code> is the maximum number of lesions in
+   the dataset. The 1st row contains the weight of the 
+   lesion on cases with one lesion only, necessarily 1, assuming the dataset 
+   has cases with only one lesion; the remaining elements 
+   of the row are <code>-Inf</code>. The 2nd row contains the weights of the 2 lesions 
+   on cases with 2 lesions only, the remaining elements of the row, if any, 
+   are <code>-Inf</code>, assuming the dataset 
+   has cases with two lesion. Excluding the <code>-Inf</code>, each row must sum to 1. 
+   The default is equal weighting, e.g., weights are 1/3, 1/3, 1/3 on row 3, 
+   assuming the dataset has cases with three lesions.
+   This parameter is not to be confused with the lesionWeight list member in an FROC
+   dataset which enumerates the weights of lesions on individual cases. See 
+   <a href='UtilLesionWeightsDistr.html'>UtilLesionWeightsDistr</a>.</p>
+<p><a href='UtilLesionWeightsDistr.html'>UtilLesionWeightsDistr</a>.</p></td>
     </tr>
     <tr>
       <th>type</th>

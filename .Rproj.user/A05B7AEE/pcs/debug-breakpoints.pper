@@ -1,6 +1,21 @@
 {
     "debugBreakpointsState" : {
         "breakpoints" : [
+            {
+                "editor_line_number" : 294,
+                "editor_state" : 1,
+                "function_name" : "PlotRsmOperatingCharacteristics",
+                "function_steps" : "28,4,15,3,2",
+                "id" : 9,
+                "is_package_breakpoint" : false,
+                "is_pending_debug_completion" : true,
+                "line_number" : 294,
+                "needs_updated_steps" : false,
+                "package_name" : "",
+                "path" : "~/GitHub/RJafroc/R/PlotRsmOperatingCharacteristics.R",
+                "state" : 1,
+                "type" : 0
+            }
         ]
     }
 }

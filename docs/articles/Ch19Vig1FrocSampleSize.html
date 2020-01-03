@@ -87,6 +87,9 @@
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
     </li>
     <li>
+      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
+    </li>
+    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
@@ -135,7 +138,7 @@
       <h1>Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2019-12-29</h4>
+            <h4 class="date">2020-01-02</h4>
       
       
       <div class="hidden name"><code>Ch19Vig1FrocSampleSize.Rmd</code></div>
@@ -174,7 +177,7 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">frocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfExtractDataset.html">DfExtractDataset</a></span>(dataset04, <span class="dt">trts =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
 <a class="sourceLine" id="cb1-2" title="2">rocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfFroc2Roc.html">DfFroc2Roc</a></span>(frocData)</a></code></pre></div>
 <p>The next code block determines <code>lesDist</code>, the lesion distribution array, which has <code>Lmax</code> (maximum number of lesions per diseased case over the dataset) rows and two columns. The first column contains the integers 1, 2, …, <code>Lmax</code> and the second column contains the fraction of diseased cases with the number of lesions per case specified in the first column. The second column will sum to unity. The RSM fitting algorithm needs to know how lesion-rich the dataset is, as the RSM predicted ROC-AUC depends on the lesion-richness of the dataset. For reasons that will become clear below, one also needs <code>lesWghts</code>, the distribution of the lesion weights.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">lesDistr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilLesionDistribution.html">UtilLesionDistribution</a></span>(frocData)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">lesDistr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilnLesionDistr.html">UtilnLesionDistr</a></span>(frocData)</a>
 <a class="sourceLine" id="cb2-2" title="2">lesWghts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilLesionWeightsDistr.html">UtilLesionWeightsDistr</a></span>(frocData) <span class="co"># this is needed later</span></a></code></pre></div>
 <p>The meanings of <code>lesDistr</code> and <code>lesWghts</code> is clear from examining their values:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(lesDistr)</a>

@@ -53,7 +53,7 @@ rocData <- DfFroc2Roc(frocData)
 The next code block determines `lesDist`, the lesion distribution array, which has `Lmax` (maximum number of lesions per diseased case over the dataset) rows and two columns. The first column contains the integers 1, 2, ..., `Lmax` and the second column contains the fraction of diseased cases with the number of lesions per case specified in the first column. The second column will sum to unity. The RSM fitting algorithm needs to know how lesion-rich the dataset is, as the RSM predicted ROC-AUC depends on the lesion-richness of the dataset. For reasons that will become clear below, one also needs `lesWghts`, the distribution of the lesion weights.
 
 ```{r}
-lesDistr <- UtilLesionDistribution(frocData)
+lesDistr <- UtilLesionDistr(frocData)
 lesWghts <- UtilLesionWeightsDistr(frocData) # this is needed later
 ````
 

@@ -49,26 +49,26 @@
 #' @examples
 #' \donttest{
 #' ## Test with included ROC data (some bins have zero counts)
-#' lesDistr <- UtilLesionDistribution(dataset02)
+#' lesDistr <- UtilLesionDistr(dataset02)
 #' retFit <- FitRsmRoc(dataset02, lesDistr)
 #' print(retFit$fittedPlot)
 #' 
 #' ## Test with included degenerate ROC data
-#' lesDistr <- UtilLesionDistribution(datasetDegenerate)
+#' lesDistr <- UtilLesionDistr(datasetDegenerate)
 #' retFit <- FitRsmRoc(datasetDegenerate, lesDistr);print(retFit$fittedPlot)
 #' 
 #' ## Test with single interior point data
 #' fp <- c(rep(1,7), rep(2, 3))
 #' tp <- c(rep(1,5), rep(2, 5))
 #' binnedRocData <- Df2RJafrocDataset(fp, tp)
-#' lesDistr <- UtilLesionDistribution(binnedRocData)
+#' lesDistr <- UtilLesionDistr(binnedRocData)
 #' retFit <- FitRsmRoc(binnedRocData, lesDistr);print(retFit$fittedPlot)
 #' 
 #' ## Test with two interior data points
 #' fp <- c(rep(1,7), rep(2, 5), rep(3, 3))
 #' tp <- c(rep(1,3), rep(2, 5), rep(3, 7))
 #' binnedRocData <- Df2RJafrocDataset(fp, tp)
-#' lesDistr <- UtilLesionDistribution(binnedRocData)
+#' lesDistr <- UtilLesionDistr(binnedRocData)
 #' retFit <- FitRsmRoc(binnedRocData, lesDistr);print(retFit$fittedPlot)
 #' 
 #' 
@@ -76,11 +76,11 @@
 #' fp <- c(rep(1,12), rep(2, 5), rep(3, 3), rep(4, 5)) #25
 #' tp <- c(rep(1,3), rep(2, 5), rep(3, 7), rep(4, 10)) #25
 #' binnedRocData <- Df2RJafrocDataset(fp, tp)
-#' lesDistr <- UtilLesionDistribution(binnedRocData)
+#' lesDistr <- UtilLesionDistr(binnedRocData)
 #' retFit <- FitRsmRoc(binnedRocData, lesDistr);print(retFit$fittedPlot)
 #' 
 #' ## test for TONY data, i = 2 and j = 3; only case permitting chisqure calculation
-#' lesDistr <- UtilLesionDistribution(dataset01)
+#' lesDistr <- UtilLesionDistr(dataset01)
 #' rocData <- DfFroc2Roc(dataset01)
 #' retFit <- FitRsmRoc(rocData, lesDistr, trt = 2, rdr = 3)
 #' print(retFit$fittedPlot)

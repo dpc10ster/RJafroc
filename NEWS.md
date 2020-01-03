@@ -40,7 +40,7 @@
 * `Ch19Vig1FrocSampleSize.Rmd`: Compares FROC power to ROC power.
 * `Ch19Vig2FrocSampleSize.Rmd`: FROC power calculation for a number of situations.
 * `SsFrocNhRsmModel()`: constructs an RSM-based model, which allows one to relate an ROC effect size to a wAFROC effect size, and returns parameters of model to allow FOM estimation for ROC and wAFROC. Following functions are used to calculate the lesion distribution and lesion weights arrays:
-* `UtilLesionDistribution`: 
+* `UtilLesionDistribution`: renamed to `UtilLesionDistr`
 * `UtilLesionWeightsDistr`:
 
 ## Significance testing functions

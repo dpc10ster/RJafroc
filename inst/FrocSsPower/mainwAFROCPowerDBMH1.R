@@ -6,7 +6,7 @@ frocData <- DfExtractDataset(dataset04, trts = c(1,2))
 rocData <- DfFroc2Roc(frocData)
 I <- dim(frocData$NL)[1]
 J <- dim(frocData$NL)[2]
-lesDistr <- UtilLesionDistribution(frocData)
+lesDistr <- UtilLesionDistr(frocData)
 lesWghtDistr <- UtilLesionWeightsDistr(frocData)
 RsmParms <- array(dim = c(I,J,3))
 for (i in 1:I) {
