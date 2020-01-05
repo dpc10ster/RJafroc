@@ -20,8 +20,14 @@ vignette: >
   library(RJafroc)
 ```
 
+## Purpose
+* Explain the data format of the input Excel file for FROC datasets. 
+* Explain the format of the FROC dataset.
+* Explain the lesion distribution array returned by `UtilLesionDistr()`.
+* Explain the lesion weights array returned by `UtilLesionWeightsDistr()`.
+* Details on the FROC paradigm are in my book [@RN2680].
+
 ## Introduction
-* The purpose of this vignette is to explain the data format of the input Excel file for FROC datasets. Details on the FROC paradigm are in my book [@RN2680].
 * In the Free-response Receiver Operating Characteristic (FROC) paradigm [@RN2453] the observer searches each case for signs of **localized disease** and marks and rates localized regions that are sufficiently suspicious for disease presence. 
 * FROC data consists of **mark-rating pairs**, where each mark is a localized-region that was considered sufficiently suspicious for presence of a localized lesion and the rating is the corresponding confidence level. 
 * By adopting a proximity criterion, each mark is classified by the investigator as a lesion localization (`LL`) - if it is close to a real lesion - or a non-lesion localization (`NL`) otherwise. 
@@ -106,6 +112,88 @@ These are found in the `TP` or `LL` worksheet, see below.
 * As an example, the first lesion in `CaseID` equal to `70` was marked (and rated `r x$LL[1,1,1,1]`) in `ModalityID` `0` and `ReaderID` `0`. 
 * The length of the fourth dimension of the `x$LL` list member, `r length(x$LL[1,1,1,])` in the present example, is determined by the diseased case with the most lesions in the `Truth` worksheet.
 * The reader should convince oneself that the ratings in `x$LL` reflect the contents of the `TP` worksheet.
+
+## On the distribution of numbers of lesions in abnormal cases  
+* Consider a much larger dataset, `dataset11`, with structure as shown below:
+
+```{r}
+x <- dataset11
+str(x)
+```
+
+* Focus for now in the 115 abnormal cases. 
+* The numbers of lesions in these cases is contained in `x$lesionVector`.
+
+```{r}
+x$lesionVector
+```
+
+* For example, the first abnormal case contains 6 lesions, the second contains 4 lesions, the third contains 7 lesions, etc. and the last abnormal case contains 1 lesion.
+* To get an idea of the distribution of the numbers of lesions per abnormal cases, one could interrogate this vector as shown below using the `which()` function:
+
+```{r}
+for (el in 1:max(x$lesionVector)) cat(
+  "abnormal cases with", el, "lesions = ", 
+  length(which(x$lesionVector == el)), "\n")
+```
+
+* This tells us that 25 cases contain 1 lesion
+* Likewise, 23 cases contain 2 lesions
+* Etc.
+
+### Definition of `lesDistr` array
+* Let us ask what is the fraction of (abnormal) cases with 1 lesion, 2 lesions etc.
+
+```{r}
+for (el in 1:max(x$lesionVector)) cat("fraction of abnormal cases with", el, "lesions = ", 
+                                              length(which(x$lesionVector == el))/length(x$LL[1,1,,1]), "\n")
+```
+
+* This tells us that fraction 0.217 of (abnormal) cases contain 1 lesion
+* And fraction 0.2 of (abnormal) cases contain 2 lesions
+* Etc.
+* This information is contained the the `lesDistr` array
+* It is coded in the `Utility` function `UtilLesionDistr()` 
+
+```{r}
+lesDistr <- UtilLesionDistr(x)
+lesDistr
+```
+
+* The `UtilLesionDistr()` function returns an array with two columns and number of rows equal to the number of distinct values of lesions per case.
+* The first column contains the number of distinct values of lesions per case, 14 in the current example.
+* The second column contains the fraction of diseased cases with the number of lesions indicated in the first column.
+* The second column must sum to unity
+
+```{r}
+sum(UtilLesionDistr(x)[,2])
+```
+
+* The lesion distribution array will come in handy when it comes to predicting the operating characteristics from using the Radiological Search Model (RSM), as detailed in Chapter 17 of my book.
+
+
+## Definition of `lesWghtDistr` array
+* This is returned by `UtilLesionWeightsDistr()`.
+* This contains the same number of rows as `lesDistr`.
+* The number of columns is one plus the number of rows as `lesDistr`.
+* The first column contains the number of distinct values of lesions per case, 14 in the current example.
+* The second column contains the weights of cases with number of lesions per case corresponding to row 1.
+* The third column contains the weights of cases with number of lesions per case corresponding to row 2.
+* Etc.
+* Missing values are filled with `-Inf`.
+
+```{r}
+lesWghtDistr <- UtilLesionWeightsDistr(x)
+cat("dim(lesDistr) =", dim(lesDistr),"\n")
+cat("dim(lesWghtDistr) =", dim(lesWghtDistr),"\n")
+cat("lesWghtDistr = \n\n")
+lesWghtDistr
+```
+
+* Row 3 corresponds to 3 lesions per case and the weights are 1/3, 1/3 and 1/3.
+* Row 13 corresponds to 16 lesions per case and the weights are 0.06250000, 0.06250000, ..., repeated 13 times.
+* Note that the number of rows is less than the maximum number of lesions per case (20).
+* This is because some configurations of lesions per case (e.g., cases with 13 lesions per case) do not occur in this dataset. 
 
 ## Summary  
 * The FROC dataset has far less regularity in structure as compared to an ROC dataset.

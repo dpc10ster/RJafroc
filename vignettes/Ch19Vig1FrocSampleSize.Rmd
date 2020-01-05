@@ -107,10 +107,10 @@ In terms of intrinsic parameters, the defining values of the fitting model are `
 ```{r}
 aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                             lesDistr = lesDistr, 
-                                            lesWghtDistr = lesWghts, type = "ROC")$aucROC
+                                            lesWghtDistr = lesWghts, OpChType = "ROC")$aucROC
 aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                               lesDistr = lesDistr, 
-                                              lesWghtDistr = lesWghts, type = "wAFROC")$aucwAFROC
+                                              lesWghtDistr = lesWghts, OpChType = "wAFROC")$aucwAFROC
 ````
 
 
@@ -128,10 +128,10 @@ esRoc <- array(dim = length(deltaMu));eswAfroc <- array(dim = length(deltaMu))
 for (i in 1:length(deltaMu)) {
   esRoc[i] <- PlotRsmOperatingCharacteristics(
     muMed + deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, 
-    lesWghtDistr = lesWghts, type = "ROC")$aucROC - aucRocNH
+    lesWghtDistr = lesWghts, OpChType = "ROC")$aucROC - aucRocNH
   eswAfroc[i] <- PlotRsmOperatingCharacteristics(
     muMed+ deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, 
-    lesWghtDistr = lesWghts, type = "wAFROC")$aucwAFROC - aucwAfrocNH
+    lesWghtDistr = lesWghts, OpChType = "wAFROC")$aucwAFROC - aucwAfrocNH
   cat("ES_ROC = ", esRoc[i], ", ES_wAFROC = ", eswAfroc[i],"\n")
 }
 ````

@@ -1,6 +1,6 @@
 Meta
 doc
-.Rproj.user
+.Rproj.user/
 .Rhistory
 .RData
 .Ruserdata
@@ -10,3 +10,7 @@ src/*.dll
 inst/doc
 .Rhistory
 .Rproj.user/A05B7AEE/persistent-state
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf

@@ -48,7 +48,7 @@
 #' 
 #'    \link{UtilLesionWeightsDistr}. 
 #' 
-#' @param type The type of operating characteristic desired: can be "\code{ROC}", 
+#' @param  OpChType The type of operating characteristic desired: can be "\code{ROC}", 
 #'    "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or "\code{pdfs}" or "\code{ALL}". 
 #'    The default is "\code{ALL}".
 #' 
@@ -159,7 +159,7 @@
 #' @export
 #' 
 PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDistr, 
-                                            type = "ALL", 
+                                             OpChType = "ALL", 
                                             legendPosition = c(1,0), 
                                             legendDirection = "horizontal", 
                                             legendJustification = c(0,1),
@@ -209,21 +209,17 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   }
   
   for (r in 1:nrow(lesWghtDistr)){
-    rowWeight <- lesWghtDistr[r, ]
-    nWeight <- sum(rowWeight != -Inf)
+    maxLL <- max(lesDistr[,1])
+    rowWeight <- lesWghtDistr[r, 2:(maxLL+1)]
     if (abs(sum(rowWeight[rowWeight != -Inf]) - 1.0) > 1e-6){
     #if (sum(rowWeight[rowWeight != -Inf]) != 1){ # this generated Solaris error
         errMsg <- sprintf("Line %d of lesion weights matrix should be summed up to 1.", r)
       stop(errMsg)
     }
-    if (nWeight != lesDistr[r , 1]){
-      errMsg <- sprintf("The number of elements in the line %d of lesion weights matrix 
-                        is different the number of lesion in lesion distribution matrix.", r)
-      stop(errMsg)
-    }
   }
   
   plotStep <- 0.01
+  plotStep <- 0.1 # delete after debug
   zeta <- seq(from = myNegInf, to = max(mu)+5, by = plotStep) # dpc, to reduce computation time
   
   ROCPlot <- NA
@@ -235,7 +231,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   ROCPoints <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL)
   ROCDashes <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL)
   FROCPoints <- data.frame(NLF = NULL, LLF = NULL, Treatment = NULL)
-  FROCDashes <- data.frame(NLF = NULL, LLF= NULL, Treatment = NULL)
+  # FROCDashes <- data.frame(NLF = NULL, LLF= NULL, Treatment = NULL)
   AFROCPoints <- data.frame(FPF = NULL, LLF= NULL, Treatment = NULL)
   AFROCDashes <- data.frame(FPF = NULL, LLF= NULL, Treatment = NULL)
   wAFROCPoints <- data.frame(FPF = NULL, wLLF= NULL, Treatment = NULL)
@@ -258,7 +254,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     LLF <- sapply(zeta, yFROC, mu = mu[i], nuP = nuP[i])
     
     maxFPF <- xROC(-20, lambdaP[i])
-    if(type == "ALL" || type == "ROC"){
+    if( OpChType == "ALL" ||  OpChType == "ROC"){
       ROCPoints <- rbind(ROCPoints, data.frame(FPF = FPF, TPF = TPF, Treatment = as.character(i)))
       ROCDashes <- rbind(ROCDashes, data.frame(FPF = c(FPF[1], 1), TPF = c(TPF[1], 1), Treatment = as.character(i)))
       maxTPF <- yROC(-20, mu[i], lambdaP[i], nuP[i], lesDistr)
@@ -266,7 +262,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
       aucROC[i] <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2
     }
     
-    if(type == "ALL" || type == "FROC"){
+    if( OpChType == "ALL" ||  OpChType == "FROC"){
       FROCPoints <- rbind(FROCPoints, data.frame(NLF = NLF, LLF = LLF, Treatment = as.character(i)))
       if (is.null(nlfAlpha)){
         maxNLF <- max(NLF)
@@ -281,7 +277,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
       }
     }
     
-    if(type == "ALL" || type == "AFROC"){
+    if( OpChType == "ALL" ||  OpChType == "AFROC"){
       AFROCPoints <- rbind(AFROCPoints, data.frame(FPF = FPF, LLF = LLF, Treatment = as.character(i)))
       AFROCDashes <- rbind(AFROCDashes, data.frame(FPF = c(FPF[1], 1), LLF = c(LLF[1], 1), 
                                                    Treatment = as.character(i)))
@@ -290,7 +286,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
       aucAFROC[i] <- AUC + (1 + maxLLF) * (1 - maxFPF) / 2
     }
     
-    if(type == "ALL" || type == "wAFROC"){
+    if( OpChType == "ALL" ||  OpChType == "wAFROC"){
       wLLF <- sapply(zeta, ywAFROC, mu = mu[i], nuP = nuP[i], lesDistr = lesDistr, lesWghtDistr = lesWghtDistr)
       wAFROCPoints <- rbind(wAFROCPoints, data.frame(FPF = FPF, wLLF = wLLF, 
                                                      Treatment = as.character(i)))
@@ -300,9 +296,9 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }
     
-    if(type == "ALL" || type == "pdfs"){
+    if( OpChType == "ALL" ||  OpChType == "pdfs"){
       deltaFPF <- FPF[1:(length(FPF) - 1)] - FPF[2:length(FPF)]  
-      if(type == "ALL" || type == "pdfs"){     
+      if( OpChType == "ALL" ||  OpChType == "pdfs"){     
         pdfNor <- deltaFPF / plotStep
         norPDFPoints <- rbind(norPDFPoints, 
                               data.frame(pdf = pdfNor[pdfNor > 1e-6], highestZSample = zeta[-1][pdfNor > 1e-6], 
@@ -316,7 +312,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     }
   }
   
-  if(type == "ALL" || type == "ROC") {
+  if( OpChType == "ALL" ||  OpChType == "ROC") {
     ROCPlot <- with(ROCPoints, {
       ggplot(data = ROCPoints) + 
         geom_line(aes(x = FPF, y = TPF, color = Treatment))  +       
@@ -325,7 +321,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     })
   }
   
-  if(type == "ALL" || type == "FROC"){
+  if( OpChType == "ALL" ||  OpChType == "FROC"){
     FROCPlot <- with(FROCPoints, {
       ggplot(data = FROCPoints) + 
         geom_line(aes(x = NLF, y = LLF, color = Treatment))  +       
@@ -335,7 +331,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     })
   }
   
-  if(type == "ALL" || type == "AFROC"){
+  if( OpChType == "ALL" ||  OpChType == "AFROC"){
     AFROCPlot <- with(AFROCPoints, {
       ggplot(data = AFROCPoints) + 
         geom_line(aes(x = FPF, y = LLF , color = Treatment)) + 
@@ -345,7 +341,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     )
   }
   
-  if(type == "ALL" || type == "wAFROC"){
+  if( OpChType == "ALL" ||  OpChType == "wAFROC"){
     wAFROCPlot <- with(wAFROCPoints, {
       ggplot(data = wAFROCPoints) + 
         geom_line(aes(x = FPF, y = wLLF , color = Treatment)) + 
@@ -354,7 +350,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     })
   }
   
-  if(type == "ALL" || type == "pdfs"){
+  if( OpChType == "ALL" ||  OpChType == "pdfs"){
     if (legendPosition == "top" || legendPosition == "bottom"){
       legendDirection = "horizontal"
     }else{
@@ -437,7 +433,7 @@ ywAFROC <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
     wLLFTmp <- 0
     for (el in 1:nLesion){
       # el is the number of sucesses with number of lesions = nLesion
-      wLLFTmp <- wLLFTmp + sum(lesWghtDistr[L, 1:el]) * dbinom(el, nLesion, nuP) * (1 - pnorm(zeta - mu))
+      wLLFTmp <- wLLFTmp + sum(lesWghtDistr[L, 2:(el+1)]) * dbinom(el, nLesion, nuP) * (1 - pnorm(zeta - mu))
       
     }
     wLLF <- wLLF + fl[L] * wLLFTmp

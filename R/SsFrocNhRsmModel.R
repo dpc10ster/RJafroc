@@ -80,18 +80,18 @@ SsFrocNhRsmModel <- function (dataset, lesionPmf) {
   
   # calculate NH values for ROC-AUC and wAFROC-AUC
   aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                              lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, type = "ROC")$aucROC
+                                              lesDistr = lesDistr, lesWghtDistr = lesWghtDistr,  OpChType = "ROC")$aucROC
   aucAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                                lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, type = "wAFROC")$aucwAFROC
+                                                lesDistr = lesDistr, lesWghtDistr = lesWghtDistr,  OpChType = "wAFROC")$aucwAFROC
   
   # following calculates effect sizes: ROC-ES and wAFROC-ES
   deltaMu <- seq(0.01, 0.2, 0.01) # values of deltaMu to scan below
   esRoc <- array(dim = length(deltaMu));eswAfroc <- array(dim = length(deltaMu))
   for (i in 1:length(deltaMu)) {
     esRoc[i] <- PlotRsmOperatingCharacteristics(muMed + deltaMu[i], lambdaMed, nuMed, lesDistr = 
-                                                  lesDistr, lesWghtDistr = lesWghtDistr, type = "ROC")$aucROC - aucRocNH
+                                                  lesDistr, lesWghtDistr = lesWghtDistr,  OpChType = "ROC")$aucROC - aucRocNH
     eswAfroc[i] <- PlotRsmOperatingCharacteristics(muMed+ deltaMu[i], lambdaMed, nuMed, lesDistr = 
-                                                     lesDistr, lesWghtDistr = lesWghtDistr, type = "wAFROC")$aucwAFROC - aucAfrocNH
+                                                     lesDistr, lesWghtDistr = lesWghtDistr,  OpChType = "wAFROC")$aucwAFROC - aucAfrocNH
   }
   
   scaleFactor<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin

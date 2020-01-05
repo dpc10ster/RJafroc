@@ -34,10 +34,13 @@ NumericVector xROCVect(NumericVector zeta, double lambdaP){
 
 // [[Rcpp::export]]
 double yROC(double zeta, double mu, double lambdaP, double nuP, NumericMatrix lesDistr){
-  NumericVector fl = lesDistr(_, 1) / sum(lesDistr(_, 1));
+  NumericVector fl = lesDistr(_, 1) / sum(lesDistr(_, 1)); // unnecessary normalization to unit-sum weights, but OK
   double TPF = 0;
   
   for (int i = 0; i < lesDistr.nrow(); i++){
+    // lesDistr(i, 0) contains the nunber of lesions per case
+    // fl[i] is the fraction of cases with lesDistr(i, 0) lesions
+    // no changes made to code, just convincing myself that it is correct
     TPF = TPF + fl[i] * (1 - pow(1 - nuP/2 + nuP/2  * erfcpp( (zeta - mu) / sqrt(2.0) ) , lesDistr(i, 0)) * exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2.0))));
   }
   return TPF;

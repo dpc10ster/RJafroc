@@ -49,14 +49,14 @@ test_that("PlotRsmOperatingCharacteristics", {
   fn <- paste0(test_path(), "/goodValues361/Plots/Rsm", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
+    ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8), OpChType = "wAFROC",
                                            lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, 
                                            legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
+  expect_equal(PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8), OpChType = "wAFROC",
                                                lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, 
                                                legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), ret)
 

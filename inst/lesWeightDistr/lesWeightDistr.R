@@ -11,7 +11,7 @@
 #                       c(0.4,  0.6, -Inf, -Inf), 
 #                       c(0.2,  0.3,  0.5, -Inf), 
 #                       c(0.3,  0.4, 0.2,  0.1))
-# ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
+# ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),  OpChType = "wAFROC",
 #                                        lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, 
 #                                        legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
 # 
@@ -20,7 +20,7 @@ frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormal
 x <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = TRUE)
 
 lesDistr <- UtilLesionDistr(x)
-# lesWghtDistr <- UtilLesionWeightsDistr(x)
-# ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
-#                                        lesDistr = lesDistr, lesWghtDistr = lesWghtDistr,
-#                                        legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
+lesWghtDistr <- UtilLesionWeightsDistr(x)
+ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),  OpChType = "wAFROC",
+                                       lesDistr = lesDistr, lesWghtDistr = lesWghtDistr,
+                                       legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
