@@ -44,10 +44,10 @@ nuMed <- temp$nu
 ## -----------------------------------------------------------------------------
 aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                             lesDistr = lesDistr, 
-                                            lesWghtDistr = lesWghts, type = "ROC")$aucROC
+                                            lesWghtDistr = lesWghts, OpChType = "ROC")$aucROC
 aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                               lesDistr = lesDistr, 
-                                              lesWghtDistr = lesWghts, type = "wAFROC")$aucwAFROC
+                                              lesWghtDistr = lesWghts, OpChType = "wAFROC")$aucwAFROC
 
 ## -----------------------------------------------------------------------------
 deltaMu <- seq(0.01, 0.2, 0.01) # values of deltaMu to scan below
@@ -55,10 +55,10 @@ esRoc <- array(dim = length(deltaMu));eswAfroc <- array(dim = length(deltaMu))
 for (i in 1:length(deltaMu)) {
   esRoc[i] <- PlotRsmOperatingCharacteristics(
     muMed + deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, 
-    lesWghtDistr = lesWghts, type = "ROC")$aucROC - aucRocNH
+    lesWghtDistr = lesWghts, OpChType = "ROC")$aucROC - aucRocNH
   eswAfroc[i] <- PlotRsmOperatingCharacteristics(
     muMed+ deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, 
-    lesWghtDistr = lesWghts, type = "wAFROC")$aucwAFROC - aucwAfrocNH
+    lesWghtDistr = lesWghts, OpChType = "wAFROC")$aucwAFROC - aucwAfrocNH
   cat("ES_ROC = ", esRoc[i], ", ES_wAFROC = ", eswAfroc[i],"\n")
 }
 

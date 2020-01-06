@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2020-01-02" />
+<meta name="date" content="2020-01-05" />
 
 <title>Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2020-01-02</h4>
+<h4 class="date">2020-01-05</h4>
 
 </div>
 
@@ -408,10 +408,10 @@ lesWghts &lt;- UtilLesionWeightsDistr(frocData) # this is needed later</code></p
 #&gt; [2,]    2 0.20
 #&gt; [3,]    3 0.11
 print(lesWghts)
-#&gt;           [,1]      [,2]      [,3]
-#&gt; [1,] 1.0000000      -Inf      -Inf
-#&gt; [2,] 0.5000000 0.5000000      -Inf
-#&gt; [3,] 0.3333333 0.3333333 0.3333333</code></pre>
+#&gt;      [,1]      [,2]      [,3]      [,4]
+#&gt; [1,]    1 1.0000000      -Inf      -Inf
+#&gt; [2,]    2 0.5000000 0.5000000      -Inf
+#&gt; [3,]    3 0.3333333 0.3333333 0.3333333</code></pre>
 <p>For this dataset <code>Lmax</code> is 3, and 69 percent of the diseased cases have one lesion, 20 percent have two lesions and 11 percent have three lesions. Since the lesions are equally weighted, on cases with one lesion the weight of the lesion is unity, on cases with two lesions the weights of each lesion is 0.5 and on cases with three lesions the weight of each lesion is 1/3.</p>
 <p>The next code block determines the number of treatments and readers (<code>I</code> and <code>J</code>) from the dimensions of the <code>frocData$NL</code> array. It creates an array <code>RsmParms</code> to hold the RSM fitted parameter values. For each treatment and reader it applies the fitting algorithm <code>FitRsmRoc()</code>. The first three returned values are <code>mu</code>, <code>lambdaP</code> and <code>nuP</code>, corresponding to RSM parameters <span class="math inline">\({\mu}\)</span>, <span class="math inline">\({\lambda^{&#39;}}\)</span> and <span class="math inline">\({\nu^{&#39;}}\)</span> .</p>
 <pre class="r"><code>I &lt;- dim(frocData$NL)[1]
@@ -436,10 +436,10 @@ nuMed &lt;- temp$nu</code></pre>
 <p>In terms of intrinsic parameters, the defining values of the fitting model are <code>muMed</code> = 3.3105557, <code>lambdaMed</code> = 5.6755108 and <code>nuMed</code> = 0.3673814. We are now ready to calcuate the expected NH FOMs using the ROC -AUC and the wAFROC FOM.</p>
 <pre class="r"><code>aucRocNH &lt;- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                             lesDistr = lesDistr, 
-                                            lesWghtDistr = lesWghts, type = &quot;ROC&quot;)$aucROC
+                                            lesWghtDistr = lesWghts, OpChType = &quot;ROC&quot;)$aucROC
 aucwAfrocNH &lt;- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                               lesDistr = lesDistr, 
-                                              lesWghtDistr = lesWghts, type = &quot;wAFROC&quot;)$aucwAFROC</code></pre>
+                                              lesWghtDistr = lesWghts, OpChType = &quot;wAFROC&quot;)$aucwAFROC</code></pre>
 <ul>
 <li><p>The plotting function <code>PlotRsmOperatingCharacteristics()</code> returns a number of other objects, most importantly the plot, but here we use only the AUC, which is obtained by numerical integration of the predicted operating characteristics. However, it calls for the <strong>intrinsic</strong> RSM parameters, which is why we had to convert the <strong>physical</strong> to the <strong>intrinsic</strong> values.</p></li>
 <li>One has <code>aucRocNH = 0.8791301</code> and <code>aucwAfrocNH = 0.7198311</code>. Note that the wAFROC-FOM is smaller than the ROC-FOM as it includes the localization constraint.</li>
@@ -451,10 +451,10 @@ esRoc &lt;- array(dim = length(deltaMu));eswAfroc &lt;- array(dim = length(delta
 for (i in 1:length(deltaMu)) {
   esRoc[i] &lt;- PlotRsmOperatingCharacteristics(
     muMed + deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, 
-    lesWghtDistr = lesWghts, type = &quot;ROC&quot;)$aucROC - aucRocNH
+    lesWghtDistr = lesWghts, OpChType = &quot;ROC&quot;)$aucROC - aucRocNH
   eswAfroc[i] &lt;- PlotRsmOperatingCharacteristics(
     muMed+ deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, 
-    lesWghtDistr = lesWghts, type = &quot;wAFROC&quot;)$aucwAFROC - aucwAfrocNH
+    lesWghtDistr = lesWghts, OpChType = &quot;wAFROC&quot;)$aucwAFROC - aucwAfrocNH
   cat(&quot;ES_ROC = &quot;, esRoc[i], &quot;, ES_wAFROC = &quot;, eswAfroc[i],&quot;\n&quot;)
 }
 #&gt; ES_ROC =  0.0006197813 , ES_wAFROC =  0.001329066 
