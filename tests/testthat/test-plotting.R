@@ -41,10 +41,10 @@ test_that("PlotRsmOperatingCharacteristics", {
   Sys.sleep(0.2)
   
   lesDistr <- rbind(c(1, 0.2), c(2, 0.4), c(3, 0.1), c(4, 0.3))
-  lesWghtDistr <- rbind(c(1.0, -Inf, -Inf, -Inf), 
-                         c(0.4,  0.6, -Inf, -Inf), 
-                         c(0.2,  0.3,  0.5, -Inf), 
-                         c(0.3,  0.4, 0.2,  0.1))
+  lesWghtDistr <- rbind(c(1, 1, -Inf, -Inf, -Inf), 
+                         c(2,  0.4, 0.6, -Inf, -Inf), 
+                         c(3,  0.2, 0.3,  0.5, -Inf), 
+                         c(4,  0.3, 0.4, 0.2,  0.1))
   
   fn <- paste0(test_path(), "/goodValues361/Plots/Rsm", ".rds")
   if (!file.exists(fn)) {

@@ -137,19 +137,19 @@ test_that("UtilMeanSquaresDBMH", {
 
 test_that("UtilLesionDistr and UtilLesionWeightsDistr", {
   
-  ret <- array(1, dim = c(1,1)) 
+  ret <- array(1, dim = c(1,2)) 
   expect_equal(UtilLesionWeightsDistr (dataset02), ret)
   
   ret <- array(c(1, 1), dim = c(1,2)) 
   expect_equal(UtilLesionDistr (dataset02), ret)
   
-  ret <- array(c(c(1, 0.5), c(-Inf, 0.5)), dim = c(2,2)) 
+  ret <- array(c(c(1, 2), c(1, 0.5), c(-Inf, 0.5)), dim = c(2,3)) 
   expect_equal(UtilLesionWeightsDistr (dataset01), ret)
   
   ret <- array(c(c(1, 2), c(0.93258427, 0.06741573)), dim = c(2,2)) 
   expect_equal(UtilLesionDistr (dataset01), ret)
   
-  ret <- array(c(c(1, 0.5, 0.333333), c(-Inf, 0.5, 0.333333), c(-Inf, -Inf, 0.333333)), dim = c(3,3)) 
+  ret <- array(c(c(1, 2, 3), c(1, 0.5, 0.333333), c(-Inf, 0.5, 0.333333), c(-Inf, -Inf, 0.333333)), dim = c(3,4)) 
   expect_equal(UtilLesionWeightsDistr (dataset05), ret, tolerance = 1e-6, scale = 1)
   
   ret <- array(c(c(1, 2, 3), c(0.78723404, 0.17021277, 0.04255319)), dim = c(3,2)) 

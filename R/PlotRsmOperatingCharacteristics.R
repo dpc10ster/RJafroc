@@ -115,7 +115,8 @@
 #'    c(0.8, 0.15, 0.05), which sums to one, meaning 80\% of cases have only one 
 #'    lesion, 15\% have two lesions and 5\% have three lesions. The 
 #'    \code{lesWghtDistr} matrix will be 
-#'    \code{[1:3,1:3]}, where each row will sum to one (excluding negative infinities). 
+#'    \code{[1:3,1:4]}, where each row will sum to one (excluding the first entry and 
+#'    excluding negative infinities). 
 #' 
 #' @import ggplot2
 #' 
@@ -143,10 +144,10 @@
 #' ## On cases with one lesion the weights are 1, on cases with 2 lesions the weights
 #' ## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and
 #' ## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: 
-#' lesWghtDistr <- rbind(c(1.0, -Inf, -Inf, -Inf), 
-#'                        c(0.4,  0.6, -Inf, -Inf), 
-#'                        c(0.2,  0.3,  0.5, -Inf), 
-#'                        c(0.3,  0.4, 0.2,  0.1))
+#' lesWghtDistr <- rbind(c(1, 1.0, -Inf, -Inf, -Inf), 
+#'                        c(2, 0.4,  0.6, -Inf, -Inf), 
+#'                        c(3, 0.2,  0.3,  0.5, -Inf), 
+#'                        c(4, 0.3,  0.4, 0.2,  0.1))
 #' ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
 #'    lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, 
 #'    legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
@@ -182,10 +183,12 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
       }
       dim(lesDistr) <- c(1, 2)
     }
-    lesWghtDistr <- array(-Inf, dim = c(nrow(lesDistr), max(lesDistr[ , 1])))
-    for (r in 1:nrow(lesDistr)){
-      lesWghtDistr[r, 1:lesDistr[r, 1]] <- 1 / lesDistr[r, 1]
-    }
+    lesWghtDistr <- array(-Inf, dim = c(nrow(lesDistr), max(lesDistr[ , 1])+1))
+    lesWghtDistr[,1] <- lesDistr[,1]
+    for (i in 1:length(lesDistr[,1])) lesWghtDistr[i,2:(lesDistr[i,1]+1)] <- 1/lesDistr[i,1]
+    # for (r in 1:nrow(lesDistr)){
+    #   lesWghtDistr[r, 1:lesDistr[r, 1]] <- 1 / lesDistr[r, 1]
+    # }
   }else{
     if (is.vector(lesDistr)){
       if ((length(lesDistr) == 1) && is.wholenumber(lesDistr)){
@@ -422,21 +425,29 @@ intAFROC <- function(FPF, mu, lambdaP, nuP){
   return(LLF)
 }
 
+# returns wLLF, the ordinate of wAFROC curve
 ywAFROC <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
-  # returns wLLF, the ordinate of wAFROC curve
-  fl <- lesDistr[, 2] / sum(lesDistr[, 2])
+  # zeta <- 0
+  # fl is the fraction of cases with # lesions as in first column of lesDistr
+  # the second column contains the fraction
+  fl <- lesDistr[, 2] / sum(lesDistr[, 2]) # redundant normalization does not hurt
   wLLF <- 0
   for (L in 1:nrow(lesDistr)){
-    nLesion <- lesDistr[L, 1] 
-    # nLesion is the first element in the row L of lesDistr, 
-    # which is the number of lesions for this lesion weights distributions condition
+    # outer looop sums over different numbers of lesions per case
+    nLesPerCase <- lesDistr[L, 1] 
+    # nLesPerCase is the first element in the row L of lesDistr, 
+    # which is the number of lesions for this lesion distributions condition
     wLLFTmp <- 0
-    for (el in 1:nLesion){
-      # el is the number of sucesses with number of lesions = nLesion
-      wLLFTmp <- wLLFTmp + sum(lesWghtDistr[L, 2:(el+1)]) * dbinom(el, nLesion, nuP) * (1 - pnorm(zeta - mu))
-      
+    for (LL in 1:nLesPerCase){
+      # inner loop sums over different numbers of LL events
+      # LL is the number of sucesses with trial size nLesPerCase
+      # the following works, but only for equal weights
+      # wLLFTmp <- wLLFTmp + sum(lesWghtDistr[L, 2:(LL+1)]) * dbinom(LL, nLesPerCase, nuP) * (1 - pnorm(zeta - mu))
+      # the next two lines should work for general case
+      wLLFTmp <- wLLFTmp +
+        lesWghtDistr[L, LL+1] * LL * dbinom(LL, nLesPerCase, nuP) * (1 - pnorm(zeta - mu))
     }
-    wLLF <- wLLF + fl[L] * wLLFTmp
+    wLLF <- wLLF +  fl[L] * wLLFTmp
   }
   return(wLLF)
 }

@@ -7,19 +7,22 @@
 UtilLesionDistr(dataset)
 }
 \arguments{
-\item{dataset}{The supplied dataset}
+\item{dataset}{The dataset}
 }
 \value{
 The lesion distribution matrix
 }
 \description{
-Extracts the lesion distribution matrix for a dataset.
+The lesion distribution matrix for a dataset.
 }
 \details{
-The lesion distribution matrix has Lmax rows and two columns. 
-   The first column contains the integers 1, 2, ..., Lmax and the second 
-   column contains the fraction of diseased cases with the number of lesions 
-   per case specified in the first column.
+lesDistr The lesion distribution matrix, an [1:nRow,2] array, where
+   nRow is the number of \bold{unique} values of lesions per case 
+   in the dataset. The first column contains the number of lesions. 
+   The second column contains the fraction of diseased cases with the number 
+   of lesions indicated in the first column. See 
+   \link{PlotRsmOperatingCharacteristics} for a function that depends on 
+   lesDistr. See Chapter00Vignette2 for fuller explanation.
 }
 \examples{
 UtilLesionDistr (dataset01) # FROC data

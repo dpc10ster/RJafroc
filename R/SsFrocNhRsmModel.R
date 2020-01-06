@@ -54,11 +54,10 @@ SsFrocNhRsmModel <- function (dataset, lesionPmf) {
   
   lesDistr <- array(c(seq(1, maxLL), lesionPmf), dim = c(maxLL, 2))
   
-  lesWghtDistr <- matrix(-Inf, nrow = nrow(lesDistr), ncol = nrow(lesDistr))
-  for (l in 1:nrow(lesDistr)){
-    nLes <- lesDistr[l, 1]
-    lesWghtDistr[l, 1:nLes] <- 1/nLes
-  }
+  lesWghtDistr <- matrix(-Inf, nrow = nrow(lesDistr), ncol = nrow(lesDistr)+1)
+  lesWghtDistr[,1] <- lesDistr[,1]
+  lesWghtDistr[,1] <- lesDistr[,1]
+  for (i in 1:length(lesDistr[,1])) lesWghtDistr[i,2:(lesDistr[i,1]+1)] <- 1/lesDistr[i,1]
   
   RsmParms <- array(dim = c(I,J,3))
   for (i in 1:I) {
