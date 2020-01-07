@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2020-01-02" />
+<meta name="date" content="2020-01-07" />
 
 <title>Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2020-01-02</h4>
+<h4 class="date">2020-01-07</h4>
 
 </div>
 
@@ -389,10 +389,10 @@ scaleFactor &lt;- ret$scaleFactor</code></pre>
 <p>The fitting model is defined by <code>muMed = r muMed</code>, <code>lambdaMed = 5.6140942</code> and <code>nuMed = 0.3696988</code> and <code>lesionPmf</code>. The effect size scale factor is 2.1542102.</p>
 <pre class="r"><code>aucRocNH &lt;- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                             lesDistr = lesDistr, 
-                                            lesWghtDistr = lesWghtDistr, type = &quot;ROC&quot;)$aucROC
+                                            lesWghtDistr = lesWghtDistr, OpChType = &quot;ROC&quot;)$aucROC
 aucwAfrocNH &lt;- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                                lesDistr = lesDistr, 
-                                               lesWghtDistr = lesWghtDistr, type = &quot;wAFROC&quot;)$aucwAFROC</code></pre>
+                                               lesWghtDistr = lesWghtDistr, OpChType = &quot;wAFROC&quot;)$aucwAFROC</code></pre>
 <p>The null hypothesis ROC AUC is 0.8790725 and the corresponding NH wAFROC AUC is 0.7231709.</p>
 </div>
 <div id="extracting-the-wafroc-variance-components" class="section level2">

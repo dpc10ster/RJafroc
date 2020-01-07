@@ -259,7 +259,9 @@
        the bootstrap could be used; what distinguishes FROC from ROC analysis is the 
        use of the AFROC-AUC as the FOM. With this change, the DBM or the OR method 
        can be used for significance testing</p></li>
-<li><p>JAFROC1 FOM: trapezoidal area under AFROC1 curve; this term is obsolete; 
+<li><p>FOM_AFROC FOM: trapezoidal area under AFROC curve; this term is obsolete; 
+       use AFROC-AUC instead</p></li>
+<li><p>FOM_AFROC1 FOM: trapezoidal area under AFROC1 curve; this term is obsolete; 
        use AFROC1-AUC instead</p></li>
 <li><p>K: total number of cases, K = K1 + K2, indexed by \(k\)</p></li>
 <li><p>K1: total number of non-diseased cases, indexed by \(k1\)</p></li>
@@ -349,9 +351,9 @@
        inferred using highest rating of NL marks on <strong>non-diseased cases ONLY</strong></p></li>
 <li><p>wAFROC1 curve: plot of weighted LLF (ordinate) vs. FPF1, where FPF1 is 
        inferred using highest rating of NL marks on <strong>ALL cases</strong></p></li>
-<li><p>wJAFROC FOM: weighted trapezoidal area under AFROC curve: this term is 
+<li><p>FOM_wAFROC FOM: weighted trapezoidal area under AFROC curve: this term is 
        obsolete; use wAFROC-AUC instead;<strong>this is the recommended FOM</strong></p></li>
-<li><p>wJAFROC1 FOM: weighted trapezoidal area under AFROC1 curve: only use 
+<li><p>FOM_wAFROC1 FOM: weighted trapezoidal area under AFROC1 curve: only use 
        if there are zero non-diseased cases is always number of treatments minus one</p></li>
 </ul> 
 
@@ -664,7 +666,7 @@
            (FOMs) for specified dataset.</p></li>
 <li><p><code><a href='UtilIntrinsic2PhysicalRSM.html'>UtilIntrinsic2PhysicalRSM</a></code>: Convert from intrinsic to 
            physical RSM parameters.</p></li>
-<li><p><code><a href='UtilnLesionDistr.html'>UtilnLesionDistr</a></code>: Calculates the lesion distribution  
+<li><p><code><a href='UtilLesionDistr.html'>UtilLesionDistr</a></code>: Calculates the lesion distribution  
            matrix.</p></li>
 <li><p><code><a href='UtilLesionWeightsDistr.html'>UtilLesionWeightsDistr</a></code>: Calculates the lesion weights  matrix.</p></li>
 <li><p><code><a href='UtilMeanSquares.html'>UtilMeanSquares</a></code>: Calculates the mean squares used in the 

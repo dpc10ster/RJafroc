@@ -4,7 +4,7 @@
 #' 
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}.
 #' @param FOM The figure of merit to be used in the calculation. 
-#'    The default is \code{"wJAFROC"}. See \code{\link{UtilFigureOfMerit}}.
+#'    The default is \code{"FOM_wAFROC"}. See \code{\link{UtilFigureOfMerit}}.
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 

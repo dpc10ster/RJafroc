@@ -194,7 +194,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>PlotRsmOperatingCharacteristics</span>(<span class='no'>mu</span>, <span class='no'>lambda</span>, <span class='no'>nu</span>, <span class='no'>lesDistr</span>, <span class='no'>lesWghtDistr</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>, <span class='kw'>legendPosition</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>),
+  <span class='kw'>OpChType</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>, <span class='kw'>legendPosition</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>),
   <span class='kw'>legendDirection</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>, <span class='kw'>legendJustification</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
   <span class='kw'>nlfRange</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>llfRange</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nlfAlpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>myNegInf</span> <span class='kw'>=</span> -<span class='fl'>3</span>)</pre>
     
@@ -231,7 +231,7 @@ the success probability of the binomial distribution(s).</p></td>
 lesion distribution for diseased cases. The first column contains the 
 actual numbers of lesions per case. The second column contains the fraction 
 of diseased cases with the number of lesions specified in the first column. 
-The second column must sum to unity. See <a href='UtilnLesionDistr.html'>UtilnLesionDistr</a>.</p></td>
+The second column must sum to unity. See <a href='UtilLesionDistr.html'>UtilLesionDistr</a>.</p></td>
     </tr>
     <tr>
       <th>lesWghtDistr</th>
@@ -253,7 +253,7 @@ The second column must sum to unity. See <a href='UtilnLesionDistr.html'>UtilnLe
 <p><a href='UtilLesionWeightsDistr.html'>UtilLesionWeightsDistr</a>.</p></td>
     </tr>
     <tr>
-      <th>type</th>
+      <th>OpChType</th>
       <td><p>The type of operating characteristic desired: can be "<code>ROC</code>", 
 "<code>AFROC</code>", "<code>wAFROC</code>", "<code>FROC</code>" or "<code>pdfs</code>" or "<code>ALL</code>". 
 The default is "<code>ALL</code>".</p></td>
@@ -340,7 +340,8 @@ ROC at the end point; Online Appendix 17.H.3</p></td>
    c(0.8, 0.15, 0.05), which sums to one, meaning 80% of cases have only one 
    lesion, 15% have two lesions and 5% have three lesions. The 
    <code>lesWghtDistr</code> matrix will be 
-   <code>[1:3,1:3]</code>, where each row will sum to one (excluding negative infinities).</p>
+   <code>[1:3,1:4]</code>, where each row will sum to one (excluding the first entry and 
+   excluding negative infinities).</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -363,10 +364,10 @@ Modeling, and Applications with R-Based Examples</em> (CRC Press, Boca Raton, FL
 <span class='co'>## On cases with one lesion the weights are 1, on cases with 2 lesions the weights</span>
 <span class='co'>## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and</span>
 <span class='co'>## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: </span>
-<span class='no'>lesWghtDistr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.0</span>, -<span class='fl'>Inf</span>, -<span class='fl'>Inf</span>, -<span class='fl'>Inf</span>),
-                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.4</span>,  <span class='fl'>0.6</span>, -<span class='fl'>Inf</span>, -<span class='fl'>Inf</span>),
-                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.2</span>,  <span class='fl'>0.3</span>,  <span class='fl'>0.5</span>, -<span class='fl'>Inf</span>),
-                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.3</span>,  <span class='fl'>0.4</span>, <span class='fl'>0.2</span>,  <span class='fl'>0.1</span>))
+<span class='no'>lesWghtDistr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1.0</span>, -<span class='fl'>Inf</span>, -<span class='fl'>Inf</span>, -<span class='fl'>Inf</span>),
+                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>0.4</span>,  <span class='fl'>0.6</span>, -<span class='fl'>Inf</span>, -<span class='fl'>Inf</span>),
+                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>0.2</span>,  <span class='fl'>0.3</span>,  <span class='fl'>0.5</span>, -<span class='fl'>Inf</span>),
+                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0.3</span>,  <span class='fl'>0.4</span>, <span class='fl'>0.2</span>,  <span class='fl'>0.1</span>))
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotRsmOperatingCharacteristics</span>(<span class='kw'>mu</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1.5</span>), <span class='kw'>nu</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.6</span>, <span class='fl'>0.8</span>),
    <span class='kw'>lesDistr</span> <span class='kw'>=</span> <span class='no'>lesDistr</span>, <span class='kw'>lesWghtDistr</span> <span class='kw'>=</span> <span class='no'>lesWghtDistr</span>,
    <span class='kw'>legendPosition</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>, <span class='kw'>nlfRange</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='kw'>llfRange</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>))

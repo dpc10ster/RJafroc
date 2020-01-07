@@ -22,7 +22,7 @@ lesDistr The lesion distribution matrix, an [1:nRow,2] array, where
    The second column contains the fraction of diseased cases with the number 
    of lesions indicated in the first column. See 
    \link{PlotRsmOperatingCharacteristics} for a function that depends on 
-   lesDistr. See Chapter00Vignette2 for fuller explanation.
+   lesDistr. See Chapter00Vignette2 for more details.
 }
 \examples{
 UtilLesionDistr (dataset01) # FROC data

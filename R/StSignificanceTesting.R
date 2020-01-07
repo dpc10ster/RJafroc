@@ -111,9 +111,9 @@
 #' StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBMH") 
 #' StSignificanceTesting(dataset05, FOM = "SongA1", method = "DBMH") 
 #' StSignificanceTesting(dataset05, FOM = "SongA2", method = "DBMH") 
-#' StSignificanceTesting(dataset05, FOM = "wJAFROC1", method = "DBMH")
-#' StSignificanceTesting(dataset05, FOM = "JAFROC1", method = "DBMH")
-#' StSignificanceTesting(dataset05, FOM = "JAFROC", method = "DBMH")
+#' StSignificanceTesting(dataset05, FOM = "FOM_wAFROC1", method = "DBMH")
+#' StSignificanceTesting(dataset05, FOM = "FOM_AFROC1", method = "DBMH")
+#' StSignificanceTesting(dataset05, FOM = "FOM_AFROC", method = "DBMH")
 #' } 
 #'
 #' 

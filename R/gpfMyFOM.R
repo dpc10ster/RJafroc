@@ -7,7 +7,7 @@ gpfMyFOM <- function(nl, ll,
                      FOM, FPFValue = NULL) {
   if (!FOM %in% c("Wilcoxon", "HrAuc", "HrSe", "HrSp", "SongA1", 
                   "SongA2", "AFROC1", "AFROC", "wAFROC1", "wAFROC",
-                  "JAFROC1", "JAFROC", "wJAFROC1", "wJAFROC", "FROC", # dpc 
+                  "FOM_AFROC1", "FOM_AFROC", "FOM_wAFROC1", "FOM_wAFROC", "FROC", # dpc 
                   "MaxLLF", "MaxNLF", "MaxNLFAllCases", "ExpTrnsfmSp", "ROI",
                   "ALROC", "PCL")){ # dpc 
     errMsg <- paste0(FOM, " is not an available figure of merit.")
@@ -15,7 +15,7 @@ gpfMyFOM <- function(nl, ll,
   }
   fom <- NA
   # fom <- wJAFROC_dpc(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight)
-  # fom <- wJAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight)
+  # fom <- FOM_wAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight)
   fom <- switch(FOM,
                 "Wilcoxon" = TrapezoidalArea(nl, K1, ll, K2),
                 "HrAuc" = HrAuc(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
@@ -23,14 +23,14 @@ gpfMyFOM <- function(nl, ll,
                 "HrSp" = HrSp(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
                 "SongA1" = SongA1(K1, K2, maxNL, maxLL, lesionVector, nl, ll),
                 "SongA2" = SongA2(K1, K2, maxNL, maxLL, lesionVector, nl, ll),
-                "AFROC1" = JAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL), # dpc
-                "JAFROC1" = JAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "AFROC" = JAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL), # dpc
-                "JAFROC" = JAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "wAFROC1" = wJAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
-                "wJAFROC1" = wJAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight),
-                "wAFROC" = wJAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
-                "wJAFROC" = wJAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight),
+                "AFROC1" = FOM_AFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL), # dpc
+                "FOM_AFROC1" = FOM_AFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "AFROC" = FOM_AFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL), # dpc
+                "FOM_AFROC" = FOM_AFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
+                "wAFROC1" = FOM_wAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
+                "FOM_wAFROC1" = FOM_wAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight),
+                "wAFROC" = FOM_wAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
+                "FOM_wAFROC" = FOM_wAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight),
                 "FROC" = FROC(nl, ll, lesionID, lesionVector, K1, K2),
                 "ALROC" = LrocFoms(nl, ll, FPFValue)$ALroc,
                 "PCL" = LrocFoms(nl, ll, FPFValue)$PCL,

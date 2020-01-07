@@ -138,7 +138,7 @@
       <h1>Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-01-02</h4>
+            <h4 class="date">2020-01-07</h4>
       
       
       <div class="hidden name"><code>Ch19Vig1FrocSampleSize.Rmd</code></div>
@@ -177,7 +177,7 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">frocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfExtractDataset.html">DfExtractDataset</a></span>(dataset04, <span class="dt">trts =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
 <a class="sourceLine" id="cb1-2" title="2">rocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfFroc2Roc.html">DfFroc2Roc</a></span>(frocData)</a></code></pre></div>
 <p>The next code block determines <code>lesDist</code>, the lesion distribution array, which has <code>Lmax</code> (maximum number of lesions per diseased case over the dataset) rows and two columns. The first column contains the integers 1, 2, …, <code>Lmax</code> and the second column contains the fraction of diseased cases with the number of lesions per case specified in the first column. The second column will sum to unity. The RSM fitting algorithm needs to know how lesion-rich the dataset is, as the RSM predicted ROC-AUC depends on the lesion-richness of the dataset. For reasons that will become clear below, one also needs <code>lesWghts</code>, the distribution of the lesion weights.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">lesDistr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilnLesionDistr.html">UtilnLesionDistr</a></span>(frocData)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">lesDistr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilLesionDistr.html">UtilLesionDistr</a></span>(frocData)</a>
 <a class="sourceLine" id="cb2-2" title="2">lesWghts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilLesionWeightsDistr.html">UtilLesionWeightsDistr</a></span>(frocData) <span class="co"># this is needed later</span></a></code></pre></div>
 <p>The meanings of <code>lesDistr</code> and <code>lesWghts</code> is clear from examining their values:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(lesDistr)</a>
@@ -186,10 +186,10 @@
 <a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; [2,]    2 0.20</span></a>
 <a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt; [3,]    3 0.11</span></a>
 <a class="sourceLine" id="cb3-6" title="6"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(lesWghts)</a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;           [,1]      [,2]      [,3]</span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; [1,] 1.0000000      -Inf      -Inf</span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; [2,] 0.5000000 0.5000000      -Inf</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; [3,] 0.3333333 0.3333333 0.3333333</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;      [,1]      [,2]      [,3]      [,4]</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; [1,]    1 1.0000000      -Inf      -Inf</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; [2,]    2 0.5000000 0.5000000      -Inf</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; [3,]    3 0.3333333 0.3333333 0.3333333</span></a></code></pre></div>
 <p>For this dataset <code>Lmax</code> is 3, and 69 percent of the diseased cases have one lesion, 20 percent have two lesions and 11 percent have three lesions. Since the lesions are equally weighted, on cases with one lesion the weight of the lesion is unity, on cases with two lesions the weights of each lesion is 0.5 and on cases with three lesions the weight of each lesion is 1/3.</p>
 <p>The next code block determines the number of treatments and readers (<code>I</code> and <code>J</code>) from the dimensions of the <code>frocData$NL</code> array. It creates an array <code>RsmParms</code> to hold the RSM fitted parameter values. For each treatment and reader it applies the fitting algorithm <code><a href="../reference/FitRsmRoc.html">FitRsmRoc()</a></code>. The first three returned values are <code>mu</code>, <code>lambdaP</code> and <code>nuP</code>, corresponding to RSM parameters <span class="math inline">\({\mu}\)</span>, <span class="math inline">\({\lambda^{'}}\)</span> and <span class="math inline">\({\nu^{'}}\)</span> .</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">I &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(frocData<span class="op">$</span>NL)[<span class="dv">1</span>]</a>
@@ -214,10 +214,10 @@
 <p>In terms of intrinsic parameters, the defining values of the fitting model are <code>muMed</code> = 3.3105557, <code>lambdaMed</code> = 5.6755108 and <code>nuMed</code> = 0.3673814. We are now ready to calcuate the expected NH FOMs using the ROC -AUC and the wAFROC FOM.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">aucRocNH &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(muMed, lambdaMed, nuMed, </a>
 <a class="sourceLine" id="cb7-2" title="2">                                            <span class="dt">lesDistr =</span> lesDistr, </a>
-<a class="sourceLine" id="cb7-3" title="3">                                            <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">type =</span> <span class="st">"ROC"</span>)<span class="op">$</span>aucROC</a>
+<a class="sourceLine" id="cb7-3" title="3">                                            <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"ROC"</span>)<span class="op">$</span>aucROC</a>
 <a class="sourceLine" id="cb7-4" title="4">aucwAfrocNH &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(muMed, lambdaMed, nuMed, </a>
 <a class="sourceLine" id="cb7-5" title="5">                                              <span class="dt">lesDistr =</span> lesDistr, </a>
-<a class="sourceLine" id="cb7-6" title="6">                                              <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">type =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC</a></code></pre></div>
+<a class="sourceLine" id="cb7-6" title="6">                                              <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC</a></code></pre></div>
 <ul>
 <li><p>The plotting function <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> returns a number of other objects, most importantly the plot, but here we use only the AUC, which is obtained by numerical integration of the predicted operating characteristics. However, it calls for the <strong>intrinsic</strong> RSM parameters, which is why we had to convert the <strong>physical</strong> to the <strong>intrinsic</strong> values.</p></li>
 <li>One has <code>aucRocNH = 0.8791301</code> and <code>aucwAfrocNH = 0.7198311</code>. Note that the wAFROC-FOM is smaller than the ROC-FOM as it includes the localization constraint.</li>
@@ -229,10 +229,10 @@
 <a class="sourceLine" id="cb8-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(deltaMu)) {</a>
 <a class="sourceLine" id="cb8-4" title="4">  esRoc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(</a>
 <a class="sourceLine" id="cb8-5" title="5">    muMed <span class="op">+</span><span class="st"> </span>deltaMu[i], lambdaMed, nuMed, <span class="dt">lesDistr =</span> lesDistr, </a>
-<a class="sourceLine" id="cb8-6" title="6">    <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">type =</span> <span class="st">"ROC"</span>)<span class="op">$</span>aucROC <span class="op">-</span><span class="st"> </span>aucRocNH</a>
+<a class="sourceLine" id="cb8-6" title="6">    <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"ROC"</span>)<span class="op">$</span>aucROC <span class="op">-</span><span class="st"> </span>aucRocNH</a>
 <a class="sourceLine" id="cb8-7" title="7">  eswAfroc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(</a>
 <a class="sourceLine" id="cb8-8" title="8">    muMed<span class="op">+</span><span class="st"> </span>deltaMu[i], lambdaMed, nuMed, <span class="dt">lesDistr =</span> lesDistr, </a>
-<a class="sourceLine" id="cb8-9" title="9">    <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">type =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC <span class="op">-</span><span class="st"> </span>aucwAfrocNH</a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC <span class="op">-</span><span class="st"> </span>aucwAfrocNH</a>
 <a class="sourceLine" id="cb8-10" title="10">  <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"ES_ROC = "</span>, esRoc[i], <span class="st">", ES_wAFROC = "</span>, eswAfroc[i],<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
 <a class="sourceLine" id="cb8-11" title="11">}</a>
 <a class="sourceLine" id="cb8-12" title="12"><span class="co">#&gt; ES_ROC =  0.0006197813 , ES_wAFROC =  0.001329066 </span></a>

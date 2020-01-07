@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate mean squares — UtilMeanSquares • RJafroc</title>
+<title>Lesion distribution  matrix — UtilLesionDistr • RJafroc</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Calculate mean squares — UtilMeanSquares" />
+<meta property="og:title" content="Lesion distribution  matrix — UtilLesionDistr" />
 
-<meta property="og:description" content="Calculates the mean squares used in the DBMH and ORH methods" />
+<meta property="og:description" content="The lesion distribution matrix for a dataset." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -173,94 +173,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate mean squares</h1>
+    <h1>Lesion distribution  matrix</h1>
     
-    <div class="hidden name"><code>UtilMeanSquares.Rd</code></div>
+    <div class="hidden name"><code>UtilLesionDistr.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Calculates the mean squares used in the DBMH and ORH methods</p>
+    <p>The lesion distribution matrix for a dataset.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilLesionDistr</span>(<span class='no'>dataset</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset to be analyzed, see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>FOM</th>
-      <td><p>The figure of merit to be used in the calculation. The default 
-is <code>"FOM_wAFROC"</code>. See <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>FPFValue</th>
-      <td><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
-where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
-    </tr>
-    <tr>
-      <th>method</th>
-      <td><p>The method, in which the mean squares are calculated. The two 
-valid options are <code>"DBMH"</code> (default) and <code>"ORH"</code>.</p></td>
+      <td><p>The dataset</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list containing all possible mean squares</p>
+    <p>The lesion distribution matrix</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For <code>DBMH</code> method, <code>msT, msTR, msTC, msTRC</code> will not be available 
-   if the dataset contains only one treatment. Similarly, 
-   <code>msR, msTR, msRC, msTRC</code> will not be returned for single reader dataset. 
-   For <code>ORH</code> method, <code>msT, msR, msTR</code> will be returned for multiple 
-   reader multiple treatment dataset. <code>msT</code> is not available for single 
-   treatment dataset, and <code>msR</code> is not available for single reader dataset.</p>
+    <p>lesDistr The lesion distribution matrix, an [1:nRow,2] array, where
+   nRow is the number of <b>unique</b> values of lesions per case 
+   in the dataset. The first column contains the number of lesions. 
+   The second column contains the fraction of diseased cases with the number 
+   of lesions indicated in the first column. See 
+   <a href='PlotRsmOperatingCharacteristics.html'>PlotRsmOperatingCharacteristics</a> for a function that depends on 
+   lesDistr. See Chapter00Vignette2 for more details.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</div><div class='output co'>#&gt; $msT
-#&gt; [1] 0.5467634
-#&gt; 
-#&gt; $msR
-#&gt; [1] 0.4373268
-#&gt; 
-#&gt; $msC
-#&gt; [1] 0.3968699
-#&gt; 
-#&gt; $msTR
-#&gt; [1] 0.06281749
-#&gt; 
-#&gt; $msTC
-#&gt; [1] 0.05213307
-#&gt; 
-#&gt; $msRC
-#&gt; [1] 0.06450106
-#&gt; 
-#&gt; $msTRC
-#&gt; [1] 0.0399716
-#&gt; 
-#&gt; $msCSingleT
-#&gt; [1] 0.3362943 0.1604237
-#&gt; 
-#&gt; $msCSingleR
-#&gt; [1] 0.12224980 0.21274824 0.13653391 0.01728937 0.16605281
-#&gt; </div><div class='input'><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $msT
-#&gt; [1] 0.02739718
-#&gt; 
-#&gt; $msR
-#&gt; [1] 0.01833741
-#&gt; 
-#&gt; $msTR
-#&gt; [1] 0.0009277537
-#&gt; </div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>UtilLesionDistr</span> (<span class='no'>dataset01</span>) <span class='co'># FROC data</span></div><div class='output co'>#&gt;      [,1]       [,2]
+#&gt; [1,]    1 0.93258427
+#&gt; [2,]    2 0.06741573</div><div class='input'><span class='fu'>UtilLesionDistr</span> (<span class='no'>dataset02</span>) <span class='co'># ROC data</span></div><div class='output co'>#&gt;      [,1] [,2]
+#&gt; [1,]    1    1</div><div class='input'><span class='fu'>UtilLesionDistr</span> (<span class='no'>datasetCadLroc</span>) <span class='co'># LROC data</span></div><div class='output co'>#&gt;      [,1] [,2]
+#&gt; [1,]    1    1</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

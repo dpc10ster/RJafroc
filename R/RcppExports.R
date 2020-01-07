@@ -45,20 +45,20 @@ SongA2 <- function(ncases_nor, ncases_abn, max_nl, max_ll, n_les, nl, ll) {
     .Call('_RJafroc_SongA2', PACKAGE = 'RJafroc', ncases_nor, ncases_abn, max_nl, max_ll, n_les, nl, ll)
 }
 
-JAFROC1 <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll) {
-    .Call('_RJafroc_JAFROC1', PACKAGE = 'RJafroc', nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll)
+FOM_AFROC1 <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll) {
+    .Call('_RJafroc_FOM_AFROC1', PACKAGE = 'RJafroc', nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll)
 }
 
-JAFROC <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll) {
-    .Call('_RJafroc_JAFROC', PACKAGE = 'RJafroc', nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll)
+FOM_AFROC <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll) {
+    .Call('_RJafroc_FOM_AFROC', PACKAGE = 'RJafroc', nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll)
 }
 
-wJAFROC1 <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights) {
-    .Call('_RJafroc_wJAFROC1', PACKAGE = 'RJafroc', nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights)
+FOM_wAFROC1 <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights) {
+    .Call('_RJafroc_FOM_wAFROC1', PACKAGE = 'RJafroc', nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights)
 }
 
-wJAFROC <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights) {
-    .Call('_RJafroc_wJAFROC', PACKAGE = 'RJafroc', nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights)
+FOM_wAFROC <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights) {
+    .Call('_RJafroc_FOM_wAFROC', PACKAGE = 'RJafroc', nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights)
 }
 
 MaxLLF <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll) {

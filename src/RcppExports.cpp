@@ -173,9 +173,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// JAFROC1
-double JAFROC1(NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll);
-RcppExport SEXP _RJafroc_JAFROC1(SEXP nlSEXP, SEXP llSEXP, SEXP n_lesions_per_imageSEXP, SEXP max_casesSEXP, SEXP max_nlSEXP, SEXP max_llSEXP) {
+// FOM_AFROC1
+double FOM_AFROC1(NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll);
+RcppExport SEXP _RJafroc_FOM_AFROC1(SEXP nlSEXP, SEXP llSEXP, SEXP n_lesions_per_imageSEXP, SEXP max_casesSEXP, SEXP max_nlSEXP, SEXP max_llSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -185,13 +185,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type max_cases(max_casesSEXP);
     Rcpp::traits::input_parameter< int >::type max_nl(max_nlSEXP);
     Rcpp::traits::input_parameter< int >::type max_ll(max_llSEXP);
-    rcpp_result_gen = Rcpp::wrap(JAFROC1(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll));
+    rcpp_result_gen = Rcpp::wrap(FOM_AFROC1(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll));
     return rcpp_result_gen;
 END_RCPP
 }
-// JAFROC
-double JAFROC(NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll);
-RcppExport SEXP _RJafroc_JAFROC(SEXP nlSEXP, SEXP llSEXP, SEXP n_lesions_per_imageSEXP, SEXP max_casesSEXP, SEXP max_nlSEXP, SEXP max_llSEXP) {
+// FOM_AFROC
+double FOM_AFROC(NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll);
+RcppExport SEXP _RJafroc_FOM_AFROC(SEXP nlSEXP, SEXP llSEXP, SEXP n_lesions_per_imageSEXP, SEXP max_casesSEXP, SEXP max_nlSEXP, SEXP max_llSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -201,13 +201,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type max_cases(max_casesSEXP);
     Rcpp::traits::input_parameter< int >::type max_nl(max_nlSEXP);
     Rcpp::traits::input_parameter< int >::type max_ll(max_llSEXP);
-    rcpp_result_gen = Rcpp::wrap(JAFROC(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll));
+    rcpp_result_gen = Rcpp::wrap(FOM_AFROC(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll));
     return rcpp_result_gen;
 END_RCPP
 }
-// wJAFROC1
-double wJAFROC1(NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll, NumericMatrix weights);
-RcppExport SEXP _RJafroc_wJAFROC1(SEXP nlSEXP, SEXP llSEXP, SEXP n_lesions_per_imageSEXP, SEXP max_casesSEXP, SEXP max_nlSEXP, SEXP max_llSEXP, SEXP weightsSEXP) {
+// FOM_wAFROC1
+double FOM_wAFROC1(NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll, NumericMatrix weights);
+RcppExport SEXP _RJafroc_FOM_wAFROC1(SEXP nlSEXP, SEXP llSEXP, SEXP n_lesions_per_imageSEXP, SEXP max_casesSEXP, SEXP max_nlSEXP, SEXP max_llSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -218,13 +218,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type max_nl(max_nlSEXP);
     Rcpp::traits::input_parameter< int >::type max_ll(max_llSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type weights(weightsSEXP);
-    rcpp_result_gen = Rcpp::wrap(wJAFROC1(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights));
+    rcpp_result_gen = Rcpp::wrap(FOM_wAFROC1(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights));
     return rcpp_result_gen;
 END_RCPP
 }
-// wJAFROC
-double wJAFROC(NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll, NumericMatrix weights);
-RcppExport SEXP _RJafroc_wJAFROC(SEXP nlSEXP, SEXP llSEXP, SEXP n_lesions_per_imageSEXP, SEXP max_casesSEXP, SEXP max_nlSEXP, SEXP max_llSEXP, SEXP weightsSEXP) {
+// FOM_wAFROC
+double FOM_wAFROC(NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll, NumericMatrix weights);
+RcppExport SEXP _RJafroc_FOM_wAFROC(SEXP nlSEXP, SEXP llSEXP, SEXP n_lesions_per_imageSEXP, SEXP max_casesSEXP, SEXP max_nlSEXP, SEXP max_llSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -235,7 +235,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type max_nl(max_nlSEXP);
     Rcpp::traits::input_parameter< int >::type max_ll(max_llSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type weights(weightsSEXP);
-    rcpp_result_gen = Rcpp::wrap(wJAFROC(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights));
+    rcpp_result_gen = Rcpp::wrap(FOM_wAFROC(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -465,10 +465,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RJafroc_HrSp", (DL_FUNC) &_RJafroc_HrSp, 6},
     {"_RJafroc_SongA1", (DL_FUNC) &_RJafroc_SongA1, 7},
     {"_RJafroc_SongA2", (DL_FUNC) &_RJafroc_SongA2, 7},
-    {"_RJafroc_JAFROC1", (DL_FUNC) &_RJafroc_JAFROC1, 6},
-    {"_RJafroc_JAFROC", (DL_FUNC) &_RJafroc_JAFROC, 6},
-    {"_RJafroc_wJAFROC1", (DL_FUNC) &_RJafroc_wJAFROC1, 7},
-    {"_RJafroc_wJAFROC", (DL_FUNC) &_RJafroc_wJAFROC, 7},
+    {"_RJafroc_FOM_AFROC1", (DL_FUNC) &_RJafroc_FOM_AFROC1, 6},
+    {"_RJafroc_FOM_AFROC", (DL_FUNC) &_RJafroc_FOM_AFROC, 6},
+    {"_RJafroc_FOM_wAFROC1", (DL_FUNC) &_RJafroc_FOM_wAFROC1, 7},
+    {"_RJafroc_FOM_wAFROC", (DL_FUNC) &_RJafroc_FOM_wAFROC, 7},
     {"_RJafroc_MaxLLF", (DL_FUNC) &_RJafroc_MaxLLF, 6},
     {"_RJafroc_MaxNLF", (DL_FUNC) &_RJafroc_MaxNLF, 6},
     {"_RJafroc_MaxNLFAllCases", (DL_FUNC) &_RJafroc_MaxNLFAllCases, 6},

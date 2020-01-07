@@ -79,7 +79,9 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
        the bootstrap could be used; what distinguishes FROC from ROC analysis is the 
        use of the AFROC-AUC as the FOM. With this change, the DBM or the OR method 
        can be used for significance testing
-    \item JAFROC1 FOM: trapezoidal area under AFROC1 curve; this term is obsolete; 
+    \item FOM_AFROC FOM: trapezoidal area under AFROC curve; this term is obsolete; 
+       use AFROC-AUC instead
+    \item FOM_AFROC1 FOM: trapezoidal area under AFROC1 curve; this term is obsolete; 
        use AFROC1-AUC instead
     \item K: total number of cases, K = K1 + K2, indexed by \eqn{k}
     \item K1: total number of non-diseased cases, indexed by \eqn{k1}
@@ -169,9 +171,9 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
        inferred using highest rating of NL marks on \strong{non-diseased cases ONLY}
     \item wAFROC1 curve: plot of weighted LLF (ordinate) vs. FPF1, where FPF1 is 
        inferred using highest rating of NL marks on \strong{ALL cases}
-    \item wJAFROC FOM: weighted trapezoidal area under AFROC curve: this term is 
+    \item FOM_wAFROC FOM: weighted trapezoidal area under AFROC curve: this term is 
        obsolete; use wAFROC-AUC instead;\strong{this is the recommended FOM}
-    \item wJAFROC1 FOM: weighted trapezoidal area under AFROC1 curve: only use 
+    \item FOM_wAFROC1 FOM: weighted trapezoidal area under AFROC1 curve: only use 
        if there are zero non-diseased cases is always number of treatments minus one
     } 
 }

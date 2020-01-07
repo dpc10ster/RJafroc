@@ -1029,7 +1029,7 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
       }
     }
     FOM <- tw/(K1 * K2) + px0/K1 * (1 - 0.5 * py0/K2)
-  } else if (fom == "JAFROC1") {
+  } else if (fom == "FOM_AFROC1") {
     numLesTotal <- sum(lesionNum)
     les <- as.vector(ll[lesionID != UNINITIALIZED])
     fp <- array(dim = c(K))
@@ -1049,7 +1049,7 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
     ratings <- c(fp, les)
     truth <- c(rep(0, K1), rep(1, length(les)))
     FOM <- CalculateTrapezoidalArea(ratings, truth)
-  } else if (fom == "wJAFROC1") {
+  } else if (fom == "FOM_wAFROC1") {
     numLesTotal <- sum(lesionNum)
     les <- as.vector(ll[lesionID != UNINITIALIZED])
     fp <- array(dim = c(K))
@@ -1060,7 +1060,7 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
     truth <- c(rep(0, K), rep(1, numLesTotal))
     weights <- lesionWeight[lesionWeight != UNINITIALIZED]
     FOM <- CalculateTrapezoidalAreaWeighted(ratings, truth, weights, K2)
-  } else if (fom == "wJAFROC") {
+  } else if (fom == "FOM_wAFROC") {
     numLesTotal <- sum(lesionNum)
     les <- as.vector(ll[lesionID != UNINITIALIZED])
     fp <- array(dim = c(K1))
