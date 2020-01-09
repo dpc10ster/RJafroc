@@ -1,4 +1,4 @@
-## ----setup, include = FALSE---------------------------------------------------
+## ----setup, include = FALSE----------------------------------------------
   knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -6,7 +6,7 @@
   library(RJafroc)
   library(ggplot2)
 
-## ----echo=FALSE---------------------------------------------------------------
+## ----echo=FALSE----------------------------------------------------------
 BMPoints <- function(a, b){
   plotZeta <- seq(-20, 20, by = 0.01)
   FPF <- 1 - pnorm(plotZeta)
@@ -27,7 +27,7 @@ CBMPoints <- function(mu, alpha){
   return(plotCurve)
 }
 
-## ---- fig.align = "center"----------------------------------------------------
+## ---- fig.align = "center"-----------------------------------------------
 plotOP <- data.frame(FPF = 0, TPF = 0.75)
 a <- 0.6744898; b <- 0
 plotCurve <- BMPoints(a, b)
@@ -39,7 +39,7 @@ figA <- ggplot(mapping = aes(x = FPF, y = TPF)) +
   ggtitle("A")
 print(figA)
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 a <- 1.281552; b <- 0
 plotCurve <- BMPoints(a, b)
 figB <- ggplot(mapping = aes(x = FPF, y = TPF)) + 
@@ -59,7 +59,7 @@ figC <- ggplot(mapping = aes(x = FPF, y = TPF)) +
   ggtitle("C")
 print(figB);print(figC)
 
-## ---- fig.align = "center"----------------------------------------------------
+## ---- fig.align = "center"-----------------------------------------------
 mu <- Inf; alpha <- 0.75
 plotCurve <- CBMPoints(mu, alpha)
 figD <- ggplot(mapping = aes(x = FPF, y = TPF)) + 

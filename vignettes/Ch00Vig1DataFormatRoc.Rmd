@@ -27,6 +27,12 @@ vignette: >
 * Note that location information, if applicable, associated with the disease, is not collected. 
 * There is no restriction to 5 or 6 ratings. With algorithmic observers, e.g., computer aided detection (CAD) algorithms, the rating could be a floating point number and have infinite precision. All that is required is that higher values correspond to greater confidence in presence of disease.
 
+## Note to existing users
+* The Excel file format has recently undergone changes resulting in 4 extra `list` members in the final created `dataset` object (12 instead of 8). 
+* Code which should ran on the old format Excel files as the 4 extra list members are simply ignored. 
+* Reasons for the change will become clearer in these vignettes (basically they are needed for generalization to other data collection paradigms instead of crossed, for example to split-plot data acquisition paradigm) and for better data entry error control.
+
+
 ## The Excel data format
 * The Excel file has three worksheets. These are named `Truth`, `NL` (or `FP`) and `LL` (or `TP`).
 

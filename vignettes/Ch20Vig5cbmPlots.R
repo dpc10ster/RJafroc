@@ -1,4 +1,4 @@
-## ----setup, include = FALSE---------------------------------------------------
+## ----setup, include = FALSE----------------------------------------------
   knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -7,13 +7,13 @@
   library(ggplot2)
   library(mvtnorm)
 
-## ----echo=FALSE---------------------------------------------------------------
+## ----echo=FALSE----------------------------------------------------------
 CbmRocY <- function (x, mu, alpha) {
   y <- (1-alpha)*(1-pnorm(qnorm(1-x))) + alpha*(1-pnorm(qnorm(1-x)-mu))
   return(y)
 }
 
-## ---- fig.show='hold', echo=FALSE---------------------------------------------
+## ---- fig.show='hold', echo=FALSE----------------------------------------
 FPF <- seq(0.0, 1, 0.001)
 alphaArr <- c(0.2, 0.8);muArr <- c(1,3)
 myLabel <- c("A", "B", "C", "D")
@@ -36,7 +36,7 @@ for (i in 1:2)
     }
   }
 
-## ---- fig.show='hold', echo=FALSE---------------------------------------------
+## ---- fig.show='hold', echo=FALSE----------------------------------------
 FPF <- seq(0.0, 1, 0.001)
 alphaArr <- c(0.2, 0.8);muArr <- c(1,3)
 myLabel <- c("E", "F", "G", "H")
@@ -77,7 +77,7 @@ for (i in 1:2)
     }
   }
 
-## ---- fig.show='hold', echo=FALSE---------------------------------------------
+## ---- fig.show='hold', echo=FALSE----------------------------------------
 FPF <- seq(0.0, 1, 0.001)
 alphaArr <- c(0.2, 0.8);muArr <- c(1,3)
 myLabel <- c("I", "J", "K", "L")

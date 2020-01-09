@@ -13,7 +13,7 @@ RJafroc
 
 # Update History #
 * See https://dpc10ster.github.io/RJafroc/news/index.html.
-* Current GitHub version is 1.2.0.9000.
+* Current GitHub version is 1.3.0.
 * Current CRAN version is 1.2.0.
 
 # Branch designations #

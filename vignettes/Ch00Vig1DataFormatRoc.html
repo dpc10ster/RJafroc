@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2020-01-07" />
+<meta name="date" content="2020-01-09" />
 
 <title>Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2020-01-07</h4>
+<h4 class="date">2020-01-09</h4>
 
 </div>
 
@@ -379,6 +379,14 @@ summary {
 <li>In the ROC paradigm the observer assigns a rating to each image. A rating is an ordered numeric label, and, in our convention, higher values represent greater certainty or <strong>confidence level</strong> for presence of disease. With human observers, a 5 (or 6) point rating scale is typically used, with 1 representing highest confidence for <em>absence</em> of disease and 5 (or 6) representing highest confidence for <em>presence</em> of disease. Intermediate values represent intermediate confidence levels for presence or absence of disease.</li>
 <li>Note that location information, if applicable, associated with the disease, is not collected.</li>
 <li>There is no restriction to 5 or 6 ratings. With algorithmic observers, e.g., computer aided detection (CAD) algorithms, the rating could be a floating point number and have infinite precision. All that is required is that higher values correspond to greater confidence in presence of disease.</li>
+</ul>
+</div>
+<div id="note-to-existing-users" class="section level2">
+<h2>Note to existing users</h2>
+<ul>
+<li>The Excel file format has recently undergone changes resulting in 4 extra <code>list</code> members in the final created <code>dataset</code> object (12 instead of 8).</li>
+<li>Code which should ran on the old format Excel files as the 4 extra list members are simply ignored.</li>
+<li>Reasons for the change will become clearer in these vignettes (basically they are needed for generalization to other data collection paradigms instead of crossed, for example to split-plot data acquisition paradigm) and for better data entry error control.</li>
 </ul>
 </div>
 <div id="the-excel-data-format" class="section level2">

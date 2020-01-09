@@ -1,4 +1,4 @@
-## ----setup, include = FALSE---------------------------------------------------
+## ----setup, include = FALSE----------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -6,19 +6,19 @@ knitr::opts_chunk$set(
 library(RJafroc)
 library(ggplot2)
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 frocData <- DfExtractDataset(dataset04, trts = c(1,2))
 rocData <- DfFroc2Roc(frocData)
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 lesDistr <- UtilLesionDistr(frocData)
 lesWghts <- UtilLesionWeightsDistr(frocData) # this is needed later
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 print(lesDistr)
 print(lesWghts)
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 I <- dim(frocData$NL)[1]
 J <- dim(frocData$NL)[2]
 RsmParms <- array(dim = c(I,J,3))
@@ -31,17 +31,17 @@ for (i in 1:I) {
   }
 }
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 muMed <- median(RsmParms[,,1]) 
 lambdaPMed <- median(RsmParms[,,2])
 nuPMed <- median(RsmParms[,,3])
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 temp <- UtilPhysical2IntrinsicRSM(muMed, lambdaPMed, nuPMed)
 lambdaMed <- temp$lambda
 nuMed <- temp$nu
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                             lesDistr = lesDistr, 
                                             lesWghtDistr = lesWghts, OpChType = "ROC")$aucROC
@@ -49,7 +49,7 @@ aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed,
                                               lesDistr = lesDistr, 
                                               lesWghtDistr = lesWghts, OpChType = "wAFROC")$aucwAFROC
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 deltaMu <- seq(0.01, 0.2, 0.01) # values of deltaMu to scan below
 esRoc <- array(dim = length(deltaMu));eswAfroc <- array(dim = length(deltaMu))
 for (i in 1:length(deltaMu)) {
@@ -62,7 +62,7 @@ for (i in 1:length(deltaMu)) {
   cat("ES_ROC = ", esRoc[i], ", ES_wAFROC = ", eswAfroc[i],"\n")
 }
 
-## ---- fig.show='hold', fig.align='center'-------------------------------------
+## ---- fig.show='hold', fig.align='center'--------------------------------
 df <- data.frame(es_ROC = esRoc, es_wAFROC = eswAfroc)
 p <- ggplot(data = df, aes(x = es_ROC, y = es_wAFROC)) +
   geom_smooth(method = "lm", se = FALSE, color = "black", formula = y ~ x) +
@@ -74,22 +74,22 @@ p <- ggplot(data = df, aes(x = es_ROC, y = es_wAFROC)) +
   scale_y_continuous(expand = c(0, 0)) 
 print(p)
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 scaleFactor<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin
 effectSizeROC <- seq(0.01, 0.1, 0.01)
 effectSizewAFROC <- effectSizeROC*scaleFactor$coefficients[1] # r2 = summary(scaleFactor)$r.squared
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBMH", option = "RRRC")
 temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBMH", option = "RRRC")
 varCompROC <- temp1$varComp
 varCompwAFROC <- temp2$varComp
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 print(varCompROC)
 print(varCompwAFROC)
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 powerROC <- array(dim = length(effectSizeROC));powerwAFROC <- array(dim = length(effectSizeROC))
 
 JTest <- 5;KTest <- 100
@@ -110,7 +110,7 @@ for (i in 1:length(effectSizeROC)) {
       ", Power-ROC = ", powerROC[i], ", Power-wAFROC = ", powerwAFROC[i], "\n")
 }
 
-## ---- fig.show='hold', fig.align='center'-------------------------------------
+## ---- fig.show='hold', fig.align='center'--------------------------------
 df <- data.frame(power_ROC = powerROC, power_wAFROC = powerwAFROC)
 p <- ggplot(mapping = aes(x = power_ROC, y = power_wAFROC)) +
   geom_line(data = df, size = 2)+

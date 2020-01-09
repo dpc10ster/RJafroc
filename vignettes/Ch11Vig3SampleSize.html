@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2020-01-07" />
+<meta name="date" content="2020-01-09" />
 
 <title>Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2020-01-07</h4>
+<h4 class="date">2020-01-09</h4>
 
 </div>
 
@@ -386,7 +386,7 @@ summary {
 <pre class="r"><code>power &lt;- SsPowerGivenJK(dataset02, FOM = &quot;Wilcoxon&quot;, J = 6, K = 112, option = &quot;RRRC&quot;)</code></pre>
 <p>The returned value is a list containing the expected power <code>power</code>, the non-centrality parameter <code>ncp</code>, the denominator degrees of freedom <code>ddf</code> and the F-statistic <code>f</code>. The numerator degrees of freedom <code>ndf</code> is always <code>I - 1</code>, i.e., unity for this dataset.</p>
 <pre class="r"><code>str(power)
-#&gt; &#39;data.frame&#39;:    1 obs. of  4 variables:
+#&gt; 'data.frame':    1 obs. of  4 variables:
 #&gt;  $ powerRRRC: num 0.556
 #&gt;  $ ncpRRRC  : num 4.8
 #&gt;  $ ddfHRRRC : num 23.1
@@ -603,7 +603,7 @@ summary {
 <h3>RRRC</h3>
 <pre class="r"><code>ncases &lt;- SsSampleSizeKGivenJ(dataset02, FOM = &quot;Wilcoxon&quot;, J = 10, method = &quot;DBMH&quot;, option = &quot;RRRC&quot;)
 str(ncases)
-#&gt; &#39;data.frame&#39;:    1 obs. of  2 variables:
+#&gt; 'data.frame':    1 obs. of  2 variables:
 #&gt;  $ KRRRC    : num 163
 #&gt;  $ powerRRRC: num 0.802</code></pre>
 <p><code>ncases</code> is a list containing the number of cases 163 and expected power 0.8015625. Compare the number of cases to the RRRC value used in vignette 2.</p>
@@ -612,7 +612,7 @@ str(ncases)
 <p>This is illustrated below for 90% desired power.</p>
 <pre class="r"><code>ncases &lt;- SsSampleSizeKGivenJ(dataset02, FOM = &quot;Wilcoxon&quot;, J = 10, method = &quot;DBMH&quot;, option = &quot;RRRC&quot;, desiredPower = 0.9)
 str(ncases)
-#&gt; &#39;data.frame&#39;:    1 obs. of  2 variables:
+#&gt; 'data.frame':    1 obs. of  2 variables:
 #&gt;  $ KRRRC    : num 236
 #&gt;  $ powerRRRC: num 0.9</code></pre>
 <p>The required number of cases is 236 and expected power is 0.9003501.</p>
@@ -622,7 +622,7 @@ str(ncases)
 <h3>FRRC</h3>
 <pre class="r"><code>ncases &lt;- SsSampleSizeKGivenJ(dataset02, FOM = &quot;Wilcoxon&quot;, J = 10, method = &quot;DBMH&quot;, option = &quot;FRRC&quot;)
 str(ncases)
-#&gt; &#39;data.frame&#39;:    1 obs. of  2 variables:
+#&gt; 'data.frame':    1 obs. of  2 variables:
 #&gt;  $ KFRRC    : num 133
 #&gt;  $ powerFRRC: num 0.801</code></pre>
 <p>The required number of cases is 133 and expected power is 0.8011167. Compare the number of cases to the FRRC value used in vignette 2.</p>
@@ -631,7 +631,7 @@ str(ncases)
 <h3>RRFC</h3>
 <pre class="r"><code>ncases &lt;- SsSampleSizeKGivenJ(dataset02, FOM = &quot;Wilcoxon&quot;, J = 10, method = &quot;DBMH&quot;, option = &quot;RRFC&quot;)
 str(ncases)
-#&gt; &#39;data.frame&#39;:    1 obs. of  2 variables:
+#&gt; 'data.frame':    1 obs. of  2 variables:
 #&gt;  $ KRRFC    : num 53
 #&gt;  $ powerRRFC: num 0.805</code></pre>
 <p>The required number of cases is 53 and expected power is 0.8049666. Compare the number of cases to the RRFC value used in vignette 2.</p>

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2020-01-07" />
+<meta name="date" content="2020-01-09" />
 
 <title>Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2020-01-07</h4>
+<h4 class="date">2020-01-09</h4>
 
 </div>
 
@@ -388,14 +388,15 @@ summary {
 <p>This illustrates the <code>UtilOutputReport()</code> function. The significance testing <code>method</code> is “DBMH”, the default, and the figure of merit <code>FOM</code> is “Wilcoxon”. Note <code>ReportFileExt</code> = “xlsx”` telling the function to create an Excel output file. The Excel output is created in a temporary file.</p>
 <pre class="r"><code>ret &lt;- UtilOutputReport(dataset03, FOM = &quot;Wilcoxon&quot;, overWrite = TRUE, ReportFileExt = &quot;xlsx&quot;)
 #&gt; 
-#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpCowT1Y/RJafrocUtilOutputReport607675ec6e7b.xlsx</code></pre>
+#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//Rtmpum5bIP/RJafrocUtilOutputReport2ba825460816.xlsx
+#&gt; Note: zip::zip() is deprecated, please use zip::zipr() instead</code></pre>
 </div>
 <div id="orh-significance-testing" class="section level2">
 <h2>ORH significance testing</h2>
 <p>Simply change <code>method = &quot;DBMH&quot;</code> (the default) to <code>method = &quot;ORH&quot;</code>.</p>
 <pre class="r"><code>ret &lt;- UtilOutputReport(dataset03, FOM = &quot;Wilcoxon&quot;, method = &quot;ORH&quot;, overWrite = TRUE, ReportFileExt = &quot;xlsx&quot;)
 #&gt; 
-#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpCowT1Y/RJafrocUtilOutputReport60761f04d1c7.xlsx</code></pre>
+#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//Rtmpum5bIP/RJafrocUtilOutputReport2ba82a84cfd8.xlsx</code></pre>
 </div>
 
 

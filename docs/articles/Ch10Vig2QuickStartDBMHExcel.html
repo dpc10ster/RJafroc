@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output • RJafroc</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -31,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -39,7 +38,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -131,14 +130,13 @@
 <!--/.navbar -->
 
       
-
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-01-07</h4>
+            <h4 class="date">2020-01-09</h4>
       
       
       <div class="hidden name"><code>Ch10Vig2QuickStartDBMHExcel.Rmd</code></div>
@@ -164,17 +162,18 @@
 <h2 class="hasAnchor">
 <a href="#generating-the-excel-output-file" class="anchor"></a>Generating the Excel output file</h2>
 <p>This illustrates the <code><a href="../reference/UtilOutputReport.html">UtilOutputReport()</a></code> function. The significance testing <code>method</code> is “DBMH”, the default, and the figure of merit <code>FOM</code> is “Wilcoxon”. Note <code>ReportFileExt</code> = “xlsx”` telling the function to create an Excel output file. The Excel output is created in a temporary file.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">overWrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileExt =</span> <span class="st">"xlsx"</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//Rtmp8xchuz/RJafrocUtilOutputReport6db816005029.xlsx</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">overWrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileExt =</span> <span class="st">"xlsx"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpOo1gjd/RJafrocUtilOutputReport302199d7db8.xlsx</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; Note: zip::zip() is deprecated, please use zip::zipr() instead</span></a></code></pre></div>
 </div>
 <div id="orh-significance-testing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#orh-significance-testing" class="anchor"></a>ORH significance testing</h2>
 <p>Simply change <code>method = "DBMH"</code> (the default) to <code>method = "ORH"</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">overWrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileExt =</span> <span class="st">"xlsx"</span>)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//Rtmp8xchuz/RJafrocUtilOutputReport6db820e35595.xlsx</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">overWrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileExt =</span> <span class="st">"xlsx"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpOo1gjd/RJafrocUtilOutputReport3021d3c36c5.xlsx</span></a></code></pre></div>
 </div>
   </div>
 
@@ -193,20 +192,17 @@
 </div>
 
 
-
       <footer><div class="copyright">
   <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
-
       </footer>
 </div>
 
   
-
 
   </body>
 </html>

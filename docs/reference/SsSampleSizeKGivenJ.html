@@ -16,15 +16,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -50,7 +48,6 @@
 <![endif]-->
 
 
-
   </head>
 
   <body>
@@ -67,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -75,7 +72,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -168,7 +165,6 @@
 </div><!--/.navbar -->
 
       
-
       </header>
 
 <div class="row">
@@ -267,23 +263,21 @@ Statistics in Medicine, 24:10, 1579--607.</p>
 <span class='fu'>SsSampleSizeKGivenJ</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt;   KRRRC powerRRRC KFRRC powerFRRC KRRFC powerRRFC
 #&gt; 1   170 0.8016186   119 0.8001346    99 0.8020196</div><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilVarComponentsDBM.html'>UtilVarComponentsDBM</a></span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>varComp</span>
 <span class='fu'>SsSampleSizeKGivenJ</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>,
-   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>varYTR</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varTR</span>, <span class='kw'>varYTC</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varTC</span>, <span class='kw'>varYEps</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varErr</span>))</div><div class='output co'>#&gt;   KRRRC powerRRRC KFRRC powerFRRC KRRFC powerRRFC
+   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>varYTR</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varTR</span>, <span class='kw'>varYTC</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varTC</span>, <span class='kw'>varYEps</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varErr</span>))</div><div class='output co'>#&gt;   KRRRC powerRRRC KFRRC powerFRRC KRRFC powerRRFC
 #&gt; 1   170 0.8016186   119 0.8001346    99 0.8020196</div><div class='input'>
 <span class='co'>## the following two should give identical results</span>
 <span class='fu'>SsSampleSizeKGivenJ</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt;   KRRRC powerRRRC KFRRC powerFRRC KRRFC powerRRFC
 #&gt; 1   170 0.8016186   119 0.8001346    99 0.8020196</div><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilVarComponentsOR.html'>UtilVarComponentsOR</a></span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>varComp</span>
-<span class='no'>KStar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>dataset02</span>$<span class='no'>NL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,<span class='fl'>1</span>])
+<span class='no'>KStar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>dataset02</span>$<span class='no'>NL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,<span class='fl'>1</span>])
 <span class='fu'>SsSampleSizeKGivenJ</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>,
-   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>KStar</span> <span class='kw'>=</span> <span class='no'>KStar</span>, <span class='kw'>varTR</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varTR</span>, <span class='kw'>cov1</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>cov1</span>, <span class='kw'>cov2</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>cov2</span>,
+   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>KStar</span> <span class='kw'>=</span> <span class='no'>KStar</span>, <span class='kw'>varTR</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>varTR</span>, <span class='kw'>cov1</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>cov1</span>, <span class='kw'>cov2</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>cov2</span>,
    <span class='kw'>cov3</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>cov3</span>, <span class='kw'>varEps</span> <span class='kw'>=</span> <span class='no'>a</span>$<span class='no'>var</span>))</div><div class='output co'>#&gt;   KRRRC powerRRRC KFRRC powerFRRC KRRFC powerRRFC
 #&gt; 1   170 0.8016186   119 0.8001346    99 0.8020196</div><div class='input'>
-<span class='co'># \donttest{ </span>
-<span class='kw'>for</span> (<span class='no'>J</span> <span class='kw'>in</span> <span class='fl'>6</span>:<span class='fl'>10</span>) {
+</div><div class='input'><span class='kw'>for</span> (<span class='no'>J</span> <span class='kw'>in</span> <span class='fl'>6</span>:<span class='fl'>10</span>) {
  <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>SsSampleSizeKGivenJ</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='no'>J</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>)
- <span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span>(<span class='st'>"# of readers = "</span>, <span class='no'>J</span>, <span class='st'>" estimated # of cases = "</span>, <span class='no'>ret</span>$<span class='no'>K</span>,
- <span class='st'>", predicted power = "</span>, <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>signif</a></span>(<span class='no'>ret</span>$<span class='no'>powerRRRC</span>,<span class='fl'>3</span>), <span class='st'>"\n"</span>)
-}</div><div class='output co'>#&gt; <span class='message'># of readers = 6 estimated # of cases = 251, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 7 estimated # of cases = 211, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 8 estimated # of cases = 188, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 9 estimated # of cases = 173, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 10 estimated # of cases = 163, predicted power = 0.802</span></div><div class='input'># }
-
+ <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/message'>message</a></span>(<span class='st'>"# of readers = "</span>, <span class='no'>J</span>, <span class='st'>" estimated # of cases = "</span>, <span class='no'>ret</span>$<span class='no'>K</span>,
+ <span class='st'>", predicted power = "</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>signif</a></span>(<span class='no'>ret</span>$<span class='no'>powerRRRC</span>,<span class='fl'>3</span>), <span class='st'>"\n"</span>)
+}</div><div class='output co'>#&gt; <span class='message'># of readers = 6 estimated # of cases = 251, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 7 estimated # of cases = 211, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 8 estimated # of cases = 188, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 9 estimated # of cases = 173, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 10 estimated # of cases = 163, predicted power = 0.802</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -303,23 +297,19 @@ Statistics in Medicine, 24:10, 1579--607.</p>
   </div>
 </div>
 
-
       <footer>
       <div class="copyright">
   <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
-
       </footer>
    </div>
 
   
 
-
   </body>
 </html>
-
 

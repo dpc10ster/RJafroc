@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2020-01-07" />
+<meta name="date" content="2020-01-09" />
 
 <title>Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2020-01-07</h4>
+<h4 class="date">2020-01-09</h4>
 
 </div>
 
@@ -483,10 +483,10 @@ print(ret)
 #&gt; 1 4.694058       1       3 0.1188379
 #&gt; 
 #&gt; $ciDiffTrtRRRC
-#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
-#&gt;      CIUpper
-#&gt; 1 0.02679926
+#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379
+#&gt;        CILower    CIUpper
+#&gt; 1 -0.005089627 0.02679926
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRRC
 #&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper
@@ -498,10 +498,10 @@ print(ret)
 #&gt; 1 0.363956       1      99 0.547697
 #&gt; 
 #&gt; $ciDiffTrtFRRC
-#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower
-#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675
-#&gt;      CIUpper
-#&gt; 1 0.04655638
+#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697
+#&gt;       CILower    CIUpper
+#&gt; 1 -0.02484675 0.04655638
 #&gt; 
 #&gt; $ciAvgRdrEachTrtFRRC
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
@@ -531,10 +531,10 @@ print(ret)
 #&gt; 1 4.694058       1       3 0.1188379
 #&gt; 
 #&gt; $ciDiffTrtRRFC
-#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
-#&gt;      CIUpper
-#&gt; 1 0.02679926
+#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379
+#&gt;        CILower    CIUpper
+#&gt; 1 -0.005089627 0.02679926
 #&gt; 
 #&gt; $ciAvgRdrEachTrtRRFC
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
@@ -618,10 +618,10 @@ print(ret)
 <li><code>ciDiffTrtRRRC</code> is the 95% confidence interval of reader-averaged differences between treatments.</li>
 </ul>
 <pre class="r"><code>ret$ciDiffTrtRRRC
-#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
-#&gt;      CIUpper
-#&gt; 1 0.02679926</code></pre>
+#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379
+#&gt;        CILower    CIUpper
+#&gt; 1 -0.005089627 0.02679926</code></pre>
 <ul>
 <li><code>ciAvgRdrEachTrtRRRC</code> is the 95% confidence interval of reader-averaged FOMs for each treatments.</li>
 </ul>
@@ -662,10 +662,10 @@ print(ret)
 <li><code>ciDiffTrtFRRC</code> is the 95% CI of reader-average differences between treatments for fixed-reader random-case analysis</li>
 </ul>
 <pre class="r"><code>ret$ciDiffTrtFRRC
-#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower
-#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675
-#&gt;      CIUpper
-#&gt; 1 0.04655638</code></pre>
+#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697
+#&gt;       CILower    CIUpper
+#&gt; 1 -0.02484675 0.04655638</code></pre>
 <ul>
 <li><code>ret$ciAvgRdrEachTrtFRRC</code> is the 95% CI of reader-average FOMs of each treatment for fixed-reader random-case analysis</li>
 </ul>
@@ -691,10 +691,10 @@ print(ret)
 <li><code>ciDiffTrtFRRC</code> is the CI for reader-averaged treatment differences, for fixed-reader random-case analysis</li>
 </ul>
 <pre class="r"><code>ret$ciDiffTrtFRRC
-#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower
-#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675
-#&gt;      CIUpper
-#&gt; 1 0.04655638</code></pre>
+#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697
+#&gt;       CILower    CIUpper
+#&gt; 1 -0.02484675 0.04655638</code></pre>
 </div>
 </div>
 <div id="random-reader-fixed-case-rrfc-analysis" class="section level3">
@@ -723,10 +723,10 @@ print(ret)
 <li><code>ciDiffTrtRRFC</code> is the CI for reader-averaged inter-treatment FOM differences for random-reader fixed-case analysis</li>
 </ul>
 <pre class="r"><code>ret$ciDiffTrtRRFC
-#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt      CILower
-#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627
-#&gt;      CIUpper
-#&gt; 1 0.02679926</code></pre>
+#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt
+#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379
+#&gt;        CILower    CIUpper
+#&gt; 1 -0.005089627 0.02679926</code></pre>
 <ul>
 <li><code>ciAvgRdrEachTrtRRFC</code> is the CI for treatment FOMs for each reader for random-reader fixed-case analysis</li>
 </ul>
@@ -747,23 +747,23 @@ str(ret)
 #&gt;   ..- attr(*, &quot;dimnames&quot;)=List of 2
 #&gt;   .. ..$ : chr [1:2] &quot;TrtTREAT1&quot; &quot;TrtTREAT2&quot;
 #&gt;   .. ..$ : chr [1:4] &quot;RdrREADER_1&quot; &quot;RdrREADER_2&quot; &quot;RdrREADER_3&quot; &quot;RdrREADER_4&quot;
-#&gt;  $ meanSquares         :&#39;data.frame&#39;:    1 obs. of  3 variables:
+#&gt;  $ meanSquares         :'data.frame':    1 obs. of  3 variables:
 #&gt;   ..$ msT : num 0.000236
 #&gt;   ..$ msR : num 0.000684
 #&gt;   ..$ msTR: num 5.02e-05
-#&gt;  $ varComp             :&#39;data.frame&#39;:    1 obs. of  6 variables:
+#&gt;  $ varComp             :'data.frame':    1 obs. of  6 variables:
 #&gt;   ..$ varR : num 2.33e-05
 #&gt;   ..$ varTR: num -0.000684
 #&gt;   ..$ cov1 : num 0.000792
 #&gt;   ..$ cov2 : num 0.000484
 #&gt;   ..$ cov3 : num 0.000513
 #&gt;   ..$ var  : num 0.00153
-#&gt;  $ FTestStatsRRRC      :&#39;data.frame&#39;:    1 obs. of  4 variables:
+#&gt;  $ FTestStatsRRRC      :'data.frame':    1 obs. of  4 variables:
 #&gt;   ..$ fRRRC  : num 4.69
 #&gt;   ..$ ndfRRRC: num 1
 #&gt;   ..$ ddfRRRC: num 3
 #&gt;   ..$ pRRRC  : num 0.119
-#&gt;  $ ciDiffTrtRRRC       :&#39;data.frame&#39;:    1 obs. of  8 variables:
+#&gt;  $ ciDiffTrtRRRC       :'data.frame':    1 obs. of  8 variables:
 #&gt;   ..$ Treatment: chr &quot;TrtTREAT1-TrtTREAT2&quot;
 #&gt;   ..$ Estimate : num 0.0109
 #&gt;   ..$ StdErr   : num 0.00501
@@ -772,19 +772,19 @@ str(ret)
 #&gt;   ..$ PrGTt    : num 0.119
 #&gt;   ..$ CILower  : num -0.00509
 #&gt;   ..$ CIUpper  : num 0.0268
-#&gt;  $ ciAvgRdrEachTrtRRRC :&#39;data.frame&#39;:    2 obs. of  6 variables:
+#&gt;  $ ciAvgRdrEachTrtRRRC :'data.frame':    2 obs. of  6 variables:
 #&gt;   ..$ Treatment: Factor w/ 2 levels &quot;TrtTREAT1&quot;,&quot;TrtTREAT2&quot;: 1 2
 #&gt;   ..$ Area     : num [1:2] 0.848 0.837
 #&gt;   ..$ StdErr   : num [1:2] 0.0244 0.0236
 #&gt;   ..$ DF       : num [1:2] 70.1 253.6
 #&gt;   ..$ CILower  : num [1:2] 0.799 0.79
 #&gt;   ..$ CIUpper  : num [1:2] 0.896 0.883
-#&gt;  $ FTestStatsFRRC      :&#39;data.frame&#39;:    1 obs. of  4 variables:
+#&gt;  $ FTestStatsFRRC      :'data.frame':    1 obs. of  4 variables:
 #&gt;   ..$ fFRRC  : num 0.364
 #&gt;   ..$ ndfFRRC: num 1
 #&gt;   ..$ ddfFRRC: num Inf
 #&gt;   ..$ pFRRC  : num 0.546
-#&gt;  $ ciDiffTrtFRRC       :&#39;data.frame&#39;:    1 obs. of  8 variables:
+#&gt;  $ ciDiffTrtFRRC       :'data.frame':    1 obs. of  8 variables:
 #&gt;   ..$ Treatment: chr &quot;TrtTREAT1-TrtTREAT2&quot;
 #&gt;   ..$ Estimate : num 0.0109
 #&gt;   ..$ StdErr   : num 0.018
@@ -793,14 +793,14 @@ str(ret)
 #&gt;   ..$ PrGTt    : num 0.546
 #&gt;   ..$ CILower  : num -0.0244
 #&gt;   ..$ CIUpper  : num 0.0461
-#&gt;  $ ciAvgRdrEachTrtFRRC :&#39;data.frame&#39;:    2 obs. of  6 variables:
+#&gt;  $ ciAvgRdrEachTrtFRRC :'data.frame':    2 obs. of  6 variables:
 #&gt;   ..$ Treatment: Factor w/ 2 levels &quot;TrtTREAT1&quot;,&quot;TrtTREAT2&quot;: 1 2
 #&gt;   ..$ Area     : num [1:2] 0.848 0.837
 #&gt;   ..$ StdErr   : num [1:2] 0.0271 0.0274
 #&gt;   ..$ DF       : num [1:2] Inf Inf
 #&gt;   ..$ CILower  : num [1:2] 0.795 0.783
 #&gt;   ..$ CIUpper  : num [1:2] 0.901 0.891
-#&gt;  $ ciDiffTrtEachRdrFRRC:&#39;data.frame&#39;:    4 obs. of  9 variables:
+#&gt;  $ ciDiffTrtEachRdrFRRC:'data.frame':    4 obs. of  9 variables:
 #&gt;   ..$ Reader   : Factor w/ 4 levels &quot;RdrREADER_1&quot;,..: 1 2 3 4
 #&gt;   ..$ Treatment: Factor w/ 1 level &quot;TrtTREAT1-TrtTREAT2&quot;: 1 1 1 1
 #&gt;   ..$ Estimate : num [1:4] 0.003844 0.021483 0.017187 0.000905
@@ -810,16 +810,16 @@ str(ret)
 #&gt;   ..$ PrGTt    : num [1:4] 0.928 0.592 0.623 0.979
 #&gt;   ..$ CILower  : num [1:4] -0.08 -0.0571 -0.0514 -0.0673
 #&gt;   ..$ CIUpper  : num [1:4] 0.0877 0.1 0.0858 0.0691
-#&gt;  $ varCovEachRdr       :&#39;data.frame&#39;:    4 obs. of  3 variables:
+#&gt;  $ varCovEachRdr       :'data.frame':    4 obs. of  3 variables:
 #&gt;   ..$ Reader: Factor w/ 4 levels &quot;RdrREADER_1&quot;,..: 1 2 3 4
 #&gt;   ..$ Var   : num [1:4] 0.00148 0.00152 0.00138 0.00173
 #&gt;   ..$ Cov1  : num [1:4] 0.000562 0.000716 0.000765 0.001124
-#&gt;  $ FTestStatsRRFC      :&#39;data.frame&#39;:    1 obs. of  4 variables:
+#&gt;  $ FTestStatsRRFC      :'data.frame':    1 obs. of  4 variables:
 #&gt;   ..$ fRRFC  : num 4.69
 #&gt;   ..$ ndfRRFC: num 1
 #&gt;   ..$ ddfRRFC: num 3
 #&gt;   ..$ pRRFC  : num 0.119
-#&gt;  $ ciDiffTrtRRFC       :&#39;data.frame&#39;:    1 obs. of  8 variables:
+#&gt;  $ ciDiffTrtRRFC       :'data.frame':    1 obs. of  8 variables:
 #&gt;   ..$ Treatment: chr &quot;TrtTREAT1-TrtTREAT2&quot;
 #&gt;   ..$ Estimate : num 0.0109
 #&gt;   ..$ StdErr   : num 0.00501
@@ -828,7 +828,7 @@ str(ret)
 #&gt;   ..$ PrGTt    : num 0.119
 #&gt;   ..$ CILower  : num -0.00509
 #&gt;   ..$ CIUpper  : num 0.0268
-#&gt;  $ ciAvgRdrEachTrtRRFC :&#39;data.frame&#39;:    2 obs. of  6 variables:
+#&gt;  $ ciAvgRdrEachTrtRRFC :'data.frame':    2 obs. of  6 variables:
 #&gt;   ..$ Treatment: Factor w/ 2 levels &quot;TrtTREAT1&quot;,&quot;TrtTREAT2&quot;: 1 2
 #&gt;   ..$ Area     : num [1:2] 0.848 0.837
 #&gt;   ..$ StdErr   : num [1:2] 0.0111 0.00777

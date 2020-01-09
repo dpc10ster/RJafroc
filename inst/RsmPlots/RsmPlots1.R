@@ -1,6 +1,5 @@
-# RsmPlots.R
+# RsmPlots1.R
 rm(list = ls())
-rm(list=ls())
 library(RJafroc)
 set.seed(1)
 K2 <- 700;Lmax <- 5;Lk2 <- floor(runif(K2, 1, Lmax + 1))

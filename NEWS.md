@@ -1,6 +1,7 @@
-# RJafroc 1.2.0.9000
+# RJafroc 1.3.0
 
 ## Extended dataset object structure
+* Bumped version number to 1.3.0 as I am moving towards a CRAN submission
 * Lost `development` branch while using `GitHub`; decided to do `Git` manually
 * Why is `.gitignore` not working?
 * Additional members added 12/27/2019 by DPC
@@ -13,6 +14,7 @@
    +  abnormalCases = abnormalCases,
    +  truthTableStr = truthTableStr
 * Need to update all datasets and check all occurences where `DfReadDataFile()` is used
+* Included my own CPP coded wAFROC plot function. Learning a lot form Dirk's book website https://teuder.github.io/rcpp4everyone_en/.
 
 ## Split plot dataset
 * Modifications to `DfReadDataFile()` to allow for split plot datasets completed.

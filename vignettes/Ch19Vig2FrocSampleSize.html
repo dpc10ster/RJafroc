@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2020-01-07" />
+<meta name="date" content="2020-01-09" />
 
 <title>Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2020-01-07</h4>
+<h4 class="date">2020-01-09</h4>
 
 </div>
 
@@ -386,7 +386,7 @@ nuMed &lt;- ret$nuMed
 lesDistr &lt;- ret$lesDistr
 lesWghtDistr &lt;- ret$lesWghtDistr
 scaleFactor &lt;- ret$scaleFactor</code></pre>
-<p>The fitting model is defined by <code>muMed = r muMed</code>, <code>lambdaMed = 5.6140942</code> and <code>nuMed = 0.3696988</code> and <code>lesionPmf</code>. The effect size scale factor is 2.1542102.</p>
+<p>The fitting model is defined by <code>muMed = r muMed</code>, <code>lambdaMed = 5.6140941</code> and <code>nuMed = 0.3696988</code> and <code>lesionPmf</code>. The effect size scale factor is 2.1542102.</p>
 <pre class="r"><code>aucRocNH &lt;- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                             lesDistr = lesDistr, 
                                             lesWghtDistr = lesWghtDistr, OpChType = &quot;ROC&quot;)$aucROC

@@ -226,6 +226,8 @@ double ywAFROC (double zeta, double mu, double nuP,
     for (int col = 0; col < nLesPerCase; col++){
       wLLFrow += lesWghtDistr(row, col+1) * (col+1) *
         R::dbinom(double(col+1), double(nLesPerCase), nuP, 0) * (1 - R::pnorm(zeta - mu, 0, 1, 1, 0));
+// above line was tricky; note difference in col indexing from R code: lesWghtDistr[row, col+1] * col * dbinom(col, nLesPerCase, nuP) * (1 - pnorm(zeta - mu))
+// this is due to zero-based C indexing vs. 1 based r indexing
     }
     wLLF += fl[row] * wLLFrow;
   }

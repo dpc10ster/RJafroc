@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2020-01-07" />
+<meta name="date" content="2020-01-09" />
 
 <title>Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2020-01-07</h4>
+<h4 class="date">2020-01-09</h4>
 
 </div>
 
@@ -380,7 +380,7 @@ summary {
 <pre class="r"><code>power &lt;- SsPowerGivenJK(dataset02, FOM = &quot;Wilcoxon&quot;, J = 6, K = 251, method = &quot;ORH&quot;, option = &quot;RRRC&quot;)</code></pre>
 <p>The returned value is a <code>list</code> containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic (the numerator degrees of freedom is always one less than the number of treatments, i.e., unity in this example).</p>
 <pre class="r"><code>str(power)
-#&gt; &#39;data.frame&#39;:    1 obs. of  4 variables:
+#&gt; 'data.frame':    1 obs. of  4 variables:
 #&gt;  $ powerRRRC: num 0.801
 #&gt;  $ ncpRRRC  : num 8.91
 #&gt;  $ ddfHRRRC : num 16.1
@@ -598,7 +598,7 @@ summary {
 <pre class="r"><code>ncases &lt;- SsSampleSizeKGivenJ(dataset02, FOM = &quot;Wilcoxon&quot;, J = 10, method = &quot;ORH&quot;, option = &quot;RRRC&quot;)</code></pre>
 <p><code>ncases</code> is a list containing the number of cases <code>ncases$KRRRC</code> and expected power <code>ncases$powerRRRC</code>.</p>
 <pre class="r"><code>str(ncases)
-#&gt; &#39;data.frame&#39;:    1 obs. of  2 variables:
+#&gt; 'data.frame':    1 obs. of  2 variables:
 #&gt;  $ KRRRC    : num 163
 #&gt;  $ powerRRRC: num 0.802</code></pre>
 <p>The required number of cases is 163 and expected power is 0.8015625.</p>

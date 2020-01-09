@@ -1,19 +1,19 @@
-## ----setup, include = FALSE---------------------------------------------------
+## ----setup, include = FALSE----------------------------------------------
   knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
   )
   library(RJafroc)
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 str(dataset04$lesionID)
 str(dataset04$lesionWeight)
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 p <- PlotEmpiricalOperatingCharacteristics(dataset04, opChType = "wAFROC")
 p$Plot
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 ## Following example is for mu = 2, lambda = 1, nu = 0.6. 20% of the diseased 
 ## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, 
 ## and 30% have 4 lesions.  
@@ -31,11 +31,11 @@ p <- PlotRsmOperatingCharacteristics(mu = 2, lambda = 1, nu = 0.6, OpChType = "w
                                        legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
 p$wAFROCPlot
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 lesDistr
 lesWghtDistr
 
-## -----------------------------------------------------------------------------
+## ------------------------------------------------------------------------
 lesDistr <- rbind(c(1, 0.2), c(2, 0.4), c(3, 0.1), c(4, 0.3))
 p <- PlotRsmOperatingCharacteristics(mu = 2, lambda = 1, nu = 0.6, OpChType = "ROC",
                                        lesDistr = lesDistr,  

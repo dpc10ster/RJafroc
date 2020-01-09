@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2020-01-07" />
+<meta name="date" content="2020-01-09" />
 
 <title>Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2020-01-07</h4>
+<h4 class="date">2020-01-09</h4>
 
 </div>
 
@@ -519,11 +519,11 @@ str(x)
 <li>The numbers of lesions in these cases is contained in <code>x$lesionVector</code>.</li>
 </ul>
 <pre class="r"><code>x$lesionVector
-#&gt;   [1]  6  4  7  1  3  3  3  8 11  2  4  6  2 16  5  2  8  3  4  7 11  1  4  3  4
-#&gt;  [26]  4  7  3  2  5  2  2  7  6  6  4 10 20 12  6  4  7 12  5  1  1  5  1  2  8
-#&gt;  [51]  3  1  2  2  3  2  8 16 10  1  2  2  6  3  2  2  4  6 10 11  1  2  6  2  4
-#&gt;  [76]  5  2  9  6  6  8  3  8  7  1  1  6  3  2  1  9  8  8  2  2 12  1  1  1  1
-#&gt; [101]  1  3  1  2  2  1  1  1  1  3  1  1  1  2  1</code></pre>
+#&gt;   [1]  6  4  7  1  3  3  3  8 11  2  4  6  2 16  5  2  8  3  4  7 11  1  4
+#&gt;  [24]  3  4  4  7  3  2  5  2  2  7  6  6  4 10 20 12  6  4  7 12  5  1  1
+#&gt;  [47]  5  1  2  8  3  1  2  2  3  2  8 16 10  1  2  2  6  3  2  2  4  6 10
+#&gt;  [70] 11  1  2  6  2  4  5  2  9  6  6  8  3  8  7  1  1  6  3  2  1  9  8
+#&gt;  [93]  8  2  2 12  1  1  1  1  1  3  1  2  2  1  1  1  1  3  1  1  1  2  1</code></pre>
 <ul>
 <li>For example, the first abnormal case contains 6 lesions, the second contains 4 lesions, the third contains 7 lesions, etc. and the last abnormal case contains 1 lesion.</li>
 <li>To get an idea of the distribution of the numbers of lesions per abnormal cases, one could interrogate this vector as shown below using the <code>which()</code> function:</li>
@@ -640,51 +640,51 @@ cat(&quot;dim(lesWghtDistr) =&quot;, dim(lesWghtDistr),&quot;\n&quot;)
 cat(&quot;lesWghtDistr = \n\n&quot;)
 #&gt; lesWghtDistr =
 lesWghtDistr
-#&gt;       [,1]       [,2]       [,3]       [,4]       [,5]       [,6]       [,7]
-#&gt;  [1,]    1 1.00000000       -Inf       -Inf       -Inf       -Inf       -Inf
-#&gt;  [2,]    2 0.50000000 0.50000000       -Inf       -Inf       -Inf       -Inf
-#&gt;  [3,]    3 0.33333333 0.33333333 0.33333333       -Inf       -Inf       -Inf
-#&gt;  [4,]    4 0.25000000 0.25000000 0.25000000 0.25000000       -Inf       -Inf
-#&gt;  [5,]    5 0.20000000 0.20000000 0.20000000 0.20000000 0.20000000       -Inf
-#&gt;  [6,]    6 0.16666667 0.16666667 0.16666667 0.16666667 0.16666667 0.16666667
-#&gt;  [7,]    7 0.14285714 0.14285714 0.14285714 0.14285714 0.14285714 0.14285714
-#&gt;  [8,]    8 0.12500000 0.12500000 0.12500000 0.12500000 0.12500000 0.12500000
-#&gt;  [9,]    9 0.11111111 0.11111111 0.11111111 0.11111111 0.11111111 0.11111111
-#&gt; [10,]   10 0.10000000 0.10000000 0.10000000 0.10000000 0.10000000 0.10000000
-#&gt; [11,]   11 0.09090909 0.09090909 0.09090909 0.09090909 0.09090909 0.09090909
-#&gt; [12,]   12 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333
-#&gt; [13,]   16 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000
-#&gt; [14,]   20 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000
-#&gt;             [,8]       [,9]      [,10]      [,11]      [,12]      [,13]  [,14]
-#&gt;  [1,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [2,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [3,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [4,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [5,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [6,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [7,] 0.14285714       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [8,] 0.12500000 0.12500000       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [9,] 0.11111111 0.11111111 0.11111111       -Inf       -Inf       -Inf   -Inf
-#&gt; [10,] 0.10000000 0.10000000 0.10000000 0.10000000       -Inf       -Inf   -Inf
-#&gt; [11,] 0.09090909 0.09090909 0.09090909 0.09090909 0.09090909       -Inf   -Inf
-#&gt; [12,] 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333   -Inf
-#&gt; [13,] 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000 0.0625
-#&gt; [14,] 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000 0.0500
-#&gt;        [,15]  [,16]  [,17] [,18] [,19] [,20] [,21]
-#&gt;  [1,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [2,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [3,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [4,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [5,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [6,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [7,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [8,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [9,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [10,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [11,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [12,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [13,] 0.0625 0.0625 0.0625  -Inf  -Inf  -Inf  -Inf
-#&gt; [14,] 0.0500 0.0500 0.0500  0.05  0.05  0.05  0.05</code></pre>
+#&gt;       [,1]       [,2]       [,3]       [,4]       [,5]       [,6]
+#&gt;  [1,]    1 1.00000000       -Inf       -Inf       -Inf       -Inf
+#&gt;  [2,]    2 0.50000000 0.50000000       -Inf       -Inf       -Inf
+#&gt;  [3,]    3 0.33333333 0.33333333 0.33333333       -Inf       -Inf
+#&gt;  [4,]    4 0.25000000 0.25000000 0.25000000 0.25000000       -Inf
+#&gt;  [5,]    5 0.20000000 0.20000000 0.20000000 0.20000000 0.20000000
+#&gt;  [6,]    6 0.16666667 0.16666667 0.16666667 0.16666667 0.16666667
+#&gt;  [7,]    7 0.14285714 0.14285714 0.14285714 0.14285714 0.14285714
+#&gt;  [8,]    8 0.12500000 0.12500000 0.12500000 0.12500000 0.12500000
+#&gt;  [9,]    9 0.11111111 0.11111111 0.11111111 0.11111111 0.11111111
+#&gt; [10,]   10 0.10000000 0.10000000 0.10000000 0.10000000 0.10000000
+#&gt; [11,]   11 0.09090909 0.09090909 0.09090909 0.09090909 0.09090909
+#&gt; [12,]   12 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333
+#&gt; [13,]   16 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000
+#&gt; [14,]   20 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000
+#&gt;             [,7]       [,8]       [,9]      [,10]      [,11]      [,12]
+#&gt;  [1,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf
+#&gt;  [2,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf
+#&gt;  [3,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf
+#&gt;  [4,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf
+#&gt;  [5,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf
+#&gt;  [6,] 0.16666667       -Inf       -Inf       -Inf       -Inf       -Inf
+#&gt;  [7,] 0.14285714 0.14285714       -Inf       -Inf       -Inf       -Inf
+#&gt;  [8,] 0.12500000 0.12500000 0.12500000       -Inf       -Inf       -Inf
+#&gt;  [9,] 0.11111111 0.11111111 0.11111111 0.11111111       -Inf       -Inf
+#&gt; [10,] 0.10000000 0.10000000 0.10000000 0.10000000 0.10000000       -Inf
+#&gt; [11,] 0.09090909 0.09090909 0.09090909 0.09090909 0.09090909 0.09090909
+#&gt; [12,] 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333
+#&gt; [13,] 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000
+#&gt; [14,] 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000
+#&gt;            [,13]  [,14]  [,15]  [,16]  [,17] [,18] [,19] [,20] [,21]
+#&gt;  [1,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [2,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [3,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [4,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [5,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [6,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [7,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [8,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [9,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt; [10,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt; [11,]       -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt; [12,] 0.08333333   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt; [13,] 0.06250000 0.0625 0.0625 0.0625 0.0625  -Inf  -Inf  -Inf  -Inf
+#&gt; [14,] 0.05000000 0.0500 0.0500 0.0500 0.0500  0.05  0.05  0.05  0.05</code></pre>
 <ul>
 <li>Row 3 corresponds to 3 lesions per case and the weights are 1/3, 1/3 and 1/3.</li>
 <li>Row 13 corresponds to 16 lesions per case and the weights are 0.06250000, 0.06250000, …, repeated 13 times.</li>

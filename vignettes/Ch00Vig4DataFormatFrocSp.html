@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
-<meta name="date" content="2020-01-07" />
+<meta name="date" content="2020-01-09" />
 
 <title>Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</h1>
 <h4 class="author">Dev P. Chakraborty, PhD</h4>
-<h4 class="date">2020-01-07</h4>
+<h4 class="date">2020-01-09</h4>
 
 </div>
 
@@ -526,26 +526,26 @@ x$NL[,3,1:9,1]
 <li><code>TP_Rating</code>: the floating point ratings of diseased cases. Each row of this worksheet yields a rating corresponding to the values of <code>ReaderID</code>, <code>ModalityID</code> and <code>CaseID</code> for that row. Each <code>CaseID</code>, <code>ModalityID</code>, <code>ReaderID</code> combination must be consistent with that declared in the <code>Truth</code> worsheet.</li>
 </ul>
 <pre class="r"><code>x$LL[,1,1:15,1]
-#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
-#&gt; [1,] 5.28 3.01 5.98 5.00 4.26 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [2,] 5.20 3.27 4.61 5.18 4.72 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;      [,15]
-#&gt; [1,]  -Inf
-#&gt; [2,]  -Inf
+#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
+#&gt; [1,] 5.28 3.01 5.98 5.00 4.26 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt; [2,] 5.20 3.27 4.61 5.18 4.72 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;      [,14] [,15]
+#&gt; [1,]  -Inf  -Inf
+#&gt; [2,]  -Inf  -Inf
 x$LL[,2,1:15,1]
-#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
-#&gt; [1,] -Inf -Inf -Inf -Inf -Inf 5.14 3.31 4.92 4.95  5.30  -Inf  -Inf  -Inf  -Inf
-#&gt; [2,] -Inf -Inf -Inf -Inf -Inf 4.77 3.19 5.20 5.39  5.01  -Inf  -Inf  -Inf  -Inf
-#&gt;      [,15]
-#&gt; [1,]  -Inf
-#&gt; [2,]  -Inf
+#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
+#&gt; [1,] -Inf -Inf -Inf -Inf -Inf 5.14 3.31 4.92 4.95  5.30  -Inf  -Inf  -Inf
+#&gt; [2,] -Inf -Inf -Inf -Inf -Inf 4.77 3.19 5.20 5.39  5.01  -Inf  -Inf  -Inf
+#&gt;      [,14] [,15]
+#&gt; [1,]  -Inf  -Inf
+#&gt; [2,]  -Inf  -Inf
 x$LL[,3,1:15,1]
-#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]
-#&gt; [1,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf  4.66  4.03  5.22  4.94
-#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf  4.87  1.94  -Inf  -Inf
-#&gt;      [,15]
-#&gt; [1,]  5.27
-#&gt; [2,]  4.78</code></pre>
+#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
+#&gt; [1,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf  4.66  4.03  5.22
+#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf  4.87  1.94  -Inf
+#&gt;      [,14] [,15]
+#&gt; [1,]  4.94  5.27
+#&gt; [2,]  -Inf  4.78</code></pre>
 <ul>
 <li>The first line of code shows the ratings, in both modalities, of the first five diseased cases with <code>CaseID</code>s <code>70,71,72,73,74</code> (indexed 1, 2, 3, 4, 5 and appearing in the first five columns) interpreted by the first reader (<code>ReaderID</code> <code>0</code>).</li>
 <li>The second line shows the ratings, in both modalities, of the next five diseased cases with <code>CaseID</code>s <code>80,81,82,83,84</code> (indexed 6, 7, 8, 9, 10 and appearing in the next five columns) interpreted by the second reader (<code>ReaderID</code> <code>1</code>).</li>
