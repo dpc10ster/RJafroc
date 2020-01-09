@@ -234,7 +234,6 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   ROCPoints <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL)
   ROCDashes <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL)
   FROCPoints <- data.frame(NLF = NULL, LLF = NULL, Treatment = NULL)
-  # FROCDashes <- data.frame(NLF = NULL, LLF= NULL, Treatment = NULL)
   AFROCPoints <- data.frame(FPF = NULL, LLF= NULL, Treatment = NULL)
   AFROCDashes <- data.frame(FPF = NULL, LLF= NULL, Treatment = NULL)
   wAFROCPoints <- data.frame(FPF = NULL, wLLF= NULL, Treatment = NULL)
@@ -382,7 +381,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
 }
 
 
-
+# for future work
 myPlot <- function(dataPoints, dashedPoints, x, y, 
                    legendPosition, legendDirection, legendJustification) {
   ret <- with(dataPoints, {
@@ -403,17 +402,23 @@ xFROC <- function(zeta, lambdaP){
   return(NLF)
 }
 
+
+
 yFROC <- function(zeta, mu, nuP){
   # returns LLF, the ordinate of FROC, AFROC curve
   LLF <- nuP * (1 - pnorm(zeta - mu))
   return(LLF)
 }
 
+
+
 intFROC <- function(NLF, mu, lambdaP, nuP){
   zeta <- qnorm(1 - NLF / lambdaP)
   LLF <- yFROC(zeta, mu, nuP)
   return(LLF)
 }
+
+
 
 intAFROC <- function(FPF, mu, lambdaP, nuP){
   # returns LLF, the ordinate of AFROC curve; takes FPF as the variable. 
@@ -424,6 +429,8 @@ intAFROC <- function(FPF, mu, lambdaP, nuP){
   LLF <- yFROC(zeta, mu, nuP)
   return(LLF)
 }
+
+
 
 # returns wLLF, the ordinate of wAFROC curve
 # this has working cpp version with name ywAFROC
@@ -467,17 +474,20 @@ intwAFROC <- function(FPF, mu, lambdaP, nuP, lesDistr, lesWghtDistr){
 
 is.wholenumber <- function(x)  round(x) == x
 
-
+# 
 # xROC <- function (zeta, lambdaP){
 #   return (1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2))))
 # }
+# 
 # 
 # xROCVect <- function(zeta, lambdaP) {
 #     FPF = 1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2.0)))
 #   return (FPF);
 # }
-
+# 
+# 
 # R-only implementation of erf function
 # erf_R <- function(x){
 #  return (2 * pnorm(sqrt(2) * x) - 1)
 # }
+# 
