@@ -379,21 +379,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// yROCVectNuP
-NumericVector yROCVectNuP(double zeta, double mu, double lambdaP, NumericVector nuP, NumericMatrix lesDistr);
-RcppExport SEXP _RJafroc_yROCVectNuP(SEXP zetaSEXP, SEXP muSEXP, SEXP lambdaPSEXP, SEXP nuPSEXP, SEXP lesDistrSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type zeta(zetaSEXP);
-    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< double >::type lambdaP(lambdaPSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type nuP(nuPSEXP);
-    Rcpp::traits::input_parameter< NumericMatrix >::type lesDistr(lesDistrSEXP);
-    rcpp_result_gen = Rcpp::wrap(yROCVectNuP(zeta, mu, lambdaP, nuP, lesDistr));
-    return rcpp_result_gen;
-END_RCPP
-}
 // RsmInner
 double RsmInner(double mu, double lambdaP, double nuP, NumericMatrix lesDistr, NumericVector zeta, NumericVector fb, NumericVector tb);
 RcppExport SEXP _RJafroc_RsmInner(SEXP muSEXP, SEXP lambdaPSEXP, SEXP nuPSEXP, SEXP lesDistrSEXP, SEXP zetaSEXP, SEXP fbSEXP, SEXP tbSEXP) {
@@ -423,6 +408,21 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type nuP(nuPSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type lesDistr(lesDistrSEXP);
     rcpp_result_gen = Rcpp::wrap(intROC(FPF, mu, lambdaP, nuP, lesDistr));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ywAFROC
+double ywAFROC(double zeta, double mu, double nuP, NumericMatrix lesDistr, NumericMatrix lesWghtDistr);
+RcppExport SEXP _RJafroc_ywAFROC(SEXP zetaSEXP, SEXP muSEXP, SEXP nuPSEXP, SEXP lesDistrSEXP, SEXP lesWghtDistrSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type zeta(zetaSEXP);
+    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< double >::type nuP(nuPSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type lesDistr(lesDistrSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type lesWghtDistr(lesWghtDistrSEXP);
+    rcpp_result_gen = Rcpp::wrap(ywAFROC(zeta, mu, nuP, lesDistr, lesWghtDistr));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -479,9 +479,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RJafroc_xROCVect", (DL_FUNC) &_RJafroc_xROCVect, 2},
     {"_RJafroc_yROC", (DL_FUNC) &_RJafroc_yROC, 5},
     {"_RJafroc_yROCVect", (DL_FUNC) &_RJafroc_yROCVect, 5},
-    {"_RJafroc_yROCVectNuP", (DL_FUNC) &_RJafroc_yROCVectNuP, 5},
     {"_RJafroc_RsmInner", (DL_FUNC) &_RJafroc_RsmInner, 7},
     {"_RJafroc_intROC", (DL_FUNC) &_RJafroc_intROC, 5},
+    {"_RJafroc_ywAFROC", (DL_FUNC) &_RJafroc_ywAFROC, 5},
     {"_RJafroc_ForwardValue", (DL_FUNC) &_RJafroc_ForwardValue, 3},
     {"_RJafroc_InverseValue", (DL_FUNC) &_RJafroc_InverseValue, 3},
     {NULL, NULL, 0}

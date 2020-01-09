@@ -290,11 +290,13 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     }
     
     if( OpChType == "ALL" ||  OpChType == "wAFROC"){
-      wLLF <- sapply(zeta, ywAFROC, mu = mu[i], nuP = nuP[i], lesDistr = lesDistr, lesWghtDistr = lesWghtDistr)
+      # wLLF <- ywAFROC(zeta, mu[i], nuP[i], lesDistr, lesWghtDistr) 
+      wLLF <- sapply(zeta, ywAFROC, mu[i], nuP[i], lesDistr, lesWghtDistr)
       wAFROCPoints <- rbind(wAFROCPoints, data.frame(FPF = FPF, wLLF = wLLF, 
                                                      Treatment = as.character(i)))
       wAFROCDashes <- rbind(wAFROCDashes, data.frame(FPF = c(FPF[1], 1), wLLF = c(wLLF[1], 1), Treatment = as.character(i)))
-      maxWLLF <- ywAFROC(-20, mu[i], nuP[i], lesDistr, lesWghtDistr)
+      maxWLLF <- ywAFROC(-20, mu[i], nuP[i], lesDistr, lesWghtDistr) 
+      # maxWLLF <- ywAFROC(-20, mu[i], nuP[i], lesDistr, lesWghtDistr)
       AUC <- integrate(intwAFROC, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr, lesWghtDistr)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }
@@ -426,28 +428,28 @@ intAFROC <- function(FPF, mu, lambdaP, nuP){
 }
 
 # returns wLLF, the ordinate of wAFROC curve
-ywAFROC <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
+ywAFROC_R <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
   # zeta <- 0
   # fl is the fraction of cases with # lesions as in first column of lesDistr
   # the second column contains the fraction
   fl <- lesDistr[, 2] / sum(lesDistr[, 2]) # redundant normalization does not hurt
   wLLF <- 0
-  for (L in 1:nrow(lesDistr)){
+  for (row in 1:nrow(lesDistr)){
     # outer looop sums over different numbers of lesions per case
-    nLesPerCase <- lesDistr[L, 1] 
-    # nLesPerCase is the first element in the row L of lesDistr, 
+    nLesPerCase <- lesDistr[row, 1] 
+    # nLesPerCase is the first element in the row row of lesDistr, 
     # which is the number of lesions for this lesion distributions condition
     wLLFTmp <- 0
-    for (LL in 1:nLesPerCase){
-      # inner loop sums over different numbers of LL events
-      # LL is the number of sucesses with trial size nLesPerCase
+    for (col in 1:nLesPerCase){
+      # inner loop sums over different numbers of col events
+      # col is the number of sucesses with trial size nLesPerCase
       # the following works, but only for equal weights
-      # wLLFTmp <- wLLFTmp + sum(lesWghtDistr[L, 2:(LL+1)]) * dbinom(LL, nLesPerCase, nuP) * (1 - pnorm(zeta - mu))
+      # wLLFTmp <- wLLFTmp + sum(lesWghtDistr[row, 2:(col+1)]) * dbinom(col, nLesPerCase, nuP) * (1 - pnorm(zeta - mu))
       # the next two lines should work for general case
       wLLFTmp <- wLLFTmp +
-        lesWghtDistr[L, LL+1] * LL * dbinom(LL, nLesPerCase, nuP) * (1 - pnorm(zeta - mu))
+        lesWghtDistr[row, col+1] * col * dbinom(col, nLesPerCase, nuP) * (1 - pnorm(zeta - mu))
     }
-    wLLF <- wLLF +  fl[L] * wLLFTmp
+    wLLF <- wLLF +  fl[row] * wLLFTmp
   }
   return(wLLF)
 }
@@ -458,6 +460,7 @@ intwAFROC <- function(FPF, mu, lambdaP, nuP, lesDistr, lesWghtDistr){
   tmp <- 1 / lambdaP * log(1 - FPF) + 1
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
+  # wLLF <- ywAFROC(zeta, mu, nuP, lesDistr, lesWghtDistr) 
   wLLF <- sapply(zeta, ywAFROC, mu = mu, nuP = nuP, lesDistr, lesWghtDistr)
   return(wLLF)
 }
@@ -465,14 +468,14 @@ intwAFROC <- function(FPF, mu, lambdaP, nuP, lesDistr, lesWghtDistr){
 is.wholenumber <- function(x)  round(x) == x
 
 
-xROC <- function (zeta, lambdaP){
-  return (1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2))))
-}
+# xROC <- function (zeta, lambdaP){
+#   return (1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2))))
+# }
 
-xROCVect <- function(zeta, lambdaP) {
-    FPF = 1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2.0)))
-  return (FPF);
-}
+# xROCVect <- function(zeta, lambdaP) {
+#     FPF = 1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2.0)))
+#   return (FPF);
+# }
 
 # R-only implementation of erf function
 erf_R <- function(x){

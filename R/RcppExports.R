@@ -101,16 +101,16 @@ yROCVect <- function(zeta, mu, lambdaP, nuP, lesDistr) {
     .Call('_RJafroc_yROCVect', PACKAGE = 'RJafroc', zeta, mu, lambdaP, nuP, lesDistr)
 }
 
-yROCVectNuP <- function(zeta, mu, lambdaP, nuP, lesDistr) {
-    .Call('_RJafroc_yROCVectNuP', PACKAGE = 'RJafroc', zeta, mu, lambdaP, nuP, lesDistr)
-}
-
 RsmInner <- function(mu, lambdaP, nuP, lesDistr, zeta, fb, tb) {
     .Call('_RJafroc_RsmInner', PACKAGE = 'RJafroc', mu, lambdaP, nuP, lesDistr, zeta, fb, tb)
 }
 
 intROC <- function(FPF, mu, lambdaP, nuP, lesDistr) {
     .Call('_RJafroc_intROC', PACKAGE = 'RJafroc', FPF, mu, lambdaP, nuP, lesDistr)
+}
+
+ywAFROC <- function(zeta, mu, nuP, lesDistr, lesWghtDistr) {
+    .Call('_RJafroc_ywAFROC', PACKAGE = 'RJafroc', zeta, mu, nuP, lesDistr, lesWghtDistr)
 }
 
 ForwardValue <- function(value, valueLower, valueUpper) {

@@ -21,6 +21,8 @@ double comp_phi( double a, double b )
   
   return ret ;
 }
+
+
 // [[Rcpp::export]]
 double TrapezoidalArea(NumericVector noise, int n_noise, NumericVector signal, int n_signal )
 {
