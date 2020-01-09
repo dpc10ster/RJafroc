@@ -290,13 +290,11 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     }
     
     if( OpChType == "ALL" ||  OpChType == "wAFROC"){
-      # wLLF <- ywAFROC(zeta, mu[i], nuP[i], lesDistr, lesWghtDistr) 
       wLLF <- sapply(zeta, ywAFROC, mu[i], nuP[i], lesDistr, lesWghtDistr)
       wAFROCPoints <- rbind(wAFROCPoints, data.frame(FPF = FPF, wLLF = wLLF, 
                                                      Treatment = as.character(i)))
       wAFROCDashes <- rbind(wAFROCDashes, data.frame(FPF = c(FPF[1], 1), wLLF = c(wLLF[1], 1), Treatment = as.character(i)))
       maxWLLF <- ywAFROC(-20, mu[i], nuP[i], lesDistr, lesWghtDistr) 
-      # maxWLLF <- ywAFROC(-20, mu[i], nuP[i], lesDistr, lesWghtDistr)
       AUC <- integrate(intwAFROC, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr, lesWghtDistr)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }
@@ -419,7 +417,7 @@ intFROC <- function(NLF, mu, lambdaP, nuP){
 
 intAFROC <- function(FPF, mu, lambdaP, nuP){
   # returns LLF, the ordinate of AFROC curve; takes FPF as the variable. 
-  # AUC is calculated by integrating this function in terms of FPF
+  # AUC is calculated by integrating this function wrt FPF
   tmp <- 1 / lambdaP * log(1 - FPF) + 1
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
@@ -428,6 +426,7 @@ intAFROC <- function(FPF, mu, lambdaP, nuP){
 }
 
 # returns wLLF, the ordinate of wAFROC curve
+# this has working cpp version with name ywAFROC
 ywAFROC_R <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
   # zeta <- 0
   # fl is the fraction of cases with # lesions as in first column of lesDistr
@@ -454,13 +453,14 @@ ywAFROC_R <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
   return(wLLF)
 }
 
+
+
 intwAFROC <- function(FPF, mu, lambdaP, nuP, lesDistr, lesWghtDistr){
   # returns wLLF, the ordinate of AFROC curve; takes FPF as the variable. 
-  # AUC is calculated by integrating this function in terms of FPF
+  # AUC is calculated by integrating this function wrt FPF
   tmp <- 1 / lambdaP * log(1 - FPF) + 1
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
-  # wLLF <- ywAFROC(zeta, mu, nuP, lesDistr, lesWghtDistr) 
   wLLF <- sapply(zeta, ywAFROC, mu = mu, nuP = nuP, lesDistr, lesWghtDistr)
   return(wLLF)
 }
@@ -471,13 +471,13 @@ is.wholenumber <- function(x)  round(x) == x
 # xROC <- function (zeta, lambdaP){
 #   return (1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2))))
 # }
-
+# 
 # xROCVect <- function(zeta, lambdaP) {
 #     FPF = 1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2.0)))
 #   return (FPF);
 # }
 
 # R-only implementation of erf function
-erf_R <- function(x){
- return (2 * pnorm(sqrt(2) * x) - 1)
-}
+# erf_R <- function(x){
+#  return (2 * pnorm(sqrt(2) * x) - 1)
+# }
