@@ -31,10 +31,6 @@
 #' package = "RJafroc", mustWork = TRUE)
 #' x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 #'
-#' fileName <- system.file("extdata", "toyFiles/FROC/frocSp.xlsx", 
-#' package = "RJafroc", mustWork = TRUE)
-#' x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-#' 
 #' {
 #' fileName <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
