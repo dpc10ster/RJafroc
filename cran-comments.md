@@ -113,8 +113,7 @@ linux-x86_64-centos6-epel-rdt:
 
   
 ### `linux-x86_64-rocker-gcc-san`:
-  Debian Linux, R-devel, GCC ASAN/UBSAN
-1TBA
+  Debian Linux, R-devel, GCC ASAN/UBSAN: Generated 0 errors, 0 warnings and 0 NOTES. 
   
 ### `macos-elcapitan-release`:
   macOS 10.11 El Capitan, R-release (experimental): Generated 0 errors, 0 warnings and 0 NOTES.
@@ -123,8 +122,17 @@ linux-x86_64-centos6-epel-rdt:
   Oracle Solaris 10, x86, 32 bit, R-patched (experimental): Generated 0 errors, 0 warnings and 0 NOTES.
   
 ### `ubuntu-gcc-devel`:
-  Ubuntu Linux 16.04 LTS, R-devel, GCC
-2TBA  
+1. installed size is  5.1Mb
+  sub-directories of 1Mb or more:
+    doc   2.0Mb
+1. Examples with CPU (user + system) or elapsed time > 5s
+                                       user system elapsed
+SsSampleSizeKGivenJ                   2.872  0.020   6.698
+PlotEmpiricalOperatingCharacteristics 2.392  0.052   6.271
+UtilPseudoValues                      2.412  0.000   6.210
+Df2RJafrocDataset                     2.056  0.036   6.681
+SsPowerGivenJK                        2.072  0.008   5.830
+PlotRsmOperatingCharacteristics       1.528  0.016   5.458
   
 ### `ubuntu-gcc-release`:
   Ubuntu Linux 16.04 LTS, R-release, GCC: Generated 0 errors, 0 warnings and 2 NOTES.
@@ -135,8 +143,9 @@ linux-x86_64-centos6-epel-rdt:
       libs   1.8Mb   
   
 ### `ubuntu-rchk`:
-  Ubuntu Linux 16.04 LTS, R-devel with rchk
-  
+  Ubuntu Linux 16.04 LTS, R-devel with rchk: 
+1. TBA
+
 ### `windows-x86_64-devel`:
   Windows Server 2008 R2 SP1, R-devel, 32/64 bit: Generated 0 errors, 0 warnings and 3 NOTES
 1. The maintainer note.  
