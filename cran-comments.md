@@ -1,5 +1,15 @@
 # Overall #
-* This is an update to CRAN version 1.2.0 which installed with no errors, warnings or notes (2019-07-31). This update corrects bugs noted by some users and introduces greater flexibility for future observer performance study designs (e.g., split-plot designs).
+* This is an update to CRAN version 1.2.0 which installed with no errors, warnings or notes (2019-07-31) on all platforms except `r-devel-windows-ix86+x86_64-gcc8`, which generated the following file size NOTE:
+Version: 1.2.0 
+Check: installed package size 
+Result: NOTE 
+     installed size is 5.2Mb
+     sub-directories of 1Mb or more:
+     libs 2.2Mb 
+
+* This update corrects bugs noted by some users and introduces greater flexibility for future observer performance study designs (e.g., split-plot designs). 
+
+* Unfortunately, it does not correct the file size NOTE. I have attempted to minimize file size by removing vignettes and tests,  but I am down to what I consider the basic minimum. A remaining option, yet to be exercised, is to break the package up into two or more packages, but this would delay publication. 
 
 # Test environments #
 
