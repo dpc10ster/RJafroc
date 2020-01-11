@@ -4,8 +4,15 @@
 \alias{SsPowerTable}
 \title{Generate a power table}
 \usage{
-SsPowerTable(dataset, FOM, effectSize = NULL, alpha = 0.05,
-  desiredPower = 0.8, method = "DBMH", option = "ALL")
+SsPowerTable(
+  dataset,
+  FOM,
+  effectSize = NULL,
+  alpha = 0.05,
+  desiredPower = 0.8,
+  method = "DBMH",
+  option = "ALL"
+)
 }
 \arguments{
 \item{dataset}{The \bold{pilot} ROC dataset to be used to extrapolate 

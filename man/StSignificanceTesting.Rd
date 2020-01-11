@@ -4,9 +4,17 @@
 \alias{StSignificanceTesting}
 \title{Perform DBM or OR significance testing}
 \usage{
-StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha = 0.05,
-  method = "DBMH", covEstMethod = "Jackknife", nBoots = 200,
-  option = "ALL", tempOrgCode = FALSE)
+StSignificanceTesting(
+  dataset,
+  FOM,
+  FPFValue = 0.2,
+  alpha = 0.05,
+  method = "DBMH",
+  covEstMethod = "Jackknife",
+  nBoots = 200,
+  option = "ALL",
+  tempOrgCode = FALSE
+)
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 

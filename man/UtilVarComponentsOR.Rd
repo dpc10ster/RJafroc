@@ -4,8 +4,13 @@
 \alias{UtilVarComponentsOR}
 \title{Utility for Obuchowski-Rockette variance components}
 \usage{
-UtilVarComponentsOR(dataset, FOM, FPFValue = 0.2,
-  covEstMethod = "Jackknife", nBoots = 200)
+UtilVarComponentsOR(
+  dataset,
+  FOM,
+  FPFValue = 0.2,
+  covEstMethod = "Jackknife",
+  nBoots = 200
+)
 }
 \arguments{
 \item{dataset}{The dataset object}

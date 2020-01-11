@@ -56,8 +56,8 @@ fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"), nrow = 2, ncol
 print(fomOrg)
 fomBinned <- as.matrix(UtilFigureOfMerit(datasetB, FOM = "Wilcoxon"), nrow = 2, ncol = 9)
 print(fomOrg)
-cat("fomOrg = ", mean(fomOrg), "\\n")
-cat("fomBinned = ", mean(fomBinned), "\\n")
+cat("fomOrg = ", mean(fomOrg), "\n")
+cat("fomBinned = ", mean(fomBinned), "\n")
 x <- PlotEmpiricalOperatingCharacteristics(dataset, opChType = "ROC")$Plot
 y <- PlotEmpiricalOperatingCharacteristics(datasetB, opChType = "ROC")$Points
 fpf <- y$genAbscissa[-1];fpf <- fpf[-length(fpf)]

@@ -46,6 +46,8 @@
 #' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBMH", 
 #'    list(varYTR = a$varTR, varYTC = a$varTC, varYEps = a$varErr))
 #'
+#'
+#' \donttest{ 
 #' ## the following two should give identical results
 #' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "ORH")
 #' a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp
@@ -53,8 +55,7 @@
 #' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "ORH", 
 #'    list(KStar = KStar, varTR = a$varTR, cov1 = a$cov1, cov2 = a$cov2, 
 #'    cov3 = a$cov3, varEps = a$var))
-#'
-#' \donttest{ 
+#'    
 ## Example of power calculations using the DBM variance components, 
 ## and scanning the number of readers
 #' for (J in 6:10) {

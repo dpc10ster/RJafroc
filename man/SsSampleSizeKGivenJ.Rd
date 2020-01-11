@@ -4,9 +4,17 @@
 \alias{SsSampleSizeKGivenJ}
 \title{Number of cases, for specified number of readers, to achieve desired power}
 \usage{
-SsSampleSizeKGivenJ(dataset, ..., J, FOM, effectSize = NULL,
-  method = "DBMH", alpha = 0.05, desiredPower = 0.8,
-  option = "ALL")
+SsSampleSizeKGivenJ(
+  dataset,
+  ...,
+  J,
+  FOM,
+  effectSize = NULL,
+  method = "DBMH",
+  alpha = 0.05,
+  desiredPower = 0.8,
+  option = "ALL"
+)
 }
 \arguments{
 \item{dataset}{The \bold{pilot} dataset. If set to NULL 
@@ -58,6 +66,8 @@ a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$varComp
 SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBMH", 
    list(varYTR = a$varTR, varYTC = a$varTC, varYEps = a$varErr))
 
+
+\donttest{ 
 ## the following two should give identical results
 SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "ORH")
 a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp
@@ -65,12 +75,11 @@ KStar <- length(dataset02$NL[1,1,,1])
 SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "ORH", 
    list(KStar = KStar, varTR = a$varTR, cov1 = a$cov1, cov2 = a$cov2, 
    cov3 = a$cov3, varEps = a$var))
-
-\donttest{ 
+   
 for (J in 6:10) {
  ret <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = J, option = "RRRC") 
  message("# of readers = ", J, " estimated # of cases = ", ret$K, 
- ", predicted power = ", signif(ret$powerRRRC,3), "\\n")
+ ", predicted power = ", signif(ret$powerRRRC,3), "\n")
 }
 }
 

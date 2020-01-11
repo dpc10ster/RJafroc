@@ -4,8 +4,13 @@
 \alias{StSingleTreatmentRandomReader}
 \title{Significance testing for single random factor}
 \usage{
-StSingleTreatmentRandomReader(dataset, fomNh, FOM, FPFValue = 0.2,
-  alpha = 0.05)
+StSingleTreatmentRandomReader(
+  dataset,
+  fomNh,
+  FOM,
+  FPFValue = 0.2,
+  alpha = 0.05
+)
 }
 \arguments{
 \item{dataset}{A single-treatment multipe-reader dataset.}

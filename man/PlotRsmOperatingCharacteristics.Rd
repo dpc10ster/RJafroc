@@ -5,10 +5,21 @@
 \title{RSM predicted operating characteristics, ROC pdfs and different FOMs
    possible with FROC data}
 \usage{
-PlotRsmOperatingCharacteristics(mu, lambda, nu, lesDistr, lesWghtDistr,
-  OpChType = "ALL", legendPosition = c(1, 0),
-  legendDirection = "horizontal", legendJustification = c(0, 1),
-  nlfRange = NULL, llfRange = NULL, nlfAlpha = NULL, myNegInf = -3)
+PlotRsmOperatingCharacteristics(
+  mu,
+  lambda,
+  nu,
+  lesDistr,
+  lesWghtDistr,
+  OpChType = "ALL",
+  legendPosition = c(1, 0),
+  legendDirection = "horizontal",
+  legendJustification = c(0, 1),
+  nlfRange = NULL,
+  llfRange = NULL,
+  nlfAlpha = NULL,
+  myNegInf = -3
+)
 }
 \arguments{
 \item{mu}{Array, max length 2. The mean(s) of the Gaussian distribution(s) for the 
