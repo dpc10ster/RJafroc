@@ -56,7 +56,7 @@ I have checked the installation directory carefully, and I believe the above fil
   `PlotRsmOperatingCharacteristics`       1.528  0.016   5.080
 I could remove these examples, but since they are not occurring on OSX and Windows, I am reluctant to do so. Also, the `SsSampleSizeKGivenJ` examples are among the least understood and most useful parts of the software and by their very nature involve somewhat larger datasets (Toy datasets would not work). I hope to be given some latitude.
   
-### `debian-gcc-devel-nold`:
+### `debian-gcc-devel-nold`: In progress
   Debian Linux, R-devel, GCC, no long double: This generated 3 NOTES, the first two identical to the ones just stated above.
 1. The third NOTE states:
   Examples with CPU (user + system) or elapsed time > 5s
