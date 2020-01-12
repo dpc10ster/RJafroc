@@ -24,8 +24,8 @@ Result: NOTE
 
 ## Windows portability
 1. This was tested using `devtools`
-1. `devtools::check_win_devel`, `devtools::check_win_release` and `devtools::check_win_oldrelease`: these generated one note each:  
-* checking CRAN incoming feasibility ... NOTE
+1. `devtools::check_win_devel`, `devtools::check_win_release` and `devtools::check_win_oldrelease`: each of these generated one note:  
+* checking CRAN incoming feasibility
 Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>'. This is expected because I am the maintainer.
 
 ## Other platform portability
@@ -56,15 +56,9 @@ I have checked the installation directory carefully, and I believe the above fil
   `PlotRsmOperatingCharacteristics`       1.528  0.016   5.080
 I could remove these examples, but since they are not occurring on OSX and Windows, I am reluctant to do so. Also, the `SsSampleSizeKGivenJ` examples are among the least understood and most useful parts of the software and by their very nature involve somewhat larger datasets (Toy datasets would not work). I hope to be given some latitude.
   
-### `debian-gcc-devel-nold`: In progress
-  Debian Linux, R-devel, GCC, no long double: This generated 3 NOTES, the first two identical to the ones just stated above.
-1. The third NOTE states:
-  Examples with CPU (user + system) or elapsed time > 5s
-                       user system elapsed
-  `SsSampleSizeKGivenJ` 4.812   0.04   6.498
-  
-Response is identical to that for a similar NOTE above, namely I could remove these examples, but since they are not occurring on OSX and Windows, I am reluctant to do so. Also, the `SsSampleSizeKGivenJ` examples are among the least understood and most useful parts of the software and by their very nature involve somewhat larger datasets (Toy datasets would not work). I hope to be given some latitude.
-  
+### `debian-gcc-devel-nold`: 
+  Debian Linux, R-devel, GCC, no long double: OK.
+
 ### `debian-gcc-patched`:
   Debian Linux, R-patched, GCC:  Generated 0 errors, 0 warnings and 2 NOTES.
 1. A note is that I am the maintainer, which is true.
