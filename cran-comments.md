@@ -27,7 +27,7 @@ Result: NOTE
 1. `devtools::check_win_devel`, `devtools::check_win_release` and `devtools::check_win_oldrelease`: each of these generated one note:  
 * checking CRAN incoming feasibility
 Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>'. This is expected because I am the maintainer.
-1. Additionally, the tests cited possibly misspelled words in the DESCRIPTION file, all of which are false positives.
+1. Additionally, the checks cited possibly misspelled words in the DESCRIPTION file, all of which are false positives.
 
 ## Other platform portability
 1. CRAN compatibility was tested using `rhub::check_for_cran()`: This yielded 2 NOTES:
@@ -37,7 +37,7 @@ Found the following files/directories:
      'RJafroc-Ex_i386.Rout' 'RJafroc-Ex_x64.Rout' 'examples_i386'
      'examples_x64'
 I have checked the installation directory carefully, and I believe the above files are absent.
-1. Additionally, the tests cited possibly misspelled words in DESCRIPTION file, all of which are false positives.
+1. Additionally, the checks cited possibly misspelled words in DESCRIPTION file, all of which are false positives.
 
 ## Further checks were conducted across all platforms implemented in `rhub::platforms()`
 
