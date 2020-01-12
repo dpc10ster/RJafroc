@@ -16,7 +16,7 @@ Result: NOTE
 
 ## OSX
 * iMac, 3.4GHz Quad-Core Intel Core i7
-* `"x86_64-apple-darwin15.6.0", "arch x86_64", "os darwin 15.6.0" "R version 3.6.1 (2019-07-05)"` 
+* `"x86_64-apple-darwin15.6.0", "arch x86_64", "os darwin 15.6.0" "R version 3.6.2 (2019-12-12)"` 
 * `R CMD check` ran with no errors, warnings or notes
 
 ## Travis
