@@ -24,9 +24,6 @@ Imports:
     tools,
     utils
 Suggests:
-    testthat,
-    knitr,
-    kableExtra,
     rmarkdown
 LinkingTo: Rcpp
 Description: Implements software for assessing medical imaging systems, radiologists or computer aided detection algorithms. 
@@ -59,9 +56,8 @@ Description: Implements software for assessing medical imaging systems, radiolog
     to predict required numbers of readers and cases in a pivotal study to achieve a desired power. Utility and data file manipulation 
     functions allow data to be read in any of the currently used input formats, including Excel, and the results of the analysis can be 
     viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international 
-    collaborations. This version corrects a few bugs noticed by users (listed in NEWS.md) and extends the Excel file input format for 
-    greater flexibility going forward in handling non-crossed datasets.
-VignetteBuilder: knitr
+    collaborations. This version corrects a few bugs noticed by users and extends the Excel file input format for 
+    greater flexibility in handling non-crossed datasets.
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/
