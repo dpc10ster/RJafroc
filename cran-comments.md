@@ -32,45 +32,27 @@ Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>'. This is expected because I 
 ## Other platform portability
 1. CRAN compatibility was tested using `rhub::check_for_cran()`: This yielded 2 NOTES:
 1. The first note is that I am the maintainer, which I attest is true.
-2. The second note states:
+1. The second note states (for Windows Server 2008 R2 SP1, R-devel, 32/64 bit):
 Found the following files/directories:
      'RJafroc-Ex_i386.Rout' 'RJafroc-Ex_x64.Rout' 'examples_i386'
      'examples_x64'
-I have checked the installation directory carefully, and I believe the above files are absent.
+I have checked the installation directory carefully, and I believe the above files are absent. Moreover, the checks performed on this platform using `rhub::check(platform = "windows-x86_64-devel")` passed, see below.
 1. Additionally, the checks cited possibly misspelled words in DESCRIPTION file, all of which are false positives.
 
 ## Further checks were conducted across all platforms implemented in `rhub::platforms()`
 
-### `debian-clang-devel`:
+### `debian-clang-devel`: 
   Debian Linux, R-devel, clang, ISO-8859-15 locale: This failed with following message: Error in loadNamespace(name) : there is no package called 'BiocManager'. My namespace does not contain `BiocManager`.
   
 ### `debian-gcc-devel`:
-  Debian Linux, R-devel, GCC: Generated 0 errors, 0 warnings and 3 NOTES.
-1. The first note is that I am the maintainer, which I attest is true.
+  Debian Linux, R-devel, GCC: Generated 0 errors, 0 warnings and 0 notes.
 
-1. Examples with CPU (user + system) or elapsed time > 5s
-                                         user system elapsed
-  `SsSampleSizeKGivenJ`                   5.096  0.040  14.656
-  `PlotEmpiricalOperatingCharacteristics` 2.448  0.012   6.607
-  `UtilPseudoValues`                      2.340  0.020   6.030
-  `Df2RJafrocDataset`                     2.076  0.048   6.090
-  `PlotRsmOperatingCharacteristics`       1.528  0.016   5.080
-I could remove these examples, but since they are not occurring on OSX and Windows, I am reluctant to do so. Also, the `SsSampleSizeKGivenJ` examples are among the least understood and most useful parts of the software and by their very nature involve somewhat larger datasets (Toy datasets would not work). I hope to be given some latitude.
-  
-### `debian-gcc-devel-nold`: 
+### `debian-gcc-devel-nold`:
   Debian Linux, R-devel, GCC, no long double: OK.
 
 ### `debian-gcc-patched`:
-  Debian Linux, R-patched, GCC:  Generated 0 errors, 0 warnings and 2 NOTES.
-1. A note is that I am the maintainer, which is true.
-2. A NOTE stating: checking examples ... NOTE
-  Examples with CPU or elapsed time > 5s
-                                         user system elapsed
-  `SsSampleSizeKGivenJ`                   2.512  0.008   6.265
-  `PlotEmpiricalOperatingCharacteristics` 2.232  0.020   5.311
+  Debian Linux, R-patched, GCC:  OK.
 
-Response is identical to that for a similar NOTE above, namely I could remove these examples, but since they are not occurring on OSX and Windows, I am reluctant to do so. Also, the `SsSampleSizeKGivenJ` examples are among the least understood and most useful parts of the software and by their very nature involve somewhat larger datasets (Toy datasets would not work). I hope to be given some latitude.
-  
 ### `debian-gcc-release`:
   Debian Linux, R-release, GCC: Generated 0 errors, 0 warnings and 1 NOTE.
 1. The first note is that I am the maintainer, which is true.
@@ -84,8 +66,8 @@ Response is identical to that for a similar NOTE above, namely I could remove th
   Fedora Linux, R-devel, GCC: Generated 0 errors, 0 warnings and 1 NOTE.
 1. The first note is that I am the maintainer, which is true.
 
-### `linux-x86_64-centos6-epel`:
-  CentOS 6, stock R from EPEL: This failed with followiing message:
+### `linux-x86_64-centos6-epel`: 
+  CentOS 6, stock R from EPEL: This failed with followiing message: 
 1.  ERROR: dependency ‘ggplot2’ is not available for package ‘RJafroc’
 It appears `ggplot2` is not available on this platform. My package needs `ggplot2`. 
   
@@ -101,30 +83,18 @@ It appears `ggplot2` is not available on this platform. My package needs `ggplot
 ### `solaris-x86-patched`:
   Oracle Solaris 10, x86, 32 bit, R-patched (experimental): Generated 0 errors, 0 warnings and 0 NOTES.
   
-### `ubuntu-gcc-devel`: Generated 0 errors, 0 warnings and 1 NOTE.
-1. Examples with CPU (user + system) or elapsed time > 5s
-                                       user system elapsed
-SsSampleSizeKGivenJ                   2.872  0.020   6.698
-PlotEmpiricalOperatingCharacteristics 2.392  0.052   6.271
-UtilPseudoValues                      2.412  0.000   6.210
-Df2RJafrocDataset                     2.056  0.036   6.681
-SsPowerGivenJK                        2.072  0.008   5.830
-PlotRsmOperatingCharacteristics       1.528  0.016   5.458
-  
+### `ubuntu-gcc-devel`:
+  Ubuntu Linux 16.04 LTS, R-devel, GCC: OK
+
 ### `ubuntu-gcc-release`:
   Ubuntu Linux 16.04 LTS, R-release, GCC: Generated 0 errors, 0 warnings and 1 NOTE.
 1. The maintainer note.  
 
 ### `ubuntu-rchk`:
-  Ubuntu Linux 16.04 LTS, R-devel with rchk: Reported success
+  Ubuntu Linux 16.04 LTS, R-devel with rchk: Generated 0 errors, 0 warnings and 0 notes
 
-### `windows-x86_64-devel`:
-  Windows Server 2008 R2 SP1, R-devel, 32/64 bit: Generated 0 errors, 0 warnings and 2 NOTES
-1. The maintainer note.  
-1. Found non-standard things in the check directory
-    'RJafroc-Ex_i386.Rout' 'RJafroc-Ex_x64.Rout' 'examples_i386'
-    'examples_x64' 'tests_i386' 'tests_x64'  
-I do not see them in my project directory. I suspect this is a bug of the testing environment.
+### `windows-x86_64-devel`: 
+  Windows Server 2008 R2 SP1, R-devel, 32/64 bit: Generated 0 errors, 0 warnings and 0 notes
 
 ### `windows-x86_64-devel-rtools4`:
   Windows Server 2012, R-devel, Rtools4.0, 32/64 bit (experimental): build reported "success"
