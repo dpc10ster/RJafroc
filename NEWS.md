@@ -1,4 +1,14 @@
-# RJafroc 1.3.0
+# RJafroc 1.3.1
+
+## After initial comments from CRAN
+* Changes to DESCRIPTION file (removed emphasis characters and url before <)
+* Added a sentence on improved sample size routines
+* Bumped version to 1.3.1
+
+## Extended dataset object structure
+* Removed `vignettes` and `tests` from `cran2` branch
+* Updated `cran-comments.md` and checked on all platforms
+* Ready to submit
 
 ## Extended dataset object structure
 * Bumped version number to 1.3.0 as I am moving towards a CRAN submission
