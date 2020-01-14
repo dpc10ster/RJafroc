@@ -17,13 +17,10 @@ RJafroc
 * Current CRAN version is 1.3.1.
 
 # Branch designations
-**The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `developer` branch is for development/experimental work. The website is pushed from `master` branch.
+**The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `developer` branch is for development/experimental work. The website is pushed from the `master` branch.
 
 # Documentation (articles or vignettes) is available at https://dpc10ster.github.io/RJafroc/
 Highly recommended in order to familiarize oneself with the code. It has some `QuickStart` vignettes that will enable one already familiar with the Windows software to run the R code.
-
-# My wiki is at https://github.com/dpc10ster/RJafroc/wiki
-This is under development and **may be dropped in future** in favor of an online book, or extended vignettes.
 
 # A CRAN version of `RJafroc` has been published
 Version 1.3.1 of `RJafroc` has passed CRAN tests. This version is on the `cran2` branch. 
@@ -31,10 +28,28 @@ Version 1.3.1 of `RJafroc` has passed CRAN tests. This version is on the `cran2`
 # Those already familiar with installing R packages from GitHub can ignore the following directions  
 
 # How do I get set up?
-## Short version: install directly from GitHub using package `devtools`
+Three options are given, in increasing order of complexity.
+
+## 1. Install from CRAN
 * Install `R` and `RStudio`.
 * Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
-* Open `RStudio`. 
+* Open `RStudio` by clicking on the `myProject.Rproj` file. 
+* Starting from `RStudio` > `Packages` > `Install` > `RJafroc`.
+* `library(RJafroc)`.
+* This loads the CRAN package and all functions on the `cran2` branch become avaialable.
+* For documentation of functions and vignettes, go to https://dpc10ster.github.io/RJafroc/. It may be helpful to have both windows open (RStudio and the above website) simulataneously.
+* The CRAN version will not include more recent updates on the `master` branch. To access them use the next suggested method, below. 
+* Test the installation:
+```
+cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
+print(cbmPlot)
+```
+* You should see two ROC plots in the `Plots` window.
+
+## 2. Install from GitHub using package `devtools`
+* Install `R` and `RStudio`.
+* Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
+* Open `RStudio` by clicking on the `myProject.Rproj` file. 
 * Starting from `RStudio` > `File` > `New Project` > `Existing Directory` > Select `myProject` > `Create Project`.
 * Oila! You should see `myProject.RProj` in the Files menu.
 * Install the `devtools` package as shown below: 
@@ -62,9 +77,8 @@ print(cbmPlot)
 * Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/.
 * Be sure to study these examples and make full use of the online documentation.
 * Put your data and other files, if any, in `myProject`.
-* TBA
 
-## Long version: download the `RJafroc` package and install from the downloaded files
+## 3. Download the `RJafroc` source files and install from the downloaded files
 * Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example.
 * I find the GitHub desktop app useful in mananging my downloads/uploads from `Git`.
 * Install `R` and `RStudio`.
