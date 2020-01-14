@@ -11,27 +11,27 @@ RJafroc
 * I know the Windows software is much easier to use, so I am keeping it online for now, but I cannot maintain or extend it.
 * This repository also serves as the **Online Appendix** to my book: **Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017**.
 
-# Update History #
+# Update History
 * See https://dpc10ster.github.io/RJafroc/news/index.html.
-* Current GitHub version is 1.3.1.9000.
+* Current GitHub version is 1.3.1.9000, on the `master` branch.
 * Current CRAN version is 1.3.1.
 
-# Branch designations #
-**The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `development` branch is for ongoing development/experimental work. When finished and tested, the `development` branch should be merged with `master`, then file-size-limited and merged to CRAN branch, and then submitted to CRAN. The website is pushed from `master` branch.
+# Branch designations
+**The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `developer` branch is for development/experimental work. The website is pushed from `master` branch.
 
-# Documentation (articles or vignettes) is available at https://dpc10ster.github.io/RJafroc/ #
+# Documentation (articles or vignettes) is available at https://dpc10ster.github.io/RJafroc/
 Highly recommended in order to familiarize oneself with the code. It has some `QuickStart` vignettes that will enable one already familiar with the Windows software to run the R code.
 
-# My wiki is at https://github.com/dpc10ster/RJafroc/wiki #
+# My wiki is at https://github.com/dpc10ster/RJafroc/wiki
 This is under development and **may be dropped in future** in favor of an online book, or extended vignettes.
 
-# A CRAN version of `RJafroc` has been published #
-Thanks to help from Dr. Peter Phillips, version 1.2.0 of `RJafroc` has passed CRAN tests. This version is on the `cran` branch. 
+# A CRAN version of `RJafroc` has been published
+Version 1.3.1 of `RJafroc` has passed CRAN tests. This version is on the `cran2` branch. 
 
-# Those already familiar with installing R packages from GitHub can ignore the following directions #  
+# Those already familiar with installing R packages from GitHub can ignore the following directions  
 
-# How do I get set up? #
-## Short version: install directly from GitHub using package `devtools` ##
+# How do I get set up?
+## Short version: install directly from GitHub using package `devtools`
 * Install `R` and `RStudio`.
 * Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
 * Open `RStudio`. 
@@ -64,11 +64,11 @@ print(cbmPlot)
 * Put your data and other files, if any, in `myProject`.
 * TBA
 
-## Long version: download the `RJafroc` package and install from the downloaded files ##
-* Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example. 
-* I find the GitHub desktop app useful in mananging my downloads/uploads from Git.
+## Long version: download the `RJafroc` package and install from the downloaded files
+* Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example.
+* I find the GitHub desktop app useful in mananging my downloads/uploads from `Git`.
 * Install `R` and `RStudio`.
-* Navigate to the `rjafroc` directory.
+* Navigate to the `RJafroc` directory.
 * Open `RJafroc.Rproj`. This will open `RStudio`. 
 * Navigate to `File` menu (lower-right window) and click on DESCRIPTION file.
 * Install all packages listed under Imports, e.g.,    
@@ -95,8 +95,9 @@ library(RJafroc)
 ```
 * Thats it! `RJafroc` has been installed to your computer and is visible to any other `R` project in any directory.
 * You will not need to access the `RJafroc` folder again (unless you reinstall a new version of the software). 
+* Do not write any of your files to the `RJafroc` directory!
 * All necessary files of the installation are in a hidden directory that you do not normally need to worry about.
-* Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
+* Create an empty directory, e.g., `myProject`, outside of the `RJafroc` folder. In my computer it is `/Users/Dev/Downloads/myProject`.
 * Starting from `RStudio` > `File` > `New Project` > `Existing Directory` > `myProject` > `Create Project`.
 * Oila! You should see `myProject.RProj` in the Files menu.
 * Click on `Packages` and scroll down to find `RJafroc`, and check the box next to it. This results in `RJafroc` being loaded to the current workspace. The following line appears in the Console window (this is the hidden directory referrred to above).
@@ -114,7 +115,9 @@ print(cbmPlot)
 * Put your data and other files, if any, in myProject.
 * TBA
 
-### Contibutor guidelines ###
+### Contibutor guidelines
+* These guidelines are adapted from content on the `devtools` GitHub page.
+
 * As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.
 
 * We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.
@@ -125,9 +128,6 @@ print(cbmPlot)
 
 * Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting one or more of the project maintainers.
 
-* These guidelines are adapted from content on the `devtools` GitHub page.
-
-### Who do I talk to? ###
-
+### Who do I talk to?
 dpc10ster@gmail.com
 
