@@ -4,8 +4,14 @@
 \alias{StSignificanceTestingCadVsRadiologists}
 \title{Significance testing: standalone CAD vs. radiologists}
 \usage{
-StSignificanceTestingCadVsRadiologists(dataset, FOM, FPFValue = 0.2,
-  method = "1T-RRRC", alpha = 0.05, plots = FALSE)
+StSignificanceTestingCadVsRadiologists(
+  dataset,
+  FOM,
+  FPFValue = 0.2,
+  method = "1T-RRRC",
+  alpha = 0.05,
+  plots = FALSE
+)
 }
 \arguments{
 \item{dataset}{\strong{The dataset to be analzed; must be single-treatment

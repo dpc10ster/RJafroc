@@ -1,4 +1,4 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
   knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -6,7 +6,7 @@
   library(RJafroc)
   library(ggplot2)
 
-## ---- fig.align = "center"-----------------------------------------------
+## ---- fig.align = "center"----------------------------------------------------
   aArray <- c(0.7, 0.7, 1.5, 2)
   bArray <- c(0.5, 1.5, 0.5, 0.5)
   chance_diag <- data.frame(x = c(0,1), y = c(0,1))
@@ -17,7 +17,7 @@
 p <- p + geom_line(data = chance_diag, aes(x = x, y = y), linetype="dotted")
 print(p)
 
-## ---- echo=FALSE---------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
 # x is rocX, i.e., FPF
 rocY <- function (x, a, b) {
   y <- pnorm(a + b*qnorm(x))

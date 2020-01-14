@@ -4,8 +4,16 @@
 \alias{SsPowerGivenJKDbmVarComp}
 \title{Power given J, K and Dorfman-Berbaum-Metz variance components}
 \usage{
-SsPowerGivenJKDbmVarComp(J, K, effectSize, varYTR, varYTC, varYEps,
-  alpha = 0.05, option)
+SsPowerGivenJKDbmVarComp(
+  J,
+  K,
+  effectSize,
+  varYTR,
+  varYTC,
+  varYEps,
+  alpha = 0.05,
+  option
+)
 }
 \arguments{
 \item{J}{The number of readers}

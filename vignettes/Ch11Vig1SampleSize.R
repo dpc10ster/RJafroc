@@ -1,4 +1,4 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -6,8 +6,7 @@ knitr::opts_chunk$set(
 library(ggplot2)
 library(kableExtra)
 
-
-## ---- fig.show='hold'----------------------------------------------------
+## ---- fig.show='hold'---------------------------------------------------------
 ndf <- 2;ddf <- 10;ncp <- c(0,2,5,10)
 alpha <- 0.05
 fCrit <- qf(1-alpha, ndf,ddf)
@@ -31,8 +30,7 @@ for (i in 1:length(ncp))
 }
 fCrit_2_10 <- fCrit # convention fCrit_ndf_ddf
 
-
-## ---- echo=FALSE---------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
 rowNames <- LETTERS[seq(1, 4)]
 myTab <- data.frame(ndf = rep(ndf, 4), ddf = rep(ddf, 4), 
                     fCrit = rep(fCrit, 4), ncp = ncp, 
@@ -40,8 +38,7 @@ myTab <- data.frame(ndf = rep(ndf, 4), ddf = rep(ddf, 4),
 row.names(myTab) <- rowNames
 kable(myTab)
 
-
-## ---- fig.show='hold', echo=FALSE----------------------------------------
+## ---- fig.show='hold', echo=FALSE---------------------------------------------
 ndf <- 2;ddf <- 100
 fCrit <- qf(1-alpha, ndf,ddf)
 x <- seq(1, 20, 0.1)
@@ -64,8 +61,7 @@ for (i in 1:length(ncp))
 }
 fCrit_2_100 <- fCrit # convention fCrit_ndf_ddf
 
-
-## ---- echo=FALSE---------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
 rowNames <- LETTERS[seq(5, 8)]
 temp <- data.frame(ndf = rep(ndf, 4), ddf = rep(ddf, 4), 
                     fCrit = rep(fCrit, 4), ncp = ncp, 
@@ -74,8 +70,7 @@ row.names(temp) <- rowNames
 myTab <- rbind(myTab, temp)
 kable(myTab)
 
-
-## ---- fig.show='hold', echo=FALSE----------------------------------------
+## ---- fig.show='hold', echo=FALSE---------------------------------------------
 ndf <- 1;ddf <- 100
 fCrit <- qf(1-alpha, ndf,ddf)
 x <- seq(1, 20, 0.1)
@@ -98,8 +93,7 @@ for (i in 1:length(ncp))
 }
 fCrit_1_100 <- fCrit # convention fCrit_ndf_ddf
 
-
-## ---- echo=FALSE---------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
 rowNames <- LETTERS[seq(9, 12)]
 temp <- data.frame(ndf = rep(ndf, 4), ddf = rep(ddf, 4), 
                     fCrit = rep(fCrit, 4), ncp = ncp, 

@@ -4,10 +4,19 @@
 \alias{UtilOutputReport}
 \title{Generate a text formatted report file or an Excel file}
 \usage{
-UtilOutputReport(dataset, dataDescription = "MyDataDescription: ",
-  ReportFileBaseName = NULL, ReportFileExt = "txt", method = "DBMH",
-  FOM, alpha = 0.05, covEstMethod = "Jackknife", nBoots = 200,
-  sequentialNames = FALSE, overWrite = FALSE)
+UtilOutputReport(
+  dataset,
+  dataDescription = "MyDataDescription: ",
+  ReportFileBaseName = NULL,
+  ReportFileExt = "txt",
+  method = "DBMH",
+  FOM,
+  alpha = 0.05,
+  covEstMethod = "Jackknife",
+  nBoots = 200,
+  sequentialNames = FALSE,
+  overWrite = FALSE
+)
 }
 \arguments{
 \item{dataset}{The dataset object to be analyzed (\emph{not the file name}), 

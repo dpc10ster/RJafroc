@@ -4,8 +4,13 @@
 \alias{StSignificanceTestingCrossedModalities}
 \title{Perform significance testing using crossed treatments analysis}
 \usage{
-StSignificanceTestingCrossedModalities(crossedData, avgIndx,
-  FOM = "wAFROC", alpha = 0.05, option = "ALL")
+StSignificanceTestingCrossedModalities(
+  crossedData,
+  avgIndx,
+  FOM = "wAFROC",
+  alpha = 0.05,
+  option = "ALL"
+)
 }
 \arguments{
 \item{crossedData}{The crossed treatments dataset}

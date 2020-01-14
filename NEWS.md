@@ -1,4 +1,9 @@
-# RJafroc 1.3.0
+# RJafroc v1.3.1 on CRAN
+
+# See cran2 branch for content relating to this submission 
+
+## Extended dataset object structure
+* Bumped version number to 1.3.0 as I am moving towards a CRAN submission
 
 ## Extended dataset object structure
 * Bumped version number to 1.3.0 as I am moving towards a CRAN submission

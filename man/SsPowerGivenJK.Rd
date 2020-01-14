@@ -4,8 +4,18 @@
 \alias{SsPowerGivenJK}
 \title{Statistical power for specified numbers of readers and cases}
 \usage{
-SsPowerGivenJK(dataset, ..., FOM, FPFValue = 0.2, J, K,
-  effectSize = NULL, method = "DBMH", option = "ALL", alpha = 0.05)
+SsPowerGivenJK(
+  dataset,
+  ...,
+  FOM,
+  FPFValue = 0.2,
+  J,
+  K,
+  effectSize = NULL,
+  method = "DBMH",
+  option = "ALL",
+  alpha = 0.05
+)
 }
 \arguments{
 \item{dataset}{The \bold{pilot} dataset. If set to NULL 

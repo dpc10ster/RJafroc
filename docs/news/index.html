@@ -16,13 +16,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -44,6 +46,7 @@
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -60,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
       </span>
     </div>
 
@@ -68,7 +71,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -161,6 +164,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -170,172 +174,10 @@
       
     </div>
 
-    <div id="rjafroc-1-3-0" class="section level1">
+    <div id="rjafroc-v1-3-1-on-cran" class="section level1">
 <h1 class="page-header">
-<a href="#rjafroc-1-3-0" class="anchor"></a>RJafroc 1.3.0<small> Unreleased </small>
+<a href="#rjafroc-v1-3-1-on-cran" class="anchor"></a>RJafroc v1.3.1 on CRAN<small> Unreleased </small>
 </h1>
-<div id="extended-dataset-object-structure" class="section level2">
-<h2 class="hasAnchor">
-<a href="#extended-dataset-object-structure" class="anchor"></a>Extended dataset object structure</h2>
-<ul>
-<li>Bumped version number to 1.3.0 as I am moving towards a CRAN submission</li>
-<li>Lost <code>development</code> branch while using <code>GitHub</code>; decided to do <code>Git</code> manually</li>
-<li>Why is <code>.gitignore</code> not working?</li>
-<li>Additional members added 12/27/2019 by DPC</li>
-<li>Ann discovered bug in code: does not handle single reader properly</li>
-<li>Ann uncovered another bug in code: did not handle diseased cases first in Excel Truth sheet</li>
-<li>Both bugs have been fixed</li>
-<li>Make it easier to correlate the NL and LL values with those in the Excel file and catch data entry errors in <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code>
-<ul>
-<li>design = design,</li>
-<li>normalCases = normalCases,</li>
-<li>abnormalCases = abnormalCases,</li>
-<li>truthTableStr = truthTableStr</li>
-</ul>
-</li>
-<li>Need to update all datasets and check all occurences where <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> is used</li>
-<li>Included my own CPP coded wAFROC plot function. Learning a lot form Dirk’s book website <a href="https://teuder.github.io/rcpp4everyone_en/" class="uri">https://teuder.github.io/rcpp4everyone_en/</a>.</li>
-</ul>
-</div>
-<div id="split-plot-dataset" class="section level2">
-<h2 class="hasAnchor">
-<a href="#split-plot-dataset" class="anchor"></a>Split plot dataset</h2>
-<ul>
-<li>Modifications to <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> to allow for split plot datasets completed.</li>
-<li>Must use <code>newExcelFileFormat = TRUE</code> as otherwise the code defaults to the old Excel format.</li>
-<li>The new format includes more stringent tests, IMHO, to catch data entry errors:</li>
-<li>
-<code>TruthTableStr</code> is created in <code>checkTruthTable()</code> which is used in subsequent read NL and LL worksheets.</li>
-<li>Work to be done to include split plot in significance testing.</li>
-<li>Corrected <code>dataset03</code> which had <code>-Inf</code>s for 1-ratings; need to check other ROC data files.</li>
-<li>Added vignettes describing data format using toyFiles and use of <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code>.</li>
-<li>Corrected error in old DfReadDataFile function.</li>
-<li>Passes R CMD check with file size note.</li>
-</ul>
-</div>
-<div id="error-in-ms_tc-corrected" class="section level2">
-<h2 class="hasAnchor">
-<a href="#error-in-ms_tc-corrected" class="anchor"></a>Error in MS_TC corrected</h2>
-<ul>
-<li>Noted by Erin Greco</li>
-<li>The missing “-1”: <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code> line 88 <code>msTC &lt;- msTC * J/((I - 1) * (Ktemp - 1))</code> has been corrected</li>
-<li>Reset goodValues values in <code>test-StSignificance-testing.R</code> at line 128</li>
-</ul>
-</div>
-<div id="extended-plotting-function-to-lroc-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#extended-plotting-function-to-lroc-data" class="anchor"></a>Extended plotting function to LROC data</h2>
-<ul>
-<li>
-<code><a href="../reference/PlotEmpiricalOperatingCharacteristics.html">PlotEmpiricalOperatingCharacteristics()</a></code> now accepts ROC, FROC <strong>and</strong> LROC datasets.</li>
-<li>Simplified code.</li>
-<li>Included in unit tests.</li>
-<li>Added <code>legend.position</code> argument to allow better positioning of legend.</li>
-</ul>
-</div>
-<div id="added-froc-sample-size-vignettes-and-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#added-froc-sample-size-vignettes-and-functions" class="anchor"></a>Added FROC sample size vignettes and functions</h2>
-<ul>
-<li>
-<code>Ch19Vig1FrocSampleSize.Rmd</code>: Compares FROC power to ROC power.</li>
-<li>
-<code>Ch19Vig2FrocSampleSize.Rmd</code>: FROC power calculation for a number of situations.</li>
-<li>
-<code><a href="../reference/SsFrocNhRsmModel.html">SsFrocNhRsmModel()</a></code>: constructs an RSM-based model, which allows one to relate an ROC effect size to a wAFROC effect size, and returns parameters of model to allow FOM estimation for ROC and wAFROC. Following functions are used to calculate the lesion distribution and lesion weights arrays:</li>
-<li>
-<code>UtilLesionDistribution</code>: renamed to <code>UtilLesionDistr</code>
-</li>
-<li>
-<code>UtilLesionWeightsDistr</code>:</li>
-</ul>
-</div>
-<div id="significance-testing-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#significance-testing-functions" class="anchor"></a>Significance testing functions</h2>
-<ul>
-<li>
-<code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code>: corrects errors affecting <code>method = "ORH"</code> and <code>covEstMethod = "Jackknife"</code>. I messed up while trying to simplify XZ code. It calls:</li>
-<li>StDBMHAnalysis():</li>
-<li>StORHAnalysis():</li>
-<li>Ran Windows <code>JAFROC</code> on virtual Windows 8 machine and saved results (inst/VarCompDiscrepancy/includedFrocData_Inferred_ROC.txt) to validate current significance testing functions. Included unit tests in <code>tests/testthat</code>.</li>
-<li>Ran first XZ CRAN upload (version 0.0.1) code (<code>StOldCode.R</code>) to compare against current significance testing code. Included unit tests in <code>tests/testthat</code>.</li>
-<li>test-St-Compare2JAFROC.R: compares current code to Windows JAFROC results.</li>
-<li>test-St-Compare2Org.R: compares current code to RJafroc 0.0.1.</li>
-<li>test-St-CompareDBM2OR.R: compares current code DBM to current code OR results, when appropriate.</li>
-</ul>
-</div>
-<div id="cad-and-lroc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cad-and-lroc" class="anchor"></a>CAD and LROC</h2>
-<ul>
-<li>
-<code>gpfMyFOM()</code>: interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the <code>approx</code> function did not work for small datasets. Wrote my own simple interpolation code. See <code>LrocFoms()</code> in <code>gpfMyFOM.R</code>. See <strong>ChkLrocFoms.xlsx</strong> in <code>inst/StSigTesting</code> for details on hand calculation of LROC FOMs.</li>
-<li>LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions. <strong>These changes only affected values at small <code>FPFValue</code>, 0.2 or less.</strong>
-</li>
-<li>Most FOM related functions now accept <code>FPFValue</code> to accommodate LROC datasets.</li>
-<li>
-<code><a href="../reference/StSignificanceTestingCadVsRadiologists.html">StSignificanceTestingCadVsRadiologists()</a></code>: CAD results updated (only values for <code>FPFValue</code> 0.2 or less were affected); see <code>CadFunctionTests.R</code> in <code>inst/CadTesting</code>. See <strong>CadTestingNicoData.xlsx</strong> in <code>inst/CadTesting</code>. Included unit tests in <code>tests/testthat</code>.</li>
-<li>
-<code><a href="../reference/StSignificanceTestingCadVsRadiologists.html">StSignificanceTestingCadVsRadiologists()</a></code>: cleaned up and now runs all FOMs.</li>
-<li>
-<code><a href="../reference/SimulateLrocDataset.html">SimulateLrocDataset()</a></code>: FROC to LROC simulator based on RSM. Could be used for NH testing. RSM can now predict all paradigm data.</li>
-<li>
-<code>DfFroc2Lroc</code>(): Simulates an “AUC-equivalent” LROC dataset from an FROC dataset. This is neat!</li>
-<li>
-<code>DfLroc2Froc</code>(): Simulates an “AUC-equivalent” FROC dataset from an LROC dataset.</li>
-<li>
-<code>DfLroc2Roc</code>(): convert LROC dataset to ROC dataset.</li>
-<li>An error in <code>dataset2ratings()</code> has been corrected.</li>
-</ul>
-</div>
-<div id="variance-component-input" class="section level2">
-<h2 class="hasAnchor">
-<a href="#variance-component-input" class="anchor"></a>Variance component input</h2>
-<ul>
-<li>
-<code>SignificanceTesting</code> functions now accept variance components, without having to specify a dataset.</li>
-</ul>
-</div>
-<div id="other-affected-functions-and-new-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-affected-functions-and-new-functions" class="anchor"></a>Other affected functions and new functions:</h2>
-<ul>
-<li>
-<code><a href="../reference/UtilVarComponentsDBM.html">UtilVarComponentsDBM()</a></code>:</li>
-<li>
-<code><a href="../reference/UtilVarComponentsOR.html">UtilVarComponentsOR()</a></code>:</li>
-<li>
-<code>SsPowerGivenJKDbmVarComp</code>:</li>
-<li>
-<code>SsPowerGivenJKOrVarComp</code>:</li>
-<li>
-<code>SsSampleSizeKGivenJ</code>:</li>
-<li>
-<code>SsPowerGivenJK</code>:</li>
-<li>
-<code>StSingleTreatmentRandomReader</code>:</li>
-<li>Ensured that <code>FPFValue</code> argument immediately follows <code>FOM</code>, where applicable.</li>
-</ul>
-</div>
-<div id="needs-further-testing" class="section level2">
-<h2 class="hasAnchor">
-<a href="#needs-further-testing" class="anchor"></a>Needs further testing</h2>
-<ul>
-<li>
-<code>StSignificanceTestingSingleFixedFactor</code>:</li>
-</ul>
-</div>
-<div id="extensions-needed" class="section level2">
-<h2 class="hasAnchor">
-<a href="#extensions-needed" class="anchor"></a>Extensions needed</h2>
-<ul>
-<li>The <code>addPlot</code> routine in <code>StSignificanceTestingCadVsRadiologists</code> has been renamed to <code>CadVsRadPlots()</code>. It should be deprecated in future as <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> has more consistent visual output (and capabilities like handling lists of treatments and readers).</li>
-<li>Need a function that checks validity of FOM for dataset: <code>isValidFom</code>?</li>
-<li>Need to compare predicted curves for LROC and FROC data: does <code><a href="../reference/SimulateLrocDataset.html">SimulateLrocDataset()</a></code> predict <strong>both</strong> flattening out of LROC plot and wAFROC going to (1,1)?</li>
-<li>Split plot analysis</li>
-</ul>
-</div>
 </div>
     <div id="rjafroc-1-2-0" class="section level1">
 <h1 class="page-header">
@@ -349,7 +191,7 @@
 </li>
 <li>Corrected <code>StSignificanceTesting.R</code> that was caught by <code>testthat</code> (Peter Philips)</li>
 <li>
-<code>R CMD check</code> generates <code>testthat</code> failure when run under <code>RStudio</code>, see following output, but not when run as <code><a href="https://www.rdocumentation.org/packages/devtools/topics/test">devtools::test()</a></code>:</li>
+<code>R CMD check</code> generates <code>testthat</code> failure when run under <code>RStudio</code>, see following output, but not when run as <code><a href="https://rdrr.io/pkg/devtools/man/test.html">devtools::test()</a></code>:</li>
 </ul>
 <pre><code>* checking tests ...
  Running ‘testthat.R’ [158s/160s]
@@ -385,7 +227,7 @@
 </li>
 <li>Added two vignettes: <code>QuickStartDBMH</code> and <code>QuickStartDBMHExcelOutput</code>
 </li>
-<li>Checked downstream dependencies - none as of Nov 11, 2018: <code>revdep("rjafroc")</code> yields <code><a href="https://www.rdocumentation.org/packages/base/topics/character">character(0)</a></code>
+<li>Checked downstream dependencies - none as of Nov 11, 2018: <code>revdep("rjafroc")</code> yields <code><a href="https://rdrr.io/r/base/character.html">character(0)</a></code>
 </li>
 </ul>
 </div>
@@ -458,7 +300,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rjafroc-1-3-0">1.3.0</a></li>
+        <li><a href="#rjafroc-v1-3-1-on-cran">1.3.1</a></li>
         <li><a href="#rjafroc-1-2-0">1.2.0</a></li>
         <li><a href="#rjafroc-1-1-0">1.1.0</a></li>
         <li><a href="#rjafroc-1-0-2">1.0.2</a></li>
@@ -473,19 +315,23 @@
 
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

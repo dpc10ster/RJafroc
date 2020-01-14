@@ -4,9 +4,17 @@
 \alias{SsSampleSizeKGivenJ}
 \title{Number of cases, for specified number of readers, to achieve desired power}
 \usage{
-SsSampleSizeKGivenJ(dataset, ..., J, FOM, effectSize = NULL,
-  method = "DBMH", alpha = 0.05, desiredPower = 0.8,
-  option = "ALL")
+SsSampleSizeKGivenJ(
+  dataset,
+  ...,
+  J,
+  FOM,
+  effectSize = NULL,
+  method = "DBMH",
+  alpha = 0.05,
+  desiredPower = 0.8,
+  option = "ALL"
+)
 }
 \arguments{
 \item{dataset}{The \bold{pilot} dataset. If set to NULL 
@@ -70,7 +78,7 @@ SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "ORH",
 for (J in 6:10) {
  ret <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = J, option = "RRRC") 
  message("# of readers = ", J, " estimated # of cases = ", ret$K, 
- ", predicted power = ", signif(ret$powerRRRC,3), "\\n")
+ ", predicted power = ", signif(ret$powerRRRC,3), "\n")
 }
 }
 

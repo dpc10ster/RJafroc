@@ -4,8 +4,19 @@
 \alias{SsPowerGivenJKOrVarComp}
 \title{Power given J, K and Obuchowski-Rockette variance components}
 \usage{
-SsPowerGivenJKOrVarComp(J, K, KStar, effectSize, varTR, cov1, cov2, cov3,
-  varEps, alpha = 0.05, option)
+SsPowerGivenJKOrVarComp(
+  J,
+  K,
+  KStar,
+  effectSize,
+  varTR,
+  cov1,
+  cov2,
+  cov3,
+  varEps,
+  alpha = 0.05,
+  option
+)
 }
 \arguments{
 \item{J}{The number of readers in the \strong{pivotal} study}

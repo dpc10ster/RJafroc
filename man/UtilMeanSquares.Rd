@@ -4,8 +4,7 @@
 \alias{UtilMeanSquares}
 \title{Calculate mean squares}
 \usage{
-UtilMeanSquares(dataset, FOM = "Wilcoxon", FPFValue = 0.2,
-  method = "DBMH")
+UtilMeanSquares(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBMH")
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}.}

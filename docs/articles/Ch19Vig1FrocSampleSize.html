@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC • RJafroc</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
       </span>
     </div>
 
@@ -38,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -130,13 +131,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-01-09</h4>
+            <h4 class="date">2020-01-13</h4>
       
       
       <div class="hidden name"><code>Ch19Vig1FrocSampleSize.Rmd</code></div>
@@ -168,170 +170,170 @@
 <ul>
 <li><p>If the original data is FROC, one needs to first convert it to ROC, using <code><a href="../reference/DfFroc2Roc.html">DfFroc2Roc()</a></code>: <strong>the RSM fits ROC data</strong>.</p></li>
 <li><p>For each treatment and reader the inferred ROC data is fitted by <code><a href="../reference/FitRsmRoc.html">FitRsmRoc()</a></code>, yielding estimates of the RSM <em>physical</em> (or primed) parameters (not the <em>intrinsic</em> values).</p></li>
-<li><p>The following example uses the <em>first two</em> treatments of the “FED” dataset, <code>dataset04</code>, which is a 5 treatment 4 radiologist FROC dataset acquired by Dr. Federica Zanca et. al. <span class="citation">(Zanca et al. 2009)</span>. The dataset has 5 treatments and 4 readers and 200 cases and was acquired on a 5-point integer scale, i.e., it is already binned. If not one needs to bin the dataset using <code><a href="../reference/DfBinDataset.html">DfBinDataset()</a></code>. I need to emphasize this point: <strong>if the dataset represents continuous ratings, as with a CAD algorithm, one must bin the dataset to (ideally) about 5 bins</strong>. The number of parameters that must be estimated increases with the number of bins (for each bin one needs to estimate a cutoff parameter).</p></li>
+<li><p>The following example uses the <em>first two</em> treatments of the “FED” dataset, <code>dataset04</code>, which is a 5 treatment 4 radiologist FROC dataset acquired by Dr. Federica Zanca et. al. <span class="citation">(Zanca et al. 2009)</span>. The dataset has 5 treatments and 4 readers and 200 cases and was acquired on a 5-point integer scale, i.e., it is already binned. If not one needs to bin the dataset using <code><a href="../reference/DfBinDataset.html">DfBinDataset()</a></code>. I need to emphasize this point: <strong>if the dataset represents continuous ratings, as with a CAD algorithm, one must bin the dataset to (ideally) about 5 bins</strong>. The number of parameters that must be estimated increases with the number of bins (for each bin one needs to estimate a cutoff parameter).</p></li>
 <li><p>The reason for using RSM parameter values only for the first two treatments is that these were found <span class="citation">(Zanca et al. 2009)</span> to be almost equivalent (more precisely, the NH could not be rejected for the first two treatments, so it makes sense to regard them as “almost” NH treatments.</p></li>
 <li><p>The following code block defines the pilot FROC data <code>frocData</code> (corresponding to <code>dataset04</code>, which is the “FED” dataset, but with only treatments 1 and 2 extracted, using <code><a href="../reference/DfExtractDataset.html">DfExtractDataset()</a></code>) and <code>rocData</code>, i.e., the highest-rating ROC dataset inferred from the FROC dataset using <code><a href="../reference/DfFroc2Roc.html">DfFroc2Roc()</a></code>.</p></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">frocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfExtractDataset.html">DfExtractDataset</a></span>(dataset04, <span class="dt">trts =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">rocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfFroc2Roc.html">DfFroc2Roc</a></span>(frocData)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">frocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfExtractDataset.html">DfExtractDataset</a></span>(dataset04, <span class="dt">trts =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1-2" title="2">rocData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfFroc2Roc.html">DfFroc2Roc</a></span>(frocData)</a></code></pre></div>
 <p>The next code block determines <code>lesDist</code>, the lesion distribution array, which has <code>Lmax</code> (maximum number of lesions per diseased case over the dataset) rows and two columns. The first column contains the integers 1, 2, …, <code>Lmax</code> and the second column contains the fraction of diseased cases with the number of lesions per case specified in the first column. The second column will sum to unity. The RSM fitting algorithm needs to know how lesion-rich the dataset is, as the RSM predicted ROC-AUC depends on the lesion-richness of the dataset. For reasons that will become clear below, one also needs <code>lesWghts</code>, the distribution of the lesion weights.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">lesDistr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilLesionDistr.html">UtilLesionDistr</a></span>(frocData)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">lesWghts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilLesionWeightsDistr.html">UtilLesionWeightsDistr</a></span>(frocData) <span class="co"># this is needed later</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">lesDistr &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilLesionDistr.html">UtilLesionDistr</a></span>(frocData)</a>
+<a class="sourceLine" id="cb2-2" title="2">lesWghts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilLesionWeightsDistr.html">UtilLesionWeightsDistr</a></span>(frocData) <span class="co"># this is needed later</span></a></code></pre></div>
 <p>The meanings of <code>lesDistr</code> and <code>lesWghts</code> is clear from examining their values:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(lesDistr)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; [1,]    1 0.69</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; [2,]    2 0.20</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; [3,]    3 0.11</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(lesWghts)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;      [,1]      [,2]      [,3]      [,4]</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; [1,]    1 1.0000000      -Inf      -Inf</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; [2,]    2 0.5000000 0.5000000      -Inf</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; [3,]    3 0.3333333 0.3333333 0.3333333</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(lesDistr)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; [1,]    1 0.69</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; [2,]    2 0.20</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt; [3,]    3 0.11</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(lesWghts)</a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt;      [,1]      [,2]      [,3]      [,4]</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; [1,]    1 1.0000000      -Inf      -Inf</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; [2,]    2 0.5000000 0.5000000      -Inf</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; [3,]    3 0.3333333 0.3333333 0.3333333</span></a></code></pre></div>
 <p>For this dataset <code>Lmax</code> is 3, and 69 percent of the diseased cases have one lesion, 20 percent have two lesions and 11 percent have three lesions. Since the lesions are equally weighted, on cases with one lesion the weight of the lesion is unity, on cases with two lesions the weights of each lesion is 0.5 and on cases with three lesions the weight of each lesion is 1/3.</p>
 <p>The next code block determines the number of treatments and readers (<code>I</code> and <code>J</code>) from the dimensions of the <code>frocData$NL</code> array. It creates an array <code>RsmParms</code> to hold the RSM fitted parameter values. For each treatment and reader it applies the fitting algorithm <code><a href="../reference/FitRsmRoc.html">FitRsmRoc()</a></code>. The first three returned values are <code>mu</code>, <code>lambdaP</code> and <code>nuP</code>, corresponding to RSM parameters <span class="math inline">\({\mu}\)</span>, <span class="math inline">\({\lambda^{'}}\)</span> and <span class="math inline">\({\nu^{'}}\)</span> .</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">I &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/dim">dim</a></span>(frocData<span class="op">$</span>NL)[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">J &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/dim">dim</a></span>(frocData<span class="op">$</span>NL)[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">RsmParms &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="dt">dim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(I,J,<span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>I) {</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>J)  {</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    x1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/FitRsmRoc.html">FitRsmRoc</a></span>(rocData, <span class="dt">trt =</span> i, <span class="dt">rdr =</span> j, lesDistr)</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">    RsmParms[i,j,<span class="dv">1</span>] &lt;-<span class="st"> </span>x1[[<span class="dv">1</span>]] <span class="co"># mu</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">    RsmParms[i,j,<span class="dv">2</span>] &lt;-<span class="st"> </span>x1[[<span class="dv">2</span>]] <span class="co"># lambdaP</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">    RsmParms[i,j,<span class="dv">3</span>] &lt;-<span class="st"> </span>x1[[<span class="dv">3</span>]] <span class="co"># nuP</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">  }</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">}</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">I &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(frocData<span class="op">$</span>NL)[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb4-2" title="2">J &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(frocData<span class="op">$</span>NL)[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb4-3" title="3">RsmParms &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="dt">dim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(I,J,<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>I) {</a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>J)  {</a>
+<a class="sourceLine" id="cb4-6" title="6">    x1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/FitRsmRoc.html">FitRsmRoc</a></span>(rocData, <span class="dt">trt =</span> i, <span class="dt">rdr =</span> j, lesDistr)</a>
+<a class="sourceLine" id="cb4-7" title="7">    RsmParms[i,j,<span class="dv">1</span>] &lt;-<span class="st"> </span>x1[[<span class="dv">1</span>]] <span class="co"># mu</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    RsmParms[i,j,<span class="dv">2</span>] &lt;-<span class="st"> </span>x1[[<span class="dv">2</span>]] <span class="co"># lambdaP</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    RsmParms[i,j,<span class="dv">3</span>] &lt;-<span class="st"> </span>x1[[<span class="dv">3</span>]] <span class="co"># nuP</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  }</a>
+<a class="sourceLine" id="cb4-11" title="11">}</a></code></pre></div>
 <p>I recommend taking the median of each of the parameters, over all treatment-reader indices, as representing the average NH dataset. The median is less sensitive to outliers than the mean.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">muMed &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/median">median</a></span>(RsmParms[,,<span class="dv">1</span>]) </a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">lambdaPMed &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/median">median</a></span>(RsmParms[,,<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">nuPMed &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/median">median</a></span>(RsmParms[,,<span class="dv">3</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">muMed &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/median.html">median</a></span>(RsmParms[,,<span class="dv">1</span>]) </a>
+<a class="sourceLine" id="cb5-2" title="2">lambdaPMed &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/median.html">median</a></span>(RsmParms[,,<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb5-3" title="3">nuPMed &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/median.html">median</a></span>(RsmParms[,,<span class="dv">3</span>])</a></code></pre></div>
 <p>The defining values of the fitting model are <code>muMed</code> = 3.3105557, <code>lambdaPMed</code> = 1.714368 and <code>nuPMed</code> = 0.7036567. Note that these obey the constraints <code>lambdaPMed &gt; 0</code> and <code>0 &lt; nuP &lt; 1</code>. One then converts the physical parameters to the intrinsic values:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">temp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilPhysical2IntrinsicRSM.html">UtilPhysical2IntrinsicRSM</a></span>(muMed, lambdaPMed, nuPMed)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">lambdaMed &lt;-<span class="st"> </span>temp<span class="op">$</span>lambda</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">nuMed &lt;-<span class="st"> </span>temp<span class="op">$</span>nu</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">temp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilPhysical2IntrinsicRSM.html">UtilPhysical2IntrinsicRSM</a></span>(muMed, lambdaPMed, nuPMed)</a>
+<a class="sourceLine" id="cb6-2" title="2">lambdaMed &lt;-<span class="st"> </span>temp<span class="op">$</span>lambda</a>
+<a class="sourceLine" id="cb6-3" title="3">nuMed &lt;-<span class="st"> </span>temp<span class="op">$</span>nu</a></code></pre></div>
 <p>In terms of intrinsic parameters, the defining values of the fitting model are <code>muMed</code> = 3.3105557, <code>lambdaMed</code> = 5.6755108 and <code>nuMed</code> = 0.3673814. We are now ready to calcuate the expected NH FOMs using the ROC -AUC and the wAFROC FOM.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">aucRocNH &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(muMed, lambdaMed, nuMed, </a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">                                            <span class="dt">lesDistr =</span> lesDistr, </a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">                                            <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"ROC"</span>)<span class="op">$</span>aucROC</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">aucwAfrocNH &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(muMed, lambdaMed, nuMed, </a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">                                              <span class="dt">lesDistr =</span> lesDistr, </a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">                                              <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">aucRocNH &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(muMed, lambdaMed, nuMed, </a>
+<a class="sourceLine" id="cb7-2" title="2">                                            <span class="dt">lesDistr =</span> lesDistr, </a>
+<a class="sourceLine" id="cb7-3" title="3">                                            <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"ROC"</span>)<span class="op">$</span>aucROC</a>
+<a class="sourceLine" id="cb7-4" title="4">aucwAfrocNH &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(muMed, lambdaMed, nuMed, </a>
+<a class="sourceLine" id="cb7-5" title="5">                                              <span class="dt">lesDistr =</span> lesDistr, </a>
+<a class="sourceLine" id="cb7-6" title="6">                                              <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC</a></code></pre></div>
 <ul>
 <li><p>The plotting function <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> returns a number of other objects, most importantly the plot, but here we use only the AUC, which is obtained by numerical integration of the predicted operating characteristics. However, it calls for the <strong>intrinsic</strong> RSM parameters, which is why we had to convert the <strong>physical</strong> to the <strong>intrinsic</strong> values.</p></li>
 <li>One has <code>aucRocNH = 0.8791301</code> and <code>aucwAfrocNH = 0.7198311</code>. Note that the wAFROC-FOM is smaller than the ROC-FOM as it includes the localization constraint.</li>
 <li><p>To induce the alternative hypothesis condition, one increments <span class="math inline">\(\mu_{NH}\)</span> by <span class="math inline">\(\Delta_{\mu}\)</span>. The resulting ROC-AUC and wAFROC-AUC are calculated, again by numerical integration of the RSM predicted ROC and wAFROC curves, leading to the corresponding effect-sizes (note that in each equation below one takes the difference between the AH value minus the NH value):</p></li>
 <li><p>The next step is to calculate the effect size (new value minus the NH value) using ROC and wAFROC FOMs for a series of specifed <code>deltaMu</code> values. This generates values that can be used to interpolate a wAFROC effect size for a specified ROC effect size.</p></li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">deltaMu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="fl">0.01</span>, <span class="fl">0.2</span>, <span class="fl">0.01</span>) <span class="co"># values of deltaMu to scan below</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">esRoc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="dt">dim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(deltaMu));eswAfroc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="dt">dim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(deltaMu))</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(deltaMu)) {</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">  esRoc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">    muMed <span class="op">+</span><span class="st"> </span>deltaMu[i], lambdaMed, nuMed, <span class="dt">lesDistr =</span> lesDistr, </a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">    <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"ROC"</span>)<span class="op">$</span>aucROC <span class="op">-</span><span class="st"> </span>aucRocNH</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">  eswAfroc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">    muMed<span class="op">+</span><span class="st"> </span>deltaMu[i], lambdaMed, nuMed, <span class="dt">lesDistr =</span> lesDistr, </a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">    <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC <span class="op">-</span><span class="st"> </span>aucwAfrocNH</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ES_ROC = "</span>, esRoc[i], <span class="st">", ES_wAFROC = "</span>, eswAfroc[i],<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; ES_ROC =  0.0006197813 , ES_wAFROC =  0.001329066 </span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; ES_ROC =  0.001234752 , ES_wAFROC =  0.002650005 </span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; ES_ROC =  0.00184496 , ES_wAFROC =  0.003962878 </span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; ES_ROC =  0.002450451 , ES_wAFROC =  0.005267748 </span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; ES_ROC =  0.003051273 , ES_wAFROC =  0.006564677 </span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; ES_ROC =  0.003647472 , ES_wAFROC =  0.007853725 </span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; ES_ROC =  0.004239094 , ES_wAFROC =  0.009134954 </span></a>
-<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt; ES_ROC =  0.004826184 , ES_wAFROC =  0.01040842 </span></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt; ES_ROC =  0.005408788 , ES_wAFROC =  0.0116742 </span></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; ES_ROC =  0.00598695 , ES_wAFROC =  0.01293233 </span></a>
-<a class="sourceLine" id="cb8-22" data-line-number="22"><span class="co">#&gt; ES_ROC =  0.006560717 , ES_wAFROC =  0.01418289 </span></a>
-<a class="sourceLine" id="cb8-23" data-line-number="23"><span class="co">#&gt; ES_ROC =  0.007130131 , ES_wAFROC =  0.01542592 </span></a>
-<a class="sourceLine" id="cb8-24" data-line-number="24"><span class="co">#&gt; ES_ROC =  0.007695238 , ES_wAFROC =  0.0166615 </span></a>
-<a class="sourceLine" id="cb8-25" data-line-number="25"><span class="co">#&gt; ES_ROC =  0.00825608 , ES_wAFROC =  0.01788967 </span></a>
-<a class="sourceLine" id="cb8-26" data-line-number="26"><span class="co">#&gt; ES_ROC =  0.008812701 , ES_wAFROC =  0.0191105 </span></a>
-<a class="sourceLine" id="cb8-27" data-line-number="27"><span class="co">#&gt; ES_ROC =  0.009365145 , ES_wAFROC =  0.02032404 </span></a>
-<a class="sourceLine" id="cb8-28" data-line-number="28"><span class="co">#&gt; ES_ROC =  0.009913453 , ES_wAFROC =  0.02153036 </span></a>
-<a class="sourceLine" id="cb8-29" data-line-number="29"><span class="co">#&gt; ES_ROC =  0.01045767 , ES_wAFROC =  0.0227295 </span></a>
-<a class="sourceLine" id="cb8-30" data-line-number="30"><span class="co">#&gt; ES_ROC =  0.01099783 , ES_wAFROC =  0.02392152 </span></a>
-<a class="sourceLine" id="cb8-31" data-line-number="31"><span class="co">#&gt; ES_ROC =  0.01153399 , ES_wAFROC =  0.02510649</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">deltaMu &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0.01</span>, <span class="fl">0.2</span>, <span class="fl">0.01</span>) <span class="co"># values of deltaMu to scan below</span></a>
+<a class="sourceLine" id="cb8-2" title="2">esRoc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="dt">dim =</span> <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(deltaMu));eswAfroc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="dt">dim =</span> <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(deltaMu))</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(deltaMu)) {</a>
+<a class="sourceLine" id="cb8-4" title="4">  esRoc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(</a>
+<a class="sourceLine" id="cb8-5" title="5">    muMed <span class="op">+</span><span class="st"> </span>deltaMu[i], lambdaMed, nuMed, <span class="dt">lesDistr =</span> lesDistr, </a>
+<a class="sourceLine" id="cb8-6" title="6">    <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"ROC"</span>)<span class="op">$</span>aucROC <span class="op">-</span><span class="st"> </span>aucRocNH</a>
+<a class="sourceLine" id="cb8-7" title="7">  eswAfroc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(</a>
+<a class="sourceLine" id="cb8-8" title="8">    muMed<span class="op">+</span><span class="st"> </span>deltaMu[i], lambdaMed, nuMed, <span class="dt">lesDistr =</span> lesDistr, </a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="dt">lesWghtDistr =</span> lesWghts, <span class="dt">OpChType =</span> <span class="st">"wAFROC"</span>)<span class="op">$</span>aucwAFROC <span class="op">-</span><span class="st"> </span>aucwAfrocNH</a>
+<a class="sourceLine" id="cb8-10" title="10">  <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"ES_ROC = "</span>, esRoc[i], <span class="st">", ES_wAFROC = "</span>, eswAfroc[i],<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb8-11" title="11">}</a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="co">#&gt; ES_ROC =  0.0006197813 , ES_wAFROC =  0.001329066 </span></a>
+<a class="sourceLine" id="cb8-13" title="13"><span class="co">#&gt; ES_ROC =  0.001234752 , ES_wAFROC =  0.002650005 </span></a>
+<a class="sourceLine" id="cb8-14" title="14"><span class="co">#&gt; ES_ROC =  0.00184496 , ES_wAFROC =  0.003962878 </span></a>
+<a class="sourceLine" id="cb8-15" title="15"><span class="co">#&gt; ES_ROC =  0.002450451 , ES_wAFROC =  0.005267748 </span></a>
+<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt; ES_ROC =  0.003051273 , ES_wAFROC =  0.006564677 </span></a>
+<a class="sourceLine" id="cb8-17" title="17"><span class="co">#&gt; ES_ROC =  0.003647472 , ES_wAFROC =  0.007853725 </span></a>
+<a class="sourceLine" id="cb8-18" title="18"><span class="co">#&gt; ES_ROC =  0.004239094 , ES_wAFROC =  0.009134954 </span></a>
+<a class="sourceLine" id="cb8-19" title="19"><span class="co">#&gt; ES_ROC =  0.004826184 , ES_wAFROC =  0.01040842 </span></a>
+<a class="sourceLine" id="cb8-20" title="20"><span class="co">#&gt; ES_ROC =  0.005408788 , ES_wAFROC =  0.0116742 </span></a>
+<a class="sourceLine" id="cb8-21" title="21"><span class="co">#&gt; ES_ROC =  0.00598695 , ES_wAFROC =  0.01293233 </span></a>
+<a class="sourceLine" id="cb8-22" title="22"><span class="co">#&gt; ES_ROC =  0.006560717 , ES_wAFROC =  0.01418289 </span></a>
+<a class="sourceLine" id="cb8-23" title="23"><span class="co">#&gt; ES_ROC =  0.007130131 , ES_wAFROC =  0.01542592 </span></a>
+<a class="sourceLine" id="cb8-24" title="24"><span class="co">#&gt; ES_ROC =  0.007695238 , ES_wAFROC =  0.0166615 </span></a>
+<a class="sourceLine" id="cb8-25" title="25"><span class="co">#&gt; ES_ROC =  0.00825608 , ES_wAFROC =  0.01788967 </span></a>
+<a class="sourceLine" id="cb8-26" title="26"><span class="co">#&gt; ES_ROC =  0.008812702 , ES_wAFROC =  0.0191105 </span></a>
+<a class="sourceLine" id="cb8-27" title="27"><span class="co">#&gt; ES_ROC =  0.009365145 , ES_wAFROC =  0.02032404 </span></a>
+<a class="sourceLine" id="cb8-28" title="28"><span class="co">#&gt; ES_ROC =  0.009913453 , ES_wAFROC =  0.02153036 </span></a>
+<a class="sourceLine" id="cb8-29" title="29"><span class="co">#&gt; ES_ROC =  0.01045767 , ES_wAFROC =  0.0227295 </span></a>
+<a class="sourceLine" id="cb8-30" title="30"><span class="co">#&gt; ES_ROC =  0.01099783 , ES_wAFROC =  0.02392152 </span></a>
+<a class="sourceLine" id="cb8-31" title="31"><span class="co">#&gt; ES_ROC =  0.01153399 , ES_wAFROC =  0.02510649</span></a></code></pre></div>
 <p>Here is a plot of wAFROC effect size (y-axis) vs. ROC effect size.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">es_ROC =</span> esRoc, <span class="dt">es_wAFROC =</span> eswAfroc)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> es_ROC, <span class="dt">y =</span> es_wAFROC)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"lm"</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">color =</span> <span class="st">"black"</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="st">"black"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>,<span class="dt">face=</span><span class="st">"bold"</span>),</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">        <span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>,<span class="dt">face=</span><span class="st">"bold"</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>)) </a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(p)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">es_ROC =</span> esRoc, <span class="dt">es_wAFROC =</span> eswAfroc)</a>
+<a class="sourceLine" id="cb9-2" title="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> es_ROC, <span class="dt">y =</span> es_wAFROC)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"lm"</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">color =</span> <span class="st">"black"</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="st">"black"</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>,<span class="dt">face=</span><span class="st">"bold"</span>),</a>
+<a class="sourceLine" id="cb9-7" title="7">        <span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>,<span class="dt">face=</span><span class="st">"bold"</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>)) </a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(p)</a></code></pre></div>
 <p><img src="Ch19Vig1FrocSampleSize_files/figure-html/unnamed-chunk-9-1.png" width="700" style="display: block; margin: auto;"></p>
-<p>The plot is very close to linear. This makes it easy to design an interpolation function. In the following code block the first line fits <code>eswAfroc</code> vs. <code>esRoc</code> using the linear model <code><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm()</a></code> function constrained to pass through the origin (the minus one): <code>scaleFactor &lt;- lm(eswAfroc ~ -1 + esRoc)</code>. One expects this constraint since for <code>deltaMu = 0</code> the effect size must be zero no matter how it is measured.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">scaleFactor&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(eswAfroc<span class="op">~-</span><span class="dv">1</span><span class="op">+</span>esRoc) <span class="co"># fit values to straight line thru origin</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">effectSizeROC &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">effectSizewAFROC &lt;-<span class="st"> </span>effectSizeROC<span class="op">*</span>scaleFactor<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="co"># r2 = summary(scaleFactor)$r.squared</span></a></code></pre></div>
+<p>The plot is very close to linear. This makes it easy to design an interpolation function. In the following code block the first line fits <code>eswAfroc</code> vs. <code>esRoc</code> using the linear model <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function constrained to pass through the origin (the minus one): <code>scaleFactor &lt;- lm(eswAfroc ~ -1 + esRoc)</code>. One expects this constraint since for <code>deltaMu = 0</code> the effect size must be zero no matter how it is measured.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">scaleFactor&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(eswAfroc<span class="op">~-</span><span class="dv">1</span><span class="op">+</span>esRoc) <span class="co"># fit values to straight line thru origin</span></a>
+<a class="sourceLine" id="cb10-2" title="2">effectSizeROC &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb10-3" title="3">effectSizewAFROC &lt;-<span class="st"> </span>effectSizeROC<span class="op">*</span>scaleFactor<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="co"># r2 = summary(scaleFactor)$r.squared</span></a></code></pre></div>
 <p>The scaleFactor of the straight line fit is <code>scaleFactor</code>, where scaleFactor = 2.1688609 and <code>R2</code> = 0.9999904. Therefore, the conversion from ROC to wAFROC effect size is: <code>effectSizewAFROC = scaleFactor * effectSizeROC</code>. <strong>The wAFROC effect size is twice the ROC effect size.</strong> All that remains is to calculate the variance componenents using the two FOMs:</p>
 </div>
 <div id="computing-the-respective-variance-components" class="section level2">
 <h2 class="hasAnchor">
 <a href="#computing-the-respective-variance-components" class="anchor"></a>Computing the respective variance components</h2>
 <p>The code block applies <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> to <code>rocData</code> and <code>frocData</code>, using the appropriate FOM, and extracts the variance components.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">temp1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(rocData, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">temp2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(frocData, <span class="dt">FOM =</span> <span class="st">"wAFROC"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">varCompROC &lt;-<span class="st"> </span>temp1<span class="op">$</span>varComp</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4">varCompwAFROC &lt;-<span class="st"> </span>temp2<span class="op">$</span>varComp</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">temp1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(rocData, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2">temp2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(frocData, <span class="dt">FOM =</span> <span class="st">"wAFROC"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a>
+<a class="sourceLine" id="cb11-3" title="3">varCompROC &lt;-<span class="st"> </span>temp1<span class="op">$</span>varComp</a>
+<a class="sourceLine" id="cb11-4" title="4">varCompwAFROC &lt;-<span class="st"> </span>temp2<span class="op">$</span>varComp</a></code></pre></div>
 <p>The observed wAFROC effect-size is -0.0068562. This is a very small effect size; the corresponding ROC effect-size is -0.0051; the sign does not affect the calculations, which is too small to reach 80% power. It is not surprising that the study <span class="citation">(Zanca et al. 2009)</span> did not find a significant difference between these two treatments</p>
 <p>The respective variance components are:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(varCompROC)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt;          varR       varC        varTR       varTC       varRC     varErr</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; 1 0.000827738 0.03812335 0.0001526507 0.009644327 0.003544196 0.09484637</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(varCompwAFROC)</a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt;          varR       varC         varTR      varTC      varRC    varErr</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; 1 0.001854229 0.06117805 -0.0004439279 0.01016519 0.01355883 0.0967256</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(varCompROC)</a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt;          varR       varC        varTR       varTC       varRC     varErr</span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; 1 0.000827738 0.03812335 0.0001526507 0.009644327 0.003544196 0.09484637</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(varCompwAFROC)</a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="co">#&gt;          varR       varC         varTR      varTC      varRC    varErr</span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="co">#&gt; 1 0.001854229 0.06117805 -0.0004439279 0.01016519 0.01355883 0.0967256</span></a></code></pre></div>
 <p>Only terms involving treatment are relevant to sample size. The wAFROC <code>varTC</code> and <code>varError</code> values are slightly larger than the ROC ones - as expected because, again, the range of the wAFROC FOM is twice that of the ROC FOM.</p>
 </div>
 <div id="comparing-roc-power-to-wafroc-power-for-equivalent-effect-sizes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#comparing-roc-power-to-wafroc-power-for-equivalent-effect-sizes" class="anchor"></a>Comparing ROC power to wAFROC power for equivalent effect-sizes</h2>
 <p>We are now ready to compare ROC and wAFROC powers for equivalent effect sizes. The following example is for 5 readers (<code>JTest</code>) and 100 cases (<code>KTest</code>) in the <strong>pivotal study</strong>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">powerROC &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="dt">dim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(effectSizeROC));powerwAFROC &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="dt">dim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(effectSizeROC))</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">JTest &lt;-<span class="st"> </span><span class="dv">5</span>;KTest &lt;-<span class="st"> </span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(effectSizeROC)) {</a>
-<a class="sourceLine" id="cb13-5" data-line-number="5">  varYTR &lt;-<span class="st"> </span>varCompROC<span class="op">$</span>varTR <span class="co"># these are pseudovalue based variance components assuming FOM = "Wilcoxon"</span></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6">  varYTC &lt;-<span class="st"> </span>varCompROC<span class="op">$</span>varTC</a>
-<a class="sourceLine" id="cb13-7" data-line-number="7">  varYEps &lt;-<span class="st"> </span>varCompROC<span class="op">$</span>varErr</a>
-<a class="sourceLine" id="cb13-8" data-line-number="8">  ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJKDbmVarComp.html">SsPowerGivenJKDbmVarComp</a></span> (<span class="dt">J =</span> JTest, <span class="dt">K =</span> KTest, <span class="dt">effectSize =</span> effectSizeROC[i], varYTR, varYTC, varYEps, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a>
-<a class="sourceLine" id="cb13-9" data-line-number="9">  powerROC[i] &lt;-<span class="st"> </span>ret<span class="op">$</span>powerRRRC</a>
-<a class="sourceLine" id="cb13-10" data-line-number="10">  </a>
-<a class="sourceLine" id="cb13-11" data-line-number="11">  varYTR &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTR <span class="co"># these are pseudovalue based variance components assuming FOM = "wAFROC"</span></a>
-<a class="sourceLine" id="cb13-12" data-line-number="12">  varYTC &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTC</a>
-<a class="sourceLine" id="cb13-13" data-line-number="13">  varYEps &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varErr</a>
-<a class="sourceLine" id="cb13-14" data-line-number="14">  ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJKDbmVarComp.html">SsPowerGivenJKDbmVarComp</a></span> (<span class="dt">J =</span> JTest, <span class="dt">K =</span> KTest, <span class="dt">effectSize =</span> effectSizewAFROC[i], varYTR, varYTC, varYEps, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a>
-<a class="sourceLine" id="cb13-15" data-line-number="15">  powerwAFROC[i] &lt;-<span class="st"> </span>ret<span class="op">$</span>powerRRRC</a>
-<a class="sourceLine" id="cb13-16" data-line-number="16">  </a>
-<a class="sourceLine" id="cb13-17" data-line-number="17">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"ROC-ES = "</span>, effectSizeROC[i], <span class="st">", wAFROC-ES = "</span>, effectSizewAFROC[i], </a>
-<a class="sourceLine" id="cb13-18" data-line-number="18">      <span class="st">", Power-ROC = "</span>, powerROC[i], <span class="st">", Power-wAFROC = "</span>, powerwAFROC[i], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
-<a class="sourceLine" id="cb13-19" data-line-number="19">}</a>
-<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; ROC-ES =  0.01 , wAFROC-ES =  0.02168861 , Power-ROC =  0.06443046 , Power-wAFROC =  0.1266316 </span></a>
-<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co">#&gt; ROC-ES =  0.02 , wAFROC-ES =  0.04337722 , Power-ROC =  0.108789 , Power-wAFROC =  0.3605744 </span></a>
-<a class="sourceLine" id="cb13-22" data-line-number="22"><span class="co">#&gt; ROC-ES =  0.03 , wAFROC-ES =  0.06506583 , Power-ROC =  0.1847115 , Power-wAFROC =  0.6686875 </span></a>
-<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="co">#&gt; ROC-ES =  0.04 , wAFROC-ES =  0.08675444 , Power-ROC =  0.2907927 , Power-wAFROC =  0.8897125 </span></a>
-<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.108443 , Power-ROC =  0.4195443 , Power-wAFROC =  0.9777308 </span></a>
-<a class="sourceLine" id="cb13-25" data-line-number="25"><span class="co">#&gt; ROC-ES =  0.06 , wAFROC-ES =  0.1301317 , Power-ROC =  0.5573812 , Power-wAFROC =  0.9973522 </span></a>
-<a class="sourceLine" id="cb13-26" data-line-number="26"><span class="co">#&gt; ROC-ES =  0.07 , wAFROC-ES =  0.1518203 , Power-ROC =  0.6881601 , Power-wAFROC =  0.9998172 </span></a>
-<a class="sourceLine" id="cb13-27" data-line-number="27"><span class="co">#&gt; ROC-ES =  0.08 , wAFROC-ES =  0.1735089 , Power-ROC =  0.7983611 , Power-wAFROC =  0.9999927 </span></a>
-<a class="sourceLine" id="cb13-28" data-line-number="28"><span class="co">#&gt; ROC-ES =  0.09 , wAFROC-ES =  0.1951975 , Power-ROC =  0.8809508 , Power-wAFROC =  0.9999998 </span></a>
-<a class="sourceLine" id="cb13-29" data-line-number="29"><span class="co">#&gt; ROC-ES =  0.1 , wAFROC-ES =  0.2168861 , Power-ROC =  0.936068 , Power-wAFROC =  1</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">powerROC &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="dt">dim =</span> <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(effectSizeROC));powerwAFROC &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="dt">dim =</span> <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(effectSizeROC))</a>
+<a class="sourceLine" id="cb13-2" title="2"></a>
+<a class="sourceLine" id="cb13-3" title="3">JTest &lt;-<span class="st"> </span><span class="dv">5</span>;KTest &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(effectSizeROC)) {</a>
+<a class="sourceLine" id="cb13-5" title="5">  varYTR &lt;-<span class="st"> </span>varCompROC<span class="op">$</span>varTR <span class="co"># these are pseudovalue based variance components assuming FOM = "Wilcoxon"</span></a>
+<a class="sourceLine" id="cb13-6" title="6">  varYTC &lt;-<span class="st"> </span>varCompROC<span class="op">$</span>varTC</a>
+<a class="sourceLine" id="cb13-7" title="7">  varYEps &lt;-<span class="st"> </span>varCompROC<span class="op">$</span>varErr</a>
+<a class="sourceLine" id="cb13-8" title="8">  ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJKDbmVarComp.html">SsPowerGivenJKDbmVarComp</a></span> (<span class="dt">J =</span> JTest, <span class="dt">K =</span> KTest, <span class="dt">effectSize =</span> effectSizeROC[i], varYTR, varYTC, varYEps, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a>
+<a class="sourceLine" id="cb13-9" title="9">  powerROC[i] &lt;-<span class="st"> </span>ret<span class="op">$</span>powerRRRC</a>
+<a class="sourceLine" id="cb13-10" title="10">  </a>
+<a class="sourceLine" id="cb13-11" title="11">  varYTR &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTR <span class="co"># these are pseudovalue based variance components assuming FOM = "wAFROC"</span></a>
+<a class="sourceLine" id="cb13-12" title="12">  varYTC &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varTC</a>
+<a class="sourceLine" id="cb13-13" title="13">  varYEps &lt;-<span class="st"> </span>varCompwAFROC<span class="op">$</span>varErr</a>
+<a class="sourceLine" id="cb13-14" title="14">  ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/SsPowerGivenJKDbmVarComp.html">SsPowerGivenJKDbmVarComp</a></span> (<span class="dt">J =</span> JTest, <span class="dt">K =</span> KTest, <span class="dt">effectSize =</span> effectSizewAFROC[i], varYTR, varYTC, varYEps, <span class="dt">option =</span> <span class="st">"RRRC"</span>)</a>
+<a class="sourceLine" id="cb13-15" title="15">  powerwAFROC[i] &lt;-<span class="st"> </span>ret<span class="op">$</span>powerRRRC</a>
+<a class="sourceLine" id="cb13-16" title="16">  </a>
+<a class="sourceLine" id="cb13-17" title="17">  <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"ROC-ES = "</span>, effectSizeROC[i], <span class="st">", wAFROC-ES = "</span>, effectSizewAFROC[i], </a>
+<a class="sourceLine" id="cb13-18" title="18">      <span class="st">", Power-ROC = "</span>, powerROC[i], <span class="st">", Power-wAFROC = "</span>, powerwAFROC[i], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</a>
+<a class="sourceLine" id="cb13-19" title="19">}</a>
+<a class="sourceLine" id="cb13-20" title="20"><span class="co">#&gt; ROC-ES =  0.01 , wAFROC-ES =  0.02168861 , Power-ROC =  0.06443046 , Power-wAFROC =  0.1266316 </span></a>
+<a class="sourceLine" id="cb13-21" title="21"><span class="co">#&gt; ROC-ES =  0.02 , wAFROC-ES =  0.04337722 , Power-ROC =  0.108789 , Power-wAFROC =  0.3605744 </span></a>
+<a class="sourceLine" id="cb13-22" title="22"><span class="co">#&gt; ROC-ES =  0.03 , wAFROC-ES =  0.06506583 , Power-ROC =  0.1847115 , Power-wAFROC =  0.6686874 </span></a>
+<a class="sourceLine" id="cb13-23" title="23"><span class="co">#&gt; ROC-ES =  0.04 , wAFROC-ES =  0.08675444 , Power-ROC =  0.2907927 , Power-wAFROC =  0.8897125 </span></a>
+<a class="sourceLine" id="cb13-24" title="24"><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.108443 , Power-ROC =  0.4195443 , Power-wAFROC =  0.9777308 </span></a>
+<a class="sourceLine" id="cb13-25" title="25"><span class="co">#&gt; ROC-ES =  0.06 , wAFROC-ES =  0.1301317 , Power-ROC =  0.5573812 , Power-wAFROC =  0.9973522 </span></a>
+<a class="sourceLine" id="cb13-26" title="26"><span class="co">#&gt; ROC-ES =  0.07 , wAFROC-ES =  0.1518203 , Power-ROC =  0.6881601 , Power-wAFROC =  0.9998172 </span></a>
+<a class="sourceLine" id="cb13-27" title="27"><span class="co">#&gt; ROC-ES =  0.08 , wAFROC-ES =  0.1735089 , Power-ROC =  0.7983611 , Power-wAFROC =  0.9999927 </span></a>
+<a class="sourceLine" id="cb13-28" title="28"><span class="co">#&gt; ROC-ES =  0.09 , wAFROC-ES =  0.1951975 , Power-ROC =  0.8809508 , Power-wAFROC =  0.9999998 </span></a>
+<a class="sourceLine" id="cb13-29" title="29"><span class="co">#&gt; ROC-ES =  0.1 , wAFROC-ES =  0.2168861 , Power-ROC =  0.936068 , Power-wAFROC =  1</span></a></code></pre></div>
 <p>Since the wAFROC effect size is about a factor of two larger than the ROC effect size, wAFROC power is larger than that for ROC. The effect is magnified as the effect size enters as the square in the formula for the power (this overwhelms the slight increase in variability of wAFROC-FOM relative to ROC-FOM noted previously). The following is a plot of the respective powers.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">power_ROC =</span> powerROC, <span class="dt">power_wAFROC =</span> powerwAFROC)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> power_ROC, <span class="dt">y =</span> power_wAFROC)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> df, <span class="dt">size =</span> <span class="dv">2</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="st">"black"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>,<span class="dt">face=</span><span class="st">"bold"</span>),</a>
-<a class="sourceLine" id="cb14-6" data-line-number="6">        <span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>,<span class="dt">face=</span><span class="st">"bold"</span>))  <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(p)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">power_ROC =</span> powerROC, <span class="dt">power_wAFROC =</span> powerwAFROC)</a>
+<a class="sourceLine" id="cb14-2" title="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> power_ROC, <span class="dt">y =</span> power_wAFROC)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> df, <span class="dt">size =</span> <span class="dv">2</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="st">"black"</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>,<span class="dt">face=</span><span class="st">"bold"</span>),</a>
+<a class="sourceLine" id="cb14-6" title="6">        <span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>,<span class="dt">face=</span><span class="st">"bold"</span>))  <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-7" title="7"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-8" title="8"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb14-9" title="9"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(p)</a></code></pre></div>
 <p><img src="Ch19Vig1FrocSampleSize_files/figure-html/unnamed-chunk-14-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div id="references" class="section level2 unnumbered">
@@ -339,7 +341,7 @@
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
 <div id="ref-RN1882">
-<p>Zanca, Federica, Jurgen Jacobs, Chantal Van Ongeval, Filip Claus, Valerie Celis, Catherine Geniets, Veerle Provost, Herman Pauwels, Guy Marchal, and Hilde Bosmans. 2009. “Evaluation of Clinical Image Processing Algorithms Used in Digital Mammography.” Journal Article. <em>Medical Physics</em> 36 (3): 765–75.</p>
+<p>Zanca, Federica, Jurgen Jacobs, Van OngevalChantal, Filip Claus, Valerie Celis, Catherine Geniets, Veerle Provost, Herman Pauwels, Guy Marchal, and Hilde Bosmans. 2009. “Evaluation of Clinical Image Processing Algorithms Used in Digital Mammography.” Journal Article. <em>Medical Physics</em> 36 (3): 765–75.</p>
 </div>
 </div>
 </div>
@@ -362,17 +364,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

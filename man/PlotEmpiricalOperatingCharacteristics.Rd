@@ -4,8 +4,13 @@
 \alias{PlotEmpiricalOperatingCharacteristics}
 \title{Plot empirical operating characteristics, ROC, FROC or LROC}
 \usage{
-PlotEmpiricalOperatingCharacteristics(dataset, trts = 1, rdrs = 1,
-  opChType, legend.position = c(0.8, 0.2))
+PlotEmpiricalOperatingCharacteristics(
+  dataset,
+  trts = 1,
+  rdrs = 1,
+  opChType,
+  legend.position = c(0.8, 0.2)
+)
 }
 \arguments{
 \item{dataset}{Dataset object.}

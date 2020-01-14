@@ -13,8 +13,8 @@ RJafroc
 
 # Update History #
 * See https://dpc10ster.github.io/RJafroc/news/index.html.
-* Current GitHub version is 1.3.0.
-* Current CRAN version is 1.2.0.
+* Current GitHub version is 1.3.1.9000.
+* Current CRAN version is 1.3.1.
 
 # Branch designations #
 **The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `development` branch is for ongoing development/experimental work. When finished and tested, the `development` branch should be merged with `master`, then file-size-limited and merged to CRAN branch, and then submitted to CRAN. The website is pushed from `master` branch.
