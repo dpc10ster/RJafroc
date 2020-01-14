@@ -28,7 +28,7 @@ Version 1.3.1 of `RJafroc` has passed CRAN tests. This version is on the `cran2`
 # Those already familiar with installing R packages from GitHub can ignore the following directions  
 
 # How do I get set up?
-Three options are given, in increasing order of complexity.
+Three options are given below, in increasing order of complexity. The first method downloads from CRAN, the second from GitHub and the third downloads all source files from GitHub and then installs the software. I recommend the first or second methods.
 
 ## 1. Install from CRAN
 * Install `R` and `RStudio`.
