@@ -1,6 +1,11 @@
 # assign("last.warning", NULL, envir = baseenv())
-
+library(RJafroc)
 rm(list = ls())
+###########################################################################
+# test <- system.file("extdata", "test.xlsx",
+#                        package = "RJafroc", mustWork = TRUE)
+# x <- DfReadDataFile(test, newExcelFileFormat = FALSE)
+#
 ###########################################################################
 rocCr1R <- system.file("extdata", "toyFiles/ROC/rocCr1R.xlsx",
                         package = "RJafroc", mustWork = TRUE)
