@@ -110,6 +110,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (length(truthFileIndex) == 0) stop("TRUTH table worksheet cannot be found in the Excel file.")
   truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:6)
+  if (length(truthTable) != 6) stop("Old Excel format file encountered; cannot use newExcelFileFormat = TRUE")
   truth <- checkTruthTable(truthTable) 
   
   truthTableStr <- truth$truthTableStr
