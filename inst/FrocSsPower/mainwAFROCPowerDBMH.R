@@ -37,11 +37,9 @@ lambdaMed <- median(lambdaP[1:2,]) # do:
 
 lesDistr <- allResults[[1]]$lesDistr
 # construct lesion weights, assuming equally weighted lesions
-lesWghtDistr <- matrix(-Inf, nrow = nrow(lesDistr), ncol = nrow(lesDistr))
-for (l in 1:nrow(lesDistr)){
-  nLes <- lesDistr[l, 1]
-  lesWghtDistr[l, 1:nLes] <- 1/nLes
-}
+lesWghtDistr <- matrix(-Inf, nrow = nrow(lesDistr), ncol = nrow(lesDistr)+1)
+lesWghtDistr[,1] <- lesDistr[,1]
+for (i in 1:length(lesDistr[,1])) lesWghtDistr[i,2:(lesDistr[i,1]+1)] <- 1/lesDistr[i,1]
 # calculate NH values for ROC-AUC and wAFROC-AUC
 aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                             lesDistr = lesDistr, lesWghtDistr = lesWghtDistr,  OpChType = "ROC")$aucROC
