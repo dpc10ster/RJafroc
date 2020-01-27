@@ -1,6 +1,10 @@
 # assign("last.warning", NULL, envir = baseenv())
 library(RJafroc)
 rm(list = ls())
+fed <- system.file("extdata", "FrocData.xlsx",
+                       package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(fed, newExcelFileFormat = FALSE)
+
 ###########################################################################
 # test <- system.file("extdata", "test.xlsx",
 #                        package = "RJafroc", mustWork = TRUE)

@@ -1,0 +1,65 @@
+---
+title: "Chapter 00, Vignette 5: Create Artificial Split Plot Dataset"
+author: "Dev P. Chakraborty, PhD"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+bibliography: myRefs.bib
+fig_caption: yes
+fig.width: 4
+vignette: >
+  %\VignetteIndexEntry{Create split plot data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE}
+  knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+  )
+  library(RJafroc)
+```
+
+## Introduction
+* TBA
+
+
+## The structure of an ROC dataset
+The example shown above corresponds to Excel file `inst/extdata/FrocData.xlsx` in the project directory. This corresponds to the FED dataset [@RN1882]. In the following code chunk the first statement retrieves the name of the data file, located in a hidden directory that one need not be concerned with. The second statement reads the file using the function `DfReadDataFile()` and saves it to object `x`. The third statement shows the structure of the dataset object `x`.
+
+```{r}
+fed <- system.file("extdata", "FrocData.xlsx",
+                       package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(fed, newExcelFileFormat = FALSE)
+str(x)
+```             
+
+## Correspondence using the `which` function 
+* Converting from **names** to integer-indices (indicating position in an array) can be confusing. 
+* The following example uses the `which` function to help out.
+* The first line says that the `abnormalCase` named 70 corresponds to position (or index) 1 in the LL array case dimension. 
+* The second line prints the NL rating for `modalityID` = 0, `readerID` = 1 and `normalCases` = 1.
+* The third line prints the LL rating for `modalityID` = 0, `readerID` = 1 and `abnormalCases` = 70.
+* The last line shows what happens if one enters an invalid value for the name; the result is a `numeric(0)`.
+* Note that in each of these examples, the last dimension is 1 because we are dealing with ROC datasets here. 
+* The reader is encouraged to examine the correspondence between the NL and LL ratings and the Excel file using this method.
+
+```{r}
+which(x$abnormalCases == 70)
+x$NL[which(x$modalityID == "0"),which(x$readerID == "1"),which(x$normalCases == 1),1]
+x$LL[which(x$modalityID == "0"),which(x$readerID == "1"),which(x$abnormalCases == 70),1]
+x$LL[which(x$modalityID == "a"),which(x$readerID == "1"),which(x$abnormalCases == 70),1]
+```             
+
+
+## A single reader dataset 
+
+```{r}
+rocCr1R <- system.file("extdata", "toyFiles/ROC/rocCr1R.xlsx",
+                        package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(rocCr1R, newExcelFileFormat = TRUE)
+str(x)
+```             
+
+
+## References  

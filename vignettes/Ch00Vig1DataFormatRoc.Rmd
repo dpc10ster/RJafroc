@@ -129,9 +129,10 @@ These are found in the `TP` or `LL` worksheet, see below.
 * Converting from **names** to integer-indices (indicating position in an array) can be confusing. 
 * The following example uses the `which` function to help out.
 * The first line says that the `abnormalCase` named 70 corresponds to position (or index) 1 in the LL array case dimension. 
-* The second line prints the NL rating for `modalityID` = 0, `readerID` = 1 and `normalCase` = 1.
-* The third line prints the LL rating for `modalityID` = 0, `readerID` = 1 and `abnormalCase` = 70.
+* The second line prints the NL rating for `modalityID` = 0, `readerID` = 1 and `normalCases` = 1.
+* The third line prints the LL rating for `modalityID` = 0, `readerID` = 1 and `abnormalCases` = 70.
 * The last line shows what happens if one enters an invalid value for the name; the result is a `numeric(0)`.
+* Note that in each of these examples, the last dimension is 1 because we are dealing with ROC datasets here. 
 * The reader is encouraged to examine the correspondence between the NL and LL ratings and the Excel file using this method.
 
 ```{r}
