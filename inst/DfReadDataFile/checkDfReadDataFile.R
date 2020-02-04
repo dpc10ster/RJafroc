@@ -97,6 +97,11 @@ frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormal
                         package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = TRUE)
 
+frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormalCasesFirstOldFormat.xlsx",
+                                        package = "RJafroc", mustWork = TRUE)
+x2 <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = FALSE)
+testthat::expect_equal(x,x2)
+
 frocCr1R <- system.file("extdata", "toyFiles/FROC/frocCr1R.xlsx",
                         package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(frocCr1R, newExcelFileFormat = TRUE)

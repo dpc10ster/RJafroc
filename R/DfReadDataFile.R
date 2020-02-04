@@ -516,7 +516,7 @@ checkTruthTable <- function (truthTable)
           # 2 modalities, 3 readers, froc data,
           # 3 normal cases, 5 abnormal cases, four containing 1 lesion and 1 containing
           # 3 lesions. See RJafrocChecks/truthTableStr.xlsx, NewFormat.
-          # cat("i = ", i, ", j = ", j, ", el1 = ", el1, 
+          # cat("i = ", i, ", j = ", j, ", el1 = ", el1,
           #     ", k1 = ", k1, ", caseIDs_ij[k]", caseIDs_ij[k], "\n")
           truthTableStr[i, j, k1, el1] <-1
         }

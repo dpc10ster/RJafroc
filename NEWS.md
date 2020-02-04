@@ -11,7 +11,11 @@
 * checked `truthTableStr` with a data file that has only 1 and 3 lesions per case; was concerned about 4th dimension of `truthTableStr`; see `Dropbox/RJafrocChecks/truthTableStr.xlsx` for results of checks; convinced it is working fine, despite my concerns; 
 * need a separate vignette on `truthTableStr`;
 * added raw excel file datasets `to inst/extdata/datasets`; found missing file `SimulateFrocFromLrocDataset.R` - not sure why I took it out;
-* R CMD check successful; 
+* R CMD check successful
+* Added sheet AnnK to `truthTableStr` in `Dropbox/RJafrocChecks`; 
+* Also tests that OldFormat file when read creates identical dataset to that created by NewFormat: basically two Excel fiies are identical except old format lacks the three extra columns; see `checkDfReadDataFile.R`
+* I will close this doubt/issue
+
 
 ## Extended dataset object structure
 * Bumped version number to 1.3.1 after corrections to DESCRIPTION file
