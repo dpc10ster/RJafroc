@@ -4,16 +4,20 @@
 \name{dataset01}
 \alias{dataset01}
 \title{TONY FROC dataset}
-\format{A list with 8 elements:
+\format{A list with 12 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1:2, 1:5, 1:185, 1:3], of non-lesion localizations, NLs}
-\item{\code{LL}}{ Ratings array [1:2, 1:5, 1:89, 1:2], of lesion localizations, LLs}
-\item{\code{lesionVector}}{ array [1:89], number of lesions per diseased case}
-\item{\code{lesionID}}{ array [1:89, 1:2], labels of lesions on diseased cases}
-\item{\code{lesionWeight}}{ array [1:89, 1:2], weights (or clinical importance) of lesions}
-\item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID}}{ [1:2] "BT" "DM", treatment labels}
-\item{\code{readerID}}{ [1:5] "1" "2" "3" "4" ..., reader labels}
+\item{\code{NL}}{, num [1:2, 1:5, 1:185, 1:3], ratings of non-lesion localizations, NLs}
+\item{\code{LL}}{, num [1:2, 1:5, 1:89, 1:2], ratings of lesion localizations, LLs}
+\item{\code{lesionVector}}{, int [1:89], number of lesions per diseased case}
+\item{\code{lesionID}}{, num [1:89, 1:2], numeric labels of lesions on diseased cases}
+\item{\code{lesionWeight}}{, num [1:89, 1:2], weights (or clinical importances) of lesions}
+\item{\code{dataType}}{, chr "FROC", the data type}
+\item{\code{modalityID}}{, chr [1:2] "BT" "DM", treatment labels}
+\item{\code{readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+\item{\code{design}}{, chr "CROSSED", study design}
+\item{\code{normalCases}}{, int [1:96] 1 4 7 8 9 10 15 17 18 20 ..., normal case labels}
+\item{\code{abnormalCases}}{, int [1:89] 2 3 5 6 11 12 13 16 19 24 ..., abnormal case labels}
+\item{\code{truthTableStr}}{, num [1:2, 1:5, 1:185, 1:4] 1 1 1 1 ..., truth table structure}
 }}
 \usage{
 dataset01
@@ -21,10 +25,7 @@ dataset01
 \description{
 This is referred to in the book as the "TONY" dataset. It consists of 185 cases, 
 89 of which are diseased, interpreted in two treatments
-("BT" = breast tomosynthesis and "DM" = digital mammography) by five radiologists using the FROC paradigm. 
-The diseased cases had at most two cancers (lesions) per case while the maximum number of 
-non-lesion localizations (NLs) per case, over the entire dataset, was 3. The example below displays
-the wAFROC plot for the first treatment and first reader.
+("BT" = breast tomosynthesis and "DM" = digital mammography) by five radiologists using the FROC paradigm.
 }
 \examples{
 str(dataset01)

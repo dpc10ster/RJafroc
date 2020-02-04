@@ -4,16 +4,20 @@
 \name{dataset03}
 \alias{dataset03}
 \title{Franken ROC dataset}
-\format{A list with 8 elements:
+\format{A list with 12 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1:2, 1:4, 1:100, 1], of false positives, FPs}
-\item{\code{LL}}{ Ratings array [1:2, 1:4, 1:67, 1], of true positives, TPs}
-\item{\code{lesionVector}}{ array [1:67], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{ array [1:67, 1], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{ array [1:67, 1], weights (or clinical importance) of lesions, all set to 1}
-\item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ [1:2] "TREAT1" "TREAT2", the treatment labels}
-\item{\code{readerID}}{ [1:4] "READER_1" "READER_2" "READER_3" "READER_4", the reader labels}
+\item{\code{NL}}{, num [1:2, 1:4, 1:100, 1], ratings of false positives, FPs}
+\item{\code{LL}}{, num [1:2, 1:4, 1:67, 1], ratings of true positives, TPs}
+\item{\code{lesionVector}}{, int [1:67], number of lesions per diseased case, all set to 1}
+\item{\code{lesionID}}{, num [1:67, 1], labels of lesions on diseased cases, all set to 1}
+\item{\code{lesionWeight}}{, num [1:67, 1], weights (or clinical importances) of lesions, all set to 1}
+\item{\code{dataType}}{, chr "ROC", the data type}
+\item{\code{modalityID}}{, chr [1:2] "TREAT1" "TREAT2", the treatment labels}
+\item{\code{readerID}}{, chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", the reader labels}
+\item{\code{design}}{, "CROSSED", study design}
+\item{\code{normalCases}}{, int [1:33] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
+\item{\code{abnormalCases}}{, int [1:67] 34 35 36 37 38 39 40 41 42 43 ..., abnormal case labels}
+\item{\code{truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2] 1 1 1 1 1 1 1   ..., truth table structure}
 }}
 \usage{
 dataset03

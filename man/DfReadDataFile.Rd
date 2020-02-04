@@ -17,7 +17,8 @@ DfReadDataFile(
 The file-extension must match the format specified below}
 
 \item{format}{A string specifying the format of the data in the file. 
-It can be \code{"JAFROC"} (the default), \code{"MRMC"} or \code{"iMRMC"}. 
+It can be \code{"JAFROC"}, the default, which requires a .xlsx Excel file,
+\bold{not .xls}, \code{"MRMC"} or \code{"iMRMC"}. 
 For \code{"MRMC"} the format is determined by the data file extension 
 as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,  
 \code{.csv} or \code{.txt} or \code{.lrc}. For file extension 
@@ -26,8 +27,8 @@ as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,
 \item{newExcelFileFormat}{This argument only applies to the \code{"JAFROC"} format. 
 The default is \code{FALSE}. if \code{TRUE} the function accommodates 3 
 additional columns
-in the \code{Truth} worksheet. If \code{FALSE}, the original function, as in version 
-1.2.0 is used, and the three extra columns, if present, throws an error.}
+in the \code{Truth} worksheet. If \code{FALSE}, the original function (as in version 
+1.2.0) is used and the three extra columns, if present, throws an error.}
 
 \item{delimiter}{The string delimiter to be used for the \code{"MRMC"} 
 format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.

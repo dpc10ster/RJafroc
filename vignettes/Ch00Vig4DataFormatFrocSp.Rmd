@@ -82,6 +82,7 @@ x$lesionWeight
 
 ## The false positive (FP) ratings
 These are found in the `FP` or `NL` worksheet, see below.
+
 ![](images/frocSpNL.png){width=100%}
 
 * This worksheet has the ratings of non-diseased cases. 

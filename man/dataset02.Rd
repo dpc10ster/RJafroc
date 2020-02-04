@@ -4,16 +4,20 @@
 \name{dataset02}
 \alias{dataset02}
 \title{Van Dyke ROC dataset}
-\format{A list with 8 elements:
+\format{A list with 12 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1:2, 1:5, 1:114, 1], of false positives, FPs}
-\item{\code{LL}}{ Ratings array [1:2, 1:5, 1:45, 1], of true positives, TPs}
-\item{\code{lesionVector}}{ array [1:45], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{ array [1:45, 1], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{ array [1:45, 1], weights (or clinical importance) of lesions, all set to 1}
-\item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
-\item{\code{readerID}}{ [1:5] "0" "1" "2" ..., reader labels}
+\item{\code{NL}}{, num [1:2, 1:5, 1:114, 1], ratings of false positives, FPs}
+\item{\code{LL}}{, num [1:2, 1:5, 1:45, 1], ratings of true positives, TPs}
+\item{\code{lesionVector}}{, int [1:45], number of lesions per diseased case, all set to 1}
+\item{\code{lesionID}}{, num [1:45, 1], labels of lesions on diseased cases, all set to 1}
+\item{\code{lesionWeight}}{, num [1:45, 1], weights (or clinical importances) of lesions, all set to 1}
+\item{\code{dataType}}{, chr "ROC", the data type}
+\item{\code{modalityID}}{, chr [1:2] "0" "1", treatment labels}
+\item{\code{readerID}}{, chr [1:5] "0" "1" "2" ..., reader labels}
+\item{\code{design}}{, "CROSSED", study design}
+\item{\code{normalCases}}{, int [1:69] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
+\item{\code{abnormalCases}}{, int [1:45] 70 71 72 73 74 75 76 77 78 79 ..., abnormal case labels}
+\item{\code{truthTableStr}}{, num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 1  ..., truth table structure}
 }}
 \usage{
 dataset02

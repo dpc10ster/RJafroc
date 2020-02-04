@@ -11,7 +11,7 @@ alpha <- 0.05
 rocData <- dataset02 ##"VanDyke.lrc"
 #fileName <- dataset03 ## "Franken1.lrc"
 retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "DBMH") 
-varYTR <- retDbm$varComp$varComp[3];varYTC <- retDbm$varComp$varComp[4];varYEps <- retDbm$varComp$varComp[6]
+varYTR <- retDbm$varComp$varTR;varYTC <- retDbm$varComp$varTC;varYEps <- retDbm$varComp$varErr
 effectSize <- retDbm$ciDiffTrtRRRC$Estimate
 
 ## -----------------------------------------------------------------------------
@@ -19,6 +19,7 @@ retDbm$varComp
 
 ## -----------------------------------------------------------------------------
 #RRRC
+J <- 10;K <- 163
 ncp <- (0.5*J*K*(effectSize)^2)/(K*varYTR+max(J*varYTC,0)+varYEps)
 MS <- UtilMeanSquares(rocData, FOM = "Wilcoxon", method = "DBMH")
 ddf <- (MS$msTR+max(MS$msTC-MS$msTRC,0))^2/(MS$msTR^2)*(J-1)

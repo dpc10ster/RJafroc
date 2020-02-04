@@ -6,14 +6,18 @@
 \title{Dobbins 1 FROC dataset}
 \format{A list with 8 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1:4, 1:5, 1:158, 1:4], of non-lesion localizations, NLs}
-\item{\code{LL}}{ Ratings array [1:4, 1:5, 1:115, 1:20], of lesion localizations, LLs}
-\item{\code{lesionVector}}{ array [1:115], number of lesions per diseased case}
-\item{\code{lesionID}}{ array [1:115, 20], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{ array [1:115, 20] weights (or clinical importance) of lesions, all set to 1}
-\item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID}}{ [1:4] "1" "2" ..., treatment labels}
-\item{\code{readerID}}{ [1:5] "1" "2" ..., reader labels}
+\item{\code{NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
+\item{\code{LL}}{, num [1:4, 1:5, 1:115, 1:20], ratings of lesion localizations, LLs}
+\item{\code{lesionVector}}{, int [1:115], number of lesions per diseased case}
+\item{\code{lesionID}}{, num [1:115, 20], labels of lesions on diseased cases, all set to 1}
+\item{\code{lesionWeight}}{, num [1:115, 20] weights (or clinical importances) of lesions, all set to 1}
+\item{\code{dataType}}{, chr "FROC", the data type}
+\item{\code{modalityID}}{, chr [1:4] "1" "2" ..., treatment labels}
+\item{\code{readerID}}{, chr [1:5] "1" "2" ..., reader labels}
+\item{\code{design}}{, "CROSSED", study design}
+\item{\code{normalCases}}{, int [1:43] 6 9 14 27 62 66 70 71 83 91 ..., normal case labels}
+\item{\code{abnormalCases}}{, int [1:115] 1 2 3 5 7 8 10 11 13 17 ..., abnormal case labels}
+\item{\code{truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21] 1 1 1 1 1 1 ..., truth table structure}
 }}
 \usage{
 dataset11

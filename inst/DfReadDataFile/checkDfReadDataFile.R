@@ -1,16 +1,15 @@
 # assign("last.warning", NULL, envir = baseenv())
 library(RJafroc)
 rm(list = ls())
-fed <- system.file("extdata", "FrocData.xlsx",
-                       package = "RJafroc", mustWork = TRUE)
-x <- DfReadDataFile(fed, newExcelFileFormat = FALSE)
 
-###########################################################################
-# test <- system.file("extdata", "test.xlsx",
+FrocDataSp <- system.file("extdata", "toyFiles/FROC/FrocDataSp.xlsx", 
+                      package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(FrocDataSp, newExcelFileFormat = TRUE)
+
+# fed <- system.file("extdata", "FrocData.xlsx",
 #                        package = "RJafroc", mustWork = TRUE)
-# x <- DfReadDataFile(test, newExcelFileFormat = FALSE)
-#
-###########################################################################
+# x <- DfReadDataFile(fed, newExcelFileFormat = TRUE)
+# 
 rocCr1R <- system.file("extdata", "toyFiles/ROC/rocCr1R.xlsx",
                         package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(rocCr1R, newExcelFileFormat = TRUE)
@@ -70,6 +69,30 @@ rocSpText <- system.file("extdata", "toyFiles/ROC/rocSpText.xlsx",
 testthat::expect_error(DfReadDataFile(rocSpText, newExcelFileFormat = TRUE))
 
 ###########################################################################
+frocCr013LesionsOldFormat <- system.file("extdata", "toyFiles/FROC/frocCr013LesionsOldFormat.xlsx", 
+                      package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(frocCr013LesionsOldFormat, newExcelFileFormat = FALSE)
+
+
+frocCr013Lesions <- system.file("extdata", "toyFiles/FROC/frocCr013Lesions.xlsx", 
+                      package = "RJafroc", mustWork = TRUE)
+x2 <- DfReadDataFile(frocCr013Lesions, newExcelFileFormat = TRUE)
+testthat::expect_equal(x, x2)
+
+magnus <- system.file("extdata", "datasets/Magnus.xls", 
+                      package = "RJafroc", mustWork = TRUE)
+testthat::expect_error(DfReadDataFile(magnus, newExcelFileFormat = FALSE))
+
+frocCr <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx", 
+                      package = "RJafroc", mustWork = TRUE)
+x <- DfReadDataFile(frocCr, newExcelFileFormat = TRUE)
+
+frocOld <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx", 
+                       package = "RJafroc", mustWork = TRUE)
+x1 <- DfReadDataFile(frocOld, newExcelFileFormat = FALSE)
+testthat::expect_equal(x,x1)
+rm(x1)
+
 frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormalCasesFirst.xlsx",
                         package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = TRUE)
@@ -83,21 +106,11 @@ frocCr1T <- system.file("extdata", "toyFiles/FROC/frocCr1T.xlsx",
 x <- DfReadDataFile(frocCr1T, newExcelFileFormat = TRUE)
 #testthat::expect_error(DfReadDataFile(frocCr1T, newExcelFileFormat = TRUE)) # ??
 
-frocCr <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx", 
-                      package = "RJafroc", mustWork = TRUE)
-x <- DfReadDataFile(frocCr, newExcelFileFormat = TRUE)
-
-frocOld <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx", 
-                       package = "RJafroc", mustWork = TRUE)
-x1 <- DfReadDataFile(frocOld, newExcelFileFormat = FALSE)
-testthat::expect_equal(x,x1)
-rm(x1)
-
-frocCr2BlankRows <- system.file("extdata", "toyFiles/FROC/frocCr2BlankRows.xlsx", 
+frocCr2BlankRows <- system.file("extdata", "toyFiles/FROC/frocCr2BlankRows.xlsx",
                                 package = "RJafroc", mustWork = TRUE)
 x1 <- DfReadDataFile(frocCr2BlankRows, newExcelFileFormat = TRUE)
-testthat::expect_equal(x, x1)
-rm(x1)
+# testthat::expect_equal(x, x1)
+# rm(x1)
 
 frocSp <- system.file("extdata", "toyFiles/FROC/frocSp.xlsx", 
                       package = "RJafroc", mustWork = TRUE)

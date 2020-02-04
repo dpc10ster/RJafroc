@@ -4,16 +4,20 @@
 \name{dataset13}
 \alias{dataset13}
 \title{Dobbins 3 FROC dataset}
-\format{A list with 8 elements:
+\format{A list with 12 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1:4, 1:5, 1:158, 1:4], of non-lesion localizations, NLs}
-\item{\code{LL}}{ Ratings array [1:4, 1:5, 1:106, 1:15], of lesion localizations, LLs}
-\item{\code{lesionVector}}{ array [1:106], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{ array [1:106, 15], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{ array [1:106, 15] weights (or clinical importance) of lesions, all set to 1}
-\item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID}}{ [1:4] "1" "2" ..., treatment labels}
-\item{\code{readerID}}{ [1:5] "1" "2" ..., reader labels}
+\item{\code{NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
+\item{\code{LL}}{, num [1:4, 1:5, 1:106, 1:15], ratings of lesion localizations, LLs}
+\item{\code{lesionVector}}{, int [1:106], number of lesions per diseased case, all set to 1}
+\item{\code{lesionID}}{, num [1:106, 15], labels of lesions on diseased cases, all set to 1}
+\item{\code{lesionWeight}}{, num [1:106, 15] weights (or clinical importances) of lesions, all set to 1}
+\item{\code{dataType}}{, chr "FROC", the data type}
+\item{\code{modalityID}}{, chr [1:4] "1" "2" ..., treatment labels}
+\item{\code{readerID}}{, chr [1:5] "1" "2" ..., reader labels}
+\item{\code{design}}{, "CROSSED", study design}
+\item{\code{normalCases}}{, int [1:52] 5 6 8 9 14 27 62 66 70 71 ..., normal case labels}
+\item{\code{abnormalCases}}{, int [1:106] 1 2 3 7 10 11 13 17 18 19 ..., abnormal case labels}
+\item{\code{truthTableStr}}{, num [1:4, 1:5, 1:158, 1:16] 1 1 1 1 1 1 ..., truth table structure}
 }}
 \usage{
 dataset13

@@ -4,16 +4,20 @@
 \name{dataset14}
 \alias{dataset14}
 \title{Federica Zanca real (as opposed to inferred) ROC dataset}
-\format{A list with 8 elements:
+\format{A list with 12 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1:2, 1:4, 1:200, 1], of false positives, FPs}
-\item{\code{LL}}{ Ratings array [1:2, 1:4, 1:100, 1], of true positives, TPs}
-\item{\code{lesionVector}}{ array [1:100], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{ array [1:100, 1], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{ array [1:100, 1], weights (or clinical importance) of lesions, all set to 1}
-\item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ [1:2] "1" "2", treatment labels}
-\item{\code{readerID}}{ [1:4] "1" "2" ..., reader labels}
+\item{\code{NL}}{, num [1:2, 1:4, 1:200, 1], ratings of false positives, FPs}
+\item{\code{LL}}{, num [1:2, 1:4, 1:100, 1], ratings of true positives, TPs}
+\item{\code{lesionVector}}{, int [1:100], number of lesions per diseased case, all set to 1}
+\item{\code{lesionID}}{, num [1:100, 1], labels of lesions on diseased cases, all set to 1}
+\item{\code{lesionWeight}}{, num [1:100, 1], weights (or clinical importances) of lesions, all set to 1}
+\item{\code{dataType}}{, chr "ROC", the data type}
+\item{\code{modalityID}}{, chr [1:2] "4" "5", treatment labels}
+\item{\code{readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
+\item{\code{design}}{, "CROSSED", study design}
+\item{\code{normalCases}}{, int [1:100] 100 101 102 103 104 105 106 ..., normal case labels}
+\item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5 6 7 8 9 ..., abnormal case labels}
+\item{\code{truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2] 1 1 1 1 1 1 ..., truth table structure}
 }}
 \usage{
 dataset14

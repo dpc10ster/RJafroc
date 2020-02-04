@@ -6,14 +6,14 @@
 \title{Simulated degenerate ROC dataset (for testing purposes)}
 \format{A list with 8 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1, 1, 1:15, 1], of false positives, FPs}
-\item{\code{LL}}{ Ratings array [1, 1, 1:10, 1], of true positives, TPs}
-\item{\code{lesionVector}}{ array [1:10], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{ array [1:10, 1], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{ array [1:10, 1], weights (or clinical importance) of lesions, all set to 1}
-\item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ "1", treatment label}
-\item{\code{readerID}}{ "1", reader label}
+\item{\code{NL}}{, num [1, 1, 1:15, 1], ratings of false positives, FPs}
+\item{\code{LL}}{, num [1, 1, 1:10, 1], ratings of true positives, TPs}
+\item{\code{lesionVector}}{, int [1:10], number of lesions per diseased case, all set to 1}
+\item{\code{lesionID}}{, num [1:10, 1], labels of lesions on diseased cases, all set to 1}
+\item{\code{lesionWeight}}{, num [1:10, 1], weights (or clinical importances) of lesions, all set to 1}
+\item{\code{dataType}}{, chr "ROC", the data type}
+\item{\code{modalityID}}{, chr "1", treatment label}
+\item{\code{readerID}}{, chr "1", reader label}
 }}
 \usage{
 datasetDegenerate
