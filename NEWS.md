@@ -2,8 +2,20 @@
 
 # See cran2 branch for content relating to this submission 
 
+
+## Created split plot dataset; updated all datasets; confirmed truthTableStr
+* v1.3.1.9000
+* created simulated split plot Excel dataset from Fed dataset: `Ch00Vig5CreateSplitPlotDataset.Rmd`; confirmed it is read without error.
+* updated datasets - see convertDatasets.R; worked on `DfReadDataFile` function
+* Discoverd that `.xls` input does not work; took it out as an allowed option; probably has to do with `openxlsx`;
+* checked `truthTableStr` with a data file that has only 1 and 3 lesions per case; was concerned about 4th dimension of `truthTableStr`; see `Dropbox/RJafrocChecks/truthTableStr.xlsx` for results of checks; convinced it is working fine, despite my concerns; 
+* need a separate vignette on `truthTableStr`;
+* added raw excel file datasets `to inst/extdata/datasets`; found missing file `SimulateFrocFromLrocDataset.R` - not sure why I took it out;
+* R CMD check successful; 
+
 ## Extended dataset object structure
-* Bumped version number to 1.3.0 as I am moving towards a CRAN submission
+* Bumped version number to 1.3.1 after corrections to DESCRIPTION file
+* Version on CRAN is 1.3.1
 
 ## Extended dataset object structure
 * Bumped version number to 1.3.0 as I am moving towards a CRAN submission
