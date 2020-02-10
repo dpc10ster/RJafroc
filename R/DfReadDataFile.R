@@ -164,11 +164,16 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     }
   }
   
-  # Column means the entire column is included in vector
-  NLReaderIDColumn <- as.character(NLTable[[1]])
-  NLModalityIDColumn <- as.character(NLTable[[2]])
-  NLCaseIDColumn <- NLTable[[3]]
-  NLRatingColumn <- NLTable[[4]]
+  df1 <- as.data.frame(NLTable)
+  NLTableSort <- df1[order(df1$ModalityID, df1$ReaderID, df1$CaseID),]
+  # NLTableSort <- df1 # temporary line to bypass sorting
+  
+  # Column means the entire column is included
+  NLReaderIDColumn <- as.character(NLTableSort$ReaderID)
+  NLModalityIDColumn <- as.character(NLTableSort$ModalityID)
+  NLCaseIDColumn <- NLTableSort$CaseID
+  if (is.null(NLTableSort$FP_Rating)) NLRatingColumn <- NLTableSort$NL_Rating else
+    NLRatingColumn <- NLTableSort$FP_Rating
   
   if (any(!(NLCaseIDColumn %in% truthCaseID))) {
     naCases <- NLCaseIDColumn[which(!(NLCaseIDColumn %in% truthCaseID))]
@@ -202,11 +207,16 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     }
   }
   
-  LLReaderIDColumn <- as.character(LLTable[[1]])
-  LLModalityIDColumn <- as.character(LLTable[[2]])
-  LLCaseIDColumn <- LLTable[[3]]
-  LLLesionIDColumn <- LLTable[[4]]
-  LLRatingColumn <- LLTable[[5]]
+  df11 <- as.data.frame(LLTable)
+  LLTableSort <- df11[order(df11$ModalityID, df11$ReaderID, df11$CaseID, df11$LesionID),]
+  # LLTableSort <- df11 # temporary line to bypass sorting
+  
+  LLReaderIDColumn <- as.character(LLTableSort$ReaderID)
+  LLModalityIDColumn <- as.character(LLTableSort$ModalityID)
+  LLCaseIDColumn <- LLTableSort$CaseID
+  LLLesionIDColumn <- LLTableSort$LesionID
+  if (is.null(LLTableSort$TP_Rating)) LLRatingColumn <- LLTableSort$LL_Rating else
+    LLRatingColumn <- LLTableSort$TP_Rating
   
   for (i in 1:nrow(LLTable)) {
     lineNum <- which((truthCaseID == LLCaseIDColumn[i]) & (lesionIDCol == LLLesionIDColumn[i]))
@@ -268,6 +278,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
         (NLReaderIDColumn == readerIDUnique[j])
       if ((sum(casePresent_ij) == 0)) next 
       caseNLTable <- table(NLCaseIDColumn[casePresent_ij]) 
+      # following are the actual caseIDs, not the indices into the array
       caseIDs_ij <- as.numeric(unlist(attr(caseNLTable, "dimnames")))
       for (k1 in 1:length(caseIDs_ij)) {
         if (caseIDs_ij[k1] %in% normalCases) {
@@ -392,48 +403,53 @@ checkTruthTable <- function (truthTable)
   if (any(!is.wholenumber(as.numeric(truthTable[[2]])))) stop("Non-integer values in Truth worksheet column 2")
   if (any(!is.double(as.numeric(truthTable[[3]])))) stop("Non-float values in Truth worksheet column 3")
   
-  caseID <- as.integer(truthTable[[1]])  # all 3 have same lengths
-  lesionIDCol <- as.integer(truthTable[[2]])
-  weights <- as.numeric(truthTable[[3]])
-  readerID <- truthTable[[4]]
-  L <- length(truthTable[[1]])
-  for (i in 1:4) if ((length(truthTable[[i]])) != L) 
+  df <- as.data.frame(truthTable[1:5])
+  df["caseLevelTruth"] <- (truthTable$LesionID > 0)
+  TruthTableSort <- df[order(df$caseLevelTruth, df$ReaderID, df$CaseID), ]
+  # TruthTableSort <- df # temporary line to bypass sorting
+  
+  caseIDCol <- as.integer(TruthTableSort$CaseID)  # all 3 have same lengths
+  lesionIDCol <- as.integer(TruthTableSort$LesionID)
+  weightsCol <- as.numeric(TruthTableSort$Weight)
+  readerID <- TruthTableSort$ReaderID
+  L <- length(TruthTableSort$CaseID)
+  for (i in 1:4) if ((length(TruthTableSort[[i]])) != L) 
     stop("Columns of unequal height in Truth Excel worksheet")  
   
-  normalCases <- sort(unique(caseID[lesionIDCol == 0]))
-  abnormalCases <- sort(unique(caseID[lesionIDCol > 0]))
+  normalCases <- sort(unique(caseIDCol[lesionIDCol == 0]))
+  abnormalCases <- sort(unique(caseIDCol[lesionIDCol > 0]))
   allCases <- c(normalCases, abnormalCases)
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
   
   # DPC: check for duplicate lesionIDs
-  if (anyDuplicated(cbind(caseID, lesionIDCol))) {
-    naLines <- which(duplicated(cbind(caseID, lesionIDCol))) + 1
+  if (anyDuplicated(cbind(caseIDCol, lesionIDCol))) {
+    naLines <- which(duplicated(cbind(caseIDCol, lesionIDCol))) + 1
     errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table are duplicated lesionIDs for given caseID.")
   }
   if (errorMsg != "") stop(errorMsg)
   
-  if (anyDuplicated(cbind(caseID, lesionIDCol, weights))) {
-    naLines <- which(duplicated(cbind(caseID, lesionIDCol, weights))) + 1
+  if (anyDuplicated(cbind(caseIDCol, lesionIDCol, weightsCol))) {
+    naLines <- which(duplicated(cbind(caseIDCol, lesionIDCol, weightsCol))) + 1
     errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table are duplicates of previous line(s) .")
   }
   if (errorMsg != "") stop(errorMsg)
   
   lesionIDColUnique <- sort(unique(lesionIDCol)) # fix to bug when abnormal cases occur first
   
-  lesionVector <- as.vector(table(caseID[caseID %in% abnormalCases]))
-  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector)))
-  lesionID <- array(dim = c(length(abnormalCases), max(lesionVector)))
+  lesionVector <- as.vector(table(caseIDCol[caseIDCol %in% abnormalCases]))
+  lesionWeight <- array(dim = c(K2, max(lesionVector)))
+  lesionID <- array(dim = c(K2, max(lesionVector)))
   
-  for (k2 in 1:length(abnormalCases)) {
-    k <- which(caseID == abnormalCases[k2])
+  for (k2 in 1:K2) {
+    k <- which(caseIDCol == abnormalCases[k2])
     lesionID[k2, ] <- c(sort(lesionIDCol[k]), 
                         rep(UNINITIALIZED, max(lesionVector) - length(k)))
-    if (all(weights[k] == 0)) {
+    if (all(weightsCol[k] == 0)) {
       lesionWeight[k2, 1:length(k)] <- 1/lesionVector[k2]
     } else {
-      lesionWeight[k2, ] <- as.numeric(c(weights[k][order(lesionIDCol[k])], 
+      lesionWeight[k2, ] <- as.numeric(c(weightsCol[k][order(lesionIDCol[k])], 
                                          rep(UNINITIALIZED, max(lesionVector) - length(k))))
       sumWeight <- sum(lesionWeight[k2, lesionWeight[k2, ] != UNINITIALIZED])
       if (sumWeight != 1){
@@ -447,32 +463,32 @@ checkTruthTable <- function (truthTable)
     }
   }
   
-  isGT1RperCase <- array(dim = length(caseID))
-  for (i in 1:length(caseID)) 
-    isGT1RperCase[i] <- is.character(truthTable$ReaderID[i]) && (nchar(truthTable$ReaderID[i]) > 1)  
+  isGT1RperCase <- array(dim = length(caseIDCol))
+  for (i in 1:length(caseIDCol)) 
+    isGT1RperCase[i] <- is.character(TruthTableSort$ReaderID[i]) && (nchar(TruthTableSort$ReaderID[i]) > 1)  
   if (all(isGT1RperCase == FALSE)) GT1RperCase <- FALSE else 
     if (all(isGT1RperCase == TRUE)) GT1RperCase <- TRUE else 
       stop("Unequal number of readers in ReaderID column\n")
   
-  isGT1TperCase <- array(dim = length(caseID))
-  for (i in 1:length(caseID)) 
-    isGT1TperCase[i] <- is.character(truthTable$ModalityID[i]) && (nchar(truthTable$ModalityID[i]) > 1)  
+  isGT1TperCase <- array(dim = length(caseIDCol))
+  for (i in 1:length(caseIDCol)) 
+    isGT1TperCase[i] <- is.character(TruthTableSort$ModalityID[i]) && (nchar(TruthTableSort$ModalityID[i]) > 1)  
   if (all(isGT1TperCase == FALSE)) GT1TperCase <- FALSE 
   else if (all(isGT1TperCase == TRUE)) GT1TperCase <- TRUE 
   else stop("Unequal number of modalities in ModalityID column\n")
   
-  I <- length(unlist(strsplit(truthTable$ModalityID[1],split = ",")))
+  I <- length(unlist(strsplit(TruthTableSort$ModalityID[1],split = ",")))
   
   if (GT1RperCase) {
-    J <- length(unlist(strsplit(truthTable$ReaderID[1],split = ",")))
+    J <- length(unlist(strsplit(TruthTableSort$ReaderID[1],split = ",")))
     
     readerIDArray <- array(dim = c(J,L))
-    x <- sort(trimws(unlist(strsplit(truthTable$ReaderID,split = ","))))
+    x <- sort(trimws(unlist(strsplit(TruthTableSort$ReaderID,split = ","))))
     for (j in 1:J) readerIDArray[j,] <- x[((j-1)*L + 1):(j*L)]
     readerIDUnique <- unique(readerIDArray)
     if(!all((dim(readerIDArray) == dim(readerIDUnique)))) stop("Non-unique reader ids in dataset")
   } else {
-    J <- length(unique(truthTable$ReaderID))
+    J <- length(unique(TruthTableSort$ReaderID))
     readerIDUnique <- unique(readerID)
     # following fixed single reader datasets, ROC and FROC
     readerIDArray <- array(dim = c(J,L))
@@ -483,7 +499,7 @@ checkTruthTable <- function (truthTable)
   # following code should break with single modality dataset
   # but it does not; go figure
   modalityIDArray <- array(dim = c(I,L))
-  x <- sort(trimws(unlist(strsplit(truthTable$ModalityID,split = ","))))
+  x <- sort(trimws(unlist(strsplit(TruthTableSort$ModalityID,split = ","))))
   for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]
   modalityIDUnique <- unique(modalityIDArray)
   if(!all((dim(modalityIDArray) == dim(modalityIDUnique)))) stop("Non-unique modality ids in dataset")
@@ -508,7 +524,7 @@ checkTruthTable <- function (truthTable)
           )
         }
         if ((sum(casePresent_ij) == 0)) next 
-        caseIDTable <- table(caseID[casePresent_ij])
+        caseIDTable <- table(caseIDCol[casePresent_ij])
         caseIDs_ij <- as.numeric(unlist(attr(caseIDTable, "dimnames")))
         for (k in 1:length(caseIDs_ij)) {
           k1 <- which(caseIDs_ij[k] == allCases)
@@ -552,7 +568,7 @@ checkTruthTable <- function (truthTable)
     truthTableStr = truthTableStr,
     dataType = dataType,
     design = design,
-    caseID = caseID,
+    caseID = caseIDCol,
     lesionVector = lesionVector,
     lesionIDCol = lesionIDCol,
     lesionID = lesionID,

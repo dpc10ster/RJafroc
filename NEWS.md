@@ -3,18 +3,21 @@
 # See cran2 branch for content relating to this submission 
 
 
-## Created split plot dataset; updated all datasets; confirmed truthTableStr
+## Created split plot dataset; update all datasets; confirm truthTableStr and DfReadDataFile()
 * v1.3.1.9000
-* created simulated split plot Excel dataset from Fed dataset: `Ch00Vig5CreateSplitPlotDataset.Rmd`; confirmed it is read without error.
-* updated datasets - see convertDatasets.R; worked on `DfReadDataFile` function
-* Discoverd that `.xls` input does not work; took it out as an allowed option; probably has to do with `openxlsx`;
-* checked `truthTableStr` with a data file that has only 1 and 3 lesions per case; was concerned about 4th dimension of `truthTableStr`; see `Dropbox/RJafrocChecks/truthTableStr.xlsx` for results of checks; convinced it is working fine, despite my concerns; 
-* need a separate vignette on `truthTableStr`;
-* added raw excel file datasets `to inst/extdata/datasets`; found missing file `SimulateFrocFromLrocDataset.R` - not sure why I took it out;
+* created simulated split plot Excel dataset from Fed dataset: `Ch00Vig5CreateSplitPlotDataset.Rmd`; confirmed it is read without error!!
+* updated datasets - see `inst/FixRJafrocDatasets/ConvertDataset.R`; worked on `DfReadDataFile` function
+* Discoverd that `.xls` input does not work; took it out as an allowed option; probably has to do with `openxlsx`
+* checked `truthTableStr` with a data file that has only 1 and 3 lesions per case; was concerned about 4th dimension of `truthTableStr`; see `Dropbox/RJafrocChecks/truthTableStr.xlsx` for results of checks; note that fourth dimension will be 4, even though there are no cases with 2 lesions 
+* I think I need a separate vignette on `truthTableStr` - more for my sake
+* added raw excel file datasets corresponding to included datasets to `inst/extdata/datasets`; found missing file `SimulateFrocFromLrocDataset.R` - not sure why I took it out;
+* Added sheet AnnK to `truthTableStr` in `Dropbox/RJafrocChecks` 
+* Also tests that `OldFormat` file when read creates identical dataset to that created by `NewFormat`: basically two Excel fiies are identical except old format lacks the three extra columns; see `checkDfReadDataFile.R`
+* Modified `UtilFigureOfMerit` to accomodate split plot dataset with varying number of cases for each reader
+* Created a datafile `inst/extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx` that really exercises the `DfReadDataFile` function (case index is unsorted); resorted to data frames and sorting to successfully read it (it is used in three places - truthTableStr, NL and LL). See `inst/extdata/testUtilFigureOfMerit/*.R` for exercising files
+* Need to include this file in `tests`
+* Updated this file 2/10/20
 * R CMD check successful
-* Added sheet AnnK to `truthTableStr` in `Dropbox/RJafrocChecks`; 
-* Also tests that OldFormat file when read creates identical dataset to that created by NewFormat: basically two Excel fiies are identical except old format lacks the three extra columns; see `checkDfReadDataFile.R`
-* I will close this doubt/issue
 
 
 ## Extended dataset object structure

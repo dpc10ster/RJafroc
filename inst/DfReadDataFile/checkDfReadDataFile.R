@@ -2,9 +2,9 @@
 library(RJafroc)
 rm(list = ls())
 
-FrocDataSp <- system.file("extdata", "toyFiles/FROC/FrocDataSp.xlsx", 
-                      package = "RJafroc", mustWork = TRUE)
-x <- DfReadDataFile(FrocDataSp, newExcelFileFormat = TRUE)
+# FrocDataSp <- system.file("extdata", "toyFiles/FROC/FrocDataSp.xlsx", 
+#                       package = "RJafroc", mustWork = TRUE)
+# x <- DfReadDataFile(FrocDataSp, newExcelFileFormat = TRUE)
 
 # fed <- system.file("extdata", "FrocData.xlsx",
 #                        package = "RJafroc", mustWork = TRUE)

@@ -88,8 +88,6 @@ DfFroc2Roc <- function (dataset){
   K <- length(dataset$NL[1,1,,1])
   K2 <- length(dataset$LL[1,1,,1])
   K1 <- K - K2 
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
   lesionVector <- dataset$lesionVector
   
   # # unmarked FROC images can have -Infs; these belong in the lowest ROC bin;
@@ -141,7 +139,10 @@ DfFroc2Roc <- function (dataset){
   LL[LL == UNINITIALIZED] <- LtMinRating
   dataset$NL[,,1:K1,1] <- NL
   dataset$LL[,,1:K2,1] <- LL
-  
+  if (length(dataset) == 12) {
+    truthTableStr <- dataset$truthTableStr[,,,1:2]
+    dataset$truthTableStr <- truthTableStr
+  }
   return (dataset)
 }
 

@@ -89,7 +89,7 @@
 #' @export
 
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
-  
+
   dataType <- dataset$dataType
   if (dataType == "ROC" && FOM != "Wilcoxon") {
     errMsg <- paste0("Must use Wilcoxon figure of merit with ROC data.")
@@ -150,6 +150,13 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     errMsg <- paste0("Only FOM_AFROC1 or FOM_wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
     stop(errMsg)
   }
+
+  if (length(dataset) == 12) {
+    design <- dataset$design
+    t <- dataset$truthTableStr
+  } else if (length(dataset) %in% c(8,9)) {
+    design <- "CROSSED"
+  } 
   
   lesionVector <- dataset$lesionVector
   lesionID <- dataset$lesionID
@@ -157,15 +164,37 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   fomArray <- array(dim = c(I, J))
+  # k1_arr <- array(dim = c(J,2*K1/J));k2_arr <- array(dim = c(J,K2/J))
+  # k1_arr <- array(dim = c(J,2*K1));k2_arr <- array(dim = c(J,K2))
   for (i in 1:I) {
     for (j in 1:J) {
-      nl <- NL[i, j, , ]
-      ll <- LL[i, j, , ]
-      dim(nl) <- c(K, maxNL)
-      dim(ll) <- c(K2, max(lesionVector))
-      fomArray[i, j] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
+      if (design == "SPLIT-PLOT") {
+        k1 <- !is.na(t[1,j,,1]) | !is.na(t[1,j,,2])
+        k2 <- !is.na(t[1,j,,2])[(K1+1):K]
+        nl <- NL[i, j, k1, ]
+        lV <- lesionVector[k2]
+        maxLL <- max(lV)
+        ll <- LL[i, j, k2, 1:maxLL]
+        k1j <- sum(!is.na(t[1,j,,1]))
+        k2j <- sum(!is.na(t[1,j,,2]))
+        lID <- lesionID[k2,1:maxLL]
+        lW <- lesionWeight[k2,1:maxLL]
+        dim(nl) <- c(k1j+k2j, maxNL)
+        dim(ll) <- c(k2j, maxLL)
+        dim(lID) <- c(k2j, maxLL)
+        dim(lW) <- c(k2j, maxLL)
+        fomArray[i, j] <- gpfMyFOM(nl, ll, lV, lID, lW, maxNL, maxLL, k1j, k2j, FOM, FPFValue)
+        next
+      } else {
+        nl <- NL[i, j, , ]
+        ll <- LL[i, j, , ]
+        dim(nl) <- c(K, maxNL)
+        dim(ll) <- c(K2, max(lesionVector))
+        fomArray[i, j] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
+      }
     }
   }
+  
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   rownames(fomArray) <- paste("Trt", sep = "", modalityID)
@@ -173,21 +202,4 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   return(fomArray)
 } 
 
-
-Wilcoxon <- function (zk1, zk2)
-{
-  
-  K1 = length(zk1)
-  K2 = length(zk2)
-  
-  W <- 0
-  for (k1 in 1:K1) {
-    W <- W + sum(zk1[k1] < zk2)
-    W <- W + 0.5 * sum(zk1[k1] == zk2)
-  }
-  W <- W/K1/K2
-  
-  return (W)
-  
-}
 
