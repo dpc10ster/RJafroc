@@ -25,6 +25,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   var <- varComp$var
   
   if ((length(dataset) != 12) || (dataset$design == "CROSSED")) {
+    # oldFormat or CROSSED dataset
     varEachTrt <- vector(length = I)
     cov2EachTrt <- vector(length = I)
     for (i in 1:I) {
@@ -54,6 +55,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                       CIUpper = CISingleFRRC[,2], row.names = NULL)
     
   } else {
+    # NewFormat and SPLIT-PLOT dataset
     cov2EachTrt = rep(0, I)
     ciAvgRdrEachTrtFRRC <- NA
   }

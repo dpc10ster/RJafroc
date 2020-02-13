@@ -56,7 +56,9 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   if ((length(dataset) != 12) || (dataset$design == "CROSSED")) {
+    # OldFormat dataset or NewFormat CROSSED dataset
     if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+      # first type of end-point based FOM
       jkFomValues <- array(dim = c(I, J, K1))
       jkPseudoValues <- array(dim = c(I, J, K1))
       for (i in 1:I) {
@@ -73,6 +75,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
         }
       }
     } else if (FOM %in% c("MaxLLF", "HrSe")) {
+      # second type of end-point based FOM
       jkFomValues <- array(dim = c(I, J, K2))
       jkPseudoValues <- array(dim = c(I, J, K2))
       for (i in 1:I) {
@@ -93,6 +96,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
         }
       }
     } else {
+      # full curve based FOM
       jkFomValues <- array(dim = c(I, J, K))
       jkPseudoValues <- array(dim = c(I, J, K))
       for (i in 1:I) {
@@ -127,7 +131,10 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
       caseTransitions = NULL
     ))
   } else {
-    # SPLIT PLOT dataset
+    # SPLIT-PLOT dataset
+    # cannot use "MaxNLF", "ExpTrnsfmSp", "HrSp" etc. here 
+    if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp", "MaxLLF", "HrSe")) 
+      stop("Cannot use MaxNLF, ExpTrnsfmSp, HrSp, MaxLLF, HrSe FOMs with SPLIT-PLOT dataset")
     design <- dataset$design
     if (design != "SPLIT-PLOT") stop("Dataset has to be split-plot for this function to be called")
     t <- dataset$truthTableStr
@@ -143,10 +150,8 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
       k1_j <- sum(!is.na(t[1,j,,1]))
       k2_j <- sum(!is.na(t[1,j,,2]))
       k_j <- k1_j + k2_j
-      lID_j <- dataset$lesionID[k2_j_sub,1:maxLL_j]
-      lW_j <- dataset$lesionWeight[k2_j_sub,1:maxLL_j]
-      dim(lID_j) <- c(k2_j, maxLL_j)
-      dim(lW_j) <- c(k2_j, maxLL_j)
+      lID_j <- dataset$lesionID[k2_j_sub,1:maxLL_j, drop = FALSE]
+      lW_j <- dataset$lesionWeight[k2_j_sub,1:maxLL_j, drop = FALSE]
       for (i in 1:I) {
         nl_j <- NL[i, j, k1_j_sub, ]
         ll_j <- LL[i, j, k2_j_sub, 1:maxLL_j]
