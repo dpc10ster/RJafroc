@@ -105,6 +105,8 @@
 #' @examples
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
+#' ## following is split-plot analysis using a simulated split-plot dataset
+#' StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
 #' 
 #' \donttest{
 #' StSignificanceTesting(dataset05, FOM = "wAFROC")
@@ -391,54 +393,43 @@ pseudoValueMeanSquares <- function (pseudoValues)
 }
 
 
-# 
-# pseudoValues <- function(dataset, FOM, FPFValue) {
-#   
-#   if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
-#     stop("This needs fixing")
-#     ret <- jackknifePseudoValuesNormals(dataset, FOM, FPFValue)
-#     
-#   } else if (FOM %in% c("MaxLLF", "HrSe")) {
-#     stop("This needs fixing")
-#     
-#     ret <- jackknifePseudoValuesAbnormals(dataset, FOM, FPFValue)
-#     
-#   } else {
-#     
-#     # ret <- jackknifePseudoValues(dataset, FOM, FPFValue)
-#     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-#   }
-#   return(ret$jkPseudoValues)
-# }
-# 
 
 varComponentsJackknife <- function(dataset, FOM, FPFValue) {
   
-  K <- length(dataset$NL[1,1,,1])
-  # 
-  # if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
-  # 
-  #   ret <- jackknifePseudoValuesNormals(dataset, FOM, FPFValue)
-  #   
-  # } else if (FOM %in% c("MaxLLF", "HrSe")) {
-  # 
-  #   ret <- jackknifePseudoValuesAbnormals(dataset, FOM, FPFValue)
-  #   
-  # } else {
-  #   
+  if ((length(dataset) != 12) || (dataset$design == "CROSSED")) { 
+    K <- length(dataset$NL[1,1,,1])
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-    
-    # ret <- jackknifePseudoValues(dataset, FOM, FPFValue)
-    
-  # }
-  
-  CovTemp <- ResamplingEstimateVarCovs(ret$jkFomValues)
-  Cov <- list(
-    var = CovTemp$var * (K-1)^2/K,
-    cov1 = CovTemp$cov1 * (K-1)^2/K,
-    cov2 = CovTemp$cov2 * (K-1)^2/K,
-    cov3 = CovTemp$cov3 * (K-1)^2/K
-  )
+    CovTemp <- ResamplingEstimateVarCovs(ret$jkFomValues)
+    Cov <- list(
+      var = CovTemp$var * (K-1)^2/K,
+      cov1 = CovTemp$cov1 * (K-1)^2/K,
+      cov2 = CovTemp$cov2 * (K-1)^2/K,
+      cov3 = CovTemp$cov3 * (K-1)^2/K
+    )
+  } else if (dataset$design == "SPLIT-PLOT") {
+    I <- length(dataset$NL[,1,1,1])
+    K <- length(dataset$NL[1,1,,1])
+    ret <- UtilPseudoValues(dataset, FOM, FPFValue)
+    J <- length(ret$jkFomValues[1,,1])
+    var <- array(dim = J)
+    cov1 <- array(dim = J)
+    FOM <- ret$jkFomValues
+    caseTransitions <- ret$caseTransitions
+    for (j in 1:J) {
+      jkFOMs <- ret$jkFomValues[,j,(caseTransitions[j]+1):(caseTransitions[j+1])]
+      kj <- length(jkFOMs[1,])
+      dim(jkFOMs) <- c(I,1,kj)
+      x <- ResamplingEstimateVarCovs(jkFOMs)
+      var[j]  <-  x$var * (K-1)^2/K
+      cov1[j]  <-  x$cov1 * (K-1)^2/K
+    }
+    Cov <- list(
+      var = mean(var),
+      cov1 = mean(cov1),
+      cov2 = 0,
+      cov3 = 0
+    )
+  } else stop("Incorrect dataset design, must be CROSSED or SPLIT-PLOT")
   
   return(Cov)
   

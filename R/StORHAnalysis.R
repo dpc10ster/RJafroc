@@ -24,15 +24,38 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   cov3 <- varComp$cov3
   var <- varComp$var
   
-  varEachTrt <- vector(length = I)
-  cov2EachTrt <- vector(length = I)
-  for (i in 1:I) {
-    fomSingle <- fomArray[i, ]
-    dim(fomSingle) <- c(1, J)
-    dsi <- DfExtractDataset(dataset, trts = i)
-    ret <- gpfEstimateVarCov(dsi, FOM, FPFValue, nBoots, covEstMethod)
-    varEachTrt[i] <- ret$var
-    cov2EachTrt[i] <- ret$cov2
+  if ((length(dataset) != 12) || (dataset$design == "CROSSED")) {
+    varEachTrt <- vector(length = I)
+    cov2EachTrt <- vector(length = I)
+    for (i in 1:I) {
+      fomSingle <- fomArray[i, ]
+      dim(fomSingle) <- c(1, J)
+      dsi <- DfExtractDataset(dataset, trts = i)
+      ret <- gpfEstimateVarCov(dsi, FOM, FPFValue, nBoots, covEstMethod)
+      varEachTrt[i] <- ret$var
+      cov2EachTrt[i] <- ret$cov2
+    }
+    
+    dfSingleFRRC <- array(dim = I)
+    msDenSingleFRRC <- array(dim = I)
+    stdErrSingleFRRC <- array(dim = I)
+    CISingleFRRC <- array(dim = c(I, 2))
+    for (i in 1:I) {
+      msDenSingleFRRC[i] <- varEachTrt[i] + (J - 1) * cov2EachTrt[i]
+      dfSingleFRRC[i] <- Inf
+      stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J)
+      CISingleFRRC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trtMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
+    }
+    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = paste0("Trt", modalityID), 
+                                      Area = trtMeans, 
+                                      StdErr = as.vector(stdErrSingleFRRC), 
+                                      DF = as.vector(dfSingleFRRC), 
+                                      CILower = CISingleFRRC[,1], 
+                                      CIUpper = CISingleFRRC[,2], row.names = NULL)
+    
+  } else {
+    cov2EachTrt = rep(0, I)
+    ciAvgRdrEachTrtFRRC <- NA
   }
   
   varEachRdr <- vector(length = J)
@@ -169,23 +192,6 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                 PrGTt = PrGTt, 
                                 CILower = CIFRRC[,1],
                                 CIUpper = CIFRRC[,2])
-    
-    dfSingleFRRC <- array(dim = I)
-    msDenSingleFRRC <- array(dim = I)
-    stdErrSingleFRRC <- array(dim = I)
-    CISingleFRRC <- array(dim = c(I, 2))
-    for (i in 1:I) {
-      msDenSingleFRRC[i] <- varEachTrt[i] + (J - 1) * cov2EachTrt[i]
-      dfSingleFRRC[i] <- Inf
-      stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J)
-      CISingleFRRC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trtMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
-    }
-    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = paste0("Trt", modalityID), 
-                                      Area = trtMeans, 
-                                      StdErr = as.vector(stdErrSingleFRRC), 
-                                      DF = as.vector(dfSingleFRRC), 
-                                      CILower = CISingleFRRC[,1], 
-                                      CIUpper = CISingleFRRC[,2], row.names = NULL)
     
     diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
     for (j in 1:J) {

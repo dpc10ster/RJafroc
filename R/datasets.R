@@ -803,6 +803,40 @@
 #'
 #'
 #'
+#' Simulated FROC SPLIT-PLOT dataset
+#'
+#' Simulated from FED Excel dataset by successively ignoring readers 3:4, c(1,3:4), 
+#' c(1:2,4), etc.
+#' created simulated split plot Excel dataset from Fed dataset: 
+#' confirmed it is read without error 
+#'    
+#' 
+#' @format A list with 12 elements:
+#' \itemize{
+#' \item{\code{NL}}{, num [1:2, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:2, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:100], number of lesions per diseased case, all set to one}
+#' \item{\code{lesionID}}{, num [1:100, 3], lesions labels on diseased cases, all set to one}
+#' \item{\code{lesionWeight}}{, num [1:100, 3], weights, all set to one}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:2] "4" "5", treatment label}
+#' \item{\code{readerID}}{, chr [1:4] "1" "3" "4" "5",  reader labels}
+#' \item{\code{design}}{, chr "SPLIT-PLOT, study design}
+#' \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104  ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5  ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:200, 1:4] 1 1 NA NA NA ..., truth table structure}
+#' }
+#'
+#' @keywords datasets
+#'
+#' @examples
+#' str(datasetFROCSp)
+#'
+"datasetFROCSp"
+#'
+#'
+#'
+
 
 
 

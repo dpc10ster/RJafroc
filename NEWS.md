@@ -3,11 +3,18 @@
 # See cran2 branch for content relating to this submission 
 
 
+## Modified `UtilPseudoValues.R` to run with SPLIT-PLOT data
+* Created simulated SP dataset `datasetFROCSp` corresponding to modalities 4,5 of `dataset04`
+* Modified `StORHAnalysis.R` to work with SP dataset provided `method = "ORH"` is used
+* Updated this file 2/12/20
+* R CMD check successful ... except for file size NOTE (18.2Mb)
+
+
 ## Created split plot dataset; update all datasets; confirm truthTableStr and DfReadDataFile()
 * v1.3.1.9000
 * created simulated split plot Excel dataset from Fed dataset: `Ch00Vig5CreateSplitPlotDataset.Rmd`; confirmed it is read without error!!
 * updated datasets - see `inst/FixRJafrocDatasets/ConvertDataset.R`; worked on `DfReadDataFile` function
-* Discoverd that `.xls` input does not work; took it out as an allowed option; probably has to do with `openxlsx`
+* **Discoverd that `.xls` input does not work***; took it out as an allowed option; probably has to do with `openxlsx`
 * checked `truthTableStr` with a data file that has only 1 and 3 lesions per case; was concerned about 4th dimension of `truthTableStr`; see `Dropbox/RJafrocChecks/truthTableStr.xlsx` for results of checks; note that fourth dimension will be 4, even though there are no cases with 2 lesions 
 * I think I need a separate vignette on `truthTableStr` - more for my sake
 * added raw excel file datasets corresponding to included datasets to `inst/extdata/datasets`; found missing file `SimulateFrocFromLrocDataset.R` - not sure why I took it out;
