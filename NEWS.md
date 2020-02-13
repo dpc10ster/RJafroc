@@ -3,7 +3,7 @@
 # See cran2 branch for content relating to this submission 
 
 
-## Modified `UtilPseudoValues.R` to run with SPLIT-PLOT data
+## Modified `UtilPseudoValues.R` to work with SPLIT-PLOT data
 * Created simulated SP dataset `datasetFROCSp` corresponding to modalities 4,5 of `dataset04`
 * Modified `StORHAnalysis.R` to work with SP dataset provided `method = "ORH"` is used
 * Updated this file 2/12/20
