@@ -1,5 +1,25 @@
 context("UtilFigureOfMerit")
 
+test_that("FROC SPLIT-PLOT dataset, FOM = wAFROC", {
+  
+  dataset <- datasetFROCSp
+  FOM = "wAFROC"
+  
+  fn <- paste0(test_path(), "/goodValues361/FOM/datasetFROCSpwAFROC-", FOM, ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- UtilFigureOfMerit(dataset, FOM = FOM)
+    saveRDS(ret, file = fn)
+  }
+  
+  ret1 <- readRDS(fn)
+  ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
+  
+  expect_equal(ret1, ret2)
+  
+})
+
+
 test_that("ROC dataset dataset02: FOM = Wilcoxon", {
   
   dataset <- dataset02

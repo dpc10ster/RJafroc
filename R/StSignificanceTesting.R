@@ -173,6 +173,12 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
       stop("For DBMH method covariance estimation method covEstMethod must be Jackknife")
   }
   
+  if ((length(dataset) == 12) && (dataset$design == "SPLIT-PLOT") && method == "DBMH") 
+    stop("Must use method = ORH for SPLIT-PLOT dataset")
+  
+  if ((length(dataset) == 12) && (dataset$design == "SPLIT-PLOT") && method == "ORH" && covEstMethod != "Jackknife") 
+    stop("Must use covEstMethod = Jackknife for SPLIT-PLOT dataset")
+  
   if (!tempOrgCode) {
     if (method == "DBMH"){
       return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, option)) # current code
@@ -420,8 +426,13 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
       kj <- length(jkFOMs[1,])
       dim(jkFOMs) <- c(I,1,kj)
       x <- ResamplingEstimateVarCovs(jkFOMs)
-      var[j]  <-  x$var * (K-1)^2/K
-      cov1[j]  <-  x$cov1 * (K-1)^2/K
+      # not sure which way to go: was doing this until 2/18/20
+      # var[j]  <-  x$var * (K-1)^2/K
+      # cov1[j]  <-  x$cov1 * (K-1)^2/K
+      # following seems more reasonable as reader j only interprets kj cases
+      # updated file ~Dropbox/RJafrocChecks/StfrocSp.xlsx
+      var[j]  <-  x$var * (kj-1)^2/kj
+      cov1[j]  <-  x$cov1 * (kj-1)^2/kj
     }
     Cov <- list(
       var = mean(var),

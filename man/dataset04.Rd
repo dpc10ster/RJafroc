@@ -12,7 +12,7 @@
 \item{\code{lesionID}}{, num [1:100, 1:3], labels of lesions on diseased cases, all set to 1}
 \item{\code{lesionWeight}}{, num [1:100, 1:3] weights (or clinical importances) of lesions, all set to 1}
 \item{\code{dataType}}{, chr "FROC", the data type}
-\item{\code{modalityID}}{, chr [1:5] "1" "2" ... treatment labels}
+\item{\code{modalityID}}{, chr [1:5] "1" "2" "3" "4" "5" ... treatment labels}
 \item{\code{readerID}}{, chr [1:4] "1" "3" "4" "5" reader labels}
 \item{\code{design}}{, "CROSSED", study design}
 \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104 105 ..., normal case labels}
@@ -25,10 +25,12 @@ dataset04
 \description{
 This is referred to in the book as the "FED" dataset. It consists of 200 mammograms, 
 100 of which contained one to 3 simulated microcalcifications,
-interpreted in five treatments (basically different image processing algorithms), by four 
+interpreted in five treatments (basically different image processing algorithms) by four 
 radiologists using the FROC paradigm and a 5-point rating scale. The maximum number of NLs 
 per case, over the entire dataset was 7 and the dataset contained at least one diseased 
-mammogram with 3 lesions.
+mammogram with 3 lesions. The Excel file containing this dataset is 
+/inst/extdata/datasets/FZ_ALL.xlsx. The normal cases are labeled 100:199 while the normal 
+cases are labeled 0:99.
 }
 \examples{
 str(dataset04)

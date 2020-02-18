@@ -30,27 +30,27 @@ for (k2 in 1:K2) {
 # x1 <- system.file("extdata", "datasets/Vortex/CXRinvisible3-20mm.xlsx",
 #                           package = "RJafroc", mustWork = TRUE)
 # x2 <- DfReadDataFile(x1, newExcelFileFormat = FALSE)
-x1 <- system.file("extdata", "datasets/FZ_FROC.xlsx",
+x1 <- system.file("extdata", "datasets/FZ_ALL.xlsx",
                   package = "RJafroc", mustWork = TRUE)
-x2 <- DfReadDataFile(x1, newExcelFileFormat = FALSE)
+x2 <- DfReadDataFile(x1, newExcelFileFormat = TRUE)
 
-ds <- list(
-  NL = x$NL, 
-  LL = x$LL, 
-  lesionVector  = x$lesionVector , 
-  lesionID = x$lesionID, 
-  lesionWeight = x$lesionWeight, 
-  dataType = x$dataType, 
-  modalityID = x$modalityID, 
-  readerID = x$readerID,
-  design = "CROSSED", # default when using old read function
-  normalCases = x2$normalCases,
-  abnormalCases = x2$abnormalCases,
-  # normalCases = 1:K1,
-  # abnormalCases = (K1+1):K,
-  truthTableStr = truthTableStr)
-
-dataset04 <- ds
-testthat::expect_equal(dataset04, ds)
+# ds <- list(
+#   NL = x$NL, 
+#   LL = x$LL, 
+#   lesionVector  = x$lesionVector , 
+#   lesionID = x$lesionID, 
+#   lesionWeight = x$lesionWeight, 
+#   dataType = x$dataType, 
+#   modalityID = x$modalityID, 
+#   readerID = x$readerID,
+#   design = "CROSSED", # default when using old read function
+#   normalCases = x2$normalCases,
+#   abnormalCases = x2$abnormalCases,
+#   # normalCases = 1:K1,
+#   # abnormalCases = (K1+1):K,
+#   truthTableStr = truthTableStr)
+# 
+# dataset04 <- ds
+testthat::expect_equal(dataset04, x2)
 # save("dataset14", file = "~/GitHub/RJafroc/data/dataset14.RData")
 

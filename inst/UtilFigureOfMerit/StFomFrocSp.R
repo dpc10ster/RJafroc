@@ -22,3 +22,5 @@ st1 <- StSignificanceTesting(x3, FOM = "wAFROC", method = "ORH")
 
 st2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
 testthat::expect_equal(st1, st2)
+
+testthat::expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBMH"))

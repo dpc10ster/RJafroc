@@ -135,8 +135,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     # cannot use "MaxNLF", "ExpTrnsfmSp", "HrSp" etc. here 
     if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp", "MaxLLF", "HrSe")) 
       stop("Cannot use MaxNLF, ExpTrnsfmSp, HrSp, MaxLLF, HrSe FOMs with SPLIT-PLOT dataset")
-    design <- dataset$design
-    if (design != "SPLIT-PLOT") stop("Dataset has to be split-plot for this function to be called")
+    if (dataset$design != "SPLIT-PLOT") stop("Dataset has to be split-plot for this function to be called")
     t <- dataset$truthTableStr
     jkFomValues <- array(dim = c(I,J,K))
     jkPseudoValues <- array(dim =c(I,J,K))
@@ -180,19 +179,19 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
           jkPseudoValues[i, j, lastCase+k] <- fom_ijk * k_j - jkFomValues[i, j, k] * (k_j - 1)
         }
         case_sub <- (lastCase+1):(lastCase+k_j)
-        # centering correction aka normalization by Hillis
+        # centering correction aka "normalization" by Hillis
         jkPseudoValues[i, j, case_sub] <- jkPseudoValues[i, j, case_sub] + (fom_ijk - mean(jkPseudoValues[i, j, case_sub]))
       }
       caseTransitions[j] <- lastCase
       lastCase <- lastCase + k_j
     }
     caseTransitions <- c(caseTransitions, lastCase)
+    return(list(
+      jkPseudoValues = jkPseudoValues,
+      jkFomValues = jkFomValues,
+      caseTransitions = caseTransitions
+    ))
   }
-  return(list(
-    jkPseudoValues = jkPseudoValues,
-    jkFomValues = jkFomValues,
-    caseTransitions = caseTransitions
-  ))
-  
+  stop("Should not land here")
 }
 

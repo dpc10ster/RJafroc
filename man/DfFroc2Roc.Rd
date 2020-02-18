@@ -42,6 +42,8 @@ p <- PlotEmpiricalOperatingCharacteristics(rocDataSet, trts = 1, rdrs = 1, opChT
 print(p$Plot)
 str(rocDataSet)
 
+rocSpDataSet <- DfFroc2Roc(datasetFROCSp)
+
 ## in the following example, because of the smaller number of cases, 
 ## it is easy to see the process at work:
 set.seed(1);K1 <- 3;K2 <- 5

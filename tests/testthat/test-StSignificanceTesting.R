@@ -13,13 +13,41 @@ CompareLists <- function(x1, x2, d = 0, i = 0, j = 0)
 }
 
 
-context("Significance testing routines excluding CAD")
+context("Significance testing routines (excluding CAD)")
+
+test_that("StSignificanceTesting-datasetFROCSp-wAFROC", {
+  
+  dataset <- datasetFROCSp
+  
+  fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSp-wAFROC", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    x1 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+    saveRDS(x1, file = fn)
+  }
+  
+  x1 <- readRDS(fn)
+  x2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+  
+  # expect_equal(x1,x2)
+  CompareLists(x1,x2)
+  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBMH"))
+  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "Bootstrap"))
+  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "DeLong"))
+  
+})
+
 
 
 test_that("SignificanceTestingAllCombinations", {
-  
+
+  ####################################################################################  
   skip_on_cran()
-  skip_on_os("mac") # cannot for the life of me figure out why this fails in R CMD check and devtools::check() but not in devtools::test()
+  # skip_on_os("mac") 
+  ####################################################################################  
+  # cannot for the life of me figure out why this fails in R CMD check and devtools::check() but not in devtools::test()
+  # started working again 2/14/20, go figure
+  # Not so fast; failed at line 83; 2/17/20; reinstated skip_on_os("mac")
   
   # dataset = an ROC and an FROC dataset; dataset02, dataset05
   # FOM = "Wilcoxon", "HrAuc"
@@ -56,6 +84,7 @@ test_that("SignificanceTestingAllCombinations", {
           x2 <- StSignificanceTesting(dataset, FOM = FOM_arr[i],method = method_arr[j])
           
           CompareLists(x1,x2, d, i, j)
+          # expect_equal(x1,x2)  # this fails on R CMD check, hence reverted to line above
           
           # for (t in 1:length(x1)) {
           #   for (q in 1:length(x1[[t]])) {
@@ -89,6 +118,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   x2 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
   
   CompareLists(x1,x2)
+  # expect_equal(x1,x2)
   
 })
 
@@ -109,6 +139,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   x2 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4), FOM = "wAFROC")
   
   CompareLists(x1,x2)
+  # expect_equal(x1,x2)
   
 })
 
@@ -126,6 +157,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
   x2 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4), FOM = "wAFROC")
   
   CompareLists(x1,x2)
+  # expect_equal(x1,x2)
   
 })
 
@@ -156,6 +188,7 @@ test_that("StSignificanceTestingCrossedModalities", {
   x2 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
   
   CompareLists(x1,x2)
+  # expect_equal(x1,x2)
   
 })
 

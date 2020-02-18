@@ -28,7 +28,8 @@
 #' 
 #' @export
 
-DfExtractDataset <- function(dataset, trts, rdrs){
+DfExtractDataset <- function(dataset, trts, rdrs) {
+  
   I <- length(dataset$modalityID)
   if (!missing(trts)){
     if (all(trts <= I)){
@@ -64,6 +65,10 @@ DfExtractDataset <- function(dataset, trts, rdrs){
     dataset$LL <- LL
     dataset$modalityID <- dataset$modalityID[trts]
     dataset$readerID <- dataset$readerID[rdrs]
+    if (length(dataset) == 12) {
+      truthTableStr <- dataset$truthTableStr[trts,rdrs,,,drop=FALSE]
+      dataset$truthTableStr <- truthTableStr
+    }
     return(dataset)
   } else {
     K <- dim(dataset$NL)[3]

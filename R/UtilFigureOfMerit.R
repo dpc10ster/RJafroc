@@ -85,9 +85,10 @@
 #' Swensson RG (1996) Unified measurement of observer performance in detecting and localizing target objects on images, 
 #' Med Phys 23:10, 1709--1725.
 
-#' @import dplyr  
+#' @importFrom dplyr between  
 #' @export
 
+# v.1.3.1.9000: added SPLIT-PLOT capability 
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
 
   dataType <- dataset$dataType
@@ -130,11 +131,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
           LL <- dataset$LLCl
         } else stop("incorrect FOM for LROC data")
       }
-      # NL <- dataset$NL # this code was incorrect 10/25/29
-      # LL <- dataset$LLCl # this code was incorrect 10/25/29
-      ##fomArray <- lroc2fomMrmc (dataset, FOM, FPFValue)
     } else stop("Incorrect FOM specified for LROC data")
-    #return(fomArray)
   } else {
     NL <- dataset$NL
     LL <- dataset$LL
@@ -172,21 +169,19 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
         ll_j <- LL[i, j, k2_j_sub, 1:maxLL_j]
         k1j <- sum(!is.na(t[1,j,,1]))
         k2j <- sum(!is.na(t[1,j,,2]))
-        lID_j <- dataset$lesionID[k2_j_sub,1:maxLL_j]
-        lW_j <- dataset$lesionWeight[k2_j_sub,1:maxLL_j]
+        lID_j <- dataset$lesionID[k2_j_sub,1:maxLL_j, drop = FALSE]
+        lW_j <- dataset$lesionWeight[k2_j_sub,1:maxLL_j, drop = FALSE]
         dim(nl_j) <- c(k1j+k2j, maxNL)
         dim(ll_j) <- c(k2j, maxLL_j)
-        dim(lID_j) <- c(k2j, maxLL_j)
-        dim(lW_j) <- c(k2j, maxLL_j)
         fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1j, k2j, FOM, FPFValue)
         next
-      } else {
+      } else if (design == "CROSSED"){
         nl_j <- NL[i, j, , ]
         ll_j <- LL[i, j, , ]
         dim(nl_j) <- c(K, maxNL)
         dim(ll_j) <- c(K2, maxLL)
         fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, dataset$lesionVector, dataset$lesionID, dataset$lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
-      }
+      } else stop("Incorrect design, must be SPLIT-PLOT or CROSSED")
     }
   }
   

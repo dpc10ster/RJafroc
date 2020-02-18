@@ -33,6 +33,8 @@
 #' print(p$Plot)
 #' str(rocDataSet)
 #' 
+#' rocSpDataSet <- DfFroc2Roc(datasetFROCSp)
+#' 
 #' ## in the following example, because of the smaller number of cases, 
 #' ## it is easy to see the process at work:
 #' set.seed(1);K1 <- 3;K2 <- 5
@@ -78,6 +80,7 @@
 #' @export
 
 DfFroc2Roc <- function (dataset){
+  if (dataset$dataType != "FROC") stop("This function requires an FROC dataset to be supplied")
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
   NL1 <- dataset$NL;NL <- NL1
