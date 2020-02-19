@@ -106,9 +106,9 @@ test_that("DfReadDataFile toy FROC datasets", {
   expect_equal(DfReadDataFile(fileName, newExcelFileFormat = FALSE), ds)
   
   fileName <- system.file(
-    "extdata", "/toyFiles/FROC/frocSp.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx", package = "RJafroc", mustWork = TRUE)
   
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocSp", ".rds")
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/FrocDataSpVaryK1K2", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)

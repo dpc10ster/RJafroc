@@ -18,7 +18,9 @@ StSignificanceTesting(
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-\bold{Must have two or more treatments and two or more readers.}}
+\bold{Must have two or more treatments and two or more readers. A split-plot
+dataset is allowed provided \code{method} = "ORH" and \code{covEstMethod}
+= "Jackknife".}}
 
 \item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}}
 

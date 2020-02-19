@@ -1,5 +1,5 @@
 ---
-title: "Chapter 00, Vignette 5: Simulated an FROC split-plot datafile"
+title: "Chapter 00, Vignette 5: Simulate an FROC split-plot datafile"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
@@ -23,7 +23,9 @@ vignette: >
 ## This vignette is under construction!!
 * This is a follow-up on the recently added (v1.3.1) capability to read a split-plot dataset.
 * Lacking an actual split-plot dataset to test the routines, I decided to simulate one.
-
+* The simulated dataset is of dataType FROC and the number of cases interpreted by each reader is reader-dependent.
+* This makes it *really* exercise the validity of the `DfReadDataFile` function.
+* In my experience, the `dataset$truthTableStr` member is invaluable in catching data entry errors so much of this vignette focuses on it.
 
 ## The starting point is an actual crossed FROC dataset
 The example shown below begins with the Excel file `inst/extdata/FrocData.xlsx` in the project directory (this corresponds to the 5-modality FED dataset `dataseet04` [@RN1882] with modalities 1, 2 and 3 removed). The first statement retrieves the name of the data file, located in a hidden directory that one need not be concerned with. The second statement reads the file using `DfReadDataFile()` and saves it to object `x1`. The next statement extracts the `truthTableStr` list member, saves it to `t1` and shows its structure.
@@ -77,7 +79,6 @@ sum(!is.na(t1[,1,101:200,4]))
 sum(!is.na(t1[1,1,,]))
 ```             
 
-
 ## Modify a crossed FROC workbook to simulate a split-plot FROC design
 * We create a simulated split-plot FROC dataset starting from a crossed FROC dataset. 
 * The basic idea is to modify interpretations that do not belong to a specified split-plot design.
@@ -103,6 +104,17 @@ knitr::include_graphics(c("images/frocData.png","images/frocDataSpVaryK1K2.png")
 <!-- * The modifed file is saved to `extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx`. -->
 * The modified file is read by the code chunk below. The read function explicitly tests that observations outside of the specified ranges in the `Truth` sheet are not present in the other two worksheets.
 
+## Example of deletion of interpretations
+```{r, echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1 FP worksheets; (a) LEFT=FrocDataFP.xlsx, original crossed dataset; (b) RIGHT=FrocDataSpVaryK1K2FP.xlsx, modified split-plot dataset",fig.show='hold',fig.align='center'}
+knitr::include_graphics(c("images/FrocDataFP.png","images/frocDataSpVaryK1K2FP.png"))
+``` 
+
+* The two figures above illustrate deletion of interpretations.
+* The left panel shows the `FP` worksheet for the original crossed data.
+* For reader 1 and modality 4 it contains cases 29, 30, 44, ..., 91, 96 that do not belong to the split-plot dataset for this reader.
+* Specifically, they are outside of `0:23` and `100:122`, the allowed ranges for this reader. 
+* These are deleted, see right panel of above figure. The next allowed cases for this reader are `107, 109,...., 122`.
+* The procedure is repeated for all readers and both `TP` and `FP` sheets.
 
 ```{r}
 fedsp <- system.file("extdata", "toyFiles/FROC/FrocDataSpVaryK1K2.xlsx",
@@ -116,7 +128,6 @@ t2 <- x2$truthTableStr
 ```{r}
 sum(!is.na(t2[,1,1:100,1]))
 ```             
-
 
 * The following line confirms the first line, with a 1 contribution coming from each case in range 1:23.
 ```{r}

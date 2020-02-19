@@ -43,7 +43,7 @@ test_that("SignificanceTestingAllCombinations", {
 
   ####################################################################################  
   skip_on_cran()
-  # skip_on_os("mac") 
+  skip_on_os("mac") 
   ####################################################################################  
   # cannot for the life of me figure out why this fails in R CMD check and devtools::check() but not in devtools::test()
   # started working again 2/14/20, go figure

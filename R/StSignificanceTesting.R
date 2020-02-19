@@ -11,7 +11,9 @@
 #'
 #'  
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-#'     \bold{Must have two or more treatments and two or more readers.} 
+#'     \bold{Must have two or more treatments and two or more readers. A split-plot
+#'     dataset is allowed provided \code{method} = "ORH" and \code{covEstMethod}
+#'     = "Jackknife".} 
 #' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.

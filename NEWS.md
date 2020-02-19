@@ -4,10 +4,13 @@
 
 
 ## Modified `UtilPseudoValues.R` to work with SPLIT-PLOT data
+* Created simulated SP datafile `inst/extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx`.
 * Created simulated SP dataset `datasetFROCSp` corresponding to modalities 4,5 of `dataset04`
-* Modified `StORHAnalysis.R` to work with SP dataset provided `method = "ORH"` is used
-* Updated this file 2/12/20
-* R CMD check successful ... except for file size NOTE (18.2Mb)
+* Update vignette `Ch00Vig5SimulateSplitPlotDataset.Rmd`.
+* Modified `StORHAnalysis.R` and to work with SP dataset provided `method = "ORH"` and `covEstMethod` = "jackknife" is used
+* Corrected an error in analysis; see `~Dropbox/RJafrocChecks/StfrocSp.xlsx` for details.
+* Updated this file 2/19/20
+* R CMD check successful ... except for file size NOTE (18.4Mb)
 
 
 ## Created split plot dataset; update all datasets; confirm truthTableStr and DfReadDataFile()

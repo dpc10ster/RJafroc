@@ -24,6 +24,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   cov3 <- varComp$cov3
   var <- varComp$var
   
+  # if (TRUE || (length(dataset) != 12) || (dataset$design == "CROSSED")) {
   if ((length(dataset) != 12) || (dataset$design == "CROSSED")) {
     # oldFormat or CROSSED dataset
     varEachTrt <- vector(length = I)
@@ -32,6 +33,9 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
       fomSingle <- fomArray[i, ]
       dim(fomSingle) <- c(1, J)
       dsi <- DfExtractDataset(dataset, trts = i)
+      # with a single treatment it is not possible to calculate cov1
+      # therefore the following line will fail for SPLIT-PLOT 
+      # dataset; hence we skip it; see else block below
       ret <- gpfEstimateVarCov(dsi, FOM, FPFValue, nBoots, covEstMethod)
       varEachTrt[i] <- ret$var
       cov2EachTrt[i] <- ret$cov2
@@ -165,11 +169,6 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   # ************ FRRC ****************
   if (option %in% c("FRRC", "ALL")) {
     msDenFRRC <- var - cov1 + (J - 1) * (cov2 - cov3)
-    # if (J > 1) {
-    #   msDenFRRC <- var - cov1 + (J - 1) * (cov2 - cov3)
-    # } else {
-    #   msDenFRRC <- var - cov1
-    # }
     fFRRC <- meanSquares$msT/msDenFRRC
     ddfFRRC <- Inf
     pFRRC <- 1 - pf(fFRRC, I - 1, ddfFRRC)
@@ -256,6 +255,11 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   # ************ RRFC ****************
   # ************ RRFC ****************
   if (option %in% c("RRFC", "ALL")) {
+    # since cov2 and cov3 are zeroes for split-plot, FTestStatsRRFC will be 
+    # identical to FTestStatsRRRC; other values below may differ
+    # not sure about what is going one here; I am proceeding on assumption that
+    # the only difference is setting cov2 = cov3 = 0, and reusing code from crossed
+    # analysis
     msDenRRFC <- meanSquares$msTR
     fRRFC <- meanSquares$msT/msDenRRFC
     ddfRRFC <- ((I - 1) * (J - 1))

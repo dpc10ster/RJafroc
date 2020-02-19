@@ -117,7 +117,7 @@ x1 <- DfReadDataFile(frocCr2BlankRows, newExcelFileFormat = TRUE)
 # testthat::expect_equal(x, x1)
 # rm(x1)
 
-frocSp <- system.file("extdata", "toyFiles/FROC/frocSp.xlsx", 
+frocSp <- system.file("extdata", "toyFiles/FROC/FrocDataSpVaryK1K2.xlsx", 
                       package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(frocSp, newExcelFileFormat = TRUE)
 

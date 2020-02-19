@@ -38,6 +38,9 @@ sum(!is.na(t1[1,1,,]))
 ## ---- echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1 Truth worksheets; (a) LEFT=FrocData.xlsx, original crossed dataset; (b) RIGHT=FrocDataSpVaryK1K2.xlsx, modified split-plot dataset",fig.show='hold',fig.align='center'----
 knitr::include_graphics(c("images/frocData.png","images/frocDataSpVaryK1K2.png"))
 
+## ---- echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1 FP worksheets; (a) LEFT=FrocData.xlsx, original crossed dataset; (b) RIGHT=FrocDataSpVaryK1K2.xlsx, modified split-plot dataset",fig.show='hold',fig.align='center'----
+knitr::include_graphics(c("images/frocData.png","images/frocDataSpVaryK1K2.png"))
+
 ## -----------------------------------------------------------------------------
 fedsp <- system.file("extdata", "toyFiles/FROC/FrocDataSpVaryK1K2.xlsx",
                        package = "RJafroc", mustWork = TRUE)
