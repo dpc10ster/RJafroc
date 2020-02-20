@@ -106,7 +106,7 @@ knitr::include_graphics(c("images/frocData.png","images/frocDataSpVaryK1K2.png")
 
 ## Example of deletion of interpretations
 ```{r, echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1 FP worksheets; (a) LEFT=FrocDataFP.xlsx, original crossed dataset; (b) RIGHT=FrocDataSpVaryK1K2FP.xlsx, modified split-plot dataset",fig.show='hold',fig.align='center'}
-knitr::include_graphics(c("images/FrocDataFP.png","images/frocDataSpVaryK1K2FP.png"))
+knitr::include_graphics(c("images/frocDataFP.png","images/frocDataSpVaryK1K2FP.png"))
 ``` 
 
 * The two figures above illustrate deletion of interpretations.
