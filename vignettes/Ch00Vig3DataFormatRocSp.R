@@ -5,6 +5,9 @@
   )
   library(RJafroc)
 
+## ---- echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1: Truth worksheet for file inst/extdata/toyFiles/ROC/rocSp.xlsx",fig.show='hold',fig.align='center'----
+knitr::include_graphics("images/rocSpTruth.png")
+
 ## -----------------------------------------------------------------------------
 rocSp <- system.file("extdata", "toyFiles/ROC/rocSp.xlsx",
                         package = "RJafroc", mustWork = TRUE)
@@ -28,6 +31,9 @@ x$truthTableStr[,1,16:30,2]
 
 ## -----------------------------------------------------------------------------
 x$truthTableStr[,1,16:30,1]
+
+## ---- echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 2 FP/TP worksheets; LEFT=FP, (b) RIGHT=TP",fig.show='hold',fig.align='center'----
+knitr::include_graphics(c("images/rocSpFp.png","images/rocSpTp.png"))
 
 ## -----------------------------------------------------------------------------
 x$NL[,1,1:15,1]

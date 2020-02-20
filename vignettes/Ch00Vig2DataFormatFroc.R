@@ -5,6 +5,9 @@
   )
   library(RJafroc)
 
+## ---- echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1: Truth worksheet for file inst/extdata/toyFiles/FROC/frocCr.xlsx",fig.show='hold',fig.align='center'----
+knitr::include_graphics("images/frocCrTruth.png")
+
 ## -----------------------------------------------------------------------------
 frocCr <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx",
                         package = "RJafroc", mustWork = TRUE)
@@ -16,6 +19,12 @@ x$lesionID
 
 ## -----------------------------------------------------------------------------
 x$lesionWeight
+
+## ---- echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 2: FP/NL worksheet for file inst/extdata/toyFiles/FROC/frocCr.xlsx",fig.show='hold',fig.align='center'----
+knitr::include_graphics("images/frocCrNL.png")
+
+## ---- echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 3: TP/LL worksheet for file inst/extdata/toyFiles/FROC/frocCr.xlsx",fig.show='hold',fig.align='center'----
+knitr::include_graphics("images/frocCrLL.png")
 
 ## -----------------------------------------------------------------------------
 x <- dataset11
