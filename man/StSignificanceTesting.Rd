@@ -153,7 +153,7 @@ Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR)
    significance testing refers to analysis designed to assign a P-value, 
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 
-   figure of merit (FOM) difference between treatments is zero. The results of 
+   figure of merit (FOM) differences between treatments is zero. The results of 
    the analysis are better visualized in the text or  
    Excel-formatted files produced by \code{\link{UtilOutputReport}}.
 }
