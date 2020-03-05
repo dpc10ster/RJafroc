@@ -1,5 +1,17 @@
 # RJafroc 1.3.1
 
+## After email from Kurt Hornik <Kurt.Hornik@r-project.org>
+* RJafroc failing on Linux
+    + r-devel-linux-x86_64-debian-clang 
+    + r-devel-linux-x86_64-debian-gcc
+    + r-devel-linux-x86_64-fedora-clang (this showed up post email)
+    + r-devel-linux-x86_64-fedora-gcc (this showed up post email)
+* Has to do with new default (R 4.0.0) for `options(stringsAsFactors = FALSE)`
+* To recreate this problem in `R CMD check` I set `options(stringsAsFactor=FALSE)` near beginning of each plotting function (3 functions) using `data.frame()` and `levels()` to convert strings to factor levels
+* To make problem go away I explicitly specified `stringsAsFactor=TRUE` in each call to `data.frame()` where necessary.
+* Ran `R CMD check` successfully
+* Created new branch off `cran2` called `cran2-fix`
+
 ## After initial comments from CRAN
 * Changes to DESCRIPTION file (removed emphasis characters and url before <)
 * Added a sentence on improved sample size routines

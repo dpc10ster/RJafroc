@@ -46,8 +46,6 @@
 #'    dataset which enumerates the weights of lesions on individual cases. See 
 #'    \link{UtilLesionWeightsDistr}.
 #' 
-#'    \link{UtilLesionWeightsDistr}. 
-#' 
 #' @param  OpChType The type of operating characteristic desired: can be "\code{ROC}", 
 #'    "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or "\code{pdfs}" or "\code{ALL}". 
 #'    The default is "\code{ALL}".
@@ -166,6 +164,9 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
                                             legendJustification = c(0,1),
                                             nlfRange = NULL, llfRange = NULL, nlfAlpha = NULL,
                                             myNegInf = -3){
+  
+  options(stringsAsFactors = FALSE) # check compatibility with new default for R 4.0.0
+  
   if (!all(c(length(mu) == length(lambda), length(mu) == length(nu))))
     stop("Parameters mu, lambda and nu have different lengths.")
   
@@ -230,7 +231,6 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   AFROCPlot <- NA
   wAFROCPlot <- NA
   PDFPlot <- NA
-  
   ROCPoints <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL)
   ROCDashes <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL)
   FROCPoints <- data.frame(NLF = NULL, LLF = NULL, Treatment = NULL)

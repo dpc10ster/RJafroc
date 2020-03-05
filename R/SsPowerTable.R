@@ -104,8 +104,8 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
     
     randomSampleSize <- data.frame(numReaders = randomSampleSize[, 1], 
                                    numCases = randomSampleSize[, 2], 
-                                   power = randomSampleSize[, 3], 
-                                   stringsAsFactors = FALSE)
+                                   power = randomSampleSize[, 3]) 
+                                   # stringsAsFactors = FALSE)
     
     # return(randomSampleSize)
   } else {
@@ -140,8 +140,8 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
       
       randomSampleSize <- data.frame(numReaders = randomSampleSize[, 1], 
                                      numCases = randomSampleSize[, 2], 
-                                     power = randomSampleSize[, 3], 
-                                     stringsAsFactors = FALSE)
+                                     power = randomSampleSize[, 3]) 
+                                     # stringsAsFactors = FALSE)
       powerTable <- c(powerTable, list(randomSampleSize))
     }
     names(powerTable) <- c("powerTableRRRC", "powerTableFRRC", "powerTableRRFC")

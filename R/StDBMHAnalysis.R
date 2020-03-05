@@ -30,6 +30,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   dfArray <- c(dfArray, sum(dfArray))
   ssArray <- c(ssArray, sum(ssArray))
   sourceArray <- c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total")
+  
   anovaY <- data.frame(Source = sourceArray, SS = ssArray, DF = dfArray, MS = msArray)
   
   msRSingle <- array(0, dim = c(I))

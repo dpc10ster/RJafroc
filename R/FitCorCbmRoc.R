@@ -23,7 +23,7 @@
 #'    treatment, the same reader interpreting images in different treatments, or 
 #'    different readers interpreting images in 2 different treatments. Function 
 #'    \code{\link{DfExtractCorCbmDataset}} can be used to construct a dataset suitable for 
-#'    \code{FitCorCbm}. With reference to the returned values, and assuming R bins 
+#'    \code{FitCorCbmRoc}. With reference to the returned values, and assuming R bins 
 #'    in condition X and L bins in conditon Y, 
 #'    \code{FPCounts} is the R x L matrix containing the counts for non-diseased cases, 
 #'    \code{TPCounts} is the R x L matrix containing the counts for diseased cases; 
@@ -38,16 +38,17 @@
 #'    The indices of the parameters held fixed are in \code{fitCorCbmRet$fixParam}.
 #'
 #' @examples
-#' \dontrun{
-#' ## this takes 85 sec to execute on OSX
+#' 
 #' dataset <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))
-#' ret <- FitCorCbm(dataset)
+#' ret <- FitCorCbmRoc(dataset)
 #' print(ret$fitCorCbmRet)
 #' print(ret$stats)
 #' print(ret$fittedPlot)
 #' 
-#' ## this takes very long to execute
-#' ret <- FitCorCbm(datasetBinned123)
+#' 
+#' \dontrun{
+#' ## this takes 85 sec to execute on OSX
+#' ret <- FitCorCbmRoc(datasetBinned123)
 #' print(ret$fitCorCbmRet)
 #' print(ret$stats)
 #' print(ret$fittedPlot)
@@ -68,7 +69,9 @@
 #' @export
 #'
 #'
-FitCorCbm <- function(dataset){
+FitCorCbmRoc <- function(dataset){
+  options(stringsAsFactors = FALSE) # check compatibility with new default for R 4.0.0
+  
   if (dataset$dataType != "ROC") {
     stop("This program requires an ROC dataset")
   }
@@ -510,6 +513,7 @@ PlotCorCbmFit <- function(retFitCorCBM){
   plotOpPnts <- NULL
   FPFX <- 1 - pnorm(plotZeta)
   TPFX <- (1 - alphaX) * (1 - pnorm(plotZeta)) + alphaX * (1 - pnorm(plotZeta, mean = muX))
+
   plotCBM <- rbind(plotCBM, data.frame(FPF = FPFX, TPF = TPFX, Condition = "X"))
   FPFX <- cumsum(rev(rowSums(FPCounts)))/K1
   TPFX <- cumsum(rev(rowSums(TPCounts)))/K2
