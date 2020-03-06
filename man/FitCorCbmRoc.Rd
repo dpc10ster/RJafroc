@@ -48,26 +48,6 @@ The conditions (X, Y) can be two readers interpreting images in the same
    has one less dimension (along each edge) for each parameter that is held constant.
    The indices of the parameters held fixed are in \code{fitCorCbmRet$fixParam}.
 }
-\examples{
-
-dataset <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))
-ret <- FitCorCbmRoc(dataset)
-print(ret$fitCorCbmRet)
-print(ret$stats)
-print(ret$fittedPlot)
-
-
-\dontrun{
-## this takes 85 sec to execute on OSX
-ret <- FitCorCbmRoc(datasetBinned123)
-print(ret$fitCorCbmRet)
-print(ret$stats)
-print(ret$fittedPlot)
-## Also try two other datasets ending with 124 and 125
-}
-
-
-}
 \references{
 Zhai X, Chakraborty DP (2017) A bivariate contaminated binormal model for robust fitting of proper ROC
 curves to a pair of correlated, possibly degenerate, ROC datasets. Medical Physics. 44(6):2207--2222.

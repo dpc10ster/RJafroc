@@ -37,23 +37,22 @@
 #'    has one less dimension (along each edge) for each parameter that is held constant.
 #'    The indices of the parameters held fixed are in \code{fitCorCbmRet$fixParam}.
 #'
-#' @examples
-#' 
-#' dataset <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))
-#' ret <- FitCorCbmRoc(dataset)
-#' print(ret$fitCorCbmRet)
-#' print(ret$stats)
-#' print(ret$fittedPlot)
-#' 
-#' 
-#' \dontrun{
-#' ## this takes 85 sec to execute on OSX
-#' ret <- FitCorCbmRoc(datasetBinned123)
-#' print(ret$fitCorCbmRet)
-#' print(ret$stats)
-#' print(ret$fittedPlot)
-#' ## Also try two other datasets ending with 124 and 125
-#' }
+## following examples generate excessive CPU time NOTES on devtools::check_win_xx() 
+## but it is instructive to execute them independently
+## see also the publication referenced below
+##
+## dataset <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))
+## ret <- FitCorCbmRoc(dataset)
+## print(ret$fitCorCbmRet)
+## print(ret$stats)
+## print(ret$fittedPlot)
+## 
+## 
+## ret <- FitCorCbmRoc(datasetBinned123)
+## print(ret$fitCorCbmRet)
+## print(ret$stats)
+## print(ret$fittedPlot)
+## Also try two other datasets ending with 124 and 125
 #'
 #'
 #' @references
