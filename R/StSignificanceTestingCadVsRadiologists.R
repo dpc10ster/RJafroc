@@ -606,6 +606,7 @@ LrocPlots <- function (zjk1, zjk2, doJ)
   j <- 1;zjk1Temp <- zjk1[j,];zk2Temp <- zjk2[j,]
   lroc <- LrocOperatingPointsFromRatings( zjk1Temp, zk2Temp )
   FPF <- lroc$FPF;PCL <- lroc$PCL
+  
   lrocPlotData <- data.frame(FPF = FPF, PCL = PCL, reader = "R-CAD")
   for (j in 2:J) {
     if ((j - 1) %in% doJ) {

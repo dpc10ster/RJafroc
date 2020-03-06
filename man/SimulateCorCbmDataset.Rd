@@ -2,7 +2,7 @@
 % Please edit documentation in R/SimulateCorCbmDataset.R
 \name{SimulateCorCbmDataset}
 \alias{SimulateCorCbmDataset}
-\title{Simulate paired binned data for testing FitCorCbm}
+\title{Simulate paired binned data for testing FitCorCbmRoc}
 \usage{
 SimulateCorCbmDataset(
   seed = 123,
@@ -39,11 +39,11 @@ SimulateCorCbmDataset(
 \item{rhoAbn2}{The correlation of diseased case z-samples, when disease is visible in both conditions}
 }
 \value{
-The return value is the desired dataset, suitable for testing FitCorCbm
+The return value is the desired dataset, suitable for testing FitCorCbmRoc
 }
 \description{
 Simulates single treatment 2-reader binned ROC dataset, simulated according to the CORCBM model,
-for the purpose of testing the fitting program \code{\link{FitCorCbm}}.
+for the purpose of testing the fitting program \code{\link{FitCorCbmRoc}}.
 }
 \details{
 X and Y refer to the two arms of the pairing. \code{muX} and \code{alphaX} refer to the univariate CBM parameters

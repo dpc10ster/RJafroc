@@ -11,7 +11,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
   \tabular{ll}{
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
-    Version: \tab 1.3.1\cr
+    Version: \tab 1.3.2\cr
     Date: \tab 2020-01-13\cr
     License: \tab GPL-3\cr
     URL: \tab \url{https://dpc10ster.github.io/RJafroc/}\cr
@@ -400,7 +400,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            dataset object.
         \item \code{\link{DfBinDataset}}: Return a binned dataset.
         \item \code{\link{DfCreateCorCbmDataset}}:Create paired dataset for 
-           testing \link{FitCorCbm}.
+           testing \link{FitCorCbmRoc}.
         \item \code{\link{DfExtractDataset}}: Extract a subset of modalities 
            and readers from a dataset.
         \item \code{\link{DfFroc2Afroc}}: Convert an FROC dataset to an AFROC 
@@ -419,7 +419,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
         \item \code{\link{DfReadLrocDataFile}}: Read a LROC data file.
         \item \code{\link{DfSaveDataFile}}: Save ROC data file in a different format.
         \item \code{\link{DfExtractCorCbmDataset}}: Extract two arms of a pairing 
-           from an MRMC ROC dataset suitable for using \link{FitCorCbm}.
+           from an MRMC ROC dataset suitable for using \link{FitCorCbmRoc}.
   }
 }
 
@@ -432,7 +432,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            to ROC data.
         \item \code{\link{FitRsmRoc}}: Fit the radiological search model (RSM) 
            to ROC data.
-        \item \code{\link{FitCorCbm}}: Fit the correlated contaminated binormal model 
+        \item \code{\link{FitCorCbmRoc}}: Fit the correlated contaminated binormal model 
              (CORCBM) to paired ROC data.
         \item \code{\link{FitRsmRoc}}: Fit the radiological search model (RSM) 
            to ROC data.
