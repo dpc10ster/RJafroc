@@ -30,7 +30,7 @@
 #' @examples
 #' rocDataSet <- DfFroc2Roc(dataset05)
 #' p <- PlotEmpiricalOperatingCharacteristics(rocDataSet, trts = 1, rdrs = 1, opChType = "ROC")
-#' print(p$Plot)
+#' ## print(p$Plot)
 #' str(rocDataSet)
 #' 
 #' rocSpDataSet <- DfFroc2Roc(datasetFROCSp)
@@ -45,10 +45,10 @@
 #' frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, 
 #' K1, K2, lesionVector = Lk2)
 #' hrData <- DfFroc2Roc(frocDataRaw)
-#' print("frocDataRaw$NL[1,1,,] = ");print(frocDataRaw$NL[1,1,,])
-#' print("hrData$NL[1,1,1:K1,] = ");print(hrData$NL[1,1,1:K1,])
-#' print("frocDataRaw$LL[1,1,,] = ");print(frocDataRaw$LL[1,1,,])
-#' print("hrData$LL[1,1,,] = ");print(hrData$LL[1,1,,]) 
+#' ## print("frocDataRaw$NL[1,1,,] = ");## print(frocDataRaw$NL[1,1,,])
+#' ## print("hrData$NL[1,1,1:K1,] = ");## print(hrData$NL[1,1,1:K1,])
+#' ## print("frocDataRaw$LL[1,1,,] = ");## print(frocDataRaw$LL[1,1,,])
+#' ## print("hrData$LL[1,1,,] = ");## print(hrData$LL[1,1,,]) 
 #' ## following is the output
 #' ## [1] "frocDataRaw$NL[1,1,,] = "
 #' ## [,1]      [,2]      [,3] [,4]
@@ -60,10 +60,10 @@
 #' ## [6,]      -Inf      -Inf      -Inf -Inf
 #' ## [7,]      -Inf      -Inf      -Inf -Inf
 #' ## [8,] 0.8041895 0.3773956 0.1333364 -Inf
-#' ## > print("hrData$NL[1,1,1:K1,] = ");print(hrData$NL[1,1,1:K1,])
+#' ## > ## print("hrData$NL[1,1,1:K1,] = ");## print(hrData$NL[1,1,1:K1,])
 #' ## [1] "hrData$NL[1,1,1:K1,] = "
 #' ## [1] 2.4046534      -Inf 0.2522234
-#' ## > print("frocDataRaw$LL[1,1,,] = ");print(frocDataRaw$LL[1,1,,])
+#' ## > ## print("frocDataRaw$LL[1,1,,] = ");## print(frocDataRaw$LL[1,1,,])
 #' ## [1] "frocDataRaw$LL[1,1,,] = "
 #' ## [,1] [,2]
 #' ## [1,]      -Inf -Inf
@@ -71,7 +71,7 @@
 #' ## [3,] 0.8442045 -Inf
 #' ## [4,] 1.0467262 -Inf
 #' ## [5,]      -Inf -Inf
-#' ## > print("hrData$LL[1,1,,] = ");print(hrData$LL[1,1,,]) 
+#' ## > ## print("hrData$LL[1,1,,] = ");## print(hrData$LL[1,1,,]) 
 #' ## [1] "hrData$LL[1,1,,] = "
 #' ## [1] 0.4356833 1.5036080 0.8442045 1.0467262 0.8041895
 #' ## Note that rating of the first and the last diseased case came from NL marks

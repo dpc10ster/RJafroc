@@ -38,7 +38,7 @@ structure is shown below:
 \examples{
 afrocDataSet <- DfFroc2Afroc(dataset05)
 p <- PlotEmpiricalOperatingCharacteristics(afrocDataSet, trts = 1, rdrs = 1, opChType = "wAFROC")
-print(p$Plot)
+## print(p$Plot)
 str(afrocDataSet)
 
 }

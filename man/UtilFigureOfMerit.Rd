@@ -73,9 +73,9 @@ UtilFigureOfMerit(datasetCadLroc, FOM = "Wilcoxon") #LROC data
 UtilFigureOfMerit(datasetCadLroc, FOM = "PCL") #LROC data
 UtilFigureOfMerit(datasetCadLroc, FOM = "ALROC") #LROC data
 UtilFigureOfMerit(datasetROI, FOM = "ROI") #ROI data
-\dontrun{ # these are meant to illustrate conditions which will throw an error
-UtilFigureOfMerit(dataset02, FOM = "wAFROC") #error
-UtilFigureOfMerit(dataset01, FOM = "Wilcoxon") #error
+\donttest{ # these are meant to illustrate conditions which will throw an error
+## UtilFigureOfMerit(dataset02, FOM = "wAFROC") #error
+## UtilFigureOfMerit(dataset01, FOM = "Wilcoxon") #error
 }
 
 }

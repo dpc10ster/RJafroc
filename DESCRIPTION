@@ -1,8 +1,8 @@
 Package: RJafroc
 Type: Package
 Title: Analyzing Diagnostic Observer Performance Studies
-Version: 1.3.2.9000
-Date: 2020-03-06
+Version: 1.3.3
+Date: 2020-03-10
 Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "dpc10ster@gmail.com"),
              person("Peter", "Philips", role = c("aut"), email = "peter.phillips@cumbria.ac.uk"),
              person("Xuetong", "Zhai", role = c("aut"), email = "xuetong.zhai@gmail.com"),
@@ -56,8 +56,7 @@ Description: Implements software for assessing medical imaging systems, radiolog
     to predict required numbers of readers and cases in a pivotal study to achieve a desired power. Utility and data file manipulation 
     functions allow data to be read in any of the currently used input formats, including Excel, and the results of the analysis can be 
     viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international 
-    collaborations. This version corrects a few bugs noticed by users and extends the Excel file input format for 
-    greater flexibility in handling non-crossed datasets and the sample size routines have been rewritten for ease of use.
+    collaborations. This version includes support for split-plot ROC/FROC study designs.
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/

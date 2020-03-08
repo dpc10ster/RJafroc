@@ -49,7 +49,7 @@ frocDataRaw <- SimulateFrocDataset(
   
 ## plot the data
 ret <- PlotEmpiricalOperatingCharacteristics(frocDataRaw, opChType = "FROC")
-print(ret$Plot)
+## print(ret$Plot)
 
 }
 \references{

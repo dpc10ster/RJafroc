@@ -152,25 +152,25 @@ Comparing standalone CAD vs. a group of radiologists interpreting
 ret1M <- StSignificanceTestingCadVsRadiologists (dataset09, 
 FOM = "Wilcoxon", method = "1T-RRRC")
 
-\dontrun{
+\donttest{
 ## takes longer than 5 sec on OSX
-retLroc1M <- StSignificanceTestingCadVsRadiologists (datasetCadLroc, 
-FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
+## retLroc1M <- StSignificanceTestingCadVsRadiologists (datasetCadLroc, 
+## FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
 
-retLroc2M <- StSignificanceTestingCadVsRadiologists (datasetCadLroc, 
-FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
+## retLroc2M <- StSignificanceTestingCadVsRadiologists (datasetCadLroc, 
+## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
 
 ## test with fewer readers
-dataset09a <- DfExtractDataset(dataset09, rdrs = seq(1:7))
-ret1M7 <- StSignificanceTestingCadVsRadiologists (dataset09a, 
-FOM = "Wilcoxon", method = "1T-RRRC")
+## dataset09a <- DfExtractDataset(dataset09, rdrs = seq(1:7))
+## ret1M7 <- StSignificanceTestingCadVsRadiologists (dataset09a, 
+## FOM = "Wilcoxon", method = "1T-RRRC")
 
-datasetCadLroc7 <- DfExtractDataset(datasetCadLroc, rdrs = seq(1:7))
-ret1MLroc7 <- StSignificanceTestingCadVsRadiologists (datasetCadLroc7, 
-FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
+## datasetCadLroc7 <- DfExtractDataset(datasetCadLroc, rdrs = seq(1:7))
+## ret1MLroc7 <- StSignificanceTestingCadVsRadiologists (datasetCadLroc7, 
+## FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
 
-ret2MLroc7 <- StSignificanceTestingCadVsRadiologists (datasetCadLroc7, 
-FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
+## ret2MLroc7 <- StSignificanceTestingCadVsRadiologists (datasetCadLroc7, 
+## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
 }
 
 }

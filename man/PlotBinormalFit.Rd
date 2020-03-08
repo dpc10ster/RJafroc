@@ -24,6 +24,6 @@ Plot the binormal-predicted ROC curve with provided parameters
 }
 \examples{
 binormalPlot <- PlotBinormalFit(c(1, 2), c(0.5, 0.5))
-print(binormalPlot)
+## print(binormalPlot)
 
 }

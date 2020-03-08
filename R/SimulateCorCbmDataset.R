@@ -30,10 +30,9 @@
 ## seed <- 1 # this gives unequal numbers of bins in X and Y directions for 50/50 dataset
 #' dataset <- SimulateCorCbmDataset()
 #'
-#' \dontrun{
+#' \donttest{
 #' ## this takes very long
-#' dataset <- SimulateCorCbmDataset(K1 = 5000, K2 = 5000)
-#'
+#' ## dataset <- SimulateCorCbmDataset(K1 = 5000, K2 = 5000)
 #'}
 #'
 #'

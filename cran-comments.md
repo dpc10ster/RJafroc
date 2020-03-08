@@ -1,8 +1,7 @@
 # Reason for revised submission
-* This is an update to CRAN version 1.3.2 which installed with no errors, warnings, or notes (2020-03-07) on all platforms. 
-* Recently it was brought to my attention (by Kurt Hornik <Kurt.Hornik@r-project.org>) that the package was generating errors on `R-devel` (>r77865) running on several Linux platforms.
-* The errors were identified as likely due to the new default behavior for option `stringsAsFactors = FALSE` in functions `data.frame()` and `read.table()`.
-* This update corrects those errors. 
+* This is an update to CRAN version 1.3.2 which installed with no errors, warnings, or notes (2020-03-06) on all platforms.
+* This update includes includes minor corrections to the significance testing function.
+* Additionally, this update includes analysis of split-plot datasets. 
 
 # Test environments
 

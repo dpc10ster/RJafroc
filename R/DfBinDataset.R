@@ -42,26 +42,26 @@
 #' rdrs = seq(1,9), opChType = "AFROC")$Plot
 #' }
 #'  
-#' \dontrun{
+#' \donttest{
 #' ## takes longer than 5 sec on OSX
-#' library(ggplot2)
-#' dataset <- SimulateRocDataset(K1 = 5000, K2 = 7000, a = 1, b = 0.5, seed = 123)
-#' datasetB <- DfBinDataset(dataset, desiredNumBins = 7, opChType = "ROC")
-#' fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"), nrow = 2, ncol = 9)
-#' print(fomOrg)
-#' fomBinned <- as.matrix(UtilFigureOfMerit(datasetB, FOM = "Wilcoxon"), nrow = 2, ncol = 9)
-#' print(fomOrg)
-#' cat("fomOrg = ", mean(fomOrg), "\n")
-#' cat("fomBinned = ", mean(fomBinned), "\n")
-#' x <- PlotEmpiricalOperatingCharacteristics(dataset, opChType = "ROC")$Plot
-#' y <- PlotEmpiricalOperatingCharacteristics(datasetB, opChType = "ROC")$Points
-#' fpf <- y$genAbscissa[-1];fpf <- fpf[-length(fpf)]
-#' tpf <- y$genOrdinate[-1];tpf <- tpf[-length(tpf)]
-#' plotOpPnts <- rbind(data.frame(fpf = fpf, tpf = tpf))
-#' x <- x + geom_point(data = plotOpPnts, aes(x = fpf, y = tpf), size = 4)
-#' print(x)
-#' xx <- PlotEmpiricalOperatingCharacteristics(datasetB, opChType = "ROC")
-#' print(xx$Points)
+#' ## library(ggplot2)
+#' ## dataset <- SimulateRocDataset(K1 = 5000, K2 = 7000, a = 1, b = 0.5, seed = 123)
+#' ## datasetB <- DfBinDataset(dataset, desiredNumBins = 7, opChType = "ROC")
+#' ## fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"), nrow = 2, ncol = 9)
+#' ## print(fomOrg)
+#' ## fomBinned <- as.matrix(UtilFigureOfMerit(datasetB, FOM = "Wilcoxon"), nrow = 2, ncol = 9)
+#' ## print(fomOrg)
+#' ## cat("fomOrg = ", mean(fomOrg), "\n")
+#' ## cat("fomBinned = ", mean(fomBinned), "\n")
+#' ## x <- PlotEmpiricalOperatingCharacteristics(dataset, opChType = "ROC")$Plot
+#' ## y <- PlotEmpiricalOperatingCharacteristics(datasetB, opChType = "ROC")$Points
+#' ## fpf <- y$genAbscissa[-1];fpf <- fpf[-length(fpf)]
+#' ## tpf <- y$genOrdinate[-1];tpf <- tpf[-length(tpf)]
+#' ## plotOpPnts <- rbind(data.frame(fpf = fpf, tpf = tpf))
+#' ## x <- x + geom_point(data = plotOpPnts, aes(x = fpf, y = tpf), size = 4)
+#' ## print(x)
+#' ## xx <- PlotEmpiricalOperatingCharacteristics(datasetB, opChType = "ROC")
+#' ## print(xx$Points)
 #' }
 #' 
 #' 
@@ -105,7 +105,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   lDim <- dim(LL)
   
   # fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = FOM), nrow = I, ncol = J)
-  # print(fomOrg)
+  # ## print(fomOrg)
   # cat("mean, sd = ", mean(fomOrg), sd(fomOrg), "\n")
   numZeta <- desiredNumBins - 1
   maxFomij <- array(-1,dim = c(I,J))
@@ -205,7 +205,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
     }
   }
   # fom1 <- UtilFigureOfMerit(datasetB, FOM = FOM)
-  # print(fom1)
+  # ## print(fom1)
   # cat("mean, sd = ", mean(fom1), sd(fom1), "\n")
   return(datasetB)
 }
