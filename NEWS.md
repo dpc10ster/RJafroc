@@ -3,7 +3,7 @@
 # See cran2/master branch for content (source-files, etc.) relating to this version 
 
 ## Work post acceptance of v1.3.2, as of 3/7/20
-* Going back to work interrupted by having to fix the errors on R-devel, see nesxt section below.
+* Going back to work interrupted by having to fix the errors on R-devel, see next section below.
 * This is v1.3.2.9000
 * Got all tests working! Resulted in fix to `StDBMHAnalysis.R` that fixed test that I had to skip on mac for `context("SignificanceTestingAllCombinations")`. Need to get this fix (lines 45-51) over to cran2 branch as I am thinking of splitting the package up by separating the `cran2` branch as the base package `RJafroc` and `depending` on `RJafroc` for new package `RJafroc2`. This would solve the file size problems that I am running into. Just an idea.
 * Current file size is 18.4 Mb. 
