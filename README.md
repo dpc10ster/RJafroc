@@ -15,7 +15,7 @@ RJafroc
 * See https://dpc10ster.github.io/RJafroc/news/index.html.
 * Current GitHub version is 1.3.1.9000 (sic), on the `master` branch.
 * Current CRAN version is 1.3.2.
-* Currently working on GitHub version 1.3.2.9000, on the `developer` branch.
+* Currently working on GitHub version 1.3.2.9000, on the `cran2-update` branch.
 
 # Branch designations
 **The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `developer` branch is for development/experimental work. The website is pushed from the `master` branch.

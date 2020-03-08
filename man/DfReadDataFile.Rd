@@ -61,7 +61,6 @@ package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 
 x1 <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
-testthat::expect_equal(x,x1)
 }
 
 \donttest{

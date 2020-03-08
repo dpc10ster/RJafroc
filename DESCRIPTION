@@ -2,7 +2,7 @@ Package: RJafroc
 Type: Package
 Title: Analyzing Diagnostic Observer Performance Studies
 Version: 1.3.2.9000
-Date: 2020-01-31
+Date: 2020-03-06
 Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "dpc10ster@gmail.com"),
              person("Peter", "Philips", role = c("aut"), email = "peter.phillips@cumbria.ac.uk"),
              person("Xuetong", "Zhai", role = c("aut"), email = "xuetong.zhai@gmail.com"),
@@ -24,12 +24,9 @@ Imports:
     tools,
     utils
 Suggests:
-    testthat,
-    knitr,
-    kableExtra,
     rmarkdown
 LinkingTo: Rcpp
-Description: RJafroc implements software for assessing medical imaging systems, radiologists or computer aided detection algorithms. 
+Description: Implements software for assessing medical imaging systems, radiologists or computer aided detection algorithms. 
     Models of observer performance are implemented, including the binormal model (BM), the contaminated binormal model (CBM), the 
     correlated contaminated binormal model (CORCBM), and the radiological search model (RSM). The software and applications are 
     described in a book - Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and 
@@ -40,7 +37,7 @@ Description: RJafroc implements software for assessing medical imaging systems, 
     number (including zero) of mark-rating pairs per image, where a mark is the location of a clinically reportable suspicious region 
     and the rating is the corresponding confidence level that it is a real lesion. LROC data consists of a rating and a forced 
     localization of the most suspicious region on every image. RJafroc supersedes the Windows version of JAFROC software 
-    V4.2.1, <http://www.devchakraborty.com>. Package functions are organized as follows. Data file related function names are 
+    V4.2.1, <http://www.devchakraborty.com>:. Package functions are organized as follows. Data file related function names are 
     preceded by Df, curve fitting functions by Fit, included data sets by dataset, plotting functions by 
     Plot, significance testing functions by St, sample size related functions by Ss, data simulation functions 
     by Simulate and utility functions by Util. Implemented are figures of merit (FOMs) for quantifying performance, 
@@ -59,9 +56,8 @@ Description: RJafroc implements software for assessing medical imaging systems, 
     to predict required numbers of readers and cases in a pivotal study to achieve a desired power. Utility and data file manipulation 
     functions allow data to be read in any of the currently used input formats, including Excel, and the results of the analysis can be 
     viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international 
-    collaborations. This version corrects a few bugs noticed by users (listed in NEWS.md) and extends the Excel file input format for 
-    greater flexibility going forward in handling non-crossed datasets.
-VignetteBuilder: knitr
+    collaborations. This version corrects a few bugs noticed by users and extends the Excel file input format for 
+    greater flexibility in handling non-crossed datasets and the sample size routines have been rewritten for ease of use.
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/
