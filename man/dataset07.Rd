@@ -4,16 +4,20 @@
 \name{dataset07}
 \alias{dataset07}
 \title{Lucy Warren FROC dataset}
-\format{A list with 8 elements:
+\format{A list with 12 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1:5, 1:7, 1:162, 1:4], of non-lesion localizations, NLs}
-\item{\code{LL}}{ Ratings array [1:5, 1:7, 1:81, 1:3], of lesion localizations, LLs}
-\item{\code{lesionVector}}{ array [1:81], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{ array [1:81, 1:3], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{ array [1:81, 1:3] weights (or clinical importance) of lesions, all set to 1}
-\item{\code{dataType}}{ "FROC", the data type}
-\item{\code{modalityID}}{ [1:5] "1" "2", ..., treatment labels}
-\item{\code{readerID}}{ [1:7] "1" "2" ..., reader labels}
+\item{\code{NL}}{, num [1:5, 1:7, 1:162, 1:4], ratings of non-lesion localizations, NLs}
+\item{\code{LL}}{, num [1:5, 1:7, 1:81, 1:3], ratings of lesion localizations, LLs}
+\item{\code{lesionVector}}{, int [1:81], number of lesions per diseased case, all set to 1}
+\item{\code{lesionID}}{, num [1:81, 1:3], labels of lesions on diseased cases, all set to 1}
+\item{\code{lesionWeight}}{, num [1:81, 1:3] weights (or clinical importances) of lesions, all set to 1}
+\item{\code{dataType}}{, chr "FROC", the data type}
+\item{\code{modalityID}}{, chr [1:5] "1" "2", ..., treatment labels}
+\item{\code{readerID}}{, chr [1:7] "1" "2" ..., reader labels}
+\item{\code{design}}{, "CROSSED", study design}
+\item{\code{normalCases}}{, int [1:81] 6 9 10 14 15 16 22 23 ..., normal case labels}
+\item{\code{abnormalCases}}{, int [1:81] 1 2 3 4 5 7 8 11 12 13  ..., abnormal case labels}
+\item{\code{truthTableStr}}{, num [1:5, 1:7, 1:162, 1:4] 1 1 1 1 1 1 ..., truth table structure}
 }}
 \usage{
 dataset07

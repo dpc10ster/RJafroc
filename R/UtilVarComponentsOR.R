@@ -21,10 +21,9 @@
 #' 
 UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2, covEstMethod = "Jackknife", nBoots = 200)
 {
-  ret <- dataset2ratings (dataset, FOM)
-  
-  I <- dim(ret$zjk1)[1]
-  J <- dim(ret$zjk1)[2]
+
+  I <- dim(dataset$NL)[1]
+  J <- dim(dataset$NL)[2]
   
   ret <- gpfEstimateVarCov(dataset, FOM, FPFValue, nBoots, covEstMethod)
   var <- ret$var

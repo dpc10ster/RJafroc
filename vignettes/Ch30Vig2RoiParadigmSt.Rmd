@@ -19,10 +19,11 @@ vignette: >
   )
   library(RJafroc)
 ```
+
+## Introduction; this vignette is under construction!
+
 ## Note to self (10/29/19) !!!DPC!!!
 The FOM and DeLong method implementations need checking with a toy dataset.
-
-
 
 ## Introduction
 * For an ROI dataset `StSignificanceTesting()` automatically defaults to `method = "ORH"`, `covEstMethod = "DeLong"` and `FOM = "ROI"`.  

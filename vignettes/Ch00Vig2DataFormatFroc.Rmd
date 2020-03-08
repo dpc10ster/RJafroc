@@ -54,7 +54,10 @@ The `Truth` worksheet contains 6 columns: `CaseID`, `LesionID`, `Weight`, `Reade
 * `ModalityID`: a comma-separated listing of modalities (or treatments), each represented by a unique **integer**, that apply to each case. In the example each cell has the value `0, 1`. **Each cell has to be text formatted.**
 * `Paradigm`: In the example shown below, the contents are `FROC` and `crossed`. It informs the software that this is an `FROC` dataset and the design is "crossed", as in **Vignette #1**.
 
-![](images/frocCrTruth.png){width=100%}
+```{r, echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1: Truth worksheet for file inst/extdata/toyFiles/FROC/frocCr.xlsx",fig.show='hold',fig.align='center'}
+knitr::include_graphics("images/frocCrTruth.png")
+``` 
+
 
 ## The structure of an FROC dataset
 The example shown above corresponds to Excel file `inst/extdata/toyFiles/FROC/frocCr.xlsx` in the project directory. 
@@ -86,7 +89,9 @@ x$lesionWeight
 
 ## The false positive (FP) ratings
 These are found in the `FP` or `NL` worksheet, see below.
-![](images/frocCrNL.png){width=100%}
+```{r, echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 2: FP/NL worksheet for file inst/extdata/toyFiles/FROC/frocCr.xlsx",fig.show='hold',fig.align='center'}
+knitr::include_graphics("images/frocCrNL.png")
+``` 
 
 * It consists of 4 columns, of equal length. **The common length is unpredictable.** It could be zero if the dataset has no NL marks (a distinct possibility if the lesions are very easy to find and the modality and/or observer has high performance). All one knows is that the common length is an integer greater than or equal to zero.
 * In the example dataset, the common length is `r sum(x$NL != -Inf)`.
@@ -104,7 +109,9 @@ These are found in the `FP` or `NL` worksheet, see below.
 ## The true positive (TP) ratings
 These are found in the `TP` or `LL` worksheet, see below.
 
-![](images/frocCrLL.png){width=100%}
+```{r, echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 3: TP/LL worksheet for file inst/extdata/toyFiles/FROC/frocCr.xlsx",fig.show='hold',fig.align='center'}
+knitr::include_graphics("images/frocCrLL.png")
+``` 
 
 * This worksheet can only have diseased cases. The presence of a non-diseased case in this worksheet will generate an error.
 * The common vertical length, 31 in this example, is a-priori unpredictable. Given the structure of the `Truth` worsheet for this dataset, the maximum length would be 9 times 2 times 3, assuming every lesion is marked for each modality, reader and diseased case. The 9 comes from the total number of non-zero entries in the `LesionID` column of the `Truth` worksheet.
@@ -203,7 +210,5 @@ lesWghtDistr
 * The length of the third dimension of `x$LL` is the total number of diseased cases, 5 in the current example. 
 * The length of the fourth dimension of `x$NL` is determined by the case (diseased or non-diseased) with the most `NL` marks, 2 in the current example.
 * The length of the fourth dimension of `x$LL` is determined by the diseased case with the most lesions, 3 in the current example.
-
-
 
 ## References  

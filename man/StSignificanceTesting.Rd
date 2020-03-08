@@ -18,7 +18,9 @@ StSignificanceTesting(
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-\bold{Must have two or more treatments and two or more readers.}}
+\bold{Must have two or more treatments and two or more readers. A split-plot
+dataset is allowed provided \code{method} = "ORH" and \code{covEstMethod}
+= "Jackknife".}}
 
 \item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}}
 
@@ -151,13 +153,15 @@ Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR)
    significance testing refers to analysis designed to assign a P-value, 
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 
-   figure of merit (FOM) difference between treatments is zero. The results of 
+   figure of merit (FOM) differences between treatments is zero. The results of 
    the analysis are better visualized in the text or  
    Excel-formatted files produced by \code{\link{UtilOutputReport}}.
 }
 \examples{
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
+## following is split-plot analysis using a simulated split-plot dataset
+StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
 
 \donttest{
 StSignificanceTesting(dataset05, FOM = "wAFROC")

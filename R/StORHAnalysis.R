@@ -24,15 +24,45 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   cov3 <- varComp$cov3
   var <- varComp$var
   
-  varEachTrt <- vector(length = I)
-  cov2EachTrt <- vector(length = I)
-  for (i in 1:I) {
-    fomSingle <- fomArray[i, ]
-    dim(fomSingle) <- c(1, J)
-    dsi <- DfExtractDataset(dataset, trts = i)
-    ret <- gpfEstimateVarCov(dsi, FOM, FPFValue, nBoots, covEstMethod)
-    varEachTrt[i] <- ret$var
-    cov2EachTrt[i] <- ret$cov2
+  # if (TRUE || (length(dataset) != 12) || (dataset$design == "CROSSED")) {
+  if ((length(dataset) != 12) || (dataset$design == "CROSSED")) {
+    # oldFormat or CROSSED dataset
+    varEachTrt <- vector(length = I)
+    cov2EachTrt <- vector(length = I)
+    for (i in 1:I) {
+      fomSingle <- fomArray[i, ]
+      dim(fomSingle) <- c(1, J)
+      dsi <- DfExtractDataset(dataset, trts = i)
+      # with a single treatment it is not possible to calculate cov1
+      # therefore the following line will fail for SPLIT-PLOT 
+      # dataset; hence we skip it; see else block below
+      ret <- gpfEstimateVarCov(dsi, FOM, FPFValue, nBoots, covEstMethod)
+      varEachTrt[i] <- ret$var
+      cov2EachTrt[i] <- ret$cov2
+    }
+    
+    dfSingleFRRC <- array(dim = I)
+    msDenSingleFRRC <- array(dim = I)
+    stdErrSingleFRRC <- array(dim = I)
+    CISingleFRRC <- array(dim = c(I, 2))
+    for (i in 1:I) {
+      msDenSingleFRRC[i] <- varEachTrt[i] + (J - 1) * cov2EachTrt[i]
+      dfSingleFRRC[i] <- Inf
+      stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J)
+      CISingleFRRC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trtMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
+    }
+    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = paste0("Trt", modalityID), 
+                                      Area = trtMeans, 
+                                      StdErr = as.vector(stdErrSingleFRRC), 
+                                      DF = as.vector(dfSingleFRRC), 
+                                      CILower = CISingleFRRC[,1], 
+                                      CIUpper = CISingleFRRC[,2], row.names = NULL, 
+                                      stringsAsFactors = TRUE)
+    
+  } else {
+    # NewFormat and SPLIT-PLOT dataset
+    cov2EachTrt = rep(0, I)
+    ciAvgRdrEachTrtFRRC <- NA
   }
   
   varEachRdr <- vector(length = J)
@@ -97,7 +127,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                 t = tStat, 
                                 PrGTt = PrGTt, 
                                 CILower = CIRRRC[,1],
-                                CIUpper = CIRRRC[,2])
+                                CIUpper = CIRRRC[,2], 
+                                stringsAsFactors = TRUE)
     
     dfSingleRRRC <- array(dim = I)
     msDenSingleRRRC <- array(dim = I)
@@ -121,7 +152,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                       DF = as.vector(dfSingleRRRC), 
                                       CILower = CISingleRRRC[,1], 
                                       CIUpper = CISingleRRRC[,2], 
-                                      row.names = NULL)
+                                      row.names = NULL, 
+                                      stringsAsFactors = TRUE)
     
     if (option == "RRRC"){
       return(list(
@@ -140,11 +172,6 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   # ************ FRRC ****************
   if (option %in% c("FRRC", "ALL")) {
     msDenFRRC <- var - cov1 + (J - 1) * (cov2 - cov3)
-    # if (J > 1) {
-    #   msDenFRRC <- var - cov1 + (J - 1) * (cov2 - cov3)
-    # } else {
-    #   msDenFRRC <- var - cov1
-    # }
     fFRRC <- meanSquares$msT/msDenFRRC
     ddfFRRC <- Inf
     pFRRC <- 1 - pf(fFRRC, I - 1, ddfFRRC)
@@ -168,24 +195,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                 t = tStat, 
                                 PrGTt = PrGTt, 
                                 CILower = CIFRRC[,1],
-                                CIUpper = CIFRRC[,2])
-    
-    dfSingleFRRC <- array(dim = I)
-    msDenSingleFRRC <- array(dim = I)
-    stdErrSingleFRRC <- array(dim = I)
-    CISingleFRRC <- array(dim = c(I, 2))
-    for (i in 1:I) {
-      msDenSingleFRRC[i] <- varEachTrt[i] + (J - 1) * cov2EachTrt[i]
-      dfSingleFRRC[i] <- Inf
-      stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J)
-      CISingleFRRC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trtMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
-    }
-    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = paste0("Trt", modalityID), 
-                                      Area = trtMeans, 
-                                      StdErr = as.vector(stdErrSingleFRRC), 
-                                      DF = as.vector(dfSingleFRRC), 
-                                      CILower = CISingleFRRC[,1], 
-                                      CIUpper = CISingleFRRC[,2], row.names = NULL)
+                                CIUpper = CIFRRC[,2], 
+                                stringsAsFactors = TRUE)
     
     diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
     for (j in 1:J) {
@@ -226,11 +237,13 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                        t = tStat, 
                                        PrGTt = PrGTt, 
                                        CILower = CIReaderFRRC[,1],
-                                       CIUpper = CIReaderFRRC[,2])
+                                       CIUpper = CIReaderFRRC[,2], 
+                                       stringsAsFactors = TRUE)
     
     varCovEachRdr <- data.frame(Reader = paste("Rdr", readerID, sep = ""),
                                 Var = varEachRdr, 
-                                Cov1 = cov1EachRdr)
+                                Cov1 = cov1EachRdr, 
+                                stringsAsFactors = TRUE)
     if (option == "FRRC"){
       return(data.frame(fomArray = fomArray, 
                         meanSquares = meanSquares, 
@@ -239,7 +252,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                         ciDiffTrtFRRC = ciDiffTrtFRRC, 
                         ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
                         ciDiffTrtEachRdrFRRC = ciDiffTrtEachRdrFRRC, 
-                        varCovEachRdr = varCovEachRdr
+                        varCovEachRdr = varCovEachRdr, 
+                        stringsAsFactors = TRUE
       ))
     }
   }
@@ -248,6 +262,11 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   # ************ RRFC ****************
   # ************ RRFC ****************
   if (option %in% c("RRFC", "ALL")) {
+    # since cov2 and cov3 are zeroes for split-plot, FTestStatsRRFC will be 
+    # identical to FTestStatsRRRC; other values below may differ
+    # not sure about what is going one here; I am proceeding on assumption that
+    # the only difference is setting cov2 = cov3 = 0, and reusing code from crossed
+    # analysis
     msDenRRFC <- meanSquares$msTR
     fRRFC <- meanSquares$msT/msDenRRFC
     ddfRRFC <- ((I - 1) * (J - 1))
@@ -272,7 +291,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                 t = tStat, 
                                 PrGTt = PrGTt, 
                                 CILower = CIRRFC[,1],
-                                CIUpper = CIRRFC[,2])
+                                CIUpper = CIRRFC[,2], 
+                                stringsAsFactors = TRUE)
     
     dfSingleRRFC <- array(dim = I)
     msDenSingleRRFC <- array(dim = I)
@@ -290,7 +310,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                       DF = as.vector(dfSingleRRFC), 
                                       CILower = CISingleRRFC[,1], 
                                       CIUpper = CISingleRRFC[,2], 
-                                      row.names = NULL)
+                                      row.names = NULL, 
+                                      stringsAsFactors = TRUE)
     
     if (option == "RRFC"){
       return(data.frame(fomArray = fomArray, 
@@ -298,7 +319,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                         varComp = varComp,
                         FTestStatsRRFC = FTestStatsRRFC, 
                         ciDiffTrtRRFC = ciDiffTrtRRFC, 
-                        ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC
+                        ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC, 
+                        stringsAsFactors = TRUE
       ))
     }
   }

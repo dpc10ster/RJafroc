@@ -6,15 +6,15 @@
 \title{John Thompson crossed treatment FROC dataset}
 \format{A list with 9 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1:2, 1:4, 1:11, 1:68, 1:5], of non-lesion localizations, NLs}
-\item{\code{LL}}{ Ratings array [1:2, 1:4, 1:11, 1:34, 1:3], of lesion localizations, LLs}
-\item{\code{lesionVector}}{ array [1:34], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{ array [1:34, 3], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{ array [1:34, 3] weights (or clinical importance) of lesions, all set to 1}
-\item{\code{dataType}}{ "FROC", the data type}
+\item{\code{NL}}{, num [1:2, 1:4, 1:11, 1:68, 1:5], ratings of non-lesion localizations, NLs}
+\item{\code{LL}}{, num [1:2, 1:4, 1:11, 1:34, 1:3], ratings of lesion localizations, LLs}
+\item{\code{lesionVector}}{, int [1:34], number of lesions per diseased case, all set to 1}
+\item{\code{lesionID}}{, num [1:34, 3], labels of lesions on diseased cases, all set to 1}
+\item{\code{lesionWeight}}{, num [1:34, 3] weights (or clinical importances) of lesions, all set to 1}
+\item{\code{dataType}}{, chr "FROC", the data type}
 \item{\code{modalityID1}}{ [1:2] "F" "I", treatment labels}
 \item{\code{modalityID2}}{ [1:4] "20" "40"  "60"  "80", treatment labels}
-\item{\code{readerID}}{ [1:11] "1" "10" "11" ..., reader labels}
+\item{\code{readerID}}{, chr [1:11] "1" "10" "11" ..., reader labels}
 }}
 \usage{
 datasetCrossedModality

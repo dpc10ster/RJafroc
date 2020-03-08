@@ -6,14 +6,14 @@
 \title{Simulated ROI dataset}
 \format{A list with 9 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1:2, 1:5, 1:90, 1:4], of non-lesion localizations, NLs}
-\item{\code{LL}}{ Ratings array [1:2, 1:5, 1:40, 1:4], of lesion localizations, LLs}
-\item{\code{lesionVector}}{ array [1:40], number of lesions per diseased case, varies between 1 and 4}
-\item{\code{lesionID}}{ array [1:40, 1:4], labels of lesions on diseased cases}
-\item{\code{lesionWeight}}{ array [1:40, 1:4] weights (or clinical importance) of lesions, set to 1 divided by number of lesions in the case}
-\item{\code{dataType}}{ "ROI", the data type}
+\item{\code{NL}}{, num [1:2, 1:5, 1:90, 1:4], ratings of non-lesion localizations, NLs}
+\item{\code{LL}}{, num [1:2, 1:5, 1:40, 1:4], ratings of lesion localizations, LLs}
+\item{\code{lesionVector}}{, int [1:40], number of lesions per diseased case, varies between 1 and 4}
+\item{\code{lesionID}}{, num [1:40, 1:4], labels of lesions on diseased cases}
+\item{\code{lesionWeight}}{, num [1:40, 1:4] weights (or clinical importances) of lesions, set to 1 divided by number of lesions in the case}
+\item{\code{dataType}}{, chr "ROI", the data type}
 \item{\code{modalityID1}}{ [1:2] "1" "2", treatment labels}
-\item{\code{readerID}}{ [1:5] "1" "2" "3" "4" "5", reader labels}
+\item{\code{readerID}}{, chr [1:5] "1" "2" "3" "4" "5", reader labels}
 }}
 \usage{
 datasetROI

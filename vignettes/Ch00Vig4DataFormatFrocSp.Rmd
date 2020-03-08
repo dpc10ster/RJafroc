@@ -42,12 +42,13 @@ The `Truth` worksheet contains 6 columns: `CaseID`, `LesionID`, `Weight`, `Reade
 * `ModalityID`: a comma-separated listing of modalities, each represented by a unique **integer**. In the example shown below each cell has the value `0, 1`. **Each cell has to be text formatted.**
 * `Paradigm`: In the example shown below, the contents are `FROC` and `split-plot`. 
 
-![](images/frocSpTruth.png){width=100%}
-![](images/frocSpTruth2.png){width=100%}
+```{r, echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1: Two views of Truth worksheet for file frocSp.xlsx",fig.show='hold',fig.align='center'}
+knitr::include_graphics(c("images/frocSpTruth.png","images/frocSpTruth2.png"))
+``` 
 
 
 ## The structure of the FROC split plot dataset
-The example shown above corresponds to Excel file `inst/extdata/toyFiles/FROC/frocSp.xlsx` in the project directory. 
+The example shown in Fig. 1 corresponds to Excel file `inst/extdata/toyFiles/FROC/frocSp.xlsx` in the project directory. 
 
 ```{r}
 frocSp <- system.file("extdata", "toyFiles/FROC/frocSp.xlsx",
@@ -81,8 +82,11 @@ x$lesionWeight
 
 
 ## The false positive (FP) ratings
-These are found in the `FP` or `NL` worksheet, see below.
-![](images/frocSpNL.png){width=100%}
+These are found in the `FP` or `NL` worksheet, see Fig. 2.
+
+```{r, echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 2: NL/FP worksheet, left, and LL/TP worksheet, right, for file frocSp.xlsx",fig.show='hold',fig.align='center'}
+knitr::include_graphics(c("images/frocSpNL.png","images/frocSpLL.png"))
+``` 
 
 * This worksheet has the ratings of non-diseased cases. 
 * The common vertical length is 30 in this example (2 modalities times 3 readers times 5 non-diseased cases per reader). 
@@ -90,7 +94,6 @@ These are found in the `FP` or `NL` worksheet, see below.
 * `ModalityID`: the modality labels: `0` or `1`, as declared in the `Truth` worksheet. 
 * `CaseID`: the labels of non-diseased cases. Each `CaseID`, `ModalityID`, `ReaderID` combination must be consistent with that declared in the `Truth` worsheet.  
 * `FP_Rating`: the floating point ratings of non-diseased cases. Each row of this worksheet yields a rating corresponding to the values of `ReaderID`, `ModalityID` and `CaseID` for that row. Each `CaseID`, `ModalityID`, `ReaderID` combination must be consistent with that declared in the `Truth` worsheet. 
-
 
 ```{r}
 x$NL[,1,1:9,1]
@@ -105,8 +108,6 @@ x$NL[,3,1:9,1]
 
 ## The true positive (TP) ratings
 These are found in the `TP` or `LL` worksheet, see below.
-
-![](images/frocSpLL.png){width=100%}
 
 * This worksheet has the ratings of diseased cases. 
 * The common vertical length is 30 in this example (2 modalities times 3 readers times 5 diseased cases per reader). 

@@ -5,13 +5,15 @@
 #'    significance testing refers to analysis designed to assign a P-value, 
 #'    and other statistics, for 
 #'    rejecting the null hypothesis (NH) that the reader-averaged 
-#'    figure of merit (FOM) difference between treatments is zero. The results of 
+#'    figure of merit (FOM) differences between treatments is zero. The results of 
 #'    the analysis are better visualized in the text or  
 #'    Excel-formatted files produced by \code{\link{UtilOutputReport}}. 
 #'
 #'  
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-#'     \bold{Must have two or more treatments and two or more readers.} 
+#'     \bold{Must have two or more treatments and two or more readers. A split-plot
+#'     dataset is allowed provided \code{method} = "ORH" and \code{covEstMethod}
+#'     = "Jackknife".} 
 #' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
@@ -105,6 +107,8 @@
 #' @examples
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
+#' ## following is split-plot analysis using a simulated split-plot dataset
+#' StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
 #' 
 #' \donttest{
 #' StSignificanceTesting(dataset05, FOM = "wAFROC")
@@ -170,6 +174,12 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     if (covEstMethod != "Jackknife") 
       stop("For DBMH method covariance estimation method covEstMethod must be Jackknife")
   }
+  
+  if ((length(dataset) == 12) && (dataset$design == "SPLIT-PLOT") && method == "DBMH") 
+    stop("Must use method = ORH for SPLIT-PLOT dataset")
+  
+  if ((length(dataset) == 12) && (dataset$design == "SPLIT-PLOT") && method == "ORH" && covEstMethod != "Jackknife") 
+    stop("Must use covEstMethod = Jackknife for SPLIT-PLOT dataset")
   
   if (!tempOrgCode) {
     if (method == "DBMH"){
@@ -391,54 +401,48 @@ pseudoValueMeanSquares <- function (pseudoValues)
 }
 
 
-# 
-# pseudoValues <- function(dataset, FOM, FPFValue) {
-#   
-#   if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
-#     stop("This needs fixing")
-#     ret <- jackknifePseudoValuesNormals(dataset, FOM, FPFValue)
-#     
-#   } else if (FOM %in% c("MaxLLF", "HrSe")) {
-#     stop("This needs fixing")
-#     
-#     ret <- jackknifePseudoValuesAbnormals(dataset, FOM, FPFValue)
-#     
-#   } else {
-#     
-#     # ret <- jackknifePseudoValues(dataset, FOM, FPFValue)
-#     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-#   }
-#   return(ret$jkPseudoValues)
-# }
-# 
 
 varComponentsJackknife <- function(dataset, FOM, FPFValue) {
   
-  K <- length(dataset$NL[1,1,,1])
-  # 
-  # if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
-  # 
-  #   ret <- jackknifePseudoValuesNormals(dataset, FOM, FPFValue)
-  #   
-  # } else if (FOM %in% c("MaxLLF", "HrSe")) {
-  # 
-  #   ret <- jackknifePseudoValuesAbnormals(dataset, FOM, FPFValue)
-  #   
-  # } else {
-  #   
+  if ((length(dataset) != 12) || (dataset$design == "CROSSED")) { 
+    K <- length(dataset$NL[1,1,,1])
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-    
-    # ret <- jackknifePseudoValues(dataset, FOM, FPFValue)
-    
-  # }
-  
-  CovTemp <- ResamplingEstimateVarCovs(ret$jkFomValues)
-  Cov <- list(
-    var = CovTemp$var * (K-1)^2/K,
-    cov1 = CovTemp$cov1 * (K-1)^2/K,
-    cov2 = CovTemp$cov2 * (K-1)^2/K,
-    cov3 = CovTemp$cov3 * (K-1)^2/K
-  )
+    CovTemp <- ResamplingEstimateVarCovs(ret$jkFomValues)
+    Cov <- list(
+      var = CovTemp$var * (K-1)^2/K,
+      cov1 = CovTemp$cov1 * (K-1)^2/K,
+      cov2 = CovTemp$cov2 * (K-1)^2/K,
+      cov3 = CovTemp$cov3 * (K-1)^2/K
+    )
+  } else if (dataset$design == "SPLIT-PLOT") {
+    I <- length(dataset$NL[,1,1,1])
+    K <- length(dataset$NL[1,1,,1])
+    ret <- UtilPseudoValues(dataset, FOM, FPFValue)
+    J <- length(ret$jkFomValues[1,,1])
+    var <- array(dim = J)
+    cov1 <- array(dim = J)
+    FOM <- ret$jkFomValues
+    caseTransitions <- ret$caseTransitions
+    for (j in 1:J) {
+      jkFOMs <- ret$jkFomValues[,j,(caseTransitions[j]+1):(caseTransitions[j+1])]
+      kj <- length(jkFOMs[1,])
+      dim(jkFOMs) <- c(I,1,kj)
+      x <- ResamplingEstimateVarCovs(jkFOMs)
+      # not sure which way to go: was doing this until 2/18/20
+      # var[j]  <-  x$var * (K-1)^2/K
+      # cov1[j]  <-  x$cov1 * (K-1)^2/K
+      # following seems more reasonable as reader j only interprets kj cases
+      # updated file ~Dropbox/RJafrocChecks/StfrocSp.xlsx
+      var[j]  <-  x$var * (kj-1)^2/kj
+      cov1[j]  <-  x$cov1 * (kj-1)^2/kj
+    }
+    Cov <- list(
+      var = mean(var),
+      cov1 = mean(cov1),
+      cov2 = 0,
+      cov3 = 0
+    )
+  } else stop("Incorrect dataset design, must be CROSSED or SPLIT-PLOT")
   
   return(Cov)
   

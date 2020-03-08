@@ -4,20 +4,21 @@
 #' This is referred to in the book as the "TONY" dataset. It consists of 185 cases, 
 #' 89 of which are diseased, interpreted in two treatments
 #' ("BT" = breast tomosynthesis and "DM" = digital mammography) by five radiologists using the FROC paradigm. 
-#' The diseased cases had at most two cancers (lesions) per case while the maximum number of 
-#' non-lesion localizations (NLs) per case, over the entire dataset, was 3. The example below displays
-#' the wAFROC plot for the first treatment and first reader.
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:2, 1:5, 1:185, 1:3], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1:2, 1:5, 1:89, 1:2], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:89], number of lesions per diseased case}
-#' \item{\code{lesionID}}{ array [1:89, 1:2], labels of lesions on diseased cases}
-#' \item{\code{lesionWeight}}{ array [1:89, 1:2], weights (or clinical importance) of lesions}
-#' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "BT" "DM", treatment labels}
-#' \item{\code{readerID}}{ [1:5] "1" "2" "3" "4" ..., reader labels}
+#' \item{\code{NL}}{, num [1:2, 1:5, 1:185, 1:3], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:2, 1:5, 1:89, 1:2], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:89], number of lesions per diseased case}
+#' \item{\code{lesionID}}{, num [1:89, 1:2], numeric labels of lesions on diseased cases}
+#' \item{\code{lesionWeight}}{, num [1:89, 1:2], weights (or clinical importances) of lesions}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:2] "BT" "DM", treatment labels}
+#' \item{\code{readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+#' \item{\code{design}}{, chr "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:96] 1 4 7 8 9 10 15 17 18 20 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:89] 2 3 5 6 11 12 13 16 19 24 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:2, 1:5, 1:185, 1:4] 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -33,6 +34,7 @@
 "dataset01"
 #'
 #'
+#'
 #' Van Dyke ROC dataset
 #'
 #' This is referred to in the book as the "VD" dataset. It consists of 114 cases,
@@ -44,16 +46,20 @@
 #'    used to illustrate advances in ROC methodology. The example below displays 
 #'    the ROC plot for the first treatment and first reader.
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:2, 1:5, 1:114, 1], of false positives, FPs}
-#' \item{\code{LL}}{ Ratings array [1:2, 1:5, 1:45, 1], of true positives, TPs}
-#' \item{\code{lesionVector}}{ array [1:45], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:45, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:45, 1], weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
-#' \item{\code{readerID}}{ [1:5] "0" "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1:2, 1:5, 1:114, 1], ratings of false positives, FPs}
+#' \item{\code{LL}}{, num [1:2, 1:5, 1:45, 1], ratings of true positives, TPs}
+#' \item{\code{lesionVector}}{, int [1:45], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:45, 1], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:45, 1], weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:2] "0" "1", treatment labels}
+#' \item{\code{readerID}}{, chr [1:5] "0" "1" "2" ..., reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:69] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:45] 70 71 72 73 74 75 76 77 78 79 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 1  ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -68,6 +74,7 @@
 #'
 #'
 "dataset02"
+#'
 #' 
 #' 
 #' Franken ROC dataset
@@ -79,16 +86,20 @@
 #' Franken-dataset, which, along the the Van Dyke dataset, has been widely used to illustrate
 #' advances in ROC methodology. 
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:2, 1:4, 1:100, 1], of false positives, FPs}
-#' \item{\code{LL}}{ Ratings array [1:2, 1:4, 1:67, 1], of true positives, TPs}
-#' \item{\code{lesionVector}}{ array [1:67], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:67, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:67, 1], weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "TREAT1" "TREAT2", the treatment labels}
-#' \item{\code{readerID}}{ [1:4] "READER_1" "READER_2" "READER_3" "READER_4", the reader labels}
+#' \item{\code{NL}}{, num [1:2, 1:4, 1:100, 1], ratings of false positives, FPs}
+#' \item{\code{LL}}{, num [1:2, 1:4, 1:67, 1], ratings of true positives, TPs}
+#' \item{\code{lesionVector}}{, int [1:67], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:67, 1], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:67, 1], weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:2] "TREAT1" "TREAT2", the treatment labels}
+#' \item{\code{readerID}}{, chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", the reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:33] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:67] 34 35 36 37 38 39 40 41 42 43 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2] 1 1 1 1 1 1 1   ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -105,25 +116,32 @@
 "dataset03"
 #'
 #'
+#'
 #' Federica Zanca FROC dataset
 #'
 #' This is referred to in the book as the "FED" dataset. It consists of 200 mammograms, 
 #' 100 of which contained one to 3 simulated microcalcifications,
-#' interpreted in five treatments (basically different image processing algorithms), by four 
+#' interpreted in five treatments (basically different image processing algorithms) by four 
 #' radiologists using the FROC paradigm and a 5-point rating scale. The maximum number of NLs 
 #' per case, over the entire dataset was 7 and the dataset contained at least one diseased 
-#' mammogram with 3 lesions.
+#' mammogram with 3 lesions. The Excel file containing this dataset is 
+#' /inst/extdata/datasets/FZ_ALL.xlsx. The normal cases are labeled 100:199 while the normal 
+#' cases are labeled 0:99.
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:5, 1:4, 1:200, 1:7], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1:5, 1:4, 1:100, 1:3], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:100], number of lesions per diseased case}
-#' \item{\code{lesionID}}{ array [1:100, 1:3], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:100, 1:3] weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:5] "1" "2" ... treatment labels}
-#' \item{\code{readerID}}{ [1:4] "1" "3" "4" "5" reader labels}
+#' \item{\code{NL}}{, num [1:5, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:5, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:100], number of lesions per diseased case}
+#' \item{\code{lesionID}}{, num [1:100, 1:3], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:100, 1:3] weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:5] "1" "2" "3" "4" "5" ... treatment labels}
+#' \item{\code{readerID}}{, chr [1:4] "1" "3" "4" "5" reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104 105 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5 6 7 8 9 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:5, 1:4, 1:200, 1:4] 1 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -139,6 +157,7 @@
 "dataset04"
 #'
 #'
+#'
 #' John Thompson FROC dataset
 #'
 #' This is referred to in the book as the "JT" dataset. It consists of 92 cases, 47 of 
@@ -148,16 +167,20 @@
 #' 47 with inserted nodular lesions (max 3 per slice). The maximum number of NLs per case, over the entire 
 #' dataset was 7.  
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:2, 1:9, 1:92, 1:7], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1:2, 1:9, 1:47, 1:3, of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:47], number of lesions per diseased case}
-#' \item{\code{lesionID}}{ array [1:47, 1:3], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:67, 1] weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "1" "2", treatment labels}
-#' \item{\code{readerID}}{ [1:4] "1" "2" "3" "4", reader labels}
+#' \item{\code{NL}}{, num [1:2, 1:9, 1:92, 1:7], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:2, 1:9, 1:47, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:47], number of lesions per diseased case}
+#' \item{\code{lesionID}}{, num [1:47, 1:3], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:67, 1] weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:2] "1" "2", treatment labels}
+#' \item{\code{readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:45] 48 49 50 51 52 53 54 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:47] 1 2 3 4 5 6 7 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:2, 1:9, 1:92, 1:4] 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -174,6 +197,7 @@
 "dataset05"
 #'
 #'
+#'
 #' Magnus FROC dataset
 #'
 #' This is referred to in the book as the "MAG" dataset (after Magnus Bath, 
@@ -181,16 +205,20 @@
 #' interpreted in two treatments ("1" = conventional chest, "1" = chest tomosynthesis) by four 
 #' radiologists using the FROC paradigm.  
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:2, 1:4, 1:89, 1:17], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1:2, 1:4, 1:42, 1:15], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:42], number of lesions per diseased case}
-#' \item{\code{lesionID}}{ array [1:42, 1:15], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:42, 1:15] weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "1" "2", treatment labels}
-#' \item{\code{readerID}}{ [1:4] "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1:2, 1:4, 1:89, 1:17], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:2, 1:4, 1:42, 1:15], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:42], number of lesions per diseased case}
+#' \item{\code{lesionID}}{, num [1:42, 1:15], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:42, 1:15] weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:2] "1" "2", treatment labels}
+#' \item{\code{readerID}}{, chr [1:4] "1" "2" ..., reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:47] 1 2 3 4 5 8 9 10 11 12 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:42] 6 14 17 18 20 21 23 24 26 29 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:89, 1:16] 1 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -205,6 +233,7 @@
 #'
 #'
 "dataset06"
+#'
 #' 
 #' 
 #' Lucy Warren FROC dataset
@@ -213,16 +242,20 @@
 #' 81 of which are diseased, interpreted in five treatments (see reference, basically different ways
 #' of acquiring the images) by seven radiologists using the FROC paradigm.  
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:5, 1:7, 1:162, 1:4], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1:5, 1:7, 1:81, 1:3], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:81], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:81, 1:3], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:81, 1:3] weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:5] "1" "2", ..., treatment labels}
-#' \item{\code{readerID}}{ [1:7] "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1:5, 1:7, 1:162, 1:4], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:5, 1:7, 1:81, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:81], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:81, 1:3], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:81, 1:3] weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:5] "1" "2", ..., treatment labels}
+#' \item{\code{readerID}}{, chr [1:7] "1" "2" ..., reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:81] 6 9 10 14 15 16 22 23 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:81] 1 2 3 4 5 7 8 11 12 13  ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:5, 1:7, 1:162, 1:4] 1 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -239,6 +272,7 @@
 "dataset07"
 #'
 #'
+#'
 #' Monica Penedo ROC dataset
 #'
 #' This is referred to in the book as the "PEN" dataset. It consists of 112 cases, 
@@ -247,16 +281,20 @@
 #' radiologists using the FROC paradigm (the inferred ROC dataset is included; the original FROC data
 #' is lost). 
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:5, 1:5, 1:112, 1], of false positives, FPs}
-#' \item{\code{LL}}{ Ratings array [1:5, 1:5, 1:64, 1], of true positives, TPs}
-#' \item{\code{lesionVector}}{ array [1:64], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:64, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:64, 1], weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:5] "0" "1", treatment labels}
-#' \item{\code{readerID}}{ [1:5] "0" "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1:5, 1:5, 1:112, 1], ratings of false positives, FPs}
+#' \item{\code{LL}}{, num [1:5, 1:5, 1:64, 1], ratings of true positives, TPs}
+#' \item{\code{lesionVector}}{, int [1:64], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:64, 1], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:64, 1], weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:5] "0" "1", treatment labels}
+#' \item{\code{readerID}}{, chr [1:5] "0" "1" "2" ..., reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, nt [1:48] 1 2 3 4 5 6 7 8 9 10..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:64] 49 50 51 52 53 54 55 56 57 58 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:5, 1:5, 1:112, 1:2] 1 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -272,6 +310,7 @@
 #'
 #'
 "dataset08"
+#'
 #' 
 #' 
 #' Nico Karssemeijer ROC dataset (CAD vs. radiologists)
@@ -279,21 +318,25 @@
 #' This is referred to in the book as the "NICO" dataset. It consists of 200 mammograms, 
 #' 80 of which contain one malignant mass, 
 #' interpreted by a CAD system and nine radiologists using the 
-#' LROC paradigm. The first reader is CAD. The highest rating method was used to convert this to an ROC 
-#' dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this \strong{one-treatment}
-#' data requires methods described in the book, specifically, the function  
-#' \code{\link{StSignificanceTestingSingleFixedFactor}} analyzes such datasets.
+#' LROC paradigm. The first reader is CAD. The highest rating was used to convert this to an ROC 
+#' dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this 
+#' data requires methods described in the book, implemented in the function  
+#' \code{\link{StSignificanceTestingCadVsRadiologists}}.
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1, 1:10, 1:200, 1], of false positives, FPs}
-#' \item{\code{LL}}{ Ratings array [1, 1:10, 1:80, 1], of true positives, TPs}
-#' \item{\code{lesionVector}}{ array [1:80], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:80, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:80, 1], weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1] "1" treatment label}
-#' \item{\code{readerID}}{ [1:10] "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of false positives, FPs}
+#' \item{\code{LL}}{, num [1, 1:10, 1:80, 1], ratings of true positives, TPs}
+#' \item{\code{lesionVector}}{, int [1:80], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:80, 1], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:80, 1], weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr [1] "1" treatment label}
+#' \item{\code{readerID}}{, chr [1:10] "1" "2" ..., reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:120] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:80] 121 122 123 124 125 126 127 128 129 130 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1, 1:10, 1:200, 1:2] 1 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -309,6 +352,7 @@
 "dataset09"
 #'
 #'
+#'
 #' Marc Ruschin ROC dataset
 #'
 #' This is referred to in the book as the "RUS" dataset. It consists of 90 cases, 
@@ -318,16 +362,20 @@
 #' radiologists interpreted the cases using the FROC paradigm. These have been reduced to 
 #' ROC data by using the highest ratings (the original FROC data is lost). 
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:3, 1:8, 1:90, 1], of false positives, FPs}
-#' \item{\code{LL}}{ Ratings array [1:3, 1:8, 1:40, 1], of true positives, TPs}
-#' \item{\code{lesionVector}}{ array [1:40], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:40, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:40, 1], weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:3] "1" "2" "3", treatment labels}
-#' \item{\code{readerID}}{ [1:8] "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1:3, 1:8, 1:90, 1], ratings of false positives, FPs}
+#' \item{\code{LL}}{, num [1:3, 1:8, 1:40, 1], ratings of true positives, TPs}
+#' \item{\code{lesionVector}}{, int [1:40], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:40, 1], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:40, 1], weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:3] "1" "2" "3", treatment labels}
+#' \item{\code{readerID}}{, chr [1:8] "1" "2" ..., reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:50] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:40] 51 52 53 54 55 56 57 58 59 60 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:3, 1:8, 1:90, 1:2] 1 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -343,6 +391,7 @@
 #'
 #'
 "dataset10"
+#'
 #' 
 #' 
 #' Dobbins 1 FROC dataset
@@ -362,14 +411,18 @@
 #' 
 #' @format A list with 8 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:4, 1:5, 1:158, 1:4], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1:4, 1:5, 1:115, 1:20], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:115], number of lesions per diseased case}
-#' \item{\code{lesionID}}{ array [1:115, 20], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:115, 20] weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:4] "1" "2" ..., treatment labels}
-#' \item{\code{readerID}}{ [1:5] "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:4, 1:5, 1:115, 1:20], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:115], number of lesions per diseased case}
+#' \item{\code{lesionID}}{, num [1:115, 20], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:115, 20] weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:4] "1" "2" ..., treatment labels}
+#' \item{\code{readerID}}{, chr [1:5] "1" "2" ..., reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:43] 6 9 14 27 62 66 70 71 83 91 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:115] 1 2 3 5 7 8 10 11 13 17 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21] 1 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -385,22 +438,27 @@
 "dataset11"
 #'
 #'
+#'
 #' Dobbins 2 ROC dataset
 #'
 #' This is referred to in the code as the "DOB2" dataset. It contains actionability
 #' ratings, i.e., do you recommend further follow up on the patient, one a 1 (definitely not)
 #' to 5 (definitely yes), effectively an ROC dataset using a 5-point rating scale.
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:4, 1:5, 1:152, 1], of false positives, FPs}
-#' \item{\code{LL}}{ Ratings array [1:4, 1:5, 1:88, 1], of true positives, TPs}
-#' \item{\code{lesionVector}}{ array [1:88], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:88, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:88, 1], weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
-#' \item{\code{readerID}}{ [1:4] "0" "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1:4, 1:5, 1:152, 1], ratings of false positives, FPs}
+#' \item{\code{LL}}{, num [1:4, 1:5, 1:88, 1], ratings of true positives, TPs}
+#' \item{\code{lesionVector}}{, int [1:88], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:88, 1], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:88, 1], weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment labels}
+#' \item{\code{readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:64] 6 9 14 20 27 33 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:88] 1 2 3 5 7 8 10 11 13 18 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:4, 1:5, 1:152, 1:2] 1 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -414,6 +472,7 @@
 #'
 #'
 "dataset12"
+#'
 #' 
 #' 
 #' Dobbins 3 FROC dataset
@@ -421,16 +480,20 @@
 #' This is referred to in the code as the "DOB3" dataset. This is a subset of DOB1 which includes
 #' data for lesions not-visible on CXR, but visible to truth panel on all treatments.  
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:4, 1:5, 1:158, 1:4], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1:4, 1:5, 1:106, 1:15], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:106], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:106, 15], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:106, 15] weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ [1:4] "1" "2" ..., treatment labels}
-#' \item{\code{readerID}}{ [1:5] "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:4, 1:5, 1:106, 1:15], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:106], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:106, 15], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:106, 15] weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:4] "1" "2" ..., treatment labels}
+#' \item{\code{readerID}}{, chr [1:5] "1" "2" ..., reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:52] 5 6 8 9 14 27 62 66 70 71 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:106] 1 2 3 7 10 11 13 17 18 19 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:4, 1:5, 1:158, 1:16] 1 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -446,6 +509,7 @@
 "dataset13"
 #'
 #'
+#'
 #' Federica Zanca real (as opposed to inferred) ROC dataset
 #'
 #' This is referred to in the book as the "FZR" dataset. It is a real ROC study, 
@@ -454,16 +518,20 @@
 #' data from dataset04 to conclude, erroneously, that the highest rating assumption
 #' is invalid. See book Section 13.6.2.
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:2, 1:4, 1:200, 1], of false positives, FPs}
-#' \item{\code{LL}}{ Ratings array [1:2, 1:4, 1:100, 1], of true positives, TPs}
-#' \item{\code{lesionVector}}{ array [1:100], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:100, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:100, 1], weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "1" "2", treatment labels}
-#' \item{\code{readerID}}{ [1:4] "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1:2, 1:4, 1:200, 1], ratings of false positives, FPs}
+#' \item{\code{LL}}{, num [1:2, 1:4, 1:100, 1], ratings of true positives, TPs}
+#' \item{\code{lesionVector}}{, int [1:100], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:100, 1], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:100, 1], weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:2] "4" "5", treatment labels}
+#' \item{\code{readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
+#' \item{\code{design}}{, "CROSSED", study design}
+#' \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104 105 106 ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5 6 7 8 9 ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2] 1 1 1 1 1 1 ..., truth table structure}
 #' }
 #'
 #' @keywords datasets
@@ -478,6 +546,7 @@
 #'
 #'
 "dataset14"
+#'
 #' 
 #' 
 #' Nico Karssemeijer LROC dataset (CAD vs. radiologists)
@@ -491,15 +560,15 @@
 #' 
 #' @format A list with 9 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1, 1:10, 1:200, 1], of false positives, FPs}
-#' \item{\code{LLCl}}{ Ratings array [1, 1:10, 1:80, 1], of true positives with correct localization, TPCls}
-#' \item{\code{LLIl}}{ Ratings array [1, 1:10, 1:80, 1], of true positives with incorrect localization, TPIls}
-#' \item{\code{lesionVector}}{ array [1:80], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:80, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:80, 1], weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "LROC", the data type}
-#' \item{\code{modalityID}}{ [1:2] "0" "1", treatment labels}
-#' \item{\code{readerID}}{ [1:10] "1" "2" ..., reader labels}
+#' \item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of false positives, FPs}
+#' \item{\code{LLCl}}{ num [1, 1:10, 1:80, 1], ratings of true positives with correct localization, TPCls}
+#' \item{\code{LLIl}}{ num [1, 1:10, 1:80, 1], ratings of true positives with incorrect localization, TPIls}
+#' \item{\code{lesionVector}}{, int [1:80], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:80, 1], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:80, 1], weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "LROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:2] "0" "1", treatment labels}
+#' \item{\code{readerID}}{, chr [1:10] "1" "2" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -513,6 +582,7 @@
 #'
 "datasetCadLroc"
 #'
+#'
 #' 
 #' John Thompson crossed treatment FROC dataset
 #'
@@ -524,15 +594,15 @@
 #' 
 #' @format A list with 9 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:2, 1:4, 1:11, 1:68, 1:5], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1:2, 1:4, 1:11, 1:34, 1:3], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:34], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:34, 3], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:34, 3] weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "FROC", the data type}
+#' \item{\code{NL}}{, num [1:2, 1:4, 1:11, 1:68, 1:5], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:2, 1:4, 1:11, 1:34, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:34], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:34, 3], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:34, 3] weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
 #' \item{\code{modalityID1}}{ [1:2] "F" "I", treatment labels}
 #' \item{\code{modalityID2}}{ [1:4] "20" "40"  "60"  "80", treatment labels}
-#' \item{\code{readerID}}{ [1:11] "1" "10" "11" ..., reader labels}
+#' \item{\code{readerID}}{, chr [1:11] "1" "10" "11" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -547,6 +617,7 @@
 #'
 #'
 "datasetCrossedModality"
+#'
 #' 
 #' 
 #'
@@ -557,14 +628,14 @@
 #' 
 #' @format A list with 9 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1:2, 1:5, 1:90, 1:4], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1:2, 1:5, 1:40, 1:4], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:40], number of lesions per diseased case, varies between 1 and 4}
-#' \item{\code{lesionID}}{ array [1:40, 1:4], labels of lesions on diseased cases}
-#' \item{\code{lesionWeight}}{ array [1:40, 1:4] weights (or clinical importance) of lesions, set to 1 divided by number of lesions in the case}
-#' \item{\code{dataType}}{ "ROI", the data type}
+#' \item{\code{NL}}{, num [1:2, 1:5, 1:90, 1:4], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:2, 1:5, 1:40, 1:4], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:40], number of lesions per diseased case, varies between 1 and 4}
+#' \item{\code{lesionID}}{, num [1:40, 1:4], labels of lesions on diseased cases}
+#' \item{\code{lesionWeight}}{, num [1:40, 1:4] weights (or clinical importances) of lesions, set to 1 divided by number of lesions in the case}
+#' \item{\code{dataType}}{, chr "ROI", the data type}
 #' \item{\code{modalityID1}}{ [1:2] "1" "2", treatment labels}
-#' \item{\code{readerID}}{ [1:5] "1" "2" "3" "4" "5", reader labels}
+#' \item{\code{readerID}}{, chr [1:5] "1" "2" "3" "4" "5", reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -577,6 +648,7 @@
 "datasetROI"
 #'
 #'
+#'
 #' Simulated degenerate ROC dataset (for testing purposes)
 #'
 #' A simulated degenerated dataset. A degenerate dataset is defined as one with
@@ -586,14 +658,14 @@
 #' 
 #' @format A list with 8 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1, 1, 1:15, 1], of false positives, FPs}
-#' \item{\code{LL}}{ Ratings array [1, 1, 1:10, 1], of true positives, TPs}
-#' \item{\code{lesionVector}}{ array [1:10], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{ array [1:10, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{ array [1:10, 1], weights (or clinical importance) of lesions, all set to 1}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ "1", treatment label}
-#' \item{\code{readerID}}{ "1", reader label}
+#' \item{\code{NL}}{, num [1, 1, 1:15, 1], ratings of false positives, FPs}
+#' \item{\code{LL}}{, num [1, 1, 1:10, 1], ratings of true positives, TPs}
+#' \item{\code{lesionVector}}{, int [1:10], number of lesions per diseased case, all set to 1}
+#' \item{\code{lesionID}}{, num [1:10, 1], labels of lesions on diseased cases, all set to 1}
+#' \item{\code{lesionWeight}}{, num [1:10, 1], weights (or clinical importances) of lesions, all set to 1}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr "1", treatment label}
+#' \item{\code{readerID}}{, chr "1", reader label}
 #' }
 #'
 #' @keywords datasets
@@ -603,6 +675,7 @@
 #'
 #'
 "datasetDegenerate"
+#'
 #'
 #' 
 #' Binned dataset suitable for checking \code{\link{FitCorCbm}}; seed = 123
@@ -619,14 +692,14 @@
 #' 
 #' @format A list with 8 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1, 1:2, 1:10000, 1], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1, 1:2, 1:5000, 1], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:5000], number of lesions per diseased case, all set to one}
-#' \item{\code{lesionID}}{ array [1:5000, 1], lesions labels on diseased cases, all set to one}
-#' \item{\code{lesionWeight}}{ array [1:5000, 1], weights, all set to one}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ "1", treatment label}
-#' \item{\code{readerID}}{ [1:2] "1" "2",  reader labels}
+#' \item{\code{NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:5000], number of lesions per diseased case, all set to one}
+#' \item{\code{lesionID}}{, num [1:5000, 1], lesions labels on diseased cases, all set to one}
+#' \item{\code{lesionWeight}}{, num [1:5000, 1], weights, all set to one}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr "1", treatment label}
+#' \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -641,6 +714,7 @@
 "datasetBinned123"
 #'
 #'
+#'
 #' Binned dataset suitable for checking \code{\link{FitCorCbm}}; seed = 124
 #'
 #' A binned dataset suitable for analysis by \code{\link{FitCorCbm}}. It was generated by
@@ -649,14 +723,14 @@
 #' 
 #' @format A list with 8 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1, 1:2, 1:10000, 1], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1, 1:2, 1:5000, 1], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:5000], number of lesions per diseased case, all set to one}
-#' \item{\code{lesionID}}{ array [1:5000, 1], lesions labels on diseased cases, all set to one}
-#' \item{\code{lesionWeight}}{ array [1:5000, 1], weights, all set to one}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ "1", treatment label}
-#' \item{\code{readerID}}{ [1:2] "1" "2",  reader labels}
+#' \item{\code{NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:5000], number of lesions per diseased case, all set to one}
+#' \item{\code{lesionID}}{, num [1:5000, 1], lesions labels on diseased cases, all set to one}
+#' \item{\code{lesionWeight}}{, num [1:5000, 1], weights, all set to one}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr "1", treatment label}
+#' \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -670,6 +744,7 @@
 #'
 "datasetBinned124"
 #'
+#'
 #' 
 #' Binned dataset suitable for checking \code{\link{FitCorCbm}}; seed = 125
 #'
@@ -677,16 +752,16 @@
 #'    \code{\link{DfCreateCorCbmDataset}} by setting the \code{seed} variable to 125. 
 #'    Otherwise similar to \code{\link{datasetBinned123}}. 
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1, 1:2, 1:10000, 1], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1, 1:2, 1:5000, 1], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:5000], number of lesions per diseased case, all set to one}
-#' \item{\code{lesionID}}{ array [1:5000, 1], lesions labels on diseased cases, all set to one}
-#' \item{\code{lesionWeight}}{ array [1:5000, 1], weights, all set to one}
-#' \item{\code{dataType}}{ "ROC", the data type}
-#' \item{\code{modalityID}}{ "1", treatment label}
-#' \item{\code{readerID}}{ [1:2] "1" "2",  reader labels}
+#' \item{\code{NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:5000], number of lesions per diseased case, all set to one}
+#' \item{\code{lesionID}}{, num [1:5000, 1], lesions labels on diseased cases, all set to one}
+#' \item{\code{lesionWeight}}{, num [1:5000, 1], weights, all set to one}
+#' \item{\code{dataType}}{, chr "ROC", the data type}
+#' \item{\code{modalityID}}{, chr "1", treatment label}
+#' \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -701,6 +776,7 @@
 "datasetBinned125"
 #'
 #'
+#'
 #' 
 #' Simulated FROC CAD vs. RAD dataset
 #'
@@ -708,16 +784,16 @@
 #'    from datasetCadLroc using SimulateFrocFromLrocData.R. 
 #'    
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 12 elements:
 #' \itemize{
-#' \item{\code{NL}}{ Ratings array [1, 1:10, 1:200, 1], of non-lesion localizations, NLs}
-#' \item{\code{LL}}{ Ratings array [1, 1:10, 1:80, 1], of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{ array [1:80], number of lesions per diseased case, all set to one}
-#' \item{\code{lesionID}}{ array [1:80, 1], lesions labels on diseased cases, all set to one}
-#' \item{\code{lesionWeight}}{ array [1:80, 1], weights, all set to one}
-#' \item{\code{dataType}}{ "FROC", the data type}
-#' \item{\code{modalityID}}{ "1", treatment label}
-#' \item{\code{readerID}}{ [1:10] "1" "2",  reader labels}
+#' \item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1, 1:10, 1:80, 1], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:80], number of lesions per diseased case, all set to one}
+#' \item{\code{lesionID}}{, num [1:80, 1], lesions labels on diseased cases, all set to one}
+#' \item{\code{lesionWeight}}{, num [1:80, 1], weights, all set to one}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
+#' \item{\code{modalityID}}{, chr "1", treatment label}
+#' \item{\code{readerID}}{, chr [1:10] "1" "2",  reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -728,6 +804,41 @@
 "datasetCadSimuFroc"
 #'
 #'
+#'
+#' Simulated FROC SPLIT-PLOT dataset
+#'
+#' Simulated from FED Excel dataset by successively ignoring readers 3:4, c(1,3:4), 
+#' c(1:2,4), etc.
+#' created simulated split plot Excel dataset from Fed dataset: 
+#' confirmed it is read without error 
+#'    
+#' 
+#' @format A list with 12 elements:
+#' \itemize{
+#' \item{\code{NL}}{, num [1:2, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
+#' \item{\code{LL}}{, num [1:2, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{lesionVector}}{, int [1:100], number of lesions per diseased case, all set to one}
+#' \item{\code{lesionID}}{, num [1:100, 3], lesions labels on diseased cases, all set to one}
+#' \item{\code{lesionWeight}}{, num [1:100, 3], weights, all set to one}
+#' \item{\code{dataType}}{, chr "FROC", the data type}
+#' \item{\code{modalityID}}{, chr [1:2] "4" "5", treatment label}
+#' \item{\code{readerID}}{, chr [1:4] "1" "3" "4" "5",  reader labels}
+#' \item{\code{design}}{, chr "SPLIT-PLOT, study design}
+#' \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104  ..., normal case labels}
+#' \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5  ..., abnormal case labels}
+#' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:200, 1:4] 1 1 NA NA NA ..., truth table structure}
+#' }
+#'
+#' @keywords datasets
+#'
+#' @examples
+#' str(datasetFROCSp)
+#'
+"datasetFROCSp"
+#'
+#'
+#'
+
 
 
 

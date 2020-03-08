@@ -29,8 +29,27 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   msArray <- c(msArray, NA)
   dfArray <- c(dfArray, sum(dfArray))
   ssArray <- c(ssArray, sum(ssArray))
+  # This was the source of the problems I was having in test-St.R, where I had
+  # to resort to skipping the test on mac for context("SignificanceTestingAllCombinations")
+  # Here is the fix
+  # original code:
+  # sourceArray <- c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total")
+  # anovaY <- data.frame(Source = sourceArray, 
+  #                      SS = ssArray, 
+  #                      DF = dfArray, 
+  #                      MS = msArray, 
+  #                      stringsAsFactors = TRUE)
+  #
+  # this is the fix 3/7/20
+  # New code:
   sourceArray <- c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total")
-  anovaY <- data.frame(Source = sourceArray, SS = ssArray, DF = dfArray, MS = msArray)
+  anovaY <- data.frame(sourceArray, 
+                       SS = ssArray, 
+                       DF = dfArray, 
+                       MS = msArray, 
+                       row.names = NULL,
+                       stringsAsFactors = TRUE)
+  colnames(anovaY) <- c("Source", "SS", "DF", "MS")
   
   msRSingle <- array(0, dim = c(I))
   msCSingle <- array(0, dim = c(I))
@@ -56,7 +75,10 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   sourceArraySingle <- c("R", "C", "RC")
   dfArraySingle <- c(J - 1, K - 1, (J - 1) * (K - 1))
   msArraySingle <- t(cbind(msRSingle, msCSingle, msRCSingle))
-  anovaYi <- data.frame(sourceArraySingle, dfArraySingle, msArraySingle, row.names = NULL)
+  anovaYi <- data.frame(sourceArraySingle, 
+                        dfArraySingle, 
+                        msArraySingle, 
+                        row.names = NULL, stringsAsFactors = TRUE)
   colnames(anovaYi) <- c("Source", "DF", paste0("Trt", sep = "", modalityID))
   
   diffTRMeans <- array(dim = choose(I, 2))
@@ -103,7 +125,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                 t = tStat, 
                                 PrGTt = PrGTt, # renamed this consistently
                                 CILower = CIRRRC[,1],  # instead of adding CIRRC and then using a names() to split out the two values
-                                CIUpper = CIRRRC[,2]) # do:
+                                CIUpper = CIRRRC[,2], stringsAsFactors = TRUE) # do:
     dfSingleRRRC <- array(dim = I)
     msDenSingleRRRC <- array(dim = I)
     stdErrSingleRRRC <- array(dim = I)
@@ -122,7 +144,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                       DF = as.vector(dfSingleRRRC),  # this was the critical fix, Peter
                                       CILower = CISingleRRRC[,1], 
                                       CIUpper = CISingleRRRC[,2], 
-                                      row.names = NULL)
+                                      row.names = NULL, stringsAsFactors = TRUE)
     if (option == "RRRC")
       return(list(
         fomArray = fomArray, 
@@ -162,7 +184,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                 t = tStat, 
                                 PrGTt = PrGTt, 
                                 CILower = CIFRRC[,1], 
-                                CIUpper = CIFRRC[,2])
+                                CIUpper = CIFRRC[,2], stringsAsFactors = TRUE)
     
     dfSingleFRRC <- array(dim = I)
     msDenSingleFRRC <- array(dim = I)
@@ -180,7 +202,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                       DF = as.vector(dfSingleFRRC), 
                                       CILower = CISingleFRRC[,1], 
                                       CIUpper = CISingleFRRC[,2], 
-                                      row.names = NULL)
+                                      row.names = NULL, stringsAsFactors = TRUE)
     ssTFRRC <- array(0, dim = c(J))
     ssCFRRC <- array(0, dim = c(J))
     ssTCFRRC <- array(0, dim = c(J))
@@ -207,7 +229,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     
     msArrayFRRC <- ssArrayFRRC
     for (n in 1:3) msArrayFRRC[n, ] <- ssArrayFRRC[n, ]/dfArrayFRRC[n]
-    msAnovaEachRdrFRRC <- data.frame(sourceArrayFRRC, dfArrayFRRC, msArrayFRRC, row.names = NULL)
+    msAnovaEachRdrFRRC <- data.frame(sourceArrayFRRC, dfArrayFRRC, msArrayFRRC, row.names = NULL, stringsAsFactors = TRUE)
     colnames(msAnovaEachRdrFRRC) <- c("Source", "DF", paste0("Rdr", sep = "", readerID))
     
     diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
@@ -248,7 +270,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                        t = tStat, 
                                        PrGTt = PrGTt, 
                                        CILower = CIReaderFRRC[,1],
-                                       CIUpper = CIReaderFRRC[,2])
+                                       CIUpper = CIReaderFRRC[,2], stringsAsFactors = TRUE)
     if (option == "FRRC")
       return(list(
         fomArray = fomArray, 
@@ -290,7 +312,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                 t = tStat, 
                                 PrGTt = PrGTt, 
                                 CILower = CIRRFC[,1],
-                                CIUpper = CIRRFC[,2])
+                                CIUpper = CIRRFC[,2], stringsAsFactors = TRUE)
     dfSingleRRFC <- array(dim = I)
     msDenSingleRRFC <- array(dim = I)
     stdErrSingleRRFC <- array(dim = I)
@@ -307,7 +329,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                       DF = as.vector(dfSingleRRFC), 
                                       CILower = CISingleRRFC[,1], 
                                       CIUpper = CISingleRRFC[,2], 
-                                      row.names = NULL)
+                                      row.names = NULL, stringsAsFactors = TRUE)
     
     if (option == "RRFC")
       return(list(

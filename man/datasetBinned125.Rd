@@ -4,16 +4,16 @@
 \name{datasetBinned125}
 \alias{datasetBinned125}
 \title{Binned dataset suitable for checking \code{\link{FitCorCbm}}; seed = 125}
-\format{A list with 8 elements:
+\format{A list with 12 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1, 1:2, 1:10000, 1], of non-lesion localizations, NLs}
-\item{\code{LL}}{ Ratings array [1, 1:2, 1:5000, 1], of lesion localizations, LLs}
-\item{\code{lesionVector}}{ array [1:5000], number of lesions per diseased case, all set to one}
-\item{\code{lesionID}}{ array [1:5000, 1], lesions labels on diseased cases, all set to one}
-\item{\code{lesionWeight}}{ array [1:5000, 1], weights, all set to one}
-\item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ "1", treatment label}
-\item{\code{readerID}}{ [1:2] "1" "2",  reader labels}
+\item{\code{NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
+\item{\code{LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
+\item{\code{lesionVector}}{, int [1:5000], number of lesions per diseased case, all set to one}
+\item{\code{lesionID}}{, num [1:5000, 1], lesions labels on diseased cases, all set to one}
+\item{\code{lesionWeight}}{, num [1:5000, 1], weights, all set to one}
+\item{\code{dataType}}{, chr "ROC", the data type}
+\item{\code{modalityID}}{, chr "1", treatment label}
+\item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
 }}
 \usage{
 datasetBinned125

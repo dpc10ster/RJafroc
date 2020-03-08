@@ -31,7 +31,7 @@ alpha <- 0.05
 rocData <- dataset02 ##"VanDyke.lrc"
 #fileName <- dataset03 ## "Franken1.lrc"
 retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "DBMH") 
-varYTR <- retDbm$varComp$varComp[3];varYTC <- retDbm$varComp$varComp[4];varYEps <- retDbm$varComp$varComp[6]
+varYTR <- retDbm$varComp$varTR;varYTC <- retDbm$varComp$varTC;varYEps <- retDbm$varComp$varErr
 effectSize <- retDbm$ciDiffTrtRRRC$Estimate
 ````
 
@@ -44,7 +44,7 @@ retDbm$varComp
 For example, the treatment-reader pseudovalue variance component is the third element of `retDbm$varComp`. 
 
 ### Random reader random case (RRRC)
-This illustrates random reader random case sample size estimation. Assumed are 10 readers and 163 cases `r J <- 10; K <- 163` in the pivotal study. The non-centrality parameter is defined by:
+This illustrates random reader random case sample size estimation. Assumed are 10 readers and 163 cases in the pivotal study. The non-centrality parameter is defined by:
 
 \[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\left( \sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2} \right)+K\sigma _{Y;\tau R}^{2}+J\max \left( \sigma _{Y;\tau C}^{2},0 \right)}\]
 
@@ -59,6 +59,7 @@ where `d` is the observed effect size, i.e., `effectSize`. The formulae for calc
 
 ```{r}
 #RRRC
+J <- 10;K <- 163
 ncp <- (0.5*J*K*(effectSize)^2)/(K*varYTR+max(J*varYTC,0)+varYEps)
 MS <- UtilMeanSquares(rocData, FOM = "Wilcoxon", method = "DBMH")
 ddf <- (MS$msTR+max(MS$msTC-MS$msTRC,0))^2/(MS$msTR^2)*(J-1)

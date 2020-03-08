@@ -24,39 +24,52 @@ vignette: >
 * The purpose of this vignette is to explain the data format of the input Excel file and to introduce the capabilities of the function `DfReadDataFile()`. Background on observer performance methods are in my book [@RN2680].
 * I will start with Receiver Operating Characteristic (ROC) data [@RN1766] as this is by far the simplest paradigm.
 * In the ROC paradigm the observer assigns a rating to each image. A rating is an ordered numeric label, and, in our convention, higher values represent greater certainty or **confidence level** for presence of disease. With human observers, a 5 (or 6) point rating scale is typically used, with 1 representing highest confidence for *absence* of disease and 5 (or 6) representing highest confidence for *presence* of disease. Intermediate values represent intermediate confidence levels for presence or absence of disease. 
-* Note that location information, if applicable, associated with the disease, is not collected. 
+* Note that location information associated with the disease, if applicable, is not collected. 
 * There is no restriction to 5 or 6 ratings. With algorithmic observers, e.g., computer aided detection (CAD) algorithms, the rating could be a floating point number and have infinite precision. All that is required is that higher values correspond to greater confidence in presence of disease.
 
 ## Note to existing users
-* The Excel file format has recently undergone changes resulting in 4 extra `list` members in the final created `dataset` object (12 instead of 8). 
-* Code which should ran on the old format Excel files as the 4 extra list members are simply ignored. 
-* Reasons for the change will become clearer in these vignettes (basically they are needed for generalization to other data collection paradigms instead of crossed, for example to split-plot data acquisition paradigm) and for better data entry error control.
+* The Excel file format has recently undergone changes resulting in 4 extra `list` members in the final created `dataset` object (i.e., 12 members instead of 8). 
+* Code should run on the old format Excel files as the 4 extra list members are simply ignored. 
+* Reasons for the change will become clearer in these vignettes
+* Basically they are needed for generalization to other data collection paradigms instead of crossed, for example to the split-plot data acquisition paradigm, and for better data entry error control.
 
 
 ## The Excel data format
-* The Excel file has three worksheets. These are named `Truth`, `NL` (or `FP`) and `LL` (or `TP`).
+* The Excel file has three worksheets. 
+* These are named 
+    + `Truth`, 
+    + `NL` (or `FP`), 
+    + `LL` (or `TP`).
+
+## Illustrative toy file
+* *Toy files* are artificial small datasets intended to illustrate essential features of the data format.  
+* The examples shown in this vignette corresponds to Excel file `inst/extdata/toyFiles/ROC/rocCr.xlsx` in the project directory. 
+* To view these files one needs to `clone` the source files from `GitHub`.
 
 ## The `Truth` worksheet 
-
-The `Truth` worksheet contains 6 columns: `CaseID`, `LesionID`, `Weight`, `ReaderID`, `ModalityID` and `Paradigm`. 
-
-* The first five columns contain as many rows as there are cases (images) in the dataset. 
-* `CaseID`: unique **integers**, one per case, representing the cases in the dataset. 
+* The `Truth` worksheet contains 6 columns: `CaseID`, `LesionID`, `Weight`, `ReaderID`, `ModalityID` and `Paradigm`. 
+* For ROC data the first five columns contain as many rows as there are cases (images) in the dataset. 
+* `CaseID`: unique integers, one per case, representing the cases in the dataset. 
 * `LesionID`: integers 0 or 1, with each 0 representing a non-diseased case and each 1 representing a diseased case. 
-* In the current toy dataset, the non-diseased cases are labeled `1`, `2` and `3`, while the diseased cases are labeled `70`, `71`, `72`, `73` and `74`. The values do not have to be consecutive integers; they need not be ordered; the only requirement is that they be **unique integers**.
+* In the current toy dataset, the non-diseased cases are labeled `1`, `2` and `3`, while the diseased cases are labeled `70`, `71`, `72`, `73` and `74`. The values do not have to be consecutive integers; they need not be ordered; the only requirement is that they be **unique**.
 * `Weight`: Not used for ROC data, a floating point value, typically filled in with 0 or 1. 
-* `ReaderID`: a **comma-separated** listing of reader labels (one or more readers), each represented by a **unique integer**, that have interpreted the case. In the example shown below each cell has the value `0, 1, 2, 3, 4` meaning that each of these readers has interpreted all cases (hence the "crossed" design). **With multiple readers each cell in this column has to be text formatted as otherwise Excel will not accept it.**
-* `ModalityID`: a comma-separated listing of modalities (one or more modalities), each represented by a **unique integer**, that are applied to each case. In the example each cell has the value `0, 1`. **With multiple modalities each cell has to be text formatted as otherwise Excel will not accept it.**
+* `ReaderID`: a **comma-separated** listing of reader labels, each represented by a **unique string**, that have interpreted the case. In the example shown below each cell has the value `0, 1, 2, 3, 4` meaning that each of the readers, represented by the strings "0", "1", "2", "3" and "4", have interpreted all cases (hence the "crossed" design). **With reader names that could be confused with integers, each cell in this column has to be text formatted as otherwise Excel will not accept it.** [Try entering `0, 1, 2, 3, 4` in a numeric formatted Excel cell.]
+* The reader names could just as well have been `Rdr0, Rdr1, Rdr2, Rdr3, Rdr4`. The only requirement is that they be unique strings.
+* Look in in the `inst/extdata/toyFiles/ROC` directory for files `rocCrStrRdrsTrts.xlsx` and `rocCrStrRdrsNonUnique.xlsx` for examples of data files using longer strings for readers. The second file generates an error because the reader names are not unique. 
+* `ModalityID`: a comma-separated listing of modalities (one or more modalities), each represented by a **unique string**, that are applied to each case. In the example each cell has the value `"0", "1"`. **With treatment names that could be confused with integers, each cell has to be text formatted as otherwise Excel will not accept it.**
+* The treatment names could just as well have been `Trt0, Trt1`. Again, the only requirement is that they be unique strings.
 * `Paradigm`: this column contains two cells, `ROC` and `crossed`. It informs the software that this is an ROC dataset, and the design is crossed, meaning each reader has interpreted each case in each modality (in statistical terminology: modality and reader factors are "crossed"). 
 * There are 5 diseased cases in the dataset (the number of 1's in the `LesionID` column of the `Truth` worksheet). 
 * There are 3 non-diseased cases in the dataset (the number of 0's in the `LesionID` column).
 * There are 5 readers in the dataset (each cell in the `ReaderID` column contains the string `0, 1, 2, 3, 4`).
 * There are 2 modalities in the dataset (each cell in the `ModalityID` column contains the string `0, 1`).
 
-![](images/rocCrTruth.png){width=100%}
+```{r, echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1 Truth worksheet for file rocCr.xlsx",fig.show='hold',fig.align='center'}
+knitr::include_graphics("images/rocCrTruth.png")
+``` 
 
 ## The structure of an ROC dataset
-The example shown above corresponds to Excel file `inst/extdata/toyFiles/ROC/rocCr.xlsx` in the project directory. *Toy files* are artificial small datasets intended to illustrate essential features of the data format.  In the following code chunk the first statement retrieves the name of the data file, located in a hidden directory that one need not be concerned with. The second statement reads the file using the function `DfReadDataFile()` and saves it to object `x`. The third statement shows the structure of the dataset object `x`.
+In the following code chunk the first statement retrieves the name of the data file, located in a hidden directory that one need not be concerned with. The second statement reads the file using the function `DfReadDataFile()` and saves it to object `x`. The third statement shows the structure of the dataset object `x`.
 
 ```{r}
 rocCr <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",
@@ -68,7 +81,7 @@ str(x)
 * In the above code chunk flag `newExcelFileFormat` is set to `TRUE` as otherwise columns D - F in the `Truth` worksheet are ignored and the dataset is assumed to be crossed, with `dataType` automatically determined from the contents of the FP and TP worksheets. 
 * Flag `newExcelFileFormat = FALSE` is for compatibility with older JAFROC format Excel files, which did not have these columns in the `Truth` worksheet. Its usage is deprecated.
 * The dataset object `x` is a `list` variable with `r length(x)` members. 
-* The `x$NL` member, with dimension [2, 5, 8, 1], contains the ratings of normal cases. The extra values in the third dimension, filled with `NAs`, are needed for compatibility with FROC datasets.
+* The `x$NL` member, with dimension [2, 5, 8, 1], contains the ratings of normal cases. The extra values in the third dimension, filled with `NAs`, are needed for compatibility with FROC datasets, as unlike ROC, false positives are possible on diseased cases.
 * The `x$LL`, with dimension [2, 5, 5, 1], contains the ratings of abnormal cases.
 * The `x$lesionVector` member is a vector with 5 ones representing the 5 diseased cases in the dataset. 
 * The `x$lesionID` member is an array with 5 ones.
@@ -80,11 +93,14 @@ str(x)
 * The `x$design` member is `r x$design`; specifies the dataset design, which is "CROSSED".
 * The `x$normalCases` member lists the integer names of the normal cases, `r x$normalCases`. 
 * The `x$abnormalCases` member lists the integer names of the abnormal cases, `r x$abnormalCases`. 
-* The `x$truthTableStr` member quantifies the structure of the dataset, as explained in **Vignette #3**. **It is used in the `DfReadDataFile()` function to check for data entry errors.**
+* The `x$truthTableStr` member quantifies the structure of the dataset, as explained in **Chapter 00 Vignette #3-#5**.
 
 ## The false positive (FP) ratings
 These are found in the `FP` or `NL` worksheet, see below.
-![](images/rocCrFp.png){width=100%}
+
+```{r, echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1 FP worksheet for file rocCr.xlsx",fig.show='hold',fig.align='center'}
+knitr::include_graphics("images/rocCrFp.png")
+``` 
 
 * It consists of 4 columns, each of length 30 (= # of modalities times number of readers times number of non-diseased cases). 
 * `ReaderID`: the reader labels: `0`, `1`, `2`, `3` and `4`. Each reader label occurs 6 times (= # of modalities times number of non-diseased cases). 
@@ -95,7 +111,10 @@ These are found in the `FP` or `NL` worksheet, see below.
 
 ## The true positive (TP) ratings
 These are found in the `TP` or `LL` worksheet, see below.
-![](images/rocCrTp.png){width=100%}
+
+```{r, echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1 TP worksheet for file rocCr.xlsx",fig.show='hold',fig.align='center'}
+knitr::include_graphics("images/rocCrTp.png")
+``` 
 
 * It consists of 5 columns, each of length 50 (= # of modalities times number of readers times number of diseased cases). 
 * `ReaderID`: the reader labels: `0`, `1`, `2`, `3` and `4`. Each reader label occurs 10 times (= # of modalities times number of diseased cases). 
@@ -126,12 +145,13 @@ These are found in the `TP` or `LL` worksheet, see below.
 * There are no -Inf values in `x$LL`: `any(x$LL == -Inf)` = `r any(x$LL == -Inf)`.
 
 ## Correspondence using the `which` function 
-* Converting from **names** to integer-indices (indicating position in an array) can be confusing. 
+* Converting from **names** to **subscripts** (indicating position in an array) can be confusing. 
 * The following example uses the `which` function to help out.
-* The first line says that the `abnormalCase` named 70 corresponds to position (or index) 1 in the LL array case dimension. 
-* The second line prints the NL rating for `modalityID` = 0, `readerID` = 1 and `normalCase` = 1.
-* The third line prints the LL rating for `modalityID` = 0, `readerID` = 1 and `abnormalCase` = 70.
-* The last line shows what happens if one enters an invalid value for the name; the result is a `numeric(0)`.
+* The first line says that the `abnormalCase` named 70 corresponds to subscript 1 in the LL array case dimension. 
+* The second line prints the NL rating for `modalityID` = 0, `readerID` = 1 and `normalCases` = 1.
+* The third line prints the LL rating for `modalityID` = 0, `readerID` = 1 and `abnormalCases` = 70.
+* The last line shows what happens if one enters an invalid value for name; the result is a `numeric(0)`.
+* Note that in each of these examples, the last dimension is 1 because we are dealing with an ROC dataset. 
 * The reader is encouraged to examine the correspondence between the NL and LL ratings and the Excel file using this method.
 
 ```{r}
@@ -140,16 +160,5 @@ x$NL[which(x$modalityID == "0"),which(x$readerID == "1"),which(x$normalCases == 
 x$LL[which(x$modalityID == "0"),which(x$readerID == "1"),which(x$abnormalCases == 70),1]
 x$LL[which(x$modalityID == "a"),which(x$readerID == "1"),which(x$abnormalCases == 70),1]
 ```             
-
-
-## A single reader dataset 
-
-```{r}
-rocCr1R <- system.file("extdata", "toyFiles/ROC/rocCr1R.xlsx",
-                        package = "RJafroc", mustWork = TRUE)
-x <- DfReadDataFile(rocCr1R, newExcelFileFormat = TRUE)
-str(x)
-```             
-
 
 ## References  

@@ -4,16 +4,20 @@
 \name{dataset09}
 \alias{dataset09}
 \title{Nico Karssemeijer ROC dataset (CAD vs. radiologists)}
-\format{A list with 8 elements:
+\format{A list with 12 elements:
 \itemize{
-\item{\code{NL}}{ Ratings array [1, 1:10, 1:200, 1], of false positives, FPs}
-\item{\code{LL}}{ Ratings array [1, 1:10, 1:80, 1], of true positives, TPs}
-\item{\code{lesionVector}}{ array [1:80], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{ array [1:80, 1], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{ array [1:80, 1], weights (or clinical importance) of lesions, all set to 1}
-\item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ [1] "1" treatment label}
-\item{\code{readerID}}{ [1:10] "1" "2" ..., reader labels}
+\item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of false positives, FPs}
+\item{\code{LL}}{, num [1, 1:10, 1:80, 1], ratings of true positives, TPs}
+\item{\code{lesionVector}}{, int [1:80], number of lesions per diseased case, all set to 1}
+\item{\code{lesionID}}{, num [1:80, 1], labels of lesions on diseased cases, all set to 1}
+\item{\code{lesionWeight}}{, num [1:80, 1], weights (or clinical importances) of lesions, all set to 1}
+\item{\code{dataType}}{, chr "ROC", the data type}
+\item{\code{modalityID}}{, chr [1] "1" treatment label}
+\item{\code{readerID}}{, chr [1:10] "1" "2" ..., reader labels}
+\item{\code{design}}{, "CROSSED", study design}
+\item{\code{normalCases}}{, int [1:120] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
+\item{\code{abnormalCases}}{, int [1:80] 121 122 123 124 125 126 127 128 129 130 ..., abnormal case labels}
+\item{\code{truthTableStr}}{, num [1, 1:10, 1:200, 1:2] 1 1 1 1 1 1 ..., truth table structure}
 }}
 \usage{
 dataset09
@@ -22,10 +26,10 @@ dataset09
 This is referred to in the book as the "NICO" dataset. It consists of 200 mammograms, 
 80 of which contain one malignant mass, 
 interpreted by a CAD system and nine radiologists using the 
-LROC paradigm. The first reader is CAD. The highest rating method was used to convert this to an ROC 
-dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this \strong{one-treatment}
-data requires methods described in the book, specifically, the function  
-\code{\link{StSignificanceTestingSingleFixedFactor}} analyzes such datasets.
+LROC paradigm. The first reader is CAD. The highest rating was used to convert this to an ROC 
+dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this 
+data requires methods described in the book, implemented in the function  
+\code{\link{StSignificanceTestingCadVsRadiologists}}.
 }
 \examples{
 str(dataset09)

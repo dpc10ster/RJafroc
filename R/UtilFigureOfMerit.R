@@ -13,24 +13,25 @@
 #'    treatments and column names are the \code{readerID}'s of the readers.
 #' 
 #' @details The allowed FOMs depend on the \code{dataType} field of the 
-#'    \code{dataset} object.
+#'    \code{dataset} object.  
 #' 
-#'    For a \strong{\code{dataType = "ROC" dataset} only \code{FOM = "Wilcoxon"} is allowed}.
-#'    
-#'    For a \strong{\code{dataType = "FROC"}} dataset the following FOMs are allowed:
+#'    \strong{For \code{dataset$design = "SPLIT-PLOT"}, end-point based 
+#'    FOMs (e.g., "MaxLLF") are not allowed}.
+#'    \strong{For \code{dataset$dataType = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
+#'    \strong{For \code{dataset$dataType = "FROC"} the following FOMs are allowed}:
 #'    \itemize{ 
-#'    \item \code{FOM = "AFROC1"} 
+#'    \item \code{FOM = "AFROC1"} (use only if zero normal cases)
 #'    \item \code{FOM = "AFROC"} 
-#'    \item \code{FOM = "wAFROC1"} 
+#'    \item \code{FOM = "wAFROC1"} (use only if zero normal cases)
 #'    \item \code{FOM = "wAFROC"} (the default) 
 #'    \item \code{FOM = "HrAuc"} 
 #'    \item \code{FOM = "SongA1"} 
 #'    \item \code{FOM = "SongA2"}  
-#'    \item \code{FOM = "HrSe"} 
-#'    \item \code{FOM = "HrSp"} 
-#'    \item \code{FOM = "MaxLLF"} 
-#'    \item \code{FOM = "MaxNLF"} 
-#'    \item \code{FOM = "MaxNLFAllCases"} 
+#'    \item \code{FOM = "HrSe"} (an example of an end-point based FOM)
+#'    \item \code{FOM = "HrSp"} (another example)
+#'    \item \code{FOM = "MaxLLF"} (do:)
+#'    \item \code{FOM = "MaxNLF"} (do:)
+#'    \item \code{FOM = "MaxNLFAllCases"} (do:) 
 #'    \item \code{FOM = "ExpTrnsfmSp"}  
 #'    } 
 #'    \code{"MaxLLF"}, \code{"MaxNLF"} and \code{"MaxNLFAllCases"}
@@ -38,11 +39,12 @@
 #'    on the FROC operating characteristic obtained by counting all the marks. 
 #'    The \code{"ExpTrnsfmSp"} FOM is described in the paper by Popescu. 
 #'    Given the large number of FOMs possible with FROC data, it is appropriate 
-#'    to make a recommendation: \strong{it is recommended that one use the wAFROC FOM.}
+#'    to make a recommendation: \strong{it is recommended that one use the wAFROC FOM
+#'    whenever possible.}
 #'    
-#'    For a \strong{\code{dataType = "ROI"} dataset only \code{FOM = "ROI"} is allowed}.
+#'    For \strong{\code{dataType = "ROI"} dataset only \code{FOM = "ROI"} is allowed}.
 #'    
-#'    For a \strong{\code{dataType = "LROC"}} dataset the following FOMs are allowed:
+#'    For \strong{\code{dataType = "LROC"}} dataset the following FOMs are allowed:
 #'    \itemize{
 #'    \item \code{FOM = "Wilcoxon"} for ROC data inferred from LROC data 
 #'    \item \code{FOM = "PCL"} the probability of correct localization at specified \code{FPFValue}
@@ -85,11 +87,12 @@
 #' Swensson RG (1996) Unified measurement of observer performance in detecting and localizing target objects on images, 
 #' Med Phys 23:10, 1709--1725.
 
-#' @import dplyr  
+#' @importFrom dplyr between  
 #' @export
 
+# v.1.3.1.9000: added SPLIT-PLOT capability 
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
-  
+
   dataType <- dataset$dataType
   if (dataType == "ROC" && FOM != "Wilcoxon") {
     errMsg <- paste0("Must use Wilcoxon figure of merit with ROC data.")
@@ -130,11 +133,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
           LL <- dataset$LLCl
         } else stop("incorrect FOM for LROC data")
       }
-      # NL <- dataset$NL # this code was incorrect 10/25/29
-      # LL <- dataset$LLCl # this code was incorrect 10/25/29
-      ##fomArray <- lroc2fomMrmc (dataset, FOM, FPFValue)
     } else stop("Incorrect FOM specified for LROC data")
-    #return(fomArray)
   } else {
     NL <- dataset$NL
     LL <- dataset$LL
@@ -150,22 +149,44 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     errMsg <- paste0("Only FOM_AFROC1 or FOM_wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
     stop(errMsg)
   }
+
+  if (length(dataset) == 12) {
+    design <- dataset$design
+    t <- dataset$truthTableStr
+  } else if (length(dataset) %in% c(8,9)) {
+    design <- "CROSSED"
+  } 
   
-  lesionVector <- dataset$lesionVector
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   fomArray <- array(dim = c(I, J))
   for (i in 1:I) {
     for (j in 1:J) {
-      nl <- NL[i, j, , ]
-      ll <- LL[i, j, , ]
-      dim(nl) <- c(K, maxNL)
-      dim(ll) <- c(K2, max(lesionVector))
-      fomArray[i, j] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
+      if (design == "SPLIT-PLOT") {
+        k1_j_sub <- !is.na(t[1,j,,1]) | !is.na(t[1,j,,2])
+        k2_j_sub <- !is.na(t[1,j,,2])[(K1+1):K]
+        nl_j <- NL[i, j, k1_j_sub, ]
+        lV_j <- dataset$lesionVector[k2_j_sub]
+        maxLL_j <- max(lV_j)
+        ll_j <- LL[i, j, k2_j_sub, 1:maxLL_j]
+        k1j <- sum(!is.na(t[1,j,,1]))
+        k2j <- sum(!is.na(t[1,j,,2]))
+        lID_j <- dataset$lesionID[k2_j_sub,1:maxLL_j, drop = FALSE]
+        lW_j <- dataset$lesionWeight[k2_j_sub,1:maxLL_j, drop = FALSE]
+        dim(nl_j) <- c(k1j+k2j, maxNL)
+        dim(ll_j) <- c(k2j, maxLL_j)
+        fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1j, k2j, FOM, FPFValue)
+        next
+      } else if (design == "CROSSED"){
+        nl_j <- NL[i, j, , ]
+        ll_j <- LL[i, j, , ]
+        dim(nl_j) <- c(K, maxNL)
+        dim(ll_j) <- c(K2, maxLL)
+        fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, dataset$lesionVector, dataset$lesionID, dataset$lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
+      } else stop("Incorrect design, must be SPLIT-PLOT or CROSSED")
     }
   }
+  
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   rownames(fomArray) <- paste("Trt", sep = "", modalityID)
@@ -173,21 +194,4 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   return(fomArray)
 } 
 
-
-Wilcoxon <- function (zk1, zk2)
-{
-  
-  K1 = length(zk1)
-  K2 = length(zk2)
-  
-  W <- 0
-  for (k1 in 1:K1) {
-    W <- W + sum(zk1[k1] < zk2)
-    W <- W + 0.5 * sum(zk1[k1] == zk2)
-  }
-  W <- W/K1/K2
-  
-  return (W)
-  
-}
 
