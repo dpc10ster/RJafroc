@@ -54,9 +54,9 @@ The ROC data is bined to 5 bins in each condition.
 ## this gives unequal numbers of bins in X and Y conditions for 50/50 dataset
 dataset <- DfCreateCorCbmDataset()
 
-\dontrun{
+\donttest{
 ## this takes very long time!! used to show asymptotic convergence of ML estimates 
-dataset <- DfCreateCorCbmDataset(K1 = 5000, K2 = 5000)
+## dataset <- DfCreateCorCbmDataset(K1 = 5000, K2 = 5000)
 }
 
 

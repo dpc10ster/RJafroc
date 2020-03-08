@@ -23,7 +23,7 @@ The predicted ROC curve for each \code{mu} and \code{alpha} pair will be plotted
 }
 \examples{
 cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-print(cbmPlot)
+## print(cbmPlot)
 
 
 }

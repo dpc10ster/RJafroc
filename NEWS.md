@@ -2,6 +2,10 @@
 
 # See cran2/master branch for content (source-files, etc.) relating to this version 
 
+## After work on cran2-update work
+* Copied altered files from R directory (which commented out examples which were taking lots of CPU time)
+* Includes a correction on `Compare3ProperRocFits.R`
+
 ## Work post acceptance of v1.3.2, as of 3/7/20
 * Going back to work interrupted by having to fix the errors on R-devel, see next section below.
 * This is v1.3.2.9000

@@ -59,10 +59,10 @@ The procedure is valid for ROC studies only; for FROC studies see Online Appendi
 ## SsPowerTable 20.033  0.037  20.077    
 
 ## Example of sample size calculation with DBM method
-SsPowerTable(dataset02, FOM = "Wilcoxon", method = "DBMH")
+## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "DBMH")
 
 ## Example of sample size calculation with OR method
-SsPowerTable(dataset02, FOM = "Wilcoxon", method = "ORH")
+## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "ORH")
 }
  
 }

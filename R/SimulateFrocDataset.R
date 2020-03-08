@@ -31,7 +31,7 @@
 #'   
 #' ## plot the data
 #' ret <- PlotEmpiricalOperatingCharacteristics(frocDataRaw, opChType = "FROC")
-#' print(ret$Plot)
+#' ## print(ret$Plot)
 #' 
 #' @references 
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 

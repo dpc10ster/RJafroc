@@ -149,10 +149,10 @@
 #' ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
 #'    lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, 
 #'    legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
-#'    print(ret$ROCPlot)
-#'    print(ret$AFROCPlot)
-#'    print(ret$wAFROCPlot)
-#'    print(ret$FROCPlot)
+#'    ## print(ret$ROCPlot)
+#'    ## print(ret$AFROCPlot)
+#'    ## print(ret$wAFROCPlot)
+#'    ## print(ret$FROCPlot)
 #' ## the FROC plot ends at NLF = 0.5 because for both treatments the physical lambdas are 0.5.
 #' 
 #' @export

@@ -79,15 +79,15 @@
 #'
 #' retPlot <- PlotEmpiricalOperatingCharacteristics(dataset, 
 #' trts = seq(1,I), rdrs = seq(1,J), opChType = "ROC")
-#' print(retPlot$Plot)
+#' ## print(retPlot$Plot)
 #'
 #' retPlot <- PlotEmpiricalOperatingCharacteristics(dataset, 
 #' trts = seq(1,I), rdrs = seq(1,J), opChType = "FROC")
-#' print(retPlot$Plot)
+#' ## print(retPlot$Plot)
 #'
 #' retPlot <- PlotEmpiricalOperatingCharacteristics(dataset, 
 #' trts = seq(1,I), rdrs = seq(1,J), opChType = "AFROC")
-#' print(retPlot$Plot)
+#' ## print(retPlot$Plot)
 #'
 #' 
 #' 

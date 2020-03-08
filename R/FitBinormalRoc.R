@@ -38,34 +38,34 @@
 #' @examples
 #' \donttest{
 #' ## Test with an included ROC dataset
-#' retFit <- FitBinormalRoc(dataset02);print(retFit$fittedPlot)
+#' retFit <- FitBinormalRoc(dataset02);## print(retFit$fittedPlot)
 #' 
 #' 
 #' ## Test with an included FROC dataset; it needs to be binned
 #' ## as there are more than 5 discrete ratings levels
 #' binned <- DfBinDataset(dataset05, desiredNumBins = 5, opChType = "ROC")
-#' retFit <- FitBinormalRoc(binned);print(retFit$fittedPlot)
+#' retFit <- FitBinormalRoc(binned);## print(retFit$fittedPlot)
 #' 
 #' 
 #' ## Test with single interior point data
 #' fp <- c(rep(1,7), rep(2, 3))
 #' tp <- c(rep(1,5), rep(2, 5))
 #' dataset <- Df2RJafrocDataset(fp, tp)
-#' retFit <- FitBinormalRoc(dataset);print(retFit$fittedPlot)
+#' retFit <- FitBinormalRoc(dataset);## print(retFit$fittedPlot)
 #' 
 #' ## Test with two interior data points
 #' fp <- c(rep(1,7), rep(2, 5), rep(3, 3))
 #' tp <- c(rep(1,3), rep(2, 5), rep(3, 7))
 #' dataset <- Df2RJafrocDataset(fp, tp)
-#' retFit <- FitBinormalRoc(dataset);print(retFit$fittedPlot)
+#' retFit <- FitBinormalRoc(dataset);## print(retFit$fittedPlot)
 #'
 #' ## Test with TONY data for which chisqr can be calculated
 #' ds <- DfFroc2Roc(dataset01)
-#' retFit <- FitBinormalRoc(ds, 2, 3);print(retFit$fittedPlot)
+#' retFit <- FitBinormalRoc(ds, 2, 3);## print(retFit$fittedPlot)
 #' retFit$ChisqrFitStats
 #'  
 #' ## Test with included degenerate ROC data
-#' retFit <- FitBinormalRoc(datasetDegenerate);print(retFit$fittedPlot)
+#' retFit <- FitBinormalRoc(datasetDegenerate);## print(retFit$fittedPlot)
 #' }
 #' 
 #'  

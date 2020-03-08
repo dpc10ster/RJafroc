@@ -12,7 +12,7 @@
 #' 
 #' @examples 
 #' cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-#' print(cbmPlot)
+#' ## print(cbmPlot)
 #' 
 #' 
 #' @references 
