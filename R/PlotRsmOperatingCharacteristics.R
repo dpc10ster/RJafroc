@@ -46,8 +46,6 @@
 #'    dataset which enumerates the weights of lesions on individual cases. See 
 #'    \link{UtilLesionWeightsDistr}.
 #' 
-#'    \link{UtilLesionWeightsDistr}. 
-#' 
 #' @param  OpChType The type of operating characteristic desired: can be "\code{ROC}", 
 #'    "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or "\code{pdfs}" or "\code{ALL}". 
 #'    The default is "\code{ALL}".
@@ -166,6 +164,15 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
                                             legendJustification = c(0,1),
                                             nlfRange = NULL, llfRange = NULL, nlfAlpha = NULL,
                                             myNegInf = -3){
+  # fixing rjafroc 1.3.1 to 1.3.2
+  # The following line is, strictly speaking, not needed; it is for catching errors in calls
+  # to data.frame() or read.table() where the optional argument `stringsAsFactors = TRUE` is
+  # *NOT* passed *AND* an attempt to factorize a string is made which will result in an error; 
+  # in R version <= 3.6.2 this option was not needed, as `stringsAsFactors = TRUE` was the default, 
+  # but in version >= 4.0.0 the default is stringsAsFactors = FALSE, which necessitates explicit
+  # specification of the option; I think this is an improvement in base R
+  options(stringsAsFactors = FALSE) # check compatibility with new default for R 4.0.0
+  
   if (!all(c(length(mu) == length(lambda), length(mu) == length(nu))))
     stop("Parameters mu, lambda and nu have different lengths.")
   
@@ -230,7 +237,6 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   AFROCPlot <- NA
   wAFROCPlot <- NA
   PDFPlot <- NA
-  
   ROCPoints <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL)
   ROCDashes <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL)
   FROCPoints <- data.frame(NLF = NULL, LLF = NULL, Treatment = NULL)

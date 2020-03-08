@@ -48,48 +48,48 @@ test_that("Compare current to original code: DBMH", {
   }
   
   ##################################  diff and avg confidence intervals  #####################
-  orgciDiffTrtRRRC <- as.vector(unlist(orgValues$ciDiffTrtRRRC))[-1] # remove 0-1 vs trt0-trt1
-  newciDiffTrtRRRC <- as.vector(unlist(newValues$ciDiffTrtRRRC))[-1]
+  orgciDiffTrtRRRC <- as.vector(unlist(orgValues$ciDiffTrtRRRC[,-1])) 
+  newciDiffTrtRRRC <- as.vector(unlist(newValues$ciDiffTrtRRRC[,-1]))
   for (i in 1: length(orgciDiffTrtRRRC)){
     x <- orgciDiffTrtRRRC[i]
     y <- newciDiffTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  orgciAvgRdrEachTrtRRRC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtRRRC))[-1] # remove 0-1 vs trt0-trt1
-  newciAvgRdrEachTrtRRRC <- as.vector(unlist(newValues$ciAvgRdrEachTrtRRRC))[-1]
+  orgciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(orgValues$ciAvgRdrEachTrtRRRC)))[-(1:2)] # remove 0-1 vs trt0-trt1
+  newciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(newValues$ciAvgRdrEachTrtRRRC)))[-(1:2)]
   for (i in 1: length(orgciAvgRdrEachTrtRRRC)){
     x <- orgciAvgRdrEachTrtRRRC[i]
     y <- newciAvgRdrEachTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  orgciDiffTrtFRRC <- as.vector(unlist(orgValues$ciDiffTrtFRRC))[-1] # remove 0-1 vs trt0-trt1
-  newciDiffTrtFRRC <- as.vector(unlist(newValues$ciDiffTrtFRRC))[-1]
+  orgciDiffTrtFRRC <- as.numeric(as.vector(unlist(orgValues$ciDiffTrtFRRC))[-(1)]) # remove 0-1 vs trt0-trt1
+  newciDiffTrtFRRC <- as.numeric(as.vector(unlist(newValues$ciDiffTrtFRRC))[-(1)])
   for (i in 1: length(orgciDiffTrtFRRC)){
     x <- orgciDiffTrtFRRC[i]
     y <- newciDiffTrtFRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  orgciAvgRdrEachTrtFRRC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtFRRC))[-1] # remove 0-1 vs trt0-trt1
-  newciAvgRdrEachTrtFRRC <- as.vector(unlist(newValues$ciAvgRdrEachTrtFRRC))[-1]
+  orgciAvgRdrEachTrtFRRC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtFRRC[,-1]))  
+  newciAvgRdrEachTrtFRRC <- as.vector(unlist(newValues$ciAvgRdrEachTrtFRRC[,-1]))
   for (i in 1: length(orgciAvgRdrEachTrtFRRC)){
     x <- orgciAvgRdrEachTrtFRRC[i]
     y <- newciAvgRdrEachTrtFRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  orgciDiffTrtRRFC <- as.vector(unlist(orgValues$ciDiffTrtRRFC))[-1] # remove 0-1 vs trt0-trt1
-  newciDiffTrtRRFC <- as.vector(unlist(newValues$ciDiffTrtRRFC))[-1]
+  orgciDiffTrtRRFC <- as.vector(unlist(orgValues$ciDiffTrtRRFC[,-1]))
+  newciDiffTrtRRFC <- as.vector(unlist(newValues$ciDiffTrtRRFC[,-1]))
   for (i in 1: length(orgciDiffTrtRRFC)){
     x <- orgciDiffTrtRRFC[i]
     y <- newciDiffTrtRRFC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  orgciAvgRdrEachTrtRRFC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtRRFC))[-1] # remove 0-1 vs trt0-trt1
-  newciAvgRdrEachTrtRRFC <- as.vector(unlist(newValues$ciAvgRdrEachTrtRRFC))[-1]
+  orgciAvgRdrEachTrtRRFC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtRRFC[,-1]))
+  newciAvgRdrEachTrtRRFC <- as.vector(unlist(newValues$ciAvgRdrEachTrtRRFC[,-1]))
   for (i in 1: length(orgciAvgRdrEachTrtRRFC)){
     x <- orgciAvgRdrEachTrtRRFC[i]
     y <- newciAvgRdrEachTrtRRFC[i]
@@ -149,48 +149,48 @@ test_that("Compare current to original code: ORH", {
   }
   
   ##################################  diff and avg confidence intervals  #####################
-  orgciDiffTrtRRRC <- as.vector(unlist(orgValues$ciDiffTrtRRRC))[-1] # remove 0-1 vs trt0-trt1
-  newciDiffTrtRRRC <- as.vector(unlist(newValues$ciDiffTrtRRRC))[-1]
+  orgciDiffTrtRRRC <- as.vector(unlist(orgValues$ciDiffTrtRRRC[,-1]))
+  newciDiffTrtRRRC <- as.vector(unlist(newValues$ciDiffTrtRRRC[,-1]))
   for (i in 1: length(orgciDiffTrtRRRC)){
     x <- orgciDiffTrtRRRC[i]
     y <- newciDiffTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  orgciAvgRdrEachTrtRRRC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtRRRC))[-1] # remove 0-1 vs trt0-trt1
-  newciAvgRdrEachTrtRRRC <- as.vector(unlist(newValues$ciAvgRdrEachTrtRRRC))[-1]
+  orgciAvgRdrEachTrtRRRC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtRRRC[,-1]))
+  newciAvgRdrEachTrtRRRC <- as.vector(unlist(newValues$ciAvgRdrEachTrtRRRC[,-1]))
   for (i in 1: length(orgciAvgRdrEachTrtRRRC)){
     x <- orgciAvgRdrEachTrtRRRC[i]
     y <- newciAvgRdrEachTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  orgciDiffTrtFRRC <- as.vector(unlist(orgValues$ciDiffTrtFRRC))[-1] # remove 0-1 vs trt0-trt1
-  newciDiffTrtFRRC <- as.vector(unlist(newValues$ciDiffTrtFRRC))[-1]
+  orgciDiffTrtFRRC <- as.vector(unlist(orgValues$ciDiffTrtFRRC[,-1])) 
+  newciDiffTrtFRRC <- as.vector(unlist(newValues$ciDiffTrtFRRC[,-1]))
   for (i in 1: length(orgciDiffTrtFRRC)){
     x <- orgciDiffTrtFRRC[i]
     y <- newciDiffTrtFRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  orgciAvgRdrEachTrtFRRC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtFRRC))[-1] # remove 0-1 vs trt0-trt1
-  newciAvgRdrEachTrtFRRC <- as.vector(unlist(newValues$ciAvgRdrEachTrtFRRC))[-1]
+  orgciAvgRdrEachTrtFRRC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtFRRC[,-1]))
+  newciAvgRdrEachTrtFRRC <- as.vector(unlist(newValues$ciAvgRdrEachTrtFRRC[,-1]))
   for (i in 1: length(orgciAvgRdrEachTrtFRRC)){
     x <- orgciAvgRdrEachTrtFRRC[i]
     y <- newciAvgRdrEachTrtFRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  orgciDiffTrtRRFC <- as.vector(unlist(orgValues$ciDiffTrtRRFC))[-1] # remove 0-1 vs trt0-trt1
-  newciDiffTrtRRFC <- as.vector(unlist(newValues$ciDiffTrtRRFC))[-1]
+  orgciDiffTrtRRFC <- as.vector(unlist(orgValues$ciDiffTrtRRFC[,-1]))
+  newciDiffTrtRRFC <- as.vector(unlist(newValues$ciDiffTrtRRFC[,-1]))
   for (i in 1: length(orgciDiffTrtRRFC)){
     x <- orgciDiffTrtRRFC[i]
     y <- newciDiffTrtRRFC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  orgciAvgRdrEachTrtRRFC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtRRFC))[-1] # remove 0-1 vs trt0-trt1
-  newciAvgRdrEachTrtRRFC <- as.vector(unlist(newValues$ciAvgRdrEachTrtRRFC))[-1]
+  orgciAvgRdrEachTrtRRFC <- as.vector(unlist(orgValues$ciAvgRdrEachTrtRRFC[,-1]))
+  newciAvgRdrEachTrtRRFC <- as.vector(unlist(newValues$ciAvgRdrEachTrtRRFC[,-1]))
   for (i in 1: length(orgciAvgRdrEachTrtRRFC)){
     x <- orgciAvgRdrEachTrtRRFC[i]
     y <- newciAvgRdrEachTrtRRFC[i]

@@ -66,7 +66,7 @@ test_that("FitCorCbm", {
 
   skip_on_travis()
   skip_on_cran()
-  skip_on_os("mac")
+  skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
   
   fn <- paste0(test_path(), "/goodValues361/Fitting/CorCbm", ".rds")
   if (!file.exists(fn)) {

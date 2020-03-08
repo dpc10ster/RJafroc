@@ -28,6 +28,7 @@ PlotBinormalFit <- function(a, b){
     FPF <- c(1, FPF, 0)
     TPF <- pnorm(a[i] - b[i] * plotZeta)  
     TPF <- c(1, TPF, 0)
+    
     plotBM <- rbind(plotBM, data.frame(FPF = FPF, TPF = TPF, Treatment = as.character(i)))
   }
   bmROCCurve <- with(plotBM,{

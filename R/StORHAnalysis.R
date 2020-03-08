@@ -56,7 +56,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                       StdErr = as.vector(stdErrSingleFRRC), 
                                       DF = as.vector(dfSingleFRRC), 
                                       CILower = CISingleFRRC[,1], 
-                                      CIUpper = CISingleFRRC[,2], row.names = NULL)
+                                      CIUpper = CISingleFRRC[,2], row.names = NULL, 
+                                      stringsAsFactors = TRUE)
     
   } else {
     # NewFormat and SPLIT-PLOT dataset
@@ -126,7 +127,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                 t = tStat, 
                                 PrGTt = PrGTt, 
                                 CILower = CIRRRC[,1],
-                                CIUpper = CIRRRC[,2])
+                                CIUpper = CIRRRC[,2], 
+                                stringsAsFactors = TRUE)
     
     dfSingleRRRC <- array(dim = I)
     msDenSingleRRRC <- array(dim = I)
@@ -150,7 +152,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                       DF = as.vector(dfSingleRRRC), 
                                       CILower = CISingleRRRC[,1], 
                                       CIUpper = CISingleRRRC[,2], 
-                                      row.names = NULL)
+                                      row.names = NULL, 
+                                      stringsAsFactors = TRUE)
     
     if (option == "RRRC"){
       return(list(
@@ -192,7 +195,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                 t = tStat, 
                                 PrGTt = PrGTt, 
                                 CILower = CIFRRC[,1],
-                                CIUpper = CIFRRC[,2])
+                                CIUpper = CIFRRC[,2], 
+                                stringsAsFactors = TRUE)
     
     diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
     for (j in 1:J) {
@@ -233,11 +237,13 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                        t = tStat, 
                                        PrGTt = PrGTt, 
                                        CILower = CIReaderFRRC[,1],
-                                       CIUpper = CIReaderFRRC[,2])
+                                       CIUpper = CIReaderFRRC[,2], 
+                                       stringsAsFactors = TRUE)
     
     varCovEachRdr <- data.frame(Reader = paste("Rdr", readerID, sep = ""),
                                 Var = varEachRdr, 
-                                Cov1 = cov1EachRdr)
+                                Cov1 = cov1EachRdr, 
+                                stringsAsFactors = TRUE)
     if (option == "FRRC"){
       return(data.frame(fomArray = fomArray, 
                         meanSquares = meanSquares, 
@@ -246,7 +252,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                         ciDiffTrtFRRC = ciDiffTrtFRRC, 
                         ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
                         ciDiffTrtEachRdrFRRC = ciDiffTrtEachRdrFRRC, 
-                        varCovEachRdr = varCovEachRdr
+                        varCovEachRdr = varCovEachRdr, 
+                        stringsAsFactors = TRUE
       ))
     }
   }
@@ -284,7 +291,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                 t = tStat, 
                                 PrGTt = PrGTt, 
                                 CILower = CIRRFC[,1],
-                                CIUpper = CIRRFC[,2])
+                                CIUpper = CIRRFC[,2], 
+                                stringsAsFactors = TRUE)
     
     dfSingleRRFC <- array(dim = I)
     msDenSingleRRFC <- array(dim = I)
@@ -302,7 +310,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                       DF = as.vector(dfSingleRRFC), 
                                       CILower = CISingleRRFC[,1], 
                                       CIUpper = CISingleRRFC[,2], 
-                                      row.names = NULL)
+                                      row.names = NULL, 
+                                      stringsAsFactors = TRUE)
     
     if (option == "RRFC"){
       return(data.frame(fomArray = fomArray, 
@@ -310,7 +319,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                         varComp = varComp,
                         FTestStatsRRFC = FTestStatsRRFC, 
                         ciDiffTrtRRFC = ciDiffTrtRRFC, 
-                        ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC
+                        ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC, 
+                        stringsAsFactors = TRUE
       ))
     }
   }
