@@ -182,7 +182,6 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                   CILower = CIRRRC[,1],
                                   CIUpper = CIRRRC[,2],
                                   stringsAsFactors = TRUE)
-      # colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
       
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)
@@ -206,9 +205,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                         DF = as.vector(dfSingleRRRC), 
                                         CILower = CISingleRRRC[,1], 
                                         CIUpper = CISingleRRRC[,2], 
-                                        row.names = NULL,
                                         stringsAsFactors = TRUE)
-      #colnames(ciAvgRdrEachTrtRRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     } else {
       fRRRC <- NA
       ddfRRRC <- NA
@@ -217,8 +214,16 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       ciAvgRdrEachTrtRRRC <- NA
     }
     if (option == "RRRC"){
-      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
-                  fRRRC = fRRRC, ddfRRRC = ddfRRRC, pRRRC = pRRRC, ciDiffTrtRRRC = ciDiffTrtRRRC, ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC))
+      return(list(fomArray = fomArray, 
+                  msT = msT, 
+                  msTR = msTR, 
+                  varComp = varComp, 
+                  fRRRC = fRRRC, 
+                  ddfRRRC = ddfRRRC, 
+                  pRRRC = pRRRC, 
+                  ciDiffTrtRRRC = ciDiffTrtRRRC, 
+                  ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC)
+             )
     }
   }
   
