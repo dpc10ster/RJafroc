@@ -212,7 +212,7 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   modalityID2 <- as.character(sort(unique(c(NLModalityID2, LLModalityID2))))
   I2 <- length(modalityID2)
   
-  readerID <- as.character(sort(unique(c(NLReaderID, LLReaderID))))
+  readerID <- as.character(sort(as.integer(unique(c(NLReaderID, LLReaderID)))))
   J <- length(readerID)
   
   maxNL <- 0
