@@ -57,8 +57,10 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                        DF = dfArray, 
                        MS = msArray, 
                        stringsAsFactors = TRUE)
-  # colnames(anovaY) <- c("Source", "SS", "DF", "MS")
-  # rownames(anovaY) <- sourceArray
+  
+  print(attributes(anovaY))
+  print(attributes(anovaY$Source))
+  print(attributes(anovaY$SS))
   
   msRSingle <- array(0, dim = c(I))
   msCSingle <- array(0, dim = c(I))

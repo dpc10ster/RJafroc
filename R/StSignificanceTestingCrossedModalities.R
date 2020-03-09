@@ -169,6 +169,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
           CIRRRC[i, ] <- ci
         }
       }
+      attributes(diffTRName) <- NULL
       # forcing original order to be kept
       for (i in (1:length(diffTRName))) {
         diffTRName[i] <- paste0(paste0("Row",i,"_"),diffTRName[i])
@@ -182,6 +183,10 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                   CILower = CIRRRC[,1],
                                   CIUpper = CIRRRC[,2],
                                   stringsAsFactors = TRUE)
+      
+      print(attributes(ciDiffTrtRRRC))
+      print(attributes(ciDiffTrtRRRC$Treatment))
+      print(attributes(ciDiffTrtRRRC$Estimate))
       
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)

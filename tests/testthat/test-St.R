@@ -184,8 +184,8 @@ test_that("StSignificanceTestingSingleFixedFactor", {
 # following code now works on osx 3/7/20
 test_that("StSignificanceTestingCrossedModalities", {
 
-  crossedFileName <- system.file(
-    "extdata", "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
+  # crossedFileName <- system.file(
+  #   "extdata", "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
 
   fn <- paste0(test_path(), "/goodValues361/SigTest/CrossedModalities", ".rds")
   if (!file.exists(fn)) {
