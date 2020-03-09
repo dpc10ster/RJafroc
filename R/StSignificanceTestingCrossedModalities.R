@@ -169,8 +169,11 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
           CIRRRC[i, ] <- ci
         }
       }
-      #TrtArray <- diffTRName
-      ciDiffTrtRRRC <- data.frame(diffTRName, 
+      # forcing original order to be kept
+      for (i in (1:length(diffTRName))) {
+        diffTRName[i] <- paste0(paste0("Row",i,"_"),diffTRName[i])
+      }
+      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
                                   Estimate = diffTRMeans, 
                                   StdErr = rep(stdErrRRRC, choose(I, 2)), 
                                   DF = rep(ddfRRRC, choose(I, 2)), 
@@ -178,9 +181,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                   PrGTt = tPr, 
                                   CILower = CIRRRC[,1],
                                   CIUpper = CIRRRC[,2],
-                                  # row.names = NULL,
                                   stringsAsFactors = TRUE)
-      colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+      # colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
       
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)
@@ -239,6 +241,9 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       tPr[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
       CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC, diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
     }
+    # for (i in (1:length(diffTRName))) {
+    #   diffTRName[i] <- paste0(paste0("Row",i,"-"),diffTRName[i])
+    # }
     ciDiffTrtFRRC <- data.frame(Treatment = diffTRName, 
                                 Estimate = diffTRMeans, 
                                 StdErr = rep(stdErrFRRC, choose(I, 2)), 
@@ -248,7 +253,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                 CILower = CIFRRC[,1],
                                 CIUpper = CIFRRC[,2],
                                 stringsAsFactors = TRUE)
-    colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+    # colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     
     dfSingleFRRC <- array(dim = I)
     msDenSingleFRRC <- array(dim = I)
@@ -341,6 +346,10 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
         tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
         CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC, diffTRMeans[i] + qt(alpha/2, ddfRRFC) * stdErrRRFC))
       }
+      
+      # for (i in (1:length(diffTRName))) {
+      #   diffTRName[i] <- paste0(paste0("Row",i,"-"),diffTRName[i])
+      # }
       ciDiffTrtRRFC <- data.frame(Treatment = diffTRName, 
                                   Estimate = diffTRMeans, 
                                   StdErr = rep(stdErrRRFC, choose(I, 2)), 

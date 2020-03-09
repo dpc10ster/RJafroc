@@ -72,7 +72,7 @@ test_that("SignificanceTestingAllCombinations", {
   # dataset_arr <- list(dataset02) # deparse(substitute(dataset02)) does not work below
   # dataset_arr_str <- c("dataset02")
   # FOM_arr <- c("Wilcoxon") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
-  # method_arr <- c("DBMH")
+  method_arr <- c("DBMH")
   
   for (d in 1:length(dataset_arr)) {
     for (f in 1:length(FOM_arr)) {
