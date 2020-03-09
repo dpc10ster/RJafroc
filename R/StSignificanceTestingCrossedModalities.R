@@ -193,7 +193,11 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       # print(attributes(ciDiffTrtRRRC))
       # print(attributes(ciDiffTrtRRRC$Treatment))
       # print(attributes(ciDiffTrtRRRC$Estimate))
-      # class(ciDiffTrtRRRC$Treatment)
+      # print(class(ciDiffTrtRRRC$Treatment))
+################################################################################
+      # this whole issue could be a git problem of not updating a regenerated new good value
+      # I had to do two commits followed by push: one with file deleted and one with file regenerated.
+      # Then all travis releases worked;
       # if statements #1,ab IS commented
       # $names
       # [1] "Treatment" "Estimate"  "StdErr"    "DF"        "t"         "PrGTt"     "CILower"   "CIUpper"  
@@ -224,7 +228,10 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       # $class
       # [1] "factor"
       # 
-      # NULL     
+      # NULL
+      # [1] "factor"    
+      ################################################################################
+      
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)
       stdErrSingleRRRC <- array(dim = I)
