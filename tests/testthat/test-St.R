@@ -182,6 +182,7 @@ test_that("StSignificanceTestingSingleFixedFactor", {
 # 7/12/19: added this back; passed on new version of R 3.6.1
 # did not work; commented out again 7/12/19
 # following code now works on osx 3/7/20
+context("StSignificanceTestingCrossedModalities")
 test_that("StSignificanceTestingCrossedModalities", {
 
   # crossedFileName <- system.file(

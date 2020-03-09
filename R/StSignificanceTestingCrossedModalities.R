@@ -169,11 +169,17 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
           CIRRRC[i, ] <- ci
         }
       }
-      attributes(diffTRName) <- NULL
+      # This code was failing on oldrelease R v3.5.3 under test context("StSignificanceTestingCrossedModalities")
+      # The outputs for ciDiffTrtRRRC were not equal for goodvalues and currentvalues
       # forcing original order to be kept
+      
       for (i in (1:length(diffTRName))) {
         diffTRName[i] <- paste0(paste0("Row",i,"_"),diffTRName[i])
       }
+      
+      attributes(diffTRName) <- NULL #statement #1a
+      attributes(diffTRMeans) <- NULL #statement #1b
+      
       ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
                                   Estimate = diffTRMeans, 
                                   StdErr = rep(stdErrRRRC, choose(I, 2)), 
@@ -184,10 +190,41 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                   CIUpper = CIRRRC[,2],
                                   stringsAsFactors = TRUE)
       
-      print(attributes(ciDiffTrtRRRC))
-      print(attributes(ciDiffTrtRRRC$Treatment))
-      print(attributes(ciDiffTrtRRRC$Estimate))
+      # print(attributes(ciDiffTrtRRRC))
+      # print(attributes(ciDiffTrtRRRC$Treatment))
+      # print(attributes(ciDiffTrtRRRC$Estimate))
+      # class(ciDiffTrtRRRC$Treatment)
+      # if statements #1,ab IS commented
+      # $names
+      # [1] "Treatment" "Estimate"  "StdErr"    "DF"        "t"         "PrGTt"     "CILower"   "CIUpper"  
+      # 
+      # $class
+      # [1] "data.frame"
+      # 
+      # $row.names
+      # [1] 1 2 3 4 5 6
+      # 
+      # NULL
+      # NULL
+      # [1] "character"
       
+      # if statements #1,ab is NOT commented
+      # $names
+      # [1] "Treatment" "Estimate"  "StdErr"    "DF"        "t"         "PrGTt"     "CILower"   "CIUpper"  
+      # 
+      # $class
+      # [1] "data.frame"
+      # 
+      # $row.names
+      # [1] 1 2 3 4 5 6
+      # 
+      # $levels
+      # [1] "Row1_20-40" "Row2_20-60" "Row3_20-80" "Row4_40-60" "Row5_40-80" "Row6_60-80"
+      # 
+      # $class
+      # [1] "factor"
+      # 
+      # NULL     
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)
       stdErrSingleRRRC <- array(dim = I)
