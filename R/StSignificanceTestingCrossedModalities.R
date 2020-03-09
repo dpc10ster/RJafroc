@@ -169,7 +169,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
           CIRRRC[i, ] <- ci
         }
       }
-      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
+      #TrtArray <- diffTRName
+      ciDiffTrtRRRC <- data.frame(diffTRName, 
                                   Estimate = diffTRMeans, 
                                   StdErr = rep(stdErrRRRC, choose(I, 2)), 
                                   DF = rep(ddfRRRC, choose(I, 2)), 
@@ -177,8 +178,10 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                   PrGTt = tPr, 
                                   CILower = CIRRRC[,1],
                                   CIUpper = CIRRRC[,2],
+                                  # row.names = NULL,
                                   stringsAsFactors = TRUE)
-
+      colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+      
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)
       stdErrSingleRRRC <- array(dim = I)

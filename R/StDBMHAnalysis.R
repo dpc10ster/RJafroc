@@ -47,7 +47,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                        SS = ssArray, 
                        DF = dfArray, 
                        MS = msArray, 
-                       row.names = NULL,
+                       # row.names = NULL,
                        stringsAsFactors = TRUE)
   colnames(anovaY) <- c("Source", "SS", "DF", "MS")
   
