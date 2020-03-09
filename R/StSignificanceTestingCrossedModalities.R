@@ -169,6 +169,17 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
           CIRRRC[i, ] <- ci
         }
       }
+      # This code was failing on oldrelease R v3.5.3 under test context("StSignificanceTestingCrossedModalities")
+      # The outputs for ciDiffTrtRRRC were not equal for goodvalues and currentvalues
+      # forcing original order to be kept
+      
+      for (i in (1:length(diffTRName))) {
+        diffTRName[i] <- paste0(paste0("Row",i,"_"),diffTRName[i])
+      }
+      
+      attributes(diffTRName) <- NULL #statement #1a
+      attributes(diffTRMeans) <- NULL #statement #1b
+      
       ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
                                   Estimate = diffTRMeans, 
                                   StdErr = rep(stdErrRRRC, choose(I, 2)), 
@@ -178,7 +189,49 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                   CILower = CIRRRC[,1],
                                   CIUpper = CIRRRC[,2],
                                   stringsAsFactors = TRUE)
-
+      
+      # print(attributes(ciDiffTrtRRRC))
+      # print(attributes(ciDiffTrtRRRC$Treatment))
+      # print(attributes(ciDiffTrtRRRC$Estimate))
+      # print(class(ciDiffTrtRRRC$Treatment))
+################################################################################
+      # this whole issue could be a git problem of not updating a regenerated new good value
+      # I had to do two commits followed by push: one with file deleted and one with file regenerated.
+      # Then all travis releases worked;
+      # if statements #1,ab IS commented
+      # $names
+      # [1] "Treatment" "Estimate"  "StdErr"    "DF"        "t"         "PrGTt"     "CILower"   "CIUpper"  
+      # 
+      # $class
+      # [1] "data.frame"
+      # 
+      # $row.names
+      # [1] 1 2 3 4 5 6
+      # 
+      # NULL
+      # NULL
+      # [1] "character"
+      
+      # if statements #1,ab is NOT commented
+      # $names
+      # [1] "Treatment" "Estimate"  "StdErr"    "DF"        "t"         "PrGTt"     "CILower"   "CIUpper"  
+      # 
+      # $class
+      # [1] "data.frame"
+      # 
+      # $row.names
+      # [1] 1 2 3 4 5 6
+      # 
+      # $levels
+      # [1] "Row1_20-40" "Row2_20-60" "Row3_20-80" "Row4_40-60" "Row5_40-80" "Row6_60-80"
+      # 
+      # $class
+      # [1] "factor"
+      # 
+      # NULL
+      # [1] "factor"    
+      ################################################################################
+      
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)
       stdErrSingleRRRC <- array(dim = I)
@@ -201,9 +254,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                         DF = as.vector(dfSingleRRRC), 
                                         CILower = CISingleRRRC[,1], 
                                         CIUpper = CISingleRRRC[,2], 
-                                        row.names = NULL,
                                         stringsAsFactors = TRUE)
-      #colnames(ciAvgRdrEachTrtRRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     } else {
       fRRRC <- NA
       ddfRRRC <- NA
@@ -212,8 +263,16 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       ciAvgRdrEachTrtRRRC <- NA
     }
     if (option == "RRRC"){
-      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
-                  fRRRC = fRRRC, ddfRRRC = ddfRRRC, pRRRC = pRRRC, ciDiffTrtRRRC = ciDiffTrtRRRC, ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC))
+      return(list(fomArray = fomArray, 
+                  msT = msT, 
+                  msTR = msTR, 
+                  varComp = varComp, 
+                  fRRRC = fRRRC, 
+                  ddfRRRC = ddfRRRC, 
+                  pRRRC = pRRRC, 
+                  ciDiffTrtRRRC = ciDiffTrtRRRC, 
+                  ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC)
+             )
     }
   }
   
@@ -236,6 +295,9 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       tPr[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
       CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC, diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
     }
+    # for (i in (1:length(diffTRName))) {
+    #   diffTRName[i] <- paste0(paste0("Row",i,"-"),diffTRName[i])
+    # }
     ciDiffTrtFRRC <- data.frame(Treatment = diffTRName, 
                                 Estimate = diffTRMeans, 
                                 StdErr = rep(stdErrFRRC, choose(I, 2)), 
@@ -245,7 +307,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                 CILower = CIFRRC[,1],
                                 CIUpper = CIFRRC[,2],
                                 stringsAsFactors = TRUE)
-    colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+    # colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     
     dfSingleFRRC <- array(dim = I)
     msDenSingleFRRC <- array(dim = I)
@@ -338,6 +400,10 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
         tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
         CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC, diffTRMeans[i] + qt(alpha/2, ddfRRFC) * stdErrRRFC))
       }
+      
+      # for (i in (1:length(diffTRName))) {
+      #   diffTRName[i] <- paste0(paste0("Row",i,"-"),diffTRName[i])
+      # }
       ciDiffTrtRRFC <- data.frame(Treatment = diffTRName, 
                                   Estimate = diffTRMeans, 
                                   StdErr = rep(stdErrRRFC, choose(I, 2)), 

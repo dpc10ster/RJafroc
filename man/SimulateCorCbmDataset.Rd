@@ -55,10 +55,9 @@ See referenced publication.
 
 dataset <- SimulateCorCbmDataset()
 
-\dontrun{
+\donttest{
 ## this takes very long
-dataset <- SimulateCorCbmDataset(K1 = 5000, K2 = 5000)
-
+## dataset <- SimulateCorCbmDataset(K1 = 5000, K2 = 5000)
 }
 
 

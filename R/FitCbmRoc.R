@@ -36,33 +36,33 @@
 #'
 #' @examples
 #' 
-#' \dontrun{
+#' \donttest{
 #' ## CPU time 8.7 sec on Ubuntu (#13)
 #' ## Test with included ROC data
-#' retFit <- FitCbmRoc(dataset02);print(retFit$fittedPlot)
+#' retFit <- FitCbmRoc(dataset02);## print(retFit$fittedPlot)
 #'
 #' ## Test with included degenerate ROC data (yes! CBM can fit such data)
-#' retFit <- FitCbmRoc(datasetDegenerate);print(retFit$fittedPlot)
+#' retFit <- FitCbmRoc(datasetDegenerate);## print(retFit$fittedPlot)
 #'
 #' ## Test with single interior point data
 #' fp <- c(rep(1,7), rep(2, 3))
 #' tp <- c(rep(1,5), rep(2, 5))
 #' dataset <- Df2RJafrocDataset(fp, tp)
-#' retFit <- FitCbmRoc(dataset);print(retFit$fittedPlot)
+#' retFit <- FitCbmRoc(dataset);## print(retFit$fittedPlot)
 #'
 #' ## Test with two interior data points
 #' fp <- c(rep(1,7), rep(2, 5), rep(3, 3))
 #' tp <- c(rep(1,3), rep(2, 5), rep(3, 7))
 #' dataset <- Df2RJafrocDataset(fp, tp)
-#' retFit <- FitCbmRo
-#' c(dataset);print(retFit$fittedPlot)
+#' retFit <- FitCbmRoc(dataset);
+#' ## print(retFit$fittedPlot)
 #'
 #' ## Test with included ROC data (some bins have zero counts)
-#' retFit <- FitCbmRoc(dataset02, 2, 1);print(retFit$fittedPlot)
+#' retFit <- FitCbmRoc(dataset02, 2, 1);## print(retFit$fittedPlot)
 #' 
 #' ## Test with TONY data for which chisqr can be calculated
 #' ds <- DfFroc2Roc(dataset01)
-#' retFit <- FitCbmRoc(ds, 2, 3);print(retFit$fittedPlot)
+#' retFit <- FitCbmRoc(ds, 2, 3);## print(retFit$fittedPlot)
 #' retFit$ChisqrFitStats
 #' }
 #' 

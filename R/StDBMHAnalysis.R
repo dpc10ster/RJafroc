@@ -42,14 +42,25 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   #
   # this is the fix 3/7/20
   # New code:
+  # use attributes(anovaY$Source) to examine ordering of levels to confirm it is correct
+  # data.frame is reordering the levels alphabetically!
+  # the folloiwng trick forces the correct order to be maintained
+  # sourceArray <- c("Row1_T", "Row2_R", "Row3_C", "Row4_TR", 
+  #                  "Row5_TC", "Row6_RC", "Row7_TRC", "Row8_Total")
   sourceArray <- c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total")
-  anovaY <- data.frame(sourceArray, 
+  # forcing original order to be kept
+  for (i in (1:length(sourceArray))) {
+    sourceArray[i] <- paste0(paste0("Row",i,"_"),sourceArray[i])
+  }
+  anovaY <- data.frame(Source = sourceArray, 
                        SS = ssArray, 
                        DF = dfArray, 
                        MS = msArray, 
-                       row.names = NULL,
                        stringsAsFactors = TRUE)
-  colnames(anovaY) <- c("Source", "SS", "DF", "MS")
+  
+  # print(attributes(anovaY))
+  # print(attributes(anovaY$Source))
+  # print(attributes(anovaY$SS))
   
   msRSingle <- array(0, dim = c(I))
   msCSingle <- array(0, dim = c(I))

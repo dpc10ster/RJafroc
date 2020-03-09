@@ -72,7 +72,7 @@ test_that("SignificanceTestingAllCombinations", {
   # dataset_arr <- list(dataset02) # deparse(substitute(dataset02)) does not work below
   # dataset_arr_str <- c("dataset02")
   # FOM_arr <- c("Wilcoxon") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
-  # method_arr <- c("DBMH")
+  method_arr <- c("DBMH")
   
   for (d in 1:length(dataset_arr)) {
     for (f in 1:length(FOM_arr)) {
@@ -182,10 +182,12 @@ test_that("StSignificanceTestingSingleFixedFactor", {
 # 7/12/19: added this back; passed on new version of R 3.6.1
 # did not work; commented out again 7/12/19
 # following code now works on osx 3/7/20
+# but not on travis old release
+context("StSignificanceTestingCrossedModalities")
 test_that("StSignificanceTestingCrossedModalities", {
 
-  crossedFileName <- system.file(
-    "extdata", "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
+  # crossedFileName <- system.file(
+  #   "extdata", "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
 
   fn <- paste0(test_path(), "/goodValues361/SigTest/CrossedModalities", ".rds")
   if (!file.exists(fn)) {

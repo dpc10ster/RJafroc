@@ -52,7 +52,7 @@
 #' 
 #' ret <- PlotEmpiricalOperatingCharacteristics(dataset = 
 #' dataset02, trts = c(1:2), rdrs = c(1:3), opChType = "ROC")
-#' print(ret$Plot)
+#' ## print(ret$Plot)
 #' 
 #' ## Example 2
 #' ## Empirical ROC, FROC, AFROC and wAFROC plots. Each plot consists of
@@ -70,19 +70,19 @@
 #' plotR <- list(2, c(2:3), c(1:3))
 #' ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, 
 #'    trts = plotT, rdrs = plotR, opChType = "ROC")
-#' print(ret$Plot)
+#' ## print(ret$Plot)
 #' 
 #' ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
 #'    rdrs = plotR, opChType = "FROC")               
-#' print(ret$Plot)
+#' ## print(ret$Plot)
 #' 
 #' ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
 #'    rdrs = plotR, opChType = "AFROC")
-#' print(ret$Plot)
+#' ## print(ret$Plot)
 #' 
 #' ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
 #'    rdrs = plotR, opChType = "wAFROC")                  
-#' print(ret$Plot)
+#' ## print(ret$Plot)
 #' 
 #' ##Example 3
 #' ## Correspondences between indices and string identifiers for modalities and 
