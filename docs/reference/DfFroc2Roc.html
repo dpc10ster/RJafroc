@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
       </span>
     </div>
 
@@ -99,6 +99,9 @@
     </li>
     <li>
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig5SimulateSplitPlotDataset.html">Chapter 00, Vignette 5: Simulate an FROC split-plot datafile</a>
     </li>
     <li>
       <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -225,17 +228,24 @@ any marked case</strong>, is assigned to it. The dataset structure is shown belo
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>rocDataSet</span> <span class='kw'>&lt;-</span> <span class='fu'>DfFroc2Roc</span>(<span class='no'>dataset05</span>)
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>rocDataSet</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>p</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='DfFroc2Roc-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>rocDataSet</span>)</div><div class='output co'>#&gt; List of 8
-#&gt;  $ NL          : num [1:2, 1:9, 1:92, 1] 6 5 0 0 8 6 0 0 2 5 ...
-#&gt;  $ LL          : num [1:2, 1:9, 1:47, 1] 5 9 0 10 8 9 0 7 0 5 ...
-#&gt;  $ lesionVector: num [1:47] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionID    : num [1:47, 1] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionWeight: num [1:47, 1] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ dataType    : chr "ROC"
-#&gt;  $ modalityID  : Named chr [1:2] "1" "2"
+<span class='co'>## print(p$Plot)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>rocDataSet</span>)</div><div class='output co'>#&gt; List of 12
+#&gt;  $ NL           : num [1:2, 1:9, 1:92, 1] 6 5 0 0 8 6 0 0 2 5 ...
+#&gt;  $ LL           : num [1:2, 1:9, 1:47, 1] 5 9 0 10 8 9 0 7 0 5 ...
+#&gt;  $ lesionVector : num [1:47] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ lesionID     : num [1:47, 1] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ lesionWeight : num [1:47, 1] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ dataType     : chr "ROC"
+#&gt;  $ modalityID   : Named chr [1:2] "1" "2"
 #&gt;   ..- attr(*, "names")= chr [1:2] "1" "2"
-#&gt;  $ readerID    : Named chr [1:9] "1" "2" "3" "4" ...
-#&gt;   ..- attr(*, "names")= chr [1:9] "1" "2" "3" "4" ...</div><div class='input'>
+#&gt;  $ readerID     : Named chr [1:9] "1" "2" "3" "4" ...
+#&gt;   ..- attr(*, "names")= chr [1:9] "1" "2" "3" "4" ...
+#&gt;  $ design       : chr "CROSSED"
+#&gt;  $ normalCases  : int [1:45] 48 49 50 51 52 53 54 55 56 57 ...
+#&gt;  $ abnormalCases: int [1:47] 1 2 3 4 5 6 7 8 9 10 ...
+#&gt;  $ truthTableStr: num [1:2, 1:9, 1:92, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</div><div class='input'>
+<span class='no'>rocSpDataSet</span> <span class='kw'>&lt;-</span> <span class='fu'>DfFroc2Roc</span>(<span class='no'>datasetFROCSp</span>)
+
 <span class='co'>## in the following example, because of the smaller number of cases, </span>
 <span class='co'>## it is easy to see the process at work:</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>);<span class='no'>K1</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>;<span class='no'>K2</span> <span class='kw'>&lt;-</span> <span class='fl'>5</span>
@@ -246,48 +256,36 @@ any marked case</strong>, is assigned to it. The dataset structure is shown belo
 <span class='no'>frocDataRaw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SimulateFrocDataset.html'>SimulateFrocDataset</a></span>(<span class='no'>mu</span>, <span class='no'>lambda</span>, <span class='no'>nu</span>, <span class='no'>zeta1</span>, <span class='kw'>I</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>1</span>,
 <span class='no'>K1</span>, <span class='no'>K2</span>, <span class='kw'>lesionVector</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
 <span class='no'>hrData</span> <span class='kw'>&lt;-</span> <span class='fu'>DfFroc2Roc</span>(<span class='no'>frocDataRaw</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='st'>"frocDataRaw$NL[1,1,,] = "</span>);<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>frocDataRaw</span>$<span class='no'>NL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,])</div><div class='output co'>#&gt; [1] "frocDataRaw$NL[1,1,,] = "</div><div class='output co'>#&gt;           [,1]      [,2]      [,3] [,4]
-#&gt; [1,] 2.4046534 0.7635935      -Inf -Inf
-#&gt; [2,]      -Inf      -Inf      -Inf -Inf
-#&gt; [3,] 0.2522234      -Inf      -Inf -Inf
-#&gt; [4,] 0.4356833      -Inf      -Inf -Inf
-#&gt; [5,]      -Inf      -Inf      -Inf -Inf
-#&gt; [6,]      -Inf      -Inf      -Inf -Inf
-#&gt; [7,]      -Inf      -Inf      -Inf -Inf
-#&gt; [8,] 0.8041895 0.3773956 0.1333364 -Inf</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='st'>"hrData$NL[1,1,1:K1,] = "</span>);<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>hrData</span>$<span class='no'>NL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='no'>K1</span>,])</div><div class='output co'>#&gt; [1] "hrData$NL[1,1,1:K1,] = "</div><div class='output co'>#&gt; [1]  2.4046534 -0.7477766  0.2522234</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='st'>"frocDataRaw$LL[1,1,,] = "</span>);<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>frocDataRaw</span>$<span class='no'>LL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,])</div><div class='output co'>#&gt; [1] "frocDataRaw$LL[1,1,,] = "</div><div class='output co'>#&gt;           [,1] [,2]
-#&gt; [1,]      -Inf -Inf
-#&gt; [2,] 1.5036080 -Inf
-#&gt; [3,] 0.8442045 -Inf
-#&gt; [4,] 1.0467262 -Inf
-#&gt; [5,]      -Inf -Inf</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='st'>"hrData$LL[1,1,,] = "</span>);<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>hrData</span>$<span class='no'>LL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,])</div><div class='output co'>#&gt; [1] "hrData$LL[1,1,,] = "</div><div class='output co'>#&gt; [1] 0.4356833 1.5036080 0.8442045 1.0467262 0.8041895</div><div class='input'>## following is the output
-## [1] "frocDataRaw$NL[1,1,,] = "
-## [,1]      [,2]      [,3] [,4]
-## [1,] 2.4046534 0.7635935      -Inf -Inf
-## [2,]      -Inf      -Inf      -Inf -Inf
-## [3,] 0.2522234      -Inf      -Inf -Inf
-## [4,] 0.4356833      -Inf      -Inf -Inf
-## [5,]      -Inf      -Inf      -Inf -Inf
-## [6,]      -Inf      -Inf      -Inf -Inf
-## [7,]      -Inf      -Inf      -Inf -Inf
-## [8,] 0.8041895 0.3773956 0.1333364 -Inf
-## > print("hrData$NL[1,1,1:K1,] = ");print(hrData$NL[1,1,1:K1,])
-## [1] "hrData$NL[1,1,1:K1,] = "
-## [1] 2.4046534      -Inf 0.2522234
-## > print("frocDataRaw$LL[1,1,,] = ");print(frocDataRaw$LL[1,1,,])
-## [1] "frocDataRaw$LL[1,1,,] = "
-## [,1] [,2]
-## [1,]      -Inf -Inf
-## [2,] 1.5036080 -Inf
-## [3,] 0.8442045 -Inf
-## [4,] 1.0467262 -Inf
-## [5,]      -Inf -Inf
-## > print("hrData$LL[1,1,,] = ");print(hrData$LL[1,1,,]) 
-## [1] "hrData$LL[1,1,,] = "
-## [1] 0.4356833 1.5036080 0.8442045 1.0467262 0.8041895
-## Note that rating of the first and the last diseased case came from NL marks
-
-
-</div></pre>
+<span class='co'>## print("frocDataRaw$NL[1,1,,] = ");## print(frocDataRaw$NL[1,1,,])</span>
+<span class='co'>## print("hrData$NL[1,1,1:K1,] = ");## print(hrData$NL[1,1,1:K1,])</span>
+<span class='co'>## print("frocDataRaw$LL[1,1,,] = ");## print(frocDataRaw$LL[1,1,,])</span>
+<span class='co'>## print("hrData$LL[1,1,,] = ");## print(hrData$LL[1,1,,]) </span>
+<span class='co'>## following is the output</span>
+<span class='co'>## [1] "frocDataRaw$NL[1,1,,] = "</span>
+<span class='co'>## [,1]      [,2]      [,3] [,4]</span>
+<span class='co'>## [1,] 2.4046534 0.7635935      -Inf -Inf</span>
+<span class='co'>## [2,]      -Inf      -Inf      -Inf -Inf</span>
+<span class='co'>## [3,] 0.2522234      -Inf      -Inf -Inf</span>
+<span class='co'>## [4,] 0.4356833      -Inf      -Inf -Inf</span>
+<span class='co'>## [5,]      -Inf      -Inf      -Inf -Inf</span>
+<span class='co'>## [6,]      -Inf      -Inf      -Inf -Inf</span>
+<span class='co'>## [7,]      -Inf      -Inf      -Inf -Inf</span>
+<span class='co'>## [8,] 0.8041895 0.3773956 0.1333364 -Inf</span>
+<span class='co'>## &gt; ## print("hrData$NL[1,1,1:K1,] = ");## print(hrData$NL[1,1,1:K1,])</span>
+<span class='co'>## [1] "hrData$NL[1,1,1:K1,] = "</span>
+<span class='co'>## [1] 2.4046534      -Inf 0.2522234</span>
+<span class='co'>## &gt; ## print("frocDataRaw$LL[1,1,,] = ");## print(frocDataRaw$LL[1,1,,])</span>
+<span class='co'>## [1] "frocDataRaw$LL[1,1,,] = "</span>
+<span class='co'>## [,1] [,2]</span>
+<span class='co'>## [1,]      -Inf -Inf</span>
+<span class='co'>## [2,] 1.5036080 -Inf</span>
+<span class='co'>## [3,] 0.8442045 -Inf</span>
+<span class='co'>## [4,] 1.0467262 -Inf</span>
+<span class='co'>## [5,]      -Inf -Inf</span>
+<span class='co'>## &gt; ## print("hrData$LL[1,1,,] = ");## print(hrData$LL[1,1,,]) </span>
+<span class='co'>## [1] "hrData$LL[1,1,,] = "</span>
+<span class='co'>## [1] 0.4356833 1.5036080 0.8442045 1.0467262 0.8041895</span>
+<span class='co'>## Note that rating of the first and the last diseased case came from NL marks</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
