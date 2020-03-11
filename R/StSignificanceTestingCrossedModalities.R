@@ -22,6 +22,7 @@
 #' 
 #' ## read the built in dataset
 #' retCrossed2 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+#' testthat::expect_equal(retCrossed1, retCrossed2)
 #' }
 #' 
 #' @export
