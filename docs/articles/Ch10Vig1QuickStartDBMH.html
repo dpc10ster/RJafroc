@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
       </span>
     </div>
 
@@ -64,9 +64,6 @@
     </li>
     <li>
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig5SimulateSplitPlotDataset.html">Chapter 00, Vignette 5: Simulate an FROC split-plot datafile</a>
     </li>
     <li>
       <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -141,7 +138,7 @@
       <h1>Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-03-10</h4>
+            <h4 class="date">2020-01-13</h4>
       
       
       <div class="hidden name"><code>Ch10Vig1QuickStartDBMH.Rmd</code></div>
@@ -162,22 +159,18 @@
 <h2 class="hasAnchor">
 <a href="#an-roc-dataset" class="anchor"></a>An ROC dataset</h2>
 <p>Dataset <code>dataset03</code> corresponding to the Franken ROC data <span class="citation">(Franken et al. 1992)</span> is predefined. The following code shows the structure of this dataset.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(dataset03)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; List of 12</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt;  $ NL           : num [1:2, 1:4, 1:100, 1] 3 3 4 3 3 3 4 1 1 3 ...</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt;  $ LL           : num [1:2, 1:4, 1:67, 1] 5 5 4 4 5 4 4 5 2 2 ...</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt;  $ lesionVector : num [1:67] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt;  $ lesionID     : num [1:67, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt;  $ lesionWeight : num [1:67, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt;  $ dataType     : chr "ROC"</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt;  $ modalityID   : Named chr [1:2] "TREAT1" "TREAT2"</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "TREAT1" "TREAT2"</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt;  $ readerID     : Named chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt;  $ design       : chr "CROSSED"</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt;  $ normalCases  : int [1:33] 1 2 3 4 5 6 7 8 9 10 ...</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;  $ abnormalCases: int [1:67] 34 35 36 37 38 39 40 41 42 43 ...</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;  $ truthTableStr: num [1:2, 1:4, 1:100, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(dataset03)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt; List of 8</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt;  $ NL          : num [1:2, 1:4, 1:100, 1] 3 3 4 3 3 3 4 1 1 3 ...</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt;  $ LL          : num [1:2, 1:4, 1:67, 1] 5 5 4 4 5 4 4 5 2 2 ...</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt;  $ lesionVector: num [1:67] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt;  $ lesionID    : num [1:67, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt;  $ lesionWeight: num [1:67, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt;  $ dataType    : chr "ROC"</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt;  $ modalityID  : Named chr [1:2] "TREAT1" "TREAT2"</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "TREAT1" "TREAT2"</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;  $ readerID    : Named chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span></a></code></pre></div>
 <ul>
 <li>It is a list with 8 members. The false positive ratings are contained in <code>{NL}</code>, an array with dimensions <code>[1:2,1:4,1:100,1]</code>. The first index corresponds to treatments, and since the dataset has 2 treatments, the corresponding dimension is 2. The second index corresponds to readers, and since the dataset has 4 readers, the corresponding dimension is 4. The third index corresponds to the total number of cases. Since the dataset has 100 cases, the corresponding dimension is 100. But, as you can see from the code below, the entries in this array for cases 34 through 100 are <code>-Inf</code>: i.e., <code><a href="https://rdrr.io/r/base/all.html">all(dataset03$NL[1,1,34:100,1] == -Inf)</a></code> = TRUE.</li>
 <li><p>This is because in the ROC paradigm false positive are not possible on diseased cases. So the actual FP ratings are contained in the first 33 elements of the array. How did I know that there are 33 non-diseased cases? This can be understood in several ways.</p></li>
@@ -188,146 +181,146 @@
 <li><p>The fields <code>lesionVector</code>, <code>lesionID</code> and <code>lesionWeight</code>, while not needed for ROC data, are needed for the FROC paradigm.</p></li>
 </ul>
 <p>The <code>dataType</code> list member is the character string <code>"ROC"</code>, characterizing the ROC dataset.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">dataset03<span class="op">$</span>dataType</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; [1] "ROC"</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">dataset03<span class="op">$</span>dataType</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; [1] "ROC"</span></a></code></pre></div>
 <p>The <code>modalityID</code> list member is a character string with two entries, <code>"TREAT1"</code> and <code>"TREAT2"</code>, corresponding to the two modalities.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">dataset03<span class="op">$</span>modalityID</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt;   TREAT1   TREAT2 </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; "TREAT1" "TREAT2"</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">dataset03<span class="op">$</span>modalityID</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;   TREAT1   TREAT2 </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; "TREAT1" "TREAT2"</span></a></code></pre></div>
 <p>The <code>readerID</code> list member is a character string with four entries, <code>"READER_1"</code>, <code>"READER_2"</code>, <code>"READER_3"</code> and <code>"READER_4"</code> corresponding to the four readers.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">dataset03<span class="op">$</span>readerID</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt;   READER_1   READER_2   READER_3   READER_4 </span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; "READER_1" "READER_2" "READER_3" "READER_4"</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">dataset03<span class="op">$</span>readerID</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">#&gt;   READER_1   READER_2   READER_3   READER_4 </span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; "READER_1" "READER_2" "READER_3" "READER_4"</span></a></code></pre></div>
 <p>Here are the actual ratings for cases 1:34.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">dataset03<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">33</span>,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;  [1] 3 1 2 2 2 2 2 4 1 1 4 2 1 2 4 2 1 2 1 2 4 2 3 2 2 2 4 3 2 2 2 5 3</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">dataset03<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">33</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">#&gt;  [1] 3 1 2 2 2 2 2 4 1 1 4 2 1 2 4 2 1 2 1 2 4 2 3 2 2 2 4 3 2 2 2 5 3</span></a></code></pre></div>
 <ul>
 <li><p>This says that for treatment 1 and reader 1, (non-diseased) case 1 was rated 3, case 2 was rated 1, cases 3-7 were rated 2, case 8 was rated 4, etc.</p></li>
 <li><p>As another example, for treatment 2 and reader 3, the FP ratings are:</p></li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">dataset03<span class="op">$</span>NL[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">33</span>,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt;  [1] 3 1 2 2 2 2 4 4 2 3 2 2 1 3 2 4 2 3 2 2 2 2 2 4 2 2 1 2 2 2 2 4 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">dataset03<span class="op">$</span>NL[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">33</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt;  [1] 3 1 2 2 2 2 4 4 2 3 2 2 1 3 2 4 2 3 2 2 2 2 2 4 2 2 1 2 2 2 2 4 2</span></a></code></pre></div>
 </div>
 <div id="creating-a-dataset-from-a-jafroc-format-file" class="section level2">
 <h2 class="hasAnchor">
 <a href="#creating-a-dataset-from-a-jafroc-format-file" class="anchor"></a>Creating a dataset from a JAFROC format file</h2>
 <p>There is a file <code>RocData.xlsx</code> that is part of the package installation. Since it is a system file one must get its name as follows.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">fileName &lt;-<span class="st"> "RocData.xlsx"</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">sysFileName &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"extdata/"</span>,fileName), <span class="dt">package =</span> <span class="st">"RJafroc"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">fileName &lt;-<span class="st"> "RocData.xlsx"</span></a>
+<a class="sourceLine" id="cb7-2" title="2">sysFileName &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"extdata/"</span>,fileName), <span class="dt">package =</span> <span class="st">"RJafroc"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Next, one uses <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> as follows, assuming it is a JAFROC format file.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">ds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(sysFileName, <span class="dt">newExcelFileFormat =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(ds)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; List of 12</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt;  $ NL           : num [1:2, 1:5, 1:114, 1] 1 3 2 3 2 2 1 2 3 2 ...</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;  $ LL           : num [1:2, 1:5, 1:45, 1] 5 5 5 5 5 5 5 5 5 5 ...</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;  $ lesionVector : int [1:45] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;  $ lesionID     : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;  $ lesionWeight : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  $ dataType     : chr "ROC"</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;  $ modalityID   : Named chr [1:2] "0" "1"</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "0" "1"</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  $ readerID     : Named chr [1:5] "0" "1" "2" "3" ...</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  $ design       : chr "CROSSED"</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;  $ normalCases  : int [1:69] 1 2 3 4 5 6 7 8 9 10 ...</span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt;  $ abnormalCases: int [1:45] 70 71 72 73 74 75 76 77 78 79 ...</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt;  $ truthTableStr: num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">ds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(sysFileName, <span class="dt">newExcelFileFormat =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(ds)</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; List of 12</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt;  $ NL           : num [1:2, 1:5, 1:114, 1] 1 3 2 3 2 2 1 2 3 2 ...</span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;  $ LL           : num [1:2, 1:5, 1:45, 1] 5 5 5 5 5 5 5 5 5 5 ...</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt;  $ lesionVector : int [1:45] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt;  $ lesionID     : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt;  $ lesionWeight : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="co">#&gt;  $ dataType     : chr "ROC"</span></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="co">#&gt;  $ modalityID   : Named chr [1:2] "0" "1"</span></a>
+<a class="sourceLine" id="cb8-11" title="11"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "0" "1"</span></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="co">#&gt;  $ readerID     : Named chr [1:5] "0" "1" "2" "3" ...</span></a>
+<a class="sourceLine" id="cb8-13" title="13"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span></a>
+<a class="sourceLine" id="cb8-14" title="14"><span class="co">#&gt;  $ design       : chr "CROSSED"</span></a>
+<a class="sourceLine" id="cb8-15" title="15"><span class="co">#&gt;  $ normalCases  : int [1:69] 1 2 3 4 5 6 7 8 9 10 ...</span></a>
+<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt;  $ abnormalCases: int [1:45] 70 71 72 73 74 75 76 77 78 79 ...</span></a>
+<a class="sourceLine" id="cb8-17" title="17"><span class="co">#&gt;  $ truthTableStr: num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span></a></code></pre></div>
 <p>Analysis is illustrated for <code>dataset03</code>, but one could have used the newly created dataset <code>ds</code>.</p>
 </div>
 <div id="analyzing-the-roc-dataset" class="section level2">
 <h2 class="hasAnchor">
 <a href="#analyzing-the-roc-dataset" class="anchor"></a>Analyzing the ROC dataset</h2>
 <p>This illustrates the <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> function. The significance testing method is specified as <code>"DBMH"</code> and the figure of merit <code>FOM</code> is specified as “Wilcoxon”.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(ret)</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; $fomArray</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;           RdrREADER_1 RdrREADER_2 RdrREADER_3 RdrREADER_4</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; TrtTREAT1   0.8534600   0.8649932   0.8573044   0.8152420</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; TrtTREAT2   0.8496156   0.8435097   0.8401176   0.8143374</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; $anovaY</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt;       Source           SS  DF          MS</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; 1     Row1_T   0.02356541   1 0.023565410</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; 2     Row2_R   0.20521800   3 0.068406000</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; 3     Row3_C  52.52839868  99 0.530589886</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; 4    Row4_TR   0.01506079   3 0.005020264</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; 5    Row5_TC   6.41004881  99 0.064747968</span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; 6    Row6_RC  39.24295381 297 0.132131158</span></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; 7   Row7_TRC  22.66007764 297 0.076296558</span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; 8 Row8_Total 121.08532315 799          NA</span></a>
-<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">#&gt; $anovaYi</span></a>
-<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="co">#&gt;   Source  DF  TrtTREAT1  TrtTREAT2</span></a>
-<a class="sourceLine" id="cb9-21" data-line-number="21"><span class="co">#&gt; 1      R   3 0.04926635 0.02415991</span></a>
-<a class="sourceLine" id="cb9-22" data-line-number="22"><span class="co">#&gt; 2      C  99 0.29396753 0.30137032</span></a>
-<a class="sourceLine" id="cb9-23" data-line-number="23"><span class="co">#&gt; 3     RC 297 0.10504787 0.10337984</span></a>
-<a class="sourceLine" id="cb9-24" data-line-number="24"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-25" data-line-number="25"><span class="co">#&gt; $varComp</span></a>
-<a class="sourceLine" id="cb9-26" data-line-number="26"><span class="co">#&gt;           varR       varC         varTR        varTC     varRC     varErr</span></a>
-<a class="sourceLine" id="cb9-27" data-line-number="27"><span class="co">#&gt; 1 3.775568e-05 0.05125091 -0.0007127629 -0.002887147 0.0279173 0.07629656</span></a>
-<a class="sourceLine" id="cb9-28" data-line-number="28"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-29" data-line-number="29"><span class="co">#&gt; $FTestStatsRRRC</span></a>
-<a class="sourceLine" id="cb9-30" data-line-number="30"><span class="co">#&gt;      fRRRC ndfRRRC ddfRRRC     pRRRC</span></a>
-<a class="sourceLine" id="cb9-31" data-line-number="31"><span class="co">#&gt; 1 4.694058       1       3 0.1188379</span></a>
-<a class="sourceLine" id="cb9-32" data-line-number="32"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-33" data-line-number="33"><span class="co">#&gt; $ciDiffTrtRRRC</span></a>
-<a class="sourceLine" id="cb9-34" data-line-number="34"><span class="co">#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
-<a class="sourceLine" id="cb9-35" data-line-number="35"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
-<a class="sourceLine" id="cb9-36" data-line-number="36"><span class="co">#&gt;      CIUpper</span></a>
-<a class="sourceLine" id="cb9-37" data-line-number="37"><span class="co">#&gt; 1 0.02679926</span></a>
-<a class="sourceLine" id="cb9-38" data-line-number="38"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-39" data-line-number="39"><span class="co">#&gt; $ciAvgRdrEachTrtRRRC</span></a>
-<a class="sourceLine" id="cb9-40" data-line-number="40"><span class="co">#&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper</span></a>
-<a class="sourceLine" id="cb9-41" data-line-number="41"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.02440215  70.12179 0.7990828 0.8964170</span></a>
-<a class="sourceLine" id="cb9-42" data-line-number="42"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.02356642 253.64403 0.7904843 0.8833058</span></a>
-<a class="sourceLine" id="cb9-43" data-line-number="43"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-44" data-line-number="44"><span class="co">#&gt; $FTestStatsFRRC</span></a>
-<a class="sourceLine" id="cb9-45" data-line-number="45"><span class="co">#&gt;      fFRRC ndfFRRC ddfFRRC    pFRRC</span></a>
-<a class="sourceLine" id="cb9-46" data-line-number="46"><span class="co">#&gt; 1 0.363956       1      99 0.547697</span></a>
-<a class="sourceLine" id="cb9-47" data-line-number="47"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-48" data-line-number="48"><span class="co">#&gt; $ciDiffTrtFRRC</span></a>
-<a class="sourceLine" id="cb9-49" data-line-number="49"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower</span></a>
-<a class="sourceLine" id="cb9-50" data-line-number="50"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span></a>
-<a class="sourceLine" id="cb9-51" data-line-number="51"><span class="co">#&gt;      CIUpper</span></a>
-<a class="sourceLine" id="cb9-52" data-line-number="52"><span class="co">#&gt; 1 0.04655638</span></a>
-<a class="sourceLine" id="cb9-53" data-line-number="53"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-54" data-line-number="54"><span class="co">#&gt; $ciAvgRdrEachTrtFRRC</span></a>
-<a class="sourceLine" id="cb9-55" data-line-number="55"><span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span></a>
-<a class="sourceLine" id="cb9-56" data-line-number="56"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.02710939 99 0.7939590 0.9015408</span></a>
-<a class="sourceLine" id="cb9-57" data-line-number="57"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.02744860 99 0.7824311 0.8913591</span></a>
-<a class="sourceLine" id="cb9-58" data-line-number="58"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-59" data-line-number="59"><span class="co">#&gt; $msAnovaEachRdrFRRC</span></a>
-<a class="sourceLine" id="cb9-60" data-line-number="60"><span class="co">#&gt;   Source DF  RdrREADER_1 RdrREADER_2 RdrREADER_3  RdrREADER_4</span></a>
-<a class="sourceLine" id="cb9-61" data-line-number="61"><span class="co">#&gt; 1      T  1 0.0007389761  0.02307702  0.01476929 4.091217e-05</span></a>
-<a class="sourceLine" id="cb9-62" data-line-number="62"><span class="co">#&gt; 2      C 99 0.2038747746  0.22344191  0.21424677 2.854199e-01</span></a>
-<a class="sourceLine" id="cb9-63" data-line-number="63"><span class="co">#&gt; 3     TC 99 0.0915587344  0.08027926  0.06122898 6.057067e-02</span></a>
-<a class="sourceLine" id="cb9-64" data-line-number="64"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-65" data-line-number="65"><span class="co">#&gt; $ciDiffTrtEachRdrFRRC</span></a>
-<a class="sourceLine" id="cb9-66" data-line-number="66"><span class="co">#&gt;        Reader           Treatment     Estimate     StdErr DF          t</span></a>
-<a class="sourceLine" id="cb9-67" data-line-number="67"><span class="co">#&gt; 1 RdrREADER_1 TrtTREAT1-TrtTREAT2 0.0038444143 0.04279223 99 0.08983908</span></a>
-<a class="sourceLine" id="cb9-68" data-line-number="68"><span class="co">#&gt; 2 RdrREADER_2 TrtTREAT1-TrtTREAT2 0.0214834916 0.04006975 99 0.53615233</span></a>
-<a class="sourceLine" id="cb9-69" data-line-number="69"><span class="co">#&gt; 3 RdrREADER_3 TrtTREAT1-TrtTREAT2 0.0171867933 0.03499399 99 0.49113552</span></a>
-<a class="sourceLine" id="cb9-70" data-line-number="70"><span class="co">#&gt; 4 RdrREADER_4 TrtTREAT1-TrtTREAT2 0.0009045681 0.03480536 99 0.02598933</span></a>
-<a class="sourceLine" id="cb9-71" data-line-number="71"><span class="co">#&gt;       PrGTt     CILower    CIUpper</span></a>
-<a class="sourceLine" id="cb9-72" data-line-number="72"><span class="co">#&gt; 1 0.9285966 -0.08106465 0.08875348</span></a>
-<a class="sourceLine" id="cb9-73" data-line-number="73"><span class="co">#&gt; 2 0.5930559 -0.05802359 0.10099057</span></a>
-<a class="sourceLine" id="cb9-74" data-line-number="74"><span class="co">#&gt; 3 0.6244176 -0.05224888 0.08662247</span></a>
-<a class="sourceLine" id="cb9-75" data-line-number="75"><span class="co">#&gt; 4 0.9793182 -0.06815683 0.06996596</span></a>
-<a class="sourceLine" id="cb9-76" data-line-number="76"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-77" data-line-number="77"><span class="co">#&gt; $FTestStatsRRFC</span></a>
-<a class="sourceLine" id="cb9-78" data-line-number="78"><span class="co">#&gt;      fRRFC ndfRRFC ddfRRFC     pRRFC</span></a>
-<a class="sourceLine" id="cb9-79" data-line-number="79"><span class="co">#&gt; 1 4.694058       1       3 0.1188379</span></a>
-<a class="sourceLine" id="cb9-80" data-line-number="80"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-81" data-line-number="81"><span class="co">#&gt; $ciDiffTrtRRFC</span></a>
-<a class="sourceLine" id="cb9-82" data-line-number="82"><span class="co">#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
-<a class="sourceLine" id="cb9-83" data-line-number="83"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
-<a class="sourceLine" id="cb9-84" data-line-number="84"><span class="co">#&gt;      CIUpper</span></a>
-<a class="sourceLine" id="cb9-85" data-line-number="85"><span class="co">#&gt; 1 0.02679926</span></a>
-<a class="sourceLine" id="cb9-86" data-line-number="86"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-87" data-line-number="87"><span class="co">#&gt; $ciAvgRdrEachTrtRRFC</span></a>
-<a class="sourceLine" id="cb9-88" data-line-number="88"><span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span></a>
-<a class="sourceLine" id="cb9-89" data-line-number="89"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.01109801  3 0.8124311 0.8830687</span></a>
-<a class="sourceLine" id="cb9-90" data-line-number="90"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.00777173  3 0.8121620 0.8616282</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"DBMH"</span>)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(ret)</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; $fomArray</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt;           RdrREADER_1 RdrREADER_2 RdrREADER_3 RdrREADER_4</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; TrtTREAT1   0.8534600   0.8649932   0.8573044   0.8152420</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt; TrtTREAT2   0.8496156   0.8435097   0.8401176   0.8143374</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; $anovaY</span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt;   Source           SS  DF          MS</span></a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="co">#&gt; 1      T   0.02356541   1 0.023565410</span></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt; 2      R   0.20521800   3 0.068406000</span></a>
+<a class="sourceLine" id="cb9-12" title="12"><span class="co">#&gt; 3      C  52.52839868  99 0.530589886</span></a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt; 4     TR   0.01506079   3 0.005020264</span></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; 5     TC   6.41004881  99 0.064747968</span></a>
+<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; 6     RC  39.24295381 297 0.132131158</span></a>
+<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; 7    TRC  22.66007764 297 0.076296558</span></a>
+<a class="sourceLine" id="cb9-17" title="17"><span class="co">#&gt; 8  Total 121.08532315 799          NA</span></a>
+<a class="sourceLine" id="cb9-18" title="18"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-19" title="19"><span class="co">#&gt; $anovaYi</span></a>
+<a class="sourceLine" id="cb9-20" title="20"><span class="co">#&gt;   Source  DF  TrtTREAT1  TrtTREAT2</span></a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="co">#&gt; 1      R   3 0.04926635 0.02415991</span></a>
+<a class="sourceLine" id="cb9-22" title="22"><span class="co">#&gt; 2      C  99 0.29396753 0.30137032</span></a>
+<a class="sourceLine" id="cb9-23" title="23"><span class="co">#&gt; 3     RC 297 0.10504787 0.10337984</span></a>
+<a class="sourceLine" id="cb9-24" title="24"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-25" title="25"><span class="co">#&gt; $varComp</span></a>
+<a class="sourceLine" id="cb9-26" title="26"><span class="co">#&gt;           varR       varC         varTR        varTC     varRC     varErr</span></a>
+<a class="sourceLine" id="cb9-27" title="27"><span class="co">#&gt; 1 3.775568e-05 0.05125091 -0.0007127629 -0.002887147 0.0279173 0.07629656</span></a>
+<a class="sourceLine" id="cb9-28" title="28"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-29" title="29"><span class="co">#&gt; $FTestStatsRRRC</span></a>
+<a class="sourceLine" id="cb9-30" title="30"><span class="co">#&gt;      fRRRC ndfRRRC ddfRRRC     pRRRC</span></a>
+<a class="sourceLine" id="cb9-31" title="31"><span class="co">#&gt; 1 4.694058       1       3 0.1188379</span></a>
+<a class="sourceLine" id="cb9-32" title="32"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-33" title="33"><span class="co">#&gt; $ciDiffTrtRRRC</span></a>
+<a class="sourceLine" id="cb9-34" title="34"><span class="co">#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
+<a class="sourceLine" id="cb9-35" title="35"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
+<a class="sourceLine" id="cb9-36" title="36"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb9-37" title="37"><span class="co">#&gt; 1 0.02679926</span></a>
+<a class="sourceLine" id="cb9-38" title="38"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-39" title="39"><span class="co">#&gt; $ciAvgRdrEachTrtRRRC</span></a>
+<a class="sourceLine" id="cb9-40" title="40"><span class="co">#&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper</span></a>
+<a class="sourceLine" id="cb9-41" title="41"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.02440215  70.12179 0.7990828 0.8964170</span></a>
+<a class="sourceLine" id="cb9-42" title="42"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.02356642 253.64403 0.7904843 0.8833058</span></a>
+<a class="sourceLine" id="cb9-43" title="43"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-44" title="44"><span class="co">#&gt; $FTestStatsFRRC</span></a>
+<a class="sourceLine" id="cb9-45" title="45"><span class="co">#&gt;      fFRRC ndfFRRC ddfFRRC    pFRRC</span></a>
+<a class="sourceLine" id="cb9-46" title="46"><span class="co">#&gt; 1 0.363956       1      99 0.547697</span></a>
+<a class="sourceLine" id="cb9-47" title="47"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-48" title="48"><span class="co">#&gt; $ciDiffTrtFRRC</span></a>
+<a class="sourceLine" id="cb9-49" title="49"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower</span></a>
+<a class="sourceLine" id="cb9-50" title="50"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span></a>
+<a class="sourceLine" id="cb9-51" title="51"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb9-52" title="52"><span class="co">#&gt; 1 0.04655638</span></a>
+<a class="sourceLine" id="cb9-53" title="53"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-54" title="54"><span class="co">#&gt; $ciAvgRdrEachTrtFRRC</span></a>
+<a class="sourceLine" id="cb9-55" title="55"><span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span></a>
+<a class="sourceLine" id="cb9-56" title="56"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.02710939 99 0.7939590 0.9015408</span></a>
+<a class="sourceLine" id="cb9-57" title="57"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.02744860 99 0.7824311 0.8913591</span></a>
+<a class="sourceLine" id="cb9-58" title="58"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-59" title="59"><span class="co">#&gt; $msAnovaEachRdrFRRC</span></a>
+<a class="sourceLine" id="cb9-60" title="60"><span class="co">#&gt;   Source DF  RdrREADER_1 RdrREADER_2 RdrREADER_3  RdrREADER_4</span></a>
+<a class="sourceLine" id="cb9-61" title="61"><span class="co">#&gt; 1      T  1 0.0007389761  0.02307702  0.01476929 4.091217e-05</span></a>
+<a class="sourceLine" id="cb9-62" title="62"><span class="co">#&gt; 2      C 99 0.2038747746  0.22344191  0.21424677 2.854199e-01</span></a>
+<a class="sourceLine" id="cb9-63" title="63"><span class="co">#&gt; 3     TC 99 0.0915587344  0.08027926  0.06122898 6.057067e-02</span></a>
+<a class="sourceLine" id="cb9-64" title="64"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-65" title="65"><span class="co">#&gt; $ciDiffTrtEachRdrFRRC</span></a>
+<a class="sourceLine" id="cb9-66" title="66"><span class="co">#&gt;        Reader           Treatment     Estimate     StdErr DF          t</span></a>
+<a class="sourceLine" id="cb9-67" title="67"><span class="co">#&gt; 1 RdrREADER_1 TrtTREAT1-TrtTREAT2 0.0038444143 0.04279223 99 0.08983908</span></a>
+<a class="sourceLine" id="cb9-68" title="68"><span class="co">#&gt; 2 RdrREADER_2 TrtTREAT1-TrtTREAT2 0.0214834916 0.04006975 99 0.53615233</span></a>
+<a class="sourceLine" id="cb9-69" title="69"><span class="co">#&gt; 3 RdrREADER_3 TrtTREAT1-TrtTREAT2 0.0171867933 0.03499399 99 0.49113552</span></a>
+<a class="sourceLine" id="cb9-70" title="70"><span class="co">#&gt; 4 RdrREADER_4 TrtTREAT1-TrtTREAT2 0.0009045681 0.03480536 99 0.02598933</span></a>
+<a class="sourceLine" id="cb9-71" title="71"><span class="co">#&gt;       PrGTt     CILower    CIUpper</span></a>
+<a class="sourceLine" id="cb9-72" title="72"><span class="co">#&gt; 1 0.9285966 -0.08106465 0.08875348</span></a>
+<a class="sourceLine" id="cb9-73" title="73"><span class="co">#&gt; 2 0.5930559 -0.05802359 0.10099057</span></a>
+<a class="sourceLine" id="cb9-74" title="74"><span class="co">#&gt; 3 0.6244176 -0.05224888 0.08662247</span></a>
+<a class="sourceLine" id="cb9-75" title="75"><span class="co">#&gt; 4 0.9793182 -0.06815683 0.06996596</span></a>
+<a class="sourceLine" id="cb9-76" title="76"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-77" title="77"><span class="co">#&gt; $FTestStatsRRFC</span></a>
+<a class="sourceLine" id="cb9-78" title="78"><span class="co">#&gt;      fRRFC ndfRRFC ddfRRFC     pRRFC</span></a>
+<a class="sourceLine" id="cb9-79" title="79"><span class="co">#&gt; 1 4.694058       1       3 0.1188379</span></a>
+<a class="sourceLine" id="cb9-80" title="80"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-81" title="81"><span class="co">#&gt; $ciDiffTrtRRFC</span></a>
+<a class="sourceLine" id="cb9-82" title="82"><span class="co">#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
+<a class="sourceLine" id="cb9-83" title="83"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
+<a class="sourceLine" id="cb9-84" title="84"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb9-85" title="85"><span class="co">#&gt; 1 0.02679926</span></a>
+<a class="sourceLine" id="cb9-86" title="86"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-87" title="87"><span class="co">#&gt; $ciAvgRdrEachTrtRRFC</span></a>
+<a class="sourceLine" id="cb9-88" title="88"><span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span></a>
+<a class="sourceLine" id="cb9-89" title="89"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.01109801  3 0.8124311 0.8830687</span></a>
+<a class="sourceLine" id="cb9-90" title="90"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.00777173  3 0.8121620 0.8616282</span></a></code></pre></div>
 </div>
 <div id="explanation-of-the-output" class="section level2">
 <h2 class="hasAnchor">
@@ -340,10 +333,10 @@
 <li>
 <code>fomArray</code> contains the <code>[1:2,1:4]</code> FOM values.</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">ret<span class="op">$</span>fomArray</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt;           RdrREADER_1 RdrREADER_2 RdrREADER_3 RdrREADER_4</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; TrtTREAT1   0.8534600   0.8649932   0.8573044   0.8152420</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; TrtTREAT2   0.8496156   0.8435097   0.8401176   0.8143374</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">ret<span class="op">$</span>fomArray</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="co">#&gt;           RdrREADER_1 RdrREADER_2 RdrREADER_3 RdrREADER_4</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="co">#&gt; TrtTREAT1   0.8534600   0.8649932   0.8573044   0.8152420</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="co">#&gt; TrtTREAT2   0.8496156   0.8435097   0.8401176   0.8143374</span></a></code></pre></div>
 <p>This shows the 2 x 4 array of FOM values.</p>
 </div>
 <div id="pseudovalue-anova-table" class="section level3">
@@ -353,16 +346,16 @@
 <li>
 <code>anovaY</code>, where the Y denotes that these are pseudovalue based, is the ANOVA table.</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">ret<span class="op">$</span>anovaY</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt;       Source           SS  DF          MS</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt; 1     Row1_T   0.02356541   1 0.023565410</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; 2     Row2_R   0.20521800   3 0.068406000</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; 3     Row3_C  52.52839868  99 0.530589886</span></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; 4    Row4_TR   0.01506079   3 0.005020264</span></a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; 5    Row5_TC   6.41004881  99 0.064747968</span></a>
-<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; 6    Row6_RC  39.24295381 297 0.132131158</span></a>
-<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; 7   Row7_TRC  22.66007764 297 0.076296558</span></a>
-<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; 8 Row8_Total 121.08532315 799          NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">ret<span class="op">$</span>anovaY</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="co">#&gt;   Source           SS  DF          MS</span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="co">#&gt; 1      T   0.02356541   1 0.023565410</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="co">#&gt; 2      R   0.20521800   3 0.068406000</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="co">#&gt; 3      C  52.52839868  99 0.530589886</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="co">#&gt; 4     TR   0.01506079   3 0.005020264</span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="co">#&gt; 5     TC   6.41004881  99 0.064747968</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="co">#&gt; 6     RC  39.24295381 297 0.132131158</span></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="co">#&gt; 7    TRC  22.66007764 297 0.076296558</span></a>
+<a class="sourceLine" id="cb11-10" title="10"><span class="co">#&gt; 8  Total 121.08532315 799          NA</span></a></code></pre></div>
 </div>
 <div id="pseudovalue-anova-table-each-treatment" class="section level3">
 <h3 class="hasAnchor">
@@ -371,11 +364,11 @@
 <li>
 <code>anovaYi</code> is the ANOVA table for individual treatments.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">ret<span class="op">$</span>anovaYi</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt;   Source  DF  TrtTREAT1  TrtTREAT2</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; 1      R   3 0.04926635 0.02415991</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; 2      C  99 0.29396753 0.30137032</span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; 3     RC 297 0.10504787 0.10337984</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">ret<span class="op">$</span>anovaYi</a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt;   Source  DF  TrtTREAT1  TrtTREAT2</span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; 1      R   3 0.04926635 0.02415991</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="co">#&gt; 2      C  99 0.29396753 0.30137032</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="co">#&gt; 3     RC 297 0.10504787 0.10337984</span></a></code></pre></div>
 <p>The <code>0</code> and <code>1</code> headers come from the treatment names.</p>
 </div>
 <div id="pseudovalue-variance-components" class="section level3">
@@ -385,9 +378,9 @@
 <li>
 <code>varComp</code> is the variance components (needed for sample size estimation).</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">ret<span class="op">$</span>varComp</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt;           varR       varC         varTR        varTC     varRC     varErr</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; 1 3.775568e-05 0.05125091 -0.0007127629 -0.002887147 0.0279173 0.07629656</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">ret<span class="op">$</span>varComp</a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="co">#&gt;           varR       varC         varTR        varTC     varRC     varErr</span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="co">#&gt; 1 3.775568e-05 0.05125091 -0.0007127629 -0.002887147 0.0279173 0.07629656</span></a></code></pre></div>
 </div>
 <div id="random-reader-random-case-rrrc-analysis" class="section level3">
 <h3 class="hasAnchor">
@@ -396,8 +389,8 @@
 <li>
 <code>ret$FTestStatsRRRC$fRRRC</code> is the F-statistic for testing the NH that the treatments have identical FOMs. RRRC means random-reader random-case generalization.</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">ret<span class="op">$</span>FTestStatsRRRC<span class="op">$</span>fRRRC</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; [1] 4.694058</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">ret<span class="op">$</span>FTestStatsRRRC<span class="op">$</span>fRRRC</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="co">#&gt; [1] 4.694058</span></a></code></pre></div>
 <div id="f-statistic-and-p-value-for-rrrc-analysis" class="section level4">
 <h4 class="hasAnchor">
 <a href="#f-statistic-and-p-value-for-rrrc-analysis" class="anchor"></a>F-statistic and p-value for RRRC analysis</h4>
@@ -405,14 +398,14 @@
 <li>
 <code>ret$FTestStatsRRRC$ddfRRRC</code> is the denominator degrees of freedom of the F-statistic.</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">ret<span class="op">$</span>FTestStatsRRRC<span class="op">$</span>ddfRRRC</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">ret<span class="op">$</span>FTestStatsRRRC<span class="op">$</span>ddfRRRC</a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsRRRC$pRRRC</code> is the p-value of the test.</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">ret<span class="op">$</span>FTestStatsRRRC<span class="op">$</span>pRRRC</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co">#&gt; [1] 0.1188379</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">ret<span class="op">$</span>FTestStatsRRRC<span class="op">$</span>pRRRC</a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="co">#&gt; [1] 0.1188379</span></a></code></pre></div>
 </div>
 <div id="confidence-intervals-for-rrrc-analysis" class="section level4">
 <h4 class="hasAnchor">
@@ -421,19 +414,19 @@
 <li>
 <code>ciDiffTrtRRRC</code> is the 95% confidence interval of reader-averaged differences between treatments.</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">ret<span class="op">$</span>ciDiffTrtRRRC</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co">#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt;      CIUpper</span></a>
-<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt; 1 0.02679926</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">ret<span class="op">$</span>ciDiffTrtRRRC</a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="co">#&gt;               TrtDiff   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb17-5" title="5"><span class="co">#&gt; 1 0.02679926</span></a></code></pre></div>
 <ul>
 <li>
 <code>ciAvgRdrEachTrtRRRC</code> is the 95% confidence interval of reader-averaged FOMs for each treatments.</li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">ret<span class="op">$</span>ciAvgRdrEachTrtRRRC</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="co">#&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper</span></a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.02440215  70.12179 0.7990828 0.8964170</span></a>
-<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.02356642 253.64403 0.7904843 0.8833058</span></a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">ret<span class="op">$</span>ciAvgRdrEachTrtRRRC</a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="co">#&gt;   Treatment      Area     StdErr        DF   CILower   CIUpper</span></a>
+<a class="sourceLine" id="cb18-3" title="3"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.02440215  70.12179 0.7990828 0.8964170</span></a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.02356642 253.64403 0.7904843 0.8833058</span></a></code></pre></div>
 </div>
 </div>
 <div id="fixed-reader-random-case-frrc-analysis" class="section level3">
@@ -446,26 +439,26 @@
 <li>
 <code>ret$FTestStatsFRRC$fFRRC</code> is the F-statistic for fixed-reader random-case analysis.</li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">ret<span class="op">$</span>FTestStatsFRRC<span class="op">$</span>fFRRC</a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co">#&gt; [1] 0.363956</span></a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">ret<span class="op">$</span>FTestStatsFRRC<span class="op">$</span>fFRRC</a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="co">#&gt; [1] 0.363956</span></a></code></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsFRRC$ndfFRRC</code> is the numerator degrees of freedom of the F-statistic, always one less than the number of treatments.</li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">ret<span class="op">$</span>FTestStatsFRRC<span class="op">$</span>ndfFRRC</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co">#&gt; [1] 1</span></a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">ret<span class="op">$</span>FTestStatsFRRC<span class="op">$</span>ndfFRRC</a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="co">#&gt; [1] 1</span></a></code></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsFRRC$ddfFRRC</code> is the denominator degreesof freedom of the F-statistic, for fixed-reader random-case analysis.</li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">ret<span class="op">$</span>FTestStatsFRRC<span class="op">$</span>ddfFRRC</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="co">#&gt; [1] 99</span></a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">ret<span class="op">$</span>FTestStatsFRRC<span class="op">$</span>ddfFRRC</a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="co">#&gt; [1] 99</span></a></code></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsFRRC$pFRRC</code> is the p-value for fixed-reader random-case analysis.</li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">ret<span class="op">$</span>FTestStatsFRRC<span class="op">$</span>pFRRC</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co">#&gt; [1] 0.547697</span></a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">ret<span class="op">$</span>FTestStatsFRRC<span class="op">$</span>pFRRC</a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="co">#&gt; [1] 0.547697</span></a></code></pre></div>
 </div>
 <div id="confidence-intervals-for-frrc-analysis" class="section level4">
 <h4 class="hasAnchor">
@@ -474,19 +467,19 @@
 <li>
 <code>ciDiffTrtFRRC</code> is the 95% CI of reader-average differences between treatments for fixed-reader random-case analysis</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">ret<span class="op">$</span>ciDiffTrtFRRC</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower</span></a>
-<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span></a>
-<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="co">#&gt;      CIUpper</span></a>
-<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="co">#&gt; 1 0.04655638</span></a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">ret<span class="op">$</span>ciDiffTrtFRRC</a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower</span></a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span></a>
+<a class="sourceLine" id="cb23-4" title="4"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb23-5" title="5"><span class="co">#&gt; 1 0.04655638</span></a></code></pre></div>
 <ul>
 <li>
 <code>ret$ciAvgRdrEachTrtFRRC</code> is the 95% CI of reader-average FOMs of each treatment for fixed-reader random-case analysis</li>
 </ul>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">ret<span class="op">$</span>ciAvgRdrEachTrtFRRC</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span></a>
-<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.02710939 99 0.7939590 0.9015408</span></a>
-<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.02744860 99 0.7824311 0.8913591</span></a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">ret<span class="op">$</span>ciAvgRdrEachTrtFRRC</a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span></a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.02710939 99 0.7939590 0.9015408</span></a>
+<a class="sourceLine" id="cb24-4" title="4"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.02744860 99 0.7824311 0.8913591</span></a></code></pre></div>
 </div>
 <div id="anova-for-frrc-analysis" class="section level4">
 <h4 class="hasAnchor">
@@ -495,11 +488,11 @@
 <li>
 <code>ret$msAnovaEachRdrFRRC</code> is the mean-squares ANOVA for each reader</li>
 </ul>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">ret<span class="op">$</span>msAnovaEachRdrFRRC</a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="co">#&gt;   Source DF  RdrREADER_1 RdrREADER_2 RdrREADER_3  RdrREADER_4</span></a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="co">#&gt; 1      T  1 0.0007389761  0.02307702  0.01476929 4.091217e-05</span></a>
-<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co">#&gt; 2      C 99 0.2038747746  0.22344191  0.21424677 2.854199e-01</span></a>
-<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="co">#&gt; 3     TC 99 0.0915587344  0.08027926  0.06122898 6.057067e-02</span></a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">ret<span class="op">$</span>msAnovaEachRdrFRRC</a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="co">#&gt;   Source DF  RdrREADER_1 RdrREADER_2 RdrREADER_3  RdrREADER_4</span></a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="co">#&gt; 1      T  1 0.0007389761  0.02307702  0.01476929 4.091217e-05</span></a>
+<a class="sourceLine" id="cb25-4" title="4"><span class="co">#&gt; 2      C 99 0.2038747746  0.22344191  0.21424677 2.854199e-01</span></a>
+<a class="sourceLine" id="cb25-5" title="5"><span class="co">#&gt; 3     TC 99 0.0915587344  0.08027926  0.06122898 6.057067e-02</span></a></code></pre></div>
 </div>
 <div id="confidence-intervals-for-frrc-analysis-1" class="section level4">
 <h4 class="hasAnchor">
@@ -508,11 +501,11 @@
 <li>
 <code>ciDiffTrtFRRC</code> is the CI for reader-averaged treatment differences, for fixed-reader random-case analysis</li>
 </ul>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">ret<span class="op">$</span>ciDiffTrtFRRC</a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower</span></a>
-<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span></a>
-<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co">#&gt;      CIUpper</span></a>
-<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="co">#&gt; 1 0.04655638</span></a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">ret<span class="op">$</span>ciDiffTrtFRRC</a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="co">#&gt;             Treatment   Estimate     StdErr DF         t    PrGTt     CILower</span></a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.01799277 99 0.6032876 0.547697 -0.02484675</span></a>
+<a class="sourceLine" id="cb26-4" title="4"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb26-5" title="5"><span class="co">#&gt; 1 0.04655638</span></a></code></pre></div>
 </div>
 </div>
 <div id="random-reader-fixed-case-rrfc-analysis" class="section level3">
@@ -525,20 +518,20 @@
 <li>
 <code>ret$FTestStatsRRFC$fRRFC</code> is the F-statistic for for random-reader fixed-case analysis</li>
 </ul>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">ret<span class="op">$</span>FTestStatsRRFC<span class="op">$</span>fRRFC</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="co">#&gt; [1] 4.694058</span></a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">ret<span class="op">$</span>FTestStatsRRFC<span class="op">$</span>fRRFC</a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="co">#&gt; [1] 4.694058</span></a></code></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsRRFC$ddfRRFC</code> is the ddf for for random-reader fixed-case analysis</li>
 </ul>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">ret<span class="op">$</span>FTestStatsRRFC<span class="op">$</span>ddfRRFC</a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">ret<span class="op">$</span>FTestStatsRRFC<span class="op">$</span>ddfRRFC</a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsRRFC$pRRFC</code> is the p-value for for random-reader fixed-case analysis</li>
 </ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">ret<span class="op">$</span>FTestStatsRRFC<span class="op">$</span>pRRFC</a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="co">#&gt; [1] 0.1188379</span></a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">ret<span class="op">$</span>FTestStatsRRFC<span class="op">$</span>pRRFC</a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="co">#&gt; [1] 0.1188379</span></a></code></pre></div>
 </div>
 <div id="confidence-intervals-for-rrfc-analysis" class="section level4">
 <h4 class="hasAnchor">
@@ -547,19 +540,19 @@
 <li>
 <code>ciDiffTrtRRFC</code> is the CI for reader-averaged inter-treatment FOM differences for random-reader fixed-case analysis</li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">ret<span class="op">$</span>ciDiffTrtRRFC</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="co">#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
-<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
-<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="co">#&gt;      CIUpper</span></a>
-<a class="sourceLine" id="cb30-5" data-line-number="5"><span class="co">#&gt; 1 0.02679926</span></a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">ret<span class="op">$</span>ciDiffTrtRRFC</a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="co">#&gt;             Treatment   Estimate      StdErr DF        t     PrGTt      CILower</span></a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="co">#&gt; 1 TrtTREAT1-TrtTREAT2 0.01085482 0.005010122  3 2.166577 0.1188379 -0.005089627</span></a>
+<a class="sourceLine" id="cb30-4" title="4"><span class="co">#&gt;      CIUpper</span></a>
+<a class="sourceLine" id="cb30-5" title="5"><span class="co">#&gt; 1 0.02679926</span></a></code></pre></div>
 <ul>
 <li>
 <code>ciAvgRdrEachTrtRRFC</code> is the CI for treatment FOMs for each reader for random-reader fixed-case analysis</li>
 </ul>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">ret<span class="op">$</span>ciAvgRdrEachTrtRRFC</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span></a>
-<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.01109801  3 0.8124311 0.8830687</span></a>
-<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.00777173  3 0.8121620 0.8616282</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">ret<span class="op">$</span>ciAvgRdrEachTrtRRFC</a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="co">#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper</span></a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="co">#&gt; 1 TrtTREAT1 0.8477499 0.01109801  3 0.8124311 0.8830687</span></a>
+<a class="sourceLine" id="cb31-4" title="4"><span class="co">#&gt; 2 TrtTREAT2 0.8368951 0.00777173  3 0.8121620 0.8616282</span></a></code></pre></div>
 </div>
 </div>
 </div>
@@ -567,101 +560,101 @@
 <h2 class="hasAnchor">
 <a href="#orh-significance-testing" class="anchor"></a>ORH significance testing</h2>
 <p>Simply change <code>method = "DBMH"</code> to <code>method = "ORH"</code>.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>)</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(ret)</a>
-<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="co">#&gt; List of 14</span></a>
-<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="co">#&gt;  $ fomArray            : num [1:2, 1:4] 0.853 0.85 0.865 0.844 0.857 ...</span></a>
-<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></a>
-<a class="sourceLine" id="cb32-6" data-line-number="6"><span class="co">#&gt;   .. ..$ : chr [1:2] "TrtTREAT1" "TrtTREAT2"</span></a>
-<a class="sourceLine" id="cb32-7" data-line-number="7"><span class="co">#&gt;   .. ..$ : chr [1:4] "RdrREADER_1" "RdrREADER_2" "RdrREADER_3" "RdrREADER_4"</span></a>
-<a class="sourceLine" id="cb32-8" data-line-number="8"><span class="co">#&gt;  $ meanSquares         :'data.frame':    1 obs. of  3 variables:</span></a>
-<a class="sourceLine" id="cb32-9" data-line-number="9"><span class="co">#&gt;   ..$ msT : num 0.000236</span></a>
-<a class="sourceLine" id="cb32-10" data-line-number="10"><span class="co">#&gt;   ..$ msR : num 0.000684</span></a>
-<a class="sourceLine" id="cb32-11" data-line-number="11"><span class="co">#&gt;   ..$ msTR: num 5.02e-05</span></a>
-<a class="sourceLine" id="cb32-12" data-line-number="12"><span class="co">#&gt;  $ varComp             :'data.frame':    1 obs. of  6 variables:</span></a>
-<a class="sourceLine" id="cb32-13" data-line-number="13"><span class="co">#&gt;   ..$ varR : num 2.33e-05</span></a>
-<a class="sourceLine" id="cb32-14" data-line-number="14"><span class="co">#&gt;   ..$ varTR: num -0.000684</span></a>
-<a class="sourceLine" id="cb32-15" data-line-number="15"><span class="co">#&gt;   ..$ cov1 : num 0.000792</span></a>
-<a class="sourceLine" id="cb32-16" data-line-number="16"><span class="co">#&gt;   ..$ cov2 : num 0.000484</span></a>
-<a class="sourceLine" id="cb32-17" data-line-number="17"><span class="co">#&gt;   ..$ cov3 : num 0.000513</span></a>
-<a class="sourceLine" id="cb32-18" data-line-number="18"><span class="co">#&gt;   ..$ var  : num 0.00153</span></a>
-<a class="sourceLine" id="cb32-19" data-line-number="19"><span class="co">#&gt;  $ FTestStatsRRRC      :'data.frame':    1 obs. of  4 variables:</span></a>
-<a class="sourceLine" id="cb32-20" data-line-number="20"><span class="co">#&gt;   ..$ fRRRC  : num 4.69</span></a>
-<a class="sourceLine" id="cb32-21" data-line-number="21"><span class="co">#&gt;   ..$ ndfRRRC: num 1</span></a>
-<a class="sourceLine" id="cb32-22" data-line-number="22"><span class="co">#&gt;   ..$ ddfRRRC: num 3</span></a>
-<a class="sourceLine" id="cb32-23" data-line-number="23"><span class="co">#&gt;   ..$ pRRRC  : num 0.119</span></a>
-<a class="sourceLine" id="cb32-24" data-line-number="24"><span class="co">#&gt;  $ ciDiffTrtRRRC       :'data.frame':    1 obs. of  8 variables:</span></a>
-<a class="sourceLine" id="cb32-25" data-line-number="25"><span class="co">#&gt;   ..$ Treatment: chr "TrtTREAT1-TrtTREAT2"</span></a>
-<a class="sourceLine" id="cb32-26" data-line-number="26"><span class="co">#&gt;   ..$ Estimate : num 0.0109</span></a>
-<a class="sourceLine" id="cb32-27" data-line-number="27"><span class="co">#&gt;   ..$ StdErr   : num 0.00501</span></a>
-<a class="sourceLine" id="cb32-28" data-line-number="28"><span class="co">#&gt;   ..$ DF       : num 3</span></a>
-<a class="sourceLine" id="cb32-29" data-line-number="29"><span class="co">#&gt;   ..$ t        : num 2.17</span></a>
-<a class="sourceLine" id="cb32-30" data-line-number="30"><span class="co">#&gt;   ..$ PrGTt    : num 0.119</span></a>
-<a class="sourceLine" id="cb32-31" data-line-number="31"><span class="co">#&gt;   ..$ CILower  : num -0.00509</span></a>
-<a class="sourceLine" id="cb32-32" data-line-number="32"><span class="co">#&gt;   ..$ CIUpper  : num 0.0268</span></a>
-<a class="sourceLine" id="cb32-33" data-line-number="33"><span class="co">#&gt;  $ ciAvgRdrEachTrtRRRC :'data.frame':    2 obs. of  6 variables:</span></a>
-<a class="sourceLine" id="cb32-34" data-line-number="34"><span class="co">#&gt;   ..$ Treatment: Factor w/ 2 levels "TrtTREAT1","TrtTREAT2": 1 2</span></a>
-<a class="sourceLine" id="cb32-35" data-line-number="35"><span class="co">#&gt;   ..$ Area     : num [1:2] 0.848 0.837</span></a>
-<a class="sourceLine" id="cb32-36" data-line-number="36"><span class="co">#&gt;   ..$ StdErr   : num [1:2] 0.0244 0.0236</span></a>
-<a class="sourceLine" id="cb32-37" data-line-number="37"><span class="co">#&gt;   ..$ DF       : num [1:2] 70.1 253.6</span></a>
-<a class="sourceLine" id="cb32-38" data-line-number="38"><span class="co">#&gt;   ..$ CILower  : num [1:2] 0.799 0.79</span></a>
-<a class="sourceLine" id="cb32-39" data-line-number="39"><span class="co">#&gt;   ..$ CIUpper  : num [1:2] 0.896 0.883</span></a>
-<a class="sourceLine" id="cb32-40" data-line-number="40"><span class="co">#&gt;  $ FTestStatsFRRC      :'data.frame':    1 obs. of  4 variables:</span></a>
-<a class="sourceLine" id="cb32-41" data-line-number="41"><span class="co">#&gt;   ..$ fFRRC  : num 0.364</span></a>
-<a class="sourceLine" id="cb32-42" data-line-number="42"><span class="co">#&gt;   ..$ ndfFRRC: num 1</span></a>
-<a class="sourceLine" id="cb32-43" data-line-number="43"><span class="co">#&gt;   ..$ ddfFRRC: num Inf</span></a>
-<a class="sourceLine" id="cb32-44" data-line-number="44"><span class="co">#&gt;   ..$ pFRRC  : num 0.546</span></a>
-<a class="sourceLine" id="cb32-45" data-line-number="45"><span class="co">#&gt;  $ ciDiffTrtFRRC       :'data.frame':    1 obs. of  8 variables:</span></a>
-<a class="sourceLine" id="cb32-46" data-line-number="46"><span class="co">#&gt;   ..$ Treatment: chr "TrtTREAT1-TrtTREAT2"</span></a>
-<a class="sourceLine" id="cb32-47" data-line-number="47"><span class="co">#&gt;   ..$ Estimate : num 0.0109</span></a>
-<a class="sourceLine" id="cb32-48" data-line-number="48"><span class="co">#&gt;   ..$ StdErr   : num 0.018</span></a>
-<a class="sourceLine" id="cb32-49" data-line-number="49"><span class="co">#&gt;   ..$ DF       : num Inf</span></a>
-<a class="sourceLine" id="cb32-50" data-line-number="50"><span class="co">#&gt;   ..$ t        : num 0.603</span></a>
-<a class="sourceLine" id="cb32-51" data-line-number="51"><span class="co">#&gt;   ..$ PrGTt    : num 0.546</span></a>
-<a class="sourceLine" id="cb32-52" data-line-number="52"><span class="co">#&gt;   ..$ CILower  : num -0.0244</span></a>
-<a class="sourceLine" id="cb32-53" data-line-number="53"><span class="co">#&gt;   ..$ CIUpper  : num 0.0461</span></a>
-<a class="sourceLine" id="cb32-54" data-line-number="54"><span class="co">#&gt;  $ ciAvgRdrEachTrtFRRC :'data.frame':    2 obs. of  6 variables:</span></a>
-<a class="sourceLine" id="cb32-55" data-line-number="55"><span class="co">#&gt;   ..$ Treatment: Factor w/ 2 levels "TrtTREAT1","TrtTREAT2": 1 2</span></a>
-<a class="sourceLine" id="cb32-56" data-line-number="56"><span class="co">#&gt;   ..$ Area     : num [1:2] 0.848 0.837</span></a>
-<a class="sourceLine" id="cb32-57" data-line-number="57"><span class="co">#&gt;   ..$ StdErr   : num [1:2] 0.0271 0.0274</span></a>
-<a class="sourceLine" id="cb32-58" data-line-number="58"><span class="co">#&gt;   ..$ DF       : num [1:2] Inf Inf</span></a>
-<a class="sourceLine" id="cb32-59" data-line-number="59"><span class="co">#&gt;   ..$ CILower  : num [1:2] 0.795 0.783</span></a>
-<a class="sourceLine" id="cb32-60" data-line-number="60"><span class="co">#&gt;   ..$ CIUpper  : num [1:2] 0.901 0.891</span></a>
-<a class="sourceLine" id="cb32-61" data-line-number="61"><span class="co">#&gt;  $ ciDiffTrtEachRdrFRRC:'data.frame':    4 obs. of  9 variables:</span></a>
-<a class="sourceLine" id="cb32-62" data-line-number="62"><span class="co">#&gt;   ..$ Reader   : Factor w/ 4 levels "RdrREADER_1",..: 1 2 3 4</span></a>
-<a class="sourceLine" id="cb32-63" data-line-number="63"><span class="co">#&gt;   ..$ Treatment: Factor w/ 1 level "TrtTREAT1-TrtTREAT2": 1 1 1 1</span></a>
-<a class="sourceLine" id="cb32-64" data-line-number="64"><span class="co">#&gt;   ..$ Estimate : num [1:4] 0.003844 0.021483 0.017187 0.000905</span></a>
-<a class="sourceLine" id="cb32-65" data-line-number="65"><span class="co">#&gt;   ..$ StdErr   : num [1:4] 0.0428 0.0401 0.035 0.0348</span></a>
-<a class="sourceLine" id="cb32-66" data-line-number="66"><span class="co">#&gt;   ..$ DF       : num [1:4] Inf Inf Inf Inf</span></a>
-<a class="sourceLine" id="cb32-67" data-line-number="67"><span class="co">#&gt;   ..$ t        : num [1:4] 0.0898 0.5362 0.4911 0.026</span></a>
-<a class="sourceLine" id="cb32-68" data-line-number="68"><span class="co">#&gt;   ..$ PrGTt    : num [1:4] 0.928 0.592 0.623 0.979</span></a>
-<a class="sourceLine" id="cb32-69" data-line-number="69"><span class="co">#&gt;   ..$ CILower  : num [1:4] -0.08 -0.0571 -0.0514 -0.0673</span></a>
-<a class="sourceLine" id="cb32-70" data-line-number="70"><span class="co">#&gt;   ..$ CIUpper  : num [1:4] 0.0877 0.1 0.0858 0.0691</span></a>
-<a class="sourceLine" id="cb32-71" data-line-number="71"><span class="co">#&gt;  $ varCovEachRdr       :'data.frame':    4 obs. of  3 variables:</span></a>
-<a class="sourceLine" id="cb32-72" data-line-number="72"><span class="co">#&gt;   ..$ Reader: Factor w/ 4 levels "RdrREADER_1",..: 1 2 3 4</span></a>
-<a class="sourceLine" id="cb32-73" data-line-number="73"><span class="co">#&gt;   ..$ Var   : num [1:4] 0.00148 0.00152 0.00138 0.00173</span></a>
-<a class="sourceLine" id="cb32-74" data-line-number="74"><span class="co">#&gt;   ..$ Cov1  : num [1:4] 0.000562 0.000716 0.000765 0.001124</span></a>
-<a class="sourceLine" id="cb32-75" data-line-number="75"><span class="co">#&gt;  $ FTestStatsRRFC      :'data.frame':    1 obs. of  4 variables:</span></a>
-<a class="sourceLine" id="cb32-76" data-line-number="76"><span class="co">#&gt;   ..$ fRRFC  : num 4.69</span></a>
-<a class="sourceLine" id="cb32-77" data-line-number="77"><span class="co">#&gt;   ..$ ndfRRFC: num 1</span></a>
-<a class="sourceLine" id="cb32-78" data-line-number="78"><span class="co">#&gt;   ..$ ddfRRFC: num 3</span></a>
-<a class="sourceLine" id="cb32-79" data-line-number="79"><span class="co">#&gt;   ..$ pRRFC  : num 0.119</span></a>
-<a class="sourceLine" id="cb32-80" data-line-number="80"><span class="co">#&gt;  $ ciDiffTrtRRFC       :'data.frame':    1 obs. of  8 variables:</span></a>
-<a class="sourceLine" id="cb32-81" data-line-number="81"><span class="co">#&gt;   ..$ Treatment: chr "TrtTREAT1-TrtTREAT2"</span></a>
-<a class="sourceLine" id="cb32-82" data-line-number="82"><span class="co">#&gt;   ..$ Estimate : num 0.0109</span></a>
-<a class="sourceLine" id="cb32-83" data-line-number="83"><span class="co">#&gt;   ..$ StdErr   : num 0.00501</span></a>
-<a class="sourceLine" id="cb32-84" data-line-number="84"><span class="co">#&gt;   ..$ DF       : num 3</span></a>
-<a class="sourceLine" id="cb32-85" data-line-number="85"><span class="co">#&gt;   ..$ t        : num 2.17</span></a>
-<a class="sourceLine" id="cb32-86" data-line-number="86"><span class="co">#&gt;   ..$ PrGTt    : num 0.119</span></a>
-<a class="sourceLine" id="cb32-87" data-line-number="87"><span class="co">#&gt;   ..$ CILower  : num -0.00509</span></a>
-<a class="sourceLine" id="cb32-88" data-line-number="88"><span class="co">#&gt;   ..$ CIUpper  : num 0.0268</span></a>
-<a class="sourceLine" id="cb32-89" data-line-number="89"><span class="co">#&gt;  $ ciAvgRdrEachTrtRRFC :'data.frame':    2 obs. of  6 variables:</span></a>
-<a class="sourceLine" id="cb32-90" data-line-number="90"><span class="co">#&gt;   ..$ Treatment: Factor w/ 2 levels "TrtTREAT1","TrtTREAT2": 1 2</span></a>
-<a class="sourceLine" id="cb32-91" data-line-number="91"><span class="co">#&gt;   ..$ Area     : num [1:2] 0.848 0.837</span></a>
-<a class="sourceLine" id="cb32-92" data-line-number="92"><span class="co">#&gt;   ..$ StdErr   : num [1:2] 0.0111 0.00777</span></a>
-<a class="sourceLine" id="cb32-93" data-line-number="93"><span class="co">#&gt;   ..$ DF       : num [1:2] 3 3</span></a>
-<a class="sourceLine" id="cb32-94" data-line-number="94"><span class="co">#&gt;   ..$ CILower  : num [1:2] 0.812 0.812</span></a>
-<a class="sourceLine" id="cb32-95" data-line-number="95"><span class="co">#&gt;   ..$ CIUpper  : num [1:2] 0.883 0.862</span></a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>)</a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(ret)</a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="co">#&gt; List of 14</span></a>
+<a class="sourceLine" id="cb32-4" title="4"><span class="co">#&gt;  $ fomArray            : num [1:2, 1:4] 0.853 0.85 0.865 0.844 0.857 ...</span></a>
+<a class="sourceLine" id="cb32-5" title="5"><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></a>
+<a class="sourceLine" id="cb32-6" title="6"><span class="co">#&gt;   .. ..$ : chr [1:2] "TrtTREAT1" "TrtTREAT2"</span></a>
+<a class="sourceLine" id="cb32-7" title="7"><span class="co">#&gt;   .. ..$ : chr [1:4] "RdrREADER_1" "RdrREADER_2" "RdrREADER_3" "RdrREADER_4"</span></a>
+<a class="sourceLine" id="cb32-8" title="8"><span class="co">#&gt;  $ meanSquares         :'data.frame':    1 obs. of  3 variables:</span></a>
+<a class="sourceLine" id="cb32-9" title="9"><span class="co">#&gt;   ..$ msT : num 0.000236</span></a>
+<a class="sourceLine" id="cb32-10" title="10"><span class="co">#&gt;   ..$ msR : num 0.000684</span></a>
+<a class="sourceLine" id="cb32-11" title="11"><span class="co">#&gt;   ..$ msTR: num 5.02e-05</span></a>
+<a class="sourceLine" id="cb32-12" title="12"><span class="co">#&gt;  $ varComp             :'data.frame':    1 obs. of  6 variables:</span></a>
+<a class="sourceLine" id="cb32-13" title="13"><span class="co">#&gt;   ..$ varR : num 2.33e-05</span></a>
+<a class="sourceLine" id="cb32-14" title="14"><span class="co">#&gt;   ..$ varTR: num -0.000684</span></a>
+<a class="sourceLine" id="cb32-15" title="15"><span class="co">#&gt;   ..$ cov1 : num 0.000792</span></a>
+<a class="sourceLine" id="cb32-16" title="16"><span class="co">#&gt;   ..$ cov2 : num 0.000484</span></a>
+<a class="sourceLine" id="cb32-17" title="17"><span class="co">#&gt;   ..$ cov3 : num 0.000513</span></a>
+<a class="sourceLine" id="cb32-18" title="18"><span class="co">#&gt;   ..$ var  : num 0.00153</span></a>
+<a class="sourceLine" id="cb32-19" title="19"><span class="co">#&gt;  $ FTestStatsRRRC      :'data.frame':    1 obs. of  4 variables:</span></a>
+<a class="sourceLine" id="cb32-20" title="20"><span class="co">#&gt;   ..$ fRRRC  : num 4.69</span></a>
+<a class="sourceLine" id="cb32-21" title="21"><span class="co">#&gt;   ..$ ndfRRRC: num 1</span></a>
+<a class="sourceLine" id="cb32-22" title="22"><span class="co">#&gt;   ..$ ddfRRRC: num 3</span></a>
+<a class="sourceLine" id="cb32-23" title="23"><span class="co">#&gt;   ..$ pRRRC  : num 0.119</span></a>
+<a class="sourceLine" id="cb32-24" title="24"><span class="co">#&gt;  $ ciDiffTrtRRRC       :'data.frame':    1 obs. of  8 variables:</span></a>
+<a class="sourceLine" id="cb32-25" title="25"><span class="co">#&gt;   ..$ Treatment: chr "TrtTREAT1-TrtTREAT2"</span></a>
+<a class="sourceLine" id="cb32-26" title="26"><span class="co">#&gt;   ..$ Estimate : num 0.0109</span></a>
+<a class="sourceLine" id="cb32-27" title="27"><span class="co">#&gt;   ..$ StdErr   : num 0.00501</span></a>
+<a class="sourceLine" id="cb32-28" title="28"><span class="co">#&gt;   ..$ DF       : num 3</span></a>
+<a class="sourceLine" id="cb32-29" title="29"><span class="co">#&gt;   ..$ t        : num 2.17</span></a>
+<a class="sourceLine" id="cb32-30" title="30"><span class="co">#&gt;   ..$ PrGTt    : num 0.119</span></a>
+<a class="sourceLine" id="cb32-31" title="31"><span class="co">#&gt;   ..$ CILower  : num -0.00509</span></a>
+<a class="sourceLine" id="cb32-32" title="32"><span class="co">#&gt;   ..$ CIUpper  : num 0.0268</span></a>
+<a class="sourceLine" id="cb32-33" title="33"><span class="co">#&gt;  $ ciAvgRdrEachTrtRRRC :'data.frame':    2 obs. of  6 variables:</span></a>
+<a class="sourceLine" id="cb32-34" title="34"><span class="co">#&gt;   ..$ Treatment: Factor w/ 2 levels "TrtTREAT1","TrtTREAT2": 1 2</span></a>
+<a class="sourceLine" id="cb32-35" title="35"><span class="co">#&gt;   ..$ Area     : num [1:2] 0.848 0.837</span></a>
+<a class="sourceLine" id="cb32-36" title="36"><span class="co">#&gt;   ..$ StdErr   : num [1:2] 0.0244 0.0236</span></a>
+<a class="sourceLine" id="cb32-37" title="37"><span class="co">#&gt;   ..$ DF       : num [1:2] 70.1 253.6</span></a>
+<a class="sourceLine" id="cb32-38" title="38"><span class="co">#&gt;   ..$ CILower  : num [1:2] 0.799 0.79</span></a>
+<a class="sourceLine" id="cb32-39" title="39"><span class="co">#&gt;   ..$ CIUpper  : num [1:2] 0.896 0.883</span></a>
+<a class="sourceLine" id="cb32-40" title="40"><span class="co">#&gt;  $ FTestStatsFRRC      :'data.frame':    1 obs. of  4 variables:</span></a>
+<a class="sourceLine" id="cb32-41" title="41"><span class="co">#&gt;   ..$ fFRRC  : num 0.364</span></a>
+<a class="sourceLine" id="cb32-42" title="42"><span class="co">#&gt;   ..$ ndfFRRC: num 1</span></a>
+<a class="sourceLine" id="cb32-43" title="43"><span class="co">#&gt;   ..$ ddfFRRC: num Inf</span></a>
+<a class="sourceLine" id="cb32-44" title="44"><span class="co">#&gt;   ..$ pFRRC  : num 0.546</span></a>
+<a class="sourceLine" id="cb32-45" title="45"><span class="co">#&gt;  $ ciDiffTrtFRRC       :'data.frame':    1 obs. of  8 variables:</span></a>
+<a class="sourceLine" id="cb32-46" title="46"><span class="co">#&gt;   ..$ Treatment: chr "TrtTREAT1-TrtTREAT2"</span></a>
+<a class="sourceLine" id="cb32-47" title="47"><span class="co">#&gt;   ..$ Estimate : num 0.0109</span></a>
+<a class="sourceLine" id="cb32-48" title="48"><span class="co">#&gt;   ..$ StdErr   : num 0.018</span></a>
+<a class="sourceLine" id="cb32-49" title="49"><span class="co">#&gt;   ..$ DF       : num Inf</span></a>
+<a class="sourceLine" id="cb32-50" title="50"><span class="co">#&gt;   ..$ t        : num 0.603</span></a>
+<a class="sourceLine" id="cb32-51" title="51"><span class="co">#&gt;   ..$ PrGTt    : num 0.546</span></a>
+<a class="sourceLine" id="cb32-52" title="52"><span class="co">#&gt;   ..$ CILower  : num -0.0244</span></a>
+<a class="sourceLine" id="cb32-53" title="53"><span class="co">#&gt;   ..$ CIUpper  : num 0.0461</span></a>
+<a class="sourceLine" id="cb32-54" title="54"><span class="co">#&gt;  $ ciAvgRdrEachTrtFRRC :'data.frame':    2 obs. of  6 variables:</span></a>
+<a class="sourceLine" id="cb32-55" title="55"><span class="co">#&gt;   ..$ Treatment: Factor w/ 2 levels "TrtTREAT1","TrtTREAT2": 1 2</span></a>
+<a class="sourceLine" id="cb32-56" title="56"><span class="co">#&gt;   ..$ Area     : num [1:2] 0.848 0.837</span></a>
+<a class="sourceLine" id="cb32-57" title="57"><span class="co">#&gt;   ..$ StdErr   : num [1:2] 0.0271 0.0274</span></a>
+<a class="sourceLine" id="cb32-58" title="58"><span class="co">#&gt;   ..$ DF       : num [1:2] Inf Inf</span></a>
+<a class="sourceLine" id="cb32-59" title="59"><span class="co">#&gt;   ..$ CILower  : num [1:2] 0.795 0.783</span></a>
+<a class="sourceLine" id="cb32-60" title="60"><span class="co">#&gt;   ..$ CIUpper  : num [1:2] 0.901 0.891</span></a>
+<a class="sourceLine" id="cb32-61" title="61"><span class="co">#&gt;  $ ciDiffTrtEachRdrFRRC:'data.frame':    4 obs. of  9 variables:</span></a>
+<a class="sourceLine" id="cb32-62" title="62"><span class="co">#&gt;   ..$ Reader   : Factor w/ 4 levels "RdrREADER_1",..: 1 2 3 4</span></a>
+<a class="sourceLine" id="cb32-63" title="63"><span class="co">#&gt;   ..$ Treatment: Factor w/ 1 level "TrtTREAT1-TrtTREAT2": 1 1 1 1</span></a>
+<a class="sourceLine" id="cb32-64" title="64"><span class="co">#&gt;   ..$ Estimate : num [1:4] 0.003844 0.021483 0.017187 0.000905</span></a>
+<a class="sourceLine" id="cb32-65" title="65"><span class="co">#&gt;   ..$ StdErr   : num [1:4] 0.0428 0.0401 0.035 0.0348</span></a>
+<a class="sourceLine" id="cb32-66" title="66"><span class="co">#&gt;   ..$ DF       : num [1:4] Inf Inf Inf Inf</span></a>
+<a class="sourceLine" id="cb32-67" title="67"><span class="co">#&gt;   ..$ t        : num [1:4] 0.0898 0.5362 0.4911 0.026</span></a>
+<a class="sourceLine" id="cb32-68" title="68"><span class="co">#&gt;   ..$ PrGTt    : num [1:4] 0.928 0.592 0.623 0.979</span></a>
+<a class="sourceLine" id="cb32-69" title="69"><span class="co">#&gt;   ..$ CILower  : num [1:4] -0.08 -0.0571 -0.0514 -0.0673</span></a>
+<a class="sourceLine" id="cb32-70" title="70"><span class="co">#&gt;   ..$ CIUpper  : num [1:4] 0.0877 0.1 0.0858 0.0691</span></a>
+<a class="sourceLine" id="cb32-71" title="71"><span class="co">#&gt;  $ varCovEachRdr       :'data.frame':    4 obs. of  3 variables:</span></a>
+<a class="sourceLine" id="cb32-72" title="72"><span class="co">#&gt;   ..$ Reader: Factor w/ 4 levels "RdrREADER_1",..: 1 2 3 4</span></a>
+<a class="sourceLine" id="cb32-73" title="73"><span class="co">#&gt;   ..$ Var   : num [1:4] 0.00148 0.00152 0.00138 0.00173</span></a>
+<a class="sourceLine" id="cb32-74" title="74"><span class="co">#&gt;   ..$ Cov1  : num [1:4] 0.000562 0.000716 0.000765 0.001124</span></a>
+<a class="sourceLine" id="cb32-75" title="75"><span class="co">#&gt;  $ FTestStatsRRFC      :'data.frame':    1 obs. of  4 variables:</span></a>
+<a class="sourceLine" id="cb32-76" title="76"><span class="co">#&gt;   ..$ fRRFC  : num 4.69</span></a>
+<a class="sourceLine" id="cb32-77" title="77"><span class="co">#&gt;   ..$ ndfRRFC: num 1</span></a>
+<a class="sourceLine" id="cb32-78" title="78"><span class="co">#&gt;   ..$ ddfRRFC: num 3</span></a>
+<a class="sourceLine" id="cb32-79" title="79"><span class="co">#&gt;   ..$ pRRFC  : num 0.119</span></a>
+<a class="sourceLine" id="cb32-80" title="80"><span class="co">#&gt;  $ ciDiffTrtRRFC       :'data.frame':    1 obs. of  8 variables:</span></a>
+<a class="sourceLine" id="cb32-81" title="81"><span class="co">#&gt;   ..$ Treatment: chr "TrtTREAT1-TrtTREAT2"</span></a>
+<a class="sourceLine" id="cb32-82" title="82"><span class="co">#&gt;   ..$ Estimate : num 0.0109</span></a>
+<a class="sourceLine" id="cb32-83" title="83"><span class="co">#&gt;   ..$ StdErr   : num 0.00501</span></a>
+<a class="sourceLine" id="cb32-84" title="84"><span class="co">#&gt;   ..$ DF       : num 3</span></a>
+<a class="sourceLine" id="cb32-85" title="85"><span class="co">#&gt;   ..$ t        : num 2.17</span></a>
+<a class="sourceLine" id="cb32-86" title="86"><span class="co">#&gt;   ..$ PrGTt    : num 0.119</span></a>
+<a class="sourceLine" id="cb32-87" title="87"><span class="co">#&gt;   ..$ CILower  : num -0.00509</span></a>
+<a class="sourceLine" id="cb32-88" title="88"><span class="co">#&gt;   ..$ CIUpper  : num 0.0268</span></a>
+<a class="sourceLine" id="cb32-89" title="89"><span class="co">#&gt;  $ ciAvgRdrEachTrtRRFC :'data.frame':    2 obs. of  6 variables:</span></a>
+<a class="sourceLine" id="cb32-90" title="90"><span class="co">#&gt;   ..$ Treatment: Factor w/ 2 levels "TrtTREAT1","TrtTREAT2": 1 2</span></a>
+<a class="sourceLine" id="cb32-91" title="91"><span class="co">#&gt;   ..$ Area     : num [1:2] 0.848 0.837</span></a>
+<a class="sourceLine" id="cb32-92" title="92"><span class="co">#&gt;   ..$ StdErr   : num [1:2] 0.0111 0.00777</span></a>
+<a class="sourceLine" id="cb32-93" title="93"><span class="co">#&gt;   ..$ DF       : num [1:2] 3 3</span></a>
+<a class="sourceLine" id="cb32-94" title="94"><span class="co">#&gt;   ..$ CILower  : num [1:2] 0.812 0.812</span></a>
+<a class="sourceLine" id="cb32-95" title="95"><span class="co">#&gt;   ..$ CIUpper  : num [1:2] 0.883 0.862</span></a></code></pre></div>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">

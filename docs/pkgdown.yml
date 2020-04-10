@@ -1,4 +1,4 @@
-pandoc: 2.3.1
+pandoc: '2.4'
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
@@ -6,7 +6,6 @@ articles:
   Ch00Vig2DataFormatFroc: Ch00Vig2DataFormatFroc.html
   Ch00Vig3DataFormatRocSp: Ch00Vig3DataFormatRocSp.html
   Ch00Vig4DataFormatFrocSp: Ch00Vig4DataFormatFrocSp.html
-  Ch00Vig5SimulateSplitPlotDataset: Ch00Vig5SimulateSplitPlotDataset.html
   Ch10Vig1QuickStartDBMH: Ch10Vig1QuickStartDBMH.html
   Ch10Vig2QuickStartDBMHExcel: Ch10Vig2QuickStartDBMHExcel.html
   Ch11Vig1SampleSize: Ch11Vig1SampleSize.html

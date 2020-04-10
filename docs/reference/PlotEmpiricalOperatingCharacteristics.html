@@ -68,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
       </span>
     </div>
 
@@ -101,9 +101,6 @@
     </li>
     <li>
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig5SimulateSplitPlotDataset.html">Chapter 00, Vignette 5: Simulate an FROC split-plot datafile</a>
     </li>
     <li>
       <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -267,8 +264,7 @@ codes modality and reader) and type, which can be <code>"individual"</code>,
 
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span>
 <span class='no'>dataset02</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>), <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>), <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)
-<span class='co'>## print(ret$Plot)</span>
-
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Example 2</span>
 <span class='co'>## Empirical ROC, FROC, AFROC and wAFROC plots. Each plot consists of</span>
 <span class='co'>## three sub-plots (see Example 3 for correspondences between indices and  </span>
@@ -285,39 +281,31 @@ codes modality and reader) and type, which can be <code>"individual"</code>,
 <span class='no'>plotR</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>2</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>:<span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>))
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>,
    <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)
-<span class='co'>## print(ret$Plot)</span>
-
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>,
    <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"FROC"</span>)
-<span class='co'>## print(ret$Plot)</span>
-
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>,
    <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"AFROC"</span>)
-<span class='co'>## print(ret$Plot)</span>
-
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset04</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='no'>plotT</span>,
    <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='no'>plotR</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)
-<span class='co'>## print(ret$Plot)</span>
-
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>ret</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='PlotEmpiricalOperatingCharacteristics-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##Example 3</span>
 <span class='co'>## Correspondences between indices and string identifiers for modalities and </span>
 <span class='co'>## readers in this dataset. Apparently reader "2" did not complete the study.</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset04</span>)</div><div class='output co'>#&gt; List of 12
-#&gt;  $ NL           : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
-#&gt;  $ LL           : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...
-#&gt;  $ lesionVector : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionID     : num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionWeight : num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ dataType     : chr "FROC"
-#&gt;  $ modalityID   : Named chr [1:5] "1" "2" "3" "4" ...
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset04</span>)</div><div class='output co'>#&gt; List of 8
+#&gt;  $ NL          : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
+#&gt;  $ LL          : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...
+#&gt;  $ lesionVector: int [1:100] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ lesionID    : num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ lesionWeight: num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ dataType    : chr "FROC"
+#&gt;  $ modalityID  : Named chr [1:5] "1" "2" "3" "4" ...
 #&gt;   ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...
-#&gt;  $ readerID     : Named chr [1:4] "1" "3" "4" "5"
-#&gt;   ..- attr(*, "names")= chr [1:4] "1" "3" "4" "5"
-#&gt;  $ design       : chr "CROSSED"
-#&gt;  $ normalCases  : int [1:100] 100 101 102 103 104 105 106 107 108 109 ...
-#&gt;  $ abnormalCases: int [1:100] 0 1 2 3 4 5 6 7 8 9 ...
-#&gt;  $ truthTableStr: num [1:5, 1:4, 1:200, 1:4] 1 1 1 1 1 1 1 1 1 1 ...</div><div class='input'>
+#&gt;  $ readerID    : Named chr [1:4] "1" "3" "4" "5"
+#&gt;   ..- attr(*, "names")= chr [1:4] "1" "3" "4" "5"</div><div class='input'>
 ## List of 8
 ## NL          : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
 ## LL          : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...

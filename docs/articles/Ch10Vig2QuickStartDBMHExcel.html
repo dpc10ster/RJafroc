@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
       </span>
     </div>
 
@@ -64,9 +64,6 @@
     </li>
     <li>
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig5SimulateSplitPlotDataset.html">Chapter 00, Vignette 5: Simulate an FROC split-plot datafile</a>
     </li>
     <li>
       <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
@@ -141,7 +138,7 @@
       <h1>Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-03-10</h4>
+            <h4 class="date">2020-01-13</h4>
       
       
       <div class="hidden name"><code>Ch10Vig2QuickStartDBMHExcel.Rmd</code></div>
@@ -167,17 +164,17 @@
 <h2 class="hasAnchor">
 <a href="#generating-the-excel-output-file" class="anchor"></a>Generating the Excel output file</h2>
 <p>This illustrates the <code><a href="../reference/UtilOutputReport.html">UtilOutputReport()</a></code> function. The significance testing <code>method</code> is “DBMH”, the default, and the figure of merit <code>FOM</code> is “Wilcoxon”. Note <code>ReportFileExt</code> = “xlsx”` telling the function to create an Excel output file. The Excel output is created in a temporary file.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">overWrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileExt =</span> <span class="st">"xlsx"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpDtX54x/RJafrocUtilOutputReport15a8c93bf2c.xlsx</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">overWrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileExt =</span> <span class="st">"xlsx"</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//Rtmp5Di1DH/RJafrocUtilOutputReport14443632c66a2.xlsx</span></a></code></pre></div>
 </div>
 <div id="orh-significance-testing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#orh-significance-testing" class="anchor"></a>ORH significance testing</h2>
 <p>Simply change <code>method = "DBMH"</code> (the default) to <code>method = "ORH"</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">overWrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileExt =</span> <span class="st">"xlsx"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpDtX54x/RJafrocUtilOutputReport15a8c279330d2.xlsx</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">ret &lt;-<span class="st"> </span><span class="kw"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(dataset03, <span class="dt">FOM =</span> <span class="st">"Wilcoxon"</span>, <span class="dt">method =</span> <span class="st">"ORH"</span>, <span class="dt">overWrite =</span> <span class="ot">TRUE</span>, <span class="dt">ReportFileExt =</span> <span class="st">"xlsx"</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//Rtmp5Di1DH/RJafrocUtilOutputReport144434c1ed34b.xlsx</span></a></code></pre></div>
 </div>
   </div>
 
