@@ -1,11 +1,11 @@
 #' Convert ratings arrays to an RJafroc dataset
 #' 
-#' @description Converts ratings arrays, ROC or FROC, \emph{not LROC}, to an \pkg{RJafroc} dataset, thereby allowing the 
+#' @description Converts ratings arrays, ROC or FROC, \emph{but not LROC}, to an \pkg{RJafroc} dataset, thereby allowing the 
 #' user to leverage the file I/O, plotting and analyses capabilities of \pkg{RJafroc}. 
 #' 
 #' 
 #' @param NL Non-lesion localizations array (or FP array for ROC data). 
-#' @param LL Lesion localizations  array (or TP array for ROC data). 
+#' @param LL Lesion localizations array (or TP array for ROC data). 
 #' @param ... Other elements of \pkg{RJafroc} dataset that may, depending on the context, need to be specified. 
 #' \code{lesionVector} \strong{must} be specified if an FROC dataset is to be returned. It is a \code{K2}-length array specifying
 #' the numbers of lesions in each diseased case in the dataset.
@@ -18,7 +18,7 @@
 #' \code{LL[1:I,1:J,1:K2,1:maxLL]}. 
 #' Here \code{maxNL/maxLL} = maximum numbers of NLs/LLs, per case, over entire dataset.  
 #' Equal weights are assigned to every lesion (FROC data). 
-#' Consecutive characters/integers starting from "1" are assigned to \code{lesionID}, \code{modalityID} and \code{readerID}.
+#' Consecutive characters/integers starting with "1" are assigned to \code{lesionID}, \code{modalityID} and \code{readerID}.
 #' 
 #' @examples
 #' set.seed(1)

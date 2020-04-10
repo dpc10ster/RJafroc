@@ -9,7 +9,7 @@ Df2RJafrocDataset(NL, LL, ...)
 \arguments{
 \item{NL}{Non-lesion localizations array (or FP array for ROC data).}
 
-\item{LL}{Lesion localizations  array (or TP array for ROC data).}
+\item{LL}{Lesion localizations array (or TP array for ROC data).}
 
 \item{...}{Other elements of \pkg{RJafroc} dataset that may, depending on the context, need to be specified. 
 \code{lesionVector} \strong{must} be specified if an FROC dataset is to be returned. It is a \code{K2}-length array specifying
