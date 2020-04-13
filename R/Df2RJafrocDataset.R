@@ -6,16 +6,28 @@
 #' 
 #' @param NL Non-lesion localizations array (or FP array for ROC data). 
 #' @param LL Lesion localizations array (or TP array for ROC data). 
-#' @param ... Other elements of \pkg{RJafroc} dataset that may, depending on the context, need to be specified. 
-#' \code{lesionVector} \strong{must} be specified if an FROC dataset is to be returned. It is a \code{K2}-length array specifying
-#' the numbers of lesions in each diseased case in the dataset.
+#' @param InputIsCountsTable If \code{TRUE}, the \code{NL} and \code{LL} 
+#'    arrays are rating-counts tables, with common lengths equal to the 
+#'    number of ratings \code{R}, if \code{FALSE}, the default, these are arrays 
+#'    of lengths \code{K1}, the number of non-diseased cases, and \code{K2}, 
+#'    the number of diseased cases, respectively.
+#' @param ... Other elements of \pkg{RJafroc} dataset that may, depending on the 
+#'    context, need to be specified. \code{lesionVector} \strong{must} be specified 
+#'       if an FROC dataset is to be returned. It is a \code{K2}-length array 
+#'       specifying the numbers of lesions in each diseased case in the dataset.
 #' 
 #' @return A dataset with the structure described in \code{\link{RJafroc-package}}.
 #' 
-#' @details The function "senses" the data type (ROC or FROC) from the the absence or presence of \code{lesionVector}. 
-#' ROC data can be \code{NL[1:K1]} and \code{LL[1:K2]} or \code{NL[1:I,1:J,1:K1]} and \code{LL[1:I,1:J,1:K2]}. 
-#' FROC data can be \code{NL[1:K1,1:maxNL]} and \code{LL[1:K2, 1:maxLL]} or \code{NL[1:I,1:J,1:K1,1:maxNL]} and 
-#' \code{LL[1:I,1:J,1:K2,1:maxLL]}. 
+#' @details The function "senses" the data type (ROC or FROC) from the the absence 
+#'    or presence of \code{lesionVector}.
+#' \itemize{
+#' \item{ROC data can be \code{NL[1:K1]} and \code{LL[1:K2]} or \code{NL[1:I,1:J,1:K1]} 
+#'    and \code{LL[1:I,1:J,1:K2]}.}
+#' \item{FROC data can be \code{NL[1:K1,1:maxNL]} and \code{LL[1:K2, 1:maxLL]} or 
+#'    \code{NL[1:I,1:J,1:K1,1:maxNL]} and  \code{LL[1:I,1:J,1:K2,1:maxLL]}.}
+#' } 
+#'  
+#'  
 #' Here \code{maxNL/maxLL} = maximum numbers of NLs/LLs, per case, over entire dataset.  
 #' Equal weights are assigned to every lesion (FROC data). 
 #' Consecutive characters/integers starting with "1" are assigned to \code{lesionID}, \code{modalityID} and \code{readerID}.
@@ -26,6 +38,12 @@
 #' LL <- rnorm(7)*1.5 + 2
 #' dataset <- Df2RJafrocDataset(NL, LL) # an ROC dataset
 #'
+#' ## Input as counts tables
+#' K1t <- c(30, 19, 8, 2, 1)
+#' K2t <- c(5,  6, 5, 12, 22)
+#' dataset <- Df2RJafrocDataset(K1t, K2t, InputIsCountsTable = TRUE)
+#' 
+#' 
 #' I <- 2;J <- 3;set.seed(1)
 #' K1 <- 25;K2 <- 35
 #' z1 <- array(dim = c(I, J, K1))
@@ -93,10 +111,17 @@
 #' 
 #' @export
 #' 
-Df2RJafrocDataset <- function(NL, LL, ...)  {
+Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   inputList <- list(...)
-  if (length(inputList) == 0) dataType <- "ROC" 
+  if (length(inputList) == 0) {
+    dataType <- "ROC" 
+    if (InputIsCountsTable == TRUE) {
+      ret <- RatingsArraysFromRatingsTables(NL,LL)
+      NL <- ret$NL
+      LL <- ret$LL
+    }
+  }
   else if (names(inputList) == "lesionVector") dataType <- "FROC" else stop("unknown data type")
   
   if (is.vector(NL)) {
@@ -265,4 +290,22 @@ FrocDataDescriptor <- function(inputList) {
     lesionVector = lesionVector,
     lesionID = lesionID,
     lesionWeight = lesionWeight))
+}
+
+
+# K1 and K2 are as in book chapter 5
+RatingsArraysFromRatingsTables <- function( K1, K2 ) {
+  
+  R <- length(K1)
+  if (length(K2) != R) stop("Length of two ratings arrays are unequal")
+  tab <- data.frame(value=seq(1:R), freq=K1)
+  NL <- rep(tab$value, tab$freq)
+  tab <- data.frame(value=seq(1:R), freq=K2)
+  LL <- rep(tab$value, tab$freq)
+  
+  return( list(
+    NL = NL,
+    LL = LL
+  ) )
+  
 }
