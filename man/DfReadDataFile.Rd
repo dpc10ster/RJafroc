@@ -36,7 +36,7 @@ This parameter is not used when reading \code{"JAFROC"}
 or \code{"iMRMC"} data files.}
 
 \item{sequentialNames}{A logical variable: if \code{TRUE}, consecutive integers 
-(starting from 1) will be used as the 
+(starting with 1) will be used as the 
 treatment and reader IDs (i.e., names). Otherwise, treatment 
 and reader IDs in the original data file will be used.}
 }

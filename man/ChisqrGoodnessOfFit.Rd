@@ -2,18 +2,18 @@
 % Please edit documentation in R/ChisqrGoodnessOfFit.R
 \name{ChisqrGoodnessOfFit}
 \alias{ChisqrGoodnessOfFit}
-\title{Compute the chisquare goodness of fit statistic for ROC fitting model}
+\title{Compute the chisquare goodness of fit statistic for an ROC data fitting model}
 \usage{
 ChisqrGoodnessOfFit(fpCounts, tpCounts, parameters, model, lesDistr)
 }
 \arguments{
-\item{fpCounts}{The FP counts table}
+\item{fpCounts}{The \code{FP} counts table}
 
-\item{tpCounts}{The TP counts table}
+\item{tpCounts}{The \code{TP} counts table}
 
 \item{parameters}{The parameters of the model including cutoffs, see details}
 
-\item{model}{The fitting model: "BINORMAL", "CBM" or "RSM}
+\item{model}{The fitting model: \code{"BINORMAL"}, \code{"CBM"} or \code{"RSM"}}
 
 \item{lesDistr}{The lesion distribution matrix; not needed for "BINORMAL" 
 or "CBM" models. Array [1:maxLL,1:2]. The probability mass function of the 
@@ -36,7 +36,7 @@ The return value is a list with the following elements:
 Compute the chisquare goodness of fit statistic for specified ROC data fitting model
 }
 \details{
-For model = "BINORMAL" the parameters are c(a,b,zetas).
-For model = "CBM" the parameters are c(mu,alpha,zetas).
-For model = "RSM" the parameters are c(mu,lambdaP,nuP,zetas).
+For model = "BINORMAL" the parameters are \code{c(a,b,zetas)}.
+For model = "CBM" the parameters are \code{c(mu,alpha,zetas)}.
+For model = "RSM" the parameters are \code{c(mu,lambdaP,nuP,zetas)}.
 }

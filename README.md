@@ -20,7 +20,7 @@ RJafroc
 # Branch designations
 **The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `developer` branch is for development/experimental work. The website is pushed from the `master` branch.
 
-# Documentation (articles or vignettes) is available at https://dpc10ster.github.io/RJafroc/
+# Documentation (articles or vignettes) is available at https://dpc10ster.github.io/RJafrocBook/
 Highly recommended in order to familiarize oneself with the code. It has some `QuickStart` vignettes that will enable one already familiar with the Windows software to run the R code.
 
 # A CRAN version of `RJafroc` has been published
@@ -38,7 +38,7 @@ Three options are given below, in increasing order of complexity. The first meth
 * Starting from `RStudio` > `Packages` > `Install` > `RJafroc`.
 * `library(RJafroc)`.
 * This loads the CRAN package and all functions on the `cran2` branch become avaialable.
-* For documentation of functions and vignettes, go to https://dpc10ster.github.io/RJafroc/. It may be helpful to have both windows open (RStudio and the above website) simulataneously.
+* For documentation of functions and vignettes, go to https://dpc10ster.github.io/RJafrocBook/. It may be helpful to have both windows open (RStudio and the above website) simulataneously.
 * The CRAN version will not include more recent updates on the `master` branch. To access them use the next suggested method, below. 
 * Test the installation:
 ```
@@ -75,7 +75,7 @@ cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
 * You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/.
+* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafrocRJafrocBook/.
 * Be sure to study these examples and make full use of the online documentation.
 * Put your data and other files, if any, in `myProject`.
 
@@ -126,7 +126,7 @@ cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
 * You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/.
+* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafrocRJafrocBook/.
 * Put your data and other files, if any, in myProject.
 * TBA
 

@@ -30,7 +30,7 @@ devtools::check_failures("~/GitHub/RJafroc.Rcheck")
 library(pkgdown)
 pkgdown::build_site()
 # must push Git after this has run to put on website
-# https://dpc10ster.github.io/RJafroc/
+# https://dpc10ster.github.io/RJafrocRJafrocBook/
 # 
 
 
