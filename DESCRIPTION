@@ -61,6 +61,7 @@ Description: RJafroc implements software for assessing medical imaging systems, 
     viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international 
     collaborations. This version corrects a few bugs noticed by users (listed in NEWS.md) and extends the Excel file input format for 
     greater flexibility going forward in handling non-crossed datasets.
+VignetteBuilder: knitr
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafrocRJafrocBook/
