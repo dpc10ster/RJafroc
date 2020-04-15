@@ -4,57 +4,38 @@
 \alias{Df2RJafrocDataset}
 \title{Convert ratings arrays to an RJafroc dataset}
 \usage{
-Df2RJafrocDataset(NL, LL, InputIsCountsTable = FALSE, ...)
+Df2RJafrocDataset(NL, LL, ...)
 }
 \arguments{
 \item{NL}{Non-lesion localizations array (or FP array for ROC data).}
 
-\item{LL}{Lesion localizations array (or TP array for ROC data).}
+\item{LL}{Lesion localizations  array (or TP array for ROC data).}
 
-\item{InputIsCountsTable}{If \code{TRUE}, the \code{NL} and \code{LL} 
-arrays are rating-counts tables, with common lengths equal to the 
-number of ratings \code{R}, if \code{FALSE}, the default, these are arrays 
-of lengths \code{K1}, the number of non-diseased cases, and \code{K2}, 
-the number of diseased cases, respectively.}
-
-\item{...}{Other elements of \pkg{RJafroc} dataset that may, depending on the 
-context, need to be specified. \code{lesionVector} \strong{must} be specified 
-   if an FROC dataset is to be returned. It is a \code{K2}-length array 
-   specifying the numbers of lesions in each diseased case in the dataset.}
+\item{...}{Other elements of \pkg{RJafroc} dataset that may, depending on the context, need to be specified. 
+\code{lesionVector} \strong{must} be specified if an FROC dataset is to be returned. It is a \code{K2}-length array specifying
+the numbers of lesions in each diseased case in the dataset.}
 }
 \value{
 A dataset with the structure described in \code{\link{RJafroc-package}}.
 }
 \description{
-Converts ratings arrays, ROC or FROC, \emph{but not LROC}, to an \pkg{RJafroc} dataset, thereby allowing the 
+Converts ratings arrays, ROC or FROC, \emph{not LROC}, to an \pkg{RJafroc} dataset, thereby allowing the 
 user to leverage the file I/O, plotting and analyses capabilities of \pkg{RJafroc}.
 }
 \details{
-The function "senses" the data type (ROC or FROC) from the the absence 
-   or presence of \code{lesionVector}.
-\itemize{
-\item{ROC data can be \code{NL[1:K1]} and \code{LL[1:K2]} or \code{NL[1:I,1:J,1:K1]} 
-   and \code{LL[1:I,1:J,1:K2]}.}
-\item{FROC data can be \code{NL[1:K1,1:maxNL]} and \code{LL[1:K2, 1:maxLL]} or 
-   \code{NL[1:I,1:J,1:K1,1:maxNL]} and  \code{LL[1:I,1:J,1:K2,1:maxLL]}.}
-} 
- 
- 
+The function "senses" the data type (ROC or FROC) from the the absence or presence of \code{lesionVector}. 
+ROC data can be \code{NL[1:K1]} and \code{LL[1:K2]} or \code{NL[1:I,1:J,1:K1]} and \code{LL[1:I,1:J,1:K2]}. 
+FROC data can be \code{NL[1:K1,1:maxNL]} and \code{LL[1:K2, 1:maxLL]} or \code{NL[1:I,1:J,1:K1,1:maxNL]} and 
+\code{LL[1:I,1:J,1:K2,1:maxLL]}. 
 Here \code{maxNL/maxLL} = maximum numbers of NLs/LLs, per case, over entire dataset.  
 Equal weights are assigned to every lesion (FROC data). 
-Consecutive characters/integers starting with "1" are assigned to \code{lesionID}, \code{modalityID} and \code{readerID}.
+Consecutive characters/integers starting from "1" are assigned to \code{lesionID}, \code{modalityID} and \code{readerID}.
 }
 \examples{
 set.seed(1)
 NL <- rnorm(5)
 LL <- rnorm(7)*1.5 + 2
 dataset <- Df2RJafrocDataset(NL, LL) # an ROC dataset
-
-## Input as counts tables
-K1t <- c(30, 19, 8, 2, 1)
-K2t <- c(5,  6, 5, 12, 22)
-dataset <- Df2RJafrocDataset(K1t, K2t, InputIsCountsTable = TRUE)
-
 
 I <- 2;J <- 3;set.seed(1)
 K1 <- 25;K2 <- 35

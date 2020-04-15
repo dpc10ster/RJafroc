@@ -15,7 +15,7 @@
     Models of observer performance are implemented, including the binormal model (BM), the contaminated binormal model (CBM), the 
     correlated contaminated binormal model (CORCBM), and the radiological search model (RSM). The software and applications are 
     described in a book - Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and 
-    Applications with R-Based Examples. Taylor-Francis LLC; 2017 - and its vignettes &lt;https://dpc10ster.github.io/RJafrocRJafrocBook/&gt;. 
+    Applications with R-Based Examples. Taylor-Francis LLC; 2017 - and its vignettes &lt;https://dpc10ster.github.io/RJafroc/&gt;. 
     Observer performance data collection paradigms are the receiver operating characteristic (ROC) and its location specific 
     extensions, primarily free-response ROC (FROC) and the location ROC (LROC). ROC data consists of single ratings per images. 
     A rating is the perceived confidence level that the image is that of a diseased patient. FROC data consists of a variable 
@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
       </span>
     </div>
 
@@ -85,7 +85,67 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/Ch00Vig1DataFormatRoc.html">All vignettes have been moved</a>
+      <a href="articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
+    </li>
+    <li>
+      <a href="articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
+    </li>
+    <li>
+      <a href="articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+    </li>
+    <li>
+      <a href="articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+    </li>
+    <li>
+      <a href="articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+    </li>
+    <li>
+      <a href="articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+    </li>
+    <li>
+      <a href="articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+    </li>
+    <li>
+      <a href="articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+    </li>
+    <li>
+      <a href="articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
+    </li>
+    <li>
+      <a href="articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
+    </li>
+    <li>
+      <a href="articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+    </li>
+    <li>
+      <a href="articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+    </li>
+    <li>
+      <a href="articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+    </li>
+    <li>
+      <a href="articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+    </li>
+    <li>
+      <a href="articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -126,26 +186,31 @@
 <a href="#update-history" class="anchor"></a>Update History</h1>
 <ul>
 <li>See <a href="https://dpc10ster.github.io/RJafroc/news/index.html" class="uri">https://dpc10ster.github.io/RJafroc/news/index.html</a>.</li>
-<li>Current GitHub version is 1.3.1.9000 (sic), on the <code>master</code> branch.</li>
-<li>Current CRAN version is 1.3.2.</li>
-<li>Currently working on GitHub version 1.3.2.9000, on the <code>developer</code> branch.</li>
+<li>Current GitHub version is 1.3.1.9000.</li>
+<li>Current CRAN version is 1.3.1.</li>
 </ul>
 </div>
 <div id="branch-designations" class="section level1">
 <h1 class="hasAnchor">
 <a href="#branch-designations" class="anchor"></a>Branch designations</h1>
-<p><strong>The complete (all vignettes and tests) and most current and tested version of the software is on the <code>master</code> branch.</strong> The <code>developer</code> branch is for development/experimental work. The website is pushed from the <code>master</code> branch.</p>
+<p><strong>The complete (all vignettes and tests) and most current and tested version of the software is on the <code>master</code> branch.</strong> The <code>development</code> branch is for ongoing development/experimental work. When finished and tested, the <code>development</code> branch should be merged with <code>master</code>, then file-size-limited and merged to CRAN branch, and then submitted to CRAN. The website is pushed from <code>master</code> branch.</p>
 </div>
-<div id="documentation-articles-or-vignettes-is-available-at-httpsdpc10stergithubiorjafrocbook" class="section level1">
+<div id="documentation-articles-or-vignettes-is-available-at-httpsdpc10ster-github-iorjafroc" class="section level1">
 <h1 class="hasAnchor">
-<a href="#documentation-articles-or-vignettes-is-available-at-httpsdpc10stergithubiorjafrocbook" class="anchor"></a>Documentation (articles or vignettes) is available at <a href="https://dpc10ster.github.io/RJafrocBook/" class="uri">https://dpc10ster.github.io/RJafrocBook/</a>
+<a href="#documentation-articles-or-vignettes-is-available-at-httpsdpc10ster-github-iorjafroc" class="anchor"></a>Documentation (articles or vignettes) is available at <a href="https://dpc10ster.github.io/RJafroc/" class="uri">https://dpc10ster.github.io/RJafroc/</a>
 </h1>
 <p>Highly recommended in order to familiarize oneself with the code. It has some <code>QuickStart</code> vignettes that will enable one already familiar with the Windows software to run the R code.</p>
+</div>
+<div id="my-wiki-is-at-httpsgithub-comdpc10sterrjafrocwiki" class="section level1">
+<h1 class="hasAnchor">
+<a href="#my-wiki-is-at-httpsgithub-comdpc10sterrjafrocwiki" class="anchor"></a>My wiki is at <a href="https://github.com/dpc10ster/RJafroc/wiki" class="uri">https://github.com/dpc10ster/RJafroc/wiki</a>
+</h1>
+<p>This is under development and <strong>may be dropped in future</strong> in favor of an online book, or extended vignettes.</p>
 </div>
 <div id="a-cran-version-of-rjafroc-has-been-published" class="section level1">
 <h1 class="hasAnchor">
 <a href="#a-cran-version-of-rjafroc-has-been-published" class="anchor"></a>A CRAN version of <code>RJafroc</code> has been published</h1>
-<p>Version 1.3.1 of <code>RJafroc</code> has passed CRAN tests. This version is on the <code>cran2</code> branch.</p>
+<p>Thanks to help from Dr. Peter Phillips, version 1.2.0 of <code>RJafroc</code> has passed CRAN tests. This version is on the <code>cran</code> branch.</p>
 </div>
 <div id="those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions" class="section level1">
 <h1 class="hasAnchor">
@@ -154,36 +219,14 @@
 <div id="how-do-i-get-set-up" class="section level1">
 <h1 class="hasAnchor">
 <a href="#how-do-i-get-set-up" class="anchor"></a>How do I get set up?</h1>
-<p>Three options are given below, in increasing order of complexity. The first method downloads from CRAN, the second from GitHub and the third downloads all source files from GitHub and then installs the software. I recommend the first or second methods.</p>
-<div id="1-install-from-cran" class="section level2">
+<div id="short-version-install-directly-from-github-using-package-devtools" class="section level2">
 <h2 class="hasAnchor">
-<a href="#1-install-from-cran" class="anchor"></a>1. Install from CRAN</h2>
-<ul>
-<li>Install <code>R</code> and <code>RStudio</code>.</li>
-<li>Create an empty directory, e.g., <code>myProject</code>. In my computer it is <code>/Users/Dev/Downloads/myProject</code>.</li>
-<li>Open <code>RStudio</code> by clicking on the <code>myProject.Rproj</code> file.</li>
-<li>Starting from <code>RStudio</code> &gt; <code>Packages</code> &gt; <code>Install</code> &gt; <code>RJafroc</code>.</li>
-<li>
-<code><a href="https://rdrr.io/r/base/library.html">library(RJafroc)</a></code>.</li>
-<li>This loads the CRAN package and all functions on the <code>cran2</code> branch become avaialable.</li>
-<li>For documentation of functions and vignettes, go to <a href="https://dpc10ster.github.io/RJafrocBook/" class="uri">https://dpc10ster.github.io/RJafrocBook/</a>. It may be helpful to have both windows open (RStudio and the above website) simulataneously.</li>
-<li>The CRAN version will not include more recent updates on the <code>master</code> branch. To access them use the next suggested method, below.</li>
-<li>Test the installation:</li>
-</ul>
-<pre><code>cbmPlot &lt;- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-print(cbmPlot)</code></pre>
-<ul>
-<li>You should see two ROC plots in the <code>Plots</code> window.</li>
-</ul>
-</div>
-<div id="2-install-from-github-using-package-devtools" class="section level2">
-<h2 class="hasAnchor">
-<a href="#2-install-from-github-using-package-devtools" class="anchor"></a>2. Install from GitHub using package <code>devtools</code>
+<a href="#short-version-install-directly-from-github-using-package-devtools" class="anchor"></a>Short version: install directly from GitHub using package <code>devtools</code>
 </h2>
 <ul>
 <li>Install <code>R</code> and <code>RStudio</code>.</li>
 <li>Create an empty directory, e.g., <code>myProject</code>. In my computer it is <code>/Users/Dev/Downloads/myProject</code>.</li>
-<li>Open <code>RStudio</code> by clicking on the <code>myProject.Rproj</code> file.</li>
+<li>Open <code>RStudio</code>.</li>
 <li>Starting from <code>RStudio</code> &gt; <code>File</code> &gt; <code>New Project</code> &gt; <code>Existing Directory</code> &gt; Select <code>myProject</code> &gt; <code>Create Project</code>.</li>
 <li>Oila! You should see <code>myProject.RProj</code> in the Files menu.</li>
 <li>Install the <code>devtools</code> package as shown below:</li>
@@ -208,19 +251,20 @@ print(cbmPlot)</code></pre>
 print(cbmPlot)</code></pre>
 <ul>
 <li>You should see two ROC plots in the <code>Plots</code> window.</li>
-<li>Preliminary documentation (vignettes) is available at <a href="https://dpc10ster.github.io/RJafrocRJafrocBook/" class="uri">https://dpc10ster.github.io/RJafrocRJafrocBook/</a>.</li>
+<li>Preliminary documentation (vignettes) is available at <a href="https://dpc10ster.github.io/RJafroc/" class="uri">https://dpc10ster.github.io/RJafroc/</a>.</li>
 <li>Be sure to study these examples and make full use of the online documentation.</li>
 <li>Put your data and other files, if any, in <code>myProject</code>.</li>
+<li>TBA</li>
 </ul>
 </div>
-<div id="3-download-the-rjafroc-source-files-and-install-from-the-downloaded-files" class="section level2">
+<div id="long-version-download-the-rjafroc-package-and-install-from-the-downloaded-files" class="section level2">
 <h2 class="hasAnchor">
-<a href="#3-download-the-rjafroc-source-files-and-install-from-the-downloaded-files" class="anchor"></a>3. Download the <code>RJafroc</code> source files and install from the downloaded files</h2>
+<a href="#long-version-download-the-rjafroc-package-and-install-from-the-downloaded-files" class="anchor"></a>Long version: download the <code>RJafroc</code> package and install from the downloaded files</h2>
 <ul>
 <li>Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example.</li>
-<li>I find the GitHub desktop app useful in mananging my downloads/uploads from <code>Git</code>.</li>
+<li>I find the GitHub desktop app useful in mananging my downloads/uploads from Git.</li>
 <li>Install <code>R</code> and <code>RStudio</code>.</li>
-<li>Navigate to the <code>RJafroc</code> directory.</li>
+<li>Navigate to the <code>rjafroc</code> directory.</li>
 <li>Open <code>RJafroc.Rproj</code>. This will open <code>RStudio</code>.</li>
 <li>Navigate to <code>File</code> menu (lower-right window) and click on DESCRIPTION file.</li>
 <li>Install all packages listed under Imports, e.g.,<br>
@@ -236,9 +280,8 @@ openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, n
 <ul>
 <li>Thats it! <code>RJafroc</code> has been installed to your computer and is visible to any other <code>R</code> project in any directory.</li>
 <li>You will not need to access the <code>RJafroc</code> folder again (unless you reinstall a new version of the software).</li>
-<li>Do not write any of your files to the <code>RJafroc</code> directory!</li>
 <li>All necessary files of the installation are in a hidden directory that you do not normally need to worry about.</li>
-<li>Create an empty directory, e.g., <code>myProject</code>, outside of the <code>RJafroc</code> folder. In my computer it is <code>/Users/Dev/Downloads/myProject</code>.</li>
+<li>Create an empty directory, e.g., <code>myProject</code>. In my computer it is <code>/Users/Dev/Downloads/myProject</code>.</li>
 <li>Starting from <code>RStudio</code> &gt; <code>File</code> &gt; <code>New Project</code> &gt; <code>Existing Directory</code> &gt; <code>myProject</code> &gt; <code>Create Project</code>.</li>
 <li>Oila! You should see <code>myProject.RProj</code> in the Files menu.</li>
 <li>Click on <code>Packages</code> and scroll down to find <code>RJafroc</code>, and check the box next to it. This results in <code>RJafroc</code> being loaded to the current workspace. The following line appears in the Console window (this is the hidden directory referrred to above).</li>
@@ -252,7 +295,7 @@ openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, n
 print(cbmPlot)</code></pre>
 <ul>
 <li>You should see two ROC plots in the <code>Plots</code> window.</li>
-<li>Preliminary documentation (vignettes) is available at <a href="https://dpc10ster.github.io/RJafrocRJafrocBook/" class="uri">https://dpc10ster.github.io/RJafrocRJafrocBook/</a>.</li>
+<li>Preliminary documentation (vignettes) is available at <a href="https://dpc10ster.github.io/RJafroc/" class="uri">https://dpc10ster.github.io/RJafroc/</a>.</li>
 <li>Put your data and other files, if any, in myProject.</li>
 <li>TBA</li>
 </ul>
@@ -260,12 +303,12 @@ print(cbmPlot)</code></pre>
 <h3 class="hasAnchor">
 <a href="#contibutor-guidelines" class="anchor"></a>Contibutor guidelines</h3>
 <ul>
-<li><p>These guidelines are adapted from content on the <code>devtools</code> GitHub page.</p></li>
 <li><p>As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.</p></li>
 <li><p>We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.</p></li>
 <li><p>Examples of unacceptable behavior by participants include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.</p></li>
 <li><p>Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. Project maintainers who do not follow the Code of Conduct may be removed from the project team.</p></li>
 <li><p>Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting one or more of the project maintainers.</p></li>
+<li><p>These guidelines are adapted from content on the <code>devtools</code> GitHub page.</p></li>
 </ul>
 </div>
 <div id="who-do-i-talk-to" class="section level3">

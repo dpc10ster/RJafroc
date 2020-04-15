@@ -1,14 +1,13 @@
 ---
-title: "All vignettes have been moved"
+title: "All Vignettes have been moved"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 vignette: >
-  %\VignetteIndexEntry{AllVignettesMoved}
+  %\VignetteIndexEntry{JAFROC data format ROC}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
----
-  
+```
+
 ## All Vignettes have been [moved](https://dpc10ster.github.io/RJafrocBook/)
 This entry is included to restore documentation page on `RJafroc` `GitHub` page
-

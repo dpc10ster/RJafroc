@@ -1,8 +1,6 @@
 rm(list = ls())
-# load("~/GitHub/RJafroc/data/datasetCrossedModality.RData")
-crossedFileName <- system.file("extdata", "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
-ds <- DfReadCrossedModalities(crossedFileName)
-# ds <- datasetCrossedModality
+load("~/GitHub/RJafroc/data/datasetCrossedModality.RData")
+ds <- datasetCrossedModality
 
 NL <- ds$NL
 LLCl <- ds$LLCl

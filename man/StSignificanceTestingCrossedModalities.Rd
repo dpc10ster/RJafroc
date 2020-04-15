@@ -40,7 +40,6 @@ retCrossed1 <- StSignificanceTestingCrossedModalities(crossedData, 1)
 
 ## read the built in dataset
 retCrossed2 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
-testthat::expect_equal(retCrossed1, retCrossed2)
 }
 
 }

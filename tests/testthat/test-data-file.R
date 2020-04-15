@@ -120,7 +120,7 @@ test_that("DfBinDataset (ROC&AFROC)", {
 
 
 
-test_that("DfCreateCorCbmDataset & DfExtractCorCbmDataset", {
+test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfCreateCorCbmDataset", ".rds")
   if (!file.exists(fn)) {
@@ -171,7 +171,7 @@ test_that("DfCreateCorCbmDataset & DfExtractCorCbmDataset", {
 
 
 
-test_that("DfFroc2Roc", {
+test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfFroc2Roc", ".rds")
   if (!file.exists(fn)) {
@@ -187,7 +187,7 @@ test_that("DfFroc2Roc", {
   
 
 
-test_that("DfReadLrocDataFile", {
+test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
   
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadLrocDataFile", ".rds")
   if (!file.exists(fn)) {
@@ -203,7 +203,7 @@ test_that("DfReadLrocDataFile", {
 
 
 
-test_that("DfLroc2Roc", {
+test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
   
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfLroc2Roc", ".rds")
   
@@ -219,7 +219,7 @@ test_that("DfLroc2Roc", {
 })
 
 
-test_that("DDfReadCrossedModalities", {
+test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
   
   crossedFileName <- system.file("extdata",
                                  "CrossedModalitiesData.xlsx",

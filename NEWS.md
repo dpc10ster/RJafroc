@@ -1,6 +1,6 @@
 # RJafroc v1.3.2 on CRAN
 
-# See cran2/master branch for content (source-files, etc.) relating to this version 
+# See cran2/master branch for content relating to this version 
 
 ## After work on cran2-update work
 * Copied altered files from R directory (which commented out examples which were taking lots of CPU time)

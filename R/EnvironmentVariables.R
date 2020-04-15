@@ -20,9 +20,7 @@ assign("maxAlpha", 0.99, envir = RJafrocEnv)
 assign("minRho", -0.99, envir = RJafrocEnv)
 assign("maxRho", +0.99, envir = RJafrocEnv)
 
-# assign("minA", 0.01, envir = RJafrocEnv) # this causes error ...
-assign("minA", -4.0, envir = RJafrocEnv) # to avoid error when ROC curve falls below chance diagonal
-                                         # i.e., a is negative
+assign("minA", 0.01, envir = RJafrocEnv)
 assign("maxA", 4, envir = RJafrocEnv)
 
 assign("minB", 0.01, envir = RJafrocEnv)

@@ -1,6 +1,26 @@
-pandoc: 2.9.2
+pandoc: '2.4'
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
   Ch00Vig1DataFormatRoc: Ch00Vig1DataFormatRoc.html
+  Ch00Vig2DataFormatFroc: Ch00Vig2DataFormatFroc.html
+  Ch00Vig3DataFormatRocSp: Ch00Vig3DataFormatRocSp.html
+  Ch00Vig4DataFormatFrocSp: Ch00Vig4DataFormatFrocSp.html
+  Ch10Vig1QuickStartDBMH: Ch10Vig1QuickStartDBMH.html
+  Ch10Vig2QuickStartDBMHExcel: Ch10Vig2QuickStartDBMHExcel.html
+  Ch11Vig1SampleSize: Ch11Vig1SampleSize.html
+  Ch11Vig2SampleSize: Ch11Vig2SampleSize.html
+  Ch11Vig3SampleSize: Ch11Vig3SampleSize.html
+  Ch11Vig4SampleSize: Ch11Vig4SampleSize.html
+  Ch11Vig5SampleSize: Ch11Vig5SampleSize.html
+  Ch17Vig1PlotRsmOpCh: Ch17Vig1PlotRsmOpCh.html
+  Ch19Vig1FrocSampleSize: Ch19Vig1FrocSampleSize.html
+  Ch19Vig2FrocSampleSize: Ch19Vig2FrocSampleSize.html
+  Ch20Vig1improperROCs: Ch20Vig1improperROCs.html
+  Ch20Vig2degenerateROCs: Ch20Vig2degenerateROCs.html
+  Ch20Vig3proprocROCs: Ch20Vig3proprocROCs.html
+  Ch20Vig4metzEqn36: Ch20Vig4metzEqn36.html
+  Ch20Vig5cbmPlots: Ch20Vig5cbmPlots.html
+  Ch30Vig1RoiParadigm: Ch30Vig1RoiParadigm.html
+  Ch30Vig2RoiParadigmSt: Ch30Vig2RoiParadigmSt.html
 
