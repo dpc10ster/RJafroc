@@ -435,7 +435,6 @@ RawOpPtsROC2ROC <- function (fp, tp) {
 
 
 
-
 # Failed attempt at combining bins; partially implemented is deletion of multiple starting zeroes
 # in fpf; the counts table are not combined; the more complicated code in BinTheRocData is likely needed
 ####################################################################################################################
@@ -582,7 +581,8 @@ AvgROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
 }
 
 
-# counterpart of RawOpPtsROC2ROC for FROC data; since denominators are different from ROC, a different function
+# counterpart of RawOpPtsROC2ROC for FROC data; 
+# since denominators are different from ROC, a different function
 # is needed; could be combined with previous function
 ####################################################################################################################
 RawOpPtsFROC2FROC <- function (nl, ll, sumLL, K) {

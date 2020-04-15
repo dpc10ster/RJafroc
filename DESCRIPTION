@@ -33,7 +33,7 @@ Description: RJafroc implements software for assessing medical imaging systems, 
     Models of observer performance are implemented, including the binormal model (BM), the contaminated binormal model (CBM), the 
     correlated contaminated binormal model (CORCBM), and the radiological search model (RSM). The software and applications are 
     described in a book - Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and 
-    Applications with R-Based Examples. Taylor-Francis LLC; 2017 - and its vignettes <https://dpc10ster.github.io/RJafroc/>. 
+    Applications with R-Based Examples. Taylor-Francis LLC; 2017 - and its vignettes <https://dpc10ster.github.io/RJafrocRJafrocBook/>. 
     Observer performance data collection paradigms are the receiver operating characteristic (ROC) and its location specific 
     extensions, primarily free-response ROC (FROC) and the location ROC (LROC). ROC data consists of single ratings per images. 
     A rating is the perceived confidence level that the image is that of a diseased patient. FROC data consists of a variable 
@@ -64,6 +64,6 @@ Description: RJafroc implements software for assessing medical imaging systems, 
 VignetteBuilder: knitr
 License: GPL-3
 LazyData: true
-URL: https://dpc10ster.github.io/RJafroc/
+URL: https://dpc10ster.github.io/RJafrocRJafrocBook/
 RoxygenNote: 7.0.2
 Encoding: UTF-8

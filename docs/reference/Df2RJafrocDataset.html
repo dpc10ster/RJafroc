@@ -34,7 +34,7 @@
 
 <meta property="og:title" content="Convert ratings arrays to an RJafroc dataset — Df2RJafrocDataset" />
 
-<meta property="og:description" content="Converts ratings arrays, ROC or FROC, not LROC, to an RJafroc dataset, thereby allowing the 
+<meta property="og:description" content="Converts ratings arrays, ROC or FROC, but not LROC, to an RJafroc dataset, thereby allowing the 
 user to leverage the file I/O, plotting and analyses capabilities of RJafroc." />
 <meta name="twitter:card" content="summary" />
 
@@ -67,7 +67,7 @@ user to leverage the file I/O, plotting and analyses capabilities of RJafroc." /
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
       </span>
     </div>
 
@@ -90,67 +90,7 @@ user to leverage the file I/O, plotting and analyses capabilities of RJafroc." /
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
-      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
-    </li>
-    <li>
-      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">All vignettes have been moved</a>
     </li>
   </ul>
 </li>
@@ -181,12 +121,12 @@ user to leverage the file I/O, plotting and analyses capabilities of RJafroc." /
 
     <div class="ref-description">
     
-    <p>Converts ratings arrays, ROC or FROC, <em>not LROC</em>, to an <span class="pkg">RJafroc</span> dataset, thereby allowing the 
+    <p>Converts ratings arrays, ROC or FROC, <em>but not LROC</em>, to an <span class="pkg">RJafroc</span> dataset, thereby allowing the 
 user to leverage the file I/O, plotting and analyses capabilities of <span class="pkg">RJafroc</span>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>Df2RJafrocDataset</span>(<span class='no'>NL</span>, <span class='no'>LL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>Df2RJafrocDataset</span>(<span class='no'>NL</span>, <span class='no'>LL</span>, <span class='kw'>InputIsCountsTable</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,13 +137,22 @@ user to leverage the file I/O, plotting and analyses capabilities of <span class
     </tr>
     <tr>
       <th>LL</th>
-      <td><p>Lesion localizations  array (or TP array for ROC data).</p></td>
+      <td><p>Lesion localizations array (or TP array for ROC data).</p></td>
+    </tr>
+    <tr>
+      <th>InputIsCountsTable</th>
+      <td><p>If <code>TRUE</code>, the <code>NL</code> and <code>LL</code> 
+arrays are rating-counts tables, with common lengths equal to the 
+number of ratings <code>R</code>, if <code>FALSE</code>, the default, these are arrays 
+of lengths <code>K1</code>, the number of non-diseased cases, and <code>K2</code>, 
+the number of diseased cases, respectively.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other elements of <span class="pkg">RJafroc</span> dataset that may, depending on the context, need to be specified. 
-<code>lesionVector</code> <strong>must</strong> be specified if an FROC dataset is to be returned. It is a <code>K2</code>-length array specifying
-the numbers of lesions in each diseased case in the dataset.</p></td>
+      <td><p>Other elements of <span class="pkg">RJafroc</span> dataset that may, depending on the 
+context, need to be specified. <code>lesionVector</code> <strong>must</strong> be specified 
+   if an FROC dataset is to be returned. It is a <code>K2</code>-length array 
+   specifying the numbers of lesions in each diseased case in the dataset.</p></td>
     </tr>
     </table>
     
@@ -213,13 +162,18 @@ the numbers of lesions in each diseased case in the dataset.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function "senses" the data type (ROC or FROC) from the the absence or presence of <code>lesionVector</code>. 
-ROC data can be <code>NL[1:K1]</code> and <code>LL[1:K2]</code> or <code>NL[1:I,1:J,1:K1]</code> and <code>LL[1:I,1:J,1:K2]</code>. 
-FROC data can be <code>NL[1:K1,1:maxNL]</code> and <code>LL[1:K2, 1:maxLL]</code> or <code>NL[1:I,1:J,1:K1,1:maxNL]</code> and 
-<code>LL[1:I,1:J,1:K2,1:maxLL]</code>. 
-Here <code>maxNL/maxLL</code> = maximum numbers of NLs/LLs, per case, over entire dataset.  
+    <p>The function "senses" the data type (ROC or FROC) from the the absence 
+   or presence of <code>lesionVector</code>.</p><ul>
+<li><p>ROC data can be <code>NL[1:K1]</code> and <code>LL[1:K2]</code> or <code>NL[1:I,1:J,1:K1]</code> 
+   and <code>LL[1:I,1:J,1:K2]</code>.</p></li>
+<li><p>FROC data can be <code>NL[1:K1,1:maxNL]</code> and <code>LL[1:K2, 1:maxLL]</code> or 
+   <code>NL[1:I,1:J,1:K1,1:maxNL]</code> and  <code>LL[1:I,1:J,1:K2,1:maxLL]</code>.</p></li>
+</ul> 
+ 
+ 
+<p>Here <code>maxNL/maxLL</code> = maximum numbers of NLs/LLs, per case, over entire dataset.  
 Equal weights are assigned to every lesion (FROC data). 
-Consecutive characters/integers starting from "1" are assigned to <code>lesionID</code>, <code>modalityID</code> and <code>readerID</code>.</p>
+Consecutive characters/integers starting with "1" are assigned to <code>lesionID</code>, <code>modalityID</code> and <code>readerID</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -227,6 +181,12 @@ Consecutive characters/integers starting from "1" are assigned to <code>lesionID
 <span class='no'>NL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>5</span>)
 <span class='no'>LL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>7</span>)*<span class='fl'>1.5</span> + <span class='fl'>2</span>
 <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span>(<span class='no'>NL</span>, <span class='no'>LL</span>) <span class='co'># an ROC dataset</span>
+
+<span class='co'>## Input as counts tables</span>
+<span class='no'>K1t</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>19</span>, <span class='fl'>8</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)
+<span class='no'>K2t</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,  <span class='fl'>6</span>, <span class='fl'>5</span>, <span class='fl'>12</span>, <span class='fl'>22</span>)
+<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span>(<span class='no'>K1t</span>, <span class='no'>K2t</span>, <span class='kw'>InputIsCountsTable</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
 
 <span class='no'>I</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>;<span class='no'>J</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>;<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
 <span class='no'>K1</span> <span class='kw'>&lt;-</span> <span class='fl'>25</span>;<span class='no'>K2</span> <span class='kw'>&lt;-</span> <span class='fl'>35</span>
@@ -281,16 +241,15 @@ Consecutive characters/integers starting from "1" are assigned to <code>lesionID
 
 <span class='no'>retPlot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>dataset</span>,
 <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span>,<span class='no'>I</span>), <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span>,<span class='no'>J</span>), <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>retPlot</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='Df2RJafrocDataset-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## print(retPlot$Plot)</span>
+
 <span class='no'>retPlot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>dataset</span>,
 <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span>,<span class='no'>I</span>), <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span>,<span class='no'>J</span>), <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"FROC"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>retPlot</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='Df2RJafrocDataset-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## print(retPlot$Plot)</span>
+
 <span class='no'>retPlot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>dataset</span>,
 <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span>,<span class='no'>I</span>), <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span>,<span class='no'>J</span>), <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"AFROC"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>retPlot</span>$<span class='no'>Plot</span>)</div><div class='img'><img src='Df2RJafrocDataset-3.png' alt='' width='700' height='433' /></div><div class='input'>
-
-
-</div></pre>
+<span class='co'>## print(retPlot$Plot)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
