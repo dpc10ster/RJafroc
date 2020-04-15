@@ -9,30 +9,31 @@
 #' 
 #' @return The returned value is a list with the following elements:
 #' @return \item{a}{The mean of the diseased distribution; 
-#'    the non-diseased distribution is assumed to have zero mean} 
+#'    the non-diseased distribution is assumed to have zero mean;
+#'    constraint: -4 < a < +4.} 
 #' @return \item{b}{The standard deviation of the non-diseased 
 #'    distribution. The diseased distribution is assumed to have 
-#'    unit standard deviation} 
-#' @return \item{zetas}{The binormal model cutoffs, zetas or thresholds} 
-#' @return \item{AUC}{The binormal model fitted ROC-AUC} 
-#' @return \item{StdAUC}{The standard deviation of AUC} 
-#' @return \item{NLLIni}{The initial value of negative LL} 
-#' @return \item{NLLFin}{The final value of negative LL} 
-#' @return \item{ChisqrFitStats}{The chisquare goodness of fit results} 
-#' @return \item{covMat}{The covariance matrix of the parameters} 
+#'    unit standard deviation; constraint: 0.01 < b < +4.} 
+#' @return \item{zetas}{The binormal model cutoffs, zetas or thresholds.} 
+#' @return \item{AUC}{The binormal model fitted ROC-AUC.} 
+#' @return \item{StdAUC}{The standard deviation of AUC.} 
+#' @return \item{NLLIni}{The initial value of negative LL.} 
+#' @return \item{NLLFin}{The final value of negative LL.} 
+#' @return \item{ChisqrFitStats}{The chisquare goodness of fit results.} 
+#' @return \item{covMat}{The covariance matrix of the parameters.} 
 #' @return \item{fittedPlot}{A \pkg{ggplot2} object containing the 
 #'    fitted operating characteristic along with the empirical operating 
-#'    points. Use \code{print()} to display the object} 
+#'    points. Use \code{print()} to display the object.} 
 #' 
 #' @details 
 #' In the binormal model ratings (more accurately the latent decision variables) 
 #'    from diseased cases are sampled from \eqn{N(a,1)} while ratings for 
 #'    non-diseased cases are sampled from \eqn{N(0,b^2)}. To avoid clutter error 
-#'    bars are only shown for the lowest and uppermost operating points. An FROC
-#'    dataset is internally converted to a highest rating inferred ROC dataset. To
-#'    many bins containing zero counts will cause the algorithm to fail; so be sure
-#'    to bin the data appropriately to fewer bins, where each bin has at least one
-#'    count.  
+#'    bars are only shown for the lowest and uppermost operating points. Too
+#'    many bins containing zero counts will cause the algorithm to fail; to avoid this
+#'    bin the data appropriately to fewer bins, where each bin has at least one
+#'    count. An FROC dataset is internally converted to a highest rating inferred 
+#'    ROC dataset.  
 #' 
 #' 
 #' @examples
