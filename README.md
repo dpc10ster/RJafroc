@@ -6,22 +6,24 @@ RJafroc
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rjafroc)](https://cran.r-project.org/package=rjafroc)
 
 # What is this repository for? #
-* Modeling, Analysis, Validation and Visualization of ROC/FROC/LROC studies.
-* Extends and replaces Windows `JAFROC` software at http://www.devchakraborty.com.
-* I know the Windows software is much easier to use, so I am keeping it online for now, but I cannot maintain or extend it.
-* This repository also serves as the **Online Appendix** to my book: **Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017**.
+* This repository serves as the software companion to my book: **Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017**.
+* Full documentation (essentilaly the book plus the software) is at https://dpc10ster.github.io/RJafrocBook/
+* `RJafroc` extends and replaces Windows `JAFROC` software at http://www.devchakraborty.com.
+* If you encounter difficulties with downloading the Windows software, try https://github.com/dpc10ster/WindowsJafroc.
 
 # Update History
 * See https://dpc10ster.github.io/RJafroc/news/index.html.
-* Current GitHub version is 1.3.1.9000 (sic), on the `master` branch.
+* Current GitHub version is 1.3.2.9000 on the `master` branch.
 * Current CRAN version is 1.3.2.
-* Currently working on GitHub version 1.3.2.9000, on the `developer` branch.
 
 # Branch designations
-**The complete (all vignettes and tests) and most current and tested version of the software is on the `master` branch.** The `developer` branch is for development/experimental work. The website is pushed from the `master` branch.
+**The complete (one vignette and all tests) and most current and tested version of the software is on the `master` branch.** The `developer` branch is for development/experimental work. The website is pushed from the `master` branch.
 
-# Documentation (articles or vignettes) is available at https://dpc10ster.github.io/RJafroc/
-Highly recommended in order to familiarize oneself with the code. It has some `QuickStart` vignettes that will enable one already familiar with the Windows software to run the R code.
+# Documentation is available at https://dpc10ster.github.io/RJafrocBook/
+Highly recommended to familiarize oneself with the code and its scientific background. 
+
+# A CRAN version of `RJafroc` has been published
+Version 1.3.2 of `RJafroc` has passed CRAN tests. This version is on the `cran2-update` branch. 
 
 # A CRAN version of `RJafroc` has been published
 Version 1.3.1 of `RJafroc` has passed CRAN tests. This version is on the `cran2` branch. 
