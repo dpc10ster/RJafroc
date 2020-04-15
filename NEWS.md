@@ -1,6 +1,6 @@
-# RJafroc v1.3.2 on CRAN
+# RJafroc 1.3.2
 
-# See cran2/master branch for content relating to this version 
+## See cran2-update/master branch for content relating to this version 
 
 ## After work on cran2-update work
 * Copied altered files from R directory (which commented out examples which were taking lots of CPU time)
@@ -58,6 +58,7 @@
 * Updated this file 2/10/20
 * R CMD check successful
 
+# RJafroc 1.3.1
 
 ## Extended dataset object structure
 * Bumped version number to 1.3.1 after corrections to DESCRIPTION file
@@ -153,8 +154,6 @@
 * Split plot analysis
 
 
-
-
 # RJafroc 1.2.0
 * Corrected all references to package name to `RJafroc` (note capitalization)
 * Checked downstream dependencies - none as of July 23, 2019: revdep("RJafroc") yields character(0)
@@ -201,6 +200,7 @@
 * Corrected overwriting error in value returned by `Compare3ProperRocFits()`
 * Added two vignettes: `QuickStartDBMH` and `QuickStartDBMHExcelOutput`
 * Checked downstream dependencies - none as of Nov 11, 2018: `revdep("rjafroc")` yields `character(0)`
+
    
 # RJafroc 1.0.2
 * StSignificanceTestingCadVsRadiologists was not working for different numbers of readers.
