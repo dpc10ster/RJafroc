@@ -39,7 +39,7 @@
    significance testing refers to analysis designed to assign a P-value, 
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 
-   figure of merit (FOM) difference between treatments is zero. The results of 
+   figure of merit (FOM) differences between treatments is zero. The results of 
    the analysis are better visualized in the text or  
    Excel-formatted files produced by UtilOutputReport." />
 <meta name="twitter:card" content="summary" />
@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
       </span>
     </div>
 
@@ -96,67 +96,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
-      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
-    </li>
-    <li>
-      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+      <a href="../articles/StartupVignette.html">Documentation Builder</a>
     </li>
   </ul>
 </li>
@@ -192,7 +132,7 @@
    significance testing refers to analysis designed to assign a P-value, 
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 
-   figure of merit (FOM) difference between treatments is zero. The results of 
+   figure of merit (FOM) differences between treatments is zero. The results of 
    the analysis are better visualized in the text or  
    Excel-formatted files produced by <code><a href='UtilOutputReport.html'>UtilOutputReport</a></code>.</p>
     
@@ -216,7 +156,9 @@
     <tr>
       <th>dataset</th>
       <td><p>The dataset to be analyzed, see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>. 
-<b>Must have two or more treatments and two or more readers.</b></p></td>
+<b>Must have two or more treatments and two or more readers. A split-plot
+dataset is allowed provided <code>method</code> = "ORH" and <code>covEstMethod</code>
+= "Jackknife".</b></p></td>
     </tr>
     <tr>
       <th>FOM</th>
@@ -380,15 +322,15 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt1 0.9478261 0.9053140 0.9217391 0.9993559 0.9299517
 #&gt; 
 #&gt; $anovaY
-#&gt;   Source          SS   DF         MS
-#&gt; 1      T   0.5467634    1 0.54676344
-#&gt; 2      R   1.7493072    4 0.43732680
-#&gt; 3      C  44.8462969  113 0.39686988
-#&gt; 4     TR   0.2512700    4 0.06281749
-#&gt; 5     TC  11.2828335  113 0.09984808
-#&gt; 6     RC  29.1544793  452 0.06450106
-#&gt; 7    TRC  18.0671646  452 0.03997160
-#&gt; 8  Total 105.8981150 1139         NA
+#&gt;       Source          SS   DF         MS
+#&gt; 1     Row1_T   0.5467634    1 0.54676344
+#&gt; 2     Row2_R   1.7493072    4 0.43732680
+#&gt; 3     Row3_C  44.8462969  113 0.39686988
+#&gt; 4    Row4_TR   0.2512700    4 0.06281749
+#&gt; 5    Row5_TC  11.2828335  113 0.09984808
+#&gt; 6    Row6_RC  29.1544793  452 0.06450106
+#&gt; 7   Row7_TRC  18.0671646  452 0.03997160
+#&gt; 8 Row8_Total 105.8981150 1139         NA
 #&gt; 
 #&gt; $anovaYi
 #&gt;   Source  DF       Trt0       Trt1
@@ -543,6 +485,75 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
 #&gt; 1      Trt0 0.8970370 0.02482994  4 0.8280981 0.9659760
 #&gt; 2      Trt1 0.9408374 0.01615303  4 0.8959894 0.9856854
+#&gt; </div><div class='input'><span class='co'>## following is split-plot analysis using a simulated split-plot dataset</span>
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>datasetFROCSp</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $fomArray
+#&gt;           Rdr1      Rdr3      Rdr4      Rdr5
+#&gt; Trt4 0.8768116 0.7920228 0.5731225 0.7875882
+#&gt; Trt5 0.7346014 0.7286325 0.5657115 0.6899250
+#&gt; 
+#&gt; $meanSquares
+#&gt;          msT        msR        msTR
+#&gt; 1 0.01206484 0.02132706 0.001617564
+#&gt; 
+#&gt; $varComp
+#&gt;          varR         varTR        cov1 cov2 cov3         var
+#&gt; 1 0.007844379 -0.0007196019 0.002010369    0    0 0.004347534
+#&gt; 
+#&gt; $FTestStatsRRRC
+#&gt;      fRRRC ndfRRRC ddfRRRC      pRRRC
+#&gt; 1 7.458651       1       3 0.07187698
+#&gt; 
+#&gt; $ciDiffTrtRRRC
+#&gt;   Treatment   Estimate     StdErr DF        t      PrGTt     CILower   CIUpper
+#&gt; 1 Trt4-Trt5 0.07766867 0.02843909  3 2.731053 0.07187698 -0.01283722 0.1681745
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRRC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1      Trt4 0.7573863 0.06476070  3 0.5512888 0.9634837
+#&gt; 2      Trt5 0.6797176 0.03927095  3 0.5547399 0.8046953
+#&gt; 
+#&gt; $FTestStatsFRRC
+#&gt;      fFRRC ndfFRRC ddfFRRC      pFRRC
+#&gt; 1 5.162169       1     Inf 0.02308406
+#&gt; 
+#&gt; $ciDiffTrtFRRC
+#&gt;   Treatment   Estimate     StdErr  DF        t      PrGTt   CILower   CIUpper
+#&gt; 1 Trt4-Trt5 0.07766867 0.03418454 Inf 2.272041 0.02308406 0.0106682 0.1446691
+#&gt; 
+#&gt; $ciAvgRdrEachTrtFRRC
+#&gt; [1] NA
+#&gt; 
+#&gt; $ciDiffTrtEachRdrFRRC
+#&gt;   Reader Treatment    Estimate     StdErr  DF          t      PrGTt     CILower
+#&gt; 1   Rdr1 Trt4-Trt5 0.142210145 0.06118207 Inf 2.32437619 0.02010534  0.02229549
+#&gt; 2   Rdr3 Trt4-Trt5 0.063390313 0.05699598 Inf 1.11218917 0.26605682 -0.04831976
+#&gt; 3   Rdr4 Trt4-Trt5 0.007411067 0.08650156 Inf 0.08567553 0.93172436 -0.16212888
+#&gt; 4   Rdr5 Trt4-Trt5 0.097663139 0.06498475 Inf 1.50286247 0.13287451 -0.02970463
+#&gt;     CIUpper
+#&gt; 1 0.2621248
+#&gt; 2 0.1751004
+#&gt; 3 0.1769510
+#&gt; 4 0.2250309
+#&gt; 
+#&gt; $varCovEachRdr
+#&gt;   Reader         Var         Cov1
+#&gt; 1   Rdr1 0.004126154 0.0022545315
+#&gt; 2   Rdr3 0.003867344 0.0022430735
+#&gt; 3   Rdr4 0.006667625 0.0029263644
+#&gt; 4   Rdr5 0.002729014 0.0006175056
+#&gt; 
+#&gt; $FTestStatsRRFC
+#&gt;      fRRFC ndfRRFC ddfRRFC      pRRFC
+#&gt; 1 7.458651       1       3 0.07187698
+#&gt; 
+#&gt; $ciDiffTrtRRFC
+#&gt;   Treatment   Estimate     StdErr DF        t      PrGTt     CILower   CIUpper
+#&gt; 1 Trt4-Trt5 0.07766867 0.02843909  3 2.731053 0.07187698 -0.01283722 0.1681745
+#&gt; 
+#&gt; $ciAvgRdrEachTrtRRFC
+#&gt;   Treatment      Area     StdErr DF   CILower   CIUpper
+#&gt; 1      Trt4 0.7573863 0.06476070  3 0.5512888 0.9634837
+#&gt; 2      Trt5 0.6797176 0.03927095  3 0.5547399 0.8046953
 #&gt; </div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)</div><div class='output co'>#&gt; $fomArray
@@ -554,15 +565,15 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt2 0.8994878 0.8190307
 #&gt; 
 #&gt; $anovaY
-#&gt;   Source          SS   DF         MS
-#&gt; 1      T   2.5205406    1 2.52054062
-#&gt; 2      R  13.4963319    8 1.68704149
-#&gt; 3      C  70.1368924   91 0.77073508
-#&gt; 4     TR   0.6828268    8 0.08535334
-#&gt; 5     TC  34.2104485   91 0.37593899
-#&gt; 6     RC  91.6729348  728 0.12592436
-#&gt; 7    TRC  54.4372558  728 0.07477645
-#&gt; 8  Total 267.1572307 1655         NA
+#&gt;       Source          SS   DF         MS
+#&gt; 1     Row1_T   2.5205406    1 2.52054062
+#&gt; 2     Row2_R  13.4963319    8 1.68704149
+#&gt; 3     Row3_C  70.1368924   91 0.77073508
+#&gt; 4    Row4_TR   0.6828268    8 0.08535334
+#&gt; 5    Row5_TC  34.2104485   91 0.37593899
+#&gt; 6    Row6_RC  91.6729348  728 0.12592436
+#&gt; 7   Row7_TRC  54.4372558  728 0.07477645
+#&gt; 8 Row8_Total 267.1572307 1655         NA
 #&gt; 
 #&gt; $anovaYi
 #&gt;   Source  DF      Trt1       Trt2
@@ -659,15 +670,15 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt2 0.9338061 0.8569740
 #&gt; 
 #&gt; $anovaY
-#&gt;   Source          SS   DF         MS
-#&gt; 1      T   1.1312035    1 1.13120350
-#&gt; 2      R   5.2762307    8 0.65952883
-#&gt; 3      C  55.8234912   91 0.61344496
-#&gt; 4     TR   0.8931472    8 0.11164340
-#&gt; 5     TC  20.7902271   91 0.22846403
-#&gt; 6     RC  71.3207550  728 0.09796807
-#&gt; 7    TRC  48.6128298  728 0.06677587
-#&gt; 8  Total 203.8478844 1655         NA
+#&gt;       Source          SS   DF         MS
+#&gt; 1     Row1_T   1.1312035    1 1.13120350
+#&gt; 2     Row2_R   5.2762307    8 0.65952883
+#&gt; 3     Row3_C  55.8234912   91 0.61344496
+#&gt; 4    Row4_TR   0.8931472    8 0.11164340
+#&gt; 5    Row5_TC  20.7902271   91 0.22846403
+#&gt; 6    Row6_RC  71.3207550  728 0.09796807
+#&gt; 7   Row7_TRC  48.6128298  728 0.06677587
+#&gt; 8 Row8_Total 203.8478844 1655         NA
 #&gt; 
 #&gt; $anovaYi
 #&gt;   Source  DF       Trt1       Trt2
@@ -764,15 +775,15 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt2 0.934279 0.8654846
 #&gt; 
 #&gt; $anovaY
-#&gt;   Source          SS   DF         MS
-#&gt; 1      T   1.1701879    1 1.17018790
-#&gt; 2      R   5.0736487    8 0.63420608
-#&gt; 3      C  52.9690122   91 0.58207706
-#&gt; 4     TR   0.6774732    8 0.08468415
-#&gt; 5     TC  21.3527068   91 0.23464513
-#&gt; 6     RC  70.1156297  728 0.09631268
-#&gt; 7    TRC  48.3642304  728 0.06643438
-#&gt; 8  Total 199.7228889 1655         NA
+#&gt;       Source          SS   DF         MS
+#&gt; 1     Row1_T   1.1701879    1 1.17018790
+#&gt; 2     Row2_R   5.0736487    8 0.63420608
+#&gt; 3     Row3_C  52.9690122   91 0.58207706
+#&gt; 4    Row4_TR   0.6774732    8 0.08468415
+#&gt; 5    Row5_TC  21.3527068   91 0.23464513
+#&gt; 6    Row6_RC  70.1156297  728 0.09631268
+#&gt; 7   Row7_TRC  48.3642304  728 0.06643438
+#&gt; 8 Row8_Total 199.7228889 1655         NA
 #&gt; 
 #&gt; $anovaYi
 #&gt;   Source  DF       Trt1       Trt2
@@ -869,15 +880,15 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt2 0.9234043 0.8453901
 #&gt; 
 #&gt; $anovaY
-#&gt;   Source          SS   DF         MS
-#&gt; 1      T   0.7285249    1 0.72852493
-#&gt; 2      R   5.0697330    8 0.63371662
-#&gt; 3      C  55.5554986   91 0.61049999
-#&gt; 4     TR   0.9356828    8 0.11696035
-#&gt; 5     TC  21.4719085   91 0.23595504
-#&gt; 6     RC  76.9761232  728 0.10573643
-#&gt; 7    TRC  55.5779319  728 0.07634331
-#&gt; 8  Total 216.3154029 1655         NA
+#&gt;       Source          SS   DF         MS
+#&gt; 1     Row1_T   0.7285249    1 0.72852493
+#&gt; 2     Row2_R   5.0697330    8 0.63371662
+#&gt; 3     Row3_C  55.5554986   91 0.61049999
+#&gt; 4    Row4_TR   0.9356828    8 0.11696035
+#&gt; 5    Row5_TC  21.4719085   91 0.23595504
+#&gt; 6    Row6_RC  76.9761232  728 0.10573643
+#&gt; 7   Row7_TRC  55.5779319  728 0.07634331
+#&gt; 8 Row8_Total 216.3154029 1655         NA
 #&gt; 
 #&gt; $anovaYi
 #&gt;   Source  DF       Trt1       Trt2
@@ -974,15 +985,15 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt2 0.8843085 0.8335646
 #&gt; 
 #&gt; $anovaY
-#&gt;   Source          SS   DF         MS
-#&gt; 1      T   2.7113227    1 2.71132271
-#&gt; 2      R   9.4725180    8 1.18406475
-#&gt; 3      C  63.9011774   91 0.70221074
-#&gt; 4     TR   0.1800666    8 0.02250832
-#&gt; 5     TC  29.3856670   91 0.32291942
-#&gt; 6     RC  71.5832344  728 0.09832862
-#&gt; 7    TRC  44.0119542  728 0.06045598
-#&gt; 8  Total 221.2459403 1655         NA
+#&gt;       Source          SS   DF         MS
+#&gt; 1     Row1_T   2.7113227    1 2.71132271
+#&gt; 2     Row2_R   9.4725180    8 1.18406475
+#&gt; 3     Row3_C  63.9011774   91 0.70221074
+#&gt; 4    Row4_TR   0.1800666    8 0.02250832
+#&gt; 5    Row5_TC  29.3856670   91 0.32291942
+#&gt; 6    Row6_RC  71.5832344  728 0.09832862
+#&gt; 7   Row7_TRC  44.0119542  728 0.06045598
+#&gt; 8 Row8_Total 221.2459403 1655         NA
 #&gt; 
 #&gt; $anovaYi
 #&gt;   Source  DF       Trt1       Trt2
@@ -1077,15 +1088,15 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt2 0.8849484 0.8221260
 #&gt; 
 #&gt; $anovaY
-#&gt;   Source          SS   DF         MS
-#&gt; 1      T   2.1238485    1 2.12384848
-#&gt; 2      R   9.6334648    8 1.20418310
-#&gt; 3      C  53.0953405   91 0.58346528
-#&gt; 4     TR   0.2070386    8 0.02587983
-#&gt; 5     TC  22.1540037   91 0.24345059
-#&gt; 6     RC  64.2655140  728 0.08827680
-#&gt; 7    TRC  42.5649592  728 0.05846835
-#&gt; 8  Total 194.0441693 1655         NA
+#&gt;       Source          SS   DF         MS
+#&gt; 1     Row1_T   2.1238485    1 2.12384848
+#&gt; 2     Row2_R   9.6334648    8 1.20418310
+#&gt; 3     Row3_C  53.0953405   91 0.58346528
+#&gt; 4    Row4_TR   0.2070386    8 0.02587983
+#&gt; 5    Row5_TC  22.1540037   91 0.24345059
+#&gt; 6    Row6_RC  64.2655140  728 0.08827680
+#&gt; 7   Row7_TRC  42.5649592  728 0.05846835
+#&gt; 8 Row8_Total 194.0441693 1655         NA
 #&gt; 
 #&gt; $anovaYi
 #&gt;   Source  DF       Trt1       Trt2
@@ -1182,15 +1193,15 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt2 0.8996234 0.8077213
 #&gt; 
 #&gt; $anovaY
-#&gt;   Source         SS   DF         MS
-#&gt; 1      T   1.918202    1 1.91820230
-#&gt; 2      R  13.544116    8 1.69301448
-#&gt; 3      C  57.884536   91 0.63609380
-#&gt; 4     TR   0.628953    8 0.07861913
-#&gt; 5     TC  26.574936   91 0.29203226
-#&gt; 6     RC  80.717060  728 0.11087508
-#&gt; 7    TRC  51.769491  728 0.07111194
-#&gt; 8  Total 233.037294 1655         NA
+#&gt;       Source         SS   DF         MS
+#&gt; 1     Row1_T   1.918202    1 1.91820230
+#&gt; 2     Row2_R  13.544116    8 1.69301448
+#&gt; 3     Row3_C  57.884536   91 0.63609380
+#&gt; 4    Row4_TR   0.628953    8 0.07861913
+#&gt; 5    Row5_TC  26.574936   91 0.29203226
+#&gt; 6    Row6_RC  80.717060  728 0.11087508
+#&gt; 7   Row7_TRC  51.769491  728 0.07111194
+#&gt; 8 Row8_Total 233.037294 1655         NA
 #&gt; 
 #&gt; $anovaYi
 #&gt;   Source  DF       Trt1       Trt2

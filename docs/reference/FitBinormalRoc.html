@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
       </span>
     </div>
 
@@ -90,67 +90,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
-      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
-    </li>
-    <li>
-      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+      <a href="../articles/StartupVignette.html">Documentation Builder</a>
     </li>
   </ul>
 </li>
@@ -255,26 +195,31 @@ Rating-Method Data, Journal of Mathematical Psychology 6, 487-496.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'>## Test with an included ROC dataset</span>
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>dataset02</span>);<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitBinormalRoc-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>dataset02</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+
 
 <span class='co'>## Test with an included FROC dataset; it needs to be binned</span>
 <span class='co'>## as there are more than 5 discrete ratings levels</span>
 <span class='no'>binned</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='DfBinDataset.html'>DfBinDataset</a></span>(<span class='no'>dataset05</span>, <span class='kw'>desiredNumBins</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>binned</span>);<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitBinormalRoc-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>binned</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+
 
 <span class='co'>## Test with single interior point data</span>
 <span class='no'>fp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>7</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>))
 <span class='no'>tp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>))
 <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span>(<span class='no'>fp</span>, <span class='no'>tp</span>)
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>dataset</span>);<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitBinormalRoc-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>dataset</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+
 <span class='co'>## Test with two interior data points</span>
 <span class='no'>fp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>7</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>3</span>, <span class='fl'>3</span>))
 <span class='no'>tp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>3</span>, <span class='fl'>7</span>))
 <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span>(<span class='no'>fp</span>, <span class='no'>tp</span>)
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>dataset</span>);<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitBinormalRoc-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>dataset</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+
 <span class='co'>## Test with TONY data for which chisqr can be calculated</span>
 <span class='no'>ds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span>(<span class='no'>dataset01</span>)
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>ds</span>, <span class='fl'>2</span>, <span class='fl'>3</span>);<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='img'><img src='FitBinormalRoc-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>retFit</span>$<span class='no'>ChisqrFitStats</span></div><div class='output co'>#&gt; $chisq
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>ds</span>, <span class='fl'>2</span>, <span class='fl'>3</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='no'>retFit</span>$<span class='no'>ChisqrFitStats</span></div><div class='output co'>#&gt; $chisq
 #&gt; [1] 15.7145
 #&gt; 
 #&gt; $pVal
@@ -284,7 +229,7 @@ Rating-Method Data, Journal of Mathematical Psychology 6, 487-496.</p>
 #&gt; [1] 2
 #&gt; </div><div class='input'>
 <span class='co'>## Test with included degenerate ROC data</span>
-<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>datasetDegenerate</span>);<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>retFit</span>$<span class='no'>fittedPlot</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Data is degenerate; binormal model cannot fit it unambiguously: use CBM or RSM method</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'># }
+<span class='no'>retFit</span> <span class='kw'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='no'>datasetDegenerate</span>);<span class='co'>## print(retFit$fittedPlot)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Data is degenerate; binormal model cannot fit it unambiguously: use CBM or RSM method</span></div><div class='input'># }
 
  
 

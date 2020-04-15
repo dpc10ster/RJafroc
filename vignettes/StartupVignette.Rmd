@@ -1,0 +1,12 @@
+---
+title: "Documentation Builder"
+author: "Dev P. Chakraborty, PhD"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{DocBuilder}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+## All Vignettes have been [moved](https://dpc10ster.github.io/RJafrocBook/)
+This vignette is included to restore documentation page on `RJafroc` `GitHub` page
