@@ -1,0 +1,80 @@
+---
+title: "Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method"
+author: "Dev P. Chakraborty, PhD"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{ROC sample size using ORH}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(RJafroc)
+```
+
+## Introduction
+The use of the functions introduced in vignette 3, but this time using the ORH method to estimate the variance components, is illustrated here. The reader should confirm that these give the same results as the corresponding ones obtained using the DBMH method. When the figure of merit is the empirical AUC, the two methods can be shown to be identical. 
+
+## Illustration of `SsPowerGivenJK()` using `method = "ORH"`
+```{r}
+power <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon", J = 6, K = 251, method = "ORH", option = "RRRC")
+````
+
+The returned value is a `list` containing the expected power, the non-centrality parameter, the denominator degrees of freedom and the F-statistic (the numerator degrees of freedom is always one less than the number of treatments, i.e., unity in this example). 
+
+```{r}
+str(power)
+````
+
+Expected power is `r power$powerRRRC`.
+
+
+## Illustration of `SsPowerTable()` using `method = "ORH"`
+```{r}
+powTab <- SsPowerTable(dataset02, FOM = "Wilcoxon", method = "ORH", option = "RRRC")
+````
+
+Now show the power table `powTab`. 
+
+```{r}
+powTab
+````
+
+Since the default `FOM = "Wilcoxon"`, the table is identical to that generated in vignette 3, which used  `method = "DBMH"`. 
+
+## Illustrations of `SsSampleSizeKGivenJ()` using `method = "ORH"`
+
+### For RRRC generalization
+```{r}
+ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "ORH", option = "RRRC")
+````
+
+`ncases` is a list containing the number of cases `ncases$KRRRC` and expected power `ncases$powerRRRC`. 
+
+```{r}
+str(ncases)
+````
+
+The required number of cases is `r ncases$K` and expected power is `r ncases$power`.
+
+### For FRRC generalization
+```{r}
+ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "ORH", option = "FRRC")
+````
+
+The required number of cases is `r ncases$KFRRC` and expected power is `r ncases$powerFRRC`.
+
+### For RRFC generalization
+```{r}
+ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "ORH", option = "RRFC")
+````
+
+The required number of cases is `r ncases$KRRFC` and expected power is `r ncases$powerRRFC`.
+
+
+

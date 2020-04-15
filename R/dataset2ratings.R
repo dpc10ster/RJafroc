@@ -1,7 +1,7 @@
 # extracts three ratings arrays from the 
 # dataset; the first is always dataset$NL
 # The second depends on the FOM, and the 
-# third is the incorrect localizations array, if applicable (LROC data)
+# third is the incorrect localizations array
 dataset2ratings <- function (dataset, FOM){
   # if ((length(dataset) == 12) && (dataset$design == "SPLIT-PLOT")) {
   #   # check for SPLIT-PLOT dataset with unimplemmented FOM

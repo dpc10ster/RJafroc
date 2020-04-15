@@ -1,0 +1,64 @@
+## ----setup, include = FALSE---------------------------------------------------
+  knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+  )
+  library(RJafroc)
+
+## -----------------------------------------------------------------------------
+fed <- system.file("extdata", "FrocData.xlsx",
+                       package = "RJafroc", mustWork = TRUE)
+x1 <- DfReadDataFile(fed, newExcelFileFormat = TRUE)
+t1 <- x1$truthTableStr
+str(t1)
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t1[,1,1:100,1]))
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t1[,1,1:100,2:4]))
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t1[,,1:100,1]))
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t1[,1,101:200,2]))
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t1[,1,101:200,3]))
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t1[,1,101:200,4]))
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t1[1,1,,]))
+
+## -----------------------------------------------------------------------------
+
+## ---- echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1 Truth worksheets; (a) LEFT=FrocData.xlsx, original crossed dataset; (b) RIGHT=FrocDataSpVaryK1K2.xlsx, modified split-plot dataset",fig.show='hold',fig.align='center'----
+knitr::include_graphics(c("images/frocData.png","images/frocDataSpVaryK1K2.png"))
+
+## ---- echo=FALSE,out.width="50%",out.height="20%",fig.cap="Fig. 1 FP worksheets; (a) LEFT=FrocDataFP.xlsx, original crossed dataset; (b) RIGHT=FrocDataSpVaryK1K2FP.xlsx, modified split-plot dataset",fig.show='hold',fig.align='center'----
+knitr::include_graphics(c("images/frocDataFP.png","images/frocDataSpVaryK1K2FP.png"))
+
+## -----------------------------------------------------------------------------
+fedsp <- system.file("extdata", "toyFiles/FROC/FrocDataSpVaryK1K2.xlsx",
+                       package = "RJafroc", mustWork = TRUE)
+x2 <- DfReadDataFile(fedsp, newExcelFileFormat = TRUE)
+t2 <- x2$truthTableStr
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t2[,1,1:100,1]))
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t2[,1,1:23,1]))
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t2[,1,101:124,2]))
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t2[,2,,1]))
+
+## -----------------------------------------------------------------------------
+sum(!is.na(t2[,2,,2:4]))
+
