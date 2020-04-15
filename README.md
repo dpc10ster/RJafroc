@@ -7,7 +7,10 @@ RJafroc
 
 # What is this repository for? #
 * This repository serves as the software companion to my book: **Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017**.
-* Full documentation (essentilaly the book plus the software) is at https://dpc10ster.github.io/RJafrocBook/
+* Full documentation (essentially the book plus the software, but still a works-in-progress) is at https://dpc10ster.github.io/RJafrocBook/
+* Software documentation (the functions used in the software and the update history) is at https://dpc10ster.github.io/RJafroc/
+
+# Relation to the Windows software
 * `RJafroc` extends and replaces Windows `JAFROC` software at http://www.devchakraborty.com.
 * If you encounter difficulties with downloading the Windows software, try https://github.com/dpc10ster/WindowsJafroc.
 
@@ -17,7 +20,8 @@ RJafroc
 * Current CRAN version is 1.3.2.
 
 # Branch designations
-**The complete (one vignette and all tests) and most current and tested version of the software is on the `master` branch.** The `developer` branch is for development/experimental work. The website is pushed from the `master` branch.
+# **The most current and tested version of the software is on the `master` branch.** 
+# The `developer` branch is for development/experimental work. The website is pushed from the `master` branch.
 
 # Documentation is available at https://dpc10ster.github.io/RJafrocBook/
 Highly recommended to familiarize oneself with the code and its scientific background. 
