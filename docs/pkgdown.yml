@@ -1,0 +1,6 @@
+pandoc: 2.9.2
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  Ch00Vig1DataFormatRoc: Ch00Vig1DataFormatRoc.html
+
