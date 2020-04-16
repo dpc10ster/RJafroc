@@ -12,7 +12,7 @@ context("Fitting routines")
 
 
 test_that("FitBinormalRoc - allow AUC less than 0.5", {
-  skip_on_travis()
+  # skip_on_travis()
   g1 <- c(2, 3, 5, 6)
   g2 <- c(0, 4, 7, 11)
   d <- Df2RJafrocDataset(g2, g1, InputIsCountsTable = TRUE)
@@ -33,7 +33,7 @@ test_that("FitBinormalRoc - allow AUC less than 0.5", {
 
 
 test_that("FitBinormalRoc", {
-  skip_on_travis()
+  # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -48,7 +48,7 @@ test_that("FitBinormalRoc", {
 })
 
 test_that("FitBinormalRoc", {
-  skip_on_travis()
+  # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc05", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -67,7 +67,7 @@ test_that("FitBinormalRoc", {
 
 
 test_that("FitCbmRoc", {
-  skip_on_travis()
+  # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/CbmRoc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
