@@ -1,3 +1,10 @@
+## Fixed issue with `optim` when flipping groups
+* see issues #50 (closed) on `RJafroc/master`
+* Allow a paramter of binormal model to be between -4 and 4
+* Removed all vignettes; since these are now in [RJafrocBook](https://dpc10ster.github.io/RJafrocBook/)
+* Removed all but one dataset (`FZ_ALL.xlsx`) from `extdata/datasets` so I dont get file size error (extdata was 2.5 MB, reduced to 1.3)
+
+
 # RJafroc 1.3.2
 
 ## After work on cran2-update work

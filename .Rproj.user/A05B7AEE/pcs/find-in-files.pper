@@ -1,11 +1,11 @@
 {
     "dialog-state" : {
-        "caseSensitive" : true,
+        "caseSensitive" : false,
         "filePatterns" : [
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "UtilnLesionDistr",
+        "query" : "RatingsArraysFromRatingsTables",
         "regex" : false
     }
 }

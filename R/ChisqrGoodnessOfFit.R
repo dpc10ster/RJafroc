@@ -29,7 +29,8 @@
 #'
 #'
 #' @importFrom stats pchisq
-
+#' @export
+#' 
 # general code replaces three functions; dpc 10/27/18
 ChisqrGoodnessOfFit <- function(fpCounts, tpCounts, parameters, model,lesDistr) {
   if (model == "BINORMAL") {

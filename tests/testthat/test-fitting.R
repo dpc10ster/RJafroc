@@ -11,6 +11,27 @@ context("Fitting routines")
 # ✔ |  18       | Fitting routines [195.9 s]
 
 
+test_that("FitBinormalRoc - allow AUC less than 0.5", {
+  skip_on_travis()
+  g1 <- c(2, 3, 5, 6)
+  g2 <- c(0, 4, 7, 11)
+  d <- Df2RJafrocDataset(g2, g1, InputIsCountsTable = TRUE)
+  fit <- FitBinormalRoc(d)
+  
+  fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc01", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- FitBinormalRoc(d)[1:7]
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  expect_equal(FitBinormalRoc(d)[1:7], ret)
+  # end of test
+  
+})
+
+
 test_that("FitBinormalRoc", {
   skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc02", ".rds")
@@ -19,13 +40,12 @@ test_that("FitBinormalRoc", {
     ret <- FitBinormalRoc(dataset02)[1:7]
     saveRDS(ret, file = fn)
   }
-
+  
   ret <- readRDS(fn)
   expect_equal(FitBinormalRoc(dataset02)[1:7], ret)
   # end of test
-
+  
 })
-
 
 test_that("FitBinormalRoc", {
   skip_on_travis()
@@ -36,13 +56,13 @@ test_that("FitBinormalRoc", {
     ret <- ret[1:7]
     saveRDS(ret, file = fn)
   }
-
+  
   ret <- readRDS(fn)
   ret1 <- FitBinormalRoc(DfBinDataset(dataset05, desiredNumBins = 5, opChType = "ROC"))
   ret1 <- ret1[1:7]
   expect_equal(ret1, ret)
   # end of test
-
+  
 })
 
 
