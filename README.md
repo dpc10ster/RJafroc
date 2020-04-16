@@ -21,8 +21,10 @@ Highly recommended to familiarize oneself with the scientific background and the
 * Current CRAN version is 1.3.2.
 
 # Branch designations
-# The current and tested version of the software is on the `master` branch.
-# The `developer` branch is for development/experimental work. The website is pushed from the `master` branch.
+* The current tested version of the software is on the `master` branch.
+* The `developer` branch is for development/experimental work. 
+* The software documentation [website](https://dpc10ster.github.io/RJafroc) is pushed from the `master` branch.
+* `RJafroc` book has its own [GitHub repository](https://github.com/dpc10ster/RJafrocBook).
 
 # Those already familiar with installing R packages from GitHub can ignore the following directions  
 
