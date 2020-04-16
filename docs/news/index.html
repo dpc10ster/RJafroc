@@ -78,18 +78,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/StartupVignette.html">Documentation Builder</a>
-    </li>
-  </ul>
-</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -118,17 +106,15 @@
 <h1 class="page-header">
 <a href="#rjafroc-132" class="anchor"></a>RJafroc 1.3.2<small> 2020-03-06 </small>
 </h1>
-<div id="see-cran2-updatemaster-branch-for-content-relating-to-this-version" class="section level2">
-<h2 class="hasAnchor">
-<a href="#see-cran2-updatemaster-branch-for-content-relating-to-this-version" class="anchor"></a>See cran2-update/master branch for content relating to this version</h2>
-</div>
 <div id="after-work-on-cran2-update-work" class="section level2">
 <h2 class="hasAnchor">
 <a href="#after-work-on-cran2-update-work" class="anchor"></a>After work on cran2-update work</h2>
 <ul>
 <li>Copied altered files from R directory (which commented out examples which were taking lots of CPU time)</li>
-<li>Includes a correction on <code>Compare3ProperRocFits.R</code>
+<li>Includes a correction to <code>Compare3ProperRocFits.R</code>
 </li>
+<li>Pulled out all vignettes (these have been moved to repository <code>RJafrocBook</code>)</li>
+<li>This gets file size below 5 MB</li>
 </ul>
 </div>
 <div id="work-post-acceptance-of-v132-as-of-3720" class="section level2">
@@ -138,8 +124,8 @@
 <li>Going back to work interrupted by having to fix the errors on R-devel, see next section below.</li>
 <li>This is v1.3.2.9000</li>
 <li>Got all tests working! Resulted in fix to <code>StDBMHAnalysis.R</code> that fixed test that I had to skip on mac for <code>context("SignificanceTestingAllCombinations")</code>. Need to get this fix (lines 45-51) over to cran2 branch as I am thinking of splitting the package up by separating the <code>cran2</code> branch as the base package <code>RJafroc</code> and <code>depending</code> on <code>RJafroc</code> for new package <code>RJafroc2</code>. This would solve the file size problems that I am running into. Just an idea.</li>
-<li>Current file size is 18.4 Mb.</li>
-<li>Sync with <code>developer</code> branch on <code>GitHub</code> and merging with <code>master</code>.</li>
+<li>Current file size is 18.4 Mb!</li>
+<li>Synced with <code>developer</code> branch on <code>GitHub</code> and merged with <code>master</code>.</li>
 </ul>
 </div>
 <div id="after-email-from-kurt-hornik-kurthornikr-projectorg" class="section level2">
@@ -167,6 +153,7 @@
 <li>Ran all checks in ScriptsForCranSubmission.R</li>
 <li>Submitted to CRAN</li>
 <li>Accepted by CRAN</li>
+<li>See <code>cran2-update/master</code> branch for content relating to this version</li>
 </ul>
 </div>
 <div id="modified-utilpseudovaluesr-to-work-with-split-plot-data" class="section level2">
