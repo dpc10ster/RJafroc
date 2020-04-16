@@ -1,17 +1,17 @@
 # RJafroc 1.3.2
 
-## See cran2-update/master branch for content relating to this version 
-
 ## After work on cran2-update work
 * Copied altered files from R directory (which commented out examples which were taking lots of CPU time)
-* Includes a correction on `Compare3ProperRocFits.R`
+* Includes a correction to `Compare3ProperRocFits.R`
+* Pulled out all vignettes (these have been moved to repository `RJafrocBook`)
+* This gets file size below 5 MB
 
 ## Work post acceptance of v1.3.2, as of 3/7/20
 * Going back to work interrupted by having to fix the errors on R-devel, see next section below.
 * This is v1.3.2.9000
 * Got all tests working! Resulted in fix to `StDBMHAnalysis.R` that fixed test that I had to skip on mac for `context("SignificanceTestingAllCombinations")`. Need to get this fix (lines 45-51) over to cran2 branch as I am thinking of splitting the package up by separating the `cran2` branch as the base package `RJafroc` and `depending` on `RJafroc` for new package `RJafroc2`. This would solve the file size problems that I am running into. Just an idea.
-* Current file size is 18.4 Mb. 
-* Sync with `developer` branch on `GitHub` and merging with `master`.
+* Current file size is 18.4 Mb! 
+* Synced with `developer` branch on `GitHub` and merged with `master`.
 
 
 ## After email from Kurt Hornik <Kurt.Hornik@r-project.org>
@@ -30,6 +30,7 @@
 * Ran all checks in ScriptsForCranSubmission.R
 * Submitted to CRAN
 * Accepted by CRAN
+* See `cran2-update/master` branch for content relating to this version 
 
 
 ## Modified `UtilPseudoValues.R` to work with SPLIT-PLOT data
