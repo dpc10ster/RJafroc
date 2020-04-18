@@ -1,7 +1,7 @@
 ## Fixed error with `msTC` 
 * Found another error in `msTC` calculation in `UtilMeanSquares`
-* Was trying to be too cute for my own good
-* Discoverd error while doing first principles calculation in `RJafocBook`, DBMH chapter
+* Was trying to be too cute for my own good (collapsing two for-loops into one)
+* Discoverd error while doing first principles calculation in `RJafocBook`, DBMH chapter, so there is at least one person who benefited from `RJafrocBook`
 
 ## Fixed issue with `optim` when flipping groups
 * see issues #50 (closed) on `RJafroc/master`
