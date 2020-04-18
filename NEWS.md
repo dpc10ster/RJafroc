@@ -1,4 +1,4 @@
-## Fixed issue with `optim` when flipping groups
+## Fixed error with `msTC` 
 * Found another error in `msTC` calculation in `UtilMeanSquares`
 * Was trying to be too cute for my own good
 * Discoverd error while doing first principles calculation in `RJafocBook`, DBMH chapter
