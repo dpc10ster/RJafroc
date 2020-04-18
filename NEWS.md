@@ -1,4 +1,9 @@
 ## Fixed issue with `optim` when flipping groups
+* Found another error in `msTC` calculation in `UtilMeanSquares`
+* Was trying to be too cute for my own good
+* Discoverd error while doing first principles calculation in `RJafocBook`, DBMH chapter
+
+## Fixed issue with `optim` when flipping groups
 * see issues #50 (closed) on `RJafroc/master`
 * Allow a paramter of binormal model to be between -4 and 4
 * Removed all vignettes; since these are now in [RJafrocBook](https://dpc10ster.github.io/RJafrocBook/)
