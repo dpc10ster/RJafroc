@@ -85,16 +85,18 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
         for (k in 1:Ktemp) { 
           msTC <- msTC + (mean(pseudoValues[i, , k]) - mean(pseudoValues[i, , ]) - mean(pseudoValues[, , k]) + mean(pseudoValues))^2
         }
-        msTC <- msTC * J/((I - 1) * (Ktemp - 1)) # Error noted by Erin Greco; minus one was missing 
-        
-        msCSingleT <- rep(0, I)
-        for (i in 1:I){
-          for (k in 1:Ktemp) {
-            msCSingleT[i] <- msCSingleT[i] + (mean(pseudoValues[i, , k]) - mean(pseudoValues[i, , ]))^2
-          }
-          msCSingleT[i] <- msCSingleT[i] * J/(Ktemp - 1)
+      } # the for loop should end here
+      msTC <- msTC * J/((I - 1) * (Ktemp - 1)) # Error noted by Erin Greco; minus one was missing 
+      # found another error in msTC while doing RJafrocBook 4/17/20
+      # was being cute by putting end of for loop further down; messes up division at above line
+      # separated the two loops as shown above and below
+      msCSingleT <- rep(0, I)
+      for (i in 1:I){ # separated loop here
+        for (k in 1:Ktemp) {
+          msCSingleT[i] <- msCSingleT[i] + (mean(pseudoValues[i, , k]) - mean(pseudoValues[i, , ]))^2
         }
-      } 
+        msCSingleT[i] <- msCSingleT[i] * J/(Ktemp - 1)
+      }
     }
     
     if (J != 1){
