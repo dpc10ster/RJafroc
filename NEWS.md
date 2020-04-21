@@ -2,7 +2,7 @@
 * Found another error in `msTC` calculation in `UtilMeanSquares`
 * Was trying to be too cute for my own good (collapsing two for-loops into one)
 * Discoverd error while doing first principles calculation in `RJafocBook`, DBMH chapter, so there is at least one person who benefited from `RJafrocBook`
-* Changed `covEstMethod` argument to `ORH` method to lower case ("jackknife"" or "bootstrap"")
+* Changed `covEstMethod` argument to `ORH` method to lower case ("jackknife" or "bootstrap")
 
 ## Fixed issue with `optim` when flipping groups
 * see issues #50 (closed) on `RJafroc/master`
