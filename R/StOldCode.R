@@ -434,7 +434,7 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, option)
     stop("The analysis requires at least 2 modalities")
   }
   
-  if (!covEstMethod %in% c("Jackknife", "Bootstrap", "DeLong")) {
+  if (!covEstMethod %in% c("jackknife", "bootstrap", "DeLong")) {
     errMsg <- paste0(covEstMethod, " is not an allowed covariance estimation method.")
     stop(errMsg)
   }
@@ -711,7 +711,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
   K2 <- dim(LL)[3]
   
   K1 <- K - K2
-  if (covEstMethod == "Jackknife") {
+  if (covEstMethod == "jackknife") {
     if (fom %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
       jkFOMArray <- array(dim = c(I, J, K1))
       for (i in 1:I) {
@@ -768,7 +768,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
     cov3 <- Cov$cov3 * (K - 1)^2/K
   }
   
-  if (covEstMethod == "Bootstrap") {
+  if (covEstMethod == "bootstrap") {
     if (fom %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
       fomBsArray <- array(dim = c(I, J, nBoots))
       for (b in 1:nBoots) {

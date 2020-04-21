@@ -1,4 +1,4 @@
-StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "Jackknife", 
+StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "jackknife", 
                           nBoots = 200, option = "ALL")  
 {
   
@@ -7,7 +7,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   I <- length(modalityID)
   J <- length(readerID)
   
-  if (!covEstMethod %in% c("Jackknife", "Bootstrap", "DeLong")) {
+  if (!covEstMethod %in% c("jackknife", "bootstrap", "DeLong")) {
     errMsg <- paste0(covEstMethod, " is not an allowed covariance estimation method for ORH analysis.")
     stop(errMsg)
   }

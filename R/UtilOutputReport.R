@@ -69,7 +69,7 @@
 UtilOutputReport <- function(dataset, dataDescription = "MyDataDescription: ", 
                              ReportFileBaseName = NULL, ReportFileExt = "txt", 
                              method = "DBMH", FOM, alpha = 0.05, 
-                             covEstMethod = "Jackknife", nBoots = 200, 
+                             covEstMethod = "jackknife", nBoots = 200, 
                              sequentialNames = FALSE, overWrite = FALSE) {
   
   if (!isValidDataset(dataset)) {

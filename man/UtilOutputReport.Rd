@@ -12,7 +12,7 @@ UtilOutputReport(
   method = "DBMH",
   FOM,
   alpha = 0.05,
-  covEstMethod = "Jackknife",
+  covEstMethod = "jackknife",
   nBoots = 200,
   sequentialNames = FALSE,
   overWrite = FALSE

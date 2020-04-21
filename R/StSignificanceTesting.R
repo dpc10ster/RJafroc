@@ -31,7 +31,7 @@
 #'    an error results.
 #' }   
 #' @param nBoots The number of bootstraps (defaults to 200), relevant only if 
-#'    \code{covEstMethod = "Bootstrap"} and \code{method = "ORH"} 
+#'    \code{covEstMethod = "bootstrap"} and \code{method = "ORH"} 
 #' @param option Determines which factors are regarded as random vs. fixed:
 #' \itemize{ 
 #'    \item \code{"RRRC"} = random-reader random case, 
@@ -143,7 +143,7 @@
 #'      
 #' @export
 StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBMH", 
-                                  covEstMethod = "Jackknife", nBoots = 200, option = "ALL", tempOrgCode = FALSE)
+                                  covEstMethod = "jackknife", nBoots = 200, option = "ALL", tempOrgCode = FALSE)
 {
   
   if (dataset$dataType == "ROI") {
@@ -171,15 +171,15 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   }
   
   if (method == "DBMH"){
-    if (covEstMethod != "Jackknife") 
-      stop("For DBMH method covariance estimation method covEstMethod must be Jackknife")
+    if (covEstMethod != "jackknife") 
+      stop("For DBMH method covariance estimation method covEstMethod must be jackknife")
   }
   
   if ((length(dataset) == 12) && (dataset$design == "SPLIT-PLOT") && method == "DBMH") 
     stop("Must use method = ORH for SPLIT-PLOT dataset")
   
-  if ((length(dataset) == 12) && (dataset$design == "SPLIT-PLOT") && method == "ORH" && covEstMethod != "Jackknife") 
-    stop("Must use covEstMethod = Jackknife for SPLIT-PLOT dataset")
+  if ((length(dataset) == 12) && (dataset$design == "SPLIT-PLOT") && method == "ORH" && covEstMethod != "jackknife") 
+    stop("Must use covEstMethod = jackknife for SPLIT-PLOT dataset")
   
   if (!tempOrgCode) {
     if (method == "DBMH"){

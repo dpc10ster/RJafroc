@@ -52,7 +52,7 @@
 
 StSingleTreatmentRandomReader <- function(dataset, fomNh, FOM, FPFValue = 0.2, alpha = 0.05) {
   
-  ret <- gpfEstimateVarCov(dataset, FOM, FPFValue, covEstMethod = "Jackknife")
+  ret <- gpfEstimateVarCov(dataset, FOM, FPFValue, covEstMethod = "jackknife")
   var <- ret$var;  Cov2 <- ret$cov2
   
   NL <- drop(dataset$NL)

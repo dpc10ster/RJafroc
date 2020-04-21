@@ -10,7 +10,7 @@ StSignificanceTesting(
   FPFValue = 0.2,
   alpha = 0.05,
   method = "DBMH",
-  covEstMethod = "Jackknife",
+  covEstMethod = "jackknife",
   nBoots = 200,
   option = "ALL",
   tempOrgCode = FALSE
@@ -44,7 +44,7 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
 }}
 
 \item{nBoots}{The number of bootstraps (defaults to 200), relevant only if 
-\code{covEstMethod = "Bootstrap"} and \code{method = "ORH"}}
+\code{covEstMethod = "bootstrap"} and \code{method = "ORH"}}
 
 \item{option}{Determines which factors are regarded as random vs. fixed:
 \itemize{ 

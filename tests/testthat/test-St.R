@@ -39,7 +39,7 @@ test_that("StSignificanceTesting-datasetFROCSp-wAFROC", {
   expect_equal(x1,x2)
 
   expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBMH"))
-  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "Bootstrap"))
+  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "bootstrap"))
   expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "DeLong"))
 
 })
