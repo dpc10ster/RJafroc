@@ -8,7 +8,7 @@ UtilVarComponentsOR(
   dataset,
   FOM,
   FPFValue = 0.2,
-  covEstMethod = "Jackknife",
+  covEstMethod = "jackknife",
   nBoots = 200
 )
 }

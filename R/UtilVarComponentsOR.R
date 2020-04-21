@@ -19,7 +19,7 @@
 #'   
 #' @export
 #' 
-UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2, covEstMethod = "Jackknife", nBoots = 200)
+UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2, covEstMethod = "jackknife", nBoots = 200)
 {
 
   I <- dim(dataset$NL)[1]

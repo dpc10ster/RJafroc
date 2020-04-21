@@ -210,13 +210,13 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
 gpfEstimateVarCov <- function(dataset, FOM, FPFValue, nBoots, covEstMethod) 
 {
   
-  if (covEstMethod == "Jackknife") {
+  if (covEstMethod == "jackknife") {
     
     ret <- varComponentsJackknife(dataset, FOM, FPFValue)
     
   } 
   
-  else if (covEstMethod == "Bootstrap") {
+  else if (covEstMethod == "bootstrap") {
     
     ret <- varComponentsBootstrap (dataset, FOM, FPFValue, nBoots)
     
@@ -513,6 +513,7 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots)
   } else { # original code had errors; see Fadi RRRC code; Aug 9, 2017 !!dpc!!!
     ## however, following code needs checking
     ##stop("this code needs checking; contact Dr. Chakraborty with dataset and code that lands here; 8/9/2017")
+    set.seed(100)
     fomBsArray <- array(dim = c(I, J, nBoots))
     for (b in 1:nBoots) {
       k1bs <- ceiling(runif(K1) * K1)
