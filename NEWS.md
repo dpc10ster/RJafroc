@@ -1,3 +1,11 @@
+## Fixing significance testing with independent calculations in `RJafrocBook` 
+* Need to modify `RJafroc` to eliminate code duplication and improve style in all signficance testing functions
+* I am only getting to understand it now (as I work on `RJafrocBook`)
+* One reader case can now be handled by `StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")`
+* May not need `StSignificanceTestingSingleFixedFactor` which currently only handles `DBMH` method
+* Removed restriction of `StSignificanceTesting` to `J` > 1
+* Will merge to `master` so that `RJafrocBook` code passes Travis
+
 ## Fixed error with `msTC` 
 * Found another error in `msTC` calculation in `UtilMeanSquares`
 * Was trying to be too cute for my own good (collapsing two for-loops into one)

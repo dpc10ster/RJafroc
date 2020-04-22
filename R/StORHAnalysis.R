@@ -25,55 +25,57 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   var <- varComp$var
   
   # if (TRUE || (length(dataset) != 12) || (dataset$design == "CROSSED")) {
-  if ((length(dataset) != 12) || (dataset$design == "CROSSED")) {
-    # oldFormat or CROSSED dataset
-    varEachTrt <- vector(length = I)
-    cov2EachTrt <- vector(length = I)
-    for (i in 1:I) {
-      fomSingle <- fomArray[i, ]
-      dim(fomSingle) <- c(1, J)
-      dsi <- DfExtractDataset(dataset, trts = i)
-      # with a single treatment it is not possible to calculate cov1
-      # therefore the following line will fail for SPLIT-PLOT 
-      # dataset; hence we skip it; see else block below
-      ret <- gpfEstimateVarCov(dsi, FOM, FPFValue, nBoots, covEstMethod)
-      varEachTrt[i] <- ret$var
-      cov2EachTrt[i] <- ret$cov2
+  if (J > 1) {
+    if ((length(dataset) != 12) || (dataset$design == "CROSSED")) {
+      # oldFormat or new format CROSSED dataset
+      varEachTrt <- vector(length = I)
+      cov2EachTrt <- vector(length = I)
+      for (i in 1:I) {
+        fomSingle <- fomArray[i, ]
+        dim(fomSingle) <- c(1, J)
+        dsi <- DfExtractDataset(dataset, trts = i)
+        # with a single treatment it is not possible to calculate cov1
+        # therefore the following line will fail for SPLIT-PLOT 
+        # dataset; hence we skip it; see else block below
+        ret <- gpfEstimateVarCov(dsi, FOM, FPFValue, nBoots, covEstMethod)
+        varEachTrt[i] <- ret$var
+        cov2EachTrt[i] <- ret$cov2
+      } 
+      
+      dfSingleFRRC <- array(dim = I)
+      msDenSingleFRRC <- array(dim = I)
+      stdErrSingleFRRC <- array(dim = I)
+      CISingleFRRC <- array(dim = c(I, 2))
+      for (i in 1:I) {
+        msDenSingleFRRC[i] <- varEachTrt[i] + (J - 1) * cov2EachTrt[i]
+        dfSingleFRRC[i] <- Inf
+        stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J)
+        CISingleFRRC[i, ] <- c(trtMeans[i] + qt(alpha/2,   dfSingleFRRC[i]) * stdErrSingleFRRC[i], 
+                               trtMeans[i] + qt(1-alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i])
+      }
+      ciAvgRdrEachTrtFRRC <- data.frame(Treatment = paste0("Trt", modalityID), 
+                                        Area = trtMeans, 
+                                        StdErr = as.vector(stdErrSingleFRRC), 
+                                        DF = as.vector(dfSingleFRRC), 
+                                        CILower = CISingleFRRC[,1], 
+                                        CIUpper = CISingleFRRC[,2], row.names = NULL, 
+                                        stringsAsFactors = TRUE)
+      
+    } else {
+      # NewFormat and SPLIT-PLOT dataset
+      cov2EachTrt = rep(0, I)
+      ciAvgRdrEachTrtFRRC <- NA
     }
-    
-    dfSingleFRRC <- array(dim = I)
-    msDenSingleFRRC <- array(dim = I)
-    stdErrSingleFRRC <- array(dim = I)
-    CISingleFRRC <- array(dim = c(I, 2))
-    for (i in 1:I) {
-      msDenSingleFRRC[i] <- varEachTrt[i] + (J - 1) * cov2EachTrt[i]
-      dfSingleFRRC[i] <- Inf
-      stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J)
-      CISingleFRRC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trtMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
+    varEachRdr <- vector(length = J)
+    cov1EachRdr <- vector(length = J)
+    for (j in 1:J) {
+      fomSingle <- fomArray[, j]
+      dim(fomSingle) <- c(I, 1)
+      dsj <- DfExtractDataset(dataset, rdrs = j)
+      ret <- gpfEstimateVarCov(dsj, FOM, FPFValue, nBoots, covEstMethod)
+      varEachRdr[j] <- ret$var
+      cov1EachRdr[j] <- ret$cov1
     }
-    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = paste0("Trt", modalityID), 
-                                      Area = trtMeans, 
-                                      StdErr = as.vector(stdErrSingleFRRC), 
-                                      DF = as.vector(dfSingleFRRC), 
-                                      CILower = CISingleFRRC[,1], 
-                                      CIUpper = CISingleFRRC[,2], row.names = NULL, 
-                                      stringsAsFactors = TRUE)
-    
-  } else {
-    # NewFormat and SPLIT-PLOT dataset
-    cov2EachTrt = rep(0, I)
-    ciAvgRdrEachTrtFRRC <- NA
-  }
-  
-  varEachRdr <- vector(length = J)
-  cov1EachRdr <- vector(length = J)
-  for (j in 1:J) {
-    fomSingle <- fomArray[, j]
-    dim(fomSingle) <- c(I, 1)
-    dsj <- DfExtractDataset(dataset, rdrs = j)
-    ret <- gpfEstimateVarCov(dsj, FOM, FPFValue, nBoots, covEstMethod)
-    varEachRdr[j] <- ret$var
-    cov1EachRdr[j] <- ret$cov1
   }
   
   msRSingle <- array(0, dim = c(I))
@@ -171,7 +173,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   # ************ FRRC ****************
   # ************ FRRC ****************
   if (option %in% c("FRRC", "ALL")) {
-    msDenFRRC <- var - cov1 + (J - 1) * (cov2 - cov3)
+    if (J > 1) msDenFRRC <- var - cov1 + (J - 1) * (cov2 - cov3) else msDenFRRC <- var - cov1
     fFRRC <- meanSquares$msT/msDenFRRC
     ddfFRRC <- Inf
     pFRRC <- 1 - pf(fFRRC, I - 1, ddfFRRC)
@@ -186,7 +188,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     for (i in 1:length(diffTRMeans)) {
       tStat[i] <- diffTRMeans[i]/stdErrFRRC
       PrGTt[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
-      CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC, diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
+      CIFRRC[i, ] <- c(diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC, diffTRMeans[i] 
+                       + qt(1-alpha/2, ddfFRRC) * stdErrFRRC)
     }
     ciDiffTrtFRRC <- data.frame(Treatment = diffTRName, 
                                 Estimate = diffTRMeans, 
@@ -211,50 +214,65 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
       }
     }
     
-    diffTRMeansFRRC <- as.vector(t(diffTRMeansFRRC))
-    stdErrFRRC <- sqrt(2 * (varEachRdr - cov1EachRdr))
-    stdErrFRRC <- rep(stdErrFRRC, choose(I, 2))
-    dim(stdErrFRRC) <- c(J, choose(I, 2))
-    stdErrFRRC <- as.vector(t(stdErrFRRC))
-    readerNames <- rep(readerID, choose(I, 2))
-    dim(readerNames) <- c(J, choose(I, 2))
-    readerNames <- as.vector(t(readerNames))
-    trNames <- rep(diffTRName, J)
-    dfReaderFRRC <- rep(Inf, length(stdErrFRRC))
-    CIReaderFRRC <- array(dim = c(length(stdErrFRRC), 2))
-    tStat <- vector()
-    PrGTt <- vector()
-    for (n in 1:length(stdErrFRRC)) {
-      tStat[n] <- diffTRMeansFRRC[n]/stdErrFRRC[n]
-      PrGTt[n] <- 2 * pt(abs(tStat[n]), dfReaderFRRC[n], lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
-      CIReaderFRRC[n, ] <- sort(c(diffTRMeansFRRC[n] - qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n], diffTRMeansFRRC[n] + qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n]))
+    if (J > 1) {
+      diffTRMeansFRRC <- as.vector(t(diffTRMeansFRRC))
+      stdErrFRRC <- sqrt(2 * (varEachRdr - cov1EachRdr))
+      stdErrFRRC <- rep(stdErrFRRC, choose(I, 2))
+      dim(stdErrFRRC) <- c(J, choose(I, 2))
+      stdErrFRRC <- as.vector(t(stdErrFRRC))
+      readerNames <- rep(readerID, choose(I, 2))
+      dim(readerNames) <- c(J, choose(I, 2))
+      readerNames <- as.vector(t(readerNames))
+      trNames <- rep(diffTRName, J)
+      dfReaderFRRC <- rep(Inf, length(stdErrFRRC))
+      CIReaderFRRC <- array(dim = c(length(stdErrFRRC), 2))
+      tStat <- vector()
+      PrGTt <- vector()
+      for (n in 1:length(stdErrFRRC)) {
+        tStat[n] <- diffTRMeansFRRC[n]/stdErrFRRC[n]
+        PrGTt[n] <- 2 * pt(abs(tStat[n]), dfReaderFRRC[n], lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
+        CIReaderFRRC[n, ] <- sort(c(diffTRMeansFRRC[n] - qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n], diffTRMeansFRRC[n] + qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n]))
+      }
+      ciDiffTrtEachRdrFRRC <- data.frame(Reader = paste("Rdr", readerNames, sep = ""), 
+                                         Treatment = trNames, 
+                                         Estimate = diffTRMeansFRRC, 
+                                         StdErr = stdErrFRRC, 
+                                         DF = dfReaderFRRC, 
+                                         t = tStat, 
+                                         PrGTt = PrGTt, 
+                                         CILower = CIReaderFRRC[,1],
+                                         CIUpper = CIReaderFRRC[,2], 
+                                         stringsAsFactors = TRUE)
+      
+      varCovEachRdr <- data.frame(Reader = paste("Rdr", readerID, sep = ""),
+                                  Var = varEachRdr, 
+                                  Cov1 = cov1EachRdr, 
+                                  stringsAsFactors = TRUE)
     }
-    ciDiffTrtEachRdrFRRC <- data.frame(Reader = paste("Rdr", readerNames, sep = ""), 
-                                       Treatment = trNames, 
-                                       Estimate = diffTRMeansFRRC, 
-                                       StdErr = stdErrFRRC, 
-                                       DF = dfReaderFRRC, 
-                                       t = tStat, 
-                                       PrGTt = PrGTt, 
-                                       CILower = CIReaderFRRC[,1],
-                                       CIUpper = CIReaderFRRC[,2], 
-                                       stringsAsFactors = TRUE)
-    
-    varCovEachRdr <- data.frame(Reader = paste("Rdr", readerID, sep = ""),
-                                Var = varEachRdr, 
-                                Cov1 = cov1EachRdr, 
-                                stringsAsFactors = TRUE)
     if (option == "FRRC"){
-      return(data.frame(fomArray = fomArray, 
-                        meanSquares = meanSquares, 
-                        varComp = varComp,
-                        FTestStatsFRRC = FTestStatsFRRC,
-                        ciDiffTrtFRRC = ciDiffTrtFRRC, 
-                        ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
-                        ciDiffTrtEachRdrFRRC = ciDiffTrtEachRdrFRRC, 
-                        varCovEachRdr = varCovEachRdr, 
-                        stringsAsFactors = TRUE
-      ))
+      if (J > 1) {
+        return(data.frame(fomArray = fomArray, 
+                          meanSquares = meanSquares, 
+                          varComp = varComp,
+                          FTestStatsFRRC = FTestStatsFRRC,
+                          ciDiffTrtFRRC = ciDiffTrtFRRC, 
+                          ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
+                          ciDiffTrtEachRdrFRRC = ciDiffTrtEachRdrFRRC, 
+                          varCovEachRdr = varCovEachRdr, 
+                          stringsAsFactors = TRUE
+        ))
+      } else {
+        return(list(fomArray = fomArray, 
+                          msT = meanSquares$msT, 
+                          varComp = data.frame(cov1 = varComp$cov1, var = varComp$var),
+                          FTestStatsFRRC = FTestStatsFRRC,
+                          ciDiffTrtFRRC = ciDiffTrtFRRC 
+                          # ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
+                          # ciDiffTrtEachRdrFRRC = ciDiffTrtEachRdrFRRC, 
+                          # varCovEachRdr = varCovEachRdr, 
+                          # stringsAsFactors = TRUE
+        ))
+      }
     }
   }
   

@@ -165,9 +165,10 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   }
   
   if (length(dataset$NL[1,,1,1]) < 2) {
-    ErrMsg <- paste0("This analysis requires at least 2 readers", 
-                     "\nUse StSignificanceTestingSingleFixedFactor() for single reader analysis.")
-    stop(ErrMsg)
+    # ErrMsg <- paste0("This function requires at least 2 readers", 
+    #                  "\nUse StSignificanceTestingSingleFixedFactor() for single reader analysis.")
+    # stop(ErrMsg)
+    option <- "FRRC"
   }
   
   if (method == "DBMH"){

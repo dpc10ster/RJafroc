@@ -17,7 +17,8 @@ StSignificanceTestingSingleFixedFactor(
 \item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}.}
 
 \item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
-where to evaluate a partial curve based figure of merit. The default is 0.2.}
+at which \code{FPF} to evaluate a partial curve based figure of merit. 
+The default is \code{FPF} = 0.2.}
 
 \item{alpha}{The significance level (\code{alpha}, default 0.05) 
 of the test of the null hypothesis that FOMs of all levels of 
