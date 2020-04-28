@@ -18,8 +18,11 @@
 #'     with \code{method = "ORH"}.
 #' 
 #' @examples 
-#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp
+#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp # uses the default jackknife for covEstMethod
 #'
+#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon", covEstMethod = "bootstrap", nBoots = 2000, seed = 100)$varComp 
+#' 
+#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$varComp 
 #'   
 #' @export
 #' 

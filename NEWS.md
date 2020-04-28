@@ -1,8 +1,14 @@
+## Added seed specification to UtilVarComponentOR
+* Added seed specification to `UtilVarComponentOR` to allow comparison with `RJafrocBook`
+* Added to tests: `covEstMethod` = `jackknife`, `bootstrap` and `DeLong` for two datasets
+* `dataset02` and `dataset04` converted to ROC
+* Will merge to `master` so that `RJafrocBook` code passes Travis
+
 ## Fixing significance testing with independent calculations in `RJafrocBook` 
-* Need to modify `RJafroc` to eliminate code duplication and improve style in all signficance testing functions
+* Need to modify `RJafroc` to eliminate code duplication and improve style in all signficance testing functions - move this to issues
 * I am only getting to understand it now (as I work on `RJafrocBook`)
 * One reader case can now be handled by `StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")`
-* May not need `StSignificanceTestingSingleFixedFactor` which currently only handles `DBMH` method
+* May not need `StSignificanceTestingSingleFixedFactor` which currently only handles `DBMH` method - add to issues
 * Removed restriction of `StSignificanceTesting` to `J` > 1
 * Will merge to `master` so that `RJafrocBook` code passes Travis
 
