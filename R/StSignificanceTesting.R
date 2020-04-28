@@ -208,7 +208,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
 
 
 
-gpfEstimateVarCov <- function(dataset, FOM, FPFValue, nBoots, covEstMethod) 
+gpfEstimateVarCov <- function(dataset, FOM, FPFValue, nBoots, covEstMethod, seed) 
 {
   
   if (covEstMethod == "jackknife") {
@@ -219,7 +219,7 @@ gpfEstimateVarCov <- function(dataset, FOM, FPFValue, nBoots, covEstMethod)
   
   else if (covEstMethod == "bootstrap") {
     
-    ret <- varComponentsBootstrap (dataset, FOM, FPFValue, nBoots)
+    ret <- varComponentsBootstrap (dataset, FOM, FPFValue, nBoots, seed)
     
   } 
   
@@ -453,9 +453,9 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
 
 
 #' @importFrom stats runif
-varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots) 
+varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed) 
 {
-  
+  set.seed(seed) ## added 4/28/20, to test reproducibility with RJafrocBook code
   NL <- dataset$NL
   LL <- dataset$LL
   lesionVector <- dataset$lesionVector

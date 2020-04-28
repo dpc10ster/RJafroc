@@ -64,5 +64,5 @@ Description: RJafroc implements software for assessing medical imaging systems, 
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Encoding: UTF-8

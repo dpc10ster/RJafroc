@@ -2,11 +2,15 @@
 #' 
 #' @param dataset The dataset object
 #' @param FOM The figure of merit
-#' @param covEstMethod The covariance estimation method, "jackknife" 
-#'    (the default) or "bootstrap".
-#' @param nBoots  The number of bootstraps, defaults to 200
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
+#' @param covEstMethod The covariance estimation method, "jackknife" 
+#'     (the default) or "bootstrap".
+#' @param nBoots  Only needed for bootstrap covariance estimation method. The number 
+#'     of bootstraps, defaults to 200.
+#' @param seed  Only needed for the bootstrap covariance estimation method. The initial 
+#'     seed for the random number generator, the default is \code{NULL}, as if no seed 
+#'     has been specified. 
 #' 
 #' @return A list object containing the variance components.
 #'   
@@ -19,13 +23,14 @@
 #'   
 #' @export
 #' 
-UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2, covEstMethod = "jackknife", nBoots = 200)
+UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2, 
+                                 covEstMethod = "jackknife", nBoots = 200, seed = NULL)
 {
 
   I <- dim(dataset$NL)[1]
   J <- dim(dataset$NL)[2]
   
-  ret <- gpfEstimateVarCov(dataset, FOM, FPFValue, nBoots, covEstMethod)
+  ret <- gpfEstimateVarCov(dataset, FOM, FPFValue, nBoots, covEstMethod, seed)
   var <- ret$var
   cov1 <- ret$cov1
   cov2 <- ret$cov2

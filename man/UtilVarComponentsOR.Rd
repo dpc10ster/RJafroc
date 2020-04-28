@@ -9,7 +9,8 @@ UtilVarComponentsOR(
   FOM,
   FPFValue = 0.2,
   covEstMethod = "jackknife",
-  nBoots = 200
+  nBoots = 200,
+  seed = NULL
 )
 }
 \arguments{
@@ -23,7 +24,12 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.}
 \item{covEstMethod}{The covariance estimation method, "jackknife" 
 (the default) or "bootstrap".}
 
-\item{nBoots}{The number of bootstraps, defaults to 200}
+\item{nBoots}{Only needed for bootstrap covariance estimation method. The number 
+of bootstraps, defaults to 200.}
+
+\item{seed}{Only needed for the bootstrap covariance estimation method. The initial 
+seed for the random number generator, the default is \code{NULL}, as if no seed 
+has been specified.}
 }
 \value{
 A list object containing the variance components.
