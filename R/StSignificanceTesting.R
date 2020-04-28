@@ -514,7 +514,6 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed)
   } else { # original code had errors; see Fadi RRRC code; Aug 9, 2017 !!dpc!!!
     ## however, following code needs checking
     ##stop("this code needs checking; contact Dr. Chakraborty with dataset and code that lands here; 8/9/2017")
-    set.seed(100)
     fomBsArray <- array(dim = c(I, J, nBoots))
     for (b in 1:nBoots) {
       k1bs <- ceiling(runif(K1) * K1)
