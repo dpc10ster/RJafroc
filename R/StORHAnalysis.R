@@ -251,15 +251,14 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     }
     if (option == "FRRC"){
       if (J > 1) {
-        return(data.frame(fomArray = fomArray, 
+        return(list(fomArray = fomArray, 
                           meanSquares = meanSquares, 
                           varComp = varComp,
                           FTestStatsFRRC = FTestStatsFRRC,
                           ciDiffTrtFRRC = ciDiffTrtFRRC, 
                           ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
                           ciDiffTrtEachRdrFRRC = ciDiffTrtEachRdrFRRC, 
-                          varCovEachRdr = varCovEachRdr, 
-                          stringsAsFactors = TRUE
+                          varCovEachRdr = varCovEachRdr
         ))
       } else {
         return(list(fomArray = fomArray, 

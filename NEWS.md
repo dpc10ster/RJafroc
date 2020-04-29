@@ -1,3 +1,11 @@
+## Discovered error 
+* For `StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")`
+* Need to put in `testthat` all combinations of `method` and `option`
+* Different objects returned by `StSignificanceTesting` depending on choice of `option`
+* Need to standardize as otherwise `RJafrocBook` is klutzy 
+* This fix will require generating new `goodValues`
+* Will merge to `master` so that `RJafrocBook` code passes Travis
+
 ## Added seed specification to UtilVarComponentOR
 * Added seed specification to `UtilVarComponentOR` to allow comparison with `RJafrocBook`
 * Added to tests: `covEstMethod` = `jackknife`, `bootstrap` and `DeLong` for two datasets
