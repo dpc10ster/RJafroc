@@ -159,16 +159,16 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   }    
   
   if (length(dataset$modalityID) < 2) {
+    # need to fix here
     ErrMsg <- paste0("This analysis requires at least 2 treatments", 
                      "\nUse StSignificanceTestingSingleFixedFactor() for single treatment analysis.")
     stop(ErrMsg)
   }
   
-  if (length(dataset$NL[1,,1,1]) < 2) {
-    # ErrMsg <- paste0("This function requires at least 2 readers", 
-    #                  "\nUse StSignificanceTestingSingleFixedFactor() for single reader analysis.")
-    # stop(ErrMsg)
-    option <- "FRRC"
+  if ((length(dataset$NL[1,,1,1]) < 2) && (option != "FRRC")) {
+    ErrMsg <- paste0("Must use option FRRC with 1-reader dataset")
+    stop(ErrMsg)
+    # option <- "FRRC"
   }
   
   if (method == "DBMH"){
@@ -565,7 +565,7 @@ varComponentsDeLong <- function(dataset, FOM)
   maxLL <- length(LL[1,1,1,])
   # if ((maxLL != 1) || (maxLL != 1)) stop("dataset error in varComponentsDeLong")
   
-  fomArray <- UtilFigureOfMerit(dataset, FOM)
+  fomArray <- t(UtilFigureOfMerit(dataset, FOM))
   
   if (!FOM %in% c("Wilcoxon", "HrAuc", "ROI")) 
     stop("DeLong\"s method can only be used for trapezoidal figures of merit.")

@@ -92,7 +92,7 @@
 
 # v.1.3.1.9000: added SPLIT-PLOT capability 
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
-
+  
   dataType <- dataset$dataType
   if (dataType == "ROC" && FOM != "Wilcoxon") {
     errMsg <- paste0("Must use Wilcoxon figure of merit with ROC data.")
@@ -149,7 +149,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     errMsg <- paste0("Only FOM_AFROC1 or FOM_wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
     stop(errMsg)
   }
-
+  
   if (length(dataset) == 12) {
     design <- dataset$design
     t <- dataset$truthTableStr
@@ -191,7 +191,8 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   readerID <- dataset$readerID
   rownames(fomArray) <- paste("Trt", sep = "", modalityID)
   colnames(fomArray) <- paste("Rdr", sep = "", readerID)
-  return(fomArray)
+  return(t(fomArray)) # return transpose to match official code 
+  # and makes more sense to have readers in vertical direction 5/1/20
 } 
 
 

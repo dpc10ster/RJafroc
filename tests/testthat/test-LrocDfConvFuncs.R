@@ -3,8 +3,8 @@ context("LROC related Df conversion functions")
 test_that("DfFroc2Lroc", {
   
   dsLroc <- DfFroc2Lroc(dataset05)
-  ret1 <- UtilFigureOfMerit(dataset05, FOM = "HrAuc")
-  ret2 <- UtilFigureOfMerit(dsLroc, FOM = "Wilcoxon")
+  ret1 <- t(UtilFigureOfMerit(dataset05, FOM = "HrAuc"))
+  ret2 <- t(UtilFigureOfMerit(dsLroc, FOM = "Wilcoxon"))
 
   for (i in 1:length(ret1))
   {
@@ -14,8 +14,8 @@ test_that("DfFroc2Lroc", {
   }
 
   frocDataset <- DfLroc2Froc(datasetCadLroc)
-  ret1 <- UtilFigureOfMerit(datasetCadLroc, FOM = "Wilcoxon")
-  ret2 <- UtilFigureOfMerit(frocDataset, FOM = "HrAuc")
+  ret1 <- t(UtilFigureOfMerit(datasetCadLroc, FOM = "Wilcoxon"))
+  ret2 <- t(UtilFigureOfMerit(frocDataset, FOM = "HrAuc"))
 
   for (i in 1:length(ret1))
   {
@@ -25,8 +25,8 @@ test_that("DfFroc2Lroc", {
   }
 
   rocDataset <- DfLroc2Roc(datasetCadLroc)
-  ret1 <- UtilFigureOfMerit(datasetCadLroc, FOM = "Wilcoxon")
-  ret2 <- UtilFigureOfMerit(rocDataset, FOM = "Wilcoxon")    
+  ret1 <- t(UtilFigureOfMerit(datasetCadLroc, FOM = "Wilcoxon"))
+  ret2 <- t(UtilFigureOfMerit(rocDataset, FOM = "Wilcoxon"))    
   
   for (i in 1:length(ret1))
   {

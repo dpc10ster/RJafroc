@@ -1,9 +1,33 @@
+## Applied transpose to return of UtilFigureOfMerit
+* This has the effect of having readers as the row and treatments as columns
+* For consistency with DBM-MRMC, and also for cleaner output, as number of treatments is usually less than number of readers
+* Combed through code to replace `UtilFigureOfMerit(...)` with `t(UtilFigureOfMerit(...))`
+* R CMD check passes
+
+## Moved official good value files to Dropbox
+* They generate non-portable file name warning on R CMD check
+
+## Compared to latest official code
+* `mrmc_setup_w10_July_2019.exe`; VanDyke `VanDyke.lrc` dataset; `\\vmware-host\Shared Folders\VanDykeAnalyzed\VanDyke.lrc`; corresponds to `inst/OfficialGoodValuesSigTesting/VanDykeAnalyzed/VanDyke.lrc`
+* `OR DBM MRMC 2.51 <beta> Build  20181028 </beta>` `miplmrmc`
+* `VanDyke trap area jackknife anova.txt`
+* Software only runs under Windows XP
+* Tried Windows 8 on different machines under VmWare Fusion; no luck, even after following directins twice on [website](https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual)
+
+
+## Compared to "old-official"" DBMH code output (Iowa software)
+* `inst/OfficialGoodValuesSigTesting/VanDykeAnalyzed/VanDyke trap norm area anova.txt`
+* For VanDyke Data - done
+* R CMD check passes
+* Need to compare OR ouputs - WIP
+* Need to fix documentation on `StSignificanceTesting`
+
 ## Discovered error 
-* For `StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")`
-* Need to put in `testthat` all combinations of `method` and `option`
-* Different objects returned by `StSignificanceTesting` depending on choice of `option`
-* Need to standardize as otherwise `RJafrocBook` is klutzy 
-* This fix will require generating new `goodValues`
+* For `StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")` - done
+* Need to put in `testthat` all combinations of `method` and `option` - done
+* Different objects returned by `StSignificanceTesting` depending on choice of `option` - almost done
+* Need to standardize as otherwise `RJafrocBook` is klutzy  - OK
+* This fix will require generating new `goodValues` - done
 * Will merge to `master` so that `RJafrocBook` code passes Travis
 
 ## Added seed specification to UtilVarComponentOR

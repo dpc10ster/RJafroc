@@ -99,7 +99,7 @@ test_that("SignificanceTestingAllCombinations", {
           
           x1 <- readRDS(fn)
           x2 <- StSignificanceTesting(dataset, FOM = FOM_arr[f],method = method_arr[m])
-          
+
           # CompareLists(x1,x2, d, f, m)
           expect_equal(x1,x2)  # this fails on R CMD check, hence reverted to line above
           # expect_equal(x1$anovaY[-1],x2$anovaY[-1])  # this fails on R CMD check, hence reverted to line above

@@ -185,7 +185,7 @@ StSignificanceTestingCadVsRadiologists <- function(dataset, FOM, FPFValue = 0.2,
 
 # Handles all dataTypes
 SingleModalityRRFC <- function(dataset, FOM, FPFValue, alpha){
-  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+  thetajc <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
   Psijc <- thetajc[-1] - thetajc[1]
   ret <- t.test(Psijc, conf.level = 1-alpha)
   Tstat <-  as.numeric(ret$statistic)
@@ -222,7 +222,7 @@ SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha)
   varError <- ret$var;  Cov2 <- ret$cov2
   
   J <- length(dataset$NL[1,,1,1]) - 1 # number of radiologists minus CAD reader
-  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+  thetajc <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
   Psijc <- thetajc[2:(J+1)] - thetajc[1] # subract CAD from RAD, my Eqn. 13
   
@@ -370,24 +370,24 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
   }
   
   stats1 <- StSignificanceTesting(datasetCombined, FOM = FOM, method = "ORH", alpha = alpha, option = "RRRC", FPFValue = FPFValue)
-  thetajc <- stats1$fomArray
+  thetajc <- stats1$foms
   fomCAD  <-  thetajc[1,1]
   fomRAD  <-  thetajc[2,]
   avgRadFom <-  mean(fomRAD)
   varDiffFom <- var(fomRAD)
   avgDiffFom <-  avgRadFom - fomCAD
-  FStat <-  stats1$FTestStatsRRRC$fRRRC
-  ddf <-  stats1$FTestStatsRRRC$ddfRRRC
-  ndf <- stats1$FTestStatsRRRC$ndfRRRC
-  pval <-  stats1$FTestStatsRRRC$pRRRC
+  FStat <-  stats1$RRRC$FTests$f
+  ddf <-  stats1$RRRC$FTests$ddf
+  ndf <- stats1$RRRC$FTests$ndf
+  pval <-  stats1$RRRC$FTests$p
   varR <- stats1$varComp$varR
   varTR <- stats1$varComp$varTR
   varError <- stats1$varComp$var
   cov1 <- stats1$varComp$cov1
   cov2 <- stats1$varComp$cov2
   cov3 <- stats1$varComp$cov3
-  ciDiffFom <- stats1$ciDiffTrtRRRC
-  ciAvgRdrEachTrt <- stats1$ciAvgRdrEachTrtRRRC
+  ciDiffFom <- stats1$RRRC$ciDiffTrt
+  ciAvgRdrEachTrt <- stats1$RRRC$ciAvgRdrEachTrt
   
   
   return (list (

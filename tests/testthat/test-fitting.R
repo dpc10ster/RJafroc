@@ -1,5 +1,3 @@
-context("Fitting routines")
-
 # > devtools::test()
 # Loading RJafroc
 # Testing RJafroc
@@ -11,6 +9,7 @@ context("Fitting routines")
 # ✔ |  18       | Fitting routines [195.9 s]
 
 
+context("FitBinormalRoc")
 test_that("FitBinormalRoc - allow AUC less than 0.5", {
   # skip_on_travis()
   g1 <- c(2, 3, 5, 6)
@@ -32,6 +31,7 @@ test_that("FitBinormalRoc - allow AUC less than 0.5", {
 })
 
 
+context("FitBinormalRoc2")
 test_that("FitBinormalRoc", {
   # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc02", ".rds")
@@ -47,6 +47,8 @@ test_that("FitBinormalRoc", {
   
 })
 
+
+context("FitBinormalRoc3")
 test_that("FitBinormalRoc", {
   # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc05", ".rds")
@@ -66,6 +68,7 @@ test_that("FitBinormalRoc", {
 })
 
 
+context("FitCbmRoc")
 test_that("FitCbmRoc", {
   # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/CbmRoc", ".rds")
@@ -82,6 +85,7 @@ test_that("FitCbmRoc", {
 })
 
 
+context("FitCorCbm")
 test_that("FitCorCbm", {
 
   skip_on_travis()
@@ -107,6 +111,7 @@ test_that("FitCorCbm", {
 })
 
 
+context("FitRsmRoc")
 test_that("FitRsmRoc", {
   
   skip_on_cran()

@@ -17,8 +17,8 @@ test_that("Compare DBMH to ORH for dataset02, ROC", {
   }
 
   #######################################  FStats ###########################################
-  dbmFStatsRRRC <- dbmValues$FTestStatsRRRC
-  orFStatsRRRC <- orValues$FTestStatsRRRC
+  dbmFStatsRRRC <- dbmValues$RRRC$FTests
+  orFStatsRRRC <- orValues$RRRC$FTests
   names(orFStatsRRRC) <- NULL
   for (i in 1: length(dbmFStatsRRRC)){
       x <- as.numeric(dbmFStatsRRRC[[i]])
@@ -26,8 +26,8 @@ test_that("Compare DBMH to ORH for dataset02, ROC", {
       expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmFStatsFRRC <- dbmValues$FTestStatsFRRC[-3] # remove infinity
-  orFStatsFRRC <- orValues$FTestStatsFRRC[-3]
+  dbmFStatsFRRC <- dbmValues$FRRC$FTests[-3] # remove infinity
+  orFStatsFRRC <- orValues$FRRC$FTests[-3]
   names(orFStatsFRRC) <- NULL
   for (i in 1: length(dbmFStatsFRRC)){
     x <- as.numeric(dbmFStatsFRRC[[i]])
@@ -35,8 +35,8 @@ test_that("Compare DBMH to ORH for dataset02, ROC", {
     expect_equal(x, y, tolerance = 0.01, scale = abs(x))
   }
 
-  dbmFStatsRRFC <- dbmValues$FTestStats
-  orFStatsRRFC <- orValues$FTestStats
+  dbmFStatsRRFC <- dbmValues$RRFC$FTests
+  orFStatsRRFC <- orValues$RRFC$FTests
   names(orFStatsRRFC) <- NULL
   for (i in 1: length(dbmFStatsRRFC)){
     x <- as.numeric(dbmFStatsRRFC[[i]])
@@ -55,24 +55,24 @@ test_that("Compare DBMH to ORH for dataset02, ROC", {
   # }
 
   ##################################  diff and avg confidence intervals  #####################
-  dbmciDiffTrtRRRC <- as.vector(unlist(dbmValues$ciDiffTrtRRRC[,-1])) # remove 0-1 vs trt0-trt1
-  orciDiffTrtRRRC <-  as.vector(unlist(orValues$ciDiffTrtRRRC[,-1]))
+  dbmciDiffTrtRRRC <- as.vector(unlist(dbmValues$RRRC$ciDiffTrt[,-1])) # remove 0-1 vs trt0-trt1
+  orciDiffTrtRRRC <-  as.vector(unlist(orValues$RRRC$ciDiffTrt[,-1]))
   for (i in 1: length(dbmciDiffTrtRRRC)){
     x <- dbmciDiffTrtRRRC[i]
     y <- orciDiffTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmciAvgRdrEachTrtRRRC <- as.vector(unlist(dbmValues$ciAvgRdrEachTrtRRRC[,-1]))
-  orciAvgRdrEachTrtRRRC <- as.vector(unlist(orValues$ciAvgRdrEachTrtRRRC[,-1]))
+  dbmciAvgRdrEachTrtRRRC <- as.vector(unlist(dbmValues$RRRC$ciAvgRdrEachTrt[,-1]))
+  orciAvgRdrEachTrtRRRC <- as.vector(unlist(orValues$RRRC$ciAvgRdrEachTrt[,-1]))
   for (i in 1: length(dbmciAvgRdrEachTrtRRRC)){
     x <- dbmciAvgRdrEachTrtRRRC[i]
     y <- orciAvgRdrEachTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmciDiffTrtFRRC <- as.vector(unlist(dbmValues$ciDiffTrtFRRC[,-1]))
-  orciDiffTrtFRRC <- as.vector(unlist(orValues$ciDiffTrtFRRC[,-1]))
+  dbmciDiffTrtFRRC <- as.vector(unlist(dbmValues$FRRC$ciDiffTrt[,-1]))
+  orciDiffTrtFRRC <- as.vector(unlist(orValues$FRRC$ciDiffTrt[,-1]))
   for (i in 1: length(dbmciDiffTrtFRRC)){
     if (i == 3) next # skip infinity
     x <- dbmciDiffTrtFRRC[i]
@@ -80,8 +80,8 @@ test_that("Compare DBMH to ORH for dataset02, ROC", {
     expect_equal(x, y, tolerance = 0.01, scale = abs(x)) # values are not exactly equal; tolerance found by trial and error
   }
 
-  dbmciAvgRdrEachTrtFRRC <- as.vector(unlist(dbmValues$ciAvgRdrEachTrtFRRC[,-1]))
-  orciAvgRdrEachTrtFRRC <- as.vector(unlist(orValues$ciAvgRdrEachTrtFRRC[,-1]))
+  dbmciAvgRdrEachTrtFRRC <- as.vector(unlist(dbmValues$FRRC$ciAvgRdrEachTrt[,-1]))
+  orciAvgRdrEachTrtFRRC <- as.vector(unlist(orValues$FRRC$ciAvgRdrEachTrt[,-1]))
   for (i in 1: length(dbmciAvgRdrEachTrtFRRC)){
     if (i == 5) next # skip infinity
     if (i == 6) next # skip infinity
@@ -90,16 +90,16 @@ test_that("Compare DBMH to ORH for dataset02, ROC", {
     expect_equal(x, y, tolerance = 0.001, scale = abs(x))  # values are not exactly equal
   }
 
-  dbmciDiffTrtRRFC <- as.vector(unlist(dbmValues$ciDiffTrtRRFC[,-1]))
-  orciDiffTrtRRFC <- as.vector(unlist(orValues$ciDiffTrtRRFC[,-1]))
+  dbmciDiffTrtRRFC <- as.vector(unlist(dbmValues$RRFC$ciDiffTrt[,-1]))
+  orciDiffTrtRRFC <- as.vector(unlist(orValues$RRFC$ciDiffTrt[,-1]))
   for (i in 1: length(dbmciDiffTrtRRFC)){
     x <- dbmciDiffTrtRRFC[i]
     y <- orciDiffTrtRRFC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmciAvgRdrEachTrtRRFC <- as.vector(unlist(dbmValues$ciAvgRdrEachTrtRRFC[,-1]))
-  orciAvgRdrEachTrtRRFC <- as.vector(unlist(orValues$ciAvgRdrEachTrtRRFC[,-1]))
+  dbmciAvgRdrEachTrtRRFC <- as.vector(unlist(dbmValues$RRFC$ciAvgRdrEachTrt[,-1]))
+  orciAvgRdrEachTrtRRFC <- as.vector(unlist(orValues$RRFC$ciAvgRdrEachTrt[,-1]))
   for (i in 1: length(dbmciAvgRdrEachTrtRRFC)){
     x <- dbmciAvgRdrEachTrtRRFC[i]
     y <- orciAvgRdrEachTrtRRFC[i]
@@ -128,8 +128,8 @@ test_that("Compare DBMH to ORH for dataset05, FROC, HrAuc", {
   }
 
   #######################################  FStats ###########################################
-  dbmFStatsRRRC <- dbmValues$FTestStatsRRRC
-  orFStatsRRRC <- orValues$FTestStatsRRRC
+  dbmFStatsRRRC <- dbmValues$RRRC$FTests
+  orFStatsRRRC <- orValues$RRRC$FTests
   names(orFStatsRRRC) <- NULL
   for (i in 1: length(dbmFStatsRRRC)){
     x <- as.numeric(dbmFStatsRRRC[[i]])
@@ -137,8 +137,8 @@ test_that("Compare DBMH to ORH for dataset05, FROC, HrAuc", {
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmFStatsFRRC <- dbmValues$FTestStatsFRRC[-3] # remove infinity
-  orFStatsFRRC <- orValues$FTestStatsFRRC[-3]
+  dbmFStatsFRRC <- dbmValues$FRRC$FTests[-3] # remove infinity
+  orFStatsFRRC <- orValues$FRRC$FTests[-3]
   names(orFStatsFRRC) <- NULL
   for (i in 1: length(dbmFStatsFRRC)){
     x <- as.numeric(dbmFStatsFRRC[[i]])
@@ -146,8 +146,8 @@ test_that("Compare DBMH to ORH for dataset05, FROC, HrAuc", {
     expect_equal(x, y, tolerance = 0.01, scale = abs(x))
   }
 
-  dbmFStatsRRFC <- dbmValues$FTestStats
-  orFStatsRRFC <- orValues$FTestStats
+  dbmFStatsRRFC <- dbmValues$RRFC$FTests
+  orFStatsRRFC <- orValues$RRFC$FTests
   names(orFStatsRRFC) <- NULL
   for (i in 1: length(dbmFStatsRRFC)){
     x <- as.numeric(dbmFStatsRRFC[[i]])
@@ -166,24 +166,24 @@ test_that("Compare DBMH to ORH for dataset05, FROC, HrAuc", {
   # }
 
   ##################################  diff and avg confidence intervals  #####################
-  dbmciDiffTrtRRRC <- as.numeric(as.vector(unlist(dbmValues$ciDiffTrtRRRC))[-1]) # remove 0-1 vs trt0-trt1
-  orciDiffTrtRRRC <- as.numeric(as.vector(unlist(orValues$ciDiffTrtRRRC))[-1])
+  dbmciDiffTrtRRRC <- as.numeric(as.vector(unlist(dbmValues$RRRC$ciDiffTrt))[-1]) # remove 0-1 vs trt0-trt1
+  orciDiffTrtRRRC <- as.numeric(as.vector(unlist(orValues$RRRC$ciDiffTrt))[-1])
   for (i in 1: length(dbmciDiffTrtRRRC)){
     x <- dbmciDiffTrtRRRC[i]
     y <- orciDiffTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(dbmValues$ciAvgRdrEachTrtRRRC))[-1]) # remove 0-1 vs trt0-trt1
-  orciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(orValues$ciAvgRdrEachTrtRRRC))[-1])
+  dbmciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(dbmValues$RRRC$ciAvgRdrEachTrt))[-1]) # remove 0-1 vs trt0-trt1
+  orciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(orValues$RRRC$ciAvgRdrEachTrt))[-1])
   for (i in 1: length(dbmciAvgRdrEachTrtRRRC)){
     x <- dbmciAvgRdrEachTrtRRRC[i]
     y <- orciAvgRdrEachTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmciDiffTrtFRRC <- as.numeric(as.vector(unlist(dbmValues$ciDiffTrtFRRC))[-1]) # remove 0-1 vs trt0-trt1
-  orciDiffTrtFRRC <- as.numeric(as.vector(unlist(orValues$ciDiffTrtFRRC))[-1])
+  dbmciDiffTrtFRRC <- as.numeric(as.vector(unlist(dbmValues$FRRC$ciDiffTrt))[-1]) # remove 0-1 vs trt0-trt1
+  orciDiffTrtFRRC <- as.numeric(as.vector(unlist(orValues$FRRC$ciDiffTrt))[-1])
   for (i in 1: length(dbmciDiffTrtFRRC)){
     if (i == 3) next # skip infinity
     x <- dbmciDiffTrtFRRC[i]
@@ -191,8 +191,8 @@ test_that("Compare DBMH to ORH for dataset05, FROC, HrAuc", {
     expect_equal(x, y, tolerance = 0.01, scale = abs(x)) # values are not exactly equal; tolerance found by trial and error
   }
 
-  dbmciAvgRdrEachTrtFRRC <- as.numeric((as.vector(unlist(dbmValues$ciAvgRdrEachTrtFRRC))[-1])) # remove 0-1 vs trt0-trt1
-  orciAvgRdrEachTrtFRRC <- as.numeric((as.vector(unlist(orValues$ciAvgRdrEachTrtFRRC))[-1]))
+  dbmciAvgRdrEachTrtFRRC <- as.numeric((as.vector(unlist(dbmValues$FRRC$ciAvgRdrEachTrt))[-1])) # remove 0-1 vs trt0-trt1
+  orciAvgRdrEachTrtFRRC <- as.numeric((as.vector(unlist(orValues$FRRC$ciAvgRdrEachTrt))[-1]))
   for (i in 1: length(dbmciAvgRdrEachTrtFRRC)){
     if (i == 6) next # skip infinity
     if (i == 7) next # skip infinity
@@ -201,16 +201,16 @@ test_that("Compare DBMH to ORH for dataset05, FROC, HrAuc", {
     expect_equal(x, y, tolerance = 0.001, scale = abs(x))  # values are not exactly equal
   }
 
-  dbmciDiffTrtRRFC <- as.numeric(as.vector(unlist(dbmValues$ciDiffTrtRRFC))[-1]) # remove 0-1 vs trt0-trt1
-  orciDiffTrtRRFC <- as.numeric(as.vector(unlist(orValues$ciDiffTrtRRFC))[-1])
+  dbmciDiffTrtRRFC <- as.numeric(as.vector(unlist(dbmValues$RRFC$ciDiffTrt))[-1]) # remove 0-1 vs trt0-trt1
+  orciDiffTrtRRFC <- as.numeric(as.vector(unlist(orValues$RRFC$ciDiffTrt))[-1])
   for (i in 1: length(dbmciDiffTrtRRFC)){
     x <- dbmciDiffTrtRRFC[i]
     y <- orciDiffTrtRRFC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmciAvgRdrEachTrtRRFC <- as.numeric(as.vector(unlist(dbmValues$ciAvgRdrEachTrtRRFC))[-1]) # remove 0-1 vs trt0-trt1
-  orciAvgRdrEachTrtRRFC <- as.numeric(as.vector(unlist(orValues$ciAvgRdrEachTrtRRFC))[-1])
+  dbmciAvgRdrEachTrtRRFC <- as.numeric(as.vector(unlist(dbmValues$RRFC$ciAvgRdrEachTrt))[-1]) # remove 0-1 vs trt0-trt1
+  orciAvgRdrEachTrtRRFC <- as.numeric(as.vector(unlist(orValues$RRFC$ciAvgRdrEachTrt))[-1])
   for (i in 1: length(dbmciAvgRdrEachTrtRRFC)){
     x <- dbmciAvgRdrEachTrtRRFC[i]
     y <- orciAvgRdrEachTrtRRFC[i]
@@ -239,8 +239,8 @@ test_that("Compare DBMH to ORH for dataset05, FROC, wAFROC", {
   }
   
   #######################################  FStats ###########################################  
-  dbmFStatsRRRC <- dbmValues$FTestStatsRRRC
-  orFStatsRRRC <- orValues$FTestStatsRRRC
+  dbmFStatsRRRC <- dbmValues$RRRC$FTests
+  orFStatsRRRC <- orValues$RRRC$FTests
   names(orFStatsRRRC) <- NULL
   for (i in 1: length(dbmFStatsRRRC)){
     x <- as.numeric(dbmFStatsRRRC[[i]])
@@ -248,8 +248,8 @@ test_that("Compare DBMH to ORH for dataset05, FROC, wAFROC", {
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  dbmFStatsFRRC <- dbmValues$FTestStatsFRRC[-3] # remove infinity
-  orFStatsFRRC <- orValues$FTestStatsFRRC[-3]
+  dbmFStatsFRRC <- dbmValues$FRRC$FTests[-3] # remove infinity
+  orFStatsFRRC <- orValues$FRRC$FTests[-3]
   names(orFStatsFRRC) <- NULL
   for (i in 1: length(dbmFStatsFRRC)){
     x <- as.numeric(dbmFStatsFRRC[[i]])
@@ -257,8 +257,8 @@ test_that("Compare DBMH to ORH for dataset05, FROC, wAFROC", {
     expect_equal(x, y, tolerance = 0.01, scale = abs(x))
   }
   
-  dbmFStatsRRFC <- dbmValues$FTestStats
-  orFStatsRRFC <- orValues$FTestStats
+  dbmFStatsRRFC <- dbmValues$RRFC$FTests
+  orFStatsRRFC <- orValues$RRFC$FTests
   names(orFStatsRRFC) <- NULL
   for (i in 1: length(dbmFStatsRRFC)){
     x <- as.numeric(dbmFStatsRRFC[[i]])
@@ -277,24 +277,24 @@ test_that("Compare DBMH to ORH for dataset05, FROC, wAFROC", {
   # }
   
   ##################################  diff and avg confidence intervals  #####################
-  dbmciDiffTrtRRRC <- as.numeric(as.vector(unlist(dbmValues$ciDiffTrtRRRC))[-1]) # remove 0-1 vs trt0-trt1
-  orciDiffTrtRRRC <- as.numeric(as.vector(unlist(orValues$ciDiffTrtRRRC))[-1])
+  dbmciDiffTrtRRRC <- as.numeric(as.vector(unlist(dbmValues$RRRC$ciDiffTrt))[-1]) # remove 0-1 vs trt0-trt1
+  orciDiffTrtRRRC <- as.numeric(as.vector(unlist(orValues$RRRC$ciDiffTrt))[-1])
   for (i in 1: length(dbmciDiffTrtRRRC)){
     x <- dbmciDiffTrtRRRC[i]
     y <- orciDiffTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  dbmciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(dbmValues$ciAvgRdrEachTrtRRRC))[-1]) # remove 0-1 vs trt0-trt1
-  orciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(orValues$ciAvgRdrEachTrtRRRC))[-1])
+  dbmciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(dbmValues$RRRC$ciAvgRdrEachTrt))[-1]) # remove 0-1 vs trt0-trt1
+  orciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(orValues$RRRC$ciAvgRdrEachTrt))[-1])
   for (i in 1: length(dbmciAvgRdrEachTrtRRRC)){
     x <- dbmciAvgRdrEachTrtRRRC[i]
     y <- orciAvgRdrEachTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  dbmciDiffTrtFRRC <- as.numeric(as.vector(unlist(dbmValues$ciDiffTrtFRRC))[-1]) # remove 0-1 vs trt0-trt1
-  orciDiffTrtFRRC <- as.numeric(as.vector(unlist(orValues$ciDiffTrtFRRC))[-1])
+  dbmciDiffTrtFRRC <- as.numeric(as.vector(unlist(dbmValues$FRRC$ciDiffTrt))[-1]) # remove 0-1 vs trt0-trt1
+  orciDiffTrtFRRC <- as.numeric(as.vector(unlist(orValues$FRRC$ciDiffTrt))[-1])
   for (i in 1: length(dbmciDiffTrtFRRC)){
     if (i == 3) next # skip infinity
     x <- dbmciDiffTrtFRRC[i]
@@ -302,8 +302,8 @@ test_that("Compare DBMH to ORH for dataset05, FROC, wAFROC", {
     expect_equal(x, y, tolerance = 0.01, scale = abs(x)) # values are not exactly equal; tolerance found by trial and error
   }
   
-  dbmciAvgRdrEachTrtFRRC <- as.numeric((as.vector(unlist(dbmValues$ciAvgRdrEachTrtFRRC))[-1])) # remove 0-1 vs trt0-trt1
-  orciAvgRdrEachTrtFRRC <- as.numeric((as.vector(unlist(orValues$ciAvgRdrEachTrtFRRC))[-1]))
+  dbmciAvgRdrEachTrtFRRC <- as.numeric((as.vector(unlist(dbmValues$FRRC$ciAvgRdrEachTrt))[-1])) # remove 0-1 vs trt0-trt1
+  orciAvgRdrEachTrtFRRC <- as.numeric((as.vector(unlist(orValues$FRRC$ciAvgRdrEachTrt))[-1]))
   for (i in 1: length(dbmciAvgRdrEachTrtFRRC)){
     if (i == 6) next # skip infinity
     if (i == 7) next # skip infinity
@@ -312,16 +312,16 @@ test_that("Compare DBMH to ORH for dataset05, FROC, wAFROC", {
     expect_equal(x, y, tolerance = 0.001, scale = abs(x))  # values are not exactly equal
   }
   
-  dbmciDiffTrtRRFC <- as.numeric(as.vector(unlist(dbmValues$ciDiffTrtRRFC))[-1]) # remove 0-1 vs trt0-trt1
-  orciDiffTrtRRFC <- as.numeric(as.vector(unlist(orValues$ciDiffTrtRRFC))[-1])
+  dbmciDiffTrtRRFC <- as.numeric(as.vector(unlist(dbmValues$RRFC$ciDiffTrt))[-1]) # remove 0-1 vs trt0-trt1
+  orciDiffTrtRRFC <- as.numeric(as.vector(unlist(orValues$RRFC$ciDiffTrt))[-1])
   for (i in 1: length(dbmciDiffTrtRRFC)){
     x <- dbmciDiffTrtRRFC[i]
     y <- orciDiffTrtRRFC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
   
-  dbmciAvgRdrEachTrtRRFC <- as.numeric(as.vector(unlist(dbmValues$ciAvgRdrEachTrtRRFC))[-1]) # remove 0-1 vs trt0-trt1
-  orciAvgRdrEachTrtRRFC <- as.numeric(as.vector(unlist(orValues$ciAvgRdrEachTrtRRFC))[-1])
+  dbmciAvgRdrEachTrtRRFC <- as.numeric(as.vector(unlist(dbmValues$RRFC$ciAvgRdrEachTrt))[-1]) # remove 0-1 vs trt0-trt1
+  orciAvgRdrEachTrtRRFC <- as.numeric(as.vector(unlist(orValues$RRFC$ciAvgRdrEachTrt))[-1])
   for (i in 1: length(dbmciAvgRdrEachTrtRRFC)){
     x <- dbmciAvgRdrEachTrtRRFC[i]
     y <- orciAvgRdrEachTrtRRFC[i]

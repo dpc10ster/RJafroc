@@ -188,7 +188,7 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
       stop(errMsg)
     }
     
-    fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+    fomArray <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
     fomMean <- mean(fomArray)
     
     if (I != 1){

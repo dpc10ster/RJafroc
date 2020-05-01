@@ -61,7 +61,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2,
 
   MS <- UtilMeanSquares(dataset, FOM, method = "DBMH", FPFValue)
   pseudoValues <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
-  fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+  fomArray <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
   if (I == 1 && J != 1){
     fDbmFixed <- MS$msR / MS$msRC
     ddf <- (J - 1) * (K - 1)

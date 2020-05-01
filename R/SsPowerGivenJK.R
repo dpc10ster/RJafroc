@@ -70,7 +70,7 @@ SsPowerGivenJK <- function(dataset, ..., FOM, FPFValue = 0.2, J, K, effectSize =
   if (method == "DBMH") {
     if (!(is.null(dataset))) {
       ret <- StSignificanceTesting(dataset, FOM, FPFValue, method = "DBMH")
-      if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+      if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
       varYTR <- ret$varComp$varTR
       varYTC <- ret$varComp$varTC
       varYEps <- ret$varComp$varErr
@@ -90,7 +90,7 @@ SsPowerGivenJK <- function(dataset, ..., FOM, FPFValue = 0.2, J, K, effectSize =
       cov2 <- ret$varComp$cov2
       cov3 <- ret$varComp$cov3
       varEps <- ret$varComp$var
-      if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+      if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
       KStar <- length(dataset$NL[1,1,,1])
     } else {
       if (is.null(effectSize)) stop("When using variance components as input, effect size needs to be explicitly specified.")

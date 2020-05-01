@@ -18,11 +18,14 @@
 #'     with \code{method = "ORH"}.
 #' 
 #' @examples 
-#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp # uses the default jackknife for covEstMethod
+#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp 
+#' ## uses the default jackknife for covEstMethod
 #'
-#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon", covEstMethod = "bootstrap", nBoots = 2000, seed = 100)$varComp 
+#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon", 
+#'    covEstMethod = "bootstrap", nBoots = 2000, seed = 100)$varComp 
 #' 
-#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$varComp 
+#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon", 
+#'    covEstMethod = "DeLong")$varComp 
 #'   
 #' @export
 #' 
@@ -40,7 +43,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   cov3 <- ret$cov3
   
   # calculate varR and varTR
-  fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+  fomArray <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
   fomMean <- mean(fomArray)
   
   msT <- 0

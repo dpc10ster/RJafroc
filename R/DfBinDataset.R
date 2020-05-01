@@ -160,7 +160,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
         }
         datasetB$NL[i,j,1:K1,] <- nlB[1:K1,]
         datasetB$LL[i,j,,] <- llB
-        fom1 <- UtilFigureOfMerit(datasetB, FOM = FOM)[i,j]
+        fom1 <- t(UtilFigureOfMerit(datasetB, FOM = FOM))[i,j]
         if (fom1 > maxFomij[i,j]){
           sSave[i,j] <- s
           maxFomij[i,j] <- fom1

@@ -61,7 +61,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   cov1 <- ret$cov1
   cov2 <- ret$cov2
   cov3 <- ret$cov3
-  fomArray <- ret$fomArray
+  fomArray <- ret$fomArray  # sic! 4/29/20
   trMeans <- rowMeans(fomArray)
   fomMean <- mean(fomArray)
   

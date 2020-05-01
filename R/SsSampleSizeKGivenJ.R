@@ -76,7 +76,7 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
   if (method == "DBMH") {
     if (!(is.null(dataset))) {
       ret <- StSignificanceTesting(dataset, FOM, method = "DBMH")
-      if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+      if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
       varYTR <- ret$varComp$varTR
       varYTC <- ret$varComp$varTC
       varYEps <- ret$varComp$varErr
@@ -91,7 +91,7 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
   } else if (method == "ORH") {
     if (!(is.null(dataset))) {
       ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
-      if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+      if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
       varTR <- ret$varComp$varTR
       cov1 <- ret$varComp$cov1
       cov2 <- ret$varComp$cov2

@@ -8,12 +8,12 @@ test_that("FROC SPLIT-PLOT dataset, FOM = wAFROC", {
   fn <- paste0(test_path(), "/goodValues361/FOM/datasetFROCSpwAFROC-", FOM, ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- UtilFigureOfMerit(dataset, FOM = FOM)
+    ret <- t(UtilFigureOfMerit(dataset, FOM = FOM))
     saveRDS(ret, file = fn)
   }
   
   ret1 <- readRDS(fn)
-  ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
+  ret2 <- t(UtilFigureOfMerit(dataset, FOM = FOM))
   
   expect_equal(ret1, ret2)
   
@@ -28,12 +28,12 @@ test_that("ROC dataset dataset02: FOM = Wilcoxon", {
   fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritROC-", FOM, ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- UtilFigureOfMerit(dataset, FOM = FOM)
+    ret <- t(UtilFigureOfMerit(dataset, FOM = FOM))
     saveRDS(ret, file = fn)
   }
   
   ret1 <- readRDS(fn)
-  ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
+  ret2 <- t(UtilFigureOfMerit(dataset, FOM = FOM))
   
   expect_equal(ret1, ret2)
   
@@ -58,12 +58,12 @@ test_that("FROC dataset: all FOMs except ...", {
     fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritFROC-", FOM, ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
-      ret <- UtilFigureOfMerit(dataset, FOM = FOM)
+      ret <- t(UtilFigureOfMerit(dataset, FOM = FOM))
       saveRDS(ret, file = fn)
     }
     
     ret1 <- readRDS(fn)
-    ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
+    ret2 <- t(UtilFigureOfMerit(dataset, FOM = FOM))
     
     for (i in 1:length(ret1)) {
       expect_equal(as.numeric(ret1[[i]]), as.numeric(ret1[[i]]))
@@ -90,12 +90,12 @@ test_that("FROC data: excessive computation time FOMs", {
     fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritFROC-", FOM, ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
-      ret <- UtilFigureOfMerit(dataset, FOM = FOM)
+      ret <- t(UtilFigureOfMerit(dataset, FOM = FOM))
       saveRDS(ret, file = fn)
     }
     
     ret1 <- readRDS(fn)
-    ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
+    ret2 <- t(UtilFigureOfMerit(dataset, FOM = FOM))
     
     for (i in 1:length(ret1)) {
       expect_equal(as.numeric(ret1[[i]]), as.numeric(ret1[[i]]))
@@ -114,12 +114,12 @@ test_that("ROI paradigm", {
   fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritROI", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- UtilFigureOfMerit(dataset, FOM = FOM)
+    ret <- t(UtilFigureOfMerit(dataset, FOM = FOM))
     saveRDS(ret, file = fn)
   }
   
   ret1 <- readRDS(fn)
-  ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
+  ret2 <- t(UtilFigureOfMerit(dataset, FOM = FOM))
   
   for (i in 1:length(ret1)) {
     expect_equal(as.numeric(ret1[[i]]), as.numeric(ret1[[i]]))
@@ -140,12 +140,12 @@ test_that("LROC paradigm: FOM = Wilcoxon, ALROC", {
     fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritLROC-", FOM, ".rds")
     if (!file.exists(fn)) {
       warning(paste0("File not found - generating new ",fn))
-      ret <- UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2)
+      ret <- t(UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2))
       saveRDS(ret, file = fn)
     }
     
     ret1 <- readRDS(fn)
-    ret2 <- UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2)
+    ret2 <- t(UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2))
     
     for (i in 1:length(ret1)) {
       expect_equal(as.numeric(ret1[[i]]), as.numeric(ret1[[i]]))
@@ -164,12 +164,12 @@ test_that("LROC paradigm: FOM = PCL@FPFValue", {
   fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritLROC-", FOM, ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2)
+    ret <- t(UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2))
     saveRDS(ret, file = fn)
   }
   
   ret1 <- readRDS(fn)
-  ret2 <- UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2)
+  ret2 <- t(UtilFigureOfMerit(dataset, FOM = FOM, FPFValue = 0.2))
   
   for (i in 1:length(ret1)) {
     expect_equal(as.numeric(ret1[[i]]), as.numeric(ret1[[i]]))

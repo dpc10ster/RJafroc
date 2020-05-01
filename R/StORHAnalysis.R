@@ -12,8 +12,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     stop(errMsg)
   }
   
-  fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  trtMeans <- rowMeans(fomArray)
+  foms <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  trtMeans <- rowMeans(foms)
   
   ret <- UtilVarComponentsOR(dataset, FOM, FPFValue, covEstMethod, nBoots)
   varComp <-  ret$varComp
@@ -31,7 +31,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
       varEachTrt <- vector(length = I)
       cov2EachTrt <- vector(length = I)
       for (i in 1:I) {
-        fomSingle <- fomArray[i, ]
+        fomSingle <- foms[i, ]
         dim(fomSingle) <- c(1, J)
         dsi <- DfExtractDataset(dataset, trts = i)
         # with a single treatment it is not possible to calculate cov1
@@ -69,7 +69,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     varEachRdr <- vector(length = J)
     cov1EachRdr <- vector(length = J)
     for (j in 1:J) {
-      fomSingle <- fomArray[, j]
+      fomSingle <- foms[, j]
       dim(fomSingle) <- c(I, 1)
       dsj <- DfExtractDataset(dataset, rdrs = j)
       ret <- gpfEstimateVarCov(dsj, FOM, FPFValue, nBoots, covEstMethod)
@@ -80,7 +80,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   
   msRSingle <- array(0, dim = c(I))
   for (i in 1:I) {
-    msRSingle[i] <- sum((fomArray[i, ] - trtMeans[i])^2)/(J - 1)
+    msRSingle[i] <- sum((foms[i, ] - trtMeans[i])^2)/(J - 1)
   }
   
   diffTRMeans <- array(dim = choose(I, 2))
@@ -104,10 +104,11 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     fRRRC <- meanSquares$msT/msDenRRRC
     ddfRRRC <- msDenRRRC^2/((meanSquares$msTR)^2/((I - 1) * (J - 1)))
     pRRRC <- 1 - pf(fRRRC, I - 1, ddfRRRC)
-    FTestStatsRRRC <- data.frame(fRRRC = fRRRC,
-                                 ndfRRRC = (I-1),
-                                 ddfRRRC = ddfRRRC,
-                                 pRRRC = pRRRC)
+    RRRC <- list()
+    RRRC$FTests <- data.frame(f = fRRRC,
+                              ndf = (I-1),
+                              ddf = ddfRRRC,
+                              p = pRRRC)
     stdErrRRRC <- sqrt(2 * msDenRRRC/J)
     tStat <- vector()
     PrGTt <- vector()
@@ -122,15 +123,15 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
         CIRRRC[i, ] <- ci
       }
     }
-    ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
-                                Estimate = diffTRMeans, 
-                                StdErr = rep(stdErrRRRC, choose(I, 2)), 
-                                DF = rep(ddfRRRC, choose(I, 2)), 
-                                t = tStat, 
-                                PrGTt = PrGTt, 
-                                CILower = CIRRRC[,1],
-                                CIUpper = CIRRRC[,2], 
-                                stringsAsFactors = TRUE)
+    RRRC$ciDiffTrt <- data.frame(Treatment = diffTRName, 
+                                 Estimate = diffTRMeans, 
+                                 StdErr = rep(stdErrRRRC, choose(I, 2)), 
+                                 DF = rep(ddfRRRC, choose(I, 2)), 
+                                 t = tStat, 
+                                 PrGTt = PrGTt, 
+                                 CILower = CIRRRC[,1],
+                                 CIUpper = CIRRRC[,2], 
+                                 stringsAsFactors = TRUE)
     
     dfSingleRRRC <- array(dim = I)
     msDenSingleRRRC <- array(dim = I)
@@ -148,23 +149,26 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
       }
       
     }
-    ciAvgRdrEachTrtRRRC <- data.frame(Treatment = paste("Trt", modalityID, sep = ""), 
-                                      Area = trtMeans, 
-                                      StdErr = as.vector(stdErrSingleRRRC), 
-                                      DF = as.vector(dfSingleRRRC), 
-                                      CILower = CISingleRRRC[,1], 
-                                      CIUpper = CISingleRRRC[,2], 
-                                      row.names = NULL, 
-                                      stringsAsFactors = TRUE)
+    RRRC$ciAvgRdrEachTrt <- data.frame(Treatment = paste("Trt", modalityID, sep = ""), 
+                                       Area = trtMeans, 
+                                       StdErr = as.vector(stdErrSingleRRRC), 
+                                       DF = as.vector(dfSingleRRRC), 
+                                       CILower = CISingleRRRC[,1], 
+                                       CIUpper = CISingleRRRC[,2], 
+                                       row.names = NULL, 
+                                       stringsAsFactors = TRUE)
     
     if (option == "RRRC"){
       return(list(
-        fomArray = fomArray, 
+        foms = foms,
+        trtMeans = trtMeans,
         meanSquares = meanSquares, 
         varComp = varComp,
-        FTestStatsRRRC = FTestStatsRRRC, 
-        ciDiffTrtRRRC = ciDiffTrtRRRC, 
-        ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC
+        RRRC = list(
+          FTests = RRRC$FTests,
+          ciDiffTrt = RRRC$ciDiffTrt,
+          ciAvgRdrEachTrt = RRRC$ciAvgRdrEachTrt
+        )
       ))
     }
   }
@@ -177,10 +181,11 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     fFRRC <- meanSquares$msT/msDenFRRC
     ddfFRRC <- Inf
     pFRRC <- 1 - pf(fFRRC, I - 1, ddfFRRC)
-    FTestStatsFRRC <- data.frame(fFRRC = fFRRC,
-                                 ndfFRRC = (I-1),
-                                 ddfFRRC = ddfFRRC,
-                                 pFRRC = pFRRC)
+    FRRC <- list()
+    FRRC$FTests <- data.frame(f = fFRRC,
+                              ndf = (I-1),
+                              ddf = ddfFRRC,
+                              p = pFRRC)
     stdErrFRRC <- sqrt(2 * msDenFRRC/J)
     tStat <- vector()
     PrGTt <- vector()
@@ -191,16 +196,16 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
       CIFRRC[i, ] <- c(diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC, diffTRMeans[i] 
                        + qt(1-alpha/2, ddfFRRC) * stdErrFRRC)
     }
-    ciDiffTrtFRRC <- data.frame(Treatment = diffTRName, 
-                                Estimate = diffTRMeans, 
-                                StdErr = rep(stdErrFRRC, choose(I, 2)),
-                                DF = rep(ddfFRRC, choose(I, 2)), 
-                                t = tStat, 
-                                PrGTt = PrGTt, 
-                                CILower = CIFRRC[,1],
-                                CIUpper = CIFRRC[,2], 
-                                stringsAsFactors = TRUE)
-    
+    FRRC$ciDiffTrt <- data.frame(Treatment = diffTRName, 
+                                 Estimate = diffTRMeans, 
+                                 StdErr = rep(stdErrFRRC, choose(I, 2)),
+                                 DF = rep(ddfFRRC, choose(I, 2)), 
+                                 t = tStat, 
+                                 PrGTt = PrGTt, 
+                                 CILower = CIFRRC[,1],
+                                 CIUpper = CIFRRC[,2], 
+                                 stringsAsFactors = TRUE)
+    FRRC$ciAvgRdrEachTrt <- ciAvgRdrEachTrtFRRC # this was calculated above 4/29/20
     diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
     for (j in 1:J) {
       ii <- 1
@@ -208,7 +213,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
         if (i == I) 
           break
         for (ip in (i + 1):I) {
-          diffTRMeansFRRC[j, ii] <- fomArray[i, j] - fomArray[ip, j]
+          diffTRMeansFRRC[j, ii] <- foms[i, j] - foms[ip, j]
           ii <- ii + 1
         }
       }
@@ -233,43 +238,47 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
         PrGTt[n] <- 2 * pt(abs(tStat[n]), dfReaderFRRC[n], lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
         CIReaderFRRC[n, ] <- sort(c(diffTRMeansFRRC[n] - qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n], diffTRMeansFRRC[n] + qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n]))
       }
-      ciDiffTrtEachRdrFRRC <- data.frame(Reader = paste("Rdr", readerNames, sep = ""), 
-                                         Treatment = trNames, 
-                                         Estimate = diffTRMeansFRRC, 
-                                         StdErr = stdErrFRRC, 
-                                         DF = dfReaderFRRC, 
-                                         t = tStat, 
-                                         PrGTt = PrGTt, 
-                                         CILower = CIReaderFRRC[,1],
-                                         CIUpper = CIReaderFRRC[,2], 
-                                         stringsAsFactors = TRUE)
+      FRRC$ciDiffTrtEachRdr <- data.frame(Reader = paste("Rdr", readerNames, sep = ""), 
+                                          Treatment = trNames, 
+                                          Estimate = diffTRMeansFRRC, 
+                                          StdErr = stdErrFRRC, 
+                                          DF = dfReaderFRRC, 
+                                          t = tStat, 
+                                          PrGTt = PrGTt, 
+                                          CILower = CIReaderFRRC[,1],
+                                          CIUpper = CIReaderFRRC[,2], 
+                                          stringsAsFactors = TRUE)
       
-      varCovEachRdr <- data.frame(Reader = paste("Rdr", readerID, sep = ""),
-                                  Var = varEachRdr, 
-                                  Cov1 = cov1EachRdr, 
-                                  stringsAsFactors = TRUE)
+      FRRC$varCovEachRdr <- data.frame(Reader = paste("Rdr", readerID, sep = ""),
+                                       Var = varEachRdr, 
+                                       Cov1 = cov1EachRdr, 
+                                       stringsAsFactors = TRUE)
     }
     if (option == "FRRC"){
       if (J > 1) {
-        return(list(fomArray = fomArray, 
-                          meanSquares = meanSquares, 
-                          varComp = varComp,
-                          FTestStatsFRRC = FTestStatsFRRC,
-                          ciDiffTrtFRRC = ciDiffTrtFRRC, 
-                          ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
-                          ciDiffTrtEachRdrFRRC = ciDiffTrtEachRdrFRRC, 
-                          varCovEachRdr = varCovEachRdr
+        return(list(
+          foms = foms,
+          trtMeans = trtMeans,
+          meanSquares = meanSquares, 
+          varComp = varComp,
+          RRRC = NULL,
+          FRRC = list(
+            FTests = FRRC$FTests,
+            ciDiffTrt = FRRC$ciDiffTrt,
+            ciDiffTrtEachRdr = FRRC$ciDiffTrtEachRdr,
+            ciAvgRdrEachTrt = FRRC$ciAvgRdrEachTrt,
+            varCovEachRdr = FRRC$varCovEachRdr
+          ),
+          RRFC = NULL
         ))
       } else {
-        return(list(fomArray = fomArray, 
-                          msT = meanSquares$msT, 
-                          varComp = data.frame(cov1 = varComp$cov1, var = varComp$var),
-                          FTestStatsFRRC = FTestStatsFRRC,
-                          ciDiffTrtFRRC = ciDiffTrtFRRC 
-                          # ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
-                          # ciDiffTrtEachRdrFRRC = ciDiffTrtEachRdrFRRC, 
-                          # varCovEachRdr = varCovEachRdr, 
-                          # stringsAsFactors = TRUE
+        # needs debugging here, i.e., cross-check
+        return(list(foms = foms,
+                    trtMeans = trtMeans,
+                    msT = meanSquares$msT, 
+                    varComp = data.frame(cov1 = varComp$cov1, var = varComp$var),
+                    FTestsFRRC = FRRC$FTests,
+                    ciDiffTrtFRRC = FRRC$ciDiffTrt 
         ))
       }
     }
@@ -279,8 +288,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   # ************ RRFC ****************
   # ************ RRFC ****************
   if (option %in% c("RRFC", "ALL")) {
-    # since cov2 and cov3 are zeroes for split-plot, FTestStatsRRFC will be 
-    # identical to FTestStatsRRRC; other values below may differ
+    # since cov2 and cov3 are zeroes for split-plot, FTestsRRFC will be 
+    # identical to FTestsRRRC; other values below may differ
     # not sure about what is going one here; I am proceeding on assumption that
     # the only difference is setting cov2 = cov3 = 0, and reusing code from crossed
     # analysis
@@ -288,10 +297,11 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     fRRFC <- meanSquares$msT/msDenRRFC
     ddfRRFC <- ((I - 1) * (J - 1))
     pRRFC <- 1 - pf(fRRFC, I - 1, ddfRRFC)
-    FTestStatsRRFC <- data.frame(fRRFC = fRRFC,
-                                 ndfRRFC = (I-1),
-                                 ddfRRFC = ddfRRFC,
-                                 pRRFC = pRRFC)
+    RRFC <- list()
+    RRFC$FTests <- data.frame(f = fRRFC,
+                              ndf = (I-1),
+                              ddf = ddfRRFC,
+                              p = pRRFC)
     stdErrRRFC <- sqrt(2 * msDenRRFC/J)
     tStat <- vector()
     PrGTt <- vector()
@@ -301,15 +311,15 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
       PrGTt[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
       CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC, diffTRMeans[i] + qt(alpha/2, ddfRRFC) * stdErrRRFC))
     }
-    ciDiffTrtRRFC <- data.frame(Treatment = diffTRName, 
-                                Estimate = diffTRMeans, 
-                                StdErr = rep(stdErrRRFC, choose(I, 2)), 
-                                DF = rep(ddfRRFC, choose(I, 2)), 
-                                t = tStat, 
-                                PrGTt = PrGTt, 
-                                CILower = CIRRFC[,1],
-                                CIUpper = CIRRFC[,2], 
-                                stringsAsFactors = TRUE)
+    RRFC$ciDiffTrt <- data.frame(Treatment = diffTRName, 
+                                 Estimate = diffTRMeans, 
+                                 StdErr = rep(stdErrRRFC, choose(I, 2)), 
+                                 DF = rep(ddfRRFC, choose(I, 2)), 
+                                 t = tStat, 
+                                 PrGTt = PrGTt, 
+                                 CILower = CIRRFC[,1],
+                                 CIUpper = CIRRFC[,2], 
+                                 stringsAsFactors = TRUE)
     
     dfSingleRRFC <- array(dim = I)
     msDenSingleRRFC <- array(dim = I)
@@ -321,42 +331,53 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
       stdErrSingleRRFC[i] <- sqrt(msDenSingleRRFC[i]/J)
       CISingleRRFC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i], trtMeans[i] + qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i]))
     }
-    ciAvgRdrEachTrtRRFC <- data.frame(Treatment = paste("Trt", modalityID, sep = ""), 
-                                      Area = trtMeans, 
-                                      StdErr = as.vector(stdErrSingleRRFC), 
-                                      DF = as.vector(dfSingleRRFC), 
-                                      CILower = CISingleRRFC[,1], 
-                                      CIUpper = CISingleRRFC[,2], 
-                                      row.names = NULL, 
-                                      stringsAsFactors = TRUE)
+    RRFC$ciAvgRdrEachTrt <- data.frame(Treatment = paste("Trt", modalityID, sep = ""), 
+                                       Area = trtMeans, 
+                                       StdErr = as.vector(stdErrSingleRRFC), 
+                                       DF = as.vector(dfSingleRRFC), 
+                                       CILower = CISingleRRFC[,1], 
+                                       CIUpper = CISingleRRFC[,2], 
+                                       row.names = NULL, 
+                                       stringsAsFactors = TRUE)
     
     if (option == "RRFC"){
-      return(data.frame(fomArray = fomArray, 
-                        meanSquares = meanSquares, 
-                        varComp = varComp,
-                        FTestStatsRRFC = FTestStatsRRFC, 
-                        ciDiffTrtRRFC = ciDiffTrtRRFC, 
-                        ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC, 
-                        stringsAsFactors = TRUE
+      return(list(foms = foms, 
+                  trtMeans = trtMeans,
+                  meanSquares = meanSquares, 
+                  varComp = varComp,
+                  RRRC = NULL,
+                  FRRC = NULL,  
+                  RRFC = list(
+                    FTests = RRFC$FTests,
+                    ciDiffTrt = RRFC$ciDiffTrt,
+                    ciAvgRdrEachTrt = RRFC$ciAvgRdrEachTrt
+                  )
       ))
     }
   }
   
   return(list(
-    fomArray = fomArray, 
+    foms = foms,
+    trtMeans = trtMeans,
     meanSquares = meanSquares, 
     varComp = varComp, 
-    FTestStatsRRRC = FTestStatsRRRC, 
-    ciDiffTrtRRRC = ciDiffTrtRRRC, 
-    ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC,
-    FTestStatsFRRC = FTestStatsFRRC,
-    ciDiffTrtFRRC = ciDiffTrtFRRC, 
-    ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
-    ciDiffTrtEachRdrFRRC = ciDiffTrtEachRdrFRRC, 
-    varCovEachRdr = varCovEachRdr, 
-    FTestStatsRRFC = FTestStatsRRFC, 
-    ciDiffTrtRRFC = ciDiffTrtRRFC, 
-    ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC
+    RRRC = list(
+      FTests = RRRC$FTests,
+      ciDiffTrt = RRRC$ciDiffTrt,
+      ciAvgRdrEachTrt = RRRC$ciAvgRdrEachTrt
+    ),
+    FRRC = list(
+      FTests = FRRC$FTests,
+      ciDiffTrt = FRRC$ciDiffTrt,
+      ciAvgRdrEachTrt = FRRC$ciAvgRdrEachTrt,
+      ciDiffTrtEachRdr = FRRC$ciDiffTrtEachRdr,
+      varCovEachRdr = FRRC$varCovEachRdr
+    ),
+    RRFC = list(
+      FTests = RRFC$FTests,
+      ciDiffTrt = RRFC$ciDiffTrt,
+      ciAvgRdrEachTrt = RRFC$ciAvgRdrEachTrt
+    )
   ))
 } 
 

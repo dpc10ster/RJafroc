@@ -26,9 +26,19 @@ see \code{Dataset} in \code{\link{RJafroc-package}}.}
 the default is "MyDataDescription: ";
 it is inserted, for reference, in the output file.}
 
-\item{ReportFileBaseName}{The file base name (sans the extension) for the 
+\item{ReportFileBaseName}{\bold{This must be specified by the user.} 
+The report file (text or Excel, as specified by option \code{ReportFileExt}) 
+is then created \bold{in the user's directory, not the RJafroc directory}. 
+See README.md in the 
+GitHub directory of this repository, the section on how to install 
+the software, on how to create a user directory. This argument specifies the 
+report file base name (i.e., without the extension) for the 
 desired report; the default is NULL, in which case the system generates 
-a temporary text file, whose name is displayed.}
+a temporary text file, whose very long name is displayed. However, the 
+temp file
+is very hard to locate. This is so that the sofware passes CRAN checks, 
+as writing to the project directory, or any of its subdirectories, is 
+frowned upon.}
 
 \item{ReportFileExt}{The report file extension determines the type of output. 
 \code{txt}, the default, for 

@@ -51,13 +51,13 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
   
   if (method == "DBMH") {
     ret <- StSignificanceTesting(dataset, FOM, method = "DBMH")
-    if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+    if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
     varYTR <- ret$varComp$varTR
     varYTC <- ret$varComp$varTC
     varYEps <- ret$varComp$varErr
   } else if (method == "ORH") {
     ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
-    if (is.null(effectSize)) effectSize <- ret$ciDiffTrtRRRC$Estimate
+    if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
     varTR <- ret$varComp$varTR
     cov1 <- ret$varComp$cov1
     cov2 <- ret$varComp$cov2
