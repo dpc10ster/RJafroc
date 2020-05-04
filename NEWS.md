@@ -1,3 +1,7 @@
+## After Travis failure
+* same issue; having to specify `stringsAsFactors` explicitly due to different defaults in different verions of `R`
+* passes R CMD check on OSX
+
 ## Removed `stringsAsFactors` arguments in all calls except...
 * In all calls to data.frame, except in plotting functions, `PlotEmpiricalOperatingCharacteristics`, where factors are used
 * This is based on my "better" or rather evolving understanding of how `data.frames` work

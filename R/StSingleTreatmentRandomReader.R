@@ -52,6 +52,8 @@
 
 StSingleTreatmentRandomReader <- function(dataset, fomNh, FOM, FPFValue = 0.2, alpha = 0.05) {
   
+  options(stringsAsFactors = FALSE)
+  
   ret <- gpfEstimateVarCov(dataset, FOM, FPFValue, covEstMethod = "jackknife")
   var <- ret$var;  Cov2 <- ret$cov2
   

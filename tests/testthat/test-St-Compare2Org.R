@@ -57,7 +57,7 @@ test_that("Compare current to original code: DBMH", {
   }
   
   orgciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(orgValues$ciAvgRdrEachTrtRRRC)))[-(1:2)] # remove 0-1 vs trt0-trt1
-  newciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(newValues$RRRC$ciAvgRdrEachTrt)))[-(1:2)]
+  newciAvgRdrEachTrtRRRC <- as.numeric(as.vector(unlist(newValues$RRRC$ciAvgRdrEachTrt))[-(1:2)])
   for (i in 1: length(orgciAvgRdrEachTrtRRRC)){
     x <- orgciAvgRdrEachTrtRRRC[i]
     y <- newciAvgRdrEachTrtRRRC[i]
@@ -65,7 +65,7 @@ test_that("Compare current to original code: DBMH", {
   }
   
   orgciDiffTrtFRRC <- as.numeric(as.vector(unlist(orgValues$ciDiffTrtFRRC))[-(1)]) # remove 0-1 vs trt0-trt1
-  newciDiffTrtFRRC <- as.numeric(as.vector(unlist(newValues$FRRC$ciDiffTrt))[-(1)])
+  newciDiffTrtFRRC <- as.numeric(as.vector(unlist(newValues$FRRC$ciDiffTrt)[-(1)]))
   for (i in 1: length(orgciDiffTrtFRRC)){
     x <- orgciDiffTrtFRRC[i]
     y <- newciDiffTrtFRRC[i]

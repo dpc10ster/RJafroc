@@ -27,6 +27,7 @@
 #' @export
 StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "wAFROC", 
                                                    alpha = 0.05, option = "ALL"){
+  options(stringsAsFactors = FALSE)
   NL <- crossedData$NL
   LL <- crossedData$LL
   lesionVector <- crossedData$lesionVector
@@ -384,8 +385,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
     
     varCovEachRdr <- data.frame(readerID, 
                                 varEchRder, 
-                                cov1EchRder,
-                                stringsAsFactors = TRUE)
+                                cov1EchRder)#,
+                                # stringsAsFactors = TRUE)
     colnames(varCovEachRdr) <- c("Reader", "Var", "Cov1")
     if (option == "FRRC"){
       return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 

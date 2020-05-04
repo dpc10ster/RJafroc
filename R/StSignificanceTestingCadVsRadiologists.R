@@ -149,6 +149,8 @@
 StSignificanceTestingCadVsRadiologists <- function(dataset, FOM, FPFValue = 0.2, method = "1T-RRRC", 
                                                    alpha = 0.05, plots = FALSE) 
 {
+  options(stringsAsFactors = FALSE)
+  
   if (length(dataset$NL[,1,1,1]) != 1) stop("dataset has to be single-treatment multiple-readers with CAD as the first reader")
   if ((dataset$dataType == "ROC") && (FOM %in% c("PCL", "ALROC"))) stop("Cannot use LROC FOM with ROC data")
   

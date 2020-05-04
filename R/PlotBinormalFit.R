@@ -19,6 +19,7 @@
 #' @export
 
 PlotBinormalFit <- function(a, b){
+  options(stringsAsFactors = TRUE)
   if (length(a) != length(b))
     stop("The lengths of a and b do not match.")
   plotZeta <- seq(-3, 20, by = 0.1)
