@@ -43,7 +43,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   cov3 <- ret$cov3
   
   # calculate varR and varTR
-  fomArray <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   fomMean <- mean(fomArray)
   
   msT <- 0

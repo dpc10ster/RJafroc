@@ -123,7 +123,7 @@ UtilOutputReport <- function(dataset, dataDescription = "MyDataDescription: ",
   
   if (method == "DBMH") {
     methodTxt <- paste0("DBM-MRMC-HILLIS SIGNIFICANCE TESTING: ", dataDescription)
-      sigTestResult <- StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha, method)
+    sigTestResult <- StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha, method)
   } else if (method == "ORH") {
     methodTxt <- paste0("OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING: ", dataDescription)
     sigTestResult <- StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha, method, covEstMethod, nBoots)
@@ -318,7 +318,8 @@ OutputTextFile <- function(dataset,
   for (j in 1:J) {
     string <- sprintf("%-10.10s    ", dataset$readerID[j])
     for (i in 1:I) {
-      string <- paste0(string, sprintf("%10.8f", t(sigTestResult$foms)[i, j])) # returning transpose
+      string <- paste0(string, sprintf("%10.8f", t(sigTestResult$foms)[i, j])) 
+      # since StSignificanceTesting returned transpose for `foms`
       if (i < I) {
         string <- paste0(string, "   ")
       }
@@ -331,7 +332,8 @@ OutputTextFile <- function(dataset,
         ReportFileName, append = TRUE)
   for (i in 1:I) {
     string <- paste0(sprintf("%-10.10s    %10.8f", 
-                             dataset$modalityID[i], mean(t(sigTestResult$foms)[i, ]))) # returning transpose
+                             dataset$modalityID[i], mean(t(sigTestResult$foms)[i, ])))
+    # since StSignificanceTesting returned transpose for `foms`
     write(string, ReportFileName, append = TRUE)
   }
   write("\n\n", ReportFileName, append = TRUE)
@@ -344,6 +346,7 @@ OutputTextFile <- function(dataset,
                       dataset$modalityID[i], 
                       dataset$modalityID[ip], 
                       mean(t(sigTestResult$foms)[i, ]) - mean(t(sigTestResult$foms)[ip, ])), 
+              # since StSignificanceTesting returned transpose for `foms`
               ReportFileName, append = TRUE)
       }
     }
@@ -987,7 +990,8 @@ OutputExcelFile <- function(dataset,
   setColWidths(wb, sheet = "FOMs", cols = 1:(J + 3), widths = "auto", ignoreMergedCells = TRUE)
   setColWidths(wb, sheet = "FOMs", cols = 1, widths = 10)
   addStyle(wb,  sheet = "FOMs", style = sty, rows = 1:(I + 2), cols = 1:(J + 3), gridExpand = TRUE)
-  fomArray <- as.data.frame(t(sigTestResult$foms)) # returning transpose
+  fomArray <- as.data.frame(t(sigTestResult$foms))
+  # since StSignificanceTesting returned transpose for `foms`
   if (I == 2){
     fomArray <- cbind(fomArray, apply(fomArray, 1, mean), diff(rev(apply(fomArray, 1, mean))))
   }else{

@@ -191,8 +191,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   readerID <- dataset$readerID
   rownames(fomArray) <- paste("Trt", sep = "", modalityID)
   colnames(fomArray) <- paste("Rdr", sep = "", readerID)
-  return(t(fomArray)) # return transpose to match official code 
-  # and makes more sense to have readers in vertical direction 5/1/20
+  return(fomArray)
 } 
 
 

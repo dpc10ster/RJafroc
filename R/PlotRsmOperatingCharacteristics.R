@@ -171,7 +171,9 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   # in R version <= 3.6.2 this option was not needed, as `stringsAsFactors = TRUE` was the default, 
   # but in version >= 4.0.0 the default is stringsAsFactors = FALSE, which necessitates explicit
   # specification of the option; I think this is an improvement in base R
-  options(stringsAsFactors = FALSE) # check compatibility with new default for R 4.0.0
+  # 5/4/20 removing all this as I better understand data.frame()
+  # options(stringsAsFactors = FALSE) # check compatibility with new default for R 4.0.0
+  options(stringsAsFactors = TRUE) # check compatibility with new default for R 4.0.0
   
   if (!all(c(length(mu) == length(lambda), length(mu) == length(nu))))
     stop("Parameters mu, lambda and nu have different lengths.")

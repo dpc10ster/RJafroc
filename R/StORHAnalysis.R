@@ -12,10 +12,25 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     stop(errMsg)
   }
   
-  foms <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   trtMeans <- rowMeans(foms)
   
+  trtMeanDiffs <- array(dim = choose(I, 2))
+  diffTRName <- array(dim = choose(I, 2))
+  ii <- 1
+  for (i in 1:I) {
+    if (i == I) 
+      break
+    for (ip in (i + 1):I) {
+      trtMeanDiffs[ii] <- trtMeans[i] - trtMeans[ip]
+      diffTRName[ii] <- paste0("Trt", modalityID[i], sep = "-", "Trt", modalityID[ip]) # !sic
+      ii <- ii + 1
+    }
+  }
+  trtMeanDiffs <- data.frame("TrtDiff" = diffTRName, "Estimate" = trtMeanDiffs) 
+  
   ret <- UtilVarComponentsOR(dataset, FOM, FPFValue, covEstMethod, nBoots)
+  
   varComp <-  ret$varComp
   meanSquares <- ret$meanSquares
   
@@ -58,8 +73,9 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                         StdErr = as.vector(stdErrSingleFRRC), 
                                         DF = as.vector(dfSingleFRRC), 
                                         CILower = CISingleFRRC[,1], 
-                                        CIUpper = CISingleFRRC[,2], row.names = NULL, 
-                                        stringsAsFactors = TRUE)
+                                        CIUpper = CISingleFRRC[,2], row.names = NULL)#, 
+      # stringsAsFactors = TRUE)
+      # 5/4/20 removing all this as I better understand data.frame()
       
     } else {
       # NewFormat and SPLIT-PLOT dataset
@@ -130,8 +146,9 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                  t = tStat, 
                                  PrGTt = PrGTt, 
                                  CILower = CIRRRC[,1],
-                                 CIUpper = CIRRRC[,2], 
-                                 stringsAsFactors = TRUE)
+                                 CIUpper = CIRRRC[,2])#, 
+    # stringsAsFactors = TRUE)
+    # 5/4/20 removing all this as I better understand data.frame()
     
     dfSingleRRRC <- array(dim = I)
     msDenSingleRRRC <- array(dim = I)
@@ -155,13 +172,17 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                        DF = as.vector(dfSingleRRRC), 
                                        CILower = CISingleRRRC[,1], 
                                        CIUpper = CISingleRRRC[,2], 
-                                       row.names = NULL, 
-                                       stringsAsFactors = TRUE)
+                                       row.names = NULL)#, 
+    # stringsAsFactors = TRUE)
+    # 5/4/20 removing all this as I better understand data.frame()
     
     if (option == "RRRC"){
       return(list(
-        foms = foms,
+        foms = t(foms),
+        # return transpose to match official code 
+        # and it makes more sense to have readers in vertical direction 5/1/20
         trtMeans = trtMeans,
+        trtMeanDiffs = trtMeanDiffs,
         meanSquares = meanSquares, 
         varComp = varComp,
         RRRC = list(
@@ -203,8 +224,10 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                  t = tStat, 
                                  PrGTt = PrGTt, 
                                  CILower = CIFRRC[,1],
-                                 CIUpper = CIFRRC[,2], 
-                                 stringsAsFactors = TRUE)
+                                 CIUpper = CIFRRC[,2])#, 
+    # stringsAsFactors = TRUE)
+    # 5/4/20 removing all this as I better understand data.frame()
+    
     FRRC$ciAvgRdrEachTrt <- ciAvgRdrEachTrtFRRC # this was calculated above 4/29/20
     diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
     for (j in 1:J) {
@@ -246,19 +269,23 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                           t = tStat, 
                                           PrGTt = PrGTt, 
                                           CILower = CIReaderFRRC[,1],
-                                          CIUpper = CIReaderFRRC[,2], 
-                                          stringsAsFactors = TRUE)
+                                          CIUpper = CIReaderFRRC[,2])#, 
+                                          # stringsAsFactors = TRUE)
+      # 5/4/20 removing all this as I better understand data.frame()
       
       FRRC$varCovEachRdr <- data.frame(Reader = paste("Rdr", readerID, sep = ""),
                                        Var = varEachRdr, 
-                                       Cov1 = cov1EachRdr, 
-                                       stringsAsFactors = TRUE)
+                                       Cov1 = cov1EachRdr)#, 
+                                       # stringsAsFactors = TRUE)
     }
     if (option == "FRRC"){
       if (J > 1) {
         return(list(
-          foms = foms,
+          foms = t(foms),
+          # return transpose to match official code 
+          # and it makes more sense to have readers in vertical direction 5/1/20
           trtMeans = trtMeans,
+          trtMeanDiffs = trtMeanDiffs,
           meanSquares = meanSquares, 
           varComp = varComp,
           RRRC = NULL,
@@ -273,12 +300,16 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
         ))
       } else {
         # needs debugging here, i.e., cross-check
-        return(list(foms = foms,
-                    trtMeans = trtMeans,
-                    msT = meanSquares$msT, 
-                    varComp = data.frame(cov1 = varComp$cov1, var = varComp$var),
-                    FTestsFRRC = FRRC$FTests,
-                    ciDiffTrtFRRC = FRRC$ciDiffTrt 
+        return(list(
+          foms = t(foms),
+          # return transpose to match official code 
+          # and it makes more sense to have readers in vertical direction 5/1/20
+          trtMeans = trtMeans,
+          trtMeanDiffs = trtMeanDiffs,
+          msT = meanSquares$msT, 
+          varComp = data.frame(cov1 = varComp$cov1, var = varComp$var),
+          FTestsFRRC = FRRC$FTests,
+          ciDiffTrtFRRC = FRRC$ciDiffTrt 
         ))
       }
     }
@@ -318,8 +349,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                  t = tStat, 
                                  PrGTt = PrGTt, 
                                  CILower = CIRRFC[,1],
-                                 CIUpper = CIRRFC[,2], 
-                                 stringsAsFactors = TRUE)
+                                 CIUpper = CIRRFC[,2])#, 
+                                 # stringsAsFactors = TRUE)
     
     dfSingleRRFC <- array(dim = I)
     msDenSingleRRFC <- array(dim = I)
@@ -337,28 +368,36 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                                        DF = as.vector(dfSingleRRFC), 
                                        CILower = CISingleRRFC[,1], 
                                        CIUpper = CISingleRRFC[,2], 
-                                       row.names = NULL, 
-                                       stringsAsFactors = TRUE)
+                                       row.names = NULL)#, 
+                                       # stringsAsFactors = TRUE)
+    # 5/4/20 removing all this as I better understand data.frame()
     
     if (option == "RRFC"){
-      return(list(foms = foms, 
-                  trtMeans = trtMeans,
-                  meanSquares = meanSquares, 
-                  varComp = varComp,
-                  RRRC = NULL,
-                  FRRC = NULL,  
-                  RRFC = list(
-                    FTests = RRFC$FTests,
-                    ciDiffTrt = RRFC$ciDiffTrt,
-                    ciAvgRdrEachTrt = RRFC$ciAvgRdrEachTrt
-                  )
+      return(list(
+        foms = t(foms),
+        # return transpose to match official code 
+        # and it makes more sense to have readers in vertical direction 5/1/20
+        trtMeans = trtMeans,
+        trtMeanDiffs = trtMeanDiffs,
+        meanSquares = meanSquares, 
+        varComp = varComp,
+        RRRC = NULL,
+        FRRC = NULL,  
+        RRFC = list(
+          FTests = RRFC$FTests,
+          ciDiffTrt = RRFC$ciDiffTrt,
+          ciAvgRdrEachTrt = RRFC$ciAvgRdrEachTrt
+        )
       ))
     }
   }
   
   return(list(
-    foms = foms,
+    foms = t(foms),
+    # return transpose to match official code 
+    # and it makes more sense to have readers in vertical direction 5/1/20
     trtMeans = trtMeans,
+    trtMeanDiffs = trtMeanDiffs,
     meanSquares = meanSquares, 
     varComp = varComp, 
     RRRC = list(

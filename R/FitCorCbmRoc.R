@@ -69,7 +69,9 @@
 #'
 #'
 FitCorCbmRoc <- function(dataset){
-  options(stringsAsFactors = FALSE) # check compatibility with new default for R 4.0.0
+  # 5/4/20 removing all this as I better understand data.frame()
+  # options(stringsAsFactors = FALSE) # check compatibility with new default for R 4.0.0
+  options(stringsAsFactors = TRUE) # check compatibility with new default for R 4.0.0
   
   if (dataset$dataType != "ROC") {
     stop("This program requires an ROC dataset")
@@ -82,7 +84,7 @@ FitCorCbmRoc <- function(dataset){
   minRho <- RJafrocEnv$minRho
   maxRho <- RJafrocEnv$maxRho
 
-  aucArray <- t(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"))
+  aucArray <- UtilFigureOfMerit(dataset, FOM = "Wilcoxon")
   maxAUC <- max(aucArray)
   while (pnorm(maxMu / sqrt(2)) <= maxAUC){
     maxMu <- qnorm(maxAUC) * sqrt(2) + 0.5

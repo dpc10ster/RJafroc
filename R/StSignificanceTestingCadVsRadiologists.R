@@ -185,7 +185,7 @@ StSignificanceTestingCadVsRadiologists <- function(dataset, FOM, FPFValue = 0.2,
 
 # Handles all dataTypes
 SingleModalityRRFC <- function(dataset, FOM, FPFValue, alpha){
-  thetajc <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   Psijc <- thetajc[-1] - thetajc[1]
   ret <- t.test(Psijc, conf.level = 1-alpha)
   Tstat <-  as.numeric(ret$statistic)
@@ -222,7 +222,7 @@ SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha)
   varError <- ret$var;  Cov2 <- ret$cov2
   
   J <- length(dataset$NL[1,,1,1]) - 1 # number of radiologists minus CAD reader
-  thetajc <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   
   Psijc <- thetajc[2:(J+1)] - thetajc[1] # subract CAD from RAD, my Eqn. 13
   

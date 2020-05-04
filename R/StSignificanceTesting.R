@@ -565,7 +565,7 @@ varComponentsDeLong <- function(dataset, FOM)
   maxLL <- length(LL[1,1,1,])
   # if ((maxLL != 1) || (maxLL != 1)) stop("dataset error in varComponentsDeLong")
   
-  fomArray <- t(UtilFigureOfMerit(dataset, FOM))
+  fomArray <- UtilFigureOfMerit(dataset, FOM)
   
   if (!FOM %in% c("Wilcoxon", "HrAuc", "ROI")) 
     stop("DeLong\"s method can only be used for trapezoidal figures of merit.")

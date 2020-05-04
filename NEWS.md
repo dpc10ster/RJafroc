@@ -1,34 +1,32 @@
-## Applied transpose to return of UtilFigureOfMerit
-* This has the effect of having readers as the row and treatments as columns
-* For consistency with DBM-MRMC, and also for cleaner output, as number of treatments is usually less than number of readers
-* Combed through code to replace `UtilFigureOfMerit(...)` with `t(UtilFigureOfMerit(...))`
+## Removed `stringsAsFactors` arguments in all calls except...
+* In all calls to data.frame, except in plotting functions, `PlotEmpiricalOperatingCharacteristics`, where factors are used
+* This is based on my "better" or rather evolving understanding of how `data.frames` work
+* In current `R3.6.3` `option($stringsAsFactors) = TRUE` (`option` is case sensitive!)
+* This means that functions that don't require factors, such as `SsPowerTable()` should set   `options(stringsAsFactors = FALSE)` explicitly at the beginning of the code, in order to work in current and previous version of R (i.e., release and old-release)
+* Functions that do use factors/levels such as plotting functions (`PlotRsmOperatingCharacteristics` and `FitCorCbmRoc`) should set `options(stringsAsFactors = TRUE)` in order to work in `developer` version of R, where default is `options("stringsAsFactors") = FALSE`
+* This is all very confusing as I am having to dive into code written 6 years ago by someone else
+* Going to test on Travis now
+
+## Returning transpose for `foms` member of StSignificanceTesting return object
+* For consistency with OR DBM MRMC 2.51, and also for cleaner output, as number of treatments is usually less than number of readers
 * R CMD check passes
 
 ## Moved official good value files to Dropbox
 * They generate non-portable file name warning on R CMD check
 
 ## Compared to latest official code
-* `mrmc_setup_w10_July_2019.exe`; VanDyke `VanDyke.lrc` dataset; `\\vmware-host\Shared Folders\VanDykeAnalyzed\VanDyke.lrc`; corresponds to `inst/OfficialGoodValuesSigTesting/VanDykeAnalyzed/VanDyke.lrc`
-* `OR DBM MRMC 2.51 <beta> Build  20181028 </beta>` `miplmrmc`
-* `VanDyke trap area jackknife anova.txt`
+* `mrmc_setup_w10_July_2019.exe`; VanDyke `VanDyke.lrc` dataset; `Dropobox/IowaSoftware/VanDyke.lrc`
+* `OR DBM MRMC 2.51 <beta> Build 20181028 </beta>` `miplmrmc`
 * Software only runs under Windows XP
-* Tried Windows 8 on different machines under VmWare Fusion; no luck, even after following directins twice on [website](https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual)
-
-
-## Compared to "old-official"" DBMH code output (Iowa software)
-* `inst/OfficialGoodValuesSigTesting/VanDykeAnalyzed/VanDyke trap norm area anova.txt`
-* For VanDyke Data - done
-* R CMD check passes
+* Tried Windows 8 on different machines (iMac and MacBookPro) under `VmWare Fusion`; no luck, even after following directins twice on [website](https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual)
 * Need to compare OR ouputs - WIP
-* Need to fix documentation on `StSignificanceTesting`
+* Need to fix documentation on `StSignificanceTesting` - WIP
 
 ## Discovered error 
 * For `StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")` - done
 * Need to put in `testthat` all combinations of `method` and `option` - done
 * Different objects returned by `StSignificanceTesting` depending on choice of `option` - almost done
-* Need to standardize as otherwise `RJafrocBook` is klutzy  - OK
-* This fix will require generating new `goodValues` - done
-* Will merge to `master` so that `RJafrocBook` code passes Travis
+* Need to standardize as otherwise `RJafrocBook` is klutzy  - WIP
 
 ## Added seed specification to UtilVarComponentOR
 * Added seed specification to `UtilVarComponentOR` to allow comparison with `RJafrocBook`

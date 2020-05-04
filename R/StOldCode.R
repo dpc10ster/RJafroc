@@ -27,7 +27,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, option)
     stop("The analysis requires at least 2 modalities; consult Dr. Chakraborty for single-modality analysis")
   }
   
-  fomArray <- t(UtilFigureOfMerit(dataset, FOM))
+  fomArray <- UtilFigureOfMerit(dataset, FOM)
   trMeans <- rowMeans(fomArray)
   
   if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
@@ -439,7 +439,7 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, option)
     stop(errMsg)
   }
   
-  fomArray <- t(UtilFigureOfMerit(dataset, FOM))
+  fomArray <- UtilFigureOfMerit(dataset, FOM)
   trMeans <- rowMeans(fomArray)
   fomMean <- mean(fomArray)
   

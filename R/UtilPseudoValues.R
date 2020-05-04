@@ -54,7 +54,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   K2 <- dim(LL)[3]
   K1 <- K - K2
   
-  fomArray <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   if ((length(dataset) != 12) || (dataset$design == "CROSSED")) {
     # OldFormat dataset or NewFormat CROSSED dataset
     if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {

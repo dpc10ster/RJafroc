@@ -57,7 +57,7 @@ StSingleTreatmentRandomReader <- function(dataset, fomNh, FOM, FPFValue = 0.2, a
   
   NL <- drop(dataset$NL)
   J <- length(NL[,1]) # number of radiologists
-  thetajc <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   
   MSR <- 0
   avgFom <- mean(thetajc)

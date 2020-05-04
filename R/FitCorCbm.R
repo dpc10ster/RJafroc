@@ -80,7 +80,7 @@ FitCorCbm <- function(dataset){
   minRho <- RJafrocEnv$minRho
   maxRho <- RJafrocEnv$maxRho
 
-  aucArray <- t(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"))
+  aucArray <- UtilFigureOfMerit(dataset, FOM = "Wilcoxon")
   maxAUC <- max(aucArray)
   while (pnorm(maxMu / sqrt(2)) <= maxAUC){
     maxMu <- qnorm(maxAUC) * sqrt(2) + 0.5

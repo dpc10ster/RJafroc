@@ -61,7 +61,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2,
 
   MS <- UtilMeanSquares(dataset, FOM, method = "DBMH", FPFValue)
   pseudoValues <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
-  fomArray <- t(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   if (I == 1 && J != 1){
     fDbmFixed <- MS$msR / MS$msRC
     ddf <- (J - 1) * (K - 1)
@@ -73,8 +73,10 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2,
                            stdErr = iniNA, 
                            df = iniNA, 
                            ciLower = iniNA, 
-                           ciUpper = iniNA,
-                           stringsAsFactors = TRUE)
+                           ciUpper = iniNA)#,
+                           # stringsAsFactors = TRUE)
+    # 5/4/20 removing all this as I better understand data.frame()
+
     for (j in 1: J){
       stdErr <- sqrt(MS$msCSingleR[j] / K / I)
       df <- K - 1
@@ -92,8 +94,10 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2,
                       df = iniNA, 
                       pVal = iniNA, 
                       ciLower = iniNA, 
-                      ciUpper = iniNA,
-                      stringsAsFactors = TRUE )
+                      ciUpper = iniNA)#,
+                      # stringsAsFactors = TRUE )
+    # 5/4/20 removing all this as I better understand data.frame()
+    
     for (j in 1:(J - 1)){
       for (jp in (j + 1):J){
         retTmp <- t.test(pseudoValues[1, j, ], pseudoValues[1, jp, ], paired = TRUE, conf.level = 1 - alpha)
@@ -115,8 +119,10 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2,
                            stdErr = iniNA, 
                            df = iniNA, 
                            ciLower = iniNA, 
-                           ciUpper = iniNA,
-                           stringsAsFactors = TRUE )
+                           ciUpper = iniNA)#,
+                           # stringsAsFactors = TRUE )
+    # 5/4/20 removing all this as I better understand data.frame()
+    
     for (i in 1: I){
       stdErr <- sqrt(MS$msCSingleT[i] / K / J)
       df <- K - 1
@@ -134,8 +140,10 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2,
                       df = iniNA, 
                       pVal = iniNA, 
                       ciLower = iniNA, 
-                      ciUpper = iniNA,
-                      stringsAsFactors = TRUE )
+                      ciUpper = iniNA)#,
+                      # stringsAsFactors = TRUE )
+    # 5/4/20 removing all this as I better understand data.frame()
+    
     for (i in 1:(I - 1)){
       for (ip in (i + 1):I){
         retTmp <- t.test(pseudoValues[i, 1, ], pseudoValues[ip, 1, ], paired = TRUE, conf.level = 1 - alpha)

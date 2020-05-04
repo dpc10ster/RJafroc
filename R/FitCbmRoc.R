@@ -98,7 +98,7 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
   maxAlpha <- RJafrocEnv$maxAlpha
   
   dataset <- DfExtractDataset(dataset, trts = trt, rdrs = rdr)
-  aucArray <- t(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"))
+  aucArray <- UtilFigureOfMerit(dataset, FOM = "Wilcoxon")
   maxAUC <- max(aucArray)
   while (pnorm(maxMu / sqrt(2)) <= aucArray){
     maxMu <- qnorm(maxAUC) * sqrt(2) + 0.5

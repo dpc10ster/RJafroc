@@ -45,6 +45,7 @@
 SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredPower = 0.8, 
                          method = "DBMH", option = "ALL") {
   
+  options(stringsAsFactors = FALSE)
   if (!(option %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect option.")
   if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
   if (dataset$dataType != "ROC") stop("Dataset must be of type ROC")
@@ -104,8 +105,9 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
     
     randomSampleSize <- data.frame(numReaders = randomSampleSize[, 1], 
                                    numCases = randomSampleSize[, 2], 
-                                   power = randomSampleSize[, 3], 
-                                   stringsAsFactors = FALSE)
+                                   power = randomSampleSize[, 3])#, 
+                                   # stringsAsFactors = FALSE)
+    # 5/4/20 removing all this as I better understand data.frame()
     
     # return(randomSampleSize)
   } else {
@@ -140,8 +142,10 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
       
       randomSampleSize <- data.frame(numReaders = randomSampleSize[, 1], 
                                      numCases = randomSampleSize[, 2], 
-                                     power = randomSampleSize[, 3], 
-                                     stringsAsFactors = FALSE)
+                                     power = randomSampleSize[, 3])#, 
+                                     # stringsAsFactors = FALSE)
+      # 5/4/20 removing all this as I better understand data.frame()
+      
       powerTable <- c(powerTable, list(randomSampleSize))
     }
     names(powerTable) <- c("powerTableRRRC", "powerTableFRRC", "powerTableRRFC")
