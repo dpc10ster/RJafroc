@@ -119,6 +119,9 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
   # Peter Philips showed me (06/21/19) that this line was causing testthat failures
   # in function expect_known_output()
   # 
+  
+  options(stringsAsFactors = TRUE) # 5/4/20 to ensure compatibility with new default for R 4.0.0
+  
   options(warn = 2) # warnings AS errors
   # NOTE added 6/25/19 - this is matched at exit with: 
   # options(warn = 0) # warnings NOT as errors 

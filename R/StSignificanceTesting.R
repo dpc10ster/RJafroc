@@ -146,6 +146,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
                                   covEstMethod = "jackknife", nBoots = 200, option = "ALL", tempOrgCode = FALSE)
 {
   options(stringsAsFactors = FALSE)
+  
   if (dataset$dataType == "ROI") {
     method <- "ORH"
     covEstMethod <- "DeLong" 

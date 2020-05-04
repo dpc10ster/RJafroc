@@ -106,9 +106,8 @@
 ####################################################################################################################
 PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, opChType, legend.position = c(0.8, 0.2)) 
 {
-  options(stringsAsFactors = TRUE) # check compatibility with new default for R 4.0.0
-  # 4/4/20 checking if this fixes this code
-  
+  options(stringsAsFactors = TRUE) # 5/4/20 to ensure compatibility with new default for R 4.0.0
+
   if (dataset$dataType == "ROI") stop("No operating characteristics are defined for an ROI dataset")
   
   if (opChType == "ROC"){

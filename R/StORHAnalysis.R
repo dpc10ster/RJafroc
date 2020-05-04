@@ -2,7 +2,6 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
                           nBoots = 200, option = "ALL")  
 {
   
-  options(stringsAsFactors = FALSE)
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
