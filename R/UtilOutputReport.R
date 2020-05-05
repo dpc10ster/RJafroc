@@ -363,16 +363,16 @@ OutputTextFile <- function(dataset,
             ReportFileName, append = TRUE)
       for (l in 1:7) {
         write(sprintf(" %5s   %20.8f    %6d   %18.8f", 
-                      sigTestResult$TRCanovaY[l, 1], 
-                      sigTestResult$TRCanovaY[l, 2], 
-                      sigTestResult$TRCanovaY[l, 3], 
-                      sigTestResult$TRCanovaY[l, 4]), 
+                      sigTestResult$TRCanovaDBM[l, 1], 
+                      sigTestResult$TRCanovaDBM[l, 2], 
+                      sigTestResult$TRCanovaDBM[l, 3], 
+                      sigTestResult$TRCanovaDBM[l, 4]), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" %5s   %20.8f    %6d", 
-                    sigTestResult$TRCanovaY[8, 1], 
-                    sigTestResult$TRCanovaY[8, 2], 
-                    sigTestResult$TRCanovaY[8, 3]), 
+                    sigTestResult$TRCanovaDBM[8, 1], 
+                    sigTestResult$TRCanovaDBM[8, 2], 
+                    sigTestResult$TRCanovaDBM[8, 3]), 
             ReportFileName, append = TRUE)
       write("\n\n", ReportFileName, append = TRUE)
       write(" TREATMENT X READER X CASE ANOVA", 
@@ -394,9 +394,9 @@ OutputTextFile <- function(dataset,
       }
       write(string, ReportFileName, append = TRUE)
       for (l in 1:3) {
-        string <- sprintf("     %2s %6d   ", sigTestResult$RCanovaYi[l, 1], sigTestResult$RCanovaYi[l, 2])
+        string <- sprintf("     %2s %6d   ", sigTestResult$RCanovaDBMSingleTrt[l, 1], sigTestResult$RCanovaDBMSingleTrt[l, 2])
         for (i in 1:I) {
-          string <- paste0(string, sprintf("%10.8f", sigTestResult$RCanovaYi[l, i + 2]))
+          string <- paste0(string, sprintf("%10.8f", sigTestResult$RCanovaDBMSingleTrt[l, i + 2]))
           if (i < I) {
             string <- paste0(string, "   ")
           }
@@ -452,20 +452,20 @@ OutputTextFile <- function(dataset,
       if (sigTestResult$RRRC$FTests$p >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                       I - 1, 
-                      sigTestResult$TRCanovaY[1, 4], 
+                      sigTestResult$TRCanovaDBM[1, 4], 
                       sigTestResult$RRRC$FTests$f, 
                       sigTestResult$RRRC$FTests$p), 
               ReportFileName, append = TRUE)
       } else {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
-                      I - 1, sigTestResult$TRCanovaY[1, 4], 
+                      I - 1, sigTestResult$TRCanovaDBM[1, 4], 
                       sigTestResult$RRRC$FTests$f, 
                       smallestDispalyedPval), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" Error       %6.2f  %15.8f", 
                     sigTestResult$RRRC$FTests$ddf, 
-                    sigTestResult$TRCanovaY[4, 4] + max(sigTestResult$TRCanovaY[5, 4] - sigTestResult$TRCanovaY[7, 4])), 
+                    sigTestResult$TRCanovaDBM[4, 4] + max(sigTestResult$TRCanovaDBM[5, 4] - sigTestResult$TRCanovaDBM[7, 4])), 
             ReportFileName, append = TRUE)
       write(" Error term: MS(TR) + max[MS(TC) - MS(TRC), 0]\n", 
             ReportFileName, append = TRUE)
@@ -574,20 +574,20 @@ OutputTextFile <- function(dataset,
     if (sigTestResult$FRRC$FTests$ddf >= smallestDispalyedPval) {
       write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                     I - 1, 
-                    sigTestResult$TRCanovaY[1, 4], 
+                    sigTestResult$TRCanovaDBM[1, 4], 
                     sigTestResult$FRRC$FTests$f, 
                     sigTestResult$FRRC$FTests$ddf), 
             ReportFileName, append = TRUE)
     } else {
       write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                     I - 1, 
-                    sigTestResult$TRCanovaY[1, 4], 
+                    sigTestResult$TRCanovaDBM[1, 4], 
                     sigTestResult$FRRC$FTests$f, 
                     smallestDispalyedPval), 
             ReportFileName, append = TRUE)
     }
     write(sprintf(" Error       %6.2f  %15.8f", 
-                  sigTestResult$FRRC$FTests$ddf, sigTestResult$TRCanovaY[5, 4]), 
+                  sigTestResult$FRRC$FTests$ddf, sigTestResult$TRCanovaDBM[5, 4]), 
           ReportFileName, append = TRUE)
     write("  Error term: MS(TC)\n", ReportFileName, append = TRUE)
   } else {
@@ -813,21 +813,21 @@ OutputTextFile <- function(dataset,
       if (sigTestResult$RRFC$FTests$p >= smallestDispalyedPval) {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  %7.4f", 
                       I - 1, 
-                      sigTestResult$TRCanovaY[1, 4], 
+                      sigTestResult$TRCanovaDBM[1, 4], 
                       sigTestResult$RRFC$FTests$f, 
                       sigTestResult$RRFC$FTests$p), 
               ReportFileName, append = TRUE)
       } else {
         write(sprintf(" Treatment   %6d  %15.8f  %7.2f  <%6.4f", 
                       I - 1, 
-                      sigTestResult$TRCanovaY[1, 4], 
+                      sigTestResult$TRCanovaDBM[1, 4], 
                       sigTestResult$RRFC$FTests$f, 
                       smallestDispalyedPval), 
               ReportFileName, append = TRUE)
       }
       write(sprintf(" Error       %6.2f  %15.8f", 
                     sigTestResult$RRFC$FTests$ddf, 
-                    sigTestResult$TRCanovaY[4, 4]), 
+                    sigTestResult$TRCanovaDBM[4, 4]), 
             ReportFileName, append = TRUE)
     } else {
       if (sigTestResult$RRFC$FTests$p >= smallestDispalyedPval) {
@@ -1212,7 +1212,7 @@ OutputExcelFile <- function(dataset,
     mergeCells(wb, "ANOVA", rows = 1, cols = 1:2)
     
     writeData(wb, sheet = "ANOVA", 
-              x = sigTestResult$TRCanovaY, 
+              x = sigTestResult$TRCanovaDBM, 
               startRow = 10, 
               rowNames = FALSE, 
               colNames = TRUE)
@@ -1223,9 +1223,9 @@ OutputExcelFile <- function(dataset,
               colNames = FALSE)
     mergeCells(wb, "ANOVA", rows = 9, cols = 1:4)
     
-    colnames(sigTestResult$RCanovaYi) <- c("Source", "DF", rownames(fomArray))
+    colnames(sigTestResult$RCanovaDBMSingleTrt) <- c("Source", "DF", rownames(fomArray))
     writeData(wb, sheet = "ANOVA", 
-              x = sigTestResult$RCanovaYi, 
+              x = sigTestResult$RCanovaDBMSingleTrt, 
               startRow = 21, 
               rowNames = FALSE, 
               colNames = TRUE)

@@ -33,13 +33,14 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   
   ret <- UtilVarComponentsOR(dataset, FOM, FPFValue, covEstMethod, nBoots)
   
-  varComp <-  ret$varComp
-  meanSquares <- ret$meanSquares
+  mSquaresOR <- ret$meanSquares
+  varCompOR <-  ret$varComp
+  # no pseudovalues
   
-  cov1 <- varComp$cov1
-  cov2 <- varComp$cov2
-  cov3 <- varComp$cov3
-  var <- varComp$var
+  cov1 <- varCompOR$cov1
+  cov2 <- varCompOR$cov2
+  cov3 <- varCompOR$cov3
+  var <- varCompOR$var
   
   # if (TRUE || (length(dataset) != 12) || (dataset$design == "CROSSED")) {
   if (J > 1) {
@@ -118,9 +119,9 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   # ************ RRRC ****************
   # ************ RRRC ****************
   if (option %in% c("RRRC", "ALL")) {
-    msDenRRRC <- meanSquares$msTR + max(J * (cov2 - cov3), 0)
-    fRRRC <- meanSquares$msT/msDenRRRC
-    ddfRRRC <- msDenRRRC^2/((meanSquares$msTR)^2/((I - 1) * (J - 1)))
+    msDenRRRC <- mSquaresOR$msTR + max(J * (cov2 - cov3), 0)
+    fRRRC <- mSquaresOR$msT/msDenRRRC
+    ddfRRRC <- msDenRRRC^2/((mSquaresOR$msTR)^2/((I - 1) * (J - 1)))
     pRRRC <- 1 - pf(fRRRC, I - 1, ddfRRRC)
     RRRC <- list()
     RRRC$FTests <- data.frame(f = fRRRC,
@@ -184,8 +185,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
         # and it makes more sense to have readers in vertical direction 5/1/20
         trtMeans = trtMeans,
         trtMeanDiffs = trtMeanDiffs,
-        meanSquares = meanSquares, 
-        varComp = varComp,
+        mSquaresOR = mSquaresOR, 
+        varCompOR = varCompOR,
         RRRC = list(
           FTests = RRRC$FTests,
           ciDiffTrt = RRRC$ciDiffTrt,
@@ -200,7 +201,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   # ************ FRRC ****************
   if (option %in% c("FRRC", "ALL")) {
     if (J > 1) msDenFRRC <- var - cov1 + (J - 1) * (cov2 - cov3) else msDenFRRC <- var - cov1
-    fFRRC <- meanSquares$msT/msDenFRRC
+    fFRRC <- mSquaresOR$msT/msDenFRRC
     ddfFRRC <- Inf
     pFRRC <- 1 - pf(fFRRC, I - 1, ddfFRRC)
     FRRC <- list()
@@ -286,8 +287,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
           # and it makes more sense to have readers in vertical direction 5/1/20
           trtMeans = trtMeans,
           trtMeanDiffs = trtMeanDiffs,
-          meanSquares = meanSquares, 
-          varComp = varComp,
+          mSquaresOR = mSquaresOR, 
+          varCompOR = varCompOR,
           RRRC = NULL,
           FRRC = list(
             FTests = FRRC$FTests,
@@ -306,9 +307,9 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
           # and it makes more sense to have readers in vertical direction 5/1/20
           trtMeans = trtMeans,
           trtMeanDiffs = trtMeanDiffs,
-          msT = meanSquares$msT, 
-          varComp = data.frame(cov1 = varComp$cov1, 
-                               var = varComp$var, 
+          msT = mSquaresOR$msT, 
+          varCompOR = data.frame(cov1 = varCompOR$cov1, 
+                               var = varCompOR$var, 
                                stringsAsFactors = FALSE),
           FTestsFRRC = FRRC$FTests,
           ciDiffTrtFRRC = FRRC$ciDiffTrt 
@@ -326,8 +327,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     # not sure about what is going one here; I am proceeding on assumption that
     # the only difference is setting cov2 = cov3 = 0, and reusing code from crossed
     # analysis
-    msDenRRFC <- meanSquares$msTR
-    fRRFC <- meanSquares$msT/msDenRRFC
+    msDenRRFC <- mSquaresOR$msTR
+    fRRFC <- mSquaresOR$msT/msDenRRFC
     ddfRRFC <- ((I - 1) * (J - 1))
     pRRFC <- 1 - pf(fRRFC, I - 1, ddfRRFC)
     RRFC <- list()
@@ -381,8 +382,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
         # and it makes more sense to have readers in vertical direction 5/1/20
         trtMeans = trtMeans,
         trtMeanDiffs = trtMeanDiffs,
-        meanSquares = meanSquares, 
-        varComp = varComp,
+        mSquaresOR = mSquaresOR, 
+        varCompOR = varCompOR,
         RRRC = NULL,
         FRRC = NULL,  
         RRFC = list(
@@ -400,8 +401,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     # and it makes more sense to have readers in vertical direction 5/1/20
     trtMeans = trtMeans,
     trtMeanDiffs = trtMeanDiffs,
-    meanSquares = meanSquares, 
-    varComp = varComp, 
+    mSquaresOR = mSquaresOR, 
+    varCompOR = varCompOR, 
     RRRC = list(
       FTests = RRRC$FTests,
       ciDiffTrt = RRRC$ciDiffTrt,

@@ -1,5 +1,3 @@
-library(testthat)
-library(RJafroc)
 #############################################################################
 # if the two datastructures are IDENTICAL, dont need all this
 # the way to get them identical is to re-generate the goodValue files

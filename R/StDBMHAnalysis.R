@@ -27,17 +27,17 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                              stringsAsFactors = FALSE) 
   
   ret <- UtilVarComponentsDBM(dataset, FOM, FPFValue)
-  mSquares <- ret$mSquares
-  varComp <- ret$varComp
-  psVals <- ret$psVals
+  mSquaresDBM <- ret$mSquares
+  varCompDBM <- ret$varComp
+  psValsDBM <- ret$psVals  # pseudo values
   
-  msT <- mSquares$msT
-  msR <- mSquares$msR
-  msC <- mSquares$msC
-  msTR <- mSquares$msTR
-  msTC <- mSquares$msTC
-  msRC <- mSquares$msRC
-  msTRC <- mSquares$msTRC
+  msT <- mSquaresDBM$msT
+  msR <- mSquaresDBM$msR
+  msC <- mSquaresDBM$msC
+  msTR <- mSquaresDBM$msTR
+  msTC <- mSquaresDBM$msTC
+  msRC <- mSquaresDBM$msRC
+  msTRC <- mSquaresDBM$msTRC
   
   msArray <- c(msT, msR, msC, msTR, msTC, msRC, msTRC)
   dfArray <- c(I - 1, J - 1, K - 1, (I - 1) * (J - 1), (I - 1) * (K - 1), (J - 1) * (K - 1), (I - 1) * (J - 1) * (K - 1))
@@ -45,44 +45,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   msArray <- c(msArray, NA)
   dfArray <- c(dfArray, sum(dfArray))
   ssArray <- c(ssArray, sum(ssArray))
-  if (FALSE) { ## begin obsolete code
-    # This was the source of the problems I was having in test-St.R, where I had
-    # to resort to skipping the test on mac for context("SignificanceTestingAllCombinations")
-    # Here is the fix
-    # original code:
-    # sourceArray <- c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total")
-    # TRCanovaY <- data.frame(Source = sourceArray, 
-    #                      SS = ssArray, 
-    #                      DF = dfArray, 
-    #                      MS = msArray, 
-    #                      stringsAsFactors = FALSE)
-    #
-    # this is the fix 3/7/20
-    # New code:
-    # use attributes(TRCanovaY$Source) to examine ordering of levels to confirm it is correct
-    # data.frame is reordering the levels alphabetically!
-    # the folloiwng trick forces the correct order to be maintained
-    # sourceArray <- c("Row1_T", "Row2_R", "Row3_C", "Row4_TR", 
-    #                  "Row5_TC", "Row6_RC", "Row7_TRC", "Row8_Total")
-    sourceArray <- c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total")
-    # forcing original order to be kept
-    for (i in (1:length(sourceArray))) {
-      sourceArray[i] <- paste0(paste0("Row",i,"_"),sourceArray[i])
-    }
-    TRCanovaY <- data.frame(Source = sourceArray, 
-                            SS = ssArray, 
-                            DF = dfArray, 
-                            MS = msArray,
-                            stringsAsFactors = FALSE)
-    
-    # print(attributes(TRCanovaY))
-    # print(attributes(TRCanovaY$Source))
-    # print(attributes(TRCanovaY$SS))
-  } ## End obsolete code
-  
-  # 5/1/20: finally learned how to code a dataframe
-  # Above comments obsolete
-  TRCanovaY <- data.frame("Source" = c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total"), 
+
+  TRCanovaDBM <- data.frame("Source" = c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total"), 
                           "SS" = ssArray, 
                           "DF" = dfArray, 
                           "MS" = msArray,
@@ -93,18 +57,18 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   msRCSingle <- array(0, dim = c(I))
   for (i in 1:I) {
     for (j in 1:J) {
-      msRSingle[i] <- msRSingle[i] + (mean(psVals[i, j, ]) - mean(psVals[i, , ]))^2
+      msRSingle[i] <- msRSingle[i] + (mean(psValsDBM[i, j, ]) - mean(psValsDBM[i, , ]))^2
     }
     msRSingle[i] <- msRSingle[i] * K/(J - 1)
     
     for (k in 1:K) {
-      msCSingle[i] <- msCSingle[i] + (mean(psVals[i, , k]) - mean(psVals[i, , ]))^2
+      msCSingle[i] <- msCSingle[i] + (mean(psValsDBM[i, , k]) - mean(psValsDBM[i, , ]))^2
     }
     msCSingle[i] <- msCSingle[i] * J/(K - 1)
     
     for (j in 1:J) {
       for (k in 1:K) {
-        msRCSingle[i] <- msRCSingle[i] + (mean(psVals[i, j, k]) - mean(psVals[i, j, ]) - mean(psVals[i, , k]) + mean(psVals[i, , ]))^2
+        msRCSingle[i] <- msRCSingle[i] + (mean(psValsDBM[i, j, k]) - mean(psValsDBM[i, j, ]) - mean(psValsDBM[i, , k]) + mean(psValsDBM[i, , ]))^2
       }
     }
     msRCSingle[i] <- msRCSingle[i]/((J - 1) * (K - 1))
@@ -112,12 +76,12 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   sourceArraySingle <- c("R", "C", "RC")
   dfArraySingle <- c(J - 1, K - 1, (J - 1) * (K - 1))
   msArraySingle <- t(cbind(msRSingle, msCSingle, msRCSingle))
-  RCanovaYi <- data.frame(sourceArraySingle, 
+  RCanovaDBMSingleTrt <- data.frame(sourceArraySingle, 
                           dfArraySingle, 
                           msArraySingle, 
                           row.names = NULL, 
                           stringsAsFactors = FALSE)
-  colnames(RCanovaYi) <- c("Source", "DF", paste0("Trt", sep = "", modalityID))
+  colnames(RCanovaDBMSingleTrt) <- c("Source", "DF", paste0("Trt", sep = "", modalityID))
   
   diffTRMeans <- array(dim = choose(I, 2))
   diffTRName <- array(dim = choose(I, 2))
@@ -195,9 +159,9 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
         # and it makes more sense to have readers in vertical direction 5/1/20
         trtMeans = trtMeans,
         trtMeanDiffs = trtMeanDiffs,
-        TRCanovaY = TRCanovaY, 
-        RCanovaYi = RCanovaYi, 
-        varComp = varComp,
+        TRCanovaDBM = TRCanovaDBM, 
+        RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
+        varCompDBM = varCompDBM,
         RRRC = list (
           FTests = RRRC$FTests, 
           ciDiffTrt = RRRC$ciDiffTrt, 
@@ -265,18 +229,18 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     ssTCFRRC <- array(0, dim = c(J))
     for (j in 1:J) {
       for (i in 1:I) {
-        ssTFRRC[j] <- ssTFRRC[j] + (mean(psVals[i, j, ]) - mean(psVals[, j, ]))^2
+        ssTFRRC[j] <- ssTFRRC[j] + (mean(psValsDBM[i, j, ]) - mean(psValsDBM[, j, ]))^2
       }
       ssTFRRC[j] <- ssTFRRC[j] * K
       
       for (k in 1:K) {
-        ssCFRRC[j] <- ssCFRRC[j] + (mean(psVals[, j, k]) - mean(psVals[, j, ]))^2
+        ssCFRRC[j] <- ssCFRRC[j] + (mean(psValsDBM[, j, k]) - mean(psValsDBM[, j, ]))^2
       }
       ssCFRRC[j] <- ssCFRRC[j] * I
       
       for (i in 1:I) {
         for (k in 1:K) {
-          ssTCFRRC[j] <- ssTCFRRC[j] + (mean(psVals[i, j, k]) - mean(psVals[i, j, ]) - mean(psVals[, j, k]) + mean(psVals[, j, ]))^2
+          ssTCFRRC[j] <- ssTCFRRC[j] + (mean(psValsDBM[i, j, k]) - mean(psValsDBM[i, j, ]) - mean(psValsDBM[, j, k]) + mean(psValsDBM[, j, ]))^2
         }
       }
     }
@@ -347,9 +311,9 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
         # and it makes more sense to have readers in vertical direction 5/1/20
         trtMeans = trtMeans,
         trtMeanDiffs = trtMeanDiffs,
-        TRCanovaY = TRCanovaY, 
-        RCanovaYi = RCanovaYi, 
-        varComp = varComp,
+        TRCanovaDBM = TRCanovaDBM, 
+        RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
+        varCompDBM = varCompDBM,
         RRRC = NULL,
         FRRC = list (
           FTests = FRRC$FTests, 
@@ -420,9 +384,9 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
         # and it makes more sense to have readers in vertical direction 5/1/20
         trtMeans = trtMeans,
         trtMeanDiffs = trtMeanDiffs,
-        TRCanovaY = TRCanovaY, 
-        RCanovaYi = RCanovaYi, 
-        varComp = varComp,
+        TRCanovaDBM = TRCanovaDBM, 
+        RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
+        varCompDBM = varCompDBM,
         RRRC = NULL,
         FRRC = NULL,
         RRFC = list(
@@ -439,9 +403,9 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     # and it makes more sense to have readers in vertical direction 5/1/20
     trtMeans = trtMeans,
     trtMeanDiffs = trtMeanDiffs,
-    TRCanovaY = TRCanovaY, 
-    RCanovaYi = RCanovaYi, 
-    varComp = varComp,
+    TRCanovaDBM = TRCanovaDBM, 
+    RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
+    varCompDBM = varCompDBM,
     RRRC = list(
       FTests = RRRC$FTests, 
       ciDiffTrt = RRRC$ciDiffTrt, 

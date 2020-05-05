@@ -145,7 +145,7 @@
 StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBMH", 
                                   covEstMethod = "jackknife", nBoots = 200, option = "ALL", tempOrgCode = FALSE)
 {
-  options(stringsAsFactors = FALSE)
+  options(stringsAsFactors = FALSE, "digits" = 8)
   
   if (dataset$dataType == "ROI") {
     method <- "ORH"
