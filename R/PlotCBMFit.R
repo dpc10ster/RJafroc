@@ -24,8 +24,7 @@
 #' @export
 
 PlotCbmFit <- function(mu, alpha){
-  options(stringsAsFactors = TRUE) # 5/4/20 to ensure compatibility with new default for R 4.0.0
-  
+
   if (length(mu) != length(alpha))
     stop("The lengths of mu and alpha do not match.")
   plotZeta <- seq(-20, 20, by = 0.01)

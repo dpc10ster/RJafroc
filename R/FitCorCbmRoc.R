@@ -69,9 +69,6 @@
 #'
 #'
 FitCorCbmRoc <- function(dataset){
-  # 5/4/20 removing all this as I better understand data.frame()
-  # options(stringsAsFactors = FALSE) # check compatibility with new default for R 4.0.0
-  options(stringsAsFactors = TRUE) # check compatibility with new default for R 4.0.0
   
   if (dataset$dataType != "ROC") {
     stop("This program requires an ROC dataset")

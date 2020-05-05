@@ -70,9 +70,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     TRCanovaY <- data.frame(Source = sourceArray, 
                             SS = ssArray, 
                             DF = dfArray, 
-                            MS = msArray) 
-    # 5/4/20 removing all this as I better understand data.frame()
-    # stringsAsFactors = TRUE)
+                            MS = msArray,
+                            stringsAsFactors = TRUE)
     
     # print(attributes(TRCanovaY))
     # print(attributes(TRCanovaY$Source))
@@ -113,8 +112,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   RCanovaYi <- data.frame(sourceArraySingle, 
                           dfArraySingle, 
                           msArraySingle, 
-                          row.names = NULL)
-                          # , stringsAsFactors = TRUE)
+                          row.names = NULL, 
+                          stringsAsFactors = TRUE)
   colnames(RCanovaYi) <- c("Source", "DF", paste0("Trt", sep = "", modalityID))
   
   diffTRMeans <- array(dim = choose(I, 2))
@@ -162,9 +161,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                  t = tStat, 
                                  PrGTt = PrGTt, # renamed this consistently
                                  CILower = CIRRRC[,1],  # instead of adding CIRRC and then using a names() to split out the two values
-                                 CIUpper = CIRRRC[,2])
-    # 5/4/20 removing all this as I better understand data.frame()
-    # , stringsAsFactors = TRUE) # do:
+                                 CIUpper = CIRRRC[,2],  # do:
+                                 stringsAsFactors = TRUE)
     dfSingleRRRC <- array(dim = I)
     msDenSingleRRRC <- array(dim = I)
     stdErrSingleRRRC <- array(dim = I)
@@ -184,8 +182,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                        DF = as.vector(dfSingleRRRC),  # this was the critical fix, Peter
                                        CILower = CISingleRRRC[,1], 
                                        CIUpper = CISingleRRRC[,2], 
-                                       row.names = NULL)
-    # , stringsAsFactors = TRUE)
+                                       row.names = NULL, 
+                                       stringsAsFactors = TRUE)
     # 5/4/20 removing all this as I better understand data.frame()
     if (option == "RRRC")
       return(list(
@@ -237,9 +235,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                  t = tStat, 
                                  PrGTt = PrGTt, 
                                  CILower = CIFRRC[,1], 
-                                 CIUpper = CIFRRC[,2])
-    # 5/4/20 removing all this as I better understand data.frame()
-    # , stringsAsFactors = TRUE)
+                                 CIUpper = CIFRRC[,2], 
+                                 stringsAsFactors = TRUE)
     
     dfSingleFRRC <- array(dim = I)
     msDenSingleFRRC <- array(dim = I)
@@ -257,9 +254,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                        DF = as.vector(dfSingleFRRC), 
                                        CILower = CISingleFRRC[,1], 
                                        CIUpper = CISingleFRRC[,2], 
-                                       row.names = NULL)
-    # , stringsAsFactors = TRUE)
-    # 5/4/20 removing all this as I better understand data.frame()
+                                       row.names = NULL, 
+                                       stringsAsFactors = TRUE)
     ssTFRRC <- array(0, dim = c(J))
     ssCFRRC <- array(0, dim = c(J))
     ssTCFRRC <- array(0, dim = c(J))
@@ -288,9 +284,11 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     
     msArrayFRRC <- ssArrayFRRC
     for (n in 1:3) msArrayFRRC[n, ] <- ssArrayFRRC[n, ]/dfArrayFRRC[n]
-    msAnovaEachRdrFRRC <- data.frame(sourceArrayFRRC, dfArrayFRRC, msArrayFRRC, row.names = NULL)
-    #, stringsAsFactors = TRUE)
-    # 5/4/20 removing all this as I better understand data.frame()
+    msAnovaEachRdrFRRC <- data.frame(sourceArrayFRRC, 
+                                     dfArrayFRRC, 
+                                     msArrayFRRC, 
+                                     row.names = NULL, 
+                                     stringsAsFactors = TRUE)
     colnames(msAnovaEachRdrFRRC) <- c("Source", "DF", paste0("Rdr", sep = "", readerID))
     FRRC$msAnovaEachRdr <- msAnovaEachRdrFRRC
     
@@ -332,9 +330,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                         t = tStat, 
                                         PrGTt = PrGTt, 
                                         CILower = CIReaderFRRC[,1],
-                                        CIUpper = CIReaderFRRC[,2])
-    # , stringsAsFactors = TRUE)
-    # 5/4/20 removing all this as I better understand data.frame()
+                                        CIUpper = CIReaderFRRC[,2], 
+                                        stringsAsFactors = TRUE)
     if (option == "FRRC")
       return(list(
         foms = t(foms),
@@ -386,9 +383,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                  t = tStat, 
                                  PrGTt = PrGTt, 
                                  CILower = CIRRFC[,1],
-                                 CIUpper = CIRRFC[,2])
-    # , stringsAsFactors = TRUE)
-    # 5/4/20 removing all this as I better understand data.frame()
+                                 CIUpper = CIRRFC[,2], 
+                                 stringsAsFactors = TRUE)
     dfSingleRRFC <- array(dim = I)
     msDenSingleRRFC <- array(dim = I)
     stdErrSingleRRFC <- array(dim = I)
@@ -405,10 +401,9 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                        DF = as.vector(dfSingleRRFC), 
                                        CILower = CISingleRRFC[,1], 
                                        CIUpper = CISingleRRFC[,2], 
-                                       row.names = NULL)
-    # , stringsAsFactors = TRUE)
-    # 5/4/20 removing all this as I better understand data.frame()
-    
+                                       row.names = NULL, 
+                                       stringsAsFactors = TRUE)
+
     if (option == "RRFC")
       return(list(
         foms = t(foms),

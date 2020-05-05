@@ -90,9 +90,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   varR <- (msR - var - (I - 1) * cov1 + cov2 + (I - 1) * cov3 - varTR)/I
   varCovArray <- c(varR, varTR, cov1, cov2, cov3, var)
   nameArray <- c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")
-  varComp <- data.frame(varCov = varCovArray, row.names = nameArray)#, stringsAsFactors = TRUE)
-  # 5/4/20 removing all this as I better understand data.frame()
-  
+  varComp <- data.frame(varCov = varCovArray, row.names = nameArray, stringsAsFactors = TRUE)
+
   varSingle <- vector(length = I)
   cov2Single <- vector(length = I)
   for (i in 1:I) {
@@ -189,10 +188,9 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                   t = tStat, 
                                   PrGTt = tPr, 
                                   CILower = CIRRRC[,1],
-                                  CIUpper = CIRRRC[,2])#,
-                                  # stringsAsFactors = TRUE)
-      # 5/4/20 removing all this as I better understand data.frame()
-      
+                                  CIUpper = CIRRRC[,2],
+                                  stringsAsFactors = TRUE)
+
       # print(attributes(ciDiffTrtRRRC))
       # print(attributes(ciDiffTrtRRRC$Treatment))
       # print(attributes(ciDiffTrtRRRC$Estimate))
@@ -256,10 +254,9 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                         StdErr = as.vector(stdErrSingleRRRC), 
                                         DF = as.vector(dfSingleRRRC), 
                                         CILower = CISingleRRRC[,1], 
-                                        CIUpper = CISingleRRRC[,2])#, 
-                                        # stringsAsFactors = TRUE)
-      # 5/4/20 removing all this as I better understand data.frame()
-      
+                                        CIUpper = CISingleRRRC[,2], 
+                                        stringsAsFactors = TRUE)
+
     } else {
       fRRRC <- NA
       ddfRRRC <- NA
@@ -310,9 +307,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                 t = tStat, 
                                 PrGTt = tPr, 
                                 CILower = CIFRRC[,1],
-                                CIUpper = CIFRRC[,2])#,
-                                # stringsAsFactors = TRUE)
-    # 5/4/20 removing all this as I better understand data.frame()
+                                CIUpper = CIFRRC[,2],
+                                stringsAsFactors = TRUE)
     
     # colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     
@@ -332,10 +328,9 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                       DF = as.vector(dfSingleFRRC), 
                                       CILower = CISingleFRRC[,1], 
                                       CIUpper = CISingleFRRC[,2], 
-                                      row.names = NULL)#,
-                                      # stringsAsFactors = TRUE)
-    # 5/4/20 removing all this as I better understand data.frame()
-    
+                                      row.names = NULL,
+                                      stringsAsFactors = TRUE)
+
     #colnames(ciAvgRdrEachTrtFRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     
     diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
@@ -377,16 +372,16 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                    t = tStat, 
                                    PrGTt = tPr, 
                                    CILower = CIReaderFRRC[,1],
-                                   CIUpper = CIReaderFRRC[,2])#,
-                                   # stringsAsFactors = TRUE)
+                                   CIUpper = CIReaderFRRC[,2],
+                                   stringsAsFactors = TRUE)
     # 5/4/20 removing all this as I better understand data.frame()
     
         #colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     
     varCovEachRdr <- data.frame(readerID, 
                                 varEchRder, 
-                                cov1EchRder)#,
-                                # stringsAsFactors = TRUE)
+                                cov1EchRder,
+                                stringsAsFactors = TRUE)
     colnames(varCovEachRdr) <- c("Reader", "Var", "Cov1")
     if (option == "FRRC"){
       return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
@@ -422,8 +417,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                   t = tStat, 
                                   PrGTt = tPr, 
                                   CILower = CIRRFC[,1],
-                                  CIUpper = CIRRFC[,2])#,
-                                  # stringsAsFactors = TRUE)
+                                  CIUpper = CIRRFC[,2],
+                                  stringsAsFactors = TRUE)
       # 5/4/20 removing all this as I better understand data.frame()
       
       #colnames(ciDiffTrtRRFC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
@@ -444,9 +439,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                         DF = as.vector(dfSingleRRFC), 
                                         CILower = CISingleRRFC[,1], 
                                         CIUpper = CISingleRRFC[,2], 
-                                        row.names = NULL)#,
-                                        # stringsAsFactors = TRUE)
-      # 5/4/20 removing all this as I better understand data.frame()
+                                        row.names = NULL,
+                                        stringsAsFactors = TRUE)
       
       #colnames(ciAvgRdrEachTrtRRFC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     } else {
