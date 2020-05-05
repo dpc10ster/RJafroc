@@ -4,7 +4,8 @@
 \name{datasetCadSimuFroc}
 \alias{datasetCadSimuFroc}
 \title{Simulated FROC CAD vs. RAD dataset}
-\format{A list with 12 elements:
+\format{
+A list with 12 elements:
 \itemize{
 \item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of non-lesion localizations, NLs}
 \item{\code{LL}}{, num [1, 1:10, 1:80, 1], ratings of lesion localizations, LLs}
@@ -14,7 +15,8 @@
 \item{\code{dataType}}{, chr "FROC", the data type}
 \item{\code{modalityID}}{, chr "1", treatment label}
 \item{\code{readerID}}{, chr [1:10] "1" "2",  reader labels}
-}}
+}
+}
 \usage{
 datasetCadSimuFroc
 }

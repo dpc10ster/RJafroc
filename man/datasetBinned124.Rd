@@ -4,7 +4,8 @@
 \name{datasetBinned124}
 \alias{datasetBinned124}
 \title{Binned dataset suitable for checking \code{\link{FitCorCbm}}; seed = 124}
-\format{A list with 8 elements:
+\format{
+A list with 8 elements:
 \itemize{
 \item{\code{NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
 \item{\code{LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
@@ -14,7 +15,8 @@
 \item{\code{dataType}}{, chr "ROC", the data type}
 \item{\code{modalityID}}{, chr "1", treatment label}
 \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
-}}
+}
+}
 \usage{
 datasetBinned124
 }

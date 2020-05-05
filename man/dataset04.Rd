@@ -4,7 +4,8 @@
 \name{dataset04}
 \alias{dataset04}
 \title{Federica Zanca FROC dataset}
-\format{A list with 12 elements:
+\format{
+A list with 12 elements:
 \itemize{
 \item{\code{NL}}{, num [1:5, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
 \item{\code{LL}}{, num [1:5, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
@@ -18,7 +19,8 @@
 \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104 105 ..., normal case labels}
 \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5 6 7 8 9 ..., abnormal case labels}
 \item{\code{truthTableStr}}{, num [1:5, 1:4, 1:200, 1:4] 1 1 1 1 1 1 ..., truth table structure}
-}}
+}
+}
 \usage{
 dataset04
 }
