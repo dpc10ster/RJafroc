@@ -4,8 +4,7 @@
 \name{datasetROI}
 \alias{datasetROI}
 \title{Simulated ROI dataset}
-\format{
-A list with 9 elements:
+\format{A list with 9 elements:
 \itemize{
 \item{\code{NL}}{, num [1:2, 1:5, 1:90, 1:4], ratings of non-lesion localizations, NLs}
 \item{\code{LL}}{, num [1:2, 1:5, 1:40, 1:4], ratings of lesion localizations, LLs}
@@ -15,8 +14,7 @@ A list with 9 elements:
 \item{\code{dataType}}{, chr "ROI", the data type}
 \item{\code{modalityID1}}{ [1:2] "1" "2", treatment labels}
 \item{\code{readerID}}{, chr [1:5] "1" "2" "3" "4" "5", reader labels}
-}
-}
+}}
 \usage{
 datasetROI
 }

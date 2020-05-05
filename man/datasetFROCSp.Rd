@@ -4,8 +4,7 @@
 \name{datasetFROCSp}
 \alias{datasetFROCSp}
 \title{Simulated FROC SPLIT-PLOT dataset}
-\format{
-A list with 12 elements:
+\format{A list with 12 elements:
 \itemize{
 \item{\code{NL}}{, num [1:2, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
 \item{\code{LL}}{, num [1:2, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
@@ -19,8 +18,7 @@ A list with 12 elements:
 \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104  ..., normal case labels}
 \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5  ..., abnormal case labels}
 \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:200, 1:4] 1 1 NA NA NA ..., truth table structure}
-}
-}
+}}
 \usage{
 datasetFROCSp
 }

@@ -4,8 +4,7 @@
 \name{dataset10}
 \alias{dataset10}
 \title{Marc Ruschin ROC dataset}
-\format{
-A list with 12 elements:
+\format{A list with 12 elements:
 \itemize{
 \item{\code{NL}}{, num [1:3, 1:8, 1:90, 1], ratings of false positives, FPs}
 \item{\code{LL}}{, num [1:3, 1:8, 1:40, 1], ratings of true positives, TPs}
@@ -19,8 +18,7 @@ A list with 12 elements:
 \item{\code{normalCases}}{, int [1:50] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
 \item{\code{abnormalCases}}{, int [1:40] 51 52 53 54 55 56 57 58 59 60 ..., abnormal case labels}
 \item{\code{truthTableStr}}{, num [1:3, 1:8, 1:90, 1:2] 1 1 1 1 1 1 ..., truth table structure}
-}
-}
+}}
 \usage{
 dataset10
 }

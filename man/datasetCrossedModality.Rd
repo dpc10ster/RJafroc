@@ -4,8 +4,7 @@
 \name{datasetCrossedModality}
 \alias{datasetCrossedModality}
 \title{John Thompson crossed treatment FROC dataset}
-\format{
-A list with 9 elements:
+\format{A list with 9 elements:
 \itemize{
 \item{\code{NL}}{, num [1:2, 1:4, 1:11, 1:68, 1:5], ratings of non-lesion localizations, NLs}
 \item{\code{LL}}{, num [1:2, 1:4, 1:11, 1:34, 1:3], ratings of lesion localizations, LLs}
@@ -16,8 +15,7 @@ A list with 9 elements:
 \item{\code{modalityID1}}{ [1:2] "F" "I", treatment labels}
 \item{\code{modalityID2}}{ [1:4] "20" "40"  "60"  "80", treatment labels}
 \item{\code{readerID}}{, chr [1:11] "1" "10" "11" ..., reader labels}
-}
-}
+}}
 \usage{
 datasetCrossedModality
 }

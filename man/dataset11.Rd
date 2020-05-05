@@ -4,8 +4,7 @@
 \name{dataset11}
 \alias{dataset11}
 \title{Dobbins 1 FROC dataset}
-\format{
-A list with 8 elements:
+\format{A list with 8 elements:
 \itemize{
 \item{\code{NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
 \item{\code{LL}}{, num [1:4, 1:5, 1:115, 1:20], ratings of lesion localizations, LLs}
@@ -19,8 +18,7 @@ A list with 8 elements:
 \item{\code{normalCases}}{, int [1:43] 6 9 14 27 62 66 70 71 83 91 ..., normal case labels}
 \item{\code{abnormalCases}}{, int [1:115] 1 2 3 5 7 8 10 11 13 17 ..., abnormal case labels}
 \item{\code{truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21] 1 1 1 1 1 1 ..., truth table structure}
-}
-}
+}}
 \usage{
 dataset11
 }

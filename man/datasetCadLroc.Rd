@@ -4,8 +4,7 @@
 \name{datasetCadLroc}
 \alias{datasetCadLroc}
 \title{Nico Karssemeijer LROC dataset (CAD vs. radiologists)}
-\format{
-A list with 9 elements:
+\format{A list with 9 elements:
 \itemize{
 \item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of false positives, FPs}
 \item{\code{LLCl}}{ num [1, 1:10, 1:80, 1], ratings of true positives with correct localization, TPCls}
@@ -16,8 +15,7 @@ A list with 9 elements:
 \item{\code{dataType}}{, chr "LROC", the data type}
 \item{\code{modalityID}}{, chr [1:2] "0" "1", treatment labels}
 \item{\code{readerID}}{, chr [1:10] "1" "2" ..., reader labels}
-}
-}
+}}
 \usage{
 datasetCadLroc
 }

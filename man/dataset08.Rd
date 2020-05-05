@@ -4,8 +4,7 @@
 \name{dataset08}
 \alias{dataset08}
 \title{Monica Penedo ROC dataset}
-\format{
-A list with 12 elements:
+\format{A list with 12 elements:
 \itemize{
 \item{\code{NL}}{, num [1:5, 1:5, 1:112, 1], ratings of false positives, FPs}
 \item{\code{LL}}{, num [1:5, 1:5, 1:64, 1], ratings of true positives, TPs}
@@ -19,8 +18,7 @@ A list with 12 elements:
 \item{\code{normalCases}}{, nt [1:48] 1 2 3 4 5 6 7 8 9 10..., normal case labels}
 \item{\code{abnormalCases}}{, int [1:64] 49 50 51 52 53 54 55 56 57 58 ..., abnormal case labels}
 \item{\code{truthTableStr}}{, num [1:5, 1:5, 1:112, 1:2] 1 1 1 1 1 1 ..., truth table structure}
-}
-}
+}}
 \usage{
 dataset08
 }

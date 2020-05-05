@@ -4,8 +4,7 @@
 \name{datasetDegenerate}
 \alias{datasetDegenerate}
 \title{Simulated degenerate ROC dataset (for testing purposes)}
-\format{
-A list with 8 elements:
+\format{A list with 8 elements:
 \itemize{
 \item{\code{NL}}{, num [1, 1, 1:15, 1], ratings of false positives, FPs}
 \item{\code{LL}}{, num [1, 1, 1:10, 1], ratings of true positives, TPs}
@@ -15,8 +14,7 @@ A list with 8 elements:
 \item{\code{dataType}}{, chr "ROC", the data type}
 \item{\code{modalityID}}{, chr "1", treatment label}
 \item{\code{readerID}}{, chr "1", reader label}
-}
-}
+}}
 \usage{
 datasetDegenerate
 }

@@ -1,6 +1,8 @@
-## After Travis failure
-* same issue; having to specify `stringsAsFactors` explicitly due to different defaults in different verions of `R`
-* passes R CMD check on OSX
+## After repeated Travis failures
+* same issue; have to specify `stringsAsFactors` explicitly due to different defaults in different verions of `R`
+* Cannot do this at beginning of functions as in `options("stringsAsFactors" = TRUE)` as this is `deprecated`
+* Basically undid all changes in next note
+* passes R CMD check on OSX and Travis checks
 
 ## Removed `stringsAsFactors` arguments in all calls except...
 * In all calls to data.frame, except in plotting functions, `PlotEmpiricalOperatingCharacteristics`, where factors are used
@@ -11,12 +13,13 @@
 * This is all very confusing as I am having to dive into code written 6 years ago by someone else
 * Going to test on Travis now
 
-## Returning transpose for `foms` member of StSignificanceTesting return object
+## Return `transpose` for `foms` member of `StSignificanceTesting` return object
 * For consistency with OR DBM MRMC 2.51, and also for cleaner output, as number of treatments is usually less than number of readers
 * R CMD check passes
 
 ## Moved official good value files to Dropbox
 * They generate non-portable file name warning on R CMD check
+* Moved VanDyke results to inst/IowaResults/VanDyke.txt
 
 ## Compared to latest official code
 * `mrmc_setup_w10_July_2019.exe`; VanDyke `VanDyke.lrc` dataset; `Dropobox/IowaSoftware/VanDyke.lrc`
