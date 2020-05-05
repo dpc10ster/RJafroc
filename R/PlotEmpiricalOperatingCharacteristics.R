@@ -202,6 +202,7 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2P
     mr <- unlist(strsplit(as.character(pts$class), split = "\n"))
     dim(mr) <- c(2, round(length(mr)/2))
     pts <- cbind(pts, data.frame(Modality = mr[1, ], Reader = mr[2, ]))#, stringsAsFactors = TRUE))
+    if (class(pts$Reader) != "factor") stop("pts/Reader is not a factor")
     genOpPoints <- pts[pts$type == "individual" &
                          !((pts$genAbscissa == 0 & pts$genOrdinate == 0) |
                              (pts$genAbscissa == 1 & pts$genOrdinate == 1)), ]
@@ -268,6 +269,7 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2P
     shapeVector <- rep(NA, length(levels(pts$class)))
     for (n in 1:legendLength) {
       index <- which(pts$class == levels(pts$class)[n])[1]
+      if (class(pts$class) != "factor") stop("pts/class is not a factor")
       if (pts$type[index] == "individual")
         shapeVector[n] <- 16
     }
