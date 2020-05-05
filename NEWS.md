@@ -2,10 +2,12 @@
 * Except in `PlotEmpiricalOperatingCharacteristics`, where `factors` and `levels` are used
 * Must specify this anytime the variable is used in a `test` as otherwise different versions will give `factors` or `characters` and not match those in goodValues folder
 * After old versions are phased out, this can be safely removed, as all versions will have this as the default
+* Setting `options(stringsAsFactors = FALSE)` at beginning of a function, e.g., `StSignificanceTesting`, passes this option onto called functions, e.g, `StDBMHAnalyis`
+* Use `getOption("stringsAsFactors")` to determine state of this option; must restart `R` to obtain default value (`TRUE` on the release version); calling a function that sets it to `FALSE` keeps the new value after exiting from function; must restart `R` again to get proper default.
 
 ## After repeated Travis failures
-* same issue; have to specify `stringsAsFactors` explicitly due to different defaults in different verions of `R`
-* Cannot do this at beginning of functions as in `options("stringsAsFactors" = TRUE)` **as this is `deprecated`**
+* same issue; have to specify `stringsAsFactors` explicitly for each `data.frame` call, due to different defaults in different verions of `R`
+* Cannot set to TRUE at beginning of function, as in `options("stringsAsFactors" = TRUE)`, **as this is `deprecated`**
 * Basically undid all changes in next note
 * passes R CMD check on OSX and Travis checks
 

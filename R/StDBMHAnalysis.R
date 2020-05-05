@@ -22,7 +22,9 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
       ii <- ii + 1
     }
   }
-  trtMeanDiffs <- data.frame("TrtDiff" = diffTRName, "Estimate" = trtMeanDiffs) 
+  trtMeanDiffs <- data.frame("TrtDiff" = diffTRName, 
+                             "Estimate" = trtMeanDiffs,
+                             stringsAsFactors = FALSE) 
   
   ret <- UtilVarComponentsDBM(dataset, FOM, FPFValue)
   mSquares <- ret$mSquares
@@ -83,7 +85,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   TRCanovaY <- data.frame("Source" = c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total"), 
                           "SS" = ssArray, 
                           "DF" = dfArray, 
-                          "MS" = msArray)  
+                          "MS" = msArray,
+                          stringsAsFactors = FALSE)  
   
   msRSingle <- array(0, dim = c(I))
   msCSingle <- array(0, dim = c(I))
@@ -143,7 +146,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     RRRC$FTests <- data.frame(f = fRRRC,
                               ndf = (I-1),
                               ddf = ddfRRRC,
-                              p = pRRRC)
+                              p = pRRRC,
+                              stringsAsFactors = FALSE)
     stdErrRRRC <- sqrt(2 * msDenRRRC/J/K)
     tStat <- vector()
     PrGTt <- vector()
@@ -184,7 +188,6 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                        CIUpper = CISingleRRRC[,2], 
                                        row.names = NULL, 
                                        stringsAsFactors = FALSE)
-    # 5/4/20 removing all this as I better understand data.frame()
     if (option == "RRRC")
       return(list(
         foms = t(foms),
@@ -218,7 +221,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     FRRC$FTests <- data.frame(f = fFRRC,
                               ndf = (I-1),
                               ddf = ddfFRRC,
-                              p = pFRRC)
+                              p = pFRRC,
+                              stringsAsFactors = FALSE)
     stdErrFRRC <- sqrt(2 * msDenFRRC/J/K)
     tStat <- vector()
     PrGTt <- vector()
@@ -279,7 +283,11 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     sourceArrayFRRC <- c("T", "C", "TC")
     dfArrayFRRC <- c(I - 1, K - 1, (I - 1) * (K - 1))
     ssArrayFRRC <- t(cbind(ssTFRRC, ssCFRRC, ssTCFRRC))
-    ssTableFRRC <- data.frame(sourceArrayFRRC, dfArrayFRRC, ssArrayFRRC, row.names = NULL)
+    ssTableFRRC <- data.frame(Source = sourceArrayFRRC, 
+                              DF = dfArrayFRRC, 
+                              readerID = ssArrayFRRC, 
+                              row.names = NULL, 
+                              stringsAsFactors = FALSE)
     colnames(ssTableFRRC) <- c("Source", "DF", readerID)
     
     msArrayFRRC <- ssArrayFRRC
@@ -366,7 +374,8 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     RRFC$FTests <- data.frame(f = fRRFC,
                               ndf = (I-1),
                               ddf = ddfRRFC,
-                              p = pRRFC)
+                              p = pRRFC, 
+                              stringsAsFactors = FALSE)
     stdErrRRFC <- sqrt(2 * msDenRRFC/J/K)
     tStat <- vector()
     PrGTt <- vector()

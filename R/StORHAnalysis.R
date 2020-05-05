@@ -27,7 +27,9 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
       ii <- ii + 1
     }
   }
-  trtMeanDiffs <- data.frame("TrtDiff" = diffTRName, "Estimate" = trtMeanDiffs) 
+  trtMeanDiffs <- data.frame("TrtDiff" = diffTRName, 
+                             "Estimate" = trtMeanDiffs, 
+                             stringsAsFactors = FALSE) 
   
   ret <- UtilVarComponentsOR(dataset, FOM, FPFValue, covEstMethod, nBoots)
   
@@ -124,7 +126,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     RRRC$FTests <- data.frame(f = fRRRC,
                               ndf = (I-1),
                               ddf = ddfRRRC,
-                              p = pRRRC)
+                              p = pRRRC,
+                              stringsAsFactors = FALSE)
     stdErrRRRC <- sqrt(2 * msDenRRRC/J)
     tStat <- vector()
     PrGTt <- vector()
@@ -204,7 +207,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     FRRC$FTests <- data.frame(f = fFRRC,
                               ndf = (I-1),
                               ddf = ddfFRRC,
-                              p = pFRRC)
+                              p = pFRRC,
+                              stringsAsFactors = FALSE)
     stdErrFRRC <- sqrt(2 * msDenFRRC/J)
     tStat <- vector()
     PrGTt <- vector()
@@ -303,7 +307,9 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
           trtMeans = trtMeans,
           trtMeanDiffs = trtMeanDiffs,
           msT = meanSquares$msT, 
-          varComp = data.frame(cov1 = varComp$cov1, var = varComp$var),
+          varComp = data.frame(cov1 = varComp$cov1, 
+                               var = varComp$var, 
+                               stringsAsFactors = FALSE),
           FTestsFRRC = FRRC$FTests,
           ciDiffTrtFRRC = FRRC$ciDiffTrt 
         ))
@@ -328,7 +334,8 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
     RRFC$FTests <- data.frame(f = fRRFC,
                               ndf = (I-1),
                               ddf = ddfRRFC,
-                              p = pRRFC)
+                              p = pRRFC, 
+                              stringsAsFactors = FALSE)
     stdErrRRFC <- sqrt(2 * msDenRRFC/J)
     tStat <- vector()
     PrGTt <- vector()
