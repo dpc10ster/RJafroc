@@ -173,6 +173,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   # specification of the option; I think this is an improvement in base R
   # 5/4/20 removing all this as I better understand data.frame()
   # options(stringsAsFactors = FALSE) # check compatibility with new default for R 4.0.0
+  
   options(stringsAsFactors = TRUE) # check compatibility with new default for R 4.0.0
   
   if (!all(c(length(mu) == length(lambda), length(mu) == length(nu))))
