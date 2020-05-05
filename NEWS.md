@@ -1,13 +1,17 @@
+## Replaced stringsAsFactors = FALSE everywhere data.frame is used except ...
+* Except in `PlotEmpiricalOperatingCharacteristics`, where `factors` and `levels` are used
+* Must specify this anytime the variable is used in a `test` as otherwise different versions will give `factors` or `characters` and not match those in goodValues folder
+* After old versions are phased out, this can be safely removed, as all versions will have this as the default
+
 ## After repeated Travis failures
 * same issue; have to specify `stringsAsFactors` explicitly due to different defaults in different verions of `R`
-* Cannot do this at beginning of functions as in `options("stringsAsFactors" = TRUE)` as this is `deprecated`
+* Cannot do this at beginning of functions as in `options("stringsAsFactors" = TRUE)` **as this is `deprecated`**
 * Basically undid all changes in next note
 * passes R CMD check on OSX and Travis checks
 
 ## Removed `stringsAsFactors` arguments in all calls except...
 * In all calls to data.frame, except in plotting functions, `PlotEmpiricalOperatingCharacteristics`, where factors are used
-* This is based on my "better" or rather evolving understanding of how `data.frames` work
-* In current `R3.6.3` `option($stringsAsFactors) = TRUE` (`option` is case sensitive!)
+* In current `R3.6.3` `option($stringsAsFactors) = TRUE` (`stringsAsFactors` is case sensitive!)
 * This means that functions that don't require factors, such as `SsPowerTable()` should set   `options(stringsAsFactors = FALSE)` explicitly at the beginning of the code, in order to work in current and previous version of R (i.e., release and old-release)
 * Functions that do use factors/levels such as plotting functions (`PlotRsmOperatingCharacteristics` and `FitCorCbmRoc`) should set `options(stringsAsFactors = TRUE)` in order to work in `developer` version of R, where default is `options("stringsAsFactors") = FALSE`
 * This is all very confusing as I am having to dive into code written 6 years ago by someone else

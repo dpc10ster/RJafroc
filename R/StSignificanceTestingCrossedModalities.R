@@ -90,7 +90,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   varR <- (msR - var - (I - 1) * cov1 + cov2 + (I - 1) * cov3 - varTR)/I
   varCovArray <- c(varR, varTR, cov1, cov2, cov3, var)
   nameArray <- c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")
-  varComp <- data.frame(varCov = varCovArray, row.names = nameArray, stringsAsFactors = TRUE)
+  varComp <- data.frame(varCov = varCovArray, row.names = nameArray, stringsAsFactors = FALSE)
 
   varSingle <- vector(length = I)
   cov2Single <- vector(length = I)
@@ -189,7 +189,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                   PrGTt = tPr, 
                                   CILower = CIRRRC[,1],
                                   CIUpper = CIRRRC[,2],
-                                  stringsAsFactors = TRUE)
+                                  stringsAsFactors = FALSE)
 
       # print(attributes(ciDiffTrtRRRC))
       # print(attributes(ciDiffTrtRRRC$Treatment))
@@ -255,7 +255,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                         DF = as.vector(dfSingleRRRC), 
                                         CILower = CISingleRRRC[,1], 
                                         CIUpper = CISingleRRRC[,2], 
-                                        stringsAsFactors = TRUE)
+                                        stringsAsFactors = FALSE)
 
     } else {
       fRRRC <- NA
@@ -308,7 +308,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                 PrGTt = tPr, 
                                 CILower = CIFRRC[,1],
                                 CIUpper = CIFRRC[,2],
-                                stringsAsFactors = TRUE)
+                                stringsAsFactors = FALSE)
     
     # colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     
@@ -329,7 +329,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                       CILower = CISingleFRRC[,1], 
                                       CIUpper = CISingleFRRC[,2], 
                                       row.names = NULL,
-                                      stringsAsFactors = TRUE)
+                                      stringsAsFactors = FALSE)
 
     #colnames(ciAvgRdrEachTrtFRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     
@@ -373,7 +373,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                    PrGTt = tPr, 
                                    CILower = CIReaderFRRC[,1],
                                    CIUpper = CIReaderFRRC[,2],
-                                   stringsAsFactors = TRUE)
+                                   stringsAsFactors = FALSE)
     # 5/4/20 removing all this as I better understand data.frame()
     
         #colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
@@ -381,7 +381,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
     varCovEachRdr <- data.frame(readerID, 
                                 varEchRder, 
                                 cov1EchRder,
-                                stringsAsFactors = TRUE)
+                                stringsAsFactors = FALSE)
     colnames(varCovEachRdr) <- c("Reader", "Var", "Cov1")
     if (option == "FRRC"){
       return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
@@ -418,7 +418,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                   PrGTt = tPr, 
                                   CILower = CIRRFC[,1],
                                   CIUpper = CIRRFC[,2],
-                                  stringsAsFactors = TRUE)
+                                  stringsAsFactors = FALSE)
       # 5/4/20 removing all this as I better understand data.frame()
       
       #colnames(ciDiffTrtRRFC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
@@ -440,7 +440,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                         CILower = CISingleRRFC[,1], 
                                         CIUpper = CISingleRRFC[,2], 
                                         row.names = NULL,
-                                        stringsAsFactors = TRUE)
+                                        stringsAsFactors = FALSE)
       
       #colnames(ciAvgRdrEachTrtRRFC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     } else {

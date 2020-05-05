@@ -32,7 +32,7 @@ PlotCbmFit <- function(mu, alpha){
   for (i in 1:length(mu)){
     FPF <- 1 - pnorm(plotZeta)
     TPF <- (1 - alpha[i]) * (1 - pnorm(plotZeta)) + alpha[i] * (1 - pnorm(plotZeta, mean = mu[i]))
-    plotCBM <- rbind(plotCBM, data.frame(FPF = FPF, TPF = TPF, Treatment = as.character(i), stringsAsFactors = TRUE))
+    plotCBM <- rbind(plotCBM, data.frame(FPF = FPF, TPF = TPF, Treatment = as.character(i), stringsAsFactors = FALSE))
   }
   cbmROCCurve <- with(plotCBM,{
     ggplot() + geom_line(mapping = aes(x = FPF, y = TPF, color = Treatment), data = plotCBM, size = 1)

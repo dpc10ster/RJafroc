@@ -170,9 +170,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   # *NOT* passed *AND* an attempt to factorize a string is made which will result in an error; 
   # in R version <= 3.6.2 this option was not needed, as `stringsAsFactors = TRUE` was the default, 
   # but in version >= 4.0.0 the default is stringsAsFactors = FALSE, which necessitates explicit
-  # specification of the option; I think this is an improvement in base R
-  # 5/4/20 removing all this as I better understand data.frame()
-  options(stringsAsFactors = FALSE) # check compatibility with new default for R 4.0.0
+  # specification of the option
   
   if (!all(c(length(mu) == length(lambda), length(mu) == length(nu))))
     stop("Parameters mu, lambda and nu have different lengths.")
@@ -238,15 +236,15 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   AFROCPlot <- NA
   wAFROCPlot <- NA
   PDFPlot <- NA
-  ROCPoints <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL)
-  ROCDashes <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL)
-  FROCPoints <- data.frame(NLF = NULL, LLF = NULL, Treatment = NULL)
-  AFROCPoints <- data.frame(FPF = NULL, LLF= NULL, Treatment = NULL)
-  AFROCDashes <- data.frame(FPF = NULL, LLF= NULL, Treatment = NULL)
-  wAFROCPoints <- data.frame(FPF = NULL, wLLF= NULL, Treatment = NULL)
-  wAFROCDashes <- data.frame(FPF = NULL, wLLF= NULL, Treatment = NULL)
-  abnPDFPoints <- data.frame(pdf = NULL, highestZSample = NULL, Treatment = NULL)
-  norPDFPoints <- data.frame(pdf = NULL, highestZSample = NULL, Treatment = NULL)
+  ROCPoints <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL, stringsAsFactors = FALSE)
+  ROCDashes <- data.frame(FPF = NULL, TPF = NULL, Treatment = NULL, stringsAsFactors = FALSE)
+  FROCPoints <- data.frame(NLF = NULL, LLF = NULL, Treatment = NULL, stringsAsFactors = FALSE)
+  AFROCPoints <- data.frame(FPF = NULL, LLF= NULL, Treatment = NULL, stringsAsFactors = FALSE)
+  AFROCDashes <- data.frame(FPF = NULL, LLF= NULL, Treatment = NULL, stringsAsFactors = FALSE)
+  wAFROCPoints <- data.frame(FPF = NULL, wLLF= NULL, Treatment = NULL, stringsAsFactors = FALSE)
+  wAFROCDashes <- data.frame(FPF = NULL, wLLF= NULL, Treatment = NULL, stringsAsFactors = FALSE)
+  abnPDFPoints <- data.frame(pdf = NULL, highestZSample = NULL, Treatment = NULL, stringsAsFactors = FALSE)
+  norPDFPoints <- data.frame(pdf = NULL, highestZSample = NULL, Treatment = NULL, stringsAsFactors = FALSE)
   aucROC <- rep(NA, length(mu));aucAFROC <- aucROC;aucwAFROC <- aucROC;aucFROC <- aucROC;lambdaP <- lambda
   nuP <- nu
   
@@ -264,15 +262,24 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     
     maxFPF <- xROC(-20, lambdaP[i])
     if( OpChType == "ALL" ||  OpChType == "ROC"){
-      ROCPoints <- rbind(ROCPoints, data.frame(FPF = FPF, TPF = TPF, Treatment = as.character(i)))
-      ROCDashes <- rbind(ROCDashes, data.frame(FPF = c(FPF[1], 1), TPF = c(TPF[1], 1), Treatment = as.character(i)))
+      ROCPoints <- rbind(ROCPoints, data.frame(FPF = FPF, 
+                                               TPF = TPF, 
+                                               Treatment = as.character(i), 
+                                               stringsAsFactors = FALSE))
+      ROCDashes <- rbind(ROCDashes, data.frame(FPF = c(FPF[1], 1), 
+                                               TPF = c(TPF[1], 1), 
+                                               Treatment = as.character(i), 
+                                               stringsAsFactors = FALSE))
       maxTPF <- yROC(-20, mu[i], lambdaP[i], nuP[i], lesDistr)
       AUC <- integrate(intROC, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr =lesDistr)$value
       aucROC[i] <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2
     }
     
     if( OpChType == "ALL" ||  OpChType == "FROC"){
-      FROCPoints <- rbind(FROCPoints, data.frame(NLF = NLF, LLF = LLF, Treatment = as.character(i)))
+      FROCPoints <- rbind(FROCPoints, data.frame(NLF = NLF, 
+                                                 LLF = LLF, 
+                                                 Treatment = as.character(i), 
+                                                 stringsAsFactors = FALSE))
       if (is.null(nlfAlpha)){
         maxNLF <- max(NLF)
         aucFROC[i] <- integrate(intFROC, 0, maxNLF, mu= mu[i], lambdaP = lambdaP[i], nuP = nuP[i])$value
@@ -287,9 +294,14 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     }
     
     if( OpChType == "ALL" ||  OpChType == "AFROC"){
-      AFROCPoints <- rbind(AFROCPoints, data.frame(FPF = FPF, LLF = LLF, Treatment = as.character(i)))
-      AFROCDashes <- rbind(AFROCDashes, data.frame(FPF = c(FPF[1], 1), LLF = c(LLF[1], 1), 
-                                                   Treatment = as.character(i)))
+      AFROCPoints <- rbind(AFROCPoints, data.frame(FPF = FPF, 
+                                                   LLF = LLF, 
+                                                   Treatment = as.character(i), 
+                                                   stringsAsFactors = FALSE))
+      AFROCDashes <- rbind(AFROCDashes, data.frame(FPF = c(FPF[1], 1), 
+                                                   LLF = c(LLF[1], 1), 
+                                                   Treatment = as.character(i), 
+                                                   stringsAsFactors = FALSE))
       maxLLF <- yFROC(-20, mu[i], nuP[i])
       AUC <- integrate(intAFROC, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i])$value
       aucAFROC[i] <- AUC + (1 + maxLLF) * (1 - maxFPF) / 2
@@ -297,9 +309,14 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     
     if( OpChType == "ALL" ||  OpChType == "wAFROC"){
       wLLF <- sapply(zeta, ywAFROC, mu[i], nuP[i], lesDistr, lesWghtDistr)
-      wAFROCPoints <- rbind(wAFROCPoints, data.frame(FPF = FPF, wLLF = wLLF, 
-                                                     Treatment = as.character(i)))
-      wAFROCDashes <- rbind(wAFROCDashes, data.frame(FPF = c(FPF[1], 1), wLLF = c(wLLF[1], 1), Treatment = as.character(i)))
+      wAFROCPoints <- rbind(wAFROCPoints, data.frame(FPF = FPF, 
+                                                     wLLF = wLLF, 
+                                                     Treatment = as.character(i), 
+                                                     stringsAsFactors = FALSE))
+      wAFROCDashes <- rbind(wAFROCDashes, data.frame(FPF = c(FPF[1], 1), 
+                                                     wLLF = c(wLLF[1], 1), 
+                                                     Treatment = as.character(i), 
+                                                     stringsAsFactors = FALSE))
       maxWLLF <- ywAFROC(-20, mu[i], nuP[i], lesDistr, lesWghtDistr) 
       AUC <- integrate(intwAFROC, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr, lesWghtDistr)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
@@ -310,13 +327,19 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
       if( OpChType == "ALL" ||  OpChType == "pdfs"){     
         pdfNor <- deltaFPF / plotStep
         norPDFPoints <- rbind(norPDFPoints, 
-                              data.frame(pdf = pdfNor[pdfNor > 1e-6], highestZSample = zeta[-1][pdfNor > 1e-6], 
-                                         Treatment = as.character(i), class = "non-diseased"))
+                              data.frame(pdf = pdfNor[pdfNor > 1e-6], 
+                                         highestZSample = zeta[-1][pdfNor > 1e-6], 
+                                         Treatment = as.character(i), 
+                                         class = "non-diseased", 
+                                         stringsAsFactors = FALSE))
         deltaTPF <- TPF[1:(length(TPF) - 1)] - TPF[2:length(TPF)]
         pdfAbn <- deltaTPF / plotStep
         abnPDFPoints <- rbind(abnPDFPoints, 
-                              data.frame(pdf = pdfAbn[pdfAbn > 1e-6], highestZSample = zeta[-1][pdfAbn > 1e-6], 
-                                         Treatment = as.character(i), class = "diseased"))
+                              data.frame(pdf = pdfAbn[pdfAbn > 1e-6], 
+                                         highestZSample = zeta[-1][pdfAbn > 1e-6], 
+                                         Treatment = as.character(i), 
+                                         class = "diseased", 
+                                         stringsAsFactors = FALSE))
       }
     }
   }

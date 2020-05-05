@@ -53,7 +53,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     #                      SS = ssArray, 
     #                      DF = dfArray, 
     #                      MS = msArray, 
-    #                      stringsAsFactors = TRUE)
+    #                      stringsAsFactors = FALSE)
     #
     # this is the fix 3/7/20
     # New code:
@@ -71,7 +71,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                             SS = ssArray, 
                             DF = dfArray, 
                             MS = msArray,
-                            stringsAsFactors = TRUE)
+                            stringsAsFactors = FALSE)
     
     # print(attributes(TRCanovaY))
     # print(attributes(TRCanovaY$Source))
@@ -113,7 +113,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                           dfArraySingle, 
                           msArraySingle, 
                           row.names = NULL, 
-                          stringsAsFactors = TRUE)
+                          stringsAsFactors = FALSE)
   colnames(RCanovaYi) <- c("Source", "DF", paste0("Trt", sep = "", modalityID))
   
   diffTRMeans <- array(dim = choose(I, 2))
@@ -162,7 +162,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                  PrGTt = PrGTt, # renamed this consistently
                                  CILower = CIRRRC[,1],  # instead of adding CIRRC and then using a names() to split out the two values
                                  CIUpper = CIRRRC[,2],  # do:
-                                 stringsAsFactors = TRUE)
+                                 stringsAsFactors = FALSE)
     dfSingleRRRC <- array(dim = I)
     msDenSingleRRRC <- array(dim = I)
     stdErrSingleRRRC <- array(dim = I)
@@ -183,7 +183,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                        CILower = CISingleRRRC[,1], 
                                        CIUpper = CISingleRRRC[,2], 
                                        row.names = NULL, 
-                                       stringsAsFactors = TRUE)
+                                       stringsAsFactors = FALSE)
     # 5/4/20 removing all this as I better understand data.frame()
     if (option == "RRRC")
       return(list(
@@ -236,7 +236,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                  PrGTt = PrGTt, 
                                  CILower = CIFRRC[,1], 
                                  CIUpper = CIFRRC[,2], 
-                                 stringsAsFactors = TRUE)
+                                 stringsAsFactors = FALSE)
     
     dfSingleFRRC <- array(dim = I)
     msDenSingleFRRC <- array(dim = I)
@@ -255,7 +255,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                        CILower = CISingleFRRC[,1], 
                                        CIUpper = CISingleFRRC[,2], 
                                        row.names = NULL, 
-                                       stringsAsFactors = TRUE)
+                                       stringsAsFactors = FALSE)
     ssTFRRC <- array(0, dim = c(J))
     ssCFRRC <- array(0, dim = c(J))
     ssTCFRRC <- array(0, dim = c(J))
@@ -288,7 +288,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                      dfArrayFRRC, 
                                      msArrayFRRC, 
                                      row.names = NULL, 
-                                     stringsAsFactors = TRUE)
+                                     stringsAsFactors = FALSE)
     colnames(msAnovaEachRdrFRRC) <- c("Source", "DF", paste0("Rdr", sep = "", readerID))
     FRRC$msAnovaEachRdr <- msAnovaEachRdrFRRC
     
@@ -331,7 +331,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                         PrGTt = PrGTt, 
                                         CILower = CIReaderFRRC[,1],
                                         CIUpper = CIReaderFRRC[,2], 
-                                        stringsAsFactors = TRUE)
+                                        stringsAsFactors = FALSE)
     if (option == "FRRC")
       return(list(
         foms = t(foms),
@@ -384,7 +384,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                  PrGTt = PrGTt, 
                                  CILower = CIRRFC[,1],
                                  CIUpper = CIRRFC[,2], 
-                                 stringsAsFactors = TRUE)
+                                 stringsAsFactors = FALSE)
     dfSingleRRFC <- array(dim = I)
     msDenSingleRRFC <- array(dim = I)
     stdErrSingleRRFC <- array(dim = I)
@@ -402,7 +402,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                        CILower = CISingleRRFC[,1], 
                                        CIUpper = CISingleRRFC[,2], 
                                        row.names = NULL, 
-                                       stringsAsFactors = TRUE)
+                                       stringsAsFactors = FALSE)
 
     if (option == "RRFC")
       return(list(

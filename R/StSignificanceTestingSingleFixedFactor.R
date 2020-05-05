@@ -74,7 +74,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2,
                            df = iniNA, 
                            ciLower = iniNA, 
                            ciUpper = iniNA,
-                           stringsAsFactors = TRUE)
+                           stringsAsFactors = FALSE)
  
     for (j in 1: J){
       stdErr <- sqrt(MS$msCSingleR[j] / K / I)
@@ -94,7 +94,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2,
                       pVal = iniNA, 
                       ciLower = iniNA, 
                       ciUpper = iniNA,
-                      stringsAsFactors = TRUE )
+                      stringsAsFactors = FALSE )
 
     for (j in 1:(J - 1)){
       for (jp in (j + 1):J){
@@ -118,7 +118,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2,
                            df = iniNA, 
                            ciLower = iniNA, 
                            ciUpper = iniNA,
-                           stringsAsFactors = TRUE )
+                           stringsAsFactors = FALSE )
 
     for (i in 1: I){
       stdErr <- sqrt(MS$msCSingleT[i] / K / J)
@@ -138,7 +138,7 @@ StSignificanceTestingSingleFixedFactor <- function(dataset, FOM, FPFValue = 0.2,
                       pVal = iniNA, 
                       ciLower = iniNA, 
                       ciUpper = iniNA,
-                      stringsAsFactors = TRUE )
+                      stringsAsFactors = FALSE )
 
     for (i in 1:(I - 1)){
       for (ip in (i + 1):I){
