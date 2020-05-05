@@ -30,7 +30,7 @@ PlotBinormalFit <- function(a, b){
     TPF <- pnorm(a[i] - b[i] * plotZeta)  
     TPF <- c(1, TPF, 0)
     
-    plotBM <- rbind(plotBM, data.frame(FPF = FPF, TPF = TPF, Treatment = as.character(i)))
+    plotBM <- rbind(plotBM, data.frame(FPF = FPF, TPF = TPF, Treatment = as.character(i), stringsAsFactors = TRUE))
   }
   bmROCCurve <- with(plotBM,{
     ggplot() + geom_line(mapping = aes(x = FPF, y = TPF, color = Treatment), data = plotBM, size = 1)
