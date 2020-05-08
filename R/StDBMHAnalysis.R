@@ -1,4 +1,4 @@
-StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option) 
+StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, analysisOption) 
 {
   NL <- dataset$NL
   modalityID <- dataset$modalityID
@@ -28,7 +28,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   
   ret <- UtilVarComponentsDBM(dataset, FOM, FPFValue)
   mSquaresDBM <- ret$mSquares
-  varCompDBM <- ret$varComp
+  DBMVarComp <- ret$varComp
   psValsDBM <- ret$psVals  # pseudo values
   
   msT <- mSquaresDBM$msT
@@ -45,13 +45,12 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   msArray <- c(msArray, NA)
   dfArray <- c(dfArray, sum(dfArray))
   ssArray <- c(ssArray, sum(ssArray))
-
-  TRCanovaDBM <- data.frame("Source" = c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total"), 
-                          "SS" = ssArray, 
-                          "DF" = dfArray, 
-                          "MS" = msArray,
-                          stringsAsFactors = FALSE)  
   
+  TRCanovaDBM <- data.frame("SS" = ssArray, 
+                            "DF" = dfArray, 
+                            "MS" = msArray,
+                            stringsAsFactors = FALSE)  
+  rownames(TRCanovaDBM) <- c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total")
   msRSingle <- array(0, dim = c(I))
   msCSingle <- array(0, dim = c(I))
   msRCSingle <- array(0, dim = c(I))
@@ -77,10 +76,10 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   dfArraySingle <- c(J - 1, K - 1, (J - 1) * (K - 1))
   msArraySingle <- t(cbind(msRSingle, msCSingle, msRCSingle))
   RCanovaDBMSingleTrt <- data.frame(sourceArraySingle, 
-                          dfArraySingle, 
-                          msArraySingle, 
-                          row.names = NULL, 
-                          stringsAsFactors = FALSE)
+                                    dfArraySingle, 
+                                    msArraySingle, 
+                                    row.names = NULL, 
+                                    stringsAsFactors = FALSE)
   colnames(RCanovaDBMSingleTrt) <- c("Source", "DF", paste0("Trt", sep = "", modalityID))
   
   diffTRMeans <- array(dim = choose(I, 2))
@@ -98,7 +97,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   
   msNum <- msT
   
-  if (option %in% c("RRRC", "ALL")) {
+  if (analysisOption %in% c("RRRC", "ALL")) {
     # ************ RRRC ****************
     # ************ RRRC ****************
     # ************ RRRC ****************
@@ -152,16 +151,19 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                        CIUpper = CISingleRRRC[,2], 
                                        row.names = NULL, 
                                        stringsAsFactors = FALSE)
-    if (option == "RRRC")
+    if (analysisOption == "RRRC")
       return(list(
-        foms = t(foms),
-        # return transpose to match official code 
-        # and it makes more sense to have readers in vertical direction 5/1/20
-        trtMeans = trtMeans,
-        trtMeanDiffs = trtMeanDiffs,
-        TRCanovaDBM = TRCanovaDBM, 
-        RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
-        varCompDBM = varCompDBM,
+        # FVCA = FomVarCompAnova
+        FVCA = list (
+          # return transpose to match official code 
+          # and it makes more sense to have readers in vertical direction 5/1/20
+          foms = t(foms),
+          trtMeans = trtMeans,
+          trtMeanDiffs = trtMeanDiffs,
+          TRCanovaDBM = TRCanovaDBM, 
+          RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
+          DBMVarComp = DBMVarComp
+        ),
         RRRC = list (
           FTests = RRRC$FTests, 
           ciDiffTrt = RRRC$ciDiffTrt, 
@@ -173,7 +175,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
       ))
   }
   
-  if (option %in% c("FRRC", "ALL")) {
+  if (analysisOption %in% c("FRRC", "ALL")) {
     # ************ FRRC ****************
     # ************ FRRC ****************
     # ************ FRRC ****************
@@ -247,12 +249,12 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
     sourceArrayFRRC <- c("T", "C", "TC")
     dfArrayFRRC <- c(I - 1, K - 1, (I - 1) * (K - 1))
     ssArrayFRRC <- t(cbind(ssTFRRC, ssCFRRC, ssTCFRRC))
-    ssTableFRRC <- data.frame(Source = sourceArrayFRRC, 
+    ssAnovaEachRdr <- data.frame(Source = sourceArrayFRRC, 
                               DF = dfArrayFRRC, 
                               readerID = ssArrayFRRC, 
                               row.names = NULL, 
                               stringsAsFactors = FALSE)
-    colnames(ssTableFRRC) <- c("Source", "DF", readerID)
+    colnames(ssAnovaEachRdr) <- c("Source", "DF", readerID)
     
     msArrayFRRC <- ssArrayFRRC
     for (n in 1:3) msArrayFRRC[n, ] <- ssArrayFRRC[n, ]/dfArrayFRRC[n]
@@ -304,29 +306,32 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                         CILower = CIReaderFRRC[,1],
                                         CIUpper = CIReaderFRRC[,2], 
                                         stringsAsFactors = FALSE)
-    if (option == "FRRC")
+    if (analysisOption == "FRRC")
       return(list(
-        foms = t(foms),
-        # return transpose to match official code 
-        # and it makes more sense to have readers in vertical direction 5/1/20
-        trtMeans = trtMeans,
-        trtMeanDiffs = trtMeanDiffs,
-        TRCanovaDBM = TRCanovaDBM, 
-        RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
-        varCompDBM = varCompDBM,
+        FVCA = list (
+          # return transpose to match official code 
+          # and it makes more sense to have readers in vertical direction 5/1/20
+          foms = t(foms),
+          trtMeans = trtMeans,
+          trtMeanDiffs = trtMeanDiffs,
+          TRCanovaDBM = TRCanovaDBM, 
+          RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
+          DBMVarComp = DBMVarComp
+        ),
         RRRC = NULL,
         FRRC = list (
           FTests = FRRC$FTests, 
-          ciDiffTrtFRRC = FRRC$ciDiffTrt, 
+          ciDiffTrt = FRRC$ciDiffTrt, 
           ciAvgRdrEachTrt = FRRC$ciAvgRdrEachTrt, 
           msAnovaEachRdr = FRRC$msAnovaEachRdr, 
+          ssAnovaEachRdr = ssAnovaEachRdr,
           ciDiffTrtEachRdr = FRRC$ciDiffTrtEachRdr
         ),
         RRFC = NULL
       ))
   }
   
-  if (option %in% c("RRFC", "ALL")) {
+  if (analysisOption %in% c("RRFC", "ALL")) {
     # ************ RRFC ****************
     # ************ RRFC ****************
     # ************ RRFC ****************
@@ -376,17 +381,19 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
                                        CIUpper = CISingleRRFC[,2], 
                                        row.names = NULL, 
                                        stringsAsFactors = FALSE)
-
-    if (option == "RRFC")
+    
+    if (analysisOption == "RRFC")
       return(list(
-        foms = t(foms),
-        # return transpose to match official code 
-        # and it makes more sense to have readers in vertical direction 5/1/20
-        trtMeans = trtMeans,
-        trtMeanDiffs = trtMeanDiffs,
-        TRCanovaDBM = TRCanovaDBM, 
-        RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
-        varCompDBM = varCompDBM,
+        FVCA = list (
+          # return transpose to match official code 
+          # and it makes more sense to have readers in vertical direction 5/1/20
+          foms = t(foms),
+          trtMeans = trtMeans,
+          trtMeanDiffs = trtMeanDiffs,
+          TRCanovaDBM = TRCanovaDBM, 
+          RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
+          DBMVarComp = DBMVarComp
+        ),
         RRRC = NULL,
         FRRC = NULL,
         RRFC = list(
@@ -398,24 +405,27 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, option)
   }
   
   return(list(
-    foms = t(foms),
-    # return transpose to match official code 
-    # and it makes more sense to have readers in vertical direction 5/1/20
-    trtMeans = trtMeans,
-    trtMeanDiffs = trtMeanDiffs,
-    TRCanovaDBM = TRCanovaDBM, 
-    RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
-    varCompDBM = varCompDBM,
+    FVCA = list (
+      # return transpose to match official code 
+      # and it makes more sense to have readers in vertical direction 5/1/20
+      foms = t(foms),
+      trtMeans = trtMeans,
+      trtMeanDiffs = trtMeanDiffs,
+      TRCanovaDBM = TRCanovaDBM, 
+      RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
+      DBMVarComp = DBMVarComp
+    ),
     RRRC = list(
       FTests = RRRC$FTests, 
       ciDiffTrt = RRRC$ciDiffTrt, 
-      ciAvgRdrEachTrtRRRC = RRRC$ciAvgRdrEachTrt
+      ciAvgRdrEachTrt = RRRC$ciAvgRdrEachTrt
     ),
     FRRC = list(
       FTests = FRRC$FTests, 
       ciDiffTrt = FRRC$ciDiffTrt, 
-      ciAvgRdrEachTrtRRRC = FRRC$ciAvgRdrEachTrt,
+      ciAvgRdrEachTrt = FRRC$ciAvgRdrEachTrt,
       msAnovaEachRdr = FRRC$msAnovaEachRdr,
+      ssAnovaEachRdr = ssAnovaEachRdr,
       ciDiffTrtEachRdr = FRRC$ciDiffTrtEachRdr
     ),
     RRFC = list(

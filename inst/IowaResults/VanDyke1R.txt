@@ -1,0 +1,180 @@
+###DPC Extracted Reader 1 from original dataset02 and saved as VanDyke1R.lrc DPC###
+
+ 05/07/2020
+
+                           OR-DBM MRMC 2.51
+
+                     <beta> Build  20181028 </beta>
+
+              MULTIREADER-MULTICASE ROC ANALYSIS OF VARIANCE
+                          TRAPEZOIDAL AREA ANALYSIS
+ 
+ 
+ |====================================================================|
+ |*****                         Credits                          *****|
+ |====================================================================|
+ |                                                                    |
+ | ANOVA Computations & Display:                                      |
+ | -----------------------------                                      |
+ | Kevin M. Schartz, Stephen L. Hillis, Lorenzo L. Pesce, &           |
+ | Kevin S. Berbaum                                                   |
+ |                                                                    |
+ | Expected Utility Computations:                                     |
+ | -----------------------------                                      |
+ | Craig K. Abbey                                                     |
+ |                                                                    |
+ |====================================================================|
+ 
+ 
+ 
+ |====================================================================|
+ |***************************     NOTE     ***************************|
+ |====================================================================|
+ | The user agreement for this software stipulates that any           |
+ | publications based on research data analyzed using this software   |
+ | must cite references 1-5 given below.                              |
+ |                                                                    |
+ | Example of citing the software:                                    |
+ |                                                                    |
+ |      Reader performance analysis was performed using the software  |
+ | package OR-DBM MRMC 2.51, written by Kevin M.Schartz, Stephen L.   |
+ | Hillis, Lorenzo L. Pesce, and Kevin S. Berbaum, and freely         |
+ | available at http://perception.radiology.uiowa.edu. This program   |
+ | is based on the methods initially proposed by Dorfman, Berbaum,    |
+ | and Metz [1] and Obuchowski and Rockette [2] and later unified and |
+ | improved by Hillis and colleagues [3-5].                           |
+ |====================================================================|
+ 
+ Data file: \\vmware-host\Shared Folders\VmWareShared\DataSet1R.lrc                                                                                                                                                                                                         
+ 
+ 2 treatments, 1 readers, 114 cases (69 normal, 45 abnormal)
+ 
+ Curve fitting methodology is TRAPEZOIDAL/WILCOXON
+ Dependent variable is AUC
+ 
+ Study Design:  Factorial
+ Covariance Estimation Method:  Jackknifing
+ 
+ ===========================================================================
+ *****                            Estimates                            *****
+ ===========================================================================
+ 
+TREATMENT x READER AUC ESTIMATES
+
+                  TREATMENT
+           -----------------------
+ READER         1            2
+ ------    ----------   ----------   
+     1     0.91964573   0.94782609
+ 
+
+ TREATMENT AUC MEANS (averaged across readers)
+ ---------------------------------------------
+       1      0.91964573
+       2      0.94782609
+ 
+ 
+
+ TREATMENT AUC MEAN DIFFERENCES
+ ------------------------------
+     1 - 2    -0.02818035
+ 
+ 
+ 
+ 
+ 
+ ===========================================================================
+ *****    Analysis 2 (OR Analysis): Fixed Readers and Random Cases     *****
+ ===========================================================================
+ (Results apply to the population of cases but only for the readers used in
+ this study. Chi-square or Z tests are used; these are appropriate for 
+ moderate or large case sample sizes.)
+ 
+    a) Chi-square test for H0: Treatments have the same AUC
+    Note: The chi-square statistic is denoted by X2 or by X2(df), where df is its 
+    corresponding degrees of freedom.
+ 
+ 
+     X2 value       DF    Pr > X2
+ ---------------  ------  -------
+         1.22011       1   0.2693
+ 
+ Conclusion: The treatment AUCs are not significantly different [X2(1) =  1.22, p = .2693].
+ 
+ X2 = (t-1)*MS(T)/[Var(error) - Cov1 + (r-1)*max(Cov2 - Cov3,0)]
+
+
+    b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
+       for treatment AUC differences
+ 
+ Treatment
+ Comparison  Difference   StdErr     z     Pr >|z|          95% CI       
+ ----------  ----------  --------  ------  -------  ---------------------
+   1 - 2       -0.02818   0.02551   -1.10   0.2693  (-0.07818 ,  0.02182)
+ 
+ StdErr = sqrt{2/r * [(Var(error) - Cov1 + (r-1)*max(Cov2 - Cov3,0)]}
+ 95% CI: difference +- z(.025) * StdErr
+ 
+
+    c) Single treatment AUC 95% confidence intervals
+       (Each analysis is based only on data for the specified treatment, i.e., on
+        the specific reader ANOVA of AUCs and error-variance and Cov2 estimates.)
+ 
+  Treatment      AUC      Std Error   95% Confidence Interval 
+ ----------  ----------  ----------  -------------------------
+          1  0.91964573  0.03012552  (0.86060081 , 0.97869066)
+          2  0.94782609  0.02214169  (0.90442917 , 0.99122300)
+ 
+  Treatment  Var(Error)     Cov2   
+ ----------  ----------  ----------
+          1  0.00090755  -NaN      
+          2  0.00049025  -NaN      
+ 
+ StdErr = sqrt{1/r * [Var(error) + (r-1)*max(Cov2,0)]}
+ 95% CI: AUC +- z(.025) * StdErr
+
+
+    d) Single-reader 95% confidence intervals and tests (H0: difference = 0) for 
+    treatment AUC differences.
+       (Each analysis is based only on data for the specified reader, i.e, on the 
+        reader-specific AUC, error-variance and Cov1 estimates.)
+ 
+         Treatment
+ Reader  Comparison  Difference  StdErr      z     Pr >|z|          95% CI       
+ ------  ----------  ----------  --------  ------  -------  ---------------------
+      1    1 - 2       -0.02818   0.02551   -1.10   0.2693  (-0.07818 ,  0.02182)
+ 
+ Reader  Var(Error)     Cov1   
+ ------  ----------  ----------
+      1  0.00069890  0.00037347
+ 
+ StdErr = sqrt[2*(Var(error) - Cov1)]
+ 95% CI: Difference +- z(.025) * StdErr
+ 
+ 
+ #=> Reference resources are missing. Default references provided. <=#
+ 
+
+
+                               REFERENCES
+
+ 1.   Dorfman, D.D., Berbaum, K.S., & Metz, C.E. (1992). Receiver operating
+ characteristic rating analysis: Generalization to the population of 
+ readers and patients with the jackknife method. Investigative Radiology,
+ 27, 723-731.
+
+ 2.    Obuchowski, N.A., & Rockette, H.E. (1995). Hypothesis testing of diagnostic
+ accuracy for multiple readers and multiple tests: An ANOVA approach with dependent
+ observations. Communications in Statistics-Simulation and Computation, 24, 285-308.
+
+ 3.   Hillis, S.L., Obuchowski, N.A., Schartz, K.M., & Berbaum, K.S.
+ (2005). A comparison of the Dorfman-Berbaum-Metz and Obuchowski-Rockette
+ methods for receiver operating characteristic (ROC) data. 
+ Statistics in Medicine, 24, 1579-1607  DOI:10.1002/sim.2024.
+
+ 4.   Hillis, S.L. (2007). A comparison of denominator degrees of freedom for
+ multiple observer ROC analysis.  Statistics in Medicine, 26:596-619  DOI:10.1002/sim.2532.
+
+ 6.   Hillis, S.L., Berbaum, K.S., & Metz, C.E. (2008). Recent developments in the
+ Dorfman-Berbaum-Metz procedure for multireader ROC study analysis. Academic Radiology, 15, 
+ 647-661. DOI:10.1016/j.acra.2007.12.015

@@ -1,6 +1,6 @@
 context("Util output report tests")
 
-# options not needed as output file produces all three options DPC 6/30/19
+# analysisOption not needed as output file produces all three analysisOption DPC 6/30/19
 test_that("UtilOutputReport text format", {
 # Excel tests not yet implemented  
   skip_on_cran()

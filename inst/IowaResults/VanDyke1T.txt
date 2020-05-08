@@ -1,6 +1,6 @@
-Original File Name: VanDyke trap area jackknife anova.txt
+###DPC Extracted Treatment 1 from original dataset02 and saved as VanDyke1T.lrc DPC###
 
- 04/30/2020
+ 05/08/2020
 
                            OR-DBM MRMC 2.51
 
@@ -45,9 +45,9 @@ Original File Name: VanDyke trap area jackknife anova.txt
  | improved by Hillis and colleagues [3-5].                           |
  |====================================================================|
  
- Data file: \\vmware-host\Shared Folders\VanDykeAnalyzed\VanDyke.lrc                                                                                                                                                                                                        
+ Data file: \\vmware-host\Shared Folders\VmWareShared\VanDyke\VanDyke1T.lrc                                                                                                                                                                                                 
  
- 2 treatments, 5 readers, 114 cases (69 normal, 45 abnormal)
+ 1 treatments, 5 readers, 114 cases (69 normal, 45 abnormal)
  
  Curve fitting methodology is TRAPEZOIDAL/WILCOXON
  Dependent variable is AUC
@@ -61,27 +61,25 @@ Original File Name: VanDyke trap area jackknife anova.txt
  
 TREATMENT x READER AUC ESTIMATES
 
-                  TREATMENT
-           -----------------------
- READER         1            2
- ------    ----------   ----------   
-     1     0.91964573   0.94782609
-     2     0.85877617   0.90531401
-     3     0.90386473   0.92173913
-     4     0.97310789   0.99935588
-     5     0.82979066   0.92995169
+             TREATMENT
+           -----
+ READER         1
+ ------    ----------   
+     1     0.91964573
+     2     0.85877617
+     3     0.90386473
+     4     0.97310789
+     5     0.82979066
  
 
  TREATMENT AUC MEANS (averaged across readers)
  ---------------------------------------------
        1      0.89703704
-       2      0.94083736
  
  
 
  TREATMENT AUC MEAN DIFFERENCES
  ------------------------------
-     1 - 2    -0.04380032
  
  
  
@@ -93,11 +91,11 @@ TREATMENT x READER AUC ESTIMATES
  (Used for global test of equal treatment AUCs and for treatment differences
   confidence intervals in parts (a) and (b) of the analyses)
  
-Source            SS               DF             MS    
+Source            SS               DF             MS        
 ------   --------------------    ------   ------------------
-     T             0.00479617         1           0.00479617
-     R             0.01534480         4           0.00383620
-   T*R             0.00220412         4           0.00055103
+     T             0.00000000         0   -NaN              
+     R             0.01233051         4           0.00308263
+   T*R             0.00000000         0   -NaN              
  
  
  
@@ -106,9 +104,9 @@ Source            SS               DF             MS
  
 
                         Mean Squares
- Source     df   Treatment 1   Treatment 2
- ------    ---   -----------   -----------
-      R      4    0.00308263    0.00130460
+ Source     df   Treatment 1
+ ------    ---   -----------
+      R      4    0.00308263
  
  
  ===========================================================================
@@ -121,24 +119,24 @@ Source            SS               DF             MS
  
      OR Component             Estimate         Correlation  
  -----------------------  ----------------  ----------------
- Var(R)                         0.00153500
- Var(T*R)                       0.00020040
- COV1                           0.00034661        0.43203138
- COV2                           0.00034407        0.42886683
- COV3                           0.00023903        0.29793328
- Var(Error)                     0.00080229
+ Var(R)                   -NaN            
+ Var(T*R)                 -NaN            
+ COV1                     -NaN              -NaN            
+ COV2                           0.00048396        0.47723151
+ COV3                     -NaN              -NaN            
+ Var(Error)                     0.00101410
  
  
  Corresponding DBM variance component and covariance estimates
  
      DBM Component            Estimate    
  -----------------------  ----------------
- Var(R)                         0.00153500
- Var(C)                         0.02724923
- Var(T*R)                       0.00020040
- Var(T*C)                       0.01197530
- Var(R*C)                       0.01226473
- Var(T*R*C) + Var(Error)        0.03997160
+ Var(R)                   -NaN            
+ Var(C)                   -NaN            
+ Var(T*R)                 -NaN            
+ Var(T*C)                 -NaN            
+ Var(R*C)                 -NaN            
+ Var(T*R*C) + Var(Error)  -NaN            
  
  
  ===========================================================================
@@ -151,11 +149,11 @@ Source            SS               DF             MS
  
  Source        DF      Mean Square    F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.00479617     4.46   0.0517
- Error term   15.26       0.00107626
+ Treatment        0  -NaN             -NaN     <0.0001
+ Error term  -NaN    -NaN           
  Error term = MS(T*R) + r*max[Cov2 - Cov3,0]
  
- Conclusion: The treatment AUCs are not significantly different [F(1,15) = 4.46, p = .0517].
+ Conclusion: The treatment AUCs are not equal [F(0,*) = ***, p = -1.0000].
  
  Df(error term) = [MS(T*R) + r*max(Cov2 - Cov3,0)]**2/{MS(T*R)**2/[(t-1)(r-1)]}
  Note: "Error term" is the denominator of the F statistic and is a linear
@@ -170,7 +168,6 @@ Source            SS               DF             MS
  Treatment
  Comparison  Difference   StdErr      DF      t     Pr >|t|          95% CI       
  ----------  ----------  --------  -------  ------  -------  ---------------------
-   1 - 2       -0.04380   0.02075    15.26   -2.11   0.0517  (-0.08796 ,  0.00036)
  
  StdErr = sqrt{(2/r)*[MS(T*R) + r*max(Cov2 - Cov3,0)]}
  Df same as df(error term) from (a)
@@ -184,7 +181,6 @@ Source            SS               DF             MS
   Treatment      AUC      Std Err       DF     95% Confidence Interval      Cov2   
  ----------  ----------  ----------  -------  -------------------------  ----------
           1  0.89703704  0.03317360    12.74  (0.82522360 , 0.96885048)  0.00048396
-          2  0.94083736  0.02156637    12.71  (0.89413783 , 0.98753689)  0.00020419
  
  StdErr = sqrt{1/r * [MS(R) + r*max(Cov2,0)]}
  Df = [MS(R)+ max(r*cov2,0)]**2/[(MS(R)**2/(r-1)]
@@ -206,9 +202,9 @@ Source            SS               DF             MS
  
      X2 value       DF    Pr > X2
  ---------------  ------  -------
-         5.47595       1   0.0193
+ -NaN                  0   0.0250
  
- Conclusion: The treatment AUCs are not equal [X2(1) = 5.48, p = .0193].
+ Conclusion: The treatment AUCs are not equal [X2(0) = ***, p = .0250].
  
  X2 = (t-1)*MS(T)/[Var(error) - Cov1 + (r-1)*max(Cov2 - Cov3,0)]
 
@@ -219,7 +215,6 @@ Source            SS               DF             MS
  Treatment
  Comparison  Difference   StdErr     z     Pr >|z|          95% CI       
  ----------  ----------  --------  ------  -------  ---------------------
-   1 - 2       -0.04380   0.01872   -2.34   0.0193  (-0.08049 , -0.00711)
  
  StdErr = sqrt{2/r * [(Var(error) - Cov1 + (r-1)*max(Cov2 - Cov3,0)]}
  95% CI: difference +- z(.025) * StdErr
@@ -232,12 +227,10 @@ Source            SS               DF             MS
   Treatment      AUC      Std Error   95% Confidence Interval 
  ----------  ----------  ----------  -------------------------
           1  0.89703704  0.02428971  (0.84943008 , 0.94464399)
-          2  0.94083736  0.01677632  (0.90795637 , 0.97371835)
  
   Treatment  Var(Error)     Cov2   
  ----------  ----------  ----------
           1  0.00101410  0.00048396
-          2  0.00059047  0.00020419
  
  StdErr = sqrt{1/r * [Var(error) + (r-1)*max(Cov2,0)]}
  95% CI: AUC +- z(.025) * StdErr
@@ -251,19 +244,14 @@ Source            SS               DF             MS
          Treatment
  Reader  Comparison  Difference  StdErr      z     Pr >|z|          95% CI       
  ------  ----------  ----------  --------  ------  -------  ---------------------
-      1    1 - 2       -0.02818   0.02551   -1.10   0.2693  (-0.07818 ,  0.02182)
-      2    1 - 2       -0.04654   0.02630   -1.77   0.0768  (-0.09809 ,  0.00501)
-      3    1 - 2       -0.01787   0.03121   -0.57   0.5668  (-0.07904 ,  0.04330)
-      4    1 - 2       -0.02625   0.01729   -1.52   0.1290  (-0.06014 ,  0.00764)
-      5    1 - 2       -0.10016   0.04406   -2.27   0.0230  (-0.18651 , -0.01381)
  
  Reader  Var(Error)     Cov1   
  ------  ----------  ----------
-      1  0.00069890  0.00037347
-      2  0.00110605  0.00076016
-      3  0.00084234  0.00035532
-      4  0.00015058  0.00000108
-      5  0.00121357  0.00024304
+      1  0.00090755  -NaN      
+      2  0.00132316  -NaN      
+      3  0.00079859  -NaN      
+      4  0.00030064  -NaN      
+      5  0.00174057  -NaN      
  
  StdErr = sqrt[2*(Var(error) - Cov1)]
  95% CI: Difference +- z(.025) * StdErr
@@ -291,10 +279,10 @@ Source            SS               DF             MS
  
  Source        DF    Mean Square      F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.00479617     8.70   0.0420
- T*R              4       0.00055103
+ Treatment        0  -NaN             -NaN     <0.0001
+ T*R              0  -NaN           
  
- Conclusion: The treatment AUCs are not equal [F(1,4) = 8.70, p = .0420].
+ Conclusion: The treatment AUCs are not equal [F(0,0) = ***, p = .0000].
  Note: If there are only 2 treatments, this is equivalent to a paired t-test applied
  to the AUCs
 
@@ -305,7 +293,6 @@ Source            SS               DF             MS
  Treatment
  Comparison  Difference   StdErr      DF      t     Pr >|t|          95% CI       
  ----------  ----------  --------  -------  ------  -------  ---------------------
-   1 - 2       -0.04380   0.01485        4   -2.95   0.0420  (-0.08502 , -0.00258)
  
  StdErr = sqrt[2/r * MS(T*R)]
  DF = df[MS(T*R)] = (t-1)(r-1)
@@ -321,7 +308,6 @@ Source            SS               DF             MS
   Treatment      AUC        MS(R)     Std Error     DF     95% Confidence Interval 
  ----------  ----------  ----------  ----------  -------  -------------------------
           1  0.89703704  0.00308263  0.02482994        4  (0.82809808 , 0.96597599)
-          2  0.94083736  0.00130460  0.01615303        4  (0.89598936 , 0.98568536)
  
  StdErr = sqrt[1/r * MS(R)]
  DF = df[MS(R)] = r-1

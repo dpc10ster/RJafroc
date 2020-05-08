@@ -13,7 +13,7 @@ SsSampleSizeKGivenJ(
   method = "DBMH",
   alpha = 0.05,
   desiredPower = 0.8,
-  option = "ALL"
+  analysisOption = "ALL"
 )
 }
 \arguments{
@@ -37,7 +37,7 @@ components are supplied.}
 
 \item{desiredPower}{The desired statistical power, default is 0.8.}
 
-\item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
+\item{analysisOption}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
 (the default).}
 }
 \value{
@@ -45,7 +45,7 @@ A list of two elements:
 
 \item{K}{The minimum number of cases K in the pivotal study 
    to just achieve the desired statistical power. This is calculated 
-   for each value of option.}
+   for each value of analysisOption.}
 
 \item{power}{The predicted statistical power.}
 }
@@ -76,7 +76,7 @@ SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "ORH",
 
 \donttest{ 
 for (J in 6:10) {
- ret <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = J, option = "RRRC") 
+ ret <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = J, analysisOption = "RRRC") 
  message("# of readers = ", J, " estimated # of cases = ", ret$K, 
  ", predicted power = ", signif(ret$powerRRRC,3), "\n")
 }

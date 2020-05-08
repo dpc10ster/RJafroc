@@ -17,7 +17,7 @@
 #'    Must be supplied if dataset is set to NULL and variance 
 #'    components are supplied.
 #' @param method "DBMH" (the default) or "ORH".
-#' @param option Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).
+#' @param analysisOption Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).
 #' @param alpha The significance level, default is 0.05.
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
@@ -60,9 +60,9 @@
 #' @export
 #' @importFrom stats qf pf
 #' 
-SsPowerGivenJK <- function(dataset, ..., FOM, FPFValue = 0.2, J, K, effectSize = NULL, method = "DBMH", option = "ALL", alpha = 0.05) {
+SsPowerGivenJK <- function(dataset, ..., FOM, FPFValue = 0.2, J, K, effectSize = NULL, method = "DBMH", analysisOption = "ALL", alpha = 0.05) {
   
-  if (!(option %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect option.")
+  if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
   if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
   if (!is.null(dataset) && (dataset$dataType == "LROC") && !(FOM %in% c("Wilcoxon", "PCL", "ALROC"))) stop("Incorrect FOM used with LROC dataset")
   if (!is.null(dataset) && (length(list(...)) > 0)) stop("dataset and variance components cannot both be supplied as arguments")
@@ -81,7 +81,7 @@ SsPowerGivenJK <- function(dataset, ..., FOM, FPFValue = 0.2, J, K, effectSize =
       if ("varYTC" %in% names(extraParms)) varYTC <- extraParms$varYTC else stop("missing varYTC")
       if ("varYEps" %in% names(extraParms)) varYEps <- extraParms$varYEps else stop("missing varYEps")
     }
-    ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, option )
+    ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, analysisOption )
   } else if (method == "ORH") {
     if (!(is.null(dataset))) {
       ret <- StSignificanceTesting(dataset, FOM, FPFValue, method = "ORH")
@@ -102,7 +102,7 @@ SsPowerGivenJK <- function(dataset, ..., FOM, FPFValue = 0.2, J, K, effectSize =
       if ("cov3" %in% names(extraParms)) cov3 <- extraParms$cov3 else stop("missing cov3")
       if ("varEps" %in% names(extraParms)) varEps <- extraParms$varEps else stop("missing varEps")
     }
-    ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize = effectSize, varTR, cov1, cov2, cov3, varEps, alpha, option)
+    ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize = effectSize, varTR, cov1, cov2, cov3, varEps, alpha, analysisOption)
   } else stop("method must be DBMH or ORH")
   
   return(ret)
@@ -119,7 +119,7 @@ SsPowerGivenJK <- function(dataset, ..., FOM, FPFValue = 0.2, J, K, effectSize =
 #' @param varYTC The treatment-case DBM variance component
 #' @param varYEps The error-term DBM variance component
 #' @param alpha The size of the test (default = 0.05)
-#' @param option The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")
+#' @param analysisOption The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")
 #' 
 #' @return A list object containing the estimated power and associated statistics
 #'    for each desired generalization.
@@ -129,19 +129,19 @@ SsPowerGivenJK <- function(dataset, ..., FOM, FPFValue = 0.2, J, K, effectSize =
 #' 
 #' @examples 
 #' VarComp <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", 
-#'    option = "RRRC")$varComp
+#'    analysisOption = "RRRC")$varComp
 #' varYTR <- VarComp$varTR
 #' varYTC <- VarComp$varTC
 #' varYEps <- VarComp$varErr
 #' ret <- SsPowerGivenJKDbmVarComp (J = 5, K = 100, effectSize = 0.05, varYTR, 
-#'    varYTC, varYEps, option = "RRRC")
+#'    varYTC, varYEps, analysisOption = "RRRC")
 #' cat("RRRC power = ", ret$powerRRRC)
 #'   
 #' @export
 #' 
-SsPowerGivenJKDbmVarComp <- function(J, K, effectSize, varYTR, varYTC, varYEps, alpha = 0.05, option){
+SsPowerGivenJKDbmVarComp <- function(J, K, effectSize, varYTR, varYTC, varYEps, alpha = 0.05, analysisOption){
   
-  if (option == "RRRC" || option == "ALL") {
+  if (analysisOption == "RRRC" || analysisOption == "ALL") {
     fDen <- (max(0, varYTR) + 1 / K * (varYEps + J * max(varYTC, 0)))
     ddfHRRRC <- fDen^2/((max(0, varYTR) + 1 / K * varYEps)^2/(J - 1))
     deltaRRRC <- ((effectSize)^2 * J/2) / fDen
@@ -149,7 +149,7 @@ SsPowerGivenJKDbmVarComp <- function(J, K, effectSize, varYTR, varYTC, varYEps, 
     powerRRRC <- pf(fvalueRRRC, 1, ddfHRRRC, ncp = deltaRRRC, FALSE)
   }
   
-  if (option == "RRFC" || option == "ALL") {
+  if (analysisOption == "RRFC" || analysisOption == "ALL") {
     fDen <- (max(0, varYTR) + 1 / K * (varYEps))
     ddfHRRFC <- J - 1
     deltaRRFC <- ((effectSize)^2 * J/2) / fDen
@@ -157,7 +157,7 @@ SsPowerGivenJKDbmVarComp <- function(J, K, effectSize, varYTR, varYTC, varYEps, 
     powerRRFC <- pf(fvalueRRFC, 1, ddfHRRFC, ncp = deltaRRFC, FALSE)
   }
   
-  if (option == "FRRC" || option == "ALL") {
+  if (analysisOption == "FRRC" || analysisOption == "ALL") {
     fDen <- (1 / K * (varYEps + J * max(varYTC, 0)))
     deltaFRRC <- ((effectSize)^2 * J/2) / fDen
     ddfHFRRC <- K - 1
@@ -165,7 +165,7 @@ SsPowerGivenJKDbmVarComp <- function(J, K, effectSize, varYTR, varYTC, varYEps, 
     powerFRRC <- pf(fvalueFRRC, 1, ddfHFRRC, ncp = deltaFRRC, FALSE)
   }
   
-  if (option == "ALL"){
+  if (analysisOption == "ALL"){
     return(data.frame(powerRRRC = powerRRRC, 
                       ncpRRRC = deltaRRRC, 
                       ddfHRRRC = ddfHRRRC, 
@@ -178,17 +178,17 @@ SsPowerGivenJKDbmVarComp <- function(J, K, effectSize, varYTR, varYTC, varYEps, 
                       ncpRRFC = deltaRRFC, 
                       ddfHRRFC = ddfHRRFC, 
                       fRRFC = fvalueRRFC))
-  } else if (option == "RRRC"){
+  } else if (analysisOption == "RRRC"){
     return(data.frame(powerRRRC = powerRRRC, 
                       ncpRRRC = deltaRRRC, 
                       ddfHRRRC = ddfHRRRC, 
                       fRRRC = fvalueRRRC))
-  } else if (option == "FRRC"){
+  } else if (analysisOption == "FRRC"){
     return(data.frame(powerFRRC = powerFRRC, 
                       ncpFRRC = deltaFRRC, 
                       ddfHFRRC = ddfHFRRC, 
                       fFRRC = fvalueFRRC))
-  } else if (option == "RRFC"){
+  } else if (analysisOption == "RRFC"){
     return(data.frame(powerRRFC = powerRRFC, 
                       ncpRRFC = deltaRRFC, 
                       ddfHRRFC = ddfHRRFC, 
@@ -211,7 +211,7 @@ SsPowerGivenJKDbmVarComp <- function(J, K, effectSize, varYTR, varYTC, varYEps, 
 #' @param cov3 The OR cov3 covariance
 #' @param varEps The OR pure variance term
 #' @param alpha The size of the test (default = 0.05)
-#' @param option The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")
+#' @param analysisOption The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")
 #' 
 #' @return A list object containing the estimated power and associated statistics
 #'    for each desired generalization.
@@ -222,23 +222,23 @@ SsPowerGivenJKDbmVarComp <- function(J, K, effectSize, varYTR, varYTC, varYEps, 
 #' @examples 
 #' dataset <- dataset02 ## the pilot study
 #' KStar <- length(dataset$NL[1,1,,1])
-#' VarComp <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "ORH", option = "RRRC")$varComp
+#' VarComp <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "ORH", analysisOption = "RRRC")$varComp
 #' varTR <- VarComp$varTR
 #' cov1 <- VarComp$cov1
 #' cov2 <- VarComp$cov2
 #' cov3 <- VarComp$cov3
 #' varEps <- VarComp$var
 #' ret <- SsPowerGivenJKOrVarComp (J = 5, K = 100, KStar = KStar,  
-#'    effectSize = 0.05, varTR, cov1, cov2, cov3, varEps, option = "RRRC")
+#'    effectSize = 0.05, varTR, cov1, cov2, cov3, varEps, analysisOption = "RRRC")
 #'     
 #' cat("RRRC power = ", ret$powerRRRC)
 #'
 #'   
 #' @export
 #' 
-SsPowerGivenJKOrVarComp <- function(J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha = 0.05, option){
+SsPowerGivenJKOrVarComp <- function(J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha = 0.05, analysisOption){
   
-  if (option == "RRRC" || option == "ALL") {
+  if (analysisOption == "RRRC" || analysisOption == "ALL") {
     fDen <- max(0, varTR) + KStar / K * (varEps - cov1 + (J - 1) * max(cov2 - cov3, 0))
     ddfHRRRC <- fDen^2/((max(0, varTR) + KStar / K * (varEps - cov1 - max(cov2 - cov3, 0)))^2 / (J - 1))
     deltaRRRC <- ((effectSize)^2 * J/2) / fDen
@@ -246,7 +246,7 @@ SsPowerGivenJKOrVarComp <- function(J, K, KStar, effectSize, varTR, cov1, cov2, 
     powerRRRC <- pf(fvalueRRRC, 1, ddfHRRRC, ncp = deltaRRRC, FALSE)
   }
   
-  if (option == "RRFC" || option == "ALL") {
+  if (analysisOption == "RRFC" || analysisOption == "ALL") {
     fDen <- (max(0, varTR) + KStar / K * (varEps - cov1 - max(cov2 - cov3, 0)))
     ddfHRRFC <- J - 1
     deltaRRFC <- ((effectSize)^2 * J/2) / fDen
@@ -254,7 +254,7 @@ SsPowerGivenJKOrVarComp <- function(J, K, KStar, effectSize, varTR, cov1, cov2, 
     powerRRFC <- pf(fvalueRRFC, 1, ddfHRRFC, ncp = deltaRRFC, FALSE)
   }
   
-  if (option == "FRRC" || option == "ALL") {
+  if (analysisOption == "FRRC" || analysisOption == "ALL") {
     fDen <- (KStar / K * (varEps - cov1 + (J - 1) * max(cov2 - cov3, 0)))
     ddfHFRRC <- K - 1
     deltaFRRC <- ((effectSize)^2 * J/2) / fDen
@@ -262,7 +262,7 @@ SsPowerGivenJKOrVarComp <- function(J, K, KStar, effectSize, varTR, cov1, cov2, 
     powerFRRC <- pf(fvalueFRRC, 1, ddfHFRRC, ncp = deltaFRRC, FALSE)
   }
   
-  if (option == "ALL"){
+  if (analysisOption == "ALL"){
     return(data.frame(powerRRRC = powerRRRC, 
                       ncpRRRC = deltaRRRC, 
                       ddfHRRRC = ddfHRRRC, 
@@ -275,17 +275,17 @@ SsPowerGivenJKOrVarComp <- function(J, K, KStar, effectSize, varTR, cov1, cov2, 
                       ncpRRFC = deltaRRFC, 
                       ddfHRRFC = ddfHRRFC, 
                       fRRFC = fvalueRRFC))
-  } else if (option == "RRRC"){
+  } else if (analysisOption == "RRRC"){
     return(data.frame(powerRRRC = powerRRRC, 
                       ncpRRRC = deltaRRRC, 
                       ddfHRRRC = ddfHRRRC, 
                       fRRRC = fvalueRRRC))
-  } else if (option == "FRRC"){
+  } else if (analysisOption == "FRRC"){
     return(data.frame(powerFRRC = powerFRRC, 
                       ncpFRRC = deltaFRRC, 
                       ddfHFRRC = ddfHFRRC, 
                       fFRRC = fvalueFRRC))
-  } else if (option == "RRFC"){
+  } else if (analysisOption == "RRFC"){
     return(data.frame(powerRRFC = powerRRFC, 
                       ncpRRFC = deltaRRFC, 
                       ddfHRRFC = ddfHRRFC, 

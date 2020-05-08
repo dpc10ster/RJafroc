@@ -11,7 +11,7 @@ SsPowerTable(
   alpha = 0.05,
   desiredPower = 0.8,
   method = "DBMH",
-  option = "ALL"
+  analysisOption = "ALL"
 )
 }
 \arguments{
@@ -29,10 +29,10 @@ default value is \code{NULL}. See Details.}
 
 \item{method}{Analysis method, "DBMH" or "ORH", the default is "DBMH".}
 
-\item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
+\item{analysisOption}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
 }
 \value{
-A list containing up to 3 (depending on \code{options}) dataframes. 
+A list containing up to 3 (depending on \code{analysisOption}) dataframes. 
     Each dataframe contains 3 arrays:
 
 \item{numReaders}{The numbers of readers in the pivotal study.}

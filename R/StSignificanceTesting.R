@@ -19,7 +19,7 @@
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' @param alpha The significance level of the test of the null hypothesis that all 
 #'    treatment effects are zero; the default is 0.05
-#' @param method The significance testing method to be used. There are two options: 
+#' @param method The significance testing method to be used. There are two choices: 
 #'    \code{"DBMH"} (the default) or \code{"ORH"}, representing the Dorfman-Berbaum-Metz
 #'    and the Obuchowski-Rockette significance testing methods, respectively. 
 #' @param covEstMethod The covariance matrix estimation method
@@ -32,7 +32,7 @@
 #' }   
 #' @param nBoots The number of bootstraps (defaults to 200), relevant only if 
 #'    \code{covEstMethod = "bootstrap"} and \code{method = "ORH"} 
-#' @param option Determines which factors are regarded as random vs. fixed:
+#' @param analysisOption Determines which factors are regarded as random vs. fixed:
 #' \itemize{ 
 #'    \item \code{"RRRC"} = random-reader random case, 
 #'    \item \code{"FRRC"} = fixed-reader random case, 
@@ -83,8 +83,8 @@
 #' @return \item{fomArray}{Figure of merit array: see return of \code{\link{UtilFigureOfMerit}}}
 #' @return \item{meanSquares}{List with 3 members: \code{msT}, \code{msR}, \code{msTR}}
 #' @return \item{varComp}{The variance components of the OR figure of merit model; 
-#'    6 values, listed in the following order: \code{varR}, \code{varTR}, \code{cov1}, 
-#'    \code{cov2}, \code{cov3} and \code{var}}
+#'    6 values, listed in the following order: \code{varR}, \code{varTR}, \code{Cov1}, 
+#'    \code{Cov2}, \code{Cov3} and \code{Var}}
 #' @return \item{FTestStatsRRRC}{Results of the F-test for RRRC \strong{random reader random case}
 #'    analysis; contains the following items: \code{fRRRC} - the value of the F-statistic, 
 #'    \code{ndfRRRC} - the numerator degrees of freedom, \code{ddfRRRC} - 
@@ -143,9 +143,14 @@
 #'      
 #' @export
 StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBMH", 
-                                  covEstMethod = "jackknife", nBoots = 200, option = "ALL", tempOrgCode = FALSE)
+                                  covEstMethod = "jackknife", nBoots = 200, analysisOption = "ALL", tempOrgCode = FALSE)
 {
   options(stringsAsFactors = FALSE, "digits" = 8)
+  
+  I <- length(dataset$modalityID)
+  J <- length(dataset$readerID)
+  
+  if (J == 1) analysisOption <- "FRRC" else if (I == 1) analysisOption <- "RRFC"
   
   if (dataset$dataType == "ROI") {
     method <- "ORH"
@@ -154,8 +159,8 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     cat("ROI dataset: forcing method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.\n")
   }
   
-  if (!option %in% c("RRRC", "FRRC", "RRFC", "ALL")){
-    errMsg <- sprintf("%s is not a valid option.", option)
+  if (!analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL")){
+    errMsg <- sprintf("%s is not a valid analysis Option.", analysisOption)
     stop(errMsg)
   }    
   
@@ -166,16 +171,21 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     stop(ErrMsg)
   }
   
-  if ((length(dataset$NL[1,,1,1]) < 2) && (option != "FRRC")) {
-    ErrMsg <- paste0("Must use option FRRC with 1-reader dataset")
+  if ((length(dataset$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
+    ErrMsg <- paste0("Must use analysisOption FRRC with 1-reader dataset")
     stop(ErrMsg)
-    # option <- "FRRC"
+    # analysisOption <- "FRRC"
   }
   
   if (method == "DBMH"){
     if (covEstMethod != "jackknife") 
-      stop("For DBMH method covariance estimation method covEstMethod must be jackknife")
-  }
+      stop("For DBMH method `covEstMethod` must be jackknife")
+  } else if (method == "ORH") {
+    if (!covEstMethod %in% c("jackknife", "bootstrap", "DeLong")) {
+      errMsg <- paste0(covEstMethod, " is not an allowed covariance estimation method for ORH analysis.")
+      stop(errMsg)
+    }
+  } else stop("Incorrect `method` argument: must be `DBMH` or `ORH`")
   
   if ((length(dataset) == 12) && (dataset$design == "SPLIT-PLOT") && method == "DBMH") 
     stop("Must use method = ORH for SPLIT-PLOT dataset")
@@ -185,18 +195,18 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   
   if (!tempOrgCode) {
     if (method == "DBMH"){
-      return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, option)) # current code
+      return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, analysisOption)) # current code
     } else if (method == "ORH"){
-      return(StORHAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, option)) # current code
+      return(StORHAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)) # current code
     } else {
       errMsg <- sprintf("%s is not a valid analysis method.", method)
       stop(errMsg)
     }
   } else {
     if (method == "DBMH"){
-      return(DBMHAnalysis(dataset, FOM, alpha, option)) # original code: StOldCode.R
+      return(DBMHAnalysis(dataset, FOM, alpha, analysisOption)) # original code: StOldCode.R
     } else if (method == "ORH"){
-      return(ORHAnalysis(dataset, FOM, alpha, covEstMethod, nBoots, option)) # original code: StOldCode.R
+      return(ORHAnalysis(dataset, FOM, alpha, covEstMethod, nBoots, analysisOption)) # original code: StOldCode.R
     } else {
       errMsg <- sprintf("%s is not a valid analysis method.", method)
       stop(errMsg)
@@ -255,54 +265,54 @@ ResamplingEstimateVarCovs <- function(resampleMatrix) {
   }
   
   ret <- ORVarianceCovariances(covariances)
-  return(list(var = ret$var, cov1 = ret$cov1, cov2 = ret$cov2, cov3 = ret$cov3))
+  return(list(Var = ret$Var, Cov1 = ret$Cov1, Cov2 = ret$Cov2, Cov3 = ret$Cov3))
 }
 
 
 
 
 ORVarianceCovariances <- function(covariances) {
-  var <- 0
+  Var <- 0
   count <- 0
   I <- dim(covariances)[1]
   J <- dim(covariances)[3]
   for (i in 1:I) {
     for (j in 1:J) {
-      var <- var + covariances[i, i, j, j]
+      Var <- Var + covariances[i, i, j, j]
       count <- count + 1
     }
   }
-  if (count > 0) var <- var/count else var <- NaN
+  if (count > 0) Var <- Var/count else Var <- NA
   
-  cov1 <- 0
+  Cov1 <- 0
   count <- 0
   for (i in 1:I) {
     for (ip in 1:I) {
       for (j in 1:J) {
         if (ip != i) {
-          cov1 <- cov1 + covariances[i, ip, j, j]
+          Cov1 <- Cov1 + covariances[i, ip, j, j]
           count <- count + 1
         }
       }
     }
   }
-  if (count > 0) cov1 <- cov1/count else cov1 <- NaN
+  if (count > 0) Cov1 <- Cov1/count else Cov1 <- NA
   
-  cov2 <- 0
+  Cov2 <- 0
   count <- 0
   for (i in 1:I) {
     for (j in 1:J) {
       for (jp in 1:J) {
         if (j != jp) {
-          cov2 <- cov2 + covariances[i, i, j, jp]
+          Cov2 <- Cov2 + covariances[i, i, j, jp]
           count <- count + 1
         }
       }
     }
   }
-  if (count > 0) cov2 <- cov2/count else cov2 <- NaN
+  if (count > 0) Cov2 <- Cov2/count else Cov2 <- NA
   
-  cov3 <- 0
+  Cov3 <- 0
   count <- 0
   for (i in 1:I) {
     for (ip in 1:I) {
@@ -310,7 +320,7 @@ ORVarianceCovariances <- function(covariances) {
         for (j in 1:J) {
           for (jp in 1:J) {
             if (j != jp) {
-              cov3 <- cov3 + covariances[i, ip, j, jp]
+              Cov3 <- Cov3 + covariances[i, ip, j, jp]
               count <- count + 1
             }
           }
@@ -318,9 +328,9 @@ ORVarianceCovariances <- function(covariances) {
       }
     }
   }
-  if (count > 0) cov3 <- cov3/count else cov3 <- NaN
+  if (count > 0) Cov3 <- Cov3/count else Cov3 <- NA
   
-  return(list(var = var, cov1 = cov1, cov2 = cov2, cov3 = cov3))
+  return(list(Var = Var, Cov1 = Cov1, Cov2 = Cov2, Cov3 = Cov3))
 } 
 
 
@@ -406,23 +416,27 @@ pseudoValueMeanSquares <- function (pseudoValues)
 
 varComponentsJackknife <- function(dataset, FOM, FPFValue) {
   
+  I <- length(dataset$NL[,1,1,1])
+  J <- length(dataset$NL[1,,1,1])
+  K <- length(dataset$NL[1,1,,1])
+  
   if ((length(dataset) != 12) || (dataset$design == "CROSSED")) { 
-    K <- length(dataset$NL[1,1,,1])
+    # K <- length(dataset$NL[1,1,,1])
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
     CovTemp <- ResamplingEstimateVarCovs(ret$jkFomValues)
     Cov <- list(
-      var = CovTemp$var * (K-1)^2/K,
-      cov1 = CovTemp$cov1 * (K-1)^2/K,
-      cov2 = CovTemp$cov2 * (K-1)^2/K,
-      cov3 = CovTemp$cov3 * (K-1)^2/K
+      Var = CovTemp$Var * (K-1)^2/K,
+      Cov1 = CovTemp$Cov1 * (K-1)^2/K,
+      Cov2 = CovTemp$Cov2 * (K-1)^2/K,
+      Cov3 = CovTemp$Cov3 * (K-1)^2/K
     )
   } else if (dataset$design == "SPLIT-PLOT") {
-    I <- length(dataset$NL[,1,1,1])
-    K <- length(dataset$NL[1,1,,1])
+    # I <- length(dataset$NL[,1,1,1])
+    # K <- length(dataset$NL[1,1,,1])
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-    J <- length(ret$jkFomValues[1,,1])
-    var <- array(dim = J)
-    cov1 <- array(dim = J)
+    # J <- length(ret$jkFomValues[1,,1])
+    Var <- array(dim = J)
+    Cov1 <- array(dim = J)
     FOM <- ret$jkFomValues
     caseTransitions <- ret$caseTransitions
     for (j in 1:J) {
@@ -431,18 +445,18 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
       dim(jkFOMs) <- c(I,1,kj)
       x <- ResamplingEstimateVarCovs(jkFOMs)
       # not sure which way to go: was doing this until 2/18/20
-      # var[j]  <-  x$var * (K-1)^2/K
-      # cov1[j]  <-  x$cov1 * (K-1)^2/K
+      # Var[j]  <-  x$Var * (K-1)^2/K
+      # Cov1[j]  <-  x$Cov1 * (K-1)^2/K
       # following seems more reasonable as reader j only interprets kj cases
       # updated file ~Dropbox/RJafrocChecks/StfrocSp.xlsx
-      var[j]  <-  x$var * (kj-1)^2/kj
-      cov1[j]  <-  x$cov1 * (kj-1)^2/kj
+      Var[j]  <-  x$Var * (kj-1)^2/kj
+      Cov1[j]  <-  x$Cov1 * (kj-1)^2/kj
     }
     Cov <- list(
-      var = mean(var),
-      cov1 = mean(cov1),
-      cov2 = 0,
-      cov3 = 0
+      Var = mean(Var),
+      Cov1 = mean(Cov1),
+      Cov2 = 0,
+      Cov3 = 0
     )
   } else stop("Incorrect dataset design, must be CROSSED or SPLIT-PLOT")
   
@@ -537,12 +551,12 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed)
     }
   }
   Cov <- ResamplingEstimateVarCovs(fomBsArray)
-  var <- Cov$var
-  cov1 <- Cov$cov1
-  cov2 <- Cov$cov2
-  cov3 <- Cov$cov3
+  Var <- Cov$Var
+  Cov1 <- Cov$Cov1
+  Cov2 <- Cov$Cov2
+  Cov3 <- Cov$Cov3
   
-  return(list(var = var, cov1 = cov1, cov2 = cov2, cov3 = cov3))
+  return(list(Var = Var, Cov1 = Cov1, Cov2 = Cov2, Cov3 = Cov3))
   
 }
 
@@ -683,10 +697,10 @@ varComponentsDeLong <- function(dataset, FOM)
     S <- s10/K2 + s01/K1
   }
   Cov <- ORVarianceCovariances(S)
-  var <- Cov$var
-  cov1 <- Cov$cov1
-  cov2 <- Cov$cov2
-  cov3 <- Cov$cov3
+  Var <- Cov$Var
+  Cov1 <- Cov$Cov1
+  Cov2 <- Cov$Cov2
+  Cov3 <- Cov$Cov3
   
-  return(list(var = var, cov1 = cov1, cov2 = cov2, cov3 = cov3))
+  return(list(Var = Var, Cov1 = Cov1, Cov2 = Cov2, Cov3 = Cov3))
 }

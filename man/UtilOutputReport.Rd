@@ -6,7 +6,6 @@
 \usage{
 UtilOutputReport(
   dataset,
-  dataDescription = "MyDataDescription: ",
   ReportFileBaseName = NULL,
   ReportFileExt = "txt",
   method = "DBMH",
@@ -15,16 +14,13 @@ UtilOutputReport(
   covEstMethod = "jackknife",
   nBoots = 200,
   sequentialNames = FALSE,
-  overWrite = FALSE
+  overWrite = FALSE,
+  analysisOption = "ALL"
 )
 }
 \arguments{
 \item{dataset}{The dataset object to be analyzed (\emph{not the file name}), 
 see \code{Dataset} in \code{\link{RJafroc-package}}.}
-
-\item{dataDescription}{A short string describing the dataset, 
-the default is "MyDataDescription: ";
-it is inserted, for reference, in the output file.}
 
 \item{ReportFileBaseName}{\bold{This must be specified by the user.} 
 The report file (text or Excel, as specified by option \code{ReportFileExt}) 
@@ -58,19 +54,21 @@ for method = \code{"ORH"}; the default is "Jackknife".}
 \code{"ORH"} analysis; the default is 200.}
 
 \item{sequentialNames}{A logical variable: if \code{TRUE}, consecutive integers 
-(staring from 1) will be used as the treatment and reader IDs in the 
-output report. Otherwise, treatment and reader IDs in the original data 
-file will be used. This option may be needed for aesthetics. The default
-is FALSE.}
+(starting from 1) will be used as the treatment and reader IDs in the 
+output report. Otherwise, treatment and reader IDs in the original dataset 
+are used. This option is needed for aesthetics, as long names can mess
+up the output. The default is \code{FALSE.}}
 
 \item{overWrite}{A \code{logical} variable: if \code{FALSE}, a warning will 
 be issued if the report file already exists and the program will wait 
 until the user inputs "y" or "n" to determine whether to overwrite the 
 existing file. If \code{TRUE}, the existing file will be silently overwritten. 
 The default is \code{FALSE}.}
+
+\item{analysisOption}{"RRRC", "FRRC", "RRFC or "ALL"; see \code{\link{StSignificanceTesting}}.}
 }
 \value{
-sigTestResult The object returned by \code{\link{StSignificanceTesting}}.
+StResult The object returned by \code{\link{StSignificanceTesting}}.
 }
 \description{
 Generates a formatted report of the analysis 

@@ -13,7 +13,7 @@ SsPowerGivenJK(
   K,
   effectSize = NULL,
   method = "DBMH",
-  option = "ALL",
+  analysisOption = "ALL",
   alpha = 0.05
 )
 }
@@ -40,7 +40,7 @@ components are supplied.}
 
 \item{method}{"DBMH" (the default) or "ORH".}
 
-\item{option}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
+\item{analysisOption}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).}
 
 \item{alpha}{The significance level, default is 0.05.}
 }

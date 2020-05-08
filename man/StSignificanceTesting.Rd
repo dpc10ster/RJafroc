@@ -12,7 +12,7 @@ StSignificanceTesting(
   method = "DBMH",
   covEstMethod = "jackknife",
   nBoots = 200,
-  option = "ALL",
+  analysisOption = "ALL",
   tempOrgCode = FALSE
 )
 }
@@ -30,7 +30,7 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.}
 \item{alpha}{The significance level of the test of the null hypothesis that all 
 treatment effects are zero; the default is 0.05}
 
-\item{method}{The significance testing method to be used. There are two options: 
+\item{method}{The significance testing method to be used. There are two choices: 
 \code{"DBMH"} (the default) or \code{"ORH"}, representing the Dorfman-Berbaum-Metz
 and the Obuchowski-Rockette significance testing methods, respectively.}
 
@@ -46,7 +46,7 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
 \item{nBoots}{The number of bootstraps (defaults to 200), relevant only if 
 \code{covEstMethod = "bootstrap"} and \code{method = "ORH"}}
 
-\item{option}{Determines which factors are regarded as random vs. fixed:
+\item{analysisOption}{Determines which factors are regarded as random vs. fixed:
 \itemize{ 
    \item \code{"RRRC"} = random-reader random case, 
    \item \code{"FRRC"} = fixed-reader random case, 
@@ -116,8 +116,8 @@ As implicit in the name of this temporary flag, it will eventually be removed.}
 \item{meanSquares}{List with 3 members: \code{msT}, \code{msR}, \code{msTR}}
 
 \item{varComp}{The variance components of the OR figure of merit model; 
-   6 values, listed in the following order: \code{varR}, \code{varTR}, \code{cov1}, 
-   \code{cov2}, \code{cov3} and \code{var}}
+   6 values, listed in the following order: \code{varR}, \code{varTR}, \code{Cov1}, 
+   \code{Cov2}, \code{Cov3} and \code{Var}}
 
 \item{FTestStatsRRRC}{Results of the F-test for RRRC \strong{random reader random case}
    analysis; contains the following items: \code{fRRRC} - the value of the F-statistic, 

@@ -371,7 +371,7 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
     )
   }
   
-  stats1 <- StSignificanceTesting(datasetCombined, FOM = FOM, method = "ORH", alpha = alpha, option = "RRRC", FPFValue = FPFValue)
+  stats1 <- StSignificanceTesting(datasetCombined, FOM = FOM, method = "ORH", alpha = alpha, analysisOption = "RRRC", FPFValue = FPFValue)
   thetajc <- stats1$foms
   fomCAD  <-  thetajc[1,1]
   fomRAD  <-  thetajc[2,]

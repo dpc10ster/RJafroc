@@ -1,7 +1,7 @@
 # Old Code from 0.0.1 (the first version on CRAN)
 # The error in p-value (noted by Lucy A) has been corrected below
 # Otherwise the code is identical to XZ code
-DBMHAnalysis <- function(dataset, FOM, alpha, option) 
+DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption) 
 {
   NL <- dataset$NL
   LL <- dataset$LL
@@ -18,8 +18,8 @@ DBMHAnalysis <- function(dataset, FOM, alpha, option)
   K2 <- dim(LL)[3]
   K1 <- K - K2
   
-  if (!option %in% c("RRRC", "FRRC", "RRFC", "ALL")){
-    errMsg <- sprintf("%s is not an available option.", option)
+  if (!analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL")){
+    errMsg <- sprintf("%s is not an available analysisOption.", analysisOption)
     stop(errMsg)
   }    
   
@@ -209,7 +209,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, option)
   
   msNum <- msT
   
-  if (option %in% c("RRRC", "ALL")) {
+  if (analysisOption %in% c("RRRC", "ALL")) {
     # ************ RRRC ****************
     if (J > 1) {
       msDenRRRC <- msTR + max(msTC - msTRC, 0)
@@ -248,12 +248,12 @@ DBMHAnalysis <- function(dataset, FOM, alpha, option)
       ciDiffTrtRRRC <- NA
       ciAvgRdrEachTrtRRRC <- NA
     }
-    if (option == "RRRC")
+    if (analysisOption == "RRRC")
       return(list(fomArray = fomArray, anovaY = anovaY, anovaYi = msSingleTable, varComp = varComp, 
                   fRRRC = fRRRC, ddfRRRC = ddfRRRC, pRRRC = pRRRC, ciDiffTrtRRRC = ciDiffTrtRRRC, ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC))
   }
   
-  if (option %in% c("FRRC", "ALL")) {
+  if (analysisOption %in% c("FRRC", "ALL")) {
     # ************ FRRC ****************
     msDenFRRC <- msTC
     fFRRC <- msNum/msDenFRRC
@@ -347,13 +347,13 @@ DBMHAnalysis <- function(dataset, FOM, alpha, option)
     }
     ciDiffTrtEachRdr <- data.frame(Reader = readerNames, Treatment = trNames, Estimate = diffTRMeansFRRC, StdErr = stdErrFRRC, DF = dfReaderFRRC, t = tStat, p = tPr, CI = CIReaderFRRC)
     colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "Pr > t", "CI Lower", "CI Upper")
-    if (option == "FRRC")
+    if (analysisOption == "FRRC")
       return(list(fomArray = fomArray, anovaY = anovaY, anovaYi = msSingleTable, varComp = varComp, 
                   fFRRC = fFRRC, ddfFRRC = ddfFRRC, pFRRC = pFRRC, ciDiffTrtFRRC = ciDiffTrtFRRC, ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
                   ssAnovaEachRdr = ssTableFRRC, msAnovaEachRdr = msTableFRRC, ciDiffTrtEachRdr = ciDiffTrtEachRdr))
   }
   
-  if (option %in% c("RRFC", "ALL")) {
+  if (analysisOption %in% c("RRFC", "ALL")) {
     # ************ RRFC ****************
     if (J > 1) {
       msDenRRFC <- msTR
@@ -391,7 +391,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, option)
       ciDiffTrtRRFC <- NA
       ciAvgRdrEachTrtRRFC <- NA
     }
-    if (option == "RRFC")
+    if (analysisOption == "RRFC")
       return(list(fomArray = fomArray, anovaY = anovaY, anovaYi = msSingleTable, varComp = varComp, 
                   fRRFC = fRRFC, ddfRRFC = ddfRRFC, pRRFC = pRRFC, ciDiffTrtRRFC = ciDiffTrtRRFC, ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
   }
@@ -407,7 +407,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, option)
 # Old Code from 0.0.1 (the first version on CRAN)
 # The error in p-value (noted by Lucy A) has been corrected below
 # Otherwise the code is identical to XZ code
-ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, option) 
+ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOption) 
 {
   NL <- dataset$NL
   LL <- dataset$LL
@@ -425,8 +425,8 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, option)
   dim(NL) <- c(I, J, K, maxNL)
   dim(LL) <- c(I, J, K2, max(lesionVector))
   
-  if (!option %in% c("RRRC", "FRRC", "RRFC", "ALL")){
-    errMsg <- sprintf("%s is not an available option.", option)
+  if (!analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL")){
+    errMsg <- sprintf("%s is not an available analysisOption.", analysisOption)
     stop(errMsg)
   }    
   
@@ -528,7 +528,7 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, option)
   msNum <- msT
   
   # ************ RRRC ****************
-  if (option %in% c("RRRC", "ALL")) {
+  if (analysisOption %in% c("RRRC", "ALL")) {
     if (J > 1) {
       msDenRRRC <- msTR + max(J * (cov2 - cov3), 0)
       fRRRC <- msNum/msDenRRRC
@@ -566,14 +566,14 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, option)
       ciDiffTrtRRRC <- NA
       ciAvgRdrEachTrtRRRC <- NA
     }
-    if (option == "RRRC"){
+    if (analysisOption == "RRRC"){
       return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
                   fRRRC = fRRRC, ddfRRRC = ddfRRRC, pRRRC = pRRRC, ciDiffTrtRRRC = ciDiffTrtRRRC, ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC))
     }
   }
   
   # ************ FRRC ****************
-  if (option %in% c("FRRC", "ALL")) {
+  if (analysisOption %in% c("FRRC", "ALL")) {
     if (J > 1) {
       msDenFRRC <- var - cov1 + (J - 1) * (cov2 - cov3)
     } else {
@@ -643,7 +643,7 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, option)
     
     varCovEachRdr <- data.frame(readerID, varEchRder, cov1EchRder)
     colnames(varCovEachRdr) <- c("Reader", "Var", "Cov1")
-    if (option == "FRRC"){
+    if (analysisOption == "FRRC"){
       return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
                   fFRRC = fFRRC, ddfFRRC = ddfFRRC, pFRRC = pFRRC, ciDiffTrtFRRC = ciDiffTrtFRRC, ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, ciDiffTrtEachRdr = ciDiffTrtEachRdr, varCovEachRdr = varCovEachRdr
       ))
@@ -651,7 +651,7 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, option)
   }
   
   # ************ RRFC ****************
-  if (option %in% c("RRFC", "ALL")) {
+  if (analysisOption %in% c("RRFC", "ALL")) {
     if (J > 1) {
       msDenRRFC <- msTR
       fRRFC <- msNum/msDenRRFC
@@ -688,7 +688,7 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, option)
       ciDiffTrtRRFC <- NA
       ciAvgRdrEachTrtRRFC <- NA
     }
-    if (option == "RRFC"){
+    if (analysisOption == "RRFC"){
       return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
                   fRRFC = fRRFC, ddfRRFC = ddfRRFC, pRRFC = pRRFC, ciDiffTrtRRFC = ciDiffTrtRRFC, ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
     }

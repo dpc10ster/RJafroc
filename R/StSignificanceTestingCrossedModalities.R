@@ -8,7 +8,7 @@
 #' @param avgIndx The index of the treatment to be averaged over
 #' @param FOM See \code{\link{StSignificanceTesting}}
 #' @param alpha See \code{\link{StSignificanceTesting}}
-#' @param option See \code{\link{StSignificanceTesting}}
+#' @param analysisOption See \code{\link{StSignificanceTesting}}
 #' 
 #' @return The return list contains the same items with \code{\link{StSignificanceTesting}}.
 #' 
@@ -26,7 +26,7 @@
 #' 
 #' @export
 StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "wAFROC", 
-                                                   alpha = 0.05, option = "ALL"){
+                                                   alpha = 0.05, analysisOption = "ALL"){
   options(stringsAsFactors = FALSE)
   NL <- crossedData$NL
   LL <- crossedData$LL
@@ -48,8 +48,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   K2 <- dim(LL)[4]
   K1 <- K - K2
   
-  if (!option %in% c("RRRC", "FRRC", "RRFC", "ALL")){
-    errMsg <- sprintf("%s is not an available option.", option)
+  if (!analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL")){
+    errMsg <- sprintf("%s is not an available analysisOption.", analysisOption)
     stop(errMsg)
   }    
   
@@ -150,7 +150,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   msNum <- msT
   
   # ************ RRRC ****************
-  if (option %in% c("RRRC", "ALL")) {
+  if (analysisOption %in% c("RRRC", "ALL")) {
     if (J > 1) {
       msDenRRRC <- msTR + max(J * (cov2 - cov3), 0)
       fRRRC <- msNum/msDenRRRC
@@ -264,7 +264,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       ciDiffTrtRRRC <- NA
       ciAvgRdrEachTrtRRRC <- NA
     }
-    if (option == "RRRC"){
+    if (analysisOption == "RRRC"){
       return(list(fomArray = fomArray, 
                   msT = msT, 
                   msTR = msTR, 
@@ -279,7 +279,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   }
   
   # ************ FRRC ****************
-  if (option %in% c("FRRC", "ALL")) {
+  if (analysisOption %in% c("FRRC", "ALL")) {
     if (J > 1) {
       msDenFRRC <- var - cov1 + (J - 1) * (cov2 - cov3)
     } else {
@@ -383,7 +383,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
                                 cov1EchRder,
                                 stringsAsFactors = FALSE)
     colnames(varCovEachRdr) <- c("Reader", "Var", "Cov1")
-    if (option == "FRRC"){
+    if (analysisOption == "FRRC"){
       return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
                   fFRRC = fFRRC, ddfFRRC = ddfFRRC, pFRRC = pFRRC, ciDiffTrtFRRC = ciDiffTrtFRRC, ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, ciDiffTrtEachRdr = ciDiffTrtEachRdr, varCovEachRdr = varCovEachRdr
       ))
@@ -391,7 +391,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   }
   
   # ************ RRFC ****************
-  if (option %in% c("RRFC", "ALL")) {
+  if (analysisOption %in% c("RRFC", "ALL")) {
     if (J > 1) {
       msDenRRFC <- msTR
       fRRFC <- msNum/msDenRRFC
@@ -450,7 +450,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
       ciDiffTrtRRFC <- NA
       ciAvgRdrEachTrtRRFC <- NA
     }
-    if (option == "RRFC"){
+    if (analysisOption == "RRFC"){
       return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
                   fRRFC = fRRFC, ddfRRFC = ddfRRFC, pRRFC = pRRFC, ciDiffTrtRRFC = ciDiffTrtRRFC, ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
     }

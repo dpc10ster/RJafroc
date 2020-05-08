@@ -15,13 +15,13 @@
 #' @param method "DBMH" (default) or "ORH".
 #' @param alpha The significance level of the study, default is 0.05.
 #' @param desiredPower The desired statistical power, default is 0.8.
-#' @param option Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
+#' @param analysisOption Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
 #'    (the default).
 #' 
 #' @return A list of two elements:
 #' @return \item{K}{The minimum number of cases K in the pivotal study 
 #'    to just achieve the desired statistical power. This is calculated 
-#'    for each value of option.}
+#'    for each value of analysisOption.}
 #' @return \item{power}{The predicted statistical power.}
 #' 
 #' @details \code{effectSize} = NULL uses the \strong{observed} effect size in 
@@ -58,7 +58,7 @@
 ## Example of power calculations using the DBM variance components, 
 ## and scanning the number of readers
 #' for (J in 6:10) {
-#'  ret <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = J, option = "RRRC") 
+#'  ret <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = J, analysisOption = "RRRC") 
 #'  message("# of readers = ", J, " estimated # of cases = ", ret$K, 
 #'  ", predicted power = ", signif(ret$powerRRRC,3), "\n")
 #' }
@@ -67,9 +67,9 @@
 #' @export
 
 SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL, 
-                                method = "DBMH", alpha = 0.05, desiredPower = 0.8, option = "ALL") {
+                                method = "DBMH", alpha = 0.05, desiredPower = 0.8, analysisOption = "ALL") {
   
-  if (!(option %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect option.")
+  if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
   if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
   if (!is.null(dataset) && (length(list(...)) > 0)) stop("dataset and variance components cannot both be supplied as arguments")
   
@@ -87,7 +87,7 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
       if ("varYTC" %in% names(extraParms)) varYTC <- extraParms$varYTC else stop("missing varYTC")
       if ("varYEps" %in% names(extraParms)) varYEps <- extraParms$varYEps else stop("missing varYEps")
     }
-    ret <- searchNumCasesDBM (J, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option)
+    ret <- searchNumCasesDBM (J, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, analysisOption)
   } else if (method == "ORH") {
     if (!(is.null(dataset))) {
       ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
@@ -108,7 +108,7 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
       if ("cov3" %in% names(extraParms)) cov3 <- extraParms$cov3 else stop("missing cov3")
       if ("varEps" %in% names(extraParms)) varEps <- extraParms$varEps else stop("missing varEps")
     }
-    ret <- searchNumCasesOR (J, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, option)
+    ret <- searchNumCasesOR (J, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, analysisOption)
   } else stop("method must be DBMH or ORH")
   
   return(ret)
@@ -116,10 +116,10 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
 
 
 
-searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option)
+searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, analysisOption)
 {
   
-  if (option == "RRRC" || option == "ALL"){
+  if (analysisOption == "RRRC" || analysisOption == "ALL"){
     K <- 1
     power <- 0
     while (power <= desiredPower) {
@@ -127,14 +127,14 @@ searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, des
         break
       }
       K <- K + 1
-      ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, option)
+      ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, analysisOption)
       power <- ret$powerRRRC
     }
     powerRRRC <- power
     KRRRC <- K
   }
   
-  if (option == "FRRC" || option == "ALL") {
+  if (analysisOption == "FRRC" || analysisOption == "ALL") {
     K <- 1
     power <- 0
     while (power < desiredPower) {
@@ -142,14 +142,14 @@ searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, des
         break
       }
       K <- K + 1
-      ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, option)
+      ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, analysisOption)
       power <- ret$powerFRRC
     }
     powerFRRC <- power
     KFRRC <- K
   } 
   
-  if (option == "RRFC" || option == "ALL") {
+  if (analysisOption == "RRFC" || analysisOption == "ALL") {
     K <- 1
     power <- 0
     while (power < desiredPower) {
@@ -157,28 +157,28 @@ searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, des
         break
       }
       K <- K + 1
-      ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, option)
+      ret <- SsPowerGivenJKDbmVarComp (J, K, effectSize, varYTR, varYTC, varYEps, alpha, analysisOption)
       power <- ret$powerRRFC
     }
     powerRRFC <- power
     KRRFC <- K
   } 
   
-  if (option == "ALL"){
+  if (analysisOption == "ALL"){
     return(data.frame(KRRRC = KRRRC, 
                       powerRRRC = powerRRRC,
                       KFRRC = KFRRC, 
                       powerFRRC = powerFRRC, 
                       KRRFC = KRRFC, 
                       powerRRFC = powerRRFC))
-  }else if (option == "RRRC"){
+  }else if (analysisOption == "RRRC"){
     return(data.frame(KRRRC = KRRRC, 
                       powerRRRC = powerRRRC
     ))
-  }else if (option == "FRRC"){
+  }else if (analysisOption == "FRRC"){
     return(data.frame(KFRRC = KFRRC, 
                       powerFRRC = powerFRRC))
-  }else if (option == "RRFC"){
+  }else if (analysisOption == "RRFC"){
     return(data.frame(KRRFC = KRRFC, 
                       powerRRFC = powerRRFC))
   }
@@ -187,12 +187,12 @@ searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, des
 
 
 
-searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, option)
+searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, analysisOption)
 {
   
   K <- 1
   power <- 0
-  if (option == "RRRC" || option == "ALL"){
+  if (analysisOption == "RRRC" || analysisOption == "ALL"){
     K <- 1
     power <- 0
     while (power <= desiredPower) {
@@ -200,13 +200,13 @@ searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alp
         break
       }
       K <- K + 1
-      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, option)
+      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, analysisOption)
       power <- ret$powerRRRC
     }
     powerRRRC <- power
     KRRRC <- K
   }
-  if (option == "FRRC" || option == "ALL") {
+  if (analysisOption == "FRRC" || analysisOption == "ALL") {
     K <- 1
     power <- 0
     while (power < desiredPower) {
@@ -214,13 +214,13 @@ searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alp
         break
       }
       K <- K + 1
-      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, option)
+      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, analysisOption)
       power <- ret$powerFRRC
     }
     powerFRRC <- power
     KFRRC <- K
   } 
-  if (option == "RRFC" || option == "ALL") {
+  if (analysisOption == "RRFC" || analysisOption == "ALL") {
     K <- 1
     power <- 0
     while (power < desiredPower) {
@@ -228,28 +228,28 @@ searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alp
         break
       }
       K <- K + 1
-      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, option)
+      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, analysisOption)
       power <- ret$powerRRFC
     }
     powerRRFC <- power
     KRRFC <- K
   } 
   
-  if (option == "ALL"){
+  if (analysisOption == "ALL"){
     return(data.frame(KRRRC = KRRRC, 
                       powerRRRC = powerRRRC,
                       KFRRC = KFRRC, 
                       powerFRRC = powerFRRC, 
                       KRRFC = KRRFC, 
                       powerRRFC = powerRRFC))
-  }else if (option == "RRRC"){
+  }else if (analysisOption == "RRRC"){
     return(data.frame(KRRRC = KRRRC, 
                       powerRRRC = powerRRRC
     ))
-  }else if (option == "FRRC"){
+  }else if (analysisOption == "FRRC"){
     return(data.frame(KFRRC = KFRRC, 
                       powerFRRC = powerFRRC))
-  }else if (option == "RRFC"){
+  }else if (analysisOption == "RRFC"){
     return(data.frame(KRRFC = KRRFC, 
                       powerRRFC = powerRRFC))
   }

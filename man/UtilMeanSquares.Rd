@@ -16,7 +16,7 @@ is \code{"FOM_wAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
 where to evaluate a partial curve based figure of merit. The default is 0.2.}
 
 \item{method}{The method, in which the mean squares are calculated. The two 
-valid options are \code{"DBMH"} (default) and \code{"ORH"}.}
+valid choices are \code{"DBMH"} (default) and \code{"ORH"}.}
 }
 \value{
 A list containing all possible mean squares

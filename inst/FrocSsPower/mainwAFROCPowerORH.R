@@ -66,8 +66,8 @@ frocData <- get(sprintf("dataset%02d", 4))
 KStar <- length(frocData$NL[1,1,,1])
 JTest <- 5;KTest <- 100
 rocData <- DfFroc2Roc(frocData)
-varCompROC <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "ORH", option = "RRRC")$varComp
-varCompwAFROC <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "ORH", option = "RRRC")$varComp
+varCompROC <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "ORH", analysisOption = "RRRC")$varComp
+varCompwAFROC <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "ORH", analysisOption = "RRRC")$varComp
 
 cat("JTest = ", JTest, "KTest = ", KTest, "\n")
 powerROC <- array(dim = length(effectSizeROC));powerwAFROC <- array(dim = length(effectSizeROC))
@@ -78,7 +78,7 @@ for (i in 1:length(effectSizeROC)) {
   cov3 <- varCompROC$cov3
   varEps <- varCompROC$var
   ret <- SsPowerGivenJKOrVarComp (J = JTest, K = KTest, KStar = KStar,  
-                                  effectSize = effectSizeROC[i], varTR, cov1, cov2, cov3, varEps, alpha  = 0.05, option = "RRRC")
+                                  effectSize = effectSizeROC[i], varTR, cov1, cov2, cov3, varEps, alpha  = 0.05, analysisOption = "RRRC")
   powerROC[i] <- ret$powerRRRC
 
   varTR <- varCompwAFROC$varTR
@@ -87,7 +87,7 @@ for (i in 1:length(effectSizeROC)) {
   cov3 <- varCompwAFROC$cov3
   varEps <- varCompwAFROC$var
   ret <- SsPowerGivenJKOrVarComp (J = JTest, K = KTest, KStar = KStar,  
-                                  effectSize = effectSizewAFROC[i], varTR, cov1, cov2, cov3, varEps, alpha  = 0.05, option = "RRRC")
+                                  effectSize = effectSizewAFROC[i], varTR, cov1, cov2, cov3, varEps, alpha  = 0.05, analysisOption = "RRRC")
   powerwAFROC[i] <- ret$powerRRRC
 
   cat("ROC effect size = ", effectSizeROC[i], ", wAFROC effect size = ", effectSizewAFROC[i], 

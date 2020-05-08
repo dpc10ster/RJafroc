@@ -9,7 +9,7 @@ StSignificanceTestingCrossedModalities(
   avgIndx,
   FOM = "wAFROC",
   alpha = 0.05,
-  option = "ALL"
+  analysisOption = "ALL"
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ StSignificanceTestingCrossedModalities(
 
 \item{alpha}{See \code{\link{StSignificanceTesting}}}
 
-\item{option}{See \code{\link{StSignificanceTesting}}}
+\item{analysisOption}{See \code{\link{StSignificanceTesting}}}
 }
 \value{
 The return list contains the same items with \code{\link{StSignificanceTesting}}.

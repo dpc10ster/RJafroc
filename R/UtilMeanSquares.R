@@ -6,7 +6,7 @@
 #' @param FOM The figure of merit to be used in the calculation. The default 
 #'    is \code{"FOM_wAFROC"}. See \code{\link{UtilFigureOfMerit}}.
 #' @param method The method, in which the mean squares are calculated. The two 
-#'    valid options are \code{"DBMH"} (default) and \code{"ORH"}. 
+#'    valid choices are \code{"DBMH"} (default) and \code{"ORH"}. 
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 

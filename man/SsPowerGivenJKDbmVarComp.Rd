@@ -12,7 +12,7 @@ SsPowerGivenJKDbmVarComp(
   varYTC,
   varYEps,
   alpha = 0.05,
-  option
+  analysisOption
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ SsPowerGivenJKDbmVarComp(
 
 \item{alpha}{The size of the test (default = 0.05)}
 
-\item{option}{The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")}
+\item{analysisOption}{The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")}
 }
 \value{
 A list object containing the estimated power and associated statistics
@@ -45,12 +45,12 @@ The variance components are obtained using \link{StSignificanceTesting}
 }
 \examples{
 VarComp <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", 
-   option = "RRRC")$varComp
+   analysisOption = "RRRC")$varComp
 varYTR <- VarComp$varTR
 varYTC <- VarComp$varTC
 varYEps <- VarComp$varErr
 ret <- SsPowerGivenJKDbmVarComp (J = 5, K = 100, effectSize = 0.05, varYTR, 
-   varYTC, varYEps, option = "RRRC")
+   varYTC, varYEps, analysisOption = "RRRC")
 cat("RRRC power = ", ret$powerRRRC)
   
 }

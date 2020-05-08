@@ -11,10 +11,10 @@
 #' @param alpha The The size of the test, default is 0.05.
 #' @param desiredPower The desired statistical power, default is 0.8.
 #' @param method Analysis method, "DBMH" or "ORH", the default is "DBMH".
-#' @param option Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).
+#' @param analysisOption Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).
 #' 
 #' 
-#' @return A list containing up to 3 (depending on \code{options}) dataframes. 
+#' @return A list containing up to 3 (depending on \code{analysisOption}) dataframes. 
 #'     Each dataframe contains 3 arrays:
 #' @return \item{numReaders}{The numbers of readers in the pivotal study.}  
 #' @return \item{numCases}{The numbers of cases in the pivotal study.}
@@ -43,10 +43,10 @@
 #' @export
 
 SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredPower = 0.8, 
-                         method = "DBMH", option = "ALL") {
+                         method = "DBMH", analysisOption = "ALL") {
   
   options(stringsAsFactors = FALSE)
-  if (!(option %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect option.")
+  if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
   if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
   if (dataset$dataType != "ROC") stop("Dataset must be of type ROC")
   
@@ -67,7 +67,7 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
     KStar <- length(dataset$NL[1,1,,1])
   } else stop("method must be DBMH or ORH")
   
-  if (option != "ALL"){
+  if (analysisOption != "ALL"){
     nCases <- 2000
     j <- 2
     randomSampleSize <- NULL
@@ -75,13 +75,13 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
       j <- j + 1
       if (j > 100) break
       if (method == "DBMH") {
-        ret <- searchNumCasesDBM (J = j, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option)
+        ret <- searchNumCasesDBM (J = j, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, analysisOption)
       }
       else { 
-        ret <- searchNumCasesOR (J = j, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, option)
+        ret <- searchNumCasesOR (J = j, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, analysisOption)
       }
       
-      ret <- MyLittleHelper (j, ret, randomSampleSize, option)
+      ret <- MyLittleHelper (j, ret, randomSampleSize, analysisOption)
       nCases <- ret$nCases
       power <- ret$power
       
@@ -112,7 +112,7 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
     # return(randomSampleSize)
   } else {
     powerTable <- list()
-    for (option in c("RRRC", "FRRC", "RRFC")){
+    for (analysisOption in c("RRRC", "FRRC", "RRFC")){
       randomSampleSize <- NULL
       nCases <- 2000
       j <- 2
@@ -120,13 +120,13 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
         j <- j + 1
         if (j > 100) break
         if (method == "DBMH") {
-          ret <- searchNumCasesDBM (J = j, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, option)
+          ret <- searchNumCasesDBM (J = j, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, analysisOption)
         }
         else { 
-          ret <- searchNumCasesOR (J = j, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, option)
+          ret <- searchNumCasesOR (J = j, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, analysisOption)
         }
         
-        ret <- MyLittleHelper (j, ret, randomSampleSize, option)
+        ret <- MyLittleHelper (j, ret, randomSampleSize, analysisOption)
         nCases <- ret$nCases
         power <- ret$power
         
@@ -155,19 +155,19 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
 
 
 
-MyLittleHelper <- function(j, ret, randomSampleSize, option) 
+MyLittleHelper <- function(j, ret, randomSampleSize, analysisOption) 
 {
-  if (option == "RRRC")
+  if (analysisOption == "RRRC")
   {
     nCases <- ret$KRRRC
     power <- ret$powerRRRC
-  } else if (option == "FRRC") {
+  } else if (analysisOption == "FRRC") {
     nCases <- ret$KFRRC
     power <- ret$powerFRRC
-  } else if (option == "RRFC") {
+  } else if (analysisOption == "RRFC") {
     nCases <- ret$KRRFC
     power <- ret$powerRRFC
-  } else stop("Incorrect option flag.")
+  } else stop("Incorrect analysisOption flag.")
   
   return(list(
     nCases = nCases,

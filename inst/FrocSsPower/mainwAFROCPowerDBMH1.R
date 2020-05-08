@@ -49,8 +49,8 @@ effectSizeROC <- seq(0.01, 0.1, 0.001)
 effectSizewAFROC <- effectSizeROC*a$coefficients[1] # r2 = summary(a)$r.squared
 
 JTest <- 5;KTest <- 100
-temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBMH", option = "RRRC")
-temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBMH", option = "RRRC")
+temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBMH", analysisOption = "RRRC")
+temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBMH", analysisOption = "RRRC")
 varCompROC <- temp1$varComp
 varCompwAFROC <- temp2$varComp
 
@@ -59,13 +59,13 @@ for (i in 1:length(effectSizeROC)) {
   varYTR <- varCompROC$varTR
   varYTC <- varCompROC$varTC
   varYEps <- varCompROC$varErr
-  ret <- SsPowerGivenJKDbmVarComp (J = JTest, K = KTest, effectSize = effectSizeROC[i], varYTR, varYTC, varYEps, alpha  = 0.05, option = "RRRC")
+  ret <- SsPowerGivenJKDbmVarComp (J = JTest, K = KTest, effectSize = effectSizeROC[i], varYTR, varYTC, varYEps, alpha  = 0.05, analysisOption = "RRRC")
   powerROC[i] <- ret$powerRRRC
 
   varYTR <- varCompwAFROC$varTR
   varYTC <- varCompwAFROC$varTC
   varYEps <- varCompwAFROC$varErr
-  ret <- SsPowerGivenJKDbmVarComp (J = JTest, K = KTest, effectSize = effectSizewAFROC[i], varYTR, varYTC, varYEps, alpha  = 0.05, option = "RRRC")
+  ret <- SsPowerGivenJKDbmVarComp (J = JTest, K = KTest, effectSize = effectSizewAFROC[i], varYTR, varYTC, varYEps, alpha  = 0.05, analysisOption = "RRRC")
   powerwAFROC[i] <- ret$powerRRRC
 
   cat("ROC-ES = ", effectSizeROC[i], ", wAFROC-ES = ", effectSizewAFROC[i], 

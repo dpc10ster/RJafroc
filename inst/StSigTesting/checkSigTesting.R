@@ -3,17 +3,17 @@ rm(list = ls())
 rocData1R <- DfExtractDataset(dataset02, rdrs = 1)
 rocData1T <- DfExtractDataset(dataset02, trts = 1)
 
-retRRRC_DBMH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", option = "RRRC")
-retFRRC_DBMH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", option = "FRRC")
-retRRFC_DBMH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", option = "RRFC")
+retRRRC_DBMH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", analysisOption = "RRRC")
+retFRRC_DBMH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", analysisOption = "FRRC")
+retRRFC_DBMH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", analysisOption = "RRFC")
 
-retFRRC_1R_DBMH <- StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "DBMH", option = "FRRC")
+retFRRC_1R_DBMH <- StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "DBMH", analysisOption = "FRRC")
 
-retRRRC_ORH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH", option = "RRRC")
-retFRRC_ORH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH", option = "FRRC")
-retRRFC_ORH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH", option = "RRFC")
+retRRRC_ORH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH", analysisOption = "RRRC")
+retFRRC_ORH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH", analysisOption = "FRRC")
+retRRFC_ORH <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH", analysisOption = "RRFC")
 
-retFRRC_1R_ORH <- StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH", option = "FRRC")
+retFRRC_1R_ORH <- StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH", analysisOption = "FRRC")
 
 ret <- StSignificanceTesting(dataset04, FOM = "HrAuc", method = "DBMH")
 # lrocDataset <- DfFroc2Lroc(dataset05)

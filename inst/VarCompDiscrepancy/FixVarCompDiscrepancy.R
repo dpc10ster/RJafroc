@@ -33,7 +33,7 @@ varComp <- data.frame(varComp, row.names = varCompName)
 # #   return (varComp)
 # # }
 # 
-# varCompDBM <- list(
+# DBMVarComp <- list(
 #   varR = varR,
 #   varC = varC,
 #   varTR = varTR,
@@ -42,7 +42,7 @@ varComp <- data.frame(varComp, row.names = varCompName)
 #   varErr = varErr
 # )
 # 
-varCompDBM <- data.frame(
+DBMVarComp <- data.frame(
   varR = varR,
   varC = varC,
   varTR = varTR,
@@ -51,7 +51,7 @@ varCompDBM <- data.frame(
   varErr = varErr
 )
 
-varCompOR <- UtilDBM2ORVarComp (K, varCompDBM)
+varCompOR <- UtilDBM2ORVarComp (K, DBMVarComp)
 varCompOR <- data.frame(
   varR = varCompOR$varR,
   varTR = varCompOR$varTR,
