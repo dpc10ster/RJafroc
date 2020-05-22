@@ -23,8 +23,8 @@ UtilVarComponentsDBM <- function (dataset, FOM, FPFValue = 0.2)
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   
-  foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  
+  # foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+  # 
   psVals <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
   
   msT <- 0
@@ -175,7 +175,7 @@ UtilVarComponentsDBM <- function (dataset, FOM, FPFValue = 0.2)
   colnames(IndividualRdr) <- c("DF", paste0("rdr", readerID))
   
   return(list(
-    foms = foms,
+    # foms = foms,
     VarCom = VarCom,
     TRCanova = TRCanova,
     IndividualTrt = IndividualTrt,

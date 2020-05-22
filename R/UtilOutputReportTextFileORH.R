@@ -79,19 +79,19 @@ OutputTextFileORH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   if (OR$RRRC$FTests$p[1] < 0.05) {
-    x <- c("\nConclusion:", 
-           sprintf("The treatment FOMs are not equal [F(%2d,%7.4f) = %6.3f, p = %7.4f].",
+    x <- c("\nCONCLUSION:", 
+           sprintf("The treatment FOMs are different [F(%2d,%7.4f) = %6.3f, p = %7.4f].",
                    OR$RRRC$FTests$DF[1], OR$RRRC$FTests$DF[2], OR$RRRC$FTests$FStat[1], OR$RRRC$FTests$p[1]))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
-    x <- c("\nConclusion:", 
+    x <- c("\nCONCLUSION:", 
            sprintf("The treatment FOMs are not significantly different [F(%2d,%7.4f) = %6.3f, p = %7.4f].",
                    OR$RRRC$FTests$DF[1], OR$RRRC$FTests$DF[2], OR$RRRC$FTests$FStat[1], OR$RRRC$FTests$p[1]))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
   
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "Df(error term) = [MS(T*R) + J*max(Cov2 - Cov3,0)]**2/{MS(T*R)**2/[(I-1)(J-1)]}",
     "Note: Error term is the denominator of the F statistic and is a linear",
     "combination of mean squares. The value of this linear",
@@ -108,7 +108,7 @@ OutputTextFileORH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "StdErr = sqrt{(2/J)*[MS(T*R) + J*max(Cov2 - Cov3,0)]}",
     "Df same as df(error term) from (a)",
     "95% CI: Difference +- t(.025;df) * StdErr\n")
@@ -125,7 +125,7 @@ OutputTextFileORH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "StdErr = sqrt{1/J * [MS(R) + J*max(Cov2,0)]}",
     "Df = [MS(R)+ max(J*cov2,0)]**2/[(MS(R)**2/(J-1)]",
     "Note: Df is called `ddf_H_single` in Hillis (2007)",
@@ -148,18 +148,18 @@ OutputTextFileORH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   if (OR$FRRC$FTests$p[1] < 0.05) {
-    x <- c("\nConclusion:", 
-           sprintf("The treatment AUCs are not equal [X2(%1d) = %6.3f, p = %7.4f].",
+    x <- c("\nCONCLUSION:", 
+           sprintf("The treatment AUCs are different [X2(%1d) = %6.3f, p = %7.4f].",
                    OR$FRRC$FTests$DF[1], OR$FRRC$FTests$Chisq[1], OR$FRRC$FTests$p[1]))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
-    x <- c("\nConclusion:", 
+    x <- c("\nCONCLUSION:", 
            sprintf("The treatment AUCs are not significantly different [X2(%1d) = %6.3f, p = %7.4f].",
                    OR$FRRC$FTests$DF[1], OR$FRRC$FTests$Chisq[1], OR$FRRC$FTests$p[1]))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
   
-  x <- c("\nCOMMENT:", 
+  x <- c("\nCOMMENTS:", 
          "X2 = (I-1)*MS(T)/[Var - Cov1 + (J-1)*max(Cov2 - Cov3,0)]\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
@@ -169,7 +169,7 @@ OutputTextFileORH <- function(dataset,
   df <- OR$FRRC$ciDiffTrt
   print(format(df, digits = 5, justify = "left"))
   
-  x <- c("\nCOMMENT:", 
+  x <- c("\nCOMMENTS:", 
          "StdErr = sqrt{2/J * [(Var(error) - Cov1 + (J-1)*max(Cov2 - Cov3,0)]}",
          "95% CI: difference +- z(.025) * StdErr\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
@@ -208,7 +208,7 @@ OutputTextFileORH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "StdErr = sqrt[2*(Var - Cov1)]", 
     "95% CI: Difference +- z(.025) * StdErr\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
@@ -237,21 +237,22 @@ OutputTextFileORH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   if(OR$RRFC$FTests["T","p"] < 0.05){
-    x <- c("\nConclusion:", 
-           "The treatment AUCs are not equal,",
+    x <- c("\nCONCLUSION:", 
+           "The treatment AUCs are different,",
            sprintf("[F(%1d,%2d) = %7.4f, p = %7.4f].",I-1,(I-1)*(J-1), OR$RRFC$FTests[1,3], OR$RRFC$FTests[1,4]),
            "Note: If there are only 2 treatments, this is equivalent to a paired t-test applied",
            "to the AUCs")
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
-    x <- c("\nConclusion:", 
+    x <- c("\nCONCLUSION:", 
            "The treatment AUCs are not significantly different,",
            sprintf("[F(%1d,%2d) = %7.4f, p = %7.4f].",I-1,(I-1)*(J-1), OR$RRFC$FTests[1,3], OR$RRFC$FTests[1,4]),
            "Note: If there are only 2 treatments, this is equivalent to a paired t-test applied",
            "to the AUCs")
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
-  x <- c("\nCOMMENT:", "Error term: MS(TR) \n")
+  
+  x <- c("\nCOMMENTS:", "Error term: MS(TR) \n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
@@ -262,7 +263,7 @@ OutputTextFileORH <- function(dataset,
   df <- OR$RRFC$ciDiffTrt
   print(format(df, digits = 5, justify = "left"))
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "StdErr = sqrt[2/J * MS(T*R)]",
     "DF = df[MS(T*R)] = (I-1)(J-1)",
     "95% CI: Difference +- t(.025;df) * StdErr",
@@ -284,7 +285,7 @@ OutputTextFileORH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "StdErr = sqrt[1/J * MS(R)]",
     "DF = df[MS(R)] = J-1",
     "95% CI: FOM +- t(.025;df) * StdErr",

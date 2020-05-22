@@ -19,6 +19,7 @@ A list with 12 elements:
 \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104  ..., normal case labels}
 \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5  ..., abnormal case labels}
 \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:200, 1:4] 1 1 NA NA NA ..., truth table structure}
+\item{\code{datasetName}}{"Simulated Froc Split Plot"}
 }
 }
 \usage{

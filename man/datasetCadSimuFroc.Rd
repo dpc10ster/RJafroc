@@ -15,6 +15,7 @@ A list with 12 elements:
 \item{\code{dataType}}{, chr "FROC", the data type}
 \item{\code{modalityID}}{, chr "1", treatment label}
 \item{\code{readerID}}{, chr [1:10] "1" "2",  reader labels}
+\item{\code{datasetName}}{"dataset Cad Simulated Froc"}
 }
 }
 \usage{

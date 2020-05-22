@@ -15,6 +15,7 @@ A list with 8 elements:
 \item{\code{dataType}}{, chr "ROC", the data type}
 \item{\code{modalityID}}{, chr "1", treatment label}
 \item{\code{readerID}}{, chr "1", reader label}
+\item{\code{datasetName}}{"datasetDegenerate"}
 }
 }
 \usage{

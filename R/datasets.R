@@ -19,6 +19,7 @@
 #' \item{\code{normalCases}}{, int [1:96] 1 4 7 8 9 10 15 17 18 20 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:89] 2 3 5 6 11 12 13 16 19 24 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:2, 1:5, 1:185, 1:4] 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"TONY"}
 #' }
 #'
 #' @keywords datasets
@@ -60,6 +61,7 @@
 #' \item{\code{normalCases}}{, int [1:69] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:45] 70 71 72 73 74 75 76 77 78 79 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 1  ..., truth table structure}
+#' \item{\code{datasetName}}{"VanDyke"}
 #' }
 #'
 #' @keywords datasets
@@ -100,6 +102,7 @@
 #' \item{\code{normalCases}}{, int [1:33] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:67] 34 35 36 37 38 39 40 41 42 43 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2] 1 1 1 1 1 1 1   ..., truth table structure}
+#' \item{\code{datasetName}}{"Franken"}
 #' }
 #'
 #' @keywords datasets
@@ -142,6 +145,7 @@
 #' \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104 105 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5 6 7 8 9 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:5, 1:4, 1:200, 1:4] 1 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"Federica"}
 #' }
 #'
 #' @keywords datasets
@@ -181,6 +185,7 @@
 #' \item{\code{normalCases}}{, int [1:45] 48 49 50 51 52 53 54 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:47] 1 2 3 4 5 6 7 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:2, 1:9, 1:92, 1:4] 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"Thompson"}
 #' }
 #'
 #' @keywords datasets
@@ -219,6 +224,7 @@
 #' \item{\code{normalCases}}{, int [1:47] 1 2 3 4 5 8 9 10 11 12 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:42] 6 14 17 18 20 21 23 24 26 29 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:89, 1:16] 1 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"Magnus"}
 #' }
 #'
 #' @keywords datasets
@@ -256,6 +262,7 @@
 #' \item{\code{normalCases}}{, int [1:81] 6 9 10 14 15 16 22 23 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:81] 1 2 3 4 5 7 8 11 12 13  ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:5, 1:7, 1:162, 1:4] 1 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"Lucy"}
 #' }
 #'
 #' @keywords datasets
@@ -295,6 +302,7 @@
 #' \item{\code{normalCases}}{, nt [1:48] 1 2 3 4 5 6 7 8 9 10..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:64] 49 50 51 52 53 54 55 56 57 58 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:5, 1:5, 1:112, 1:2] 1 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"Penedo"}
 #' }
 #'
 #' @keywords datasets
@@ -337,6 +345,7 @@
 #' \item{\code{normalCases}}{, int [1:120] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:80] 121 122 123 124 125 126 127 128 129 130 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1, 1:10, 1:200, 1:2] 1 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"NicoRoc"}
 #' }
 #'
 #' @keywords datasets
@@ -376,6 +385,7 @@
 #' \item{\code{normalCases}}{, int [1:50] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:40] 51 52 53 54 55 56 57 58 59 60 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:3, 1:8, 1:90, 1:2] 1 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"Ruschin"}
 #' }
 #'
 #' @keywords datasets
@@ -423,6 +433,7 @@
 #' \item{\code{normalCases}}{, int [1:43] 6 9 14 27 62 66 70 71 83 91 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:115] 1 2 3 5 7 8 10 11 13 17 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21] 1 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"Dobbins1"}
 #' }
 #'
 #' @keywords datasets
@@ -459,6 +470,7 @@
 #' \item{\code{normalCases}}{, int [1:64] 6 9 14 20 27 33 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:88] 1 2 3 5 7 8 10 11 13 18 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:4, 1:5, 1:152, 1:2] 1 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"Dobbins2"}
 #' }
 #'
 #' @keywords datasets
@@ -494,6 +506,7 @@
 #' \item{\code{normalCases}}{, int [1:52] 5 6 8 9 14 27 62 66 70 71 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:106] 1 2 3 7 10 11 13 17 18 19 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:4, 1:5, 1:158, 1:16] 1 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"Dobbins3"}
 #' }
 #'
 #' @keywords datasets
@@ -532,6 +545,7 @@
 #' \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104 105 106 ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5 6 7 8 9 ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2] 1 1 1 1 1 1 ..., truth table structure}
+#' \item{\code{datasetName}}{"FedericaRealRoc"}
 #' }
 #'
 #' @keywords datasets
@@ -569,6 +583,7 @@
 #' \item{\code{dataType}}{, chr "LROC", the data type}
 #' \item{\code{modalityID}}{, chr [1:2] "0" "1", treatment labels}
 #' \item{\code{readerID}}{, chr [1:10] "1" "2" ..., reader labels}
+#' \item{\code{datasetName}}{"NicoLroc"}
 #' }
 #'
 #' @keywords datasets
@@ -603,6 +618,7 @@
 #' \item{\code{modalityID1}}{ [1:2] "F" "I", treatment labels}
 #' \item{\code{modalityID2}}{ [1:4] "20" "40"  "60"  "80", treatment labels}
 #' \item{\code{readerID}}{, chr [1:11] "1" "10" "11" ..., reader labels}
+#' \item{\code{datasetName}}{"ThompsonCrossed"}
 #' }
 #'
 #' @keywords datasets
@@ -636,6 +652,7 @@
 #' \item{\code{dataType}}{, chr "ROI", the data type}
 #' \item{\code{modalityID1}}{ [1:2] "1" "2", treatment labels}
 #' \item{\code{readerID}}{, chr [1:5] "1" "2" "3" "4" "5", reader labels}
+#' \item{\code{datasetName}}{"SimulatedRoi"}
 #' }
 #'
 #' @keywords datasets
@@ -666,6 +683,7 @@
 #' \item{\code{dataType}}{, chr "ROC", the data type}
 #' \item{\code{modalityID}}{, chr "1", treatment label}
 #' \item{\code{readerID}}{, chr "1", reader label}
+#' \item{\code{datasetName}}{"datasetDegenerate"}
 #' }
 #'
 #' @keywords datasets
@@ -700,6 +718,7 @@
 #' \item{\code{dataType}}{, chr "ROC", the data type}
 #' \item{\code{modalityID}}{, chr "1", treatment label}
 #' \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
+#' \item{\code{datasetName}}{"dataset Binned 123"}
 #' }
 #'
 #' @keywords datasets
@@ -731,6 +750,7 @@
 #' \item{\code{dataType}}{, chr "ROC", the data type}
 #' \item{\code{modalityID}}{, chr "1", treatment label}
 #' \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
+#' \item{\code{datasetName}}{"dataset Binned 124"}
 #' }
 #'
 #' @keywords datasets
@@ -762,6 +782,7 @@
 #' \item{\code{dataType}}{, chr "ROC", the data type}
 #' \item{\code{modalityID}}{, chr "1", treatment label}
 #' \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
+#' \item{\code{datasetName}}{"dataset Binned 125"}
 #' }
 #'
 #' @keywords datasets
@@ -794,6 +815,7 @@
 #' \item{\code{dataType}}{, chr "FROC", the data type}
 #' \item{\code{modalityID}}{, chr "1", treatment label}
 #' \item{\code{readerID}}{, chr [1:10] "1" "2",  reader labels}
+#' \item{\code{datasetName}}{"dataset Cad Simulated Froc"}
 #' }
 #'
 #' @keywords datasets
@@ -827,6 +849,7 @@
 #' \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104  ..., normal case labels}
 #' \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5  ..., abnormal case labels}
 #' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:200, 1:4] 1 1 NA NA NA ..., truth table structure}
+#' \item{\code{datasetName}}{"Simulated Froc Split Plot"}
 #' }
 #'
 #' @keywords datasets

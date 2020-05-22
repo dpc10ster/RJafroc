@@ -65,7 +65,7 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
     dataset$LL <- LL
     dataset$modalityID <- dataset$modalityID[trts]
     dataset$readerID <- dataset$readerID[rdrs]
-    if (length(dataset) == 12) {
+    if (length(dataset) == 13) {
       truthTableStr <- dataset$truthTableStr[trts,rdrs,,,drop=FALSE]
       dataset$truthTableStr <- truthTableStr
     }

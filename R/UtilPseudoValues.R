@@ -55,7 +55,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   K1 <- K - K2
   
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  if ((length(dataset) != 12) || (dataset$design == "CROSSED")) {
+  if ((length(dataset) != 13) || (dataset$design == "CROSSED")) {
     # OldFormat dataset or NewFormat CROSSED dataset
     if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
       # first type of end-point based FOM

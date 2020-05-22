@@ -47,9 +47,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   I <- dim(dataset$NL)[1]
   J <- dim(dataset$NL)[2]
   
-  foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  # Foms is local value with row and column names stripped
-  Foms <- unlist(foms); dim(Foms) <- c(I,J)
+  Foms <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue)) # Foms is local value
   
   fomMean <- mean(Foms[,])
   msT <- 0
@@ -149,7 +147,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
              row.names = c("varR", "varTR", "Cov1", "Cov2", "Cov3", "Var"),
              stringsAsFactors = FALSE)
   return(list(
-    foms = foms,
+    # foms = foms,
     TRanova = TRanova,
     VarCom = VarCom,
     IndividualTrt = IndividualTrt,

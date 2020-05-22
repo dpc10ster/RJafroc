@@ -41,7 +41,7 @@ OutputTextFileDBMH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   x <- c(
-    "\nCOMMENT:", 
+    "\nCOMMENTS:", 
     "The first output is the treatment x reader x case DBM ANOVA table", 
     "used for comparing treatments. The second output is the ",
     "reader x case ANOVA table, one for each treatment, used for computing",
@@ -87,8 +87,8 @@ OutputTextFileDBMH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   if(DBM$RRRC$FTests["T","p"] < 0.05){
-    x <- c("\nConclusion:", 
-           "The treatment FOMs are not equal,",
+    x <- c("\nCONCLUSION:", 
+           "The treatment FOMs are different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
                    I-1,
                    DBM$RRRC$FTests[2,1], 
@@ -96,7 +96,7 @@ OutputTextFileDBMH <- function(dataset,
                    DBM$RRRC$FTests[1,4]))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
-    x <- c("\nConclusion:", 
+    x <- c("\nCONCLUSION:", 
            "The treatment FOMs are not significantly different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
                    I-1,
@@ -107,12 +107,14 @@ OutputTextFileDBMH <- function(dataset,
   }
   
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "DF = degrees of freedom",
     "MS = means squares",
-    "Error term: MS(T*R) + max[MS(T*C)-MS(T*R*C),0]",
-    "DF(error term) = {MS(T*R) + max[MS(T*C)-MS(T*R*C),0]}**2/{MS(T*R)**2/[(I-1)(J-1)]}",
-    "F = MS(treatment)/MS(Error term)\n")
+    "MS(Error): MS(T*R) + max[MS(T*C)-MS(T*R*C),0]",
+    "DF(Error) = {MS(T*R) + max[MS(T*C)-MS(T*R*C),0]}**2/{MS(T*R)**2/[(I-1)(J-1)]}",
+    "F_obs = MS(Treatment)/MS(Error)",
+    "ndf = I - 1, ddf = DF(Error)",
+    "F_obs ~ F_{ndf,ddf}\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
@@ -121,7 +123,7 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$RRRC$ciDiffTrt
   print(format(df, digits = 5, justify = "left"))
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "StdErr = sqrt{[1/(J*K)] * [MS(R) + max[MS(C)-MS(R*C),0]]}", 
     "DF same as DF(error term) in (a)",
     "95% CI: Difference +- t(.025;df) * StdErr\n")
@@ -134,7 +136,7 @@ OutputTextFileDBMH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "\nError term: MS(R) + max[MS(C) - MS(RC), 0]",
     "StdErr = sqrt{[1/(J*K)] * [MS(R) + max[MS(C)-MS(R*C),0]]}",
     "Df = {MS(R)+ max[MS(C)-MS(R*C),0]}**2/[(MS(R)**2/(J-1)]",
@@ -156,8 +158,8 @@ OutputTextFileDBMH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   if(DBM$FRRC$FTests["T","p"] < 0.05){
-    x <- c("\nConclusion:", 
-           "The treatment FOMs are not equal,",
+    x <- c("\nCONCLUSION:", 
+           "The treatment FOMs are different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
                    I-1,
                    DBM$FRRC$FTests[2,1], 
@@ -165,7 +167,7 @@ OutputTextFileDBMH <- function(dataset,
                    DBM$FRRC$FTests[1,4]))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
-    x <- c("\nConclusion:", 
+    x <- c("\nCONCLUSION:", 
            "The treatment FOMs are not significantly different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
                    I-1,
@@ -175,7 +177,7 @@ OutputTextFileDBMH <- function(dataset,
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
   
-  x <- c("\nCOMMENT:", "Error term: MS(TC) \n")
+  x <- c("\nCOMMENTS:", "Error term: MS(TC) \n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
@@ -184,7 +186,7 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$FRRC$ciDiffTrt
   print(format(df, digits = 5, justify = "left"))
   
-  x <- c("\nCOMMENT:", "Error term: MS(TC) \n")
+  x <- c("\nCOMMENTS:", "Error term: MS(TC) \n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
@@ -197,7 +199,7 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$FRRC$ciAvgRdrEachTrt
   print(format(df, digits = 5, justify = "left"))
   
-  x <- c("\nCOMMENT:", "Error term: MS(C) \n")
+  x <- c("\nCOMMENTS:", "Error term: MS(C) \n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("TREATMENT X CASE ANOVAs for each reader\n")
@@ -215,7 +217,7 @@ OutputTextFileDBMH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "TBA: ", 
     "95% CI: Difference +- z(.025) * StdErr\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
@@ -240,8 +242,8 @@ OutputTextFileDBMH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   if(DBM$RRFC$FTests["T","p"] < 0.05){
-    x <- c("\nConclusion:", 
-           "The treatment FOMs are not equal,",
+    x <- c("\nCONCLUSION:", 
+           "The treatment FOMs are different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
                    I-1,
                    DBM$RRFC$FTests[2,1], 
@@ -249,7 +251,7 @@ OutputTextFileDBMH <- function(dataset,
                    DBM$RRFC$FTests[1,4]))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
-    x <- c("\nConclusion:", 
+    x <- c("\nCONCLUSION:", 
            "The treatment FOMs are not significantly different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
                    I-1,
@@ -259,7 +261,7 @@ OutputTextFileDBMH <- function(dataset,
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
   
-  x <- c("\nCOMMENT:", "Error term: MS(TR) \n")
+  x <- c("\nCOMMENTS:", "Error term: MS(TR) \n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
@@ -270,7 +272,7 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$RRFC$ciDiffTrt
   print(format(df, digits = 5, justify = "left"))
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "StdErr = sqrt[2/J * MS(T*R)]",
     "DF = df[MS(T*R)] = (I-1)(J-1)",
     "95% CI: Difference +- t(.025;df) * StdErr",
@@ -288,7 +290,7 @@ OutputTextFileDBMH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   x <- c(
-    "\nCOMMENT:",
+    "\nCOMMENTS:",
     "StdErr = sqrt[1/J * MS(R)]",
     "DF = df[MS(R)] = J-1",
     "95% CI: AUC +- t(.025;df) * StdErr",

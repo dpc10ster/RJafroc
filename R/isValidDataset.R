@@ -1,8 +1,8 @@
 isValidDataset <- function(dataset) {
   if (typeof(dataset) != "list") return (FALSE)
-  if (!(length(dataset) %in% c(8,9,12))) return (FALSE)
+  if (!(length(dataset) %in% c(9,10,13))) return (FALSE)
   
-  if (length(dataset) == 8) {
+  if (length(dataset) == 9) {
     # Old format data
     if (!is.array(dataset$NL))  return (FALSE)
     I <- length(dataset$NL[,1,1,1])
@@ -26,7 +26,7 @@ isValidDataset <- function(dataset) {
     K1 <- K - K2
     if (!(dataset$dataType) %in% c("ROC", "FROC", "LROC"))  return (FALSE)
     return(TRUE)
-  } else if (length(dataset) == 12) {
+  } else if (length(dataset) == 13) {
     # New format data
     if (!is.array(dataset$NL))  return (FALSE)
       I <- length(dataset$NL[,1,1,1])
@@ -50,7 +50,7 @@ isValidDataset <- function(dataset) {
       K1 <- K - K2
       if (!(dataset$dataType) %in% c("ROC", "FROC", "LROC"))  return (FALSE)
       return(TRUE)
-    } else if (length(dataset) == 9) {
+    } else if (length(dataset) == 10) {
       # LROC data
     if (!is.array(dataset$NL))  return (FALSE)
     I <- length(dataset$NL[,1,1,1])

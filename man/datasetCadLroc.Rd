@@ -16,6 +16,7 @@ A list with 9 elements:
 \item{\code{dataType}}{, chr "LROC", the data type}
 \item{\code{modalityID}}{, chr [1:2] "0" "1", treatment labels}
 \item{\code{readerID}}{, chr [1:10] "1" "2" ..., reader labels}
+\item{\code{datasetName}}{"NicoLroc"}
 }
 }
 \usage{

@@ -8,10 +8,12 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, analysisOption)
   
   modalityID <- dataset$modalityID
   # readerID <- dataset$readerID
+
+  foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   
   ret <- UtilVarComponentsDBM(dataset, FOM, FPFValue)
   
-  foms <- ret$foms
+  # foms <- ret$foms
   VarCom <- ret$VarCom
   TRCanova <- ret$TRCanova
   IndividualTrt <- ret$IndividualTrt

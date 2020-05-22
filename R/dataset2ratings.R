@@ -3,7 +3,7 @@
 # The second depends on the FOM, and the 
 # third is the incorrect localizations array
 dataset2ratings <- function (dataset, FOM){
-  # if ((length(dataset) == 12) && (dataset$design == "SPLIT-PLOT")) {
+  # if ((length(dataset) == 13) && (dataset$design == "SPLIT-PLOT")) {
   #   # check for SPLIT-PLOT dataset with unimplemmented FOM
   #   # All end-point based FOMs are unimplemented
   #   # cannot use "MaxNLF", "ExpTrnsfmSp", "HrSp" etc. here 
