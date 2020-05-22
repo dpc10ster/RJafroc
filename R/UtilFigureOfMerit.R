@@ -9,7 +9,7 @@
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
-#' @return An \code{c(I, J)} array, where the row names are \code{modalityID}'s of the 
+#' @return An \code{c(I, J)} dataframe, where the row names are \code{modalityID}'s of the 
 #'    treatments and column names are the \code{readerID}'s of the readers.
 #' 
 #' @details The allowed FOMs depend on the \code{dataType} field of the 
@@ -189,9 +189,9 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
-  rownames(fomArray) <- paste("Trt", sep = "", modalityID)
-  colnames(fomArray) <- paste("Rdr", sep = "", readerID)
-  return(fomArray)
+  rownames(fomArray) <- paste("trt", sep = "", modalityID)
+  colnames(fomArray) <- paste("rdr", sep = "", readerID)
+  return(as.data.frame(fomArray))
 } 
 
 

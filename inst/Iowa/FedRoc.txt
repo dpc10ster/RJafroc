@@ -1,0 +1,446 @@
+###DPC Original File Name: FedRoc trap area jackknife anova.txt DPC###
+
+ 05/08/2020
+
+                           OR-DBM MRMC 2.51
+
+                     <beta> Build  20181028 </beta>
+
+              MULTIREADER-MULTICASE ROC ANALYSIS OF VARIANCE
+                          TRAPEZOIDAL AREA ANALYSIS
+ 
+ 
+ |====================================================================|
+ |*****                         Credits                          *****|
+ |====================================================================|
+ |                                                                    |
+ | ANOVA Computations & Display:                                      |
+ | -----------------------------                                      |
+ | Kevin M. Schartz, Stephen L. Hillis, Lorenzo L. Pesce, &           |
+ | Kevin S. Berbaum                                                   |
+ |                                                                    |
+ | Expected Utility Computations:                                     |
+ | -----------------------------                                      |
+ | Craig K. Abbey                                                     |
+ |                                                                    |
+ |====================================================================|
+ 
+ 
+ 
+ |====================================================================|
+ |***************************     NOTE     ***************************|
+ |====================================================================|
+ | The user agreement for this software stipulates that any           |
+ | publications based on research data analyzed using this software   |
+ | must cite references 1-5 given below.                              |
+ |                                                                    |
+ | Example of citing the software:                                    |
+ |                                                                    |
+ |      Reader performance analysis was performed using the software  |
+ | package OR-DBM MRMC 2.51, written by Kevin M.Schartz, Stephen L.   |
+ | Hillis, Lorenzo L. Pesce, and Kevin S. Berbaum, and freely         |
+ | available at http://perception.radiology.uiowa.edu. This program   |
+ | is based on the methods initially proposed by Dorfman, Berbaum,    |
+ | and Metz [1] and Obuchowski and Rockette [2] and later unified and |
+ | improved by Hillis and colleagues [3-5].                           |
+ |====================================================================|
+ 
+ Data file: \\vmware-host\Shared Folders\VmWareShared\FedRoc\FedRoc.lrc                                                                                                                                                                                                     
+ 
+ 5 treatments, 4 readers, 200 cases (100 normal, 100 abnormal)
+ 
+ Curve fitting methodology is TRAPEZOIDAL/WILCOXON
+ Dependent variable is AUC
+ 
+ Study Design:  Factorial
+ Covariance Estimation Method:  Jackknifing
+ 
+ ===========================================================================
+ *****                            Estimates                            *****
+ ===========================================================================
+ 
+TREATMENT x READER AUC ESTIMATES
+
+                                 TREATMENT
+           -----------------------------------------------------------------------------
+ READER         1            2            3            4            5
+ ------    ----------   ----------   ----------   ----------   ----------   
+     1     0.90425000   0.86425000   0.81295000   0.90235000   0.84140000
+     2     0.79820000   0.84470000   0.81635000   0.83150000   0.77300000
+     3     0.81175000   0.82050000   0.75275000   0.78865000   0.77115000
+     4     0.86645000   0.87160000   0.85730000   0.87980000   0.84800000
+ 
+
+ TREATMENT AUC MEANS (averaged across readers)
+ ---------------------------------------------
+       1      0.84516250
+       2      0.85026250
+       3      0.80983750
+       4      0.85057500
+       5      0.80838750
+ 
+ 
+
+ TREATMENT AUC MEAN DIFFERENCES
+ ------------------------------
+     1 - 2    -0.00510000
+     1 - 3     0.03532500
+     1 - 4    -0.00541250
+     1 - 5     0.03677500
+     2 - 3     0.04042500
+     2 - 4    -0.00031250
+     2 - 5     0.04187500
+     3 - 4    -0.04073750
+     3 - 5     0.00145000
+     4 - 5     0.04218750
+ 
+ 
+ 
+ ===========================================================================
+ *****            ANOVA Tables (OR analysis of reader AUCs)            *****
+ ===========================================================================
+ 
+ TREATMENT X READER ANOVA of AUCs
+ (Used for global test of equal treatment AUCs and for treatment differences
+  confidence intervals in parts (a) and (b) of the analyses)
+ 
+Source            SS               DF             MS        
+------   --------------------    ------   ------------------
+     T             0.00758783         4           0.00189696
+     R             0.02188253         3           0.00729418
+   T*R             0.00554648        12           0.00046221
+ 
+ 
+ 
+ READER ANOVAs of AUCs for each treatment
+ (Used for single treatment confidence intervals in part (c) of the analyses)
+ 
+
+                        Mean Squares
+ Source     df   Treatment 1   Treatment 2   Treatment 3   Treatment 4   Treatment 5
+ ------    ---   -----------   -----------   -----------   -----------   -----------
+      R      3    0.00242212    0.00052256    0.00185459    0.00257777    0.00176596
+ 
+ 
+ ===========================================================================
+ *****        Variance component and error-covariance estimates        *****
+ ===========================================================================
+ 
+ Obuchowski-Rockette variance component and covariance estimates
+ (for sample size estimation for future studies)
+ Note: These are ANOVA estimates which can be negative
+ 
+     OR Component             Estimate         Correlation  
+ -----------------------  ----------------  ----------------
+ Var(R)                         0.00128372
+ Var(T*R)                      -0.00001093
+ COV1                           0.00029480        0.37358228
+ COV2                           0.00023331        0.29566389
+ COV3                           0.00021213        0.26881601
+ Var(Error)                     0.00078912
+ 
+ 
+ Corresponding DBM variance component and covariance estimates
+ 
+     DBM Component            Estimate    
+ -----------------------  ----------------
+ Var(R)                         0.00128372
+ Var(C)                         0.04242558
+ Var(T*R)                      -0.00001093
+ Var(T*C)                       0.00423723
+ Var(R*C)                       0.01653461
+ Var(T*R*C) + Var(Error)        0.09462642
+ 
+ 
+ ===========================================================================
+ *****    Analysis 1 (OR Analysis): Random Readers and Random Cases    *****
+ ===========================================================================
+ (Results apply to the population of readers and cases)
+
+
+    a) Test for H0: Treatments have the same AUC
+ 
+ Source        DF      Mean Square    F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        4       0.00189696     3.47   0.0305
+ Error term   16.80       0.00054695
+ Error term = MS(T*R) + r*max[Cov2 - Cov3,0]
+ 
+ Conclusion: The treatment AUCs are not equal [F(4,17) = 3.47, p = .0305].
+ 
+ Df(error term) = [MS(T*R) + r*max(Cov2 - Cov3,0)]**2/{MS(T*R)**2/[(t-1)(r-1)]}
+ Note: "Error term" is the denominator of the F statistic and is a linear
+ combination of mean squares, as defined above.  The value of this linear 
+ combination is given under the "Mean Square" column
+ Note: Df(error term) is called "ddf_H" in Hillis (2007).
+ 
+
+    b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
+       for treatment AUC differences
+ 
+ Treatment
+ Comparison  Difference   StdErr      DF      t     Pr >|t|          95% CI       
+ ----------  ----------  --------  -------  ------  -------  ---------------------
+   1 - 2       -0.00510   0.01654    16.80   -0.31   0.7616  (-0.04002 ,  0.02982)
+   1 - 3        0.03533   0.01654    16.80    2.14   0.0477  ( 0.00040 ,  0.07025)
+   1 - 4       -0.00541   0.01654    16.80   -0.33   0.7475  (-0.04033 ,  0.02951)
+   1 - 5        0.03678   0.01654    16.80    2.22   0.0402  ( 0.00185 ,  0.07170)
+   2 - 3        0.04042   0.01654    16.80    2.44   0.0258  ( 0.00550 ,  0.07535)
+   2 - 4       -0.00031   0.01654    16.80   -0.02   0.9851  (-0.03523 ,  0.03461)
+   2 - 5        0.04187   0.01654    16.80    2.53   0.0216  ( 0.00695 ,  0.07680)
+   3 - 4       -0.04074   0.01654    16.80   -2.46   0.0249  (-0.07566 , -0.00582)
+   3 - 5        0.00145   0.01654    16.80    0.09   0.9312  (-0.03347 ,  0.03637)
+   4 - 5        0.04219   0.01654    16.80    2.55   0.0208  ( 0.00727 ,  0.07711)
+ 
+ StdErr = sqrt{(2/r)*[MS(T*R) + r*max(Cov2 - Cov3,0)]}
+ Df same as df(error term) from (a)
+ 95% CI: Difference +- t(.025;df) * StdErr
+ 
+
+    c) Single-treatment 95% confidence intervals
+       (Each analysis is based only on data for the specified treatment, i.e., 
+       on the treatment-specific reader ANOVA of AUCs and Cov2 estimates.)
+ 
+  Treatment      AUC      Std Err       DF     95% Confidence Interval      Cov2   
+ ----------  ----------  ----------  -------  -------------------------  ----------
+          1  0.84516250  0.02857824     5.46  (0.77351391 , 0.91681109)  0.00021119
+          2  0.85026250  0.01992816    27.72  (0.80942311 , 0.89110189)  0.00026649
+          3  0.80983750  0.02664789     7.04  (0.74689261 , 0.87278239)  0.00024646
+          4  0.85057500  0.02940870     5.40  (0.77664342 , 0.92450658)  0.00022043
+          5  0.80838750  0.02575835     6.78  (0.74706747 , 0.86970753)  0.00022200
+ 
+ StdErr = sqrt{1/r * [MS(R) + r*max(Cov2,0)]}
+ Df = [MS(R)+ max(r*cov2,0)]**2/[(MS(R)**2/(r-1)]
+ Note: Df is called "ddf_H_single" in Hillis (2007)
+ 95% CI: AUC +- t(.025;df) * StdErr
+ 
+ 
+ ===========================================================================
+ *****    Analysis 2 (OR Analysis): Fixed Readers and Random Cases     *****
+ ===========================================================================
+ (Results apply to the population of cases but only for the readers used in
+ this study. Chi-square or Z tests are used; these are appropriate for 
+ moderate or large case sample sizes.)
+ 
+    a) Chi-square test for H0: Treatments have the same AUC
+    Note: The chi-square statistic is denoted by X2 or by X2(df), where df is its 
+    corresponding degrees of freedom.
+ 
+ 
+     X2 value       DF    Pr > X2
+ ---------------  ------  -------
+        13.60126       4   0.0087
+ 
+ Conclusion: The treatment AUCs are not equal [X2(4) = 13.60, p = .0087].
+ 
+ X2 = (t-1)*MS(T)/[Var(error) - Cov1 + (r-1)*max(Cov2 - Cov3,0)]
+
+
+    b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
+       for treatment AUC differences
+ 
+ Treatment
+ Comparison  Difference   StdErr     z     Pr >|z|          95% CI       
+ ----------  ----------  --------  ------  -------  ---------------------
+   1 - 2       -0.00510   0.01670   -0.31   0.7601  (-0.03783 ,  0.02763)
+   1 - 3        0.03533   0.01670    2.12   0.0344  ( 0.00259 ,  0.06806)
+   1 - 4       -0.00541   0.01670   -0.32   0.7459  (-0.03815 ,  0.02732)
+   1 - 5        0.03678   0.01670    2.20   0.0277  ( 0.00404 ,  0.06951)
+   2 - 3        0.04042   0.01670    2.42   0.0155  ( 0.00769 ,  0.07316)
+   2 - 4       -0.00031   0.01670   -0.02   0.9851  (-0.03305 ,  0.03242)
+   2 - 5        0.04187   0.01670    2.51   0.0122  ( 0.00914 ,  0.07461)
+   3 - 4       -0.04074   0.01670   -2.44   0.0147  (-0.07347 , -0.00800)
+   3 - 5        0.00145   0.01670    0.09   0.9308  (-0.03128 ,  0.03418)
+   4 - 5        0.04219   0.01670    2.53   0.0115  ( 0.00945 ,  0.07492)
+ 
+ StdErr = sqrt{2/r * [(Var(error) - Cov1 + (r-1)*max(Cov2 - Cov3,0)]}
+ 95% CI: difference +- z(.025) * StdErr
+ 
+
+    c) Single treatment AUC 95% confidence intervals
+       (Each analysis is based only on data for the specified treatment, i.e., on
+        the specific reader ANOVA of AUCs and error-variance and Cov2 estimates.)
+ 
+  Treatment      AUC      Std Error   95% Confidence Interval 
+ ----------  ----------  ----------  -------------------------
+          1  0.84516250  0.01833087  (0.80923466 , 0.88109034)
+          2  0.85026250  0.01968838  (0.81167398 , 0.88885102)
+          3  0.80983750  0.02009512  (0.77045178 , 0.84922322)
+          4  0.85057500  0.01862661  (0.81406752 , 0.88708248)
+          5  0.80838750  0.01967001  (0.76983500 , 0.84694000)
+ 
+  Treatment  Var(Error)     Cov2   
+ ----------  ----------  ----------
+          1  0.00071053  0.00021119
+          2  0.00075106  0.00026649
+          3  0.00087587  0.00024646
+          4  0.00072652  0.00022043
+          5  0.00088163  0.00022200
+ 
+ StdErr = sqrt{1/r * [Var(error) + (r-1)*max(Cov2,0)]}
+ 95% CI: AUC +- z(.025) * StdErr
+
+
+    d) Single-reader 95% confidence intervals and tests (H0: difference = 0) for 
+    treatment AUC differences.
+       (Each analysis is based only on data for the specified reader, i.e, on the 
+        reader-specific AUC, error-variance and Cov1 estimates.)
+ 
+         Treatment
+ Reader  Comparison  Difference  StdErr      z     Pr >|z|          95% CI       
+ ------  ----------  ----------  --------  ------  -------  ---------------------
+      1    1 - 2        0.04000   0.03080    1.30   0.1940  (-0.02036 ,  0.10036)
+      1    1 - 3        0.09130   0.03080    2.96   0.0030  ( 0.03094 ,  0.15166)
+      1    1 - 4        0.00190   0.03080    0.06   0.9508  (-0.05846 ,  0.06226)
+      1    1 - 5        0.06285   0.03080    2.04   0.0413  ( 0.00249 ,  0.12321)
+      1    2 - 3        0.05130   0.03080    1.67   0.0958  (-0.00906 ,  0.11166)
+      1    2 - 4       -0.03810   0.03080   -1.24   0.2160  (-0.09846 ,  0.02226)
+      1    2 - 5        0.02285   0.03080    0.74   0.4581  (-0.03751 ,  0.08321)
+      1    3 - 4       -0.08940   0.03080   -2.90   0.0037  (-0.14976 , -0.02904)
+      1    3 - 5       -0.02845   0.03080   -0.92   0.3556  (-0.08881 ,  0.03191)
+      1    4 - 5        0.06095   0.03080    1.98   0.0478  ( 0.00059 ,  0.12131)
+ 
+      2    1 - 2       -0.04650   0.03092   -1.50   0.1326  (-0.10710 ,  0.01410)
+      2    1 - 3       -0.01815   0.03092   -0.59   0.5572  (-0.07875 ,  0.04245)
+      2    1 - 4       -0.03330   0.03092   -1.08   0.2815  (-0.09390 ,  0.02730)
+      2    1 - 5        0.02520   0.03092    0.82   0.4150  (-0.03540 ,  0.08580)
+      2    2 - 3        0.02835   0.03092    0.92   0.3592  (-0.03225 ,  0.08895)
+      2    2 - 4        0.01320   0.03092    0.43   0.6694  (-0.04740 ,  0.07380)
+      2    2 - 5        0.07170   0.03092    2.32   0.0204  ( 0.01110 ,  0.13230)
+      2    3 - 4       -0.01515   0.03092   -0.49   0.6241  (-0.07575 ,  0.04545)
+      2    3 - 5        0.04335   0.03092    1.40   0.1609  (-0.01725 ,  0.10395)
+      2    4 - 5        0.05850   0.03092    1.89   0.0585  (-0.00210 ,  0.11910)
+ 
+      3    1 - 2       -0.00875   0.03619   -0.24   0.8090  (-0.07969 ,  0.06219)
+      3    1 - 3        0.05900   0.03619    1.63   0.1031  (-0.01194 ,  0.12994)
+      3    1 - 4        0.02310   0.03619    0.64   0.5233  (-0.04784 ,  0.09404)
+      3    1 - 5        0.04060   0.03619    1.12   0.2620  (-0.03034 ,  0.11154)
+      3    2 - 3        0.06775   0.03619    1.87   0.0612  (-0.00319 ,  0.13869)
+      3    2 - 4        0.03185   0.03619    0.88   0.3789  (-0.03909 ,  0.10279)
+      3    2 - 5        0.04935   0.03619    1.36   0.1727  (-0.02159 ,  0.12029)
+      3    3 - 4       -0.03590   0.03619   -0.99   0.3212  (-0.10684 ,  0.03504)
+      3    3 - 5       -0.01840   0.03619   -0.51   0.6112  (-0.08934 ,  0.05254)
+      3    4 - 5        0.01750   0.03619    0.48   0.6287  (-0.05344 ,  0.08844)
+ 
+      4    1 - 2       -0.00515   0.02721   -0.19   0.8499  (-0.05848 ,  0.04818)
+      4    1 - 3        0.00915   0.02721    0.34   0.7366  (-0.04418 ,  0.06248)
+      4    1 - 4       -0.01335   0.02721   -0.49   0.6237  (-0.06668 ,  0.03998)
+      4    1 - 5        0.01845   0.02721    0.68   0.4977  (-0.03488 ,  0.07178)
+      4    2 - 3        0.01430   0.02721    0.53   0.5992  (-0.03903 ,  0.06763)
+      4    2 - 4       -0.00820   0.02721   -0.30   0.7631  (-0.06153 ,  0.04513)
+      4    2 - 5        0.02360   0.02721    0.87   0.3857  (-0.02973 ,  0.07693)
+      4    3 - 4       -0.02250   0.02721   -0.83   0.4083  (-0.07583 ,  0.03083)
+      4    3 - 5        0.00930   0.02721    0.34   0.7325  (-0.04403 ,  0.06263)
+      4    4 - 5        0.03180   0.02721    1.17   0.2425  (-0.02153 ,  0.08513)
+ 
+ 
+ Reader  Var(Error)     Cov1   
+ ------  ----------  ----------
+      1  0.00068948  0.00021527
+      2  0.00082356  0.00034558
+      3  0.00100854  0.00035359
+      4  0.00063489  0.00026476
+ 
+ StdErr = sqrt[2*(Var(error) - Cov1)]
+ 95% CI: Difference +- z(.025) * StdErr
+ 
+ 
+ ===========================================================================
+ *****    Analysis 3 (OR Analysis): Random Readers and Fixed Cases     *****
+ ===========================================================================
+ (Results apply to the population of readers but only for the cases used in
+ this study)
+
+     These results result from using the OR model, but treating reader as a random 
+ factor and treatment and case as fixed factors.  Because case is treated as a fixed
+ factor, it follows that Cov1 = Cov2 = Cov3 = 0; i.e., there is no correlation
+ between reader-performance measures (e.g, AUCs) due to reading the same
+ cases.  Thus the OR model reduces to a conventional treatment x reader ANOVA
+ for the reader-performance outcomes, where reader is a random factor and
+ treatment is a fixed factor.  This is the same as a repeated measures ANOVA
+ where treatment is the repeated measures factor, i.e., readers provide an
+ outcome (e.g., AUC) under each treatment.
+     Note that the DBM and OR papers do not discuss this approach, but rather 
+ it is included here for completeness.
+
+    a) Test for H0: Treatments have the same AUC
+ 
+ Source        DF    Mean Square      F value  Pr > F 
+ ----------  ------  ---------------  -------  -------
+ Treatment        4       0.00189696     4.10   0.0253
+ T*R             12       0.00046221
+ 
+ Conclusion: The treatment AUCs are not equal [F(4,12) = 4.10, p = .0253].
+ Note: If there are only 2 treatments, this is equivalent to a paired t-test applied
+ to the AUCs
+
+
+    b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
+       for treatment AUC differences
+ 
+ Treatment
+ Comparison  Difference   StdErr      DF      t     Pr >|t|          95% CI       
+ ----------  ----------  --------  -------  ------  -------  ---------------------
+   1 - 2       -0.00510   0.01520       12   -0.34   0.7431  (-0.03822 ,  0.02802)
+   1 - 3        0.03533   0.01520       12    2.32   0.0385  ( 0.00220 ,  0.06845)
+   1 - 4       -0.00541   0.01520       12   -0.36   0.7280  (-0.03854 ,  0.02771)
+   1 - 5        0.03678   0.01520       12    2.42   0.0324  ( 0.00365 ,  0.06990)
+   2 - 3        0.04042   0.01520       12    2.66   0.0208  ( 0.00730 ,  0.07355)
+   2 - 4       -0.00031   0.01520       12   -0.02   0.9839  (-0.03344 ,  0.03281)
+   2 - 5        0.04187   0.01520       12    2.75   0.0175  ( 0.00875 ,  0.07500)
+   3 - 4       -0.04074   0.01520       12   -2.68   0.0200  (-0.07386 , -0.00761)
+   3 - 5        0.00145   0.01520       12    0.10   0.9256  (-0.03167 ,  0.03457)
+   4 - 5        0.04219   0.01520       12    2.78   0.0168  ( 0.00906 ,  0.07531)
+ 
+ StdErr = sqrt[2/r * MS(T*R)]
+ DF = df[MS(T*R)] = (t-1)(r-1)
+ 95% CI: Difference +- t(.025;df) * StdErr
+ Note: If there are only 2 treatments, this is equivalent to a paired t-test applied
+ to the AUCs
+ 
+
+    c) Single treatment AUC 95% confidence intervals
+       (Each analysis is based only on data for the specified treatment, 
+       i.e. on the treatment-specfic reader ANOVA of AUCs
+ 
+  Treatment      AUC        MS(R)     Std Error     DF     95% Confidence Interval 
+ ----------  ----------  ----------  ----------  -------  -------------------------
+          1  0.84516250  0.00242212  0.02460752        3  (0.76685038 , 0.92347462)
+          2  0.85026250  0.00052256  0.01142981        3  (0.81388774 , 0.88663726)
+          3  0.80983750  0.00185459  0.02153248        3  (0.74131154 , 0.87836346)
+          4  0.85057500  0.00257777  0.02538588        3  (0.76978581 , 0.93136419)
+          5  0.80838750  0.00176596  0.02101167        3  (0.74151900 , 0.87525600)
+ 
+ StdErr = sqrt[1/r * MS(R)]
+ DF = df[MS(R)] = r-1
+ 95% CI: AUC +- t(.025;df) * StdErr
+ Note: this is the conventional CI, treating the reader AUCs as a random sample.
+ 
+ 
+ 
+ #=> Reference resources are missing. Default references provided. <=#
+ 
+
+
+                               REFERENCES
+
+ 1.   Dorfman, D.D., Berbaum, K.S., & Metz, C.E. (1992). Receiver operating
+ characteristic rating analysis: Generalization to the population of 
+ readers and patients with the jackknife method. Investigative Radiology,
+ 27, 723-731.
+
+ 2.    Obuchowski, N.A., & Rockette, H.E. (1995). Hypothesis testing of diagnostic
+ accuracy for multiple readers and multiple tests: An ANOVA approach with dependent
+ observations. Communications in Statistics-Simulation and Computation, 24, 285-308.
+
+ 3.   Hillis, S.L., Obuchowski, N.A., Schartz, K.M., & Berbaum, K.S.
+ (2005). A comparison of the Dorfman-Berbaum-Metz and Obuchowski-Rockette
+ methods for receiver operating characteristic (ROC) data. 
+ Statistics in Medicine, 24, 1579-1607  DOI:10.1002/sim.2024.
+
+ 4.   Hillis, S.L. (2007). A comparison of denominator degrees of freedom for
+ multiple observer ROC analysis.  Statistics in Medicine, 26:596-619  DOI:10.1002/sim.2532.
+
+ 6.   Hillis, S.L., Berbaum, K.S., & Metz, C.E. (2008). Recent developments in the
+ Dorfman-Berbaum-Metz procedure for multireader ROC study analysis. Academic Radiology, 15, 
+ 647-661. DOI:10.1016/j.acra.2007.12.015

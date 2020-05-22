@@ -4,45 +4,46 @@ JAFROC SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IM
 
 JAFROC Version 4.2.1
 Last Compilation Dates
-	JAFROC_CORE.DLL : Aug 24 2014 15:49:46
-	JAFROC.EXE      : Aug 24 2014 15:50:19
+	JAFROC_CORE.DLL : Aug  7 2014 15:10:56
+	JAFROC.EXE      : Aug  7 2014 15:11:24
 
-	Today's date: 8/23/2019 16:16:54
+	Today's date: 5/15/2020 12:55:53
 
 
-FOM selected         :     ANALYSIS_METHOD_HR_ROC
-Input  Data Filename :     \\vmware-host\Shared Folders\VmWareShared\includedFrocData.xlsx
-Output Data Filename :     \\vmware-host\Shared Folders\VmWareShared\includedFrocData_Inferred_ROC.txt
+FOM selected         :     «®
+Input  Data Filename :     \\vmware-host\Shared Folders\VmWareShared\VanDyke.xlsx
+Output Data Filename :     \\vmware-host\Shared Folders\VmWareShared\VanDyke_ROC.txt
 
 ================================================================================
- Analysis method:         :  Inferred ROC FOM DBM-MRMC SIGNIFICANCE TESTING
- Number of Readers        :  4
+ Number of Readers        :  5
  Number of Treatments     :  2
- Number of Normal Cases   :  100
- Number of Abnormal Cases :  100
- fraction normal cases    :  0.500
+ Number of Normal Cases   :  69
+ Number of Abnormal Cases :  45
+ fraction normal cases    :  0.605
  min    LESIONS_PER_IMAGE :  1
- max    LESIONS_PER_IMAGE :  3
- mean   LESIONS_PER_IMAGE :  1.42
- Total  LESIONS           :  142
- Inc. Loc. Frac.          :  0.065
+ max    LESIONS_PER_IMAGE :  1
+ mean   LESIONS_PER_IMAGE :  1
+ Total  LESIONS           :  45
+ Inc. Loc. Frac.          :  0.000
 
 ================================================================================
 
-For TRT = 4         , and RDR = 1         , max FPF =  0.400.
-For TRT = 4         , and RDR = 3         , max FPF =  0.250.
-For TRT = 4         , and RDR = 4         , max FPF =  0.500.
-For TRT = 4         , and RDR = 5         , max FPF =  0.220.
-For TRT = 5         , and RDR = 1         , max FPF =  0.420.
-For TRT = 5         , and RDR = 3         , max FPF =  0.240.
-For TRT = 5         , and RDR = 4         , max FPF =  0.480.
-For TRT = 5         , and RDR = 5         , max FPF =  0.250.
+For TRT = 0         , and RDR = 0         , max FPF =  1.000.
+For TRT = 0         , and RDR = 1         , max FPF =  1.000.
+For TRT = 0         , and RDR = 2         , max FPF =  1.000.
+For TRT = 0         , and RDR = 3         , max FPF =  1.000.
+For TRT = 0         , and RDR = 4         , max FPF =  1.000.
+For TRT = 1         , and RDR = 0         , max FPF =  1.000.
+For TRT = 1         , and RDR = 1         , max FPF =  1.000.
+For TRT = 1         , and RDR = 2         , max FPF =  1.000.
+For TRT = 1         , and RDR = 3         , max FPF =  1.000.
+For TRT = 1         , and RDR = 4         , max FPF =  1.000.
 
 ================================================================================
 
- Avg. number of non-lesion localization marks per reader on normal images:  0.456.
- Avg. number of non-lesion localization marks per reader on abnormal images:  0.253.
- Avg. number of lesion localization marks per reader :  0.920.
+ Avg. number of non-lesion localization marks per reader on normal images:  1.000.
+ Avg. number of non-lesion localization marks per reader on abnormal images:  0.000.
+ Avg. number of lesion localization marks per reader :  1.000.
 
 ================================================================================
 
@@ -79,24 +80,25 @@ For TRT = 5         , and RDR = 5         , max FPF =  0.250.
 
                         TREATMENT
               -----------------------
-  READER      4            5         
+  READER      0            1         
 ----------    ----------   ----------
-1             0.90235001   0.84140003
-3             0.83149999   0.77300000
-4             0.78864998   0.77114999
-5             0.87980002   0.84799999
+0             0.91964573   0.94782609
+1             0.85877615   0.90531403
+2             0.90386474   0.92173910
+3             0.97310787   0.99935585
+4             0.82979065   0.92995167
  
  
  TREATMENT MEANS (averaged across readers)
 ----------    -----------------------------
-4             0.85057503
-5             0.80838752
+0             0.89703703
+1             0.94083726
  
  
 
  TREATMENT MEAN DIFFERENCES
 ----------   ----------    -----------
-4          - 5             0.04218751
+0          - 1             -0.04380023
  
  
  
@@ -109,14 +111,14 @@ For TRT = 5         , and RDR = 5         , max FPF =  0.250.
  
 Source            SS               DF             MS        
 ------   --------------------    ------   ------------------
-     T             0.71191377         1           0.71191377
-     R             2.47268950         3           0.82422983
-     C            97.80334732       199           0.49147411
-    TR             0.13355014         3           0.04451671
-    TC            19.02682156       199           0.09561217
-    RC            83.94181630       597           0.14060606
-   TRC            55.24421913       597           0.09253638
- TOTAL           259.33435773      1599
+     T             0.54676316         1           0.54676316
+     R             1.74930715         4           0.43732679
+     C            44.84618708       113           0.39686891
+    TR             0.25127013         4           0.06281753
+    TC            11.28283814       113           0.09984813
+    RC            29.15444801       452           0.06450099
+   TRC            18.06719311       452           0.03997167
+ TOTAL           105.89800676      1139
  
  
  
@@ -124,11 +126,11 @@ Source            SS               DF             MS
  
  
                         Mean Squares
- Source     df   4            5         
+ Source     df   0            1         
  ------    ---   ----------   ----------   
-      R      3   0.51555470   0.35319185
-      C    199   0.27755950   0.30952677
-     RC    597   0.10121725   0.13192519 
+      R      4   0.35141971   0.14872460
+      C    113   0.33629383   0.16042320
+     RC    452   0.06043604   0.04403661 
  
  ===========================================================================
  *****                  Variance components estimates                  *****
@@ -140,12 +142,12 @@ Source            SS               DF             MS
  
      DBM Component            Estimate    
  -----------------------  ----------------
- Var(R)                         0.00182911
- Var(C)                         0.04347403
- Var(T*R)                      -0.00024010
- Var(T*C)                       0.00076895
- Var(R*C)                       0.02403484
- Var(T*R*C) + Var(Error)        0.09253638
+ Var(R)                         0.00153500
+ Var(C)                         0.02724915
+ Var(T*R)                       0.00020040
+ Var(T*C)                       0.01197529
+ Var(R*C)                       0.01226466
+ Var(T*R*C) + Var(Error)        0.03997167
  
  Obuchowski-Rockette variance component and covariance estimates
  (for sample size estimation for future studies)
@@ -153,12 +155,12 @@ Source            SS               DF             MS
  
      OR Component             Estimate    
  -----------------------  ----------------
- Reader                         0.00182911
- Treatment*Reader              -0.00024010
- COV1                           0.00033754
- COV2                           0.00022121
- COV3                           0.00021737
- ERROR                          0.00080407
+ Reader                         0.00153500
+ Treatment*Reader               0.00020040
+ COV1                           0.00034661
+ COV2                           0.00034407
+ COV3                           0.00023903
+ ERROR                          0.00080229
  
  
  ===========================================================================
@@ -167,23 +169,23 @@ Source            SS               DF             MS
  (Results apply to the population of readers and cases)
 
 
-    a) Test for H0: Treatments have the same ANALYSIS_METHOD_HR_ROC
+    a) Test for H0: Treatments have the same ØëqT
  
  Source        DF    Mean Square      F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.71191377    14.96   0.0240
- Error         3.43       0.04759250
+ Treatment        1       0.54676316     4.46   0.0517
+ Error        15.26       0.12269399
  Error term: MS(TR) + max[MS(TC)-MS(TRC),0]
  
- Conclusion: The treatment ANALYSIS_METHOD_HR_ROCs are not equal,
-             F(1,3.43) = 14.96, p = 0.0240.
+ Conclusion: The treatment ôìq8s are not significantly different,
+             F(1,15.26) = 4.46, p = 0.0517.
 
 
     b) 95% confidence intervals for treatment differences
  
        Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
 ----------   ----------  --------  --------  -------  ------  -------  -------------------
-4          - 5            0.04219   0.01091     3.43    3.87   0.0240   0.00981 ,  0.07457
+0          - 1           -0.04380   0.02075    15.26   -2.11   0.0517  -0.08796 ,  0.00036
  
  H0: the two treatments are equal.
  Error term: MS(TR) + max[MS(TC)-MS(TRC),0]
@@ -195,8 +197,8 @@ Source            SS               DF             MS
  
   Treatment     Area      Std Error     DF     95% Confidence Interval 
   ----------  ----------  ----------  -------  -------------------------
-  4           0.85057499  0.02940869     5.40  (0.77664336 , 0.92450661)
-  5           0.80838750  0.02575833     6.78  (0.74706749 , 0.86970751)
+  0           0.89703703  0.03317359    12.74  (0.82522361 , 0.96885046)
+  1           0.94083734  0.02156635    12.71  (0.89413784 , 0.98753684)
  Error term: MS(R) + max[MS(C)-MS(RC),0]
  
  
@@ -208,23 +210,23 @@ Source            SS               DF             MS
  (Results apply to the population of cases but only for the readers
  used in this study)
  
-    a) Test for H0: Treatments have the same ANALYSIS_METHOD_HR_ROC
+    a) Test for H0: Treatments have the same 
  
  Source        DF    Mean Square      F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.71191377     7.45   0.0069
- Error          199       0.09561217
+ Treatment        1       0.54676316     5.48   0.0210
+ Error          113       0.09984813
  Error term: MS(TC)
  
- Conclusion: The treatment ANALYSIS_METHOD_HR_ROCs are not equal,
-             F(1,199.00) = 7.45, p = 0.0069.
+ Conclusion: The treatment s are not equal,
+             F(1,113.00) = 5.48, p = 0.0210.
 
 
     b) 95% confidence intervals for treatment differences
  
        Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
 ----------   ----------  --------  --------  -------  ------  -------  -------------------
-4          - 5            0.04219   0.01546      199    2.73   0.0069   0.01170 ,  0.07268
+0          - 1           -0.04380   0.01872      113   -2.34   0.0210  -0.08088 , -0.00672
  
  H0: the two treatments are equal.
  Error term: MS(TC)
@@ -236,8 +238,8 @@ Source            SS               DF             MS
  
   Treatment     Area      Std Error     DF     95% Confidence Interval 
   ----------  ----------  ----------  -------  -------------------------
-  4           0.85057499  0.01862658      199  (0.81384419 , 0.88730579)
-  5           0.80838750  0.01966999      199  (0.76959913 , 0.84717586)
+  0           0.89703703  0.02428969      113  (0.84891477 , 0.94515930)
+  1           0.94083734  0.01677630      113  (0.90760047 , 0.97407422)
  Error term: MS(C)
  
  
@@ -246,19 +248,19 @@ Source            SS               DF             MS
  
 
                         Sum of Squares
- Source     df   1             3             4             5             
- ------    ---   -----------   -----------   -----------   -----------   
-      T      1     0.3714899     0.3422247     0.0306248     0.1011245   
-      C    199    35.8570206    47.7261700    60.2446925    37.9172806   
-     TC    199    15.4873263    21.3860255    24.7661273    12.6315616   
+ Source     df   0             1             2             3             4             
+ ------    ---   -----------   -----------   -----------   -----------   -----------   
+      T      1     0.0452655     0.1234490     0.0182111     0.0392705     0.5718372   
+      C    113    13.8142077    24.0404653    15.4282394     1.9537097    18.7640131   
+     TC    113     4.1922524     4.4557771     6.2738149     1.9257950    12.5023919   
  
 
                         Mean Squares
- Source     df   1             3             4             5             
- ------    ---   -----------   -----------   -----------   -----------   
-      T      1     0.3714899     0.3422247     0.0306248     0.1011245   
-      C    199     0.1801860     0.2398300     0.3027371     0.1905391   
-     TC    199     0.0778258     0.1074675     0.1244529     0.0634752   
+ Source     df   0             1             2             3             4             
+ ------    ---   -----------   -----------   -----------   -----------   -----------   
+      T      1     0.0452655     0.1234490     0.0182111     0.0392705     0.5718372   
+      C    113     0.1222496     0.2127475     0.1365331     0.0172895     0.1660532   
+     TC    113     0.0370996     0.0394317     0.0555205     0.0170424     0.1106406   
  
  
 
@@ -268,10 +270,11 @@ Source            SS               DF             MS
  
   Reader         Treatment        Estimate  StdErr       DF      t     Pr > t          95% CI      
 ---------- ---------- ----------  --------  --------  -------  ------  -------  -------------------
-1          4         -5            0.06095   0.02790      199    2.18   0.0301   0.00594 ,  0.11596
-3          4         -5            0.05850   0.03278      199    1.78   0.0759  -0.00615 ,  0.12315
-4          4         -5            0.01750   0.03528      199    0.50   0.6204  -0.05207 ,  0.08707
-5          4         -5            0.03180   0.02519      199    1.26   0.2084  -0.01788 ,  0.08148
+0          0         -1           -0.02818   0.02551      113   -1.10   0.2717  -0.07872 ,  0.02236
+1          0         -1           -0.04654   0.02630      113   -1.77   0.0795  -0.09865 ,  0.00557
+2          0         -1           -0.01787   0.03121      113   -0.57   0.5680  -0.07971 ,  0.04396
+3          0         -1           -0.02625   0.01729      113   -1.52   0.1318  -0.06051 ,  0.00801
+4          0         -1           -0.10016   0.04406      113   -2.27   0.0249  -0.18745 , -0.01288
  
  
  ===========================================================================
@@ -280,23 +283,23 @@ Source            SS               DF             MS
  (Results apply to the population of readers but only for the cases used in this study)
 
 
-    a) Test for H0: Treatments have the same ANALYSIS_METHOD_HR_ROC
+    a) Test for H0: Treatments have the same ¥ßq‡
  
  Source        DF    Mean Square      F value  Pr > F 
  ----------  ------  ---------------  -------  -------
- Treatment        1       0.71191377    15.99   0.0280
- Error         3.00       0.04451671
+ Treatment        1       0.54676316     8.70   0.0420
+ Error         4.00       0.06281753
  Error term: MS(TR)
  
- Conclusion: The treatment ANALYSIS_METHOD_HR_ROCs are not equal,
-             F(1,3.00) = 15.99, p = 0.0280.
+ Conclusion: The treatment ©àqƒs are not equal,
+             F(1,4.00) = 8.70, p = 0.0420.
 
 
     b) 95% confidence intervals for treatment differences
  
        Treatment         Estimate   StdErr      DF      t     Pr > t          95% CI      
 ----------   ----------  --------  --------  -------  ------  -------  -------------------
-4          - 5            0.04219   0.01055     3.00    4.00   0.0280   0.00861 ,  0.07576
+0          - 1           -0.04380   0.01485     4.00   -2.95   0.0420  -0.08502 , -0.00258
  
  H0: the two treatments are equal.
  
@@ -307,19 +310,19 @@ Source            SS               DF             MS
  
 
                         Mean Squares
- Source     df   4            5            
+ Source     df   0            1            
  ------    ---   ----------   ----------   
-      R      3   0.51555470   0.35319185   
-      C    199   0.27755950   0.30952677   
-     RC    597   0.10121725   0.13192519   
+      R      4   0.35141971   0.14872460   
+      C    113   0.33629383   0.16042320   
+     RC    452   0.06043604   0.04403661   
 
 
  Estimates and 95% Confidence Intervals
 
   Treatment     Area      Std Error     DF     95% Confidence Interval 
   ----------  ----------  ----------  -------  -------------------------
-  4           0.85057499  0.02538589        3  (0.76978576 , 0.93136422)
-  5           0.80838750  0.02101166        3  (0.74151902 , 0.87525597)
+  0           0.89703703  0.02482994        4  (0.82809807 , 0.96597599)
+  1           0.94083734  0.01615303        4  (0.89598934 , 0.98568534)
  
 
 

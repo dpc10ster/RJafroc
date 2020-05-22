@@ -10,7 +10,7 @@ UtilDBM2ORVarComp(K, DBMVarComp)
 \item{\code{K}}{Total number of cases}
 
 \item{\code{DBMVarComp}}{DBM variance components, a list or data.frame 
-containing varR, varC, varTR, varTC, varRC and varError}
+containing varR, varC, varTR, varTC, varRC and varErr}
 
 \item{\code{ORVarComp}}{OR variance components, a list or data.frame 
 containing varR, varTR, Cov1, Cov2, Cov3 and Var}
@@ -26,11 +26,11 @@ containing varR, varTR, Cov1, Cov2, Cov3 and Var}
    OR to DBM variance components.
 }
 \examples{
-DBMVarComp <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH")$DBMVarComp
-UtilDBM2ORVarComp(114, DBMVarComp)
+DBMVarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH")$ANOVA$VarCom
+UtilDBM2ORVarComp(114, DBMVarCom)
 
-ORVarComp <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH")$ORVarComp
-UtilOR2DBMVarComp(114, ORVarComp)
+ORVarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH")$ANOVA$VarCom
+UtilOR2DBMVarComp(114, ORVarCom)
 
 
 }

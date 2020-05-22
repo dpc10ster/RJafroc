@@ -130,31 +130,182 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
   }
   
   if (ReportFileExt == "txt"){
-    sucessfulOutput <- OutputTextFile(dataset,
-                                      method,
-                                      methodTxt,
-                                      ReportFileName,
-                                      alpha,
-                                      FOM,
-                                      analysisOption,
-                                      StResult)
+    if (method == "DBMH") {
+      sucessfulOutput <- OutputTextFileDBMH(dataset,
+                                            method,
+                                            methodTxt,
+                                            ReportFileName,
+                                            alpha,
+                                            FOM,
+                                            analysisOption,
+                                            StResult)
+    } else {
+      sucessfulOutput <- OutputTextFileORH(dataset,
+                                           method,
+                                           methodTxt,
+                                           ReportFileName,
+                                           alpha,
+                                           FOM,
+                                           analysisOption,
+                                           StResult)
+    }
   } else if (ReportFileExt == "xlsx") {
     summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), 
                                               basename(ReportFileName)))
     rownames(summaryInfo) <- c("Date", "Output file")
-    sucessfulOutput <- OutputExcelFile(dataset,
-                                       method,
-                                       methodTxt,
-                                       ReportFileName,
-                                       covEstMethod,
-                                       summaryInfo,
-                                       alpha,
-                                       FOM,
-                                       analysisOption,
-                                       StResult)
+    if (method == "DBMH") {
+      sucessfulOutput <- OutputExcelFileDBMH(dataset,
+                                             method,
+                                             methodTxt,
+                                             ReportFileName,
+                                             covEstMethod,
+                                             summaryInfo,
+                                             alpha,
+                                             FOM,
+                                             analysisOption,
+                                             StResult)
+    } else {
+      sucessfulOutput <- OutputExcelFileORH(dataset,
+                                            method,
+                                            methodTxt,
+                                            ReportFileName,
+                                            covEstMethod,
+                                            summaryInfo,
+                                            alpha,
+                                            FOM,
+                                            analysisOption,
+                                            StResult)
+    }
   } else stop("Incorrect ReportFileExt value")
   
   return(StResult)
   
 } 
+
+Preamble <- function(dataset, FOM, ReportFileName, method, methodTxt) {
+  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  datasetName <- deparse(substitute(dataset))
+  
+  x <- c("RJafroc IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR ", 
+         "IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, ", 
+         "FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE ", 
+         "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER ", 
+         "LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, ", 
+         "OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS ", 
+         "IN THE SOFTWARE.", 
+         "===============================================================================")
+  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  
+  cat(paste("R version:", R.version$version.string,"\n"))
+  cat(paste("RJafroc version:", packageVersion("RJafroc"),"\n"))
+  dateTime <- paste0("Run date: ", base::format(Sys.time(), "%b %d %Y %a %X %Z"))
+  cat(paste(dateTime, "\n"))
+  
+  cat(sprintf("FOM selected         :     %s\n", FOM))
+  cat(sprintf("Input Data          :     %s\n", datasetName))
+  cat(sprintf("Output Data Filename :     %s\n", ReportFileName))
+  cat(sprintf("===============================================================================\n"))
+  
+  NL <- dataset$NL
+  LL <- dataset$LL
+  lesionID <- dataset$lesionID
+  maxNL <- dim(NL)[4]
+  dataType <- dataset$dataType
+  modalityID <- dataset$modalityID
+  readerID <- dataset$readerID
+  I <- length(modalityID)
+  J <- length(readerID)
+  K <- dim(NL)[3]
+  K2 <- dim(LL)[3]
+  K1 <- K - K2
+  nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
+  
+  cat(sprintf("Significance testing method:  %s\n", methodTxt))
+  cat(sprintf("Number of Readers          :  %d\n", J))
+  cat(sprintf("Number of Treatments       :  %d\n", I))
+  cat(sprintf("Number of Normal Cases     :  %d\n", K1))
+  cat(sprintf("Number of Abnormal Cases   :  %d\n", K2))
+  cat(sprintf("Fraction of Normal Cases   :  %f\n", K1/K))
+  
+  if (dataType == "FROC") {
+    cat(sprintf("Min number of lesions per diseased case   :  %d\n", 
+                min(nLesionPerCase)))
+    cat(sprintf("Max number of lesions per diseased case   :  %d\n", 
+                max(nLesionPerCase)))
+    cat(sprintf("Mean number of lesions per diseased case  :  %f\n", 
+                mean(nLesionPerCase)))
+    cat(sprintf("Total number of lesions                   :  %d\n", 
+                sum(nLesionPerCase)))
+    
+    nl <- NL[, , (K1 + 1):K, ]
+    dim(nl) <- c(I, J, K2, maxNL)
+    maxNLRating <- apply(nl, c(1, 2, 3), max)
+    maxLLRating <- apply(LL, c(1, 2, 3), max)
+    ILF <- sum(maxNLRating > maxLLRating) + 0.5 * sum(maxNLRating == maxLLRating)
+    ILF <- ILF/I/J/K2
+    cat(sprintf("Inc. Loc. Frac.          :  %f\n", ILF))
+    cat(sprintf("===============================================================================\n"))
+    cat(sprintf("Avg. number of non-lesion localization marks per reader on non-diseased cases: %f\n", 
+                sum(NL[, , 1:K1, ] != UNINITIALIZED)/(I * J * K1)))
+    cat(sprintf("Avg. number of non-lesion localization marks per reader on diseased cases:  %f\n", 
+                sum(NL[, , (K1 + 1):K, ] != UNINITIALIZED)/(I * J * K2)))
+    cat(sprintf("Avg. number of lesion localization marks per reader :  %f\n", 
+                sum(LL != UNINITIALIZED)/(I * J * K2)))
+  }
+  
+  cat(sprintf("\n===============================================================================\n"))
+  cat(sprintf("Modality IDs in the input file are:  %s\n", paste(names(modalityID), collapse = ", ")))
+  cat(sprintf("Modality IDs in the output file are: %s\n", paste(modalityID, collapse = ", ")))
+  cat(sprintf("Reader IDs in the input file are:    %s\n", paste(names(readerID), collapse = ", ")))
+  cat(sprintf("Reader IDs in the output file are:   %s\n", paste(readerID, collapse = ", ")))
+  
+  x <- c("===============================================================================\n\n", 
+         "===========================================================================", 
+         "*****                           OVERVIEW                              *****", 
+         "===========================================================================\n",
+         "Three analyses are presented:", 
+         "(1) Analysis RRRC treats both readers and cases as random samples", 
+         "--results apply to the reader and case populations;", 
+         "(2) Analysis FRRC treats only cases as a random sample", 
+         "--results apply to the population of cases but only for the", 
+         "readers used in the study; and", 
+         "(3) Analysis RRFC treats only readers as a random sample", 
+         "--results apply to the population of readers but only for the", 
+         "cases used in the study.", 
+         "\nFor each analysis the null hypothesis of equal treatments is", 
+         "tested in part (a), reader-averaged treatment ", 
+         "FOM difference(s) 95% confidence intervals", 
+         "in part (b), and reader-averaged treatment",
+         "FOMs 95% confidence intervals in part (c).  Parts (a) and (b) are",
+         "based on the treatment x reader x case ANOVA while part (c)",
+         "is based on the reader x case ANOVA for the specified treatment.",
+         "Different error terms are used as indicated for parts (a), (b),",
+         "and (c) according to whether readers and cases are treated as",
+         "fixed or random factors. Note that the treatment confidence",
+         "intervals in part (c) are based only on the data for the specified",
+         "treatment, rather than the pooled data. Treatment difference 95%",
+         "confidence intervals for each reader are in part (d) of",
+         "Analysis FRRC; each interval is based on the treatment", 
+         "x case ANOVA table for the specified reader.")
+  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  
+  x <- c("\n",
+         "===========================================================================",
+         "*****                        FOM Estimates                            *****",
+         "===========================================================================\n")
+  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  cat(c("Individual reader FOMs and the means, and differences of reader-averaged FOMs\n"))
+
+  df <- method$FOMs$foms
+  print(format(df, digits = 5, justify = "left"))
+
+  cat(c("\nTREATMENT MEANS (averaged over readers):\n"))
+  df <- method$FOMs$trtMeans
+  print(format(df, digits = 5, justify = "left"))
+
+  cat("\n")
+  cat(c("TREATMENT MEAN DIFFERENCES (averaged over readers):\n"))
+  df <- method$FOMs$trtMeanDiffs
+  print(format(df, digits = 5, justify = "left"))
+}
 

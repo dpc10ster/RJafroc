@@ -1,4 +1,4 @@
-OutputExcelFile <- function(dataset,
+OutputExcelFileDBMH <- function(dataset,
                             method,
                             methodTxt,
                             ReportFileName,
@@ -297,9 +297,9 @@ OutputExcelFile <- function(dataset,
               colNames = FALSE)
     mergeCells(wb, "ANOVA", rows = 9, cols = 1:4)
     
-    colnames(StResult$FVCA$RCanovaDBMSingleTrt) <- c("Source", "DF", rownames(fomArray))
+    colnames(StResult$FVCA$IndividualTrt) <- c("Source", "DF", rownames(fomArray))
     writeData(wb, sheet = "ANOVA", 
-              x = StResult$FVCA$RCanovaDBMSingleTrt, 
+              x = StResult$FVCA$IndividualTrt, 
               startRow = 21, 
               rowNames = FALSE, 
               colNames = TRUE)
@@ -328,35 +328,35 @@ OutputExcelFile <- function(dataset,
     #############################################################    
     # method == "ORH"
     # done with RRFC, now create contents of VarComp worksheet    
-    addWorksheet(wb, "VarComp")
-    setColWidths(wb, sheet = "VarComp", cols = 1:9, widths = "auto", ignoreMergedCells = TRUE)
-    setColWidths(wb, sheet = "VarComp", cols = 1, widths = 10)
+    addWorksheet(wb, "VarCom")
+    setColWidths(wb, sheet = "VarCom", cols = 1:9, widths = "auto", ignoreMergedCells = TRUE)
+    setColWidths(wb, sheet = "VarCom", cols = 1, widths = 10)
     
-    writeData(wb, sheet = "VarComp", 
+    writeData(wb, sheet = "VarCom", 
               startRow = 1,  
               x = "OR FOM Variance Covariance Components", 
               rowNames = FALSE, 
               colNames = FALSE)
-    mergeCells(wb, "VarComp", rows = 1, cols = 1:2)
+    mergeCells(wb, "VarCom", rows = 1, cols = 1:2)
     
-    writeData(wb, sheet = "VarComp", 
+    writeData(wb, sheet = "VarCom", 
               x = StResult$FVCA$ORVarComp, 
               startRow = 2, 
               rowNames = FALSE, 
               colNames = TRUE)
     StResult$FRRC$varCovEachRdr[ , 1] <- readerID
     
-    writeData(wb, sheet = "VarComp", 
+    writeData(wb, sheet = "VarCom", 
               x = StResult$FRRC$varCovEachRdr, 
               startRow = 10, 
               rowNames = FALSE, 
               colNames = TRUE)
     
-    writeData(wb, sheet = "VarComp", startRow = 9,  
+    writeData(wb, sheet = "VarCom", startRow = 9,  
               x = "OR Variance Covariance Components for each reader, assuming fixed reader analysis", 
               rowNames = FALSE, colNames = FALSE)
-    mergeCells(wb, "VarComp", rows = 9, cols = 1:3)
-    addStyle(wb,  sheet = "VarComp", style = sty, rows = 1:(10 + J), 
+    mergeCells(wb, "VarCom", rows = 9, cols = 1:3)
+    addStyle(wb,  sheet = "VarCom", style = sty, rows = 1:(10 + J), 
              cols = 1:3, gridExpand = TRUE)
   }
   saveWorkbook(wb, ReportFileName, overwrite = TRUE)

@@ -1,14 +1,31 @@
 StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, analysisOption) 
 {
-  NL <- dataset$NL
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  I <- length(modalityID)
-  J <- length(readerID)
-  K <- dim(NL)[3]
+  RRRC <- NULL
+  FRRC <- NULL
+  RRFC <- NULL
   
-  foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+  I <- dim(dataset$NL)[1]
+  
+  modalityID <- dataset$modalityID
+  # readerID <- dataset$readerID
+  
+  ret <- UtilVarComponentsDBM(dataset, FOM, FPFValue)
+  
+  foms <- ret$foms
+  VarCom <- ret$VarCom
+  TRCanova <- ret$TRCanova
+  IndividualTrt <- ret$IndividualTrt
+  IndividualRdr <- ret$IndividualRdr
+
+  ANOVA <- list()
+  ANOVA$TRCanova <- TRCanova
+  ANOVA$VarCom <- VarCom
+  ANOVA$IndividualTrt <- IndividualTrt
+  ANOVA$IndividualRdr <- IndividualRdr
+  
   trtMeans <- rowMeans(foms) 
+  trtMeans <- as.data.frame(trtMeans)
+  colnames(trtMeans) <- "Estimate"
   
   trtMeanDiffs <- array(dim = choose(I, 2))
   diffTRName <- array(dim = choose(I, 2))
@@ -17,424 +34,194 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, analysisOption)
     if (i == I) 
       break
     for (ip in (i + 1):I) {
-      trtMeanDiffs[ii] <- trtMeans[i] - trtMeans[ip]
-      diffTRName[ii] <- paste0("Trt", modalityID[i], sep = "-", "Trt", modalityID[ip]) # !sic
+      trtMeanDiffs[ii] <- trtMeans[i,"Estimate"] - trtMeans[ip,"Estimate"]
+      diffTRName[ii] <- paste0("trt", modalityID[i], sep = "-", "trt", modalityID[ip]) # !sic
       ii <- ii + 1
     }
   }
-  trtMeanDiffs <- data.frame("TrtDiff" = diffTRName, 
-                             "Estimate" = trtMeanDiffs,
+  trtMeanDiffs <- data.frame("Estimate" = trtMeanDiffs,
+                             row.names = diffTRName,
                              stringsAsFactors = FALSE) 
   
-  ret <- UtilVarComponentsDBM(dataset, FOM, FPFValue)
-  mSquaresDBM <- ret$mSquares
-  DBMVarComp <- ret$varComp
-  psValsDBM <- ret$psVals  # pseudo values
+  FOMs <- list(
+    foms = foms,
+    trtMeans = trtMeans,
+    trtMeanDiffs = trtMeanDiffs
+  )
   
-  msT <- mSquaresDBM$msT
-  msR <- mSquaresDBM$msR
-  msC <- mSquaresDBM$msC
-  msTR <- mSquaresDBM$msTR
-  msTC <- mSquaresDBM$msTC
-  msRC <- mSquaresDBM$msRC
-  msTRC <- mSquaresDBM$msTRC
+  if (analysisOption == "RRRC") {
+    RRRC <- DBMSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    return(list(
+      FOMs = FOMs,
+      ANOVA = ANOVA,
+      RRRC = RRRC
+    ))
+  }  
   
-  msArray <- c(msT, msR, msC, msTR, msTC, msRC, msTRC)
-  dfArray <- c(I - 1, J - 1, K - 1, (I - 1) * (J - 1), (I - 1) * (K - 1), (J - 1) * (K - 1), (I - 1) * (J - 1) * (K - 1))
-  ssArray <- msArray * dfArray
-  msArray <- c(msArray, NA)
-  dfArray <- c(dfArray, sum(dfArray))
-  ssArray <- c(ssArray, sum(ssArray))
+  if (analysisOption == "FRRC") {
+    FRRC <- DBMSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    return(list(
+      FOMs = FOMs,
+      ANOVA = ANOVA,
+      FRRC = FRRC
+    ))
+  }  
   
-  TRCanovaDBM <- data.frame("SS" = ssArray, 
-                            "DF" = dfArray, 
-                            "MS" = msArray,
-                            stringsAsFactors = FALSE)  
-  rownames(TRCanovaDBM) <- c("T", "R", "C", "TR", "TC", "RC", "TRC", "Total")
-  msRSingle <- array(0, dim = c(I))
-  msCSingle <- array(0, dim = c(I))
-  msRCSingle <- array(0, dim = c(I))
-  for (i in 1:I) {
-    for (j in 1:J) {
-      msRSingle[i] <- msRSingle[i] + (mean(psValsDBM[i, j, ]) - mean(psValsDBM[i, , ]))^2
-    }
-    msRSingle[i] <- msRSingle[i] * K/(J - 1)
-    
-    for (k in 1:K) {
-      msCSingle[i] <- msCSingle[i] + (mean(psValsDBM[i, , k]) - mean(psValsDBM[i, , ]))^2
-    }
-    msCSingle[i] <- msCSingle[i] * J/(K - 1)
-    
-    for (j in 1:J) {
-      for (k in 1:K) {
-        msRCSingle[i] <- msRCSingle[i] + (mean(psValsDBM[i, j, k]) - mean(psValsDBM[i, j, ]) - mean(psValsDBM[i, , k]) + mean(psValsDBM[i, , ]))^2
-      }
-    }
-    msRCSingle[i] <- msRCSingle[i]/((J - 1) * (K - 1))
-  }
-  sourceArraySingle <- c("R", "C", "RC")
-  dfArraySingle <- c(J - 1, K - 1, (J - 1) * (K - 1))
-  msArraySingle <- t(cbind(msRSingle, msCSingle, msRCSingle))
-  RCanovaDBMSingleTrt <- data.frame(sourceArraySingle, 
-                                    dfArraySingle, 
-                                    msArraySingle, 
-                                    row.names = NULL, 
-                                    stringsAsFactors = FALSE)
-  colnames(RCanovaDBMSingleTrt) <- c("Source", "DF", paste0("Trt", sep = "", modalityID))
+  if (analysisOption == "RRFC") {
+    RRFC <- DBMSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    return(list(
+      FOMs = FOMs,
+      ANOVA = ANOVA,
+      RRFC = RRFC
+    ))
+  }  
   
-  diffTRMeans <- array(dim = choose(I, 2))
-  diffTRName <- array(dim = choose(I, 2))
-  ii <- 1
-  for (i in 1:I) {
-    if (i == I) 
-      break
-    for (ip in (i + 1):I) {
-      diffTRMeans[ii] <- trtMeans[i] - trtMeans[ip]
-      diffTRName[ii] <- paste0("Trt", modalityID[i], sep = "-", "Trt", modalityID[ip]) # !sic
-      ii <- ii + 1
-    }
-  }
-  
-  msNum <- msT
-  
-  if (analysisOption %in% c("RRRC", "ALL")) {
-    # ************ RRRC ****************
-    # ************ RRRC ****************
-    # ************ RRRC ****************
-    msDenRRRC <- msTR + max(msTC - msTRC, 0)
-    fRRRC <- msNum/msDenRRRC
-    ddfRRRC <- msDenRRRC^2/(msTR^2/((I - 1) * (J - 1)))
-    pRRRC <- 1 - pf(fRRRC, I - 1, ddfRRRC)
-    RRRC <- list()
-    RRRC$FTests <- data.frame(f = fRRRC,
-                              ndf = (I-1),
-                              ddf = ddfRRRC,
-                              p = pRRRC,
-                              stringsAsFactors = FALSE)
-    stdErrRRRC <- sqrt(2 * msDenRRRC/J/K)
-    tStat <- vector()
-    PrGTt <- vector()
-    CIRRRC <- array(dim = c(length(diffTRMeans), 2))
-    for (i in 1:length(diffTRMeans)) {
-      tStat[i] <- diffTRMeans[i]/stdErrRRRC
-      PrGTt[i] <- 2 * pt(abs(tStat[i]), ddfRRRC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
-      CIRRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRRC) * stdErrRRRC, diffTRMeans[i] + qt(alpha/2, ddfRRRC) * stdErrRRRC))
-      
-    }
-    RRRC$ciDiffTrt <- data.frame(TrtDiff = diffTRName, 
-                                 Estimate = diffTRMeans, 
-                                 StdErr = rep(stdErrRRRC, choose(I, 2)), 
-                                 DF = rep(ddfRRRC, choose(I, 2)), 
-                                 t = tStat, 
-                                 PrGTt = PrGTt, # renamed this consistently
-                                 CILower = CIRRRC[,1],  # instead of adding CIRRC and then using a names() to split out the two values
-                                 CIUpper = CIRRRC[,2],  # do:
-                                 stringsAsFactors = FALSE)
-    dfSingleRRRC <- array(dim = I)
-    msDenSingleRRRC <- array(dim = I)
-    stdErrSingleRRRC <- array(dim = I)
-    CISingleRRRC <- array(dim = c(I, 2))
-    for (i in 1:I) {
-      msDenSingleRRRC[i] <- msRSingle[i] + max(msCSingle[i] - msRCSingle[i], 0)
-      dfSingleRRRC[i] <- msDenSingleRRRC[i]^2/msRSingle[i]^2 * (J - 1)
-      stdErrSingleRRRC[i] <- sqrt(msDenSingleRRRC[i]/J/K)
-      ciTemp <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i], trtMeans[i] + qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i]))
-      if (length(ciTemp) == 2) CISingleRRRC[i, ] <- ciTemp
-      
-    }
-    RRRC$CISingle <- CISingleRRRC
-    RRRC$ciAvgRdrEachTrt <- data.frame(Treatment = paste("Trt", modalityID, sep = ""), 
-                                       Area = trtMeans, 
-                                       StdErr = as.vector(stdErrSingleRRRC), # this was the critical fix, Peter
-                                       DF = as.vector(dfSingleRRRC),  # this was the critical fix, Peter
-                                       CILower = CISingleRRRC[,1], 
-                                       CIUpper = CISingleRRRC[,2], 
-                                       row.names = NULL, 
-                                       stringsAsFactors = FALSE)
-    if (analysisOption == "RRRC")
-      return(list(
-        # FVCA = FomVarCompAnova
-        FVCA = list (
-          # return transpose to match official code 
-          # and it makes more sense to have readers in vertical direction 5/1/20
-          foms = t(foms),
-          trtMeans = trtMeans,
-          trtMeanDiffs = trtMeanDiffs,
-          TRCanovaDBM = TRCanovaDBM, 
-          RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
-          DBMVarComp = DBMVarComp
-        ),
-        RRRC = list (
-          FTests = RRRC$FTests, 
-          ciDiffTrt = RRRC$ciDiffTrt, 
-          ciAvgRdrEachTrt = RRRC$ciAvgRdrEachTrt,
-          CISingle = RRRC$CISingle
-        ),
-        FRRC = NULL,
-        RRFC = NULL
-      ))
-  }
-  
-  if (analysisOption %in% c("FRRC", "ALL")) {
-    # ************ FRRC ****************
-    # ************ FRRC ****************
-    # ************ FRRC ****************
-    msDenFRRC <- msTC
-    fFRRC <- msNum/msDenFRRC
-    ddfFRRC <- (I - 1) * (K - 1)
-    pFRRC <- 1 - pf(fFRRC, I - 1, ddfFRRC)
-    FRRC <- list()
-    FRRC$FTests <- data.frame(f = fFRRC,
-                              ndf = (I-1),
-                              ddf = ddfFRRC,
-                              p = pFRRC,
-                              stringsAsFactors = FALSE)
-    stdErrFRRC <- sqrt(2 * msDenFRRC/J/K)
-    tStat <- vector()
-    PrGTt <- vector()
-    CIFRRC <- array(dim = c(length(diffTRMeans), 2))
-    for (i in 1:length(diffTRMeans)) {
-      tStat[i] <- diffTRMeans[i]/stdErrFRRC
-      PrGTt[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
-      CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC, diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
-    }
-    FRRC$ciDiffTrt <- data.frame(Treatment = diffTRName, 
-                                 Estimate = diffTRMeans, 
-                                 StdErr = rep(stdErrFRRC, choose(I, 2)), 
-                                 DF = rep(ddfFRRC, choose(I, 2)), 
-                                 t = tStat, 
-                                 PrGTt = PrGTt, 
-                                 CILower = CIFRRC[,1], 
-                                 CIUpper = CIFRRC[,2], 
-                                 stringsAsFactors = FALSE)
-    
-    dfSingleFRRC <- array(dim = I)
-    msDenSingleFRRC <- array(dim = I)
-    stdErrSingleFRRC <- array(dim = I)
-    CISingleFRRC <- array(dim = c(I, 2))
-    for (i in 1:I) {
-      msDenSingleFRRC[i] <- msCSingle[i]
-      dfSingleFRRC[i] <- (K - 1)
-      stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J/K)
-      CISingleFRRC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trtMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
-    }
-    FRRC$ciAvgRdrEachTrt <- data.frame(Treatment = paste0("Trt", modalityID), 
-                                       Area = trtMeans, 
-                                       StdErr = as.vector(stdErrSingleFRRC), 
-                                       DF = as.vector(dfSingleFRRC), 
-                                       CILower = CISingleFRRC[,1], 
-                                       CIUpper = CISingleFRRC[,2], 
-                                       row.names = NULL, 
-                                       stringsAsFactors = FALSE)
-    ssTFRRC <- array(0, dim = c(J))
-    ssCFRRC <- array(0, dim = c(J))
-    ssTCFRRC <- array(0, dim = c(J))
-    for (j in 1:J) {
-      for (i in 1:I) {
-        ssTFRRC[j] <- ssTFRRC[j] + (mean(psValsDBM[i, j, ]) - mean(psValsDBM[, j, ]))^2
-      }
-      ssTFRRC[j] <- ssTFRRC[j] * K
-      
-      for (k in 1:K) {
-        ssCFRRC[j] <- ssCFRRC[j] + (mean(psValsDBM[, j, k]) - mean(psValsDBM[, j, ]))^2
-      }
-      ssCFRRC[j] <- ssCFRRC[j] * I
-      
-      for (i in 1:I) {
-        for (k in 1:K) {
-          ssTCFRRC[j] <- ssTCFRRC[j] + (mean(psValsDBM[i, j, k]) - mean(psValsDBM[i, j, ]) - mean(psValsDBM[, j, k]) + mean(psValsDBM[, j, ]))^2
-        }
-      }
-    }
-    sourceArrayFRRC <- c("T", "C", "TC")
-    dfArrayFRRC <- c(I - 1, K - 1, (I - 1) * (K - 1))
-    ssArrayFRRC <- t(cbind(ssTFRRC, ssCFRRC, ssTCFRRC))
-    ssAnovaEachRdr <- data.frame(Source = sourceArrayFRRC, 
-                              DF = dfArrayFRRC, 
-                              readerID = ssArrayFRRC, 
-                              row.names = NULL, 
-                              stringsAsFactors = FALSE)
-    colnames(ssAnovaEachRdr) <- c("Source", "DF", readerID)
-    
-    msArrayFRRC <- ssArrayFRRC
-    for (n in 1:3) msArrayFRRC[n, ] <- ssArrayFRRC[n, ]/dfArrayFRRC[n]
-    msAnovaEachRdrFRRC <- data.frame(sourceArrayFRRC, 
-                                     dfArrayFRRC, 
-                                     msArrayFRRC, 
-                                     row.names = NULL, 
-                                     stringsAsFactors = FALSE)
-    colnames(msAnovaEachRdrFRRC) <- c("Source", "DF", paste0("Rdr", sep = "", readerID))
-    FRRC$msAnovaEachRdr <- msAnovaEachRdrFRRC
-    
-    diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
-    for (j in 1:J) {
-      ii <- 1
-      for (i in 1:I) {
-        if (i == I) 
-          break
-        for (ip in (i + 1):I) {
-          diffTRMeansFRRC[j, ii] <- foms[i, j] - foms[ip, j]
-          ii <- ii + 1
-        }
-      }
-    }
-    diffTRMeansFRRC <- as.vector(t(diffTRMeansFRRC))
-    stdErrFRRC <- sqrt(2 * msArrayFRRC[3, ]/K)
-    stdErrFRRC <- rep(stdErrFRRC, choose(I, 2))
-    dim(stdErrFRRC) <- c(J, choose(I, 2))
-    stdErrFRRC <- as.vector(t(stdErrFRRC))
-    readerNames <- rep(readerID, choose(I, 2))
-    dim(readerNames) <- c(J, choose(I, 2))
-    readerNames <- as.vector(t(readerNames))
-    trDiffNames <- rep(diffTRName, J)
-    dfReaderFRRC <- rep(K - 1, length(stdErrFRRC))
-    CIReaderFRRC <- array(dim = c(length(stdErrFRRC), 2))
-    tStat <- vector()
-    PrGTt <- vector()
-    for (n in 1:length(stdErrFRRC)) {
-      tStat[n] <- diffTRMeansFRRC[n]/stdErrFRRC[n]
-      PrGTt[n] <- 2 * pt(abs(tStat[n]), dfReaderFRRC[n], lower.tail = FALSE)
-      CIReaderFRRC[n, ] <- sort(c(diffTRMeansFRRC[n] - qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n], diffTRMeansFRRC[n] + qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n]))
-    }
-    FRRC$ciDiffTrtEachRdr <- data.frame(Reader = paste("Rdr", readerNames, sep = ""), 
-                                        Treatment = paste(trDiffNames, sep = ""), 
-                                        Estimate = diffTRMeansFRRC, 
-                                        StdErr = stdErrFRRC, 
-                                        DF = dfReaderFRRC, 
-                                        t = tStat, 
-                                        PrGTt = PrGTt, 
-                                        CILower = CIReaderFRRC[,1],
-                                        CIUpper = CIReaderFRRC[,2], 
-                                        stringsAsFactors = FALSE)
-    if (analysisOption == "FRRC")
-      return(list(
-        FVCA = list (
-          # return transpose to match official code 
-          # and it makes more sense to have readers in vertical direction 5/1/20
-          foms = t(foms),
-          trtMeans = trtMeans,
-          trtMeanDiffs = trtMeanDiffs,
-          TRCanovaDBM = TRCanovaDBM, 
-          RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
-          DBMVarComp = DBMVarComp
-        ),
-        RRRC = NULL,
-        FRRC = list (
-          FTests = FRRC$FTests, 
-          ciDiffTrt = FRRC$ciDiffTrt, 
-          ciAvgRdrEachTrt = FRRC$ciAvgRdrEachTrt, 
-          msAnovaEachRdr = FRRC$msAnovaEachRdr, 
-          ssAnovaEachRdr = ssAnovaEachRdr,
-          ciDiffTrtEachRdr = FRRC$ciDiffTrtEachRdr
-        ),
-        RRFC = NULL
-      ))
-  }
-  
-  if (analysisOption %in% c("RRFC", "ALL")) {
-    # ************ RRFC ****************
-    # ************ RRFC ****************
-    # ************ RRFC ****************
-    msDenRRFC <- msTR
-    fRRFC <- msNum/msDenRRFC
-    ddfRRFC <- ((I - 1) * (J - 1))
-    pRRFC <- 1 - pf(fRRFC, I - 1, ddfRRFC)
-    RRFC <- list()
-    RRFC$FTests <- data.frame(f = fRRFC,
-                              ndf = (I-1),
-                              ddf = ddfRRFC,
-                              p = pRRFC, 
-                              stringsAsFactors = FALSE)
-    stdErrRRFC <- sqrt(2 * msDenRRFC/J/K)
-    tStat <- vector()
-    PrGTt <- vector()
-    CIRRFC <- array(dim = c(length(diffTRMeans), 2))
-    for (i in 1:length(diffTRMeans)) {
-      tStat[i] <- diffTRMeans[i]/stdErrRRFC
-      PrGTt[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
-      CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC, diffTRMeans[i] + qt(alpha/2, ddfRRFC) * stdErrRRFC))
-    }
-    RRFC$ciDiffTrt <- data.frame(Treatment = diffTRName, 
-                                 Estimate = diffTRMeans, 
-                                 StdErr = rep(stdErrRRFC, choose(I, 2)), 
-                                 DF = rep(ddfRRFC, choose(I, 2)), 
-                                 t = tStat, 
-                                 PrGTt = PrGTt, 
-                                 CILower = CIRRFC[,1],
-                                 CIUpper = CIRRFC[,2], 
-                                 stringsAsFactors = FALSE)
-    dfSingleRRFC <- array(dim = I)
-    msDenSingleRRFC <- array(dim = I)
-    stdErrSingleRRFC <- array(dim = I)
-    CISingleRRFC <- array(dim = c(I, 2))
-    for (i in 1:I) {
-      msDenSingleRRFC[i] <- msRSingle[i]
-      dfSingleRRFC[i] <- (J - 1)
-      stdErrSingleRRFC[i] <- sqrt(msDenSingleRRFC[i]/J/K)
-      CISingleRRFC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i], trtMeans[i] + qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i]))
-    }
-    RRFC$ciAvgRdrEachTrt <- data.frame(Treatment = paste("Trt", modalityID, sep = ""), 
-                                       Area = trtMeans, 
-                                       StdErr = as.vector(stdErrSingleRRFC), 
-                                       DF = as.vector(dfSingleRRFC), 
-                                       CILower = CISingleRRFC[,1], 
-                                       CIUpper = CISingleRRFC[,2], 
-                                       row.names = NULL, 
-                                       stringsAsFactors = FALSE)
-    
-    if (analysisOption == "RRFC")
-      return(list(
-        FVCA = list (
-          # return transpose to match official code 
-          # and it makes more sense to have readers in vertical direction 5/1/20
-          foms = t(foms),
-          trtMeans = trtMeans,
-          trtMeanDiffs = trtMeanDiffs,
-          TRCanovaDBM = TRCanovaDBM, 
-          RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
-          DBMVarComp = DBMVarComp
-        ),
-        RRRC = NULL,
-        FRRC = NULL,
-        RRFC = list(
-          FTests = RRFC$FTests, 
-          ciDiffTrt = RRFC$ciDiffTrt, 
-          ciAvgRdrEachTrt = RRFC$ciAvgRdrEachTrt
-        )
-      ))
-  }
-  
-  return(list(
-    FVCA = list (
-      # return transpose to match official code 
-      # and it makes more sense to have readers in vertical direction 5/1/20
-      foms = t(foms),
-      trtMeans = trtMeans,
-      trtMeanDiffs = trtMeanDiffs,
-      TRCanovaDBM = TRCanovaDBM, 
-      RCanovaDBMSingleTrt = RCanovaDBMSingleTrt, 
-      DBMVarComp = DBMVarComp
-    ),
-    RRRC = list(
-      FTests = RRRC$FTests, 
-      ciDiffTrt = RRRC$ciDiffTrt, 
-      ciAvgRdrEachTrt = RRRC$ciAvgRdrEachTrt
-    ),
-    FRRC = list(
-      FTests = FRRC$FTests, 
-      ciDiffTrt = FRRC$ciDiffTrt, 
-      ciAvgRdrEachTrt = FRRC$ciAvgRdrEachTrt,
-      msAnovaEachRdr = FRRC$msAnovaEachRdr,
-      ssAnovaEachRdr = ssAnovaEachRdr,
-      ciDiffTrtEachRdr = FRRC$ciDiffTrtEachRdr
-    ),
-    RRFC = list(
-      FTests = RRFC$FTests, 
-      ciDiffTrt = RRFC$ciDiffTrt, 
-      ciAvgRdrEachTrt = RRFC$ciAvgRdrEachTrt
-    )
-  ))
+  if (analysisOption == "ALL") {
+    RRRC <- DBMSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    FRRC <- DBMSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    RRFC <- DBMSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    return(list(
+      FOMs = FOMs,
+      ANOVA = ANOVA,
+      RRRC = RRRC,
+      FRRC = FRRC,
+      RRFC = RRFC
+    ))
+  }  else stop("Incorrect analysisOption: must be `RRRC`, `FRRC`, `RRFC` or `ALL`")
 } 
-
-
-
+  # ANOVA <- list()
+  # ANOVA$TRCanova <- TRCanova
+  # ANOVA$VarCom <- VarCom
+  # ANOVA$IndividualTrt <- IndividualTrt
+  # ANOVA$IndividualRdr <- IndividualRdr
+  # 
+  # diffTRMeans <- array(dim = choose(I, 2))
+  # diffTRName <- array(dim = choose(I, 2))
+  # ii <- 1
+  # for (i in 1:I) {
+  #   if (i == I) 
+  #     break
+  #   for (ip in (i + 1):I) {
+  #     diffTRMeans[ii] <- trtMeans[i] - trtMeans[ip]
+  #     diffTRName[ii] <- paste0("Trt", modalityID[i], sep = "-", "Trt", modalityID[ip]) # !sic
+  #     ii <- ii + 1
+  #   }
+  # }
+  # 
+  # msNum <- msT
+  # 
+  # 
+  # if (analysisOption %in% c("FRRC", "ALL")) {
+    # ************ FRRC ****************
+    # ************ FRRC ****************
+    # ************ FRRC ****************
+    
+  #   if (analysisOption %in% c("RRFC", "ALL")) {
+  #     # ************ RRFC ****************
+  #     # ************ RRFC ****************
+  #     # ************ RRFC ****************
+  #     msDenRRFC <- msTR
+  #     fRRFC <- msNum/msDenRRFC
+  #     ddfRRFC <- ((I - 1) * (J - 1))
+  #     pRRFC <- 1 - pf(fRRFC, I - 1, ddfRRFC)
+  #     RRFC <- list()
+  #     RRFC$FTests <- data.frame(f = fRRFC,
+  #                               ndf = (I-1),
+  #                               ddf = ddfRRFC,
+  #                               p = pRRFC, 
+  #                               stringsAsFactors = FALSE)
+  #     stdErrRRFC <- sqrt(2 * msDenRRFC/J/K)
+  #     tStat <- vector()
+  #     PrGTt <- vector()
+  #     CIRRFC <- array(dim = c(length(diffTRMeans), 2))
+  #     for (i in 1:length(diffTRMeans)) {
+  #       tStat[i] <- diffTRMeans[i]/stdErrRRFC
+  #       PrGTt[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
+  #       CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC, diffTRMeans[i] + qt(alpha/2, ddfRRFC) * stdErrRRFC))
+  #     }
+  #     RRFC$ciDiffTrt <- data.frame(Treatment = diffTRName, 
+  #                                  Estimate = diffTRMeans, 
+  #                                  StdErr = rep(stdErrRRFC, choose(I, 2)), 
+  #                                  DF = rep(ddfRRFC, choose(I, 2)), 
+  #                                  t = tStat, 
+  #                                  PrGTt = PrGTt, 
+  #                                  CILower = CIRRFC[,1],
+  #                                  CIUpper = CIRRFC[,2], 
+  #                                  stringsAsFactors = FALSE)
+  #     dfSingleRRFC <- array(dim = I)
+  #     msDenSingleRRFC <- array(dim = I)
+  #     stdErrSingleRRFC <- array(dim = I)
+  #     CISingleRRFC <- array(dim = c(I, 2))
+  #     for (i in 1:I) {
+  #       msDenSingleRRFC[i] <- msRSingle[i]
+  #       dfSingleRRFC[i] <- (J - 1)
+  #       stdErrSingleRRFC[i] <- sqrt(msDenSingleRRFC[i]/J/K)
+  #       CISingleRRFC[i, ] <- sort(c(trtMeans[i] - qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i], trtMeans[i] + qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i]))
+  #     }
+  #     RRFC$ciAvgRdrEachTrt <- data.frame(Treatment = paste("Trt", modalityID, sep = ""), 
+  #                                        Area = trtMeans, 
+  #                                        StdErr = as.vector(stdErrSingleRRFC), 
+  #                                        DF = as.vector(dfSingleRRFC), 
+  #                                        CILower = CISingleRRFC[,1], 
+  #                                        CIUpper = CISingleRRFC[,2], 
+  #                                        row.names = NULL, 
+  #                                        stringsAsFactors = FALSE)
+  #     
+  #     if (analysisOption == "RRFC")
+  #       return(list(
+  #         FVCA = list (
+  #           # return transpose to match official code 
+  #           # and it makes more sense to have readers in vertical direction 5/1/20
+  #           foms = t(foms),
+  #           trtMeans = trtMeans,
+  #           trtMeanDiffs = trtMeanDiffs,
+  #           TRCanovaDBM = TRCanovaDBM, 
+  #           IndividualTrt = IndividualTrt, 
+  #           varCom = varCom
+  #         ),
+  #         RRRC = NULL,
+  #         FRRC = NULL,
+  #         RRFC = list(
+  #           FTests = RRFC$FTests, 
+  #           ciDiffTrt = RRFC$ciDiffTrt, 
+  #           ciAvgRdrEachTrt = RRFC$ciAvgRdrEachTrt
+  #         )
+  #       ))
+  #   }
+  # }
+  # 
+  # return(list(
+  #   FVCA = list (
+  #     # return transpose to match official code 
+  #     # and it makes more sense to have readers in vertical direction 5/1/20
+  #     foms = t(foms),
+  #     trtMeans = trtMeans,
+  #     trtMeanDiffs = trtMeanDiffs,
+  #     TRCanovaDBM = TRCanovaDBM, 
+  #     IndividualTrt = IndividualTrt, 
+  #     varCom = varCom
+  #   ),
+  #   RRRC = list(
+  #     FTests = RRRC$FTests, 
+  #     ciDiffTrt = RRRC$ciDiffTrt, 
+  #     ciAvgRdrEachTrt = RRRC$ciAvgRdrEachTrt
+  #   ),
+  #   FRRC = list(
+  #     FTests = FRRC$FTests, 
+  #     ciDiffTrt = FRRC$ciDiffTrt, 
+  #     ciAvgRdrEachTrt = FRRC$ciAvgRdrEachTrt,
+  #     msAnovaEachRdr = FRRC$msAnovaEachRdr,
+  #     ssAnovaEachRdr = ssAnovaEachRdr,
+  #     ciDiffTrtEachRdr = FRRC$ciDiffTrtEachRdr
+  #   ),
+  #   RRFC = list(
+  #     FTests = RRFC$FTests, 
+  #     ciDiffTrt = RRFC$ciDiffTrt, 
+  #     ciAvgRdrEachTrt = RRFC$ciAvgRdrEachTrt
+  #   )
+  # ))
+  
+  
+  
+  
+  
