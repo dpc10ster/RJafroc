@@ -9,6 +9,7 @@ OutputTextFileORH <- function(dataset,
 {
   sink(ReportFileName)
   Preamble(dataset, FOM, ReportFileName, OR, methodTxt)
+  
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   I <- length(modalityID)
@@ -79,12 +80,12 @@ OutputTextFileORH <- function(dataset,
   
   if (OR$RRRC$FTests$p[1] < 0.05) {
     x <- c("\nConclusion:", 
-           sprintf("The treatment AUCs are not equal [F(%2d,%7.4f) = %6.3f, p = %7.4f].",
+           sprintf("The treatment FOMs are not equal [F(%2d,%7.4f) = %6.3f, p = %7.4f].",
                    OR$RRRC$FTests$DF[1], OR$RRRC$FTests$DF[2], OR$RRRC$FTests$FStat[1], OR$RRRC$FTests$p[1]))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nConclusion:", 
-           sprintf("The treatment AUCs are not equal [F(%2d,%7.4f) = %6.3f, p = %7.4f].",
+           sprintf("The treatment FOMs are not significantly different [F(%2d,%7.4f) = %6.3f, p = %7.4f].",
                    OR$RRRC$FTests$DF[1], OR$RRRC$FTests$DF[2], OR$RRRC$FTests$FStat[1], OR$RRRC$FTests$p[1]))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
@@ -153,7 +154,7 @@ OutputTextFileORH <- function(dataset,
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nConclusion:", 
-           sprintf("The treatment AUCs are not equal [X2(%1d) = %6.3f, p = %7.4f].",
+           sprintf("The treatment AUCs are not significantly different [X2(%1d) = %6.3f, p = %7.4f].",
                    OR$FRRC$FTests$DF[1], OR$FRRC$FTests$Chisq[1], OR$FRRC$FTests$p[1]))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
@@ -238,14 +239,14 @@ OutputTextFileORH <- function(dataset,
   if(OR$RRFC$FTests["T","p"] < 0.05){
     x <- c("\nConclusion:", 
            "The treatment AUCs are not equal,",
-           sprintf("[F(%1d,%2d) = %7.4f, p = %7.4f].",I,(I-1)*(J-1), OR$RRFC$FTests[1,3], OR$RRFC$FTests[1,4]),
+           sprintf("[F(%1d,%2d) = %7.4f, p = %7.4f].",I-1,(I-1)*(J-1), OR$RRFC$FTests[1,3], OR$RRFC$FTests[1,4]),
            "Note: If there are only 2 treatments, this is equivalent to a paired t-test applied",
            "to the AUCs")
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nConclusion:", 
            "The treatment AUCs are not significantly different,",
-           sprintf("[F(%1d,%2d) = %7.4f, p = %7.4f].",I,(I-1)*(J-1), OR$RRFC$FTests[1,3], OR$RRFC$FTests[1,4]),
+           sprintf("[F(%1d,%2d) = %7.4f, p = %7.4f].",I-1,(I-1)*(J-1), OR$RRFC$FTests[1,3], OR$RRFC$FTests[1,4]),
            "Note: If there are only 2 treatments, this is equivalent to a paired t-test applied",
            "to the AUCs")
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))

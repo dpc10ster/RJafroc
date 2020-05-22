@@ -10,6 +10,12 @@ OutputTextFileDBMH <- function(dataset,
   sink(ReportFileName)
   Preamble(dataset, FOM, ReportFileName, DBM, methodTxt)
   
+  modalityID <- dataset$modalityID
+  readerID <- dataset$readerID
+  I <- length(modalityID)
+  J <- length(readerID)
+  K <- dim(dataset$NL)[3]
+  
   x <- c("\n",
          "===========================================================================", 
          "*****        ANOVA Tables (DBM analysis of pseudovalues)              *****", 
@@ -80,6 +86,26 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$RRRC$FTests
   print(format(df, digits = 5, justify = "left"))
   
+  if(DBM$RRRC$FTests["T","p"] < 0.05){
+    x <- c("\nConclusion:", 
+           "The treatment FOMs are not equal,",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+                   I-1,
+                   DBM$RRRC$FTests[2,1], 
+                   DBM$RRRC$FTests[1,3], 
+                   DBM$RRRC$FTests[1,4]))
+    for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  } else {
+    x <- c("\nConclusion:", 
+           "The treatment FOMs are not significantly different,",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+                   I-1,
+                   DBM$RRRC$FTests[2,1], 
+                   DBM$RRRC$FTests[1,3], 
+                   DBM$RRRC$FTests[1,4]))
+    for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  }
+  
   x <- c(
     "\nCOMMENT:",
     "DF = degrees of freedom",
@@ -129,6 +155,26 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$FRRC$FTests
   print(format(df, digits = 5, justify = "left"))
   
+  if(DBM$FRRC$FTests["T","p"] < 0.05){
+    x <- c("\nConclusion:", 
+           "The treatment FOMs are not equal,",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+                   I-1,
+                   DBM$FRRC$FTests[2,1], 
+                   DBM$FRRC$FTests[1,3], 
+                   DBM$FRRC$FTests[1,4]))
+    for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  } else {
+    x <- c("\nConclusion:", 
+           "The treatment FOMs are not significantly different,",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+                   I-1,
+                   DBM$FRRC$FTests[2,1], 
+                   DBM$FRRC$FTests[1,3], 
+                   DBM$FRRC$FTests[1,4]))
+    for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  }
+  
   x <- c("\nCOMMENT:", "Error term: MS(TC) \n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
@@ -141,10 +187,6 @@ OutputTextFileDBMH <- function(dataset,
   x <- c("\nCOMMENT:", "Error term: MS(TC) \n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
-  cat("TREATMENT X CASE ANOVAs for each reader\n")
-  df <- DBM$ANOVA$IndividualRdr
-  print(format(df, digits = 5, justify = "left"))
-  
   cat("\n====================")
   x <- c("\nFRRC (c): Confidence intervals for reader-averaged treatment FOMs",
          "Individual treatment confidence intervals are based on",
@@ -153,6 +195,13 @@ OutputTextFileDBMH <- function(dataset,
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   df <- DBM$FRRC$ciAvgRdrEachTrt
+  print(format(df, digits = 5, justify = "left"))
+  
+  x <- c("\nCOMMENT:", "Error term: MS(C) \n")
+  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  
+  cat("TREATMENT X CASE ANOVAs for each reader\n")
+  df <- DBM$ANOVA$IndividualRdr
   print(format(df, digits = 5, justify = "left"))
   
   cat("\n====================")
@@ -167,7 +216,7 @@ OutputTextFileDBMH <- function(dataset,
   
   x <- c(
     "\nCOMMENT:",
-    "StdErr = sqrt[2*(Var - Cov1)]", 
+    "TBA: ", 
     "95% CI: Difference +- z(.025) * StdErr\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
@@ -189,6 +238,26 @@ OutputTextFileDBMH <- function(dataset,
   
   df <- DBM$RRFC$FTests
   print(format(df, digits = 5, justify = "left"))
+  
+  if(DBM$RRFC$FTests["T","p"] < 0.05){
+    x <- c("\nConclusion:", 
+           "The treatment FOMs are not equal,",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+                   I-1,
+                   DBM$RRFC$FTests[2,1], 
+                   DBM$RRFC$FTests[1,3], 
+                   DBM$RRFC$FTests[1,4]))
+    for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  } else {
+    x <- c("\nConclusion:", 
+           "The treatment FOMs are not significantly different,",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+                   I-1,
+                   DBM$RRFC$FTests[2,1], 
+                   DBM$RRFC$FTests[1,3], 
+                   DBM$RRFC$FTests[1,4]))
+    for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  }
   
   x <- c("\nCOMMENT:", "Error term: MS(TR) \n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
