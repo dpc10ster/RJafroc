@@ -81,6 +81,7 @@ FitCorCbmRoc <- function(dataset){
   minRho <- RJafrocEnv$minRho
   maxRho <- RJafrocEnv$maxRho
 
+  # `as.matrix` is NOT absolutely necessary as `mean()` function is not used here
   aucArray <- UtilFigureOfMerit(dataset, FOM = "Wilcoxon")
   maxAUC <- max(aucArray)
   while (pnorm(maxMu / sqrt(2)) <= maxAUC){

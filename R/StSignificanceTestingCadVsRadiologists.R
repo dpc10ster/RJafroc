@@ -106,22 +106,25 @@
 #' ret1M <- StSignificanceTestingCadVsRadiologists (dataset09, 
 #' FOM = "Wilcoxon", method = "1T-RRRC")
 #' 
-#' \donttest{
-#' ## takes longer than 5 sec on OSX
-#' ## retLroc1M <- StSignificanceTestingCadVsRadiologists (datasetCadLroc, 
-#' ## FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
+#' StSignificanceTestingCadVsRadiologists(datasetCadLroc, 
+#' FOM = "Wilcoxon", method = "1T-RRFC")
 #' 
-#' ## retLroc2M <- StSignificanceTestingCadVsRadiologists (datasetCadLroc, 
-#' ## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
+#' retLroc1M <- StSignificanceTestingCadVsRadiologists (datasetCadLroc, 
+#' FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
 #' 
 #' ## test with fewer readers
-#' ## dataset09a <- DfExtractDataset(dataset09, rdrs = seq(1:7))
-#' ## ret1M7 <- StSignificanceTestingCadVsRadiologists (dataset09a, 
-#' ## FOM = "Wilcoxon", method = "1T-RRRC")
+#' dataset09a <- DfExtractDataset(dataset09, rdrs = seq(1:7))
+#' ret1M7 <- StSignificanceTestingCadVsRadiologists (dataset09a, 
+#' FOM = "Wilcoxon", method = "1T-RRRC")
 #' 
-#' ## datasetCadLroc7 <- DfExtractDataset(datasetCadLroc, rdrs = seq(1:7))
-#' ## ret1MLroc7 <- StSignificanceTestingCadVsRadiologists (datasetCadLroc7, 
-#' ## FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
+#' datasetCadLroc7 <- DfExtractDataset(datasetCadLroc, rdrs = seq(1:7))
+#' ret1MLroc7 <- StSignificanceTestingCadVsRadiologists (datasetCadLroc7, 
+#' FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
+#' 
+#' \donttest{
+#' ## takes longer than 5 sec on OSX
+#' ## retLroc2M <- StSignificanceTestingCadVsRadiologists (datasetCadLroc, 
+#' ## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
 #' 
 #' ## ret2MLroc7 <- StSignificanceTestingCadVsRadiologists (datasetCadLroc7, 
 #' ## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
@@ -144,7 +147,7 @@
 #' 
 #' 
 #' @import ggplot2
-#' @importFrom stats var
+#' @importFrom stats var t.test
 #' @export
 StSignificanceTestingCadVsRadiologists <- function(dataset, FOM, FPFValue = 0.2, method = "1T-RRRC", 
                                                    alpha = 0.05, plots = FALSE) 
@@ -186,8 +189,10 @@ StSignificanceTestingCadVsRadiologists <- function(dataset, FOM, FPFValue = 0.2,
 
 
 # Handles all dataTypes
-SingleModalityRRFC <- function(dataset, FOM, FPFValue, alpha){
-  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+SingleModalityRRFC <- function(dataset, FOM, FPFValue, alpha) {
+  
+  # `as.matrix` is absolutely necessary if following `mean()` function is to work
+  thetajc <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   Psijc <- thetajc[-1] - thetajc[1]
   ret <- t.test(Psijc, conf.level = 1-alpha)
   Tstat <-  as.numeric(ret$statistic)
@@ -224,9 +229,10 @@ SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha)
   varError <- ret$var;  Cov2 <- ret$cov2
   
   J <- length(dataset$NL[1,,1,1]) - 1 # number of radiologists minus CAD reader
-  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+  # `as.matrix` is absolutely necessary if following `mean()` function is to work
+  thetajc <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
-  Psijc <- thetajc[2:(J+1)] - thetajc[1] # subract CAD from RAD, my Eqn. 13
+  Psijc <- thetajc[1,2:(J+1)] - thetajc[1,1] # subract CAD from RAD, my Eqn. 13
   
   MSR <- 0 # 1st un-numbered equation on page 607
   avgDiffFom <- mean(Psijc)
@@ -372,22 +378,23 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
   }
   
   stats1 <- StSignificanceTesting(datasetCombined, FOM = FOM, method = "ORH", alpha = alpha, analysisOption = "RRRC", FPFValue = FPFValue)
-  thetajc <- stats1$foms
+  thetajc <- stats1$FOMs$foms
+  thetajc <- as.matrix(thetajc)
   fomCAD  <-  thetajc[1,1]
   fomRAD  <-  thetajc[2,]
   avgRadFom <-  mean(fomRAD)
   varDiffFom <- var(fomRAD)
   avgDiffFom <-  avgRadFom - fomCAD
-  FStat <-  stats1$RRRC$FTests$f
-  ddf <-  stats1$RRRC$FTests$ddf
-  ndf <- stats1$RRRC$FTests$ndf
-  pval <-  stats1$RRRC$FTests$p
-  varR <- stats1$varComp$varR
-  varTR <- stats1$varComp$varTR
-  varError <- stats1$varComp$var
-  cov1 <- stats1$varComp$cov1
-  cov2 <- stats1$varComp$cov2
-  cov3 <- stats1$varComp$cov3
+  FStat <-  stats1$RRRC$FTests$FStat[1]
+  ddf <-  stats1$RRRC$FTests$DF[2]
+  ndf <- stats1$RRRC$FTests$DF[1]
+  pval <-  stats1$RRRC$FTests$p[1]
+  varR <- stats1$ANOVA$VarCom["varR", "VarCom"]
+  varTR <- stats1$ANOVA$VarCom["varTR", "VarCom"]
+  varError <- stats1$ANOVA$VarCom["var", "VarCom"]
+  cov1 <- stats1$ANOVA$VarCom["Cov1", "VarCom"]
+  cov2 <- stats1$ANOVA$VarCom["Cov2", "VarCom"]
+  cov3 <- stats1$ANOVA$VarCom["Cov3", "VarCom"]
   ciDiffFom <- stats1$RRRC$ciDiffTrt
   ciAvgRdrEachTrt <- stats1$RRRC$ciAvgRdrEachTrt
   

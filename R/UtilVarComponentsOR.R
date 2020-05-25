@@ -47,9 +47,11 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   I <- dim(dataset$NL)[1]
   J <- dim(dataset$NL)[2]
   
-  Foms <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue)) # Foms is local value
+  # Foms is local value; 
+  # `as.matrix` is absolutely necessary if following `mean()` function is to work
+  Foms <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
-  fomMean <- mean(Foms[,])
+  fomMean <- mean(Foms[,]) # this fails if `Foms` is a dataframe; true for `mean` and `median`
   msT <- 0
   for (i in 1:I) {
     msT <- msT + (mean(Foms[i, ]) - fomMean)^2
@@ -140,14 +142,13 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   Cov3 <- ret$Cov3
   
   # TBA Need citation here for next two equations
-  varTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0)
-  varR <- (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - varTR)/I
-  VarCom <- data.frame(VarCom = c(varR, varTR, Cov1, Cov2, Cov3, Var), 
+  VarTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0)
+  VarR <- (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - VarTR)/I
+  VarCom <- data.frame(Estimates = c(VarR, VarTR, Cov1, Cov2, Cov3, Var), 
              Rhos = c(NA, NA, Cov1/Var, Cov2/Var, Cov3/Var, NA),
-             row.names = c("varR", "varTR", "Cov1", "Cov2", "Cov3", "Var"),
+             row.names = c("VarR", "VarTR", "Cov1", "Cov2", "Cov3", "Var"),
              stringsAsFactors = FALSE)
   return(list(
-    # foms = foms,
     TRanova = TRanova,
     VarCom = VarCom,
     IndividualTrt = IndividualTrt,

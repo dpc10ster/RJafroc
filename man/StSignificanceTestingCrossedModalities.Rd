@@ -32,7 +32,7 @@ Performs ORH analysis for specified crossed treatments dataset
 }
 \examples{
 \donttest{ 
-## read the raw data file in extdata directory
+## read the raw data file in extdata directory (this is included to illustrate the format)
 crossedFileName <- system.file("extdata", "CrossedModalitiesData.xlsx", 
 package = "RJafroc", mustWork = TRUE)
 crossedData <- DfReadCrossedModalities(crossedFileName)

@@ -16,7 +16,7 @@ A list with 9 elements:
 \item{\code{dataType}}{, chr "LROC", the data type}
 \item{\code{modalityID}}{, chr [1:2] "0" "1", treatment labels}
 \item{\code{readerID}}{, chr [1:10] "1" "2" ..., reader labels}
-\item{\code{datasetName}}{"NicoLroc"}
+\item{\code{datasetName}}{, chr "NicoLroc"}
 }
 }
 \usage{
@@ -27,8 +27,9 @@ This is the actual LROC data corresponding to \code{dataset09}, which was the in
 ROC data. Note that the \code{LL} field is split into two, \code{LLCl}, representing true 
 positives where the lesions were correctly localized, and \code{LLIl}, representing true 
 positives where the lesions were incorrectly localized. The first reader is CAD
-and the remaining readers are radiologists. The function 
-\code{\link{StSignificanceTestingSingleFixedFactor}} analyzes such datasets.
+and the remaining readers are radiologists. 
+##
+## The function TBA
 }
 \examples{
 str(datasetCadLroc)

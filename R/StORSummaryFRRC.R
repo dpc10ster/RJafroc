@@ -26,9 +26,9 @@ ORSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   
   # Need to check presence of max in following formula
   # TBA max() is not present in formulae, but cant hurt, in my opinion
-  if (J > 1) msDen <- ANOVA$VarCom["Var","VarCom"] - ANOVA$VarCom["Cov1","VarCom"] + 
-    (J - 1) * max(ANOVA$VarCom["Cov2","VarCom"] - ANOVA$VarCom["Cov3","VarCom"] ,0)
-  else msDen <- ANOVA$VarCom["Var","VarCom"] - ANOVA$VarCom["Cov1","VarCom"]
+  if (J > 1) msDen <- ANOVA$VarCom["Var","Estimates"] - ANOVA$VarCom["Cov1","Estimates"] + 
+    (J - 1) * max(ANOVA$VarCom["Cov2","Estimates"] - ANOVA$VarCom["Cov3","Estimates"] ,0)
+  else msDen <- ANOVA$VarCom["Var","Estimates"] - ANOVA$VarCom["Cov1","Estimates"]
   chisqVal <- (I-1)*ANOVA$TRanova["T","MS"]/msDen
   p <- 1 - pchisq(chisqVal, I - 1)
   FRRC <- list()

@@ -1,4 +1,4 @@
-OutputExcelFileORH <- function(dataset,
+OutputExcelFileDBMH <- function(dataset,
                                 method,
                                 methodTxt,
                                 ReportFileName,
@@ -75,24 +75,24 @@ OutputExcelFileORH <- function(dataset,
   setColWidths(wb, sheet = sheet, cols = 1, widths = 10)
   
   startRow <- 1
-  df <- StResult$ANOVA$TRanova
-  hdr <- "OR treatment reader ANOVA"
+  df <- StResult$ANOVA$TRCanova
+  hdr <- "DBM treatment reader case ANOVA"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <- StResult$ANOVA$VarCom
-  hdr <- "OR Variance Components"
-  startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
-  
-  df <- UtilOR2DBMVarComp(K, df)
   hdr <- "DBM Variance Components"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
+  df <- UtilDBM2ORVarComp(K, df)
+  hdr <- "OR Variance Components"
+  startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
+  
   df <-StResult$ANOVA$IndividualTrt
-  hdr <- "Individual treatment var. comp."
+  hdr <- "Reader x Case Anova for each treatment"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <-StResult$ANOVA$IndividualRdr
-  hdr <- "Individual reader var. comp."
+  hdr <- "Treatment x Case Anova for each reader"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
 
   #############################################################    

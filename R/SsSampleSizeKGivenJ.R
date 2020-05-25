@@ -42,17 +42,25 @@
 #' @examples
 #' ## the following two should give identical results
 #' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBMH")
-#' a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$varComp
+#' a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
+#' 
 #' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBMH", 
-#'    list(varYTR = a$varTR, varYTC = a$varTC, varYEps = a$varErr))
+#'    list(varYTR = a["VarTR",1], 
+#'    varYTC = a["VarTC",1], 
+#'    varYEps = a["VarErr",1]))
 #'
 #' ## the following two should give identical results
 #' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "ORH")
-#' a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp
+#' 
+#' a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
 #' KStar <- length(dataset02$NL[1,1,,1])
 #' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "ORH", 
-#'    list(KStar = KStar, varTR = a$varTR, cov1 = a$cov1, cov2 = a$cov2, 
-#'    cov3 = a$cov3, varEps = a$var))
+#'    list(KStar = KStar, 
+#'    VarTR = a["VarTR",1], 
+#'    Cov1 = a["Cov1",1], 
+#'    Cov2 = a["Cov2",1], 
+#'    Cov3 = a["Cov3",1], 
+#'    Var = a["Var",1]))
 #'
 #' \donttest{ 
 ## Example of power calculations using the DBM variance components, 
@@ -77,9 +85,9 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
     if (!(is.null(dataset))) {
       ret <- StSignificanceTesting(dataset, FOM, method = "DBMH")
       if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
-      varYTR <- ret$varComp$varTR
-      varYTC <- ret$varComp$varTC
-      varYEps <- ret$varComp$varErr
+      varYTR <- ret$ANOVA$VarCom["VarTR",1]
+      varYTC <- ret$ANOVA$VarCom["VarTC",1]
+      varYEps <- ret$ANOVA$VarCom["VarErr",1]
     } else {
       if (is.null(effectSize)) stop("When using variance components as input, effect size needs to be explicitly specified.")
       extraParms <- list(...)[[1]]
@@ -92,23 +100,23 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
     if (!(is.null(dataset))) {
       ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
       if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
-      varTR <- ret$varComp$varTR
-      cov1 <- ret$varComp$cov1
-      cov2 <- ret$varComp$cov2
-      cov3 <- ret$varComp$cov3
-      varEps <- ret$varComp$var
+      VarTR <- ret$ANOVA$VarCom["VarTR",1]
+      Cov1 <- ret$ANOVA$VarCom["Cov1",1]
+      Cov2 <- ret$ANOVA$VarCom["Cov2",1]
+      Cov3 <- ret$ANOVA$VarCom["Cov3",1]
+      Var <- ret$ANOVA$VarCom["Var",1]
       KStar <- length(dataset$NL[1,1,,1])
     } else {
       if (is.null(effectSize)) stop("When using variance components as input, effect size needs to be explicitly specified.")
       extraParms <- list(...)[[1]]
       if ("KStar" %in% names(extraParms)) KStar <- extraParms$KStar else stop("missing KStar")
-      if ("varTR" %in% names(extraParms)) varTR <- extraParms$varTR else stop("missing varTR")
-      if ("cov1" %in% names(extraParms)) cov1 <- extraParms$cov1 else stop("missing cov1")
-      if ("cov2" %in% names(extraParms)) cov2 <- extraParms$cov2 else stop("missing cov2")
-      if ("cov3" %in% names(extraParms)) cov3 <- extraParms$cov3 else stop("missing cov3")
-      if ("varEps" %in% names(extraParms)) varEps <- extraParms$varEps else stop("missing varEps")
+      if ("VarTR" %in% names(extraParms)) VarTR <- extraParms$VarTR else stop("missing VarTR")
+      if ("Cov1" %in% names(extraParms)) Cov1 <- extraParms$Cov1 else stop("missing Cov1")
+      if ("Cov2" %in% names(extraParms)) Cov2 <- extraParms$Cov2 else stop("missing Cov2")
+      if ("Cov3" %in% names(extraParms)) Cov3 <- extraParms$Cov3 else stop("missing Cov3")
+      if ("Var" %in% names(extraParms)) Var <- extraParms$Var else stop("missing Var")
     }
-    ret <- searchNumCasesOR (J, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, analysisOption)
+    ret <- searchNumCasesOR (J, VarTR, Cov1, Cov2, Cov3, Var, effectSize, alpha, KStar, desiredPower, analysisOption)
   } else stop("method must be DBMH or ORH")
   
   return(ret)
@@ -187,7 +195,7 @@ searchNumCasesDBM <- function(J, varYTR, varYTC, varYEps, effectSize, alpha, des
 
 
 
-searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, analysisOption)
+searchNumCasesOR <- function(J, VarTR, Cov1, Cov2, Cov3, Var, effectSize, alpha, KStar, desiredPower, analysisOption)
 {
   
   K <- 1
@@ -200,7 +208,7 @@ searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alp
         break
       }
       K <- K + 1
-      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, analysisOption)
+      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, VarTR, Cov1, Cov2, Cov3, Var, alpha, analysisOption)
       power <- ret$powerRRRC
     }
     powerRRRC <- power
@@ -214,7 +222,7 @@ searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alp
         break
       }
       K <- K + 1
-      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, analysisOption)
+      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, VarTR, Cov1, Cov2, Cov3, Var, alpha, analysisOption)
       power <- ret$powerFRRC
     }
     powerFRRC <- power
@@ -228,7 +236,7 @@ searchNumCasesOR <- function(J, varTR, cov1, cov2, cov3, varEps, effectSize, alp
         break
       }
       K <- K + 1
-      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, varTR, cov1, cov2, cov3, varEps, alpha, analysisOption)
+      ret <- SsPowerGivenJKOrVarComp (J, K, KStar, effectSize, VarTR, Cov1, Cov2, Cov3, Var, alpha, analysisOption)
       power <- ret$powerRRFC
     }
     powerRRFC <- power

@@ -9,11 +9,11 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   modalityID <- dataset$modalityID
   I <- length(modalityID)
 
+  # `as.matrix` is NOT absolutely necessary as `mean()` function is not used
   foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  
+
   ret <- UtilVarComponentsOR(dataset, FOM, FPFValue, covEstMethod, nBoots)
   
-  # foms <- ret$foms
   TRanova <- ret$TRanova
   VarCom <-  ret$VarCom
   IndividualTrt <- ret$IndividualTrt

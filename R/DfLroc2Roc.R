@@ -56,7 +56,8 @@ DfLroc2Roc <- function (dataset) #  !!!in tests!!!
     lesionWeight = dataset$lesionWeight,
     dataType = "ROC",
     modalityID = dataset$modalityID,
-    readerID = dataset$readerID
+    readerID = dataset$readerID,
+    datasetName = "ignore"
   ))
 }
 

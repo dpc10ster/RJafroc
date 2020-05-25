@@ -153,7 +153,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   if (length(dataset) == 13) {
     design <- dataset$design
     t <- dataset$truthTableStr
-  } else if (length(dataset) %in% c(8,9)) {
+  } else if (length(dataset) %in% c(9,10)) {
     design <- "CROSSED"
   } 
   

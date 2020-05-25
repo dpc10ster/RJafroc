@@ -1,4 +1,4 @@
-#' Perform DBM or OR significance testing
+#' Performs DBM or OR significance testing
 #' 
 #' @description  Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
 #'    significance testing (with Hillis' improvements), for specified dataset; 
@@ -9,7 +9,7 @@
 #'    the analysis are better visualized in the text or  
 #'    Excel-formatted files produced by \code{\link{UtilOutputReport}}. 
 #'
-#'  
+#' ## TBA 
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
 #'     \bold{Must have two or more treatments and two or more readers. A split-plot
 #'     dataset is allowed provided \code{method} = "ORH" and \code{covEstMethod}
@@ -108,7 +108,7 @@
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
 #' ## following is split-plot analysis using a simulated split-plot dataset
-#' StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+#' ## TBA StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
 #' 
 #' \donttest{
 #' StSignificanceTesting(dataset05, FOM = "wAFROC")
@@ -164,13 +164,13 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     stop(errMsg)
   }    
   
-  if (length(dataset$modalityID) < 2) {
-    # need to fix here
-    ErrMsg <- paste0("This analysis requires at least 2 treatments", 
-                     "\nUse StSignificanceTestingSingleFixedFactor() for single treatment analysis.")
-    stop(ErrMsg)
-  }
-  
+  # if (length(dataset$modalityID) < 2) {
+  #   # TBA need to fix here
+  #   ErrMsg <- paste0("This analysis requires at least 2 treatments", 
+  #                    "\nUse StSignificanceTestingSingleFixedFactor() for single treatment analysis.")
+  #   stop(ErrMsg)
+  # }
+  # 
   if ((length(dataset$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
     ErrMsg <- paste0("Must use analysisOption FRRC with 1-reader dataset")
     stop(ErrMsg)

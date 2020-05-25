@@ -44,11 +44,11 @@ The variance components are obtained using \link{StSignificanceTesting}
    with \code{method = "DBMH"}.
 }
 \examples{
-VarComp <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", 
-   analysisOption = "RRRC")$varComp
-varYTR <- VarComp$varTR
-varYTC <- VarComp$varTC
-varYEps <- VarComp$varErr
+VarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", 
+   analysisOption = "RRRC")$ANOVA$VarCom
+varYTR <- VarCom["VarTR",1]
+varYTC <- VarCom["VarTC",1]
+varYEps <- VarCom["VarErr",1]
 ret <- SsPowerGivenJKDbmVarComp (J = 5, K = 100, effectSize = 0.05, varYTR, 
    varYTC, varYEps, analysisOption = "RRRC")
 cat("RRRC power = ", ret$powerRRRC)

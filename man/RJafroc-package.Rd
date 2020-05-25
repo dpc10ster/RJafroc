@@ -479,8 +479,6 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            significance testing, CAD vs. radiologists.
         \item \code{\link{StSignificanceTestingCrossedModalities}}: Perform 
            significance testing using crossed modalities analysis.
-        \item \code{\link{StSignificanceTestingSingleFixedFactor}}: Perform 
-           significance testing for single fixed factor analysis.
   }
 }
 

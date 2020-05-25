@@ -148,7 +148,8 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
                     lesionWeight = lesionWeight, 
                     dataType = dataType, 
                     modalityID = modalityID, 
-                    readerID = readerID
+                    readerID = readerID,
+                    datasetName = "Ignore"
     )
     return(dataset)
   }
@@ -197,7 +198,8 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
                     lesionWeight = lesionWeight, 
                     dataType = dataType, 
                     modalityID = modalityID, 
-                    readerID = readerID
+                    readerID = readerID,
+                    datasetName = "Ignore"
     )
     return(dataset)
   } 

@@ -15,7 +15,7 @@ A list with 12 elements:
 \item{\code{dataType}}{, chr "ROC", the data type}
 \item{\code{modalityID}}{, chr "1", treatment label}
 \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
-\item{\code{datasetName}}{"dataset Binned 125"}
+\item{\code{datasetName}}{, chr "dataset Binned 125"}
 }
 }
 \usage{

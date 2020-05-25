@@ -83,7 +83,8 @@ SimulateFrocFromLrocDataset <- function(dataset)  #  !!!put in tests!!!
     lesionWeight = lesWghts,
     dataType = "FROC",
     modalityID = dataset$modalityID,
-    readerID = dataset$readerID
+    readerID = dataset$readerID,
+    datasetName = "ignore"
   )
   
   return (datasetFroc)

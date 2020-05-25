@@ -19,28 +19,28 @@
 #############################################################################
 
 
-context("StSignificanceTesting-datasetFROCSp-wAFROC")
-test_that("StSignificanceTesting-datasetFROCSp-wAFROC", {
-
-  dataset <- datasetFROCSp
-
-  fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSp-wAFROC", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
-    saveRDS(x1, file = fn)
-  }
-
-  x1 <- readRDS(fn)
-  x2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
-
-  expect_equal(x1,x2)
-
-  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBMH"))
-  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "bootstrap"))
-  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "DeLong"))
-
-})
+# context("StSignificanceTesting-datasetFROCSp-wAFROC")
+# test_that("StSignificanceTesting-datasetFROCSp-wAFROC", {
+# 
+#   dataset <- datasetFROCSp
+# 
+#   fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSp-wAFROC", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     x1 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+#     saveRDS(x1, file = fn)
+#   }
+# 
+#   x1 <- readRDS(fn)
+#   x2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+# 
+#   expect_equal(x1,x2)
+# 
+#   expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBMH"))
+#   expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "bootstrap"))
+#   expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "DeLong"))
+# 
+# })
 
 
 
@@ -70,7 +70,7 @@ test_that("SignificanceTestingAllCombinations", {
   # dataset_arr <- list(dataset02) # deparse(substitute(dataset02)) does not work below
   # dataset_arr_str <- c("dataset02")
   # FOM_arr <- c("Wilcoxon") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
-  method_arr <- c("DBMH")
+  method_arr <- c("DBMH", "ORH")
   
   for (d in 1:length(dataset_arr)) {
     for (f in 1:length(FOM_arr)) {
@@ -112,64 +112,64 @@ test_that("SignificanceTestingAllCombinations", {
 
 
 
-context("StSignificanceTestingSingleFixedFactor")
-test_that("StSignificanceTestingSingleFixedFactor", {
-
-  fn <- paste0(test_path(), "/goodValues361/SigTest/SingleFixedFactor_02_1_14", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
-    saveRDS(x1, file = fn)
-  }
-
-  x1 <- readRDS(fn)
-  x2 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
-
-  # CompareLists(x1,x2)
-  expect_equal(x1,x2)
-
-})
-
-
-
-context("StSignificanceTestingSingleFixedFactor")
-test_that("StSignificanceTestingSingleFixedFactor", {
-
-  skip_on_os("windows")
-
-  fn <- paste0(test_path(), "/goodValues361/SigTest/SingleFixedFactor_05_1_14", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4), FOM = "wAFROC")
-    saveRDS(x1, file = fn)
-  }
-
-  x1 <- readRDS(fn)
-  x2 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4), FOM = "wAFROC")
-
-  # CompareLists(x1,x2)
-  expect_equal(x1,x2)
-
-})
-
-
-
-test_that("StSignificanceTestingSingleFixedFactor", {
-
-  fn <- paste0(test_path(), "/goodValues361/SigTest/SingleFixedFactor_05_12_4", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4), FOM = "wAFROC")
-    saveRDS(x1, file = fn)
-  }
-
-  x1 <- readRDS(fn)
-  x2 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4), FOM = "wAFROC")
-
-  # CompareLists(x1,x2)
-  expect_equal(x1,x2)
-
-})
+# context("StSignificanceTestingSingleFixedFactor")
+# test_that("StSignificanceTestingSingleFixedFactor", {
+# 
+#   fn <- paste0(test_path(), "/goodValues361/SigTest/SingleFixedFactor_02_1_14", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     x1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
+#     saveRDS(x1, file = fn)
+#   }
+# 
+#   x1 <- readRDS(fn)
+#   x2 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset02, 1, 1:4), FOM = "Wilcoxon")
+# 
+#   # CompareLists(x1,x2)
+#   expect_equal(x1,x2)
+# 
+# })
+# 
+# 
+# 
+# context("StSignificanceTestingSingleFixedFactor")
+# test_that("StSignificanceTestingSingleFixedFactor", {
+# 
+#   skip_on_os("windows")
+# 
+#   fn <- paste0(test_path(), "/goodValues361/SigTest/SingleFixedFactor_05_1_14", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     x1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4), FOM = "wAFROC")
+#     saveRDS(x1, file = fn)
+#   }
+# 
+#   x1 <- readRDS(fn)
+#   x2 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1, 1:4), FOM = "wAFROC")
+# 
+#   # CompareLists(x1,x2)
+#   expect_equal(x1,x2)
+# 
+# })
+# 
+# 
+# 
+# test_that("StSignificanceTestingSingleFixedFactor", {
+# 
+#   fn <- paste0(test_path(), "/goodValues361/SigTest/SingleFixedFactor_05_12_4", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     x1 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4), FOM = "wAFROC")
+#     saveRDS(x1, file = fn)
+#   }
+# 
+#   x1 <- readRDS(fn)
+#   x2 <- StSignificanceTestingSingleFixedFactor(DfExtractDataset(dataset05, 1:2, 4), FOM = "wAFROC")
+# 
+#   # CompareLists(x1,x2)
+#   expect_equal(x1,x2)
+# 
+# })
 
 ############################################################################# 
 #
@@ -181,43 +181,44 @@ test_that("StSignificanceTestingSingleFixedFactor", {
 # did not work; commented out again 7/12/19
 # following code now works on osx 3/7/20
 # but not on travis old release
-context("StSignificanceTestingCrossedModalities")
-test_that("StSignificanceTestingCrossedModalities", {
 
-  # crossedFileName <- system.file(
-  #   "extdata", "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
-
-  fn <- paste0(test_path(), "/goodValues361/SigTest/CrossedModalities", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    goodValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
-    saveRDS(goodValues, file = fn)
-  }
-
-  goodValues <- readRDS(fn)
-  currentValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
-  expect_equal(goodValues, currentValues)
-  # following klutzy code can be simplified to above line by simply deleting the goodValues file
-  # expect_equal(length(goodValues), length(currentValues))
-  #
-  # for (f in 1: length(goodValues)){
-  #   x <- as.vector(unlist(goodValues[[f]]))
-  #   y <- as.vector(unlist(currentValues[[f]]))
-  #   if (f %in% c(9,14)) {x <- as.numeric(x[-(1:4)]);y <- as.numeric(y[-(1:4)])}
-  #   if (f %in% c(15)) {
-  #     x <- as.numeric(unlist(goodValues[[f]][-c(1,2,5)]))
-  #     y <- as.numeric(unlist(currentValues[[f]][-c(1,2,5)]))
-  #   }
-  #   if (f %in% c(16)) {
-  #     x <- as.numeric(unlist(goodValues[[f]][-c(1)]))
-  #     y <- as.numeric(unlist(currentValues[[f]][-c(1)]))
-  #   }
-  #   if (f %in% c(21)) {
-  #     x <- as.numeric(unlist(goodValues[[f]][-1]))
-  #     y <- as.numeric(unlist(currentValues[[f]][-1]))
-  #   }
-  #   expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
-  # }
-
-})
+# context("StSignificanceTestingCrossedModalities")
+# test_that("StSignificanceTestingCrossedModalities", {
+# 
+#   # crossedFileName <- system.file(
+#   #   "extdata", "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
+# 
+#   fn <- paste0(test_path(), "/goodValues361/SigTest/CrossedModalities", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     goodValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+#     saveRDS(goodValues, file = fn)
+#   }
+# 
+#   goodValues <- readRDS(fn)
+#   currentValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+#   expect_equal(goodValues, currentValues)
+#   # following klutzy code can be simplified to above line by simply deleting the goodValues file
+#   # expect_equal(length(goodValues), length(currentValues))
+#   #
+#   # for (f in 1: length(goodValues)){
+#   #   x <- as.vector(unlist(goodValues[[f]]))
+#   #   y <- as.vector(unlist(currentValues[[f]]))
+#   #   if (f %in% c(9,14)) {x <- as.numeric(x[-(1:4)]);y <- as.numeric(y[-(1:4)])}
+#   #   if (f %in% c(15)) {
+#   #     x <- as.numeric(unlist(goodValues[[f]][-c(1,2,5)]))
+#   #     y <- as.numeric(unlist(currentValues[[f]][-c(1,2,5)]))
+#   #   }
+#   #   if (f %in% c(16)) {
+#   #     x <- as.numeric(unlist(goodValues[[f]][-c(1)]))
+#   #     y <- as.numeric(unlist(currentValues[[f]][-c(1)]))
+#   #   }
+#   #   if (f %in% c(21)) {
+#   #     x <- as.numeric(unlist(goodValues[[f]][-1]))
+#   #     y <- as.numeric(unlist(currentValues[[f]][-1]))
+#   #   }
+#   #   expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
+#   # }
+# 
+# })
 

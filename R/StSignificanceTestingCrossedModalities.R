@@ -14,7 +14,7 @@
 #' 
 #' @examples
 #' \donttest{ 
-#' ## read the raw data file in extdata directory
+#' ## read the raw data file in extdata directory (this is included to illustrate the format)
 #' crossedFileName <- system.file("extdata", "CrossedModalitiesData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' crossedData <- DfReadCrossedModalities(crossedFileName)
@@ -58,10 +58,10 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   }
   
   ret <- EstimateVarCovCrossed(NL, LL, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
-  var <- ret$var
-  cov1 <- ret$cov1
-  cov2 <- ret$cov2
-  cov3 <- ret$cov3
+  Var <- ret$Var
+  Cov1 <- ret$Cov1
+  Cov2 <- ret$Cov2
+  Cov3 <- ret$Cov3
   fomArray <- ret$fomArray  # sic! 4/29/20
   trMeans <- rowMeans(fomArray)
   fomMean <- mean(fomArray)
@@ -86,11 +86,14 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   }
   msTR <- msTR/((J - 1) * (I - 1))
   
-  varTR <- msTR - var + cov1 + max(cov2 - cov3, 0)
-  varR <- (msR - var - (I - 1) * cov1 + cov2 + (I - 1) * cov3 - varTR)/I
-  varCovArray <- c(varR, varTR, cov1, cov2, cov3, var)
+  # TBA need citations here
+  varTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0)
+  varR <- (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - varTR)/I
+  varCovArray <- c(varR, varTR, Cov1, Cov2, Cov3, Var)
   nameArray <- c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")
-  varComp <- data.frame(varCov = varCovArray, row.names = nameArray, stringsAsFactors = FALSE)
+  varComp <- data.frame(varCov = varCovArray, 
+                        row.names = nameArray, 
+                        stringsAsFactors = FALSE)
 
   varSingle <- vector(length = I)
   cov2Single <- vector(length = I)
@@ -109,9 +112,9 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
     
     
     ret <- EstimateVarCovCrossed(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
-    varSingle[i] <- ret$var
+    varSingle[i] <- ret$Var
     if (J > 1) {
-      cov2Single[i] <- ret$cov2
+      cov2Single[i] <- ret$Cov2
     } else {
       cov2Single[i] <- 0
     }
@@ -125,8 +128,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
     dim(nl) <- c(length(crossedData$modalityID1), length(crossedData$modalityID2), 1, K, maxNL)
     dim(ll) <- c(length(crossedData$modalityID1), length(crossedData$modalityID2), 1, K2, max(lesionVector))
     ret <- EstimateVarCovCrossed(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
-    varEchRder[j] <- ret$var
-    cov1EchRder[j] <- ret$cov1
+    varEchRder[j] <- ret$Var
+    cov1EchRder[j] <- ret$Cov1
   }
   
   msRSingle <- array(0, dim = c(I))
@@ -152,7 +155,7 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   # ************ RRRC ****************
   if (analysisOption %in% c("RRRC", "ALL")) {
     if (J > 1) {
-      msDenRRRC <- msTR + max(J * (cov2 - cov3), 0)
+      msDenRRRC <- msTR + max(J * (Cov2 - Cov3), 0)
       fRRRC <- msNum/msDenRRRC
       ddfRRRC <- msDenRRRC^2/(msTR^2/((I - 1) * (J - 1)))
       pRRRC <- 1 - pf(fRRRC, I - 1, ddfRRRC)
@@ -281,9 +284,9 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   # ************ FRRC ****************
   if (analysisOption %in% c("FRRC", "ALL")) {
     if (J > 1) {
-      msDenFRRC <- var - cov1 + (J - 1) * (cov2 - cov3)
+      msDenFRRC <- Var - Cov1 + (J - 1) * (Cov2 - Cov3)
     } else {
-      msDenFRRC <- var - cov1
+      msDenFRRC <- Var - Cov1
     }
     fFRRC <- msNum/msDenFRRC
     ddfFRRC <- Inf
@@ -564,9 +567,9 @@ EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, 
     fomArray <- apply(jkFOMArray, c(1, 2), mean)
   }
   Cov <- ResamplingEstimateVarCovs(jkFOMArray)
-  var <- Cov$var * (K - 1)^2/K  # see paper by Efron and Stein
-  cov1 <- Cov$cov1 * (K - 1)^2/K
-  cov2 <- Cov$cov2 * (K - 1)^2/K
-  cov3 <- Cov$cov3 * (K - 1)^2/K
-  return(list(var = var, cov1 = cov1, cov2 = cov2, cov3 = cov3, fomArray = fomArray))
+  Var <- Cov$Var * (K - 1)^2/K  # see paper by Efron and Stein
+  Cov1 <- Cov$Cov1 * (K - 1)^2/K
+  Cov2 <- Cov$Cov2 * (K - 1)^2/K
+  Cov3 <- Cov$Cov3 * (K - 1)^2/K
+  return(list(Var = Var, Cov1 = Cov1, Cov2 = Cov2, Cov3 = Cov3, fomArray = fomArray))
 }

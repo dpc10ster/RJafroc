@@ -59,17 +59,26 @@ The default \code{effectSize} uses the observed effect size in the pilot
 \examples{
 ## the following two should give identical results
 SsPowerGivenJK(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 251, method = "DBMH")
-a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$varComp
+
+a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
 SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, method = "DBMH", 
-                    list(varYTR = a$varTR, varYTC = a$varTC, varYEps = a$varErr))
+                    list(
+                    varYTR = a["VarTR","Estimates"], 
+                    varYTC = a["VarTC","Estimates"], 
+                    varYEps = a["VarErr","Estimates"]))
                      
 ## the following two should give identical results
 SsPowerGivenJK(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 251, method = "ORH")
-a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp
+
+a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
 KStar <- length(dataset02$NL[1,1,,1])
 SsPowerGivenJK(dataset = NULL, effectSize = 0.05, J = 6, K = 251, method = "ORH", 
-   list(KStar = KStar, varTR = a$varTR, cov1 = a$cov1, cov2 = a$cov2, 
-   cov3 = a$cov3, varEps = a$var))
+   list(KStar = KStar, 
+   VarTR = a["VarTR","Estimates"], 
+   Cov1 = a["Cov1","Estimates"], 
+   Cov2 = a["Cov2","Estimates"], 
+   Cov3 = a["Cov3","Estimates"], 
+   Var = a["Var","Estimates"]))
 
 }
 \references{

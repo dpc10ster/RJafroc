@@ -188,7 +188,8 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
       stop(errMsg)
     }
     
-    fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+    # `as.matrix` is absolutely necessary if following `mean()` function is to work
+    fomArray <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
     fomMean <- mean(fomArray)
     
     if (I != 1){

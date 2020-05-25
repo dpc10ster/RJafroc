@@ -2,7 +2,7 @@
 % Please edit documentation in R/StSignificanceTesting.R
 \name{StSignificanceTesting}
 \alias{StSignificanceTesting}
-\title{Perform DBM or OR significance testing}
+\title{Performs DBM or OR significance testing}
 \usage{
 StSignificanceTesting(
   dataset,
@@ -155,13 +155,15 @@ Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR)
    rejecting the null hypothesis (NH) that the reader-averaged 
    figure of merit (FOM) differences between treatments is zero. The results of 
    the analysis are better visualized in the text or  
-   Excel-formatted files produced by \code{\link{UtilOutputReport}}.
+   Excel-formatted files produced by \code{\link{UtilOutputReport}}. 
+
+## TBA
 }
 \examples{
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
 ## following is split-plot analysis using a simulated split-plot dataset
-StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+## TBA StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
 
 \donttest{
 StSignificanceTesting(dataset05, FOM = "wAFROC")

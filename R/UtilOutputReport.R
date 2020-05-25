@@ -150,9 +150,11 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
                                            StResult)
     }
   } else if (ReportFileExt == "xlsx") {
-    summaryInfo <- data.frame(summaryInfo = c(base::format(Sys.time(), "%b/%d/%Y"), 
-                                              basename(ReportFileName)))
-    rownames(summaryInfo) <- c("Date", "Output file")
+    summaryInfo <- data.frame(summaryInfo = 
+                                c(base::format(Sys.time(), "%b/%d/%Y"), 
+                                  basename(ReportFileName),
+                                  dataset$datasetName))
+    rownames(summaryInfo) <- c("Date", "Output file", "Input Dataset")
     if (method == "DBMH") {
       sucessfulOutput <- OutputExcelFileDBMH(dataset,
                                              method,
@@ -184,7 +186,7 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
 
 Preamble <- function(dataset, FOM, ReportFileName, method, methodTxt) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-
+  
   x <- c("RJafroc IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR ", 
          "IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, ", 
          "FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE ", 
@@ -294,14 +296,14 @@ Preamble <- function(dataset, FOM, ReportFileName, method, methodTxt) {
          "===========================================================================\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   cat(c("Individual reader FOMs and the means, and differences of reader-averaged FOMs\n\n"))
-
+  
   df <- method$FOMs$foms
   print(format(df, digits = 5, justify = "left"))
-
+  
   cat(c("\nTREATMENT MEANS (averaged over readers):\n\n"))
   df <- method$FOMs$trtMeans
   print(format(df, digits = 5, justify = "left"))
-
+  
   cat("\n")
   cat(c("TREATMENT MEAN DIFFERENCES (averaged over readers):\n\n"))
   df <- method$FOMs$trtMeanDiffs

@@ -23,8 +23,6 @@ UtilVarComponentsDBM <- function (dataset, FOM, FPFValue = 0.2)
   modalityID <- dataset$modalityID
   readerID <- dataset$readerID
   
-  # foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  # 
   psVals <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
   
   msT <- 0
@@ -81,15 +79,15 @@ UtilVarComponentsDBM <- function (dataset, FOM, FPFValue = 0.2)
   }
   msErr <- msErr/((I - 1) * (J - 1) * (K - 1))
   
-  varR <- (msR - msTR - msRC + msErr)/(I * K)
-  varC <- (msC - msTC - msRC + msErr)/(I * J)
-  varTR <- (msTR - msErr)/K
-  varTC <- (msTC - msErr)/J
-  varRC <- (msRC - msErr)/I
-  varErr <- msErr
+  VarR <- (msR - msTR - msRC + msErr)/(I * K)
+  VarC <- (msC - msTC - msRC + msErr)/(I * J)
+  VarTR <- (msTR - msErr)/K
+  VarTC <- (msTC - msErr)/J
+  VarRC <- (msRC - msErr)/I
+  VarErr <- msErr
   
-  VarCom <- data.frame(Estimates = c(varR, varC, varTR, varTC, varRC, varErr), 
-                       row.names = c("varR", "varC", "varTR", "varTC", "varRC", "varErr"), 
+  VarCom <- data.frame(Estimates = c(VarR, VarC, VarTR, VarTC, VarRC, VarErr), 
+                       row.names = c("VarR", "VarC", "VarTR", "VarTC", "VarRC", "VarErr"), 
                        stringsAsFactors = FALSE)
   
   msArray <- c(msT, msR, msC, msTR, msTC, msRC, msErr)
@@ -175,7 +173,6 @@ UtilVarComponentsDBM <- function (dataset, FOM, FPFValue = 0.2)
   colnames(IndividualRdr) <- c("DF", paste0("rdr", readerID))
   
   return(list(
-    # foms = foms,
     VarCom = VarCom,
     TRCanova = TRCanova,
     IndividualTrt = IndividualTrt,

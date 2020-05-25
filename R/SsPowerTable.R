@@ -53,17 +53,17 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
   if (method == "DBMH") {
     ret <- StSignificanceTesting(dataset, FOM, method = "DBMH")
     if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
-    varYTR <- ret$varComp$varTR
-    varYTC <- ret$varComp$varTC
-    varYEps <- ret$varComp$varErr
+    varYTR <- ret$ANOVA$VarCom["VarTR",1]
+    varYTC <- ret$ANOVA$VarCom["VarTC",1]
+    varYEps <- ret$ANOVA$VarCom["VarErr",1]
   } else if (method == "ORH") {
     ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
     if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
-    varTR <- ret$varComp$varTR
-    cov1 <- ret$varComp$cov1
-    cov2 <- ret$varComp$cov2
-    cov3 <- ret$varComp$cov3
-    varEps <- ret$varComp$var
+    varTR <- ret$ANOVA$VarCom["VarTR",1]
+    cov1 <- ret$ANOVA$VarCom["Cov1",1]
+    cov2 <- ret$ANOVA$VarCom["Cov2",1]
+    cov3 <- ret$ANOVA$VarCom["Cov3",1]
+    varEps <- ret$ANOVA$VarCom["Var",1]
     KStar <- length(dataset$NL[1,1,,1])
   } else stop("method must be DBMH or ORH")
   

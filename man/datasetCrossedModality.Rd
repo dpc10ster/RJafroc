@@ -16,7 +16,7 @@ A list with 9 elements:
 \item{\code{modalityID1}}{ [1:2] "F" "I", treatment labels}
 \item{\code{modalityID2}}{ [1:4] "20" "40"  "60"  "80", treatment labels}
 \item{\code{readerID}}{, chr [1:11] "1" "10" "11" ..., reader labels}
-\item{\code{datasetName}}{"ThompsonCrossed"}
+\item{\code{datasetName}}{, chr "ThompsonCrossed"}
 }
 }
 \usage{

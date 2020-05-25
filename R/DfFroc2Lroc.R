@@ -94,7 +94,8 @@ DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctio
     lesionWeight = lesWghts,
     dataType = "LROC",
     modalityID = dataset$modalityID,
-    readerID = dataset$readerID
+    readerID = dataset$readerID,
+    datasetName = "ignore"
   )
   
   return (datasetFroc)

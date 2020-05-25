@@ -19,7 +19,7 @@ A list with 12 elements:
 \item{\code{normalCases}}{, int [1:47] 1 2 3 4 5 8 9 10 11 12 ..., normal case labels}
 \item{\code{abnormalCases}}{, int [1:42] 6 14 17 18 20 21 23 24 26 29 ..., abnormal case labels}
 \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:89, 1:16] 1 1 1 1 1 1 ..., truth table structure}
-\item{\code{datasetName}}{"Magnus"}
+\item{\code{datasetName}}{, chr "Magnus"}
 }
 }
 \usage{

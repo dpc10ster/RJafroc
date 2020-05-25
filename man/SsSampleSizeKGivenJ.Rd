@@ -62,17 +62,25 @@ Number of cases to achieve the desired power, for
 \examples{
 ## the following two should give identical results
 SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBMH")
-a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$varComp
+a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
+
 SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBMH", 
-   list(varYTR = a$varTR, varYTC = a$varTC, varYEps = a$varErr))
+   list(varYTR = a["VarTR",1], 
+   varYTC = a["VarTC",1], 
+   varYEps = a["VarErr",1]))
 
 ## the following two should give identical results
 SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "ORH")
-a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$varComp
+
+a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
 KStar <- length(dataset02$NL[1,1,,1])
 SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "ORH", 
-   list(KStar = KStar, varTR = a$varTR, cov1 = a$cov1, cov2 = a$cov2, 
-   cov3 = a$cov3, varEps = a$var))
+   list(KStar = KStar, 
+   VarTR = a["VarTR",1], 
+   Cov1 = a["Cov1",1], 
+   Cov2 = a["Cov2",1], 
+   Cov3 = a["Cov3",1], 
+   Var = a["Var",1]))
 
 \donttest{ 
 for (J in 6:10) {

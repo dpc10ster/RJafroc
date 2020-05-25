@@ -9,11 +9,11 @@ SsPowerGivenJKOrVarComp(
   K,
   KStar,
   effectSize,
-  varTR,
-  cov1,
-  cov2,
-  cov3,
-  varEps,
+  VarTR,
+  Cov1,
+  Cov2,
+  Cov3,
+  Var,
   alpha = 0.05,
   analysisOption
 )
@@ -27,15 +27,15 @@ SsPowerGivenJKOrVarComp(
 
 \item{effectSize}{The effect size}
 
-\item{varTR}{The treatment-reader OR variance component}
+\item{VarTR}{The treatment-reader OR variance component}
 
-\item{cov1}{The OR cov1 covariance}
+\item{Cov1}{The OR Cov1 covariance}
 
-\item{cov2}{The OR cov2 covariance}
+\item{Cov2}{The OR Cov2 covariance}
 
-\item{cov3}{The OR cov3 covariance}
+\item{Cov3}{The OR Cov3 covariance}
 
-\item{varEps}{The OR pure variance term}
+\item{Var}{The OR pure variance term}
 
 \item{alpha}{The size of the test (default = 0.05)}
 
@@ -55,14 +55,15 @@ The variance components are obtained using \link{StSignificanceTesting}
 \examples{
 dataset <- dataset02 ## the pilot study
 KStar <- length(dataset$NL[1,1,,1])
-VarComp <- StSignificanceTesting(dataset, FOM = "Wilcoxon", method = "ORH", analysisOption = "RRRC")$varComp
-varTR <- VarComp$varTR
-cov1 <- VarComp$cov1
-cov2 <- VarComp$cov2
-cov3 <- VarComp$cov3
-varEps <- VarComp$var
+VarCom <- StSignificanceTesting(dataset, FOM = "Wilcoxon", 
+method = "ORH", analysisOption = "RRRC")$ANOVA$VarCom
+VarTR <- VarCom["VarTR",1]
+Cov1 <- VarCom["Cov1",1]
+Cov2 <- VarCom["Cov2",1]
+Cov3 <- VarCom["Cov3",1]
+Var <- VarCom["Var",1]
 ret <- SsPowerGivenJKOrVarComp (J = 5, K = 100, KStar = KStar,  
-   effectSize = 0.05, varTR, cov1, cov2, cov3, varEps, analysisOption = "RRRC")
+   effectSize = 0.05, VarTR, Cov1, Cov2, Cov3, Var, analysisOption = "RRRC")
     
 cat("RRRC power = ", ret$powerRRRC)
 
