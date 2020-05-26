@@ -439,7 +439,7 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOptio
     stop(errMsg)
   }
   
-  fomArray <- UtilFigureOfMerit(dataset, FOM)
+  fomArray <- as.matrix(UtilFigureOfMerit(dataset, FOM))
   trMeans <- rowMeans(fomArray)
   fomMean <- mean(fomArray)
   
@@ -760,12 +760,11 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
         }
       }
     }
-    K <- length(jkFOMArray[1, 1, ])
     Cov <- ResamplingEstimateVarCovs(jkFOMArray)
-    var <- Cov$var * (K - 1)^2/K  # see paper by Efron and Stein
-    cov1 <- Cov$cov1 * (K - 1)^2/K
-    cov2 <- Cov$cov2 * (K - 1)^2/K
-    cov3 <- Cov$cov3 * (K - 1)^2/K
+    var <- Cov$Var * (K - 1)^2/K  # see paper by Efron and Stein
+    cov1 <- Cov$Cov1 * (K - 1)^2/K
+    cov2 <- Cov$Cov2 * (K - 1)^2/K
+    cov3 <- Cov$Cov3 * (K - 1)^2/K
   }
   
   if (covEstMethod == "bootstrap") {

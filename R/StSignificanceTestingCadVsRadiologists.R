@@ -362,7 +362,8 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
       lesionWeight = lesionWeight,
       dataType = dataType,
       modalityID = as.character(c(1,2)),
-      readerID = as.character(1:J)
+      readerID = as.character(1:J),
+      datasetName <- "ignore"
     )
   } else {
     datasetCombined <- list(
@@ -373,7 +374,8 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
       lesionWeight = lesionWeight,
       dataType = dataType,
       modalityID = as.character(c(1,2)),
-      readerID = as.character(1:J)
+      readerID = as.character(1:J),
+      datasetName <- "ignore"
     )
   }
   

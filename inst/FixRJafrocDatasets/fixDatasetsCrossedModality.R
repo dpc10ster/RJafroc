@@ -23,7 +23,8 @@ ds <- list(
   dataType = dataType,
   modalityID1 = modalityID1,
   modalityID2 = modalityID2,
-  readerID = readerID
+  readerID = readerID,
+  datasetName = "Ignore"
 )
 
 datasetCrossedModality <- ds

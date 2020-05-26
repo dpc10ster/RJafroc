@@ -182,43 +182,43 @@ test_that("SignificanceTestingAllCombinations", {
 # following code now works on osx 3/7/20
 # but not on travis old release
 
-# context("StSignificanceTestingCrossedModalities")
-# test_that("StSignificanceTestingCrossedModalities", {
-# 
-#   # crossedFileName <- system.file(
-#   #   "extdata", "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
-# 
-#   fn <- paste0(test_path(), "/goodValues361/SigTest/CrossedModalities", ".rds")
-#   if (!file.exists(fn)) {
-#     warning(paste0("File not found - generating new ",fn))
-#     goodValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
-#     saveRDS(goodValues, file = fn)
-#   }
-# 
-#   goodValues <- readRDS(fn)
-#   currentValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
-#   expect_equal(goodValues, currentValues)
-#   # following klutzy code can be simplified to above line by simply deleting the goodValues file
-#   # expect_equal(length(goodValues), length(currentValues))
-#   #
-#   # for (f in 1: length(goodValues)){
-#   #   x <- as.vector(unlist(goodValues[[f]]))
-#   #   y <- as.vector(unlist(currentValues[[f]]))
-#   #   if (f %in% c(9,14)) {x <- as.numeric(x[-(1:4)]);y <- as.numeric(y[-(1:4)])}
-#   #   if (f %in% c(15)) {
-#   #     x <- as.numeric(unlist(goodValues[[f]][-c(1,2,5)]))
-#   #     y <- as.numeric(unlist(currentValues[[f]][-c(1,2,5)]))
-#   #   }
-#   #   if (f %in% c(16)) {
-#   #     x <- as.numeric(unlist(goodValues[[f]][-c(1)]))
-#   #     y <- as.numeric(unlist(currentValues[[f]][-c(1)]))
-#   #   }
-#   #   if (f %in% c(21)) {
-#   #     x <- as.numeric(unlist(goodValues[[f]][-1]))
-#   #     y <- as.numeric(unlist(currentValues[[f]][-1]))
-#   #   }
-#   #   expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
-#   # }
-# 
-# })
+context("StSignificanceTestingCrossedModalities")
+test_that("StSignificanceTestingCrossedModalities", {
+
+  # crossedFileName <- system.file(
+  #   "extdata", "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
+
+  fn <- paste0(test_path(), "/goodValues361/SigTest/CrossedModalities", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    goodValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+    saveRDS(goodValues, file = fn)
+  }
+
+  goodValues <- readRDS(fn)
+  currentValues <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+  expect_equal(goodValues, currentValues)
+  # following klutzy code can be simplified to above line by simply deleting the goodValues file
+  # expect_equal(length(goodValues), length(currentValues))
+  #
+  # for (f in 1: length(goodValues)){
+  #   x <- as.vector(unlist(goodValues[[f]]))
+  #   y <- as.vector(unlist(currentValues[[f]]))
+  #   if (f %in% c(9,14)) {x <- as.numeric(x[-(1:4)]);y <- as.numeric(y[-(1:4)])}
+  #   if (f %in% c(15)) {
+  #     x <- as.numeric(unlist(goodValues[[f]][-c(1,2,5)]))
+  #     y <- as.numeric(unlist(currentValues[[f]][-c(1,2,5)]))
+  #   }
+  #   if (f %in% c(16)) {
+  #     x <- as.numeric(unlist(goodValues[[f]][-c(1)]))
+  #     y <- as.numeric(unlist(currentValues[[f]][-c(1)]))
+  #   }
+  #   if (f %in% c(21)) {
+  #     x <- as.numeric(unlist(goodValues[[f]][-1]))
+  #     y <- as.numeric(unlist(currentValues[[f]][-1]))
+  #   }
+  #   expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
+  # }
+
+})
 

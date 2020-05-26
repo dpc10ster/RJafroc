@@ -138,7 +138,8 @@ DfReadLrocDataFile <- function (RADIOLOGISTS = TRUE)
     lesionWeight = rep(0,length(zjk2Cl[1,1,,1])),
     dataType = "LROC",
     modalityID = "1",
-    readerID = readerID
+    readerID = readerID,
+    datasetName = "Ignore"
     )
 
   return (datasetCad)

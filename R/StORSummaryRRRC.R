@@ -20,7 +20,7 @@ ORSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   VarCom <- ANOVA$VarCom
   
   # a) Test for H0: Treatments have the same AUC
-  msDen <- TRanova["TR","MS"] + max(J * (VarCom["Cov2","VarCom"] - VarCom["Cov3","VarCom"]), 0)
+  msDen <- TRanova["TR","MS"] + max(J * (VarCom["Cov2",1] - VarCom["Cov3",1]), 0)
   f <- TRanova["T","MS"]/msDen
   ddf <- msDen^2/((TRanova["TR","MS"])^2/((I - 1) * (J - 1)))
   p <- 1 - pf(f, I - 1, ddf)

@@ -358,7 +358,9 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     design = design,
     normalCases = normalCases,
     abnormalCases = abnormalCases,
-    truthTableStr = truthTableStr))
+    truthTableStr = truthTableStr,
+    datasetName = "Ignore"
+  ))
 } 
 
 
@@ -858,7 +860,9 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
     design = "CROSSED", # default when using old read function
     normalCases = normalCases,
     abnormalCases = abnormalCases,
-    truthTableStr = truthTableStr))
+    truthTableStr = truthTableStr,
+    datasetName = "Ignore"
+  ))
 } 
 
 
@@ -1351,7 +1355,9 @@ ReadLrc <- function(fileName, sequentialNames)
               lesionWeight = lesionWeight, 
               dataType = dataType, 
               modalityID = modalityID, 
-              readerID = readerID))
+              readerID = readerID,
+              datasetName = "Ignore"
+  ))
 }
 
 
@@ -1488,7 +1494,9 @@ ReadImrmc <- function(fileName, sequentialNames)
     lesionWeight = lesionWeight, 
     dataType = dataType, 
     modalityID = modalityID, 
-    readerID = readerID))
+    readerID = readerID,
+    datasetName = "Ignore"
+  ))
 } 
 
 

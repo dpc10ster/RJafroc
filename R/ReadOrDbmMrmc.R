@@ -68,5 +68,14 @@ ReadOrDbmMrmc <- function(fileName, delimiter, sequentialNames) {
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  return(list(NL = NL, LL = LL, lesionVector = lesionVector, lesionID = lesionID, lesionWeight = lesionWeight, dataType = dataType, modalityID = modalityID, readerID = readerID))
+  return(list(NL = NL, 
+              LL = LL, 
+              lesionVector = lesionVector, 
+              lesionID = lesionID, 
+              lesionWeight = lesionWeight, 
+              dataType = dataType, 
+              modalityID = modalityID, 
+              readerID = readerID,
+              datasetName = "Ignore"
+  ))
 } 

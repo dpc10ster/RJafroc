@@ -21,7 +21,8 @@ ds <- list(
   lesionWeight = lesionWeight,
   dataType = dataType,
   modalityID = modalityID,
-  readerID = readerID
+  readerID = readerID,
+  datasetName = "Ignore"
 )
 
 datasetCadLroc <- ds

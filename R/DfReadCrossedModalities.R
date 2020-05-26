@@ -316,5 +316,16 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   names(modalityID2) <- modality2Names
   names(readerID) <- readerNames
   
-  return(list(NL = NL, LL = LL, lesionVector = lesionVector, lesionID = lesionIDTable, lesionWeight = lesionWeight, dataType = fileType, modalityID1 = modalityID1, modalityID2 = modalityID2, readerID = readerID))
+  return(list(
+    NL = NL, 
+    LL = LL, 
+    lesionVector = lesionVector, 
+    lesionID = lesionIDTable, 
+    lesionWeight = lesionWeight, 
+    dataType = fileType, 
+    modalityID1 = modalityID1, 
+    modalityID2 = modalityID2, 
+    readerID = readerID,
+    datasetName = "Ignore"
+  ))
 } 

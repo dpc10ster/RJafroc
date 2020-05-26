@@ -91,7 +91,8 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, lesionVecto
     lesionWeight = lesWght,
     dataType = "FROC",
     modalityID = modalityID,
-    readerID = readerID
+    readerID = readerID,
+    datasetName = "Ignore"
   )
   return(dataset)
 }
