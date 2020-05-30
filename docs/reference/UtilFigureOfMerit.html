@@ -8,11 +8,13 @@
 
 <title>Calculate empirical figures of merit (FOMs) for specified dataset — UtilFigureOfMerit • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,12 +38,11 @@
 
 
 
-<meta property="og:title" content="Calculate empirical figures of merit (FOMs) for specified dataset — UtilFigureOfMerit" />
 
+<meta property="og:title" content="Calculate empirical figures of merit (FOMs) for specified dataset — UtilFigureOfMerit" />
 <meta property="og:description" content="Calculate the specified empirical figure of merit
    for each treatment-reader combination in the 
    ROC, FROC, ROI or LROC dataset" />
-
 
 
 
@@ -88,11 +89,82 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -114,15 +186,13 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Calculate the specified empirical figure of merit
    for each treatment-reader combination in the 
    ROC, FROC, ROI or LROC dataset</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -140,12 +210,11 @@
 where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <code><a href='https://rdrr.io/r/base/c.html'>c(I, J)</a></code> array, where the row names are <code>modalityID</code>'s of the 
+    <p>An <code><a href='https://rdrr.io/r/base/c.html'>c(I, J)</a></code> dataframe, where the row names are <code>modalityID</code>'s of the 
    treatments and column names are the <code>readerID</code>'s of the readers.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The allowed FOMs depend on the <code>dataType</code> field of the 
@@ -181,7 +250,6 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.</p>
 <li><p><code>FOM = "ALROC"</code> the area under the LROC from zero to specified <code>FPFValue</code></p></li>
 </ul><p><code>FPFValue</code> The FPF at which to evaluate <code>PCL</code> or <code>ALROC</code>; 
       the default is 0.2; only needed for LROC data.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
@@ -197,27 +265,26 @@ Medical Physics, 38(10), 5690.</p>
 with Application to Mammography, Acad Radiol, 7:7 553--554.</p>
 <p>Swensson RG (1996) Unified measurement of observer performance in detecting and localizing target objects on images, 
 Med Phys 23:10, 1709--1725.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'># ROC data</span></div><div class='output co'>#&gt;           Rdr0      Rdr1      Rdr2      Rdr3      Rdr4
-#&gt; Trt0 0.9196457 0.8587762 0.9038647 0.9731079 0.8297907
-#&gt; Trt1 0.9478261 0.9053140 0.9217391 0.9993559 0.9299517</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span>(<span class='no'>dataset01</span>), <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'># FROC dataset, converted to ROC</span></div><div class='output co'>#&gt;            Rdr1      Rdr2      Rdr3      Rdr4      Rdr5
-#&gt; TrtBT 0.7959972 0.8652271 0.8411751 0.8311096 0.8465590
-#&gt; TrtDM 0.6689490 0.7211493 0.7841175 0.7979284 0.7061096</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset01</span>) <span class='co'># FROC dataset, default wAFROC FOM</span></div><div class='output co'>#&gt;            Rdr1      Rdr2      Rdr3      Rdr4      Rdr5
-#&gt; TrtBT 0.7602704 0.8406191 0.8171524 0.8153090 0.8278324
-#&gt; TrtDM 0.6425854 0.7049977 0.7518434 0.7724426 0.6836962</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;           Rdr1      Rdr2      Rdr3      Rdr4     Rdr5      Rdr6      Rdr7
-#&gt; Trt1 0.8169271 0.8415625 0.8411979 0.8997396 0.838125 0.8563542 0.8786979
-#&gt;           Rdr8      Rdr9    Rdr10
-#&gt; Trt1 0.8583854 0.7970312 0.826875</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"PCL"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;           Rdr1      Rdr2 Rdr3    Rdr4  Rdr5      Rdr6      Rdr7   Rdr8  Rdr9
-#&gt; Trt1 0.5916667 0.6945313 0.65 0.80625 0.725 0.6598214 0.7684524 0.7375 0.675
-#&gt;      Rdr10
-#&gt; Trt1 0.675</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ALROC"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;           Rdr1      Rdr2      Rdr3      Rdr4      Rdr5      Rdr6      Rdr7
-#&gt; Trt1 0.1005382 0.1075944 0.1089062 0.1447396 0.1189063 0.1000335 0.1345511
-#&gt;           Rdr8      Rdr9     Rdr10
-#&gt; Trt1 0.1221875 0.1060417 0.1054167</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetROI</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ROI"</span>) <span class='co'>#ROI data</span></div><div class='output co'>#&gt;           Rdr1      Rdr2      Rdr3      Rdr4      Rdr5
-#&gt; Trt1 0.9057239 0.8842834 0.8579279 0.9350207 0.8352103
-#&gt; Trt2 0.9297186 0.9546035 0.8937652 0.9531716 0.8770076</div><div class='input'> # these are meant to illustrate conditions which will throw an error
+    <pre class="examples"><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'># ROC data</span></div><div class='output co'>#&gt;            rdr0       rdr1       rdr2       rdr3       rdr4
+#&gt; trt0 0.91964573 0.85877617 0.90386473 0.97310789 0.82979066
+#&gt; trt1 0.94782609 0.90531401 0.92173913 0.99935588 0.92995169</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span>(<span class='no'>dataset01</span>), <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'># FROC dataset, converted to ROC</span></div><div class='output co'>#&gt;             rdr1       rdr2       rdr3       rdr4       rdr5
+#&gt; trtBT 0.79599719 0.86522706 0.84117509 0.83110955 0.84655899
+#&gt; trtDM 0.66894897 0.72114934 0.78411751 0.79792837 0.70610955</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset01</span>) <span class='co'># FROC dataset, default wAFROC FOM</span></div><div class='output co'>#&gt;             rdr1       rdr2       rdr3       rdr4       rdr5
+#&gt; trtBT 0.76027037 0.84061915 0.81715239 0.81530899 0.82783240
+#&gt; trtDM 0.64258544 0.70499766 0.75184340 0.77244265 0.68369616</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;            rdr1      rdr2       rdr3       rdr4     rdr5       rdr6       rdr7
+#&gt; trt1 0.81692708 0.8415625 0.84119792 0.89973958 0.838125 0.85635417 0.87869792
+#&gt;            rdr8       rdr9    rdr10
+#&gt; trt1 0.85838542 0.79703125 0.826875</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"PCL"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;            rdr1       rdr2 rdr3    rdr4  rdr5       rdr6       rdr7   rdr8
+#&gt; trt1 0.59166667 0.69453125 0.65 0.80625 0.725 0.65982143 0.76845238 0.7375
+#&gt;       rdr9 rdr10
+#&gt; trt1 0.675 0.675</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ALROC"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;            rdr1      rdr2       rdr3       rdr4       rdr5       rdr6
+#&gt; trt1 0.10053819 0.1075944 0.10890625 0.14473958 0.11890625 0.10003348
+#&gt;            rdr7      rdr8       rdr9      rdr10
+#&gt; trt1 0.13455109 0.1221875 0.10604167 0.10541667</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetROI</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ROI"</span>) <span class='co'>#ROI data</span></div><div class='output co'>#&gt;            rdr1       rdr2       rdr3       rdr4       rdr5
+#&gt; trt1 0.90572391 0.88428345 0.85792794 0.93502071 0.83521034
+#&gt; trt2 0.92971864 0.95460351 0.89376524 0.95317156 0.87700762</div><div class='input'> # these are meant to illustrate conditions which will throw an error
 ## UtilFigureOfMerit(dataset02, FOM = "wAFROC") #error
 ## UtilFigureOfMerit(dataset01, FOM = "Wilcoxon") #error
 

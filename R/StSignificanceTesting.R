@@ -272,6 +272,7 @@ ResamplingEstimateVarCovs <- function(resampleMatrix) {
 
 
 ORVarianceCovariances <- function(covariances) {
+  
   Var <- 0
   count <- 0
   I <- dim(covariances)[1]
@@ -282,7 +283,8 @@ ORVarianceCovariances <- function(covariances) {
       count <- count + 1
     }
   }
-  if (count > 0) Var <- Var/count else Var <- NA
+  # if (count > 0) Var <- Var/count else Var <- NA
+  if (count > 0) Var <- Var/count else Var <- 0
   
   Cov1 <- 0
   count <- 0
@@ -296,7 +298,8 @@ ORVarianceCovariances <- function(covariances) {
       }
     }
   }
-  if (count > 0) Cov1 <- Cov1/count else Cov1 <- NA
+  # if (count > 0) Cov1 <- Cov1/count else Cov1 <- NA
+  if (count > 0) Cov1 <- Cov1/count else Cov1 <- 0
   
   Cov2 <- 0
   count <- 0
@@ -310,7 +313,8 @@ ORVarianceCovariances <- function(covariances) {
       }
     }
   }
-  if (count > 0) Cov2 <- Cov2/count else Cov2 <- NA
+  # if (count > 0) Cov2 <- Cov2/count else Cov2 <- NA
+  if (count > 0) Cov2 <- Cov2/count else Cov2 <- 0
   
   Cov3 <- 0
   count <- 0
@@ -328,7 +332,8 @@ ORVarianceCovariances <- function(covariances) {
       }
     }
   }
-  if (count > 0) Cov3 <- Cov3/count else Cov3 <- NA
+  # if (count > 0) Cov3 <- Cov3/count else Cov3 <- NA
+  if (count > 0) Cov3 <- Cov3/count else Cov3 <- 0
   
   return(list(Var = Var, Cov1 = Cov1, Cov2 = Cov2, Cov3 = Cov3))
 } 
@@ -431,17 +436,14 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
       Cov3 = CovTemp$Cov3 * (K-1)^2/K
     )
   } else if (dataset$design == "SPLIT-PLOT") {
-    # I <- length(dataset$NL[,1,1,1])
-    # K <- length(dataset$NL[1,1,,1])
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-    # J <- length(ret$jkFomValues[1,,1])
     Var <- array(dim = J)
     Cov1 <- array(dim = J)
-    FOM <- ret$jkFomValues
+    # FOM <- ret$jkFomValues
     caseTransitions <- ret$caseTransitions
     for (j in 1:J) {
-      jkFOMs <- ret$jkFomValues[,j,(caseTransitions[j]+1):(caseTransitions[j+1])]
-      kj <- length(jkFOMs[1,])
+      jkFOMs <- ret$jkFomValues[,j,(caseTransitions[j]+1):(caseTransitions[j+1]), drop = FALSE]
+      kj <- length(jkFOMs)/I
       dim(jkFOMs) <- c(I,1,kj)
       x <- ResamplingEstimateVarCovs(jkFOMs)
       # not sure which way to go: was doing this until 2/18/20

@@ -8,11 +8,13 @@
 
 <title>Calculate pseudovalues — UtilPseudoValues • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Calculate pseudovalues — UtilPseudoValues" />
-
 <meta property="og:description" content="Calculates centered jackknife pseudovalues AND jackknife FOM values" />
-
 
 
 
@@ -86,11 +87,82 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -112,13 +184,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Calculates <strong>centered</strong> jackknife pseudovalues AND jackknife FOM values</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset</span>, <span class='no'>FOM</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -137,19 +207,18 @@ The default is <code>"FOM_wAFROC"</code>. See <code><a href='UtilFigureOfMerit.h
 where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list containing two <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K)</a></code> arrays containing the pseudovalues
    and the jackknife FOM values of the datasets.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>jkPseudoValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1]  0.97931941  0.88699915  0.88699915  0.97931941 -0.09159562  0.97931941
-#&gt;  [7]  0.97931941  0.97931941  0.97931941  0.97931941</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>jkFomValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.9191176 0.9199346 0.9199346 0.9191176 0.9285948 0.9191176 0.9191176
-#&gt;  [8] 0.9191176 0.9191176 0.9191176</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)$<span class='no'>jkPseudoValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.3519020 0.5829223 0.2748952 1.0156270 1.0156270 1.0156270 1.0156270
-#&gt;  [8] 0.4729126 1.0156270 1.0156270</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)$<span class='no'>jkFomValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.7285622 0.7260235 0.7294084 0.7212685 0.7212685 0.7212685 0.7212685
-#&gt;  [8] 0.7272324 0.7212685 0.7212685</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>jkPseudoValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1]  0.979319409  0.886999147  0.886999147  0.979319409 -0.091595624
+#&gt;  [6]  0.979319409  0.979319409  0.979319409  0.979319409  0.979319409</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>jkFomValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.91911765 0.91993464 0.91993464 0.91911765 0.92859477 0.91911765
+#&gt;  [7] 0.91911765 0.91911765 0.91911765 0.91911765</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)$<span class='no'>jkPseudoValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.35190200 0.58292231 0.27489523 1.01562701 1.01562701 1.01562701
+#&gt;  [7] 1.01562701 0.47291264 1.01562701 1.01562701</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)$<span class='no'>jkFomValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.72856222 0.72602353 0.72940845 0.72126854 0.72126854 0.72126854
+#&gt;  [7] 0.72126854 0.72723243 0.72126854 0.72126854</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

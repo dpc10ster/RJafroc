@@ -68,33 +68,35 @@ ORSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # Df same as df(error term) from (a)
   # 95% CI: Difference +- t(.025;df) * StdErr
   
-  #   c) Single-treatment 95% confidence intervals
-  # (Each analysis is based only on data for the specified treatment, i.e., 
-  #   on the treatment-specific reader ANOVA of AUCs and Cov2 estimates.)
-  df <- array(dim = I)
-  msDenSingle <- array(dim = I)
-  stdErr <- array(dim = I)
-  CI <- array(dim = c(I, 2))
-  ci <- data.frame()
-  for (i in 1:I) {
-    # Hillis 2007 5.3. Single test inference using only corresponding data
-    msDenSingle[i] <- ANOVA$IndividualTrt[i, "msREachTrt"] + max(J * ANOVA$IndividualTrt[i, "cov2EachTrt"], 0)
-    df[i] <- (msDenSingle[i])^2/(ANOVA$IndividualTrt[i, "msREachTrt"])^2 * (J - 1)
-    stdErr[i] <- sqrt(msDenSingle[i]/J) # Eqn. 25
-    CI[i,] <- c(trtMeans[i,1] + qt(alpha/2, df[i]) * stdErr[i], 
-                trtMeans[i,1] + qt(1-alpha/2, df[i]) * stdErr[i]) # Eqn. 25
-    rowName <- paste0("trt", modalityID[i])
-    ci <- rbind(ci, data.frame(Estimate = trtMeans[i,1], 
-                               StdErr = stdErr[i],
-                               DF = df[i],
-                               CILower = CI[i,1],
-                               CIUpper = CI[i,2],
-                               Cov2 = ANOVA$IndividualTrt[i,"cov2EachTrt"],
-                               row.names = rowName,
-                               stringsAsFactors = FALSE))
-  }
-  RRRC$ciAvgRdrEachTrt <- ci
-
+  # if (dataset$design == "CROSSED") {
+    #   c) Single-treatment 95% confidence intervals
+    # (Each analysis is based only on data for the specified treatment, i.e., 
+    #   on the treatment-specific reader ANOVA of AUCs and Cov2 estimates.)
+    df <- array(dim = I)
+    msDenSingle <- array(dim = I)
+    stdErr <- array(dim = I)
+    CI <- array(dim = c(I, 2))
+    ci <- data.frame()
+    for (i in 1:I) {
+      # Hillis 2007 5.3. Single test inference using only corresponding data
+      msDenSingle[i] <- ANOVA$IndividualTrt[i, "msREachTrt"] + max(J * ANOVA$IndividualTrt[i, "cov2EachTrt"], 0)
+      df[i] <- (msDenSingle[i])^2/(ANOVA$IndividualTrt[i, "msREachTrt"])^2 * (J - 1)
+      stdErr[i] <- sqrt(msDenSingle[i]/J) # Eqn. 25
+      CI[i,] <- c(trtMeans[i,1] + qt(alpha/2, df[i]) * stdErr[i], 
+                  trtMeans[i,1] + qt(1-alpha/2, df[i]) * stdErr[i]) # Eqn. 25
+      rowName <- paste0("trt", modalityID[i])
+      ci <- rbind(ci, data.frame(Estimate = trtMeans[i,1], 
+                                 StdErr = stdErr[i],
+                                 DF = df[i],
+                                 CILower = CI[i,1],
+                                 CIUpper = CI[i,2],
+                                 Cov2 = ANOVA$IndividualTrt[i,"cov2EachTrt"],
+                                 row.names = rowName,
+                                 stringsAsFactors = FALSE))
+    }
+    RRRC$ciAvgRdrEachTrt <- ci
+  # } else RRRC$ciAvgRdrEachTrt <- NA
+  
   # StdErr = sqrt{1/r * [MS(R) + r*max(Cov2,0)]}
   # Df = [MS(R)+ max(r*cov2,0)]**2/[(MS(R)**2/(r-1)]
   # Note: Df is called "ddf_H_single" in Hillis (2007)

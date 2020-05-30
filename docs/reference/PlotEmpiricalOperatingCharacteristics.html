@@ -8,11 +8,13 @@
 
 <title>Plot empirical operating characteristics, ROC, FROC or LROC — PlotEmpiricalOperatingCharacteristics • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,12 +38,11 @@
 
 
 
-<meta property="og:title" content="Plot empirical operating characteristics, ROC, FROC or LROC — PlotEmpiricalOperatingCharacteristics" />
 
+<meta property="og:title" content="Plot empirical operating characteristics, ROC, FROC or LROC — PlotEmpiricalOperatingCharacteristics" />
 <meta property="og:description" content="Plot empirical operating characteristics (operating points connected by straight 
    lines) for specified modalities and readers, or, if desired, plots 
    (no operating points) averaged over specified modalities and / or readers." />
-
 
 
 
@@ -88,11 +89,82 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -114,11 +186,9 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Plot empirical operating characteristics (operating points connected by straight 
    lines) for specified modalities and readers, or, if desired, plots 
    (no operating points) averaged over specified modalities and / or readers.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(
@@ -128,7 +198,7 @@
   <span class='no'>opChType</span>,
   <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.8</span>, <span class='fl'>0.2</span>)
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -158,7 +228,7 @@ Default is 1.</p></td>
 i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <span class="pkg">ggplot2</span> object containing the operating characteristic plot(s) 
@@ -173,7 +243,6 @@ operating points, they are not shown.</p></dd>
 codes modality and reader) and type, which can be <code>"individual"</code>, 
 <code>"continuous"</code>, i.e., more than 20 operating points, or <code>"rdrAveraged"</code>.</p></dd>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>trts</code> and <code>rdrs</code> are vectors or lists of <strong>integer</strong>  
@@ -188,7 +257,6 @@ codes modality and reader) and type, which can be <code>"individual"</code>,
    readers lists are vectors, the average operating characteristic over the 
    implied modalities and / or readers are plotted. See Example 2.</p>   
 <p>For <code>LROC</code> datasets, <code>opChType</code> can be "ROC" or "LROC".</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example 1</span>
@@ -233,7 +301,7 @@ codes modality and reader) and type, which can be <code>"individual"</code>,
 <span class='co'>## Correspondences between indices and string identifiers for modalities and </span>
 <span class='co'>## readers in this dataset. Apparently reader "2" did not complete the study.</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset04</span>)</div><div class='output co'>#&gt; List of 12
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset04</span>)</div><div class='output co'>#&gt; List of 13
 #&gt;  $ NL           : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
 #&gt;  $ LL           : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...
 #&gt;  $ lesionVector : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...
@@ -247,7 +315,8 @@ codes modality and reader) and type, which can be <code>"individual"</code>,
 #&gt;  $ design       : chr "CROSSED"
 #&gt;  $ normalCases  : int [1:100] 100 101 102 103 104 105 106 107 108 109 ...
 #&gt;  $ abnormalCases: int [1:100] 0 1 2 3 4 5 6 7 8 9 ...
-#&gt;  $ truthTableStr: num [1:5, 1:4, 1:200, 1:4] 1 1 1 1 1 1 1 1 1 1 ...</div><div class='input'>
+#&gt;  $ truthTableStr: num [1:5, 1:4, 1:200, 1:4] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ datasetName  : chr "Federica"</div><div class='input'>
 ## List of 8
 ## NL          : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
 ## LL          : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...

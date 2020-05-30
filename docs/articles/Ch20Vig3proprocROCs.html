@@ -6,19 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 20, Vignette 3: PROPROC ROCs and pdfs • RJafroc</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Chapter 20, Vignette 3: PROPROC ROCs and pdfs">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="RJafroc">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
       </span>
     </div>
 
@@ -132,13 +132,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="Ch20Vig3proprocROCs_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Chapter 20, Vignette 3: PROPROC ROCs and pdfs</h1>
+      <h1 data-toc-skip>Chapter 20, Vignette 3: PROPROC ROCs and pdfs</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-01-13</h4>
+            <h4 class="date">2020-05-29</h4>
       
       
       <div class="hidden name"><code>Ch20Vig3proprocROCs.Rmd</code></div>
@@ -159,38 +159,38 @@
 <div id="main-code-and-output" class="section level2">
 <h2 class="hasAnchor">
 <a href="#main-code-and-output" class="anchor"></a>Main code and output</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">c1Arr &lt;-<span class="st">   </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">0.1322804</span>, <span class="fl">0.2225588</span>); daArr  &lt;-<span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.197239</span>, <span class="fl">1.740157</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2">myLabel &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)</a>
-<a class="sourceLine" id="cb1-3" title="3">myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-5" title="5">{</a>
-<a class="sourceLine" id="cb1-6" title="6">  c1 &lt;-<span class="st"> </span>c1Arr[i]</a>
-<a class="sourceLine" id="cb1-7" title="7">  da &lt;-<span class="st"> </span>daArr[i]</a>
-<a class="sourceLine" id="cb1-8" title="8">  ret &lt;-<span class="st"> </span><span class="kw">Transform2ab</span>(da, c1)</a>
-<a class="sourceLine" id="cb1-9" title="9">  a &lt;-<span class="st"> </span>ret<span class="op">$</span>a;b &lt;-<span class="st"> </span>ret<span class="op">$</span>b</a>
-<a class="sourceLine" id="cb1-10" title="10">  <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) z &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dt">by =</span> <span class="fl">0.01</span>) <span class="co"># may need to adjust limits to view detail of slope plot</span></a>
-<a class="sourceLine" id="cb1-11" title="11">  <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) z &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>) <span class="co"># may need to adjust limits to view detail of slope plot</span></a>
-<a class="sourceLine" id="cb1-12" title="12">  </a>
-<a class="sourceLine" id="cb1-13" title="13">  FPF &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0.0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</a>
-<a class="sourceLine" id="cb1-14" title="14">  TPF &lt;-<span class="st"> </span><span class="kw">rocY</span>(FPF, a, b)</a>
-<a class="sourceLine" id="cb1-15" title="15">  </a>
-<a class="sourceLine" id="cb1-16" title="16">  rocPlot &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF)</a>
-<a class="sourceLine" id="cb1-17" title="17">  plotRoc &lt;-<span class="st"> </span><span class="kw">ggplot</span>(rocPlot, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> TPF)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-18" title="18"><span class="st">    </span><span class="kw">geom_line</span>()  <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-19" title="19"><span class="st">   </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-20" title="20"><span class="st">    </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>))   <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-21" title="21"><span class="st">    </span><span class="kw">ggtitle</span>(myLabel[myLabelIndx]);myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb1-22" title="22"></a>
-<a class="sourceLine" id="cb1-23" title="23">  slope &lt;-b<span class="op">*</span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span>(a<span class="op">-</span>b<span class="op">*</span>z)<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span>(<span class="op">-</span>z) <span class="co"># same as likelihood ratio</span></a>
-<a class="sourceLine" id="cb1-24" title="24">  </a>
-<a class="sourceLine" id="cb1-25" title="25">  slopePlot &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">z =</span> z, <span class="dt">slope =</span> slope)</a>
-<a class="sourceLine" id="cb1-26" title="26">  p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(slopePlot, <span class="kw">aes</span>(<span class="dt">x =</span> z, <span class="dt">y =</span> slope)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-27" title="27"><span class="st">    </span><span class="kw">geom_line</span>()  <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-28" title="28"><span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-29" title="29"><span class="st">    </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>))  <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-30" title="30"><span class="st">    </span><span class="kw">ggtitle</span>(myLabel[myLabelIndx]);myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb1-31" title="31">  <span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(plotRoc);<span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(p)</a>
-<a class="sourceLine" id="cb1-32" title="32">}</a></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">c1Arr</span> <span class="kw">&lt;-</span>   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">0.1322804</span>, <span class="fl">0.2225588</span>); <span class="no">daArr</span>  <span class="kw">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.197239</span>, <span class="fl">1.740157</span>)
+<span class="no">myLabel</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)
+<span class="no">myLabelIndx</span> <span class="kw">&lt;-</span> <span class="fl">1</span>
+<span class="kw">for</span> (<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="fl">2</span>)
+{
+  <span class="no">c1</span> <span class="kw">&lt;-</span> <span class="no">c1Arr</span>[<span class="no">i</span>]
+  <span class="no">da</span> <span class="kw">&lt;-</span> <span class="no">daArr</span>[<span class="no">i</span>]
+  <span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu">Transform2ab</span>(<span class="no">da</span>, <span class="no">c1</span>)
+  <span class="no">a</span> <span class="kw">&lt;-</span> <span class="no">ret</span>$<span class="no">a</span>;<span class="no">b</span> <span class="kw">&lt;-</span> <span class="no">ret</span>$<span class="no">b</span>
+  <span class="kw">if</span> (<span class="no">i</span> <span class="kw">==</span> <span class="fl">1</span>) <span class="no">z</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(-<span class="fl">3</span>, <span class="fl">0</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fl">0.01</span>) <span class="co"># may need to adjust limits to view detail of slope plot</span>
+  <span class="kw">if</span> (<span class="no">i</span> <span class="kw">==</span> <span class="fl">2</span>) <span class="no">z</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(-<span class="fl">3</span>, <span class="fl">5</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fl">0.01</span>) <span class="co"># may need to adjust limits to view detail of slope plot</span>
+
+  <span class="no">FPF</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0.0</span>, <span class="fl">1</span>, <span class="fl">0.001</span>)
+  <span class="no">TPF</span> <span class="kw">&lt;-</span> <span class="fu">rocY</span>(<span class="no">FPF</span>, <span class="no">a</span>, <span class="no">b</span>)
+
+  <span class="no">rocPlot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">FPF</span> <span class="kw">=</span> <span class="no">FPF</span>, <span class="kw">TPF</span> <span class="kw">=</span> <span class="no">TPF</span>)
+  <span class="no">plotRoc</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(<span class="no">rocPlot</span>, <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">FPF</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">TPF</span>)) +
+    <span class="fu">geom_line</span>()  +
+   <span class="fu">scale_x_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) +
+    <span class="fu">scale_y_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>))   +
+    <span class="fu">ggtitle</span>(<span class="no">myLabel</span>[<span class="no">myLabelIndx</span>]);<span class="no">myLabelIndx</span> <span class="kw">&lt;-</span> <span class="no">myLabelIndx</span> + <span class="fl">1</span>
+
+  <span class="no">slope</span> <span class="kw">&lt;-</span><span class="no">b</span>*<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span>(<span class="no">a</span>-<span class="no">b</span>*<span class="no">z</span>)/<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span>(-<span class="no">z</span>) <span class="co"># same as likelihood ratio</span>
+
+  <span class="no">slopePlot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">z</span> <span class="kw">=</span> <span class="no">z</span>, <span class="kw">slope</span> <span class="kw">=</span> <span class="no">slope</span>)
+  <span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(<span class="no">slopePlot</span>, <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">z</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">slope</span>)) +
+    <span class="fu">geom_line</span>()  +
+    <span class="fu">scale_x_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) +
+    <span class="fu">scale_y_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>))  +
+    <span class="fu">ggtitle</span>(<span class="no">myLabel</span>[<span class="no">myLabelIndx</span>]);<span class="no">myLabelIndx</span> <span class="kw">&lt;-</span> <span class="no">myLabelIndx</span> + <span class="fl">1</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">plotRoc</span>);<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">p</span>)
+}</pre></body></html></div>
 <p><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-2.png" width="700"><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-3.png" width="700"><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-4.png" width="700"></p>
 </div>
 <div id="discussion" class="section level2">
@@ -203,18 +203,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#helper-functions">Helper functions</a></li>
-      <li><a href="#definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters">Definitions of PROPROC parameters in terms of binormal model parameters</a></li>
-      <li><a href="#main-code-and-output">Main code and output</a></li>
-      <li><a href="#discussion">Discussion</a></li>
-      </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -225,7 +218,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

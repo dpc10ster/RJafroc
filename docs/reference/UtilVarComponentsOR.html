@@ -8,11 +8,13 @@
 
 <title>Utility for Obuchowski-Rockette variance components — UtilVarComponentsOR • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Utility for Obuchowski-Rockette variance components — UtilVarComponentsOR" />
-
 <meta property="og:description" content="Utility for Obuchowski-Rockette variance components" />
-
 
 
 
@@ -86,11 +87,82 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -112,9 +184,7 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Utility for Obuchowski-Rockette variance components</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>UtilVarComponentsOR</span>(
@@ -125,7 +195,7 @@
   <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>200</span>,
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -159,27 +229,57 @@ seed for the random number generator, the default is <code>NULL</code>, as if no
 has been specified.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list object containing the variance components.</p>
-    
+    <p>A list object containing the following <code>data.frames</code>:</p><ul>
+<li><p><code>foms</code>: the figures of merit for different treatment-reader combinations</p></li>
+<li><p><code>TRanova</code>: the OR treatment-reader ANOVA table</p></li>
+<li><p><code>VarCom</code>: the OR variance-components <code>Cov1</code>, <code>Cov2</code>, 
+    <code>Cov3</code>, <code>Var</code> and correlations <code>rho1</code>, <code>rho2</code> and <code>rho3</code></p></li>
+<li><p><code>IndividualTrt</code>: the individual treatment mean-squares, <code>Var</code> and <code>Cov2</code> values</p></li>
+<li><p><code>IndividualRdr</code>: the individual reader mean-squares, <code>Var</code> and <code>Cov1</code> values</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The variance components are obtained using <a href='StSignificanceTesting.html'>StSignificanceTesting</a> 
     with <code>method = "ORH"</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>varComp</span></div><div class='output co'>#&gt;          varR        varTR         cov1         cov2         cov3          var
-#&gt; 1 0.001534999 0.0002004025 0.0003466137 0.0003440748 0.0002390284 0.0008022883</div><div class='input'><span class='co'>## uses the default jackknife for covEstMethod</span>
-
+    <pre class="examples"><div class='input'><span class='co'>## uses the default jackknife for covEstMethod</span>
+<span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>foms</span></div><div class='output co'>#&gt; NULL</div><div class='input'><span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>TRanova</span></div><div class='output co'>#&gt;              SS DF            MS
+#&gt; T  0.0047961705  1 0.00479617053
+#&gt; R  0.0153448000  4 0.00383619999
+#&gt; TR 0.0022041225  4 0.00055103062</div><div class='input'><span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>VarCom</span></div><div class='output co'>#&gt;           Estimates       Rhos
+#&gt; VarR  0.00153499935         NA
+#&gt; VarTR 0.00020040252         NA
+#&gt; Cov1  0.00034661371 0.43203138
+#&gt; Cov2  0.00034407483 0.42886683
+#&gt; Cov3  0.00023902837 0.29793328
+#&gt; Var   0.00080228827         NA</div><div class='input'><span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>IndividualTrt</span></div><div class='output co'>#&gt;      DF   msREachTrt    varEachTrt   cov2EachTrt
+#&gt; trt0  4 0.0030826287 0.00101410277 0.00048396180
+#&gt; trt1  4 0.0013046019 0.00059047376 0.00020418785</div><div class='input'><span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>IndividualRdr</span></div><div class='output co'>#&gt;      DF    msTEachRdr    varEachRdr   cov1EachRdr
+#&gt; rdr0  1 0.00039706618 0.00069890056 3.7346610e-04
+#&gt; rdr1  1 0.00108288538 0.00110605283 7.6015978e-04
+#&gt; rdr2  1 0.00015974702 0.00084234345 3.5532241e-04
+#&gt; rdr3  1 0.00034447841 0.00015057773 1.0833995e-06
+#&gt; rdr4  1 0.00501611603 0.00121356676 2.4303685e-04</div><div class='input'>
 <span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>,
-   <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"bootstrap"</span>, <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>2000</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>100</span>)$<span class='no'>varComp</span></div><div class='output co'>#&gt;          varR        varTR         cov1         cov2         cov3          var
-#&gt; 1 0.001550824 0.0001945136 0.0003283333 0.0003392677 0.0002365723 0.0007875458</div><div class='input'>
-<span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>,
-   <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"DeLong"</span>)$<span class='no'>varComp</span></div><div class='output co'>#&gt;          varR       varTR        cov1         cov2         cov3          var
-#&gt; 1 0.001536425 0.000204584 0.000342009 0.0003395265 0.0002358497 0.0007921325</div><div class='input'>  
+   <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"bootstrap"</span>, <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>2000</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>100</span>)$<span class='no'>VarCom</span></div><div class='output co'>#&gt;           Estimates       Rhos
+#&gt; VarR  0.00155082365         NA
+#&gt; VarTR 0.00019451356         NA
+#&gt; Cov1  0.00032833333 0.41690698
+#&gt; Cov2  0.00033926769 0.43079107
+#&gt; Cov3  0.00023657230 0.30039181
+#&gt; Var   0.00078754579         NA</div><div class='input'>
+<span class='fu'>UtilVarComponentsOR</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"DeLong"</span>)$<span class='no'>VarCom</span></div><div class='output co'>#&gt;           Estimates       Rhos
+#&gt; VarR  0.00153642538         NA
+#&gt; VarTR 0.00020458400         NA
+#&gt; Cov1  0.00034200896 0.43175729
+#&gt; Cov2  0.00033952653 0.42862343
+#&gt; Cov3  0.00023584965 0.29774017
+#&gt; Var   0.00079213245         NA</div><div class='input'>  
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

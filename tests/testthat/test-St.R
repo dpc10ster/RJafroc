@@ -19,28 +19,28 @@
 #############################################################################
 
 
-# context("StSignificanceTesting-datasetFROCSp-wAFROC")
-# test_that("StSignificanceTesting-datasetFROCSp-wAFROC", {
-# 
-#   dataset <- datasetFROCSp
-# 
-#   fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSp-wAFROC", ".rds")
-#   if (!file.exists(fn)) {
-#     warning(paste0("File not found - generating new ",fn))
-#     x1 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
-#     saveRDS(x1, file = fn)
-#   }
-# 
-#   x1 <- readRDS(fn)
-#   x2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
-# 
-#   expect_equal(x1,x2)
-# 
-#   expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBMH"))
-#   expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "bootstrap"))
-#   expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "DeLong"))
-# 
-# })
+context("StSignificanceTesting-datasetFROCSp-wAFROC")
+test_that("StSignificanceTesting-datasetFROCSp-wAFROC", {
+
+  dataset <- datasetFROCSp
+
+  fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSp-wAFROC", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    x1 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+    saveRDS(x1, file = fn)
+  }
+
+  x1 <- readRDS(fn)
+  x2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+
+  expect_equal(x1,x2)
+
+  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBMH"))
+  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "bootstrap"))
+  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "DeLong"))
+
+})
 
 
 

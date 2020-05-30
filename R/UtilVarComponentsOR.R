@@ -77,9 +77,9 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   ssArray <- msArray * dfArray
   
   TRanova <- data.frame("SS" = ssArray, 
-                          "DF" = dfArray, 
-                          "MS" = msArray,
-                          stringsAsFactors = FALSE)  
+                        "DF" = dfArray, 
+                        "MS" = msArray,
+                        stringsAsFactors = FALSE)  
   rownames(TRanova) <- c("T", "R", "TR")
   
   # single treatment msR_i ############################################################
@@ -91,8 +91,15 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   }
   msR_i <- msR_i/(J - 1)
   
-  varEachTrt <- vector(length = I)
+  # for (i in 1:I) {
+  #   if (dataset$design != "SPLIT_PLOT") {
+  #     cov2EachTrt <- vector(length = I)
+  #   } else  {
+  #     cov2EachTrt <- rep(0, I)
+  #   }
+  # }
   cov2EachTrt <- vector(length = I)
+  varEachTrt <- vector(length = I)
   for (i in 1:I) {
     dsi <- DfExtractDataset(dataset, trts = i)
     ret <- gpfEstimateVarCov(dsi, FOM, FPFValue, nBoots, covEstMethod, seed)
@@ -102,11 +109,12 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   
   modID <- as.vector(dataset$modalityID)
   IndividualTrt <- data.frame(DF = rep(J-1, I), 
-                          msREachTrt = msR_i, 
-                          varEachTrt = varEachTrt, 
-                          cov2EachTrt = cov2EachTrt, 
-                          row.names = paste0("trt", modID),
-                          stringsAsFactors = FALSE)
+                              msREachTrt = msR_i, 
+                              varEachTrt = varEachTrt, 
+                              cov2EachTrt = cov2EachTrt, 
+                              row.names = paste0("trt", modID),
+                              stringsAsFactors = FALSE)
+  # } else IndividualTrt <- NA # these are not defined for split-plot datasets
   
   # single reader msT_j ###############################################################
   msT_j <- array(0, dim = J)
@@ -128,11 +136,11 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   
   rdrID <- as.vector(dataset$readerID)
   IndividualRdr <- data.frame(DF = rep(I-1, J), 
-                          msTEachRdr = msT_j, 
-                          varEachRdr = varEachRdr, 
-                          cov1EachRdr = cov1EachRdr, 
-                          row.names = paste0("rdr", rdrID),
-                          stringsAsFactors = FALSE)
+                              msTEachRdr = msT_j, 
+                              varEachRdr = varEachRdr, 
+                              cov1EachRdr = cov1EachRdr, 
+                              row.names = paste0("rdr", rdrID),
+                              stringsAsFactors = FALSE)
   
   #####################################################################################
   ret <- gpfEstimateVarCov(dataset, FOM, FPFValue, nBoots, covEstMethod, seed)
@@ -145,9 +153,9 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   VarTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0)
   VarR <- (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - VarTR)/I
   VarCom <- data.frame(Estimates = c(VarR, VarTR, Cov1, Cov2, Cov3, Var), 
-             Rhos = c(NA, NA, Cov1/Var, Cov2/Var, Cov3/Var, NA),
-             row.names = c("VarR", "VarTR", "Cov1", "Cov2", "Cov3", "Var"),
-             stringsAsFactors = FALSE)
+                       Rhos = c(NA, NA, Cov1/Var, Cov2/Var, Cov3/Var, NA),
+                       row.names = c("VarR", "VarTR", "Cov1", "Cov2", "Cov3", "Var"),
+                       stringsAsFactors = FALSE)
   return(list(
     TRanova = TRanova,
     VarCom = VarCom,

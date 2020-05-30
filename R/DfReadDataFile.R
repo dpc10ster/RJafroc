@@ -546,7 +546,7 @@ checkTruthTable <- function (truthTable)
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
   
   if (!(dataType %in% c("FROC", "ROC"))) stop("Unsupported declared dataType: must be ROC or FROC.\n")
-  if (!(design %in% c("CROSSED", "SPLIT-PLOT"))) stop("Unsupported declared study design: must be crossed or split-plot\n")
+  if (!(design %in% c("CROSSED", "SPLIT-PLOT"))) stop("Study design must be CROSSED or SPLIT-PLOT\n")
   
   if (dataType == "ROC") {
     if ((design == "CROSSED") && (sum(!is.na(truthTableStr)) != 

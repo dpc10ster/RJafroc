@@ -6,19 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm • RJafroc</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="RJafroc">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
       </span>
     </div>
 
@@ -132,13 +132,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="Ch30Vig1RoiParadigm_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</h1>
+      <h1 data-toc-skip>Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-01-13</h4>
+            <h4 class="date">2020-05-29</h4>
       
       
       <div class="hidden name"><code>Ch30Vig1RoiParadigm.Rmd</code></div>
@@ -151,7 +151,7 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <ul>
-<li><p>In the region-of-interest (ROI) paradigm <span class="citation">(Obuchowski 1997,@RN55)</span> each case is regarded as consisting of <span class="math inline">\({{Q}_{k}}\)</span> (<span class="math inline">\({{Q}_{k}}\ge 1\)</span>) “quadrants” or “regions-of-interest” or ROIs, where <em>k</em> is the case index (<span class="math inline">\(k=1,2,...,K\)</span>) and <span class="math inline">\(K\)</span> is the total number of cases (i.e., case-level non-diseased plus case-level diseased cases). Each ROI needs to be classified, by the investigator, as either ROI-level-non-diseased (i.e., it has no lesions) or ROI-level-diseased (i.e., it has at least one lesion). <strong>Note the distinction between case-level and ROI-level truth states.</strong> One can have ROI-level non-diseased regions in a case-level diseased case. A case-level diseased case must contain at least one ROI-level diseased region and a case-level non-diseased case cannot have any ROI-level diseased regions.</p></li>
+<li><p>In the region-of-interest (ROI) paradigm <span class="citation">(Obuchowski 1997, @RN55)</span> each case is regarded as consisting of <span class="math inline">\({{Q}_{k}}\)</span> (<span class="math inline">\({{Q}_{k}}\ge 1\)</span>) “quadrants” or “regions-of-interest” or ROIs, where <em>k</em> is the case index (<span class="math inline">\(k=1,2,...,K\)</span>) and <span class="math inline">\(K\)</span> is the total number of cases (i.e., case-level non-diseased plus case-level diseased cases). Each ROI needs to be classified, by the investigator, as either ROI-level-non-diseased (i.e., it has no lesions) or ROI-level-diseased (i.e., it has at least one lesion). <strong>Note the distinction between case-level and ROI-level truth states.</strong> One can have ROI-level non-diseased regions in a case-level diseased case. A case-level diseased case must contain at least one ROI-level diseased region and a case-level non-diseased case cannot have any ROI-level diseased regions.</p></li>
 <li><p>The observer gives a single rating (in fact an ordered label) to each ROI, denoted <span class="math inline">\({{R}_{kr}}\)</span> (<span class="math inline">\(r\)</span> = 1, 2, …, <span class="math inline">\({{Q}_{k}}\)</span>). Here <span class="math inline">\(r\)</span> is the ROI index and <span class="math inline">\(k\)</span> is the case index. The rating can be an integer or quasi- continuous (e.g., 0 – 100), or a floating point value, as long as higher numbers represent greater confidence in presence of one or more lesions in the ROI.</p></li>
 <li><p>The ROI paradigm is not restricted to 4 or even a constant number of ROIs per case. That is the reason for the <em>k</em> subscript in <span class="math inline">\({{Q}_{k}}\)</span>.</p></li>
 <li><p>The ROI data structure is a special case of the FROC data structure, the essential difference being that the number of ratings per case is an a-priori known value, equal to <span class="math inline">\({{Q}_{k}}\)</span>.</p></li>
@@ -163,36 +163,36 @@
 <h2 class="hasAnchor">
 <a href="#an-example-roi-dataset" class="anchor"></a>An example ROI dataset</h2>
 <p>An example simulated ROI dataset is included as <code>datasetROI</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(datasetROI)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt; List of 8</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt;  $ NL          : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt;  $ LL          : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...</span></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt;  $ lesionVector: int [1:40] 2 3 2 2 3 3 1 2 3 3 ...</span></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt;  $ lesionID    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt;  $ lesionWeight: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...</span></a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt;  $ dataType    : chr "ROI"</span></a>
-<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt;  $ modalityID  : Named chr [1:2] "1" "2"</span></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "1" "2"</span></a>
-<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt;  $ readerID    : Named chr [1:5] "1" "2" "3" "4" ...</span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span></a>
-<a class="sourceLine" id="cb1-13" title="13">datasetROI<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,]</a>
-<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span></a>
-<a class="sourceLine" id="cb1-15" title="15"><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(datasetROI<span class="op">$</span>NL[,,<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>,])</a>
-<a class="sourceLine" id="cb1-16" title="16"><span class="co">#&gt; [1] 0.1014348</span></a>
-<a class="sourceLine" id="cb1-17" title="17">datasetROI<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">51</span>,]</a>
-<a class="sourceLine" id="cb1-18" title="18"><span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span></a>
-<a class="sourceLine" id="cb1-19" title="19">datasetROI<span class="op">$</span>lesionVector[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb1-20" title="20"><span class="co">#&gt; [1] 2</span></a>
-<a class="sourceLine" id="cb1-21" title="21">datasetROI<span class="op">$</span>LL[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,]</a>
-<a class="sourceLine" id="cb1-22" title="22"><span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span></a>
-<a class="sourceLine" id="cb1-23" title="23">x &lt;-<span class="st"> </span>datasetROI<span class="op">$</span>LL;<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(x[<span class="kw"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(x)])</a>
-<a class="sourceLine" id="cb1-24" title="24"><span class="co">#&gt; [1] 1.815513</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">datasetROI</span>)
+<span class="co">#&gt; List of 9</span>
+<span class="co">#&gt;  $ NL          : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span>
+<span class="co">#&gt;  $ LL          : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...</span>
+<span class="co">#&gt;  $ lesionVector: int [1:40] 2 3 2 2 3 3 1 2 3 3 ...</span>
+<span class="co">#&gt;  $ lesionID    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...</span>
+<span class="co">#&gt;  $ lesionWeight: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...</span>
+<span class="co">#&gt;  $ dataType    : chr "ROI"</span>
+<span class="co">#&gt;  $ modalityID  : Named chr [1:2] "1" "2"</span>
+<span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "1" "2"</span>
+<span class="co">#&gt;  $ readerID    : Named chr [1:5] "1" "2" "3" "4" ...</span>
+<span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span>
+<span class="co">#&gt;  $ datasetName : chr "SimulatedRoi"</span>
+<span class="no">datasetROI</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
+<span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">datasetROI</span>$<span class="no">NL</span>[,,<span class="fl">1</span>:<span class="fl">50</span>,])
+<span class="co">#&gt; [1] 0.1014348</span>
+<span class="no">datasetROI</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">51</span>,]
+<span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span>
+<span class="no">datasetROI</span>$<span class="no">lesionVector</span>[<span class="fl">1</span>]
+<span class="co">#&gt; [1] 2</span>
+<span class="no">datasetROI</span>$<span class="no">LL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
+<span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span>
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="no">datasetROI</span>$<span class="no">LL</span>;<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(<span class="no">x</span>)])
+<span class="co">#&gt; [1] 1.815513</span></pre></body></html></div>
 <p>Examination of the output reveals that:</p>
 <ul>
 <li><p>This is a 2-treatment 5-reader dataset, with 50 non-diseased cases and 40 diseased cases, and <span class="math inline">\({{Q}_{k}}=4\)</span> for all <em>k</em>.</p></li>
 <li><p>For treatment 1, reader 1, case 1 (the 1st non-diseased case) the 4 ratings are 0.949868, -0.0582497, -0.776378, 0.012073. The mean of all ratings on non-diseased cases is 0.1014348.</p></li>
-<li>For treatment 1, reader 1, case 51 (the 1st diseased case) the NL ratings are 1.01867, 0.3471. There are only two finite values because this case has two ROI-level-diseased regions, and 2 plus 2 makes for the assumed 4-regions per case. The corresponding <code>$lesionVector</code> field is 2.<br>
-</li>
+<li><p>For treatment 1, reader 1, case 51 (the 1st diseased case) the NL ratings are 1.01867, 0.3471. There are only two finite values because this case has two ROI-level-diseased regions, and 2 plus 2 makes for the assumed 4-regions per case. The corresponding <code>$lesionVector</code> field is 2.<br></p></li>
 <li><p>The ratings of the 2 ROI-level-diseased ROIs on this case are 1.56928, 2.05945. The mean rating over all ROI-level-diseased ROIs is 1.8155127.</p></li>
 </ul>
 </div>
@@ -200,10 +200,10 @@
 <h2 class="hasAnchor">
 <a href="#the-roi-excel-data-file" class="anchor"></a>The ROI Excel data file</h2>
 <p>An Excel file in JAFROC format containing simulated ROI data corresponding to <code>datasetROI</code>, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object <code>ds</code>. !!!DPC!!!</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co">## fileName &lt;- system.file(</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="co">##     "extdata", "RoiData.xlsx", package = "RJafroc", mustWork = TRUE)</span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co">## ds &lt;- DfReadDataFile(fileName)</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co">## ds$dataType</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r">## fileName &lt;- system.file(
+##     "extdata", "RoiData.xlsx", package = "RJafroc", mustWork = TRUE)
+## ds &lt;- DfReadDataFile(fileName)
+## ds$dataType</pre></body></html></div>
 <p>The <code>DfReadDataFile</code> function automatically recognizes that this is an <em>ROI</em> dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets:</p>
 <p><img src="images/ROI-Truth-1.png" style="width:100.0%"><img src="images/ROI-Truth-2.png" style="width:100.0%"></p>
 <ul>
@@ -250,27 +250,22 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references">
+<div id="refs" class="references hanging-indent">
 <div id="ref-RN1233">
 <p>Obuchowski, Nancy A. 1997. “Nonparametric Analysis of Clustered Roc Curve Data.” Journal Article. <em>Biometrics</em> 53: 567–78.</p>
+</div>
+<div id="ref-RN55">
+<p>Obuchowski, Nancy A., Michael L. Lieber, and Kimerly A. Powell. 2000. “Data Analysis for Detection and Localization of Multiple Abnormalities with Application to Mammography.” Journal Article. <em>Acad. Radiol.</em> 7 (7): 516–25.</p>
 </div>
 </div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
-      <li><a href="#an-example-roi-dataset">An example ROI dataset</a></li>
-      <li><a href="#the-roi-excel-data-file">The ROI Excel data file</a></li>
-      <li><a href="#next">Next</a></li>
-      <li><a href="#references">References</a></li>
-      </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -281,7 +276,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

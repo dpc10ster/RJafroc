@@ -6,19 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr • RJafroc</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="RJafroc">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
       </span>
     </div>
 
@@ -132,13 +132,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="Ch17Vig1PlotRsmOpCh_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</h1>
+      <h1 data-toc-skip>Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-01-13</h4>
+            <h4 class="date">2020-05-29</h4>
       
       
       <div class="hidden name"><code>Ch17Vig1PlotRsmOpCh.Rmd</code></div>
@@ -180,10 +180,10 @@
 </li>
 <li>These parameters do not apply to individual cases; rather they refer to a large population (asymptotically infinite in size) of cases.</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(dataset04<span class="op">$</span>lesionID)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt;  num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(dataset04<span class="op">$</span>lesionWeight)</a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt;  num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">dataset04</span>$<span class="no">lesionID</span>)
+<span class="co">#&gt;  num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">dataset04</span>$<span class="no">lesionWeight</span>)
+<span class="co">#&gt;  num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span></pre></body></html></div>
 <ul>
 <li>Note that the first index of both arrays is the case index for the 100 abnormal cases in this dataset.</li>
 <li>With finite number of cases the empirical operating characteristic (or for that matter any fitted operating characteristic) will have sampling variability as in the following example.</li>
@@ -192,8 +192,8 @@
 <div id="the-empirical-wafroc" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-empirical-wafroc" class="anchor"></a>The empirical wAFROC</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotEmpiricalOperatingCharacteristics.html">PlotEmpiricalOperatingCharacteristics</a></span>(dataset04, <span class="dt">opChType =</span> <span class="st">"wAFROC"</span>)</a>
-<a class="sourceLine" id="cb2-2" title="2">p<span class="op">$</span>Plot</a></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/PlotEmpiricalOperatingCharacteristics.html">PlotEmpiricalOperatingCharacteristics</a></span>(<span class="no">dataset04</span>, <span class="kw">opChType</span> <span class="kw">=</span> <span class="st">"wAFROC"</span>)
+<span class="no">p</span>$<span class="no">Plot</span></pre></body></html></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <ul>
 <li>The piecewise linear nature of the plot, with sharp breaks, indicates that this is due to a finite dataset.</li>
@@ -203,39 +203,39 @@
 <div id="the-predicted-wafroc" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-predicted-wafroc" class="anchor"></a>The predicted wAFROC</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co">## Following example is for mu = 2, lambda = 1, nu = 0.6. 20% of the diseased </span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co">## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co">## and 30% have 4 lesions.  </span></a>
-<a class="sourceLine" id="cb3-4" title="4">lesDistr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="fl">0.2</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>, <span class="fl">0.4</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>, <span class="fl">0.1</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="fl">0.3</span>))</a>
-<a class="sourceLine" id="cb3-5" title="5"></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">## On cases with one lesion the weights are 1, on cases with 2 lesions the weights</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and</span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: </span></a>
-<a class="sourceLine" id="cb3-9" title="9">lesWghtDistr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="fl">1.0</span>, <span class="op">-</span><span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>), </a>
-<a class="sourceLine" id="cb3-10" title="10">                      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>, <span class="fl">0.4</span>,  <span class="fl">0.6</span>, <span class="op">-</span><span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>), </a>
-<a class="sourceLine" id="cb3-11" title="11">                      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>, <span class="fl">0.2</span>,  <span class="fl">0.3</span>,  <span class="fl">0.5</span>, <span class="op">-</span><span class="ot">Inf</span>), </a>
-<a class="sourceLine" id="cb3-12" title="12">                      <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="fl">0.3</span>,  <span class="fl">0.4</span>, <span class="fl">0.2</span>,  <span class="fl">0.1</span>))</a>
-<a class="sourceLine" id="cb3-13" title="13">p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(<span class="dt">mu =</span> <span class="dv">2</span>, <span class="dt">lambda =</span> <span class="dv">1</span>, <span class="dt">nu =</span> <span class="fl">0.6</span>, <span class="dt">OpChType =</span> <span class="st">"wAFROC"</span>,</a>
-<a class="sourceLine" id="cb3-14" title="14">                                       <span class="dt">lesDistr =</span> lesDistr, <span class="dt">lesWghtDistr =</span> lesWghtDistr, </a>
-<a class="sourceLine" id="cb3-15" title="15">                                       <span class="dt">legendPosition =</span> <span class="st">"bottom"</span>, <span class="dt">nlfRange =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">llfRange =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb3-16" title="16">p<span class="op">$</span>wAFROCPlot</a></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co">## Following example is for mu = 2, lambda = 1, nu = 0.6. 20% of the diseased </span>
+<span class="co">## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span>
+<span class="co">## and 30% have 4 lesions.  </span>
+<span class="no">lesDistr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">0.2</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">0.4</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">0.1</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">0.3</span>))
+
+<span class="co">## On cases with one lesion the weights are 1, on cases with 2 lesions the weights</span>
+<span class="co">## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and</span>
+<span class="co">## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: </span>
+<span class="no">lesWghtDistr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1.0</span>, -<span class="fl">Inf</span>, -<span class="fl">Inf</span>, -<span class="fl">Inf</span>),
+                      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">0.4</span>,  <span class="fl">0.6</span>, -<span class="fl">Inf</span>, -<span class="fl">Inf</span>),
+                      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">0.2</span>,  <span class="fl">0.3</span>,  <span class="fl">0.5</span>, -<span class="fl">Inf</span>),
+                      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">0.3</span>,  <span class="fl">0.4</span>, <span class="fl">0.2</span>,  <span class="fl">0.1</span>))
+<span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(<span class="kw">mu</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">lambda</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">nu</span> <span class="kw">=</span> <span class="fl">0.6</span>, <span class="kw">OpChType</span> <span class="kw">=</span> <span class="st">"wAFROC"</span>,
+                                       <span class="kw">lesDistr</span> <span class="kw">=</span> <span class="no">lesDistr</span>, <span class="kw">lesWghtDistr</span> <span class="kw">=</span> <span class="no">lesWghtDistr</span>,
+                                       <span class="kw">legendPosition</span> <span class="kw">=</span> <span class="st">"bottom"</span>, <span class="kw">nlfRange</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>), <span class="kw">llfRange</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>))
+<span class="no">p</span>$<span class="no">wAFROCPlot</span></pre></body></html></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
 <div id="the-distribution-of-number-of-lesions-and-weights" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-distribution-of-number-of-lesions-and-weights" class="anchor"></a>The distribution of number of lesions and weights</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">lesDistr</a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="co">#&gt;      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; [1,]    1  0.2</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt; [2,]    2  0.4</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; [3,]    3  0.1</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; [4,]    4  0.3</span></a>
-<a class="sourceLine" id="cb4-7" title="7">lesWghtDistr</a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; [1,]    1  1.0 -Inf -Inf -Inf</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; [2,]    2  0.4  0.6 -Inf -Inf</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt; [3,]    3  0.2  0.3  0.5 -Inf</span></a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt; [4,]    4  0.3  0.4  0.2  0.1</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">lesDistr</span>
+<span class="co">#&gt;      [,1] [,2]</span>
+<span class="co">#&gt; [1,]    1  0.2</span>
+<span class="co">#&gt; [2,]    2  0.4</span>
+<span class="co">#&gt; [3,]    3  0.1</span>
+<span class="co">#&gt; [4,]    4  0.3</span>
+<span class="no">lesWghtDistr</span>
+<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span>
+<span class="co">#&gt; [1,]    1  1.0 -Inf -Inf -Inf</span>
+<span class="co">#&gt; [2,]    2  0.4  0.6 -Inf -Inf</span>
+<span class="co">#&gt; [3,]    3  0.2  0.3  0.5 -Inf</span>
+<span class="co">#&gt; [4,]    4  0.3  0.4  0.2  0.1</span></pre></body></html></div>
 <ul>
 <li>The second column of <code>lesDistr</code> specifies the fraction of diseased cases with the number of lesions specified in the first column.</li>
 <li>The first column of <code>lesWghtDistr</code> is a copy of the first column of <code>lesDistr</code>. The remaining non-<code>-Inf</code> entries are the weights.</li>
@@ -252,11 +252,11 @@
 <li>By changing <code>OpChType</code> one can generate other operating characteristics.</li>
 <li>Note that lesiion weights argument is not needed for ROC curves. It is only needed for <code>wAFROC</code> and <code>wAFROC1</code> curves.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">lesDistr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="fl">0.2</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>, <span class="fl">0.4</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>, <span class="fl">0.1</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="fl">0.3</span>))</a>
-<a class="sourceLine" id="cb5-2" title="2">p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(<span class="dt">mu =</span> <span class="dv">2</span>, <span class="dt">lambda =</span> <span class="dv">1</span>, <span class="dt">nu =</span> <span class="fl">0.6</span>, <span class="dt">OpChType =</span> <span class="st">"ROC"</span>,</a>
-<a class="sourceLine" id="cb5-3" title="3">                                       <span class="dt">lesDistr =</span> lesDistr,  </a>
-<a class="sourceLine" id="cb5-4" title="4">                                       <span class="dt">legendPosition =</span> <span class="st">"bottom"</span>)</a>
-<a class="sourceLine" id="cb5-5" title="5">p<span class="op">$</span>ROCPlot</a></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">lesDistr</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">0.2</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">0.4</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">0.1</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">0.3</span>))
+<span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(<span class="kw">mu</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">lambda</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">nu</span> <span class="kw">=</span> <span class="fl">0.6</span>, <span class="kw">OpChType</span> <span class="kw">=</span> <span class="st">"ROC"</span>,
+                                       <span class="kw">lesDistr</span> <span class="kw">=</span> <span class="no">lesDistr</span>,
+                                       <span class="kw">legendPosition</span> <span class="kw">=</span> <span class="st">"bottom"</span>)
+<span class="no">p</span>$<span class="no">ROCPlot</span></pre></body></html></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="summary" class="section level2">
@@ -266,7 +266,7 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references">
+<div id="refs" class="references hanging-indent">
 <div id="ref-RN2680">
 <p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples</em>. Book. Boca Raton, FL: CRC Press.</p>
 </div>
@@ -274,23 +274,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
-      <li><a href="#the-distinction-between-predicted-curves-and-empirical-curves">The distinction between predicted curves and empirical curves</a></li>
-      <li><a href="#the-rsm-model">The RSM model</a></li>
-      <li><a href="#the-empirical-wafroc">The empirical wAFROC</a></li>
-      <li><a href="#the-predicted-wafroc">The predicted wAFROC</a></li>
-      <li><a href="#the-distribution-of-number-of-lesions-and-weights">The distribution of number of lesions and weights</a></li>
-      <li><a href="#other-operating-characteristics">Other operating characteristics</a></li>
-      <li><a href="#summary">Summary</a></li>
-      <li><a href="#references">References</a></li>
-      </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -301,7 +289,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

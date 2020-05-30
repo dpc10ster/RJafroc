@@ -8,11 +8,13 @@
 
 <title>Lesion weights distribution — UtilLesionWeightsDistr • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,11 +38,10 @@
 
 
 
-<meta property="og:title" content="Lesion weights distribution — UtilLesionWeightsDistr" />
 
+<meta property="og:title" content="Lesion weights distribution — UtilLesionWeightsDistr" />
 <meta property="og:description" content="The lesion weights  distribution, assuming equal weights. 
    Needed to plot empirical curves for FROC data (ROC, wAFROC)." />
-
 
 
 
@@ -87,11 +88,82 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+    </li>
+    <li>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+    </li>
+    <li>
+      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
+    </li>
+    <li>
+      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
+    </li>
+    <li>
+      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -113,14 +185,12 @@
     </div>
 
     <div class="ref-description">
-    
     <p>The lesion weights  distribution, assuming equal weights. 
    Needed to plot empirical curves for FROC data (ROC, wAFROC).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>UtilLesionWeightsDistr</span>(<span class='no'>dataset</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -129,7 +199,7 @@
       <td><p>The supplied dataset.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>lesWghtDistr The lesion weights distribution, an [1:nRow,1:(maxLL+1)] 
@@ -141,54 +211,53 @@
    dataset, which enumerates the weights of lesions on <b>individual</b> cases. See 
    <a href='PlotRsmOperatingCharacteristics.html'>PlotRsmOperatingCharacteristics</a> for a function that depends on lesWghtDistr.See 
    Chapter00Vignette2 for fuller explanation.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> (<span class='no'>dataset11</span>) <span class='co'># FROC data</span></div><div class='output co'>#&gt;       [,1]       [,2]       [,3]       [,4]       [,5]       [,6]       [,7]
-#&gt;  [1,]    1 1.00000000       -Inf       -Inf       -Inf       -Inf       -Inf
-#&gt;  [2,]    2 0.50000000 0.50000000       -Inf       -Inf       -Inf       -Inf
-#&gt;  [3,]    3 0.33333333 0.33333333 0.33333333       -Inf       -Inf       -Inf
-#&gt;  [4,]    4 0.25000000 0.25000000 0.25000000 0.25000000       -Inf       -Inf
-#&gt;  [5,]    5 0.20000000 0.20000000 0.20000000 0.20000000 0.20000000       -Inf
-#&gt;  [6,]    6 0.16666667 0.16666667 0.16666667 0.16666667 0.16666667 0.16666667
-#&gt;  [7,]    7 0.14285714 0.14285714 0.14285714 0.14285714 0.14285714 0.14285714
-#&gt;  [8,]    8 0.12500000 0.12500000 0.12500000 0.12500000 0.12500000 0.12500000
-#&gt;  [9,]    9 0.11111111 0.11111111 0.11111111 0.11111111 0.11111111 0.11111111
-#&gt; [10,]   10 0.10000000 0.10000000 0.10000000 0.10000000 0.10000000 0.10000000
-#&gt; [11,]   11 0.09090909 0.09090909 0.09090909 0.09090909 0.09090909 0.09090909
-#&gt; [12,]   12 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333
-#&gt; [13,]   16 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000
-#&gt; [14,]   20 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000
-#&gt;             [,8]       [,9]      [,10]      [,11]      [,12]      [,13]  [,14]
-#&gt;  [1,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [2,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [3,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [4,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [5,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [6,]       -Inf       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [7,] 0.14285714       -Inf       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [8,] 0.12500000 0.12500000       -Inf       -Inf       -Inf       -Inf   -Inf
-#&gt;  [9,] 0.11111111 0.11111111 0.11111111       -Inf       -Inf       -Inf   -Inf
-#&gt; [10,] 0.10000000 0.10000000 0.10000000 0.10000000       -Inf       -Inf   -Inf
-#&gt; [11,] 0.09090909 0.09090909 0.09090909 0.09090909 0.09090909       -Inf   -Inf
-#&gt; [12,] 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333   -Inf
-#&gt; [13,] 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000 0.06250000 0.0625
-#&gt; [14,] 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000 0.05000000 0.0500
-#&gt;        [,15]  [,16]  [,17] [,18] [,19] [,20] [,21]
-#&gt;  [1,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [2,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [3,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [4,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [5,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [6,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [7,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [8,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [9,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [10,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [11,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [12,]   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [13,] 0.0625 0.0625 0.0625  -Inf  -Inf  -Inf  -Inf
-#&gt; [14,] 0.0500 0.0500 0.0500  0.05  0.05  0.05  0.05</div><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> (<span class='no'>dataset02</span>) <span class='co'># ROC data</span></div><div class='output co'>#&gt;      [,1] [,2]
+    <pre class="examples"><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> (<span class='no'>dataset11</span>) <span class='co'># FROC data</span></div><div class='output co'>#&gt;       [,1]        [,2]        [,3]        [,4]        [,5]        [,6]
+#&gt;  [1,]    1 1.000000000        -Inf        -Inf        -Inf        -Inf
+#&gt;  [2,]    2 0.500000000 0.500000000        -Inf        -Inf        -Inf
+#&gt;  [3,]    3 0.333333333 0.333333333 0.333333333        -Inf        -Inf
+#&gt;  [4,]    4 0.250000000 0.250000000 0.250000000 0.250000000        -Inf
+#&gt;  [5,]    5 0.200000000 0.200000000 0.200000000 0.200000000 0.200000000
+#&gt;  [6,]    6 0.166666667 0.166666667 0.166666667 0.166666667 0.166666667
+#&gt;  [7,]    7 0.142857143 0.142857143 0.142857143 0.142857143 0.142857143
+#&gt;  [8,]    8 0.125000000 0.125000000 0.125000000 0.125000000 0.125000000
+#&gt;  [9,]    9 0.111111111 0.111111111 0.111111111 0.111111111 0.111111111
+#&gt; [10,]   10 0.100000000 0.100000000 0.100000000 0.100000000 0.100000000
+#&gt; [11,]   11 0.090909091 0.090909091 0.090909091 0.090909091 0.090909091
+#&gt; [12,]   12 0.083333333 0.083333333 0.083333333 0.083333333 0.083333333
+#&gt; [13,]   16 0.062500000 0.062500000 0.062500000 0.062500000 0.062500000
+#&gt; [14,]   20 0.050000000 0.050000000 0.050000000 0.050000000 0.050000000
+#&gt;              [,7]        [,8]        [,9]       [,10]       [,11]       [,12]
+#&gt;  [1,]        -Inf        -Inf        -Inf        -Inf        -Inf        -Inf
+#&gt;  [2,]        -Inf        -Inf        -Inf        -Inf        -Inf        -Inf
+#&gt;  [3,]        -Inf        -Inf        -Inf        -Inf        -Inf        -Inf
+#&gt;  [4,]        -Inf        -Inf        -Inf        -Inf        -Inf        -Inf
+#&gt;  [5,]        -Inf        -Inf        -Inf        -Inf        -Inf        -Inf
+#&gt;  [6,] 0.166666667        -Inf        -Inf        -Inf        -Inf        -Inf
+#&gt;  [7,] 0.142857143 0.142857143        -Inf        -Inf        -Inf        -Inf
+#&gt;  [8,] 0.125000000 0.125000000 0.125000000        -Inf        -Inf        -Inf
+#&gt;  [9,] 0.111111111 0.111111111 0.111111111 0.111111111        -Inf        -Inf
+#&gt; [10,] 0.100000000 0.100000000 0.100000000 0.100000000 0.100000000        -Inf
+#&gt; [11,] 0.090909091 0.090909091 0.090909091 0.090909091 0.090909091 0.090909091
+#&gt; [12,] 0.083333333 0.083333333 0.083333333 0.083333333 0.083333333 0.083333333
+#&gt; [13,] 0.062500000 0.062500000 0.062500000 0.062500000 0.062500000 0.062500000
+#&gt; [14,] 0.050000000 0.050000000 0.050000000 0.050000000 0.050000000 0.050000000
+#&gt;             [,13]  [,14]  [,15]  [,16]  [,17] [,18] [,19] [,20] [,21]
+#&gt;  [1,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [2,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [3,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [4,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [5,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [6,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [7,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [8,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt;  [9,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt; [10,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt; [11,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt; [12,] 0.083333333   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
+#&gt; [13,] 0.062500000 0.0625 0.0625 0.0625 0.0625  -Inf  -Inf  -Inf  -Inf
+#&gt; [14,] 0.050000000 0.0500 0.0500 0.0500 0.0500  0.05  0.05  0.05  0.05</div><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> (<span class='no'>dataset02</span>) <span class='co'># ROC data</span></div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,]    1    1</div><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> (<span class='no'>datasetCadLroc</span>) <span class='co'># LROC data</span></div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,]    1    1</div><div class='input'>
 </div></pre>

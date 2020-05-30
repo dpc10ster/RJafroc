@@ -1,3 +1,18 @@
+## Major simplifications to all significance testing `St` functions
+* Separated `RRRC` branches etc to separate files; likewise for DBM and OR branches, now the files are much shorter and easier to maintain
+* Changed returned data structure to a `list` of `dataframes`, see next comment; this makes for much cleaner and easier printing
+* Consistent returned objects from all `St` functions: `list` with data frames `FOM`, `ANOVA`, `RRRC`, `FRRC` and `RRFC`.
+* Output now **closely follows** that of Iowa software OR-DBM MRMC 2.51 which I ran using VmWare, Windows XP; Iowa software did not run on Windows 8 on two different machines (see below)
+* Ran detailed comparison to OR-DBM MRMC 2.51 and coded the checks in  `tests/testthat/test-St-Compare2Iowa.R` for VanDyke dataset
+* Also visually compared my code results against OR-DBM MRMC 2.51 for `dataset04` converted to ROC (see Iowa code results in `inst/Iowa/FedRoc.txt`); 
+* Shortened `UtilOutputReport` *considerably*, by using `print(dataframe)` instead of reading values from `list` or `dataframe` variables and then using `sprintf` with unreadable C-style format codes
+* Shortened `SPLIT-PLOT` analysis by returning `Cov2` = `Cov3` = 0 instead of `NA`
+* Confirmed that this gives same results as the version in `master` branch
+* Added vignettes back, rebuilt website
+* Passes all OSX checks except for file size NOTE: checking installed package size ... NOTE installed size is 16.7Mb; sub-directories of 1Mb or more:doc 12.7Mb;extdata 1.3Mb
+* Marked regions of code **requiring further** inspection by TBA - handle this next
+* Will merge this code into `master` branch if it passes Travis
+
 ## Replaced stringsAsFactors = FALSE everywhere data.frame is used except ...
 * Except in `PlotEmpiricalOperatingCharacteristics`, where `factors` and `levels` are used
 * Must specify this anytime the variable is used in a `test` as otherwise different versions will give `factors` or `characters` and not match those in goodValues folder
@@ -8,7 +23,7 @@
 ## After repeated Travis failures
 * same issue; have to specify `stringsAsFactors` explicitly for each `data.frame` call, due to different defaults in different verions of `R`
 * Cannot set to TRUE at beginning of function, as in `options("stringsAsFactors" = TRUE)`, **as this is `deprecated`**
-* Basically undid all changes in next note
+* Basically undid all changes in next note (see below)
 * passes R CMD check on OSX and Travis checks
 
 ## Removed `stringsAsFactors` arguments in all calls except...
@@ -21,7 +36,7 @@
 
 ## Return `transpose` for `foms` member of `StSignificanceTesting` return object
 * For consistency with OR DBM MRMC 2.51, and also for cleaner output, as number of treatments is usually less than number of readers
-* R CMD check passes
+* Note added 5/30/20: this was undone; transpose is no longer used
 
 ## Moved official good value files to Dropbox
 * They generate non-portable file name warning on R CMD check
