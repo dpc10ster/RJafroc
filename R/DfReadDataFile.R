@@ -324,7 +324,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   lesionWeight[is.na(lesionWeight)] <- UNINITIALIZED
   lesionIDCol[is.na(lesionIDCol)] <- UNINITIALIZED
   
-  if (dataType == "ROC" && design == "FACTORIAL") {
+  if (dataType == "ROC" && design == "CROSSED") {
     if (!(((max(table(truthCaseID)) == 1) && (maxNL == 1)) 
           && (all((NL[, , (K1 + 1):K, ] == UNINITIALIZED))) 
           && (all((NL[, , 1:K1, ] != UNINITIALIZED)))
@@ -546,10 +546,10 @@ checkTruthTable <- function (truthTable)
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
   
   if (!(dataType %in% c("FROC", "ROC"))) stop("Unsupported declared dataType: must be ROC or FROC.\n")
-  if (!(design %in% c("FACTORIAL", "SPLIT-PLOT"))) stop("Study design must be FACTORIAL or SPLIT-PLOT\n")
+  if (!(design %in% c("CROSSED", "SPLIT-PLOT"))) stop("Study design must be CROSSED or SPLIT-PLOT\n")
   
   if (dataType == "ROC") {
-    if ((design == "FACTORIAL") && (sum(!is.na(truthTableStr)) != 
+    if ((design == "CROSSED") && (sum(!is.na(truthTableStr)) != 
                                   L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be crossed ROC")
     
@@ -558,7 +558,7 @@ checkTruthTable <- function (truthTable)
   }
   
   if (dataType == "FROC") {
-    if ((design == "FACTORIAL") && (sum(!is.na(truthTableStr)) != 
+    if ((design == "CROSSED") && (sum(!is.na(truthTableStr)) != 
                                   L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be crossed FROC")
     
@@ -857,7 +857,7 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
     readerID = readerID,
     # these are the additional members added 12/27/2019 by DPC
     # makes it easier to correlate the NL and LL values with those in the Excel file
-    design = "FACTORIAL", # default when using old read function
+    design = "CROSSED", # default when using old read function
     normalCases = normalCases,
     abnormalCases = abnormalCases,
     truthTableStr = truthTableStr,

@@ -1,11 +1,13 @@
 {
     "dialog-state" : {
-        "caseSensitive" : false,
+        "caseSensitive" : true,
         "filePatterns" : [
+            "*.r",
+            "*.R"
         ],
         "path" : "",
         "projectRelative" : true,
-        "query" : "RatingsArraysFromRatingsTables",
+        "query" : "FACTORIAL",
         "regex" : false
     }
 }

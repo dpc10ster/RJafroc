@@ -189,7 +189,7 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
   J <- length(dataset$NL[1,,1,1])
   K <- length(dataset$NL[1,1,,1])
   
-  if ((length(dataset) != 13) || (dataset$design == "FACTORIAL")) { 
+  if ((length(dataset) != 13) || (dataset$design == "CROSSED")) { 
     # K <- length(dataset$NL[1,1,,1])
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
     CovTemp <- resampleFOMijk2VarCov(ret$jkFomValues)
@@ -224,7 +224,7 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
       Cov2 = 0,
       Cov3 = 0
     )
-  } else stop("Incorrect dataset design, must be FACTORIAL or SPLIT-PLOT")
+  } else stop("Incorrect dataset design, must be CROSSED or SPLIT-PLOT")
   
   return(Cov)
   

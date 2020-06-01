@@ -1,13 +1,13 @@
 {
-    "path" : "~/GitHub/RJafroc/R",
+    "path" : "~/GitHub/RJafroc/data",
     "sortOrder" : [
-        {
-            "ascending" : false,
-            "columnIndex" : 4
-        },
         {
             "ascending" : true,
             "columnIndex" : 2
+        },
+        {
+            "ascending" : false,
+            "columnIndex" : 4
         },
         {
             "ascending" : false,
