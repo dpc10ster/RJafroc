@@ -760,7 +760,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
         }
       }
     }
-    Cov <- ResamplingEstimateVarCovs(jkFOMArray)
+    Cov <- resampleFOMijk2VarCov(jkFOMArray)
     var <- Cov$Var * (K - 1)^2/K  # see paper by Efron and Stein
     cov1 <- Cov$Cov1 * (K - 1)^2/K
     cov2 <- Cov$Cov2 * (K - 1)^2/K
@@ -812,7 +812,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
         }
       }
     }
-    Cov <- ResamplingEstimateVarCovs(fomBsArray)
+    Cov <- resampleFOMijk2VarCov(fomBsArray)
     var <- Cov$var
     cov1 <- Cov$cov1
     cov2 <- Cov$cov2
@@ -920,7 +920,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
       }
       S <- s10/K2 + s01/K1
     }
-    Cov <- ResamplingEstimateVarCovs(S)
+    Cov <- resampleFOMijk2VarCov(S)
     var <- Cov$var
     cov1 <- Cov$cov1
     cov2 <- Cov$cov2

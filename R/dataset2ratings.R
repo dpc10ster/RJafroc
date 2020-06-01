@@ -11,7 +11,7 @@ dataset2ratings <- function (dataset, FOM){
   #     stop("Cannot use MaxNLF, ExpTrnsfmSp, HrSp, MaxLLF, HrSe FOMs with SPLIT-PLOT dataset")
   # }
   
-  # OldFormat dataset or NewFormat CROSSED or SPLIT-PLOT dataset with implemented FOM
+  # OldFormat dataset or NewFormat FACTORIAL or SPLIT-PLOT dataset with implemented FOM
   dataType <- dataset$dataType
   if (dataType != "LROC") {
     K2 <- length(dataset$LL[1,1,,1])

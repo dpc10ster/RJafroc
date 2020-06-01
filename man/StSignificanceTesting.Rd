@@ -38,9 +38,8 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
    in \code{ORH} analysis (for \code{method = "DBMH"} the jackknife is always used).
    \itemize{ 
    \item \code{"Jackknife"}, the default, 
-   \item \code{"Bootstrap"}, in which case \code{nBoots} (above) is relevant 
-   \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon"}, otherwise 
-   an error results.
+   \item \code{"Bootstrap"}, in which case \code{nBoots} (above) is relevant, 
+   \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon"}, otherwise error.
 }}
 
 \item{nBoots}{The number of bootstraps (defaults to 200), relevant only if 
@@ -51,101 +50,48 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
    \item \code{"RRRC"} = random-reader random case, 
    \item \code{"FRRC"} = fixed-reader random case, 
    \item \code{"RRFC"} = random-reader fixed case, 
-   \item \code{"ALL"} = outputs the results of \code{"RRRC"}, \code{"FRRC"} 
+   \item \code{"ALL"} =  outputs results of \code{"RRRC"}, \code{"FRRC"} 
    and \code{"RRFC"} analyses
 }}
 
 \item{tempOrgCode, }{default FALSE; if TRUE, then code from version 0.0.1 of RJafroc
 is used (see RJafroc_0.0.1.tar). This is intended to check against errors 
-that crept in subsequent to 
-the original version as I attempted to improve the organization of the code and the output.
-As implicit in the name of this temporary flag, it will eventually be removed.}
+that crept in subsequent to the original version as I attempted to improve 
+the organization of the code and the output. As implicit in the name of this 
+temporary flag, it will eventually be removed.}
 }
 \value{
-\strong{For \code{method = "DBMH"}  the returned list has 15 members:}
+\strong{For \code{method = "DBMH"} the returned list contains 4 dataframes:}
 
-\item{fomArray}{Figure of merit array: see return of \code{\link{UtilFigureOfMerit}}}
+\item{FOMs}{Contains \code{foms}, \code{trtMeans} and \code{trtMeanDiffs}: 
+   see return of \code{\link{UtilFigureOfMerit}}}
 
-\item{anovaY}{ ANOVA table of the pseudovalues, over all treatments}
+\item{ANOVA}{Contains \code{TRCAnova}, \code{VarCom}, \code{IndividualTrt} 
+   and \code{IndividualRdr} ANOVA tables of pseudovalues}
 
-\item{anovaYi}{ANOVA table of the pseudovalues, for each treatment}
+\item{RRRC}{Contains results of \code{"RRRC"} analyses: \code{FTests}, 
+   \code{ciDiffTrt}, \code{ciAvgRdrEachTrt}}
 
-\item{varComp}{The variance components of the DBM pseudovalue mode; 
-   6 values, in the following order: \code{varR}, \code{varC}, 
-   \code{varTR}, \code{varTC}, \code{varRC} and \code{varErr}}
+\item{FRRC}{Contains results of \code{"FRRC"} analyses: \code{FTests}, 
+   \code{ciDiffTrt}, \code{ciAvgRdrEachTrt}, \code{ciDiffTrtEachRdr}}
 
-\item{FTestStatsRRRC}{Results of the F-test for RRRC \strong{random reader random case}
-   analysis; contains the following items: \code{fRRRC} - the value of the F-statistic, 
-   \code{ndfRRRC} - the numerator degrees of freedom, \code{ddfRRRC} - 
-   the denominator degrees of freedom and \code{pRRRC} - the pvalue}
+\item{RRFC}{Contains results of \code{"RRFC"} analyses: \code{FTests}, 
+   \code{ciDiffTrt}, \code{ciAvgRdrEachTrt}}
 
-\item{ciDiffTrtRRRC}{For RRRC analysis, the confidence intervals and related 
-   statistics for the FOM differences between pairs of treatments}
+\strong{For \code{method = "ORH"} the return list contains 4 dataframes:}
 
-\item{ciAvgRdrEachTrtRRRC}{For RRRC analysis, the confidence intervals 
-   and related test statistics for rdr. avg. FOM in each treatment}
+\item{FOMs}{Contains \code{foms}, \code{trtMeans} and \code{trtMeanDiffs}: 
+   \code{\link{UtilFigureOfMerit}}}
 
-\item{FTestStatsFRRC}{As for \code{FTestStatsRRRC} except that this is 
-   for \strong{fixed-reader random-case} (FRRC) analysis}
+\item{ANOVA}{Contains \code{TRAnova}, \code{VarCom}, \code{IndividualTrt} 
+   and \code{IndividualRdr} ANOVA tables of FOM values}
 
-\item{ciDiffTrtFRRC}{For FRRC analysis, the confidence intervals and related 
-   test statistics for the FOM differences between pairs of treatments}
+\item{RRRC}{Contains results of \code{"RRRC"} analyses - same 
+   organization as DBMH, see above}
 
-\item{ciAvgRdrEachTrtFRRC}{For FRRC analysis, the confidence intervals and 
-   related tests for rdr. avg. FOM in each treatment}
+\item{FRRC}{Contains results of \code{"FRRC"} analyses - ditto}
 
-\item{msAnovaEachRdrFRRC}{The mean squares table of the ANOVA of the 
-   pseudovalues for each reader (based on data for the specified reader)}
-
-\item{ciDiffTrtEachRdrFRRC}{The confidence intervals and related tests of the 
-   FOM differences between pairs of treatments for each reader}
-
-\item{FTestStatsRRFC}{As for \code{FTestStatsRRRC} except that this is 
-   for \strong{random-reader fixed-case} (RRFC) analysis}
-
-\item{ciDiffTrtRRFC}{For RRFC analysis, the confidence intervals and 
-   related test statistics for the FOM differences between pairs of treatments}
-
-\item{ciAvgRdrEachTrtRRFC}{For RRFC analysis, the confidence intervals 
-   and related tests for reader averaged FOM in each treatment}
-
-\strong{For method = "ORH" the return list has 14 members:}
-
-\item{fomArray}{Figure of merit array: see return of \code{\link{UtilFigureOfMerit}}}
-
-\item{meanSquares}{List with 3 members: \code{msT}, \code{msR}, \code{msTR}}
-
-\item{varComp}{The variance components of the OR figure of merit model; 
-   6 values, listed in the following order: \code{varR}, \code{varTR}, \code{Cov1}, 
-   \code{Cov2}, \code{Cov3} and \code{Var}}
-
-\item{FTestStatsRRRC}{Results of the F-test for RRRC \strong{random reader random case}
-   analysis; contains the following items: \code{fRRRC} - the value of the F-statistic, 
-   \code{ndfRRRC} - the numerator degrees of freedom, \code{ddfRRRC} - 
-   the denominator degrees of freedom and \code{pRRRC} - the pvalue}
-
-\item{ciDiffTrtRRRC}{Same as in \code{DBMH} method}
-
-\item{ciAvgRdrEachTrtRRRC}{Same as in \code{DBMH} method}
-
-\item{FTestStatsFRRC}{Same as \code{FTestStatsRRRC}, but 
-   now treating reader as a fixed effect}
-
-\item{ciDiffTrtFRRC}{Same as in \code{DBMH} method}
-
-\item{ciAvgRdrEachTrtFRRC}{Same as in \code{DBMH} method}
-
-\item{ciDiffTrtEachRdrFRRC}{Same as in \code{DBMH} method}
-
-\item{varCovEachRdr}{Var and Cov1 
-   estimates for each reader}
-
-\item{FTestStatsRRFC}{Same as \code{FTestStatsRRRC}, but 
-   now treating case as a fixed effect}
-
-\item{ciDiffTrtRRFC}{Same as in \code{DBMH} method}
-
-\item{ciAvgRdrEachTrtRRFC}{Same as in \code{DBMH} method}
+\item{RRFC}{Contains results of \code{"RRFC"} analyses- ditto}
 }
 \description{
 Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
@@ -162,8 +108,8 @@ Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR)
 \examples{
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
-## following is split-plot analysis using a simulated split-plot dataset
-## TBA StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+##following is split-plot analysis using a simulated split-plot dataset
+StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
 
 \donttest{
 StSignificanceTesting(dataset05, FOM = "wAFROC")

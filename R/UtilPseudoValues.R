@@ -56,8 +56,8 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   
   # `as.matrix` is NOT absolutely necessary as `mean()` function is not used here
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  if ((length(dataset) != 13) || (dataset$design == "CROSSED")) {
-    # OldFormat dataset or NewFormat CROSSED dataset
+  if ((length(dataset) != 13) || (dataset$design == "FACTORIAL")) {
+    # OldFormat dataset or NewFormat FACTORIAL dataset
     if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
       # first type of end-point based FOM
       jkFomValues <- array(dim = c(I, J, K1))

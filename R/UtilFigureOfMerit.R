@@ -154,7 +154,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     design <- dataset$design
     t <- dataset$truthTableStr
   } else if (length(dataset) %in% c(9,10)) {
-    design <- "CROSSED"
+    design <- "FACTORIAL"
   } 
   
   maxNL <- dim(NL)[4]
@@ -177,13 +177,13 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
         dim(ll_j) <- c(k2j, maxLL_j)
         fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1j, k2j, FOM, FPFValue)
         next
-      } else if (design == "CROSSED"){
+      } else if (design == "FACTORIAL"){
         nl_j <- NL[i, j, , ]
         ll_j <- LL[i, j, , ]
         dim(nl_j) <- c(K, maxNL)
         dim(ll_j) <- c(K2, maxLL)
         fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, dataset$lesionVector, dataset$lesionID, dataset$lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
-      } else stop("Incorrect design, must be SPLIT-PLOT or CROSSED")
+      } else stop("Incorrect design, must be SPLIT-PLOT or FACTORIAL")
     }
   }
   

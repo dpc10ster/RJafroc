@@ -102,7 +102,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   varEachTrt <- vector(length = I)
   for (i in 1:I) {
     dsi <- DfExtractDataset(dataset, trts = i)
-    ret <- gpfEstimateVarCov(dsi, FOM, FPFValue, nBoots, covEstMethod, seed)
+    ret <- selectCovEstMethod(dsi, FOM, FPFValue, nBoots, covEstMethod, seed)
     varEachTrt[i] <- ret$Var
     cov2EachTrt[i] <- ret$Cov2
   }
@@ -129,7 +129,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   cov1EachRdr <- vector(length = J)
   for (j in 1:J) {
     dsj <- DfExtractDataset(dataset, rdrs = j)
-    ret <- gpfEstimateVarCov(dsj, FOM, FPFValue, nBoots, covEstMethod, seed)
+    ret <- selectCovEstMethod(dsj, FOM, FPFValue, nBoots, covEstMethod, seed)
     varEachRdr[j] <- ret$Var
     cov1EachRdr[j] <- ret$Cov1
   }
@@ -143,7 +143,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
                               stringsAsFactors = FALSE)
   
   #####################################################################################
-  ret <- gpfEstimateVarCov(dataset, FOM, FPFValue, nBoots, covEstMethod, seed)
+  ret <- selectCovEstMethod(dataset, FOM, FPFValue, nBoots, covEstMethod, seed)
   Var <- ret$Var
   Cov1 <- ret$Cov1
   Cov2 <- ret$Cov2

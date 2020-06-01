@@ -1,7 +1,16 @@
 library(RJafroc)
 rm(list = ls())
-# x <- dataset01
-# x <- dataset02
+dataStr <- c("dataset01", "dataset02", "dataset03", "dataset04", "dataset05", "dataset06",
+             "dataset07", "dataset08", "dataset09", "dataset10", "dataset11", "dataset12",
+             "dataset13", "dataset14", 
+             "datasetBinned123", "datasetBinned124", "datasetBinned125",
+             "datasetCadLroc", "datasetCadSimuFroc", 
+             "datasetCrossedModality",
+             "datasetDegenerate", "datasetFROCSp", "datasetROI")
+
+for (i in 1:length(dataStr)) {
+  x <- eval(parse(text=dataStr[i]))
+}            
 # x <- dataset03
 # x <- dataset04
 # x <- dataset05
@@ -43,7 +52,7 @@ x2 <- DfReadDataFile(x1, newExcelFileFormat = TRUE)
 #   dataType = x$dataType, 
 #   modalityID = x$modalityID, 
 #   readerID = x$readerID,
-#   design = "CROSSED", # default when using old read function
+#   design = "FACTORIAL", # default when using old read function
 #   normalCases = x2$normalCases,
 #   abnormalCases = x2$abnormalCases,
 #   # normalCases = 1:K1,

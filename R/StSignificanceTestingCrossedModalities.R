@@ -488,7 +488,6 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
 #' 
 EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  Dim <- dim(NL)
   I1 <- dim(NL)[1]
   I2 <- dim(NL)[2]
   J <- dim(NL)[3]
@@ -566,7 +565,7 @@ EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, 
     jkFOMArray <- apply(jkFOMArray, c(1, 3, 4), mean)
     fomArray <- apply(jkFOMArray, c(1, 2), mean)
   }
-  Cov <- ResamplingEstimateVarCovs(jkFOMArray)
+  Cov <- resampleFOMijk2VarCov(jkFOMArray)
   Var <- Cov$Var * (K - 1)^2/K  # see paper by Efron and Stein
   Cov1 <- Cov$Cov1 * (K - 1)^2/K
   Cov2 <- Cov$Cov2 * (K - 1)^2/K
