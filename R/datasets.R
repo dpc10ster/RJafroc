@@ -5,21 +5,22 @@
 #' 89 of which are diseased, interpreted in two treatments
 #' ("BT" = breast tomosynthesis and "DM" = digital mammography) by five radiologists using the FROC paradigm. 
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements, each containing multiple values as sub-lists:
 #' \itemize{
-#' \item{\code{NL}}{, num [1:2, 1:5, 1:185, 1:3], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1:2, 1:5, 1:89, 1:2], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:89], number of lesions per diseased case}
-#' \item{\code{lesionID}}{, num [1:89, 1:2], numeric labels of lesions on diseased cases}
-#' \item{\code{lesionWeight}}{, num [1:89, 1:2], weights (or clinical importances) of lesions}
-#' \item{\code{dataType}}{, chr "FROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:2] "BT" "DM", treatment labels}
-#' \item{\code{readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
-#' \item{\code{design}}{, chr "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:96] 1 4 7 8 9 10 15 17 18 20 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:89] 2 3 5 6 11 12 13 16 19 24 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:2, 1:5, 1:185, 1:4] 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "TONY"}
+#' \item{\code{rating$NL}}{, num [1:2, 1:5, 1:185, 1:3], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:2, 1:5, 1:89, 1:2], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:89], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:89, 1:2], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:89, 1:2], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "TONY", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:185, 1:4] 1 1 1 1 ..., truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$tmodalityID}}{, chr [1:2] "BT" "DM", treatment labels}
+#' \item{\code{descriptions$treaderID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
