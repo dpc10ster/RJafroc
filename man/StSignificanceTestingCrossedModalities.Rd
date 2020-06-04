@@ -5,7 +5,7 @@
 \title{Perform significance testing using crossed treatments analysis}
 \usage{
 StSignificanceTestingCrossedModalities(
-  crossedData,
+  ds,
   avgIndx,
   FOM = "wAFROC",
   alpha = 0.05,
@@ -13,7 +13,7 @@ StSignificanceTestingCrossedModalities(
 )
 }
 \arguments{
-\item{crossedData}{The crossed treatments dataset}
+\item{ds}{The crossed treatments dataset}
 
 \item{avgIndx}{The index of the treatment to be averaged over}
 
@@ -35,8 +35,8 @@ Performs ORH analysis for specified crossed treatments dataset
 ## read the raw data file in extdata directory (this is included to illustrate the format)
 crossedFileName <- system.file("extdata", "CrossedModalitiesData.xlsx", 
 package = "RJafroc", mustWork = TRUE)
-crossedData <- DfReadCrossedModalities(crossedFileName)
-retCrossed1 <- StSignificanceTestingCrossedModalities(crossedData, 1)
+ds <- DfReadCrossedModalities(crossedFileName)
+retCrossed1 <- StSignificanceTestingCrossedModalities(ds, 1)
 
 ## read the built in dataset
 retCrossed2 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)

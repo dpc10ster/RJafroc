@@ -4,10 +4,9 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, analysisOption)
   FRRC <- NULL
   RRFC <- NULL
   
-  I <- dim(dataset$NL)[1]
+  I <- dim(dataset$ratings$NL)[1]
   
-  modalityID <- dataset$modalityID
-  # readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
 
   foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   

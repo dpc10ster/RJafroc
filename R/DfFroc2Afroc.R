@@ -37,12 +37,14 @@
 
 DfFroc2Afroc <- function (dataset){
   if (dataset$dataType != "FROC") stop("The dataset has to be FROC")
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
   K1 <- K - K2 
 
+  stop("need fix here")
+  # TBA SimplifyDatasets
   NL <- apply(NL, c(1, 2, 3), max)
   dim(NL) <- c(dim(NL), 1)
   dataset$NL <- NL[,,,1, drop = FALSE]

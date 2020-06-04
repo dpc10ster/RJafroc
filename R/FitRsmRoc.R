@@ -121,15 +121,10 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   minNuP <- RJafrocEnv$minNuP
   maxMu <- RJafrocEnv$maxRsmMu
   minMu <- RJafrocEnv$minMu
-  #minZeta <- RJafrocEnv$minZeta
-  #maxZeta <- RJafrocEnv$maxZeta
-  
-  # modalityID <- binnedRocData$modalityID[trt]
-  # readerID <- binnedRocData$readerID[rdr]
   class(lesDistr) <- "numeric"
   
-  fp <- binnedRocData$NL[trt,rdr,,1];fp <- fp[fp != -Inf]
-  tp <- binnedRocData$LL[trt,rdr,,1]
+  fp <- binnedRocData$ratings$NL[trt,rdr,,1];fp <- fp[fp != -Inf]
+  tp <- binnedRocData$ratings$LL[trt,rdr,,1]
   plotStep <- 0.01
   plotZeta <- seq(from = -3, to = 10, by = plotStep)
   

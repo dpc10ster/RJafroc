@@ -90,8 +90,8 @@ FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
   minZeta <- RJafrocEnv$minZeta 
   maxZeta <- RJafrocEnv$maxZeta 
   
-  fp <- dataset$NL[trt,rdr,,1];fp <- fp[fp != -Inf]
-  tp <- dataset$LL[trt,rdr,,1]
+  fp <- dataset$ratings$NL[trt,rdr,,1];fp <- fp[fp != -Inf]
+  tp <- dataset$ratings$LL[trt,rdr,,1]
   lenZetas <- length(unique(c(fp, tp))) - 1
   zetas <- array(dim = lenZetas)
   plotZeta <- seq(-3, 8, by = 0.1)

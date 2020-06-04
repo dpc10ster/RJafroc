@@ -88,13 +88,13 @@ FitCorCbmRoc <- function(dataset){
     maxMu <- qnorm(maxAUC) * sqrt(2) + 0.5
   }
 
-  I <- length(dataset$NL[,1,1,1])
-  J <- length(dataset$NL[1,,1,1])
-  K <- length(dataset$NL[1,1,,1])
-  K2 <- length(dataset$LL[1,1,,1])
+  I <- length(dataset$ratings$NL[,1,1,1])
+  J <- length(dataset$ratings$NL[1,,1,1])
+  K <- length(dataset$ratings$NL[1,1,,1])
+  K2 <- length(dataset$ratings$LL[1,1,,1])
   K1 <- K - K2
-  FP <- dataset$NL[1,,1:K1,1]
-  TP <- dataset$LL[1,,,1]
+  FP <- dataset$ratings$NL[1,,1:K1,1]
+  TP <- dataset$ratings$LL[1,,,1]
 
   z1X <- FP[1, ];z1Y <- FP[2, ]
   z2X <- TP[1, ];z2Y <- TP[2, ]

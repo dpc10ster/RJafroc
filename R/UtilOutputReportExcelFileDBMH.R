@@ -9,10 +9,10 @@ OutputExcelFileDBMH <- function(dataset,
                                 analysisOption,
                                 StResult)
 {
-  I <- dim(dataset$NL)[1]
-  J <- dim(dataset$NL)[2]
-  K <- dim(dataset$NL)[3]
-  K2 <- dim(dataset$LL)[3]
+  I <- dim(dataset$ratings$NL)[1]
+  J <- dim(dataset$ratings$NL)[2]
+  K <- dim(dataset$ratings$NL)[3]
+  K2 <- dim(dataset$ratings$LL)[3]
   K1 <- K - K2
   
   #############################################################    
@@ -21,6 +21,8 @@ OutputExcelFileDBMH <- function(dataset,
   addWorksheet(wb, "Summary")
   writeData(wb, sheet = "Summary", x = summaryInfo, rowNames = TRUE, colNames = FALSE)
   
+  stop("need fix here")
+  # TBA SimplifyDatasets
   modalityID <- data.frame(output = dataset$modalityID, input = names(dataset$modalityID))
   colnames(modalityID) <- c("Modality ID in output file", "Modality ID in input file")
   writeData(wb, sheet = "Summary", x = modalityID, startRow = 5, colNames = TRUE)

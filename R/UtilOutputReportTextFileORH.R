@@ -10,8 +10,8 @@ OutputTextFileORH <- function(dataset,
   sink(ReportFileName)
   Preamble(dataset, FOM, ReportFileName, OR, methodTxt)
   
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
   J <- length(readerID)
   
@@ -63,7 +63,7 @@ OutputTextFileORH <- function(dataset,
          "===========================================================================\n") 
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
-  df <- UtilOR2DBMVarComp(dim(dataset$NL)[3], df)
+  df <- UtilOR2DBMVarComp(dim(dataset$ratings$NL)[3], df)
   print(format(df, digits = 5, justify = "left"))
   
   x <- c("\n",

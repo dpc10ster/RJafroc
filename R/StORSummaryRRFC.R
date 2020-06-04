@@ -7,8 +7,8 @@ ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   #   *****    Analysis 3 (OR Analysis): Random Readers and Fixed Cases     *****
   # ===========================================================================
       
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
   J <- length(readerID)
   

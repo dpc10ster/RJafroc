@@ -10,11 +10,11 @@ ORSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
 #        this study. Chi-square or Z tests are used; these are appropriate for 
 #        moderate or large case sample sizes.)
 #     
-  readerID <- dataset$readerID
-  modalityID <- dataset$modalityID
+  readerID <- dataset$descriptions$readerID
+  modalityID <- dataset$descriptions$modalityID
   I <- length(modalityID)
   J <- length(readerID)
-  K <- dim(dataset$NL)[3]
+  K <- dim(dataset$ratings$NL)[3]
   
   foms <-  FOMs$foms
   trtMeanDiffs  <-  FOMs$trtMeanDiffs

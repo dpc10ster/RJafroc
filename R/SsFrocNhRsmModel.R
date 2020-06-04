@@ -52,8 +52,8 @@ SsFrocNhRsmModel <- function (dataset, lesionPmf) {
   if (dataset$dataType == "FROC") rocData <- DfFroc2Roc(dataset) else rocData <- dataset
   if (sum(lesionPmf) != 1) stop("The lesion distribution vector must sum to unity")
   
-  I <- dim(dataset$NL)[1]
-  J <- dim(dataset$NL)[2]
+  I <- dim(dataset$ratings$NL)[1]
+  J <- dim(dataset$ratings$NL)[2]
   maxLL <- length(lesionPmf)
   
   lesDistr <- array(c(seq(1, maxLL), lesionPmf), dim = c(maxLL, 2))

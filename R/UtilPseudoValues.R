@@ -29,25 +29,25 @@
 UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   dataType <- dataset$dataType
   if (dataType != "LROC") {
-    NL <- dataset$NL
-    LL <- dataset$LL
+    NL <- dataset$ratings$NL
+    LL <- dataset$ratings$LL
   } else {
     if (FOM == "Wilcoxon"){
       datasetRoc <- DfLroc2Roc(dataset)
-      NL <- datasetRoc$NL
-      LL <- datasetRoc$LL
+      NL <- datasetRoc$ratings$NL
+      LL <- datasetRoc$ratings$LL
     } else if (FOM %in% c("PCL", "ALROC")){
-      NL <- dataset$NL
-      LL <- dataset$LLCl
+      NL <- dataset$ratings$NL
+      LL <- dataset$ratings$LL
     } else stop("incorrect FOM for LROC data")
   }
-  lesionVector <- dataset$lesionVector
+  lesionVector <- dataset$lesions$perCase
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
   J <- length(readerID)
   K <- dim(NL)[3]
@@ -145,7 +145,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     for (j in 1:J) {
       k1_j_sub <- !is.na(t[1,j,,1]) | !is.na(t[1,j,,2])
       k2_j_sub <- !is.na(t[1,j,,2])[(K1+1):K]
-      lV_j <- dataset$lesionVector[k2_j_sub]
+      lV_j <- dataset$lesions$perCase[k2_j_sub]
       maxLL_j <- max(lV_j)
       k1_j <- sum(!is.na(t[1,j,,1]))
       k2_j <- sum(!is.na(t[1,j,,2]))

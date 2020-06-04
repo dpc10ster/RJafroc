@@ -137,14 +137,14 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
     lesDistr <- UtilLesionDistr(theData) # RSM ROC fitting needs to know lesDistr
     
     # convert to HR ROC data; and remove negative infinities
-    if (theData$dataType == "FROC") rocData <- DfFroc2Roc(theData) else rocData <- theData  
+    if (theData$descriptions$type == "FROC") rocData <- DfFroc2Roc(theData) else rocData <- theData  
     
     if (saveProprocLrcFile) {
       DfSaveDataFile(rocData, 
                      fileName = paste0(fileName,".lrc"), format = "MRMC")
     }
-    I <- length(rocData$modalityID);J <- length(rocData$readerID)
-    K <- dim(rocData$NL)[3];K2 <- dim(rocData$LL)[3];K1 <- K - K2
+    I <- length(rocData$descriptions$modalityID);J <- length(rocData$descriptions$readerID)
+    K <- dim(rocData$ratings$NL)[3];K2 <- dim(rocData$ratings$LL)[3];K1 <- K - K2
     
     ## retrieve PROPROC parameters
     csvFileName <- paste0(fileName, "proprocareapooled.csv") # runs on July 29, 2017
@@ -158,7 +158,7 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
     
     retFileName <- paste0("allResults", fileName) 
     sysAnalFileName <- system.file("ANALYZED/RSM6", retFileName, package = "RJafroc", mustWork = TRUE)
-    if (fileName %in% c("JT", "NICO", "DOB1", "DOB3")){
+    if (!rocData$descriptions$binned){
       binnedRocData <- DfBinDataset(rocData, desiredNumBins = 5, opChType = "ROC") # new function
     }else{
       binnedRocData <- rocData

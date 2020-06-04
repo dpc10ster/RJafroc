@@ -111,8 +111,8 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
 {
   options(stringsAsFactors = FALSE, "digits" = 8)
   
-  I <- length(dataset$modalityID)
-  J <- length(dataset$readerID)
+  I <- length(dataset$descriptions$modalityID)
+  J <- length(dataset$descriptions$readerID)
   
   if (J == 1) analysisOption <- "FRRC" else if (I == 1) analysisOption <- "RRFC"
   
@@ -135,7 +135,9 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   #   stop(ErrMsg)
   # }
   # 
-  if ((length(dataset$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
+  if ((length(dataset$ratings$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
+    stop("need fix here")
+    # TBA SimplifyDatasets
     ErrMsg <- paste0("Must use analysisOption FRRC with 1-reader dataset")
     stop(ErrMsg)
     # analysisOption <- "FRRC"

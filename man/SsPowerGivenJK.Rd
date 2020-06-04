@@ -71,7 +71,7 @@ SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, method = "DBMH
 SsPowerGivenJK(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 251, method = "ORH")
 
 a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
-KStar <- length(dataset02$NL[1,1,,1])
+KStar <- length(dataset02$ratings$NL[1,1,,1])
 SsPowerGivenJK(dataset = NULL, effectSize = 0.05, J = 6, K = 251, method = "ORH", 
    list(KStar = KStar, 
    VarTR = a["VarTR","Estimates"], 

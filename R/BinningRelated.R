@@ -12,6 +12,8 @@ isDataDegenerate <-  function (fpf, tpf) {
 
 UtilBinCountsOpPts <- function(dataset, trt = 1, rdr = 1)
 {
+  stop("need fix here")
+  # TBA SimplifyDatasets
   ret <- UtilExtractDataStructure(dataset)
   NL <- ret$NL;LL <- ret$LL;J <- ret$J;K1 <- ret$K1;K2 <- ret$K2
   
@@ -46,15 +48,15 @@ UtilBinCountsOpPts <- function(dataset, trt = 1, rdr = 1)
 
 UtilExtractDataStructure <- function(dataset){
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  nlDim <- dim(dataset$NL)
-  llDim <- dim(dataset$LL)
+  nlDim <- dim(dataset$ratings$NL)
+  llDim <- dim(dataset$ratings$LL)
   I <- nlDim[1]
   J <- nlDim[2]
   K <- nlDim[3]
   K2 <- llDim[3]
   K1 <- K - K2
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   return(list(
     I = I,
     J = J,

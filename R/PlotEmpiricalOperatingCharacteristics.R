@@ -487,10 +487,10 @@ RawOpPtsROC2ROC <- function (fp, tp) {
 
 ####################################################################################################################
 ROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
-  NL <- dataset$NL
-  LL <- dataset$LL
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   
   I <- length(treatments2Plot) # found possible error 11/10/19 !!!DPC!!!
   # I <- dim(NL)[1] # No; this gives error
@@ -542,11 +542,9 @@ AvgROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  # lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  # weights <- dataset$lesionWeight
-  
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -627,11 +625,10 @@ FROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  # weights <- dataset$lesionWeight
-  
+  lesionVector <- dataset$lesions$perCase
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+
   
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
@@ -687,11 +684,10 @@ AvgFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  # weights <- dataset$lesionWeight
-  
+  lesionVector <- dataset$lesions$perCase
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -814,11 +810,10 @@ AFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  # weights <- dataset$lesionWeight
-  
+  lesionVector <- dataset$lesions$perCase
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -879,11 +874,10 @@ AvgAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  # weights <- dataset$lesionWeight
-  
+  lesionVector <- dataset$lesions$perCase
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -994,11 +988,10 @@ AFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  # weights <- dataset$lesionWeight
-  
+  lesionVector <- dataset$lesions$perCase
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -1053,11 +1046,10 @@ AvgAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  # weights <- dataset$lesionWeight
-  
+  lesionVector <- dataset$lesions$perCase
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -1121,10 +1113,9 @@ wAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  # lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  lesionWeights <- dataset$lesionWeight
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+  lesionWeights <- dataset$lesions$weights
   
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
@@ -1185,10 +1176,10 @@ AvgwAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  lesionWeights <- dataset$lesionWeight  
+  lesionVector <- dataset$lesions$perCase
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+  lesionWeights <- dataset$lesions$weights  
   
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
@@ -1252,10 +1243,9 @@ wAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  # lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  lesionWeights <- dataset$lesionWeight
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+  lesionWeights <- dataset$lesions$weights
   
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
@@ -1315,10 +1305,9 @@ AvgwAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   NL <- dataset$NL
   LL <- dataset$LL
-  # lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  lesionWeights <- dataset$lesionWeight  
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+  lesionWeights <- dataset$lesions$weights  
   
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
@@ -1492,13 +1481,11 @@ LrocPlots1 <- function (zjk1, zjk2)
 ####################################################################################################################
 LROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   
-  NL <- dataset$NL
-  LL <- dataset$LLCl
-  # lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  # weights <- dataset$lesionWeight
-  
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+
   
   I <- length(treatments2Plot) # found possible error 11/10/19 !!!DPC!!!
   # I <- dim(NL)[1] # No; this gives error
@@ -1577,13 +1564,11 @@ RawOpPtsLROC2LROC <- function (fp, cl) {
 ####################################################################################################################
 AvgLROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   
-  NL <- dataset$NL
-  LL <- dataset$LLCl
-  # lesionVector <- dataset$lesionVector
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
-  # weights <- dataset$lesionWeight
-  
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]

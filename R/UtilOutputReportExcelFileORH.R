@@ -9,14 +9,16 @@ OutputExcelFileORH <- function(dataset,
                                 analysisOption,
                                 StResult)
 {
-  I <- dim(dataset$NL)[1]
-  J <- dim(dataset$NL)[2]
-  K <- dim(dataset$NL)[3]
-  K2 <- dim(dataset$LL)[3]
+  I <- dim(dataset$ratings$NL)[1]
+  J <- dim(dataset$ratings$NL)[2]
+  K <- dim(dataset$ratings$NL)[3]
+  K2 <- dim(dataset$ratings$LL)[3]
   K1 <- K - K2
   
   #############################################################    
-  ## setup up empty excel output file containing Summary worksheet     
+  ## setup up empty excel output file containing Summary worksheet   
+  stop("need fix here")
+  # TBA SimplifyDatasets
   wb <- createWorkbook()
   addWorksheet(wb, "Summary")
   writeData(wb, sheet = "Summary", x = summaryInfo, rowNames = TRUE, colNames = FALSE)

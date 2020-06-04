@@ -32,8 +32,8 @@ DfLroc2Froc <- function(dataset)  #  !!!in tests!!!
   if (dataset$dataType != "LROC") 
     stop("This function requires an LROC dataset")
   
-  NL <- dataset$NL
-  LL <- dataset$LLCl
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   
   I <- length(NL[,1,1,1])
   J <- length(NL[1,,1,1])
@@ -47,7 +47,7 @@ DfLroc2Froc <- function(dataset)  #  !!!in tests!!!
   for (i in 1:I) {
     for (j in 1:J) {
       for (k in 1:K1) {
-        NL[i,j,k,1] <- dataset$NL[i,j,k,1]
+        NL[i,j,k,1] <- dataset$ratings$NL[i,j,k,1]
       }
     }
   }
@@ -55,7 +55,7 @@ DfLroc2Froc <- function(dataset)  #  !!!in tests!!!
   for (i in 1:I) {
     for (j in 1:J) {
       for (k in 1:K2) {
-        NL[i,j,k+K1,1] <- dataset$LLIl[i,j,k,1]
+        NL[i,j,k+K1,1] <- dataset$ratings$LL_IL[i,j,k,1]
       }
     }
   }
@@ -63,7 +63,7 @@ DfLroc2Froc <- function(dataset)  #  !!!in tests!!!
   for (i in 1:I) {
     for (j in 1:J) {
       for (k in 1:K2) {
-        LL[i,j,k,1] <- dataset$LLCl[i,j,k,1]
+        LL[i,j,k,1] <- dataset$ratings$LL[i,j,k,1]
       }
     }
   }
@@ -74,15 +74,17 @@ DfLroc2Froc <- function(dataset)  #  !!!in tests!!!
   lesWghts <- dataset$lesionWeight
   lesWghts[,1] <- 1
   
+  # TBA SimplifyDatasets
+  
   datasetFroc <- list(
     NL = NL,
     LL = LL,
-    lesionVector = dataset$lesionVector,
+    lesionVector = dataset$lesions$perCase,
     lesionID = dataset$lesionID,
     lesionWeight = lesWghts,
     dataType = "FROC",
-    modalityID = dataset$modalityID,
-    readerID = dataset$readerID,
+    modalityID = dataset$descriptions$modalityID,
+    readerID = dataset$descriptions$readerID,
     datasetName = "ignore"
   )
   

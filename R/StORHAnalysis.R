@@ -6,7 +6,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   FRRC <- NULL
   RRFC <- NULL
   
-  modalityID <- dataset$modalityID
+  modalityID <- dataset$descriptions$modalityID
   I <- length(modalityID)
 
   # `as.matrix` is NOT absolutely necessary as `mean()` function is not used
@@ -185,12 +185,12 @@ resampleFOMijk2VarCov <- function(resampleFOMijk) {
 
 varComponentsJackknife <- function(dataset, FOM, FPFValue) {
   
-  I <- length(dataset$NL[,1,1,1])
-  J <- length(dataset$NL[1,,1,1])
-  K <- length(dataset$NL[1,1,,1])
+  I <- length(dataset$ratings$NL[,1,1,1])
+  J <- length(dataset$ratings$NL[1,,1,1])
+  K <- length(dataset$ratings$NL[1,1,,1])
   
   if ((length(dataset) != 13) || (dataset$design == "CROSSED")) { 
-    # K <- length(dataset$NL[1,1,,1])
+    # K <- length(dataset$ratings$NL[1,1,,1])
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
     CovTemp <- resampleFOMijk2VarCov(ret$jkFomValues)
     Cov <- list(
@@ -237,9 +237,9 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
 varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed) 
 {
   set.seed(seed) ## added 4/28/20, to test reproducibility with RJafrocBook code
-  NL <- dataset$NL
-  LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  lesionVector <- dataset$lesions$perCase
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   
@@ -333,9 +333,9 @@ varComponentsDeLong <- function(dataset, FOM)
 {
   
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  NL <- dataset$NL
-  LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  lesionVector <- dataset$lesions$perCase
   
   I <- length(NL[,1,1,1])
   J <- length(NL[1,,1,1])

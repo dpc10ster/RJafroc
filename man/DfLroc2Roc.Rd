@@ -17,7 +17,7 @@ Converts an LROC dataset to an ROC dataset
 }
 \details{
 For the diseased cases one takes the maximum rating on each diseased case, 
-   which could be a LLCl ("true positive" correct localization) or a LLIl 
+   which could be a LL ("true positive" correct localization) or a LL_IL 
    ("true positive" incorrect localization) rating, whichever has the higher rating.
    For non-diseased cases the NL arrays are identical.
 }

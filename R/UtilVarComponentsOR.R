@@ -44,8 +44,8 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
                                  covEstMethod = "jackknife", nBoots = 200, seed = NULL)
 {
   
-  I <- dim(dataset$NL)[1]
-  J <- dim(dataset$NL)[2]
+  I <- dim(dataset$ratings$NL)[1]
+  J <- dim(dataset$ratings$NL)[2]
   
   # Foms is local value; 
   # `as.matrix` is absolutely necessary if following `mean()` function is to work
@@ -92,7 +92,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   msR_i <- msR_i/(J - 1)
   
   # for (i in 1:I) {
-  #   if (dataset$design != "SPLIT_PLOT") {
+  #   if (dataset$design != "SPLIT-PLOT") {
   #     cov2EachTrt <- vector(length = I)
   #   } else  {
   #     cov2EachTrt <- rep(0, I)
@@ -107,7 +107,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
     cov2EachTrt[i] <- ret$Cov2
   }
   
-  modID <- as.vector(dataset$modalityID)
+  modID <- as.vector(dataset$descriptions$modalityID)
   IndividualTrt <- data.frame(DF = rep(J-1, I), 
                               msREachTrt = msR_i, 
                               varEachTrt = varEachTrt, 
@@ -134,7 +134,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
     cov1EachRdr[j] <- ret$Cov1
   }
   
-  rdrID <- as.vector(dataset$readerID)
+  rdrID <- as.vector(dataset$descriptions$readerID)
   IndividualRdr <- data.frame(DF = rep(I-1, J), 
                               msTEachRdr = msT_j, 
                               varEachRdr = varEachRdr, 

@@ -44,7 +44,7 @@
 #' SsPowerGivenJK(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 251, method = "ORH")
 #' 
 #' a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
-#' KStar <- length(dataset02$NL[1,1,,1])
+#' KStar <- length(dataset02$ratings$NL[1,1,,1])
 #' SsPowerGivenJK(dataset = NULL, effectSize = 0.05, J = 6, K = 251, method = "ORH", 
 #'    list(KStar = KStar, 
 #'    VarTR = a["VarTR","Estimates"], 
@@ -110,7 +110,7 @@ SsPowerGivenJK <- function(dataset,
       Cov3 <- ret$ANOVA$VarCom["Cov3",1]
       Var <- ret$ANOVA$VarCom["Var",1]
       if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
-      KStar <- length(dataset$NL[1,1,,1])
+      KStar <- length(dataset$ratings$NL[1,1,,1])
     } else {
       if (is.null(effectSize)) stop("When using variance components as input, effect size needs to be explicitly specified.")
       extraParms <- list(...)[[1]]
@@ -240,7 +240,7 @@ SsPowerGivenJKDbmVarComp <- function(J, K, effectSize, varYTR, varYTC, varYEps, 
 #' 
 #' @examples 
 #' dataset <- dataset02 ## the pilot study
-#' KStar <- length(dataset$NL[1,1,,1])
+#' KStar <- length(dataset$ratings$NL[1,1,,1])
 #' VarCom <- StSignificanceTesting(dataset, FOM = "Wilcoxon", 
 #' method = "ORH", analysisOption = "RRRC")$ANOVA$VarCom
 #' VarTR <- VarCom["VarTR",1]

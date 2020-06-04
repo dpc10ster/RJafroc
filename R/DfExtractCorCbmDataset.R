@@ -45,29 +45,31 @@
 #' @export
 
 DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
+  stop("need fix here")
+  # TBA SimplifyDatasets
   dataset <- DfBinDataset(dataset, desiredNumBins = 5, opChType = "ROC")
   if (dataset$dataType != "ROC") {
     stop("This program requires an ROC dataset")
   }
-  I <- length(dataset$NL[,1,1,1])
-  J <- length(dataset$NL[1,,1,1])
-  K <- length(dataset$NL[1,1,,1])
-  K2 <- length(dataset$LL[1,1,,1])
+  I <- length(dataset$ratings$NL[,1,1,1])
+  J <- length(dataset$ratings$NL[1,,1,1])
+  K <- length(dataset$ratings$NL[1,1,,1])
+  K2 <- length(dataset$ratings$LL[1,1,,1])
   K1 <- K - K2
   
   lt <- length(trts);lr <- length(rdrs)
   if ((lt == 1) && (lr == 2)){
     ds <- DfExtractDataset(dataset, trts, rdrs)
-    ds$modalityID <- "1"
-    ds$readerID <- c("1", "2")
+    ds$descriptions$modalityID <- "1"
+    ds$descriptions$readerID <- c("1", "2")
     return(ds)
   } else if ((lt == 2) && (lr == 1)) {
     ds <- DfExtractDataset(dataset, trts, rdrs)
     NL <- ds$NL;dim(NL) <- c(1,2,K,1)
     LL <- ds$LL;dim(LL) <- c(1,2,K2,1)
     ds$NL <- NL;ds$LL <- LL
-    ds$modalityID <- "1"
-    ds$readerID <- c("1", "2")
+    ds$descriptions$modalityID <- "1"
+    ds$descriptions$readerID <- c("1", "2")
     return(ds)
   } else if ((lt == 2) && (lr == 2)) {
     for (i in 1:lt){
@@ -85,8 +87,8 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
     LL <- rbind(dsX$LL,dsY$LL);dim(LL) <- c(1,2,K2,1)
     ds <- dsX
     ds$NL <- NL;ds$LL <- LL
-    ds$modalityID <- "1"
-    ds$readerID <- c("1", "2")
+    ds$descriptions$modalityID <- "1"
+    ds$descriptions$readerID <- c("1", "2")
     return(ds)
   } else stop("Illegal combination of treatments and readers")
   

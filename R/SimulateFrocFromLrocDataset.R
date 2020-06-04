@@ -33,8 +33,8 @@ SimulateFrocFromLrocDataset <- function(dataset)  #  !!!put in tests!!!
   if (dataset$dataType != "LROC") 
     stop("This function requires an LROC dataset")
   
-  NL <- dataset$NL
-  LL <- dataset$LLCl
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   
   I <- length(NL[,1,1,1])
   J <- length(NL[1,,1,1])
@@ -48,7 +48,7 @@ SimulateFrocFromLrocDataset <- function(dataset)  #  !!!put in tests!!!
   for (i in 1:I) {
     for (j in 1:J) {
       for (k in 1:K1) {
-        NL[i,j,k,1] <- dataset$NL[i,j,k,1]
+        NL[i,j,k,1] <- dataset$ratings$NL[i,j,k,1]
       }
     }
   }
@@ -56,7 +56,7 @@ SimulateFrocFromLrocDataset <- function(dataset)  #  !!!put in tests!!!
   for (i in 1:I) {
     for (j in 1:J) {
       for (k in 1:K2) {
-        NL[i,j,k+K1,1] <- dataset$LLIl[i,j,k,1]
+        NL[i,j,k+K1,1] <- dataset$ratings$LL_IL[i,j,k,1]
       }
     }
   }
@@ -64,7 +64,7 @@ SimulateFrocFromLrocDataset <- function(dataset)  #  !!!put in tests!!!
   for (i in 1:I) {
     for (j in 1:J) {
       for (k in 1:K2) {
-        LL[i,j,k,1] <- dataset$LLCl[i,j,k,1]
+        LL[i,j,k,1] <- dataset$ratings$LL[i,j,k,1]
       }
     }
   }
@@ -72,18 +72,18 @@ SimulateFrocFromLrocDataset <- function(dataset)  #  !!!put in tests!!!
   NL[NL == 0] <- -Inf
   LL[LL == 0] <- -Inf
   
-  lesWghts <- dataset$lesionWeight
+  lesWghts <- dataset$lesions$weights
   lesWghts[,1] <- 1
   
   datasetFroc <- list(
     NL = NL,
     LL = LL,
-    lesionVector = dataset$lesionVector,
-    lesionID = dataset$lesionID,
+    lesionVector = dataset$lesions$perCase,
+    lesionID = dataset$lesions$IDs,
     lesionWeight = lesWghts,
     dataType = "FROC",
-    modalityID = dataset$modalityID,
-    readerID = dataset$readerID,
+    modalityID = dataset$descriptions$modalityID,
+    readerID = dataset$descriptions$readerID,
     datasetName = "ignore"
   )
   

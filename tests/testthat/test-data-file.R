@@ -342,14 +342,6 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
   
   expect_equal(ds1, ds2)
   
-  # expect_equal(ds1$NL, ds2$NL)
-  # expect_equal(ds1$LL, ds2$LL)
-  # expect_equal(ds1$lesionVector, ds2$lesionVector)
-  # expect_equal(ds1$lesionID, ds2$lesionID)
-  # expect_equal(ds1$lesionWeight, ds2$lesionWeight)
-  # expect_equal(ds1$dataType, ds2$dataType)
-  # expect_equal(ds1$modalityID, ds2$modalityID)
-  # expect_equal(ds1$readerID, ds2$readerID)
 })
 
 

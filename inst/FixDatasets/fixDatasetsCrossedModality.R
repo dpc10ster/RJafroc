@@ -2,9 +2,9 @@ rm(list = ls())
 load("~/GitHub/RJafroc/data/datasetCrossedModality.RData")
 ds <- datasetCrossedModality
 
-NL <- ds$NL
-LLCl <- ds$LLCl
-LLIl <- ds$LLIl
+NL <- ds$ratings$NL
+LLCl <- ds$ratings$LL
+LLIl <- ds$ratings$LL_IL
 lesionNum <- ds$lesionNum
 lesionID <- ds$lesionID
 lesionWeight <- ds$lesionWeight

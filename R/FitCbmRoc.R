@@ -104,11 +104,11 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
     maxMu <- qnorm(maxAUC) * sqrt(2) + 0.5
   }
   
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   
-  fp <- dataset$NL[1,1,,1]
-  tp <- dataset$LL[1,1,,1]
+  fp <- dataset$ratings$NL[1,1,,1]
+  tp <- dataset$ratings$LL[1,1,,1]
   plotStep <- 0.01
   plotZeta <- seq(from = -3, to = 10, by = plotStep)
   K2 <- length(tp)

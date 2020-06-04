@@ -1,93 +1,236 @@
 library(RJafroc)
 rm(list = ls())
 
+fileNames <- c("dataset01", "dataset02", "dataset03", "dataset04", "dataset05", "dataset06",
+               "dataset07", "dataset08", "dataset09", "dataset10", "dataset11", "dataset12",
+               "dataset13", "dataset14", 
+               "datasetBinned123", "datasetBinned124", "datasetBinned125",
+               "datasetCadLroc", "datasetCadSimuFroc", 
+               "datasetCrossedModality",
+               "datasetDegenerate", "datasetFROCSp", "datasetROI")
 
-FixCrossedModalityDataset <- function(x, dataSetName) {
+binned  <- c(rep(TRUE, 4), FALSE, rep(TRUE, 3), FALSE, rep(TRUE, 8), 
+             rep(FALSE, 3), rep(TRUE, 2), FALSE)
+
+dataTypes <- c("FROC", "ROC", "ROC", "FROC", "FROC", "FROC",
+               "FROC", "ROC", "ROC", "ROC", "FROC", "ROC",
+               "FROC", "ROC", "ROC", "ROC", "ROC", "LROC", 
+               "FROC", "FROC", "ROC", "FROC", "ROI")
+
+designs <- rep("FCTRL", length(fileNames))
+designs[20] <- "FCTRL-X-MOD"
+designs[22] <- "SPLIT-PLOT"
+
+dataNames <- c("TONY", "VAN-DYKE", "FRANKEN", "FEDERICA", "THOMPSON", "MAGNUS",
+               "LUCY-WARREN", "PENEDO", "NICO-CAD-ROC", "RUSCHIN", "DOBBINS-1", "DOBBINS-2",
+               "DOBBINS-3", "FEDERICA-REAL-ROC", 
+               "SIM-CORCBM-SEED-123", 
+               "SIM-CORCBM-SEED-124", 
+               "SIM-CORCBM-SEED-125",
+               "NICO-CAD-LROC", 
+               "SIM-CAD-FROC", 
+               "THOMPSON-X-MOD",
+               "SIM-DEGENERATE", 
+               "SIM-FROC-SPLIT-PLOT", 
+               "SIM-ROI")
+
+df <- data.frame(fileNames = fileNames,
+                 dataTypes = dataTypes,
+                 designs = designs,
+                 dataNames = dataNames,
+                 binned = binned,
+                 stringsAsFactors = FALSE)
+
+writeFile <- TRUE
+
+for (i in 1:length(df[,1])) {
   
-  # cat("skipping dataset: ", dataSetName, "\n")
-  I1 <- length(x$NL[,1,1,1,1])
-  I2 <- length(x$NL[1,,1,1,1])
-  J <- length(x$NL[1,1,,1,1])
-  K <- length(x$NL[1,1,1,,1])
-  K2 <- length(x$LL[1,1,1,,1])
-  K1 <- K - K2
+  cat(sprintf("fixing  %s\n", df[i,1]))
+  x <- get(df[i,1])
   
-  truthTableStr <- array(dim = c(I1, I2, J, K, max(x$lesionVector)+1))
-  truthTableStr[,,,1:K1,1] <- 1
-  for (k2 in 1:K2) {
-    truthTableStr[,,,k2+K1,(1:x$lesionVector[k2])+1] <- 1
+  if (length(x) == 3) next
+  
+  if (x$dataType != df[i,2]) stop("data types do not match")
+  
+  if (i %in% c(15,16,17)) {
+    # CORCBM datasets
+    ratings <- list(NL = x$NL,
+                    LL = x$LL,
+                    LL_IL = NA)
+    
+    lesions <- list(perCase = x$lesionVector,
+                    IDs = x$lesionID,
+                    weights = x$lesionWeight)
+    
+    descriptions <- list(binned = df[i,5],
+                         fileName = df[i,1],
+                         type = df[i,2],
+                         name = df[i,4],
+                         truthTableStr = NA,
+                         design = df[i,3],
+                         modalityID = x$modalityID,
+                         readerID = x$readerID)
+  } else if (i %in% seq(1,14)) {
+    ratings <- list(NL = x$NL,
+                    LL = x$LL,
+                    LL_IL = NA)
+    
+    lesions <- list(perCase = x$lesionVector,
+                    IDs = x$lesionID,
+                    weights = x$lesionWeight)
+    
+    if (is.null(x$truthTableStr)) stop("check here")
+    if (length(x$truthTableStr) < 10) stop("check here")
+    
+    descriptions <- list(binned = df[i,5],
+                         fileName = df[i,1],
+                         type = df[i,2],
+                         name = df[i,4],
+                         truthTableStr = x$truthTableStr, # this is really needed here
+                         design = df[i,3],
+                         modalityID = x$modalityID,
+                         readerID = x$readerID)
+  } else if (i == 18) {
+    # LROC data Nico
+    ratings <- list(NL = x$NL,
+                    LL = x$LLCl,
+                    LL_IL = x$LLIl)
+    
+    lesions <- list(perCase = x$lesionVector,
+                    IDs = x$lesionID,
+                    weights = x$lesionWeight)
+    
+    descriptions <- list(binned = df[i,5],
+                         fileName = df[i,1],
+                         type = df[i,2],
+                         name = df[i,4],
+                         truthTableStr = NA,
+                         design = df[i,3],
+                         modalityID = x$modalityID,
+                         readerID = x$readerID)
+  } else if (i == 19) {
+    # simulated CAD FROC
+    ratings <- list(NL = x$NL,
+                    LL = x$LL,
+                    LL_IL = NA)
+    
+    lesions <- list(perCase = x$lesionVector,
+                    IDs = x$lesionID,
+                    weights = x$lesionWeight)
+    
+    descriptions <- list(binned = df[i,5],
+                         fileName = df[i,1],
+                         type = df[i,2],
+                         name = df[i,4],
+                         truthTableStr = NA,
+                         design = df[i,3],
+                         modalityID = x$modalityID,
+                         readerID = x$readerID)
+  } else if (i == 20) {
+    # crossed modality
+    ratings <- list(NL = x$NL,
+                    LL = x$LL,
+                    LL_IL = NA)
+    
+    lesions <- list(perCase = x$lesionVector,
+                    IDs = x$lesionID,
+                    weights = x$lesionWeight)
+    
+    descriptions <- list(binned = df[i,5],
+                         fileName = df[i,1],
+                         type = df[i,2],
+                         name = df[i,4],
+                         truthTableStr = NA,
+                         design = df[i,3],
+                         modalityID1 = x$modalityID1,
+                         modalityID2 = x$modalityID2,
+                         readerID = x$readerID)
+  } else if (i == 21) {
+    # degenerate ROC
+    ratings <- list(NL = x$NL,
+                    LL = x$LL,
+                    LL_IL = NA)
+    
+    lesions <- list(perCase = x$lesionVector,
+                    IDs = x$lesionID,
+                    weights = x$lesionWeight)
+    
+    descriptions <- list(binned = df[i,5],
+                         fileName = df[i,1],
+                         type = df[i,2],
+                         name = df[i,4],
+                         truthTableStr = NA,
+                         design = df[i,3],
+                         modalityID = x$modalityID,
+                         readerID = x$readerID)
+  } else if (i == 22) {
+    # simulated FROC split plot
+    ratings <- list(NL = x$NL,
+                    LL = x$LL,
+                    LL_IL = NA)
+    
+    lesions <- list(perCase = x$lesionVector,
+                    IDs = x$lesionID,
+                    weights = x$lesionWeight)
+    
+    descriptions <- list(binned = df[i,5],
+                         fileName = df[i,1],
+                         type = df[i,2],
+                         name = df[i,4],
+                         truthTableStr = x$truthTableStr, # this is really needed here
+                         design = df[i,3],
+                         modalityID = x$modalityID,
+                         readerID = x$readerID)
+  } else if (i == 23) {
+    # simulated ROI
+    ratings <- list(NL = x$NL,
+                    LL = x$LL,
+                    LL_IL = NA)
+    
+    lesions <- list(perCase = x$lesionVector,
+                    IDs = x$lesionID,
+                    weights = x$lesionWeight)
+    
+    descriptions <- list(binned = df[i,5],
+                         fileName = df[i,1],
+                         type = df[i,2],
+                         name = df[i,4],
+                         truthTableStr = NA,
+                         design = df[i,3],
+                         modalityID = x$modalityID,
+                         readerID = x$readerID)
+  } else stop("incorrect index i")
+  
+  if (length(ratings) != 3) stop("need to check here")
+  if (length(lesions) != 3) stop("need to check here")
+  if (descriptions$design != "FCTRL-X-MOD") {
+    if (length(descriptions) != 8) stop("need to check here")
+  } else {
+    if (length(descriptions) != 9) stop("need to check here")
   }
   
-  if (is.null(x$design)) {
-    x <- list(
-      NL = x$NL,
-      LL = x$LL,
-      lesionVector = x$lesionVector,
-      lesionWeight = x$lesionWeight,
-      dataType = x$dataType,
-      modalityID1 = x$modalityID1,
-      modalityID2 = x$modalityID2,
-      readerID = x$readerID,
-      design = "CROSSED-MODALITY",
-      normalCases = seq(1, K1),
-      abnormalCases = seq(1+K1, K1+K2),
-      truthTableStr = truthTableStr,
-      datasetName = "John Thompson Crossed Modality Dataset"
-    )
-    if (length(x) != 13) stop("Incorrect length dataset")
-  } 
+  x <- list(ratings = ratings,
+            lesions = lesions,
+            descriptions = descriptions)
   
-  return(x)
+  # check binning status
+  z <- length(unique(x$ratings$LL[is.finite(x$ratings$LL)]))
+  if ((z <= 6) && (x$descriptions$binned != TRUE)) stop ("need check here")
+  # cat(sprintf("... unique ratings = %d\n", z))
+  
+  assign(df[i,1],x)
+  
+  rm(x)
+  
+  fn <- paste0("~/GitHub/RJafroc/data/", df[i,1], ".RData")
+  if (writeFile) save(list = df[i,1], file = fn)
+  
 }
 
-writeFile <- FALSE
-
-dataStr <- c("dataset01", "dataset02", "dataset03", "dataset04", "dataset05", "dataset06",
-             "dataset07", "dataset08", "dataset09", "dataset10", "dataset11", "dataset12",
-             "dataset13", "dataset14", 
-             "datasetBinned123", "datasetBinned124", "datasetBinned125",
-             "datasetCadLroc", "datasetCadSimuFroc", 
-             "datasetCrossedModality",
-             "datasetDegenerate", "datasetFROCSp", "datasetROI")
+# clean up for good display in Environment Panel
+rm(list = c("lesions", "ratings", "descriptions", "dataNames", 
+            "dataTypes", "designs", "fileNames", "fn", "binned", 
+            "i", "z", "writeFile", "df"))
 
 
-for (i in 1:length(dataStr)) {
-  
-  cat("\n", dataStr[i])
-  
-  x <- eval(parse(text=dataStr[i]))
-  
-  if (length(x) == 13) { # already correct length
-    if (!(x$design %in% c("CROSSED-MODALITY", "FACTORIAL", "SPLIT-PLOT"))) stop("Neded fix here")
-    
-  }
-  
-  if (length(dim(x$NL)) == 5) { # fix crossed dataset
-    x <- FixCrossedModalityDataset(x, dataStr[i])
-    fn <- paste0("~/GitHub/RJafroc/data/", dataStr[i], ".RData")
-    if (writeFile) save(dataStr[i], file = fn)
-    next
-  }
-  
-  I <- length(x$modalityID)
-  J <- length(x$readerID)
-  K <- length(x$NL[1,1,,1])
-  K2 <- length(x$LL[1,1,,1])
-  K1 <- K - K2
-  if (length(x) == 13) {
-    if (x$design == "CROSSED") {
-      cat(": changing CROSSED to FACTORIAL\n")
-      x$design <- "FACTORIAL"
-    }
-  } else {
-    cat(": dataset length = ", length(x), "\n")
-  }
-  # truthTableStr <- array(dim = c(I, J, K, max(x$lesionVector)+1))
-  # truthTableStr[,,1:K1,1] <- 1
-  # for (k2 in 1:K2) {
-  #   truthTableStr[,,k2+K1,(1:x$lesionVector[k2])+1] <- 1
-  # }
-  fn <- paste0("~/GitHub/RJafroc/data/", dataStr[i], ".RData")
-  if (writeFile) save(dataStr[i], file = fn)
-}            
 

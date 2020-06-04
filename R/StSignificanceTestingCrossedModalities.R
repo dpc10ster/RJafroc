@@ -4,7 +4,7 @@
 #'    averaged over specified treatment factor
 #' 
 #' 
-#' @param crossedData The crossed treatments dataset
+#' @param ds The crossed treatments dataset
 #' @param avgIndx The index of the treatment to be averaged over
 #' @param FOM See \code{\link{StSignificanceTesting}}
 #' @param alpha See \code{\link{StSignificanceTesting}}
@@ -17,31 +17,33 @@
 #' ## read the raw data file in extdata directory (this is included to illustrate the format)
 #' crossedFileName <- system.file("extdata", "CrossedModalitiesData.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
-#' crossedData <- DfReadCrossedModalities(crossedFileName)
-#' retCrossed1 <- StSignificanceTestingCrossedModalities(crossedData, 1)
+#' ds <- DfReadCrossedModalities(crossedFileName)
+#' retCrossed1 <- StSignificanceTestingCrossedModalities(ds, 1)
 #' 
 #' ## read the built in dataset
 #' retCrossed2 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
 #' }
 #' 
 #' @export
-StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "wAFROC", 
+StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC", 
                                                    alpha = 0.05, analysisOption = "ALL"){
+
+  if (ds$descriptions$design != "FCTRL-X-MOD") stop("Dataset is not factorial crossed modality")
   options(stringsAsFactors = FALSE)
-  NL <- crossedData$NL
-  LL <- crossedData$LL
-  lesionVector <- crossedData$lesionVector
-  lesionID <- crossedData$lesionID
-  lesionWeight <- crossedData$lesionWeight
+  NL <- ds$ratings$NL
+  LL <- ds$ratings$LL
+  lesionVector <- ds$lesions$perCase
+  lesionID <- ds$lesionID
+  lesionWeight <- ds$lesionWeight
   maxNL <- dim(NL)[5]
   maxLL <- dim(LL)[5]
-  dataType <- crossedData$dataType
+  dataType <- ds$dataType
   if(avgIndx == 1){
-    modalityID <- crossedData$modalityID2
+    modalityID <- ds$descriptions$modalityID2
   }else{
-    modalityID <- crossedData$modalityID1
+    modalityID <- ds$descriptions$modalityID1
   }
-  readerID <- crossedData$readerID
+  readerID <- ds$descriptions$readerID
   I <- length(modalityID)
   J <- length(readerID)
   K <- dim(NL)[4]
@@ -101,13 +103,13 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
     if (avgIndx == 1){
       nl <- NL[ , i, , , ]
       ll <- LL[ , i, , , ]
-      dim(nl) <- c(length(crossedData$modalityID1), 1, J, K, maxNL)
-      dim(ll) <- c(length(crossedData$modalityID1), 1, J, K2, max(lesionVector))
+      dim(nl) <- c(length(ds$descriptions$modalityID1), 1, J, K, maxNL)
+      dim(ll) <- c(length(ds$descriptions$modalityID1), 1, J, K2, max(lesionVector))
     }else{
       nl <- NL[ i, , , , ]
       ll <- LL[ i, , , , ]
-      dim(nl) <- c(1, length(crossedData$modalityID2), J, K, maxNL)
-      dim(ll) <- c(1, length(crossedData$modalityID2), J, K2, max(lesionVector))
+      dim(nl) <- c(1, length(ds$descriptions$modalityID2), J, K, maxNL)
+      dim(ll) <- c(1, length(ds$descriptions$modalityID2), J, K2, max(lesionVector))
     }
     
     
@@ -125,8 +127,8 @@ StSignificanceTestingCrossedModalities <- function(crossedData, avgIndx, FOM = "
   for (j in 1:J) {
     nl <- NL[ , , j, , ]
     ll <- LL[ , , j, , ]
-    dim(nl) <- c(length(crossedData$modalityID1), length(crossedData$modalityID2), 1, K, maxNL)
-    dim(ll) <- c(length(crossedData$modalityID1), length(crossedData$modalityID2), 1, K2, max(lesionVector))
+    dim(nl) <- c(length(ds$descriptions$modalityID1), length(ds$descriptions$modalityID2), 1, K, maxNL)
+    dim(ll) <- c(length(ds$descriptions$modalityID1), length(ds$descriptions$modalityID2), 1, K2, max(lesionVector))
     ret <- EstimateVarCovCrossed(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
     varEchRder[j] <- ret$Var
     cov1EchRder[j] <- ret$Cov1

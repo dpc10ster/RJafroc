@@ -9,11 +9,11 @@
 # 
 DBMSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   
-  readerID <- dataset$readerID
-  modalityID <- dataset$modalityID
+  readerID <- dataset$descriptions$readerID
+  modalityID <- dataset$descriptions$modalityID
   I <- length(modalityID)
   J <- length(readerID)
-  K <- dim(dataset$NL)[3]
+  K <- dim(dataset$ratings$NL)[3]
   
   trtMeans <-  FOMs$trtMeans[,"Estimate"]
   trtMeanDiffs  <-  FOMs$trtMeanDiffs$Estimate

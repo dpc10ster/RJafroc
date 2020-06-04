@@ -16,12 +16,12 @@
 #' 
 UtilVarComponentsDBM <- function (dataset, FOM, FPFValue = 0.2)
 {
-  I <- dim(dataset$NL)[1]
-  J <- dim(dataset$NL)[2]
-  K <- dim(dataset$NL)[3]
+  I <- dim(dataset$ratings$NL)[1]
+  J <- dim(dataset$ratings$NL)[2]
+  K <- dim(dataset$ratings$NL)[3]
   
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   
   psVals <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
   

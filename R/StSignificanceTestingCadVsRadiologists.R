@@ -154,7 +154,7 @@ StSignificanceTestingCadVsRadiologists <- function(dataset, FOM, FPFValue = 0.2,
 {
   options(stringsAsFactors = FALSE)
   
-  if (length(dataset$NL[,1,1,1]) != 1) stop("dataset has to be single-treatment multiple-readers with CAD as the first reader")
+  if (length(dataset$ratings$NL[,1,1,1]) != 1) stop("dataset has to be single-treatment multiple-readers with CAD as the first reader")
   if ((dataset$dataType == "ROC") && (FOM %in% c("PCL", "ALROC"))) stop("Cannot use LROC FOM with ROC data")
   
   if (method == "1T-RRFC") {
@@ -228,7 +228,7 @@ SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha)
   ret <- DiffFomVarCov2(dataset, FOM, FPFValue) # VarCov2 (subtract first reader FOMs before getting covariance)
   varError <- ret$var;  Cov2 <- ret$cov2
   
-  J <- length(dataset$NL[1,,1,1]) - 1 # number of radiologists minus CAD reader
+  J <- length(dataset$ratings$NL[1,,1,1]) - 1 # number of radiologists minus CAD reader
   # `as.matrix` is absolutely necessary if following `mean()` function is to work
   thetajc <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
@@ -275,7 +275,7 @@ SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha)
 
 DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
 {
-  K <- length(dataset$NL[1,1,,1])
+  K <- length(dataset$ratings$NL[1,1,,1])
   dataType <- dataset$dataType
   if ((dataType == "LROC") && (FOM %in% c("PCL", "ALROC"))) 
   {
@@ -307,8 +307,8 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
   } else if ((dataType == "LROC") && (FOM == "Wilcoxon")) {
     datasetRoc <- DfLroc2Roc(dataset)
     dataType <- datasetRoc$dataType
-    NL <- datasetRoc$NL
-    LL <- datasetRoc$LL
+    NL <- datasetRoc$ratings$NL
+    LL <- datasetRoc$ratings$LL
     K <- length(NL[1,1,,1])
     K2 <- length(LL[1,1,,1])
     K1 <- K - K2
@@ -327,8 +327,8 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
     }
     combinedLLCl[2,,,1] <- TP[2:(J+1),]
   } else if ((dataType == "ROC") && (FOM == "Wilcoxon")) {
-    NL <- dataset$NL
-    LL <- dataset$LL
+    NL <- dataset$ratings$NL
+    LL <- dataset$ratings$LL
     K <- length(NL[1,1,,1])
     K2 <- length(LL[1,1,,1])
     K1 <- K - K2
@@ -460,7 +460,7 @@ DiffFomVarCov2 <- function (dataset, FOM, FPFValue) # for difference FOM, radiol
   #if (dataset$dataType == "LROC") stop("Dataset must NOT be LROC")
   
   J <- length(dataset$readerID)
-  K <- length(dataset$NL[1,1,,1])
+  K <- length(dataset$ratings$NL[1,1,,1])
   
   dsCad <- DfExtractDataset(dataset, trts = 1, rdrs = 1)
   dsRad <- DfExtractDataset(dataset, trts = 1, rdrs = c(2:J))

@@ -8,8 +8,8 @@ ORSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # ===========================================================================
   #     (Results apply to the population of readers and cases)
   
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
   J <- length(readerID)
   

@@ -54,7 +54,7 @@ The variance components are obtained using \link{StSignificanceTesting}
 }
 \examples{
 dataset <- dataset02 ## the pilot study
-KStar <- length(dataset$NL[1,1,,1])
+KStar <- length(dataset$ratings$NL[1,1,,1])
 VarCom <- StSignificanceTesting(dataset, FOM = "Wilcoxon", 
 method = "ORH", analysisOption = "RRRC")$ANOVA$VarCom
 VarTR <- VarCom["VarTR",1]

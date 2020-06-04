@@ -29,26 +29,21 @@
 UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBMH"){
   dataType <- dataset$dataType
   if (dataType != "LROC") {
-    NL <- dataset$NL
-    LL <- dataset$LL
+    NL <- dataset$ratings$NL
+    LL <- dataset$ratings$LL
   } else {
     if (FOM == "Wilcoxon"){
       datasetRoc <- DfLroc2Roc(dataset)
-      NL <- datasetRoc$NL
-      LL <- datasetRoc$LL
+      NL <- datasetRoc$ratings$NL
+      LL <- datasetRoc$ratings$LL
     } else if (FOM %in% c("PCL", "ALROC")){
-      NL <- dataset$NL
-      LL <- dataset$LLCl
+      NL <- dataset$ratings$NL
+      LL <- dataset$ratings$LL
     } else stop("incorrect FOM for LROC data")
   }
-  # lesionVector <- dataset$lesionVector
-  # lesionID <- dataset$lesionID
-  # lesionWeight <- dataset$lesionWeight
-  # maxNL <- dim(NL)[4]
-  # maxLL <- dim(LL)[4]
-  # dataType <- dataset$dataType
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
   J <- length(readerID)
   K <- dim(NL)[3]

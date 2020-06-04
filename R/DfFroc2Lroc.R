@@ -33,16 +33,16 @@ DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctio
   if (dataset$dataType != "FROC") 
     stop("This function requires an FROC dataset")
   
-  I <- length(dataset$NL[,1,1,1])
-  J <- length(dataset$NL[1,,1,1])
-  K <- length(dataset$NL[1,1,,1])
-  K2 <- length(dataset$LL[1,1,,1])
+  I <- length(dataset$ratings$NL[,1,1,1])
+  J <- length(dataset$ratings$NL[1,,1,1])
+  K <- length(dataset$ratings$NL[1,1,,1])
+  K2 <- length(dataset$ratings$LL[1,1,,1])
   K1 <- K - K2
   #  For the NL array of the LROC data, for non-disesed cases, the highest rating of the 
   #  FROC marks, or a minimum rating value (less than lowest finite rating, see below) 
   #  if there are no marks, is copied to case index k1 = 1 to k1 = K1 of the LROC dataset.   
 
-  NL <- apply(dataset$NL, c(1, 2, 3), max)# keep max NL rating; 
+  NL <- apply(dataset$ratings$NL, c(1, 2, 3), max)# keep max NL rating; 
   dim(NL) <- c(dim(NL), 1) # add the fourth "unnecessary" dimension
   
   LL <- dataset$LL
@@ -93,8 +93,8 @@ DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctio
     lesionID = lesID,
     lesionWeight = lesWghts,
     dataType = "LROC",
-    modalityID = dataset$modalityID,
-    readerID = dataset$readerID,
+    modalityID = dataset$descriptions$modalityID,
+    readerID = dataset$descriptions$readerID,
     datasetName = "ignore"
   )
   

@@ -3,15 +3,15 @@
 # Otherwise the code is identical to XZ code
 DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption) 
 {
-  NL <- dataset$NL
-  LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  lesionVector <- dataset$lesions$perCase
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
   dataType <- dataset$dataType
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
   J <- length(readerID)
   K <- dim(NL)[3]
@@ -409,14 +409,14 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
 # Otherwise the code is identical to XZ code
 ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOption) 
 {
-  NL <- dataset$NL
-  LL <- dataset$LL
-  lesionVector <- dataset$lesionVector
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  lesionVector <- dataset$lesions$perCase
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
   J <- length(readerID)
   K <- dim(NL)[3]

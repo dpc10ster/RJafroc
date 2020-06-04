@@ -23,7 +23,7 @@
 #' @export 
 UtilLesionDistr <- function(dataset)
 {  
-  lesionNum <- dataset$lesionVector
+  lesionNum <- dataset$lesions$perCase
   lesDistr <- table(lesionNum)
   if (length(lesDistr) == 1) {
     lesDistr <- c(lesionNum[1], 1)

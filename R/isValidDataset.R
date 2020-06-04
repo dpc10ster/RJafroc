@@ -1,7 +1,8 @@
 isValidDataset <- function(dataset) {
   if (typeof(dataset) != "list") return (FALSE)
-  if (!(length(dataset) %in% c(9,10,13))) return (FALSE)
+  if (!(length(dataset) == 3)) return (FALSE)
   
+  # TBA SimplifyDatasets
   if (length(dataset) == 9) {
     # Old format data
     if (!is.array(dataset$NL))  return (FALSE)

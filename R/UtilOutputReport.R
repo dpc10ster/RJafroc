@@ -88,8 +88,8 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
   }
   
   if (sequentialNames){
-    dataset$modalityID <- 1:length(dataset$modalityID)
-    dataset$readerID <- 1:length(dataset$readerID)
+    dataset$modalityID <- 1:length(dataset$descriptions$modalityID)
+    dataset$readerID <- 1:length(dataset$descriptions$readerID)
   }
   
   ReportFileExt <- tolower(ReportFileExt)
@@ -207,13 +207,13 @@ Preamble <- function(dataset, FOM, ReportFileName, method, methodTxt) {
   cat(sprintf("Output Data Filename :     %s\n", ReportFileName))
   cat(sprintf("===============================================================================\n"))
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   lesionID <- dataset$lesionID
   maxNL <- dim(NL)[4]
   dataType <- dataset$dataType
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
   J <- length(readerID)
   K <- dim(NL)[3]

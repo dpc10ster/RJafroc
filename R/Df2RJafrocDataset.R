@@ -63,8 +63,8 @@
 #' Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
 #' frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, 
 #' lesionVector = Lk2)
-#' NL <- drop(frocDataRaw$NL)
-#' LL <- drop(frocDataRaw$LL)
+#' NL <- drop(frocDataRaw$ratings$NL)
+#' LL <- drop(frocDataRaw$ratings$LL)
 #' dataset <- Df2RJafrocDataset(NL, LL, lesionVector = Lk2) 
 #' ## note lesionVector is not all 1s, signalling an FROC dataset
 #'
@@ -84,10 +84,10 @@
 #'   for (j in 1:J) {
 #'     frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, 
 #'     J = 1, K1, K2, lesionVector = Lk2)
-#'     dimNL[i,j,] <- dim(drop(frocDataRaw$NL))
-#'     dimLL[i,j,] <- dim(drop(frocDataRaw$LL))
-#'     z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$NL) # drop the excess location indices
-#'     z2[i,j,,1:dimLL[i,j,2]] <- drop(frocDataRaw$LL)
+#'     dimNL[i,j,] <- dim(drop(frocDataRaw$ratings$NL))
+#'     dimLL[i,j,] <- dim(drop(frocDataRaw$ratings$LL))
+#'     z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$ratings$NL) # drop the excess location indices
+#'     z2[i,j,,1:dimLL[i,j,2]] <- drop(frocDataRaw$ratings$LL)
 #'   }
 #' }
 #' z1 <- z1[,,,1:max(dimNL[,,2])]
@@ -113,6 +113,8 @@
 #' 
 Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  stop("need fix here")
+  # TBA SimplifyDatasets
   inputList <- list(...)
   if (length(inputList) == 0) {
     dataType <- "ROC" 
@@ -133,6 +135,7 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
     NL1[,,1:K1,1] <- NL
     NL <- NL1
     dim(LL) <- c(1,1,K2,1)
+    # TBA SimplifyDatasets
     if (dataType == "ROC") lesionVector <- rep(1, K2) else 
       lesionVector <- FrocDataDescriptor(inputList)$lesionVector
     if (dataType == "ROC") lesionID <- as.matrix(lesionVector, c(K2, 1)) else 
@@ -141,6 +144,7 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
       lesionWeight <- FrocDataDescriptor(inputList)$lesionWeight
     modalityID <- "1"
     readerID <- "1"
+    # TBA SimplifyDatasets
     dataset <- list(NL = NL, 
                     LL = LL, 
                     lesionVector = lesionVector, 

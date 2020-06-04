@@ -83,22 +83,22 @@ DfFroc2Roc <- function (dataset){
   if (dataset$dataType != "FROC") stop("This function requires an FROC dataset to be supplied")
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL1 <- dataset$NL;NL <- NL1
-  LL1 <- dataset$LL;LL <- LL1
+  NL1 <- dataset$ratings$NL;NL <- NL1
+  LL1 <- dataset$ratings$LL;LL <- LL1
   
-  I <- length(dataset$NL[,1,1,1])
-  J <- length(dataset$NL[1,,1,1])
-  K <- length(dataset$NL[1,1,,1])
-  K2 <- length(dataset$LL[1,1,,1])
+  I <- length(dataset$ratings$NL[,1,1,1])
+  J <- length(dataset$ratings$NL[1,,1,1])
+  K <- length(dataset$ratings$NL[1,1,,1])
+  K2 <- length(dataset$ratings$LL[1,1,,1])
   K1 <- K - K2 
-  lesionVector <- dataset$lesionVector
+  lesionVector <- dataset$lesions$perCase
   
   # # unmarked FROC images can have -Infs; these belong in the lowest ROC bin;
   # # -Inf is not allowed as an ROC rating (will throw off binning alg)
   # # find the lowest conf.levels that are
   # # not -Infs and replace them with a lower value (by one) for each modality-reader dataset
-  # NL <- dataset$NL[,,1:K1,]
-  # LL <- dataset$LL[,,1:K2,]
+  # NL <- dataset$ratings$NL[,,1:K1,]
+  # LL <- dataset$ratings$LL[,,1:K2,]
   # LtMinRating <- min(c(NL[NL != UNINITIALIZED],LL[LL != UNINITIALIZED])) - 1
   # NL[NL == UNINITIALIZED] <- LtMinRating
   # LL[LL == UNINITIALIZED] <- LtMinRating
@@ -119,6 +119,8 @@ DfFroc2Roc <- function (dataset){
   # add the fourth "unnecessary" dimension
   dim(LL) <- c(dim(LL), 1)
   
+  stop("need fix here")
+  # TBA SimplifyDatasets
   lesionVector <- rep(1, times = K2)
   lesionID <- lesionVector
   dim(lesionID) <- c(K2, 1)
@@ -126,7 +128,7 @@ DfFroc2Roc <- function (dataset){
   dataset$NL <- NL[,,,1, drop = FALSE]
   dataset$NL[,,(K1+1):K,1] <- UNINITIALIZED
   dataset$LL <- LL
-  dataset$lesionVector <- lesionVector
+  dataset$lesions$perCase <- lesionVector
   dataset$lesionID <- lesionID
   dataset$lesionWeight <- lesionWeight
   dataset$dataType <- "ROC"

@@ -30,7 +30,7 @@
 
 DfExtractDataset <- function(dataset, trts, rdrs) {
   
-  I <- length(dataset$modalityID)
+  I <- length(dataset$descriptions$modalityID)
   if (!missing(trts)){
     if (all(trts <= I)){
       I <- length(trts)
@@ -41,7 +41,7 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
     trts <- 1:I
   }
   
-  J <- length(dataset$NL[1,,1,1])
+  J <- length(dataset$ratings$NL[1,,1,1])
   if (!missing(rdrs)){
     if (all(rdrs <= J)){
       J <- length(rdrs)
@@ -52,38 +52,42 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
     rdrs <- 1:J
   }
   
-  if (dataset$dataType != "LROC") {  
-    K <- dim(dataset$NL)[3]
-    K2 <- dim(dataset$LL)[3]
-    maxNL <- dim(dataset$NL)[4]
-    maxLL <- dim(dataset$LL)[4]
-    NL <- dataset$NL[trts, rdrs, , ]
+  if (dataset$dataType != "LROC") { 
+    stop("Need fixing here")
+    # TBA SimplifyDatasets
+    K <- dim(dataset$ratings$NL)[3]
+    K2 <- dim(dataset$ratings$LL)[3]
+    maxNL <- dim(dataset$ratings$NL)[4]
+    maxLL <- dim(dataset$ratings$LL)[4]
+    NL <- dataset$ratings$NL[trts, rdrs, , ]
     dim(NL) <- c(I, J, K, maxNL)
     dataset$NL <- NL
-    LL <- dataset$LL[trts, rdrs, , ]
+    LL <- dataset$ratings$LL[trts, rdrs, , ]
     dim(LL) <- c(I, J, K2, maxLL)
     dataset$LL <- LL
-    dataset$modalityID <- dataset$modalityID[trts]
-    dataset$readerID <- dataset$readerID[rdrs]
+    dataset$descriptions$modalityID <- dataset$modalityID[trts]
+    dataset$descriptions$readerID <- dataset$readerID[rdrs]
     if (length(dataset) == 13) {
       truthTableStr <- dataset$truthTableStr[trts,rdrs,,,drop=FALSE]
       dataset$truthTableStr <- truthTableStr
     }
     return(dataset)
   } else {
-    K <- dim(dataset$NL)[3]
-    K2 <- dim(dataset$LLCl)[3]
+    stop("need fix here")
+    # TBA SimplifyDatasets
+    K <- dim(dataset$ratings$NL)[3]
+    K2 <- dim(dataset$ratings$LL)[3]
     maxNL <- 1
     maxLL <- 1
     NL <- dataset$NL[trts, rdrs, , ]
     dim(NL) <- c(I, J, K, maxNL)
     dataset$NL <- NL
-    LLCl <- dataset$LLCl[trts, rdrs, , ]
-    dim(LLCl) <- c(I, J, K2, maxLL)
-    LLIl <- dataset$LLIl[trts, rdrs, , ]
-    dim(LLIl) <- c(I, J, K2, maxLL)
-    dataset$LLCl <- LLCl
-    dataset$LLIl <- LLIl
+    LL <- dataset$ratings$LL[trts, rdrs, , ]
+    dim(LL) <- c(I, J, K2, maxLL)
+    LL_IL <- dataset$ratings$LL_IL[trts, rdrs, , ]
+    dim(LL_IL) <- c(I, J, K2, maxLL)
+    dataset$ratings$LL <- LL
+    dataset$ratings$LL_IL <- LL_IL
     dataset$modalityID <- dataset$modalityID[trts]
     dataset$readerID <- dataset$readerID[rdrs]
     return(dataset)

@@ -121,22 +121,22 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   if (dataType == "LROC") {
     if (FOM %in% c("Wilcoxon", "ALROC", "PCL")) {
       if (dataType != "LROC") {
-        NL <- dataset$NL
-        LL <- dataset$LL
+        NL <- dataset$ratings$NL
+        LL <- dataset$ratings$LL
       } else {
         if (FOM == "Wilcoxon"){
           datasetRoc <- DfLroc2Roc(dataset)
-          NL <- datasetRoc$NL
-          LL <- datasetRoc$LL
+          NL <- datasetRoc$ratings$NL
+          LL <- datasetRoc$ratings$LL
         } else if (FOM %in% c("PCL", "ALROC")){
-          NL <- dataset$NL
-          LL <- dataset$LLCl
+          NL <- dataset$ratings$NL
+          LL <- dataset$ratings$LL
         } else stop("incorrect FOM for LROC data")
       }
     } else stop("Incorrect FOM specified for LROC data")
   } else {
-    NL <- dataset$NL
-    LL <- dataset$LL
+    NL <- dataset$ratings$NL
+    LL <- dataset$ratings$LL
   }
   
   I <- dim(NL)[1]
@@ -166,7 +166,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
         k1_j_sub <- !is.na(t[1,j,,1]) | !is.na(t[1,j,,2])
         k2_j_sub <- !is.na(t[1,j,,2])[(K1+1):K]
         nl_j <- NL[i, j, k1_j_sub, ]
-        lV_j <- dataset$lesionVector[k2_j_sub]
+        lV_j <- dataset$lesions$perCase[k2_j_sub]
         maxLL_j <- max(lV_j)
         ll_j <- LL[i, j, k2_j_sub, 1:maxLL_j]
         k1j <- sum(!is.na(t[1,j,,1]))
@@ -182,13 +182,13 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
         ll_j <- LL[i, j, , ]
         dim(nl_j) <- c(K, maxNL)
         dim(ll_j) <- c(K2, maxLL)
-        fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, dataset$lesionVector, dataset$lesionID, dataset$lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
+        fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, dataset$lesions$perCase, dataset$lesionID, dataset$lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
       } else stop("Incorrect design, must be SPLIT-PLOT or CROSSED")
     }
   }
   
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   rownames(fomArray) <- paste("trt", sep = "", modalityID)
   colnames(fomArray) <- paste("rdr", sep = "", readerID)
   return(as.data.frame(fomArray))

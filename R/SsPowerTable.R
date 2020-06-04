@@ -64,7 +64,7 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
     cov2 <- ret$ANOVA$VarCom["Cov2",1]
     cov3 <- ret$ANOVA$VarCom["Cov3",1]
     varEps <- ret$ANOVA$VarCom["Var",1]
-    KStar <- length(dataset$NL[1,1,,1])
+    KStar <- length(dataset$ratings$NL[1,1,,1])
   } else stop("method must be DBMH or ORH")
   
   if (analysisOption != "ALL"){

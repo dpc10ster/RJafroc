@@ -75,8 +75,8 @@ K1 <- 5;K2 <- 7
 Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
 frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, 
 lesionVector = Lk2)
-NL <- drop(frocDataRaw$NL)
-LL <- drop(frocDataRaw$LL)
+NL <- drop(frocDataRaw$ratings$NL)
+LL <- drop(frocDataRaw$ratings$LL)
 dataset <- Df2RJafrocDataset(NL, LL, lesionVector = Lk2) 
 ## note lesionVector is not all 1s, signalling an FROC dataset
 
@@ -96,10 +96,10 @@ for (i in 1:I) {
   for (j in 1:J) {
     frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, 
     J = 1, K1, K2, lesionVector = Lk2)
-    dimNL[i,j,] <- dim(drop(frocDataRaw$NL))
-    dimLL[i,j,] <- dim(drop(frocDataRaw$LL))
-    z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$NL) # drop the excess location indices
-    z2[i,j,,1:dimLL[i,j,2]] <- drop(frocDataRaw$LL)
+    dimNL[i,j,] <- dim(drop(frocDataRaw$ratings$NL))
+    dimLL[i,j,] <- dim(drop(frocDataRaw$ratings$LL))
+    z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$ratings$NL) # drop the excess location indices
+    z2[i,j,,1:dimLL[i,j,2]] <- drop(frocDataRaw$ratings$LL)
   }
 }
 z1 <- z1[,,,1:max(dimNL[,,2])]

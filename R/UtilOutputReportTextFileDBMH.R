@@ -10,11 +10,11 @@ OutputTextFileDBMH <- function(dataset,
   sink(ReportFileName)
   Preamble(dataset, FOM, ReportFileName, DBM, methodTxt)
   
-  modalityID <- dataset$modalityID
-  readerID <- dataset$readerID
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
   J <- length(readerID)
-  K <- dim(dataset$NL)[3]
+  K <- dim(dataset$ratings$NL)[3]
   
   x <- c("\n",
          "===========================================================================", 
@@ -66,7 +66,7 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$ANOVA$VarCom
   print(format(df, digits = 5, justify = "left"))
   
-  df <- UtilDBM2ORVarComp(dim(dataset$NL)[3], df)
+  df <- UtilDBM2ORVarComp(dim(dataset$ratings$NL)[3], df)
   x <- c("\n",
          "===========================================================================", 
          "*****                   OR  Variance Components                     *****", 
