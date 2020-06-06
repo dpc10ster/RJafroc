@@ -1,7 +1,7 @@
 #' @importFrom stats approx
 
 gpfMyFOM <- function(nl, ll, 
-                     lesionVector, lesionID, 
+                     perCase, lesionID, 
                      lesionWeight, maxNL, 
                      maxLL, K1, K2, 
                      FOM, FPFValue = NULL) {
@@ -14,40 +14,40 @@ gpfMyFOM <- function(nl, ll,
     stop(errMsg)
   }
   fom <- NA
-  # fom <- wJAFROC_dpc(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight)
-  # fom <- FOM_wAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight)
+  # fom <- wJAFROC_dpc(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight)
+  # fom <- FOM_wAFROC(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight)
   fom <- switch(FOM,
                 "Wilcoxon" = TrapezoidalArea(nl, K1, ll, K2),
-                "HrAuc" = HrAuc(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "HrSe" = HrSe(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "HrSp" = HrSp(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "SongA1" = SongA1(K1, K2, maxNL, maxLL, lesionVector, nl, ll),
-                "SongA2" = SongA2(K1, K2, maxNL, maxLL, lesionVector, nl, ll),
-                "AFROC1" = FOM_AFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL), # dpc
-                "FOM_AFROC1" = FOM_AFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "AFROC" = FOM_AFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL), # dpc
-                "FOM_AFROC" = FOM_AFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "wAFROC1" = FOM_wAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
-                "FOM_wAFROC1" = FOM_wAFROC1(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight),
-                "wAFROC" = FOM_wAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
-                "FOM_wAFROC" = FOM_wAFROC(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL, lesionWeight),
-                "FROC" = FROC(nl, ll, lesionID, lesionVector, K1, K2),
+                "HrAuc" = HrAuc(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "HrSe" = HrSe(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "HrSp" = HrSp(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "SongA1" = SongA1(K1, K2, maxNL, maxLL, perCase, nl, ll),
+                "SongA2" = SongA2(K1, K2, maxNL, maxLL, perCase, nl, ll),
+                "AFROC1" = FOM_AFROC1(nl, ll, perCase, c(K1, K2), maxNL, maxLL), # dpc
+                "FOM_AFROC1" = FOM_AFROC1(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "AFROC" = FOM_AFROC(nl, ll, perCase, c(K1, K2), maxNL, maxLL), # dpc
+                "FOM_AFROC" = FOM_AFROC(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "wAFROC1" = FOM_wAFROC1(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
+                "FOM_wAFROC1" = FOM_wAFROC1(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight),
+                "wAFROC" = FOM_wAFROC(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
+                "FOM_wAFROC" = FOM_wAFROC(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight),
+                "FROC" = FROC(nl, ll, lesionID, perCase, K1, K2),
                 "ALROC" = LrocFoms(nl, ll, FPFValue)$ALroc,
                 "PCL" = LrocFoms(nl, ll, FPFValue)$PCL,
-                "MaxLLF" = MaxLLF(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "MaxNLF" = MaxNLF(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "MaxNLFAllCases" = MaxNLFAllCases(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "ExpTrnsfmSp" = ExpTrnsfmSp(nl, ll, lesionVector, c(K1, K2), maxNL, maxLL),
-                "ROI" = ROI(K1, K2, maxNL, lesionVector, nl, ll)
+                "MaxLLF" = MaxLLF(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "MaxNLF" = MaxNLF(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "MaxNLFAllCases" = MaxNLFAllCases(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "ExpTrnsfmSp" = ExpTrnsfmSp(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "ROI" = ROI(K1, K2, maxNL, perCase, nl, ll)
   )
   return(fom)
 } 
 
 
-FROC <- function(nl, ll, lesionID, lesionVector, K1, K2){
+FROC <- function(nl, ll, lesionID, perCase, K1, K2){
   nl <- as.vector(nl[nl != -Inf])
   ll <- ll[is.finite(lesionID)]
-  sumNumLL <- sum(lesionVector)
+  sumNumLL <- sum(perCase)
   frocFOM <- 0
   for (l in 1:length(nl)){
     frocFOM <- frocFOM + sum(nl[l] < ll) + 0.5 * sum(nl[l] == ll)

@@ -5,17 +5,26 @@
 \alias{datasetCadSimuFroc}
 \title{Simulated FROC CAD vs. RAD dataset}
 \format{
-A list with 12 elements:
+A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+   contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+   contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+   contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+   \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 \itemize{
-\item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of non-lesion localizations, NLs}
-\item{\code{LL}}{, num [1, 1:10, 1:80, 1], ratings of lesion localizations, LLs}
-\item{\code{lesionVector}}{, int [1:80], number of lesions per diseased case, all set to one}
-\item{\code{lesionID}}{, num [1:80, 1], lesions labels on diseased cases, all set to one}
-\item{\code{lesionWeight}}{, num [1:80, 1], weights, all set to one}
-\item{\code{dataType}}{, chr "FROC", the data type}
-\item{\code{modalityID}}{, chr "1", treatment label}
-\item{\code{readerID}}{, chr [1:10] "1" "2",  reader labels}
-\item{\code{datasetName}}{, chr "dataset Cad Simulated Froc"}
+\item{\code{rating$NL}}{, num [1, 1:10, 1:200, 1], ratings of non-lesion localizations, NLs}
+\item{\code{rating$LL}}{, num [1, 1:10, 1:80, 1], ratings of lesion localizations, LLs}
+\item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+\item{\code{lesions$perCase}}{, int [1:80], number of lesions per diseased case}
+\item{\code{lesions$IDs}}{, num [1:80, 1] , numeric labels of lesions on diseased cases}
+\item{\code{lesions$weights}}{, num [1:80, 1], weights (or clinical importances) of lesions}
+\item{\code{descriptions$binned}}{, logical, FALSE if less than 7 unique rating values, FALSE otherwise}
+\item{\code{descriptions$fileName}}{, chr, "datasetCadSimuFroc", base name of dataset in `data` folder}
+\item{\code{descriptions$type}}{, chr "LROC", the data type}
+\item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
+\item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
+\item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+\item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+\item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 }
 }
 \usage{
@@ -23,10 +32,17 @@ datasetCadSimuFroc
 }
 \description{
 Simulated FROC CAD vs. RAD dataset suitable for checking code. It was generated 
-   from datasetCadLroc using SimulateFrocFromLrocData.R.
-}
-\examples{
-str(datasetCadSimuFroc)
-
+   from datasetCadLroc using SimulateFrocFromLrocData.R. The LROC paradigm always 
+   yields a single mark per case. Therefore 
+   the equivalent FROC will also have only one mark per case. The NL arrays 
+   of the two datasets are identical. The LL array is created by copying the
+   LL (correct localiztion) array of the LROC dataset to the LL array of the FROC 
+   dataset, from 
+   diseased case index k2 = 1 to k2 = K2. Additionally, the LL_IL array of the 
+   LROC dataset is copied to the NL array of the FROC dataset, starting at case 
+   index k1 = K1+1 to k1 = K1+K2. Any zero ratings are replace by -Infs. The 
+   equivalent FROC dataset has the same HrAuc as the original LROC dataset. 
+   See example. The main use of this dataset & function is to test the CAD significance
+   testing functions using CAD FROC datasets, which I currently don't have.
 }
 \keyword{datasets}

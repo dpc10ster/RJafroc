@@ -67,7 +67,7 @@ test_that("SimulateFrocDataset", {
   for (i in 1:I) {
     for (j in 1:J) {
       frocDataRaw <- SimulateFrocDataset(
-        mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, lesionVector = Lk2)
+        mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, perCase = Lk2)
       dimNL[i,j,] <- dim(drop(frocDataRaw$NL))
       dimLL[i,j,] <- dim(drop(frocDataRaw$LL))
       z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$NL) # drop the excess location indices
@@ -80,12 +80,12 @@ test_that("SimulateFrocDataset", {
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/Df2RJafrocDataset-3", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- Df2RJafrocDataset(z1, z2, lesionVector = Lk2) # an FROC dataset
+    ds <- Df2RJafrocDataset(z1, z2, perCase = Lk2) # an FROC dataset
     saveRDS(ds, file = fn)
   }
 
   ds <- readRDS(fn)
-  expect_equal(Df2RJafrocDataset(z1, z2, lesionVector = Lk2), ds) # an FROC dataset
+  expect_equal(Df2RJafrocDataset(z1, z2, perCase = Lk2), ds) # an FROC dataset
   # end of test
 
 })

@@ -1,6 +1,15 @@
 library(RJafroc)
 rm(list = ls())
 
+generatetruthTableStr <- function(I, J, K, x){
+  truthTableStr <- array(dim = c(I, J, K, max(x$lesions$perCase)+1))
+  truthTableStr[,,1:K1,1] <- 1
+  for (k2 in 1:K2) {
+    truthTableStr[,,k2+K1,(1:x$lesionVector[k2])+1] <- 1
+  }
+}
+
+
 fileNames <- c("dataset01", "dataset02", "dataset03", "dataset04", "dataset05", "dataset06",
                "dataset07", "dataset08", "dataset09", "dataset10", "dataset11", "dataset12",
                "dataset13", "dataset14", 
@@ -17,9 +26,9 @@ dataTypes <- c("FROC", "ROC", "ROC", "FROC", "FROC", "FROC",
                "FROC", "ROC", "ROC", "ROC", "ROC", "LROC", 
                "FROC", "FROC", "ROC", "FROC", "ROI")
 
-designs <- rep("FCTRL", length(fileNames))
-designs[20] <- "FCTRL-X-MOD"
-designs[22] <- "SPLIT-PLOT"
+design <- rep("FCTRL", length(fileNames))
+design[20] <- "FCTRL-X-MOD"
+design[22] <- "SPLIT-PLOT"
 
 dataNames <- c("TONY", "VAN-DYKE", "FRANKEN", "FEDERICA", "THOMPSON", "MAGNUS",
                "LUCY-WARREN", "PENEDO", "NICO-CAD-ROC", "RUSCHIN", "DOBBINS-1", "DOBBINS-2",
@@ -36,18 +45,19 @@ dataNames <- c("TONY", "VAN-DYKE", "FRANKEN", "FEDERICA", "THOMPSON", "MAGNUS",
 
 df <- data.frame(fileNames = fileNames,
                  dataTypes = dataTypes,
-                 designs = designs,
+                 design = design,
                  dataNames = dataNames,
                  binned = binned,
                  stringsAsFactors = FALSE)
 
-writeFile <- TRUE
+writeFile <- FALSE
 
 for (i in 1:length(df[,1])) {
   
   cat(sprintf("fixing  %s\n", df[i,1]))
   x <- get(df[i,1])
   
+  # this code cannot run on already converted datasets  
   if (length(x) == 3) next
   
   if (x$dataType != df[i,2]) stop("data types do not match")
@@ -214,7 +224,7 @@ for (i in 1:length(df[,1])) {
             descriptions = descriptions)
   
   # check binning status
-  z <- length(unique(x$ratings$LL[is.finite(x$ratings$LL)]))
+  z <- length(unique(c(x$ratings$LL[is.finite(x$ratings$LL)], x$ratings$NL[is.finite(x$ratings$NL)])))
   if ((z <= 6) && (x$descriptions$binned != TRUE)) stop ("need check here")
   # cat(sprintf("... unique ratings = %d\n", z))
   
@@ -229,7 +239,7 @@ for (i in 1:length(df[,1])) {
 
 # clean up for good display in Environment Panel
 rm(list = c("lesions", "ratings", "descriptions", "dataNames", 
-            "dataTypes", "designs", "fileNames", "fn", "binned", 
+            "dataTypes", "design", "fileNames", "fn", "binned", 
             "i", "z", "writeFile", "df"))
 
 

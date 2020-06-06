@@ -5,17 +5,26 @@
 \alias{datasetDegenerate}
 \title{Simulated degenerate ROC dataset (for testing purposes)}
 \format{
-A list with 8 elements:
+A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+   contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+   contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+   contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+   \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 \itemize{
-\item{\code{NL}}{, num [1, 1, 1:15, 1], ratings of false positives, FPs}
-\item{\code{LL}}{, num [1, 1, 1:10, 1], ratings of true positives, TPs}
-\item{\code{lesionVector}}{, int [1:10], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{, num [1:10, 1], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{, num [1:10, 1], weights (or clinical importances) of lesions, all set to 1}
-\item{\code{dataType}}{, chr "ROC", the data type}
-\item{\code{modalityID}}{, chr "1", treatment label}
-\item{\code{readerID}}{, chr "1", reader label}
-\item{\code{datasetName}}{, chr "datasetDegenerate"}
+\item{\code{rating$NL}}{, num [1, 1, 1:15, 1], ratings of non-lesion localizations, NLs}
+\item{\code{rating$LL}}{, num [1, 1, 1:10, 1], ratings of lesion localizations, LLs}
+\item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+\item{\code{lesions$perCase}}{, int [1:10], number of lesions per diseased case}
+\item{\code{lesions$IDs}}{, num [1:10, 1] , numeric labels of lesions on diseased cases}
+\item{\code{lesions$weights}}{, num [1:10, 1], weights (or clinical importances) of lesions}
+\item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+\item{\code{descriptions$fileName}}{, chr, "datasetDegenerate", base name of dataset in `data` folder}
+\item{\code{descriptions$type}}{, chr "ROC", the data type}
+\item{\code{descriptions$name}}{, chr "SIM-DEGENERATE", the name of the dataset}
+\item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
+\item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
+\item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+\item{\code{descriptions$readerID}}{, chr "1", reader labels}
 }
 }
 \usage{

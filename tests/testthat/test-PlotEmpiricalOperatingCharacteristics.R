@@ -83,8 +83,8 @@ test_that("ROC & FROC & vectors & lists", {
 test_that("PlotOperatingCharacteristics-LROC", {
   
   set.seed(5)
-  K1 <- 10;K2 <- 10;mu <- 1;lambda <- 1;nu <- 0.8;zeta1 <- -3;lesionVector <- rep(1, K2)
-  frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, lesionVector)
+  K1 <- 10;K2 <- 10;mu <- 1;lambda <- 1;nu <- 0.8;zeta1 <- -3;perCase <- rep(1, K2)
+  frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, perCase)
   lrocData <- DfFroc2Lroc(frocData)
   
   fn <- paste0(test_path(), "/goodValues361/Plots/lrocData-ROC", ".rds")

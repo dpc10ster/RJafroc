@@ -19,9 +19,9 @@
 #' \itemize{
 #' \item{\code{NL}}{ Ratings array [1:I, 1:J, 1:(K1+K2), 1], of false positives, FPs}
 #' \item{\code{LL}}{ Ratings array [1:I, 1:J, 1:K2, 1], of true positives, TPs}
-#' \item{\code{lesionVector}}{ array [1:K2], number of lesions per diseased case}
-#' \item{\code{lesionID}}{ array [1:K2, 1], labels of lesions on diseased cases}
-#' \item{\code{lesionWeight}}{ array [1:K2, 1], weights (or clinical importances) of lesions}
+#' \item{\code{perCase}}{ array [1:K2], number of lesions per diseased case}
+#' \item{\code{IDs}}{ array [1:K2, 1], labels of lesions on diseased cases}
+#' \item{\code{weights}}{ array [1:K2, 1], weights (or clinical importances) of lesions}
 #' \item{\code{dataType}}{ "ROC", the data type}
 #' \item{\code{modalityID}}{ [1:I] inherited modality labels}
 #' \item{\code{readerID}}{ [1:J] inherited reader labels}
@@ -29,9 +29,6 @@
 #'
 #' @examples
 #' rocDataSet <- DfFroc2Roc(dataset05)
-#' p <- PlotEmpiricalOperatingCharacteristics(rocDataSet, trts = 1, rdrs = 1, opChType = "ROC")
-#' ## print(p$Plot)
-#' str(rocDataSet)
 #' 
 #' rocSpDataSet <- DfFroc2Roc(datasetFROCSp)
 #' 
@@ -43,7 +40,7 @@
 #' nu <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$nu
 #' Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
 #' frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, 
-#' K1, K2, lesionVector = Lk2)
+#' K1, K2, perCase = Lk2)
 #' hrData <- DfFroc2Roc(frocDataRaw)
 #' ## print("frocDataRaw$NL[1,1,,] = ");## print(frocDataRaw$NL[1,1,,])
 #' ## print("hrData$NL[1,1,1:K1,] = ");## print(hrData$NL[1,1,1:K1,])
@@ -79,75 +76,146 @@
 #' 
 #' @export
 
-DfFroc2Roc <- function (dataset){
-  if (dataset$dataType != "FROC") stop("This function requires an FROC dataset to be supplied")
+DfFroc2Roc <- function (dataset) {
+  
+  if (dataset$descriptions$type != "FROC") stop("This function requires an FROC dataset to be supplied")
+  
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL1 <- dataset$ratings$NL;NL <- NL1
-  LL1 <- dataset$ratings$LL;LL <- LL1
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   
   I <- length(dataset$ratings$NL[,1,1,1])
   J <- length(dataset$ratings$NL[1,,1,1])
   K <- length(dataset$ratings$NL[1,1,,1])
   K2 <- length(dataset$ratings$LL[1,1,,1])
   K1 <- K - K2 
-  lesionVector <- dataset$lesions$perCase
   
-  # # unmarked FROC images can have -Infs; these belong in the lowest ROC bin;
-  # # -Inf is not allowed as an ROC rating (will throw off binning alg)
-  # # find the lowest conf.levels that are
-  # # not -Infs and replace them with a lower value (by one) for each modality-reader dataset
-  # NL <- dataset$ratings$NL[,,1:K1,]
-  # LL <- dataset$ratings$LL[,,1:K2,]
-  # LtMinRating <- min(c(NL[NL != UNINITIALIZED],LL[LL != UNINITIALIZED])) - 1
-  # NL[NL == UNINITIALIZED] <- LtMinRating
-  # LL[LL == UNINITIALIZED] <- LtMinRating
-  # dataset$NL[,,1:K1,] <- NL
-  # dataset$LL[,,1:K2,] <- LL
-  
-  # take maximum over the location index
-  NL <- apply(NL, c(1, 2, 3), max)# this gets max NL ratings on all cases
-  LL <- apply(LL, c(1, 2, 3), max)# this gets max LL ratings on diseased cases
+  # apply max() over the location index
+  NL <- apply(NL, c(1, 2, 3), max)# this gets max NL ratings over location index on all cases
+  LL <- apply(LL, c(1, 2, 3), max)# this gets max LL ratings over location index on diseased cases
   
   # add the fourth "unnecessary" dimension
   dim(NL) <- c(dim(NL), 1)
   
-  LLTmp <- array(dim = c(I, J, K2, 2))     # last index is 2, not maxLL
-  LLTmp[ , , , 1] <- NL[ , , (K1 + 1):K, ] # this contains the max NL on diseased cases
-  LLTmp[ , , , 2] <- LL                    # this contains the max LL on diseased cases
-  LL <- apply(LLTmp, c(1, 2, 3), max)      # this contains the max LL or max LL, whichever is higher, on diseased cases
+  # get max over location index for diseased cases, counting both NLs and LLs
+  LLTmp <- array(dim = c(I, J, K2, 2))      # last index is 2, not maxLL, 1 for NLs on diseased cases and 
+  # 2 for LLs
+  LLTmp[ , , , 1] <- NL[ , , (K1 + 1):K, 1] # this contains the max NL on diseased cases
+  LLTmp[ , , , 2] <- LL                     # this contains the max LL on diseased cases
+  LL <- apply(LLTmp, c(1, 2, 3), max)       # this contains the max(max LL or max NL on diseased case), 
+  # whichever is higher
   # add the fourth "unnecessary" dimension
   dim(LL) <- c(dim(LL), 1)
   
-  stop("need fix here")
-  # TBA SimplifyDatasets
-  lesionVector <- rep(1, times = K2)
-  lesionID <- lesionVector
-  dim(lesionID) <- c(K2, 1)
-  lesionWeight <- lesionID 
-  dataset$NL <- NL[,,,1, drop = FALSE]
-  dataset$NL[,,(K1+1):K,1] <- UNINITIALIZED
-  dataset$LL <- LL
-  dataset$lesions$perCase <- lesionVector
-  dataset$lesionID <- lesionID
-  dataset$lesionWeight <- lesionWeight
-  dataset$dataType <- "ROC"
-
-  # unmarked FROC images may have -Inf; these belong in the lowest bin; 
+  # remove -Infs ....
+  # unmarked FROC images can have -Infs; these belong in the lowest ROC bin;
+  # -Inf is not allowed as an ROC rating (will throw off binning alg)
   # find the lowest conf.level that is
-  # not -Inf and replace them with a lower value
-  NL <- dataset$NL[,,1:K1,1]
-  LL <- dataset$LL[,,1:K2,1]
-  LtMinRating <- min(c(NL[NL != UNINITIALIZED],LL[LL != UNINITIALIZED])) - 1 # lower by unity
-  dim(NL) <- c(I,J,K1,1);dim(LL) <- c(I,J,K2,1)
-  NL[,,1:K1,1][NL[,,1:K1,1] == UNINITIALIZED] <- LtMinRating
-  LL[LL == UNINITIALIZED] <- LtMinRating
-  dataset$NL[,,1:K1,1] <- NL
-  dataset$LL[,,1:K2,1] <- LL
-  if (length(dataset) == 13) {
-    truthTableStr <- dataset$truthTableStr[,,,1:2]
-    dataset$truthTableStr <- truthTableStr
-  }
+  # not -Inf and set OneLtMinRating to one less than this value
+  OneLtMinRating <- min(c(NL[NL != UNINITIALIZED],LL[LL != UNINITIALIZED])) - 1 # one less than lowest value
+  NL[NL == UNINITIALIZED] <- OneLtMinRating # replace UNINITIALIZED values with OneLtMinRating
+  LL[LL == UNINITIALIZED] <- OneLtMinRating # ditto
+  
+  # tailor the lesions list for an ROC dataset
+  perCase <- rep(1, times = K2)
+  IDs <- perCase
+  dim(IDs) <- c(K2, 1)
+  weights <- IDs
+  
+  # create dataset and return
+  modalityID <- as.character(seq(1:I))
+  readerID <- as.character(seq(1:J))
+  binned <- isBinned(NL, LL)
+  fileName <- NA
+  name <- NA
+  design <- dataset$descriptions$design
+  
+  # convert truthTableStr from FROC to ROC
+  truthTableStr <- dataset$descriptions$truthTableStr
+  if (!all(is.na(truthTableStr))) { # if FROC truthTableStr is available, convert it to ROC 
+    t <- array(dim=c(I,J,K,2)) # default is all NAs
+    U <- length(dataset$ratings$LL[1,1,1,]) + 1 # 4th dimension of truthTableStr
+    for (k in 1:K) {
+      if (k <= K1) {
+        t[,,k,1][!is.na(truthTableStr[,,k,1])] <- 1
+      }
+      else {
+        for (el in 2:U) {
+          t[,,k,2][!is.na(truthTableStr[,,k,el])] <- 1 # if any is not NA, then set t[,,k,2] to one
+        }
+      }
+    }
+  } else t <- NA # FROC truthTableStr is not available
+  
+  type <- "ROC"
+  dataset <- convert2dataset(NL, LL, LL_IL = NA, 
+                             perCase, IDs, weights,
+                             binned, fileName, type, name, truthTableStr = t, design,
+                             modalityID, readerID)
+  
   return (dataset)
 }
+
+# In the following example, the highest rating comes from LLs on diseased cases for all 
+# except case 51, where the highest rating comes from an NL rated 4 as indicated by the
+# parenthesis around the rating
+# > frocData$ratings$NL[1,1,46:55,]
+# [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+# [1,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+# [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+# [3,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+# [4,]    7    9 -Inf -Inf -Inf -Inf -Inf
+# [5,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+# [6,]  (4) -Inf -Inf -Inf -Inf -Inf -Inf # this is case 51
+# [7,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+# [8,]    4 -Inf -Inf -Inf -Inf -Inf -Inf
+# [9,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+# [10,]    2 -Inf -Inf -Inf -Inf -Inf -Inf
+
+# > frocData$ratings$LL[1,1,1:10,]
+# [,1] [,2] [,3]
+# [1,]    5 -Inf -Inf
+# [2,]   10 -Inf -Inf
+# [3,]    7 -Inf -Inf
+# [4,]    6    9 -Inf
+# [5,] -Inf    9 -Inf
+# [6,] -Inf -Inf -Inf
+# [7,]   10 -Inf -Inf
+# [8,]   10 -Inf -Inf
+# [9,] -Inf -Inf -Inf
+# [10,]    2 -Inf -Inf
+
+# > rocData$ratings$LL[1,1,1:10,]
+# [1]  5 10  7  9  9  (4) 10 10  0  2 # note that highest rating (4) is from NL on dis. case
+
+# Another example
+# > frocData$ratings$NL[1,3,46:55,]
+# [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+# [1,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+# [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+# [3,]  (7)    7 -Inf -Inf -Inf -Inf -Inf  # this contributes highest rating
+# [4,]  (10) -Inf -Inf -Inf -Inf -Inf -Inf # this contributes highest rating
+# [5,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+# [6,]  (9)    8    8 -Inf -Inf -Inf -Inf  # this contributes highest rating
+# [7,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+# [8,]    8 -Inf -Inf -Inf -Inf -Inf -Inf
+# [9,]    9    8 -Inf -Inf -Inf -Inf -Inf
+# [10,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf
+
+# > frocData$ratings$LL[1,3,1:10,]
+# [,1] [,2] [,3]
+# [1,]    8 -Inf -Inf
+# [2,]    9 -Inf -Inf
+# [3,] -Inf -Inf -Inf
+# [4,]    9    9 -Inf
+# [5,] -Inf    9 -Inf
+# [6,] -Inf -Inf -Inf
+# [7,]    9 -Inf -Inf
+# [8,]   10 -Inf -Inf
+# [9,]    9 -Inf -Inf
+# [10,] -Inf -Inf -Inf
+# > rocData$ratings$LL[1,3,1:10,]
+
+# [1]  8  9  (7) (10)  9  (9)  9 10  9  0
 

@@ -5,22 +5,26 @@
 #' 89 of which are diseased, interpreted in two treatments
 #' ("BT" = breast tomosynthesis and "DM" = digital mammography) by five radiologists using the FROC paradigm. 
 #' 
-#' @format A list with 3 elements, each containing multiple values as sub-lists:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
 #' \item{\code{rating$NL}}{, num [1:2, 1:5, 1:185, 1:3], ratings of non-lesion localizations, NLs}
 #' \item{\code{rating$LL}}{, num [1:2, 1:5, 1:89, 1:2], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, used only for LROC data}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
 #' \item{\code{lesions$perCase}}{, int [1:89], number of lesions per diseased case}
 #' \item{\code{lesions$IDs}}{, num [1:89, 1:2], numeric labels of lesions on diseased cases}
 #' \item{\code{lesions$weights}}{, num [1:89, 1:2], weights (or clinical importances) of lesions}
 #' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
-#' \item{\code{descriptions$fileName}}{, chr, base name of dataset in `data` folder}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset01", base name of dataset in `data` folder}
 #' \item{\code{descriptions$type}}{, chr "FROC", the data type}
 #' \item{\code{descriptions$name}}{, chr "TONY", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:185, 1:4] 1 1 1 1 ..., truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$tmodalityID}}{, chr [1:2] "BT" "DM", treatment labels}
-#' \item{\code{descriptions$treaderID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "BT" "DM", treatment labels}
+#' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -48,21 +52,26 @@
 #'    used to illustrate advances in ROC methodology. The example below displays 
 #'    the ROC plot for the first treatment and first reader.
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:2, 1:5, 1:114, 1], ratings of false positives, FPs}
-#' \item{\code{LL}}{, num [1:2, 1:5, 1:45, 1], ratings of true positives, TPs}
-#' \item{\code{lesionVector}}{, int [1:45], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:45, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:45, 1], weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:2] "0" "1", treatment labels}
-#' \item{\code{readerID}}{, chr [1:5] "0" "1" "2" ..., reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:69] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:45] 70 71 72 73 74 75 76 77 78 79 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 1  ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "VanDyke"}
+#' \item{\code{rating$NL}}{, num [1:2, 1:5, 1:114, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:2, 1:5, 1:45, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:45], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:45, 1], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:45, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset02", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "VAN-DYKE", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 ..., truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "0" "1", treatment labels}
+#' \item{\code{descriptions$readerID}}{, chr [1:5] "0" "1" "2" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -89,21 +98,26 @@
 #' Franken-dataset, which, along the the Van Dyke dataset, has been widely used to illustrate
 #' advances in ROC methodology. 
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:2, 1:4, 1:100, 1], ratings of false positives, FPs}
-#' \item{\code{LL}}{, num [1:2, 1:4, 1:67, 1], ratings of true positives, TPs}
-#' \item{\code{lesionVector}}{, int [1:67], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:67, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:67, 1], weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:2] "TREAT1" "TREAT2", the treatment labels}
-#' \item{\code{readerID}}{, chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", the reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:33] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:67] 34 35 36 37 38 39 40 41 42 43 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2] 1 1 1 1 1 1 1   ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Franken"}
+#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:100, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:67, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:67], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:67, 1], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:67, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset03", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "FRANKEN", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "TREAT1" "TREAT2", treatment labels}
+#' \item{\code{descriptions$readerID}}{, chr chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -132,21 +146,26 @@
 #' /inst/extdata/datasets/FZ_ALL.xlsx. The normal cases are labeled 100:199 while the normal 
 #' cases are labeled 0:99.
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:5, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1:5, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:100], number of lesions per diseased case}
-#' \item{\code{lesionID}}{, num [1:100, 1:3], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:100, 1:3] weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "FROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:5] "1" "2" "3" "4" "5" ... treatment labels}
-#' \item{\code{readerID}}{, chr [1:4] "1" "3" "4" "5" reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104 105 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5 6 7 8 9 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:5, 1:4, 1:200, 1:4] 1 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Federica"}
+#' \item{\code{rating$NL}}{, num [1:5, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:5, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:100], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:100, 1:3], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:100, 1:3], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset04", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "FEDERICA", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:4, 1:200, 1:4], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:5] "1" "2" "3" "4" "5", treatment labels}
+#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "3" "4" "5", reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -172,21 +191,26 @@
 #' 47 with inserted nodular lesions (max 3 per slice). The maximum number of NLs per case, over the entire 
 #' dataset was 7.  
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:2, 1:9, 1:92, 1:7], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1:2, 1:9, 1:47, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:47], number of lesions per diseased case}
-#' \item{\code{lesionID}}{, num [1:47, 1:3], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:67, 1] weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "FROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:2] "1" "2", treatment labels}
-#' \item{\code{readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:45] 48 49 50 51 52 53 54 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:47] 1 2 3 4 5 6 7 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:2, 1:9, 1:92, 1:4] 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Thompson"}
+#' \item{\code{rating$NL}}{, num [1:2, 1:9, 1:92, 1:7], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:2, 1:9, 1:47, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:47], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:47, 1:3], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:47, 1:3], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset05", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "THOMPSON", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:9, 1:92, 1:4], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", treatment labels}
+#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -211,21 +235,26 @@
 #' interpreted in two treatments ("1" = conventional chest, "1" = chest tomosynthesis) by four 
 #' radiologists using the FROC paradigm.  
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:2, 1:4, 1:89, 1:17], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1:2, 1:4, 1:42, 1:15], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:42], number of lesions per diseased case}
-#' \item{\code{lesionID}}{, num [1:42, 1:15], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:42, 1:15] weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "FROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:2] "1" "2", treatment labels}
-#' \item{\code{readerID}}{, chr [1:4] "1" "2" ..., reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:47] 1 2 3 4 5 8 9 10 11 12 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:42] 6 14 17 18 20 21 23 24 26 29 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:89, 1:16] 1 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Magnus"}
+#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:89, 1:17], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:42, 1:15], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:42], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:42, 1:15], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:42, 1:15], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset06", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "MAGNUS", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:89, 1:16], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", treatment labels}
+#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -249,21 +278,26 @@
 #' 81 of which are diseased, interpreted in five treatments (see reference, basically different ways
 #' of acquiring the images) by seven radiologists using the FROC paradigm.  
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:5, 1:7, 1:162, 1:4], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1:5, 1:7, 1:81, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:81], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:81, 1:3], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:81, 1:3] weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "FROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:5] "1" "2", ..., treatment labels}
-#' \item{\code{readerID}}{, chr [1:7] "1" "2" ..., reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:81] 6 9 10 14 15 16 22 23 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:81] 1 2 3 4 5 7 8 11 12 13  ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:5, 1:7, 1:162, 1:4] 1 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Lucy"}
+#' \item{\code{rating$NL}}{, num [1:5, 1:7, 1:162, 1:4], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:5, 1:7, 1:81, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:81], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:81, 1:3], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:81, 1:3], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset07", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "LUCY-WARREN", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:7, 1:162, 1:4], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, [1:5] "1" "2" "3" "4" ..., treatment labels}
+#' \item{\code{descriptions$readerID}}{, chr [1:7] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -289,21 +323,26 @@
 #' radiologists using the FROC paradigm (the inferred ROC dataset is included; the original FROC data
 #' is lost). 
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:5, 1:5, 1:112, 1], ratings of false positives, FPs}
-#' \item{\code{LL}}{, num [1:5, 1:5, 1:64, 1], ratings of true positives, TPs}
-#' \item{\code{lesionVector}}{, int [1:64], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:64, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:64, 1], weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:5] "0" "1", treatment labels}
-#' \item{\code{readerID}}{, chr [1:5] "0" "1" "2" ..., reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, nt [1:48] 1 2 3 4 5 6 7 8 9 10..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:64] 49 50 51 52 53 54 55 56 57 58 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:5, 1:5, 1:112, 1:2] 1 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Penedo"}
+#' \item{\code{rating$NL}}{, num [1:5, 1:5, 1:112, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:5, 1:5, 1:64, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:64], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:64, 1], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:64, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset08", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "PENEDO", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:5, 1:112, 1:2], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:5] "0" "1" "2" "3" ..., treatment labels}
+#' \item{\code{descriptions$readerID}}{, chr [1:5] "0" "1" "2" "3" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -332,21 +371,26 @@
 #' data requires methods described in the book, implemented in the function  
 #' \code{\link{StSignificanceTestingCadVsRadiologists}}.
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of false positives, FPs}
-#' \item{\code{LL}}{, num [1, 1:10, 1:80, 1], ratings of true positives, TPs}
-#' \item{\code{lesionVector}}{, int [1:80], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:80, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:80, 1], weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr [1] "1" treatment label}
-#' \item{\code{readerID}}{, chr [1:10] "1" "2" ..., reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:120] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:80] 121 122 123 124 125 126 127 128 129 130 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1, 1:10, 1:200, 1:2] 1 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "NicoRoc"}
+#' \item{\code{rating$NL}}{, num [1, 1:10, 1:200, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1, 1:10, 1:80, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:80], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:80, 1], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:80, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, FALSE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset09", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "NICO-CAD-ROC", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1, 1:10, 1:200, 1:2], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -372,21 +416,26 @@
 #' radiologists interpreted the cases using the FROC paradigm. These have been reduced to 
 #' ROC data by using the highest ratings (the original FROC data is lost). 
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:3, 1:8, 1:90, 1], ratings of false positives, FPs}
-#' \item{\code{LL}}{, num [1:3, 1:8, 1:40, 1], ratings of true positives, TPs}
-#' \item{\code{lesionVector}}{, int [1:40], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:40, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:40, 1], weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:3] "1" "2" "3", treatment labels}
-#' \item{\code{readerID}}{, chr [1:8] "1" "2" ..., reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:50] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:40] 51 52 53 54 55 56 57 58 59 60 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:3, 1:8, 1:90, 1:2] 1 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Ruschin"}
+#' \item{\code{rating$NL}}{, num [1:3, 1:8, 1:90, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:3, 1:8, 1:40, 1] , ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:40], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:40, 1], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:40, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset10", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "RUSCHIN", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:3, 1:8, 1:90, 1:2], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:3] "1" "2" "3", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:8] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -420,21 +469,26 @@
 #' with dual-energy (CXR+DE), VolumeRad digital tomosynthesis images and 
 #' VolumeRad augmented with DE (VolumeRad+DE). 
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1:4, 1:5, 1:115, 1:20], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:115], number of lesions per diseased case}
-#' \item{\code{lesionID}}{, num [1:115, 20], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:115, 20] weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "FROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:4] "1" "2" ..., treatment labels}
-#' \item{\code{readerID}}{, chr [1:5] "1" "2" ..., reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:43] 6 9 14 27 62 66 70 71 83 91 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:115] 1 2 3 5 7 8 10 11 13 17 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21] 1 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Dobbins1"}
+#' \item{\code{rating$NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:4, 1:5, 1:115, 1:20], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:115], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:115, 1:20], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:115, 1:20], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset11", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "DOBBINS-1", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -457,21 +511,26 @@
 #' ratings, i.e., do you recommend further follow up on the patient, one a 1 (definitely not)
 #' to 5 (definitely yes), effectively an ROC dataset using a 5-point rating scale.
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:4, 1:5, 1:152, 1], ratings of false positives, FPs}
-#' \item{\code{LL}}{, num [1:4, 1:5, 1:88, 1], ratings of true positives, TPs}
-#' \item{\code{lesionVector}}{, int [1:88], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:88, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:88, 1], weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment labels}
-#' \item{\code{readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:64] 6 9 14 20 27 33 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:88] 1 2 3 5 7 8 10 11 13 18 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:4, 1:5, 1:152, 1:2] 1 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Dobbins2"}
+#' \item{\code{rating$NL}}{, num [1:4, 1:5, 1:152, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:4, 1:5, 1:88, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:88], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:88, 1], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:88, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset12", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "DOBBINS-2", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:152, 1:2] , truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -481,7 +540,7 @@
 #' for the Detection and Management of Pulmonary Nodules. Radiology. 2016;282(1):236-250.
 #' 
 #' @examples
-#' str(dataset11)
+#' str(dataset12)
 #'
 #'
 "dataset12"
@@ -493,21 +552,26 @@
 #' This is referred to in the code as the "DOB3" dataset. This is a subset of DOB1 which includes
 #' data for lesions not-visible on CXR, but visible to truth panel on all treatments.  
 #' 
-#' @format A list with 12 elements:
+##' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1:4, 1:5, 1:106, 1:15], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:106], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:106, 15], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:106, 15] weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "FROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:4] "1" "2" ..., treatment labels}
-#' \item{\code{readerID}}{, chr [1:5] "1" "2" ..., reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:52] 5 6 8 9 14 27 62 66 70 71 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:106] 1 2 3 7 10 11 13 17 18 19 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:4, 1:5, 1:158, 1:16] 1 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Dobbins3"}
+#' \item{\code{rating$NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:4, 1:5, 1:106, 1:15], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:106], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:106, 1:15], numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:106, 1:15], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset13", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "DOBBINS-3", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:158, 1:16], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -532,21 +596,26 @@
 #' data from dataset04 to conclude, erroneously, that the highest rating assumption
 #' is invalid. See book Section 13.6.2.
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:2, 1:4, 1:200, 1], ratings of false positives, FPs}
-#' \item{\code{LL}}{, num [1:2, 1:4, 1:100, 1], ratings of true positives, TPs}
-#' \item{\code{lesionVector}}{, int [1:100], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:100, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:100, 1], weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:2] "4" "5", treatment labels}
-#' \item{\code{readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
-#' \item{\code{design}}{, "CROSSED", study design}
-#' \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104 105 106 ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5 6 7 8 9 ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2] 1 1 1 1 1 1 ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "FedericaRealRoc"}
+#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:200, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:100, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:100], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:100, 1] , numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:100, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "dataset14", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "FEDERICA-REAL-ROC", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -564,140 +633,6 @@
 #'
 #' 
 #' 
-#' Nico Karssemeijer LROC dataset (CAD vs. radiologists)
-#'
-#' This is the actual LROC data corresponding to \code{dataset09}, which was the inferred
-#' ROC data. Note that the \code{LL} field is split into two, \code{LLCl}, representing true 
-#' positives where the lesions were correctly localized, and \code{LLIl}, representing true 
-#' positives where the lesions were incorrectly localized. The first reader is CAD
-#' and the remaining readers are radiologists. 
-#' ##
-#' ## The function TBA
-#' 
-#' @format A list with 9 elements:
-#' \itemize{
-#' \item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of false positives, FPs}
-#' \item{\code{LLCl}}{ num [1, 1:10, 1:80, 1], ratings of true positives with correct localization, TPCls}
-#' \item{\code{LLIl}}{ num [1, 1:10, 1:80, 1], ratings of true positives with incorrect localization, TPIls}
-#' \item{\code{lesionVector}}{, int [1:80], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:80, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:80, 1], weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "LROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:2] "0" "1", treatment labels}
-#' \item{\code{readerID}}{, chr [1:10] "1" "2" ..., reader labels}
-#' \item{\code{datasetName}}{, chr "NicoLroc"}
-#' }
-#'
-#' @keywords datasets
-#'
-#' @references Hupse R  et al. Standalone computer-aided detection compared to radiologists' 
-#' performance for the detection of mammographic masses. Eur Radiol. 2013;23(1):93-100.
-#' 
-#' @examples
-#' str(datasetCadLroc)
-#'
-#'
-"datasetCadLroc"
-#'
-#'
-#' 
-#' John Thompson crossed treatment FROC dataset
-#'
-#' This is a crossed treatment dataset, see book Section 18.5. There are two treatment factors. 
-#' The first treatment factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
-#' algorithms. The second treatment factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
-#' represent the mAs values of the image acquisition. The factors are fully crossed. The function 
-#' \code{\link{StSignificanceTestingCrossedModalities}} analyzes such datasets.
-#' 
-#' @format A list with 9 elements:
-#' \itemize{
-#' \item{\code{NL}}{, num [1:2, 1:4, 1:11, 1:68, 1:5], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1:2, 1:4, 1:11, 1:34, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:34], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:34, 3], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:34, 3] weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "FROC", the data type}
-#' \item{\code{modalityID1}}{ [1:2] "F" "I", treatment labels}
-#' \item{\code{modalityID2}}{ [1:4] "20" "40"  "60"  "80", treatment labels}
-#' \item{\code{readerID}}{, chr [1:11] "1" "10" "11" ..., reader labels}
-#' \item{\code{datasetName}}{, chr "ThompsonCrossed"}
-#' }
-#'
-#' @keywords datasets
-#'
-#' @references Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
-#' methods and x-ray tube current-time product  on nodule detection in an 
-#' anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study. 
-#' Medical Physics. 43(3):1265-1274.
-#' 
-#' @examples
-#' str(datasetCrossedModality)
-#'
-#'
-"datasetCrossedModality"
-#'
-#' 
-#' 
-#'
-#' 
-#' Simulated ROI dataset
-#'
-#' Simulated ROI dataset: assumed are 4 ROIs per case, 5 readers, 50 non-dieased and 40 diseased cases.
-#' 
-#' @format A list with 9 elements:
-#' \itemize{
-#' \item{\code{NL}}{, num [1:2, 1:5, 1:90, 1:4], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1:2, 1:5, 1:40, 1:4], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:40], number of lesions per diseased case, varies between 1 and 4}
-#' \item{\code{lesionID}}{, num [1:40, 1:4], labels of lesions on diseased cases}
-#' \item{\code{lesionWeight}}{, num [1:40, 1:4] weights (or clinical importances) of lesions, set to 1 divided by number of lesions in the case}
-#' \item{\code{dataType}}{, chr "ROI", the data type}
-#' \item{\code{modalityID1}}{ [1:2] "1" "2", treatment labels}
-#' \item{\code{readerID}}{, chr [1:5] "1" "2" "3" "4" "5", reader labels}
-#' \item{\code{datasetName}}{, chr "SimulatedRoi"}
-#' }
-#'
-#' @keywords datasets
-#'
-#' 
-#' @examples
-#' str(datasetROI)
-#'
-#'
-"datasetROI"
-#'
-#'
-#'
-#' Simulated degenerate ROC dataset (for testing purposes)
-#'
-#' A simulated degenerated dataset. A degenerate dataset is defined as one with
-#' no interior operating points on the ROC plot. Such data tend to be observed with expert level 
-#' radiologists. This dataset is used to illustrate the robustness of two fitting models, namely
-#' CBM and RSM. The widely used binormal model and PROPROC fail on such datasets. 
-#' 
-#' @format A list with 8 elements:
-#' \itemize{
-#' \item{\code{NL}}{, num [1, 1, 1:15, 1], ratings of false positives, FPs}
-#' \item{\code{LL}}{, num [1, 1, 1:10, 1], ratings of true positives, TPs}
-#' \item{\code{lesionVector}}{, int [1:10], number of lesions per diseased case, all set to 1}
-#' \item{\code{lesionID}}{, num [1:10, 1], labels of lesions on diseased cases, all set to 1}
-#' \item{\code{lesionWeight}}{, num [1:10, 1], weights (or clinical importances) of lesions, all set to 1}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr "1", treatment label}
-#' \item{\code{readerID}}{, chr "1", reader label}
-#' \item{\code{datasetName}}{, chr "datasetDegenerate"}
-#' }
-#'
-#' @keywords datasets
-#'
-#' @examples
-#' str(datasetDegenerate)
-#'
-#'
-"datasetDegenerate"
-#'
-#'
-#' 
 #' Binned dataset suitable for checking \code{\link{FitCorCbm}}; seed = 123
 #'
 #' A binned dataset suitable for analysis by \code{\link{FitCorCbm}}. It was generated by
@@ -710,17 +645,26 @@
 #'    K1 = 5000, K2 = 5000, desiredNumBins = 5, muX = 1.5, muY = 3, alphaX = 0.4, 
 #'    alphaY = 0.7, rhoNor = 0.3, rhoAbn2 = 0.8. 
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:5000], number of lesions per diseased case, all set to one}
-#' \item{\code{lesionID}}{, num [1:5000, 1], lesions labels on diseased cases, all set to one}
-#' \item{\code{lesionWeight}}{, num [1:5000, 1], weights, all set to one}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr "1", treatment label}
-#' \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
-#' \item{\code{datasetName}}{, chr "dataset Binned 123"}
+#' \item{\code{rating$NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:5000], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:5000, 1] , numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:5000, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetBinned123", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-123", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -742,17 +686,26 @@
 #'    \code{\link{DfCreateCorCbmDataset}} by setting the \code{seed} variable to 124. 
 #'    Otherwise similar to \code{\link{datasetBinned123}}. 
 #' 
-#' @format A list with 8 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:5000], number of lesions per diseased case, all set to one}
-#' \item{\code{lesionID}}{, num [1:5000, 1], lesions labels on diseased cases, all set to one}
-#' \item{\code{lesionWeight}}{, num [1:5000, 1], weights, all set to one}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr "1", treatment label}
-#' \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
-#' \item{\code{datasetName}}{, chr "dataset Binned 124"}
+#' \item{\code{rating$NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:5000], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:5000, 1] , numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:5000, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetBinned124", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-124", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -774,17 +727,26 @@
 #'    \code{\link{DfCreateCorCbmDataset}} by setting the \code{seed} variable to 125. 
 #'    Otherwise similar to \code{\link{datasetBinned123}}. 
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:5000], number of lesions per diseased case, all set to one}
-#' \item{\code{lesionID}}{, num [1:5000, 1], lesions labels on diseased cases, all set to one}
-#' \item{\code{lesionWeight}}{, num [1:5000, 1], weights, all set to one}
-#' \item{\code{dataType}}{, chr "ROC", the data type}
-#' \item{\code{modalityID}}{, chr "1", treatment label}
-#' \item{\code{readerID}}{, chr [1:2] "1" "2",  reader labels}
-#' \item{\code{datasetName}}{, chr "dataset Binned 125"}
+#' \item{\code{rating$NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:5000], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:5000, 1] , numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:5000, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetBinned125", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-125", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -801,32 +763,184 @@
 #'
 #'
 #' 
+#' 
+#' Nico Karssemeijer LROC dataset (CAD vs. radiologists)
+#'
+#' This is the actual LROC data corresponding to \code{dataset09}, which was the inferred
+#' ROC data. Note that the \code{LL} field is split into two, \code{LLCl}, representing true 
+#' positives where the lesions were correctly localized, and \code{LLIl}, representing true 
+#' positives where the lesions were incorrectly localized. The first reader is CAD
+#' and the remaining readers are radiologists. 
+#' ##
+#' ## The function TBA
+#' 
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
+#' \itemize{
+#' \item{\code{rating$NL}}{, num [1, 1:10, 1:200, 1], ratings of localizations on normal cases}
+#' \item{\code{rating$LL}}{, num [1, 1:10, 1:80, 1], ratings of correct localizations on abnormal cases}
+#' \item{\code{rating$LL_IL}}{num [1, 1:10, 1:80, 1], ratings of incorrect localizations on abnormal cases}
+#' \item{\code{lesions$perCase}}{, int [1:80], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:80, 1] , numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:80, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, FALSE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetCadLroc", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "LROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
+#' }
+#'
+#' @keywords datasets
+#'
+#' @references Hupse R  et al. Standalone computer-aided detection compared to radiologists' 
+#' performance for the detection of mammographic masses. Eur Radiol. 2013;23(1):93-100.
+#' 
+#' @examples
+#' str(datasetCadLroc)
+#'
+#'
+"datasetCadLroc"
+#'
+#'
+#'
+#' 
+#'
 #' Simulated FROC CAD vs. RAD dataset
 #'
 #' Simulated FROC CAD vs. RAD dataset suitable for checking code. It was generated 
-#'    from datasetCadLroc using SimulateFrocFromLrocData.R. 
-#'    
+#'    from datasetCadLroc using SimulateFrocFromLrocData.R. The LROC paradigm always 
+#'    yields a single mark per case. Therefore 
+#'    the equivalent FROC will also have only one mark per case. The NL arrays 
+#'    of the two datasets are identical. The LL array is created by copying the
+#'    LL (correct localiztion) array of the LROC dataset to the LL array of the FROC 
+#'    dataset, from 
+#'    diseased case index k2 = 1 to k2 = K2. Additionally, the LL_IL array of the 
+#'    LROC dataset is copied to the NL array of the FROC dataset, starting at case 
+#'    index k1 = K1+1 to k1 = K1+K2. Any zero ratings are replace by -Infs. The 
+#'    equivalent FROC dataset has the same HrAuc as the original LROC dataset. 
+#'    See example. The main use of this dataset & function is to test the CAD significance
+#'    testing functions using CAD FROC datasets, which I currently don't have.
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1, 1:10, 1:80, 1], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:80], number of lesions per diseased case, all set to one}
-#' \item{\code{lesionID}}{, num [1:80, 1], lesions labels on diseased cases, all set to one}
-#' \item{\code{lesionWeight}}{, num [1:80, 1], weights, all set to one}
-#' \item{\code{dataType}}{, chr "FROC", the data type}
-#' \item{\code{modalityID}}{, chr "1", treatment label}
-#' \item{\code{readerID}}{, chr [1:10] "1" "2",  reader labels}
-#' \item{\code{datasetName}}{, chr "dataset Cad Simulated Froc"}
+#' \item{\code{rating$NL}}{, num [1, 1:10, 1:200, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1, 1:10, 1:80, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:80], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:80, 1] , numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:80, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, FALSE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetCadSimuFroc", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "LROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
+#' }
+#'
+#' @keywords datasets
+#'
+"datasetCadSimuFroc"
+#'
+#'
+#'
+#' 
+#' John Thompson crossed treatment FROC dataset
+#'
+#' This is a crossed treatment dataset, see book Section 18.5. There are two treatment factors. 
+#' The first treatment factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
+#' algorithms. The second treatment factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
+#' represent the mAs values of the image acquisition. The factors are fully crossed. The function 
+#' \code{\link{StSignificanceTestingCrossedModalities}} analyzes such datasets.
+#' 
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
+#' \itemize{
+#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:11, 1:68, 1:5], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:11, 1:34, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:34], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:34, 1:3] , numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:34, 1:3], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, FALSE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetCrossedModality", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "THOMPSON-X-MOD", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "F" "I", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:4] "20" "40" "60" "80", reader labels}
+#' }
+#'
+#' @keywords datasets
+#'
+#' @references Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
+#' methods and x-ray tube current-time product  on nodule detection in an 
+#' anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study. 
+#' Medical Physics. 43(3):1265-1274.
+#' 
+#' @examples
+#' str(datasetCrossedModality)
+#'
+#'
+"datasetCrossedModality"
+#'
+#' 
+#' 
+#'
+#' Simulated degenerate ROC dataset (for testing purposes)
+#'
+#' A simulated degenerated dataset. A degenerate dataset is defined as one with
+#' no interior operating points on the ROC plot. Such data tend to be observed with expert level 
+#' radiologists. This dataset is used to illustrate the robustness of two fitting models, namely
+#' CBM and RSM. The widely used binormal model and PROPROC fail on such datasets. 
+#' 
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
+#' \itemize{
+#' \item{\code{rating$NL}}{, num [1, 1, 1:15, 1], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1, 1, 1:10, 1], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:10], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:10, 1] , numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:10, 1], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetDegenerate", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "SIM-DEGENERATE", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr "1", reader labels}
 #' }
 #'
 #' @keywords datasets
 #'
 #' @examples
-#' str(datasetCadSimuFroc)
+#' str(datasetDegenerate)
 #'
-"datasetCadSimuFroc"
 #'
+"datasetDegenerate"
+#'
+#'
+#' 
 #'
 #'
 #' Simulated FROC SPLIT-PLOT dataset
@@ -837,21 +951,26 @@
 #' confirmed it is read without error 
 #'    
 #' 
-#' @format A list with 12 elements:
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{NL}}{, num [1:2, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
-#' \item{\code{LL}}{, num [1:2, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{lesionVector}}{, int [1:100], number of lesions per diseased case, all set to one}
-#' \item{\code{lesionID}}{, num [1:100, 3], lesions labels on diseased cases, all set to one}
-#' \item{\code{lesionWeight}}{, num [1:100, 3], weights, all set to one}
-#' \item{\code{dataType}}{, chr "FROC", the data type}
-#' \item{\code{modalityID}}{, chr [1:2] "4" "5", treatment label}
-#' \item{\code{readerID}}{, chr [1:4] "1" "3" "4" "5",  reader labels}
-#' \item{\code{design}}{, chr "SPLIT-PLOT, study design}
-#' \item{\code{normalCases}}{, int [1:100] 100 101 102 103 104  ..., normal case labels}
-#' \item{\code{abnormalCases}}{, int [1:100] 0 1 2 3 4 5  ..., abnormal case labels}
-#' \item{\code{truthTableStr}}{, num [1:2, 1:4, 1:200, 1:4] 1 1 NA NA NA ..., truth table structure}
-#' \item{\code{datasetName}}{, chr "Simulated Froc Split Plot"}
+#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:100], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:100, 1:3] , numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:100, 1:3], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetFROCSp", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
+#' \item{\code{descriptions$name}}{, chr "SIM-FROC-SPLIT-PLOT", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "3" "4" "5", reader labels}
 #' }
 #'
 #' @keywords datasets
@@ -861,6 +980,44 @@
 #'
 "datasetFROCSp"
 #'
+#'
+#'
+#'
+#' 
+#' Simulated ROI dataset
+#'
+#' TBA Simulated ROI dataset: assumed are 4 ROIs per case, 5 readers, 50 non-dieased and 40 diseased cases.
+#' 
+#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+#'    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+#'    contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
+#' \itemize{
+#' \item{\code{rating$NL}}{, num [1:2, 1:5, 1:90, 1:4], ratings of non-lesion localizations, NLs}
+#' \item{\code{rating$LL}}{, num [1:2, 1:5, 1:40, 1:4], ratings of lesion localizations, LLs}
+#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+#' \item{\code{lesions$perCase}}{, int [1:40], number of lesions per diseased case}
+#' \item{\code{lesions$IDs}}{, num [1:40, 1:4] , numeric labels of lesions on diseased cases}
+#' \item{\code{lesions$weights}}{, num [1:40, 1:4], weights (or clinical importances) of lesions}
+#' \item{\code{descriptions$binned}}{, logical, FALSE if less than 7 unique rating values, FALSE otherwise}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetROI", base name of dataset in `data` folder}
+#' \item{\code{descriptions$type}}{, chr "ROI", the data type}
+#' \item{\code{descriptions$name}}{, chr "SIM-ROI", the name of the dataset}
+#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
+#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", treatment label(s)}
+#' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+#' }
+#'
+#' @keywords datasets
+#'
+#' 
+#' @examples
+#' str(datasetROI)
+#'
+#'
+"datasetROI"
 #'
 #'
 

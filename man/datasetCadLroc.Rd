@@ -5,18 +5,26 @@
 \alias{datasetCadLroc}
 \title{Nico Karssemeijer LROC dataset (CAD vs. radiologists)}
 \format{
-A list with 9 elements:
+A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+   contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+   contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+   contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+   \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 \itemize{
-\item{\code{NL}}{, num [1, 1:10, 1:200, 1], ratings of false positives, FPs}
-\item{\code{LLCl}}{ num [1, 1:10, 1:80, 1], ratings of true positives with correct localization, TPCls}
-\item{\code{LLIl}}{ num [1, 1:10, 1:80, 1], ratings of true positives with incorrect localization, TPIls}
-\item{\code{lesionVector}}{, int [1:80], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{, num [1:80, 1], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{, num [1:80, 1], weights (or clinical importances) of lesions, all set to 1}
-\item{\code{dataType}}{, chr "LROC", the data type}
-\item{\code{modalityID}}{, chr [1:2] "0" "1", treatment labels}
-\item{\code{readerID}}{, chr [1:10] "1" "2" ..., reader labels}
-\item{\code{datasetName}}{, chr "NicoLroc"}
+\item{\code{rating$NL}}{, num [1, 1:10, 1:200, 1], ratings of localizations on normal cases}
+\item{\code{rating$LL}}{, num [1, 1:10, 1:80, 1], ratings of correct localizations on abnormal cases}
+\item{\code{rating$LL_IL}}{num [1, 1:10, 1:80, 1], ratings of incorrect localizations on abnormal cases}
+\item{\code{lesions$perCase}}{, int [1:80], number of lesions per diseased case}
+\item{\code{lesions$IDs}}{, num [1:80, 1] , numeric labels of lesions on diseased cases}
+\item{\code{lesions$weights}}{, num [1:80, 1], weights (or clinical importances) of lesions}
+\item{\code{descriptions$binned}}{, logical, FALSE if less than 7 unique rating values, FALSE otherwise}
+\item{\code{descriptions$fileName}}{, chr, "datasetCadLroc", base name of dataset in `data` folder}
+\item{\code{descriptions$type}}{, chr "LROC", the data type}
+\item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
+\item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
+\item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+\item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+\item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 }
 }
 \usage{

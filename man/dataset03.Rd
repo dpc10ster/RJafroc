@@ -5,21 +5,26 @@
 \alias{dataset03}
 \title{Franken ROC dataset}
 \format{
-A list with 12 elements:
+A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+   contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+   contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+   contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+   \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 \itemize{
-\item{\code{NL}}{, num [1:2, 1:4, 1:100, 1], ratings of false positives, FPs}
-\item{\code{LL}}{, num [1:2, 1:4, 1:67, 1], ratings of true positives, TPs}
-\item{\code{lesionVector}}{, int [1:67], number of lesions per diseased case, all set to 1}
-\item{\code{lesionID}}{, num [1:67, 1], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{, num [1:67, 1], weights (or clinical importances) of lesions, all set to 1}
-\item{\code{dataType}}{, chr "ROC", the data type}
-\item{\code{modalityID}}{, chr [1:2] "TREAT1" "TREAT2", the treatment labels}
-\item{\code{readerID}}{, chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", the reader labels}
-\item{\code{design}}{, "CROSSED", study design}
-\item{\code{normalCases}}{, int [1:33] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels}
-\item{\code{abnormalCases}}{, int [1:67] 34 35 36 37 38 39 40 41 42 43 ..., abnormal case labels}
-\item{\code{truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2] 1 1 1 1 1 1 1   ..., truth table structure}
-\item{\code{datasetName}}{, chr "Franken"}
+\item{\code{rating$NL}}{, num [1:2, 1:4, 1:100, 1], ratings of non-lesion localizations, NLs}
+\item{\code{rating$LL}}{, num [1:2, 1:4, 1:67, 1], ratings of lesion localizations, LLs}
+\item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+\item{\code{lesions$perCase}}{, int [1:67], number of lesions per diseased case}
+\item{\code{lesions$IDs}}{, num [1:67, 1], numeric labels of lesions on diseased cases}
+\item{\code{lesions$weights}}{, num [1:67, 1], weights (or clinical importances) of lesions}
+\item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+\item{\code{descriptions$fileName}}{, chr, "dataset03", base name of dataset in `data` folder}
+\item{\code{descriptions$type}}{, chr "ROC", the data type}
+\item{\code{descriptions$name}}{, chr "FRANKEN", the name of the dataset}
+\item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2], truth table structure}
+\item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+\item{\code{descriptions$modalityID}}{, chr [1:2] "TREAT1" "TREAT2", treatment labels}
+\item{\code{descriptions$readerID}}{, chr chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", reader labels}
 }
 }
 \usage{

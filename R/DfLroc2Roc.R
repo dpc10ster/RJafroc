@@ -22,24 +22,18 @@
 #' 
 #' @export
 
-DfLroc2Roc <- function (dataset) #  !!!in tests!!!
+DfLroc2Roc <- function (dataset) #  TBA !!!in tests!!!
 {
-  stop("need fix here: DfLroc2Roc")
-  # TBA SimplifyDatasets
+  if (dataset$descriptions$type != "LROC") stop("This function requires an LROC dataset.")
   
-  if (dataset$dataType != "LROC") stop("This function requires an LROC dataset.")
+  LL <- dataset$ratings$LL[,,,1]
+  LL_IL <- dataset$ratings$LL_IL[,,,1]
+  I <- length(dataset$ratings$LL[,1,1,1])
+  J <- length(dataset$ratings$LL[1,,1,1])
+  K2 <- length(dataset$ratings$LL[1,1,,1])
   
-  LL <- dataset$LL[,,,1]
-  LL_IL <- dataset$LL_IL[,,,1]
-  I <- length(dataset$LL[,1,1,1])
-  J <- length(dataset$LL[1,,1,1])
-  K2 <- length(dataset$LL[1,1,,1])
-  
-  dim(LL) <- c(I,J,K2)
-  dim(LL_IL) <- c(I,J,K2)
-  
-  LL <- dataset$LL
   dim(LL) <- c(I,J,K2,1)
+  dim(LL_IL) <- c(I,J,K2)
   
   for (i in 1:I) {
     for (j in 1:J) {
@@ -50,17 +44,17 @@ DfLroc2Roc <- function (dataset) #  !!!in tests!!!
     }
   }
   
-  # TBA SimplifyDatasets
-  return (list(
-    NL = dataset$ratings$NL, # For non-diseased cases the NL arrays are identical.
-    LL = LL,
-    lesionVector = dataset$lesionVector,
-    lesionID = dataset$lesionID,
-    lesionWeight = dataset$lesionWeight,
-    dataType = "ROC",
-    modalityID = dataset$descriptions$modalityID,
-    readerID = dataset$descriptions$readerID,
-    datasetName = "ignore"
-  ))
+  NL <- dataset$ratings$NL
+  binned <- isBinned(NL, LL)
+  fileName <- NA
+  name <- NA
+  design <- "FCTRL"
+  truthTableStr <- NA
+  type <- "ROC"
+  perCase <- rep(1,K2)
+  return(convert2dataset(NL, LL, LL_IL = NA, 
+                         perCase, dataset$lesions$IDs, dataset$lesions$weights,
+                         binned, fileName, type, name, truthTableStr, design,
+                         dataset$descriptions$modalityID, dataset$descriptions$readerID))
 }
 

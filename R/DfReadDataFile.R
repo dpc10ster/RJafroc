@@ -98,6 +98,224 @@ DfReadDataFile <- function (fileName, format = "JAFROC",
 } 
 
 
+
+checkTruthTable <- function (truthTable) 
+{
+  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  
+  for (i in 1:3){
+    truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
+  }
+  
+  naRows <- colSums(is.na(truthTable))
+  if (max(naRows) > 0) {
+    if (max(naRows) == min(naRows)) {
+      truthTable <- truthTable[1:(nrow(truthTable) - max(naRows)), ]
+    }
+  }
+  
+  errorMsg <- ""
+  for (i in 1:3) {
+    if (any(is.na(truthTable[, i]))) {
+      naLines <- which(is.na(truthTable[, i])) + 1
+      errorMsg <- paste0(errorMsg, 
+                         "\nThere are empty cells for CaseID or LesionID at line(s) ", 
+                         paste(naLines, collapse = ", "), " in the TRUTH table.")
+    }
+  }
+  if (errorMsg != "") stop(errorMsg)
+  
+  for (i in 1:3)
+    if (any(is.na(suppressWarnings(as.numeric(as.character(truthTable[, i])))))) {
+      suppressWarnings({naLines <- which(is.na(as.numeric(as.character(truthTable[, i])))) + 1})
+      if (i == 1) errorMsg <- paste0(errorMsg, "\nThere are non-integer values(s) for caseID at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
+      if (i == 2) errorMsg <- paste0(errorMsg, "\nThere are non-integer values(s) for LessionID at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
+      if (i == 3) errorMsg <- paste0(errorMsg, "\nThere are non-numeric values(s) for weights at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
+    }
+  if (errorMsg != "") stop(errorMsg)
+  
+  if (any(!is.wholenumber(as.numeric(truthTable[[1]])))) stop("Non-integer values in Truth worksheet column 1")
+  if (any(!is.wholenumber(as.numeric(truthTable[[2]])))) stop("Non-integer values in Truth worksheet column 2")
+  if (any(!is.double(as.numeric(truthTable[[3]])))) stop("Non-float values in Truth worksheet column 3")
+  
+  df <- as.data.frame(truthTable[1:5], stringsAsFactors = FALSE)
+  df["caseLevelTruth"] <- (truthTable$LesionID > 0)
+  TruthTableSort <- df[order(df$caseLevelTruth, df$ReaderID, df$CaseID), ]
+  # TruthTableSort <- df # temporary line to bypass sorting
+  
+  caseIDCol <- as.integer(TruthTableSort$CaseID)  # all 3 have same lengths
+  lesionIDColumn <- as.integer(TruthTableSort$LesionID)
+  weightsCol <- as.numeric(TruthTableSort$Weight)
+  readerID <- TruthTableSort$ReaderID
+  L <- length(TruthTableSort$CaseID)
+  for (i in 1:4) if ((length(TruthTableSort[[i]])) != L) 
+    stop("Columns of unequal height in Truth Excel worksheet")  
+  
+  normalCases <- sort(unique(caseIDCol[lesionIDColumn == 0]))
+  abnormalCases <- sort(unique(caseIDCol[lesionIDColumn > 0]))
+  allCases <- c(normalCases, abnormalCases)
+  K1 <- length(normalCases)
+  K2 <- length(abnormalCases)
+  K <- (K1 + K2)
+  
+  # DPC: check for duplicate lesionIDs
+  if (anyDuplicated(cbind(caseIDCol, lesionIDColumn))) {
+    naLines <- which(duplicated(cbind(caseIDCol, lesionIDColumn))) + 1
+    errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table are duplicated lesionIDs for given caseID.")
+  }
+  if (errorMsg != "") stop(errorMsg)
+  
+  if (anyDuplicated(cbind(caseIDCol, lesionIDColumn, weightsCol))) {
+    naLines <- which(duplicated(cbind(caseIDCol, lesionIDColumn, weightsCol))) + 1
+    errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table are duplicates of previous line(s) .")
+  }
+  if (errorMsg != "") stop(errorMsg)
+  
+  lesionIDColUnique <- sort(unique(lesionIDColumn)) # fix to bug when abnormal cases occur first
+  
+  perCase <- as.vector(table(caseIDCol[caseIDCol %in% abnormalCases]))
+  weights <- array(dim = c(K2, max(perCase)))
+  IDs <- array(dim = c(K2, max(perCase)))
+  
+  for (k2 in 1:K2) {
+    k <- which(caseIDCol == abnormalCases[k2])
+    IDs[k2, ] <- c(sort(lesionIDColumn[k]), 
+                   rep(UNINITIALIZED, max(perCase) - length(k)))
+    if (all(weightsCol[k] == 0)) {
+      weights[k2, 1:length(k)] <- 1/perCase[k2]
+    } else {
+      weights[k2, ] <- as.numeric(c(weightsCol[k][order(lesionIDColumn[k])], 
+                                    rep(UNINITIALIZED, max(perCase) - length(k))))
+      sumWeight <- sum(weights[k2, weights[k2, ] != UNINITIALIZED])
+      if (sumWeight != 1){
+        if (sumWeight <= 1.01 && sumWeight >= 0.99){
+          weights[k2, ] <- weights[k2, ] / sumWeight
+        }else{
+          errorMsg <- paste0("The sum of the weights of Case ", k2, " is not 1.")
+          stop(errorMsg)
+        }
+      }
+    }
+  }
+  
+  isGT1RperCase <- array(dim = length(caseIDCol))
+  for (i in 1:length(caseIDCol)) 
+    isGT1RperCase[i] <- is.character(TruthTableSort$ReaderID[i]) && (nchar(TruthTableSort$ReaderID[i]) > 1)  
+  if (all(isGT1RperCase == FALSE)) GT1RperCase <- FALSE else 
+    if (all(isGT1RperCase == TRUE)) GT1RperCase <- TRUE else 
+      stop("Unequal number of readers in ReaderID column\n")
+  
+  isGT1TperCase <- array(dim = length(caseIDCol))
+  for (i in 1:length(caseIDCol)) 
+    isGT1TperCase[i] <- is.character(TruthTableSort$ModalityID[i]) && (nchar(TruthTableSort$ModalityID[i]) > 1)  
+  if (all(isGT1TperCase == FALSE)) GT1TperCase <- FALSE 
+  else if (all(isGT1TperCase == TRUE)) GT1TperCase <- TRUE 
+  else stop("Unequal number of modalities in ModalityID column\n")
+  
+  I <- length(unlist(strsplit(TruthTableSort$ModalityID[1],split = ",")))
+  
+  if (GT1RperCase) {
+    J <- length(unlist(strsplit(TruthTableSort$ReaderID[1],split = ",")))
+    
+    readerIDArray <- array(dim = c(J,L))
+    x <- sort(trimws(unlist(strsplit(TruthTableSort$ReaderID,split = ","))))
+    for (j in 1:J) readerIDArray[j,] <- x[((j-1)*L + 1):(j*L)]
+    readerIDUnique <- unique(readerIDArray)
+    if(!all((dim(readerIDArray) == dim(readerIDUnique)))) stop("Non-unique reader ids in dataset")
+  } else {
+    J <- length(unique(TruthTableSort$ReaderID))
+    readerIDUnique <- unique(readerID)
+    # following fixed single reader datasets, ROC and FROC
+    readerIDArray <- array(dim = c(J,L))
+    for (j in 1:J) readerIDArray[j,] <- readerIDUnique[j]
+  }
+  
+  # if (!GT1TperCase) stop("Must have > 1 modalities per case, balanced data, for each reader")
+  # following code should break with single modality dataset
+  # but it does not; go figure TBA-DPC!!!
+  modalityIDArray <- array(dim = c(I,L))
+  x <- sort(trimws(unlist(strsplit(TruthTableSort$ModalityID,split = ","))))
+  for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]
+  modalityIDUnique <- unique(modalityIDArray)
+  if(!all((dim(modalityIDArray) == dim(modalityIDUnique)))) stop("Non-unique modality ids in dataset")
+  
+  # truthTableStr <- array(dim = c(I, J, K, length(lesionIDColUnique))) # TBA-DPC!!!
+  truthTableStr <- array(dim = c(I, J, K, max(lesionIDColUnique)+1)) # possible bug if lesionIDColUnique does not consist of sequential integers
+  for (i in 1:I) {
+    for (j in 1:J) {
+      for (el in lesionIDColUnique) { 
+        el1 <- which(lesionIDColUnique == el)
+        if (!GT1RperCase) {
+          casePresent_ij <- (
+            (modalityIDArray[i,] == modalityIDUnique[i]) & 
+              (readerID == readerIDUnique[j]) &
+              (lesionIDColumn == lesionIDColUnique[el1])
+          )
+        } else {
+          casePresent_ij <- (
+            (modalityIDArray[i,] == modalityIDUnique[i]) & 
+              (readerIDArray[j,] == readerIDUnique[j]) &
+              (lesionIDColumn == lesionIDColUnique[el1])
+          )
+        }
+        if ((sum(casePresent_ij) == 0)) next 
+        caseIDTable <- table(caseIDCol[casePresent_ij])
+        caseIDs_ij <- as.numeric(unlist(attr(caseIDTable, "dimnames")))
+        for (k in 1:length(caseIDs_ij)) {
+          k1 <- which(caseIDs_ij[k] == allCases)
+          # this code checks out for file frocCr013Lesions.xlsx which contains
+          # 2 modalities, 3 readers, froc data,
+          # 3 normal cases, 5 abnormal cases, four containing 1 lesion and 1 containing
+          # 3 lesions. See RJafrocChecks/truthTableStr.xlsx, NewFormat.
+          # cat("i = ", i, ", j = ", j, ", el1 = ", el1,
+          #     ", k1 = ", k1, ", caseIDs_ij[k]", caseIDs_ij[k], "\n")
+          truthTableStr[i, j, k1, el1] <-1
+        }
+      }  
+    }
+  }
+  
+  type <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[1]
+  design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
+  
+  if (!(type %in% c("FROC", "ROC"))) stop("Unsupported declared type: must be ROC or FROC.\n")
+  if (!(design %in% c("CROSSED", "SPLIT-PLOT"))) stop("Study design must be CROSSED or SPLIT-PLOT\n")
+  
+  if (type == "ROC") {
+    if ((design == "CROSSED") && (sum(!is.na(truthTableStr)) != 
+                                  L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
+      stop("Dataset does not appear to be crossed ROC")
+    
+    if ((design == "SPLIT-PLOT") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
+      stop("Dataset does not appear to be split plot ROC")
+  }
+  
+  if (type == "FROC") {
+    if ((design == "CROSSED") && (sum(!is.na(truthTableStr)) != 
+                                  L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
+      stop("Dataset does not appear to be crossed FROC")
+    
+    if ((design == "SPLIT-PLOT") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
+      stop("Dataset does not appear to be split plot FROC")
+  }
+  
+  return (list(
+    truthTableStr = truthTableStr,
+    type = type,
+    design = design,
+    caseID = caseIDCol,
+    perCase = perCase,
+    lesionIDColumn = lesionIDColumn,
+    IDs = IDs,
+    weights = weights,
+    normalCases = normalCases,
+    abnormalCases = abnormalCases
+  ))
+  
+}
+
+
+
 ###################### NEW FORMAT READ FUNCTION  ############################
 ReadJAFROCNewFormat <- function(fileName, sequentialNames) 
 {
@@ -122,12 +340,12 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   
   truthTableStr <- truth$truthTableStr
   truthCaseID <-  truth$caseID # these need not be unique for FROC datasets
-  dataType <- truth$dataType
+  type <- truth$type
   design <- truth$design
-  lesionWeight <- truth$lesionWeight
-  lesionVector <- truth$lesionVector
-  lesionID <- truth$lesionID
-  lesionIDCol <- truth$lesionIDCol
+  weights <- truth$weights
+  perCase <- truth$perCase
+  IDs <- truth$IDs
+  lesionIDColumn <- truth$lesionIDColumn
   normalCases <- truth$normalCases
   abnormalCases <- truth$abnormalCases
   
@@ -164,7 +382,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     }
   }
   
-  df1 <- as.data.frame(NLTable)
+  df1 <- as.data.frame(NLTable, stringsAsFactors = FALSE)
   NLTableSort <- df1[order(df1$ModalityID, df1$ReaderID, df1$CaseID),]
   # NLTableSort <- df1 # temporary line to bypass sorting
   
@@ -207,7 +425,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     }
   }
   
-  df11 <- as.data.frame(LLTable)
+  df11 <- as.data.frame(LLTable, stringsAsFactors = FALSE)
   LLTableSort <- df11[order(df11$ModalityID, df11$ReaderID, df11$CaseID, df11$LesionID),]
   # LLTableSort <- df11 # temporary line to bypass sorting
   
@@ -219,7 +437,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     LLRatingColumn <- LLTableSort$TP_Rating
   
   for (i in 1:nrow(LLTable)) {
-    lineNum <- which((truthCaseID == LLCaseIDColumn[i]) & (lesionIDCol == LLLesionIDColumn[i]))
+    lineNum <- which((truthCaseID == LLCaseIDColumn[i]) & (lesionIDColumn == LLLesionIDColumn[i]))
     if (!length(lineNum)) {
       errorMsg <- paste0("Modality ", LLTable[i, 2], 
                          " Reader(s) ", LLTable[i, 1], 
@@ -235,7 +453,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   }
   
   for (i in 1:nrow(LLTable)) {
-    lineNum <- which((truthCaseID == LLCaseIDColumn[i]) & (lesionIDCol == LLLesionIDColumn[i]))
+    lineNum <- which((truthCaseID == LLCaseIDColumn[i]) & (lesionIDColumn == LLLesionIDColumn[i]))
     if (!length(lineNum)) {
       errorMsg <- paste0("Modality ", LLTable[i, 2], " Reader(s) ", 
                          LLTable[i, 1], " Case(s) ", LLTable[i, 3], " Lesion(s) ", 
@@ -282,10 +500,10 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
       caseIDs_ij <- as.numeric(unlist(attr(caseNLTable, "dimnames")))
       for (k1 in 1:length(caseIDs_ij)) {
         if (caseIDs_ij[k1] %in% normalCases) {
-          if (truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 1] != 1) # ,1: for normal cases, the fourth dimension is lesionIDCol = 0, which occupies the first position
+          if (truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 1] != 1) # ,1: for normal cases, the fourth dimension is lesionIDColumn = 0, which occupies the first position
             stop("incorrect truthCaseID in NL/FP worksheet")
         } else if (caseIDs_ij[k1] %in% abnormalCases) {
-          if (truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 2] != 1) # ,1: for normal cases, the fourth dimension is lesionIDCol = 0, which occupies the first position
+          if (truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 2] != 1) # ,1: for normal cases, the fourth dimension is lesionIDColumn = 0, which occupies the first position
             stop("incorrect truthCaseID in NL/FP worksheet")
         } else stop("Should never get here")
         for (el in 1:caseNLTable[k1]) {
@@ -299,7 +517,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   NL[is.na(NL)] <- UNINITIALIZED
   
   ############################ CALC LL ARRAY ################################
-  LL <- array(dim = c(I, J, K2, max(lesionVector)))
+  LL <- array(dim = c(I, J, K2, max(perCase)))
   for (i in 1:I) {
     for (j in 1:J) {
       casePresent_ij <- (LLModalityIDColumn == modalityIDUnique[i]) & 
@@ -310,10 +528,10 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
       for (k2 in 1:length(caseIDs_ij)) {
         k2p <- which(caseIDs_ij[k2] == abnormalCases)
         x2 <- which(LLCaseIDColumn[casePresent_ij] == caseIDs_ij[k2])
-        x3 <- lesionID[k2p, ]
+        x3 <- IDs[k2p, ]
         for (el in 1:caseLLTable[k2]) {
           elp <- which(LLLesionIDColumn[casePresent_ij][x2][el] == x3)
-          if (truthTableStr[i,j,which(caseIDs_ij[k2] == allCases),elp+1] != 1) # elp+1 because lesionIDCol = 0 occupies first position, etc.
+          if (truthTableStr[i,j,which(caseIDs_ij[k2] == allCases),elp+1] != 1) # elp+1 because lesionIDColumn = 0 occupies first position, etc.
             stop("incorrect truthCaseID in LL/TP worksheet")
           LL[i, j, k2p, elp] <- LLRatingColumn[casePresent_ij][x2][el]
         }
@@ -321,10 +539,10 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     }
   }
   LL[is.na(LL)] <- UNINITIALIZED
-  lesionWeight[is.na(lesionWeight)] <- UNINITIALIZED
-  lesionIDCol[is.na(lesionIDCol)] <- UNINITIALIZED
+  weights[is.na(weights)] <- UNINITIALIZED
+  lesionIDColumn[is.na(lesionIDColumn)] <- UNINITIALIZED
   
-  if (dataType == "ROC" && design == "CROSSED") {
+  if (type == "ROC" && design == "CROSSED") {
     if (!(((max(table(truthCaseID)) == 1) && (maxNL == 1)) 
           && (all((NL[, , (K1 + 1):K, ] == UNINITIALIZED))) 
           && (all((NL[, , 1:K1, ] != UNINITIALIZED)))
@@ -341,245 +559,20 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     readerIDUnique <- 1:J
   }
   
-  names(modalityIDUnique) <- modalityNames
-  names(readerIDUnique) <- readerNames
+  names(modalityIDUnique) <- modalityNames; modalityID <- modalityIDUnique
+  names(readerIDUnique) <- readerNames; readerID <- readerIDUnique
   
-  return(list(
-    NL = NL, 
-    LL = LL, 
-    lesionVector = lesionVector,
-    lesionID = lesionID, 
-    lesionWeight = lesionWeight, 
-    dataType = dataType, 
-    modalityID = modalityIDUnique, 
-    readerID = readerIDUnique,
-    # these are the additional members added 12/27/2019 by DPC
-    # makes it easier to correlate the NL and LL values with those in the Excel file
-    design = design,
-    normalCases = normalCases,
-    abnormalCases = abnormalCases,
-    truthTableStr = truthTableStr,
-    datasetName = "Ignore"
-  ))
+  binned <- isBinned(NL, LL)
+  fileName <- NA
+  name <- NA
+  if (design == "CROSSED") design <- "FCTRL"
+  return(convert2dataset(NL, LL, LL_IL = NA, 
+                         perCase, IDs, weights,
+                         binned, fileName, type, name, truthTableStr, design,
+                         modalityID, readerID))
+  
 } 
 
-
-# is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
-
-checkTruthTable <- function (truthTable) 
-{
-  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  
-  for (i in 1:3){
-    truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
-  }
-  
-  naRows <- colSums(is.na(truthTable))
-  if (max(naRows) > 0) {
-    if (max(naRows) == min(naRows)) {
-      truthTable <- truthTable[1:(nrow(truthTable) - max(naRows)), ]
-    }
-  }
-  
-  errorMsg <- ""
-  for (i in 1:3) {
-    if (any(is.na(truthTable[, i]))) {
-      naLines <- which(is.na(truthTable[, i])) + 1
-      errorMsg <- paste0(errorMsg, 
-                         "\nThere are empty cells for CaseID or LesionID at line(s) ", 
-                         paste(naLines, collapse = ", "), " in the TRUTH table.")
-    }
-  }
-  if (errorMsg != "") stop(errorMsg)
-  
-  for (i in 1:3)
-    if (any(is.na(suppressWarnings(as.numeric(as.character(truthTable[, i])))))) {
-      suppressWarnings({naLines <- which(is.na(as.numeric(as.character(truthTable[, i])))) + 1})
-      if (i == 1) errorMsg <- paste0(errorMsg, "\nThere are non-integer values(s) for caseID at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
-      if (i == 2) errorMsg <- paste0(errorMsg, "\nThere are non-integer values(s) for LessionID at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
-      if (i == 3) errorMsg <- paste0(errorMsg, "\nThere are non-numeric values(s) for weights at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
-    }
-  if (errorMsg != "") stop(errorMsg)
-  
-  if (any(!is.wholenumber(as.numeric(truthTable[[1]])))) stop("Non-integer values in Truth worksheet column 1")
-  if (any(!is.wholenumber(as.numeric(truthTable[[2]])))) stop("Non-integer values in Truth worksheet column 2")
-  if (any(!is.double(as.numeric(truthTable[[3]])))) stop("Non-float values in Truth worksheet column 3")
-  
-  df <- as.data.frame(truthTable[1:5])
-  df["caseLevelTruth"] <- (truthTable$LesionID > 0)
-  TruthTableSort <- df[order(df$caseLevelTruth, df$ReaderID, df$CaseID), ]
-  # TruthTableSort <- df # temporary line to bypass sorting
-  
-  caseIDCol <- as.integer(TruthTableSort$CaseID)  # all 3 have same lengths
-  lesionIDCol <- as.integer(TruthTableSort$LesionID)
-  weightsCol <- as.numeric(TruthTableSort$Weight)
-  readerID <- TruthTableSort$ReaderID
-  L <- length(TruthTableSort$CaseID)
-  for (i in 1:4) if ((length(TruthTableSort[[i]])) != L) 
-    stop("Columns of unequal height in Truth Excel worksheet")  
-  
-  normalCases <- sort(unique(caseIDCol[lesionIDCol == 0]))
-  abnormalCases <- sort(unique(caseIDCol[lesionIDCol > 0]))
-  allCases <- c(normalCases, abnormalCases)
-  K1 <- length(normalCases)
-  K2 <- length(abnormalCases)
-  K <- (K1 + K2)
-  
-  # DPC: check for duplicate lesionIDs
-  if (anyDuplicated(cbind(caseIDCol, lesionIDCol))) {
-    naLines <- which(duplicated(cbind(caseIDCol, lesionIDCol))) + 1
-    errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table are duplicated lesionIDs for given caseID.")
-  }
-  if (errorMsg != "") stop(errorMsg)
-  
-  if (anyDuplicated(cbind(caseIDCol, lesionIDCol, weightsCol))) {
-    naLines <- which(duplicated(cbind(caseIDCol, lesionIDCol, weightsCol))) + 1
-    errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table are duplicates of previous line(s) .")
-  }
-  if (errorMsg != "") stop(errorMsg)
-  
-  lesionIDColUnique <- sort(unique(lesionIDCol)) # fix to bug when abnormal cases occur first
-  
-  lesionVector <- as.vector(table(caseIDCol[caseIDCol %in% abnormalCases]))
-  lesionWeight <- array(dim = c(K2, max(lesionVector)))
-  lesionID <- array(dim = c(K2, max(lesionVector)))
-  
-  for (k2 in 1:K2) {
-    k <- which(caseIDCol == abnormalCases[k2])
-    lesionID[k2, ] <- c(sort(lesionIDCol[k]), 
-                        rep(UNINITIALIZED, max(lesionVector) - length(k)))
-    if (all(weightsCol[k] == 0)) {
-      lesionWeight[k2, 1:length(k)] <- 1/lesionVector[k2]
-    } else {
-      lesionWeight[k2, ] <- as.numeric(c(weightsCol[k][order(lesionIDCol[k])], 
-                                         rep(UNINITIALIZED, max(lesionVector) - length(k))))
-      sumWeight <- sum(lesionWeight[k2, lesionWeight[k2, ] != UNINITIALIZED])
-      if (sumWeight != 1){
-        if (sumWeight <= 1.01 && sumWeight >= 0.99){
-          lesionWeight[k2, ] <- lesionWeight[k2, ] / sumWeight
-        }else{
-          errorMsg <- paste0("The sum of the weights of Case ", k2, " is not 1.")
-          stop(errorMsg)
-        }
-      }
-    }
-  }
-  
-  isGT1RperCase <- array(dim = length(caseIDCol))
-  for (i in 1:length(caseIDCol)) 
-    isGT1RperCase[i] <- is.character(TruthTableSort$ReaderID[i]) && (nchar(TruthTableSort$ReaderID[i]) > 1)  
-  if (all(isGT1RperCase == FALSE)) GT1RperCase <- FALSE else 
-    if (all(isGT1RperCase == TRUE)) GT1RperCase <- TRUE else 
-      stop("Unequal number of readers in ReaderID column\n")
-  
-  isGT1TperCase <- array(dim = length(caseIDCol))
-  for (i in 1:length(caseIDCol)) 
-    isGT1TperCase[i] <- is.character(TruthTableSort$ModalityID[i]) && (nchar(TruthTableSort$ModalityID[i]) > 1)  
-  if (all(isGT1TperCase == FALSE)) GT1TperCase <- FALSE 
-  else if (all(isGT1TperCase == TRUE)) GT1TperCase <- TRUE 
-  else stop("Unequal number of modalities in ModalityID column\n")
-  
-  I <- length(unlist(strsplit(TruthTableSort$ModalityID[1],split = ",")))
-  
-  if (GT1RperCase) {
-    J <- length(unlist(strsplit(TruthTableSort$ReaderID[1],split = ",")))
-    
-    readerIDArray <- array(dim = c(J,L))
-    x <- sort(trimws(unlist(strsplit(TruthTableSort$ReaderID,split = ","))))
-    for (j in 1:J) readerIDArray[j,] <- x[((j-1)*L + 1):(j*L)]
-    readerIDUnique <- unique(readerIDArray)
-    if(!all((dim(readerIDArray) == dim(readerIDUnique)))) stop("Non-unique reader ids in dataset")
-  } else {
-    J <- length(unique(TruthTableSort$ReaderID))
-    readerIDUnique <- unique(readerID)
-    # following fixed single reader datasets, ROC and FROC
-    readerIDArray <- array(dim = c(J,L))
-    for (j in 1:J) readerIDArray[j,] <- readerIDUnique[j]
-  }
-  
-  # if (!GT1TperCase) stop("Must have > 1 modalities per case, balanced data, for each reader")
-  # following code should break with single modality dataset
-  # but it does not; go figure
-  modalityIDArray <- array(dim = c(I,L))
-  x <- sort(trimws(unlist(strsplit(TruthTableSort$ModalityID,split = ","))))
-  for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]
-  modalityIDUnique <- unique(modalityIDArray)
-  if(!all((dim(modalityIDArray) == dim(modalityIDUnique)))) stop("Non-unique modality ids in dataset")
-  
-  # truthTableStr <- array(dim = c(I, J, K, length(lesionIDColUnique)))
-  truthTableStr <- array(dim = c(I, J, K, max(lesionIDColUnique)+1)) # possible bug if lesionIDColUnique does not consist of sequential integers
-  for (i in 1:I) {
-    for (j in 1:J) {
-      for (el in lesionIDColUnique) { 
-        el1 <- which(lesionIDColUnique == el)
-        if (!GT1RperCase) {
-          casePresent_ij <- (
-            (modalityIDArray[i,] == modalityIDUnique[i]) & 
-              (readerID == readerIDUnique[j]) &
-              (lesionIDCol == lesionIDColUnique[el1])
-          )
-        } else {
-          casePresent_ij <- (
-            (modalityIDArray[i,] == modalityIDUnique[i]) & 
-              (readerIDArray[j,] == readerIDUnique[j]) &
-              (lesionIDCol == lesionIDColUnique[el1])
-          )
-        }
-        if ((sum(casePresent_ij) == 0)) next 
-        caseIDTable <- table(caseIDCol[casePresent_ij])
-        caseIDs_ij <- as.numeric(unlist(attr(caseIDTable, "dimnames")))
-        for (k in 1:length(caseIDs_ij)) {
-          k1 <- which(caseIDs_ij[k] == allCases)
-          # this code checks out for file frocCr013Lesions.xlsx which contains
-          # 2 modalities, 3 readers, froc data,
-          # 3 normal cases, 5 abnormal cases, four containing 1 lesion and 1 containing
-          # 3 lesions. See RJafrocChecks/truthTableStr.xlsx, NewFormat.
-          # cat("i = ", i, ", j = ", j, ", el1 = ", el1,
-          #     ", k1 = ", k1, ", caseIDs_ij[k]", caseIDs_ij[k], "\n")
-          truthTableStr[i, j, k1, el1] <-1
-        }
-      }  
-    }
-  }
-  
-  dataType <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[1]
-  design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
-  
-  if (!(dataType %in% c("FROC", "ROC"))) stop("Unsupported declared dataType: must be ROC or FROC.\n")
-  if (!(design %in% c("CROSSED", "SPLIT-PLOT"))) stop("Study design must be CROSSED or SPLIT-PLOT\n")
-  
-  if (dataType == "ROC") {
-    if ((design == "CROSSED") && (sum(!is.na(truthTableStr)) != 
-                                  L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
-      stop("Dataset does not appear to be crossed ROC")
-    
-    if ((design == "SPLIT-PLOT") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
-      stop("Dataset does not appear to be split plot ROC")
-  }
-  
-  if (dataType == "FROC") {
-    if ((design == "CROSSED") && (sum(!is.na(truthTableStr)) != 
-                                  L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
-      stop("Dataset does not appear to be crossed FROC")
-    
-    if ((design == "SPLIT-PLOT") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
-      stop("Dataset does not appear to be split plot FROC")
-  }
-  
-  return (list(
-    truthTableStr = truthTableStr,
-    dataType = dataType,
-    design = design,
-    caseID = caseIDCol,
-    lesionVector = lesionVector,
-    lesionIDCol = lesionIDCol,
-    lesionID = lesionID,
-    lesionWeight = lesionWeight,
-    normalCases = normalCases,
-    abnormalCases = abnormalCases
-  ))
-  
-}
 
 
 ReadJAFROCOldFormat <- function(fileName, renumber) {
@@ -694,11 +687,10 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
   }
   
   LLReaderID <- as.character(LLTable[[1]])
-  
   LLModalityID <- as.character(LLTable[[2]])
-  
   LLCaseID <- LLTable[[3]]
   LLLesionID <- LLTable[[4]]
+  
   for (i in 1:nrow(LLTable)) {
     lineNum <- which((caseIDColumn == LLCaseID[i]) & (lesionIDColumn == LLLesionID[i]))
     if (!length(lineNum)) {
@@ -716,22 +708,22 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
     stop(errorMsg)
   }
   
-  lesionVector  <- as.vector(table(caseIDColumn[caseIDColumn %in% abnormalCases]))
+  perCase  <- as.vector(table(caseIDColumn[caseIDColumn %in% abnormalCases]))
   
-  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector )))
-  lesionID <- array(dim = c(length(abnormalCases), max(lesionVector )))
+  weights <- array(dim = c(length(abnormalCases), max(perCase )))
+  IDs <- array(dim = c(length(abnormalCases), max(perCase )))
   
   for (k2 in 1:length(abnormalCases)) {
     k <- which(caseIDColumn == abnormalCases[k2])
-    lesionID[k2, ] <- c(sort(lesionIDColumn[k]), rep(UNINITIALIZED, max(lesionVector ) - length(k)))
+    IDs[k2, ] <- c(sort(lesionIDColumn[k]), rep(UNINITIALIZED, max(perCase ) - length(k)))
     if (all(weightsColumn[k] == 0)) {
-      lesionWeight[k2, 1:length(k)] <- 1/lesionVector [k2]
+      weights[k2, 1:length(k)] <- 1/perCase [k2]
     } else {
-      lesionWeight[k2, ] <- c(weightsColumn[k][order(lesionIDColumn[k])], rep(UNINITIALIZED, max(lesionVector ) - length(k)))
-      sumWeight <- sum(lesionWeight[k2, lesionWeight[k2, ] != UNINITIALIZED])
+      weights[k2, ] <- c(weightsColumn[k][order(lesionIDColumn[k])], rep(UNINITIALIZED, max(perCase ) - length(k)))
+      sumWeight <- sum(weights[k2, weights[k2, ] != UNINITIALIZED])
       if (sumWeight != 1){
         if (sumWeight <= 1.01 && sumWeight >= 0.99){
-          lesionWeight[k2, ] <- lesionWeight[k2, ] / sumWeight
+          weights[k2, ] <- weights[k2, ] / sumWeight
         }else{
           errorMsg <- paste0("The sum of the weights for Case ", k2, " is not 1.")
           stop(errorMsg)
@@ -763,33 +755,35 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       if ((sum(k) == 0)) 
         next
       caseNLTable <- table(NLCaseID[k])
-      IDs <- as.numeric(unlist(attr(caseNLTable, "dimnames")))
-      for (k1 in 1:length(IDs)) {
+      temp <- as.numeric(unlist(attr(caseNLTable, "dimnames")))
+      for (k1 in 1:length(temp)) {
         for (el in 1:caseNLTable[k1]) {
-          NL[i, j, which(IDs[k1] == allCases), el] <- NLRating[k][which(NLCaseID[k] == IDs[k1])][el]
+          NL[i, j, which(temp[k1] == allCases), el] <- NLRating[k][which(NLCaseID[k] == temp[k1])][el]
         }
       }
     }
   }
   
-  LL <- array(dim = c(I, J, K2, max(lesionVector )))
+  LL <- array(dim = c(I, J, K2, max(perCase )))
   for (i in 1:I) {
     for (j in 1:J) {
       k <- (LLModalityID == modalityID[i]) & (LLReaderID == readerID[j])
       if ((sum(k) == 0)) 
         next
       caseLLTable <- table(LLCaseID[k])
-      IDs <- as.numeric(unlist(attr(caseLLTable, "dimnames")))
-      for (k1 in 1:length(IDs)) {
+      temp <- as.numeric(unlist(attr(caseLLTable, "dimnames")))
+      for (k1 in 1:length(temp)) {
+        temp1 <- which(temp[k1] == abnormalCases)
         for (el in 1:caseLLTable[k1]) {
-          LL[i, j, which(IDs[k1] == abnormalCases), which(LLLesionID[k][which(LLCaseID[k] == IDs[k1])][el] == lesionID[which(IDs[k1] == abnormalCases), ])] <- LLRating[k][which(LLCaseID[k] == IDs[k1])][el]
+          temp2 <- which(LLLesionID[k][which(LLCaseID[k] == temp[k1])][el] == IDs[which(temp[k1] == abnormalCases), ])
+          LL[i, j, temp1, temp2] <- LLRating[k][which(LLCaseID[k] == temp[k1])][el]
         }
       }
     }
   }
   
-  lesionWeight[is.na(lesionWeight)] <- UNINITIALIZED
-  lesionID[is.na(lesionID)] <- UNINITIALIZED
+  weights[is.na(weights)] <- UNINITIALIZED
+  IDs[is.na(IDs)] <- UNINITIALIZED
   NL[is.na(NL)] <- UNINITIALIZED
   LL[is.na(LL)] <- UNINITIALIZED
   
@@ -801,14 +795,14 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
         break
       }
       temp <- LL[i, j, , ] != UNINITIALIZED
-      dim(temp) <- c(K2, max(lesionVector ))
-      if (!all(lesionVector  == rowSums(temp))) {
+      dim(temp) <- c(K2, max(perCase ))
+      if (!all(perCase  == rowSums(temp))) {
         isROI <- FALSE
         break
       }
       temp <- NL[i, j, (K1 + 1):K, ] == UNINITIALIZED
       dim(temp) <- c(K2, maxNL)
-      if (!all(lesionVector  == rowSums(temp))) {
+      if (!all(perCase  == rowSums(temp))) {
         isROI <- FALSE
         break
       }
@@ -816,12 +810,12 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
   }
   
   if ((max(table(caseIDColumn)) == 1) && (maxNL == 1) && (all((NL[, , (K1 + 1):K, ] == UNINITIALIZED))) && (all((NL[, , 1:K1, ] != UNINITIALIZED)))) {
-    fileType <- "ROC"
+    type <- "ROC"
   } else {
     if (isROI) {
-      fileType <- "ROI"
+      type <- "ROI"
     } else {
-      fileType <- "FROC"
+      type <- "FROC"
     }
   }
   
@@ -843,523 +837,19 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
     # 2 modalities, 3 readers, froc data,
     # 3 normal cases, 5 abnormal cases, four containing 1 lesion and 1 containing
     # 3 lesions. See RJafrocChecks/truthTableStr.xlsx, OldFormat.
-    truthTableStr[,,k2+K1,(1:lesionVector[k2])+1] <- 1
+    truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
   }
   
-  return(list(
-    NL = NL, 
-    LL = LL, 
-    lesionVector  = lesionVector , 
-    lesionID = lesionID, 
-    lesionWeight = lesionWeight, 
-    dataType = fileType, 
-    modalityID = modalityID, 
-    readerID = readerID,
-    # these are the additional members added 12/27/2019 by DPC
-    # makes it easier to correlate the NL and LL values with those in the Excel file
-    design = "CROSSED", # default when using old read function
-    normalCases = normalCases,
-    abnormalCases = abnormalCases,
-    truthTableStr = truthTableStr,
-    datasetName = "Ignore"
-  ))
+  binned <- isBinned(NL, LL)
+  fileName <- NA
+  name <- NA
+  design <- "FCTRL" # default when using old read function
+  return(convert2dataset(NL, LL, LL_IL = NA, 
+                         perCase, IDs, weights,
+                         binned, fileName, type, name, truthTableStr, design,
+                         modalityID, readerID))
+  
 } 
-
-
-# checkNLTable <- function (retTruth, NLTable) 
-# {
-#   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-#   
-#   I <-  dim(retTruth$studyDesign)[1]
-#   J <-  dim(retTruth$studyDesign)[2]
-#   K <- dim(retTruth$studyDesign)[3]
-#   
-#   NL <- array(dim=c(I,J,K))
-#   
-#   
-#   # check for empty cells in NL/FP sheet
-#   for (i in 1:4) {
-#     if (any(is.na(NLTable[, i]))) stop("check for empty cells in NL/FP sheet")
-#   }
-#   
-#   # for (i in 1:I){
-#   #   for (j in 1:J) {
-#   #     for (k in (1:K)) {
-#   #       if (studyDesign[i,j,k,j]) stop("hi")
-#   #     }
-#   #   }
-#   # }
-#   
-#   NLReaderID <- as.character(NLTable[[1]])
-#   NLModalityID <- as.character(NLTable[[2]])
-#   NLRating <- NLTable$NL_Rating
-#   
-#   NL <- array(dim = c(I,J,K,J))
-#   
-#   # check that CaseIDs in FP worksheet actually occur in the TRUTH sheet
-#   # and if not stop with the line number of offending cells
-#   
-#   Truth_CaseIDColumn <- retTruth$Truth_CaseIDColumn
-#   NLCaseID <- NLTable[[3]]
-#   if (any(!(NLCaseID %in% Truth_CaseIDColumn))) {
-#     naCases <- NLCaseID[which(!(NLCaseID %in% Truth_CaseIDColumn))]
-#     errorMsg <- paste0("Case(s) ", paste(unique(naCases), collapse = ", "), 
-#                        " in the FP/NL table cannot be found in TRUTH table.")
-#     stop(errorMsg)
-#   }
-#   NLRating <- NLTable[[4]]
-#   
-#   return (list(
-#     NLReaderID = NLReaderID,
-#     NLModalityID = NLModalityID,
-#     NLCaseID = NLCaseID,
-#     NLRating = NLRating
-#   ))
-#   
-# }
-
-
-
-
-# checkLLTable <- function (retTruth, retNL, LLTable) 
-# {
-#   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-#   
-#   # check that CaseID, LesionID and Ratings are all numeric values
-#   for (i in 3:5) {
-#     if (any(is.na(as.numeric(as.character(LLTable[, i]))))) {
-#       naLines <- which(is.na(as.numeric(as.character(LLTable[, i])))) + 1
-#       errorMsg <- paste0("There are missing cell(s) at line(s) ", 
-#                          paste(naLines, collapse = ", "), " in the TP/LL table.")
-#       stop(errorMsg)
-#     }
-#   }
-#   
-#   LLReaderID <- as.character(LLTable[[1]])
-#   LLModalityID <- as.character(LLTable[[2]])
-#   Truth_CaseIDColumn <- retTruth$Truth_CaseIDColumn
-#   Truth_LesionIDColumn <- retTruth$Truth_LesionIDColumn
-#   
-#   # check that CaseID, LesionID do occur in Truth sheet
-#   errorMsg <- ""
-#   LLCaseID <- LLTable[[3]]
-#   LLLesionID <- LLTable[[4]]
-#   if (!all(LLCaseID %in% retTruth$abnormalCases)) stop("Check LL/TP sheet for non-diseased cases\n")
-#   
-#   for (i in 1:nrow(LLTable)) {
-#     lineNum <- which((Truth_CaseIDColumn == LLCaseID[i]) & (Truth_LesionIDColumn == LLLesionID[i]))
-#     if (!length(lineNum)) {
-#       errorMsg <- paste0(errorMsg, "\nLL sheet errors:\nModality ", LLTable[i, 2], "\nReader ", 
-#                          LLTable[i, 1], "\nCase ", LLTable[i, 3], 
-#                          "\nLesion ", LLTable[i, 4], "\ncannot be found in TRUTH table.\n\n")
-#     }
-#   }
-#   if (errorMsg != "") stop(errorMsg)
-#   
-#   LLRating <- LLTable[[5]]
-#   LLRating[is.na(LLRating)] <- UNINITIALIZED
-#   
-#   if (anyDuplicated(LLTable[, 1:4])) {
-#     naLines <- which(duplicated(LLTable[, 1:4]))
-#     errorMsg <- paste0("Modality ", paste(LLTable[naLines, 2], collapse = ", "), 
-#                        " Reader(s) ", paste(LLTable[naLines, 1], collapse = ", "), 
-#                        " Case(s) ", paste(LLTable[naLines, 3], collapse = ", "), " Lesion(s) ", 
-#                        paste(LLTable[naLines, 4], collapse = ", "), 
-#                        " have multiple ratings in TP table .")
-#     stop(errorMsg)
-#   }
-#   
-#   return (list(
-#     LLReaderID = LLReaderID,
-#     LLModalityID = LLModalityID,
-#     LLCaseID = LLCaseID,
-#     LLLesionID = LLLesionID,
-#     LLRating = LLRating
-#   ))
-#   
-# }
-
-
-
-
-# still working on this
-# isCrossedRocDataset <- function(TruthTable, NLTable, LLTable)
-# {
-#   K <- length(TruthTable[[1]])  # total number of cases read by each reader
-#   K1 <- length(TruthTable[[2]][TruthTable[[2]] == 0]) 
-#   K2 <- length(TruthTable[[2]][TruthTable[[2]] > 0]) 
-#   if (K != (K1 + K2)) stop ("Cases dont add up in isCrossedRocDataset()")
-#   
-#   readerIDColumn <- strsplit(TruthTable$ReaderID, split = ",", fixed = TRUE)
-#   readerID <- unlist(unique(readerIDColumn)) 
-#   J <- length(readerID) # number of readers
-#   
-#   modalityIDColumn <- strsplit(TruthTable$ModalityID, split = ",", fixed = TRUE)
-#   modalityID <- unlist(unique(modalityIDColumn)) 
-#   I <- length(modalityID)
-#   
-#   # check lengths of all three worksheets
-#   for (i in 1:5) if (length(TruthTable[[i]]) != K) return (FALSE) 
-#   for (i in 1:4) if (length(NLTable[[i]]) != (I*J*K1)) return (FALSE) 
-#   for (i in 1:5) if (length(LLTable[[i]]) != (I*J*K2)) return (FALSE) 
-#   
-#   # examine TRUTH worksheet 
-#   caseID <- TruthTable$CaseID 
-#   designArray <- array(dim = c(I, J, K)) 
-#   for (i in 1:I) {
-#     for (j in 1:J) {
-#       for (k in 1:K) {
-#         designArray[which(modalityID == modalityID[i]),
-#                     which(readerID == readerID[j]),
-#                     which(caseID == caseID[k])] <- 1
-#       }
-#     }
-#   }
-#   if (any(is.na(designArray))) return (FALSE)
-#   
-#   # examine NL worksheet 
-#   caseID <- unique(NLTable$CaseID )
-#   readerIDColumn <- strsplit(NLTable$ReaderID, split = ",", fixed = TRUE)
-#   readerID <- unlist(unique(readerIDColumn)) 
-#   
-#   modalityIDColumn <- strsplit(NLTable$ModalityID, split = ",", fixed = TRUE)
-#   modalityID <- unlist(unique(modalityIDColumn)) 
-#   
-#   designArray <- array(dim = c(I, J, K1)) 
-#   for (i in 1:I) {
-#     for (j in 1:J) {
-#       for (k in 1:K1) {
-#         designArray[which(modalityID == modalityID[i]),
-#                     which(readerID == readerID[j]),
-#                     which(caseID == caseID[k])] <- 1
-#       }
-#     }
-#   }
-#   if (any(is.na(designArray))) return (FALSE)
-#   
-#   # examine LL worksheet 
-#   caseID <- unique(LLTable$CaseID )
-#   readerIDColumn <- strsplit(LLTable$ReaderID, split = ",", fixed = TRUE)
-#   readerID <- unlist(unique(readerIDColumn)) 
-#   
-#   modalityIDColumn <- strsplit(LLTable$ModalityID, split = ",", fixed = TRUE)
-#   modalityID <- unlist(unique(modalityIDColumn)) 
-#   
-#   designArray <- array(dim = c(I, J, K2)) 
-#   for (i in 1:I) {
-#     for (j in 1:J) {
-#       for (k in 1:K2) {
-#         designArray[which(modalityID == modalityID[i]),
-#                     which(readerID == readerID[j]),
-#                     which(caseID == caseID[k])] <- 1
-#       }
-#     }
-#   }
-#   if (any(is.na(designArray))) return (FALSE)
-#   return (TRUE)
-# }
-
-
-
-
-# isSplitPlotRocDataset <- function(TruthTable, NLTable, LLTable)
-# {
-#   # UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-#   modalityID <- unique(NLTable[[2]])
-#   readerID <- unique(TruthTable[[4]])
-#   I <- length(modalityID) # number of modalities
-#   J <- length(readerID) # number of readers
-#   K <- length(TruthTable[[1]]) # total number of cases read by all readers
-#   Kj <- array(dim = J) # total number of cases read by reader j
-#   K1j <- array(dim = J) # total number of normal cases read by reader j
-#   K2j <- array(dim = J) # total number of abnormal cases read by reader j
-#   Knested <- array(dim = c(J, K)) # IDs of cases read by reader j
-#   K1nested <- array(dim = c(J, K)) # IDs of normal cases read by reader j
-#   K2nested <- array(dim = c(J, K)) # IDs of abnormal cases read by reader j
-#   for (j in 1:J) {
-#     temp <- TruthTable[[1]][which(TruthTable[[4]] == j)]
-#     temp1 <- TruthTable[[1]][which((TruthTable[[4]] == j) & (TruthTable[[2]] == 0))]
-#     temp2 <- TruthTable[[1]][which((TruthTable[[4]] == j) & (TruthTable[[2]] == 1))]
-#     Kj[j] <- length(temp)
-#     K1j[j] <- length(temp1)
-#     K2j[j] <- length(temp2)
-#     Knested[j,1:Kj[j]] <- temp
-#     K1nested[j,1:K1j[j]] <- temp1
-#     K2nested[j,1:K2j[j]] <- temp2
-#   }
-#   
-#   for (j in 1:J) {
-#     cat("\nj = ", j, "\n")
-#     cat("Cases, non-diseased followed by diseased", "\n")
-#     cat(K1nested[j,1:K1j[j]],"\n")
-#     cat(K2nested[j,1:K2j[j]],"\n")
-#     cat("Non-diseased ratings, in modality 1 followed by modality 2", "\n")
-#     cat(NLTable[[4]][which((NLTable[[1]] == j) & (NLTable[[3]] %in% K1nested[j,]) & (NLTable[[2]] == 1))],"\n")
-#     cat(NLTable[[4]][which((NLTable[[1]] == j) & (NLTable[[3]] %in% K1nested[j,]) & (NLTable[[2]] == 2))],"\n")
-#     cat("Diseased ratings, in modality 1 followed by modality 2", "\n")
-#     cat(LLTable[[5]][which((LLTable[[1]] == j) & (LLTable[[3]] %in% K2nested[j,]) & (LLTable[[2]] == 1))],"\n")
-#     cat(LLTable[[5]][which((LLTable[[1]] == j) & (LLTable[[3]] %in% K2nested[j,]) & (LLTable[[2]] == 2))],"\n")
-#   }
-#   # inspect NL table
-#   
-#   # tests for ROI data
-#   if (!all(is.finite(NLTable[[4]]))) return (FALSE)
-#   if (!all(is.finite(LLTable[[5]]))) return (FALSE)
-#   for (j in 1:J) {
-#     if (!(sum(NLTable[[3]] %in% K1nested[j,1:K1j[j]]) == I*K1j[j])) return (FALSE)
-#     if (!(sum(LLTable[[3]] %in% K2nested[j,1:K2j[j]]) == I*K2j[j])) return (FALSE)
-#     if (!(nrow(NLTable) == I*sum(K1j))) return (FALSE)
-#     if (!(nrow(LLTable) == I*sum(K2j))) return (FALSE)
-#   }
-#   return (TRUE)
-# }
-
-
-
-
-# isROCDataset <- function(NL, LL, Truth_CaseIDColumn)
-# {
-#   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-#   
-#   K <- length(NL[1,1,,1])
-#   K2 <- length(LL[1,1,,1])
-#   K1 <- K - K2
-#   maxNL <- length(NL[1,1,1,])
-#   maxLL <- length(LL[1,1,1,])
-#   
-#   if (max(table(Truth_CaseIDColumn)) != 1) return (FALSE) # number of occurrences of each Truth_CaseIDColumn value
-#   if (maxNL != 1) return (FALSE)
-#   if (all((NL[, , (K1 + 1):K, ] != UNINITIALIZED))) return (FALSE)
-#   if (any((NL[, , 1:K1, ] == UNINITIALIZED))) return (FALSE)
-#   if (maxLL != 1) return (FALSE)
-#   if (any((LL[, , 1:K2, ] == UNINITIALIZED))) return (FALSE)
-#   return (TRUE)
-# }
-
-
-
-
-##stop("ROI paradigm not yet implemented")
-## !!!DPC!!!
-# isROIDataset <- function(NL, LL, Truth_LesionIDColumn)
-# {
-#   return (FALSE)
-#   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-#   
-#   I <- length(NL[,1,1,1])
-#   J <- length(NL[1,,1,1])
-#   K <- length(NL[1,1,,1])
-#   K2 <- length(LL[1,1,,1])
-#   K1 <- K - K2
-#   maxNL <- length(NL[1,1,1,])
-#   lesionVector <- array(dim = K2)
-#   for (k in 1:K2) {
-#     lesionVector[k] <- sum(is.finite(LL[1,1,k,]))
-#   }
-#   
-#   isROI <- TRUE
-#   for (i in 1:I) {
-#     for (j in 1:J) {
-#       # in following code, non-diseased cases with non-diseased 
-#       # ROIs (i.e., -Infs) are counted
-#       # On such cases, all ROIs are marked and one does not expect any missing 
-#       # entries; if a missing entry is found, then dataset is not ROI.
-#       # As an example, in RoiData.xlsx all caseIDs < 51 correspond to non-diseased cases
-#       # For each such case, one has 4 ratings, i.e., Q = 4, assumed constant for all 
-#       # cases
-#       if (any(NL[i, j, 1:K1, ] == UNINITIALIZED)) {
-#         isROI <- FALSE
-#         break
-#       }
-#       # in following code, diseased cases with diseased 
-#       # ROIS (i.e., not = -Infs) are counted
-#       # These must sum to the lesionVector for that case
-#       # note: this test may be redundant with above definition:
-#       #  lesionVector[k] <- sum(is.finite(LL[1,1,k,]))
-#       temp <- LL[i, j, , ] != UNINITIALIZED
-#       dim(temp) <- c(K2, max(lesionVector))
-#       if (!all(lesionVector == rowSums(temp))) {
-#         isROI <- FALSE
-#         break
-#       }
-#       # in following code, diseased cases (dc) with non-diseased 
-#       # (nd) ROIs (i.e., -Infs) are counted
-#       temp <- NL[i, j, (K1 + 1):K, ] == UNINITIALIZED # this is the array of nd counts on dcs
-#       dim(temp) <- c(K2, maxNL)
-#       if (!all(lesionVector == rowSums(temp))) { 
-#         # sum of nd counts on dcs must equal that of diseased counts on
-#         # dcs (each empty count makes space for a LL count so total number of marks
-#         # per case is the same and equal to 4 for this dataset)
-#         # As an example, on FP sheet, for case 57, i = j = 1, there are three rated regions:
-#         # NL[1,1,57,]
-#         # [1] -0.967084 -0.394129  0.264821      -Inf
-#         # This means that there can be only one lesion on this case: 
-#         # lesionVector[7]
-#         # [1] 1 
-#         # and this diseased case can (rather must) have only one LL mark:
-#         # LL[1,1,7,]
-#         # [1] 0.535298     -Inf     -Inf     -Inf
-#         isROI <- FALSE
-#         break
-#       }
-#     }
-#   }
-#   return (isROI)
-# }
-
-
-
-
-ReadLrc <- function(fileName, sequentialNames) 
-{
-  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  fileExt <- file_ext(fileName)
-  if (fileExt != "lrc") {
-    stop("The extension of LRC file name must be *.lrc")
-  }
-  whiteSpaces <- c("", " ", "\t")
-  
-  fileLines <- readLines(fileName)
-  fileLines <- str_trim(fileLines)
-  lineNum <- 2
-  
-  J <- 1
-  readerID <- fileLines[lineNum]
-  lineNum <- 3
-  modalityID <- unlist(strsplit(fileLines[lineNum], split = "\""))
-  iRmv <- NULL
-  ifRmv <- FALSE
-  for (i in 1:length(modalityID)) {
-    modalityChar <- unlist(strsplit(modalityID[i], split = ""))
-    if (all(modalityChar %in% whiteSpaces)) {
-      iRmv <- c(iRmv, i)
-      ifRmv <- TRUE
-    }
-  }
-  if (ifRmv) {
-    modalityID <- modalityID[-iRmv]
-  }
-  I <- length(modalityID)
-  
-  lineNum <- 4
-  largeOrSmall <- splitWhiteSpaces(fileLines[lineNum])
-  if (length(largeOrSmall) != I) {
-    stop("The numbers of elements in the third and fourth lines does not match.")
-  }
-  
-  lineNum <- 5
-  NL <- NA
-  LL <- NA
-  while (TRUE) {
-    K1 <- NA
-    K1Temp <- 0
-    NLSnglR <- NULL
-    while (fileLines[lineNum] != "*") {
-      K1Temp <- K1Temp + 1
-      ratings <- splitWhiteSpaces(fileLines[lineNum])
-      if (length(ratings) < I) {
-        errMsg <- sprintf("The number of ratings in line %d is less than the number of maodalities.", lineNum)
-        stop(errMsg)
-      }
-      NLSnglR <- rbind(NLSnglR, ratings[1:I])
-      lineNum <- lineNum + 1
-    }
-    if (is.na(K1)) {
-      K1 <- K1Temp
-    } else if (K1 != K1Temp) {
-      errMsg <- sprintf("The number of non-diseased cases for reader %d does not match that for previous readers.", J)
-      stop(errMsg)
-    }
-    NLTemp <- array(dim = c(I, J, K1, 1))
-    if (is.null(dim(NL))) {
-      NLTemp[, , , 1] <- as.numeric(t(NLSnglR))
-      NL <- NLTemp
-    } else {
-      NLTemp[, 1:(J - 1), , ] <- NL
-      NLTemp[, J, , 1] <- as.numeric(t(NLSnglR))
-      NL <- NLTemp
-    }
-    
-    K2 <- NA
-    K2Temp <- 0
-    LLSnglR <- NULL
-    lineNum <- lineNum + 1
-    while (fileLines[lineNum] != "*") {
-      K2Temp <- K2Temp + 1
-      ratings <- splitWhiteSpaces(fileLines[lineNum])
-      if (length(ratings) < I) {
-        errMsg <- sprintf("The number of ratings in line %d is less than the number of maodalities.", lineNum)
-        stop(errMsg)
-      }
-      LLSnglR <- rbind(LLSnglR, ratings[1:I])
-      lineNum <- lineNum + 1
-    }
-    if (is.na(K2)) {
-      K2 <- K2Temp
-    } else if (K2 != K2Temp) {
-      errMsg <- sprintf("The number of diseased cases for reader %d does not match that for previous readers.", J)
-      stop(errMsg)
-    }
-    LLTemp <- array(dim = c(I, J, K2, 1))
-    if (is.null(dim(LL))) {
-      LLTemp[, , , 1] <- as.numeric(t(LLSnglR))
-      LL <- LLTemp
-    } else {
-      LLTemp[, 1:(J - 1), , ] <- LL
-      LLTemp[, J, , 1] <- as.numeric(t(LLSnglR))
-      LL <- LLTemp
-    }
-    lineNum <- lineNum + 1
-    if (fileLines[lineNum] != "#") {
-      J <- J + 1
-      readerID <- c(readerID, fileLines[lineNum])
-      lineNum <- lineNum + 1
-    } else {
-      break
-    }
-  }
-  maxRating <- max(NL, LL)
-  for (i in 1:I) {
-    if (toupper(largeOrSmall[i]) %in% c("S", "SMALL")) {
-      NL[i, , , ] <- maxRating + 1 - NL[i, , , ]
-      LL[i, , , ] <- maxRating + 1 - LL[i, , , ]
-    } else if (!toupper(largeOrSmall[i]) %in% c("L", "LARGE")) {
-      stop("The confidence indicater in line 4 must be \"L\", \"LARGE\", \"S\", or \"SMALL\".")
-    }
-  }
-  K <- K1 + K2
-  NLTemp <- array(UNINITIALIZED, dim = c(I, J, K, 1))
-  NLTemp[, , 1:K1, ] <- NL
-  NL <- NLTemp
-  lesionVector <- rep(1, K2)
-  lesionID <- array(1, dim = c(K2, 1))
-  lesionWeight <- lesionID
-  maxNL <- 1
-  dataType <- "ROC"
-  
-  modalityNames <- modalityID
-  readerNames <- readerID
-  
-  if (sequentialNames){
-    modalityID <- 1:I
-    readerID <- 1:J
-  }
-  
-  names(modalityID) <- modalityNames
-  names(readerID) <- readerNames
-  
-  return(list(NL = NL, 
-              LL = LL, 
-              lesionVector = lesionVector, 
-              lesionID = lesionID, 
-              lesionWeight = lesionWeight, 
-              dataType = dataType, 
-              modalityID = modalityID, 
-              readerID = readerID,
-              datasetName = "Ignore"
-  ))
-}
-
 
 
 
@@ -1370,136 +860,4 @@ splitWhiteSpaces <- function(string)
   string <- string[!string %in% whiteSpaces]
   return(string)
 } 
-
-
-
-
-ReadImrmc <- function(fileName, sequentialNames) 
-{
-  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  fileExt <- file_ext(fileName)
-  if (fileExt != "imrmc") {
-    stop("The extension of iMRMC file name must be *.imrmc")
-  }
-  fileLines <- str_trim(readLines(fileName))
-  lineNum <- 1
-  
-  for (n in 1:4) {
-    lineTxt <- unlist(strsplit(fileLines[lineNum], split = ":", fixed = TRUE))
-    while (!(lineTxt[1] %in% c("N0", "N1", "NR", "NM"))) {
-      lineNum <- lineNum + 1
-      lineTxt <- unlist(strsplit(fileLines[lineNum], split = ":", fixed = TRUE))
-    }
-    if (lineTxt[1] == "N0") {
-      K1 <- as.numeric(lineTxt[2])
-    } else if (lineTxt[1] == "N1") {
-      K2 <- as.numeric(lineTxt[2])
-    } else if (lineTxt[1] == "NM") {
-      I <- as.numeric(lineTxt[2])
-    } else if (lineTxt[1] == "NR") {
-      J <- as.numeric(lineTxt[2])
-    }
-    lineNum <- lineNum + 1
-  }
-  K <- K1 + K2
-  
-  while (fileLines[lineNum] != "BEGIN DATA:") lineNum <- lineNum + 1
-  lineNum <- lineNum + 1
-  while (fileLines[lineNum] == "") lineNum <- lineNum + 1
-  dataTable <- NULL
-  while (length(lineTxt <- unlist(strsplit(fileLines[lineNum], split = ",", fixed = TRUE))) == 4) {
-    dataTable <- rbind(dataTable, lineTxt)
-    lineNum <- lineNum + 1
-  }
-  
-  caseId <- unique(as.numeric(dataTable[, 2]))
-  if (any(is.na(caseId))) {
-    errMsg <- "Case IDs must be integers."
-    stop(errMsg)
-  }
-  if (any(is.na(as.numeric(dataTable[, 4])))) {
-    errMsg <- "Ratings must be numeric."
-    stop(errMsg)
-  }
-  if (length(caseId) != K) {
-    errMsg <- "The number of cases in the dataset is different from the number in the study description."
-    stop(errMsg)
-  }
-  
-  TruthTable <- dataTable[as.numeric(dataTable[, 1]) == -1, ]
-  if (any(!(caseId %in% as.numeric(TruthTable[, 2])))) {
-    errMsg <- sprintf("Case %d cannot be found in rows recording truth states.", caseId[!(caseId %in% as.numeric(TruthTable[, 2]))])
-    stop(errMsg)
-  }
-  
-  if (any(!(as.numeric(TruthTable[, 4]) %in% c(0, 1)))) {
-    errMsg <- "Cases' truth states must be 0 or 1."
-    stop(errMsg)
-  }
-  normalCases <- unique(as.numeric(TruthTable[as.numeric(TruthTable[, 4]) == 0, 2]))
-  abnormalCases <- unique(as.numeric(TruthTable[as.numeric(TruthTable[, 4]) == 1, 2]))
-  
-  fpTable <- dataTable[(as.numeric(dataTable[, 2]) %in% normalCases) & as.numeric(dataTable[, 1]) != -1, ]
-  tpTable <- dataTable[(as.numeric(dataTable[, 2]) %in% abnormalCases) & as.numeric(dataTable[, 1]) != -1, ]
-  
-  readerID <- as.character(sort(unique(c(fpTable[, 1], tpTable[, 1]))))
-  if (J != length(readerID)) {
-    errMsg <- "The number of readers in the dataset is different from the number in the study description."
-    stop(errMsg)
-  }
-  
-  modalityID <- as.character(sort(unique(c(fpTable[, 3], tpTable[, 3]))))
-  if (I != length(modalityID)) {
-    errMsg <- "The number of treatments in the dataset is different from the number in the study description."
-    stop(errMsg)
-  }
-  
-  NL <- array(UNINITIALIZED, dim = c(I, J, K, 1))
-  LL <- array(UNINITIALIZED, dim = c(I, J, K2, 1))
-  for (i in 1:I) {
-    for (j in 1:J) {
-      for (k1 in 1:K1) {
-        caseIndx <- which((fpTable[, 1] == readerID[j]) & (fpTable[, 3] == modalityID[i]) & (as.numeric(fpTable[, 2]) == normalCases[k1]))
-        NL[i, j, k1, 1] <- as.numeric(fpTable[caseIndx, 4])
-      }
-      for (k2 in 1:K2) {
-        caseIndx <- which((tpTable[, 1] == readerID[j]) & (tpTable[, 3] == modalityID[i]) & (as.numeric(tpTable[, 2]) == abnormalCases[k2]))
-        LL[i, j, k2, 1] <- as.numeric(tpTable[caseIndx, 4])
-      }
-    }
-  }
-  
-  lesionVector <- rep(1, K2)
-  lesionID <- array(1, dim = c(K2, 1))
-  lesionWeight <- lesionID
-  #maxNL <- 1
-  dataType <- "ROC"
-  
-  modalityNames <- modalityID
-  readerNames <- readerID
-  
-  if (sequentialNames){
-    modalityID <- 1:I
-    readerID <- 1:J
-  }
-  
-  names(modalityID) <- modalityNames
-  names(readerID) <- readerNames
-  
-  return(list(
-    NL = NL, 
-    LL = LL, 
-    lesionVector = lesionVector, 
-    lesionID = lesionID, 
-    lesionWeight = lesionWeight, 
-    dataType = dataType, 
-    modalityID = modalityID, 
-    readerID = readerID,
-    datasetName = "Ignore"
-  ))
-} 
-
-
-
-
 

@@ -5,21 +5,26 @@
 \alias{dataset11}
 \title{Dobbins 1 FROC dataset}
 \format{
-A list with 8 elements:
+A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
+   contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
+   contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
+   contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+   \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 \itemize{
-\item{\code{NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
-\item{\code{LL}}{, num [1:4, 1:5, 1:115, 1:20], ratings of lesion localizations, LLs}
-\item{\code{lesionVector}}{, int [1:115], number of lesions per diseased case}
-\item{\code{lesionID}}{, num [1:115, 20], labels of lesions on diseased cases, all set to 1}
-\item{\code{lesionWeight}}{, num [1:115, 20] weights (or clinical importances) of lesions, all set to 1}
-\item{\code{dataType}}{, chr "FROC", the data type}
-\item{\code{modalityID}}{, chr [1:4] "1" "2" ..., treatment labels}
-\item{\code{readerID}}{, chr [1:5] "1" "2" ..., reader labels}
-\item{\code{design}}{, "CROSSED", study design}
-\item{\code{normalCases}}{, int [1:43] 6 9 14 27 62 66 70 71 83 91 ..., normal case labels}
-\item{\code{abnormalCases}}{, int [1:115] 1 2 3 5 7 8 10 11 13 17 ..., abnormal case labels}
-\item{\code{truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21] 1 1 1 1 1 1 ..., truth table structure}
-\item{\code{datasetName}}{, chr "Dobbins1"}
+\item{\code{rating$NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
+\item{\code{rating$LL}}{, num [1:4, 1:5, 1:115, 1:20], ratings of lesion localizations, LLs}
+\item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+\item{\code{lesions$perCase}}{, int [1:115], number of lesions per diseased case}
+\item{\code{lesions$IDs}}{, num [1:115, 1:20], numeric labels of lesions on diseased cases}
+\item{\code{lesions$weights}}{, num [1:115, 1:20], weights (or clinical importances) of lesions}
+\item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
+\item{\code{descriptions$fileName}}{, chr, "dataset11", base name of dataset in `data` folder}
+\item{\code{descriptions$type}}{, chr "FROC", the data type}
+\item{\code{descriptions$name}}{, chr "DOBBINS-1", the name of the dataset}
+\item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21], truth table structure}
+\item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+\item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+\item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 }
 }
 \usage{
