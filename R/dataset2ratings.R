@@ -12,7 +12,7 @@ dataset2ratings <- function (dataset, FOM){
   # }
   
   # OldFormat dataset or NewFormat CROSSED or SPLIT-PLOT dataset with implemented FOM
-  dataType <- dataset$dataType
+  dataType <- dataset$descriptions$type
   if (dataType != "LROC") {
     K2 <- length(dataset$ratings$LL[1,1,,1])
   } else if (dataType == "LROC") {

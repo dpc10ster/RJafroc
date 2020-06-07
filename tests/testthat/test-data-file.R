@@ -383,29 +383,6 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
 })
 
 
-
-# test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
-#   fileName <- system.file(
-#     "extdata", "RoiData.xlsx", package = "RJafroc", mustWork = TRUE)
-# 
-#   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadDataFile-jafroc-roi", ".rds")
-#   if (!file.exists(fn)) {
-#     warning(paste0("File not found - generating new ",fn))
-#     ds <- DfReadDataFile(fileName)
-#     saveRDS(ds, file = fn)
-#   }
-# 
-#   ds1 <- readRDS(fn)
-#   ds2 <- DfReadDataFile(fileName)
-#   expect_equal(ds2, ds1)
-# 
-#   ds <- DfReadDataFile(fileName)
-#   expect_equal(ds$dataType, "ROI")
-# 
-# })
-
-
-
 test_that("DfFroc2Afroc, DfExtractDataset", {
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfFroc2Afroc", ".rds")

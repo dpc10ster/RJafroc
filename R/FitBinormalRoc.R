@@ -82,7 +82,7 @@
 #' @export
 #' 
 FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
-  if (dataset$dataType == "FROC") dataset <- DfFroc2Roc(dataset)
+  if (dataset$descriptions$type == "FROC") dataset <- DfFroc2Roc(dataset)
   minA <- RJafrocEnv$minA
   maxA <- RJafrocEnv$maxA
   minB <- RJafrocEnv$minB

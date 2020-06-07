@@ -66,7 +66,7 @@ SaveJAFROC <- function(dataset, fileName) {
   lesionID <- dataset$lesionID
   lesionWeight <- dataset$lesionWeight
   maxNL <- dim(NL)[4]
-  dataType <- dataset$dataType
+  dataType <- dataset$descriptions$type
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
@@ -148,7 +148,7 @@ SaveJAFROC <- function(dataset, fileName) {
 
 SaveLrc <- function(dataset, fileName, dataDescription) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  if (dataset$dataType != "ROC") {
+  if (dataset$descriptions$type != "ROC") {
     stop("Only ROC data file can be saved as *.lrc format.")
   }
   fileExt <- file_ext(fileName)
@@ -162,7 +162,7 @@ SaveLrc <- function(dataset, fileName, dataDescription) {
   # lesionID <- dataset$lesionID
   # lesionWeight <- dataset$lesionWeight
   # maxNL <- dim(NL)[4]
-  # dataType <- dataset$dataType
+  # dataType <- dataset$descriptions$type
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
@@ -221,7 +221,7 @@ SaveLrc <- function(dataset, fileName, dataDescription) {
 
 SaveImrmc <- function(dataset, fileName, dataDescription) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  if (dataset$dataType != "ROC") 
+  if (dataset$descriptions$type != "ROC") 
     stop("Only ROC data file can be saved as iMRMC format.")
   fileExt <- file_ext(fileName)
   if (fileExt != "imrmc") {
@@ -233,7 +233,7 @@ SaveImrmc <- function(dataset, fileName, dataDescription) {
   # lesionID <- dataset$lesionID
   # lesionWeight <- dataset$lesionWeight
   # maxNL <- dim(NL)[4]
-  # dataType <- dataset$dataType
+  # dataType <- dataset$descriptions$type
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
@@ -282,7 +282,7 @@ SaveImrmc <- function(dataset, fileName, dataDescription) {
 
 SaveOrDbmMrmc <- function(dataset, fileName) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  if (dataset$dataType != "ROC") {
+  if (dataset$descriptions$type != "ROC") {
     stop("Only ROC data file can be saved in MRMC format.")
   }
   fileExt <- file_ext(fileName)
@@ -330,7 +330,7 @@ SaveOrDbmMrmc <- function(dataset, fileName) {
 
 SaveLrc <- function(dataset, fileName, dataDscrpt) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  if (dataset$dataType != "ROC") {
+  if (dataset$descriptions$type != "ROC") {
     stop("Only ROC data file can be saved as *.lrc format.")
   }
   fileExt <- file_ext(fileName)
@@ -344,7 +344,7 @@ SaveLrc <- function(dataset, fileName, dataDscrpt) {
   # lesionID <- dataset$lesionID
   # lesionWeight <- dataset$lesionWeight
   # maxNL <- dim(NL)[4]
-  # dataType <- dataset$dataType
+  # dataType <- dataset$descriptions$type
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   I <- length(modalityID)

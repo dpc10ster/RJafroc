@@ -27,7 +27,7 @@
 # v.1.3.1.9000: added SPLIT-PLOT capability
 # 
 UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
-  dataType <- dataset$dataType
+  dataType <- dataset$descriptions$type
   if (dataType != "LROC") {
     NL <- dataset$ratings$NL
     LL <- dataset$ratings$LL

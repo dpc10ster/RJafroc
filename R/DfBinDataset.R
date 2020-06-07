@@ -79,7 +79,7 @@
 DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   ret <- UtilExtractDataStructure(dataset)
   I <- ret$I;J <- ret$J;K1 <- ret$K1;K2 <- ret$K2; K <- K1 + K2
-  dataType <- dataset$dataType
+  dataType <- dataset$descriptions$type
   
   if (dataType == "ROC") {
     if (opChType == "FROC") stop("Cannot convert an ROC dataset to an AFROC dataset")
@@ -87,7 +87,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
     if (opChType == "ROC") dataset <- DfFroc2Roc(dataset)
     if (opChType == "AFROC") dataset <- DfFroc2Afroc(dataset)
     if (opChType == "wAFROC") dataset <- DfFroc2Afroc(dataset)
-    dataType <- dataset$dataType
+    dataType <- dataset$descriptions$type
   } else {
     stop("dataType must be ROC or FROC")
   }

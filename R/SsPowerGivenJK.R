@@ -82,7 +82,7 @@ SsPowerGivenJK <- function(dataset,
   
   if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
   if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
-  if (!is.null(dataset) && (dataset$dataType == "LROC") && !(FOM %in% c("Wilcoxon", "PCL", "ALROC"))) stop("Incorrect FOM used with LROC dataset")
+  if (!is.null(dataset) && (dataset$descriptions$type == "LROC") && !(FOM %in% c("Wilcoxon", "PCL", "ALROC"))) stop("Incorrect FOM used with LROC dataset")
   if (!is.null(dataset) && (length(list(...)) > 0)) stop("dataset and variance components cannot both be supplied as arguments")
   
   if (method == "DBMH") {

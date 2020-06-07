@@ -185,6 +185,7 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
                            perCase, IDs, weights,
                            binned, fileName, type, name, truthTableStr, design,
                            modalityID, readerID))
+    
   } 
   
   if  (length(nLdim) == 3) {

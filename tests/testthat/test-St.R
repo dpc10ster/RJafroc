@@ -76,12 +76,12 @@ test_that("SignificanceTestingAllCombinations", {
     for (f in 1:length(FOM_arr)) {
       for (m in 1:length(method_arr)) {
         dataset <- dataset_arr[[d]]
-        if ((dataset$dataType == "ROC") && (FOM_arr[f] != "Wilcoxon")) {
+        if ((dataset$descriptions$type == "ROC") && (FOM_arr[f] != "Wilcoxon")) {
           
           # for ROC data, only Wilcoxon FOM is allowed
           expect_error(StSignificanceTesting(dataset, FOM = FOM_arr[f], method = method_arr[m]))
           
-        } else if ((dataset$dataType == "FROC") && (FOM_arr[f] == "Wilcoxon")) {
+        } else if ((dataset$descriptions$type == "FROC") && (FOM_arr[f] == "Wilcoxon")) {
           
           # for FROC data, Wilcoxon FOM is NOT allowed
           expect_error(StSignificanceTesting(dataset, FOM = FOM_arr[f], method = method_arr[m]))

@@ -7,9 +7,9 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
   LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
   lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
+  lesionWeight <- dataset$lesions$weights
   maxNL <- dim(NL)[4]
-  dataType <- dataset$dataType
+  dataType <- dataset$descriptions$type
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   I <- length(modalityID)

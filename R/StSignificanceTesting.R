@@ -116,7 +116,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   
   if (J == 1) analysisOption <- "FRRC" else if (I == 1) analysisOption <- "RRFC"
   
-  if (dataset$dataType == "ROI") {
+  if (dataset$descriptions$type == "ROI") {
     method <- "ORH"
     covEstMethod <- "DeLong" 
     FOM <- "ROI"

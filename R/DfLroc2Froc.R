@@ -29,7 +29,7 @@
 
 DfLroc2Froc <- function(dataset)  #  !!!in tests!!!
 {
-  if (dataset$dataType != "LROC") 
+  if (dataset$descriptions$type != "LROC") 
     stop("This function requires an LROC dataset")
   
   NL <- dataset$ratings$NL

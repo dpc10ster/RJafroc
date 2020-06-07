@@ -107,15 +107,15 @@
 PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, opChType, legend.position = c(0.8, 0.2)) 
 {
   
-  if (dataset$dataType == "ROI") stop("No operating characteristics are defined for an ROI dataset")
+  if (dataset$descriptions$type == "ROI") stop("No operating characteristics are defined for an ROI dataset")
   
   if (opChType == "ROC"){
-    if (dataset$dataType == "FROC") ds <- DfFroc2Roc(dataset) 
-    else if (dataset$dataType == "LROC") ds <- DfLroc2Roc(dataset) 
+    if (dataset$descriptions$type == "FROC") ds <- DfFroc2Roc(dataset) 
+    else if (dataset$descriptions$type == "LROC") ds <- DfLroc2Roc(dataset) 
     else ds <- dataset
-  } else if ((opChType %in% c("FROC", "AFROC", "wAFROC", "AFROC1", "wAFROC1")) && (dataset$dataType == "FROC")) {
+  } else if ((opChType %in% c("FROC", "AFROC", "wAFROC", "AFROC1", "wAFROC1")) && (dataset$descriptions$type == "FROC")) {
     ds <- dataset
-  } else if ((opChType == "LROC") && (dataset$dataType == "LROC")) {
+  } else if ((opChType == "LROC") && (dataset$descriptions$type == "LROC")) {
     ds <- dataset
   } else {
     errMsg <- sprintf("%s is not a valid operating characteristic for this dataset", opChType)

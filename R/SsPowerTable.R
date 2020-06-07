@@ -48,7 +48,7 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
   options(stringsAsFactors = FALSE)
   if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
   if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
-  if (dataset$dataType != "ROC") stop("Dataset must be of type ROC")
+  if (dataset$descriptions$type != "ROC") stop("Dataset must be of type ROC")
   
   if (method == "DBMH") {
     ret <- StSignificanceTesting(dataset, FOM, method = "DBMH")

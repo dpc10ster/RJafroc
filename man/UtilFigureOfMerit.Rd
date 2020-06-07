@@ -29,8 +29,8 @@ The allowed FOMs depend on the \code{dataType} field of the
 
    \strong{For \code{dataset$design = "SPLIT-PLOT"}, end-point based 
    FOMs (e.g., "MaxLLF") are not allowed}.
-   \strong{For \code{dataset$dataType = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
-   \strong{For \code{dataset$dataType = "FROC"} the following FOMs are allowed}:
+   \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
+   \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
    \itemize{ 
    \item \code{FOM = "AFROC1"} (use only if zero normal cases)
    \item \code{FOM = "AFROC"} 

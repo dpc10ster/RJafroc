@@ -48,7 +48,7 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
   stop("need fix here")
   # TBA SimplifyDatasets
   dataset <- DfBinDataset(dataset, desiredNumBins = 5, opChType = "ROC")
-  if (dataset$dataType != "ROC") {
+  if (dataset$descriptions$type != "ROC") {
     stop("This program requires an ROC dataset")
   }
   I <- length(dataset$ratings$NL[,1,1,1])

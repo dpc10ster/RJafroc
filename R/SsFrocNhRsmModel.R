@@ -48,8 +48,8 @@
 
 SsFrocNhRsmModel <- function (dataset, lesionPmf) {
   
-  if (!(dataset$dataType %in% c("ROC", "FROC"))) stop("Dataset must be ROC or FROC")
-  if (dataset$dataType == "FROC") rocData <- DfFroc2Roc(dataset) else rocData <- dataset
+  if (!(dataset$descriptions$type %in% c("ROC", "FROC"))) stop("Dataset must be ROC or FROC")
+  if (dataset$descriptions$type == "FROC") rocData <- DfFroc2Roc(dataset) else rocData <- dataset
   if (sum(lesionPmf) != 1) stop("The lesion distribution vector must sum to unity")
   
   I <- dim(dataset$ratings$NL)[1]

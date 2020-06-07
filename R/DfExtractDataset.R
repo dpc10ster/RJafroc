@@ -52,7 +52,7 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
     rdrs <- 1:J
   }
   
-  if (dataset$dataType != "LROC") { 
+  if (dataset$descriptions$type != "LROC") { 
     stop("Need fixing here")
     # TBA SimplifyDatasets
     K <- dim(dataset$ratings$NL)[3]

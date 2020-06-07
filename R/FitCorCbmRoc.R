@@ -70,7 +70,7 @@
 #'
 FitCorCbmRoc <- function(dataset){
   
-  if (dataset$dataType != "ROC") {
+  if (dataset$descriptions$type != "ROC") {
     stop("This program requires an ROC dataset")
   }
 

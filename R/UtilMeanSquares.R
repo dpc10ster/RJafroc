@@ -27,7 +27,7 @@
 #' @export
 
 UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBMH"){
-  dataType <- dataset$dataType
+  dataType <- dataset$descriptions$type
   if (dataType != "LROC") {
     NL <- dataset$ratings$NL
     LL <- dataset$ratings$LL

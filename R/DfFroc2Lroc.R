@@ -30,7 +30,7 @@
 
 DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctions.R
 {
-  if (dataset$dataType != "FROC") 
+  if (dataset$descriptions$type != "FROC") 
     stop("This function requires an FROC dataset")
   
   I <- length(dataset$ratings$NL[,1,1,1])

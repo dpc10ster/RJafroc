@@ -155,7 +155,7 @@ StSignificanceTestingCadVsRadiologists <- function(dataset, FOM, FPFValue = 0.2,
   options(stringsAsFactors = FALSE)
   
   if (length(dataset$ratings$NL[,1,1,1]) != 1) stop("dataset has to be single-treatment multiple-readers with CAD as the first reader")
-  if ((dataset$dataType == "ROC") && (FOM %in% c("PCL", "ALROC"))) stop("Cannot use LROC FOM with ROC data")
+  if ((dataset$descriptions$type == "ROC") && (FOM %in% c("PCL", "ALROC"))) stop("Cannot use LROC FOM with ROC data")
   
   if (method == "1T-RRFC") {
     ret <- SingleModalityRRFC(dataset, FOM, FPFValue, alpha)
@@ -165,7 +165,7 @@ StSignificanceTestingCadVsRadiologists <- function(dataset, FOM, FPFValue = 0.2,
     ret <- DualModalityRRRC (dataset, FOM, FPFValue, alpha)
   } else stop("incorrect method specified")
   
-  if ((dataset$dataType != "LROC") && (method == "2T-RRRC")) {
+  if ((dataset$descriptions$type != "LROC") && (method == "2T-RRRC")) {
     stop("2T-RRRC for non LROC data (not implemented) is unnecessary as 1T-method should be used instead.")
   }
   
@@ -276,7 +276,7 @@ SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha)
 DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
 {
   K <- length(dataset$ratings$NL[1,1,,1])
-  dataType <- dataset$dataType
+  dataType <- dataset$descriptions$type
   if ((dataType == "LROC") && (FOM %in% c("PCL", "ALROC"))) 
   {
     ret1 <- dataset2ratings(dataset, FOM)
@@ -430,7 +430,7 @@ CadVsRadPlots <- function(dataset, FOM) {
   zjk1 <- ret1$zjk1
   zjk2 <- ret1$zjk2
   
-  dataType <- dataset$dataType
+  dataType <- dataset$descriptions$type
   if (dataType == "ROC") {
     # fixed one of hard coding errors noticed by Alejandro
     genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
@@ -457,7 +457,7 @@ CadVsRadPlots <- function(dataset, FOM) {
 ## Handles all datasets
 DiffFomVarCov2 <- function (dataset, FOM, FPFValue) # for difference FOM, radiologist minus CAD
 { 
-  #if (dataset$dataType == "LROC") stop("Dataset must NOT be LROC")
+  #if (dataset$descriptions$type == "LROC") stop("Dataset must NOT be LROC")
   
   J <- length(dataset$readerID)
   K <- length(dataset$ratings$NL[1,1,,1])

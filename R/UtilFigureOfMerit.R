@@ -17,8 +17,8 @@
 #' 
 #'    \strong{For \code{dataset$design = "SPLIT-PLOT"}, end-point based 
 #'    FOMs (e.g., "MaxLLF") are not allowed}.
-#'    \strong{For \code{dataset$dataType = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
-#'    \strong{For \code{dataset$dataType = "FROC"} the following FOMs are allowed}:
+#'    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
+#'    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
 #'    \itemize{ 
 #'    \item \code{FOM = "AFROC1"} (use only if zero normal cases)
 #'    \item \code{FOM = "AFROC"} 
@@ -93,7 +93,7 @@
 # v.1.3.1.9000: added SPLIT-PLOT capability 
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   
-  dataType <- dataset$dataType
+  dataType <- dataset$descriptions$type
   if (dataType == "ROC" && FOM != "Wilcoxon") {
     errMsg <- paste0("Must use Wilcoxon figure of merit with ROC data.")
     stop(errMsg)
