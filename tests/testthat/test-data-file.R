@@ -171,7 +171,7 @@ test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
 
 
 
-test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
+test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfFroc2Roc", ".rds")
   if (!file.exists(fn)) {
@@ -187,7 +187,7 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
   
 
 
-test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
+test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
   
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadLrocDataFile", ".rds")
   if (!file.exists(fn)) {
@@ -203,7 +203,7 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
 
 
 
-test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
+test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
   
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfLroc2Roc", ".rds")
   
@@ -219,7 +219,7 @@ test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadC
 })
 
 
-test_that("DfFroc2Afroc & DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
+test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
   
   crossedFileName <- system.file("extdata",
                                  "CrossedModalitiesData.xlsx",
@@ -383,25 +383,8 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
 })
 
 
-test_that("DfFroc2Afroc, DfExtractDataset", {
 
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfFroc2Afroc", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfFroc2Afroc(dataset05)
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(DfFroc2Afroc(dataset05), ds)
-
-  
-})
-
-
-
-
-test_that("DfFroc2Afroc, DfExtractDataset", {
+test_that("DfExtractDataset", {
   
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfExtractDataset", ".rds")
   if (!file.exists(fn)) {

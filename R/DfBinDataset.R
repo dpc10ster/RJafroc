@@ -211,3 +211,35 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
 }
 
 
+
+DfFroc2Afroc <- function (dataset){
+  if (dataset$descriptions$type != "FROC") stop("The dataset has to be FROC")
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  K <- dim(NL)[3]
+  K2 <- dim(LL)[3]
+  K1 <- K - K2 
+  
+  NL <- apply(NL, c(1, 2, 3), max)
+  dim(NL) <- c(dim(NL), 1)
+  NL[,,(K1+1):K,1] <- -Inf
+  
+  binned <- isBinned(NL, LL)
+  fileName <- NA
+  name <- NA
+  design <- dataset$descriptions$design
+  truthTableStr <- dataset$descriptions$truthTableStr
+  IDs <- dataset$lesions$IDs
+  type <- "FROC"
+  perCase <- dataset$lesions$perCase
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+  return(convert2dataset(NL, LL, LL_IL = NA, 
+                         perCase, IDs, weights,
+                         binned, fileName, type, name, truthTableStr, design,
+                         modalityID, readerID))
+  
+}
+
+
+
