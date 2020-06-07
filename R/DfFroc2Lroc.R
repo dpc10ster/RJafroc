@@ -45,7 +45,7 @@ DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctio
   NL <- apply(dataset$ratings$NL, c(1, 2, 3), max)# keep max NL rating; 
   dim(NL) <- c(dim(NL), 1) # add the fourth "unnecessary" dimension
   
-  LL <- dataset$LL
+  LL <- dataset$ratings$LL
   lowestRating <- min(min(NL[is.finite(NL)]), min(LL[is.finite(LL)]))
   NL[,,1:K1,1][!is.finite(NL[,,1:K1,1])] <- lowestRating - 10 # less than lowest finite rating
   # increased from one to ten to make it stand out
@@ -61,7 +61,7 @@ DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctio
   #  to the LLCl array, otherwise the max NL rating is copied to the LLIl array. 
   #  Then the max NL rating on the diseased case is set to -Inf (since the LROC
   #  paradigm only allows one mark).
-  LL <- dataset$LL
+  LL <- dataset$ratings$LL
   for (i in 1:I) {
     for (j in 1:J) {
       for (k in 1:K2) {

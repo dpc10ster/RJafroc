@@ -68,7 +68,7 @@ ORSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # Df same as df(error term) from (a)
   # 95% CI: Difference +- t(.025;df) * StdErr
   
-  # if (dataset$design == "CROSSED") {
+  # if (dataset$descriptions$design == "FCTRL") {
     #   c) Single-treatment 95% confidence intervals
     # (Each analysis is based only on data for the specified treatment, i.e., 
     #   on the treatment-specific reader ANOVA of AUCs and Cov2 estimates.)

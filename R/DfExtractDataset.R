@@ -61,10 +61,10 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
     maxLL <- dim(dataset$ratings$LL)[4]
     NL <- dataset$ratings$NL[trts, rdrs, , ]
     dim(NL) <- c(I, J, K, maxNL)
-    dataset$NL <- NL
+    dataset$ratings$NL <- NL
     LL <- dataset$ratings$LL[trts, rdrs, , ]
     dim(LL) <- c(I, J, K2, maxLL)
-    dataset$LL <- LL
+    dataset$ratings$LL <- LL
     dataset$descriptions$modalityID <- dataset$modalityID[trts]
     dataset$descriptions$readerID <- dataset$readerID[rdrs]
     if (length(dataset) == 13) {
@@ -79,9 +79,9 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
     K2 <- dim(dataset$ratings$LL)[3]
     maxNL <- 1
     maxLL <- 1
-    NL <- dataset$NL[trts, rdrs, , ]
+    NL <- dataset$ratings$NL[trts, rdrs, , ]
     dim(NL) <- c(I, J, K, maxNL)
-    dataset$NL <- NL
+    dataset$ratings$NL <- NL
     LL <- dataset$ratings$LL[trts, rdrs, , ]
     dim(LL) <- c(I, J, K2, maxLL)
     LL_IL <- dataset$ratings$LL_IL[trts, rdrs, , ]

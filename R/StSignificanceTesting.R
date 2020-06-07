@@ -153,10 +153,10 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     }
   } else stop("Incorrect `method` argument: must be `DBMH` or `ORH`")
   
-  if ((length(dataset) == 13) && (dataset$design == "SPLIT-PLOT") && method == "DBMH") 
+  if ((length(dataset) == 13) && (dataset$descriptions$design == "SPLIT-PLOT") && method == "DBMH") 
     stop("Must use method = ORH for SPLIT-PLOT dataset")
   
-  if ((length(dataset) == 13) && (dataset$design == "SPLIT-PLOT") && method == "ORH" && covEstMethod != "jackknife") 
+  if ((length(dataset) == 13) && (dataset$descriptions$design == "SPLIT-PLOT") && method == "ORH" && covEstMethod != "jackknife") 
     stop("Must use covEstMethod = jackknife for SPLIT-PLOT dataset")
   
   if (!tempOrgCode) {

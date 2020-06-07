@@ -15,7 +15,7 @@
 #' @details The allowed FOMs depend on the \code{dataType} field of the 
 #'    \code{dataset} object.  
 #' 
-#'    \strong{For \code{dataset$design = "SPLIT-PLOT"}, end-point based 
+#'    \strong{For \code{dataset$descriptions$design = "SPLIT-PLOT"}, end-point based 
 #'    FOMs (e.g., "MaxLLF") are not allowed}.
 #'    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
 #'    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
@@ -150,12 +150,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     stop(errMsg)
   }
   
-  if (length(dataset) == 13) {
-    design <- dataset$design
-    t <- dataset$truthTableStr
-  } else if (length(dataset) %in% c(9,10)) {
-    design <- "CROSSED"
-  } 
+  design <- dataset$descriptions$design
   
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
@@ -177,13 +172,13 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
         dim(ll_j) <- c(k2j, maxLL_j)
         fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1j, k2j, FOM, FPFValue)
         next
-      } else if (design == "CROSSED"){
+      } else if (design == "FCTRL"){
         nl_j <- NL[i, j, , ]
         ll_j <- LL[i, j, , ]
         dim(nl_j) <- c(K, maxNL)
         dim(ll_j) <- c(K2, maxLL)
         fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, dataset$lesions$perCase, dataset$lesionID, dataset$lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
-      } else stop("Incorrect design, must be SPLIT-PLOT or CROSSED")
+      } else stop("Incorrect design, must be SPLIT-PLOT or FCTRL")
     }
   }
   

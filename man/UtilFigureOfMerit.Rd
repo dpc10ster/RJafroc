@@ -27,7 +27,7 @@ Calculate the specified empirical figure of merit
 The allowed FOMs depend on the \code{dataType} field of the 
    \code{dataset} object.  
 
-   \strong{For \code{dataset$design = "SPLIT-PLOT"}, end-point based 
+   \strong{For \code{dataset$descriptions$design = "SPLIT-PLOT"}, end-point based 
    FOMs (e.g., "MaxLLF") are not allowed}.
    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:

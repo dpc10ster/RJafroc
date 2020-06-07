@@ -279,10 +279,10 @@ checkTruthTable <- function (truthTable)
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
   
   if (!(type %in% c("FROC", "ROC"))) stop("Unsupported declared type: must be ROC or FROC.\n")
-  if (!(design %in% c("CROSSED", "SPLIT-PLOT"))) stop("Study design must be CROSSED or SPLIT-PLOT\n")
+  if (!(design %in% c("FCTRL", "SPLIT-PLOT"))) stop("Study design must be FCTRL or SPLIT-PLOT\n")
   
   if (type == "ROC") {
-    if ((design == "CROSSED") && (sum(!is.na(truthTableStr)) != 
+    if ((design == "FCTRL") && (sum(!is.na(truthTableStr)) != 
                                   L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be crossed ROC")
     
@@ -291,7 +291,7 @@ checkTruthTable <- function (truthTable)
   }
   
   if (type == "FROC") {
-    if ((design == "CROSSED") && (sum(!is.na(truthTableStr)) != 
+    if ((design == "FCTRL") && (sum(!is.na(truthTableStr)) != 
                                   L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be crossed FROC")
     
@@ -542,7 +542,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   weights[is.na(weights)] <- UNINITIALIZED
   lesionIDColumn[is.na(lesionIDColumn)] <- UNINITIALIZED
   
-  if (type == "ROC" && design == "CROSSED") {
+  if (type == "ROC" && design == "FCTRL") {
     if (!(((max(table(truthCaseID)) == 1) && (maxNL == 1)) 
           && (all((NL[, , (K1 + 1):K, ] == UNINITIALIZED))) 
           && (all((NL[, , 1:K1, ] != UNINITIALIZED)))
@@ -565,7 +565,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   binned <- isBinned(NL, LL)
   fileName <- NA
   name <- NA
-  if (design == "CROSSED") design <- "FCTRL"
+  if (design == "FCTRL") design <- "FCTRL"
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
                          binned, fileName, type, name, truthTableStr, design,

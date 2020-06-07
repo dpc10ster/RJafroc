@@ -56,8 +56,8 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   
   # `as.matrix` is NOT absolutely necessary as `mean()` function is not used here
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  if ((length(dataset) != 13) || (dataset$design == "CROSSED")) {
-    # OldFormat dataset or NewFormat CROSSED dataset
+  if ((length(dataset) != 13) || (dataset$descriptions$design == "FCTRL")) {
+    # OldFormat dataset or NewFormat FCTRL dataset
     if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
       # first type of end-point based FOM
       jkFomValues <- array(dim = c(I, J, K1))
@@ -136,7 +136,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     # cannot use "MaxNLF", "ExpTrnsfmSp", "HrSp" etc. here 
     if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp", "MaxLLF", "HrSe")) 
       stop("Cannot use MaxNLF, ExpTrnsfmSp, HrSp, MaxLLF, HrSe FOMs with SPLIT-PLOT dataset")
-    if (dataset$design != "SPLIT-PLOT") stop("Dataset has to be split-plot for this function to be called")
+    if (dataset$descriptions$design != "SPLIT-PLOT") stop("Dataset has to be split-plot for this function to be called")
     t <- dataset$truthTableStr
     jkFomValues <- array(dim = c(I,J,K))
     jkPseudoValues <- array(dim =c(I,J,K))

@@ -3,7 +3,7 @@
 # The second depends on the FOM, and the 
 # third is the incorrect localizations array
 dataset2ratings <- function (dataset, FOM){
-  # if ((length(dataset) == 13) && (dataset$design == "SPLIT-PLOT")) {
+  # if ((length(dataset) == 13) && (dataset$descriptions$design == "SPLIT-PLOT")) {
   #   # check for SPLIT-PLOT dataset with unimplemmented FOM
   #   # All end-point based FOMs are unimplemented
   #   # cannot use "MaxNLF", "ExpTrnsfmSp", "HrSp" etc. here 
@@ -11,7 +11,7 @@ dataset2ratings <- function (dataset, FOM){
   #     stop("Cannot use MaxNLF, ExpTrnsfmSp, HrSp, MaxLLF, HrSe FOMs with SPLIT-PLOT dataset")
   # }
   
-  # OldFormat dataset or NewFormat CROSSED or SPLIT-PLOT dataset with implemented FOM
+  # OldFormat dataset or NewFormat FCTRL or SPLIT-PLOT dataset with implemented FOM
   dataType <- dataset$descriptions$type
   if (dataType != "LROC") {
     K2 <- length(dataset$ratings$LL[1,1,,1])
@@ -27,7 +27,7 @@ dataset2ratings <- function (dataset, FOM){
     # and FPF-CAD exceeds unity in the middle 
     # and other readers plots do not go to FPF = 1.
     # Did not notice this before as plots flag = TRUE was not tested
-    zjk2 <- dataset$LL[,,1:K2,1]
+    zjk2 <- dataset$ratings$LL[,,1:K2,1]
     zjk2Il <- NA
   } else if (dataType == "LROC") {
     if (FOM %in% c("ALROC", "PCL")) {

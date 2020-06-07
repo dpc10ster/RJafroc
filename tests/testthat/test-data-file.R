@@ -400,7 +400,7 @@ test_that("DfExtractDataset", {
 
 
 
-test_that("DfsaveDataFile", {
+test_that("DfSaveDataFile", {
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfSaveDataFile.xlsx")
   if (!file.exists(fn)) {

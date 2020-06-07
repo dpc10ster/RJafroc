@@ -92,7 +92,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   msR_i <- msR_i/(J - 1)
   
   # for (i in 1:I) {
-  #   if (dataset$design != "SPLIT-PLOT") {
+  #   if (dataset$descriptions$design != "SPLIT-PLOT") {
   #     cov2EachTrt <- vector(length = I)
   #   } else  {
   #     cov2EachTrt <- rep(0, I)

@@ -296,9 +296,19 @@ RatingsArraysFromRatingsTables <- function( K1, K2 ) {
 }
 
 
-isBinned <- function(NL, LL){
-  z <- length(unique(c(LL[is.finite(LL)], NL[is.finite(NL)])))
-  if (z <= 6) return (TRUE) else return (FALSE)
+isBinned <- function(NL, LL, minUniqeRatings = 6){
+  I <- dim(NL)[1]
+  J <- dim(NL)[2]
+  binned <- array(dim = c(I,J))
+  for (i in 1:I) {
+    for (j in 1:J) {
+      nl <- NL[i,j,,]
+      ll <- LL[i,j,,]
+      if (length(unique(c(ll[is.finite(ll)], nl[is.finite(nl)]))) <= minUniqeRatings) 
+        binned[i,j] <- TRUE else binned[i,j] <- FALSE
+    }
+  }
+  return (binned)
 }
 
 convert2dataset <- function(NL, LL, LL_IL, 

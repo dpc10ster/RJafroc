@@ -540,8 +540,8 @@ ROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
 ####################################################################################################################
 AvgROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
 
@@ -623,8 +623,8 @@ FROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
@@ -682,8 +682,8 @@ FROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
 AvgFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
@@ -808,8 +808,8 @@ FROC2AFROC1 <- function (fp, ll, sumLL, K) {
 AFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
@@ -872,8 +872,8 @@ AFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
 AvgAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
@@ -986,8 +986,8 @@ FROC2wAFROC1 <- function (fp, ll, weights, K1, K2) {
 AFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
@@ -1044,8 +1044,8 @@ AFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
 AvgAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
@@ -1111,8 +1111,8 @@ AvgAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
 wAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   lesionWeights <- dataset$lesions$weights
@@ -1174,8 +1174,8 @@ wAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
 AvgwAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
@@ -1241,8 +1241,8 @@ AvgwAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
 wAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   lesionWeights <- dataset$lesions$weights
@@ -1303,8 +1303,8 @@ wAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
 AvgwAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  NL <- dataset$NL
-  LL <- dataset$LL
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   lesionWeights <- dataset$lesions$weights  
