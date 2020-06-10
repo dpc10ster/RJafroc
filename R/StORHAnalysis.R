@@ -262,7 +262,7 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed)
           LLbs <- LL[i, j, , ]
           dim(NLbs) <- c(K1, maxNL)
           dim(LLbs) <- c(K2, maxLL)
-          fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, 
+          fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, 
                                           lesionVector, lesionID, 
                                           lesionWeight, maxNL, 
                                           maxLL, K1, K2, 
@@ -285,7 +285,7 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed)
           dim(lesionIDBs) <- c(K2, maxLL)
           lesionWeightBs <- lesionWeight[kBs, ]
           dim(lesionWeightBs) <- c(K2, maxLL)
-          fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, 
+          fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, 
                                           lesionVector[kBs], lesionIDBs, 
                                           lesionWeightBs, maxNL, maxLL, 
                                           K1, K2, FOM, FPFValue)
@@ -310,7 +310,7 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed)
           dim(lesionIDBs) <- c(K2, maxLL)
           lesionWeightBs <- lesionWeight[k2bs, ]
           dim(lesionWeightBs) <- c(K2, maxLL)
-          fomBsArray[i, j, b] <- gpfMyFOM(NLbs, LLbs, lesionVectorbs, lesionIDBs, 
+          fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, lesionVectorbs, lesionIDBs, 
                                           lesionWeightBs, maxNL, maxLL, K1, K2, FOM, FPFValue)
         }
       }

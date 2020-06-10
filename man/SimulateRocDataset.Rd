@@ -4,9 +4,13 @@
 \alias{SimulateRocDataset}
 \title{Simulates a binormal model ROC dataset}
 \usage{
-SimulateRocDataset(K1, K2, a, b, seed = NULL)
+SimulateRocDataset(I = 1, J = 1, K1, K2, a, b, seed = NULL)
 }
 \arguments{
+\item{I}{The number of modalities, default is 1}
+
+\item{J}{The number of readers, default is 1}
+
 \item{K1}{The number of non-diseased cases}
 
 \item{K2}{The number of diseased cases}
@@ -15,28 +19,21 @@ SimulateRocDataset(K1, K2, a, b, seed = NULL)
 
 \item{b}{The \eqn{b} parameter of the binormal model}
 
-\item{seed}{The initial seed, default is NULL}
+\item{seed}{The initial seed, default is NULL, which results in a random seed}
 }
 \value{
 An ROC dataset
 }
 \description{
-Simulates a binormal model ROC dataset for a single treatment and reader
+Simulates an uncorrelated binormal model ROC factorial dataset
 }
 \details{
 See book Chapter 6 for details
 }
 \examples{
-K1 <- 5;K2 <- 7;
-a <- 1.5;b <- 0.5
-
-rocDataRaw <- SimulateRocDataset(K1 = K1, K2 = K2,
-   a = a, b = b)
+K1 <- 5;K2 <- 7;a <- 1.5;b <- 0.5
+rocDataRaw <- SimulateRocDataset(K1 = K1, K2 = K2, a = a, b = b)
   
-## plot the data
-ret <- PlotEmpiricalOperatingCharacteristics(rocDataRaw, trts= 1, rdrs = 1, opChType = "ROC")
-## print(ret$Plot)
-
 }
 \references{
 Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 

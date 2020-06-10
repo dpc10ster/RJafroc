@@ -23,7 +23,7 @@
 # dropping the 1 dimension in 
 # lesionID and lesionWeight; was affecting StSingleModality when used with 
 # wAFROC FOM. This part of the code needs further checking; 
-# no essential changes made in MyFOM.cpp and gpfMyFOM.R.
+# no essential changes made in MyFOM.cpp and MyFom_ij.R.
 # v.1.3.1.9000: added SPLIT-PLOT capability
 # 
 UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
@@ -69,7 +69,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
             ll <- LL[i, j, , ]
             dim(nl) <- c(K - 1, maxNL)
             dim(ll) <- c(K2, max(lesionVector))
-            jkFomValues[i, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM, FPFValue)
+            jkFomValues[i, j, k] <- MyFom_ij(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM, FPFValue)
             jkPseudoValues[i, j, k] <- fomArray[i, j] * K1 - jkFomValues[i, j, k] * (K1 - 1)
           }
           jkPseudoValues[i, j, ] <- jkPseudoValues[i, j, ] + (fomArray[i, j] - mean(jkPseudoValues[i, j, ]))
@@ -90,7 +90,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
             dim(lesID) <- c(K2 - 1, max(lesionVector))
             lesWght <- lesionWeight[-k, ]
             dim(lesWght) <- c(K2 - 1, max(lesionVector))
-            jkFomValues[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-k], lesID, lesWght, maxNL, maxLL, K1, K2 - 1, FOM, FPFValue)
+            jkFomValues[i, j, k] <- MyFom_ij(nl, ll, lesionVector[-k], lesID, lesWght, maxNL, maxLL, K1, K2 - 1, FOM, FPFValue)
             jkPseudoValues[i, j, k] <- fomArray[i, j] * K2 - jkFomValues[i, j, k] * (K2 - 1)
           }
           jkPseudoValues[i, j, ] <- jkPseudoValues[i, j, ] + (fomArray[i, j] - mean(jkPseudoValues[i, j, ]))
@@ -108,7 +108,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
               ll <- LL[i, j, , ]
               dim(nl) <- c(K - 1, maxNL)
               dim(ll) <- c(K2, max(lesionVector))
-              jkFomValues[i, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM, FPFValue)
+              jkFomValues[i, j, k] <- MyFom_ij(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM, FPFValue)
             } else {
               nl <- NL[i, j, -k, ]
               ll <- LL[i, j, -(k - K1), ]
@@ -118,7 +118,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
               dim(lesWght) <- c(K2 - 1, max(lesionVector))
               lesID <- lesionID[-(k - K1), ]
               dim(lesID) <- c(K2 - 1, max(lesionVector))
-              jkFomValues[i, j, k] <- gpfMyFOM(nl, ll, lesionVector[-(k - K1)], lesID, lesWght, maxNL, maxLL, K1, K2 - 1, FOM, FPFValue)
+              jkFomValues[i, j, k] <- MyFom_ij(nl, ll, lesionVector[-(k - K1)], lesID, lesWght, maxNL, maxLL, K1, K2 - 1, FOM, FPFValue)
             }
             jkPseudoValues[i, j, k] <- fomArray[i, j] * K - jkFomValues[i, j, k] * (K - 1)
           }
@@ -157,14 +157,14 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
         ll_j <- LL[i, j, k2_j_sub, 1:maxLL_j]
         dim(nl_j) <- c(k1_j+k2_j, maxNL)
         dim(ll_j) <- c(k2_j, maxLL_j)
-        fom_ijk <- gpfMyFOM(nl_j, ll_j, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1_j, k2_j, FOM, FPFValue)
+        fom_ijk <- MyFom_ij(nl_j, ll_j, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1_j, k2_j, FOM, FPFValue)
         for (k in 1:k_j) {
           if (k <= k1_j) {
             nlj_jk <- nl_j[-k, ]
             llj_jk <- ll_j[, ]
             dim(nlj_jk) <- c(k_j - 1, maxNL)
             dim(llj_jk) <- c(k2_j, max(lV_j))
-            jkFomValues[i, j, lastCase+k] <- gpfMyFOM(nlj_jk, llj_jk, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1_j - 1, k2_j, FOM, FPFValue)
+            jkFomValues[i, j, lastCase+k] <- MyFom_ij(nlj_jk, llj_jk, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1_j - 1, k2_j, FOM, FPFValue)
           } else {
             nlj_jk <- nl_j[-k, ]
             llj_jk <- ll_j[-(k - k1_j), ]
@@ -175,7 +175,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
             dim(lW_j_jk) <- c(k2_j - 1, maxLL_j)
             lID_j_jk <- lID_j[-(k - k1_j), ]
             dim(lID_j_jk) <- c(k2_j - 1, maxLL_j)
-            jkFomValues[i, j, lastCase+k] <- gpfMyFOM(nlj_jk, llj_jk, lV_j_jk, lID_j_jk, lW_j_jk, maxNL, maxLL_j, k1_j, k2_j - 1, FOM, FPFValue)
+            jkFomValues[i, j, lastCase+k] <- MyFom_ij(nlj_jk, llj_jk, lV_j_jk, lID_j_jk, lW_j_jk, maxNL, maxLL_j, k1_j, k2_j - 1, FOM, FPFValue)
           }
           jkPseudoValues[i, j, lastCase+k] <- fom_ijk * k_j - jkFomValues[i, j, k] * (k_j - 1)
         }

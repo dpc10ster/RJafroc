@@ -75,12 +75,12 @@ DfLroc2Froc <- function(dataset)  #  !!!in tests!!!
   lesWghts[,1] <- 1
   
   # TBA SimplifyDatasets
-  
+  stop("TBA fix here")
   datasetFroc <- list(
     NL = NL,
     LL = LL,
     lesionVector = dataset$lesions$perCase,
-    lesionID = dataset$lesionID,
+    lesionID = dataset$lesions$IDs,
     lesionWeight = lesWghts,
     dataType = "FROC",
     modalityID = dataset$descriptions$modalityID,

@@ -507,7 +507,7 @@ EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, 
             ll <- LL[i1, i2, j, , ]
             dim(nl) <- c(K - 1, maxNL)
             dim(ll) <- c(K2, max(lesionVector))
-            jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
+            jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
           }
         }
       }
@@ -526,7 +526,7 @@ EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, 
             dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
             lesionWeightJk <- lesionWeight[-k, ]
             dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
-            jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionVector[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
+            jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, lesionVector[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
           }
         }
       }
@@ -542,7 +542,7 @@ EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, 
               ll <- LL[i1, i2, j, , ]
               dim(nl) <- c(K - 1, maxNL)
               dim(ll) <- c(K2, max(lesionVector))
-              jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
+              jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
             } else {
               nl <- NL[i1, i2, j, -k, ]
               ll <- LL[i1, i2, j, -(k - K1), ]
@@ -552,7 +552,7 @@ EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, 
               dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
               lesionWeightJk <- lesionWeight[-(k - K1), ]
               dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
-              jkFOMArray[i1, i2, j, k] <- gpfMyFOM(nl, ll, lesionVector[-(k - K1)], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
+              jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, lesionVector[-(k - K1)], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
             }
           }
         }

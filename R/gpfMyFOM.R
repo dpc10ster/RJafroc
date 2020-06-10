@@ -1,6 +1,6 @@
 #' @importFrom stats approx
 
-gpfMyFOM <- function(nl, ll, 
+MyFom_ij <- function(nl, ll, 
                      perCase, lesionID, 
                      lesionWeight, maxNL, 
                      maxLL, K1, K2, 

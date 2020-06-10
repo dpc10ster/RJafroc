@@ -63,8 +63,8 @@ SaveJAFROC <- function(dataset, fileName) {
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
+  lesionID <- dataset$lesions$IDs
+  lesionWeight <- dataset$lesions$weights
   maxNL <- dim(NL)[4]
   dataType <- dataset$descriptions$type
   modalityID <- dataset$descriptions$modalityID
@@ -159,8 +159,8 @@ SaveLrc <- function(dataset, fileName, dataDescription) {
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
   # lesionVector <- dataset$lesions$perCase
-  # lesionID <- dataset$lesionID
-  # lesionWeight <- dataset$lesionWeight
+  # lesionID <- dataset$lesions$IDs
+  # lesionWeight <- dataset$lesions$weights
   # maxNL <- dim(NL)[4]
   # dataType <- dataset$descriptions$type
   modalityID <- dataset$descriptions$modalityID
@@ -230,8 +230,8 @@ SaveImrmc <- function(dataset, fileName, dataDescription) {
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
   # lesionVector <- dataset$lesions$perCase
-  # lesionID <- dataset$lesionID
-  # lesionWeight <- dataset$lesionWeight
+  # lesionID <- dataset$lesions$IDs
+  # lesionWeight <- dataset$lesions$weights
   # maxNL <- dim(NL)[4]
   # dataType <- dataset$descriptions$type
   modalityID <- dataset$descriptions$modalityID
@@ -341,8 +341,8 @@ SaveLrc <- function(dataset, fileName, dataDscrpt) {
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
   # lesionVector <- dataset$lesions$perCase
-  # lesionID <- dataset$lesionID
-  # lesionWeight <- dataset$lesionWeight
+  # lesionID <- dataset$lesions$IDs
+  # lesionWeight <- dataset$lesions$weights
   # maxNL <- dim(NL)[4]
   # dataType <- dataset$descriptions$type
   modalityID <- dataset$descriptions$modalityID

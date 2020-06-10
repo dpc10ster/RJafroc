@@ -209,7 +209,7 @@ Preamble <- function(dataset, FOM, ReportFileName, method, methodTxt) {
   
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
-  lesionID <- dataset$lesionID
+  lesionID <- dataset$lesions$IDs
   maxNL <- dim(NL)[4]
   dataType <- dataset$descriptions$type
   modalityID <- dataset$descriptions$modalityID

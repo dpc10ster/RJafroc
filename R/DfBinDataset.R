@@ -29,39 +29,26 @@
 #'
 #' @examples
 #' \donttest{
-#' binned <- DfBinDataset(dataset05, opChType = "ROC")
-#' PlotEmpiricalOperatingCharacteristics(dataset05, 
-#' trts= c(1,2), rdrs = seq(1,9), opChType = "ROC")$Plot
-#' PlotEmpiricalOperatingCharacteristics(binned, trts= c(1,2), 
-#' rdrs = seq(1,9), opChType = "ROC")$Plot
+#' binned <- DfBinDataset(dataset02, desiredNumBins = 3, opChType = "ROC")
 #'
-#' binned <- DfBinDataset(dataset05, opChType = "AFROC")
-#' PlotEmpiricalOperatingCharacteristics(dataset05, 
-#' trts= c(1,2), rdrs = seq(1,9), opChType = "AFROC")$Plot
-#' PlotEmpiricalOperatingCharacteristics(binned, trts= c(1,2), 
-#' rdrs = seq(1,9), opChType = "AFROC")$Plot
+#' binned <- DfBinDataset(dataset02, desiredNumBins = 3, opChType = "ROC")
+#' binned <- DfBinDataset(dataset02, desiredNumBins = 3, opChType = "AFROC")
+#' binned <- DfBinDataset(dataset05, opChType = "wAFROC", desiredNumBins = 1)
+#' binned <- DfBinDataset(dataset05, opChType = "wAFROC", desiredNumBins = 2)
+#' binned <- DfBinDataset(dataset05, opChType = "wAFROC", desiredNumBins = 3)
+#' ## etc.
 #' }
 #'  
 #' \donttest{
 #' ## takes longer than 5 sec on OSX
-#' ## library(ggplot2)
-#' ## dataset <- SimulateRocDataset(K1 = 5000, K2 = 7000, a = 1, b = 0.5, seed = 123)
-#' ## datasetB <- DfBinDataset(dataset, desiredNumBins = 7, opChType = "ROC")
-#' ## fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"), nrow = 2, ncol = 9)
-#' ## print(fomOrg)
-#' ## fomBinned <- as.matrix(UtilFigureOfMerit(datasetB, FOM = "Wilcoxon"), nrow = 2, ncol = 9)
-#' ## print(fomOrg)
-#' ## cat("fomOrg = ", mean(fomOrg), "\n")
-#' ## cat("fomBinned = ", mean(fomBinned), "\n")
-#' ## x <- PlotEmpiricalOperatingCharacteristics(dataset, opChType = "ROC")$Plot
-#' ## y <- PlotEmpiricalOperatingCharacteristics(datasetB, opChType = "ROC")$Points
-#' ## fpf <- y$genAbscissa[-1];fpf <- fpf[-length(fpf)]
-#' ## tpf <- y$genOrdinate[-1];tpf <- tpf[-length(tpf)]
-#' ## plotOpPnts <- rbind(data.frame(fpf = fpf, tpf = tpf))
-#' ## x <- x + geom_point(data = plotOpPnts, aes(x = fpf, y = tpf), size = 4)
-#' ## print(x)
-#' ## xx <- PlotEmpiricalOperatingCharacteristics(datasetB, opChType = "ROC")
-#' ## print(xx$Points)
+#' dataset <- SimulateRocDataset(I = 2, J = 5, K1 = 50, K2 = 70, a = 1, b = 0.5, seed = 123)
+#' datasetB <- DfBinDataset(dataset, desiredNumBins = 7, opChType = "ROC")
+#' fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"))
+#' print(fomOrg)
+#' fomBinned <- as.matrix(UtilFigureOfMerit(datasetB, FOM = "Wilcoxon"))
+#' print(fomBinned)
+#' cat("mean, sd = ", mean(fomOrg), sd(fomOrg), "\n")
+#' cat("mean, sd = ", mean(fomBinned), sd(fomBinned), "\n")
 #' }
 #' 
 #' 
@@ -78,14 +65,11 @@
 
 DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   
-  nlDim <- dim(dataset$ratings$NL)
-  llDim <- dim(dataset$ratings$LL)
-  I <- nlDim[1]
-  J <- nlDim[2]
-  K <- nlDim[3]
-  K2 <- llDim[3]
-  K1 <- K - K2
+  if (dataset$descriptions$design != "FCTRL") stop("Need factorial dataset for this function")
+  
   type <- dataset$descriptions$type
+  
+  DEBUG <- FALSE
   
   if (type == "ROC") {
     if (opChType == "FROC") stop("Cannot convert an ROC dataset to an AFROC dataset")
@@ -97,147 +81,26 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   } else {
     stop("type must be ROC or FROC")
   }
-  if (opChType == "ROC") FOM <- "Wilcoxon" else
-    if (opChType == "AFROC") FOM <- "AFROC" else
-      if (opChType == "wAFROC") FOM <- "wAFROC" else 
-        if (opChType == "FROC") {
-          FOM <- "FROC"
-          desiredNumBins <- desiredNumBins + 1
-        } else stop("should not be here")
   
-  NL <- dataset$ratings$NL
-  LL <- dataset$ratings$LL
-
-  # fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = FOM), nrow = I, ncol = J)
-  # ## print(fomOrg)
-  # cat("mean, sd = ", mean(fomOrg), sd(fomOrg), "\n")
-  numZeta <- desiredNumBins - 1 # TBA may need to distinguish here btwn ROC and FROC
-  maxFomij <- array(-1,dim = c(I,J))
-  sSave <- array(dim = c(I,J))
-  zetasArr <- array(dim = c(I,J,numZeta))
+  if (opChType == "ROC") FOM <- "Wilcoxon" else if (opChType == "AFROC") 
+    FOM <- "AFROC" else if (opChType == "wAFROC") FOM <- "wAFROC" 
+  else if (opChType == "FROC") {
+    FOM <- "FROC"
+    desiredNumBins <- desiredNumBins + 1 # TBA why?
+  } else stop("should not be here")
   
-  # NL <- dataset$ratings$NL[i,j,,]
-  # LL <- dataset$ratings$LL[i,j,1:K2,]
-  # searchZetas2MaximizeFom (dataset, FOM, maximize) {
-  # find zetas to maximize FOM
-  datasetB <- dataset
-  for (i in 1:I){
-    for (j in 1:J){
-      if (FOM == "FROC") {      
-        NL <- dataset$ratings$NL[i,j,,]
-        LL <- dataset$ratings$LL[i,j,1:K2,]
-      } else {
-        NL <- dataset$ratings$NL[i,j,1:K1,]
-        LL <- dataset$ratings$LL[i,j,1:K2,]
-      }
-      nl <- NL[NL != -Inf];lx <- length(nl)
-      ll <- LL[LL != -Inf];ly <- length(ll)
-      nl_ll <- c(nl, ll)
-      
-      candidateZetas <-  sort(unique(nl_ll))
-      # for ROC, need to remove lowest value, as this gives (1,1) point
-      if (type == "ROC") candidateZetas <-  candidateZetas[-1]
-      
-      el <- length(candidateZetas)
-      if (el < numZeta) {
-        sample <- combn(candidateZetas, el -1)
-      } else {
-        # if more than 20 candidates, need to trim
-        if (el > 20) {
-          byDivisor <- 10
-          while (1) {
-            by <- as.integer(el/byDivisor)
-            candidateZetasTrim <- candidateZetas[seq(from = 1, to = el, by = by)]
-            sample <- combn(candidateZetasTrim, numZeta)
-            if (length(sample[1,]) > 200) {
-              byDivisor <- byDivisor - 1
-            } else break
-          }
-        } else sample <- combn(candidateZetas, numZeta)
-      }
-      for (s in 1:length(sample[1,])) {
-        z <- sort(sample[,s])
-        if (type == "ROC")  zetas <- c(-Inf,z,+Inf) else zetas <- c(z,+Inf) 
-        nLlLB <- cut(nl_ll, zetas, labels = FALSE, right = FALSE)
-        nLlLB[is.na(nLlLB)] <- -Inf
-        nlB <- array(-Inf, dim = c(K1+K2,nlDim[4]))
-        llB <- array(-Inf, dim = c(K2,llDim[4]))
-        if (FOM == "FROC") {      
-          nlB[x] <- nLlLB[1:lx]
-          llB[1:K2,][y] <- nLlLB[(lx+1):(lx+ly)]
-        } else {
-          nlB[1:K1,][x] <- nLlLB[1:lx]
-          llB[1:K2,][y] <- nLlLB[(lx+1):(lx+ly)]
-        }
-        datasetB$ratings$NL[i,j,1:K1,] <- nlB[1:K1,]
-        datasetB$ratings$LL[i,j,,] <- llB
-        fom1 <- as.matrix(UtilFigureOfMerit(datasetB, FOM = FOM))[i,j]
-        if (fom1 > maxFomij[i,j]){
-          sSave[i,j] <- s
-          maxFomij[i,j] <- fom1
-          zetasArr[i,j,1:length(z)] <- z
-        }
-      }
-      next
-    }
+  if (DEBUG) {
+    fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = FOM))
+    print(fomOrg)
+    cat("mean, sd = ", mean(fomOrg), sd(fomOrg), "\n")
   }
   
-  # this time we simply bin the data, no more maximization
-  datasetB <- dataset
-  for (i in 1:I) {
-    for (j in 1:J) { 
-      if (FOM == "FROC") {      
-        NL <- dataset$ratings$NL[i,j,,]
-        LL <- dataset$ratings$LL[i,j,1:K2,]
-      } else {
-        NL <- dataset$ratings$NL[i,j,1:K1,]
-        LL <- dataset$ratings$LL[i,j,1:K2,]
-      }
-      x <- (NL != -Inf);lx <- length(NL[x])
-      y <- (LL != -Inf);ly <- length(LL[y])
-      nl_ll <- c(NL[x],LL[y])
-      z <- zetasArr[i,j,]
-      z <- z[!is.na(z)]
-      if (type == "ROC")  zetas <- c(-Inf,z,+Inf) else zetas <- c(z,+Inf) 
-      nLlLB <- cut(nl_ll, zetas, labels = FALSE, right = FALSE)
-      nLlLB[is.na(nLlLB)] <- -Inf
-      # nlB <- array(-Inf, dim = c(K1+K2,nlDim[4]))
-      # llB <- array(-Inf, dim = c(K2,llDim[4]))
-      # nlB[1:K1,][x] <- nLlLB[1:lx]
-      # llB[1:K2,][y] <- nLlLB[(lx+1):(lx+ly)]
-      # datasetB$NL[i,j,1:K1,] <- nlB[1:K1,]
-      # datasetB$LL[i,j,,] <- llB
-      if (FOM == "FROC") {      
-        datasetB$ratings$NL[i,j,,][x] <- nLlLB[1:lx]
-        datasetB$ratings$LL[i,j,1:K2,][y] <- nLlLB[(lx+1):(lx+ly)]
-      } else {
-        datasetB$ratings$NL[i,j,1:K1,][x] <- nLlLB[1:lx]
-        datasetB$ratings$LL[i,j,1:K2,][y] <- nLlLB[(lx+1):(lx+ly)]
-      }
-    }
+  if (type == "ROC") {
+    desiredNumZetas <- desiredNumBins - 1
+  } 
+  else {
+    desiredNumZetas <- desiredNumBins
   }
-  # fom1 <- UtilFigureOfMerit(datasetB, FOM = FOM)
-  # ## print(fom1)
-  # cat("mean, sd = ", mean(fom1), sd(fom1), "\n")
-  NL <- datasetB$ratings$NL
-  LL <- datasetB$ratings$LL
-  binned <- isBinned(NL, LL)
-  fileName <- NA
-  name <- NA
-  design <- "FCTRL"
-  truthTableStr <- NA
-  type <- "ROC"
-  perCase <- rep(1,K2)
-  return(convert2dataset(NL, LL, LL_IL = NA, 
-                         perCase, dataset$lesions$IDs, dataset$lesions$weights,
-                         binned, fileName, type, name, truthTableStr, design,
-                         dataset$descriptions$modalityID, dataset$descriptions$readerID))
-  return(datasetB)
-}
-
-
-
-searchZetas2MaximizeFom <- function(dataset, FOM, maximize) {
   
   nlDim <- dim(dataset$ratings$NL)
   llDim <- dim(dataset$ratings$LL)
@@ -246,28 +109,46 @@ searchZetas2MaximizeFom <- function(dataset, FOM, maximize) {
   K <- nlDim[3]
   K2 <- llDim[3]
   K1 <- K - K2
+  
+  # find zetas to maximize FOM
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
-  type <- dataset$descriptions$type
-  
-  datasetB <- dataset # datasetB is the binned dataset
+  NL_B <- NL;LL_B <- LL
+  zetas_ij <- array(dim = c(I,J,desiredNumZetas))
   for (i in 1:I){
     for (j in 1:J){
+      maxFom <- -1
       if (FOM == "FROC") {      
-        NL <- NL[i,j,,]
-        LL <- LL[i,j,1:K2,]
+        NL_ij <- NL[i,j,,]
+        LL_ij <- LL[i,j,1:K2,]
       } else {
-        NL <- NL[i,j,1:K1,]
-        LL <- LL[i,j,1:K2,]
+        NL_ij <- NL[i,j,1:K1,]
+        LL_ij <- LL[i,j,1:K2,]
       }
-      x <- (NL != -Inf);lx <- length(NL[x])
-      y <- (LL != -Inf);ly <- length(LL[y])
-      nLlL <- c(NL[x],LL[y])
-      # for ROC, need to remove lowest value, as this gives (1,1) point
-      if (type == "ROC") candidateZetas <-  sort(unique(nLlL))[-1] else
-        candidateZetas <-  sort(unique(nLlL))
+      x <- (NL_ij != -Inf)
+      nl <- NL_ij[x]
+      lx <- length(nl)
+      y <- (LL_ij != -Inf)
+      ll <- LL_ij[y]
+      ly <- length(ll)
+      nl_ll <- c(nl, ll)
+      
+      candidateZetas <-  sort(unique(nl_ll))
+      # for ROC, could remove lowest value, as this gives the trivial (1,1) point
+      # this step is optional, does not make a difference in the end
+      if (type == "ROC") {
+        candidateZetas <-  candidateZetas[-1]
+      }
+      
+      if (length(candidateZetas) <= desiredNumZetas) { # rhs is desiredNumBins - 1 for ROC desiredNumBins for FROC
+        # this dataset is already binned acccrding to desiredNumZetas criteria
+        # no point searching, so save the candidateZetas and move on to next i,j
+        zetas_ij[i,j,1:length(candidateZetas)] <- candidateZetas
+        next
+      }
+      
       el <- length(candidateZetas)
-      if (el < numZeta) {
+      if (el < desiredNumZetas) {
         sample <- combn(candidateZetas, el -1)
       } else {
         # if more than 20 candidates, need to trim
@@ -276,46 +157,67 @@ searchZetas2MaximizeFom <- function(dataset, FOM, maximize) {
           while (1) {
             by <- as.integer(el/byDivisor)
             candidateZetasTrim <- candidateZetas[seq(from = 1, to = el, by = by)]
-            sample <- combn(candidateZetasTrim, numZeta)
+            sample <- combn(candidateZetasTrim, desiredNumZetas)
             if (length(sample[1,]) > 200) {
               byDivisor <- byDivisor - 1
             } else break
           }
-        } else sample <- combn(candidateZetas, numZeta)
+        } else sample <- combn(candidateZetas, desiredNumZetas)
       }
+      
       for (s in 1:length(sample[1,])) {
         z <- sort(sample[,s])
         if (type == "ROC")  zetas <- c(-Inf,z,+Inf) else zetas <- c(z,+Inf) 
-        nLlLB <- cut(nLlL, zetas, labels = FALSE, right = FALSE)
-        nLlLB[is.na(nLlLB)] <- -Inf
-        nlB <- array(-Inf, dim = c(K1+K2,nlDim[4]))
-        llB <- array(-Inf, dim = c(K2,llDim[4]))
+        nl_ll_B <- cut(nl_ll, zetas, labels = FALSE, right = FALSE)
+        nl_ll_B[is.na(nl_ll_B)] <- -Inf
+        nl_B <- array(-Inf, dim = c(K1+K2,nlDim[4]))
+        ll_B <- array(-Inf, dim = c(K2,llDim[4]))
         if (FOM == "FROC") {      
-          nlB[x] <- nLlLB[1:lx]
-          llB[1:K2,][y] <- nLlLB[(lx+1):(lx+ly)]
+          nl_B[x] <- nl_ll_B[1:lx]
+          ll_B[1:K2,][y] <- nl_ll_B[(lx+1):(lx+ly)]
         } else {
-          nlB[1:K1,][x] <- nLlLB[1:lx]
-          llB[1:K2,][y] <- nLlLB[(lx+1):(lx+ly)]
+          nl_B[1:K1,][x] <- nl_ll_B[1:lx]
+          ll_B[1:K2,][y] <- nl_ll_B[(lx+1):(lx+ly)]
         }
-        if (maximize) {
-          datasetB$ratings$NL[i,j,1:K1,] <- nlB[1:K1,]
-          datasetB$ratings$LL[i,j,,] <- llB
-          fom1 <- as.matrix(UtilFigureOfMerit(datasetB, FOM = FOM))[i,j]
-          if (fom1 > maxFomij[i,j]){
-            sSave[i,j] <- s
-            maxFomij[i,j] <- fom1
-            zetasArr[i,j,1:length(z)] <- z
-          }
+        dim(nl_B) <- c(K, nlDim[4])
+        dim(ll_B) <- c(K2, llDim[4])
+        fom_ij <- MyFom_ij(nl_B, ll_B, dataset$lesions$perCase, dataset$lesions$IDs, 
+                           dataset$lesions$weights, nlDim[4], llDim[4], K1, K2, FOM, FPFValue)
+        if (fom_ij > maxFom){
+          if (DEBUG) cat(sprintf("higher fom found, i = %d, j = %d, s = %d, fom = %f\n", i, j, s, fom_ij))
+          maxFom <- fom_ij
+          zetas_ij[i,j,1:length(z)] <- z      # save the ctff values yielding max fom here
+          NL_B[i,j,1:K1,] <- nl_B[1:K1,]      # save the binned NL values yielding max fom here
+          LL_B[i,j,,] <- ll_B                 # do:             LL
         }
       }
-      next
+      if (DEBUG) cat("\n")
     }
+    if (DEBUG) cat("\n")
+  } 
+  
+  # return the binned dataset
+  binned <- all(isBinned(NL_B, LL_B)) # TBA this needs to be fixed
+  fileName <- NA
+  name <- NA
+  design <- "FCTRL"
+  truthTableStr <- NA
+  type <- dataset$descriptions$type # sic; dataset not datasetB
+  perCase <- dataset$lesions$perCase
+  IDs <- dataset$lesions$IDs
+  weights <- dataset$lesions$weights
+  datasetB <- convert2dataset(NL_B, LL_B, LL_IL = NA, 
+                              perCase, IDs, weights,
+                              binned, fileName, type, name, truthTableStr, design,
+                              dataset$descriptions$modalityID, dataset$descriptions$readerID)
+  
+  if (DEBUG) {
+    fomFinal <- as.matrix(UtilFigureOfMerit(datasetB, FOM = FOM))
+    print(fomFinal)
+    cat("mean, sd = ", mean(fomFinal), sd(fomFinal), "\n")
   }
   
-  return(list(
-    zetasArr = zetasArr,
-    datasetB = datasetB
-  ))
+  return(datasetB)
 }
 
 
@@ -338,7 +240,8 @@ DfFroc2Afroc <- function (dataset){
   design <- dataset$descriptions$design
   truthTableStr <- dataset$descriptions$truthTableStr
   IDs <- dataset$lesions$IDs
-  type <- "FROC"
+  weights <- dataset$lesions$weights
+  type <- dataset$descriptions$type
   perCase <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID

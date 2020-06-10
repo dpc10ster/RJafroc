@@ -160,24 +160,24 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
       if (design == "SPLIT-PLOT") {
         k1_j_sub <- !is.na(t[1,j,,1]) | !is.na(t[1,j,,2])
         k2_j_sub <- !is.na(t[1,j,,2])[(K1+1):K]
-        nl_j <- NL[i, j, k1_j_sub, ]
+        nl_ij <- NL[i, j, k1_j_sub, ]
         lV_j <- dataset$lesions$perCase[k2_j_sub]
         maxLL_j <- max(lV_j)
-        ll_j <- LL[i, j, k2_j_sub, 1:maxLL_j]
+        ll_ij <- LL[i, j, k2_j_sub, 1:maxLL_j]
         k1j <- sum(!is.na(t[1,j,,1]))
         k2j <- sum(!is.na(t[1,j,,2]))
-        lID_j <- dataset$lesionID[k2_j_sub,1:maxLL_j, drop = FALSE]
-        lW_j <- dataset$lesionWeight[k2_j_sub,1:maxLL_j, drop = FALSE]
-        dim(nl_j) <- c(k1j+k2j, maxNL)
-        dim(ll_j) <- c(k2j, maxLL_j)
-        fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1j, k2j, FOM, FPFValue)
+        lID_j <- dataset$lesions$IDs[k2_j_sub,1:maxLL_j, drop = FALSE]
+        lW_j <- dataset$lesions$weights[k2_j_sub,1:maxLL_j, drop = FALSE]
+        dim(nl_ij) <- c(k1j+k2j, maxNL)
+        dim(ll_ij) <- c(k2j, maxLL_j)
+        fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1j, k2j, FOM, FPFValue)
         next
       } else if (design == "FCTRL"){
-        nl_j <- NL[i, j, , ]
-        ll_j <- LL[i, j, , ]
-        dim(nl_j) <- c(K, maxNL)
-        dim(ll_j) <- c(K2, maxLL)
-        fomArray[i, j] <- gpfMyFOM(nl_j, ll_j, dataset$lesions$perCase, dataset$lesionID, dataset$lesionWeight, maxNL, maxLL, K1, K2, FOM, FPFValue)
+        nl_ij <- NL[i, j, , ]
+        ll_ij <- LL[i, j, , ]
+        dim(nl_ij) <- c(K, maxNL)
+        dim(ll_ij) <- c(K2, maxLL)
+        fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, dataset$lesions$perCase, dataset$lesions$IDs, dataset$lesions$weights, maxNL, maxLL, K1, K2, FOM, FPFValue)
       } else stop("Incorrect design, must be SPLIT-PLOT or FCTRL")
     }
   }
