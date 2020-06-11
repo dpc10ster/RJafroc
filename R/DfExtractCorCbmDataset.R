@@ -78,13 +78,13 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
           if (j > i) {
             dsX <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
           } else {
-            dsY <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
+            dsY$ratings <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
           }
         }
       }
     }
-    NL <- rbind(dsX$ratings$NL,dsY$NL);dim(NL) <- c(1,2,K,1)
-    LL <- rbind(dsX$ratings$LL,dsY$LL);dim(LL) <- c(1,2,K2,1)
+    NL <- rbind(dsX$ratings$NL,dsY$ratings$NL);dim(NL) <- c(1,2,K,1)
+    LL <- rbind(dsX$ratings$LL,dsY$ratings$LL);dim(LL) <- c(1,2,K2,1)
     ds <- dsX
     ds$ratings$NL <- NL;ds$ratings$LL <- LL
     ds$descriptions$modalityID <- "1"
