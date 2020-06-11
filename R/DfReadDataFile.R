@@ -562,13 +562,12 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   names(modalityIDUnique) <- modalityNames; modalityID <- modalityIDUnique
   names(readerIDUnique) <- readerNames; readerID <- readerIDUnique
   
-  binned <- isBinned(NL, LL)
   fileName <- NA
   name <- NA
   if (design == "FCTRL") design <- "FCTRL"
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
-                         binned, fileName, type, name, truthTableStr, design,
+                         fileName, type, name, truthTableStr, design,
                          modalityID, readerID))
   
 } 
@@ -840,13 +839,12 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
     truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
   }
   
-  binned <- isBinned(NL, LL)
   fileName <- NA
   name <- NA
   design <- "FCTRL" # default when using old read function
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
-                         binned, fileName, type, name, truthTableStr, design,
+                         fileName, type, name, truthTableStr, design,
                          modalityID, readerID))
   
 } 

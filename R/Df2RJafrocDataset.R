@@ -33,67 +33,14 @@
 #' Consecutive characters/integers starting with "1" are assigned to \code{IDs}, \code{modalityID} and \code{readerID}.
 #' 
 #' @examples
-#' set.seed(1)
-#' NL <- rnorm(5)
-#' LL <- rnorm(7)*1.5 + 2
-#' dataset <- Df2RJafrocDataset(NL, LL) # an ROC dataset
+#' ## Input as ratings arrays
+#' set.seed(1);NL <- rnorm(5);LL <- rnorm(7)*1.5 + 2
+#' dataset <- Df2RJafrocDataset(NL, LL)
 #'
 #' ## Input as counts tables
 #' K1t <- c(30, 19, 8, 2, 1)
 #' K2t <- c(5,  6, 5, 12, 22)
 #' dataset <- Df2RJafrocDataset(K1t, K2t, InputIsCountsTable = TRUE)
-#' ## perCase consists of 1s; i.e., an ROC dataset
-#' I <- 2;J <- 3;set.seed(1)
-#' K1 <- 25;K2 <- 35
-#' z1 <- array(dim = c(I, J, K1))
-#' z2 <- array(dim = c(I, J, K2))
-#' mu <- 2;sigma <- 1.5
-#' for (i in 1:I) {
-#'  for (j in 1:J) {
-#'    z1[i,j,1:K1] <- rnorm(K1)
-#'    z2[i,j,] <- rnorm(K2) * sigma + mu
-#'  }
-#' }
-#' dataset <- Df2RJafrocDataset(z1, z2) 
-#'
-#' ## note perCase is not all 1s, signalling an FROC dataset
-#' set.seed(1)
-#' mu <- 1;lambda <- 1;nu <- 1; zeta1 <- 0
-#' K1 <- 5;K2 <- 7
-#' Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
-#' frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, 
-#' perCase = Lk2)
-#' NL <- drop(frocDataRaw$ratings$NL)
-#' LL <- drop(frocDataRaw$ratings$LL)
-#' dataset <- Df2RJafrocDataset(NL, LL, perCase = Lk2) 
-#' 
-#'
-#' ## Simulate FROC dataset, convert to dataset object
-#' I <- 2;J <- 3;set.seed(1)
-#' K1 <- 25;K2 <- 35
-#' mu <- 1;nuP <- 0.8;lambdaP <- 1;zeta1 <- 0
-#' lambda <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$lambda
-#' nu <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$nu
-#' Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
-#' z1 <- array(-Inf,dim = c(I,J,K1+K2,40))
-#' z2 <- array(-Inf,dim = c(I,J,K2,40))
-#' dimNL <- array(dim=c(I,J,2)) 
-#' ## the last value (2) accommodates case and location indices
-#' dimLL <- array(dim=c(I,J,2))
-#' for (i in 1:I) {
-#'   for (j in 1:J) {
-#'     frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, 
-#'     J = 1, K1, K2, perCase = Lk2)
-#'     dimNL[i,j,] <- dim(drop(frocDataRaw$ratings$NL))
-#'     dimLL[i,j,] <- dim(drop(frocDataRaw$ratings$LL))
-#'     z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$ratings$NL) # drop the excess location indices
-#'     z2[i,j,,1:dimLL[i,j,2]] <- drop(frocDataRaw$ratings$LL)
-#'   }
-#' }
-#' z1 <- z1[,,,1:max(dimNL[,,2])]
-#' z2 <- z2[,,,1:max(dimLL[,,2])]
-#'
-#' dataset <- Df2RJafrocDataset(z1, z2, perCase = Lk2)
 #'
 #' 
 #' @export
@@ -105,8 +52,8 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
     type <- "ROC" 
     if (InputIsCountsTable == TRUE) {
       ret <- RatingsArraysFromRatingsTables(NL,LL)
-      NL <- ret$NL
-      LL <- ret$LL
+      NL <- ret$NL # sic; ret is not a dataset object
+      LL <- ret$LL # do:
     }
   }
   else if (names(inputList) == "perCase") type <- "FROC" else stop("unknown data type")
@@ -128,14 +75,13 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
       weights <- FrocDataDescriptor(inputList)$weights
     modalityID <- "1"
     readerID <- "1"
-    binned <- isBinned(NL, LL)
     fileName <- NA
     name <- NA
     design <- "FCTRL"
     truthTableStr <- NA
     return(convert2dataset(NL, LL, LL_IL = NA, 
                            perCase, IDs, weights,
-                           binned, fileName, type, name, truthTableStr, design,
+                           fileName, type, name, truthTableStr, design,
                            modalityID, readerID))
   }
   
@@ -176,14 +122,13 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
     }
     modalityID <- as.character(seq(1:I))
     readerID <- as.character(seq(1:J))
-    binned <- isBinned(NL, LL)
     fileName <- NA
     name <- NA
     design <- "FCTRL"
     truthTableStr <- NA
     return(convert2dataset(NL, LL, LL_IL = NA, 
                            perCase, IDs, weights,
-                           binned, fileName, type, name, truthTableStr, design,
+                           fileName, type, name, truthTableStr, design,
                            modalityID, readerID))
     
   } 
@@ -218,14 +163,13 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
     }
     modalityID <- as.character(seq(1:I))
     readerID <- as.character(seq(1:J))
-    binned <- isBinned(NL, LL)
     fileName <- NA
     name <- NA
     design <- "FCTRL"
     truthTableStr <- NA
     return(convert2dataset(NL, LL, LL_IL = NA, 
                            perCase, IDs, weights,
-                           binned, fileName, type, name, truthTableStr, design,
+                           fileName, type, name, truthTableStr, design,
                            modalityID, readerID))
   } 
   
@@ -246,14 +190,13 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
     }
     modalityID <- as.character(seq(1:I))
     readerID <- as.character(seq(1:J))
-    binned <- isBinned(NL, LL)
     fileName <- NA
     name <- NA
     design <- "FCTRL"
     truthTableStr <- NA
     return(convert2dataset(NL, LL, LL_IL = NA, 
                            perCase, IDs, weights,
-                           binned, fileName, type, name, truthTableStr, design,
+                           fileName, type, name, truthTableStr, design,
                            modalityID, readerID))
   }
   stop("could not figure out data type")
@@ -296,24 +239,9 @@ RatingsArraysFromRatingsTables <- function( K1, K2 ) {
 }
 
 
-isBinned <- function(NL, LL, minUniqeRatings = 6){
-  I <- dim(NL)[1]
-  J <- dim(NL)[2]
-  binned <- array(dim = c(I,J))
-  for (i in 1:I) {
-    for (j in 1:J) {
-      nl <- NL[i,j,,]
-      ll <- LL[i,j,,]
-      if (length(unique(c(ll[is.finite(ll)], nl[is.finite(nl)]))) <= minUniqeRatings) 
-        binned[i,j] <- TRUE else binned[i,j] <- FALSE
-    }
-  }
-  return (binned)
-}
-
 convert2dataset <- function(NL, LL, LL_IL, 
                             perCase, IDs, weights,
-                            binned, fileName, type, name, truthTableStr, design,
+                            fileName, type, name, truthTableStr, design,
                             modalityID, readerID) {
   ratings <- list(NL = NL,
                   LL = LL,
@@ -323,8 +251,7 @@ convert2dataset <- function(NL, LL, LL_IL,
                   IDs = IDs,
                   weights = weights)
   
-  descriptions <- list(binned = binned,
-                       fileName = fileName,
+  descriptions <- list(fileName = fileName,
                        type = type,
                        name = name,
                        truthTableStr = truthTableStr,

@@ -8,7 +8,7 @@
 A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
    contain 3 elements, \code{$perCase}, \code{$IDS} and \code{$weights} as sub-lists; \code{$descriptions}
-   contain 8 elements, \code{$binned}, \code{$fileName}, \code{$type}, \code{$name},
+   contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 \itemize{
 \item{\code{rating$NL}}{, num [1:2, 1:4, 1:89, 1:17], ratings of non-lesion localizations, NLs}
@@ -17,7 +17,6 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
 \item{\code{lesions$perCase}}{, int [1:42], number of lesions per diseased case}
 \item{\code{lesions$IDs}}{, num [1:42, 1:15], numeric labels of lesions on diseased cases}
 \item{\code{lesions$weights}}{, num [1:42, 1:15], weights (or clinical importances) of lesions}
-\item{\code{descriptions$binned}}{, logical, TRUE if less than 7 unique rating values, FALSE otherwise}
 \item{\code{descriptions$fileName}}{, chr, "dataset06", base name of dataset in `data` folder}
 \item{\code{descriptions$type}}{, chr "FROC", the data type}
 \item{\code{descriptions$name}}{, chr "MAGNUS", the name of the dataset}

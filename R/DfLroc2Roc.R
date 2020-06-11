@@ -54,7 +54,7 @@ DfLroc2Roc <- function (dataset) #  TBA !!!in tests!!!
   perCase <- rep(1,K2)
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, dataset$lesions$IDs, dataset$lesions$weights,
-                         binned, fileName, type, name, truthTableStr, design,
+                         fileName, type, name, truthTableStr, design,
                          dataset$descriptions$modalityID, dataset$descriptions$readerID))
 }
 

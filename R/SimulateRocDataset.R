@@ -44,7 +44,6 @@ SimulateRocDataset <- function(I = 1, J = 1, K1, K2, a, b, seed = NULL){
     }
   }
   
-  binned <- all(isBinned(NL, LL)) # TBA this needs to be fixed
   fileName <- NA
   name <- NA
   design <- "FCTRL"
@@ -57,7 +56,7 @@ SimulateRocDataset <- function(I = 1, J = 1, K1, K2, a, b, seed = NULL){
   readerID <- as.character(1:J)
   dataset <- convert2dataset(NL, LL, LL_IL = NA, 
                               perCase, IDs, weights,
-                              binned, fileName, type, name, truthTableStr, design,
+                              fileName, type, name, truthTableStr, design,
                               modalityID, readerID) 
   return(dataset)
 }

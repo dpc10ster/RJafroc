@@ -158,7 +158,7 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
     
     retFileName <- paste0("allResults", fileName) 
     sysAnalFileName <- system.file("ANALYZED/RSM6", retFileName, package = "RJafroc", mustWork = TRUE)
-    if (!rocData$descriptions$binned){
+    if (!all(isBinnedDataset(rocData))){
       binnedRocData <- DfBinDataset(rocData, desiredNumBins = 5, opChType = "ROC") # new function
     }else{
       binnedRocData <- rocData

@@ -65,9 +65,9 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
     return(ds)
   } else if ((lt == 2) && (lr == 1)) {
     ds <- DfExtractDataset(dataset, trts, rdrs)
-    NL <- ds$NL;dim(NL) <- c(1,2,K,1)
-    LL <- ds$LL;dim(LL) <- c(1,2,K2,1)
-    ds$NL <- NL;ds$LL <- LL
+    NL <- ds$ratings$NL;dim(NL) <- c(1,2,K,1)
+    LL <- ds$ratings$LL;dim(LL) <- c(1,2,K2,1)
+    ds$ratings$NL <- NL;ds$ratings$LL <- LL
     ds$descriptions$modalityID <- "1"
     ds$descriptions$readerID <- c("1", "2")
     return(ds)
@@ -83,10 +83,10 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
         }
       }
     }
-    NL <- rbind(dsX$NL,dsY$NL);dim(NL) <- c(1,2,K,1)
-    LL <- rbind(dsX$LL,dsY$LL);dim(LL) <- c(1,2,K2,1)
+    NL <- rbind(dsX$ratings$NL,dsY$NL);dim(NL) <- c(1,2,K,1)
+    LL <- rbind(dsX$ratings$LL,dsY$LL);dim(LL) <- c(1,2,K2,1)
     ds <- dsX
-    ds$NL <- NL;ds$LL <- LL
+    ds$ratings$NL <- NL;ds$ratings$LL <- LL
     ds$descriptions$modalityID <- "1"
     ds$descriptions$readerID <- c("1", "2")
     return(ds)

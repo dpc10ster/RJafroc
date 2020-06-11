@@ -30,9 +30,9 @@
 #' @examples
 #' \donttest{
 #' binned <- DfBinDataset(dataset02, desiredNumBins = 3, opChType = "ROC")
-#'
-#' binned <- DfBinDataset(dataset02, desiredNumBins = 3, opChType = "ROC")
-#' binned <- DfBinDataset(dataset02, desiredNumBins = 3, opChType = "AFROC")
+#' binned <- DfBinDataset(dataset05, desiredNumBins = 4, opChType = "ROC")
+#' binned <- DfBinDataset(dataset05, desiredNumBins = 4, opChType = "AFROC")
+#' binned <- DfBinDataset(dataset05, desiredNumBins = 4, opChType = "wAFROC")
 #' binned <- DfBinDataset(dataset05, opChType = "wAFROC", desiredNumBins = 1)
 #' binned <- DfBinDataset(dataset05, opChType = "wAFROC", desiredNumBins = 2)
 #' binned <- DfBinDataset(dataset05, opChType = "wAFROC", desiredNumBins = 3)
@@ -72,7 +72,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   DEBUG <- FALSE
   
   if (type == "ROC") {
-    if (opChType == "FROC") stop("Cannot convert an ROC dataset to an AFROC dataset")
+    if (opChType != "ROC") stop("Cannot convert an ROC dataset to an FROC dataset")
   } else if (type == "FROC") {
     if (opChType == "ROC") dataset <- DfFroc2Roc(dataset)
     if (opChType == "AFROC") dataset <- DfFroc2Afroc(dataset)
@@ -84,10 +84,9 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   
   if (opChType == "ROC") FOM <- "Wilcoxon" else if (opChType == "AFROC") 
     FOM <- "AFROC" else if (opChType == "wAFROC") FOM <- "wAFROC" 
-  else if (opChType == "FROC") {
-    FOM <- "FROC"
-    desiredNumBins <- desiredNumBins + 1 # TBA why?
-  } else stop("should not be here")
+  else if (opChType == "FROC") FOM <- "FROC" else stop("should not be here")
+  # desiredNumBins <- desiredNumBins + 1 # TBA why?
+  # } else stop("should not be here")
   
   if (DEBUG) {
     fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = FOM))
@@ -102,6 +101,8 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
     desiredNumZetas <- desiredNumBins
   }
   
+  if (desiredNumZetas <1) stop("Too few bins requested")
+  
   nlDim <- dim(dataset$ratings$NL)
   llDim <- dim(dataset$ratings$LL)
   I <- nlDim[1]
@@ -113,11 +114,12 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   # find zetas to maximize FOM
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
-  NL_B <- NL;LL_B <- LL
+  NL_B <- array(-Inf, dim = c(I,J,K,nlDim[4]))
+  LL_B <- array(-Inf, dim = c(I,J,K2,llDim[4]))
   zetas_ij <- array(dim = c(I,J,desiredNumZetas))
+  maxFom_ij <- array(-1, dim = c(I, J))
   for (i in 1:I){
     for (j in 1:J){
-      maxFom <- -1
       if (FOM == "FROC") {      
         NL_ij <- NL[i,j,,]
         LL_ij <- LL[i,j,1:K2,]
@@ -134,19 +136,6 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
       nl_ll <- c(nl, ll)
       
       candidateZetas <-  sort(unique(nl_ll))
-      # for ROC, could remove lowest value, as this gives the trivial (1,1) point
-      # this step is optional, does not make a difference in the end
-      if (type == "ROC") {
-        candidateZetas <-  candidateZetas[-1]
-      }
-      
-      if (length(candidateZetas) <= desiredNumZetas) { # rhs is desiredNumBins - 1 for ROC desiredNumBins for FROC
-        # this dataset is already binned acccrding to desiredNumZetas criteria
-        # no point searching, so save the candidateZetas and move on to next i,j
-        zetas_ij[i,j,1:length(candidateZetas)] <- candidateZetas
-        next
-      }
-      
       el <- length(candidateZetas)
       if (el < desiredNumZetas) {
         sample <- combn(candidateZetas, el -1)
@@ -179,15 +168,21 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
           nl_B[1:K1,][x] <- nl_ll_B[1:lx]
           ll_B[1:K2,][y] <- nl_ll_B[(lx+1):(lx+ly)]
         }
+        
         dim(nl_B) <- c(K, nlDim[4])
         dim(ll_B) <- c(K2, llDim[4])
-        fom_ij <- MyFom_ij(nl_B, ll_B, dataset$lesions$perCase, dataset$lesions$IDs, 
-                           dataset$lesions$weights, nlDim[4], llDim[4], K1, K2, FOM, FPFValue)
-        if (fom_ij > maxFom){
+        if (!any(is.finite(nl_B)) || (!any(is.finite(ll_B)))) { # check for empty arrays
+          # zetas_ij[i,j,1:length(candidateZetas)] <- candidateZetas
+          fom_ij <- -1
+        } else {
+          fom_ij <- MyFom_ij(nl_B, ll_B, dataset$lesions$perCase, dataset$lesions$IDs, 
+                             dataset$lesions$weights, nlDim[4], llDim[4], K1, K2, FOM, FPFValue)
+        }
+        if (fom_ij > maxFom_ij[i,j]){
           if (DEBUG) cat(sprintf("higher fom found, i = %d, j = %d, s = %d, fom = %f\n", i, j, s, fom_ij))
-          maxFom <- fom_ij
+          maxFom_ij[i,j] <- fom_ij
           zetas_ij[i,j,1:length(z)] <- z      # save the ctff values yielding max fom here
-          NL_B[i,j,1:K1,] <- nl_B[1:K1,]      # save the binned NL values yielding max fom here
+          NL_B[i,j,,] <- nl_B                 # save the binned NL values yielding max fom here
           LL_B[i,j,,] <- ll_B                 # do:             LL
         }
       }
@@ -197,7 +192,6 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   } 
   
   # return the binned dataset
-  binned <- all(isBinned(NL_B, LL_B)) # TBA this needs to be fixed
   fileName <- NA
   name <- NA
   design <- "FCTRL"
@@ -208,7 +202,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   weights <- dataset$lesions$weights
   datasetB <- convert2dataset(NL_B, LL_B, LL_IL = NA, 
                               perCase, IDs, weights,
-                              binned, fileName, type, name, truthTableStr, design,
+                              fileName, type, name, truthTableStr, design,
                               dataset$descriptions$modalityID, dataset$descriptions$readerID)
   
   if (DEBUG) {
@@ -216,6 +210,11 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
     print(fomFinal)
     cat("mean, sd = ", mean(fomFinal), sd(fomFinal), "\n")
   }
+  
+  # check the binning
+  nl_ll <- c(datasetB$ratings$NL, datasetB$ratings$LL)
+  if ((type != "ROC") && (length(unique(nl_ll[is.finite(nl_ll)])) > desiredNumZetas)) stop("Error in DfBinDataset-FROC")
+  if ((type == "ROC") && (length(unique(nl_ll[is.finite(nl_ll)])) > (desiredNumZetas + 1))) stop("Error in DfBinDataset-ROC")
   
   return(datasetB)
 }
@@ -234,7 +233,6 @@ DfFroc2Afroc <- function (dataset){
   dim(NL) <- c(dim(NL), 1)
   NL[,,(K1+1):K,1] <- -Inf
   
-  binned <- isBinned(NL, LL)
   fileName <- NA
   name <- NA
   design <- dataset$descriptions$design
@@ -247,7 +245,7 @@ DfFroc2Afroc <- function (dataset){
   readerID <- dataset$descriptions$readerID
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
-                         binned, fileName, type, name, truthTableStr, design,
+                         fileName, type, name, truthTableStr, design,
                          modalityID, readerID))
   
 }
@@ -308,5 +306,56 @@ UtilBinCountsOpPts <- function(dataset, trt = 1, rdr = 1)
 
 
 
+isBinned <- function(NL, LL, maxUniqeRatings = 6){
+  I <- dim(NL)[1]
+  J <- dim(NL)[2]
+  binned <- array(dim = c(I,J))
+  for (i in 1:I) {
+    for (j in 1:J) {
+      nl <- NL[i,j,,]
+      ll <- LL[i,j,,]
+      if (length(unique(c(ll[is.finite(ll)], nl[is.finite(nl)]))) <= maxUniqeRatings) 
+        binned[i,j] <- TRUE else binned[i,j] <- FALSE
+    }
+  }
+  return (binned)
+}
 
+isXBinned <- function(NL, LL, maxUniqeRatings = 6){
+  I1 <- dim(NL)[1]
+  I2 <- dim(NL)[2]
+  J <- dim(NL)[3]
+  binned <- array(dim = c(I1, I2, J))
+  for (i1 in 1:I1) {
+    for (i2 in 1:I2) {
+      for (j in 1:J) {
+        nl <- NL[i1,i2,j,,]
+        ll <- LL[i1,i2,j,,]
+        if (length(unique(c(ll[is.finite(ll)], nl[is.finite(nl)]))) <= maxUniqeRatings) 
+          binned[i1,i2,j] <- TRUE else binned[i1,i2,j] <- FALSE
+      }
+    }
+  }
+  return (binned)
+}
 
+#' Determine if a dataset is binned
+#' @param dataset The dataset 
+#' @param maxUniqeRatings The max number of unique ratings in order to be classified as binned, default is 6 
+#' @return logical I x J array, TRUE if the corresponding treatment-reader dataset is binned, 
+#'    i.e., has at most 6 unique levels, FALSE otherwise
+#' @examples isBinnedDataset(dataset01)
+#' 
+#' @export
+isBinnedDataset <- function(dataset, maxUniqeRatings = 6) {
+  
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  if (dataset$descriptions$design == "FCTRL-X-MOD") {
+    binned <- isXBinned(NL, LL, maxUniqeRatings)
+  } else {
+    binned <- isBinned(NL, LL, maxUniqeRatings)
+  }  
+  return(binned)
+  
+}

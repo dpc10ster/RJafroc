@@ -35,9 +35,9 @@ unique choice of ctffs which gives the reader the maximum deserved credit).
 \examples{
 \donttest{
 binned <- DfBinDataset(dataset02, desiredNumBins = 3, opChType = "ROC")
-
-binned <- DfBinDataset(dataset02, desiredNumBins = 3, opChType = "ROC")
-binned <- DfBinDataset(dataset02, desiredNumBins = 3, opChType = "AFROC")
+binned <- DfBinDataset(dataset05, desiredNumBins = 4, opChType = "ROC")
+binned <- DfBinDataset(dataset05, desiredNumBins = 4, opChType = "AFROC")
+binned <- DfBinDataset(dataset05, desiredNumBins = 4, opChType = "wAFROC")
 binned <- DfBinDataset(dataset05, opChType = "wAFROC", desiredNumBins = 1)
 binned <- DfBinDataset(dataset05, opChType = "wAFROC", desiredNumBins = 2)
 binned <- DfBinDataset(dataset05, opChType = "wAFROC", desiredNumBins = 3)

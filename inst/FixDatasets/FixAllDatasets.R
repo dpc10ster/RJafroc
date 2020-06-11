@@ -9,6 +9,7 @@ generatetruthTableStr <- function(I, J, K, x){
   }
 }
 
+stop("This should not be used any more; only used for initial conversion from old to new dataset; use TweakAllDatasets.R instead")
 
 fileNames <- c("dataset01", "dataset02", "dataset03", "dataset04", "dataset05", "dataset06",
                "dataset07", "dataset08", "dataset09", "dataset10", "dataset11", "dataset12",
@@ -47,7 +48,6 @@ df <- data.frame(fileNames = fileNames,
                  dataTypes = dataTypes,
                  design = design,
                  dataNames = dataNames,
-                 binned = binned,
                  stringsAsFactors = FALSE)
 
 writeFile <- FALSE

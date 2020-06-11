@@ -48,15 +48,15 @@ mu <- 1;nuP <- 0.5;lambdaP <- 2;zeta1 <- 0
 lambda <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$lambda
 nu <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$nu
 Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
-frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, 
+frocDataRaw$ratings <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, 
 K1, K2, perCase = Lk2)
-hrData <- DfFroc2Roc(frocDataRaw)
-## print("frocDataRaw$NL[1,1,,] = ");## print(frocDataRaw$NL[1,1,,])
+hrData <- DfFroc2Roc(frocDataRaw$ratings)
+## print("frocDataRaw$ratings$NL[1,1,,] = ");## print(frocDataRaw$ratings$NL[1,1,,])
 ## print("hrData$NL[1,1,1:K1,] = ");## print(hrData$NL[1,1,1:K1,])
-## print("frocDataRaw$LL[1,1,,] = ");## print(frocDataRaw$LL[1,1,,])
+## print("frocDataRaw$ratings$LL[1,1,,] = ");## print(frocDataRaw$ratings$LL[1,1,,])
 ## print("hrData$LL[1,1,,] = ");## print(hrData$LL[1,1,,]) 
 ## following is the output
-## [1] "frocDataRaw$NL[1,1,,] = "
+## [1] "frocDataRaw$ratings$NL[1,1,,] = "
 ## [,1]      [,2]      [,3] [,4]
 ## [1,] 2.4046534 0.7635935      -Inf -Inf
 ## [2,]      -Inf      -Inf      -Inf -Inf
@@ -69,8 +69,8 @@ hrData <- DfFroc2Roc(frocDataRaw)
 ## > ## print("hrData$NL[1,1,1:K1,] = ");## print(hrData$NL[1,1,1:K1,])
 ## [1] "hrData$NL[1,1,1:K1,] = "
 ## [1] 2.4046534      -Inf 0.2522234
-## > ## print("frocDataRaw$LL[1,1,,] = ");## print(frocDataRaw$LL[1,1,,])
-## [1] "frocDataRaw$LL[1,1,,] = "
+## > ## print("frocDataRaw$ratings$LL[1,1,,] = ");## print(frocDataRaw$ratings$LL[1,1,,])
+## [1] "frocDataRaw$ratings$LL[1,1,,] = "
 ## [,1] [,2]
 ## [1,]      -Inf -Inf
 ## [2,] 1.5036080 -Inf

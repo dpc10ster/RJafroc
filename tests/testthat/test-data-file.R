@@ -1,125 +1,3 @@
-context("Df2RJafrocDataset")
-
-test_that("Df2RJafrocDataset", {
-
-  # generate the ratings
-  # a small ROC dataset
-  set.seed(1)
-  z1 <- rnorm(5)
-  z2 <- rnorm(7)*1.5 + 2
-
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/Df2RJafrocDataset-1", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- Df2RJafrocDataset(z1, z2)
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(Df2RJafrocDataset(z1, z2), ds)
-  # end of test
-
-  # generate the ratings
-  # a larger MRMC ROC dataset
-  set.seed(1)
-  I <- 2;J <- 3
-  K1 <- 25;K2 <- 35
-  z1 <- array(dim = c(I, J, K1))
-  z2 <- array(dim = c(I, J, K2))
-  mu <- 2;sigma <- 1.5
-  for (i in 1:I) {
-    for (j in 1:J) {
-      z1[i,j,1:K1] <- rnorm(K1)
-      z2[i,j,] <- rnorm(K2) * sigma + mu
-    }
-  }
-
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/Df2RJafrocDataset-2", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- Df2RJafrocDataset(z1, z2)
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(Df2RJafrocDataset(z1, z2), ds)
-  # end of test
-  #
-})
-
-
-
-test_that("SimulateFrocDataset", {
-
-  # generate the ratings
-  # a FROC dataset
-  set.seed(1)
-  I <- 2;J <- 3
-  K1 <- 25;K2 <- 35
-  mu <- 1;nuP <- 0.8;lambdaP <- 1;zeta1 <- 0
-  lambda <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$lambda
-  nu <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$nu
-  Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
-  z1 <- array(-Inf,dim = c(I,J,K1+K2,40))
-  z2 <- array(-Inf,dim = c(I,J,K2,40))
-  dimNL <- array(dim=c(I,J,2))
-  dimLL <- array(dim=c(I,J,2))
-  for (i in 1:I) {
-    for (j in 1:J) {
-      frocDataRaw <- SimulateFrocDataset(
-        mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, perCase = Lk2)
-      dimNL[i,j,] <- dim(drop(frocDataRaw$NL))
-      dimLL[i,j,] <- dim(drop(frocDataRaw$LL))
-      z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$NL) # drop the excess location indices
-      z2[i,j,,1:dimLL[i,j,2]] <- drop(frocDataRaw$LL)
-    }
-  }
-  z1 <- z1[,,,1:max(dimNL[,,2])]
-  z2 <- z2[,,,1:max(dimLL[,,2])]
-
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/Df2RJafrocDataset-3", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- Df2RJafrocDataset(z1, z2, perCase = Lk2) # an FROC dataset
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(Df2RJafrocDataset(z1, z2, perCase = Lk2), ds) # an FROC dataset
-  # end of test
-
-})
-
-
-
-test_that("DfBinDataset (ROC&AFROC)", {
-
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfBinDatasetROC", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfBinDataset(dataset05, opChType = "ROC") # JT FROC
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(DfBinDataset(dataset05, opChType = "ROC"), ds)
-  # end of test
-
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfBinDatasetAFROC", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfBinDataset(dataset05, opChType = "AFROC")
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(DfBinDataset(dataset05, opChType = "AFROC"), ds)
-  # end of test
-
-})
-
-
-
 test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfCreateCorCbmDataset", ".rds")
@@ -171,7 +49,7 @@ test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
 
 
 
-test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
+test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc", {
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfFroc2Roc", ".rds")
   if (!file.exists(fn)) {
@@ -187,7 +65,7 @@ test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalitie
   
 
 
-test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
+test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc", {
   
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadLrocDataFile", ".rds")
   if (!file.exists(fn)) {
@@ -203,7 +81,7 @@ test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalitie
 
 
 
-test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
+test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Rocs", {
   
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfLroc2Roc", ".rds")
   
@@ -219,24 +97,6 @@ test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalitie
 })
 
 
-test_that("DfFroc2Roc & DfReadLrocDataFile & DfLroc2Roc & DfReadCrossedModalities", {
-  
-  crossedFileName <- system.file("extdata",
-                                 "CrossedModalitiesData.xlsx",
-                                 package = "RJafroc", mustWork = TRUE)
-
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfReadCrossedModalities", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadCrossedModalities(crossedFileName)
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(DfReadCrossedModalities(crossedFileName), ds)
-  # end of test
-
-})
 
 
 

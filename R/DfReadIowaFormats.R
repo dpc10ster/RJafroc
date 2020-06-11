@@ -113,14 +113,13 @@ ReadImrmc <- function(fileName, sequentialNames)
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  binned <- isBinned(NL, LL)
   fileName <- NA
   name <- NA
   truthTableStr <- NA
   design <- "FCTRL"
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
-                         binned, fileName, type, name, truthTableStr, design,
+                         fileName, type, name, truthTableStr, design,
                          modalityID, readerID))
   
 } 
@@ -196,14 +195,13 @@ ReadOrDbmMrmc <- function(fileName, delimiter, sequentialNames) {
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  binned <- isBinned(NL, LL)
   fileName <- NA
   name <- NA
   truthTableStr <- NA
   design <- "FCTRL" # default when using old read function
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
-                         binned, fileName, type, name, truthTableStr, design,
+                         fileName, type, name, truthTableStr, design,
                          modalityID, readerID))
   
 } 
@@ -348,14 +346,13 @@ ReadLrc <- function(fileName, sequentialNames)
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  binned <- isBinned(NL, LL)
   fileName <- NA
   name <- NA
   truthTableStr <- NA
   design <- "FCTRL"
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
-                         binned, fileName, type, name, truthTableStr, design,
+                         fileName, type, name, truthTableStr, design,
                          modalityID, readerID))
   
 }

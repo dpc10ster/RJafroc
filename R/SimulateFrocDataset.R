@@ -83,7 +83,6 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase){
   }  
   modalityID <- as.character(seq(1:I))
   readerID <- as.character(seq(1:J))
-  binned <- isBinned(NL, LL)
   fileName <- NA
   name <- NA
   design <- "FCTRL"
@@ -91,6 +90,6 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase){
   type <- "FROC"
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
-                         binned, fileName, type, name, truthTableStr, design,
+                         fileName, type, name, truthTableStr, design,
                          modalityID, readerID))
 }

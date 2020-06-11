@@ -38,7 +38,6 @@ df <- data.frame(fileNames = fileNames,
                  dataTypes = dataTypes,
                  design = design,
                  dataNames = dataNames,
-                 binned = binned,
                  stringsAsFactors = FALSE)
 
 for (i in 1:length(df[,1])) {
