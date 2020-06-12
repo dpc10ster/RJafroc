@@ -1,4 +1,4 @@
-test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
+test_that("DfCreateCorCbmDataset", {
 
   fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfCreateCorCbmDataset", ".rds")
   if (!file.exists(fn)) {
@@ -11,39 +11,6 @@ test_that("DfCreateCorCbmDataset DfExtractCorCbmDataset", {
   expect_equal(DfCreateCorCbmDataset(), ds)
   # end of test
 
-
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfExtractCorCbmDataset-1", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3))
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3)), ds)
-  # end of test
-
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfExtractCorCbmDataset-2", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = c(1,3))
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = c(1,3)), ds)
-  # end of test
-
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfExtractCorCbmDataset-3", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = 2)
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = 2), ds)
-  # end of test
 
 })
 
@@ -239,22 +206,6 @@ test_that("DfReadDataFile, JAFROC: it does ALL paradigms", {
   ds1 <- readRDS(fn)
   ds2 <- DfReadDataFile(fileName, sequentialNames = TRUE, newExcelFileFormat = FALSE)
   expect_equal(ds2, ds1)
-
-})
-
-
-
-test_that("DfExtractDataset", {
-  
-  fn <- paste0(test_path(), "/goodValues361/Df2RJafrocDataset/DfExtractDataset", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfExtractDataset(dataset05, rdrs = c(1, 3))
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(DfExtractDataset(dataset05, rdrs = c(1, 3)), ds)
 
 })
 

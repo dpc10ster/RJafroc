@@ -29,7 +29,7 @@
 #' 
 #' \donttest{
 #' ## Extract the paired data corresponding to the second and third readers in the first treatment
-#' ##from the include ROC dataset
+#' ## from the included ROC dataset
 #' dataset11_23 <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3))
 #'
 #' ## Extract the paired data corresponding to the third reader in the first and second treatments
@@ -38,30 +38,27 @@
 #' ## Extract the data corresponding to the first reader in the first
 #' ## treatment paired with the data
 #' ## from the third reader in the second treatment
-#' ## (the indices are at different positions in the respective arrays)
+#' ## (the bin indices are at different positions in the two arrays)
 #' dataset12_13 <- DfExtractCorCbmDataset(dataset05,
 #' trts = c(1,2), rdrs = c(1,3))
 #' }
 #' @export
 
 DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
-  stop("need fix here")
-  # TBA SimplifyDatasets
+
   dataset <- DfBinDataset(dataset, desiredNumBins = 5, opChType = "ROC")
   if (dataset$descriptions$type != "ROC") {
     stop("This program requires an ROC dataset")
   }
-  I <- length(dataset$ratings$NL[,1,1,1])
-  J <- length(dataset$ratings$NL[1,,1,1])
   K <- length(dataset$ratings$NL[1,1,,1])
   K2 <- length(dataset$ratings$LL[1,1,,1])
-  K1 <- K - K2
-  
+
   lt <- length(trts);lr <- length(rdrs)
   if ((lt == 1) && (lr == 2)){
     ds <- DfExtractDataset(dataset, trts, rdrs)
     ds$descriptions$modalityID <- "1"
     ds$descriptions$readerID <- c("1", "2")
+    ds$descriptions$fileName <- paste0("DfExtractCorCbmDataset (", ds$descriptions$fileName,")")
     return(ds)
   } else if ((lt == 2) && (lr == 1)) {
     ds <- DfExtractDataset(dataset, trts, rdrs)
@@ -70,6 +67,7 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
     ds$ratings$NL <- NL;ds$ratings$LL <- LL
     ds$descriptions$modalityID <- "1"
     ds$descriptions$readerID <- c("1", "2")
+    ds$descriptions$fileName <- paste0("DfExtractCorCbmDataset (", ds$descriptions$fileName,")")
     return(ds)
   } else if ((lt == 2) && (lr == 2)) {
     for (i in 1:lt){
@@ -78,7 +76,7 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
           if (j > i) {
             dsX <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
           } else {
-            dsY$ratings <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
+            dsY <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
           }
         }
       }
@@ -89,6 +87,7 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
     ds$ratings$NL <- NL;ds$ratings$LL <- LL
     ds$descriptions$modalityID <- "1"
     ds$descriptions$readerID <- c("1", "2")
+    ds$descriptions$fileName <- paste0("DfExtractCorCbmDataset (", ds$descriptions$fileName,")")
     return(ds)
   } else stop("Illegal combination of treatments and readers")
   

@@ -126,8 +126,8 @@ DfFroc2Roc <- function (dataset) {
   # create dataset and return
   modalityID <- as.character(seq(1:I))
   readerID <- as.character(seq(1:J))
-  fileName <- NA
-  name <- NA
+  fileName <- paste0("DfFroc2Roc (", dataset$descriptions$fileName, ")")
+  name <- dataset$descriptions$name
   design <- dataset$descriptions$design
   
   # convert truthTableStr from FROC to ROC

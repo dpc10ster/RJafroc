@@ -266,3 +266,33 @@ convert2dataset <- function(NL, LL, LL_IL,
   return(dataset)
   
 }
+
+
+convert2Xdataset <- function(NL, LL, LL_IL, 
+                            perCase, IDs, weights,
+                            fileName, type, name, truthTableStr, design,
+                            modalityID1,  modalityID2, readerID) {
+  ratings <- list(NL = NL,
+                  LL = LL,
+                  LL_IL = LL_IL)
+  
+  lesions <- list(perCase = perCase,
+                  IDs = IDs,
+                  weights = weights)
+  
+  descriptions <- list(fileName = fileName,
+                       type = type,
+                       name = name,
+                       truthTableStr = truthTableStr,
+                       design = design,
+                       modalityID1 = modalityID1,
+                       modalityID2 = modalityID2,
+                       readerID = readerID)
+  
+  dataset <- list(ratings = ratings, 
+                  lesions = lesions, 
+                  descriptions = descriptions)
+  
+  return(dataset)
+  
+}

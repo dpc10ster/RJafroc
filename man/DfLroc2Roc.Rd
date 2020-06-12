@@ -22,9 +22,7 @@ For the diseased cases one takes the maximum rating on each diseased case,
    For non-diseased cases the NL arrays are identical.
 }
 \examples{
-str(datasetCadLroc)
 rocDataSet <- DfLroc2Roc(datasetCadLroc)
-str(rocDataSet)
 
 
 }

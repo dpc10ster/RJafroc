@@ -15,9 +15,7 @@
 #' @return An ROC dataset  
 #'
 #' @examples
-#' str(datasetCadLroc)
 #' rocDataSet <- DfLroc2Roc(datasetCadLroc)
-#' str(rocDataSet)
 #' 
 #' 
 #' @export
@@ -45,16 +43,19 @@ DfLroc2Roc <- function (dataset) #  TBA !!!in tests!!!
   }
   
   NL <- dataset$ratings$NL
-  binned <- isBinned(NL, LL)
-  fileName <- NA
+  fileName <- paste0("DfLroc2Roc (", dataset$descriptions$fileName, ")")
   name <- NA
   design <- "FCTRL"
   truthTableStr <- NA
   type <- "ROC"
   perCase <- rep(1,K2)
+  IDs <- dataset$lesions$IDs
+  weights <- dataset$lesions$weights
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   return(convert2dataset(NL, LL, LL_IL = NA, 
-                         perCase, dataset$lesions$IDs, dataset$lesions$weights,
+                         perCase, IDs, weights,
                          fileName, type, name, truthTableStr, design,
-                         dataset$descriptions$modalityID, dataset$descriptions$readerID))
+                         modalityID, readerID))
 }
 

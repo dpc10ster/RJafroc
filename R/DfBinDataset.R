@@ -192,10 +192,12 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   } 
   
   # return the binned dataset
-  fileName <- NA
-  name <- NA
+  fileName <- paste0("DfBinDataset (", dataset$descriptions$fileName, ")")
+  name <- dataset$descriptions$name
   design <- "FCTRL"
-  truthTableStr <- NA
+  if (is.numeric(dataset$descriptions$truthTableStr)) { 
+    truthTableStr  <- dataset$descriptions$truthTableStr
+  } else {truthTableStr  <- NA}
   type <- dataset$descriptions$type # sic; dataset not datasetB
   perCase <- dataset$lesions$perCase
   IDs <- dataset$lesions$IDs
@@ -233,8 +235,8 @@ DfFroc2Afroc <- function (dataset){
   dim(NL) <- c(dim(NL), 1)
   NL[,,(K1+1):K,1] <- -Inf
   
-  fileName <- NA
-  name <- NA
+  fileName <- paste0("DfFroc2Afroc applied to ", dataset$descriptions$fileName)
+  name <- dataset$descriptions$name
   design <- dataset$descriptions$design
   truthTableStr <- dataset$descriptions$truthTableStr
   IDs <- dataset$lesions$IDs
