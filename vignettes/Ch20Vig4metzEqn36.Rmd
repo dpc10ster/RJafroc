@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 fig.width: 4
 vignette: >
-  %\VignetteIndexEntry{Metz Eqn36}
+  %\VignetteIndexEntry{Chapter 20, Vignette 4: Metz Eqn36 numerical check}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

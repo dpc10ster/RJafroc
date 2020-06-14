@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 fig.width: 4
 vignette: >
-  %\VignetteIndexEntry{PROPROC ROCs and pdfs}
+  %\VignetteIndexEntry{Chapter 20, Vignette 3: PROPROC ROCs and pdfs}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

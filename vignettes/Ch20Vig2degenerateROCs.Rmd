@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 fig.width: 4
 vignette: >
-  %\VignetteIndexEntry{Degenerate datasets}
+  %\VignetteIndexEntry{Chapter 20, Vignette 2: Degenerate datasets in the binormal model}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

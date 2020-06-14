@@ -7,7 +7,7 @@ bibliography: myRefs.bib
 fig_caption: yes
 fig.width: 4
 vignette: >
-  %\VignetteIndexEntry{ROI Significance Testing}
+  %\VignetteIndexEntry{Chapter 30, Vignette 2: Significance testing for the ROI paradigm}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

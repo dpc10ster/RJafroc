@@ -6,7 +6,7 @@ output: rmarkdown::html_vignette
 fig_caption: yes
 fig.width: 4
 vignette: >
-  %\VignetteIndexEntry{CBM ROC plots}
+  %\VignetteIndexEntry{Chapter 20, Vignette 5: CBM plots}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

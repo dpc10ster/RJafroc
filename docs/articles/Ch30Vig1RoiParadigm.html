@@ -183,38 +183,34 @@
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "1" "2"</span>
 <span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span>
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="no">datasetROI</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
-<span class="co">#&gt; NULL</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">datasetROI</span>$<span class="no">NL</span>[,,<span class="fl">1</span>:<span class="fl">50</span>,])
-<span class="co">#&gt; Warning in mean.default(datasetROI$NL[, , 1:50, ]): argument is not numeric or</span>
-<span class="co">#&gt; logical: returning NA</span>
-<span class="co">#&gt; [1] NA</span>
-<span class="no">datasetROI</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">51</span>,]
-<span class="co">#&gt; NULL</span>
-<span class="no">datasetROI</span>$<span class="no">lesionVector</span>[<span class="fl">1</span>]
-<span class="co">#&gt; NULL</span>
-<span class="no">datasetROI</span>$<span class="no">LL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
-<span class="co">#&gt; NULL</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="no">datasetROI</span>$<span class="no">LL</span>;<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(<span class="no">x</span>)])
-<span class="co">#&gt; Warning in mean.default(x[is.finite(x)]): argument is not numeric or logical:</span>
-<span class="co">#&gt; returning NA</span>
-<span class="co">#&gt; [1] NA</span></pre></body></html></div>
+<span class="no">datasetROI</span>$<span class="no">ratings</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
+<span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">datasetROI</span>$<span class="no">ratings</span>$<span class="no">NL</span>[,,<span class="fl">1</span>:<span class="fl">50</span>,])
+<span class="co">#&gt; [1] 0.1014348</span>
+<span class="no">datasetROI</span>$<span class="no">ratings</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">51</span>,]
+<span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span>
+<span class="no">datasetROI</span>$<span class="no">lesions</span>$<span class="no">perCase</span>[<span class="fl">1</span>]
+<span class="co">#&gt; [1] 2</span>
+<span class="no">datasetROI</span>$<span class="no">ratings</span>$<span class="no">LL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
+<span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span>
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="no">datasetROI</span>$<span class="no">ratings</span>$<span class="no">LL</span>;<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(<span class="no">x</span>)])
+<span class="co">#&gt; [1] 1.815513</span></pre></body></html></div>
 <p>Examination of the output reveals that:</p>
 <ul>
 <li><p>This is a 2-treatment 5-reader dataset, with 50 non-diseased cases and 40 diseased cases, and <span class="math inline">\({{Q}_{k}}=4\)</span> for all <em>k</em>.</p></li>
-<li><p>For treatment 1, reader 1, case 1 (the 1st non-diseased case) the 4 ratings are . The mean of all ratings on non-diseased cases is NA.</p></li>
-<li><p>For treatment 1, reader 1, case 51 (the 1st diseased case) the NL ratings are . There are only two finite values because this case has two ROI-level-diseased regions, and 2 plus 2 makes for the assumed 4-regions per case. The corresponding <code>$lesionVector</code> field is .<br></p></li>
-<li><p>The ratings of the 2 ROI-level-diseased ROIs on this case are . The mean rating over all ROI-level-diseased ROIs is NA.</p></li>
+<li><p>For treatment 1, reader 1, case 1 (the 1st non-diseased case) the 4 ratings are 0.949868, -0.0582497, -0.776378, 0.012073. The mean of all ratings on non-diseased cases is 0.1014348.</p></li>
+<li><p>For treatment 1, reader 1, case 51 (the 1st diseased case) the NL ratings are 1.01867, 0.3471. There are only two finite values because this case has two ROI-level-diseased regions, and 2 plus 2 makes for the assumed 4-regions per case. The corresponding <code>$lesionVector</code> field is 2.<br></p></li>
+<li><p>The ratings of the 2 ROI-level-diseased ROIs on this case are 1.56928, 2.05945. The mean rating over all ROI-level-diseased ROIs is 1.8155127.</p></li>
 </ul>
 </div>
 <div id="the-roi-excel-data-file" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-roi-excel-data-file" class="anchor"></a>The ROI Excel data file</h2>
 <p>An Excel file in JAFROC format containing simulated ROI data corresponding to <code>datasetROI</code>, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object <code>ds</code>. !!!DPC!!!</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r">## fileName &lt;- system.file(
-##     "extdata", "RoiData.xlsx", package = "RJafroc", mustWork = TRUE)
-## ds &lt;- DfReadDataFile(fileName)
-## ds$dataType</pre></body></html></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">fileName</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"RoiData.xlsx"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"RJafroc"</span>, <span class="kw">mustWork</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="no">ds</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="no">fileName</span>)
+<span class="no">ds</span>$<span class="no">descriptions</span>$<span class="no">type</span>
+<span class="co">#&gt; [1] "ROI"</span></pre></body></html></div>
 <p>The <code>DfReadDataFile</code> function automatically recognizes that this is an <em>ROI</em> dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets:</p>
 <p><img src="images/ROI-Truth-1.png" style="width:100.0%"><img src="images/ROI-Truth-2.png" style="width:100.0%"></p>
 <ul>
@@ -232,7 +228,7 @@
 <ul>
 <li>The <code>FP</code> (or <code>NL</code>) worksheet - this lists the ratings of ROI-level-non-diseased regions.
 <ul>
-<li>For <code>ReaderID</code> = 1, <code>ModalityID</code> = 1 and <code>CaseID</code> = 1 there are 4 rows, corresponding to the 4 ROI-level-non-diseased regions in this case. The corresponding ratings are . The pattern repeats for other treatments and readers, but the rating are, of course, different.<br>
+<li>For <code>ReaderID</code> = 1, <code>ModalityID</code> = 1 and <code>CaseID</code> = 1 there are 4 rows, corresponding to the 4 ROI-level-non-diseased regions in this case. The corresponding ratings are 0.949868, -0.0582497, -0.776378, 0.012073. The pattern repeats for other treatments and readers, but the rating are, of course, different.<br>
 </li>
 <li>Each <code>CaseID</code> is represented in the <code>FP</code> worksheet (a rare exception could occur if a case-level diseased case has 4 diseased regions).</li>
 </ul>

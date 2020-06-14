@@ -166,7 +166,7 @@
 <p>This illustrates the <code><a href="../reference/UtilOutputReport.html">UtilOutputReport()</a></code> function. The significance testing <code>method</code> is “DBMH”, the default, and the figure of merit <code>FOM</code> is “Wilcoxon”. Note <code>ReportFileExt</code> = “xlsx”` telling the function to create an Excel output file. The Excel output is created in a temporary file.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"dataset03"</span>), <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBMH"</span>, <span class="kw">overWrite</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">ReportFileExt</span> <span class="kw">=</span> <span class="st">"xlsx"</span>)
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpBeUk8l/RJafrocUtilOutputReport105676712f8ef.xlsx</span></pre></body></html></div>
+<span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpQqFjIx/RJafrocUtilOutputReport10f584a37bf99.xlsx</span></pre></body></html></div>
 </div>
 <div id="orh-significance-testing" class="section level2">
 <h2 class="hasAnchor">
@@ -174,7 +174,7 @@
 <p>Simply change <code>method = "DBMH"</code> (the default) to <code>method = "ORH"</code>.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"dataset03"</span>), <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"ORH"</span>, <span class="kw">overWrite</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">ReportFileExt</span> <span class="kw">=</span> <span class="st">"xlsx"</span>)
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpBeUk8l/RJafrocUtilOutputReport1056723096ea2.xlsx</span></pre></body></html></div>
+<span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpQqFjIx/RJafrocUtilOutputReport10f58d57d7ce.xlsx</span></pre></body></html></div>
 </div>
   </div>
 

@@ -1,3 +1,17 @@
+# RJafroc 1.3.2.9000
+
+## Major reorganization of `dataset` structure
+* Instead of varying lengths for ROC/FROC, LROC and SPLIT-PLOT, all `datasets` now are `lists` of length 3, with each member (`ratings`, `lesions`, `descriptions`) consisting of sub-lists: 
+  + `ratings` contain 3 elements: `$NL`, `$LL` and `$LL_IL`. 
+  + `$lesions` contains 3 elements: `$perCase`, `$IDs` and `$weights`. 
+  + `$descriptions` contains 7 elements: `$fileName`, `$type`, `$name`, `$truthTableStr`, `$design`, `$modalityID` and `$readerID`. 
+* This considerably simplified the handling of different types of datasets.
+* The version number will be bumped to 2.0.0 on final submission to CRAN.
+* Since there are no downstream dependencies, I feel this big change is justified at this time. It will make it easier for me to maintain the code.
+* The code rewrite was conducted on a new branch, `SimplifyDatasets` off the `developer` branch.
+* The changes were merged to the `developer` branch and then to the `master` branch.
+
+
 ## Major simplifications to all significance testing `St` functions
 * Separated `RRRC` branches etc to separate files; likewise for DBM and OR branches, now the files are much shorter and easier to maintain
 * Changed returned data structure to a `list` of `dataframes`, see next comment; this makes for much cleaner and easier printing

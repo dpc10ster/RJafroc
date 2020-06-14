@@ -178,6 +178,183 @@
       
     </div>
 
+    <div id="rjafroc-1329000" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.2.9000">
+<a href="#rjafroc-1329000" class="anchor"></a>RJafroc 1.3.2.9000<small> Unreleased </small>
+</h1>
+<div id="major-reorganization-of-dataset-structure" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-reorganization-of-dataset-structure" class="anchor"></a>Major reorganization of <code>dataset</code> structure</h2>
+<ul>
+<li>Instead of varying lengths for ROC/FROC, LROC and SPLIT-PLOT, all <code>datasets</code> now are <code>lists</code> of length 3, with each member (<code>ratings</code>, <code>lesions</code>, <code>descriptions</code>) consisting of sub-lists:
+<ul>
+<li>
+<code>ratings</code> contain 3 elements: <code>$NL</code>, <code>$LL</code> and <code>$LL_IL</code>.</li>
+<li>
+<code>$lesions</code> contains 3 elements: <code>$perCase</code>, <code>$IDs</code> and <code>$weights</code>.</li>
+<li>
+<code>$descriptions</code> contains 7 elements: <code>$fileName</code>, <code>$type</code>, <code>$name</code>, <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> and <code>$readerID</code>.</li>
+</ul>
+</li>
+<li>This considerably simplified the handling of different types of datasets.</li>
+<li>The version number will be bumped to 2.0.0 on final submission to CRAN.</li>
+<li>Since there are no downstream dependencies, I feel this big change is justified at this time. It will make it easier for me to maintain the code.</li>
+<li>The code rewrite was conducted on a new branch, <code>SimplifyDatasets</code> off the <code>developer</code> branch.</li>
+<li>The changes were merged to the <code>developer</code> branch and then to the <code>master</code> branch.</li>
+</ul>
+</div>
+<div id="major-simplifications-to-all-significance-testing-st-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-simplifications-to-all-significance-testing-st-functions" class="anchor"></a>Major simplifications to all significance testing <code>St</code> functions</h2>
+<ul>
+<li>Separated <code>RRRC</code> branches etc to separate files; likewise for DBM and OR branches, now the files are much shorter and easier to maintain</li>
+<li>Changed returned data structure to a <code>list</code> of <code>dataframes</code>, see next comment; this makes for much cleaner and easier printing</li>
+<li>Consistent returned objects from all <code>St</code> functions: <code>list</code> with data frames <code>FOM</code>, <code>ANOVA</code>, <code>RRRC</code>, <code>FRRC</code> and <code>RRFC</code>.</li>
+<li>Output now <strong>closely follows</strong> that of Iowa software OR-DBM MRMC 2.51 which I ran using VmWare, Windows XP; Iowa software did not run on Windows 8 on two different machines (see below)</li>
+<li>Ran detailed comparison to OR-DBM MRMC 2.51 and coded the checks in <code>tests/testthat/test-St-Compare2Iowa.R</code> for VanDyke dataset</li>
+<li>Also visually compared my code results against OR-DBM MRMC 2.51 for <code>dataset04</code> converted to ROC (see Iowa code results in <code>inst/Iowa/FedRoc.txt</code>);</li>
+<li>Shortened <code>UtilOutputReport</code> <em>considerably</em>, by using <code><a href="https://rdrr.io/r/base/print.html">print(dataframe)</a></code> instead of reading values from <code>list</code> or <code>dataframe</code> variables and then using <code>sprintf</code> with unreadable C-style format codes</li>
+<li>Shortened <code>SPLIT-PLOT</code> analysis by returning <code>Cov2</code> = <code>Cov3</code> = 0 instead of <code>NA</code>
+</li>
+<li>Confirmed that this gives same results as the version in <code>master</code> branch</li>
+<li>Added vignettes back, rebuilt website</li>
+<li>Passes all OSX checks except for file size NOTE: checking installed package size … NOTE installed size is 16.7Mb; sub-directories of 1Mb or more:doc 12.7Mb;extdata 1.3Mb</li>
+<li>Marked regions of code <strong>requiring further</strong> inspection by TBA - handle this next</li>
+<li>Will merge this code into <code>master</code> branch if it passes Travis</li>
+</ul>
+</div>
+<div id="replaced-stringsasfactors--false-everywhere-dataframe-is-used-except-" class="section level2">
+<h2 class="hasAnchor">
+<a href="#replaced-stringsasfactors--false-everywhere-dataframe-is-used-except-" class="anchor"></a>Replaced stringsAsFactors = FALSE everywhere data.frame is used except …</h2>
+<ul>
+<li>Except in <code>PlotEmpiricalOperatingCharacteristics</code>, where <code>factors</code> and <code>levels</code> are used</li>
+<li>Must specify this anytime the variable is used in a <code>test</code> as otherwise different versions will give <code>factors</code> or <code>characters</code> and not match those in goodValues folder</li>
+<li>After old versions are phased out, this can be safely removed, as all versions will have this as the default</li>
+<li>Setting <code><a href="https://rdrr.io/r/base/options.html">options(stringsAsFactors = FALSE)</a></code> at beginning of a function, e.g., <code>StSignificanceTesting</code>, passes this option onto called functions, e.g, <code>StDBMHAnalyis</code>
+</li>
+<li>Use <code><a href="https://rdrr.io/r/base/options.html">getOption("stringsAsFactors")</a></code> to determine state of this option; must restart <code>R</code> to obtain default value (<code>TRUE</code> on the release version); calling a function that sets it to <code>FALSE</code> keeps the new value after exiting from function; must restart <code>R</code> again to get proper default.</li>
+</ul>
+</div>
+<div id="after-repeated-travis-failures" class="section level2">
+<h2 class="hasAnchor">
+<a href="#after-repeated-travis-failures" class="anchor"></a>After repeated Travis failures</h2>
+<ul>
+<li>same issue; have to specify <code>stringsAsFactors</code> explicitly for each <code>data.frame</code> call, due to different defaults in different verions of <code>R</code>
+</li>
+<li>Cannot set to TRUE at beginning of function, as in <code><a href="https://rdrr.io/r/base/options.html">options("stringsAsFactors" = TRUE)</a></code>, <strong>as this is <code>deprecated</code></strong>
+</li>
+<li>Basically undid all changes in next note (see below)</li>
+<li>passes R CMD check on OSX and Travis checks</li>
+</ul>
+</div>
+<div id="removed-stringsasfactors-arguments-in-all-calls-except" class="section level2">
+<h2 class="hasAnchor">
+<a href="#removed-stringsasfactors-arguments-in-all-calls-except" class="anchor"></a>Removed <code>stringsAsFactors</code> arguments in all calls except…</h2>
+<ul>
+<li>In all calls to data.frame, except in plotting functions, <code>PlotEmpiricalOperatingCharacteristics</code>, where factors are used</li>
+<li>In current <code>R3.6.3</code> <code>option($stringsAsFactors) = TRUE</code> (<code>stringsAsFactors</code> is case sensitive!)</li>
+<li>This means that functions that don’t require factors, such as <code><a href="../reference/SsPowerTable.html">SsPowerTable()</a></code> should set <code><a href="https://rdrr.io/r/base/options.html">options(stringsAsFactors = FALSE)</a></code> explicitly at the beginning of the code, in order to work in current and previous version of R (i.e., release and old-release)</li>
+<li>Functions that do use factors/levels such as plotting functions (<code>PlotRsmOperatingCharacteristics</code> and <code>FitCorCbmRoc</code>) should set <code><a href="https://rdrr.io/r/base/options.html">options(stringsAsFactors = TRUE)</a></code> in order to work in <code>developer</code> version of R, where default is <code>options("stringsAsFactors") = FALSE</code>
+</li>
+<li>This is all very confusing as I am having to dive into code written 6 years ago by someone else</li>
+<li>Going to test on Travis now</li>
+</ul>
+</div>
+<div id="return-transpose-for-foms-member-of-stsignificancetesting-return-object" class="section level2">
+<h2 class="hasAnchor">
+<a href="#return-transpose-for-foms-member-of-stsignificancetesting-return-object" class="anchor"></a>Return <code>transpose</code> for <code>foms</code> member of <code>StSignificanceTesting</code> return object</h2>
+<ul>
+<li>For consistency with OR DBM MRMC 2.51, and also for cleaner output, as number of treatments is usually less than number of readers</li>
+<li>Note added 5/30/20: this was undone; transpose is no longer used</li>
+</ul>
+</div>
+<div id="moved-official-good-value-files-to-dropbox" class="section level2">
+<h2 class="hasAnchor">
+<a href="#moved-official-good-value-files-to-dropbox" class="anchor"></a>Moved official good value files to Dropbox</h2>
+<ul>
+<li>They generate non-portable file name warning on R CMD check</li>
+<li>Moved VanDyke results to inst/IowaResults/VanDyke.txt</li>
+</ul>
+</div>
+<div id="compared-to-latest-official-code" class="section level2">
+<h2 class="hasAnchor">
+<a href="#compared-to-latest-official-code" class="anchor"></a>Compared to latest official code</h2>
+<ul>
+<li>
+<code>mrmc_setup_w10_July_2019.exe</code>; VanDyke <code>VanDyke.lrc</code> dataset; <code>Dropobox/IowaSoftware/VanDyke.lrc</code>
+</li>
+<li>
+<code>OR DBM MRMC 2.51 &lt;beta&gt; Build 20181028 &lt;/beta&gt;</code> <code>miplmrmc</code>
+</li>
+<li>Software only runs under Windows XP</li>
+<li>Tried Windows 8 on different machines (iMac and MacBookPro) under <code>VmWare Fusion</code>; no luck, even after following directins twice on <a href="https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual">website</a>
+</li>
+<li>Need to compare OR ouputs - WIP</li>
+<li>Need to fix documentation on <code>StSignificanceTesting</code> - WIP</li>
+</ul>
+</div>
+<div id="discovered-error" class="section level2">
+<h2 class="hasAnchor">
+<a href="#discovered-error" class="anchor"></a>Discovered error</h2>
+<ul>
+<li>For <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")</a></code> - done</li>
+<li>Need to put in <code>testthat</code> all combinations of <code>method</code> and <code>option</code> - done</li>
+<li>Different objects returned by <code>StSignificanceTesting</code> depending on choice of <code>option</code> - almost done</li>
+<li>Need to standardize as otherwise <code>RJafrocBook</code> is klutzy - WIP</li>
+</ul>
+</div>
+<div id="added-seed-specification-to-utilvarcomponentor" class="section level2">
+<h2 class="hasAnchor">
+<a href="#added-seed-specification-to-utilvarcomponentor" class="anchor"></a>Added seed specification to UtilVarComponentOR</h2>
+<ul>
+<li>Added seed specification to <code>UtilVarComponentOR</code> to allow comparison with <code>RJafrocBook</code>
+</li>
+<li>Added to tests: <code>covEstMethod</code> = <code>jackknife</code>, <code>bootstrap</code> and <code>DeLong</code> for two datasets</li>
+<li>
+<code>dataset02</code> and <code>dataset04</code> converted to ROC</li>
+<li>Will merge to <code>master</code> so that <code>RJafrocBook</code> code passes Travis</li>
+</ul>
+</div>
+<div id="fixing-significance-testing-with-independent-calculations-in-rjafrocbook" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixing-significance-testing-with-independent-calculations-in-rjafrocbook" class="anchor"></a>Fixing significance testing with independent calculations in <code>RJafrocBook</code>
+</h2>
+<ul>
+<li>Need to modify <code>RJafroc</code> to eliminate code duplication and improve style in all signficance testing functions - move this to issues</li>
+<li>I am only getting to understand it now (as I work on <code>RJafrocBook</code>)</li>
+<li>One reader case can now be handled by <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")</a></code>
+</li>
+<li>May not need <code>StSignificanceTestingSingleFixedFactor</code> which currently only handles <code>DBMH</code> method - add to issues</li>
+<li>Removed restriction of <code>StSignificanceTesting</code> to <code>J</code> &gt; 1</li>
+<li>Will merge to <code>master</code> so that <code>RJafrocBook</code> code passes Travis</li>
+</ul>
+</div>
+<div id="fixed-error-with-mstc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixed-error-with-mstc" class="anchor"></a>Fixed error with <code>msTC</code>
+</h2>
+<ul>
+<li>Found another error in <code>msTC</code> calculation in <code>UtilMeanSquares</code>
+</li>
+<li>Was trying to be too cute for my own good (collapsing two for-loops into one)</li>
+<li>Discoverd error while doing first principles calculation in <code>RJafocBook</code>, DBMH chapter, so there is at least one person who benefited from <code>RJafrocBook</code>
+</li>
+<li>Changed <code>covEstMethod</code> argument to <code>ORH</code> method to lower case (“jackknife” or “bootstrap”)</li>
+</ul>
+</div>
+<div id="fixed-issue-with-optim-when-flipping-groups" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixed-issue-with-optim-when-flipping-groups" class="anchor"></a>Fixed issue with <code>optim</code> when flipping groups</h2>
+<ul>
+<li>see issues #50 (closed) on <code>RJafroc/master</code>
+</li>
+<li>Allow a paramter of binormal model to be between -4 and 4</li>
+<li>Removed all vignettes; since these are now in <a href="https://dpc10ster.github.io/RJafrocBook/">RJafrocBook</a>
+</li>
+<li>Removed all but one dataset (<code>FZ_ALL.xlsx</code>) from <code>extdata/datasets</code> so I dont get file size error (extdata was 2.5 MB, reduced to 1.3)</li>
+</ul>
+</div>
+</div>
     <div id="rjafroc-132" class="section level1">
 <h1 class="page-header" data-toc-text="1.3.2">
 <a href="#rjafroc-132" class="anchor"></a>RJafroc 1.3.2<small> 2020-03-06 </small>
