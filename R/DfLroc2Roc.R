@@ -43,7 +43,7 @@ DfLroc2Roc <- function (dataset) #  TBA !!!in tests!!!
   }
   
   NL <- dataset$ratings$NL
-  fileName <- paste0("DfLroc2Roc (", dataset$descriptions$fileName, ")")
+  fileName <- paste0("DfLroc2Roc(", dataset$descriptions$fileName, ")")
   name <- NA
   design <- "FCTRL"
   truthTableStr <- NA

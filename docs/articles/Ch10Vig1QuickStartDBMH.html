@@ -132,13 +132,13 @@
 
       
 
-      </header><script src="Ch10Vig1QuickStartDBMH_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="Ch10Vig1QuickStartDBMH_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-05-29</h4>
+            <h4 class="date">2020-06-14</h4>
       
       
       <div class="hidden name"><code>Ch10Vig1QuickStartDBMH.Rmd</code></div>
@@ -160,22 +160,25 @@
 <a href="#an-roc-dataset" class="anchor"></a>An ROC dataset</h2>
 <p>Dataset <code>dataset03</code> corresponding to the Franken ROC data <span class="citation">(Franken et al. 1992)</span> is predefined. The following code shows the structure of this dataset.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">dataset03</span>)
-<span class="co">#&gt; List of 13</span>
-<span class="co">#&gt;  $ NL           : num [1:2, 1:4, 1:100, 1] 3 3 4 3 3 3 4 1 1 3 ...</span>
-<span class="co">#&gt;  $ LL           : num [1:2, 1:4, 1:67, 1] 5 5 4 4 5 4 4 5 2 2 ...</span>
-<span class="co">#&gt;  $ lesionVector : num [1:67] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ lesionID     : num [1:67, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ lesionWeight : num [1:67, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ dataType     : chr "ROC"</span>
-<span class="co">#&gt;  $ modalityID   : Named chr [1:2] "TREAT1" "TREAT2"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "TREAT1" "TREAT2"</span>
-<span class="co">#&gt;  $ readerID     : Named chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span>
-<span class="co">#&gt;  $ design       : chr "CROSSED"</span>
-<span class="co">#&gt;  $ normalCases  : int [1:33] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="co">#&gt;  $ abnormalCases: int [1:67] 34 35 36 37 38 39 40 41 42 43 ...</span>
-<span class="co">#&gt;  $ truthTableStr: num [1:2, 1:4, 1:100, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ datasetName  : chr "Franken"</span></pre></body></html></div>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ ratings     :List of 3</span>
+<span class="co">#&gt;   ..$ NL   : num [1:2, 1:4, 1:100, 1] 3 3 4 3 3 3 4 1 1 3 ...</span>
+<span class="co">#&gt;   ..$ LL   : num [1:2, 1:4, 1:67, 1] 5 5 4 4 5 4 4 5 2 2 ...</span>
+<span class="co">#&gt;   ..$ LL_IL: logi NA</span>
+<span class="co">#&gt;  $ lesions     :List of 3</span>
+<span class="co">#&gt;   ..$ perCase: num [1:67] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ IDs    : num [1:67, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ weights: num [1:67, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ descriptions:List of 7</span>
+<span class="co">#&gt;   ..$ fileName     : chr "dataset03"</span>
+<span class="co">#&gt;   ..$ type         : chr "ROC"</span>
+<span class="co">#&gt;   ..$ name         : chr "FRANKEN"</span>
+<span class="co">#&gt;   ..$ truthTableStr: num [1:2, 1:4, 1:100, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ design       : chr "FCTRL"</span>
+<span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "TREAT1" "TREAT2"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "TREAT1" "TREAT2"</span>
+<span class="co">#&gt;   ..$ readerID     : Named chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span></pre></body></html></div>
 <ul>
 <li><p>It is a list with 8 members. The false positive ratings are contained in <code>{NL}</code>, an array with dimensions <code>[1:2,1:4,1:100,1]</code>. The first index corresponds to treatments, and since the dataset has 2 treatments, the corresponding dimension is 2. The second index corresponds to readers, and since the dataset has 4 readers, the corresponding dimension is 4. The third index corresponds to the total number of cases. Since the dataset has 100 cases, the corresponding dimension is 100. But, as you can see from the code below, the entries in this array for cases 34 through 100 are <code>-Inf</code>: i.e., <code><a href="https://rdrr.io/r/base/all.html">all(dataset03$NL[1,1,34:100,1] == -Inf)</a></code> = TRUE.</p></li>
 <li><p>This is because in the ROC paradigm false positive are not possible on diseased cases. So the actual FP ratings are contained in the first 33 elements of the array. How did I know that there are 33 non-diseased cases? This can be understood in several ways.</p></li>
@@ -186,24 +189,22 @@
 </ul>
 <p>The <code>dataType</code> list member is the character string <code>"ROC"</code>, characterizing the ROC dataset.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">dataset03</span>$<span class="no">dataType</span>
-<span class="co">#&gt; [1] "ROC"</span></pre></body></html></div>
+<span class="co">#&gt; NULL</span></pre></body></html></div>
 <p>The <code>modalityID</code> list member is a character string with two entries, <code>"TREAT1"</code> and <code>"TREAT2"</code>, corresponding to the two modalities.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">dataset03</span>$<span class="no">modalityID</span>
-<span class="co">#&gt;   TREAT1   TREAT2 </span>
-<span class="co">#&gt; "TREAT1" "TREAT2"</span></pre></body></html></div>
+<span class="co">#&gt; NULL</span></pre></body></html></div>
 <p>The <code>readerID</code> list member is a character string with four entries, <code>"READER_1"</code>, <code>"READER_2"</code>, <code>"READER_3"</code> and <code>"READER_4"</code> corresponding to the four readers.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">dataset03</span>$<span class="no">readerID</span>
-<span class="co">#&gt;   READER_1   READER_2   READER_3   READER_4 </span>
-<span class="co">#&gt; "READER_1" "READER_2" "READER_3" "READER_4"</span></pre></body></html></div>
+<span class="co">#&gt; NULL</span></pre></body></html></div>
 <p>Here are the actual ratings for cases 1:34.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">dataset03</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>:<span class="fl">33</span>,<span class="fl">1</span>]
-<span class="co">#&gt;  [1] 3 1 2 2 2 2 2 4 1 1 4 2 1 2 4 2 1 2 1 2 4 2 3 2 2 2 4 3 2 2 2 5 3</span></pre></body></html></div>
+<span class="co">#&gt; NULL</span></pre></body></html></div>
 <ul>
 <li><p>This says that for treatment 1 and reader 1, (non-diseased) case 1 was rated 3, case 2 was rated 1, cases 3-7 were rated 2, case 8 was rated 4, etc.</p></li>
 <li><p>As another example, for treatment 2 and reader 3, the FP ratings are:</p></li>
 </ul>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">dataset03</span>$<span class="no">NL</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span>:<span class="fl">33</span>,<span class="fl">1</span>]
-<span class="co">#&gt;  [1] 3 1 2 2 2 2 4 4 2 3 2 2 1 3 2 4 2 3 2 2 2 2 2 4 2 2 1 2 2 2 2 4 2</span></pre></body></html></div>
+<span class="co">#&gt; NULL</span></pre></body></html></div>
 </div>
 <div id="creating-a-dataset-from-a-jafroc-format-file" class="section level2">
 <h2 class="hasAnchor">
@@ -214,22 +215,25 @@
 <p>Next, one uses <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> as follows, assuming it is a JAFROC format file.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">ds</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="no">sysFileName</span>, <span class="kw">newExcelFileFormat</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">ds</span>)
-<span class="co">#&gt; List of 13</span>
-<span class="co">#&gt;  $ NL           : num [1:2, 1:5, 1:114, 1] 1 3 2 3 2 2 1 2 3 2 ...</span>
-<span class="co">#&gt;  $ LL           : num [1:2, 1:5, 1:45, 1] 5 5 5 5 5 5 5 5 5 5 ...</span>
-<span class="co">#&gt;  $ lesionVector : int [1:45] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ lesionID     : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ lesionWeight : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ dataType     : chr "ROC"</span>
-<span class="co">#&gt;  $ modalityID   : Named chr [1:2] "0" "1"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "0" "1"</span>
-<span class="co">#&gt;  $ readerID     : Named chr [1:5] "0" "1" "2" "3" ...</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span>
-<span class="co">#&gt;  $ design       : chr "CROSSED"</span>
-<span class="co">#&gt;  $ normalCases  : int [1:69] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="co">#&gt;  $ abnormalCases: int [1:45] 70 71 72 73 74 75 76 77 78 79 ...</span>
-<span class="co">#&gt;  $ truthTableStr: num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ datasetName  : chr "Ignore"</span></pre></body></html></div>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ ratings     :List of 3</span>
+<span class="co">#&gt;   ..$ NL   : num [1:2, 1:5, 1:114, 1] 1 3 2 3 2 2 1 2 3 2 ...</span>
+<span class="co">#&gt;   ..$ LL   : num [1:2, 1:5, 1:45, 1] 5 5 5 5 5 5 5 5 5 5 ...</span>
+<span class="co">#&gt;   ..$ LL_IL: logi NA</span>
+<span class="co">#&gt;  $ lesions     :List of 3</span>
+<span class="co">#&gt;   ..$ perCase: int [1:45] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ IDs    : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ weights: num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ descriptions:List of 7</span>
+<span class="co">#&gt;   ..$ fileName     : logi NA</span>
+<span class="co">#&gt;   ..$ type         : chr "ROC"</span>
+<span class="co">#&gt;   ..$ name         : logi NA</span>
+<span class="co">#&gt;   ..$ truthTableStr: num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ design       : chr "FCTRL"</span>
+<span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "0" "1"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "0" "1"</span>
+<span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "0" "1" "2" "3" ...</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span></pre></body></html></div>
 <p>Analysis is illustrated for <code>dataset03</code>, but one could have used the newly created dataset <code>ds</code>.</p>
 </div>
 <div id="analyzing-the-roc-dataset" class="section level2">
@@ -670,7 +674,6 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

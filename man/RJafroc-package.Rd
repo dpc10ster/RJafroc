@@ -403,8 +403,6 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
            testing \link{FitCorCbm}.
         \item \code{\link{DfExtractDataset}}: Extract a subset of modalities 
            and readers from a dataset.
-        \item \code{\link{DfFroc2Afroc}}: Convert an FROC dataset to an AFROC 
-           dataset.
         \item \code{\link{DfFroc2Roc}}: Convert an FROC dataset to a highest 
            rating inferred ROC dataset.
         \item \code{\link{DfLroc2Roc}}: Convert an LROC dataset to a highest 

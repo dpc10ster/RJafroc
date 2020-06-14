@@ -23,7 +23,7 @@ The FROC paradigm can have 0 or more marks per case. However,
    FROC marks, or -Inf if there are no marks, is copied to case index 
    k1 = 1 to k1 = K1 of the LROC dataset. For each diseased case, if the 
    max LL rating exceeds the max NL rating, then the max LL rating is copied 
-   to the LLCl array, otherwise the max NL rating is copied to the LLIl array. 
+   to the LL array, otherwise the max NL rating is copied to the LL_IL array. 
    The max NL rating on each diseased case is then set to -Inf (since the LROC
    paradigm only allows one mark. The equivalent FROC dataset has the same 
    HrAuc as the original LROC dataset. See example. The main use of this 
@@ -35,5 +35,6 @@ The FROC paradigm can have 0 or more marks per case. However,
 lrocDataset <- DfFroc2Lroc(dataset05)
 frocHrAuc <- UtilFigureOfMerit(dataset05, FOM = "HrAuc")   
 lrocWilcoxonAuc <- UtilFigureOfMerit(lrocDataset, FOM = "Wilcoxon")
+## expect_equal(frocHrAuc, lrocWilcoxonAuc)
 
 }

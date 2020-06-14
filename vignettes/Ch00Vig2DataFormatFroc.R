@@ -12,26 +12,26 @@ x <- DfReadDataFile(frocCr, newExcelFileFormat = TRUE)
 str(x)
 
 ## -----------------------------------------------------------------------------
-x$lesionID
+x$lesions$IDs
 
 ## -----------------------------------------------------------------------------
-x$lesionWeight
+x$lesions$weights
 
 ## -----------------------------------------------------------------------------
 x <- dataset11
 str(x)
 
 ## -----------------------------------------------------------------------------
-x$lesionVector
+x$lesions$perCase
 
 ## -----------------------------------------------------------------------------
-for (el in 1:max(x$lesionVector)) cat(
+for (el in 1:max(x$lesions$perCase)) cat(
   "abnormal cases with", el, "lesions = ", 
-  length(which(x$lesionVector == el)), "\n")
+  length(which(x$lesions$perCase == el)), "\n")
 
 ## -----------------------------------------------------------------------------
-for (el in 1:max(x$lesionVector)) cat("fraction of abnormal cases with", el, "lesions = ", 
-                                              length(which(x$lesionVector == el))/length(x$LL[1,1,,1]), "\n")
+for (el in 1:max(x$lesions$perCase)) cat("fraction of abnormal cases with", el, "lesions = ", 
+                                              length(which(x$lesions$perCase == el))/length(x$LL[1,1,,1]), "\n")
 
 ## -----------------------------------------------------------------------------
 lesDistr <- UtilLesionDistr(x)

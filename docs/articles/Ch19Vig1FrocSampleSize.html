@@ -132,13 +132,13 @@
 
       
 
-      </header><script src="Ch19Vig1FrocSampleSize_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="Ch19Vig1FrocSampleSize_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-05-29</h4>
+            <h4 class="date">2020-06-14</h4>
       
       
       <div class="hidden name"><code>Ch19Vig1FrocSampleSize.Rmd</code></div>
@@ -191,9 +191,9 @@
 <span class="co">#&gt; [2,]    2 0.5000000 0.5000000      -Inf</span>
 <span class="co">#&gt; [3,]    3 0.3333333 0.3333333 0.3333333</span></pre></body></html></div>
 <p>For this dataset <code>Lmax</code> is 3, and 69 percent of the diseased cases have one lesion, 20 percent have two lesions and 11 percent have three lesions. Since the lesions are equally weighted, on cases with one lesion the weight of the lesion is unity, on cases with two lesions the weights of each lesion is 0.5 and on cases with three lesions the weight of each lesion is 1/3.</p>
-<p>The next code block determines the number of treatments and readers (<code>I</code> and <code>J</code>) from the dimensions of the <code>frocData$NL</code> array. It creates an array <code>RsmParms</code> to hold the RSM fitted parameter values. For each treatment and reader it applies the fitting algorithm <code><a href="../reference/FitRsmRoc.html">FitRsmRoc()</a></code>. The first three returned values are <code>mu</code>, <code>lambdaP</code> and <code>nuP</code>, corresponding to RSM parameters <span class="math inline">\({\mu}\)</span>, <span class="math inline">\({\lambda^{'}}\)</span> and <span class="math inline">\({\nu^{'}}\)</span> .</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">I</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">frocData</span>$<span class="no">NL</span>)[<span class="fl">1</span>]
-<span class="no">J</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">frocData</span>$<span class="no">NL</span>)[<span class="fl">2</span>]
+<p>The next code block determines the number of treatments and readers (<code>I</code> and <code>J</code>) from the dimensions of the <code>frocData$ratings$NL</code> array. It creates an array <code>RsmParms</code> to hold the RSM fitted parameter values. For each treatment and reader it applies the fitting algorithm <code><a href="../reference/FitRsmRoc.html">FitRsmRoc()</a></code>. The first three returned values are <code>mu</code>, <code>lambdaP</code> and <code>nuP</code>, corresponding to RSM parameters <span class="math inline">\({\mu}\)</span>, <span class="math inline">\({\lambda^{'}}\)</span> and <span class="math inline">\({\nu^{'}}\)</span> .</p>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">I</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">frocData</span>$<span class="no">ratings</span>$<span class="no">NL</span>)[<span class="fl">1</span>]
+<span class="no">J</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">frocData</span>$<span class="no">ratings</span>$<span class="no">NL</span>)[<span class="fl">2</span>]
 <span class="no">RsmParms</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="kw">dim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">I</span>,<span class="no">J</span>,<span class="fl">3</span>))
 <span class="kw">for</span> (<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">I</span>) {
   <span class="kw">for</span> (<span class="no">j</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">J</span>)  {
@@ -249,7 +249,7 @@
 <span class="co">#&gt; ES_ROC =  0.007130131 , ES_wAFROC =  0.01542592 </span>
 <span class="co">#&gt; ES_ROC =  0.007695238 , ES_wAFROC =  0.0166615 </span>
 <span class="co">#&gt; ES_ROC =  0.00825608 , ES_wAFROC =  0.01788967 </span>
-<span class="co">#&gt; ES_ROC =  0.008812702 , ES_wAFROC =  0.0191105 </span>
+<span class="co">#&gt; ES_ROC =  0.008812701 , ES_wAFROC =  0.0191105 </span>
 <span class="co">#&gt; ES_ROC =  0.009365145 , ES_wAFROC =  0.02032404 </span>
 <span class="co">#&gt; ES_ROC =  0.009913453 , ES_wAFROC =  0.02153036 </span>
 <span class="co">#&gt; ES_ROC =  0.01045767 , ES_wAFROC =  0.0227295 </span>
@@ -358,7 +358,6 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

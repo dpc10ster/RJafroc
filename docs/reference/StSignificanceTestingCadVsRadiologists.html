@@ -8,13 +8,11 @@
 
 <title>Significance testing: standalone CAD vs. radiologists — StSignificanceTestingCadVsRadiologists • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,8 +36,8 @@
 
 
 
-
 <meta property="og:title" content="Significance testing: standalone CAD vs. radiologists — StSignificanceTestingCadVsRadiologists" />
+
 <meta property="og:description" content="Comparing standalone CAD vs. a group of radiologists interpreting 
    the same cases; (ideally) standalone CAD means that all the 
    designer-level mark-rating pairs provided by the CAD algorithm 
@@ -49,6 +47,7 @@
    A severe statistical power penalty is paid if one uses the ROC paradigm. 
    Details of the method are in a pdf file that will be uploaded to GitHub and 
    in my 2017 book." />
+
 
 
 
@@ -171,6 +170,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -192,6 +192,7 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Comparing standalone CAD vs. a group of radiologists interpreting 
    the same cases; (ideally) <strong>standalone CAD</strong> means that all the 
    <b>designer-level</b> mark-rating pairs provided by the CAD algorithm 
@@ -201,6 +202,7 @@
    A severe statistical power penalty is paid if one uses the ROC paradigm. 
    Details of the method are in a pdf file that will be uploaded to GitHub and 
    in my 2017 book.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>StSignificanceTestingCadVsRadiologists</span>(
@@ -211,7 +213,7 @@
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
   <span class='kw'>plots</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -249,7 +251,7 @@ If TRUE, it displays the appropriate operating characteristic for all
 readers and CAD.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>If <code>method = "1T-RRRC"</code> the return value is a 
@@ -328,6 +330,7 @@ If method = "2T-RRRC" the return value is a list
 
 <dt>Plots</dt><dd><p>see above.</p></dd>
 
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
@@ -354,6 +357,7 @@ If method = "2T-RRRC" the return value is a list
    are meaningless.</p></li>
 </ul>
 
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Hillis SL (2007) A comparison of denominator degrees of freedom methods 
@@ -366,6 +370,7 @@ performance for the detection of mammographic masses, Eur Radiol. 23(1):93-100.<
 <p>Kooi T, Gubern-Merida A, et al. (2016) A comparison between a deep convolutional 
 neural network and radiologists for classifying regions of interest in mammography. 
 Paper presented at: International Workshop on Digital Mammography, Malmo, Sweden.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ret1M</span> <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTestingCadVsRadiologists</span> (<span class='no'>dataset09</span>,

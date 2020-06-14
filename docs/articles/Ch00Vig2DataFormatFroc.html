@@ -132,13 +132,13 @@
 
       
 
-      </header><script src="Ch00Vig2DataFormatFroc_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="Ch00Vig2DataFormatFroc_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-05-29</h4>
+            <h4 class="date">2020-06-14</h4>
       
       
       <div class="hidden name"><code>Ch00Vig2DataFormatFroc.Rmd</code></div>
@@ -211,29 +211,32 @@
                         <span class="kw">package</span> <span class="kw">=</span> <span class="st">"RJafroc"</span>, <span class="kw">mustWork</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="no">frocCr</span>, <span class="kw">newExcelFileFormat</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">x</span>)
-<span class="co">#&gt; List of 13</span>
-<span class="co">#&gt;  $ NL           : num [1:2, 1:3, 1:8, 1:2] 1.02 2.89 2.21 3.01 2.14 ...</span>
-<span class="co">#&gt;  $ LL           : num [1:2, 1:3, 1:5, 1:3] 5.28 5.2 5.14 4.77 4.66 4.87 3.01 3.27 3.31 3.19 ...</span>
-<span class="co">#&gt;  $ lesionVector : int [1:5] 2 1 3 2 1</span>
-<span class="co">#&gt;  $ lesionID     : num [1:5, 1:3] 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ lesionWeight : num [1:5, 1:3] 0.3 1 0.333 0.1 1 ...</span>
-<span class="co">#&gt;  $ dataType     : chr "FROC"</span>
-<span class="co">#&gt;  $ modalityID   : Named chr [1:2] "0" "1"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "0" "1"</span>
-<span class="co">#&gt;  $ readerID     : Named chr [1:3] "0" "1" "2"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:3] "0" "1" "2"</span>
-<span class="co">#&gt;  $ design       : chr "CROSSED"</span>
-<span class="co">#&gt;  $ normalCases  : int [1:3] 1 2 3</span>
-<span class="co">#&gt;  $ abnormalCases: int [1:5] 70 71 72 73 74</span>
-<span class="co">#&gt;  $ truthTableStr: num [1:2, 1:3, 1:8, 1:4] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ datasetName  : chr "Ignore"</span></pre></body></html></div>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ ratings     :List of 3</span>
+<span class="co">#&gt;   ..$ NL   : num [1:2, 1:3, 1:8, 1:2] 1.02 2.89 2.21 3.01 2.14 ...</span>
+<span class="co">#&gt;   ..$ LL   : num [1:2, 1:3, 1:5, 1:3] 5.28 5.2 5.14 4.77 4.66 4.87 3.01 3.27 3.31 3.19 ...</span>
+<span class="co">#&gt;   ..$ LL_IL: logi NA</span>
+<span class="co">#&gt;  $ lesions     :List of 3</span>
+<span class="co">#&gt;   ..$ perCase: int [1:5] 2 1 3 2 1</span>
+<span class="co">#&gt;   ..$ IDs    : num [1:5, 1:3] 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ weights: num [1:5, 1:3] 0.3 1 0.333 0.1 1 ...</span>
+<span class="co">#&gt;  $ descriptions:List of 7</span>
+<span class="co">#&gt;   ..$ fileName     : logi NA</span>
+<span class="co">#&gt;   ..$ type         : chr "FROC"</span>
+<span class="co">#&gt;   ..$ name         : logi NA</span>
+<span class="co">#&gt;   ..$ truthTableStr: num [1:2, 1:3, 1:8, 1:4] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ design       : chr "FCTRL"</span>
+<span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "0" "1"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "0" "1"</span>
+<span class="co">#&gt;   ..$ readerID     : Named chr [1:3] "0" "1" "2"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:3] "0" "1" "2"</span></pre></body></html></div>
 <ul>
 <li>This follows the general description in <strong>Vignette #1</strong>. The differences are described below.</li>
-<li>The <code>x$dataType</code> member indicates that this is an <code>FROC</code> dataset.</li>
-<li>The <code>x$lesionVector</code> member is a vector whose contents reflect the number of lesions in each diseased case, i.e., 2, 1, 3, 2, 1 in the current example.</li>
-<li>The <code>x$lesionID</code> member indicates the labeling of the lesions in each diseased case.</li>
+<li>The <code>x$descriptions$type</code> member indicates that this is an <code>FROC</code> dataset.</li>
+<li>The <code>x$lesions$perCase</code> member is a vector whose contents reflect the number of lesions in each diseased case, i.e., 2, 1, 3, 2, 1 in the current example.</li>
+<li>The <code>x$lesions$IDs</code> member indicates the labeling of the lesions in each diseased case.</li>
 </ul>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">x</span>$<span class="no">lesionID</span>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">x</span>$<span class="no">lesions</span>$<span class="no">IDs</span>
 <span class="co">#&gt;      [,1] [,2] [,3]</span>
 <span class="co">#&gt; [1,]    1    2 -Inf</span>
 <span class="co">#&gt; [2,]    1 -Inf -Inf</span>
@@ -244,7 +247,7 @@
 <li>This shows that the lesions on the first diseased case are labeled 1 and 2. The <code>-Inf</code> is a filler used to denote a missing value. The second diseased case has one lesion labeled 1. The third diseased case has three lesions labeled 1, 2 and 3, etc.</li>
 <li>The <code>lesionWeight</code> member is the clinical importance of each lesion. Lacking specific clinical reasons, the lesions should be equally weighted; this is <em>not</em> true for this toy dataset.</li>
 </ul>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">x</span>$<span class="no">lesionWeight</span>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">x</span>$<span class="no">lesions</span>$<span class="no">weights</span>
 <span class="co">#&gt;           [,1]      [,2]      [,3]</span>
 <span class="co">#&gt; [1,] 0.3000000 0.7000000      -Inf</span>
 <span class="co">#&gt; [2,] 1.0000000      -Inf      -Inf</span>
@@ -261,7 +264,7 @@
 <p>These are found in the <code>FP</code> or <code>NL</code> worksheet, see below. <img src="images/frocCrNL.png" style="width:100.0%"></p>
 <ul>
 <li>It consists of 4 columns, of equal length. <strong>The common length is unpredictable.</strong> It could be zero if the dataset has no NL marks (a distinct possibility if the lesions are very easy to find and the modality and/or observer has high performance). All one knows is that the common length is an integer greater than or equal to zero.</li>
-<li>In the example dataset, the common length is 22.</li>
+<li>In the example dataset, the common length is 0.</li>
 <li>
 <code>ReaderID</code>: the reader labels: these must be <code>0</code>, <code>1</code>, or <code>2</code>, as declared in the <code>Truth</code> worksheet.</li>
 <li>
@@ -270,10 +273,10 @@
 <code>CaseID</code>: the labels of cases with <code>NL</code> marks. In the FROC paradigm, <code>NL</code> events can occur on non-diseased <strong>and</strong> diseased cases.</li>
 <li>
 <code>FP_Rating</code>: the floating point ratings of <code>NL</code> marks. Each row of this worksheet yields a rating corresponding to the values of <code>ReaderID</code>, <code>ModalityID</code> and <code>CaseID</code> for that row.</li>
-<li>For <code>ModalityID</code> 0, <code>ReaderID</code> 0 and <code>CaseID</code> 1 (the first non-diseased case declared in the <code>Truth</code> worksheet), there is a single <code>NL</code> mark that was rated 1.02, corresponding to row 2 of the <code>FP</code> worksheet.</li>
+<li>For <code>ModalityID</code> 0, <code>ReaderID</code> 0 and <code>CaseID</code> 1 (the first non-diseased case declared in the <code>Truth</code> worksheet), there is a single <code>NL</code> mark that was rated , corresponding to row 2 of the <code>FP</code> worksheet.</li>
 <li>Diseased cases with <code>NL</code> marks are also declared in the <code>FP</code> worksheet. Some examples are seen at rows 15, 16 and 21-23 of the <code>FP</code> worksheet.</li>
-<li>Rows 21 and 22 show that <code>caseID</code> = 71 got two <code>NL</code> marks, rated 2.24, 4.01.</li>
-<li>That this is the <em>only</em> case with two marks determines the length of the fourth dimension of the <code>x$NL</code> list member, 2 in the current example. Absent this case, the length would have been one.</li>
+<li>Rows 21 and 22 show that <code>caseID</code> = 71 got two <code>NL</code> marks, rated .</li>
+<li>That this is the <em>only</em> case with two marks determines the length of the fourth dimension of the <code>x$NL</code> list member, 0 in the current example. Absent this case, the length would have been one.</li>
 <li>In general, the case with the most <code>NL</code> marks determines the length of the fourth dimension of the <code>x$NL</code> list member.</li>
 <li>The reader should convince oneself that the ratings in <code>x$NL</code> reflect the contents of the <code>FP</code> worksheet.</li>
 </ul>
@@ -287,8 +290,8 @@
 <li>This worksheet can only have diseased cases. The presence of a non-diseased case in this worksheet will generate an error.</li>
 <li>The common vertical length, 31 in this example, is a-priori unpredictable. Given the structure of the <code>Truth</code> worsheet for this dataset, the maximum length would be 9 times 2 times 3, assuming every lesion is marked for each modality, reader and diseased case. The 9 comes from the total number of non-zero entries in the <code>LesionID</code> column of the <code>Truth</code> worksheet.</li>
 <li>The fact that the length is smaller than the maximum length means that there are combinations of modality, reader and diseased cases on which some lesions were not marked.</li>
-<li>As an example, the first lesion in <code>CaseID</code> equal to <code>70</code> was marked (and rated 5.28) in <code>ModalityID</code> <code>0</code> and <code>ReaderID</code> <code>0</code>.</li>
-<li>The length of the fourth dimension of the <code>x$LL</code> list member, 3 in the present example, is determined by the diseased case with the most lesions in the <code>Truth</code> worksheet.</li>
+<li>As an example, the first lesion in <code>CaseID</code> equal to <code>70</code> was marked (and rated ) in <code>ModalityID</code> <code>0</code> and <code>ReaderID</code> <code>0</code>.</li>
+<li>The length of the fourth dimension of the <code>x$LL</code> list member, 0 in the present example, is determined by the diseased case with the most lesions in the <code>Truth</code> worksheet.</li>
 <li>The reader should convince oneself that the ratings in <code>x$LL</code> reflect the contents of the <code>TP</code> worksheet.</li>
 </ul>
 </div>
@@ -300,27 +303,30 @@
 </ul>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="no">dataset11</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">x</span>)
-<span class="co">#&gt; List of 13</span>
-<span class="co">#&gt;  $ NL           : num [1:4, 1:5, 1:158, 1:4] -Inf -Inf -Inf -Inf -Inf ...</span>
-<span class="co">#&gt;  $ LL           : num [1:4, 1:5, 1:115, 1:20] -Inf -Inf -Inf -Inf -Inf ...</span>
-<span class="co">#&gt;  $ lesionVector : int [1:115] 6 4 7 1 3 3 3 8 11 2 ...</span>
-<span class="co">#&gt;  $ lesionID     : num [1:115, 1:20] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ lesionWeight : num [1:115, 1:20] 0.167 0.25 0.143 1 0.333 ...</span>
-<span class="co">#&gt;  $ dataType     : chr "FROC"</span>
-<span class="co">#&gt;  $ modalityID   : Named chr [1:4] "1" "2" "3" "4"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:4] "1" "2" "3" "4"</span>
-<span class="co">#&gt;  $ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="co">#&gt;  $ design       : chr "CROSSED"</span>
-<span class="co">#&gt;  $ normalCases  : int [1:43] 6 9 14 27 62 66 70 71 83 91 ...</span>
-<span class="co">#&gt;  $ abnormalCases: int [1:115] 1 2 3 5 7 8 10 11 13 17 ...</span>
-<span class="co">#&gt;  $ truthTableStr: num [1:4, 1:5, 1:158, 1:21] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ datasetName  : chr "Dobbins1"</span></pre></body></html></div>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ ratings     :List of 3</span>
+<span class="co">#&gt;   ..$ NL   : num [1:4, 1:5, 1:158, 1:4] -Inf -Inf -Inf -Inf -Inf ...</span>
+<span class="co">#&gt;   ..$ LL   : num [1:4, 1:5, 1:115, 1:20] -Inf -Inf -Inf -Inf -Inf ...</span>
+<span class="co">#&gt;   ..$ LL_IL: logi NA</span>
+<span class="co">#&gt;  $ lesions     :List of 3</span>
+<span class="co">#&gt;   ..$ perCase: int [1:115] 6 4 7 1 3 3 3 8 11 2 ...</span>
+<span class="co">#&gt;   ..$ IDs    : num [1:115, 1:20] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ weights: num [1:115, 1:20] 0.167 0.25 0.143 1 0.333 ...</span>
+<span class="co">#&gt;  $ descriptions:List of 7</span>
+<span class="co">#&gt;   ..$ fileName     : chr "dataset11"</span>
+<span class="co">#&gt;   ..$ type         : chr "FROC"</span>
+<span class="co">#&gt;   ..$ name         : chr "DOBBINS-1"</span>
+<span class="co">#&gt;   ..$ truthTableStr: num [1:4, 1:5, 1:158, 1:21] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ design       : chr "FCTRL"</span>
+<span class="co">#&gt;   ..$ modalityID   : Named chr [1:4] "1" "2" "3" "4"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:4] "1" "2" "3" "4"</span>
+<span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span></pre></body></html></div>
 <ul>
 <li>Focus for now in the 115 abnormal cases.</li>
-<li>The numbers of lesions in these cases is contained in <code>x$lesionVector</code>.</li>
+<li>The numbers of lesions in these cases is contained in <code>x$lesions$perCase</code>.</li>
 </ul>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">x</span>$<span class="no">lesionVector</span>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">x</span>$<span class="no">lesions</span>$<span class="no">perCase</span>
 <span class="co">#&gt;   [1]  6  4  7  1  3  3  3  8 11  2  4  6  2 16  5  2  8  3  4  7 11  1  4  3  4</span>
 <span class="co">#&gt;  [26]  4  7  3  2  5  2  2  7  6  6  4 10 20 12  6  4  7 12  5  1  1  5  1  2  8</span>
 <span class="co">#&gt;  [51]  3  1  2  2  3  2  8 16 10  1  2  2  6  3  2  2  4  6 10 11  1  2  6  2  4</span>
@@ -330,9 +336,9 @@
 <li>For example, the first abnormal case contains 6 lesions, the second contains 4 lesions, the third contains 7 lesions, etc. and the last abnormal case contains 1 lesion.</li>
 <li>To get an idea of the distribution of the numbers of lesions per abnormal cases, one could interrogate this vector as shown below using the <code><a href="https://rdrr.io/r/base/which.html">which()</a></code> function:</li>
 </ul>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="kw">for</span> (<span class="no">el</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">x</span>$<span class="no">lesionVector</span>)) <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="kw">for</span> (<span class="no">el</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">x</span>$<span class="no">lesions</span>$<span class="no">perCase</span>)) <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(
   <span class="st">"abnormal cases with"</span>, <span class="no">el</span>, <span class="st">"lesions = "</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">lesionVector</span> <span class="kw">==</span> <span class="no">el</span>)), <span class="st">"\n"</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">lesions</span>$<span class="no">perCase</span> <span class="kw">==</span> <span class="no">el</span>)), <span class="st">"\n"</span>)
 <span class="co">#&gt; abnormal cases with 1 lesions =  25 </span>
 <span class="co">#&gt; abnormal cases with 2 lesions =  23 </span>
 <span class="co">#&gt; abnormal cases with 3 lesions =  13 </span>
@@ -364,28 +370,28 @@
 <ul>
 <li>Let us ask what is the fraction of (abnormal) cases with 1 lesion, 2 lesions etc.</li>
 </ul>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="kw">for</span> (<span class="no">el</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">x</span>$<span class="no">lesionVector</span>)) <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"fraction of abnormal cases with"</span>, <span class="no">el</span>, <span class="st">"lesions = "</span>,
-                                              <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">lesionVector</span> <span class="kw">==</span> <span class="no">el</span>))/<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>$<span class="no">LL</span>[<span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span>]), <span class="st">"\n"</span>)
-<span class="co">#&gt; fraction of abnormal cases with 1 lesions =  0.2173913 </span>
-<span class="co">#&gt; fraction of abnormal cases with 2 lesions =  0.2 </span>
-<span class="co">#&gt; fraction of abnormal cases with 3 lesions =  0.1130435 </span>
-<span class="co">#&gt; fraction of abnormal cases with 4 lesions =  0.08695652 </span>
-<span class="co">#&gt; fraction of abnormal cases with 5 lesions =  0.04347826 </span>
-<span class="co">#&gt; fraction of abnormal cases with 6 lesions =  0.09565217 </span>
-<span class="co">#&gt; fraction of abnormal cases with 7 lesions =  0.05217391 </span>
-<span class="co">#&gt; fraction of abnormal cases with 8 lesions =  0.06956522 </span>
-<span class="co">#&gt; fraction of abnormal cases with 9 lesions =  0.0173913 </span>
-<span class="co">#&gt; fraction of abnormal cases with 10 lesions =  0.02608696 </span>
-<span class="co">#&gt; fraction of abnormal cases with 11 lesions =  0.02608696 </span>
-<span class="co">#&gt; fraction of abnormal cases with 12 lesions =  0.02608696 </span>
-<span class="co">#&gt; fraction of abnormal cases with 13 lesions =  0 </span>
-<span class="co">#&gt; fraction of abnormal cases with 14 lesions =  0 </span>
-<span class="co">#&gt; fraction of abnormal cases with 15 lesions =  0 </span>
-<span class="co">#&gt; fraction of abnormal cases with 16 lesions =  0.0173913 </span>
-<span class="co">#&gt; fraction of abnormal cases with 17 lesions =  0 </span>
-<span class="co">#&gt; fraction of abnormal cases with 18 lesions =  0 </span>
-<span class="co">#&gt; fraction of abnormal cases with 19 lesions =  0 </span>
-<span class="co">#&gt; fraction of abnormal cases with 20 lesions =  0.008695652</span></pre></body></html></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="kw">for</span> (<span class="no">el</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">x</span>$<span class="no">lesions</span>$<span class="no">perCase</span>)) <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"fraction of abnormal cases with"</span>, <span class="no">el</span>, <span class="st">"lesions = "</span>,
+                                              <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">lesions</span>$<span class="no">perCase</span> <span class="kw">==</span> <span class="no">el</span>))/<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>$<span class="no">LL</span>[<span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span>]), <span class="st">"\n"</span>)
+<span class="co">#&gt; fraction of abnormal cases with 1 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 2 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 3 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 4 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 5 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 6 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 7 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 8 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 9 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 10 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 11 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 12 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 13 lesions =  NaN </span>
+<span class="co">#&gt; fraction of abnormal cases with 14 lesions =  NaN </span>
+<span class="co">#&gt; fraction of abnormal cases with 15 lesions =  NaN </span>
+<span class="co">#&gt; fraction of abnormal cases with 16 lesions =  Inf </span>
+<span class="co">#&gt; fraction of abnormal cases with 17 lesions =  NaN </span>
+<span class="co">#&gt; fraction of abnormal cases with 18 lesions =  NaN </span>
+<span class="co">#&gt; fraction of abnormal cases with 19 lesions =  NaN </span>
+<span class="co">#&gt; fraction of abnormal cases with 20 lesions =  Inf</span></pre></body></html></div>
 <ul>
 <li>This tells us that fraction 0.217 of (abnormal) cases contain 1 lesion</li>
 <li>And fraction 0.2 of (abnormal) cases contain 2 lesions</li>
@@ -525,7 +531,6 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

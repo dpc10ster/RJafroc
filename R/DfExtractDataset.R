@@ -79,7 +79,7 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
     truthTableStr <- dataset$descriptions$truthTableStr[trts,rdrs,,,drop=FALSE]
   } else truthTableStr <- NA
   
-  fileName <- paste0("DfExtractDataset (", dataset$descriptions$fileName,")")
+  fileName <- paste0("DfExtractDataset(", dataset$descriptions$fileName,")")
   name <- dataset$descriptions$name
   design <- dataset$descriptions$design
   type <- dataset$descriptions$type
@@ -140,7 +140,7 @@ DfExtractXDataset <- function(dataset, trts, rdrs) {
     truthTableStr <- dataset$descriptions$truthTableStr[trts1, trts2, rdrs,,,drop=FALSE]
   } else truthTableStr <- NA
   
-  fileName <- paste0("Extracted from ", dataset$descriptions$fileName)
+  fileName <- paste0("DfExtractXDataset(", dataset$descriptions$fileName, ")")
   name <- dataset$descriptions$name
   design <- dataset$descriptions$design
   type <- dataset$descriptions$type

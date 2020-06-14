@@ -132,13 +132,13 @@
 
       
 
-      </header><script src="Ch00Vig4DataFormatFrocSp_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="Ch00Vig4DataFormatFrocSp_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-05-29</h4>
+            <h4 class="date">2020-06-14</h4>
       
       
       <div class="hidden name"><code>Ch00Vig4DataFormatFrocSp.Rmd</code></div>
@@ -196,75 +196,48 @@
                         <span class="kw">package</span> <span class="kw">=</span> <span class="st">"RJafroc"</span>, <span class="kw">mustWork</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="no">frocSp</span>, <span class="kw">newExcelFileFormat</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">x</span>)
-<span class="co">#&gt; List of 13</span>
-<span class="co">#&gt;  $ NL           : num [1:2, 1:3, 1:24, 1:3] 1.02 2.89 -Inf -Inf -Inf ...</span>
-<span class="co">#&gt;  $ LL           : num [1:2, 1:3, 1:15, 1:3] 5.28 5.2 -Inf -Inf -Inf ...</span>
-<span class="co">#&gt;  $ lesionVector : int [1:15] 2 1 3 2 1 2 1 3 2 1 ...</span>
-<span class="co">#&gt;  $ lesionID     : num [1:15, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ lesionWeight : num [1:15, 1:3] 0.3 1 0.333 0.1 1 ...</span>
-<span class="co">#&gt;  $ dataType     : chr "FROC"</span>
-<span class="co">#&gt;  $ modalityID   : Named chr [1:2] "0" "1"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "0" "1"</span>
-<span class="co">#&gt;  $ readerID     : Named chr [1:3] "0" "1" "2"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:3] "0" "1" "2"</span>
-<span class="co">#&gt;  $ design       : chr "SPLIT-PLOT"</span>
-<span class="co">#&gt;  $ normalCases  : int [1:9] 1 2 3 4 5 6 7 8 9</span>
-<span class="co">#&gt;  $ abnormalCases: int [1:15] 70 71 72 73 74 80 81 82 83 84 ...</span>
-<span class="co">#&gt;  $ truthTableStr: num [1:2, 1:3, 1:24, 1:4] 1 1 NA NA NA NA 1 1 NA NA ...</span>
-<span class="co">#&gt;  $ datasetName  : chr "Ignore"</span></pre></body></html></div>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ ratings     :List of 3</span>
+<span class="co">#&gt;   ..$ NL   : num [1:2, 1:3, 1:24, 1:3] 1.02 2.89 -Inf -Inf -Inf ...</span>
+<span class="co">#&gt;   ..$ LL   : num [1:2, 1:3, 1:15, 1:3] 5.28 5.2 -Inf -Inf -Inf ...</span>
+<span class="co">#&gt;   ..$ LL_IL: logi NA</span>
+<span class="co">#&gt;  $ lesions     :List of 3</span>
+<span class="co">#&gt;   ..$ perCase: int [1:15] 2 1 3 2 1 2 1 3 2 1 ...</span>
+<span class="co">#&gt;   ..$ IDs    : num [1:15, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ weights: num [1:15, 1:3] 0.3 1 0.333 0.1 1 ...</span>
+<span class="co">#&gt;  $ descriptions:List of 7</span>
+<span class="co">#&gt;   ..$ fileName     : logi NA</span>
+<span class="co">#&gt;   ..$ type         : chr "FROC"</span>
+<span class="co">#&gt;   ..$ name         : logi NA</span>
+<span class="co">#&gt;   ..$ truthTableStr: num [1:2, 1:3, 1:24, 1:4] 1 1 NA NA NA NA 1 1 NA NA ...</span>
+<span class="co">#&gt;   ..$ design       : chr "SPLIT-PLOT"</span>
+<span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "0" "1"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "0" "1"</span>
+<span class="co">#&gt;   ..$ readerID     : Named chr [1:3] "0" "1" "2"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:3] "0" "1" "2"</span></pre></body></html></div>
 <ul>
 <li>Flag <code>newExcelFileFormat</code> <strong>must</strong> be set to <code>TRUE</code> for split plot data.</li>
-<li>The dataset object <code>x</code> is a <code>list</code> variable with 13 members.</li>
-<li>Note that the <code>dataType</code> member is FROC and the <code>design</code> member is SPLIT-PLOT.</li>
+<li>The dataset object <code>x</code> is a <code>list</code> variable with 3 members.</li>
+<li>Note that the <code>dataType</code> member is and the <code>design</code> member is .</li>
 <li>There are 15 diseased cases in the dataset (the number of 1’s in the <code>LesionID</code> column of the <code>Truth</code> worksheet) and 9 non-diseased cases (the number of 0’s in the <code>LesionID</code> column).</li>
 <li>The <code>x$lesionVector</code> member is a vector with 15 ones representing the 15 diseased cases in the dataset.</li>
 <li>The <code>x$lesionID</code> member is a 15 x 3 array labeling the lesions in the dataset.</li>
 <li>The <code>x$lesionWeight</code> member is a 15 x 3 array.</li>
 </ul>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">x</span>$<span class="no">lesionVector</span>
-<span class="co">#&gt;  [1] 2 1 3 2 1 2 1 3 2 1 2 1 3 2 1</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">x</span>$<span class="no">lesionID</span>
-<span class="co">#&gt;       [,1] [,2] [,3]</span>
-<span class="co">#&gt;  [1,]    1    2 -Inf</span>
-<span class="co">#&gt;  [2,]    1 -Inf -Inf</span>
-<span class="co">#&gt;  [3,]    1    2    3</span>
-<span class="co">#&gt;  [4,]    1    2 -Inf</span>
-<span class="co">#&gt;  [5,]    1 -Inf -Inf</span>
-<span class="co">#&gt;  [6,]    1    2 -Inf</span>
-<span class="co">#&gt;  [7,]    1 -Inf -Inf</span>
-<span class="co">#&gt;  [8,]    1    2    3</span>
-<span class="co">#&gt;  [9,]    1    2 -Inf</span>
-<span class="co">#&gt; [10,]    1 -Inf -Inf</span>
-<span class="co">#&gt; [11,]    1    2 -Inf</span>
-<span class="co">#&gt; [12,]    1 -Inf -Inf</span>
-<span class="co">#&gt; [13,]    1    2    3</span>
-<span class="co">#&gt; [14,]    1    2 -Inf</span>
-<span class="co">#&gt; [15,]    1 -Inf -Inf</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">x</span>$<span class="no">lesionWeight</span>
-<span class="co">#&gt;            [,1]      [,2]      [,3]</span>
-<span class="co">#&gt;  [1,] 0.3000000 0.7000000      -Inf</span>
-<span class="co">#&gt;  [2,] 1.0000000      -Inf      -Inf</span>
-<span class="co">#&gt;  [3,] 0.3333333 0.3333333 0.3333333</span>
-<span class="co">#&gt;  [4,] 0.1000000 0.9000000      -Inf</span>
-<span class="co">#&gt;  [5,] 1.0000000      -Inf      -Inf</span>
-<span class="co">#&gt;  [6,] 0.3000000 0.7000000      -Inf</span>
-<span class="co">#&gt;  [7,] 1.0000000      -Inf      -Inf</span>
-<span class="co">#&gt;  [8,] 0.3333333 0.3333333 0.3333333</span>
-<span class="co">#&gt;  [9,] 0.1000000 0.9000000      -Inf</span>
-<span class="co">#&gt; [10,] 1.0000000      -Inf      -Inf</span>
-<span class="co">#&gt; [11,] 0.3000000 0.7000000      -Inf</span>
-<span class="co">#&gt; [12,] 1.0000000      -Inf      -Inf</span>
-<span class="co">#&gt; [13,] 0.3333333 0.3333333 0.3333333</span>
-<span class="co">#&gt; [14,] 0.1000000 0.9000000      -Inf</span>
-<span class="co">#&gt; [15,] 1.0000000      -Inf      -Inf</span></pre></body></html></div>
+<span class="co">#&gt; NULL</span></pre></body></html></div>
 <ul>
 <li>The <code>x$truthTableStr</code> member is a <code>2 x 3 x 24 x 4</code> array, i.e., I x J x K x (maximum number of lesions per case plus 1). The <code>plus 1</code> is needed to accommodate normal cases with <code>lesionID</code> = 0.</li>
 <li>Each entry in this array is either <code>1</code>, meaning the corresponding interpretation exists, or <code>NA</code>, meaning the corresponding interpretation does not exist.</li>
-<li>For example, <code>x$truthTableStr[1,1,1,1]</code> is 1. This means that an interpretation exists for the first treatment (<code>modalityID</code> = 0), first reader (<code>readerID</code> = 0) and first (normal) case <code>caseID</code> = 1 and <code>lesionID</code> = 0. This example corresponds to row 2 in the <code>TRUTH</code> worksheet.</li>
+<li>For example, <code>x$truthTableStr[1,1,1,1]</code> is . This means that an interpretation exists for the first treatment (<code>modalityID</code> = 0), first reader (<code>readerID</code> = 0) and first (normal) case <code>caseID</code> = 1 and <code>lesionID</code> = 0. This example corresponds to row 2 in the <code>TRUTH</code> worksheet.</li>
 <li>
-<code>x$truthTableStr[1,1,4,1]</code> is NA, which means an interpretation does not exist for the first treatment, first reader and fourth (normal) case.</li>
-<li>However, <code>x$truthTableStr[1,2,4,1]</code> is 1, which means an interpretation does exist for the first treatment, second reader and fourth (normal) case. This example corresponds to row 5 in the <code>TRUTH</code> worksheet.</li>
-<li>Likewise, <code>x$truthTableStr[1,1,10,3]</code> is 1, which means an interpretation does exist for the first treatment, first reader, tenth (abnormal) case and <code>lesionID</code> = 2. This example corresponds to row 12 in the <code>TRUTH</code> worksheet.</li>
+<code>x$truthTableStr[1,1,4,1]</code> is , which means an interpretation does not exist for the first treatment, first reader and fourth (normal) case.</li>
+<li>However, <code>x$truthTableStr[1,2,4,1]</code> is , which means an interpretation does exist for the first treatment, second reader and fourth (normal) case. This example corresponds to row 5 in the <code>TRUTH</code> worksheet.</li>
+<li>Likewise, <code>x$truthTableStr[1,1,10,3]</code> is , which means an interpretation does exist for the first treatment, first reader, tenth (abnormal) case and <code>lesionID</code> = 2. This example corresponds to row 12 in the <code>TRUTH</code> worksheet.</li>
 <li>As an aside, in the FROC paradigm an interpretation need not yield a mark-rating pair. An interpretation means the reader was “exposed to” and had the opportunity to mark the corresponding treatment-reader-case-lesion combination.</li>
 <li>The reader should confirm that the contents of <code>x$truthTableStr</code> summarizes the structure of the data in the <code>TRUTH</code> worksheet.</li>
 </ul>
@@ -287,17 +260,11 @@
 <code>FP_Rating</code>: the floating point ratings of non-diseased cases. Each row of this worksheet yields a rating corresponding to the values of <code>ReaderID</code>, <code>ModalityID</code> and <code>CaseID</code> for that row. Each <code>CaseID</code>, <code>ModalityID</code>, <code>ReaderID</code> combination must be consistent with that declared in the <code>Truth</code> worsheet.</li>
 </ul>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">x</span>$<span class="no">NL</span>[,<span class="fl">1</span>,<span class="fl">1</span>:<span class="fl">9</span>,<span class="fl">1</span>]
-<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]</span>
-<span class="co">#&gt; [1,] 1.02 2.22 1.90 -Inf -Inf -Inf -Inf -Inf -Inf</span>
-<span class="co">#&gt; [2,] 2.89 0.84 1.85 -Inf -Inf -Inf -Inf -Inf -Inf</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">x</span>$<span class="no">NL</span>[,<span class="fl">2</span>,<span class="fl">1</span>:<span class="fl">9</span>,<span class="fl">1</span>]
-<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]</span>
-<span class="co">#&gt; [1,] -Inf -Inf -Inf 2.21 3.10 2.21 -Inf -Inf -Inf</span>
-<span class="co">#&gt; [2,] -Inf -Inf -Inf 3.22 3.01 1.96 -Inf -Inf -Inf</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">x</span>$<span class="no">NL</span>[,<span class="fl">3</span>,<span class="fl">1</span>:<span class="fl">9</span>,<span class="fl">1</span>]
-<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]</span>
-<span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf -Inf 2.14 1.98 1.95</span>
-<span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf 2.24 4.01 1.65</span></pre></body></html></div>
+<span class="co">#&gt; NULL</span></pre></body></html></div>
 <ul>
 <li>The first line of the above code shows the ratings, in both modalities, of the first three non-diseased cases with <code>CaseID</code>s <code>1,3,3</code> (indexed 1, 2, 3 and appearing in the first three columns) interpreted by the first reader (<code>ReaderID</code> <code>0</code>).</li>
 <li>The second line shows the ratings, in both modalities, of the next three non-diseased cases with <code>CaseID</code>s <code>4,5,6</code> (indexed 4, 5, 6and appearing in the next three columns) interpreted by the second reader (<code>ReaderID</code> <code>1</code>).</li>
@@ -324,26 +291,11 @@
 <code>TP_Rating</code>: the floating point ratings of diseased cases. Each row of this worksheet yields a rating corresponding to the values of <code>ReaderID</code>, <code>ModalityID</code> and <code>CaseID</code> for that row. Each <code>CaseID</code>, <code>ModalityID</code>, <code>ReaderID</code> combination must be consistent with that declared in the <code>Truth</code> worsheet.</li>
 </ul>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">x</span>$<span class="no">LL</span>[,<span class="fl">1</span>,<span class="fl">1</span>:<span class="fl">15</span>,<span class="fl">1</span>]
-<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span>
-<span class="co">#&gt; [1,] 5.28 3.01 5.98 5.00 4.26 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf  -Inf</span>
-<span class="co">#&gt; [2,] 5.20 3.27 4.61 5.18 4.72 -Inf -Inf -Inf -Inf  -Inf  -Inf  -Inf  -Inf  -Inf</span>
-<span class="co">#&gt;      [,15]</span>
-<span class="co">#&gt; [1,]  -Inf</span>
-<span class="co">#&gt; [2,]  -Inf</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">x</span>$<span class="no">LL</span>[,<span class="fl">2</span>,<span class="fl">1</span>:<span class="fl">15</span>,<span class="fl">1</span>]
-<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span>
-<span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf 5.14 3.31 4.92 4.95  5.30  -Inf  -Inf  -Inf  -Inf</span>
-<span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf 4.77 3.19 5.20 5.39  5.01  -Inf  -Inf  -Inf  -Inf</span>
-<span class="co">#&gt;      [,15]</span>
-<span class="co">#&gt; [1,]  -Inf</span>
-<span class="co">#&gt; [2,]  -Inf</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">x</span>$<span class="no">LL</span>[,<span class="fl">3</span>,<span class="fl">1</span>:<span class="fl">15</span>,<span class="fl">1</span>]
-<span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span>
-<span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf  4.66  4.03  5.22  4.94</span>
-<span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf  4.87  1.94  -Inf  -Inf</span>
-<span class="co">#&gt;      [,15]</span>
-<span class="co">#&gt; [1,]  5.27</span>
-<span class="co">#&gt; [2,]  4.78</span></pre></body></html></div>
+<span class="co">#&gt; NULL</span></pre></body></html></div>
 <ul>
 <li>The first line of code shows the ratings, in both modalities, of the first five diseased cases with <code>CaseID</code>s <code>70,71,72,73,74</code> (indexed 1, 2, 3, 4, 5 and appearing in the first five columns) interpreted by the first reader (<code>ReaderID</code> <code>0</code>).</li>
 <li>The second line shows the ratings, in both modalities, of the next five diseased cases with <code>CaseID</code>s <code>80,81,82,83,84</code> (indexed 6, 7, 8, 9, 10 and appearing in the next five columns) interpreted by the second reader (<code>ReaderID</code> <code>1</code>).</li>
@@ -361,7 +313,6 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

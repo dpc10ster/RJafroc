@@ -8,13 +8,11 @@
 
 <title>Fit CORCBM to a paired ROC dataset — FitCorCbm • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,13 +36,14 @@
 
 
 
-
 <meta property="og:title" content="Fit CORCBM to a paired ROC dataset — FitCorCbm" />
+
 <meta property="og:description" content="Fit the Correlated Contaminated Binormal Model (CORCBM) 
    to a paired ROC dataset.
    The ROC dataset has to be formatted as a 
    single treatment, two-reader dataset, even though the actual 
    pairing may be different, see details." />
+
 
 
 
@@ -167,6 +166,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -188,15 +188,17 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Fit the Correlated Contaminated Binormal Model (CORCBM) 
    to a paired ROC dataset.
    The <strong>ROC</strong> dataset has to be formatted as a 
    <strong>single treatment</strong>, <strong>two-reader</strong> dataset, even though the actual 
    pairing may be different, see details.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>FitCorCbm</span>(<span class='no'>dataset</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -205,7 +207,7 @@
       <td><p>A <strong>paired ROC</strong> dataset</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The return value is a list containing three objects:</p>
@@ -219,6 +221,7 @@
 <dt>fittedPlot</dt><dd><p>The fitted plot with operating points, error bars, 
    for both conditions</p></dd>
 
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The conditions (X, Y) can be two readers interpreting images in the same 
@@ -238,30 +241,13 @@
    = 0.9999, it is held constant at near the limiting value and the covariance matrix 
    has one less dimension (along each edge) for each parameter that is held constant.
    The indices of the parameters held fixed are in <code>fitCorCbmRet$fixParam</code>.</p>
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Zhai X, Chakraborty DP (2017) A bivariate contaminated binormal model for robust fitting of proper ROC
 curves to a pair of correlated, possibly degenerate, ROC datasets. Medical Physics. 44(6):2207--2222.</p>
+    
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'># \donttest{
-## this takes 85 sec to execute on OSX
-## dataset &lt;- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))
-## ret &lt;- FitCorCbm(dataset)
-## print(ret$fitCorCbmRet)
-## print(ret$stats)
-## print(ret$fittedPlot)
-
-## this takes very long to execute
-## ret &lt;- FitCorCbm(datasetBinned123)
-## print(ret$fitCorCbmRet)
-## print(ret$stats)
-## print(ret$fittedPlot)
-## Also try two other datasets ending with 124 and 125
-# }
-
-
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

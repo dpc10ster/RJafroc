@@ -8,13 +8,11 @@
 
 <title>Simulates an uncorrelated FLROC FrocDataset using the RSM — SimulateLrocDataset • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,10 +36,11 @@
 
 
 
-
 <meta property="og:title" content="Simulates an uncorrelated FLROC FrocDataset using the RSM — SimulateLrocDataset" />
+
 <meta property="og:description" content="Simulates an uncorrelated LROC dataset for specified numbers of
    readers and treatments" />
+
 
 
 
@@ -164,6 +163,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -185,12 +185,14 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Simulates an uncorrelated LROC dataset for specified numbers of
    readers and treatments</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>SimulateLrocDataset</span>(<span class='no'>mu</span>, <span class='no'>lambda</span>, <span class='no'>nu</span>, <span class='no'>zeta1</span>, <span class='no'>I</span>, <span class='no'>J</span>, <span class='no'>K1</span>, <span class='no'>K2</span>, <span class='no'>lesionVector</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -231,20 +233,23 @@
       <td><p>A K2 length array containing the numbers of lesions per diseased case</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The return value is an LROC dataset.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>See book chapters on the Radiological Search Model (RSM) for details.
    The spproach is to first simulate an FROC dataset and then convert it to an Lroc
    dataset. The correlations between FROC ratings on the same case are assumed to be zero.</p>
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
 Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL. 
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>  <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)

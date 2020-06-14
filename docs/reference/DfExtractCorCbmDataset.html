@@ -8,13 +8,11 @@
 
 <title>Extract two arms of a pairing from an MRMC ROC dataset — DfExtractCorCbmDataset • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,13 +36,14 @@
 
 
 
-
 <meta property="og:title" content="Extract two arms of a pairing from an MRMC ROC dataset — DfExtractCorCbmDataset" />
+
 <meta property="og:description" content="Extract a paired dataset from a larger dataset. The pairing could be
 two readers in the same
 treatment, or different readers in different treatments, or the same reader
 in different treatments. If necessary
 The data is binned to 5 bins in each condition." />
+
 
 
 
@@ -167,6 +166,7 @@ The data is binned to 5 bins in each condition." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -188,15 +188,17 @@ The data is binned to 5 bins in each condition." />
     </div>
 
     <div class="ref-description">
+    
     <p>Extract a paired dataset from a larger dataset. The pairing could be
 two readers in the same
 treatment, or different readers in different treatments, or the same reader
 in different treatments. If necessary
 The data is binned to 5 bins in each condition.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>DfExtractCorCbmDataset</span>(<span class='no'>dataset</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -215,10 +217,11 @@ or treatments to be extracted</p></td>
 readers to be extracted</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A new dataset in which the number of treatments is one and the number of readers is two</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The desired pairing is contained in the vectors <code>trts</code> and <code>rdrs</code>.
@@ -227,15 +230,16 @@ have length two and the pairing is implicit. If both are length two, then the pa
 is that implied by the first treatement
 and the second reader, which is one arm, and the other arm is that implied by the second
 treatment paired with the first
-reader. Using this method any allowed pairing can be extracted and analyzed by <code><a href='FitCorCbmRoc.html'>FitCorCbmRoc</a></code>.
+reader. Using this method any allowed pairing can be extracted and analyzed by <code><a href='FitCorCbm.html'>FitCorCbm</a></code>.
 The utility of this software is
 in designing a ratings simulator that is statistically matched to a real dataset.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'>## Extract the paired data corresponding to the second and third readers in the first treatment</span>
-<span class='co'>##from the include ROC dataset</span>
+<span class='co'>## from the included ROC dataset</span>
 <span class='no'>dataset11_23</span> <span class='kw'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span>(<span class='no'>dataset05</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>))
 
 <span class='co'>## Extract the paired data corresponding to the third reader in the first and second treatments</span>
@@ -244,7 +248,7 @@ in designing a ratings simulator that is statistically matched to a real dataset
 <span class='co'>## Extract the data corresponding to the first reader in the first</span>
 <span class='co'>## treatment paired with the data</span>
 <span class='co'>## from the third reader in the second treatment</span>
-<span class='co'>## (the indices are at different positions in the respective arrays)</span>
+<span class='co'>## (the bin indices are at different positions in the two arrays)</span>
 <span class='no'>dataset12_13</span> <span class='kw'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span>(<span class='no'>dataset05</span>,
 <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>), <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
 <span class='co'># }</span></div></pre>

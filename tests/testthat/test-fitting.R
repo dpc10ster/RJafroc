@@ -9,8 +9,8 @@
 # ✔ |  18       | Fitting routines [195.9 s]
 
 
-context("FitBinormalRoc")
-test_that("FitBinormalRoc - allow AUC less than 0.5", {
+context("FitBinormalRoc - allow AUC less than 0.5")
+test_that("FitBinormalRoc", {
   # skip_on_travis()
   g1 <- c(2, 3, 5, 6)
   g2 <- c(0, 4, 7, 11)
@@ -92,7 +92,7 @@ test_that("FitCorCbm", {
   skip_on_cran()
   skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
   
-  fn <- paste0(test_path(), "/goodValues361/Fitting/CorCbm", ".rds")
+  fn <- paste0(test_path(), "/goodValues361/Fitting/CorCbmdataset05", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- FitCorCbm(DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7)))
@@ -108,6 +108,84 @@ test_that("FitCorCbm", {
   expect_equal(ret1, ret)
   # end of test
 
+})
+
+
+context("FitCorCbm123")
+test_that("FitCorCbm", {
+  
+  skip_on_travis()
+  skip_on_cran()
+  skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
+  
+  fn <- paste0(test_path(), "/goodValues361/Fitting/CorCbmdatasetBinned123", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- FitCorCbm(datasetBinned123)
+    ret <- ret$fitCorCbmRet
+    ret <- ret[1:10] # leave out covariance matrix and plots
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  ret1 <- FitCorCbm(datasetBinned123)
+  ret1 <- ret1$fitCorCbmRet
+  ret1 <- ret1[1:10] # leave out covariance matrix and plots
+  expect_equal(ret1, ret)
+  # end of test
+  
+})
+
+
+context("FitCorCbm")
+test_that("FitCorCbm", {
+  
+  skip_on_travis()
+  skip_on_cran()
+  skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
+  
+  fn <- paste0(test_path(), "/goodValues361/Fitting/CorCbmdatasetBinned124", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- FitCorCbm(datasetBinned124)
+    ret <- ret$fitCorCbmRet
+    ret <- ret[1:10] # leave out covariance matrix and plots
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  ret1 <- FitCorCbm(datasetBinned124)
+  ret1 <- ret1$fitCorCbmRet
+  ret1 <- ret1[1:10] # leave out covariance matrix and plots
+  expect_equal(ret1, ret)
+  # end of test
+  
+})
+
+
+context("FitCorCbm")
+test_that("FitCorCbm", {
+  
+  skip_on_travis()
+  skip_on_cran()
+  skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
+  
+  fn <- paste0(test_path(), "/goodValues361/Fitting/CorCbmdatasetBinned125", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- FitCorCbm(datasetBinned125)
+    ret <- ret$fitCorCbmRet
+    ret <- ret[1:10] # leave out covariance matrix and plots
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  ret1 <- FitCorCbm(datasetBinned125)
+  ret1 <- ret1$fitCorCbmRet
+  ret1 <- ret1[1:10] # leave out covariance matrix and plots
+  expect_equal(ret1, ret)
+  # end of test
+  
 })
 
 

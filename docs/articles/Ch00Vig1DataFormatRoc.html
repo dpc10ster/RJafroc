@@ -132,13 +132,13 @@
 
       
 
-      </header><script src="Ch00Vig1DataFormatRoc_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="Ch00Vig1DataFormatRoc_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-05-29</h4>
+            <h4 class="date">2020-06-14</h4>
       
       
       <div class="hidden name"><code>Ch00Vig1DataFormatRoc.Rmd</code></div>
@@ -210,26 +210,29 @@
                         <span class="kw">package</span> <span class="kw">=</span> <span class="st">"RJafroc"</span>, <span class="kw">mustWork</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="no">rocCr</span>, <span class="kw">newExcelFileFormat</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">x</span>)
-<span class="co">#&gt; List of 13</span>
-<span class="co">#&gt;  $ NL           : num [1:2, 1:5, 1:8, 1] 1 3 2 3 2 2 1 2 3 2 ...</span>
-<span class="co">#&gt;  $ LL           : num [1:2, 1:5, 1:5, 1] 5 5 5 5 5 5 5 5 5 5 ...</span>
-<span class="co">#&gt;  $ lesionVector : int [1:5] 1 1 1 1 1</span>
-<span class="co">#&gt;  $ lesionID     : num [1:5, 1] 1 1 1 1 1</span>
-<span class="co">#&gt;  $ lesionWeight : num [1:5, 1] 1 1 1 1 1</span>
-<span class="co">#&gt;  $ dataType     : chr "ROC"</span>
-<span class="co">#&gt;  $ modalityID   : Named chr [1:2] "0" "1"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "0" "1"</span>
-<span class="co">#&gt;  $ readerID     : Named chr [1:5] "0" "1" "2" "3" ...</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span>
-<span class="co">#&gt;  $ design       : chr "CROSSED"</span>
-<span class="co">#&gt;  $ normalCases  : int [1:3] 1 2 3</span>
-<span class="co">#&gt;  $ abnormalCases: int [1:5] 70 71 72 73 74</span>
-<span class="co">#&gt;  $ truthTableStr: num [1:2, 1:5, 1:8, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ datasetName  : chr "Ignore"</span></pre></body></html></div>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ ratings     :List of 3</span>
+<span class="co">#&gt;   ..$ NL   : num [1:2, 1:5, 1:8, 1] 1 3 2 3 2 2 1 2 3 2 ...</span>
+<span class="co">#&gt;   ..$ LL   : num [1:2, 1:5, 1:5, 1] 5 5 5 5 5 5 5 5 5 5 ...</span>
+<span class="co">#&gt;   ..$ LL_IL: logi NA</span>
+<span class="co">#&gt;  $ lesions     :List of 3</span>
+<span class="co">#&gt;   ..$ perCase: int [1:5] 1 1 1 1 1</span>
+<span class="co">#&gt;   ..$ IDs    : num [1:5, 1] 1 1 1 1 1</span>
+<span class="co">#&gt;   ..$ weights: num [1:5, 1] 1 1 1 1 1</span>
+<span class="co">#&gt;  $ descriptions:List of 7</span>
+<span class="co">#&gt;   ..$ fileName     : logi NA</span>
+<span class="co">#&gt;   ..$ type         : chr "ROC"</span>
+<span class="co">#&gt;   ..$ name         : logi NA</span>
+<span class="co">#&gt;   ..$ truthTableStr: num [1:2, 1:5, 1:8, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ design       : chr "FCTRL"</span>
+<span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "0" "1"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "0" "1"</span>
+<span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "0" "1" "2" "3" ...</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span></pre></body></html></div>
 <ul>
 <li>In the above code chunk flag <code>newExcelFileFormat</code> is set to <code>TRUE</code> as otherwise columns D - F in the <code>Truth</code> worksheet are ignored and the dataset is assumed to be crossed, with <code>dataType</code> automatically determined from the contents of the FP and TP worksheets.</li>
 <li>Flag <code>newExcelFileFormat = FALSE</code> is for compatibility with older JAFROC format Excel files, which did not have these columns in the <code>Truth</code> worksheet. Its usage is deprecated.</li>
-<li>The dataset object <code>x</code> is a <code>list</code> variable with 13 members.</li>
+<li>The dataset object <code>x</code> is a <code>list</code> variable with 3 members.</li>
 <li>The <code>x$NL</code> member, with dimension [2, 5, 8, 1], contains the ratings of normal cases. The extra values in the third dimension, filled with <code>NAs</code>, are needed for compatibility with FROC datasets.</li>
 <li>The <code>x$LL</code>, with dimension [2, 5, 5, 1], contains the ratings of abnormal cases.</li>
 <li>The <code>x$lesionVector</code> member is a vector with 5 ones representing the 5 diseased cases in the dataset.</li>
@@ -239,9 +242,9 @@
 <li>The <code>dataType</code> member indicates that this is an <code>ROC</code> dataset.</li>
 <li>The <code>x$modalityID</code> member is a vector with two elements <code>"0"</code> and <code>"1"</code>, naming the two modalities.</li>
 <li>The <code>x$readerID</code> member is a vector with five elements <code>"0"</code>, <code>"1"</code>, <code>"2"</code>, <code>"3"</code> and <code>"4"</code>, naming the five readers.</li>
-<li>The <code>x$design</code> member is CROSSED; specifies the dataset design, which is “CROSSED”.</li>
-<li>The <code>x$normalCases</code> member lists the integer names of the normal cases, 1, 2, 3.</li>
-<li>The <code>x$abnormalCases</code> member lists the integer names of the abnormal cases, 70, 71, 72, 73, 74.</li>
+<li>The <code>x$design</code> member is ; specifies the dataset design, which is “CROSSED”.</li>
+<li>The <code>x$normalCases</code> member lists the integer names of the normal cases, .</li>
+<li>The <code>x$abnormalCases</code> member lists the integer names of the abnormal cases, .</li>
 <li>The <code>x$truthTableStr</code> member quantifies the structure of the dataset, as explained in <strong>Vignette #3</strong>. <strong>It is used in the <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> function to check for data entry errors.</strong>
 </li>
 </ul>
@@ -293,8 +296,8 @@
 <li>The fourth dimension is alway 1 for an ROC dataset.</li>
 </ul>
 </li>
-<li>The value of <code>x$NL[1,5,2,1]</code>, i.e., 5, corresponds to row 15 of the FP table, i.e., to <code>ModalityID</code> = 0, <code>ReaderID</code> = 4 and <code>CaseID</code> = 2.</li>
-<li>The value of <code>x$NL[2,3,2,1]</code>, i.e., 4, corresponds to row 24 of the FP table, i.e., to <code>ModalityID</code> 1, <code>ReaderID</code> 2 and <code>CaseID</code> 2.</li>
+<li>The value of <code>x$NL[1,5,2,1]</code>, i.e., , corresponds to row 15 of the FP table, i.e., to <code>ModalityID</code> = 0, <code>ReaderID</code> = 4 and <code>CaseID</code> = 2.</li>
+<li>The value of <code>x$NL[2,3,2,1]</code>, i.e., , corresponds to row 24 of the FP table, i.e., to <code>ModalityID</code> 1, <code>ReaderID</code> 2 and <code>CaseID</code> 2.</li>
 <li>All values for case index &gt; 3 are <code>-Inf</code>. For example the value of <code>x$NL[2,3,4,1]</code> is <code>-Inf</code>. This is because there are only 3 non-diseased cases. The extra length is needed for compatibility with FROC datasets.</li>
 </ul>
 </div>
@@ -310,8 +313,8 @@
 <li>The fourth dimension is alway 1 for an ROC dataset.</li>
 </ul>
 </li>
-<li>The value of <code>x$LL[1,1,5,1]</code>, i.e., 4, corresponds to row 6 of the TP table, i.e., to <code>ModalityID</code> = 0, <code>ReaderID</code> = 0 and <code>CaseID</code> = 74.</li>
-<li>The value of <code>x$LL[1,2,2,1]</code>, i.e., 3, corresponds to row 8 of the TP table, i.e., to <code>ModalityID</code> = 0, <code>ReaderID</code> = 1 and <code>CaseID</code> = 71.</li>
+<li>The value of <code>x$LL[1,1,5,1]</code>, i.e., , corresponds to row 6 of the TP table, i.e., to <code>ModalityID</code> = 0, <code>ReaderID</code> = 0 and <code>CaseID</code> = 74.</li>
+<li>The value of <code>x$LL[1,2,2,1]</code>, i.e., , corresponds to row 8 of the TP table, i.e., to <code>ModalityID</code> = 0, <code>ReaderID</code> = 1 and <code>CaseID</code> = 71.</li>
 <li>There are no -Inf values in <code>x$LL</code>: <code><a href="https://rdrr.io/r/base/any.html">any(x$LL == -Inf)</a></code> = FALSE.</li>
 </ul>
 </div>
@@ -328,13 +331,13 @@
 <li>The reader is encouraged to examine the correspondence between the NL and LL ratings and the Excel file using this method.</li>
 </ul>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">abnormalCases</span> <span class="kw">==</span> <span class="fl">70</span>)
-<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; integer(0)</span>
 <span class="no">x</span>$<span class="no">NL</span>[<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">modalityID</span> <span class="kw">==</span> <span class="st">"0"</span>),<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">readerID</span> <span class="kw">==</span> <span class="st">"1"</span>),<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">normalCases</span> <span class="kw">==</span> <span class="fl">1</span>),<span class="fl">1</span>]
-<span class="co">#&gt; [1] 2</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">x</span>$<span class="no">LL</span>[<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">modalityID</span> <span class="kw">==</span> <span class="st">"0"</span>),<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">readerID</span> <span class="kw">==</span> <span class="st">"1"</span>),<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">abnormalCases</span> <span class="kw">==</span> <span class="fl">70</span>),<span class="fl">1</span>]
-<span class="co">#&gt; [1] 5</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">x</span>$<span class="no">LL</span>[<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">modalityID</span> <span class="kw">==</span> <span class="st">"a"</span>),<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">readerID</span> <span class="kw">==</span> <span class="st">"1"</span>),<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">x</span>$<span class="no">abnormalCases</span> <span class="kw">==</span> <span class="fl">70</span>),<span class="fl">1</span>]
-<span class="co">#&gt; numeric(0)</span></pre></body></html></div>
+<span class="co">#&gt; NULL</span></pre></body></html></div>
 </div>
 <div id="a-single-reader-dataset" class="section level2">
 <h2 class="hasAnchor">
@@ -343,22 +346,25 @@
                         <span class="kw">package</span> <span class="kw">=</span> <span class="st">"RJafroc"</span>, <span class="kw">mustWork</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="no">rocCr1R</span>, <span class="kw">newExcelFileFormat</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">x</span>)
-<span class="co">#&gt; List of 13</span>
-<span class="co">#&gt;  $ NL           : num [1:2, 1, 1:8, 1] 2 3 3 2 2 ...</span>
-<span class="co">#&gt;  $ LL           : num [1:2, 1, 1:5, 1] 5 5 3 3 5 5 5 5 5 5</span>
-<span class="co">#&gt;  $ lesionVector : int [1:5] 1 1 1 1 1</span>
-<span class="co">#&gt;  $ lesionID     : num [1:5, 1] 1 1 1 1 1</span>
-<span class="co">#&gt;  $ lesionWeight : num [1:5, 1] 1 1 1 1 1</span>
-<span class="co">#&gt;  $ dataType     : chr "ROC"</span>
-<span class="co">#&gt;  $ modalityID   : Named chr [1:2] "0" "1"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "0" "1"</span>
-<span class="co">#&gt;  $ readerID     : Named chr "1"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr "1"</span>
-<span class="co">#&gt;  $ design       : chr "CROSSED"</span>
-<span class="co">#&gt;  $ normalCases  : int [1:3] 1 2 3</span>
-<span class="co">#&gt;  $ abnormalCases: int [1:5] 70 71 72 73 74</span>
-<span class="co">#&gt;  $ truthTableStr: num [1:2, 1, 1:8, 1:2] 1 1 1 1 1 1 NA NA NA NA ...</span>
-<span class="co">#&gt;  $ datasetName  : chr "Ignore"</span></pre></body></html></div>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ ratings     :List of 3</span>
+<span class="co">#&gt;   ..$ NL   : num [1:2, 1, 1:8, 1] 2 3 3 2 2 ...</span>
+<span class="co">#&gt;   ..$ LL   : num [1:2, 1, 1:5, 1] 5 5 3 3 5 5 5 5 5 5</span>
+<span class="co">#&gt;   ..$ LL_IL: logi NA</span>
+<span class="co">#&gt;  $ lesions     :List of 3</span>
+<span class="co">#&gt;   ..$ perCase: int [1:5] 1 1 1 1 1</span>
+<span class="co">#&gt;   ..$ IDs    : num [1:5, 1] 1 1 1 1 1</span>
+<span class="co">#&gt;   ..$ weights: num [1:5, 1] 1 1 1 1 1</span>
+<span class="co">#&gt;  $ descriptions:List of 7</span>
+<span class="co">#&gt;   ..$ fileName     : logi NA</span>
+<span class="co">#&gt;   ..$ type         : chr "ROC"</span>
+<span class="co">#&gt;   ..$ name         : logi NA</span>
+<span class="co">#&gt;   ..$ truthTableStr: num [1:2, 1, 1:8, 1:2] 1 1 1 1 1 1 NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ design       : chr "FCTRL"</span>
+<span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "0" "1"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "0" "1"</span>
+<span class="co">#&gt;   ..$ readerID     : Named chr "1"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr "1"</span></pre></body></html></div>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
@@ -375,7 +381,6 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

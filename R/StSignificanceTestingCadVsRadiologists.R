@@ -276,8 +276,8 @@ SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha)
 DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
 {
   K <- length(dataset$ratings$NL[1,1,,1])
-  dataType <- dataset$descriptions$type
-  if ((dataType == "LROC") && (FOM %in% c("PCL", "ALROC"))) 
+  type <- dataset$descriptions$type
+  if ((type == "LROC") && (FOM %in% c("PCL", "ALROC"))) 
   {
     ret1 <- dataset2ratings(dataset, FOM)
     TP <- ret1$zjk2
@@ -292,21 +292,21 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
     }
     combinedNL[2,,1:K1,1] <- FP[2:(J+1),]
     
-    combinedLLCl <- array(-Inf, dim=c(2,J,K2,1))
+    combinedLL <- array(-Inf, dim=c(2,J,K2,1))
     
     for (j in 1:J){
-      combinedLLCl[1,j,,1] <- TP[1,]
+      combinedLL[1,j,,1] <- TP[1,]
     }
-    combinedLLCl[2,,,1] <- TP[2:(J+1),]
+    combinedLL[2,,,1] <- TP[2:(J+1),]
     
     combinedLLIl <- array(-Inf, dim=c(2,J,K2,1))
     for (j in 1:J){
       combinedLLIl[1,j,,1] <- zjk2Il[1,]
     }
     combinedLLIl[2,,,1] <- zjk2Il[2:(J+1),]
-  } else if ((dataType == "LROC") && (FOM == "Wilcoxon")) {
+  } else if ((type == "LROC") && (FOM == "Wilcoxon")) {
     datasetRoc <- DfLroc2Roc(dataset)
-    dataType <- datasetRoc$dataType
+    type <- datasetRoc$descriptions$type
     NL <- datasetRoc$ratings$NL
     LL <- datasetRoc$ratings$LL
     K <- length(NL[1,1,,1])
@@ -321,12 +321,12 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
     }
     combinedNL[2,,1:K1,1] <- FP[2:(J+1),]
     
-    combinedLLCl <- array(-Inf, dim=c(2,J,K2,1))
+    combinedLL <- array(-Inf, dim=c(2,J,K2,1))
     for (j in 1:J){
-      combinedLLCl[1,j,,1] <- TP[1,]
+      combinedLL[1,j,,1] <- TP[1,]
     }
-    combinedLLCl[2,,,1] <- TP[2:(J+1),]
-  } else if ((dataType == "ROC") && (FOM == "Wilcoxon")) {
+    combinedLL[2,,,1] <- TP[2:(J+1),]
+  } else if ((type == "ROC") && (FOM == "Wilcoxon")) {
     NL <- dataset$ratings$NL
     LL <- dataset$ratings$LL
     K <- length(NL[1,1,,1])
@@ -341,42 +341,54 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
     }
     combinedNL[2,,1:K1,1] <- FP[2:(J+1),]
     
-    combinedLLCl <- array(-Inf, dim=c(2,J,K2,1))
+    combinedLL <- array(-Inf, dim=c(2,J,K2,1))
     for (j in 1:J){
-      combinedLLCl[1,j,,1] <- TP[1,]
+      combinedLL[1,j,,1] <- TP[1,]
     }
-    combinedLLCl[2,,,1] <- TP[2:(J+1),]
+    combinedLL[2,,,1] <- TP[2:(J+1),]
   } else stop("Incorrect FOM with LROC data")
   
-  lesionID <- rep(1, K2)
-  dim(lesionID) <- c(K2,1)
-  lesionWeight <- rep(0, K2)
-  dim(lesionWeight) <- c(K2,1)
-  if (dataType == "LROC") {
-    datasetCombined <- list(
-      NL = combinedNL,
-      LLCl = combinedLLCl,
-      LLIl = combinedLLIl,
-      lesionVector = rep(1,K2),
-      lesionID = lesionID,
-      lesionWeight = lesionWeight,
-      dataType = dataType,
-      modalityID = as.character(c(1,2)),
-      readerID = as.character(1:J),
-      datasetName <- "ignore"
-    )
+  IDs <- rep(1, K2)
+  dim(IDs) <- c(K2,1)
+  weights <- rep(0, K2)
+  dim(weights) <- c(K2,1)
+  if (type == "LROC") {
+    NL <- combinedNL
+    LL = combinedLL
+    LL_IL = combinedLLIl
+    fileName <- paste0("DualModalityRRRC(", dataset$descriptions$fileName, ")")
+    name <- NA
+    design <- "FCTRL"
+    truthTableStr <- NA
+    type <- "LROC"
+    perCase <- rep(1,K2)
+    IDs <- dataset$lesions$IDs
+    weights <- dataset$lesions$weights
+    modalityID = as.character(c(1,2))
+    readerID = as.character(1:J)
+    datasetCombined <- convert2dataset(NL, LL, LL_IL, 
+                           perCase, IDs, weights,
+                           fileName, type, name, truthTableStr, design,
+                           modalityID, readerID)
+    
   } else {
-    datasetCombined <- list(
-      NL = combinedNL,
-      LL = combinedLLCl,
-      lesionVector = rep(1,K2),
-      lesionID = lesionID,
-      lesionWeight = lesionWeight,
-      dataType = dataType,
-      modalityID = as.character(c(1,2)),
-      readerID = as.character(1:J),
-      datasetName <- "ignore"
-    )
+    NL <- combinedNL
+    LL = combinedLL
+    LL_IL = NA
+    fileName <- paste0("DualModalityRRRC(", dataset$descriptions$fileName, ")")
+    name <- NA
+    design <- "FCTRL"
+    truthTableStr <- NA
+    type <- "ROC"
+    perCase <- rep(1,K2)
+    IDs <- dataset$lesions$IDs
+    weights <- dataset$lesions$weights
+    modalityID = as.character(c(1,2))
+    readerID = as.character(1:J)
+    datasetCombined <- convert2dataset(NL, LL, LL_IL, 
+                           perCase, IDs, weights,
+                           fileName, type, name, truthTableStr, design,
+                           modalityID, readerID)
   }
   
   stats1 <- StSignificanceTesting(datasetCombined, FOM = FOM, method = "ORH", alpha = alpha, analysisOption = "RRRC", FPFValue = FPFValue)
@@ -430,18 +442,18 @@ CadVsRadPlots <- function(dataset, FOM) {
   zjk1 <- ret1$zjk1
   zjk2 <- ret1$zjk2
   
-  dataType <- dataset$descriptions$type
-  if (dataType == "ROC") {
+  type <- dataset$descriptions$type
+  if (type == "ROC") {
     # fixed one of hard coding errors noticed by Alejandro
     genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
-  } else if ((dataType == "LROC") && ((FOM == "PCL") || (FOM == "ALROC")))  {
-    if (dataType == "LROC") genericPlot <- LrocPlots (zjk1, zjk2, seq(1,length(zjk1[,1])-1))$lrocPlot
-  } else if ((dataType == "LROC") && (FOM == "Wilcoxon"))  {
-    if (dataType == "LROC") {
+  } else if ((type == "LROC") && ((FOM == "PCL") || (FOM == "ALROC")))  {
+    if (type == "LROC") genericPlot <- LrocPlots (zjk1, zjk2, seq(1,length(zjk1[,1])-1))$lrocPlot
+  } else if ((type == "LROC") && (FOM == "Wilcoxon"))  {
+    if (type == "LROC") {
       datasetRoc <- DfLroc2Roc(dataset)
       genericPlot <- PlotEmpiricalOperatingCharacteristics(datasetRoc, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
     }
-  } else if ((dataType == "FROC") && (FOM %in% c("HrAuc", "AFROC", "wAFROC")))  {
+  } else if ((type == "FROC") && (FOM %in% c("HrAuc", "AFROC", "wAFROC")))  {
     if (FOM == "HrAuc") genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
     if (FOM == "AFROC") genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "AFROC")$Plot
     if (FOM == "wAFROC") genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "wAFROC")$Plot
@@ -459,7 +471,7 @@ DiffFomVarCov2 <- function (dataset, FOM, FPFValue) # for difference FOM, radiol
 { 
   #if (dataset$descriptions$type == "LROC") stop("Dataset must NOT be LROC")
   
-  J <- length(dataset$readerID)
+  J <- length(dataset$descriptions$readerID)
   K <- length(dataset$ratings$NL[1,1,,1])
   
   dsCad <- DfExtractDataset(dataset, trts = 1, rdrs = 1)

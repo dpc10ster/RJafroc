@@ -21,7 +21,7 @@
 #' is that implied by the first treatement
 #' and the second reader, which is one arm, and the other arm is that implied by the second
 #' treatment paired with the first
-#' reader. Using this method any allowed pairing can be extracted and analyzed by \code{\link{FitCorCbmRoc}}.
+#' reader. Using this method any allowed pairing can be extracted and analyzed by \code{\link{FitCorCbm}}.
 #' The utility of this software is
 #' in designing a ratings simulator that is statistically matched to a real dataset.
 #'
@@ -58,7 +58,7 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
     ds <- DfExtractDataset(dataset, trts, rdrs)
     ds$descriptions$modalityID <- "1"
     ds$descriptions$readerID <- c("1", "2")
-    ds$descriptions$fileName <- paste0("DfExtractCorCbmDataset (", ds$descriptions$fileName,")")
+    ds$descriptions$fileName <- paste0("DfExtractCorCbmDataset(", ds$descriptions$fileName,")")
     return(ds)
   } else if ((lt == 2) && (lr == 1)) {
     ds <- DfExtractDataset(dataset, trts, rdrs)
@@ -67,7 +67,7 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
     ds$ratings$NL <- NL;ds$ratings$LL <- LL
     ds$descriptions$modalityID <- "1"
     ds$descriptions$readerID <- c("1", "2")
-    ds$descriptions$fileName <- paste0("DfExtractCorCbmDataset (", ds$descriptions$fileName,")")
+    ds$descriptions$fileName <- paste0("DfExtractCorCbmDataset(", ds$descriptions$fileName,")")
     return(ds)
   } else if ((lt == 2) && (lr == 2)) {
     for (i in 1:lt){
@@ -87,7 +87,7 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
     ds$ratings$NL <- NL;ds$ratings$LL <- LL
     ds$descriptions$modalityID <- "1"
     ds$descriptions$readerID <- c("1", "2")
-    ds$descriptions$fileName <- paste0("DfExtractCorCbmDataset (", ds$descriptions$fileName,")")
+    ds$descriptions$fileName <- paste0("DfExtractCorCbmDataset(", ds$descriptions$fileName,")")
     return(ds)
   } else stop("Illegal combination of treatments and readers")
   

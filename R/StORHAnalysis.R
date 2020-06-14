@@ -189,7 +189,7 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
   J <- length(dataset$ratings$NL[1,,1,1])
   K <- length(dataset$ratings$NL[1,1,,1])
   
-  if ((length(dataset) != 13) || (dataset$descriptions$design == "FCTRL")) { 
+  if (dataset$descriptions$design == "FCTRL") { 
     # K <- length(dataset$ratings$NL[1,1,,1])
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
     CovTemp <- resampleFOMijk2VarCov(ret$jkFomValues)
@@ -239,9 +239,9 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed)
   set.seed(seed) ## added 4/28/20, to test reproducibility with RJafrocBook code
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
-  lesionVector <- dataset$lesions$perCase
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
+  perCase <- dataset$lesions$perCase
+  IDs <- dataset$lesions$IDs
+  weights <- dataset$lesions$weights
   
   I <- length(NL[,1,1,1])
   J <- length(NL[1,,1,1])
@@ -263,8 +263,8 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed)
           dim(NLbs) <- c(K1, maxNL)
           dim(LLbs) <- c(K2, maxLL)
           fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, 
-                                          lesionVector, lesionID, 
-                                          lesionWeight, maxNL, 
+                                          perCase, IDs, 
+                                          weights, maxNL, 
                                           maxLL, K1, K2, 
                                           FOM, FPFValue)
         }
@@ -281,12 +281,12 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed)
           LLbs <- LL[i, j, kBs, ]
           dim(NLbs) <- c(K, maxNL)
           dim(LLbs) <- c(K2, maxLL)
-          lesionIDBs <- lesionID[kBs, ]
+          lesionIDBs <- IDs[kBs, ]
           dim(lesionIDBs) <- c(K2, maxLL)
-          lesionWeightBs <- lesionWeight[kBs, ]
+          lesionWeightBs <- weights[kBs, ]
           dim(lesionWeightBs) <- c(K2, maxLL)
           fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, 
-                                          lesionVector[kBs], lesionIDBs, 
+                                          perCase[kBs], lesionIDBs, 
                                           lesionWeightBs, maxNL, maxLL, 
                                           K1, K2, FOM, FPFValue)
         }
@@ -302,13 +302,13 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed)
       for (i in 1:I) {
         for (j in 1:J) {
           NLbs <- NL[i, j, c(k1bs, k2bs + K1), ]
-          lesionVectorbs <- lesionVector[k2bs]            
+          lesionVectorbs <- perCase[k2bs]            
           LLbs <- LL[i, j, k2bs,1:max(lesionVectorbs)] 
           dim(NLbs) <- c(K, maxNL)
           dim(LLbs) <- c(K2, max(lesionVectorbs))  
-          lesionIDBs <- lesionID[k2bs, ]
+          lesionIDBs <- IDs[k2bs, ]
           dim(lesionIDBs) <- c(K2, maxLL)
-          lesionWeightBs <- lesionWeight[k2bs, ]
+          lesionWeightBs <- weights[k2bs, ]
           dim(lesionWeightBs) <- c(K2, maxLL)
           fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, lesionVectorbs, lesionIDBs, 
                                           lesionWeightBs, maxNL, maxLL, K1, K2, FOM, FPFValue)
@@ -335,7 +335,7 @@ varComponentsDeLong <- function(dataset, FOM)
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
-  lesionVector <- dataset$lesions$perCase
+  perCase <- dataset$lesions$perCase
   
   I <- length(NL[,1,1,1])
   J <- length(NL[1,,1,1])
@@ -357,13 +357,13 @@ varComponentsDeLong <- function(dataset, FOM)
     I01 <- length(kI01)
     I10 <- K2
     N <- sum((NL[1, 1, , ] != UNINITIALIZED))
-    M <- sum(lesionVector)
+    M <- sum(perCase)
     V01 <- array(dim = c(I, J, I01, maxNL))
     V10 <- array(dim = c(I, J, I10, maxLL))
     for (i in 1:I) {
       for (j in 1:J) {
         for (k in 1:I10) {
-          for (el in 1:lesionVector[k]) {
+          for (el in 1:perCase[k]) {
             V10[i, j, k, el] <- (sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) < LL[i, j, k, el]) 
                                  + 0.5 * sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) == LL[i, j, k, el]))/N
           }
@@ -388,9 +388,9 @@ varComponentsDeLong <- function(dataset, FOM)
             for (k in 1:I10) {
               s10[i, ip, j, jp] <- (s10[i, ip, j, jp]
                                     + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])])
-                                       - lesionVector[k] * fomArray[i, j])
+                                       - perCase[k] * fomArray[i, j])
                                     * (sum(V10[ip, jp, k, !is.na(V10[ip, jp, k, ])]) 
-                                       - lesionVector[k] * fomArray[ip, jp]))
+                                       - perCase[k] * fomArray[ip, jp]))
             }
             for (k in 1:I01) {
               s01[i, ip, j, jp] <- (s01[i, ip, j, jp] 
@@ -407,7 +407,7 @@ varComponentsDeLong <- function(dataset, FOM)
               }                  
               s11[i, ip, j, jp] <- (s11[i, ip, j, jp] 
                                     + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])]) 
-                                       - lesionVector[k] * fomArray[i, j]) 
+                                       - perCase[k] * fomArray[i, j]) 
                                     * (sum(V01[ip, jp, k + K1 - allAbn, !is.na(V01[ip, jp, k + K1 - allAbn, ])]) 
                                        - numKI01[K1 + k] * fomArray[ip, jp]))
             }

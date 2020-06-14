@@ -19,8 +19,8 @@ print(lesDistr)
 print(lesWghts)
 
 ## -----------------------------------------------------------------------------
-I <- dim(frocData$NL)[1]
-J <- dim(frocData$NL)[2]
+I <- dim(frocData$ratings$NL)[1]
+J <- dim(frocData$ratings$NL)[2]
 RsmParms <- array(dim = c(I,J,3))
 for (i in 1:I) {
   for (j in 1:J)  {

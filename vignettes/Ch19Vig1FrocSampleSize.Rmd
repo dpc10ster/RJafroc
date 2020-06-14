@@ -66,11 +66,11 @@ print(lesWghts)
 
 For this dataset `Lmax` is 3, and `r lesDistr[1,2]*100` percent of the diseased cases have one lesion, `r lesDistr[2,2]*100` percent have two lesions and `r lesDistr[3,2]*100` percent have three lesions. Since the lesions are equally weighted, on cases with one lesion the weight of the lesion is unity, on cases with two lesions the weights of each lesion is 0.5 and on cases with three lesions the weight of each lesion is 1/3.
 
-The next code block determines the number of treatments and readers (`I` and `J`) from the dimensions of the `frocData$NL` array. It creates an array `RsmParms` to hold the RSM fitted parameter values. For each treatment and reader it applies the fitting algorithm `FitRsmRoc()`. The first three returned values are `mu`, `lambdaP` and `nuP`, corresponding to RSM parameters ${\mu}$, ${\lambda^{'}}$ and ${\nu^{'}}$ .
+The next code block determines the number of treatments and readers (`I` and `J`) from the dimensions of the `frocData$ratings$NL` array. It creates an array `RsmParms` to hold the RSM fitted parameter values. For each treatment and reader it applies the fitting algorithm `FitRsmRoc()`. The first three returned values are `mu`, `lambdaP` and `nuP`, corresponding to RSM parameters ${\mu}$, ${\lambda^{'}}$ and ${\nu^{'}}$ .
 
 ```{r}
-I <- dim(frocData$NL)[1]
-J <- dim(frocData$NL)[2]
+I <- dim(frocData$ratings$NL)[1]
+J <- dim(frocData$ratings$NL)[2]
 RsmParms <- array(dim = c(I,J,3))
 for (i in 1:I) {
   for (j in 1:J)  {

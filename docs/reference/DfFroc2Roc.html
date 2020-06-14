@@ -8,13 +8,11 @@
 
 <title>Convert an FROC dataset to an ROC dataset — DfFroc2Roc • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,9 +36,10 @@
 
 
 
-
 <meta property="og:title" content="Convert an FROC dataset to an ROC dataset — DfFroc2Roc" />
+
 <meta property="og:description" content="Convert an FROC dataset to a highest rating inferred ROC dataset" />
+
 
 
 
@@ -163,6 +162,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -184,11 +184,13 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Convert an FROC dataset to a highest rating inferred ROC dataset</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>DfFroc2Roc</span>(<span class='no'>dataset</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -197,10 +199,11 @@
       <td><p>The FROC dataset to be converted, <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An ROC dataset with <strong>finite ratings</strong> in NL[,,1:K1,1] and LL[,,1:K2,1].</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The first member of the ROC dataset is <code>NL</code>, whose 3rd dimension has
@@ -214,53 +217,41 @@ no marks, a <strong>finite ROC rating, guaranteed to be smaller than the rating 
 any marked case</strong>, is assigned to it. The dataset structure is shown below:</p><ul>
 <li><p><code>NL</code> Ratings array [1:I, 1:J, 1:(K1+K2), 1], of false positives, FPs</p></li>
 <li><p><code>LL</code> Ratings array [1:I, 1:J, 1:K2, 1], of true positives, TPs</p></li>
-<li><p><code>lesionVector</code> array [1:K2], number of lesions per diseased case</p></li>
-<li><p><code>lesionID</code> array [1:K2, 1], labels of lesions on diseased cases</p></li>
-<li><p><code>lesionWeight</code> array [1:K2, 1], weights (or clinical importances) of lesions</p></li>
+<li><p><code>perCase</code> array [1:K2], number of lesions per diseased case</p></li>
+<li><p><code>IDs</code> array [1:K2, 1], labels of lesions on diseased cases</p></li>
+<li><p><code>weights</code> array [1:K2, 1], weights (or clinical importances) of lesions</p></li>
 <li><p><code>dataType</code> "ROC", the data type</p></li>
 <li><p><code>modalityID</code> [1:I] inherited modality labels</p></li>
 <li><p><code>readerID</code> [1:J] inherited reader labels</p></li>
 </ul>
 
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>rocDataSet</span> <span class='kw'>&lt;-</span> <span class='fu'>DfFroc2Roc</span>(<span class='no'>dataset05</span>)
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>rocDataSet</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)
-<span class='co'>## print(p$Plot)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>rocDataSet</span>)</div><div class='output co'>#&gt; List of 13
-#&gt;  $ NL           : num [1:2, 1:9, 1:92, 1] 6 5 0 0 8 6 0 0 2 5 ...
-#&gt;  $ LL           : num [1:2, 1:9, 1:47, 1] 5 9 0 10 8 9 0 7 0 5 ...
-#&gt;  $ lesionVector : num [1:47] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionID     : num [1:47, 1] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionWeight : num [1:47, 1] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ dataType     : chr "ROC"
-#&gt;  $ modalityID   : Named chr [1:2] "1" "2"
-#&gt;   ..- attr(*, "names")= chr [1:2] "1" "2"
-#&gt;  $ readerID     : Named chr [1:9] "1" "2" "3" "4" ...
-#&gt;   ..- attr(*, "names")= chr [1:9] "1" "2" "3" "4" ...
-#&gt;  $ design       : chr "CROSSED"
-#&gt;  $ normalCases  : int [1:45] 48 49 50 51 52 53 54 55 56 57 ...
-#&gt;  $ abnormalCases: int [1:47] 1 2 3 4 5 6 7 8 9 10 ...
-#&gt;  $ truthTableStr: num [1:2, 1:9, 1:92, 1:2] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ datasetName  : chr "Thompson"</div><div class='input'>
+
 <span class='no'>rocSpDataSet</span> <span class='kw'>&lt;-</span> <span class='fu'>DfFroc2Roc</span>(<span class='no'>datasetFROCSp</span>)
 
 <span class='co'>## in the following example, because of the smaller number of cases, </span>
 <span class='co'>## it is easy to see the process at work:</span>
+
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>);<span class='no'>K1</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>;<span class='no'>K2</span> <span class='kw'>&lt;-</span> <span class='fl'>5</span>
 <span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>;<span class='no'>nuP</span> <span class='kw'>&lt;-</span> <span class='fl'>0.5</span>;<span class='no'>lambdaP</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>;<span class='no'>zeta1</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>
 <span class='no'>lambda</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilPhysical2IntrinsicRSM.html'>UtilPhysical2IntrinsicRSM</a></span>(<span class='no'>mu</span>,<span class='no'>lambdaP</span>,<span class='no'>nuP</span>)$<span class='no'>lambda</span>
 <span class='no'>nu</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilPhysical2IntrinsicRSM.html'>UtilPhysical2IntrinsicRSM</a></span>(<span class='no'>mu</span>,<span class='no'>lambdaP</span>,<span class='no'>nuP</span>)$<span class='no'>nu</span>
 <span class='no'>Lmax</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>;<span class='no'>Lk2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='no'>K2</span>, <span class='fl'>1</span>, <span class='no'>Lmax</span> + <span class='fl'>1</span>))
 <span class='no'>frocDataRaw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='SimulateFrocDataset.html'>SimulateFrocDataset</a></span>(<span class='no'>mu</span>, <span class='no'>lambda</span>, <span class='no'>nu</span>, <span class='no'>zeta1</span>, <span class='kw'>I</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-<span class='no'>K1</span>, <span class='no'>K2</span>, <span class='kw'>lesionVector</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
+<span class='no'>K1</span>, <span class='no'>K2</span>, <span class='kw'>perCase</span> <span class='kw'>=</span> <span class='no'>Lk2</span>)
 <span class='no'>hrData</span> <span class='kw'>&lt;-</span> <span class='fu'>DfFroc2Roc</span>(<span class='no'>frocDataRaw</span>)
-<span class='co'>## print("frocDataRaw$NL[1,1,,] = ");## print(frocDataRaw$NL[1,1,,])</span>
-<span class='co'>## print("hrData$NL[1,1,1:K1,] = ");## print(hrData$NL[1,1,1:K1,])</span>
-<span class='co'>## print("frocDataRaw$LL[1,1,,] = ");## print(frocDataRaw$LL[1,1,,])</span>
-<span class='co'>## print("hrData$LL[1,1,,] = ");## print(hrData$LL[1,1,,]) </span>
+
+<span class='co'>## print("frocDataRaw$ratings$NL[1,1,,] = ")</span>
+<span class='co'>## print("hrData$ratings$NL[1,1,1:K1,] = ")</span>
+<span class='co'>## print("frocDataRaw$ratings$LL[1,1,,] = ")</span>
+<span class='co'>## print("hrData$ratings$LL[1,1,,] = ")</span>
+
 <span class='co'>## following is the output</span>
-<span class='co'>## [1] "frocDataRaw$NL[1,1,,] = "</span>
+
+<span class='co'>## [1] "frocDataRaw$ratings$NL[1,1,,] = "</span>
 <span class='co'>## [,1]      [,2]      [,3] [,4]</span>
 <span class='co'>## [1,] 2.4046534 0.7635935      -Inf -Inf</span>
 <span class='co'>## [2,]      -Inf      -Inf      -Inf -Inf</span>
@@ -270,19 +261,20 @@ any marked case</strong>, is assigned to it. The dataset structure is shown belo
 <span class='co'>## [6,]      -Inf      -Inf      -Inf -Inf</span>
 <span class='co'>## [7,]      -Inf      -Inf      -Inf -Inf</span>
 <span class='co'>## [8,] 0.8041895 0.3773956 0.1333364 -Inf</span>
-<span class='co'>## &gt; ## print("hrData$NL[1,1,1:K1,] = ");## print(hrData$NL[1,1,1:K1,])</span>
-<span class='co'>## [1] "hrData$NL[1,1,1:K1,] = "</span>
+
+<span class='co'>## &gt; ## print("hrData$ratings$NL[1,1,1:K1,] = ")</span>
+<span class='co'>## [1] "hrData$ratings$NL[1,1,1:K1,] = "</span>
 <span class='co'>## [1] 2.4046534      -Inf 0.2522234</span>
-<span class='co'>## &gt; ## print("frocDataRaw$LL[1,1,,] = ");## print(frocDataRaw$LL[1,1,,])</span>
-<span class='co'>## [1] "frocDataRaw$LL[1,1,,] = "</span>
+<span class='co'>## &gt; ## print("frocDataRaw$ratings$LL[1,1,,] = ")</span>
+<span class='co'>## [1] "frocDataRaw$ratings$LL[1,1,,] = "</span>
 <span class='co'>## [,1] [,2]</span>
 <span class='co'>## [1,]      -Inf -Inf</span>
 <span class='co'>## [2,] 1.5036080 -Inf</span>
 <span class='co'>## [3,] 0.8442045 -Inf</span>
 <span class='co'>## [4,] 1.0467262 -Inf</span>
 <span class='co'>## [5,]      -Inf -Inf</span>
-<span class='co'>## &gt; ## print("hrData$LL[1,1,,] = ");## print(hrData$LL[1,1,,]) </span>
-<span class='co'>## [1] "hrData$LL[1,1,,] = "</span>
+<span class='co'>## &gt; ## print("hrData$ratings$LL[1,1,,] = ")</span>
+<span class='co'>## [1] "hrData$ratings$LL[1,1,,] = "</span>
 <span class='co'>## [1] 0.4356833 1.5036080 0.8442045 1.0467262 0.8041895</span>
 <span class='co'>## Note that rating of the first and the last diseased case came from NL marks</span></div></pre>
   </div>

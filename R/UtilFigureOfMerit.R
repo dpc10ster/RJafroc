@@ -151,6 +151,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   }
   
   design <- dataset$descriptions$design
+  t <- dataset$descriptions$truthTableStr
   
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]

@@ -8,13 +8,11 @@
 
 <title>Generate a text formatted report file or an Excel file — UtilOutputReport • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,10 +36,11 @@
 
 
 
-
 <meta property="og:title" content="Generate a text formatted report file or an Excel file — UtilOutputReport" />
+
 <meta property="og:description" content="Generates a formatted report of the analysis 
    and saves it to a text or an Excel file" />
+
 
 
 
@@ -164,6 +163,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -185,8 +185,10 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Generates a formatted report of the analysis 
    and saves it to a text or an Excel file</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>UtilOutputReport</span>(
@@ -202,7 +204,7 @@
   <span class='kw'>overWrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>
 )</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -277,21 +279,23 @@ The default is <code>FALSE</code>.</p></td>
       <td><p>"RRRC", "FRRC", "RRFC or "ALL"; see <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>StResult The object returned by <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A formatted report of the data analysis is written to the output file in 
    either text or Excel format.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># \donttest{</span>
  <span class='co'># text output is created in a temporary file</span>
 <span class='fu'>UtilOutputReport</span>(<span class='no'>dataset03</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</div><div class='output co'>#&gt; 
-#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpxzYu5x/RJafrocUtilOutputReport28c8d991f46.txt </div><div class='output co'>#&gt; $FOMs
+#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpeGnSO9/RJafrocUtilOutputReport104de6d55c711.txt </div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;           rdrREADER_1 rdrREADER_2 rdrREADER_3 rdrREADER_4
 #&gt; trtTREAT1  0.85345997  0.86499322  0.85730439  0.81524197
@@ -408,7 +412,7 @@ The default is <code>FALSE</code>.</p></td>
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># Excel output is created in a temporary file</span>
 <span class='fu'>UtilOutputReport</span>(<span class='no'>dataset03</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>ReportFileExt</span> <span class='kw'>=</span> <span class='st'>"xlsx"</span>)</div><div class='output co'>#&gt; 
-#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpxzYu5x/RJafrocUtilOutputReport28c83fd433a3.xlsx </div><div class='output co'>#&gt; $FOMs
+#&gt; Output file name is: 	 /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//RtmpeGnSO9/RJafrocUtilOutputReport104de1a80652b.xlsx </div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;           rdrREADER_1 rdrREADER_2 rdrREADER_3 rdrREADER_4
 #&gt; trtTREAT1  0.85345997  0.86499322  0.85730439  0.81524197

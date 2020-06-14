@@ -79,6 +79,7 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
                              covEstMethod = "jackknife", nBoots = 200, 
                              sequentialNames = FALSE, overWrite = FALSE, analysisOption = "ALL") {
   
+  # why is this generating an error in Ch10Vig2? TBA
   if (!isValidDataset(dataset)) {
     stop("Must specify a valid dataset object.")
   }
@@ -88,8 +89,8 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
   }
   
   if (sequentialNames){
-    dataset$modalityID <- 1:length(dataset$descriptions$modalityID)
-    dataset$readerID <- 1:length(dataset$descriptions$readerID)
+    dataset$descriptions$modalityID <- 1:length(dataset$descriptions$modalityID)
+    dataset$descriptions$readerID <- 1:length(dataset$descriptions$readerID)
   }
   
   ReportFileExt <- tolower(ReportFileExt)
@@ -153,7 +154,7 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
     summaryInfo <- data.frame(summaryInfo = 
                                 c(base::format(Sys.time(), "%b/%d/%Y"), 
                                   basename(ReportFileName),
-                                  dataset$datasetName))
+                                  dataset$descriptions$name))
     rownames(summaryInfo) <- c("Date", "Output file", "Input Dataset")
     if (method == "DBMH") {
       sucessfulOutput <- OutputExcelFileDBMH(dataset,
@@ -203,7 +204,7 @@ Preamble <- function(dataset, FOM, ReportFileName, method, methodTxt) {
   cat(paste(dateTime, "\n"))
   
   cat(sprintf("FOM selected         :     %s\n", FOM))
-  cat(sprintf("Input Data Set       :     %s\n", dataset$datasetName))
+  cat(sprintf("Input Data Set       :     %s\n", dataset$descriptions$name))
   cat(sprintf("Output Data Filename :     %s\n", ReportFileName))
   cat(sprintf("===============================================================================\n"))
   

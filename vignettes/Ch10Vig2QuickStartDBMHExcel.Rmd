@@ -34,7 +34,7 @@ This illustrates the `UtilOutputReport()` function. The significance testing `me
 the function to create an Excel output file. The Excel output is created in a temporary file.
 
 ```{r}
-ret <- UtilOutputReport(dataset03, FOM = "Wilcoxon", overWrite = TRUE, ReportFileExt = "xlsx")
+ret <- UtilOutputReport(get("dataset03"), FOM = "Wilcoxon", method = "DBMH", overWrite = TRUE, ReportFileExt = "xlsx")
 ```             
 
 
@@ -43,7 +43,7 @@ Simply change `method = "DBMH"` (the default) to `method = "ORH"`.
 
 
 ```{r}
-ret <- UtilOutputReport(dataset03, FOM = "Wilcoxon", method = "ORH", overWrite = TRUE, ReportFileExt = "xlsx")
+ret <- UtilOutputReport(get("dataset03"), FOM = "Wilcoxon", method = "ORH", overWrite = TRUE, ReportFileExt = "xlsx")
 ```             
 
 

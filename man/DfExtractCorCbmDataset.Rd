@@ -32,7 +32,7 @@ have length two and the pairing is implicit. If both are length two, then the pa
 is that implied by the first treatement
 and the second reader, which is one arm, and the other arm is that implied by the second
 treatment paired with the first
-reader. Using this method any allowed pairing can be extracted and analyzed by \code{\link{FitCorCbmRoc}}.
+reader. Using this method any allowed pairing can be extracted and analyzed by \code{\link{FitCorCbm}}.
 The utility of this software is
 in designing a ratings simulator that is statistically matched to a real dataset.
 }

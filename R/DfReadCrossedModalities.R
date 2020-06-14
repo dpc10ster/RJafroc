@@ -47,6 +47,8 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   wb <- loadWorkbook(fileName)
   sheetNames <- toupper(names(wb))
   
+  # DfReadCrossedModalities FCTRL-X-MOD in truth worksheet
+  # 
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (truthFileIndex == 0) 
     stop("TRUTH table cannot be found in the dataset.")
@@ -181,19 +183,19 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
     stop(errorMsg)
   }
   
-  lesionVector <- as.vector(table(caseID[caseID %in% abnormalCases]))
-  # for (k2 in 1:length(abnormalCases)) { lesionVector[k2] <- sum(caseID == abnormalCases[k2]) }
+  perCase <- as.vector(table(caseID[caseID %in% abnormalCases]))
+  # for (k2 in 1:length(abnormalCases)) { perCase[k2] <- sum(caseID == abnormalCases[k2]) }
   
-  lesionWeight <- array(dim = c(length(abnormalCases), max(lesionVector)))
-  lesionIDTable <- array(dim = c(length(abnormalCases), max(lesionVector)))
+  lesionWeight <- array(dim = c(length(abnormalCases), max(perCase)))
+  lesionIDTable <- array(dim = c(length(abnormalCases), max(perCase)))
   
   for (k2 in 1:length(abnormalCases)) {
     k <- which(caseID == abnormalCases[k2])
-    lesionIDTable[k2, ] <- c(sort(lesionID[k]), rep(UNINITIALIZED, max(lesionVector) - length(k)))
+    lesionIDTable[k2, ] <- c(sort(lesionID[k]), rep(UNINITIALIZED, max(perCase) - length(k)))
     if (all(weights[k] == 0)) {
-      lesionWeight[k2, 1:length(k)] <- 1/lesionVector[k2]
+      lesionWeight[k2, 1:length(k)] <- 1/perCase[k2]
     } else {
-      lesionWeight[k2, ] <- c(weights[k][order(lesionID[k])], rep(UNINITIALIZED, max(lesionVector) - length(k)))
+      lesionWeight[k2, ] <- c(weights[k][order(lesionID[k])], rep(UNINITIALIZED, max(perCase) - length(k)))
       sumWeight <- sum(lesionWeight[k2, lesionWeight[k2, ] != UNINITIALIZED])
       if (sumWeight != 1){
         if (sumWeight <= 1.01 && sumWeight >= 0.99){
@@ -245,7 +247,7 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
     }
   }
   
-  LL <- array(dim = c(I1, I2, J, K2, max(lesionVector)))
+  LL <- array(dim = c(I1, I2, J, K2, max(perCase)))
   for (i1 in 1:I1) {
     for (i2 in 1:I2) {
       for (j in 1:J) {
@@ -277,14 +279,14 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
           break
         }
         temp <- LL[i1, i2, j, , ] != UNINITIALIZED
-        dim(temp) <- c(K2, max(lesionVector))
-        if (!all(lesionVector == rowSums(temp))) {
+        dim(temp) <- c(K2, max(perCase))
+        if (!all(perCase == rowSums(temp))) {
           isROI <- FALSE
           break
         }
         temp <- NL[i1, i2, j, (K1 + 1):K, ] == UNINITIALIZED
         dim(temp) <- c(K2, maxNL)
-        if (!all(lesionVector == rowSums(temp))) {
+        if (!all(perCase == rowSums(temp))) {
           isROI <- FALSE
           break
         }
@@ -293,12 +295,12 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   }
   
   if ((max(table(caseID)) == 1) && (maxNL == 1) && (all((NL[, , , (K1 + 1):K, ] == UNINITIALIZED))) && (all((NL[, , , 1:K1, ] != UNINITIALIZED)))) {
-    fileType <- "ROC"
+    type <- "ROC"
   } else {
     if (isROI) {
-      fileType <- "ROI"
+      type <- "ROI"
     } else {
-      fileType <- "FROC"
+      type <- "FROC"
     }
   }
   
@@ -316,16 +318,14 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   names(modalityID2) <- modality2Names
   names(readerID) <- readerNames
   
-  return(list(
-    NL = NL, 
-    LL = LL, 
-    lesionVector = lesionVector, 
-    lesionID = lesionIDTable, 
-    lesionWeight = lesionWeight, 
-    dataType = fileType, 
-    modalityID1 = modalityID1, 
-    modalityID2 = modalityID2, 
-    readerID = readerID,
-    datasetName = "Ignore"
-  ))
+  fileName <- paste0("DfReadCrossedModalities(", tools::file_path_sans_ext(basename(fileName)), ")")
+  name <- "THOMPSON-X-MOD"
+  design <- "FCTRL-X-MOD"
+  truthTableStr <- NA
+  IDs <- lesionIDTable
+  weights <- lesionWeight
+  return(convert2Xdataset(NL, LL, LL_IL = NA, 
+                         perCase, IDs, weights,
+                         fileName, type, name, truthTableStr, design,
+                         modalityID1, modalityID2, readerID))
 } 

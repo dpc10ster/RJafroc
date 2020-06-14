@@ -13,3 +13,10 @@ datasetROI$NL[1,1,51,]
 datasetROI$lesionVector[1]
 datasetROI$LL[1,1,1,]
 x <- datasetROI$LL;mean(x[is.finite(x)])
+
+## -----------------------------------------------------------------------------
+## fileName <- system.file(
+##     "extdata", "RoiData.xlsx", package = "RJafroc", mustWork = TRUE)
+## ds <- DfReadDataFile(fileName)
+## ds$dataType
+

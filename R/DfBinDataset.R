@@ -60,7 +60,8 @@
 #' Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
 #' \url{https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 #' 
-#'
+#' 
+#' @importFrom stats sd
 #' @export
 
 DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
@@ -176,7 +177,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
           fom_ij <- -1
         } else {
           fom_ij <- MyFom_ij(nl_B, ll_B, dataset$lesions$perCase, dataset$lesions$IDs, 
-                             dataset$lesions$weights, nlDim[4], llDim[4], K1, K2, FOM, FPFValue)
+                             dataset$lesions$weights, nlDim[4], llDim[4], K1, K2, FOM)
         }
         if (fom_ij > maxFom_ij[i,j]){
           if (DEBUG) cat(sprintf("higher fom found, i = %d, j = %d, s = %d, fom = %f\n", i, j, s, fom_ij))
@@ -192,7 +193,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   } 
   
   # return the binned dataset
-  fileName <- paste0("DfBinDataset (", dataset$descriptions$fileName, ")")
+  fileName <- paste0("DfBinDataset(", dataset$descriptions$fileName, ")")
   name <- dataset$descriptions$name
   design <- "FCTRL"
   if (is.numeric(dataset$descriptions$truthTableStr)) { 
@@ -235,7 +236,7 @@ DfFroc2Afroc <- function (dataset){
   dim(NL) <- c(dim(NL), 1)
   NL[,,(K1+1):K,1] <- -Inf
   
-  fileName <- paste0("DfFroc2Afroc applied to ", dataset$descriptions$fileName)
+  fileName <- paste0("DfFroc2Afroc(", dataset$descriptions$fileName, ")")
   name <- dataset$descriptions$name
   design <- dataset$descriptions$design
   truthTableStr <- dataset$descriptions$truthTableStr
@@ -268,16 +269,15 @@ isDataDegenerate <-  function (fpf, tpf) {
 
 UtilBinCountsOpPts <- function(dataset, trt = 1, rdr = 1)
 {
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  nlDim <- dim(NL)
+  llDim <- dim(LL)
   I <- nlDim[1]
   J <- nlDim[2]
   K <- nlDim[3]
   K2 <- llDim[3]
   K1 <- K - K2
-  NL <- dataset$ratings$NL
-  LL <- dataset$ratings$LL
-  
-  stop("need fix here")
-  # TBA SimplifyDatasets
   
   fp <- NL[trt,rdr,1:K1,,drop = TRUE] 
   tp <- LL[trt,rdr,,,drop = TRUE]
@@ -343,9 +343,9 @@ isXBinned <- function(NL, LL, maxUniqeRatings = 6){
 
 #' Determine if a dataset is binned
 #' @param dataset The dataset 
-#' @param maxUniqeRatings The max number of unique ratings in order to be classified as binned, default is 6 
-#' @return logical I x J array, TRUE if the corresponding treatment-reader dataset is binned, 
-#'    i.e., has at most 6 unique levels, FALSE otherwise
+#' @param maxUniqeRatings For each treatment-reader combination, the max number of unique ratings in order to be classified as binned,  the default value for \code{maxUniqeRatings} is 6; if there are more unique ratings the treatment-reader combination is classified as not binned.
+#' @return a logical \code{[I x J]} array, TRUE if the corresponding treatment-reader combination is binned, i.e., has at most \code{maxUniqeRatings} unique ratings, FALSE otherwise.
+#'    
 #' @examples isBinnedDataset(dataset01)
 #' 
 #' @export

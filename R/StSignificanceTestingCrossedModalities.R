@@ -32,9 +32,9 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
   options(stringsAsFactors = FALSE)
   NL <- ds$ratings$NL
   LL <- ds$ratings$LL
-  lesionVector <- ds$lesions$perCase
-  lesionID <- ds$lesionID
-  lesionWeight <- ds$lesionWeight
+  perCase <- ds$lesions$perCase
+  IDs <- ds$lesions$IDs
+  weights <- ds$lesions$weights
   maxNL <- dim(NL)[5]
   maxLL <- dim(LL)[5]
   dataType <- ds$dataType
@@ -59,7 +59,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
     stop("The analysis requires at least 2 treatments")
   }
   
-  ret <- EstimateVarCovCrossed(NL, LL, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
+  ret <- EstimateVarCovCrossed(NL, LL, perCase, IDs, weights, maxNL, maxLL, FOM, avgIndx)
   Var <- ret$Var
   Cov1 <- ret$Cov1
   Cov2 <- ret$Cov2
@@ -104,16 +104,16 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       nl <- NL[ , i, , , ]
       ll <- LL[ , i, , , ]
       dim(nl) <- c(length(ds$descriptions$modalityID1), 1, J, K, maxNL)
-      dim(ll) <- c(length(ds$descriptions$modalityID1), 1, J, K2, max(lesionVector))
+      dim(ll) <- c(length(ds$descriptions$modalityID1), 1, J, K2, max(perCase))
     }else{
       nl <- NL[ i, , , , ]
       ll <- LL[ i, , , , ]
       dim(nl) <- c(1, length(ds$descriptions$modalityID2), J, K, maxNL)
-      dim(ll) <- c(1, length(ds$descriptions$modalityID2), J, K2, max(lesionVector))
+      dim(ll) <- c(1, length(ds$descriptions$modalityID2), J, K2, max(perCase))
     }
     
     
-    ret <- EstimateVarCovCrossed(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
+    ret <- EstimateVarCovCrossed(nl, ll, perCase, IDs, weights, maxNL, maxLL, FOM, avgIndx)
     varSingle[i] <- ret$Var
     if (J > 1) {
       cov2Single[i] <- ret$Cov2
@@ -128,8 +128,8 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
     nl <- NL[ , , j, , ]
     ll <- LL[ , , j, , ]
     dim(nl) <- c(length(ds$descriptions$modalityID1), length(ds$descriptions$modalityID2), 1, K, maxNL)
-    dim(ll) <- c(length(ds$descriptions$modalityID1), length(ds$descriptions$modalityID2), 1, K2, max(lesionVector))
-    ret <- EstimateVarCovCrossed(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx)
+    dim(ll) <- c(length(ds$descriptions$modalityID1), length(ds$descriptions$modalityID2), 1, K2, max(perCase))
+    ret <- EstimateVarCovCrossed(nl, ll, perCase, IDs, weights, maxNL, maxLL, FOM, avgIndx)
     varEchRder[j] <- ret$Var
     cov1EchRder[j] <- ret$Cov1
   }
@@ -488,7 +488,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
 
 #' @importFrom stats cov
 #' 
-EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, maxNL, maxLL, FOM, avgIndx) {
+EstimateVarCovCrossed <- function(NL, LL, perCase, IDs, weights, maxNL, maxLL, FOM, avgIndx) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   I1 <- dim(NL)[1]
   I2 <- dim(NL)[2]
@@ -506,8 +506,8 @@ EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, 
             nl <- NL[i1, i2, j, -k, ]
             ll <- LL[i1, i2, j, , ]
             dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2, max(lesionVector))
-            jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
+            dim(ll) <- c(K2, max(perCase))
+            jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, perCase, IDs, weights, maxNL, maxLL, K1 - 1, K2, FOM)
           }
         }
       }
@@ -521,12 +521,12 @@ EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, 
             nl <- NL[i1, i2, j, -(k + K1), ]
             ll <- LL[i1, i2, j, -k, ]
             dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2 - 1, max(lesionVector))
-            lesionIDJk <- lesionID[-k, ]
-            dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
-            lesionWeightJk <- lesionWeight[-k, ]
-            dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
-            jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, lesionVector[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
+            dim(ll) <- c(K2 - 1, max(perCase))
+            lesionIDJk <- IDs[-k, ]
+            dim(lesionIDJk) <- c(K2 -1, max(perCase))
+            lesionWeightJk <- weights[-k, ]
+            dim(lesionWeightJk) <- c(K2 -1, max(perCase))
+            jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, perCase[-k], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
           }
         }
       }
@@ -541,18 +541,18 @@ EstimateVarCovCrossed <- function(NL, LL, lesionVector, lesionID, lesionWeight, 
               nl <- NL[i1, i2, j, -k, ]
               ll <- LL[i1, i2, j, , ]
               dim(nl) <- c(K - 1, maxNL)
-              dim(ll) <- c(K2, max(lesionVector))
-              jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM)
+              dim(ll) <- c(K2, max(perCase))
+              jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, perCase, IDs, weights, maxNL, maxLL, K1 - 1, K2, FOM)
             } else {
               nl <- NL[i1, i2, j, -k, ]
               ll <- LL[i1, i2, j, -(k - K1), ]
               dim(nl) <- c(K - 1, maxNL)
-              dim(ll) <- c(K2 - 1, max(lesionVector))
-              lesionIDJk <- lesionID[-(k - K1), ]
-              dim(lesionIDJk) <- c(K2 -1, max(lesionVector))
-              lesionWeightJk <- lesionWeight[-(k - K1), ]
-              dim(lesionWeightJk) <- c(K2 -1, max(lesionVector))
-              jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, lesionVector[-(k - K1)], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
+              dim(ll) <- c(K2 - 1, max(perCase))
+              lesionIDJk <- IDs[-(k - K1), ]
+              dim(lesionIDJk) <- c(K2 -1, max(perCase))
+              lesionWeightJk <- weights[-(k - K1), ]
+              dim(lesionWeightJk) <- c(K2 -1, max(perCase))
+              jkFOMArray[i1, i2, j, k] <- MyFom_ij(nl, ll, perCase[-(k - K1)], lesionIDJk, lesionWeightJk, maxNL, maxLL, K1, K2 - 1, FOM)
             }
           }
         }

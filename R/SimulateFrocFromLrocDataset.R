@@ -72,23 +72,24 @@ SimulateFrocFromLrocDataset <- function(dataset)  #  !!!put in tests!!!
   NL[NL == 0] <- -Inf
   LL[LL == 0] <- -Inf
   
-  lesWghts <- dataset$lesions$weights
-  lesWghts[,1] <- 1
+  weights <- dataset$lesions$weights
+  weights[,1] <- 1
   
-  datasetFroc <- list(
-    NL = NL,
-    LL = LL,
-    lesionVector = dataset$lesions$perCase,
-    lesionID = dataset$lesions$IDs,
-    lesionWeight = lesWghts,
-    dataType = "FROC",
-    modalityID = dataset$descriptions$modalityID,
-    readerID = dataset$descriptions$readerID,
-    datasetName = "ignore"
-  )
+  perCase = dataset$lesions$perCase
+  IDs = dataset$lesions$IDs
+  weights = weights
+  fileName <- paste0("SimulateFrocFromLrocDataset(", dataset$descriptions$fileName, ")")
+  name <- NA
+  design <- "FCTRL"
+  truthTableStr <- NA
+  type <- "FROC"
+  modalityID = dataset$descriptions$modalityID
+  readerID = dataset$descriptions$readerID
+  return(convert2dataset(NL, LL, LL_IL = NA, 
+                         perCase, IDs, weights,
+                         fileName, type, name, truthTableStr, design,
+                         modalityID, readerID))
   
-  return (datasetFroc)
-
 }
 
 

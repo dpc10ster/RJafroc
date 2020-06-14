@@ -132,13 +132,13 @@
 
       
 
-      </header><script src="Ch30Vig1RoiParadigm_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="Ch30Vig1RoiParadigm_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-05-29</h4>
+            <h4 class="date">2020-06-14</h4>
       
       
       <div class="hidden name"><code>Ch30Vig1RoiParadigm.Rmd</code></div>
@@ -164,36 +164,47 @@
 <a href="#an-example-roi-dataset" class="anchor"></a>An example ROI dataset</h2>
 <p>An example simulated ROI dataset is included as <code>datasetROI</code>.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">datasetROI</span>)
-<span class="co">#&gt; List of 9</span>
-<span class="co">#&gt;  $ NL          : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span>
-<span class="co">#&gt;  $ LL          : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...</span>
-<span class="co">#&gt;  $ lesionVector: int [1:40] 2 3 2 2 3 3 1 2 3 3 ...</span>
-<span class="co">#&gt;  $ lesionID    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...</span>
-<span class="co">#&gt;  $ lesionWeight: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...</span>
-<span class="co">#&gt;  $ dataType    : chr "ROI"</span>
-<span class="co">#&gt;  $ modalityID  : Named chr [1:2] "1" "2"</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:2] "1" "2"</span>
-<span class="co">#&gt;  $ readerID    : Named chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="co">#&gt;   ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="co">#&gt;  $ datasetName : chr "SimulatedRoi"</span>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ ratings     :List of 3</span>
+<span class="co">#&gt;   ..$ NL   : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span>
+<span class="co">#&gt;   ..$ LL   : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...</span>
+<span class="co">#&gt;   ..$ LL_IL: logi NA</span>
+<span class="co">#&gt;  $ lesions     :List of 3</span>
+<span class="co">#&gt;   ..$ perCase: int [1:40] 2 3 2 2 3 3 1 2 3 3 ...</span>
+<span class="co">#&gt;   ..$ IDs    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ weights: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...</span>
+<span class="co">#&gt;  $ descriptions:List of 7</span>
+<span class="co">#&gt;   ..$ fileName     : chr "datasetROI"</span>
+<span class="co">#&gt;   ..$ type         : chr "ROI"</span>
+<span class="co">#&gt;   ..$ name         : chr "SIM-ROI"</span>
+<span class="co">#&gt;   ..$ truthTableStr: logi NA</span>
+<span class="co">#&gt;   ..$ design       : chr "FCTRL"</span>
+<span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "1" "2"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "1" "2"</span>
+<span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span>
 <span class="no">datasetROI</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
-<span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span>
+<span class="co">#&gt; NULL</span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">datasetROI</span>$<span class="no">NL</span>[,,<span class="fl">1</span>:<span class="fl">50</span>,])
-<span class="co">#&gt; [1] 0.1014348</span>
+<span class="co">#&gt; Warning in mean.default(datasetROI$NL[, , 1:50, ]): argument is not numeric or</span>
+<span class="co">#&gt; logical: returning NA</span>
+<span class="co">#&gt; [1] NA</span>
 <span class="no">datasetROI</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">51</span>,]
-<span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">datasetROI</span>$<span class="no">lesionVector</span>[<span class="fl">1</span>]
-<span class="co">#&gt; [1] 2</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">datasetROI</span>$<span class="no">LL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
-<span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span>
+<span class="co">#&gt; NULL</span>
 <span class="no">x</span> <span class="kw">&lt;-</span> <span class="no">datasetROI</span>$<span class="no">LL</span>;<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(<span class="no">x</span>)])
-<span class="co">#&gt; [1] 1.815513</span></pre></body></html></div>
+<span class="co">#&gt; Warning in mean.default(x[is.finite(x)]): argument is not numeric or logical:</span>
+<span class="co">#&gt; returning NA</span>
+<span class="co">#&gt; [1] NA</span></pre></body></html></div>
 <p>Examination of the output reveals that:</p>
 <ul>
 <li><p>This is a 2-treatment 5-reader dataset, with 50 non-diseased cases and 40 diseased cases, and <span class="math inline">\({{Q}_{k}}=4\)</span> for all <em>k</em>.</p></li>
-<li><p>For treatment 1, reader 1, case 1 (the 1st non-diseased case) the 4 ratings are 0.949868, -0.0582497, -0.776378, 0.012073. The mean of all ratings on non-diseased cases is 0.1014348.</p></li>
-<li><p>For treatment 1, reader 1, case 51 (the 1st diseased case) the NL ratings are 1.01867, 0.3471. There are only two finite values because this case has two ROI-level-diseased regions, and 2 plus 2 makes for the assumed 4-regions per case. The corresponding <code>$lesionVector</code> field is 2.<br></p></li>
-<li><p>The ratings of the 2 ROI-level-diseased ROIs on this case are 1.56928, 2.05945. The mean rating over all ROI-level-diseased ROIs is 1.8155127.</p></li>
+<li><p>For treatment 1, reader 1, case 1 (the 1st non-diseased case) the 4 ratings are . The mean of all ratings on non-diseased cases is NA.</p></li>
+<li><p>For treatment 1, reader 1, case 51 (the 1st diseased case) the NL ratings are . There are only two finite values because this case has two ROI-level-diseased regions, and 2 plus 2 makes for the assumed 4-regions per case. The corresponding <code>$lesionVector</code> field is .<br></p></li>
+<li><p>The ratings of the 2 ROI-level-diseased ROIs on this case are . The mean rating over all ROI-level-diseased ROIs is NA.</p></li>
 </ul>
 </div>
 <div id="the-roi-excel-data-file" class="section level2">
@@ -211,7 +222,7 @@
 <ul>
 <li>There are 50 non-diseased cases (labeled 1-50) under column <code>CaseID</code> and 40 diseased cases (labeled 51-90).<br>
 </li>
-<li>The <code>LesionID</code> field for each non-diseased case (e.g., <code>CaseID</code> = 1) is zero and there is one row per case. For diseased cases, this field has a variable number of entries, ranging from 1 to 4. As an example, there are two rows for <code>CaseID</code> = 51 in the Excel file: one with <code>LesionID</code> = 2 and one with <code>LesionID</code> = 3.<br>
+<li>The <code>LesionID</code> field for each non-diseased case (e.g., <code>CaseID</code> = 1) is zero and there is one row per case. For diseased cases, this field has a variable number of entries, ranging from 1 to 4. As an example, there are two rows for <code>CaseID</code> = 51 in the Excel file: one with <code>LesionID</code> = and one with <code>LesionID</code> = .<br>
 </li>
 <li>The <code>Weights</code> field is always zero (this field is not used in ROI analysis).</li>
 </ul>
@@ -221,7 +232,7 @@
 <ul>
 <li>The <code>FP</code> (or <code>NL</code>) worksheet - this lists the ratings of ROI-level-non-diseased regions.
 <ul>
-<li>For <code>ReaderID</code> = 1, <code>ModalityID</code> = 1 and <code>CaseID</code> = 1 there are 4 rows, corresponding to the 4 ROI-level-non-diseased regions in this case. The corresponding ratings are 0.949868, -0.0582497, -0.776378, 0.012073. The pattern repeats for other treatments and readers, but the rating are, of course, different.<br>
+<li>For <code>ReaderID</code> = 1, <code>ModalityID</code> = 1 and <code>CaseID</code> = 1 there are 4 rows, corresponding to the 4 ROI-level-non-diseased regions in this case. The corresponding ratings are . The pattern repeats for other treatments and readers, but the rating are, of course, different.<br>
 </li>
 <li>Each <code>CaseID</code> is represented in the <code>FP</code> worksheet (a rare exception could occur if a case-level diseased case has 4 diseased regions).</li>
 </ul>
@@ -262,7 +273,6 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

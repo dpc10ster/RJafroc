@@ -90,8 +90,6 @@
 #' @importFrom stats uniroot
 
 FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
-  # minZeta <- RJafrocEnv$minZeta
-  # maxZeta <- RJafrocEnv$maxZeta
   minMu <- RJafrocEnv$minMu
   maxMu <- RJafrocEnv$maxMu
   minAlpha <- RJafrocEnv$minAlpha
@@ -103,9 +101,6 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
   while (pnorm(maxMu / sqrt(2)) <= aucArray){
     maxMu <- qnorm(maxAUC) * sqrt(2) + 0.5
   }
-  
-  modalityID <- dataset$descriptions$modalityID
-  readerID <- dataset$descriptions$readerID
   
   fp <- dataset$ratings$NL[1,1,,1]
   tp <- dataset$ratings$LL[1,1,,1]

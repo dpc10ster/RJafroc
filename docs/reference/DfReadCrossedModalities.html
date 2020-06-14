@@ -8,13 +8,11 @@
 
 <title>Read a crossed-treatment data file — DfReadCrossedModalities • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,10 +36,11 @@
 
 
 
-
 <meta property="og:title" content="Read a crossed-treatment data file — DfReadCrossedModalities" />
+
 <meta property="og:description" content="Read an crossed-treatment data file, in which the 
 two treatment factors are crossed" />
+
 
 
 
@@ -164,6 +163,7 @@ two treatment factors are crossed" />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -185,12 +185,14 @@ two treatment factors are crossed" />
     </div>
 
     <div class="ref-description">
+    
     <p>Read an crossed-treatment data file, in which the 
 two treatment factors are crossed</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>DfReadCrossedModalities</span>(<span class='no'>fileName</span>, <span class='kw'>sequentialNames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -207,19 +209,21 @@ as the treatment and reader IDs. Otherwise, treatment and reader IDs in the
 original data file will be used. The default is <code>FALSE</code>.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A dataset with the specified structure, similar to a standard 
    <span class="pkg">RJafroc</span>(see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>). Because of the extra treatment factor, 
    <code>NL</code> and <code>LL</code> are each five dimensional arrays. There are also two 
    treatment IDS: <code>modalityID1</code> and <code>modalityID2</code>.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The data format is  similar to the JAFROC format (see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>). 
    The notable difference is that there are two treatment factors. A sample crossed 
    treatment file "CrossedModalitiesData.xlsx" is in the <code>inst\extdata</code> 
    subdirectory of <code>RJafroc</code>.</p>
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
@@ -229,6 +233,7 @@ Medical Physics. 43(3):1265-1274.</p>
 <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
 Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL. 
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -236,20 +241,27 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class='no'>crossedFileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
    <span class='st'>"CrossedModalitiesData.xlsx"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>crossedData</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadCrossedModalities</span>(<span class='no'>crossedFileName</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>crossedData</span>)</div><div class='output co'>#&gt; List of 10
-#&gt;  $ NL          : num [1:2, 1:4, 1:11, 1:68, 1:5] -Inf -Inf -Inf -Inf -Inf ...
-#&gt;  $ LL          : num [1:2, 1:4, 1:11, 1:34, 1:3] -Inf 1 2 8 7 ...
-#&gt;  $ lesionVector: int [1:34] 1 2 1 1 1 1 2 2 1 1 ...
-#&gt;  $ lesionID    : num [1:34, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionWeight: num [1:34, 1:3] 1 0.5 1 1 1 1 0.5 0.5 1 1 ...
-#&gt;  $ dataType    : chr "FROC"
-#&gt;  $ modalityID1 : Named chr [1:2] "F" "I"
-#&gt;   ..- attr(*, "names")= chr [1:2] "F" "I"
-#&gt;  $ modalityID2 : Named chr [1:4] "20" "40" "60" "80"
-#&gt;   ..- attr(*, "names")= chr [1:4] "20" "40" "60" "80"
-#&gt;  $ readerID    : Named chr [1:11] "1" "10" "11" "2" ...
-#&gt;   ..- attr(*, "names")= chr [1:11] "1" "10" "11" "2" ...
-#&gt;  $ datasetName : chr "Ignore"</div><div class='input'># }
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>crossedData</span>)</div><div class='output co'>#&gt; List of 3
+#&gt;  $ ratings     :List of 3
+#&gt;   ..$ NL   : num [1:2, 1:4, 1:11, 1:68, 1:5] -Inf -Inf -Inf -Inf -Inf ...
+#&gt;   ..$ LL   : num [1:2, 1:4, 1:11, 1:34, 1:3] -Inf 1 2 8 7 ...
+#&gt;   ..$ LL_IL: logi NA
+#&gt;  $ lesions     :List of 3
+#&gt;   ..$ perCase: int [1:34] 1 2 1 1 1 1 2 2 1 1 ...
+#&gt;   ..$ IDs    : num [1:34, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..$ weights: num [1:34, 1:3] 1 0.5 1 1 1 1 0.5 0.5 1 1 ...
+#&gt;  $ descriptions:List of 8
+#&gt;   ..$ fileName     : chr "DfReadCrossedModalities(CrossedModalitiesData)"
+#&gt;   ..$ type         : chr "FROC"
+#&gt;   ..$ name         : chr "THOMPSON-X-MOD"
+#&gt;   ..$ truthTableStr: logi NA
+#&gt;   ..$ design       : chr "FCTRL-X-MOD"
+#&gt;   ..$ modalityID1  : Named chr [1:2] "F" "I"
+#&gt;   .. ..- attr(*, "names")= chr [1:2] "F" "I"
+#&gt;   ..$ modalityID2  : Named chr [1:4] "20" "40" "60" "80"
+#&gt;   .. ..- attr(*, "names")= chr [1:4] "20" "40" "60" "80"
+#&gt;   ..$ readerID     : Named chr [1:11] "1" "10" "11" "2" ...
+#&gt;   .. ..- attr(*, "names")= chr [1:11] "1" "10" "11" "2" ...</div><div class='input'># }
 
 </div></pre>
   </div>

@@ -71,25 +71,24 @@ DfLroc2Froc <- function(dataset)  #  !!!in tests!!!
   NL[NL == 0] <- -Inf
   LL[LL == 0] <- -Inf
   
-  lesWghts <- dataset$lesionWeight
-  lesWghts[,1] <- 1
+  weights <- dataset$lesions$weights
+  weights[,1] <- 1
   
-  # TBA SimplifyDatasets
-  stop("TBA fix here")
-  datasetFroc <- list(
-    NL = NL,
-    LL = LL,
-    lesionVector = dataset$lesions$perCase,
-    lesionID = dataset$lesions$IDs,
-    lesionWeight = lesWghts,
-    dataType = "FROC",
-    modalityID = dataset$descriptions$modalityID,
-    readerID = dataset$descriptions$readerID,
-    datasetName = "ignore"
-  )
+  fileName <- paste0("DfLroc2Froc(", dataset$descriptions$fileName, ")")
+  name <- dataset$descriptions$name
+  design <- dataset$descriptions$design
+  truthTableStr <- dataset$descriptions$truthTableStr
+  IDs <- dataset$lesions$IDs
+  # weights <- dataset$lesions$weights
+  type <- "FROC"
+  perCase <- dataset$lesions$perCase
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
+  return(convert2dataset(NL, LL, LL_IL = NA, 
+                         perCase, IDs, weights,
+                         fileName, type, name, truthTableStr, design,
+                         modalityID, readerID))
   
-  return (datasetFroc)
-
 }
 
 

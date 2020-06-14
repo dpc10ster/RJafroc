@@ -8,13 +8,11 @@
 
 <title>Plot CBM fitted curve — PlotCbmFit • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,9 +36,10 @@
 
 
 
-
 <meta property="og:title" content="Plot CBM fitted curve — PlotCbmFit" />
+
 <meta property="og:description" content="Plot the CBM-predicted ROC curve with provided CBM parameters" />
+
 
 
 
@@ -163,6 +162,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -184,11 +184,13 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Plot the CBM-predicted ROC curve with provided CBM parameters</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>PlotCbmFit</span>(<span class='no'>mu</span>, <span class='no'>alpha</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -201,18 +203,21 @@
       <td><p>vector: the proportion(s) of the diseased distribution(s) where the disease is visible</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <span class="pkg">ggplot2</span> object of the plotted ROC curve(s)</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>mu</code> and <code>alpha</code> must have equal length. 
 The predicted ROC curve for each <code>mu</code> and <code>alpha</code> pair will be plotted.</p>
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Dorfman DD, Berbaum KS (2000) A contaminated binormal model for ROC data: Part II. 
 A formal model, Acad Radiol 7, 427--437.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>cbmPlot</span> <span class='kw'>&lt;-</span> <span class='fu'>PlotCbmFit</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>0.5</span>))

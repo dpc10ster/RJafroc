@@ -8,13 +8,11 @@
 
 <title>Plot empirical operating characteristics, ROC, FROC or LROC — PlotEmpiricalOperatingCharacteristics • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,11 +36,12 @@
 
 
 
-
 <meta property="og:title" content="Plot empirical operating characteristics, ROC, FROC or LROC — PlotEmpiricalOperatingCharacteristics" />
+
 <meta property="og:description" content="Plot empirical operating characteristics (operating points connected by straight 
    lines) for specified modalities and readers, or, if desired, plots 
    (no operating points) averaged over specified modalities and / or readers." />
+
 
 
 
@@ -165,6 +164,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -186,9 +186,11 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Plot empirical operating characteristics (operating points connected by straight 
    lines) for specified modalities and readers, or, if desired, plots 
    (no operating points) averaged over specified modalities and / or readers.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(
@@ -198,7 +200,7 @@
   <span class='no'>opChType</span>,
   <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.8</span>, <span class='fl'>0.2</span>)
 )</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -228,7 +230,7 @@ Default is 1.</p></td>
 i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <span class="pkg">ggplot2</span> object containing the operating characteristic plot(s) 
@@ -243,6 +245,7 @@ operating points, they are not shown.</p></dd>
 codes modality and reader) and type, which can be <code>"individual"</code>, 
 <code>"continuous"</code>, i.e., more than 20 operating points, or <code>"rdrAveraged"</code>.</p></dd>
 
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>trts</code> and <code>rdrs</code> are vectors or lists of <strong>integer</strong>  
@@ -257,6 +260,7 @@ codes modality and reader) and type, which can be <code>"individual"</code>,
    readers lists are vectors, the average operating characteristic over the 
    implied modalities and / or readers are plotted. See Example 2.</p>   
 <p>For <code>LROC</code> datasets, <code>opChType</code> can be "ROC" or "LROC".</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example 1</span>
@@ -301,22 +305,25 @@ codes modality and reader) and type, which can be <code>"individual"</code>,
 <span class='co'>## Correspondences between indices and string identifiers for modalities and </span>
 <span class='co'>## readers in this dataset. Apparently reader "2" did not complete the study.</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset04</span>)</div><div class='output co'>#&gt; List of 13
-#&gt;  $ NL           : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
-#&gt;  $ LL           : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...
-#&gt;  $ lesionVector : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionID     : num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionWeight : num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ dataType     : chr "FROC"
-#&gt;  $ modalityID   : Named chr [1:5] "1" "2" "3" "4" ...
-#&gt;   ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...
-#&gt;  $ readerID     : Named chr [1:4] "1" "3" "4" "5"
-#&gt;   ..- attr(*, "names")= chr [1:4] "1" "3" "4" "5"
-#&gt;  $ design       : chr "CROSSED"
-#&gt;  $ normalCases  : int [1:100] 100 101 102 103 104 105 106 107 108 109 ...
-#&gt;  $ abnormalCases: int [1:100] 0 1 2 3 4 5 6 7 8 9 ...
-#&gt;  $ truthTableStr: num [1:5, 1:4, 1:200, 1:4] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ datasetName  : chr "Federica"</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset04</span>)</div><div class='output co'>#&gt; List of 3
+#&gt;  $ ratings     :List of 3
+#&gt;   ..$ NL   : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
+#&gt;   ..$ LL   : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...
+#&gt;   ..$ LL_IL: logi NA
+#&gt;  $ lesions     :List of 3
+#&gt;   ..$ perCase: int [1:100] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..$ IDs    : num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..$ weights: num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ descriptions:List of 7
+#&gt;   ..$ fileName     : chr "dataset04"
+#&gt;   ..$ type         : chr "FROC"
+#&gt;   ..$ name         : chr "FEDERICA"
+#&gt;   ..$ truthTableStr: num [1:5, 1:4, 1:200, 1:4] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..$ design       : chr "FCTRL"
+#&gt;   ..$ modalityID   : Named chr [1:5] "1" "2" "3" "4" ...
+#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...
+#&gt;   ..$ readerID     : Named chr [1:4] "1" "3" "4" "5"
+#&gt;   .. ..- attr(*, "names")= chr [1:4] "1" "3" "4" "5"</div><div class='input'>
 ## List of 8
 ## NL          : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
 ## LL          : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...

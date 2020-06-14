@@ -8,13 +8,11 @@
 
 <title>Simulates an "AUC-equivalent" LROC dataset from an FROC dataset — DfFroc2Lroc • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,10 +36,11 @@
 
 
 
-
 <meta property="og:title" content="Simulates an "AUC-equivalent" LROC dataset from an FROC dataset — DfFroc2Lroc" />
+
 <meta property="og:description" content="Simulates a multiple-treatment multiple-reader &quot;AUC-equivalent&quot; 
    LROC dataset from a supplied FROC dataset." />
+
 
 
 
@@ -164,6 +163,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -185,12 +185,14 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Simulates a multiple-treatment multiple-reader "AUC-equivalent" 
    LROC dataset from a supplied FROC dataset.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>DfFroc2Lroc</span>(<span class='no'>dataset</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -199,10 +201,11 @@
       <td><p>The FROC dataset to be converted to LROC.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The equivalent LROC dataset</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The FROC paradigm can have 0 or more marks per case. However, 
@@ -211,18 +214,20 @@
    FROC marks, or -Inf if there are no marks, is copied to case index 
    k1 = 1 to k1 = K1 of the LROC dataset. For each diseased case, if the 
    max LL rating exceeds the max NL rating, then the max LL rating is copied 
-   to the LLCl array, otherwise the max NL rating is copied to the LLIl array. 
+   to the LL array, otherwise the max NL rating is copied to the LL_IL array. 
    The max NL rating on each diseased case is then set to -Inf (since the LROC
    paradigm only allows one mark. The equivalent FROC dataset has the same 
    HrAuc as the original LROC dataset. See example. The main use of this 
    function is to test the Significance testing functions using MRMC LROC 
    datasets, which I currently don't have.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='no'>lrocDataset</span> <span class='kw'>&lt;-</span> <span class='fu'>DfFroc2Lroc</span>(<span class='no'>dataset05</span>)
 <span class='no'>frocHrAuc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"HrAuc"</span>)
-<span class='no'>lrocWilcoxonAuc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></span>(<span class='no'>lrocDataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</div></pre>
+<span class='no'>lrocWilcoxonAuc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></span>(<span class='no'>lrocDataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)
+<span class='co'>## expect_equal(frocHrAuc, lrocWilcoxonAuc)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

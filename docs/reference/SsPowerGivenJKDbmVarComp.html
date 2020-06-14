@@ -8,13 +8,11 @@
 
 <title>Power given J, K and Dorfman-Berbaum-Metz variance components — SsPowerGivenJKDbmVarComp • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,9 +36,10 @@
 
 
 
-
 <meta property="og:title" content="Power given J, K and Dorfman-Berbaum-Metz variance components — SsPowerGivenJKDbmVarComp" />
+
 <meta property="og:description" content="Power given J, K and Dorfman-Berbaum-Metz variance components" />
+
 
 
 
@@ -163,6 +162,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -184,7 +184,9 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Power given J, K and Dorfman-Berbaum-Metz variance components</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>SsPowerGivenJKDbmVarComp</span>(
@@ -197,7 +199,7 @@
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
   <span class='no'>analysisOption</span>
 )</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -234,15 +236,17 @@
       <td><p>The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list object containing the estimated power and associated statistics
    for each desired generalization.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The variance components are obtained using <a href='StSignificanceTesting.html'>StSignificanceTesting</a>
    with <code>method = "DBMH"</code>.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>VarCom</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>,

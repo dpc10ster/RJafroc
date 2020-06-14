@@ -1,4 +1,4 @@
-#' Create paired dataset for testing \code{\link{FitCorCbmRoc}}
+#' Create paired dataset for testing \code{\link{FitCorCbm}}
 #' 
 #' @description The paired dataset is generated using bivariate sampling; 
 #' details are in referenced publication 
@@ -21,7 +21,7 @@
 #' @details The ROC data is bined to 5 bins in each condition. 
 #'    
 #'     
-#' @return The return value is the desired dataset, suitable for testing \code{\link{FitCorCbmRoc}}.
+#' @return The return value is the desired dataset, suitable for testing \code{\link{FitCorCbm}}.
 #' 
 #' 
 #' 
@@ -51,10 +51,7 @@ DfCreateCorCbmDataset <- function( seed = 123, K1 = 50, K2 = 50, desiredNumBins 
   # 50/50; 100/100; 1000/1000; 5000/5000
   
   set.seed(seed)
-  
-  AUCX <- 0.5 * (1 - alphaX) + alphaX * pnorm(muX/sqrt(2)) 
-  AUCY <- 0.5 * (1 - alphaY) + alphaY * pnorm(muY/sqrt(2))
-  
+
   rhoAbn1 <- rhoNor 
   rhoAbn12 <- mean(c(rhoAbn1, rhoAbn2)) 
   sigmaNor <- rbind(c(1, rhoNor), c(rhoNor, 1)) 
@@ -81,8 +78,7 @@ DfCreateCorCbmDataset <- function( seed = 123, K1 = 50, K2 = 50, desiredNumBins 
   zk2XY <- t(rmvnorm(K2XY, mean = c(muX, muY), sigma = sigmaAbn2)) 
   zk2 <- cbind(zk200,zk2X0, zk20Y, zk2XY)
   
-  simuData <- Df2RJafrocDataset(zk1, zk2) 
-  simuDataB <- DfBinDataset(simuData,desiredNumBins = desiredNumBins, opChType = "ROC")
+  simuDataB <- DfBinDataset(Df2RJafrocDataset(zk1, zk2),desiredNumBins = desiredNumBins, opChType = "ROC")
   
   return(simuDataB) 
 }

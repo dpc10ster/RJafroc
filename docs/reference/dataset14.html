@@ -8,13 +8,11 @@
 
 <title>Federica Zanca real (as opposed to inferred) ROC dataset — dataset14 • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,13 +36,14 @@
 
 
 
-
 <meta property="og:title" content="Federica Zanca real (as opposed to inferred) ROC dataset — dataset14" />
+
 <meta property="og:description" content="This is referred to in the book as the &quot;FZR&quot; dataset. It is a real ROC study, 
 conducted on the same images and using the same radiologists, on treatments
 &quot;4&quot; and &quot;5&quot; of dataset04. This was compared to highest rating inferred ROC
 data from dataset04 to conclude, erroneously, that the highest rating assumption
 is invalid. See book Section 13.6.2." />
+
 
 
 
@@ -167,6 +166,7 @@ is invalid. See book Section 13.6.2." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -188,58 +188,68 @@ is invalid. See book Section 13.6.2." />
     </div>
 
     <div class="ref-description">
+    
     <p>This is referred to in the book as the "FZR" dataset. It is a real ROC study, 
 conducted on the same images and using the same radiologists, on treatments
 "4" and "5" of dataset04. This was compared to highest rating inferred ROC
 data from dataset04 to conclude, erroneously, that the highest rating assumption
 is invalid. See book Section 13.6.2.</p>
+    
     </div>
 
     <pre class="usage"><span class='no'>dataset14</span></pre>
-
-
+        
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A list with 12 elements:</p><ul>
-<li><p><code>NL</code>, num [1:2, 1:4, 1:200, 1], ratings of false positives, FPs</p></li>
-<li><p><code>LL</code>, num [1:2, 1:4, 1:100, 1], ratings of true positives, TPs</p></li>
-<li><p><code>lesionVector</code>, int [1:100], number of lesions per diseased case, all set to 1</p></li>
-<li><p><code>lesionID</code>, num [1:100, 1], labels of lesions on diseased cases, all set to 1</p></li>
-<li><p><code>lesionWeight</code>, num [1:100, 1], weights (or clinical importances) of lesions, all set to 1</p></li>
-<li><p><code>dataType</code>, chr "ROC", the data type</p></li>
-<li><p><code>modalityID</code>, chr [1:2] "4" "5", treatment labels</p></li>
-<li><p><code>readerID</code>, chr [1:4] "1" "2" "3" "4", reader labels</p></li>
-<li><p><code>design</code>, "CROSSED", study design</p></li>
-<li><p><code>normalCases</code>, int [1:100] 100 101 102 103 104 105 106 ..., normal case labels</p></li>
-<li><p><code>abnormalCases</code>, int [1:100] 0 1 2 3 4 5 6 7 8 9 ..., abnormal case labels</p></li>
-<li><p><code>truthTableStr</code>, num [1:2, 1:4, 1:200, 1:2] 1 1 1 1 1 1 ..., truth table structure</p></li>
-<li><p><code>datasetName</code>, chr "FedericaRealRoc"</p></li>
+    <p>A list with 3 elements: <code>$ratings</code>, <code>$lesions</code> and <code>$descriptions</code>; <code>$ratings</code>
+   contain 3 elements, <code>$NL</code>, <code>$LL</code> and <code>$LL_IL</code> as sub-lists; <code>$lesions</code>
+   contain 3 elements, <code>$perCase</code>, <code>$IDS</code> and <code>$weights</code> as sub-lists; <code>$descriptions</code>
+   contain 7 elements, <code>$fileName</code>, <code>$type</code>, <code>$name</code>,
+   <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> and <code>$readerID</code> as sub-lists;</p><ul>
+<li><p><code>rating$NL</code>, num [1:2, 1:4, 1:200, 1], ratings of non-lesion localizations, NLs</p></li>
+<li><p><code>rating$LL</code>, num [1:2, 1:4, 1:100, 1], ratings of lesion localizations, LLs</p></li>
+<li><p><code>rating$LL_IL</code>NA, this placeholder is used only for LROC data</p></li>
+<li><p><code>lesions$perCase</code>, int [1:100], number of lesions per diseased case</p></li>
+<li><p><code>lesions$IDs</code>, num [1:100, 1] , numeric labels of lesions on diseased cases</p></li>
+<li><p><code>lesions$weights</code>, num [1:100, 1], weights (or clinical importances) of lesions</p></li>
+<li><p><code>descriptions$fileName</code>, chr, "dataset14", base name of dataset in `data` folder</p></li>
+<li><p><code>descriptions$type</code>, chr "ROC", the data type</p></li>
+<li><p><code>descriptions$name</code>, chr "FEDERICA-REAL-ROC", the name of the dataset</p></li>
+<li><p><code>descriptions$truthTableStr</code>, num [1:2, 1:4, 1:200, 1:2], truth table structure</p></li>
+<li><p><code>descriptions$design</code>, chr "FCTRL", study design, factorial dataset</p></li>
+<li><p><code>descriptions$modalityID</code>, chr [1:2] "4" "5", treatment label(s)</p></li>
+<li><p><code>descriptions$readerID</code>, chr [1:4] "1" "2" "3" "4", reader labels</p></li>
 </ul>
 
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Zanca F, Hillis SL, Claus F, et al (2012) Correlation of free-response and 
 receiver-operating-characteristic area-under-the-curve estimates: Results from 
 independently conducted FROC/ROC studies in mammography. 
 Med Phys. 39(10):5917-5929.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset14</span>)</div><div class='output co'>#&gt; List of 13
-#&gt;  $ NL           : num [1:2, 1:4, 1:200, 1] 2 2 2 2 1 3 2 2 3 1 ...
-#&gt;  $ LL           : num [1:2, 1:4, 1:100, 1] 6 5 6 4 5 5 5 5 5 4 ...
-#&gt;  $ lesionVector : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionID     : num [1:100, 1] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionWeight : num [1:100, 1] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ dataType     : chr "ROC"
-#&gt;  $ modalityID   : Named chr [1:2] "4" "5"
-#&gt;   ..- attr(*, "names")= chr [1:2] "4" "5"
-#&gt;  $ readerID     : Named chr [1:4] "1" "2" "3" "4"
-#&gt;   ..- attr(*, "names")= chr [1:4] "1" "2" "3" "4"
-#&gt;  $ design       : chr "CROSSED"
-#&gt;  $ normalCases  : int [1:100] 100 101 102 103 104 105 106 107 108 109 ...
-#&gt;  $ abnormalCases: int [1:100] 0 1 2 3 4 5 6 7 8 9 ...
-#&gt;  $ truthTableStr: num [1:2, 1:4, 1:200, 1:2] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ datasetName  : chr "FedericaRealRoc"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset14</span>)</div><div class='output co'>#&gt; List of 3
+#&gt;  $ ratings     :List of 3
+#&gt;   ..$ NL   : num [1:2, 1:4, 1:200, 1] 2 2 2 2 1 3 2 2 3 1 ...
+#&gt;   ..$ LL   : num [1:2, 1:4, 1:100, 1] 6 5 6 4 5 5 5 5 5 4 ...
+#&gt;   ..$ LL_IL: logi NA
+#&gt;  $ lesions     :List of 3
+#&gt;   ..$ perCase: int [1:100] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..$ IDs    : num [1:100, 1] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..$ weights: num [1:100, 1] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ descriptions:List of 7
+#&gt;   ..$ fileName     : chr "dataset14"
+#&gt;   ..$ type         : chr "ROC"
+#&gt;   ..$ name         : chr "FEDERICA-REAL-ROC"
+#&gt;   ..$ truthTableStr: num [1:2, 1:4, 1:200, 1:2] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..$ design       : chr "FCTRL"
+#&gt;   ..$ modalityID   : Named chr [1:2] "4" "5"
+#&gt;   .. ..- attr(*, "names")= chr [1:2] "4" "5"
+#&gt;   ..$ readerID     : Named chr [1:4] "1" "2" "3" "4"
+#&gt;   .. ..- attr(*, "names")= chr [1:4] "1" "2" "3" "4"</div><div class='input'>
 
 </div></pre>
   </div>

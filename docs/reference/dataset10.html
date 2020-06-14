@@ -8,13 +8,11 @@
 
 <title>Marc Ruschin ROC dataset — dataset10 • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,14 +36,15 @@
 
 
 
-
 <meta property="og:title" content="Marc Ruschin ROC dataset — dataset10" />
+
 <meta property="og:description" content="This is referred to in the book as the &quot;RUS&quot; dataset. It consists of 90 cases, 
 40 of which are diseased, the images were
 acquired at three dose levels, which can be regarded as treatments.
 &quot;0&quot; = conventional film radiographs, &quot;1&quot; = digitized  images viewed on monitors, Eight 
 radiologists interpreted the cases using the FROC paradigm. These have been reduced to 
 ROC data by using the highest ratings (the original FROC data is lost)." />
+
 
 
 
@@ -168,6 +167,7 @@ ROC data by using the highest ratings (the original FROC data is lost)." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -189,58 +189,68 @@ ROC data by using the highest ratings (the original FROC data is lost)." />
     </div>
 
     <div class="ref-description">
+    
     <p>This is referred to in the book as the "RUS" dataset. It consists of 90 cases, 
 40 of which are diseased, the images were
 acquired at three dose levels, which can be regarded as treatments.
 "0" = conventional film radiographs, "1" = digitized  images viewed on monitors, Eight 
 radiologists interpreted the cases using the FROC paradigm. These have been reduced to 
 ROC data by using the highest ratings (the original FROC data is lost).</p>
+    
     </div>
 
     <pre class="usage"><span class='no'>dataset10</span></pre>
-
-
+        
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A list with 12 elements:</p><ul>
-<li><p><code>NL</code>, num [1:3, 1:8, 1:90, 1], ratings of false positives, FPs</p></li>
-<li><p><code>LL</code>, num [1:3, 1:8, 1:40, 1], ratings of true positives, TPs</p></li>
-<li><p><code>lesionVector</code>, int [1:40], number of lesions per diseased case, all set to 1</p></li>
-<li><p><code>lesionID</code>, num [1:40, 1], labels of lesions on diseased cases, all set to 1</p></li>
-<li><p><code>lesionWeight</code>, num [1:40, 1], weights (or clinical importances) of lesions, all set to 1</p></li>
-<li><p><code>dataType</code>, chr "ROC", the data type</p></li>
-<li><p><code>modalityID</code>, chr [1:3] "1" "2" "3", treatment labels</p></li>
-<li><p><code>readerID</code>, chr [1:8] "1" "2" ..., reader labels</p></li>
-<li><p><code>design</code>, "CROSSED", study design</p></li>
-<li><p><code>normalCases</code>, int [1:50] 1 2 3 4 5 6 7 8 9 10 ..., normal case labels</p></li>
-<li><p><code>abnormalCases</code>, int [1:40] 51 52 53 54 55 56 57 58 59 60 ..., abnormal case labels</p></li>
-<li><p><code>truthTableStr</code>, num [1:3, 1:8, 1:90, 1:2] 1 1 1 1 1 1 ..., truth table structure</p></li>
-<li><p><code>datasetName</code>, chr "Ruschin"</p></li>
+    <p>A list with 3 elements: <code>$ratings</code>, <code>$lesions</code> and <code>$descriptions</code>; <code>$ratings</code>
+   contain 3 elements, <code>$NL</code>, <code>$LL</code> and <code>$LL_IL</code> as sub-lists; <code>$lesions</code>
+   contain 3 elements, <code>$perCase</code>, <code>$IDS</code> and <code>$weights</code> as sub-lists; <code>$descriptions</code>
+   contain 7 elements, <code>$fileName</code>, <code>$type</code>, <code>$name</code>,
+   <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> and <code>$readerID</code> as sub-lists;</p><ul>
+<li><p><code>rating$NL</code>, num [1:3, 1:8, 1:90, 1], ratings of non-lesion localizations, NLs</p></li>
+<li><p><code>rating$LL</code>, num [1:3, 1:8, 1:40, 1] , ratings of lesion localizations, LLs</p></li>
+<li><p><code>rating$LL_IL</code>NA, this placeholder is used only for LROC data</p></li>
+<li><p><code>lesions$perCase</code>, int [1:40], number of lesions per diseased case</p></li>
+<li><p><code>lesions$IDs</code>, num [1:40, 1], numeric labels of lesions on diseased cases</p></li>
+<li><p><code>lesions$weights</code>, num [1:40, 1], weights (or clinical importances) of lesions</p></li>
+<li><p><code>descriptions$fileName</code>, chr, "dataset10", base name of dataset in `data` folder</p></li>
+<li><p><code>descriptions$type</code>, chr "ROC", the data type</p></li>
+<li><p><code>descriptions$name</code>, chr "RUSCHIN", the name of the dataset</p></li>
+<li><p><code>descriptions$truthTableStr</code>, num [1:3, 1:8, 1:90, 1:2], truth table structure</p></li>
+<li><p><code>descriptions$design</code>, chr "FCTRL", study design, factorial dataset</p></li>
+<li><p><code>descriptions$modalityID</code>, chr [1:3] "1" "2" "3", treatment label(s)</p></li>
+<li><p><code>descriptions$readerID</code>, chr [1:8] "1" "2" "3" "4" ..., reader labels</p></li>
 </ul>
 
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ruschin M, et al. Dose dependence of mass and microcalcification 
 detection in digital mammography: free response human observer studies. 
 Med Phys. 2007;34:400 - 407.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset10</span>)</div><div class='output co'>#&gt; List of 13
-#&gt;  $ NL           : num [1:3, 1:8, 1:90, 1] 1 0 0 0 0 0 1 0 0 0 ...
-#&gt;  $ LL           : num [1:3, 1:8, 1:40, 1] 2 1 1 2 0 0 0 0 0 3 ...
-#&gt;  $ lesionVector : int [1:40] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionID     : num [1:40, 1] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ lesionWeight : num [1:40, 1] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ dataType     : chr "ROC"
-#&gt;  $ modalityID   : Named chr [1:3] "1" "2" "3"
-#&gt;   ..- attr(*, "names")= chr [1:3] "1" "2" "3"
-#&gt;  $ readerID     : Named chr [1:8] "1" "2" "3" "4" ...
-#&gt;   ..- attr(*, "names")= chr [1:8] "1" "2" "3" "4" ...
-#&gt;  $ design       : chr "CROSSED"
-#&gt;  $ normalCases  : int [1:50] 1 2 3 4 5 6 7 8 9 10 ...
-#&gt;  $ abnormalCases: int [1:40] 51 52 53 54 55 56 57 58 59 60 ...
-#&gt;  $ truthTableStr: num [1:3, 1:8, 1:90, 1:2] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ datasetName  : chr "Ruschin"</div><div class='input'><span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset10</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)$<span class='no'>Plot</span></div><div class='img'><img src='dataset10-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset10</span>)</div><div class='output co'>#&gt; List of 3
+#&gt;  $ ratings     :List of 3
+#&gt;   ..$ NL   : num [1:3, 1:8, 1:90, 1] 1 0 0 0 0 0 1 0 0 0 ...
+#&gt;   ..$ LL   : num [1:3, 1:8, 1:40, 1] 2 1 1 2 0 0 0 0 0 3 ...
+#&gt;   ..$ LL_IL: logi NA
+#&gt;  $ lesions     :List of 3
+#&gt;   ..$ perCase: int [1:40] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..$ IDs    : num [1:40, 1] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..$ weights: num [1:40, 1] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ descriptions:List of 7
+#&gt;   ..$ fileName     : chr "dataset10"
+#&gt;   ..$ type         : chr "ROC"
+#&gt;   ..$ name         : chr "RUSCHIN"
+#&gt;   ..$ truthTableStr: num [1:3, 1:8, 1:90, 1:2] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;   ..$ design       : chr "FCTRL"
+#&gt;   ..$ modalityID   : Named chr [1:3] "1" "2" "3"
+#&gt;   .. ..- attr(*, "names")= chr [1:3] "1" "2" "3"
+#&gt;   ..$ readerID     : Named chr [1:8] "1" "2" "3" "4" ...
+#&gt;   .. ..- attr(*, "names")= chr [1:8] "1" "2" "3" "4" ...</div><div class='input'><span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset10</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"ROC"</span>)$<span class='no'>Plot</span></div><div class='img'><img src='dataset10-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>

@@ -8,13 +8,11 @@
 
 <title>Save ROC data file in a different format — DfSaveDataFile • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,10 +36,11 @@
 
 
 
-
 <meta property="og:title" content="Save ROC data file in a different format — DfSaveDataFile" />
+
 <meta property="og:description" content="Save ROC data file in a different format so it can be analyzed 
    with alternate software" />
+
 
 
 
@@ -164,6 +163,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -185,8 +185,10 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Save ROC data file in a different format so it can be analyzed 
    with alternate software</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>DfSaveDataFile</span>(
@@ -195,7 +197,7 @@
   <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"JAFROC"</span>,
   <span class='kw'>dataDescription</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/deparse.html'>deparse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>substitute</a></span>(<span class='no'>dataset</span>)), <span class='st'>" Data File"</span>)
 )</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -222,7 +224,7 @@ the first line of *.lrc or *imrmc data file. This parameter is not used
 when saving dataset in other formats.</p></td>
     </tr>
     </table>
-
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

@@ -43,19 +43,23 @@ rocSpDataSet <- DfFroc2Roc(datasetFROCSp)
 
 ## in the following example, because of the smaller number of cases, 
 ## it is easy to see the process at work:
+
 set.seed(1);K1 <- 3;K2 <- 5
 mu <- 1;nuP <- 0.5;lambdaP <- 2;zeta1 <- 0
 lambda <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$lambda
 nu <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$nu
 Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
-frocDataRaw$ratings <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, 
+frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, 
 K1, K2, perCase = Lk2)
-hrData$ratings <- DfFroc2Roc(frocDataRaw$ratings)
-## print("frocDataRaw$ratings$NL[1,1,,] = ");## print(frocDataRaw$ratings$NL[1,1,,])
-## print("hrData$ratings$NL[1,1,1:K1,] = ");## print(hrData$ratings$NL[1,1,1:K1,])
-## print("frocDataRaw$ratings$LL[1,1,,] = ");## print(frocDataRaw$ratings$LL[1,1,,])
-## print("hrData$ratings$LL[1,1,,] = ");## print(hrData$ratings$LL[1,1,,]) 
+hrData <- DfFroc2Roc(frocDataRaw)
+
+## print("frocDataRaw$ratings$NL[1,1,,] = ")
+## print("hrData$ratings$NL[1,1,1:K1,] = ")
+## print("frocDataRaw$ratings$LL[1,1,,] = ")
+## print("hrData$ratings$LL[1,1,,] = ")
+
 ## following is the output
+
 ## [1] "frocDataRaw$ratings$NL[1,1,,] = "
 ## [,1]      [,2]      [,3] [,4]
 ## [1,] 2.4046534 0.7635935      -Inf -Inf
@@ -66,10 +70,11 @@ hrData$ratings <- DfFroc2Roc(frocDataRaw$ratings)
 ## [6,]      -Inf      -Inf      -Inf -Inf
 ## [7,]      -Inf      -Inf      -Inf -Inf
 ## [8,] 0.8041895 0.3773956 0.1333364 -Inf
-## > ## print("hrData$ratings$NL[1,1,1:K1,] = ");## print(hrData$ratings$NL[1,1,1:K1,])
+
+## > ## print("hrData$ratings$NL[1,1,1:K1,] = ")
 ## [1] "hrData$ratings$NL[1,1,1:K1,] = "
 ## [1] 2.4046534      -Inf 0.2522234
-## > ## print("frocDataRaw$ratings$LL[1,1,,] = ");## print(frocDataRaw$ratings$LL[1,1,,])
+## > ## print("frocDataRaw$ratings$LL[1,1,,] = ")
 ## [1] "frocDataRaw$ratings$LL[1,1,,] = "
 ## [,1] [,2]
 ## [1,]      -Inf -Inf
@@ -77,7 +82,7 @@ hrData$ratings <- DfFroc2Roc(frocDataRaw$ratings)
 ## [3,] 0.8442045 -Inf
 ## [4,] 1.0467262 -Inf
 ## [5,]      -Inf -Inf
-## > ## print("hrData$ratings$LL[1,1,,] = ");## print(hrData$ratings$LL[1,1,,]) 
+## > ## print("hrData$ratings$LL[1,1,,] = ")
 ## [1] "hrData$ratings$LL[1,1,,] = "
 ## [1] 0.4356833 1.5036080 0.8442045 1.0467262 0.8041895
 ## Note that rating of the first and the last diseased case came from NL marks

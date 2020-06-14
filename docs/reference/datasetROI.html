@@ -8,13 +8,11 @@
 
 <title>Simulated ROI dataset — datasetROI • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,9 +36,10 @@
 
 
 
-
 <meta property="og:title" content="Simulated ROI dataset — datasetROI" />
-<meta property="og:description" content="Simulated ROI dataset: assumed are 4 ROIs per case, 5 readers, 50 non-dieased and 40 diseased cases." />
+
+<meta property="og:description" content="TBA Simulated ROI dataset: assumed are 4 ROIs per case, 5 readers, 50 non-dieased and 40 diseased cases." />
+
 
 
 
@@ -163,6 +162,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -184,40 +184,57 @@
     </div>
 
     <div class="ref-description">
-    <p>Simulated ROI dataset: assumed are 4 ROIs per case, 5 readers, 50 non-dieased and 40 diseased cases.</p>
+    
+    <p>TBA Simulated ROI dataset: assumed are 4 ROIs per case, 5 readers, 50 non-dieased and 40 diseased cases.</p>
+    
     </div>
 
     <pre class="usage"><span class='no'>datasetROI</span></pre>
-
-
+        
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A list with 9 elements:</p><ul>
-<li><p><code>NL</code>, num [1:2, 1:5, 1:90, 1:4], ratings of non-lesion localizations, NLs</p></li>
-<li><p><code>LL</code>, num [1:2, 1:5, 1:40, 1:4], ratings of lesion localizations, LLs</p></li>
-<li><p><code>lesionVector</code>, int [1:40], number of lesions per diseased case, varies between 1 and 4</p></li>
-<li><p><code>lesionID</code>, num [1:40, 1:4], labels of lesions on diseased cases</p></li>
-<li><p><code>lesionWeight</code>, num [1:40, 1:4] weights (or clinical importances) of lesions, set to 1 divided by number of lesions in the case</p></li>
-<li><p><code>dataType</code>, chr "ROI", the data type</p></li>
-<li><p><code>modalityID1</code> [1:2] "1" "2", treatment labels</p></li>
-<li><p><code>readerID</code>, chr [1:5] "1" "2" "3" "4" "5", reader labels</p></li>
-<li><p><code>datasetName</code>, chr "SimulatedRoi"</p></li>
+    <p>A list with 3 elements: <code>$ratings</code>, <code>$lesions</code> and <code>$descriptions</code>; <code>$ratings</code>
+   contain 3 elements, <code>$NL</code>, <code>$LL</code> and <code>$LL_IL</code> as sub-lists; <code>$lesions</code>
+   contain 3 elements, <code>$perCase</code>, <code>$IDS</code> and <code>$weights</code> as sub-lists; <code>$descriptions</code>
+   contain 7 elements, <code>$fileName</code>, <code>$type</code>, <code>$name</code>,
+   <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> and <code>$readerID</code> as sub-lists;</p><ul>
+<li><p><code>rating$NL</code>, num [1:2, 1:5, 1:90, 1:4], ratings of non-lesion localizations, NLs</p></li>
+<li><p><code>rating$LL</code>, num [1:2, 1:5, 1:40, 1:4], ratings of lesion localizations, LLs</p></li>
+<li><p><code>rating$LL_IL</code>NA, this placeholder is used only for LROC data</p></li>
+<li><p><code>lesions$perCase</code>, int [1:40], number of lesions per diseased case</p></li>
+<li><p><code>lesions$IDs</code>, num [1:40, 1:4] , numeric labels of lesions on diseased cases</p></li>
+<li><p><code>lesions$weights</code>, num [1:40, 1:4], weights (or clinical importances) of lesions</p></li>
+<li><p><code>descriptions$fileName</code>, chr, "datasetROI", base name of dataset in `data` folder</p></li>
+<li><p><code>descriptions$type</code>, chr "ROI", the data type</p></li>
+<li><p><code>descriptions$name</code>, chr "SIM-ROI", the name of the dataset</p></li>
+<li><p><code>descriptions$truthTableStr</code>, NA, truth table structure</p></li>
+<li><p><code>descriptions$design</code>, chr "FCTRL-X-MOD", study design, factorial dataset</p></li>
+<li><p><code>descriptions$modalityID</code>, chr [1:2] "1" "2", treatment label(s)</p></li>
+<li><p><code>descriptions$readerID</code>, chr [1:5] "1" "2" "3" "4" ..., reader labels</p></li>
 </ul>
 
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>datasetROI</span>)</div><div class='output co'>#&gt; List of 9
-#&gt;  $ NL          : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...
-#&gt;  $ LL          : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...
-#&gt;  $ lesionVector: int [1:40] 2 3 2 2 3 3 1 2 3 3 ...
-#&gt;  $ lesionID    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...
-#&gt;  $ lesionWeight: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...
-#&gt;  $ dataType    : chr "ROI"
-#&gt;  $ modalityID  : Named chr [1:2] "1" "2"
-#&gt;   ..- attr(*, "names")= chr [1:2] "1" "2"
-#&gt;  $ readerID    : Named chr [1:5] "1" "2" "3" "4" ...
-#&gt;   ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...
-#&gt;  $ datasetName : chr "SimulatedRoi"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>datasetROI</span>)</div><div class='output co'>#&gt; List of 3
+#&gt;  $ ratings     :List of 3
+#&gt;   ..$ NL   : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...
+#&gt;   ..$ LL   : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...
+#&gt;   ..$ LL_IL: logi NA
+#&gt;  $ lesions     :List of 3
+#&gt;   ..$ perCase: int [1:40] 2 3 2 2 3 3 1 2 3 3 ...
+#&gt;   ..$ IDs    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...
+#&gt;   ..$ weights: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...
+#&gt;  $ descriptions:List of 7
+#&gt;   ..$ fileName     : chr "datasetROI"
+#&gt;   ..$ type         : chr "ROI"
+#&gt;   ..$ name         : chr "SIM-ROI"
+#&gt;   ..$ truthTableStr: logi NA
+#&gt;   ..$ design       : chr "FCTRL"
+#&gt;   ..$ modalityID   : Named chr [1:2] "1" "2"
+#&gt;   .. ..- attr(*, "names")= chr [1:2] "1" "2"
+#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...
+#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</div><div class='input'>
 
 </div></pre>
   </div>

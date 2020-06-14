@@ -8,13 +8,11 @@
 
 <title>Performs DBM or OR significance testing — StSignificanceTesting • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,8 +36,8 @@
 
 
 
-
 <meta property="og:title" content="Performs DBM or OR significance testing — StSignificanceTesting" />
+
 <meta property="og:description" content="Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
    significance testing (with Hillis' improvements), for specified dataset; 
    significance testing refers to analysis designed to assign a P-value, 
@@ -49,6 +47,7 @@
    the analysis are better visualized in the text or  
    Excel-formatted files produced by UtilOutputReport.
 ## TBA" />
+
 
 
 
@@ -171,6 +170,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -192,6 +192,7 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
    significance testing (with Hillis' improvements), for specified dataset; 
    significance testing refers to analysis designed to assign a P-value, 
@@ -201,6 +202,7 @@
    the analysis are better visualized in the text or  
    Excel-formatted files produced by <code><a href='UtilOutputReport.html'>UtilOutputReport</a></code>.</p>
 <p>## TBA</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>StSignificanceTesting</span>(
@@ -214,7 +216,7 @@
   <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>,
   <span class='kw'>tempOrgCode</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -250,9 +252,8 @@ and the Obuchowski-Rockette significance testing methods, respectively.</p></td>
       <td><p>The covariance matrix estimation method
    in <code>ORH</code> analysis (for <code>method = "DBMH"</code> the jackknife is always used).</p><ul>
 <li><p><code>"Jackknife"</code>, the default,</p></li>
-<li><p><code>"Bootstrap"</code>, in which case <code>nBoots</code> (above) is relevant</p></li>
-<li><p><code>"DeLong"</code>; requires <code>FOM = "Wilcoxon"</code>, otherwise 
-   an error results.</p></li>
+<li><p><code>"Bootstrap"</code>, in which case <code>nBoots</code> (above) is relevant,</p></li>
+<li><p><code>"DeLong"</code>; requires <code>FOM = "Wilcoxon"</code>, otherwise error.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -266,7 +267,7 @@ and the Obuchowski-Rockette significance testing methods, respectively.</p></td>
 <li><p><code>"RRRC"</code> = random-reader random case,</p></li>
 <li><p><code>"FRRC"</code> = fixed-reader random case,</p></li>
 <li><p><code>"RRFC"</code> = random-reader fixed case,</p></li>
-<li><p><code>"ALL"</code> = outputs the results of <code>"RRRC"</code>, <code>"FRRC"</code> 
+<li><p><code>"ALL"</code> =  outputs results of <code>"RRRC"</code>, <code>"FRRC"</code> 
    and <code>"RRFC"</code> analyses</p></li>
 </ul></td>
     </tr>
@@ -274,98 +275,46 @@ and the Obuchowski-Rockette significance testing methods, respectively.</p></td>
       <th>tempOrgCode, </th>
       <td><p>default FALSE; if TRUE, then code from version 0.0.1 of RJafroc
 is used (see RJafroc_0.0.1.tar). This is intended to check against errors 
-that crept in subsequent to 
-the original version as I attempted to improve the organization of the code and the output.
-As implicit in the name of this temporary flag, it will eventually be removed.</p></td>
+that crept in subsequent to the original version as I attempted to improve 
+the organization of the code and the output. As implicit in the name of this 
+temporary flag, it will eventually be removed.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><strong>For <code>method = "DBMH"</code>  the returned list has 15 members:</strong></p>
-<dt>fomArray</dt><dd><p>Figure of merit array: see return of <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code></p></dd>
+    <p><strong>For <code>method = "DBMH"</code> the returned list contains 4 dataframes:</strong></p>
+<dt>FOMs</dt><dd><p>Contains <code>foms</code>, <code>trtMeans</code> and <code>trtMeanDiffs</code>: 
+   see return of <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code></p></dd>
 
-<dt>anovaY</dt><dd><p>ANOVA table of the pseudovalues, over all treatments</p></dd>
+<dt>ANOVA</dt><dd><p>Contains <code>TRCAnova</code>, <code>VarCom</code>, <code>IndividualTrt</code> 
+   and <code>IndividualRdr</code> ANOVA tables of pseudovalues</p></dd>
 
-<dt>anovaYi</dt><dd><p>ANOVA table of the pseudovalues, for each treatment</p></dd>
+<dt>RRRC</dt><dd><p>Contains results of <code>"RRRC"</code> analyses: <code>FTests</code>, 
+   <code>ciDiffTrt</code>, <code>ciAvgRdrEachTrt</code></p></dd>
 
-<dt>varComp</dt><dd><p>The variance components of the DBM pseudovalue mode; 
-   6 values, in the following order: <code>varR</code>, <code>varC</code>, 
-   <code>varTR</code>, <code>varTC</code>, <code>varRC</code> and <code>varErr</code></p></dd>
+<dt>FRRC</dt><dd><p>Contains results of <code>"FRRC"</code> analyses: <code>FTests</code>, 
+   <code>ciDiffTrt</code>, <code>ciAvgRdrEachTrt</code>, <code>ciDiffTrtEachRdr</code></p></dd>
 
-<dt>FTestStatsRRRC</dt><dd><p>Results of the F-test for RRRC <strong>random reader random case</strong>
-   analysis; contains the following items: <code>fRRRC</code> - the value of the F-statistic, 
-   <code>ndfRRRC</code> - the numerator degrees of freedom, <code>ddfRRRC</code> - 
-   the denominator degrees of freedom and <code>pRRRC</code> - the pvalue</p></dd>
+<dt>RRFC</dt><dd><p>Contains results of <code>"RRFC"</code> analyses: <code>FTests</code>, 
+   <code>ciDiffTrt</code>, <code>ciAvgRdrEachTrt</code></p></dd>
 
-<dt>ciDiffTrtRRRC</dt><dd><p>For RRRC analysis, the confidence intervals and related 
-   statistics for the FOM differences between pairs of treatments</p></dd>
+For <code>method = "ORH"</code> the return list contains 4 dataframes:
 
-<dt>ciAvgRdrEachTrtRRRC</dt><dd><p>For RRRC analysis, the confidence intervals 
-   and related test statistics for rdr. avg. FOM in each treatment</p></dd>
+<dt>FOMs</dt><dd><p>Contains <code>foms</code>, <code>trtMeans</code> and <code>trtMeanDiffs</code>: 
+   <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code></p></dd>
 
-<dt>FTestStatsFRRC</dt><dd><p>As for <code>FTestStatsRRRC</code> except that this is 
-   for <strong>fixed-reader random-case</strong> (FRRC) analysis</p></dd>
+<dt>ANOVA</dt><dd><p>Contains <code>TRAnova</code>, <code>VarCom</code>, <code>IndividualTrt</code> 
+   and <code>IndividualRdr</code> ANOVA tables of FOM values</p></dd>
 
-<dt>ciDiffTrtFRRC</dt><dd><p>For FRRC analysis, the confidence intervals and related 
-   test statistics for the FOM differences between pairs of treatments</p></dd>
+<dt>RRRC</dt><dd><p>Contains results of <code>"RRRC"</code> analyses - same 
+   organization as DBMH, see above</p></dd>
 
-<dt>ciAvgRdrEachTrtFRRC</dt><dd><p>For FRRC analysis, the confidence intervals and 
-   related tests for rdr. avg. FOM in each treatment</p></dd>
+<dt>FRRC</dt><dd><p>Contains results of <code>"FRRC"</code> analyses - ditto</p></dd>
 
-<dt>msAnovaEachRdrFRRC</dt><dd><p>The mean squares table of the ANOVA of the 
-   pseudovalues for each reader (based on data for the specified reader)</p></dd>
+<dt>RRFC</dt><dd><p>Contains results of <code>"RRFC"</code> analyses- ditto</p></dd>
 
-<dt>ciDiffTrtEachRdrFRRC</dt><dd><p>The confidence intervals and related tests of the 
-   FOM differences between pairs of treatments for each reader</p></dd>
-
-<dt>FTestStatsRRFC</dt><dd><p>As for <code>FTestStatsRRRC</code> except that this is 
-   for <strong>random-reader fixed-case</strong> (RRFC) analysis</p></dd>
-
-<dt>ciDiffTrtRRFC</dt><dd><p>For RRFC analysis, the confidence intervals and 
-   related test statistics for the FOM differences between pairs of treatments</p></dd>
-
-<dt>ciAvgRdrEachTrtRRFC</dt><dd><p>For RRFC analysis, the confidence intervals 
-   and related tests for reader averaged FOM in each treatment</p></dd>
-
-For method = "ORH" the return list has 14 members:
-
-<dt>fomArray</dt><dd><p>Figure of merit array: see return of <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code></p></dd>
-
-<dt>meanSquares</dt><dd><p>List with 3 members: <code>msT</code>, <code>msR</code>, <code>msTR</code></p></dd>
-
-<dt>varComp</dt><dd><p>The variance components of the OR figure of merit model; 
-   6 values, listed in the following order: <code>varR</code>, <code>varTR</code>, <code>Cov1</code>, 
-   <code>Cov2</code>, <code>Cov3</code> and <code>Var</code></p></dd>
-
-<dt>FTestStatsRRRC</dt><dd><p>Results of the F-test for RRRC <strong>random reader random case</strong>
-   analysis; contains the following items: <code>fRRRC</code> - the value of the F-statistic, 
-   <code>ndfRRRC</code> - the numerator degrees of freedom, <code>ddfRRRC</code> - 
-   the denominator degrees of freedom and <code>pRRRC</code> - the pvalue</p></dd>
-
-<dt>ciDiffTrtRRRC</dt><dd><p>Same as in <code>DBMH</code> method</p></dd>
-
-<dt>ciAvgRdrEachTrtRRRC</dt><dd><p>Same as in <code>DBMH</code> method</p></dd>
-
-<dt>FTestStatsFRRC</dt><dd><p>Same as <code>FTestStatsRRRC</code>, but 
-   now treating reader as a fixed effect</p></dd>
-
-<dt>ciDiffTrtFRRC</dt><dd><p>Same as in <code>DBMH</code> method</p></dd>
-
-<dt>ciAvgRdrEachTrtFRRC</dt><dd><p>Same as in <code>DBMH</code> method</p></dd>
-
-<dt>ciDiffTrtEachRdrFRRC</dt><dd><p>Same as in <code>DBMH</code> method</p></dd>
-
-<dt>varCovEachRdr</dt><dd><p>Var and Cov1 
-   estimates for each reader</p></dd>
-
-<dt>FTestStatsRRFC</dt><dd><p>Same as <code>FTestStatsRRRC</code>, but 
-   now treating case as a fixed effect</p></dd>
-
-<dt>ciDiffTrtRRFC</dt><dd><p>Same as in <code>DBMH</code> method</p></dd>
-
-<dt>ciAvgRdrEachTrtRRFC</dt><dd><p>Same as in <code>DBMH</code> method</p></dd>
-
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Dorfman DD, Berbaum KS, Metz CE (1992) ROC characteristic rating analysis: 
@@ -377,6 +326,7 @@ Statistics in medicine 33, 330-360.</p>
 <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
 Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL. 
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $FOMs
@@ -617,9 +567,123 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt0 0.89703704 0.024829936  4 0.82809808 0.96597599
 #&gt; Trt1 0.94083736 0.016153030  4 0.89598936 0.98568536
 #&gt; 
-#&gt; </div><div class='input'><span class='co'>## following is split-plot analysis using a simulated split-plot dataset</span>
-<span class='co'>## TBA StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")</span>
-
+#&gt; </div><div class='input'><span class='co'>##following is split-plot analysis using a simulated split-plot dataset</span>
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>datasetFROCSp</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; $FOMs$foms
+#&gt;            rdr1       rdr3       rdr4       rdr5
+#&gt; trt4 0.87681159 0.79202279 0.57312253 0.78758818
+#&gt; trt5 0.73460145 0.72863248 0.56571146 0.68992504
+#&gt; 
+#&gt; $FOMs$trtMeans
+#&gt;        Estimate
+#&gt; trt4 0.75738627
+#&gt; trt5 0.67971761
+#&gt; 
+#&gt; $FOMs$trtMeanDiffs
+#&gt;              Estimate
+#&gt; trt4-trt5 0.077668666
+#&gt; 
+#&gt; 
+#&gt; $ANOVA
+#&gt; $ANOVA$TRanova
+#&gt;              SS DF           MS
+#&gt; T  0.0120648434  1 0.0120648434
+#&gt; R  0.0639811804  3 0.0213270601
+#&gt; TR 0.0048526915  3 0.0016175638
+#&gt; 
+#&gt; $ANOVA$VarCom
+#&gt;            Estimates       Rhos
+#&gt; VarR   0.00784437940         NA
+#&gt; VarTR -0.00071960186         NA
+#&gt; Cov1   0.00201036875 0.46241583
+#&gt; Cov2   0.00000000000 0.00000000
+#&gt; Cov3   0.00000000000 0.00000000
+#&gt; Var    0.00434753445         NA
+#&gt; 
+#&gt; $ANOVA$IndividualTrt
+#&gt;      DF   msREachTrt   varEachTrt cov2EachTrt
+#&gt; trt4  3 0.0167757928 0.0037253990           0
+#&gt; trt5  3 0.0061688312 0.0049696699           0
+#&gt; 
+#&gt; $ANOVA$IndividualRdr
+#&gt;      DF    msTEachRdr   varEachRdr   cov1EachRdr
+#&gt; rdr1  1 1.0111863e-02 0.0041261543 0.00225453147
+#&gt; rdr3  1 2.0091659e-03 0.0038673444 0.00224307346
+#&gt; rdr4  1 2.7461958e-05 0.0066676247 0.00292636442
+#&gt; rdr5  1 4.7690444e-03 0.0027290144 0.00061750564
+#&gt; 
+#&gt; 
+#&gt; $RRRC
+#&gt; $RRRC$FTests
+#&gt;           DF           MS     FStat           p
+#&gt; Treatment  1 0.0120648434 7.4586506 0.071876984
+#&gt; Error      3 0.0016175638        NA          NA
+#&gt; 
+#&gt; $RRRC$ciDiffTrt
+#&gt;              Estimate      StdErr DF        t       PrGTt      CILower
+#&gt; trt4-trt5 0.077668666 0.028439091  3 2.731053 0.071876984 -0.012837215
+#&gt;              CIUpper
+#&gt; trt4-trt5 0.16817455
+#&gt; 
+#&gt; $RRRC$ciAvgRdrEachTrt
+#&gt;        Estimate      StdErr DF    CILower    CIUpper Cov2
+#&gt; trt4 0.75738627 0.064760699  3 0.55128883 0.96348372    0
+#&gt; trt5 0.67971761 0.039270954  3 0.55473991 0.80469531    0
+#&gt; 
+#&gt; 
+#&gt; $FRRC
+#&gt; $FRRC$FTests
+#&gt;                     MS     Chisq DF           p
+#&gt; Treatment 0.0120648434 5.1621686  1 0.023084057
+#&gt; Error     0.0023371657        NA NA          NA
+#&gt; 
+#&gt; $FRRC$ciDiffTrt
+#&gt;              Estimate      StdErr         z       PrGTz     CILower    CIUpper
+#&gt; trt4-trt5 0.077668666 0.034184541 2.2720406 0.023084057 0.010668197 0.14466914
+#&gt; 
+#&gt; $FRRC$ciAvgRdrEachTrt
+#&gt;        Estimate      StdErr  DF    CILower    CIUpper
+#&gt; trt4 0.75738627 0.030518023 199 0.69757205 0.81720050
+#&gt; trt5 0.67971761 0.035247943 199 0.61063291 0.74880231
+#&gt; 
+#&gt; $FRRC$ciDiffTrtEachRdr
+#&gt;                     Estimate      StdErr           z       PrGTz      CILower
+#&gt; rdr1::trt4-trt5 0.1422101449 0.061182069 2.324376188 0.020105341  0.022295493
+#&gt; rdr3::trt4-trt5 0.0633903134 0.056995982 1.112189170 0.266056823 -0.048319758
+#&gt; rdr4::trt4-trt5 0.0074110672 0.086501564 0.085675528 0.931724356 -0.162128883
+#&gt; rdr5::trt4-trt5 0.0976631393 0.064984748 1.502862468 0.132874513 -0.029704627
+#&gt;                    CIUpper
+#&gt; rdr1::trt4-trt5 0.26212480
+#&gt; rdr3::trt4-trt5 0.17510038
+#&gt; rdr4::trt4-trt5 0.17695102
+#&gt; rdr5::trt4-trt5 0.22503091
+#&gt; 
+#&gt; $FRRC$IndividualRdrVarCov1
+#&gt;        varEachRdr   cov1EachRdr
+#&gt; rdr1 0.0041261543 0.00225453147
+#&gt; rdr3 0.0038673444 0.00224307346
+#&gt; rdr4 0.0066676247 0.00292636442
+#&gt; rdr5 0.0027290144 0.00061750564
+#&gt; 
+#&gt; 
+#&gt; $RRFC
+#&gt; $RRFC$FTests
+#&gt;    DF           MS         F           p
+#&gt; T   1 0.0120648434 7.4586506 0.071876984
+#&gt; TR  3 0.0016175638        NA          NA
+#&gt; 
+#&gt; $RRFC$ciDiffTrt
+#&gt;              Estimate      StdErr DF        t       PrGTt      CILower
+#&gt; trt4-trt5 0.077668666 0.028439091  3 2.731053 0.071876984 -0.012837215
+#&gt;              CIUpper
+#&gt; trt4-trt5 0.16817455
+#&gt; 
+#&gt; $RRFC$ciAvgRdrEachTrt
+#&gt;        Estimate      StdErr DF    CILower    CIUpper
+#&gt; Trt4 0.75738627 0.064760699  3 0.55128883 0.96348372
+#&gt; Trt5 0.67971761 0.039270954  3 0.55473991 0.80469531
+#&gt; 
+#&gt; </div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms

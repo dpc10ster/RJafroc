@@ -8,13 +8,11 @@
 
 <title>Fit the radiological search model (RSM) to an ROC dataset — FitRsmRoc • RJafroc</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -38,9 +36,10 @@
 
 
 
-
 <meta property="og:title" content="Fit the radiological search model (RSM) to an ROC dataset — FitRsmRoc" />
+
 <meta property="og:description" content="Fit an RSM-predicted ROC curve to a binned single-modality single-treatment ROC dataset" />
+
 
 
 
@@ -163,6 +162,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -184,11 +184,13 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Fit an RSM-predicted ROC curve to a <strong>binned single-modality single-treatment ROC dataset</strong></p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>FitRsmRoc</span>(<span class='no'>binnedRocData</span>, <span class='no'>lesDistr</span>, <span class='kw'>trt</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdr</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -213,7 +215,7 @@ The second column must sum to unity.</p></td>
       <td><p>The selected reader, default is 1</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The return value is a list with the following elements:</p>
@@ -244,6 +246,7 @@ The second column must sum to unity.</p></td>
    operating characteristic along with the empirical operating points. 
    Use <code>print</code> to display the object</p></dd>
 
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If dataset is FROC, first convert it to ROC, using <code><a href='DfFroc2Roc.html'>DfFroc2Roc</a></code>. MLE ROC algorithms 
@@ -258,6 +261,7 @@ The second column must sum to unity.</p></td>
    the lowest threshold zeta1. To avoid clutter error bars are only shown for the 
    lowest and uppermost operating points. Because of the extra parameter, and the 
    requirement to have five counts, the chi-square statistic often cannot be calculated.</p>
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 
@@ -266,6 +270,7 @@ paradigm. Phys Med Biol 51, 3449-3462.</p>
 <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
 Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL. 
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

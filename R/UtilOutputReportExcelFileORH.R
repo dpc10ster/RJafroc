@@ -17,17 +17,15 @@ OutputExcelFileORH <- function(dataset,
   
   #############################################################    
   ## setup up empty excel output file containing Summary worksheet   
-  stop("need fix here")
-  # TBA SimplifyDatasets
   wb <- createWorkbook()
   addWorksheet(wb, "Summary")
   writeData(wb, sheet = "Summary", x = summaryInfo, rowNames = TRUE, colNames = FALSE)
   
-  modalityID <- data.frame(output = dataset$modalityID, input = names(dataset$modalityID))
+  modalityID <- data.frame(output = dataset$descriptions$modalityID, input = names(dataset$descriptions$modalityID))
   colnames(modalityID) <- c("Modality ID in output file", "Modality ID in input file")
   writeData(wb, sheet = "Summary", x = modalityID, startRow = 5, colNames = TRUE)
   
-  readerID <- data.frame(output = dataset$readerID, input = names(dataset$readerID))
+  readerID <- data.frame(output = dataset$descriptions$readerID, input = names(dataset$descriptions$readerID))
   colnames(readerID) <- c("Reader ID in output file", "Reader ID in input file")
   writeData(wb, sheet = "Summary", x = readerID, startRow = 5, startCol = 3, colNames = TRUE)
   

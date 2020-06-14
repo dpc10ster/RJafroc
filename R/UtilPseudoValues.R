@@ -21,7 +21,7 @@
 
 # UtilPseudoValues.R had errors (prior to v1.3.1) insofar as it was 
 # dropping the 1 dimension in 
-# lesionID and lesionWeight; was affecting StSingleModality when used with 
+# IDs and weights; was affecting StSingleModality when used with 
 # wAFROC FOM. This part of the code needs further checking; 
 # no essential changes made in MyFOM.cpp and MyFom_ij.R.
 # v.1.3.1.9000: added SPLIT-PLOT capability
@@ -41,9 +41,9 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
       LL <- dataset$ratings$LL
     } else stop("incorrect FOM for LROC data")
   }
-  lesionVector <- dataset$lesions$perCase
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
+  perCase <- dataset$lesions$perCase
+  IDs <- dataset$lesions$IDs
+  weights <- dataset$lesions$weights
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
   modalityID <- dataset$descriptions$modalityID
@@ -56,8 +56,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   
   # `as.matrix` is NOT absolutely necessary as `mean()` function is not used here
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  if ((length(dataset) != 13) || (dataset$descriptions$design == "FCTRL")) {
-    # OldFormat dataset or NewFormat FCTRL dataset
+  if (dataset$descriptions$design == "FCTRL") {
     if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
       # first type of end-point based FOM
       jkFomValues <- array(dim = c(I, J, K1))
@@ -68,8 +67,8 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
             nl <- NL[i, j, -k, ]
             ll <- LL[i, j, , ]
             dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2, max(lesionVector))
-            jkFomValues[i, j, k] <- MyFom_ij(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM, FPFValue)
+            dim(ll) <- c(K2, max(perCase))
+            jkFomValues[i, j, k] <- MyFom_ij(nl, ll, perCase, IDs, weights, maxNL, maxLL, K1 - 1, K2, FOM, FPFValue)
             jkPseudoValues[i, j, k] <- fomArray[i, j] * K1 - jkFomValues[i, j, k] * (K1 - 1)
           }
           jkPseudoValues[i, j, ] <- jkPseudoValues[i, j, ] + (fomArray[i, j] - mean(jkPseudoValues[i, j, ]))
@@ -85,12 +84,12 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
             nl <- NL[i, j, -(k + K1), ]
             ll <- LL[i, j, -k, ]
             dim(nl) <- c(K - 1, maxNL)
-            dim(ll) <- c(K2 - 1, max(lesionVector))
-            lesID <- lesionID[-k, ]
-            dim(lesID) <- c(K2 - 1, max(lesionVector))
-            lesWght <- lesionWeight[-k, ]
-            dim(lesWght) <- c(K2 - 1, max(lesionVector))
-            jkFomValues[i, j, k] <- MyFom_ij(nl, ll, lesionVector[-k], lesID, lesWght, maxNL, maxLL, K1, K2 - 1, FOM, FPFValue)
+            dim(ll) <- c(K2 - 1, max(perCase))
+            lesID <- IDs[-k, ]
+            dim(lesID) <- c(K2 - 1, max(perCase))
+            lesWght <- weights[-k, ]
+            dim(lesWght) <- c(K2 - 1, max(perCase))
+            jkFomValues[i, j, k] <- MyFom_ij(nl, ll, perCase[-k], lesID, lesWght, maxNL, maxLL, K1, K2 - 1, FOM, FPFValue)
             jkPseudoValues[i, j, k] <- fomArray[i, j] * K2 - jkFomValues[i, j, k] * (K2 - 1)
           }
           jkPseudoValues[i, j, ] <- jkPseudoValues[i, j, ] + (fomArray[i, j] - mean(jkPseudoValues[i, j, ]))
@@ -107,18 +106,18 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
               nl <- NL[i, j, -k, ]
               ll <- LL[i, j, , ]
               dim(nl) <- c(K - 1, maxNL)
-              dim(ll) <- c(K2, max(lesionVector))
-              jkFomValues[i, j, k] <- MyFom_ij(nl, ll, lesionVector, lesionID, lesionWeight, maxNL, maxLL, K1 - 1, K2, FOM, FPFValue)
+              dim(ll) <- c(K2, max(perCase))
+              jkFomValues[i, j, k] <- MyFom_ij(nl, ll, perCase, IDs, weights, maxNL, maxLL, K1 - 1, K2, FOM, FPFValue)
             } else {
               nl <- NL[i, j, -k, ]
               ll <- LL[i, j, -(k - K1), ]
               dim(nl) <- c(K - 1, maxNL)
-              dim(ll) <- c(K2 - 1, max(lesionVector))
-              lesWght <- lesionWeight[-(k - K1), ]
-              dim(lesWght) <- c(K2 - 1, max(lesionVector))
-              lesID <- lesionID[-(k - K1), ]
-              dim(lesID) <- c(K2 - 1, max(lesionVector))
-              jkFomValues[i, j, k] <- MyFom_ij(nl, ll, lesionVector[-(k - K1)], lesID, lesWght, maxNL, maxLL, K1, K2 - 1, FOM, FPFValue)
+              dim(ll) <- c(K2 - 1, max(perCase))
+              lesWght <- weights[-(k - K1), ]
+              dim(lesWght) <- c(K2 - 1, max(perCase))
+              lesID <- IDs[-(k - K1), ]
+              dim(lesID) <- c(K2 - 1, max(perCase))
+              jkFomValues[i, j, k] <- MyFom_ij(nl, ll, perCase[-(k - K1)], lesID, lesWght, maxNL, maxLL, K1, K2 - 1, FOM, FPFValue)
             }
             jkPseudoValues[i, j, k] <- fomArray[i, j] * K - jkFomValues[i, j, k] * (K - 1)
           }
@@ -131,13 +130,12 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
       jkFomValues = jkFomValues,
       caseTransitions = NULL
     ))
-  } else {
-    # SPLIT-PLOT dataset
+  } else if (dataset$descriptions$design == "SPLIT-PLOT") {
     # cannot use "MaxNLF", "ExpTrnsfmSp", "HrSp" etc. here 
     if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp", "MaxLLF", "HrSe")) 
       stop("Cannot use MaxNLF, ExpTrnsfmSp, HrSp, MaxLLF, HrSe FOMs with SPLIT-PLOT dataset")
     if (dataset$descriptions$design != "SPLIT-PLOT") stop("Dataset has to be split-plot for this function to be called")
-    t <- dataset$truthTableStr
+    t <- dataset$descriptions$truthTableStr
     jkFomValues <- array(dim = c(I,J,K))
     jkPseudoValues <- array(dim =c(I,J,K))
     lastCase <- 0
@@ -150,8 +148,8 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
       k1_j <- sum(!is.na(t[1,j,,1]))
       k2_j <- sum(!is.na(t[1,j,,2]))
       k_j <- k1_j + k2_j
-      lID_j <- dataset$lesionID[k2_j_sub,1:maxLL_j, drop = FALSE]
-      lW_j <- dataset$lesionWeight[k2_j_sub,1:maxLL_j, drop = FALSE]
+      lID_j <- dataset$lesions$IDs[k2_j_sub,1:maxLL_j, drop = FALSE]
+      lW_j <- dataset$lesions$weights[k2_j_sub,1:maxLL_j, drop = FALSE]
       for (i in 1:I) {
         nl_j <- NL[i, j, k1_j_sub, ]
         ll_j <- LL[i, j, k2_j_sub, 1:maxLL_j]
@@ -192,7 +190,6 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
       jkFomValues = jkFomValues,
       caseTransitions = caseTransitions
     ))
-  }
-  stop("Should not land here")
+  } else stop("Unrecognized study design, should be FCTRL or SPLIT-PLOT")
 }
 

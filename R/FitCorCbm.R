@@ -37,22 +37,22 @@
 #'    has one less dimension (along each edge) for each parameter that is held constant.
 #'    The indices of the parameters held fixed are in \code{fitCorCbmRet$fixParam}.
 #'
-#' @examples
-#' \donttest{
-#' ## this takes 85 sec to execute on OSX
-#' ## dataset <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))
-#' ## ret <- FitCorCbm(dataset)
-#' ## print(ret$fitCorCbmRet)
-#' ## print(ret$stats)
-#' ## print(ret$fittedPlot)
-#' 
-#' ## this takes very long to execute
-#' ## ret <- FitCorCbm(datasetBinned123)
-#' ## print(ret$fitCorCbmRet)
-#' ## print(ret$stats)
-#' ## print(ret$fittedPlot)
-#' ## Also try two other datasets ending with 124 and 125
-#' }
+## following examples generate excessive CPU time NOTES on devtools::check_win_xx() 
+## but it is instructive to execute them independently
+## see also the publication referenced below
+##
+## dataset <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(4,7))
+## ret <- FitCorCbm(dataset)
+## print(ret$fitCorCbmRet)
+## print(ret$stats)
+## print(ret$fittedPlot)
+## 
+## 
+## ret <- FitCorCbm(datasetBinned123)
+## print(ret$fitCorCbmRet)
+## print(ret$stats)
+## print(ret$fittedPlot)
+## Also try two other datasets ending with 124 and 125
 #'
 #'
 #' @references
@@ -69,6 +69,7 @@
 #'
 #'
 FitCorCbm <- function(dataset){
+  
   if (dataset$descriptions$type != "ROC") {
     stop("This program requires an ROC dataset")
   }
@@ -80,6 +81,7 @@ FitCorCbm <- function(dataset){
   minRho <- RJafrocEnv$minRho
   maxRho <- RJafrocEnv$maxRho
 
+  # `as.matrix` is NOT absolutely necessary as `mean()` function is not used here
   aucArray <- UtilFigureOfMerit(dataset, FOM = "Wilcoxon")
   maxAUC <- max(aucArray)
   while (pnorm(maxMu / sqrt(2)) <= maxAUC){
@@ -510,6 +512,7 @@ PlotCorCbmFit <- function(retFitCorCBM){
   plotOpPnts <- NULL
   FPFX <- 1 - pnorm(plotZeta)
   TPFX <- (1 - alphaX) * (1 - pnorm(plotZeta)) + alphaX * (1 - pnorm(plotZeta, mean = muX))
+
   plotCBM <- rbind(plotCBM, data.frame(FPF = FPFX, TPF = TPFX, Condition = "X"))
   FPFX <- cumsum(rev(rowSums(FPCounts)))/K1
   TPFX <- cumsum(rev(rowSums(TPCounts)))/K2
