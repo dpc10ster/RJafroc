@@ -47,7 +47,7 @@ Expected power is `r power$powerRRRC`.
 ## Illustration of `SsPowerTable()` using `method = "DBMH"`
 
 ```{r}
-powTab <- SsPowerTable(dataset02, FOM = "Wilcoxon", method = "DBMH", analysisOption = "RRRC")
+powTab <- SsPowerTable(dataset02, FOM = "Wilcoxon", analysisOption = "RRRC")
 ````
 
 Now show the power table `powTab`. Note that the last column is always close to 0.8, the desired power. The 2nd and 3rd columns show the number of readers and number of cases to achieve the desired power.

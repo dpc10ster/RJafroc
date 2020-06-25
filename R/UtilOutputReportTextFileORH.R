@@ -32,7 +32,7 @@ OutputTextFileORH <- function(dataset,
   print(format(df, digits = 5, justify = "left"))
   
   msR <- as.data.frame(t(OR$ANOVA$IndividualTrt[,"msREachTrt"]))
-  colnames(msR) <- paste0("trt", dataset$modalityID)
+  colnames(msR) <- paste0("trt", dataset$descriptions$modalityID)
   rownames(msR) <- "msR"
   
   x <- c(
@@ -63,7 +63,7 @@ OutputTextFileORH <- function(dataset,
          "===========================================================================\n") 
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
-  df <- UtilOR2DBMVarComp(dim(dataset$ratings$NL)[3], df)
+  df <- UtilOR2DBMVarCom(dim(dataset$ratings$NL)[3], df)
   print(format(df, digits = 5, justify = "left"))
   
   x <- c("\n",

@@ -36,7 +36,7 @@ Expected power is `r power$powerRRRC`.
 
 ## Illustration of `SsPowerTable()` using `method = "ORH"`
 ```{r}
-powTab <- SsPowerTable(dataset02, FOM = "Wilcoxon", method = "ORH", analysisOption = "RRRC")
+powTab <- SsPowerTable(dataset02, FOM = "Wilcoxon", analysisOption = "RRRC")
 ````
 
 Now show the power table `powTab`. 

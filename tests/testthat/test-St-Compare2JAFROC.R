@@ -66,7 +66,7 @@ test_that("Ensure that OR varComp values match those from Windows JAFROC", {
   goodValues <- as.numeric(as.vector(as.matrix(goodValues)))
   
   # following tests the OR branch of StSignificanceTesting
-  currentValues <- StSignificanceTesting(ds, FOM = "HrAuc", method = "ORH")$ANOVA$VarCom
+  currentValues <- StSignificanceTesting(ds, FOM = "HrAuc", method = "ORH")$ANOVA$VarCom[,1]
   currentValues <- as.vector(as.matrix(currentValues))
   for (i in 1: length(goodValues)){
     x <- as.numeric(goodValues[[i]])

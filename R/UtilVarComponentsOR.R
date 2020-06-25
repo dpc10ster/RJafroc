@@ -52,25 +52,32 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   Foms <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
   fomMean <- mean(Foms[,]) # this fails if `Foms` is a dataframe; true for `mean` and `median`
-  msT <- 0
-  for (i in 1:I) {
-    msT <- msT + (mean(Foms[i, ]) - fomMean)^2
-  }
-  msT <- J * msT/(I - 1)
   
-  msR <- 0
-  for (j in 1:J) {
-    msR <- msR + (mean(Foms[, j]) - fomMean)^2
-  }
-  msR <- I * msR/(J - 1)
-  
-  msTR <- 0
-  for (i in 1:I) {
-    for (j in 1:J) {
-      msTR <- msTR + (Foms[i, j] - mean(Foms[i, ]) - mean(Foms[, j]) + fomMean)^2
+  if (I > 1) {
+    msT <- 0
+    for (i in 1:I) {
+      msT <- msT + (mean(Foms[i, ]) - fomMean)^2
     }
-  }
-  msTR <- msTR/((J - 1) * (I - 1))
+    msT <- J * msT/(I - 1)
+  } else msT <- NA
+  
+  if (J > 1) {
+    msR <- 0
+    for (j in 1:J) {
+      msR <- msR + (mean(Foms[, j]) - fomMean)^2
+    }
+    msR <- I * msR/(J - 1)
+  } else msR <- NA
+  
+  if ((I > 1) && (J > 1)) {
+    msTR <- 0
+    for (i in 1:I) {
+      for (j in 1:J) {
+        msTR <- msTR + (Foms[i, j] - mean(Foms[i, ]) - mean(Foms[, j]) + fomMean)^2
+      }
+    }
+    msTR <- msTR/((J - 1) * (I - 1))
+  } else msTR <- NA
   
   msArray <- c(msT, msR, msTR)
   dfArray <- c(I - 1, J - 1, (I - 1) * (J - 1))
@@ -83,21 +90,16 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   rownames(TRanova) <- c("T", "R", "TR")
   
   # single treatment msR_i ############################################################
-  msR_i <- array(0, dim = I)
-  for (i in 1:I) {
-    for (j in 1:J) {
-      msR_i[i] <- msR_i[i] + (Foms[i, j] -  mean(Foms[i,]))^2
+  if (J > 1) {
+    msR_i <- array(0, dim = I)
+    for (i in 1:I) {
+      for (j in 1:J) {
+        msR_i[i] <- msR_i[i] + (Foms[i, j] -  mean(Foms[i,]))^2
+      }
     }
-  }
-  msR_i <- msR_i/(J - 1)
+    msR_i <- msR_i/(J - 1)
+  } else msR_i <- NA
   
-  # for (i in 1:I) {
-  #   if (dataset$descriptions$design != "SPLIT-PLOT") {
-  #     cov2EachTrt <- vector(length = I)
-  #   } else  {
-  #     cov2EachTrt <- rep(0, I)
-  #   }
-  # }
   cov2EachTrt <- vector(length = I)
   varEachTrt <- vector(length = I)
   for (i in 1:I) {
@@ -117,13 +119,15 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   # } else IndividualTrt <- NA # these are not defined for split-plot datasets
   
   # single reader msT_j ###############################################################
-  msT_j <- array(0, dim = J)
-  for (j in 1:J) {
-    for (i in 1:I) {
-      msT_j[j] <- msT_j[j] + (mean(Foms[i, j]) -  mean(Foms[,j]))^2
+  if (I > 1) {
+    msT_j <- array(0, dim = J)
+    for (j in 1:J) {
+      for (i in 1:I) {
+        msT_j[j] <- msT_j[j] + (mean(Foms[i, j]) -  mean(Foms[,j]))^2
+      }
+      msT_j[j] <- msT_j[j]/(I - 1)
     }
-    msT_j[j] <- msT_j[j]/(I - 1)
-  }
+  } else msT_j <- NA
   
   varEachRdr <- vector(length = J)
   cov1EachRdr <- vector(length = J)
@@ -135,13 +139,14 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   }
   
   rdrID <- as.vector(dataset$descriptions$readerID)
-  IndividualRdr <- data.frame(DF = rep(I-1, J), 
-                              msTEachRdr = msT_j, 
-                              varEachRdr = varEachRdr, 
-                              cov1EachRdr = cov1EachRdr, 
-                              row.names = paste0("rdr", rdrID),
-                              stringsAsFactors = FALSE)
-  
+  if (I > 1) {
+    IndividualRdr <- data.frame(DF = rep(I-1, J), 
+                                msTEachRdr = msT_j, 
+                                varEachRdr = varEachRdr, 
+                                cov1EachRdr = cov1EachRdr, 
+                                row.names = paste0("rdr", rdrID),
+                                stringsAsFactors = FALSE)
+  } else IndividualRdr <- NA
   #####################################################################################
   ret <- selectCovEstMethod(dataset, FOM, FPFValue, nBoots, covEstMethod, seed)
   Var <- ret$Var
@@ -149,8 +154,13 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   Cov2 <- ret$Cov2
   Cov3 <- ret$Cov3
   
-  # TBA Need citation here for next two equations
-  VarTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0)
+  if (I > 1) {
+    VarTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0) # Hillis 2011 Eqn 9
+    # added following constraint from Hillis 2011 paper
+    # VarTR <- max(VarTR, 0)
+  } else VarTR <- NA
+  
+  # TBA Need citation here for next equation
   VarR <- (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - VarTR)/I
   VarCom <- data.frame(Estimates = c(VarR, VarTR, Cov1, Cov2, Cov3, Var), 
                        Rhos = c(NA, NA, Cov1/Var, Cov2/Var, Cov3/Var, NA),

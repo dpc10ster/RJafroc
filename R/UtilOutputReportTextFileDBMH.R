@@ -66,7 +66,7 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$ANOVA$VarCom
   print(format(df, digits = 5, justify = "left"))
   
-  df <- UtilDBM2ORVarComp(dim(dataset$ratings$NL)[3], df)
+  df <- UtilDBM2ORVarCom(dim(dataset$ratings$NL)[3], df)
   x <- c("\n",
          "===========================================================================", 
          "*****                   OR  Variance Components                     *****", 

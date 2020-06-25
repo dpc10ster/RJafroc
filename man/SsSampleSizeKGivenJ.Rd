@@ -10,17 +10,18 @@ SsSampleSizeKGivenJ(
   J,
   FOM,
   effectSize = NULL,
-  method = "DBMH",
+  method = "ORH",
   alpha = 0.05,
   desiredPower = 0.8,
-  analysisOption = "ALL"
+  analysisOption = "RRRC",
+  LegacyCode = FALSE
 )
 }
 \arguments{
 \item{dataset}{The \bold{pilot} dataset. If set to NULL 
 then variance components must be supplied.}
 
-\item{...}{Optional variance components, varYTR, varYTC and varYEps. These are
+\item{...}{Optional variance components, VarTR, VarTC and VarErr. These are
 needed if dataset is not supplied.}
 
 \item{J}{The number of readers in the \strong{pivotal} study.}
@@ -31,7 +32,7 @@ needed if dataset is not supplied.}
 Default is NULL. Must be supplied if dataset is set to NULL and variance 
 components are supplied.}
 
-\item{method}{"DBMH" (default) or "ORH".}
+\item{method}{"ORH" (default) or "DBMH".}
 
 \item{alpha}{The significance level of the study, default is 0.05.}
 
@@ -39,13 +40,16 @@ components are supplied.}
 
 \item{analysisOption}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
 (the default).}
+
+\item{LegacyCode}{Logical, default is \code{FALSE}, if \code{TRUE} the DBM
+method is used. Otherwise the OR method is used.}
 }
 \value{
 A list of two elements:
 
 \item{K}{The minimum number of cases K in the pivotal study 
-   to just achieve the desired statistical power. This is calculated 
-   for each value of analysisOption.}
+   to just achieve the desired statistical power, calculated 
+   for each value of \code{analysisOption}.}
 
 \item{power}{The predicted statistical power.}
 }
@@ -59,15 +63,19 @@ Number of cases to achieve the desired power, for
    argument must be supplied if dataset = NULL and variance compenents 
    (the optional ... arguments) are supplied.
 }
+\note{
+The procedure is valid for ROC studies only; for FROC studies see 
+  Vignettes 19.
+}
 \examples{
 ## the following two should give identical results
 SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBMH")
-a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
 
-SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBMH", 
-   list(varYTR = a["VarTR",1], 
-   varYTC = a["VarTC",1], 
-   varYEps = a["VarErr",1]))
+a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
+SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBMH", LegacyCode = TRUE,
+   list(VarTR = a["VarTR",1], 
+   VarTC = a["VarTC",1], 
+   VarErr = a["VarErr",1]))
 
 ## the following two should give identical results
 SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "ORH")
@@ -90,12 +98,4 @@ for (J in 6:10) {
 }
 }
 
-}
-\references{
-Hillis SL, Obuchowski NA, Berbaum KS (2011) Power Estimation for Multireader ROC Methods: 
-An Updated and Unified Approach, Acad Radiol, 18, 129--142.
-
-Hillis SL, Obuchowski NA, Schartz KM, Berbaum KS (2005) A comparison of the Dorfman-Berbaum-Metz 
-and Obuchowski-Rockette methods for receiver operating characteristic (ROC) data, 
-Statistics in Medicine, 24:10, 1579--607.
 }

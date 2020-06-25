@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 bibliography: myRefs.bib
 vignette: >
-  %\VignetteIndexEntry{FROC sample size 2}
+  %\VignetteIndexEntry{Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -73,10 +73,13 @@ J <- 5;K <- 100
 varYTR <- varCompwAFROC["VarTR","Estimates"] 
 varYTC <- varCompwAFROC["VarTC","Estimates"]
 varYEps <- varCompwAFROC["VarErr","Estimates"]
-ret <- SsPowerGivenJKDbmVarComp (J = J, K = K, effectSize = effectSizewAFROC, 
-                                 varYTR, varYTC, varYEps, analysisOption = "RRRC")
+ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = J, K = K, analysisOption = "RRRC", 
+                      effectSize = effectSizewAFROC, method = "DBMH", LegacyCode = TRUE, 
+                      list(VarTR = varYTR,
+                           VarTC = varYTC,
+                           VarErr = varYEps))
 powerwAFROC <- ret$powerRRRC
-  
+
 cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, ", Power-wAFROC = ", powerwAFROC, "\n")
 ````
 
@@ -84,12 +87,11 @@ cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, ", Power-wAFROC
 
 
 ```{r}
-
-varYTR <- varCompwAFROC["VarTR","Estimates"] 
-varYTC <- varCompwAFROC["VarTC","Estimates"]
-varYEps <- varCompwAFROC["VarErr","Estimates"]
-ret2 <- SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = effectSizewAFROC, method = "DBMH", 
-                      list(varYTR = varYTR, varYTC = varYTC, varYEps = varYEps))
+VarTR <- varCompwAFROC["VarTR","Estimates"] 
+VarTC <- varCompwAFROC["VarTC","Estimates"]
+VarErr <- varCompwAFROC["VarErr","Estimates"]
+ret2 <- SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = effectSizewAFROC, method = "DBMH", LegacyCode = TRUE,
+                            list(VarTR = VarTR, VarTC = VarTC, VarErr = VarErr))
 
 cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, 
     ", K80RRRC = ", ret2$KRRRC, ", Power-wAFROC = ", ret2$powerRRRC, "\n")
@@ -101,8 +103,8 @@ cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor,
 
 ```{r}
 
-ret3 <- SsPowerGivenJK(dataset = NULL, J = 6, K = ret2$KRRRC, effectSize = effectSizewAFROC, method = "DBMH", 
-                    list(varYTR = varYTR, varYTC = varYTC, varYEps = varYEps))
+ret3 <- SsPowerGivenJK(dataset = NULL, J = 6, K = ret2$KRRRC, effectSize = effectSizewAFROC, method = "DBMH", LegacyCode = TRUE,
+                       list(VarTR = VarTR, VarTC = VarTC, VarErr = VarErr))
 
 cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, 
     ", powerRRRC = ", ret3$powerRRRC, "\n")

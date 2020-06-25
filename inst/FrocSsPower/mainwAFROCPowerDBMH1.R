@@ -59,13 +59,13 @@ for (i in 1:length(effectSizeROC)) {
   varYTR <- varCompROC$varTR
   varYTC <- varCompROC$varTC
   varYEps <- varCompROC$varErr
-  ret <- SsPowerGivenJKDbmVarComp (J = JTest, K = KTest, effectSize = effectSizeROC[i], varYTR, varYTC, varYEps, alpha  = 0.05, analysisOption = "RRRC")
+  ret <- SsPowerGivenJKDbmVarCom (J = JTest, K = KTest, effectSize = effectSizeROC[i], varYTR, varYTC, varYEps, alpha  = 0.05, analysisOption = "RRRC")
   powerROC[i] <- ret$powerRRRC
 
   varYTR <- varCompwAFROC$varTR
   varYTC <- varCompwAFROC$varTC
   varYEps <- varCompwAFROC$varErr
-  ret <- SsPowerGivenJKDbmVarComp (J = JTest, K = KTest, effectSize = effectSizewAFROC[i], varYTR, varYTC, varYEps, alpha  = 0.05, analysisOption = "RRRC")
+  ret <- SsPowerGivenJKDbmVarCom (J = JTest, K = KTest, effectSize = effectSizewAFROC[i], varYTR, varYTC, varYEps, alpha  = 0.05, analysisOption = "RRRC")
   powerwAFROC[i] <- ret$powerRRRC
 
   cat("ROC-ES = ", effectSizeROC[i], ", wAFROC-ES = ", effectSizewAFROC[i], 

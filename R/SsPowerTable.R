@@ -1,7 +1,7 @@
-#' Generate a power table
+#' Generate a power table using the OR method
 #' 
-#' @description  Generate combinations of numbers of readers J and numbers of cases K
-#'    for desired power and specified generalization(s)
+#' @description  Generate combinations of numbers of readers J and numbers of 
+#'    cases K for desired power and specified generalization(s)
 #' 
 #' @param dataset The \bold{pilot} ROC dataset to be used to extrapolate 
 #'    to the \bold{pivotal} study.
@@ -10,8 +10,8 @@
 #'    default value is \code{NULL}. See Details.
 #' @param alpha The The size of the test, default is 0.05.
 #' @param desiredPower The desired statistical power, default is 0.8.
-#' @param method Analysis method, "DBMH" or "ORH", the default is "DBMH".
-#' @param analysisOption Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).
+#' @param analysisOption Desired generalization, "RRRC"  (the default), "FRRC", 
+#'    "RRFC" or "ALL".
 #' 
 #' 
 #' @return A list containing up to 3 (depending on \code{analysisOption}) dataframes. 
@@ -21,10 +21,10 @@
 #' @return \item{power}{The estimated statistical powers.}
 #' 
 #' @details The default \code{effectSize} uses the observed effect size in the 
-#'    pilot study. A numeric value over-rides the default value.
+#'    pilot study. A supplied numeric value over-rides the default value.
 #' 
-#' 
-#'@note The procedure is valid for ROC studies only; for FROC studies see Online Appendix Chapter 19.
+#'@note The procedure is valid for ROC studies only; for FROC studies see 
+#'   Vignettes 19.
 #'
 #'
 #' @examples
@@ -33,40 +33,31 @@
 #' ##              user    system elapsed
 #' ## SsPowerTable 20.033  0.037  20.077    
 #'
-#' ## Example of sample size calculation with DBM method
-#' ## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "DBMH")
-#' 
 #' ## Example of sample size calculation with OR method
 #' ## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "ORH")
 #' }
 #'  
 #' @export
 
-SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredPower = 0.8, 
-                         method = "DBMH", analysisOption = "ALL") {
+SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, 
+                         desiredPower = 0.8, 
+                         analysisOption = "RRRC") {
   
   options(stringsAsFactors = FALSE)
   if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
-  if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
   if (dataset$descriptions$type != "ROC") stop("Dataset must be of type ROC")
+  if (length(dataset$ratings$NL[,1,1,1]) != 2) stop("dataset must have exactly two treatments")
   
-  if (method == "DBMH") {
-    ret <- StSignificanceTesting(dataset, FOM, method = "DBMH")
-    if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
-    varYTR <- ret$ANOVA$VarCom["VarTR",1]
-    varYTC <- ret$ANOVA$VarCom["VarTC",1]
-    varYEps <- ret$ANOVA$VarCom["VarErr",1]
-  } else if (method == "ORH") {
-    ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
-    if (is.null(effectSize)) effectSize <- ret$RRRC$ciDiffTrt$Estimate
-    varTR <- ret$ANOVA$VarCom["VarTR",1]
-    cov1 <- ret$ANOVA$VarCom["Cov1",1]
-    cov2 <- ret$ANOVA$VarCom["Cov2",1]
-    cov3 <- ret$ANOVA$VarCom["Cov3",1]
-    varEps <- ret$ANOVA$VarCom["Var",1]
-    KStar <- length(dataset$ratings$NL[1,1,,1])
-  } else stop("method must be DBMH or ORH")
+  KStar <- length(dataset$ratings$NL[1,1,,1])
   
+  ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
+  if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
+  VarTR <- ret$ANOVA$VarCom["VarTR",1]
+  Cov1 <- ret$ANOVA$VarCom["Cov1",1]
+  Cov2 <- ret$ANOVA$VarCom["Cov2",1]
+  Cov3 <- ret$ANOVA$VarCom["Cov3",1]
+  Var <- ret$ANOVA$VarCom["Var",1]
+
   if (analysisOption != "ALL"){
     nCases <- 2000
     j <- 2
@@ -74,14 +65,9 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
     while (nCases >= 20) {
       j <- j + 1
       if (j > 100) break
-      if (method == "DBMH") {
-        ret <- searchNumCasesDBM (J = j, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, analysisOption)
-      }
-      else { 
-        ret <- searchNumCasesOR (J = j, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, analysisOption)
-      }
-      
-      ret <- MyLittleHelper (j, ret, randomSampleSize, analysisOption)
+      ret <- searchNumCasesOR(J = j, VarTR, Cov1, Cov2, Cov3, Var, effectSize, alpha, KStar, desiredPower, analysisOption)
+
+      ret <- nCasesPower (ret, analysisOption)
       nCases <- ret$nCases
       power <- ret$power
       
@@ -106,10 +92,11 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
     randomSampleSize <- data.frame(numReaders = randomSampleSize[, 1], 
                                    numCases = randomSampleSize[, 2], 
                                    power = randomSampleSize[, 3])#, 
-                                   # stringsAsFactors = FALSE)
-    # 5/4/20 removing all this as I better understand data.frame()
-    
-    # return(randomSampleSize)
+    powerTable <- list(randomSampleSize)
+    if (analysisOption == "RRRC") names(powerTable) <- "powerTableRRRC"
+    if (analysisOption == "FRRC") names(powerTable) <- "powerTableFRRC"
+    if (analysisOption == "RRFC") names(powerTable) <- "powerTableRRFC"
+    return(powerTable)
   } else {
     powerTable <- list()
     for (analysisOption in c("RRRC", "FRRC", "RRFC")){
@@ -119,14 +106,9 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
       while (nCases >= 20) {
         j <- j + 1
         if (j > 100) break
-        if (method == "DBMH") {
-          ret <- searchNumCasesDBM (J = j, varYTR, varYTC, varYEps, effectSize, alpha, desiredPower, analysisOption)
-        }
-        else { 
-          ret <- searchNumCasesOR (J = j, varTR, cov1, cov2, cov3, varEps, effectSize, alpha, KStar, desiredPower, analysisOption)
-        }
-        
-        ret <- MyLittleHelper (j, ret, randomSampleSize, analysisOption)
+        ret <- searchNumCasesOR(J = j, VarTR, Cov1, Cov2, Cov3, Var, effectSize, alpha, KStar, desiredPower, analysisOption)
+
+        ret <- nCasesPower (ret, analysisOption)
         nCases <- ret$nCases
         power <- ret$power
         
@@ -143,9 +125,6 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
       randomSampleSize <- data.frame(numReaders = randomSampleSize[, 1], 
                                      numCases = randomSampleSize[, 2], 
                                      power = randomSampleSize[, 3])#, 
-                                     # stringsAsFactors = FALSE)
-      # 5/4/20 removing all this as I better understand data.frame()
-      
       powerTable <- c(powerTable, list(randomSampleSize))
     }
     names(powerTable) <- c("powerTableRRRC", "powerTableFRRC", "powerTableRRFC")
@@ -155,7 +134,7 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05, desiredP
 
 
 
-MyLittleHelper <- function(j, ret, randomSampleSize, analysisOption) 
+nCasesPower <- function(ret, analysisOption) 
 {
   if (analysisOption == "RRRC")
   {

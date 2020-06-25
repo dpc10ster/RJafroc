@@ -128,13 +128,14 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     stop(errMsg)
   }    
   
-  # if (length(dataset$modalityID) < 2) {
-  #   # TBA need to fix here
-  #   ErrMsg <- paste0("This analysis requires at least 2 treatments", 
-  #                    "\nUse StSignificanceTestingSingleFixedFactor() for single treatment analysis.")
-  #   stop(ErrMsg)
-  # }
-  # 
+  if (length(dataset$descriptions$modalityID) < 2) {
+    analysisOption <- "FRRC"
+    # TBA need to fix here
+    # ErrMsg <- paste0("This analysis requires at least 2 treatments",
+    #                  "\nUse StSignificanceTestingSingleFixedFactor() for single treatment analysis.")
+    # stop(ErrMsg)
+  }
+
   if ((length(dataset$ratings$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
     ErrMsg <- paste0("Must use analysisOption FRRC with 1-reader dataset")
     stop(ErrMsg)

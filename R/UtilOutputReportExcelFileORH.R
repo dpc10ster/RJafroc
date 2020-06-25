@@ -83,7 +83,7 @@ OutputExcelFileORH <- function(dataset,
   hdr <- "OR Variance Components"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
-  df <- UtilOR2DBMVarComp(K, df)
+  df <- UtilOR2DBMVarCom(K, df)
   hdr <- "DBM Variance Components"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   

@@ -2,6 +2,8 @@ rm(list = ls()) #mainwAFROCPowerORH.R
 library(ggplot2)
 library(RJafroc)
 
+stop("fix me")
+
 # included datasets
 fileNames <-  c("TONY", "VD", "FR", "FED", "JT", "MAG", "OPT", "PEN", "NICO",
                 "RUS", "DOB1", "DOB2", "DOB3", "FZR")
@@ -77,7 +79,7 @@ for (i in 1:length(effectSizeROC)) {
   cov2 <- varCompROC$cov2
   cov3 <- varCompROC$cov3
   varEps <- varCompROC$var
-  ret <- SsPowerGivenJKOrVarComp (J = JTest, K = KTest, KStar = KStar,  
+  ret <- SsPowerGivenJKOrVarCom (J = JTest, K = KTest, KStar = KStar,  
                                   effectSize = effectSizeROC[i], varTR, cov1, cov2, cov3, varEps, alpha  = 0.05, analysisOption = "RRRC")
   powerROC[i] <- ret$powerRRRC
 
@@ -86,7 +88,7 @@ for (i in 1:length(effectSizeROC)) {
   cov2 <- varCompwAFROC$cov2
   cov3 <- varCompwAFROC$cov3
   varEps <- varCompwAFROC$var
-  ret <- SsPowerGivenJKOrVarComp (J = JTest, K = KTest, KStar = KStar,  
+  ret <- SsPowerGivenJKOrVarCom (J = JTest, K = KTest, KStar = KStar,  
                                   effectSize = effectSizewAFROC[i], varTR, cov1, cov2, cov3, varEps, alpha  = 0.05, analysisOption = "RRRC")
   powerwAFROC[i] <- ret$powerRRRC
 
