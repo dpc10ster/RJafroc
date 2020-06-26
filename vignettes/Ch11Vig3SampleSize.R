@@ -19,18 +19,18 @@ powTab <- SsPowerTable(dataset02, FOM = "Wilcoxon", analysisOption = "RRRC")
 powTab
 
 ## -----------------------------------------------------------------------------
-ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "DBMH", analysisOption =  "RRRC")
+ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "DBM", analysisOption =  "RRRC")
 str(ncases)
 
 ## -----------------------------------------------------------------------------
-ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "DBMH", analysisOption = "RRRC", desiredPower = 0.9)
+ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "DBM", analysisOption = "RRRC", desiredPower = 0.9)
 str(ncases)
 
 ## -----------------------------------------------------------------------------
-ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "DBMH", analysisOption = "FRRC")
+ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "DBM", analysisOption = "FRRC")
 str(ncases)
 
 ## -----------------------------------------------------------------------------
-ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "DBMH", analysisOption = "RRFC")
+ncases <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", J = 10, method = "DBM", analysisOption = "RRFC")
 str(ncases)
 

@@ -6,8 +6,8 @@ knitr::opts_chunk$set(
 library(RJafroc)
 
 ## -----------------------------------------------------------------------------
-ret <- UtilOutputReport(get("dataset03"), FOM = "Wilcoxon", method = "DBMH", overWrite = TRUE, ReportFileExt = "xlsx")
+ret <- UtilOutputReport(get("dataset03"), FOM = "Wilcoxon", method = "DBM", overWrite = TRUE, ReportFileExt = "xlsx")
 
 ## -----------------------------------------------------------------------------
-ret <- UtilOutputReport(get("dataset03"), FOM = "Wilcoxon", method = "ORH", overWrite = TRUE, ReportFileExt = "xlsx")
+ret <- UtilOutputReport(get("dataset03"), FOM = "Wilcoxon", method = "OR", overWrite = TRUE, ReportFileExt = "xlsx")
 

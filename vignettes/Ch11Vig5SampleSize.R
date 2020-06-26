@@ -8,7 +8,7 @@ library(RJafroc)
 ## -----------------------------------------------------------------------------
 rocData <- dataset02 ##"VanDyke.lrc"
 #fileName <- dataset03 ## "Franken1.lrc"
-retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "DBMH")
+retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "DBM")
 print(retDbm$RRRC$ciDiffTrt)
 
 ## -----------------------------------------------------------------------------

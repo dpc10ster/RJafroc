@@ -25,11 +25,11 @@ The FOM and DeLong method implementations need checking with a toy dataset.
 
 
 ## Introduction
-* For an ROI dataset `StSignificanceTesting()` automatically defaults to `method = "ORH"`, `covEstMethod = "DeLong"` and `FOM = "ROI"`.  
+* For an ROI dataset `StSignificanceTesting()` automatically defaults to `method = "OR"`, `covEstMethod = "DeLong"` and `FOM = "ROI"`.  
 
 * The covariance estimation method is based on the original DeLong method [@RN112], which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by [@RN1233] to ROI data, see formula below.  
 
-* The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by [@RN1233] for estimating the covariance matrix. Once the covariances are known, `method = "ORH"` can be applied to perform significance testing, as described in [@RN1450] and [@RN2680, Chapter 10].
+* The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by [@RN1233] for estimating the covariance matrix. Once the covariances are known, `method = "OR"` can be applied to perform significance testing, as described in [@RN1450] and [@RN2680, Chapter 10].
 
 ## The ROI figure of merit  
 Let ${{X}_{kr}}$ denote the rating for the r^th^ **lesion-containing** ROI in the k^th^ case and let $n_{k}^{L}$ be the total number of lesion-containing ROIs in the k^th^ case. Similarly, let ${{Y}_{kr}}$ denote the rating for the r^th^ **lesion-free** ROI in the k^th^ case and $n_{k}^{N}$ denote the total number of lesion-free ROIs in the k^th^ case. Let ${{N}_{L}}$ denote the total number of lesion-containing ROIs in the image set and ${{N}_{N}}$ denote the total number of lesion-free ROIs. These are given by ${{N}_{L}}=\sum\nolimits_{k}{n_{k}^{L}}$ and ${{N}_{N}}=\sum\nolimits_{k}{n_{k}^{N}}$. The ROI figure of merit $\theta$\ is defined by: \[\theta =\frac{1}{{{N}_{L}}{{N}_{N}}}\sum\nolimits_{k}{\sum\nolimits_{{{k}'}}{\sum\limits_{r=1}^{n_{k}^{L}}{\sum\limits_{{r}'=1}^{n_{k'}^{N}}{\psi ({{X}_{kr}},{{Y}_{{k}'{r}'}})}}}}\]    

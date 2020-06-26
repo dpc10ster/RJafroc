@@ -29,11 +29,11 @@ library(RJafroc)
 
 * This vignette discusses choosing a realistic effect size based on the pilot study. Illustrated first is using Van Dyke dataset, regarded as the pilot study.
 
-## Illustration of `SsPowerGivenJK()` using `method = "ORH"`
+## Illustration of `SsPowerGivenJK()` using `method = "DBM"`
 ```{r}
 rocData <- dataset02 ##"VanDyke.lrc"
 #fileName <- dataset03 ## "Franken1.lrc"
-retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "DBMH")
+retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "DBM")
 print(retDbm$RRRC$ciDiffTrt)
 ````
 

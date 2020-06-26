@@ -25,7 +25,7 @@ aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed,
                                                lesWghtDistr = lesWghtDistr, OpChType = "wAFROC")$aucwAFROC
 
 ## -----------------------------------------------------------------------------
-varCompwAFROC  <- StSignificanceTesting(frocNhData, FOM = "wAFROC", method = "DBMH", analysisOption = "RRRC")$ANOVA$VarCom
+varCompwAFROC  <- StSignificanceTesting(frocNhData, FOM = "wAFROC", method = "DBM", analysisOption = "RRRC")$ANOVA$VarCom
 
 ## -----------------------------------------------------------------------------
 ROC_ES <- 0.05
@@ -36,7 +36,7 @@ varYTR <- varCompwAFROC["VarTR","Estimates"]
 varYTC <- varCompwAFROC["VarTC","Estimates"]
 varYEps <- varCompwAFROC["VarErr","Estimates"]
 ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = J, K = K, analysisOption = "RRRC", 
-                      effectSize = effectSizewAFROC, method = "DBMH", LegacyCode = TRUE, 
+                      effectSize = effectSizewAFROC, method = "DBM", LegacyCode = TRUE, 
                       list(VarTR = varYTR,
                            VarTC = varYTC,
                            VarErr = varYEps))
@@ -48,7 +48,7 @@ cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, ", Power-wAFROC
 VarTR <- varCompwAFROC["VarTR","Estimates"] 
 VarTC <- varCompwAFROC["VarTC","Estimates"]
 VarErr <- varCompwAFROC["VarErr","Estimates"]
-ret2 <- SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = effectSizewAFROC, method = "DBMH", LegacyCode = TRUE,
+ret2 <- SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = effectSizewAFROC, method = "DBM", LegacyCode = TRUE,
                             list(VarTR = VarTR, VarTC = VarTC, VarErr = VarErr))
 
 cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, 
@@ -56,7 +56,7 @@ cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor,
 
 ## -----------------------------------------------------------------------------
 
-ret3 <- SsPowerGivenJK(dataset = NULL, J = 6, K = ret2$KRRRC, effectSize = effectSizewAFROC, method = "DBMH", LegacyCode = TRUE,
+ret3 <- SsPowerGivenJK(dataset = NULL, J = 6, K = ret2$KRRRC, effectSize = effectSizewAFROC, method = "DBM", LegacyCode = TRUE,
                        list(VarTR = VarTR, VarTC = VarTC, VarErr = VarErr))
 
 cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, 

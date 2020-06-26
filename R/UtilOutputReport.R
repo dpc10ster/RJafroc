@@ -157,7 +157,7 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
                                   dataset$descriptions$name))
     rownames(summaryInfo) <- c("Date", "Output file", "Input Dataset")
     if (method == "DBM") {
-      sucessfulOutput <- OutputExcelFileDBM(dataset,
+      sucessfulOutput <- OutputExcelFileDBMH(dataset,
                                              method,
                                              methodTxt,
                                              ReportFileName,

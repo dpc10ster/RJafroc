@@ -21,9 +21,9 @@ library(ggplot2)
 ```
 
 ## Introduction
-* FROC sample size estimation is not fundamentally different from the previously outlined procedure (see vignettes corresponding to Chapter 11) for the ROC paradigm. To recapitulate, based on analysis of a pilot ROC dataset and using a specified FOM, e.g., `FOM = Wilcoxon`, and either `method = "DBMH"` or `method = "ORH"` for significance testing, one estimates the intrinsic variability of the data expressed in terms of variance components or the covariance matrix. The second step is to postulate a clinically realistic effect-size, e.g., the anticipated AUC difference between the two treatments. Given these values, the sample size functions implemented in `RJafroc` (beginning with `Ss`) allow one to estimate the number of readers and cases necessary to detect (i.e., reject the null hypothesis) the specified effect size at specified Type II error rate, typically chosen to be 20% (corresponding to 80% statistical power) and specified Type I error rate, typically chosen to be 5%.
+* FROC sample size estimation is not fundamentally different from the previously outlined procedure (see vignettes corresponding to Chapter 11) for the ROC paradigm. To recapitulate, based on analysis of a pilot ROC dataset and using a specified FOM, e.g., `FOM = Wilcoxon`, and either `method = "DBM"` or `method = "OR"` for significance testing, one estimates the intrinsic variability of the data expressed in terms of variance components or the covariance matrix. The second step is to postulate a clinically realistic effect-size, e.g., the anticipated AUC difference between the two treatments. Given these values, the sample size functions implemented in `RJafroc` (beginning with `Ss`) allow one to estimate the number of readers and cases necessary to detect (i.e., reject the null hypothesis) the specified effect size at specified Type II error rate, typically chosen to be 20% (corresponding to 80% statistical power) and specified Type I error rate, typically chosen to be 5%.
 
-* In FROC analysis the only difference, **indeed the critical difference**, is the choice of FOM; e.g., `FOM = "wAFROC"` instead of the inferred ROC-AUC, `FOM = "HrAuc"`. The FROC dataset is analyzed using either the DBMH or the ORH method. This yields the necessary variance components or the covariance matrix corresponding to the wAFROC-AUC. The next step is to specify the effect-size **in wAFROC-AUC units**, and therein lies the rub. What value does one use? The ROC-AUC has a historically well-known interpretation: the classification ability at separating diseased patients from non-diseased patients, while the wAFROC-AUC does not. Needed is a way of relating the effect-size in ROC-AUC units to one in wAFROC-AUC units: as should be obvious this requires a physical model, e.g., the RSM, that predicts both ROC and wAFROC curves and the respective AUCs.
+* In FROC analysis the only difference, **indeed the critical difference**, is the choice of FOM; e.g., `FOM = "wAFROC"` instead of the inferred ROC-AUC, `FOM = "HrAuc"`. The FROC dataset is analyzed using either the DBM or the ORH method. This yields the necessary variance components or the covariance matrix corresponding to the wAFROC-AUC. The next step is to specify the effect-size **in wAFROC-AUC units**, and therein lies the rub. What value does one use? The ROC-AUC has a historically well-known interpretation: the classification ability at separating diseased patients from non-diseased patients, while the wAFROC-AUC does not. Needed is a way of relating the effect-size in ROC-AUC units to one in wAFROC-AUC units: as should be obvious this requires a physical model, e.g., the RSM, that predicts both ROC and wAFROC curves and the respective AUCs.
 
 1.	One chooses an ROC-AUC effect-size that is realistic, one that clinicians understand and can therefore participate in, in the effect-size postulation process. 
 2.	One converts the ROC effect-size to a wAFROC-AUC effect-size. The method for this is described in the next section.
@@ -169,8 +169,8 @@ The scaleFactor of the straight line fit is `scaleFactor`, where scaleFactor = `
 The code block applies `StSignificanceTesting()` to `rocData` and `frocData`, using the appropriate FOM, and extracts the variance components.
 
 ```{r}
-temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBMH", analysisOption = "RRRC")
-temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBMH", analysisOption = "RRRC")
+temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")
+temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBM", analysisOption = "RRRC")
 varCompROC <- temp1$ANOVA$VarCom
 varCompwAFROC <- temp2$ANOVA$VarCom
 ````
@@ -201,7 +201,7 @@ for (i in 1:length(effectSizeROC)) {
   varYTC <- varCompROC["VarTC","Estimates"]
   varYEps <- varCompROC["VarErr","Estimates"]
   ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = JTest, K = KTest, analysisOption = "RRRC", 
-                 effectSize = effectSizeROC[i], method = "DBMH", LegacyCode = TRUE, 
+                 effectSize = effectSizeROC[i], method = "DBM", LegacyCode = TRUE, 
                  list(VarTR = varYTR,
                       VarTC = varYTC,
                       VarErr = varYEps))
@@ -211,7 +211,7 @@ for (i in 1:length(effectSizeROC)) {
   varYTC <- varCompwAFROC["VarTC","Estimates"]
   varYEps <- varCompwAFROC["VarErr","Estimates"]
   ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = JTest, K = KTest, analysisOption = "RRRC", 
-                 effectSize = effectSizewAFROC[i], method = "DBMH", LegacyCode = TRUE, 
+                 effectSize = effectSizewAFROC[i], method = "DBM", LegacyCode = TRUE, 
                  list(VarTR = varYTR,
                       VarTC = varYTC,
                       VarErr = varYEps))

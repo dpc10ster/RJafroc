@@ -32,7 +32,7 @@ ds <- DfReadDataFile(sysFileName, newExcelFileFormat = FALSE)
 str(ds)
 
 ## -----------------------------------------------------------------------------
-ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "DBMH")
+ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "DBM")
 print(ret)
 
 ## -----------------------------------------------------------------------------
@@ -102,6 +102,6 @@ ret$ciDiffTrtRRFC
 ret$ciAvgRdrEachTrtRRFC
 
 ## -----------------------------------------------------------------------------
-ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "ORH")
+ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "OR")
 str(ret)
 

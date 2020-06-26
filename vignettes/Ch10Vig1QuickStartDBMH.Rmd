@@ -1,11 +1,11 @@
 ---
-title: "Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis"
+title: "Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis"
 author: "Dev P. Chakraborty, PhD"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
 bibliography: myRefs.bib
 vignette: >
-  %\VignetteIndexEntry{Quick Start: Running DBMH-ORH analysis}
+  %\VignetteIndexEntry{Quick Start: Running DBM-OR analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -97,10 +97,10 @@ Analysis is illustrated for `dataset03`, but one could have used the newly creat
 
 ## Analyzing the ROC dataset
 
-This illustrates the `StSignificanceTesting()` function. The significance testing method is specified as `"DBMH"` and the figure of merit `FOM` is specified as "Wilcoxon".
+This illustrates the `StSignificanceTesting()` function. The significance testing method is specified as `"DBM"` and the figure of merit `FOM` is specified as "Wilcoxon".
 
 ```{r}
-ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "DBMH")
+ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "DBM")
 print(ret)
 ```             
 
@@ -282,11 +282,11 @@ ret$ciDiffTrtRRFC
 ret$ciAvgRdrEachTrtRRFC
 ```             
 
-## ORH significance testing
-Simply change `method = "DBMH"` to `method = "ORH"`.
+## OR significance testing
+Simply change `method = "DBM"` to `method = "OR"`.
 
 ```{r}
-ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "ORH")
+ret <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "OR")
 str(ret)
 ```
 
