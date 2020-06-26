@@ -132,7 +132,7 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
   
   if (ReportFileExt == "txt"){
     if (method == "DBM") {
-      sucessfulOutput <- OutputTextFileDBM(dataset,
+      sucessfulOutput <- OutputTextFileDBMH(dataset,
                                             method,
                                             methodTxt,
                                             ReportFileName,
