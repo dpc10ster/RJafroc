@@ -1,7 +1,7 @@
 #' Number of cases, for specified number of readers, to achieve desired power
 #' 
 #' @description  Number of cases to achieve the desired power, for 
-#'   specified number of readers J, and specified DBMH or ORH analysis method
+#'   specified number of readers J, and specified DBM or ORH analysis method
 #' 
 #' @param dataset The \bold{pilot} dataset. If set to NULL 
 #'    then variance components must be supplied.
@@ -12,7 +12,7 @@
 #' @param effectSize The effect size to be used in the \strong{pivotal} study.
 #'    Default is NULL. Must be supplied if dataset is set to NULL and variance 
 #'    components are supplied.
-#' @param method "ORH" (default) or "DBMH".
+#' @param method "OR" (default) or "DBM".
 #' @param alpha The significance level of the study, default is 0.05.
 #' @param desiredPower The desired statistical power, default is 0.8.
 #' @param analysisOption Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
@@ -36,20 +36,20 @@
 #' 
 #' @examples
 #' ## the following two should give identical results
-#' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBMH")
+#' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBM")
 #' 
 #' a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
-#' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBMH", LegacyCode = TRUE,
+#' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBM", LegacyCode = TRUE,
 #'    list(VarTR = a["VarTR",1], 
 #'    VarTC = a["VarTC",1], 
 #'    VarErr = a["VarErr",1]))
 #'
 #' ## the following two should give identical results
-#' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "ORH")
+#' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "OR")
 #' 
 #' a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
 #' KStar <- length(dataset02$ratings$NL[1,1,,1])
-#' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "ORH", 
+#' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "OR", 
 #'    list(KStar = KStar, 
 #'    VarTR = a["VarTR",1], 
 #'    Cov1 = a["Cov1",1], 
@@ -70,20 +70,23 @@
 #' @export
 
 SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL, 
-                                method = "ORH", alpha = 0.05, desiredPower = 0.8, 
+                                method = "OR", alpha = 0.05, desiredPower = 0.8, 
                                 analysisOption = "RRRC", LegacyCode = FALSE) {
   
   if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
-  if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
+  if (!(method %in% c("DBM", "OR"))) stop ("Incorrect method.")
   if (!is.null(dataset) && (length(list(...)) > 0)) stop("dataset and variance components cannot both be supplied as arguments")
+  if (!is.null(dataset) && (dataset$descriptions$type != "ROC")) stop("Must specify an ROC dataset, not LROC or FROC")
+  if (!is.null(dataset) && (length(dataset$ratings$NL[,1,1,1]) != 2)) stop("dataset must have exactly two treatments")
+  if (!is.null(dataset) && (dataset$descriptions$design == "FACTRL-X-MOD")) stop("cannot use cross-modality dataset")
   
-  if ((method == "DBMH") && !LegacyCode) {
-    method <- "ORH"
+  if ((method == "DBM") && !LegacyCode) {
+    method <- "OR"
   } 
   
-  if ((method == "DBMH") && LegacyCode) {
+  if ((method == "DBM") && LegacyCode) {
     if (!(is.null(dataset))) {
-      ret <- StSignificanceTesting(dataset, FOM, method = "DBMH")
+      ret <- StSignificanceTesting(dataset, FOM, method = "DBM")
       if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
       VarTR <- ret$ANOVA$VarCom["VarTR",1]
       VarTC <- ret$ANOVA$VarCom["VarTC",1]
@@ -96,9 +99,9 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
       if ("VarErr" %in% names(extraParms)) VarErr <- extraParms$VarErr else stop("missing VarErr")
     }
     ret <- searchNumCasesDBM (J, VarTR, VarTC, VarErr, effectSize, alpha, desiredPower, analysisOption)
-  } else if (method == "ORH") {
+  } else if (method == "OR") {
     if (!(is.null(dataset))) {
-      ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
+      ret <- StSignificanceTesting(dataset, FOM, method = "OR")
       if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
       VarTR <- ret$ANOVA$VarCom["VarTR",1]
       Cov1 <- ret$ANOVA$VarCom["Cov1",1]
@@ -117,7 +120,7 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
       if ("Var" %in% names(extraParms)) Var <- extraParms$Var else stop("missing Var")
     }
     ret <- searchNumCasesOR (J, VarTR, Cov1, Cov2, Cov3, Var, effectSize, alpha, KStar, desiredPower, analysisOption)
-  } else stop("method must be ORH or DBMH")
+  } else stop("method must be ORH or DBM")
   return(ret)
 } 
 

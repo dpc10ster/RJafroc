@@ -5,7 +5,7 @@ test_that("UtilMeanSquares", {
   dataset_arr <- list(dataset02, dataset05)
   dataset_arr_str <- list("dataset02", "dataset05")
   FOM_arr <- c("Wilcoxon", "HrAuc", "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
-  method_arr <- c("DBMH", "ORH")
+  method_arr <- c("DBM", "OR")
   # options_arr <- c("RRRC", "FRRC", "RRFC")
   ## cycle through all representative datasets, FOMs, methods and analysisOption
   for (d in 1:length(dataset_arr)) {

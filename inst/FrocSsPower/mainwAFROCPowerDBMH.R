@@ -1,4 +1,4 @@
-rm(list = ls()) #mainwAFROCPowerDBMH.R # LOCK lines numbers
+rm(list = ls()) #mainwAFROCPowerDBM.R # LOCK lines numbers
 library(ggplot2)
 library(RJafroc)
 
@@ -65,8 +65,8 @@ effectSizewAFROC <- effectSizeROC*a$coefficients[1] # r2 = summary(a)$r.squared
 frocData <- get(sprintf("dataset%02d", 4))
 JTest <- 5;KTest <- 100
 rocData <- DfFroc2Roc(frocData)
-varCompROC <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBMH", analysisOption = "RRRC")$varComp
-varCompwAFROC <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBMH", analysisOption = "RRRC")$varComp
+varCompROC <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")$varComp
+varCompwAFROC <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBM", analysisOption = "RRRC")$varComp
 
 cat("JTest = ", JTest, "KTest = ", KTest, "\n")
 powerROC <- array(dim = length(effectSizeROC));powerwAFROC <- array(dim = length(effectSizeROC))

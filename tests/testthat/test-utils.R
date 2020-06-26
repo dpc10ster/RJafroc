@@ -117,7 +117,7 @@ test_that("UtilPseudoValues", {
 
 
 
-test_that("UtilMeanSquaresDBMH", {
+test_that("UtilMeanSquaresDBM", {
   
   fn <- paste0(test_path(), "/goodValues361/Utils/PseudoValues", "-", "Wilcoxon", ".rds")
   if (!file.exists(fn)) {

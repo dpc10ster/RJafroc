@@ -18,9 +18,9 @@ frocSp2 <- system.file("extdata", "toyFiles/FROC/FrocDataSpVaryK1K2.xlsx",
 x3 <- DfReadDataFile(frocSp2, newExcelFileFormat = TRUE)
 
 fom3 <- UtilFigureOfMerit(x3, FOM = "wAFROC")
-st1 <- StSignificanceTesting(x3, FOM = "wAFROC", method = "ORH")
+st1 <- StSignificanceTesting(x3, FOM = "wAFROC", method = "OR")
 
-st2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+st2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR")
 testthat::expect_equal(st1, st2)
 
-testthat::expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBMH"))
+testthat::expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBM"))

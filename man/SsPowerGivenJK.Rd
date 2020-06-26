@@ -11,7 +11,7 @@ SsPowerGivenJK(
   J,
   K,
   effectSize = NULL,
-  method = "ORH",
+  method = "OR",
   analysisOption = "RRRC",
   LegacyCode = FALSE,
   alpha = 0.05
@@ -35,14 +35,14 @@ Default is NULL, which uses the observed effect size in the pilot dataset.
 Must be supplied if dataset is set to NULL and variance 
 components are supplied.}
 
-\item{method}{"ORH" (the default) or "DBMH" (but see \code{LegacyCode} option
+\item{method}{"OR" (the default) or "DBM" (but see \code{LegacyCode} option
 below).}
 
 \item{analysisOption}{Desired generalization, "RRRC" (the default), "FRRC", 
 "RRFC" or "ALL". RRFC = random reader fixed case, etc.}
 
 \item{LegacyCode}{Logical, defaults to \code{FALSE}, which results in OR 
-sample size method being used, even if DBMH method is specified, as in 
+sample size method being used, even if DBM method is specified, as in 
 Hillis 2011 & 2018 papers. If \code{TRUE} the method based on 
 Hillis-Berbaum 2004 sample size paper is used.}
 
@@ -68,20 +68,20 @@ The procedure is valid for ROC studies only; for FROC studies see
 \examples{
 ## EXAMPLE 1: specify 2-treatment ROC dataset and force DBM-based alg.
 SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-J = 6, K = 251, method = "DBMH", LegacyCode = TRUE) # RRRC is default  
+J = 6, K = 251, method = "DBM", LegacyCode = TRUE) # RRRC is default  
 
 ## EXAMPLE 1A: FRRC power 
 SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-J = 6, K = 251, method = "DBMH", LegacyCode = TRUE, analysisOption = "FRRC") 
+J = 6, K = 251, method = "DBM", LegacyCode = TRUE, analysisOption = "FRRC") 
 
 ## EXAMPLE 1B: RRFC power 
 SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-J = 6, K = 251, method = "DBMH", LegacyCode = TRUE, analysisOption = "RRFC") 
+J = 6, K = 251, method = "DBM", LegacyCode = TRUE, analysisOption = "RRFC") 
 
 ## EXAMPLE 2: specify NULL dataset & DBM var. comp. & force DBM-based alg.
 vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
 SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = 6, K = 251, 
-effectSize = 0.05, method = "DBMH", LegacyCode = TRUE, 
+effectSize = 0.05, method = "DBM", LegacyCode = TRUE, 
 list( 
 VarTR = vcDBM["VarTR","Estimates"], # replace rhs with actual values
 VarTC = vcDBM["VarTC","Estimates"], # do:
@@ -116,7 +116,7 @@ K = 251, list(JStar = 5, KStar = 114,
 vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
 KStar <- length(dataset02$ratings$NL[1,1,,1])
 SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
-method = "DBMH", FOM = "Wilcoxon",
+method = "DBM", FOM = "Wilcoxon",
 list(KStar = KStar,                # replace rhs with actual values as in 5A 
 VarR = vcDBM["VarR","Estimates"], # do:
 VarC = vcDBM["VarC","Estimates"], # do:
@@ -127,7 +127,7 @@ VarErr = vcDBM["VarErr","Estimates"]))
 
 ## EXAMPLE 5A: specify NULL dataset & DBM var. comp. & use OR-based alg.
 SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
-method = "DBMH", FOM = "Wilcoxon",
+method = "DBM", FOM = "Wilcoxon",
 list(KStar = 114,
 VarR = 0.00153499935,
 VarC = 0.02724923428,

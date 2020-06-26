@@ -16,12 +16,12 @@
 #'    Default is NULL, which uses the observed effect size in the pilot dataset. 
 #'    Must be supplied if dataset is set to NULL and variance 
 #'    components are supplied.
-#' @param method "ORH" (the default) or "DBMH" (but see \code{LegacyCode} option
+#' @param method "OR" (the default) or "DBM" (but see \code{LegacyCode} option
 #'     below).
 #' @param analysisOption Desired generalization, "RRRC" (the default), "FRRC", 
 #'    "RRFC" or "ALL". RRFC = random reader fixed case, etc.
 #' @param LegacyCode Logical, defaults to \code{FALSE}, which results in OR 
-#'    sample size method being used, even if DBMH method is specified, as in 
+#'    sample size method being used, even if DBM method is specified, as in 
 #'    Hillis 2011 & 2018 papers. If \code{TRUE} the method based on 
 #'    Hillis-Berbaum 2004 sample size paper is used.
 #' @param alpha The significance level, default is 0.05.
@@ -39,20 +39,20 @@
 #' @examples
 #' ## EXAMPLE 1: specify 2-treatment ROC dataset and force DBM-based alg.
 #' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-#' J = 6, K = 251, method = "DBMH", LegacyCode = TRUE) # RRRC is default  
+#' J = 6, K = 251, method = "DBM", LegacyCode = TRUE) # RRRC is default  
 #' 
 #' ## EXAMPLE 1A: FRRC power 
 #' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-#' J = 6, K = 251, method = "DBMH", LegacyCode = TRUE, analysisOption = "FRRC") 
+#' J = 6, K = 251, method = "DBM", LegacyCode = TRUE, analysisOption = "FRRC") 
 #' 
 #' ## EXAMPLE 1B: RRFC power 
 #' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-#' J = 6, K = 251, method = "DBMH", LegacyCode = TRUE, analysisOption = "RRFC") 
+#' J = 6, K = 251, method = "DBM", LegacyCode = TRUE, analysisOption = "RRFC") 
 #' 
 #' ## EXAMPLE 2: specify NULL dataset & DBM var. comp. & force DBM-based alg.
 #' vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
 #' SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = 6, K = 251, 
-#' effectSize = 0.05, method = "DBMH", LegacyCode = TRUE, 
+#' effectSize = 0.05, method = "DBM", LegacyCode = TRUE, 
 #' list( 
 #' VarTR = vcDBM["VarTR","Estimates"], # replace rhs with actual values
 #' VarTC = vcDBM["VarTC","Estimates"], # do:
@@ -87,7 +87,7 @@
 #' vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
 #' KStar <- length(dataset02$ratings$NL[1,1,,1])
 #' SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
-#' method = "DBMH", FOM = "Wilcoxon",
+#' method = "DBM", FOM = "Wilcoxon",
 #' list(KStar = KStar,                # replace rhs with actual values as in 5A 
 #' VarR = vcDBM["VarR","Estimates"], # do:
 #' VarC = vcDBM["VarC","Estimates"], # do:
@@ -98,7 +98,7 @@
 #' 
 #' ## EXAMPLE 5A: specify NULL dataset & DBM var. comp. & use OR-based alg.
 #' SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
-#' method = "DBMH", FOM = "Wilcoxon",
+#' method = "DBM", FOM = "Wilcoxon",
 #' list(KStar = 114,
 #' VarR = 0.00153499935,
 #' VarC = 0.02724923428,
@@ -128,23 +128,23 @@ SsPowerGivenJK <- function(dataset,
                            J, 
                            K, 
                            effectSize = NULL, 
-                           method = "ORH", 
+                           method = "OR", 
                            analysisOption = "RRRC", 
                            LegacyCode = FALSE,
                            alpha = 0.05) {
   
   if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
-  if (!(method %in% c("DBMH", "ORH"))) stop ("Incorrect method.")
+  if (!(method %in% c("DBM", "OR"))) stop ("Incorrect method.")
   if (!is.null(dataset) && (dataset$descriptions$type != "ROC")) stop("Must specify an ROC dataset, not LROC or FROC")
   if (!is.null(dataset) && (length(list(...)) > 0)) stop("dataset and variance components cannot both be supplied as arguments")
   if (!is.null(dataset) && (length(dataset$ratings$NL[,1,1,1]) != 2)) stop("dataset must have exactly two treatments")
   if (!is.null(dataset) && (dataset$descriptions$design == "FACTRL-X-MOD")) stop("cannot use cross-modality dataset")
   
-  if ((method == "DBMH") && (LegacyCode == TRUE)) {
+  if ((method == "DBM") && (LegacyCode == TRUE)) {
     # use original sample size formulae based on DBM variance components
     # as in 2004 paper
     if (!(is.null(dataset))) {
-      ret <- StSignificanceTesting(dataset, FOM, method = "DBMH")
+      ret <- StSignificanceTesting(dataset, FOM, method = "DBM")
       if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
       VarTR <- ret$ANOVA$VarCom["VarTR",1]
       VarTC <- ret$ANOVA$VarCom["VarTC",1]
@@ -158,7 +158,7 @@ SsPowerGivenJK <- function(dataset,
     }
     #VarTR <- max(VarTR,0)
     ret <- SsPowerGivenJKDbmVarCom (J, K, effectSize, VarTR, VarTC, VarErr, alpha, analysisOption )
-  } else if ((method == "DBMH") && (LegacyCode == FALSE)) {
+  } else if ((method == "DBM") && (LegacyCode == FALSE)) {
     if (!(is.null(dataset))) {
       # dataset is specified
       # convert DBM variance components to OR variance components 
@@ -167,7 +167,7 @@ SsPowerGivenJK <- function(dataset,
       IStar <- length(dataset$ratings$NL[,1,1,1]); if (IStar != 2) stop("Must specify 2 treatment dataset")
       JStar <- length(dataset$ratings$NL[1,,1,1])
       KStar <- length(dataset$ratings$NL[1,1,,1])
-      ret <- StSignificanceTesting(dataset, FOM, method = "DBMH")
+      ret <- StSignificanceTesting(dataset, FOM, method = "DBM")
       if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
       MST <- ret$ANOVA$TRCanova["T", "MS"]
       MSR <- ret$ANOVA$TRCanova["R", "MS"]
@@ -207,9 +207,9 @@ SsPowerGivenJK <- function(dataset,
     #VarTR <- max(VarTR,0)
     ret <- SsPowerGivenJKOrVarCom (J, K, KStar, effectSize = effectSize, VarTR, Cov1, Cov2, Cov3, Var, alpha, analysisOption)
   } 
-  else if (method == "ORH") {
+  else if (method == "OR") {
     if (!(is.null(dataset))) {
-      ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
+      ret <- StSignificanceTesting(dataset, FOM, method = "OR")
       VarTR <- ret$ANOVA$VarCom["VarTR","Estimates"]
       Cov1 <- ret$ANOVA$VarCom["Cov1","Estimates"]
       Cov2 <- ret$ANOVA$VarCom["Cov2","Estimates"]
@@ -229,7 +229,7 @@ SsPowerGivenJK <- function(dataset,
     }
     #VarTR <- max(VarTR,0)
     ret <- SsPowerGivenJKOrVarCom (J, K, KStar, effectSize = effectSize, VarTR, Cov1, Cov2, Cov3, Var, alpha, analysisOption)
-  } else stop("method must be DBMH or ORH")
+  } else stop("method must be DBM or ORH")
   
   return(ret)
 } 
@@ -251,10 +251,10 @@ SsPowerGivenJK <- function(dataset,
 #'    for each desired generalization.
 #'   
 #' @details The variance components are obtained using \link{StSignificanceTesting}
-#'    with \code{method = "DBMH"}.
+#'    with \code{method = "DBM"}.
 #' 
 #' @examples 
-#' VarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", 
+#' VarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBM", 
 #'    analysisOption = "RRRC")$ANOVA$VarCom
 #' VarTR <- VarCom["VarTR",1]
 #' VarTC <- VarCom["VarTC",1]
@@ -265,59 +265,59 @@ SsPowerGivenJK <- function(dataset,
 #'   
 #' @export
 #' 
-SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alpha = 0.05, analysisOption){
+SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alpha = 0.05, analysisOption = "RRRC"){
   
   if (analysisOption == "RRRC" || analysisOption == "ALL") {
     DeltaDenominator <- (max(VarTR, 0) + 1 / K * (VarErr + J * max(VarTC, 0)))
-    ddfHRRRC <- DeltaDenominator^2/((max(VarTR, 0) + 1 / K * VarErr)^2/(J - 1))
+    df2RRRC <- DeltaDenominator^2/((max(VarTR, 0) + 1 / K * VarErr)^2/(J - 1))
     deltaRRRC <- ((effectSize)^2 * J/2) / DeltaDenominator
-    fvalueRRRC <- qf(1 - alpha, 1, ddfHRRRC)
-    powerRRRC <- pf(fvalueRRRC, 1, ddfHRRRC, ncp = deltaRRRC, FALSE)
+    fvalueRRRC <- qf(1 - alpha, 1, df2RRRC)
+    powerRRRC <- pf(fvalueRRRC, 1, df2RRRC, ncp = deltaRRRC, FALSE)
   }
   
   if (analysisOption == "RRFC" || analysisOption == "ALL") {
     DeltaDenominator <- (max(VarTR, 0) + 1 / K * (VarErr))
-    ddfHRRFC <- J - 1
+    df2RRFC <- J - 1
     deltaRRFC <- ((effectSize)^2 * J/2) / DeltaDenominator
-    fvalueRRFC <- qf(1 - alpha, 1, ddfHRRFC)
-    powerRRFC <- pf(fvalueRRFC, 1, ddfHRRFC, ncp = deltaRRFC, FALSE)
+    fvalueRRFC <- qf(1 - alpha, 1, df2RRFC)
+    powerRRFC <- pf(fvalueRRFC, 1, df2RRFC, ncp = deltaRRFC, FALSE)
   }
   
   if (analysisOption == "FRRC" || analysisOption == "ALL") {
     DeltaDenominator <- (1 / K * (VarErr + J * max(VarTC, 0)))
     deltaFRRC <- ((effectSize)^2 * J/2) / DeltaDenominator
-    ddfHFRRC <- K - 1
-    fvalueFRRC <- qf(1 - alpha, 1, ddfHFRRC)
-    powerFRRC <- pf(fvalueFRRC, 1, ddfHFRRC, ncp = deltaFRRC, FALSE)
+    df2FRRC <- K - 1
+    fvalueFRRC <- qf(1 - alpha, 1, df2FRRC)
+    powerFRRC <- pf(fvalueFRRC, 1, df2FRRC, ncp = deltaFRRC, FALSE)
   }
   
   if (analysisOption == "ALL"){
     return(data.frame(powerRRRC = powerRRRC, 
                       ncpRRRC = deltaRRRC, 
-                      ddfHRRRC = ddfHRRRC, 
+                      df2RRRC = df2RRRC, 
                       fRRRC = fvalueRRRC, 
                       powerFRRC = powerFRRC, 
                       ncpFRRC = deltaFRRC, 
-                      ddfHFRRC = ddfHFRRC, 
+                      df2FRRC = df2FRRC, 
                       fFRRC = fvalueFRRC, 
                       powerRRFC = powerRRFC, 
                       ncpRRFC = deltaRRFC, 
-                      ddfHRRFC = ddfHRRFC, 
+                      df2RRFC = df2RRFC, 
                       fRRFC = fvalueRRFC))
   } else if (analysisOption == "RRRC"){
     return(data.frame(powerRRRC = powerRRRC, 
                       ncpRRRC = deltaRRRC, 
-                      ddfHRRRC = ddfHRRRC, 
+                      df2RRRC = df2RRRC, 
                       fRRRC = fvalueRRRC))
   } else if (analysisOption == "FRRC"){
     return(data.frame(powerFRRC = powerFRRC, 
                       ncpFRRC = deltaFRRC, 
-                      ddfHFRRC = ddfHFRRC, 
+                      df2FRRC = df2FRRC, 
                       fFRRC = fvalueFRRC))
   } else if (analysisOption == "RRFC"){
     return(data.frame(powerRRFC = powerRRFC, 
                       ncpRRFC = deltaRRFC, 
-                      ddfHRRFC = ddfHRRFC, 
+                      df2RRFC = df2RRFC, 
                       fRRFC = fvalueRRFC))
   }
   
@@ -343,13 +343,13 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
 #'    for each desired generalization.
 #'   
 #' @details The variance components are obtained using \link{StSignificanceTesting} 
-#'     with \code{method = "ORH"}.
+#'     with \code{method = "OR"}.
 #' 
 #' @examples 
 #' dataset <- dataset02 ## the pilot study
 #' KStar <- length(dataset$ratings$NL[1,1,,1])
 #' VarCom <- StSignificanceTesting(dataset, FOM = "Wilcoxon", 
-#' method = "ORH", analysisOption = "RRRC")$ANOVA$VarCom
+#' method = "OR", analysisOption = "RRRC")$ANOVA$VarCom
 #' VarTR <- VarCom["VarTR",1]
 #' Cov1 <- VarCom["Cov1",1]
 #' Cov2 <- VarCom["Cov2",1]
@@ -363,67 +363,67 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
 #' @importFrom stats qchisq  
 #' @export
 #' 
-SsPowerGivenJKOrVarCom <- function(J, K, KStar, effectSize, VarTR, Cov1, Cov2, Cov3, Var, alpha = 0.05, analysisOption){
+SsPowerGivenJKOrVarCom <- function(J, K, KStar, effectSize, VarTR, Cov1, Cov2, Cov3, Var, alpha = 0.05, analysisOption = "RRRC"){
 
   VarTR <- max(VarTR,0) # TBA this is a big question mark for me
   
   if (analysisOption == "RRRC" || analysisOption == "ALL") {
     # following equations are from Hillis et al Academic Radiology, Vol 18, No 2, February 2011
     DeltaDenominator <- VarTR + (KStar / K) * (Var - Cov1 + (J - 1) * max(Cov2 - Cov3, 0)) # Eqn. 10
-    ddfHRRRC <- DeltaDenominator^2/((VarTR + (KStar / K) * (Var - Cov1 - max(Cov2 - Cov3, 0)))^2 / (J - 1)) # Eqn. 10
+    df2RRRC <- DeltaDenominator^2/((VarTR + (KStar / K) * (Var - Cov1 - max(Cov2 - Cov3, 0)))^2 / (J - 1)) # Eqn. 10
     deltaRRRC <- ((effectSize)^2 * J/2) / DeltaDenominator # Eqn. 10
-    fvalueRRRC <- qf(1 - alpha, 1, ddfHRRRC)
-    powerRRRC <- pf(fvalueRRRC, 1, ddfHRRRC, ncp = deltaRRRC, FALSE)
+    fvalueRRRC <- qf(1 - alpha, 1, df2RRRC)
+    powerRRRC <- pf(fvalueRRRC, 1, df2RRRC, ncp = deltaRRRC, FALSE)
   }
   
   if (analysisOption == "FRRC" || analysisOption == "ALL") {
     # DeltaDenominator <- (KStar / K * (Var - Cov1 + (J - 1) * max(Cov2 - Cov3, 0)))
     # deltaFRRC <- ((effectSize)^2 * J/2) / DeltaDenominator
-    # ddfHFRRC <- K - 1
-    # fvalueFRRC <- qf(1 - alpha, 1, ddfHFRRC)
-    # powerFRRC <- pf(fvalueFRRC, 1, ddfHFRRC, ncp = deltaFRRC, FALSE)
+    # df2FRRC <- K - 1
+    # fvalueFRRC <- qf(1 - alpha, 1, df2FRRC)
+    # powerFRRC <- pf(fvalueFRRC, 1, df2FRRC, ncp = deltaFRRC, FALSE)
     DeltaDenominator <- ((KStar / K) * (Var - Cov1 + (J - 1) * max(Cov2 - Cov3, 0))) # matches Table 2, 2nd half, left col; 
     deltaFRRC <- ((effectSize)^2 * J/2) / DeltaDenominator
-    ddfHFRRC <- NA
+    df2FRRC <- NA
     chsqFRRC <- qchisq(1 - alpha, 1)
     powerFRRC <- pchisq(chsqFRRC, 1, ncp = deltaFRRC, FALSE)
   }
   
   if (analysisOption == "RRFC" || analysisOption == "ALL") {
     DeltaDenominator <- (VarTR + KStar / K * (Var - Cov1 - max(Cov2 - Cov3, 0)))
-    ddfHRRFC <- J - 1
+    df2RRFC <- J - 1
     deltaRRFC <- ((effectSize)^2 * J/2) / DeltaDenominator
-    fvalueRRFC <- qf(1 - alpha, 1, ddfHRRFC)
-    powerRRFC <- pf(fvalueRRFC, 1, ddfHRRFC, ncp = deltaRRFC, FALSE)
+    fvalueRRFC <- qf(1 - alpha, 1, df2RRFC)
+    powerRRFC <- pf(fvalueRRFC, 1, df2RRFC, ncp = deltaRRFC, FALSE)
   }
   
   if (analysisOption == "ALL"){
     return(data.frame(powerRRRC = powerRRRC, 
                       ncpRRRC = deltaRRRC, 
-                      ddfHRRRC = ddfHRRRC, 
+                      df2RRRC = df2RRRC, 
                       fRRRC = fvalueRRRC, 
                       powerFRRC = powerFRRC, 
                       ncpFRRC = deltaFRRC, 
-                      ddfHFRRC = ddfHFRRC, 
+                      df2FRRC = df2FRRC, 
                       chsqFRRC = chsqFRRC, 
                       powerRRFC = powerRRFC, 
                       ncpRRFC = deltaRRFC, 
-                      ddfHRRFC = ddfHRRFC, 
+                      df2RRFC = df2RRFC, 
                       fRRFC = fvalueRRFC))
   } else if (analysisOption == "RRRC"){
     return(data.frame(powerRRRC = powerRRRC, 
                       ncpRRRC = deltaRRRC, 
-                      ddfHRRRC = ddfHRRRC, 
+                      df2RRRC = df2RRRC, 
                       fRRRC = fvalueRRRC))
   } else if (analysisOption == "FRRC"){
     return(data.frame(powerFRRC = powerFRRC, 
                       ncpFRRC = deltaFRRC, 
-                      ddfHFRRC = ddfHFRRC, 
+                      df2FRRC = df2FRRC, 
                       chsqFRRC = chsqFRRC))
   } else if (analysisOption == "RRFC"){
     return(data.frame(powerRRFC = powerRRFC, 
                       ncpRRFC = deltaRRFC, 
-                      ddfHRRFC = ddfHRRFC, 
+                      df2RRFC = df2RRFC, 
                       fRRFC = fvalueRRFC))
   }
 }  
@@ -431,7 +431,7 @@ SsPowerGivenJKOrVarCom <- function(J, K, KStar, effectSize, VarTR, Cov1, Cov2, C
 
 # From Ref1 = Hillis et al Acad. Rad. 18, 2 2011 (Table 1) and Ref2 = Hillis et al Acad. Rad. 15, 5 2008 (Table 4)
 DbmMs2OrVarCom <- function(IStar, JStar, KStar, MST, MSR, MSC, MSTR, MSTC, MSRC, MSTRC) {
-  
+  # first OK/NOTOK refers to Ref1 above and second OK/NOTOK to Ref2
   MST  <-  MST/KStar # OK
   MSR  <-  MSR/KStar # Ref1 has typo; OK
   MSTR  <-  MSTR/KStar # OK OK
@@ -441,14 +441,8 @@ DbmMs2OrVarCom <- function(IStar, JStar, KStar, MST, MSR, MSC, MSTR, MSTC, MSRC,
   Cov1  <-  (MSC- MSTC + (JStar-1)*(MSRC - MSTRC))/IStar/JStar/KStar # NOTOK OK
   Cov2 <-  (MSC- MSRC + (IStar-1)*(MSTC - MSTRC))/IStar/JStar/KStar # NOTOK OK
   Cov3 <-  (MSC- MSTC - MSRC + MSTRC)/IStar/JStar/KStar # OK OK
-  
   VarTR <- MSTR - Var + Cov1 + max(Cov2 - Cov3, 0) # Hillis 2011 Eqn 9
-  # added following constraint from Hillis 2011 paper
-  if (VarTR < 0) {
-    # TBA VarTR choice considerations from Hillis 2011 and 2018 papers
-    VarTR <- 0
-  }
-  
+
   return(list(
     MST = MST,
     MSR = MSR,

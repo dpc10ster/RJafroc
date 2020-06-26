@@ -38,8 +38,8 @@ ExtractDataFrame <- function(lines, FindString, offSet,
 fn <- "inst/Iowa/VanDyke.txt"
 lines <- readLines(fn)
 
-DBM <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH")
-OR <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH")
+DBM <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBM")
+OR <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "OR")
 
 CurrentLine <- 1
 FindString <- "TREATMENT x READER AUC ESTIMATES"

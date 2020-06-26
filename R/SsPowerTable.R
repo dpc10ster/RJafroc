@@ -34,7 +34,7 @@
 #' ## SsPowerTable 20.033  0.037  20.077    
 #'
 #' ## Example of sample size calculation with OR method
-#' ## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "ORH")
+#' ## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "OR")
 #' }
 #'  
 #' @export
@@ -50,7 +50,7 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05,
   
   KStar <- length(dataset$ratings$NL[1,1,,1])
   
-  ret <- StSignificanceTesting(dataset, FOM, method = "ORH")
+  ret <- StSignificanceTesting(dataset, FOM, method = "OR")
   if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
   VarTR <- ret$ANOVA$VarCom["VarTR",1]
   Cov1 <- ret$ANOVA$VarCom["Cov1",1]

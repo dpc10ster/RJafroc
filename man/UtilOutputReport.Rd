@@ -8,7 +8,7 @@ UtilOutputReport(
   dataset,
   ReportFileBaseName = NULL,
   ReportFileExt = "txt",
-  method = "DBMH",
+  method = "DBM",
   FOM,
   alpha = 0.05,
   covEstMethod = "jackknife",
@@ -40,18 +40,18 @@ frowned upon.}
 \code{txt}, the default, for 
 a text file, \code{xlsx} for an Excel file.}
 
-\item{method}{The significance testing method, \code{"ORH"} or 
-(the default) \code{"DBMH"}.}
+\item{method}{The significance testing method, \code{"OR"} or 
+(the default) \code{"DBM"}.}
 
 \item{FOM}{The figure of merit; see \code{\link{StSignificanceTesting}}.}
 
 \item{alpha}{See \code{\link{StSignificanceTesting}}; the default is 0.05.}
 
 \item{covEstMethod}{See \code{\link{StSignificanceTesting}}; only needed 
-for method = \code{"ORH"}; the default is "Jackknife".}
+for method = \code{"OR"}; the default is "Jackknife".}
 
 \item{nBoots}{See \code{\link{StSignificanceTesting}}; only needed for 
-\code{"ORH"} analysis; the default is 200.}
+\code{"OR"} analysis; the default is 200.}
 
 \item{sequentialNames}{A logical variable: if \code{TRUE}, consecutive integers 
 (starting from 1) will be used as the treatment and reader IDs in the 

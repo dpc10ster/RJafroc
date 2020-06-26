@@ -47,7 +47,7 @@ Utility for Obuchowski-Rockette variance components
 }
 \details{
 The variance components are obtained using \link{StSignificanceTesting} 
-    with \code{method = "ORH"}.
+    with \code{method = "OR"}.
 }
 \examples{
 ## uses the default jackknife for covEstMethod

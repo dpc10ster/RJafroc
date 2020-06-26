@@ -2,7 +2,7 @@
 # This was compared to JAFROC Version 4.2.1 (run using Windows-8 under VMware Fusion on iMac) 
 # Results are in inst/JAFROC
 # It checks out with Windows JAFROC for dataset02 and DfFroc2Roc(dataset04), i.e., VanDyke and FedRoc datasets
-# Current Iowa software does not do DBMH analysis; 
+# Current Iowa software does not do DBM analysis; 
 # The outputs were also compared to current
 # Iowa software and agrees for all except minor differences for FRRC (since in OR analysis the ddf is Inf instead
 # of (I-1)(K-1))

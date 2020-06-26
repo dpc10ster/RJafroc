@@ -12,7 +12,7 @@
 #' ## TBA 
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
 #'     \bold{Must have two or more treatments and two or more readers. A split-plot
-#'     dataset is allowed provided \code{method} = "ORH" and \code{covEstMethod}
+#'     dataset is allowed provided \code{method} = "OR" and \code{covEstMethod}
 #'     = "Jackknife".} 
 #' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
@@ -20,17 +20,17 @@
 #' @param alpha The significance level of the test of the null hypothesis that all 
 #'    treatment effects are zero; the default is 0.05
 #' @param method The significance testing method to be used. There are two choices: 
-#'    \code{"DBMH"} (the default) or \code{"ORH"}, representing the Dorfman-Berbaum-Metz
+#'    \code{"DBM"} (the default) or \code{"OR"}, representing the Dorfman-Berbaum-Metz
 #'    and the Obuchowski-Rockette significance testing methods, respectively. 
 #' @param covEstMethod The covariance matrix estimation method
-#'    in \code{ORH} analysis (for \code{method = "DBMH"} the jackknife is always used).
+#'    in \code{ORH} analysis (for \code{method = "DBM"} the jackknife is always used).
 #'    \itemize{ 
 #'    \item \code{"Jackknife"}, the default, 
 #'    \item \code{"Bootstrap"}, in which case \code{nBoots} (above) is relevant, 
 #'    \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon"}, otherwise error.
 #' }   
 #' @param nBoots The number of bootstraps (defaults to 200), relevant only if 
-#'    \code{covEstMethod = "bootstrap"} and \code{method = "ORH"} 
+#'    \code{covEstMethod = "bootstrap"} and \code{method = "OR"} 
 #' @param analysisOption Determines which factors are regarded as random vs. fixed:
 #' \itemize{ 
 #'    \item \code{"RRRC"} = random-reader random case, 
@@ -45,7 +45,7 @@
 #'    the organization of the code and the output. As implicit in the name of this 
 #'    temporary flag, it will eventually be removed. 
 #' 
-#' @return \strong{For \code{method = "DBMH"} the returned list contains 4 dataframes:}
+#' @return \strong{For \code{method = "DBM"} the returned list contains 4 dataframes:}
 #' @return \item{FOMs}{Contains \code{foms}, \code{trtMeans} and \code{trtMeanDiffs}: 
 #'    see return of \code{\link{UtilFigureOfMerit}}}
 #' @return \item{ANOVA}{Contains \code{TRCAnova}, \code{VarCom}, \code{IndividualTrt} 
@@ -57,31 +57,31 @@
 #' @return \item{RRFC}{Contains results of \code{"RRFC"} analyses: \code{FTests}, 
 #'    \code{ciDiffTrt}, \code{ciAvgRdrEachTrt}}
 #' 
-#' @return \strong{For \code{method = "ORH"} the return list contains 4 dataframes:}
+#' @return \strong{For \code{method = "OR"} the return list contains 4 dataframes:}
 #' @return \item{FOMs}{Contains \code{foms}, \code{trtMeans} and \code{trtMeanDiffs}: 
 #'    \code{\link{UtilFigureOfMerit}}}
 #' @return \item{ANOVA}{Contains \code{TRAnova}, \code{VarCom}, \code{IndividualTrt} 
 #'    and \code{IndividualRdr} ANOVA tables of FOM values}
 #' @return \item{RRRC}{Contains results of \code{"RRRC"} analyses - same 
-#'    organization as DBMH, see above}
+#'    organization as DBM, see above}
 #' @return \item{FRRC}{Contains results of \code{"FRRC"} analyses - ditto}
 #' @return \item{RRFC}{Contains results of \code{"RRFC"} analyses- ditto}
 #' 
 #' 
 #' @examples
-#' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
-#' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
+#' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBM") 
+#' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "OR")
 #' ##following is split-plot analysis using a simulated split-plot dataset
-#' StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+#' StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR")
 #' 
 #' \donttest{
 #' StSignificanceTesting(dataset05, FOM = "wAFROC")
-#' StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBMH") 
-#' StSignificanceTesting(dataset05, FOM = "SongA1", method = "DBMH") 
-#' StSignificanceTesting(dataset05, FOM = "SongA2", method = "DBMH") 
-#' StSignificanceTesting(dataset05, FOM = "FOM_wAFROC1", method = "DBMH")
-#' StSignificanceTesting(dataset05, FOM = "FOM_AFROC1", method = "DBMH")
-#' StSignificanceTesting(dataset05, FOM = "FOM_AFROC", method = "DBMH")
+#' StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBM") 
+#' StSignificanceTesting(dataset05, FOM = "SongA1", method = "DBM") 
+#' StSignificanceTesting(dataset05, FOM = "SongA2", method = "DBM") 
+#' StSignificanceTesting(dataset05, FOM = "FOM_wAFROC1", method = "DBM")
+#' StSignificanceTesting(dataset05, FOM = "FOM_AFROC1", method = "DBM")
+#' StSignificanceTesting(dataset05, FOM = "FOM_AFROC", method = "DBM")
 #' } 
 #'
 #' 
@@ -106,7 +106,7 @@
 #'
 #'      
 #' @export
-StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBMH", 
+StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBM", 
                                   covEstMethod = "jackknife", nBoots = 200, analysisOption = "ALL", tempOrgCode = FALSE)
 {
   options(stringsAsFactors = FALSE, "digits" = 8)
@@ -117,7 +117,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   if (J == 1) analysisOption <- "FRRC" else if (I == 1) analysisOption <- "RRFC"
   
   if (dataset$descriptions$type == "ROI") {
-    method <- "ORH"
+    method <- "OR"
     covEstMethod <- "DeLong" 
     FOM <- "ROI"
     cat("ROI dataset: forcing method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.\n")
@@ -142,35 +142,35 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     # analysisOption <- "FRRC"
   }
   
-  if (method == "DBMH"){
+  if (method == "DBM"){
     if (covEstMethod != "jackknife") 
-      stop("For DBMH method `covEstMethod` must be jackknife")
-  } else if (method == "ORH") {
+      stop("For DBM method `covEstMethod` must be jackknife")
+  } else if (method == "OR") {
     if (!covEstMethod %in% c("jackknife", "bootstrap", "DeLong")) {
       errMsg <- paste0(covEstMethod, " is not an allowed covariance estimation method for ORH analysis.")
       stop(errMsg)
     }
-  } else stop("Incorrect `method` argument: must be `DBMH` or `ORH`")
+  } else stop("Incorrect `method` argument: must be `DBM` or `ORH`")
   
-  if ((dataset$descriptions$design == "SPLIT-PLOT") && method == "DBMH") 
+  if ((dataset$descriptions$design == "SPLIT-PLOT") && method == "DBM") 
     stop("Must use method = ORH for SPLIT-PLOT dataset")
   
-  if ((dataset$descriptions$design == "SPLIT-PLOT") && method == "ORH" && covEstMethod != "jackknife") 
+  if ((dataset$descriptions$design == "SPLIT-PLOT") && method == "OR" && covEstMethod != "jackknife") 
     stop("Must use covEstMethod = jackknife for SPLIT-PLOT dataset")
   
   if (!tempOrgCode) {
-    if (method == "DBMH"){
+    if (method == "DBM"){
       return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, analysisOption)) # current code
-    } else if (method == "ORH"){
+    } else if (method == "OR"){
       return(StORHAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)) # current code
     } else {
       errMsg <- sprintf("%s is not a valid analysis method.", method)
       stop(errMsg)
     }
   } else {
-    if (method == "DBMH"){
+    if (method == "DBM"){
       return(DBMHAnalysis(dataset, FOM, alpha, analysisOption)) # original code: StOldCode.R
-    } else if (method == "ORH"){
+    } else if (method == "OR"){
       return(ORHAnalysis(dataset, FOM, alpha, covEstMethod, nBoots, analysisOption)) # original code: StOldCode.R
     } else {
       errMsg <- sprintf("%s is not a valid analysis method.", method)

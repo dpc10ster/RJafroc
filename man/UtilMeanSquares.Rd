@@ -4,7 +4,7 @@
 \alias{UtilMeanSquares}
 \title{Calculate mean squares}
 \usage{
-UtilMeanSquares(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBMH")
+UtilMeanSquares(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBM")
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}.}
@@ -16,16 +16,16 @@ is \code{"FOM_wAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
 where to evaluate a partial curve based figure of merit. The default is 0.2.}
 
 \item{method}{The method, in which the mean squares are calculated. The two 
-valid choices are \code{"DBMH"} (default) and \code{"ORH"}.}
+valid choices are \code{"DBM"} (default) and \code{"OR"}.}
 }
 \value{
 A list containing all possible mean squares
 }
 \description{
-Calculates the mean squares used in the DBMH and ORH methods
+Calculates the mean squares used in the DBM and ORH methods
 }
 \details{
-For \code{DBMH} method, \code{msT, msTR, msTC, msTRC} will not be available 
+For \code{DBM} method, \code{msT, msTR, msTC, msTRC} will not be available 
    if the dataset contains only one treatment. Similarly, 
    \code{msR, msTR, msRC, msTRC} will not be returned for single reader dataset. 
    For \code{ORH} method, \code{msT, msR, msTR} will be returned for multiple 
@@ -34,6 +34,6 @@ For \code{DBMH} method, \code{msT, msTR, msTC, msTRC} will not be available
 }
 \examples{
 UtilMeanSquares(dataset02, FOM = "Wilcoxon")
-UtilMeanSquares(dataset05, FOM = "wAFROC", method = "ORH")
+UtilMeanSquares(dataset05, FOM = "wAFROC", method = "OR")
 
 }

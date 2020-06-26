@@ -58,7 +58,7 @@ The procedure is valid for ROC studies only; for FROC studies see
 ## SsPowerTable 20.033  0.037  20.077    
 
 ## Example of sample size calculation with OR method
-## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "ORH")
+## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "OR")
 }
  
 }

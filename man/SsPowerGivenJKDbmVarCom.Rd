@@ -12,7 +12,7 @@ SsPowerGivenJKDbmVarCom(
   VarTC,
   VarErr,
   alpha = 0.05,
-  analysisOption
+  analysisOption = "RRRC"
 )
 }
 \arguments{
@@ -41,10 +41,10 @@ Power given J, K and Dorfman-Berbaum-Metz variance components
 }
 \details{
 The variance components are obtained using \link{StSignificanceTesting}
-   with \code{method = "DBMH"}.
+   with \code{method = "DBM"}.
 }
 \examples{
-VarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH", 
+VarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBM", 
    analysisOption = "RRRC")$ANOVA$VarCom
 VarTR <- VarCom["VarTR",1]
 VarTC <- VarCom["VarTC",1]

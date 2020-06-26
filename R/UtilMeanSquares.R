@@ -1,19 +1,19 @@
 #' Calculate mean squares
 #' 
-#' Calculates the mean squares used in the DBMH and ORH methods
+#' Calculates the mean squares used in the DBM and ORH methods
 #' 
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}.
 #' @param FOM The figure of merit to be used in the calculation. The default 
 #'    is \code{"FOM_wAFROC"}. See \code{\link{UtilFigureOfMerit}}.
 #' @param method The method, in which the mean squares are calculated. The two 
-#'    valid choices are \code{"DBMH"} (default) and \code{"ORH"}. 
+#'    valid choices are \code{"DBM"} (default) and \code{"OR"}. 
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
 #' @return A list containing all possible mean squares
 #' 
 #' @details 
-#' For \code{DBMH} method, \code{msT, msTR, msTC, msTRC} will not be available 
+#' For \code{DBM} method, \code{msT, msTR, msTC, msTRC} will not be available 
 #'    if the dataset contains only one treatment. Similarly, 
 #'    \code{msR, msTR, msRC, msTRC} will not be returned for single reader dataset. 
 #'    For \code{ORH} method, \code{msT, msR, msTR} will be returned for multiple 
@@ -22,11 +22,11 @@
 #' 
 #' @examples
 #' UtilMeanSquares(dataset02, FOM = "Wilcoxon")
-#' UtilMeanSquares(dataset05, FOM = "wAFROC", method = "ORH")
+#' UtilMeanSquares(dataset05, FOM = "wAFROC", method = "OR")
 #' 
 #' @export
 
-UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBMH"){
+UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBM"){
   dataType <- dataset$descriptions$type
   if (dataType != "LROC") {
     NL <- dataset$ratings$NL
@@ -50,10 +50,10 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
   K2 <- dim(LL)[3]
   K1 <- K - K2
   
-  if (method == "DBMH") {
+  if (method == "DBM") {
     pseudoValues <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
     #
-    # extensive changes made here DPC 6/30/19 for DBMH method
+    # extensive changes made here DPC 6/30/19 for DBM method
     # basically redefine K as number of diseased cases or number of non-diseased
     # case, or all cases, depending on the FOM
     # these changes affect FOMs that do NOT involve all cases
@@ -176,7 +176,7 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
         msCSingleR = msCSingleR
       ))
     }
-  } else if (method == "ORH"){
+  } else if (method == "OR"){
     
     if (I == 1 && J == 1){
       errMsg <- "The mean squares cannot be calculated for single reader single treatment dataset."
@@ -227,7 +227,7 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
     }
     
   } else {
-    errMsg <- sprintf("%s is not a valid method; must use 'DBMH' or 'ORH'", method)
+    errMsg <- sprintf("%s is not a valid method; must use 'DBM' or 'ORH'", method)
     stop(errMsg)
   }
   

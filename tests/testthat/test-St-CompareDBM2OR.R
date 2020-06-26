@@ -1,11 +1,11 @@
-context("Compare DBMH to ORH")
+context("Compare DBM to OR")
 
-test_that("Compare DBMH to ORH for dataset02, ROC", {
+test_that("Compare DBM to OR for dataset02, ROC", {
 
   ds <- dataset02
 
-  dbmValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBMH")
-  orValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "ORH")
+  dbmValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBM")
+  orValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "OR")
 
   #######################################  fomArray  ###########################################
   dbmfomArray <- dbmValues$fomArray
@@ -103,12 +103,12 @@ test_that("Compare DBMH to ORH for dataset02, ROC", {
 
 
 
-test_that("Compare DBMH to ORH for dataset05, FROC, HrAuc", {
+test_that("Compare DBM to OR for dataset05, FROC, HrAuc", {
 
   ds <- dataset05
 
-  dbmValues <- StSignificanceTesting(ds, FOM = "HrAuc", method = "DBMH")
-  orValues <- StSignificanceTesting(ds, FOM = "HrAuc", method = "ORH")
+  dbmValues <- StSignificanceTesting(ds, FOM = "HrAuc", method = "DBM")
+  orValues <- StSignificanceTesting(ds, FOM = "HrAuc", method = "OR")
 
   #######################################  fomArray  ###########################################
   dbmfomArray <- as.vector(as.matrix(dbmValues$FOMs$foms))
@@ -201,12 +201,12 @@ test_that("Compare DBMH to ORH for dataset05, FROC, HrAuc", {
 
 
 
-test_that("Compare DBMH to ORH for dataset05, FROC, wAFROC", {
+test_that("Compare DBM to OR for dataset05, FROC, wAFROC", {
   
   ds <- dataset05
   
-  dbmValues <- StSignificanceTesting(ds, FOM = "wAFROC", method = "DBMH")
-  orValues <- StSignificanceTesting(ds, FOM = "wAFROC", method = "ORH")
+  dbmValues <- StSignificanceTesting(ds, FOM = "wAFROC", method = "DBM")
+  orValues <- StSignificanceTesting(ds, FOM = "wAFROC", method = "OR")
   
   #######################################  fomArray  ###########################################  
   dbmfomArray <- dbmValues$fomArray

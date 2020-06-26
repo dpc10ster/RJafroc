@@ -9,7 +9,7 @@ StSignificanceTesting(
   FOM,
   FPFValue = 0.2,
   alpha = 0.05,
-  method = "DBMH",
+  method = "DBM",
   covEstMethod = "jackknife",
   nBoots = 200,
   analysisOption = "ALL",
@@ -19,7 +19,7 @@ StSignificanceTesting(
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
 \bold{Must have two or more treatments and two or more readers. A split-plot
-dataset is allowed provided \code{method} = "ORH" and \code{covEstMethod}
+dataset is allowed provided \code{method} = "OR" and \code{covEstMethod}
 = "Jackknife".}}
 
 \item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}}
@@ -31,11 +31,11 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.}
 treatment effects are zero; the default is 0.05}
 
 \item{method}{The significance testing method to be used. There are two choices: 
-\code{"DBMH"} (the default) or \code{"ORH"}, representing the Dorfman-Berbaum-Metz
+\code{"DBM"} (the default) or \code{"OR"}, representing the Dorfman-Berbaum-Metz
 and the Obuchowski-Rockette significance testing methods, respectively.}
 
 \item{covEstMethod}{The covariance matrix estimation method
-   in \code{ORH} analysis (for \code{method = "DBMH"} the jackknife is always used).
+   in \code{ORH} analysis (for \code{method = "DBM"} the jackknife is always used).
    \itemize{ 
    \item \code{"Jackknife"}, the default, 
    \item \code{"Bootstrap"}, in which case \code{nBoots} (above) is relevant, 
@@ -43,7 +43,7 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
 }}
 
 \item{nBoots}{The number of bootstraps (defaults to 200), relevant only if 
-\code{covEstMethod = "bootstrap"} and \code{method = "ORH"}}
+\code{covEstMethod = "bootstrap"} and \code{method = "OR"}}
 
 \item{analysisOption}{Determines which factors are regarded as random vs. fixed:
 \itemize{ 
@@ -61,7 +61,7 @@ the organization of the code and the output. As implicit in the name of this
 temporary flag, it will eventually be removed.}
 }
 \value{
-\strong{For \code{method = "DBMH"} the returned list contains 4 dataframes:}
+\strong{For \code{method = "DBM"} the returned list contains 4 dataframes:}
 
 \item{FOMs}{Contains \code{foms}, \code{trtMeans} and \code{trtMeanDiffs}: 
    see return of \code{\link{UtilFigureOfMerit}}}
@@ -78,7 +78,7 @@ temporary flag, it will eventually be removed.}
 \item{RRFC}{Contains results of \code{"RRFC"} analyses: \code{FTests}, 
    \code{ciDiffTrt}, \code{ciAvgRdrEachTrt}}
 
-\strong{For \code{method = "ORH"} the return list contains 4 dataframes:}
+\strong{For \code{method = "OR"} the return list contains 4 dataframes:}
 
 \item{FOMs}{Contains \code{foms}, \code{trtMeans} and \code{trtMeanDiffs}: 
    \code{\link{UtilFigureOfMerit}}}
@@ -87,7 +87,7 @@ temporary flag, it will eventually be removed.}
    and \code{IndividualRdr} ANOVA tables of FOM values}
 
 \item{RRRC}{Contains results of \code{"RRRC"} analyses - same 
-   organization as DBMH, see above}
+   organization as DBM, see above}
 
 \item{FRRC}{Contains results of \code{"FRRC"} analyses - ditto}
 
@@ -106,19 +106,19 @@ Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR)
 ## TBA
 }
 \examples{
-StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBMH") 
-StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "ORH")
+StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBM") 
+StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "OR")
 ##following is split-plot analysis using a simulated split-plot dataset
-StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR")
 
 \donttest{
 StSignificanceTesting(dataset05, FOM = "wAFROC")
-StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBMH") 
-StSignificanceTesting(dataset05, FOM = "SongA1", method = "DBMH") 
-StSignificanceTesting(dataset05, FOM = "SongA2", method = "DBMH") 
-StSignificanceTesting(dataset05, FOM = "FOM_wAFROC1", method = "DBMH")
-StSignificanceTesting(dataset05, FOM = "FOM_AFROC1", method = "DBMH")
-StSignificanceTesting(dataset05, FOM = "FOM_AFROC", method = "DBMH")
+StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBM") 
+StSignificanceTesting(dataset05, FOM = "SongA1", method = "DBM") 
+StSignificanceTesting(dataset05, FOM = "SongA2", method = "DBM") 
+StSignificanceTesting(dataset05, FOM = "FOM_wAFROC1", method = "DBM")
+StSignificanceTesting(dataset05, FOM = "FOM_AFROC1", method = "DBM")
+StSignificanceTesting(dataset05, FOM = "FOM_AFROC", method = "DBM")
 } 
 
 

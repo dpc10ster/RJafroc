@@ -15,7 +15,7 @@ SsPowerGivenJKOrVarCom(
   Cov3,
   Var,
   alpha = 0.05,
-  analysisOption
+  analysisOption = "RRRC"
 )
 }
 \arguments{
@@ -50,13 +50,13 @@ Power given J, K and Obuchowski-Rockette variance components
 }
 \details{
 The variance components are obtained using \link{StSignificanceTesting} 
-    with \code{method = "ORH"}.
+    with \code{method = "OR"}.
 }
 \examples{
 dataset <- dataset02 ## the pilot study
 KStar <- length(dataset$ratings$NL[1,1,,1])
 VarCom <- StSignificanceTesting(dataset, FOM = "Wilcoxon", 
-method = "ORH", analysisOption = "RRRC")$ANOVA$VarCom
+method = "OR", analysisOption = "RRRC")$ANOVA$VarCom
 VarTR <- VarCom["VarTR",1]
 Cov1 <- VarCom["Cov1",1]
 Cov2 <- VarCom["Cov2",1]

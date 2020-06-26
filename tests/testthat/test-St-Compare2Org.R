@@ -1,11 +1,11 @@
-context("Compare current to original codes: DBMH")
+context("Compare current to original codes: DBM")
 
-test_that("Compare current to original code: DBMH", {
+test_that("Compare current to original code: DBM", {
   
   ds <- dataset02
   
-  orgValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBMH", tempOrgCode = TRUE)
-  newValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBMH", tempOrgCode = FALSE)
+  orgValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBM", tempOrgCode = TRUE)
+  newValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBM", tempOrgCode = FALSE)
   
   #######################################  FStats ###########################################  
   orgFStatsRRRC <- c(orgValues$fRRRC, orgValues$ddfRRRC, orgValues$pRRRC)
@@ -106,8 +106,8 @@ test_that("Compare current to original code: ORH", {
   
   ds <- dataset02
   
-  orgValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "ORH", tempOrgCode = TRUE)
-  newValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "ORH", tempOrgCode = FALSE)
+  orgValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "OR", tempOrgCode = TRUE)
+  newValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "OR", tempOrgCode = FALSE)
   
   #######################################  FStats ###########################################  
   orgFStatsRRRC <- c(orgValues$fRRRC, orgValues$ddfRRRC, orgValues$pRRRC)

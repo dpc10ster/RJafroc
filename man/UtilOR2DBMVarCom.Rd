@@ -19,10 +19,10 @@ containing VarR, VarTR, Cov1, Cov2, Cov3 and Var}
 \code{UtilOR2DBMVarCom} converts from OR to DBM variance components.
 }
 \examples{
-DBMVarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBMH")$ANOVA$VarCom
+DBMVarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBM")$ANOVA$VarCom
 UtilDBM2ORVarCom(114, DBMVarCom)
 
-ORVarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "ORH")$ANOVA$VarCom
+ORVarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "OR")$ANOVA$VarCom
 UtilOR2DBMVarCom(114, ORVarCom)
 
 

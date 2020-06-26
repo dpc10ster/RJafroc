@@ -24,8 +24,8 @@
 #'    \code{txt}, the default, for 
 #'    a text file, \code{xlsx} for an Excel file.
 #'    
-#' @param method The significance testing method, \code{"ORH"} or 
-#'    (the default) \code{"DBMH"}.
+#' @param method The significance testing method, \code{"OR"} or 
+#'    (the default) \code{"DBM"}.
 #' 
 #' @param FOM The figure of merit; see \code{\link{StSignificanceTesting}}.
 #' 
@@ -34,10 +34,10 @@
 #' @param alpha See \code{\link{StSignificanceTesting}}; the default is 0.05.
 #' 
 #' @param covEstMethod See \code{\link{StSignificanceTesting}}; only needed 
-#'     for method = \code{"ORH"}; the default is "Jackknife".
+#'     for method = \code{"OR"}; the default is "Jackknife".
 #' 
 #' @param nBoots See \code{\link{StSignificanceTesting}}; only needed for 
-#'    \code{"ORH"} analysis; the default is 200.
+#'    \code{"OR"} analysis; the default is 200.
 #' 
 #' @param sequentialNames A logical variable: if \code{TRUE}, consecutive integers 
 #'    (starting from 1) will be used as the treatment and reader IDs in the 
@@ -75,7 +75,7 @@
 #' @export
 
 UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt = "txt", 
-                             method = "DBMH", FOM, alpha = 0.05, 
+                             method = "DBM", FOM, alpha = 0.05, 
                              covEstMethod = "jackknife", nBoots = 200, 
                              sequentialNames = FALSE, overWrite = FALSE, analysisOption = "ALL") {
   
@@ -119,10 +119,10 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
   }
   cat("\nOutput file name is: \t", ReportFileName, "\n")
   
-  if (method == "DBMH") {
+  if (method == "DBM") {
     methodTxt <- "DBM-MRMC-HILLIS SIGNIFICANCE TESTING"
     StResult <- StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha, method, analysisOption = analysisOption)
-  } else if (method == "ORH") {
+  } else if (method == "OR") {
     methodTxt <- "OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING"
     StResult <- StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha, method, covEstMethod, nBoots, analysisOption = analysisOption)
   } else {
@@ -131,8 +131,8 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
   }
   
   if (ReportFileExt == "txt"){
-    if (method == "DBMH") {
-      sucessfulOutput <- OutputTextFileDBMH(dataset,
+    if (method == "DBM") {
+      sucessfulOutput <- OutputTextFileDBM(dataset,
                                             method,
                                             methodTxt,
                                             ReportFileName,
@@ -156,8 +156,8 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
                                   basename(ReportFileName),
                                   dataset$descriptions$name))
     rownames(summaryInfo) <- c("Date", "Output file", "Input Dataset")
-    if (method == "DBMH") {
-      sucessfulOutput <- OutputExcelFileDBMH(dataset,
+    if (method == "DBM") {
+      sucessfulOutput <- OutputExcelFileDBM(dataset,
                                              method,
                                              methodTxt,
                                              ReportFileName,

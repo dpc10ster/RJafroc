@@ -68,8 +68,8 @@ frocData <- get(sprintf("dataset%02d", 4))
 KStar <- length(frocData$NL[1,1,,1])
 JTest <- 5;KTest <- 100
 rocData <- DfFroc2Roc(frocData)
-varCompROC <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "ORH", analysisOption = "RRRC")$varComp
-varCompwAFROC <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "ORH", analysisOption = "RRRC")$varComp
+varCompROC <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "OR", analysisOption = "RRRC")$varComp
+varCompwAFROC <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "OR", analysisOption = "RRRC")$varComp
 
 cat("JTest = ", JTest, "KTest = ", KTest, "\n")
 powerROC <- array(dim = length(effectSizeROC));powerwAFROC <- array(dim = length(effectSizeROC))

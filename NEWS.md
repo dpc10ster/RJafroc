@@ -1,5 +1,19 @@
 # RJafroc 1.3.2.9000
 
+## Updated sample size routines
+* 3 Papers by Hillis et al on SS estimation for ROC studies: 2004, 2011 and 2018
+   + Hillis SL, Berbaum KS (2004). Power Estimation for the Dorfman-Berbaum-Metz Method. Acad Radiol, 11, 1260--1273.
+   + Hillis SL, Obuchowski NA, Berbaum KS (2011). Power Estimation for Multireader ROC Methods: An Updated and Unified Approach. Acad Radiol, 18, 129--142.
+   + Hillis SL, Schartz KM (2018). Multireader sample size program for diagnostic studies: demonstration and methodology. Journal of Medical Imaging, 5(04).
+* The sample size routines have been updated to reflect the most recent publication. The equations in the code now have documentation as to their source(s).
+* The routines have also been checked using the Java calculator provided on the U of Iowa website (`pss20190918.jar`). 
+* Briefly, the procedure defaults to the OR method, even when DBM variance components are provided, in line with the recommendations in the 2011 paper. For continuity with prior work a `LegacyCode` flag is provided to force execution of the original DBM method (2004 paper).
+* Added a few tests using the Franken dataset which yields negative `Var(TR)`. Noticed a small difference in predicted power between forced DBM (0.78574588) and OR methods (0.8004469).
+* NOTE on discrepancy between `Var(R)` and `Var(TR)` values reported by OR-DBM MRMC 2.51 Build 20181028 and my code for Franken dataset. Their code does not implement the required `max(Cov2 - Cov3, 0)` constraint while mine does. My code reports `VarTR` = -0.00068389146 while their code reports `VarTR` = -0.00071276; Specifically, `msTR - Var + Cov1 + max(Cov2 - Cov3, 0) = -0.00068389146` and `msTR - Var + Cov1 + Cov2 - Cov3 = -0.00071276`. This also affects the `VarR` values (see block of comments in `UtilVarComponentsOR` near line 161). `Cov1`, `Cov2`, `Cov3` and `Var` are the same between both codes. I am aware that these discrepancies do not affect sample size estimates, but can cause confusion for the code maintainer and user.
+* The code rewrite was conducted on a new branch, `UpdateSsRoutines` off the `developer` branch.
+* The changes were merged to the `developer` branch and then to the `master` branch.
+
+
 ## Major reorganization of `dataset` structure
 * Instead of varying lengths for ROC/FROC, LROC and SPLIT-PLOT, all `datasets` now are `lists` of length 3, with each member (`ratings`, `lesions`, `descriptions`) consisting of sub-lists: 
   + `ratings` contain 3 elements: `$NL`, `$LL` and `$LL_IL`. 

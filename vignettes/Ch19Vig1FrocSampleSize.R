@@ -80,8 +80,8 @@ effectSizeROC <- seq(0.01, 0.1, 0.01)
 effectSizewAFROC <- effectSizeROC*scaleFactor$coefficients[1] # r2 = summary(scaleFactor)$r.squared
 
 ## -----------------------------------------------------------------------------
-temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBMH", analysisOption = "RRRC")
-temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBMH", analysisOption = "RRRC")
+temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")
+temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBM", analysisOption = "RRRC")
 varCompROC <- temp1$ANOVA$VarCom
 varCompwAFROC <- temp2$ANOVA$VarCom
 
@@ -98,7 +98,7 @@ for (i in 1:length(effectSizeROC)) {
   varYTC <- varCompROC["VarTC","Estimates"]
   varYEps <- varCompROC["VarErr","Estimates"]
   ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = JTest, K = KTest, analysisOption = "RRRC", 
-                 effectSize = effectSizeROC[i], method = "DBMH", LegacyCode = TRUE, 
+                 effectSize = effectSizeROC[i], method = "DBM", LegacyCode = TRUE, 
                  list(VarTR = varYTR,
                       VarTC = varYTC,
                       VarErr = varYEps))
@@ -108,7 +108,7 @@ for (i in 1:length(effectSizeROC)) {
   varYTC <- varCompwAFROC["VarTC","Estimates"]
   varYEps <- varCompwAFROC["VarErr","Estimates"]
   ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = JTest, K = KTest, analysisOption = "RRRC", 
-                 effectSize = effectSizewAFROC[i], method = "DBMH", LegacyCode = TRUE, 
+                 effectSize = effectSizewAFROC[i], method = "DBM", LegacyCode = TRUE, 
                  list(VarTR = varYTR,
                       VarTC = varYTC,
                       VarErr = varYEps))

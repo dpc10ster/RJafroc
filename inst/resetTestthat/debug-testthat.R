@@ -17,7 +17,7 @@ CompareLists <- function(x1, x2, d = 0, i = 0, j = 0)
 dataset_arr <- list(dataset02, dataset05) # deparse(substitute(dataset02)) does not work below
 dataset_arr_str <- c("dataset02", "dataset05")
 FOM_arr <- c("Wilcoxon", "HrAuc") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
-method_arr <- c("DBMH", "ORH")
+method_arr <- c("DBM", "OR")
 
 i <- 2;d <- 2;j <- 1
 

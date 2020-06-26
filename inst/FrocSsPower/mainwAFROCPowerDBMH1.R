@@ -49,8 +49,8 @@ effectSizeROC <- seq(0.01, 0.1, 0.001)
 effectSizewAFROC <- effectSizeROC*a$coefficients[1] # r2 = summary(a)$r.squared
 
 JTest <- 5;KTest <- 100
-temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBMH", analysisOption = "RRRC")
-temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBMH", analysisOption = "RRRC")
+temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")
+temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBM", analysisOption = "RRRC")
 varCompROC <- temp1$varComp
 varCompwAFROC <- temp2$varComp
 

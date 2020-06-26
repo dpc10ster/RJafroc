@@ -23,7 +23,7 @@
 #'     }
 #'   
 #' @details The variance components are obtained using \link{StSignificanceTesting} 
-#'     with \code{method = "ORH"}.
+#'     with \code{method = "OR"}.
 #' 
 #' @examples 
 #' ## uses the default jackknife for covEstMethod
@@ -155,13 +155,27 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   Cov3 <- ret$Cov3
   
   if (I > 1) {
-    VarTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0) # Hillis 2011 Eqn 9
-    # added following constraint from Hillis 2011 paper
-    # VarTR <- max(VarTR, 0)
+    # Following equation is in marginal means paper, page 333
+    # and in Hillis 2011 Eqn 9
+    VarTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0)
+    # NOTE on discrepancy between Var(R) and Var(TR) values reported by
+    # OR-DBM MRMC 2.51 Build 20181028 and my code for Franken dataset
+    # Their code does not implement the max() constraint while mine does
+    # my code reports VarTR = -0.00068389146 while their code reports
+    # VarTR = -0.00071276; This is shown explicitly next:
+    # msTR - Var + Cov1 + max(Cov2 - Cov3, 0) = -0.00068389146 
+    # msTR - Var + Cov1 +     Cov2 - Cov3     = -0.00071276 
+    # This also affects the VarR values calculated next (see next block of comments)
+    # Cov1, Cov2, Cov3 and Var are the same between both codes
   } else VarTR <- NA
   
-  # TBA Need citation here for next equation
-  VarR <- (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - VarTR)/I
+  # See Hillis 2006 Table 1 2nd eauation
+  VarR <- (msR - VarTR - Var + Cov2 - (I-1)*(Cov1 - Cov3))/I
+  # Their code reports: VarR = 0.00003766 
+  # my code reports: VarR = 2.3319942e-05
+  # This is shown explicitly next:
+  # (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - (-0.00071276))/I = 3.7754211e-05
+  # (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - VarTR)/I = 2.3319942e-05
   VarCom <- data.frame(Estimates = c(VarR, VarTR, Cov1, Cov2, Cov3, Var), 
                        Rhos = c(NA, NA, Cov1/Var, Cov2/Var, Cov3/Var, NA),
                        row.names = c("VarR", "VarTR", "Cov1", "Cov2", "Cov3", "Var"),

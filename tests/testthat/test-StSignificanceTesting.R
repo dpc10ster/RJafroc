@@ -27,18 +27,18 @@ test_that("StSignificanceTesting-datasetFROCSp-wAFROC", {
   fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSp-wAFROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    x1 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+    x1 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR")
     saveRDS(x1, file = fn)
   }
 
   x1 <- readRDS(fn)
-  x2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH")
+  x2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR")
 
   expect_equal(x1,x2)
 
-  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBMH"))
-  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "bootstrap"))
-  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "ORH", covEstMethod = "DeLong"))
+  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBM"))
+  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR", covEstMethod = "bootstrap"))
+  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR", covEstMethod = "DeLong"))
 
 })
 
@@ -62,15 +62,15 @@ test_that("SignificanceTestingAllCombinations", {
   
   # dataset = an ROC and an FROC dataset; dataset02, dataset05
   # FOM = "Wilcoxon", "HrAuc"
-  # method = "DBMH", "ORH"
+  # method = "DBM", "OR"
   dataset_arr <- list(dataset02, dataset05) # deparse(substitute(dataset02)) does not work below
   dataset_arr_str <- c("dataset02", "dataset05")
   FOM_arr <- c("Wilcoxon", "HrAuc") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
-  method_arr <- c("DBMH", "ORH")
+  method_arr <- c("DBM", "OR")
   # dataset_arr <- list(dataset02) # deparse(substitute(dataset02)) does not work below
   # dataset_arr_str <- c("dataset02")
   # FOM_arr <- c("Wilcoxon") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
-  method_arr <- c("DBMH", "ORH")
+  method_arr <- c("DBM", "OR")
   
   for (d in 1:length(dataset_arr)) {
     for (f in 1:length(FOM_arr)) {

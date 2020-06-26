@@ -10,7 +10,7 @@ SsSampleSizeKGivenJ(
   J,
   FOM,
   effectSize = NULL,
-  method = "ORH",
+  method = "OR",
   alpha = 0.05,
   desiredPower = 0.8,
   analysisOption = "RRRC",
@@ -32,7 +32,7 @@ needed if dataset is not supplied.}
 Default is NULL. Must be supplied if dataset is set to NULL and variance 
 components are supplied.}
 
-\item{method}{"ORH" (default) or "DBMH".}
+\item{method}{"OR" (default) or "DBM".}
 
 \item{alpha}{The significance level of the study, default is 0.05.}
 
@@ -55,7 +55,7 @@ A list of two elements:
 }
 \description{
 Number of cases to achieve the desired power, for 
-  specified number of readers J, and specified DBMH or ORH analysis method
+  specified number of readers J, and specified DBM or ORH analysis method
 }
 \details{
 \code{effectSize} = NULL uses the \strong{observed} effect size in 
@@ -69,20 +69,20 @@ The procedure is valid for ROC studies only; for FROC studies see
 }
 \examples{
 ## the following two should give identical results
-SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBMH")
+SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBM")
 
 a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
-SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBMH", LegacyCode = TRUE,
+SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBM", LegacyCode = TRUE,
    list(VarTR = a["VarTR",1], 
    VarTC = a["VarTC",1], 
    VarErr = a["VarErr",1]))
 
 ## the following two should give identical results
-SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "ORH")
+SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "OR")
 
 a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
 KStar <- length(dataset02$ratings$NL[1,1,,1])
-SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "ORH", 
+SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "OR", 
    list(KStar = KStar, 
    VarTR = a["VarTR",1], 
    Cov1 = a["Cov1",1], 
