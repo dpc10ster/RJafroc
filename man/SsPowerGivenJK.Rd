@@ -66,7 +66,8 @@ The procedure is valid for ROC studies only; for FROC studies see
   Vignettes 19.
 }
 \examples{
-## EXAMPLE 1: specify 2-treatment ROC dataset and force DBM-based alg.
+## EXAMPLE 1: RRRC power 
+## specify 2-treatment ROC dataset and force DBM alg.
 SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 J = 6, K = 251, method = "DBM", LegacyCode = TRUE) # RRRC is default  
 
@@ -83,7 +84,7 @@ vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
 SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = 6, K = 251, 
 effectSize = 0.05, method = "DBM", LegacyCode = TRUE, 
 list( 
-VarTR = vcDBM["VarTR","Estimates"], # replace rhs with actual values
+VarTR = vcDBM["VarTR","Estimates"], # replace rhs with actual values as in 4A
 VarTC = vcDBM["VarTC","Estimates"], # do:
 VarErr = vcDBM["VarErr","Estimates"])) # do:
                      
@@ -113,6 +114,7 @@ K = 251, list(JStar = 5, KStar = 114,
    Var = 0.00080228827))
    
 ## EXAMPLE 5: specify NULL dataset & DBM var. comp. & use OR-based alg.
+## The DBM var. comp. are converted internally to OR var. comp.
 vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
 KStar <- length(dataset02$ratings$NL[1,1,,1])
 SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 

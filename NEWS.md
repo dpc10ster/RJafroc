@@ -1,5 +1,20 @@
 # RJafroc 1.3.2.9000
 
+## Implemented extensive testing comparing `RJafroc` to Iowa software
+* See `test-StCompare2Iowa.R` in `testthat` directory.
+* Does line by line comparison of `RJafroc` to results of `OR-DBM MRMC 2.51 Build 20181028` for VanDyke and Franken datasets.
+* These, and many other tests, are run automatically every time the `RJafroc` software is checked using `R CMD check`. 
+
+
+## Note on discrepancy vis-a-vis Iowa software
+* Noted was a discrepancy between `Var(R)` and `Var(TR)` values reported by `OR-DBM MRMC 2.51 Build 20181028` and `RJafroc` for Franken dataset. 
+* Their code does not implement the required `max(Cov2 - Cov3, 0)` constraint while `RJafroc` does. 
+* `RJafroc` reports `VarTR` = -0.00068389146 while their code reports `VarTR` = -0.00071276. 
+* Specifically, `msTR - Var + Cov1 + max(Cov2 - Cov3, 0) = -0.00068389146` and `msTR - Var + Cov1 + Cov2 - Cov3 = -0.00071276`. 
+* This also affects the `VarR` values (see block of comments in `UtilVarComponentsOR` near line 161). `Cov1`, `Cov2`, `Cov3` and `Var` are the same between both codes. 
+* I am aware that these discrepancies do not affect sample size estimates, but can cause confusion for the code maintainer and the end user.
+
+
 ## Updated sample size routines
 * 3 Papers by Hillis et al on SS estimation for ROC studies: 2004, 2011 and 2018
    + Hillis SL, Berbaum KS (2004). Power Estimation for the Dorfman-Berbaum-Metz Method. Acad Radiol, 11, 1260--1273.
@@ -9,7 +24,7 @@
 * The routines have also been checked using the Java calculator provided on the U of Iowa website (`pss20190918.jar`). 
 * Briefly, the procedure defaults to the OR method, even when DBM variance components are provided, in line with the recommendations in the 2011 paper. For continuity with prior work a `LegacyCode` flag is provided to force execution of the original DBM method (2004 paper).
 * Added a few tests using the Franken dataset which yields negative `Var(TR)`. Noticed a small difference in predicted power between forced DBM (0.78574588) and OR methods (0.8004469).
-* NOTE on discrepancy between `Var(R)` and `Var(TR)` values reported by OR-DBM MRMC 2.51 Build 20181028 and my code for Franken dataset. Their code does not implement the required `max(Cov2 - Cov3, 0)` constraint while mine does. My code reports `VarTR` = -0.00068389146 while their code reports `VarTR` = -0.00071276; Specifically, `msTR - Var + Cov1 + max(Cov2 - Cov3, 0) = -0.00068389146` and `msTR - Var + Cov1 + Cov2 - Cov3 = -0.00071276`. This also affects the `VarR` values (see block of comments in `UtilVarComponentsOR` near line 161). `Cov1`, `Cov2`, `Cov3` and `Var` are the same between both codes. I am aware that these discrepancies do not affect sample size estimates, but can cause confusion for the code maintainer and user.
+* Updated source of equations in `SsPowerGivenJKDbmVarCom`.
 * The code rewrite was conducted on a new branch, `UpdateSsRoutines` off the `developer` branch.
 * The changes were merged to the `developer` branch and then to the `master` branch.
 
@@ -32,7 +47,7 @@
 * Consistent returned objects from all `St` functions: `list` with data frames `FOM`, `ANOVA`, `RRRC`, `FRRC` and `RRFC`.
 * Output now **closely follows** that of Iowa software OR-DBM MRMC 2.51 which I ran using VmWare, Windows XP; Iowa software did not run on Windows 8 on two different machines (see below)
 * Ran detailed comparison to OR-DBM MRMC 2.51 and coded the checks in  `tests/testthat/test-St-Compare2Iowa.R` for VanDyke dataset
-* Also visually compared my code results against OR-DBM MRMC 2.51 for `dataset04` converted to ROC (see Iowa code results in `inst/Iowa/FedRoc.txt`); 
+* Also visually compared `RJafroc` results against OR-DBM MRMC 2.51 for `dataset04` converted to ROC (see Iowa code results in `inst/Iowa/FedRoc.txt`); 
 * Shortened `UtilOutputReport` *considerably*, by using `print(dataframe)` instead of reading values from `list` or `dataframe` variables and then using `sprintf` with unreadable C-style format codes
 * Shortened `SPLIT-PLOT` analysis by returning `Cov2` = `Cov3` = 0 instead of `NA`
 * Confirmed that this gives same results as the version in `master` branch
