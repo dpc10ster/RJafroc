@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a power table — SsPowerTable • RJafroc</title>
+<title>Generate a power table using the OR method — SsPowerTable • RJafroc</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,10 +36,10 @@
 
 
 
-<meta property="og:title" content="Generate a power table — SsPowerTable" />
+<meta property="og:title" content="Generate a power table using the OR method — SsPowerTable" />
 
-<meta property="og:description" content="Generate combinations of numbers of readers J and numbers of cases K
-   for desired power and specified generalization(s)" />
+<meta property="og:description" content="Generate combinations of numbers of readers J and numbers of 
+   cases K for desired power and specified generalization(s)" />
 
 
 
@@ -107,22 +107,22 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
@@ -179,15 +179,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a power table</h1>
+    <h1>Generate a power table using the OR method</h1>
     
     <div class="hidden name"><code>SsPowerTable.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Generate combinations of numbers of readers J and numbers of cases K
-   for desired power and specified generalization(s)</p>
+    <p>Generate combinations of numbers of readers J and numbers of 
+   cases K for desired power and specified generalization(s)</p>
     
     </div>
 
@@ -197,8 +197,7 @@
   <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
   <span class='kw'>desiredPower</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>,
-  <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>
+  <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>
 )</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -227,12 +226,9 @@ default value is <code>NULL</code>. See Details.</p></td>
       <td><p>The desired statistical power, default is 0.8.</p></td>
     </tr>
     <tr>
-      <th>method</th>
-      <td><p>Analysis method, "DBMH" or "ORH", the default is "DBMH".</p></td>
-    </tr>
-    <tr>
       <th>analysisOption</th>
-      <td><p>Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" (the default).</p></td>
+      <td><p>Desired generalization, "RRRC"  (the default), "FRRC", 
+"RRFC" or "ALL".</p></td>
     </tr>
     </table>
     
@@ -250,11 +246,12 @@ default value is <code>NULL</code>. See Details.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The default <code>effectSize</code> uses the observed effect size in the 
-   pilot study. A numeric value over-rides the default value.</p>
+   pilot study. A supplied numeric value over-rides the default value.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The procedure is valid for ROC studies only; for FROC studies see Online Appendix Chapter 19.</p>
+    <p>The procedure is valid for ROC studies only; for FROC studies see 
+  Vignettes 19.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -263,11 +260,8 @@ default value is <code>NULL</code>. See Details.</p></td>
 ##              user    system elapsed
 ## SsPowerTable 20.033  0.037  20.077    
 
-## Example of sample size calculation with DBM method
-## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "DBMH")
-
 ## Example of sample size calculation with OR method
-## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "ORH")
+## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "OR")
 # }
  
 </div></pre>

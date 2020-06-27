@@ -114,22 +114,22 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
@@ -210,7 +210,7 @@
   <span class='no'>FOM</span>,
   <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>,
   <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"jackknife"</span>,
   <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>200</span>,
   <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>,
@@ -224,7 +224,7 @@
       <th>dataset</th>
       <td><p>The dataset to be analyzed, see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>. 
 <b>Must have two or more treatments and two or more readers. A split-plot
-dataset is allowed provided <code>method</code> = "ORH" and <code>covEstMethod</code>
+dataset is allowed provided <code>method</code> = "OR" and <code>covEstMethod</code>
 = "Jackknife".</b></p></td>
     </tr>
     <tr>
@@ -244,13 +244,13 @@ treatment effects are zero; the default is 0.05</p></td>
     <tr>
       <th>method</th>
       <td><p>The significance testing method to be used. There are two choices: 
-<code>"DBMH"</code> (the default) or <code>"ORH"</code>, representing the Dorfman-Berbaum-Metz
+<code>"DBM"</code> (the default) or <code>"OR"</code>, representing the Dorfman-Berbaum-Metz
 and the Obuchowski-Rockette significance testing methods, respectively.</p></td>
     </tr>
     <tr>
       <th>covEstMethod</th>
       <td><p>The covariance matrix estimation method
-   in <code>ORH</code> analysis (for <code>method = "DBMH"</code> the jackknife is always used).</p><ul>
+   in <code>ORH</code> analysis (for <code>method = "DBM"</code> the jackknife is always used).</p><ul>
 <li><p><code>"Jackknife"</code>, the default,</p></li>
 <li><p><code>"Bootstrap"</code>, in which case <code>nBoots</code> (above) is relevant,</p></li>
 <li><p><code>"DeLong"</code>; requires <code>FOM = "Wilcoxon"</code>, otherwise error.</p></li>
@@ -259,7 +259,7 @@ and the Obuchowski-Rockette significance testing methods, respectively.</p></td>
     <tr>
       <th>nBoots</th>
       <td><p>The number of bootstraps (defaults to 200), relevant only if 
-<code>covEstMethod = "bootstrap"</code> and <code>method = "ORH"</code></p></td>
+<code>covEstMethod = "bootstrap"</code> and <code>method = "OR"</code></p></td>
     </tr>
     <tr>
       <th>analysisOption</th>
@@ -283,7 +283,7 @@ temporary flag, it will eventually be removed.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><strong>For <code>method = "DBMH"</code> the returned list contains 4 dataframes:</strong></p>
+    <p><strong>For <code>method = "DBM"</code> the returned list contains 4 dataframes:</strong></p>
 <dt>FOMs</dt><dd><p>Contains <code>foms</code>, <code>trtMeans</code> and <code>trtMeanDiffs</code>: 
    see return of <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code></p></dd>
 
@@ -299,7 +299,7 @@ temporary flag, it will eventually be removed.</p></td>
 <dt>RRFC</dt><dd><p>Contains results of <code>"RRFC"</code> analyses: <code>FTests</code>, 
    <code>ciDiffTrt</code>, <code>ciAvgRdrEachTrt</code></p></dd>
 
-For <code>method = "ORH"</code> the return list contains 4 dataframes:
+For <code>method = "OR"</code> the return list contains 4 dataframes:
 
 <dt>FOMs</dt><dd><p>Contains <code>foms</code>, <code>trtMeans</code> and <code>trtMeanDiffs</code>: 
    <code><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></code></p></dd>
@@ -308,7 +308,7 @@ For <code>method = "ORH"</code> the return list contains 4 dataframes:
    and <code>IndividualRdr</code> ANOVA tables of FOM values</p></dd>
 
 <dt>RRRC</dt><dd><p>Contains results of <code>"RRRC"</code> analyses - same 
-   organization as DBMH, see above</p></dd>
+   organization as DBM, see above</p></dd>
 
 <dt>FRRC</dt><dd><p>Contains results of <code>"FRRC"</code> analyses - ditto</p></dd>
 
@@ -329,7 +329,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $FOMs
+    <pre class="examples"><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr0       rdr1       rdr2       rdr3       rdr4
 #&gt; trt0 0.91964573 0.85877617 0.90386473 0.97310789 0.82979066
@@ -446,7 +446,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt0 0.89703704 0.024829936  4 0.82809808 0.96597599
 #&gt; trt1 0.94083736 0.016153030  4 0.89598936 0.98568536
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr0       rdr1       rdr2       rdr3       rdr4
 #&gt; trt0 0.91964573 0.85877617 0.90386473 0.97310789 0.82979066
@@ -568,7 +568,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt1 0.94083736 0.016153030  4 0.89598936 0.98568536
 #&gt; 
 #&gt; </div><div class='input'><span class='co'>##following is split-plot analysis using a simulated split-plot dataset</span>
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>datasetFROCSp</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>)</div><div class='output co'>#&gt; $FOMs
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>datasetFROCSp</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr3       rdr4       rdr5
 #&gt; trt4 0.87681159 0.79202279 0.57312253 0.78758818
@@ -817,7 +817,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.76826022 0.037282051  8 0.68228766 0.85423279
 #&gt; trt2 0.84628754 0.027397484  8 0.78310883 0.90946625
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"HrAuc"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"HrAuc"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.85886525 0.89314421 0.88226950 0.73026005 0.71418440 0.92907801
@@ -949,7 +949,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.84670344 0.026030866  8 0.78667616 0.90673073
 #&gt; trt2 0.89897557 0.015929891  8 0.86224118 0.93570997
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.86879433 0.89243499 0.88770686 0.72907801 0.72765957 0.92174941
@@ -1081,7 +1081,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.85048595 0.024998816  8 0.79283857 0.90813332
 #&gt; trt2 0.90365117 0.015597568  8 0.86768311 0.93961923
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA2"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA2"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.85248227 0.89078014 0.88250591 0.72411348 0.72482270 0.90330969
@@ -1213,7 +1213,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.84334121 0.024447043  8 0.78696623 0.89971620
 #&gt; trt2 0.88529025 0.017577166  8 0.84475724 0.92582327
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"FOM_wAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"FOM_wAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.74277290 0.88222710 0.78902636 0.64594897 0.63787388 0.81076549
@@ -1345,7 +1345,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.77467494 0.029186524  8 0.70737070 0.84197919
 #&gt; trt2 0.85560138 0.024604078  8 0.79886427 0.91233849
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"FOM_AFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"FOM_AFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.74714444 0.88568534 0.79412307 0.65521371 0.63697494 0.81180914
@@ -1477,7 +1477,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.77843282 0.029118730  8 0.71128490 0.84558073
 #&gt; trt2 0.85005732 0.025252382  8 0.79182522 0.90828941
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"FOM_AFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBMH"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"FOM_AFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.73013183 0.88436911 0.81412429 0.62485876 0.57890772 0.85065913

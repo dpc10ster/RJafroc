@@ -66,22 +66,22 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
@@ -138,7 +138,7 @@
       <h1 data-toc-skip>Chapter 11, Vignette 5: On choosing a realistic effect size</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-06-14</h4>
+            <h4 class="date">2020-06-26</h4>
       
       
       <div class="hidden name"><code>Ch11Vig5SampleSize.Rmd</code></div>
@@ -158,25 +158,25 @@
 <li><p>This vignette discusses choosing a realistic effect size based on the pilot study. Illustrated first is using Van Dyke dataset, regarded as the pilot study.</p></li>
 </ul>
 </div>
-<div id="illustration-of-sspowergivenjk-using-method-orh" class="section level2">
+<div id="illustration-of-sspowergivenjk-using-method-dbm" class="section level2">
 <h2 class="hasAnchor">
-<a href="#illustration-of-sspowergivenjk-using-method-orh" class="anchor"></a>Illustration of <code>SsPowerGivenJK()</code> using <code>method = "ORH"</code>
+<a href="#illustration-of-sspowergivenjk-using-method-dbm" class="anchor"></a>Illustration of <code>SsPowerGivenJK()</code> using <code>method = "DBM"</code>
 </h2>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">rocData</span> <span class="kw">&lt;-</span> <span class="no">dataset02</span> <span class="co">##"VanDyke.lrc"</span>
 <span class="co">#fileName &lt;- dataset03 ## "Franken1.lrc"</span>
-<span class="no">retDbm</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="no">rocData</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBMH"</span>)
+<span class="no">retDbm</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="no">rocData</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">retDbm</span>$<span class="no">RRRC</span>$<span class="no">ciDiffTrt</span>)
 <span class="co">#&gt;               Estimate      StdErr        DF          t       PrGTt</span>
 <span class="co">#&gt; trt0-trt1 -0.043800322 0.020748618 15.259675 -2.1109995 0.051665686</span>
 <span class="co">#&gt;                CILower       CIUpper</span>
 <span class="co">#&gt; trt0-trt1 -0.087959499 0.00035885444</span></pre></body></html></div>
 <ul>
-<li><p>Lacking any other information, the observed effect-size is the best estimate of the effect-size to be anticipated. The output shows that the FOM difference, for treatment 0 minus treatment 1, is . In the actual study treatment <code>1</code> is the new modality which hopes to improve upon <code>0</code>, the conventional modality. Since the sign is negative, the difference is going the right way and is justified in moving forward with planning a pivotal study. [If the difference went the other way, there is little justification for a pivotal study].</p></li>
-<li><p>The standard error of the difference is .</p></li>
+<li><p>Lacking any other information, the observed effect-size is the best estimate of the effect-size to be anticipated. The output shows that the FOM difference, for treatment 0 minus treatment 1, is -0.04380032. In the actual study treatment <code>1</code> is the new modality which hopes to improve upon <code>0</code>, the conventional modality. Since the sign is negative, the difference is going the right way and is justified in moving forward with planning a pivotal study. [If the difference went the other way, there is little justification for a pivotal study].</p></li>
+<li><p>The standard error of the difference is 0.02074862.</p></li>
 <li><p>An optimistic, but not unduly so, effect size is given by:</p></li>
 </ul>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">effectSizeOpt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="no">retDbm</span>$<span class="no">RRRC</span>$<span class="no">ciDiffTrt</span>[<span class="fl">1</span>,<span class="st">"Estimate"</span>]) + <span class="fl">2</span>*<span class="no">retDbm</span>$<span class="no">RRRC</span>$<span class="no">ciDiffTrt</span>[<span class="fl">1</span>,<span class="st">"StdErr"</span>]</pre></body></html></div>
-<p>The observed effect-size is a realization of a random variable. The lower limit of the 95% confidence interval is given by and the upper limit by . CI’s generated like this, with independent sets of data, are expected to encompass the true value with 95% probability. The lower end (greatest magnitude of the difference) of the confidence interval is , and this is the optimistic estimate. Since the sign is immaterial, one uses as the optimistic estimate the value 0.08529756. <strong>While the sign is immaterial for sample size estimates, the decision to conduct the pivotal most certainly is material - if the sign went the other way, with the new modality lower than the conventional modality, one would be unjustified in conducting a pivotal study.</strong></p>
+<p>The observed effect-size is a realization of a random variable. The lower limit of the 95% confidence interval is given by and the upper limit by . CI’s generated like this, with independent sets of data, are expected to encompass the true value with 95% probability. The lower end (greatest magnitude of the difference) of the confidence interval is -0.08529756, and this is the optimistic estimate. Since the sign is immaterial, one uses as the optimistic estimate the value 0.08529756. <strong>While the sign is immaterial for sample size estimates, the decision to conduct the pivotal most certainly is material - if the sign went the other way, with the new modality lower than the conventional modality, one would be unjustified in conducting a pivotal study.</strong></p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">

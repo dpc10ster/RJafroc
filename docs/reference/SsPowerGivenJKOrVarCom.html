@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Power given J, K and Obuchowski-Rockette variance components — SsPowerGivenJKOrVarComp • RJafroc</title>
+<title>Power given J, K and Obuchowski-Rockette variance components — SsPowerGivenJKOrVarCom • RJafroc</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,7 +36,7 @@
 
 
 
-<meta property="og:title" content="Power given J, K and Obuchowski-Rockette variance components — SsPowerGivenJKOrVarComp" />
+<meta property="og:title" content="Power given J, K and Obuchowski-Rockette variance components — SsPowerGivenJKOrVarCom" />
 
 <meta property="og:description" content="Power given J, K and Obuchowski-Rockette variance components" />
 
@@ -106,22 +106,22 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
@@ -180,7 +180,7 @@
     <div class="page-header">
     <h1>Power given J, K and Obuchowski-Rockette variance components</h1>
     
-    <div class="hidden name"><code>SsPowerGivenJKOrVarComp.Rd</code></div>
+    <div class="hidden name"><code>SsPowerGivenJKOrVarCom.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -189,7 +189,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>SsPowerGivenJKOrVarComp</span>(
+    <pre class="usage"><span class='fu'>SsPowerGivenJKOrVarCom</span>(
   <span class='no'>J</span>,
   <span class='no'>K</span>,
   <span class='no'>KStar</span>,
@@ -200,7 +200,7 @@
   <span class='no'>Cov3</span>,
   <span class='no'>Var</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='no'>analysisOption</span>
+  <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>
 )</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -260,24 +260,23 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The variance components are obtained using <a href='StSignificanceTesting.html'>StSignificanceTesting</a> 
-    with <code>method = "ORH"</code>.</p>
+    with <code>method = "OR"</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='no'>dataset02</span> <span class='co'>## the pilot study</span>
 <span class='no'>KStar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>dataset</span>$<span class='no'>ratings</span>$<span class='no'>NL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,<span class='fl'>1</span>])
 <span class='no'>VarCom</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>,
-<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ORH"</span>, <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>)$<span class='no'>ANOVA</span>$<span class='no'>VarCom</span>
+<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>, <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>)$<span class='no'>ANOVA</span>$<span class='no'>VarCom</span>
 <span class='no'>VarTR</span> <span class='kw'>&lt;-</span> <span class='no'>VarCom</span>[<span class='st'>"VarTR"</span>,<span class='fl'>1</span>]
 <span class='no'>Cov1</span> <span class='kw'>&lt;-</span> <span class='no'>VarCom</span>[<span class='st'>"Cov1"</span>,<span class='fl'>1</span>]
 <span class='no'>Cov2</span> <span class='kw'>&lt;-</span> <span class='no'>VarCom</span>[<span class='st'>"Cov2"</span>,<span class='fl'>1</span>]
 <span class='no'>Cov3</span> <span class='kw'>&lt;-</span> <span class='no'>VarCom</span>[<span class='st'>"Cov3"</span>,<span class='fl'>1</span>]
 <span class='no'>Var</span> <span class='kw'>&lt;-</span> <span class='no'>VarCom</span>[<span class='st'>"Var"</span>,<span class='fl'>1</span>]
-<span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>SsPowerGivenJKOrVarComp</span> (<span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>KStar</span> <span class='kw'>=</span> <span class='no'>KStar</span>,
+<span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>SsPowerGivenJKOrVarCom</span> (<span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>KStar</span> <span class='kw'>=</span> <span class='no'>KStar</span>,
    <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='no'>VarTR</span>, <span class='no'>Cov1</span>, <span class='no'>Cov2</span>, <span class='no'>Cov3</span>, <span class='no'>Var</span>, <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='st'>"RRRC power = "</span>, <span class='no'>ret</span>$<span class='no'>powerRRRC</span>)</div><div class='output co'>#&gt; RRRC power =  0.57333598</div><div class='input'>
-  
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

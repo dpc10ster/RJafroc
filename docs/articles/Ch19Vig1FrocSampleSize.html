@@ -66,22 +66,22 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
@@ -138,7 +138,7 @@
       <h1 data-toc-skip>Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-06-14</h4>
+            <h4 class="date">2020-06-26</h4>
       
       
       <div class="hidden name"><code>Ch19Vig1FrocSampleSize.Rmd</code></div>
@@ -151,8 +151,8 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <ul>
-<li><p>FROC sample size estimation is not fundamentally different from the previously outlined procedure (see vignettes corresponding to Chapter 11) for the ROC paradigm. To recapitulate, based on analysis of a pilot ROC dataset and using a specified FOM, e.g., <code>FOM = Wilcoxon</code>, and either <code>method = "DBMH"</code> or <code>method = "ORH"</code> for significance testing, one estimates the intrinsic variability of the data expressed in terms of variance components or the covariance matrix. The second step is to postulate a clinically realistic effect-size, e.g., the anticipated AUC difference between the two treatments. Given these values, the sample size functions implemented in <code>RJafroc</code> (beginning with <code>Ss</code>) allow one to estimate the number of readers and cases necessary to detect (i.e., reject the null hypothesis) the specified effect size at specified Type II error rate, typically chosen to be 20% (corresponding to 80% statistical power) and specified Type I error rate, typically chosen to be 5%.</p></li>
-<li><p>In FROC analysis the only difference, <strong>indeed the critical difference</strong>, is the choice of FOM; e.g., <code>FOM = "wAFROC"</code> instead of the inferred ROC-AUC, <code>FOM = "HrAuc"</code>. The FROC dataset is analyzed using either the DBMH or the ORH method. This yields the necessary variance components or the covariance matrix corresponding to the wAFROC-AUC. The next step is to specify the effect-size <strong>in wAFROC-AUC units</strong>, and therein lies the rub. What value does one use? The ROC-AUC has a historically well-known interpretation: the classification ability at separating diseased patients from non-diseased patients, while the wAFROC-AUC does not. Needed is a way of relating the effect-size in ROC-AUC units to one in wAFROC-AUC units: as should be obvious this requires a physical model, e.g., the RSM, that predicts both ROC and wAFROC curves and the respective AUCs.</p></li>
+<li><p>FROC sample size estimation is not fundamentally different from the previously outlined procedure (see vignettes corresponding to Chapter 11) for the ROC paradigm. To recapitulate, based on analysis of a pilot ROC dataset and using a specified FOM, e.g., <code>FOM = Wilcoxon</code>, and either <code>method = "DBM"</code> or <code>method = "OR"</code> for significance testing, one estimates the intrinsic variability of the data expressed in terms of variance components or the covariance matrix. The second step is to postulate a clinically realistic effect-size, e.g., the anticipated AUC difference between the two treatments. Given these values, the sample size functions implemented in <code>RJafroc</code> (beginning with <code>Ss</code>) allow one to estimate the number of readers and cases necessary to detect (i.e., reject the null hypothesis) the specified effect size at specified Type II error rate, typically chosen to be 20% (corresponding to 80% statistical power) and specified Type I error rate, typically chosen to be 5%.</p></li>
+<li><p>In FROC analysis the only difference, <strong>indeed the critical difference</strong>, is the choice of FOM; e.g., <code>FOM = "wAFROC"</code> instead of the inferred ROC-AUC, <code>FOM = "HrAuc"</code>. The FROC dataset is analyzed using either the DBM or the ORH method. This yields the necessary variance components or the covariance matrix corresponding to the wAFROC-AUC. The next step is to specify the effect-size <strong>in wAFROC-AUC units</strong>, and therein lies the rub. What value does one use? The ROC-AUC has a historically well-known interpretation: the classification ability at separating diseased patients from non-diseased patients, while the wAFROC-AUC does not. Needed is a way of relating the effect-size in ROC-AUC units to one in wAFROC-AUC units: as should be obvious this requires a physical model, e.g., the RSM, that predicts both ROC and wAFROC curves and the respective AUCs.</p></li>
 </ul>
 <ol style="list-style-type: decimal">
 <li>One chooses an ROC-AUC effect-size that is realistic, one that clinicians understand and can therefore participate in, in the effect-size postulation process.</li>
@@ -216,8 +216,8 @@
                                             <span class="kw">lesDistr</span> <span class="kw">=</span> <span class="no">lesDistr</span>,
                                             <span class="kw">lesWghtDistr</span> <span class="kw">=</span> <span class="no">lesWghts</span>, <span class="kw">OpChType</span> <span class="kw">=</span> <span class="st">"ROC"</span>)$<span class="no">aucROC</span>
 <span class="no">aucwAfrocNH</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(<span class="no">muMed</span>, <span class="no">lambdaMed</span>, <span class="no">nuMed</span>,
-                                              <span class="kw">lesDistr</span> <span class="kw">=</span> <span class="no">lesDistr</span>,
-                                              <span class="kw">lesWghtDistr</span> <span class="kw">=</span> <span class="no">lesWghts</span>, <span class="kw">OpChType</span> <span class="kw">=</span> <span class="st">"wAFROC"</span>)$<span class="no">aucwAFROC</span></pre></body></html></div>
+                                               <span class="kw">lesDistr</span> <span class="kw">=</span> <span class="no">lesDistr</span>,
+                                               <span class="kw">lesWghtDistr</span> <span class="kw">=</span> <span class="no">lesWghts</span>, <span class="kw">OpChType</span> <span class="kw">=</span> <span class="st">"wAFROC"</span>)$<span class="no">aucwAFROC</span></pre></body></html></div>
 <ul>
 <li><p>The plotting function <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> returns a number of other objects, most importantly the plot, but here we use only the AUC, which is obtained by numerical integration of the predicted operating characteristics. However, it calls for the <strong>intrinsic</strong> RSM parameters, which is why we had to convert the <strong>physical</strong> to the <strong>intrinsic</strong> values.</p></li>
 <li><p>One has <code>aucRocNH = 0.8791301</code> and <code>aucwAfrocNH = 0.7198311</code>. Note that the wAFROC-FOM is smaller than the ROC-FOM as it includes the localization constraint.</p></li>
@@ -277,8 +277,8 @@
 <h2 class="hasAnchor">
 <a href="#computing-the-respective-variance-components" class="anchor"></a>Computing the respective variance components</h2>
 <p>The code block applies <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> to <code>rocData</code> and <code>frocData</code>, using the appropriate FOM, and extracts the variance components.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">temp1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="no">rocData</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBMH"</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>)
-<span class="no">temp2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="no">frocData</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"wAFROC"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBMH"</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>)
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">temp1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="no">rocData</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>)
+<span class="no">temp2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="no">frocData</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"wAFROC"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>)
 <span class="no">varCompROC</span> <span class="kw">&lt;-</span> <span class="no">temp1</span>$<span class="no">ANOVA</span>$<span class="no">VarCom</span>
 <span class="no">varCompwAFROC</span> <span class="kw">&lt;-</span> <span class="no">temp2</span>$<span class="no">ANOVA</span>$<span class="no">VarCom</span></pre></body></html></div>
 <p>The observed wAFROC effect-size is . This is a very small effect size; the corresponding ROC effect-size is ; the sign does not affect the calculations, which is too small to reach 80% power. It is not surprising that the study <span class="citation">(Zanca et al. 2009)</span> did not find a significant difference between these two treatments</p>
@@ -312,13 +312,21 @@
   <span class="no">varYTR</span> <span class="kw">&lt;-</span> <span class="no">varCompROC</span>[<span class="st">"VarTR"</span>,<span class="st">"Estimates"</span>] <span class="co"># these are pseudovalue based variance components assuming FOM = "Wilcoxon"</span>
   <span class="no">varYTC</span> <span class="kw">&lt;-</span> <span class="no">varCompROC</span>[<span class="st">"VarTC"</span>,<span class="st">"Estimates"</span>]
   <span class="no">varYEps</span> <span class="kw">&lt;-</span> <span class="no">varCompROC</span>[<span class="st">"VarErr"</span>,<span class="st">"Estimates"</span>]
-  <span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJKDbmVarComp.html">SsPowerGivenJKDbmVarComp</a></span> (<span class="kw">J</span> <span class="kw">=</span> <span class="no">JTest</span>, <span class="kw">K</span> <span class="kw">=</span> <span class="no">KTest</span>, <span class="kw">effectSize</span> <span class="kw">=</span> <span class="no">effectSizeROC</span>[<span class="no">i</span>], <span class="no">varYTR</span>, <span class="no">varYTC</span>, <span class="no">varYEps</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>)
+  <span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">J</span> <span class="kw">=</span> <span class="no">JTest</span>, <span class="kw">K</span> <span class="kw">=</span> <span class="no">KTest</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>,
+                 <span class="kw">effectSize</span> <span class="kw">=</span> <span class="no">effectSizeROC</span>[<span class="no">i</span>], <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>, <span class="kw">LegacyCode</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+                 <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">VarTR</span> <span class="kw">=</span> <span class="no">varYTR</span>,
+                      <span class="kw">VarTC</span> <span class="kw">=</span> <span class="no">varYTC</span>,
+                      <span class="kw">VarErr</span> <span class="kw">=</span> <span class="no">varYEps</span>))
   <span class="no">powerROC</span>[<span class="no">i</span>] <span class="kw">&lt;-</span> <span class="no">ret</span>$<span class="no">powerRRRC</span>
 
   <span class="no">varYTR</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarTR"</span>,<span class="st">"Estimates"</span>] <span class="co"># these are pseudovalue based variance components assuming FOM = "wAFROC"</span>
   <span class="no">varYTC</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarTC"</span>,<span class="st">"Estimates"</span>]
   <span class="no">varYEps</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarErr"</span>,<span class="st">"Estimates"</span>]
-  <span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJKDbmVarComp.html">SsPowerGivenJKDbmVarComp</a></span> (<span class="kw">J</span> <span class="kw">=</span> <span class="no">JTest</span>, <span class="kw">K</span> <span class="kw">=</span> <span class="no">KTest</span>, <span class="kw">effectSize</span> <span class="kw">=</span> <span class="no">effectSizewAFROC</span>[<span class="no">i</span>], <span class="no">varYTR</span>, <span class="no">varYTC</span>, <span class="no">varYEps</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>)
+  <span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">J</span> <span class="kw">=</span> <span class="no">JTest</span>, <span class="kw">K</span> <span class="kw">=</span> <span class="no">KTest</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>,
+                 <span class="kw">effectSize</span> <span class="kw">=</span> <span class="no">effectSizewAFROC</span>[<span class="no">i</span>], <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>, <span class="kw">LegacyCode</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+                 <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">VarTR</span> <span class="kw">=</span> <span class="no">varYTR</span>,
+                      <span class="kw">VarTC</span> <span class="kw">=</span> <span class="no">varYTC</span>,
+                      <span class="kw">VarErr</span> <span class="kw">=</span> <span class="no">varYEps</span>))
   <span class="no">powerwAFROC</span>[<span class="no">i</span>] <span class="kw">&lt;-</span> <span class="no">ret</span>$<span class="no">powerRRRC</span>
 
   <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"ROC-ES = "</span>, <span class="no">effectSizeROC</span>[<span class="no">i</span>], <span class="st">", wAFROC-ES = "</span>, <span class="no">effectSizewAFROC</span>[<span class="no">i</span>],

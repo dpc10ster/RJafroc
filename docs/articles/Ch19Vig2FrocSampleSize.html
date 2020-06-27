@@ -66,22 +66,22 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
@@ -138,7 +138,7 @@
       <h1 data-toc-skip>Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-06-14</h4>
+            <h4 class="date">2020-06-26</h4>
       
       
       <div class="hidden name"><code>Ch19Vig2FrocSampleSize.Rmd</code></div>
@@ -177,7 +177,7 @@
 <h2 class="hasAnchor">
 <a href="#extracting-the-wafroc-variance-components" class="anchor"></a>Extracting the wAFROC variance components</h2>
 <p>The next code block applies <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> to <code>frocNhData</code>, using <code>FOM = "wAFROC"</code> and extracts the variance components.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">varCompwAFROC</span>  <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="no">frocNhData</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"wAFROC"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBMH"</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>)$<span class="no">ANOVA</span>$<span class="no">VarCom</span></pre></body></html></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">varCompwAFROC</span>  <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="no">frocNhData</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"wAFROC"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>)$<span class="no">ANOVA</span>$<span class="no">VarCom</span></pre></body></html></div>
 </div>
 <div id="wafroc-power-for-specified-roc-effect-size-number-of-readers-j-and-number-of-cases-k" class="section level2">
 <h2 class="hasAnchor">
@@ -190,8 +190,11 @@
 <span class="no">varYTR</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarTR"</span>,<span class="st">"Estimates"</span>]
 <span class="no">varYTC</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarTC"</span>,<span class="st">"Estimates"</span>]
 <span class="no">varYEps</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarErr"</span>,<span class="st">"Estimates"</span>]
-<span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJKDbmVarComp.html">SsPowerGivenJKDbmVarComp</a></span> (<span class="kw">J</span> <span class="kw">=</span> <span class="no">J</span>, <span class="kw">K</span> <span class="kw">=</span> <span class="no">K</span>, <span class="kw">effectSize</span> <span class="kw">=</span> <span class="no">effectSizewAFROC</span>,
-                                 <span class="no">varYTR</span>, <span class="no">varYTC</span>, <span class="no">varYEps</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>)
+<span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">J</span> <span class="kw">=</span> <span class="no">J</span>, <span class="kw">K</span> <span class="kw">=</span> <span class="no">K</span>, <span class="kw">analysisOption</span> <span class="kw">=</span> <span class="st">"RRRC"</span>,
+                      <span class="kw">effectSize</span> <span class="kw">=</span> <span class="no">effectSizewAFROC</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>, <span class="kw">LegacyCode</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+                      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">VarTR</span> <span class="kw">=</span> <span class="no">varYTR</span>,
+                           <span class="kw">VarTC</span> <span class="kw">=</span> <span class="no">varYTC</span>,
+                           <span class="kw">VarErr</span> <span class="kw">=</span> <span class="no">varYEps</span>))
 <span class="no">powerwAFROC</span> <span class="kw">&lt;-</span> <span class="no">ret</span>$<span class="no">powerRRRC</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"ROC-ES = "</span>, <span class="no">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="no">ROC_ES</span> * <span class="no">scaleFactor</span>, <span class="st">", Power-wAFROC = "</span>, <span class="no">powerwAFROC</span>, <span class="st">"\n"</span>)
@@ -200,12 +203,11 @@
 <div id="wafroc-number-of-cases-for-80-power-for-a-given-number-of-readers-j" class="section level2">
 <h2 class="hasAnchor">
 <a href="#wafroc-number-of-cases-for-80-power-for-a-given-number-of-readers-j" class="anchor"></a>wAFROC number of cases for 80% power for a given number of readers J</h2>
-<div class="sourceCode" id="cb5"><html><body><pre class="r">
-<span class="no">varYTR</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarTR"</span>,<span class="st">"Estimates"</span>]
-<span class="no">varYTC</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarTC"</span>,<span class="st">"Estimates"</span>]
-<span class="no">varYEps</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarErr"</span>,<span class="st">"Estimates"</span>]
-<span class="no">ret2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">J</span> <span class="kw">=</span> <span class="fl">6</span>, <span class="kw">effectSize</span> <span class="kw">=</span> <span class="no">effectSizewAFROC</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBMH"</span>,
-                      <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">varYTR</span> <span class="kw">=</span> <span class="no">varYTR</span>, <span class="kw">varYTC</span> <span class="kw">=</span> <span class="no">varYTC</span>, <span class="kw">varYEps</span> <span class="kw">=</span> <span class="no">varYEps</span>))
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">VarTR</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarTR"</span>,<span class="st">"Estimates"</span>]
+<span class="no">VarTC</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarTC"</span>,<span class="st">"Estimates"</span>]
+<span class="no">VarErr</span> <span class="kw">&lt;-</span> <span class="no">varCompwAFROC</span>[<span class="st">"VarErr"</span>,<span class="st">"Estimates"</span>]
+<span class="no">ret2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">J</span> <span class="kw">=</span> <span class="fl">6</span>, <span class="kw">effectSize</span> <span class="kw">=</span> <span class="no">effectSizewAFROC</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>, <span class="kw">LegacyCode</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+                            <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">VarTR</span> <span class="kw">=</span> <span class="no">VarTR</span>, <span class="kw">VarTC</span> <span class="kw">=</span> <span class="no">VarTC</span>, <span class="kw">VarErr</span> <span class="kw">=</span> <span class="no">VarErr</span>))
 
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"ROC-ES = "</span>, <span class="no">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="no">ROC_ES</span> * <span class="no">scaleFactor</span>,
     <span class="st">", K80RRRC = "</span>, <span class="no">ret2</span>$<span class="no">KRRRC</span>, <span class="st">", Power-wAFROC = "</span>, <span class="no">ret2</span>$<span class="no">powerRRRC</span>, <span class="st">"\n"</span>)
@@ -215,8 +217,8 @@
 <h2 class="hasAnchor">
 <a href="#wafroc-power-for-a-given-number-of-readers-j-and-cases-k" class="anchor"></a>wAFROC Power for a given number of readers J and cases K</h2>
 <div class="sourceCode" id="cb6"><html><body><pre class="r">
-<span class="no">ret3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">J</span> <span class="kw">=</span> <span class="fl">6</span>, <span class="kw">K</span> <span class="kw">=</span> <span class="no">ret2</span>$<span class="no">KRRRC</span>, <span class="kw">effectSize</span> <span class="kw">=</span> <span class="no">effectSizewAFROC</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBMH"</span>,
-                    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">varYTR</span> <span class="kw">=</span> <span class="no">varYTR</span>, <span class="kw">varYTC</span> <span class="kw">=</span> <span class="no">varYTC</span>, <span class="kw">varYEps</span> <span class="kw">=</span> <span class="no">varYEps</span>))
+<span class="no">ret3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">J</span> <span class="kw">=</span> <span class="fl">6</span>, <span class="kw">K</span> <span class="kw">=</span> <span class="no">ret2</span>$<span class="no">KRRRC</span>, <span class="kw">effectSize</span> <span class="kw">=</span> <span class="no">effectSizewAFROC</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>, <span class="kw">LegacyCode</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
+                       <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">VarTR</span> <span class="kw">=</span> <span class="no">VarTR</span>, <span class="kw">VarTC</span> <span class="kw">=</span> <span class="no">VarTC</span>, <span class="kw">VarErr</span> <span class="kw">=</span> <span class="no">VarErr</span>))
 
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"ROC-ES = "</span>, <span class="no">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="no">ROC_ES</span> * <span class="no">scaleFactor</span>,
     <span class="st">", powerRRRC = "</span>, <span class="no">ret3</span>$<span class="no">powerRRRC</span>, <span class="st">"\n"</span>)

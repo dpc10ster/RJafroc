@@ -102,22 +102,22 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBMH-ORH analysis</a>
+      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBMH-ORH Analysis with Excel Output</a>
+      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBMH sample size from first principles</a>
+      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBMH method</a>
+      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using ORH method</a>
+      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
     </li>
     <li>
       <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
@@ -182,6 +182,48 @@
 <h1 class="page-header" data-toc-text="1.3.2.9000">
 <a href="#rjafroc-1329000" class="anchor"></a>RJafroc 1.3.2.9000<small> Unreleased </small>
 </h1>
+<div id="implemented-extensive-testing-comparing-rjafroc-to-iowa-software" class="section level2">
+<h2 class="hasAnchor">
+<a href="#implemented-extensive-testing-comparing-rjafroc-to-iowa-software" class="anchor"></a>Implemented extensive testing comparing <code>RJafroc</code> to Iowa software</h2>
+<ul>
+<li>See <code>test-StCompare2Iowa.R</code> in <code>testthat</code> directory.</li>
+<li>Does line by line comparison of <code>RJafroc</code> to results of <code>OR-DBM MRMC 2.51 Build 20181028</code> for VanDyke and Franken datasets.</li>
+<li>These, and many other tests, are run automatically every time the <code>RJafroc</code> software is checked using <code>R CMD check</code>.</li>
+</ul>
+</div>
+<div id="note-on-discrepancy-vis-a-vis-iowa-software" class="section level2">
+<h2 class="hasAnchor">
+<a href="#note-on-discrepancy-vis-a-vis-iowa-software" class="anchor"></a>Note on discrepancy vis-a-vis Iowa software</h2>
+<ul>
+<li>Noted was a discrepancy between <code>Var(R)</code> and <code>Var(TR)</code> values reported by <code>OR-DBM MRMC 2.51 Build 20181028</code> and <code>RJafroc</code> for Franken dataset.</li>
+<li>Their code does not implement the required <code><a href="https://rdrr.io/r/base/Extremes.html">max(Cov2 - Cov3, 0)</a></code> constraint while <code>RJafroc</code> does.</li>
+<li>
+<code>RJafroc</code> reports <code>VarTR</code> = -0.00068389146 while their code reports <code>VarTR</code> = -0.00071276.</li>
+<li>Specifically, <code>msTR - Var + Cov1 + max(Cov2 - Cov3, 0) = -0.00068389146</code> and <code>msTR - Var + Cov1 + Cov2 - Cov3 = -0.00071276</code>.</li>
+<li>This also affects the <code>VarR</code> values (see block of comments in <code>UtilVarComponentsOR</code> near line 161). <code>Cov1</code>, <code>Cov2</code>, <code>Cov3</code> and <code>Var</code> are the same between both codes.</li>
+<li>I am aware that these discrepancies do not affect sample size estimates, but can cause confusion for the code maintainer and the end user.</li>
+</ul>
+</div>
+<div id="updated-sample-size-routines" class="section level2">
+<h2 class="hasAnchor">
+<a href="#updated-sample-size-routines" class="anchor"></a>Updated sample size routines</h2>
+<ul>
+<li>3 Papers by Hillis et al on SS estimation for ROC studies: 2004, 2011 and 2018
+<ul>
+<li>Hillis SL, Berbaum KS (2004). Power Estimation for the Dorfman-Berbaum-Metz Method. Acad Radiol, 11, 1260–1273.</li>
+<li>Hillis SL, Obuchowski NA, Berbaum KS (2011). Power Estimation for Multireader ROC Methods: An Updated and Unified Approach. Acad Radiol, 18, 129–142.</li>
+<li>Hillis SL, Schartz KM (2018). Multireader sample size program for diagnostic studies: demonstration and methodology. Journal of Medical Imaging, 5(04).</li>
+</ul>
+</li>
+<li>The sample size routines have been updated to reflect the most recent publication. The equations in the code now have documentation as to their source(s).</li>
+<li>The routines have also been checked using the Java calculator provided on the U of Iowa website (<code>pss20190918.jar</code>).</li>
+<li>Briefly, the procedure defaults to the OR method, even when DBM variance components are provided, in line with the recommendations in the 2011 paper. For continuity with prior work a <code>LegacyCode</code> flag is provided to force execution of the original DBM method (2004 paper).</li>
+<li>Added a few tests using the Franken dataset which yields negative <code>Var(TR)</code>. Noticed a small difference in predicted power between forced DBM (0.78574588) and OR methods (0.8004469).</li>
+<li>Updated source of equations in <code>SsPowerGivenJKDbmVarCom</code>.</li>
+<li>The code rewrite was conducted on a new branch, <code>UpdateSsRoutines</code> off the <code>developer</code> branch.</li>
+<li>The changes were merged to the <code>developer</code> branch and then to the <code>master</code> branch.</li>
+</ul>
+</div>
 <div id="major-reorganization-of-dataset-structure" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-reorganization-of-dataset-structure" class="anchor"></a>Major reorganization of <code>dataset</code> structure</h2>
@@ -212,7 +254,7 @@
 <li>Consistent returned objects from all <code>St</code> functions: <code>list</code> with data frames <code>FOM</code>, <code>ANOVA</code>, <code>RRRC</code>, <code>FRRC</code> and <code>RRFC</code>.</li>
 <li>Output now <strong>closely follows</strong> that of Iowa software OR-DBM MRMC 2.51 which I ran using VmWare, Windows XP; Iowa software did not run on Windows 8 on two different machines (see below)</li>
 <li>Ran detailed comparison to OR-DBM MRMC 2.51 and coded the checks in <code>tests/testthat/test-St-Compare2Iowa.R</code> for VanDyke dataset</li>
-<li>Also visually compared my code results against OR-DBM MRMC 2.51 for <code>dataset04</code> converted to ROC (see Iowa code results in <code>inst/Iowa/FedRoc.txt</code>);</li>
+<li>Also visually compared <code>RJafroc</code> results against OR-DBM MRMC 2.51 for <code>dataset04</code> converted to ROC (see Iowa code results in <code>inst/Iowa/FedRoc.txt</code>);</li>
 <li>Shortened <code>UtilOutputReport</code> <em>considerably</em>, by using <code><a href="https://rdrr.io/r/base/print.html">print(dataframe)</a></code> instead of reading values from <code>list</code> or <code>dataframe</code> variables and then using <code>sprintf</code> with unreadable C-style format codes</li>
 <li>Shortened <code>SPLIT-PLOT</code> analysis by returning <code>Cov2</code> = <code>Cov3</code> = 0 instead of <code>NA</code>
 </li>
