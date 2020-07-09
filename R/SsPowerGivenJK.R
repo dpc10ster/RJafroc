@@ -289,15 +289,6 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
     powerRRRC <- pf(fvalueRRRC, 1, df2RRRC, ncp = deltaRRRC, FALSE)
   }
   
-  if (analysisOption == "RRFC" || analysisOption == "ALL") {
-    # set VarTC = 0 in RRRC formulae
-    den <- max(VarTR, 0) + VarErr/K
-    deltaRRFC <- ((effectSize)^2 * J/2) / den
-    df2RRFC <- J - 1
-    fvalueRRFC <- qf(1 - alpha, 1, df2RRFC)
-    powerRRFC <- pf(fvalueRRFC, 1, df2RRFC, ncp = deltaRRFC, FALSE)
-  }
-  
   if (analysisOption == "FRRC" || analysisOption == "ALL") {
     # set VarTR = 0 in RRRC formulae
     den <- (VarErr + J * max(VarTC, 0)) / K
@@ -305,6 +296,15 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
     df2FRRC <- K - 1
     fvalueFRRC <- qf(1 - alpha, 1, df2FRRC)
     powerFRRC <- pf(fvalueFRRC, 1, df2FRRC, ncp = deltaFRRC, FALSE)
+  }
+  
+  if (analysisOption == "RRFC" || analysisOption == "ALL") {
+    # set VarTC = 0 in RRRC formulae
+    den <- max(VarTR, 0) + VarErr/K
+    deltaRRFC <- ((effectSize)^2 * J/2) / den
+    df2RRFC <- J - 1
+    fvalueRRFC <- qf(1 - alpha, 1, df2RRFC)
+    powerRRFC <- pf(fvalueRRFC, 1, df2RRFC, ncp = deltaRRFC, FALSE)
   }
   
   if (analysisOption == "ALL"){
