@@ -4,7 +4,7 @@
 # third is the incorrect localizations array
 dataset2ratings <- function (dataset, FOM){
 
-  # OldFormat dataset or NewFormat FCTRL or SPLIT-PLOT dataset with implemented FOM
+  # OldFormat dataset or NewFormat FCTRL or SPLIT-PLOT-C dataset with implemented FOM
   dataType <- dataset$descriptions$type
   if (dataType != "LROC") {
     K2 <- length(dataset$ratings$LL[1,1,,1])

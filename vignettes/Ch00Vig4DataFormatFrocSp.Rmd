@@ -50,7 +50,7 @@ The `Truth` worksheet contains 6 columns: `CaseID`, `LesionID`, `Weight`, `Reade
 The example shown above corresponds to Excel file `inst/extdata/toyFiles/FROC/frocSp.xlsx` in the project directory. 
 
 ```{r}
-frocSp <- system.file("extdata", "toyFiles/FROC/frocSp.xlsx",
+frocSp <- system.file("extdata", "toyFiles/FROC/frocSpC.xlsx",
                         package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(frocSp, newExcelFileFormat = TRUE)
 str(x)

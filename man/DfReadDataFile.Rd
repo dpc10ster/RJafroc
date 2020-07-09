@@ -51,7 +51,7 @@ fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",
 package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 
-fileName <- system.file("extdata", "toyFiles/FROC/FrocDataSpVaryK1K2.xlsx", 
+fileName <- system.file("extdata", "toyFiles/FROC/FrocDataSpCVaryK1K2.xlsx", 
 package = "RJafroc", mustWork = TRUE)
 x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 

@@ -922,7 +922,7 @@
 #' 
 #'
 #'
-#' Simulated FROC SPLIT-PLOT dataset
+#' Simulated FROC SPLIT-PLOT-C dataset
 #'
 #' Simulated from FED Excel dataset by successively ignoring readers 3:4, c(1,3:4), 
 #' c(1:2,4), etc.
@@ -942,9 +942,9 @@
 #' \item{\code{lesions$perCase}}{, int [1:100], number of lesions per diseased case}
 #' \item{\code{lesions$IDs}}{, num [1:100, 1:3] , numeric labels of lesions on diseased cases}
 #' \item{\code{lesions$weights}}{, num [1:100, 1:3], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetFROCSp", base name of dataset in `data` folder}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetFROCSpC", base name of dataset in `data` folder}
 #' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "SIM-FROC-SPLIT-PLOT", the name of the dataset}
+#' \item{\code{descriptions$name}}{, chr "SIM-FROC-SPLIT-PLOT-C", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
 #' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", treatment label(s)}
@@ -954,9 +954,9 @@
 #' @keywords datasets
 #'
 #' @examples
-#' str(datasetFROCSp)
+#' str(datasetFROCSpC)
 #'
-"datasetFROCSp"
+"datasetFROCSpC"
 #'
 #'
 #'

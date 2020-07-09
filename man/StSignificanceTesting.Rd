@@ -18,7 +18,7 @@ StSignificanceTesting(
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-\bold{Must have two or more treatments and two or more readers. A split-plot
+\bold{Must have two or more treatments and two or more readers. A split-plot-c
 dataset is allowed provided \code{method} = "OR" and \code{covEstMethod}
 = "Jackknife".}}
 
@@ -108,8 +108,8 @@ Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR)
 \examples{
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBM") 
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "OR")
-##following is split-plot analysis using a simulated split-plot dataset
-StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR")
+##following is split-plot-c analysis using a simulated split-plot-c dataset
+StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
 
 \donttest{
 StSignificanceTesting(dataset05, FOM = "wAFROC")

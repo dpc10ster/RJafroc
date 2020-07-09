@@ -96,7 +96,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
 
 
 
-# 5/30/20 returning zeroes instead of NAs; simplifies handling of SPLIT-PLOT dataseets
+# 5/30/20 returning zeroes instead of NAs; simplifies handling of SPLIT-PLOT-C dataseets
 resampleFOMijk2VarCov <- function(resampleFOMijk) {
   I <- dim(resampleFOMijk)[1]
   J <- dim(resampleFOMijk)[2]
@@ -199,7 +199,7 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
       Cov2 = CovTemp$Cov2 * (K-1)^2/K,
       Cov3 = CovTemp$Cov3 * (K-1)^2/K
     )
-  } else if (dataset$descriptions$design == "SPLIT-PLOT") {
+  } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
     Var <- array(dim = J)
     Cov1 <- array(dim = J)
@@ -224,7 +224,7 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
       Cov2 = 0,
       Cov3 = 0
     )
-  } else stop("Incorrect dataset design, must be FCTRL or SPLIT-PLOT")
+  } else stop("Incorrect dataset design, must be FCTRL or SPLIT-PLOT-C")
   
   return(Cov)
   

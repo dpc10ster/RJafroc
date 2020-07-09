@@ -32,7 +32,7 @@
 #' package = "RJafroc", mustWork = TRUE)
 #' x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 #'
-#' fileName <- system.file("extdata", "toyFiles/FROC/FrocDataSpVaryK1K2.xlsx", 
+#' fileName <- system.file("extdata", "toyFiles/FROC/FrocDataSpCVaryK1K2.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 #' 
@@ -311,14 +311,14 @@ checkTruthTable <- function (truthTable)
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
   
   if (!(type %in% c("FROC", "ROC"))) stop("Unsupported declared type: must be ROC or FROC.\n")
-  if (!(design %in% c("FCTRL", "CROSSED", "SPLIT-PLOT"))) stop("Study design must be FCTRL or SPLIT-PLOT\n")
+  if (!(design %in% c("FCTRL", "CROSSED", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL or SPLIT-PLOT-C\n")
   
   if (type == "ROC") {
     if (((design == "FCTRL") || (design == "CROSSED")) && (sum(!is.na(truthTableStr)) != 
                                                            L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be crossed/factorial ROC")
     
-    if ((design == "SPLIT-PLOT") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
+    if ((design == "SPLIT-PLOT-C") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be split plot ROC")
   }
   
@@ -327,7 +327,7 @@ checkTruthTable <- function (truthTable)
                                                            L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be crossed FROC")
     
-    if ((design == "SPLIT-PLOT") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
+    if ((design == "SPLIT-PLOT-C") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be split plot FROC")
   }
   

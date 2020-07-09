@@ -1,6 +1,14 @@
 # RJafroc 1.3.2.9000
 
-## testing code for non-sequential lesionIDs in TRUTH 7/8/20
+## Renamed SP datasets 7/9/20
+* Renamed all split plot datasets to SpC
+* The C stands for Table VII part C in Hillis 2014
+* Need to distinguish between different types of split-plot
+* What I was doint so far was split-plot-c
+* The new analysis requires split-plot-a
+* updated NEWS.md partially
+
+## Code for checking for non-sequential lesionIDs in TRUTH 7/8/20
 * Updated all tests to display contexts more consistently.
 * Moved unnecessary files from `inst` to `Dropbox`.
 * Main work was on `DfReadDataFile.R` and testing code for non-sequential `lesionID`s in `TRUTH` worksheet.

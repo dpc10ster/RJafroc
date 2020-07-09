@@ -15,7 +15,7 @@
 #' @details The allowed FOMs depend on the \code{dataType} field of the 
 #'    \code{dataset} object.  
 #' 
-#'    \strong{For \code{dataset$descriptions$design = "SPLIT-PLOT"}, end-point based 
+#'    \strong{For \code{dataset$descriptions$design = "SPLIT-PLOT-C"}, end-point based 
 #'    FOMs (e.g., "MaxLLF") are not allowed}.
 #'    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
 #'    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
@@ -90,7 +90,7 @@
 #' @importFrom dplyr between  
 #' @export
 
-# v.1.3.1.9000: added SPLIT-PLOT capability 
+# v.1.3.1.9000: added SPLIT-PLOT-C capability 
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   
   dataType <- dataset$descriptions$type
@@ -158,7 +158,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   fomArray <- array(dim = c(I, J))
   for (i in 1:I) {
     for (j in 1:J) {
-      if (design == "SPLIT-PLOT") {
+      if (design == "SPLIT-PLOT-C") {
         k1_j_sub <- !is.na(t[1,j,,1]) | !is.na(t[1,j,,2])
         k2_j_sub <- !is.na(t[1,j,,2])[(K1+1):K]
         nl_ij <- NL[i, j, k1_j_sub, ]
@@ -179,7 +179,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
         dim(nl_ij) <- c(K, maxNL)
         dim(ll_ij) <- c(K2, maxLL)
         fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, dataset$lesions$perCase, dataset$lesions$IDs, dataset$lesions$weights, maxNL, maxLL, K1, K2, FOM, FPFValue)
-      } else stop("Incorrect design, must be SPLIT-PLOT or FCTRL")
+      } else stop("Incorrect design, must be SPLIT-PLOT-C or FCTRL")
     }
   }
   

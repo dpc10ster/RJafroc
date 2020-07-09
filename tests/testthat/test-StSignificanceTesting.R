@@ -19,27 +19,27 @@
 #############################################################################
 
 
-contextStr <- "StSignificanceTesting-datasetFROCSp-wAFROC"
+contextStr <- "StSignificanceTesting-datasetFROCSpC-wAFROC"
 context(contextStr)
 test_that(contextStr, {
 
-  dataset <- datasetFROCSp
+  dataset <- datasetFROCSpC
 
-  fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSp-wAFROC", ".rds")
+  fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSpC-wAFROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    x1 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR")
+    x1 <- StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
     saveRDS(x1, file = fn)
   }
 
   x1 <- readRDS(fn)
-  x2 <- StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR")
+  x2 <- StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
 
   expect_equal(x1,x2)
 
-  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "DBM"))
-  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR", covEstMethod = "bootstrap"))
-  expect_error(StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR", covEstMethod = "DeLong"))
+  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "DBM"))
+  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR", covEstMethod = "bootstrap"))
+  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR", covEstMethod = "DeLong"))
 
 })
 

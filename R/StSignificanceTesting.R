@@ -11,7 +11,7 @@
 #'
 #' ## TBA 
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-#'     \bold{Must have two or more treatments and two or more readers. A split-plot
+#'     \bold{Must have two or more treatments and two or more readers. A split-plot-c
 #'     dataset is allowed provided \code{method} = "OR" and \code{covEstMethod}
 #'     = "Jackknife".} 
 #' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}
@@ -71,8 +71,8 @@
 #' @examples
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBM") 
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "OR")
-#' ##following is split-plot analysis using a simulated split-plot dataset
-#' StSignificanceTesting(datasetFROCSp, FOM = "wAFROC", method = "OR")
+#' ##following is split-plot-c analysis using a simulated split-plot-c dataset
+#' StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
 #' 
 #' \donttest{
 #' StSignificanceTesting(dataset05, FOM = "wAFROC")
@@ -152,11 +152,11 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     }
   } else stop("Incorrect `method` argument: must be `DBM` or `ORH`")
   
-  if ((dataset$descriptions$design == "SPLIT-PLOT") && method == "DBM") 
-    stop("Must use method = ORH for SPLIT-PLOT dataset")
+  if ((dataset$descriptions$design == "SPLIT-PLOT-C") && method == "DBM") 
+    stop("Must use method = ORH for SPLIT-PLOT-C dataset")
   
-  if ((dataset$descriptions$design == "SPLIT-PLOT") && method == "OR" && covEstMethod != "jackknife") 
-    stop("Must use covEstMethod = jackknife for SPLIT-PLOT dataset")
+  if ((dataset$descriptions$design == "SPLIT-PLOT-C") && method == "OR" && covEstMethod != "jackknife") 
+    stop("Must use covEstMethod = jackknife for SPLIT-PLOT-C dataset")
   
   if (!tempOrgCode) {
     if (method == "DBM"){

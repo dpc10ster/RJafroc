@@ -1,10 +1,10 @@
-context("UtilFigureOfMerit FROC SPLIT-PLOT dataset, FOM = wAFROC")
-test_that("FROC SPLIT-PLOT dataset, FOM = wAFROC", {
+context("UtilFigureOfMerit FROC SPLIT-PLOT-C dataset, FOM = wAFROC")
+test_that("FROC SPLIT-PLOT-C dataset, FOM = wAFROC", {
   
-  dataset <- datasetFROCSp
+  dataset <- datasetFROCSpC
   FOM = "wAFROC"
   
-  fn <- paste0(test_path(), "/goodValues361/FOM/datasetFROCSpwAFROC-", FOM, ".rds")
+  fn <- paste0(test_path(), "/goodValues361/FOM/datasetFROCSpC-", FOM, ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- UtilFigureOfMerit(dataset, FOM = FOM)

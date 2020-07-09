@@ -39,7 +39,7 @@ any marked case}, is assigned to it. The dataset structure is shown below:
 \examples{
 rocDataSet <- DfFroc2Roc(dataset05)
 
-rocSpDataSet <- DfFroc2Roc(datasetFROCSp)
+rocSpDataSet <- DfFroc2Roc(datasetFROCSpC)
 
 ## in the following example, because of the smaller number of cases, 
 ## it is easy to see the process at work:

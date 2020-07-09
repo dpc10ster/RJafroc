@@ -24,7 +24,7 @@
 # IDs and weights; was affecting StSingleModality when used with 
 # wAFROC FOM. This part of the code needs further checking; 
 # no essential changes made in MyFOM.cpp and MyFom_ij.R.
-# v.1.3.1.9000: added SPLIT-PLOT capability
+# v.1.3.1.9000: added SPLIT-PLOT-C capability
 # 
 UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   dataType <- dataset$descriptions$type
@@ -130,11 +130,11 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
       jkFomValues = jkFomValues,
       caseTransitions = NULL
     ))
-  } else if (dataset$descriptions$design == "SPLIT-PLOT") {
+  } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
     # cannot use "MaxNLF", "ExpTrnsfmSp", "HrSp" etc. here 
     if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp", "MaxLLF", "HrSe")) 
-      stop("Cannot use MaxNLF, ExpTrnsfmSp, HrSp, MaxLLF, HrSe FOMs with SPLIT-PLOT dataset")
-    if (dataset$descriptions$design != "SPLIT-PLOT") stop("Dataset has to be split-plot for this function to be called")
+      stop("Cannot use MaxNLF, ExpTrnsfmSp, HrSp, MaxLLF, HrSe FOMs with SPLIT-PLOT-C dataset")
+    if (dataset$descriptions$design != "SPLIT-PLOT-C") stop("Dataset has to be split-plot-c for this function to be called")
     t <- dataset$descriptions$truthTableStr
     jkFomValues <- array(dim = c(I,J,K))
     jkPseudoValues <- array(dim =c(I,J,K))
@@ -190,6 +190,6 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
       jkFomValues = jkFomValues,
       caseTransitions = caseTransitions
     ))
-  } else stop("Unrecognized study design, should be FCTRL or SPLIT-PLOT")
+  } else stop("Unrecognized study design, should be FCTRL or SPLIT-PLOT-C")
 }
 

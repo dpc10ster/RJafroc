@@ -15,7 +15,7 @@ ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   trtMeans <-  FOMs$trtMeans
   trtMeanDiffs  <-  FOMs$trtMeanDiffs
   
-  # since IndividualTrt["Cov2","VarCom"] and IndividualTrt["Cov3","VarCom"] are zeroes for split-plot, FTests will be 
+  # since IndividualTrt["Cov2","VarCom"] and IndividualTrt["Cov3","VarCom"] are zeroes for split-plot-c, FTests will be 
   # identical to FTestsRRRC; other values below may differ
   # not sure about what is going one here; I am proceeding on assumption that
   # the only difference is setting IndividualTrt["Cov2","VarCom"] = IndividualTrt["Cov3","VarCom"] = 0, and reusing code from crossed
