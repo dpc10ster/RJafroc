@@ -1,7 +1,7 @@
-context("PlotBinormalFit, PlotCbmFit, PlotRsmFit")
+contextStr <- "PlotBinormalFit, PlotCbmFit, PlotRsmFit"
+context(contextStr)
+test_that(contextStr, {
 
-test_that("PlotBinormalFit", {
-  
   fn <- paste0(test_path(), "/goodValues361/Plots/Binormal", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))

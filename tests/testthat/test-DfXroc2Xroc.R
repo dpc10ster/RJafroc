@@ -1,5 +1,6 @@
-test_that("DfFroc2Roc", {
-
+contextStr <- "DfFroc2Roc"
+context(contextStr)
+test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/DfXroc2Yroc/DfFroc2Roc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -13,9 +14,10 @@ test_that("DfFroc2Roc", {
 })
   
 
+contextStr <- "DfReadLrocDataFile"
+context(contextStr)
+test_that(contextStr, {
 
-test_that("DfReadLrocDataFile", {
-  
   fn <- paste0(test_path(), "/goodValues361/DfXroc2Yroc/DfReadLrocDataFile", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -30,8 +32,10 @@ test_that("DfReadLrocDataFile", {
 
 
 
-test_that("DfLroc2Roc", {
-  
+contextStr <- "DfLroc2Roc"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/DfXroc2Yroc/DfLroc2Roc", ".rds")
   
   if (!file.exists(fn)) {
@@ -47,8 +51,10 @@ test_that("DfLroc2Roc", {
 
 
 
-test_that("DfLroc2Froc", {
-  
+contextStr <- "DfLroc2Froc"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/DfXroc2Yroc/DfLroc2Froc", ".rds")
   
   if (!file.exists(fn)) {
@@ -64,8 +70,10 @@ test_that("DfLroc2Froc", {
 
 
 
-test_that("DfFroc2Lroc", {
-  
+contextStr <- "DfFroc2Lroc"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/DfXroc2Yroc/DfFroc2Lroc", ".rds")
   
   if (!file.exists(fn)) {

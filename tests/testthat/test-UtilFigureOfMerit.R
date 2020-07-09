@@ -1,5 +1,4 @@
-context("UtilFigureOfMerit")
-
+context("UtilFigureOfMerit FROC SPLIT-PLOT dataset, FOM = wAFROC")
 test_that("FROC SPLIT-PLOT dataset, FOM = wAFROC", {
   
   dataset <- datasetFROCSp
@@ -20,6 +19,7 @@ test_that("FROC SPLIT-PLOT dataset, FOM = wAFROC", {
 })
 
 
+context("UtilFigureOfMerit ROC dataset dataset02: FOM = Wilcoxon")
 test_that("ROC dataset dataset02: FOM = Wilcoxon", {
   
   dataset <- dataset02
@@ -40,6 +40,7 @@ test_that("ROC dataset dataset02: FOM = Wilcoxon", {
 })
 
 
+context("UtilFigureOfMerit FROC dataset: all FOMs except ...")
 test_that("FROC dataset: all FOMs except ...", {
   
   # cannot use Wilcoxon with FROC dataset
@@ -74,6 +75,7 @@ test_that("FROC dataset: all FOMs except ...", {
 })
 
 
+context("UtilFigureOfMerit FROC data: excessive computation time FOMs")
 test_that("FROC data: excessive computation time FOMs", {
   
   skip_on_cran()
@@ -106,6 +108,7 @@ test_that("FROC data: excessive computation time FOMs", {
 })
 
 
+context("UtilFigureOfMerit ROI paradigm")
 test_that("ROI paradigm", {
   
   dataset <- datasetROI
@@ -128,6 +131,7 @@ test_that("ROI paradigm", {
 })
 
 
+context("UtilFigureOfMerit LROC paradigm: FOM = Wilcoxon, ALROC")
 test_that("LROC paradigm: FOM = Wilcoxon, ALROC", {
   
   dataset <- datasetCadLroc
@@ -156,6 +160,7 @@ test_that("LROC paradigm: FOM = Wilcoxon, ALROC", {
 })
 
 
+context("UtilFigureOfMerit LROC paradigm: FOM = PCL@FPFValue")
 test_that("LROC paradigm: FOM = PCL@FPFValue", {
   
   dataset <- datasetCadLroc

@@ -103,23 +103,27 @@ checkTruthTable <- function (truthTable)
 {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  for (i in 1:3){
-    truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
-  }
+  # START not sure what this does
+  # for (i in 1:3){
+  #   truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
+  # }
+  # 
+  # naRows <- colSums(is.na(truthTable))
+  # if (max(naRows) > 0) {
+  #   if (max(naRows) == min(naRows)) {
+  #     truthTable <- truthTable[1:(nrow(truthTable) - max(naRows)), ]
+  #   }
+  # }
+  # END not sure what this does
   
-  naRows <- colSums(is.na(truthTable))
-  if (max(naRows) > 0) {
-    if (max(naRows) == min(naRows)) {
-      truthTable <- truthTable[1:(nrow(truthTable) - max(naRows)), ]
-    }
-  }
-  
+  # check for blank cells in Truth worksheet
   errorMsg <- ""
-  for (i in 1:3) {
+  for (i in 1:5) {
     if (any(is.na(truthTable[, i]))) {
+      # each blank Excel cell is returned as NA
+      # blank lines in Excel sheet are ignored i.e. skipped, as if they were not there
       naLines <- which(is.na(truthTable[, i])) + 1
-      errorMsg <- paste0(errorMsg, 
-                         "\nThere are empty cells for CaseID or LesionID at line(s) ", 
+      errorMsg <- paste0(errorMsg, "\nThere are empty cells at line(s) ", 
                          paste(naLines, collapse = ", "), " in the TRUTH table.")
     }
   }
@@ -128,9 +132,12 @@ checkTruthTable <- function (truthTable)
   for (i in 1:3)
     if (any(is.na(suppressWarnings(as.numeric(as.character(truthTable[, i])))))) {
       suppressWarnings({naLines <- which(is.na(as.numeric(as.character(truthTable[, i])))) + 1})
-      if (i == 1) errorMsg <- paste0(errorMsg, "\nThere are non-integer values(s) for caseID at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
-      if (i == 2) errorMsg <- paste0(errorMsg, "\nThere are non-integer values(s) for LessionID at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
-      if (i == 3) errorMsg <- paste0(errorMsg, "\nThere are non-numeric values(s) for weights at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
+      if (i == 1) errorMsg <- paste0(errorMsg, 
+                                     "\nThere are non-integer values(s) for caseID at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
+      if (i == 2) errorMsg <- paste0(errorMsg, 
+                                     "\nThere are non-integer values(s) for LessionID at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
+      if (i == 3) errorMsg <- paste0(errorMsg, 
+                                     "\nThere are non-numeric values(s) for Weights at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
     }
   if (errorMsg != "") stop(errorMsg)
   
@@ -140,17 +147,18 @@ checkTruthTable <- function (truthTable)
   
   df <- as.data.frame(truthTable[1:5], stringsAsFactors = FALSE)
   df["caseLevelTruth"] <- (truthTable$LesionID > 0)
-  TruthTableSort <- df[order(df$caseLevelTruth, df$ReaderID, df$CaseID), ]
-  # TruthTableSort <- df # temporary line to bypass sorting
+  TruthTableUnsorted <- df # temporary line to bypass sorting
+  TruthTableSorted <- df[order(df$caseLevelTruth, df$ReaderID, df$CaseID), ]
   
-  caseIDCol <- as.integer(TruthTableSort$CaseID)  # all 3 have same lengths
-  lesionIDColumn <- as.integer(TruthTableSort$LesionID)
-  weightsCol <- as.numeric(TruthTableSort$Weight)
-  readerID <- TruthTableSort$ReaderID
-  L <- length(TruthTableSort$CaseID)
-  for (i in 1:4) if ((length(TruthTableSort[[i]])) != L) 
+  caseIDCol <- as.integer(TruthTableSorted$CaseID)  # all 3 have same lengths
+  lesionIDColumn <- as.integer(TruthTableSorted$LesionID)
+  weightsCol <- as.numeric(TruthTableSorted$Weight)
+  readerID <- TruthTableSorted$ReaderID
+  L <- length(TruthTableSorted$CaseID)
+  for (i in 1:4) if ((length(TruthTableSorted[[i]])) != L) 
     stop("Columns of unequal height in Truth Excel worksheet")  
   
+  K1Table <- length(caseIDCol[lesionIDColumn == 0])
   normalCases <- sort(unique(caseIDCol[lesionIDColumn == 0]))
   abnormalCases <- sort(unique(caseIDCol[lesionIDColumn > 0]))
   allCases <- c(normalCases, abnormalCases)
@@ -158,18 +166,39 @@ checkTruthTable <- function (truthTable)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
   
+  # code to check for sequential lesionIDs in Truth sheet: 0,0,1,2,0,1,2,3,0,1 etc
+  # normal case lesionIDS are all 0
+  # for each abnormal case, the lesionID starts from 1 and works up to number of lesions on the case
+  # a case can start abruptly wiht lesionID = 0 or 1, but not with lesionID = 2 or more
+  # if the starts with lesionID = 2 or more, the previous one must be one less, i.e., sequential
+  t <- as.numeric(truthTable$LesionID) # at this stage the cells in truthTable could be characters, which would break the following code
+  for (k in 1:length(t)) {
+    if (t[k] %in% c(0,1)) next else {
+      if (t[k] != (t[k-1] + 1)) {
+        errorMsg <- paste0(errorMsg, "\nNon-sequential lesionID encountered at line(s) ",
+                           paste(k + 1, collapse = ", "), " in the TRUTH table.")
+      }
+    }
+  }
+  if (errorMsg != "") stop(errorMsg)
+  
   # DPC: check for duplicate lesionIDs
+  # START This code may not be needed given the sequential test inserted above
+  # DPC 7/8/20
   if (anyDuplicated(cbind(caseIDCol, lesionIDColumn))) {
     naLines <- which(duplicated(cbind(caseIDCol, lesionIDColumn))) + 1
-    errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table are duplicated lesionIDs for given caseID.")
+    errorMsg <- paste0(errorMsg, "Line(s) ", 
+                       paste(naLines, collapse = ", "), " in the TRUTH table have duplicate lesionIDs.")
   }
   if (errorMsg != "") stop(errorMsg)
   
   if (anyDuplicated(cbind(caseIDCol, lesionIDColumn, weightsCol))) {
     naLines <- which(duplicated(cbind(caseIDCol, lesionIDColumn, weightsCol))) + 1
-    errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table are duplicates of previous line(s) .")
+    errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), 
+                       " in the TRUTH table are duplicates of previous line(s) .")
   }
   if (errorMsg != "") stop(errorMsg)
+  # END This code may not be needed given the sequential test inserted above
   
   lesionIDColUnique <- sort(unique(lesionIDColumn)) # fix to bug when abnormal cases occur first
   
@@ -200,30 +229,30 @@ checkTruthTable <- function (truthTable)
   
   isGT1RperCase <- array(dim = length(caseIDCol))
   for (i in 1:length(caseIDCol)) 
-    isGT1RperCase[i] <- is.character(TruthTableSort$ReaderID[i]) && (nchar(TruthTableSort$ReaderID[i]) > 1)  
+    isGT1RperCase[i] <- is.character(TruthTableSorted$ReaderID[i]) && (nchar(TruthTableSorted$ReaderID[i]) > 1)  
   if (all(isGT1RperCase == FALSE)) GT1RperCase <- FALSE else 
     if (all(isGT1RperCase == TRUE)) GT1RperCase <- TRUE else 
       stop("Unequal number of readers in ReaderID column\n")
   
   isGT1TperCase <- array(dim = length(caseIDCol))
   for (i in 1:length(caseIDCol)) 
-    isGT1TperCase[i] <- is.character(TruthTableSort$ModalityID[i]) && (nchar(TruthTableSort$ModalityID[i]) > 1)  
+    isGT1TperCase[i] <- is.character(TruthTableSorted$ModalityID[i]) && (nchar(TruthTableSorted$ModalityID[i]) > 1)  
   if (all(isGT1TperCase == FALSE)) GT1TperCase <- FALSE 
   else if (all(isGT1TperCase == TRUE)) GT1TperCase <- TRUE 
   else stop("Unequal number of modalities in ModalityID column\n")
   
-  I <- length(unlist(strsplit(TruthTableSort$ModalityID[1],split = ",")))
+  I <- length(unlist(strsplit(TruthTableSorted$ModalityID[1],split = ",")))
   
   if (GT1RperCase) {
-    J <- length(unlist(strsplit(TruthTableSort$ReaderID[1],split = ",")))
+    J <- length(unlist(strsplit(TruthTableSorted$ReaderID[1],split = ",")))
     
     readerIDArray <- array(dim = c(J,L))
-    x <- sort(trimws(unlist(strsplit(TruthTableSort$ReaderID,split = ","))))
+    x <- sort(trimws(unlist(strsplit(TruthTableSorted$ReaderID,split = ","))))
     for (j in 1:J) readerIDArray[j,] <- x[((j-1)*L + 1):(j*L)]
     readerIDUnique <- unique(readerIDArray)
     if(!all((dim(readerIDArray) == dim(readerIDUnique)))) stop("Non-unique reader ids in dataset")
   } else {
-    J <- length(unique(TruthTableSort$ReaderID))
+    J <- length(unique(TruthTableSorted$ReaderID))
     readerIDUnique <- unique(readerID)
     # following fixed single reader datasets, ROC and FROC
     readerIDArray <- array(dim = c(J,L))
@@ -234,13 +263,16 @@ checkTruthTable <- function (truthTable)
   # following code should break with single modality dataset
   # but it does not; go figure TBA-DPC!!!
   modalityIDArray <- array(dim = c(I,L))
-  x <- sort(trimws(unlist(strsplit(TruthTableSort$ModalityID,split = ","))))
+  x <- sort(trimws(unlist(strsplit(TruthTableSorted$ModalityID,split = ","))))
   for (i in 1:I) modalityIDArray[i,] <- x[((i-1)*L + 1):(i*L)]
   modalityIDUnique <- unique(modalityIDArray)
   if(!all((dim(modalityIDArray) == dim(modalityIDUnique)))) stop("Non-unique modality ids in dataset")
   
   # truthTableStr <- array(dim = c(I, J, K, length(lesionIDColUnique))) # TBA-DPC!!!
-  truthTableStr <- array(dim = c(I, J, K, max(lesionIDColUnique)+1)) # possible bug if lesionIDColUnique does not consist of sequential integers
+  # possible bug in following line if lesionIDColUnique does not consist of sequential integers, e.g., c(0,2,3,5)
+  # the line above is a possible fix
+  # need to update these comments, as test is now made for non sequential values
+  truthTableStr <- array(dim = c(I, J, K, max(lesionIDColUnique)+1)) 
   for (i in 1:I) {
     for (j in 1:J) {
       for (el in lesionIDColUnique) { 
@@ -279,20 +311,20 @@ checkTruthTable <- function (truthTable)
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
   
   if (!(type %in% c("FROC", "ROC"))) stop("Unsupported declared type: must be ROC or FROC.\n")
-  if (!(design %in% c("FCTRL", "SPLIT-PLOT"))) stop("Study design must be FCTRL or SPLIT-PLOT\n")
+  if (!(design %in% c("FCTRL", "CROSSED", "SPLIT-PLOT"))) stop("Study design must be FCTRL or SPLIT-PLOT\n")
   
   if (type == "ROC") {
-    if ((design == "FCTRL") && (sum(!is.na(truthTableStr)) != 
-                                  L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
-      stop("Dataset does not appear to be crossed ROC")
+    if (((design == "FCTRL") || (design == "CROSSED")) && (sum(!is.na(truthTableStr)) != 
+                                                           L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
+      stop("Dataset does not appear to be crossed/factorial ROC")
     
     if ((design == "SPLIT-PLOT") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be split plot ROC")
   }
   
   if (type == "FROC") {
-    if ((design == "FCTRL") && (sum(!is.na(truthTableStr)) != 
-                                  L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
+    if (((design == "FCTRL") || (design == "CROSSED")) && (sum(!is.na(truthTableStr)) != 
+                                                           L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be crossed FROC")
     
     if ((design == "SPLIT-PLOT") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
@@ -359,6 +391,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   if (length(nlFileIndex) == 0) stop("FP/NL table worksheet cannot be found in the Excel file.")
   NLTable <- read.xlsx(fileName, nlFileIndex, cols = 1:4)
   
+  # grep "^\\s*$" matches blank lines; see learnGrep in desktop
   # grep("^\\s*$", "") = 1
   # grep("^\\s*$", c("","")) = 1 2 etc
   # following replaces empty cells with NAs
@@ -500,11 +533,19 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
       caseIDs_ij <- as.numeric(unlist(attr(caseNLTable, "dimnames")))
       for (k1 in 1:length(caseIDs_ij)) {
         if (caseIDs_ij[k1] %in% normalCases) {
-          if (truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 1] != 1) # ,1: for normal cases, the fourth dimension is lesionIDColumn = 0, which occupies the first position
-            stop("incorrect truthCaseID in NL/FP worksheet")
+          tt2 <- truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 1]
+          errMsg <- sprintf("Missing lesionID field, check caseID %s in Truth worksheet.", caseIDs_ij[k1])
+          errMsg2 <- sprintf("Unknown error, check caseID %s in Truth worksheet.", caseIDs_ij[k1])
+          if (is.na(tt2)) {
+            stop(errMsg)
+          } else if (tt2 != 1) stop(errMsg2)
         } else if (caseIDs_ij[k1] %in% abnormalCases) {
-          if (truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 2] != 1) # ,1: for normal cases, the fourth dimension is lesionIDColumn = 0, which occupies the first position
-            stop("incorrect truthCaseID in NL/FP worksheet")
+          tt2 <- truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 2]
+          errMsg <- sprintf("Missing lesionID field, check caseID %s in Truth worksheet.", caseIDs_ij[k1])
+          errMsg2 <- sprintf("Unknown error, check caseID %s in Truth worksheet.", caseIDs_ij[k1])
+          if (is.na(tt2)) {
+            stop(errMsg)
+          } else if (tt2 != 1) stop(errMsg2)
         } else stop("Should never get here")
         for (el in 1:caseNLTable[k1]) {
           NL[i, j, which(caseIDs_ij[k1] == allCases), el] <- 
@@ -531,8 +572,13 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
         x3 <- IDs[k2p, ]
         for (el in 1:caseLLTable[k2]) {
           elp <- which(LLLesionIDColumn[casePresent_ij][x2][el] == x3)
-          if (truthTableStr[i,j,which(caseIDs_ij[k2] == allCases),elp+1] != 1) # elp+1 because lesionIDColumn = 0 occupies first position, etc.
-            stop("incorrect truthCaseID in LL/TP worksheet")
+          tt2 <- truthTableStr[i,j,which(caseIDs_ij[k2] == allCases),elp+1]
+          errMsg <- sprintf("Missing lesionID field, check caseID %s in Truth worksheet.", caseIDs_ij[k2])
+          errMsg2 <- sprintf("Unknown error, check caseID %s in Truth worksheet.", caseIDs_ij[k2])
+          # elp+1 because lesionIDColumn = 0 occupies first position, etc.
+          if (is.na(tt2)) {
+            stop(errMsg)
+          } else if (tt2 != 1) stop(errMsg2)
           LL[i, j, k2p, elp] <- LLRatingColumn[casePresent_ij][x2][el]
         }
       }
@@ -564,7 +610,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   
   fileName <- NA
   name <- NA
-  if (design == "FCTRL") design <- "FCTRL"
+  if ((design == "FCTRL") || (design == "CROSSED")) design <- "FCTRL"
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
                          fileName, type, name, truthTableStr, design,

@@ -1,3 +1,4 @@
+context("DfBinDataset ROC, AFROC, etc.")
 test_that("DfBinDataset (ROC, AFROC, etc.)", {
   Bins <- c(2, 4, 6)
   dataset <- c("dataset02", "dataset03", "dataset09")

@@ -1,5 +1,4 @@
-context("PlotEmpiricalOperatingCharacteristics")
-
+context("PlotEmpiricalOperatingCharacteristics: ROC & FROC & vectors & lists")
 test_that("ROC & FROC & vectors & lists", {
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-ROC-vectors", ".rds")
@@ -80,6 +79,7 @@ test_that("ROC & FROC & vectors & lists", {
 
 
 
+context("PlotEmpiricalOperatingCharacteristics: LROC")
 test_that("PlotOperatingCharacteristics-LROC", {
   
   set.seed(5)

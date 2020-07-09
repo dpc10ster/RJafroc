@@ -9,8 +9,9 @@
 # ✔ |  18       | Fitting routines [195.9 s]
 
 
-context("FitBinormalRoc - allow AUC less than 0.5")
-test_that("FitBinormalRoc", {
+contextStr <- "FitBinormalRoc - allow AUC less than 0.5"
+context(contextStr)
+test_that(contextStr, {
   # skip_on_travis()
   g1 <- c(2, 3, 5, 6)
   g2 <- c(0, 4, 7, 11)
@@ -31,8 +32,9 @@ test_that("FitBinormalRoc", {
 })
 
 
-context("FitBinormalRoc2")
-test_that("FitBinormalRoc", {
+contextStr <- "FitBinormalRoc2"
+context(contextStr)
+test_that(contextStr, {
   # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc02", ".rds")
   if (!file.exists(fn)) {
@@ -48,8 +50,9 @@ test_that("FitBinormalRoc", {
 })
 
 
-context("FitBinormalRoc3")
-test_that("FitBinormalRoc", {
+contextStr <- "FitBinormalRoc3"
+context(contextStr)
+test_that(contextStr, {
   # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc05", ".rds")
   if (!file.exists(fn)) {
@@ -68,8 +71,9 @@ test_that("FitBinormalRoc", {
 })
 
 
-context("FitCbmRoc")
-test_that("FitCbmRoc", {
+contextStr <- "FitCbmRoc"
+context(contextStr)
+test_that(contextStr, {
   # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/CbmRoc", ".rds")
   if (!file.exists(fn)) {
@@ -85,9 +89,9 @@ test_that("FitCbmRoc", {
 })
 
 
-context("FitCorCbm")
-test_that("FitCorCbm", {
-
+contextStr <- "FitCorCbm"
+context(contextStr)
+test_that(contextStr, {
   skip_on_travis()
   skip_on_cran()
   skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
@@ -111,9 +115,9 @@ test_that("FitCorCbm", {
 })
 
 
-context("FitCorCbm123")
-test_that("FitCorCbm", {
-  
+contextStr <- "FitCorCbm123"
+context(contextStr)
+test_that(contextStr, {
   skip_on_travis()
   skip_on_cran()
   skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
@@ -137,9 +141,9 @@ test_that("FitCorCbm", {
 })
 
 
-context("FitCorCbm")
-test_that("FitCorCbm", {
-  
+contextStr <- "FitCorCbm124"
+context(contextStr)
+test_that(contextStr, {
   skip_on_travis()
   skip_on_cran()
   skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
@@ -163,9 +167,9 @@ test_that("FitCorCbm", {
 })
 
 
-context("FitCorCbm")
-test_that("FitCorCbm", {
-  
+contextStr <- "FitCorCbm125"
+context(contextStr)
+test_that(contextStr, {
   skip_on_travis()
   skip_on_cran()
   skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
@@ -189,9 +193,9 @@ test_that("FitCorCbm", {
 })
 
 
-context("FitRsmRoc")
-test_that("FitRsmRoc", {
-  
+contextStr <- "FitRsmRoc"
+context(contextStr)
+test_that(contextStr, {
   skip_on_cran()
   skip_on_travis()
   

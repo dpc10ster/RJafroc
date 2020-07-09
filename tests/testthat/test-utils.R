@@ -1,3 +1,4 @@
+context("utils:UtilIntrinsic2Physical")
 test_that("UtilIntrinsic2Physical", {
   mu <- 2;lambda <- 20;nu <- 1.1512925
   
@@ -16,6 +17,7 @@ test_that("UtilIntrinsic2Physical", {
 
 
 
+context("utils:UtilAucBinormal")
 test_that("UtilAucBinormal", {
   a <- 2;b <- 0.7
   
@@ -34,6 +36,7 @@ test_that("UtilAucBinormal", {
 
 
 
+context("utils:UtilUtilAucCBM")
 test_that("UtilAucCBM", {
   mu <- 2;alpha <- 0.8
   
@@ -52,6 +55,7 @@ test_that("UtilAucCBM", {
 
 
 
+context("utils:UtilAucPROPROC")
 test_that("UtilAucPROPROC", {
   c1 <- .2;da <- 1.5
   
@@ -70,6 +74,7 @@ test_that("UtilAucPROPROC", {
 
 
 
+context("utils:UtilAucsRSM")
 test_that("UtilAucsRSM", {
   mu <- 1;lambdaP <- 1;nuP <- 1
   lesDistr <- rbind(c(1, 0.9), c(2, 0.1))
@@ -89,6 +94,7 @@ test_that("UtilAucsRSM", {
 
 
 
+context("utils:UtilPseudoValues")
 test_that("UtilPseudoValues", {
   
   dataset <- dataset05
@@ -117,6 +123,7 @@ test_that("UtilPseudoValues", {
 
 
 
+context("utils:UtilMeanSquaresDBM")
 test_that("UtilMeanSquaresDBM", {
   
   fn <- paste0(test_path(), "/goodValues361/Utils/PseudoValues", "-", "Wilcoxon", ".rds")
@@ -135,6 +142,7 @@ test_that("UtilMeanSquaresDBM", {
 
 
 
+context("utils:UtilLesionDistr and UtilLesionWeightsDistr")
 test_that("UtilLesionDistr and UtilLesionWeightsDistr", {
   
   ret <- array(1, dim = c(1,2)) 

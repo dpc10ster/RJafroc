@@ -1,5 +1,4 @@
-context("Check DBM varComp against JAFROC output")
-
+context("Ensure that DBM varComp values match those from Windows JAFROC")
 test_that("Ensure that DBM varComp values match those from Windows JAFROC", {
   
   # this is the same dataset that Jason Cai found the error on
@@ -37,8 +36,7 @@ test_that("Ensure that DBM varComp values match those from Windows JAFROC", {
   
 })
 
-context("Check OR varComp against JAFROC output")
-
+context("Ensure that OR varComp values match those from Windows JAFROC")
 test_that("Ensure that OR varComp values match those from Windows JAFROC", {
 
   # this is the same dataset that Jason Cai found the error on

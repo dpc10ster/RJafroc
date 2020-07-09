@@ -1,7 +1,7 @@
-context("StSignificanceTestingCadVsRadiologists")
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRFC Wilcoxon"
+context(contextStr)
+test_that(contextStr, {
 
-test_that("1T-RRFC Wilcoxon", {
-  
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRFC_", "Wilcoxon", ".rds")
   
@@ -28,7 +28,9 @@ test_that("1T-RRFC Wilcoxon", {
 
 
 
-test_that("1T-RRFC PCL 0.05", {
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRFC PCL 0.05"
+context(contextStr)
+test_that(contextStr, {
   
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRFC_", "PCL_05", ".rds")
@@ -55,8 +57,9 @@ test_that("1T-RRFC PCL 0.05", {
 })
 
 
-
-test_that("1T-RRFC PCL 0.2", {
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRFC PCL 0.2"
+context(contextStr)
+test_that(contextStr, {
   
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRFC_", "PCL_20", ".rds")
@@ -84,8 +87,10 @@ test_that("1T-RRFC PCL 0.2", {
 
 
 
-test_that("1T-RRFC PCL 1", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRFC PCL 1"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRFC_", "PCL_10", ".rds")
   
@@ -111,8 +116,9 @@ test_that("1T-RRFC PCL 1", {
 })
 
 
-
-test_that("1T-RRFC ALROC 0.05", {
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRFC ALROC 0.05"
+context(contextStr)
+test_that(contextStr, {
   
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRFC_", "ALROC_05", ".rds")
@@ -140,8 +146,10 @@ test_that("1T-RRFC ALROC 0.05", {
 
 
 
-test_that("1T-RRFC ALROC 0.2", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRFC ALROC 0.2"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRFC_", "ALROC_20", ".rds")
   
@@ -167,8 +175,9 @@ test_that("1T-RRFC ALROC 0.2", {
 })
 
 
-
-test_that("1T-RRFC ALROC 1", {
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRFC ALROC 1"
+context(contextStr)
+test_that(contextStr, {
   
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRFC_", "ALROC_10", ".rds")
@@ -196,8 +205,10 @@ test_that("1T-RRFC ALROC 1", {
 
 
 
-test_that("1T-RRRC Wilcoxon", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRRC Wilcoxon"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRRC_", "Wilcoxon", ".rds")
   
@@ -224,8 +235,10 @@ test_that("1T-RRRC Wilcoxon", {
 
 
 
-test_that("1T-RRRC PCL 0.05", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRRC PCL 0.05"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRRC_", "PCL_05", ".rds")
   
@@ -253,8 +266,10 @@ test_that("1T-RRRC PCL 0.05", {
 
 
 
-test_that("1T-RRRC PCL 0.2", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRRC PCL 0.2"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRRC_", "PCL_20", ".rds")
   
@@ -281,8 +296,10 @@ test_that("1T-RRRC PCL 0.2", {
 
 
 
-test_that("1T-RRRC PCL 1", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRRC PCL 1"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRRC_", "PCL_10", ".rds")
   
@@ -309,8 +326,10 @@ test_that("1T-RRRC PCL 1", {
 
 
 
-test_that("1T-RRRC ALROC 0.05", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRRC ALROC 0.05"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRRC_", "ALROC_05", ".rds")
   
@@ -337,8 +356,10 @@ test_that("1T-RRRC ALROC 0.05", {
 
 
 
-test_that("1T-RRRC ALROC 0.2", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRRC ALROC 0.2"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRRC_", "ALROC_20", ".rds")
   
@@ -365,8 +386,10 @@ test_that("1T-RRRC ALROC 0.2", {
 
 
 
-test_that("1T-RRRC ALROC 1", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRRC ALROC 1"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_1T-RRRC_", "ALROC_10", ".rds")
   
@@ -393,8 +416,10 @@ test_that("1T-RRRC ALROC 1", {
 
 
 
-test_that("2T-RRRC Wilcoxon", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 2T-RRRC Wilcoxon"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_2T-RRRC_", "Wilcoxon", ".rds")
   
@@ -421,8 +446,10 @@ test_that("2T-RRRC Wilcoxon", {
 
 
 
-test_that("2T-RRRC PCL 0.05", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 2T-RRRC PCL 0.05"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_2T-RRRC_", "PCL_05", ".rds")
   
@@ -449,8 +476,10 @@ test_that("2T-RRRC PCL 0.05", {
 
 
 
-test_that("2T-RRRC PCL 0.2", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 2T-RRRC PCL 0.2"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_2T-RRRC_", "PCL_20", ".rds")
   
@@ -477,8 +506,10 @@ test_that("2T-RRRC PCL 0.2", {
 
 
 
-test_that("2T-RRRC PCL 1", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 2T-RRRC PCL 1"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_2T-RRRC_", "PCL_10", ".rds")
   
@@ -505,8 +536,10 @@ test_that("2T-RRRC PCL 1", {
 
 
 
-test_that("2T-RRRC ALROC 0.05", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 2T-RRRC ALROC 0.05"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_2T-RRRC_", "ALROC_05", ".rds")
   
@@ -533,8 +566,10 @@ test_that("2T-RRRC ALROC 0.05", {
 
 
 
-test_that("2T-RRRC ALROC 0.2", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 2T-RRRC ALROC 0.2"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_2T-RRRC_", "ALROC_20", ".rds")
   
@@ -561,8 +596,10 @@ test_that("2T-RRRC ALROC 0.2", {
 
 
 
-test_that("2T-RRRC ALROC 1", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 2T-RRRC ALROC 1"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadLroc", "_2T-RRRC_", "ALROC_10", ".rds")
   
@@ -589,8 +626,10 @@ test_that("2T-RRRC ALROC 1", {
 
 
 
-test_that("1T-RRFC FROC HrAuc", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRFC FROC HrAuc"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadSimuFroc", "_1T-RRFC_", "HrAuc", ".rds")
   
@@ -617,8 +656,10 @@ test_that("1T-RRFC FROC HrAuc", {
 
 
 
-test_that("1T-RRFC FROC wAFROC", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRFC FROC wAFROC"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadSimuFroc", "_1T-RRFC_", "wAFROC", ".rds")
   
@@ -645,8 +686,10 @@ test_that("1T-RRFC FROC wAFROC", {
 
 
 
-test_that("1T-RRRC FROC HrAuc", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRRC FROC HrAuc"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadSimuFroc", "_1T-RRRC_", "HrAuc", ".rds")
   
@@ -673,8 +716,10 @@ test_that("1T-RRRC FROC HrAuc", {
 
 
 
-test_that("1T-RRRC FROC wAFROC", {
-  
+contextStr <- "StSignificanceTestingCadVsRadiologists: 1T-RRRC FROC wAFROC"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/SigTestCad/",
                "datasetCadSimuFroc", "_1T-RRRC_", "wAFROC", ".rds")
   

@@ -1,3 +1,4 @@
+context("DfExtractDataset")
 test_that("DfExtractDataset", {
   
   fn <- paste0(test_path(), "/goodValues361/DfExtractDataset/datset02Roc", ".rds")

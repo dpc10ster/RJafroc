@@ -1,5 +1,7 @@
-context("UtilVarCompDBM: dataset02")
-test_that("DBM method", {
+contextStr <- "UtilVarCompDBM: dataset02"
+context(contextStr)
+test_that(contextStr, {
+  
   dataset <- dataset02
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/DbmDataset02", ".rds")
   if (!file.exists(fn)) {
@@ -16,8 +18,10 @@ test_that("DBM method", {
 })
 
 
-context("UtilVarCompDBM: dataset05 wAFROC")
-test_that("DBM method wAFROC", {
+contextStr <- "UtilVarCompDBM: dataset05 wAFROC"
+context(contextStr)
+test_that(contextStr, {
+  
   dataset <- dataset05
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/DbmDatasetwAFROC05", ".rds")
   if (!file.exists(fn)) {
@@ -34,8 +38,10 @@ test_that("DBM method wAFROC", {
 })
 
 
-context("UtilVarComp: jackknife dataset02")
-test_that("jackknife method", {
+contextStr <- "UtilVarComp: jackknife dataset02"
+context(contextStr)
+test_that(contextStr, {
+  
   dataset <- dataset02
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/JackknifeDataset02", ".rds")
   if (!file.exists(fn)) {
@@ -54,8 +60,10 @@ test_that("jackknife method", {
 })
 
 
-context("UtilVarComp: bootstrap dataset02")
-test_that("bootstrap method", {
+contextStr <- "UtilVarComp: bootstrap dataset02"
+context(contextStr)
+test_that(contextStr, {
+  
   dataset <- dataset02
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/bootstrapDataset02", ".rds")
   if (!file.exists(fn)) {
@@ -76,8 +84,10 @@ test_that("bootstrap method", {
 })
 
 
-context("UtilVarComp: DeLong dataset02")
-test_that("DeLong method", {
+contextStr <- "UtilVarComp: DeLong dataset02"
+context(contextStr)
+test_that(contextStr, {
+
   dataset <- dataset02
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/DeLongDataset02", ".rds")
   if (!file.exists(fn)) {
@@ -96,8 +106,10 @@ test_that("DeLong method", {
 })
 
 
-context("UtilVarComp: jackknife dataset04")
-test_that("jackknife method", {
+contextStr <- "UtilVarComp: jackknife dataset04"
+context(contextStr)
+test_that(contextStr, {
+
   dataset <- DfFroc2Roc(dataset04)
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/JackknifeDataset04", ".rds")
   if (!file.exists(fn)) {
@@ -116,8 +128,10 @@ test_that("jackknife method", {
 })
 
 
-context("UtilVarComp: bootstrap dataset04")
-test_that("bootstrap method", {
+contextStr <- "UtilVarComp: bootstrap dataset04"
+context(contextStr)
+test_that(contextStr, {
+
   dataset <- DfFroc2Roc(dataset04)
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/bootstrapDataset04", ".rds")
   if (!file.exists(fn)) {
@@ -138,8 +152,10 @@ test_that("bootstrap method", {
 })
 
 
-context("UtilVarComp: DeLong dataset04")
-test_that("DeLong method", {
+contextStr <- "UtilVarComp: DeLong dataset04"
+context(contextStr)
+test_that(contextStr, {
+
   dataset <- DfFroc2Roc(dataset04)
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/DeLongDataset04", ".rds")
   if (!file.exists(fn)) {

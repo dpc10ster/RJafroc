@@ -19,8 +19,9 @@
 #############################################################################
 
 
-context("StSignificanceTesting-datasetFROCSp-wAFROC")
-test_that("StSignificanceTesting-datasetFROCSp-wAFROC", {
+contextStr <- "StSignificanceTesting-datasetFROCSp-wAFROC"
+context(contextStr)
+test_that(contextStr, {
 
   dataset <- datasetFROCSp
 
@@ -43,9 +44,9 @@ test_that("StSignificanceTesting-datasetFROCSp-wAFROC", {
 })
 
 
-
-context("SignificanceTestingAllCombinations")
-test_that("SignificanceTestingAllCombinations", {
+contextStr <- "StSignificanceTesting: AllCombinations"
+context(contextStr)
+test_that(contextStr, {
   
   ####################################################################################  
   skip_on_cran()
@@ -182,12 +183,10 @@ test_that("SignificanceTestingAllCombinations", {
 # following code now works on osx 3/7/20
 # but not on travis old release
 
-context("StSignificanceTestingCrossedModalities")
-test_that("StSignificanceTestingCrossedModalities", {
-
-  # crossedFileName <- system.file(
-  #   "extdata", "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
-
+contextStr <- "StSignificanceTestingCrossedModalities"
+context(contextStr)
+test_that(contextStr, {
+  
   fn <- paste0(test_path(), "/goodValues361/SigTest/CrossedModalities", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))

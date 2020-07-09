@@ -1,7 +1,7 @@
-context("UtilMeanSquares")
+contextStr <- "UtilMeanSquares"
+context(contextStr)
+test_that(contextStr, {
 
-test_that("UtilMeanSquares", {
-  
   dataset_arr <- list(dataset02, dataset05)
   dataset_arr_str <- list("dataset02", "dataset05")
   FOM_arr <- c("Wilcoxon", "HrAuc", "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")

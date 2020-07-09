@@ -1,7 +1,6 @@
-context("Simulate data sets")
-
-test_that("SimulateCorCbmDataset", {
-
+contextStr <- "SimulateCorCbmDataset"
+context(contextStr)
+test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/SimulateDatasets/SimulateCorCbmDataset", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -16,7 +15,9 @@ test_that("SimulateCorCbmDataset", {
 })
 
 
-test_that("SimulateFrocDataset", {
+contextStr <- "SimulateFrocDataset"
+context(contextStr)
+test_that(contextStr, {
   set.seed(1)
   K1 <- 5;K2 <- 7;
   maxLL <- 2;perCase <- floor(runif(K2, 1, maxLL + 1))
@@ -45,7 +46,9 @@ test_that("SimulateFrocDataset", {
 })
 
 
-test_that("SimulateRocDataset", {
+contextStr <- "SimulateRocDataset"
+context(contextStr)
+test_that(contextStr, {
   set.seed(1)
   K1 <- 5;K2 <- 7;
   a <- 1.5;b <- 0.5

@@ -1,5 +1,4 @@
-context("CheckLrocFomsVsHandCalculatedValues")
-
+context("CheckLrocFomsVsHandCalculatedValues4")
 test_that("Check Lroc Fom Vs Hand Calculation from first principles in ChkLrocFoms.xlsx: dataset 4", {
 
   set.seed(1)
@@ -26,6 +25,7 @@ test_that("Check Lroc Fom Vs Hand Calculation from first principles in ChkLrocFo
   expect_equal(as.vector(ret), c(0.16, 0.20, 0.08, 0.16, 0.08, 0.16, 0.12, 0.12, 0.16, 0.08))
 })
 
+context("CheckLrocFomsVsHandCalculatedValues2")
 test_that("Check Lroc Fom Vs Hand Calculation from first principles in ChkLrocFoms.xlsx: dataset 2", {
 
   set.seed(2)

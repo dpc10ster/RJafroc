@@ -1,6 +1,7 @@
-context("SsPowerGivenJK DBM/OR VarComp Input Franken data")
-
-test_that("Following tests added after updating Ss routines from Hillis 2011 and 2018 papers", {
+contextStr <- "SsPowerGivenJK DBM/OR VarComp Input Franken data: after updating Ss routines from Hillis 2011 and 2018 papers"
+context(contextStr)
+test_that(contextStr, {
+  
   
   fn <- paste0(test_path(), "/goodValues361/SsPower/dataset03-RRRC", ".rds")
   if (!file.exists(fn)) {
@@ -26,13 +27,13 @@ test_that("Following tests added after updating Ss routines from Hillis 2011 and
   x2 <- SsPowerGivenJK(dataset03, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 121, method = "DBM", LegacyCode = TRUE)
   expect_equal(x1,x2)
   expect_equivalent(x1$powerRRRC, 0.78574588, tolerance = 1e-8) # Legacy code gives less power
-
+  
 })
 
 
-context("SsPowerGivenJK OR VarComp Input VanDyke data")
-
-test_that("Following tests added after updating Ss routines from Hillis 2011 and 2018 papers", {
+contextStr <- "SsPowerGivenJK OR VarComp Input VanDyke data: after updating Ss routines from Hillis 2011 and 2018 papers"
+context(contextStr)
+test_that(contextStr, {
   
   fn <- paste0(test_path(), "/goodValues361/SsPower/dataset02-RRRC", ".rds")
   if (!file.exists(fn)) {
@@ -78,8 +79,9 @@ test_that("Following tests added after updating Ss routines from Hillis 2011 and
 })
 
 
-context("SsSampleSizeKGivenJ DBM & OR VarComp Input")
-test_that("SsSampleSizeKGivenJ DBM & OR VarComp Input", {
+contextStr <- "SsSampleSizeKGivenJ DBM & OR VarComp Input"
+context(contextStr)
+test_that(contextStr, {
   
   ret1 <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBM")
   a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")
@@ -110,7 +112,9 @@ test_that("SsSampleSizeKGivenJ DBM & OR VarComp Input", {
 })
 
 
-test_that("SsPowerGivenJK DBM & OR VarComp Input", {
+contextStr <- "SsPowerGivenJK DBM & OR VarComp Input"
+context(contextStr)
+test_that(contextStr, {
   
   ret1 <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 251, method = "DBM")
   a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")
@@ -147,13 +151,14 @@ test_that("SsPowerGivenJK DBM & OR VarComp Input", {
 })
 
 
-context("SsPowerGivenJKDbmVarCom & SsPowerGivenJKOrVarCom")
-test_that("SsPowerGivenJKDbmVarCom & SsPowerGivenJKOrVarCom", {
+contextStr <- "SsPowerGivenJKDbmVarCom & SsPowerGivenJKOrVarCom"
+context(contextStr)
+test_that(contextStr, {
   
   dataset <- dataset02
   KStar <- length(dataset$ratings$NL[1,1,,1])
   stOR <- StSignificanceTesting(dataset, FOM = "Wilcoxon",
-                                 method = "OR")
+                                method = "OR")
   VarTR <- stOR$ANOVA$VarCom["VarTR",1]
   Cov1 <- stOR$ANOVA$VarCom["Cov1",1]
   Cov2 <- stOR$ANOVA$VarCom["Cov2",1]
@@ -174,34 +179,67 @@ test_that("SsPowerGivenJKDbmVarCom & SsPowerGivenJKOrVarCom", {
   expect_equal(ret1, ret2)
 })
 
-context("Sample Size ROC")
+contextStr <- "SsPowerGivenJK:DBM: expected values are obtained for dataset02"
+context(contextStr)
+test_that(contextStr, {
+  
+  expect_equivalent(SsPowerGivenJK(dataset02, FOM = "Wilcoxon", J = 6, K = 111, method = "DBM")$powerRRRC,
+                    0.5526116, tolerance = 5e-8)
+  
+})
 
-test_that("SsPowerGivenJK:DBM: expected values are obtained for dataset02",
-          expect_equivalent(SsPowerGivenJK(dataset02, FOM = "Wilcoxon", J = 6, K = 111, method = "DBM")$powerRRRC,
-                            0.5526116, tolerance = 5e-8))
 
-test_that("SsPowerGivenJK:OR: expected values are obtained for dataset02",
-          expect_equivalent(SsPowerGivenJK(dataset02, FOM = "Wilcoxon", J = 6, K = 111, method = "OR")$powerRRRC,
-                            0.5526116, tolerance = 5e-8))
+contextStr <- "SsPowerGivenJK:OR: expected values are obtained for dataset02"
+context(contextStr)
+test_that(contextStr, {
+  expect_equivalent(SsPowerGivenJK(dataset02, FOM = "Wilcoxon", J = 6, K = 111, method = "OR")$powerRRRC,
+                    0.5526116, tolerance = 5e-8)
+  
+})
+
+contextStr <- "SsSampleSizeKGivenJ:DBM: expected values are obtained for dataset02"
+context(contextStr)
+test_that(contextStr, {
+  
+  expect_equal(SsSampleSizeKGivenJ(dataset02, J = 6, FOM = "Wilcoxon", method = "DBM")$KRRRC,
+               251)
+})
 
 
-test_that("SsSampleSizeKGivenJ:DBM: expected values are obtained for dataset02",
-          expect_equal(SsSampleSizeKGivenJ(dataset02, J = 6, FOM = "Wilcoxon", method = "DBM")$KRRRC,
-                       251))
-
-test_that("SsSampleSizeKGivenJ:OR: expected values are obtained for dataset02",
-          expect_equal(SsSampleSizeKGivenJ(dataset02, J = 6, FOM = "Wilcoxon", method = "OR")$KRRRC,
-                       251))
+contextStr <- "SsSampleSizeKGivenJ:OR: expected values are obtained for dataset02"
+context(contextStr)
+test_that(contextStr, {
+  expect_equal(SsSampleSizeKGivenJ(dataset02, J = 6, FOM = "Wilcoxon", method = "OR")$KRRRC,
+               251)
+})
 
 skip_on_cran()
 
 x <- SsPowerTable(dataset02, FOM = "Wilcoxon")
 y <- x$powerTableRRRC
-test_that("SsPowerTable:DBM: expected values are obtained for dataset02",
-          expect_equal(as.numeric(y$numReaders[7]),6))
-test_that("SsPowerTable:DBM: expected values are obtained for dataset02",
-          expect_equal(as.numeric(y$numCases[7]),251))
-test_that("SsPowerTable:DBM: expected values are obtained for dataset02",
-          expect_equal(as.numeric(y$power[7]),0.801))
+
+contextStr <- "SsPowerTable:DBM: expected values are obtained for dataset02"
+context(contextStr)
+test_that(contextStr, {
+  expect_equal(as.numeric(y$numReaders[7]),6)
+  
+})
+
+
+contextStr <- "SsPowerTable:DBM: expected values are obtained for dataset02"
+context(contextStr)
+test_that(contextStr, {
+  expect_equal(as.numeric(y$numCases[7]),251)
+  
+})
+
+
+contextStr <- "SsPowerTable:DBM: expected values are obtained for dataset02"
+context(contextStr)
+test_that(contextStr, {
+  expect_equal(as.numeric(y$power[7]),0.801)
+  
+})
+
 
 

@@ -1,5 +1,13 @@
 # RJafroc 1.3.2.9000
 
+## testing code for non-sequential lesionIDs in TRUTH 7/8/20
+* Updated all tests to display contexts more consistently.
+* Moved unnecessary files from `inst` to `Dropbox`.
+* Main work was on `DfReadDataFile.R` and testing code for non-sequential `lesionID`s in `TRUTH` worksheet.
+* Thinking about modifications to handle split-plot data along the lines of HYK datasets
+* Also learning about `grep`.  
+
+
 ## Implemented extensive testing comparing `RJafroc` to Iowa software
 * See `test-StCompare2Iowa.R` in `testthat` directory.
 * Does line by line comparison of `RJafroc` to results of `OR-DBM MRMC 2.51 Build 20181028` for VanDyke and Franken datasets.

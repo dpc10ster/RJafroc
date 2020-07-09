@@ -1,7 +1,8 @@
-context("Util output report tests")
-
+contextStr <- "UtilOutputReport text format"
+context(contextStr)
+test_that(contextStr, {
+  
 # analysisOption not needed as output file produces all three analysisOption DPC 6/30/19
-test_that("UtilOutputReport text format", {
 # Excel tests not yet implemented  
   skip_on_cran()
   

@@ -34,9 +34,10 @@ Numextract <- function(string){
   unlist(regmatches(string,gregexpr("[[:punct:]]?[[:digit:]]+\\.*[[:digit:]]*",string)))
 }
 
-context("St Compare to Iowa VanDyke dataset")
-test_that("SignificanceTestingSt Compare to Iowa VanDyke dataset", {
-
+contextStr <- "StSignificanceTesting: Compare to Iowa VanDyke dataset"
+context(contextStr)
+test_that(contextStr, {
+  
 fn <- paste0(test_path(), "/goodValues361/Iowa/VanDyke.txt")
 # fn <- "inst/Iowa/VanDyke.txt"
 lines <- readLines(fn)
@@ -397,9 +398,10 @@ expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
 
 })
 
-context("St Compare to Iowa Franken dataset")
-test_that("SignificanceTestingSt Compare to Iowa Franken dataset", {
-  
+contextStr <- "StSignificanceTesting: Compare to Iowa Franken dataset"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/Iowa/Franken1.txt")
   lines <- readLines(fn)
   

@@ -1,5 +1,4 @@
 context("Df2RJafrocDataset")
-
 test_that("Df2RJafrocDataset", {
   
   # a small ROC dataset
@@ -62,6 +61,7 @@ test_that("Df2RJafrocDataset", {
 
 
 
+context("SimulateFrocDataset")
 test_that("SimulateFrocDataset", {
   
   # a FROC dataset

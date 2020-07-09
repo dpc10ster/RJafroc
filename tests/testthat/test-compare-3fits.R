@@ -26,8 +26,6 @@
 
 
 context("Compare3ProperRocFits")
-
-
 test_that("Compare3ProperRocFits routines - these have inherent randomness; hence need to use tolerance", {
   
   skip_on_cran()

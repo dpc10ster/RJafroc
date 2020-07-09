@@ -1,3 +1,4 @@
+context("DfReadDataFile, non_JAFROC-1")
 test_that("DfReadDataFile, non_JAFROC-1", {
   
   #  data format:
@@ -28,7 +29,7 @@ test_that("DfReadDataFile, non_JAFROC-1", {
 })
 
 
-
+context("DfReadDataFile, non_JAFROC-2")
 test_that("DfReadDataFile, non_JAFROC-2", {
   fileName <- system.file(
     "extdata", "RocData.lrc", package = "RJafroc", mustWork = TRUE)
@@ -48,6 +49,7 @@ test_that("DfReadDataFile, non_JAFROC-2", {
 
 
 
+context("DfReadDataFile, non_JAFROC-3")
 test_that("DfReadDataFile, non_JAFROC-3", {
   fileName <- system.file(
     "extdata", "RocData.imrmc", package = "RJafroc", mustWork = TRUE)
@@ -66,6 +68,7 @@ test_that("DfReadDataFile, non_JAFROC-3", {
 
 
 
+context("DfReadDataFile, non_JAFROC-4")
 test_that("DfReadDataFile, non_JAFROC-4", {
   fileName <- system.file("extdata", "RocData.txt", package = "RJafroc", mustWork = TRUE)
   
@@ -83,6 +86,7 @@ test_that("DfReadDataFile, non_JAFROC-4", {
 
 
 
+context("DfReadDataFile, JAFROC-1")
 test_that("DfReadDataFile, JAFROC", {
   
   fileName <- system.file(
@@ -104,6 +108,7 @@ test_that("DfReadDataFile, JAFROC", {
 
 
 
+context("DfReadDataFile, JAFROC-2")
 test_that("DfReadDataFile, JAFROC", {
   fileName <- system.file(
     "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -122,6 +127,7 @@ test_that("DfReadDataFile, JAFROC", {
 
 
 
+context("DfReadDataFile, JAFROC-3")
 test_that("DfReadDataFile, JAFROC", {
   # check sequentialNames option
   fileName <- system.file(

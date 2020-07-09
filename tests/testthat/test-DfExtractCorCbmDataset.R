@@ -1,5 +1,6 @@
-test_that("DfExtractCorCbmDataset", {
-  
+contextStr <- "DfExtractCorCbmDataset"
+context(contextStr)
+test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/DfExtractCorCbmDataset/dataset05_1", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))

@@ -1,5 +1,7 @@
-test_that("DfSaveDataFile", {
-  
+contextStr <- "DfSaveDataFile1"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/DfSaveDataFile/dataset05.xlsx")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -20,8 +22,10 @@ test_that("DfSaveDataFile", {
 
 
 
-test_that("DfSaveDataFile", {
-  
+contextStr <- "DfSaveDataFile2"
+context(contextStr)
+test_that(contextStr, {
+
   fn <- paste0(test_path(), "/goodValues361/DfSaveDataFile/datasetROI.xlsx")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -41,8 +45,9 @@ test_that("DfSaveDataFile", {
 
 
 
-
-test_that("DfSaveDataFile", {
+contextStr <- "DfSaveDataFile3"
+context(contextStr)
+test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/DfSaveDataFile/dataset02.imrmc") # sic file ext must be imrmc
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -65,7 +70,9 @@ test_that("DfSaveDataFile", {
 
 
 
-test_that("DfSaveDataFile", {
+contextStr <- "DfSaveDataFile4"
+context(contextStr)
+test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/DfSaveDataFile/dataset02.csv") # sic file ext must be csv
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -87,8 +94,9 @@ test_that("DfSaveDataFile", {
 
 
 
-
-test_that("DfSaveDataFile", {
+contextStr <- "DfSaveDataFile5"
+context(contextStr)
+test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/DfSaveDataFile/dataset02.lrc") # sic file ext must be lrc
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))

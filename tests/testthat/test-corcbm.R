@@ -1,6 +1,6 @@
-context("CORCBM routines")
-
-test_that("DfCreate/ExtractCorCbmDataset", {
+contextStr <- "CORCBM: DfCreate/ExtractCorCbmDataset"
+context(contextStr)
+test_that(contextStr, {
 
   fn <- paste0(test_path(), "/goodValues361/CORCBM/DfCreateCorCbmDataset", ".rds")
   if (!file.exists(fn)) {

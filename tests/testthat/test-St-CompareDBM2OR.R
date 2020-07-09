@@ -1,6 +1,6 @@
-context("Compare DBM to OR")
-
-test_that("Compare DBM to OR for dataset02, ROC", {
+contextStr <- "Compare DBM to OR for dataset02, ROC"
+context(contextStr)
+test_that(contextStr, {
 
   ds <- dataset02
 
@@ -103,7 +103,9 @@ test_that("Compare DBM to OR for dataset02, ROC", {
 
 
 
-test_that("Compare DBM to OR for dataset05, FROC, HrAuc", {
+contextStr <- "Compare DBM to OR for dataset05, FROC, HrAuc"
+context(contextStr)
+test_that(contextStr, {
 
   ds <- dataset05
 
@@ -200,9 +202,10 @@ test_that("Compare DBM to OR for dataset05, FROC, HrAuc", {
 })
 
 
+contextStr <- "Compare DBM to OR for dataset05, FROC, wAFROC"
+context(contextStr)
+test_that(contextStr, {
 
-test_that("Compare DBM to OR for dataset05, FROC, wAFROC", {
-  
   ds <- dataset05
   
   dbmValues <- StSignificanceTesting(ds, FOM = "wAFROC", method = "DBM")

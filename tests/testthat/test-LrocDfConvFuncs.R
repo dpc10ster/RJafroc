@@ -1,7 +1,7 @@
-context("LROC related Df conversion functions")
+contextStr <- "DfFroc2Lroc: LROC related Df conversion functions"
+context(contextStr)
+test_that(contextStr, {
 
-test_that("DfFroc2Lroc", {
-  
   dsLroc <- DfFroc2Lroc(dataset05)
   ret1 <- UtilFigureOfMerit(dataset05, FOM = "HrAuc")
   ret2 <- UtilFigureOfMerit(dsLroc, FOM = "Wilcoxon")

@@ -1,7 +1,6 @@
-context("Compare current to original codes: DBM")
-
-test_that("Compare current to original code: DBM", {
-  
+contextStr <- "Compare current to original codes: DBM"
+context(contextStr)
+test_that(contextStr, {
   ds <- dataset02
   
   orgValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBM", tempOrgCode = TRUE)
@@ -100,10 +99,9 @@ test_that("Compare current to original code: DBM", {
   
 })
 
-context("Compare current to original codes: ORH")
-
-test_that("Compare current to original code: ORH", {
-  
+contextStr <- "Compare current to original codes: ORH"
+context(contextStr)
+test_that(contextStr, {
   ds <- dataset02
   
   orgValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "OR", tempOrgCode = TRUE)

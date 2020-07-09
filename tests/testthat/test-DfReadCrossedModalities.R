@@ -1,5 +1,6 @@
-test_that("DfReadCrossedModalities", {
-  
+contextStr <- "DfReadCrossedModalities"
+context(contextStr)
+test_that(contextStr, {
   crossedFileName <- system.file("extdata",
                                  "CrossedModalitiesData.xlsx",
                                  package = "RJafroc", mustWork = TRUE)
@@ -13,6 +14,5 @@ test_that("DfReadCrossedModalities", {
   
   ds <- readRDS(fn)
   expect_equal(DfReadCrossedModalities(crossedFileName), ds)
-  # end of test
-  
+
 })
