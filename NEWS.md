@@ -1,12 +1,13 @@
 # RJafroc 1.3.2.9000
 
 ## Renamed SP datasets 7/9/20
-* Renamed all split plot datasets to SpC
-* The C stands for Table VII part C in Hillis 2014
-* Need to distinguish between different types of split-plot
+* Renamed the split plot dataset to datasetFROCSp
+* The C stands for Table VII Part (C) in Hillis 2014
+* Need to distinguish between different types of split-plot datasets
 * What I was doint so far was split-plot-c
 * The new analysis requires split-plot-a
 * updated NEWS.md partially
+
 
 ## Code for checking for non-sequential lesionIDs in TRUTH 7/8/20
 * Updated all tests to display contexts more consistently.
