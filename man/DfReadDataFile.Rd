@@ -65,7 +65,7 @@ testthat::expect_equal(x,x1)
 }
 
 \donttest{
-fileName <- system.file("extdata", "RocData.xlsx", 
+fileName <- system.file("extdata", "Roc.xlsx", 
 package = "RJafroc", mustWork = TRUE)
 RocDataXlsx <- DfReadDataFile(fileName)
 
@@ -77,7 +77,7 @@ fileName <- system.file("extdata", "RocData.imrmc",
 package = "RJafroc", mustWork = TRUE)
 RocDataImrmc<- DfReadDataFile(fileName, format = "iMRMC")
 
-fileName <- system.file("extdata", "FrocData.xlsx", 
+fileName <- system.file("extdata", "Froc.xlsx", 
 package = "RJafroc", mustWork = TRUE)
 FrocDataXlsx <- DfReadDataFile(fileName, sequentialNames = TRUE)
 }

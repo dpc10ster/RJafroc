@@ -2,7 +2,7 @@ OutputTextFileDBMH <- function(dataset,
                                method,
                                methodTxt,
                                ReportFileName,
-                               alpha, # decided to restrict to alpha = 0.05 5/21/20
+                               alpha, # decided to restrict to alpha = 0.05 5/21/20 # undid 7/11/20
                                FOM,
                                analysisOption,
                                DBM)
@@ -86,23 +86,25 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$RRRC$FTests
   print(format(df, digits = 5, justify = "left"))
   
-  if(DBM$RRRC$FTests["T","p"] < 0.05){
+  if(DBM$RRRC$FTests["T","p"] < alpha){
     x <- c("\nCONCLUSION:", 
            "The treatment FOMs are different,",
-           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$RRRC$FTests[2,1], 
                    DBM$RRRC$FTests[1,3], 
-                   DBM$RRRC$FTests[1,4]))
+                   DBM$RRRC$FTests[1,4],
+                   alpha))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nCONCLUSION:", 
            "The treatment FOMs are not significantly different,",
-           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$RRRC$FTests[2,1], 
                    DBM$RRRC$FTests[1,3], 
-                   DBM$RRRC$FTests[1,4]))
+                   DBM$RRRC$FTests[1,4],
+                   alpha))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
   
@@ -157,23 +159,25 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$FRRC$FTests
   print(format(df, digits = 5, justify = "left"))
   
-  if(DBM$FRRC$FTests["T","p"] < 0.05){
+  if(DBM$FRRC$FTests["T","p"] < alpha){
     x <- c("\nCONCLUSION:", 
            "The treatment FOMs are different,",
-           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$FRRC$FTests[2,1], 
                    DBM$FRRC$FTests[1,3], 
-                   DBM$FRRC$FTests[1,4]))
+                   DBM$FRRC$FTests[1,4],
+                   alpha))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nCONCLUSION:", 
            "The treatment FOMs are not significantly different,",
-           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$FRRC$FTests[2,1], 
                    DBM$FRRC$FTests[1,3], 
-                   DBM$FRRC$FTests[1,4]))
+                   DBM$FRRC$FTests[1,4],
+                   alpha))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
   
@@ -241,23 +245,25 @@ OutputTextFileDBMH <- function(dataset,
   df <- DBM$RRFC$FTests
   print(format(df, digits = 5, justify = "left"))
   
-  if(DBM$RRFC$FTests["T","p"] < 0.05){
+  if(DBM$RRFC$FTests["T","p"] < alpha){
     x <- c("\nCONCLUSION:", 
            "The treatment FOMs are different,",
-           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$RRFC$FTests[2,1], 
                    DBM$RRFC$FTests[1,3], 
-                   DBM$RRFC$FTests[1,4]))
+                   DBM$RRFC$FTests[1,4],
+                   alpha))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nCONCLUSION:", 
            "The treatment FOMs are not significantly different,",
-           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f].",
+           sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$RRFC$FTests[2,1], 
                    DBM$RRFC$FTests[1,3], 
-                   DBM$RRFC$FTests[1,4]))
+                   DBM$RRFC$FTests[1,4],
+                   alpha))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
   

@@ -28,14 +28,14 @@ two treatment factors are crossed
 \details{
 The data format is  similar to the JAFROC format (see \code{\link{RJafroc-package}}). 
    The notable difference is that there are two treatment factors. A sample crossed 
-   treatment file "CrossedModalitiesData.xlsx" is in the \code{inst\\extdata} 
+   treatment file "CrossedModalities.xlsx" is in the \code{inst\\extdata} 
    subdirectory of \code{RJafroc}.
 }
 \examples{
 
 \donttest{
 crossedFileName <- system.file("extdata", 
-   "CrossedModalitiesData.xlsx", package = "RJafroc", mustWork = TRUE)
+   "CrossedModalities.xlsx", package = "RJafroc", mustWork = TRUE)
 crossedData <- DfReadCrossedModalities(crossedFileName)
 str(crossedData)
 }

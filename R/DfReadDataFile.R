@@ -46,7 +46,7 @@
 #' }
 #' 
 #' \donttest{
-#' fileName <- system.file("extdata", "RocData.xlsx", 
+#' fileName <- system.file("extdata", "Roc.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' RocDataXlsx <- DfReadDataFile(fileName)
 #' 
@@ -58,7 +58,7 @@
 #' package = "RJafroc", mustWork = TRUE)
 #' RocDataImrmc<- DfReadDataFile(fileName, format = "iMRMC")
 #' 
-#' fileName <- system.file("extdata", "FrocData.xlsx", 
+#' fileName <- system.file("extdata", "Froc.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' FrocDataXlsx <- DfReadDataFile(fileName, sequentialNames = TRUE)
 #' }
@@ -185,19 +185,22 @@ checkTruthTable <- function (truthTable)
   # DPC: check for duplicate lesionIDs
   # START This code may not be needed given the sequential test inserted above
   # DPC 7/8/20
-  if (anyDuplicated(cbind(caseIDCol, lesionIDColumn))) {
-    naLines <- which(duplicated(cbind(caseIDCol, lesionIDColumn))) + 1
-    errorMsg <- paste0(errorMsg, "Line(s) ", 
-                       paste(naLines, collapse = ", "), " in the TRUTH table have duplicate lesionIDs.")
-  }
-  if (errorMsg != "") stop(errorMsg)
+
+  # TBA SPLIT-PLOT-C EDITS
+  # if (anyDuplicated(cbind(caseIDCol, lesionIDColumn))) {
+  #   naLines <- which(duplicated(cbind(caseIDCol, lesionIDColumn))) + 1
+  #   errorMsg <- paste0(errorMsg, "Line(s) ", 
+  #                      paste(naLines, collapse = ", "), " in the TRUTH table have duplicate lesionIDs.")
+  # }
+  # if (errorMsg != "") stop(errorMsg)
   
-  if (anyDuplicated(cbind(caseIDCol, lesionIDColumn, weightsCol))) {
-    naLines <- which(duplicated(cbind(caseIDCol, lesionIDColumn, weightsCol))) + 1
-    errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), 
-                       " in the TRUTH table are duplicates of previous line(s) .")
-  }
-  if (errorMsg != "") stop(errorMsg)
+  # TBA SPLIT-PLOT-C EDITS
+  # if (anyDuplicated(cbind(caseIDCol, lesionIDColumn, weightsCol))) {
+  #   naLines <- which(duplicated(cbind(caseIDCol, lesionIDColumn, weightsCol))) + 1
+  #   errorMsg <- paste0(errorMsg, "Line(s) ", paste(naLines, collapse = ", "), 
+  #                      " in the TRUTH table are duplicates of previous line(s) .")
+  # }
+  # if (errorMsg != "") stop(errorMsg)
   # END This code may not be needed given the sequential test inserted above
   
   lesionIDColUnique <- sort(unique(lesionIDColumn)) # fix to bug when abnormal cases occur first
@@ -310,16 +313,22 @@ checkTruthTable <- function (truthTable)
   type <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[1]
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
   
+  # SPLIT-PLOT-A: Reader nested within test; Hillis 2014 Table VII part (a)
+  # SPLIT-PLOT-C: Case nested within reader; Hillis 2014 Table VII part (c)
   if (!(type %in% c("FROC", "ROC"))) stop("Unsupported declared type: must be ROC or FROC.\n")
-  if (!(design %in% c("FCTRL", "CROSSED", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL or SPLIT-PLOT-C\n")
+  if (!(design %in% c("FCTRL", "CROSSED", "SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C\n")
   
   if (type == "ROC") {
     if (((design == "FCTRL") || (design == "CROSSED")) && (sum(!is.na(truthTableStr)) != 
                                                            L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be crossed/factorial ROC")
     
+    # TBA SPLIT-PLOT-C EDITS
+    # if ((design == "SPLIT-PLOT-A") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
+    #   stop("Dataset does not appear to be ROC split-plot-a")
+    
     if ((design == "SPLIT-PLOT-C") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
-      stop("Dataset does not appear to be split plot ROC")
+      stop("Dataset does not appear to be ROC split-plot-c")
   }
   
   if (type == "FROC") {
@@ -327,8 +336,11 @@ checkTruthTable <- function (truthTable)
                                                            L*length(readerIDArray[,1])*length(modalityIDArray[,1]))) 
       stop("Dataset does not appear to be crossed FROC")
     
+    if ((design == "SPLIT-PLOT-A") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
+      stop("Dataset does not appear to be FROC split-plot-a")
+
     if ((design == "SPLIT-PLOT-C") && (sum(!is.na(truthTableStr)) != L*length(modalityIDArray[,1]))) 
-      stop("Dataset does not appear to be split plot FROC")
+      stop("Dataset does not appear to be FROC split-plot-c")
   }
   
   return (list(

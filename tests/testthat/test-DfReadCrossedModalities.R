@@ -2,7 +2,7 @@ contextStr <- "DfReadCrossedModalities"
 context(contextStr)
 test_that(contextStr, {
   crossedFileName <- system.file("extdata",
-                                 "CrossedModalitiesData.xlsx",
+                                 "CrossedModalities.xlsx",
                                  package = "RJafroc", mustWork = TRUE)
   
   fn <- paste0(test_path(), "/goodValues361/DfReadCrossedModalities/ReadJTXModData", ".rds")

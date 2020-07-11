@@ -2,7 +2,7 @@ OutputTextFileORH <- function(dataset,
                               method,
                               methodTxt,
                               ReportFileName,
-                              alpha, # decided to restrict to alpha = 0.05 5/21/20
+                              alpha, # decided to restrict to alpha = 0.05 5/21/20 # undid 7/11/20
                               FOM,
                               analysisOption,
                               OR)
@@ -78,15 +78,21 @@ OutputTextFileORH <- function(dataset,
   df <- OR$RRRC$FTests
   print(format(df, digits = 5, justify = "left"))
   
-  if (OR$RRRC$FTests$p[1] < 0.05) {
+  if (OR$RRRC$FTests$p[1] < alpha) {
     x <- c("\nCONCLUSION:", 
-           sprintf("The treatment FOMs are different [F(%2d,%7.4f) = %6.3f, p = %7.4f].",
-                   OR$RRRC$FTests$DF[1], OR$RRRC$FTests$DF[2], OR$RRRC$FTests$FStat[1], OR$RRRC$FTests$p[1]))
+           sprintf("The treatment FOMs are different [F(%2d,%7.4f) = %6.3f, p = %7.4f, alpha = %7.4f].",
+                   OR$RRRC$FTests$DF[1], 
+                   OR$RRRC$FTests$DF[2], 
+                   OR$RRRC$FTests$FStat[1], 
+                   OR$RRRC$FTests$p[1], alpha))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nCONCLUSION:", 
-           sprintf("The treatment FOMs are not significantly different [F(%2d,%7.4f) = %6.3f, p = %7.4f].",
-                   OR$RRRC$FTests$DF[1], OR$RRRC$FTests$DF[2], OR$RRRC$FTests$FStat[1], OR$RRRC$FTests$p[1]))
+           sprintf("The treatment FOMs are not significantly different [F(%2d,%7.4f) = %6.3f, p = %7.4f, alpha = %7.4f].",
+                   OR$RRRC$FTests$DF[1], 
+                   OR$RRRC$FTests$DF[2], 
+                   OR$RRRC$FTests$FStat[1], 
+                   OR$RRRC$FTests$p[1], alpha))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
   
@@ -147,15 +153,19 @@ OutputTextFileORH <- function(dataset,
   df <- OR$FRRC$FTests
   print(format(df, digits = 5, justify = "left"))
   
-  if (OR$FRRC$FTests$p[1] < 0.05) {
+  if (OR$FRRC$FTests$p[1] < alpha) {
     x <- c("\nCONCLUSION:", 
-           sprintf("The treatment AUCs are different [X2(%1d) = %6.3f, p = %7.4f].",
-                   OR$FRRC$FTests$DF[1], OR$FRRC$FTests$Chisq[1], OR$FRRC$FTests$p[1]))
+           sprintf("The treatment AUCs are different [X2(%1d) = %6.3f, p = %7.4f, alpha = %7.4f].",
+                   OR$FRRC$FTests$DF[1], 
+                   OR$FRRC$FTests$Chisq[1], 
+                   OR$FRRC$FTests$p[1], alpha))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nCONCLUSION:", 
-           sprintf("The treatment AUCs are not significantly different [X2(%1d) = %6.3f, p = %7.4f].",
-                   OR$FRRC$FTests$DF[1], OR$FRRC$FTests$Chisq[1], OR$FRRC$FTests$p[1]))
+           sprintf("The treatment AUCs are not significantly different [X2(%1d) = %6.3f, p = %7.4f, alpha = %7.4f].",
+                   OR$FRRC$FTests$DF[1], 
+                   OR$FRRC$FTests$Chisq[1], 
+                   OR$FRRC$FTests$p[1], alpha))
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   }
   
@@ -236,17 +246,23 @@ OutputTextFileORH <- function(dataset,
   df <- OR$RRFC$FTests
   print(format(df, digits = 5, justify = "left"))
   
-  if(OR$RRFC$FTests["T","p"] < 0.05){
+  if(OR$RRFC$FTests["T","p"] < alpha){
     x <- c("\nCONCLUSION:", 
            "The treatment AUCs are different,",
-           sprintf("[F(%1d,%2d) = %7.4f, p = %7.4f].",I-1,(I-1)*(J-1), OR$RRFC$FTests[1,3], OR$RRFC$FTests[1,4]),
+           sprintf("[F(%1d,%2d) = %7.4f, p = %7.4f, alpha = %7.4f].",
+                   I-1,(I-1)*(J-1), 
+                   OR$RRFC$FTests[1,3], 
+                   OR$RRFC$FTests[1,4], alpha),
            "Note: If there are only 2 treatments, this is equivalent to a paired t-test applied",
            "to the AUCs")
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nCONCLUSION:", 
            "The treatment AUCs are not significantly different,",
-           sprintf("[F(%1d,%2d) = %7.4f, p = %7.4f].",I-1,(I-1)*(J-1), OR$RRFC$FTests[1,3], OR$RRFC$FTests[1,4]),
+           sprintf("[F(%1d,%2d) = %7.4f, p = %7.4f, alpha = %7.4f].",
+                   I-1,(I-1)*(J-1), 
+                   OR$RRFC$FTests[1,3], 
+                   OR$RRFC$FTests[1,4], alpha),
            "Note: If there are only 2 treatments, this is equivalent to a paired t-test applied",
            "to the AUCs")
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))

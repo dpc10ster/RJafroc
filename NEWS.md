@@ -1,13 +1,18 @@
 # RJafroc 1.3.2.9000
 
+## Tests for UtilOutputReport
+* Included tests for `UtilOutputReport()` for text output only
+* could not get version that compared actual outputs to work in R CMD check
+* only works at command line (running tests one at a time)
+* failing code is commented out
+* move onto to hyk analysis split-plot-a
+
 ## Renamed SP datasets 7/9/20
-* Renamed the split plot dataset to datasetFROCSp
+* Renamed the split plot dataset to datasetFROCSpC
 * The C stands for Table VII Part (C) in Hillis 2014
 * Need to distinguish between different types of split-plot datasets
-* What I was doint so far was split-plot-c
+* What I was doing so far was split-plot-c
 * The new analysis requires split-plot-a
-* updated NEWS.md partially
-
 
 ## Code for checking for non-sequential lesionIDs in TRUTH 7/8/20
 * Updated all tests to display contexts more consistently.

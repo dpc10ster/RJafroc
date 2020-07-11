@@ -2,7 +2,7 @@ context("Ensure that DBM varComp values match those from Windows JAFROC")
 test_that("Ensure that DBM varComp values match those from Windows JAFROC", {
   
   # this is the same dataset that Jason Cai found the error on
-  fileName <- system.file("extdata", "FrocData.xlsx",
+  fileName <- system.file("extdata", "Froc.xlsx",
                           package = "RJafroc", mustWork = TRUE)
   ds <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
   
@@ -40,7 +40,7 @@ context("Ensure that OR varComp values match those from Windows JAFROC")
 test_that("Ensure that OR varComp values match those from Windows JAFROC", {
 
   # this is the same dataset that Jason Cai found the error on
-  fileName <- system.file("extdata", "FrocData.xlsx",
+  fileName <- system.file("extdata", "Froc.xlsx",
                           package = "RJafroc", mustWork = TRUE)
   ds <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
 

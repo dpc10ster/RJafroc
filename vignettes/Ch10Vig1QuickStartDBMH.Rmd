@@ -82,7 +82,7 @@ There is a file `RocData.xlsx` that is part of the package installation. Since i
 file one must get its name as follows.
 
 ```{r}
-fileName <- "RocData.xlsx"
+fileName <- "Roc.xlsx"
 sysFileName <- system.file(paste0("extdata/",fileName), package = "RJafroc", mustWork = TRUE)
 ``` 
 

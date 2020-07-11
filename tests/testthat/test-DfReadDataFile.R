@@ -90,7 +90,7 @@ context("DfReadDataFile, JAFROC-1")
 test_that("DfReadDataFile, JAFROC", {
   
   fileName <- system.file(
-    "extdata", "RocData.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "Roc.xlsx", package = "RJafroc", mustWork = TRUE)
   
   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/jafroc-oldExcelFormat", ".rds")
   if (!file.exists(fn)) {
@@ -111,7 +111,7 @@ test_that("DfReadDataFile, JAFROC", {
 context("DfReadDataFile, JAFROC-2")
 test_that("DfReadDataFile, JAFROC", {
   fileName <- system.file(
-    "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "Froc.xlsx", package = "RJafroc", mustWork = TRUE)
   
   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/jafroc-newExcelFormat", ".rds")
   if (!file.exists(fn)) {
@@ -131,7 +131,7 @@ context("DfReadDataFile, JAFROC-3")
 test_that("DfReadDataFile, JAFROC", {
   # check sequentialNames option
   fileName <- system.file(
-    "extdata", "FrocData.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "Froc.xlsx", package = "RJafroc", mustWork = TRUE)
   
   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/jafroc-renum", ".rds")
   if (!file.exists(fn)) {
