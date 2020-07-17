@@ -1,5 +1,8 @@
-context("DfReadDataFile, non_JAFROC-1")
-test_that("DfReadDataFile, non_JAFROC-1", {
+library(tools)
+
+contextStr <- "DfReadDataFile jafroc-csv Format"
+context(contextStr)
+test_that(contextStr, {
   
   #  data format:
   #  A string specifying the format of the data in the file.
@@ -10,7 +13,8 @@ test_that("DfReadDataFile, non_JAFROC-1", {
   #  For file extension .imrmc the format is described in https://code.google.com/p/imrmc/.
   #
   # dpc 6/29/19 comment
-  # ROC is the simplest paradigm and data structure; yet 4 different formats
+  # ROC is the simplest paradigm and data structure; yet 4 different formats; go
+  # figure!
   #
   
   fileName <- system.file(
@@ -29,8 +33,9 @@ test_that("DfReadDataFile, non_JAFROC-1", {
 })
 
 
-context("DfReadDataFile, non_JAFROC-2")
-test_that("DfReadDataFile, non_JAFROC-2", {
+contextStr <- "DfReadDataFile jafroc-lrc Format"
+context(contextStr)
+test_that(contextStr, {
   fileName <- system.file(
     "extdata", "RocData.lrc", package = "RJafroc", mustWork = TRUE)
   
@@ -49,8 +54,9 @@ test_that("DfReadDataFile, non_JAFROC-2", {
 
 
 
-context("DfReadDataFile, non_JAFROC-3")
-test_that("DfReadDataFile, non_JAFROC-3", {
+contextStr <- "DfReadDataFile jafroc-iMRMC Format"
+context(contextStr)
+test_that(contextStr, {
   fileName <- system.file(
     "extdata", "RocData.imrmc", package = "RJafroc", mustWork = TRUE)
   
@@ -68,8 +74,9 @@ test_that("DfReadDataFile, non_JAFROC-3", {
 
 
 
-context("DfReadDataFile, non_JAFROC-4")
-test_that("DfReadDataFile, non_JAFROC-4", {
+contextStr <- "DfReadDataFile jafroc-MRMC Format"
+context(contextStr)
+test_that(contextStr, {
   fileName <- system.file("extdata", "RocData.txt", package = "RJafroc", mustWork = TRUE)
   
   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/txt", ".rds")
@@ -86,8 +93,9 @@ test_that("DfReadDataFile, non_JAFROC-4", {
 
 
 
-context("DfReadDataFile, JAFROC-1")
-test_that("DfReadDataFile, JAFROC", {
+contextStr <- "DfReadDataFile jafroc-oldExcelFormat"
+context(contextStr)
+test_that(contextStr, {
   
   fileName <- system.file(
     "extdata", "Roc.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -108,8 +116,9 @@ test_that("DfReadDataFile, JAFROC", {
 
 
 
-context("DfReadDataFile, JAFROC-2")
-test_that("DfReadDataFile, JAFROC", {
+contextStr <- "DfReadDataFile jafroc-newExcelFormat"
+context(contextStr)
+test_that(contextStr, {
   fileName <- system.file(
     "extdata", "Froc.xlsx", package = "RJafroc", mustWork = TRUE)
   
@@ -127,8 +136,9 @@ test_that("DfReadDataFile, JAFROC", {
 
 
 
-context("DfReadDataFile, JAFROC-3")
-test_that("DfReadDataFile, JAFROC", {
+contextStr <- "DfReadDataFile jafroc-renum"
+context(contextStr)
+test_that(contextStr, {
   # check sequentialNames option
   fileName <- system.file(
     "extdata", "Froc.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -146,34 +156,10 @@ test_that("DfReadDataFile, JAFROC", {
   
 })
 
-###########################################################################
-context("DfReadDataFile toy ROC datasets")
-test_that("DfReadDataFile toy ROC datasets", {
-  fileName <- system.file(
-    "extdata", "/toyFiles/ROC/rocCr.xlsx", package = "RJafroc", mustWork = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/jafroc-rocCr", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-    saveRDS(temp, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/ROC/rocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/jafroc-rocSpC", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-    saveRDS(temp, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+
+contextStr <- "DfReadDataFile toy ROC datasets"
+context(contextStr)
+test_that(contextStr, {
   
   fileName <- system.file(
     "extdata", "/toyFiles/ROC/rocCrStrRdrsTrts.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -217,9 +203,9 @@ test_that("DfReadDataFile toy ROC datasets", {
     "extdata", "/toyFiles/ROC/non-numeric-weight.xlsx", package = "RJafroc", mustWork = TRUE)
   expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
 
- fileName <- system.file(
-   "extdata", "/toyFiles/ROC/duplicatedRow.xlsx", package = "RJafroc", mustWork = TRUE)
- expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
+ # fileName <- system.file(
+ #   "extdata", "/toyFiles/ROC/duplicatedRow.xlsx", package = "RJafroc", mustWork = TRUE)
+ # expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
  
  fileName <- system.file(
    "extdata", "/toyFiles/ROC/incorrectSheetName.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -232,52 +218,52 @@ test_that("DfReadDataFile toy ROC datasets", {
 })
 
 
-###########################################################################
-context("DfReadDataFile toy FROC datasets")
-test_that("DfReadDataFile toy FROC datasets", {
-  fileName <- system.file(
-    "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
+contextStr <- "DfReadDataFile toy FROC crossed datasets"
+context(contextStr)
+test_that(contextStr, {
+  # fileName <- system.file(
+  #   "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
+  # 
+  # fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocCr", ".rds")
+  # if (!file.exists(fn)) {
+  #   warning(paste0("File not found - generating new ",fn))
+  #   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  #   saveRDS(temp, file = fn)
+  # }
+  # 
+  # ds <- readRDS(fn)
+  # expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
   
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocCr", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-    saveRDS(temp, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
-  
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = FALSE), ds)
+  # fileName <- system.file(
+  #   "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
+  # 
+  # expect_equal(DfReadDataFile(fileName, newExcelFileFormat = FALSE), ds)
   
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/FrocDataSpCVaryK1K2.xlsx", package = "RJafroc", mustWork = TRUE)
   
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/FrocDataSpCVaryK1K2", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-    saveRDS(temp, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  # fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/FrocDataSpCVaryK1K2", ".rds")
+  # if (!file.exists(fn)) {
+  #   warning(paste0("File not found - generating new ",fn))
+  #   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  #   saveRDS(temp, file = fn)
+  # }
+  # 
+  # ds <- readRDS(fn)
+  # expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
 
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/frocCrStrRdrsTrts.xlsx", package = "RJafroc", mustWork = TRUE)
   
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocCrStrRdrsTrts", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-    saveRDS(temp, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  # fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocCrStrRdrsTrts", ".rds")
+  # if (!file.exists(fn)) {
+  #   warning(paste0("File not found - generating new ",fn))
+  #   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  #   saveRDS(temp, file = fn)
+  # }
+  # 
+  # ds <- readRDS(fn)
+  # expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
     
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/incorrectCaseIDsInTP.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -293,3 +279,48 @@ test_that("DfReadDataFile toy FROC datasets", {
   
 })
 
+
+contextStr <- "DfReadDataFile toy ROC split-plot and crossed datasets"
+context(contextStr)
+test_that(contextStr, {
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/ROC/rocCr.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/rocCr", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/ROC/rocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/rocSpC", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+
+  fileName <- system.file(
+    "extdata", "/toyFiles/ROC/rocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/rocSpA", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  
+})

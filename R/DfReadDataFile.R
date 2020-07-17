@@ -178,46 +178,65 @@ checkTruthTable <- function (truthTable)
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
+  
   if (design == "SPLIT-PLOT-A") {
     # preserve the strings; DO NOT convert to integers
-    rdrArr <- array(dim = c(L,2)) # TBA this is specific to two readers
+    J <- length(strsplit(readerIDCol[1], ",")[[1]])
+    rdrArr <- array(dim = c(L,J)) # TBA this is specific to two readers
     for (l in 1:L) {
-      val <- strsplit(readerIDCol[l], ",")
-      val <- val[[1]]
+      val <- strsplit(readerIDCol[l], ",")[[1]]
       for (i in 1:length(val)) {
         rdrArr[l,i] <- val[i]
       }
     }
     # preserve the strings; DO NOT convert to integers
-    trtArr <- array(dim = L)
+    I <- length(strsplit(modalityIDCol[1], ",")[[1]])
+    trtArr <- array(dim = c(L,I))
     for (l in 1:L) {
       if (grep("^\\(.\\)", modalityIDCol[l]) == 1) { # match found to something like (1), i.e., one nested factor
         val <- grep("^\\(.\\)", modalityIDCol[l], value = T)
-        val <- strsplit(val, split = "\\(|\\)")
-        val <- val[[1]]
+        val <- strsplit(val, split = "\\(|\\)")[[1]]
         for (i in 1:length(val)) {
-          if (!is.na(as.integer(val[i])))
-            trtArr[l] <- as.integer(val[i])
+          if (val[i] == "") next else trtArr[l] <- val[i]
         }
       }
     }
   } else if (design == "SPLIT-PLOT-C") {
     # preserve the strings; DO NOT convert to integers
-    rdrArr <- array(dim = L)
+    J <- length(strsplit(readerIDCol[1], ",")[[1]])
+    rdrArr <- array(dim = c(L,J))
     for (l in 1:L) {
       if (grep("^\\(.\\)", readerIDCol[l]) == 1) { # match found to something like (1), i.e., one nested factor
         val <- grep("^\\(.\\)", readerIDCol[l], value = T)
-        val <- strsplit(val, split = "\\(|\\)")
-        val <- val[[1]]
+        val <- strsplit(val, split = "\\(|\\)")[[1]]
         for (i in 1:length(val)) {
           if (val[i] == "") next else rdrArr[l] <- val[i]
         }
       }
       # preserve the strings; DO NOT convert to integers
-      trtArr <- array(dim = c(L,2))
+      I <- length(strsplit(modalityIDCol[1], ",")[[1]])
+      trtArr <- array(dim = c(L,I))
       for (l in 1:L) {
-        val <- strsplit(modalityIDCol[l], ",")
-        val <- val[[1]]
+        val <- strsplit(modalityIDCol[l], ",")[[1]]
+        for (i in 1:length(val)) {
+          trtArr[l,i] <- val[i]
+        }
+      }
+    }
+  } else if (design == "FCTRL") {
+    # preserve the strings; DO NOT convert to integers
+    J <- length(strsplit(readerIDCol[1], ",")[[1]])
+    rdrArr <- array(dim = c(L,J))
+    for (l in 1:L) {
+      val <- strsplit(readerIDCol[l], ",")[[1]]
+      for (i in 1:length(val)) {
+        if (val[i] == "") next else rdrArr[l,i] <- val[i]
+      }
+      # preserve the strings; DO NOT convert to integers
+      I <- length(strsplit(modalityIDCol[1], ",")[[1]])
+      trtArr <- array(dim = c(L,I))
+      for (l in 1:L) {
+        val <- strsplit(modalityIDCol[l], ",")[[1]]
         for (i in 1:length(val)) {
           trtArr[l,i] <- val[i]
         }
@@ -282,15 +301,22 @@ checkTruthTable <- function (truthTable)
       x <- c(x[1,],x[2,])
       for (j1 in 1:length(rdrArr[l,])) {
         j <- which(x == rdrArr[l,j1])
-        truthTableStr[i, j, k, el] <- 1 # TBA temporary fix
+        truthTableStr[i, j, k, el] <- 1
       }
     }
     else if (design == "SPLIT-PLOT-C") {
       i <- which(unique(trtArr) == trtArr[l,])
       j <- which(unique(rdrArr) == rdrArr[l])
-     truthTableStr[i, j, k, el] <- 1
-    }
-    else stop("incorrect study design")
+      truthTableStr[i, j, k, el] <- 1
+    } else if (design == "FCTRL") {
+      i <- which(unique(trtArr) == trtArr[l,])
+      j <- which(unique(rdrArr) == rdrArr[l])
+      x <- unique(rdrArr)
+      for (j1 in 1:length(rdrArr[l,])) {
+        j <- which(x == rdrArr[l,j1])
+        truthTableStr[i, j, k, el] <- 1 
+      }
+    } else stop("incorrect study design")
   }
   temp <- 1
   # if (type == "ROC") {
