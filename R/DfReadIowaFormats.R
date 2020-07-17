@@ -356,3 +356,14 @@ ReadLrc <- function(fileName, sequentialNames)
                          modalityID, readerID))
   
 }
+
+
+splitWhiteSpaces <- function(string) 
+{
+  whiteSpaces <- c("", " ", "\t")
+  string <- unlist(strsplit(string, split = " |\t"))
+  string <- string[!string %in% whiteSpaces]
+  return(string)
+} 
+
+
