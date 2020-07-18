@@ -99,16 +99,7 @@ DfReadDataFile <- function (fileName, format = "JAFROC",
 
 
 
-checkTruthTable <- function (truthTable) 
-{
-  
-  type <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[1]
-  design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
-  
-  # SPLIT-PLOT-A: Reader nested within test; Hillis 2014 Table VII part (a)
-  # SPLIT-PLOT-C: Case nested within reader; Hillis 2014 Table VII part (c)
-  if (!(type %in% c("FROC", "ROC"))) stop("Unsupported declared type: must be ROC or FROC.\n")
-  if (!(design %in% c("FCTRL", "CROSSED", "SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C\n")
+preCheck4BadEntries <- function(truthTable) {
   
   # START not sure what this does
   # for (i in 1:3){
@@ -151,6 +142,40 @@ checkTruthTable <- function (truthTable)
   if (any(!is.wholenumber(as.numeric(truthTable[[1]])))) stop("Non-integer values in Truth worksheet column 1")
   if (any(!is.wholenumber(as.numeric(truthTable[[2]])))) stop("Non-integer values in Truth worksheet column 2")
   if (any(!is.double(as.numeric(truthTable[[3]])))) stop("Non-floating point values in Truth worksheet column 3")
+  
+  # code to check for sequential lesionIDs in Truth sheet: 0,0,1,2,0,1,2,3,0,1 etc
+  # normal case lesionIDS are all 0
+  # for each abnormal case, the lesionID starts from 1 and works up, sequentially, to number of lesions on the case
+  # a case can start abruptly wiht lesionID = 0 or 1, but not with lesionID = 2 or more
+  # if it starts with lesionID = 2 or more, the previous one must be one less, i.e., sequential
+  t <- as.numeric(truthTable$LesionID) # at this stage the cells in truthTable could be characters, 
+  # which would break the following code; hence we convert to numerics; the lesionID field is convertible
+  # to integers, even if entered as characters; if not there is an error in the data file
+  for (k in 1:length(t)) {
+    if (t[k] %in% c(0,1)) next else {
+      if (t[k] != (t[k-1] + 1)) {
+        errorMsg <- paste0(errorMsg, "\nNon-sequential lesionID encountered at line(s) ",
+                           paste(k + 1, collapse = ", "), " in the TRUTH table.")
+      }
+    }
+  }
+  if (errorMsg != "") stop(errorMsg)
+  
+}
+
+
+
+# SPLIT-PLOT-A: Reader nested within test; Hillis 2014 Table VII part (a)
+# SPLIT-PLOT-C: Case nested within reader; Hillis 2014 Table VII part (c)
+checkTruthTable <- function (truthTable) 
+{
+  
+  preCheck4BadEntries (truthTable)
+  
+  type <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[1]
+  design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
+  if (!(type %in% c("FROC", "ROC"))) stop("Unsupported declared type: must be ROC or FROC.\n")
+  if (!(design %in% c("FCTRL", "CROSSED", "SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C\n")
   
   df <- truthTable[1:5]
   df["caseLevelTruth"] <- (truthTable$LesionID > 0)
@@ -246,50 +271,6 @@ checkTruthTable <- function (truthTable)
   I <- length(unique(trtArr))
   J <- length(unique(rdrArr))
   
-  # code to check for sequential lesionIDs in Truth sheet: 0,0,1,2,0,1,2,3,0,1 etc
-  # normal case lesionIDS are all 0
-  # for each abnormal case, the lesionID starts from 1 and works up, sequentially, to number of lesions on the case
-  # a case can start abruptly wiht lesionID = 0 or 1, but not with lesionID = 2 or more
-  # if it starts with lesionID = 2 or more, the previous one must be one less, i.e., sequential
-  t <- as.numeric(truthTable$LesionID) # at this stage the cells in truthTable could be characters, 
-  # which would break the following code; hence we convert to numerics; the lesionID field is convertible
-  # to integers, even if entered as characters; if not there is an error in the data file
-  for (k in 1:length(t)) {
-    if (t[k] %in% c(0,1)) next else {
-      if (t[k] != (t[k-1] + 1)) {
-        errorMsg <- paste0(errorMsg, "\nNon-sequential lesionID encountered at line(s) ",
-                           paste(k + 1, collapse = ", "), " in the TRUTH table.")
-      }
-    }
-  }
-  if (errorMsg != "") stop(errorMsg)
-  
-  perCase <- as.vector(table(caseIDCol[caseIDCol %in% abnormalCases]))
-  weights <- array(dim = c(K2, max(perCase)))
-  IDs <- array(dim = c(K2, max(perCase)))
-  
-  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  for (k2 in 1:K2) {
-    k <- which(caseIDCol == abnormalCases[k2])
-    IDs[k2, ] <- c(sort(lesionIDCol[k]), 
-                   rep(UNINITIALIZED, max(perCase) - length(k)))
-    if (all(weightsCol[k] == 0)) {
-      weights[k2, 1:length(k)] <- 1/perCase[k2]
-    } else {
-      weights[k2, ] <- as.numeric(c(weightsCol[k][order(lesionIDCol[k])], 
-                                    rep(UNINITIALIZED, max(perCase) - length(k))))
-      sumWeight <- sum(weights[k2, weights[k2, ] != UNINITIALIZED])
-      if (sumWeight != 1){
-        if (sumWeight <= 1.01 && sumWeight >= 0.99){
-          weights[k2, ] <- weights[k2, ] / sumWeight
-        }else{
-          errorMsg <- paste0("The sum of the weights of Case ", k2, " is not 1.")
-          stop(errorMsg)
-        }
-      }
-    }
-  }
-  
   truthTableStr <- array(dim = c(I, J, K, max(lesionIDCol)+1)) 
   for (l in 1:L) {
     k <- which(caseIDCol == truthTableSort$CaseID[l])
@@ -318,7 +299,7 @@ checkTruthTable <- function (truthTable)
       }
     } else stop("incorrect study design")
   }
-  temp <- 1
+
   # if (type == "ROC") {
   #   if (((design == "FCTRL") || (design == "CROSSED")) && (sum(!is.na(truthTableStr)) != 
   #                                                          L*length(readerIDArray[,1])*length(trtArr[,1]))) 
@@ -332,16 +313,42 @@ checkTruthTable <- function (truthTable)
   #     stop("Dataset does not appear to be ROC split-plot-c")
   # }
   
-  if (type == "FROC") {
-    if (((design == "FCTRL") || (design == "CROSSED")) && (sum(!is.na(truthTableStr)) != 
-                                                           L*length(readerIDArray[,1])*length(trtArr[,1]))) 
-      stop("Dataset does not appear to be crossed FROC")
-    
-    if ((design == "SPLIT-PLOT-A") && (sum(!is.na(truthTableStr)) != L*length(trtArr[,1]))) 
-      stop("Dataset does not appear to be FROC split-plot-a")
-    
-    if ((design == "SPLIT-PLOT-C") && (sum(!is.na(truthTableStr)) != L*length(trtArr[,1]))) 
-      stop("Dataset does not appear to be FROC split-plot-c")
+  # if (type == "FROC") {
+  #   if (((design == "FCTRL") || (design == "CROSSED")) && (sum(!is.na(truthTableStr)) != 
+  #                                                          L*length(readerIDArray[,1])*length(trtArr[,1]))) 
+  #     stop("Dataset does not appear to be crossed FROC")
+  #   
+  #   if ((design == "SPLIT-PLOT-A") && (sum(!is.na(truthTableStr)) != L*length(trtArr[,1]))) 
+  #     stop("Dataset does not appear to be FROC split-plot-a")
+  #   
+  #   if ((design == "SPLIT-PLOT-C") && (sum(!is.na(truthTableStr)) != L*length(trtArr[,1]))) 
+  #     stop("Dataset does not appear to be FROC split-plot-c")
+  # }
+  
+  perCase <- as.vector(table(caseIDCol[caseIDCol %in% abnormalCases]))
+  weights <- array(dim = c(K2, max(perCase)))
+  IDs <- array(dim = c(K2, max(perCase)))
+  
+  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  for (k2 in 1:K2) {
+    k <- which(caseIDCol == abnormalCases[k2])
+    IDs[k2, ] <- c(sort(lesionIDCol[k]), 
+                   rep(UNINITIALIZED, max(perCase) - length(k)))
+    if (all(weightsCol[k] == 0)) {
+      weights[k2, 1:length(k)] <- 1/perCase[k2]
+    } else {
+      weights[k2, ] <- as.numeric(c(weightsCol[k][order(lesionIDCol[k])], 
+                                    rep(UNINITIALIZED, max(perCase) - length(k))))
+      sumWeight <- sum(weights[k2, weights[k2, ] != UNINITIALIZED])
+      if (sumWeight != 1){
+        if (sumWeight <= 1.01 && sumWeight >= 0.99){
+          weights[k2, ] <- weights[k2, ] / sumWeight
+        }else{
+          errorMsg <- paste0("The sum of the weights of Case ", k2, " is not 1.")
+          stop(errorMsg)
+        }
+      }
+    }
   }
   
   return (list(
