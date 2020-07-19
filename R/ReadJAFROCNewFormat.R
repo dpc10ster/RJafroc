@@ -17,18 +17,21 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   if (length(truthFileIndex) == 0) stop("TRUTH table worksheet cannot be found in the Excel file.")
   truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:6)
   if (length(truthTable) != 6) stop("Old Excel format file encountered; cannot use newExcelFileFormat = TRUE")
-  truth <- checkTruthTable(truthTable) 
+  cTT <- checkTruthTable(truthTable) 
   
-  truthTableStr <- truth$truthTableStr
-  truthCaseID <-  truth$caseID # these need not be unique for FROC datasets
-  type <- truth$type
-  design <- truth$design
-  weights <- truth$weights
-  perCase <- truth$perCase
-  IDs <- truth$IDs
-  lesionIDCol <- truth$lesionIDCol
-  normalCases <- truth$normalCases
-  abnormalCases <- truth$abnormalCases
+  truthTableSort <- cTT$truthTableSort
+  rdrArr <- cTT$rdrArr
+  trtArr <- cTT$trtArr
+  truthTableStr <- cTT$truthTableStr
+  truthCaseID <-  cTT$caseID # these need not be unique for FROC datasets
+  type <- cTT$type
+  design <- cTT$design
+  weights <- cTT$weights
+  perCase <- cTT$perCase
+  IDs <- cTT$IDs
+  lesionIDCol <- cTT$lesionIDCol
+  normalCases <- cTT$normalCases
+  abnormalCases <- unique(cTT$abnormalCases)
   
   allCases <- c(normalCases, abnormalCases)
   K1 <- length(normalCases)
@@ -64,14 +67,6 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     }
   }
   
-  ########################################################
-  # sort the data read from the Excel worksheet
-  ########################################################
-  # df1 <- as.data.frame(NLTable, stringsAsFactors = FALSE)
-  # NLTable <- df1[order(df1$ModalityID, df1$ReaderID, df1$CaseID),]
-  # NLTable <- df1 # temporary line to bypass sorting
-  
-  # Col means the entire column is included
   NLReaderIDCol <- as.character(NLTable$ReaderID)
   NLModalityIDCol <- as.character(NLTable$ModalityID)
   NLCaseIDCol <- NLTable$CaseID
@@ -109,13 +104,6 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
       stop(errorMsg)
     }
   }
-  
-  ########################################################
-  # sort the data read from the Excel worksheet
-  ########################################################
-  # df11 <- as.data.frame(LLTable, stringsAsFactors = FALSE)
-  # LLTable <- df11[order(df11$ModalityID, df11$ReaderID, df11$CaseID, df11$LesionID),]
-  # LLTable <- df11 # temporary line to bypass sorting
   
   LLReaderIDCol <- as.character(LLTable$ReaderID)
   LLModalityIDCol <- as.character(LLTable$ModalityID)
@@ -165,8 +153,6 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   readerIDUnique <- as.character(unique(c(NLReaderIDCol, LLReaderIDCol)))
   J <- length(readerIDUnique)
   
-  
-  ############################ CALC NL ARRAY ################################
   maxNL <- 0
   for (i in modalityIDUnique) {
     for (j in readerIDUnique) {
@@ -177,69 +163,48 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     }
   }
   
+  L <- length(NLModalityIDCol)
+  r <- length(rdrArr)/L
+  myFlag <- FALSE
+  if ((r != 1) && (dim(rdrArr)[2] == r)) {
+    x1 <- unique(rdrArr)
+    x <- c()
+    for (i in 1:r) x <- c(x,x1[i,])
+    myFlag <- TRUE
+  }
+  
   NL <- array(dim = c(I, J, K, maxNL))
-  for (i in 1:I) {
-    for (j in 1:J) {
-      if (all(is.na(truthTableStr[i,j,,1]))) next
-      casePresent_ij <- (NLModalityIDCol == modalityIDUnique[i]) & 
-        (NLReaderIDCol == readerIDUnique[j])
-      if ((sum(casePresent_ij) == 0)) next 
-      caseNLTable <- table(NLCaseIDCol[casePresent_ij]) 
-      # following are the actual caseIDs, not the indices into the array
-      caseIDs_ij <- as.numeric(unlist(attr(caseNLTable, "dimnames")))
-      for (k1 in 1:length(caseIDs_ij)) {
-        if (caseIDs_ij[k1] %in% normalCases) {
-          tt2 <- truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 1]
-          errMsg <- sprintf("Missing lesionID field, check caseID %s in Truth worksheet.", caseIDs_ij[k1])
-          errMsg2 <- sprintf("Unknown error, check caseID %s in Truth worksheet.", caseIDs_ij[k1])
-          if (is.na(tt2)) {
-            stop(errMsg)
-          } else if (tt2 != 1) stop(errMsg2)
-        } else if (caseIDs_ij[k1] %in% abnormalCases) {
-          tt2 <- truthTableStr[i,j,which(caseIDs_ij[k1] == allCases), 2]
-          errMsg <- sprintf("Missing lesionID field, check caseID %s in Truth worksheet.", caseIDs_ij[k1])
-          errMsg2 <- sprintf("Unknown error, check caseID %s in Truth worksheet.", caseIDs_ij[k1])
-          if (is.na(tt2)) {
-            stop(errMsg)
-          } else if (tt2 != 1) stop(errMsg2)
-        } else stop("Should never get here")
-        for (el in 1:caseNLTable[k1]) {
-          NL[i, j, which(caseIDs_ij[k1] == allCases), el] <- 
-            NLRatingCol[casePresent_ij][which(NLCaseIDCol[casePresent_ij] == 
-                                                   caseIDs_ij[k1])][el]
-        }
+  ############################ INIT NL ARRAY ################################
+  for (l in 1:L) {
+    i <- which(unique(trtArr) == NLModalityIDCol[l])
+    if (myFlag) j <- which(x == NLReaderIDCol[l]) else 
+      j <- which(unique(rdrArr) == NLReaderIDCol[l])
+    k <- which(unique(truthTableSort$CaseID) == NLCaseIDCol[l])
+    nCases <- which((NLCaseIDCol == NLCaseIDCol[l]) & (NLModalityIDCol == modalityIDUnique[i]) & (NLReaderIDCol == readerIDUnique[j]))
+    if (NLCaseIDCol[l] %in% normalCases) tt2 <- truthTableStr[i,j,k,1] else tt2 <- truthTableStr[i,j,k,2] 
+    if (is.na(tt2)) stop("Error in reading NL/FP table") else {
+      if (tt2 != 1)  stop("Error in reading NL/FP table") else for (el in 1:length(nCases)) {
+        if (is.na( NL[i, j, k, el])) NL[i, j, k, el] <- NLRatingCol[l+el-1]
       }
     }
   }
   NL[is.na(NL)] <- UNINITIALIZED
   
-  ############################ CALC LL ARRAY ################################
+  ############################ INIT LL ARRAY ################################
   LL <- array(dim = c(I, J, K2, max(perCase)))
-  for (i in 1:I) {
-    for (j in 1:J) {
-      casePresent_ij <- (LLModalityIDCol == modalityIDUnique[i]) & 
-        (LLReaderIDCol == readerIDUnique[j])
-      if ((sum(casePresent_ij) == 0)) next
-      caseLLTable <- table(LLCaseIDCol[casePresent_ij])
-      caseIDs_ij <- as.numeric(unlist(attr(caseLLTable, "dimnames")))
-      for (k2 in 1:length(caseIDs_ij)) {
-        k2p <- which(caseIDs_ij[k2] == abnormalCases)
-        x2 <- which(LLCaseIDCol[casePresent_ij] == caseIDs_ij[k2])
-        x3 <- IDs[k2p, ]
-        for (el in 1:caseLLTable[k2]) {
-          elp <- which(LLLesionIDCol[casePresent_ij][x2][el] == x3)
-          tt2 <- truthTableStr[i,j,which(caseIDs_ij[k2] == allCases),elp+1]
-          errMsg <- sprintf("Missing lesionID field, check caseID %s in Truth worksheet.", caseIDs_ij[k2])
-          errMsg2 <- sprintf("Unknown error, check caseID %s in Truth worksheet.", caseIDs_ij[k2])
-          # elp+1 because lesionIDCol = 0 occupies first position, etc.
-          if (is.na(tt2)) {
-            stop(errMsg)
-          } else if (tt2 != 1) stop(errMsg2)
-          LL[i, j, k2p, elp] <- LLRatingCol[casePresent_ij][x2][el]
-        }
-      }
+  L <- length(LLModalityIDCol)
+  for (l in 1:L) {
+    i <- which(unique(trtArr) == LLModalityIDCol[l])
+    if (myFlag) j <- which(x == LLReaderIDCol[l]) else 
+      j <- which(unique(rdrArr) == LLReaderIDCol[l])
+    k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1 # offset into abnormal cases
+    el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l]) - 1
+    tt2 <- truthTableStr[i,j,k+K1,el+1]
+    if (is.na(tt2)) stop("Error in reading LL/TP table") else {
+      if (tt2 != 1)  stop("Error in reading LL/TP table") else LL[i, j, k, el] <- LLRatingCol[l]
     }
   }
+  
   LL[is.na(LL)] <- UNINITIALIZED
   weights[is.na(weights)] <- UNINITIALIZED
   lesionIDCol[is.na(lesionIDCol)] <- UNINITIALIZED

@@ -174,7 +174,7 @@ checkTruthTable <- function (truthTable)
   
   type <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[1]
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
-  if (!(type %in% c("FROC", "ROC"))) stop("Unsupported declared type: must be ROC or FROC.\n")
+  if (!(type %in% c("FROC", "ROC"))) stop("Unsupported data type: must be ROC or FROC.\n")
   if (!(design %in% c("FCTRL", "CROSSED", "SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C\n")
   
   df <- truthTable[1:5]
@@ -188,10 +188,8 @@ checkTruthTable <- function (truthTable)
   # truthTableSort <- TruthTableUnsorted # debugging
   
   caseIDCol <- as.integer(truthTableSort$CaseID)
-  dupIndx <- duplicated(caseIDCol)
-  caseIDCol <- caseIDCol[!dupIndx]
-  lesionIDCol <- as.integer(truthTableSort$LesionID[!dupIndx])
-  weightsCol <- as.numeric(truthTableSort$Weight[!dupIndx])
+  lesionIDCol <- as.integer(truthTableSort$LesionID)
+  weightsCol <- as.numeric(truthTableSort$Weight)
   readerIDCol <- truthTableSort$ReaderID
   modalityIDCol <- truthTableSort$ModalityID
   L <- length(truthTableSort$CaseID) # length in the Excel sheet
@@ -206,43 +204,47 @@ checkTruthTable <- function (truthTable)
   
   if (design == "SPLIT-PLOT-A") {
     # preserve the strings; DO NOT convert to integers
-    J <- length(strsplit(readerIDCol[1], ",")[[1]])
+    J <- length(strsplit(readerIDCol[1], split = ",")[[1]])
     rdrArr <- array(dim = c(L,J)) # TBA this is specific to two readers
     for (l in 1:L) {
-      val <- strsplit(readerIDCol[l], ",")[[1]]
+      val <- strsplit(readerIDCol[l], split = ",|\\s")[[1]]
+      val <- val[val != ""]
       for (i in 1:length(val)) {
         rdrArr[l,i] <- val[i]
       }
     }
     # preserve the strings; DO NOT convert to integers
-    I <- length(strsplit(modalityIDCol[1], ",")[[1]])
+    I <- length(strsplit(modalityIDCol[1], split = ",")[[1]])
     trtArr <- array(dim = c(L,I))
     for (l in 1:L) {
       if (grep("^\\(.\\)", modalityIDCol[l]) == 1) { # match found to something like (1), i.e., one nested factor
         val <- grep("^\\(.\\)", modalityIDCol[l], value = T)
         val <- strsplit(val, split = "\\(|\\)")[[1]]
+        val <- val[val != ""]
         for (i in 1:length(val)) {
-          if (val[i] == "") next else trtArr[l] <- val[i]
+          trtArr[l] <- val[i]
         }
       }
     }
   } else if (design == "SPLIT-PLOT-C") {
     # preserve the strings; DO NOT convert to integers
-    J <- length(strsplit(readerIDCol[1], ",")[[1]])
+    J <- length(strsplit(readerIDCol[1], split = ",")[[1]])
     rdrArr <- array(dim = c(L,J))
     for (l in 1:L) {
       if (grep("^\\(.\\)", readerIDCol[l]) == 1) { # match found to something like (1), i.e., one nested factor
         val <- grep("^\\(.\\)", readerIDCol[l], value = T)
         val <- strsplit(val, split = "\\(|\\)")[[1]]
+        val <- val[val != ""]
         for (i in 1:length(val)) {
-          if (val[i] == "") next else rdrArr[l] <- val[i]
+          rdrArr[l] <- val[i]
         }
       }
       # preserve the strings; DO NOT convert to integers
-      I <- length(strsplit(modalityIDCol[1], ",")[[1]])
+      I <- length(strsplit(modalityIDCol[1], split = ",")[[1]])
       trtArr <- array(dim = c(L,I))
       for (l in 1:L) {
-        val <- strsplit(modalityIDCol[l], ",")[[1]]
+        val <- strsplit(modalityIDCol[l], split = ",|\\s")[[1]]
+        val <- val[val != ""]
         for (i in 1:length(val)) {
           trtArr[l,i] <- val[i]
         }
@@ -250,31 +252,35 @@ checkTruthTable <- function (truthTable)
     }
   } else if (design == "FCTRL") {
     # preserve the strings; DO NOT convert to integers
-    J <- length(strsplit(readerIDCol[1], ",")[[1]])
+    J <- length(strsplit(readerIDCol[1], split = ",")[[1]])
     rdrArr <- array(dim = c(L,J))
     for (l in 1:L) {
-      val <- strsplit(readerIDCol[l], ",")[[1]]
+      val <- strsplit(readerIDCol[l], split = ",|\\s")[[1]]
+      val <- val[val != ""]
       for (i in 1:length(val)) {
-        if (val[i] == "") next else rdrArr[l,i] <- val[i]
+        rdrArr[l,i] <- val[i]
       }
       # preserve the strings; DO NOT convert to integers
-      I <- length(strsplit(modalityIDCol[1], ",")[[1]])
+      I <- length(strsplit(modalityIDCol[1], split = ",")[[1]])
       trtArr <- array(dim = c(L,I))
       for (l in 1:L) {
-        val <- strsplit(modalityIDCol[l], ",")[[1]]
+        val <- strsplit(modalityIDCol[l], split = ",|\\s")[[1]]
+        val <- val[val != ""]
         for (i in 1:length(val)) {
           trtArr[l,i] <- val[i]
         }
       }
     }
   } else stop("incorrect design value")
+  if (any(is.na(rdrArr))) stop("Illegal character in readerID column in TRUTH sheet")
+  if (any(is.na(trtArr))) stop("Illegal character in modalityID column in TRUTH sheet")
   I <- length(unique(trtArr))
   J <- length(unique(rdrArr))
   
   truthTableStr <- array(dim = c(I, J, K, max(lesionIDCol)+1)) 
   for (l in 1:L) {
-    k <- which(caseIDCol == truthTableSort$CaseID[l])
-    el <- truthTableSort$LesionID[l] + 1
+    k <- which(unique(truthTableSort$CaseID) == truthTableSort$CaseID[l])
+    el <- as.integer(truthTableSort$LesionID[l]) + 1
     if (design == "SPLIT-PLOT-A") {
       i <- which(unique(trtArr) == trtArr[l])
       # j <- rdrArr[l,] # TBA this assumes readers are numbered sequentially
@@ -291,12 +297,13 @@ checkTruthTable <- function (truthTable)
       truthTableStr[i, j, k, el] <- 1
     } else if (design == "FCTRL") {
       i <- which(unique(trtArr) == trtArr[l,])
-      j <- which(unique(rdrArr) == rdrArr[l])
-      x <- unique(rdrArr)
-      for (j1 in 1:length(rdrArr[l,])) {
-        j <- which(x == rdrArr[l,j1])
-        truthTableStr[i, j, k, el] <- 1 
-      }
+      j <- which(unique(rdrArr) == rdrArr[l,])
+      truthTableStr[i, j, k, el] <- 1
+      # x <- unique(rdrArr)
+      # for (j1 in 1:length(rdrArr[l,])) {
+      #   j <- which(x == rdrArr[l,j1])
+      #   truthTableStr[i, j, k, el] <- 1 
+      # }
     } else stop("incorrect study design")
   }
 
@@ -352,6 +359,9 @@ checkTruthTable <- function (truthTable)
   }
   
   return (list(
+    rdrArr = rdrArr,
+    trtArr = trtArr,
+    truthTableSort = truthTableSort,
     truthTableStr = truthTableStr,
     type = type,
     design = design,

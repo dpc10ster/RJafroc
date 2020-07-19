@@ -157,50 +157,37 @@ test_that(contextStr, {
 })
 
 
-contextStr <- "DfReadDataFile toy ROC datasets"
+contextStr <- "DfReadDataFile bad toy ROC datasets"
 context(contextStr)
 test_that(contextStr, {
   
-  fileName <- system.file(
-    "extdata", "/toyFiles/ROC/rocCrStrRdrsTrts.xlsx", package = "RJafroc", mustWork = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/rocCrStrRdrsTrts", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-    saveRDS(temp, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
-  
   ## The failed checks apply to the Truth Sheet only
   fileName <- system.file(
-    "extdata", "/toyFiles/ROC/missing2CellsRow5and7.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/ROC/bad/missing2CellsRow5and7.xlsx", package = "RJafroc", mustWork = TRUE)
   expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
 
   fileName <- system.file(
-    "extdata", "/toyFiles/ROC/missingEntireRow5.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/ROC/bad/missingEntireRow5.xlsx", package = "RJafroc", mustWork = TRUE)
   expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
   
   fileName <- system.file(
-    "extdata", "/toyFiles/ROC/missing1CellRow5.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/ROC/bad/missing1CellRow5.xlsx", package = "RJafroc", mustWork = TRUE)
   expect_error(DfReadDataFile(fileName))
 
   fileName <- system.file(
-    "extdata", "/toyFiles/ROC/non-integerCaseID.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/ROC/bad/non-integerCaseID.xlsx", package = "RJafroc", mustWork = TRUE)
   expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
 
   fileName <- system.file(
-    "extdata", "/toyFiles/ROC/non-integerLesionID.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/ROC/bad/non-integerLesionID.xlsx", package = "RJafroc", mustWork = TRUE)
   expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
 
   fileName <- system.file(
-    "extdata", "/toyFiles/ROC/incorrectWeights.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/ROC/bad/incorrectWeights.xlsx", package = "RJafroc", mustWork = TRUE)
   expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
 
   fileName <- system.file(
-    "extdata", "/toyFiles/ROC/non-numeric-weight.xlsx", package = "RJafroc", mustWork = TRUE)
+    "extdata", "/toyFiles/ROC/bad/non-numeric-weight.xlsx", package = "RJafroc", mustWork = TRUE)
   expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
 
  # fileName <- system.file(
@@ -208,10 +195,10 @@ test_that(contextStr, {
  # expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
  
  fileName <- system.file(
-   "extdata", "/toyFiles/ROC/incorrectSheetName.xlsx", package = "RJafroc", mustWork = TRUE)
+   "extdata", "/toyFiles/ROC/bad/incorrectSheetName.xlsx", package = "RJafroc", mustWork = TRUE)
  expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
  
- fileName <- system.file("extdata", "toyFiles/ROC/rocCrStrRdrsNonUnique.xlsx", 
+ fileName <- system.file("extdata", "toyFiles/ROC/bad/rocCrStrRdrsNonUnique.xlsx", 
                   package = "RJafroc", mustWork = TRUE)
  expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
  
@@ -221,60 +208,44 @@ test_that(contextStr, {
 contextStr <- "DfReadDataFile toy FROC crossed datasets"
 context(contextStr)
 test_that(contextStr, {
-  # fileName <- system.file(
-  #   "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
-  # 
-  # fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocCr", ".rds")
-  # if (!file.exists(fn)) {
-  #   warning(paste0("File not found - generating new ",fn))
-  #   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-  #   saveRDS(temp, file = fn)
-  # }
-  # 
-  # ds <- readRDS(fn)
-  # expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
-  
-  # fileName <- system.file(
-  #   "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
-  # 
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
+
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocCr", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+
+  ds <- readRDS(fn)
+  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
   # expect_equal(DfReadDataFile(fileName, newExcelFileFormat = FALSE), ds)
   
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/FrocDataSpCVaryK1K2.xlsx", package = "RJafroc", mustWork = TRUE)
   
-  # fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/FrocDataSpCVaryK1K2", ".rds")
-  # if (!file.exists(fn)) {
-  #   warning(paste0("File not found - generating new ",fn))
-  #   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-  #   saveRDS(temp, file = fn)
-  # }
-  # 
-  # ds <- readRDS(fn)
-  # expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/FrocDataSpCVaryK1K2", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+
+  ds <- readRDS(fn)
+  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
 
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/frocCrStrRdrsTrts.xlsx", package = "RJafroc", mustWork = TRUE)
   
-  # fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocCrStrRdrsTrts", ".rds")
-  # if (!file.exists(fn)) {
-  #   warning(paste0("File not found - generating new ",fn))
-  #   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-  #   saveRDS(temp, file = fn)
-  # }
-  # 
-  # ds <- readRDS(fn)
-  # expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocCrStrRdrsTrts", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+
+  ds <- readRDS(fn)
+  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
     
-  fileName <- system.file(
-    "extdata", "/toyFiles/FROC/incorrectCaseIDsInTP.xlsx", package = "RJafroc", mustWork = TRUE)
-  expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
-  
-  y <- system.file("extdata", "toyFiles/FROC/frocCrNonCharInReaderID.xlsx", 
-                        package = "RJafroc", mustWork = TRUE)
-  expect_error(DfReadDataFile(y, newExcelFileFormat = TRUE))
-  
-  y <- system.file("extdata", "toyFiles/FROC/frocCrNonCharInModalityID.xlsx", 
-                   package = "RJafroc", mustWork = TRUE)
-  expect_error(DfReadDataFile(y, newExcelFileFormat = TRUE))
-  
 })
