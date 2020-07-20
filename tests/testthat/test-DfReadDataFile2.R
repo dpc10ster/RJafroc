@@ -13,7 +13,8 @@ test_that(contextStr, {
   }
   
   ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
   
   # this checks a data file that uses strings for both readers and treatments, i.e., rocCrStrRdrsTrts.xlsx
   fileName <- system.file(
@@ -27,7 +28,8 @@ test_that(contextStr, {
   }
   
   ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
   
   fileName <- system.file(
     "extdata", "/toyFiles/ROC/rocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -40,7 +42,8 @@ test_that(contextStr, {
   }
   
   ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
   
   fileName <- system.file(
     "extdata", "/toyFiles/ROC/rocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -53,7 +56,8 @@ test_that(contextStr, {
   }
   
   ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
   
 })
 
@@ -72,8 +76,9 @@ test_that(contextStr, {
   }
   
   ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
-
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
+  
   # this checks a data file that uses strings for both readers and treatments, i.e., rocCrStrRdrsTrts.xlsx
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/frocCrStrRdrsTrts.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -86,7 +91,8 @@ test_that(contextStr, {
   }
   
   ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
   
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/frocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -99,20 +105,21 @@ test_that(contextStr, {
   }
   
   ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
   
-  # fileName <- system.file(
-  #   "extdata", "/toyFiles/FROC/frocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
-  # 
-  # fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocSpA", ".rds")
-  # if (!file.exists(fn)) {
-  #   warning(paste0("File not found - generating new ",fn))
-  #   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-  #   saveRDS(temp, file = fn)
-  # }
-  # 
-  # ds <- readRDS(fn)
-  # expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/frocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
+
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocSpA", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+
+  ds <- readRDS(fn)
+  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
   
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/bad/incorrectCaseIDsInTP.xlsx", package = "RJafroc", mustWork = TRUE)

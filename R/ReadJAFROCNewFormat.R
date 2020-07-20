@@ -70,8 +70,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   NLReaderIDCol <- as.character(NLTable$ReaderID)
   NLModalityIDCol <- as.character(NLTable$ModalityID)
   NLCaseIDCol <- NLTable$CaseID
-  if (is.null(NLTable$FP_Rating)) NLRatingCol <- NLTable$NL_Rating else
-    NLRatingCol <- NLTable$FP_Rating
+  if (is.null(NLTable$FP_Rating)) NLRatingCol <- NLTable$NL_Rating else NLRatingCol <- NLTable$FP_Rating
   
   if (any(!(NLCaseIDCol %in% truthCaseID))) {
     naCases <- NLCaseIDCol[which(!(NLCaseIDCol %in% truthCaseID))]
@@ -109,8 +108,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   LLModalityIDCol <- as.character(LLTable$ModalityID)
   LLCaseIDCol <- LLTable$CaseID
   LLLesionIDCol <- LLTable$LesionID
-  if (is.null(LLTable$TP_Rating)) LLRatingCol <- LLTable$LL_Rating else
-    LLRatingCol <- LLTable$TP_Rating
+  if (is.null(LLTable$TP_Rating)) LLRatingCol <- LLTable$LL_Rating else LLRatingCol <- LLTable$TP_Rating
   
   for (i in 1:nrow(LLTable)) {
     lineNum <- which((truthCaseID == LLCaseIDCol[i]) & (lesionIDCol == LLLesionIDCol[i]))
@@ -164,28 +162,33 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   }
   
   L <- length(NLModalityIDCol)
-  r <- length(rdrArr)/L
   myFlag <- FALSE
-  if ((r != 1) && (dim(rdrArr)[2] == r)) {
-    x1 <- unique(rdrArr)
-    x <- c()
-    for (i in 1:r) x <- c(x,x1[i,])
+  if (dim(rdrArr)[2] == 2) {
+    x <- unique(rdrArr)
+    x <- as.vector(t(x))
     myFlag <- TRUE
   }
   
   NL <- array(dim = c(I, J, K, maxNL))
+  NLRatingCol <- as.numeric(NLRatingCol)
+  if(any(is.na(NLRatingCol))) stop ("found NAs in NLRatingCol in NL/FP sheet")
   ############################ INIT NL ARRAY ################################
   for (l in 1:L) {
     i <- which(unique(trtArr) == NLModalityIDCol[l])
     if (myFlag) j <- which(x == NLReaderIDCol[l]) else 
       j <- which(unique(rdrArr) == NLReaderIDCol[l])
     k <- which(unique(truthTableSort$CaseID) == NLCaseIDCol[l])
-    nCases <- which((NLCaseIDCol == NLCaseIDCol[l]) & (NLModalityIDCol == modalityIDUnique[i]) & (NLReaderIDCol == readerIDUnique[j]))
+    nMatches <- which((NLCaseIDCol == NLCaseIDCol[l]) & (NLModalityIDCol == NLModalityIDCol[l]) & (NLReaderIDCol == NLReaderIDCol[l]))
     if (NLCaseIDCol[l] %in% normalCases) tt2 <- truthTableStr[i,j,k,1] else tt2 <- truthTableStr[i,j,k,2] 
-    if (is.na(tt2)) stop("Error in reading NL/FP table") else {
-      if (tt2 != 1)  stop("Error in reading NL/FP table") else for (el in 1:length(nCases)) {
-        if (is.na( NL[i, j, k, el])) NL[i, j, k, el] <- NLRatingCol[l+el-1]
-      }
+    if (is.na(tt2)) stop("Error in reading NL/FP table: is.na(tt2)") else {
+      if (tt2 != 1)  stop("Error in reading NL/FP table: tt2 != 1") else 
+        for (el in 1:length(nMatches)) {
+          # if a modality-reader-case has multiple marks, then enter the corresponding ratings
+          # the is.na() check ensures that an already recorded mark is not overwritten
+          # cannot determine el as in the LL case, see below, since the number of FROC NL marks is potentially unlimited
+          # The first rating comes from l, the next from l+1, etc.
+          if (is.na( NL[i, j, k, el])) NL[i, j, k, el] <- NLRatingCol[l+el-1]
+        }
     }
   }
   NL[is.na(NL)] <- UNINITIALIZED
@@ -198,10 +201,13 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     if (myFlag) j <- which(x == LLReaderIDCol[l]) else 
       j <- which(unique(rdrArr) == LLReaderIDCol[l])
     k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1 # offset into abnormal cases
+    # CAN determine el since the number of FROC LL marks is LIMITED
     el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l]) - 1
     tt2 <- truthTableStr[i,j,k+K1,el+1]
     if (is.na(tt2)) stop("Error in reading LL/TP table") else {
-      if (tt2 != 1)  stop("Error in reading LL/TP table") else LL[i, j, k, el] <- LLRatingCol[l]
+      if (tt2 != 1)  stop("Error in reading LL/TP table") else 
+        # the is.na() check ensures that an already recorded mark is not overwritten
+        if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
     }
   }
   

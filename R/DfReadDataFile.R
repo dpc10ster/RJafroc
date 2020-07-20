@@ -32,18 +32,6 @@
 #' package = "RJafroc", mustWork = TRUE)
 #' x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 #'
-#' fileName <- system.file("extdata", "toyFiles/FROC/FrocDataSpCVaryK1K2.xlsx", 
-#' package = "RJafroc", mustWork = TRUE)
-#' x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-#' 
-#' {
-#' fileName <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx", 
-#' package = "RJafroc", mustWork = TRUE)
-#' x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-#' 
-#' x1 <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
-#' testthat::expect_equal(x,x1)
-#' }
 #' 
 #' \donttest{
 #' fileName <- system.file("extdata", "Roc.xlsx", 
@@ -184,25 +172,28 @@ checkTruthTable <- function (truthTable)
   # this puts normal cases first, regardless of how they are entered
   ########################################################
   truthTableSort <- df[order(df$caseLevelTruth),]
-  # TruthTableUnsorted <- df # temporary line to bypass sorting, for debugging
-  # truthTableSort <- TruthTableUnsorted # debugging
+
+  caseIDCol <- as.integer(truthTable$CaseID)
+  # TBA need a note on use of indx, why it is not used for readerID, etc.
+  lesionIDCol <- as.integer(truthTable$LesionID)
+  weightsCol <- as.numeric(truthTable$Weight)
+  readerIDCol <- truthTable$ReaderID
+  modalityIDCol <- truthTable$ModalityID
+  L <- length(truthTable$CaseID) # length in the Excel sheet
+  for (i in 1:5) if ((length(truthTable[[i]])) != L) stop("Cols of unequal length in Truth Excel worksheet")  
   
-  caseIDCol <- as.integer(truthTableSort$CaseID)
-  lesionIDCol <- as.integer(truthTableSort$LesionID)
-  weightsCol <- as.numeric(truthTableSort$Weight)
-  readerIDCol <- truthTableSort$ReaderID
-  modalityIDCol <- truthTableSort$ModalityID
-  L <- length(truthTableSort$CaseID) # length in the Excel sheet
-  for (i in 1:5) if ((length(truthTableSort[[i]])) != L) stop("Cols of unequal length in Truth Excel worksheet")  
-  
-  normalCases <- sort(caseIDCol[lesionIDCol == 0])
-  abnormalCases <- sort(caseIDCol[lesionIDCol > 0])
-  allCases <- c(normalCases, abnormalCases)
+  normalCases <- sort(unique(caseIDCol[lesionIDCol == 0]))
+  abnormalCases <- sort(unique(caseIDCol[lesionIDCol > 0]))
+  # allCases <- c(normalCases, abnormalCases)
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
   
   if (design == "SPLIT-PLOT-A") {
+    # for this design the length is twice what it needs to be
+    caseIDCol <- as.integer(truthTable$CaseID)[1:(L/2)]
+    # lesionIDCol <- as.integer(truthTable$LesionID)[1:(L/2)]
+    weightsCol <- truthTable$Weight[1:(L/2)]
     # preserve the strings; DO NOT convert to integers
     J <- length(strsplit(readerIDCol[1], split = ",")[[1]])
     rdrArr <- array(dim = c(L,J)) # TBA this is specific to two readers
@@ -279,13 +270,11 @@ checkTruthTable <- function (truthTable)
   
   truthTableStr <- array(dim = c(I, J, K, max(lesionIDCol)+1)) 
   for (l in 1:L) {
-    k <- which(unique(truthTableSort$CaseID) == truthTableSort$CaseID[l])
-    el <- as.integer(truthTableSort$LesionID[l]) + 1
+    k <- which(unique(truthTableSort$CaseID) == truthTable$CaseID[l])
+    el <- lesionIDCol[l] + 1
     if (design == "SPLIT-PLOT-A") {
       i <- which(unique(trtArr) == trtArr[l])
-      # j <- rdrArr[l,] # TBA this assumes readers are numbered sequentially
-      x <- unique(rdrArr)
-      x <- c(x[1,],x[2,])
+      x <- as.vector(t(unique(rdrArr)))
       for (j1 in 1:length(rdrArr[l,])) {
         j <- which(x == rdrArr[l,j1])
         truthTableStr[i, j, k, el] <- 1
@@ -299,14 +288,9 @@ checkTruthTable <- function (truthTable)
       i <- which(unique(trtArr) == trtArr[l,])
       j <- which(unique(rdrArr) == rdrArr[l,])
       truthTableStr[i, j, k, el] <- 1
-      # x <- unique(rdrArr)
-      # for (j1 in 1:length(rdrArr[l,])) {
-      #   j <- which(x == rdrArr[l,j1])
-      #   truthTableStr[i, j, k, el] <- 1 
-      # }
     } else stop("incorrect study design")
   }
-
+  
   # if (type == "ROC") {
   #   if (((design == "FCTRL") || (design == "CROSSED")) && (sum(!is.na(truthTableStr)) != 
   #                                                          L*length(readerIDArray[,1])*length(trtArr[,1]))) 

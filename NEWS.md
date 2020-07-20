@@ -1,5 +1,16 @@
 # RJafroc 1.3.2.9000
 
+
+## Update for reading SPLIT-PLOT-A data files
+* Need to comment DfReadDataFile.R and ReadJAFROCNewFormat.R and add more checks in the code for illegal values; the sorting introduced all sorts of problems; sorted caseID column is used now in only 3 places; 
+```
+k <- which(unique(truthTableSort$CaseID) == truthTable$CaseID[l])
+k <- which(unique(truthTableSort$CaseID) == NLCaseIDCol[l])
+k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
+```
+* Also need to update NEWS.md;
+
+
 ## Tests for UtilOutputReport
 * Included tests for `UtilOutputReport()` for text output only
 * could not get version that compared actual outputs to work in R CMD check
