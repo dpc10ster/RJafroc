@@ -6,8 +6,6 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   if (!(temp[1] %in% c("FP", "NL"))) stop("FP or NL sheet not found\n")
   if (!(temp[2] %in% c("TP", "LL"))) stop("TP or LL sheet not found\n")
   if (!(temp[3] %in% c("TRUTH"))) stop("Truth sheet not found\n")
-  # need to undo sorting to find position correctly as otherwise FP and TP can get interchanged
-  # dpc 1/28/20
   sheetNames <- toupper(names(wb)) 
   
   ########################## CHECK TRUTH TABLE ##############################
@@ -17,13 +15,13 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   if (length(truthFileIndex) == 0) stop("TRUTH table worksheet cannot be found in the Excel file.")
   truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:6)
   if (length(truthTable) != 6) stop("Old Excel format file encountered; cannot use newExcelFileFormat = TRUE")
-  cTT <- checkTruthTable(truthTable) 
+  cTT <- checkTruthTable(truthTable) # cTT = checkTruthTable
   
-  truthTableSort <- cTT$truthTableSort
-  rdrArr <- cTT$rdrArr
-  trtArr <- cTT$trtArr
+  truthTableSort <- cTT$truthTableSort 
+  rdrArr1D <- cTT$rdrArr1D
+  trtArr1D <- cTT$trtArr1D
   truthTableStr <- cTT$truthTableStr
-  truthCaseID <-  cTT$caseID # these need not be unique for FROC datasets
+  truthCaseID <-  cTT$caseID # these need not be unique for FROC datasets, as more than one mark is possible
   type <- cTT$type
   design <- cTT$design
   weights <- cTT$weights
@@ -33,7 +31,6 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   normalCases <- cTT$normalCases
   abnormalCases <- unique(cTT$abnormalCases)
   
-  allCases <- c(normalCases, abnormalCases)
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
@@ -162,21 +159,13 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   }
   
   L <- length(NLModalityIDCol)
-  myFlag <- FALSE
-  if (dim(rdrArr)[2] == 2) {
-    x <- unique(rdrArr)
-    x <- as.vector(t(x))
-    myFlag <- TRUE
-  }
-  
   NL <- array(dim = c(I, J, K, maxNL))
   NLRatingCol <- as.numeric(NLRatingCol)
   if(any(is.na(NLRatingCol))) stop ("found NAs in NLRatingCol in NL/FP sheet")
   ############################ INIT NL ARRAY ################################
   for (l in 1:L) {
-    i <- which(unique(trtArr) == NLModalityIDCol[l])
-    if (myFlag) j <- which(x == NLReaderIDCol[l]) else 
-      j <- which(unique(rdrArr) == NLReaderIDCol[l])
+    i <- which(trtArr1D == NLModalityIDCol[l])
+    j <- which(rdrArr1D == NLReaderIDCol[l])
     k <- which(unique(truthTableSort$CaseID) == NLCaseIDCol[l])
     nMatches <- which((NLCaseIDCol == NLCaseIDCol[l]) & (NLModalityIDCol == NLModalityIDCol[l]) & (NLReaderIDCol == NLReaderIDCol[l]))
     if (NLCaseIDCol[l] %in% normalCases) tt2 <- truthTableStr[i,j,k,1] else tt2 <- truthTableStr[i,j,k,2] 
@@ -185,7 +174,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
         for (el in 1:length(nMatches)) {
           # if a modality-reader-case has multiple marks, then enter the corresponding ratings
           # the is.na() check ensures that an already recorded mark is not overwritten
-          # cannot determine el as in the LL case, see below, since the number of FROC NL marks is potentially unlimited
+          # CANNOT determine el as in the LL case, see below, since the number of FROC NL marks is potentially unlimited
           # The first rating comes from l, the next from l+1, etc.
           if (is.na( NL[i, j, k, el])) NL[i, j, k, el] <- NLRatingCol[l+el-1]
         }
@@ -197,11 +186,10 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   LL <- array(dim = c(I, J, K2, max(perCase)))
   L <- length(LLModalityIDCol)
   for (l in 1:L) {
-    i <- which(unique(trtArr) == LLModalityIDCol[l])
-    if (myFlag) j <- which(x == LLReaderIDCol[l]) else 
-      j <- which(unique(rdrArr) == LLReaderIDCol[l])
+    i <- which(trtArr1D == LLModalityIDCol[l])
+    j <- which(rdrArr1D == LLReaderIDCol[l])
     k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1 # offset into abnormal cases
-    # CAN determine el since the number of FROC LL marks is LIMITED
+    # CAN determine el since the number of FROC LL marks is LIMITED to number of lesions in case
     el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l]) - 1
     tt2 <- truthTableStr[i,j,k+K1,el+1]
     if (is.na(tt2)) stop("Error in reading LL/TP table") else {

@@ -30,7 +30,7 @@
 #' @examples
 #' fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
-#' x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+#' rdrArr1D <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 #'
 #' 
 #' \donttest{
@@ -172,7 +172,7 @@ checkTruthTable <- function (truthTable)
   # this puts normal cases first, regardless of how they are entered
   ########################################################
   truthTableSort <- df[order(df$caseLevelTruth),]
-
+  
   caseIDCol <- as.integer(truthTable$CaseID)
   # TBA need a note on use of indx, why it is not used for readerID, etc.
   lesionIDCol <- as.integer(truthTable$LesionID)
@@ -195,8 +195,11 @@ checkTruthTable <- function (truthTable)
     # lesionIDCol <- as.integer(truthTable$LesionID)[1:(L/2)]
     weightsCol <- truthTable$Weight[1:(L/2)]
     # preserve the strings; DO NOT convert to integers
-    J <- length(strsplit(readerIDCol[1], split = ",")[[1]])
-    rdrArr <- array(dim = c(L,J)) # TBA this is specific to two readers
+    J <-  0 # find max number of readers, given that his data has 3 readers in one group and 4 in the other group
+    for (el in 1:length(readerIDCol)) {
+      if (length(strsplit(readerIDCol[el], split = ",")[[1]]) > J) J <- length(strsplit(readerIDCol[el], split = ",")[[1]])
+    }
+    rdrArr <- array(dim = c(L,J))
     for (l in 1:L) {
       val <- strsplit(readerIDCol[l], split = ",|\\s")[[1]]
       val <- val[val != ""]
@@ -263,10 +266,19 @@ checkTruthTable <- function (truthTable)
       }
     }
   } else stop("incorrect design value")
-  if (any(is.na(rdrArr))) stop("Illegal character in readerID column in TRUTH sheet")
-  if (any(is.na(trtArr))) stop("Illegal character in modalityID column in TRUTH sheet")
-  I <- length(unique(trtArr))
-  J <- length(unique(rdrArr))
+  
+  if (design == "SPLIT-PLOT-A") {
+    rdrArr1D <- t(unique(rdrArr)) # rdrArr is 2-dimensional; rdrArr1D is a one-dimensional array of all the readers in the study
+    rdrArr1D <- rdrArr1D[!is.na(rdrArr1D)] # this modification is needed for HYK dataset with 3 readers in one group and 4 in the other
+  } else {
+    if (any(is.na(rdrArr))) stop("Illegal value in ReaderID column in Truth sheet")
+    rdrArr1D <- as.vector(unique(rdrArr)) # rdrArr is 2-dimensional; rdrArr1D is a one-dimensional array of all the readers in the study
+  }
+  if (any(is.na(trtArr))) stop("Illegal value in ModalityID column in Truth sheet")
+  trtArr1D <- as.vector(unique(trtArr))
+  
+  I <- length(trtArr1D)
+  J <- length(rdrArr1D)
   
   truthTableStr <- array(dim = c(I, J, K, max(lesionIDCol)+1)) 
   for (l in 1:L) {
@@ -274,19 +286,18 @@ checkTruthTable <- function (truthTable)
     el <- lesionIDCol[l] + 1
     if (design == "SPLIT-PLOT-A") {
       i <- which(unique(trtArr) == trtArr[l])
-      x <- as.vector(t(unique(rdrArr)))
       for (j1 in 1:length(rdrArr[l,])) {
-        j <- which(x == rdrArr[l,j1])
+        j <- which(rdrArr1D == rdrArr[l,j1])
         truthTableStr[i, j, k, el] <- 1
       }
     }
     else if (design == "SPLIT-PLOT-C") {
       i <- which(unique(trtArr) == trtArr[l,])
-      j <- which(unique(rdrArr) == rdrArr[l])
+      j <- which(rdrArr1D == rdrArr[l])
       truthTableStr[i, j, k, el] <- 1
     } else if (design == "FCTRL") {
       i <- which(unique(trtArr) == trtArr[l,])
-      j <- which(unique(rdrArr) == rdrArr[l,])
+      j <- which(rdrArr1D == rdrArr[l,])
       truthTableStr[i, j, k, el] <- 1
     } else stop("incorrect study design")
   }
@@ -343,8 +354,8 @@ checkTruthTable <- function (truthTable)
   }
   
   return (list(
-    rdrArr = rdrArr,
-    trtArr = trtArr,
+    rdrArr1D = rdrArr1D,
+    trtArr1D = trtArr1D,
     truthTableSort = truthTableSort,
     truthTableStr = truthTableStr,
     type = type,

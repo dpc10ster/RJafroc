@@ -1,14 +1,22 @@
 # RJafroc 1.3.2.9000
 
 
+## Read actual SPLIT-PLOT-A dataset
+* Did not find any data entry errors in `/toyFiles/FROC/1T3Rvs4R.xlsx`
+* Simplified `rdrArr` handling: this is done in `checkTruthTable`, where SPLIT-PLOT-A is handled separately; 
+* Passes all tests
+* Next: implement the formulae, i.e. Cov2; found out how to estimate Cov2 by averaging multiple sample estimates
+* Also need to update NEWS.md;
+
+
 ## Update for reading SPLIT-PLOT-A data files
-* Need to comment DfReadDataFile.R and ReadJAFROCNewFormat.R and add more checks in the code for illegal values; the sorting introduced all sorts of problems; sorted caseID column is used now in only 3 places; 
+* Need to comment `DfReadDataFile.R` and `ReadJAFROCNewFormat.R` and add more checks in the code for illegal values
+* Sorting introduced all sorts of problems; sorted `caseID` column is used now in only 3 places to find the correct case indices, where normal cases are orderedd first, regardless of how they are entered in the `Truth` worksheet: 
 ```
 k <- which(unique(truthTableSort$CaseID) == truthTable$CaseID[l])
 k <- which(unique(truthTableSort$CaseID) == NLCaseIDCol[l])
 k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 ```
-* Also need to update NEWS.md;
 
 
 ## Tests for UtilOutputReport

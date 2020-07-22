@@ -49,7 +49,7 @@ Read a disk file and create a dataset object from it.
 \examples{
 fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 
 package = "RJafroc", mustWork = TRUE)
-x <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+rdrArr1D <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 
 
 \donttest{
