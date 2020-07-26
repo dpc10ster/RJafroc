@@ -51,16 +51,31 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
   # `as.matrix` is absolutely necessary if following `mean()` function is to work
   Foms <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
-  fomMean <- mean(Foms[,]) # this fails if `Foms` is a dataframe; true for `mean` and `median`
-  
+  # if (dataset$descriptions$design != "SPLIT-PLOT-A") {
+  #   fomMean <- mean(Foms[,])
+  #   if (I > 1) {
+  #     msT <- 0
+  #     for (i in 1:I) {
+  #       msT <- msT + (mean(Foms[i, ]) - fomMean)^2
+  #     }
+  #     msT <- J * msT/(I - 1)
+  #   } else msT <- NA
+  # } else {
+  # t <- dataset$descriptions$truthTableStr
+  # SPLIT-PLOT-A
+  fomMeani <- array(dim = I)
+  for (i in 1:I) {
+    fomMeani[i] <- mean(Foms[i,][!is.na(Foms[i,])])
+  }
+  fomMean <- mean(fomMeani)
   if (I > 1) {
     msT <- 0
     for (i in 1:I) {
-      msT <- msT + (mean(Foms[i, ]) - fomMean)^2
+      msT <- msT + (fomMeani[i] - fomMean)^2
     }
     msT <- J * msT/(I - 1)
   } else msT <- NA
-  
+  # }
   if (J > 1) {
     msR <- 0
     for (j in 1:J) {

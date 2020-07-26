@@ -152,11 +152,11 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     }
   } else stop("Incorrect `method` argument: must be `DBM` or `ORH`")
   
-  if ((dataset$descriptions$design == "SPLIT-PLOT-C") && method == "DBM") 
-    stop("Must use method = ORH for SPLIT-PLOT-C dataset")
+  if (((dataset$descriptions$design == "SPLIT-PLOT-C") || (dataset$descriptions$design == "SPLIT-PLOT-A")) && method == "DBM") 
+    stop("Must use method = ORH for SPLIT-PLOT-A or SPLIT-PLOT-C dataset")
   
-  if ((dataset$descriptions$design == "SPLIT-PLOT-C") && method == "OR" && covEstMethod != "jackknife") 
-    stop("Must use covEstMethod = jackknife for SPLIT-PLOT-C dataset")
+  if (((dataset$descriptions$design == "SPLIT-PLOT-C") || (dataset$descriptions$design == "SPLIT-PLOT-A")) && method == "OR" && covEstMethod != "jackknife") 
+    stop("Must use covEstMethod = jackknife for SPLIT-PLOT-A or SPLIT-PLOT-C dataset")
   
   if (!tempOrgCode) {
     if (method == "DBM"){
@@ -168,6 +168,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
       stop(errMsg)
     }
   } else {
+    # call old code
     if (method == "DBM"){
       return(DBMHAnalysis(dataset, FOM, alpha, analysisOption)) # original code: StOldCode.R
     } else if (method == "OR"){

@@ -19,32 +19,7 @@
 #############################################################################
 
 
-contextStr <- "StSignificanceTesting-datasetFROCSpC-wAFROC"
-context(contextStr)
-test_that(contextStr, {
-
-  dataset <- datasetFROCSpC
-
-  fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSpC-wAFROC", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
-    saveRDS(x1, file = fn)
-  }
-
-  x1 <- readRDS(fn)
-  x2 <- StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
-
-  expect_equal(x1,x2)
-
-  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "DBM"))
-  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR", covEstMethod = "bootstrap"))
-  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR", covEstMethod = "DeLong"))
-
-})
-
-
-contextStr <- "StSignificanceTesting: AllCombinations"
+contextStr <- "StSignificanceTesting: AllCombinations, including maxLLF etc; this also tests the PseudoValues function"
 context(contextStr)
 test_that(contextStr, {
   
@@ -62,17 +37,11 @@ test_that(contextStr, {
   ####################################################################################
   
   # dataset = an ROC and an FROC dataset; dataset02, dataset05
-  # FOM = "Wilcoxon", "HrAuc"
-  # method = "DBM", "OR"
   dataset_arr <- list(dataset02, dataset05) # deparse(substitute(dataset02)) does not work below
   dataset_arr_str <- c("dataset02", "dataset05")
-  FOM_arr <- c("Wilcoxon", "HrAuc") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
+  FOM_arr <- c("Wilcoxon", "HrAuc", "wAFROC","AFROC", "wAFROC1","AFROC1",
+               "MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
   method_arr <- c("DBM", "OR")
-  # dataset_arr <- list(dataset02) # deparse(substitute(dataset02)) does not work below
-  # dataset_arr_str <- c("dataset02")
-  # FOM_arr <- c("Wilcoxon") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
-  method_arr <- c("DBM", "OR")
-  
   for (d in 1:length(dataset_arr)) {
     for (f in 1:length(FOM_arr)) {
       for (m in 1:length(method_arr)) {
@@ -186,7 +155,7 @@ test_that(contextStr, {
 contextStr <- "StSignificanceTestingCrossedModalities"
 context(contextStr)
 test_that(contextStr, {
-  
+
   fn <- paste0(test_path(), "/goodValues361/SigTest/CrossedModalities", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -221,3 +190,55 @@ test_that(contextStr, {
 
 })
 
+contextStr <- "StSignificanceTesting-datasetFROCSpC-wAFROC"
+context(contextStr)
+test_that(contextStr, {
+
+  dataset <- datasetFROCSpC
+
+  fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSpC-wAFROC", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    x1 <- StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
+    saveRDS(x1, file = fn)
+  }
+
+  x1 <- readRDS(fn)
+  x2 <- StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
+
+  expect_equal(x1,x2)
+
+  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "DBM"))
+  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR", covEstMethod = "bootstrap"))
+  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR", covEstMethod = "DeLong"))
+
+})
+
+# 
+# contextStr <- "StSignificanceTesting-datasetFROCSpA-wAFROC"
+# context(contextStr)
+# test_that(contextStr, {
+#   
+#   fileName <- system.file(
+#     "extdata", "/toyFiles/FROC/1T3Rvs4R.xlsx", package = "RJafroc", mustWork = TRUE)
+#   
+#   datasetFROCSpA <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+#   
+#   fn <- paste0(test_path(), "/goodValues361/SigTest/1T3Rvs4R-SpA-wAFROC", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     x1 <- StSignificanceTesting(datasetFROCSpA, FOM = "wAFROC", method = "OR")
+#     saveRDS(x1, file = fn)
+#   }
+#   
+#   x1 <- readRDS(fn)
+#   x2 <- StSignificanceTesting(datasetFROCSpA, FOM = "wAFROC", method = "OR")
+#   
+#   expect_equal(x1,x2)
+#   
+#   expect_error(StSignificanceTesting(datasetFROCSpA, FOM = "wAFROC", method = "DBM"))
+#   expect_error(StSignificanceTesting(datasetFROCSpA, FOM = "wAFROC", method = "OR", covEstMethod = "bootstrap"))
+#   expect_error(StSignificanceTesting(datasetFROCSpA, FOM = "wAFROC", method = "OR", covEstMethod = "DeLong"))
+#   
+# })
+# 

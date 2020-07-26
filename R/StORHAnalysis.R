@@ -190,7 +190,6 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
   K <- length(dataset$ratings$NL[1,1,,1])
   
   if (dataset$descriptions$design == "FCTRL") { 
-    # K <- length(dataset$ratings$NL[1,1,,1])
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
     CovTemp <- resampleFOMijk2VarCov(ret$jkFomValues)
     Cov <- list(
@@ -203,7 +202,6 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
     Var <- array(dim = J)
     Cov1 <- array(dim = J)
-    # FOM <- ret$jkFomValues
     caseTransitions <- ret$caseTransitions
     for (j in 1:J) {
       jkFOMs <- ret$jkFomValues[,j,(caseTransitions[j]+1):(caseTransitions[j+1]), drop = FALSE]
@@ -224,7 +222,30 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
       Cov2 = 0,
       Cov3 = 0
     )
-  } else stop("Incorrect dataset design, must be FCTRL or SPLIT-PLOT-C")
+  } else if (dataset$descriptions$design == "SPLIT-PLOT-A") {
+    ret <- UtilPseudoValues(dataset, FOM, FPFValue)
+    Var <- array(dim = J)
+    Cov1 <- array(dim = J)
+    for (j in 1:J) {
+      jkFOMs <- ret$jkFomValues[,j,, drop = FALSE]
+      kj <- length(jkFOMs)/I
+      dim(jkFOMs) <- c(I,1,kj)
+      x <- resampleFOMijk2VarCov(jkFOMs)
+      # not sure which way to go: was doing this until 2/18/20
+      # Var[j]  <-  x$Var * (K-1)^2/K
+      # Cov1[j]  <-  x$Cov1 * (K-1)^2/K
+      # following seems more reasonable as reader j only interprets kj cases
+      # updated file ~Dropbox/RJafrocChecks/StfrocSp.xlsx
+      Var[j]  <-  x$Var * (kj-1)^2/kj
+      Cov1[j]  <-  x$Cov1 * (kj-1)^2/kj
+    }
+    Cov <- list(
+      Var = mean(Var),
+      Cov1 = mean(Cov1),
+      Cov2 = 0,
+      Cov3 = 0
+    )
+  } else stop("Incorrect dataset design, must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C")
   
   return(Cov)
   

@@ -18,12 +18,15 @@ UtilVarComponentsDBM <- function (dataset, FOM, FPFValue = 0.2)
 {
   I <- dim(dataset$ratings$NL)[1]
   J <- dim(dataset$ratings$NL)[2]
-  K <- dim(dataset$ratings$NL)[3]
+# K <- dim(dataset$ratings$NL)[3] # this does not generalize to all FOMs
   
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   
   psVals <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
+  # the k-dimension of psVals can change
+  # depending on choice of FOM; e.g., for maxLLF, it is K2
+  K <- length(psVals[1,1,])
   
   msT <- 0
   for (i in 1:I) {
@@ -38,7 +41,7 @@ UtilVarComponentsDBM <- function (dataset, FOM, FPFValue = 0.2)
   msR <- msR * K * I/(J - 1)
   
   msC <- 0
-  for (k in 1:K) {
+  for (k in 1:K) { 
     msC <- msC + (mean(psVals[, , k]) - mean(psVals))^2
   }
   msC <- msC * I * J/(K - 1)

@@ -5,8 +5,8 @@
 * Did not find any data entry errors in `/toyFiles/FROC/1T3Rvs4R.xlsx`
 * Simplified `rdrArr` handling: this is done in `checkTruthTable`, where SPLIT-PLOT-A is handled separately; 
 * Passes all tests
+* Added source `fileName` to `descriptions$fileName` field of `DfReadDataFile()` return; this will keep a record of how the dataset was generated
 * Next: implement the formulae, i.e. Cov2; found out how to estimate Cov2 by averaging multiple sample estimates
-* Also need to update NEWS.md;
 
 
 ## Update for reading SPLIT-PLOT-A data files

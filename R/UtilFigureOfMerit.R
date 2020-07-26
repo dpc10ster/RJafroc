@@ -158,20 +158,41 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   fomArray <- array(dim = c(I, J))
   for (i in 1:I) {
     for (j in 1:J) {
-      if (design == "SPLIT-PLOT-C") {
-        k1_j_sub <- !is.na(t[1,j,,1]) | !is.na(t[1,j,,2])
-        k2_j_sub <- !is.na(t[1,j,,2])[(K1+1):K]
-        nl_ij <- NL[i, j, k1_j_sub, ]
-        lV_j <- dataset$lesions$perCase[k2_j_sub]
-        maxLL_j <- max(lV_j)
-        ll_ij <- LL[i, j, k2_j_sub, 1:maxLL_j]
-        k1j <- sum(!is.na(t[1,j,,1]))
-        k2j <- sum(!is.na(t[1,j,,2]))
-        lID_j <- dataset$lesions$IDs[k2_j_sub,1:maxLL_j, drop = FALSE]
-        lW_j <- dataset$lesions$weights[k2_j_sub,1:maxLL_j, drop = FALSE]
-        dim(nl_ij) <- c(k1j+k2j, maxNL)
-        dim(ll_ij) <- c(k2j, maxLL_j)
-        fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, lV_j, lID_j, lW_j, maxNL, maxLL_j, k1j, k2j, FOM, FPFValue)
+      if (design == "SPLIT-PLOT-A") {
+        if (all(is.na(t[i,j,,1]))) next # if t[] for all normal   cases for selected i,j are NAs, skip 
+        if (all(is.na(t[i,j,,2]))) next # if t[] for all abnormal cases for selected i,j are NAs, skip 
+        k1_ij_sub <- !is.na(t[i,j,,1]) | !is.na(t[i,j,,2]) # see comments for SPLIT-PLOT-C
+        k2_ij_sub <- !is.na(t[i,j,,2])[(K1+1):K] # ditto:
+        nl_ij <- NL[i, j, k1_ij_sub, ]
+        perCase_ij <- dataset$lesions$perCase[k2_ij_sub]
+        maxLL_ij <- max(perCase_ij)
+        ll_ij <- LL[i, j, k2_ij_sub, 1:maxLL_ij]
+        k1ij <- sum(!is.na(t[i,j,,1]))
+        k2ij <- sum(!is.na(t[i,j,,2]))
+        lID_ij <- dataset$lesions$IDs[k2_ij_sub,1:maxLL_ij, drop = FALSE]
+        lW_ij <- dataset$lesions$weights[k2_ij_sub,1:maxLL_ij, drop = FALSE]
+        dim(nl_ij) <- c(k1ij+k2ij, maxNL)
+        dim(ll_ij) <- c(k2ij, maxLL_ij)
+        fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, perCase_ij, lID_ij, lW_ij, maxNL, maxLL_ij, k1ij, k2ij, FOM, FPFValue)
+        next
+      } else if (design == "SPLIT-PLOT-C") {
+        if (all(is.na(t[i,j,,1]))) next # if t[] for all normal   cases for selected i,j are NAs, skip 
+        if (all(is.na(t[i,j,,2]))) next # if t[] for all abnormal cases for selected i,j are NAs, skip 
+        # k1 refers to normal   case k-indices
+        # k2 refers to abnormal case k-indices
+        k1_ij_sub <- !is.na(t[i,j,,1]) | !is.na(t[i,j,,2]) # k1-indices of all cases meeting the i,j criteria
+        k2_ij_sub <- !is.na(t[i,j,,2])[(K1+1):K] # k2-indices of all cases meeting the i,j criteria
+        nl_ij <- NL[i, j, k1_ij_sub, ] # NL ratings for all cases meeting the i,j criteria
+        perCase_ij <- dataset$lesions$perCase[k2_ij_sub] # perCase indices for all abnormal cases meeting the i,j criteria
+        maxLL_ij <- max(perCase_ij)
+        ll_ij <- LL[i, j, k2_ij_sub, 1:maxLL_ij]
+        k1ij <- sum(!is.na(t[i,j,,1]))
+        k2ij <- sum(!is.na(t[i,j,,2]))
+        lID_ij <- dataset$lesions$IDs[k2_ij_sub,1:maxLL_ij, drop = FALSE]
+        lW_jj <- dataset$lesions$weights[k2_ij_sub,1:maxLL_ij, drop = FALSE]
+        dim(nl_ij) <- c(k1ij+k2ij, maxNL)
+        dim(ll_ij) <- c(k2ij, maxLL_ij)
+        fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, perCase_ij, lID_ij, lW_jj, maxNL, maxLL_ij, k1ij, k2ij, FOM, FPFValue)
         next
       } else if (design == "FCTRL"){
         nl_ij <- NL[i, j, , ]
@@ -179,7 +200,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
         dim(nl_ij) <- c(K, maxNL)
         dim(ll_ij) <- c(K2, maxLL)
         fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, dataset$lesions$perCase, dataset$lesions$IDs, dataset$lesions$weights, maxNL, maxLL, K1, K2, FOM, FPFValue)
-      } else stop("Incorrect design, must be SPLIT-PLOT-C or FCTRL")
+      } else stop("Incorrect design, must be SPLIT-PLOT-A, SPLIT-PLOT-C or FCTRL")
     }
   }
   

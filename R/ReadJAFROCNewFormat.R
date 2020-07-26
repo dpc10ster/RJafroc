@@ -223,7 +223,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   names(modalityIDUnique) <- modalityNames; modalityID <- modalityIDUnique
   names(readerIDUnique) <- readerNames; readerID <- readerIDUnique
   
-  fileName <- NA
+  fileName <- fileName
   name <- NA
   if ((design == "FCTRL") || (design == "CROSSED")) design <- "FCTRL"
   return(convert2dataset(NL, LL, LL_IL = NA, 

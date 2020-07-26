@@ -218,7 +218,7 @@ checkTruthTable <- function (truthTable)
         for (i in 1:length(val)) {
           trtArr[l] <- val[i]
         }
-      }
+      } else stop("Was expecting nested notation, using () brackets ...")
     }
   } else if (design == "SPLIT-PLOT-C") {
     # preserve the strings; DO NOT convert to integers
@@ -232,7 +232,7 @@ checkTruthTable <- function (truthTable)
         for (i in 1:length(val)) {
           rdrArr[l] <- val[i]
         }
-      }
+      } else stop("Was expecting nested notation, using () brackets ...")
       # preserve the strings; DO NOT convert to integers
       I <- length(strsplit(modalityIDCol[1], split = ",")[[1]])
       trtArr <- array(dim = c(L,I))
