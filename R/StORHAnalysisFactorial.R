@@ -1,4 +1,4 @@
-StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "jackknife", 
+StORHAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "jackknife", 
                           nBoots = 200, analysisOption = "ALL")  
 {
   
@@ -8,11 +8,11 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   
   modalityID <- dataset$descriptions$modalityID
   I <- length(modalityID)
-
+  
   # `as.matrix` is NOT absolutely necessary as `mean()` function is not used
   foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-
-  ret <- UtilVarComponentsOR(dataset, FOM, FPFValue, covEstMethod, nBoots)
+  
+  ret <- UtilVarComponentsORFactorial(dataset, FOM, FPFValue, covEstMethod, nBoots)
   
   TRanova <- ret$TRanova
   VarCom <-  ret$VarCom
@@ -44,13 +44,13 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
   trtMeanDiffs <- data.frame("Estimate" = trtMeanDiffs,
                              row.names = diffTRName,
                              stringsAsFactors = FALSE)
-
+  
   FOMs <- list(
     foms = foms,
     trtMeans = trtMeans,
     trtMeanDiffs = trtMeanDiffs
   )
-
+  
   if (analysisOption == "RRRC") {
     RRRC <- ORSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
     return(list(
@@ -59,7 +59,7 @@ StORHAnalysis <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "
       RRRC = RRRC
     ))
   }  
-
+  
   if (analysisOption == "FRRC") {
     FRRC <- ORSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
     return(list(
@@ -183,69 +183,19 @@ resampleFOMijk2VarCov <- function(resampleFOMijk) {
 
 
 
-varComponentsJackknife <- function(dataset, FOM, FPFValue) {
+varComponentsJackknifeFactorial <- function(dataset, FOM, FPFValue) {
+  if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
   
-  I <- length(dataset$ratings$NL[,1,1,1])
-  J <- length(dataset$ratings$NL[1,,1,1])
   K <- length(dataset$ratings$NL[1,1,,1])
   
-  if (dataset$descriptions$design == "FCTRL") { 
-    ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-    CovTemp <- resampleFOMijk2VarCov(ret$jkFomValues)
-    Cov <- list(
-      Var = CovTemp$Var * (K-1)^2/K,
-      Cov1 = CovTemp$Cov1 * (K-1)^2/K,
-      Cov2 = CovTemp$Cov2 * (K-1)^2/K,
-      Cov3 = CovTemp$Cov3 * (K-1)^2/K
-    )
-  } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
-    ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-    Var <- array(dim = J)
-    Cov1 <- array(dim = J)
-    caseTransitions <- ret$caseTransitions
-    for (j in 1:J) {
-      jkFOMs <- ret$jkFomValues[,j,(caseTransitions[j]+1):(caseTransitions[j+1]), drop = FALSE]
-      kj <- length(jkFOMs)/I
-      dim(jkFOMs) <- c(I,1,kj)
-      x <- resampleFOMijk2VarCov(jkFOMs)
-      # not sure which way to go: was doing this until 2/18/20
-      # Var[j]  <-  x$Var * (K-1)^2/K
-      # Cov1[j]  <-  x$Cov1 * (K-1)^2/K
-      # following seems more reasonable as reader j only interprets kj cases
-      # updated file ~Dropbox/RJafrocChecks/StfrocSp.xlsx
-      Var[j]  <-  x$Var * (kj-1)^2/kj
-      Cov1[j]  <-  x$Cov1 * (kj-1)^2/kj
-    }
-    Cov <- list(
-      Var = mean(Var),
-      Cov1 = mean(Cov1),
-      Cov2 = 0,
-      Cov3 = 0
-    )
-  } else if (dataset$descriptions$design == "SPLIT-PLOT-A") {
-    ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-    Var <- array(dim = J)
-    Cov1 <- array(dim = J)
-    for (j in 1:J) {
-      jkFOMs <- ret$jkFomValues[,j,, drop = FALSE]
-      kj <- length(jkFOMs)/I
-      dim(jkFOMs) <- c(I,1,kj)
-      x <- resampleFOMijk2VarCov(jkFOMs)
-      # not sure which way to go: was doing this until 2/18/20
-      # Var[j]  <-  x$Var * (K-1)^2/K
-      # Cov1[j]  <-  x$Cov1 * (K-1)^2/K
-      # following seems more reasonable as reader j only interprets kj cases
-      # updated file ~Dropbox/RJafrocChecks/StfrocSp.xlsx
-      Var[j]  <-  x$Var * (kj-1)^2/kj
-      Cov1[j]  <-  x$Cov1 * (kj-1)^2/kj
-    }
-    Cov <- list(
-      Var = mean(Var),
-      Cov1 = mean(Cov1),
-      Cov2 = 0,
-      Cov3 = 0
-    )
-  } else stop("Incorrect dataset design, must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C")
+  ret <- UtilPseudoValues(dataset, FOM, FPFValue)
+  CovTemp <- resampleFOMijk2VarCov(ret$jkFomValues)
+  Cov <- list(
+    Var = CovTemp$Var * (K-1)^2/K,
+    Cov1 = CovTemp$Cov1 * (K-1)^2/K,
+    Cov2 = CovTemp$Cov2 * (K-1)^2/K,
+    Cov3 = CovTemp$Cov3 * (K-1)^2/K
+  )
   
   return(Cov)
   
@@ -253,10 +203,77 @@ varComponentsJackknife <- function(dataset, FOM, FPFValue) {
 
 
 
+varComponentsJackknifeSpA <- function(dataset, FOM, FPFValue) {
+  if (dataset$descriptions$design != "SPLIT-PLOT-A") stop("This functions requires a factorial dataset")  
+  
+  I <- length(dataset$ratings$NL[,1,1,1])
+  J <- length(dataset$ratings$NL[1,,1,1])
+
+  ret <- UtilPseudoValues(dataset, FOM, FPFValue)
+  Var <- array(dim = J)
+  Cov1 <- array(dim = J)
+  for (j in 1:J) {
+    jkFOMs <- ret$jkFomValues[,j,, drop = FALSE]
+    kj <- length(jkFOMs)/I
+    dim(jkFOMs) <- c(I,1,kj)
+    x <- resampleFOMijk2VarCov(jkFOMs)
+    Var[j]  <-  x$Var * (kj-1)^2/kj
+    Cov1[j]  <-  x$Cov1 * (kj-1)^2/kj
+  }
+  Cov <- list(
+    Var = mean(Var),
+    Cov1 = mean(Cov1),
+    Cov2 = 0,
+    Cov3 = 0
+  )
+  
+  return(Cov)
+  
+}
+
+
+
+varComponentsJackknifeSpC <- function(dataset, FOM, FPFValue) {
+  if (dataset$descriptions$design != "SPLIT-PLOT-C") stop("This functions requires a factorial dataset")  
+  
+  I <- length(dataset$ratings$NL[,1,1,1])
+  J <- length(dataset$ratings$NL[1,,1,1])
+
+  ret <- UtilPseudoValues(dataset, FOM, FPFValue)
+  Var <- array(dim = J)
+  Cov1 <- array(dim = J)
+  caseTransitions <- ret$caseTransitions
+  for (j in 1:J) {
+    jkFOMs <- ret$jkFomValues[,j,(caseTransitions[j]+1):(caseTransitions[j+1]), drop = FALSE]
+    kj <- length(jkFOMs)/I
+    dim(jkFOMs) <- c(I,1,kj)
+    x <- resampleFOMijk2VarCov(jkFOMs)
+    # not sure which way to go: was doing this until 2/18/20
+    # Var[j]  <-  x$Var * (K-1)^2/K
+    # Cov1[j]  <-  x$Cov1 * (K-1)^2/K
+    # following seems more reasonable as reader j only interprets kj cases
+    # updated file ~Dropbox/RJafrocChecks/StfrocSp.xlsx
+    Var[j]  <-  x$Var * (kj-1)^2/kj
+    Cov1[j]  <-  x$Cov1 * (kj-1)^2/kj
+  }
+  Cov <- list(
+    Var = mean(Var),
+    Cov1 = mean(Cov1),
+    Cov2 = 0,
+    Cov3 = 0
+  )
+  
+  return(Cov)
+  
+}
+
+
 
 #' @importFrom stats runif
-varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed) 
+varComponentsBootstrapFactorial <- function(dataset, FOM, FPFValue, nBoots, seed) 
 {
+  if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
+  
   set.seed(seed) ## added 4/28/20, to test reproducibility with RJafrocBook code
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
@@ -349,9 +366,9 @@ varComponentsBootstrap <- function(dataset, FOM, FPFValue, nBoots, seed)
 
 
 
-
-varComponentsDeLong <- function(dataset, FOM)
+varComponentsDeLongFactorial <- function(dataset, FOM)
 {
+  if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
   
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   NL <- dataset$ratings$NL
@@ -365,7 +382,7 @@ varComponentsDeLong <- function(dataset, FOM)
   K1 <- (K - K2)
   maxNL <- length(NL[1,1,1,])
   maxLL <- length(LL[1,1,1,])
-  # if ((maxLL != 1) || (maxLL != 1)) stop("dataset error in varComponentsDeLong")
+  # if ((maxLL != 1) || (maxLL != 1)) stop("dataset error in varComponentsDeLongFactorial")
   
   fomArray <- UtilFigureOfMerit(dataset, FOM)
   

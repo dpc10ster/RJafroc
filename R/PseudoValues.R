@@ -1,4 +1,4 @@
-PseudoValuesSplitPlotA <- function(dataset, FOM, FPFValue) {
+PseudoValues <- function(dataset, FOM, FPFValue) {
   
   # # cannot use "MaxNLF", "ExpTrnsfmSp", "HrSp" etc. here 
   # # TBA this restriction will eventually be removed

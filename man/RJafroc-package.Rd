@@ -503,7 +503,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
         \item \code{\link{UtilPseudoValues}}: Return jackknife pseudovalues.  
         \item \code{\link{UtilVarComponentsDBM}}: Utility for Dorfman-Berbaum-Metz 
            variance components.  
-        \item \code{\link{UtilVarComponentsOR}}: Utility for Obuchowski-Rockette 
+        \item \code{\link{UtilVarComponentsORFactorial}}: Utility for Obuchowski-Rockette 
            variance components.  
   }
 }

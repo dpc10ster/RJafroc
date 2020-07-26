@@ -135,7 +135,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     #                  "\nUse StSignificanceTestingSingleFixedFactor() for single treatment analysis.")
     # stop(ErrMsg)
   }
-
+  
   if ((length(dataset$ratings$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
     ErrMsg <- paste0("Must use analysisOption FRRC with 1-reader dataset")
     stop(ErrMsg)
@@ -159,16 +159,24 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     stop("Must use covEstMethod = jackknife for SPLIT-PLOT-A or SPLIT-PLOT-C dataset")
   
   if (!tempOrgCode) {
+    # new code
     if (method == "DBM"){
       return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, analysisOption)) # current code
-    } else if (method == "OR"){
-      return(StORHAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)) # current code
+    } else if (method == "OR") {
+      if (dataset$descriptions$design == "FCTRL") {
+        return(StORHAnalysisFactorial(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
+      } else if (dataset$descriptions$design == "SPLIT-PLOT-A") {
+        return(StORHAnalysisSpA(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
+      } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
+        return(StORHAnalysisSpC(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
+      } else stop("Invalid study design: must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C")
     } else {
       errMsg <- sprintf("%s is not a valid analysis method.", method)
       stop(errMsg)
     }
   } else {
     # call old code
+    if (dataset$descriptions$design != "FCTRL") stop("old code requires FCTRL study design")
     if (method == "DBM"){
       return(DBMHAnalysis(dataset, FOM, alpha, analysisOption)) # original code: StOldCode.R
     } else if (method == "OR"){
@@ -176,39 +184,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     } else {
       errMsg <- sprintf("%s is not a valid analysis method.", method)
       stop(errMsg)
-      
     }
-    
   }
-  
 }
-
-
-# select appropriate covariance estimation method accouring to value of `covEstMethod`
-selectCovEstMethod <- function(dataset, FOM, FPFValue, nBoots, covEstMethod, seed) 
-{
-  
-  if (covEstMethod == "jackknife") {
-    
-    ret <- varComponentsJackknife(dataset, FOM, FPFValue)
-    
-  } 
-  
-  else if (covEstMethod == "bootstrap") {
-    
-    ret <- varComponentsBootstrap (dataset, FOM, FPFValue, nBoots, seed)
-    
-  } 
-  
-  else if (covEstMethod == "DeLong") {
-    
-    ret <- varComponentsDeLong (dataset, FOM)
-    
-  } 
-  
-  else stop("incorrect covariance estimation method specified")
-  
-  return(ret)
-  
-}  
 

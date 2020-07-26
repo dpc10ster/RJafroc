@@ -190,29 +190,61 @@ test_that(contextStr, {
 
 })
 
-contextStr <- "StSignificanceTesting-datasetFROCSpC-wAFROC"
+# contextStr <- "StSignificanceTesting-datasetFROCSpC-wAFROC"
+# context(contextStr)
+# test_that(contextStr, {
+# 
+#   dataset <- datasetFROCSpC
+# 
+#   fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSpC-wAFROC", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     x1 <- StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
+#     saveRDS(x1, file = fn)
+#   }
+# 
+#   x1 <- readRDS(fn)
+#   x2 <- StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
+# 
+#   expect_equal(x1,x2)
+# 
+#   expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "DBM"))
+#   expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR", covEstMethod = "bootstrap"))
+#   expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR", covEstMethod = "DeLong"))
+# 
+# })
+# 
+
+
+
+contextStr <- "StSignificanceTesting-datasetFROCSpA-wAFROC"
 context(contextStr)
 test_that(contextStr, {
 
-  dataset <- datasetFROCSpC
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/frocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
 
-  fn <- paste0(test_path(), "/goodValues361/SigTest/datasetFROCSpC-wAFROC", ".rds")
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+
+  fn <- paste0(test_path(), "/goodValues361/SigTest/frocSpA-wAFROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    x1 <- StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
+    x1 <- StSignificanceTesting(temp, FOM = "wAFROC", method = "OR")
     saveRDS(x1, file = fn)
   }
 
   x1 <- readRDS(fn)
-  x2 <- StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
+  x2 <- StSignificanceTesting(temp, FOM = "wAFROC", method = "OR")
 
   expect_equal(x1,x2)
 
-  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "DBM"))
-  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR", covEstMethod = "bootstrap"))
-  expect_error(StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR", covEstMethod = "DeLong"))
+  # expect_error(StSignificanceTesting(temp, FOM = "wAFROC", method = "DBM"))
+  # expect_error(StSignificanceTesting(temp, FOM = "wAFROC", method = "OR", covEstMethod = "bootstrap"))
+  # expect_error(StSignificanceTesting(temp, FOM = "wAFROC", method = "OR", covEstMethod = "DeLong"))
 
 })
+
+
 
 # 
 # contextStr <- "StSignificanceTesting-datasetFROCSpA-wAFROC"

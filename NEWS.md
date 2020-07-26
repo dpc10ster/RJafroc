@@ -52,7 +52,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Their code does not implement the required `max(Cov2 - Cov3, 0)` constraint while `RJafroc` does. 
 * `RJafroc` reports `VarTR` = -0.00068389146 while their code reports `VarTR` = -0.00071276. 
 * Specifically, `msTR - Var + Cov1 + max(Cov2 - Cov3, 0) = -0.00068389146` and `msTR - Var + Cov1 + Cov2 - Cov3 = -0.00071276`. 
-* This also affects the `VarR` values (see block of comments in `UtilVarComponentsOR` near line 161). `Cov1`, `Cov2`, `Cov3` and `Var` are the same between both codes. 
+* This also affects the `VarR` values (see block of comments in `UtilVarComponentsORFactorial` near line 161). `Cov1`, `Cov2`, `Cov3` and `Var` are the same between both codes. 
 * I am aware that these discrepancies do not affect sample size estimates, but can cause confusion for the code maintainer and the end user.
 
 
@@ -206,7 +206,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Created simulated SP datafile `inst/extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx`.
 * Created simulated SP dataset `datasetFROCSp` corresponding to modalities 4,5 of `dataset04`
 * Update vignette `Ch00Vig5SimulateSplitPlotDataset.Rmd`.
-* Modified `StORHAnalysis.R` and to work with SP dataset provided `method = "ORH"` and `covEstMethod` = "jackknife" is used
+* Modified `StORHAnalysis.R` and to work with SP-A dataset provided `method = "ORH"` and `covEstMethod` = "jackknife" is used
 * Corrected an error in analysis; see `~Dropbox/RJafrocChecks/StfrocSp.xlsx` for details.
 * Updated this file 2/19/20
 * R CMD check successful ... except for file size NOTE (18.4Mb)
@@ -306,7 +306,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 ## Other affected functions and new functions: 
 * `UtilVarComponentsDBM()`: 
-* `UtilVarComponentsOR()`:
+* `UtilVarComponentsORFactorial()`:
 * `SsPowerGivenJKDbmVarComp`:
 * `SsPowerGivenJKOrVarComp`:
 * `SsSampleSizeKGivenJ`:

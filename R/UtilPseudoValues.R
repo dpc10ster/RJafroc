@@ -45,17 +45,9 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     } else stop("incorrect FOM for LROC data")
   }
 
-  if (dataset$descriptions$design == "FCTRL") {
+  if (dataset$descriptions$design %in% c("FCTRL", "SPLIT-PLOT-A", "SPLIT-PLOT-C")) {
     
-    ret <- PseudoValuesSplitPlotA(dataset, FOM, FPFValue)
-    
-  } else if (dataset$descriptions$design == "SPLIT-PLOT-A") {
-    
-    ret <- PseudoValuesSplitPlotA(dataset, FOM, FPFValue)
-    
-  } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
-    
-    ret <- PseudoValuesSplitPlotA(dataset, FOM, FPFValue)
+    ret <- PseudoValues(dataset, FOM, FPFValue)
     
   } else stop("Unrecognized study design: should be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C")
   

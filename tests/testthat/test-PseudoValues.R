@@ -3,6 +3,7 @@ context(contextStr)
 test_that(contextStr, {
   
   # FACTRL
+  # ############################################################################
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
@@ -19,6 +20,7 @@ test_that(contextStr, {
   expect_equal(x1, x2)
 
   # SPLIT-PLOT-A
+  # ############################################################################
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/frocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
@@ -41,6 +43,7 @@ test_that(contextStr, {
   if (all(is.na(x1$jkFomValues[2,3:5,1:5]))) stop("failed this test: NAs present")
 
   # SPLIT-PLOT-C
+  # ############################################################################
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/frocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)

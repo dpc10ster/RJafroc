@@ -47,7 +47,7 @@
 #' ## the following two should give identical results
 #' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "OR")
 #' 
-#' a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
+#' a <- UtilVarComponentsORFactorial(dataset02, FOM = "Wilcoxon")$VarCom
 #' KStar <- length(dataset02$ratings$NL[1,1,,1])
 #' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "OR", 
 #'    list(KStar = KStar, 
