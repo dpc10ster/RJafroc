@@ -1,4 +1,4 @@
-StORHAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "jackknife", 
+ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "jackknife", 
                           nBoots = 200, analysisOption = "ALL")  
 {
   
@@ -12,7 +12,7 @@ StORHAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstM
   # `as.matrix` is NOT absolutely necessary as `mean()` function is not used
   foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   
-  ret <- UtilVarComponentsORFactorial(dataset, FOM, FPFValue, covEstMethod, nBoots)
+  ret <- UtilORVarComponentsFactorial(dataset, FOM, FPFValue, covEstMethod, nBoots)
   
   TRanova <- ret$TRanova
   VarCom <-  ret$VarCom
@@ -195,72 +195,6 @@ varComponentsJackknifeFactorial <- function(dataset, FOM, FPFValue) {
     Cov1 = CovTemp$Cov1 * (K-1)^2/K,
     Cov2 = CovTemp$Cov2 * (K-1)^2/K,
     Cov3 = CovTemp$Cov3 * (K-1)^2/K
-  )
-  
-  return(Cov)
-  
-}
-
-
-
-varComponentsJackknifeSpA <- function(dataset, FOM, FPFValue) {
-  if (dataset$descriptions$design != "SPLIT-PLOT-A") stop("This functions requires a factorial dataset")  
-  
-  I <- length(dataset$ratings$NL[,1,1,1])
-  J <- length(dataset$ratings$NL[1,,1,1])
-
-  ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-  Var <- array(dim = J)
-  Cov1 <- array(dim = J)
-  for (j in 1:J) {
-    jkFOMs <- ret$jkFomValues[,j,, drop = FALSE]
-    kj <- length(jkFOMs)/I
-    dim(jkFOMs) <- c(I,1,kj)
-    x <- resampleFOMijk2VarCov(jkFOMs)
-    Var[j]  <-  x$Var * (kj-1)^2/kj
-    Cov1[j]  <-  x$Cov1 * (kj-1)^2/kj
-  }
-  Cov <- list(
-    Var = mean(Var),
-    Cov1 = mean(Cov1),
-    Cov2 = 0,
-    Cov3 = 0
-  )
-  
-  return(Cov)
-  
-}
-
-
-
-varComponentsJackknifeSpC <- function(dataset, FOM, FPFValue) {
-  if (dataset$descriptions$design != "SPLIT-PLOT-C") stop("This functions requires a factorial dataset")  
-  
-  I <- length(dataset$ratings$NL[,1,1,1])
-  J <- length(dataset$ratings$NL[1,,1,1])
-
-  ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-  Var <- array(dim = J)
-  Cov1 <- array(dim = J)
-  caseTransitions <- ret$caseTransitions
-  for (j in 1:J) {
-    jkFOMs <- ret$jkFomValues[,j,(caseTransitions[j]+1):(caseTransitions[j+1]), drop = FALSE]
-    kj <- length(jkFOMs)/I
-    dim(jkFOMs) <- c(I,1,kj)
-    x <- resampleFOMijk2VarCov(jkFOMs)
-    # not sure which way to go: was doing this until 2/18/20
-    # Var[j]  <-  x$Var * (K-1)^2/K
-    # Cov1[j]  <-  x$Cov1 * (K-1)^2/K
-    # following seems more reasonable as reader j only interprets kj cases
-    # updated file ~Dropbox/RJafrocChecks/StfrocSp.xlsx
-    Var[j]  <-  x$Var * (kj-1)^2/kj
-    Cov1[j]  <-  x$Cov1 * (kj-1)^2/kj
-  }
-  Cov <- list(
-    Var = mean(Var),
-    Cov1 = mean(Cov1),
-    Cov2 = 0,
-    Cov3 = 0
   )
   
   return(Cov)

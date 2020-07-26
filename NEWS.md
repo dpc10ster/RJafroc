@@ -52,7 +52,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Their code does not implement the required `max(Cov2 - Cov3, 0)` constraint while `RJafroc` does. 
 * `RJafroc` reports `VarTR` = -0.00068389146 while their code reports `VarTR` = -0.00071276. 
 * Specifically, `msTR - Var + Cov1 + max(Cov2 - Cov3, 0) = -0.00068389146` and `msTR - Var + Cov1 + Cov2 - Cov3 = -0.00071276`. 
-* This also affects the `VarR` values (see block of comments in `UtilVarComponentsORFactorial` near line 161). `Cov1`, `Cov2`, `Cov3` and `Var` are the same between both codes. 
+* This also affects the `VarR` values (see block of comments in `UtilORVarComponentsFactorial` near line 161). `Cov1`, `Cov2`, `Cov3` and `Var` are the same between both codes. 
 * I am aware that these discrepancies do not affect sample size estimates, but can cause confusion for the code maintainer and the end user.
 
 
@@ -306,7 +306,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 ## Other affected functions and new functions: 
 * `UtilVarComponentsDBM()`: 
-* `UtilVarComponentsORFactorial()`:
+* `UtilORVarComponentsFactorial()`:
 * `SsPowerGivenJKDbmVarComp`:
 * `SsPowerGivenJKOrVarComp`:
 * `SsSampleSizeKGivenJ`:

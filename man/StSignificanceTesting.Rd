@@ -2,7 +2,7 @@
 % Please edit documentation in R/StSignificanceTesting.R
 \name{StSignificanceTesting}
 \alias{StSignificanceTesting}
-\title{Performs DBM or OR significance testing}
+\title{Performs DBM or OR significance testing for factorial or split-plot A,C datasets}
 \usage{
 StSignificanceTesting(
   dataset,
@@ -39,7 +39,8 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
    \itemize{ 
    \item \code{"Jackknife"}, the default, 
    \item \code{"Bootstrap"}, in which case \code{nBoots} (above) is relevant, 
-   \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon"}, otherwise error.
+   \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon" or "ROI" or "HrAuc"}, 
+   otherwise an error results.
 }}
 
 \item{nBoots}{The number of bootstraps (defaults to 200), relevant only if 
@@ -51,7 +52,7 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
    \item \code{"FRRC"} = fixed-reader random case, 
    \item \code{"RRFC"} = random-reader fixed case, 
    \item \code{"ALL"} =  outputs results of \code{"RRRC"}, \code{"FRRC"} 
-   and \code{"RRFC"} analyses
+   and \code{"RRFC"} analyses - this is the default.
 }}
 
 \item{tempOrgCode, }{default FALSE; if TRUE, then code from version 0.0.1 of RJafroc
@@ -100,7 +101,7 @@ Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR)
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 
    figure of merit (FOM) differences between treatments is zero. The results of 
-   the analysis are better visualized in the text or  
+   the analysis are best visualized in the text or  
    Excel-formatted files produced by \code{\link{UtilOutputReport}}. 
 
 ## TBA

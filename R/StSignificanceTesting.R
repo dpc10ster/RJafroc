@@ -1,4 +1,4 @@
-#' Performs DBM or OR significance testing
+#' Performs DBM or OR significance testing for factorial or split-plot A,C datasets
 #' 
 #' @description  Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
 #'    significance testing (with Hillis' improvements), for specified dataset; 
@@ -6,7 +6,7 @@
 #'    and other statistics, for 
 #'    rejecting the null hypothesis (NH) that the reader-averaged 
 #'    figure of merit (FOM) differences between treatments is zero. The results of 
-#'    the analysis are better visualized in the text or  
+#'    the analysis are best visualized in the text or  
 #'    Excel-formatted files produced by \code{\link{UtilOutputReport}}. 
 #'
 #' ## TBA 
@@ -27,7 +27,8 @@
 #'    \itemize{ 
 #'    \item \code{"Jackknife"}, the default, 
 #'    \item \code{"Bootstrap"}, in which case \code{nBoots} (above) is relevant, 
-#'    \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon"}, otherwise error.
+#'    \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon" or "ROI" or "HrAuc"}, 
+#'    otherwise an error results.
 #' }   
 #' @param nBoots The number of bootstraps (defaults to 200), relevant only if 
 #'    \code{covEstMethod = "bootstrap"} and \code{method = "OR"} 
@@ -37,7 +38,7 @@
 #'    \item \code{"FRRC"} = fixed-reader random case, 
 #'    \item \code{"RRFC"} = random-reader fixed case, 
 #'    \item \code{"ALL"} =  outputs results of \code{"RRRC"}, \code{"FRRC"} 
-#'    and \code{"RRFC"} analyses
+#'    and \code{"RRFC"} analyses - this is the default.
 #' }    
 #' @param tempOrgCode, default FALSE; if TRUE, then code from version 0.0.1 of RJafroc
 #'    is used (see RJafroc_0.0.1.tar). This is intended to check against errors 
@@ -161,21 +162,30 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   if (!tempOrgCode) {
     # new code
     if (method == "DBM"){
-      return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, analysisOption)) # current code
+      
+      return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, analysisOption))
+      
     } else if (method == "OR") {
+      
       if (dataset$descriptions$design == "FCTRL") {
-        return(StORHAnalysisFactorial(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
+        
+        return(ORAnalysisFactorial(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
+        
       } else if (dataset$descriptions$design == "SPLIT-PLOT-A") {
-        return(StORHAnalysisSpA(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
+        
+        return(ORAnalysisSplitPlotA(dataset, FOM, FPFValue, alpha, analysisOption))
+        
       } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
-        return(StORHAnalysisSpC(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
+        
+        return(ORAnalysisSplitPlotC(dataset, FOM, FPFValue, alpha, analysisOption))
+        
       } else stop("Invalid study design: must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C")
     } else {
       errMsg <- sprintf("%s is not a valid analysis method.", method)
       stop(errMsg)
     }
   } else {
-    # call old code
+    # old code
     if (dataset$descriptions$design != "FCTRL") stop("old code requires FCTRL study design")
     if (method == "DBM"){
       return(DBMHAnalysis(dataset, FOM, alpha, analysisOption)) # original code: StOldCode.R

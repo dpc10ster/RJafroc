@@ -5,7 +5,8 @@
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' @param covEstMethod The covariance estimation method, "jackknife" 
-#'     (the default) or "bootstrap".
+#'     (the default) or "bootstrap" or "DeLong" (DeLongt is applicable only for 
+#'     FOM = Wilcoxon).
 #' @param nBoots  Only needed for bootstrap covariance estimation method. The number 
 #'     of bootstraps, defaults to 200.
 #' @param seed  Only needed for the bootstrap covariance estimation method. The initial 
@@ -27,17 +28,17 @@
 #' 
 #' @examples 
 #' ## use the default jackknife for covEstMethod
-#' vc <- UtilVarComponentsORFactorial(dataset02, FOM = "Wilcoxon")
+#' vc <- UtilORVarComponentsFactorial(dataset02, FOM = "Wilcoxon")
 #' str(vc) 
 #'
-#' UtilVarComponentsORFactorial(dataset02, FOM = "Wilcoxon", 
+#' UtilORVarComponentsFactorial(dataset02, FOM = "Wilcoxon", 
 #'    covEstMethod = "bootstrap", nBoots = 2000, seed = 100)$VarCom 
 #' 
-#' UtilVarComponentsORFactorial(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$VarCom 
+#' UtilORVarComponentsFactorial(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$VarCom 
 #'   
 #' @export
 #' 
-UtilVarComponentsORFactorial <- function (dataset, FOM, FPFValue = 0.2, 
+UtilORVarComponentsFactorial <- function (dataset, FOM, FPFValue = 0.2, 
                                  covEstMethod = "jackknife", nBoots = 200, seed = NULL)
 {
 
@@ -103,7 +104,7 @@ UtilVarComponentsORFactorial <- function (dataset, FOM, FPFValue = 0.2,
   varEachTrt <- vector(length = I)
   for (i in 1:I) {
     dsi <- DfExtractDataset(dataset, trts = i)
-    ret <- OrVarCovMatrixFctrl(dsi, FOM, FPFValue, nBoots, covEstMethod, seed)
+    ret <- OrVarCovMatrixFactorial(dsi, FOM, FPFValue, nBoots, covEstMethod, seed)
     varEachTrt[i] <- ret$Var
     cov2EachTrt[i] <- ret$Cov2
   }
@@ -132,7 +133,7 @@ UtilVarComponentsORFactorial <- function (dataset, FOM, FPFValue = 0.2,
   cov1EachRdr <- vector(length = J)
   for (j in 1:J) {
     dsj <- DfExtractDataset(dataset, rdrs = j)
-    ret <- OrVarCovMatrixFctrl(dsj, FOM, FPFValue, nBoots, covEstMethod, seed)
+    ret <- OrVarCovMatrixFactorial(dsj, FOM, FPFValue, nBoots, covEstMethod, seed)
     varEachRdr[j] <- ret$Var
     cov1EachRdr[j] <- ret$Cov1
   }
@@ -147,7 +148,7 @@ UtilVarComponentsORFactorial <- function (dataset, FOM, FPFValue = 0.2,
                                 stringsAsFactors = FALSE)
   } else IndividualRdr <- NA
   #####################################################################################
-  ret <- OrVarCovMatrixFctrl(dataset, FOM, FPFValue, nBoots, covEstMethod, seed)
+  ret <- OrVarCovMatrixFactorial(dataset, FOM, FPFValue, nBoots, covEstMethod, seed)
   Var <- ret$Var
   Cov1 <- ret$Cov1
   Cov2 <- ret$Cov2
@@ -191,7 +192,7 @@ UtilVarComponentsORFactorial <- function (dataset, FOM, FPFValue = 0.2,
 
 # select and retrieve covariance estimates according to value of `covEstMethod`
 # works only for factorial datasets
-OrVarCovMatrixFctrl <- function(dataset, FOM, FPFValue, nBoots, covEstMethod, seed) 
+OrVarCovMatrixFactorial <- function(dataset, FOM, FPFValue, nBoots, covEstMethod, seed) 
 {
   if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
   
@@ -220,39 +221,6 @@ OrVarCovMatrixFctrl <- function(dataset, FOM, FPFValue, nBoots, covEstMethod, se
 }  
 
 
-# select and retrieve covariance estimates according to value of `covEstMethod`
-# works only for split plot A datasets
-OrVarCovMatrixSpA <- function(dataset, FOM, FPFValue, nBoots, covEstMethod, seed) 
-{
-  if (dataset$descriptions$design != "SPLIT-PLOT-A") stop("This functions requires a split plot A dataset")  
-  
-  if (covEstMethod == "jackknife") {
-    
-    ret <- varComponentsJackknifeSpA(dataset, FOM, FPFValue)
-    
-  } else stop("split plot A requires jackknife method for estimating covariances")
-  
-  return(ret)
-  
-}  
-
-
-
-# select and retrieve covariance estimates according to value of `covEstMethod`
-# works only for split plot C datasets
-OrVarCovMatrixSpC <- function(dataset, FOM, FPFValue, nBoots, covEstMethod, seed) 
-{
-  if (dataset$descriptions$design != "SPLIT-PLOT-C") stop("This functions requires a split plot C dataset")  
-  
-  if (covEstMethod == "jackknife") {
-    
-    ret <- varComponentsJackknifeSpC(dataset, FOM, FPFValue)
-    
-  } else stop("split plot C requires jackknife method for estimating covariances")
-  
-  return(ret)
-  
-}  
 
 
 
