@@ -196,33 +196,42 @@ ORVarComponentsSpA <- function (dataset, FOM, FPFValue = 0.2)
   I <- dim(dataset$ratings$NL)[1]
   J <- dim(dataset$ratings$NL)[2]
   
-  # Foms is local value; 
-  # `as.matrix` is absolutely necessary if following `mean()` function is to work
-  Foms <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  theta_ij <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
-  fomMean <- mean(Foms[,]) # this fails if `Foms` is a dataframe; true for `mean` and `median`
+  theta_i <- array(dim = I)
+  J_i <- array(dim = I)
+  for (i in 1:I) {
+    J_i[i] <- length(theta_ij[i,][!is.na(theta_ij[i,])])
+    theta_i[i] <- mean(theta_ij[i,][!is.na(theta_ij[i,])])
+  }
+  fomMean <- mean(theta_i) # this fails if `theta_ij` is a dataframe; true for `mean` and `median`
   
   if (I > 1) {
     msT <- 0
     for (i in 1:I) {
-      msT <- msT + (mean(Foms[i, ]) - fomMean)^2
+      # adapted from Hillis 2014, definition of MS(T), just after Eqn. 4
+      # move the treatment specific J inside the i-summation showed there
+      msT <- msT + J_i[i]*(mean(theta_i[i]) - fomMean)^2
     }
-    msT <- J * msT/(I - 1)
+    msT <- msT/(I - 1) # the common J used to appear here: J*msT/(I - 1)
   } else msT <- NA
   
   if (J > 1) {
-    msR <- 0
-    for (j in 1:J) {
-      msR <- msR + (mean(Foms[, j]) - fomMean)^2
+    # msR_T_ denotes MSR(T), where R(T) is reader nested within treatment
+    msR_T_ <- 0
+    for (i in 1:I) {
+      for (j in 1:J) {
+        msR_T_ <- msR_T_ + (mean(theta_ij[i, j]) - fomMean)^2
+      }
     }
-    msR <- I * msR/(J - 1)
-  } else msR <- NA
+    msR_T_ <- I * msR_T_/(J - 1)
+  } else msR_T_ <- NA
   
   if ((I > 1) && (J > 1)) {
     msTR <- 0
     for (i in 1:I) {
       for (j in 1:J) {
-        msTR <- msTR + (Foms[i, j] - mean(Foms[i, ]) - mean(Foms[, j]) + fomMean)^2
+        msTR <- msTR + (theta_ij[i, j] - mean(theta_ij[i, ]) - mean(theta_ij[, j]) + fomMean)^2
       }
     }
     msTR <- msTR/((J - 1) * (I - 1))
@@ -243,7 +252,7 @@ ORVarComponentsSpA <- function (dataset, FOM, FPFValue = 0.2)
     msR_i <- array(0, dim = I)
     for (i in 1:I) {
       for (j in 1:J) {
-        msR_i[i] <- msR_i[i] + (Foms[i, j] -  mean(Foms[i,]))^2
+        msR_i[i] <- msR_i[i] + (theta_ij[i, j] -  mean(theta_ij[i,]))^2
       }
     }
     msR_i <- msR_i/(J - 1)
@@ -272,7 +281,7 @@ ORVarComponentsSpA <- function (dataset, FOM, FPFValue = 0.2)
     msT_j <- array(0, dim = J)
     for (j in 1:J) {
       for (i in 1:I) {
-        msT_j[j] <- msT_j[j] + (mean(Foms[i, j]) -  mean(Foms[,j]))^2
+        msT_j[j] <- msT_j[j] + (mean(theta_ij[i, j]) -  mean(theta_ij[,j]))^2
       }
       msT_j[j] <- msT_j[j]/(I - 1)
     }
@@ -348,16 +357,14 @@ ORVarComponentsSpC <- function (dataset, FOM, FPFValue = 0.2)
   I <- dim(dataset$ratings$NL)[1]
   J <- dim(dataset$ratings$NL)[2]
   
-  # Foms is local value; 
-  # `as.matrix` is absolutely necessary if following `mean()` function is to work
-  Foms <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  theta_ij <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
-  fomMean <- mean(Foms[,]) # this fails if `Foms` is a dataframe; true for `mean` and `median`
+  fomMean <- mean(theta_ij[,]) # this fails if `theta_ij` is a dataframe; true for `mean` and `median`
   
   if (I > 1) {
     msT <- 0
     for (i in 1:I) {
-      msT <- msT + (mean(Foms[i, ]) - fomMean)^2
+      msT <- msT + (mean(theta_ij[i, ]) - fomMean)^2
     }
     msT <- J * msT/(I - 1)
   } else msT <- NA
@@ -365,7 +372,7 @@ ORVarComponentsSpC <- function (dataset, FOM, FPFValue = 0.2)
   if (J > 1) {
     msR <- 0
     for (j in 1:J) {
-      msR <- msR + (mean(Foms[, j]) - fomMean)^2
+      msR <- msR + (mean(theta_ij[, j]) - fomMean)^2
     }
     msR <- I * msR/(J - 1)
   } else msR <- NA
@@ -374,7 +381,7 @@ ORVarComponentsSpC <- function (dataset, FOM, FPFValue = 0.2)
     msTR <- 0
     for (i in 1:I) {
       for (j in 1:J) {
-        msTR <- msTR + (Foms[i, j] - mean(Foms[i, ]) - mean(Foms[, j]) + fomMean)^2
+        msTR <- msTR + (theta_ij[i, j] - mean(theta_ij[i, ]) - mean(theta_ij[, j]) + fomMean)^2
       }
     }
     msTR <- msTR/((J - 1) * (I - 1))
@@ -395,7 +402,7 @@ ORVarComponentsSpC <- function (dataset, FOM, FPFValue = 0.2)
     msR_i <- array(0, dim = I)
     for (i in 1:I) {
       for (j in 1:J) {
-        msR_i[i] <- msR_i[i] + (Foms[i, j] -  mean(Foms[i,]))^2
+        msR_i[i] <- msR_i[i] + (theta_ij[i, j] -  mean(theta_ij[i,]))^2
       }
     }
     msR_i <- msR_i/(J - 1)
@@ -424,7 +431,7 @@ ORVarComponentsSpC <- function (dataset, FOM, FPFValue = 0.2)
     msT_j <- array(0, dim = J)
     for (j in 1:J) {
       for (i in 1:I) {
-        msT_j[j] <- msT_j[j] + (mean(Foms[i, j]) -  mean(Foms[,j]))^2
+        msT_j[j] <- msT_j[j] + (mean(theta_ij[i, j]) -  mean(theta_ij[,j]))^2
       }
       msT_j[j] <- msT_j[j]/(I - 1)
     }

@@ -110,7 +110,13 @@
 StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBM", 
                                   covEstMethod = "jackknife", nBoots = 200, analysisOption = "ALL", tempOrgCode = FALSE)
 {
+  
   options(stringsAsFactors = FALSE, "digits" = 8)
+  
+  if (dataset$descriptions$design != "FACTRL") {
+    method <- "OR"
+    covEstMethod <- "jackknife"
+  }
   
   I <- length(dataset$descriptions$modalityID)
   J <- length(dataset$descriptions$readerID)
