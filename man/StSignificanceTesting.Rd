@@ -109,7 +109,7 @@ Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR)
 \examples{
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBM") 
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "OR")
-##following is split-plot-c analysis using a simulated split-plot-c dataset
+## following is split-plot-c analysis using a simulated split-plot-c dataset
 StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
 
 \donttest{

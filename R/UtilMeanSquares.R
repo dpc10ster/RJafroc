@@ -27,6 +27,10 @@
 #' @export
 
 UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBM"){
+  
+  if ((dataset$descriptions$type == "ROC") && (FOM != "Wilcoxon")) stop("ROC dataset requires Wilcoxon FOM") 
+  if ((dataset$descriptions$type == "FROC") && (FOM == "Wilcoxon")) stop("FROC dataset cannot have Wilcoxon FOM") 
+  
   dataType <- dataset$descriptions$type
   if (dataType != "LROC") {
     NL <- dataset$ratings$NL
@@ -51,7 +55,6 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
   K1 <- K - K2
   
   if (method == "DBM") {
-    pseudoValues <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
     #
     # extensive changes made here DPC 6/30/19 for DBM method
     # basically redefine K as number of diseased cases or number of non-diseased
@@ -61,6 +64,7 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
     #
     if (FOM %in% c("MaxLLF", "HrSe")) {
       Ktemp <- K2 # K should be # of diseased cases
+      pseudoValues <- UtilPseudoValuesAbnormals(dataset, FOM, FPFValue)$jkPseudoValues
     } else if (FOM %in% c("MaxNLF", "HrSp", "MaxNLFAllCases", "ExpTrnsfmSp")) {
       Ktemp <- K1 # K should be # of non-diseased cases
     } else {

@@ -359,7 +359,9 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
     fileName <- paste0("DualModalityRRRC(", dataset$descriptions$fileName, ")")
     name <- NA
     design <- "FCTRL"
-    truthTableStr <- NA
+    truthTableStr <- array(dim = c(2,J,K,2))
+    truthTableStr[,,1:K1,1] <- 1
+    truthTableStr[,,(K1+1):K,2] <- 1
     type <- "LROC"
     perCase <- rep(1,K2)
     IDs <- dataset$lesions$IDs
@@ -378,7 +380,9 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
     fileName <- paste0("DualModalityRRRC(", dataset$descriptions$fileName, ")")
     name <- NA
     design <- "FCTRL"
-    truthTableStr <- NA
+    truthTableStr <- array(dim = c(2,J,K,2))
+    truthTableStr[,,1:K1,1] <- 1
+    truthTableStr[,,(K1+1):K,2] <- 1
     type <- "ROC"
     perCase <- rep(1,K2)
     IDs <- dataset$lesions$IDs

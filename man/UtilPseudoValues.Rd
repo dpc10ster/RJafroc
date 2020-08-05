@@ -4,7 +4,7 @@
 \alias{UtilPseudoValues}
 \title{Calculate pseudovalues}
 \usage{
-UtilPseudoValues(dataset, FOM, FPFValue = 0.2)
+UtilPseudoValues(dataset, FOM, FPFValue)
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}};

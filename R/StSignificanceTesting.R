@@ -72,7 +72,7 @@
 #' @examples
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBM") 
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "OR")
-#' ##following is split-plot-c analysis using a simulated split-plot-c dataset
+#' ## following is split-plot-c analysis using a simulated split-plot-c dataset
 #' StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
 #' 
 #' \donttest{
@@ -113,7 +113,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   
   options(stringsAsFactors = FALSE, "digits" = 8)
   
-  if (dataset$descriptions$design != "FACTRL") {
+  if (dataset$descriptions$design != "FCTRL") {
     method <- "OR"
     covEstMethod <- "jackknife"
   }

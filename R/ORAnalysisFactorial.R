@@ -1,5 +1,5 @@
 ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "jackknife", 
-                          nBoots = 200, analysisOption = "ALL")  
+                                nBoots = 200, analysisOption = "ALL")  
 {
   
   RRRC <- NULL
@@ -94,12 +94,12 @@ ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMeth
 } 
 
 
-
-
 # 5/30/20 returning zeroes instead of NAs; simplifies handling of SPLIT-PLOT-C dataseets
-resampleFOMijk2VarCov <- function(resampleFOMijk) {
+resampleFOMijk2VarCov <- function(resampleFOMijk, varInflFactor) {
   I <- dim(resampleFOMijk)[1]
   J <- dim(resampleFOMijk)[2]
+  K <- dim(resampleFOMijk)[3]
+  
   covariances <- array(dim = c(I, I, J, J))
   
   for (i in 1:I) {
@@ -122,7 +122,6 @@ resampleFOMijk2VarCov <- function(resampleFOMijk) {
       count <- count + 1
     }
   }
-  # if (count > 0) Var <- Var/count else Var <- NA
   if (count > 0) Var <- Var/count else Var <- 0
   
   Cov1 <- 0
@@ -137,7 +136,6 @@ resampleFOMijk2VarCov <- function(resampleFOMijk) {
       }
     }
   }
-  # if (count > 0) Cov1 <- Cov1/count else Cov1 <- NA
   if (count > 0) Cov1 <- Cov1/count else Cov1 <- 0
   
   Cov2 <- 0
@@ -152,7 +150,6 @@ resampleFOMijk2VarCov <- function(resampleFOMijk) {
       }
     }
   }
-  # if (count > 0) Cov2 <- Cov2/count else Cov2 <- NA
   if (count > 0) Cov2 <- Cov2/count else Cov2 <- 0
   
   Cov3 <- 0
@@ -171,15 +168,106 @@ resampleFOMijk2VarCov <- function(resampleFOMijk) {
       }
     }
   }
-  # if (count > 0) Cov3 <- Cov3/count else Cov3 <- NA
   if (count > 0) Cov3 <- Cov3/count else Cov3 <- 0
   
-  return(list(Var = Var, Cov1 = Cov1, Cov2 = Cov2, Cov3 = Cov3))
+  if (varInflFactor)  {
+    Var <-  Var * (K - 1)^2/K  # see paper by Efron and Stein 
+    Cov1 <-  Cov1 * (K - 1)^2/K
+    Cov2  <-  Cov2 * (K - 1)^2/K
+    Cov3 <-  Cov3  * (K - 1)^2/K
+  }
   
-  # 
-  # return(list(Var = ret$Var, Cov1 = ret$Cov1, Cov2 = ret$Cov2, Cov3 = ret$Cov3))
+  return(list(
+    Var = Var,
+    Cov1 = Cov1,
+    Cov2 = Cov2,
+    Cov3 = Cov3
+  ))
+  
 }
 
+
+
+resampleFOMijk2VarCovSpA <- function(resampleFOMijk, varInflFactor) {
+  
+  I <- dim(resampleFOMijk)[1]
+  J <- dim(resampleFOMijk)[2]
+  K <- dim(resampleFOMijk)[3]
+  
+  covariances <- array(dim = c(I, I, J, J))
+  for (i in 1:I) {
+    for (ip in 1:I) {
+      for (j in 1:J) {
+        for (jp in 1:J) {
+          if (any(is.na(resampleFOMijk[i, j, ])) || any(is.na(resampleFOMijk[ip, jp, ]))) next
+          covariances[i, ip, j, jp] <- cov(resampleFOMijk[i, j, ], resampleFOMijk[ip, jp, ])
+        }
+      }
+    }
+  }
+  
+  # See dropbox/RjafrocMaintenance/SpAMethods/Cov2Cov3Str.xlsx for hand calculations
+  Var_i <- rep(0,I)
+  count_i <- rep(0,I)
+  for (i in 1:I) {
+    rdr_i <- which(!is.na(resampleFOMijk[i,,1]))
+    for (j in 1:length(rdr_i)) {
+      if (is.na(covariances[i, i, rdr_i[j], rdr_i[j]])) next
+      Var_i[i] <- Var_i[i] + covariances[i, i, rdr_i[j], rdr_i[j]]
+      count_i[i] <- count_i[i] + 1
+    }
+    if (count_i[i] > 0) Var_i[i] <- Var_i[i]/count_i[i] else Var_i[i] <- 0
+  }
+  
+  Cov2_i <- rep(0,I)
+  count_i <- rep(0,I)
+  for (i in 1:I) {
+    rdr_i <- which(!is.na(resampleFOMijk[i,,1]))
+    for (j in 1:length(rdr_i)) {
+      for (jp in 1:length(rdr_i)) {
+        if (rdr_i[j] != rdr_i[jp]) {
+          if (is.na(covariances[i, i, rdr_i[j], rdr_i[jp]])) next
+          Cov2_i[i] <- Cov2_i[i] + covariances[i, i, rdr_i[j], rdr_i[jp]]
+          count_i[i] <- count_i[i] + 1
+        }
+      }
+    }
+    if (count_i[i] > 0) Cov2_i[i] <- Cov2_i[i]/count_i[i] else Cov2_i[i] <- 0
+  }
+  
+  Cov3_i <- rep(0,I)
+  count_i <- rep(0,I)
+  for (i in 1:I) {
+    for (ip in 1:I) {
+      rdr_i <- which(!is.na(resampleFOMijk[i,,1]))
+      rdr_ip <- which(!is.na(resampleFOMijk[ip,,1]))
+      if (i != ip) {
+        for (j in 1:length(rdr_i)) {
+          for (jp in 1:length(rdr_ip)) {
+            if (rdr_i[j] != rdr_ip[jp]) {
+              if (is.na(covariances[i, ip, rdr_i[j], rdr_ip[jp]])) next
+              Cov3_i[i] <- Cov3_i[i] + covariances[i, ip, rdr_i[j], rdr_ip[jp]]
+              count_i[i] <- count_i[i] + 1
+            }
+          }
+        }
+      }
+    }
+    if (count_i[i] > 0) Cov3_i[i] <- Cov3_i[i]/count_i[i] else Cov3_i[i] <- 0
+  }
+  
+  if (varInflFactor)  {
+    Var_i <-  Var_i * (K - 1)^2/K  # see paper by Efron and Stein 
+    Cov2_i  <-  Cov2_i * (K - 1)^2/K
+    Cov3_i <-  Cov3_i  * (K - 1)^2/K
+  }
+  
+  return(list(Var_i = Var_i,
+              Cov2_i = Cov2_i,
+              Cov3_i = Cov3_i
+  ))
+  
+}
 
 
 
@@ -189,12 +277,12 @@ varComponentsJackknifeFactorial <- function(dataset, FOM, FPFValue) {
   K <- length(dataset$ratings$NL[1,1,,1])
   
   ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-  CovTemp <- resampleFOMijk2VarCov(ret$jkFomValues)
+  CovTemp <- resampleFOMijk2VarCov(ret$jkFomValues, varInflFactor = TRUE)
   Cov <- list(
-    Var = CovTemp$Var * (K-1)^2/K,
-    Cov1 = CovTemp$Cov1 * (K-1)^2/K,
-    Cov2 = CovTemp$Cov2 * (K-1)^2/K,
-    Cov3 = CovTemp$Cov3 * (K-1)^2/K
+    Var = CovTemp$Var,
+    Cov1 = CovTemp$Cov1,
+    Cov2 = CovTemp$Cov2,
+    Cov3 = CovTemp$Cov3
   )
   
   return(Cov)
@@ -288,13 +376,19 @@ varComponentsBootstrapFactorial <- function(dataset, FOM, FPFValue, nBoots, seed
       }
     }
   }
-  Cov <- resampleFOMijk2VarCov(fomBsArray)
+  
+  Cov <- resampleFOMijk2VarCov(fomBsArray, varInflFactor = FALSE)
   Var <- Cov$Var
   Cov1 <- Cov$Cov1
   Cov2 <- Cov$Cov2
   Cov3 <- Cov$Cov3
   
-  return(list(Var = Var, Cov1 = Cov1, Cov2 = Cov2, Cov3 = Cov3))
+  return(list(
+    Var = Var, 
+    Cov1 = Cov1, 
+    Cov2 = Cov2, 
+    Cov3 = Cov3
+  ))
   
 }
 
@@ -444,7 +538,6 @@ varComponentsDeLongFactorial <- function(dataset, FOM)
       count <- count + 1
     }
   }
-  # if (count > 0) Var <- Var/count else Var <- NA
   if (count > 0) Var <- Var/count else Var <- 0
   
   Cov1 <- 0
@@ -459,7 +552,6 @@ varComponentsDeLongFactorial <- function(dataset, FOM)
       }
     }
   }
-  # if (count > 0) Cov1 <- Cov1/count else Cov1 <- NA
   if (count > 0) Cov1 <- Cov1/count else Cov1 <- 0
   
   Cov2 <- 0
@@ -474,7 +566,6 @@ varComponentsDeLongFactorial <- function(dataset, FOM)
       }
     }
   }
-  # if (count > 0) Cov2 <- Cov2/count else Cov2 <- NA
   if (count > 0) Cov2 <- Cov2/count else Cov2 <- 0
   
   Cov3 <- 0
@@ -493,9 +584,12 @@ varComponentsDeLongFactorial <- function(dataset, FOM)
       }
     }
   }
-  # if (count > 0) Cov3 <- Cov3/count else Cov3 <- NA
   if (count > 0) Cov3 <- Cov3/count else Cov3 <- 0
   
-  return(list(Var = Var, Cov1 = Cov1, Cov2 = Cov2, Cov3 = Cov3))
+  return(list(
+    Var = Var, 
+    Cov1 = Cov1, 
+    Cov2 = Cov2, 
+    Cov3 = Cov3))
 }
 

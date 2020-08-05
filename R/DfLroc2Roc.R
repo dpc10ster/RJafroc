@@ -46,7 +46,7 @@ DfLroc2Roc <- function (dataset) #  TBA !!!in tests!!!
   fileName <- paste0("DfLroc2Roc(", dataset$descriptions$fileName, ")")
   name <- NA
   design <- "FCTRL"
-  truthTableStr <- NA
+  truthTableStr <- dataset$descriptions$truthTableStr
   type <- "ROC"
   perCase <- rep(1,K2)
   IDs <- dataset$lesions$IDs

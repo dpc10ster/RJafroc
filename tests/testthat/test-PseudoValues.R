@@ -42,8 +42,6 @@ test_that(contextStr, {
   if (!all(is.na(x1$jkFomValues[1,3:5,1:5]))) stop("failed this test: not all NAs present")
   if (all(is.na(x1$jkFomValues[2,3:5,1:5]))) stop("failed this test: NAs present")
 
-  # SPLIT-PLOT-C
-  # ############################################################################
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/frocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
   temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
@@ -58,14 +56,14 @@ test_that(contextStr, {
   x1 <- readRDS(fn)
   x2 <- UtilPseudoValues(temp, FOM = "wAFROC")
   expect_equal(x1, x2)
-  
+
   t <- temp$descriptions$truthTableStr
   f <- x1$jkFomValues
-  
+
   # examine the jkFomValues
   # if (any(is.na(x1$jkFomValues[,1,1:3]))) stop("failed this test: NAs present")
   # if (!all(is.na(x1$jkFomValues[2,1:2,1:5]))) stop("failed this test: not all NAs")
   # if (!all(is.na(x1$jkFomValues[1,3:5,1:5]))) stop("failed this test: not all NAs present")
   # if (all(is.na(x1$jkFomValues[2,3:5,1:5]))) stop("failed this test: NAs present")
-  
+
 })

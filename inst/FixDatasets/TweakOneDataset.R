@@ -1,13 +1,17 @@
+# fixed missing truthTableStr in datasetCadLroc: 8/4/20
+# fixed missing truthTableStr in datasetCadSimuFroc: 8/4/20
+# 
 library(RJafroc)
 rm(list = ls())
 
-# generatetruthTableStr <- function(I, J, K, x){
-#   truthTableStr <- array(dim = c(I, J, K, max(x$lesions$perCase)+1))
-#   truthTableStr[,,1:K1,1] <- 1
-#   for (k2 in 1:K2) {
-#     truthTableStr[,,k2+K1,(1:x$lesionVector[k2])+1] <- 1
-#   }
-# }
+generatetruthTableStr <- function(I, J, K1, K2, perCase){
+  truthTableStr <- array(dim = c(I, J, K1+K2, max(x$lesions$perCase)+1))
+  truthTableStr[,,1:K1,1] <- 1
+  for (k2 in 1:K2) {
+    truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
+  }
+  return(truthTableStr)
+}
 
 
 fileNames <- c("dataset01", "dataset02", "dataset03", "dataset04", "dataset05", "dataset06",
@@ -16,7 +20,7 @@ fileNames <- c("dataset01", "dataset02", "dataset03", "dataset04", "dataset05", 
                "datasetBinned123", "datasetBinned124", "datasetBinned125",
                "datasetCadLroc", "datasetCadSimuFroc", 
                "datasetCrossedModality",
-               "datasetDegenerate", "datasetFROCSp", "datasetROI")
+               "datasetDegenerate", "datasetFROCSpC", "datasetROI")
 
 # following is not used
 binned <- list()
@@ -55,14 +59,25 @@ df <- data.frame(fileNames = fileNames,
 writeFile <- F
 
 for (i in 1:length(df[,1])) {
-  if (i != 22) next 
+  if (i != 19) next # CAD LROC dataset
   cat(sprintf("fixing  %s\n", df[i,1]))
   x <- get(df[i,1])
-  
+  I <- length(x$ratings$NL[,1,1,1])
+  J <- length(x$ratings$NL[1,,1,1])
+  K <- length(x$ratings$NL[1,1,,1])
+  K2 <- length(x$ratings$LL[1,1,,1])
+  K1 <- K - K2
   ratings <- x$ratings
   lesions <- x$lesions
   descriptions <- x$descriptions
-  descriptions <- descriptions[-1]
+  perCase <- x$lesions$perCase
+  truthTableStr <- array(dim = c(I, J, K1+K2, max(perCase)+1))
+  truthTableStr[,,1:K1,1] <- 1
+  for (k2 in 1:K2) {
+    truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
+  }
+  
+  descriptions$truthTableStr <- truthTableStr
   
   x <- list(ratings = ratings,
             lesions = lesions,

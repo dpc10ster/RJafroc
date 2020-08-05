@@ -760,11 +760,11 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
         }
       }
     }
-    Cov <- resampleFOMijk2VarCov(jkFOMArray)
-    var <- Cov$Var * (K - 1)^2/K  # see paper by Efron and Stein
-    cov1 <- Cov$Cov1 * (K - 1)^2/K
-    cov2 <- Cov$Cov2 * (K - 1)^2/K
-    cov3 <- Cov$Cov3 * (K - 1)^2/K
+    Cov <- resampleFOMijk2VarCov(jkFOMArray, varInflFactor = TRUE)
+    var <- Cov$Var
+    cov1 <- Cov$Cov1
+    cov2 <- Cov$Cov2
+    cov3 <- Cov$Cov3
   }
   
   if (covEstMethod == "bootstrap") {
@@ -812,7 +812,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
         }
       }
     }
-    Cov <- resampleFOMijk2VarCov(fomBsArray)
+    Cov <- resampleFOMijk2VarCov(fomBsArray, varInflFactor = FALSE)
     var <- Cov$var
     cov1 <- Cov$cov1
     cov2 <- Cov$cov2
@@ -920,14 +920,20 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
       }
       S <- s10/K2 + s01/K1
     }
-    Cov <- resampleFOMijk2VarCov(S)
+    
+    Cov <- resampleFOMijk2VarCov(S, varInflFactor = FALSE)
     var <- Cov$var
     cov1 <- Cov$cov1
     cov2 <- Cov$cov2
     cov3 <- Cov$cov3
   }
   
-  return(list(var = var, cov1 = cov1, cov2 = cov2, cov3 = cov3))
+  return(list(
+    var = var, 
+    cov1 = cov1, 
+    cov2 = cov2, 
+    cov3 = cov3
+  ))
 } 
 
 

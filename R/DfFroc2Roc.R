@@ -29,7 +29,6 @@
 #'
 #' @examples
 #' rocDataSet <- DfFroc2Roc(dataset05)
-#' 
 #' rocSpDataSet <- DfFroc2Roc(datasetFROCSpC)
 #' 
 #' ## in the following example, because of the smaller number of cases, 

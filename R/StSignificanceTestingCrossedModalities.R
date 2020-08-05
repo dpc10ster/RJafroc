@@ -27,7 +27,7 @@
 #' @export
 StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC", 
                                                    alpha = 0.05, analysisOption = "ALL"){
-
+  
   if (ds$descriptions$design != "FCTRL-X-MOD") stop("Dataset is not factorial crossed modality")
   options(stringsAsFactors = FALSE)
   NL <- ds$ratings$NL
@@ -96,7 +96,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
   varComp <- data.frame(varCov = varCovArray, 
                         row.names = nameArray, 
                         stringsAsFactors = FALSE)
-
+  
   varSingle <- vector(length = I)
   cov2Single <- vector(length = I)
   for (i in 1:I) {
@@ -195,12 +195,12 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
                                   CILower = CIRRRC[,1],
                                   CIUpper = CIRRRC[,2],
                                   stringsAsFactors = FALSE)
-
+      
       # print(attributes(ciDiffTrtRRRC))
       # print(attributes(ciDiffTrtRRRC$Treatment))
       # print(attributes(ciDiffTrtRRRC$Estimate))
       # print(class(ciDiffTrtRRRC$Treatment))
-################################################################################
+      ################################################################################
       # this whole issue could be a git problem of not updating a regenerated new good value
       # I had to do two commits followed by push: one with file deleted and one with file regenerated.
       # Then all travis releases worked;
@@ -261,7 +261,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
                                         CILower = CISingleRRRC[,1], 
                                         CIUpper = CISingleRRRC[,2], 
                                         stringsAsFactors = FALSE)
-
+      
     } else {
       fRRRC <- NA
       ddfRRRC <- NA
@@ -279,7 +279,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
                   pRRRC = pRRRC, 
                   ciDiffTrtRRRC = ciDiffTrtRRRC, 
                   ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC)
-             )
+      )
     }
   }
   
@@ -335,7 +335,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
                                       CIUpper = CISingleFRRC[,2], 
                                       row.names = NULL,
                                       stringsAsFactors = FALSE)
-
+    
     #colnames(ciAvgRdrEachTrtFRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     
     diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
@@ -381,7 +381,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
                                    stringsAsFactors = FALSE)
     # 5/4/20 removing all this as I better understand data.frame()
     
-        #colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
+    #colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
     
     varCovEachRdr <- data.frame(readerID, 
                                 varEchRder, 
@@ -559,6 +559,7 @@ EstimateVarCovCrossed <- function(NL, LL, perCase, IDs, weights, maxNL, maxLL, F
       }
     }
   }
+  
   K <- length(jkFOMArray[1, 1, 1, ])
   if (avgIndx == 1){
     jkFOMArray <- apply(jkFOMArray, c(2, 3, 4), mean)
@@ -567,10 +568,18 @@ EstimateVarCovCrossed <- function(NL, LL, perCase, IDs, weights, maxNL, maxLL, F
     jkFOMArray <- apply(jkFOMArray, c(1, 3, 4), mean)
     fomArray <- apply(jkFOMArray, c(1, 2), mean)
   }
-  Cov <- resampleFOMijk2VarCov(jkFOMArray)
-  Var <- Cov$Var * (K - 1)^2/K  # see paper by Efron and Stein
-  Cov1 <- Cov$Cov1 * (K - 1)^2/K
-  Cov2 <- Cov$Cov2 * (K - 1)^2/K
-  Cov3 <- Cov$Cov3 * (K - 1)^2/K
-  return(list(Var = Var, Cov1 = Cov1, Cov2 = Cov2, Cov3 = Cov3, fomArray = fomArray))
+  
+  Cov <- resampleFOMijk2VarCov(jkFOMArray, varInflFactor = TRUE)
+  Var <- Cov$Var
+  Cov1 <- Cov$Cov1
+  Cov2 <- Cov$Cov2
+  Cov3 <- Cov$Cov3
+  
+  return(list(
+    Var = Var, 
+    Cov1 = Cov1, 
+    Cov2 = Cov2, 
+    Cov3 = Cov3, 
+    fomArray = fomArray
+  ))
 }
