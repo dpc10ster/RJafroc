@@ -183,8 +183,10 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   NL[is.na(NL)] <- UNINITIALIZED
   
   ############################ INIT LL ARRAY ################################
-  LL <- array(dim = c(I, J, K2, max(perCase)))
   L <- length(LLModalityIDCol)
+  LL <- array(dim = c(I, J, K2, max(perCase)))
+  LLRatingCol <- as.numeric(LLRatingCol)
+  if(any(is.na(LLRatingCol))) stop ("found NAs in LLRatingCol in LL/TP sheet")
   for (l in 1:L) {
     i <- which(trtArr1D == LLModalityIDCol[l])
     j <- which(rdrArr1D == LLReaderIDCol[l])
