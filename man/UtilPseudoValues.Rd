@@ -2,13 +2,13 @@
 % Please edit documentation in R/UtilPseudoValues.R
 \name{UtilPseudoValues}
 \alias{UtilPseudoValues}
-\title{Calculate pseudovalues}
+\title{Pseudovalues for given dataset and FOM}
 \usage{
 UtilPseudoValues(dataset, FOM, FPFValue = 0.2)
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}};
-must be factorial, or split-plot-a and split-plot-c.}
+must be factorial, or split-plot-a or split-plot-c.}
 
 \item{FOM}{The figure of merit to be used in the calculation. 
 The default is \code{"FOM_wAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
@@ -17,18 +17,21 @@ The default is \code{"FOM_wAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
 where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
-A list containing two \code{c(I, J, K)} arrays containing the pseudovalues
+A list containing two arrays containing the pseudovalues
    and the jackknife FOM values of the datasets (a third returned value 
-   is for internal use)
+   is for internal use).
 }
 \description{
-Calculates \strong{centered} jackknife pseudovalues AND jackknife FOM values, 
-   for factorial, split-plot-a and split-plot-c study designs
+Returns \strong{centered} jackknife pseudovalues AND jackknife FOM values, 
+   for factorial OR split-plot-a OR split-plot-c study designs
+}
+\note{
+Each returned array has dimension \code{c(I,J,K)}, where \code{K} depends on the
+   FOM: \code{K1} for FOMs that are based on normal cases only, \code{K2} for FOMs that are 
+   based on abnormal cases only, and \code{K} for FOMs that are based on normal and 
+   abnormal cases.
 }
 \examples{
-UtilPseudoValues(dataset02, FOM = "Wilcoxon")$jkPseudoValues[1,1,1:10]
-UtilPseudoValues(dataset02, FOM = "Wilcoxon")$jkFomValues[1,1,1:10]
-UtilPseudoValues(dataset05, FOM = "wAFROC")$jkPseudoValues[1,1,1:10]
 UtilPseudoValues(dataset05, FOM = "wAFROC")$jkFomValues[1,1,1:10]
 
 }

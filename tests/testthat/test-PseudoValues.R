@@ -42,7 +42,6 @@ test_that(contextStr, {
   
   t <- temp$descriptions$truthTableStr
   f <- x1$jkFomValues
-  
   # examine the jkFomValues
   # if (any(is.na(x1$jkFomValues[,1,1:3]))) stop("failed this test: NAs present")
   # if (!all(is.na(x1$jkFomValues[2,1:2,1:5]))) stop("failed this test: not all NAs")
