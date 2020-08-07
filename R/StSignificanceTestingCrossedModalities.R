@@ -569,7 +569,7 @@ EstimateVarCovCrossed <- function(NL, LL, perCase, IDs, weights, maxNL, maxLL, F
     fomArray <- apply(jkFOMArray, c(1, 2), mean)
   }
   
-  Cov <- resampleFOMijk2VarCov(jkFOMArray, varInflFactor = TRUE)
+  Cov <- FOMijk2VarCov(jkFOMArray, varInflFactor = TRUE)
   Var <- Cov$Var
   Cov1 <- Cov$Cov1
   Cov2 <- Cov$Cov2

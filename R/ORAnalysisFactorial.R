@@ -95,7 +95,7 @@ ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMeth
 
 
 # 5/30/20 returning zeroes instead of NAs; simplifies handling of SPLIT-PLOT-C dataseets
-resampleFOMijk2VarCov <- function(resampleFOMijk, varInflFactor) {
+FOMijk2VarCov <- function(resampleFOMijk, varInflFactor) {
   I <- dim(resampleFOMijk)[1]
   J <- dim(resampleFOMijk)[2]
   K <- dim(resampleFOMijk)[3]
@@ -188,7 +188,7 @@ resampleFOMijk2VarCov <- function(resampleFOMijk, varInflFactor) {
 
 
 
-resampleFOMijk2VarCovSpA <- function(resampleFOMijk, varInflFactor) {
+FOMijk2VarCovSpA <- function(resampleFOMijk, varInflFactor) {
   
   I <- dim(resampleFOMijk)[1]
   J <- dim(resampleFOMijk)[2]
@@ -277,7 +277,7 @@ varComponentsJackknifeFactorial <- function(dataset, FOM, FPFValue) {
   K <- length(dataset$ratings$NL[1,1,,1])
   
   ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-  CovTemp <- resampleFOMijk2VarCov(ret$jkFomValues, varInflFactor = TRUE)
+  CovTemp <- FOMijk2VarCov(ret$jkFomValues, varInflFactor = TRUE)
   Cov <- list(
     Var = CovTemp$Var,
     Cov1 = CovTemp$Cov1,
@@ -377,7 +377,7 @@ varComponentsBootstrapFactorial <- function(dataset, FOM, FPFValue, nBoots, seed
     }
   }
   
-  Cov <- resampleFOMijk2VarCov(fomBsArray, varInflFactor = FALSE)
+  Cov <- FOMijk2VarCov(fomBsArray, varInflFactor = FALSE)
   Var <- Cov$Var
   Cov1 <- Cov$Cov1
   Cov2 <- Cov$Cov2

@@ -196,7 +196,7 @@ FormulaeHillis2014SpA <- function (dataset, FOM, FPFValue = 0.2)
                         stringsAsFactors = FALSE)  
   rownames(TRanova) <- c("MS", "ms[R(T)]")
   ret1 <- UtilPseudoValues(dataset, FOM, FPFValue)
-  ret <- resampleFOMijk2VarCovSpA(ret1$jkFomValues, varInflFactor = TRUE)
+  ret <- FOMijk2VarCovSpA(ret1$jkFomValues, varInflFactor = TRUE)
   Var_i <- ret$Var_i
   Cov2_i <- ret$Cov2_i
   Cov3_i <- ret$Cov3_i
@@ -396,7 +396,7 @@ varComponentsJackknifeSpA <- function(dataset, FOM, FPFValue) {
   J <- length(dataset$ratings$NL[1,,1,1])
   
   ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-  x <- resampleFOMijk2VarCov(ret$jkFOMs, varInflFactor = TRUE)
+  x <- FOMijk2VarCov(ret$jkFOMs, varInflFactor = TRUE)
 
   return(x)
   
@@ -418,7 +418,7 @@ varComponentsJackknifeSpC <- function(dataset, FOM, FPFValue) {
     jkFOMs <- ret$jkFomValues[,j,(caseTransitions[j]+1):(caseTransitions[j+1]), drop = FALSE]
     kj <- length(jkFOMs)/I
     dim(jkFOMs) <- c(I,1,kj)
-    x <- resampleFOMijk2VarCov(jkFOMs, varInflFactor = FALSE)
+    x <- FOMijk2VarCov(jkFOMs, varInflFactor = FALSE)
     # not sure which way to go: was doing this until 2/18/20
     # Var[j]  <-  x$Var * (K-1)^2/K
     # Cov1[j]  <-  x$Cov1 * (K-1)^2/K

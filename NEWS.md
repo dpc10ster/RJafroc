@@ -1,11 +1,21 @@
 # RJafroc 1.3.2.9000
 
+## Revised UtilPseudoValues 8/7/20
+* More compact code handles all FOMs - no exceptions, as before, for MaxLLF, etc.
+* Extensive changes to `UtilPseudoValues`, to accomplish handling of different FOMs.
+* Modified `FOMijk2VarCovSpA` and `FOMijk2VarCov` to accept a `varInflFactor` logical argument, allowing jackknife, bootstrap and DeLong - based estimates to be more compactly handled.
+* The software handles all designs without resorting to separate functions for FCTRL, SP-A and SP-C
+* Modified frocSpA toy dataset to stress code (unequal numbers of abnormal and normal cases, multiple marks on NL and LL worksheets, etc)
+* Checked `dataset05` MaxNLF vs. JAFROC
+* See below, note added today relating to handling of `descriptions$fileName`. This fixed problem with `expect_equal()` failing depending on how the `goodValues` were generated - from R `command line` vs. `Run Tests`. Also, in creating a dataset object, where appropriate, `fileName` <- "NA" instead of `fileName` <- `NA`; the latter generates a `character expected` error when an attempt is made to strip path name and extension in `convert2dataset` and `convert2Xdataset`. 
+* Updated and reorganized tests
+
 
 ## Read actual SPLIT-PLOT-A dataset
 * Did not find any data entry errors in `/toyFiles/FROC/1T3Rvs4R.xlsx`
 * Simplified `rdrArr` handling: this is done in `checkTruthTable`, where SPLIT-PLOT-A is handled separately; 
-* Passes all tests
 * Added source `fileName` to `descriptions$fileName` field of `DfReadDataFile()` return; this will keep a record of how the dataset was generated
+* Note added 8/7/20: above change created problems passing tests in R CMD check, as long file names may not agree; simplified to remove all but the file base name; regenerated many `goodValues` files
 * Next: implement the formulae, i.e. Cov2; found out how to estimate Cov2 by averaging multiple sample estimates
 
 
