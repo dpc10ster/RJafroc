@@ -1,5 +1,5 @@
 # 7/11/20: this does not test the actual output produced by UtilOutputReport
-# It just tests that the signficance testing routines produce the same outputs
+# It just tests that the signficance testing routines run without errors
 # See next test commented out that represents failed attempt at comparing actual outputs for text files only
 contextStr <- "UtilOutputReport: datasets02, 03 and 04"
 context(contextStr)

@@ -113,11 +113,10 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
         }
         if (readInput == "n") {
           stop("Execution cancelled by user.")
-        } 
+        } else  cat("\nOutput file name is: \t", ReportFileName, "\n")
       }
     }
   }
-  cat("\nOutput file name is: \t", ReportFileName, "\n")
   
   if (method == "DBM") {
     methodTxt <- "DBM-MRMC-HILLIS SIGNIFICANCE TESTING"
