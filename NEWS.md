@@ -1,19 +1,19 @@
 # RJafroc 1.3.2.9000
 
 ## Revised UtilPseudoValues 8/7/20
-* More compact code handles all FOMs - no exceptions, as before, for MaxLLF, etc.
-* Extensive changes to `UtilPseudoValues`, to accomplish handling of different FOMs.
+* More compact code handles all FOMs - no exceptions, as before, for MaxLLF, etc. Extensive simplification to accomplish handling of different FOMs.
 * Modified `FOMijk2VarCovSpA` and `FOMijk2VarCov` to accept a `varInflFactor` logical argument, allowing jackknife, bootstrap and DeLong - based estimates to be more compactly handled.
-* The software handles all designs without resorting to separate functions for FCTRL, SP-A and SP-C
-* Modified frocSpA toy dataset to stress code (unequal numbers of abnormal and normal cases, multiple marks on NL and LL worksheets, etc)
-* Checked `dataset05` MaxNLF vs. JAFROC
+* `UtilPseudoValues` handles all designs without resorting to separate functions for FCTRL, SPLIT-PLOT-A and SPLIT-PLOT-C
+* Modified `frocSpA` toy dataset to stress code (unequal numbers of abnormal and normal cases, multiple marks on NL and LL worksheets, etc)
+* Checked `dataset05` `MaxLLF` `MaxNLF` vs. JAFROC
 * See below, note added today relating to handling of `descriptions$fileName`. This fixed problem with `expect_equal()` failing depending on how the `goodValues` were generated - from R `command line` vs. `Run Tests`. Also, in creating a dataset object, where appropriate, `fileName` <- "NA" instead of `fileName` <- `NA`; the latter generates a `character expected` error when an attempt is made to strip path name and extension in `convert2dataset` and `convert2Xdataset`. 
 * Updated and reorganized tests
 * Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use treatment-specific components, i.e. `Var_i`, `Cov2_i` and `Cov3_i`. The modified formulae reduce to Hillis' formulae when the number of readers in each group are identical. Communicated results to collaborator.
+* Corrected error in handling of `MaxNLFAllCases` FOM; see comments in `UtilMeanSquares()`; regenerated one `goodValue` file.
 * Still to implement formulae in Hillis paper on page following Table VII. 
 
 
-## Read actual SPLIT-PLOT-A dataset
+## Read real SPLIT-PLOT-A dataset
 * Did not find any data entry errors in `/toyFiles/FROC/1T3Rvs4R.xlsx`
 * Simplified `rdrArr` handling: this is done in `checkTruthTable`, where SPLIT-PLOT-A is handled separately; 
 * Added source `fileName` to `descriptions$fileName` field of `DfReadDataFile()` return; this will keep a record of how the dataset was generated
@@ -23,7 +23,7 @@
 ## Update for reading SPLIT-PLOT-A data files
 * After emails with collaborator, need for this type of analysis.
 * Need to comment `DfReadDataFile.R` and `ReadJAFROCNewFormat.R` and add more checks in the code for illegal values.
-* Indiscriminate sorting introduced problems; now, sorted `caseID` column is used now in only 3 places to find the correct case indices, where normal cases are orderedd first, regardless of how they are entered in the `Truth` worksheet:
+* Indiscriminate sorting introduced problems; now, sorted `caseID` column is used now in only 3 places to find the correct case indices, where normal cases are ordered first, regardless of how they are entered in the `Truth` worksheet:
 
 ```
 k <- which(unique(truthTableSort$CaseID) == truthTable$CaseID[l])

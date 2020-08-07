@@ -2,7 +2,7 @@
 % Please edit documentation in R/UtilMeanSquares.R
 \name{UtilMeanSquares}
 \alias{UtilMeanSquares}
-\title{Calculate mean squares}
+\title{Calculate mean squares for factorial dataset}
 \usage{
 UtilMeanSquares(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBM")
 }
@@ -22,7 +22,7 @@ valid choices are \code{"DBM"} (default) and \code{"OR"}.}
 A list containing all possible mean squares
 }
 \description{
-Calculates the mean squares used in the DBM and ORH methods
+Calculates the mean squares used in the DBM and ORH methods for factorial dataset
 }
 \details{
 For \code{DBM} method, \code{msT, msTR, msTC, msTRC} will not be available 
