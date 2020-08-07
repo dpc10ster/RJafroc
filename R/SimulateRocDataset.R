@@ -44,7 +44,7 @@ SimulateRocDataset <- function(I = 1, J = 1, K1, K2, a, b, seed = NULL){
     }
   }
   
-  fileName <- NA
+  fileName <- "NA"
   name <- NA
   design <- "FCTRL"
   truthTableStr <- NA

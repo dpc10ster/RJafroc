@@ -113,7 +113,7 @@ ReadImrmc <- function(fileName, sequentialNames)
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  fileName <- NA
+  fileName <- "NA"
   name <- NA
   truthTableStr <- NA
   design <- "FCTRL"
@@ -195,7 +195,7 @@ ReadOrDbmMrmc <- function(fileName, delimiter, sequentialNames) {
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  fileName <- NA
+  fileName <- "NA"
   name <- NA
   truthTableStr <- NA
   design <- "FCTRL" # default when using old read function
@@ -346,7 +346,7 @@ ReadLrc <- function(fileName, sequentialNames)
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
   
-  fileName <- NA
+  fileName <- "NA"
   name <- NA
   truthTableStr <- NA
   design <- "FCTRL"

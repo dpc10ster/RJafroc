@@ -83,7 +83,7 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase){
   }  
   modalityID <- as.character(seq(1:I))
   readerID <- as.character(seq(1:J))
-  fileName <- NA
+  fileName <- "NA"
   name <- NA
   design <- "FCTRL"
   truthTableStr <- NA

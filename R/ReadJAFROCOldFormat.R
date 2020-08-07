@@ -263,7 +263,6 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
     truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
   }
   
-  fileName <- NA
   name <- NA
   design <- "FCTRL" # default when using old read function
   return(convert2dataset(NL, LL, LL_IL = NA, 

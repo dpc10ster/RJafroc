@@ -1,4 +1,4 @@
-contextStr <- "UtilVarCompOR: toy crossed and split plot datasets"
+contextStr <- "DfExtractDataset: toy crossed and split plot datasets"
 context(contextStr)
 test_that(contextStr, {
   

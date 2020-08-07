@@ -254,3 +254,194 @@ test_that(contextStr, {
   expect_equal(temp, ds)
   
 })
+
+
+
+contextStr <- "DfReadDataFile: toy ROC SpA, SpC and crossed"
+context(contextStr)
+test_that(contextStr, {
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/ROC/rocCr.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/rocCr", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
+  
+  # this checks a data file that uses strings for both readers and treatments, i.e., rocCrStrRdrsTrts.xlsx
+  fileName <- system.file(
+    "extdata", "/toyFiles/ROC/rocCrStrRdrsTrts.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/rocCrStrRdrsTrts", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/ROC/rocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/rocSpC", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/ROC/rocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/rocSpA", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
+  
+})
+
+contextStr <- "DfReadDataFile: toy FROC SpA, SpC and crossed"
+context(contextStr)
+test_that(contextStr, {
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocCr", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
+  
+  # this checks a data file that uses strings for both readers and treatments, i.e., rocCrStrRdrsTrts.xlsx
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/frocCrStrRdrsTrts.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocCrStrRdrsTrts", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/frocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocSpC", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/frocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/frocSpA", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/bad/incorrectCaseIDsInTP.xlsx", package = "RJafroc", mustWork = TRUE)
+  expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE))
+  
+  y <- system.file("extdata", "toyFiles/FROC/bad/frocCrNonCharInReaderID.xlsx", 
+                   package = "RJafroc", mustWork = TRUE)
+  expect_error(DfReadDataFile(y, newExcelFileFormat = TRUE))
+  
+  y <- system.file("extdata", "toyFiles/FROC/bad/frocCrNonCharInModalityID.xlsx", 
+                   package = "RJafroc", mustWork = TRUE)
+  expect_error(DfReadDataFile(y, newExcelFileFormat = TRUE))
+  
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/1T3Rvs4R.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/1T3Rvs4R", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+})
+
+
+contextStr <- "DfReadDataFile real FROC split-plot A dataset"
+context(contextStr)
+test_that(contextStr, {
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/1T3Rvs4R.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/1T3Rvs4R", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
+  
+  # calculate pseudovalues for split plot A
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/frocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/UtilPseudoValues_frocSpA", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    x1 <- UtilPseudoValues(temp, FOM = "wAFROC")
+    saveRDS(x1, file = fn)
+  }
+  
+  x1 <- readRDS(fn)
+  x2 <- UtilPseudoValues(temp, FOM = "wAFROC")
+  expect_equal(x1, x2)
+  
+  
+})
+

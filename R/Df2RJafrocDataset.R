@@ -75,7 +75,7 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
       weights <- FrocDataDescriptor(inputList)$weights
     modalityID <- "1"
     readerID <- "1"
-    fileName <- NA
+    fileName <- "NA"
     name <- NA
     design <- "FCTRL"
     truthTableStr <- NA
@@ -122,7 +122,7 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
     }
     modalityID <- as.character(seq(1:I))
     readerID <- as.character(seq(1:J))
-    fileName <- NA
+    fileName <- "NA"
     name <- NA
     design <- "FCTRL"
     truthTableStr <- NA
@@ -163,7 +163,7 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
     }
     modalityID <- as.character(seq(1:I))
     readerID <- as.character(seq(1:J))
-    fileName <- NA
+    fileName <- "NA"
     name <- NA
     design <- "FCTRL"
     truthTableStr <- NA
@@ -190,7 +190,7 @@ Df2RJafrocDataset <- function(NL, LL, InputIsCountsTable = FALSE, ...)  {
     }
     modalityID <- as.character(seq(1:I))
     readerID <- as.character(seq(1:J))
-    fileName <- NA
+    fileName <- "NA"
     name <- NA
     design <- "FCTRL"
     truthTableStr <- NA
@@ -251,13 +251,14 @@ convert2dataset <- function(NL, LL, LL_IL,
                   IDs = IDs,
                   weights = weights)
   
-  descriptions <- list(fileName = fileName,
-                       type = type,
-                       name = name,
-                       truthTableStr = truthTableStr,
-                       design = design,
-                       modalityID = modalityID,
-                       readerID = readerID)
+  descriptions <- list(
+    fileName = tools::file_path_sans_ext(basename(fileName)),
+    type = type,
+    name = name,
+    truthTableStr = truthTableStr,
+    design = design,
+    modalityID = modalityID,
+    readerID = readerID)
   
   dataset <- list(ratings = ratings, 
                   lesions = lesions, 
@@ -269,9 +270,9 @@ convert2dataset <- function(NL, LL, LL_IL,
 
 
 convert2Xdataset <- function(NL, LL, LL_IL, 
-                            perCase, IDs, weights,
-                            fileName, type, name, truthTableStr, design,
-                            modalityID1,  modalityID2, readerID) {
+                             perCase, IDs, weights,
+                             fileName, type, name, truthTableStr, design,
+                             modalityID1,  modalityID2, readerID) {
   ratings <- list(NL = NL,
                   LL = LL,
                   LL_IL = LL_IL)
@@ -280,7 +281,7 @@ convert2Xdataset <- function(NL, LL, LL_IL,
                   IDs = IDs,
                   weights = weights)
   
-  descriptions <- list(fileName = fileName,
+  descriptions <- list(fileName = tools::file_path_sans_ext(basename(fileName)),
                        type = type,
                        name = name,
                        truthTableStr = truthTableStr,

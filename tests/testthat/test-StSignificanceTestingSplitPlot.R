@@ -1,4 +1,4 @@
-contextStr <- "StSignificanceTesting-toy dataset frocSpC wAFROC"
+contextStr <- "StSignificanceTesting: frocSpC wAFROC"
 context(contextStr)
 test_that(contextStr, {
 
@@ -24,7 +24,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTesting-toy file frocSpA-wAFROC"
+contextStr <- "StSignificanceTesting: frocSpA-wAFROC"
 context(contextStr)
 test_that(contextStr, {
   
@@ -50,7 +50,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTesting real dataset FROC SpA-wAFROC"
+contextStr <- "StSignificanceTesting: 1T3Rvs4R FROC SpA-wAFROC"
 context(contextStr)
 test_that(contextStr, {
 
