@@ -152,7 +152,6 @@ FormulaeHillis2014SpA <- function (dataset, FOM, FPFValue = 0.2)
   
   I <- dim(dataset$ratings$NL)[1]
   J <- dim(dataset$ratings$NL)[2]
-  K <- dim(dataset$ratings$NL)[3]
   
   theta_ij <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
@@ -192,14 +191,17 @@ FormulaeHillis2014SpA <- function (dataset, FOM, FPFValue = 0.2)
   
   msArray <- c(msT, msR_T_)
   
-  TRanova <- data.frame("MS" = msArray,
-                        stringsAsFactors = FALSE)  
-  rownames(TRanova) <- c("MS", "ms[R(T)]")
   ret1 <- UtilPseudoValues(dataset, FOM, FPFValue)
   ret <- FOMijk2VarCovSpA(ret1$jkFomValues, varInflFactor = TRUE)
   Var_i <- ret$Var_i
   Cov2_i <- ret$Cov2_i
   Cov3_i <- ret$Cov3_i
+  
+  TRanova <- data.frame("MS" = msArray,
+                        "Cov2_i" = Cov2_i,
+                        "Cov3_i" = Cov3_i,
+                        stringsAsFactors = FALSE)  
+  rownames(TRanova) <- c("MS", "ms[R(T)]")
   
   den <- 0
   for (i in 1:I) den <- den + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0)
@@ -214,12 +216,41 @@ FormulaeHillis2014SpA <- function (dataset, FOM, FPFValue = 0.2)
   # because it is effectively "in there" due to the summation over i
   pValue <- 1 - pf(F_OR, I - 1, df2)
   
+  RRRC <- list()
+  RRRC$FTests <- data.frame(DF = c((I-1),df2),
+                            MS = c(msT, msR_T_ + den),
+                            FStat = c(F_OR, NA),
+                            p = c(pValue, NA),
+                            row.names = c("Treatment", "Error"),
+                            stringsAsFactors = FALSE)
+  
+  # construct confidence intervals for difference FOM, as on page 346, first para
+  # l_1 = 1; l_2 = -1
+  V_hat <- 0
+  for (i in 1:I) V_hat <- V_hat + 
+    (1 / J_i[i]) * 2 * (msR_T_i[i] + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))
+  stdErr <- sqrt(V_hat)
+  CI <- array(dim = 2)
+  trtMeanDiffs <- theta_i_dot[1] - theta_i_dot[2]
+  
+  alpha <- 0.05
+  CI <- sort(c(trtMeanDiffs - qt(alpha/2, df2) * stdErr, 
+               trtMeanDiffs + qt(alpha/2, df2) * stdErr))
+  RRRC$ciDiffTrt <- data.frame(Estimate = trtMeanDiffs, 
+                               StdErr = stdErr, 
+                               DF = df2, 
+                               CILower = CI[1],
+                               CIUpper = CI[2], 
+                               row.names = "trt1-trt2", 
+                               stringsAsFactors = FALSE)
+  
   return(list(Var_i = Var_i,
               Cov2_i = Cov2_i,
               Cov3_i = Cov3_i,
               F_OR = F_OR,
               pValue = pValue,
-              df2 = df2))
+              df2 = df2,
+              RRRC = RRRC))
   
 }  
 
@@ -397,7 +428,7 @@ varComponentsJackknifeSpA <- function(dataset, FOM, FPFValue) {
   
   ret <- UtilPseudoValues(dataset, FOM, FPFValue)
   x <- FOMijk2VarCov(ret$jkFOMs, varInflFactor = TRUE)
-
+  
   return(x)
   
 }
@@ -424,7 +455,7 @@ varComponentsJackknifeSpC <- function(dataset, FOM, FPFValue) {
     # Cov1[j]  <-  x$Cov1 * (K-1)^2/K
     # following seems more reasonable as reader j only interprets kj cases
     # updated file ~Dropbox/RJafrocChecks/StfrocSp.xlsx
-     Var[j]  <-  x$Var * (kj-1)^2/kj
+    Var[j]  <-  x$Var * (kj-1)^2/kj
     Cov1[j]  <-  x$Cov1 * (kj-1)^2/kj
   }
   Cov <- list(

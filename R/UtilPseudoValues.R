@@ -99,8 +99,8 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
         for (k in 1:K1_ij) {
           # NOTATION
           # kIndxNor: case index for the 3rd dimension of normal cases, 
-          # which in this instance ranges from 1 to K1
-          kIndxNor <- which(k_ij_logi)[k];if (is.na(kIndxNor)) 
+          # ranges from 1 to K1
+          kIndxNor <- which(k1_ij_logi)[k];if (is.na(kIndxNor)) 
             stop("Indexing error in UtilPseudoValues")
           # FOMs defined over NORMAL cases
           nlij_jk <- nl_ij[-k, ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
@@ -124,7 +124,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
         for (k in 1:K2_ij) {
           # NOTATION
           # kIndxAbn: case index for the 3rd dimension of abormnal cases, 
-          # which in this instance ranges from 1 to K2
+          # ranges from 1 to K2
           kIndxAbn <- which(k2_ij_logi)[k];if (is.na(kIndxAbn)) 
             stop("Indexing error in UtilPseudoValues")
           nlij_jk <- nl_ij[-(k+K1_ij), ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
@@ -148,7 +148,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
         for (k in 1:K_ij) {
           # NOTATION
           # kIndxAll: case index for the 3rd dimension of all cases, 
-          # which in this instance ranges from 1 to K
+          # ranges from 1 to K
           kIndxAll <- which(k_ij_logi)[k];if (is.na(kIndxAll)) 
             stop("Indexing error in UtilPseudoValues")
           if (k <= K1_ij) {
