@@ -8,11 +8,13 @@
 
 <title>RJafroc: Analyzing Diagnostic Observer Performance Studies — RJafroc-package • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="RJafroc: Analyzing Diagnostic Observer Performance Studies — RJafroc-package" />
-
 <meta property="og:description" content="RJafroc implements software for assessing medical imaging systems, radiologists or computer aided detection algorithms. Models of observer performance are implemented, including the binormal model (BM), the contaminated binormal model (CBM), the correlated contaminated binormal model (CORCBM), and the radiological search model (RSM). The software and applications are described in a book - Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017 and its vignettes https://dpc10ster.github.io/RJafroc/. Observer performance data collection paradigms are the receiver operating characteristic (ROC) and its location specific extensions, primarily free-response ROC (FROC) and the location ROC (LROC). ROC data consists of single ratings per images. A rating is the perceived confidence level that the image is that of a diseased patient. FROC data consists of a variable number (including zero) of mark-rating pairs per image, where a mark is the location of a clinically reportable suspicious region and the rating is the corresponding confidence level that it is a real lesion. LROC data consists of a rating and a forced localization of the most suspicious region on every image. RJafroc supersedes the Windows version of JAFROC software V4.2.1, http://www.devchakraborty.com. Package functions are organized as follows. Data file related function names are preceded by Df, curve fitting functions by Fit, included data sets by dataset, plotting functions by Plot, significance testing functions by St, sample size related functions by Ss, data simulation functions by Simulate and utility functions by Util. Implemented are figures of merit (FOMs) for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC (AFROC) and weighted AFROC (wAFROC) curves. Four maximum likelihood curve-fitting algorithms are implemented: the binormal model (BM), the contaminated binormal model (CBM), the correlated contaminated binormal model (CORCBM) and the radiological search model (RSM). Unlike the binormal model, CBM, CORCBM and RSM predict &quot;proper&quot; ROC curves that do not cross the chance diagonal. RSM fitting additionally yields measures of search and lesion-classification performances. Search performance is the ability to find lesions while avoiding finding non-lesions. Lesion-classification performance is the ability to correctly classify found lesions from found non-lesions. For fully crossed study designs significance testing of reader-averaged FOM differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods, including Hillis' extensions. Also implemented are single treatment analyses, which allow comparison of performance of a group of radiologists to a specified value, or comparison to CAD to a group of radiologists interpreting the same cases. Crossed-modality analysis is implemented wherein there are two crossed treatment factors and the desire is to determined performance in each treatment factor averaged over all levels of the other factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve a desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international collaborations. This version corrects a few bugs noticed by users (listed in NEWS.md) and extends the Excel file input format for greater flexibility going forward in handling non-crossed datasets." />
-
 
 
 
@@ -162,7 +163,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -184,12 +184,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>RJafroc implements software for assessing medical imaging systems, radiologists or computer aided detection algorithms. Models of observer performance are implemented, including the binormal model (BM), the contaminated binormal model (CBM), the correlated contaminated binormal model (CORCBM), and the radiological search model (RSM). The software and applications are described in a book - <strong>Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017</strong> and its vignettes <a href='https://dpc10ster.github.io/RJafroc/'>https://dpc10ster.github.io/RJafroc/</a>. Observer performance data collection paradigms are the receiver operating characteristic (ROC) and its location specific extensions, primarily free-response ROC (FROC) and the location ROC (LROC). ROC data consists of single ratings per images. A rating is the perceived confidence level that the image is that of a diseased patient. FROC data consists of a variable number (including zero) of mark-rating pairs per image, where a mark is the location of a clinically reportable suspicious region and the rating is the corresponding confidence level that it is a real lesion. LROC data consists of a rating and a forced localization of the most suspicious region on every image. RJafroc supersedes the Windows version of <strong>JAFROC</strong> software V4.2.1, <a href='http://www.devchakraborty.com'>http://www.devchakraborty.com</a>. Package functions are organized as follows. Data file related function names are preceded by <em>Df</em>, curve fitting functions by <em>Fit</em>, included data sets by <em>dataset</em>, plotting functions by <em>Plot</em>, significance testing functions by <em>St</em>, sample size related functions by <em>Ss</em>, data simulation functions by <em>Simulate</em> and utility functions by <em>Util</em>. Implemented are figures of merit (FOMs) for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC (AFROC) and weighted AFROC (wAFROC) curves. Four maximum likelihood curve-fitting algorithms are implemented: the binormal model (BM), the contaminated binormal model (CBM), the correlated contaminated binormal model (CORCBM) and the radiological search model (RSM). Unlike the binormal model, CBM, CORCBM and RSM predict "proper" ROC curves that do not cross the chance diagonal. RSM fitting additionally yields measures of search and lesion-classification performances. Search performance is <em>the ability to find lesions while avoiding finding non-lesions</em>. Lesion-classification performance is the ability to correctly classify found lesions from found non-lesions. For fully crossed study designs significance testing of reader-averaged FOM differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods, including Hillis' extensions. Also implemented are single treatment analyses, which allow comparison of performance of a group of radiologists to a specified value, or comparison to CAD to a group of radiologists interpreting the same cases. Crossed-modality analysis is implemented wherein there are two crossed treatment factors and the desire is to determined performance in each treatment factor averaged over all levels of the other factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve a desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international collaborations. This version corrects a few bugs noticed by users (listed in NEWS.md) and extends the Excel file input format for greater flexibility going forward in handling non-crossed datasets.</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p></p><table class='table'>
@@ -202,7 +201,6 @@
 </table>
 
 
-    
     <h2 class="hasAnchor" id="abbreviations-and-definitions"><a class="anchor" href="#abbreviations-and-definitions"></a>Abbreviations and definitions</h2>
 
     <p></p><ul>
@@ -256,18 +254,12 @@
 <li><p>J: number of readers, indexed by <code>j</code></p></li>
 <li><p>JAFROC file format: A .xlsx format file, applicable to ROC, ROI, FROC and 
        LROC paradigms</p></li>
-<li><p>JAFROC AUC: trapezoidal area under AFROC curve; deprecated, 
-       use AFROC AUC instead</p></li>
 <li><p>JAFROC: jackknife AFROC: Windows software for analyzing observer performance 
        data: no longer updated, replaced by current package; the name is a misnomer 
        as the jackknife is used only for significance testing; alternatively, 
        the bootstrap could be used; what distinguishes FROC from ROC analysis is the 
        use of the AFROC-AUC as the FOM. With this change, the DBM or the OR method 
        can be used for significance testing</p></li>
-<li><p>FOM_AFROC FOM: trapezoidal area under AFROC curve; this term is obsolete; 
-       use AFROC-AUC instead</p></li>
-<li><p>FOM_AFROC1 FOM: trapezoidal area under AFROC1 curve; this term is obsolete; 
-       use AFROC1-AUC instead</p></li>
 <li><p>K: total number of cases, K = K1 + K2, indexed by \(k\)</p></li>
 <li><p>K1: total number of non-diseased cases, indexed by \(k1\)</p></li>
 <li><p>K2: total number of diseased cases, indexed by \(k2\)</p></li>
@@ -356,13 +348,10 @@
        inferred using highest rating of NL marks on <strong>non-diseased cases ONLY</strong></p></li>
 <li><p>wAFROC1 curve: plot of weighted LLF (ordinate) vs. FPF1, where FPF1 is 
        inferred using highest rating of NL marks on <strong>ALL cases</strong></p></li>
-<li><p>FOM_wAFROC FOM: weighted trapezoidal area under AFROC curve: this term is 
-       obsolete; use wAFROC-AUC instead;<strong>this is the recommended FOM</strong></p></li>
-<li><p>FOM_wAFROC1 FOM: weighted trapezoidal area under AFROC1 curve: only use 
+<li><p>wAFROC1 FOM: weighted trapezoidal area under AFROC1 curve: only use 
        if there are zero non-diseased cases is always number of treatments minus one</p></li>
 </ul> 
 
-    
     <h2 class="hasAnchor" id="dataset"><a class="anchor" href="#dataset"></a>Dataset</h2>
 
     <p>An R object either created by the user or read from an external text or 
@@ -562,7 +551,6 @@
 </ul>
 
 
-    
     <h2 class="hasAnchor" id="df-datafile-related-functions"><a class="anchor" href="#df-datafile-related-functions"></a>Df: Datafile Related Functions</h2>
 
     <p></p><ul>
@@ -590,7 +578,6 @@
            from an MRMC ROC dataset suitable for using <a href='FitCorCbm.html'>FitCorCbm</a>.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="fitting-functions"><a class="anchor" href="#fitting-functions"></a>Fitting Functions</h2>
 
     <p></p><ul>
@@ -606,7 +593,6 @@
            to ROC data.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="plotting-functions"><a class="anchor" href="#plotting-functions"></a>Plotting Functions</h2>
 
     <p></p><ul>
@@ -617,7 +603,6 @@
 <li><p><code><a href='PlotRsmOperatingCharacteristics.html'>PlotRsmOperatingCharacteristics</a></code>: Plot RSM-fitted ROC curves.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="simulation-functions"><a class="anchor" href="#simulation-functions"></a>Simulation Functions</h2>
 
     <p></p><ul>
@@ -630,7 +615,6 @@
 <li><p><code><a href='SimulateLrocDataset.html'>SimulateLrocDataset</a></code>: Simulates an uncorrelated LROC dataset.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="sample-size-functions"><a class="anchor" href="#sample-size-functions"></a>Sample size Functions</h2>
 
     <p></p><ul>
@@ -641,7 +625,6 @@
            specified number of readers J, to achieve desired power for an ROC study.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="significance-testing-functions"><a class="anchor" href="#significance-testing-functions"></a>Significance Testing Functions</h2>
 
     <p></p><ul>
@@ -653,7 +636,6 @@
            significance testing using crossed modalities analysis.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="miscellaneous-and-utility-functions"><a class="anchor" href="#miscellaneous-and-utility-functions"></a>Miscellaneous and Utility Functions</h2>
 
     <p></p><ul>
@@ -678,11 +660,10 @@
 <li><p><code><a href='UtilPseudoValues.html'>UtilPseudoValues</a></code>: Return jackknife pseudovalues.</p></li>
 <li><p><code><a href='UtilVarComponentsDBM.html'>UtilVarComponentsDBM</a></code>: Utility for Dorfman-Berbaum-Metz 
            variance components.</p></li>
-<li><p><code><a href='UtilVarComponentsOR.html'>UtilVarComponentsOR</a></code>: Utility for Obuchowski-Rockette 
+<li><p><code><a href='UtilORVarComponentsFactorial.html'>UtilORVarComponentsFactorial</a></code>: Utility for Obuchowski-Rockette 
            variance components.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p><b>Basics of ROC</b></p>
@@ -752,7 +733,6 @@
 <p>Chakraborty DP. (2017) Observer Performance Methods for Diagnostic Imaging - 
      Foundations, Modeling, and Applications with R-Based Examples. 
      Taylor-Francis, LLC.</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

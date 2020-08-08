@@ -6,13 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Performs DBM or OR significance testing — StSignificanceTesting • RJafroc</title>
+<title>Performs DBM or OR significance testing for factorial or split-plot A,C datasets — StSignificanceTesting • RJafroc</title>
+
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,18 +38,17 @@
 
 
 
-<meta property="og:title" content="Performs DBM or OR significance testing — StSignificanceTesting" />
 
+<meta property="og:title" content="Performs DBM or OR significance testing for factorial or split-plot A,C datasets — StSignificanceTesting" />
 <meta property="og:description" content="Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
    significance testing (with Hillis' improvements), for specified dataset; 
    significance testing refers to analysis designed to assign a P-value, 
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 
    figure of merit (FOM) differences between treatments is zero. The results of 
-   the analysis are better visualized in the text or  
+   the analysis are best visualized in the text or  
    Excel-formatted files produced by UtilOutputReport.
 ## TBA" />
-
 
 
 
@@ -170,7 +171,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -186,23 +186,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Performs DBM or OR significance testing</h1>
+    <h1>Performs DBM or OR significance testing for factorial or split-plot A,C datasets</h1>
     
     <div class="hidden name"><code>StSignificanceTesting.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
    significance testing (with Hillis' improvements), for specified dataset; 
    significance testing refers to analysis designed to assign a P-value, 
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 
    figure of merit (FOM) differences between treatments is zero. The results of 
-   the analysis are better visualized in the text or  
+   the analysis are best visualized in the text or  
    Excel-formatted files produced by <code><a href='UtilOutputReport.html'>UtilOutputReport</a></code>.</p>
 <p>## TBA</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>StSignificanceTesting</span>(
@@ -216,14 +214,14 @@
   <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>,
   <span class='kw'>tempOrgCode</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
       <td><p>The dataset to be analyzed, see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>. 
-<b>Must have two or more treatments and two or more readers. A split-plot
+<b>Must have two or more treatments and two or more readers. A split-plot-c
 dataset is allowed provided <code>method</code> = "OR" and <code>covEstMethod</code>
 = "Jackknife".</b></p></td>
     </tr>
@@ -253,7 +251,8 @@ and the Obuchowski-Rockette significance testing methods, respectively.</p></td>
    in <code>ORH</code> analysis (for <code>method = "DBM"</code> the jackknife is always used).</p><ul>
 <li><p><code>"Jackknife"</code>, the default,</p></li>
 <li><p><code>"Bootstrap"</code>, in which case <code>nBoots</code> (above) is relevant,</p></li>
-<li><p><code>"DeLong"</code>; requires <code>FOM = "Wilcoxon"</code>, otherwise error.</p></li>
+<li><p><code>"DeLong"</code>; requires <code>FOM = "Wilcoxon" or "ROI" or "HrAuc"</code>, 
+   otherwise an error results.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -268,7 +267,7 @@ and the Obuchowski-Rockette significance testing methods, respectively.</p></td>
 <li><p><code>"FRRC"</code> = fixed-reader random case,</p></li>
 <li><p><code>"RRFC"</code> = random-reader fixed case,</p></li>
 <li><p><code>"ALL"</code> =  outputs results of <code>"RRRC"</code>, <code>"FRRC"</code> 
-   and <code>"RRFC"</code> analyses</p></li>
+   and <code>"RRFC"</code> analyses - this is the default.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -280,7 +279,7 @@ the organization of the code and the output. As implicit in the name of this
 temporary flag, it will eventually be removed.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><strong>For <code>method = "DBM"</code> the returned list contains 4 dataframes:</strong></p>
@@ -314,7 +313,6 @@ For <code>method = "OR"</code> the return list contains 4 dataframes:
 
 <dt>RRFC</dt><dd><p>Contains results of <code>"RRFC"</code> analyses- ditto</p></dd>
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Dorfman DD, Berbaum KS, Metz CE (1992) ROC characteristic rating analysis: 
@@ -326,7 +324,6 @@ Statistics in medicine 33, 330-360.</p>
 <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
 Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL. 
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
@@ -567,8 +564,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt0 0.89703704 0.024829936  4 0.82809808 0.96597599
 #&gt; Trt1 0.94083736 0.016153030  4 0.89598936 0.98568536
 #&gt; 
-#&gt; </div><div class='input'><span class='co'>##following is split-plot analysis using a simulated split-plot dataset</span>
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>datasetFROCSp</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='co'>## following is split-plot-c analysis using a simulated split-plot-c dataset</span>
+<span class='fu'>StSignificanceTesting</span>(<span class='no'>datasetFROCSpC</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr3       rdr4       rdr5
 #&gt; trt4 0.87681159 0.79202279 0.57312253 0.78758818
@@ -592,25 +589,25 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; TR 0.0048526915  3 0.0016175638
 #&gt; 
 #&gt; $ANOVA$VarCom
-#&gt;            Estimates       Rhos
-#&gt; VarR   0.00784437940         NA
-#&gt; VarTR -0.00071960186         NA
-#&gt; Cov1   0.00201036875 0.46241583
-#&gt; Cov2   0.00000000000 0.00000000
-#&gt; Cov3   0.00000000000 0.00000000
-#&gt; Var    0.00434753445         NA
+#&gt;       Estimates Rhos
+#&gt; VarR         NA   NA
+#&gt; VarTR        NA   NA
+#&gt; Cov1         NA   NA
+#&gt; Cov2          0   NA
+#&gt; Cov3          0   NA
+#&gt; Var          NA   NA
 #&gt; 
 #&gt; $ANOVA$IndividualTrt
-#&gt;      DF   msREachTrt   varEachTrt cov2EachTrt
-#&gt; trt4  3 0.0167757928 0.0037253990           0
-#&gt; trt5  3 0.0061688312 0.0049696699           0
+#&gt;      DF   msREachTrt varEachTrt cov2EachTrt
+#&gt; trt4  3 0.0167757928         NA           0
+#&gt; trt5  3 0.0061688312         NA           0
 #&gt; 
 #&gt; $ANOVA$IndividualRdr
-#&gt;      DF    msTEachRdr   varEachRdr   cov1EachRdr
-#&gt; rdr1  1 1.0111863e-02 0.0041261543 0.00225453147
-#&gt; rdr3  1 2.0091659e-03 0.0038673444 0.00224307346
-#&gt; rdr4  1 2.7461958e-05 0.0066676247 0.00292636442
-#&gt; rdr5  1 4.7690444e-03 0.0027290144 0.00061750564
+#&gt;      DF    msTEachRdr varEachRdr cov1EachRdr
+#&gt; rdr1  1 1.0111863e-02         NA          NA
+#&gt; rdr3  1 2.0091659e-03         NA          NA
+#&gt; rdr4  1 2.7461958e-05         NA          NA
+#&gt; rdr5  1 4.7690444e-03         NA          NA
 #&gt; 
 #&gt; 
 #&gt; $RRRC
@@ -633,37 +630,32 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; 
 #&gt; $FRRC
 #&gt; $FRRC$FTests
-#&gt;                     MS     Chisq DF           p
-#&gt; Treatment 0.0120648434 5.1621686  1 0.023084057
-#&gt; Error     0.0023371657        NA NA          NA
+#&gt;                    MS Chisq DF  p
+#&gt; Treatment 0.012064843    NA  1 NA
+#&gt; Error              NA    NA NA NA
 #&gt; 
 #&gt; $FRRC$ciDiffTrt
-#&gt;              Estimate      StdErr         z       PrGTz     CILower    CIUpper
-#&gt; trt4-trt5 0.077668666 0.034184541 2.2720406 0.023084057 0.010668197 0.14466914
+#&gt;              Estimate StdErr  z PrGTz CILower CIUpper
+#&gt; trt4-trt5 0.077668666     NA NA    NA      NA      NA
 #&gt; 
 #&gt; $FRRC$ciAvgRdrEachTrt
-#&gt;        Estimate      StdErr  DF    CILower    CIUpper
-#&gt; trt4 0.75738627 0.030518023 199 0.69757205 0.81720050
-#&gt; trt5 0.67971761 0.035247943 199 0.61063291 0.74880231
+#&gt;        Estimate StdErr  DF CILower CIUpper
+#&gt; trt4 0.75738627     NA 199      NA      NA
+#&gt; trt5 0.67971761     NA 199      NA      NA
 #&gt; 
 #&gt; $FRRC$ciDiffTrtEachRdr
-#&gt;                     Estimate      StdErr           z       PrGTz      CILower
-#&gt; rdr1::trt4-trt5 0.1422101449 0.061182069 2.324376188 0.020105341  0.022295493
-#&gt; rdr3::trt4-trt5 0.0633903134 0.056995982 1.112189170 0.266056823 -0.048319758
-#&gt; rdr4::trt4-trt5 0.0074110672 0.086501564 0.085675528 0.931724356 -0.162128883
-#&gt; rdr5::trt4-trt5 0.0976631393 0.064984748 1.502862468 0.132874513 -0.029704627
-#&gt;                    CIUpper
-#&gt; rdr1::trt4-trt5 0.26212480
-#&gt; rdr3::trt4-trt5 0.17510038
-#&gt; rdr4::trt4-trt5 0.17695102
-#&gt; rdr5::trt4-trt5 0.22503091
+#&gt;                     Estimate StdErr  z PrGTz CILower CIUpper
+#&gt; rdr1::trt4-trt5 0.1422101449     NA NA    NA      NA      NA
+#&gt; rdr3::trt4-trt5 0.0633903134     NA NA    NA      NA      NA
+#&gt; rdr4::trt4-trt5 0.0074110672     NA NA    NA      NA      NA
+#&gt; rdr5::trt4-trt5 0.0976631393     NA NA    NA      NA      NA
 #&gt; 
 #&gt; $FRRC$IndividualRdrVarCov1
-#&gt;        varEachRdr   cov1EachRdr
-#&gt; rdr1 0.0041261543 0.00225453147
-#&gt; rdr3 0.0038673444 0.00224307346
-#&gt; rdr4 0.0066676247 0.00292636442
-#&gt; rdr5 0.0027290144 0.00061750564
+#&gt;      varEachRdr cov1EachRdr
+#&gt; rdr1         NA          NA
+#&gt; rdr3         NA          NA
+#&gt; rdr4         NA          NA
+#&gt; rdr5         NA          NA
 #&gt; 
 #&gt; 
 #&gt; $RRFC
@@ -1213,7 +1205,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.84334121 0.024447043  8 0.78696623 0.89971620
 #&gt; trt2 0.88529025 0.017577166  8 0.84475724 0.92582327
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"FOM_wAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.74277290 0.88222710 0.78902636 0.64594897 0.63787388 0.81076549
@@ -1345,7 +1337,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.77467494 0.029186524  8 0.70737070 0.84197919
 #&gt; trt2 0.85560138 0.024604078  8 0.79886427 0.91233849
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"FOM_AFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"AFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.74714444 0.88568534 0.79412307 0.65521371 0.63697494 0.81180914
@@ -1477,7 +1469,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.77843282 0.029118730  8 0.71128490 0.84558073
 #&gt; trt2 0.85005732 0.025252382  8 0.79182522 0.90828941
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"FOM_AFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"AFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.73013183 0.88436911 0.81412429 0.62485876 0.57890772 0.85065913

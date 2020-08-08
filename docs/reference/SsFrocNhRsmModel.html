@@ -8,11 +8,13 @@
 
 <title>RSM fitted model for FROC sample size — SsFrocNhRsmModel • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="RSM fitted model for FROC sample size — SsFrocNhRsmModel" />
-
 <meta property="og:description" content="RSM fitted model for FROC sample size" />
-
 
 
 
@@ -162,7 +163,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -184,13 +184,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>RSM fitted model for FROC sample size</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>SsFrocNhRsmModel</span>(<span class='no'>dataset</span>, <span class='no'>lesionPmf</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -206,7 +204,7 @@ number of lesions per diseased case in the proposed <strong>pivotal</strong>
 <strong>FROC</strong> study.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list containing:</p><ul>
@@ -220,7 +218,6 @@ number of lesions per diseased case in the proposed <strong>pivotal</strong>
 <li><p><code>R2</code>, the R2 of the fit.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If dataset is FROC, it is converted to an ROC dataset. The search model 
@@ -233,7 +230,6 @@ number of lesions per diseased case in the proposed <strong>pivotal</strong>
     by which the ROC effect size must be multiplied to get the wAFROC effect size. Also 
     returned are the lesDist and lesWghtDist arrays, which are needed for computing
     FOMs. See 2nd FROC SS vignette. Equally weighted lesions is assumed.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'> 

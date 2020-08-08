@@ -8,11 +8,13 @@
 
 <title>RSM ROC/AFROC AUC calculator — UtilAucsRSM • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,12 +38,11 @@
 
 
 
-<meta property="og:title" content="RSM ROC/AFROC AUC calculator — UtilAucsRSM" />
 
+<meta property="og:title" content="RSM ROC/AFROC AUC calculator — UtilAucsRSM" />
 <meta property="og:description" content="Returns the ROC and AFROC AUCs corresponding to 
    specified RSM parameters. See also UtilAucPROPROC, 
    UtilAucBinormal and UtilAucCBM" />
-
 
 
 
@@ -164,7 +165,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -186,15 +186,13 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Returns the ROC and AFROC AUCs corresponding to 
    specified RSM parameters. See also <code><a href='UtilAucPROPROC.html'>UtilAucPROPROC</a></code>, 
    <code><a href='UtilAucBinormal.html'>UtilAucBinormal</a></code> and <code><a href='UtilAucCBM.html'>UtilAucCBM</a></code></p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>UtilAucsRSM</span>(<span class='no'>mu</span>, <span class='no'>lambdaP</span>, <span class='no'>nuP</span>, <span class='no'>lesDistr</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -223,19 +221,17 @@ to actual lesions) per diseased case.</p></td>
       <td><p>See <code><a href='PlotRsmOperatingCharacteristics.html'>PlotRsmOperatingCharacteristics</a></code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list containing the ROC and AFROC AUCs corresponding to the 
    specified parameters</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The RSM parameters (<code>mu</code>, <code>lambdaP</code> and 
    <code>nuP</code>) can be vectors, provided they are of the same length; 
    the first parameter of each array is used, followed by the second, 
    etc; a common lesion distribution is assumed.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
@@ -244,7 +240,6 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <p>Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 
 paradigm, Phys Med Biol 51, 3449-3462.</p>
 <p>Chakraborty DP (2006) ROC Curves predicted by a model of visual search, Phys Med Biol 51, 3463--3482.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>;<span class='no'>lambdaP</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>;<span class='no'>nuP</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>

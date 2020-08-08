@@ -8,11 +8,13 @@
 
 <title>Nico Karssemeijer LROC dataset (CAD vs. radiologists) — datasetCadLroc • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,8 +38,8 @@
 
 
 
-<meta property="og:title" content="Nico Karssemeijer LROC dataset (CAD vs. radiologists) — datasetCadLroc" />
 
+<meta property="og:title" content="Nico Karssemeijer LROC dataset (CAD vs. radiologists) — datasetCadLroc" />
 <meta property="og:description" content="This is the actual LROC data corresponding to dataset09, which was the inferred
 ROC data. Note that the LL field is split into two, LLCl, representing true 
 positives where the lesions were correctly localized, and LLIl, representing true 
@@ -45,7 +47,6 @@ positives where the lesions were incorrectly localized. The first reader is CAD
 and the remaining readers are radiologists. 
 ##
 ## The function TBA" />
-
 
 
 
@@ -168,7 +169,6 @@ and the remaining readers are radiologists.
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -190,7 +190,6 @@ and the remaining readers are radiologists.
     </div>
 
     <div class="ref-description">
-    
     <p>This is the actual LROC data corresponding to <code>dataset09</code>, which was the inferred
 ROC data. Note that the <code>LL</code> field is split into two, <code>LLCl</code>, representing true 
 positives where the lesions were correctly localized, and <code>LLIl</code>, representing true 
@@ -198,11 +197,11 @@ positives where the lesions were incorrectly localized. The first reader is CAD
 and the remaining readers are radiologists. 
 ##
 ## The function TBA</p>
-    
     </div>
 
     <pre class="usage"><span class='no'>datasetCadLroc</span></pre>
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A list with 3 elements: <code>$ratings</code>, <code>$lesions</code> and <code>$descriptions</code>; <code>$ratings</code>
@@ -225,12 +224,10 @@ and the remaining readers are radiologists.
 <li><p><code>descriptions$readerID</code>, chr [1:10] "1" "2" "3" "4" ..., reader labels</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Hupse R  et al. Standalone computer-aided detection compared to radiologists' 
 performance for the detection of mammographic masses. Eur Radiol. 2013;23(1):93-100.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>datasetCadLroc</span>)</div><div class='output co'>#&gt; List of 3
@@ -246,7 +243,7 @@ performance for the detection of mammographic masses. Eur Radiol. 2013;23(1):93-
 #&gt;   ..$ fileName     : chr "datasetCadLroc"
 #&gt;   ..$ type         : chr "LROC"
 #&gt;   ..$ name         : chr "NICO-CAD-LROC"
-#&gt;   ..$ truthTableStr: logi NA
+#&gt;   ..$ truthTableStr: num [1, 1:10, 1:200, 1:2] 1 1 1 1 1 1 1 1 1 1 ...
 #&gt;   ..$ design       : chr "FCTRL"
 #&gt;   ..$ modalityID   : chr "1"
 #&gt;   ..$ readerID     : chr [1:10] "1" "2" "3" "4" ...</div><div class='input'>

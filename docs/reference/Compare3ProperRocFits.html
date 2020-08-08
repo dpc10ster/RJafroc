@@ -8,11 +8,13 @@
 
 <title>Compare three proper-ROC curve fitting models — Compare3ProperRocFits • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,14 +38,13 @@
 
 
 
-<meta property="og:title" content="Compare three proper-ROC curve fitting models — Compare3ProperRocFits" />
 
+<meta property="og:title" content="Compare three proper-ROC curve fitting models — Compare3ProperRocFits" />
 <meta property="og:description" content="Applies the Radiological Search Model (RSM) and the 
    Contaminated Binormal Model (CBM) ROC-curve fitting methods to 14 
    datasets and compares the fits to Proper ROC (PROPROC) 
    fits obtained using Windows software downloaded from the Univ. of 
    Iowa ROC website ca. June 2017." />
-
 
 
 
@@ -166,7 +167,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -188,13 +188,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Applies the Radiological Search Model (RSM) and the 
    Contaminated Binormal Model (CBM) ROC-curve fitting methods to 14 
    datasets and compares the fits to Proper ROC (PROPROC) 
    fits obtained using Windows software downloaded from the Univ. of 
    Iowa ROC website ca. June 2017.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>Compare3ProperRocFits</span>(
@@ -204,7 +202,7 @@
   <span class='kw'>saveProprocLrcFile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>reAnalyze</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -235,14 +233,13 @@ DBM-MRMC. The default is <code>FALSE</code>.</p></td>
 is <code>FALSE</code> in which case the previously saved results are used.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The returned value is a list of 2:
    <code>allDatasetsResults</code> containing the fitting results and 
    <code>allBinnedDatasets</code> containing the binned datasets used in the fitting.
    See details.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>allDatasetsResults is a list-array of length 
@@ -280,7 +277,6 @@ is <code>FALSE</code> in which case the previously saved results are used.</p></
    If <code>saveProprocLrcFile</code> 
    is <code>TRUE</code>, the <code>.lrc</code> files will be written to the <code>inst-MRMCRuns</code>
    directory, to appropriate subdirectory, <strong>overwriting</strong> any existing files.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
@@ -290,7 +286,6 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 J Math Psychol. <b>43</b>,(1):1--33.</p>
 <p>Dorfman DD, Berbaum KS, 2000 A contaminated binormal model for ROC data: Part II. A formal model 
 Acad Radiol <b>7</b>, 427--437.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>Compare3ProperRocFits</span>(<span class='fl'>1</span>,<span class='fl'>1</span>) <span class='co'># analyze first two datasets</span>

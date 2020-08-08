@@ -47,20 +47,24 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   K <- dim(NL)[3]
   K2 <- dim(LL)[3]
   K1 <- K - K2
-  
+
+  # account for 15+ FOMs  
   if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
     # FOMs defined over NORMAL cases
     jkFomValues <- array(dim = c(I, J, K1))
     jkPseudoValues <- array(dim = c(I, J, K1))
-  }  else if (FOM %in% c("MaxLLF", "HrSe")) {
+  }  else if (FOM %in% c("MaxLLF", "HrSe")) { # after checking StOldCode.R, HrSe belongs in this group, depends only on abnormal cases
     # FOMs defined over ABNORMAL cases
     jkFomValues <- array(dim = c(I, J, K2))
     jkPseudoValues <- array(dim = c(I, J, K2))
-  } else {
+  } else if (FOM %in% c("Wilcoxon", "HrAuc", "SongA1", 
+                        "AFROC", "AFROC1", "wAFROC1", "wAFROC",
+                        "MaxNLFAllCases", "ROI", "SongA2",
+                        "PCL", "ALROC")) { # TBA may not handle ROI correctly
     # FOMs defined over ALL cases
     jkFomValues <- array(dim = c(I, J, K))
     jkPseudoValues <- array(dim = c(I, J, K))
-  }
+  } else stop("Illegal FOM specified")
   
   t <- dataset$descriptions$truthTableStr
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
@@ -91,7 +95,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
       ll_ij <- LL[i, j, k2_ij_logi, 1:maxLL]; dim(ll_ij) <- c(K2_ij, maxLL)
       # i.e., LL ratings for all cases meeting the i,j criteria
       
-      if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) { 
+      if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
         for (k in 1:K1_ij) {
           # NOTATION
           # kIndxNor: case index for the 3rd dimension of normal cases, 

@@ -8,11 +8,13 @@
 
 <title>Changelog • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,7 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Changelog" />
+
 
 
 
@@ -158,7 +162,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -182,6 +185,78 @@
 <h1 class="page-header" data-toc-text="1.3.2.9000">
 <a href="#rjafroc-1329000" class="anchor"></a>RJafroc 1.3.2.9000<small> Unreleased </small>
 </h1>
+<div id="revised-utilpseudovalues-8720" class="section level2">
+<h2 class="hasAnchor">
+<a href="#revised-utilpseudovalues-8720" class="anchor"></a>Revised UtilPseudoValues 8/7/20</h2>
+<ul>
+<li>More compact code handles all FOMs - no exceptions, as before, for MaxLLF, etc. Extensive simplification to accomplish handling of different FOMs.</li>
+<li>Modified <code>FOMijk2VarCovSpA</code> and <code>FOMijk2VarCov</code> to accept a <code>varInflFactor</code> logical argument, allowing jackknife, bootstrap and DeLong - based estimates to be more compactly handled.</li>
+<li>
+<code>UtilPseudoValues</code> handles all designs without resorting to separate functions for FCTRL, SPLIT-PLOT-A and SPLIT-PLOT-C</li>
+<li>Modified <code>frocSpA</code> toy dataset to stress code (unequal numbers of abnormal and normal cases, multiple marks on NL and LL worksheets, etc)</li>
+<li>Checked <code>dataset05</code> <code>MaxLLF</code> <code>MaxNLF</code> vs. JAFROC</li>
+<li>See below, note added today relating to handling of <code>descriptions$fileName</code>. This fixed problem with <code>expect_equal()</code> failing depending on how the <code>goodValues</code> were generated - from R <code>command line</code> vs. <code>Run Tests</code>. Also, in creating a dataset object, where appropriate, <code>fileName</code> &lt;- “NA” instead of <code>fileName</code> &lt;- <code>NA</code>; the latter generates a <code>character expected</code> error when an attempt is made to strip path name and extension in <code>convert2dataset</code> and <code>convert2Xdataset</code>.</li>
+<li>Updated and reorganized tests</li>
+<li>Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use treatment-specific components, i.e. <code>Var_i</code>, <code>Cov2_i</code> and <code>Cov3_i</code>. The modified formulae reduce to Hillis’ formulae when the number of readers in each group are identical. Communicated results to collaborator.</li>
+<li>Corrected error in handling of <code>MaxNLFAllCases</code> FOM; see comments in <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code>; regenerated one <code>goodValue</code> file.</li>
+<li>Still to implement formulae in Hillis paper on page following Table VII.</li>
+</ul>
+</div>
+<div id="read-real-split-plot-a-dataset" class="section level2">
+<h2 class="hasAnchor">
+<a href="#read-real-split-plot-a-dataset" class="anchor"></a>Read real SPLIT-PLOT-A dataset</h2>
+<ul>
+<li>Did not find any data entry errors in <code>/toyFiles/FROC/1T3Rvs4R.xlsx</code>
+</li>
+<li>Simplified <code>rdrArr</code> handling: this is done in <code>checkTruthTable</code>, where SPLIT-PLOT-A is handled separately;</li>
+<li>Added source <code>fileName</code> to <code>descriptions$fileName</code> field of <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> return; this will keep a record of how the dataset was generated</li>
+<li>Note added 8/7/20: above change created problems passing tests in R CMD check, as long file names may not agree; simplified to remove all but the file base name; regenerated many <code>goodValues</code> files</li>
+</ul>
+</div>
+<div id="update-for-reading-split-plot-a-data-files" class="section level2">
+<h2 class="hasAnchor">
+<a href="#update-for-reading-split-plot-a-data-files" class="anchor"></a>Update for reading SPLIT-PLOT-A data files</h2>
+<ul>
+<li>After emails with collaborator, need for this type of analysis.</li>
+<li>Need to comment <code>DfReadDataFile.R</code> and <code>ReadJAFROCNewFormat.R</code> and add more checks in the code for illegal values.</li>
+<li>Indiscriminate sorting introduced problems; now, sorted <code>caseID</code> column is used now in only 3 places to find the correct case indices, where normal cases are ordered first, regardless of how they are entered in the <code>Truth</code> worksheet:</li>
+</ul>
+<pre><code>k &lt;- which(unique(truthTableSort$CaseID) == truthTable$CaseID[l])
+k &lt;- which(unique(truthTableSort$CaseID) == NLCaseIDCol[l])
+k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
+</div>
+<div id="tests-for-utiloutputreport" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tests-for-utiloutputreport" class="anchor"></a>Tests for UtilOutputReport</h2>
+<ul>
+<li>Included tests for <code><a href="../reference/UtilOutputReport.html">UtilOutputReport()</a></code> for text output only</li>
+<li>Could not get version that compared actual outputs to work in R CMD check.</li>
+<li>Only works at command line (running tests one at a time)</li>
+<li>Failing code is commented out</li>
+</ul>
+</div>
+<div id="renamed-sp-datasets-7920" class="section level2">
+<h2 class="hasAnchor">
+<a href="#renamed-sp-datasets-7920" class="anchor"></a>Renamed SP datasets 7/9/20</h2>
+<ul>
+<li>Renamed the split plot dataset to datasetFROCSpC</li>
+<li>The C stands for Table VII Part (C) in Hillis 2014</li>
+<li>Need to distinguish between different types of split-plot datasets</li>
+<li>What I was doing so far was split-plot-c</li>
+<li>The new analysis requires split-plot-a</li>
+</ul>
+</div>
+<div id="code-for-checking-for-non-sequential-lesionids-in-truth-7820" class="section level2">
+<h2 class="hasAnchor">
+<a href="#code-for-checking-for-non-sequential-lesionids-in-truth-7820" class="anchor"></a>Code for checking for non-sequential lesionIDs in TRUTH 7/8/20</h2>
+<ul>
+<li>Updated all tests to display contexts more consistently.</li>
+<li>Moved unnecessary files from <code>inst</code> to <code>Dropbox</code>.</li>
+<li>Main work was on <code>DfReadDataFile.R</code> and testing code for non-sequential <code>lesionID</code>s in <code>TRUTH</code> worksheet.</li>
+<li>Thinking about modifications to handle split-plot data along the lines of HYK datasets</li>
+<li>Also learning about <code>grep</code>.</li>
+</ul>
+</div>
 <div id="implemented-extensive-testing-comparing-rjafroc-to-iowa-software" class="section level2">
 <h2 class="hasAnchor">
 <a href="#implemented-extensive-testing-comparing-rjafroc-to-iowa-software" class="anchor"></a>Implemented extensive testing comparing <code>RJafroc</code> to Iowa software</h2>
@@ -200,7 +275,7 @@
 <li>
 <code>RJafroc</code> reports <code>VarTR</code> = -0.00068389146 while their code reports <code>VarTR</code> = -0.00071276.</li>
 <li>Specifically, <code>msTR - Var + Cov1 + max(Cov2 - Cov3, 0) = -0.00068389146</code> and <code>msTR - Var + Cov1 + Cov2 - Cov3 = -0.00071276</code>.</li>
-<li>This also affects the <code>VarR</code> values (see block of comments in <code>UtilVarComponentsOR</code> near line 161). <code>Cov1</code>, <code>Cov2</code>, <code>Cov3</code> and <code>Var</code> are the same between both codes.</li>
+<li>This also affects the <code>VarR</code> values (see block of comments in <code>UtilORVarComponentsFactorial</code> near line 161). <code>Cov1</code>, <code>Cov2</code>, <code>Cov3</code> and <code>Var</code> are the same between both codes.</li>
 <li>I am aware that these discrepancies do not affect sample size estimates, but can cause confusion for the code maintainer and the end user.</li>
 </ul>
 </div>
@@ -459,7 +534,7 @@
 <li>Created simulated SP dataset <code>datasetFROCSp</code> corresponding to modalities 4,5 of <code>dataset04</code>
 </li>
 <li>Update vignette <code>Ch00Vig5SimulateSplitPlotDataset.Rmd</code>.</li>
-<li>Modified <code>StORHAnalysis.R</code> and to work with SP dataset provided <code>method = "ORH"</code> and <code>covEstMethod</code> = “jackknife” is used</li>
+<li>Modified <code>StORHAnalysis.R</code> and to work with SP-A dataset provided <code>method = "ORH"</code> and <code>covEstMethod</code> = “jackknife” is used</li>
 <li>Corrected an error in analysis; see <code>~Dropbox/RJafrocChecks/StfrocSp.xlsx</code> for details.</li>
 <li>Updated this file 2/19/20</li>
 <li>R CMD check successful … except for file size NOTE (18.4Mb)</li>
@@ -633,7 +708,7 @@
 <li>
 <code><a href="../reference/UtilVarComponentsDBM.html">UtilVarComponentsDBM()</a></code>:</li>
 <li>
-<code><a href="../reference/UtilVarComponentsOR.html">UtilVarComponentsOR()</a></code>:</li>
+<code><a href="../reference/UtilORVarComponentsFactorial.html">UtilORVarComponentsFactorial()</a></code>:</li>
 <li>
 <code>SsPowerGivenJKDbmVarComp</code>:</li>
 <li>

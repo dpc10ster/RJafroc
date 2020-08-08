@@ -8,11 +8,13 @@
 
 <title>Fit the binormal model to selected treatment and reader in an ROC dataset — FitBinormalRoc • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,11 +38,10 @@
 
 
 
-<meta property="og:title" content="Fit the binormal model to selected treatment and reader in an ROC dataset — FitBinormalRoc" />
 
+<meta property="og:title" content="Fit the binormal model to selected treatment and reader in an ROC dataset — FitBinormalRoc" />
 <meta property="og:description" content="Fit the binormal model-predicted ROC curve for a dataset. 
    This is the R equivalent of ROCFIT or RSCORE" />
-
 
 
 
@@ -163,7 +164,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -185,14 +185,12 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Fit the binormal model-predicted ROC curve for a dataset. 
    This is the R equivalent of ROCFIT or RSCORE</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>FitBinormalRoc</span>(<span class='no'>dataset</span>, <span class='kw'>trt</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdr</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -209,7 +207,7 @@
       <td><p>The desired reader, default is 1</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The returned value is a list with the following elements:</p>
@@ -238,7 +236,6 @@
    fitted operating characteristic along with the empirical operating 
    points. Use <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code> to display the object</p></dd>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In the binormal model ratings (more accurately the latent decision variables) 
@@ -249,13 +246,11 @@
    many bins containing zero counts will cause the algorithm to fail; so be sure
    to bin the data appropriately to fewer bins, where each bin has at least one
    count.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Dorfman DD, Alf E (1969) Maximum-Likelihood Estimation of Parameters of Signal-Detection Theory and Determination of Confidence Intervals - 
 Rating-Method Data, Journal of Mathematical Psychology 6, 487-496.</p>
 <p>Grey D, Morgan B (1972) Some aspects of ROC curve-fitting: normal and logistic models. Journal of Mathematical Psychology 9, 128-139.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

@@ -8,11 +8,13 @@
 
 <title>Plot empirical operating characteristics, ROC, FROC or LROC — PlotEmpiricalOperatingCharacteristics • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,12 +38,11 @@
 
 
 
-<meta property="og:title" content="Plot empirical operating characteristics, ROC, FROC or LROC — PlotEmpiricalOperatingCharacteristics" />
 
+<meta property="og:title" content="Plot empirical operating characteristics, ROC, FROC or LROC — PlotEmpiricalOperatingCharacteristics" />
 <meta property="og:description" content="Plot empirical operating characteristics (operating points connected by straight 
    lines) for specified modalities and readers, or, if desired, plots 
    (no operating points) averaged over specified modalities and / or readers." />
-
 
 
 
@@ -164,7 +165,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -186,11 +186,9 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Plot empirical operating characteristics (operating points connected by straight 
    lines) for specified modalities and readers, or, if desired, plots 
    (no operating points) averaged over specified modalities and / or readers.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>PlotEmpiricalOperatingCharacteristics</span>(
@@ -200,7 +198,7 @@
   <span class='no'>opChType</span>,
   <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.8</span>, <span class='fl'>0.2</span>)
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -230,7 +228,7 @@ Default is 1.</p></td>
 i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <span class="pkg">ggplot2</span> object containing the operating characteristic plot(s) 
@@ -245,7 +243,6 @@ operating points, they are not shown.</p></dd>
 codes modality and reader) and type, which can be <code>"individual"</code>, 
 <code>"continuous"</code>, i.e., more than 20 operating points, or <code>"rdrAveraged"</code>.</p></dd>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>trts</code> and <code>rdrs</code> are vectors or lists of <strong>integer</strong>  
@@ -260,7 +257,6 @@ codes modality and reader) and type, which can be <code>"individual"</code>,
    readers lists are vectors, the average operating characteristic over the 
    implied modalities and / or readers are plotted. See Example 2.</p>   
 <p>For <code>LROC</code> datasets, <code>opChType</code> can be "ROC" or "LROC".</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example 1</span>

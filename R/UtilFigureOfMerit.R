@@ -145,8 +145,8 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   K2 <- dim(LL)[3]
   K1 <- K - K2  
   
-  if (K1 == 0 && !(FOM %in% c("FOM_AFROC1", "FOM_wAFROC1"))) {
-    errMsg <- paste0("Only FOM_AFROC1 or FOM_wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
+  if (K1 == 0 && !(FOM %in% c("AFROC1", "wAFROC1"))) {
+    errMsg <- paste0("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
     stop(errMsg)
   }
   

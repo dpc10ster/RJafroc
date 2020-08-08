@@ -35,7 +35,8 @@ test_that(contextStr, {
           x1 <- readRDS(fn)
           x2 <- StSignificanceTesting(dataset, FOM = FOM_arr[f],method = method_arr[m])
 
-          expect_equal(x1,x2)
+          expect_equal(x1,x2,
+                       info = paste0("Dataset = ",dataset_arr[d],", FOM = ",FOM_arr[f],", method = ",method_arr[m]))
         }
       }
     }

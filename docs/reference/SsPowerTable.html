@@ -8,11 +8,13 @@
 
 <title>Generate a power table using the OR method — SsPowerTable • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,11 +38,10 @@
 
 
 
-<meta property="og:title" content="Generate a power table using the OR method — SsPowerTable" />
 
+<meta property="og:title" content="Generate a power table using the OR method — SsPowerTable" />
 <meta property="og:description" content="Generate combinations of numbers of readers J and numbers of 
    cases K for desired power and specified generalization(s)" />
-
 
 
 
@@ -163,7 +164,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -185,10 +185,8 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Generate combinations of numbers of readers J and numbers of 
    cases K for desired power and specified generalization(s)</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>SsPowerTable</span>(
@@ -199,7 +197,7 @@
   <span class='kw'>desiredPower</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
   <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -231,7 +229,7 @@ default value is <code>NULL</code>. See Details.</p></td>
 "RRFC" or "ALL".</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list containing up to 3 (depending on <code>analysisOption</code>) dataframes. 
@@ -242,17 +240,14 @@ default value is <code>NULL</code>. See Details.</p></td>
 
 <dt>power</dt><dd><p>The estimated statistical powers.</p></dd>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The default <code>effectSize</code> uses the observed effect size in the 
    pilot study. A supplied numeric value over-rides the default value.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The procedure is valid for ROC studies only; for FROC studies see 
   Vignettes 19.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'># \donttest{

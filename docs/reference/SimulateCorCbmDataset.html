@@ -8,11 +8,13 @@
 
 <title>Simulate paired binned data for testing FitCorCbm — SimulateCorCbmDataset • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,11 +38,10 @@
 
 
 
-<meta property="og:title" content="Simulate paired binned data for testing FitCorCbm — SimulateCorCbmDataset" />
 
+<meta property="og:title" content="Simulate paired binned data for testing FitCorCbm — SimulateCorCbmDataset" />
 <meta property="og:description" content="Simulates single treatment 2-reader binned ROC dataset, simulated according to the CORCBM model,
 for the purpose of testing the fitting program FitCorCbm." />
-
 
 
 
@@ -163,7 +164,6 @@ for the purpose of testing the fitting program FitCorCbm." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -185,10 +185,8 @@ for the purpose of testing the fitting program FitCorCbm." />
     </div>
 
     <div class="ref-description">
-    
     <p>Simulates single treatment 2-reader binned ROC dataset, simulated according to the CORCBM model,
 for the purpose of testing the fitting program <code><a href='FitCorCbm.html'>FitCorCbm</a></code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>SimulateCorCbmDataset</span>(
@@ -203,7 +201,7 @@ for the purpose of testing the fitting program <code><a href='FitCorCbm.html'>Fi
   <span class='kw'>rhoNor</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
   <span class='kw'>rhoAbn2</span> <span class='kw'>=</span> <span class='fl'>0.8</span>
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -248,23 +246,20 @@ for the purpose of testing the fitting program <code><a href='FitCorCbm.html'>Fi
       <td><p>The correlation of diseased case z-samples, when disease is visible in both conditions</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The return value is the desired dataset, suitable for testing FitCorCbm</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>X and Y refer to the two arms of the pairing. <code>muX</code> and <code>alphaX</code> refer to the univariate CBM parameters
 in condition X, <code>rhoNor</code> is the correlation of ratings of non-diseased cases and <code>rhoAbn2</code> is the correlation of ratings of
 diseased cases when disease is visible in both conditions. The ROC data is bined to 5 bins in each condition.
 See referenced publication.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Zhai X, Chakraborty DP (2017) A bivariate contaminated binormal model for robust fitting of proper ROC
 curves to a pair of correlated, possibly degenerate, ROC datasets. Medical Physics. 44(6):2207--2222.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

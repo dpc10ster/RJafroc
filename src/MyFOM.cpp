@@ -13,6 +13,8 @@ double maximum(NumericVector vector, int length)
   return max;
 }
 
+
+
 double comp_phi( double a, double b )
 {
   double ret = 0 ;
@@ -22,7 +24,94 @@ double comp_phi( double a, double b )
   return ret ;
 }
 
+// 15 FOMs in all
 
+// HrSp FOM depends on K1
+// [[Rcpp::export]]
+double HrSp( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
+{
+  int fp_count = 0;
+  for( int k = 0 ; k < max_cases[ 0 ] ; k++ ) {
+    double max = UNINITIALIZED ;
+    for( int l = 0 ; l < max_nl ; l++ ) {
+      if( nl(k, l) > max )
+        max = nl(k, l) ;
+    }
+    if (max > UNINITIALIZED) fp_count++;
+  }
+  
+  double ret = (fp_count+0.0)/max_cases[ 0 ]; 
+  
+  return 1 - ret ;
+}
+
+
+
+// ExpTrnsfmSp FOM depends on K1
+// [[Rcpp::export]]
+double ExpTrnsfmSp( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
+{
+  int TotalNumOfMarks = 0;
+  for( int k = 0 ; k < max_cases[ 0 ] ; k++ ) {
+    for( int l = 0 ; l < max_nl ; l++ ) {
+      if( nl(k, l) != UNINITIALIZED )
+        TotalNumOfMarks++;
+    }
+  }
+  
+  double ret = (TotalNumOfMarks+0.0)/max_cases[ 0 ] ;
+  
+  ret = exp(-ret);
+  
+  return ret ;
+}
+
+
+
+// MaxNLF FOM depends only on K1
+// [[Rcpp::export]]
+double MaxNLF( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
+{
+  int TotalNumOfMarks = 0;
+  for( int k = 0 ; k < max_cases[ 0 ] ; k++ ) {
+    for( int l = 0 ; l < max_nl ; l++ ) {
+      if( nl(k, l) != UNINITIALIZED )
+        TotalNumOfMarks++;
+    }
+  }
+  
+  double ret = (TotalNumOfMarks+0.0)/max_cases[ 0 ] ;
+  
+  return ret ;
+}
+
+
+
+// MaxLLF FOM depends on K2
+// [[Rcpp::export]]
+double MaxLLF( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
+{
+  int TotalNumOfMarks = 0;
+  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
+    for( int l = 0 ; l < n_lesions_per_image [ k ] ; l++ ) {
+      if( ll(k, l) != UNINITIALIZED )
+        TotalNumOfMarks++;
+    }
+  }
+  
+  int nles_total = 0 ;
+  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
+    nles_total += n_lesions_per_image[ k ] ;
+  }
+  
+  double ret = (TotalNumOfMarks+0.0)/nles_total ;
+  
+  return ret ;
+}
+
+
+
+// Wilcoxon FOM depends on K1 & K2
 // [[Rcpp::export]]
 double TrapezoidalArea(NumericVector noise, int n_noise, NumericVector signal, int n_signal )
 {
@@ -39,6 +128,9 @@ double TrapezoidalArea(NumericVector noise, int n_noise, NumericVector signal, i
   return ret ;
 }
 
+
+
+// HrAuc FOM depends on K1 & K2
 // [[Rcpp::export]]
 double HrAuc( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
 {
@@ -60,6 +152,156 @@ double HrAuc( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_im
   return ret ;
 }
 
+
+
+// HrSe FOM depends on K1 & K2
+// [[Rcpp::export]]
+double HrSe( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
+{
+  int tp_count = 0;
+  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
+    double max = UNINITIALIZED ;
+    for( int l = 0 ; l < n_lesions_per_image[k] ; l++ ) {
+      if( ll(k, l) > max )
+        max = ll(k, l) ;
+    }
+    for( int l = 0 ; l < max_nl ; l++ ) {
+      if( nl(k + max_cases[ 0 ], l) > max )
+        max = nl(k + max_cases[ 0 ], l) ;
+    }
+    if (max > UNINITIALIZED) tp_count++;
+  }
+  
+  double ret = (tp_count+0.0)/max_cases[ 1 ]; 
+  return  ret;
+}
+
+
+
+// AFROC1 FOM depends on K1 & K2
+// [[Rcpp::export]]
+double AFROC1( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
+{
+  int nles_total = 0 ;
+  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
+    nles_total += n_lesions_per_image[ k ] ;
+  }
+  
+  NumericVector les(nles_total) ;
+  int inc = 0 ;
+  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
+    for( int l = 0 ; l < n_lesions_per_image[ k ] ; l++ ) {
+      les[ inc++ ] = ll(k, l) ;
+    }
+  }
+  
+  NumericVector fp(max_cases[ 0 ] + max_cases[ 1 ]) ;
+  for( int k = 0 ; k < max_cases[ 0 ] + max_cases[ 1 ] ; k++ ) {
+    fp[ k ] = maximum(nl(k, _), max_nl) ;
+  }
+  
+  double ret = TrapezoidalArea( fp, max_cases[ 0 ] + max_cases[ 1 ], les, nles_total ) ;
+  
+  return ret ;
+}
+
+
+
+// AFROC FOM depends on K1 & K2
+// [[Rcpp::export]]
+double AFROC( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
+{
+  int nles_total = 0 ;
+  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
+    nles_total += n_lesions_per_image[ k ] ;
+  }
+  
+  NumericVector les(nles_total) ;
+  int inc = 0 ;
+  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
+    for( int l = 0 ; l < n_lesions_per_image[ k ] ; l++ ) {
+      les[ inc++ ] = ll(k, l) ;
+    }
+  }
+  
+  NumericVector fp(max_cases[ 0 ]) ;
+  for( int k = 0 ; k < max_cases[ 0 ] ; k++ ) {
+    fp[ k ] = maximum(nl(k, _), max_nl) ;
+  }
+  
+  double ret = TrapezoidalArea( fp, max_cases[ 0 ], les, nles_total ) ;
+  
+  return ret ;
+}
+
+
+
+// wAFROC1 FOM depends on K1 & K2
+// [[Rcpp::export]]
+double wAFROC1( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll, NumericMatrix weights )
+{
+  double ret = 0.0 ;
+  
+  for( int na = 0 ; na < max_cases[ 1 ] ; na++ ) {
+    for( int nn = 0 ; nn < max_cases[ 0 ] + max_cases[ 1 ] ; nn++ ) {
+      for( int nles = 0 ; nles < n_lesions_per_image[ na ] ; nles++ ) {
+        double fp = UNINITIALIZED ;
+          for( int nor_index = 0 ; nor_index < max_nl ; nor_index++ )
+            if( nl(nn, nor_index) > fp ) fp = nl(nn, nor_index) ;
+          ret += weights(na, nles) *  comp_phi( fp, ll(na, nles) ) ;
+      }
+    }
+  }
+  ret /= (double)( max_cases[ 0 ] + max_cases[ 1 ] ) *  (double)max_cases[ 1 ] ;
+  
+  return (double)ret ;
+}
+
+
+
+// wAFROC FOM depends on K1 & K2
+// [[Rcpp::export]]
+double wAFROC( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll, NumericMatrix weights )
+{
+  double  ret = 0.0 ;
+
+  for( int na = 0 ; na < max_cases[ 1 ] ; na++ ) {
+    for( int nn = 0 ; nn < max_cases[ 0 ] ; nn++ ) {
+      for( int nles = 0 ; nles < n_lesions_per_image[ na ] ; nles++ ) {
+        double fp = UNINITIALIZED ;
+          for( int nor_index = 0 ; nor_index < max_nl ; nor_index++ )
+            if( nl(nn, nor_index) > fp ) fp = nl(nn, nor_index) ; // this captures the highest value on normal case nn
+          ret += weights(na, nles) *  comp_phi( fp, ll(na, nles) ) ;
+      }
+    }
+  }
+  ret /= (double)max_cases[ 0 ] *  (double)max_cases[ 1 ] ;
+
+  return (double)ret ;
+}
+
+
+
+// MaxNLFAllCases FOM depends on K1 & K2
+// [[Rcpp::export]]
+double MaxNLFAllCases( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
+{
+  int TotalNumOfMarks = 0;
+  for( int k = 0 ; k < max_cases[ 0 ] + max_cases[ 1 ] ; k++ ) {
+    for( int l = 0 ; l < max_nl ; l++ ) {
+      if( nl(k, l) != UNINITIALIZED )
+        TotalNumOfMarks++;
+    }
+  }
+  
+  double ret = (TotalNumOfMarks+0.0)/ (max_cases[ 0 ] + max_cases[ 1 ]) ;
+  
+  return ret ;
+}
+
+
+
+// ROI FOM depends on K1 & K2
 // [[Rcpp::export]]
 double ROI( int ncases_nor, int ncases_abn, int max_nl, NumericVector n_les, NumericMatrix nl, NumericMatrix ll )
 {
@@ -107,45 +349,9 @@ double ROI( int ncases_nor, int ncases_abn, int max_nl, NumericVector n_les, Num
   return ret ;
 }
 
-// [[Rcpp::export]]
-double HrSe( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
-{
-  int tp_count = 0;
-  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
-    double max = UNINITIALIZED ;
-    for( int l = 0 ; l < n_lesions_per_image[k] ; l++ ) {
-      if( ll(k, l) > max )
-        max = ll(k, l) ;
-    }
-    for( int l = 0 ; l < max_nl ; l++ ) {
-      if( nl(k + max_cases[ 0 ], l) > max )
-        max = nl(k + max_cases[ 0 ], l) ;
-    }
-    if (max > UNINITIALIZED) tp_count++;
-  }
-  
-  double ret = (tp_count+0.0)/max_cases[ 1 ]; 
-  return  ret;
-}
 
-// [[Rcpp::export]]
-double HrSp( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
-{
-  int fp_count = 0;
-  for( int k = 0 ; k < max_cases[ 0 ] ; k++ ) {
-    double max = UNINITIALIZED ;
-    for( int l = 0 ; l < max_nl ; l++ ) {
-      if( nl(k, l) > max )
-        max = nl(k, l) ;
-    }
-    if (max > UNINITIALIZED) fp_count++;
-  }
-  
-  double ret = (fp_count+0.0)/max_cases[ 0 ]; 
-  
-  return 1 - ret ;
-}
 
+// SongA1 FOM depends on K1 & K2
 // [[Rcpp::export]]
 double SongA1( int ncases_nor, int ncases_abn, int max_nl, int max_ll, NumericVector n_les, NumericMatrix nl, NumericMatrix ll )
 {
@@ -222,6 +428,9 @@ double SongA1( int ncases_nor, int ncases_abn, int max_nl, int max_ll, NumericVe
   return ret ;
 }
 
+
+
+// SongA2 FOM depends on K1 & K2
 // [[Rcpp::export]]
 double SongA2( int ncases_nor, int ncases_abn, int max_nl, int max_ll, NumericVector n_les, NumericMatrix nl, NumericMatrix ll )
 {
@@ -287,165 +496,5 @@ double SongA2( int ncases_nor, int ncases_abn, int max_nl, int max_ll, NumericVe
   return ret ;
 }
 
-// [[Rcpp::export]]
-double FOM_AFROC1( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
-{
-  int nles_total = 0 ;
-  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
-    nles_total += n_lesions_per_image[ k ] ;
-  }
-  
-  NumericVector les(nles_total) ;
-  int inc = 0 ;
-  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
-    for( int l = 0 ; l < n_lesions_per_image[ k ] ; l++ ) {
-      les[ inc++ ] = ll(k, l) ;
-    }
-  }
-  
-  NumericVector fp(max_cases[ 0 ] + max_cases[ 1 ]) ;
-  for( int k = 0 ; k < max_cases[ 0 ] + max_cases[ 1 ] ; k++ ) {
-    fp[ k ] = maximum(nl(k, _), max_nl) ;
-  }
-  
-  double ret = TrapezoidalArea( fp, max_cases[ 0 ] + max_cases[ 1 ], les, nles_total ) ;
-  
-  return ret ;
-}
 
-// [[Rcpp::export]]
-double FOM_AFROC( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
-{
-  int nles_total = 0 ;
-  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
-    nles_total += n_lesions_per_image[ k ] ;
-  }
-  
-  NumericVector les(nles_total) ;
-  int inc = 0 ;
-  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
-    for( int l = 0 ; l < n_lesions_per_image[ k ] ; l++ ) {
-      les[ inc++ ] = ll(k, l) ;
-    }
-  }
-  
-  NumericVector fp(max_cases[ 0 ]) ;
-  for( int k = 0 ; k < max_cases[ 0 ] ; k++ ) {
-    fp[ k ] = maximum(nl(k, _), max_nl) ;
-  }
-  
-  double ret = TrapezoidalArea( fp, max_cases[ 0 ], les, nles_total ) ;
-  
-  return ret ;
-}
 
-// [[Rcpp::export]]
-double FOM_wAFROC1( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll, NumericMatrix weights )
-{
-  double ret = 0.0 ;
-  
-  for( int na = 0 ; na < max_cases[ 1 ] ; na++ ) {
-    for( int nn = 0 ; nn < max_cases[ 0 ] + max_cases[ 1 ] ; nn++ ) {
-      for( int nles = 0 ; nles < n_lesions_per_image[ na ] ; nles++ ) {
-        double fp = UNINITIALIZED ;
-          for( int nor_index = 0 ; nor_index < max_nl ; nor_index++ )
-            if( nl(nn, nor_index) > fp ) fp = nl(nn, nor_index) ;
-          ret += weights(na, nles) *  comp_phi( fp, ll(na, nles) ) ;
-      }
-    }
-  }
-  ret /= (double)( max_cases[ 0 ] + max_cases[ 1 ] ) *  (double)max_cases[ 1 ] ;
-  
-  return (double)ret ;
-}
-
-// [[Rcpp::export]]
-double FOM_wAFROC( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll, NumericMatrix weights )
-{
-  double  ret = 0.0 ;
-
-  for( int na = 0 ; na < max_cases[ 1 ] ; na++ ) {
-    for( int nn = 0 ; nn < max_cases[ 0 ] ; nn++ ) {
-      for( int nles = 0 ; nles < n_lesions_per_image[ na ] ; nles++ ) {
-        double fp = UNINITIALIZED ;
-          for( int nor_index = 0 ; nor_index < max_nl ; nor_index++ )
-            if( nl(nn, nor_index) > fp ) fp = nl(nn, nor_index) ; // this captures the highest value on normal case nn
-          ret += weights(na, nles) *  comp_phi( fp, ll(na, nles) ) ;
-      }
-    }
-  }
-  ret /= (double)max_cases[ 0 ] *  (double)max_cases[ 1 ] ;
-
-  return (double)ret ;
-}
-
-// [[Rcpp::export]]
-double MaxLLF( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
-{
-  int TotalNumOfMarks = 0;
-  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
-    for( int l = 0 ; l < n_lesions_per_image [ k ] ; l++ ) {
-      if( ll(k, l) != UNINITIALIZED )
-        TotalNumOfMarks++;
-    }
-  }
-  
-  int nles_total = 0 ;
-  for( int k = 0 ; k < max_cases[ 1 ] ; k++ ) {
-    nles_total += n_lesions_per_image[ k ] ;
-  }
-  
-  double ret = (TotalNumOfMarks+0.0)/nles_total ;
-  
-  return ret ;
-}
-
-// [[Rcpp::export]]
-double MaxNLF( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
-{
-  int TotalNumOfMarks = 0;
-  for( int k = 0 ; k < max_cases[ 0 ] ; k++ ) {
-    for( int l = 0 ; l < max_nl ; l++ ) {
-      if( nl(k, l) != UNINITIALIZED )
-        TotalNumOfMarks++;
-    }
-  }
-  
-  double ret = (TotalNumOfMarks+0.0)/max_cases[ 0 ] ;
-  
-  return ret ;
-}
-
-// [[Rcpp::export]]
-double MaxNLFAllCases( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
-{
-  int TotalNumOfMarks = 0;
-  for( int k = 0 ; k < max_cases[ 0 ] + max_cases[ 1 ] ; k++ ) {
-    for( int l = 0 ; l < max_nl ; l++ ) {
-      if( nl(k, l) != UNINITIALIZED )
-        TotalNumOfMarks++;
-    }
-  }
-  
-  double ret = (TotalNumOfMarks+0.0)/ (max_cases[ 0 ] + max_cases[ 1 ]) ;
-  
-  return ret ;
-}
-
-// [[Rcpp::export]]
-double ExpTrnsfmSp( NumericMatrix nl, NumericMatrix ll, NumericVector n_lesions_per_image, NumericVector max_cases, int max_nl, int max_ll )
-{
-  int TotalNumOfMarks = 0;
-  for( int k = 0 ; k < max_cases[ 0 ] ; k++ ) {
-    for( int l = 0 ; l < max_nl ; l++ ) {
-      if( nl(k, l) != UNINITIALIZED )
-        TotalNumOfMarks++;
-    }
-  }
-  
-  double ret = (TotalNumOfMarks+0.0)/max_cases[ 0 ] ;
-  
-  ret = exp(-ret);
-  
-  return ret ;
-}

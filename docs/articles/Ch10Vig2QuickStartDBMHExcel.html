@@ -132,13 +132,13 @@
 
       
 
-      </header><script src="Ch10Vig2QuickStartDBMHExcel_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
+      </header><script src="Ch10Vig2QuickStartDBMHExcel_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-06-26</h4>
+            <h4 class="date">2020-08-07</h4>
       
       
       <div class="hidden name"><code>Ch10Vig2QuickStartDBMHExcel.Rmd</code></div>
@@ -164,21 +164,18 @@
 <h2 class="hasAnchor">
 <a href="#generating-the-excel-output-file" class="anchor"></a>Generating the Excel output file</h2>
 <p>This illustrates the <code><a href="../reference/UtilOutputReport.html">UtilOutputReport()</a></code> function. The significance testing <code>method</code> is “DBM”, the default, and the figure of merit <code>FOM</code> is “Wilcoxon”. Note <code>ReportFileExt</code> = “xlsx”` telling the function to create an Excel output file. The Excel output is created in a temporary file.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"dataset03"</span>), <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>, <span class="kw">overWrite</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">ReportFileExt</span> <span class="kw">=</span> <span class="st">"xlsx"</span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//Rtmpqr1LF6/RJafrocUtilOutputReport1d82affa239.xlsx</span></pre></body></html></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"dataset03"</span>), <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>, <span class="kw">overWrite</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">ReportFileExt</span> <span class="kw">=</span> <span class="st">"xlsx"</span>)</pre></body></html></div>
 </div>
 <div id="orh-significance-testing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#orh-significance-testing" class="anchor"></a>ORH significance testing</h2>
 <p>Simply change <code>method = "DBM"</code> (the default) to <code>method = "OR"</code>.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"dataset03"</span>), <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"OR"</span>, <span class="kw">overWrite</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">ReportFileExt</span> <span class="kw">=</span> <span class="st">"xlsx"</span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Output file name is:      /var/folders/d1/mx6dcbzx3v39r260458z2b200000gn/T//Rtmpqr1LF6/RJafrocUtilOutputReport1d826ae3ad62.xlsx</span></pre></body></html></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"dataset03"</span>), <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"OR"</span>, <span class="kw">overWrite</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">ReportFileExt</span> <span class="kw">=</span> <span class="st">"xlsx"</span>)</pre></body></html></div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

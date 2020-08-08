@@ -8,11 +8,13 @@
 
 <title>Magnus FROC dataset — dataset06 • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,13 +38,12 @@
 
 
 
-<meta property="og:title" content="Magnus FROC dataset — dataset06" />
 
+<meta property="og:title" content="Magnus FROC dataset — dataset06" />
 <meta property="og:description" content="This is referred to in the book as the &quot;MAG&quot; dataset (after Magnus Bath, 
 who conducted the JAFROC analysis). It consists of 100 cases, 69 of which are diseased, 
 interpreted in two treatments (&quot;1&quot; = conventional chest, &quot;1&quot; = chest tomosynthesis) by four 
 radiologists using the FROC paradigm." />
-
 
 
 
@@ -165,7 +166,6 @@ radiologists using the FROC paradigm." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -187,16 +187,15 @@ radiologists using the FROC paradigm." />
     </div>
 
     <div class="ref-description">
-    
     <p>This is referred to in the book as the "MAG" dataset (after Magnus Bath, 
 who conducted the JAFROC analysis). It consists of 100 cases, 69 of which are diseased, 
 interpreted in two treatments ("1" = conventional chest, "1" = chest tomosynthesis) by four 
 radiologists using the FROC paradigm.</p>
-    
     </div>
 
     <pre class="usage"><span class='no'>dataset06</span></pre>
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A list with 3 elements: <code>$ratings</code>, <code>$lesions</code> and <code>$descriptions</code>; <code>$ratings</code>
@@ -219,13 +218,11 @@ radiologists using the FROC paradigm.</p>
 <li><p><code>descriptions$readerID</code>, chr [1:4] "1" "2" "3" "4", reader labels</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Vikgren J  et al. Comparison of Chest Tomosynthesis and Chest Radiography 
 for Detection of Pulmonary Nodules: Human Observer Study of Clinical Cases. 
 Radiology. 2008;249(3):1034-1041.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset06</span>)</div><div class='output co'>#&gt; List of 3

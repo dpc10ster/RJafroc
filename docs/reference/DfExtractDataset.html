@@ -8,11 +8,13 @@
 
 <title>Extract a subset of treatments and readers from a dataset — DfExtractDataset • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Extract a subset of treatments and readers from a dataset — DfExtractDataset" />
-
 <meta property="og:description" content="Extract a dataset consisting of a subset of treatments/readers from a larger dataset" />
-
 
 
 
@@ -162,7 +163,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -184,13 +184,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Extract a dataset consisting of a subset of treatments/readers from a larger dataset</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>DfExtractDataset</span>(<span class='no'>dataset</span>, <span class='no'>trts</span>, <span class='no'>rdrs</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -209,18 +207,16 @@
 <strong>If this parameter is not supplied, all readers are extracted.</strong></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A new dataset containing only the specified treatments and readers that were
 extracted from the original dataset</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Note</strong> that <code>trts</code> and <code>rdrs</code> are the vectors of <strong>indices</strong> 
    not <strong>IDs</strong>. For example, if the ID of the first reader is "0", the 
    corresponding value in <code>trts</code> should be <strong>1</strong>  not <strong>0</strong>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Extract the data corresponding to the second reader in the </span>

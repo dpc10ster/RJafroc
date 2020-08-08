@@ -8,11 +8,13 @@
 
 <title>Perform significance testing using crossed treatments analysis — StSignificanceTestingCrossedModalities • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,11 +38,10 @@
 
 
 
-<meta property="og:title" content="Perform significance testing using crossed treatments analysis — StSignificanceTestingCrossedModalities" />
 
+<meta property="og:title" content="Perform significance testing using crossed treatments analysis — StSignificanceTestingCrossedModalities" />
 <meta property="og:description" content="Performs ORH analysis for specified crossed treatments dataset 
    averaged over specified treatment factor" />
-
 
 
 
@@ -163,7 +164,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -185,10 +185,8 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Performs ORH analysis for specified crossed treatments dataset 
    averaged over specified treatment factor</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>StSignificanceTestingCrossedModalities</span>(
@@ -198,7 +196,7 @@
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
   <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -223,16 +221,15 @@
       <td><p>See <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The return list contains the same items with <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{ </span>
 <span class='co'>## read the raw data file in extdata directory (this is included to illustrate the format)</span>
-<span class='no'>crossedFileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"CrossedModalitiesData.xlsx"</span>,
+<span class='no'>crossedFileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"CrossedModalities.xlsx"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>ds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='DfReadCrossedModalities.html'>DfReadCrossedModalities</a></span>(<span class='no'>crossedFileName</span>)
 <span class='no'>retCrossed1</span> <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span>(<span class='no'>ds</span>, <span class='fl'>1</span>)

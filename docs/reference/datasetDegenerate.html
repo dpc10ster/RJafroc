@@ -8,11 +8,13 @@
 
 <title>Simulated degenerate ROC dataset (for testing purposes) — datasetDegenerate • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,13 +38,12 @@
 
 
 
-<meta property="og:title" content="Simulated degenerate ROC dataset (for testing purposes) — datasetDegenerate" />
 
+<meta property="og:title" content="Simulated degenerate ROC dataset (for testing purposes) — datasetDegenerate" />
 <meta property="og:description" content="A simulated degenerated dataset. A degenerate dataset is defined as one with
 no interior operating points on the ROC plot. Such data tend to be observed with expert level 
 radiologists. This dataset is used to illustrate the robustness of two fitting models, namely
 CBM and RSM. The widely used binormal model and PROPROC fail on such datasets." />
-
 
 
 
@@ -165,7 +166,6 @@ CBM and RSM. The widely used binormal model and PROPROC fail on such datasets." 
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -187,16 +187,15 @@ CBM and RSM. The widely used binormal model and PROPROC fail on such datasets." 
     </div>
 
     <div class="ref-description">
-    
     <p>A simulated degenerated dataset. A degenerate dataset is defined as one with
 no interior operating points on the ROC plot. Such data tend to be observed with expert level 
 radiologists. This dataset is used to illustrate the robustness of two fitting models, namely
 CBM and RSM. The widely used binormal model and PROPROC fail on such datasets.</p>
-    
     </div>
 
     <pre class="usage"><span class='no'>datasetDegenerate</span></pre>
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A list with 3 elements: <code>$ratings</code>, <code>$lesions</code> and <code>$descriptions</code>; <code>$ratings</code>
@@ -219,7 +218,6 @@ CBM and RSM. The widely used binormal model and PROPROC fail on such datasets.</
 <li><p><code>descriptions$readerID</code>, chr "1", reader labels</p></li>
 </ul>
 
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>datasetDegenerate</span>)</div><div class='output co'>#&gt; List of 3

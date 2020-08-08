@@ -6,13 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate mean squares — UtilMeanSquares • RJafroc</title>
+<title>Calculate mean squares for factorial dataset — UtilMeanSquares • RJafroc</title>
+
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
-<meta property="og:title" content="Calculate mean squares — UtilMeanSquares" />
 
-<meta property="og:description" content="Calculates the mean squares used in the DBM and ORH methods" />
-
+<meta property="og:title" content="Calculate mean squares for factorial dataset — UtilMeanSquares" />
+<meta property="og:description" content="Calculates the mean squares used in the DBM and ORH methods for factorial dataset" />
 
 
 
@@ -162,7 +163,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -178,19 +178,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate mean squares</h1>
+    <h1>Calculate mean squares for factorial dataset</h1>
     
     <div class="hidden name"><code>UtilMeanSquares.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Calculates the mean squares used in the DBM and ORH methods</p>
-    
+    <p>Calculates the mean squares used in the DBM and ORH methods for factorial dataset</p>
     </div>
 
     <pre class="usage"><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -214,11 +212,10 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.</p>
 valid choices are <code>"DBM"</code> (default) and <code>"OR"</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list containing all possible mean squares</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For <code>DBM</code> method, <code>msT, msTR, msTC, msTRC</code> will not be available 
@@ -227,7 +224,6 @@ valid choices are <code>"DBM"</code> (default) and <code>"OR"</code>.</p></td>
    For <code>ORH</code> method, <code>msT, msR, msTR</code> will be returned for multiple 
    reader multiple treatment dataset. <code>msT</code> is not available for single 
    treatment dataset, and <code>msR</code> is not available for single reader dataset.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>UtilMeanSquares</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</div><div class='output co'>#&gt; $msT

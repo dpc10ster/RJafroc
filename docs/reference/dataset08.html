@@ -8,11 +8,13 @@
 
 <title>Monica Penedo ROC dataset — dataset08 • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,14 +38,13 @@
 
 
 
-<meta property="og:title" content="Monica Penedo ROC dataset — dataset08" />
 
+<meta property="og:title" content="Monica Penedo ROC dataset — dataset08" />
 <meta property="og:description" content="This is referred to in the book as the &quot;PEN&quot; dataset. It consists of 112 cases, 
 64 of which are diseased, interpreted in five treatments (basically different image compression
 algorithms) by five 
 radiologists using the FROC paradigm (the inferred ROC dataset is included; the original FROC data
 is lost)." />
-
 
 
 
@@ -166,7 +167,6 @@ is lost)." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -188,17 +188,16 @@ is lost)." />
     </div>
 
     <div class="ref-description">
-    
     <p>This is referred to in the book as the "PEN" dataset. It consists of 112 cases, 
 64 of which are diseased, interpreted in five treatments (basically different image compression
 algorithms) by five 
 radiologists using the FROC paradigm (the inferred ROC dataset is included; the original FROC data
 is lost).</p>
-    
     </div>
 
     <pre class="usage"><span class='no'>dataset08</span></pre>
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A list with 3 elements: <code>$ratings</code>, <code>$lesions</code> and <code>$descriptions</code>; <code>$ratings</code>
@@ -221,14 +220,12 @@ is lost).</p>
 <li><p><code>descriptions$readerID</code>, chr [1:5] "0" "1" "2" "3" ..., reader labels</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Penedo et al. Free-Response Receiver Operating Characteristic 
 Evaluation of Lossy JPEG2000 and Object-based Set Partitioning in 
 Hierarchical Trees Compression of Digitized Mammograms. 
 Radiology. 2005;237(2):450-457.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset08</span>)</div><div class='output co'>#&gt; List of 3

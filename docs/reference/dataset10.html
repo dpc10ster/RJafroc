@@ -8,11 +8,13 @@
 
 <title>Marc Ruschin ROC dataset — dataset10 • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,15 +38,14 @@
 
 
 
-<meta property="og:title" content="Marc Ruschin ROC dataset — dataset10" />
 
+<meta property="og:title" content="Marc Ruschin ROC dataset — dataset10" />
 <meta property="og:description" content="This is referred to in the book as the &quot;RUS&quot; dataset. It consists of 90 cases, 
 40 of which are diseased, the images were
 acquired at three dose levels, which can be regarded as treatments.
 &quot;0&quot; = conventional film radiographs, &quot;1&quot; = digitized  images viewed on monitors, Eight 
 radiologists interpreted the cases using the FROC paradigm. These have been reduced to 
 ROC data by using the highest ratings (the original FROC data is lost)." />
-
 
 
 
@@ -167,7 +168,6 @@ ROC data by using the highest ratings (the original FROC data is lost)." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -189,18 +189,17 @@ ROC data by using the highest ratings (the original FROC data is lost)." />
     </div>
 
     <div class="ref-description">
-    
     <p>This is referred to in the book as the "RUS" dataset. It consists of 90 cases, 
 40 of which are diseased, the images were
 acquired at three dose levels, which can be regarded as treatments.
 "0" = conventional film radiographs, "1" = digitized  images viewed on monitors, Eight 
 radiologists interpreted the cases using the FROC paradigm. These have been reduced to 
 ROC data by using the highest ratings (the original FROC data is lost).</p>
-    
     </div>
 
     <pre class="usage"><span class='no'>dataset10</span></pre>
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A list with 3 elements: <code>$ratings</code>, <code>$lesions</code> and <code>$descriptions</code>; <code>$ratings</code>
@@ -223,13 +222,11 @@ ROC data by using the highest ratings (the original FROC data is lost).</p>
 <li><p><code>descriptions$readerID</code>, chr [1:8] "1" "2" "3" "4" ..., reader labels</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ruschin M, et al. Dose dependence of mass and microcalcification 
 detection in digital mammography: free response human observer studies. 
 Med Phys. 2007;34:400 - 407.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset10</span>)</div><div class='output co'>#&gt; List of 3

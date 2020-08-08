@@ -3,7 +3,10 @@ context(contextStr)
 test_that(contextStr, {
 
   dataset_arr <- c("dataset02", "dataset05")
-  FOM_arr <- c("Wilcoxon", "HrAuc", "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
+  FOM_arr <- c("MaxNLF","HrSp", "ExpTrnsfmSp", "MaxLLF",
+               "Wilcoxon", "HrAuc", "HrSe",
+               "wAFROC","AFROC", "wAFROC1","AFROC1",  
+               "MaxNLFAllCases") # adding ROI and two Song FOMs a total of 15 FOMs
   method_arr <- c("DBM", "OR")
   # options_arr <- c("RRRC", "FRRC", "RRFC")
   ## cycle through all representative datasets, FOMs, methods and analysisOption

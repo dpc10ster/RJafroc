@@ -948,7 +948,7 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
   if (fom == "Wilcoxon") {
     truth <- c(rep(0, K1), rep(1, K2))
     ratings <- c(nl[1:K1], ll)
-    FOM <- CalculateTrapezoidalArea(ratings, truth)
+    FOM <- TrapezoidalArea1(ratings, truth)
   } else if (fom == "HrAuc") {
     truth <- c(rep(0, K1), rep(1, K2))
     ratings <- array(dim = c(K1 + K2))
@@ -962,7 +962,7 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
       ratings[k] <- max(c(nl[k, ], ll[k - K1, ]))
     }
     
-    FOM <- CalculateTrapezoidalArea(ratings, truth)
+    FOM <- TrapezoidalArea1(ratings, truth)
   } else if (fom == "HrSe") {
     tpCount <- 0
     for (k in 1:K2) {
@@ -1034,7 +1034,7 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
       }
     }
     FOM <- tw/(K1 * K2) + px0/K1 * (1 - 0.5 * py0/K2)
-  } else if (fom == "FOM_AFROC1") {
+  } else if (fom == "AFROC1") {
     numLesTotal <- sum(lesionNum)
     les <- as.vector(ll[lesionID != UNINITIALIZED])
     fp <- array(dim = c(K))
@@ -1043,7 +1043,7 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
     }
     ratings <- c(fp, les)
     truth <- c(rep(0, K), rep(1, numLesTotal))
-    FOM <- CalculateTrapezoidalArea(ratings, truth)
+    FOM <- TrapezoidalArea1(ratings, truth)
   } else if (fom == "JAFROC") {
     numLesTotal <- sum(lesionNum)
     les <- as.vector(ll[lesionID != UNINITIALIZED])
@@ -1053,8 +1053,8 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
     }
     ratings <- c(fp, les)
     truth <- c(rep(0, K1), rep(1, length(les)))
-    FOM <- CalculateTrapezoidalArea(ratings, truth)
-  } else if (fom == "FOM_wAFROC1") {
+    FOM <- TrapezoidalArea1(ratings, truth)
+  } else if (fom == "wAFROC1") {
     numLesTotal <- sum(lesionNum)
     les <- as.vector(ll[lesionID != UNINITIALIZED])
     fp <- array(dim = c(K))
@@ -1064,8 +1064,8 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
     ratings <- c(fp, les)
     truth <- c(rep(0, K), rep(1, numLesTotal))
     weights <- lesionWeight[lesionWeight != UNINITIALIZED]
-    FOM <- CalculateTrapezoidalAreaWeighted(ratings, truth, weights, K2)
-  } else if (fom == "FOM_wAFROC") {
+    FOM <- TrapezoidalAreaWeighted(ratings, truth, weights, K2)
+  } else if (fom == "wAFROC") {
     numLesTotal <- sum(lesionNum)
     les <- as.vector(ll[lesionID != UNINITIALIZED])
     fp <- array(dim = c(K1))
@@ -1075,7 +1075,7 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
     ratings <- c(fp, les)
     truth <- c(rep(0, K1), rep(1, numLesTotal))
     weights <- lesionWeight[lesionWeight != UNINITIALIZED]
-    FOM <- CalculateTrapezoidalAreaWeighted(ratings, truth, weights, K2)
+    FOM <- TrapezoidalAreaWeighted(ratings, truth, weights, K2)
   } else if (fom == "MaxLLF") {
     numMarksTotal <- sum(ll != UNINITIALIZED)
     numLesTotal <- sum(lesionNum)
@@ -1112,7 +1112,7 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
 
 
 
-CalculateTrapezoidalArea <- function(rocRatings, truth) {
+TrapezoidalArea1 <- function(rocRatings, truth) {
   K2 <- sum(truth)
   K1 <- length(truth) - K2
   
@@ -1132,7 +1132,7 @@ CalculateTrapezoidalArea <- function(rocRatings, truth) {
 
 
 
-CalculateTrapezoidalAreaWeighted <- function(rocRatings, truth, weights, numAbn) {
+TrapezoidalAreaWeighted <- function(rocRatings, truth, weights, numAbn) {
   K2 <- sum(truth)
   K1 <- length(truth) - K2
   

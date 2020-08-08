@@ -8,11 +8,13 @@
 
 <title>John Thompson FROC dataset — dataset05 • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,15 +38,14 @@
 
 
 
-<meta property="og:title" content="John Thompson FROC dataset — dataset05" />
 
+<meta property="og:title" content="John Thompson FROC dataset — dataset05" />
 <meta property="og:description" content="This is referred to in the book as the &quot;JT&quot; dataset. It consists of 92 cases, 47 of 
 which are diseased, interpreted in two treatments 
 (&quot;1&quot; = CT images acquired for attenuation correction, &quot;2&quot; = diagnostic CT images), by nine 
 radiographers using the FROC paradigm. Each case was a slice of an anthropomorphic phantom
 47 with inserted nodular lesions (max 3 per slice). The maximum number of NLs per case, over the entire 
 dataset was 7." />
-
 
 
 
@@ -167,7 +168,6 @@ dataset was 7." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -189,18 +189,17 @@ dataset was 7." />
     </div>
 
     <div class="ref-description">
-    
     <p>This is referred to in the book as the "JT" dataset. It consists of 92 cases, 47 of 
 which are diseased, interpreted in two treatments 
 ("1" = CT images acquired for attenuation correction, "2" = diagnostic CT images), by nine 
 radiographers using the FROC paradigm. Each case was a slice of an anthropomorphic phantom
 47 with inserted nodular lesions (max 3 per slice). The maximum number of NLs per case, over the entire 
 dataset was 7.</p>
-    
     </div>
 
     <pre class="usage"><span class='no'>dataset05</span></pre>
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A list with 3 elements: <code>$ratings</code>, <code>$lesions</code> and <code>$descriptions</code>; <code>$ratings</code>
@@ -223,13 +222,11 @@ dataset was 7.</p>
 <li><p><code>descriptions$readerID</code>, chr [1:4] "1" "2" "3" "4", reader labels</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Thompson JD  et al. Effect of reconstruction methods and x-ray tube 
 current-time product  on nodule detection in an anthropomorphic thorax phantom: 
 a crossed-treatment JAFROC observer study. Medical Physics. 2016;43(3):1265-1274.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>dataset05</span>)</div><div class='output co'>#&gt; List of 3

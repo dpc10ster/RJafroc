@@ -132,13 +132,13 @@
 
       
 
-      </header><script src="Ch10Vig1QuickStartDBMH_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
+      </header><script src="Ch10Vig1QuickStartDBMH_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-06-26</h4>
+            <h4 class="date">2020-08-07</h4>
       
       
       <div class="hidden name"><code>Ch10Vig1QuickStartDBMH.Rmd</code></div>
@@ -210,7 +210,7 @@
 <h2 class="hasAnchor">
 <a href="#creating-a-dataset-from-a-jafroc-format-file" class="anchor"></a>Creating a dataset from a JAFROC format file</h2>
 <p>There is a file <code>RocData.xlsx</code> that is part of the package installation. Since it is a system file one must get its name as follows.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">fileName</span> <span class="kw">&lt;-</span> <span class="st">"RocData.xlsx"</span>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">fileName</span> <span class="kw">&lt;-</span> <span class="st">"Roc.xlsx"</span>
 <span class="no">sysFileName</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"extdata/"</span>,<span class="no">fileName</span>), <span class="kw">package</span> <span class="kw">=</span> <span class="st">"RJafroc"</span>, <span class="kw">mustWork</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p>Next, one uses <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> as follows, assuming it is a JAFROC format file.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">ds</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="no">sysFileName</span>, <span class="kw">newExcelFileFormat</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
@@ -225,7 +225,7 @@
 <span class="co">#&gt;   ..$ IDs    : num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
 <span class="co">#&gt;   ..$ weights: num [1:45, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
 <span class="co">#&gt;  $ descriptions:List of 7</span>
-<span class="co">#&gt;   ..$ fileName     : logi NA</span>
+<span class="co">#&gt;   ..$ fileName     : chr "Roc"</span>
 <span class="co">#&gt;   ..$ type         : chr "ROC"</span>
 <span class="co">#&gt;   ..$ name         : logi NA</span>
 <span class="co">#&gt;   ..$ truthTableStr: num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span>
@@ -674,6 +674,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

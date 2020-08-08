@@ -8,11 +8,13 @@
 
 <title>Calculate empirical figures of merit (FOMs) for specified dataset — UtilFigureOfMerit • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,12 +38,11 @@
 
 
 
-<meta property="og:title" content="Calculate empirical figures of merit (FOMs) for specified dataset — UtilFigureOfMerit" />
 
+<meta property="og:title" content="Calculate empirical figures of merit (FOMs) for specified dataset — UtilFigureOfMerit" />
 <meta property="og:description" content="Calculate the specified empirical figure of merit
    for each treatment-reader combination in the 
    ROC, FROC, ROI or LROC dataset" />
-
 
 
 
@@ -164,7 +165,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -186,15 +186,13 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Calculate the specified empirical figure of merit
    for each treatment-reader combination in the 
    ROC, FROC, ROI or LROC dataset</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -212,17 +210,16 @@
 where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An <code><a href='https://rdrr.io/r/base/c.html'>c(I, J)</a></code> dataframe, where the row names are <code>modalityID</code>'s of the 
    treatments and column names are the <code>readerID</code>'s of the readers.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The allowed FOMs depend on the <code>dataType</code> field of the 
    <code>dataset</code> object.</p>
-<p><strong>For <code>dataset$descriptions$design = "SPLIT-PLOT"</code>, end-point based 
+<p><strong>For <code>dataset$descriptions$design = "SPLIT-PLOT-C"</code>, end-point based 
    FOMs (e.g., "MaxLLF") are not allowed</strong>.
    <strong>For <code>dataset$descriptions$type = "ROC"</code> only <code>FOM = "Wilcoxon"</code> is allowed</strong>.
    <strong>For <code>dataset$descriptions$type = "FROC"</code> the following FOMs are allowed</strong>:</p><ul>
@@ -253,7 +250,6 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.</p>
 <li><p><code>FOM = "ALROC"</code> the area under the LROC from zero to specified <code>FPFValue</code></p></li>
 </ul><p><code>FPFValue</code> The FPF at which to evaluate <code>PCL</code> or <code>ALROC</code>; 
       the default is 0.2; only needed for LROC data.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
@@ -269,7 +265,6 @@ Medical Physics, 38(10), 5690.</p>
 with Application to Mammography, Acad Radiol, 7:7 553--554.</p>
 <p>Swensson RG (1996) Unified measurement of observer performance in detecting and localizing target objects on images, 
 Med Phys 23:10, 1709--1725.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'># ROC data</span></div><div class='output co'>#&gt;            rdr0       rdr1       rdr2       rdr3       rdr4

@@ -1,5 +1,9 @@
 # RJafroc 1.3.2.9000
 
+## Handling of FOMs that depend on single truth state cases
+* Some confusion in my mind about handlling of normal case only or abnormal case only FOMs, like `MaxNLF`, `MaxLLF`, `HrSe`, `HrSp`, etc. Resolved after studyin XZ code, StOldCode.R. The handling is shown in UtilPseudoValues.R. I believe it is now correct. For `MaxNLF`, `HrSp`, and `ExpTrnsfmSp` the relevant number of cases is `K1`, for `MaxLLF` and `HrSe` it is `K2` and for all the rest it is `K`.   
+
+
 ## Revised UtilPseudoValues 8/7/20
 * More compact code handles all FOMs - no exceptions, as before, for MaxLLF, etc. Extensive simplification to accomplish handling of different FOMs.
 * Modified `FOMijk2VarCovSpA` and `FOMijk2VarCov` to accept a `varInflFactor` logical argument, allowing jackknife, bootstrap and DeLong - based estimates to be more compactly handled.

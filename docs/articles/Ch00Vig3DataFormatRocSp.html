@@ -132,13 +132,13 @@
 
       
 
-      </header><script src="Ch00Vig3DataFormatRocSp_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
+      </header><script src="Ch00Vig3DataFormatRocSp_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-06-26</h4>
+            <h4 class="date">2020-08-07</h4>
       
       
       <div class="hidden name"><code>Ch00Vig3DataFormatRocSp.Rmd</code></div>
@@ -192,7 +192,7 @@
 <h2 class="hasAnchor">
 <a href="#the-structure-of-the-roc-split-plot-dataset" class="anchor"></a>The structure of the ROC split plot dataset</h2>
 <p>The example shown above corresponds to Excel file <code>inst/extdata/toyFiles/ROC/rocSp.xlsx</code> in the project directory.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">rocSp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"toyFiles/ROC/rocSp.xlsx"</span>,
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">rocSp</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"toyFiles/ROC/rocSpC.xlsx"</span>,
                         <span class="kw">package</span> <span class="kw">=</span> <span class="st">"RJafroc"</span>, <span class="kw">mustWork</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="no">rocSp</span>, <span class="kw">newExcelFileFormat</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">x</span>)
@@ -206,13 +206,13 @@
 <span class="co">#&gt;   ..$ IDs    : num [1:15, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
 <span class="co">#&gt;   ..$ weights: num [1:15, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
 <span class="co">#&gt;  $ descriptions:List of 7</span>
-<span class="co">#&gt;   ..$ fileName     : logi NA</span>
+<span class="co">#&gt;   ..$ fileName     : chr "rocSpC"</span>
 <span class="co">#&gt;   ..$ type         : chr "ROC"</span>
 <span class="co">#&gt;   ..$ name         : logi NA</span>
 <span class="co">#&gt;   ..$ truthTableStr: num [1:2, 1:3, 1:30, 1:2] 1 1 NA NA NA NA 1 1 NA NA ...</span>
-<span class="co">#&gt;   ..$ design       : chr "SPLIT-PLOT"</span>
-<span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "1" "2"</span>
-<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "1" "2"</span>
+<span class="co">#&gt;   ..$ design       : chr "SPLIT-PLOT-C"</span>
+<span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "4" "6"</span>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "4" "6"</span>
 <span class="co">#&gt;   ..$ readerID     : Named chr [1:3] "1" "4" "5"</span>
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:3] "1" "4" "5"</span></pre></body></html></div>
 <ul>
@@ -353,6 +353,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>

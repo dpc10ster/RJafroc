@@ -117,9 +117,9 @@ StSignificanceTesting(dataset05, FOM = "wAFROC")
 StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBM") 
 StSignificanceTesting(dataset05, FOM = "SongA1", method = "DBM") 
 StSignificanceTesting(dataset05, FOM = "SongA2", method = "DBM") 
-StSignificanceTesting(dataset05, FOM = "FOM_wAFROC1", method = "DBM")
-StSignificanceTesting(dataset05, FOM = "FOM_AFROC1", method = "DBM")
-StSignificanceTesting(dataset05, FOM = "FOM_AFROC", method = "DBM")
+StSignificanceTesting(dataset05, FOM = "wAFROC1", method = "DBM")
+StSignificanceTesting(dataset05, FOM = "AFROC1", method = "DBM")
+StSignificanceTesting(dataset05, FOM = "AFROC", method = "DBM")
 } 
 
 

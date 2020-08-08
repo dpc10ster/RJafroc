@@ -6,13 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate pseudovalues — UtilPseudoValues • RJafroc</title>
+<title>Pseudovalues for given dataset and FOM — UtilPseudoValues • RJafroc</title>
+
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Calculate pseudovalues — UtilPseudoValues" />
 
-<meta property="og:description" content="Calculates centered jackknife pseudovalues AND jackknife FOM values" />
-
+<meta property="og:title" content="Pseudovalues for given dataset and FOM — UtilPseudoValues" />
+<meta property="og:description" content="Returns centered jackknife pseudovalues AND jackknife FOM values, 
+   for factorial OR split-plot-a OR split-plot-c study designs" />
 
 
 
@@ -162,7 +164,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -178,25 +179,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate pseudovalues</h1>
+    <h1>Pseudovalues for given dataset and FOM</h1>
     
     <div class="hidden name"><code>UtilPseudoValues.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Calculates <strong>centered</strong> jackknife pseudovalues AND jackknife FOM values</p>
-    
+    <p>Returns <strong>centered</strong> jackknife pseudovalues AND jackknife FOM values, 
+   for factorial OR split-plot-a OR split-plot-c study designs</p>
     </div>
 
     <pre class="usage"><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset</span>, <span class='no'>FOM</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The dataset to be analyzed, see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p></td>
+      <td><p>The dataset to be analyzed, see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>;
+must be factorial, or split-plot-a or split-plot-c.</p></td>
     </tr>
     <tr>
       <th>FOM</th>
@@ -209,18 +210,21 @@ The default is <code>"FOM_wAFROC"</code>. See <code><a href='UtilFigureOfMerit.h
 where to evaluate a partial curve based figure of merit. The default is 0.2.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list containing two <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K)</a></code> arrays containing the pseudovalues
-   and the jackknife FOM values of the datasets.</p>
-    
+    <p>A list containing two arrays containing the pseudovalues
+   and the jackknife FOM values of the datasets (a third returned value 
+   is for internal use).</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Each returned array has dimension <code><a href='https://rdrr.io/r/base/c.html'>c(I,J,K)</a></code>, where <code>K</code> depends on the
+   FOM: <code>K1</code> for FOMs that are based on normal cases only, <code>K2</code> for FOMs that are 
+   based on abnormal cases only, and <code>K</code> for FOMs that are based on normal and 
+   abnormal cases.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>jkPseudoValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1]  0.979319409  0.886999147  0.886999147  0.979319409 -0.091595624
-#&gt;  [6]  0.979319409  0.979319409  0.979319409  0.979319409  0.979319409</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>jkFomValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.91911765 0.91993464 0.91993464 0.91911765 0.92859477 0.91911765
-#&gt;  [7] 0.91911765 0.91911765 0.91911765 0.91911765</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)$<span class='no'>jkPseudoValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.35190200 0.58292231 0.27489523 1.01562701 1.01562701 1.01562701
-#&gt;  [7] 1.01562701 0.47291264 1.01562701 1.01562701</div><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)$<span class='no'>jkFomValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.72856222 0.72602353 0.72940845 0.72126854 0.72126854 0.72126854
+    <pre class="examples"><div class='input'><span class='fu'>UtilPseudoValues</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)$<span class='no'>jkFomValues</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;  [1] 0.72856222 0.72602353 0.72940845 0.72126854 0.72126854 0.72126854
 #&gt;  [7] 0.72126854 0.72723243 0.72126854 0.72126854</div><div class='input'>
 </div></pre>
   </div>

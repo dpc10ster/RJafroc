@@ -8,11 +8,13 @@
 
 <title>Convert ratings arrays to an RJafroc dataset — Df2RJafrocDataset • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,11 +38,10 @@
 
 
 
-<meta property="og:title" content="Convert ratings arrays to an RJafroc dataset — Df2RJafrocDataset" />
 
+<meta property="og:title" content="Convert ratings arrays to an RJafroc dataset — Df2RJafrocDataset" />
 <meta property="og:description" content="Converts ratings arrays, ROC or FROC, but not LROC, to an RJafroc dataset, thereby allowing the 
 user to leverage the file I/O, plotting and analyses capabilities of RJafroc." />
-
 
 
 
@@ -163,7 +164,6 @@ user to leverage the file I/O, plotting and analyses capabilities of RJafroc." /
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -185,14 +185,12 @@ user to leverage the file I/O, plotting and analyses capabilities of RJafroc." /
     </div>
 
     <div class="ref-description">
-    
     <p>Converts ratings arrays, ROC or FROC, <em>but not LROC</em>, to an <span class="pkg">RJafroc</span> dataset, thereby allowing the 
 user to leverage the file I/O, plotting and analyses capabilities of <span class="pkg">RJafroc</span>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>Df2RJafrocDataset</span>(<span class='no'>NL</span>, <span class='no'>LL</span>, <span class='kw'>InputIsCountsTable</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -220,11 +218,10 @@ context, need to be specified. <code>perCase</code> <strong>must</strong> be spe
    specifying the numbers of lesions in each diseased case in the dataset.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A dataset with the structure described in <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function "senses" the data type (ROC or FROC) from the the absence 
@@ -239,7 +236,6 @@ context, need to be specified. <code>perCase</code> <strong>must</strong> be spe
 <p>Here <code>maxNL/maxLL</code> = maximum numbers of NLs/LLs, per case, over entire dataset.  
 Equal weights are assigned to every lesion (FROC data). 
 Consecutive characters/integers starting with "1" are assigned to <code>IDs</code>, <code>modalityID</code> and <code>readerID</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Input as ratings arrays</span>

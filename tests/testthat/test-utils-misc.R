@@ -112,11 +112,9 @@ test_that("UtilPseudoValues", {
     }
     
     ret <- readRDS(fn)
-    expect_equal(UtilPseudoValues(dataset, FOM = FOM_arr[i]), ret,
-                 info = paste0("FOM = ",FOM_arr[i])
-    )
-    # end of test
-    
+    expect_equal(UtilPseudoValues(dataset, FOM = FOM_arr[i]), ret, 
+                 info = paste0("FOM = ", FOM_arr[i]))
+
   }
   
 })

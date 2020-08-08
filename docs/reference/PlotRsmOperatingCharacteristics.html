@@ -9,11 +9,13 @@
 <title>RSM predicted operating characteristics, ROC pdfs and different FOMs
    possible with FROC data — PlotRsmOperatingCharacteristics • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -37,14 +39,13 @@
 
 
 
+
 <meta property="og:title" content="RSM predicted operating characteristics, ROC pdfs and different FOMs
    possible with FROC data — PlotRsmOperatingCharacteristics" />
-
 <meta property="og:description" content="Visualize predicted ROCs, AFROCs, wAFROCs, FROCs and pdfs 
    (probability density functions of highest ratings, 
    for non-diseased and diseased cases), for up to 2 sets of search model parameters.
    This function is useful as an instructional tool towards understanding the RSM." />
-
 
 
 
@@ -167,7 +168,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -190,12 +190,10 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Visualize predicted ROCs, AFROCs, wAFROCs, FROCs and pdfs 
    (probability density functions of highest ratings, 
    for non-diseased and diseased cases), for up to 2 sets of search model parameters.
    This function is useful as an instructional tool towards understanding the RSM.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>PlotRsmOperatingCharacteristics</span>(
@@ -213,7 +211,7 @@
   <span class='kw'>nlfAlpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>myNegInf</span> <span class='kw'>=</span> -<span class='fl'>3</span>
 )</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -314,7 +312,7 @@ This is used in the code to demonstrate continuity of the slope of the
 ROC at the end point; Online Appendix 17.H.3</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list of elements containing five <span class="pkg">ggplot2</span> objects 
@@ -335,11 +333,9 @@ ROC at the end point; Online Appendix 17.H.3</p></td>
 <li><p><code>aucFROC</code>   The predicted FROC AUCs</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>RSM is the Radiological Search Model described in the book.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>For <code>lesDistr</code>, the sum over the second column must equal one. 
@@ -357,7 +353,6 @@ ROC at the end point; Online Appendix 17.H.3</p></td>
    <code>lesWghtDistr</code> matrix will be 
    <code>[1:3,1:4]</code>, where each row will sum to one (excluding the first entry and 
    excluding negative infinities).</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 
@@ -367,7 +362,6 @@ paradigm, Phys Med Biol 51, 3449-3462.</p>
 <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
 Modeling, and Applications with R-Based Examples</em> (CRC Press, Boca Raton, FL). 
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Following example is for mu = 2, lambda = 1, nu = 0.6, in one treatment and   </span>

@@ -8,11 +8,13 @@
 
 <title>Returns a binned dataset — DfBinDataset • RJafroc</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,12 +38,11 @@
 
 
 
-<meta property="og:title" content="Returns a binned dataset — DfBinDataset" />
 
+<meta property="og:title" content="Returns a binned dataset — DfBinDataset" />
 <meta property="og:description" content="Bins continuous (i.e. floating point) or quasi-continuous (e.g. integers 0-100)
 ratings in a dataset and returns the corresponding binned dataset in which the ratings are integers
 1, 2,...., with higher values representing greater confidence in presence of disease" />
-
 
 
 
@@ -164,7 +165,6 @@ ratings in a dataset and returns the corresponding binned dataset in which the r
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -186,15 +186,13 @@ ratings in a dataset and returns the corresponding binned dataset in which the r
     </div>
 
     <div class="ref-description">
-    
     <p>Bins continuous (i.e. floating point) or quasi-continuous (e.g. integers 0-100)
 ratings in a dataset and returns the corresponding binned dataset in which the ratings are integers
 1, 2,...., with higher values representing greater confidence in presence of disease</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>DfBinDataset</span>(<span class='no'>dataset</span>, <span class='kw'>desiredNumBins</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='no'>opChType</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -212,11 +210,10 @@ ratings in a dataset and returns the corresponding binned dataset in which the r
 <code>"ROC"</code>, <code>"FROC"</code>, <code>"AFROC"</code>, or <code>"wAFROC"</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The binned dataset</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For small datasets the number of bins may be smaller than <code>desiredNumBins</code>.
@@ -227,7 +224,6 @@ and for wAFROC the bins are FP and wLL counts. Binning is generally
 employed prior to fitting a statistical model, e.g., maximum likelihood, to the data.
 This version chooses ctffs so as to maximize empirical AUC (this yields a 
 unique choice of ctffs which gives the reader the maximum deserved credit).</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Miller GA (1956) The Magical Number Seven, Plus or Minus Two:
@@ -235,7 +231,6 @@ Some limits on our capacity for processing information, The Psychological Review
 <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
 Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL. 
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
