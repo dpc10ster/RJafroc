@@ -1,11 +1,21 @@
 # RJafroc 1.3.2.9000
 
+## Need to Update documentation
+* TBA
+* Needed to comment out examples in `DfSaveDataFile.R` as it creates  non-standard files in `doc` directory; this did not happen before the updates.
+* Also, the ggplot output structure appears to have changed; had to regenerate goodvalues in `test-PlotEmpiricalOperatingCharacteristics.R`.
+* Need to update documentation and DESCRIPTION.
+* Need to use artificial intelligence instead of CAD as this is the new thing.
+
+
+
 ## Added stats to ORAnalysisSplitPlotA
 * `ORAnalysisSplitPlotA` returns `list` containing `FOMs`, `ANOVA` and `RRRC` 
 * Implements formulae in Hillis 20-14 paper on page following Table VII. 
 * Tested with toy file and collaborator dataset
 * Merged to `developer` branch and deleted `SplitPlotA` branch
 * ran `pkgdown::build_site()`
+* Updated R and RStudio
 
 
 ## Handling of FOMs that depend on single-truth-state cases

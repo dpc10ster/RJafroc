@@ -1,51 +1,5 @@
 {
-    "debugBreakpointsState" : {
-        "breakpoints" : [
-            {
-                "editor_line_number" : 12,
-                "editor_state" : 1,
-                "function_name" : "toplevel",
-                "function_steps" : "",
-                "id" : 56,
-                "is_package_breakpoint" : false,
-                "is_pending_debug_completion" : false,
-                "line_number" : 12,
-                "needs_updated_steps" : false,
-                "package_name" : "",
-                "path" : "~/GitHub/RJafroc/inst/FixDatasets/ConvertDataset.R",
-                "state" : 1,
-                "type" : 1
-            },
-            {
-                "editor_line_number" : 78,
-                "editor_state" : 1,
-                "function_name" : "toplevel",
-                "function_steps" : "",
-                "id" : 66,
-                "is_package_breakpoint" : false,
-                "is_pending_debug_completion" : false,
-                "line_number" : 78,
-                "needs_updated_steps" : false,
-                "package_name" : "",
-                "path" : "~/GitHub/RJafroc/inst/FixDatasets/FixAllDatasets.R",
-                "state" : 1,
-                "type" : 1
-            },
-            {
-                "editor_line_number" : 60,
-                "editor_state" : 1,
-                "function_name" : "toplevel",
-                "function_steps" : "",
-                "id" : 67,
-                "is_package_breakpoint" : false,
-                "is_pending_debug_completion" : false,
-                "line_number" : 60,
-                "needs_updated_steps" : false,
-                "package_name" : "",
-                "path" : "~/GitHub/RJafroc/inst/FixDatasets/FixAllDatasets.R",
-                "state" : 1,
-                "type" : 1
-            }
-        ]
+    "debugBreakpointsState": {
+        "breakpoints": []
     }
 }

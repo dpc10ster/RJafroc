@@ -16,19 +16,19 @@
 #' 
 #' @examples
 #' \donttest{
-#' DfSaveDataFile(dataset = dataset05, 
-#'    fileName = "rocData2.xlsx", format = "JAFROC")
-#' DfSaveDataFile(dataset = dataset02, 
-#'    fileName = "rocData2.csv", format = "MRMC")
-#' DfSaveDataFile(dataset = dataset02, 
-#'    fileName = "rocData2.lrc", format = "MRMC", 
-#'    dataDescription = "ExampleROCdata1")
-#' DfSaveDataFile(dataset = dataset02, 
-#'    fileName = "rocData2.txt", format = "MRMC", 
-#'    dataDescription = "ExampleROCdata2")
-#' DfSaveDataFile(dataset = dataset02, 
-#'    fileName = "dataset05.imrmc", format = "iMRMC", 
-#'    dataDescription = "ExampleROCdata3") 
+#' ## DfSaveDataFile(dataset = dataset05, 
+#' ##    fileName = "rocData2.xlsx", format = "JAFROC")
+#' ## DfSaveDataFile(dataset = dataset02, 
+#' ##    fileName = "rocData2.csv", format = "MRMC")
+#' ## DfSaveDataFile(dataset = dataset02, 
+#' ##    fileName = "rocData2.lrc", format = "MRMC", 
+#' ##     dataDescription = "ExampleROCdata1")
+#' ## DfSaveDataFile(dataset = dataset02, 
+#' ##    fileName = "rocData2.txt", format = "MRMC", 
+#' ##     dataDescription = "ExampleROCdata2")
+#' ##  DfSaveDataFile(dataset = dataset02, 
+#' ##    fileName = "dataset05.imrmc", format = "iMRMC", 
+#' ##    dataDescription = "ExampleROCdata3") 
 #' }
 #'  
 #' @importFrom tools file_ext

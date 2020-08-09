@@ -1,13 +1,10 @@
 {
-    "dialog-state" : {
-        "caseSensitive" : true,
-        "filePatterns" : [
-            "*.r",
-            "*.R"
-        ],
-        "path" : "",
-        "projectRelative" : true,
-        "query" : "FACTORIAL",
-        "regex" : false
+    "dialog-state": {
+        "caseSensitive": true,
+        "filePatterns": [],
+        "path": "",
+        "projectRelative": true,
+        "query": "FormulaeHillis2014SpA",
+        "regex": false
     }
 }
