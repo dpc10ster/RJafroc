@@ -185,6 +185,27 @@
 <h1 class="page-header" data-toc-text="1.3.2.9000">
 <a href="#rjafroc-1329000" class="anchor"></a>RJafroc 1.3.2.9000<small> Unreleased </small>
 </h1>
+<div id="added-stats-to-oranalysissplitplota" class="section level2">
+<h2 class="hasAnchor">
+<a href="#added-stats-to-oranalysissplitplota" class="anchor"></a>Added stats to ORAnalysisSplitPlotA</h2>
+<ul>
+<li>
+<code>ORAnalysisSplitPlotA</code> returns <code>list</code> containing <code>FOMs</code>, <code>ANOVA</code> and <code>RRRC</code>
+</li>
+<li>Implements formulae in Hillis 20-14 paper on page following Table VII.</li>
+<li>Tested with toy file and collaborator dataset</li>
+<li>Merged to <code>developer</code> branch and deleted <code>SplitPlotA</code> branch</li>
+<li>ran <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code>
+</li>
+</ul>
+</div>
+<div id="handling-of-foms-that-depend-on-single-truth-state-cases" class="section level2">
+<h2 class="hasAnchor">
+<a href="#handling-of-foms-that-depend-on-single-truth-state-cases" class="anchor"></a>Handling of FOMs that depend on single-truth-state cases</h2>
+<ul>
+<li>Some confusion in my mind about handlling of normal case only or abnormal case only FOMs, like <code>MaxNLF</code>, <code>MaxLLF</code>, <code>HrSe</code>, <code>HrSp</code>, etc. Resolved after studyin XZ code, StOldCode.R. The handling is shown in UtilPseudoValues.R. I believe it is now correct. For <code>MaxNLF</code>, <code>HrSp</code>, and <code>ExpTrnsfmSp</code> the relevant number of cases is <code>K1</code>, for <code>MaxLLF</code> and <code>HrSe</code> it is <code>K2</code> and for all the rest it is <code>K</code>.</li>
+</ul>
+</div>
 <div id="revised-utilpseudovalues-8720" class="section level2">
 <h2 class="hasAnchor">
 <a href="#revised-utilpseudovalues-8720" class="anchor"></a>Revised UtilPseudoValues 8/7/20</h2>
@@ -199,7 +220,6 @@
 <li>Updated and reorganized tests</li>
 <li>Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use treatment-specific components, i.e. <code>Var_i</code>, <code>Cov2_i</code> and <code>Cov3_i</code>. The modified formulae reduce to Hillis’ formulae when the number of readers in each group are identical. Communicated results to collaborator.</li>
 <li>Corrected error in handling of <code>MaxNLFAllCases</code> FOM; see comments in <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code>; regenerated one <code>goodValue</code> file.</li>
-<li>Still to implement formulae in Hillis paper on page following Table VII.</li>
 </ul>
 </div>
 <div id="read-real-split-plot-a-dataset" class="section level2">

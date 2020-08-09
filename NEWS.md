@@ -1,6 +1,14 @@
 # RJafroc 1.3.2.9000
 
-## Handling of FOMs that depend on single truth state cases
+## Added stats to ORAnalysisSplitPlotA
+* `ORAnalysisSplitPlotA` returns `list` containing `FOMs`, `ANOVA` and `RRRC` 
+* Implements formulae in Hillis 20-14 paper on page following Table VII. 
+* Tested with toy file and collaborator dataset
+* Merged to `developer` branch and deleted `SplitPlotA` branch
+* ran `pkgdown::build_site()`
+
+
+## Handling of FOMs that depend on single-truth-state cases
 * Some confusion in my mind about handlling of normal case only or abnormal case only FOMs, like `MaxNLF`, `MaxLLF`, `HrSe`, `HrSp`, etc. Resolved after studyin XZ code, StOldCode.R. The handling is shown in UtilPseudoValues.R. I believe it is now correct. For `MaxNLF`, `HrSp`, and `ExpTrnsfmSp` the relevant number of cases is `K1`, for `MaxLLF` and `HrSe` it is `K2` and for all the rest it is `K`.   
 
 
@@ -14,7 +22,6 @@
 * Updated and reorganized tests
 * Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use treatment-specific components, i.e. `Var_i`, `Cov2_i` and `Cov3_i`. The modified formulae reduce to Hillis' formulae when the number of readers in each group are identical. Communicated results to collaborator.
 * Corrected error in handling of `MaxNLFAllCases` FOM; see comments in `UtilMeanSquares()`; regenerated one `goodValue` file.
-* Still to implement formulae in Hillis paper on page following Table VII. 
 
 
 ## Read real SPLIT-PLOT-A dataset

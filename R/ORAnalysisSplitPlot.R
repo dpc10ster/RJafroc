@@ -1,47 +1,163 @@
+# implement formulae in Hillis 2014 appropriately modified for unequal 
+# numbers of readers in different treatments
+# for split plot A design only
+# TBA this code assumes two treatments
 ORAnalysisSplitPlotA <- function(dataset, FOM, FPFValue, alpha = 0.05, analysisOption = "ALL")  
 {
   
+  if (dataset$descriptions$design != "SPLIT-PLOT-A") stop("This functions requires a SPLIT-PLOT-A dataset")  
+  
+  I <- dim(dataset$ratings$NL)[1]; if (I != 2) stop(" ORAnalysisSplitPlotA assumes two treatments")
+  J <- dim(dataset$ratings$NL)[2]
   modalityID <- dataset$descriptions$modalityID
-  I <- length(modalityID)
   
-  theta_ij <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+  theta_ij <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
-  retSt <- FormulaeHillis2014SpA(dataset, FOM, FPFValue)
-  
-  theta_i_dot <- rep(0, I)
-  trtName <- array(dim = I)
+  theta_i_dot <- array(dim = I)
+  J_i <- array(dim = I)
   for (i in 1:I) {
-    trtName[i] <- paste0("trt", modalityID[i], sep = "-") # !sic
+    J_i[i] <- length(theta_ij[i,][!is.na(theta_ij[i,])])
     theta_i_dot[i] <- mean(theta_ij[i,][!is.na(theta_ij[i,])])
   }
-  theta_i_dot <- as.data.frame(theta_i_dot)
-  colnames(theta_i_dot) <- "Estimate"
+  theta_dot_dot <- mean(theta_i_dot)
   
-  trtMeanDiffs <- array(dim = choose(I, 2))
-  diffTrtName <- array(dim = choose(I, 2))
-  ii <- 1
-  for (i in 1:I) {
-    if (i == I) 
-      break
-    for (ip in (i + 1):I) {
-      trtMeanDiffs[ii] <- theta_i_dot[i,1] - theta_i_dot[ip,1]
-      diffTrtName[ii] <- paste0("trt", modalityID[i], sep = "-", "trt", modalityID[ip]) # !sic
-      ii <- ii + 1
-    }
-  }
-  trtMeanDiffs <- data.frame("Estimate" = trtMeanDiffs,
-                             row.names = diffTrtName,
-                             stringsAsFactors = FALSE)
+  trtMeanDiffs <- theta_i_dot[1] - theta_i_dot[2]
+  diffTRName <- paste0("trt", modalityID[1], sep = "-", "trt", modalityID[2])
+  trtMeanDiffs_df <- data.frame("Estimate" = trtMeanDiffs,
+                                row.names = diffTRName,
+                                stringsAsFactors = FALSE)
   
   FOMs <- list(
     foms = theta_ij,
     trtMeans = theta_i_dot,
-    trtMeanDiffs = trtMeanDiffs
+    trtMeanDiffs = trtMeanDiffs_df
   )
+  
+  # msT denotes MS(T), in Hillis 2014 p 344
+  msT <- 0
+  for (i in 1:I) {
+    # adapted from Hillis 2014, definition of MS(T), just after Eqn. 4
+    # move the treatment specific J_i[i] inside the i-summation showed there
+    msT <- msT + J_i[i]*(mean(theta_i_dot[i]) - theta_dot_dot)^2
+  }
+  msT <- msT/(I - 1) # the common J used to appear here: J*msT/(I - 1)
+  
+  # following is needed for CI on avg. FOM, see below
+  # MS(R)_i = sum_j(theta_dot_j - theta_dot_dot)^2/(J_i-1)
+  msR_i <- array(0, dim = I)
+  for (i in 1:I) {
+    for (j in 1:J_i[i]) {
+      msR_i[i] <- msR_i[i] + 
+        (mean(theta_ij[,j][!is.na(theta_ij[,j])]) - theta_dot_dot)^2
+      # first term on rhs is theta_dot_j
+    }
+    msR_i <- msR_i / J_i[i]
+  }
+  
+  # msR_T_ denotes MS[R(T)], in Hillis 2014 p 344, where R(T) is reader nested within treatment
+  # adapted from Hillis 2014, definition of MS[R(T)], last line on page 344
+  # move the treatment specific J inside the i-summation showed there
+  msR_T_ <- 0
+  msR_T_i <- rep(0,I)
+  for (i in 1:I) {
+    for (j in 1:J) {
+      if (is.na(theta_ij[i, j])) next
+      msR_T_i[i] <- msR_T_i[i] + (theta_ij[i, j] - theta_i_dot[i])^2 / (J_i[i] - 1)
+    }
+  }
+  msR_T_ <- sum(msR_T_i) / I
+  
+  trtNames <- NULL
+  for (i in 1:I) {
+    trtNames <- c(trtNames, paste0("trt", modalityID[i]))
+  }
+  
+  ret1 <- UtilPseudoValues(dataset, FOM, FPFValue)
+  ret <- FOMijk2VarCovSpA(ret1$jkFomValues, varInflFactor = TRUE)
+  Var_i <- ret$Var_i
+  Cov2_i <- ret$Cov2_i
+  Cov3_i <- ret$Cov3_i
+  
+  ANOVA <- data.frame("msT" = c(msT, NA),
+                      "msR" = msR_i,
+                      "msR_T_" = msR_T_,
+                      "Cov2_i" = Cov2_i,
+                      "Cov3_i" = Cov3_i,
+                      stringsAsFactors = FALSE)  
+  rownames(ANOVA) <- trtNames
+  
+  den <- 0
+  for (i in 1:I) den <- den + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0)
+  F_OR <- msT/(msR_T_ + den)
+  # above expression reduces to equal-reader form
+  df2 <- 0
+  for (i in 1:I) { # key assumption: degrees of freedom add
+    temp <- (msR_T_i[i] +  J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))^2/(msR_T_i[i]^2)*(J_i[i]-1)
+    # cat("df2 for modality = ", temp, "\n")
+    df2 <- df2 + temp
+  } 
+  # above expression reduces to equal-reader form 
+  # note absence of I-factor on rhs
+  # because it is effectively "in there" due to the summation over i
+  pValue <- 1 - pf(F_OR, I - 1, df2)
+  
+  RRRC <- list()
+  RRRC$FTests <- data.frame(DF = c((I-1),df2),
+                            "F_OR_num_den" = c(msT, msR_T_ + den),
+                            FStat = c(F_OR, NA),
+                            p = c(pValue, NA),
+                            row.names = c("Treatment", "Error"),
+                            stringsAsFactors = FALSE)
+  
+  # confidence intervals for difference FOM, as on page 346, first para
+  # l_1 = 1; l_2 = -1
+  V_hat <- 0
+  for (i in 1:I) V_hat <- V_hat + 
+    (1 / J_i[i]) * 2 * (msR_T_i[i] + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))
+  stdErr <- sqrt(V_hat)
+  CI <- array(dim = 2)
+  
+  alpha <- 0.05
+  CI <- sort(c(trtMeanDiffs - qt(alpha/2, df2) * stdErr, 
+               trtMeanDiffs + qt(alpha/2, df2) * stdErr))
+  RRRC$ciDiffTrt <- data.frame(Estimate = trtMeanDiffs, 
+                               StdErr = stdErr, 
+                               DF = df2, 
+                               CILower = CI[1],
+                               CIUpper = CI[2], 
+                               row.names = "trt1-trt2", 
+                               stringsAsFactors = FALSE)
+  
+  # confidence intervals for average FOM, as on page 346, first para
+  # second method, using only data from each modality
+  V_hat_i <- array(0, dim = I)
+  df2_i <- array(dim = I)
+  stdErr_i <- array(dim = I)
+  ciAvgRdrEachTrt <- array(dim = c(I,2))
+  ci <- data.frame()
+  for (i in 1:I) {
+    V_hat_i[i] <- V_hat_i[i] + 
+      (1 / J_i[i]) * (msR_i[i] + J_i[i] * max(Cov2_i[i],0))
+    df2_i[i] <- (msR_i[i] +  J_i[i] * max(Cov2_i[i],0))^2/(msR_i[i]^2)*(J_i[i]-1)
+    stdErr_i[i] <- sqrt(V_hat_i[i])
+    ciAvgRdrEachTrt[i,] <- sort(c(theta_i_dot[i] - qt(alpha/2, df2_i[i]) * stdErr_i[i], 
+                                  theta_i_dot[i] + qt(alpha/2, df2_i[i]) * stdErr_i[i]))
+    rowName <- paste0("trt", modalityID[i])
+    ci <- rbind(ci, data.frame(Estimate = theta_i_dot[i], 
+                               StdErr = stdErr_i[i],
+                               DF = df2_i[i],
+                               CILower = ciAvgRdrEachTrt[i,1],
+                               CIUpper = ciAvgRdrEachTrt[i,2],
+                               row.names = rowName,
+                               stringsAsFactors = FALSE))
+  }
+  RRRC$ciAvgRdrEachTrt <- ci  
   
   return(list(
     FOMs = FOMs,
-    RRRC = retSt))
+    ANOVA = ANOVA,
+    RRRC = RRRC
+  ))
   
 } 
 
@@ -140,119 +256,6 @@ ORAnalysisSplitPlotC <- function(dataset, FOM, FPFValue, alpha = 0.05, analysisO
   }  else stop("Incorrect analysisOption: must be `RRRC`, `FRRC`, `RRFC` or `ALL`")
   
 } 
-
-
-# implement formulae in Hillis 2014 appropriately modified for unequal 
-# numbers of readers in different treatments
-# for split plot A design only
-FormulaeHillis2014SpA <- function (dataset, FOM, FPFValue = 0.2)
-{
-  
-  if (dataset$descriptions$design != "SPLIT-PLOT-A") stop("This functions requires a SPLIT-PLOT-A dataset")  
-  
-  I <- dim(dataset$ratings$NL)[1]
-  J <- dim(dataset$ratings$NL)[2]
-  
-  theta_ij <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
-  
-  theta_i_dot <- array(dim = I)
-  J_i <- array(dim = I)
-  for (i in 1:I) {
-    J_i[i] <- length(theta_ij[i,][!is.na(theta_ij[i,])])
-    theta_i_dot[i] <- mean(theta_ij[i,][!is.na(theta_ij[i,])])
-  }
-  theta_dot_dot <- mean(theta_i_dot)
-  
-  if (I > 1) {
-    # msT denotes MS(T), in Hillis 2014 p 344
-    msT <- 0
-    for (i in 1:I) {
-      # adapted from Hillis 2014, definition of MS(T), just after Eqn. 4
-      # move the treatment specific J_i[i] inside the i-summation showed there
-      msT <- msT + J_i[i]*(mean(theta_i_dot[i]) - theta_dot_dot)^2
-    }
-    msT <- msT/(I - 1) # the common J used to appear here: J*msT/(I - 1)
-  } else msT <- NA
-  
-  if (J > 1) {
-    # msR_T_ denotes MS[R(T)], in Hillis 2014 p 344, where R(T) is reader nested within treatment
-    # adapted from Hillis 2014, definition of MS[R(T)], last line on page 344
-    # move the treatment specific J inside the i-summation showed there
-    msR_T_ <- 0
-    msR_T_i <- rep(0,I)
-    for (i in 1:I) {
-      for (j in 1:J) {
-        if (is.na(theta_ij[i, j])) next
-        msR_T_i[i] <- msR_T_i[i] + (theta_ij[i, j] - theta_i_dot[i])^2 / (J_i[i] - 1)
-      }
-    }
-    msR_T_ <- sum(msR_T_i) / I
-  } else msR_T_ <- NA
-  
-  msArray <- c(msT, msR_T_)
-  
-  ret1 <- UtilPseudoValues(dataset, FOM, FPFValue)
-  ret <- FOMijk2VarCovSpA(ret1$jkFomValues, varInflFactor = TRUE)
-  Var_i <- ret$Var_i
-  Cov2_i <- ret$Cov2_i
-  Cov3_i <- ret$Cov3_i
-  
-  TRanova <- data.frame("MS" = msArray,
-                        "Cov2_i" = Cov2_i,
-                        "Cov3_i" = Cov3_i,
-                        stringsAsFactors = FALSE)  
-  rownames(TRanova) <- c("MS", "ms[R(T)]")
-  
-  den <- 0
-  for (i in 1:I) den <- den + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0)
-  F_OR <- msT/(msR_T_ + den)
-  # above expression reduces to equal-reader form
-  df2 <- 0
-  for (i in 1:I) { # key assumption: degrees of freedom add
-    df2 <- df2 + (msR_T_i[i] +  J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))^2/(msR_T_i[i]^2)*(J_i[i]-1)
-  } 
-  # above expression reduces to equal-reader form 
-  # note absence of I-factor on rhs
-  # because it is effectively "in there" due to the summation over i
-  pValue <- 1 - pf(F_OR, I - 1, df2)
-  
-  RRRC <- list()
-  RRRC$FTests <- data.frame(DF = c((I-1),df2),
-                            MS = c(msT, msR_T_ + den),
-                            FStat = c(F_OR, NA),
-                            p = c(pValue, NA),
-                            row.names = c("Treatment", "Error"),
-                            stringsAsFactors = FALSE)
-  
-  # construct confidence intervals for difference FOM, as on page 346, first para
-  # l_1 = 1; l_2 = -1
-  V_hat <- 0
-  for (i in 1:I) V_hat <- V_hat + 
-    (1 / J_i[i]) * 2 * (msR_T_i[i] + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))
-  stdErr <- sqrt(V_hat)
-  CI <- array(dim = 2)
-  trtMeanDiffs <- theta_i_dot[1] - theta_i_dot[2]
-  
-  alpha <- 0.05
-  CI <- sort(c(trtMeanDiffs - qt(alpha/2, df2) * stdErr, 
-               trtMeanDiffs + qt(alpha/2, df2) * stdErr))
-  RRRC$ciDiffTrt <- data.frame(Estimate = trtMeanDiffs, 
-                               StdErr = stdErr, 
-                               DF = df2, 
-                               CILower = CI[1],
-                               CIUpper = CI[2], 
-                               row.names = "trt1-trt2", 
-                               stringsAsFactors = FALSE)
-  
-  return(list(Var_i = Var_i,
-              Cov2_i = Cov2_i,
-              Cov3_i = Cov3_i,
-              F_OR = F_OR,
-              pValue = pValue,
-              df2 = df2,
-              RRRC = RRRC))
-  
-}  
 
 
 
@@ -417,21 +420,6 @@ OrVarCovMatrixSpC <- function(dataset, FOM, FPFValue)
   return(ret)
   
 }  
-
-
-
-varComponentsJackknifeSpA <- function(dataset, FOM, FPFValue) {
-  if (dataset$descriptions$design != "SPLIT-PLOT-A") stop("This functions requires a factorial dataset")  
-  
-  I <- length(dataset$ratings$NL[,1,1,1])
-  J <- length(dataset$ratings$NL[1,,1,1])
-  
-  ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-  x <- FOMijk2VarCov(ret$jkFOMs, varInflFactor = TRUE)
-  
-  return(x)
-  
-}
 
 
 
