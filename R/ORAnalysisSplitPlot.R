@@ -51,7 +51,7 @@ ORAnalysisSplitPlotA <- function(dataset, FOM, FPFValue, alpha = 0.05, analysisO
         (mean(theta_ij[,j][!is.na(theta_ij[,j])]) - theta_dot_dot)^2
       # first term on rhs is theta_dot_j
     }
-    msR_i <- msR_i / J_i[i]
+    msR_i <- msR_i / (J_i[i] - 1 )
   }
   
   # msR_T_ denotes MS[R(T)], in Hillis 2014 p 344, where R(T) is reader nested within treatment
