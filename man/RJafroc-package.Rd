@@ -194,7 +194,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
     \subsection{General data structure, for example \code{dataset02} and \code{dataset05}}{
     \itemize{
     \item \code{ratings$NL}: a float array with dimensions
-        \code{c(I, J, \code{K}, maxNL)} containing the ratings of NL marks. The first 
+        \code{c(I, J, K, maxNL)} containing the ratings of NL marks. The first 
         \code{K1} locations of the third index corresponds to NL marks on non-diseased 
         cases and the remaining locations correspond to NL marks on diseased 
         cases. The 4th dimension allows for the possibility of multiple NL marks 
@@ -283,7 +283,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
 
   \subsection{LROC data structure, example \code{datasetCadLroc}}{
     \itemize{
-          \item \code{NL}: a float array with dimension  \code{c(I, J, \code{K}, 1)} 
+          \item \code{NL}: a float array with dimension  \code{c(I, J, K, 1)} 
              that contains the ratings of FP marks. For the third index, the first \code{K1} 
              elements contain valid ratings while the rest are filled with \code{-Inf}s.
           \item \code{LLCl}: a float array with dimension  
