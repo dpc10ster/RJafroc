@@ -225,21 +225,23 @@ when saving dataset in other formats.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'>DfSaveDataFile</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset05</span>,
-   <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"rocData2.xlsx"</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"JAFROC"</span>)
-<span class='fu'>DfSaveDataFile</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset02</span>,
-   <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"rocData2.csv"</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"MRMC"</span>)
-<span class='fu'>DfSaveDataFile</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset02</span>,
-   <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"rocData2.lrc"</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"MRMC"</span>,
-   <span class='kw'>dataDescription</span> <span class='kw'>=</span> <span class='st'>"ExampleROCdata1"</span>)
-<span class='fu'>DfSaveDataFile</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset02</span>,
-   <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"rocData2.txt"</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"MRMC"</span>,
-   <span class='kw'>dataDescription</span> <span class='kw'>=</span> <span class='st'>"ExampleROCdata2"</span>)
-<span class='fu'>DfSaveDataFile</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset02</span>,
-   <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"dataset05.imrmc"</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"iMRMC"</span>,
-   <span class='kw'>dataDescription</span> <span class='kw'>=</span> <span class='st'>"ExampleROCdata3"</span>)
-<span class='co'># }</span></div></pre>
+    <pre class="examples"><div class='input'># \donttest{
+## DfSaveDataFile(dataset = dataset05, 
+##    fileName = "rocData2.xlsx", format = "JAFROC")
+## DfSaveDataFile(dataset = dataset02, 
+##    fileName = "rocData2.csv", format = "MRMC")
+## DfSaveDataFile(dataset = dataset02, 
+##    fileName = "rocData2.lrc", format = "MRMC", 
+##     dataDescription = "ExampleROCdata1")
+## DfSaveDataFile(dataset = dataset02, 
+##    fileName = "rocData2.txt", format = "MRMC", 
+##     dataDescription = "ExampleROCdata2")
+##  DfSaveDataFile(dataset = dataset02, 
+##    fileName = "dataset05.imrmc", format = "iMRMC", 
+##    dataDescription = "ExampleROCdata3") 
+# }
+ 
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -1,10 +1,13 @@
 {
     "dialog-state": {
         "caseSensitive": true,
-        "filePatterns": [],
+        "filePatterns": [
+            "*.r",
+            "*.R"
+        ],
         "path": "",
         "projectRelative": true,
-        "query": "FormulaeHillis2014SpA",
+        "query": "ORSummaryRRRC",
         "regex": false
     }
 }
