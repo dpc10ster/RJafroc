@@ -13,15 +13,15 @@ ORAnalysisSplitPlotA <- function(dataset, FOM, FPFValue, alpha = 0.05, analysisO
   
   theta_ij <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
   
-  theta_i_dot <- array(dim = I)
-  J_i <- array(dim = I)
+  theta_i_dot <- array(dim = I) # average over readers, the indices are i followed by j
+  J_i <- array(dim = I) # number of readers in treatment i
   for (i in 1:I) {
     J_i[i] <- length(theta_ij[i,][!is.na(theta_ij[i,])])
     theta_i_dot[i] <- mean(theta_ij[i,][!is.na(theta_ij[i,])])
   }
-  theta_dot_dot <- mean(theta_i_dot)
+  theta_dot_dot <- mean(theta_i_dot) # average over rdrs and trts
   
-  trtMeanDiffs <- theta_i_dot[1] - theta_i_dot[2]
+  trtMeanDiffs <- theta_i_dot[1] - theta_i_dot[2] # restricted to two modalities for now
   diffTRName <- paste0("trt", modalityID[1], sep = "-", "trt", modalityID[2])
   trtMeanDiffs_df <- data.frame("Estimate" = trtMeanDiffs,
                                 row.names = diffTRName,
@@ -56,7 +56,7 @@ ORAnalysisSplitPlotA <- function(dataset, FOM, FPFValue, alpha = 0.05, analysisO
   
   # msR_T_ denotes MS[R(T)], in Hillis 2014 p 344, where R(T) is reader nested within treatment
   # adapted from Hillis 2014, definition of MS[R(T)], last line on page 344
-  # move the treatment specific J inside the i-summation showed there
+  # move the treatment specific J_i[i] inside the i-summation showed there
   msR_T_ <- 0
   msR_T_i <- rep(0,I)
   for (i in 1:I) {
@@ -81,26 +81,43 @@ ORAnalysisSplitPlotA <- function(dataset, FOM, FPFValue, alpha = 0.05, analysisO
   ANOVA <- data.frame("msT" = c(msT, NA),
                       "msR" = msR_i,
                       "msR_T_" = msR_T_,
+                      "Var_i" = Var_i,
                       "Cov2_i" = Cov2_i,
                       "Cov3_i" = Cov3_i,
                       stringsAsFactors = FALSE)  
   rownames(ANOVA) <- trtNames
   
+  # now do the F_OR statistic; den = denominator of last equation on page 344
+  # minus the MS[R(T)] term
+  # the contributions of the two reader groups have been separately added
   den <- 0
   for (i in 1:I) den <- den + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0)
-  F_OR <- msT/(msR_T_ + den)
-  # above expression reduces to equal-reader form
+  F_OR <- msT/(msR_T_ + den) # add the the MS[R(T)] term to den
+  # Note: above expression reduces to equal-reader form
+  
+  # now implement the df3 formula on page 345
+  # Assumption: degrees of freedom for each treatment can be added
   df2 <- 0
-  for (i in 1:I) { # key assumption: degrees of freedom add
-    temp <- (msR_T_i[i] +  J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))^2/(msR_T_i[i]^2)*(J_i[i]-1)
+  for (i in 1:I) { 
+    # temp = num. of expression on r.h.s. of Eqn. 27, 
+    # separated into contribution from each treatment
+    temp <- (msR_T_i[i] +  J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))^2
+    # divide by the denominator and multiply by (J_i[i]-1)
+    # The I term is not needed, as we are summing contribution from each treatment
+    temp <- temp /(msR_T_i[i]^2)*(J_i[i]-1)
     # cat("df2 for modality = ", temp, "\n")
+    # Add to df2
     df2 <- df2 + temp
   } 
   # above expression reduces to equal-reader form 
   # note absence of I-factor on rhs
   # because it is effectively "in there" due to the summation over i
-  pValue <- 1 - pf(F_OR, I - 1, df2)
   
+  # compute the p-value
+  pValue <- 1 - pf(F_OR, I - 1, df2)
+  # F_OR_num_den = array with two elements, the numerator of the expression for
+  # F_OR followed by the denominator
+  # DF = degrees of freedom array, numerator followed by denominator
   RRRC <- list()
   RRRC$FTests <- data.frame(DF = c((I-1),df2),
                             "F_OR_num_den" = c(msT, msR_T_ + den),
@@ -109,14 +126,20 @@ ORAnalysisSplitPlotA <- function(dataset, FOM, FPFValue, alpha = 0.05, analysisO
                             row.names = c("Treatment", "Error"),
                             stringsAsFactors = FALSE)
   
-  # confidence intervals for difference FOM, as on page 346, first para
-  # l_1 = 1; l_2 = -1
+  # confidence intervals for difference FOM, trtMeanDiffs, 
+  # as on page 346, first para; note that trtMeanDiffs = theta_1_dot - theta_2_dot
+  # l_1 = 1; l_2 = - 1
+  # Note to myself: Hillis does not state a constraint on the l_i, namely they 
+  # should sum to zero; otherwise one could use l_1 = l_2 = 1/2 and compute the CI
+  # on the average FOM using the very same method, which is not right
   V_hat <- 0
-  for (i in 1:I) V_hat <- V_hat + 
-    (1 / J_i[i]) * 2 * (msR_T_i[i] + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))
+  for (i in 1:I) {
+    V_hat <- V_hat + 
+      (1 / J_i[i]) * 2 * (msR_T_i[i] + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))
+  }
   stdErr <- sqrt(V_hat)
-  CI <- array(dim = 2)
   
+  # again, this is restricted to two modalities  
   alpha <- 0.05
   CI <- sort(c(trtMeanDiffs - qt(alpha/2, df2) * stdErr, 
                trtMeanDiffs + qt(alpha/2, df2) * stdErr))
@@ -136,8 +159,14 @@ ORAnalysisSplitPlotA <- function(dataset, FOM, FPFValue, alpha = 0.05, analysisO
   ciAvgRdrEachTrt <- array(dim = c(I,2))
   ci <- data.frame()
   for (i in 1:I) {
-    V_hat_i[i] <- V_hat_i[i] + 
-      (1 / J_i[i]) * (msR_i[i] + J_i[i] * max(Cov2_i[i],0))
+    V_hat_i[i] <- {
+      V_hat_i[i] + 
+        # this is the formula for V_hat_i[i] in the text area in the middle of page 346
+        # after we account for the different number of readers in each treatment
+        (1 / J_i[i]) * (msR_i[i] + J_i[i] * max(Cov2_i[i],0))
+    }
+    # this is the formula for df2_i[i] in the text area in the middle of page 346
+    # after we account for the different number of readers in each treatment
     df2_i[i] <- (msR_i[i] +  J_i[i] * max(Cov2_i[i],0))^2/(msR_i[i]^2)*(J_i[i]-1)
     stdErr_i[i] <- sqrt(V_hat_i[i])
     ciAvgRdrEachTrt[i,] <- sort(c(theta_i_dot[i] - qt(alpha/2, df2_i[i]) * stdErr_i[i], 

@@ -19,7 +19,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
 }
 
 
-\section{Abbreviations and definitions}{
+\section{Definitions and abbreviations}{
   \itemize{
     \item \emph{a}: The separation or "a" parameter of the binormal model
     \item AFROC curve: plot of LLF (ordinate) vs. FPF, where FPF is inferred using 
@@ -77,9 +77,9 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
        the bootstrap could be used; what distinguishes FROC from ROC analysis is the 
        use of the AFROC-AUC as the FOM. With this change, the DBM or the OR method 
        can be used for significance testing
-    \item K: total number of cases, K = K1 + K2, indexed by \eqn{k}
-    \item K1: total number of non-diseased cases, indexed by \eqn{k1}
-    \item K2: total number of diseased cases, indexed by \eqn{k2}
+    \item \code{K}: total number of cases, \code{K} = \code{K1} + \code{K2}, indexed by \eqn{k}
+    \item \code{K1}: total number of non-diseased cases, indexed by \eqn{k1}
+    \item \code{K2}: total number of diseased cases, indexed by \eqn{k2}
     \item LL: lesion localization i.e., a mark that correctly locates an existing 
        localized lesion; TP is a special case, when the proximity criterion is 
       lax  (i.e., "acceptance radius" is large) 
@@ -171,100 +171,131 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
 }
 
 \section{Dataset}{
-  An R object either created by the user or read from an external text or 
-     Excel file. It is a \code{list} generally containing 8 members (9 members 
-     for crossed-modality or LROC datasets): \strong{Note: \code{-Inf} is used to 
-     indicate the ratings of unmarked lesions and/or to indicate missing array 
-     items. An example of the latter would be if the maximum number of NLs in a 
-     dataset was 4, but some images had fewer than 4 NLs, in which case the corresponding 
-     "empty" positions would be filled with \code{-Inf}s. Do not use \code{NA} to 
-     denote a rating.}
-  
-  \strong{Note}: \bold{"dataset" in this package always represents an 
-     \code{R} object with one of the following structures:}
-  \subsection{General data structure, example \code{dataset02} and \code{dataset05}}{
+  The \code{dataset} object has 3 \code{list} elements: \code{$ratings}, \code{$lesions} 
+     and \code{$descriptions}, where: 
+     \itemize{
+     \item \code{dataset$ratings}: contains 3 elements as sub-lists: \code{$NL}, 
+        \code{$LL} and \code{$LL_IL}; 
+     \item \code{dataset$lesions}: contains 3 elements as sub-lists: \code{$perCase}, 
+        \code{$IDs} and \code{$weights}; 
+     \item \code{dataset$descriptions}: contains 7 elements as sub-lists, \code{$fileName}, 
+        \code{$type}, \code{$name}, \code{$truthTableStr}, \code{$design}, \code{$modalityID} 
+        and \code{$readerID}. 
+    }
+    
+    \strong{Note: \code{-Inf} is used to indicate the ratings of unmarked lesions 
+        and/or missing values.} An example of the latter would be if the maximum 
+        number of NLs in a dataset was 4, but some images had fewer than 4 NL marks, 
+        in which case the corresponding "empty" positions would be filled with 
+        \code{-Inf}s. \strong{Do not use \code{NA} to denote a missing rating.}
+     
+    \strong{Note}: \bold{"dataset" in this package always represents an 
+    \code{R} object with the following structure:}
+    \subsection{General data structure, for example \code{dataset02} and \code{dataset05}}{
     \itemize{
-          \item \code{NL}: a floating-point array with dimension  
-             \code{c(I, J, K, maxNL)} containing the ratings of NL marks. The first 
-             K1 locations of the third index corresponds to NL marks on non-diseased 
-             cases and the remaining locations correspond to NL marks on diseased 
-             cases. The 4th dimension allows for the possibility of multiple NL marks 
-             on a case. For \bold{FROC} datasets unavailable or missing NL ratings are assigned 
-             \code{-Inf}. For \bold{ROC} datasets FP ratings are assigned to the first 
-             \code{K1} elements of \code{NL[,,1:K1,1]} and the remaining \code{K2} 
-             elements of \code{NL[,,(K1+1):K,1]} are set to \code{-Inf}. When 
-             converting from FROC to ROC data the software assigns \code{-Inf} 
-             to cases with no marks.
-          \item \code{LL}: a floating-point array with dimension  
-             \code{c(I, J, K2, maxLL)} that contains the ratings of all LL marks. 
-             For ROC datasets \code{TP} ratings are assigned to \code{LL[,,1:K2,1]}.
-          \item \code{lesionVector}: a integer vector with length \code{K2}, whose 
-             elements indicate the number of lesions in each diseased case. 
-          \item \code{lesionID}: an integer array with dimension [K2, maxLL]. 
-             Its contents label lesions on diseased cases. For example,  
-             \code{dataset05$lesionID[40,]} is \code{c(1,2,-Inf)}, meaning the 
-             40th diseased case in this dataset has two lesions, labeled 1 and 2. 
-             The \code{lesionID} of an LL in the \samp{TP} or \samp{LL} worksheet 
-             must correspond to the \code{lesionID} for that case in the 
-             \samp{Truth} worksheet. For example, if the \code{lesionID} for the 
-             40th diseased case in the \samp{TP} or \samp{LL} worksheet is 2, 
-             then the associated rating must correspond to the lesion labeled 2 
-             in the \samp{Truth} worksheet, etc. 
-          \item \code{lesionWeight}: a floating point array with dimension 
+    \item \code{ratings$NL}: a float array with dimensions
+        \code{c(I, J, \code{K}, maxNL)} containing the ratings of NL marks. The first 
+        \code{K1} locations of the third index corresponds to NL marks on non-diseased 
+        cases and the remaining locations correspond to NL marks on diseased 
+        cases. The 4th dimension allows for the possibility of multiple NL marks 
+        on a case. For \bold{FROC} datasets missing NL ratings are assigned 
+        \code{-Inf}. For \bold{ROC} datasets FP ratings are assigned to the first 
+        \code{K1} elements of \code{NL[,,1:K1,1]} and the remaining 
+        \code{K2} elements of \code{NL[,,(K1+1):K,1]} are set to \code{-Inf}. 
+        An ROC dataset does not have missing values - hence \code{-Inf} cannot 
+        be used to indicate the lowest rating in an ROC study. 
+             
+    \item \code{ratings$LL}: for non-LROC datasets a float array with dimensions  
+        \code{c(I, J, K2, maxLL)} containing the ratings of LL marks. Unmarked
+        lesions are assigned the \code{-Inf} rating.
+        For ROC datasets \code{TP} ratings are assigned to \code{LL[,,1:K2,1]}.
+        For LROC datasets it is a float array with dimensions  
+        \code{c(I, J, K2, 1)} containing the ratings of correct localization marks. 
+        Unmarked lesions are assigned the \code{-Inf} rating.
+        
+    \item \code{ratings$LL_IL}: for LROC datasets the ratings
+        of incorrect localization marks on abnormal cases. It is a float array 
+        with dimensions \code{c(I, J, K2, 1)}. For non-LROC datasets this array is filled
+        with NAs.
+             
+    \item \code{lesions$perCase}: an integer array with length \code{K2}, 
+          indicating the number of lesions per each diseased case. 
+             
+    \item \code{lesions$IDs}: an integer array with dimension [\code{K2}, \code{maxLL}], 
+          labeling (or naming) the lesions on each diseased case. For example,  
+             \code{dataset05$lesions$perCase[4,]} is \code{c(1,2,-Inf)}, meaning the 
+             4th diseased case has two lesions, labeled 1 and 2. 
+
+    \item \code{lesions$weights}: a floating point array with dimension 
              \code{c(K2, maxLL)}, representing the relative importance of detecting 
-             each lesion. For each case, the weights sum to unity. If zero is assigned 
+             each lesion. For each case the weights must sum to unity. If zero is assigned 
              to the \code{Weight} field in the \samp{Truth} worksheet,  the 
              software automatically assigns equal weighting, e.g., 
-             \code{dataset05$lesionWeight[40,]} is \code{c(0.5,0.5)}, corresponding to 
-             equal weights (1/2) to each lesion on an image with two lesions.
-          \item \code{dataType}: a \code{character} variable: "\code{ROC}", "\code{LROC}", "\code{ROI}" or "\code{FROC}".
-          \item \code{modalityID}: a \code{character} vector of length \eqn{I}, which labels the 
+             \code{dataset05$lesions$weights[4,]} is \code{c(0.5,0.5)}, corresponding to 
+             equal weights (0.5) assigned to each lesion on an image with two lesions.
+             
+    \item \code{descriptions$fileName}: a \code{character} variable containing the file
+        name containing the source data for this dataset. This is generated automatically
+        by the \link{DfReadDataFile} function used to read the file.
+    
+    \item \code{descriptions$type}: a \code{character} variable describing the data type: 
+        "\code{ROC}", "\code{LROC}", "\code{ROI}" or "\code{FROC}".
+    
+    \item \code{descriptions$name}: a \code{character} variable containing the name of 
+        the datsaet: e.g., "dataset02" or "dataset05". This is generated automatically
+        by the \link{DfReadDataFile} function used to read the file.
+    
+    \item \code{descriptions$truthTableStr}: a \code{character} variable: "\code{ROC}", "\code{LROC}", "\code{ROI}" or "\code{FROC}".
+    
+    \item \code{descriptions$design}: a \code{character} variable: "\code{ROC}", "\code{LROC}", "\code{ROI}" or "\code{FROC}".
+    
+    \item \code{descriptions$modalityID}: a \code{character} vector of length \eqn{I}, which labels the 
              modalities in the dataset.
-          \item \code{readerID}: a \code{character} vector of length \eqn{J}, which labels the 
+             
+    \item \code{descriptions$readerID}: a \code{character} vector of length \eqn{J}, which labels the 
              readers. For example, \code{NL[1, 2, , ]} indicates the NL-rating of the 
              reader identified with the second label in \code{readerID} using the 
              modality identified with the first label in \code{modalityID}.
     }
   }
   
-  \subsection{ROI data structure, example \code{TBA}}{
+  \subsection{ROI data structure, example \code{datasetROI}}{
     \itemize{
-          \item \code{NL}: a floating-point array with dimension \code{c(I, J, K, Q)} 
-             that contains the ratings of Q quadrants for each non-diseased case (k <= K1). 
-             For k > K1,  
-             elements contain valid ratings while the rest are filled with \code{-Inf}s.
-          \item \code{LL}: a floating-point array with dimension  
+          \item \code{NL}: a float array with dimension \code{c(I, J, K, Q)} 
+             that contains the ratings of Q quadrants for each non-diseased case \eqn{(k <= K}). 
+             Valid ratings for \eqn{k < K1}, while the rest are filled with \code{-Inf}s.
+          \item \code{LL}: a float array with dimension  
              \code{c(I, J, K2, 1)} that contains the ratings of all \emph{correct} 
              localization (CL) marks. A \code{-Inf} indicates a case with no CL mark. 
-          \item \code{LLIl}: a floating-point array with dimension  
+          \item \code{LLIl}: a float array with dimension  
              \code{c(I, J, K2, 1)} that contains the ratings of all \emph{incorrect} 
              localization (IL) marks. A \code{-Inf} indicates a case with no IL mark.
           \item \code{lesionVector}: same as general case. 
-          \item \code{lesionID}: lesionID: an integer vector with length K2 
+          \item \code{perCase}: perCase: an integer vector with length \code{K2} 
              containing ones.
-          \item \code{lesionWeight}: a floating point array with dimension 
+          \item \code{weights}: a floating point array with dimension 
              \code{c(K2, 1)} containing ones.
           \item \code{dataType}: a \code{character} variable: "\code{ROI}".
           \item \code{modalityID}: same as general case.
           \item \code{readerID}: same as general case.
     }
   }
-  
+
   \subsection{LROC data structure, example \code{datasetCadLroc}}{
     \itemize{
-          \item \code{NL}: a floating-point array with dimension  \code{c(I, J, K, 1)} 
-             that contains the ratings of FP marks. For the third index, the first K1 
+          \item \code{NL}: a float array with dimension  \code{c(I, J, \code{K}, 1)} 
+             that contains the ratings of FP marks. For the third index, the first \code{K1} 
              elements contain valid ratings while the rest are filled with \code{-Inf}s.
-          \item \code{LLCl}: a floating-point array with dimension  
+          \item \code{LLCl}: a float array with dimension  
              \code{c(I, J, K2, 1)} that contains the ratings of all \emph{correct} 
              localization (CL) marks. A \code{-Inf} indicates a case with no CL mark. 
-          \item \code{LLIl}: a floating-point array with dimension  
+          \item \code{LLIl}: a float array with dimension  
              \code{c(I, J, K2, 1)} that contains the ratings of all \emph{incorrect} 
              localization (IL) marks. A \code{-Inf} indicates a case with no IL mark.
           \item \code{lesionVector}: same as general case. 
-          \item \code{lesionID}: lesionID: an integer vector with length K2 
+          \item \code{perCase}: perCase: an integer vector with length \code{K2} 
              containing ones.
-          \item \code{lesionWeight}: a floating point array with dimension 
+          \item \code{weights}: a floating point array with dimension 
              \code{c(K2, 1)} containing ones.
           \item \code{dataType}: a \code{character} variable: "\code{LROC}".
           \item \code{modalityID}: same as general case.
@@ -274,15 +305,15 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
   
   \subsection{Crossed modality data structure, example \code{datasetCrossedModality}}{
     \itemize{
-          \item \code{NL}: a floating-point array with dimension  
+          \item \code{ratings$NL}: a float array with dimension  
              \code{c(I1, I2, J, K, maxNL)} that contains the ratings of NL marks. Note 
                 the existence of two modality indices.
-          \item \code{LL}: a floating-point array with dimension  
+          \item \code{LL}: a float array with dimension  
              \code{c(I1, I2, J, K2, maxLL)}that contains the ratings of all LL marks. 
              Note the existence of two modality indices.
           \item \code{lesionVector}: same as general case. 
-          \item \code{lesionID}: same as general case.
-          \item \code{lesionWeight}: same as general case.
+          \item \code{perCase}: same as general case.
+          \item \code{weights}: same as general case.
           \item \code{dataType}: a \code{character} variable: "\code{ROC}" or "\code{FROC}".
           \item \code{modalityID1}: same as general case, corresponding to first 
              modality factor.
@@ -312,7 +343,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
                    once for each lesion.
                 \item \samp{LesionID}, an integer field uniquely labeling the lesions 
                    in each case. This field is zero for non-diseased cases.
-                \item \samp{Weight}, a floating-point field, which is the relative 
+                \item \samp{Weight}, a float field, which is the relative 
                    importance of detecting each lesion. This field is zero for 
                    non-diseased cases and for equally weighted lesions; otherwise 
                    the weights must sum to unity for each case. Unless a weighted 
@@ -331,7 +362,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
                      generate an error. It is the user's responsibility to ensure 
                      that the entries in the \samp{Truth} and \samp{TP} worksheets 
                      correspond to the same physical lesions.
-                  \item \samp{TP_Rating}, a positive floating-point field denoting the 
+                  \item \samp{TP_Rating}, a positive float field denoting the 
                      rating assigned to a particular lesion-localization mark, with 
                      higher numbers represent greater confidence that the location 
                      is actually a lesion.
@@ -341,7 +372,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
                   \item \samp{ReaderID}, see \samp{TP} worksheet.
                   \item \samp{ModalityID}, see \samp{TP} worksheet.
                   \item \samp{CaseID}, see \samp{TP} worksheet.
-                  \item \samp{FP_Rating}, a positive floating-point field denoting the 
+                  \item \samp{FP_Rating}, a positive float field denoting the 
                      rating assigned to a particular non-lesion-localization mark, 
                      with higher numbers represent greater confidence that the location 
                      is actually a lesion.
@@ -454,9 +485,9 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
 \section{Sample size Functions}{
   \itemize{    
         \item \code{\link{SsPowerGivenJK}}: Calculate statistical power given 
-           numbers of readers J and cases K.
+           numbers of readers J and cases \code{K}.
         \item \code{\link{SsPowerTable}}: Generate a power table.
-        \item \code{\link{SsSampleSizeKGivenJ}}: Calculate number of cases K, for 
+        \item \code{\link{SsSampleSizeKGivenJ}}: Calculate number of cases \code{K}, for 
            specified number of readers J, to achieve desired power for an ROC study.
   }
 }
@@ -576,7 +607,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
      by models for diagnostic tasks involving lesion localization. Medical 
      Physics, 35(2), 435. 
 
-  Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction methods 
+  Thompson JD, Chakraborty DP, Szczepura \code{K}, et al. (2016) Effect of reconstruction methods 
      and x-ray tube current-time product  on nodule detection in an anthropomorphic 
      thorax phantom: a crossed-modality JAFROC observer study. Medical Physics. 
      43(3):1265-1274.
