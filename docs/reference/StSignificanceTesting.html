@@ -41,14 +41,13 @@
 
 <meta property="og:title" content="Performs DBM or OR significance testing for factorial or split-plot A,C datasets — StSignificanceTesting" />
 <meta property="og:description" content="Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
-   significance testing (with Hillis' improvements), for specified dataset; 
+   significance testing, for specified dataset; 
    significance testing refers to analysis designed to assign a P-value, 
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 
    figure of merit (FOM) differences between treatments is zero. The results of 
    the analysis are best visualized in the text or  
-   Excel-formatted files produced by UtilOutputReport.
-## TBA" />
+   Excel-formatted files produced by UtilOutputReport." />
 
 
 
@@ -103,16 +102,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
+      <a href="../articles/Ch00Vig1DataFormatRocFctrl.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC FCTRL</a>
     </li>
     <li>
-      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
+      <a href="../articles/Ch00Vig2DataFormatFrocFctrl.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC FCTRL</a>
     </li>
     <li>
-      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
     </li>
     <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
     </li>
     <li>
       <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
@@ -193,14 +192,13 @@
 
     <div class="ref-description">
     <p>Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
-   significance testing (with Hillis' improvements), for specified dataset; 
+   significance testing, for specified dataset; 
    significance testing refers to analysis designed to assign a P-value, 
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 
    figure of merit (FOM) differences between treatments is zero. The results of 
    the analysis are best visualized in the text or  
    Excel-formatted files produced by <code><a href='UtilOutputReport.html'>UtilOutputReport</a></code>.</p>
-<p>## TBA</p>
     </div>
 
     <pre class="usage"><span class='fu'>StSignificanceTesting</span>(
@@ -221,9 +219,8 @@
     <tr>
       <th>dataset</th>
       <td><p>The dataset to be analyzed, see <code><a href='RJafroc-package.html'>RJafroc-package</a></code>. 
-<b>Must have two or more treatments and two or more readers. A split-plot-c
-dataset is allowed provided <code>method</code> = "OR" and <code>covEstMethod</code>
-= "Jackknife".</b></p></td>
+Must have two or more treatments and two or more readers. The dataset design
+can be "FCTRL", "SPLIT-PLOT-A" or "SPLIT-PLOT-C".</p></td>
     </tr>
     <tr>
       <th>FOM</th>
@@ -241,7 +238,7 @@ treatment effects are zero; the default is 0.05</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>The significance testing method to be used. There are two choices: 
+      <td><p>The significance testing method to be used:
 <code>"DBM"</code> (the default) or <code>"OR"</code>, representing the Dorfman-Berbaum-Metz
 and the Obuchowski-Rockette significance testing methods, respectively.</p></td>
     </tr>

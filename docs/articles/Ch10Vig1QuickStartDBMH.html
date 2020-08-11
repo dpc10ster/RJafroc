@@ -54,16 +54,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
+      <a href="../articles/Ch00Vig1DataFormatRocFctrl.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC FCTRL</a>
     </li>
     <li>
-      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
+      <a href="../articles/Ch00Vig2DataFormatFrocFctrl.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC FCTRL</a>
     </li>
     <li>
-      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
     </li>
     <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
     </li>
     <li>
       <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
@@ -138,7 +138,7 @@
       <h1 data-toc-skip>Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-08-09</h4>
+            <h4 class="date">2020-08-11</h4>
       
       
       <div class="hidden name"><code>Ch10Vig1QuickStartDBMH.Rmd</code></div>
@@ -180,7 +180,7 @@
 <span class="co">#&gt;   ..$ readerID     : Named chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span>
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span></pre></body></html></div>
 <ul>
-<li><p>It is a list with 8 members. The false positive ratings are contained in <code>{NL}</code>, an array with dimensions <code>[1:2,1:4,1:100,1]</code>. The first index corresponds to treatments, and since the dataset has 2 treatments, the corresponding dimension is 2. The second index corresponds to readers, and since the dataset has 4 readers, the corresponding dimension is 4. The third index corresponds to the total number of cases. Since the dataset has 100 cases, the corresponding dimension is 100. But, as you can see from the code below, the entries in this array for cases 34 through 100 are <code>-Inf</code>: i.e., <code><a href="https://rdrr.io/r/base/all.html">all(dataset03$NL[1,1,34:100,1] == -Inf)</a></code> = TRUE.</p></li>
+<li><p>It is a list with 8 members. The false positive ratings are contained in <code>{NL}</code>, an array with dimensions <code>[1:2,1:4,1:100,1]</code>. The first index corresponds to treatments, and since the dataset has 2 treatments, the corresponding dimension is 2. The second index corresponds to readers, and since the dataset has 4 readers, the corresponding dimension is 4. The third index corresponds to the total number of cases. Since the dataset has 100 cases, the corresponding dimension is 100. But, as you can see from the code below, the entries in this array for cases 34 through 100 are <code>-Inf</code>: i.e., <code><a href="https://rdrr.io/r/base/all.html">all(dataset03$ratings$ratings$ratings$NL[1,1,34:100,1] == -Inf)</a></code> = TRUE.</p></li>
 <li><p>This is because in the ROC paradigm false positive are not possible on diseased cases. So the actual FP ratings are contained in the first 33 elements of the array. How did I know that there are 33 non-diseased cases? This can be understood in several ways.</p></li>
 <li><p><code>LL</code> is an array with dimensions <code>[1:2,1:4,1:67,1]</code>. This implies 67 diseased cases, and by subtraction from 100, there must be 33 non-diseased cases.</p></li>
 <li><p>The list member <code>lesionVector</code> is a vector with length 67, implying 33 non-diseased cases.</p></li>
@@ -197,13 +197,13 @@
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">dataset03</span>$<span class="no">readerID</span>
 <span class="co">#&gt; NULL</span></pre></body></html></div>
 <p>Here are the actual ratings for cases 1:34.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">dataset03</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>:<span class="fl">33</span>,<span class="fl">1</span>]
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">dataset03</span>$<span class="no">ratings</span>$<span class="no">ratings</span>$<span class="no">ratings</span>$<span class="no">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>:<span class="fl">33</span>,<span class="fl">1</span>]
 <span class="co">#&gt; NULL</span></pre></body></html></div>
 <ul>
 <li><p>This says that for treatment 1 and reader 1, (non-diseased) case 1 was rated 3, case 2 was rated 1, cases 3-7 were rated 2, case 8 was rated 4, etc.</p></li>
 <li><p>As another example, for treatment 2 and reader 3, the FP ratings are:</p></li>
 </ul>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">dataset03</span>$<span class="no">NL</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span>:<span class="fl">33</span>,<span class="fl">1</span>]
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">dataset03</span>$<span class="no">ratings</span>$<span class="no">ratings</span>$<span class="no">NL</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span>:<span class="fl">33</span>,<span class="fl">1</span>]
 <span class="co">#&gt; NULL</span></pre></body></html></div>
 </div>
 <div id="creating-a-dataset-from-a-jafroc-format-file" class="section level2">

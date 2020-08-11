@@ -95,16 +95,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Ch00Vig1DataFormatRoc.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC CROSSED</a>
+      <a href="../articles/Ch00Vig1DataFormatRocFctrl.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC FCTRL</a>
     </li>
     <li>
-      <a href="../articles/Ch00Vig2DataFormatFroc.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC CROSSED</a>
+      <a href="../articles/Ch00Vig2DataFormatFrocFctrl.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC FCTRL</a>
     </li>
     <li>
-      <a href="../articles/Ch00Vig3DataFormatRocSp.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT</a>
+      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
     </li>
     <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSp.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT</a>
+      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
     </li>
     <li>
       <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
@@ -201,7 +201,7 @@
 </table>
 
 
-    <h2 class="hasAnchor" id="abbreviations-and-definitions"><a class="anchor" href="#abbreviations-and-definitions"></a>Abbreviations and definitions</h2>
+    <h2 class="hasAnchor" id="definitions-and-abbreviations"><a class="anchor" href="#definitions-and-abbreviations"></a>Definitions and abbreviations</h2>
 
     <p></p><ul>
 <li><p><em>a</em>: The separation or "a" parameter of the binormal model</p></li>
@@ -260,9 +260,9 @@
        the bootstrap could be used; what distinguishes FROC from ROC analysis is the 
        use of the AFROC-AUC as the FOM. With this change, the DBM or the OR method 
        can be used for significance testing</p></li>
-<li><p>K: total number of cases, K = K1 + K2, indexed by \(k\)</p></li>
-<li><p>K1: total number of non-diseased cases, indexed by \(k1\)</p></li>
-<li><p>K2: total number of diseased cases, indexed by \(k2\)</p></li>
+<li><p><code>K</code>: total number of cases, <code>K</code> = <code>K1</code> + <code>K2</code>, indexed by \(k\)</p></li>
+<li><p><code>K1</code>: total number of non-diseased cases, indexed by \(k1\)</p></li>
+<li><p><code>K2</code>: total number of diseased cases, indexed by \(k2\)</p></li>
 <li><p>LL: lesion localization i.e., a mark that correctly locates an existing 
        localized lesion; TP is a special case, when the proximity criterion is 
       lax  (i.e., "acceptance radius" is large)</p></li>
@@ -354,202 +354,114 @@
 
     <h2 class="hasAnchor" id="dataset"><a class="anchor" href="#dataset"></a>Dataset</h2>
 
-    <p>An R object either created by the user or read from an external text or 
-     Excel file. It is a <code>list</code> generally containing 8 members (9 members 
-     for crossed-modality or LROC datasets): <strong>Note: <code>-Inf</code> is used to 
-     indicate the ratings of unmarked lesions and/or to indicate missing array 
-     items. An example of the latter would be if the maximum number of NLs in a 
-     dataset was 4, but some images had fewer than 4 NLs, in which case the corresponding 
-     "empty" positions would be filled with <code>-Inf</code>s. Do not use <code>NA</code> to 
-     denote a rating.</strong></p>  
-<p><strong>Note</strong>: <b>"dataset" in this package always represents an 
-     <code>R</code> object with one of the following structures:</b></p><h3>General data structure, example <code>dataset02</code> and <code>dataset05</code></h3>
+    <p>The <code>dataset</code> object has 3 <code>list</code> elements: <code>$ratings</code>, <code>$lesions</code> 
+     and <code>$descriptions</code>, where:</p>     
 <p></p><ul>
-<li><p><code>NL</code>: a floating-point array with dimension  
-             <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K, maxNL)</a></code> containing the ratings of NL marks. The first 
-             K1 locations of the third index corresponds to NL marks on non-diseased 
-             cases and the remaining locations correspond to NL marks on diseased 
-             cases. The 4th dimension allows for the possibility of multiple NL marks 
-             on a case. For <b>FROC</b> datasets unavailable or missing NL ratings are assigned 
-             <code>-Inf</code>. For <b>ROC</b> datasets FP ratings are assigned to the first 
-             <code>K1</code> elements of <code>NL[,,1:K1,1]</code> and the remaining <code>K2</code> 
-             elements of <code>NL[,,(K1+1):K,1]</code> are set to <code>-Inf</code>. When 
-             converting from FROC to ROC data the software assigns <code>-Inf</code> 
-             to cases with no marks.</p></li>
-<li><p><code>LL</code>: a floating-point array with dimension  
-             <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, maxLL)</a></code> that contains the ratings of all LL marks. 
-             For ROC datasets <code>TP</code> ratings are assigned to <code>LL[,,1:K2,1]</code>.</p></li>
-<li><p><code>lesionVector</code>: a integer vector with length <code>K2</code>, whose 
-             elements indicate the number of lesions in each diseased case.</p></li>
-<li><p><code>lesionID</code>: an integer array with dimension [K2, maxLL]. 
-             Its contents label lesions on diseased cases. For example,  
-             <code>dataset05$lesionID[40,]</code> is <code><a href='https://rdrr.io/r/base/c.html'>c(1,2,-Inf)</a></code>, meaning the 
-             40th diseased case in this dataset has two lesions, labeled 1 and 2. 
-             The <code>lesionID</code> of an LL in the <samp>TP</samp> or <samp>LL</samp> worksheet 
-             must correspond to the <code>lesionID</code> for that case in the 
-             <samp>Truth</samp> worksheet. For example, if the <code>lesionID</code> for the 
-             40th diseased case in the <samp>TP</samp> or <samp>LL</samp> worksheet is 2, 
-             then the associated rating must correspond to the lesion labeled 2 
-             in the <samp>Truth</samp> worksheet, etc.</p></li>
-<li><p><code>lesionWeight</code>: a floating point array with dimension 
-             <code><a href='https://rdrr.io/r/base/c.html'>c(K2, maxLL)</a></code>, representing the relative importance of detecting 
-             each lesion. For each case, the weights sum to unity. If zero is assigned 
-             to the <code>Weight</code> field in the <samp>Truth</samp> worksheet,  the 
-             software automatically assigns equal weighting, e.g., 
-             <code>dataset05$lesionWeight[40,]</code> is <code><a href='https://rdrr.io/r/base/c.html'>c(0.5,0.5)</a></code>, corresponding to 
-             equal weights (1/2) to each lesion on an image with two lesions.</p></li>
-<li><p><code>dataType</code>: a <code>character</code> variable: "<code>ROC</code>", "<code>LROC</code>", "<code>ROI</code>" or "<code>FROC</code>".</p></li>
-<li><p><code>modalityID</code>: a <code>character</code> vector of length \(I\), which labels the 
-             modalities in the dataset.</p></li>
-<li><p><code>readerID</code>: a <code>character</code> vector of length \(J\), which labels the 
-             readers. For example, <code>NL[1, 2, , ]</code> indicates the NL-rating of the 
-             reader identified with the second label in <code>readerID</code> using the 
-             modality identified with the first label in <code>modalityID</code>.</p></li>
-</ul><p></p>
-  
-<p></p><h3>ROI data structure, example <code>TBA</code></h3>
-<p></p><ul>
-<li><p><code>NL</code>: a floating-point array with dimension <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K, Q)</a></code> 
-             that contains the ratings of Q quadrants for each non-diseased case (k &lt;= K1). 
-             For k &gt; K1,  
-             elements contain valid ratings while the rest are filled with <code>-Inf</code>s.</p></li>
-<li><p><code>LL</code>: a floating-point array with dimension  
-             <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, 1)</a></code> that contains the ratings of all <em>correct</em> 
-             localization (CL) marks. A <code>-Inf</code> indicates a case with no CL mark.</p></li>
-<li><p><code>LLIl</code>: a floating-point array with dimension  
-             <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, 1)</a></code> that contains the ratings of all <em>incorrect</em> 
-             localization (IL) marks. A <code>-Inf</code> indicates a case with no IL mark.</p></li>
-<li><p><code>lesionVector</code>: same as general case.</p></li>
-<li><p><code>lesionID</code>: lesionID: an integer vector with length K2 
-             containing ones.</p></li>
-<li><p><code>lesionWeight</code>: a floating point array with dimension 
-             <code><a href='https://rdrr.io/r/base/c.html'>c(K2, 1)</a></code> containing ones.</p></li>
-<li><p><code>dataType</code>: a <code>character</code> variable: "<code>ROI</code>".</p></li>
-<li><p><code>modalityID</code>: same as general case.</p></li>
-<li><p><code>readerID</code>: same as general case.</p></li>
-</ul><p></p>
-  
-<p></p><h3>LROC data structure, example <code>datasetCadLroc</code></h3>
-<p></p><ul>
-<li><p><code>NL</code>: a floating-point array with dimension  <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K, 1)</a></code> 
-             that contains the ratings of FP marks. For the third index, the first K1 
-             elements contain valid ratings while the rest are filled with <code>-Inf</code>s.</p></li>
-<li><p><code>LLCl</code>: a floating-point array with dimension  
-             <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, 1)</a></code> that contains the ratings of all <em>correct</em> 
-             localization (CL) marks. A <code>-Inf</code> indicates a case with no CL mark.</p></li>
-<li><p><code>LLIl</code>: a floating-point array with dimension  
-             <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, 1)</a></code> that contains the ratings of all <em>incorrect</em> 
-             localization (IL) marks. A <code>-Inf</code> indicates a case with no IL mark.</p></li>
-<li><p><code>lesionVector</code>: same as general case.</p></li>
-<li><p><code>lesionID</code>: lesionID: an integer vector with length K2 
-             containing ones.</p></li>
-<li><p><code>lesionWeight</code>: a floating point array with dimension 
-             <code><a href='https://rdrr.io/r/base/c.html'>c(K2, 1)</a></code> containing ones.</p></li>
-<li><p><code>dataType</code>: a <code>character</code> variable: "<code>LROC</code>".</p></li>
-<li><p><code>modalityID</code>: same as general case.</p></li>
-<li><p><code>readerID</code>: same as general case.</p></li>
-</ul><p></p>
-  
-<p></p><h3>Crossed modality data structure, example <code>datasetCrossedModality</code></h3>
-<p></p><ul>
-<li><p><code>NL</code>: a floating-point array with dimension  
-             <code><a href='https://rdrr.io/r/base/c.html'>c(I1, I2, J, K, maxNL)</a></code> that contains the ratings of NL marks. Note 
-                the existence of two modality indices.</p></li>
-<li><p><code>LL</code>: a floating-point array with dimension  
-             <code><a href='https://rdrr.io/r/base/c.html'>c(I1, I2, J, K2, maxLL)</a></code>that contains the ratings of all LL marks. 
-             Note the existence of two modality indices.</p></li>
-<li><p><code>lesionVector</code>: same as general case.</p></li>
-<li><p><code>lesionID</code>: same as general case.</p></li>
-<li><p><code>lesionWeight</code>: same as general case.</p></li>
-<li><p><code>dataType</code>: a <code>character</code> variable: "<code>ROC</code>" or "<code>FROC</code>".</p></li>
-<li><p><code>modalityID1</code>: same as general case, corresponding to first 
-             modality factor.</p></li>
-<li><p><code>modalityID2</code>: same as general case, corresponding to second 
-             modality factor.</p></li>
-<li><p><code>readerID</code>: same as general case.</p></li>
-</ul><p></p>
-  
-<p></p><h3>Data file format</h3>
-<p>The package reads JAFROC, MRMC (ROC data only) and iMRMC (ROC data only) 
-       data files. The data can be imported by using the function 
-       <a href='DfReadDataFile.html'>DfReadDataFile</a>.</p><ul>
-<li><p><strong>JAFROC data file format</strong>
-      The JAFROC data file is an Excel file containing three worksheets (*.xls and 
-         *.xlsx are supported): (1) the <samp>Truth</samp> worksheet, (2) the <samp>TP</samp> 
-         or <samp>LL</samp> worksheet and (3) the <samp>FP</samp> or <samp>NL</samp> worksheet. 
-         Except for the <samp>Truth</samp> worksheet, where each case must occur at least 
-         once, the number of rows in the other worksheets is variable.
-      <ol>
-<li><p><samp>Truth</samp> worksheet consists of</p><ul>
-<li><p><samp>CaseID</samp>, an integer field uniquely labeling the cases 
-                   (images). It must occur at least once for each case, and since a 
-                   case may have multiple lesions, it can occur multiple times, 
-                   once for each lesion.</p></li>
-<li><p><samp>LesionID</samp>, an integer field uniquely labeling the lesions 
-                   in each case. This field is zero for non-diseased cases.</p></li>
-<li><p><samp>Weight</samp>, a floating-point field, which is the relative 
-                   importance of detecting each lesion. This field is zero for 
-                   non-diseased cases and for equally weighted lesions; otherwise 
-                   the weights must sum to unity for each case. Unless a weighted 
-                   figure of merit is selected, this field is irrelevant.</p></li>
-</ul></li>
-<li><p><samp>TP</samp> worksheet consists of</p><ul>
-<li><p><samp>ReaderID</samp>, a <code>character</code> field uniquely labeling the readers 
-                     (radiologists).</p></li>
-<li><p><samp>ModalityID</samp>, a <code>character</code> field uniquely labeling the 
-                     modalities.</p></li>
-<li><p><samp>CaseID</samp>, see <samp>Truth</samp> worksheet. A non-diseased 
-                     case in this field will generate an error.</p></li>
-<li><p><samp>LesionID</samp>, see <samp>Truth</samp> worksheet. An entry in this 
-                     field that does not appear in the <samp>Truth</samp> worksheet will 
-                     generate an error. It is the user's responsibility to ensure 
-                     that the entries in the <samp>Truth</samp> and <samp>TP</samp> worksheets 
-                     correspond to the same physical lesions.</p></li>
-<li><p><samp>TP_Rating</samp>, a positive floating-point field denoting the 
-                     rating assigned to a particular lesion-localization mark, with 
-                     higher numbers represent greater confidence that the location 
-                     is actually a lesion.</p></li>
-</ul></li>
-<li><p><samp>FP</samp> worksheet consists of</p><ul>
-<li><p><samp>ReaderID</samp>, see <samp>TP</samp> worksheet.</p></li>
-<li><p><samp>ModalityID</samp>, see <samp>TP</samp> worksheet.</p></li>
-<li><p><samp>CaseID</samp>, see <samp>TP</samp> worksheet.</p></li>
-<li><p><samp>FP_Rating</samp>, a positive floating-point field denoting the 
-                     rating assigned to a particular non-lesion-localization mark, 
-                     with higher numbers represent greater confidence that the location 
-                     is actually a lesion.</p></li>
-</ul></li>
-</ol></p></li>
-<li><p><strong>MRMC data file format / LABMRMC format</strong>
-    <ul>
-<li><p><em>Input format for MRMC.</em> This format is described in the Medical 
-             Image Perception Laboratory website, currently 
-             <a href='http://perception.radiology.uiowa.edu/'>http://perception.radiology.uiowa.edu/</a>.</p></li>
-<li><p><em>LABMRMC data format.</em> The data file includes following parts. 
-             The file must be saved as plain text file with *.lrc extension. All items 
-             in the file are separated by one or more blank spaces.</p><ol>
-<li><p>The first line is a free text description of the file.</p></li>
-<li><p>The second line is the name or ID of the first reader.</p></li>
-<li><p>The third line has the names or IDs of all the modalities. Each 
-                 name or ID must be enclosed by double quotes(" ").</p></li>
-<li><p>The fourth line must have the letter (l or s) or word (large or 
-                 small) for each modality. The letter or word indicates that smaller 
-                 or larger ratings represent stronger confidence of presence of disease.</p></li>
-<li><p>The following lines contain the ratings in all modalities, 
-                 separated by spaces or tabs, of the non-diseased cases, one case per 
-                 line. The cases must appear in the same order for all readers. 
-                 Missing value is not allowed.</p></li>
-<li><p>After the last non-diseased case insert a line containing the 
-                 asterisk (*) symbol.</p></li>
-<li><p>Repeat steps 5 and 6 for the diseased cases.</p></li>
-<li><p>Repeat steps 2, 5, 6 and 7 for the remaining readers.</p></li>
-<li><p>The last line of the data file must be a pound symbol (#).</p></li>
-</ol></li>
-</ul>    <strong>iMRMC data format</strong>
-      This  is described in the iMRMC website, currently 
-         <a href='https://code.google.com/p/imrmc/'>https://code.google.com/p/imrmc/</a>.</p></li>
+<li><p><code>dataset$ratings</code>: contains 3 elements as sub-lists: <code>$NL</code>, 
+        <code>$LL</code> and <code>$LL_IL</code>; these describe the structure of the ratings;</p></li>
+<li><p><code>dataset$lesions</code>: contains 3 elements as sub-lists: <code>$perCase</code>, 
+        <code>$IDs</code> and <code>$weights</code>; these describe the structure of the lesions;</p></li>
+<li><p><code>dataset$descriptions</code>: contains 7 elements as sub-lists: <code>$fileName</code>, 
+        <code>$type</code>, <code>$name</code>, <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> 
+        and <code>$readerID</code>; these describe other characterisitcs of the dataset as 
+        detailed next.</p></li>
 </ul>
+    
+<p><strong>Note: <code>-Inf</code> is used to indicate the ratings of unmarked lesions 
+        and/or missing values.</strong> As an example of the latter, if the maximum 
+        number of NLs in a dataset is 4, but some images have fewer than 4 NL marks, 
+        the corresponding "empty" positions would be filled with 
+        <code>-Inf</code>s. <strong>Do not use <code>NA</code> to denote a missing rating.</strong></p>     
+<p><strong>Note</strong>: <b>"dataset" in this package always represents
+    <code>R</code> object(s) with the following structure(s):</b></p>    
+<p></p><h3>General data structure, e.g., <code>dataset02</code>, an ROC dataset, and 
+        <code>dataset05</code>, an FROC dataset.</h3>
+<p></p><ul>
+<li><p><code>ratings$NL</code>: a float array with dimensions
+        <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K, maxNL)</a></code>, containing the ratings of NL marks. The first 
+        <code>K1</code> locations of the third index corresponds to NL marks on non-diseased 
+        cases and the remaining locations correspond to NL marks on diseased 
+        cases. The 4th dimension allows for multiple NL marks 
+        on a case: the first index holds the first NL rating on the image, 
+        the second holds the second NL rating on the image, etc. The value of 
+        <code>maxNL</code> is determined by the case with the maximum number of lesions 
+        per case in the dataset. For <b>FROC</b> datasets missing NL ratings are assigned the 
+        <code>-Inf</code> rating. For <b>ROC</b> datasets, FP ratings are assigned 
+        to the first <code>K1</code> elements of <code>NL[,,1:K1,1]</code> and the remaining 
+        <code>K2</code> elements of <code>NL[,,(K1+1):K,1]</code> are set to <code>-Inf</code>.</p></li>
+<li><p><code>ratings$LL</code>: for non-LROC datasets a float array with dimensions   
+        <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, maxLL)</a></code> containing the ratings of LL marks. The value of 
+        <code>maxLL</code> is determined by the maximum number of lesions per case in the 
+        dataset. Unmarked lesions are assigned the <code>-Inf</code> rating.
+        For ROC datasets <code>TP</code> ratings are assigned to <code>LL[,,1:K2,1]</code>.
+        For <b>LROC</b> datasets it is a float array with dimensions  
+        <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, 1)</a></code> containing the ratings of correct localizations, 
+        otherwise the rating is recorded in the incorrect localization array
+        described next.</p></li>
+<li><p><code>ratings$LL_IL</code>: for LROC datasets the ratings
+        of incorrect localization marks on abnormal cases. It is a float array 
+        with dimensions <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, 1)</a></code>. For non-LROC datasets this array 
+        is filled with NAs.</p></li>
+<li><p><code>lesions$perCase</code>: an integer array with length <code>K2</code>, 
+        the number of lesions on each diseased case. The 
+        maximum value of this array equals <code>maxLL</code>. For example,  
+        <code>dataset05$lesions$perCase[4</code> is 2, meaning the 
+        4th diseased case has two lesions.</p></li>
+<li><p><code>lesions$IDs</code>: an integer array with dimensions [<code>K2</code>, <code>maxLL</code>], 
+        labeling (or naming) the lesions on the diseased cases. For example,  
+        <code>dataset05$lesions$IDs[4,]</code> is <code><a href='https://rdrr.io/r/base/c.html'>c(1,2,-Inf)</a></code>, meaning the 
+        4th diseased case has two lesions, labeled 1 and 2.</p></li>
+<li><p><code>lesions$weights</code>: a floating point array with dimensions 
+        <code><a href='https://rdrr.io/r/base/c.html'>c(K2, maxLL)</a></code>, representing the relative importance of detecting 
+        each lesion. The weights for an abnormal case must sum to unity. 
+        For example, <code>dataset05$lesions$weights[4,]</code> is <code><a href='https://rdrr.io/r/base/c.html'>c(0.5,0.5, -Inf)</a></code>, 
+        corresponding to equal weights (0.5) assigned to of the two lesions in the
+        case.</p></li>
+<li><p><code>descriptions$fileName</code>: a <code>character</code> variable containing the file
+        name of the source data for this dataset. This is generated automatically
+        by the <a href='DfReadDataFile.html'>DfReadDataFile</a> function used to read the file. For a simulalated
+        dataset it is set to "NA" (i.e., a character vector, not the variable <code>NA</code>).</p></li>
+<li><p><code>descriptions$type</code>: a <code>character</code> variable describing the data type: 
+        "<code>ROC</code>", "<code>LROC</code>", "<code>ROI</code>" or "<code>FROC</code>".</p></li>
+<li><p><code>descriptions$name</code>: a <code>character</code> variable containing the name of 
+        the dataset: e.g., "dataset02" or "dataset05". This is generated automatically
+        by the <a href='DfReadDataFile.html'>DfReadDataFile</a> function used to read the file.</p></li>
+<li><p><code>descriptions$truthTableStr</code>: a <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, L, maxLL+1)</a></code> object. For
+        normal cases elements <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, L, 1)</a></code> are filled with 1s if the corresponding 
+        interpretations occurred or NAs otherwise. For abnormal cases elements
+        <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, L, 2:(maxLL+1))</a></code> are filled with 1s if the corresponding 
+        interpretations occurred or NAs otherwise. This object is necessary for analyzing
+        more complex designs, e.g., split-plot, as described next.</p></li>
+<li><p><code>descriptions$design</code>: a <code>character</code> variable: "<code>FCTRL</code>", 
+        "<code>SPLIT-PLOT-A</code>" or "<code>SPLIT-PLOT-A</code>", corresponding to factorial,
+        split-plot-A or split-plot-C designs. The A and C refer to subparts of Table VII
+        in a Hillis 2014 publication.</p></li>
+<li><p><code>descriptions$modalityID</code>: a <code>character</code> vector of length \(I\), 
+        which labels/names the modalities in the dataset.</p></li>
+<li><p><code>descriptions$readerID</code>: a <code>character</code> vector of length \(J\), 
+        which labels/names the readers in the dataset.</p></li>
+</ul><p></p>
+  
+<p></p><h3>ROI data structure, example <code>datasetROI</code></h3>
+<p>Only changes from the previously described structure are described below:</p><ul>
+<li><p><code>ratings$NL</code>: a float array with dimensions <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K, Q)</a></code> 
+        containing the ratings of each of Q quadrants for each non-diseased case.</p></li>
+<li><p><code>ratings$LL</code>: a float array with dimensions  
+        <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, Q)</a></code> containing the ratings of quadrants for each 
+        diseased case.</p></li>
+<li><p><code>lesions$perCase</code>: this contains the locations, on abnormal cases,
+    containing at least one lesion.</p></li>
+</ul><p></p>
 
+<p></p><h3>Crossed modality data structure, example <code>datasetCrossedModality</code></h3>
+<p>Only changes from the previously described structure are described below:</p><ul>
+<li><p><code>ratings$NL</code>: a float array with dimension <code><a href='https://rdrr.io/r/base/c.html'>c(I1, I2, J, K, maxNL)</a></code> 
+        containing the ratings of NL marks. Note the existence of two modality indices.</p></li>
+<li><p><code>LL</code>: a float array with dimension <code><a href='https://rdrr.io/r/base/c.html'>c(I1, I2, J, K2, maxLL)</a></code>
+        containing the ratings of all LL marks. Note the existence of two modality indices.</p></li>
+<li><p><code>modalityID1</code>: corresponding to first modality factor.</p></li>
+<li><p><code>modalityID2</code>: corresponding to second modality factor.</p></li>
+</ul><p></p>
 
     <h2 class="hasAnchor" id="df-datafile-related-functions"><a class="anchor" href="#df-datafile-related-functions"></a>Df: Datafile Related Functions</h2>
 
@@ -619,9 +531,9 @@
 
     <p></p><ul>
 <li><p><code><a href='SsPowerGivenJK.html'>SsPowerGivenJK</a></code>: Calculate statistical power given 
-           numbers of readers J and cases K.</p></li>
+           numbers of readers J and cases <code>K</code>.</p></li>
 <li><p><code><a href='SsPowerTable.html'>SsPowerTable</a></code>: Generate a power table.</p></li>
-<li><p><code><a href='SsSampleSizeKGivenJ.html'>SsSampleSizeKGivenJ</a></code>: Calculate number of cases K, for 
+<li><p><code><a href='SsSampleSizeKGivenJ.html'>SsSampleSizeKGivenJ</a></code>: Calculate number of cases <code>K</code>, for 
            specified number of readers J, to achieve desired power for an ROC study.</p></li>
 </ul>
 
@@ -711,7 +623,7 @@
 <p>Chakraborty, DP, &amp; Yoon, H.-J. (2008). Operating characteristics predicted 
      by models for diagnostic tasks involving lesion localization. Medical 
      Physics, 35(2), 435.</p>
-<p>Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction methods 
+<p>Thompson JD, Chakraborty DP, Szczepura <code>K</code>, et al. (2016) Effect of reconstruction methods 
      and x-ray tube current-time product  on nodule detection in an anthropomorphic 
      thorax phantom: a crossed-modality JAFROC observer study. Medical Physics. 
      43(3):1265-1274.</p>  

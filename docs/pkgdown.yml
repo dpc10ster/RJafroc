@@ -2,10 +2,10 @@ pandoc: 2.9.2
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
-  Ch00Vig1DataFormatRoc: Ch00Vig1DataFormatRoc.html
-  Ch00Vig2DataFormatFroc: Ch00Vig2DataFormatFroc.html
-  Ch00Vig3DataFormatRocSp: Ch00Vig3DataFormatRocSp.html
-  Ch00Vig4DataFormatFrocSp: Ch00Vig4DataFormatFrocSp.html
+  Ch00Vig1DataFormatRocFctrl: Ch00Vig1DataFormatRocFctrl.html
+  Ch00Vig2DataFormatFrocFctrl: Ch00Vig2DataFormatFrocFctrl.html
+  Ch00Vig3DataFormatRocSpA: Ch00Vig3DataFormatRocSpA.html
+  Ch00Vig4DataFormatFrocSpA: Ch00Vig4DataFormatFrocSpA.html
   Ch10Vig1QuickStartDBMH: Ch10Vig1QuickStartDBMH.html
   Ch10Vig2QuickStartDBMHExcel: Ch10Vig2QuickStartDBMHExcel.html
   Ch11Vig1SampleSize: Ch11Vig1SampleSize.html
@@ -23,5 +23,5 @@ articles:
   Ch20Vig5cbmPlots: Ch20Vig5cbmPlots.html
   Ch30Vig1RoiParadigm: Ch30Vig1RoiParadigm.html
   Ch30Vig2RoiParadigmSt: Ch30Vig2RoiParadigmSt.html
-last_built: 2020-08-10T00:57Z
+last_built: 2020-08-11T19:54Z
 
