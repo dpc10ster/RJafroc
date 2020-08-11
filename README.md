@@ -5,13 +5,16 @@ RJafroc
 [![codecov](https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg)](https://codecov.io/gh/dpc10ster/rjafroc)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rjafroc)](https://cran.r-project.org/package=rjafroc)
 
-# What is this repository for? #
+# What is this repository for?
 * This repository serves as the software companion to my book: **Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017**.
 * Full documentation (the updated book plus the software) **is currently under preparation** and will be posted to https://dpc10ster.github.io/RJafrocBook/
 * Software documentation (the functions used in the software, vignettes and the update history) is at https://dpc10ster.github.io/RJafroc/
 
+# What is the application of this package?
+* TBA
+
 # Relation to the Windows software
-* `RJafroc` extends and replaces Windows `JAFROC` software at http://www.devchakraborty.com.
+* `RJafroc` extends Windows `JAFROC` software at http://www.devchakraborty.com. That website is no longer maintained.
 * If you encounter difficulties with downloading the Windows software, try https://github.com/dpc10ster/WindowsJafroc.
 
 # Update History
@@ -23,12 +26,12 @@ RJafroc
 * The current tested version of the software is on the `master` branch.
 * The `developer` branch is for development/experimental work. 
 * The software documentation [website](https://dpc10ster.github.io/RJafroc) is pushed from the `master` branch.
-* `RJafroc` book has its own [GitHub repository](https://github.com/dpc10ster/RJafrocBook).
+* The `RJafroc` book has its own [GitHub repository](https://github.com/dpc10ster/RJafrocBook) which is currently under development.
 
 # Those already familiar with installing R packages from GitHub can ignore the following directions  
 
 # How do I get set up?
-Three options are given below, in increasing order of complexity. The first method downloads from CRAN, the second from GitHub and the third downloads all source files from GitHub and then installs the software. I recommend the first or second methods.
+Three options are given below, in increasing order of complexity. The first method downloads the package from CRAN, the second downloads the package from the `master` branch on `GitHub` and the third downloads all source files from the `master` branch on `GitHub` and then installs the software. I recommend the second method as the CRAN package is behind the `master` branch.
 
 ## 1. Install from CRAN
 * Install `R` and `RStudio`.
