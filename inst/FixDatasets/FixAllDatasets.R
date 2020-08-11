@@ -89,14 +89,14 @@ for (i in 1:length(df[,1])) {
                     IDs = x$lesionID,
                     weights = x$lesionWeight)
     
-    if (is.null(x$truthTableStr)) stop("check here")
-    if (length(x$truthTableStr) < 10) stop("check here")
+    if (is.null(x$descriptions$truthTableStr)) stop("check here")
+    if (length(x$descriptions$truthTableStr) < 10) stop("check here")
     
     descriptions <- list(binned = df[i,5],
                          fileName = df[i,1],
                          type = df[i,2],
                          name = df[i,4],
-                         truthTableStr = x$truthTableStr, # this is really needed here
+                         truthTableStr = x$descriptions$truthTableStr, # this is really needed here
                          design = df[i,3],
                          modalityID = x$modalityID,
                          readerID = x$readerID)
@@ -187,7 +187,7 @@ for (i in 1:length(df[,1])) {
                          fileName = df[i,1],
                          type = df[i,2],
                          name = df[i,4],
-                         truthTableStr = x$truthTableStr, # this is really needed here
+                         truthTableStr = x$descriptions$truthTableStr, # this is really needed here
                          design = df[i,3],
                          modalityID = x$modalityID,
                          readerID = x$readerID)

@@ -750,12 +750,10 @@
 #' Nico Karssemeijer LROC dataset (CAD vs. radiologists)
 #'
 #' This is the actual LROC data corresponding to \code{dataset09}, which was the inferred
-#' ROC data. Note that the \code{LL} field is split into two, \code{LLCl}, representing true 
-#' positives where the lesions were correctly localized, and \code{LLIl}, representing true 
+#' ROC data. Note that the \code{LL} field is split into two, \code{LL}, representing true 
+#' positives where the lesions were correctly localized, and \code{LL_IL}, representing true 
 #' positives where the lesions were incorrectly localized. The first reader is CAD
 #' and the remaining readers are radiologists. 
-#' ##
-#' ## The function TBA
 #' 
 #' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
 #'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}

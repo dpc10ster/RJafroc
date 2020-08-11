@@ -12,17 +12,17 @@ x <- DfReadDataFile(frocSp, newExcelFileFormat = TRUE)
 str(x)
 
 ## -----------------------------------------------------------------------------
-x$lesionVector
-x$lesionID
-x$lesionWeight
+x$lesions$perCase
+x$lesions$IDs
+x$lesions$weights
 
 ## -----------------------------------------------------------------------------
-x$NL[,1,1:9,1]
-x$NL[,2,1:9,1]
-x$NL[,3,1:9,1]
+x$ratings$NL[,1,1:9,1]
+x$ratings$NL[,2,1:9,1]
+x$ratings$NL[,3,1:9,1]
 
 ## -----------------------------------------------------------------------------
-x$LL[,1,1:15,1]
-x$LL[,2,1:15,1]
-x$LL[,3,1:15,1]
+x$ratings$LL[,1,1:15,1]
+x$ratings$LL[,2,1:15,1]
+x$ratings$LL[,3,1:15,1]
 

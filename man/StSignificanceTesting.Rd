@@ -18,9 +18,8 @@ StSignificanceTesting(
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-\bold{Must have two or more treatments and two or more readers. A split-plot-c
-dataset is allowed provided \code{method} = "OR" and \code{covEstMethod}
-= "Jackknife".}}
+Must have two or more treatments and two or more readers. The dataset design
+can be "FCTRL", "SPLIT-PLOT-A" or "SPLIT-PLOT-C".}
 
 \item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}}
 
@@ -30,7 +29,7 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.}
 \item{alpha}{The significance level of the test of the null hypothesis that all 
 treatment effects are zero; the default is 0.05}
 
-\item{method}{The significance testing method to be used. There are two choices: 
+\item{method}{The significance testing method to be used:
 \code{"DBM"} (the default) or \code{"OR"}, representing the Dorfman-Berbaum-Metz
 and the Obuchowski-Rockette significance testing methods, respectively.}
 
@@ -96,15 +95,13 @@ temporary flag, it will eventually be removed.}
 }
 \description{
 Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
-   significance testing (with Hillis' improvements), for specified dataset; 
+   significance testing, for specified dataset; 
    significance testing refers to analysis designed to assign a P-value, 
    and other statistics, for 
    rejecting the null hypothesis (NH) that the reader-averaged 
    figure of merit (FOM) differences between treatments is zero. The results of 
    the analysis are best visualized in the text or  
-   Excel-formatted files produced by \code{\link{UtilOutputReport}}. 
-
-## TBA
+   Excel-formatted files produced by \code{\link{UtilOutputReport}}.
 }
 \examples{
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBM") 

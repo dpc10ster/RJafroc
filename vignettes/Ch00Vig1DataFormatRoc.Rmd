@@ -68,19 +68,17 @@ str(x)
 * In the above code chunk flag `newExcelFileFormat` is set to `TRUE` as otherwise columns D - F in the `Truth` worksheet are ignored and the dataset is assumed to be crossed, with `dataType` automatically determined from the contents of the FP and TP worksheets. 
 * Flag `newExcelFileFormat = FALSE` is for compatibility with older JAFROC format Excel files, which did not have these columns in the `Truth` worksheet. Its usage is deprecated.
 * The dataset object `x` is a `list` variable with `r length(x)` members. 
-* The `x$NL` member, with dimension [2, 5, 8, 1], contains the ratings of normal cases. The extra values in the third dimension, filled with `NAs`, are needed for compatibility with FROC datasets.
-* The `x$LL`, with dimension [2, 5, 5, 1], contains the ratings of abnormal cases.
-* The `x$lesionVector` member is a vector with 5 ones representing the 5 diseased cases in the dataset. 
-* The `x$lesionID` member is an array with 5 ones.
-* The `x$lesionWeight` member is an array with 5 ones.
+* The `x$ratings$NL` member, with dimension [2, 5, 8, 1], contains the ratings of normal cases. The extra values in the third dimension, filled with `NAs`, are needed for compatibility with FROC datasets.
+* The `x$ratings$LL`, with dimension [2, 5, 5, 1], contains the ratings of abnormal cases.
+* The `x$lesions$perCase` member is a vector with 5 ones representing the 5 diseased cases in the dataset. 
+* The `x$lesions$IDs` member is an array with 5 ones.
+* The `x$lesions$weights` member is an array with 5 ones.
 * The `lesionVector`, `lesionID` and `lesionWeight` members are not used for ROC datasets. They are there for compatibility with FROC datasets.
 * The `dataType` member indicates that this is an `ROC` dataset. 
 * The `x$modalityID` member is a vector with two elements `"0"` and `"1"`, naming the two modalities. 
 * The `x$readerID` member is a vector with five elements  `"0"`, `"1"`, `"2"`, `"3"` and `"4"`, naming the five readers. 
 * The `x$design` member is `r x$design`; specifies the dataset design, which is "CROSSED".
-* The `x$normalCases` member lists the integer names of the normal cases, `r x$normalCases`. 
-* The `x$abnormalCases` member lists the integer names of the abnormal cases, `r x$abnormalCases`. 
-* The `x$truthTableStr` member quantifies the structure of the dataset, as explained in **Vignette #3**. **It is used in the `DfReadDataFile()` function to check for data entry errors.**
+* The `x$descriptions$truthTableStr` member quantifies the structure of the dataset, as explained in **Vignette #3**. **It is used in the `DfReadDataFile()` function to check for data entry errors.**
 
 ## The false positive (FP) ratings
 These are found in the `FP` or `NL` worksheet, see below.
@@ -105,25 +103,25 @@ These are found in the `TP` or `LL` worksheet, see below.
 * `TP_Rating`: the floating point ratings of diseased cases. Each row of this worksheet contains a rating corresponding to the values of `ReaderID`, `ModalityID`, `LesionID` and `CaseID` for that row.   
 
 ## Correspondence between `NL` member of dataset and the `FP` worksheet
-* The list member `x$NL` is an array with `dim = c(2,5,8,1)`. 
+* The list member `x$ratings$NL` is an array with `dim = c(2,5,8,1)`. 
     + The first dimension (2) comes from the number of modalities. 
     + The second dimension (5) comes from the number of readers. 
     + The third dimension (8) comes from the **total** number of cases. 
     + The fourth dimension is alway 1 for an ROC dataset. 
-* The value of `x$NL[1,5,2,1]`, i.e., `r x$NL[1,5,2,1]`, corresponds to row 15 of the FP table, i.e., to `ModalityID` = 0, `ReaderID` = 4 and `CaseID` = 2.
-* The value of `x$NL[2,3,2,1]`, i.e., `r x$NL[2,3,2,1]`, corresponds to row 24 of the FP table, i.e., to `ModalityID` 1, `ReaderID` 2 and `CaseID` 2.
-* All values for case index > 3 are `-Inf`. For example the value of `x$NL[2,3,4,1]` is `-Inf`. This is because there are only 3 non-diseased cases. The extra length is needed for compatibility with FROC datasets.
+* The value of `x$ratings$NL[1,5,2,1]`, i.e., `r x$ratings$NL[1,5,2,1]`, corresponds to row 15 of the FP table, i.e., to `ModalityID` = 0, `ReaderID` = 4 and `CaseID` = 2.
+* The value of `x$ratings$NL[2,3,2,1]`, i.e., `r x$ratings$NL[2,3,2,1]`, corresponds to row 24 of the FP table, i.e., to `ModalityID` 1, `ReaderID` 2 and `CaseID` 2.
+* All values for case index > 3 are `-Inf`. For example the value of `x$ratings$NL[2,3,4,1]` is `-Inf`. This is because there are only 3 non-diseased cases. The extra length is needed for compatibility with FROC datasets.
 
 ## Correspondence between `LL` member of dataset and the `TP` worksheet
-* The list member `x$LL` is an array with `dim = c(2,5,5,1)`. 
+* The list member `x$ratings$LL` is an array with `dim = c(2,5,5,1)`. 
     + The first dimension (2) comes from the number of modalities. 
     + The second dimension (5) comes from the number of readers. 
     + The third dimension (5) comes from the number of diseased cases. 
     + The fourth dimension is alway 1 for an ROC dataset. 
 
-* The value of `x$LL[1,1,5,1]`, i.e., `r x$LL[1,1,5,1]`, corresponds to row 6 of the TP table, i.e., to `ModalityID` = 0, `ReaderID` = 0 and `CaseID` = 74.
-* The value of `x$LL[1,2,2,1]`, i.e., `r x$LL[1,2,2,1]`, corresponds to row 8 of the TP table, i.e., to `ModalityID` = 0, `ReaderID` = 1 and `CaseID` = 71.
-* There are no -Inf values in `x$LL`: `any(x$LL == -Inf)` = `r any(x$LL == -Inf)`.
+* The value of `x$ratings$LL[1,1,5,1]`, i.e., `r x$ratings$LL[1,1,5,1]`, corresponds to row 6 of the TP table, i.e., to `ModalityID` = 0, `ReaderID` = 0 and `CaseID` = 74.
+* The value of `x$ratings$LL[1,2,2,1]`, i.e., `r x$ratings$LL[1,2,2,1]`, corresponds to row 8 of the TP table, i.e., to `ModalityID` = 0, `ReaderID` = 1 and `CaseID` = 71.
+* There are no -Inf values in `x$ratings$LL`: `any(x$ratings$LL == -Inf)` = `r any(x$ratings$LL == -Inf)`.
 
 ## Correspondence using the `which` function 
 * Converting from **names** to integer-indices (indicating position in an array) can be confusing. 
@@ -136,9 +134,9 @@ These are found in the `TP` or `LL` worksheet, see below.
 
 ```{r}
 which(x$abnormalCases == 70)
-x$NL[which(x$modalityID == "0"),which(x$readerID == "1"),which(x$normalCases == 1),1]
-x$LL[which(x$modalityID == "0"),which(x$readerID == "1"),which(x$abnormalCases == 70),1]
-x$LL[which(x$modalityID == "a"),which(x$readerID == "1"),which(x$abnormalCases == 70),1]
+x$ratings$NL[which(x$modalityID == "0"),which(x$readerID == "1"),which(x$normalCases == 1),1]
+x$ratings$LL[which(x$modalityID == "0"),which(x$readerID == "1"),which(x$abnormalCases == 70),1]
+x$ratings$LL[which(x$modalityID == "a"),which(x$readerID == "1"),which(x$abnormalCases == 70),1]
 ```             
 
 

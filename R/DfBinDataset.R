@@ -86,9 +86,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   if (opChType == "ROC") FOM <- "Wilcoxon" else if (opChType == "AFROC") 
     FOM <- "AFROC" else if (opChType == "wAFROC") FOM <- "wAFROC" 
   else if (opChType == "FROC") FOM <- "FROC" else stop("should not be here")
-  # desiredNumBins <- desiredNumBins + 1 # TBA why?
-  # } else stop("should not be here")
-  
+
   if (DEBUG) {
     fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = FOM))
     print(fomOrg)

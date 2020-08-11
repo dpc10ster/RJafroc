@@ -25,7 +25,7 @@ ORSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # 
   
   # Need to check presence of max in following formula
-  # TBA max() is not present in formulae, but cant hurt, in my opinion
+  # max() is not present in formulae, but cant hurt, in my opinion
   FRRC <- list()
   if (I > 1) {
     if (J > 1) {

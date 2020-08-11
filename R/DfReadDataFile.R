@@ -302,31 +302,6 @@ checkTruthTable <- function (truthTable)
     } else stop("incorrect study design")
   }
   
-  # if (type == "ROC") {
-  #   if (((design == "FCTRL") || (design == "CROSSED")) && (sum(!is.na(truthTableStr)) != 
-  #                                                          L*length(readerIDArray[,1])*length(trtArr[,1]))) 
-  #     stop("Dataset does not appear to be crossed/factorial ROC")
-  #   
-  #   # TBA SPLIT-PLOT-C EDITS
-  #   # if ((design == "SPLIT-PLOT-A") && (sum(!is.na(truthTableStr)) != L*length(trtArr[,1]))) 
-  #   #   stop("Dataset does not appear to be ROC split-plot-a")
-  #   
-  #   if ((design == "SPLIT-PLOT-C") && (sum(!is.na(truthTableStr)) != L*length(trtArr[,1]))) 
-  #     stop("Dataset does not appear to be ROC split-plot-c")
-  # }
-  
-  # if (type == "FROC") {
-  #   if (((design == "FCTRL") || (design == "CROSSED")) && (sum(!is.na(truthTableStr)) != 
-  #                                                          L*length(readerIDArray[,1])*length(trtArr[,1]))) 
-  #     stop("Dataset does not appear to be crossed FROC")
-  #   
-  #   if ((design == "SPLIT-PLOT-A") && (sum(!is.na(truthTableStr)) != L*length(trtArr[,1]))) 
-  #     stop("Dataset does not appear to be FROC split-plot-a")
-  #   
-  #   if ((design == "SPLIT-PLOT-C") && (sum(!is.na(truthTableStr)) != L*length(trtArr[,1]))) 
-  #     stop("Dataset does not appear to be FROC split-plot-c")
-  # }
-  
   perCase <- as.vector(table(caseIDCol[caseIDCol %in% abnormalCases]))
   weights <- array(dim = c(K2, max(perCase)))
   IDs <- array(dim = c(K2, max(perCase)))

@@ -60,24 +60,24 @@ str(x)
 * The dataset object `x` is a `list` variable with `r length(x)` members. 
 * Note that the `dataType` member is `r x$dataType` and the `design` member is `r x$design`. 
 * There are 15 diseased cases in the dataset (the number of 1's in the `LesionID` column of the `Truth` worksheet) and 9 non-diseased cases (the number of 0's in the `LesionID` column). 
-* The `x$lesionVector` member is a vector with 15 ones representing the 15 diseased cases in the dataset. 
-* The `x$lesionID` member is a 15 x 3 array labeling the lesions in the dataset.
-* The `x$lesionWeight` member is a 15 x 3 array.
+* The `x$lesions$perCase` member is a vector with 15 ones representing the 15 diseased cases in the dataset. 
+* The `x$lesions$IDs` member is a 15 x 3 array labeling the lesions in the dataset.
+* The `x$lesions$weights` member is a 15 x 3 array.
 
 ```{r}
-x$lesionVector
-x$lesionID
-x$lesionWeight
+x$lesions$perCase
+x$lesions$IDs
+x$lesions$weights
 ```             
 
-* The `x$truthTableStr` member is a `2 x 3 x 24 x 4` array, i.e., I x J x K x (maximum number of lesions per case plus 1). The `plus 1 ` is needed to accommodate normal cases with `lesionID` = 0. 
+* The `x$descriptions$truthTableStr` member is a `2 x 3 x 24 x 4` array, i.e., I x J x K x (maximum number of lesions per case plus 1). The `plus 1 ` is needed to accommodate normal cases with `lesionID` = 0. 
 * Each entry in this array is either `1`, meaning the corresponding interpretation exists, or `NA`,  meaning the corresponding interpretation does not exist. 
-* For example, `x$truthTableStr[1,1,1,1]` is `r x$truthTableStr[1,1,1,1]`. This means that an interpretation exists for the first treatment (`modalityID` = 0), first reader (`readerID` = 0) and first (normal) case `caseID` = 1 and `lesionID` = 0. This example corresponds to row 2 in the `TRUTH` worksheet.
-* `x$truthTableStr[1,1,4,1]` is `r x$truthTableStr[1,1,4,1]`, which means an interpretation does not exist for the first treatment, first reader and fourth (normal) case. 
-* However, `x$truthTableStr[1,2,4,1]` is `r x$truthTableStr[1,2,4,1]`, which means an interpretation does exist for the first treatment, second reader and fourth (normal) case. This example corresponds to row 5 in the `TRUTH` worksheet.
-* Likewise, `x$truthTableStr[1,1,10,3]` is `r x$truthTableStr[1,1,10,3]`, which means an interpretation does exist for the first treatment, first reader, tenth (abnormal) case and `lesionID` = 2. This example corresponds to row 12 in the `TRUTH` worksheet.
+* For example, `x$descriptions$truthTableStr[1,1,1,1]` is `r x$descriptions$truthTableStr[1,1,1,1]`. This means that an interpretation exists for the first treatment (`modalityID` = 0), first reader (`readerID` = 0) and first (normal) case `caseID` = 1 and `lesionID` = 0. This example corresponds to row 2 in the `TRUTH` worksheet.
+* `x$descriptions$truthTableStr[1,1,4,1]` is `r x$descriptions$truthTableStr[1,1,4,1]`, which means an interpretation does not exist for the first treatment, first reader and fourth (normal) case. 
+* However, `x$descriptions$truthTableStr[1,2,4,1]` is `r x$descriptions$truthTableStr[1,2,4,1]`, which means an interpretation does exist for the first treatment, second reader and fourth (normal) case. This example corresponds to row 5 in the `TRUTH` worksheet.
+* Likewise, `x$descriptions$truthTableStr[1,1,10,3]` is `r x$descriptions$truthTableStr[1,1,10,3]`, which means an interpretation does exist for the first treatment, first reader, tenth (abnormal) case and `lesionID` = 2. This example corresponds to row 12 in the `TRUTH` worksheet.
 * As an aside, in the FROC paradigm an interpretation need not yield a mark-rating pair. An interpretation means the reader was "exposed to" and had the opportunity to mark the corresponding treatment-reader-case-lesion combination.
-* The reader should confirm that the contents of `x$truthTableStr` summarizes the structure of the data in the `TRUTH` worksheet.
+* The reader should confirm that the contents of `x$descriptions$truthTableStr` summarizes the structure of the data in the `TRUTH` worksheet.
 
 
 ## The false positive (FP) ratings
@@ -93,15 +93,15 @@ These are found in the `FP` or `NL` worksheet, see below.
 
 
 ```{r}
-x$NL[,1,1:9,1]
-x$NL[,2,1:9,1]
-x$NL[,3,1:9,1]
+x$ratings$NL[,1,1:9,1]
+x$ratings$NL[,2,1:9,1]
+x$ratings$NL[,3,1:9,1]
 ```             
 
 * The first line of the above code shows the ratings, in both modalities, of the first three non-diseased cases with `CaseID`s `1,3,3` (indexed `r 1:3` and appearing in the first three columns) interpreted by the first reader (`ReaderID` `0`).
 * The second line shows the ratings, in both modalities, of the next three non-diseased cases with `CaseID`s `4,5,6` (indexed `r 4:6`and appearing in the next three columns) interpreted by the second reader (`ReaderID` `1`).
 * The third line shows the ratings, in both modalities, of the final three non-diseased cases with `CaseID`s `7,8,9` (indexed `r 7:9`and appearing in the final three columns) interpreted by the third reader (`ReaderID` `2`).
-* Values such as `x$NL[,,16:30,1]`, which are there for compatibility with FROC data, are all filled with `-Inf`.
+* Values such as `x$ratings$NL[,,16:30,1]`, which are there for compatibility with FROC data, are all filled with `-Inf`.
 
 ## The true positive (TP) ratings
 These are found in the `TP` or `LL` worksheet, see below.
@@ -117,9 +117,9 @@ These are found in the `TP` or `LL` worksheet, see below.
 
 
 ```{r}
-x$LL[,1,1:15,1]
-x$LL[,2,1:15,1]
-x$LL[,3,1:15,1]
+x$ratings$LL[,1,1:15,1]
+x$ratings$LL[,2,1:15,1]
+x$ratings$LL[,3,1:15,1]
 ```             
 
 * The first line of code shows the ratings, in both modalities, of the first five diseased cases with `CaseID`s `70,71,72,73,74` (indexed `r 1:5` and appearing in the first five columns) interpreted by the first reader (`ReaderID` `0`).

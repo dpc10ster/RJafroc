@@ -1,7 +1,7 @@
 #' Performs DBM or OR significance testing for factorial or split-plot A,C datasets
 #' 
 #' @description  Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
-#'    significance testing (with Hillis' improvements), for specified dataset; 
+#'    significance testing, for specified dataset; 
 #'    significance testing refers to analysis designed to assign a P-value, 
 #'    and other statistics, for 
 #'    rejecting the null hypothesis (NH) that the reader-averaged 
@@ -9,17 +9,15 @@
 #'    the analysis are best visualized in the text or  
 #'    Excel-formatted files produced by \code{\link{UtilOutputReport}}. 
 #'
-#' ## TBA 
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-#'     \bold{Must have two or more treatments and two or more readers. A split-plot-c
-#'     dataset is allowed provided \code{method} = "OR" and \code{covEstMethod}
-#'     = "Jackknife".} 
+#'     Must have two or more treatments and two or more readers. The dataset design
+#'     can be "FCTRL", "SPLIT-PLOT-A" or "SPLIT-PLOT-C". 
 #' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' @param alpha The significance level of the test of the null hypothesis that all 
 #'    treatment effects are zero; the default is 0.05
-#' @param method The significance testing method to be used. There are two choices: 
+#' @param method The significance testing method to be used:  
 #'    \code{"DBM"} (the default) or \code{"OR"}, representing the Dorfman-Berbaum-Metz
 #'    and the Obuchowski-Rockette significance testing methods, respectively. 
 #' @param covEstMethod The covariance matrix estimation method
@@ -137,16 +135,13 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
   
   if (length(dataset$descriptions$modalityID) < 2) {
     analysisOption <- "FRRC"
-    # TBA need to fix here
-    # ErrMsg <- paste0("This analysis requires at least 2 treatments",
-    #                  "\nUse StSignificanceTestingSingleFixedFactor() for single treatment analysis.")
-    # stop(ErrMsg)
+    ErrMsg <- paste0("This analysis requires at least 2 treatments")
+    stop(ErrMsg)
   }
   
   if ((length(dataset$ratings$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
     ErrMsg <- paste0("Must use analysisOption FRRC with 1-reader dataset")
     stop(ErrMsg)
-    # analysisOption <- "FRRC"
   }
   
   if (method == "DBM"){

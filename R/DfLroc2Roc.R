@@ -20,7 +20,7 @@
 #' 
 #' @export
 
-DfLroc2Roc <- function (dataset) #  TBA !!!in tests!!!
+DfLroc2Roc <- function (dataset)
 {
   if (dataset$descriptions$type != "LROC") stop("This function requires an LROC dataset.")
   

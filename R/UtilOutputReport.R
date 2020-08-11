@@ -79,7 +79,6 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
                              covEstMethod = "jackknife", nBoots = 200, 
                              sequentialNames = FALSE, overWrite = FALSE, analysisOption = "ALL") {
   
-  # why is this generating an error in Ch10Vig2? TBA
   if (!isValidDataset(dataset)) {
     stop("Must specify a valid dataset object.")
   }

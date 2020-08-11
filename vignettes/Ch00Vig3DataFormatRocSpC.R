@@ -6,44 +6,36 @@
   library(RJafroc)
 
 ## -----------------------------------------------------------------------------
-frocCr <- system.file("extdata", "toyFiles/FROC/frocCr.xlsx",
+rocSp <- system.file("extdata", "toyFiles/ROC/rocSpC.xlsx",
                         package = "RJafroc", mustWork = TRUE)
-x <- DfReadDataFile(frocCr, newExcelFileFormat = TRUE)
+x <- DfReadDataFile(rocSp, newExcelFileFormat = TRUE)
 str(x)
 
 ## -----------------------------------------------------------------------------
-x$lesions$IDs
+x$descriptions$truthTableStr[,1,1:15,1]
 
 ## -----------------------------------------------------------------------------
-x$lesions$weights
+x$descriptions$truthTableStr[,1,1:15,2]
 
 ## -----------------------------------------------------------------------------
-x <- dataset11
-str(x)
+x$descriptions$truthTableStr[,2,1:15,1]
 
 ## -----------------------------------------------------------------------------
-x$lesions$perCase
+x$descriptions$truthTableStr[,3,1:15,1]
 
 ## -----------------------------------------------------------------------------
-for (el in 1:max(x$lesions$perCase)) cat(
-  "abnormal cases with", el, "lesions = ", 
-  length(which(x$lesions$perCase == el)), "\n")
+x$descriptions$truthTableStr[,1,16:30,2]
 
 ## -----------------------------------------------------------------------------
-for (el in 1:max(x$lesions$perCase)) cat("fraction of abnormal cases with", el, "lesions = ", 
-                                              length(which(x$lesions$perCase == el))/length(x$ratings$LL[1,1,,1]), "\n")
+x$descriptions$truthTableStr[,1,16:30,1]
 
 ## -----------------------------------------------------------------------------
-lesDistr <- UtilLesionDistr(x)
-lesDistr
+x$ratings$NL[,1,1:15,1]
+x$ratings$NL[,2,1:15,1]
+x$ratings$NL[,3,1:15,1]
 
 ## -----------------------------------------------------------------------------
-sum(UtilLesionDistr(x)[,2])
-
-## -----------------------------------------------------------------------------
-lesWghtDistr <- UtilLesionWeightsDistr(x)
-cat("dim(lesDistr) =", dim(lesDistr),"\n")
-cat("dim(lesWghtDistr) =", dim(lesWghtDistr),"\n")
-cat("lesWghtDistr = \n\n")
-lesWghtDistr
+x$ratings$LL[,1,1:15,1]
+x$ratings$LL[,2,1:15,1]
+x$ratings$LL[,3,1:15,1]
 
