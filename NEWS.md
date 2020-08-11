@@ -1,11 +1,12 @@
 # RJafroc 1.3.2.9000
 
-## Need to update documentation
-* TBA
-* Needed to comment out examples in `DfSaveDataFile.R` as it creates  non-standard files in `doc` directory; this did not happen before the updates.
+## Updated package documentation and Ch00 Vignettes
+* Commented out examples in `DfSaveDataFile.R` as it creates  non-standard files in `doc` directory; this did not happen before the R update.
 * Also, the ggplot output structure appears to have changed; had to regenerate goodvalues in `test-PlotEmpiricalOperatingCharacteristics.R`.
 * Need to update documentation and DESCRIPTION.
 * Need to use artificial intelligence instead of CAD as this is the new thing.
+* Moved split-plot vignettes to Dropbox; cleaned up Ch00 vignettes - `RocFctrl`, `FrocFctrl`, `RocSpA` and `FrocSpA`
+* Moved description of other's data formats to Dropbox.
 
 
 ## Added stats to ORAnalysisSplitPlotA

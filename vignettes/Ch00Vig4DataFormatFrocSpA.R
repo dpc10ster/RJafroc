@@ -6,9 +6,9 @@
   library(RJafroc)
 
 ## -----------------------------------------------------------------------------
-rocSpA <- system.file("extdata", "toyFiles/ROC/rocSpA.xlsx",
+frocSpA <- system.file("extdata", "toyFiles/FROC/frocSpA.xlsx",
                         package = "RJafroc", mustWork = TRUE)
-x <- DfReadDataFile(rocSpA, newExcelFileFormat = TRUE)
+x <- DfReadDataFile(frocSpA, newExcelFileFormat = TRUE)
 str(x)
 
 ## -----------------------------------------------------------------------------
