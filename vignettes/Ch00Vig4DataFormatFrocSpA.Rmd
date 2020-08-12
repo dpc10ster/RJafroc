@@ -33,8 +33,9 @@ vignette: >
 * The `Truth` worksheet contains 6 columns: `CaseID`, `LesionID`, `Weight`, `ReaderID`, `ModalityID` and `Paradigm`. 
 * The first five columns contain *twice* as many rows as there are distinct cases in the dataset. The factor of two is coming from the two modalities.
 * The normal cases are numbered 6,7,8,9,10; the abnormal cases are numbered 16,17,18,19,20; i.e., `K1` = `K2` = 5 and `K` = 10. The number of rows of data is 2 * K = 20.
-* The `ReaderID` field for the first modality has *two values* `1, 2` since readers 1 and 2 interpret all cases in the first modality. The corresponding values for the second modality are '3, 4',
-* `ModalityID`: The first modality is labeled `4` aand the second is '2' . [`ReaderID`, the `ModalityID` are *text formatted labels*.] 
+* The `ReaderID` field for the first modality has *two values* `1, 2` since readers 1 and 2 interpret all cases in the first modality. The corresponding values for the second modality are '3, 4'.
+* `ModalityID`: The first modality is labeled `(4)` and the second is '(2)' . The parentheses follow standard statistical notation for nested factors. In the example readers '(1, 2)' are nested within treatment '(4)' and readers '(3, 4)' are nested within treatment '(2)'. The number of readers in each treatment can differ. At least two readers are needed in each treatment.
+* `ReaderID`, the `ModalityID` are *text formatted labels*. 
 * `Paradigm`: The contents of this field are `ROC` and `SPLIT-PLOT-A` (case insensitive). 
 
 ## The structure of the ROC split-plot-A dataset

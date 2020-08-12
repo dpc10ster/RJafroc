@@ -166,9 +166,11 @@
 <li>The <code>Truth</code> worksheet contains 6 columns: <code>CaseID</code>, <code>LesionID</code>, <code>Weight</code>, <code>ReaderID</code>, <code>ModalityID</code> and <code>Paradigm</code>.</li>
 <li>The first five columns contain <em>twice</em> as many rows as there are distinct cases in the dataset. The factor of two is coming from the two modalities.</li>
 <li>The normal cases are numbered 6,7,8,9,10; the abnormal cases are numbered 16,17,18,19,20; i.e., <code>K1</code> = <code>K2</code> = 5 and <code>K</code> = 10. The number of rows of data is 2 * K = 20.</li>
-<li>The <code>ReaderID</code> field for the first modality has <em>two values</em> <code>1, 2</code> since readers 1 and 2 interpret all cases in the first modality. The corresponding values for the second modality are ‘3, 4’,</li>
+<li>The <code>ReaderID</code> field for the first modality has <em>two values</em> <code>1, 2</code> since readers 1 and 2 interpret all cases in the first modality. The corresponding values for the second modality are ‘3, 4’.</li>
 <li>
-<code>ModalityID</code>: The first modality is labeled <code>4</code> aand the second is ‘2’ . [<code>ReaderID</code>, the <code>ModalityID</code> are <em>text formatted labels</em>.]</li>
+<code>ModalityID</code>: The first modality is labeled <code>(4)</code> and the second is ‘(2)’ . The parentheses follow standard statistical notation for nested factors. In the example readers ‘(1, 2)’ are nested within treatment ‘(4)’ and readers ‘(3, 4)’ are nested within treatment ‘(2)’. The number of readers in each treatment can differ. At least two readers are needed in each treatment.</li>
+<li>
+<code>ReaderID</code>, the <code>ModalityID</code> are <em>text formatted labels</em>.</li>
 <li>
 <code>Paradigm</code>: The contents of this field are <code>ROC</code> and <code>SPLIT-PLOT-A</code> (case insensitive).</li>
 </ul>
