@@ -1,5 +1,12 @@
 # RJafroc 1.3.2.9000
 
+## Added extensive comments in StORSummaryFRRC.R
+* Added extensive comments in StORSummaryFRRC.R on how I am calculating `CI` for individual treatments averaged over readers; 
+* The method was "reverse-engineered" from `inst/Iowa/VanDyke.txt`, as I cannot find a better reference for the equations used. 
+* This created debugging problems as break points did not work; added # at the *end* of each inserted commented line, 86-103; this seemed to solve problem; 
+* passes R CMD check
+
+
 ## Updated package documentation and Ch00 Vignettes
 * Commented out examples in `DfSaveDataFile.R` as it creates  non-standard files in `doc` directory; this did not happen before the R update.
 * Also, the ggplot output structure appears to have changed; had to regenerate goodvalues in `test-PlotEmpiricalOperatingCharacteristics.R`.

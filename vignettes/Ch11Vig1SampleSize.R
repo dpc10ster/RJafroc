@@ -36,7 +36,9 @@ myTab <- data.frame(ndf = rep(ndf, 4), ddf = rep(ddf, 4),
                     fCrit = rep(fCrit, 4), ncp = ncp, 
                     pFgtFCrit = pFgtFCrit)
 row.names(myTab) <- rowNames
-kable(myTab)
+myTab %>%
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
 
 ## ---- fig.show='hold', echo=FALSE---------------------------------------------
 ndf <- 2;ddf <- 100
@@ -68,7 +70,9 @@ temp <- data.frame(ndf = rep(ndf, 4), ddf = rep(ddf, 4),
                     pFgtFCrit = pFgtFCrit)
 row.names(temp) <- rowNames
 myTab <- rbind(myTab, temp)
-kable(myTab)
+myTab %>%
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
 
 ## ---- fig.show='hold', echo=FALSE---------------------------------------------
 ndf <- 1;ddf <- 100
@@ -100,5 +104,14 @@ temp <- data.frame(ndf = rep(ndf, 4), ddf = rep(ddf, 4),
                     pFgtFCrit = pFgtFCrit)
 row.names(temp) <- rowNames
 myTab <- rbind(myTab, temp)
-kable(myTab)
+myTab %>%
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+## ---- echo=FALSE--------------------------------------------------------------
+ndf <- c(1,2,5,10,12,15,20)
+myTab <- data.frame(ndf = ndf, ddf = rep(100, 7), fCrit = qf(1-alpha, ndf, 100))
+myTab %>%
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
 

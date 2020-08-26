@@ -2,7 +2,8 @@
 # this checks out for dataset02 and DfFroc2Roc(dataset04), i.e., VanDyke and FedRoc datasets
 # checked vs. OR-DBM MRMC 2.51 <beta> Build  20181028 </beta> output in inst/Iowa
 # 
-ORSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
+ORSummaryFRRC1 <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
+  stop("Not used")
   #   ===========================================================================
   #     *****    Analysis 2 (OR Analysis): Fixed Readers and Random Cases     *****
   #   ===========================================================================
@@ -32,7 +33,6 @@ ORSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
       msDen <- ANOVA$VarCom["Var","Estimates"] - ANOVA$VarCom["Cov1","Estimates"] + 
         (J - 1) * max(ANOVA$VarCom["Cov2","Estimates"] - ANOVA$VarCom["Cov3","Estimates"] ,0)
     }
-    # following has to handled explicitly as otherwise it will return NA
     else msDen <- ANOVA$VarCom["Var","Estimates"] - ANOVA$VarCom["Cov1","Estimates"]
     chisqVal <- (I-1)*ANOVA$TRanova["T","MS"]/msDen
     p <- 1 - pchisq(chisqVal, I - 1)
@@ -81,29 +81,27 @@ ORSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   ci <- data.frame()
   for (i in 1:I) {
     df[i] <- K - 1
-    # Following equation is out of OR-DBM MRMC 2.51 <beta> Build  20181028 </beta> #
-    # TBA Need a better reference #
-    # See for example, inst/Iowa/VanDyke.txt, lines 228-243; shown next: #
-    # RStudio debugger buggy when I have these comments, does not stop at break points #
-    # LINE 228    c) Single treatment AUC 95% confidence intervals #
-    # (Each analysis is based only on data for the specified treatment, i.e., on #
-    # the specific reader ANOVA of AUCs and error-variance and Cov2 estimates.) #
-    # 
-    # Treatment      AUC      Std Error   95% Confidence Interval #
-    # ----------  ----------  ----------  ------------------------- #
-    #   1  0.89703704  0.02428971  (0.84943008 , 0.94464399) #
-    #   2  0.94083736  0.01677632  (0.90795637 , 0.97371835) #
-    # 
-    # Treatment  Var(Error)     Cov2   #
-    # ----------  ----------  ---------- #
-    #   1  0.00101410  0.00048396 #
-    #   2  0.00059047  0.00020419 #
-    # 
-    #           StdErr = sqrt{1/r * [Var(error) + (r-1)*max(Cov2,0)]} #
-    # LINE 243: 95% CI: AUC +- z(.025) * StdErr #
-    # the Var_i and Cov2_i values check out for dataset02 #
+    # Last equations (StdErr and CI) are out of OR-DBM MRMC 2.51 <beta> Build  20181028 </beta>
+    # TBA Need a better reference 
+    # See for example, inst/Iowa/VanDyke.txt, lines 228-243; shown next:
+    #### LINE 228    c) Single treatment AUC 95% confidence intervals
+    #### (Each analysis is based only on data for the specified treatment, i.e., on
+    ####   the specific reader ANOVA of AUCs and error-variance and Cov2 estimates.)
+    #### 
+    #### Treatment      AUC      Std Error   95% Confidence Interval 
+    #### ----------  ----------  ----------  -------------------------
+    ####   1  0.89703704  0.02428971  (0.84943008 , 0.94464399)
+    ####   2  0.94083736  0.01677632  (0.90795637 , 0.97371835)
+    #### 
+    #### Treatment  Var(Error)     Cov2   
+    #### ----------  ----------  ----------
+    ####   1  0.00101410  0.00048396
+    ####   2  0.00059047  0.00020419
+    #### 
+    ####           StdErr = sqrt{1/r * [Var(error) + (r-1)*max(Cov2,0)]}
+    #### LINE 243: 95% CI: AUC +- z(.025) * StdErr
+    # the Var_i and Cov2_i values check out for dataset02 
     stdErr[i] <- sqrt((ANOVA$IndividualTrt[i,"varEachTrt"] + 
-                         # added max() function 8/25/20
                          (J-1)*max(ANOVA$IndividualTrt[i,"cov2EachTrt"],0))/J)
     CI[i, ] <- c(FOMs$trtMeans[i,1] + qnorm(alpha/2) * stdErr[i],
                  FOMs$trtMeans[i,1] + qnorm(1-alpha/2) * stdErr[i])
@@ -163,6 +161,5 @@ ORSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
     
     FRRC$IndividualRdrVarCov1 <- ANOVA$IndividualRdr[,3:4]
   }
-  
   return(FRRC) 
 }
