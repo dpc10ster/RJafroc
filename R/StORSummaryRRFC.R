@@ -6,7 +6,7 @@ ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # ===========================================================================
   #   *****    Analysis 3 (OR Analysis): Random Readers and Fixed Cases     *****
   # ===========================================================================
-      
+  
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
@@ -20,7 +20,7 @@ ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # not sure about what is going one here; I am proceeding on assumption that
   # the only difference is setting IndividualTrt["Cov2","VarCom"] = IndividualTrt["Cov3","VarCom"] = 0, and reusing code from crossed
   # analysis
-
+  
   # (Results apply to the population of readers but only for the cases used in
   #   this study)
   # 
@@ -37,8 +37,8 @@ ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # it is included here for completeness.
   # 
   # a) Test for H0: Treatments have the same AUC
-msDen <- ANOVA$TRanova["TR","MS"]
-  f <- ANOVA$TRanova["T","MS"]/msDen
+  den <- ANOVA$TRanova["TR","MS"]
+  f <- ANOVA$TRanova["T","MS"]/den
   ddf <- ((I - 1) * (J - 1))
   p <- 1 - pf(f, I - 1, ddf)
   RRFC <- list()
@@ -48,10 +48,10 @@ msDen <- ANOVA$TRanova["TR","MS"]
                             row.names = c("T","TR"), 
                             stringsAsFactors = FALSE)
   
-#   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
-#   for treatment AUC differences
-
-  stdErr <- sqrt(2 * msDen/J)
+  #   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
+  #   for treatment AUC differences
+  
+  stdErr <- sqrt(2 * den/J)
   tStat <- vector()
   PrGTt <- vector()
   CI <- array(dim = c(choose(I,2), 2))
@@ -70,33 +70,33 @@ msDen <- ANOVA$TRanova["TR","MS"]
                                CIUpper = CI[,2],
                                row.names = diffTRName, 
                                stringsAsFactors = FALSE)
-
+  
   # StdErr = sqrt[2/r * MS(T*R)]
   # DF = df[MS(T*R)] = (t-1)(r-1)
   # 95% CI: Difference +- t(.025;df) * StdErr
   # Note: If there are only 2 treatments, this is equivalent to a paired t-test applied
   # to the AUCs
   
-#   c) Single treatment AUC 95% confidence intervals
-# (Each analysis is based only on data for the specified treatment, 
-#   i.e. on the treatment-specfic reader ANOVA of AUCs
-  dfSingle <- array(dim = I)
-  msDenSingle <- array(dim = I)
-  stdErrSingle <- array(dim = I)
-  CISingle <- array(dim = c(I, 2))
+  #   c) Single treatment AUC 95% confidence intervals
+  # (Each analysis is based only on data for the specified treatment, 
+  #   i.e. on the treatment-specific reader ANOVA of AUCs
+  dfSingle_i <- array(dim = I)
+  msDenSingle_i <- array(dim = I)
+  stdErrSingle_i <- array(dim = I)
+  CISingle_i <- array(dim = c(I, 2))
   for (i in 1:I) {
-    msDenSingle[i] <- ANOVA$IndividualTrt[i, "msREachTrt"]
-    dfSingle[i] <- (J - 1)
-    stdErrSingle[i] <- sqrt(msDenSingle[i]/J)
-    CISingle[i, ] <- sort(c(trtMeans[i,1] - 
-                                  qt(alpha/2, dfSingle[i]) * stdErrSingle[i], trtMeans[i,1] + 
-                                  qt(alpha/2, dfSingle[i]) * stdErrSingle[i]))
+    msDenSingle_i[i] <- ANOVA$IndividualTrt[i, "msREachTrt"]
+    dfSingle_i[i] <- (J - 1)
+    stdErrSingle_i[i] <- sqrt(msDenSingle_i[i]/J)
+    CISingle_i[i, ] <- sort(c(trtMeans[i,1] - 
+                                qt(alpha/2, dfSingle_i[i]) * stdErrSingle_i[i], trtMeans[i,1] + 
+                                qt(alpha/2, dfSingle_i[i]) * stdErrSingle_i[i]))
   }
   RRFC$ciAvgRdrEachTrt <- data.frame(Estimate = trtMeans, 
-                                     StdErr = as.vector(stdErrSingle), 
-                                     DF = as.vector(dfSingle), 
-                                     CILower = CISingle[,1], 
-                                     CIUpper = CISingle[,2], 
+                                     StdErr = as.vector(stdErrSingle_i), 
+                                     DF = as.vector(dfSingle_i), 
+                                     CILower = CISingle_i[,1], 
+                                     CIUpper = CISingle_i[,2], 
                                      row.names = paste0("Trt", modalityID), 
                                      stringsAsFactors = FALSE)
   
