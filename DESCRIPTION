@@ -18,6 +18,7 @@ Imports:
     mvtnorm,
     numDeriv,
     openxlsx,
+    readxl,
     Rcpp,
     stats,
     stringr,

@@ -1,19 +1,20 @@
 ReadJAFROCNewFormat <- function(fileName, sequentialNames) 
 {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  wb <- loadWorkbook(fileName)
-  temp <- sort(toupper(names(wb)))
+  # wb <- loadWorkbook(fileName) # openxlsx
+  wb <- excel_sheets(fileName)   # readxl
+  temp <- sort(toupper(wb))
   if (!(temp[1] %in% c("FP", "NL"))) stop("FP or NL sheet not found\n")
   if (!(temp[2] %in% c("TP", "LL"))) stop("TP or LL sheet not found\n")
   if (!(temp[3] %in% c("TRUTH"))) stop("Truth sheet not found\n")
-  sheetNames <- toupper(names(wb)) 
+  sheetNames <- toupper(wb) 
   
   ########################## CHECK TRUTH TABLE ##############################
   # find the position of the TRUTH worksheet
   # this way it does not matter where it is, i.e., 1st, 2nd or 3rd tab position in the workbook
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (length(truthFileIndex) == 0) stop("TRUTH table worksheet cannot be found in the Excel file.")
-  truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:6)
+  truthTable <- data.frame( read_xlsx(fileName, truthFileIndex, range = cell_cols(1:6) ) )
   if (length(truthTable) != 6) stop("Old Excel format file encountered; cannot use newExcelFileFormat = TRUE")
   cTT <- checkTruthTable(truthTable) # cTT = checkTruthTable
   
@@ -38,7 +39,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   ########################### CHECK NL TABLE ################################
   nlFileIndex <- which(!is.na(match(sheetNames, c("FP", "NL"))))
   if (length(nlFileIndex) == 0) stop("FP/NL table worksheet cannot be found in the Excel file.")
-  NLTable <- read.xlsx(fileName, nlFileIndex, cols = 1:4)
+  NLTable <- data.frame(read_xlsx(fileName, nlFileIndex, range=cell_cols(1:4)))
   
   # grep "^\\s*$" matches blank lines; see learnGrep in desktop
   # grep("^\\s*$", "") = 1
@@ -79,7 +80,7 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   ########################### CHECK LL TABLE ################################
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (length(llFileIndex) == 0) stop("TP/LL table worksheet cannot be found in the Excel file.")
-  LLTable <- read.xlsx(fileName, llFileIndex, cols = 1:5)
+  LLTable <- data.frame(read_xlsx(fileName, llFileIndex, range = cell_cols(1:5) ))
   
   for (i in 1:5){
     LLTable[grep("^\\s*$", LLTable[ , i]), i] <- NA
