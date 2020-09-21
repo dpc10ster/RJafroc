@@ -30,7 +30,8 @@
 #' ##    fileName = "dataset05.imrmc", format = "iMRMC", 
 #' ##    dataDescription = "ExampleROCdata3") 
 #' }
-#'  
+#'
+#' @import openxlsx  
 #' @importFrom tools file_ext
 #' 
 #' @export
