@@ -40,19 +40,20 @@
 #' \url{https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 #' 
 #' 
-#' @import openxlsx
+#' @import readxl
 #' @export
 DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  wb <- loadWorkbook(fileName)
-  sheetNames <- toupper(names(wb))
+  #wb <- loadWorkbook(fileName) # openxlsx
+  wb <- excel_sheets(fileName)
+  sheetNames <- toupper(wb)
   
   # DfReadCrossedModalities FCTRL-X-MOD in truth worksheet
   # 
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (truthFileIndex == 0) 
     stop("TRUTH table cannot be found in the dataset.")
-  truthTable <- read.xlsx(fileName, truthFileIndex, cols = 1:3)
+  truthTable <- data.frame(read_xlsx(fileName, truthFileIndex, range = cell_cols(1:3) ) )
   
   for (i in 1:3){
     truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
@@ -100,7 +101,7 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   if (nlFileIndex == 0) 
     stop("FP/NL table cannot be found in the dataset.")
 
-  NLTable <- read.xlsx(fileName, nlFileIndex, cols = 1:5)
+  NLTable <- data.frame( read_xlsx(fileName, nlFileIndex, range = cell_cols(1:5) ) )
   
   for (i in 1:5){
     NLTable[grep("^\\s*$", NLTable[ , i]), i] <- NA
@@ -137,7 +138,7 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (llFileIndex == 0) 
     stop("TP/LL table cannot be found in the dataset.")
-  LLTable <- read.xlsx(fileName, llFileIndex, cols = 1:6)
+  LLTable <- data.frame(read_xlsx(fileName, llFileIndex, range = cell_cols(1:6) ) )
   
   for (i in 1:6){
     LLTable[grep("^\\s*$", LLTable[ , i]), i] <- NA
