@@ -19,6 +19,7 @@ Imports:
     numDeriv,
     openxlsx,
     readxl,
+    writexl,
     Rcpp,
     stats,
     stringr,

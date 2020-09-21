@@ -31,7 +31,7 @@
 #' ##    dataDescription = "ExampleROCdata3") 
 #' }
 #'
-#' @import openxlsx  
+#' @import writexl  
 #' @importFrom tools file_ext
 #' 
 #' @export
@@ -97,10 +97,10 @@ SaveJAFROC <- function(dataset, fileName) {
   }
   
   # overall changes needed for openxlsx package
-  wb <- createWorkbook()
-  addWorksheet(wb, "TP")
-  addWorksheet(wb, "FP")
-  addWorksheet(wb, "TRUTH")
+  # wb <- createWorkbook()
+  # addWorksheet(wb, "TP")
+  # addWorksheet(wb, "FP")
+  # addWorksheet(wb, "TRUTH")
   # end overall changes needed for openxlsx package
   
   caseIDs <- c(1:K1, rep(K1 + 1:K2, lesionVector))
@@ -112,7 +112,8 @@ SaveJAFROC <- function(dataset, fileName) {
   lesionWeights <- c(rep(0, K1), lesionWeights)
   dataSheet <- data.frame(CaseID = as.integer(caseIDs), LesionID = as.integer(lesionIDs), Weight = lesionWeights)
   
-  writeData(wb, sheet = "TRUTH", x = dataSheet)
+  truth_sheet <- dataSheet   # write sheets at the end
+  # writeData(wb, sheet = "TRUTH", x = dataSheet) # openxlsx
   
   dataSheet <- NULL
   for (i in 1:I) {
@@ -127,7 +128,9 @@ SaveJAFROC <- function(dataset, fileName) {
     }
   }
   dataSheet <- data.frame(ReaderID = readerID[dataSheet[, 1]], ModalityID = modalityID[dataSheet[, 2]], CaseID = as.integer(dataSheet[, 3]), NL_Rating = signif(dataSheet[, 4], 6))
-  writeData(wb, sheet = "FP", x = dataSheet)
+  
+  fp_sheet <- dataSheet   # write sheets at the end
+  #writeData(wb, sheet = "FP", x = dataSheet)  # openxlsx
   
   dataSheet <- NULL
   for (i in 1:I) {
@@ -142,8 +145,11 @@ SaveJAFROC <- function(dataset, fileName) {
     }
   }
   dataSheet <- data.frame(ReaderID = readerID[dataSheet[, 1]], ModalityID = modalityID[dataSheet[, 2]], CaseID = as.integer(dataSheet[, 3]), LesionID = as.integer(dataSheet[, 4]), LL_Rating = signif(dataSheet[, 5], 6))
-  writeData(wb, sheet = "TP", x = dataSheet) # openxlsx
-  saveWorkbook(wb, fileName, overwrite = TRUE)
+  tp_sheet <- dataSheet
+
+  #writeData(wb, sheet = "TP", x = dataSheet)   # openxlsx
+  #saveWorkbook(wb, fileName, overwrite = TRUE) # openxlsx
+  write_xlsx(list("TP"=tp_sheet,"FP"=fp_sheet,"TRUTH"=truth_sheet), path=fileName) # writexl
 } 
 
 

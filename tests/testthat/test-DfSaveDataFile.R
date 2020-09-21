@@ -11,8 +11,8 @@ test_that(contextStr, {
   fn1 <- paste0(test_path(), "/goodValues361/DfSaveDataFile/myTemp.xlsx")
   DfSaveDataFile(dataset05, fileName = fn1, format = "JAFROC")
   for (i in 1:3) { # there are 3 worksheets in Excel file
-    dfGood <- readWorkbook(fn, i) # check each sheet individually
-    dfCurrent <- readWorkbook(fn1, i)    # do:
+    dfGood <- read_xlsx(fn, i) # check each sheet individually
+    dfCurrent <- read_xlsx(fn1, i)    # do:
     expect_equivalent(dfGood, dfCurrent)# works!
   }
   unlink(fn1)
@@ -35,8 +35,8 @@ test_that(contextStr, {
   fn1 <- paste0(test_path(), "/goodValues361/DfSaveDataFile/DfSaveDataFile-roi1.xlsx")
   DfSaveDataFile(datasetROI, fileName = fn1, format = "JAFROC")
   for (i in 1:3) { # there are 3 worksheets in Excel file
-    dfGood <- readWorkbook(fn, i) # check each sheet individually
-    dfCurrent <- readWorkbook(fn1, i)    # do:
+    dfGood <- read_xlsx(fn, i) # check each sheet individually
+    dfCurrent <- read_xlsx(fn1, i)    # do:
     expect_equivalent(dfGood, dfCurrent)# works!
   }
   unlink(fn1)
