@@ -8,6 +8,9 @@ files.monitored-path=""
 find-in-files-state="{\"handle\":\"0db1ddd8ca90460db0e98946057ccbd5\",\"input\":\"createWorkbook\",\"path\":\"~/GitHub/RJafroc\",\"regex\":false,\"ignoreCase\":true,\"results\":{\"file\":[\"~/GitHub/RJafroc/R/DfSaveDataFile.R\",\"~/GitHub/RJafroc/R/UtilOutputReportExcelFileORH.R\",\"~/GitHub/RJafroc/R/UtilOutputReportExcelFileDBMH.R\"],\"line\":[100,20,20],\"lineValue\":[\"wb <- createWorkbook()\",\"wb <- createWorkbook()\",\"wb <- createWorkbook()\"],\"matchOn\":[[6],[6],[6]],\"matchOff\":[[20],[20],[20]],\"replaceMatchOn\":[[],[],[]],\"replaceMatchOff\":[[],[],[]]},\"running\":false,\"replace\":false,\"preview\":false,\"gitFlag\":false,\"replacePattern\":\"\"}"
 =======
 find-in-files-state="{\"handle\":\"\",\"input\":\"\",\"path\":\"\",\"regex\":false,\"ignoreCase\":false,\"results\":{\"file\":[],\"line\":[],\"lineValue\":[],\"matchOn\":[],\"matchOff\":[],\"replaceMatchOn\":[],\"replaceMatchOff\":[]},\"running\":false,\"replace\":false,\"preview\":false,\"gitFlag\":false,\"replacePattern\":\"\"}"
+<<<<<<< HEAD
+>>>>>>> parent of 6a3c7a2... Commented StORSummaryRRFC and RRRC
+=======
 >>>>>>> parent of 6a3c7a2... Commented StORSummaryRRFC and RRRC
 imageDirtyState="1"
 saveActionState="0"
