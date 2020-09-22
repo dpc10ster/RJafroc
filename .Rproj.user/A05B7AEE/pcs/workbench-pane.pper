@@ -1,5 +1,9 @@
 {
     "TabSet1": 3,
+<<<<<<< HEAD
     "TabSet2": 3,
+=======
+    "TabSet2": 0,
+>>>>>>> parent of 6a3c7a2... Commented StORSummaryRRFC and RRRC
     "TabZoom": {}
 }
