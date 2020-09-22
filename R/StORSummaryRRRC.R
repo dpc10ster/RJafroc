@@ -20,13 +20,13 @@ ORSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   VarCom <- ANOVA$VarCom
   
   # a) Test for H0: Treatments have the same AUC
-  den <- TRanova["TR","MS"] + J * max(VarCom["Cov2",1] - VarCom["Cov3",1], 0)
-  f <- TRanova["T","MS"]/den
-  ddf <- den^2/((TRanova["TR","MS"])^2/((I - 1) * (J - 1)))
+  msDen <- TRanova["TR","MS"] + max(J * (VarCom["Cov2",1] - VarCom["Cov3",1]), 0)
+  f <- TRanova["T","MS"]/msDen
+  ddf <- msDen^2/((TRanova["TR","MS"])^2/((I - 1) * (J - 1)))
   p <- 1 - pf(f, I - 1, ddf)
   RRRC <- list()
   RRRC$FTests <- data.frame(DF = c((I-1),ddf),
-                            MS = c(TRanova["T", "MS"], den),
+                            MS = c(TRanova["T", "MS"], msDen),
                             FStat = c(f,NA),
                             p = c(p,NA),
                             row.names = c("Treatment", "Error"),
@@ -40,7 +40,7 @@ ORSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   
   #   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
   #   for treatment AUC differences
-  stdErr <- sqrt((2/J) * den)
+  stdErr <- sqrt(2 * msDen/J)
   tStat <- vector()
   PrGTt <- vector()
   CI <- array(dim = c(length(trtMeanDiffs[,1]), 2))
@@ -72,22 +72,22 @@ ORSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   #   c) Single-treatment 95% confidence intervals
   # (Each analysis is based only on data for the specified treatment, i.e., 
   #   on the treatment-specific reader ANOVA of AUCs and Cov2 estimates.)
-  df_i <- array(dim = I)
-  den_i <- array(dim = I)
-  stdErr_i <- array(dim = I)
+  df <- array(dim = I)
+  msDenSingle <- array(dim = I)
+  stdErr <- array(dim = I)
   CI <- array(dim = c(I, 2))
   ci <- data.frame()
   for (i in 1:I) {
     # Hillis 2007 5.3. Single test inference using only corresponding data
-    den_i[i] <- ANOVA$IndividualTrt[i, "msREachTrt"] + J * max(ANOVA$IndividualTrt[i, "cov2EachTrt"], 0)
-    df_i[i] <- (den_i[i])^2/(ANOVA$IndividualTrt[i, "msREachTrt"])^2 * (J - 1)
-    stdErr_i[i] <- sqrt(den_i[i]/J) # Eqn. 25
-    CI[i,] <- c(trtMeans[i,1] + qt(alpha/2, df_i[i]) * stdErr_i[i], 
-                trtMeans[i,1] + qt(1-alpha/2, df_i[i]) * stdErr_i[i]) # Eqn. 25
+    msDenSingle[i] <- ANOVA$IndividualTrt[i, "msREachTrt"] + max(J * ANOVA$IndividualTrt[i, "cov2EachTrt"], 0)
+    df[i] <- (msDenSingle[i])^2/(ANOVA$IndividualTrt[i, "msREachTrt"])^2 * (J - 1)
+    stdErr[i] <- sqrt(msDenSingle[i]/J) # Eqn. 25
+    CI[i,] <- c(trtMeans[i,1] + qt(alpha/2, df[i]) * stdErr[i], 
+                trtMeans[i,1] + qt(1-alpha/2, df[i]) * stdErr[i]) # Eqn. 25
     rowName <- paste0("trt", modalityID[i])
     ci <- rbind(ci, data.frame(Estimate = trtMeans[i,1], 
-                               StdErr = stdErr_i[i],
-                               DF = df_i[i],
+                               StdErr = stdErr[i],
+                               DF = df[i],
                                CILower = CI[i,1],
                                CIUpper = CI[i,2],
                                Cov2 = ANOVA$IndividualTrt[i,"cov2EachTrt"],
