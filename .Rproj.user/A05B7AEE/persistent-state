@@ -9,6 +9,9 @@ find-in-files-state="{\"handle\":\"0db1ddd8ca90460db0e98946057ccbd5\",\"input\":
 =======
 find-in-files-state="{\"handle\":\"\",\"input\":\"\",\"path\":\"\",\"regex\":false,\"ignoreCase\":false,\"results\":{\"file\":[],\"line\":[],\"lineValue\":[],\"matchOn\":[],\"matchOff\":[],\"replaceMatchOn\":[],\"replaceMatchOff\":[]},\"running\":false,\"replace\":false,\"preview\":false,\"gitFlag\":false,\"replacePattern\":\"\"}"
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 6a3c7a2... Commented StORSummaryRRFC and RRRC
+=======
 >>>>>>> parent of 6a3c7a2... Commented StORSummaryRRFC and RRRC
 =======
 >>>>>>> parent of 6a3c7a2... Commented StORSummaryRRFC and RRRC
