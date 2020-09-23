@@ -6,7 +6,7 @@ ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # ===========================================================================
   #   *****    Analysis 3 (OR Analysis): Random Readers and Fixed Cases     *****
   # ===========================================================================
-      
+  
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   I <- length(modalityID)
@@ -20,7 +20,7 @@ ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # not sure about what is going one here; I am proceeding on assumption that
   # the only difference is setting IndividualTrt["Cov2","VarCom"] = IndividualTrt["Cov3","VarCom"] = 0, and reusing code from crossed
   # analysis
-
+  
   # (Results apply to the population of readers but only for the cases used in
   #   this study)
   # 
@@ -37,7 +37,7 @@ ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # it is included here for completeness.
   # 
   # a) Test for H0: Treatments have the same AUC
-msDen <- ANOVA$TRanova["TR","MS"]
+  msDen <- ANOVA$TRanova["TR","MS"]
   f <- ANOVA$TRanova["T","MS"]/msDen
   ddf <- ((I - 1) * (J - 1))
   p <- 1 - pf(f, I - 1, ddf)
@@ -48,9 +48,9 @@ msDen <- ANOVA$TRanova["TR","MS"]
                             row.names = c("T","TR"), 
                             stringsAsFactors = FALSE)
   
-#   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
-#   for treatment AUC differences
-
+  #   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
+  #   for treatment AUC differences
+  
   stdErr <- sqrt(2 * msDen/J)
   tStat <- vector()
   PrGTt <- vector()
@@ -70,16 +70,16 @@ msDen <- ANOVA$TRanova["TR","MS"]
                                CIUpper = CI[,2],
                                row.names = diffTRName, 
                                stringsAsFactors = FALSE)
-
+  
   # StdErr = sqrt[2/r * MS(T*R)]
   # DF = df[MS(T*R)] = (t-1)(r-1)
   # 95% CI: Difference +- t(.025;df) * StdErr
   # Note: If there are only 2 treatments, this is equivalent to a paired t-test applied
   # to the AUCs
   
-#   c) Single treatment AUC 95% confidence intervals
-# (Each analysis is based only on data for the specified treatment, 
-#   i.e. on the treatment-specfic reader ANOVA of AUCs
+  #   c) Single treatment AUC 95% confidence intervals
+  # (Each analysis is based only on data for the specified treatment, 
+  #   i.e. on the treatment-specfic reader ANOVA of AUCs
   dfSingle <- array(dim = I)
   msDenSingle <- array(dim = I)
   stdErrSingle <- array(dim = I)
@@ -89,8 +89,8 @@ msDen <- ANOVA$TRanova["TR","MS"]
     dfSingle[i] <- (J - 1)
     stdErrSingle[i] <- sqrt(msDenSingle[i]/J)
     CISingle[i, ] <- sort(c(trtMeans[i,1] - 
-                                  qt(alpha/2, dfSingle[i]) * stdErrSingle[i], trtMeans[i,1] + 
-                                  qt(alpha/2, dfSingle[i]) * stdErrSingle[i]))
+                              qt(alpha/2, dfSingle[i]) * stdErrSingle[i], trtMeans[i,1] + 
+                              qt(alpha/2, dfSingle[i]) * stdErrSingle[i]))
   }
   RRFC$ciAvgRdrEachTrt <- data.frame(Estimate = trtMeans, 
                                      StdErr = as.vector(stdErrSingle), 
