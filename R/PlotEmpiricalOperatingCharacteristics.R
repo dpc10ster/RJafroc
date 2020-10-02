@@ -119,10 +119,10 @@ PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, o
 gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2Plot, readers2Plot, opChType, legend.position, maxDiscrete) 
 { 
   
-  # genAbscissa <- NULL
-  # genOrdinate <- NULL
-  # Reader <- NULL
-  # Modality <- NULL
+  genAbscissa <- NULL
+  genOrdinate <- NULL
+  Reader <- NULL
+  Modality <- NULL
   # handle operating points
   if (!is.list(treatments2Plot) && !is.list(readers2Plot)) {
     # first handle no list arguments; gen stands for generic
