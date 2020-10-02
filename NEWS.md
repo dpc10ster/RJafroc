@@ -1,5 +1,19 @@
 # RJafroc 1.3.2.9000
 
+## Simplified plotting routines
+* Finished October 2, 2020.
+* Necessitated by work on CAD vs. RAD plots in `RJafrocBook`.
+* `PlotEmpiricalOperatingCharacteristics.R`.
+* Especially function `gpfPlotGenericEmpiricalOperatingCharacteristic`.
+* The revisions are tested via `R` files in `inst/fixPlots`.
+* I am following the help page of `ggplot2` 
+* Did away with `with` function usage in this function: hard to tell what is going on and the help page on this function seems to discourage this type of usage in packages
+* But, get silly NOTE about undefined global variables: `genAbscissa`, `genOrdinate`, `Reader`, `Modality`.
+* These are members of a dataframe, so I dont see why they are visible at global level.
+* Does not happen with the other dataframes in this packages.
+* So I assume it is a `ggplot2` related issue.
+* I solved it by initializing these at the very beginning of the `gpfPlotGenericEmpiricalOperatingCharacteristic` function to `NULL`s.
+
 ## Added extensive comments in StORSummaryFRRC.R
 * Added extensive comments in StORSummaryFRRC.R on how I am calculating `CI` for individual treatments averaged over readers; 
 * The method was "reverse-engineered" from `inst/Iowa/VanDyke.txt`, as I cannot find a better reference for the equations used. 
