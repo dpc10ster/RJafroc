@@ -14,6 +14,10 @@
 #'    \code{"AFROC1"}, \code{"wAFROC1"}, or \code{"LROC"}.
 #' @param legend.position Where to position the legend. The default is c(0.8, 0.2), 
 #'    i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).
+#' @param maxDiscrete maximum number of op. points in order to be considered 
+#'    discrete and to be displayed by symbols and connecting lines; 
+#'    any more points will be regarded as continuous and only connected by lines; 
+#'    default is 10.    
 #' 
 #' @details The \code{trts} and \code{rdrs} are vectors or lists of \strong{integer}  
 #'    indices, not the corresponding \strong{string} IDs. For example, if the string 
@@ -40,9 +44,10 @@
 #' points and connecting lines are shown. To avoid clutter, if there are more than 20 
 #' operating points, they are not shown.}
 #' 
-#' @return \item{Points}{Data frame with four columns: abscissa, ordinate, class (which 
-#' codes modality and reader) and type, which can be \code{"individual"}, 
-#' \code{"continuous"}, i.e., more than 20 operating points, or \code{"rdrAveraged"}.}
+#' @return \item{Points}{Data frame with four columns: abscissa, ordinate, 
+#' \code{class} (which codes modality and reader names) and \code{type}, which 
+#' can be \code{"D"} for discrete ratings, \code{"C"} for continuous ratings, 
+#' i.e., more than 20 operating points, or \code{"A"}, for reader averaged.}
 #' 
 #' 
 #' @examples
@@ -55,56 +60,35 @@
 #' ## print(ret$Plot)
 #' 
 #' ## Example 2
-#' ## Empirical ROC, FROC, AFROC and wAFROC plots. Each plot consists of
-#' ## three sub-plots (see Example 3 for correspondences between indices and  
-#' ## string identifiers for modalities and readers):
-#' ## (1) sub-plot, with operating points, for the 1st modality (string ID "1") and the 2nd 
-#' ## reader (string ID "3"), labeled M:1 R:3 
-#' ## (2) sub-plot, no operating points, for the 2nd modality (string ID "2") AVERAGED 
-#' ## over the 2nd and 3rd readers (string IDs "3" and "4"), labeled M:2  R: 3 4 
-#' ## (3) sub-plot, no operating points, AVERAGED over the first two modalities 
+#' ## Empirical wAFROC plots, consisting of
+#' ## three sub-plots:
+#' ## (1) sub-plot, red, with operating points, for the 1st modality (string ID "1") and the 2nd 
+#' ## reader (string ID "3"), labeled "M:1 R:3" 
+#' ## (2) sub-plot, green, no operating points, for the 2nd modality (string ID "2") AVERAGED 
+#' ## over the 2nd and 3rd readers (string IDs "3" and "4"), labeled "M:2  R: 3 4" 
+#' ## (3) sub-plot, blue, no operating points, AVERAGED over the first two modalities 
 #' ## (string IDs "1" and "2") AND over the 1st, 2nd and 3rd readers 
-#' ## (string IDs "1", "3" and "4"), labeled M: 1 2  R: 1  3 4 
+#' ## (string IDs "1", "3" and "4"), labeled "M: 1 2  R: 1  3 4" 
 #' 
 #' plotT <- list(1, 2, c(1:2))
 #' plotR <- list(2, c(2:3), c(1:3))
-#' ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, 
-#'    trts = plotT, rdrs = plotR, opChType = "ROC")
-#' ## print(ret$Plot)
-#' 
-#' ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
-#'    rdrs = plotR, opChType = "FROC")               
-#' ## print(ret$Plot)
-#' 
-#' ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
-#'    rdrs = plotR, opChType = "AFROC")
-#' ## print(ret$Plot)
 #' 
 #' ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
 #'    rdrs = plotR, opChType = "wAFROC")                  
 #' ## print(ret$Plot)
 #' 
-#' ##Example 3
+#' ## Example 3
 #' ## Correspondences between indices and string identifiers for modalities and 
-#' ## readers in this dataset. Apparently reader "2" did not complete the study.
+#' ## readers in this dataset (apparently reader "2" did not complete the study).
 #' 
-#' str(dataset04)
+#' ## names(dataset04$descriptions$readerID)
+#' ## [1] "1" "3" "4" "5"
 #' 
-#' ## List of 8
-#' ## NL          : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
-#' ## LL          : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...
-#' ## $ lesionVector   : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...
-#' ## $ lesionID    : num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
-#' ## $ lesionWeight: num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
-#' ## $ dataType    : chr "FROC"
-#' ## $ modalityID  : chr [1:5] "1" "2" "3" "4" "5"
-#' ## $ readerID    : chr [1:4] "1" "3" "4" "5"
-#' 
-#' @import ggplot2
+#' @importFrom  ggplot2 ggplot aes geom_point geom_line
 #' @export
 
 ####################################################################################################################
-PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, opChType, legend.position = c(0.8, 0.2)) 
+PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, opChType, legend.position = c(0.8, 0.3), maxDiscrete = 10) 
 {
   
   if (dataset$descriptions$type == "ROI") stop("No operating characteristics are defined for an ROI dataset")
@@ -122,7 +106,7 @@ PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, o
     stop(errMsg)
   }
   
-  ret <- gpfPlotGenericEmpiricalOperatingCharacteristic(ds, trts, rdrs, opChType = opChType, legend.position)
+  ret <- gpfPlotGenericEmpiricalOperatingCharacteristic(ds, trts, rdrs, opChType = opChType, legend.position, maxDiscrete)
   
   return(ret)
 } 
@@ -132,9 +116,13 @@ PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, o
 
 
 ####################################################################################################################
-gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2Plot, readers2Plot, opChType, legend.position) 
+gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2Plot, readers2Plot, opChType, legend.position, maxDiscrete) 
 { 
   
+  # genAbscissa <- NULL
+  # genOrdinate <- NULL
+  # Reader <- NULL
+  # Modality <- NULL
   # handle operating points
   if (!is.list(treatments2Plot) && !is.list(readers2Plot)) {
     # first handle no list arguments; gen stands for generic
@@ -190,9 +178,9 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2P
   classes <- unique(pts$class)
   for (i in 1:length(classes)){
     indices <- pts$class == classes[i]
-    if (sum(indices) > 20 && all(pts$type[indices] == "individual")){
+    if (sum(indices) > maxDiscrete && all(pts$type[indices] == "D")){
       typeTmp <- as.character(pts$type)
-      typeTmp[indices] <- "continuous"
+      typeTmp[indices] <- "C"
       pts$type <- typeTmp
     }
   }
@@ -203,81 +191,51 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2P
     mr <- unlist(strsplit(as.character(pts$class), split = "\n"))
     dim(mr) <- c(2, round(length(mr)/2))
     pts <- cbind(pts, data.frame(Modality = mr[1, ], Reader = mr[2, ], stringsAsFactors = TRUE))
-    genOpPoints <- pts[pts$type == "individual" &
+    genOpPoints <- pts[pts$type == "D" &
                          !((pts$genAbscissa == 0 & pts$genOrdinate == 0) |
                              (pts$genAbscissa == 1 & pts$genOrdinate == 1)), ]
     legendLength <- length(readers2Plot)
     shapeVector <- rep(NA, length(readers2Plot))
     for (n in 1:legendLength) {
       index <- which(pts$Reader == levels(pts$Reader)[n])[1]
-      if (pts$type[index] == "individual")
+      if (pts$type[index] == "D")
         shapeVector[n] <- 16 #http://www.sthda.com/english/wiki/ggplot2-point-shapes
     }
-    if (length(treatments2Plot) == 1) {
-      if (length(readers2Plot) > 1){
-        # one modality multiple readers
-        genPlot <- with(pts, {
-          tempGenPlot <- ggplot()
-          mStrings <- unique(as.character(pts$Modality))
-          for (i in 1:length(treatments2Plot)) {
-            tempGenPlot <- tempGenPlot +
-              geom_line(data = pts, aes(x = genAbscissa, y = genOrdinate, color = class))
-          }
-          tempGenPlot <- tempGenPlot +
-            geom_point(data = genOpPoints, aes(x = genAbscissa, y = genOrdinate, color = class)) +
-            theme(legend.title = element_blank())
-        })
-      }
-      if (length(readers2Plot) == 1){
-        # one modality one reader
-        genPlot <- with(pts, {
-          tempGenPlot <- ggplot()
-          mStrings <- unique(as.character(pts$Modality))
-          for (i in 1:length(treatments2Plot)) {
-            tempGenPlot <- tempGenPlot +
-              geom_line(data = pts, aes(x = genAbscissa, y = genOrdinate))
-          }
-          tempGenPlot <- tempGenPlot +
-            geom_point(data = genOpPoints, aes(x = genAbscissa, y = genOrdinate))
-        })
-      }
-    } else {
-      # multiple modalities and one or more readers
-      genPlot <- with(pts, {
-        tempGenPlot <- ggplot()
-        mStrings <- unique(as.character(pts$Modality))
-        for (i in 1:length(treatments2Plot)) {
-          tempGenPlot <- tempGenPlot +
-            geom_line(data = pts[pts$Modality == mStrings[i], ],
-                      aes(x = genAbscissa, y = genOrdinate, color = Reader, linetype = Modality))
-        }
-        tempGenPlot <- tempGenPlot +
-          geom_point(data = genOpPoints, aes(x = genAbscissa, y = genOrdinate, color = Reader)) +
-          theme(legend.title = element_blank())
-      })
-    }
-    pts <- data.frame(genAbscissa = pts$genAbscissa, 
-                      genOrdinate = pts$genOrdinate, 
-                      class = pts$class,
-                      type = pts$type, 
-                      stringsAsFactors = TRUE)
+    
+    if ((length(treatments2Plot) == 1) && (length(readers2Plot) == 1)) {
+      genPlot <- ggplot2::ggplot(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate)) +
+        ggplot2::geom_point(data = genOpPoints, ggplot2::aes(x = genAbscissa, y = genOrdinate)) +
+        ggplot2::geom_line(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate))
+      
+    } else if ((length(treatments2Plot) == 1) && (length(readers2Plot) > 1)) {
+     genPlot <- ggplot2::ggplot(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate)) +
+        ggplot2::geom_line(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate, color = Reader)) +
+        ggplot2::geom_point(data = genOpPoints, ggplot2::aes(x = genAbscissa, y = genOrdinate))
+
+    } else if ((length(treatments2Plot) > 1) && (length(readers2Plot) == 1)) {
+      genPlot <- ggplot2::ggplot(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate)) +
+        ggplot2::geom_line(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate, color = Modality)) +
+        ggplot2::geom_point(data = genOpPoints, ggplot2::aes(x = genAbscissa, y = genOrdinate))
+      
+    } else if ((length(treatments2Plot) > 1) && (length(readers2Plot) > 1)) {
+      genPlot <- ggplot2::ggplot(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate)) +
+        ggplot2::geom_line(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate, color = Modality, linetype = Reader)) +
+        ggplot2::geom_point(data = genOpPoints, ggplot2::aes(x = genAbscissa, y = genOrdinate))
+      
+    } 
   } else {
-    genOpPoints <- pts[
-      pts$type == "individual" 
-      & !((pts$genAbscissa == 0 & pts$genOrdinate == 0) |
-            (pts$genAbscissa == 1 & pts$genOrdinate == 1)), 
-      ]
+    genOpPoints <- pts[pts$type == "D" & !((pts$genAbscissa == 0 & pts$genOrdinate == 0) | (pts$genAbscissa == 1 & pts$genOrdinate == 1)), ]
     
     legendLength <- length(levels(pts$class))
     shapeVector <- rep(NA, length(levels(pts$class)))
     for (n in 1:legendLength) {
       index <- which(pts$class == levels(pts$class)[n])[1]
-      if (pts$type[index] == "individual")
+      if (pts$type[index] == "D")
         shapeVector[n] <- 16
     }
     genPlot <- with(pts, {
-      ggplot(data = pts, aes(x = genAbscissa, y = genOrdinate, color = class)) +
-        geom_line() + geom_point(data = genOpPoints) +
+      ggplot2::ggplot(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate, color = class)) +
+        ggplot2::geom_line() + ggplot2::geom_point(data = genOpPoints) +
         theme(legend.title = element_blank())
     })
   }
@@ -531,7 +489,7 @@ ROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   class <- paste("M: ", modalityID[ROCPoints$Modality], "\n", "R: ", readerID[ROCPoints$Reader], sep = "")
   ROCPoints <- data.frame(genAbscissa = ROCPoints$FPF, 
                           genOrdinate = ROCPoints$TPF, class = class, 
-                          type = "individual", stringsAsFactors = TRUE)
+                          type = "D", stringsAsFactors = TRUE)
   return(ROCPoints)
 }
 
@@ -544,7 +502,7 @@ AvgROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   LL <- dataset$ratings$LL
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
-
+  
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -586,7 +544,7 @@ AvgROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   avgTPF <- c(0,avgTPF);sampledFPF <- c(0,sampledFPF)
   class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
   ROCPoints <- data.frame(genAbscissa = sampledFPF, 
-                          genOrdinate = avgTPF, class = class, type = "rdrAveraged", stringsAsFactors = TRUE)
+                          genOrdinate = avgTPF, class = class, type = "A", stringsAsFactors = TRUE)
   return(ROCPoints)
 }
 
@@ -628,7 +586,7 @@ FROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
-
+  
   
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
@@ -671,7 +629,7 @@ FROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   class <- paste("M: ", modalityID[FROCPoints$Modality], "\n", "R: ", readerID[FROCPoints$Reader], sep = "")
   FROCPoints <- data.frame(
     genAbscissa = FROCPoints$NLF, 
-    genOrdinate = FROCPoints$LLF, class = class, type = "individual", stringsAsFactors = TRUE)
+    genOrdinate = FROCPoints$LLF, class = class, type = "D", stringsAsFactors = TRUE)
   return(FROCPoints)
 }
 
@@ -687,7 +645,7 @@ AvgFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
-
+  
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -744,11 +702,11 @@ AvgFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   for (p in 1:length(avgNLF)) avgLLF[p] <- mean(avgLLFArray[, p])
   avgLLF <- c(0,avgLLF);avgNLF <- c(0,avgNLF)
   
-  class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
+  class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), "\n", sep = "")
   FROCPoints <- data.frame(genAbscissa = avgNLF, 
                            genOrdinate = avgLLF, 
                            class = class, 
-                           type = "rdrAveraged", 
+                           type = "A", 
                            stringsAsFactors = TRUE)
   return(FROCPoints)
 }
@@ -813,7 +771,7 @@ AFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
-
+  
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -858,7 +816,7 @@ AFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
     genAbscissa = AFROCPoints$FPF, 
     genOrdinate = AFROCPoints$LLF, 
     class = class, 
-    type = "individual", 
+    type = "D", 
     stringsAsFactors = TRUE)
   return(AFROCPoints)
 }
@@ -877,7 +835,7 @@ AvgAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
-
+  
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -928,7 +886,7 @@ AvgAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   AFROCPoints <- data.frame(genAbscissa = sampledFPF, 
                             genOrdinate = avgLLF, 
                             class = class, 
-                            type = "rdrAveraged", 
+                            type = "A", 
                             stringsAsFactors = TRUE)
   return(AFROCPoints)
 }
@@ -991,7 +949,7 @@ AFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
-
+  
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -1033,7 +991,7 @@ AFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   AFROCPoints <- data.frame(genAbscissa = AFROCPoints$FPF, 
                             genOrdinate = AFROCPoints$LLF, 
                             class = class, 
-                            type = "individual", 
+                            type = "D", 
                             stringsAsFactors = TRUE)
   return(AFROCPoints)
 }
@@ -1049,7 +1007,7 @@ AvgAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   lesionVector <- dataset$lesions$perCase
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
-
+  
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -1099,7 +1057,7 @@ AvgAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   AFROCPoints <- data.frame(genAbscissa = sampledFPF, 
                             genOrdinate = avgLLF, 
                             class = class, 
-                            type = "rdrAveraged", 
+                            type = "A", 
                             stringsAsFactors = TRUE)
   return(AFROCPoints)
 }
@@ -1158,11 +1116,11 @@ wAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   }
   
   #class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
-  class <- paste("M: ", modalityID[wAFROCPoints$Modality], "\n", "R: ", readerID[wAFROCPoints$Reader], sep = "")
+  class <- paste("M: ", modalityID[wAFROCPoints$Modality], "\n", "R: ", readerID[wAFROCPoints$Reader], "\n", sep = "")
   wAFROCPoints <- data.frame(genAbscissa = wAFROCPoints$FPF, 
                              genOrdinate = wAFROCPoints$wLLF, 
                              class = class, 
-                             type = "individual", 
+                             type = "D", 
                              stringsAsFactors = TRUE)
   return(wAFROCPoints)
 }
@@ -1226,12 +1184,12 @@ AvgwAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   for (p in 1:length(sampledFPF)) avgwLLF[p] <- mean(avgwLLFArray[, p])
   avgwLLF <- c(0,avgwLLF,1);sampledFPF <- c(0,sampledFPF,1)
   
-  class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
+  class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), "\n", sep = "")
   #class <- paste("M: ", modalityID[wAFROCPoints$Modality], "\n", "R: ", readerID[wAFROCPoints$Reader], sep = "")
   AvgwAFROCPoints <- data.frame(genAbscissa = sampledFPF, 
                                 genOrdinate = avgwLLF, 
                                 class = class, 
-                                type = "rdrAveraged", 
+                                type = "A", 
                                 stringsAsFactors = TRUE)
   return(AvgwAFROCPoints)
 }
@@ -1291,7 +1249,7 @@ wAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   wAFROC1Points <- data.frame(genAbscissa = wAFROC1Points$FPF, 
                               genOrdinate = wAFROC1Points$wLLF, 
                               class = class, 
-                              type = "individual", 
+                              type = "D", 
                               stringsAsFactors = TRUE)
   return(wAFROC1Points)
 }
@@ -1358,7 +1316,7 @@ AvgwAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   wAFROC1Points <- data.frame(genAbscissa = sampledFPF, 
                               genOrdinate = avgwLLF, 
                               class = class, 
-                              type = "rdrAveraged", 
+                              type = "A", 
                               stringsAsFactors = TRUE)
   return(wAFROC1Points)
 }
@@ -1380,27 +1338,27 @@ genericPlotROC <- function(fp, tp, fpfPred, tpfPred, method = "ROC") {
   dfROCPred <- data.frame(fpf = ROCPred$fpf, 
                           tpf = ROCPred$tpf, 
                           color = color, 
-                          type = "individual", 
+                          type = "D", 
                           stringsAsFactors = TRUE)
   dfROCPoints <- data.frame(fpf = ROCOpPoints$fpf, 
                             tpf = ROCOpPoints$tpf, 
                             color = color, 
-                            type = "individual", 
+                            type = "D", 
                             stringsAsFactors = TRUE)
   
-  fittedPlot <- ggplot(mapping = aes(x = fpf, y = tpf), color = "black") + 
-    geom_line(data = dfROCPred, size = 1) + 
-    geom_point(data = dfROCPoints, size = 4)
+  fittedPlot <- ggplot2::ggplot(mapping = ggplot2::aes(x = fpf, y = tpf), color = "black") + 
+    ggplot2::geom_line(data = dfROCPred, size = 1) + 
+    ggplot2::geom_point(data = dfROCPoints, size = 4)
   
   if (method == "RSM"){
     ROCDashes <- rbind(data.frame(fpf = c(fpfPred[1], 1), tpf = c(tpfPred[1], 1)), stringsAsFactors = TRUE)
     dfROCDashes <- data.frame(fpf = ROCDashes$fpf, 
                               tpf = ROCDashes$tpf, 
                               color = color, 
-                              type = "individual", 
+                              type = "D", 
                               stringsAsFactors = TRUE)
     fittedPlot <- fittedPlot +
-      geom_line(data = dfROCDashes, linetype = 3, size = 2)
+      ggplot2::geom_line(data = dfROCDashes, linetype = 3, size = 2)
   }
   
   if (TRUE){
@@ -1420,8 +1378,8 @@ genericPlotROC <- function(fp, tp, fpfPred, tpfPred, method = "ROC") {
       ciY <- data.frame(fpf = c(fpf[pt], fpf[pt]), 
                         tpf = c(ciYUpper[pt], ciYLower[pt]), 
                         stringsAsFactors = TRUE)
-      fittedPlot <- fittedPlot + geom_line(data = ciY, aes(x = fpf, y = tpf), color = "black") + 
-        geom_line(data = ciX, aes(x = fpf, y = tpf), color = "black")
+      fittedPlot <- fittedPlot + ggplot2::geom_line(data = ciY, ggplot2::aes(x = fpf, y = tpf), color = "black") + 
+        ggplot2::geom_line(data = ciX, ggplot2::aes(x = fpf, y = tpf), color = "black")
       barRgt <- data.frame(fpf = c(ciXUpper[pt], ciXUpper[pt]), 
                            tpf = c(tpf[pt] - 0.01, tpf[pt] + 0.01), 
                            stringsAsFactors = TRUE)
@@ -1435,10 +1393,10 @@ genericPlotROC <- function(fp, tp, fpfPred, tpfPred, method = "ROC") {
                            tpf = c(ciYLower[pt], ciYLower[pt]), 
                            stringsAsFactors = TRUE)
       fittedPlot <- fittedPlot + 
-        geom_line(data = barRgt, aes(x = fpf, y = tpf), color = "black") + 
-        geom_line(data = barLft, aes(x = fpf, y = tpf), color = "black") + 
-        geom_line(data = barUp, aes(x = fpf, y = tpf), color = "black") + 
-        geom_line(data = barBtm, aes(x = fpf, y = tpf), color = "black") +
+        ggplot2::geom_line(data = barRgt, ggplot2::aes(x = fpf, y = tpf), color = "black") + 
+        ggplot2::geom_line(data = barLft, ggplot2::aes(x = fpf, y = tpf), color = "black") + 
+        ggplot2::geom_line(data = barUp, ggplot2::aes(x = fpf, y = tpf), color = "black") + 
+        ggplot2::geom_line(data = barBtm, ggplot2::aes(x = fpf, y = tpf), color = "black") +
         xlab("FPF") + ylab("TPF")
     }
   }
@@ -1464,11 +1422,11 @@ LrocPlots1 <- function (zjk1, zjk2)
     lrocPlotData <- rbind(lrocPlotData, data.frame(FPF = FPF, PCL = PCL, reader = reader, stringsAsFactors = TRUE))
   }
   
-  lrocPlot <- ggplot(data = lrocPlotData, aes(x = FPF, y = PCL, color = reader)) + geom_line()
+  lrocPlot <- ggplot2::ggplot(data = lrocPlotData, ggplot2::aes(x = FPF, y = PCL, color = reader)) + ggplot2::geom_line()
   g <- ggplot_build(lrocPlot)
   colors <- as.character(unique(g$data[[1]]$colour))
   sizes <- rep(1, J)
-  lrocPlot <- ggplot(data = lrocPlotData, aes(x = FPF, y = PCL, color = reader)) + geom_line(aes(size = reader)) + 
+  lrocPlot <- ggplot2::ggplot(data = lrocPlotData, ggplot2::aes(x = FPF, y = PCL, color = reader)) + ggplot2::geom_line(ggplot2::aes(size = reader)) + 
     scale_color_manual(values = colors) + scale_size_manual(values = sizes) + 
     theme(legend.title = element_blank(), legend.position = c(1, 0), legend.justification = c(1, 0)) + 
     scale_x_continuous(limits = c(0,1)) + scale_y_continuous(limits = c(0,1))
@@ -1485,7 +1443,7 @@ LROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   LL <- dataset$ratings$LL
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
-
+  
   
   I <- length(treatments2Plot) # found possible error 11/10/19 !!!DPC!!!
   # I <- dim(NL)[1] # No; this gives error
@@ -1527,7 +1485,7 @@ LROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   LROCPoints <- data.frame(genAbscissa = LROCPoints$FPF, 
                            genOrdinate = LROCPoints$PCL, 
                            class = class, 
-                           type = "individual", 
+                           type = "D", 
                            stringsAsFactors = TRUE)
   return(LROCPoints)
 }
@@ -1568,7 +1526,7 @@ AvgLROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   LL <- dataset$ratings$LL
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
-
+  
   I <- length(treatments2Plot)
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -1608,7 +1566,7 @@ AvgLROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   LROCPoints <- data.frame(genAbscissa = sampledFPF, 
                            genOrdinate = avgPCL, 
                            class = class, 
-                           type = "rdrAveraged", 
+                           type = "A", 
                            stringsAsFactors = TRUE)
   return(LROCPoints)
 }

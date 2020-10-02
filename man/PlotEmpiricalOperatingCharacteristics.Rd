@@ -9,7 +9,8 @@ PlotEmpiricalOperatingCharacteristics(
   trts = 1,
   rdrs = 1,
   opChType,
-  legend.position = c(0.8, 0.2)
+  legend.position = c(0.8, 0.3),
+  maxDiscrete = 10
 )
 }
 \arguments{
@@ -27,6 +28,11 @@ Default is 1.}
 
 \item{legend.position}{Where to position the legend. The default is c(0.8, 0.2), 
 i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).}
+
+\item{maxDiscrete}{maximum number of op. points in order to be considered 
+discrete and to be displayed by symbols and connecting lines; 
+any more points will be regarded as continuous and only connected by lines; 
+default is 10.}
 }
 \value{
 A \pkg{ggplot2} object containing the operating characteristic plot(s) 
@@ -38,9 +44,10 @@ For continuous or averaged data, operating characteristics curves are plotted
 points and connecting lines are shown. To avoid clutter, if there are more than 20 
 operating points, they are not shown.}
 
-\item{Points}{Data frame with four columns: abscissa, ordinate, class (which 
-codes modality and reader) and type, which can be \code{"individual"}, 
-\code{"continuous"}, i.e., more than 20 operating points, or \code{"rdrAveraged"}.}
+\item{Points}{Data frame with four columns: abscissa, ordinate, 
+\code{class} (which codes modality and reader names) and \code{type}, which 
+can be \code{"D"} for discrete ratings, \code{"C"} for continuous ratings, 
+i.e., more than 20 operating points, or \code{"A"}, for reader averaged.}
 }
 \description{
 Plot empirical operating characteristics (operating points connected by straight 
@@ -74,49 +81,28 @@ dataset02, trts = c(1:2), rdrs = c(1:3), opChType = "ROC")
 ## print(ret$Plot)
 
 ## Example 2
-## Empirical ROC, FROC, AFROC and wAFROC plots. Each plot consists of
-## three sub-plots (see Example 3 for correspondences between indices and  
-## string identifiers for modalities and readers):
-## (1) sub-plot, with operating points, for the 1st modality (string ID "1") and the 2nd 
-## reader (string ID "3"), labeled M:1 R:3 
-## (2) sub-plot, no operating points, for the 2nd modality (string ID "2") AVERAGED 
-## over the 2nd and 3rd readers (string IDs "3" and "4"), labeled M:2  R: 3 4 
-## (3) sub-plot, no operating points, AVERAGED over the first two modalities 
+## Empirical wAFROC plots, consisting of
+## three sub-plots:
+## (1) sub-plot, red, with operating points, for the 1st modality (string ID "1") and the 2nd 
+## reader (string ID "3"), labeled "M:1 R:3" 
+## (2) sub-plot, green, no operating points, for the 2nd modality (string ID "2") AVERAGED 
+## over the 2nd and 3rd readers (string IDs "3" and "4"), labeled "M:2  R: 3 4" 
+## (3) sub-plot, blue, no operating points, AVERAGED over the first two modalities 
 ## (string IDs "1" and "2") AND over the 1st, 2nd and 3rd readers 
-## (string IDs "1", "3" and "4"), labeled M: 1 2  R: 1  3 4 
+## (string IDs "1", "3" and "4"), labeled "M: 1 2  R: 1  3 4" 
 
 plotT <- list(1, 2, c(1:2))
 plotR <- list(2, c(2:3), c(1:3))
-ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, 
-   trts = plotT, rdrs = plotR, opChType = "ROC")
-## print(ret$Plot)
-
-ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
-   rdrs = plotR, opChType = "FROC")               
-## print(ret$Plot)
-
-ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
-   rdrs = plotR, opChType = "AFROC")
-## print(ret$Plot)
 
 ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT, 
    rdrs = plotR, opChType = "wAFROC")                  
 ## print(ret$Plot)
 
-##Example 3
+## Example 3
 ## Correspondences between indices and string identifiers for modalities and 
-## readers in this dataset. Apparently reader "2" did not complete the study.
+## readers in this dataset (apparently reader "2" did not complete the study).
 
-str(dataset04)
-
-## List of 8
-## NL          : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
-## LL          : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...
-## $ lesionVector   : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...
-## $ lesionID    : num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
-## $ lesionWeight: num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...
-## $ dataType    : chr "FROC"
-## $ modalityID  : chr [1:5] "1" "2" "3" "4" "5"
-## $ readerID    : chr [1:4] "1" "3" "4" "5"
+## names(dataset04$descriptions$readerID)
+## [1] "1" "3" "4" "5"
 
 }
