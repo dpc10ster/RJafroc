@@ -84,7 +84,7 @@
 #' ## names(dataset04$descriptions$readerID)
 #' ## [1] "1" "3" "4" "5"
 #' 
-#' @importFrom  ggplot2 ggplot aes geom_point geom_line
+#' @importFrom  ggplot2 ggplot aes geom_point geom_line theme
 #' @export
 
 ####################################################################################################################
@@ -118,7 +118,7 @@ PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, o
 ####################################################################################################################
 gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2Plot, readers2Plot, opChType, legend.position, maxDiscrete) 
 { 
-  
+  # these silly statements are needed to avoid a NOTE on R CMD check
   genAbscissa <- NULL
   genOrdinate <- NULL
   Reader <- NULL
@@ -187,7 +187,7 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2P
   
   # handle plots
   if (!is.list(treatments2Plot) && !is.list(readers2Plot)) {
-    # no lists
+    # handle no lists
     mr <- unlist(strsplit(as.character(pts$class), split = "\n"))
     dim(mr) <- c(2, round(length(mr)/2))
     pts <- cbind(pts, data.frame(Modality = mr[1, ], Reader = mr[2, ], stringsAsFactors = TRUE))
@@ -202,6 +202,7 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2P
         shapeVector[n] <- 16 #http://www.sthda.com/english/wiki/ggplot2-point-shapes
     }
     
+    # simplified plotting routines
     if ((length(treatments2Plot) == 1) && (length(readers2Plot) == 1)) {
       genPlot <- ggplot2::ggplot(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate)) +
         ggplot2::geom_point(data = genOpPoints, ggplot2::aes(x = genAbscissa, y = genOrdinate)) +
@@ -224,6 +225,7 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2P
       
     } 
   } else {
+    # handle lists
     genOpPoints <- pts[pts$type == "D" & !((pts$genAbscissa == 0 & pts$genOrdinate == 0) | (pts$genAbscissa == 1 & pts$genOrdinate == 1)), ]
     
     legendLength <- length(levels(pts$class))
@@ -233,11 +235,12 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2P
       if (pts$type[index] == "D")
         shapeVector[n] <- 16
     }
-    genPlot <- with(pts, {
-      ggplot2::ggplot(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate, color = class)) +
-        ggplot2::geom_line() + ggplot2::geom_point(data = genOpPoints) +
-        theme(legend.title = element_blank())
-    })
+    
+    # simplified plotting routines
+    genPlot <- ggplot2::ggplot(data = pts, ggplot2::aes(x = genAbscissa, y = genOrdinate, color = class)) +
+      ggplot2::geom_line() + ggplot2::geom_point(data = genOpPoints) +
+      ggplot2::theme(legend.title = element_blank())
+    
   }
   
   if (opChType == "ROC") genPlot <- genPlot + xlab("FPF") + ylab("TPF")
