@@ -162,8 +162,9 @@ checkTruthTable <- function (truthTable)
   
   type <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[1]
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
+  if (design == "CROSSED") design <- "FCTRL"
   if (!(type %in% c("FROC", "ROC"))) stop("Unsupported data type: must be ROC or FROC.\n")
-  if (!(design %in% c("FCTRL", "CROSSED", "SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C\n")
+  if (!(design %in% c("FCTRL", "SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C\n")
   
   df <- truthTable[1:5]
   df["caseLevelTruth"] <- (truthTable$LesionID > 0)
@@ -180,11 +181,12 @@ checkTruthTable <- function (truthTable)
   readerIDCol <- truthTable$ReaderID
   modalityIDCol <- truthTable$ModalityID
   L <- length(truthTable$CaseID) # length in the Excel sheet
+  # stop if only one reader; all split plot designs must have more than one reader
+  if (length(readerIDCol) == L) stop("cannot handle one reader case with newExcelFormat")
   for (i in 1:5) if ((length(truthTable[[i]])) != L) stop("Cols of unequal length in Truth Excel worksheet")  
   
   normalCases <- sort(unique(caseIDCol[lesionIDCol == 0]))
   abnormalCases <- sort(unique(caseIDCol[lesionIDCol > 0]))
-  # allCases <- c(normalCases, abnormalCases)
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
