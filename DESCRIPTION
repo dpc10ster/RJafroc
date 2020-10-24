@@ -5,9 +5,7 @@ Version: 1.3.2.9000
 Date: 2020-01-31
 Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "dpc10ster@gmail.com"),
              person("Peter", "Philips", role = c("aut"), email = "peter.phillips@cumbria.ac.uk"),
-             person("Xuetong", "Zhai", role = c("aut"), email = "xuetong.zhai@gmail.com"),
-             person("Lucy","D'Agostino McGowan", role = c("ctb"), email = "ld.mcgowan@vanderbilt.edu"),
-             person("Alejandro","RodriguezRuiz", role = c("ctb"), email = "Alejandro.RodriguezRuiz@radboudumc.nl"))
+             person("Xuetong", "Zhai", role = c("aut"), email = "xuetong.zhai@gmail.com"))
 Depends:
     R (>= 3.5.0)
 Imports:

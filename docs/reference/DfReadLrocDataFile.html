@@ -193,7 +193,7 @@
    includes only the radiologists</p>
     </div>
 
-    <pre class="usage"><span class='fu'>DfReadLrocDataFile</span><span class='op'>(</span>RADIOLOGISTS <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>DfReadLrocDataFile</span>(RADIOLOGISTS = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -238,8 +238,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>radData</span> <span class='op'>&lt;-</span> <span class='fu'>DfReadLrocDataFile</span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>radData</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'>radData</span> <span class='op'>&lt;-</span> <span class='fu'>DfReadLrocDataFile</span>()
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='kw'>radData</span>)
 </div><div class='output co'>#&gt; List of 10
 #&gt;  $ NL          : num [1, 1:10, 1:120, 1] 28 0 14 0 16 0 31 0 0 0 ...
 #&gt;  $ LLCl        : num [1, 1:10, 1:80, 1] 0 0 0 0 0 0 0 0 67 0 ...
@@ -250,8 +250,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt;  $ dataType    : chr "LROC"
 #&gt;  $ modalityID  : chr "1"
 #&gt;  $ readerID    : chr [1:10] "1" "2" "3" "4" ...
-#&gt;  $ datasetName : chr "Ignore"</div><div class='input'><span class='va'>allData</span> <span class='op'>&lt;-</span> <span class='fu'>DfReadLrocDataFile</span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>allData</span><span class='op'>)</span>
+#&gt;  $ datasetName : chr "Ignore"</div><div class='input'><span class='kw'>allData</span> <span class='op'>&lt;-</span> <span class='fu'>DfReadLrocDataFile</span>(<span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='kw'>allData</span>)
 </div><div class='output co'>#&gt; List of 10
 #&gt;  $ NL          : num [1, 1:13, 1:120, 1] 28 0 14 36 0 16 0 0 8 31 ...
 #&gt;  $ LLCl        : num [1, 1:13, 1:80, 1] 0 0 0 51 0 0 0 0 0 0 ...

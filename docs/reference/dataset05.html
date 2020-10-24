@@ -197,7 +197,7 @@ radiographers using the FROC paradigm. Each case was a slice of an anthropomorph
 dataset was 7.</p>
     </div>
 
-    <pre class="usage"><span class='va'>dataset05</span></pre>
+    <pre class="usage"><span class='kw'>dataset05</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -229,7 +229,7 @@ current-time product  on nodule detection in an anthropomorphic thorax phantom:
 a crossed-treatment JAFROC observer study. Medical Physics. 2016;43(3):1265-1274.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dataset05</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='kw'>dataset05</span>)
 </div><div class='output co'>#&gt; List of 3
 #&gt;  $ ratings     :List of 3
 #&gt;   ..$ NL   : num [1:2, 1:9, 1:92, 1:7] 4 5 -Inf -Inf 8 ...
@@ -248,7 +248,7 @@ a crossed-treatment JAFROC observer study. Medical Physics. 2016;43(3):1265-1274
 #&gt;   ..$ modalityID   : Named chr [1:2] "1" "2"
 #&gt;   .. ..- attr(*, "names")= chr [1:2] "1" "2"
 #&gt;   ..$ readerID     : Named chr [1:9] "1" "2" "3" "4" ...
-#&gt;   .. ..- attr(*, "names")= chr [1:9] "1" "2" "3" "4" ...</div><div class='input'><span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span><span class='op'>(</span>dataset <span class='op'>=</span> <span class='va'>dataset05</span>, opChType <span class='op'>=</span> <span class='st'>"wAFROC"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>Plot</span>
+#&gt;   .. ..- attr(*, "names")= chr [1:9] "1" "2" "3" "4" ...</div><div class='input'><span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(dataset = <span class='kw'>dataset05</span>, opChType = <span class='st'>"wAFROC"</span>)<span class='op'>$</span><span class='kw'>Plot</span>
 </div><div class='img'><img src='dataset05-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>

@@ -187,7 +187,7 @@
     <p>Plot the CBM-predicted ROC curve with provided CBM parameters</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotCbmFit</span><span class='op'>(</span><span class='va'>mu</span>, <span class='va'>alpha</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>PlotCbmFit</span>(<span class='kw'>mu</span>, <span class='kw'>alpha</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -215,7 +215,7 @@ The predicted ROC curve for each <code>mu</code> and <code>alpha</code> pair wil
 A formal model, Acad Radiol 7, 427--437.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>cbmPlot</span> <span class='op'>&lt;-</span> <span class='fu'>PlotCbmFit</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'>cbmPlot</span> <span class='op'>&lt;-</span> <span class='fu'>PlotCbmFit</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>, <span class='fl'>0.5</span>))
 <span class='co'>## print(cbmPlot)</span>
 
 

@@ -132,14 +132,13 @@
 
       
 
-      </header><script src="Ch00Vig4DataFormatFrocSpA_files/header-attrs-2.5/header-attrs.js"></script><script src="Ch00Vig4DataFormatFrocSpA_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Ch00Vig4DataFormatFrocSpA_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="Ch00Vig4DataFormatFrocSpA_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="Ch00Vig4DataFormatFrocSpA_files/header-attrs-2.4/header-attrs.js"></script><script src="Ch00Vig4DataFormatFrocSpA_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-10-23</h4>
+            <h4 class="date">2020-10-24</h4>
       
       
       <div class="hidden name"><code>Ch00Vig4DataFormatFrocSpA.Rmd</code></div>
@@ -181,10 +180,10 @@
 <a href="#the-structure-of-the-roc-split-plot-a-dataset" class="anchor"></a>The structure of the ROC split-plot-A dataset</h2>
 <p>This code-chunk reads the data into a split plot dataset:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="va">frocSpA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"toyFiles/FROC/frocSpA.xlsx"</span>,
-                        package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span><span class="op">(</span><span class="va">frocSpA</span>, newExcelFileFormat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="kw">frocSpA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"toyFiles/FROC/frocSpA.xlsx"</span>,
+                        package = <span class="st">"RJafroc"</span>, mustWork = <span class="fl">TRUE</span>)
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="kw">frocSpA</span>, newExcelFileFormat = <span class="fl">TRUE</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">x</span>)
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ ratings     :List of 3</span>
 <span class="co">#&gt;   ..$ NL   : num [1:2, 1:5, 1:11, 1:3] 1.5 -Inf 0.9 -Inf -Inf ...</span>
@@ -203,7 +202,8 @@
 <span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "4" "2"</span>
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "4" "2"</span>
 <span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span></pre></div>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span>
+</pre></div>
 <ul>
 <li>Flag <code>newExcelFileFormat</code> <strong>must</strong> be set to <code>TRUE</code> to the read split plot dataset.</li>
 <li>The dataset object <code>x</code> is a <code>list</code> variable with 3 members: <code>x$ratings</code>, <code>x$lesions</code> and <code>x$descriptions</code>.</li>
@@ -228,54 +228,59 @@
 <li>The first reader interprets the normal cases in the first modality only:</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">descriptions</span><span class="op">$</span><span class="kw">truthTableStr</span>[,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]    1    1    1    1    1    1   NA   NA   NA    NA</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span></pre></div>
+<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
+</pre></div>
 <ul>
 <li>The first reader interprets the abnormal cases also in the first modality only:</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">descriptions</span><span class="op">$</span><span class="kw">truthTableStr</span>[,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span></pre></div>
+<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
+</pre></div>
 <ul>
 <li>Likewise for the second reader:</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">descriptions</span><span class="op">$</span><span class="kw">truthTableStr</span>[,<span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]    1    1    1    1    1    1   NA   NA   NA    NA</span>
 <span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">descriptions</span><span class="op">$</span><span class="kw">truthTableStr</span>[,<span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span></pre></div>
+<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
+</pre></div>
 <ul>
 <li>The third reader interprets the cases in the second modality only:</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">descriptions</span><span class="op">$</span><span class="kw">truthTableStr</span>[,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
 <span class="co">#&gt; [2,]    1    1    1    1    1    1   NA   NA   NA    NA</span>
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">descriptions</span><span class="op">$</span><span class="kw">truthTableStr</span>[,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span></pre></div>
+<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span>
+</pre></div>
 <ul>
 <li>Likewise for the fourth reader:</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">4</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">descriptions</span><span class="op">$</span><span class="kw">truthTableStr</span>[,<span class="fl">4</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
 <span class="co">#&gt; [2,]    1    1    1    1    1    1   NA   NA   NA    NA</span>
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">4</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">descriptions</span><span class="op">$</span><span class="kw">truthTableStr</span>[,<span class="fl">4</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span></pre></div>
+<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span>
+</pre></div>
 </div>
 <div id="the-false-positive-fp-ratings" class="section level2">
 <h2 class="hasAnchor">
@@ -295,10 +300,11 @@
 <code>NL_Rating</code>: the ratings of non-diseased cases.</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">NL</span>[,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]  1.5  1.5  1.2  2.1  1.1  3.2  1.9    1  1.1     1</span>
-<span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf</span></pre></div>
+<span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf</span>
+</pre></div>
 </div>
 <div id="the-true-positive-tp-ratings" class="section level2">
 <h2 class="hasAnchor">
@@ -320,14 +326,15 @@
 <li>The following shows that reader ‘1’ interprets all abnormal cases in the first modality, while reader ‘3’ interprets them in the second modality.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">LL</span>[,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="co">#&gt; [1,]    5  5.5  4.9    4  3.7</span>
 <span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf</span>
-<span class="va">x</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span><span class="op">[</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">]</span>
+<span class="kw">x</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">LL</span>[,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span>]
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf</span>
-<span class="co">#&gt; [2,]  5.6  5.1  5.2  4.9  4.7</span></pre></div>
+<span class="co">#&gt; [2,]  5.6  5.1  5.2  4.9  4.7</span>
+</pre></div>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">

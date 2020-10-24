@@ -189,18 +189,18 @@ for the purpose of testing the fitting program FitCorCbm." />
 for the purpose of testing the fitting program <code><a href='FitCorCbm.html'>FitCorCbm</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>SimulateCorCbmDataset</span><span class='op'>(</span>
-  seed <span class='op'>=</span> <span class='fl'>123</span>,
-  K1 <span class='op'>=</span> <span class='fl'>50</span>,
-  K2 <span class='op'>=</span> <span class='fl'>50</span>,
-  desiredNumBins <span class='op'>=</span> <span class='fl'>5</span>,
-  muX <span class='op'>=</span> <span class='fl'>1.5</span>,
-  muY <span class='op'>=</span> <span class='fl'>3</span>,
-  alphaX <span class='op'>=</span> <span class='fl'>0.4</span>,
-  alphaY <span class='op'>=</span> <span class='fl'>0.7</span>,
-  rhoNor <span class='op'>=</span> <span class='fl'>0.3</span>,
-  rhoAbn2 <span class='op'>=</span> <span class='fl'>0.8</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>SimulateCorCbmDataset</span>(
+  seed = <span class='fl'>123</span>,
+  K1 = <span class='fl'>50</span>,
+  K2 = <span class='fl'>50</span>,
+  desiredNumBins = <span class='fl'>5</span>,
+  muX = <span class='fl'>1.5</span>,
+  muY = <span class='fl'>3</span>,
+  alphaX = <span class='fl'>0.4</span>,
+  alphaY = <span class='fl'>0.7</span>,
+  rhoNor = <span class='fl'>0.3</span>,
+  rhoAbn2 = <span class='fl'>0.8</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -263,7 +263,7 @@ curves to a pair of correlated, possibly degenerate, ROC datasets. Medical Physi
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'>SimulateCorCbmDataset</span><span class='op'>(</span><span class='op'>)</span>
+<span class='kw'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'>SimulateCorCbmDataset</span>()
 
 <span class='co'># \donttest{</span>
 <span class='co'>## this takes very long</span>
