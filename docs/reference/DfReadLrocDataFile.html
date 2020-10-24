@@ -193,7 +193,7 @@
    includes only the radiologists</p>
     </div>
 
-    <pre class="usage"><span class='fu'>DfReadLrocDataFile</span>(<span class='kw'>RADIOLOGISTS</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>DfReadLrocDataFile</span><span class='op'>(</span>RADIOLOGISTS <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -238,8 +238,9 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>radData</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadLrocDataFile</span>()
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>radData</span>)</div><div class='output co'>#&gt; List of 10
+    <pre class="examples"><div class='input'><span class='va'>radData</span> <span class='op'>&lt;-</span> <span class='fu'>DfReadLrocDataFile</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>radData</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; List of 10
 #&gt;  $ NL          : num [1, 1:10, 1:120, 1] 28 0 14 0 16 0 31 0 0 0 ...
 #&gt;  $ LLCl        : num [1, 1:10, 1:80, 1] 0 0 0 0 0 0 0 0 67 0 ...
 #&gt;  $ LLIl        : num [1, 1:10, 1:80, 1] 29 12 13 10 41 67 61 51 0 0 ...
@@ -249,8 +250,9 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt;  $ dataType    : chr "LROC"
 #&gt;  $ modalityID  : chr "1"
 #&gt;  $ readerID    : chr [1:10] "1" "2" "3" "4" ...
-#&gt;  $ datasetName : chr "Ignore"</div><div class='input'><span class='no'>allData</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadLrocDataFile</span>(<span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>allData</span>)</div><div class='output co'>#&gt; List of 10
+#&gt;  $ datasetName : chr "Ignore"</div><div class='input'><span class='va'>allData</span> <span class='op'>&lt;-</span> <span class='fu'>DfReadLrocDataFile</span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>allData</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; List of 10
 #&gt;  $ NL          : num [1, 1:13, 1:120, 1] 28 0 14 36 0 16 0 0 8 31 ...
 #&gt;  $ LLCl        : num [1, 1:13, 1:80, 1] 0 0 0 51 0 0 0 0 0 0 ...
 #&gt;  $ LLIl        : num [1, 1:13, 1:80, 1] 29 12 13 0 10 41 66 67 21 61 ...
@@ -279,7 +281,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

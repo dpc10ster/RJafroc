@@ -195,13 +195,13 @@
    Iowa ROC website ca. June 2017.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Compare3ProperRocFits</span>(
-  <span class='kw'>startIndx</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>endIndx</span> <span class='kw'>=</span> <span class='fl'>14</span>,
-  <span class='kw'>showPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>saveProprocLrcFile</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>reAnalyze</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>Compare3ProperRocFits</span><span class='op'>(</span>
+  startIndx <span class='op'>=</span> <span class='fl'>1</span>,
+  endIndx <span class='op'>=</span> <span class='fl'>14</span>,
+  showPlot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  saveProprocLrcFile <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  reAnalyze <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -288,7 +288,7 @@ J Math Psychol. <b>43</b>,(1):1--33.</p>
 Acad Radiol <b>7</b>, 427--437.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>Compare3ProperRocFits</span>(<span class='fl'>1</span>,<span class='fl'>1</span>) <span class='co'># analyze first two datasets</span>
+    <pre class="examples"><div class='input'><span class='va'>ret</span> <span class='op'>&lt;-</span> <span class='fu'>Compare3ProperRocFits</span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span> <span class='co'># analyze first two datasets</span>
 
 <span class='co'># \donttest{</span>
 <span class='co'>## takes longer than 5 sec on OSX</span>
@@ -307,7 +307,10 @@ Acad Radiol <b>7</b>, 427--437.</p>
 <span class='co'>##these are intended to illustrate the structure of the functions return object</span>
 <span class='co'>## str(x[[1]][[11]])# error</span>
 <span class='co'>## str(x[[3]][[1]]) # error</span>
-<span class='co'># }</span></div></pre>
+<span class='co'># }</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -323,7 +326,7 @@ Acad Radiol <b>7</b>, 427--437.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

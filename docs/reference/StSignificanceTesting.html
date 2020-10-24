@@ -201,17 +201,17 @@
    Excel-formatted files produced by <code><a href='UtilOutputReport.html'>UtilOutputReport</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>StSignificanceTesting</span>(
-  <span class='no'>dataset</span>,
-  <span class='no'>FOM</span>,
-  <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>,
-  <span class='kw'>covEstMethod</span> <span class='kw'>=</span> <span class='st'>"jackknife"</span>,
-  <span class='kw'>nBoots</span> <span class='kw'>=</span> <span class='fl'>200</span>,
-  <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>,
-  <span class='kw'>tempOrgCode</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>StSignificanceTesting</span><span class='op'>(</span>
+  <span class='va'>dataset</span>,
+  <span class='va'>FOM</span>,
+  FPFValue <span class='op'>=</span> <span class='fl'>0.2</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  method <span class='op'>=</span> <span class='st'>"DBM"</span>,
+  covEstMethod <span class='op'>=</span> <span class='st'>"jackknife"</span>,
+  nBoots <span class='op'>=</span> <span class='fl'>200</span>,
+  analysisOption <span class='op'>=</span> <span class='st'>"ALL"</span>,
+  tempOrgCode <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -323,7 +323,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
+    <pre class="examples"><div class='input'><span class='fu'>StSignificanceTesting</span><span class='op'>(</span><span class='va'>dataset02</span>,FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, method <span class='op'>=</span> <span class='st'>"DBM"</span><span class='op'>)</span> 
+</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr0       rdr1       rdr2       rdr3       rdr4
 #&gt; trt0 0.91964573 0.85877617 0.90386473 0.97310789 0.82979066
@@ -440,7 +441,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt0 0.89703704 0.024829936  4 0.82809808 0.96597599
 #&gt; trt1 0.94083736 0.016153030  4 0.89598936 0.98568536
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset02</span>,<span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span><span class='op'>(</span><span class='va'>dataset02</span>,FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, method <span class='op'>=</span> <span class='st'>"OR"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr0       rdr1       rdr2       rdr3       rdr4
 #&gt; trt0 0.91964573 0.85877617 0.90386473 0.97310789 0.82979066
@@ -562,7 +564,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; Trt1 0.94083736 0.016153030  4 0.89598936 0.98568536
 #&gt; 
 #&gt; </div><div class='input'><span class='co'>## following is split-plot-c analysis using a simulated split-plot-c dataset</span>
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>datasetFROCSpC</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>)</div><div class='output co'>#&gt; $FOMs
+<span class='fu'>StSignificanceTesting</span><span class='op'>(</span><span class='va'>datasetFROCSpC</span>, FOM <span class='op'>=</span> <span class='st'>"wAFROC"</span>, method <span class='op'>=</span> <span class='st'>"OR"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr3       rdr4       rdr5
 #&gt; trt4 0.87681159 0.79202279 0.57312253 0.78758818
@@ -674,7 +677,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; 
 #&gt; </div><div class='input'>
 <span class='co'># \donttest{</span>
-<span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>)</div><div class='output co'>#&gt; $FOMs
+<span class='fu'>StSignificanceTesting</span><span class='op'>(</span><span class='va'>dataset05</span>, FOM <span class='op'>=</span> <span class='st'>"wAFROC"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.72446809 0.88096927 0.80957447 0.61331757 0.57730496 0.84933018
@@ -806,7 +810,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.76826022 0.037282051  8 0.68228766 0.85423279
 #&gt; trt2 0.84628754 0.027397484  8 0.78310883 0.90946625
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"HrAuc"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span><span class='op'>(</span><span class='va'>dataset05</span>, FOM <span class='op'>=</span> <span class='st'>"HrAuc"</span>, method <span class='op'>=</span> <span class='st'>"DBM"</span><span class='op'>)</span> 
+</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.85886525 0.89314421 0.88226950 0.73026005 0.71418440 0.92907801
@@ -938,7 +943,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.84670344 0.026030866  8 0.78667616 0.90673073
 #&gt; trt2 0.89897557 0.015929891  8 0.86224118 0.93570997
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span><span class='op'>(</span><span class='va'>dataset05</span>, FOM <span class='op'>=</span> <span class='st'>"SongA1"</span>, method <span class='op'>=</span> <span class='st'>"DBM"</span><span class='op'>)</span> 
+</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.86879433 0.89243499 0.88770686 0.72907801 0.72765957 0.92174941
@@ -1070,7 +1076,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.85048595 0.024998816  8 0.79283857 0.90813332
 #&gt; trt2 0.90365117 0.015597568  8 0.86768311 0.93961923
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"SongA2"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span><span class='op'>(</span><span class='va'>dataset05</span>, FOM <span class='op'>=</span> <span class='st'>"SongA2"</span>, method <span class='op'>=</span> <span class='st'>"DBM"</span><span class='op'>)</span> 
+</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.85248227 0.89078014 0.88250591 0.72411348 0.72482270 0.90330969
@@ -1202,7 +1209,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.84334121 0.024447043  8 0.78696623 0.89971620
 #&gt; trt2 0.88529025 0.017577166  8 0.84475724 0.92582327
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span><span class='op'>(</span><span class='va'>dataset05</span>, FOM <span class='op'>=</span> <span class='st'>"wAFROC1"</span>, method <span class='op'>=</span> <span class='st'>"DBM"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.74277290 0.88222710 0.78902636 0.64594897 0.63787388 0.81076549
@@ -1334,7 +1342,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.77467494 0.029186524  8 0.70737070 0.84197919
 #&gt; trt2 0.85560138 0.024604078  8 0.79886427 0.91233849
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"AFROC1"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span><span class='op'>(</span><span class='va'>dataset05</span>, FOM <span class='op'>=</span> <span class='st'>"AFROC1"</span>, method <span class='op'>=</span> <span class='st'>"DBM"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.74714444 0.88568534 0.79412307 0.65521371 0.63697494 0.81180914
@@ -1466,7 +1475,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.77843282 0.029118730  8 0.71128490 0.84558073
 #&gt; trt2 0.85005732 0.025252382  8 0.79182522 0.90828941
 #&gt; 
-#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span>(<span class='no'>dataset05</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"AFROC"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt; $FOMs
+#&gt; </div><div class='input'><span class='fu'>StSignificanceTesting</span><span class='op'>(</span><span class='va'>dataset05</span>, FOM <span class='op'>=</span> <span class='st'>"AFROC"</span>, method <span class='op'>=</span> <span class='st'>"DBM"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $FOMs
 #&gt; $FOMs$foms
 #&gt;            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.73013183 0.88436911 0.81412429 0.62485876 0.57890772 0.85065913
@@ -1598,7 +1608,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 #&gt; trt1 0.77267211 0.036879746  8 0.68762726 0.85771695
 #&gt; trt2 0.84074074 0.027920216  8 0.77635661 0.90512487
 #&gt; 
-#&gt; </div><div class='input'># } 
+#&gt; </div><div class='input'><span class='co'># } </span>
 
 
 </div></pre>
@@ -1617,7 +1627,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

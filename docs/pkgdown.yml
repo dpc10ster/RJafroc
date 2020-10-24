@@ -1,5 +1,5 @@
 pandoc: 2.9.2
-pkgdown: 1.5.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   Ch00Vig1DataFormatRocFctrl: Ch00Vig1DataFormatRocFctrl.html
@@ -23,5 +23,5 @@ articles:
   Ch20Vig5cbmPlots: Ch20Vig5cbmPlots.html
   Ch30Vig1RoiParadigm: Ch30Vig1RoiParadigm.html
   Ch30Vig2RoiParadigmSt: Ch30Vig2RoiParadigmSt.html
-last_built: 2020-08-12T00:15Z
+last_built: 2020-10-24T02:09Z
 

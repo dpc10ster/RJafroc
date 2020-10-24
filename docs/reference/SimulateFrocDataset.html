@@ -189,7 +189,7 @@
    readers and treatments</p>
     </div>
 
-    <pre class="usage"><span class='fu'>SimulateFrocDataset</span>(<span class='no'>mu</span>, <span class='no'>lambda</span>, <span class='no'>nu</span>, <span class='no'>zeta1</span>, <span class='no'>I</span>, <span class='no'>J</span>, <span class='no'>K1</span>, <span class='no'>K2</span>, <span class='no'>perCase</span>)</pre>
+    <pre class="usage"><span class='fu'>SimulateFrocDataset</span><span class='op'>(</span><span class='va'>mu</span>, <span class='va'>lambda</span>, <span class='va'>nu</span>, <span class='va'>zeta1</span>, <span class='va'>I</span>, <span class='va'>J</span>, <span class='va'>K1</span>, <span class='va'>K2</span>, <span class='va'>perCase</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -246,19 +246,21 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='no'>K1</span> <span class='kw'>&lt;-</span> <span class='fl'>5</span>;<span class='no'>K2</span> <span class='kw'>&lt;-</span> <span class='fl'>7</span>;
-<span class='no'>maxLL</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>;<span class='no'>perCase</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='no'>K2</span>, <span class='fl'>1</span>, <span class='no'>maxLL</span> + <span class='fl'>1</span>))
-<span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>;<span class='no'>lambda</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>;<span class='no'>nu</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span> ;<span class='no'>zeta1</span> <span class='kw'>&lt;-</span> -<span class='fl'>1</span>
-<span class='no'>I</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>; <span class='no'>J</span> <span class='kw'>&lt;-</span> <span class='fl'>5</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> 
+<span class='va'>K1</span> <span class='op'>&lt;-</span> <span class='fl'>5</span>;<span class='va'>K2</span> <span class='op'>&lt;-</span> <span class='fl'>7</span>;
+<span class='va'>maxLL</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>;<span class='va'>perCase</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='va'>K2</span>, <span class='fl'>1</span>, <span class='va'>maxLL</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>;<span class='va'>lambda</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>;<span class='va'>nu</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> ;<span class='va'>zeta1</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>1</span>
+<span class='va'>I</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>; <span class='va'>J</span> <span class='op'>&lt;-</span> <span class='fl'>5</span>
 
-<span class='no'>frocDataRaw</span> <span class='kw'>&lt;-</span> <span class='fu'>SimulateFrocDataset</span>(
-  <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='no'>lambda</span>, <span class='kw'>nu</span> <span class='kw'>=</span> <span class='no'>nu</span>, <span class='kw'>zeta1</span> <span class='kw'>=</span> <span class='no'>zeta1</span>,
-  <span class='kw'>I</span> <span class='kw'>=</span> <span class='no'>I</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='no'>J</span>, <span class='kw'>K1</span> <span class='kw'>=</span> <span class='no'>K1</span>, <span class='kw'>K2</span> <span class='kw'>=</span> <span class='no'>K2</span>, <span class='kw'>perCase</span> <span class='kw'>=</span> <span class='no'>perCase</span> )
-
+<span class='va'>frocDataRaw</span> <span class='op'>&lt;-</span> <span class='fu'>SimulateFrocDataset</span><span class='op'>(</span>
+  mu <span class='op'>=</span> <span class='va'>mu</span>, lambda <span class='op'>=</span> <span class='va'>lambda</span>, nu <span class='op'>=</span> <span class='va'>nu</span>, zeta1 <span class='op'>=</span> <span class='va'>zeta1</span>,
+  I <span class='op'>=</span> <span class='va'>I</span>, J <span class='op'>=</span> <span class='va'>J</span>, K1 <span class='op'>=</span> <span class='va'>K1</span>, K2 <span class='op'>=</span> <span class='va'>K2</span>, perCase <span class='op'>=</span> <span class='va'>perCase</span> <span class='op'>)</span>
+  
 <span class='co'>## plot the data</span>
-<span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(<span class='no'>frocDataRaw</span>, <span class='kw'>opChType</span> <span class='kw'>=</span> <span class='st'>"FROC"</span>)
-<span class='co'>## print(ret$Plot)</span></div></pre>
+<span class='va'>ret</span> <span class='op'>&lt;-</span> <span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span><span class='op'>(</span><span class='va'>frocDataRaw</span>, opChType <span class='op'>=</span> <span class='st'>"FROC"</span><span class='op'>)</span>
+<span class='co'>## print(ret$Plot)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -274,7 +276,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

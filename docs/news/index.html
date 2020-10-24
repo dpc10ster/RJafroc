@@ -185,6 +185,48 @@
 <h1 class="page-header" data-toc-text="1.3.2.9000">
 <a href="#rjafroc-1329000" class="anchor"></a>RJafroc 1.3.2.9000<small> Unreleased </small>
 </h1>
+<div id="fixing-non-character-input-error" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixing-non-character-input-error" class="anchor"></a>Fixing non-character input error</h2>
+<ul>
+<li>Finished October 23, 2020.</li>
+<li>Fixed error in <code>DfReadDataFile.R</code> in function <code>checkTruthTable()</code>; this bug discovered in working with HUGE one reader dataset.</li>
+<li>For single reader or single modality dataset, if input is not converted to character, then error results in <code>I &lt;- length(strsplit(modalityIDCol[1], split = ",")[[1]])</code> and similar expression for <code>J</code>.</li>
+<li>Fix is to use <code>as.character</code> as in:</li>
+</ul>
+<pre><code>  readerIDCol &lt;- as.character(truthTable$ReaderID) # bug fix to avoid non-character input error below
+  modalityIDCol &lt;- as.character(truthTable$ModalityID) # do:</code></pre>
+</div>
+<div id="simplified-plotting-routines" class="section level2">
+<h2 class="hasAnchor">
+<a href="#simplified-plotting-routines" class="anchor"></a>Simplified plotting routines</h2>
+<ul>
+<li>Finished October 2, 2020.</li>
+<li>Necessitated by work on CAD vs. RAD plots in <code>RJafrocBook</code>.</li>
+<li>
+<code>PlotEmpiricalOperatingCharacteristics.R</code>.</li>
+<li>Especially function <code>gpfPlotGenericEmpiricalOperatingCharacteristic</code>.</li>
+<li>The revisions are tested via <code>R</code> files in <code>inst/fixPlots</code>.</li>
+<li>I am following the help page of <code>ggplot2</code>
+</li>
+<li>Did away with <code>with</code> function usage in this function: hard to tell what is going on and the help page on this function seems to discourage this type of usage in packages</li>
+<li>But, get silly NOTE about undefined global variables: <code>genAbscissa</code>, <code>genOrdinate</code>, <code>Reader</code>, <code>Modality</code>.</li>
+<li>These are members of a dataframe, so I dont see why they are visible at global level.</li>
+<li>Does not happen with the other dataframes in this packages.</li>
+<li>So I assume it is a <code>ggplot2</code> related issue.</li>
+<li>I solved it by initializing these at the very beginning of the <code>gpfPlotGenericEmpiricalOperatingCharacteristic</code> function to <code>NULL</code>s.</li>
+</ul>
+</div>
+<div id="added-extensive-comments-in-storsummaryfrrcr" class="section level2">
+<h2 class="hasAnchor">
+<a href="#added-extensive-comments-in-storsummaryfrrcr" class="anchor"></a>Added extensive comments in StORSummaryFRRC.R</h2>
+<ul>
+<li>Added extensive comments in StORSummaryFRRC.R on how I am calculating <code>CI</code> for individual treatments averaged over readers;</li>
+<li>The method was “reverse-engineered” from <code>inst/Iowa/VanDyke.txt</code>, as I cannot find a better reference for the equations used.</li>
+<li>This created debugging problems as break points did not work; added # at the <em>end</em> of each inserted commented line, 86-103; this seemed to solve problem;</li>
+<li>passes R CMD check</li>
+</ul>
+</div>
 <div id="updated-package-documentation-and-ch00-vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#updated-package-documentation-and-ch00-vignettes" class="anchor"></a>Updated package documentation and Ch00 Vignettes</h2>
@@ -907,7 +949,7 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

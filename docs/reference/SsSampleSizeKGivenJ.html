@@ -189,18 +189,18 @@
   specified number of readers J, and specified DBM or ORH analysis method</p>
     </div>
 
-    <pre class="usage"><span class='fu'>SsSampleSizeKGivenJ</span>(
-  <span class='no'>dataset</span>,
-  <span class='no'>...</span>,
-  <span class='no'>J</span>,
-  <span class='no'>FOM</span>,
-  <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>desiredPower</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
-  <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>,
-  <span class='kw'>LegacyCode</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>SsSampleSizeKGivenJ</span><span class='op'>(</span>
+  <span class='va'>dataset</span>,
+  <span class='va'>...</span>,
+  <span class='va'>J</span>,
+  <span class='va'>FOM</span>,
+  effectSize <span class='op'>=</span> <span class='cn'>NULL</span>,
+  method <span class='op'>=</span> <span class='st'>"OR"</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  desiredPower <span class='op'>=</span> <span class='fl'>0.8</span>,
+  analysisOption <span class='op'>=</span> <span class='st'>"RRRC"</span>,
+  LegacyCode <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -275,33 +275,38 @@ method is used. Otherwise the OR method is used.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## the following two should give identical results</span>
-<span class='fu'>SsSampleSizeKGivenJ</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>)</div><div class='output co'>#&gt;   KRRRC  powerRRRC
+<span class='fu'>SsSampleSizeKGivenJ</span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, effectSize <span class='op'>=</span> <span class='fl'>0.05</span>, J <span class='op'>=</span> <span class='fl'>6</span>, method <span class='op'>=</span> <span class='st'>"DBM"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   KRRRC  powerRRRC
 #&gt; 1   170 0.80161864</div><div class='input'>
-<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilVarComponentsDBM.html'>UtilVarComponentsDBM</a></span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>VarCom</span>
-<span class='fu'>SsSampleSizeKGivenJ</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"DBM"</span>, <span class='kw'>LegacyCode</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>VarTR</span> <span class='kw'>=</span> <span class='no'>a</span>[<span class='st'>"VarTR"</span>,<span class='fl'>1</span>],
-   <span class='kw'>VarTC</span> <span class='kw'>=</span> <span class='no'>a</span>[<span class='st'>"VarTC"</span>,<span class='fl'>1</span>],
-   <span class='kw'>VarErr</span> <span class='kw'>=</span> <span class='no'>a</span>[<span class='st'>"VarErr"</span>,<span class='fl'>1</span>]))</div><div class='output co'>#&gt;   KRRRC  powerRRRC
+<span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='UtilVarComponentsDBM.html'>UtilVarComponentsDBM</a></span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>VarCom</span>
+<span class='fu'>SsSampleSizeKGivenJ</span><span class='op'>(</span>dataset <span class='op'>=</span> <span class='cn'>NULL</span>, J <span class='op'>=</span> <span class='fl'>6</span>, effectSize <span class='op'>=</span> <span class='fl'>0.05</span>, method <span class='op'>=</span> <span class='st'>"DBM"</span>, LegacyCode <span class='op'>=</span> <span class='cn'>TRUE</span>,
+   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>VarTR <span class='op'>=</span> <span class='va'>a</span><span class='op'>[</span><span class='st'>"VarTR"</span>,<span class='fl'>1</span><span class='op'>]</span>, 
+   VarTC <span class='op'>=</span> <span class='va'>a</span><span class='op'>[</span><span class='st'>"VarTC"</span>,<span class='fl'>1</span><span class='op'>]</span>, 
+   VarErr <span class='op'>=</span> <span class='va'>a</span><span class='op'>[</span><span class='st'>"VarErr"</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   KRRRC  powerRRRC
 #&gt; 1   170 0.80161864</div><div class='input'>
 <span class='co'>## the following two should give identical results</span>
-<span class='fu'>SsSampleSizeKGivenJ</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>)</div><div class='output co'>#&gt;   KRRRC  powerRRRC
+<span class='fu'>SsSampleSizeKGivenJ</span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, effectSize <span class='op'>=</span> <span class='fl'>0.05</span>, J <span class='op'>=</span> <span class='fl'>6</span>, method <span class='op'>=</span> <span class='st'>"OR"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   KRRRC  powerRRRC
 #&gt; 1   170 0.80161864</div><div class='input'>
-<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='UtilORVarComponentsFactorial.html'>UtilORVarComponentsFactorial</a></span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)$<span class='no'>VarCom</span>
-<span class='no'>KStar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>dataset02</span>$<span class='no'>ratings</span>$<span class='no'>NL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,<span class='fl'>1</span>])
-<span class='fu'>SsSampleSizeKGivenJ</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>,
-   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>KStar</span> <span class='kw'>=</span> <span class='no'>KStar</span>,
-   <span class='kw'>VarTR</span> <span class='kw'>=</span> <span class='no'>a</span>[<span class='st'>"VarTR"</span>,<span class='fl'>1</span>],
-   <span class='kw'>Cov1</span> <span class='kw'>=</span> <span class='no'>a</span>[<span class='st'>"Cov1"</span>,<span class='fl'>1</span>],
-   <span class='kw'>Cov2</span> <span class='kw'>=</span> <span class='no'>a</span>[<span class='st'>"Cov2"</span>,<span class='fl'>1</span>],
-   <span class='kw'>Cov3</span> <span class='kw'>=</span> <span class='no'>a</span>[<span class='st'>"Cov3"</span>,<span class='fl'>1</span>],
-   <span class='kw'>Var</span> <span class='kw'>=</span> <span class='no'>a</span>[<span class='st'>"Var"</span>,<span class='fl'>1</span>]))</div><div class='output co'>#&gt;   KRRRC  powerRRRC
+<span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='UtilORVarComponentsFactorial.html'>UtilORVarComponentsFactorial</a></span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>VarCom</span>
+<span class='va'>KStar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>dataset02</span><span class='op'>$</span><span class='va'>ratings</span><span class='op'>$</span><span class='va'>NL</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span>,,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'>SsSampleSizeKGivenJ</span><span class='op'>(</span>dataset <span class='op'>=</span> <span class='cn'>NULL</span>, J <span class='op'>=</span> <span class='fl'>6</span>, effectSize <span class='op'>=</span> <span class='fl'>0.05</span>, method <span class='op'>=</span> <span class='st'>"OR"</span>, 
+   <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>KStar <span class='op'>=</span> <span class='va'>KStar</span>, 
+   VarTR <span class='op'>=</span> <span class='va'>a</span><span class='op'>[</span><span class='st'>"VarTR"</span>,<span class='fl'>1</span><span class='op'>]</span>, 
+   Cov1 <span class='op'>=</span> <span class='va'>a</span><span class='op'>[</span><span class='st'>"Cov1"</span>,<span class='fl'>1</span><span class='op'>]</span>, 
+   Cov2 <span class='op'>=</span> <span class='va'>a</span><span class='op'>[</span><span class='st'>"Cov2"</span>,<span class='fl'>1</span><span class='op'>]</span>, 
+   Cov3 <span class='op'>=</span> <span class='va'>a</span><span class='op'>[</span><span class='st'>"Cov3"</span>,<span class='fl'>1</span><span class='op'>]</span>, 
+   Var <span class='op'>=</span> <span class='va'>a</span><span class='op'>[</span><span class='st'>"Var"</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   KRRRC  powerRRRC
 #&gt; 1   170 0.80161864</div><div class='input'>
 <span class='co'># \donttest{ </span>
-<span class='kw'>for</span> (<span class='no'>J</span> <span class='kw'>in</span> <span class='fl'>6</span>:<span class='fl'>10</span>) {
- <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>SsSampleSizeKGivenJ</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>, <span class='kw'>J</span> <span class='kw'>=</span> <span class='no'>J</span>, <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>)
- <span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span>(<span class='st'>"# of readers = "</span>, <span class='no'>J</span>, <span class='st'>" estimated # of cases = "</span>, <span class='no'>ret</span>$<span class='no'>K</span>,
- <span class='st'>", predicted power = "</span>, <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>signif</a></span>(<span class='no'>ret</span>$<span class='no'>powerRRRC</span>,<span class='fl'>3</span>), <span class='st'>"\n"</span>)
-}</div><div class='output co'>#&gt; <span class='message'># of readers = 6 estimated # of cases = 251, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 7 estimated # of cases = 211, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 8 estimated # of cases = 188, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 9 estimated # of cases = 173, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 10 estimated # of cases = 163, predicted power = 0.802</span></div><div class='input'># }
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>J</span> <span class='kw'>in</span> <span class='fl'>6</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>{</span>
+ <span class='va'>ret</span> <span class='op'>&lt;-</span> <span class='fu'>SsSampleSizeKGivenJ</span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, J <span class='op'>=</span> <span class='va'>J</span>, analysisOption <span class='op'>=</span> <span class='st'>"RRRC"</span><span class='op'>)</span> 
+ <span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span><span class='op'>(</span><span class='st'>"# of readers = "</span>, <span class='va'>J</span>, <span class='st'>" estimated # of cases = "</span>, <span class='va'>ret</span><span class='op'>$</span><span class='va'>K</span>, 
+ <span class='st'>", predicted power = "</span>, <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>signif</a></span><span class='op'>(</span><span class='va'>ret</span><span class='op'>$</span><span class='va'>powerRRRC</span>,<span class='fl'>3</span><span class='op'>)</span>, <span class='st'>"\n"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'># of readers = 6 estimated # of cases = 251, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 7 estimated # of cases = 211, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 8 estimated # of cases = 188, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 9 estimated # of cases = 173, predicted power = 0.801</span></div><div class='output co'>#&gt; <span class='message'># of readers = 10 estimated # of cases = 163, predicted power = 0.802</span></div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>
@@ -319,7 +324,7 @@ method is used. Otherwise the OR method is used.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

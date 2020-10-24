@@ -187,13 +187,13 @@
     <p>Read a disk file and create a dataset object from it.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>DfReadDataFile</span>(
-  <span class='no'>fileName</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"JAFROC"</span>,
-  <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>delimiter</span> <span class='kw'>=</span> <span class='st'>","</span>,
-  <span class='kw'>sequentialNames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>DfReadDataFile</span><span class='op'>(</span>
+  <span class='va'>fileName</span>,
+  format <span class='op'>=</span> <span class='st'>"JAFROC"</span>,
+  newExcelFileFormat <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  delimiter <span class='op'>=</span> <span class='st'>","</span>,
+  sequentialNames <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -242,28 +242,30 @@ and reader IDs in the original data file will be used.</p></td>
     <p>A dataset with the structure specified in <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"toyFiles/ROC/rocCr.xlsx"</span>,
-<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>rdrArr1D</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>newExcelFileFormat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="examples"><div class='input'><span class='va'>fileName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"toyFiles/ROC/rocCr.xlsx"</span>, 
+package <span class='op'>=</span> <span class='st'>"RJafroc"</span>, mustWork <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>rdrArr1D</span> <span class='op'>&lt;-</span> <span class='fu'>DfReadDataFile</span><span class='op'>(</span><span class='va'>fileName</span>, newExcelFileFormat <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'># \donttest{</span>
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"Roc.xlsx"</span>,
-<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>RocDataXlsx</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>)
+<span class='va'>fileName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"Roc.xlsx"</span>, 
+package <span class='op'>=</span> <span class='st'>"RJafroc"</span>, mustWork <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>RocDataXlsx</span> <span class='op'>&lt;-</span> <span class='fu'>DfReadDataFile</span><span class='op'>(</span><span class='va'>fileName</span><span class='op'>)</span>
 
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"RocData.csv"</span>,
-<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>RocDataCsv</span><span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"MRMC"</span>)
+<span class='va'>fileName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"RocData.csv"</span>, 
+package <span class='op'>=</span> <span class='st'>"RJafroc"</span>, mustWork <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>RocDataCsv</span><span class='op'>&lt;-</span> <span class='fu'>DfReadDataFile</span><span class='op'>(</span><span class='va'>fileName</span>, format <span class='op'>=</span> <span class='st'>"MRMC"</span><span class='op'>)</span>
 
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"RocData.imrmc"</span>,
-<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>RocDataImrmc</span><span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"iMRMC"</span>)
+<span class='va'>fileName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"RocData.imrmc"</span>, 
+package <span class='op'>=</span> <span class='st'>"RJafroc"</span>, mustWork <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>RocDataImrmc</span><span class='op'>&lt;-</span> <span class='fu'>DfReadDataFile</span><span class='op'>(</span><span class='va'>fileName</span>, format <span class='op'>=</span> <span class='st'>"iMRMC"</span><span class='op'>)</span>
 
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"Froc.xlsx"</span>,
-<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>FrocDataXlsx</span> <span class='kw'>&lt;-</span> <span class='fu'>DfReadDataFile</span>(<span class='no'>fileName</span>, <span class='kw'>sequentialNames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># }</span></div></pre>
+<span class='va'>fileName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"Froc.xlsx"</span>, 
+package <span class='op'>=</span> <span class='st'>"RJafroc"</span>, mustWork <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>FrocDataXlsx</span> <span class='op'>&lt;-</span> <span class='fu'>DfReadDataFile</span><span class='op'>(</span><span class='va'>fileName</span>, sequentialNames <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -279,7 +281,7 @@ and reader IDs in the original data file will be used.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

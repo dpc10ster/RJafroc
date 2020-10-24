@@ -132,13 +132,14 @@
 
       
 
-      </header><script src="Ch20Vig3proprocROCs_files/header-attrs-2.3/header-attrs.js"></script><script src="Ch20Vig3proprocROCs_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Ch20Vig3proprocROCs_files/header-attrs-2.5/header-attrs.js"></script><script src="Ch20Vig3proprocROCs_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Ch20Vig3proprocROCs_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="Ch20Vig3proprocROCs_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 20, Vignette 3: PROPROC ROCs and pdfs</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-08-11</h4>
+            <h4 class="date">2020-10-23</h4>
       
       
       <div class="hidden name"><code>Ch20Vig3proprocROCs.Rmd</code></div>
@@ -159,38 +160,39 @@
 <div id="main-code-and-output" class="section level2">
 <h2 class="hasAnchor">
 <a href="#main-code-and-output" class="anchor"></a>Main code and output</h2>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">c1Arr</span> <span class="kw">&lt;-</span>   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">0.1322804</span>, <span class="fl">0.2225588</span>); <span class="no">daArr</span>  <span class="kw">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.197239</span>, <span class="fl">1.740157</span>)
-<span class="no">myLabel</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)
-<span class="no">myLabelIndx</span> <span class="kw">&lt;-</span> <span class="fl">1</span>
-<span class="kw">for</span> (<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="fl">2</span>)
-{
-  <span class="no">c1</span> <span class="kw">&lt;-</span> <span class="no">c1Arr</span>[<span class="no">i</span>]
-  <span class="no">da</span> <span class="kw">&lt;-</span> <span class="no">daArr</span>[<span class="no">i</span>]
-  <span class="no">ret</span> <span class="kw">&lt;-</span> <span class="fu">Transform2ab</span>(<span class="no">da</span>, <span class="no">c1</span>)
-  <span class="no">a</span> <span class="kw">&lt;-</span> <span class="no">ret</span>$<span class="no">a</span>;<span class="no">b</span> <span class="kw">&lt;-</span> <span class="no">ret</span>$<span class="no">b</span>
-  <span class="kw">if</span> (<span class="no">i</span> <span class="kw">==</span> <span class="fl">1</span>) <span class="no">z</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(-<span class="fl">3</span>, <span class="fl">0</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fl">0.01</span>) <span class="co"># may need to adjust limits to view detail of slope plot</span>
-  <span class="kw">if</span> (<span class="no">i</span> <span class="kw">==</span> <span class="fl">2</span>) <span class="no">z</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(-<span class="fl">3</span>, <span class="fl">5</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fl">0.01</span>) <span class="co"># may need to adjust limits to view detail of slope plot</span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="va">c1Arr</span> <span class="op">&lt;-</span>   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1322804</span>, <span class="fl">0.2225588</span><span class="op">)</span>; <span class="va">daArr</span>  <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.197239</span>, <span class="fl">1.740157</span><span class="op">)</span>
+<span class="va">myLabel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>
+<span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>
+<span class="op">{</span>
+  <span class="va">c1</span> <span class="op">&lt;-</span> <span class="va">c1Arr</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
+  <span class="va">da</span> <span class="op">&lt;-</span> <span class="va">daArr</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
+  <span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu">Transform2ab</span><span class="op">(</span><span class="va">da</span>, <span class="va">c1</span><span class="op">)</span>
+  <span class="va">a</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">a</span>;<span class="va">b</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">b</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">0</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="co"># may need to adjust limits to view detail of slope plot</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">5</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="co"># may need to adjust limits to view detail of slope plot</span>
+  
+  <span class="va">FPF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.0</span>, <span class="fl">1</span>, <span class="fl">0.001</span><span class="op">)</span>
+  <span class="va">TPF</span> <span class="op">&lt;-</span> <span class="fu">rocY</span><span class="op">(</span><span class="va">FPF</span>, <span class="va">a</span>, <span class="va">b</span><span class="op">)</span>
+  
+  <span class="va">rocPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>FPF <span class="op">=</span> <span class="va">FPF</span>, TPF <span class="op">=</span> <span class="va">TPF</span><span class="op">)</span>
+  <span class="va">plotRoc</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">rocPlot</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">FPF</span>, y <span class="op">=</span> <span class="va">TPF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span>  <span class="op">+</span> 
+   <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>   <span class="op">+</span>
+    <span class="fu">ggtitle</span><span class="op">(</span><span class="va">myLabel</span><span class="op">[</span><span class="va">myLabelIndx</span><span class="op">]</span><span class="op">)</span>;<span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="va">myLabelIndx</span> <span class="op">+</span> <span class="fl">1</span>
 
-  <span class="no">FPF</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0.0</span>, <span class="fl">1</span>, <span class="fl">0.001</span>)
-  <span class="no">TPF</span> <span class="kw">&lt;-</span> <span class="fu">rocY</span>(<span class="no">FPF</span>, <span class="no">a</span>, <span class="no">b</span>)
-
-  <span class="no">rocPlot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">FPF</span> <span class="kw">=</span> <span class="no">FPF</span>, <span class="kw">TPF</span> <span class="kw">=</span> <span class="no">TPF</span>)
-  <span class="no">plotRoc</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(<span class="no">rocPlot</span>, <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">FPF</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">TPF</span>)) +
-    <span class="fu">geom_line</span>()  +
-   <span class="fu">scale_x_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) +
-    <span class="fu">scale_y_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>))   +
-    <span class="fu">ggtitle</span>(<span class="no">myLabel</span>[<span class="no">myLabelIndx</span>]);<span class="no">myLabelIndx</span> <span class="kw">&lt;-</span> <span class="no">myLabelIndx</span> + <span class="fl">1</span>
-
-  <span class="no">slope</span> <span class="kw">&lt;-</span><span class="no">b</span>*<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span>(<span class="no">a</span>-<span class="no">b</span>*<span class="no">z</span>)/<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span>(-<span class="no">z</span>) <span class="co"># same as likelihood ratio</span>
-
-  <span class="no">slopePlot</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">z</span> <span class="kw">=</span> <span class="no">z</span>, <span class="kw">slope</span> <span class="kw">=</span> <span class="no">slope</span>)
-  <span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(<span class="no">slopePlot</span>, <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">z</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">slope</span>)) +
-    <span class="fu">geom_line</span>()  +
-    <span class="fu">scale_x_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) +
-    <span class="fu">scale_y_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>))  +
-    <span class="fu">ggtitle</span>(<span class="no">myLabel</span>[<span class="no">myLabelIndx</span>]);<span class="no">myLabelIndx</span> <span class="kw">&lt;-</span> <span class="no">myLabelIndx</span> + <span class="fl">1</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">plotRoc</span>);<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">p</span>)
-}</pre></body></html></div>
+  <span class="va">slope</span> <span class="op">&lt;-</span><span class="va">b</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">a</span><span class="op">-</span><span class="va">b</span><span class="op">*</span><span class="va">z</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="op">-</span><span class="va">z</span><span class="op">)</span> <span class="co"># same as likelihood ratio</span>
+  
+  <span class="va">slopePlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">z</span>, slope <span class="op">=</span> <span class="va">slope</span><span class="op">)</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">slopePlot</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">z</span>, y <span class="op">=</span> <span class="va">slope</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span>  <span class="op">+</span> 
+    <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
+    <span class="fu">ggtitle</span><span class="op">(</span><span class="va">myLabel</span><span class="op">[</span><span class="va">myLabelIndx</span><span class="op">]</span><span class="op">)</span>;<span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="va">myLabelIndx</span> <span class="op">+</span> <span class="fl">1</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">plotRoc</span><span class="op">)</span>;<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span>
+<span class="op">}</span></pre></div>
 <p><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-2.png" width="700"><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-3.png" width="700"><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-4.png" width="700"></p>
 </div>
 <div id="discussion" class="section level2">
@@ -218,7 +220,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -191,7 +191,7 @@
    ROC, FROC, ROI or LROC dataset</p>
     </div>
 
-    <pre class="usage"><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilFigureOfMerit</span><span class='op'>(</span><span class='va'>dataset</span>, FOM <span class='op'>=</span> <span class='st'>"wAFROC"</span>, FPFValue <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -267,26 +267,33 @@ with Application to Mammography, Acad Radiol, 7:7 553--554.</p>
 Med Phys 23:10, 1709--1725.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'># ROC data</span></div><div class='output co'>#&gt;            rdr0       rdr1       rdr2       rdr3       rdr4
+    <pre class="examples"><div class='input'><span class='fu'>UtilFigureOfMerit</span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span><span class='op'>)</span> <span class='co'># ROC data</span>
+</div><div class='output co'>#&gt;            rdr0       rdr1       rdr2       rdr3       rdr4
 #&gt; trt0 0.91964573 0.85877617 0.90386473 0.97310789 0.82979066
-#&gt; trt1 0.94782609 0.90531401 0.92173913 0.99935588 0.92995169</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span>(<span class='no'>dataset01</span>), <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'># FROC dataset, converted to ROC</span></div><div class='output co'>#&gt;            rdr1       rdr2       rdr3       rdr4       rdr5
+#&gt; trt1 0.94782609 0.90531401 0.92173913 0.99935588 0.92995169</div><div class='input'><span class='fu'>UtilFigureOfMerit</span><span class='op'>(</span><span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span><span class='op'>(</span><span class='va'>dataset01</span><span class='op'>)</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span><span class='op'>)</span> <span class='co'># FROC dataset, converted to ROC</span>
+</div><div class='output co'>#&gt;            rdr1       rdr2       rdr3       rdr4       rdr5
 #&gt; trt1 0.79599719 0.86522706 0.84117509 0.83110955 0.84655899
-#&gt; trt2 0.66894897 0.72114934 0.78411751 0.79792837 0.70610955</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>dataset01</span>) <span class='co'># FROC dataset, default wAFROC FOM</span></div><div class='output co'>#&gt;             rdr1       rdr2       rdr3       rdr4       rdr5
+#&gt; trt2 0.66894897 0.72114934 0.78411751 0.79792837 0.70610955</div><div class='input'><span class='fu'>UtilFigureOfMerit</span><span class='op'>(</span><span class='va'>dataset01</span><span class='op'>)</span> <span class='co'># FROC dataset, default wAFROC FOM</span>
+</div><div class='output co'>#&gt;             rdr1       rdr2       rdr3       rdr4       rdr5
 #&gt; trtBT 0.76027037 0.84061915 0.81715239 0.81530899 0.82783240
-#&gt; trtDM 0.64258544 0.70499766 0.75184340 0.77244265 0.68369616</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;            rdr1      rdr2       rdr3       rdr4     rdr5       rdr6       rdr7
+#&gt; trtDM 0.64258544 0.70499766 0.75184340 0.77244265 0.68369616</div><div class='input'><span class='fu'>UtilFigureOfMerit</span><span class='op'>(</span><span class='va'>datasetCadLroc</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span><span class='op'>)</span> <span class='co'>#LROC data</span>
+</div><div class='output co'>#&gt;            rdr1      rdr2       rdr3       rdr4     rdr5       rdr6       rdr7
 #&gt; trt1 0.81692708 0.8415625 0.84119792 0.89973958 0.838125 0.85635417 0.87869792
 #&gt;            rdr8       rdr9    rdr10
-#&gt; trt1 0.85838542 0.79703125 0.826875</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"PCL"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;            rdr1       rdr2 rdr3    rdr4  rdr5       rdr6       rdr7   rdr8
+#&gt; trt1 0.85838542 0.79703125 0.826875</div><div class='input'><span class='fu'>UtilFigureOfMerit</span><span class='op'>(</span><span class='va'>datasetCadLroc</span>, FOM <span class='op'>=</span> <span class='st'>"PCL"</span><span class='op'>)</span> <span class='co'>#LROC data</span>
+</div><div class='output co'>#&gt;            rdr1       rdr2 rdr3    rdr4  rdr5       rdr6       rdr7   rdr8
 #&gt; trt1 0.59166667 0.69453125 0.65 0.80625 0.725 0.65982143 0.76845238 0.7375
 #&gt;       rdr9 rdr10
-#&gt; trt1 0.675 0.675</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetCadLroc</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ALROC"</span>) <span class='co'>#LROC data</span></div><div class='output co'>#&gt;            rdr1      rdr2       rdr3       rdr4       rdr5       rdr6
+#&gt; trt1 0.675 0.675</div><div class='input'><span class='fu'>UtilFigureOfMerit</span><span class='op'>(</span><span class='va'>datasetCadLroc</span>, FOM <span class='op'>=</span> <span class='st'>"ALROC"</span><span class='op'>)</span> <span class='co'>#LROC data</span>
+</div><div class='output co'>#&gt;            rdr1      rdr2       rdr3       rdr4       rdr5       rdr6
 #&gt; trt1 0.10053819 0.1075944 0.10890625 0.14473958 0.11890625 0.10003348
 #&gt;            rdr7      rdr8       rdr9      rdr10
-#&gt; trt1 0.13455109 0.1221875 0.10604167 0.10541667</div><div class='input'><span class='fu'>UtilFigureOfMerit</span>(<span class='no'>datasetROI</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"ROI"</span>) <span class='co'>#ROI data</span></div><div class='output co'>#&gt;            rdr1       rdr2       rdr3       rdr4       rdr5
+#&gt; trt1 0.13455109 0.1221875 0.10604167 0.10541667</div><div class='input'><span class='fu'>UtilFigureOfMerit</span><span class='op'>(</span><span class='va'>datasetROI</span>, FOM <span class='op'>=</span> <span class='st'>"ROI"</span><span class='op'>)</span> <span class='co'>#ROI data</span>
+</div><div class='output co'>#&gt;            rdr1       rdr2       rdr3       rdr4       rdr5
 #&gt; trt1 0.90572391 0.88428345 0.85792794 0.93502071 0.83521034
-#&gt; trt2 0.92971864 0.95460351 0.89376524 0.95317156 0.87700762</div><div class='input'> # these are meant to illustrate conditions which will throw an error
-## UtilFigureOfMerit(dataset02, FOM = "wAFROC") #error
-## UtilFigureOfMerit(dataset01, FOM = "Wilcoxon") #error
+#&gt; trt2 0.92971864 0.95460351 0.89376524 0.95317156 0.87700762</div><div class='input'> <span class='co'># these are meant to illustrate conditions which will throw an error</span>
+<span class='co'>## UtilFigureOfMerit(dataset02, FOM = "wAFROC") #error</span>
+<span class='co'>## UtilFigureOfMerit(dataset01, FOM = "Wilcoxon") #error</span>
 
 
 </div></pre>
@@ -305,7 +312,7 @@ Med Phys 23:10, 1709--1725.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

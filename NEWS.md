@@ -1,5 +1,16 @@
 # RJafroc 1.3.2.9000
 
+## Fixing non-character input error
+* Finished October 23, 2020.
+* Fixed error in `DfReadDataFile.R` in function `checkTruthTable()`; this bug discovered in working with HUGE one reader dataset. 
+* For single reader or single modality dataset, if input is not converted to character, then error results in `I <- length(strsplit(modalityIDCol[1], split = ",")[[1]])` and similar expression for `J`.
+* Fix is to use `as.character` as in:
+```
+  readerIDCol <- as.character(truthTable$ReaderID) # bug fix to avoid non-character input error below
+  modalityIDCol <- as.character(truthTable$ModalityID) # do:
+```
+
+
 ## Simplified plotting routines
 * Finished October 2, 2020.
 * Necessitated by work on CAD vs. RAD plots in `RJafrocBook`.

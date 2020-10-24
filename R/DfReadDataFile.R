@@ -178,11 +178,13 @@ checkTruthTable <- function (truthTable)
   # TBA need a note on use of indx, why it is not used for readerID, etc.
   lesionIDCol <- as.integer(truthTable$LesionID)
   weightsCol <- as.numeric(truthTable$Weight)
-  readerIDCol <- truthTable$ReaderID
-  modalityIDCol <- truthTable$ModalityID
+  # readerIDCol <- truthTable$ReaderID # temp for testing non-character input
+  # modalityIDCol <- truthTable$ModalityID# do:
+  # bug non-character input error for HUGE dataset
+  readerIDCol <- as.character(truthTable$ReaderID) # bug fix to avoid non-character input error below
+  modalityIDCol <- as.character(truthTable$ModalityID) # do:
+  # 
   L <- length(truthTable$CaseID) # length in the Excel sheet
-  # stop if only one reader; all split plot designs must have more than one reader
-  if (length(readerIDCol) == L) stop("cannot handle one reader case with newExcelFormat")
   for (i in 1:5) if ((length(truthTable[[i]])) != L) stop("Cols of unequal length in Truth Excel worksheet")  
   
   normalCases <- sort(unique(caseIDCol[lesionIDCol == 0]))
@@ -248,7 +250,7 @@ checkTruthTable <- function (truthTable)
     }
   } else if (design == "FCTRL") {
     # preserve the strings; DO NOT convert to integers
-    J <- length(strsplit(readerIDCol[1], split = ",")[[1]])
+    J <- length(strsplit(readerIDCol[1], split = ",")[[1]]) # bug non-character input error for HUGE dataset
     rdrArr <- array(dim = c(L,J))
     for (l in 1:L) {
       val <- strsplit(readerIDCol[l], split = ",|\\s")[[1]]

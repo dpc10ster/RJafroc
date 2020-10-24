@@ -187,7 +187,7 @@
     <p>Utility for Dorfman-Berbaum-Metz variance components</p>
     </div>
 
-    <pre class="usage"><span class='fu'>UtilVarComponentsDBM</span>(<span class='no'>dataset</span>, <span class='no'>FOM</span>, <span class='kw'>FPFValue</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilVarComponentsDBM</span><span class='op'>(</span><span class='va'>dataset</span>, <span class='va'>FOM</span>, FPFValue <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,7 +212,8 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.</p>
     <p>A list object containing the variance components.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilVarComponentsDBM</span>(<span class='no'>dataset02</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>)</div><div class='output co'>#&gt; $VarCom
+    <pre class="examples"><div class='input'><span class='fu'>UtilVarComponentsDBM</span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $VarCom
 #&gt;            Estimates
 #&gt; VarR   0.00153499935
 #&gt; VarC   0.02724923428
@@ -261,7 +262,7 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

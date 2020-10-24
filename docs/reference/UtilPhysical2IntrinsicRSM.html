@@ -193,7 +193,7 @@
    parameters are independent of \(\mu\). See book for details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>UtilPhysical2IntrinsicRSM</span>(<span class='no'>mu</span>, <span class='no'>lambdaP</span>, <span class='no'>nuP</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilPhysical2IntrinsicRSM</span><span class='op'>(</span><span class='va'>mu</span>, <span class='va'>lambdaP</span>, <span class='va'>nuP</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -238,11 +238,13 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>;<span class='no'>lambdaP</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>;<span class='no'>nuP</span> <span class='kw'>&lt;-</span> <span class='fl'>0.9</span>
-<span class='no'>lambda</span> <span class='kw'>&lt;-</span> <span class='fu'>UtilPhysical2IntrinsicRSM</span>(<span class='no'>mu</span>, <span class='no'>lambdaP</span>, <span class='no'>nuP</span>)$<span class='no'>lambda</span>
-<span class='no'>nu</span> <span class='kw'>&lt;-</span> <span class='fu'>UtilPhysical2IntrinsicRSM</span>(<span class='no'>mu</span>, <span class='no'>lambdaP</span>, <span class='no'>nuP</span>)$<span class='no'>nu</span>
+    <pre class="examples"><div class='input'><span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>;<span class='va'>lambdaP</span> <span class='op'>&lt;-</span> <span class='fl'>10</span>;<span class='va'>nuP</span> <span class='op'>&lt;-</span> <span class='fl'>0.9</span>
+<span class='va'>lambda</span> <span class='op'>&lt;-</span> <span class='fu'>UtilPhysical2IntrinsicRSM</span><span class='op'>(</span><span class='va'>mu</span>, <span class='va'>lambdaP</span>, <span class='va'>nuP</span><span class='op'>)</span><span class='op'>$</span><span class='va'>lambda</span> 
+<span class='va'>nu</span> <span class='op'>&lt;-</span> <span class='fu'>UtilPhysical2IntrinsicRSM</span><span class='op'>(</span><span class='va'>mu</span>, <span class='va'>lambdaP</span>, <span class='va'>nuP</span><span class='op'>)</span><span class='op'>$</span><span class='va'>nu</span> 
 <span class='co'>## note that the physical values are only constrained to be positive, e.g., nu is not constrained</span>
-<span class='co'>## to be between 0 and one.</span></div></pre>
+<span class='co'>## to be between 0 and one.</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -258,7 +260,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

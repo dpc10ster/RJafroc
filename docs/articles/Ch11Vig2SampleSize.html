@@ -132,13 +132,14 @@
 
       
 
-      </header><script src="Ch11Vig2SampleSize_files/header-attrs-2.3/header-attrs.js"></script><script src="Ch11Vig2SampleSize_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Ch11Vig2SampleSize_files/header-attrs-2.5/header-attrs.js"></script><script src="Ch11Vig2SampleSize_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Ch11Vig2SampleSize_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="Ch11Vig2SampleSize_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 11, Vignette 2: ROC-DBM sample size from first principles</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-08-11</h4>
+            <h4 class="date">2020-10-23</h4>
       
       
       <div class="hidden name"><code>Ch11Vig2SampleSize.Rmd</code></div>
@@ -156,15 +157,17 @@
 <h2 class="hasAnchor">
 <a href="#sample-size-estimation-using-the-dbm-method" class="anchor"></a>Sample size estimation using the DBM method</h2>
 <p>The Van Dyke dataset in file <code>VanDyke.lrc</code>, in <code>"MRMC"</code> format, is regarded as a pilot study. The command <code>rocData &lt;- DfReadDataFile(fileName, format = "MRMC")</code> reads the data and saves it to a <code>dataset</code> object <code>rocData</code>. <a href="https://dpc10ster.github.io/RJafroc/reference/RJafroc-package.html">For more on data formats click here</a>. The next line uses the function <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> to apply <code>method = "DBM"</code> analysis, the default, using the <code>FOM = "Wilcoxon"</code> figure of merit. The next line extracts the variance components <code>varYTR</code>, <code>varYTC</code> and <code>varYEps</code> (the Y’s denote pseudovalue based values). The next line extracts the effect size.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">alpha</span> <span class="kw">&lt;-</span> <span class="fl">0.05</span>
-<span class="no">rocData</span> <span class="kw">&lt;-</span> <span class="no">dataset02</span> <span class="co">##"VanDyke.lrc"</span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fl">0.05</span>
+<span class="va">rocData</span> <span class="op">&lt;-</span> <span class="va">dataset02</span> <span class="co">##"VanDyke.lrc"</span>
 <span class="co">#fileName &lt;- dataset03 ## "Franken1.lrc"</span>
-<span class="no">retDbm</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="no">rocData</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>)
-<span class="no">varYTR</span> <span class="kw">&lt;-</span> <span class="no">retDbm</span>$<span class="no">varComp</span>$<span class="no">varComp</span>[<span class="fl">3</span>];<span class="no">varYTC</span> <span class="kw">&lt;-</span> <span class="no">retDbm</span>$<span class="no">varComp</span>$<span class="no">varComp</span>[<span class="fl">4</span>];<span class="no">varYEps</span> <span class="kw">&lt;-</span> <span class="no">retDbm</span>$<span class="no">varComp</span>$<span class="no">varComp</span>[<span class="fl">6</span>]
-<span class="no">effectSize</span> <span class="kw">&lt;-</span> <span class="no">retDbm</span>$<span class="no">ciDiffTrtRRRC</span>$<span class="no">Estimate</span></pre></body></html></div>
+<span class="va">retDbm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">rocData</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span> 
+<span class="va">varYTR</span> <span class="op">&lt;-</span> <span class="va">retDbm</span><span class="op">$</span><span class="va">varComp</span><span class="op">$</span><span class="va">varComp</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>;<span class="va">varYTC</span> <span class="op">&lt;-</span> <span class="va">retDbm</span><span class="op">$</span><span class="va">varComp</span><span class="op">$</span><span class="va">varComp</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>;<span class="va">varYEps</span> <span class="op">&lt;-</span> <span class="va">retDbm</span><span class="op">$</span><span class="va">varComp</span><span class="op">$</span><span class="va">varComp</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span>
+<span class="va">effectSize</span> <span class="op">&lt;-</span> <span class="va">retDbm</span><span class="op">$</span><span class="va">ciDiffTrtRRRC</span><span class="op">$</span><span class="va">Estimate</span></pre></div>
 <p>The <em>observed</em> effect size is <code>effectSize</code> = , which, in this example, is used as the <em>anticipated</em> effect size, generally not a good idea. <strong>See Chapter 11 for nuances regarding the choice of this all important value.</strong> The following code snippet reveals the names and array indexing of the pseudovalue variance components.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">retDbm</span>$<span class="no">varComp</span>
-<span class="co">#&gt; NULL</span></pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="va">retDbm</span><span class="op">$</span><span class="va">varComp</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <p>For example, the treatment-reader pseudovalue variance component is the third element of <code>retDbm$varComp</code>.</p>
 <div id="random-reader-random-case-rrrc" class="section level3">
 <h3 class="hasAnchor">
@@ -175,14 +178,16 @@
 <p><span class="math display">\[{{F}_{\left. AH \right|R}}\equiv \frac{MST}{MSTC}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( K-1 \right),\Delta }}\]</span> Also,</p>
 <p><span class="math display">\[\sigma _{Y;\tau }^{2}={{d}^{2}}/2\]</span></p>
 <p>where <code>d</code> is the observed effect size, i.e., <code>effectSize</code>. The formulae for calculating the mean-squares are in <span class="citation">(Hillis and Berbaum 2004)</span>, implemented in <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code>.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co">#RRRC</span>
-<span class="no">ncp</span> <span class="kw">&lt;-</span> (<span class="fl">0.5</span>*<span class="no">J</span>*<span class="no">K</span>*(<span class="no">effectSize</span>)^<span class="fl">2</span>)/(<span class="no">K</span>*<span class="no">varYTR</span>+<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">J</span>*<span class="no">varYTC</span>,<span class="fl">0</span>)+<span class="no">varYEps</span>)
-<span class="no">MS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/UtilMeanSquares.html">UtilMeanSquares</a></span>(<span class="no">rocData</span>, <span class="kw">FOM</span> <span class="kw">=</span> <span class="st">"Wilcoxon"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"DBM"</span>)
-<span class="no">ddf</span> <span class="kw">&lt;-</span> (<span class="no">MS</span>$<span class="no">msTR</span>+<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">MS</span>$<span class="no">msTC</span>-<span class="no">MS</span>$<span class="no">msTRC</span>,<span class="fl">0</span>))^<span class="fl">2</span>/(<span class="no">MS</span>$<span class="no">msTR</span>^<span class="fl">2</span>)*(<span class="no">J</span>-<span class="fl">1</span>)
-<span class="no">FCrit</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">qf</a></span>(<span class="fl">1</span> - <span class="no">alpha</span>, <span class="fl">1</span>, <span class="no">ddf</span>)
-<span class="no">Power1</span> <span class="kw">&lt;-</span> <span class="fl">1</span>-<span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span>(<span class="no">FCrit</span>, <span class="fl">1</span>, <span class="no">ddf</span>, <span class="kw">ncp</span> <span class="kw">=</span> <span class="no">ncp</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co">#RRRC</span>
+<span class="va">ncp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">0.5</span><span class="op">*</span><span class="va">J</span><span class="op">*</span><span class="va">K</span><span class="op">*</span><span class="op">(</span><span class="va">effectSize</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">K</span><span class="op">*</span><span class="va">varYTR</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">J</span><span class="op">*</span><span class="va">varYTC</span>,<span class="fl">0</span><span class="op">)</span><span class="op">+</span><span class="va">varYEps</span><span class="op">)</span>
+<span class="va">MS</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/UtilMeanSquares.html">UtilMeanSquares</a></span><span class="op">(</span><span class="va">rocData</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span>
+<span class="va">ddf</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">MS</span><span class="op">$</span><span class="va">msTR</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">MS</span><span class="op">$</span><span class="va">msTC</span><span class="op">-</span><span class="va">MS</span><span class="op">$</span><span class="va">msTRC</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span><span class="op">(</span><span class="va">MS</span><span class="op">$</span><span class="va">msTR</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="va">J</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">FCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">qf</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">alpha</span>, <span class="fl">1</span>, <span class="va">ddf</span><span class="op">)</span>
+<span class="va">Power1</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span><span class="op">(</span><span class="va">FCrit</span>, <span class="fl">1</span>, <span class="va">ddf</span>, ncp <span class="op">=</span> <span class="va">ncp</span><span class="op">)</span></pre></div>
 <p>The next line calculates the non centrality parameter, <code>ncp</code> = . Note that <code>effectSize</code> enters as the <strong>square</strong>. The <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code> function returns the mean-squares as a <code>list</code> (ignore the last two rows of output for now).</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">MS</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">MS</span><span class="op">)</span>
 <span class="co">#&gt; List of 9</span>
 <span class="co">#&gt;  $ msT       : num 0.547</span>
 <span class="co">#&gt;  $ msR       : num 0.437</span>
@@ -192,7 +197,7 @@
 <span class="co">#&gt;  $ msRC      : num 0.0645</span>
 <span class="co">#&gt;  $ msTRC     : num 0.04</span>
 <span class="co">#&gt;  $ msCSingleT: num [1:2] 0.336 0.16</span>
-<span class="co">#&gt;  $ msCSingleR: num [1:5] 0.1222 0.2127 0.1365 0.0173 0.1661</span></pre></body></html></div>
+<span class="co">#&gt;  $ msCSingleR: num [1:5] 0.1222 0.2127 0.1365 0.0173 0.1661</span></pre></div>
 <p>The next line calculates <code>ddf</code> = 34.33426783. The remaining lines calculate the critical value of the F-distribution, <code>FCrit</code> = 4.1270572 and statistical power = , which by design is close to 80%, i.e., the numbers of readers and cases were chosen to achieve this value.</p>
 </div>
 <div id="fixed-reader-random-case-frrc" class="section level3">
@@ -202,11 +207,12 @@
 <p><span class="math display">\[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2}+J\sigma _{Y;\tau C}^{2}}\]</span></p>
 <p>The sampling distribution of the F-statistic under the AH is:</p>
 <p><span class="math display">\[{{F}_{\left. AH \right|R}}\equiv \frac{MST}{MSTC}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( K-1 \right),\Delta }}\]</span></p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co">#FRRC</span>
-<span class="no">ncp</span> <span class="kw">&lt;-</span> (<span class="fl">0.5</span>*<span class="no">J</span>*<span class="no">K</span>*(<span class="no">effectSize</span>)^<span class="fl">2</span>)/(<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">J</span>*<span class="no">varYTC</span>,<span class="fl">0</span>)+<span class="no">varYEps</span>)
-<span class="no">ddf</span> <span class="kw">&lt;-</span> (<span class="no">K</span>-<span class="fl">1</span>)
-<span class="no">FCrit</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">qf</a></span>(<span class="fl">1</span> - <span class="no">alpha</span>, <span class="fl">1</span>, <span class="no">ddf</span>)
-<span class="no">Power2</span> <span class="kw">&lt;-</span> <span class="fl">1</span>-<span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span>(<span class="no">FCrit</span>, <span class="fl">1</span>, <span class="no">ddf</span>, <span class="kw">ncp</span> <span class="kw">=</span> <span class="no">ncp</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="co">#FRRC</span>
+<span class="va">ncp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">0.5</span><span class="op">*</span><span class="va">J</span><span class="op">*</span><span class="va">K</span><span class="op">*</span><span class="op">(</span><span class="va">effectSize</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">J</span><span class="op">*</span><span class="va">varYTC</span>,<span class="fl">0</span><span class="op">)</span><span class="op">+</span><span class="va">varYEps</span><span class="op">)</span>
+<span class="va">ddf</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">K</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">FCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">qf</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">alpha</span>, <span class="fl">1</span>, <span class="va">ddf</span><span class="op">)</span>
+<span class="va">Power2</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span><span class="op">(</span><span class="va">FCrit</span>, <span class="fl">1</span>, <span class="va">ddf</span>, ncp <span class="op">=</span> <span class="va">ncp</span><span class="op">)</span></pre></div>
 <p>This time non centrality parameter, <code>ncp</code> = , <code>ddf</code> = 132, <code>FCrit</code> = 3.91287503 and statistical power = . Again, be design, this is close to 80%. Note that when readers are regarded as a fixed effect, fewer cases are needed to achieve the desired power. Freezing out a source of variability results in a more stable measurement and hence fewer cases are needed to achieve the desired power.</p>
 </div>
 <div id="random-reader-fixed-case-rrfc" class="section level3">
@@ -216,11 +222,12 @@
 <p><span class="math display">\[\Delta =\frac{JK\sigma _{Y;\tau }^{2}}{\sigma _{Y;\varepsilon }^{2}+\sigma _{Y;\tau RC}^{2}+K\sigma _{Y;\tau R}^{2}}\]</span></p>
 <p>The sampling distribution of the F-statistic under the AH is:</p>
 <p><span class="math display">\[{{F}_{\left. AH \right|C}}\equiv \frac{MST}{MSTR}\tilde{\ }{{F}_{I-1,\left( I-1 \right)\left( J-1 \right),\Delta }}\]</span></p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co">#RRFC</span>
-<span class="no">ncp</span> <span class="kw">&lt;-</span> (<span class="fl">0.5</span>*<span class="no">J</span>*<span class="no">K</span>*(<span class="no">effectSize</span>)^<span class="fl">2</span>)/(<span class="no">K</span>*<span class="no">varYTR</span>+<span class="no">varYEps</span>)
-<span class="no">ddf</span> <span class="kw">&lt;-</span> (<span class="no">J</span>-<span class="fl">1</span>)
-<span class="no">FCrit</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">qf</a></span>(<span class="fl">1</span> - <span class="no">alpha</span>, <span class="fl">1</span>, <span class="no">ddf</span>)
-<span class="no">Power3</span> <span class="kw">&lt;-</span> <span class="fl">1</span>-<span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span>(<span class="no">FCrit</span>, <span class="fl">1</span>, <span class="no">ddf</span>, <span class="kw">ncp</span> <span class="kw">=</span> <span class="no">ncp</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="co">#RRFC</span>
+<span class="va">ncp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">0.5</span><span class="op">*</span><span class="va">J</span><span class="op">*</span><span class="va">K</span><span class="op">*</span><span class="op">(</span><span class="va">effectSize</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">K</span><span class="op">*</span><span class="va">varYTR</span><span class="op">+</span><span class="va">varYEps</span><span class="op">)</span>
+<span class="va">ddf</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">J</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">FCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">qf</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">alpha</span>, <span class="fl">1</span>, <span class="va">ddf</span><span class="op">)</span>
+<span class="va">Power3</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span><span class="op">(</span><span class="va">FCrit</span>, <span class="fl">1</span>, <span class="va">ddf</span>, ncp <span class="op">=</span> <span class="va">ncp</span><span class="op">)</span></pre></div>
 <p>This time non centrality parameter, <code>ncp</code> = , <code>ddf</code> = 9, <code>FCrit</code> = 5.11735503 and statistical power = . Again, be design, this is close to 80%.</p>
 </div>
 </div>
@@ -255,7 +262,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

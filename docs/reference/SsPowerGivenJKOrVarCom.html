@@ -187,19 +187,19 @@
     <p>Power given J, K and Obuchowski-Rockette variance components</p>
     </div>
 
-    <pre class="usage"><span class='fu'>SsPowerGivenJKOrVarCom</span>(
-  <span class='no'>J</span>,
-  <span class='no'>K</span>,
-  <span class='no'>KStar</span>,
-  <span class='no'>effectSize</span>,
-  <span class='no'>VarTR</span>,
-  <span class='no'>Cov1</span>,
-  <span class='no'>Cov2</span>,
-  <span class='no'>Cov3</span>,
-  <span class='no'>Var</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>SsPowerGivenJKOrVarCom</span><span class='op'>(</span>
+  <span class='va'>J</span>,
+  <span class='va'>K</span>,
+  <span class='va'>KStar</span>,
+  <span class='va'>effectSize</span>,
+  <span class='va'>VarTR</span>,
+  <span class='va'>Cov1</span>,
+  <span class='va'>Cov2</span>,
+  <span class='va'>Cov3</span>,
+  <span class='va'>Var</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  analysisOption <span class='op'>=</span> <span class='st'>"RRRC"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -260,19 +260,20 @@
     with <code>method = "OR"</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='no'>dataset02</span> <span class='co'>## the pilot study</span>
-<span class='no'>KStar</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>dataset</span>$<span class='no'>ratings</span>$<span class='no'>NL</span>[<span class='fl'>1</span>,<span class='fl'>1</span>,,<span class='fl'>1</span>])
-<span class='no'>VarCom</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span>(<span class='no'>dataset</span>, <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"Wilcoxon"</span>,
-<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"OR"</span>, <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>)$<span class='no'>ANOVA</span>$<span class='no'>VarCom</span>
-<span class='no'>VarTR</span> <span class='kw'>&lt;-</span> <span class='no'>VarCom</span>[<span class='st'>"VarTR"</span>,<span class='fl'>1</span>]
-<span class='no'>Cov1</span> <span class='kw'>&lt;-</span> <span class='no'>VarCom</span>[<span class='st'>"Cov1"</span>,<span class='fl'>1</span>]
-<span class='no'>Cov2</span> <span class='kw'>&lt;-</span> <span class='no'>VarCom</span>[<span class='st'>"Cov2"</span>,<span class='fl'>1</span>]
-<span class='no'>Cov3</span> <span class='kw'>&lt;-</span> <span class='no'>VarCom</span>[<span class='st'>"Cov3"</span>,<span class='fl'>1</span>]
-<span class='no'>Var</span> <span class='kw'>&lt;-</span> <span class='no'>VarCom</span>[<span class='st'>"Var"</span>,<span class='fl'>1</span>]
-<span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>SsPowerGivenJKOrVarCom</span> (<span class='kw'>J</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>KStar</span> <span class='kw'>=</span> <span class='no'>KStar</span>,
-   <span class='kw'>effectSize</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='no'>VarTR</span>, <span class='no'>Cov1</span>, <span class='no'>Cov2</span>, <span class='no'>Cov3</span>, <span class='no'>Var</span>, <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"RRRC"</span>)
-
-<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='st'>"RRRC power = "</span>, <span class='no'>ret</span>$<span class='no'>powerRRRC</span>)</div><div class='output co'>#&gt; RRRC power =  0.57333598</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='va'>dataset02</span> <span class='co'>## the pilot study</span>
+<span class='va'>KStar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>dataset</span><span class='op'>$</span><span class='va'>ratings</span><span class='op'>$</span><span class='va'>NL</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span>,,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>VarCom</span> <span class='op'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span><span class='op'>(</span><span class='va'>dataset</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, 
+method <span class='op'>=</span> <span class='st'>"OR"</span>, analysisOption <span class='op'>=</span> <span class='st'>"RRRC"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>ANOVA</span><span class='op'>$</span><span class='va'>VarCom</span>
+<span class='va'>VarTR</span> <span class='op'>&lt;-</span> <span class='va'>VarCom</span><span class='op'>[</span><span class='st'>"VarTR"</span>,<span class='fl'>1</span><span class='op'>]</span>
+<span class='va'>Cov1</span> <span class='op'>&lt;-</span> <span class='va'>VarCom</span><span class='op'>[</span><span class='st'>"Cov1"</span>,<span class='fl'>1</span><span class='op'>]</span>
+<span class='va'>Cov2</span> <span class='op'>&lt;-</span> <span class='va'>VarCom</span><span class='op'>[</span><span class='st'>"Cov2"</span>,<span class='fl'>1</span><span class='op'>]</span>
+<span class='va'>Cov3</span> <span class='op'>&lt;-</span> <span class='va'>VarCom</span><span class='op'>[</span><span class='st'>"Cov3"</span>,<span class='fl'>1</span><span class='op'>]</span>
+<span class='va'>Var</span> <span class='op'>&lt;-</span> <span class='va'>VarCom</span><span class='op'>[</span><span class='st'>"Var"</span>,<span class='fl'>1</span><span class='op'>]</span>
+<span class='va'>ret</span> <span class='op'>&lt;-</span> <span class='fu'>SsPowerGivenJKOrVarCom</span> <span class='op'>(</span>J <span class='op'>=</span> <span class='fl'>5</span>, K <span class='op'>=</span> <span class='fl'>100</span>, KStar <span class='op'>=</span> <span class='va'>KStar</span>,  
+   effectSize <span class='op'>=</span> <span class='fl'>0.05</span>, <span class='va'>VarTR</span>, <span class='va'>Cov1</span>, <span class='va'>Cov2</span>, <span class='va'>Cov3</span>, <span class='va'>Var</span>, analysisOption <span class='op'>=</span> <span class='st'>"RRRC"</span><span class='op'>)</span>
+    
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"RRRC power = "</span>, <span class='va'>ret</span><span class='op'>$</span><span class='va'>powerRRRC</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; RRRC power =  0.57333598</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -289,7 +290,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

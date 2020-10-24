@@ -374,7 +374,7 @@
         <code>-Inf</code>s. <strong>Do not use <code>NA</code> to denote a missing rating.</strong></p>     
 <p><strong>Note</strong>: <b>"dataset" in this package always represents
     <code>R</code> object(s) with the following structure(s):</b></p>    
-<p></p><h3>General data structure, e.g., <code>dataset02</code>, an ROC dataset, and 
+<p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>General data structure, e.g., <code>dataset02</code>, an ROC dataset, and 
         <code>dataset05</code>, an FROC dataset.</h3>
 <p></p><ul>
 <li><p><code>ratings$NL</code>: a float array with dimensions
@@ -442,7 +442,7 @@
         which labels/names the readers in the dataset.</p></li>
 </ul><p></p>
   
-<p></p><h3>ROI data structure, example <code>datasetROI</code></h3>
+<p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>ROI data structure, example <code>datasetROI</code></h3>
 <p>Only changes from the previously described structure are described below:</p><ul>
 <li><p><code>ratings$NL</code>: a float array with dimensions <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K, Q)</a></code> 
         containing the ratings of each of Q quadrants for each non-diseased case.</p></li>
@@ -453,7 +453,7 @@
     containing at least one lesion.</p></li>
 </ul><p></p>
 
-<p></p><h3>Crossed modality data structure, example <code>datasetCrossedModality</code></h3>
+<p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Crossed modality data structure, example <code>datasetCrossedModality</code></h3>
 <p>Only changes from the previously described structure are described below:</p><ul>
 <li><p><code>ratings$NL</code>: a float array with dimension <code><a href='https://rdrr.io/r/base/c.html'>c(I1, I2, J, K, maxNL)</a></code> 
         containing the ratings of NL marks. Note the existence of two modality indices.</p></li>
@@ -576,6 +576,16 @@
            variance components.</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    
+<ul>
+<li><p>Creator: Dev Chakraborty <a href='mailto:dpc10ster@gmail.com'>dpc10ster@gmail.com</a>.</p></li>
+<li><p>Creator: Xuetong Zhai <a href='mailto:xuetong.zhai@gmail.com'>xuetong.zhai@gmail.com</a>.</p></li>
+<li><p>Contributor: Lucy D'Agostino McGowan <a href='mailto:ld.mcgowan@vanderbilt.edu'>ld.mcgowan@vanderbilt.edu</a>.</p></li>
+<li><p>Contributor: Alejandro RodriguezRuiz <a href='mailto:Alejandro.RodriguezRuiz@radboudumc.nl'>Alejandro.RodriguezRuiz@radboudumc.nl</a>.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p><b>Basics of ROC</b></p>
@@ -661,7 +671,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

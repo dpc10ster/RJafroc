@@ -195,7 +195,7 @@ in different treatments. If necessary
 The data is binned to 5 bins in each condition.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>DfExtractCorCbmDataset</span>(<span class='no'>dataset</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>DfExtractCorCbmDataset</span><span class='op'>(</span><span class='va'>dataset</span>, trts <span class='op'>=</span> <span class='fl'>1</span>, rdrs <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -236,18 +236,19 @@ in designing a ratings simulator that is statistically matched to a real dataset
 <span class='co'># \donttest{</span>
 <span class='co'>## Extract the paired data corresponding to the second and third readers in the first treatment</span>
 <span class='co'>## from the included ROC dataset</span>
-<span class='no'>dataset11_23</span> <span class='kw'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span>(<span class='no'>dataset05</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>))
+<span class='va'>dataset11_23</span> <span class='op'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span><span class='op'>(</span><span class='va'>dataset05</span>, trts <span class='op'>=</span> <span class='fl'>1</span>, rdrs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Extract the paired data corresponding to the third reader in the first and second treatments</span>
-<span class='no'>dataset12_33</span> <span class='kw'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span>(<span class='no'>dataset05</span>, <span class='kw'>trts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>), <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='va'>dataset12_33</span> <span class='op'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span><span class='op'>(</span><span class='va'>dataset05</span>, trts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>, rdrs <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 
 <span class='co'>## Extract the data corresponding to the first reader in the first</span>
 <span class='co'>## treatment paired with the data</span>
 <span class='co'>## from the third reader in the second treatment</span>
 <span class='co'>## (the bin indices are at different positions in the two arrays)</span>
-<span class='no'>dataset12_13</span> <span class='kw'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span>(<span class='no'>dataset05</span>,
-<span class='kw'>trts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>), <span class='kw'>rdrs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
-<span class='co'># }</span></div></pre>
+<span class='va'>dataset12_13</span> <span class='op'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span><span class='op'>(</span><span class='va'>dataset05</span>,
+trts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>, rdrs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -263,7 +264,7 @@ in designing a ratings simulator that is statistically matched to a real dataset
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

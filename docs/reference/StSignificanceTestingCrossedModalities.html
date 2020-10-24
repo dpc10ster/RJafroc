@@ -189,13 +189,13 @@
    averaged over specified treatment factor</p>
     </div>
 
-    <pre class="usage"><span class='fu'>StSignificanceTestingCrossedModalities</span>(
-  <span class='no'>ds</span>,
-  <span class='no'>avgIndx</span>,
-  <span class='kw'>FOM</span> <span class='kw'>=</span> <span class='st'>"wAFROC"</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>analysisOption</span> <span class='kw'>=</span> <span class='st'>"ALL"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>StSignificanceTestingCrossedModalities</span><span class='op'>(</span>
+  <span class='va'>ds</span>,
+  <span class='va'>avgIndx</span>,
+  FOM <span class='op'>=</span> <span class='st'>"wAFROC"</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  analysisOption <span class='op'>=</span> <span class='st'>"ALL"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -229,14 +229,16 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{ </span>
 <span class='co'>## read the raw data file in extdata directory (this is included to illustrate the format)</span>
-<span class='no'>crossedFileName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"CrossedModalities.xlsx"</span>,
-<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"RJafroc"</span>, <span class='kw'>mustWork</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>ds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='DfReadCrossedModalities.html'>DfReadCrossedModalities</a></span>(<span class='no'>crossedFileName</span>)
-<span class='no'>retCrossed1</span> <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span>(<span class='no'>ds</span>, <span class='fl'>1</span>)
+<span class='va'>crossedFileName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"CrossedModalities.xlsx"</span>, 
+package <span class='op'>=</span> <span class='st'>"RJafroc"</span>, mustWork <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfReadCrossedModalities.html'>DfReadCrossedModalities</a></span><span class='op'>(</span><span class='va'>crossedFileName</span><span class='op'>)</span>
+<span class='va'>retCrossed1</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span><span class='op'>(</span><span class='va'>ds</span>, <span class='fl'>1</span><span class='op'>)</span>
 
 <span class='co'>## read the built in dataset</span>
-<span class='no'>retCrossed2</span> <span class='kw'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span>(<span class='no'>datasetCrossedModality</span>, <span class='fl'>1</span>)
-<span class='co'># }</span></div></pre>
+<span class='va'>retCrossed2</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span><span class='op'>(</span><span class='va'>datasetCrossedModality</span>, <span class='fl'>1</span><span class='op'>)</span>
+<span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -252,7 +254,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
