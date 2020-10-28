@@ -1,6 +1,6 @@
 # RJafroc 1.3.2.9000
 
-## Fixing errors reading FROC file with no non-diseased cases
+## Fixed errors reading FROC file with no non-diseased cases
 * Toy file with no non-diseased cases: `frocLocatClass.xlsx`.
 * Symptom: `UtilFigureOfMerit`, with "wAFROC1" FOM failed in C++ code in function `double wAFROC1()` with message `Not compatible with requested type: [type=character; target=double]`
 
