@@ -41,7 +41,7 @@ test_that("ROC dataset dataset02: FOM = Wilcoxon", {
 
 
 
-context("UtilFigureOfMerit FROC dataset: wAFROC1, dataseet with no non-diseased cases")
+context("UtilFigureOfMerit FROC dataset: wAFROC1, dataset with no non-diseased cases")
 test_that("FROC dataset: wAFROC1, dataset with no non-diseased cases", {
   
   fileName <- system.file("extdata", "/toyFiles/FROC/frocLocatClass.xlsx", package = "RJafroc", mustWork = TRUE)
@@ -58,7 +58,44 @@ test_that("FROC dataset: wAFROC1, dataset with no non-diseased cases", {
   ret2 <- UtilFigureOfMerit(x, FOM = "wAFROC1")
   
   for (i in 1:length(ret1)) {
-    expect_equal(as.numeric(ret1[[i]]), as.numeric(ret1[[i]]))
+    expect_equal(as.numeric(ret1[[i]]), as.numeric(ret2[[i]]))
+  }
+  
+  
+})
+
+
+
+context("UtilFigureOfMerit: wAFROC1, same FOM with new and old excel formats")
+test_that("UtilFigureOfMerit: wAFROC1, same FOM with new and old excel formats", {
+  
+  fileName <- system.file("extdata", "/toyFiles/FROC/frocLocatClass.xlsx", package = "RJafroc", mustWork = TRUE)
+  x1 <- DfReadDataFile(fileName = fileName, newExcelFileFormat = F)
+  x2 <- DfReadDataFile(fileName = fileName, newExcelFileFormat = T)
+  
+  ret1 <-  UtilFigureOfMerit(x1, FOM = "wAFROC1")
+  ret2 <-  UtilFigureOfMerit(x2, FOM = "wAFROC1")
+  
+  for (i in 1:length(ret1)) {
+    expect_equal(as.numeric(ret1[[i]]), as.numeric(ret2[[i]]))
+  }
+  
+  
+})
+
+
+context("UtilFigureOfMerit: wAFROC1, same FOM with new and old excel formats frocCr.xlsx file")
+test_that("UtilFigureOfMerit: wAFROC1, same FOM with new and old excel formats frocCr.xlsx file", {
+  
+  fileName <- system.file("extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
+  x1 <- DfReadDataFile(fileName = fileName, newExcelFileFormat = F)
+  x2 <- DfReadDataFile(fileName = fileName, newExcelFileFormat = T)
+  
+  ret1 <-  UtilFigureOfMerit(x1, FOM = "wAFROC1")
+  ret2 <-  UtilFigureOfMerit(x2, FOM = "wAFROC1")
+  
+  for (i in 1:length(ret1)) {
+    expect_equal(as.numeric(ret1[[i]]), as.numeric(ret2[[i]]))
   }
   
   

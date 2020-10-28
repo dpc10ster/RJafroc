@@ -26,7 +26,30 @@ if (is.na(tt2)) next else { # this is the change
 #     if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
 # }
 ```
-Added to tests: file `test-UtilFigureOfMerit.R`
+Also replaced 
+
+```
+el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l]) - 1
+```
+
+with
+
+```
+if (K1 != 0) {
+  # this gives 0,1,2,..,max num of lesions
+  # which includes zero, hence the minus 1
+  el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l]) - 1
+} else {
+  # this gives 1,2,..,max num of lesions
+  # which does not include zero, hence no minus 1
+  el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l])
+}
+
+```
+* Added a test comparing FOMs with new and old formats for wAFROC and K1 = 0 file
+* Added a test comparing FOMs with new and old formats for wAFROC and K1 != 0 file
+* Added to tests: file `test-UtilFigureOfMerit.R`
+* Ran R CMD check
 
 
 ## Fixing non-character input error

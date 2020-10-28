@@ -193,7 +193,15 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     j <- which(rdrArr1D == LLReaderIDCol[l])
     k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1 # offset into abnormal cases
     # CAN determine el since the number of FROC LL marks is LIMITED to number of lesions in case
-    el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l]) - 1
+    if (K1 != 0) {
+      # this gives 0,1,2,..,max num of lesions
+      # which includes zero, hence the minus 1
+      el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l]) - 1
+    } else {
+      # this gives 1,2,..,max num of lesions
+      # which does not include zero, hence no minus 1
+      el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l])
+    }
     tt2 <- truthTableStr[i,j,k+K1,el+1]
     if (is.na(tt2)) next else {
       if (tt2 != 1)  stop("Error in reading LL/TP table") else 
