@@ -15,16 +15,16 @@ LLRating <- as.numeric(LLTable[[5]])
 `stop("Error in reading LL/TP table")`
 Replaced code in `ReadJAFROCNewFormat.R` as follows: 
 ```
-    if (is.na(tt2)) next else {
-      if (tt2 != 1)  stop("Error in reading LL/TP table") else 
-        # the is.na() check ensures that an already recorded mark is not overwritten
-        if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
-    }
-    # if (is.na(tt2)) stop("Error in reading LL/TP table") else {
-    #   if (tt2 != 1)  stop("Error in reading LL/TP table") else 
-    #     # the is.na() check ensures that an already recorded mark is not overwritten
-    #     if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
-    # }
+if (is.na(tt2)) next else { # this is the change
+  if (tt2 != 1)  stop("Error in reading LL/TP table") else 
+  # the is.na() check ensures that an already recorded mark is not overwritten
+  if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
+}
+# if (is.na(tt2)) stop("Error in reading LL/TP table") else {
+#   if (tt2 != 1)  stop("Error in reading LL/TP table") else 
+#     # the is.na() check ensures that an already recorded mark is not overwritten
+#     if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
+# }
 ```
 Added to tests: file `test-UtilFigureOfMerit.R`
 
