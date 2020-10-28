@@ -66,8 +66,8 @@ test_that("FROC dataset: wAFROC1, dataset with no non-diseased cases", {
 
 
 
-context("UtilFigureOfMerit: wAFROC1, same FOM with new and old excel formats")
-test_that("UtilFigureOfMerit: wAFROC1, same FOM with new and old excel formats", {
+context("UtilFigureOfMerit: wAFROC1, same FOM with new and old excel formats frocLocatClass.xlsx file")
+test_that("UtilFigureOfMerit: wAFROC1, same FOM with new and old excel formatsfrocLocatClass.xlsx file", {
   
   fileName <- system.file("extdata", "/toyFiles/FROC/frocLocatClass.xlsx", package = "RJafroc", mustWork = TRUE)
   x1 <- DfReadDataFile(fileName = fileName, newExcelFileFormat = F)
