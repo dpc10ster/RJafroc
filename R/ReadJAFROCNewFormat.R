@@ -195,11 +195,16 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
     # CAN determine el since the number of FROC LL marks is LIMITED to number of lesions in case
     el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l]) - 1
     tt2 <- truthTableStr[i,j,k+K1,el+1]
-    if (is.na(tt2)) stop("Error in reading LL/TP table") else {
+    if (is.na(tt2)) next else {
       if (tt2 != 1)  stop("Error in reading LL/TP table") else 
         # the is.na() check ensures that an already recorded mark is not overwritten
         if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
     }
+    # if (is.na(tt2)) stop("Error in reading LL/TP table") else {
+    #   if (tt2 != 1)  stop("Error in reading LL/TP table") else 
+    #     # the is.na() check ensures that an already recorded mark is not overwritten
+    #     if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
+    # }
   }
   
   LL[is.na(LL)] <- UNINITIALIZED

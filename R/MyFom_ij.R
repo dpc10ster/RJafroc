@@ -13,6 +13,7 @@ MyFom_ij <- function(nl, ll,
     errMsg <- paste0(FOM, " is not an available figure of merit.")
     stop(errMsg)
   }
+  #ll[2,3] <- 2.3;ll[2,4] <- -Inf
   fom <- NA
   fom <- switch(FOM,
                 "Wilcoxon" = TrapezoidalArea(nl, K1, ll, K2),
@@ -21,10 +22,11 @@ MyFom_ij <- function(nl, ll,
                 "HrSp" = HrSp(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
                 "SongA1" = SongA1(K1, K2, maxNL, maxLL, perCase, nl, ll),
                 "SongA2" = SongA2(K1, K2, maxNL, maxLL, perCase, nl, ll),
-                "AFROC1" = AFROC1(nl, ll, perCase, c(K1, K2), maxNL, maxLL), # dpc
-                "AFROC" = AFROC(nl, ll, perCase, c(K1, K2), maxNL, maxLL), # dpc
-                "wAFROC1" = wAFROC1(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
-                "wAFROC" = wAFROC(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight), # dpc
+                "AFROC1" = AFROC1(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "AFROC" = AFROC(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
+                "wAFROC1" = wAFROC1(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight), 
+                #"wAFROC1" = wAFROC1_dpc (nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight),
+                "wAFROC" = wAFROC(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight),
                 "FROC" = FROC(nl, ll, lesionID, perCase, K1, K2),
                 "ALROC" = LrocFoms(nl, ll, FPFValue)$ALroc,
                 "PCL" = LrocFoms(nl, ll, FPFValue)$PCL,
@@ -36,6 +38,8 @@ MyFom_ij <- function(nl, ll,
   )
   return(fom)
 } 
+
+
 
 
 FROC <- function(nl, ll, lesionID, perCase, K1, K2){
@@ -135,4 +139,26 @@ wJAFROC_dpc <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, 
   
   return (ret)
 }
+
+
+wAFROC1_dpc <- function (nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights)
+{
+  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  
+  ret  <- 0.0
+  for (na in 1:max_cases[2]) {
+    for (nn in 1:(max_cases[1]+max_cases[2])) {
+      for (nles in 1:n_lesions_per_image[na]) {
+        fp <- UNINITIALIZED
+        for (nor_index in 1:max_nl) if (nl[nn,nor_index] > fp ) fp  <- nl[nn, nor_index]
+        cat(na, nn, nles, "\n")
+        ret  <- ret + weights[na, nles] *  comp_phidpc( fp, ll[na,nles])
+      }
+    }
+  }
+  ret <- ret / (max_cases[1] + max_cases[2])
+  
+  return (ret)
+}
+
 

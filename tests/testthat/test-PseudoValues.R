@@ -20,6 +20,27 @@ test_that(contextStr, {
 })
 
 
+contextStr <- "UtilPseudoValues: FROC FCTRL wAFROC1"
+context(contextStr)
+test_that(contextStr, {
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/FROC/frocCr.xlsx", package = "RJafroc", mustWork = TRUE)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/UtilPseudoValues/frocCr", "wAFROC1", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    x1 <- UtilPseudoValues(temp, FOM = "wAFROC1", FPFValue = 0.2)
+    saveRDS(x1, file = fn)
+  }
+  
+  x1 <- readRDS(fn)
+  x2 <- UtilPseudoValues(temp, FOM = "wAFROC1", FPFValue = 0.2)
+  expect_equal(x1, x2)
+  
+})
+
 
 contextStr <- "UtilPseudoValues: FROC SpC wAFROC"
 context(contextStr)

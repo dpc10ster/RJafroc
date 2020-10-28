@@ -40,6 +40,30 @@ test_that("ROC dataset dataset02: FOM = Wilcoxon", {
 })
 
 
+
+context("UtilFigureOfMerit FROC dataset: wAFROC1, dataseet with no non-diseased cases")
+test_that("FROC dataset: wAFROC1, dataset with no non-diseased cases", {
+  
+  fileName <- system.file("extdata", "/toyFiles/FROC/frocLocatClass.xlsx", package = "RJafroc", mustWork = TRUE)
+  x <- DfReadDataFile(fileName = fileName, newExcelFileFormat = T)
+  
+  fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritFROC-", "wAFROC1a", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- UtilFigureOfMerit(x, FOM = "wAFROC1")
+    saveRDS(ret, file = fn)
+  }
+  
+  ret1 <- readRDS(fn)
+  ret2 <- UtilFigureOfMerit(x, FOM = "wAFROC1")
+  
+  for (i in 1:length(ret1)) {
+    expect_equal(as.numeric(ret1[[i]]), as.numeric(ret1[[i]]))
+  }
+  
+  
+})
+
 context("UtilFigureOfMerit FROC dataset: all FOMs except ...")
 test_that("FROC dataset: all FOMs except ...", {
   

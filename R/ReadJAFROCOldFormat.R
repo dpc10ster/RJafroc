@@ -84,7 +84,7 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
     errorMsg <- paste0("Case(s) ", paste(unique(naCases), collapse = ", "), " in the FP table cannot be found in TRUTH table.")
     stop(errorMsg)
   }
-  NLRating <- NLTable[[4]]
+  NLRating <- as.numeric(NLTable[[4]])
   
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (llFileIndex == 0) 
@@ -123,7 +123,7 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
     }
   }
   
-  LLRating <- LLTable[[5]]
+  LLRating <- as.numeric(LLTable[[5]])
   
   if (anyDuplicated(LLTable[, 1:4])) {
     naLines <- which(duplicated(LLTable[, 1:4]))

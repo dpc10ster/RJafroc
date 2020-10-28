@@ -1,5 +1,34 @@
 # RJafroc 1.3.2.9000
 
+## Fixing errors reading FROC file with no non-diseased cases
+* Toy file with no non-diseased cases: `frocLocatClass.xlsx`.
+* Symptom: `UtilFigureOfMerit`, with "wAFROC1" FOM failed in C++ code in function `double wAFROC1()` with message `Not compatible with requested type: [type=character; target=double]`
+
+* The problem was traced to `ReadJAFROCOldFormat.R` (I was using `OldExcelFileFormat`) which was returning `NL` and `LL` as characters, not numerics.
+* Fix: convert `NL` and `LL` from character using `as.numeric`.
+```
+NLRating <- as.numeric(NLTable[[4]])
+LLRating <- as.numeric(LLTable[[5]])
+```
+
+* Then I tried `NewExcelFileFormat`, which gave following error: 
+`stop("Error in reading LL/TP table")`
+Replaced code in `ReadJAFROCNewFormat.R` as follows: 
+```
+    if (is.na(tt2)) next else {
+      if (tt2 != 1)  stop("Error in reading LL/TP table") else 
+        # the is.na() check ensures that an already recorded mark is not overwritten
+        if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
+    }
+    # if (is.na(tt2)) stop("Error in reading LL/TP table") else {
+    #   if (tt2 != 1)  stop("Error in reading LL/TP table") else 
+    #     # the is.na() check ensures that an already recorded mark is not overwritten
+    #     if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
+    # }
+```
+Added to tests: file `test-UtilFigureOfMerit.R`
+
+
 ## Fixing non-character input error
 * Finished October 23, 2020.
 * Fixed error in `DfReadDataFile.R` in function `checkTruthTable()`; this bug discovered in working with HUGE one reader dataset. 
