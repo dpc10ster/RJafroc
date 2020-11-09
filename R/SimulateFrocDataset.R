@@ -3,7 +3,7 @@
 #' @description  Simulates an uncorrelated MRMC FROC dataset for specified numbers of
 #'    readers and treatments 
 #' 
-#' @param mu     The intrinsic mu parameter of the RSM
+#' @param mu     The mu parameter of the RSM
 #' @param lambda The intrinsic lambda parameter of the RSM (not the physical parameter)
 #' @param nu     The intrinsic nu parameter of the RSM (not the physical parameter)
 #' @param zeta1  The lowest reporting threshold
