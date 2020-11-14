@@ -9,7 +9,7 @@ test_that("Check Lroc Fom Vs Hand Calculation from first principles in ChkLrocFo
   perCase <- rep(1, 5)
   nu <- 0.8
   zeta1 <- -3
-  frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, perCase)
+  frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, perCase, seed = 1)
   lrocData <- DfFroc2Lroc(frocData)
   
   ret <- as.matrix(UtilFigureOfMerit(lrocData, FOM = "PCL", FPFValue = 0.05))
@@ -36,7 +36,7 @@ test_that("Check Lroc Fom Vs Hand Calculation from first principles in ChkLrocFo
   perCase <- rep(1, 5)
   nu <- 0.5
   zeta1 <- -3
-  frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, perCase)
+  frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, perCase, seed = 2)
   lrocData <- DfFroc2Lroc(frocData)
 
   ret <- as.matrix(UtilFigureOfMerit(lrocData, FOM = "PCL", FPFValue = 0.05))

@@ -1,13 +1,13 @@
 {
-    "path": "~/GitHub/RJafroc/vignettes",
+    "path": "~/GitHub/RJafroc/tests/testthat/goodValues361/SimulateDatasets",
     "sortOrder": [
-        {
-            "columnIndex": 4,
-            "ascending": false
-        },
         {
             "columnIndex": 2,
             "ascending": true
+        },
+        {
+            "columnIndex": 4,
+            "ascending": false
         }
     ]
 }

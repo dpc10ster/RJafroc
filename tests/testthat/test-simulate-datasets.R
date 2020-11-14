@@ -29,7 +29,7 @@ test_that(contextStr, {
     warning(paste0("File not found - generating new ",fn))
     ret <- SimulateFrocDataset(
       mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
-      I = I, J = J, K1 = K1, K2 = K2, perCase = perCase)
+      I = I, J = J, K1 = K1, K2 = K2, perCase = perCase, seed = 1)
     saveRDS(ret, file = fn)
   }
   
@@ -40,7 +40,7 @@ test_that(contextStr, {
   ret <- readRDS(fn)
   expect_equal(SimulateFrocDataset(
     mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
-    I = I, J = J, K1 = K1, K2 = K2, perCase = perCase), ret)
+    I = I, J = J, K1 = K1, K2 = K2, perCase = perCase, seed = 1), ret)
   # end of test
 
 })
