@@ -12,6 +12,8 @@
 #' @param K1     The number of non-diseased cases
 #' @param K2     The number of diseased cases
 #' @param perCase    A K2 length array containing the numbers of lesions per diseased case
+#' @param seed  The initial seed for the random number generator, the default 
+#'     is \code{NULL}, as if no seed has been specified. 
 #' 
 #' @return The return value is an FROC dataset.
 #' 
@@ -42,10 +44,10 @@
 #' 
 #' @export
 
-SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase){
+SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL){
   
   if (length(perCase) != K2) stop("SimulateFrocDataset: error in specification of number of lesions perCase vector.")
-  
+  set.seed(seed)
   lambdaP <- lambda/mu
   nuP <- 1-exp(-nu*mu)
   nNL <- rpois(I * J * (K1 + K2), lambdaP)

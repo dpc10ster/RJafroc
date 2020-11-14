@@ -4,10 +4,10 @@
 \alias{SimulateFrocDataset}
 \title{Simulates an MRMC uncorrelated FROC dataset using the RSM}
 \usage{
-SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, perCase)
+SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL)
 }
 \arguments{
-\item{mu}{The intrinsic mu parameter of the RSM}
+\item{mu}{The mu parameter of the RSM}
 
 \item{lambda}{The intrinsic lambda parameter of the RSM (not the physical parameter)}
 
@@ -24,6 +24,9 @@ SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, perCase)
 \item{K2}{The number of diseased cases}
 
 \item{perCase}{A K2 length array containing the numbers of lesions per diseased case}
+
+\item{seed}{The initial seed for the random number generator, the default 
+is \code{NULL}, as if no seed has been specified.}
 }
 \value{
 The return value is an FROC dataset.

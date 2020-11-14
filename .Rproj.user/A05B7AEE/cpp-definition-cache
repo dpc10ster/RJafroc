@@ -54,7 +54,7 @@
     },
     {
         "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-        "file_last_write": 1597176039.0,
+        "file_last_write": 1605300465.0,
         "definitions": [
             {
                 "usr": "c:@F@maximum#$@N@Rcpp@S@Vector>#VI14#@N@Rcpp@ST>1#T@PreserveStorage#I#",
@@ -71,7 +71,7 @@
                 "parent_name": "",
                 "name": "comp_phi(double, double)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 18,
+                "line": 15,
                 "column": 8
             },
             {
@@ -80,7 +80,7 @@
                 "parent_name": "",
                 "name": "HrSp(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 31,
+                "line": 28,
                 "column": 8
             },
             {
@@ -89,7 +89,7 @@
                 "parent_name": "",
                 "name": "ExpTrnsfmSp(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 52,
+                "line": 49,
                 "column": 8
             },
             {
@@ -98,7 +98,7 @@
                 "parent_name": "",
                 "name": "MaxNLF(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 73,
+                "line": 70,
                 "column": 8
             },
             {
@@ -107,7 +107,7 @@
                 "parent_name": "",
                 "name": "MaxLLF(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 92,
+                "line": 89,
                 "column": 8
             },
             {
@@ -116,7 +116,7 @@
                 "parent_name": "",
                 "name": "TrapezoidalArea(Rcpp::NumericVector, int, Rcpp::NumericVector, int)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 116,
+                "line": 113,
                 "column": 8
             },
             {
@@ -125,7 +125,7 @@
                 "parent_name": "",
                 "name": "HrAuc(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 135,
+                "line": 132,
                 "column": 8
             },
             {
@@ -134,7 +134,7 @@
                 "parent_name": "",
                 "name": "HrSe(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 159,
+                "line": 156,
                 "column": 8
             },
             {
@@ -143,7 +143,7 @@
                 "parent_name": "",
                 "name": "AFROC1(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 183,
+                "line": 180,
                 "column": 8
             },
             {
@@ -152,7 +152,7 @@
                 "parent_name": "",
                 "name": "AFROC(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 212,
+                "line": 209,
                 "column": 8
             },
             {
@@ -161,7 +161,7 @@
                 "parent_name": "",
                 "name": "wAFROC1(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int, Rcpp::NumericMatrix)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 241,
+                "line": 238,
                 "column": 8
             },
             {
@@ -170,7 +170,7 @@
                 "parent_name": "",
                 "name": "wAFROC(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int, Rcpp::NumericMatrix)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 264,
+                "line": 262,
                 "column": 8
             },
             {
@@ -179,7 +179,7 @@
                 "parent_name": "",
                 "name": "MaxNLFAllCases(Rcpp::NumericMatrix, Rcpp::NumericMatrix, Rcpp::NumericVector, Rcpp::NumericVector, int, int)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 287,
+                "line": 286,
                 "column": 8
             },
             {
@@ -188,7 +188,7 @@
                 "parent_name": "",
                 "name": "ROI(int, int, int, Rcpp::NumericVector, Rcpp::NumericMatrix, Rcpp::NumericMatrix)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 306,
+                "line": 305,
                 "column": 8
             },
             {
@@ -197,7 +197,7 @@
                 "parent_name": "",
                 "name": "SongA1(int, int, int, int, Rcpp::NumericVector, Rcpp::NumericMatrix, Rcpp::NumericMatrix)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 356,
+                "line": 355,
                 "column": 8
             },
             {
@@ -206,7 +206,7 @@
                 "parent_name": "",
                 "name": "SongA2(int, int, int, int, Rcpp::NumericVector, Rcpp::NumericMatrix, Rcpp::NumericMatrix)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-                "line": 435,
+                "line": 434,
                 "column": 8
             }
         ]
