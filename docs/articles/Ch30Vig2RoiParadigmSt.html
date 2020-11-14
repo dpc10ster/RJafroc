@@ -132,13 +132,14 @@
 
       
 
-      </header><script src="Ch30Vig2RoiParadigmSt_files/header-attrs-2.4/header-attrs.js"></script><script src="Ch30Vig2RoiParadigmSt_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Ch30Vig2RoiParadigmSt_files/header-attrs-2.5/header-attrs.js"></script><link href="Ch30Vig2RoiParadigmSt_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="Ch30Vig2RoiParadigmSt_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 30, Vignette 2: Significance testing for the ROI paradigm</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-10-28</h4>
+            <h4 class="date">2020-11-14</h4>
       
       
       <div class="hidden name"><code>Ch30Vig2RoiParadigmSt.Rmd</code></div>
@@ -157,8 +158,8 @@
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <ul>
 <li><p>For an ROI dataset <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> automatically defaults to <code>method = "OR"</code>, <code>covEstMethod = "DeLong"</code> and <code>FOM = "ROI"</code>.</p></li>
-<li><p>The covariance estimation method is based on the original DeLong method <span class="citation">(DeLong, DeLong, and Clarke-Pearson 1988)</span>, which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by <span class="citation">(Obuchowski 1997)</span> to ROI data, see formula below.</p></li>
-<li><p>The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by <span class="citation">(Obuchowski 1997)</span> for estimating the covariance matrix. Once the covariances are known, <code>method = "OR"</code> can be applied to perform significance testing, as described in <span class="citation">(Obuchowski and Rockette 1995)</span> and <span class="citation">(Chakraborty 2017, Chapter 10)</span>.</p></li>
+<li><p>The covariance estimation method is based on the original DeLong method <span class="citation">(DeLong, DeLong, and Clarke-Pearson 1988)</span>, which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by <span class="citation">(Nancy A. Obuchowski 1997)</span> to ROI data, see formula below.</p></li>
+<li><p>The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by <span class="citation">(Nancy A. Obuchowski 1997)</span> for estimating the covariance matrix. Once the covariances are known, <code>method = "OR"</code> can be applied to perform significance testing, as described in <span class="citation">(N. A. Obuchowski and Rockette 1995)</span> and <span class="citation">(Chakraborty 2017, Chapter 10)</span>.</p></li>
 </ul>
 </div>
 <div id="the-roi-figure-of-merit" class="section level2">
@@ -390,18 +391,18 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references hanging-indent">
-<div id="ref-RN2680">
-<p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples</em>. Book. Boca Raton, FL: CRC Press.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-RN2680" class="csl-entry">
+Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with r-Based Examples</em>. Book. Boca Raton, FL: CRC Press.
 </div>
-<div id="ref-RN112">
-<p>DeLong, E. R., D. M. DeLong, and D. L. Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” Journal Article. <em>Biometrics</em> 44: 837–45.</p>
+<div id="ref-RN112" class="csl-entry">
+DeLong, E. R., D. M. DeLong, and D. L. Clarke-Pearson. 1988. <span>“Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.”</span> Journal Article. <em>Biometrics</em> 44: 837–45.
 </div>
-<div id="ref-RN1233">
-<p>Obuchowski, Nancy A. 1997. “Nonparametric Analysis of Clustered Roc Curve Data.” Journal Article. <em>Biometrics</em> 53: 567–78.</p>
+<div id="ref-RN1450" class="csl-entry">
+Obuchowski, N. A., and H. E. Rockette. 1995. <span>“Hypothesis Testing of the Diagnostic Accuracy for Multiple Diagnostic Tests: An ANOVA Approach with Dependent Observations.”</span> Journal Article. <em>Communications in Statistics: Simulation and Computation</em> 24: 285–308.
 </div>
-<div id="ref-RN1450">
-<p>Obuchowski, N. A., and H. E. Rockette. 1995. “Hypothesis Testing of the Diagnostic Accuracy for Multiple Diagnostic Tests: An Anova Approach with Dependent Observations.” Journal Article. <em>Communications in Statistics: Simulation and Computation</em> 24: 285–308.</p>
+<div id="ref-RN1233" class="csl-entry">
+Obuchowski, Nancy A. 1997. <span>“Nonparametric Analysis of Clustered ROC Curve Data.”</span> Journal Article. <em>Biometrics</em> 53: 567–78.
 </div>
 </div>
 </div>

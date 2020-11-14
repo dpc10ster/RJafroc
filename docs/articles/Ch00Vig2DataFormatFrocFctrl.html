@@ -132,13 +132,14 @@
 
       
 
-      </header><script src="Ch00Vig2DataFormatFrocFctrl_files/header-attrs-2.4/header-attrs.js"></script><script src="Ch00Vig2DataFormatFrocFctrl_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Ch00Vig2DataFormatFrocFctrl_files/header-attrs-2.5/header-attrs.js"></script><link href="Ch00Vig2DataFormatFrocFctrl_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="Ch00Vig2DataFormatFrocFctrl_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 00, Vignette 2: JAFROC Excel file data format: FROC FCTRL</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-10-28</h4>
+            <h4 class="date">2020-11-14</h4>
       
       
       <div class="hidden name"><code>Ch00Vig2DataFormatFrocFctrl.Rmd</code></div>
@@ -165,8 +166,8 @@
 <li>In the Free-response Receiver Operating Characteristic (FROC) paradigm the observer searches each case for signs of <strong>localized disease</strong> and marks and rates localized regions that are sufficiently suspicious for presence of disease.</li>
 <li>FROC data consists of <strong>mark-rating pairs</strong>, where each mark is a localized-region that was considered sufficiently suspicious for presence of a localized lesion and the rating is it’s confidence level. As in the ROC paradigm, the rating can be an integer or quasi-continuous (e.g., 0 – 100), or a floating point value, <em>as long as higher numbers represent greater confidence in presence of a lesion at the indicated region</em>. This is termed a positive-directed confidence level scheme.</li>
 <li>By adopting a proximity criterion, the investigator classifies each mark as a lesion localization (<code>LL</code>) - if it is close to a real lesion - or a non-lesion localization (<code>NL</code>) otherwise.</li>
-<li>The vignette is illustrated with a toy data file, <code>inst/extdata/toyFiles/ROC/rocSpA.xlsx</code> in which readers ‘0’, ‘1’ and ‘2’ interpret 8 cases in two modalities, ‘0’ and ‘1’.</li>
-<li>The design is ‘factorial’, abbreviated to <code>FCTRL</code> in the software; this is also termed a ‘fully-crossed’ design.</li>
+<li>The vignette is illustrated with a toy data file, <code>inst/extdata/toyFiles/ROC/rocSpA.xlsx</code> in which readers ‘0,’ ‘1’ and ‘2’ interpret 8 cases in two modalities, ‘0’ and ‘1.’</li>
+<li>The design is ‘factorial,’ abbreviated to <code>FCTRL</code> in the software; this is also termed a ‘fully-crossed’ design.</li>
 <li>The Excel file has three worksheets named <code>Truth</code>, <code>NL</code> (or <code>FP</code>) and <code>LL</code> (or <code>TP</code>).</li>
 <li>All cells need to text formatted: select the worksheet, then Format - Cells - Number - Text OK.</li>
 </ul>
@@ -178,31 +179,31 @@
 <li>The <code>Truth</code> worksheet contains 6 columns: <code>CaseID</code>, <code>LesionID</code>, <code>Weight</code>, <code>ReaderID</code>, <code>ModalityID</code> and <code>Paradigm</code>.</li>
 <li>Since a diseased case may have more than one lesion, the first five columns contain <strong>at least</strong> as many rows as there are cases (images) in the dataset. There are 8 cases in the dataset and 12 rows of data, because some of the abnormal cases contain more than one lesion.</li>
 <li>
-<code>CaseID</code>: unique <strong>integers</strong> representing the cases in the dataset: ‘1’, ‘2’, ‘3’, the 3 normal cases, and ‘70’, ‘71’, ‘72’, ‘73’, ‘74’, the 5 abnormal cases.</li>
+<code>CaseID</code>: unique <strong>integers</strong> representing the cases in the dataset: ‘1,’ ‘2,’ ‘3,’ the 3 normal cases, and ‘70,’ ‘71,’ ‘72,’ ‘73,’ ‘74,’ the 5 abnormal cases.</li>
 <li>
 <code>LesionID</code>: integers 0, 1, 2, etc., with each 0 representing a non-diseased case, each 1 representing the <em>first</em> lesion on a diseased case, 2 the second lesion, if present, and so on.</li>
-<li>This field is zero for normal cases ‘1’, ‘2’, ‘3’.</li>
-<li>For the first abnormal case, i.e., ‘70’, it is 2, for case ‘71’, it is 1, etc.</li>
+<li>This field is zero for normal cases ‘1,’ ‘2,’ ‘3.’</li>
+<li>For the first abnormal case, i.e., ‘70,’ it is 2, for case ‘71,’ it is 1, etc.</li>
 <li>There are 3 non-diseased cases in the dataset (the number of 0’s in the <code>LesionID</code> column).</li>
 <li>There are 5 diseased cases in the dataset (the number of 1’s in the <code>LesionID</code> column).</li>
-<li>There are 3 readers in the dataset, as each cell in the <code>ReaderID</code> column contains ‘0, 1, 2’.</li>
-<li>There are 2 modalities in the dataset, as each cell in the <code>ModalityID</code> column contains ‘0, 1’.</li>
+<li>There are 3 readers in the dataset, as each cell in the <code>ReaderID</code> column contains ‘0, 1, 2.’</li>
+<li>There are 2 modalities in the dataset, as each cell in the <code>ModalityID</code> column contains ‘0, 1.’</li>
 <li>
 <code>Weight</code>: floating point; 0, for each non-diseased case, or, for each diseased case, values that sum to unity.<br>
 </li>
-<li>Diseased case <code>70</code> has two lesions, with <code>LesionID</code>s ‘1’ and ‘2’, and weights 0.3 and 0.7.</li>
+<li>Diseased case <code>70</code> has two lesions, with <code>LesionID</code>s ‘1’ and ‘2,’ and weights 0.3 and 0.7.</li>
 <li>Diseased case <code>71</code> has one lesion, with <code>LesionID</code> = 1, and <code>Weight</code> = 1.</li>
 <li>Diseased case <code>72</code> has three lesions, with <code>LesionID</code>s 1, 2 and 3 and weights 1/3 each.</li>
 <li>Diseased case <code>73</code> has two lesions, with <code>LesionID</code>s 1, and 2 and weights 0.1 and 0.9.</li>
 <li>Diseased case <code>74</code> has one lesion, with <code>LesionID</code> = 1 and <code>Weight</code> = 1.</li>
 <li>
-<code>ReaderID</code>: a comma-separated listing of readers, each represented by a unique <strong>text label</strong>, that have interpreted the case. In the example shown below each cell has the value ‘0, 1, 2’.</li>
+<code>ReaderID</code>: a comma-separated listing of readers, each represented by a unique <strong>text label</strong>, that have interpreted the case. In the example shown below each cell has the value ‘0, 1, 2.’</li>
 <li>
 <code>ModalityID</code>: a comma-separated listing of modalities (or treatments), each represented by a unique <strong>integer</strong>, that apply to each case. In the example each cell has the value <code>0, 1</code>. <strong>Each cell has to be text formatted.</strong>
 </li>
 <li>
 <code>Paradigm</code>: The contents are <code>FROC</code> and <code>FCTRL</code>.</li>
-<li>It informs the software that this is an <code>FROC</code> dataset and the design is “factorial”.</li>
+<li>It informs the software that this is an <code>FROC</code> dataset and the design is “factorial.”</li>
 </ul>
 <p><img src="images/frocCrTruth.png" style="width:100.0%"></p>
 </div>
@@ -251,7 +252,7 @@
 <span class="co">#&gt; [5,]    1 -Inf -Inf</span>
 </pre></div>
 <ul>
-<li>This shows that the lesions on the first diseased case are labeled ‘1’ and ‘2’. The <code>-Inf</code> is a filler used to denote a missing value. The second diseased case has one lesion labeled ‘1’. The third diseased case has three lesions labeled ‘1’, ‘2’ and ‘3’, etc.</li>
+<li>This shows that the lesions on the first diseased case are labeled ‘1’ and ‘2.’ The <code>-Inf</code> is a filler used to denote a missing value. The second diseased case has one lesion labeled ‘1.’ The third diseased case has three lesions labeled ‘1,’ ‘2’ and ‘3,’ etc.</li>
 <li>The <code>lesionWeight</code> member is the clinical importance of each lesion. Lacking specific clinical reasons, the lesions should be equally weighted; this is <em>not</em> true for this toy dataset.</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit">
@@ -542,9 +543,9 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references hanging-indent">
-<div id="ref-RN2680">
-<p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples</em>. Book. Boca Raton, FL: CRC Press.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-RN2680" class="csl-entry">
+Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with r-Based Examples</em>. Book. Boca Raton, FL: CRC Press.
 </div>
 </div>
 </div>

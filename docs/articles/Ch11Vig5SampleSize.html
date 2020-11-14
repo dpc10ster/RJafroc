@@ -132,13 +132,14 @@
 
       
 
-      </header><script src="Ch11Vig5SampleSize_files/header-attrs-2.4/header-attrs.js"></script><script src="Ch11Vig5SampleSize_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Ch11Vig5SampleSize_files/header-attrs-2.5/header-attrs.js"></script><link href="Ch11Vig5SampleSize_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="Ch11Vig5SampleSize_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 11, Vignette 5: On choosing a realistic effect size</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-10-28</h4>
+            <h4 class="date">2020-11-14</h4>
       
       
       <div class="hidden name"><code>Ch11Vig5SampleSize.Rmd</code></div>
@@ -151,7 +152,7 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <ul>
-<li><p>The value of the true <code>FOM</code> difference between the treatments, i.e., the true effect-size (ES) is, of course, unknown. If it were known, there would be no need to conduct an ROC study. One would simply adopt the treatment with the higher <code>FOM</code>. Sample-size estimation involves making an educated guess regarding the ES, called the <em>anticipated</em> ES, and denoted by <code>d</code>. To quote <span class="citation">(ICRU 2008)</span>: “any calculation of power amounts to specification of the anticipated effect-size”. Increasing the anticipated ES will increase statistical power but may represent an unrealistic expectation of the true difference between the treatments, in the sense that it overestimates the ability of technology to achieve this much improvement. An unduly small might be clinically insignificant, besides requiring a very large sample-size to achieve sufficient power.</p></li>
+<li><p>The value of the true <code>FOM</code> difference between the treatments, i.e., the true effect-size (ES) is, of course, unknown. If it were known, there would be no need to conduct an ROC study. One would simply adopt the treatment with the higher <code>FOM</code>. Sample-size estimation involves making an educated guess regarding the ES, called the <em>anticipated</em> ES, and denoted by <code>d</code>. To quote <span class="citation">(ICRU 2008)</span>: “any calculation of power amounts to specification of the anticipated effect-size.” Increasing the anticipated ES will increase statistical power but may represent an unrealistic expectation of the true difference between the treatments, in the sense that it overestimates the ability of technology to achieve this much improvement. An unduly small might be clinically insignificant, besides requiring a very large sample-size to achieve sufficient power.</p></li>
 <li><p>There is a key difference between <em>statistical</em> significance and <em>clinical</em> significance. An effect-size in AUC units could be so small, e.g., 0.001, as to be clinically insignificant, but by employing a sufficiently large sample size one could design a study to detect this small and clinically meaningless difference with high probability, i.e., high statistical power.</p></li>
 <li><p>What determines clinical significance? A small effect-size, e.g., 0.01 AUC units, could be clinically significant if it applies to a large population, where the small benefit in detection rate is amplified by the number of patients benefiting from the new treatment. In contrast, for an “orphan” disease, i.e., one with very low prevalence, an effect-size of 0.05 might not be enough to justify the additional cost of the new treatment. The improvement might have to be 0.1 before it is worth it for a new treatment to be brought to market. One hates to monetize life and death issues, but there is no getting away from it, as cost/benefit issues determine clinical significance. The arbiters of clinical significance are engineers, imaging scientists, clinicians, epidemiologists, insurance companies and those who set government health care policies. The engineers and imaging scientists determine whether the effect-size the clinicians would like is feasible from technical and scientific viewpoints. The clinician determines, based on incidence of disease and other considerations, e.g., altruistic, malpractice, cost of the new device and insurance reimbursement, what effect-size is justifiable. Cohen has suggested that d values of 0.2, 0.5, and 0.8 be considered small, medium, and large, respectively, but he has also argued against their indiscriminate usage. However, after a study is completed, clinicians often find that an effect-size that biostatisticians label as small may, in certain circumstances, be clinically significant and an effect-size that they label as large may in other circumstances be clinically insignificant. Clearly, this is a complex issue. Some suggestions on choosing a clinically significant effect size are made in <strong>Chapter 11</strong>.</p></li>
 <li><p>Does one even need to perform a pivotal study? If the pilot study returns a significant difference, one has rejected the NH and that is all there is to it. There is no need to perform the pivotal study, unless one “tweaks” the new treatment and/or casts a wider sampling net to make a stronger argument, perhaps to the FDA, that the treatments are indeed generalizable, and that the difference is in the right direction (new treatment FOM &gt; conventional treatment FOM). If a significant difference is observed in the opposite direction (e.g., new treatment FOM &lt; conventional treatment FOM) one cannot justify a pivotal study with an expected effect-size in the “other or favored” direction; see example below. Since the Van Dyke pilot study came close to rejecting the NH and the observed effect size, see below, is not too small, a pivotal study is justified.</p></li>
@@ -185,9 +186,9 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references hanging-indent">
-<div id="ref-RN1983">
-<p>ICRU. 2008. “Statistical Analysis and Power Estimation.” Book Section. In <em>JOURNAL of the Icru</em>, 8:37–40. <a href="https://doi.org/10.1093/jicru/ndn012">https://doi.org/10.1093/jicru/ndn012</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-RN1983" class="csl-entry">
+ICRU. 2008. <span>“Statistical Analysis and Power Estimation.”</span> Book Section. In <em>JOURNAL OF THE ICRU</em>, 8:37–40. <a href="https://doi.org/10.1093/jicru/ndn012">https://doi.org/10.1093/jicru/ndn012</a>.
 </div>
 </div>
 </div>

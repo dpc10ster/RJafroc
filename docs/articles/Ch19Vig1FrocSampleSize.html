@@ -132,13 +132,14 @@
 
       
 
-      </header><script src="Ch19Vig1FrocSampleSize_files/header-attrs-2.4/header-attrs.js"></script><script src="Ch19Vig1FrocSampleSize_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Ch19Vig1FrocSampleSize_files/header-attrs-2.5/header-attrs.js"></script><link href="Ch19Vig1FrocSampleSize_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="Ch19Vig1FrocSampleSize_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-10-28</h4>
+            <h4 class="date">2020-11-14</h4>
       
       
       <div class="hidden name"><code>Ch19Vig1FrocSampleSize.Rmd</code></div>
@@ -170,7 +171,7 @@
 <ul>
 <li><p>If the original data is FROC, one needs to first convert it to ROC, using <code><a href="../reference/DfFroc2Roc.html">DfFroc2Roc()</a></code>: <strong>the RSM fits ROC data</strong>.</p></li>
 <li><p>For each treatment and reader the inferred ROC data is fitted by <code><a href="../reference/FitRsmRoc.html">FitRsmRoc()</a></code>, yielding estimates of the RSM <em>physical</em> (or primed) parameters (not the <em>intrinsic</em> values).</p></li>
-<li><p>The following example uses the <em>first two</em> treatments of the “FED” dataset, <code>dataset04</code>, which is a 5 treatment 4 radiologist FROC dataset acquired by Dr. Federica Zanca et. al. <span class="citation">(Zanca et al. 2009)</span>. The dataset has 5 treatments and 4 readers and 200 cases and was acquired on a 5-point integer scale, i.e., it is already binned. If not one needs to bin the dataset using <code><a href="../reference/DfBinDataset.html">DfBinDataset()</a></code>. I need to emphasize this point: <strong>if the dataset represents continuous ratings, as with a CAD algorithm, one must bin the dataset to (ideally) about 5 bins</strong>. The number of parameters that must be estimated increases with the number of bins (for each bin one needs to estimate a cutoff parameter).</p></li>
+<li><p>The following example uses the <em>first two</em> treatments of the “FED” dataset, <code>dataset04</code>, which is a 5 treatment 4 radiologist FROC dataset acquired by Dr. Federica Zanca et. al. <span class="citation">(Zanca et al. 2009)</span>. The dataset has 5 treatments and 4 readers and 200 cases and was acquired on a 5-point integer scale, i.e., it is already binned. If not one needs to bin the dataset using <code><a href="../reference/DfBinDataset.html">DfBinDataset()</a></code>. I need to emphasize this point: <strong>if the dataset represents continuous ratings, as with a CAD algorithm, one must bin the dataset to (ideally) about 5 bins</strong>. The number of parameters that must be estimated increases with the number of bins (for each bin one needs to estimate a cutoff parameter).</p></li>
 <li><p>The reason for using RSM parameter values only for the first two treatments is that these were found <span class="citation">(Zanca et al. 2009)</span> to be almost equivalent (more precisely, the NH could not be rejected for the first two treatments, so it makes sense to regard them as “almost” NH treatments.</p></li>
 <li><p>The following code block defines the pilot FROC data <code>frocData</code> (corresponding to <code>dataset04</code>, which is the “FED” dataset, but with only treatments 1 and 2 extracted, using <code><a href="../reference/DfExtractDataset.html">DfExtractDataset()</a></code>) and <code>rocData</code>, i.e., the highest-rating ROC dataset inferred from the FROC dataset using <code><a href="../reference/DfFroc2Roc.html">DfFroc2Roc()</a></code>.</p></li>
 </ul>
@@ -385,9 +386,9 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references hanging-indent">
-<div id="ref-RN1882">
-<p>Zanca, Federica, Jurgen Jacobs, Chantal Van Ongeval, Filip Claus, Valerie Celis, Catherine Geniets, Veerle Provost, Herman Pauwels, Guy Marchal, and Hilde Bosmans. 2009. “Evaluation of Clinical Image Processing Algorithms Used in Digital Mammography.” Journal Article. <em>Medical Physics</em> 36 (3): 765–75.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-RN1882" class="csl-entry">
+Zanca, Federica, Jurgen Jacobs, Chantal Van Ongeval, Filip Claus, Valerie Celis, Catherine Geniets, Veerle Provost, Herman Pauwels, Guy Marchal, and Hilde Bosmans. 2009. <span>“Evaluation of Clinical Image Processing Algorithms Used in Digital Mammography.”</span> Journal Article. <em>Medical Physics</em> 36 (3): 765–75.
 </div>
 </div>
 </div>

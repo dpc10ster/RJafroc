@@ -132,13 +132,14 @@
 
       
 
-      </header><script src="Ch00Vig3DataFormatRocSpA_files/header-attrs-2.4/header-attrs.js"></script><script src="Ch00Vig3DataFormatRocSpA_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Ch00Vig3DataFormatRocSpA_files/header-attrs-2.5/header-attrs.js"></script><link href="Ch00Vig3DataFormatRocSpA_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="Ch00Vig3DataFormatRocSpA_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-10-28</h4>
+            <h4 class="date">2020-11-14</h4>
       
       
       <div class="hidden name"><code>Ch00Vig3DataFormatRocSpA.Rmd</code></div>
@@ -166,7 +167,7 @@
 <li>The <code>Truth</code> worksheet contains 6 columns: <code>CaseID</code>, <code>LesionID</code>, <code>Weight</code>, <code>ReaderID</code>, <code>ModalityID</code> and <code>Paradigm</code>.</li>
 <li>The first five columns contain <em>twice</em> as many rows as there are distinct cases in the dataset. The factor of two is coming from the two modalities.</li>
 <li>The normal cases are numbered 6,7,8,9,10; the abnormal cases are numbered 16,17,18,19,20; i.e., <code>K1</code> = <code>K2</code> = 5 and <code>K</code> = 10. The number of rows of data is 2 * K = 20.</li>
-<li>The <code>ReaderID</code> field for the first modality has <em>two values</em> <code>1, 2</code> since readers 1 and 2 interpret all cases in the first modality. The corresponding values for the second modality are ‘3, 4’,</li>
+<li>The <code>ReaderID</code> field for the first modality has <em>two values</em> <code>1, 2</code> since readers 1 and 2 interpret all cases in the first modality. The corresponding values for the second modality are ‘3, 4,’</li>
 <li>
 <code>ModalityID</code>: The first modality is labeled <code>4</code> aand the second is ‘2’ . [<code>ReaderID</code>, the <code>ModalityID</code> are <em>text formatted labels</em>.]</li>
 <li>
@@ -212,7 +213,7 @@
 <code>x$ratings$LL</code>, a [2, 5, 5, 1] array, contains the ratings of abnormal cases.</li>
 <li>The <code>dataType</code> member is which specifies the data collection method, <code>"ROC"</code> in this example.</li>
 <li>The <code>x$modalityID</code> member is a vector with two elements <code>"4"</code> and <code>"2"</code>, naming the two modalities.</li>
-<li>The <code>x$readerID</code> member is a vector with four elements <code>"1"</code>, <code>"2"</code>, <code>"3"</code>, `“4”, labeling the four readers.</li>
+<li>The <code>x$readerID</code> member is a vector with four elements <code>"1"</code>, <code>"2"</code>, <code>"3"</code>, `“4,” labeling the four readers.</li>
 <li>The <code>x$design</code> member is ; specifies the dataset design, “SPLIT-PLOT-A” for this example.</li>
 <li>The <code>x$descriptions$truthTableStr</code> member quantifies the structure of the dataset, as explained next.</li>
 </ul>
@@ -337,9 +338,9 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references hanging-indent">
-<div id="ref-RN2508">
-<p>Hillis, Stephen L. 2014. “A Marginal‐mean Anova Approach for Analyzing Multireader Multicase Radiological Imaging Data.” Journal Article. <em>Statistics in Medicine</em> 33 (2): 330–60.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-RN2508" class="csl-entry">
+Hillis, Stephen L. 2014. <span>“A Marginal‐mean ANOVA Approach for Analyzing Multireader Multicase Radiological Imaging Data.”</span> Journal Article. <em>Statistics in Medicine</em> 33 (2): 330–60.
 </div>
 </div>
 </div>

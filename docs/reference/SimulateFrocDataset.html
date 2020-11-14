@@ -189,14 +189,14 @@
    readers and treatments</p>
     </div>
 
-    <pre class="usage"><span class='fu'>SimulateFrocDataset</span>(<span class='kw'>mu</span>, <span class='kw'>lambda</span>, <span class='kw'>nu</span>, <span class='kw'>zeta1</span>, <span class='kw'>I</span>, <span class='kw'>J</span>, <span class='kw'>K1</span>, <span class='kw'>K2</span>, <span class='kw'>perCase</span>)</pre>
+    <pre class="usage"><span class='fu'>SimulateFrocDataset</span>(<span class='kw'>mu</span>, <span class='kw'>lambda</span>, <span class='kw'>nu</span>, <span class='kw'>zeta1</span>, <span class='kw'>I</span>, <span class='kw'>J</span>, <span class='kw'>K1</span>, <span class='kw'>K2</span>, <span class='kw'>perCase</span>, seed = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mu</th>
-      <td><p>The intrinsic mu parameter of the RSM</p></td>
+      <td><p>The mu parameter of the RSM</p></td>
     </tr>
     <tr>
       <th>lambda</th>
@@ -229,6 +229,11 @@
     <tr>
       <th>perCase</th>
       <td><p>A K2 length array containing the numbers of lesions per diseased case</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>The initial seed for the random number generator, the default 
+is <code>NULL</code>, as if no seed has been specified.</p></td>
     </tr>
     </table>
 
