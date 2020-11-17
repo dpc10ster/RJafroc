@@ -2,9 +2,10 @@
 
 ## Added `seed` to SimulateFrocDataset()
 * Ability to specify `seed` in order to reproduce FROC datasets. 
-* In book chapter 13- on effect of zeta1 on FOM, and finding that zeta1 that maximizes wFROC FOM.
-* Had to fix several test files.
-* Nov 13, 2020.
+* In book chapter 13- on effect of zeta1 on FOM and finding the zeta1 that maximizes wFROC AUC.
+* Had to fix several `test` files.
+* Consider adding `seed` to other simulation functions.
+* Nov 17, 2020.
 
 ## Fixed errors reading FROC file with no non-diseased cases
 * Toy file with no non-diseased cases: `frocLocatClass.xlsx`.
