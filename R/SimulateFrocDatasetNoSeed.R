@@ -1,4 +1,4 @@
-#' Simulates an MRMC uncorrelated FROC dataset using the RSM
+#' Simulates an MRMC uncorrelated FROC dataset using the RSM - no seed version
 #' 
 #' @description  Simulates an uncorrelated MRMC FROC dataset for specified numbers of
 #'    readers and treatments 
@@ -12,42 +12,21 @@
 #' @param K1     The number of non-diseased cases
 #' @param K2     The number of diseased cases
 #' @param perCase    A K2 length array containing the numbers of lesions per diseased case
-#' @param seed  The initial seed for the random number generator, the default 
-#'     is \code{NULL}, as if no seed has been specified. 
 #' 
 #' @return The return value is an FROC dataset.
 #' 
 #' @details See book chapters on the Radiological Search Model (RSM) for details. 
 #'    In this code correlations between ratings on the same case are assumed to be zero.
 #' 
-#' @examples
-#' set.seed(1) 
-#' K1 <- 5;K2 <- 7;
-#' maxLL <- 2;perCase <- floor(runif(K2, 1, maxLL + 1))
-#' mu <- 1;lambda <- 1;nu <- 1 ;zeta1 <- -1
-#' I <- 2; J <- 5
 #' 
-#' frocDataRaw <- SimulateFrocDataset(
-#'   mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
-#'   I = I, J = J, K1 = K1, K2 = K2, perCase = perCase )
-#'   
-#' ## plot the data
-#' ret <- PlotEmpiricalOperatingCharacteristics(frocDataRaw, opChType = "FROC")
-#' ## print(ret$Plot)
-#' 
-#' @references 
-#' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
-#' Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
-#' \url{https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 #' 
 #' @importFrom stats rpois rnorm rbinom
 #' 
 #' @export
 
-SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL){
+SimulateFrocDatasetNoSeed <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase){
   
   if (length(perCase) != K2) stop("SimulateFrocDataset: error in specification of number of lesions perCase vector.")
-  set.seed(seed)
   lambdaP <- lambda/mu
   nuP <- 1-exp(-nu*mu)
   nNL <- rpois(I * J * (K1 + K2), lambdaP)
@@ -98,5 +77,3 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, se
                          fileName, type, name, truthTableStr, design,
                          modalityID, readerID))
 }
-
-
