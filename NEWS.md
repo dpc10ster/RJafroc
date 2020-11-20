@@ -1,5 +1,10 @@
 # RJafroc 1.3.2.9000
 
+## Restored no `seed` version as SimulateFrocDatasetNoSeed()
+* Needed for compatibility with the plots in `14-froc-meanings-xx.Rmd` chapter.
+* This should not be used anywhere else.
+* Nov 20, 2020.
+
 ## Added `seed` to SimulateFrocDataset()
 * Ability to specify `seed` in order to reproduce FROC datasets. 
 * In book chapter 13- on effect of zeta1 on FOM and finding the zeta1 that maximizes wFROC AUC.
