@@ -196,21 +196,21 @@
    This function is useful as an instructional tool towards understanding the RSM.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotRsmOperatingCharacteristics</span>(
-  <span class='kw'>mu</span>,
-  <span class='kw'>lambda</span>,
-  <span class='kw'>nu</span>,
-  <span class='kw'>lesDistr</span>,
-  <span class='kw'>lesWghtDistr</span>,
-  OpChType = <span class='st'>"ALL"</span>,
-  legendPosition = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>),
-  legendDirection = <span class='st'>"horizontal"</span>,
-  legendJustification = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
-  nlfRange = <span class='kw'>NULL</span>,
-  llfRange = <span class='kw'>NULL</span>,
-  nlfAlpha = <span class='kw'>NULL</span>,
-  myNegInf = <span class='op'>-</span><span class='fl'>3</span>
-)</pre>
+    <pre class="usage"><span class='fu'>PlotRsmOperatingCharacteristics</span><span class='op'>(</span>
+  <span class='va'>mu</span>,
+  <span class='va'>lambda</span>,
+  <span class='va'>nu</span>,
+  <span class='va'>lesDistr</span>,
+  <span class='va'>lesWghtDistr</span>,
+  OpChType <span class='op'>=</span> <span class='st'>"ALL"</span>,
+  legendPosition <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span>,
+  legendDirection <span class='op'>=</span> <span class='st'>"horizontal"</span>,
+  legendJustification <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  nlfRange <span class='op'>=</span> <span class='cn'>NULL</span>,
+  llfRange <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nlfAlpha <span class='op'>=</span> <span class='cn'>NULL</span>,
+  myNegInf <span class='op'>=</span> <span class='op'>-</span><span class='fl'>3</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -368,18 +368,18 @@ Modeling, and Applications with R-Based Examples</em> (CRC Press, Boca Raton, FL
 <span class='co'>## mu = 3, lambda = 1.5, nu = 0.8, in the other treatment. 20% of the diseased </span>
 <span class='co'>## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span>
 <span class='co'>## and 30% have 4 lesions.  </span>
-<span class='kw'>lesDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0.2</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>0.4</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>0.1</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0.3</span>))
+<span class='va'>lesDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0.2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>0.4</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>0.1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## On cases with one lesion the weights are 1, on cases with 2 lesions the weights</span>
 <span class='co'>## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and</span>
 <span class='co'>## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: </span>
-<span class='kw'>lesWghtDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1.0</span>, <span class='op'>-</span><span class='fl'>Inf</span>, <span class='op'>-</span><span class='fl'>Inf</span>, <span class='op'>-</span><span class='fl'>Inf</span>), 
-                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>0.4</span>,  <span class='fl'>0.6</span>, <span class='op'>-</span><span class='fl'>Inf</span>, <span class='op'>-</span><span class='fl'>Inf</span>), 
-                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>0.2</span>,  <span class='fl'>0.3</span>,  <span class='fl'>0.5</span>, <span class='op'>-</span><span class='fl'>Inf</span>), 
-                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0.3</span>,  <span class='fl'>0.4</span>, <span class='fl'>0.2</span>,  <span class='fl'>0.1</span>))
-<span class='kw'>ret</span> <span class='op'>&lt;-</span> <span class='fu'>PlotRsmOperatingCharacteristics</span>(mu = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>), lambda = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1.5</span>), nu = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.6</span>, <span class='fl'>0.8</span>),
-   lesDistr = <span class='kw'>lesDistr</span>, lesWghtDistr = <span class='kw'>lesWghtDistr</span>, 
-   legendPosition = <span class='st'>"bottom"</span>, nlfRange = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>), llfRange = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>))
+<span class='va'>lesWghtDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1.0</span>, <span class='op'>-</span><span class='cn'>Inf</span>, <span class='op'>-</span><span class='cn'>Inf</span>, <span class='op'>-</span><span class='cn'>Inf</span><span class='op'>)</span>, 
+                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>0.4</span>,  <span class='fl'>0.6</span>, <span class='op'>-</span><span class='cn'>Inf</span>, <span class='op'>-</span><span class='cn'>Inf</span><span class='op'>)</span>, 
+                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>0.2</span>,  <span class='fl'>0.3</span>,  <span class='fl'>0.5</span>, <span class='op'>-</span><span class='cn'>Inf</span><span class='op'>)</span>, 
+                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>0.3</span>,  <span class='fl'>0.4</span>, <span class='fl'>0.2</span>,  <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ret</span> <span class='op'>&lt;-</span> <span class='fu'>PlotRsmOperatingCharacteristics</span><span class='op'>(</span>mu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1.5</span><span class='op'>)</span>, nu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.6</span>, <span class='fl'>0.8</span><span class='op'>)</span>,
+   lesDistr <span class='op'>=</span> <span class='va'>lesDistr</span>, lesWghtDistr <span class='op'>=</span> <span class='va'>lesWghtDistr</span>, 
+   legendPosition <span class='op'>=</span> <span class='st'>"bottom"</span>, nlfRange <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, llfRange <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
    <span class='co'>## print(ret$ROCPlot)</span>
    <span class='co'>## print(ret$AFROCPlot)</span>
    <span class='co'>## print(ret$wAFROCPlot)</span>

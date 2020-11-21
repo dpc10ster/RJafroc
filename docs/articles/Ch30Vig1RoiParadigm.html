@@ -139,7 +139,7 @@
       <h1 data-toc-skip>Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-11-14</h4>
+            <h4 class="date">2020-11-20</h4>
       
       
       <div class="hidden name"><code>Ch30Vig1RoiParadigm.Rmd</code></div>
@@ -165,7 +165,7 @@
 <a href="#an-example-roi-dataset" class="anchor"></a>An example ROI dataset</h2>
 <p>An example simulated ROI dataset is included as <code>datasetROI</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">datasetROI</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">datasetROI</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ ratings     :List of 3</span>
 <span class="co">#&gt;   ..$ NL   : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span>
@@ -185,19 +185,18 @@
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "1" "2"</span>
 <span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span>
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="kw">datasetROI</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
+<span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="op">]</span>
 <span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">datasetROI</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">NL</span>[,,<span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,])
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,<span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.1014348</span>
-<span class="kw">datasetROI</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">51</span>,]
+<span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">51</span>,<span class="op">]</span>
 <span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span>
-<span class="kw">datasetROI</span><span class="op">$</span><span class="kw">lesions</span><span class="op">$</span><span class="kw">perCase</span>[<span class="fl">1</span>]
+<span class="va">datasetROI</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">perCase</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt; [1] 2</span>
-<span class="kw">datasetROI</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">LL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
+<span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="op">]</span>
 <span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span>
-<span class="kw">x</span> <span class="op">&lt;-</span> <span class="kw">datasetROI</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">LL</span>;<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(<span class="kw">x</span>)])
-<span class="co">#&gt; [1] 1.815513</span>
-</pre></div>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span>;<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1.815513</span></pre></div>
 <p>Examination of the output reveals that:</p>
 <ul>
 <li><p>This is a 2-treatment 5-reader dataset, with 50 non-diseased cases and 40 diseased cases, and <span class="math inline">\({{Q}_{k}}=4\)</span> for all <em>k</em>.</p></li>
@@ -211,11 +210,10 @@
 <a href="#the-roi-excel-data-file" class="anchor"></a>The ROI Excel data file</h2>
 <p>An Excel file in JAFROC format containing simulated ROI data corresponding to <code>datasetROI</code>, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object <code>ds</code>. !!!DPC!!!</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">fileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"RoiData.xlsx"</span>, package = <span class="st">"RJafroc"</span>, mustWork = <span class="fl">TRUE</span>)
-<span class="kw">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="kw">fileName</span>)
-<span class="kw">ds</span><span class="op">$</span><span class="kw">descriptions</span><span class="op">$</span><span class="kw">type</span>
-<span class="co">#&gt; [1] "ROI"</span>
-</pre></div>
+<span class="va">fileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RoiData.xlsx"</span>, package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span><span class="op">(</span><span class="va">fileName</span><span class="op">)</span>
+<span class="va">ds</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">type</span>
+<span class="co">#&gt; [1] "ROI"</span></pre></div>
 <p>The <code>DfReadDataFile</code> function automatically recognizes that this is an <em>ROI</em> dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets:</p>
 <p><img src="images/ROI-Truth-1.png" style="width:100.0%"><img src="images/ROI-Truth-2.png" style="width:100.0%"></p>
 <ul>

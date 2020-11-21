@@ -139,7 +139,7 @@
       <h1 data-toc-skip>Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-11-14</h4>
+            <h4 class="date">2020-11-20</h4>
       
       
       <div class="hidden name"><code>Ch17Vig1PlotRsmOpCh.Rmd</code></div>
@@ -182,11 +182,10 @@
 <li>These parameters do not apply to individual cases; rather they refer to a large population (asymptotically infinite in size) of cases.</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">dataset04</span><span class="op">$</span><span class="kw">lesionID</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dataset04</span><span class="op">$</span><span class="va">lesionID</span><span class="op">)</span>
 <span class="co">#&gt;  NULL</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">dataset04</span><span class="op">$</span><span class="kw">lesionWeight</span>)
-<span class="co">#&gt;  NULL</span>
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dataset04</span><span class="op">$</span><span class="va">lesionWeight</span><span class="op">)</span>
+<span class="co">#&gt;  NULL</span></pre></div>
 <ul>
 <li>Note that the first index of both arrays is the case index for the 100 abnormal cases in this dataset.</li>
 <li>With finite number of cases the empirical operating characteristic (or for that matter any fitted operating characteristic) will have sampling variability as in the following example.</li>
@@ -196,9 +195,8 @@
 <h2 class="hasAnchor">
 <a href="#the-empirical-wafroc" class="anchor"></a>The empirical wAFROC</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotEmpiricalOperatingCharacteristics.html">PlotEmpiricalOperatingCharacteristics</a></span>(<span class="kw">dataset04</span>, opChType = <span class="st">"wAFROC"</span>)
-<span class="kw">p</span><span class="op">$</span><span class="kw">Plot</span>
-</pre></div>
+<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotEmpiricalOperatingCharacteristics.html">PlotEmpiricalOperatingCharacteristics</a></span><span class="op">(</span><span class="va">dataset04</span>, opChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span>
+<span class="va">p</span><span class="op">$</span><span class="va">Plot</span></pre></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <ul>
 <li>The piecewise linear nature of the plot, with sharp breaks, indicates that this is due to a finite dataset.</li>
@@ -212,39 +210,37 @@
 <span class="co">## Following example is for mu = 2, lambda = 1, nu = 0.6. 20% of the diseased </span>
 <span class="co">## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span>
 <span class="co">## and 30% have 4 lesions.  </span>
-<span class="kw">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">0.2</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">0.4</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">0.1</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">0.3</span>))
+<span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">0.4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">0.1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co">## On cases with one lesion the weights are 1, on cases with 2 lesions the weights</span>
 <span class="co">## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and</span>
 <span class="co">## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: </span>
-<span class="kw">lesWghtDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1.0</span>, <span class="op">-</span><span class="fl">Inf</span>, <span class="op">-</span><span class="fl">Inf</span>, <span class="op">-</span><span class="fl">Inf</span>), 
-                      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">0.4</span>,  <span class="fl">0.6</span>, <span class="op">-</span><span class="fl">Inf</span>, <span class="op">-</span><span class="fl">Inf</span>), 
-                      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">0.2</span>,  <span class="fl">0.3</span>,  <span class="fl">0.5</span>, <span class="op">-</span><span class="fl">Inf</span>), 
-                      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">0.3</span>,  <span class="fl">0.4</span>, <span class="fl">0.2</span>,  <span class="fl">0.1</span>))
-<span class="kw">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(mu = <span class="fl">2</span>, lambda = <span class="fl">1</span>, nu = <span class="fl">0.6</span>, OpChType = <span class="st">"wAFROC"</span>,
-                                       lesDistr = <span class="kw">lesDistr</span>, lesWghtDistr = <span class="kw">lesWghtDistr</span>, 
-                                       legendPosition = <span class="st">"bottom"</span>, nlfRange = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>), llfRange = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>))
-<span class="kw">p</span><span class="op">$</span><span class="kw">wAFROCPlot</span>
-</pre></div>
+<span class="va">lesWghtDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1.0</span>, <span class="op">-</span><span class="cn">Inf</span>, <span class="op">-</span><span class="cn">Inf</span>, <span class="op">-</span><span class="cn">Inf</span><span class="op">)</span>, 
+                      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">0.4</span>,  <span class="fl">0.6</span>, <span class="op">-</span><span class="cn">Inf</span>, <span class="op">-</span><span class="cn">Inf</span><span class="op">)</span>, 
+                      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">0.2</span>,  <span class="fl">0.3</span>,  <span class="fl">0.5</span>, <span class="op">-</span><span class="cn">Inf</span><span class="op">)</span>, 
+                      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">0.3</span>,  <span class="fl">0.4</span>, <span class="fl">0.2</span>,  <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>
+<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">2</span>, lambda <span class="op">=</span> <span class="fl">1</span>, nu <span class="op">=</span> <span class="fl">0.6</span>, OpChType <span class="op">=</span> <span class="st">"wAFROC"</span>,
+                                       lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, lesWghtDistr <span class="op">=</span> <span class="va">lesWghtDistr</span>, 
+                                       legendPosition <span class="op">=</span> <span class="st">"bottom"</span>, nlfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, llfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="va">p</span><span class="op">$</span><span class="va">wAFROCPlot</span></pre></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
 <div id="the-distribution-of-number-of-lesions-and-weights" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-distribution-of-number-of-lesions-and-weights" class="anchor"></a>The distribution of number of lesions and weights</h2>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">lesDistr</span>
+<span class="va">lesDistr</span>
 <span class="co">#&gt;      [,1] [,2]</span>
 <span class="co">#&gt; [1,]    1  0.2</span>
 <span class="co">#&gt; [2,]    2  0.4</span>
 <span class="co">#&gt; [3,]    3  0.1</span>
 <span class="co">#&gt; [4,]    4  0.3</span>
-<span class="kw">lesWghtDistr</span>
+<span class="va">lesWghtDistr</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="co">#&gt; [1,]    1  1.0 -Inf -Inf -Inf</span>
 <span class="co">#&gt; [2,]    2  0.4  0.6 -Inf -Inf</span>
 <span class="co">#&gt; [3,]    3  0.2  0.3  0.5 -Inf</span>
-<span class="co">#&gt; [4,]    4  0.3  0.4  0.2  0.1</span>
-</pre></div>
+<span class="co">#&gt; [4,]    4  0.3  0.4  0.2  0.1</span></pre></div>
 <ul>
 <li>The second column of <code>lesDistr</code> specifies the fraction of diseased cases with the number of lesions specified in the first column.</li>
 <li>The first column of <code>lesWghtDistr</code> is a copy of the first column of <code>lesDistr</code>. The remaining non-<code>-Inf</code> entries are the weights.</li>
@@ -262,12 +258,11 @@
 <li>Note that lesiion weights argument is not needed for ROC curves. It is only needed for <code>wAFROC</code> and <code>wAFROC1</code> curves.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">0.2</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">0.4</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">0.1</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">0.3</span>))
-<span class="kw">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span>(mu = <span class="fl">2</span>, lambda = <span class="fl">1</span>, nu = <span class="fl">0.6</span>, OpChType = <span class="st">"ROC"</span>,
-                                       lesDistr = <span class="kw">lesDistr</span>,  
-                                       legendPosition = <span class="st">"bottom"</span>)
-<span class="kw">p</span><span class="op">$</span><span class="kw">ROCPlot</span>
-</pre></div>
+<span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">0.4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">0.1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>
+<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">2</span>, lambda <span class="op">=</span> <span class="fl">1</span>, nu <span class="op">=</span> <span class="fl">0.6</span>, OpChType <span class="op">=</span> <span class="st">"ROC"</span>,
+                                       lesDistr <span class="op">=</span> <span class="va">lesDistr</span>,  
+                                       legendPosition <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>
+<span class="va">p</span><span class="op">$</span><span class="va">ROCPlot</span></pre></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="summary" class="section level2">

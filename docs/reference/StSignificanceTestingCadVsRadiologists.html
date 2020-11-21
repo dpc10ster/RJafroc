@@ -203,14 +203,14 @@
    in my 2017 book.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>StSignificanceTestingCadVsRadiologists</span>(
-  <span class='kw'>dataset</span>,
-  <span class='kw'>FOM</span>,
-  FPFValue = <span class='fl'>0.2</span>,
-  method = <span class='st'>"1T-RRRC"</span>,
-  alpha = <span class='fl'>0.05</span>,
-  plots = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>StSignificanceTestingCadVsRadiologists</span><span class='op'>(</span>
+  <span class='va'>dataset</span>,
+  <span class='va'>FOM</span>,
+  FPFValue <span class='op'>=</span> <span class='fl'>0.2</span>,
+  method <span class='op'>=</span> <span class='st'>"1T-RRRC"</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  plots <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -368,11 +368,11 @@ neural network and radiologists for classifying regions of interest in mammograp
 Paper presented at: International Workshop on Digital Mammography, Malmo, Sweden.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>ret1M</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCadVsRadiologists</span> (<span class='kw'>dataset09</span>, 
-FOM = <span class='st'>"Wilcoxon"</span>, method = <span class='st'>"1T-RRRC"</span>)
+    <pre class="examples"><div class='input'><span class='va'>ret1M</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCadVsRadiologists</span> <span class='op'>(</span><span class='va'>dataset09</span>, 
+FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, method <span class='op'>=</span> <span class='st'>"1T-RRRC"</span><span class='op'>)</span>
 
-<span class='fu'>StSignificanceTestingCadVsRadiologists</span>(<span class='kw'>datasetCadLroc</span>, 
-FOM = <span class='st'>"Wilcoxon"</span>, method = <span class='st'>"1T-RRFC"</span>)
+<span class='fu'>StSignificanceTestingCadVsRadiologists</span><span class='op'>(</span><span class='va'>datasetCadLroc</span>, 
+FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, method <span class='op'>=</span> <span class='st'>"1T-RRFC"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $fomCAD
 #&gt; [1] 0.81692708
 #&gt; 
@@ -404,17 +404,17 @@ FOM = <span class='st'>"Wilcoxon"</span>, method = <span class='st'>"1T-RRFC"</s
 #&gt; $pval
 #&gt; [1] 0.012359088
 #&gt; </div><div class='input'>
-<span class='kw'>retLroc1M</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCadVsRadiologists</span> (<span class='kw'>datasetCadLroc</span>, 
-FOM = <span class='st'>"PCL"</span>, method = <span class='st'>"1T-RRRC"</span>, FPFValue = <span class='fl'>0.05</span>)
+<span class='va'>retLroc1M</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCadVsRadiologists</span> <span class='op'>(</span><span class='va'>datasetCadLroc</span>, 
+FOM <span class='op'>=</span> <span class='st'>"PCL"</span>, method <span class='op'>=</span> <span class='st'>"1T-RRRC"</span>, FPFValue <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
 
 <span class='co'>## test with fewer readers</span>
-<span class='kw'>dataset09a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfExtractDataset.html'>DfExtractDataset</a></span>(<span class='kw'>dataset09</span>, rdrs = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>))
-<span class='kw'>ret1M7</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCadVsRadiologists</span> (<span class='kw'>dataset09a</span>, 
-FOM = <span class='st'>"Wilcoxon"</span>, method = <span class='st'>"1T-RRRC"</span>)
+<span class='va'>dataset09a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfExtractDataset.html'>DfExtractDataset</a></span><span class='op'>(</span><span class='va'>dataset09</span>, rdrs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ret1M7</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCadVsRadiologists</span> <span class='op'>(</span><span class='va'>dataset09a</span>, 
+FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, method <span class='op'>=</span> <span class='st'>"1T-RRRC"</span><span class='op'>)</span>
 
-<span class='kw'>datasetCadLroc7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfExtractDataset.html'>DfExtractDataset</a></span>(<span class='kw'>datasetCadLroc</span>, rdrs = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>))
-<span class='kw'>ret1MLroc7</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCadVsRadiologists</span> (<span class='kw'>datasetCadLroc7</span>, 
-FOM = <span class='st'>"PCL"</span>, method = <span class='st'>"1T-RRRC"</span>, FPFValue = <span class='fl'>0.05</span>)
+<span class='va'>datasetCadLroc7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfExtractDataset.html'>DfExtractDataset</a></span><span class='op'>(</span><span class='va'>datasetCadLroc</span>, rdrs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ret1MLroc7</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCadVsRadiologists</span> <span class='op'>(</span><span class='va'>datasetCadLroc7</span>, 
+FOM <span class='op'>=</span> <span class='st'>"PCL"</span>, method <span class='op'>=</span> <span class='st'>"1T-RRRC"</span>, FPFValue <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
 
 <span class='co'># \donttest{</span>
 <span class='co'>## takes longer than 5 sec on OSX</span>

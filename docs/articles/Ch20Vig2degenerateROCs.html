@@ -139,7 +139,7 @@
       <h1 data-toc-skip>Chapter 20, Vignette 2: Degenerate datasets in the binormal model</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-11-14</h4>
+            <h4 class="date">2020-11-20</h4>
       
       
       <div class="hidden name"><code>Ch20Vig2degenerateROCs.Rmd</code></div>
@@ -162,17 +162,16 @@
 <a href="#understanding-degenerate-datasets" class="anchor"></a>Understanding degenerate datasets</h2>
 <p>To understand this, consider that the non-diseased distribution is a Dirac delta function centered at zero (by definition such a function integrates to unity) and the unit variance diseased distribution is centered at 0.6744898. In other words this binormal model is characterized by <code>a = 0.6744898</code> and <code>b = 0</code>. What is the expected ROC curve? As the threshold <span class="math inline">\(\zeta\)</span> is moved from the far right, gradually to the left, TPF will increase but FPF is stuck at zero until the threshold reaches zero. Just before reaching this point, the coordinates of the ROC operating point are (0, 0.75). The 0.75 is due to the fact that <code>z = 0</code> is -0.6744898 units relative to the center of the diseased distribution, so the area under the diseased distribution below <code>z = 0</code> is 0.25. Since <code>pnorm</code> is the probability <em>below</em> the threshold, TPF must be its complement, namely 0.75. This explains the operating point (0,0.75), which lies on the y-axis. As the threshold crosses the zero-width delta function, FPF shoots up from 0 to 1, but TPF stays constant. Therefore, the operating point has jumped from (0, 0.75) to (1, 0.75). When the threshold is reduced further, the operating point moves up vertically, along the right side of the ROC plot, until the threshold is so small that virtually all of diseased distribution exceeds it and the operating point reaches (1, 1). The ROC curve is illustrated in plot A.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">plotOP</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(FPF = <span class="fl">0</span>, TPF = <span class="fl">0.75</span>)
-<span class="kw">a</span> <span class="op">&lt;-</span> <span class="fl">0.6744898</span>; <span class="kw">b</span> <span class="op">&lt;-</span> <span class="fl">0</span>
-<span class="kw">plotCurve</span> <span class="op">&lt;-</span> <span class="fu">BMPoints</span>(<span class="kw">a</span>, <span class="kw">b</span>)
-<span class="kw">figA</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span>(mapping = <span class="fu">aes</span>(x = <span class="kw">FPF</span>, y = <span class="kw">TPF</span>)) <span class="op">+</span> 
-  <span class="fu">geom_line</span>(data = <span class="kw">plotCurve</span>) <span class="op">+</span> 
-  <span class="fu">geom_point</span>(data = <span class="kw">plotOP</span>)  <span class="op">+</span> 
-  <span class="fu">scale_x_continuous</span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) <span class="op">+</span> 
-  <span class="fu">scale_y_continuous</span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) <span class="op">+</span>
-  <span class="fu">ggtitle</span>(<span class="st">"A"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">figA</span>)
-</pre></div>
+<span class="va">plotOP</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>FPF <span class="op">=</span> <span class="fl">0</span>, TPF <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>
+<span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">0.6744898</span>; <span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+<span class="va">plotCurve</span> <span class="op">&lt;-</span> <span class="fu">BMPoints</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span>
+<span class="va">figA</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">FPF</span>, y <span class="op">=</span> <span class="va">TPF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_line</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plotCurve</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plotOP</span><span class="op">)</span>  <span class="op">+</span> 
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"A"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">figA</span><span class="op">)</span></pre></div>
 <p><img src="Ch20Vig2degenerateROCs_files/figure-html/unnamed-chunk-2-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>This is an extreme example of an ROC curve with a “hook”. If the data is such that the only operating point provided by the observer is (0,0.75) then this curve will be an exact fit to the operating point.</p>
 </div>
@@ -181,25 +180,24 @@
 <a href="#the-exact-fit-is-not-unique" class="anchor"></a>The exact fit is not unique</h2>
 <p>Actually, given one operating point (0, 0.75) the preceding fit is not even unique. If the diseased distribution is shifted appropriately to the right of its previous position, and one can determine the necessary value of a, then the ROC curve will shoot upwards through the operating point (0, 0.75) to (0, 0.9), as in plot B, before proceeding horizontally to (1, 0.9) and then completing the curve to (1, 1). If the diseased distribution is shifted well to the right, i.e., a is very large, then the ROC curve will shoot upwards past the operating point, as in plot C, all the way to (0,1) before proceeding horizontally to (1, 1).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">a</span> <span class="op">&lt;-</span> <span class="fl">1.281552</span>; <span class="kw">b</span> <span class="op">&lt;-</span> <span class="fl">0</span>
-<span class="kw">plotCurve</span> <span class="op">&lt;-</span> <span class="fu">BMPoints</span>(<span class="kw">a</span>, <span class="kw">b</span>)
-<span class="kw">figB</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span>(mapping = <span class="fu">aes</span>(x = <span class="kw">FPF</span>, y = <span class="kw">TPF</span>)) <span class="op">+</span> 
-  <span class="fu">geom_line</span>(data = <span class="kw">plotCurve</span>) <span class="op">+</span> 
-  <span class="fu">geom_point</span>(data = <span class="kw">plotOP</span>)  <span class="op">+</span> 
-  <span class="fu">scale_x_continuous</span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) <span class="op">+</span> 
-  <span class="fu">scale_y_continuous</span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) <span class="op">+</span>
-  <span class="fu">ggtitle</span>(<span class="st">"B"</span>)
+<span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1.281552</span>; <span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+<span class="va">plotCurve</span> <span class="op">&lt;-</span> <span class="fu">BMPoints</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span>
+<span class="va">figB</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">FPF</span>, y <span class="op">=</span> <span class="va">TPF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_line</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plotCurve</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plotOP</span><span class="op">)</span>  <span class="op">+</span> 
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"B"</span><span class="op">)</span>
 
-<span class="kw">a</span> <span class="op">&lt;-</span> <span class="fl">Inf</span>; <span class="kw">b</span> <span class="op">&lt;-</span> <span class="fl">0</span>
-<span class="kw">plotCurve</span> <span class="op">&lt;-</span> <span class="fu">BMPoints</span>(<span class="kw">a</span>, <span class="kw">b</span>)
-<span class="kw">figC</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span>(mapping = <span class="fu">aes</span>(x = <span class="kw">FPF</span>, y = <span class="kw">TPF</span>)) <span class="op">+</span> 
-  <span class="fu">geom_line</span>(data = <span class="kw">plotCurve</span>) <span class="op">+</span> 
-  <span class="fu">geom_point</span>(data = <span class="kw">plotOP</span>)  <span class="op">+</span> 
-  <span class="fu">scale_x_continuous</span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) <span class="op">+</span> 
-  <span class="fu">scale_y_continuous</span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) <span class="op">+</span>
-  <span class="fu">ggtitle</span>(<span class="st">"C"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">figB</span>);<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">figC</span>)
-</pre></div>
+<span class="va">a</span> <span class="op">&lt;-</span> <span class="cn">Inf</span>; <span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+<span class="va">plotCurve</span> <span class="op">&lt;-</span> <span class="fu">BMPoints</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span>
+<span class="va">figC</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">FPF</span>, y <span class="op">=</span> <span class="va">TPF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_line</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plotCurve</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plotOP</span><span class="op">)</span>  <span class="op">+</span> 
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"C"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">figB</span><span class="op">)</span>;<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">figC</span><span class="op">)</span></pre></div>
 <p><img src="Ch20Vig2degenerateROCs_files/figure-html/unnamed-chunk-3-1.png" width="700"><img src="Ch20Vig2degenerateROCs_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
 <p>All of these represent exact fits to the observed operating point, with <code>b = 0</code> and different values of <code>a</code>. Not one of them is reasonable.</p>
 </div>
@@ -213,16 +211,15 @@
 <a href="#a-reasonable-fit-to-the-degenerate-dataset" class="anchor"></a>A reasonable fit to the degenerate dataset</h2>
 <p>If the dataset yields a single operating point (0, 0.75), what is a reasonable ROC plot? There is a theorem that given an observed operating point, the line connecting that point to (1, 1) represents a lower bound on achievable performance by the observer. The observer using a guessing mechanism to classify the remaining cases achieves the lower bound. Here is an explanation of this theorem. Having rated the 75 easy diseased cases as fives, the observer is left with 25 diseased cases and 100 non-diseased cases, all of which appear definitely non-diseased to the observer. Suppose the observer randomly rates 20% of the remaining cases as fours. This would pick up five of the actually diseased cases and 20 non-diseased ones. Therefore, the total number of diseased cases rated four or higher is 80, and the corresponding number of non-diseased cases is 20. The new operating point of the observer is (0.20, 0.80). Now, one has two operating points, the original one on the y-axis at (0, 0.75) and an interior point (0.20, 0.80). Next, instead of randomly rating 20% of the remaining cases as fours, the observer rates 40% of them as fours, then the interior point would have been (0.40, 0.85). The reader can appreciate that simply by increasing the fraction of remaining cases that are randomly rated fours, the observer can move the operating point along the straight line connecting (0, 0.75) and (1, 1), as in plot D. Since a guessing mechanism is being used, this must represent a lower bound on performance. The resulting ROC curve is proper and the net AUC = 0.875.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">mu</span> <span class="op">&lt;-</span> <span class="fl">Inf</span>; <span class="kw">alpha</span> <span class="op">&lt;-</span> <span class="fl">0.75</span>
-<span class="kw">plotCurve</span> <span class="op">&lt;-</span> <span class="fu">CBMPoints</span>(<span class="kw">mu</span>, <span class="kw">alpha</span>)
-<span class="kw">figD</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span>(mapping = <span class="fu">aes</span>(x = <span class="kw">FPF</span>, y = <span class="kw">TPF</span>)) <span class="op">+</span> 
-  <span class="fu">geom_line</span>(data = <span class="kw">plotCurve</span>) <span class="op">+</span> 
-  <span class="fu">geom_point</span>(data = <span class="kw">plotOP</span>)  <span class="op">+</span> 
-  <span class="fu">scale_x_continuous</span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) <span class="op">+</span> 
-  <span class="fu">scale_y_continuous</span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)) <span class="op">+</span>
-  <span class="fu">ggtitle</span>(<span class="st">"D"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">figD</span>)
-</pre></div>
+<span class="va">mu</span> <span class="op">&lt;-</span> <span class="cn">Inf</span>; <span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fl">0.75</span>
+<span class="va">plotCurve</span> <span class="op">&lt;-</span> <span class="fu">CBMPoints</span><span class="op">(</span><span class="va">mu</span>, <span class="va">alpha</span><span class="op">)</span>
+<span class="va">figD</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">FPF</span>, y <span class="op">=</span> <span class="va">TPF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_line</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plotCurve</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">plotOP</span><span class="op">)</span>  <span class="op">+</span> 
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"D"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">figD</span><span class="op">)</span></pre></div>
 <p><img src="Ch20Vig2degenerateROCs_files/figure-html/unnamed-chunk-4-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>For this dataset this is in fact the fit yielded by the contaminated binormal model (CBM) and the radiological search model (RSM). Why should one select the lowest possible performance consistent with the data? Because it yields a <em>unique</em> value for performance: any higher performance would not be unique.</p>
 </div>

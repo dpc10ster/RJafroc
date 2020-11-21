@@ -191,7 +191,7 @@
 ("BT" = breast tomosynthesis and "DM" = digital mammography) by five radiologists using the FROC paradigm.</p>
     </div>
 
-    <pre class="usage"><span class='kw'>dataset01</span></pre>
+    <pre class="usage"><span class='va'>dataset01</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -223,7 +223,7 @@ of visual search from ROC data: an alternate method for fitting proper ROC curve
 PROC SPIE 7966.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='kw'>dataset01</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dataset01</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; List of 3
 #&gt;  $ ratings     :List of 3
 #&gt;   ..$ NL   : num [1:2, 1:5, 1:185, 1:3] 3 -Inf 3 -Inf 4 ...
@@ -242,7 +242,7 @@ PROC SPIE 7966.</p>
 #&gt;   ..$ modalityID   : Named chr [1:2] "BT" "DM"
 #&gt;   .. ..- attr(*, "names")= chr [1:2] "BT" "DM"
 #&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...
-#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</div><div class='input'><span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(dataset = <span class='kw'>dataset01</span>, opChType = <span class='st'>"wAFROC"</span>)<span class='op'>$</span><span class='kw'>Plot</span>
+#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</div><div class='input'><span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span><span class='op'>(</span>dataset <span class='op'>=</span> <span class='va'>dataset01</span>, opChType <span class='op'>=</span> <span class='st'>"wAFROC"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>Plot</span>
 </div><div class='img'><img src='dataset01-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

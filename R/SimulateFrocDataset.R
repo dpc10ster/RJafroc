@@ -47,7 +47,7 @@
 SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL){
   
   if (length(perCase) != K2) stop("SimulateFrocDataset: error in specification of number of lesions perCase vector.")
-  set.seed(seed)
+  if (!is.null(seed)) set.seed(seed)
   lambdaP <- lambda/mu
   nuP <- 1-exp(-nu*mu)
   nNL <- rpois(I * J * (K1 + K2), lambdaP)

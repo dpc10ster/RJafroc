@@ -139,7 +139,7 @@
       <h1 data-toc-skip>Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-11-14</h4>
+            <h4 class="date">2020-11-20</h4>
       
       
       <div class="hidden name"><code>Ch11Vig3SampleSize.Rmd</code></div>
@@ -167,17 +167,15 @@
 </h2>
 <p>The selected dataset corresponds to the Van Dyke data.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span>(<span class="kw">dataset02</span>, FOM = <span class="st">"Wilcoxon"</span>, J = <span class="fl">6</span>, K = <span class="fl">112</span>, analysisOption = <span class="st">"RRRC"</span>)
-</pre></div>
+<span class="va">power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">112</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span><span class="op">)</span></pre></div>
 <p>The returned value is a list containing the expected power <code>power</code>, the non-centrality parameter <code>ncp</code>, the denominator degrees of freedom <code>ddf</code> and the F-statistic <code>f</code>. The numerator degrees of freedom <code>ndf</code> is always <code>I - 1</code>, i.e., unity for this dataset.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">power</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">power</span><span class="op">)</span>
 <span class="co">#&gt; 'data.frame':    1 obs. of  4 variables:</span>
 <span class="co">#&gt;  $ powerRRRC: num 0.556</span>
 <span class="co">#&gt;  $ ncpRRRC  : num 4.8</span>
 <span class="co">#&gt;  $ df2RRRC  : num 23.1</span>
-<span class="co">#&gt;  $ fRRRC    : num 4.28</span>
-</pre></div>
+<span class="co">#&gt;  $ fRRRC    : num 4.28</span></pre></div>
 <p>Expected power is 0.55557885.</p>
 </div>
 <div id="illustration-of-sspowertable-using-method-dbm" class="section level2">
@@ -185,11 +183,10 @@
 <a href="#illustration-of-sspowertable-using-method-dbm" class="anchor"></a>Illustration of <code>SsPowerTable()</code> using <code>method = "DBM"</code>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">powTab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsPowerTable.html">SsPowerTable</a></span>(<span class="kw">dataset02</span>, FOM = <span class="st">"Wilcoxon"</span>, analysisOption = <span class="st">"RRRC"</span>)
-</pre></div>
+<span class="va">powTab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsPowerTable.html">SsPowerTable</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span><span class="op">)</span></pre></div>
 <p>Now show the power table <code>powTab</code>. Note that the last column is always close to 0.8, the desired power. The 2nd and 3rd columns show the number of readers and number of cases to achieve the desired power.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">powTab</span>
+<span class="va">powTab</span>
 <span class="co">#&gt; $powerTableRRRC</span>
 <span class="co">#&gt;     numReaders numCases power</span>
 <span class="co">#&gt; 1            3    &gt;2000  &lt;NA&gt;</span>
@@ -387,8 +384,7 @@
 <span class="co">#&gt; 193         99      104 0.804</span>
 <span class="co">#&gt; 194         99      104 0.804</span>
 <span class="co">#&gt; 195        100      103   0.8</span>
-<span class="co">#&gt; 196        100      103   0.8</span>
-</pre></div>
+<span class="co">#&gt; 196        100      103   0.8</span></pre></div>
 </div>
 <div id="illustration-of-sssamplesizekgivenj-using-method-dbm" class="section level2">
 <h2 class="hasAnchor">
@@ -399,12 +395,11 @@
 <h3 class="hasAnchor">
 <a href="#rrrc" class="anchor"></a>RRRC</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">ncases</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(<span class="kw">dataset02</span>, FOM = <span class="st">"Wilcoxon"</span>, J = <span class="fl">10</span>, method = <span class="st">"DBM"</span>, analysisOption =  <span class="st">"RRRC"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">ncases</span>)
+<span class="va">ncases</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="fl">10</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, analysisOption <span class="op">=</span>  <span class="st">"RRRC"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">ncases</span><span class="op">)</span>
 <span class="co">#&gt; 'data.frame':    1 obs. of  2 variables:</span>
 <span class="co">#&gt;  $ KRRRC    : num 163</span>
-<span class="co">#&gt;  $ powerRRRC: num 0.802</span>
-</pre></div>
+<span class="co">#&gt;  $ powerRRRC: num 0.802</span></pre></div>
 <p><code>ncases</code> is a list containing the number of cases 163 and expected power 0.80156249. Compare the number of cases to the RRRC value used in vignette 2.</p>
 <div id="non-default-value-of-desiredpower" class="section level4">
 <h4 class="hasAnchor">
@@ -412,12 +407,11 @@
 </h4>
 <p>This is illustrated below for 90% desired power.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">ncases</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(<span class="kw">dataset02</span>, FOM = <span class="st">"Wilcoxon"</span>, J = <span class="fl">10</span>, method = <span class="st">"DBM"</span>, analysisOption = <span class="st">"RRRC"</span>, desiredPower = <span class="fl">0.9</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">ncases</span>)
+<span class="va">ncases</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="fl">10</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span>, desiredPower <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">ncases</span><span class="op">)</span>
 <span class="co">#&gt; 'data.frame':    1 obs. of  2 variables:</span>
 <span class="co">#&gt;  $ KRRRC    : num 236</span>
-<span class="co">#&gt;  $ powerRRRC: num 0.9</span>
-</pre></div>
+<span class="co">#&gt;  $ powerRRRC: num 0.9</span></pre></div>
 <p>The required number of cases is 236 and expected power is 0.90035007.</p>
 </div>
 </div>
@@ -425,24 +419,22 @@
 <h3 class="hasAnchor">
 <a href="#frrc" class="anchor"></a>FRRC</h3>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">ncases</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(<span class="kw">dataset02</span>, FOM = <span class="st">"Wilcoxon"</span>, J = <span class="fl">10</span>, method = <span class="st">"DBM"</span>, analysisOption = <span class="st">"FRRC"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">ncases</span>)
+<span class="va">ncases</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="fl">10</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, analysisOption <span class="op">=</span> <span class="st">"FRRC"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">ncases</span><span class="op">)</span>
 <span class="co">#&gt; 'data.frame':    1 obs. of  2 variables:</span>
 <span class="co">#&gt;  $ KFRRC    : num 131</span>
-<span class="co">#&gt;  $ powerFRRC: num 0.801</span>
-</pre></div>
+<span class="co">#&gt;  $ powerFRRC: num 0.801</span></pre></div>
 <p>The required number of cases is 131 and expected power is 0.80091813. Compare the number of cases to the FRRC value used in vignette 2.</p>
 </div>
 <div id="rrfc" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rrfc" class="anchor"></a>RRFC</h3>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="kw">ncases</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span>(<span class="kw">dataset02</span>, FOM = <span class="st">"Wilcoxon"</span>, J = <span class="fl">10</span>, method = <span class="st">"DBM"</span>, analysisOption = <span class="st">"RRFC"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">ncases</span>)
+<span class="va">ncases</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="fl">10</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, analysisOption <span class="op">=</span> <span class="st">"RRFC"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">ncases</span><span class="op">)</span>
 <span class="co">#&gt; 'data.frame':    1 obs. of  2 variables:</span>
 <span class="co">#&gt;  $ KRRFC    : num 53</span>
-<span class="co">#&gt;  $ powerRRFC: num 0.805</span>
-</pre></div>
+<span class="co">#&gt;  $ powerRRFC: num 0.805</span></pre></div>
 <p>The required number of cases is 53 and expected power is 0.80496663. Compare the number of cases to the RRFC value used in vignette 2.</p>
 </div>
 </div>

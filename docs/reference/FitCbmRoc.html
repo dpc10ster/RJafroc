@@ -190,7 +190,7 @@
     <p>Fit the CBM-predicted ROC curve for specified treatment and reader</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FitCbmRoc</span>(<span class='kw'>dataset</span>, trt = <span class='fl'>1</span>, rdr = <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>FitCbmRoc</span><span class='op'>(</span><span class='va'>dataset</span>, trt <span class='op'>=</span> <span class='fl'>1</span>, rdr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -257,31 +257,31 @@ Acad Radiol, 7:6, 427--437.</p>
 <span class='co'># \donttest{</span>
 <span class='co'>## CPU time 8.7 sec on Ubuntu (#13)</span>
 <span class='co'>## Test with included ROC data</span>
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='kw'>dataset02</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span><span class='op'>(</span><span class='va'>dataset02</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
 
 <span class='co'>## Test with included degenerate ROC data (yes! CBM can fit such data)</span>
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='kw'>datasetDegenerate</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span><span class='op'>(</span><span class='va'>datasetDegenerate</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
 
 <span class='co'>## Test with single interior point data</span>
-<span class='kw'>fp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>7</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>))
-<span class='kw'>tp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>))
-<span class='kw'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span>(<span class='kw'>fp</span>, <span class='kw'>tp</span>)
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='kw'>dataset</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>fp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>7</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>tp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span><span class='op'>(</span><span class='va'>fp</span>, <span class='va'>tp</span><span class='op'>)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span><span class='op'>(</span><span class='va'>dataset</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
 
 <span class='co'>## Test with two interior data points</span>
-<span class='kw'>fp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>7</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>3</span>, <span class='fl'>3</span>))
-<span class='kw'>tp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>3</span>, <span class='fl'>7</span>))
-<span class='kw'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span>(<span class='kw'>fp</span>, <span class='kw'>tp</span>)
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='kw'>dataset</span>);
+<span class='va'>fp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>7</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>tp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span><span class='op'>(</span><span class='va'>fp</span>, <span class='va'>tp</span><span class='op'>)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span><span class='op'>(</span><span class='va'>dataset</span><span class='op'>)</span>;
 <span class='co'>## print(retFit$fittedPlot)</span>
 
 <span class='co'>## Test with included ROC data (some bins have zero counts)</span>
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='kw'>dataset02</span>, <span class='fl'>2</span>, <span class='fl'>1</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span><span class='op'>(</span><span class='va'>dataset02</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
 
 <span class='co'>## Test with TONY data for which chisqr can be calculated</span>
-<span class='kw'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span>(<span class='kw'>dataset01</span>)
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span>(<span class='kw'>ds</span>, <span class='fl'>2</span>, <span class='fl'>3</span>);<span class='co'>## print(retFit$fittedPlot)</span>
-<span class='kw'>retFit</span><span class='op'>$</span><span class='kw'>ChisqrFitStats</span>
+<span class='va'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span><span class='op'>(</span><span class='va'>dataset01</span><span class='op'>)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitCbmRoc</span><span class='op'>(</span><span class='va'>ds</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>retFit</span><span class='op'>$</span><span class='va'>ChisqrFitStats</span>
 </div><div class='output co'>#&gt; $chisq
 #&gt; [1] 1.449787
 #&gt; 

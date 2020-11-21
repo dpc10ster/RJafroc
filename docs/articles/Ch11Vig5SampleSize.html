@@ -139,7 +139,7 @@
       <h1 data-toc-skip>Chapter 11, Vignette 5: On choosing a realistic effect size</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-11-14</h4>
+            <h4 class="date">2020-11-20</h4>
       
       
       <div class="hidden name"><code>Ch11Vig5SampleSize.Rmd</code></div>
@@ -164,23 +164,21 @@
 <a href="#illustration-of-sspowergivenjk-using-method-dbm" class="anchor"></a>Illustration of <code>SsPowerGivenJK()</code> using <code>method = "DBM"</code>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">rocData</span> <span class="op">&lt;-</span> <span class="kw">dataset02</span> <span class="co">##"VanDyke.lrc"</span>
+<span class="va">rocData</span> <span class="op">&lt;-</span> <span class="va">dataset02</span> <span class="co">##"VanDyke.lrc"</span>
 <span class="co">#fileName &lt;- dataset03 ## "Franken1.lrc"</span>
-<span class="kw">retDbm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(dataset = <span class="kw">rocData</span>, FOM = <span class="st">"Wilcoxon"</span>, method = <span class="st">"DBM"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">retDbm</span><span class="op">$</span><span class="kw">RRRC</span><span class="op">$</span><span class="kw">ciDiffTrt</span>)
+<span class="va">retDbm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">rocData</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">retDbm</span><span class="op">$</span><span class="va">RRRC</span><span class="op">$</span><span class="va">ciDiffTrt</span><span class="op">)</span>
 <span class="co">#&gt;               Estimate      StdErr        DF          t       PrGTt</span>
 <span class="co">#&gt; trt0-trt1 -0.043800322 0.020748618 15.259675 -2.1109995 0.051665686</span>
 <span class="co">#&gt;                CILower       CIUpper</span>
-<span class="co">#&gt; trt0-trt1 -0.087959499 0.00035885444</span>
-</pre></div>
+<span class="co">#&gt; trt0-trt1 -0.087959499 0.00035885444</span></pre></div>
 <ul>
 <li><p>Lacking any other information, the observed effect-size is the best estimate of the effect-size to be anticipated. The output shows that the FOM difference, for treatment 0 minus treatment 1, is -0.04380032. In the actual study treatment <code>1</code> is the new modality which hopes to improve upon <code>0</code>, the conventional modality. Since the sign is negative, the difference is going the right way and is justified in moving forward with planning a pivotal study. [If the difference went the other way, there is little justification for a pivotal study].</p></li>
 <li><p>The standard error of the difference is 0.02074862.</p></li>
 <li><p>An optimistic, but not unduly so, effect size is given by:</p></li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">effectSizeOpt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw">retDbm</span><span class="op">$</span><span class="kw">RRRC</span><span class="op">$</span><span class="kw">ciDiffTrt</span>[<span class="fl">1</span>,<span class="st">"Estimate"</span>]) <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="kw">retDbm</span><span class="op">$</span><span class="kw">RRRC</span><span class="op">$</span><span class="kw">ciDiffTrt</span>[<span class="fl">1</span>,<span class="st">"StdErr"</span>]
-</pre></div>
+<span class="va">effectSizeOpt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">retDbm</span><span class="op">$</span><span class="va">RRRC</span><span class="op">$</span><span class="va">ciDiffTrt</span><span class="op">[</span><span class="fl">1</span>,<span class="st">"Estimate"</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">retDbm</span><span class="op">$</span><span class="va">RRRC</span><span class="op">$</span><span class="va">ciDiffTrt</span><span class="op">[</span><span class="fl">1</span>,<span class="st">"StdErr"</span><span class="op">]</span></pre></div>
 <p>The observed effect-size is a realization of a random variable. The lower limit of the 95% confidence interval is given by and the upper limit by . CI’s generated like this, with independent sets of data, are expected to encompass the true value with 95% probability. The lower end (greatest magnitude of the difference) of the confidence interval is -0.08529756, and this is the optimistic estimate. Since the sign is immaterial, one uses as the optimistic estimate the value 0.08529756. <strong>While the sign is immaterial for sample size estimates, the decision to conduct the pivotal most certainly is material - if the sign went the other way, with the new modality lower than the conventional modality, one would be unjustified in conducting a pivotal study.</strong></p>
 </div>
 <div id="references" class="section level2 unnumbered">

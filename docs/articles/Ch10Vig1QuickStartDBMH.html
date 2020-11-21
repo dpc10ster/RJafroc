@@ -139,7 +139,7 @@
       <h1 data-toc-skip>Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-11-14</h4>
+            <h4 class="date">2020-11-20</h4>
       
       
       <div class="hidden name"><code>Ch10Vig1QuickStartDBMH.Rmd</code></div>
@@ -161,7 +161,7 @@
 <a href="#an-roc-dataset" class="anchor"></a>An ROC dataset</h2>
 <p>Dataset <code>dataset03</code> corresponding to the Franken ROC data <span class="citation">(Franken et al. 1992)</span> is predefined. The following code shows the structure of this dataset.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">dataset03</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dataset03</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ ratings     :List of 3</span>
 <span class="co">#&gt;   ..$ NL   : num [1:2, 1:4, 1:100, 1] 3 3 4 3 3 3 4 1 1 3 ...</span>
@@ -180,8 +180,7 @@
 <span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "TREAT1" "TREAT2"</span>
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "TREAT1" "TREAT2"</span>
 <span class="co">#&gt;   ..$ readerID     : Named chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span>
-<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span>
-</pre></div>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</span></pre></div>
 <ul>
 <li><p>It is a list with 8 members. The false positive ratings are contained in <code>{NL}</code>, an array with dimensions <code>[1:2,1:4,1:100,1]</code>. The first index corresponds to treatments, and since the dataset has 2 treatments, the corresponding dimension is 2. The second index corresponds to readers, and since the dataset has 4 readers, the corresponding dimension is 4. The third index corresponds to the total number of cases. Since the dataset has 100 cases, the corresponding dimension is 100. But, as you can see from the code below, the entries in this array for cases 34 through 100 are <code>-Inf</code>: i.e., <code><a href="https://rdrr.io/r/base/all.html">all(dataset03$ratings$ratings$ratings$NL[1,1,34:100,1] == -Inf)</a></code> = TRUE.</p></li>
 <li><p>This is because in the ROC paradigm false positive are not possible on diseased cases. So the actual FP ratings are contained in the first 33 elements of the array. How did I know that there are 33 non-diseased cases? This can be understood in several ways.</p></li>
@@ -192,45 +191,39 @@
 </ul>
 <p>The <code>dataType</code> list member is the character string <code>"ROC"</code>, characterizing the ROC dataset.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">dataset03</span><span class="op">$</span><span class="kw">dataType</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">dataset03</span><span class="op">$</span><span class="va">dataType</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <p>The <code>modalityID</code> list member is a character string with two entries, <code>"TREAT1"</code> and <code>"TREAT2"</code>, corresponding to the two modalities.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">dataset03</span><span class="op">$</span><span class="kw">modalityID</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">dataset03</span><span class="op">$</span><span class="va">modalityID</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <p>The <code>readerID</code> list member is a character string with four entries, <code>"READER_1"</code>, <code>"READER_2"</code>, <code>"READER_3"</code> and <code>"READER_4"</code> corresponding to the four readers.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">dataset03</span><span class="op">$</span><span class="kw">readerID</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">dataset03</span><span class="op">$</span><span class="va">readerID</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <p>Here are the actual ratings for cases 1:34.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">dataset03</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">33</span>,<span class="fl">1</span>]
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">dataset03</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">33</span>,<span class="fl">1</span><span class="op">]</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <ul>
 <li><p>This says that for treatment 1 and reader 1, (non-diseased) case 1 was rated 3, case 2 was rated 1, cases 3-7 were rated 2, case 8 was rated 4, etc.</p></li>
 <li><p>As another example, for treatment 2 and reader 3, the FP ratings are:</p></li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">dataset03</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">NL</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">33</span>,<span class="fl">1</span>]
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">dataset03</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">33</span>,<span class="fl">1</span><span class="op">]</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 <div id="creating-a-dataset-from-a-jafroc-format-file" class="section level2">
 <h2 class="hasAnchor">
 <a href="#creating-a-dataset-from-a-jafroc-format-file" class="anchor"></a>Creating a dataset from a JAFROC format file</h2>
 <p>There is a file <code>RocData.xlsx</code> that is part of the package installation. Since it is a system file one must get its name as follows.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">fileName</span> <span class="op">&lt;-</span> <span class="st">"Roc.xlsx"</span>
-<span class="kw">sysFileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"extdata/"</span>,<span class="kw">fileName</span>), package = <span class="st">"RJafroc"</span>, mustWork = <span class="fl">TRUE</span>)
-</pre></div>
+<span class="va">fileName</span> <span class="op">&lt;-</span> <span class="st">"Roc.xlsx"</span>
+<span class="va">sysFileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"extdata/"</span>,<span class="va">fileName</span><span class="op">)</span>, package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 <p>Next, one uses <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> as follows, assuming it is a JAFROC format file.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="kw">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="kw">sysFileName</span>, newExcelFileFormat = <span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">ds</span>)
+<span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span><span class="op">(</span><span class="va">sysFileName</span>, newExcelFileFormat <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">ds</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ ratings     :List of 3</span>
 <span class="co">#&gt;   ..$ NL   : num [1:2, 1:5, 1:114, 1] 1 3 2 3 2 2 1 2 3 2 ...</span>
@@ -249,8 +242,7 @@
 <span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "0" "1"</span>
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "0" "1"</span>
 <span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "0" "1" "2" "3" ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span>
-</pre></div>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span></pre></div>
 <p>Analysis is illustrated for <code>dataset03</code>, but one could have used the newly created dataset <code>ds</code>.</p>
 </div>
 <div id="analyzing-the-roc-dataset" class="section level2">
@@ -258,8 +250,8 @@
 <a href="#analyzing-the-roc-dataset" class="anchor"></a>Analyzing the ROC dataset</h2>
 <p>This illustrates the <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> function. The significance testing method is specified as <code>"DBM"</code> and the figure of merit <code>FOM</code> is specified as “Wilcoxon.”</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="kw">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="kw">dataset03</span>, FOM = <span class="st">"Wilcoxon"</span>, method = <span class="st">"DBM"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">ret</span>)
+<span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span><span class="va">dataset03</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">ret</span><span class="op">)</span>
 <span class="co">#&gt; $FOMs</span>
 <span class="co">#&gt; $FOMs$foms</span>
 <span class="co">#&gt;           rdrREADER_1 rdrREADER_2 rdrREADER_3 rdrREADER_4</span>
@@ -373,8 +365,7 @@
 <span class="co">#&gt; $RRFC$ciAvgRdrEachTrt</span>
 <span class="co">#&gt;             Estimate      StdErr DF    CILower    CIUpper</span>
 <span class="co">#&gt; trtTREAT1 0.84774989 0.011098012  3 0.81243106 0.88306871</span>
-<span class="co">#&gt; trtTREAT2 0.83689507 0.007771730  3 0.81216196 0.86162818</span>
-</pre></div>
+<span class="co">#&gt; trtTREAT2 0.83689507 0.007771730  3 0.81216196 0.86162818</span></pre></div>
 </div>
 <div id="explanation-of-the-output" class="section level2">
 <h2 class="hasAnchor">
@@ -388,9 +379,8 @@
 <code>fomArray</code> contains the <code>[1:2,1:4]</code> FOM values.</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">fomArray</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">fomArray</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <p>This shows the 2 x 4 array of FOM values.</p>
 </div>
 <div id="pseudovalue-anova-table" class="section level3">
@@ -401,9 +391,8 @@
 <code>anovaY</code>, where the Y denotes that these are pseudovalue based, is the ANOVA table.</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">anovaY</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">anovaY</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 <div id="pseudovalue-anova-table-each-treatment" class="section level3">
 <h3 class="hasAnchor">
@@ -413,9 +402,8 @@
 <code>anovaYi</code> is the ANOVA table for individual treatments.</li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">anovaYi</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">anovaYi</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <p>The <code>0</code> and <code>1</code> headers come from the treatment names.</p>
 </div>
 <div id="pseudovalue-variance-components" class="section level3">
@@ -426,9 +414,8 @@
 <code>varComp</code> is the variance components (needed for sample size estimation).</li>
 </ul>
 <div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">varComp</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">varComp</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 <div id="random-reader-random-case-rrrc-analysis" class="section level3">
 <h3 class="hasAnchor">
@@ -438,9 +425,8 @@
 <code>ret$FTestStatsRRRC$fRRRC</code> is the F-statistic for testing the NH that the treatments have identical FOMs. RRRC means random-reader random-case generalization.</li>
 </ul>
 <div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRRC</span><span class="op">$</span><span class="kw">fRRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRRC</span><span class="op">$</span><span class="va">fRRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <div id="f-statistic-and-p-value-for-rrrc-analysis" class="section level4">
 <h4 class="hasAnchor">
 <a href="#f-statistic-and-p-value-for-rrrc-analysis" class="anchor"></a>F-statistic and p-value for RRRC analysis</h4>
@@ -449,17 +435,15 @@
 <code>ret$FTestStatsRRRC$ddfRRRC</code> is the denominator degrees of freedom of the F-statistic.</li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRRC</span><span class="op">$</span><span class="kw">ddfRRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRRC</span><span class="op">$</span><span class="va">ddfRRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsRRRC$pRRRC</code> is the p-value of the test.</li>
 </ul>
 <div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRRC</span><span class="op">$</span><span class="kw">pRRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRRC</span><span class="op">$</span><span class="va">pRRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 <div id="confidence-intervals-for-rrrc-analysis" class="section level4">
 <h4 class="hasAnchor">
@@ -469,17 +453,15 @@
 <code>ciDiffTrtRRRC</code> is the 95% confidence interval of reader-averaged differences between treatments.</li>
 </ul>
 <div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">ciDiffTrtRRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">ciDiffTrtRRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <ul>
 <li>
 <code>ciAvgRdrEachTrtRRRC</code> is the 95% confidence interval of reader-averaged FOMs for each treatments.</li>
 </ul>
 <div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">ciAvgRdrEachTrtRRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">ciAvgRdrEachTrtRRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 </div>
 <div id="fixed-reader-random-case-frrc-analysis" class="section level3">
@@ -493,33 +475,29 @@
 <code>ret$FTestStatsFRRC$fFRRC</code> is the F-statistic for fixed-reader random-case analysis.</li>
 </ul>
 <div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsFRRC</span><span class="op">$</span><span class="kw">fFRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsFRRC</span><span class="op">$</span><span class="va">fFRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsFRRC$ndfFRRC</code> is the numerator degrees of freedom of the F-statistic, always one less than the number of treatments.</li>
 </ul>
 <div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsFRRC</span><span class="op">$</span><span class="kw">ndfFRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsFRRC</span><span class="op">$</span><span class="va">ndfFRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsFRRC$ddfFRRC</code> is the denominator degreesof freedom of the F-statistic, for fixed-reader random-case analysis.</li>
 </ul>
 <div class="sourceCode" id="cb21"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsFRRC</span><span class="op">$</span><span class="kw">ddfFRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsFRRC</span><span class="op">$</span><span class="va">ddfFRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsFRRC$pFRRC</code> is the p-value for fixed-reader random-case analysis.</li>
 </ul>
 <div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsFRRC</span><span class="op">$</span><span class="kw">pFRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsFRRC</span><span class="op">$</span><span class="va">pFRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 <div id="confidence-intervals-for-frrc-analysis" class="section level4">
 <h4 class="hasAnchor">
@@ -529,17 +507,15 @@
 <code>ciDiffTrtFRRC</code> is the 95% CI of reader-average differences between treatments for fixed-reader random-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb23"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">ciDiffTrtFRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">ciDiffTrtFRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <ul>
 <li>
 <code>ret$ciAvgRdrEachTrtFRRC</code> is the 95% CI of reader-average FOMs of each treatment for fixed-reader random-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb24"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">ciAvgRdrEachTrtFRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">ciAvgRdrEachTrtFRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 <div id="anova-for-frrc-analysis" class="section level4">
 <h4 class="hasAnchor">
@@ -549,9 +525,8 @@
 <code>ret$msAnovaEachRdrFRRC</code> is the mean-squares ANOVA for each reader</li>
 </ul>
 <div class="sourceCode" id="cb25"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">msAnovaEachRdrFRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">msAnovaEachRdrFRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 <div id="confidence-intervals-for-frrc-analysis-1" class="section level4">
 <h4 class="hasAnchor">
@@ -561,9 +536,8 @@
 <code>ciDiffTrtFRRC</code> is the CI for reader-averaged treatment differences, for fixed-reader random-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb26"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">ciDiffTrtFRRC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">ciDiffTrtFRRC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 </div>
 <div id="random-reader-fixed-case-rrfc-analysis" class="section level3">
@@ -577,25 +551,22 @@
 <code>ret$FTestStatsRRFC$fRRFC</code> is the F-statistic for for random-reader fixed-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb27"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRFC</span><span class="op">$</span><span class="kw">fRRFC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRFC</span><span class="op">$</span><span class="va">fRRFC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsRRFC$ddfRRFC</code> is the ddf for for random-reader fixed-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb28"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRFC</span><span class="op">$</span><span class="kw">ddfRRFC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRFC</span><span class="op">$</span><span class="va">ddfRRFC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <ul>
 <li>
 <code>ret$FTestStatsRRFC$pRRFC</code> is the p-value for for random-reader fixed-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb29"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRFC</span><span class="op">$</span><span class="kw">pRRFC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRFC</span><span class="op">$</span><span class="va">pRRFC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 <div id="confidence-intervals-for-rrfc-analysis" class="section level4">
 <h4 class="hasAnchor">
@@ -605,17 +576,15 @@
 <code>ciDiffTrtRRFC</code> is the CI for reader-averaged inter-treatment FOM differences for random-reader fixed-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb30"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">ciDiffTrtRRFC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">ciDiffTrtRRFC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 <ul>
 <li>
 <code>ciAvgRdrEachTrtRRFC</code> is the CI for treatment FOMs for each reader for random-reader fixed-case analysis</li>
 </ul>
 <div class="sourceCode" id="cb31"><pre class="downlit">
-<span class="kw">ret</span><span class="op">$</span><span class="kw">ciAvgRdrEachTrtRRFC</span>
-<span class="co">#&gt; NULL</span>
-</pre></div>
+<span class="va">ret</span><span class="op">$</span><span class="va">ciAvgRdrEachTrtRRFC</span>
+<span class="co">#&gt; NULL</span></pre></div>
 </div>
 </div>
 </div>
@@ -624,8 +593,8 @@
 <a href="#or-significance-testing" class="anchor"></a>OR significance testing</h2>
 <p>Simply change <code>method = "DBM"</code> to <code>method = "OR"</code>.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit">
-<span class="kw">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="kw">dataset03</span>, FOM = <span class="st">"Wilcoxon"</span>, method = <span class="st">"OR"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">ret</span>)
+<span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span><span class="va">dataset03</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">ret</span><span class="op">)</span>
 <span class="co">#&gt; List of 5</span>
 <span class="co">#&gt;  $ FOMs :List of 3</span>
 <span class="co">#&gt;   ..$ foms        :'data.frame': 2 obs. of  4 variables:</span>
@@ -724,8 +693,7 @@
 <span class="co">#&gt;   .. ..$ StdErr  : num [1:2] 0.0111 0.00777</span>
 <span class="co">#&gt;   .. ..$ DF      : num [1:2] 3 3</span>
 <span class="co">#&gt;   .. ..$ CILower : num [1:2] 0.812 0.812</span>
-<span class="co">#&gt;   .. ..$ CIUpper : num [1:2] 0.883 0.862</span>
-</pre></div>
+<span class="co">#&gt;   .. ..$ CIUpper : num [1:2] 0.883 0.862</span></pre></div>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
