@@ -21,7 +21,7 @@
 # ✔ |  12       | ROC sample size routines [2.9 s]
 # ✔ | 124       | Significance testing excluding CAD [12.4 s]
 # ✔ |   3       | Simulate data sets
-# ✔ |  20       | Significance testing: StSignificanceTestingCadVsRadiologists [15.2 s]
+# ✔ |  20       | Significance testing: StSignificanceTestingCadVsRad [15.2 s]
 # ✔ |  18       | utils [0.7 s]
 
 

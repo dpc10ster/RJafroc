@@ -1,5 +1,11 @@
 # RJafroc 1.3.2.9000
 
+## Update `StSignificanceTestingCadVsRad()`
+* In connection with book
+* Need to standardized output to avoid klutzy code in book
+* In progress, Nov 26 - xx
+
+
 ## Modified `seed` behaviour, no need for `SimulateFrocDatasetNoSeed()`
 * Needed for compatibility with plots in `14-froc-meanings-xx.Rmd` chapter.
 * Otherwise different random numbers are generated and it throws all the plots off.

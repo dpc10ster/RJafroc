@@ -361,7 +361,7 @@
 #' LROC paradigm. The first reader is CAD. The highest rating was used to convert this to an ROC 
 #' dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this 
 #' data requires methods described in the book, implemented in the function  
-#' \code{\link{StSignificanceTestingCadVsRadiologists}}.
+#' \code{\link{StSignificanceTestingCadVsRad}}.
 #' 
 #' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
 #'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
