@@ -2,7 +2,9 @@
 
 ## Update `StSignificanceTestingCadVsRad()`
 * In connection with book
-* Need to standardized output to avoid klutzy code in book
+* Need to standardized output to avoid klutzy code in
+* Fixed return objects; still a todo [skip ci]
+* Make 2T work for AUCbook
 * In progress, Nov 26 - xx
 
 

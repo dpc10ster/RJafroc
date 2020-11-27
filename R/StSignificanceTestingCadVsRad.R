@@ -407,15 +407,26 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
   ddf <-  stats1$RRRC$FTests$DF[2]
   ndf <- stats1$RRRC$FTests$DF[1]
   pval <-  stats1$RRRC$FTests$p[1]
-  varR <- stats1$ANOVA$VarCom["varR", "VarCom"]
-  varTR <- stats1$ANOVA$VarCom["varTR", "VarCom"]
-  varError <- stats1$ANOVA$VarCom["var", "VarCom"]
-  cov1 <- stats1$ANOVA$VarCom["Cov1", "VarCom"]
-  cov2 <- stats1$ANOVA$VarCom["Cov2", "VarCom"]
-  cov3 <- stats1$ANOVA$VarCom["Cov3", "VarCom"]
-  ciDiffFom <- stats1$RRRC$ciDiffTrt
-  ciAvgRdrEachTrt <- stats1$RRRC$ciAvgRdrEachTrt
+  varR <- stats1$ANOVA$VarCom["VarR", "Estimates"] # corrected 11/26/2020
+  varTR <- stats1$ANOVA$VarCom["VarTR", "Estimates"] # do:
+  varError <- stats1$ANOVA$VarCom["Var", "Estimates"] # do:
+  cov1 <- stats1$ANOVA$VarCom["Cov1", "Estimates"] # do:
+  cov2 <- stats1$ANOVA$VarCom["Cov2", "Estimates"] # do:
+  cov3 <- stats1$ANOVA$VarCom["Cov3", "Estimates"] # do:
+  # corrected 11/26/2020; added minus sign in following ...
+  ciDiffFom <- stats1$RRRC$ciDiffTrt 
+  # correction needed
+  # as StSignificanceTesting returns CAD - RAD (trt1 - trt2)
+  # not RAD - CAD
+  t <- ciDiffFom
+  t$Estimate <- -ciDiffFom$Estimate
+  t$t <- -ciDiffFom$t
+  t$CILower <- -ciDiffFom$CIUpper
+  t$CIUpper <- -ciDiffFom$CILower
+  ciDiffFom <- t
+  # end corrections
   
+  ciAvgRdrEachTrt <- stats1$RRRC$ciAvgRdrEachTrt
   
   return (list (
     fomCAD = fomCAD,
@@ -433,7 +444,7 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
     varError = varError,
     FStat = FStat,
     ndf = ndf,
-    ddf = ddf,
+    df = ddf, # for consistency with 1T-RRFC
     pval = pval
   ))
   
