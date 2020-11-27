@@ -16,9 +16,7 @@
 #'    it can be any valid FOM, e.g., \code{"HrAuc"}, \code{"wAFROC"}, etc; 
 #'    for LROC data it must be \code{"Wilcoxon"}, or \code{"PCL"} or \code{"ALROC"}. 
 #' @param method The desired analysis: "1T-RRFC","1T-RRRC" (the default) or "2T-RRRC",
-#'    see manuscript for details. \strong{Note: method "2T-RRRC" is not implemented 
-#'    for non-LROC data. It is an obsolete method, included here only to show that
-#'    it gives identical summary statistics, e.g., p-value, as "1T-RRRC".}
+#'    see manuscript for details. 
 #' @param alpha Significance level of the test, defaults to 0.05.
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
@@ -96,7 +94,7 @@
 #' @return \item{varError}{The variance of the pure error term in the OR model.}
 #' @return \item{FStat}{The observed value of the F-statistic.} 
 #' @return \item{ndf}{The numerator degrees of freedom of the F-statistic.} 
-#' @return \item{ddf}{The denominator degrees of freedom of the F-statistic.} 
+#' @return \item{df}{The denominator degrees of freedom of the F-statistic.} 
 #' @return \item{pval}{The p-value for rejecting the NH.} 
 #' @return \item{Plots}{see above.} 
 #' 
@@ -165,9 +163,9 @@ StSignificanceTestingCadVsRad <- function(dataset, FOM, FPFValue = 0.2, method =
     ret <- DualModalityRRRC (dataset, FOM, FPFValue, alpha)
   } else stop("incorrect method specified")
   
-  if ((dataset$descriptions$type != "LROC") && (method == "2T-RRRC")) {
-    stop("2T-RRRC for non LROC data (not implemented) is unnecessary as 1T-method should be used instead.")
-  }
+  # if ((dataset$descriptions$type != "LROC") && (method == "2T-RRRC")) {
+  #   stop("2T-RRRC for non LROC data (not implemented) is unnecessary as 1T-method should be used instead.")
+  # }
   
   if (plots) {
     genericPlot <- CadVsRadPlots (dataset, FOM)
