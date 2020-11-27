@@ -382,7 +382,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
   \itemize{    
         \item \code{\link{StSignificanceTesting}}: Perform significance testing, 
            DBM or OR.
-        \item \code{\link{StSignificanceTestingCadVsRadiologists}}: Perform 
+        \item \code{\link{StSignificanceTestingCadVsRad}}: Perform 
            significance testing, CAD vs. radiologists.
         \item \code{\link{StSignificanceTestingCrossedModalities}}: Perform 
            significance testing using crossed modalities analysis.

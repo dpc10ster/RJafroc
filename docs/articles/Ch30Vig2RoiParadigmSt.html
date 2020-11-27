@@ -132,14 +132,14 @@
 
       
 
-      </header><script src="Ch30Vig2RoiParadigmSt_files/header-attrs-2.5/header-attrs.js"></script><link href="Ch30Vig2RoiParadigmSt_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+      </header><script src="Ch30Vig2RoiParadigmSt_files/header-attrs-2.5/header-attrs.js"></script><script src="Ch30Vig2RoiParadigmSt_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Ch30Vig2RoiParadigmSt_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
 <script src="Ch30Vig2RoiParadigmSt_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 30, Vignette 2: Significance testing for the ROI paradigm</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-11-20</h4>
+            <h4 class="date">2020-11-27</h4>
       
       
       <div class="hidden name"><code>Ch30Vig2RoiParadigmSt.Rmd</code></div>
@@ -158,8 +158,8 @@
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <ul>
 <li><p>For an ROI dataset <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> automatically defaults to <code>method = "OR"</code>, <code>covEstMethod = "DeLong"</code> and <code>FOM = "ROI"</code>.</p></li>
-<li><p>The covariance estimation method is based on the original DeLong method <span class="citation">(DeLong, DeLong, and Clarke-Pearson 1988)</span>, which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by <span class="citation">(Nancy A. Obuchowski 1997)</span> to ROI data, see formula below.</p></li>
-<li><p>The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by <span class="citation">(Nancy A. Obuchowski 1997)</span> for estimating the covariance matrix. Once the covariances are known, <code>method = "OR"</code> can be applied to perform significance testing, as described in <span class="citation">(N. A. Obuchowski and Rockette 1995)</span> and <span class="citation">(Chakraborty 2017, Chapter 10)</span>.</p></li>
+<li><p>The covariance estimation method is based on the original DeLong method <span class="citation">(DeLong, DeLong, and Clarke-Pearson 1988)</span>, which is valid only for the trapezoidal AUC, i.e. ROC data, as extended by <span class="citation">(Obuchowski 1997)</span> to ROI data, see formula below.</p></li>
+<li><p>The essential differences from conventional ROC analyses are in the definition of the ROI figure of merit, see below, and the procedure developed by <span class="citation">(Obuchowski 1997)</span> for estimating the covariance matrix. Once the covariances are known, <code>method = "OR"</code> can be applied to perform significance testing, as described in <span class="citation">(Obuchowski and Rockette 1995)</span> and <span class="citation">(Chakraborty 2017, Chapter 10)</span>.</p></li>
 </ul>
 </div>
 <div id="the-roi-figure-of-merit" class="section level2">
@@ -178,11 +178,12 @@
 <h2 class="hasAnchor">
 <a href="#calculation-of-the-roi-figure-of-merit-" class="anchor"></a>Calculation of the ROI figure of merit.</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="../reference/UtilFigureOfMerit.html">UtilFigureOfMerit</a></span><span class="op">(</span><span class="va">datasetROI</span>, FOM <span class="op">=</span> <span class="st">"ROI"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/UtilFigureOfMerit.html">UtilFigureOfMerit</a></span>(<span class="kw">datasetROI</span>, FOM = <span class="st">"ROI"</span>)
 <span class="co">#&gt;           rdr1      rdr2      rdr3      rdr4      rdr5</span>
 <span class="co">#&gt; trt1 0.9057239 0.8842834 0.8579279 0.9350207 0.8352103</span>
 <span class="co">#&gt; trt2 0.9297186 0.9546035 0.8937652 0.9531716 0.8770076</span>
-<span class="va">fom</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/UtilFigureOfMerit.html">UtilFigureOfMerit</a></span><span class="op">(</span><span class="va">datasetROI</span>, FOM <span class="op">=</span> <span class="st">"ROI"</span><span class="op">)</span></pre></div>
+<span class="kw">fom</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/UtilFigureOfMerit.html">UtilFigureOfMerit</a></span>(<span class="kw">datasetROI</span>, FOM = <span class="st">"ROI"</span>)
+</pre></div>
 <ul>
 <li>If the correct <code>FOM</code> is not supplied, it defaults to <code>FOM = ROI</code>.<br>
 </li>
@@ -200,9 +201,9 @@
 <a href="#significance-testing" class="anchor"></a>Significance testing</h2>
 <p>When <code>dataset$dataType == "ROI"</code> the FOM defaults to “ROI” (meaning the above formula) and the covariance estimation method defaults to <code>covEstMethod = "DeLong"</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span><span class="va">datasetROI</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span>
+<span class="kw">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span>(<span class="kw">datasetROI</span>, FOM = <span class="st">"Wilcoxon"</span>)
 <span class="co">#&gt; ROI dataset: forcing method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">ret</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">ret</span>)
 <span class="co">#&gt; List of 5</span>
 <span class="co">#&gt;  $ FOMs :List of 3</span>
 <span class="co">#&gt;   ..$ foms        :'data.frame': 2 obs. of  5 variables:</span>
@@ -302,33 +303,37 @@
 <span class="co">#&gt;   .. ..$ StdErr  : num [1:2] 0.0175 0.0157</span>
 <span class="co">#&gt;   .. ..$ DF      : num [1:2] 4 4</span>
 <span class="co">#&gt;   .. ..$ CILower : num [1:2] 0.835 0.878</span>
-<span class="co">#&gt;   .. ..$ CIUpper : num [1:2] 0.932 0.965</span></pre></div>
+<span class="co">#&gt;   .. ..$ CIUpper : num [1:2] 0.932 0.965</span>
+</pre></div>
 <ul>
 <li><p>While <code>ret</code> is a list with many (22) members, their meanings should be clear from the notation. As an example:</p></li>
 <li><p>The variance components are given by:</p></li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">ret</span><span class="op">$</span><span class="va">varComp</span>
-<span class="co">#&gt; NULL</span></pre></div>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">varComp</span>
+<span class="co">#&gt; NULL</span>
+</pre></div>
 <div id="rrrc-analysis" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rrrc-analysis" class="anchor"></a>RRRC analysis</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRRC</span><span class="op">$</span><span class="va">fRRRC</span>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRRC</span><span class="op">$</span><span class="kw">fRRRC</span>
 <span class="co">#&gt; NULL</span>
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRRC</span><span class="op">$</span><span class="va">ndfRRRC</span>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRRC</span><span class="op">$</span><span class="kw">ndfRRRC</span>
 <span class="co">#&gt; NULL</span>
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRRC</span><span class="op">$</span><span class="va">ddfRRRC</span>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRRC</span><span class="op">$</span><span class="kw">ddfRRRC</span>
 <span class="co">#&gt; NULL</span>
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRRC</span><span class="op">$</span><span class="va">pRRRC</span>
-<span class="co">#&gt; NULL</span></pre></div>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRRC</span><span class="op">$</span><span class="kw">pRRRC</span>
+<span class="co">#&gt; NULL</span>
+</pre></div>
 <ul>
 <li><p>The F-statistic is , with <code>ndf = 1</code> and <code>ddf</code> = , which yields a p-value of .</p></li>
 <li><p>The confidence interval for the reader averaged difference between the two treatments is given by:</p></li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">ret</span><span class="op">$</span><span class="va">ciDiffTrtRRRC</span>
-<span class="co">#&gt; NULL</span></pre></div>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">ciDiffTrtRRRC</span>
+<span class="co">#&gt; NULL</span>
+</pre></div>
 <ul>
 <li>The FOM difference (treatment 1 minus 2) is , which is significant, p-value = , F-statistic = , ddf = . The confidence interval is (, ).</li>
 </ul>
@@ -337,41 +342,45 @@
 <h3 class="hasAnchor">
 <a href="#frrc-analysis" class="anchor"></a>FRRC analysis</h3>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsFRRC</span><span class="op">$</span><span class="va">fFRRC</span>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsFRRC</span><span class="op">$</span><span class="kw">fFRRC</span>
 <span class="co">#&gt; NULL</span>
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsFRRC</span><span class="op">$</span><span class="va">ndfFRRC</span>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsFRRC</span><span class="op">$</span><span class="kw">ndfFRRC</span>
 <span class="co">#&gt; NULL</span>
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsFRRC</span><span class="op">$</span><span class="va">ddfFRRC</span>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsFRRC</span><span class="op">$</span><span class="kw">ddfFRRC</span>
 <span class="co">#&gt; NULL</span>
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsFRRC</span><span class="op">$</span><span class="va">pFRRC</span>
-<span class="co">#&gt; NULL</span></pre></div>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsFRRC</span><span class="op">$</span><span class="kw">pFRRC</span>
+<span class="co">#&gt; NULL</span>
+</pre></div>
 <ul>
 <li><p>The F-statistic is , with <code>ndf = 1</code> and <code>ddf</code> = <code>Inf</code>, which yields a p-value of .</p></li>
 <li><p>The confidence interval for the reader averaged difference between the two treatments is given by:</p></li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">ret</span><span class="op">$</span><span class="va">ciDiffTrtFRRC</span>
-<span class="co">#&gt; NULL</span></pre></div>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">ciDiffTrtFRRC</span>
+<span class="co">#&gt; NULL</span>
+</pre></div>
 </div>
 <div id="rrfc-analysis" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rrfc-analysis" class="anchor"></a>RRFC analysis</h3>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRFC</span><span class="op">$</span><span class="va">fRRFC</span>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRFC</span><span class="op">$</span><span class="kw">fRRFC</span>
 <span class="co">#&gt; NULL</span>
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRFC</span><span class="op">$</span><span class="va">ndfRRFC</span>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRFC</span><span class="op">$</span><span class="kw">ndfRRFC</span>
 <span class="co">#&gt; NULL</span>
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRFC</span><span class="op">$</span><span class="va">ddfRRFC</span>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRFC</span><span class="op">$</span><span class="kw">ddfRRFC</span>
 <span class="co">#&gt; NULL</span>
-<span class="va">ret</span><span class="op">$</span><span class="va">FTestStatsRRFC</span><span class="op">$</span><span class="va">pRRFC</span>
-<span class="co">#&gt; NULL</span></pre></div>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">FTestStatsRRFC</span><span class="op">$</span><span class="kw">pRRFC</span>
+<span class="co">#&gt; NULL</span>
+</pre></div>
 <ul>
 <li><p>The F-statistic is , with <code>ndf = 1</code> and <code>ddf</code> = , which yields a p-value of .</p></li>
 <li><p>The confidence interval for the reader averaged difference between the two treatments is given by:</p></li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">ret</span><span class="op">$</span><span class="va">ciDiffTrtRRFC</span>
-<span class="co">#&gt; NULL</span></pre></div>
+<span class="kw">ret</span><span class="op">$</span><span class="kw">ciDiffTrtRRFC</span>
+<span class="co">#&gt; NULL</span>
+</pre></div>
 </div>
 </div>
 <div id="summary" class="section level2">
@@ -382,18 +391,18 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-RN2680" class="csl-entry">
-Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with r-Based Examples</em>. Book. Boca Raton, FL: CRC Press.
+<div id="refs" class="references hanging-indent">
+<div id="ref-RN2680">
+<p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples</em>. Book. Boca Raton, FL: CRC Press.</p>
 </div>
-<div id="ref-RN112" class="csl-entry">
-DeLong, E. R., D. M. DeLong, and D. L. Clarke-Pearson. 1988. <span>“Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.”</span> Journal Article. <em>Biometrics</em> 44: 837–45.
+<div id="ref-RN112">
+<p>DeLong, E. R., D. M. DeLong, and D. L. Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” Journal Article. <em>Biometrics</em> 44: 837–45.</p>
 </div>
-<div id="ref-RN1450" class="csl-entry">
-Obuchowski, N. A., and H. E. Rockette. 1995. <span>“Hypothesis Testing of the Diagnostic Accuracy for Multiple Diagnostic Tests: An ANOVA Approach with Dependent Observations.”</span> Journal Article. <em>Communications in Statistics: Simulation and Computation</em> 24: 285–308.
+<div id="ref-RN1233">
+<p>Obuchowski, Nancy A. 1997. “Nonparametric Analysis of Clustered Roc Curve Data.” Journal Article. <em>Biometrics</em> 53: 567–78.</p>
 </div>
-<div id="ref-RN1233" class="csl-entry">
-Obuchowski, Nancy A. 1997. <span>“Nonparametric Analysis of Clustered ROC Curve Data.”</span> Journal Article. <em>Biometrics</em> 53: 567–78.
+<div id="ref-RN1450">
+<p>Obuchowski, N. A., and H. E. Rockette. 1995. “Hypothesis Testing of the Diagnostic Accuracy for Multiple Diagnostic Tests: An Anova Approach with Dependent Observations.” Journal Article. <em>Communications in Statistics: Simulation and Computation</em> 24: 285–308.</p>
 </div>
 </div>
 </div>

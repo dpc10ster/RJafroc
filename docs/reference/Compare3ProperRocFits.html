@@ -195,13 +195,13 @@
    Iowa ROC website ca. June 2017.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Compare3ProperRocFits</span><span class='op'>(</span>
-  startIndx <span class='op'>=</span> <span class='fl'>1</span>,
-  endIndx <span class='op'>=</span> <span class='fl'>14</span>,
-  showPlot <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  saveProprocLrcFile <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  reAnalyze <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>Compare3ProperRocFits</span>(
+  startIndx = <span class='fl'>1</span>,
+  endIndx = <span class='fl'>14</span>,
+  showPlot = <span class='fl'>FALSE</span>,
+  saveProprocLrcFile = <span class='fl'>FALSE</span>,
+  reAnalyze = <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -288,7 +288,7 @@ J Math Psychol. <b>43</b>,(1):1--33.</p>
 Acad Radiol <b>7</b>, 427--437.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ret</span> <span class='op'>&lt;-</span> <span class='fu'>Compare3ProperRocFits</span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span> <span class='co'># analyze first two datasets</span>
+    <pre class="examples"><div class='input'><span class='kw'>ret</span> <span class='op'>&lt;-</span> <span class='fu'>Compare3ProperRocFits</span>(<span class='fl'>1</span>,<span class='fl'>1</span>) <span class='co'># analyze first two datasets</span>
 
 <span class='co'># \donttest{</span>
 <span class='co'>## takes longer than 5 sec on OSX</span>

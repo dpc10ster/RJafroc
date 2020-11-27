@@ -1,11 +1,31 @@
 # RJafroc 1.3.2.9000
 
 ## Update `StSignificanceTestingCadVsRad()`
-* In connection with book
-* Need to standardized output to avoid klutzy code in
-* Fixed return objects; still a todo [skip ci]
-* Make 2T work for AUCbook
-* In progress, Nov 26 - xx
+* Shortened the name of the function as shown above
+* Needed to standardized output to avoid klutzy code in `RJafrocBook`
+* Fixed return objects: fixed variance components returns in `DualModalityRRRC()`
+```
+  varR <- stats1$ANOVA$VarCom["VarR", "Estimates"] # corrected 11/26/2020
+  varTR <- stats1$ANOVA$VarCom["VarTR", "Estimates"] # do:
+  varError <- stats1$ANOVA$VarCom["Var", "Estimates"] # do:
+  cov1 <- stats1$ANOVA$VarCom["Cov1", "Estimates"] # do:
+  cov2 <- stats1$ANOVA$VarCom["Cov2", "Estimates"] # do:
+  cov3 <- stats1$ANOVA$VarCom["Cov3", "Estimates"] # do:
+```
+* Fixed CI returned object - difference was incorrect, changed sign
+```
+  ciDiffFom <- stats1$RRRC$ciDiffTrt 
+  # correction needed
+  # as StSignificanceTesting returns CAD - RAD (trt1 - trt2)
+  # not RAD - CAD
+  t <- ciDiffFom
+  t$Estimate <- -ciDiffFom$Estimate
+  t$t <- -ciDiffFom$t
+  t$CILower <- -ciDiffFom$CIUpper
+  t$CIUpper <- -ciDiffFom$CILower
+  ciDiffFom <- t
+  # end corrections
+```
 
 
 ## Modified `seed` behaviour, no need for `SimulateFrocDatasetNoSeed()`

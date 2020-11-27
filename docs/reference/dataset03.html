@@ -197,7 +197,7 @@ Franken-dataset, which, along the the Van Dyke dataset, has been widely used to 
 advances in ROC methodology.</p>
     </div>
 
-    <pre class="usage"><span class='va'>dataset03</span></pre>
+    <pre class="usage"><span class='kw'>dataset03</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -229,7 +229,7 @@ Neonatal Examinations: A Receiver Operating Characteristic Study. Investigative 
 1992;27(9):732-737.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dataset03</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='kw'>dataset03</span>)
 </div><div class='output co'>#&gt; List of 3
 #&gt;  $ ratings     :List of 3
 #&gt;   ..$ NL   : num [1:2, 1:4, 1:100, 1] 3 3 4 3 3 3 4 1 1 3 ...
@@ -248,7 +248,7 @@ Neonatal Examinations: A Receiver Operating Characteristic Study. Investigative 
 #&gt;   ..$ modalityID   : Named chr [1:2] "TREAT1" "TREAT2"
 #&gt;   .. ..- attr(*, "names")= chr [1:2] "TREAT1" "TREAT2"
 #&gt;   ..$ readerID     : Named chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"
-#&gt;   .. ..- attr(*, "names")= chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</div><div class='input'><span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span><span class='op'>(</span>dataset <span class='op'>=</span> <span class='va'>dataset03</span>, opChType <span class='op'>=</span> <span class='st'>"ROC"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>Plot</span>
+#&gt;   .. ..- attr(*, "names")= chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4"</div><div class='input'><span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span>(dataset = <span class='kw'>dataset03</span>, opChType = <span class='st'>"ROC"</span>)<span class='op'>$</span><span class='kw'>Plot</span>
 </div><div class='img'><img src='dataset03-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>

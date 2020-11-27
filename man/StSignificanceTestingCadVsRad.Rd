@@ -25,9 +25,7 @@ for LROC data it must be \code{"Wilcoxon"}, or \code{"PCL"} or \code{"ALROC"}.}
 where to evaluate a partial curve based figure of merit. The default is 0.2.}
 
 \item{method}{The desired analysis: "1T-RRFC","1T-RRRC" (the default) or "2T-RRRC",
-see manuscript for details. \strong{Note: method "2T-RRRC" is not implemented 
-for non-LROC data. It is an obsolete method, included here only to show that
-it gives identical summary statistics, e.g., p-value, as "1T-RRRC".}}
+see manuscript for details.}
 
 \item{alpha}{Significance level of the test, defaults to 0.05.}
 
@@ -107,7 +105,7 @@ If \code{method = "2T-RRRC"} the return value is a list
 
 \item{ndf}{The numerator degrees of freedom of the F-statistic.}
 
-\item{ddf}{The denominator degrees of freedom of the F-statistic.}
+\item{df}{The denominator degrees of freedom of the F-statistic.}
 
 \item{pval}{The p-value for rejecting the NH.}
 

@@ -185,6 +185,38 @@
 <h1 class="page-header" data-toc-text="1.3.2.9000">
 <a href="#rjafroc-1329000" class="anchor"></a>RJafroc 1.3.2.9000<small> Unreleased </small>
 </h1>
+<div id="update-stsignificancetestingcadvsrad" class="section level2">
+<h2 class="hasAnchor">
+<a href="#update-stsignificancetestingcadvsrad" class="anchor"></a>Update <code>StSignificanceTestingCadVsRad()</code>
+</h2>
+<ul>
+<li>Shortened the name of the function as shown above</li>
+<li>Needed to standardized output to avoid klutzy code in <code>RJafrocBook</code>
+</li>
+<li>Fixed return objects: fixed variance components returns in <code>DualModalityRRRC()</code>
+</li>
+</ul>
+<pre><code>  varR &lt;- stats1$ANOVA$VarCom["VarR", "Estimates"] # corrected 11/26/2020
+  varTR &lt;- stats1$ANOVA$VarCom["VarTR", "Estimates"] # do:
+  varError &lt;- stats1$ANOVA$VarCom["Var", "Estimates"] # do:
+  cov1 &lt;- stats1$ANOVA$VarCom["Cov1", "Estimates"] # do:
+  cov2 &lt;- stats1$ANOVA$VarCom["Cov2", "Estimates"] # do:
+  cov3 &lt;- stats1$ANOVA$VarCom["Cov3", "Estimates"] # do:</code></pre>
+<ul>
+<li>Fixed CI returned object - difference was incorrect, changed sign</li>
+</ul>
+<pre><code>  ciDiffFom &lt;- stats1$RRRC$ciDiffTrt 
+  # correction needed
+  # as StSignificanceTesting returns CAD - RAD (trt1 - trt2)
+  # not RAD - CAD
+  t &lt;- ciDiffFom
+  t$Estimate &lt;- -ciDiffFom$Estimate
+  t$t &lt;- -ciDiffFom$t
+  t$CILower &lt;- -ciDiffFom$CIUpper
+  t$CIUpper &lt;- -ciDiffFom$CILower
+  ciDiffFom &lt;- t
+  # end corrections</code></pre>
+</div>
 <div id="modified-seed-behaviour-no-need-for-simulatefrocdatasetnoseed" class="section level2">
 <h2 class="hasAnchor">
 <a href="#modified-seed-behaviour-no-need-for-simulatefrocdatasetnoseed" class="anchor"></a>Modified <code>seed</code> behaviour, no need for <code>SimulateFrocDatasetNoSeed()</code>
@@ -822,9 +854,9 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 </li>
 <li>Most FOM related functions now accept <code>FPFValue</code> to accommodate LROC datasets.</li>
 <li>
-<code><a href="../reference/StSignificanceTestingCadVsRadiologists.html">StSignificanceTestingCadVsRadiologists()</a></code>: CAD results updated (only values for <code>FPFValue</code> 0.2 or less were affected); see <code>CadFunctionTests.R</code> in <code>inst/CadTesting</code>. See <strong>CadTestingNicoData.xlsx</strong> in <code>inst/CadTesting</code>. Included unit tests in <code>tests/testthat</code>.</li>
+<code>StSignificanceTestingCadVsRadiologists()</code>: CAD results updated (only values for <code>FPFValue</code> 0.2 or less were affected); see <code>CadFunctionTests.R</code> in <code>inst/CadTesting</code>. See <strong>CadTestingNicoData.xlsx</strong> in <code>inst/CadTesting</code>. Included unit tests in <code>tests/testthat</code>.</li>
 <li>
-<code><a href="../reference/StSignificanceTestingCadVsRadiologists.html">StSignificanceTestingCadVsRadiologists()</a></code>: cleaned up and now runs all FOMs.</li>
+<code>StSignificanceTestingCadVsRadiologists()</code>: cleaned up and now runs all FOMs.</li>
 <li>
 <code><a href="../reference/SimulateLrocDataset.html">SimulateLrocDataset()</a></code>: FROC to LROC simulator based on RSM. Could be used for NH testing. RSM can now predict all paradigm data.</li>
 <li>

@@ -189,7 +189,7 @@
    variance components</p>
     </div>
 
-    <pre class="usage"><span class='fu'>UtilDBM2ORVarCom</span><span class='op'>(</span><span class='va'>K</span>, <span class='va'>DBMVarCom</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>UtilDBM2ORVarCom</span>(<span class='kw'>K</span>, <span class='kw'>DBMVarCom</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,8 +210,8 @@ containing VarR, VarC, VarTR, VarTC, VarRC and VarErr</p></td>
     <p><code>UtilDBM2ORVarCom</code> returns the equivalent OR Variance components</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>DBMVarCom</span> <span class='op'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, method <span class='op'>=</span> <span class='st'>"DBM"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>ANOVA</span><span class='op'>$</span><span class='va'>VarCom</span>
-<span class='fu'>UtilDBM2ORVarCom</span><span class='op'>(</span><span class='fl'>114</span>, <span class='va'>DBMVarCom</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'>DBMVarCom</span> <span class='op'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span>(<span class='kw'>dataset02</span>, FOM = <span class='st'>"Wilcoxon"</span>, method = <span class='st'>"DBM"</span>)<span class='op'>$</span><span class='kw'>ANOVA</span><span class='op'>$</span><span class='kw'>VarCom</span>
+<span class='fu'>UtilDBM2ORVarCom</span>(<span class='fl'>114</span>, <span class='kw'>DBMVarCom</span>)
 </div><div class='output co'>#&gt;              VarCom       Rhos
 #&gt; VarR  0.00153499935         NA
 #&gt; VarTR 0.00020040252         NA
@@ -219,8 +219,8 @@ containing VarR, VarC, VarTR, VarTC, VarRC and VarErr</p></td>
 #&gt; Cov2  0.00034407483 0.42886683
 #&gt; Cov3  0.00023902837 0.29793328
 #&gt; Var   0.00080228827         NA</div><div class='input'>
-<span class='va'>ORVarCom</span> <span class='op'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span>, method <span class='op'>=</span> <span class='st'>"OR"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>ANOVA</span><span class='op'>$</span><span class='va'>VarCom</span>
-<span class='fu'><a href='UtilOR2DBMVarCom.html'>UtilOR2DBMVarCom</a></span><span class='op'>(</span><span class='fl'>114</span>, <span class='va'>ORVarCom</span><span class='op'>)</span>
+<span class='kw'>ORVarCom</span> <span class='op'>&lt;-</span> <span class='fu'><a href='StSignificanceTesting.html'>StSignificanceTesting</a></span>(<span class='kw'>dataset02</span>, FOM = <span class='st'>"Wilcoxon"</span>, method = <span class='st'>"OR"</span>)<span class='op'>$</span><span class='kw'>ANOVA</span><span class='op'>$</span><span class='kw'>VarCom</span>
+<span class='fu'><a href='UtilOR2DBMVarCom.html'>UtilOR2DBMVarCom</a></span>(<span class='fl'>114</span>, <span class='kw'>ORVarCom</span>)
 </div><div class='output co'>#&gt;            Estimates
 #&gt; VarR   0.00153499935
 #&gt; VarC   0.02724923428

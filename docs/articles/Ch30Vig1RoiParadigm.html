@@ -132,14 +132,14 @@
 
       
 
-      </header><script src="Ch30Vig1RoiParadigm_files/header-attrs-2.5/header-attrs.js"></script><link href="Ch30Vig1RoiParadigm_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+      </header><script src="Ch30Vig1RoiParadigm_files/header-attrs-2.5/header-attrs.js"></script><script src="Ch30Vig1RoiParadigm_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Ch30Vig1RoiParadigm_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
 <script src="Ch30Vig1RoiParadigm_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-11-20</h4>
+            <h4 class="date">2020-11-27</h4>
       
       
       <div class="hidden name"><code>Ch30Vig1RoiParadigm.Rmd</code></div>
@@ -152,7 +152,7 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <ul>
-<li><p>In the region-of-interest (ROI) paradigm <span class="citation">Obuchowski, Lieber, and Powell (2000)</span> each case is regarded as consisting of <span class="math inline">\({{Q}_{k}}\)</span> (<span class="math inline">\({{Q}_{k}}\ge 1\)</span>) “quadrants” or “regions-of-interest” or ROIs, where <em>k</em> is the case index (<span class="math inline">\(k=1,2,...,K\)</span>) and <span class="math inline">\(K\)</span> is the total number of cases (i.e., case-level non-diseased plus case-level diseased cases). Each ROI needs to be classified, by the investigator, as either ROI-level-non-diseased (i.e., it has no lesions) or ROI-level-diseased (i.e., it has at least one lesion). <strong>Note the distinction between case-level and ROI-level truth states.</strong> One can have ROI-level non-diseased regions in a case-level diseased case. A case-level diseased case must contain at least one ROI-level diseased region and a case-level non-diseased case cannot have any ROI-level diseased regions.</p></li>
+<li><p>In the region-of-interest (ROI) paradigm <span class="citation">(Obuchowski 1997, @RN55)</span> each case is regarded as consisting of <span class="math inline">\({{Q}_{k}}\)</span> (<span class="math inline">\({{Q}_{k}}\ge 1\)</span>) “quadrants” or “regions-of-interest” or ROIs, where <em>k</em> is the case index (<span class="math inline">\(k=1,2,...,K\)</span>) and <span class="math inline">\(K\)</span> is the total number of cases (i.e., case-level non-diseased plus case-level diseased cases). Each ROI needs to be classified, by the investigator, as either ROI-level-non-diseased (i.e., it has no lesions) or ROI-level-diseased (i.e., it has at least one lesion). <strong>Note the distinction between case-level and ROI-level truth states.</strong> One can have ROI-level non-diseased regions in a case-level diseased case. A case-level diseased case must contain at least one ROI-level diseased region and a case-level non-diseased case cannot have any ROI-level diseased regions.</p></li>
 <li><p>The observer gives a single rating (in fact an ordered label) to each ROI, denoted <span class="math inline">\({{R}_{kr}}\)</span> (<span class="math inline">\(r\)</span> = 1, 2, …, <span class="math inline">\({{Q}_{k}}\)</span>). Here <span class="math inline">\(r\)</span> is the ROI index and <span class="math inline">\(k\)</span> is the case index. The rating can be an integer or quasi- continuous (e.g., 0 – 100), or a floating point value, as long as higher numbers represent greater confidence in presence of one or more lesions in the ROI.</p></li>
 <li><p>The ROI paradigm is not restricted to 4 or even a constant number of ROIs per case. That is the reason for the <em>k</em> subscript in <span class="math inline">\({{Q}_{k}}\)</span>.</p></li>
 <li><p>The ROI data structure is a special case of the FROC data structure, the essential difference being that the number of ratings per case is an a-priori known value, equal to <span class="math inline">\({{Q}_{k}}\)</span>.</p></li>
@@ -165,7 +165,7 @@
 <a href="#an-example-roi-dataset" class="anchor"></a>An example ROI dataset</h2>
 <p>An example simulated ROI dataset is included as <code>datasetROI</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">datasetROI</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">datasetROI</span>)
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ ratings     :List of 3</span>
 <span class="co">#&gt;   ..$ NL   : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span>
@@ -185,18 +185,19 @@
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "1" "2"</span>
 <span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span>
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="op">]</span>
+<span class="kw">datasetROI</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
 <span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,<span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">datasetROI</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">NL</span>[,,<span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,])
 <span class="co">#&gt; [1] 0.1014348</span>
-<span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">51</span>,<span class="op">]</span>
+<span class="kw">datasetROI</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">NL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">51</span>,]
 <span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span>
-<span class="va">datasetROI</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">perCase</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
+<span class="kw">datasetROI</span><span class="op">$</span><span class="kw">lesions</span><span class="op">$</span><span class="kw">perCase</span>[<span class="fl">1</span>]
 <span class="co">#&gt; [1] 2</span>
-<span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="op">]</span>
+<span class="kw">datasetROI</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">LL</span>[<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,]
 <span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span>;<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.815513</span></pre></div>
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="kw">datasetROI</span><span class="op">$</span><span class="kw">ratings</span><span class="op">$</span><span class="kw">LL</span>;<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(<span class="kw">x</span>)])
+<span class="co">#&gt; [1] 1.815513</span>
+</pre></div>
 <p>Examination of the output reveals that:</p>
 <ul>
 <li><p>This is a 2-treatment 5-reader dataset, with 50 non-diseased cases and 40 diseased cases, and <span class="math inline">\({{Q}_{k}}=4\)</span> for all <em>k</em>.</p></li>
@@ -210,10 +211,11 @@
 <a href="#the-roi-excel-data-file" class="anchor"></a>The ROI Excel data file</h2>
 <p>An Excel file in JAFROC format containing simulated ROI data corresponding to <code>datasetROI</code>, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object <code>ds</code>. !!!DPC!!!</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">fileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RoiData.xlsx"</span>, package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span><span class="op">(</span><span class="va">fileName</span><span class="op">)</span>
-<span class="va">ds</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">type</span>
-<span class="co">#&gt; [1] "ROI"</span></pre></div>
+<span class="kw">fileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"RoiData.xlsx"</span>, package = <span class="st">"RJafroc"</span>, mustWork = <span class="fl">TRUE</span>)
+<span class="kw">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span>(<span class="kw">fileName</span>)
+<span class="kw">ds</span><span class="op">$</span><span class="kw">descriptions</span><span class="op">$</span><span class="kw">type</span>
+<span class="co">#&gt; [1] "ROI"</span>
+</pre></div>
 <p>The <code>DfReadDataFile</code> function automatically recognizes that this is an <em>ROI</em> dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets:</p>
 <p><img src="images/ROI-Truth-1.png" style="width:100.0%"><img src="images/ROI-Truth-2.png" style="width:100.0%"></p>
 <ul>
@@ -260,12 +262,12 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-RN1233" class="csl-entry">
-Obuchowski, Nancy A. 1997. <span>“Nonparametric Analysis of Clustered ROC Curve Data.”</span> Journal Article. <em>Biometrics</em> 53: 567–78.
+<div id="refs" class="references hanging-indent">
+<div id="ref-RN1233">
+<p>Obuchowski, Nancy A. 1997. “Nonparametric Analysis of Clustered Roc Curve Data.” Journal Article. <em>Biometrics</em> 53: 567–78.</p>
 </div>
-<div id="ref-RN55" class="csl-entry">
-Obuchowski, Nancy A., Michael L. Lieber, and Kimerly A. Powell. 2000. <span>“Data Analysis for Detection and Localization of Multiple Abnormalities with Application to Mammography.”</span> Journal Article. <em>Acad. Radiol.</em> 7 (7): 516–25.
+<div id="ref-RN55">
+<p>Obuchowski, Nancy A., Michael L. Lieber, and Kimerly A. Powell. 2000. “Data Analysis for Detection and Localization of Multiple Abnormalities with Application to Mammography.” Journal Article. <em>Acad. Radiol.</em> 7 (7): 516–25.</p>
 </div>
 </div>
 </div>
