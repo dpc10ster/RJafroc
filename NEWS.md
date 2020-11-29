@@ -19,6 +19,10 @@
   # as StSignificanceTesting returns CAD - RAD (trt1 - trt2)
   # not RAD - CAD
   t <- ciDiffFom
+  rowNames <- rownames(t)
+  x1 <- strsplit(rowNames, split = "-")[[1]]
+  rowNames <- paste0(x1[2], "-", x1[1])
+  rownames(t) <- rowNames
   t$Estimate <- -ciDiffFom$Estimate
   t$t <- -ciDiffFom$t
   t$CILower <- -ciDiffFom$CIUpper
