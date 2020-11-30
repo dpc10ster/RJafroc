@@ -1,7 +1,7 @@
 #' @title Binormal model AUC function
 #' 
 #' @description {Returns the Binormal model ROC-AUC corresponding to 
-#'    specified parameters. See also \code{\link{UtilAucsRSM}}, \code{\link{UtilAucPROPROC}} 
+#'    specified parameters. See also \code{\link{UtilAnalyticalAucsRSM}}, \code{\link{UtilAucPROPROC}} 
 #'    and \code{\link{UtilAucCBM}}}
 #' 
 #' @param a The \code{a} parameter of the binormal model (separation of 

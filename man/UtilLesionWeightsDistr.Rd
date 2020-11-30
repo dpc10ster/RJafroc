@@ -11,9 +11,9 @@ UtilLesionWeightsDistr(dataset)
 }
 \value{
 lesWghtDistr The lesion weights distribution, an [1:nRow,1:(maxLL+1)] 
-   array, where nRow is the number of lesions per case in the dataset and 
-   maxLL is the maximum number of lesions per case in the dataset. The first 
-   column contains the number of lesions per case, while the remaining columns 
+   array, where nRow is the maximum number of lesions per case in the dataset maxLL. 
+   The first 
+   column enumerates the number of lesions per case, while the remaining columns 
    contain the weights (equal weighting assumed). Missing values are filled with -Inf.
    This parameter is not to be confused with the lesionWeight list member in an FROC
    dataset, which enumerates the weights of lesions on \bold{individual} cases. See 

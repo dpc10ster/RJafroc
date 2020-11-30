@@ -396,9 +396,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// intROC
-NumericVector intROC(NumericVector FPF, double mu, double lambdaP, double nuP, NumericMatrix lesDistr);
-RcppExport SEXP _RJafroc_intROC(SEXP FPFSEXP, SEXP muSEXP, SEXP lambdaPSEXP, SEXP nuPSEXP, SEXP lesDistrSEXP) {
+// y_ROC_FPF
+NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambdaP, double nuP, NumericMatrix lesDistr);
+RcppExport SEXP _RJafroc_y_ROC_FPF(SEXP FPFSEXP, SEXP muSEXP, SEXP lambdaPSEXP, SEXP nuPSEXP, SEXP lesDistrSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -407,7 +407,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lambdaP(lambdaPSEXP);
     Rcpp::traits::input_parameter< double >::type nuP(nuPSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type lesDistr(lesDistrSEXP);
-    rcpp_result_gen = Rcpp::wrap(intROC(FPF, mu, lambdaP, nuP, lesDistr));
+    rcpp_result_gen = Rcpp::wrap(y_ROC_FPF(FPF, mu, lambdaP, nuP, lesDistr));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -480,7 +480,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RJafroc_yROC", (DL_FUNC) &_RJafroc_yROC, 5},
     {"_RJafroc_yROCVect", (DL_FUNC) &_RJafroc_yROCVect, 5},
     {"_RJafroc_RsmInner", (DL_FUNC) &_RJafroc_RsmInner, 7},
-    {"_RJafroc_intROC", (DL_FUNC) &_RJafroc_intROC, 5},
+    {"_RJafroc_y_ROC_FPF", (DL_FUNC) &_RJafroc_y_ROC_FPF, 5},
     {"_RJafroc_ywAFROC", (DL_FUNC) &_RJafroc_ywAFROC, 5},
     {"_RJafroc_ForwardValue", (DL_FUNC) &_RJafroc_ForwardValue, 3},
     {"_RJafroc_InverseValue", (DL_FUNC) &_RJafroc_InverseValue, 3},

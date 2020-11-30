@@ -219,7 +219,7 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   
   NLLFin <- ret@min
   
-  AUC <- UtilAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
+  AUC <- UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
   ## following checks out
   ##temp <- tempAucRSM (c(ret@coef[1], ret@coef[2], ret@coef[3]), lesDistr)  
   
@@ -352,7 +352,7 @@ tempAucRSM <- function (forwardParms, lesDistr = lesDistr){
   
   maxFPF <- xROC(-20, lambdaP)
   maxTPF <- yROC(-20, mu, lambdaP, nuP, lesDistr)
-  AUC <- integrate(intROC, 0, maxFPF, mu = mu, lambdaP = lambdaP, nuP = nuP, 
+  AUC <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu, lambdaP = lambdaP, nuP = nuP, 
                    lesDistr = lesDistr)$value
   
   AUC <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2

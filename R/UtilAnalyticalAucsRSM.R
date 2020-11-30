@@ -1,6 +1,6 @@
-#' RSM ROC/AFROC AUC calculator
+#' RSM ROC/AFROC/wAFROC AUC calculator
 #' 
-#' @description {Returns the ROC and AFROC AUCs corresponding to 
+#' @description {Returns the ROC, AFROC and wAFROC AUCs corresponding to 
 #'    specified RSM parameters. See also \code{\link{UtilAucPROPROC}}, 
 #'    \code{\link{UtilAucBinormal}} and \code{\link{UtilAucCBM}}}
 #' 
@@ -18,28 +18,37 @@
 #'    the random number of latent LLs (suspicious regions that correspond 
 #'    to actual lesions) per diseased case.
 #' 
+#' @param relWeights The relative weights of the lesions; a vector of 
+#'    length maxLL; if zero, the default, equal weights are assumed.
+#'
+#'
 #' @param lesDistr See \code{\link{PlotRsmOperatingCharacteristics}}.
-#' 
+#'  
 #' @details The RSM parameters (\code{mu}, \code{lambdaP} and 
 #'    \code{nuP}) can be vectors, provided they are of the same length; 
 #'    the first parameter of each array is used, followed by the second, 
 #'    etc; a common lesion distribution is assumed.
 #' 
-#' @return A list containing the ROC and AFROC AUCs corresponding to the 
+#' @return A list containing the ROC, AFROC and wAFROC AUCs corresponding to the 
 #'    specified parameters
 #' 
+#' 
 #' @examples
-#' mu <- 1;lambdaP <- 1;nuP <- 1
+#' mu <- 1;lambda <- 1;nu <- 1
+#' ret <- UtilIntrinsic2PhysicalRSM(mu = 1, lambda = 1, nu = 1)
+#' nuP <- ret$nuP;lambdaP <- ret$lambdaP
 #' lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
 #' ## i.e., 90% of dis. cases have one lesion, and 10% have two lesions
-#' UtilAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
-#' UtilAucsRSM(mu, lambdaP, nuP, lesDistr)$aucAFROC
-#'
+#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
+#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucAFROC
+#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucwAFROC
+#' 
 #' mu <- c(1,2);lambdaP <- c(1,0.5);nuP <- c(1, 0.8)
 #' lesDistr <- rbind(c(1, 0.9), c(2, 0.1))
 #' ## i.e., 90% of dis. cases have one lesion, and 10% have two lesions
-#' UtilAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
-#' UtilAucsRSM(mu, lambdaP, nuP, lesDistr)$aucAFROC
+#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
+#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucAFROC
+#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucwAFROC
 #'  
 #' @references 
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
@@ -55,7 +64,7 @@
 #' 
 #' @export
 #' 
-UtilAucsRSM <- function (mu, lambdaP, nuP, lesDistr){
+UtilAnalyticalAucsRSM <- function (mu, lambdaP, nuP, lesDistr, relWeights){
   if (!all(c(length(mu) == length(lambdaP), length(mu) == length(nuP))))
     stop("Parameters have different lengths.")
   
@@ -64,24 +73,34 @@ UtilAucsRSM <- function (mu, lambdaP, nuP, lesDistr){
     dim(lesDistr) <- c(1, 2)
   }
   
-  aucROC <- rep(NA, length(mu))
-  aucAFROC <- aucROC
+  maxLL <- max(lesDistr[,1])
+  lesWghtDistr <- UtilSpecifyLesionWeightsDistr(maxLL, relWeights)
+  
+  aucwAFROC <- aucAFROC <- aucROC <- rep(NA, length(mu))
+  
   for (i in 1:length(mu)){
     if (lambdaP[i] < 0) stop("lambdaP has illegal value")
     if (nuP[i] < 0 || nuP[i] > 1) stop("nuP has illegal value")
     
     maxFPF <- xROC(-20, lambdaP[i])
     maxTPF <- yROC(-20, mu[i], lambdaP[i], nuP[i], lesDistr)
-    AUC <- integrate(intROC, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr = lesDistr)$value
-    aucROC[i] <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2
+    x <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr = lesDistr)$value
+    aucROC[i] <- x + (1 + maxTPF) * (1 - maxFPF) / 2
     
     maxLLF <- yFROC(-20, mu[i], nuP[i])
-    AUC <- integrate(intAFROC, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i])$value
-    aucAFROC[i] <- AUC + (1 + maxLLF) * (1 - maxFPF) / 2
+    x <- integrate(y_AFROC_FPF, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i])$value
+    aucAFROC[i] <- x + (1 + maxLLF) * (1 - maxFPF) / 2
+    
+    maxwLLF <- ywAFROC(-20, mu[i], nuP[i], lesDistr, lesWghtDistr)
+    x <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr, lesWghtDistr)$value
+    aucwAFROC[i] <- x + (1 + maxwLLF) * (1 - maxFPF) / 2
+    
   }
+  
   return(list(
     aucROC = aucROC,
-    aucAFROC = aucAFROC
+    aucAFROC = aucAFROC,
+    aucwAFROC = aucwAFROC
   ))
 }
 

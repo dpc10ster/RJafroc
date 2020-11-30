@@ -1,36 +1,19 @@
 # RJafroc 1.3.2.9000
 
+
+## Work on analytical AUCs from RSM
+* Motivation: could obviate the long simulations in CAD optimization chapter in book
+* Added `UtilSpecifyLesionWeightsDistr()` which is distinct from `UtilLesionWeightsDistr()`, latter works on datasets
+* Observed that for equal weights AFROC and wAFROC analytical AUCs are identical.
+* Need to think this out.
+* Changed function name to UtilAnalyticalAucsRSM() to distinguish from UtilFigureOfMerit which works on datasets
+* Nov 29. 2020
+
 ## Update `StSignificanceTestingCadVsRad()`
 * Shortened the name of the function as shown above
 * Needed to standardized output to avoid klutzy code in `RJafrocBook`
-* Fixed return objects: fixed variance components returns in `DualModalityRRRC()`
-```
-  varR <- stats1$ANOVA$VarCom["VarR", "Estimates"] # corrected 11/26/2020
-  varTR <- stats1$ANOVA$VarCom["VarTR", "Estimates"] # do:
-  varError <- stats1$ANOVA$VarCom["Var", "Estimates"] # do:
-  cov1 <- stats1$ANOVA$VarCom["Cov1", "Estimates"] # do:
-  cov2 <- stats1$ANOVA$VarCom["Cov2", "Estimates"] # do:
-  cov3 <- stats1$ANOVA$VarCom["Cov3", "Estimates"] # do:
-```
+* Fixed variance components returns in `DualModalityRRRC()`
 * Fixed CI returned object - difference was incorrect, changed sign
-```
-  ciDiffFom <- stats1$RRRC$ciDiffTrt 
-  # correction needed
-  # as StSignificanceTesting returns CAD - RAD (trt1 - trt2)
-  # not RAD - CAD
-  t <- ciDiffFom
-  rowNames <- rownames(t)
-  x1 <- strsplit(rowNames, split = "-")[[1]]
-  rowNames <- paste0(x1[2], "-", x1[1])
-  rownames(t) <- rowNames
-  t$Estimate <- -ciDiffFom$Estimate
-  t$t <- -ciDiffFom$t
-  t$CILower <- -ciDiffFom$CIUpper
-  t$CIUpper <- -ciDiffFom$CILower
-  ciDiffFom <- t
-  # end corrections
-```
-
 
 ## Modified `seed` behaviour, no need for `SimulateFrocDatasetNoSeed()`
 * Needed for compatibility with plots in `14-froc-meanings-xx.Rmd` chapter.

@@ -105,8 +105,8 @@ RsmInner <- function(mu, lambdaP, nuP, lesDistr, zeta, fb, tb) {
     .Call('_RJafroc_RsmInner', PACKAGE = 'RJafroc', mu, lambdaP, nuP, lesDistr, zeta, fb, tb)
 }
 
-intROC <- function(FPF, mu, lambdaP, nuP, lesDistr) {
-    .Call('_RJafroc_intROC', PACKAGE = 'RJafroc', FPF, mu, lambdaP, nuP, lesDistr)
+y_ROC_FPF <- function(FPF, mu, lambdaP, nuP, lesDistr) {
+    .Call('_RJafroc_y_ROC_FPF', PACKAGE = 'RJafroc', FPF, mu, lambdaP, nuP, lesDistr)
 }
 
 ywAFROC <- function(zeta, mu, nuP, lesDistr, lesWghtDistr) {

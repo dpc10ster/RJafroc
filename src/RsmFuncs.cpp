@@ -149,7 +149,7 @@ double RsmInner(double mu, double lambdaP, double nuP, NumericMatrix lesDistr, N
 // }
 
 // [[Rcpp::export]]
-NumericVector intROC(NumericVector FPF, double mu, double lambdaP, double nuP, NumericMatrix lesDistr){
+NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambdaP, double nuP, NumericMatrix lesDistr){
   int l = FPF.size();
   NumericVector zeta(l);
   double temp;

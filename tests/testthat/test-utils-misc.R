@@ -74,20 +74,20 @@ test_that("UtilAucPROPROC", {
 
 
 
-context("utils:UtilAucsRSM")
-test_that("UtilAucsRSM", {
+context("utils:UtilAnalyticalAucsRSM")
+test_that("UtilAnalyticalAucsRSM", {
   mu <- 1;lambdaP <- 1;nuP <- 1
   lesDistr <- rbind(c(1, 0.9), c(2, 0.1))
   
   fn <- paste0(test_path(), "/goodValues361/Utils/AucRSM", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- UtilAucsRSM(mu, lambdaP, nuP, lesDistr)
+    ret <- UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(UtilAucsRSM(mu, lambdaP, nuP, lesDistr), ret)
+  expect_equal(UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr), ret)
   # end of test
   
 })

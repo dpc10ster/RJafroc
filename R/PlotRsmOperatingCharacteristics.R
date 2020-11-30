@@ -271,7 +271,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
                                                Treatment = as.character(i), 
                                                stringsAsFactors = FALSE))
       maxTPF <- yROC(-20, mu[i], lambdaP[i], nuP[i], lesDistr)
-      AUC <- integrate(intROC, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr =lesDistr)$value
+      AUC <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr =lesDistr)$value
       aucROC[i] <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2
     }
     
@@ -303,7 +303,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
                                                    Treatment = as.character(i), 
                                                    stringsAsFactors = FALSE))
       maxLLF <- yFROC(-20, mu[i], nuP[i])
-      AUC <- integrate(intAFROC, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i])$value
+      AUC <- integrate(y_AFROC_FPF, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i])$value
       aucAFROC[i] <- AUC + (1 + maxLLF) * (1 - maxFPF) / 2
     }
     
@@ -318,7 +318,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
                                                      Treatment = as.character(i), 
                                                      stringsAsFactors = FALSE))
       maxWLLF <- ywAFROC(-20, mu[i], nuP[i], lesDistr, lesWghtDistr) 
-      AUC <- integrate(intwAFROC, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr, lesWghtDistr)$value
+      AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr, lesWghtDistr)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }
     
@@ -410,114 +410,4 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   ))
 }
 
-
-# for future work
-myPlot <- function(dataPoints, dashedPoints, x, y, 
-                   legendPosition, legendDirection, legendJustification) {
-  ret <- with(dataPoints, {
-    ggplot(data = dataPoints) + 
-      geom_line(aes(x = x, y = y , color = Treatment)) + 
-      geom_line(data = dashedPoints, aes(x = x, y = y, color = Treatment), linetype = 2) +       
-       theme(legend.position = legendPosition, legend.direction = legendDirection, 
-            legend.justification = legendJustification) 
-  })
-  return(ret)
-}
-
-
-
-xFROC <- function(zeta, lambdaP){
-  # returns NLF, the abscissa of FROC curve
-  NLF <- lambdaP * (1 - pnorm(zeta))
-  return(NLF)
-}
-
-
-
-yFROC <- function(zeta, mu, nuP){
-  # returns LLF, the ordinate of FROC, AFROC curve
-  LLF <- nuP * (1 - pnorm(zeta - mu))
-  return(LLF)
-}
-
-
-
-intFROC <- function(NLF, mu, lambdaP, nuP){
-  zeta <- qnorm(1 - NLF / lambdaP)
-  LLF <- yFROC(zeta, mu, nuP)
-  return(LLF)
-}
-
-
-
-intAFROC <- function(FPF, mu, lambdaP, nuP){
-  # returns LLF, the ordinate of AFROC curve; takes FPF as the variable. 
-  # AUC is calculated by integrating this function wrt FPF
-  tmp <- 1 / lambdaP * log(1 - FPF) + 1
-  tmp[tmp < 0] <- pnorm(-20)
-  zeta <- qnorm(tmp)
-  LLF <- yFROC(zeta, mu, nuP)
-  return(LLF)
-}
-
-
-
-# returns wLLF, the ordinate of wAFROC curve
-# this has working cpp version with name ywAFROC
-ywAFROC_R <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
-  # zeta <- 0
-  # fl is the fraction of cases with # lesions as in first column of lesDistr
-  # the second column contains the fraction
-  fl <- lesDistr[, 2] / sum(lesDistr[, 2]) # redundant normalization does not hurt
-  wLLF <- 0
-  for (row in 1:nrow(lesDistr)){
-    # outer looop sums over different numbers of lesions per case
-    nLesPerCase <- lesDistr[row, 1] 
-    # nLesPerCase is the first element in the row row of lesDistr, 
-    # which is the number of lesions for this lesion distributions condition
-    wLLFTmp <- 0
-    for (col in 1:nLesPerCase){
-      # inner loop sums over different numbers of col events
-      # col is the number of sucesses with trial size nLesPerCase
-      # the following works, but only for equal weights
-      # wLLFTmp <- wLLFTmp + sum(lesWghtDistr[row, 2:(col+1)]) * dbinom(col, nLesPerCase, nuP) * (1 - pnorm(zeta - mu))
-      # the next two lines should work for general case
-      wLLFTmp <- wLLFTmp +
-        lesWghtDistr[row, col+1] * col * dbinom(col, nLesPerCase, nuP) * (1 - pnorm(zeta - mu))
-    }
-    wLLF <- wLLF +  fl[row] * wLLFTmp
-  }
-  return(wLLF)
-}
-
-
-
-intwAFROC <- function(FPF, mu, lambdaP, nuP, lesDistr, lesWghtDistr){
-  # returns wLLF, the ordinate of AFROC curve; takes FPF as the variable. 
-  # AUC is calculated by integrating this function wrt FPF
-  tmp <- 1 / lambdaP * log(1 - FPF) + 1
-  tmp[tmp < 0] <- pnorm(-20)
-  zeta <- qnorm(tmp)
-  wLLF <- sapply(zeta, ywAFROC, mu = mu, nuP = nuP, lesDistr, lesWghtDistr)
-  return(wLLF)
-}
-
 is.wholenumber <- function(x)  round(x) == x
-
-# 
-# xROC <- function (zeta, lambdaP){
-#   return (1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2))))
-# }
-# 
-# 
-# xROCVect <- function(zeta, lambdaP) {
-#     FPF = 1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2.0)))
-#   return (FPF);
-# }
-# 
-# 
-# R-only implementation of erf function
-# erf_R <- function(x){
-#  return (2 * pnorm(sqrt(2) * x) - 1)
-# }
-# 

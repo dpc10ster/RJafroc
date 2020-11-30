@@ -1,7 +1,7 @@
 #' @title PROPROC AUC function
 #' 
 #' @description {Returns the PROPROC ROC-AUC corresponding to specified 
-#'    parameters. See also \code{\link{UtilAucsRSM}}, \code{\link{UtilAucBinormal}} 
+#'    parameters. See also \code{\link{UtilAnalyticalAucsRSM}}, \code{\link{UtilAucBinormal}} 
 #'    and \code{\link{UtilAucCBM}}}
 #' 
 #' @param c1 The c-parameter of the PROPROC model, since \strong{c is a reserved 
