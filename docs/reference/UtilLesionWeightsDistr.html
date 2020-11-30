@@ -202,15 +202,19 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>lesWghtDistr The lesion weights distribution, an [1:nRow,1:(maxLL+1)] 
-   array, where nRow is the number of lesions per case in the dataset and 
-   maxLL is the maximum number of lesions per case in the dataset. The first 
-   column contains the number of lesions per case, while the remaining columns 
-   contain the weights (equal weighting assumed). Missing values are filled with -Inf.
-   This parameter is not to be confused with the lesionWeight list member in an FROC
-   dataset, which enumerates the weights of lesions on <b>individual</b> cases. See 
-   <a href='PlotRsmOperatingCharacteristics.html'>PlotRsmOperatingCharacteristics</a> for a function that depends on lesWghtDistr.See 
-   Chapter00Vignette2 for fuller explanation.</p>
+    <p>Two characteristics of an FROC dataset, apart from the 
+   ratings, affect the FOM: the distribution of lesion per case and the 
+   distribution of lesion weights. This function addresses the weights. 
+   The distribution of lesions is addressed in <a href='UtilLesionDistr.html'>UtilLesionDistr</a>. 
+   <code>lesWghtDistr</code> is an [1:nRow,1:(maxLL+1)] array, where 
+   <code>nRow</code> is the number of <b>unique</b> values of lesions per case 
+   in the dataset. The first column enumerates the number of lesions per 
+   case, while the remaining columns contain the weights (equal weighting assumed). 
+   Missing values are filled with <code>-Inf</code>. This parameter is not to be 
+   confused with the <code>lesionWeight</code> list member in an FROC dataset, 
+   which enumerates the weights of lesions on <b>individual</b> cases. See 
+   <a href='PlotRsmOperatingCharacteristics.html'>PlotRsmOperatingCharacteristics</a> for a function that depends on 
+   <code>lesWghtDistr</code>. See Chapter00Vignette2 for a fuller explanation.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> (<span class='kw'>dataset11</span>) <span class='co'># FROC data</span>

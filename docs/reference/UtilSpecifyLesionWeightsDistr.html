@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Binormal model AUC function — UtilAucBinormal • RJafroc</title>
+<title>Specify lesion weight distribution array — UtilSpecifyLesionWeightsDistr • RJafroc</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,11 @@
 
 
 
-<meta property="og:title" content="Binormal model AUC function — UtilAucBinormal" />
-<meta property="og:description" content="Returns the Binormal model ROC-AUC corresponding to 
-   specified parameters. See also UtilAnalyticalAucsRSM, UtilAucPROPROC 
-   and UtilAucCBM" />
+<meta property="og:title" content="Specify lesion weight distribution array — UtilSpecifyLesionWeightsDistr" />
+<meta property="og:description" content="Specify the lesion weights, the underlying assumption being that 
+   lesion 1 is the same type across all diseased cases, lesion 2 is the same 
+   type across all diseased cases, ..., etc. This allows assignment of weights 
+   independent of the case index." />
 
 
 
@@ -180,46 +181,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Binormal model AUC function</h1>
+    <h1>Specify lesion weight distribution array</h1>
     
-    <div class="hidden name"><code>UtilAucBinormal.Rd</code></div>
+    <div class="hidden name"><code>UtilSpecifyLesionWeightsDistr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns the Binormal model ROC-AUC corresponding to 
-   specified parameters. See also <code><a href='UtilAnalyticalAucsRSM.html'>UtilAnalyticalAucsRSM</a></code>, <code><a href='UtilAucPROPROC.html'>UtilAucPROPROC</a></code> 
-   and <code><a href='UtilAucCBM.html'>UtilAucCBM</a></code></p>
+    <p>Specify the lesion weights, the underlying assumption being that 
+   lesion 1 is the same type across all diseased cases, lesion 2 is the same 
+   type across all diseased cases, ..., etc. This allows assignment of weights 
+   independent of the case index.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>UtilAucBinormal</span>(<span class='kw'>a</span>, <span class='kw'>b</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilSpecifyLesionWeightsDistr</span>(<span class='kw'>specified1DLesDistr</span>, relWeights = <span class='fl'>0</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>a</th>
-      <td><p>The <code>a</code> parameter of the binormal model (separation of 
-non-diseased and diseased pdfs)</p></td>
+      <th>specified1DLesDistr</th>
+      <td><p>The specified lesion distribution array. For example, 
+c(0.1, 0.2, 0, 0.7) specifies 10 percent of diseased cases have one lesion,
+20 percent have two lesions, none have 3 lesions and 70 percent have 
+four lesions. See example below.</p></td>
     </tr>
     <tr>
-      <th>b</th>
-      <td><p>The <code>b</code> parameter of the binormal model (std. dev. of 
-non-diseased diseased pdf; diseased pdf has unit std. dev)</p></td>
+      <th>relWeights</th>
+      <td><p>The relative weights of the lesions; a vector of 
+length maxLL; if zero, the default, equal weights are assumed.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Binormal model-predicted ROC-AUC</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <p>lesWghtDistr The lesion weights distribution array</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Dorfman DD, Alf E (1969) Maximum-Likelihood Estimation of Parameters of Signal-Detection Theory and 
-Determination of Confidence Intervals - Rating-Method Data, Journal of Mathematical Psychology. 6:487-496.</p>
+    <p>This function is distinct from `UtilLesionWeightsDistr()` which gets 
+   the lesion weights array for a dataset.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>a</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>;<span class='kw'>b</span> <span class='op'>&lt;-</span> <span class='fl'>0.7</span>
-<span class='fu'>UtilAucBinormal</span>(<span class='kw'>a</span>,<span class='kw'>b</span>)
-</div><div class='output co'>#&gt; [1] 0.94933751</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>specified1DLesDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.2</span>, <span class='fl'>0</span>, <span class='fl'>0.7</span>)
+<span class='kw'>relWeights</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.2</span>, <span class='fl'>0.4</span>, <span class='fl'>0.1</span>, <span class='fl'>0.3</span>)
+<span class='fu'>UtilSpecifyLesionWeightsDistr</span> (<span class='kw'>specified1DLesDistr</span>, <span class='kw'>relWeights</span>) 
+</div><div class='output co'>#&gt;      [,1]       [,2]       [,3]       [,4] [,5]
+#&gt; [1,]    1 1.00000000       -Inf       -Inf -Inf
+#&gt; [2,]    2 0.33333333 0.66666667       -Inf -Inf
+#&gt; [3,]    3 0.28571429 0.57142857 0.14285714 -Inf
+#&gt; [4,]    4 0.20000000 0.40000000 0.10000000  0.3</div><div class='input'>
+
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

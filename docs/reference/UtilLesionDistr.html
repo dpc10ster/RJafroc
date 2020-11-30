@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lesion distribution  matrix — UtilLesionDistr • RJafroc</title>
+<title>Lesion distribution in the dataset — UtilLesionDistr • RJafroc</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Lesion distribution  matrix — UtilLesionDistr" />
-<meta property="og:description" content="The lesion distribution matrix for a dataset." />
+<meta property="og:title" content="Lesion distribution in the dataset — UtilLesionDistr" />
+<meta property="og:description" content="The lesion distribution for a dataset." />
 
 
 
@@ -178,13 +178,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lesion distribution  matrix</h1>
+    <h1>Lesion distribution in the dataset</h1>
     
     <div class="hidden name"><code>UtilLesionDistr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The lesion distribution matrix for a dataset.</p>
+    <p>The lesion distribution for a dataset.</p>
     </div>
 
     <pre class="usage"><span class='fu'>UtilLesionDistr</span>(<span class='kw'>dataset</span>)</pre>
@@ -200,16 +200,18 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The lesion distribution matrix</p>
+    <p>The lesion distribution array</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>lesDistr The lesion distribution matrix, an [1:nRow,2] array, where
-   nRow is the number of <b>unique</b> values of lesions per case 
-   in the dataset. The first column contains the number of lesions. 
-   The second column contains the fraction of diseased cases with the number 
-   of lesions indicated in the first column. See 
-   <a href='PlotRsmOperatingCharacteristics.html'>PlotRsmOperatingCharacteristics</a> for a function that depends on 
-   lesDistr. See Chapter00Vignette2 for more details.</p>
+    <p>Two characteristics of an FROC dataset, apart from the 
+   ratings, affect the FOM: the distribution of lesion per case and the 
+   distribution of lesion weights. This function addresses the first. 
+   The weights are addressed by <a href='UtilLesionWeightsDistr.html'>UtilLesionWeightsDistr</a>. <code>lesDistr</code> 
+   is an [1:nRow,2] array, where <code>nRow</code> is the number of <b>unique</b> 
+   values of lesions per case in the dataset. The first column of the array contains 
+   the number of lesions per case. The second column contains the corresponding 
+   fraction of diseased cases. See <a href='PlotRsmOperatingCharacteristics.html'>PlotRsmOperatingCharacteristics</a> for a 
+   function that depends on <code>lesDistr</code>. See Chapter00Vignette2 for more details.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>UtilLesionDistr</span> (<span class='kw'>dataset01</span>) <span class='co'># FROC data</span>
