@@ -4,7 +4,7 @@
 \alias{UtilAnalyticalAucsRSM}
 \title{RSM ROC/AFROC/wAFROC AUC calculator}
 \usage{
-UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr, relWeights)
+UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr, relWeights = 0)
 }
 \arguments{
 \item{mu}{The mean(s) of the Gaussian distribution(s) for the 
@@ -24,7 +24,7 @@ to actual lesions) per diseased case.}
 \item{lesDistr}{See \code{\link{PlotRsmOperatingCharacteristics}}.}
 
 \item{relWeights}{The relative weights of the lesions; a vector of 
-length maxLL; if zero, the default, equal weights are assumed.}
+length \code{maxLL}; if zero, the default, equal weights are assumed.}
 }
 \value{
 A list containing the ROC, AFROC and wAFROC AUCs corresponding to the 

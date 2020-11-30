@@ -5,15 +5,19 @@
 #' 
 #' @param dataset The supplied dataset.
 #'
-#' @return lesWghtDistr The lesion weights distribution, an [1:nRow,1:(maxLL+1)] 
-#'    array, where nRow is the maximum number of lesions per case in the dataset maxLL. 
-#'    The first 
-#'    column enumerates the number of lesions per case, while the remaining columns 
-#'    contain the weights (equal weighting assumed). Missing values are filled with -Inf.
-#'    This parameter is not to be confused with the lesionWeight list member in an FROC
-#'    dataset, which enumerates the weights of lesions on \bold{individual} cases. See 
-#'    \link{PlotRsmOperatingCharacteristics} for a function that depends on lesWghtDistr.See 
-#'    Chapter00Vignette2 for fuller explanation. 
+#' @return Two characteristics of an FROC dataset, apart from the 
+#'    ratings, affect the FOM: the distribution of lesion per case and the 
+#'    distribution of lesion weights. This function addresses the weights. 
+#'    The distribution of lesions is addressed in \link{UtilLesionDistr}. 
+#'    \code{lesWghtDistr} is an [1:nRow,1:(maxLL+1)] array, where 
+#'    \code{nRow} is the number of \bold{unique} values of lesions per case 
+#'    in the dataset. The first column enumerates the number of lesions per 
+#'    case, while the remaining columns contain the weights (equal weighting assumed). 
+#'    Missing values are filled with \code{-Inf}. This parameter is not to be 
+#'    confused with the \code{lesionWeight} list member in an FROC dataset, 
+#'    which enumerates the weights of lesions on \bold{individual} cases. See 
+#'    \link{PlotRsmOperatingCharacteristics} for a function that depends on 
+#'    \code{lesWghtDistr}. See Chapter00Vignette2 for a fuller explanation. 
 #' 
 #' @examples
 #' UtilLesionWeightsDistr (dataset11) # FROC data

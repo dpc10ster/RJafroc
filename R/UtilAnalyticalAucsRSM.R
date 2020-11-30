@@ -19,7 +19,7 @@
 #'    to actual lesions) per diseased case.
 #' 
 #' @param relWeights The relative weights of the lesions; a vector of 
-#'    length maxLL; if zero, the default, equal weights are assumed.
+#'    length \code{maxLL}; if zero, the default, equal weights are assumed.
 #'
 #'
 #' @param lesDistr See \code{\link{PlotRsmOperatingCharacteristics}}.
@@ -39,16 +39,8 @@
 #' nuP <- ret$nuP;lambdaP <- ret$lambdaP
 #' lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
 #' ## i.e., 90% of dis. cases have one lesion, and 10% have two lesions
-#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
-#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucAFROC
-#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucwAFROC
+#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)
 #' 
-#' mu <- c(1,2);lambdaP <- c(1,0.5);nuP <- c(1, 0.8)
-#' lesDistr <- rbind(c(1, 0.9), c(2, 0.1))
-#' ## i.e., 90% of dis. cases have one lesion, and 10% have two lesions
-#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
-#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucAFROC
-#' UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucwAFROC
 #'  
 #' @references 
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
@@ -64,17 +56,17 @@
 #' 
 #' @export
 #' 
-UtilAnalyticalAucsRSM <- function (mu, lambdaP, nuP, lesDistr, relWeights){
+UtilAnalyticalAucsRSM <- function (mu, lambdaP, nuP, lesDistr, relWeights = 0){
   if (!all(c(length(mu) == length(lambdaP), length(mu) == length(nuP))))
     stop("Parameters have different lengths.")
   
   if (missing(lesDistr)){
-    lesDistr <- c(1, 1)
-    dim(lesDistr) <- c(1, 2)
+    lesDistr <- c(1, 1) # two values
+    dim(lesDistr) <- c(1, 2) # convert to 1 row and 2 columns array
   }
   
-  maxLL <- max(lesDistr[,1])
-  lesWghtDistr <- UtilSpecifyLesionWeightsDistr(maxLL, relWeights)
+  specified1DLesDistr <- lesDistr[,2]
+  lesWghtDistr <- UtilSpecifyLesionWeightsDistr(specified1DLesDistr, relWeights)
   
   aucwAFROC <- aucAFROC <- aucROC <- rep(NA, length(mu))
   

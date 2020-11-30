@@ -76,8 +76,10 @@ test_that("UtilAucPROPROC", {
 
 context("utils:UtilAnalyticalAucsRSM")
 test_that("UtilAnalyticalAucsRSM", {
-  mu <- 1;lambdaP <- 1;nuP <- 1
-  lesDistr <- rbind(c(1, 0.9), c(2, 0.1))
+  mu <- 1;lambda <- 1;nu <- 1
+  ret <- UtilIntrinsic2PhysicalRSM(mu = 1, lambda = 1, nu = 1)
+  nuP <- ret$nuP;lambdaP <- ret$lambdaP
+  lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
   
   fn <- paste0(test_path(), "/goodValues361/Utils/AucRSM", ".rds")
   if (!file.exists(fn)) {
@@ -91,6 +93,71 @@ test_that("UtilAnalyticalAucsRSM", {
   # end of test
   
 })
+
+
+
+
+context("utils:UtilAnalyticalAucsRSMWeights")
+test_that("UtilAnalyticalAucsRSM", {
+  mu <- 1;lambda <- 1;nu <- 1
+  ret <- UtilIntrinsic2PhysicalRSM(mu = 1, lambda = 1, nu = 1)
+  nuP <- ret$nuP;lambdaP <- ret$lambdaP
+  lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
+  relWeights <- c(0.05, 0.95)
+  
+  fn <- paste0(test_path(), "/goodValues361/Utils/AucRSMWeights", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr, relWeights)
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  expect_equal(UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr, relWeights), ret)
+  # end of test
+  
+})
+
+
+
+context("utils:UtilSpecifyLesionWeightsDistr")
+test_that("UtilSpecifyLesionWeightsDistr", {
+  
+  specified1DLesDistr <- c(0.1, 0.2, 0, 0.7)
+  relWeights <- c(0.2, 0.4, 0.1, 0.3)
+ 
+  fn <- paste0(test_path(), "/goodValues361/Utils/UtilSpecifyLesionWeightsDistr", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- UtilSpecifyLesionWeightsDistr (specified1DLesDistr, relWeights) 
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  expect_equal(UtilSpecifyLesionWeightsDistr (specified1DLesDistr, relWeights), ret)
+  # end of test
+  
+})
+
+
+
+
+context("utils:Convert2lesDistr")
+test_that("Convert2lesDistr", {
+  
+  fn <- paste0(test_path(), "/goodValues361/Utils/Convert2lesDistr", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- Convert2lesDistr(c(0.1, 0.8, 0.1)) 
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  expect_equal(Convert2lesDistr(c(0.1, 0.8, 0.1)), ret)
+  # end of test
+  
+})
+
 
 
 

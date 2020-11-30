@@ -1,13 +1,13 @@
 # RJafroc 1.3.2.9000
 
 
-## Work on analytical AUCs from RSM
+## Working on analytical AUCs from RSM
 * Motivation: could obviate the long simulations in CAD optimization chapter in book
-* Added `UtilSpecifyLesionWeightsDistr()` which is distinct from `UtilLesionWeightsDistr()`, latter works on datasets
-* Observed that for equal weights AFROC and wAFROC analytical AUCs are identical.
-* Need to think this out.
-* Changed function name to UtilAnalyticalAucsRSM() to distinguish from UtilFigureOfMerit which works on datasets
-* Nov 29. 2020
+* Added `UtilSpecifyLesionWeightsDistr()` which is distinct from `UtilLesionWeightsDistr()`, as the latter works on datasets.
+* Observed that for equal weights AFROC and wAFROC analytical AUCs are identical. Need to think this out.
+* Changed function name from `UtilAucRSM()` to `UtilAnalyticalAucsRSM()` to distinguish from `UtilFigureOfMerit()` which works on datasets.
+* Added function `Convert2lesDistr()` to save me time converting from 1D lesion distribution to 2D version which is the standard in the rest of the package. It is currently not called anywhere.
+* Nov 30, 2020
 
 ## Update `StSignificanceTestingCadVsRad()`
 * Shortened the name of the function as shown above

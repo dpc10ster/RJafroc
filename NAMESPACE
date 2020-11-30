@@ -2,6 +2,7 @@
 
 export(ChisqrGoodnessOfFit)
 export(Compare3ProperRocFits)
+export(Convert2lesDistr)
 export(Df2RJafrocDataset)
 export(DfBinDataset)
 export(DfCreateCorCbmDataset)

@@ -396,7 +396,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
         \item \code{\link{UtilAucBinormal}}: Binormal model AUC function.
         \item \code{\link{UtilAucCBM}}: CBM AUC function.
         \item \code{\link{UtilAucPROPROC}}: PROPROC AUC function.
-        \item \code{\link{UtilAucsRSM}}: RSM ROC/AFROC AUC calculator.
+        \item \code{\link{UtilAnalyticalAucsRSM}}: RSM ROC/AFROC AUC calculator.
         \item \code{\link{UtilFigureOfMerit}}: Calculate empirical figures of merit 
            (FOMs) for specified dataset.
         \item \code{\link{UtilIntrinsic2PhysicalRSM}}: Convert from intrinsic to 

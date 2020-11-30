@@ -2,7 +2,7 @@
 % Please edit documentation in R/UtilLesionDistr.R
 \name{UtilLesionDistr}
 \alias{UtilLesionDistr}
-\title{Lesion distribution  matrix}
+\title{Lesion distribution in the dataset}
 \usage{
 UtilLesionDistr(dataset)
 }
@@ -10,19 +10,21 @@ UtilLesionDistr(dataset)
 \item{dataset}{The dataset}
 }
 \value{
-The lesion distribution matrix
+The lesion distribution array
 }
 \description{
-The lesion distribution matrix for a dataset.
+The lesion distribution for a dataset.
 }
 \details{
-lesDistr The lesion distribution matrix, an [1:nRow,2] array, where
-   nRow is the number of \bold{unique} values of lesions per case 
-   in the dataset. The first column contains the number of lesions. 
-   The second column contains the fraction of diseased cases with the number 
-   of lesions indicated in the first column. See 
-   \link{PlotRsmOperatingCharacteristics} for a function that depends on 
-   lesDistr. See Chapter00Vignette2 for more details.
+Two characteristics of an FROC dataset, apart from the 
+   ratings, affect the FOM: the distribution of lesion per case and the 
+   distribution of lesion weights. This function addresses the first. 
+   The weights are addressed by \link{UtilLesionWeightsDistr}. \code{lesDistr} 
+   is an [1:nRow,2] array, where \code{nRow} is the number of \bold{unique} 
+   values of lesions per case in the dataset. The first column of the array contains 
+   the number of lesions per case. The second column contains the corresponding 
+   fraction of diseased cases. See \link{PlotRsmOperatingCharacteristics} for a 
+   function that depends on \code{lesDistr}. See Chapter00Vignette2 for more details.
 }
 \examples{
 UtilLesionDistr (dataset01) # FROC data
