@@ -191,30 +191,34 @@
    <code><a href='UtilAucBinormal.html'>UtilAucBinormal</a></code> and <code><a href='UtilAucCBM.html'>UtilAucCBM</a></code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>UtilAnalyticalAucsRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambdaP</span>, <span class='kw'>nuP</span>, <span class='kw'>lesDistr</span>, relWeights = <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilAnalyticalAucsRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambda</span>, <span class='kw'>nu</span>, zeta1 = <span class='op'>-</span><span class='fl'>Inf</span>, <span class='kw'>lesDistr</span>, relWeights = <span class='fl'>0</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mu</th>
-      <td><p>The mean(s) of the Gaussian distribution(s) for the 
+      <td><p>The mean of the Gaussian distribution for the 
 ratings of latent LLs (continuous ratings of lesions that 
-are found by the search mechanism)</p></td>
+are found by the search mechanism).</p></td>
     </tr>
     <tr>
-      <th>lambdaP</th>
-      <td><p>The Poisson distribution parameter(s), which describes 
+      <th>lambda</th>
+      <td><p>The <em>intrinsic</em> Poisson distribution parameter, 
+which describes 
 the random number of latent NLs (suspicious regions that do not 
-correspond to actual lesions) per case; these are the 
-<em>physical</em> parameters.</p></td>
+correspond to actual lesions) per case.</p></td>
     </tr>
     <tr>
-      <th>nuP</th>
-      <td><p>The <em>physical</em> <code>nuP</code> parameters, each of which is 
-the success probability of the binomial distribution(s) describing 
-the random number of latent LLs (suspicious regions that correspond 
+      <th>nu</th>
+      <td><p>The <em>intrinsic</em> <code>nu</code> parameters, 
+the success probability of the binomial distribution describing 
+the random numbers of latent LLs (suspicious regions that correspond 
 to actual lesions) per diseased case.</p></td>
+    </tr>
+    <tr>
+      <th>zeta1</th>
+      <td><p>The lowest reporting threshold, the default is <code>-Inf</code>.</p></td>
     </tr>
     <tr>
       <th>lesDistr</th>
@@ -231,12 +235,6 @@ length <code>maxLL</code>; if zero, the default, equal weights are assumed.</p><
 
     <p>A list containing the ROC, AFROC and wAFROC AUCs corresponding to the 
    specified parameters</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The RSM parameters (<code>mu</code>, <code>lambdaP</code> and 
-   <code>nuP</code>) can be vectors, provided they are of the same length; 
-   the first parameter of each array is used, followed by the second, 
-   etc; a common lesion distribution is assumed.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
@@ -248,21 +246,31 @@ paradigm, Phys Med Biol 51, 3449-3462.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>;<span class='kw'>lambda</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>;<span class='kw'>nu</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
-<span class='kw'>ret</span> <span class='op'>&lt;-</span> <span class='fu'><a href='UtilIntrinsic2PhysicalRSM.html'>UtilIntrinsic2PhysicalRSM</a></span>(mu = <span class='fl'>1</span>, lambda = <span class='fl'>1</span>, nu = <span class='fl'>1</span>)
-<span class='kw'>nuP</span> <span class='op'>&lt;-</span> <span class='kw'>ret</span><span class='op'>$</span><span class='kw'>nuP</span>;<span class='kw'>lambdaP</span> <span class='op'>&lt;-</span> <span class='kw'>ret</span><span class='op'>$</span><span class='kw'>lambdaP</span>
 <span class='kw'>lesDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0.9</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>0.1</span>)) 
 <span class='co'>## i.e., 90% of dis. cases have one lesion, and 10% have two lesions</span>
-<span class='fu'>UtilAnalyticalAucsRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambdaP</span>, <span class='kw'>nuP</span>, <span class='kw'>lesDistr</span>)<span class='op'>$</span><span class='kw'>aucROC</span>
-</div><div class='output co'>#&gt; [1] 0.72558987</div><div class='input'><span class='fu'>UtilAnalyticalAucsRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambdaP</span>, <span class='kw'>nuP</span>, <span class='kw'>lesDistr</span>)<span class='op'>$</span><span class='kw'>aucAFROC</span>
-</div><div class='output co'>#&gt; [1] 0.57788898</div><div class='input'><span class='fu'>UtilAnalyticalAucsRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambdaP</span>, <span class='kw'>nuP</span>, <span class='kw'>lesDistr</span>)<span class='op'>$</span><span class='kw'>aucwAFROC</span>
-</div><div class='output co'>#&gt; [1] 0.57788898</div><div class='input'>
-<span class='kw'>mu</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>);<span class='kw'>lambdaP</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0.5</span>);<span class='kw'>nuP</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0.8</span>)
-<span class='kw'>lesDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0.9</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>0.1</span>))
-<span class='co'>## i.e., 90% of dis. cases have one lesion, and 10% have two lesions</span>
-<span class='fu'>UtilAnalyticalAucsRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambdaP</span>, <span class='kw'>nuP</span>, <span class='kw'>lesDistr</span>)<span class='op'>$</span><span class='kw'>aucROC</span>
-</div><div class='output co'>#&gt; [1] 0.84700653 0.88149316</div><div class='input'><span class='fu'>UtilAnalyticalAucsRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambdaP</span>, <span class='kw'>nuP</span>, <span class='kw'>lesDistr</span>)<span class='op'>$</span><span class='kw'>aucAFROC</span>
-</div><div class='output co'>#&gt; [1] 0.80715827 0.83133709</div><div class='input'><span class='fu'>UtilAnalyticalAucsRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambdaP</span>, <span class='kw'>nuP</span>, <span class='kw'>lesDistr</span>)<span class='op'>$</span><span class='kw'>aucwAFROC</span>
-</div><div class='output co'>#&gt; [1] 0.80715827 0.83133709</div><div class='input'> 
+
+<span class='fu'>UtilAnalyticalAucsRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambda</span>, <span class='kw'>nu</span>, zeta1 = <span class='op'>-</span><span class='fl'>Inf</span>, <span class='kw'>lesDistr</span>)
+</div><div class='output co'>#&gt; $aucROC
+#&gt; [1] 0.72558987
+#&gt; 
+#&gt; $aucAFROC
+#&gt; [1] 0.57788898
+#&gt; 
+#&gt; $aucwAFROC
+#&gt; [1] 0.57788898
+#&gt; </div><div class='input'>
+<span class='kw'>relWeights</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.95</span>)
+<span class='fu'>UtilAnalyticalAucsRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambda</span>, <span class='kw'>nu</span>, zeta1 = <span class='fl'>0</span>, <span class='kw'>lesDistr</span>, <span class='kw'>relWeights</span>)
+</div><div class='output co'>#&gt; $aucROC
+#&gt; [1] 0.71253954
+#&gt; 
+#&gt; $aucAFROC
+#&gt; [1] 0.60104138
+#&gt; 
+#&gt; $aucwAFROC
+#&gt; [1] 0.608123
+#&gt; </div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

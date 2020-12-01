@@ -213,7 +213,7 @@
     },
     {
         "file": "/Users/Dev/GitHub/RJafroc/src/RsmFuncs.cpp",
-        "file_last_write": 1579017864.0,
+        "file_last_write": 1606774159.0,
         "definitions": [
             {
                 "usr": "c:@F@erfcpp#d#",
@@ -279,10 +279,10 @@
                 "column": 8
             },
             {
-                "usr": "c:@F@intROC#$@N@Rcpp@S@Vector>#VI14#@N@Rcpp@ST>1#T@PreserveStorage#d#d#d#$@N@Rcpp@S@Matrix>#VI14#@N@Rcpp@ST>1#T@PreserveStorage#",
+                "usr": "c:@F@y_ROC_FPF#$@N@Rcpp@S@Vector>#VI14#@N@Rcpp@ST>1#T@PreserveStorage#d#d#d#$@N@Rcpp@S@Matrix>#VI14#@N@Rcpp@ST>1#T@PreserveStorage#",
                 "kind": 6,
                 "parent_name": "",
-                "name": "intROC(Rcpp::NumericVector, double, double, double, Rcpp::NumericMatrix)",
+                "name": "y_ROC_FPF(Rcpp::NumericVector, double, double, double, Rcpp::NumericMatrix)",
                 "file": "/Users/Dev/GitHub/RJafroc/src/RsmFuncs.cpp",
                 "line": 152,
                 "column": 15

@@ -1,36 +1,5 @@
 {
     "debugBreakpointsState": {
-        "breakpoints": [
-            {
-                "id": 8,
-                "path": "~/GitHub/RJafroc/R/StORSummaryFRRC.R",
-                "line_number": 167,
-                "function_steps": "",
-                "function_name": "toplevel",
-                "state": 1,
-                "editor_state": 1,
-                "editor_line_number": 167,
-                "is_pending_debug_completion": false,
-                "needs_updated_steps": true,
-                "type": 1,
-                "is_package_breakpoint": false,
-                "package_name": ""
-            },
-            {
-                "id": 9,
-                "path": "~/GitHub/RJafroc/R/StORSummaryFRRC.R",
-                "line_number": 126,
-                "function_steps": "17,3,2",
-                "function_name": "ORSummaryFRRC",
-                "state": 1,
-                "editor_state": 1,
-                "editor_line_number": 126,
-                "is_pending_debug_completion": false,
-                "needs_updated_steps": false,
-                "type": 0,
-                "is_package_breakpoint": true,
-                "package_name": "RJafroc"
-            }
-        ]
+        "breakpoints": []
     }
 }
