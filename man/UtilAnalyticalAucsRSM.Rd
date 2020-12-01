@@ -4,22 +4,24 @@
 \alias{UtilAnalyticalAucsRSM}
 \title{RSM ROC/AFROC/wAFROC AUC calculator}
 \usage{
-UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr, relWeights = 0)
+UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights = 0)
 }
 \arguments{
-\item{mu}{The mean(s) of the Gaussian distribution(s) for the 
+\item{mu}{The mean of the Gaussian distribution for the 
 ratings of latent LLs (continuous ratings of lesions that 
-are found by the search mechanism)}
+are found by the search mechanism).}
 
-\item{lambdaP}{The Poisson distribution parameter(s), which describes 
+\item{lambda}{The \emph{intrinsic} Poisson distribution parameter, 
+which describes 
 the random number of latent NLs (suspicious regions that do not 
-correspond to actual lesions) per case; these are the 
-\emph{physical} parameters.}
+correspond to actual lesions) per case.}
 
-\item{nuP}{The \emph{physical} \code{nuP} parameters, each of which is 
-the success probability of the binomial distribution(s) describing 
-the random number of latent LLs (suspicious regions that correspond 
+\item{nu}{The \emph{intrinsic} \code{nu} parameters, 
+the success probability of the binomial distribution describing 
+the random numbers of latent LLs (suspicious regions that correspond 
 to actual lesions) per diseased case.}
+
+\item{zeta1}{The lowest reporting threshold, the default is \code{-Inf}.}
 
 \item{lesDistr}{See \code{\link{PlotRsmOperatingCharacteristics}}.}
 
@@ -35,29 +37,17 @@ A list containing the ROC, AFROC and wAFROC AUCs corresponding to the
    specified RSM parameters. See also \code{\link{UtilAucPROPROC}}, 
    \code{\link{UtilAucBinormal}} and \code{\link{UtilAucCBM}}}
 }
-\details{
-The RSM parameters (\code{mu}, \code{lambdaP} and 
-   \code{nuP}) can be vectors, provided they are of the same length; 
-   the first parameter of each array is used, followed by the second, 
-   etc; a common lesion distribution is assumed.
-}
 \examples{
 mu <- 1;lambda <- 1;nu <- 1
-ret <- UtilIntrinsic2PhysicalRSM(mu = 1, lambda = 1, nu = 1)
-nuP <- ret$nuP;lambdaP <- ret$lambdaP
 lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
 ## i.e., 90\% of dis. cases have one lesion, and 10\% have two lesions
-UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
-UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucAFROC
-UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucwAFROC
 
-mu <- c(1,2);lambdaP <- c(1,0.5);nuP <- c(1, 0.8)
-lesDistr <- rbind(c(1, 0.9), c(2, 0.1))
-## i.e., 90\% of dis. cases have one lesion, and 10\% have two lesions
-UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
-UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucAFROC
-UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucwAFROC
- 
+UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr)
+
+relWeights <- c(0.05, 0.95)
+UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = 0, lesDistr, relWeights)
+
+
 }
 \references{
 Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 

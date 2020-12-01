@@ -7,6 +7,7 @@
 * Observed that for equal weights AFROC and wAFROC analytical AUCs are identical. Need to think this out.
 * Changed function name from `UtilAucRSM()` to `UtilAnalyticalAucsRSM()` to distinguish from `UtilFigureOfMerit()` which works on datasets.
 * Added function `Convert2lesDistr()` to save me time converting from 1D lesion distribution to 2D version which is the standard in the rest of the package. It is currently not called anywhere.
+* Added `zeta1` dependence to `UtilAnalyticalAucsRSM()`.
 * Nov 30, 2020
 
 ## Update `StSignificanceTestingCadVsRad()`

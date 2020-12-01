@@ -74,22 +74,40 @@ test_that("UtilAucPROPROC", {
 
 
 
-context("utils:UtilAnalyticalAucsRSM")
-test_that("UtilAnalyticalAucsRSM", {
+context("utils:UtilAnalyticalAucsRSM1")
+test_that("UtilAnalyticalAucsRSM zeta1 neg Inf", {
   mu <- 1;lambda <- 1;nu <- 1
-  ret <- UtilIntrinsic2PhysicalRSM(mu = 1, lambda = 1, nu = 1)
-  nuP <- ret$nuP;lambdaP <- ret$lambdaP
   lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
   
-  fn <- paste0(test_path(), "/goodValues361/Utils/AucRSM", ".rds")
+  fn <- paste0(test_path(), "/goodValues361/Utils/AucRSM1", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)
+    ret <- UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr)
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr), ret)
+  expect_equal(UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr), ret)
+  # end of test
+  
+})
+
+
+
+context("utils:UtilAnalyticalAucsRSM2")
+test_that("UtilAnalyticalAucsRSM zeta1 0", {
+  mu <- 1;lambda <- 1;nu <- 1
+  lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
+  
+  fn <- paste0(test_path(), "/goodValues361/Utils/AucRSM2", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = 0, lesDistr)
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  expect_equal(UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = 0, lesDistr), ret)
   # end of test
   
 })
@@ -100,20 +118,18 @@ test_that("UtilAnalyticalAucsRSM", {
 context("utils:UtilAnalyticalAucsRSMWeights")
 test_that("UtilAnalyticalAucsRSM", {
   mu <- 1;lambda <- 1;nu <- 1
-  ret <- UtilIntrinsic2PhysicalRSM(mu = 1, lambda = 1, nu = 1)
-  nuP <- ret$nuP;lambdaP <- ret$lambdaP
   lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
   relWeights <- c(0.05, 0.95)
   
   fn <- paste0(test_path(), "/goodValues361/Utils/AucRSMWeights", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr, relWeights)
+    ret <- UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights)
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr, relWeights), ret)
+  expect_equal(UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights), ret)
   # end of test
   
 })

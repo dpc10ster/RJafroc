@@ -217,9 +217,14 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   nuP <- InverseValue(ret@coef[3], minNuP, maxNuP)
   zetas <- InverseZetas(ret@coef[4:length(ret@coef)])
   
+  # 11/30/20
+  retx <- UtilPhysical2IntrinsicRSM(mu, lambdaP, nuP)
+  lambda <- retx$lambda
+  nu <- retx$nu
+  
   NLLFin <- ret@min
   
-  AUC <- UtilAnalyticalAucsRSM(mu, lambdaP, nuP, lesDistr)$aucROC
+  AUC <- UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 <- -Inf, lesDistr)$aucROC # 11/30/20
   ## following checks out
   ##temp <- tempAucRSM (c(ret@coef[1], ret@coef[2], ret@coef[3]), lesDistr)  
   
