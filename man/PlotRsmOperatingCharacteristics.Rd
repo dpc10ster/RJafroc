@@ -2,13 +2,14 @@
 % Please edit documentation in R/PlotRsmOperatingCharacteristics.R
 \name{PlotRsmOperatingCharacteristics}
 \alias{PlotRsmOperatingCharacteristics}
-\title{RSM predicted operating characteristics, ROC pdfs and different FOMs
-   possible with FROC data}
+\title{RSM predicted operating characteristics, ROC highest rating pdfs and FOMs,
+   for FROC data}
 \usage{
 PlotRsmOperatingCharacteristics(
   mu,
   lambda,
   nu,
+  zeta1,
   lesDistr,
   lesWghtDistr,
   OpChType = "ALL",
@@ -17,28 +18,29 @@ PlotRsmOperatingCharacteristics(
   legendJustification = c(0, 1),
   nlfRange = NULL,
   llfRange = NULL,
-  nlfAlpha = NULL,
-  myNegInf = -3
+  nlfAlpha = NULL
 )
 }
 \arguments{
-\item{mu}{Array, max length 2. The mean(s) of the Gaussian distribution(s) for the 
+\item{mu}{Array, the mean of the Gaussian distribution for the 
 ratings of latent LLs (continuous ratings of lesions that are found by the 
-observer's search mechanism)}
+observer's search mechanism). The ratings of NLs are distributed as N(0,1).}
 
-\item{lambda}{Array, max length 2. The Poisson distribution \emph{intrinsic} 
-parameter(s), which model the random numbers of latent NLs (suspicious 
-regions that do not correspond to actual lesions) per case, for up to two 
-treatments. The corresponding \emph{physical} parameters are \code{lambda/mu}. 
+\item{lambda}{Array, the Poisson distribution \emph{intrinsic} 
+parameter which models the random numbers of latent NLs (suspicious 
+regions that do not correspond to actual lesions) per case. The corresponding 
+\emph{physical} parameter is \code{lambda/mu}. 
 Two conversion functions are provided: \code{\link{UtilIntrinsic2PhysicalRSM}} and 
 \code{\link{UtilPhysical2IntrinsicRSM}}.}
 
-\item{nu}{Array, max length 2. The binomial distribution success probability 
-\emph{intrinsic} parameters, which model the random numbers of latent LLs 
-(suspicious regions that 
-correspond to actual lesions) per diseased case for up to two treatments; 
-the corresponding \emph{physical} parameter is \code{1 - exp(nu*mu)}, 
-the success probability of the binomial distribution(s).}
+\item{nu}{Array, the \emph{intrinsic} parameter which models 
+the random numbers of latent LLs (suspicious regions that correspond to actual 
+lesions) per diseased case. The corresponding \emph{physical} parameter is 
+\code{1 - exp(nu*mu)}, the success probability of the binomial distribution.}
+
+\item{zeta1}{Array, the lowest reporting threshold; the default is -3. 
+[Used to demonstrate continuity of the slope of the 
+ROC at the end point; TBA Online Appendix 17.H.3]}
 
 \item{lesDistr}{Array [1:maxLL,1:2]. The probability mass function of the 
 lesion distribution for diseased cases. The first column contains the 
@@ -87,10 +89,6 @@ as determined by the data.}
 Default is "\code{NULL}", which means the maximum NLF range is used 
 (i.e., lambda/mu). Attempt to integrate outside the maximum NLF will 
 generate an error.}
-
-\item{myNegInf}{How close one approaches the end-point; the default is -3. 
-This is used in the code to demonstrate continuity of the slope of the 
-ROC at the end point; Online Appendix 17.H.3}
 }
 \value{
 A list of elements containing five \pkg{ggplot2} objects 
@@ -113,10 +111,10 @@ A list of elements containing five \pkg{ggplot2} objects
 }
 }
 \description{
-Visualize predicted ROCs, AFROCs, wAFROCs, FROCs and pdfs 
-   (probability density functions of highest ratings, 
-   for non-diseased and diseased cases), for up to 2 sets of search model parameters.
-   This function is useful as an instructional tool towards understanding the RSM.
+Visualize RSM predicted ROC, AFROC, wAFROC, FROC and pdf 
+   (probability density functions of highest ratings curves 
+   for non-diseased and diseased cases), for sets of search model parameters: 
+   mu, lambda, nu and zeta1.
 }
 \details{
 RSM is the Radiological Search Model described in the book.

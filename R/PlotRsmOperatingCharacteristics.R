@@ -1,29 +1,31 @@
-#' RSM predicted operating characteristics, ROC pdfs and different FOMs
-#'    possible with FROC data
+#' RSM predicted operating characteristics, ROC highest rating pdfs and FOMs,
+#'    for FROC data
 #' 
-#' @description Visualize predicted ROCs, AFROCs, wAFROCs, FROCs and pdfs 
-#'    (probability density functions of highest ratings, 
-#'    for non-diseased and diseased cases), for up to 2 sets of search model parameters.
-#'    This function is useful as an instructional tool towards understanding the RSM.
+#' @description Visualize RSM predicted ROC, AFROC, wAFROC, FROC and pdf 
+#'    (probability density functions of highest ratings curves 
+#'    for non-diseased and diseased cases), for sets of search model parameters: 
+#'    mu, lambda, nu and zeta1.
 #' 
-#' @param mu Array, max length 2. The mean(s) of the Gaussian distribution(s) for the 
+#' @param mu Array, the mean of the Gaussian distribution for the 
 #'    ratings of latent LLs (continuous ratings of lesions that are found by the 
-#'    observer's search mechanism)
+#'    observer's search mechanism). The ratings of NLs are distributed as N(0,1).
 #' 
-#' @param lambda Array, max length 2. The Poisson distribution \emph{intrinsic} 
-#'    parameter(s), which model the random numbers of latent NLs (suspicious 
-#'    regions that do not correspond to actual lesions) per case, for up to two 
-#'    treatments. The corresponding \emph{physical} parameters are \code{lambda/mu}. 
+#' @param lambda Array, the Poisson distribution \emph{intrinsic} 
+#'    parameter which models the random numbers of latent NLs (suspicious 
+#'    regions that do not correspond to actual lesions) per case. The corresponding 
+#'    \emph{physical} parameter is \code{lambda/mu}. 
 #'    Two conversion functions are provided: \code{\link{UtilIntrinsic2PhysicalRSM}} and 
 #'    \code{\link{UtilPhysical2IntrinsicRSM}}.
 #' 
-#' @param nu Array, max length 2. The binomial distribution success probability 
-#'    \emph{intrinsic} parameters, which model the random numbers of latent LLs 
-#'    (suspicious regions that 
-#'    correspond to actual lesions) per diseased case for up to two treatments; 
-#'    the corresponding \emph{physical} parameter is \code{1 - exp(nu*mu)}, 
-#'    the success probability of the binomial distribution(s).
+#' @param nu Array, the \emph{intrinsic} parameter which models 
+#'    the random numbers of latent LLs (suspicious regions that correspond to actual 
+#'    lesions) per diseased case. The corresponding \emph{physical} parameter is 
+#'    \code{1 - exp(nu*mu)}, the success probability of the binomial distribution.
 #' 
+#' @param zeta1 Array, the lowest reporting threshold; the default is -3. 
+#'    [Used to demonstrate continuity of the slope of the 
+#'    ROC at the end point; TBA Online Appendix 17.H.3] 
+#'
 #' @param lesDistr Array [1:maxLL,1:2]. The probability mass function of the 
 #'    lesion distribution for diseased cases. The first column contains the 
 #'    actual numbers of lesions per case. The second column contains the fraction 
@@ -72,10 +74,6 @@
 #'    (i.e., lambda/mu). Attempt to integrate outside the maximum NLF will 
 #'    generate an error.
 #' 
-#' @param myNegInf How close one approaches the end-point; the default is -3. 
-#'    This is used in the code to demonstrate continuity of the slope of the 
-#'    ROC at the end point; Online Appendix 17.H.3 
-#'
 #' 
 #' @return A list of elements containing five \pkg{ggplot2} objects 
 #'    (ROCPlot, AFROCPlot wAFROCPlot, FROCPlot and PDFPlot) and two area measures 
@@ -157,13 +155,18 @@
 #' 
 #' @export
 #' 
-PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDistr, 
+PlotRsmOperatingCharacteristics <- function(mu, 
+                                            lambda, 
+                                            nu,
+                                            zeta1,
+                                            lesDistr, lesWghtDistr, 
                                              OpChType = "ALL", 
                                             legendPosition = c(1,0), 
                                             legendDirection = "horizontal", 
                                             legendJustification = c(0,1),
-                                            nlfRange = NULL, llfRange = NULL, nlfAlpha = NULL,
-                                            myNegInf = -3){
+                                            nlfRange = NULL, 
+                                            llfRange = NULL, 
+                                            nlfAlpha = NULL){
   # fixing rjafroc 1.3.1 to 1.3.2
   # The following line is, strictly speaking, not needed; it is for catching errors in calls
   # to data.frame() or read.table() where the optional argument `stringsAsFactors = TRUE` is
@@ -172,8 +175,10 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   # but in version >= 4.0.0 the default is stringsAsFactors = FALSE, which necessitates explicit
   # specification of the option
   
-  if (!all(c(length(mu) == length(lambda), length(mu) == length(nu))))
-    stop("Parameters mu, lambda and nu have different lengths.")
+  if (missing(zeta1)) zeta1 <- array(-3, dim = length(mu))
+      
+  if (!all(c(length(mu) == length(lambda), length(mu) == length(nu), length(mu) == length(zeta1))))
+    stop("Parameters mu, lambda, nu and zeta1 have different lengths.")
   
   if (missing(lesDistr) && missing(lesWghtDistr)){
     lesDistr <- c(1, 1)
@@ -229,7 +234,8 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
   
   plotStep <- 0.01
   plotStep <- 0.1 # delete after debug
-  zeta <- seq(from = myNegInf, to = max(mu)+5, by = plotStep) # dpc, to reduce computation time
+  zeta <- array(list(), dim = length(mu))
+  for (i in 1:length(mu)) zeta[[i]] <- seq(from = zeta1[i], to = max(mu)+5, by = plotStep)
   
   ROCPlot <- NA
   FROCPlot <- NA
@@ -255,10 +261,10 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     
     lambdaP[i] <- lambda[i] / mu[i]
     if (abs(nu[i] * mu[i]) <= 1e-6 ) nuP[i] <- 1e-6 else nuP[i] <- (1-exp(-nu[i] * mu[i]))
-    FPF <- sapply(zeta, xROC, lambdaP = lambdaP[i])
-    TPF <- sapply(zeta, yROC, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr = lesDistr)
-    NLF <- sapply(zeta, xFROC, lambdaP = lambdaP[i])
-    LLF <- sapply(zeta, yFROC, mu = mu[i], nuP = nuP[i])
+    FPF <- sapply(zeta[[i]], xROC, lambdaP = lambdaP[i])
+    TPF <- sapply(zeta[[i]], yROC, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr = lesDistr)
+    NLF <- sapply(zeta[[i]], xFROC, lambdaP = lambdaP[i])
+    LLF <- sapply(zeta[[i]], yFROC, mu = mu[i], nuP = nuP[i])
     
     maxFPF <- xROC(-20, lambdaP[i])
     if( OpChType == "ALL" ||  OpChType == "ROC"){
@@ -308,7 +314,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
     }
     
     if( OpChType == "ALL" ||  OpChType == "wAFROC"){
-      wLLF <- sapply(zeta, ywAFROC, mu[i], nuP[i], lesDistr, lesWghtDistr)
+      wLLF <- sapply(zeta[[i]], ywAFROC, mu[i], nuP[i], lesDistr, lesWghtDistr)
       wAFROCPoints <- rbind(wAFROCPoints, data.frame(FPF = FPF, 
                                                      wLLF = wLLF, 
                                                      Treatment = as.character(i), 
@@ -328,7 +334,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
         pdfNor <- deltaFPF / plotStep
         norPDFPoints <- rbind(norPDFPoints, 
                               data.frame(pdf = pdfNor[pdfNor > 1e-6], 
-                                         highestZSample = zeta[-1][pdfNor > 1e-6], 
+                                         highestZSample = zeta[[i]][-1][pdfNor > 1e-6], 
                                          Treatment = as.character(i), 
                                          class = "non-diseased", 
                                          stringsAsFactors = FALSE))
@@ -336,7 +342,7 @@ PlotRsmOperatingCharacteristics <- function(mu, lambda, nu, lesDistr, lesWghtDis
         pdfAbn <- deltaTPF / plotStep
         abnPDFPoints <- rbind(abnPDFPoints, 
                               data.frame(pdf = pdfAbn[pdfAbn > 1e-6], 
-                                         highestZSample = zeta[-1][pdfAbn > 1e-6], 
+                                         highestZSample = zeta[[i]][-1][pdfAbn > 1e-6], 
                                          Treatment = as.character(i), 
                                          class = "diseased", 
                                          stringsAsFactors = FALSE))
