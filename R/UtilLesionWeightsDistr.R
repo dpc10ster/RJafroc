@@ -33,7 +33,7 @@
 #'    The underlying assumption is that lesion 1 is the same type across all 
 #'    diseased cases, lesion 2 is the same type across all diseased cases, 
 #'    ..., etc. This allows assignment of weights independent of the case index.
-#'    In the third example below, relWeights = [0.2, 0.4, 0.1, 0.3] means that
+#'    In the third example below, `relWeights` = [0.2, 0.4, 0.1, 0.3] means that
 #'    on cases with one lesion the weight of lesion 1 is unity, on cases with two 
 #'    lesions the weight of the first lesion to that of the second lesion is
 #'    in the ratio 0.2:0.4, i.e., lesion 2 is twice as important as lesion 1. 

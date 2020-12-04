@@ -62,7 +62,6 @@ The meanings of `lesDistr` and `lesWghts` is clear from examining their values:
 
 ```{r}
 print(lesDistr)
-print(relWeights)
 ````
 
 `relWeights = 0` ensures equal weights to all lesions. For this dataset `Lmax` is 3, and fraction `r lesDistr[1]` of diseased cases have one lesion, fraction `r lesDistr[2]` of diseased cases have two lesions and fraction `r lesDistr[3]` of diseased cases have three lesions. Since the lesions are equally weighted, on cases with one lesion the weight of the lesion is unity, on cases with two lesions the weights of each lesion is 1/2 and on cases with three lesions the weight of each lesion is 1/3.
