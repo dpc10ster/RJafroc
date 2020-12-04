@@ -1,8 +1,8 @@
 on:
   push:
     branches:
-      - `$`
-      - `!master`
+      - '$'
+      - '!master'
 
 name: pkgdown
 
