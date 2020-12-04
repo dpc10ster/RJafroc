@@ -6,16 +6,16 @@ RJafroc
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/RJafroc)](https://cran.r-project.org/package=RJafroc)
 
 # What is this repository for?
-* This repository serves as the software companion to my book: **Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017**.
-* Full documentation (the updated book plus the software) **is currently under preparation** and will be posted to https://dpc10ster.github.io/RJafrocBook/
-* Software documentation (the functions used in the software, vignettes and the update history) is at https://dpc10ster.github.io/RJafroc/
+* This repository serves as the software companion to my book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017.
+* Full documentation (updated book plus software) is currently under preparation and will be posted to https://dpc10ster.github.io/RJafrocBook/
+* Documentation for this software (the functions used in `RJafroc`, vignettes and update history) is at https://dpc10ster.github.io/RJafroc/
 
 # What is the application of this package?
-* TBA
+* Search is a very common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks -- finding lesions in medical images -- the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artifical intelligence (AI) algorithms (the field of Computer Aided Detection (CAD) has recently been rebranded as AI). Two applications to AI are in the book corresponding to this package https://dpc10ster.github.io/RJafrocBook/. One is *measuring AI performance with respect to a group of human readers*. Another is *optimizing the reporting threshold for an AI algorithm* - a common task faced by an algorithm designer. 
 
 # Relation to the Windows software
-* `RJafroc` extends Windows `JAFROC` software at http://www.devchakraborty.com. That website is no longer maintained.
-* If you encounter difficulties with downloading the Windows software, try https://github.com/dpc10ster/WindowsJafroc.
+* `RJafroc` extends Windows `JAFROC` software formerly at http://www.devchakraborty.com. That website is no longer valid.
+* If you need the Windows software, try https://github.com/dpc10ster/WindowsJafroc.
 
 # Update History
 * See https://dpc10ster.github.io/RJafroc/news/index.html.
