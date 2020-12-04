@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="Lesion weights distribution — UtilLesionWeightsDistr" />
-<meta property="og:description" content="The lesion weights  distribution, assuming equal weights. 
-   Needed to plot empirical curves for FROC data (ROC, wAFROC)." />
+<meta property="og:description" content="The lesion weights distribution of a dataset or the specified 
+   lesion weights distribution as a one-dimensional array.." />
 
 
 
@@ -185,22 +185,32 @@
     </div>
 
     <div class="ref-description">
-    <p>The lesion weights  distribution, assuming equal weights. 
-   Needed to plot empirical curves for FROC data (ROC, wAFROC).</p>
+    <p>The lesion weights distribution of a dataset or the specified 
+   lesion weights distribution as a one-dimensional array..</p>
     </div>
 
-    <pre class="usage"><span class='fu'>UtilLesionWeightsDistr</span>(<span class='kw'>dataset</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilLesionWeightsDistr</span><span class='op'>(</span><span class='va'>datasetOrmaxLL</span>, relWeights <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dataset</th>
-      <td><p>The supplied dataset.</p></td>
+      <th>datasetOrmaxLL</th>
+      <td><p>A dataset, e.g., <code>dataset01</code>, or the maximum 
+number of lesions in the dataset, <code>maxLL</code>.</p></td>
+    </tr>
+    <tr>
+      <th>relWeights</th>
+      <td><p>The relative weights of the lesions; a vector of 
+length equal to <code><a href='https://rdrr.io/r/base/length.html'>length(maxLL)</a></code>. The default is zero, in which case
+equal weights are assumed.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>lesWghtDistr The lesion weights distribution.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Two characteristics of an FROC dataset, apart from the 
    ratings, affect the FOM: the distribution of lesion per case and the 
@@ -209,64 +219,41 @@
    <code>lesWghtDistr</code> is an [1:nRow,1:(maxLL+1)] array, where 
    <code>nRow</code> is the number of <b>unique</b> values of lesions per case 
    in the dataset. The first column enumerates the number of lesions per 
-   case, while the remaining columns contain the weights (equal weighting assumed). 
+   case, while the remaining columns contain the weights. 
    Missing values are filled with <code>-Inf</code>. This parameter is not to be 
    confused with the <code>lesionWeight</code> list member in an FROC dataset, 
    which enumerates the weights of lesions on <b>individual</b> cases. See 
    <a href='PlotRsmOperatingCharacteristics.html'>PlotRsmOperatingCharacteristics</a> for a function that depends on 
-   <code>lesWghtDistr</code>. See Chapter00Vignette2 for a fuller explanation.</p>
+   <code>lesWghtDistr</code>. See TBA Chapter00Vignette2 for a fuller explanation.
+   The underlying assumption is that lesion 1 is the same type across all 
+   diseased cases, lesion 2 is the same type across all diseased cases, 
+   ..., etc. This allows assignment of weights independent of the case index.
+   In the third example below, `relWeights` = [0.2, 0.4, 0.1, 0.3] means that
+   on cases with one lesion the weight of lesion 1 is unity, on cases with two 
+   lesions the weight of the first lesion to that of the second lesion is
+   in the ratio 0.2:0.4, i.e., lesion 2 is twice as important as lesion 1. 
+   On cases with 4 lesions the weights are in the ratio 0.2 : 0.4 : 0.1 : 0.3.
+   There are no cases with 3 lesions in this example. Of course, on any case
+   the weights sum to unity.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> (<span class='kw'>dataset11</span>) <span class='co'># FROC data</span>
-</div><div class='output co'>#&gt;       [,1]        [,2]        [,3]        [,4]        [,5]        [,6]
-#&gt;  [1,]    1 1.000000000        -Inf        -Inf        -Inf        -Inf
-#&gt;  [2,]    2 0.500000000 0.500000000        -Inf        -Inf        -Inf
-#&gt;  [3,]    3 0.333333333 0.333333333 0.333333333        -Inf        -Inf
-#&gt;  [4,]    4 0.250000000 0.250000000 0.250000000 0.250000000        -Inf
-#&gt;  [5,]    5 0.200000000 0.200000000 0.200000000 0.200000000 0.200000000
-#&gt;  [6,]    6 0.166666667 0.166666667 0.166666667 0.166666667 0.166666667
-#&gt;  [7,]    7 0.142857143 0.142857143 0.142857143 0.142857143 0.142857143
-#&gt;  [8,]    8 0.125000000 0.125000000 0.125000000 0.125000000 0.125000000
-#&gt;  [9,]    9 0.111111111 0.111111111 0.111111111 0.111111111 0.111111111
-#&gt; [10,]   10 0.100000000 0.100000000 0.100000000 0.100000000 0.100000000
-#&gt; [11,]   11 0.090909091 0.090909091 0.090909091 0.090909091 0.090909091
-#&gt; [12,]   12 0.083333333 0.083333333 0.083333333 0.083333333 0.083333333
-#&gt; [13,]   16 0.062500000 0.062500000 0.062500000 0.062500000 0.062500000
-#&gt; [14,]   20 0.050000000 0.050000000 0.050000000 0.050000000 0.050000000
-#&gt;              [,7]        [,8]        [,9]       [,10]       [,11]       [,12]
-#&gt;  [1,]        -Inf        -Inf        -Inf        -Inf        -Inf        -Inf
-#&gt;  [2,]        -Inf        -Inf        -Inf        -Inf        -Inf        -Inf
-#&gt;  [3,]        -Inf        -Inf        -Inf        -Inf        -Inf        -Inf
-#&gt;  [4,]        -Inf        -Inf        -Inf        -Inf        -Inf        -Inf
-#&gt;  [5,]        -Inf        -Inf        -Inf        -Inf        -Inf        -Inf
-#&gt;  [6,] 0.166666667        -Inf        -Inf        -Inf        -Inf        -Inf
-#&gt;  [7,] 0.142857143 0.142857143        -Inf        -Inf        -Inf        -Inf
-#&gt;  [8,] 0.125000000 0.125000000 0.125000000        -Inf        -Inf        -Inf
-#&gt;  [9,] 0.111111111 0.111111111 0.111111111 0.111111111        -Inf        -Inf
-#&gt; [10,] 0.100000000 0.100000000 0.100000000 0.100000000 0.100000000        -Inf
-#&gt; [11,] 0.090909091 0.090909091 0.090909091 0.090909091 0.090909091 0.090909091
-#&gt; [12,] 0.083333333 0.083333333 0.083333333 0.083333333 0.083333333 0.083333333
-#&gt; [13,] 0.062500000 0.062500000 0.062500000 0.062500000 0.062500000 0.062500000
-#&gt; [14,] 0.050000000 0.050000000 0.050000000 0.050000000 0.050000000 0.050000000
-#&gt;             [,13]  [,14]  [,15]  [,16]  [,17] [,18] [,19] [,20] [,21]
-#&gt;  [1,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [2,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [3,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [4,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [5,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [6,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [7,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [8,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt;  [9,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [10,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [11,]        -Inf   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [12,] 0.083333333   -Inf   -Inf   -Inf   -Inf  -Inf  -Inf  -Inf  -Inf
-#&gt; [13,] 0.062500000 0.0625 0.0625 0.0625 0.0625  -Inf  -Inf  -Inf  -Inf
-#&gt; [14,] 0.050000000 0.0500 0.0500 0.0500 0.0500  0.05  0.05  0.05  0.05</div><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> (<span class='kw'>dataset02</span>) <span class='co'># ROC data</span>
-</div><div class='output co'>#&gt;      [,1] [,2]
-#&gt; [1,]    1    1</div><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> (<span class='kw'>datasetCadLroc</span>) <span class='co'># LROC data</span>
+    <pre class="examples"><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> <span class='op'>(</span><span class='va'>dataset01</span><span class='op'>)</span> <span class='co'># FROC data</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    1  1.0 -Inf
+#&gt; [2,]    2  0.5  0.5</div><div class='input'><span class='fu'>UtilLesionWeightsDistr</span> <span class='op'>(</span><span class='va'>dataset02</span><span class='op'>)</span> <span class='co'># ROC data</span>
 </div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,]    1    1</div><div class='input'>
+<span class='va'>maxLL</span> <span class='op'>&lt;-</span> <span class='fl'>4</span>
+<span class='va'>relWeights</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.4</span>, <span class='fl'>0.1</span>, <span class='fl'>0.3</span><span class='op'>)</span>
+<span class='fu'>UtilLesionWeightsDistr</span> <span class='op'>(</span><span class='va'>maxLL</span>, <span class='va'>relWeights</span><span class='op'>)</span> 
+</div><div class='output co'>#&gt;      [,1]       [,2]       [,3]       [,4] [,5]
+#&gt; [1,]    1 1.00000000       -Inf       -Inf -Inf
+#&gt; [2,]    2 0.33333333 0.66666667       -Inf -Inf
+#&gt; [3,]    3 0.28571429 0.57142857 0.14285714 -Inf
+#&gt; [4,]    4 0.20000000 0.40000000 0.10000000  0.3</div><div class='input'>
+
+
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

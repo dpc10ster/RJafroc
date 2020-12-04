@@ -189,7 +189,7 @@
    This is the R equivalent of ROCFIT or RSCORE</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FitBinormalRoc</span>(<span class='kw'>dataset</span>, trt = <span class='fl'>1</span>, rdr = <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>FitBinormalRoc</span><span class='op'>(</span><span class='va'>dataset</span>, trt <span class='op'>=</span> <span class='fl'>1</span>, rdr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -255,31 +255,31 @@ Rating-Method Data, Journal of Mathematical Psychology 6, 487-496.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'>## Test with an included ROC dataset</span>
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='kw'>dataset02</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span><span class='op'>(</span><span class='va'>dataset02</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
 
 
 <span class='co'>## Test with an included FROC dataset; it needs to be binned</span>
 <span class='co'>## as there are more than 5 discrete ratings levels</span>
-<span class='kw'>binned</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfBinDataset.html'>DfBinDataset</a></span>(<span class='kw'>dataset05</span>, desiredNumBins = <span class='fl'>5</span>, opChType = <span class='st'>"ROC"</span>)
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='kw'>binned</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>binned</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfBinDataset.html'>DfBinDataset</a></span><span class='op'>(</span><span class='va'>dataset05</span>, desiredNumBins <span class='op'>=</span> <span class='fl'>5</span>, opChType <span class='op'>=</span> <span class='st'>"ROC"</span><span class='op'>)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span><span class='op'>(</span><span class='va'>binned</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
 
 
 <span class='co'>## Test with single interior point data</span>
-<span class='kw'>fp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>7</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>))
-<span class='kw'>tp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>))
-<span class='kw'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span>(<span class='kw'>fp</span>, <span class='kw'>tp</span>)
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='kw'>dataset</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>fp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>7</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>tp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span><span class='op'>(</span><span class='va'>fp</span>, <span class='va'>tp</span><span class='op'>)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span><span class='op'>(</span><span class='va'>dataset</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
 
 <span class='co'>## Test with two interior data points</span>
-<span class='kw'>fp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>7</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>3</span>, <span class='fl'>3</span>))
-<span class='kw'>tp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>3</span>, <span class='fl'>7</span>))
-<span class='kw'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span>(<span class='kw'>fp</span>, <span class='kw'>tp</span>)
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='kw'>dataset</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>fp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>7</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>tp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Df2RJafrocDataset.html'>Df2RJafrocDataset</a></span><span class='op'>(</span><span class='va'>fp</span>, <span class='va'>tp</span><span class='op'>)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span><span class='op'>(</span><span class='va'>dataset</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
 
 <span class='co'>## Test with TONY data for which chisqr can be calculated</span>
-<span class='kw'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span>(<span class='kw'>dataset01</span>)
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='kw'>ds</span>, <span class='fl'>2</span>, <span class='fl'>3</span>);<span class='co'>## print(retFit$fittedPlot)</span>
-<span class='kw'>retFit</span><span class='op'>$</span><span class='kw'>ChisqrFitStats</span>
+<span class='va'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfFroc2Roc.html'>DfFroc2Roc</a></span><span class='op'>(</span><span class='va'>dataset01</span><span class='op'>)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span><span class='op'>(</span><span class='va'>ds</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>retFit</span><span class='op'>$</span><span class='va'>ChisqrFitStats</span>
 </div><div class='output co'>#&gt; $chisq
 #&gt; [1] 2.327925
 #&gt; 
@@ -290,7 +290,7 @@ Rating-Method Data, Journal of Mathematical Psychology 6, 487-496.</p>
 #&gt; [1] 2
 #&gt; </div><div class='input'> 
 <span class='co'>## Test with included degenerate ROC data</span>
-<span class='kw'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span>(<span class='kw'>datasetDegenerate</span>);<span class='co'>## print(retFit$fittedPlot)</span>
+<span class='va'>retFit</span> <span class='op'>&lt;-</span> <span class='fu'>FitBinormalRoc</span><span class='op'>(</span><span class='va'>datasetDegenerate</span><span class='op'>)</span>;<span class='co'>## print(retFit$fittedPlot)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Data is degenerate; binormal model cannot fit it unambiguously: use CBM or RSM method</span></div><div class='input'><span class='co'># }</span>
 
  

@@ -185,15 +185,35 @@
 <h1 class="page-header" data-toc-text="1.3.2.9000">
 <a href="#rjafroc-1329000" class="anchor"></a>RJafroc 1.3.2.9000<small> Unreleased </small>
 </h1>
+<div id="trying-to-simplify-handling-of-lesion-distribution-and-lesion-weights" class="section level2">
+<h2 class="hasAnchor">
+<a href="#trying-to-simplify-handling-of-lesion-distribution-and-lesion-weights" class="anchor"></a>Trying to simplify handling of lesion distribution and lesion weights</h2>
+<ul>
+<li>Motivation: basically only need to specify two 1D arrays: <code>lesDistr</code> and <code>relWeights</code>.</li>
+<li>Since these are involved in the C++ calls, cannot totally eliminate the 2D arrays; they are also useful for printouts.</li>
+<li>Eliminated two functions and much simplification</li>
+<li>Eliminated <code>UtilSpecifyLesionWeightsDistr</code>
+</li>
+<li>Eliminated <code>Convert2lesDistr</code>
+</li>
+<li>Simplified system for specifying lesion distribution <code>lesDistr</code>
+</li>
+<li>Simplified system for specifying lesion weights distribution <code>relWeights</code>
+</li>
+<li>Affected many functions</li>
+<li>Basic idea is to keep the complexity of weights etc. concealed from the user</li>
+<li>Passed tests; 12/3/20</li>
+</ul>
+</div>
 <div id="working-on-analytical-aucs-from-rsm" class="section level2">
 <h2 class="hasAnchor">
 <a href="#working-on-analytical-aucs-from-rsm" class="anchor"></a>Working on analytical AUCs from RSM</h2>
 <ul>
 <li>Motivation: could obviate the long simulations in CAD optimization chapter in book</li>
-<li>Added <code><a href="../reference/UtilSpecifyLesionWeightsDistr.html">UtilSpecifyLesionWeightsDistr()</a></code> which is distinct from <code><a href="../reference/UtilLesionWeightsDistr.html">UtilLesionWeightsDistr()</a></code>, as the latter works on datasets.</li>
+<li>Added <code>UtilSpecifyLesionWeightsDistr()</code> which is distinct from <code><a href="../reference/UtilLesionWeightsDistr.html">UtilLesionWeightsDistr()</a></code>, as the latter works on datasets.</li>
 <li>Observed that for equal weights AFROC and wAFROC analytical AUCs are identical. Need to think this out.</li>
 <li>Changed function name from <code>UtilAucRSM()</code> to <code><a href="../reference/UtilAnalyticalAucsRSM.html">UtilAnalyticalAucsRSM()</a></code> to distinguish from <code><a href="../reference/UtilFigureOfMerit.html">UtilFigureOfMerit()</a></code> which works on datasets.</li>
-<li>Added function <code><a href="../reference/Convert2lesDistr.html">Convert2lesDistr()</a></code> to save me time converting from 1D lesion distribution to 2D version which is the standard in the rest of the package. It is currently not called anywhere.</li>
+<li>Added function <code>Convert2lesDistr()</code> to save me time converting from 1D lesion distribution to 2D version which is the standard in the rest of the package. It is currently not called anywhere.</li>
 <li>Added <code>zeta1</code> dependence to <code><a href="../reference/UtilAnalyticalAucsRSM.html">UtilAnalyticalAucsRSM()</a></code>.</li>
 <li>Nov 30, 2020</li>
 </ul>

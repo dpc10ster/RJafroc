@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RSM predicted operating characteristics, ROC pdfs and different FOMs
-   possible with FROC data — PlotRsmOperatingCharacteristics • RJafroc</title>
+<title>RSM predicted operating characteristics, ROC highest rating pdfs and FOMs,
+   for FROC data — PlotRsmOperatingCharacteristics • RJafroc</title>
 
 
 <!-- jquery -->
@@ -40,12 +40,12 @@
 
 
 
-<meta property="og:title" content="RSM predicted operating characteristics, ROC pdfs and different FOMs
-   possible with FROC data — PlotRsmOperatingCharacteristics" />
-<meta property="og:description" content="Visualize predicted ROCs, AFROCs, wAFROCs, FROCs and pdfs 
-   (probability density functions of highest ratings, 
-   for non-diseased and diseased cases), for up to 2 sets of search model parameters.
-   This function is useful as an instructional tool towards understanding the RSM." />
+<meta property="og:title" content="RSM predicted operating characteristics, ROC highest rating pdfs and FOMs,
+   for FROC data — PlotRsmOperatingCharacteristics" />
+<meta property="og:description" content="Visualize RSM predicted ROC, AFROC, wAFROC, FROC and pdf 
+   (probability density functions of highest ratings curves 
+   for non-diseased and diseased cases), for sets of search model parameters: 
+   mu, lambda, nu and zeta1." />
 
 
 
@@ -183,87 +183,76 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>RSM predicted operating characteristics, ROC pdfs and different FOMs
-   possible with FROC data</h1>
+    <h1>RSM predicted operating characteristics, ROC highest rating pdfs and FOMs,
+   for FROC data</h1>
     
     <div class="hidden name"><code>PlotRsmOperatingCharacteristics.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Visualize predicted ROCs, AFROCs, wAFROCs, FROCs and pdfs 
-   (probability density functions of highest ratings, 
-   for non-diseased and diseased cases), for up to 2 sets of search model parameters.
-   This function is useful as an instructional tool towards understanding the RSM.</p>
+    <p>Visualize RSM predicted ROC, AFROC, wAFROC, FROC and pdf 
+   (probability density functions of highest ratings curves 
+   for non-diseased and diseased cases), for sets of search model parameters: 
+   mu, lambda, nu and zeta1.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotRsmOperatingCharacteristics</span>(
-  <span class='kw'>mu</span>,
-  <span class='kw'>lambda</span>,
-  <span class='kw'>nu</span>,
-  <span class='kw'>lesDistr</span>,
-  <span class='kw'>lesWghtDistr</span>,
-  OpChType = <span class='st'>"ALL"</span>,
-  legendPosition = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>),
-  legendDirection = <span class='st'>"horizontal"</span>,
-  legendJustification = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
-  nlfRange = <span class='kw'>NULL</span>,
-  llfRange = <span class='kw'>NULL</span>,
-  nlfAlpha = <span class='kw'>NULL</span>,
-  myNegInf = <span class='op'>-</span><span class='fl'>3</span>
-)</pre>
+    <pre class="usage"><span class='fu'>PlotRsmOperatingCharacteristics</span><span class='op'>(</span>
+  <span class='va'>mu</span>,
+  <span class='va'>lambda</span>,
+  <span class='va'>nu</span>,
+  <span class='va'>zeta1</span>,
+  <span class='va'>lesDistr</span>,
+  relWeights <span class='op'>=</span> <span class='fl'>0</span>,
+  OpChType <span class='op'>=</span> <span class='st'>"ALL"</span>,
+  legendPosition <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span>,
+  legendDirection <span class='op'>=</span> <span class='st'>"horizontal"</span>,
+  legendJustification <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  nlfRange <span class='op'>=</span> <span class='cn'>NULL</span>,
+  llfRange <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nlfAlpha <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mu</th>
-      <td><p>Array, max length 2. The mean(s) of the Gaussian distribution(s) for the 
+      <td><p>Array: the mean of the Gaussian distribution for the 
 ratings of latent LLs (continuous ratings of lesions that are found by the 
-observer's search mechanism)</p></td>
+observer's search mechanism). The ratings of NLs are distributed as N(0,1).</p></td>
     </tr>
     <tr>
       <th>lambda</th>
-      <td><p>Array, max length 2. The Poisson distribution <em>intrinsic</em> 
-parameter(s), which model the random numbers of latent NLs (suspicious 
-regions that do not correspond to actual lesions) per case, for up to two 
-treatments. The corresponding <em>physical</em> parameters are <code>lambda/mu</code>. 
-Two conversion functions are provided: <code><a href='UtilIntrinsic2PhysicalRSM.html'>UtilIntrinsic2PhysicalRSM</a></code> and 
+      <td><p>Array: the <em>intrinsic</em> Poisson distribution parameter 
+which models the random numbers of latent NLs (suspicious regions that do 
+not correspond to actual lesions) per case. The corresponding 
+<em>physical</em> parameter is <code>lambda/mu</code>. Two conversion functions 
+are provided: <code><a href='UtilIntrinsic2PhysicalRSM.html'>UtilIntrinsic2PhysicalRSM</a></code> and 
 <code><a href='UtilPhysical2IntrinsicRSM.html'>UtilPhysical2IntrinsicRSM</a></code>.</p></td>
     </tr>
     <tr>
       <th>nu</th>
-      <td><p>Array, max length 2. The binomial distribution success probability 
-<em>intrinsic</em> parameters, which model the random numbers of latent LLs 
-(suspicious regions that 
-correspond to actual lesions) per diseased case for up to two treatments; 
-the corresponding <em>physical</em> parameter is <code>1 - exp(nu*mu)</code>, 
-the success probability of the binomial distribution(s).</p></td>
+      <td><p>Array: the <em>intrinsic</em> parameter which models the random 
+numbers of latent LLs (suspicious regions that correspond to actual 
+lesions) per diseased case. The corresponding <em>physical</em> parameter is 
+<code>1 - exp(nu*mu)</code>, the success probability of the binomial distribution.</p></td>
+    </tr>
+    <tr>
+      <th>zeta1</th>
+      <td><p>Array, the lowest reporting threshold; if missing the default 
+is -3. [Used to demonstrate continuity of the slope of the ROC at the 
+end point; TBA Online Appendix 17.H.3]</p></td>
     </tr>
     <tr>
       <th>lesDistr</th>
-      <td><p>Array [1:maxLL,1:2]. The probability mass function of the 
-lesion distribution for diseased cases. The first column contains the 
-actual numbers of lesions per case. The second column contains the fraction 
-of diseased cases with the number of lesions specified in the first column. 
-The second column must sum to unity. See <a href='UtilLesionDistr.html'>UtilLesionDistr</a>.</p></td>
+      <td><p>Array: the probability mass function of the 
+lesion distribution for diseased cases. See <a href='UtilLesionDistr.html'>UtilLesionDistr</a>.</p></td>
     </tr>
     <tr>
-      <th>lesWghtDistr</th>
-      <td><p>The lesion weights distribution, an [1:maxLL,1:maxLL] array. 
-The probability mass function of the 
-lesion weights for diseased cases. <code>maxLL</code> is the maximum number of lesions in
-the dataset. The 1st row contains the weight of the 
-lesion on cases with one lesion only, necessarily 1, assuming the dataset 
-has cases with only one lesion; the remaining elements 
-of the row are <code>-Inf</code>. The 2nd row contains the weights of the 2 lesions 
-on cases with 2 lesions only, the remaining elements of the row, if any, 
-are <code>-Inf</code>, assuming the dataset 
-has cases with two lesion. Excluding the <code>-Inf</code>, each row must sum to 1. 
-The default is equal weighting, e.g., weights are 1/3, 1/3, 1/3 on row 3, 
-assuming the dataset has cases with three lesions.
-This parameter is not to be confused with the lesionWeight list member in an FROC
-dataset which enumerates the weights of lesions on individual cases. See 
-<a href='UtilLesionWeightsDistr.html'>UtilLesionWeightsDistr</a>.</p></td>
+      <th>relWeights</th>
+      <td><p>The relative weights of the lesions; a vector of 
+length equal to <code><a href='https://rdrr.io/r/base/length.html'>length(maxLL)</a></code>. The default is zero, in which case
+equal weights are assumed.</p></td>
     </tr>
     <tr>
       <th>OpChType</th>
@@ -305,12 +294,6 @@ Default is "<code>NULL</code>", which means the maximum NLF range is used
 (i.e., lambda/mu). Attempt to integrate outside the maximum NLF will 
 generate an error.</p></td>
     </tr>
-    <tr>
-      <th>myNegInf</th>
-      <td><p>How close one approaches the end-point; the default is -3. 
-This is used in the code to demonstrate continuity of the slope of the 
-ROC at the end point; Online Appendix 17.H.3</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -335,24 +318,10 @@ ROC at the end point; Online Appendix 17.H.3</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>RSM is the Radiological Search Model described in the book.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>For <code>lesDistr</code>, the sum over the second column must equal one. 
-   If all cases contain same number of lesions, simply supply this number instead of 
-   the matrix. If the argument is missing, the default value 
-   of one lesion per diseased case is used.</p>  
-<p>In <code>lesWghtDistr</code>, the sum over each row (excluding <code>-Inf</code>) must be one. 
-   The value <code>-Inf</code> should be assigned if the corresponding lesion 
-   does not exist. Equal lesion weighting is applied if this argument is missing.</p>
-<p>For example, if the maximum number of distinct lesion configurations per case 
-   is 3 (e.g., 1, 2 and 4, implying there are no cases with 3 lesions), the 
-   first column of <code>lesDistr</code> will be c(1,2,4). The second column might be
-   c(0.8, 0.15, 0.05), which sums to one, meaning 80% of cases have only one 
-   lesion, 15% have two lesions and 5% have three lesions. The 
-   <code>lesWghtDistr</code> matrix will be 
-   <code>[1:3,1:4]</code>, where each row will sum to one (excluding the first entry and 
-   excluding negative infinities).</p>
+    <p>RSM is the Radiological Search Model described in the book. This 
+   function is vectorized with respect to the first 4 arguments. For 
+   <code>lesDistr</code> the sum must be one. To indicate that all dis. cases
+   contain 4 lesions, set lesDistr = c(0,0,0,1).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 
@@ -368,24 +337,27 @@ Modeling, and Applications with R-Based Examples</em> (CRC Press, Boca Raton, FL
 <span class='co'>## mu = 3, lambda = 1.5, nu = 0.8, in the other treatment. 20% of the diseased </span>
 <span class='co'>## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span>
 <span class='co'>## and 30% have 4 lesions.  </span>
-<span class='kw'>lesDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0.2</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>0.4</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>0.1</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0.3</span>))
+<span class='va'>lesDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.4</span>, <span class='fl'>0.1</span>, <span class='fl'>0.3</span><span class='op'>)</span>
 
-<span class='co'>## On cases with one lesion the weights are 1, on cases with 2 lesions the weights</span>
-<span class='co'>## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and</span>
-<span class='co'>## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: </span>
-<span class='kw'>lesWghtDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1.0</span>, <span class='op'>-</span><span class='fl'>Inf</span>, <span class='op'>-</span><span class='fl'>Inf</span>, <span class='op'>-</span><span class='fl'>Inf</span>), 
-                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>0.4</span>,  <span class='fl'>0.6</span>, <span class='op'>-</span><span class='fl'>Inf</span>, <span class='op'>-</span><span class='fl'>Inf</span>), 
-                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>0.2</span>,  <span class='fl'>0.3</span>,  <span class='fl'>0.5</span>, <span class='op'>-</span><span class='fl'>Inf</span>), 
-                       <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0.3</span>,  <span class='fl'>0.4</span>, <span class='fl'>0.2</span>,  <span class='fl'>0.1</span>))
-<span class='kw'>ret</span> <span class='op'>&lt;-</span> <span class='fu'>PlotRsmOperatingCharacteristics</span>(mu = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>), lambda = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1.5</span>), nu = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.6</span>, <span class='fl'>0.8</span>),
-   lesDistr = <span class='kw'>lesDistr</span>, lesWghtDistr = <span class='kw'>lesWghtDistr</span>, 
-   legendPosition = <span class='st'>"bottom"</span>, nlfRange = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>), llfRange = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>))
-   <span class='co'>## print(ret$ROCPlot)</span>
-   <span class='co'>## print(ret$AFROCPlot)</span>
-   <span class='co'>## print(ret$wAFROCPlot)</span>
-   <span class='co'>## print(ret$FROCPlot)</span>
-<span class='co'>## the FROC plot ends at NLF = 0.5 because for both treatments the physical lambdas are 0.5.</span>
-
+<span class='fu'>PlotRsmOperatingCharacteristics</span><span class='op'>(</span>mu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1.5</span><span class='op'>)</span>, nu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.6</span>, <span class='fl'>0.8</span><span class='op'>)</span>,
+   lesDistr <span class='op'>=</span> <span class='va'>lesDistr</span>, legendPosition <span class='op'>=</span> <span class='st'>"bottom"</span>, nlfRange <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, llfRange <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ROCPlot</div><div class='img'><img src='PlotRsmOperatingCharacteristics-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $AFROCPlot</div><div class='img'><img src='PlotRsmOperatingCharacteristics-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $wAFROCPlot</div><div class='img'><img src='PlotRsmOperatingCharacteristics-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $FROCPlot</div><div class='img'><img src='PlotRsmOperatingCharacteristics-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $PDFPlot</div><div class='img'><img src='PlotRsmOperatingCharacteristics-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $aucROC
+#&gt; [1] 0.9326383 0.9866740
+#&gt; 
+#&gt; $aucAFROC
+#&gt; [1] 0.7645398 0.9293791
+#&gt; 
+#&gt; $aucwAFROC
+#&gt; [1] 0.7645398 0.9293791
+#&gt; 
+#&gt; $aucFROC
+#&gt; [1] 0.3214509 0.4463223
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

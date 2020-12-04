@@ -195,7 +195,7 @@
    \(mu\). See book for details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>UtilIntrinsic2PhysicalRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambda</span>, <span class='kw'>nu</span>)</pre>
+    <pre class="usage"><span class='fu'>UtilIntrinsic2PhysicalRSM</span><span class='op'>(</span><span class='va'>mu</span>, <span class='va'>lambda</span>, <span class='va'>nu</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -242,9 +242,9 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>;<span class='kw'>lambda</span> <span class='op'>&lt;-</span> <span class='fl'>20</span>;<span class='kw'>nu</span> <span class='op'>&lt;-</span> <span class='fl'>1.1512925</span> 
-<span class='kw'>lambdaP</span> <span class='op'>&lt;-</span> <span class='fu'>UtilIntrinsic2PhysicalRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambda</span>, <span class='kw'>nu</span>)<span class='op'>$</span><span class='kw'>lambdaP</span> 
-<span class='kw'>nuP</span> <span class='op'>&lt;-</span> <span class='fu'>UtilIntrinsic2PhysicalRSM</span>(<span class='kw'>mu</span>, <span class='kw'>lambda</span>, <span class='kw'>nu</span>)<span class='op'>$</span><span class='kw'>nuP</span> 
+    <pre class="examples"><div class='input'><span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>;<span class='va'>lambda</span> <span class='op'>&lt;-</span> <span class='fl'>20</span>;<span class='va'>nu</span> <span class='op'>&lt;-</span> <span class='fl'>1.1512925</span> 
+<span class='va'>lambdaP</span> <span class='op'>&lt;-</span> <span class='fu'>UtilIntrinsic2PhysicalRSM</span><span class='op'>(</span><span class='va'>mu</span>, <span class='va'>lambda</span>, <span class='va'>nu</span><span class='op'>)</span><span class='op'>$</span><span class='va'>lambdaP</span> 
+<span class='va'>nuP</span> <span class='op'>&lt;-</span> <span class='fu'>UtilIntrinsic2PhysicalRSM</span><span class='op'>(</span><span class='va'>mu</span>, <span class='va'>lambda</span>, <span class='va'>nu</span><span class='op'>)</span><span class='op'>$</span><span class='va'>nuP</span> 
 <span class='co'>## note that the physical values are only constrained to be positive, but the physical variable nuP</span>
 <span class='co'>## must obey 0 &lt;= nuP &lt;= 1</span>
 

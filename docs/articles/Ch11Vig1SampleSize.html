@@ -140,7 +140,7 @@
       <h1 data-toc-skip>Chapter 11, Vignette 1: Background on the F distribution</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-11-30</h4>
+            <h4 class="date">2020-12-04</h4>
       
       
       <div class="hidden name"><code>Ch11Vig1SampleSize.Rmd</code></div>
@@ -169,29 +169,28 @@
 <code>fCrit</code> is the critical value of the F distribution, i.e., that value such that fraction <span class="math inline">\(\alpha\)</span> of the area is to the right of the critical value, i.e., <code>fCrit</code> is identical in statistical notation to <span class="math inline">\({{F}_{1-\alpha ,ndf,ddf}}\)</span>.</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">ndf</span> <span class="op">&lt;-</span> <span class="fl">2</span>;<span class="kw">ddf</span> <span class="op">&lt;-</span> <span class="fl">10</span>;<span class="kw">ncp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">10</span>)
-<span class="kw">alpha</span> <span class="op">&lt;-</span> <span class="fl">0.05</span>
-<span class="kw">fCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">qf</a></span>(<span class="fl">1</span><span class="op">-</span><span class="kw">alpha</span>, <span class="kw">ndf</span>,<span class="kw">ddf</span>)
-<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">1</span>, <span class="fl">20</span>, <span class="fl">0.1</span>)
-<span class="kw">myLabel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)
-<span class="kw">myLabelIndx</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="kw">pFgtFCrit</span> <span class="op">&lt;-</span> <span class="kw">NULL</span>
-<span class="co">for</span> (<span class="kw">i</span> <span class="co">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">ncp</span>))
-{
-  <span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">df</a></span>(<span class="kw">x</span>,<span class="kw">ndf</span>,<span class="kw">ddf</span>,ncp=<span class="kw">ncp</span>[<span class="kw">i</span>])
-  <span class="kw">pFgtFCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">pFgtFCrit</span>, <span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span>(<span class="kw">fCrit</span>, <span class="kw">ndf</span>, <span class="kw">ddf</span>, ncp = <span class="kw">ncp</span>[<span class="kw">i</span>]))
-}  
-<span class="co">for</span> (<span class="kw">i</span> <span class="co">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">ncp</span>))
-{
-  <span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">df</a></span>(<span class="kw">x</span>,<span class="kw">ndf</span>,<span class="kw">ddf</span>,ncp=<span class="kw">ncp</span>[<span class="kw">i</span>])
-  <span class="kw">curveData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(x = <span class="kw">x</span>, pdf = <span class="kw">y</span>)
-  <span class="kw">curvePlot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span>(data = <span class="kw">curveData</span>, mapping = <span class="fu">aes</span>(x = <span class="kw">x</span>, y = <span class="kw">pdf</span>)) <span class="op">+</span> 
-    <span class="fu">geom_line</span>() <span class="op">+</span>
-    <span class="fu">ggtitle</span>(<span class="kw">myLabel</span>[<span class="kw">myLabelIndx</span>]);<span class="kw">myLabelIndx</span> <span class="op">&lt;-</span> <span class="kw">myLabelIndx</span> <span class="op">+</span> <span class="fl">1</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">curvePlot</span>)
-}
-<span class="kw">fCrit_2_10</span> <span class="op">&lt;-</span> <span class="kw">fCrit</span> <span class="co"># convention fCrit_ndf_ddf</span>
-</pre></div>
+<span class="va">ndf</span> <span class="op">&lt;-</span> <span class="fl">2</span>;<span class="va">ddf</span> <span class="op">&lt;-</span> <span class="fl">10</span>;<span class="va">ncp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span>
+<span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fl">0.05</span>
+<span class="va">fCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">qf</a></span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">alpha</span>, <span class="va">ndf</span>,<span class="va">ddf</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">20</span>, <span class="fl">0.1</span><span class="op">)</span>
+<span class="va">myLabel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>
+<span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">pFgtFCrit</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ncp</span><span class="op">)</span><span class="op">)</span>
+<span class="op">{</span>
+  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">df</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">ndf</span>,<span class="va">ddf</span>,ncp<span class="op">=</span><span class="va">ncp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
+  <span class="va">pFgtFCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">pFgtFCrit</span>, <span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span><span class="op">(</span><span class="va">fCrit</span>, <span class="va">ndf</span>, <span class="va">ddf</span>, ncp <span class="op">=</span> <span class="va">ncp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>  
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ncp</span><span class="op">)</span><span class="op">)</span>
+<span class="op">{</span>
+  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">df</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">ndf</span>,<span class="va">ddf</span>,ncp<span class="op">=</span><span class="va">ncp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
+  <span class="va">curveData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, pdf <span class="op">=</span> <span class="va">y</span><span class="op">)</span>
+  <span class="va">curvePlot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">curveData</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">pdf</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu">ggtitle</span><span class="op">(</span><span class="va">myLabel</span><span class="op">[</span><span class="va">myLabelIndx</span><span class="op">]</span><span class="op">)</span>;<span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="va">myLabelIndx</span> <span class="op">+</span> <span class="fl">1</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">curvePlot</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">fCrit_2_10</span> <span class="op">&lt;-</span> <span class="va">fCrit</span> <span class="co"># convention fCrit_ndf_ddf</span></pre></div>
 <p><img src="Ch11Vig1SampleSize_files/figure-html/unnamed-chunk-1-1.png" width="700"><img src="Ch11Vig1SampleSize_files/figure-html/unnamed-chunk-1-2.png" width="700"><img src="Ch11Vig1SampleSize_files/figure-html/unnamed-chunk-1-3.png" width="700"><img src="Ch11Vig1SampleSize_files/figure-html/unnamed-chunk-1-4.png" width="700"></p>
 <table class="table table table-striped">
 <thead><tr>
