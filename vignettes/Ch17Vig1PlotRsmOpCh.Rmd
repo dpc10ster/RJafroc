@@ -39,8 +39,8 @@ vignette: >
 * These parameters do not apply to individual cases; rather they refer to a large population (asymptotically infinite in size) of cases. 
 
 ```{r}
-str(dataset04$lesionID)
-str(dataset04$lesionWeight)
+str(dataset04$lesions$IDs)
+str(dataset04$lesions$weights)
 ```
 
 * Note that the first index of both arrays is the case index for the 100 abnormal cases in this dataset. 
@@ -68,9 +68,14 @@ lesDistr <- c(0.2, 0.4, 0.1, 0.3)
 ## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and
 ## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: 
 relWeights <- c(0.3,  0.4, 0.2,  0.1)
-p <- PlotRsmOperatingCharacteristics(mu = 2, lambda = 1, nu = 0.6, OpChType = "wAFROC",
-                                       lesDistr = lesDistr, relWeights = relWeights, 
-                                       legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
+p <- PlotRsmOperatingCharacteristics(
+  mu = 2, 
+  lambda = 1, 
+  nu = 0.6, 
+  OpChType = "wAFROC", 
+  lesDistr = lesDistr, 
+  relWeights = relWeights, 
+  legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
 p$wAFROCPlot
 ```
 
@@ -82,12 +87,12 @@ lesDistr
 relWeights
 ```
 
-* The second column of `lesDistr` specifies the fraction of diseased cases with the number of lesions specified in the first column.
-* The first column of `lesWghtDistr` is a copy of the first column of `lesDistr`. The remaining non-`-Inf` entries are the weights. 
+* The `lesDistr` array `r lesDistr` specifies the fraction of diseased cases with the number of lesions corresponding to the column index. To specify a dataset with exactly 3 lesions per diseased case use `lesDist = c(0, 0, 1, 0)`.
+* The `relWeights` array `r relWeights` specifies the relative weights. 
 * For cases with 1 lesion, the weight is 1. 
-* For cases with 2 lesions, the first lesion has weight 0.4 and the second lesion has weight 0.6, which sum to unity.
-* For cases with 3 lesions, the respective weights are  0.2, 0.3 and 0.5, which sum to unity. 
-* For cases with 4 lesions, the respective weights are  0.3, 0.4, 0.2 and 0.1, which sum to unity.
+* For cases with 2 lesions, the first lesion has weight `r relWeights[1]/sum(relWeights[1:2])` and the second lesion has weight `r relWeights[2]/sum(relWeights[1:2])`, which are in the ratio 0.3 : 0.4 and sum to unity.
+* For cases with 3 lesions, the first lesion has weight `r relWeights[1]/sum(relWeights[1:3])`, the second lesion has weight `r relWeights[2]/sum(relWeights[1:3])` and the third lesion has weight `r relWeights[3]/sum(relWeights[1:3])`, which are in the ratio 0.3 : 0.4 : 0.2, and sum to unity. 
+* For cases with 4 lesions, the weights are `r relWeights[1]/sum(relWeights[1:4])`, `r relWeights[2]/sum(relWeights[1:4])`, `r relWeights[3]/sum(relWeights[1:4])` and `r relWeights[4]/sum(relWeights[1:4])`, which are  in the ratio 0.3 : 0.4 : 0.2 : 0.1 and sum to unity.
 
 
 ## Other operating characteristics
@@ -95,10 +100,14 @@ relWeights
 * Note that lesiion weights argument is not needed for ROC curves. It is only needed for `wAFROC` and `wAFROC1` curves.
 
 ```{r}
-lesDistr <- UtilLesionDistr(c(0.2, 0.4, 0.1, 0.3))
-p <- PlotRsmOperatingCharacteristics(mu = 2, lambda = 1, nu = 0.6, OpChType = "ROC",
-                                       lesDistr = lesDistr,  
-                                       legendPosition = "bottom")
+lesDistr <- c(0.2, 0.4, 0.1, 0.3)
+p <- PlotRsmOperatingCharacteristics(
+  mu = 2, 
+  lambda = 1, 
+  nu = 0.6, 
+  OpChType = "ROC",
+  lesDistr = lesDistr,  
+  legendPosition = "bottom")
 p$ROCPlot
 ```
 

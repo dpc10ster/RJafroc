@@ -65,7 +65,7 @@ print(lesDistr)
 print(relWeights)
 ````
 
-For this dataset `Lmax` is 3, and `r relWeights[1]*100` percent of the diseased cases have one lesion, `r relWeights[2]*100` percent have two lesions and `r relWeights[3]*100` percent have three lesions. Since the lesions are equally weighted, on cases with one lesion the weight of the lesion is unity, on cases with two lesions the weights of each lesion is 0.5 and on cases with three lesions the weight of each lesion is 1/3.
+`relWeights = 0` ensures equal weights to all lesions. For this dataset `Lmax` is 3, and fraction `r lesDistr[1]` of diseased cases have one lesion, fraction `r lesDistr[2]` of diseased cases have two lesions and fraction `r lesDistr[3]` of diseased cases have three lesions. Since the lesions are equally weighted, on cases with one lesion the weight of the lesion is unity, on cases with two lesions the weights of each lesion is 1/2 and on cases with three lesions the weight of each lesion is 1/3.
 
 The next code block determines the number of treatments and readers (`I` and `J`) from the dimensions of the `frocData$ratings$NL` array. It creates an array `RsmParms` to hold the RSM fitted parameter values. For each treatment and reader it applies the fitting algorithm `FitRsmRoc()`. The first three returned values are `mu`, `lambdaP` and `nuP`, corresponding to RSM parameters ${\mu}$, ${\lambda^{'}}$ and ${\nu^{'}}$ .
 
