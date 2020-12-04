@@ -1,6 +1,18 @@
 # RJafroc 1.3.2.9000
 
 
+## Trying to simplify handling of lesion distribution and lesion weights
+* Motivation: basically only need to specify two 1D arrays: `lesDistr` and `relWeights`.
+* Since these are involved in the C++ calls, cannot totally eliminate the 2D arrays; they are also useful for printouts.
+* Eliminated two functions and much simplification
+* Eliminated  `UtilSpecifyLesionWeightsDistr`
+* Eliminated `Convert2lesDistr`
+* Simplified system for specifying lesion distribution `lesDistr`
+* Simplified system for specifying lesion weights distribution `relWeights`
+* Affected many functions
+* Basic idea is to keep the complexity of weights etc. concealed from the user
+* Passed tests; 12/3/20
+
 ## Working on analytical AUCs from RSM
 * Motivation: could obviate the long simulations in CAD optimization chapter in book
 * Added `UtilSpecifyLesionWeightsDistr()` which is distinct from `UtilLesionWeightsDistr()`, as the latter works on datasets.

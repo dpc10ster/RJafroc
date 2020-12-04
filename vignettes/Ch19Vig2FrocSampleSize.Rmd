@@ -26,8 +26,9 @@ This example uses the FED dataset as a pilot FROC study and function `SsFrocNhRs
 One starts by extracting the first two treatments from `dataset04`, which represent the NH dataset, see previous vignette. Next one constructs the NH model - note that the lesion distribution `lesionPmf` can be specified here independently of that in the pilot dataset. This allows some control over selection of the diseased cases in the pivotal study.
 
 ```{r} 
+lesDistr <- c(0.7, 0.2, 0.1)
 frocNhData <- DfExtractDataset(dataset04, trts = c(1,2))
-ret <- SsFrocNhRsmModel(frocNhData, lesionPmf = c(0.7, 0.2, 0.1))
+ret <- SsFrocNhRsmModel(frocNhData, lesDistr = lesDistr)
 muMed <- ret$muMed
 lambdaMed <- ret$lambdaMed
 nuMed <- ret$nuMed
@@ -42,11 +43,9 @@ The fitting model is defined by `muMed = r muMed`,  `lambdaMed = `r lambdaMed`` 
 
 ```{r}
 aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                            lesDistr = lesDistr, 
-                                            lesWghtDistr = lesWghtDistr, OpChType = "ROC")$aucROC
+                                            lesDistr = lesDistr, OpChType = "ROC")$aucROC
 aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                               lesDistr = lesDistr, 
-                                               lesWghtDistr = lesWghtDistr, OpChType = "wAFROC")$aucwAFROC
+                                               lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC
 ````
 
 The null hypothesis ROC AUC is `r aucRocNH` and the corresponding NH wAFROC AUC is `r aucwAfrocNH`. 

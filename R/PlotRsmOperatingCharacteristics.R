@@ -6,47 +6,32 @@
 #'    for non-diseased and diseased cases), for sets of search model parameters: 
 #'    mu, lambda, nu and zeta1.
 #' 
-#' @param mu Array, the mean of the Gaussian distribution for the 
+#' @param mu Array: the mean of the Gaussian distribution for the 
 #'    ratings of latent LLs (continuous ratings of lesions that are found by the 
 #'    observer's search mechanism). The ratings of NLs are distributed as N(0,1).
 #' 
-#' @param lambda Array, the Poisson distribution \emph{intrinsic} 
-#'    parameter which models the random numbers of latent NLs (suspicious 
-#'    regions that do not correspond to actual lesions) per case. The corresponding 
-#'    \emph{physical} parameter is \code{lambda/mu}. 
-#'    Two conversion functions are provided: \code{\link{UtilIntrinsic2PhysicalRSM}} and 
+#' @param lambda Array: the \emph{intrinsic} Poisson distribution parameter 
+#'    which models the random numbers of latent NLs (suspicious regions that do 
+#'    not correspond to actual lesions) per case. The corresponding 
+#'    \emph{physical} parameter is \code{lambda/mu}. Two conversion functions 
+#'    are provided: \code{\link{UtilIntrinsic2PhysicalRSM}} and 
 #'    \code{\link{UtilPhysical2IntrinsicRSM}}.
 #' 
-#' @param nu Array, the \emph{intrinsic} parameter which models 
-#'    the random numbers of latent LLs (suspicious regions that correspond to actual 
+#' @param nu Array: the \emph{intrinsic} parameter which models the random 
+#'    numbers of latent LLs (suspicious regions that correspond to actual 
 #'    lesions) per diseased case. The corresponding \emph{physical} parameter is 
 #'    \code{1 - exp(nu*mu)}, the success probability of the binomial distribution.
 #' 
-#' @param zeta1 Array, the lowest reporting threshold; the default is -3. 
-#'    [Used to demonstrate continuity of the slope of the 
-#'    ROC at the end point; TBA Online Appendix 17.H.3] 
+#' @param zeta1 Array, the lowest reporting threshold; if missing the default 
+#'    is -3. [Used to demonstrate continuity of the slope of the ROC at the 
+#'    end point; TBA Online Appendix 17.H.3] 
 #'
-#' @param lesDistr Array [1:maxLL,1:2]. The probability mass function of the 
-#'    lesion distribution for diseased cases. The first column contains the 
-#'    actual numbers of lesions per case. The second column contains the fraction 
-#'    of diseased cases with the number of lesions specified in the first column. 
-#'    The second column must sum to unity. See \link{UtilLesionDistr}. 
+#' @param lesDistr Array: the probability mass function of the 
+#'    lesion distribution for diseased cases. See \link{UtilLesionDistr}. 
 #' 
-#' @param lesWghtDistr The lesion weights distribution, an [1:maxLL,1:maxLL] array. 
-#'    The probability mass function of the 
-#'    lesion weights for diseased cases. \code{maxLL} is the maximum number of lesions in
-#'    the dataset. The 1st row contains the weight of the 
-#'    lesion on cases with one lesion only, necessarily 1, assuming the dataset 
-#'    has cases with only one lesion; the remaining elements 
-#'    of the row are \code{-Inf}. The 2nd row contains the weights of the 2 lesions 
-#'    on cases with 2 lesions only, the remaining elements of the row, if any, 
-#'    are \code{-Inf}, assuming the dataset 
-#'    has cases with two lesion. Excluding the \code{-Inf}, each row must sum to 1. 
-#'    The default is equal weighting, e.g., weights are 1/3, 1/3, 1/3 on row 3, 
-#'    assuming the dataset has cases with three lesions.
-#'    This parameter is not to be confused with the lesionWeight list member in an FROC
-#'    dataset which enumerates the weights of lesions on individual cases. See 
-#'    \link{UtilLesionWeightsDistr}.
+#' @param relWeights The relative weights of the lesions; a vector of 
+#'    length equal to \code{length(maxLL)}. The default is zero, in which case
+#'    equal weights are assumed.
 #' 
 #' @param  OpChType The type of operating characteristic desired: can be "\code{ROC}", 
 #'    "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or "\code{pdfs}" or "\code{ALL}". 
@@ -94,25 +79,13 @@
 #' \item{\code{aucFROC}}   {The predicted FROC AUCs}
 #' }
 #' 
-#' @details RSM is the Radiological Search Model described in the book.
+#' @details RSM is the Radiological Search Model described in the book. This 
+#'    function is vectorized with respect to the first 4 arguments. For 
+#'    \code{lesDistr} the sum must be one. To indicate that all dis. cases
+#'    contain 4 lesions, set lesDistr = c(0,0,0,1).  
 #' 
-#' @note For \code{lesDistr}, the sum over the second column must equal one. 
-#'    If all cases contain same number of lesions, simply supply this number instead of 
-#'    the matrix. If the argument is missing, the default value 
-#'    of one lesion per diseased case is used. 
 #'   
-#' In \code{lesWghtDistr}, the sum over each row (excluding \code{-Inf}) must be one. 
-#'    The value \code{-Inf} should be assigned if the corresponding lesion 
-#'    does not exist. Equal lesion weighting is applied if this argument is missing.
 #' 
-#'    For example, if the maximum number of distinct lesion configurations per case 
-#'    is 3 (e.g., 1, 2 and 4, implying there are no cases with 3 lesions), the 
-#'    first column of \code{lesDistr} will be c(1,2,4). The second column might be
-#'    c(0.8, 0.15, 0.05), which sums to one, meaning 80\% of cases have only one 
-#'    lesion, 15\% have two lesions and 5\% have three lesions. The 
-#'    \code{lesWghtDistr} matrix will be 
-#'    \code{[1:3,1:4]}, where each row will sum to one (excluding the first entry and 
-#'    excluding negative infinities). 
 #' 
 #' @import ggplot2
 #' 
@@ -135,23 +108,10 @@
 #' ## mu = 3, lambda = 1.5, nu = 0.8, in the other treatment. 20% of the diseased 
 #' ## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, 
 #' ## and 30% have 4 lesions.  
-#' lesDistr <- rbind(c(1, 0.2), c(2, 0.4), c(3, 0.1), c(4, 0.3))
+#' lesDistr <- c(0.2, 0.4, 0.1, 0.3)
 #' 
-#' ## On cases with one lesion the weights are 1, on cases with 2 lesions the weights
-#' ## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and
-#' ## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: 
-#' lesWghtDistr <- rbind(c(1, 1.0, -Inf, -Inf, -Inf), 
-#'                        c(2, 0.4,  0.6, -Inf, -Inf), 
-#'                        c(3, 0.2,  0.3,  0.5, -Inf), 
-#'                        c(4, 0.3,  0.4, 0.2,  0.1))
-#' ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
-#'    lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, 
-#'    legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
-#'    ## print(ret$ROCPlot)
-#'    ## print(ret$AFROCPlot)
-#'    ## print(ret$wAFROCPlot)
-#'    ## print(ret$FROCPlot)
-#' ## the FROC plot ends at NLF = 0.5 because for both treatments the physical lambdas are 0.5.
+#' PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
+#'    lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
 #' 
 #' @export
 #' 
@@ -159,78 +119,22 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                             lambda, 
                                             nu,
                                             zeta1,
-                                            lesDistr, lesWghtDistr, 
-                                             OpChType = "ALL", 
+                                            lesDistr, 
+                                            relWeights = 0, 
+                                            OpChType = "ALL", 
                                             legendPosition = c(1,0), 
                                             legendDirection = "horizontal", 
                                             legendJustification = c(0,1),
                                             nlfRange = NULL, 
                                             llfRange = NULL, 
                                             nlfAlpha = NULL){
-  # fixing rjafroc 1.3.1 to 1.3.2
-  # The following line is, strictly speaking, not needed; it is for catching errors in calls
-  # to data.frame() or read.table() where the optional argument `stringsAsFactors = TRUE` is
-  # *NOT* passed *AND* an attempt to factorize a string is made which will result in an error; 
-  # in R version <= 3.6.2 this option was not needed, as `stringsAsFactors = TRUE` was the default, 
-  # but in version >= 4.0.0 the default is stringsAsFactors = FALSE, which necessitates explicit
-  # specification of the option
-  
   if (missing(zeta1)) zeta1 <- array(-3, dim = length(mu))
       
   if (!all(c(length(mu) == length(lambda), length(mu) == length(nu), length(mu) == length(zeta1))))
     stop("Parameters mu, lambda, nu and zeta1 have different lengths.")
   
-  if (missing(lesDistr) && missing(lesWghtDistr)){
-    lesDistr <- c(1, 1)
-    dim(lesDistr) <- c(1, 2)
-    lesWghtDistr <- 1
-    dim(lesWghtDistr) <- c(1, 1)
-  }else if (!missing(lesDistr) && missing(lesWghtDistr)){
-    if (is.vector(lesDistr)){
-      if ((length(lesDistr) == 1) && is.wholenumber(lesDistr)){
-        lesDistr <- c(lesDistr, 1)
-      }else if (length(lesDistr) > 2){
-        stop("lesDistr must have two columns")
-      }
-      dim(lesDistr) <- c(1, 2)
-    }
-    lesWghtDistr <- array(-Inf, dim = c(nrow(lesDistr), max(lesDistr[ , 1])+1))
-    lesWghtDistr[,1] <- lesDistr[,1]
-    for (i in 1:length(lesDistr[,1])) lesWghtDistr[i,2:(lesDistr[i,1]+1)] <- 1/lesDistr[i,1]
-    # for (r in 1:nrow(lesDistr)){
-    #   lesWghtDistr[r, 1:lesDistr[r, 1]] <- 1 / lesDistr[r, 1]
-    # }
-  }else{
-    if (is.vector(lesDistr)){
-      if ((length(lesDistr) == 1) && is.wholenumber(lesDistr)){
-        lesDistr <- c(lesDistr, 1)
-      }else if (length(lesDistr) > 2){
-        stop("lesDistr must have two columns")
-      }
-      dim(lesDistr) <- c(1, 2)
-      
-      if (!is.vector(lesWghtDistr)){
-        stop("lesWghtDistr and lesDistr must have same number of rows.")
-      }else{
-        dim(lesWghtDistr) <- c(1, length(lesWghtDistr))
-      }
-    }else if (nrow(lesDistr) != nrow(lesWghtDistr)){
-      stop("lesWghtDistr and lesDistr must have same number of rows.")
-      if (length(lesDistr) != 2){
-        stop("lesDistr must have two columns")
-      }
-    }
-  }
-  
-  for (r in 1:nrow(lesWghtDistr)){
-    maxLL <- max(lesDistr[,1])
-    rowWeight <- lesWghtDistr[r, 2:(maxLL+1)]
-    if (abs(sum(rowWeight[rowWeight != -Inf]) - 1.0) > 1e-6){
-    #if (sum(rowWeight[rowWeight != -Inf]) != 1){ # this generated Solaris error
-        errMsg <- sprintf("Line %d of lesion weights matrix should be summed up to 1.", r)
-      stop(errMsg)
-    }
-  }
+  lesWghtDistr <- UtilLesionWeightsDistr(length(lesDistr), relWeights)
+  lesDistr <- UtilLesionDistr(lesDistr)
   
   plotStep <- 0.01
   plotStep <- 0.1 # delete after debug

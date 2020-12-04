@@ -2,33 +2,48 @@
 % Please edit documentation in R/UtilLesionDistr.R
 \name{UtilLesionDistr}
 \alias{UtilLesionDistr}
-\title{Lesion distribution in the dataset}
+\title{Lesion distribution of a dataset or as specified by a one-dimensional array}
 \usage{
-UtilLesionDistr(dataset)
+UtilLesionDistr(datasetOrLesDistr)
 }
 \arguments{
-\item{dataset}{The dataset}
+\item{datasetOrLesDistr}{A dataset or a one-dimensional array containing the lesion 
+distribution. For example, c(0.1, 0.2, 0, 0.7) specifies 10 percent of 
+diseased cases have one lesion, 20 percent have two lesions, 0 percent 
+have 3 lesions and 70 percent have four lesions. See 3rd example below.}
 }
 \value{
-The lesion distribution array
+lesDistr The lesion distribution array.
 }
 \description{
-The lesion distribution for a dataset.
+The lesion distribution for a dataset or lesions distribution 
+   specified as a one-dimensional array.
 }
 \details{
-Two characteristics of an FROC dataset, apart from the 
-   ratings, affect the FOM: the distribution of lesion per case and the 
-   distribution of lesion weights. This function addresses the first. 
-   The weights are addressed by \link{UtilLesionWeightsDistr}. \code{lesDistr} 
-   is an [1:nRow,2] array, where \code{nRow} is the number of \bold{unique} 
-   values of lesions per case in the dataset. The first column of the array contains 
-   the number of lesions per case. The second column contains the corresponding 
-   fraction of diseased cases. See \link{PlotRsmOperatingCharacteristics} for a 
-   function that depends on \code{lesDistr}. See Chapter00Vignette2 for more details.
+Two characteristics of an FROC dataset, apart from the ratings, 
+   affect the FOM: the distribution of lesions per case and the distribution 
+   of lesion weights. This function addresses the lesions. The distribution 
+   of weights are addressed by \link{UtilLesionWeightsDistr}. \code{lesDistr} is a 
+   [1:nRow,2] array, where \code{nRow} is the number of \bold{unique} 
+   values of lesions per case in the dataset, 1, 2, ..., etc. The first 
+   column of the array contains the number of lesions per case. The second 
+   column contains the corresponding fraction of diseased cases. 
+   See \link{PlotRsmOperatingCharacteristics} for a function that depends on 
+   \code{lesDistr}. See TBA Chapter00Vignette2 for more details.
+   The underlying assumption is that lesion 1 is the same type across all 
+   diseased cases, lesion 2 is the same type across all diseased cases, 
+   etc. This allows assignment of weights independent of the case index.
+   In the third example below, \code{relWeights} = [0.2, 0.4, 0.1, 0.3] means that
+   on cases with one lesion the weight of lesion 1 is unity, on cases with two 
+   lesions the weight of the first lesion to that of the second lesion is
+   in the ratio 0.2 : 0.4, i.e., lesion 2 is twice as important as lesion 1. 
+   On cases with 4 lesions the weights are in the ratio 0.2 : 0.4 : 0.1 : 0.3.
+   There are no cases with 3 lesions in this example. Of course, on any case
+   the weights sum to unity.
 }
 \examples{
-UtilLesionDistr (dataset01) # FROC data
-UtilLesionDistr (dataset02) # ROC data
-UtilLesionDistr (datasetCadLroc) # LROC data
+UtilLesionDistr (dataset01) # FROC dataset
+UtilLesionDistr (dataset02) # ROC dataset
+UtilLesionDistr (c(0.1, 0.2, 0, 0.7)) # We specify the distribution
 
 }

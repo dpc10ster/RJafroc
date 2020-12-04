@@ -9,7 +9,8 @@ UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights = 0)
 \arguments{
 \item{mu}{The mean of the Gaussian distribution for the 
 ratings of latent LLs (continuous ratings of lesions that 
-are found by the search mechanism).}
+are found by the search mechanism). The NLs are assumed to be distributed
+as N(0,1).}
 
 \item{lambda}{The \emph{intrinsic} Poisson distribution parameter, 
 which describes 
@@ -23,7 +24,8 @@ to actual lesions) per diseased case.}
 
 \item{zeta1}{The lowest reporting threshold, the default is \code{-Inf}.}
 
-\item{lesDistr}{See \code{\link{PlotRsmOperatingCharacteristics}}.}
+\item{lesDistr}{The lesion distribution 1D array, i.e., the probability
+mass function (pmf) of the numbers of lesions for diseased cases.}
 
 \item{relWeights}{The relative weights of the lesions; a vector of 
 length \code{maxLL}; if zero, the default, equal weights are assumed.}
@@ -39,13 +41,13 @@ A list containing the ROC, AFROC and wAFROC AUCs corresponding to the
 }
 \examples{
 mu <- 1;lambda <- 1;nu <- 1
-lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
+lesDistr <- c(0.9, 0.1) 
 ## i.e., 90\% of dis. cases have one lesion, and 10\% have two lesions
+relWeights <- c(0.05, 0.95)
+## i.e., lesion 1 has weight 5 percent while lesion two has weight 95 percent
 
 UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr)
-
-relWeights <- c(0.05, 0.95)
-UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = 0, lesDistr, relWeights)
+UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights)
 
 
 }

@@ -11,12 +11,12 @@ frocData <- DfExtractDataset(dataset04, trts = c(1,2))
 rocData <- DfFroc2Roc(frocData)
 
 ## -----------------------------------------------------------------------------
-lesDistr <- UtilLesionDistr(frocData)
-lesWghts <- UtilLesionWeightsDistr(frocData) # this is needed later
+lesDistr <- UtilLesionDistr(frocData)[,2]
+relWeights <- 0
 
 ## -----------------------------------------------------------------------------
 print(lesDistr)
-print(lesWghts)
+print(relWeights)
 
 ## -----------------------------------------------------------------------------
 I <- dim(frocData$ratings$NL)[1]
@@ -43,22 +43,18 @@ nuMed <- temp$nu
 
 ## -----------------------------------------------------------------------------
 aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                            lesDistr = lesDistr, 
-                                            lesWghtDistr = lesWghts, OpChType = "ROC")$aucROC
+                                            lesDistr = lesDistr, OpChType = "ROC")$aucROC
 aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                               lesDistr = lesDistr, 
-                                               lesWghtDistr = lesWghts, OpChType = "wAFROC")$aucwAFROC
+                                               lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC
 
 ## -----------------------------------------------------------------------------
 deltaMu <- seq(0.01, 0.2, 0.01) # values of deltaMu to scan below
 esRoc <- array(dim = length(deltaMu));eswAfroc <- array(dim = length(deltaMu))
 for (i in 1:length(deltaMu)) {
   esRoc[i] <- PlotRsmOperatingCharacteristics(
-    muMed + deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, 
-    lesWghtDistr = lesWghts, OpChType = "ROC")$aucROC - aucRocNH
+    muMed + deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, OpChType = "ROC")$aucROC - aucRocNH
   eswAfroc[i] <- PlotRsmOperatingCharacteristics(
-    muMed+ deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, 
-    lesWghtDistr = lesWghts, OpChType = "wAFROC")$aucwAFROC - aucwAfrocNH
+    muMed+ deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC - aucwAfrocNH
   cat("ES_ROC = ", esRoc[i], ", ES_wAFROC = ", eswAfroc[i],"\n")
 }
 

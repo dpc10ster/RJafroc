@@ -3,17 +3,17 @@
 #' @param dataset The \strong{pilot} dataset object representing a NH ROC 
 #'     (or FROC) dataset.
 #' 
-#' @param lesionPmf An array containing the probability mass function of 
-#'     number of lesions per diseased case in the proposed \strong{pivotal} 
-#'     \strong{FROC} study. 
+#' @param lesDistr A 1D array containing the probability mass function of 
+#'     number of lesions per diseased case in the \strong{pivotal FROC} 
+#'     study. 
 #' 
 #' @return A list containing: 
 #'    \itemize{ 
 #'    \item \code{muMed}, the median mu parameter of the NH model. 
 #'    \item \code{lambdaMed}, the median lambda parameter of the NH model.  
 #'    \item \code{nuMed}, the median nu parameter of the NH model. 
-#'    \item \code{lesDistr}, the lesion distribution array. 
-#'    \item \code{lesWghtDistr}, the lesion weight distribution array. 
+#'    \item \code{lesDistr}, the lesion distribution 2D array. 
+#'    \item \code{lesWghtDistr}, the lesion weight distribution 2D array. 
 #'    \item \code{scaleFactor}, the scaling factor that multiplies 
 #'       the ROC effect size to get wAFROC effect size.
 #'    \item \code{R2}, the R2 of the fit.
@@ -46,22 +46,14 @@
 #' @export
 #' 
 
-SsFrocNhRsmModel <- function (dataset, lesionPmf) {
+SsFrocNhRsmModel <- function (dataset, lesDistr) {
   
   if (!(dataset$descriptions$type %in% c("ROC", "FROC"))) stop("Dataset must be ROC or FROC")
   if (dataset$descriptions$type == "FROC") rocData <- DfFroc2Roc(dataset) else rocData <- dataset
-  if (sum(lesionPmf) != 1) stop("The lesion distribution vector must sum to unity")
+  if (sum(lesDistr) != 1) stop("The lesion distribution vector must sum to unity")
   
   I <- dim(dataset$ratings$NL)[1]
   J <- dim(dataset$ratings$NL)[2]
-  maxLL <- length(lesionPmf)
-  
-  lesDistr <- array(c(seq(1, maxLL), lesionPmf), dim = c(maxLL, 2))
-  
-  lesWghtDistr <- matrix(-Inf, nrow = nrow(lesDistr), ncol = nrow(lesDistr)+1)
-  lesWghtDistr[,1] <- lesDistr[,1]
-  lesWghtDistr[,1] <- lesDistr[,1]
-  for (i in 1:length(lesDistr[,1])) lesWghtDistr[i,2:(lesDistr[i,1]+1)] <- 1/lesDistr[i,1]
   
   RsmParms <- array(dim = c(I,J,3))
   for (i in 1:I) {
@@ -80,21 +72,21 @@ SsFrocNhRsmModel <- function (dataset, lesionPmf) {
   temp <- UtilPhysical2IntrinsicRSM(muMed, lambdaPMed, nuPMed)
   lambdaMed <- temp$lambda
   nuMed <- temp$nu
-  
+
   # calculate NH values for ROC-AUC and wAFROC-AUC
   aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                              lesDistr = lesDistr, lesWghtDistr = lesWghtDistr,  OpChType = "ROC")$aucROC
+                                              lesDistr = lesDistr, OpChType = "ROC")$aucROC
   aucAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                                lesDistr = lesDistr, lesWghtDistr = lesWghtDistr,  OpChType = "wAFROC")$aucwAFROC
+                                                lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC
   
   # following calculates effect sizes: ROC-ES and wAFROC-ES
   deltaMu <- seq(0.01, 0.2, 0.01) # values of deltaMu to scan below
   esRoc <- array(dim = length(deltaMu));eswAfroc <- array(dim = length(deltaMu))
   for (i in 1:length(deltaMu)) {
     esRoc[i] <- PlotRsmOperatingCharacteristics(muMed + deltaMu[i], lambdaMed, nuMed, lesDistr = 
-                                                  lesDistr, lesWghtDistr = lesWghtDistr,  OpChType = "ROC")$aucROC - aucRocNH
+                                                  lesDistr, OpChType = "ROC")$aucROC - aucRocNH
     eswAfroc[i] <- PlotRsmOperatingCharacteristics(muMed+ deltaMu[i], lambdaMed, nuMed, lesDistr = 
-                                                     lesDistr, lesWghtDistr = lesWghtDistr,  OpChType = "wAFROC")$aucwAFROC - aucAfrocNH
+                                                     lesDistr, OpChType = "wAFROC")$aucwAFROC - aucAfrocNH
   }
   
   scaleFactor<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin
@@ -103,6 +95,10 @@ SsFrocNhRsmModel <- function (dataset, lesionPmf) {
   temp <- UtilPhysical2IntrinsicRSM(muMed, lambdaPMed, nuPMed)
   lambdaMed <- temp$lambda
   nuMed <- temp$nu
+  
+  maxLL <- length(lesDistr)
+  lesWghtDistr <- UtilLesionWeightsDistr(maxLL, lesDistr) # convert to 2D
+  lesDistr <- UtilLesionDistr(lesDistr)  # convert to 2D
   
   return(list(
     muMed = muMed,

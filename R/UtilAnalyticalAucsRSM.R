@@ -6,7 +6,8 @@
 #' 
 #' @param mu The mean of the Gaussian distribution for the 
 #'    ratings of latent LLs (continuous ratings of lesions that 
-#'    are found by the search mechanism).
+#'    are found by the search mechanism). The NLs are assumed to be distributed
+#'    as N(0,1).
 #' 
 #' @param lambda The \emph{intrinsic} Poisson distribution parameter, 
 #'    which describes 
@@ -24,7 +25,8 @@
 #'    length \code{maxLL}; if zero, the default, equal weights are assumed.
 #'
 #'
-#' @param lesDistr See \code{\link{PlotRsmOperatingCharacteristics}}.
+#' @param lesDistr The lesion distribution 1D array, i.e., the probability
+#'    mass function (pmf) of the numbers of lesions for diseased cases.
 #'  
 #' 
 #' @return A list containing the ROC, AFROC and wAFROC AUCs corresponding to the 
@@ -33,13 +35,13 @@
 #' 
 #' @examples
 #' mu <- 1;lambda <- 1;nu <- 1
-#' lesDistr <- rbind(c(1, 0.9), c(2, 0.1)) 
+#' lesDistr <- c(0.9, 0.1) 
 #' ## i.e., 90% of dis. cases have one lesion, and 10% have two lesions
+#' relWeights <- c(0.05, 0.95)
+#' ## i.e., lesion 1 has weight 5 percent while lesion two has weight 95 percent
 #' 
 #' UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr)
-#' 
-#' relWeights <- c(0.05, 0.95)
-#' UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = 0, lesDistr, relWeights)
+#' UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights)
 #' 
 #' 
 #' @references 
@@ -58,6 +60,9 @@
 #' 
 UtilAnalyticalAucsRSM <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights = 0){
   
+  maxLL <- length(lesDistr)
+  lesWghtDistr <- UtilLesionWeightsDistr(maxLL, relWeights)
+  
   ret <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
   lambdaP <- ret$lambdaP
   nuP <- ret$nuP
@@ -68,10 +73,7 @@ UtilAnalyticalAucsRSM <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, relWe
   if (missing(lesDistr)){
     lesDistr <- c(1, 1) # two values
     dim(lesDistr) <- c(1, 2) # convert to 1 row and 2 columns array
-  }
-  
-  specified1DLesDistr <- lesDistr[,2]
-  lesWghtDistr <- UtilSpecifyLesionWeightsDistr(specified1DLesDistr, relWeights)
+  } else lesDistr <- UtilLesionDistr(lesDistr)
   
   aucwAFROC <- aucAFROC <- aucROC <- rep(NA, length(mu))
   

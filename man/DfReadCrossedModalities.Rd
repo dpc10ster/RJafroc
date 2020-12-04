@@ -17,7 +17,7 @@ original data file will be used. The default is \code{FALSE}.}
 }
 \value{
 A dataset with the specified structure, similar to a standard 
-   \pkg{RJafroc}(see \code{\link{RJafroc-package}}). Because of the extra treatment factor, 
+   \pkg{RJafroc} dataset (see \code{\link{RJafroc-package}}). Because of the extra treatment factor, 
    \code{NL} and \code{LL} are each five dimensional arrays. There are also two 
    treatment IDS: \code{modalityID1} and \code{modalityID2}.
 }

@@ -7,8 +7,9 @@ library(RJafroc)
 library(ggplot2)
 
 ## -----------------------------------------------------------------------------
+lesDistr <- c(0.7, 0.2, 0.1)
 frocNhData <- DfExtractDataset(dataset04, trts = c(1,2))
-ret <- SsFrocNhRsmModel(frocNhData, lesionPmf = c(0.7, 0.2, 0.1))
+ret <- SsFrocNhRsmModel(frocNhData, lesDistr = lesDistr)
 muMed <- ret$muMed
 lambdaMed <- ret$lambdaMed
 nuMed <- ret$nuMed
@@ -18,11 +19,9 @@ scaleFactor <- ret$scaleFactor
 
 ## -----------------------------------------------------------------------------
 aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                            lesDistr = lesDistr, 
-                                            lesWghtDistr = lesWghtDistr, OpChType = "ROC")$aucROC
+                                            lesDistr = lesDistr, OpChType = "ROC")$aucROC
 aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
-                                               lesDistr = lesDistr, 
-                                               lesWghtDistr = lesWghtDistr, OpChType = "wAFROC")$aucwAFROC
+                                               lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC
 
 ## -----------------------------------------------------------------------------
 varCompwAFROC  <- StSignificanceTesting(frocNhData, FOM = "wAFROC", method = "DBM", analysisOption = "RRRC")$ANOVA$VarCom

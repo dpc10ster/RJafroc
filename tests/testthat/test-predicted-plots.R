@@ -40,32 +40,35 @@ test_that("PlotCbmFit", {
 test_that("Rsm1", {
   Sys.sleep(0.2)
   
-  lesDistr <- rbind(c(1, 0.2), c(2, 0.4), c(3, 0.1), c(4, 0.3))
-  lesWghtDistr <- rbind(c(1, 1, -Inf, -Inf, -Inf), 
-                         c(2,  0.4, 0.6, -Inf, -Inf), 
-                         c(3,  0.2, 0.3,  0.5, -Inf), 
-                         c(4,  0.3, 0.4, 0.2,  0.1))
+  mu <- c(2, 3)
+  lambda  <- c(1, 1.5) 
+  nu <- c(0.6, 0.8) 
+  zeta1 <- c(-3,-3) 
+  
+  lesDistr <- c(0.2, 0.4, 0.1, 0.3)
+  relWeights <- c(0.3, 0.4, 0.2,  0.1)
   
   fn <- paste0(test_path(), "/goodValues361/Plots/Rsm1", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8), zeta1 = c(-3,-3), OpChType = "wAFROC",
-                                           lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, 
-                                           legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
+    ret <- PlotRsmOperatingCharacteristics(mu = mu, 
+                                           lambda = lambda, 
+                                           nu = nu, 
+                                           zeta1 = zeta1, 
+                                           OpChType = "wAFROC",
+                                           lesDistr = lesDistr, 
+                                           relWeights = relWeights)
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotRsmOperatingCharacteristics(mu = c(2, 3), 
-                                               lambda = c(1, 1.5), 
-                                               nu = c(0.6, 0.8), 
-                                               zeta1 = c(-3,-3), 
+  expect_equal(PlotRsmOperatingCharacteristics(mu = mu, 
+                                               lambda = lambda, 
+                                               nu = nu, 
+                                               zeta1 = zeta1, 
                                                OpChType = "wAFROC",
                                                lesDistr = lesDistr, 
-                                               lesWghtDistr = lesWghtDistr, 
-                                               legendPosition = "bottom", 
-                                               nlfRange = c(0, 1), 
-                                               llfRange = c(0, 1)), ret)
+                                               relWeights = relWeights), ret)
 
 })
 
@@ -75,29 +78,24 @@ test_that("Rsm2", {
   
   set.seed(1)
   K2 <- 700;Lmax <- 5;Lk2 <- floor(runif(K2, 1, Lmax + 1))
-  nLesPerCase <- unique(Lk2);lesDistr <- array(dim = c(length(nLesPerCase), 2))
-  for (i in nLesPerCase) lesDistr[i, ] <- c(i, sum(Lk2 == i)/K2)
+  nLesPerCase <- unique(Lk2);lesDistr <- array(dim = length(nLesPerCase))
+  for (i in nLesPerCase) lesDistr[i] <- sum(Lk2 == i)/K2
   
-  maxLL <- max(lesDistr[,1])
-  # first column contains the number of lesions
-  # remaining columns contain the weights; equal weighting assumed
-  lesWghtDistr <- array(-Inf, dim = c(length(lesDistr[,1]), maxLL+1))
-  lesWghtDistr[,1] <- lesDistr[,1]
-  for (i in 1:length(lesDistr[,1])) lesWghtDistr[i,2:(lesDistr[i,1]+1)] <- 1/lesDistr[i,1]
-  
+  maxLL <- max(lesDistr)
+
   mu <- 10;nu <- 0.99;lambda <- 1
   
   fn <- paste0(test_path(), "/goodValues361/Plots/Rsm2", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotRsmOperatingCharacteristics(mu, lambda, nu, OpChType = "wAFROC", 
-                                            lesDistr = lesDistr, lesWghtDistr = lesWghtDistr)
+                                            lesDistr = lesDistr)
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
   expect_equal(PlotRsmOperatingCharacteristics(mu, lambda, nu, OpChType = "wAFROC", 
-                                               lesDistr = lesDistr, lesWghtDistr = lesWghtDistr), ret)
+                                               lesDistr = lesDistr), ret)
   
 })
 
@@ -110,23 +108,20 @@ test_that("RSM3", {
   frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormalCasesFirst.xlsx",
                                           package = "RJafroc", mustWork = TRUE)
   x <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = TRUE)
-  lesDistr <- UtilLesionDistr(x)
-  lesWghtDistr <- UtilLesionWeightsDistr(x)
-  
+  lesDistr <- UtilLesionDistr(x)[,2]
+
   fn <- paste0(test_path(), "/goodValues361/Plots/Rsm3", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     
     ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),  zeta1 = c(-3,-3), OpChType = "wAFROC",
-                                           lesDistr = lesDistr, lesWghtDistr = lesWghtDistr,
-                                           legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
+                                           lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
   expect_equal(PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8), zeta1 = c(-3,-3), OpChType = "wAFROC",
-                                               lesDistr = lesDistr, lesWghtDistr = lesWghtDistr,
-                                               legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), ret)
+                                               lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), ret)
   
 })
 

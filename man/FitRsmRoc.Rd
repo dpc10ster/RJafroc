@@ -9,11 +9,7 @@ FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)
 \arguments{
 \item{binnedRocData}{The \strong{binned ROC} dataset containing the data}
 
-\item{lesDistr}{Array [1:maxLL,1:2]. The probability mass function of the 
-lesion distribution for diseased cases. The first column contains the 
-actual numbers of lesions per case. The second column contains the fraction 
-of diseased cases with the number of lesions specified in the first column. 
-The second column must sum to unity.}
+\item{lesDistr}{The lesion distribution 1D array.}
 
 \item{trt}{The selected treatment, default is 1}
 
@@ -70,26 +66,26 @@ If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. MLE
 \donttest{
 ## Test with included ROC data (some bins have zero counts)
 lesDistr <- UtilLesionDistr(dataset02)
-retFit <- FitRsmRoc(dataset02, lesDistr)
+retFit <- FitRsmRoc(dataset02, lesDistr[,2])
 ## print(retFit$fittedPlot)
 
 ## Test with included degenerate ROC data
 lesDistr <- UtilLesionDistr(datasetDegenerate)
-retFit <- FitRsmRoc(datasetDegenerate, lesDistr);## print(retFit$fittedPlot)
+retFit <- FitRsmRoc(datasetDegenerate, lesDistr[,2])
 
 ## Test with single interior point data
 fp <- c(rep(1,7), rep(2, 3))
 tp <- c(rep(1,5), rep(2, 5))
 binnedRocData <- Df2RJafrocDataset(fp, tp)
 lesDistr <- UtilLesionDistr(binnedRocData)
-retFit <- FitRsmRoc(binnedRocData, lesDistr);## print(retFit$fittedPlot)
+retFit <- FitRsmRoc(binnedRocData, lesDistr[,2])
 
 ## Test with two interior data points
 fp <- c(rep(1,7), rep(2, 5), rep(3, 3))
 tp <- c(rep(1,3), rep(2, 5), rep(3, 7))
 binnedRocData <- Df2RJafrocDataset(fp, tp)
 lesDistr <- UtilLesionDistr(binnedRocData)
-retFit <- FitRsmRoc(binnedRocData, lesDistr);## print(retFit$fittedPlot)
+retFit <- FitRsmRoc(binnedRocData, lesDistr[,2])
 
 
 ## Test with three interior data points
@@ -97,12 +93,13 @@ fp <- c(rep(1,12), rep(2, 5), rep(3, 3), rep(4, 5)) #25
 tp <- c(rep(1,3), rep(2, 5), rep(3, 7), rep(4, 10)) #25
 binnedRocData <- Df2RJafrocDataset(fp, tp)
 lesDistr <- UtilLesionDistr(binnedRocData)
-retFit <- FitRsmRoc(binnedRocData, lesDistr);## print(retFit$fittedPlot)
+retFit <- FitRsmRoc(binnedRocData, lesDistr[,2])
 
-## test for TONY data, i = 2 and j = 3; only case permitting chisqure calculation
+## test for TONY data, i = 2 and j = 3 
+## only case permitting chisqure calculation
 lesDistr <- UtilLesionDistr(dataset01)
 rocData <- DfFroc2Roc(dataset01)
-retFit <- FitRsmRoc(rocData, lesDistr, trt = 2, rdr = 3)
+retFit <- FitRsmRoc(rocData, lesDistr[,2], trt = 2, rdr = 3)
 ## print(retFit$fittedPlot)
 retFit$ChisqrFitStats
 }

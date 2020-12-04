@@ -11,7 +11,7 @@ PlotRsmOperatingCharacteristics(
   nu,
   zeta1,
   lesDistr,
-  lesWghtDistr,
+  relWeights = 0,
   OpChType = "ALL",
   legendPosition = c(1, 0),
   legendDirection = "horizontal",
@@ -22,47 +22,32 @@ PlotRsmOperatingCharacteristics(
 )
 }
 \arguments{
-\item{mu}{Array, the mean of the Gaussian distribution for the 
+\item{mu}{Array: the mean of the Gaussian distribution for the 
 ratings of latent LLs (continuous ratings of lesions that are found by the 
 observer's search mechanism). The ratings of NLs are distributed as N(0,1).}
 
-\item{lambda}{Array, the Poisson distribution \emph{intrinsic} 
-parameter which models the random numbers of latent NLs (suspicious 
-regions that do not correspond to actual lesions) per case. The corresponding 
-\emph{physical} parameter is \code{lambda/mu}. 
-Two conversion functions are provided: \code{\link{UtilIntrinsic2PhysicalRSM}} and 
+\item{lambda}{Array: the \emph{intrinsic} Poisson distribution parameter 
+which models the random numbers of latent NLs (suspicious regions that do 
+not correspond to actual lesions) per case. The corresponding 
+\emph{physical} parameter is \code{lambda/mu}. Two conversion functions 
+are provided: \code{\link{UtilIntrinsic2PhysicalRSM}} and 
 \code{\link{UtilPhysical2IntrinsicRSM}}.}
 
-\item{nu}{Array, the \emph{intrinsic} parameter which models 
-the random numbers of latent LLs (suspicious regions that correspond to actual 
+\item{nu}{Array: the \emph{intrinsic} parameter which models the random 
+numbers of latent LLs (suspicious regions that correspond to actual 
 lesions) per diseased case. The corresponding \emph{physical} parameter is 
 \code{1 - exp(nu*mu)}, the success probability of the binomial distribution.}
 
-\item{zeta1}{Array, the lowest reporting threshold; the default is -3. 
-[Used to demonstrate continuity of the slope of the 
-ROC at the end point; TBA Online Appendix 17.H.3]}
+\item{zeta1}{Array, the lowest reporting threshold; if missing the default 
+is -3. [Used to demonstrate continuity of the slope of the ROC at the 
+end point; TBA Online Appendix 17.H.3]}
 
-\item{lesDistr}{Array [1:maxLL,1:2]. The probability mass function of the 
-lesion distribution for diseased cases. The first column contains the 
-actual numbers of lesions per case. The second column contains the fraction 
-of diseased cases with the number of lesions specified in the first column. 
-The second column must sum to unity. See \link{UtilLesionDistr}.}
+\item{lesDistr}{Array: the probability mass function of the 
+lesion distribution for diseased cases. See \link{UtilLesionDistr}.}
 
-\item{lesWghtDistr}{The lesion weights distribution, an [1:maxLL,1:maxLL] array. 
-The probability mass function of the 
-lesion weights for diseased cases. \code{maxLL} is the maximum number of lesions in
-the dataset. The 1st row contains the weight of the 
-lesion on cases with one lesion only, necessarily 1, assuming the dataset 
-has cases with only one lesion; the remaining elements 
-of the row are \code{-Inf}. The 2nd row contains the weights of the 2 lesions 
-on cases with 2 lesions only, the remaining elements of the row, if any, 
-are \code{-Inf}, assuming the dataset 
-has cases with two lesion. Excluding the \code{-Inf}, each row must sum to 1. 
-The default is equal weighting, e.g., weights are 1/3, 1/3, 1/3 on row 3, 
-assuming the dataset has cases with three lesions.
-This parameter is not to be confused with the lesionWeight list member in an FROC
-dataset which enumerates the weights of lesions on individual cases. See 
-\link{UtilLesionWeightsDistr}.}
+\item{relWeights}{The relative weights of the lesions; a vector of 
+length equal to \code{length(maxLL)}. The default is zero, in which case
+equal weights are assumed.}
 
 \item{OpChType}{The type of operating characteristic desired: can be "\code{ROC}", 
 "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or "\code{pdfs}" or "\code{ALL}". 
@@ -117,49 +102,20 @@ Visualize RSM predicted ROC, AFROC, wAFROC, FROC and pdf
    mu, lambda, nu and zeta1.
 }
 \details{
-RSM is the Radiological Search Model described in the book.
-}
-\note{
-For \code{lesDistr}, the sum over the second column must equal one. 
-   If all cases contain same number of lesions, simply supply this number instead of 
-   the matrix. If the argument is missing, the default value 
-   of one lesion per diseased case is used. 
-  
-In \code{lesWghtDistr}, the sum over each row (excluding \code{-Inf}) must be one. 
-   The value \code{-Inf} should be assigned if the corresponding lesion 
-   does not exist. Equal lesion weighting is applied if this argument is missing.
-
-   For example, if the maximum number of distinct lesion configurations per case 
-   is 3 (e.g., 1, 2 and 4, implying there are no cases with 3 lesions), the 
-   first column of \code{lesDistr} will be c(1,2,4). The second column might be
-   c(0.8, 0.15, 0.05), which sums to one, meaning 80\% of cases have only one 
-   lesion, 15\% have two lesions and 5\% have three lesions. The 
-   \code{lesWghtDistr} matrix will be 
-   \code{[1:3,1:4]}, where each row will sum to one (excluding the first entry and 
-   excluding negative infinities).
+RSM is the Radiological Search Model described in the book. This 
+   function is vectorized with respect to the first 4 arguments. For 
+   \code{lesDistr} the sum must be one. To indicate that all dis. cases
+   contain 4 lesions, set lesDistr = c(0,0,0,1).
 }
 \examples{
 ## Following example is for mu = 2, lambda = 1, nu = 0.6, in one treatment and   
 ## mu = 3, lambda = 1.5, nu = 0.8, in the other treatment. 20\% of the diseased 
 ## cases have a single lesion, 40\% have two lesions, 10\% have 3 lesions, 
 ## and 30\% have 4 lesions.  
-lesDistr <- rbind(c(1, 0.2), c(2, 0.4), c(3, 0.1), c(4, 0.3))
+lesDistr <- c(0.2, 0.4, 0.1, 0.3)
 
-## On cases with one lesion the weights are 1, on cases with 2 lesions the weights
-## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and
-## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: 
-lesWghtDistr <- rbind(c(1, 1.0, -Inf, -Inf, -Inf), 
-                       c(2, 0.4,  0.6, -Inf, -Inf), 
-                       c(3, 0.2,  0.3,  0.5, -Inf), 
-                       c(4, 0.3,  0.4, 0.2,  0.1))
-ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
-   lesDistr = lesDistr, lesWghtDistr = lesWghtDistr, 
-   legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
-   ## print(ret$ROCPlot)
-   ## print(ret$AFROCPlot)
-   ## print(ret$wAFROCPlot)
-   ## print(ret$FROCPlot)
-## the FROC plot ends at NLF = 0.5 because for both treatments the physical lambdas are 0.5.
+PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
+   lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
 
 }
 \references{

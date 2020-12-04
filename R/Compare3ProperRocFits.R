@@ -173,7 +173,7 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
           #if (!(f == 2 && i == 2 && j == 2)) next ## investigating warnings
           AllResIndx <- AllResIndx + 1
           retCbm <- FitCbmRoc(binnedRocData, trt = i, rdr = j)
-          retRsm <- FitRsmRoc(binnedRocData, trt = i, rdr = j, lesDistr = lesDistr) # fit to RSM, need lesDistr matrix
+          retRsm <- FitRsmRoc(binnedRocData, trt = i, rdr = j, lesDistr = lesDistr[,2]) # fit to RSM, need lesDistr matrix
           retCbm1 <- retCbm[-10] # deleting plots as they generate Notes in R CMD CHK -> file size too large
           retRsm1 <- retRsm[-11] #   do:
           aucProproc <- UtilAucPROPROC(c1[i,j], da[i,j])

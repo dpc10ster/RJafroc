@@ -4,15 +4,15 @@
 \alias{SsFrocNhRsmModel}
 \title{RSM fitted model for FROC sample size}
 \usage{
-SsFrocNhRsmModel(dataset, lesionPmf)
+SsFrocNhRsmModel(dataset, lesDistr)
 }
 \arguments{
 \item{dataset}{The \strong{pilot} dataset object representing a NH ROC 
 (or FROC) dataset.}
 
-\item{lesionPmf}{An array containing the probability mass function of 
-number of lesions per diseased case in the proposed \strong{pivotal} 
-\strong{FROC} study.}
+\item{lesDistr}{A 1D array containing the probability mass function of 
+number of lesions per diseased case in the \strong{pivotal FROC} 
+study.}
 }
 \value{
 A list containing: 
@@ -20,8 +20,8 @@ A list containing:
    \item \code{muMed}, the median mu parameter of the NH model. 
    \item \code{lambdaMed}, the median lambda parameter of the NH model.  
    \item \code{nuMed}, the median nu parameter of the NH model. 
-   \item \code{lesDistr}, the lesion distribution array. 
-   \item \code{lesWghtDistr}, the lesion weight distribution array. 
+   \item \code{lesDistr}, the lesion distribution 2D array. 
+   \item \code{lesWghtDistr}, the lesion weight distribution 2D array. 
    \item \code{scaleFactor}, the scaling factor that multiplies 
       the ROC effect size to get wAFROC effect size.
    \item \code{R2}, the R2 of the fit.
