@@ -10,20 +10,19 @@ output: html_document
 
 # Purpose
 * This repository serves as the software companion to my book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017.
-* Full documentation (updated book plus software) is currently under preparation and will be posted to https://dpc10ster.github.io/RJafrocBook/
+* Full documentation (updated book plus software) is currently under preparation and is being continually posted to https://dpc10ster.github.io/RJafrocBook/
 * Documentation for this software (the functions used in `RJafroc`, vignettes and update history) is at https://dpc10ster.github.io/RJafroc/
 
-# What is the application of this package?
-Search is a very common task in every day life. While most of the applications in this package are geared toward analyzing radiologists' performances as they engage in search tasks - finding lesions in medical images - the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (the field of Computer Aided Detection (CAD) has recently been re-branded as AI). Two applications to AI are in the book corresponding to this package https://dpc10ster.github.io/RJafrocBook/. One is *measuring AI performance with respect to a group of human readers*. Another is *optimizing the reporting threshold for an AI algorithm* - a common task faced by an algorithm designer.
+# Applications
 
-Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks -- finding lesions in medical images -- the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (the field of Computer Aided Detection (CAD) has recently been rebranded as AI). Two applications to AI are in online book.
+Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks - finding lesions in medical images - the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (including the field of Computer Aided Detection - CAD - which has been re-branded as AI). Two applications to AI are in online book:
 
 * Measuring AI performance relative to a group of human readers.
 * Optimizing the reporting threshold of an AI algorithm - a common task faced by an algorithm designer.
 
 In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is integral to the analyzed data.
 
-The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC ahalysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or algorithm performance.
+The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC ahalysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or AI algorithm performance.
 
 # Relation to Windows software
 * `RJafroc` extends Windows `JAFROC` software formerly at http://www.devchakraborty.com (this website is no longer a valid URL).
