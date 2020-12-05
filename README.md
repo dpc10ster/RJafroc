@@ -1,21 +1,33 @@
-RJafroc
-========
+---
+title: RJafroc
+author: Dev P. Chakraborty
+output: html_document
+---
 
 [![R build status](https://github.com/dpc10ster/RJafroc/workflows/R-CMD-check/badge.svg)](https://github.com/dpc10ster/RJafroc/actions)
 [![codecov](https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg)](https://codecov.io/gh/dpc10ster/rjafroc)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/RJafroc)](https://cran.r-project.org/package=RJafroc)
 
-# What is this repository for?
+# Purpose
 * This repository serves as the software companion to my book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017.
 * Full documentation (updated book plus software) is currently under preparation and will be posted to https://dpc10ster.github.io/RJafrocBook/
 * Documentation for this software (the functions used in `RJafroc`, vignettes and update history) is at https://dpc10ster.github.io/RJafroc/
 
-# What is the application of this package?
-* Search is a very common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks -- finding lesions in medical images -- the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artifical intelligence (AI) algorithms (the field of Computer Aided Detection (CAD) has recently been rebranded as AI). Two applications to AI are in the book corresponding to this package https://dpc10ster.github.io/RJafrocBook/. One is *measuring AI performance with respect to a group of human readers*. Another is *optimizing the reporting threshold for an AI algorithm* - a common task faced by an algorithm designer. 
+# Applications
 
-# Relation to the Windows software
-* `RJafroc` extends Windows `JAFROC` software formerly at http://www.devchakraborty.com. That website is no longer valid.
-* If you need the Windows software, try https://github.com/dpc10ster/WindowsJafroc.
+Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks -- finding lesions in medical images -- the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (the field of Computer Aided Detection (CAD) has recently been rebranded as AI). Two applications to AI are in online book. 
+
+* Measuring AI performance relative to a group of human readers. 
+* Optimizing the reporting threshold of an AI algorithm - a common task faced by an algorithm designer. 
+
+In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is integral to the analyzed data. 
+
+The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC ahalysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or algorithm performance. 
+
+# Relation to Windows software
+* `RJafroc` extends Windows `JAFROC` software formerly at http://www.devchakraborty.com (this website is no longer a valid URL).
+* Originally posted in 2004, the Windows software, is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to `RJafroc`. 
+* If you still need the Windows `JAFROC` software, it is available on https://github.com/dpc10ster/WindowsJafroc.
 
 # Update History
 * See https://dpc10ster.github.io/RJafroc/news/index.html.
@@ -23,10 +35,9 @@ RJafroc
 * Current CRAN version is 1.3.2.
 
 # Branch designations
-* The current tested version of the software is on the `master` branch.
+* The most current tested version of the software and documentation is on the `master` branch.
 * The `developer` branch is for development/experimental work. 
-* The software documentation [website](https://dpc10ster.github.io/RJafroc) is pushed from the `master` branch.
-* The `RJafroc` book has its own [GitHub repository](https://github.com/dpc10ster/RJafrocBook) which is currently under development.
+* The online book has its own [GitHub repository](https://github.com/dpc10ster/RJafrocBook), currently under development.
 
 # Those already familiar with installing R packages from GitHub can ignore the following directions  
 
