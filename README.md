@@ -13,20 +13,21 @@ output: html_document
 * Full documentation (updated book plus software) is currently under preparation and will be posted to https://dpc10ster.github.io/RJafrocBook/
 * Documentation for this software (the functions used in `RJafroc`, vignettes and update history) is at https://dpc10ster.github.io/RJafroc/
 
-# Applications
+# What is the application of this package?
+Search is a very common task in every day life. While most of the applications in this package are geared toward analyzing radiologists' performances as they engage in search tasks - finding lesions in medical images - the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (the field of Computer Aided Detection (CAD) has recently been re-branded as AI). Two applications to AI are in the book corresponding to this package https://dpc10ster.github.io/RJafrocBook/. One is *measuring AI performance with respect to a group of human readers*. Another is *optimizing the reporting threshold for an AI algorithm* - a common task faced by an algorithm designer.
 
-Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks -- finding lesions in medical images -- the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (the field of Computer Aided Detection (CAD) has recently been rebranded as AI). Two applications to AI are in online book. 
+Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks -- finding lesions in medical images -- the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (the field of Computer Aided Detection (CAD) has recently been rebranded as AI). Two applications to AI are in online book.
 
-* Measuring AI performance relative to a group of human readers. 
-* Optimizing the reporting threshold of an AI algorithm - a common task faced by an algorithm designer. 
+* Measuring AI performance relative to a group of human readers.
+* Optimizing the reporting threshold of an AI algorithm - a common task faced by an algorithm designer.
 
-In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is integral to the analyzed data. 
+In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is integral to the analyzed data.
 
-The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC ahalysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or algorithm performance. 
+The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC ahalysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or algorithm performance.
 
 # Relation to Windows software
 * `RJafroc` extends Windows `JAFROC` software formerly at http://www.devchakraborty.com (this website is no longer a valid URL).
-* Originally posted in 2004, the Windows software, is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to `RJafroc`. 
+* Originally posted in 2004, the Windows software, is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to `RJafroc`.
 * If you still need the Windows `JAFROC` software, it is available on https://github.com/dpc10ster/WindowsJafroc.
 
 # Update History
@@ -36,7 +37,7 @@ The radiological search model (RSM) is implemented. A fitting function is provid
 
 # Branch designations
 * The most current tested version of the software and documentation is on the `master` branch.
-* The `developer` branch is for development/experimental work. 
+* The `developer` branch is for development/experimental work.
 * The online book has its own [GitHub repository](https://github.com/dpc10ster/RJafrocBook), currently under development.
 
 # Those already familiar with installing R packages from GitHub can ignore the following directions  
@@ -47,12 +48,12 @@ Three options are given below, in increasing order of complexity. The first meth
 ## 1. Install from CRAN
 * Install `R` and `RStudio`.
 * Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
-* Open `RStudio` by clicking on the `myProject.Rproj` file. 
+* Open `RStudio` by clicking on the `myProject.Rproj` file.
 * Starting from `RStudio` > `Packages` > `Install` > `RJafroc`.
 * `library(RJafroc)`.
 * This loads the CRAN package and all functions on the `cran2` branch become avaialable.
 * For documentation of functions and vignettes, go to https://dpc10ster.github.io/RJafroc/. It may be helpful to have both windows open (RStudio and the above website) simulataneously.
-* The CRAN version will not include more recent updates on the `master` branch. To access them use the next suggested method, below. 
+* The CRAN version will not include more recent updates on the `master` branch. To access them use the next suggested method, below.
 * Test the installation:
 ```
 cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
@@ -63,10 +64,10 @@ print(cbmPlot)
 ## 2. Install from GitHub using package `devtools`
 * Install `R` and `RStudio`.
 * Create an empty directory, e.g., `myProject`. In my computer it is `/Users/Dev/Downloads/myProject`.
-* Open `RStudio` by clicking on the `myProject.Rproj` file. 
+* Open `RStudio` by clicking on the `myProject.Rproj` file.
 * Starting from `RStudio` > `File` > `New Project` > `Existing Directory` > Select `myProject` > `Create Project`.
 * Oila! You should see `myProject.RProj` in the Files menu.
-* Install the `devtools` package as shown below: 
+* Install the `devtools` package as shown below:
 * Starting from `RStudio` > `Packages` > `Install` > `devtools`.
 * Load `devtools` as shown below:
 ```
@@ -97,7 +98,7 @@ print(cbmPlot)
 * I find the GitHub desktop app useful in mananging my downloads/uploads from `Git`.
 * Install `R` and `RStudio`.
 * Navigate to the `RJafroc` directory.
-* Open `RJafroc.Rproj`. This will open `RStudio`. 
+* Open `RJafroc.Rproj`. This will open `RStudio`.
 * Navigate to `File` menu (lower-right window) and click on DESCRIPTION file.
 * Install all packages listed under Imports, e.g.,    
     openxlsx,
@@ -122,7 +123,7 @@ install.packages(c("openxlsx", "ggplot2"))
 library(RJafroc)
 ```
 * Thats it! `RJafroc` has been installed to your computer and is visible to any other `R` project in any directory.
-* You will not need to access the `RJafroc` folder again (unless you reinstall a new version of the software). 
+* You will not need to access the `RJafroc` folder again (unless you reinstall a new version of the software).
 * Do not write any of your files to the `RJafroc` directory!
 * All necessary files of the installation are in a hidden directory that you do not normally need to worry about.
 * Create an empty directory, e.g., `myProject`, outside of the `RJafroc` folder. In my computer it is `/Users/Dev/Downloads/myProject`.
@@ -158,4 +159,3 @@ print(cbmPlot)
 
 ### Who do I talk to?
 dpc10ster@gmail.com
-
