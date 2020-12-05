@@ -1,8 +1,5 @@
----
-title: RJafroc
-author: Dev P. Chakraborty
-output: html_document
----
+RJafroc
+=======
 
 [![R build status](https://github.com/dpc10ster/RJafroc/workflows/R-CMD-check/badge.svg)](https://github.com/dpc10ster/RJafroc/actions)
 [![codecov](https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg)](https://codecov.io/gh/dpc10ster/rjafroc)
