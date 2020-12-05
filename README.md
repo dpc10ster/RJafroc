@@ -23,7 +23,7 @@ The radiological search model (RSM) is implemented. A fitting function is provid
 
 # Relation to Windows software
 * `RJafroc` extends Windows `JAFROC` software formerly at http://www.devchakraborty.com (this website is no longer a valid URL).
-* Originally posted in 2004, the Windows software, is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to `RJafroc`.
+* Originally posted in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to `RJafroc`.
 * If you still need the Windows `JAFROC` software, it is available on https://github.com/dpc10ster/WindowsJafroc.
 
 # Update History
