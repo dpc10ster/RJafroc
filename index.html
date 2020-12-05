@@ -166,14 +166,12 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="rjafroc" class="section level1">
+<hr>
+<p>title: RJafroc author: Dev P. Chakraborty output: html_document —</p>
+<p><a href="https://github.com/dpc10ster/RJafroc/actions"><img src="https://github.com/dpc10ster/RJafroc/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://codecov.io/gh/dpc10ster/rjafroc"><img src="https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://cran.r-project.org/package=RJafroc"><img src="http://www.r-pkg.org/badges/version/RJafroc" alt="CRAN_Status_Badge"></a></p>
+<div id="purpose" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#rjafroc" class="anchor"></a>RJafroc</h1></div>
-
-</div>
-<div id="what-is-this-repository-for" class="section level1">
-<h1 class="hasAnchor">
-<a href="#what-is-this-repository-for" class="anchor"></a>What is this repository for?</h1>
+<a href="#purpose" class="anchor"></a>Purpose</h1></div>
 <ul>
 <li>This repository serves as the software companion to my book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017.</li>
 <li>Full documentation (updated book plus software) is currently under preparation and will be posted to <a href="https://dpc10ster.github.io/RJafrocBook/" class="uri">https://dpc10ster.github.io/RJafrocBook/</a>
@@ -186,14 +184,22 @@
 <h1 class="hasAnchor">
 <a href="#what-is-the-application-of-this-package" class="anchor"></a>What is the application of this package?</h1>
 <p>Search is a very common task in every day life. While most of the applications in this package are geared toward analyzing radiologists’ performances as they engage in search tasks - finding lesions in medical images - the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (the field of Computer Aided Detection (CAD) has recently been re-branded as AI). Two applications to AI are in the book corresponding to this package <a href="https://dpc10ster.github.io/RJafrocBook/" class="uri">https://dpc10ster.github.io/RJafrocBook/</a>. One is <em>measuring AI performance with respect to a group of human readers</em>. Another is <em>optimizing the reporting threshold for an AI algorithm</em> - a common task faced by an algorithm designer.</p>
+<p>Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks – finding lesions in medical images – the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (the field of Computer Aided Detection (CAD) has recently been rebranded as AI). Two applications to AI are in online book.</p>
+<ul>
+<li>Measuring AI performance relative to a group of human readers.</li>
+<li>Optimizing the reporting threshold of an AI algorithm - a common task faced by an algorithm designer.</li>
+</ul>
+<p>In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is integral to the analyzed data.</p>
+<p>The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC ahalysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or algorithm performance.</p>
 </div>
-<div id="relation-to-the-windows-software" class="section level1">
+<div id="relation-to-windows-software" class="section level1">
 <h1 class="hasAnchor">
-<a href="#relation-to-the-windows-software" class="anchor"></a>Relation to the Windows software</h1>
+<a href="#relation-to-windows-software" class="anchor"></a>Relation to Windows software</h1>
 <ul>
 <li>
-<code>RJafroc</code> extends Windows <code>JAFROC</code> software formerly at <a href="http://www.devchakraborty.com" class="uri">http://www.devchakraborty.com</a>. That website is no longer valid.</li>
-<li>If you need the Windows software, try <a href="https://github.com/dpc10ster/WindowsJafroc" class="uri">https://github.com/dpc10ster/WindowsJafroc</a>.</li>
+<code>RJafroc</code> extends Windows <code>JAFROC</code> software formerly at <a href="http://www.devchakraborty.com" class="uri">http://www.devchakraborty.com</a> (this website is no longer a valid URL).</li>
+<li>Originally posted in 2004, the Windows software, is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to <code>RJafroc</code>.</li>
+<li>If you still need the Windows <code>JAFROC</code> software, it is available on <a href="https://github.com/dpc10ster/WindowsJafroc" class="uri">https://github.com/dpc10ster/WindowsJafroc</a>.</li>
 </ul>
 </div>
 <div id="update-history" class="section level1">
@@ -209,10 +215,9 @@
 <h1 class="hasAnchor">
 <a href="#branch-designations" class="anchor"></a>Branch designations</h1>
 <ul>
-<li>The current tested version of the software is on the <code>master</code> branch.</li>
+<li>The most current tested version of the software and documentation is on the <code>master</code> branch.</li>
 <li>The <code>developer</code> branch is for development/experimental work.</li>
-<li>The software documentation <a href="https://dpc10ster.github.io/RJafroc">website</a> is pushed from the <code>master</code> branch.</li>
-<li>The <code>RJafroc</code> book has its own <a href="https://github.com/dpc10ster/RJafrocBook">GitHub repository</a> which is currently under development.</li>
+<li>The online book has its own <a href="https://github.com/dpc10ster/RJafrocBook">GitHub repository</a>, currently under development.</li>
 </ul>
 </div>
 <div id="those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions" class="section level1">
@@ -369,15 +374,7 @@ print(cbmPlot)</code></pre>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/dpc10ster/RJafroc/actions"><img src="https://github.com/dpc10ster/RJafroc/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/dpc10ster/rjafroc"><img src="https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg" alt="codecov"></a></li>
-<li><a href="https://cran.r-project.org/package=RJafroc"><img src="http://www.r-pkg.org/badges/version/RJafroc" alt="CRAN_Status_Badge"></a></li>
-</ul>
-</div>
-</div>
+  </div>
 </div>
 
 
