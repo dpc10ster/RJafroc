@@ -71,7 +71,7 @@ library(devtools)
 ```
 * Install `RJafroc` directly from `GitHub` (this is where `devtools` is used):
 ```
-install_github("dpc10ster/rjafroc")
+install_github("dpc10ster/RJafroc")
 ```
 * Hit Enter on any prompts...
 * Lots of activity and compilation of C++ code ....
@@ -90,7 +90,7 @@ print(cbmPlot)
 * Put your data and other files, if any, in `myProject`.
 
 ## 3. Download the `RJafroc` source files and install from the downloaded files
-* Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example.
+* Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/RJafroc. Rename the folder if necessary to match my example.
 * I find the GitHub desktop app useful in mananging my downloads/uploads from `Git`.
 * Install `R` and `RStudio`.
 * Navigate to the `RJafroc` directory.
