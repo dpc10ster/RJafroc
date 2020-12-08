@@ -1,7 +1,7 @@
 Package: RJafroc
 Type: Package
 Title: Analyzing Diagnostic Observer Performance Studies
-Version: 1.3.2.9000
+Version: 2.0.0
 Date: 2020-01-31
 Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "dpc10ster@gmail.com"),
              person("Peter", "Philips", role = c("aut"), email = "peter.phillips@cumbria.ac.uk"),
@@ -22,11 +22,6 @@ Imports:
     stringr,
     tools,
     utils
-Suggests:
-    testthat,
-    knitr,
-    kableExtra,
-    rmarkdown
 LinkingTo: Rcpp
 Description: RJafroc implements software for assessing medical imaging systems, radiologists or computer aided detection algorithms. 
     Models of observer performance are implemented, including the binormal model (BM), the contaminated binormal model (CBM), the 
@@ -60,7 +55,6 @@ Description: RJafroc implements software for assessing medical imaging systems, 
     viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international 
     collaborations. This version corrects a few bugs noticed by users (listed in NEWS.md) and extends the Excel file input format for 
     greater flexibility going forward in handling non-crossed datasets.
-VignetteBuilder: knitr
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/

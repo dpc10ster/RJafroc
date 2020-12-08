@@ -11,7 +11,7 @@ RJafroc implements software for assessing medical imaging systems, radiologists 
   \tabular{ll}{
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
-    Version: \tab 1.3.2.9000\cr
+    Version: \tab 2.0.0\cr
     Date: \tab 2020-01-31\cr
     License: \tab GPL-3\cr
     URL: \tab \url{https://dpc10ster.github.io/RJafroc/}\cr
