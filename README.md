@@ -27,7 +27,7 @@ The radiological search model (RSM) is implemented. A fitting function is provid
 * If you still need the Windows `JAFROC` software, it is [available](https://github.com/dpc10ster/WindowsJafroc).
 
 # Update History
-* [See](https://dpc10ster.github.io/RJafroc/news/index.html) for details.
+* [See here](https://dpc10ster.github.io/RJafroc/news/index.html) for details.
 * Current GitHub version is 2.0.0.9000 on the `master` branch.
 * Current CRAN version is 1.3.2.
 
