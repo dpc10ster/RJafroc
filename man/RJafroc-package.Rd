@@ -2,16 +2,54 @@
 \alias{RJafroc-package}
 \docType{package}
 \title{
-  RJafroc: Analyzing Diagnostic Observer Performance Studies
+  Artificial Intelligence Systems and Observer Performance
 }
 \description{
-RJafroc implements software for assessing medical imaging systems, radiologists or computer aided detection algorithms. Models of observer performance are implemented, including the binormal model (BM), the contaminated binormal model (CBM), the correlated contaminated binormal model (CORCBM), and the radiological search model (RSM). The software and applications are described in a book - \strong{Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017} and its vignettes \url{https://dpc10ster.github.io/RJafroc/}. Observer performance data collection paradigms are the receiver operating characteristic (ROC) and its location specific extensions, primarily free-response ROC (FROC) and the location ROC (LROC). ROC data consists of single ratings per images. A rating is the perceived confidence level that the image is that of a diseased patient. FROC data consists of a variable number (including zero) of mark-rating pairs per image, where a mark is the location of a clinically reportable suspicious region and the rating is the corresponding confidence level that it is a real lesion. LROC data consists of a rating and a forced localization of the most suspicious region on every image. RJafroc supersedes the Windows version of \strong{JAFROC} software V4.2.1, \url{http://www.devchakraborty.com}. Package functions are organized as follows. Data file related function names are preceded by \emph{Df}, curve fitting functions by \emph{Fit}, included data sets by \emph{dataset}, plotting functions by \emph{Plot}, significance testing functions by \emph{St}, sample size related functions by \emph{Ss}, data simulation functions by \emph{Simulate} and utility functions by \emph{Util}. Implemented are figures of merit (FOMs) for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC (AFROC) and weighted AFROC (wAFROC) curves. Four maximum likelihood curve-fitting algorithms are implemented: the binormal model (BM), the contaminated binormal model (CBM), the correlated contaminated binormal model (CORCBM) and the radiological search model (RSM). Unlike the binormal model, CBM, CORCBM and RSM predict "proper" ROC curves that do not cross the chance diagonal. RSM fitting additionally yields measures of search and lesion-classification performances. Search performance is \emph{the ability to find lesions while avoiding finding non-lesions}. Lesion-classification performance is the ability to correctly classify found lesions from found non-lesions. For fully crossed study designs significance testing of reader-averaged FOM differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods, including Hillis' extensions. Also implemented are single treatment analyses, which allow comparison of performance of a group of radiologists to a specified value, or comparison to CAD to a group of radiologists interpreting the same cases. Crossed-modality analysis is implemented wherein there are two crossed treatment factors and the desire is to determined performance in each treatment factor averaged over all levels of the other factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve a desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are illustrated with several included datasets from the author's international collaborations. This version corrects a few bugs noticed by users (listed in NEWS.md) and extends the Excel file input format for greater flexibility going forward in handling non-crossed datasets.
+\code{RJafroc} implements software for analyzing the performance of artificial intelligence (AI) systems characterized by a
+    \emph{search-and-report} strategy. While historical examples deal with measuring radiologists' performance in search
+    tasks – i.e., searching for lesions in medical images and reporting them - the software applies equally to any task
+    involving searching for and reporting arbitrary targets in images. The package can be used to analyze the performance
+    of AI systems, compare AI performance to a group of human readers or optimize the reporting threshold of an AI system.
+    In addition to performing conventional receiver operating characteristic (ROC) analysis (localization
+    information ignored), the software also performs free-response receiver operating characteristic (FROC) analysis,
+    where lesion localization information is integral to the analyzed data. A book using the software is \strong{Chakraborty DP:
+    Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples,
+    Taylor-Francis LLC; 2017}. An online update of this book is at \url{https://dpc10ster.github.io/RJafrocBook/}. Illustrations
+    of the software (vignettes) are at \url{https://dpc10ster.github.io/RJafroc/}. Supported data collection paradigms are the
+    ROC, FROC and the location ROC (LROC). ROC data consists of single ratings per images, where a rating is the perceived
+    confidence level that the image is that of a diseased patient. An ROC curve is a plot of true positive fraction vs.
+    false positive fraction. FROC data consists of a variable number (zero or more) of mark-rating pairs per image, where
+    a mark is the location of a reported suspicious region and the rating is the confidence level that it is a real lesion. 
+    LROC data consists of a rating and a location of the most suspicious region, for every image. Four models of observer 
+    performance, and curve-fitting software, are implemented: the binormal model (BM), the contaminated binormal model 
+    (CBM), the correlated contaminated binormal model (CORCBM), and the radiological search model (RSM). Unlike the binormal 
+    model, CBM, CORCBM and RSM predict "proper" ROC curves that do not inappropriately cross the chance diagonal. Additionally, 
+    RSM parameters are related to search performance (not measured in conventional ROC analysis) and classification performance. 
+    Search performance refers to finding lesions, i.e., true positives, while simultaneously not finding false positive 
+    locations. Classification performance measures the ability to distinguish between true and false positive locations. 
+    Knowing these separate performances allows principled optimization of reader or AI system performance. RJafroc supersedes 
+    Windows \strong{JAFROC} (jackknife alternative FROC) software V4.2.1, \url{https://github.com/dpc10ster/WindowsJafroc}. Package functions 
+    are organized as follows. Data file related function names are preceded by \emph{Df}, curve fitting functions by \emph{Fit}, included 
+    data sets by \emph{dataset}, plotting functions by \emph{Plot}, significance testing functions by \emph{St}, sample size related functions 
+    by \emph{Ss}, data simulation functions by \emph{Simulate} and utility functions by \emph{Util}. Implemented are figures of merit (FOMs) 
+    for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC 
+    (AFROC) and weighted AFROC (wAFROC) curves. For fully crossed study designs significance testing of reader-averaged FOM 
+    differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods. Also 
+    implemented are single treatment analyses, which allow comparison of performance of a group of radiologists to a specified 
+    value, or comparison of AI to a group of radiologists interpreting the same cases. Crossed-modality analysis is implemented 
+    wherein there are two crossed treatment factors and the aim is to determined performance in each treatment factor averaged 
+    over all levels of the second factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates 
+    of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve the
+    desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input
+    formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are
+    illustrated with several included datasets from the author's collaborations. This version corrects bugs, simplifies
+    usage of the software and updates the \emph{dataset} structure. All changes are noted in NEWS.md.
 }
 \details{
   \tabular{ll}{
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
-    Version: \tab 2.0.0\cr
+    Version: \tab 2.0.0.9000\cr
     Date: \tab 2020-01-31\cr
     License: \tab GPL-3\cr
     URL: \tab \url{https://dpc10ster.github.io/RJafroc/}\cr

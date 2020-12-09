@@ -1,10 +1,17 @@
-# RJafroc 2.0.0
+# RJafroc 2.0.0.9000
 
 
-## Trying to simplify handling of lesion distribution and lesion weights
+## Beginning CRAN submission process
+* Version 2.0.0 
+* This lacks `tests` and `vignettes` and is on `cran3` branch.
+* Otherwise identical to `developer` and `master` as of 12/8/20.
+* `testthat` failure on Ubuntu developer is unresolved.
+
+
+## Simplify handling of lesion distribution and lesion weights
 * Motivation: basically only need to specify two 1D arrays: `lesDistr` and `relWeights`.
-* Since these are involved in the C++ calls, cannot totally eliminate the 2D arrays; they are also useful for printouts.
-* Eliminated two functions and much simplification
+* Since these are involved in the C++ calls, cannot totally eliminate the 2D arrays; and they are also useful for printouts.
+* Eliminated two functions and much simplification:
 * Eliminated  `UtilSpecifyLesionWeightsDistr`
 * Eliminated `Convert2lesDistr`
 * Simplified system for specifying lesion distribution `lesDistr`
@@ -348,7 +355,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 ## Work post acceptance of v1.3.2, as of 3/7/20
 * Going back to work interrupted by having to fix the errors on R-devel, see next section below.
-* This is v1.3.2.9000 renamed 12/8/20 to 2.0.0
+* This is v1.3.2.9000 as of 12/8/20 changed to 2.0.0.9000
 * Got all tests working! Resulted in fix to `StDBMHAnalysis.R` that fixed test that I had to skip on mac for `context("SignificanceTestingAllCombinations")`. Need to get this fix (lines 45-51) over to cran2 branch as I am thinking of splitting the package up by separating the `cran2` branch as the base package `RJafroc` and `depending` on `RJafroc` for new package `RJafroc2`. This would solve the file size problems that I am running into. Just an idea.
 * Current file size is 18.4 Mb!
 * Synced with `developer` branch on `GitHub` and merged with `master`.

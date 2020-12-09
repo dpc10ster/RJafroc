@@ -7,8 +7,8 @@ RJafroc
 
 # Purpose
 * This repository serves as the software companion to my book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017.
-* Full documentation (updated book plus software) is currently under preparation and is being continually posted to https://dpc10ster.github.io/RJafrocBook/
-* Documentation for this software (the functions used in `RJafroc`, vignettes and update history) is at https://dpc10ster.github.io/RJafroc/
+* Full documentation (updated book plus software) is under preparation and is being [continually updated here](https://dpc10ster.github.io/RJafrocBook/).
+* Documentation for this software (the functions used in `RJafroc`, vignettes and update history) is [available here](https://dpc10ster.github.io/RJafroc/).
 
 # Applications
 
@@ -19,16 +19,16 @@ Search is a common task in every day life. While most of the applications in thi
 
 In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is integral to the analyzed data.
 
-The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC ahalysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or AI algorithm performance.
+The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC analysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or AI algorithm performance.
 
 # Relation to Windows software
-* `RJafroc` extends Windows `JAFROC` software formerly at http://www.devchakraborty.com (this website is no longer a valid URL).
+* `RJafroc` extends [Windows `JAFROC` software](https://www.devchakraborty.com) (this URL is no longer valid).
 * Originally posted in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to `RJafroc`.
-* If you still need the Windows `JAFROC` software, it is available on https://github.com/dpc10ster/WindowsJafroc.
+* If you still need the Windows `JAFROC` software, it is still available [here](https://github.com/dpc10ster/WindowsJafroc).
 
 # Update History
-* See https://dpc10ster.github.io/RJafroc/news/index.html.
-* Current GitHub version is 1.3.2.9000 on the `master` branch.
+* [See here](https://dpc10ster.github.io/RJafroc/news/index.html) for details.
+* Current GitHub version is 2.0.0.9000 on the `master` branch.
 * Current CRAN version is 1.3.2.
 
 # Branch designations
@@ -48,9 +48,10 @@ Three options are given below, in increasing order of complexity. The first meth
 * Starting from `RStudio` > `Packages` > `Install` > `RJafroc`.
 * `library(RJafroc)`.
 * This loads the CRAN package and all functions on the `cran2` branch become avaialable.
-* For documentation of functions and vignettes, go to https://dpc10ster.github.io/RJafroc/. It may be helpful to have both windows open (RStudio and the above website) simulataneously.
+* For documentation of functions and vignettes, [see](https://dpc10ster.github.io/RJafroc/). It may be helpful to have both windows open (RStudio and the above website) simulataneously.
 * The CRAN version will not include more recent updates on the `master` branch. To access them use the next suggested method, below.
 * Test the installation:
+
 ```
 cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
@@ -71,7 +72,7 @@ library(devtools)
 ```
 * Install `RJafroc` directly from `GitHub` (this is where `devtools` is used):
 ```
-install_github("dpc10ster/rjafroc")
+install_github("dpc10ster/RJafroc")
 ```
 * Hit Enter on any prompts...
 * Lots of activity and compilation of C++ code ....
@@ -85,12 +86,12 @@ cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
 * You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/.
+* Documentation (vignettes) is [available](https://dpc10ster.github.io/RJafroc/).
 * Be sure to study these examples and make full use of the online documentation.
 * Put your data and other files, if any, in `myProject`.
 
 ## 3. Download the `RJafroc` source files and install from the downloaded files
-* Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/rjafroc. Rename the folder if necessary to match my example.
+* Clone this repository to a directory anywhere on your computer. On my computer it is in `/Users/Dev/Downloads/RJafroc`. Rename the folder if necessary to match my example.
 * I find the GitHub desktop app useful in mananging my downloads/uploads from `Git`.
 * Install `R` and `RStudio`.
 * Navigate to the `RJafroc` directory.
@@ -136,7 +137,7 @@ cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
 * You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/.
+* Preliminary documentation (vignettes) is [available](https://dpc10ster.github.io/RJafroc/).
 * Put your data and other files, if any, in myProject.
 * TBA
 
