@@ -28,7 +28,7 @@ The radiological search model (RSM) is implemented. A fitting function is provid
 
 # Update History
 * See https://dpc10ster.github.io/RJafroc/news/index.html.
-* Current GitHub version is 1.3.2.9000 on the `master` branch.
+* Current GitHub version is 2.0.0.9000 on the `master` branch.
 * Current CRAN version is 1.3.2.
 
 # Branch designations
