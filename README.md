@@ -27,8 +27,8 @@ The radiological search model (RSM) is implemented. A fitting function is provid
 * If you still need the Windows `JAFROC` software, it is available on https://github.com/dpc10ster/WindowsJafroc.
 
 # Update History
-* See https://dpc10ster.github.io/RJafroc/news/index.html.
-* Current GitHub version is 1.3.2.9000 on the `master` branch.
+* [See](https://dpc10ster.github.io/RJafroc/news/index.html) for details.
+* Current GitHub version is 2.0.0.9000 on the `master` branch.
 * Current CRAN version is 1.3.2.
 
 # Branch designations
@@ -48,9 +48,10 @@ Three options are given below, in increasing order of complexity. The first meth
 * Starting from `RStudio` > `Packages` > `Install` > `RJafroc`.
 * `library(RJafroc)`.
 * This loads the CRAN package and all functions on the `cran2` branch become avaialable.
-* For documentation of functions and vignettes, go to https://dpc10ster.github.io/RJafroc/. It may be helpful to have both windows open (RStudio and the above website) simulataneously.
+* For documentation of functions and vignettes, [see](https://dpc10ster.github.io/RJafroc/). It may be helpful to have both windows open (RStudio and the above website) simulataneously.
 * The CRAN version will not include more recent updates on the `master` branch. To access them use the next suggested method, below.
 * Test the installation:
+
 ```
 cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
@@ -85,12 +86,12 @@ cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
 * You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/.
+* Documentation (vignettes) is [available](https://dpc10ster.github.io/RJafroc/).
 * Be sure to study these examples and make full use of the online documentation.
 * Put your data and other files, if any, in `myProject`.
 
 ## 3. Download the `RJafroc` source files and install from the downloaded files
-* Clone this repository to a directory anywhere on your computer. On my computer it is in /Users/Dev/Downloads/RJafroc. Rename the folder if necessary to match my example.
+* Clone this repository to a directory anywhere on your computer. On my computer it is in `/Users/Dev/Downloads/RJafroc`. Rename the folder if necessary to match my example.
 * I find the GitHub desktop app useful in mananging my downloads/uploads from `Git`.
 * Install `R` and `RStudio`.
 * Navigate to the `RJafroc` directory.
@@ -136,7 +137,7 @@ cbmPlot <- PlotCbmFit(c(1, 2), c(0.5, 0.5))
 print(cbmPlot)
 ```
 * You should see two ROC plots in the `Plots` window.
-* Preliminary documentation (vignettes) is available at https://dpc10ster.github.io/RJafroc/.
+* Preliminary documentation (vignettes) is [available](https://dpc10ster.github.io/RJafroc/).
 * Put your data and other files, if any, in myProject.
 * TBA
 
