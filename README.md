@@ -19,12 +19,12 @@ Search is a common task in every day life. While most of the applications in thi
 
 In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is integral to the analyzed data.
 
-The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC ahalysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or AI algorithm performance.
+The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC analysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or AI algorithm performance.
 
 # Relation to Windows software
 * `RJafroc` extends [Windows `JAFROC` software](https://www.devchakraborty.com) (this URL is no longer valid).
 * Originally posted in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to `RJafroc`.
-* If you still need the Windows `JAFROC` software, it is [available](https://github.com/dpc10ster/WindowsJafroc).
+* If you still need the Windows `JAFROC` software, it is still available [here](https://github.com/dpc10ster/WindowsJafroc).
 
 # Update History
 * [See here](https://dpc10ster.github.io/RJafroc/news/index.html) for details.
