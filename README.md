@@ -7,8 +7,8 @@ RJafroc
 
 # Purpose
 * This repository serves as the software companion to my book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017.
-* Full documentation (updated book plus software) is currently under preparation and is being continually posted to https://dpc10ster.github.io/RJafrocBook/
-* Documentation for this software (the functions used in `RJafroc`, vignettes and update history) is at https://dpc10ster.github.io/RJafroc/
+* Full documentation (updated book plus software) is under preparation and is being [continually updated](https://dpc10ster.github.io/RJafrocBook/).
+* Documentation for this software (the functions used in `RJafroc`, vignettes and update history) is [at](https://dpc10ster.github.io/RJafroc/).
 
 # Applications
 
