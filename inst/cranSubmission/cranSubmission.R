@@ -17,3 +17,5 @@ rhub::check(platform = paths[[1]][15])
 
 # update DESCRIPTION ...DONE
 # update cran-comments
+
+start <- 8; end <- 12; for (i in start:end) {rhub::check(platform = paths[[1]][i])}

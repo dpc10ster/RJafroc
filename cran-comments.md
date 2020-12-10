@@ -1,6 +1,6 @@
 # Reason for submission
-* This is an update to CRAN version 1.3.2 which installed with no errors, warnings, or notes (2020-03-06) on all platforms. The package is still passing all checks as of 2020-12-10 02:48:06 CET.
-* This update (v2.0.0) includes includes many improvements to the code, some as a result of user-reported bugs and new featur requests, and others discovered during ongoing testing conducted since last successful submission. 
+* This is an update to CRAN version 1.3.2 which installed with no errors, warnings, or notes (2020-03-06) on all platforms. The package is still passing all checks on all platforms (as of 2020-12-10 02:48:06 CET).
+* This update (v2.0.0) includes includes many improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification conducted since the last successful submission. 
 
 # Test environments
 
@@ -24,41 +24,41 @@ X. This was tested using `devtools::check_win_devel`, `devtools::check_win_relea
 
 ## CRAN compatibility
 1. CRAN compatibility was tested using `rhub::check_for_cran()`. 
-* This yielded 1 note:
-* Installed size is  5.1Mb; sub-directories of 1Mb or more: libs   2.2Mb
+* This yielded 1 NOTE: Installed size is  5.1Mb; sub-directories of 1Mb or more: libs   2.2Mb
 
 ## Environments
+rhub::check(platform = paths[[1]][1:21]); 
 
-## "debian-clang-devel"            
-## "debian-gcc-devel"              
-## "debian-gcc-devel-nold"        
-## "debian-gcc-patched"            
-## "debian-gcc-release"            
-## "fedora-clang-devel"           
-## "fedora-gcc-devel"              
-## "linux-x86_64-centos6-epel"     
-## "linux-x86_64-centos6-epel-rdt"
-## "linux-x86_64-rocker-gcc-san"   
+## "debian-clang-devel"  Debian Linux, R-devel, clang, ISO-8859-15 locale OK
+## "debian-gcc-devel"   Debian Linux, R-devel, GCC OK           
+## "debian-gcc-devel-nold"  Debian Linux, R-devel, GCC, no long double OK     
+## "debian-gcc-patched"    Debian Linux, R-patched, GCC OK        
+## "debian-gcc-release"   Debian Linux, R-release, GCC File size NOTE: installed size is 5.9Mb
+## "fedora-clang-devel" Fedora Linux, R-devel, clang, gfortran OK
+## "fedora-gcc-devel"   Fedora Linux, R-devel, GCC   File size NOTE: installed size is  5.9Mb
+## "linux-x86_64-centos6-epel"  CentOS 6, stock R from EPEL PREPERROR   
+## "linux-x86_64-centos6-epel-rdt" CentOS 6 with Redhat Developer Toolset, R from EPEL  File size NOTE: installed size is 5.3Mb
+
+## "linux-x86_64-rocker-gcc-san"
 ## "macos-highsierra-release"      
 ## "macos-highsierra-release-cran"
 
-## "solaris-x86-patched"  Oracle Solaris 10, x86, 32 bit, R-release   OK        
-
-## "solaris-x86-patched-ods"       
-## "ubuntu-gcc-devel"             
-## "ubuntu-gcc-release"            
-## "ubuntu-rchk"                   
-## "windows-x86_64-devel"         
-## "windows-x86_64-oldrel"         
-## "windows-x86_64-patched"        
-## "windows-x86_64-release"  
+## "solaris-x86-patched"  13 Oracle Solaris 10, x86, 32 bit, R-release   OK        
+## "solaris-x86-patched-ods"  14 Oracle Solaris 10, x86, 32 bit, R-release, Oracle Developer Studio 12.6 OK  
+## "ubuntu-gcc-devel"  15 Ubuntu Linux 16.04 LTS, R-devel, GCC  OK            
+## "ubuntu-gcc-release" 16  Ubuntu Linux 16.04 LTS, R-release, GCC  File size NOTE: installed size is  TBA
+## "ubuntu-rchk"  17 Ubuntu Linux 16.04 LTS, R-devel with rchk ERROR too many states (abstraction error?) in function strptime_internal                
+## "windows-x86_64-devel"   18 Windows Server 2008 R2 SP1, R-devel, 32/64 bit File size NOTE: installed size is TBA 
+## "windows-x86_64-oldrel"   19 Windows Server 2008 R2 SP1, R-oldrel, 32/64 bit  OK     
+## "windows-x86_64-patched"  20 Windows Server 2008 R2 SP1, R-patched, 32/64 bit File size NOTE: installed size is  TBA
+## "windows-x86_64-release"  21 Windows Server 2008 R2 SP1, R-release, 32/64 bit ERROR Packages required but not available: 'readxl', 'stringr'
 
 
 ## Further checks were conducted across all platforms implemented in `rhub::platforms()`
 C Debian Linux, R-devel, GCC ASAN/UBSAN OK
 C Fedora Linux, R-devel, clang, gfortran: 3 examples with CPU (user + system) or elapsed time > 5s (8.2 sec)
 C Ubuntu Linux 16.04 LTS, R-release, GCC: 2 Notes; File size note (5.1 Mb) and 1 example with CPU (user + system) or elapsed time > 5s (7.1 sec)
-C Windows Server 2008 R2 SP1, R-devel, 32/64 bit: 1 Npte: file size (5.1 Mb)
+C Windows Server 2008 R2 SP1, R-devel, 32/64 bit: File size NOTE: TBA (5.1 Mb)
 C Ubuntu Linux 16.04 LTS, R-release, GCC
 
 
