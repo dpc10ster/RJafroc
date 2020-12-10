@@ -5,7 +5,7 @@
 * Version 2.0.0 
 * This lacks `tests` and `vignettes` and is on `cran3` branch.
 * Otherwise identical to `developer` and `master` as of 12/8/20.
-* `testthat` failure on Ubuntu developer is unresolved.
+* `testthat` failure on Ubuntu developer is resolved.
 
 
 ## Simplify handling of lesion distribution and lesion weights
