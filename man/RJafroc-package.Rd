@@ -50,7 +50,7 @@
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
     Version: \tab 2.0.0.9000\cr
-    Date: \tab 2020-01-31\cr
+    Date: \tab 2020-12-31\cr
     License: \tab GPL-3\cr
     URL: \tab \url{https://dpc10ster.github.io/RJafroc/}\cr
   }

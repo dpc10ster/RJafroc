@@ -132,6 +132,5 @@ Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader multic
 Statistics in medicine 33, 330-360.
 
 Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
-Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
-\url{https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
+Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL.
 }
