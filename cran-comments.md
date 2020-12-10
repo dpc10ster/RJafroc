@@ -1,6 +1,6 @@
 # Reason for submission
-* This is an update to CRAN version 1.3.2 which installed with no errors, warnings, or notes (2020-03-06) on all platforms.
-* This update includes includes significant improvements to the code, some as a result of user-reported bugs and others discovered in independent testing.
+* This is an update to CRAN version 1.3.2 which installed with no errors, warnings, or notes (2020-03-06) on all platforms. The package is still passing all checks as of 2020-12-10 02:48:06 CET.
+* This update (v2.0.0) includes includes many improvements to the code, some as a result of user-reported bugs and new featur requests, and others discovered during ongoing testing conducted since last successful submission. 
 
 # Test environments
 
@@ -27,8 +27,40 @@ X. This was tested using `devtools::check_win_devel`, `devtools::check_win_relea
 * This yielded 1 note:
 * Installed size is  5.1Mb; sub-directories of 1Mb or more: libs   2.2Mb
 
+## Environments
+
+## "debian-clang-devel"            
+## "debian-gcc-devel"              
+## "debian-gcc-devel-nold"        
+## "debian-gcc-patched"            
+## "debian-gcc-release"            
+## "fedora-clang-devel"           
+## "fedora-gcc-devel"              
+## "linux-x86_64-centos6-epel"     
+## "linux-x86_64-centos6-epel-rdt"
+## "linux-x86_64-rocker-gcc-san"   
+## "macos-highsierra-release"      
+## "macos-highsierra-release-cran"
+
+## "solaris-x86-patched"  Oracle Solaris 10, x86, 32 bit, R-release   OK        
+
+## "solaris-x86-patched-ods"       
+## "ubuntu-gcc-devel"             
+## "ubuntu-gcc-release"            
+## "ubuntu-rchk"                   
+## "windows-x86_64-devel"         
+## "windows-x86_64-oldrel"         
+## "windows-x86_64-patched"        
+## "windows-x86_64-release"  
+
 
 ## Further checks were conducted across all platforms implemented in `rhub::platforms()`
+C Debian Linux, R-devel, GCC ASAN/UBSAN OK
+C Fedora Linux, R-devel, clang, gfortran: 3 examples with CPU (user + system) or elapsed time > 5s (8.2 sec)
+C Ubuntu Linux 16.04 LTS, R-release, GCC: 2 Notes; File size note (5.1 Mb) and 1 example with CPU (user + system) or elapsed time > 5s (7.1 sec)
+C Windows Server 2008 R2 SP1, R-devel, 32/64 bit: 1 Npte: file size (5.1 Mb)
+C Ubuntu Linux 16.04 LTS, R-release, GCC
+
 
 ### `debian-clang-devel`: 
 X  Debian Linux, R-devel, clang, ISO-8859-15 locale: This failed with following message: Error in loadNamespace(name) : there is no package called 'BiocManager'. My namespace does not contain `BiocManager`.
