@@ -9,7 +9,7 @@ test_that("ROC & FROC & vectors & lists", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = seq(1,5), rdrs = seq(1,4), opChType = "wAFROC"), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = seq(1,5), rdrs = seq(1,4), opChType = "wAFROC"), ret, check.environment = FALSE)
   
   plotT <- list(1, 2, c(1:2), c(1:2))
   plotR <- list(2, c(2:3), c(1:3), 1)
@@ -22,7 +22,7 @@ test_that("ROC & FROC & vectors & lists", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "ROC"), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "ROC"), ret, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-FROC", ".rds")
   if (!file.exists(fn)) {
@@ -32,7 +32,7 @@ test_that("ROC & FROC & vectors & lists", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "FROC"), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "FROC"), ret, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-AFROC", ".rds")
   if (!file.exists(fn)) {
@@ -42,7 +42,7 @@ test_that("ROC & FROC & vectors & lists", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC"), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC"), ret, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-wAFROC", ".rds")
   if (!file.exists(fn)) {
@@ -52,7 +52,7 @@ test_that("ROC & FROC & vectors & lists", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC"), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC"), ret, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-AFROC1", ".rds")
   if (!file.exists(fn)) {
@@ -62,7 +62,7 @@ test_that("ROC & FROC & vectors & lists", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC1"), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC1"), ret, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-wAFROC1", ".rds")
   if (!file.exists(fn)) {
@@ -72,7 +72,7 @@ test_that("ROC & FROC & vectors & lists", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC1"), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC1"), ret, check.environment = FALSE)
 
 })  
 
@@ -94,7 +94,7 @@ test_that("PlotOperatingCharacteristics-LROC", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(lrocData, opChType = "ROC" ), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(lrocData, opChType = "ROC" ), ret, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/lrocData-LROC", ".rds")
   if (!file.exists(fn)) {
@@ -104,7 +104,7 @@ test_that("PlotOperatingCharacteristics-LROC", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(lrocData, opChType = "LROC" ), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(lrocData, opChType = "LROC" ), ret, check.environment = FALSE)
   
   plotT <- list(1, 2)
   plotR <- list(seq(1,5), seq(1,5)) # 5 readers
@@ -117,7 +117,7 @@ test_that("PlotOperatingCharacteristics-LROC", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(lrocData, trts = plotT, rdrs = plotR,  opChType = "ROC"), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(lrocData, trts = plotT, rdrs = plotR,  opChType = "ROC"), ret, check.environment = FALSE)
   
   fn <- paste0(test_path(), "/goodValues361/Plots/lrocData-LROC-lists", ".rds")
   if (!file.exists(fn)) {
@@ -127,7 +127,7 @@ test_that("PlotOperatingCharacteristics-LROC", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(lrocData, trts = plotT, rdrs = plotR,  opChType = "LROC"), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(lrocData, trts = plotT, rdrs = plotR,  opChType = "LROC"), ret, check.environment = FALSE)
   
   fn <- paste0(test_path(), "/goodValues361/Plots/lrocData-LROC-vectors", ".rds")
   if (!file.exists(fn)) {
@@ -137,6 +137,6 @@ test_that("PlotOperatingCharacteristics-LROC", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotEmpiricalOperatingCharacteristics(lrocData, trts = c(1,2), rdrs = seq(1,5),  opChType = "LROC"), ret)
+  expect_equal(PlotEmpiricalOperatingCharacteristics(lrocData, trts = c(1,2), rdrs = seq(1,5),  opChType = "LROC"), ret, check.environment = FALSE)
   
 })
