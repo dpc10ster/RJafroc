@@ -10,7 +10,7 @@ test_that(contextStr, {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotBinormalFit(c(1, 2), c(0.5, 0.5)), ret)
+  expect_equal(PlotBinormalFit(c(1, 2), c(0.5, 0.5)), ret, check.environment = FALSE)
   # end of test
   
 })
@@ -29,7 +29,7 @@ test_that("PlotCbmFit", {
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotCbmFit(c(1, 2), c(0.5, 0.5)), ret)
+  expect_equal(PlotCbmFit(c(1, 2), c(0.5, 0.5)), ret, check.environment = FALSE)
   # end of test
   
 })
@@ -68,7 +68,7 @@ test_that("Rsm1", {
                                                zeta1 = zeta1, 
                                                OpChType = "wAFROC",
                                                lesDistr = lesDistr, 
-                                               relWeights = relWeights), ret)
+                                               relWeights = relWeights), ret, check.environment = FALSE)
 
 })
 
@@ -95,7 +95,7 @@ test_that("Rsm2", {
   
   ret <- readRDS(fn)
   expect_equal(PlotRsmOperatingCharacteristics(mu, lambda, nu, OpChType = "wAFROC", 
-                                               lesDistr = lesDistr), ret)
+                                               lesDistr = lesDistr), ret, check.environment = FALSE)
   
 })
 
@@ -121,7 +121,7 @@ test_that("RSM3", {
   
   ret <- readRDS(fn)
   expect_equal(PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8), zeta1 = c(-3,-3), OpChType = "wAFROC",
-                                               lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), ret)
+                                               lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), ret, check.environment = FALSE)
   
 })
 
