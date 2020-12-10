@@ -48,6 +48,5 @@ anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study.
 Medical Physics. 43(3):1265-1274.
 
 Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
-Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
-\url{https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
+Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL.
 }

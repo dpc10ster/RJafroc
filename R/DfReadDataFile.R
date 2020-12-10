@@ -7,17 +7,13 @@
 #' @param format A string specifying the format of the data in the file. 
 #'    It can be \code{"JAFROC"}, the default, which requires a .xlsx Excel file,
 #'    \bold{not .xls}, \code{"MRMC"} or \code{"iMRMC"}. 
-#'    For \code{"MRMC"} the format is determined by the data file extension 
-#'    as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,  
-#'    \code{.csv} or \code{.txt} or \code{.lrc}. For file extension 
-#'    \code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.
 #' @param newExcelFileFormat This argument only applies to the \code{"JAFROC"} format. 
 #'    The default is \code{FALSE}. if \code{TRUE} the function accommodates 3 
 #'    additional columns
 #'    in the \code{Truth} worksheet. If \code{FALSE}, the original function (as in version 
 #'    1.2.0) is used and the three extra columns, if present, throws an error.  
 #' @param delimiter The string delimiter to be used for the \code{"MRMC"} 
-#'    format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.
+#'    format ("," is the default).
 #'    This parameter is not used when reading \code{"JAFROC"} 
 #'    or \code{"iMRMC"} data files.
 #' @param sequentialNames A logical variable: if \code{TRUE}, consecutive integers 
@@ -28,9 +24,6 @@
 #' @return A dataset with the structure specified in \code{\link{RJafroc-package}}.
 #' 
 #' @examples
-#' fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 
-#' package = "RJafroc", mustWork = TRUE)
-#' rdrArr1D <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 #'
 #' 
 #' \donttest{
