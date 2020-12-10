@@ -39,9 +39,9 @@ rhub::check(platform = paths[[1]][1:21]);
 ## "linux-x86_64-centos6-epel"  CentOS 6, stock R from EPEL PREPERROR   
 ## "linux-x86_64-centos6-epel-rdt" CentOS 6 with Redhat Developer Toolset, R from EPEL  File size NOTE: installed size is 5.3Mb
 
-## "linux-x86_64-rocker-gcc-san"
-## "macos-highsierra-release"      
-## "macos-highsierra-release-cran"
+## "linux-x86_64-rocker-gcc-san" Debian Linux, R-devel, GCC ASAN/UBSAN OK
+## "macos-highsierra-release"   macOS 10.13.6 High Sierra, R-release, brew OK   
+## "macos-highsierra-release-cran" macOS 10.13.6 High Sierra, R-release, CRAN's setup OK
 
 ## "solaris-x86-patched"  13 Oracle Solaris 10, x86, 32 bit, R-release   OK        
 ## "solaris-x86-patched-ods"  14 Oracle Solaris 10, x86, 32 bit, R-release, Oracle Developer Studio 12.6 OK  
