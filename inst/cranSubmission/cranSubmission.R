@@ -18,4 +18,7 @@ rhub::check(platform = paths[[1]][15])
 # update DESCRIPTION ...DONE
 # update cran-comments
 
-start <- 8; end <- 12; for (i in start:end) {rhub::check(platform = paths[[1]][i])}
+start <- 1; end <- 21; for (i in start:end) rhub::check(platform = paths[[1]][i])
+devtools::check_win_devel()
+devtools::check_win_release()
+devtools::check_win_oldrelease()
