@@ -1,19 +1,16 @@
-# Starting from cran2-update branch 
-# Preparing for CRAN submission
-
 # Reason for submission
 * This is an update to CRAN version 1.3.2 which installed with no errors, warnings, or notes (2020-03-06) on all platforms.
-* This update includes includes minor corrections to the significance testing function.
-* Additionally, this update includes analysis of split-plot datasets. 
+* This update includes includes significant improvements to the code, some as a result of user-reported bugs and others discovered in independent testing.
 
 # Test environments
 
-## OSX
+## OS X
 * iMac, 3.4GHz Quad-Core Intel Core i7
-* `"x86_64-apple-darwin15.6.0", "arch x86_64", "os darwin 15.6.0" "R version 3.6.2 (2019-12-12)"` 
+* "x86_64-apple-darwin17.0", 
+* "R version 4.0.3 (2020-10-10)" 
 * `R CMD check` ran with no errors, warnings or notes
 
-## Travis
+## GitHub Action
 * No errors, warnings or notes on `oldrel`,`release` or `developer`. 
 
 ## Windows portability

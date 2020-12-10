@@ -15,4 +15,5 @@ paths <- rhub::platforms()
 # check "ubuntu-gcc-devel"
 rhub::check(platform = paths[[1]][15])
 
-# updated DESCRIPTION
+# update DESCRIPTION ...DONE
+# update cran-comments
