@@ -23,7 +23,7 @@ Imports:
     tools,
     utils
 LinkingTo: Rcpp
-Description: Software for analyzing the performance of artificial intelligence (AI) systems/algorithms characterized 
+Description: Analyzing the performance of artificial intelligence (AI) systems/algorithms characterized 
     by a "search-and-report" strategy. While historically observer performance has dealt with measuring radiologists' 
     performance in search tasks – i.e., searching for lesions in medical images and reporting them - the software described 
     here applies equally to any task involving searching for and reporting arbitrary targets in images. The package can be 
