@@ -13,7 +13,7 @@ paths <- rhub::platforms()
 # [19] "windows-x86_64-oldrel"         "windows-x86_64-patched"        "windows-x86_64-release"  
 
 # update DESCRIPTION ...DONE
-# update cran-comments ... DONE
+# update cran-comments ...DONE
 
 start <- 1; end <- 21; for (i in start:end) rhub::check(platform = paths[[1]][i])
 devtools::check_win_devel()
