@@ -44,7 +44,10 @@ devtools::check_win_oldrelease()
 1. CRAN compatibility was tested using `rhub::check_for_cran()`.
     + Yielded 1 NOTE: Installed size is  5.1Mb.
 
-## Check environments
+## Summary of checks in all environments
+Apart from 6 file size NOTES (package size is 5.1 to 5.8 Mb depending on environment), and failures on 2 environments which do not appear to be among the flavors tested on CRAN, and 1 on which required packages were not available, the package passed all checks on the remaining 12 environments. The file size has been considerably reduced from about 16.7 Mb by moving vignettes to a separate online book, referenced in this package, so I request an exception be made to the 5 Mb rule, as further reduction would damage the integrity of the package. The check details on all 21 environments follow. 
+
+## Details of checks in 21 environments
 ```
 start <- 1; end <- 21; for (i in start:end) rhub::check(platform = paths[[1]][i]) 
 ```
@@ -64,7 +67,7 @@ start <- 1; end <- 21; for (i in start:end) rhub::check(platform = paths[[1]][i]
     + OK
 1. "fedora-gcc-devel", Fedora Linux, R-devel, GCC: 
     + File size NOTE: installed size is  5.9Mb
-1. "linux-x86_64-centos6-epel", CentOS 6, stock R from EPEL: 
+1. "linux-x86_64-centos6-epel", CentOS 6, stock R from EPEL (not on CRAN flavors): 
     + PREPERROR   
 1. "linux-x86_64-centos6-epel-rdt", CentOS 6 with Redhat Developer Toolset, R from EPEL: 
     + File size NOTE: installed size is 5.3Mb
@@ -82,7 +85,7 @@ start <- 1; end <- 21; for (i in start:end) rhub::check(platform = paths[[1]][i]
     + OK
 1. "ubuntu-gcc-release", Ubuntu Linux 16.04 LTS, R-release, GCC: 
     + File size NOTE: installed size is  TBA
-1. "ubuntu-rchk", Ubuntu Linux 16.04 LTS, R-devel with rchk: 
+1. "ubuntu-rchk", Ubuntu Linux 16.04 LTS, R-devel with rchk  (not on CRAN flavors): 
     + ERROR too many states (abstraction error?) in function strptime_internal
 1. "windows-x86_64-devel", Windows Server 2008 R2 SP1, R-devel, 32/64 bit 
     + File size NOTE: installed size is TBA 
