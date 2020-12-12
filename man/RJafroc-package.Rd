@@ -49,7 +49,7 @@
   \tabular{ll}{
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
-    Version: \tab 2.0.0.9000\cr
+    Version: \tab 2.0.0\cr
     Date: \tab 2020-12-31\cr
     License: \tab GPL-3\cr
     URL: \tab \url{https://dpc10ster.github.io/RJafroc/}\cr
@@ -361,7 +361,6 @@
         \item \code{\link{DfReadCrossedModalities}}: Read a crossed-modalities 
            data file.
         \item \code{\link{DfReadDataFile}}: Read a general data file.
-        \item \code{\link{DfReadLrocDataFile}}: Read a LROC data file.
         \item \code{\link{DfSaveDataFile}}: Save ROC data file in a different format.
         \item \code{\link{DfExtractCorCbmDataset}}: Extract two arms of a pairing 
            from an MRMC ROC dataset suitable for using \link{FitCorCbm}.

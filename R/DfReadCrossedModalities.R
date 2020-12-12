@@ -11,23 +11,13 @@
 #'    original data file will be used. The default is \code{FALSE}. 
 #' 
 #' @details The data format is  similar to the JAFROC format (see \code{\link{RJafroc-package}}). 
-#'    The notable difference is that there are two treatment factors. A sample crossed 
-#'    treatment file "CrossedModalities.xlsx" is in the \code{inst\\extdata} 
-#'    subdirectory of \code{RJafroc}.
+#'    The notable difference is that there are two treatment factors. 
 #' 
 #' @return A dataset with the specified structure, similar to a standard 
 #'    \pkg{RJafroc} dataset (see \code{\link{RJafroc-package}}). Because of the extra treatment factor, 
 #'    \code{NL} and \code{LL} are each five dimensional arrays. There are also two 
 #'    treatment IDS: \code{modalityID1} and \code{modalityID2}.
 #' 
-#' @examples
-#' 
-#' \donttest{
-#' crossedFileName <- system.file("extdata", 
-#'    "CrossedModalities.xlsx", package = "RJafroc", mustWork = TRUE)
-#' crossedData <- DfReadCrossedModalities(crossedFileName)
-#' str(crossedData)
-#' }
 #' 
 #' @references 
 #' Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 

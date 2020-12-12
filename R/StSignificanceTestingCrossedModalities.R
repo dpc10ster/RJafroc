@@ -13,13 +13,8 @@
 #' @return The return list contains the same items with \code{\link{StSignificanceTesting}}.
 #' 
 #' @examples
-#' \donttest{ 
-#' ## read the raw data file in extdata directory (this is included to illustrate the format)
-#' crossedFileName <- system.file("extdata", "CrossedModalities.xlsx", 
-#' package = "RJafroc", mustWork = TRUE)
-#' ds <- DfReadCrossedModalities(crossedFileName)
-#' retCrossed1 <- StSignificanceTestingCrossedModalities(ds, 1)
 #' 
+#' \donttest{ 
 #' ## read the built in dataset
 #' retCrossed2 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
 #' }
