@@ -8,6 +8,7 @@ test_that("ROC & FROC & vectors & lists", {
     saveRDS(ret, file = fn)
   }
   
+  
   ret <- readRDS(fn)
   expect_equal(PlotEmpiricalOperatingCharacteristics(dataset04, trts = seq(1,5), rdrs = seq(1,4), opChType = "wAFROC"), ret, check.environment = FALSE)
   

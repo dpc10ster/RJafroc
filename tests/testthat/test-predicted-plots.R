@@ -9,6 +9,7 @@ test_that(contextStr, {
     saveRDS(ret, file = fn)
   }
   
+  
   ret <- readRDS(fn)
   expect_equal(PlotBinormalFit(c(1, 2), c(0.5, 0.5)), ret, check.environment = FALSE)
   # end of test
