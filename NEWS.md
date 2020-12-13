@@ -5,13 +5,13 @@
 * Version 2.0.0
 * This is on `cran3` branch.
 * Steps to reduce file size to less than 5 Mb:
-    + Removed `tests` and `vignettes`.
+    + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
     + Removed all files from `ints/MRMCRuns` except `Tony`, the one that is used in an example.
     + Removed `CrossedModalities.xlsx` and references to it.
     + Removed `DfReadLrocDataFile.R` and `findings.txt`. Ran `devtools::document()` to fix `NAMESPACE`.
     + Removed `RoiData.xlsx`.
 * Otherwise identical to `developer` and `master` as of 12/8/20.
-* `testthat` failure on Ubuntu developer is resolved.
+* `testthat` failure on Ubuntu developer is resolved, see `master` branch: `checkEnvironment = FALSE` in `expect_equal()` on `ggplot2` comparisons to `goodValues`.
 
 
 ## Simplify handling of lesion distribution and lesion weights

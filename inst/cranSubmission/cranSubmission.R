@@ -21,3 +21,5 @@ devtools::check_win_release()
 devtools::check_win_oldrelease()
 
 devtools::revdep()
+
+indx -> c(5, 16, 17, 18, 20);for (i in indx) rhub::check(platform = paths[[1]][i])
