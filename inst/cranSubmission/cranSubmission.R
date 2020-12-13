@@ -12,8 +12,14 @@ paths <- rhub::platforms()
 # [16] "ubuntu-gcc-release"            "ubuntu-rchk"                   "windows-x86_64-devel"         
 # [19] "windows-x86_64-oldrel"         "windows-x86_64-patched"        "windows-x86_64-release"  
 
-# check "ubuntu-gcc-devel"
-rhub::check(platform = paths[[1]][15])
-
 # update DESCRIPTION ...DONE
-# update cran-comments
+# update cran-comments ...DONE
+
+start <- 1; end <- 21; for (i in start:end) rhub::check(platform = paths[[1]][i])
+devtools::check_win_devel()
+devtools::check_win_release()
+devtools::check_win_oldrelease()
+
+devtools::revdep()
+
+indx -> c(5, 16, 17, 18, 20);for (i in indx) rhub::check(platform = paths[[1]][i])
