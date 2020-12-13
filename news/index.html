@@ -181,19 +181,28 @@
       
     </div>
 
-    <div id="rjafroc-2009000" class="section level1">
-<h1 class="page-header" data-toc-text="2.0.0.9000">
-<a href="#rjafroc-2009000" class="anchor"></a>RJafroc 2.0.0.9000<small> Unreleased </small>
+    <div id="rjafroc-200" class="section level1">
+<h1 class="page-header" data-toc-text="2.0.0">
+<a href="#rjafroc-200" class="anchor"></a>RJafroc 2.0.0<small> Unreleased </small>
 </h1>
-<div id="beginning-cran-submission-process" class="section level2">
+<div id="cran-submission-process" class="section level2">
 <h2 class="hasAnchor">
-<a href="#beginning-cran-submission-process" class="anchor"></a>Beginning CRAN submission process</h2>
+<a href="#cran-submission-process" class="anchor"></a>CRAN submission process</h2>
 <ul>
 <li>Version 2.0.0</li>
-<li>This lacks <code>tests</code> and <code>vignettes</code> and is on <code>cran3</code> branch.</li>
+<li>This is on <code>cran3</code> branch.</li>
+<li>Steps to reduce file size to less than 5 Mb:
+<ul>
+<li>Removed <code>tests</code> and <code>vignettes</code> (this needs to be done on all computers I am using).</li>
+<li>Removed all files from <code>ints/MRMCRuns</code> except <code>Tony</code>, the one that is used in an example.</li>
+<li>Removed <code>CrossedModalities.xlsx</code> and references to it.</li>
+<li>Removed <code>DfReadLrocDataFile.R</code> and <code>findings.txt</code>. Ran <code>devtools::document()</code> to fix <code>NAMESPACE</code>.</li>
+<li>Removed <code>RoiData.xlsx</code>.</li>
+</ul>
+</li>
 <li>Otherwise identical to <code>developer</code> and <code>master</code> as of 12/8/20.</li>
 <li>
-<code>testthat</code> failure on Ubuntu developer is unresolved.</li>
+<code>testthat</code> failure on Ubuntu developer is resolved, see <code>master</code> branch: <code>checkEnvironment = FALSE</code> in <code>expect_equal()</code> on <code>ggplot2</code> comparisons to <code>goodValues</code>.</li>
 </ul>
 </div>
 <div id="simplify-handling-of-lesion-distribution-and-lesion-weights" class="section level2">
@@ -604,7 +613,7 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <code>OR DBM MRMC 2.51 &lt;beta&gt; Build 20181028 &lt;/beta&gt;</code> <code>miplmrmc</code>
 </li>
 <li>Software only runs under Windows XP</li>
-<li>Tried Windows 8 on different machines (iMac and MacBookPro) under <code>VmWare Fusion</code>; no luck, even after following directins twice on <a href="https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual">website</a>
+<li>Tried Windows 8 on different machines (iMac and MacBookPro) under <code>VmWare Fusion</code>; no luck, even after following directions twice on <a href="https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual">website</a>
 </li>
 <li>Need to compare OR ouputs - WIP</li>
 <li>Need to fix documentation on <code>StSignificanceTesting</code> - WIP</li>
@@ -692,7 +701,7 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <a href="#work-post-acceptance-of-v132-as-of-3720" class="anchor"></a>Work post acceptance of v1.3.2, as of 3/7/20</h2>
 <ul>
 <li>Going back to work interrupted by having to fix the errors on R-devel, see next section below.</li>
-<li>This is v1.3.2.9000 as of 12/8/20 changed to 2.0.0.9000</li>
+<li>This is v1.3.2.9000.</li>
 <li>Got all tests working! Resulted in fix to <code>StDBMHAnalysis.R</code> that fixed test that I had to skip on mac for <code>context("SignificanceTestingAllCombinations")</code>. Need to get this fix (lines 45-51) over to cran2 branch as I am thinking of splitting the package up by separating the <code>cran2</code> branch as the base package <code>RJafroc</code> and <code>depending</code> on <code>RJafroc</code> for new package <code>RJafroc2</code>. This would solve the file size problems that I am running into. Just an idea.</li>
 <li>Current file size is 18.4 Mb!</li>
 <li>Synced with <code>developer</code> branch on <code>GitHub</code> and merged with <code>master</code>.</li>
