@@ -1,11 +1,17 @@
-# RJafroc 2.0.0.9000
+# RJafroc 2.0.0
 
 
-## Beginning CRAN submission process
-* Version 2.0.0 
-* This lacks `tests` and `vignettes` and is on `cran3` branch.
+## CRAN submission process
+* Version 2.0.0
+* This is on `cran3` branch.
+* Steps to reduce file size to less than 5 Mb:
+    + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
+    + Removed all files from `ints/MRMCRuns` except `Tony`, the one that is used in an example.
+    + Removed `CrossedModalities.xlsx` and references to it.
+    + Removed `DfReadLrocDataFile.R` and `findings.txt`. Ran `devtools::document()` to fix `NAMESPACE`.
+    + Removed `RoiData.xlsx`.
 * Otherwise identical to `developer` and `master` as of 12/8/20.
-* `testthat` failure on Ubuntu developer is unresolved.
+* `testthat` failure on Ubuntu developer is resolved, see `master` branch: `checkEnvironment = FALSE` in `expect_equal()` on `ggplot2` comparisons to `goodValues`.
 
 
 ## Simplify handling of lesion distribution and lesion weights
@@ -302,7 +308,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * `mrmc_setup_w10_July_2019.exe`; VanDyke `VanDyke.lrc` dataset; `Dropobox/IowaSoftware/VanDyke.lrc`
 * `OR DBM MRMC 2.51 <beta> Build 20181028 </beta>` `miplmrmc`
 * Software only runs under Windows XP
-* Tried Windows 8 on different machines (iMac and MacBookPro) under `VmWare Fusion`; no luck, even after following directins twice on [website](https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual)
+* Tried Windows 8 on different machines (iMac and MacBookPro) under `VmWare Fusion`; no luck, even after following directions twice on [website](https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual)
 * Need to compare OR ouputs - WIP
 * Need to fix documentation on `StSignificanceTesting` - WIP
 
@@ -355,7 +361,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 ## Work post acceptance of v1.3.2, as of 3/7/20
 * Going back to work interrupted by having to fix the errors on R-devel, see next section below.
-* This is v1.3.2.9000 as of 12/8/20 changed to 2.0.0.9000
+* This is v1.3.2.9000.
 * Got all tests working! Resulted in fix to `StDBMHAnalysis.R` that fixed test that I had to skip on mac for `context("SignificanceTestingAllCombinations")`. Need to get this fix (lines 45-51) over to cran2 branch as I am thinking of splitting the package up by separating the `cran2` branch as the base package `RJafroc` and `depending` on `RJafroc` for new package `RJafroc2`. This would solve the file size problems that I am running into. Just an idea.
 * Current file size is 18.4 Mb!
 * Synced with `developer` branch on `GitHub` and merged with `master`.
