@@ -1,7 +1,6 @@
 # Reason for submission
 * This is an update to CRAN version 1.3.2 which installed with no errors, warnings, or notes (2020-03-06) on all platforms. The package is still passing all checks on all platforms (as of 2020-12-10).
 * This update (v2.0.1) includes includes many improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification since the last successful submission.
-* A non-functioning website was removed from the version originally submitted as 2.0.0.
 
 # Test environments
 
@@ -27,19 +26,20 @@ devtools::check_win_oldrelease()
     + using log directory 'd:/RCompile/CRANguest/R-release/RJafroc.Rcheck'
     + using R version 4.0.3 (2020-10-10)
     + using platform: x86_64-w64-mingw32 (64-bit)
-    + One NOTE - Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>', which is expected as I am the maintainer.
-    + (Not cited as a NOTE) The check found a website in `NEWS.md` that may not be valid now - this is my internal documentation of reasons for code changes, and I would not want to delete the website, which was valid on the date that NEWS entry was made. 
+    + One Note_to_CRAN_maintainers: Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>', which is expected as I am the maintainer.
+    + OK. 
 1. check_win_release
     + using log directory 'd:/RCompile/CRANguest/R-devel/RJafroc.Rcheck'
     + using R Under development (unstable) (2020-12-09 r79601)
     + using platform: x86_64-w64-mingw32 (64-bit)
-    + One NOTE - Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>', which is expected as I am the maintainer.
-    + (Not cited as a NOTE) Website as in preceding check. 
+    + One Note_to_CRAN_maintainer: Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>', which is expected as I am the maintainer.
+    + OK. 
 1. check_win_oldrelease
     + using log directory 'd:/RCompile/CRANguest/R-oldrelease/RJafroc.Rcheck'
     + using R version 3.6.3 (2020-02-29)
     + using platform: x86_64-w64-mingw32 (64-bit)
-    + One NOTE - Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>', which is expected as I am the maintainer.
+    + One Note_to_CRAN_maintainers: Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>', which is expected as I am the maintainer.
+    + OK. 
 
 ## CRAN compatibility
 CRAN compatibility was tested using `rhub::check_for_cran()`.
