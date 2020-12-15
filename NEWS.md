@@ -1,8 +1,8 @@
-# RJafroc 2.0.0
+# RJafroc 2.0.1
 
 
 ## CRAN submission process
-* Version 2.0.0
+* Version 2.0.1
 * This is on `cran3` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
@@ -12,6 +12,7 @@
     + Removed `RoiData.xlsx`.
 * Otherwise identical to `developer` and `master` as of 12/8/20.
 * `testthat` failure on Ubuntu developer is resolved, see `master` branch: `checkEnvironment = FALSE` in `expect_equal()` on `ggplot2` comparisons to `goodValues`.
+* Removed non-functioning website 
 
 
 ## Simplify handling of lesion distribution and lesion weights
@@ -248,7 +249,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
   + `$lesions` contains 3 elements: `$perCase`, `$IDs` and `$weights`.
   + `$descriptions` contains 7 elements: `$fileName`, `$type`, `$name`, `$truthTableStr`, `$design`, `$modalityID` and `$readerID`.
 * This considerably simplified the handling of different types of datasets.
-* The version number will be bumped to 2.0.0 on final submission to CRAN.
+* The version number will be bumped to 2.0.1 on final submission to CRAN.
 * Since there are no downstream dependencies, I feel this big change is justified at this time. It will make it easier for me to maintain the code.
 * The code rewrite was conducted on a new branch, `SimplifyDatasets` off the `developer` branch.
 * The changes were merged to the `developer` branch and then to the `master` branch.
@@ -304,13 +305,13 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Moved VanDyke results to inst/IowaResults/VanDyke.txt
 
 
-## Compared to latest official code
-* `mrmc_setup_w10_July_2019.exe`; VanDyke `VanDyke.lrc` dataset; `Dropobox/IowaSoftware/VanDyke.lrc`
-* `OR DBM MRMC 2.51 <beta> Build 20181028 </beta>` `miplmrmc`
-* Software only runs under Windows XP
-* Tried Windows 8 on different machines (iMac and MacBookPro) under `VmWare Fusion`; no luck, even after following directions twice on [website](https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual)
-* Need to compare OR ouputs - WIP
-* Need to fix documentation on `StSignificanceTesting` - WIP
+## Compared to latest official Iowa code
+* `mrmc_setup_w10_July_2019.exe`; VanDyke `VanDyke.lrc` dataset; `Dropobox/IowaSoftware/VanDyke.lrc`.
+* `OR DBM MRMC 2.51 <beta> Build 20181028 </beta>` `miplmrmc`.
+* Software only runs under Windows XP.
+* Tried Windows 8 on different machines (iMac and MacBookPro) under `VmWare Fusion`; no luck, even after following directions twice on (non functional website removed at CRAN request). 
+* Need to compare OR ouputs - WIP.
+* Need to fix documentation on `StSignificanceTesting` - WIP.
 
 
 ## Discovered error

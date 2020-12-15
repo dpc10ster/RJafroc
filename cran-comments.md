@@ -1,6 +1,7 @@
 # Reason for submission
 * This is an update to CRAN version 1.3.2 which installed with no errors, warnings, or notes (2020-03-06) on all platforms. The package is still passing all checks on all platforms (as of 2020-12-10).
-* This update (v2.0.0) includes includes many improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification since the last successful submission. 
+* This update (v2.0.1) includes includes many improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification since the last successful submission.
+* A non-functioning website was removed.
 
 # Test environments
 
@@ -121,7 +122,7 @@ start <- 1; end <- 21; for (i in start:end) rhub::check(platform = paths[[1]][i]
 
 
 # FAILURE SUMMARY (from last attempted submission)
-Not applicable, as previous version installed with 0 errors, 0 warnings and 0 notes.
+A non-functioning website was removed.
 
 # All revdep maintainers were notified of the release on release date
 ```
