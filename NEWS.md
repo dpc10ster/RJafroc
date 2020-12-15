@@ -1,8 +1,8 @@
-# RJafroc 2.0.0
+# RJafroc 2.0.1
 
 
 ## CRAN submission process
-* Version 2.0.0
+* Version 2.0.1
 * This is on `cran3` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
@@ -248,7 +248,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
   + `$lesions` contains 3 elements: `$perCase`, `$IDs` and `$weights`.
   + `$descriptions` contains 7 elements: `$fileName`, `$type`, `$name`, `$truthTableStr`, `$design`, `$modalityID` and `$readerID`.
 * This considerably simplified the handling of different types of datasets.
-* The version number will be bumped to 2.0.0 on final submission to CRAN.
+* The version number will be bumped to 2.0.1 on final submission to CRAN.
 * Since there are no downstream dependencies, I feel this big change is justified at this time. It will make it easier for me to maintain the code.
 * The code rewrite was conducted on a new branch, `SimplifyDatasets` off the `developer` branch.
 * The changes were merged to the `developer` branch and then to the `master` branch.
