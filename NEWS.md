@@ -1,4 +1,7 @@
-# RJafroc 2.0.1
+# RJafroc 2.0.1.9000
+
+## Added functions RSM_pdfN and RSM_pdfD 
+* Needed for Swets predictions in book; but of general utility
 
 
 ## CRAN submission process
@@ -12,6 +15,7 @@
     + Removed `RoiData.xlsx`.
 * Otherwise identical to `developer` and `master` as of 12/8/20.
 * `testthat` failure on Ubuntu developer is resolved, see `master` branch: `checkEnvironment = FALSE` in `expect_equal()` on `ggplot2` comparisons to `goodValues`.
+* On CRAN
 
 
 ## Simplify handling of lesion distribution and lesion weights
