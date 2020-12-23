@@ -1,3 +1,62 @@
+#' RSM predicted ROC-rating pdf for diseased cases
+#' @param z The value at which to evaluate the pdf.
+#' @param mu The mu parameter of the RSM.
+#' @param lambdaP The lambdaP parameter of the RSM. 
+#' @param nuP The nuP parameter of the RSM.
+#' @param lesDistr The lesion distribution 1D vector.
+#' 
+#' @return pdf
+#' 
+#' @examples 
+#' lesDistr <- c(0.5, 0.5)
+#' RSM_pdfD(1,1,1,0.5, lesDistr)
+#' lesDistr <- c(0.2, 0.3, 0.5)
+#' RSM_pdfD(1,1,1,0.5, lesDistr)
+#' 
+#' @export
+
+# this was the original form, simplified somewhat but otherwise
+# identical to the 2017 version
+RSM_pdfD <- function(z, mu, lambdaP, nuP, lesDistr){
+  pdf <- 0
+  for (L in 1:length(lesDistr)){
+    a <- 1-nuP/2+nuP/2*erfVect((z-mu)/sqrt(2))
+    b <- exp((-lambdaP/2)+lambdaP/2*erfVect(z/sqrt(2)))
+    pdf <- pdf +
+      # This is identical to the pdfD2 form below obtained using Maple, only the factoring is different
+      lesDistr[L]*((a^(L-1)*b)*(L*nuP/sqrt(2*pi)*exp(-(z-mu)^2/2)+a*lambdaP/sqrt(2*pi)*exp(-z^2/2)))
+  }
+  # the following two checks are included to test out another simplification of the Maple generated
+  # formulas, as well as one using calculus to get at the final expression (derivative of 1-TPF wrt
+  # z)
+  # the max is needed as this function works with an input vector for z
+  if (abs(max(pdf - pdfD2(z, mu, lambdaP, nuP, lesDistr))) > 1e-16) stop("Two forms disagree A")
+  if (abs(max(pdf - pdfD3(z, mu, lambdaP, nuP, lesDistr))) > 1e-16) stop("Two forms disagree A")
+  
+  return (pdf)
+}
+
+
+#' RSM predicted ROC-rating pdf for non-diseased cases
+#' @param z The value at which to evaluate the pdf.
+#' @param lambdaP The lambdaP parameter of the RSM. 
+#' 
+#' @return pdf
+#' 
+#' @examples 
+#' RSM_pdfN(1,1)
+#' 
+#' @export
+#' 
+#' 
+RSM_pdfN <- function(z, lambdaP){
+  # verified using RSM_pdfN(1, 1) and (xROC(1, 1) - xROC(1 + 1e-8, 1)) / 1e-8
+  # following expression is identical to book equation 17.21
+  return(lambdaP * exp(-z^2/2) * exp(-lambdaP/2 * (1 - erfVect(z/sqrt(2)))) / sqrt(2 * pi))
+}
+
+
+
 # for future work
 myPlot <- function(dataPoints, dashedPoints, x, y, 
                    legendPosition, legendDirection, legendJustification) {
@@ -92,6 +151,65 @@ y_wAFROC_FPF <- function(FPF, mu, lambdaP, nuP, lesDistr, lesWghtDistr){
   wLLF <- sapply(zeta, ywAFROC, mu = mu, nuP = nuP, lesDistr, lesWghtDistr)
   return(wLLF)
 }
+
+
+
+# added 12/22/20
+# alternate form using Maple, Dec 2020
+pdfD2 <- function(z, mu, lambdaP, nuP, lesDistr){
+  pdf <- 0
+  for (L in 1:length(lesDistr)){
+    a <- 1-nuP/2+nuP/2*erfVect((z-mu)/sqrt(2))
+    b <- exp((-lambdaP/2)+lambdaP/2*erfVect(z/sqrt(2)))
+    pdf <- pdf + 
+      lesDistr[L]*((a^(L-1))*L*nuP*exp(-(z-mu)^2/2)+a^L*lambdaP*exp(-z^2/2))*b/sqrt(2*pi)
+  }
+  return (pdf)
+}
+
+
+
+# A is first term on rhs of book 17.22
+A <- function(mu,nu,z,L) 
+{
+  return((1-nu/2+nu/2*erfVect((z-mu)/sqrt(2)))^L)
+}
+
+# B is second term on rhs of book 17.22
+B <- function(lambda,z) 
+{
+  return(exp(-lambda/2+lambda/2*erfVect(z/sqrt(2))))
+}
+
+
+#dA is deriv. of A wrt z, Maple generated
+dA <- function(mu,nu,z,L)
+{
+  return((1-nu/2+nu/2*erfVect((z-mu)/sqrt(2)))^(L-1)*L*nu*exp(-(z-mu)^2/2)/sqrt(2*pi))
+}
+
+
+#dB is deriv. of B wrt z, Maple generated
+dB <- function(lambda,z)
+{
+  return(lambda*exp(-z^2/2)*exp(-lambda/2+lambda/2*erfVect(z/sqrt(2)))/sqrt(2*pi))
+}
+
+
+# added 12/22/20
+# using Maple generated derivatives wrt z
+pdfD3 <- function(z, mu, lambdaP, nuP, lesDistr){
+  pdf <- 0
+  for (L in 1:length(lesDistr)){
+    # AB is the two terms in book 17.22
+    # dA is deriv. of A wrt z
+    # dB is deriv. of B wrt z
+    pdf <- pdf +
+      lesDistr[L]*(dA(mu,nuP,z,L)*B(lambdaP,z)+A(mu,nuP,z,L)*dB(lambdaP,z))
+  }
+  return (pdf)
+}
+
 
 # 
 # xROC <- function (zeta, lambdaP){
