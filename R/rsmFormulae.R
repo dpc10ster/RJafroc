@@ -29,11 +29,11 @@ RSM_pdfD <- function(z, mu, lambdaP, nuP, lesDistr){
   # the following two checks are included to test out another simplification of the Maple generated
   # formulas, as well as one using calculus to get at the final expression (derivative of 1-TPF wrt
   # z)
-  # the max is needed as this function works with an input vector for z
-  # still does not work all the time
-  # if (abs(max(pdf - pdfD2(z, mu, lambdaP, nuP, lesDistr))) > 1e-16) stop("Two forms disagree A")
-  # if (abs(max(pdf - pdfD3(z, mu, lambdaP, nuP, lesDistr))) > 1e-16) stop("Two forms disagree A")
-  
+  # the max(pdf ...) is needed as this function works with an input vector for z; but this causes occasional failures
+  # replaced max(pdf ...) with mean(pdf ...); median(pdf ...) might be even more resistant to outliers
+  if (abs(mean(pdf - pdfD2(z, mu, lambdaP, nuP, lesDistr))) > 1e-16) stop("Two forms disagree A")
+  if (abs(mean(pdf - pdfD3(z, mu, lambdaP, nuP, lesDistr))) > 1e-16) stop("Two forms disagree B")
+
   return (pdf)
 }
 
