@@ -76,10 +76,19 @@
     <loc>https://github.com/dpc10ster/RJafroc/reference/RJafroc-package.html</loc>
   </url>
   <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_erf.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_pdfD.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_pdfN.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_xROC.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_yROC.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/SimulateCorCbmDataset.html</loc>

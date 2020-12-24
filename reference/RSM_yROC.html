@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lesion distribution of a dataset or convert values specified by 1D array — UtilLesionDistr • RJafroc</title>
+<title>RSM predicted ROC-ordinate as function of z — RSM_yROC • RJafroc</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Lesion distribution of a dataset or convert values specified by 1D array — UtilLesionDistr" />
-<meta property="og:description" content="The lesion distribution for a dataset or convert values 
-   specified by 1D array." />
+<meta property="og:title" content="RSM predicted ROC-ordinate as function of z — RSM_yROC" />
+<meta property="og:description" content="RSM predicted ROC-ordinate as function of z" />
 
 
 
@@ -179,69 +178,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lesion distribution of a dataset or convert values specified by 1D array</h1>
+    <h1>RSM predicted ROC-ordinate as function of z</h1>
     
-    <div class="hidden name"><code>UtilLesionDistr.Rd</code></div>
+    <div class="hidden name"><code>RSM_yROC.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The lesion distribution for a dataset or convert values 
-   specified by 1D array.</p>
+    <p>RSM predicted ROC-ordinate as function of z</p>
     </div>
 
-    <pre class="usage"><span class='fu'>UtilLesionDistr</span><span class='op'>(</span><span class='va'>datasetOrLesDistr</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>RSM_yROC</span><span class='op'>(</span><span class='va'>z</span>, <span class='va'>mu</span>, <span class='va'>lambdaP</span>, <span class='va'>nuP</span>, <span class='va'>lesDistr</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>datasetOrLesDistr</th>
-      <td><p>A dataset or a one-dimensional array containing the lesion 
-distribution. For example, c(0.1, 0.2, 0, 0.7) specifies 10 percent of 
-diseased cases have one lesion, 20 percent have two lesions, 0 percent 
-have 3 lesions and 70 percent have four lesions. See 3rd example below.</p></td>
+      <th>z</th>
+      <td><p>The value at which to evaluate the pdf.</p></td>
+    </tr>
+    <tr>
+      <th>mu</th>
+      <td><p>The mu parameter of the RSM.</p></td>
+    </tr>
+    <tr>
+      <th>lambdaP</th>
+      <td><p>The lambdaP parameter of the RSM.</p></td>
+    </tr>
+    <tr>
+      <th>nuP</th>
+      <td><p>The nuP parameter of the RSM.</p></td>
+    </tr>
+    <tr>
+      <th>lesDistr</th>
+      <td><p>The lesion distribution 1D vector.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>lesDistr The 2D lesion distribution array; 2D array currently needed
-   by cpp functions.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Two characteristics of an FROC dataset, apart from the ratings, 
-   affect the FOM: the distribution of lesions per case and the distribution 
-   of lesion weights. This function addresses the lesions. The distribution 
-   of weights are addressed by <a href='UtilLesionWeightsDistr.html'>UtilLesionWeightsDistr</a>. <code>lesDistr</code> is a 
-   [1:nRow,2] array, where <code>nRow</code> is the number of <b>unique</b> 
-   values of lesions per case in the dataset, 1, 2, ..., etc. The first 
-   column of the array contains the number of lesions per case. The second 
-   column contains the corresponding fraction of diseased cases. 
-   See <a href='PlotRsmOperatingCharacteristics.html'>PlotRsmOperatingCharacteristics</a> for a function that depends on 
-   <code>lesDistr</code>. See TBA Chapter00Vignette2 for more details.
-   The underlying assumption is that lesion 1 is the same type across all 
-   diseased cases, lesion 2 is the same type across all diseased cases, 
-   etc. This allows assignment of weights independent of the case index.
-   In the third example below, <code>relWeights</code> = [0.2, 0.4, 0.1, 0.3] means that
-   on cases with one lesion the weight of lesion 1 is unity, on cases with two 
-   lesions the weight of the first lesion to that of the second lesion is
-   in the ratio 0.2 : 0.4, i.e., lesion 2 is twice as important as lesion 1. 
-   On cases with 4 lesions the weights are in the ratio 0.2 : 0.4 : 0.1 : 0.3.
-   There are no cases with 3 lesions in this example. Of course, on any case
-   the weights sum to unity.</p>
+    <p>yROC</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilLesionDistr</span> <span class='op'>(</span><span class='va'>dataset01</span><span class='op'>)</span> <span class='co'># FROC dataset</span>
-</div><div class='output co'>#&gt;      [,1]       [,2]
-#&gt; [1,]    1 0.93258427
-#&gt; [2,]    2 0.06741573</div><div class='input'><span class='fu'>UtilLesionDistr</span> <span class='op'>(</span><span class='va'>dataset02</span><span class='op'>)</span> <span class='co'># ROC dataset</span>
-</div><div class='output co'>#&gt;      [,1] [,2]
-#&gt; [1,]    1    1</div><div class='input'><span class='fu'>UtilLesionDistr</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.2</span>, <span class='fl'>0</span>, <span class='fl'>0.7</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># We specify the distribution</span>
-</div><div class='output co'>#&gt;      [,1] [,2]
-#&gt; [1,]    1  0.1
-#&gt; [2,]    2  0.2
-#&gt; [3,]    3  0.0
-#&gt; [4,]    4  0.7</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>lesDistr1D</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>,<span class='fl'>0.3</span>,<span class='fl'>0.6</span><span class='op'>)</span>
+<span class='fu'>RSM_yROC</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='cn'>Inf</span>,<span class='fl'>0.1</span>,<span class='fl'>0.2</span>,<span class='fl'>0.3</span><span class='op'>)</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='va'>lesDistr1D</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.0000000 0.9796062 0.9735041 0.9657009</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
