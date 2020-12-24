@@ -1,7 +1,10 @@
 # RJafroc 2.0.1.9000
 
 ## Added functions RSM_pdfN and RSM_pdfD 
-* Needed for Swets predictions in book; but of general utility
+* Needed for Swets predictions in book; but of general utility.
+* Other new functions added of type `RSM_*()`
+* Need to vectorize all Cpp functions; no need to carry both scalar and vector types.
+* Add `tests` for new functions `RSM_*()`
 
 
 ## CRAN submission process

@@ -1,14 +1,15 @@
-#' Lesion distribution of a dataset or as specified by a one-dimensional array 
+#' Lesion distribution of a dataset or convert values specified by 1D array 
 #' 
-#' @description The lesion distribution for a dataset or lesions distribution 
-#'    specified as a one-dimensional array.
+#' @description The lesion distribution for a dataset or convert values 
+#'    specified by 1D array.
 #' 
 #' @param datasetOrLesDistr A dataset or a one-dimensional array containing the lesion 
 #'    distribution. For example, c(0.1, 0.2, 0, 0.7) specifies 10 percent of 
 #'    diseased cases have one lesion, 20 percent have two lesions, 0 percent 
 #'    have 3 lesions and 70 percent have four lesions. See 3rd example below.
 #'
-#' @return lesDistr The lesion distribution array.
+#' @return lesDistr The 2D lesion distribution array; 2D array currently needed
+#'    by cpp functions.
 #' 
 #' @details Two characteristics of an FROC dataset, apart from the ratings, 
 #'    affect the FOM: the distribution of lesions per case and the distribution 

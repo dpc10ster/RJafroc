@@ -2,7 +2,7 @@
 % Please edit documentation in R/UtilLesionDistr.R
 \name{UtilLesionDistr}
 \alias{UtilLesionDistr}
-\title{Lesion distribution of a dataset or as specified by a one-dimensional array}
+\title{Lesion distribution of a dataset or convert values specified by 1D array}
 \usage{
 UtilLesionDistr(datasetOrLesDistr)
 }
@@ -13,11 +13,12 @@ diseased cases have one lesion, 20 percent have two lesions, 0 percent
 have 3 lesions and 70 percent have four lesions. See 3rd example below.}
 }
 \value{
-lesDistr The lesion distribution array.
+lesDistr The 2D lesion distribution array; 2D array currently needed
+   by cpp functions.
 }
 \description{
-The lesion distribution for a dataset or lesions distribution 
-   specified as a one-dimensional array.
+The lesion distribution for a dataset or convert values 
+   specified by 1D array.
 }
 \details{
 Two characteristics of an FROC dataset, apart from the ratings, 

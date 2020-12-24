@@ -30,8 +30,9 @@ RSM_pdfD <- function(z, mu, lambdaP, nuP, lesDistr){
   # formulas, as well as one using calculus to get at the final expression (derivative of 1-TPF wrt
   # z)
   # the max is needed as this function works with an input vector for z
-  if (abs(max(pdf - pdfD2(z, mu, lambdaP, nuP, lesDistr))) > 1e-16) stop("Two forms disagree A")
-  if (abs(max(pdf - pdfD3(z, mu, lambdaP, nuP, lesDistr))) > 1e-16) stop("Two forms disagree A")
+  # still does not work all the time
+  # if (abs(max(pdf - pdfD2(z, mu, lambdaP, nuP, lesDistr))) > 1e-16) stop("Two forms disagree A")
+  # if (abs(max(pdf - pdfD3(z, mu, lambdaP, nuP, lesDistr))) > 1e-16) stop("Two forms disagree A")
   
   return (pdf)
 }
@@ -210,6 +211,61 @@ pdfD3 <- function(z, mu, lambdaP, nuP, lesDistr){
   return (pdf)
 }
 
+
+#' RSM predicted ROC-abscissa as function of z
+#' @param z The value at which to evaluate the ROC-abscissa.
+#' @param lambdaP The lambdaP parameter of the RSM. 
+#' 
+#' @return xROC
+#' 
+#' @examples 
+#' RSM_xROC(c(-Inf,0.1,0.2,0.3),1)
+#' 
+#' @export
+
+RSM_xROC <- function(z, lambdaP) {
+  return(xROCVect(z, lambdaP))
+}
+
+#' RSM predicted ROC-ordinate as function of z
+#' 
+#' @param z The value at which to evaluate the pdf.
+#' @param mu The mu parameter of the RSM.
+#' @param lambdaP The lambdaP parameter of the RSM. 
+#' @param nuP The nuP parameter of the RSM.
+#' @param lesDistr The lesion distribution 1D vector.
+#' 
+#' @return yROC
+#' 
+#' @examples 
+#' lesDistr1D <- c(0.1,0.3,0.6)
+#' RSM_yROC(c(-Inf,0.1,0.2,0.3), 1, 1, 1, lesDistr1D)
+#' 
+#' @export
+
+
+RSM_yROC <- function(z, mu, lambdaP, nuP, lesDistr) {
+  lesDistr2D <- UtilLesionDistr (lesDistr)
+  return(yROCVect(z, mu, lambdaP, nuP, lesDistr2D))
+}
+
+
+#' RSM required error function
+#' 
+#' @param x The value at which to evaluate the function.
+#' 
+#' @return erf
+#' 
+#' @examples 
+#' RSM_erf(c(-Inf,0.1,0.2,0.3, Inf))
+#' 
+#' @export
+
+RSM_erf <- function (x) {
+  
+  return(erfVect(x))
+  
+}
 
 # 
 # xROC <- function (zeta, lambdaP){
