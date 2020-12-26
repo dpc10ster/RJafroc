@@ -73,17 +73,44 @@ myPlot <- function(dataPoints, dashedPoints, x, y,
 
 
 
-xFROC <- function(zeta, lambdaP){
+#' RSM predicted FROC abscissa
+#' @param z The value at which to evaluate the FROC abscissa.
+#' @param lambdaP The lambdaP parameter of the RSM. 
+#' 
+#' @return xFROC
+#' 
+#' @examples 
+#' RSM_pdfN(1,1)
+#' 
+#' @export
+#' 
+#' 
+
+RSM_xFROC <- function(z, lambdaP){
   # returns NLF, the abscissa of FROC curve
-  NLF <- lambdaP * (1 - pnorm(zeta))
+  NLF <- lambdaP * (1 - pnorm(z))
   return(NLF)
 }
 
 
 
-yFROC <- function(zeta, mu, nuP){
+#' RSM predicted FROC ordinate
+#' @param z The value at which to evaluate the FROC ordinate.
+#' @param mu The mu parameter of the RSM. 
+#' @param nuP The nuP parameter of the RSM. 
+#' 
+#' @return yFROC
+#' 
+#' @examples 
+#' RSM_yFROC(1,1,0.5)
+#' 
+#' @export
+#' 
+#' 
+
+RSM_yFROC <- function(z, mu, nuP){
   # returns LLF, the ordinate of FROC, AFROC curve
-  LLF <- nuP * (1 - pnorm(zeta - mu))
+  LLF <- nuP * (1 - pnorm(z - mu))
   return(LLF)
 }
 
@@ -91,7 +118,7 @@ yFROC <- function(zeta, mu, nuP){
 
 intFROC <- function(NLF, mu, lambdaP, nuP){
   zeta <- qnorm(1 - NLF / lambdaP)
-  LLF <- yFROC(zeta, mu, nuP)
+  LLF <- RSM_yFROC(zeta, mu, nuP)
   return(LLF)
 }
 
@@ -104,7 +131,7 @@ y_AFROC_FPF <- function(FPF, mu, lambdaP, nuP){
   tmp <- 1 / lambdaP * log(1 - FPF) + 1
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
-  LLF <- yFROC(zeta, mu, nuP)
+  LLF <- RSM_yFROC(zeta, mu, nuP)
   return(LLF)
 }
 
