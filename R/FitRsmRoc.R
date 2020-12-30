@@ -1,6 +1,6 @@
 #' Fit the radiological search model (RSM) to an ROC dataset
 #' 
-#' @description Fit an RSM-predicted ROC curve to a \strong{binned single-modality single-treatment ROC dataset}
+#' @description Fit an RSM-predicted ROC curve to a \strong{binned single-treatment single-reader ROC dataset}
 #' 
 #' @param binnedRocData The \strong{binned ROC} dataset containing the data
 #' @param lesDistr The lesion distribution 1D array. 

@@ -46,7 +46,7 @@ The return value is a list with the following elements:
    Use \code{print} to display the object}
 }
 \description{
-Fit an RSM-predicted ROC curve to a \strong{binned single-modality single-treatment ROC dataset}
+Fit an RSM-predicted ROC curve to a \strong{binned single-treatment single-reader ROC dataset}
 }
 \details{
 If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. MLE ROC algorithms 
