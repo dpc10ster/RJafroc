@@ -22,23 +22,22 @@ UtilOutputReport(
 \item{dataset}{The dataset object to be analyzed (\emph{not the file name}), 
 see \code{Dataset} in \code{\link{RJafroc-package}}.}
 
-\item{ReportFileBaseName}{\bold{This must be specified by the user.} 
-The report file (text or Excel, as specified by option \code{ReportFileExt}) 
-is then created \bold{in the user's directory, not the RJafroc directory}. 
-See README.md in the 
-GitHub directory of this repository, the section on how to install 
-the software, on how to create a user directory. This argument specifies the 
+\item{ReportFileBaseName}{The report file (with extension \code{"txt"} or \code{"xlsx"}, 
+as specified by option 
+\code{ReportFileExt}) 
+is created \bold{in the user's directory}. 
+This argument specifies the 
 report file base name (i.e., without the extension) for the 
 desired report; the default is NULL, in which case the system generates 
 a temporary text file, whose very long name is displayed. However, the 
-temp file
-is very hard to locate. This is so that the sofware passes CRAN checks, 
-as writing to the project directory, or any of its subdirectories, is 
+file
+is very hard to locate. This is so that the software passes CRAN checks, 
+as writing to the project directory, or any of its sub-directories, is 
 frowned upon.}
 
 \item{ReportFileExt}{The report file extension determines the type of output. 
-\code{txt}, the default, for 
-a text file, \code{xlsx} for an Excel file.}
+\code{"txt"}, the default, for 
+a text file, \code{"xlsx"} for an Excel file.}
 
 \item{method}{The significance testing method, \code{"OR"} or 
 (the default) \code{"DBM"}.}
