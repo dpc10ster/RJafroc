@@ -138,7 +138,7 @@
       <h1 data-toc-skip>Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-12-30</h4>
+            <h4 class="date">2021-01-01</h4>
       
       
       <div class="hidden name"><code>Ch10Vig2QuickStartDBMHExcel.Rmd</code></div>
@@ -147,32 +147,9 @@
 
     
     
-<div id="introduction" class="section level2">
+<div id="this-chapter-has-moved--see-also-here-" class="section level2">
 <h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>This vignette illustrates significance testing using the DBM method. But, instead of the unwieldy output in <em>QuickStartDBM.html</em>, it generates an Excel output file containing the following worksheets:</p>
-<ul>
-<li><code>Summary</code></li>
-<li><code>FOMs</code></li>
-<li><code>RRRC</code></li>
-<li><code>FRRC</code></li>
-<li><code>RRFC</code></li>
-<li><code>ANOVA</code></li>
-</ul>
-</div>
-<div id="generating-the-excel-output-file" class="section level2">
-<h2 class="hasAnchor">
-<a href="#generating-the-excel-output-file" class="anchor"></a>Generating the Excel output file</h2>
-<p>This illustrates the <code><a href="../reference/UtilOutputReport.html">UtilOutputReport()</a></code> function. The significance testing <code>method</code> is “DBM”, the default, and the figure of merit <code>FOM</code> is “Wilcoxon”. Note <code>ReportFileExt</code> = “xlsx”` telling the function to create an Excel output file. The Excel output is created in a temporary file.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="st">"dataset03"</span><span class="op">)</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, overWrite <span class="op">=</span> <span class="cn">TRUE</span>, ReportFileExt <span class="op">=</span> <span class="st">"xlsx"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="orh-significance-testing" class="section level2">
-<h2 class="hasAnchor">
-<a href="#orh-significance-testing" class="anchor"></a>ORH significance testing</h2>
-<p>Simply change <code>method = "DBM"</code> (the default) to <code>method = "OR"</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/UtilOutputReport.html">UtilOutputReport</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="st">"dataset03"</span><span class="op">)</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"OR"</span>, overWrite <span class="op">=</span> <span class="cn">TRUE</span>, ReportFileExt <span class="op">=</span> <span class="st">"xlsx"</span><span class="op">)</span></code></pre></div>
+<a href="#this-chapter-has-moved--see-also-here-" class="anchor"></a>This chapter has <a href="https://dpc10ster.github.io/RJafrocBook/quick-start-dbm-text.html">moved</a>. See also <a href="https://dpc10ster.github.io/RJafrocBook/quick-start-or-text.html">here</a>.</h2>
 </div>
   </div>
 
