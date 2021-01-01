@@ -1,5 +1,11 @@
 # RJafroc 2.0.1.9000
 
+
+## Moved 2 vignettes to `RJafrocBook` 
+* `Ch10Vig1QuickStart` 
+* `Ch10Vig2QuickStart`
+
+
 ## Added functions RSM_pdfN and RSM_pdfD 
 * Needed for Swets predictions in book; but of general utility.
 * Other new functions added of type `RSM_*()`
