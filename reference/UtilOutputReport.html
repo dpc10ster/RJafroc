@@ -213,25 +213,24 @@ see <code>Dataset</code> in <code><a href='RJafroc-package.html'>RJafroc-package
     </tr>
     <tr>
       <th>ReportFileBaseName</th>
-      <td><p><b>This must be specified by the user.</b> 
-The report file (text or Excel, as specified by option <code>ReportFileExt</code>) 
-is then created <b>in the user's directory, not the RJafroc directory</b>. 
-See README.md in the 
-GitHub directory of this repository, the section on how to install 
-the software, on how to create a user directory. This argument specifies the 
+      <td><p>The report file (with extension <code>"txt"</code> or <code>"xlsx"</code>, 
+as specified by option 
+<code>ReportFileExt</code>) 
+is created <b>in the user's directory</b>. 
+This argument specifies the 
 report file base name (i.e., without the extension) for the 
 desired report; the default is NULL, in which case the system generates 
 a temporary text file, whose very long name is displayed. However, the 
-temp file
-is very hard to locate. This is so that the sofware passes CRAN checks, 
-as writing to the project directory, or any of its subdirectories, is 
+file
+is very hard to locate. This is so that the software passes CRAN checks, 
+as writing to the project directory, or any of its sub-directories, is 
 frowned upon.</p></td>
     </tr>
     <tr>
       <th>ReportFileExt</th>
       <td><p>The report file extension determines the type of output. 
-<code>txt</code>, the default, for 
-a text file, <code>xlsx</code> for an Excel file.</p></td>
+<code>"txt"</code>, the default, for 
+a text file, <code>"xlsx"</code> for an Excel file.</p></td>
     </tr>
     <tr>
       <th>method</th>
