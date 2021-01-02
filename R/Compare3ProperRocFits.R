@@ -262,7 +262,7 @@ gpfPlotRsmPropCbm <- function(fileName, mu, lambdaP, nuP, lesDistr, c1, da,
   retProproc <- gpfPropRocOperatingCharacteristic(c1,da)
   FPFProp <- c(1, retProproc$FPF);TPFProp <- c(1, retProproc$TPF) # make sure it goes to upper-right corner
   plotProp <- data.frame(FPF = FPFProp, TPF = TPFProp, Model = "PROP")
-  retRsm <- gpfRsmOperatingCharacteristic (mu, lambdaP, nuP, lesDistr = lesDistr)
+  retRsm <- gpfRsmOperatingCharacteristic (mu, lambdaP, nuP, lesDistr = lesDistr[,2]) # dpc 1/1/2021
   FPFRsm <- retRsm$FPF;TPFRsm <- retRsm$TPF
   plotRsm <- data.frame(FPF = FPFRsm, TPF = TPFRsm, Model = "RSM")
   dashedRsm <- data.frame(FPF = c(FPFRsm[1], 1), TPF = c(TPFRsm[1], 1), Model = "RSM")
