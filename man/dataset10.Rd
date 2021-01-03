@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataset10}
 \alias{dataset10}
-\title{Marc Ruschin ROC dataset}
+\title{Mark Ruschin ROC dataset}
 \format{
 A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}

@@ -210,10 +210,11 @@
 #'
 #' @keywords datasets
 #'
-#' @references Thompson JD  et al. Effect of reconstruction methods and x-ray tube 
-#' current-time product  on nodule detection in an anthropomorphic thorax phantom: 
-#' a crossed-treatment JAFROC observer study. Medical Physics. 2016;43(3):1265-1274.
+#' @references Thompson JD  Hogg P, et al. (2014) A Free-Response Evaluation Determining Value in 
+#' the Computed Tomography Attenuation Correction Image for Revealing Pulmonary 
+#' Incidental Findings: A Phantom Study. Academic Radiology, 21 (4): 538-545.
 #' 
+#'  
 #' @examples
 #' str(dataset05)
 #' PlotEmpiricalOperatingCharacteristics(dataset = dataset05, opChType = "wAFROC")$Plot
@@ -398,7 +399,7 @@
 #'
 #'
 #'
-#' Marc Ruschin ROC dataset
+#' Mark Ruschin ROC dataset
 #'
 #' This is referred to in the book as the "RUS" dataset. It consists of 90 cases, 
 #' 40 of which are diseased, the images were
@@ -866,7 +867,7 @@
 #'
 #' @keywords datasets
 #'
-#' @references Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
+#' @references Thompson JD, Chakraborty DP, et al. (2016) Effect of reconstruction 
 #' methods and x-ray tube current-time product  on nodule detection in an 
 #' anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study. 
 #' Medical Physics. 43(3):1265-1274.
