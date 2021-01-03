@@ -5,7 +5,7 @@
 * Vignette `Ch10Vig1QuickStart` 
 * Vignette `Ch10Vig2QuickStart`
 * Function `Compare3ProperRocFits.R`
-* Needed for Swets predictions in book; but of general utility
+* Associated files in `inst`: `MRMCRuns` and `ANALYZED`
 
 
 ## Added functions RSM_pdfN and RSM_pdfD 
