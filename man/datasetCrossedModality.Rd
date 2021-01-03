@@ -42,7 +42,7 @@ str(datasetCrossedModality)
 
 }
 \references{
-Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
+Thompson JD, Chakraborty DP, et al. (2016) Effect of reconstruction 
 methods and x-ray tube current-time product  on nodule detection in an 
 anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study. 
 Medical Physics. 43(3):1265-1274.

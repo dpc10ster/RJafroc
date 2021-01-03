@@ -429,8 +429,6 @@
 
 \section{Miscellaneous and Utility Functions}{
   \itemize{    
-        \item \code{\link{Compare3ProperRocFits}}: Compare three proper-ROC 
-           curve fitting models.
         \item \code{\link{UtilAucBinormal}}: Binormal model AUC function.
         \item \code{\link{UtilAucCBM}}: CBM AUC function.
         \item \code{\link{UtilAucPROPROC}}: PROPROC AUC function.

@@ -1,9 +1,11 @@
 # RJafroc 2.0.1.9000
 
 
-## Moved 2 vignettes to `RJafrocBook` 
-* `Ch10Vig1QuickStart` 
-* `Ch10Vig2QuickStart`
+## Moved to `RJafrocBook` 1/3/21
+* Vignette `Ch10Vig1QuickStart` 
+* Vignette `Ch10Vig2QuickStart`
+* Function `Compare3ProperRocFits.R`
+* Associated files in `inst`: `MRMCRuns` and `ANALYZED`
 
 
 ## Added functions RSM_pdfN and RSM_pdfD 

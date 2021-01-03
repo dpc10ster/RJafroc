@@ -44,8 +44,8 @@ PlotEmpiricalOperatingCharacteristics(dataset = dataset05, opChType = "wAFROC")$
 
 }
 \references{
-Thompson JD  et al. Effect of reconstruction methods and x-ray tube 
-current-time product  on nodule detection in an anthropomorphic thorax phantom: 
-a crossed-treatment JAFROC observer study. Medical Physics. 2016;43(3):1265-1274.
+Thompson JD  Hogg P, et al. (2014) A Free-Response Evaluation Determining Value in 
+the Computed Tomography Attenuation Correction Image for Revealing Pulmonary 
+Incidental Findings: A Phantom Study. Academic Radiology, 21 (4): 538-545.
 }
 \keyword{datasets}
