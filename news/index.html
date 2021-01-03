@@ -185,13 +185,18 @@
 <h1 class="page-header" data-toc-text="2.0.1.9000">
 <a href="#rjafroc-2019000" class="anchor"></a>RJafroc 2.0.1.9000<small> Unreleased </small>
 </h1>
-<div id="moved-2-vignettes-to-rjafrocbook" class="section level2">
+<div id="moved-to-rjafrocbook-1321" class="section level2">
 <h2 class="hasAnchor">
-<a href="#moved-2-vignettes-to-rjafrocbook" class="anchor"></a>Moved 2 vignettes to <code>RJafrocBook</code>
-</h2>
+<a href="#moved-to-rjafrocbook-1321" class="anchor"></a>Moved to <code>RJafrocBook</code> 1/3/21</h2>
 <ul>
-<li><code>Ch10Vig1QuickStart</code></li>
-<li><code>Ch10Vig2QuickStart</code></li>
+<li>Vignette <code>Ch10Vig1QuickStart</code>
+</li>
+<li>Vignette <code>Ch10Vig2QuickStart</code>
+</li>
+<li>Function <code>Compare3ProperRocFits.R</code>
+</li>
+<li>Associated files in <code>inst</code>: <code>MRMCRuns</code> and <code>ANALYZED</code>
+</li>
 </ul>
 </div>
 <div id="added-functions-rsm_pdfn-and-rsm_pdfd" class="section level2">
@@ -1014,9 +1019,9 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <li>Added <code>ChisqrGoodnessOfFit</code> function, replacing 3 functions</li>
 <li>Cleaned up plotting code; using one function <code>genericPlotROC.R</code> instead of 3 functions</li>
 <li>Updated results of CBM, PROPROC and RSM fitting after discovering error in df calculation in RSM chisquare statistic; book results are wrong; only 2/236 fits yield a valid chisquare statistic</li>
-<li>Renamed <code>ExampleCompare3ProperRocFits()</code> to <code><a href="../reference/Compare3ProperRocFits.html">Compare3ProperRocFits()</a></code>
+<li>Renamed <code>ExampleCompare3ProperRocFits()</code> to <code>Compare3ProperRocFits()</code>
 </li>
-<li>Corrected overwriting error in value returned by <code><a href="../reference/Compare3ProperRocFits.html">Compare3ProperRocFits()</a></code>
+<li>Corrected overwriting error in value returned by <code>Compare3ProperRocFits()</code>
 </li>
 <li>Added two vignettes: <code>QuickStartDBMH</code> and <code>QuickStartDBMHExcelOutput</code>
 </li>
