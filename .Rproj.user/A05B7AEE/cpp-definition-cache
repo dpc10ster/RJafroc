@@ -1,10 +1,10 @@
 [
     {
         "file": "/Users/Dev/GitHub/RJafroc/src/BMFuncs.cpp",
-        "file_last_write": 1530069185.0,
+        "file_last_write": 1607143825.0,
         "definitions": [
             {
-                "usr": "c:@F@BMNLLInner#d#d#I#I#I#",
+                "usr": "c:@F@BMNLLInner#d#d#$@N@Rcpp@S@Vector>#VI14#@N@Rcpp@ST>1#T@PreserveStorage#S0_#S0_#",
                 "kind": 6,
                 "parent_name": "",
                 "name": "BMNLLInner(double, double, Rcpp::NumericVector, Rcpp::NumericVector, Rcpp::NumericVector)",
@@ -16,7 +16,7 @@
     },
     {
         "file": "/Users/Dev/GitHub/RJafroc/src/CBMFuncs.cpp",
-        "file_last_write": 1530069185.0,
+        "file_last_write": 1607143825.0,
         "definitions": [
             {
                 "usr": "c:@F@Qz#d#d#",
@@ -37,7 +37,7 @@
                 "column": 8
             },
             {
-                "usr": "c:@F@CBMNLLInner#d#d#I#I#I#",
+                "usr": "c:@F@CBMNLLInner#d#d#$@N@Rcpp@S@Vector>#VI14#@N@Rcpp@ST>1#T@PreserveStorage#S0_#S0_#",
                 "kind": 6,
                 "parent_name": "",
                 "name": "CBMNLLInner(double, double, Rcpp::NumericVector, Rcpp::NumericVector, Rcpp::NumericVector)",
@@ -49,12 +49,12 @@
     },
     {
         "file": "/Users/Dev/GitHub/RJafroc/src/CommonFuncs.h",
-        "file_last_write": 1579017864.0,
+        "file_last_write": 1609524838.0,
         "definitions": []
     },
     {
         "file": "/Users/Dev/GitHub/RJafroc/src/MyFOM.cpp",
-        "file_last_write": 1605300465.0,
+        "file_last_write": 1607143825.0,
         "definitions": [
             {
                 "usr": "c:@F@maximum#$@N@Rcpp@S@Vector>#VI14#@N@Rcpp@ST>1#T@PreserveStorage#I#",
@@ -213,7 +213,7 @@
     },
     {
         "file": "/Users/Dev/GitHub/RJafroc/src/RsmFuncs.cpp",
-        "file_last_write": 1606774159.0,
+        "file_last_write": 1607143825.0,
         "definitions": [
             {
                 "usr": "c:@F@erfcpp#d#",
@@ -300,12 +300,12 @@
     },
     {
         "file": "/Users/Dev/GitHub/RJafroc/src/SmAucInt.cpp",
-        "file_last_write": 1511145261.0,
+        "file_last_write": 1607143825.0,
         "definitions": []
     },
     {
         "file": "/Users/Dev/GitHub/RJafroc/src/Transforms.cpp",
-        "file_last_write": 1511145261.0,
+        "file_last_write": 1607143825.0,
         "definitions": [
             {
                 "usr": "c:@F@ForwardValue#d#d#d#",
