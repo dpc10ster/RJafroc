@@ -165,10 +165,10 @@ PlotRsmOperatingCharacteristics <- function(mu,
     
     lambdaP[i] <- lambda[i] / mu[i]
     if (abs(nu[i] * mu[i]) <= 1e-6 ) nuP[i] <- 1e-6 else nuP[i] <- (1-exp(-nu[i] * mu[i]))
-    FPF <- sapply(zeta[[i]], xROC, lambdaP = lambdaP[i])
+    FPF <- sapply(zeta[[i]], xROC, lambdaP = lambdaP[i]) # C++ function uses lambdaP
     TPF <- sapply(zeta[[i]], yROC, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr = lesDistr)
-    NLF <- sapply(zeta[[i]], RSM_xFROC, lambdaP = lambdaP[i])
-    LLF <- sapply(zeta[[i]], RSM_yFROC, mu = mu[i], nuP = nuP[i])
+    NLF <- sapply(zeta[[i]], RSM_xFROC, mu = mu[i], lambda = lambda[i])
+    LLF <- sapply(zeta[[i]], RSM_yFROC, mu = mu[i], nu = nu[i])
     
     maxFPF <- xROC(-20, lambdaP[i])
     if( OpChType == "ALL" ||  OpChType == "ROC"){
@@ -192,11 +192,11 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                  stringsAsFactors = FALSE))
       if (is.null(nlfAlpha)){
         maxNLF <- max(NLF)
-        aucFROC[i] <- integrate(intFROC, 0, maxNLF, mu= mu[i], lambdaP = lambdaP[i], nuP = nuP[i])$value
+        aucFROC[i] <- integrate(intFROC, 0, maxNLF, mu= mu[i], lambda = lambda[i], nu = nu[i])$value
       }else{
         maxNLF <- max(NLF)
         if (nlfAlpha <= maxNLF){
-          aucFROC[i] <- integrate(intFROC, 0, nlfAlpha, mu= mu[i], lambdaP = lambdaP[i], nuP = nuP[i])$value
+          aucFROC[i] <- integrate(intFROC, 0, nlfAlpha, mu= mu[i], lambda = lambda[i], nu = nu[i])$value
         }else{
           stop("nlfAlpha cannot be greater than the maximum of NLF.")
         }
@@ -212,8 +212,8 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                    LLF = c(LLF[1], 1), 
                                                    Treatment = as.character(i), 
                                                    stringsAsFactors = FALSE))
-      maxLLF <- RSM_yFROC(-20, mu[i], nuP[i])
-      AUC <- integrate(y_AFROC_FPF, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i])$value
+      maxLLF <- RSM_yFROC(-20, mu[i], nu[i])
+      AUC <- integrate(y_AFROC_FPF, 0, maxFPF, mu = mu[i], lambda = lambda[i], nu = nu[i])$value
       aucAFROC[i] <- AUC + (1 + maxLLF) * (1 - maxFPF) / 2
     }
     
@@ -228,7 +228,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                      Treatment = as.character(i), 
                                                      stringsAsFactors = FALSE))
       maxWLLF <- ywAFROC(-20, mu[i], nuP[i], lesDistr, lesWghtDistr) 
-      AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr, lesWghtDistr)$value
+      AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambda = lambda[i], nu = nu[i], lesDistr, lesWghtDistr)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }
     

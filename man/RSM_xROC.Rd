@@ -7,12 +7,12 @@
 RSM_xROC(z, lambdaP)
 }
 \arguments{
-\item{z}{The value at which to evaluate the ROC-abscissa.}
+\item{z}{The z-sample at which to evaluate the ROC-abscissa.}
 
-\item{lambdaP}{The lambdaP parameter of the RSM.}
+\item{lambdaP}{The (physical) lambdaP parameter of the RSM.}
 }
 \value{
-xROC
+xROC, the abscissa of the ROC
 }
 \description{
 RSM predicted ROC-abscissa as function of z
