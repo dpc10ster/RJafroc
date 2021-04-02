@@ -7,9 +7,9 @@
 RSM_pdfN(z, lambdaP)
 }
 \arguments{
-\item{z}{The value at which to evaluate the pdf.}
+\item{z}{The z-sample value at which to evaluate the pdf.}
 
-\item{lambdaP}{The lambdaP parameter of the RSM.}
+\item{lambdaP}{The (physical) lambdaP parameter of the RSM.}
 }
 \value{
 pdf

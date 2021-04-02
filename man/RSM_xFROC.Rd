@@ -4,12 +4,14 @@
 \alias{RSM_xFROC}
 \title{RSM predicted FROC abscissa}
 \usage{
-RSM_xFROC(z, lambdaP)
+RSM_xFROC(z, mu, lambda)
 }
 \arguments{
-\item{z}{The value at which to evaluate the FROC abscissa.}
+\item{z}{The z-sample value at which to evaluate the FROC abscissa.}
 
-\item{lambdaP}{The lambdaP parameter of the RSM.}
+\item{mu}{The mu parameter of the RSM.}
+
+\item{lambda}{The (intrinsic) lambda parameter of the RSM.}
 }
 \value{
 xFROC

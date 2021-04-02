@@ -1,6 +1,17 @@
 # RJafroc 2.0.1.9000
 
 
+## Intrinsic vs. physical RSM parameters 4/2/21
+* All C++ functions take physical parameters 
+* Rest take intrinsic parameters (2 exceptions, like `RSM_xROC` and `RSM_pdfN`)
+* Cleanup:
+    + `PlotRsmOperatingCharacteristics.R`, 
+    + `UtilAnallyticalAucsRSM.R`, 
+    + `rsmFormulae.R`
+    + affected related test files: `test-RSM-formulae.R` and `test-model-aucs.R`
+    + Used `goodValues` to check that nothing has changed
+
+
 ## Moved to `RJafrocBook` 1/3/21
 * Vignette `Ch10Vig1QuickStart` 
 * Vignette `Ch10Vig2QuickStart`
