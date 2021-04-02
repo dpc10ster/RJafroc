@@ -179,6 +179,26 @@
 <h1 class="page-header" data-toc-text="2.0.1.9000">
 <a href="#rjafroc-2019000" class="anchor"></a>RJafroc 2.0.1.9000<small> Unreleased </small>
 </h1>
+<div id="intrinsic-vs-physical-rsm-parameters-4221" class="section level2">
+<h2 class="hasAnchor">
+<a href="#intrinsic-vs-physical-rsm-parameters-4221" class="anchor"></a>Intrinsic vs. physical RSM parameters 4/2/21</h2>
+<ul>
+<li>All C++ functions take physical parameters</li>
+<li>Rest take intrinsic parameters (2 exceptions, like <code>RSM_xROC</code> and <code>RSM_pdfN</code>)</li>
+<li>Cleanup:
+<ul>
+<li>
+<code>PlotRsmOperatingCharacteristics.R</code>,</li>
+<li>
+<code>UtilAnallyticalAucsRSM.R</code>,</li>
+<li><code>rsmFormulae.R</code></li>
+<li>affected related test files: <code>test-RSM-formulae.R</code> and <code>test-model-aucs.R</code>
+</li>
+<li>Used <code>goodValues</code> to check that nothing has changed</li>
+</ul>
+</li>
+</ul>
+</div>
 <div id="moved-to-rjafrocbook-1321" class="section level2">
 <h2 class="hasAnchor">
 <a href="#moved-to-rjafrocbook-1321" class="anchor"></a>Moved to <code>RJafrocBook</code> 1/3/21</h2>
