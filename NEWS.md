@@ -1,6 +1,11 @@
 # RJafroc 2.0.1.9000
 
 
+## Corrected sample size vignette 4/12/21
+* `Ch19Vig2FrocSampleSize.Rmd`
+* Fixed `SsFrocNhRsmModel.R` - should not return lesion distribution and weights
+
+
 ## Intrinsic vs. physical RSM parameters 4/2/21
 * All C++ functions take physical parameters 
 * Rest take intrinsic parameters (2 exceptions, like `RSM_xROC` and `RSM_pdfN`)

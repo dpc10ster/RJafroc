@@ -13,8 +13,6 @@ ret <- SsFrocNhRsmModel(frocNhData, lesDistr = lesDistr)
 muMed <- ret$muMed
 lambdaMed <- ret$lambdaMed
 nuMed <- ret$nuMed
-lesDistr <- ret$lesDistr
-lesWghtDistr <- ret$lesWghtDistr
 scaleFactor <- ret$scaleFactor
 
 ## -----------------------------------------------------------------------------
