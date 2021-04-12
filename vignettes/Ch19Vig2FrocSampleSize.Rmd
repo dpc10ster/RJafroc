@@ -23,7 +23,7 @@ library(ggplot2)
 This example uses the FED dataset as a pilot FROC study and function `SsFrocNhRsmModel()` to construct the NH model (encapsulating some of the code in the previous vignette).
 
 ## Constructing the NH model for the dataset
-One starts by extracting the first two treatments from `dataset04`, which represent the NH dataset, see previous vignette. Next one constructs the NH model - note that the lesion distribution `lesionPmf` can be specified here independently of that in the pilot dataset. This allows some control over selection of the diseased cases in the pivotal study.
+One starts by extracting the first two treatments from `dataset04`, which represent the NH dataset, see previous vignette. Next one constructs the NH model - note that the lesion distribution `lesDistr` can be specified here independently of that in the pilot dataset. This allows some control over selection of the diseased cases in the pivotal study.
 
 ```{r} 
 lesDistr <- c(0.7, 0.2, 0.1)
