@@ -132,7 +132,7 @@
       <h1 data-toc-skip>Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2021-04-02</h4>
+            <h4 class="date">2021-04-14</h4>
       
       
       <div class="hidden name"><code>Ch19Vig2FrocSampleSize.Rmd</code></div>
@@ -149,7 +149,7 @@
 <div id="constructing-the-nh-model-for-the-dataset" class="section level2">
 <h2 class="hasAnchor">
 <a href="#constructing-the-nh-model-for-the-dataset" class="anchor"></a>Constructing the NH model for the dataset</h2>
-<p>One starts by extracting the first two treatments from <code>dataset04</code>, which represent the NH dataset, see previous vignette. Next one constructs the NH model - note that the lesion distribution <code>lesionPmf</code> can be specified here independently of that in the pilot dataset. This allows some control over selection of the diseased cases in the pivotal study.</p>
+<p>One starts by extracting the first two treatments from <code>dataset04</code>, which represent the NH dataset, see previous vignette. Next one constructs the NH model - note that the lesion distribution <code>lesDistr</code> can be specified here independently of that in the pilot dataset. This allows some control over selection of the diseased cases in the pivotal study.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span>
 <span class="va">frocNhData</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfExtractDataset.html">DfExtractDataset</a></span><span class="op">(</span><span class="va">dataset04</span>, trts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
@@ -157,20 +157,14 @@
 <span class="va">muMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">muMed</span>
 <span class="va">lambdaMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">lambdaMed</span>
 <span class="va">nuMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">nuMed</span>
-<span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">lesDistr</span>
-<span class="va">lesWghtDistr</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">lesWghtDistr</span>
 <span class="va">scaleFactor</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">scaleFactor</span></code></pre></div>
 <p>The fitting model is defined by <code>muMed = r muMed</code>, <code>lambdaMed = 5.6140941</code> and <code>nuMed = 0.3696988</code> and <code>lesionPmf</code>. The effect size scale factor is 2.1542102.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">aucRocNH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span><span class="va">muMed</span>, <span class="va">lambdaMed</span>, <span class="va">nuMed</span>, 
                                             lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"ROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucROC</span>
-<span class="co">#&gt; Warning in rbind(seq(1:length(lesDistr)), lesDistr): number of columns of result</span>
-<span class="co">#&gt; is not a multiple of vector length (arg 1)</span>
 <span class="va">aucwAfrocNH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span><span class="va">muMed</span>, <span class="va">lambdaMed</span>, <span class="va">nuMed</span>, 
-                                               lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucwAFROC</span>
-<span class="co">#&gt; Warning in rbind(seq(1:length(lesDistr)), lesDistr): number of columns of result</span>
-<span class="co">#&gt; is not a multiple of vector length (arg 1)</span></code></pre></div>
-<p>The null hypothesis ROC AUC is 0.8876424 and the corresponding NH wAFROC AUC is 0.7231709.</p>
+                                               lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucwAFROC</span></code></pre></div>
+<p>The null hypothesis ROC AUC is 0.8790725 and the corresponding NH wAFROC AUC is 0.7231709.</p>
 </div>
 <div id="extracting-the-wafroc-variance-components" class="section level2">
 <h2 class="hasAnchor">
