@@ -9,13 +9,13 @@ library(ggplot2)
 ## -----------------------------------------------------------------------------
 frocData <- DfExtractDataset(dataset04, trts = c(1,2))
 rocData <- DfFroc2Roc(frocData)
+rocDataB <- DfBinDataset(rocData, opChType = "ROC") # unnecessary as data is already binned
+# but cant hurt
 
 ## -----------------------------------------------------------------------------
-lesDistr <- UtilLesionDistr(frocData)[,2]
-relWeights <- 0
-
-## -----------------------------------------------------------------------------
+lesDistr <- UtilLesionDistr(frocData)
 print(lesDistr)
+lesDistr <- lesDistr[,2]
 
 ## -----------------------------------------------------------------------------
 I <- dim(frocData$ratings$NL)[1]
@@ -23,7 +23,7 @@ J <- dim(frocData$ratings$NL)[2]
 RsmParms <- array(dim = c(I,J,3))
 for (i in 1:I) {
   for (j in 1:J)  {
-    x1 <- FitRsmRoc(rocData, trt = i, rdr = j, lesDistr)
+    x1 <- FitRsmRoc(rocDataB, trt = i, rdr = j, lesDistr)
     RsmParms[i,j,1] <- x1[[1]] # mu
     RsmParms[i,j,2] <- x1[[2]] # lambdaP
     RsmParms[i,j,3] <- x1[[3]] # nuP
@@ -87,12 +87,12 @@ print(varCompwAFROC)
 ## -----------------------------------------------------------------------------
 powerROC <- array(dim = length(effectSizeROC));powerwAFROC <- array(dim = length(effectSizeROC))
 
-JTest <- 5;KTest <- 100
+JPivot <- 5;KPivot <- 100
 for (i in 1:length(effectSizeROC)) {
   varYTR <- varCompROC["VarTR","Estimates"] # these are pseudovalue based variance components assuming FOM = "Wilcoxon"
   varYTC <- varCompROC["VarTC","Estimates"]
   varYEps <- varCompROC["VarErr","Estimates"]
-  ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = JTest, K = KTest, analysisOption = "RRRC", 
+  ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = JPivot, K = KPivot, analysisOption = "RRRC", 
                  effectSize = effectSizeROC[i], method = "DBM", LegacyCode = TRUE, 
                  list(VarTR = varYTR,
                       VarTC = varYTC,
@@ -102,7 +102,7 @@ for (i in 1:length(effectSizeROC)) {
   varYTR <- varCompwAFROC["VarTR","Estimates"] # these are pseudovalue based variance components assuming FOM = "wAFROC"
   varYTC <- varCompwAFROC["VarTC","Estimates"]
   varYEps <- varCompwAFROC["VarErr","Estimates"]
-  ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = JTest, K = KTest, analysisOption = "RRRC", 
+  ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = JPivot, K = KPivot, analysisOption = "RRRC", 
                  effectSize = effectSizewAFROC[i], method = "DBM", LegacyCode = TRUE, 
                  list(VarTR = varYTR,
                       VarTC = varYTC,

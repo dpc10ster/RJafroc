@@ -12,7 +12,7 @@ rocData <- dataset02 ##"VanDyke.lrc"
 #fileName <- dataset03 ## "Franken1.lrc"
 retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "DBM") 
 varYTR <- retDbm$varComp$varComp[3];varYTC <- retDbm$varComp$varComp[4];varYEps <- retDbm$varComp$varComp[6]
-effectSize <- retDbm$ciDiffTrtRRRC$Estimate
+effectSize <- retDbm$RRRC$ciDiffTrt$Estimate
 
 ## -----------------------------------------------------------------------------
 retDbm$varComp

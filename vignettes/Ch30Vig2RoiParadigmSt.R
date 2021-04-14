@@ -14,33 +14,39 @@ ret <- StSignificanceTesting(datasetROI, FOM = "Wilcoxon")
 str(ret)
 
 ## -----------------------------------------------------------------------------
-ret$varComp
+ret$ANOVA$VarCom
 
 ## -----------------------------------------------------------------------------
-ret$FTestStatsRRRC$fRRRC
-ret$FTestStatsRRRC$ndfRRRC
-ret$FTestStatsRRRC$ddfRRRC
-ret$FTestStatsRRRC$pRRRC
+ret$RRRC$FTests$FStat[1]
+ret$RRRC$FTests$DF
+ret$RRRC$FTests$p[1]
 
 ## -----------------------------------------------------------------------------
-ret$ciDiffTrtRRRC
+ret$RRRC$ciDiffTrt$Estimate
+ret$RRRC$ciDiffTrt$PrGTt
+ret$RRRC$ciDiffTrt$CILower
+ret$RRRC$ciDiffTrt$CIUpper
 
 ## -----------------------------------------------------------------------------
-ret$FTestStatsFRRC$fFRRC
-ret$FTestStatsFRRC$ndfFRRC
-ret$FTestStatsFRRC$ddfFRRC
-ret$FTestStatsFRRC$pFRRC
+ret$FRRC$FTests$Chisq[1]
+ret$FRRC$FTests$DF[1]
+ret$FRRC$FTests$p[1]
 
 ## -----------------------------------------------------------------------------
-ret$ciDiffTrtFRRC
+ret$FRRC$ciDiffTrt$Estimate
+ret$FRRC$ciDiffTrt$PrGTz
+ret$FRRC$ciDiffTrt$CILower
+ret$FRRC$ciDiffTrt$CIUpper
 
 ## -----------------------------------------------------------------------------
-ret$FTestStatsRRFC$fRRFC
-ret$FTestStatsRRFC$ndfRRFC
-ret$FTestStatsRRFC$ddfRRFC
-ret$FTestStatsRRFC$pRRFC
-
+ret$RRFC$FTests$F[1]
+ret$RRFC$FTests$DF[2]
+ret$RRFC$FTests$p[1]
 
 ## -----------------------------------------------------------------------------
-ret$ciDiffTrtRRFC
+ret$RRFC$ciDiffTrt$Estimate
+ret$RRFC$ciDiffTrt$PrGTt
+ret$RRFC$ciDiffTrt$CILower
+ret$RRFC$ciDiffTrt$CIUpper
+
 

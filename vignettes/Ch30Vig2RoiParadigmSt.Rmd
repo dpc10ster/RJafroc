@@ -20,7 +20,7 @@ vignette: >
   library(RJafroc)
 ```
 ## Note to self (10/29/19) !!!DPC!!!
-The FOM and DeLong method implementations need checking with a toy dataset.
+TBA The FOM and DeLong method implementations need checking with a toy dataset.
 
 
 
@@ -61,74 +61,88 @@ fom <- UtilFigureOfMerit(datasetROI, FOM = "ROI")
 
 ## Significance testing
 
-When `dataset$dataType == "ROI"` the FOM defaults to "ROI" (meaning the above formula) and the covariance estimation method defaults to `covEstMethod = "DeLong"`.
+When `dataset$dataType == "ROI"` the FOM defaults to "ROI" (i.e., the above formula is used) and the covariance estimation method defaults to `covEstMethod = "DeLong"`.
 
 ```{r}
 ret <- StSignificanceTesting(datasetROI, FOM = "Wilcoxon")
 str(ret)
 ```             
 
-* While `ret` is a list with many (22) members, their meanings should be clear from the notation. As an example:  
+* While `ret` is a list with many members, their meanings should be clear from the notation. 
 
-+    The variance components are given by:
+* The variance components are given by:
 
 ```{r}
-ret$varComp
+ret$ANOVA$VarCom
 ```             
 
 ### RRRC analysis  
 
 ```{r}
-ret$FTestStatsRRRC$fRRRC
-ret$FTestStatsRRRC$ndfRRRC
-ret$FTestStatsRRRC$ddfRRRC
-ret$FTestStatsRRRC$pRRRC
+ret$RRRC$FTests$FStat[1]
+ret$RRRC$FTests$DF
+ret$RRRC$FTests$p[1]
 ```             
 
-* The F-statistic is `r ret$fRRRC`, with `ndf = 1` and `ddf` = `r ret$ddfRRRC`, which yields a p-value of `r ret$pRRRC`.   
+* The F-statistic is `r ret$RRRC$FTests$FStat[1]`, with `ndf = 1` and `ddf` = `r ret$RRRC$FTests$DF[2]`, which yields a p-value of `r ret$RRRC$FTests$p[1]`.   
 
-* The confidence interval for the reader averaged difference between the two treatments is given by:
+* The confidence interval for the reader averaged difference between the two treatments and related statistics are given by:
     
 ```{r}
-ret$ciDiffTrtRRRC
+ret$RRRC$ciDiffTrt$Estimate
+ret$RRRC$ciDiffTrt$PrGTt
+ret$RRRC$ciDiffTrt$CILower
+ret$RRRC$ciDiffTrt$CIUpper
 ```             
 
-* The FOM difference (treatment 1 minus 2) is `r ret$ciDiffTrtRRRC$Estimate`, which is significant, p-value = `r ret$ciDiffTrtRRRC$PrGTt`, F-statistic = `r ret$FTestStatsRRRC$fRRRC`, ddf = `r ret$FTestStatsRRRC$ddfRRRC`. The confidence interval is (`r ret$ciDiffTrtRRRC$CILower`, `r ret$ciDiffTrtRRRC$CIUpper`).
+* The FOM difference (treatment 1 minus 2) is `r ret$RRRC$ciDiffTrt$Estimate`, which is significant, p-value = `r ret$RRRC$ciDiffTrt$PrGTt`, F-statistic = `r ret$RRRC$FTests$FStat[1]`, ddf = `r ret$RRRC$FTests$DF[2]`. The confidence interval is (`r ret$RRRC$ciDiffTrt$CILower`, `r ret$RRRC$ciDiffTrt$CIUpper`).
 
 ### FRRC analysis  
 
 ```{r}
-ret$FTestStatsFRRC$fFRRC
-ret$FTestStatsFRRC$ndfFRRC
-ret$FTestStatsFRRC$ddfFRRC
-ret$FTestStatsFRRC$pFRRC
+ret$FRRC$FTests$Chisq[1]
+ret$FRRC$FTests$DF[1]
+ret$FRRC$FTests$p[1]
 ```             
 
-* The F-statistic is `r ret$FTestStatsFRRC$fFRRC`, with `ndf = 1` and `ddf` = `Inf`, which yields a p-value of `r ret$FTestStatsFRRC$pFRRC`. 
+* The chi-square statistic is `r ret$FRRC$FTests$Chisq[1]`, with degrees of freedom equal to 1, yielding a p-value of `r ret$FRRC$FTests$p[1]`. 
 
-*  The confidence interval for the reader averaged difference between the two treatments is given by:
+* The confidence interval for the reader averaged difference between the two treatments and related statistics are given by:
     
 ```{r}
-ret$ciDiffTrtFRRC
+ret$FRRC$ciDiffTrt$Estimate
+ret$FRRC$ciDiffTrt$PrGTz
+ret$FRRC$ciDiffTrt$CILower
+ret$FRRC$ciDiffTrt$CIUpper
 ```             
+
+* The FOM difference (treatment 1 minus 2) is `r ret$FRRC$ciDiffTrt$Estimate`, which is significant, p-value = `r ret$FRRC$ciDiffTrt$PrGTz`, chi-square statistic = `r ret$FRRC$FTests$Chisq[1]`, degrees of freedom = `r ret$FRRC$FTests$DF[1]`. The confidence interval is (`r ret$FRRC$ciDiffTrt$CILower`, `r ret$FRRC$ciDiffTrt$CIUpper`).
+
 
 ### RRFC analysis  
 
 ```{r}
-ret$FTestStatsRRFC$fRRFC
-ret$FTestStatsRRFC$ndfRRFC
-ret$FTestStatsRRFC$ddfRRFC
-ret$FTestStatsRRFC$pRRFC
-
+ret$RRFC$FTests$F[1]
+ret$RRFC$FTests$DF[2]
+ret$RRFC$FTests$p[1]
 ```             
 
-* The F-statistic is `r ret$FTestStatsRRFC$fRRFC`, with `ndf = 1` and `ddf` = `r ret$FTestStatsRRFC$ddfRRFC`, which yields a p-value of `r ret$FTestStatsRRFC$pRRFC`. 
+* The F-statistic is `r ret$RRFC$FTests$F[1]`, with `ndf = 1` and `ddf` = `r ret$RRFC$FTests$DF[2]`, yielding a p-value of `r ret$RRFC$FTests$p[1]`. 
 
-* The confidence interval for the reader averaged difference between the two treatments is given by:
+* The confidence interval for the reader averaged difference between the two treatments and related statistics are given by:
     
 ```{r}
-ret$ciDiffTrtRRFC
+ret$RRFC$ciDiffTrt$Estimate
+ret$RRFC$ciDiffTrt$PrGTt
+ret$RRFC$ciDiffTrt$CILower
+ret$RRFC$ciDiffTrt$CIUpper
+
 ```             
+
+
+* The FOM difference (treatment 1 minus 2) is `r ret$RRFC$ciDiffTrt$Estimate`, which is significant, p-value = `r ret$RRFC$ciDiffTrt$PrGTt`, F statistic = `r ret$RRFC$FTests$F[1]`, ddf = `r ret$RRFC$FTests$DF[2]`. The confidence interval is (`r ret$RRFC$ciDiffTrt$CILower`, `r ret$RRFC$ciDiffTrt$CIUpper`).
+
+
 
 ## Summary  
 TBA
