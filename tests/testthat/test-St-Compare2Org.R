@@ -48,7 +48,8 @@ test_that(contextStr, {
   }
   
   ##################################  diff and avg confidence intervals  #####################
-  orgciDiffTrtRRRC <- as.vector(as.matrix(orgValues$ciDiffTrtRRRC[,-1])) 
+  ##################################  DO NOT CHANGE TO NEW CLEANER CODE  ##################### 4/14/21
+  orgciDiffTrtRRRC <- as.vector(as.matrix(orgValues$ciDiffTrtRRRC[,-1])) # do not change to orgValues$RRRC etc. 
   newciDiffTrtRRRC <- as.vector(as.matrix(newValues$RRRC$ciDiffTrt))
   for (i in 1: length(orgciDiffTrtRRRC)){
     x <- orgciDiffTrtRRRC[i]

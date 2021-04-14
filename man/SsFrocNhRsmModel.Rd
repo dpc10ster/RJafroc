@@ -7,8 +7,8 @@
 SsFrocNhRsmModel(dataset, lesDistr)
 }
 \arguments{
-\item{dataset}{The \strong{pilot} dataset object representing a NH ROC 
-(or FROC) dataset.}
+\item{dataset}{The \strong{pilot} dataset object representing a NH 
+(ROC or FROC) dataset.}
 
 \item{lesDistr}{A 1D array containing the probability mass function of 
 number of lesions per diseased case in the \strong{pivotal FROC} 
@@ -29,15 +29,15 @@ A list containing:
 RSM fitted model for FROC sample size
 }
 \details{
-If dataset is FROC, it is converted to an ROC dataset. The search model 
-    is used to fit each treatment-reader combination in the pilot dataset. The median 
-    value for each parameter is computed and are returned by the function (3 values). 
-    These are used 
+If dataset is FROC, it is converted to an ROC dataset. The dataset 
+    is automatically binned. The search model is used to fit each 
+    treatment-reader combination. The median  value for each parameter is 
+    computed and returned by the function (3 values). These are used 
     to compute predicted wAFROC and ROC FOMS over a range of values of deltaMu, 
     which are fitted by a straight line constrained to pass through the origin.
-    The scaleFactor (scaling factor) and R2 are returned. The scaling factor is the value
+    The scale factor and R2 are returned. The scaling factor is the value
     by which the ROC effect size must be multiplied to get the wAFROC effect size. 
-    See 2 FROC SS vignettes. Equally weighted lesions is assumed.
+    Equally weighted lesions is assumed.
 }
 \examples{
  

@@ -1,9 +1,13 @@
 # RJafroc 2.0.1.9000
 
 
-## Corrected sample size vignette 4/12/21
-* `Ch19Vig2FrocSampleSize.Rmd`
-* Fixed `SsFrocNhRsmModel.R` - should not return lesion distribution and weights
+## Corrected sample size vignettes 4/12/21 and 4/14/21
+* `Ch19Vig1FrocSampleSize.Rmd` and `Ch19Vig2FrocSampleSize.Rmd`
+* Fixed `SsFrocNhRsmModel.R` to not return lesion distribution and weights
+* Fixed vignettes that were using the old structure returned by sig. testing function
+* Fixed 2 FROC SS vignettes; fixed `SsFrocNhRsmModel.R` to do binning internal to the function
+* Added a test for `SsFrocNhRsmModel()`.
+* Updated `Rcpp` to 1.0.6. NOTE: version 1.0.6.6 created horrendous errors - R aborts.
 
 
 ## Intrinsic vs. physical RSM parameters 4/2/21

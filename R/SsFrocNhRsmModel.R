@@ -1,7 +1,7 @@
 #' RSM fitted model for FROC sample size
 #' 
-#' @param dataset The \strong{pilot} dataset object representing a NH ROC 
-#'     (or FROC) dataset.
+#' @param dataset The \strong{pilot} dataset object representing a NH 
+#'     (ROC or FROC) dataset.
 #' 
 #' @param lesDistr A 1D array containing the probability mass function of 
 #'     number of lesions per diseased case in the \strong{pivotal FROC} 
@@ -17,15 +17,15 @@
 #'    \item \code{R2}, the R2 of the fit.
 #' }   
 #'   
-#' @details If dataset is FROC, it is converted to an ROC dataset. The search model 
-#'     is used to fit each treatment-reader combination in the pilot dataset. The median 
-#'     value for each parameter is computed and are returned by the function (3 values). 
-#'     These are used 
+#' @details If dataset is FROC, it is converted to an ROC dataset. The dataset 
+#'     is automatically binned. The search model is used to fit each 
+#'     treatment-reader combination. The median  value for each parameter is 
+#'     computed and returned by the function (3 values). These are used 
 #'     to compute predicted wAFROC and ROC FOMS over a range of values of deltaMu, 
 #'     which are fitted by a straight line constrained to pass through the origin.
-#'     The scaleFactor (scaling factor) and R2 are returned. The scaling factor is the value
+#'     The scale factor and R2 are returned. The scaling factor is the value
 #'     by which the ROC effect size must be multiplied to get the wAFROC effect size. 
-#'     See 2 FROC SS vignettes. Equally weighted lesions is assumed.
+#'     Equally weighted lesions is assumed.
 #' 
 #' @examples
 #'  
@@ -47,6 +47,11 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   
   if (!(dataset$descriptions$type %in% c("ROC", "FROC"))) stop("Dataset must be ROC or FROC")
   if (dataset$descriptions$type == "FROC") rocData <- DfFroc2Roc(dataset) else rocData <- dataset
+  
+  # bin the dataset
+  # if dataset is already binned, this does not hurt
+  rocData <- DfBinDataset(rocData, opChType = "ROC")
+  
   if (sum(lesDistr) != 1) stop("The lesion distribution vector must sum to unity")
   
   I <- dim(dataset$ratings$NL)[1]
