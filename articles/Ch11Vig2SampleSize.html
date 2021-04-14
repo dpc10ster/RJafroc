@@ -60,12 +60,6 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
-    </li>
-    <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
@@ -156,8 +150,8 @@
 <span class="co">#fileName &lt;- dataset03 ## "Franken1.lrc"</span>
 <span class="va">retDbm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">rocData</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span> 
 <span class="va">varYTR</span> <span class="op">&lt;-</span> <span class="va">retDbm</span><span class="op">$</span><span class="va">varComp</span><span class="op">$</span><span class="va">varComp</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>;<span class="va">varYTC</span> <span class="op">&lt;-</span> <span class="va">retDbm</span><span class="op">$</span><span class="va">varComp</span><span class="op">$</span><span class="va">varComp</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>;<span class="va">varYEps</span> <span class="op">&lt;-</span> <span class="va">retDbm</span><span class="op">$</span><span class="va">varComp</span><span class="op">$</span><span class="va">varComp</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span>
-<span class="va">effectSize</span> <span class="op">&lt;-</span> <span class="va">retDbm</span><span class="op">$</span><span class="va">ciDiffTrtRRRC</span><span class="op">$</span><span class="va">Estimate</span></code></pre></div>
-<p>The <em>observed</em> effect size is <code>effectSize</code> = , which, in this example, is used as the <em>anticipated</em> effect size, generally not a good idea. <strong>See Chapter 11 for nuances regarding the choice of this all important value.</strong> The following code snippet reveals the names and array indexing of the pseudovalue variance components.</p>
+<span class="va">effectSize</span> <span class="op">&lt;-</span> <span class="va">retDbm</span><span class="op">$</span><span class="va">RRRC</span><span class="op">$</span><span class="va">ciDiffTrt</span><span class="op">$</span><span class="va">Estimate</span></code></pre></div>
+<p>The <em>observed</em> effect size is <code>effectSize</code> = -0.04380032, which, in this example, is used as the <em>anticipated</em> effect size, generally not a good idea. <strong>See Chapter 11 for nuances regarding the choice of this all important value.</strong> The following code snippet reveals the names and array indexing of the pseudovalue variance components.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">retDbm</span><span class="op">$</span><span class="va">varComp</span>
 <span class="co">#&gt; NULL</span></code></pre></div>

@@ -101,12 +101,6 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
-    </li>
-    <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
@@ -188,8 +182,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>The <strong>pilot</strong> dataset object representing a NH ROC 
-(or FROC) dataset.</p></td>
+      <td><p>The <strong>pilot</strong> dataset object representing a NH 
+(ROC or FROC) dataset.</p></td>
     </tr>
     <tr>
       <th>lesDistr</th>
@@ -212,15 +206,15 @@ study.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If dataset is FROC, it is converted to an ROC dataset. The search model 
-    is used to fit each treatment-reader combination in the pilot dataset. The median 
-    value for each parameter is computed and are returned by the function (3 values). 
-    These are used 
+    <p>If dataset is FROC, it is converted to an ROC dataset. The dataset 
+    is automatically binned. The search model is used to fit each 
+    treatment-reader combination. The median  value for each parameter is 
+    computed and returned by the function (3 values). These are used 
     to compute predicted wAFROC and ROC FOMS over a range of values of deltaMu, 
     which are fitted by a straight line constrained to pass through the origin.
-    The scaleFactor (scaling factor) and R2 are returned. The scaling factor is the value
+    The scale factor and R2 are returned. The scaling factor is the value
     by which the ROC effect size must be multiplied to get the wAFROC effect size. 
-    See 2 FROC SS vignettes. Equally weighted lesions is assumed.</p>
+    Equally weighted lesions is assumed.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'> 

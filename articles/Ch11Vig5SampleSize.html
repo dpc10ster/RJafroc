@@ -60,12 +60,6 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
-    </li>
-    <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
@@ -172,7 +166,7 @@
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">effectSizeOpt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">retDbm</span><span class="op">$</span><span class="va">RRRC</span><span class="op">$</span><span class="va">ciDiffTrt</span><span class="op">[</span><span class="fl">1</span>,<span class="st">"Estimate"</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">retDbm</span><span class="op">$</span><span class="va">RRRC</span><span class="op">$</span><span class="va">ciDiffTrt</span><span class="op">[</span><span class="fl">1</span>,<span class="st">"StdErr"</span><span class="op">]</span></code></pre></div>
-<p>The observed effect-size is a realization of a random variable. The lower limit of the 95% confidence interval is given by and the upper limit by . CI’s generated like this, with independent sets of data, are expected to encompass the true value with 95% probability. The lower end (greatest magnitude of the difference) of the confidence interval is -0.08529756, and this is the optimistic estimate. Since the sign is immaterial, one uses as the optimistic estimate the value 0.08529756. <strong>While the sign is immaterial for sample size estimates, the decision to conduct the pivotal most certainly is material - if the sign went the other way, with the new modality lower than the conventional modality, one would be unjustified in conducting a pivotal study.</strong></p>
+<p>The observed effect-size is a realization of a random variable. The lower limit of the 95% confidence interval is given by -0.0879595 and the upper limit by 3.5885444410^{-4}. CI’s generated like this, with independent sets of data, are expected to encompass the true value with 95% probability. The lower end (greatest magnitude of the difference) of the confidence interval is -0.08529756, and this is the optimistic estimate. Since the sign is immaterial, one uses as the optimistic estimate the value 0.08529756. <strong>While the sign is immaterial for sample size estimates, the decision to conduct the pivotal most certainly is material - if the sign went the other way, with the new modality lower than the conventional modality, one would be unjustified in conducting a pivotal study.</strong></p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">

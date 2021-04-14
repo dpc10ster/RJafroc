@@ -100,12 +100,6 @@
       <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
-    </li>
-    <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
@@ -179,12 +173,18 @@
 <h1 class="page-header" data-toc-text="2.0.1.9000">
 <a href="#rjafroc-2019000" class="anchor"></a>RJafroc 2.0.1.9000<small> Unreleased </small>
 </h1>
-<div id="corrected-sample-size-vignette-41221" class="section level2">
+<div id="corrected-sample-size-vignettes-41221-and-41421" class="section level2">
 <h2 class="hasAnchor">
-<a href="#corrected-sample-size-vignette-41221" class="anchor"></a>Corrected sample size vignette 4/12/21</h2>
+<a href="#corrected-sample-size-vignettes-41221-and-41421" class="anchor"></a>Corrected sample size vignettes 4/12/21 and 4/14/21</h2>
 <ul>
-<li><code>Ch19Vig2FrocSampleSize.Rmd</code></li>
-<li>Fixed <code>SsFrocNhRsmModel.R</code> - should not return lesion distribution and weights</li>
+<li>
+<code>Ch19Vig1FrocSampleSize.Rmd</code> and <code>Ch19Vig2FrocSampleSize.Rmd</code>
+</li>
+<li>Fixed <code>SsFrocNhRsmModel.R</code> to not return lesion distribution and weights</li>
+<li>Fixed vignettes that were using the old structure returned by sig. testing function</li>
+<li>Fixed 2 FROC SS vignettes; fixed <code>SsFrocNhRsmModel.R</code> to do binning internal to the function</li>
+<li>Added a test for <code><a href="../reference/SsFrocNhRsmModel.html">SsFrocNhRsmModel()</a></code>.</li>
+<li>Updated <code>Rcpp</code> to 1.0.6. NOTE: version 1.0.6.6 created horrendous errors - R aborts.</li>
 </ul>
 </div>
 <div id="intrinsic-vs-physical-rsm-parameters-4221" class="section level2">
