@@ -1,8 +1,11 @@
 contextStr <- "Sample Size FROC"
 context(contextStr)
 test_that(contextStr, {
-  
  
+  skip_on_os("windows") 
+  skip_on_os("linux") 
+  skip_on_os("solaris") 
+  
   lesDistr <- c(0.7, 0.2, 0.1)
   frocNhData <- DfExtractDataset(dataset04, trts = c(1,2))
  
@@ -15,7 +18,7 @@ test_that(contextStr, {
   
   x1 <- readRDS(fn)
   x2 <-SsFrocNhRsmModel(frocNhData, lesDistr = lesDistr)
-  expect_equal(x1,x2, tolerance = 1e-6)
+  expect_equal(x1,x2)
 
 })
 
