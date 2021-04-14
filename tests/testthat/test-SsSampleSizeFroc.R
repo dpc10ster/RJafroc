@@ -15,7 +15,7 @@ test_that(contextStr, {
   
   x1 <- readRDS(fn)
   x2 <-SsFrocNhRsmModel(frocNhData, lesDistr = lesDistr)
-  expect_equal(x1,x2)
+  expect_equal(x1,x2, tolerance = 1e-6)
 
 })
 
