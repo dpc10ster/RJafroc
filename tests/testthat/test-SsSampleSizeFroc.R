@@ -24,7 +24,7 @@ test_that(contextStr, {
   expect_identical(names(x1), names(x2))
   expect_equivalent(x1$muMed, x2$muMed, tolerance=5e-4)
   expect_equivalent(x1$lambdaMed, x2$lambdaMed, tolerance=5e-5)
-  expect_equivalent(x1$nuMed, x2$nuMed, tolerance=5e-5)
+  expect_equivalent(x1$nuMed, x2$nuMed, tolerance=5e-4)
   expect_equivalent(x1$ScaleFactor, x2$ScaleFactor, tolerance=5e-5)
   expect_equivalent(x1$R2, x2$R2, tolerance=1e-7)
   
