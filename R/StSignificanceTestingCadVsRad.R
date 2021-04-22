@@ -1,17 +1,17 @@
 #' Significance testing: standalone CAD vs. radiologists
 #' 
-#' @description  Comparing standalone CAD vs. a group of radiologists interpreting 
+#' @description  Comparing standalone CAD vs. at least two radiologists interpreting 
 #'    the same cases; (ideally) \strong{standalone CAD} means that all the 
 #'    \bold{designer-level} mark-rating pairs provided by the CAD algorithm 
-#'    are available, not just the one or two marks usually displayed to the 
+#'    are available, not just the one or two marks per case usually displayed to the 
 #'    radiologist. At the very minimum, location-level information, such as in
 #'    the LROC paradigm, should be used. Ideally the FROC paradigm should be used.
 #'    A severe statistical power penalty is paid if one uses the ROC paradigm. 
 #'    Details of the method are in a pdf file that will be uploaded to GitHub and 
 #'    in my 2017 book.
 #'  
-#' @param dataset \strong{The dataset to be analzed; must be single-treatment  
-#'    multiple-readers, where the first reader is CAD.}
+#' @param dataset \strong{The dataset to be analyzed; must be single-treatment  
+#'    at least three readers, where the first reader is CAD. }
 #' @param FOM The desired FOM; for ROC data it must be \code{"Wilcoxon"}, for FROC data 
 #'    it can be any valid FOM, e.g., \code{"HrAuc"}, \code{"wAFROC"}, etc; 
 #'    for LROC data it must be \code{"Wilcoxon"}, or \code{"PCL"} or \code{"ALROC"}. 
@@ -152,8 +152,9 @@ StSignificanceTestingCadVsRad <- function(dataset, FOM, FPFValue = 0.2, method =
 {
   options(stringsAsFactors = FALSE)
   
-  if (length(dataset$ratings$NL[,1,1,1]) != 1) stop("dataset has to be single-treatment multiple-readers with CAD as the first reader")
+  if (length(dataset$ratings$NL[,1,1,1]) != 1) stop("dataset has to be single-treatment and at least three readers with CAD as the first reader")
   if ((dataset$descriptions$type == "ROC") && (FOM %in% c("PCL", "ALROC"))) stop("Cannot use LROC FOM with ROC data")
+  if (length(dataset$ratings$NL[1,,1,1]) <= 2) stop("dataset has to have at least two radiologist readers")
   
   if (method == "1T-RRFC") {
     ret <- SingleModalityRRFC(dataset, FOM, FPFValue, alpha)
