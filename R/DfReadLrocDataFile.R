@@ -1,12 +1,11 @@
-#' Read a LROC data file
+#' Read sample LROC data files
 #'
-#' @description Read the Hupse-Karssemeijer LROC data file, a study comparing 
-#'    standalone performance of breast CAD vs. radiologists; the study 
-#'    actually included radiologists and residents; the following usage 
-#'    includes only the radiologists
+#' @description Read the 2 Hupse-Karssemeijer LROC data files; this was a study 
+#'    comparing standalone performance of breast CAD vs. radiologists and 
+#'    residents.
 #'
 #' @param RADIOLOGISTS Logical; if TRUE, the default, only radiologists are 
-#'    analyzed otherwise all readers are analyzed
+#'    analyzed otherwise all readers are analyzed.
 #'
 #' @details The data format is similar to the JAFROC format (see \code{\link{RJafroc-package}}) 
 #'    with the \strong{crucial difference} that there are two types of LL (TP) events: 

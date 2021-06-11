@@ -241,10 +241,30 @@ ReadJAFROCNewFormat <- function(fileName, sequentialNames)
   
   name <- NA
   if ((design == "FCTRL") || (design == "CROSSED")) design <- "FCTRL"
-  return(convert2dataset(NL, LL, LL_IL = NA, 
+  
+  if (type != "LROC") {
+    # return the ROC or FROC dataset object
+    return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
                          fileName, type, name, truthTableStr, design,
                          modalityID, readerID))
-  
+  } else {
+    # code added 6/11/21
+    # handle LROC dataset here
+    # move the ratings of diseased cases from NL array to LL_IL
+    LL_IL <- NL[,,(K1+1):(K1+K2),,drop = F]
+    # this completes the move of the ratings; replace the moved ratings
+    # with negative infinities
+    NL[,,(K1+1):(K1+K2),] <- -Inf
+    # the following check may be superflous
+    x1 <- LL_IL
+    x2 <- LL
+    if (any(which(x1 != -Inf) != which(x2 == -Inf))) stop("Error in LROC file")
+    # return the LROC dataset object
+    return(convert2dataset(NL, LL, LL_IL, 
+                           perCase, IDs, weights,
+                           fileName, type, name, truthTableStr, design,
+                           modalityID, readerID))
+  }
 } 
 

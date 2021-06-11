@@ -2,22 +2,21 @@
 % Please edit documentation in R/DfReadLrocDataFile.R
 \name{DfReadLrocDataFile}
 \alias{DfReadLrocDataFile}
-\title{Read a LROC data file}
+\title{Read sample LROC data files}
 \usage{
 DfReadLrocDataFile(RADIOLOGISTS = TRUE)
 }
 \arguments{
 \item{RADIOLOGISTS}{Logical; if TRUE, the default, only radiologists are 
-analyzed otherwise all readers are analyzed}
+analyzed otherwise all readers are analyzed.}
 }
 \value{
 The \strong{LROC} dataset.
 }
 \description{
-Read the Hupse-Karssemeijer LROC data file, a study comparing 
-   standalone performance of breast CAD vs. radiologists; the study 
-   actually included radiologists and residents; the following usage 
-   includes only the radiologists
+Read the 2 Hupse-Karssemeijer LROC data files; this was a study 
+   comparing standalone performance of breast CAD vs. radiologists and 
+   residents.
 }
 \details{
 The data format is similar to the JAFROC format (see \code{\link{RJafroc-package}}) 

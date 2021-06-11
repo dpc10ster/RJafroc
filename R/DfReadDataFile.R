@@ -1,9 +1,11 @@
 #' Read a data file 
 #' 
-#' @description Read a disk file and create a dataset object from it.
+#' @description Read a disk file and create a ROC, FROC or LROC dataset object 
+#'    from it.
 #' 
 #' @param fileName A string specifying the name of the file. 
-#'    The file-extension must match the format specified below
+#'    The file-extension must match the format specified below.
+#'    
 #' @param format A string specifying the format of the data in the file. 
 #'    It can be \code{"JAFROC"}, the default, which requires a .xlsx Excel file,
 #'    \bold{not .xls}, \code{"MRMC"} or \code{"iMRMC"}. 
@@ -11,15 +13,19 @@
 #'    as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,  
 #'    \code{.csv} or \code{.txt} or \code{.lrc}. For file extension 
 #'    \code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.
-#' @param newExcelFileFormat This argument only applies to the \code{"JAFROC"} format. 
-#'    The default is \code{FALSE}. if \code{TRUE} the function accommodates 3 
+#'    
+#' @param newExcelFileFormat Logical. Must be true to read LROC data. 
+#'    This argument only applies to the \code{"JAFROC"} format. 
+#'    The default is \code{FALSE}. If \code{TRUE} the function accommodates 3 
 #'    additional columns
 #'    in the \code{Truth} worksheet. If \code{FALSE}, the original function (as in version 
 #'    1.2.0) is used and the three extra columns, if present, throws an error.  
+#'    
 #' @param delimiter The string delimiter to be used for the \code{"MRMC"} 
 #'    format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.
 #'    This parameter is not used when reading \code{"JAFROC"} 
 #'    or \code{"iMRMC"} data files.
+#'    
 #' @param sequentialNames A logical variable: if \code{TRUE}, consecutive integers 
 #'    (starting from 1) will be used as the 
 #'    treatment and reader IDs (i.e., names). Otherwise, treatment 
@@ -163,7 +169,7 @@ checkTruthTable <- function (truthTable)
   type <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[1]
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
   if (design == "CROSSED") design <- "FCTRL"
-  if (!(type %in% c("FROC", "ROC"))) stop("Unsupported data type: must be ROC or FROC.\n")
+  if (!(type %in% c("FROC", "ROC", "LROC"))) stop("Unsupported data type: must be ROC, FROC or LROC.\n")
   if (!(design %in% c("FCTRL", "SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C\n")
   
   df <- truthTable[1:5]

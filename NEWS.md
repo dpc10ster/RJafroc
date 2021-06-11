@@ -1,6 +1,14 @@
 # RJafroc 2.0.1.9000
 
 
+## Added ability to read Excel format LROC datasets 6/11/21
+* Added a toy LROC file; see `inst/extdata/toyFiles/LROC/lroc.xlsx`
+* Extended `DfReadDataFile` to accommodate LROC data
+* Note that one must use `newExcelFileFormat = T` for this capability
+* See `ReadJAFROCNewFormat.R`, just before final return, for added code 
+* Added a test for `DfReadDataFile()`.
+
+
 ## Corrected sample size vignettes 4/12/21 and 4/14/21
 * `Ch19Vig1FrocSampleSize.Rmd` and `Ch19Vig2FrocSampleSize.Rmd`
 * Fixed `SsFrocNhRsmModel.R` to not return lesion distribution and weights

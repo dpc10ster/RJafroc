@@ -14,7 +14,7 @@ DfReadDataFile(
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file. 
-The file-extension must match the format specified below}
+The file-extension must match the format specified below.}
 
 \item{format}{A string specifying the format of the data in the file. 
 It can be \code{"JAFROC"}, the default, which requires a .xlsx Excel file,
@@ -24,8 +24,9 @@ as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,
 \code{.csv} or \code{.txt} or \code{.lrc}. For file extension 
 \code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.}
 
-\item{newExcelFileFormat}{This argument only applies to the \code{"JAFROC"} format. 
-The default is \code{FALSE}. if \code{TRUE} the function accommodates 3 
+\item{newExcelFileFormat}{Logical. Must be true to read LROC data. 
+This argument only applies to the \code{"JAFROC"} format. 
+The default is \code{FALSE}. If \code{TRUE} the function accommodates 3 
 additional columns
 in the \code{Truth} worksheet. If \code{FALSE}, the original function (as in version 
 1.2.0) is used and the three extra columns, if present, throws an error.}
@@ -44,7 +45,8 @@ and reader IDs in the original data file will be used.}
 A dataset with the structure specified in \code{\link{RJafroc-package}}.
 }
 \description{
-Read a disk file and create a dataset object from it.
+Read a disk file and create a ROC, FROC or LROC dataset object 
+   from it.
 }
 \examples{
 fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 

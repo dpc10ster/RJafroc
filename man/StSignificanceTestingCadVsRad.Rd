@@ -14,8 +14,8 @@ StSignificanceTestingCadVsRad(
 )
 }
 \arguments{
-\item{dataset}{\strong{The dataset to be analzed; must be single-treatment
-multiple-readers, where the first reader is CAD.}}
+\item{dataset}{\strong{The dataset to be analyzed; must be single-treatment
+at least three readers, where the first reader is CAD. }}
 
 \item{FOM}{The desired FOM; for ROC data it must be \code{"Wilcoxon"}, for FROC data 
 it can be any valid FOM, e.g., \code{"HrAuc"}, \code{"wAFROC"}, etc; 
@@ -112,10 +112,10 @@ If \code{method = "2T-RRRC"} the return value is a list
 \item{Plots}{see above.}
 }
 \description{
-Comparing standalone CAD vs. a group of radiologists interpreting 
+Comparing standalone CAD vs. at least two radiologists interpreting 
    the same cases; (ideally) \strong{standalone CAD} means that all the 
    \bold{designer-level} mark-rating pairs provided by the CAD algorithm 
-   are available, not just the one or two marks usually displayed to the 
+   are available, not just the one or two marks per case usually displayed to the 
    radiologist. At the very minimum, location-level information, such as in
    the LROC paradigm, should be used. Ideally the FROC paradigm should be used.
    A severe statistical power penalty is paid if one uses the ROC paradigm. 
