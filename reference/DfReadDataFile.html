@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Read a data file — DfReadDataFile" />
-<meta property="og:description" content="Read a disk file and create a dataset object from it." />
+<meta property="og:description" content="Read a disk file and create a ROC, FROC or LROC dataset object 
+   from it." />
 
 
 
@@ -172,7 +173,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Read a disk file and create a dataset object from it.</p>
+    <p>Read a disk file and create a ROC, FROC or LROC dataset object 
+   from it.</p>
     </div>
 
     <pre class="usage"><span class='fu'>DfReadDataFile</span><span class='op'>(</span>
@@ -189,7 +191,7 @@
     <tr>
       <th>fileName</th>
       <td><p>A string specifying the name of the file. 
-The file-extension must match the format specified below</p></td>
+The file-extension must match the format specified below.</p></td>
     </tr>
     <tr>
       <th>format</th>
@@ -203,8 +205,9 @@ as specified in <a href='http://perception.radiology.uiowa.edu/'>http://percepti
     </tr>
     <tr>
       <th>newExcelFileFormat</th>
-      <td><p>This argument only applies to the <code>"JAFROC"</code> format. 
-The default is <code>FALSE</code>. if <code>TRUE</code> the function accommodates 3 
+      <td><p>Logical. Must be true to read LROC data. 
+This argument only applies to the <code>"JAFROC"</code> format. 
+The default is <code>FALSE</code>. If <code>TRUE</code> the function accommodates 3 
 additional columns
 in the <code>Truth</code> worksheet. If <code>FALSE</code>, the original function (as in version 
 1.2.0) is used and the three extra columns, if present, throws an error.</p></td>
