@@ -6,6 +6,7 @@
 * Extended `DfReadDataFile` to accommodate LROC data
 * Note that one must use `newExcelFileFormat = T` for this capability
 * See `ReadJAFROCNewFormat.R`, just before final return, for added code 
+* For datasets with 1 mark per case not enforced, line `if (any(which(x1 != -Inf) != which(x2 == -Inf))) stop("Error in LROC file")` just before final return should be commented and un-commented if 1 mark per case is enforced
 * Added a test for `DfReadDataFile()`.
 
 

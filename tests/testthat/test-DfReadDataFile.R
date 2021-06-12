@@ -446,7 +446,7 @@ test_that(contextStr, {
 })
 
 
-contextStr <- "DfReadDataFile LROC dataset"
+contextStr <- "DfReadDataFile LROC dataset, 1 mark per case enforced"
 context(contextStr)
 test_that(contextStr, {
   
@@ -454,6 +454,27 @@ test_that(contextStr, {
     "extdata", "/toyFiles/LROC/lroc.xlsx", package = "RJafroc", mustWork = TRUE)
   
   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/lroc", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+    saveRDS(temp, file = fn)
+  }
+  
+  ds <- readRDS(fn)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
+  
+})
+
+
+contextStr <- "DfReadDataFile LROC dataset, 1 mark per case NOT enforced"
+context(contextStr)
+test_that(contextStr, {
+  
+  fileName <- system.file(
+    "extdata", "/toyFiles/LROC/lroc1.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/lroc1", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
