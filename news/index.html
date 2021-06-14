@@ -173,17 +173,17 @@
 <h1 class="page-header" data-toc-text="2.0.1.9000">
 <a href="#rjafroc-2019000" class="anchor"></a>RJafroc 2.0.1.9000<small> Unreleased </small>
 </h1>
-<div id="added-ability-to-read-excel-format-lroc-datasets-61121" class="section level2">
+<div id="added-ability-to-read-excel-format-lroc-datasets-61121---61421" class="section level2">
 <h2 class="hasAnchor">
-<a href="#added-ability-to-read-excel-format-lroc-datasets-61121" class="anchor"></a>Added ability to read Excel format LROC datasets 6/11/21</h2>
+<a href="#added-ability-to-read-excel-format-lroc-datasets-61121---61421" class="anchor"></a>Added ability to read Excel format LROC datasets 6/11/21 - 6/14/21</h2>
 <ul>
-<li>Added a toy LROC file; see <code>inst/extdata/toyFiles/LROC/lroc.xlsx</code>
+<li>Extended <code>DfReadDataFile</code> to accommodate LROC data; added flag <code>lrocForcedMark</code>
 </li>
-<li>Extended <code>DfReadDataFile</code> to accommodate LROC data</li>
-<li>Note that one must use <code>newExcelFileFormat = T</code> for this capability</li>
-<li>See <code>ReadJAFROCNewFormat.R</code>, just before final return, for added code</li>
-<li>For datasets with 1 mark per case not enforced, line <code>if (any(which(x1 != -Inf) != which(x2 == -Inf))) stop("Error in LROC file")</code> just before final return should be commented and un-commented if 1 mark per case is enforced</li>
-<li>Added a test for <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code>.</li>
+<li>Must use <code>newExcelFileFormat = T</code> for this capability</li>
+<li>Added toy LROC files: see <code>inst/extdata/toyFiles/LROC/lroc?.xlsx</code>
+</li>
+<li>See <code>ReadJAFROCNewFormat.R</code>, just before final <code>return</code>, for added code</li>
+<li>Added tests in <code>test-DfReadDataFile()</code>.</li>
 </ul>
 </div>
 <div id="corrected-sample-size-vignettes-41221-and-41421" class="section level2">

@@ -181,6 +181,7 @@
   <span class='va'>fileName</span>,
   format <span class='op'>=</span> <span class='st'>"JAFROC"</span>,
   newExcelFileFormat <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  lrocForcedMark <span class='op'>=</span> <span class='cn'>NA</span>,
   delimiter <span class='op'>=</span> <span class='st'>","</span>,
   sequentialNames <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
@@ -211,6 +212,12 @@ The default is <code>FALSE</code>. If <code>TRUE</code> the function accommodate
 additional columns
 in the <code>Truth</code> worksheet. If <code>FALSE</code>, the original function (as in version 
 1.2.0) is used and the three extra columns, if present, throws an error.</p></td>
+    </tr>
+    <tr>
+      <th>lrocForcedMark</th>
+      <td><p>Logical: For LROC dataset only: is a forced mark required 
+on every image? The default is <code>NA</code>. If a mark is not required, set 
+it to <code>FALSE</code> otherwise to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>delimiter</th>
