@@ -21,6 +21,10 @@
 #'    in the \code{Truth} worksheet. If \code{FALSE}, the original function (as in version 
 #'    1.2.0) is used and the three extra columns, if present, throws an error.  
 #'    
+#' @param lrocForcedMark Logical: For LROC dataset only: is a forced mark required 
+#'    on every image? The default is \code{NA}. If a mark is not required, set 
+#'    it to \code{FALSE} otherwise to \code{TRUE}.  
+#'    
 #' @param delimiter The string delimiter to be used for the \code{"MRMC"} 
 #'    format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.
 #'    This parameter is not used when reading \code{"JAFROC"} 
@@ -62,7 +66,9 @@
 #' @export
 
 DfReadDataFile <- function (fileName, format = "JAFROC", 
-                            newExcelFileFormat = FALSE, delimiter = ",", 
+                            newExcelFileFormat = FALSE, 
+                            lrocForcedMark = NA,
+                            delimiter = ",", 
                             sequentialNames = FALSE) 
 {
   
@@ -70,10 +76,12 @@ DfReadDataFile <- function (fileName, format = "JAFROC",
     # handle JAFROC format Excel files
     if (!(file_ext(fileName) == "xlsx")) 
       stop("The extension of JAFROC data file must be .xlsx, NOT .xls.\n")
-    if (!newExcelFileFormat) 
-      return((ReadJAFROCOldFormat(fileName, sequentialNames))) 
-    else 
-      return(ReadJAFROCNewFormat(fileName, sequentialNames))
+    if (!newExcelFileFormat) { 
+      if (!is.na(lrocForcedMark)) stop("Attempt to read possibly LROC dataset with newExcelFileFormat flag set to FALSE") 
+      return((ReadJAFROCOldFormat(fileName, sequentialNames)))
+    } else {
+      return(ReadJAFROCNewFormat(fileName, lrocForcedMark, sequentialNames))
+    }
   } else {
     # handle non-JAFROC format text files
     if (format == "iMRMC") {
@@ -161,7 +169,7 @@ preCheck4BadEntries <- function(truthTable) {
 
 # SPLIT-PLOT-A: Reader nested within test; Hillis 2014 Table VII part (a)
 # SPLIT-PLOT-C: Case nested within reader; Hillis 2014 Table VII part (c)
-checkTruthTable <- function (truthTable) 
+checkTruthTable <- function (truthTable, lrocForcedMark) 
 {
   
   preCheck4BadEntries (truthTable)
@@ -171,6 +179,12 @@ checkTruthTable <- function (truthTable)
   if (design == "CROSSED") design <- "FCTRL"
   if (!(type %in% c("FROC", "ROC", "LROC"))) stop("Unsupported data type: must be ROC, FROC or LROC.\n")
   if (!(design %in% c("FCTRL", "SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C\n")
+  
+  if (type == "LROC") {
+    if (is.na(lrocForcedMark)) stop("For LROC dataset one must set the lrocForcedMark flag to a logical") 
+  } else {
+    if (!is.na(lrocForcedMark)) stop("For non-LROC dataset one cannot set the lrocForcedMark flag to a logical") 
+  }
   
   df <- truthTable[1:5]
   df["caseLevelTruth"] <- (truthTable$LesionID > 0)

@@ -8,6 +8,7 @@ DfReadDataFile(
   fileName,
   format = "JAFROC",
   newExcelFileFormat = FALSE,
+  lrocForcedMark = NA,
   delimiter = ",",
   sequentialNames = FALSE
 )
@@ -30,6 +31,10 @@ The default is \code{FALSE}. If \code{TRUE} the function accommodates 3
 additional columns
 in the \code{Truth} worksheet. If \code{FALSE}, the original function (as in version 
 1.2.0) is used and the three extra columns, if present, throws an error.}
+
+\item{lrocForcedMark}{Logical: For LROC dataset only: is a forced mark required 
+on every image? The default is \code{NA}. If a mark is not required, set 
+it to \code{FALSE} otherwise to \code{TRUE}.}
 
 \item{delimiter}{The string delimiter to be used for the \code{"MRMC"} 
 format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.

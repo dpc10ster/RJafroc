@@ -1,13 +1,12 @@
 # RJafroc 2.0.1.9000
 
 
-## Added ability to read Excel format LROC datasets 6/11/21
-* Added a toy LROC file; see `inst/extdata/toyFiles/LROC/lroc.xlsx`
-* Extended `DfReadDataFile` to accommodate LROC data
-* Note that one must use `newExcelFileFormat = T` for this capability
-* See `ReadJAFROCNewFormat.R`, just before final return, for added code 
-* For datasets with 1 mark per case not enforced, line `if (any(which(x1 != -Inf) != which(x2 == -Inf))) stop("Error in LROC file")` just before final return should be commented and un-commented if 1 mark per case is enforced
-* Added a test for `DfReadDataFile()`.
+## Added ability to read Excel format LROC datasets 6/11/21 - 6/14/21
+* Extended `DfReadDataFile` to accommodate LROC data; added flag `lrocForcedMark`
+* Must use `newExcelFileFormat = T` for this capability
+* Added toy LROC files: see `inst/extdata/toyFiles/LROC/lroc?.xlsx`
+* See `ReadJAFROCNewFormat.R`, just before final `return`, for added code 
+* Added tests in `test-DfReadDataFile()`.
 
 
 ## Corrected sample size vignettes 4/12/21 and 4/14/21
