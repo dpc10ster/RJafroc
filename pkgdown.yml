@@ -5,21 +5,14 @@ articles:
   Ch00Vig3DataFormatRocSpA: Ch00Vig3DataFormatRocSpA.html
   Ch00Vig4DataFormatFrocSpA: Ch00Vig4DataFormatFrocSpA.html
   Ch11Vig1SampleSize: Ch11Vig1SampleSize.html
-  Ch11Vig2SampleSize: Ch11Vig2SampleSize.html
-  Ch11Vig3SampleSize: Ch11Vig3SampleSize.html
-  Ch11Vig4SampleSize: Ch11Vig4SampleSize.html
-  Ch11Vig5SampleSize: Ch11Vig5SampleSize.html
   Ch17Vig1PlotRsmOpCh: Ch17Vig1PlotRsmOpCh.html
-  Ch19Vig1FrocSampleSize: Ch19Vig1FrocSampleSize.html
-  Ch19Vig2FrocSampleSize: Ch19Vig2FrocSampleSize.html
   Ch20Vig1improperROCs: Ch20Vig1improperROCs.html
   Ch20Vig2degenerateROCs: Ch20Vig2degenerateROCs.html
   Ch20Vig3proprocROCs: Ch20Vig3proprocROCs.html
   Ch20Vig4metzEqn36: Ch20Vig4metzEqn36.html
   Ch20Vig5cbmPlots: Ch20Vig5cbmPlots.html
   Ch30Vig1RoiParadigm: Ch30Vig1RoiParadigm.html
-  Ch30Vig2RoiParadigmSt: Ch30Vig2RoiParadigmSt.html
-last_built: 2021-06-14T14:28Z
+last_built: 2021-10-28T18:10Z
 urls:
   reference: https://github.com/dpc10ster/RJafroc/reference
   article: https://github.com/dpc10ster/RJafroc/articles

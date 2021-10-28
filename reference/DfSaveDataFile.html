@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Save ROC data file in a different format — DfSaveDataFile" />
-<meta property="og:description" content="Save ROC data file in a different format so it can be analyzed 
+<meta property="og:description" content="Save ROC data file in non-RJafroc formats so it can be analyzed 
    with alternate software" />
 
 
@@ -105,25 +105,7 @@
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
     </li>
     <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
-    </li>
-    <li>
       <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
-      <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
-    </li>
-    <li>
-      <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
     <li>
       <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
@@ -142,9 +124,6 @@
     </li>
     <li>
       <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
     </li>
   </ul>
 </li>
@@ -173,7 +152,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Save ROC data file in a different format so it can be analyzed 
+    <p>Save ROC data file in non-RJafroc formats so it can be analyzed 
    with alternate software</p>
     </div>
 
@@ -181,7 +160,7 @@
   <span class='va'>dataset</span>,
   <span class='va'>fileName</span>,
   format <span class='op'>=</span> <span class='st'>"JAFROC"</span>,
-  dataDescription <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/deparse.html'>deparse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>substitute</a></span><span class='op'>(</span><span class='va'>dataset</span><span class='op'>)</span><span class='op'>)</span>, <span class='st'>" Data File"</span><span class='op'>)</span>
+  dataDescription <span class='op'>=</span> <span class='st'>"RJafroc dataset converted to imrmc format"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
