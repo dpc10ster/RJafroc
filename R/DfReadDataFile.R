@@ -10,9 +10,12 @@
 #'    It can be \code{"JAFROC"}, the default, which requires a .xlsx Excel file,
 #'    \bold{not .xls}, \code{"MRMC"} or \code{"iMRMC"}. 
 #'    For \code{"MRMC"} the format is determined by the data file extension 
-#'    as specified in \url{http://perception.radiology.uiowa.edu/}, i.e.,  
+#'    as specified in \url{https://perception.radiology.uiowa.edu/}, i.e.,  
 #'    \code{.csv} or \code{.txt} or \code{.lrc}. For file extension 
-#'    \code{.imrmc} the format is described in \url{https://code.google.com/p/imrmc/}.
+#'    \code{.imrmc} the format is described in 
+#'    \url{https://code.google.com/archive/p/imrmc/}.
+#'    \bold{For non-RJafroc data file formats, 
+#'    the readerID field must be character formatted unique integers}.
 #'    
 #' @param newExcelFileFormat Logical. Must be true to read LROC data. 
 #'    This argument only applies to the \code{"JAFROC"} format. 

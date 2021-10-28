@@ -8,7 +8,7 @@ DfSaveDataFile(
   dataset,
   fileName,
   format = "JAFROC",
-  dataDescription = paste0(deparse(substitute(dataset)), " Data File")
+  dataDescription = "RJafroc dataset converted to imrmc format"
 )
 }
 \arguments{
@@ -27,7 +27,7 @@ the first line of *.lrc or *imrmc data file. This parameter is not used
 when saving dataset in other formats}.}
 }
 \description{
-Save ROC data file in a different format so it can be analyzed 
+Save ROC data file in non-RJafroc formats so it can be analyzed 
    with alternate software
 }
 \examples{

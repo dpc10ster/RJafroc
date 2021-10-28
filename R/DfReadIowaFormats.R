@@ -70,7 +70,11 @@ ReadImrmc <- function(fileName, sequentialNames)
   fpTable <- dataTable[(as.numeric(dataTable[, 2]) %in% normalCases) & as.numeric(dataTable[, 1]) != -1, ]
   tpTable <- dataTable[(as.numeric(dataTable[, 2]) %in% abnormalCases) & as.numeric(dataTable[, 1]) != -1, ]
   
-  readerID <- as.character(sort(unique(c(fpTable[, 1], tpTable[, 1]))))
+  # start code fix issue T1-RRRC for ROC data #73 
+  # to fix problem with reader "10" being ordered after "1" instead of after "9"
+  # readerID <- as.character(sort(unique(c(fpTable[, 1], tpTable[, 1]))))
+  readerID <- as.character(sort(as.integer(unique(c(fpTable[, 1], tpTable[, 1])))))
+  # end code fix issue T1-RRRC for ROC data #73 
   if (J != length(readerID)) {
     errMsg <- "The number of readers in the dataset is different from the number in the study description."
     stop(errMsg)
@@ -115,7 +119,12 @@ ReadImrmc <- function(fileName, sequentialNames)
   
   fileName <- "NA"
   name <- NA
-  truthTableStr <- NA
+  # start code fix issue T1-RRRC for ROC data #73 
+  # need to manually add the truthTableStr array
+  truthTableStr <- array(dim = c(I, J, K, 2)) 
+  truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
+  truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
+  # end code fix issue T1-RRRC for ROC data #73 
   design <- "FCTRL"
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,

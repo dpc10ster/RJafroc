@@ -5,12 +5,3 @@ knitr::opts_chunk$set(
 )
 library(RJafroc)
 
-## -----------------------------------------------------------------------------
-rocData <- dataset02 ##"VanDyke.lrc"
-#fileName <- dataset03 ## "Franken1.lrc"
-retDbm <- StSignificanceTesting(dataset = rocData, FOM = "Wilcoxon", method = "DBM")
-print(retDbm$RRRC$ciDiffTrt)
-
-## -----------------------------------------------------------------------------
-effectSizeOpt <- abs(retDbm$RRRC$ciDiffTrt[1,"Estimate"]) + 2*retDbm$RRRC$ciDiffTrt[1,"StdErr"]
-

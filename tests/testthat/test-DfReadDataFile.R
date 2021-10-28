@@ -76,6 +76,27 @@ test_that(contextStr, {
 
 
 
+contextStr <- "StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73"
+context(contextStr)
+test_that(contextStr, {
+  # See issue 73 on GitHub website
+  s1 <- dataset09
+  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/","issue73.imrmc")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    DfSaveDataFile(s1, fn, format="iMRMC")
+  }
+  s2 <- DfReadDataFile(fn, format="iMRMC")
+  expect_equal(s1$ratings, s2$ratings) 
+  expect_equal(s1$lesions, s2$lesions)
+  expect_equal(s1$descriptions$type, s2$descriptions$type)
+  expect_equal(s1$descriptions$truthTableStr, s2$descriptions$truthTableStr)
+  expect_equal(unname(s1$descriptions$readerID), unname(s2$descriptions$readerID))
+  expect_equal(unname(s1$descriptions$modalityID), unname(s2$descriptions$modalityID))
+})
+
+
+
 contextStr <- "DfReadDataFile jafroc-MRMC Format"
 context(contextStr)
 test_that(contextStr, {

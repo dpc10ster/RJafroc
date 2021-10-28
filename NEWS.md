@@ -1,6 +1,17 @@
 # RJafroc 2.0.1.9000
 
 
+## Fixed Issue 73
+* Global search string "T1-RRRC for ROC data #73"" to locate all changes
+* Basic issue was missing `truthTableStr` in any file `*.imrc` when read by `DfReadDataFile`
+* See under `tests`: `StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73` for recreation of this issue
+* Updated `R` and `RStudio`
+* File `DfExtracDataset.R` was also affected: the change fixes an error that did not get caught before
+* Updated documentation and links in `StSignificanceTestingCadVsRad.R`
+* Note that **For non-RJafroc data file formats, the `readerID` field must be character formatted unique integers**, as indicated in documentation of `DfReadDataFile()`
+* Gave thought to removing all support for non-RJafroc formatted files, but decided to keep them
+
+
 ## Added ability to read Excel format LROC datasets 6/11/21 - 6/14/21
 * Extended `DfReadDataFile` to accommodate LROC data; added flag `lrocForcedMark`
 * Must use `newExcelFileFormat = T` for this capability

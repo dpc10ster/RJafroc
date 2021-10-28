@@ -221,7 +221,7 @@
         
      \item \code{dataset$descriptions}: contains 7 elements as sub-lists: \code{$fileName}, 
         \code{$type}, \code{$name}, \code{$truthTableStr}, \code{$design}, \code{$modalityID} 
-        and \code{$readerID}; these describe other characterisitcs of the dataset as 
+        and \code{$readerID}; these describe other characteristics of the dataset as 
         detailed next. 
     }
     
@@ -311,7 +311,8 @@
         which labels/names the modalities in the dataset.
              
     \item \code{descriptions$readerID}: a \code{character} vector of length \eqn{J}, 
-        which labels/names the readers in the dataset.     
+        which labels/names the readers in the dataset. For non-RJafroc data file formats,
+        they must be character formatted unique integers.
     }
   }
   

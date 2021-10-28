@@ -62,11 +62,11 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
   NL <- dataset$ratings$NL[trts, rdrs, , , drop = FALSE]
   maxNL <- length(NL[1,1,1,]) # determine this from the extracted values
   dim(NL) <- c(I, J, K, maxNL)
-
+  
   LL <- dataset$ratings$LL[trts, rdrs, , , drop = FALSE]
   maxLL <- length(LL[1,1,1,]) # determine this from the extracted values
   dim(LL) <- c(I, J, K2, maxLL)
-
+  
   if (is.numeric(dataset$ratings$LL_IL)) {
     LL_IL <- dataset$ratings$LL_IL[trts, rdrs, , 1]
     dim(LL_IL) <- c(I, J, K2, 1)
@@ -75,9 +75,14 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
   modalityID <- dataset$descriptions$modalityID[trts]
   readerID <- dataset$descriptions$readerID[rdrs]
   
-  if (is.numeric(dataset$descriptions$truthTableStr)) {
+  # start code fix issue T1-RRRC for ROC data #73 
+  # if (is.numeric(dataset$descriptions$truthTableStr)) {
+  #   truthTableStr <- dataset$descriptions$truthTableStr[trts,rdrs,,,drop=FALSE]
+  # } else truthTableStr <- NA
+  if (!all(is.na(dataset$descriptions$truthTableStr))) {
     truthTableStr <- dataset$descriptions$truthTableStr[trts,rdrs,,,drop=FALSE]
   } else truthTableStr <- NA
+  # end code fix issue T1-RRRC for ROC data #73 
   
   fileName <- paste0("DfExtractDataset(", dataset$descriptions$fileName,")")
   name <- dataset$descriptions$name
@@ -86,7 +91,7 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
   perCase <- dataset$lesions$perCase
   IDs <- dataset$lesions$IDs
   weights <- dataset$lesions$weights
-
+  
   return(convert2dataset(NL, LL, LL_IL, 
                          perCase, IDs, weights,
                          fileName, type, name, truthTableStr, design,
@@ -149,8 +154,8 @@ DfExtractXDataset <- function(dataset, trts, rdrs) {
   weights <- dataset$lesions$weights
   
   return(convert2Xdataset(NL, LL, LL_IL, 
-                         perCase, IDs, weights,
-                         fileName, type, name, truthTableStr, design,
-                         modalityID1, modalityID2, readerID))
+                          perCase, IDs, weights,
+                          fileName, type, name, truthTableStr, design,
+                          modalityID1, modalityID2, readerID))
 }
 

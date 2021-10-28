@@ -1,6 +1,6 @@
 #' Save ROC data file in a different format
 #' 
-#' @description Save ROC data file in a different format so it can be analyzed 
+#' @description Save ROC data file in non-RJafroc formats so it can be analyzed 
 #'    with alternate software
 #' 
 #' @param dataset {The dataset to be saved in the specified format, 
@@ -36,7 +36,7 @@
 #' 
 #' @export
 #' 
-DfSaveDataFile <- function(dataset, fileName, format = "JAFROC", dataDescription = paste0(deparse(substitute(dataset)), " Data File")) {
+DfSaveDataFile <- function(dataset, fileName, format = "JAFROC", dataDescription = "RJafroc dataset converted to imrmc format") {
   if (format == "JAFROC") {
     return(SaveJAFROC(dataset, fileName))
   } else if (format == "iMRMC") {
