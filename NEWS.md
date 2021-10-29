@@ -1,7 +1,7 @@
 # RJafroc 2.0.1.9000
 
 
-## Fixed Issue 73
+## Fixed Issue 73 10-28-21
 * Global search string "T1-RRRC for ROC data #73"" to locate all changes
 * Basic issue was missing `truthTableStr` in any file `*.imrc` when read by `DfReadDataFile`
 * See under `tests`: `StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73` for recreation of this issue
