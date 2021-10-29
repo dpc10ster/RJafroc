@@ -152,22 +152,18 @@
 <h1 class="page-header" data-toc-text="2.0.1.9000">
 <a href="#rjafroc-2019000" class="anchor"></a>RJafroc 2.0.1.9000<small> Unreleased </small>
 </h1>
-<div id="fixed-issue-73-10-28-21" class="section level2">
+<div id="fixed-issue-73-and-deprecated-the-mrmc-file-format-10-28-21---10-29-21" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fixed-issue-73-10-28-21" class="anchor"></a>Fixed Issue 73 10-28-21</h2>
+<a href="#fixed-issue-73-and-deprecated-the-mrmc-file-format-10-28-21---10-29-21" class="anchor"></a>Fixed Issue 73 and deprecated the MRMC file format 10-28-21 - 10-29-21</h2>
 <ul>
-<li>Global search string “T1-RRRC for ROC data #73”" to locate all changes</li>
-<li>Basic issue was missing <code>truthTableStr</code> in any file <code>*.imrc</code> when read by <code>DfReadDataFile</code>
-</li>
-<li>See under <code>tests</code>: <code>StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73</code> for recreation of this issue</li>
-<li>Updated <code>R</code> and <code>RStudio</code>
-</li>
-<li>File <code>DfExtracDataset.R</code> was also affected: the change fixes an error that did not get caught before</li>
-<li>Updated documentation and links in <code>StSignificanceTestingCadVsRad.R</code>
-</li>
-<li>Note that <strong>For non-RJafroc data file formats, the <code>readerID</code> field must be character formatted unique integers</strong>, as indicated in documentation of <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code>
-</li>
-<li>Gave thought to removing all support for non-RJafroc formatted files, but decided to keep them</li>
+<li>Global search string “T1-RRRC for ROC data #73”" to locate all changes.</li>
+<li>Basic issue was missing <code>truthTableStr</code> in any file <code>*.imrc</code> when read by <code>DfReadDataFile</code>.</li>
+<li>See under <code>tests</code>: <code>StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73</code> for recreation of this issue.</li>
+<li>Updated <code>R</code> and <code>RStudio</code>.</li>
+<li>File <code>DfExtracDataset.R</code> was also affected: the change fixes an error that did not get caught before.</li>
+<li>Updated documentation and links in <code>StSignificanceTestingCadVsRad.R</code>.</li>
+<li>Note that <strong>For non-JAFROC data file formats, the <code>readerID</code> and <code>modalityID</code> fields must be unique integers</strong>, as indicated in documentation of <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code>.</li>
+<li>Giving thought to removing support for all non-JAFROC formatted files; otherwise I need to maintain support for four file extensions (<code>*.lrc</code>, <code>*.txt</code>, <code>*.csv</code> and <code>*.imrmc</code>) for the simplest data structure (one rating for each modality-reader-case). This is unnecessarily complicating the code. Final resolution: <strong>I will support only <code>*.imrmc</code></strong>. Other formats can still be read by <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> and then saved to a <code>JAFROC</code> format file for analysis within the <code>RJafroc</code> package.</li>
 </ul>
 </div>
 <div id="added-ability-to-read-excel-format-lroc-datasets-61121---61421" class="section level2">

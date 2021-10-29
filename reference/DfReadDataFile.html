@@ -175,16 +175,15 @@ The file-extension must match the format specified below.</p></td>
     </tr>
     <tr>
       <th>format</th>
-      <td><p>A string specifying the format of the data in the file. 
-It can be <code>"JAFROC"</code>, the default, which requires a .xlsx Excel file,
-<b>not .xls</b>, <code>"MRMC"</code> or <code>"iMRMC"</code>. 
+      <td><p>A string specifying the format of the data file. 
+It can be <code>"JAFROC"</code>, the default, which requires a <code>.xlsx</code> Excel file
+(<b>not <code>.xls</code></b>), <code>"MRMC"</code> or <code>"iMRMC"</code>. 
 For <code>"MRMC"</code> the format is determined by the data file extension 
-as specified in <a href='https://perception.radiology.uiowa.edu/'>https://perception.radiology.uiowa.edu/</a>, i.e.,  
-<code>.csv</code> or <code>.txt</code> or <code>.lrc</code>. For file extension 
-<code>.imrmc</code> the format is described in 
-<a href='https://code.google.com/archive/p/imrmc/'>https://code.google.com/archive/p/imrmc/</a>.
-<b>For non-RJafroc data file formats, 
-the readerID field must be character formatted unique integers</b>.</p></td>
+(<code>.csv</code> or <code>.txt</code> or <code>.lrc</code>) 
+as specified in <a href='https://perception.radiology.uiowa.edu/'>https://perception.radiology.uiowa.edu/</a>. For <code>"iMRMC"</code> the 
+file extension is <code>.imrmc</code> and the format is described in 
+<a href='https://code.google.com/archive/p/imrmc/'>https://code.google.com/archive/p/imrmc/</a>. <b>See following note for
+important information about deprecation of the <code>"MRMC"</code> format</b>.</p></td>
     </tr>
     <tr>
       <th>newExcelFileFormat</th>
@@ -220,6 +219,9 @@ and reader IDs in the original data file will be used.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A dataset with the structure specified in <code><a href='RJafroc-package.html'>RJafroc-package</a></code>.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>The <code>"MRMC"</code> format is deprecated. For non-JAFROC formats four file extensions (<code>.csv</code>, <code>.txt</code>, <code>.lrc</code> and <code>.imrmc</code>) are possible, all of which are restricted to ROC data. Only the <code>iMRMC</code> format is actively supported, i.e, files with extension <code>.imrmc</code>. Other formats (<code>.csv</code>, <code>.txt</code>, <code>.lrc</code>) are deprecated. Such files can still be read by this function and then saved to a JAFROC format file for further analysis within this package. <b>For non-JAFROC data file formats, the <code>readerID</code> and <code>modalityID</code> fields  must be unique integers</b>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>fileName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"toyFiles/ROC/rocCr.xlsx"</span>, 
