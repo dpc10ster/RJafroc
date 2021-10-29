@@ -308,11 +308,12 @@
         in a Hillis 2014 publication.
     
     \item \code{descriptions$modalityID}: a \code{character} vector of length \eqn{I}, 
-        which labels/names the modalities in the dataset.
+        which labels/names the modalities in the dataset. For non-JAFROC data file formats,
+        they must be unique integers.
              
     \item \code{descriptions$readerID}: a \code{character} vector of length \eqn{J}, 
-        which labels/names the readers in the dataset. For non-RJafroc data file formats,
-        they must be character formatted unique integers.
+        which labels/names the readers in the dataset. For non-JAFROC data file formats,
+        they must be unique integers.
     }
   }
   

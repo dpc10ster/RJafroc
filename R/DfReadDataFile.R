@@ -6,16 +6,16 @@
 #' @param fileName A string specifying the name of the file. 
 #'    The file-extension must match the format specified below.
 #'    
-#' @param format A string specifying the format of the data in the file. 
-#'    It can be \code{"JAFROC"}, the default, which requires a .xlsx Excel file,
-#'    \bold{not .xls}, \code{"MRMC"} or \code{"iMRMC"}. 
+#' @param format A string specifying the format of the data file. 
+#'    It can be \code{"JAFROC"}, the default, which requires a \code{.xlsx} Excel file
+#'    (\bold{not \code{.xls}}), \code{"MRMC"} or \code{"iMRMC"}. 
 #'    For \code{"MRMC"} the format is determined by the data file extension 
-#'    as specified in \url{https://perception.radiology.uiowa.edu/}, i.e.,  
-#'    \code{.csv} or \code{.txt} or \code{.lrc}. For file extension 
-#'    \code{.imrmc} the format is described in 
-#'    \url{https://code.google.com/archive/p/imrmc/}.
-#'    \bold{For non-RJafroc data file formats, 
-#'    the readerID field must be character formatted unique integers}.
+#'    (\code{.csv} or \code{.txt} or \code{.lrc}) 
+#'    as specified in \url{https://perception.radiology.uiowa.edu/}. For \code{"iMRMC"} the 
+#'    file extension is \code{.imrmc} and the format is described in 
+#'    \url{https://code.google.com/archive/p/imrmc/}. \bold{See following note for
+#'    important information about deprecation of the \code{"MRMC"} format}.
+#'    
 #'    
 #' @param newExcelFileFormat Logical. Must be true to read LROC data. 
 #'    This argument only applies to the \code{"JAFROC"} format. 
@@ -37,6 +37,8 @@
 #'    (starting from 1) will be used as the 
 #'    treatment and reader IDs (i.e., names). Otherwise, treatment 
 #'    and reader IDs in the original data file will be used.
+#' 
+#' @note The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc}) are possible, all of which are restricted to ROC data. Only the \code{iMRMC} format is actively supported, i.e, files with extension \code{.imrmc}. Other formats (\code{.csv}, \code{.txt}, \code{.lrc}) are deprecated. Such files can still be read by this function and then saved to a JAFROC format file for further analysis within this package. \bold{For non-JAFROC data file formats, the \code{readerID} and \code{modalityID} fields  must be unique integers}.
 #' 
 #' @return A dataset with the structure specified in \code{\link{RJafroc-package}}.
 #' 

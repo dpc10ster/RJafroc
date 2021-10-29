@@ -1,15 +1,15 @@
 # RJafroc 2.0.1.9000
 
 
-## Fixed Issue 73 10-28-21
-* Global search string "T1-RRRC for ROC data #73"" to locate all changes
-* Basic issue was missing `truthTableStr` in any file `*.imrc` when read by `DfReadDataFile`
-* See under `tests`: `StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73` for recreation of this issue
-* Updated `R` and `RStudio`
-* File `DfExtracDataset.R` was also affected: the change fixes an error that did not get caught before
-* Updated documentation and links in `StSignificanceTestingCadVsRad.R`
-* Note that **For non-RJafroc data file formats, the `readerID` field must be character formatted unique integers**, as indicated in documentation of `DfReadDataFile()`
-* Gave thought to removing all support for non-RJafroc formatted files, but decided to keep them
+## Fixed Issue 73 and deprecated the MRMC file format 10-28-21 - 10-29-21
+* Global search string "T1-RRRC for ROC data #73"" to locate all changes.
+* Basic issue was missing `truthTableStr` in any file `*.imrc` when read by `DfReadDataFile`.
+* See under `tests`: `StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73` for recreation of this issue.
+* Updated `R` and `RStudio`.
+* File `DfExtracDataset.R` was also affected: the change fixes an error that did not get caught before.
+* Updated documentation and links in `StSignificanceTestingCadVsRad.R`.
+* Note that **For non-JAFROC data file formats, the `readerID` and `modalityID` fields must be unique integers**, as indicated in documentation of `DfReadDataFile()`.
+* Giving thought to removing support for all non-JAFROC formatted files; otherwise I need to maintain support for four file extensions (`*.lrc`, `*.txt`, `*.csv` and `*.imrmc`) for the simplest data structure (one rating for each modality-reader-case). This is unnecessarily complicating the code. Final resolution: **I will support only `*.imrmc`**. Other formats can still be read by `DfReadDataFile()` and then saved to a `JAFROC` format file for analysis within the `RJafroc` package. 
 
 
 ## Added ability to read Excel format LROC datasets 6/11/21 - 6/14/21
