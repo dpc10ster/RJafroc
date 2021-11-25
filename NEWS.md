@@ -1,6 +1,11 @@
 # RJafroc 2.0.1.9000
 
 
+## Fixed `PlotRsmOperatingCharacteristics` returning correct plots but incorrect AUCs
+* Global search string "bug fix 11/24/21" to locate all changes.
+* Basic issue was that I was using `zeta1` = -20 instead of the supplied value.
+
+
 ## Fixed Issue 73 and deprecated the MRMC file format 10-28-21 - 10-29-21
 * Global search string "T1-RRRC for ROC data #73"" to locate all changes.
 * Basic issue was missing `truthTableStr` in any file `*.imrc` when read by `DfReadDataFile`.

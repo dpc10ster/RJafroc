@@ -1,10 +1,8 @@
-#' RSM predicted operating characteristics, ROC highest rating pdfs and FOMs,
-#'    for FROC data
+#' RSM predicted operating characteristics, ROC pdfs and AUCs
 #' 
-#' @description Visualize RSM predicted ROC, AFROC, wAFROC, FROC and pdf 
-#'    (probability density functions of highest ratings curves 
-#'    for non-diseased and diseased cases), for sets of search model parameters: 
-#'    mu, lambda, nu and zeta1.
+#' @description Visualize RSM predicted ROC, AFROC, wAFROC and FROC curves, and ROC pdfs, 
+#'    given \bold{equal-length arrays} of search model parameters: mu, lambda, nu and 
+#'    zeta1.
 #' 
 #' @param mu Array: the mean of the Gaussian distribution for the 
 #'    ratings of latent LLs (continuous ratings of lesions that are found by the 
@@ -23,8 +21,7 @@
 #'    \code{1 - exp(nu*mu)}, the success probability of the binomial distribution.
 #' 
 #' @param zeta1 Array, the lowest reporting threshold; if missing the default 
-#'    is -3. [Used to demonstrate continuity of the slope of the ROC at the 
-#'    end point; TBA Online Appendix 17.H.3] 
+#'    is an array of -3s. 
 #'
 #' @param lesDistr Array: the probability mass function of the 
 #'    lesion distribution for diseased cases. See \link{UtilLesionDistr}. 
@@ -72,8 +69,8 @@
 #' \item{\code{AFROCPlot}}     {The predicted AFROC plots}
 #' \item{\code{wAFROCPlot}}    {The predicted wAFROC plots}
 #' \item{\code{FROCPlot}}  {The predicted FROC plots}
-#' \item{\code{PDFPlot}}   {The predicted pdf plots}
-#' \item{\code{aucROC}}    {The predicted ROC AUCs}
+#' \item{\code{PDFPlot}}   {The predicted ROC pdf plots, highest rating generated}
+#' \item{\code{aucROC}}    {The predicted ROC AUCs, highest rating generated}
 #' \item{\code{aucAFROC}}  {The predicted AFROC AUCs}
 #' \item{\code{aucwAFROC}} {The predicted wAFROC AUCs}
 #' \item{\code{aucFROC}}   {The predicted FROC AUCs}
@@ -169,8 +166,11 @@ PlotRsmOperatingCharacteristics <- function(mu,
     TPF <- sapply(zeta[[i]], yROC, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr = lesDistr)
     NLF <- sapply(zeta[[i]], RSM_xFROC, mu = mu[i], lambda = lambda[i])
     LLF <- sapply(zeta[[i]], RSM_yFROC, mu = mu[i], nu = nu[i])
-    
-    maxFPF <- xROC(-20, lambdaP[i])
+# begin bug fix
+# found bug 11/24/21 two places, here and as indicated by # bug fix 11/24/21
+# found ROC AUC did not change with zeta1 as it should   
+#    maxFPF <- xROC(-20, lambdaP[i]) # this is wrong
+    maxFPF <- xROC(zeta1[i], lambdaP[i]) # this is correct
     if( OpChType == "ALL" ||  OpChType == "ROC"){
       ROCPoints <- rbind(ROCPoints, data.frame(FPF = FPF, 
                                                TPF = TPF, 
@@ -180,7 +180,9 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                TPF = c(TPF[1], 1), 
                                                Treatment = as.character(i), 
                                                stringsAsFactors = FALSE))
-      maxTPF <- yROC(-20, mu[i], lambdaP[i], nuP[i], lesDistr)
+#       maxTPF <- yROC(-20, mu[i], lambdaP[i], nuP[i], lesDistr)
+      maxTPF <- yROC(zeta1[i], mu[i], lambdaP[i], nuP[i], lesDistr)
+# end bug fix
       AUC <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu[i], lambdaP = lambdaP[i], nuP = nuP[i], lesDistr =lesDistr)$value
       aucROC[i] <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2
     }
@@ -212,7 +214,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                    LLF = c(LLF[1], 1), 
                                                    Treatment = as.character(i), 
                                                    stringsAsFactors = FALSE))
-      maxLLF <- RSM_yFROC(-20, mu[i], nu[i])
+      maxLLF <- RSM_yFROC(zeta1[i], mu[i], nu[i]) # bug fix 11/24/21
       AUC <- integrate(y_AFROC_FPF, 0, maxFPF, mu = mu[i], lambda = lambda[i], nu = nu[i])$value
       aucAFROC[i] <- AUC + (1 + maxLLF) * (1 - maxFPF) / 2
     }
@@ -227,7 +229,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                      wLLF = c(wLLF[1], 1), 
                                                      Treatment = as.character(i), 
                                                      stringsAsFactors = FALSE))
-      maxWLLF <- ywAFROC(-20, mu[i], nuP[i], lesDistr, lesWghtDistr) 
+      maxWLLF <- ywAFROC(zeta1[i], mu[i], nuP[i], lesDistr, lesWghtDistr) # bug fix 11/24/21
       AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambda = lambda[i], nu = nu[i], lesDistr, lesWghtDistr)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }

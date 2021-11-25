@@ -105,7 +105,7 @@ test_that("RSM3", {
   Sys.sleep(0.2)
   # this is the small data file created by AK that gave me so much grief! Resolved two bugs; 
   # 1: abnormal cases first
-  # 2. weights matrix was not very usefull
+  # 2. weights matrix was not very useful
   frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormalCasesFirst.xlsx",
                                           package = "RJafroc", mustWork = TRUE)
   x <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = TRUE)

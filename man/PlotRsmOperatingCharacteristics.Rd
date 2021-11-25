@@ -2,8 +2,7 @@
 % Please edit documentation in R/PlotRsmOperatingCharacteristics.R
 \name{PlotRsmOperatingCharacteristics}
 \alias{PlotRsmOperatingCharacteristics}
-\title{RSM predicted operating characteristics, ROC highest rating pdfs and FOMs,
-   for FROC data}
+\title{RSM predicted operating characteristics, ROC pdfs and AUCs}
 \usage{
 PlotRsmOperatingCharacteristics(
   mu,
@@ -39,8 +38,7 @@ lesions) per diseased case. The corresponding \emph{physical} parameter is
 \code{1 - exp(nu*mu)}, the success probability of the binomial distribution.}
 
 \item{zeta1}{Array, the lowest reporting threshold; if missing the default 
-is -3. [Used to demonstrate continuity of the slope of the ROC at the 
-end point; TBA Online Appendix 17.H.3]}
+is an array of -3s.}
 
 \item{lesDistr}{Array: the probability mass function of the 
 lesion distribution for diseased cases. See \link{UtilLesionDistr}.}
@@ -88,18 +86,17 @@ A list of elements containing five \pkg{ggplot2} objects
 \item{\code{AFROCPlot}}     {The predicted AFROC plots}
 \item{\code{wAFROCPlot}}    {The predicted wAFROC plots}
 \item{\code{FROCPlot}}  {The predicted FROC plots}
-\item{\code{PDFPlot}}   {The predicted pdf plots}
-\item{\code{aucROC}}    {The predicted ROC AUCs}
+\item{\code{PDFPlot}}   {The predicted ROC pdf plots, highest rating generated}
+\item{\code{aucROC}}    {The predicted ROC AUCs, highest rating generated}
 \item{\code{aucAFROC}}  {The predicted AFROC AUCs}
 \item{\code{aucwAFROC}} {The predicted wAFROC AUCs}
 \item{\code{aucFROC}}   {The predicted FROC AUCs}
 }
 }
 \description{
-Visualize RSM predicted ROC, AFROC, wAFROC, FROC and pdf 
-   (probability density functions of highest ratings curves 
-   for non-diseased and diseased cases), for sets of search model parameters: 
-   mu, lambda, nu and zeta1.
+Visualize RSM predicted ROC, AFROC, wAFROC and FROC curves, and ROC pdfs, 
+   given \bold{equal-length arrays} of search model parameters: mu, lambda, nu and 
+   zeta1.
 }
 \details{
 RSM is the Radiological Search Model described in the book. This 
