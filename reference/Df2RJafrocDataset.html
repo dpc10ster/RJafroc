@@ -205,17 +205,17 @@ Equal weights are assigned to every lesion (FROC data).
 Consecutive characters/integers starting with "1" are assigned to <code>IDs</code>, <code>modalityID</code> and <code>readerID</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Input as ratings arrays</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>;<span class='va'>NL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>;<span class='va'>LL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>1.5</span> <span class='op'>+</span> <span class='fl'>2</span>
-<span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span><span class='op'>(</span><span class='va'>NL</span>, <span class='va'>LL</span><span class='op'>)</span>
-
-<span class='co'>## Input as counts tables</span>
-<span class='va'>K1t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>19</span>, <span class='fl'>8</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>K2t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,  <span class='fl'>6</span>, <span class='fl'>5</span>, <span class='fl'>12</span>, <span class='fl'>22</span><span class='op'>)</span>
-<span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span><span class='op'>(</span><span class='va'>K1t</span>, <span class='va'>K2t</span>, InputIsCountsTable <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'>## Input as ratings arrays</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>;<span class='va'>NL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>;<span class='va'>LL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>1.5</span> <span class='op'>+</span> <span class='fl'>2</span></span>
+<span class='r-in'><span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span><span class='op'>(</span><span class='va'>NL</span>, <span class='va'>LL</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Input as counts tables</span></span>
+<span class='r-in'><span class='va'>K1t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>19</span>, <span class='fl'>8</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>K2t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,  <span class='fl'>6</span>, <span class='fl'>5</span>, <span class='fl'>12</span>, <span class='fl'>22</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>dataset</span> <span class='op'>&lt;-</span> <span class='fu'>Df2RJafrocDataset</span><span class='op'>(</span><span class='va'>K1t</span>, <span class='va'>K2t</span>, InputIsCountsTable <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

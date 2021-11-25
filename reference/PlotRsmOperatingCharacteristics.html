@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RSM predicted operating characteristics, ROC highest rating pdfs and FOMs,
-   for FROC data — PlotRsmOperatingCharacteristics • RJafroc</title>
+<title>RSM predicted operating characteristics, ROC pdfs and AUCs — PlotRsmOperatingCharacteristics • RJafroc</title>
 
 
 <!-- jquery -->
@@ -40,12 +39,10 @@
 
 
 
-<meta property="og:title" content="RSM predicted operating characteristics, ROC highest rating pdfs and FOMs,
-   for FROC data — PlotRsmOperatingCharacteristics" />
-<meta property="og:description" content="Visualize RSM predicted ROC, AFROC, wAFROC, FROC and pdf 
-   (probability density functions of highest ratings curves 
-   for non-diseased and diseased cases), for sets of search model parameters: 
-   mu, lambda, nu and zeta1." />
+<meta property="og:title" content="RSM predicted operating characteristics, ROC pdfs and AUCs — PlotRsmOperatingCharacteristics" />
+<meta property="og:description" content="Visualize RSM predicted ROC, AFROC, wAFROC and FROC curves, and ROC pdfs, 
+   given equal-length arrays of search model parameters: mu, lambda, nu and 
+   zeta1." />
 
 
 
@@ -150,17 +147,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>RSM predicted operating characteristics, ROC highest rating pdfs and FOMs,
-   for FROC data</h1>
+    <h1>RSM predicted operating characteristics, ROC pdfs and AUCs</h1>
     
     <div class="hidden name"><code>PlotRsmOperatingCharacteristics.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Visualize RSM predicted ROC, AFROC, wAFROC, FROC and pdf 
-   (probability density functions of highest ratings curves 
-   for non-diseased and diseased cases), for sets of search model parameters: 
-   mu, lambda, nu and zeta1.</p>
+    <p>Visualize RSM predicted ROC, AFROC, wAFROC and FROC curves, and ROC pdfs, 
+   given <b>equal-length arrays</b> of search model parameters: mu, lambda, nu and 
+   zeta1.</p>
     </div>
 
     <pre class="usage"><span class='fu'>PlotRsmOperatingCharacteristics</span><span class='op'>(</span>
@@ -207,8 +202,7 @@ lesions) per diseased case. The corresponding <em>physical</em> parameter is
     <tr>
       <th>zeta1</th>
       <td><p>Array, the lowest reporting threshold; if missing the default 
-is -3. [Used to demonstrate continuity of the slope of the ROC at the 
-end point; TBA Online Appendix 17.H.3]</p></td>
+is an array of -3s.</p></td>
     </tr>
     <tr>
       <th>lesDistr</th>
@@ -218,7 +212,7 @@ lesion distribution for diseased cases. See <a href='UtilLesionDistr.html'>UtilL
     <tr>
       <th>relWeights</th>
       <td><p>The relative weights of the lesions; a vector of 
-length equal to <code><a href='https://rdrr.io/r/base/length.html'>length(maxLL)</a></code>. The default is zero, in which case
+length equal to <code>length(maxLL)</code>. The default is zero, in which case
 equal weights are assumed.</p></td>
     </tr>
     <tr>
@@ -276,8 +270,8 @@ generate an error.</p></td>
 <li><p><code>AFROCPlot</code>     The predicted AFROC plots</p></li>
 <li><p><code>wAFROCPlot</code>    The predicted wAFROC plots</p></li>
 <li><p><code>FROCPlot</code>  The predicted FROC plots</p></li>
-<li><p><code>PDFPlot</code>   The predicted pdf plots</p></li>
-<li><p><code>aucROC</code>    The predicted ROC AUCs</p></li>
+<li><p><code>PDFPlot</code>   The predicted ROC pdf plots, highest rating generated</p></li>
+<li><p><code>aucROC</code>    The predicted ROC AUCs, highest rating generated</p></li>
 <li><p><code>aucAFROC</code>  The predicted AFROC AUCs</p></li>
 <li><p><code>aucwAFROC</code> The predicted wAFROC AUCs</p></li>
 <li><p><code>aucFROC</code>   The predicted FROC AUCs</p></li>
@@ -300,32 +294,43 @@ Modeling, and Applications with R-Based Examples</em> (CRC Press, Boca Raton, FL
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Following example is for mu = 2, lambda = 1, nu = 0.6, in one treatment and   </span>
-<span class='co'>## mu = 3, lambda = 1.5, nu = 0.8, in the other treatment. 20% of the diseased </span>
-<span class='co'>## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span>
-<span class='co'>## and 30% have 4 lesions.  </span>
-<span class='va'>lesDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.4</span>, <span class='fl'>0.1</span>, <span class='fl'>0.3</span><span class='op'>)</span>
-
-<span class='fu'>PlotRsmOperatingCharacteristics</span><span class='op'>(</span>mu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1.5</span><span class='op'>)</span>, nu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.6</span>, <span class='fl'>0.8</span><span class='op'>)</span>,
-   lesDistr <span class='op'>=</span> <span class='va'>lesDistr</span>, legendPosition <span class='op'>=</span> <span class='st'>"bottom"</span>, nlfRange <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, llfRange <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $ROCPlot</div><div class='img'><img src='PlotRsmOperatingCharacteristics-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $AFROCPlot</div><div class='img'><img src='PlotRsmOperatingCharacteristics-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $wAFROCPlot</div><div class='img'><img src='PlotRsmOperatingCharacteristics-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $FROCPlot</div><div class='img'><img src='PlotRsmOperatingCharacteristics-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $PDFPlot</div><div class='img'><img src='PlotRsmOperatingCharacteristics-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $aucROC
-#&gt; [1] 0.9326383 0.9866740
-#&gt; 
-#&gt; $aucAFROC
-#&gt; [1] 0.7645398 0.9293791
-#&gt; 
-#&gt; $aucwAFROC
-#&gt; [1] 0.7645398 0.9293791
-#&gt; 
-#&gt; $aucFROC
-#&gt; [1] 0.3214509 0.4463223
-#&gt; </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'>## Following example is for mu = 2, lambda = 1, nu = 0.6, in one treatment and   </span></span>
+<span class='r-in'><span class='co'>## mu = 3, lambda = 1.5, nu = 0.8, in the other treatment. 20% of the diseased </span></span>
+<span class='r-in'><span class='co'>## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span></span>
+<span class='r-in'><span class='co'>## and 30% have 4 lesions.  </span></span>
+<span class='r-in'><span class='va'>lesDistr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.4</span>, <span class='fl'>0.1</span>, <span class='fl'>0.3</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>PlotRsmOperatingCharacteristics</span><span class='op'>(</span>mu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, lambda <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1.5</span><span class='op'>)</span>, nu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.6</span>, <span class='fl'>0.8</span><span class='op'>)</span>,</span>
+<span class='r-in'>   lesDistr <span class='op'>=</span> <span class='va'>lesDistr</span>, legendPosition <span class='op'>=</span> <span class='st'>"bottom"</span>, nlfRange <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, llfRange <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ROCPlot</span>
+<span class='r-plt img'><img src='PlotRsmOperatingCharacteristics-1.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $AFROCPlot</span>
+<span class='r-plt img'><img src='PlotRsmOperatingCharacteristics-2.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $wAFROCPlot</span>
+<span class='r-plt img'><img src='PlotRsmOperatingCharacteristics-3.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $FROCPlot</span>
+<span class='r-plt img'><img src='PlotRsmOperatingCharacteristics-4.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $PDFPlot</span>
+<span class='r-plt img'><img src='PlotRsmOperatingCharacteristics-5.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $aucROC</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.9326383 0.9866740</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $aucAFROC</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.7646014 0.9293977</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $aucwAFROC</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.7646014 0.9293977</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $aucFROC</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.3214509 0.4463223</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

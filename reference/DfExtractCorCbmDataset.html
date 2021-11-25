@@ -199,23 +199,23 @@ The utility of this software is
 in designing a ratings simulator that is statistically matched to a real dataset.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># \donttest{</span>
-<span class='co'>## Extract the paired data corresponding to the second and third readers in the first treatment</span>
-<span class='co'>## from the included ROC dataset</span>
-<span class='va'>dataset11_23</span> <span class='op'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span><span class='op'>(</span><span class='va'>dataset05</span>, trts <span class='op'>=</span> <span class='fl'>1</span>, rdrs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Extract the paired data corresponding to the third reader in the first and second treatments</span>
-<span class='va'>dataset12_33</span> <span class='op'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span><span class='op'>(</span><span class='va'>dataset05</span>, trts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>, rdrs <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-
-<span class='co'>## Extract the data corresponding to the first reader in the first</span>
-<span class='co'>## treatment paired with the data</span>
-<span class='co'>## from the third reader in the second treatment</span>
-<span class='co'>## (the bin indices are at different positions in the two arrays)</span>
-<span class='va'>dataset12_13</span> <span class='op'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span><span class='op'>(</span><span class='va'>dataset05</span>,
-trts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>, rdrs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># }</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='co'>## Extract the paired data corresponding to the second and third readers in the first treatment</span></span>
+<span class='r-in'><span class='co'>## from the included ROC dataset</span></span>
+<span class='r-in'><span class='va'>dataset11_23</span> <span class='op'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span><span class='op'>(</span><span class='va'>dataset05</span>, trts <span class='op'>=</span> <span class='fl'>1</span>, rdrs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Extract the paired data corresponding to the third reader in the first and second treatments</span></span>
+<span class='r-in'><span class='va'>dataset12_33</span> <span class='op'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span><span class='op'>(</span><span class='va'>dataset05</span>, trts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>, rdrs <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Extract the data corresponding to the first reader in the first</span></span>
+<span class='r-in'><span class='co'>## treatment paired with the data</span></span>
+<span class='r-in'><span class='co'>## from the third reader in the second treatment</span></span>
+<span class='r-in'><span class='co'>## (the bin indices are at different positions in the two arrays)</span></span>
+<span class='r-in'><span class='va'>dataset12_13</span> <span class='op'>&lt;-</span> <span class='fu'>DfExtractCorCbmDataset</span><span class='op'>(</span><span class='va'>dataset05</span>,</span>
+<span class='r-in'>trts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>, rdrs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># }</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

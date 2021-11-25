@@ -421,7 +421,7 @@
         <code>dataset05</code>, an FROC dataset.</h3>
 <p></p><ul>
 <li><p><code>ratings$NL</code>: a float array with dimensions
-        <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K, maxNL)</a></code>, containing the ratings of NL marks. The first 
+        <code>c(I, J, K, maxNL)</code>, containing the ratings of NL marks. The first 
         <code>K1</code> locations of the third index corresponds to NL marks on non-diseased 
         cases and the remaining locations correspond to NL marks on diseased 
         cases. The 4th dimension allows for multiple NL marks 
@@ -433,17 +433,17 @@
         to the first <code>K1</code> elements of <code>NL[,,1:K1,1]</code> and the remaining 
         <code>K2</code> elements of <code>NL[,,(K1+1):K,1]</code> are set to <code>-Inf</code>.</p></li>
 <li><p><code>ratings$LL</code>: for non-LROC datasets a float array with dimensions   
-        <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, maxLL)</a></code> containing the ratings of LL marks. The value of 
+        <code>c(I, J, K2, maxLL)</code> containing the ratings of LL marks. The value of 
         <code>maxLL</code> is determined by the maximum number of lesions per case in the 
         dataset. Unmarked lesions are assigned the <code>-Inf</code> rating.
         For ROC datasets <code>TP</code> ratings are assigned to <code>LL[,,1:K2,1]</code>.
         For <b>LROC</b> datasets it is a float array with dimensions  
-        <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, 1)</a></code> containing the ratings of correct localizations, 
+        <code>c(I, J, K2, 1)</code> containing the ratings of correct localizations, 
         otherwise the rating is recorded in the incorrect localization array
         described next.</p></li>
 <li><p><code>ratings$LL_IL</code>: for LROC datasets the ratings
         of incorrect localization marks on abnormal cases. It is a float array 
-        with dimensions <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, 1)</a></code>. For non-LROC datasets this array 
+        with dimensions <code>c(I, J, K2, 1)</code>. For non-LROC datasets this array 
         is filled with NAs.</p></li>
 <li><p><code>lesions$perCase</code>: an integer array with length <code>K2</code>, 
         the number of lesions on each diseased case. The 
@@ -452,12 +452,12 @@
         4th diseased case has two lesions.</p></li>
 <li><p><code>lesions$IDs</code>: an integer array with dimensions [<code>K2</code>, <code>maxLL</code>], 
         labeling (or naming) the lesions on the diseased cases. For example,  
-        <code>dataset05$lesions$IDs[4,]</code> is <code><a href='https://rdrr.io/r/base/c.html'>c(1,2,-Inf)</a></code>, meaning the 
+        <code>dataset05$lesions$IDs[4,]</code> is <code>c(1,2,-Inf)</code>, meaning the 
         4th diseased case has two lesions, labeled 1 and 2.</p></li>
 <li><p><code>lesions$weights</code>: a floating point array with dimensions 
-        <code><a href='https://rdrr.io/r/base/c.html'>c(K2, maxLL)</a></code>, representing the relative importance of detecting 
+        <code>c(K2, maxLL)</code>, representing the relative importance of detecting 
         each lesion. The weights for an abnormal case must sum to unity. 
-        For example, <code>dataset05$lesions$weights[4,]</code> is <code><a href='https://rdrr.io/r/base/c.html'>c(0.5,0.5, -Inf)</a></code>, 
+        For example, <code>dataset05$lesions$weights[4,]</code> is <code>c(0.5,0.5, -Inf)</code>, 
         corresponding to equal weights (0.5) assigned to of the two lesions in the
         case.</p></li>
 <li><p><code>descriptions$fileName</code>: a <code>character</code> variable containing the file
@@ -469,10 +469,10 @@
 <li><p><code>descriptions$name</code>: a <code>character</code> variable containing the name of 
         the dataset: e.g., "dataset02" or "dataset05". This is generated automatically
         by the <a href='DfReadDataFile.html'>DfReadDataFile</a> function used to read the file.</p></li>
-<li><p><code>descriptions$truthTableStr</code>: a <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, L, maxLL+1)</a></code> object. For
-        normal cases elements <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, L, 1)</a></code> are filled with 1s if the corresponding 
+<li><p><code>descriptions$truthTableStr</code>: a <code>c(I, J, L, maxLL+1)</code> object. For
+        normal cases elements <code>c(I, J, L, 1)</code> are filled with 1s if the corresponding 
         interpretations occurred or NAs otherwise. For abnormal cases elements
-        <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, L, 2:(maxLL+1))</a></code> are filled with 1s if the corresponding 
+        <code>c(I, J, L, 2:(maxLL+1))</code> are filled with 1s if the corresponding 
         interpretations occurred or NAs otherwise. This object is necessary for analyzing
         more complex designs, e.g., split-plot, as described next.</p></li>
 <li><p><code>descriptions$design</code>: a <code>character</code> variable: "<code>FCTRL</code>", 
@@ -489,10 +489,10 @@
   
 <p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>ROI data structure, example <code>datasetROI</code></h3>
 <p>Only changes from the previously described structure are described below:</p><ul>
-<li><p><code>ratings$NL</code>: a float array with dimensions <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K, Q)</a></code> 
+<li><p><code>ratings$NL</code>: a float array with dimensions <code>c(I, J, K, Q)</code> 
         containing the ratings of each of Q quadrants for each non-diseased case.</p></li>
 <li><p><code>ratings$LL</code>: a float array with dimensions  
-        <code><a href='https://rdrr.io/r/base/c.html'>c(I, J, K2, Q)</a></code> containing the ratings of quadrants for each 
+        <code>c(I, J, K2, Q)</code> containing the ratings of quadrants for each 
         diseased case.</p></li>
 <li><p><code>lesions$perCase</code>: this contains the locations, on abnormal cases,
     containing at least one lesion.</p></li>
@@ -500,9 +500,9 @@
 
 <p></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Crossed modality data structure, example <code>datasetCrossedModality</code></h3>
 <p>Only changes from the previously described structure are described below:</p><ul>
-<li><p><code>ratings$NL</code>: a float array with dimension <code><a href='https://rdrr.io/r/base/c.html'>c(I1, I2, J, K, maxNL)</a></code> 
+<li><p><code>ratings$NL</code>: a float array with dimension <code>c(I1, I2, J, K, maxNL)</code> 
         containing the ratings of NL marks. Note the existence of two modality indices.</p></li>
-<li><p><code>LL</code>: a float array with dimension <code><a href='https://rdrr.io/r/base/c.html'>c(I1, I2, J, K2, maxLL)</a></code>
+<li><p><code>LL</code>: a float array with dimension <code>c(I1, I2, J, K2, maxLL)</code>
         containing the ratings of all LL marks. Note the existence of two modality indices.</p></li>
 <li><p><code>modalityID1</code>: corresponding to first modality factor.</p></li>
 <li><p><code>modalityID2</code>: corresponding to second modality factor.</p></li>

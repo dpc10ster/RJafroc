@@ -194,18 +194,18 @@
     <p>The return list contains the same items with <code><a href='StSignificanceTesting.html'>StSignificanceTesting</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{ </span>
-<span class='co'>## read the raw data file in extdata directory (this is included to illustrate the format)</span>
-<span class='va'>crossedFileName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"CrossedModalities.xlsx"</span>, 
-package <span class='op'>=</span> <span class='st'>"RJafroc"</span>, mustWork <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfReadCrossedModalities.html'>DfReadCrossedModalities</a></span><span class='op'>(</span><span class='va'>crossedFileName</span><span class='op'>)</span>
-<span class='va'>retCrossed1</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span><span class='op'>(</span><span class='va'>ds</span>, <span class='fl'>1</span><span class='op'>)</span>
-
-<span class='co'>## read the built in dataset</span>
-<span class='va'>retCrossed2</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span><span class='op'>(</span><span class='va'>datasetCrossedModality</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='co'># }</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># \donttest{ </span></span>
+<span class='r-in'><span class='co'>## read the raw data file in extdata directory (this is included to illustrate the format)</span></span>
+<span class='r-in'><span class='va'>crossedFileName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"CrossedModalities.xlsx"</span>, </span>
+<span class='r-in'>package <span class='op'>=</span> <span class='st'>"RJafroc"</span>, mustWork <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfReadCrossedModalities.html'>DfReadCrossedModalities</a></span><span class='op'>(</span><span class='va'>crossedFileName</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>retCrossed1</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span><span class='op'>(</span><span class='va'>ds</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## read the built in dataset</span></span>
+<span class='r-in'><span class='va'>retCrossed2</span> <span class='op'>&lt;-</span> <span class='fu'>StSignificanceTestingCrossedModalities</span><span class='op'>(</span><span class='va'>datasetCrossedModality</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

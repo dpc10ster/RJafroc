@@ -186,13 +186,13 @@
    datasets, which I currently don't have.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>lrocDataset</span> <span class='op'>&lt;-</span> <span class='fu'>DfFroc2Lroc</span><span class='op'>(</span><span class='va'>dataset05</span><span class='op'>)</span>
-<span class='va'>frocHrAuc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></span><span class='op'>(</span><span class='va'>dataset05</span>, FOM <span class='op'>=</span> <span class='st'>"HrAuc"</span><span class='op'>)</span>   
-<span class='va'>lrocWilcoxonAuc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></span><span class='op'>(</span><span class='va'>lrocDataset</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span><span class='op'>)</span>
-<span class='co'>## expect_equal(frocHrAuc, lrocWilcoxonAuc)</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>lrocDataset</span> <span class='op'>&lt;-</span> <span class='fu'>DfFroc2Lroc</span><span class='op'>(</span><span class='va'>dataset05</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>frocHrAuc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></span><span class='op'>(</span><span class='va'>dataset05</span>, FOM <span class='op'>=</span> <span class='st'>"HrAuc"</span><span class='op'>)</span>   </span>
+<span class='r-in'><span class='va'>lrocWilcoxonAuc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='UtilFigureOfMerit.html'>UtilFigureOfMerit</a></span><span class='op'>(</span><span class='va'>lrocDataset</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'>## expect_equal(frocHrAuc, lrocWilcoxonAuc)</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

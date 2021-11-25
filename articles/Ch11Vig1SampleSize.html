@@ -106,7 +106,7 @@
       <h1 data-toc-skip>Chapter 11, Vignette 1: Background on the F distribution</h1>
                         <h4 class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2021-10-29</h4>
+            <h4 class="date">2021-11-25</h4>
       
       
       <div class="hidden name"><code>Ch11Vig1SampleSize.Rmd</code></div>
@@ -121,9 +121,9 @@
 <p>Since it plays an important role in sample size estimation, it is helpful to examine the behavior of the F-distribution. In the following <code>ndf</code> = numerator degrees of freedom, <code>ddf</code> = denominator degrees of freedom and <code>ncp</code> = non-centrality parameter (i.e., the <span class="math inline">\(\Delta\)</span> appearing in Eqn. (11.6) of <span class="citation">(Chakraborty 2017)</span>).</p>
 <p>The use of three <code>R</code> functions is demonstrated.</p>
 <ul>
-<li><p><code><a href="https://rdrr.io/r/stats/Fdist.html">qf(p,ndf,ddf)</a></code> is the <em>quantile</em> function of the F-distribution for specified values of <code>p</code>, <code>ndf</code> and <code>ddf</code>, i.e., the value <code>x</code> such that fraction <code>p</code> of the area under the F-distribution lies to the right of <code>x</code>. Since <code>ncp</code> is not included as a parameter, the default value, i.e., zero, is used. This is called the <em>central</em> F-distribution.</p></li>
-<li><p><code><a href="https://rdrr.io/r/stats/Fdist.html">df(x,ndf,ddf,ncp)</a></code> is the probability density function (<em>pdf</em>) of the F-distribution, as a function of <code>x</code>, for specified values of <code>ndf</code>, <code>ddf</code> and <code>ncp</code>.</p></li>
-<li><p><code><a href="https://rdrr.io/r/stats/Fdist.html">pf(x,ndf,ddf,ncp)</a></code> is the probability (or cumulative) distribution function of the F-distribution for specified values of <code>ndf</code>, <code>ddf</code> and <code>ncp</code>.</p></li>
+<li><p><code>qf(p,ndf,ddf)</code> is the <em>quantile</em> function of the F-distribution for specified values of <code>p</code>, <code>ndf</code> and <code>ddf</code>, i.e., the value <code>x</code> such that fraction <code>p</code> of the area under the F-distribution lies to the right of <code>x</code>. Since <code>ncp</code> is not included as a parameter, the default value, i.e., zero, is used. This is called the <em>central</em> F-distribution.</p></li>
+<li><p><code>df(x,ndf,ddf,ncp)</code> is the probability density function (<em>pdf</em>) of the F-distribution, as a function of <code>x</code>, for specified values of <code>ndf</code>, <code>ddf</code> and <code>ncp</code>.</p></li>
+<li><p><code>pf(x,ndf,ddf,ncp)</code> is the probability (or cumulative) distribution function of the F-distribution for specified values of <code>ndf</code>, <code>ddf</code> and <code>ncp</code>.</p></li>
 </ul>
 </div>
 <div id="effect-of-ncp-for-ndf-2-and-ddf-10" class="section level2">

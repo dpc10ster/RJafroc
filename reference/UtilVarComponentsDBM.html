@@ -179,41 +179,42 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.</p>
     <p>A list object containing the variance components.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>UtilVarComponentsDBM</span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $VarCom
-#&gt;            Estimates
-#&gt; VarR   0.00153499935
-#&gt; VarC   0.02724923428
-#&gt; VarTR  0.00020040252
-#&gt; VarTC  0.01197529621
-#&gt; VarRC  0.01226472859
-#&gt; VarErr 0.03997160319
-#&gt; 
-#&gt; $TRCanova
-#&gt;                 SS   DF          MS
-#&gt; T       0.54676344    1 0.546763441
-#&gt; R       1.74930720    4 0.437326799
-#&gt; C      44.84629692  113 0.396869884
-#&gt; TR      0.25126996    4 0.062817491
-#&gt; TC     11.28283352  113 0.099848084
-#&gt; RC     29.15447929  452 0.064501060
-#&gt; TRC    18.06716464  452 0.039971603
-#&gt; Total 105.89811497 1139          NA
-#&gt; 
-#&gt; $IndividualTrt
-#&gt;       DF        Trt0        Trt1
-#&gt; msR    4 0.351419668 0.148724622
-#&gt; msC  113 0.336294298 0.160423670
-#&gt; msRC 452 0.060436071 0.044036593
-#&gt; 
-#&gt; $IndividualRdr
-#&gt;       DF        rdr0        rdr1        rdr2        rdr3       rdr4
-#&gt; msT    1 0.045265545 0.123448933 0.018211160 0.039270539 0.57183723
-#&gt; msC  113 0.122249800 0.212748238 0.136533908 0.017289369 0.16605281
-#&gt; msTC 113 0.037099528 0.039431808 0.055520398 0.017042354 0.11064041
-#&gt; </div><div class='input'>
-  
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>UtilVarComponentsDBM</span><span class='op'>(</span><span class='va'>dataset02</span>, FOM <span class='op'>=</span> <span class='st'>"Wilcoxon"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $VarCom</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            Estimates</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> VarR   0.00153499935</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> VarC   0.02724923428</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> VarTR  0.00020040252</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> VarTC  0.01197529621</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> VarRC  0.01226472859</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> VarErr 0.03997160319</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $TRCanova</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 SS   DF          MS</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T       0.54676344    1 0.546763441</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> R       1.74930720    4 0.437326799</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> C      44.84629692  113 0.396869884</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TR      0.25126996    4 0.062817491</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TC     11.28283352  113 0.099848084</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> RC     29.15447929  452 0.064501060</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TRC    18.06716464  452 0.039971603</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Total 105.89811497 1139          NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $IndividualTrt</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       DF        Trt0        Trt1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> msR    4 0.351419668 0.148724622</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> msC  113 0.336294298 0.160423670</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> msRC 452 0.060436071 0.044036593</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $IndividualRdr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       DF        rdr0        rdr1        rdr2        rdr3       rdr4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> msT    1 0.045265545 0.123448933 0.018211160 0.039270539 0.57183723</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> msC  113 0.122249800 0.212748238 0.136533908 0.017289369 0.16605281</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> msTC 113 0.037099528 0.039431808 0.055520398 0.017042354 0.11064041</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'>  </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

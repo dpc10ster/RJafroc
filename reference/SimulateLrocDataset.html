@@ -214,18 +214,18 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <a href='https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840'>https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-  <span class='va'>K1</span> <span class='op'>&lt;-</span> <span class='fl'>5</span>
-  <span class='va'>K2</span> <span class='op'>&lt;-</span> <span class='fl'>5</span>
-  <span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
-  <span class='va'>lambda</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
-  <span class='va'>lesionVector</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span><span class='op'>)</span>
-  <span class='va'>nu</span> <span class='op'>&lt;-</span> <span class='fl'>0.8</span>
-  <span class='va'>zeta1</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>3</span>
-  <span class='va'>frocData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='SimulateFrocDataset.html'>SimulateFrocDataset</a></span><span class='op'>(</span><span class='va'>mu</span>, <span class='va'>lambda</span>, <span class='va'>nu</span>, <span class='va'>zeta1</span>, I <span class='op'>=</span> <span class='fl'>2</span>, J <span class='op'>=</span> <span class='fl'>5</span>, <span class='va'>K1</span>, <span class='va'>K2</span>, <span class='va'>lesionVector</span><span class='op'>)</span>
-  <span class='va'>lrocData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfFroc2Lroc.html'>DfFroc2Lroc</a></span><span class='op'>(</span><span class='va'>frocData</span><span class='op'>)</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>K1</span> <span class='op'>&lt;-</span> <span class='fl'>5</span></span>
+<span class='r-in'>  <span class='va'>K2</span> <span class='op'>&lt;-</span> <span class='fl'>5</span></span>
+<span class='r-in'>  <span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>2</span></span>
+<span class='r-in'>  <span class='va'>lambda</span> <span class='op'>&lt;-</span> <span class='fl'>1</span></span>
+<span class='r-in'>  <span class='va'>lesionVector</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>nu</span> <span class='op'>&lt;-</span> <span class='fl'>0.8</span></span>
+<span class='r-in'>  <span class='va'>zeta1</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>3</span></span>
+<span class='r-in'>  <span class='va'>frocData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='SimulateFrocDataset.html'>SimulateFrocDataset</a></span><span class='op'>(</span><span class='va'>mu</span>, <span class='va'>lambda</span>, <span class='va'>nu</span>, <span class='va'>zeta1</span>, I <span class='op'>=</span> <span class='fl'>2</span>, J <span class='op'>=</span> <span class='fl'>5</span>, <span class='va'>K1</span>, <span class='va'>K2</span>, <span class='va'>lesionVector</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>lrocData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='DfFroc2Lroc.html'>DfFroc2Lroc</a></span><span class='op'>(</span><span class='va'>frocData</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

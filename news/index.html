@@ -152,6 +152,14 @@
 <h1 class="page-header" data-toc-text="2.0.1.9000">
 <a href="#rjafroc-2019000" class="anchor"></a>RJafroc 2.0.1.9000<small> Unreleased </small>
 </h1>
+<div id="fixed-plotrsmoperatingcharacteristics-returning-correct-plots-but-incorrect-aucs" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixed-plotrsmoperatingcharacteristics-returning-correct-plots-but-incorrect-aucs" class="anchor"></a>Fixed <code>PlotRsmOperatingCharacteristics</code> returning correct plots but incorrect AUCs</h2>
+<ul>
+<li>Global search string “bug fix 11/24/21” to locate all changes.</li>
+<li>Basic issue was that I was using <code>zeta1</code> = -20 instead of the supplied value.</li>
+</ul>
+</div>
 <div id="fixed-issue-73-and-deprecated-the-mrmc-file-format-10-28-21---10-29-21" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fixed-issue-73-and-deprecated-the-mrmc-file-format-10-28-21---10-29-21" class="anchor"></a>Fixed Issue 73 and deprecated the MRMC file format 10-28-21 - 10-29-21</h2>
@@ -340,7 +348,7 @@
 <pre><code>NLRating &lt;- as.numeric(NLTable[[4]])
 LLRating &lt;- as.numeric(LLTable[[5]])</code></pre>
 <ul>
-<li>Then I tried <code>NewExcelFileFormat</code>, which gave following error: <code><a href="https://rdrr.io/r/base/stop.html">stop("Error in reading LL/TP table")</a></code> Replaced code in <code>ReadJAFROCNewFormat.R</code> as follows:</li>
+<li>Then I tried <code>NewExcelFileFormat</code>, which gave following error: <code>stop("Error in reading LL/TP table")</code> Replaced code in <code>ReadJAFROCNewFormat.R</code> as follows:</li>
 </ul>
 <pre><code>if (is.na(tt2)) next else { # this is the change
   if (tt2 != 1)  stop("Error in reading LL/TP table") else
@@ -535,7 +543,7 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <a href="#note-on-discrepancy-vis-a-vis-iowa-software" class="anchor"></a>Note on discrepancy vis-a-vis Iowa software</h2>
 <ul>
 <li>Noted was a discrepancy between <code>Var(R)</code> and <code>Var(TR)</code> values reported by <code>OR-DBM MRMC 2.51 Build 20181028</code> and <code>RJafroc</code> for Franken dataset.</li>
-<li>Their code does not implement the required <code><a href="https://rdrr.io/r/base/Extremes.html">max(Cov2 - Cov3, 0)</a></code> constraint while <code>RJafroc</code> does.</li>
+<li>Their code does not implement the required <code>max(Cov2 - Cov3, 0)</code> constraint while <code>RJafroc</code> does.</li>
 <li>
 <code>RJafroc</code> reports <code>VarTR</code> = -0.00068389146 while their code reports <code>VarTR</code> = -0.00071276.</li>
 <li>Specifically, <code>msTR - Var + Cov1 + max(Cov2 - Cov3, 0) = -0.00068389146</code> and <code>msTR - Var + Cov1 + Cov2 - Cov3 = -0.00071276</code>.</li>
@@ -594,7 +602,7 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <li>Output now <strong>closely follows</strong> that of Iowa software OR-DBM MRMC 2.51 which I ran using VmWare, Windows XP; Iowa software did not run on Windows 8 on two different machines (see below)</li>
 <li>Ran detailed comparison to OR-DBM MRMC 2.51 and coded the checks in <code>tests/testthat/test-St-Compare2Iowa.R</code> for VanDyke dataset</li>
 <li>Also visually compared <code>RJafroc</code> results against OR-DBM MRMC 2.51 for <code>dataset04</code> converted to ROC (see Iowa code results in <code>inst/Iowa/FedRoc.txt</code>);</li>
-<li>Shortened <code>UtilOutputReport</code> <em>considerably</em>, by using <code><a href="https://rdrr.io/r/base/print.html">print(dataframe)</a></code> instead of reading values from <code>list</code> or <code>dataframe</code> variables and then using <code>sprintf</code> with unreadable C-style format codes</li>
+<li>Shortened <code>UtilOutputReport</code> <em>considerably</em>, by using <code>print(dataframe)</code> instead of reading values from <code>list</code> or <code>dataframe</code> variables and then using <code>sprintf</code> with unreadable C-style format codes</li>
 <li>Shortened <code>SPLIT-PLOT</code> analysis by returning <code>Cov2</code> = <code>Cov3</code> = 0 instead of <code>NA</code>
 </li>
 <li>Confirmed that this gives same results as the version in <code>master</code> branch</li>
@@ -611,9 +619,9 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <li>Except in <code>PlotEmpiricalOperatingCharacteristics</code>, where <code>factors</code> and <code>levels</code> are used</li>
 <li>Must specify this anytime the variable is used in a <code>test</code> as otherwise different versions will give <code>factors</code> or <code>characters</code> and not match those in goodValues folder</li>
 <li>After old versions are phased out, this can be safely removed, as all versions will have this as the default</li>
-<li>Setting <code><a href="https://rdrr.io/r/base/options.html">options(stringsAsFactors = FALSE)</a></code> at beginning of a function, e.g., <code>StSignificanceTesting</code>, passes this option onto called functions, e.g, <code>StDBMHAnalyis</code>
+<li>Setting <code>options(stringsAsFactors = FALSE)</code> at beginning of a function, e.g., <code>StSignificanceTesting</code>, passes this option onto called functions, e.g, <code>StDBMHAnalyis</code>
 </li>
-<li>Use <code><a href="https://rdrr.io/r/base/options.html">getOption("stringsAsFactors")</a></code> to determine state of this option; must restart <code>R</code> to obtain default value (<code>TRUE</code> on the release version); calling a function that sets it to <code>FALSE</code> keeps the new value after exiting from function; must restart <code>R</code> again to get proper default.</li>
+<li>Use <code>getOption("stringsAsFactors")</code> to determine state of this option; must restart <code>R</code> to obtain default value (<code>TRUE</code> on the release version); calling a function that sets it to <code>FALSE</code> keeps the new value after exiting from function; must restart <code>R</code> again to get proper default.</li>
 </ul>
 </div>
 <div id="after-repeated-travis-failures" class="section level2">
@@ -622,7 +630,7 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <ul>
 <li>same issue; have to specify <code>stringsAsFactors</code> explicitly for each <code>data.frame</code> call, due to different defaults in different verions of <code>R</code>
 </li>
-<li>Cannot set to TRUE at beginning of function, as in <code><a href="https://rdrr.io/r/base/options.html">options("stringsAsFactors" = TRUE)</a></code>, <strong>as this is <code>deprecated</code></strong>
+<li>Cannot set to TRUE at beginning of function, as in <code>options("stringsAsFactors" = TRUE)</code>, <strong>as this is <code>deprecated</code></strong>
 </li>
 <li>Basically undid all changes in next note (see below)</li>
 <li>passes R CMD check on OSX and Travis checks</li>
@@ -634,8 +642,8 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <ul>
 <li>In all calls to data.frame, except in plotting functions, <code>PlotEmpiricalOperatingCharacteristics</code>, where factors are used</li>
 <li>In current <code>R3.6.3</code> <code>option($stringsAsFactors) = TRUE</code> (<code>stringsAsFactors</code> is case sensitive!)</li>
-<li>This means that functions that don’t require factors, such as <code><a href="../reference/SsPowerTable.html">SsPowerTable()</a></code> should set <code><a href="https://rdrr.io/r/base/options.html">options(stringsAsFactors = FALSE)</a></code> explicitly at the beginning of the code, in order to work in current and previous version of R (i.e., release and old-release)</li>
-<li>Functions that do use factors/levels such as plotting functions (<code>PlotRsmOperatingCharacteristics</code> and <code>FitCorCbmRoc</code>) should set <code><a href="https://rdrr.io/r/base/options.html">options(stringsAsFactors = TRUE)</a></code> in order to work in <code>developer</code> version of R, where default is <code>options("stringsAsFactors") = FALSE</code>
+<li>This means that functions that don’t require factors, such as <code><a href="../reference/SsPowerTable.html">SsPowerTable()</a></code> should set <code>options(stringsAsFactors = FALSE)</code> explicitly at the beginning of the code, in order to work in current and previous version of R (i.e., release and old-release)</li>
+<li>Functions that do use factors/levels such as plotting functions (<code>PlotRsmOperatingCharacteristics</code> and <code>FitCorCbmRoc</code>) should set <code>options(stringsAsFactors = TRUE)</code> in order to work in <code>developer</code> version of R, where default is <code>options("stringsAsFactors") = FALSE</code>
 </li>
 <li>This is all very confusing as I am having to dive into code written 6 years ago by someone else</li>
 <li>Going to test on Travis now</li>
@@ -678,7 +686,7 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <h2 class="hasAnchor">
 <a href="#discovered-error" class="anchor"></a>Discovered error</h2>
 <ul>
-<li>For <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")</a></code> - done</li>
+<li>For <code>StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")</code> - done</li>
 <li>Need to put in <code>testthat</code> all combinations of <code>method</code> and <code>option</code> - done</li>
 <li>Different objects returned by <code>StSignificanceTesting</code> depending on choice of <code>option</code> - almost done</li>
 <li>Need to standardize as otherwise <code>RJafrocBook</code> is klutzy - WIP</li>
@@ -703,7 +711,7 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <ul>
 <li>Need to modify <code>RJafroc</code> to eliminate code duplication and improve style in all signficance testing functions - move this to issues</li>
 <li>I am only getting to understand it now (as I work on <code>RJafrocBook</code>)</li>
-<li>One reader case can now be handled by <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")</a></code>
+<li>One reader case can now be handled by <code>StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")</code>
 </li>
 <li>May not need <code>StSignificanceTestingSingleFixedFactor</code> which currently only handles <code>DBMH</code> method - add to issues</li>
 <li>Removed restriction of <code>StSignificanceTesting</code> to <code>J</code> &gt; 1</li>
@@ -778,9 +786,9 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 <li>r-devel-linux-x86_64-fedora-gcc (this showed up post email)</li>
 </ul>
 </li>
-<li>Has to do with new default (R 4.0.0) for <code><a href="https://rdrr.io/r/base/options.html">options(stringsAsFactors = FALSE)</a></code>
+<li>Has to do with new default (R 4.0.0) for <code>options(stringsAsFactors = FALSE)</code>
 </li>
-<li>To recreate this problem in <code>R CMD check</code> I set <code><a href="https://rdrr.io/r/base/options.html">options(stringsAsFactor=FALSE)</a></code> near beginning of each plotting function (3 functions) using <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> and <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> to convert strings to factor levels</li>
+<li>To recreate this problem in <code>R CMD check</code> I set <code>options(stringsAsFactor=FALSE)</code> near beginning of each plotting function (3 functions) using <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> and <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> to convert strings to factor levels</li>
 <li>To make problem go away I explicitly specified <code>stringsAsFactor=TRUE</code> in each call to <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> where necessary.</li>
 <li>Removed examples from FitCorCbmRoc() as they were generating excessive CPU time NOTES. Will need to add these to vignettes, later.</li>
 <li>Ran <code>R CMD check</code> successfully</li>
@@ -1053,7 +1061,7 @@ k &lt;- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1</code></pre>
 </li>
 <li>Added two vignettes: <code>QuickStartDBMH</code> and <code>QuickStartDBMHExcelOutput</code>
 </li>
-<li>Checked downstream dependencies - none as of Nov 11, 2018: <code>revdep("rjafroc")</code> yields <code><a href="https://rdrr.io/r/base/character.html">character(0)</a></code>
+<li>Checked downstream dependencies - none as of Nov 11, 2018: <code>revdep("rjafroc")</code> yields <code>character(0)</code>
 </li>
 </ul>
 </div>

@@ -190,28 +190,30 @@ of visual search from ROC data: an alternate method for fitting proper ROC curve
 PROC SPIE 7966.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dataset01</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; List of 3
-#&gt;  $ ratings     :List of 3
-#&gt;   ..$ NL   : num [1:2, 1:5, 1:185, 1:3] 3 -Inf 3 -Inf 4 ...
-#&gt;   ..$ LL   : num [1:2, 1:5, 1:89, 1:2] 4 4 3 -Inf 3.5 ...
-#&gt;   ..$ LL_IL: logi NA
-#&gt;  $ lesions     :List of 3
-#&gt;   ..$ perCase: int [1:89] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;   ..$ IDs    : num [1:89, 1:2] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;   ..$ weights: num [1:89, 1:2] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ descriptions:List of 7
-#&gt;   ..$ fileName     : chr "dataset01"
-#&gt;   ..$ type         : chr "FROC"
-#&gt;   ..$ name         : chr "TONY"
-#&gt;   ..$ truthTableStr: num [1:2, 1:5, 1:185, 1:4] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;   ..$ design       : chr "FCTRL"
-#&gt;   ..$ modalityID   : Named chr [1:2] "BT" "DM"
-#&gt;   .. ..- attr(*, "names")= chr [1:2] "BT" "DM"
-#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...
-#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</div><div class='input'><span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span><span class='op'>(</span>dataset <span class='op'>=</span> <span class='va'>dataset01</span>, opChType <span class='op'>=</span> <span class='st'>"wAFROC"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>Plot</span>
-</div><div class='img'><img src='dataset01-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dataset01</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> List of 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ratings     :List of 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ NL   : num [1:2, 1:5, 1:185, 1:3] 3 -Inf 3 -Inf 4 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ LL   : num [1:2, 1:5, 1:89, 1:2] 4 4 3 -Inf 3.5 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ LL_IL: logi NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ lesions     :List of 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ perCase: int [1:89] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ IDs    : num [1:89, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ weights: num [1:89, 1:2] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ descriptions:List of 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ fileName     : chr "dataset01"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ type         : chr "FROC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ name         : chr "TONY"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ truthTableStr: num [1:2, 1:5, 1:185, 1:4] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ design       : chr "FCTRL"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ modalityID   : Named chr [1:2] "BT" "DM"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..- attr(*, "names")= chr [1:2] "BT" "DM"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span>
+<span class='r-in'><span class='fu'><a href='PlotEmpiricalOperatingCharacteristics.html'>PlotEmpiricalOperatingCharacteristics</a></span><span class='op'>(</span>dataset <span class='op'>=</span> <span class='va'>dataset01</span>, opChType <span class='op'>=</span> <span class='st'>"wAFROC"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>Plot</span></span>
+<span class='r-plt img'><img src='dataset01-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
