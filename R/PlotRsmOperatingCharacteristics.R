@@ -134,9 +134,14 @@ PlotRsmOperatingCharacteristics <- function(mu,
   lesDistr <- UtilLesionDistr(lesDistr)
   
   plotStep <- 0.01
-  plotStep <- 0.1 # delete after debug
+  # begin bug fix 12/7/21
+  # plotStep <- 0.1 # delete after debug
   zeta <- array(list(), dim = length(mu))
-  for (i in 1:length(mu)) zeta[[i]] <- seq(from = zeta1[i], to = max(mu)+5, by = plotStep)
+  for (i in 1:length(mu)) {
+    if (zeta1[i] == -Inf) temp1 <- -3 else temp1 <- zeta1[i]  
+    zeta[[i]] <- seq(from = temp1, to = max(mu)+5, by = plotStep)
+  }
+  # end bug fix 12/7/21
   
   ROCPlot <- NA
   FROCPlot <- NA

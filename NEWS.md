@@ -1,6 +1,11 @@
 # RJafroc 2.0.1.9000
 
 
+## Fixed `PlotRsmOperatingCharacteristics` not working for `zeta1 = -Inf`
+* Global search string "bug fix 12/7/21" to locate all changes.
+* Starting value of for-loop cannot be `-Inf`; detect it and set to -3
+
+
 ## Fixed `PlotRsmOperatingCharacteristics` returning correct plots but incorrect AUCs
 * Global search string "bug fix 11/24/21" to locate all changes.
 * Basic issue was that I was using `zeta1` = -20 instead of the supplied value.
