@@ -1,7 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://github.com/dpc10ster/RJafroc/404.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch00Vig3DataFormatRocSpA.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch00Vig4DataFormatFrocSpA.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch11Vig1SampleSize.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch17Vig1PlotRsmOpCh.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch20Vig1improperROCs.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch20Vig2degenerateROCs.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch20Vig3proprocROCs.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch20Vig4metzEqn36.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch20Vig5cbmPlots.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch30Vig1RoiParadigm.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/authors.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/dpc10ster/RJafroc/index.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/news/index.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/ChisqrGoodnessOfFit.html</loc>
@@ -253,39 +295,12 @@
     <loc>https://github.com/dpc10ster/RJafroc/reference/datasetROI.html</loc>
   </url>
   <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/isBinnedDataset.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/isValidDataset.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch00Vig3DataFormatRocSpA.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch00Vig4DataFormatFrocSpA.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch11Vig1SampleSize.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch17Vig1PlotRsmOpCh.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch20Vig1improperROCs.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch20Vig2degenerateROCs.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch20Vig3proprocROCs.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch20Vig4metzEqn36.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch20Vig5cbmPlots.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/articles/Ch30Vig1RoiParadigm.html</loc>
   </url>
 </urlset>

@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -103,9 +99,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</h1>
-                        <h4 class="author">Dev P. Chakraborty, PhD</h4>
+                        <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2021-11-25</h4>
+            <h4 data-toc-skip class="date">2021-12-07</h4>
       
       
       <div class="hidden name"><code>Ch00Vig3DataFormatRocSpA.Rmd</code></div>
@@ -114,9 +110,9 @@
 
     
     
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <ul>
 <li>This vignette explains the data format of the input Excel file for an <strong>ROC SPLIT-PLOT-A</strong> dataset.</li>
 <li>The <strong>A</strong> refers to Table VII, part (a), in <span class="citation">(Hillis 2014)</span>.</li>
@@ -126,9 +122,9 @@
 </ul>
 <p><img src="images/rocSpATruth.png" style="width:100.0%"></p>
 </div>
-<div id="the-truth-worksheet" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-truth-worksheet" class="anchor"></a>The <code>Truth</code> worksheet</h2>
+<div class="section level2">
+<h2 id="the-truth-worksheet">The <code>Truth</code> worksheet<a class="anchor" aria-label="anchor" href="#the-truth-worksheet"></a>
+</h2>
 <ul>
 <li>The <code>Truth</code> worksheet contains 6 columns: <code>CaseID</code>, <code>LesionID</code>, <code>Weight</code>, <code>ReaderID</code>, <code>ModalityID</code> and <code>Paradigm</code>.</li>
 <li>The first five columns contain <em>twice</em> as many rows as there are distinct cases in the dataset. The factor of two is coming from the two modalities.</li>
@@ -140,15 +136,15 @@
 <code>Paradigm</code>: The contents of this field are <code>ROC</code> and <code>SPLIT-PLOT-A</code> (case insensitive).</li>
 </ul>
 </div>
-<div id="the-structure-of-the-roc-split-plot-a-dataset" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-structure-of-the-roc-split-plot-a-dataset" class="anchor"></a>The structure of the ROC split-plot-A dataset</h2>
+<div class="section level2">
+<h2 id="the-structure-of-the-roc-split-plot-a-dataset">The structure of the ROC split-plot-A dataset<a class="anchor" aria-label="anchor" href="#the-structure-of-the-roc-split-plot-a-dataset"></a>
+</h2>
 <p>This code-chunk reads the data into a split plot dataset:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">rocSpA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"toyFiles/ROC/rocSpA.xlsx"</span>,
+<code class="sourceCode R"><span class="va">rocSpA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"toyFiles/ROC/rocSpA.xlsx"</span>,
                         package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span><span class="op">(</span><span class="va">rocSpA</span>, newExcelFileFormat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ ratings     :List of 3</span>
 <span class="co">#&gt;   ..$ NL   : num [1:2, 1:4, 1:10, 1] 1.5 -Inf 0.9 -Inf -Inf ...</span>
@@ -183,9 +179,9 @@
 <li>The <code>x$descriptions$truthTableStr</code> member quantifies the structure of the dataset, as explained next.</li>
 </ul>
 </div>
-<div id="the-truthtablestr-member" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-truthtablestr-member" class="anchor"></a>The truthTableStr member</h2>
+<div class="section level2">
+<h2 id="the-truthtablestr-member">The truthTableStr member<a class="anchor" aria-label="anchor" href="#the-truthtablestr-member"></a>
+</h2>
 <ul>
 <li>This is a <code>2 x 4 x 10 x 2</code> array, i.e., <code>I</code> x <code>J</code> x <code>K</code> x (maximum number of lesions per case plus 1). The <code>plus 1</code> is needed to accommodate normal cases.</li>
 <li>Each entry in this array is either <code>1</code>, meaning the corresponding interpretation exists, or <code>NA</code>, meaning the corresponding interpretation does not exist.</li>
@@ -241,9 +237,9 @@
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
 <span class="co">#&gt; [2,]   NA   NA   NA   NA   NA    1    1    1    1     1</span></code></pre></div>
 </div>
-<div id="the-false-positive-fp-ratings" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-false-positive-fp-ratings" class="anchor"></a>The false positive (FP) ratings</h2>
+<div class="section level2">
+<h2 id="the-false-positive-fp-ratings">The false positive (FP) ratings<a class="anchor" aria-label="anchor" href="#the-false-positive-fp-ratings"></a>
+</h2>
 <p>These are found in the <code>FP</code> or <code>NL</code> worksheet:</p>
 <p><img src="images/rocSpAFp.png" style="width:100.0%"></p>
 <ul>
@@ -264,9 +260,9 @@
 <span class="co">#&gt; [1,]  1.5  4.5  3.2  2.1  5.1 -Inf -Inf -Inf -Inf  -Inf</span>
 <span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf</span></code></pre></div>
 </div>
-<div id="the-true-positive-tp-ratings" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-true-positive-tp-ratings" class="anchor"></a>The true positive (TP) ratings</h2>
+<div class="section level2">
+<h2 id="the-true-positive-tp-ratings">The true positive (TP) ratings<a class="anchor" aria-label="anchor" href="#the-true-positive-tp-ratings"></a>
+</h2>
 <p>These are found in the <code>TP</code> or <code>LL</code> worksheet, see below.</p>
 <p><img src="images/rocSpATp.png" style="width:100.0%"></p>
 <ul>
@@ -293,9 +289,9 @@
 <span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf</span>
 <span class="co">#&gt; [2,]  5.6  5.1  5.2  4.9  4.7</span></code></pre></div>
 </div>
-<div id="references" class="section level2 unnumbered">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div class="section level2 unnumbered">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references">
 <div id="ref-RN2508">
 <p>Hillis, Stephen L. 2014. “A Marginal‐mean Anova Approach for Analyzing Multireader Multicase Radiological Imaging Data.” Journal Article. <em>Statistics in Medicine</em> 33 (2): 330–60.</p>
@@ -315,11 +311,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
+  <p></p>
+<p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -327,6 +325,8 @@
 
   
 
+
+  
 
   </body>
 </html>

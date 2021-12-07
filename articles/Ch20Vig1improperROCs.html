@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -103,9 +99,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 20, Vignette 1: Improper ROCs</h1>
-                        <h4 class="author">Dev P. Chakraborty, PhD</h4>
+                        <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2021-11-25</h4>
+            <h4 data-toc-skip class="date">2021-12-07</h4>
       
       
       <div class="hidden name"><code>Ch20Vig1improperROCs.Rmd</code></div>
@@ -114,33 +110,33 @@
 
     
     
-<div id="the-binormal-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-binormal-model" class="anchor"></a>The binormal model</h2>
+<div class="section level2">
+<h2 id="the-binormal-model">The binormal model<a class="anchor" aria-label="anchor" href="#the-binormal-model"></a>
+</h2>
 <p>The binormal model has two parameters, <code>a</code> and <code>b</code>. The signal (or diseased cases) distribution has unit standard deviation. The noise (or non-diseased cases) distribution has standard deviation <code>b</code>. The <code>a</code> parameter is the separation of the two distributions.</p>
 </div>
-<div id="improper-rocs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#improper-rocs" class="anchor"></a>Improper ROCs</h2>
+<div class="section level2">
+<h2 id="improper-rocs">Improper ROCs<a class="anchor" aria-label="anchor" href="#improper-rocs"></a>
+</h2>
 <p>Binormal model fits invariably lead to ROC curves that inappropriately cross the chance diagonal, leading to a prediction of a region of the ROC curve where performance is worse than chance, even for expert observers. By convention, such curves are termed <em>improper</em>. This vignette illustrates improper ROCs predicted by the binormal model.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="va">aArray</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">0.7</span>, <span class="fl">1.5</span>, <span class="fl">2</span><span class="op">)</span>
-  <span class="va">bArray</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span>
-  <span class="va">chance_diag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R">  <span class="va">aArray</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">0.7</span>, <span class="fl">1.5</span>, <span class="fl">2</span><span class="op">)</span>
+  <span class="va">bArray</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span>
+  <span class="va">chance_diag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
   <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotBinormalFit.html">PlotBinormalFit</a></span><span class="op">(</span><span class="va">aArray</span>, <span class="va">bArray</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.85</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span>
+    <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.85</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span>
 <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span>data <span class="op">=</span> <span class="va">chance_diag</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, linetype<span class="op">=</span><span class="st">"dotted"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
 <p><img src="Ch20Vig1improperROCs_files/figure-html/unnamed-chunk-1-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>The red plot is the clearest example of an improper ROC. This type of curve occurs whenever <code>b &lt; 1</code>. The chance line crossing near the upper right corner, around (0.919,0.919), and the fact that the ROC curve must eventually reach (1, 1) implies the curve must turn upwards as one approaches (1, 1), thereby displaying a “hook”. Whenever <code>b != 1</code> the hook is there, regardless of whether it is easily visible or not. If <code>b &lt; 1</code> the hook is near the upper right corner. If <code>b &gt; 1</code> the hook is near the origin (see green line, corresponding to <code>b = 1.5</code>). With increasing <code>a</code> the hook is less prominent (blue line corresponding to <code>a = 1.5, b = 0.5</code> and purple line corresponding to <code>a = 2, b = 0.5</code>). But it is there.</p>
 </div>
-<div id="reason-for-improper-rocs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reason-for-improper-rocs" class="anchor"></a>Reason for improper ROCs</h2>
+<div class="section level2">
+<h2 id="reason-for-improper-rocs">Reason for improper ROCs<a class="anchor" aria-label="anchor" href="#reason-for-improper-rocs"></a>
+</h2>
 <p>The reason for the “hook”" becomes apparent upon examination of the pdfs. <img src="Ch20Vig1improperROCs_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="Ch20Vig1improperROCs_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
-<pre><code>#&gt; a =  0.7 , b =  0.5</code></pre>
+<pre><code><span class="co">#&gt; a =  0.7 , b =  0.5</span></code></pre>
 <p>Since <code>b &lt; 1</code>, the diseased <em>pdf</em> is broader and has a lower peak (since the integral under each distribution is unity) than the non-diseased pdf. Sliding an imaginary threshold to the left, starting from the extreme right, one sees that initially, just below <code>z = 7</code>, the diseased distribution starts being <em>“picked up”</em> while the non-diseased distribution is not <em>“picked up”</em>, causing the ROC to start with infinite slope near the origin (because TPF is increasing while FPF is not). Around <code>z = 2.5</code> the non-diseased distribution starts being <em>“picked up”</em>, causing the ROC slope to decrease. Around <code>z = -3</code>, almost all of the non-diseased distribution has been <em>“picked up”</em> which means FPF is near unity, but since not all of the broader diseased distribution has been <em>“picked up”</em>, TPF is less than unity. Here is a region where <code>TPF &lt; FPF</code>, meaning <em>the operating point is below the chance diagonal</em>. As the threshold is lowered further, TPF continues to increase, as the rest of the diseased distribution is <em>“picked up”</em> while FPF stays almost constant at unity. In this region, the ROC curve is approaching the upper right corner with almost infinite slope (because TPF is increasing but FPF is not).</p>
 </div>
   </div>
@@ -156,11 +152,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
+  <p></p>
+<p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -168,6 +166,8 @@
 
   
 
+
+  
 
   </body>
 </html>

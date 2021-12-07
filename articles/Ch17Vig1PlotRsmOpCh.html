@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -103,9 +99,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</h1>
-                        <h4 class="author">Dev P. Chakraborty, PhD</h4>
+                        <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2021-11-25</h4>
+            <h4 data-toc-skip class="date">2021-12-07</h4>
       
       
       <div class="hidden name"><code>Ch17Vig1PlotRsmOpCh.Rmd</code></div>
@@ -114,18 +110,18 @@
 
     
     
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <ul>
 <li>The purpose of this vignette is to explain the operating characteristics predicted by the RSM. It relates to Chapter 17 in my book <span class="citation">(Chakraborty 2017)</span>.</li>
 <li>This vignette is under development …</li>
 <li>Also to explain the difference between <code>dataset</code> members (<code>lesionID</code>, <code>lesionWeight</code>) and (<code>lesDist</code>, <code>lesWghtDistr</code>), which are RSM model parameters.</li>
 </ul>
 </div>
-<div id="the-distinction-between-predicted-curves-and-empirical-curves" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-distinction-between-predicted-curves-and-empirical-curves" class="anchor"></a>The distinction between predicted curves and empirical curves</h2>
+<div class="section level2">
+<h2 id="the-distinction-between-predicted-curves-and-empirical-curves">The distinction between predicted curves and empirical curves<a class="anchor" aria-label="anchor" href="#the-distinction-between-predicted-curves-and-empirical-curves"></a>
+</h2>
 <ul>
 <li>Operating characteristics predicted by a model have zero sampling variability.<br>
 </li>
@@ -133,9 +129,9 @@
 <li>If the model is corect, as the numbers of cases in the dataset increases, the empirical operating characteristic asymptotically approaches the predicted curve.</li>
 </ul>
 </div>
-<div id="the-rsm-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-rsm-model" class="anchor"></a>The RSM model</h2>
+<div class="section level2">
+<h2 id="the-rsm-model">The RSM model<a class="anchor" aria-label="anchor" href="#the-rsm-model"></a>
+</h2>
 <ul>
 <li>The 3 RSM parameters and two additional parameters characterizing the dataset determine the wAFROC curve.</li>
 <li>The 3 RSM parameters are <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\nu\)</span>.</li>
@@ -148,18 +144,18 @@
 <li>These parameters do not apply to individual cases; rather they refer to a large population (asymptotically infinite in size) of cases.</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dataset04</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">IDs</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dataset04</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">IDs</span><span class="op">)</span>
 <span class="co">#&gt;  num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dataset04</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dataset04</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span>
 <span class="co">#&gt;  num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span></code></pre></div>
 <ul>
 <li>Note that the first index of both arrays is the case index for the 100 abnormal cases in this dataset.</li>
 <li>With finite number of cases the empirical operating characteristic (or for that matter any fitted operating characteristic) will have sampling variability as in the following example.</li>
 </ul>
 </div>
-<div id="the-empirical-wafroc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-empirical-wafroc" class="anchor"></a>The empirical wAFROC</h2>
+<div class="section level2">
+<h2 id="the-empirical-wafroc">The empirical wAFROC<a class="anchor" aria-label="anchor" href="#the-empirical-wafroc"></a>
+</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotEmpiricalOperatingCharacteristics.html">PlotEmpiricalOperatingCharacteristics</a></span><span class="op">(</span><span class="va">dataset04</span>, opChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span>
 <span class="va">p</span><span class="op">$</span><span class="va">Plot</span></code></pre></div>
@@ -169,19 +165,19 @@
 <li>In contrast the following code shows a smooth plot, because it is a model <em>predicted</em> plot.</li>
 </ul>
 </div>
-<div id="the-predicted-wafroc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-predicted-wafroc" class="anchor"></a>The predicted wAFROC</h2>
+<div class="section level2">
+<h2 id="the-predicted-wafroc">The predicted wAFROC<a class="anchor" aria-label="anchor" href="#the-predicted-wafroc"></a>
+</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Following example is for mu = 2, lambda = 1, nu = 0.6. 20% of the diseased </span>
 <span class="co">## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span>
 <span class="co">## and 30% have 4 lesions.  </span>
-<span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>
+<span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>
 
 <span class="co">## On cases with one lesion the weights are 1, on cases with 2 lesions the weights</span>
 <span class="co">## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and</span>
 <span class="co">## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: </span>
-<span class="va">relWeights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.3</span>,  <span class="fl">0.4</span>, <span class="fl">0.2</span>,  <span class="fl">0.1</span><span class="op">)</span>
+<span class="va">relWeights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>,  <span class="fl">0.4</span>, <span class="fl">0.2</span>,  <span class="fl">0.1</span><span class="op">)</span>
 <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span>
   mu <span class="op">=</span> <span class="fl">2</span>, 
   lambda <span class="op">=</span> <span class="fl">1</span>, 
@@ -189,13 +185,13 @@
   OpChType <span class="op">=</span> <span class="st">"wAFROC"</span>, 
   lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, 
   relWeights <span class="op">=</span> <span class="va">relWeights</span>, 
-  legendPosition <span class="op">=</span> <span class="st">"bottom"</span>, nlfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, llfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+  legendPosition <span class="op">=</span> <span class="st">"bottom"</span>, nlfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, llfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="va">p</span><span class="op">$</span><span class="va">wAFROCPlot</span></code></pre></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
-<div id="the-distribution-of-number-of-lesions-and-weights" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-distribution-of-number-of-lesions-and-weights" class="anchor"></a>The distribution of number of lesions and weights</h2>
+<div class="section level2">
+<h2 id="the-distribution-of-number-of-lesions-and-weights">The distribution of number of lesions and weights<a class="anchor" aria-label="anchor" href="#the-distribution-of-number-of-lesions-and-weights"></a>
+</h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lesDistr</span>
 <span class="co">#&gt; [1] 0.2 0.4 0.1 0.3</span>
@@ -210,15 +206,15 @@
 <li>For cases with 4 lesions, the weights are 0.3, 0.4, 0.2 and 0.1, which are in the ratio 0.3 : 0.4 : 0.2 : 0.1 and sum to unity.</li>
 </ul>
 </div>
-<div id="other-operating-characteristics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-operating-characteristics" class="anchor"></a>Other operating characteristics</h2>
+<div class="section level2">
+<h2 id="other-operating-characteristics">Other operating characteristics<a class="anchor" aria-label="anchor" href="#other-operating-characteristics"></a>
+</h2>
 <ul>
 <li>By changing <code>OpChType</code> one can generate other operating characteristics.</li>
 <li>Note that lesiion weights argument is not needed for ROC curves. It is only needed for <code>wAFROC</code> and <code>wAFROC1</code> curves.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>
 <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span>
   mu <span class="op">=</span> <span class="fl">2</span>, 
   lambda <span class="op">=</span> <span class="fl">1</span>, 
@@ -229,13 +225,13 @@
 <span class="va">p</span><span class="op">$</span><span class="va">ROCPlot</span></code></pre></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
-<div id="summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h2>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
 </div>
-<div id="references" class="section level2 unnumbered">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div class="section level2 unnumbered">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references">
 <div id="ref-RN2680">
 <p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples</em>. Book. Boca Raton, FL: CRC Press.</p>
@@ -255,11 +251,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
+  <p></p>
+<p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -267,6 +265,8 @@
 
   
 
+
+  
 
   </body>
 </html>

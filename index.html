@@ -57,6 +57,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -69,18 +71,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -140,23 +136,23 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="rjafroc" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#rjafroc" class="anchor"></a>RJafroc</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="rjafroc">RJafroc<a class="anchor" aria-label="anchor" href="#rjafroc"></a>
+</h1></div>
 
 </div>
-<div id="purpose" class="section level1">
-<h1 class="hasAnchor">
-<a href="#purpose" class="anchor"></a>Purpose</h1>
+<div class="section level1">
+<h1 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
+</h1>
 <ul>
 <li>This repository serves as the software companion to my book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017.</li>
-<li>Full documentation (updated book plus software) is under preparation and is being <a href="https://dpc10ster.github.io/RJafrocBook/">continually updated here</a>.</li>
-<li>Documentation for this software (the functions used in <code>RJafroc</code>, vignettes and update history) is <a href="https://dpc10ster.github.io/RJafroc/">available here</a>.</li>
+<li>Full documentation (updated book plus software) is under preparation and is being <a href="https://dpc10ster.github.io/RJafrocBook/" class="external-link">continually updated here</a>.</li>
+<li>Documentation for this software (the functions used in <code>RJafroc</code>, vignettes and update history) is <a href="https://dpc10ster.github.io/RJafroc/" class="external-link">available here</a>.</li>
 </ul>
 </div>
-<div id="applications" class="section level1">
-<h1 class="hasAnchor">
-<a href="#applications" class="anchor"></a>Applications</h1>
+<div class="section level1">
+<h1 id="applications">Applications<a class="anchor" aria-label="anchor" href="#applications"></a>
+</h1>
 <p>Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks - finding lesions in medical images - the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (including the field of Computer Aided Detection - CAD - which has been re-branded as AI). Two applications to AI are in the online book:</p>
 <ul>
 <li>Measuring AI performance relative to a group of human readers.</li>
@@ -165,67 +161,67 @@
 <p>In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is integral to the analyzed data.</p>
 <p>The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC analysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or AI algorithm performance.</p>
 </div>
-<div id="relation-to-windows-software" class="section level1">
-<h1 class="hasAnchor">
-<a href="#relation-to-windows-software" class="anchor"></a>Relation to Windows software</h1>
+<div class="section level1">
+<h1 id="relation-to-windows-software">Relation to Windows software<a class="anchor" aria-label="anchor" href="#relation-to-windows-software"></a>
+</h1>
 <ul>
 <li>
-<code>RJafroc</code> extends <a href="https://www.devchakraborty.com">Windows <code>JAFROC</code> software</a> (this URL is no longer valid).</li>
+<code>RJafroc</code> extends <a href="https://www.devchakraborty.com" class="external-link">Windows <code>JAFROC</code> software</a> (this URL is no longer valid).</li>
 <li>Originally posted in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to <code>RJafroc</code>.</li>
-<li>If you still need the Windows <code>JAFROC</code> software, it is still available <a href="https://github.com/dpc10ster/WindowsJafroc">here</a>.</li>
+<li>If you still need the Windows <code>JAFROC</code> software, it is still available <a href="https://github.com/dpc10ster/WindowsJafroc" class="external-link">here</a>.</li>
 </ul>
 </div>
-<div id="update-history" class="section level1">
-<h1 class="hasAnchor">
-<a href="#update-history" class="anchor"></a>Update History</h1>
+<div class="section level1">
+<h1 id="update-history">Update History<a class="anchor" aria-label="anchor" href="#update-history"></a>
+</h1>
 <ul>
 <li>
-<a href="https://dpc10ster.github.io/RJafroc/news/index.html">See here</a> for details.</li>
+<a href="https://dpc10ster.github.io/RJafroc/news/index.html" class="external-link">See here</a> for details.</li>
 <li>Current <code>GitHub</code> version is 2.0.1.9000 on the <code>master</code> branch.</li>
 <li>Current <code>CRAN</code> version is 2.0.1.</li>
 </ul>
 </div>
-<div id="branch-designations" class="section level1">
-<h1 class="hasAnchor">
-<a href="#branch-designations" class="anchor"></a>Branch designations</h1>
+<div class="section level1">
+<h1 id="branch-designations">Branch designations<a class="anchor" aria-label="anchor" href="#branch-designations"></a>
+</h1>
 <ul>
 <li>The most current tested version of the software and documentation is on the <code>master</code> branch.</li>
 <li>The <code>developer</code> branch is for development/experimental work.</li>
 <li>The online book has its own <a href="https://github.com/dpc10ster/RJafrocBook">GitHub repository</a>, currently under development.</li>
 </ul>
 </div>
-<div id="those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions" class="section level1">
-<h1 class="hasAnchor">
-<a href="#those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions" class="anchor"></a>Those already familiar with installing R packages from GitHub can ignore the following directions</h1>
+<div class="section level1">
+<h1 id="those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions">Those already familiar with installing R packages from GitHub can ignore the following directions<a class="anchor" aria-label="anchor" href="#those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions"></a>
+</h1>
 </div>
-<div id="how-do-i-get-set-up" class="section level1">
-<h1 class="hasAnchor">
-<a href="#how-do-i-get-set-up" class="anchor"></a>How do I get set up?</h1>
+<div class="section level1">
+<h1 id="how-do-i-get-set-up">How do I get set up?<a class="anchor" aria-label="anchor" href="#how-do-i-get-set-up"></a>
+</h1>
 <p>Three options are given below, in increasing order of complexity. The first method downloads the package from CRAN, the second downloads the package from the <code>master</code> branch on <code>GitHub</code> and the third downloads all source files from the <code>master</code> branch on <code>GitHub</code> and then installs the software. I recommend the second method as the CRAN package is behind the <code>master</code> branch.</p>
-<div id="1-install-from-cran" class="section level2">
-<h2 class="hasAnchor">
-<a href="#1-install-from-cran" class="anchor"></a>1. Install from CRAN</h2>
+<div class="section level2">
+<h2 id="1-install-from-cran">1. Install from CRAN<a class="anchor" aria-label="anchor" href="#1-install-from-cran"></a>
+</h2>
 <ul>
 <li>Install <code>R</code> and <code>RStudio</code>.</li>
 <li>Create an empty directory, e.g., <code>myProject</code>. In my computer it is <code>/Users/Dev/Downloads/myProject</code>.</li>
 <li>Open <code>RStudio</code> by clicking on the <code>myProject.Rproj</code> file.</li>
 <li>Starting from <code>RStudio</code> &gt; <code>Packages</code> &gt; <code>Install</code> &gt; <code>RJafroc</code>.</li>
 <li>
-<code><a href="https://dpc10ster.github.io/RJafroc/">library(RJafroc)</a></code>.</li>
+<code><a href="https://dpc10ster.github.io/RJafroc/" class="external-link">library(RJafroc)</a></code>.</li>
 <li>This loads the CRAN package and all functions on the <code>cran2</code> branch become avaialable.</li>
-<li>For documentation of functions and vignettes, <a href="https://dpc10ster.github.io/RJafroc/">see</a>. It may be helpful to have both windows open (RStudio and the above website) simulataneously.</li>
+<li>For documentation of functions and vignettes, <a href="https://dpc10ster.github.io/RJafroc/" class="external-link">see</a>. It may be helpful to have both windows open (RStudio and the above website) simulataneously.</li>
 <li>The CRAN version will not include more recent updates on the <code>master</code> branch. To access them use the next suggested method, below.</li>
 <li>Test the installation:</li>
 </ul>
-<pre><code>cbmPlot &lt;- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-print(cbmPlot)</code></pre>
+<pre><code><span class="va">cbmPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/PlotCbmFit.html">PlotCbmFit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cbmPlot</span><span class="op">)</span></code></pre>
 <ul>
 <li>You should see two ROC plots in the <code>Plots</code> window.</li>
 </ul>
 </div>
-<div id="2-install-from-github-using-package-devtools" class="section level2">
-<h2 class="hasAnchor">
-<a href="#2-install-from-github-using-package-devtools" class="anchor"></a>2. Install from GitHub using package <code>devtools</code>
+<div class="section level2">
+<h2 id="2-install-from-github-using-package-devtools">2. Install from GitHub using package <code>devtools</code>
+<a class="anchor" aria-label="anchor" href="#2-install-from-github-using-package-devtools"></a>
 </h2>
 <ul>
 <li>Install <code>R</code> and <code>RStudio</code>.</li>
@@ -237,32 +233,32 @@ print(cbmPlot)</code></pre>
 <li>Starting from <code>RStudio</code> &gt; <code>Packages</code> &gt; <code>Install</code> &gt; <code>devtools</code>.</li>
 <li>Load <code>devtools</code> as shown below:</li>
 </ul>
-<pre><code><a href="https://devtools.r-lib.org/">library(devtools)</a></code></pre>
+<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></code></pre>
 <ul>
 <li>Install <code>RJafroc</code> directly from <code>GitHub</code> (this is where <code>devtools</code> is used):</li>
 </ul>
-<pre><code>install_github("dpc10ster/RJafroc")</code></pre>
+<pre><code><span class="fu">install_github</span><span class="op">(</span><span class="st">"dpc10ster/RJafroc"</span><span class="op">)</span></code></pre>
 <ul>
 <li>Hit Enter on any prompts…</li>
 <li>Lots of activity and compilation of C++ code ….</li>
 <li>Load <code>RJafroc</code> as shown below:</li>
 </ul>
-<pre><code><a href="https://dpc10ster.github.io/RJafroc/">library(RJafroc)</a></code></pre>
+<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dpc10ster.github.io/RJafroc/" class="external-link">RJafroc</a></span><span class="op">)</span></code></pre>
 <ul>
 <li>Test the installation:</li>
 </ul>
-<pre><code>cbmPlot &lt;- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-print(cbmPlot)</code></pre>
+<pre><code><span class="va">cbmPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/PlotCbmFit.html">PlotCbmFit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cbmPlot</span><span class="op">)</span></code></pre>
 <ul>
 <li>You should see two ROC plots in the <code>Plots</code> window.</li>
-<li>Documentation (vignettes) is <a href="https://dpc10ster.github.io/RJafroc/">available</a>.</li>
+<li>Documentation (vignettes) is <a href="https://dpc10ster.github.io/RJafroc/" class="external-link">available</a>.</li>
 <li>Be sure to study these examples and make full use of the online documentation.</li>
 <li>Put your data and other files, if any, in <code>myProject</code>.</li>
 </ul>
 </div>
-<div id="3-download-the-rjafroc-source-files-and-install-from-the-downloaded-files" class="section level2">
-<h2 class="hasAnchor">
-<a href="#3-download-the-rjafroc-source-files-and-install-from-the-downloaded-files" class="anchor"></a>3. Download the <code>RJafroc</code> source files and install from the downloaded files</h2>
+<div class="section level2">
+<h2 id="3-download-the-rjafroc-source-files-and-install-from-the-downloaded-files">3. Download the <code>RJafroc</code> source files and install from the downloaded files<a class="anchor" aria-label="anchor" href="#3-download-the-rjafroc-source-files-and-install-from-the-downloaded-files"></a>
+</h2>
 <ul>
 <li>Clone this repository to a directory anywhere on your computer. On my computer it is in <code>/Users/Dev/Downloads/RJafroc</code>. Rename the folder if necessary to match my example.</li>
 <li>I find the GitHub desktop app useful in mananging my downloads/uploads from <code>Git</code>.</li>
@@ -274,12 +270,12 @@ print(cbmPlot)</code></pre>
 openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, numDeriv, Rcpp</li>
 <li>For example, to install the first two above-listed packages, use the following command at the Console prompt:</li>
 </ul>
-<pre><code>install.packages(c("openxlsx", "ggplot2"))</code></pre>
+<pre><code><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"openxlsx"</span>, <span class="st">"ggplot2"</span><span class="op">)</span><span class="op">)</span></code></pre>
 <ul>
 <li>Click on Build &gt; Install and Restart (upper right panel). If errors result from missing packages, install those packages.</li>
 <li>A successful Install and Restart will result in the following line in the Console window:</li>
 </ul>
-<pre><code><a href="https://dpc10ster.github.io/RJafroc/">library(RJafroc)</a></code></pre>
+<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dpc10ster.github.io/RJafroc/" class="external-link">RJafroc</a></span><span class="op">)</span></code></pre>
 <ul>
 <li>Thats it! <code>RJafroc</code> has been installed to your computer and is visible to any other <code>R</code> project in any directory.</li>
 <li>You will not need to access the <code>RJafroc</code> folder again (unless you reinstall a new version of the software).</li>
@@ -290,22 +286,22 @@ openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, n
 <li>Oila! You should see <code>myProject.RProj</code> in the Files menu.</li>
 <li>Click on <code>Packages</code> and scroll down to find <code>RJafroc</code>, and check the box next to it. This results in <code>RJafroc</code> being loaded to the current workspace. The following line appears in the Console window (this is the hidden directory referrred to above).</li>
 </ul>
-<pre><code><a href="https://rdrr.io/r/base/library.html">  library("RJafroc", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")</a></code></pre>
+<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://dpc10ster.github.io/RJafroc/" class="external-link">"RJafroc"</a></span>, lib.loc<span class="op">=</span><span class="st">"/Library/Frameworks/R.framework/Versions/3.5/Resources/library"</span><span class="op">)</span></code></pre>
 <ul>
 <li>Click on <code>RJafroc</code> in the packages window. A help window opens up. I find it convenient to put this in its own window by clicking the “out” arrow button (hover message: Show in new window). You can access all documentation from here.</li>
 <li>Test the installation:</li>
 </ul>
-<pre><code>cbmPlot &lt;- PlotCbmFit(c(1, 2), c(0.5, 0.5))
-print(cbmPlot)</code></pre>
+<pre><code><span class="va">cbmPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/PlotCbmFit.html">PlotCbmFit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cbmPlot</span><span class="op">)</span></code></pre>
 <ul>
 <li>You should see two ROC plots in the <code>Plots</code> window.</li>
-<li>Preliminary documentation (vignettes) is <a href="https://dpc10ster.github.io/RJafroc/">available</a>.</li>
+<li>Preliminary documentation (vignettes) is <a href="https://dpc10ster.github.io/RJafroc/" class="external-link">available</a>.</li>
 <li>Put your data and other files, if any, in myProject.</li>
 <li>TBA</li>
 </ul>
-<div id="contibutor-guidelines" class="section level3">
-<h3 class="hasAnchor">
-<a href="#contibutor-guidelines" class="anchor"></a>Contibutor guidelines</h3>
+<div class="section level3">
+<h3 id="contibutor-guidelines">Contibutor guidelines<a class="anchor" aria-label="anchor" href="#contibutor-guidelines"></a>
+</h3>
 <ul>
 <li><p>These guidelines are adapted from content on the <code>devtools</code> GitHub page.</p></li>
 <li><p>As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.</p></li>
@@ -315,9 +311,9 @@ print(cbmPlot)</code></pre>
 <li><p>Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting one or more of the project maintainers.</p></li>
 </ul>
 </div>
-<div id="who-do-i-talk-to" class="section level3">
-<h3 class="hasAnchor">
-<a href="#who-do-i-talk-to" class="anchor"></a>Who do I talk to?</h3>
+<div class="section level3">
+<h3 id="who-do-i-talk-to">Who do I talk to?<a class="anchor" aria-label="anchor" href="#who-do-i-talk-to"></a>
+</h3>
 <p><a href="mailto:dpc10ster@gmail.com" class="email">dpc10ster@gmail.com</a></p>
 </div>
 </div>
@@ -327,20 +323,29 @@ print(cbmPlot)</code></pre>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=RJafroc">https://​cloud.r-project.org/​package=RJafroc</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=RJafroc" class="external-link">View on CRAN</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing RJafroc</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Dev Chakraborty <br><small class="roles"> Maintainer, author, copyright holder </small>  </li>
 <li>Peter Phillips <br><small class="roles"> Author </small>  </li>
@@ -348,24 +353,27 @@ print(cbmPlot)</code></pre>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/dpc10ster/RJafroc/actions"><img src="https://github.com/dpc10ster/RJafroc/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/dpc10ster/rjafroc"><img src="https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg" alt="codecov"></a></li>
-<li><a href="https://cran.r-project.org/package=RJafroc"><img src="http://www.r-pkg.org/badges/version/RJafroc" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://codecov.io/gh/dpc10ster/rjafroc" class="external-link"><img src="https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://cran.r-project.org/package=RJafroc" class="external-link"><img src="http://www.r-pkg.org/badges/version/RJafroc" alt="CRAN_Status_Badge"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
+  <p></p>
+<p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -373,6 +381,8 @@ print(cbmPlot)</code></pre>
 
   
 
+
+  
 
   </body>
 </html>

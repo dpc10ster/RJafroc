@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -103,9 +99,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 20, Vignette 5: CBM plots</h1>
-                        <h4 class="author">Dev P. Chakraborty, PhD</h4>
+                        <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2021-11-25</h4>
+            <h4 data-toc-skip class="date">2021-12-07</h4>
       
       
       <div class="hidden name"><code>Ch20Vig5cbmPlots.Rmd</code></div>
@@ -114,50 +110,50 @@
 
     
     
-<div id="helper-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#helper-functions" class="anchor"></a>Helper functions</h2>
+<div class="section level2">
+<h2 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a>
+</h2>
 </div>
-<div id="main-code-and-output" class="section level2">
-<h2 class="hasAnchor">
-<a href="#main-code-and-output" class="anchor"></a>Main code and output</h2>
-<pre><code>#&gt; Fig. A : mu =  1 , alpha =  0.2
-#&gt; Fig. B : mu =  3 , alpha =  0.2
-#&gt; Fig. C : mu =  1 , alpha =  0.8
-#&gt; Fig. D : mu =  3 , alpha =  0.8</code></pre>
+<div class="section level2">
+<h2 id="main-code-and-output">Main code and output<a class="anchor" aria-label="anchor" href="#main-code-and-output"></a>
+</h2>
+<pre><code><span class="co">#&gt; Fig. A : mu =  1 , alpha =  0.2</span>
+<span class="co">#&gt; Fig. B : mu =  3 , alpha =  0.2</span>
+<span class="co">#&gt; Fig. C : mu =  1 , alpha =  0.8</span>
+<span class="co">#&gt; Fig. D : mu =  3 , alpha =  0.8</span></code></pre>
 <p><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-2-2.png" width="700"><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-2-3.png" width="700"><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-2-4.png" width="700"></p>
 </div>
-<div id="comments" class="section level2">
-<h2 class="hasAnchor">
-<a href="#comments" class="anchor"></a>Comments</h2>
+<div class="section level2">
+<h2 id="comments">Comments<a class="anchor" aria-label="anchor" href="#comments"></a>
+</h2>
 <p>Plots A - D show ROC curves predicted by the CBM model; the corresponding values of the <span class="math inline">\(mu\)</span> and <span class="math inline">\(alpha\)</span> parameters are indicated above the plots. For small <span class="math inline">\(mu\)</span> and/or <span class="math inline">\(alpha\)</span> the curve approaches the chance diagonal, consistent with the notion that if the lesion is not visible, performance can be no better than chance level.</p>
 </div>
-<div id="pdf-plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#pdf-plots" class="anchor"></a>pdf plots</h2>
-<pre><code>#&gt; Fig. E : mu =  1 , alpha =  0.2
-#&gt; Fig. F : mu =  3 , alpha =  0.2
-#&gt; Fig. G : mu =  1 , alpha =  0.8
-#&gt; Fig. H : mu =  3 , alpha =  0.8</code></pre>
+<div class="section level2">
+<h2 id="pdf-plots">pdf plots<a class="anchor" aria-label="anchor" href="#pdf-plots"></a>
+</h2>
+<pre><code><span class="co">#&gt; Fig. E : mu =  1 , alpha =  0.2</span>
+<span class="co">#&gt; Fig. F : mu =  3 , alpha =  0.2</span>
+<span class="co">#&gt; Fig. G : mu =  1 , alpha =  0.8</span>
+<span class="co">#&gt; Fig. H : mu =  3 , alpha =  0.8</span></code></pre>
 <p><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-3-1.png" width="700"><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-3-2.png" width="700"><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-3-3.png" width="700"><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-3-4.png" width="700"></p>
 </div>
-<div id="comments-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#comments-1" class="anchor"></a>Comments</h2>
+<div class="section level2">
+<h2 id="comments-1">Comments<a class="anchor" aria-label="anchor" href="#comments-1"></a>
+</h2>
 <p>The dark line is the diseased distribution. The grey line is the non-diseased distribution. The bimodal diseased distribution is clearly evident in plots F and H.</p>
 </div>
-<div id="likelihood-ratio-plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#likelihood-ratio-plots" class="anchor"></a>likelihood ratio plots</h2>
-<pre><code>#&gt; Fig. I : mu =  1 , alpha =  0.2
-#&gt; Fig. J : mu =  3 , alpha =  0.2
-#&gt; Fig. K : mu =  1 , alpha =  0.8
-#&gt; Fig. L : mu =  3 , alpha =  0.8</code></pre>
+<div class="section level2">
+<h2 id="likelihood-ratio-plots">likelihood ratio plots<a class="anchor" aria-label="anchor" href="#likelihood-ratio-plots"></a>
+</h2>
+<pre><code><span class="co">#&gt; Fig. I : mu =  1 , alpha =  0.2</span>
+<span class="co">#&gt; Fig. J : mu =  3 , alpha =  0.2</span>
+<span class="co">#&gt; Fig. K : mu =  1 , alpha =  0.8</span>
+<span class="co">#&gt; Fig. L : mu =  3 , alpha =  0.8</span></code></pre>
 <p><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-4-1.png" width="700"><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-4-2.png" width="700"><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-4-3.png" width="700"><img src="Ch20Vig5cbmPlots_files/figure-html/unnamed-chunk-4-4.png" width="700"></p>
 </div>
-<div id="comments-2" class="section level2">
-<h2 class="hasAnchor">
-<a href="#comments-2" class="anchor"></a>Comments</h2>
+<div class="section level2">
+<h2 id="comments-2">Comments<a class="anchor" aria-label="anchor" href="#comments-2"></a>
+</h2>
 <p>Close examination of the region near the flat part shows it does not plateau at zero; rather the minimum is at 1 - <span class="math inline">\(alpha\)</span>, explaining the non-zero limiting slope of the predicted curve near (1, 1).</p>
 </div>
   </div>
@@ -173,11 +169,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
+  <p></p>
+<p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -185,6 +183,8 @@
 
   
 
+
+  
 
   </body>
 </html>
