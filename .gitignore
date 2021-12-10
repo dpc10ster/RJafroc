@@ -1,6 +1,6 @@
 Meta
 doc
-.Rproj.user
+.Rproj.user/**
 .Rhistory
 .RData
 .Ruserdata
@@ -17,3 +17,4 @@ vignettes/*.pdf
 docs
 /doc/
 /Meta/
+.Rproj.user

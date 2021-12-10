@@ -1,3 +1,0 @@
-]0;~/rjafroc[?1034hDevs-iMac:rjafroc Dev$ [KDevs-iMac:rjafroc Dev$ system("R CMD Rd2pdf RJafroc")
-bash: syntax error near unexpected token `"R CMD Rd2pdf RJafroc"'
-]0;~/rjafroc[?1034hDevs-iMac:rjafroc Dev$ 
