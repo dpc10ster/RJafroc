@@ -8,10 +8,6 @@ src/*.o
 src/*.so
 src/*.dll
 inst/doc
-.Rhistory
-.Rproj.user/A05B7AEE/persistent-state
-
-# produced vignettes
 vignettes/*.html
 vignettes/*.pdf
 docs
