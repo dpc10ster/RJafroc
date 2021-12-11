@@ -7,12 +7,12 @@ RJafroc
 
 # Purpose
 
-* This website contains four repositories describing observer performance modeling and analysis. 
+* This website contains four repositories describing **observer performance or artificial intelligence modeling, analysis and validation**. 
 * They are:
     + `RJafroc`, the software package that provides the common thread on which the other three packages depend; 
     + `RJafrocQuickStart`, an online book for those already somewhat familiar running Windows JAFROC to analyze their data. The obsolete Windows program has been replaced by `RJafroc`. This book dives into how to use `RJafroc` to analyze ROC or FROC datasets.
     + `RJafrocRocBook`, an online book providing necessary background on the ROC paradigm and how to model it.  
-    + `RJafrocFrocBook`, an online book providing a detailed exposition of the FROC paradigm, particularly my contributions starting in 1986, on how to model and analyze FROC data.
+    + `RJafrocFrocBook`, an online book providing a detailed exposition of the FROC paradigm, particularly my contributions starting in 1986.
 
 `RJafroc` was originally used in the book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017. Since 2017 the software has evolved considerably necessitating changes to the software examples in the book. This, and other considerations, led me to conclude that an update to the book is needed. This website contains the updated software and three online books that use the software and extend the 2017-book.
 
