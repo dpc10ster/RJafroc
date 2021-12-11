@@ -6,9 +6,26 @@ RJafroc
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/RJafroc)](https://cran.r-project.org/package=RJafroc)
 
 # Purpose
-* This repository serves as the software companion to my book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017.
-* Full documentation (updated book plus software) is under preparation and is being [continually updated here](https://dpc10ster.github.io/RJafrocBook/).
-* Documentation for this software (the functions used in `RJafroc`, vignettes and update history) is [available here](https://dpc10ster.github.io/RJafroc/).
+
+* This website contains four repositories describing observer performance modeling and analysis. 
+* They are:
+    + `RJafroc`, the software package that provides the common thread on which the other three packages depend; 
+    + `RJafrocQuickStart`, an online book for those already somewhat familiar running Windows JAFROC to analyze their data. The obsolete Windows program has been replaced by `RJafroc`. This book dives into how to use `RJafroc` to analyze ROC or FROC datasets.
+    + `RJafrocRocBook`, an online book providing necessary background on the ROC paradigm and how to model it.  
+    + `RJafrocFrocBook`, an online book providing a detailed exposition of the FROC paradigm, particularly my contributions starting in 1986, on how to model and analyze FROC data.
+
+`RJafroc` was originally used in the book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017. Since 2017 the software has evolved considerably necessitating changes to the software examples in the book. This, and other considerations, led me to conclude that an update to the book is needed. This website contains the updated software and three online books that use the software and extend the 2017-book.
+
+# Documentation
+
+* HTML documentation for `RJafroc` (functions, vignettes and update history) is [available here](https://dpc10ster.github.io/RJafroc/). 
+
+* The HTML online book `RJafrocQuickStart` is available [here](https://dpc10ster.github.io/RJafrocQuickStart/). A link is provided there to download the pdf book. Both of them are being continually updated.  
+
+* The HTML online book `RJafrocRocBook` is available [here](https://dpc10ster.github.io/RJafrocRocBook/). A link is provided there to download the pdf book. Both of them are being continually updated.  
+
+* The HTML online book `RJafrocFrocBook` is available [here](https://dpc10ster.github.io/RJafrocFrocBook/). A link is provided there to download the pdf book. Both of them are being continually updated.  
+
 
 # Applications
 
