@@ -7,12 +7,12 @@ RJafroc
 
 # Purpose
 
-* This website contains four repositories describing **observer performance or artificial intelligence modeling, analysis and validation**. 
+* This website contains four repositories describing **observer performance and artificial intelligence systems modeling, analysis and validation**. 
 * They are:
-    + `RJafroc`, the software package that provides the common thread on which the other three packages depend; 
-    + `RJafrocQuickStart`, an online book for those already somewhat familiar running Windows JAFROC to analyze their data. The obsolete Windows program has been replaced by `RJafroc`. This book dives into how to use `RJafroc` to analyze ROC or FROC datasets.
-    + `RJafrocRocBook`, an online book providing necessary background on the ROC paradigm and how to model it.  
-    + `RJafrocFrocBook`, an online book providing a detailed exposition of the FROC paradigm, particularly my contributions starting in 1986.
+    + `RJafroc` is the software package that provides the common thread on which the other three packages depend; 
+    + `RJafrocQuickStart` is an online book for those already somewhat familiar running Windows JAFROC. The obsolete Windows program has been replaced by `RJafroc`. This book dives into how to use `RJafroc` to analyze ROC or FROC datasets.
+    + `RJafrocRocBook` is an online book providing necessary background on the ROC paradigm.  
+    + `RJafrocFrocBook` is an online book providing a detailed exposition of the FROC paradigm, particularly my contributions.
 
 `RJafroc` was originally used in the book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017. Since 2017 the software has evolved considerably necessitating changes to the software examples in the book. This, and other considerations, led me to conclude that an update to the book is needed. This website contains the updated software and three online books that use the software and extend the 2017-book.
 
@@ -20,7 +20,7 @@ RJafroc
 
 * HTML documentation for `RJafroc` (functions, vignettes and update history) is [available here](https://dpc10ster.github.io/RJafroc/). The software is fairly stable and undergoing occasional updates. 
 
-* The HTML online book `RJafrocQuickStart` is available [here](https://dpc10ster.github.io/RJafrocQuickStart/). A link is provided there to download the pdf book. Both are being continually updated.  
+* The HTML online book `RJafrocQuickStart` is available [here](https://dpc10ster.github.io/RJafrocQuickStart/). A link is provided there to download the pdf book. Both are being continually updated (as of December 2021).  
 
 * The HTML online book `RJafrocRocBook` is available [here](https://dpc10ster.github.io/RJafrocRocBook/). A link is provided there to download the pdf book. Both of them are being continually updated.  
 
@@ -29,18 +29,21 @@ RJafroc
 
 # Applications
 
-Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks such as finding lesions in medical images, the software applies to any task involving detection and localization of targets in images. For example, the functions in `RJafroc` can be used to analyze the performance of artificial intelligence (AI) algorithms (including the field of Computer Aided Detection - CAD - which has been re-branded as AI). Two applications to AI are [here](https://dpc10ster.github.io/RJafrocFrocBook/), specifically:
+Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance in search tasks such as finding lesions in medical images, the software applies to any task involving detection and localization of targets in images. For example, the functions in `RJafroc` can be used to analyze the performance of artificial intelligence (AI) algorithms. Two applications to AI are [here](https://dpc10ster.github.io/RJafrocFrocBook/), specifically:
 
-* Measuring AI performance relative to a group of human readers.
-* Optimizing the reporting threshold of an AI algorithm - a common task faced by an algorithm designer.
+* Measuring AI performance.
+* Optimizing the reporting threshold of an AI algorithm.
 
-In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is used.
+The radiological search model (RSM), described [here](https://dpc10ster.github.io/RJafrocFrocBook/) is implemented in `RJafroc`. A fitting function `RJafroc::FitRsmRoc` estimates RSM parameters from ROC data These parameters are related to search and classification performances: 
 
-The radiological search model (RSM), described [here](https://dpc10ster.github.io/RJafrocFrocBook/) is implemented in `RJafroc`. A fitting function `RJafroc::FitRsmRoc` is implemented that estimates RSM parameters from ROC data These are related to search and classification performances: search performance refers to finding lesions while simultaneously minimizing finding non-lesion locations while classification performance measures ability to distinguish between lesion and non-lesion locations. Knowing the individual performances allows principled optimization of reader or AI algorithm performance.
+* Search performance refers to finding lesions while simultaneously minimizing finding non-lesion locations 
+* Classification performance measures ability to distinguish between lesion and non-lesion locations. 
+
+Knowing the individual performances allows principled optimization of reader or AI algorithm performance.
 
 # Relation to Windows software
-* `RJafroc` extends [Windows `JAFROC` software](https://www.devchakraborty.com) (this URL is no longer valid).
-* Originally uploaded in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to `RJafroc`.
+* `RJafroc` extends Windows `JAFROC` software.
+* Originally uploaded in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes in `RJafroc` and the online book available [here](https://dpc10ster.github.io/RJafrocQuickStart/) allows one to quickly transition to `RJafroc`.
 * If you still need the Windows `JAFROC` software, it is still available [here](https://github.com/dpc10ster/WindowsJafroc).
 
 # Update History
