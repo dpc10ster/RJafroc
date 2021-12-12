@@ -35,8 +35,8 @@ Search is a common task in every day life. While most of the applications in thi
 * Optimizing the reporting threshold of an AI algorithm - a common task faced by an algorithm designer.
 
 In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is used.
-,
-The radiological search model (RSM), described [here](https://dpc10ster.github.io/RJafrocFrocBook/) is implemented in `RJafroc`. A fitting function `RJafroc::FitRsmRoc` is implemented that estimates RSM parameters. These are related to search and classification performances. Search performance refers to finding lesions while simultaneously minimizing finding non-lesion locations. Classification performance measures the ability to distinguish between lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or AI algorithm performance.
+
+The radiological search model (RSM), described [here](https://dpc10ster.github.io/RJafrocFrocBook/) is implemented in `RJafroc`. A fitting function `RJafroc::FitRsmRoc` is implemented that estimates RSM parameters from ROC data These are related to search and classification performances: search performance refers to finding lesions while simultaneously minimizing finding non-lesion locations while classification performance measures ability to distinguish between lesion and non-lesion locations. Knowing the individual performances allows principled optimization of reader or AI algorithm performance.
 
 # Relation to Windows software
 * `RJafroc` extends [Windows `JAFROC` software](https://www.devchakraborty.com) (this URL is no longer valid).
@@ -48,12 +48,11 @@ The radiological search model (RSM), described [here](https://dpc10ster.github.i
 * Current `GitHub` version is 2.0.1.9000 on the `master` branch.
 * Current `CRAN` version is 2.0.1.
 
-# Branch designations
+# `RJafroc` branch designations
 * The most current tested version of the software and documentation is on the `master` branch.
 * The `developer` branch is for development/experimental work.
-* The online book has its own [GitHub repository](https://github.com/dpc10ster/RJafrocBook), currently under development.
 
-# Those already familiar with installing R packages from GitHub can ignore the following directions  
+# Installation: those already familiar with installing R packages from GitHub can ignore the following directions  
 
 # How do I get set up?
 Three options are given below, in increasing order of complexity. The first method downloads the package from CRAN, the second downloads the package from the `master` branch on `GitHub` and the third downloads all source files from the `master` branch on `GitHub` and then installs the software. I recommend the second method as the CRAN package is behind the `master` branch.
