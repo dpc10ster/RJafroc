@@ -14,7 +14,7 @@ RJafroc
     + `RJafrocRocBook` is an online book providing necessary background on the ROC paradigm.  
     + `RJafrocFrocBook` is an online book providing a detailed exposition of the FROC paradigm, particularly my contributions.
 
-`RJafroc` was originally used in the book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017. Since 2017 the software has evolved considerably necessitating changes to the software examples in the book. This, and other considerations, led me to conclude that an update to the book is needed. This website contains the updated software and three online books that use the software and extend the 2017-book.
+The first CRAN-posted version of `RJafroc` was used to support the R-code examples in the book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples, Taylor-Francis LLC, 2017. Since then the software has evolved considerably necessitating changes to the R-examples in the book. This, and other considerations, led me to conclude that an update to the book is needed. This website contains the updated software and three online books that use the software and extend the 2017-book.
 
 # Documentation
 
@@ -29,7 +29,7 @@ RJafroc
 
 # Applications
 
-Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance in search tasks such as finding lesions in medical images, the software applies to any task involving detection and localization of targets in images. For example, the functions in `RJafroc` can be used to analyze the performance of artificial intelligence (AI) algorithms. Two applications to AI are [here](https://dpc10ster.github.io/RJafrocFrocBook/), specifically:
+While most of the applications in this package are geared toward analyzing radiologist performance in search tasks such as finding lesions in medical images, the software applies to any task involving detection and localization of targets in images. For example, the functions in `RJafroc` can be used to analyze the performance of artificial intelligence (AI) algorithms. Two applications to AI are [here](https://dpc10ster.github.io/RJafrocFrocBook/), specifically:
 
 * Measuring AI performance.
 * Optimizing the reporting threshold of an AI algorithm.
@@ -42,23 +42,30 @@ The radiological search model (RSM), described [here](https://dpc10ster.github.i
 Knowing the individual performances allows principled optimization of reader or AI algorithm performance.
 
 # Relation to Windows software
-* `RJafroc` extends Windows `JAFROC` software.
-* Originally uploaded in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes in `RJafroc` and the online book available [here](https://dpc10ster.github.io/RJafrocQuickStart/) allows one to quickly transition to `RJafroc`.
-* If you still need the Windows `JAFROC` software, it is still available [here](https://github.com/dpc10ster/WindowsJafroc).
+
+* `RJafroc` extends Windows `JAFROC` software and runs on multiple platforms.
+* Originally uploaded in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes in `RJafroc` and the online book available [here](https://dpc10ster.github.io/RJafrocQuickStart/) should allow one to quickly transition to `RJafroc`.
+* If you still need Windows `JAFROC` software it is still available [here](https://github.com/dpc10ster/WindowsJafroc).
 
 # Update History
+
 * [See here](https://dpc10ster.github.io/RJafroc/news/index.html) for details.
 * Current `GitHub` version is 2.0.1.9000 on the `master` branch.
 * Current `CRAN` version is 2.0.1.
 
 # `RJafroc` branch designations
+
 * The most current tested version of the software and documentation is on the `master` branch.
 * The `developer` branch is for development/experimental work.
 
 # Installation: those already familiar with installing R packages from GitHub can ignore the following directions  
 
 # How do I get set up?
-Three options are given below, in increasing order of complexity. The first method downloads the package from CRAN, the second downloads the package from the `master` branch on `GitHub` and the third downloads all source files from the `master` branch on `GitHub` and then installs the software. I recommend the second method as the CRAN package is behind the `master` branch.
+
+Three options are given below in increasing order of complexity. 
+    + The first method downloads the package from CRAN.
+    + The second downloads the package from the `master` branch on `GitHub`. 
+    + The third downloads all source files from the `master` branch on `GitHub` and then installs the software. I recommend the second method as the CRAN package is behind the `master` branch.
 
 ## 1. Install from CRAN
 * Install `R` and `RStudio`.
@@ -66,8 +73,8 @@ Three options are given below, in increasing order of complexity. The first meth
 * Open `RStudio` by clicking on the `myProject.Rproj` file.
 * Starting from `RStudio` > `Packages` > `Install` > `RJafroc`.
 * `library(RJafroc)`.
-* This loads the CRAN package and all functions on the `cran2` branch become avaialable.
-* For documentation of functions and vignettes, [see](https://dpc10ster.github.io/RJafroc/). It may be helpful to have both windows open (RStudio and the above website) simulataneously.
+* This loads the CRAN package and all functions on the `cran2` branch become available.
+* For documentation of functions and vignettes, [see](https://dpc10ster.github.io/RJafroc/). It may be helpful to have both windows open (`RStudio` and the above website) simultaneously.
 * The CRAN version will not include more recent updates on the `master` branch. To access them use the next suggested method, below.
 * Test the installation:
 
@@ -160,8 +167,7 @@ print(cbmPlot)
 * Put your data and other files, if any, in myProject.
 * TBA
 
-### Contibutor guidelines
-* These guidelines are adapted from content on the `devtools` GitHub page.
+### Contibutor guidelines (adapted from `devtools` `GitHub` page.)
 
 * As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.
 
@@ -174,4 +180,5 @@ print(cbmPlot)
 * Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening an issue or contacting one or more of the project maintainers.
 
 ### Who do I talk to?
+
 dpc10ster@gmail.com
