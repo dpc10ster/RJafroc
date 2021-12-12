@@ -145,52 +145,56 @@
 <h1 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h1>
 <ul>
-<li>This website contains four repositories describing <strong>observer performance or artificial intelligence modeling, analysis and validation</strong>.</li>
+<li>This website contains four repositories describing <strong>observer performance and artificial intelligence systems modeling, analysis and validation</strong>.</li>
 <li>They are:
 <ul>
 <li>
-<code>RJafroc</code>, the software package that provides the common thread on which the other three packages depend;</li>
+<code>RJafroc</code> is the software package that provides the common thread on which the other three packages depend;</li>
 <li>
-<code>RJafrocQuickStart</code>, an online book for those already somewhat familiar running Windows JAFROC to analyze their data. The obsolete Windows program has been replaced by <code>RJafroc</code>. This book dives into how to use <code>RJafroc</code> to analyze ROC or FROC datasets.</li>
+<code>RJafrocQuickStart</code> is an online book for those already somewhat familiar running Windows JAFROC. The obsolete Windows program has been replaced by <code>RJafroc</code>. This book dives into how to use <code>RJafroc</code> to analyze ROC or FROC datasets.</li>
 <li>
-<code>RJafrocRocBook</code>, an online book providing necessary background on the ROC paradigm and how to model it.<br>
+<code>RJafrocRocBook</code> is an online book providing necessary background on the ROC paradigm.<br>
 </li>
 <li>
-<code>RJafrocFrocBook</code>, an online book providing a detailed exposition of the FROC paradigm, particularly my contributions starting in 1986.</li>
+<code>RJafrocFrocBook</code> is an online book providing a detailed exposition of the FROC paradigm, particularly my contributions.</li>
 </ul>
 </li>
 </ul>
-<p><code>RJafroc</code> was originally used in the book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples. Taylor-Francis LLC; 2017. Since 2017 the software has evolved considerably necessitating changes to the software examples in the book. This, and other considerations, led me to conclude that an update to the book is needed. This website contains the updated software and three online books that use the software and extend the 2017-book.</p>
+<p>The first CRAN-posted version of <code>RJafroc</code> was used to support the R-code examples in the book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples, Taylor-Francis LLC, 2017. Since then the software has evolved considerably necessitating changes to the R-examples in the book. This, and other considerations, led me to conclude that an update to the book is needed. This website contains the updated software and three online books that use the software and extend the 2017-book.</p>
 </div>
 <div class="section level1">
 <h1 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h1>
 <ul>
-<li><p>HTML documentation for <code>RJafroc</code> (functions, vignettes and update history) is <a href="https://dpc10ster.github.io/RJafroc/" class="external-link">available here</a>.</p></li>
-<li><p>The HTML online book <code>RJafrocQuickStart</code> is available <a href="https://dpc10ster.github.io/RJafrocQuickStart/" class="external-link">here</a>. A link is provided there to download the pdf book. Both of them are being continually updated.</p></li>
+<li><p>HTML documentation for <code>RJafroc</code> (functions, vignettes and update history) is <a href="https://dpc10ster.github.io/RJafroc/" class="external-link">available here</a>. The software is fairly stable and undergoing occasional updates.</p></li>
+<li><p>The HTML online book <code>RJafrocQuickStart</code> is available <a href="https://dpc10ster.github.io/RJafrocQuickStart/" class="external-link">here</a>. A link is provided there to download the pdf book. Both are being continually updated (as of December 2021).</p></li>
 <li><p>The HTML online book <code>RJafrocRocBook</code> is available <a href="https://dpc10ster.github.io/RJafrocRocBook/" class="external-link">here</a>. A link is provided there to download the pdf book. Both of them are being continually updated.</p></li>
-<li><p>The HTML online book <code>RJafrocFrocBook</code> is available <a href="https://dpc10ster.github.io/RJafrocFrocBook/" class="external-link">here</a>. A link is provided there to download the pdf book. Both of them are being continually updated.</p></li>
+<li><p>The HTML online book <code>RJafrocFrocBook</code> is available <a href="https://dpc10ster.github.io/RJafrocFrocBook/" class="external-link">here</a>. A link is provided there to download the pdf book. Both are being continually updated.</p></li>
 </ul>
 </div>
 <div class="section level1">
 <h1 id="applications">Applications<a class="anchor" aria-label="anchor" href="#applications"></a>
 </h1>
-<p>Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks - finding lesions in medical images - the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (including the field of Computer Aided Detection - CAD - which has been re-branded as AI). Two applications to AI are in the online book:</p>
+<p>While most of the applications in this package are geared toward analyzing radiologist performance in search tasks such as finding lesions in medical images, the software applies to any task involving detection and localization of targets in images. For example, the functions in <code>RJafroc</code> can be used to analyze the performance of artificial intelligence (AI) algorithms. Two applications to AI are <a href="https://dpc10ster.github.io/RJafrocFrocBook/" class="external-link">here</a>, specifically:</p>
 <ul>
-<li>Measuring AI performance relative to a group of human readers.</li>
-<li>Optimizing the reporting threshold of an AI algorithm - a common task faced by an algorithm designer.</li>
+<li>Measuring AI performance.</li>
+<li>Optimizing the reporting threshold of an AI algorithm.</li>
 </ul>
-<p>In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is integral to the analyzed data.</p>
-<p>The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC analysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or AI algorithm performance.</p>
+<p>The radiological search model (RSM), described <a href="https://dpc10ster.github.io/RJafrocFrocBook/" class="external-link">here</a> is implemented in <code>RJafroc</code>. A fitting function <code><a href="reference/FitRsmRoc.html">RJafroc::FitRsmRoc</a></code> estimates RSM parameters from ROC data These parameters are related to search and classification performances:</p>
+<ul>
+<li>Search performance refers to finding lesions while simultaneously minimizing finding non-lesion locations</li>
+<li>Classification performance measures ability to distinguish between lesion and non-lesion locations.</li>
+</ul>
+<p>Knowing the individual performances allows principled optimization of reader or AI algorithm performance.</p>
 </div>
 <div class="section level1">
 <h1 id="relation-to-windows-software">Relation to Windows software<a class="anchor" aria-label="anchor" href="#relation-to-windows-software"></a>
 </h1>
 <ul>
 <li>
-<code>RJafroc</code> extends <a href="https://www.devchakraborty.com" class="external-link">Windows <code>JAFROC</code> software</a> (this URL is no longer valid).</li>
-<li>Originally posted in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to <code>RJafroc</code>.</li>
-<li>If you still need the Windows <code>JAFROC</code> software, it is still available <a href="https://github.com/dpc10ster/WindowsJafroc" class="external-link">here</a>.</li>
+<code>RJafroc</code> extends Windows <code>JAFROC</code> software and runs on multiple platforms.</li>
+<li>Originally uploaded in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes in <code>RJafroc</code> and the online book available <a href="https://dpc10ster.github.io/RJafrocQuickStart/" class="external-link">here</a> should allow one to quickly transition to <code>RJafroc</code>.</li>
+<li>If you still need Windows <code>JAFROC</code> software it is still available <a href="https://github.com/dpc10ster/WindowsJafroc" class="external-link">here</a>.</li>
 </ul>
 </div>
 <div class="section level1">
@@ -204,22 +208,22 @@
 </ul>
 </div>
 <div class="section level1">
-<h1 id="branch-designations">Branch designations<a class="anchor" aria-label="anchor" href="#branch-designations"></a>
+<h1 id="rjafroc-branch-designations">
+<code>RJafroc</code> branch designations<a class="anchor" aria-label="anchor" href="#rjafroc-branch-designations"></a>
 </h1>
 <ul>
 <li>The most current tested version of the software and documentation is on the <code>master</code> branch.</li>
 <li>The <code>developer</code> branch is for development/experimental work.</li>
-<li>The online book has its own <a href="https://github.com/dpc10ster/RJafrocBook">GitHub repository</a>, currently under development.</li>
 </ul>
 </div>
 <div class="section level1">
-<h1 id="those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions">Those already familiar with installing R packages from GitHub can ignore the following directions<a class="anchor" aria-label="anchor" href="#those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions"></a>
+<h1 id="installation-those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions">Installation: those already familiar with installing R packages from GitHub can ignore the following directions<a class="anchor" aria-label="anchor" href="#installation-those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions"></a>
 </h1>
 </div>
 <div class="section level1">
 <h1 id="how-do-i-get-set-up">How do I get set up?<a class="anchor" aria-label="anchor" href="#how-do-i-get-set-up"></a>
 </h1>
-<p>Three options are given below, in increasing order of complexity. The first method downloads the package from CRAN, the second downloads the package from the <code>master</code> branch on <code>GitHub</code> and the third downloads all source files from the <code>master</code> branch on <code>GitHub</code> and then installs the software. I recommend the second method as the CRAN package is behind the <code>master</code> branch.</p>
+<p>Three options are given below in increasing order of complexity. + The first method downloads the package from CRAN. + The second downloads the package from the <code>master</code> branch on <code>GitHub</code>. + The third downloads all source files from the <code>master</code> branch on <code>GitHub</code> and then installs the software. I recommend the second method as the CRAN package is behind the <code>master</code> branch.</p>
 <div class="section level2">
 <h2 id="1-install-from-cran">1. Install from CRAN<a class="anchor" aria-label="anchor" href="#1-install-from-cran"></a>
 </h2>
@@ -230,8 +234,8 @@
 <li>Starting from <code>RStudio</code> &gt; <code>Packages</code> &gt; <code>Install</code> &gt; <code>RJafroc</code>.</li>
 <li>
 <code><a href="https://dpc10ster.github.io/RJafroc/" class="external-link">library(RJafroc)</a></code>.</li>
-<li>This loads the CRAN package and all functions on the <code>cran2</code> branch become avaialable.</li>
-<li>For documentation of functions and vignettes, <a href="https://dpc10ster.github.io/RJafroc/" class="external-link">see</a>. It may be helpful to have both windows open (RStudio and the above website) simulataneously.</li>
+<li>This loads the CRAN package and all functions on the <code>cran2</code> branch become available.</li>
+<li>For documentation of functions and vignettes, <a href="https://dpc10ster.github.io/RJafroc/" class="external-link">see</a>. It may be helpful to have both windows open (<code>RStudio</code> and the above website) simultaneously.</li>
 <li>The CRAN version will not include more recent updates on the <code>master</code> branch. To access them use the next suggested method, below.</li>
 <li>Test the installation:</li>
 </ul>
@@ -322,10 +326,9 @@ openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, n
 <li>TBA</li>
 </ul>
 <div class="section level3">
-<h3 id="contibutor-guidelines">Contibutor guidelines<a class="anchor" aria-label="anchor" href="#contibutor-guidelines"></a>
+<h3 id="contibutor-guidelines-adapted-from-devtools-github-page">Contibutor guidelines (adapted from <code>devtools</code> <code>GitHub</code> page.)<a class="anchor" aria-label="anchor" href="#contibutor-guidelines-adapted-from-devtools-github-page"></a>
 </h3>
 <ul>
-<li><p>These guidelines are adapted from content on the <code>devtools</code> GitHub page.</p></li>
 <li><p>As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.</p></li>
 <li><p>We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.</p></li>
 <li><p>Examples of unacceptable behavior by participants include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.</p></li>
