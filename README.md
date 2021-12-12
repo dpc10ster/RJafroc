@@ -18,29 +18,29 @@ RJafroc
 
 # Documentation
 
-* HTML documentation for `RJafroc` (functions, vignettes and update history) is [available here](https://dpc10ster.github.io/RJafroc/). 
+* HTML documentation for `RJafroc` (functions, vignettes and update history) is [available here](https://dpc10ster.github.io/RJafroc/). The software is fairly stable and undergoing occasional updates. 
 
-* The HTML online book `RJafrocQuickStart` is available [here](https://dpc10ster.github.io/RJafrocQuickStart/). A link is provided there to download the pdf book. Both of them are being continually updated.  
+* The HTML online book `RJafrocQuickStart` is available [here](https://dpc10ster.github.io/RJafrocQuickStart/). A link is provided there to download the pdf book. Both are being continually updated.  
 
 * The HTML online book `RJafrocRocBook` is available [here](https://dpc10ster.github.io/RJafrocRocBook/). A link is provided there to download the pdf book. Both of them are being continually updated.  
 
-* The HTML online book `RJafrocFrocBook` is available [here](https://dpc10ster.github.io/RJafrocFrocBook/). A link is provided there to download the pdf book. Both of them are being continually updated.  
+* The HTML online book `RJafrocFrocBook` is available [here](https://dpc10ster.github.io/RJafrocFrocBook/). A link is provided there to download the pdf book. Both are being continually updated.  
 
 
 # Applications
 
-Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks - finding lesions in medical images - the software applies to any task involving detection and localization of targets in images. For example, the functions in this package can be used to analyze the performance of artificial intelligence (AI) algorithms (including the field of Computer Aided Detection - CAD - which has been re-branded as AI). Two applications to AI are in the online book:
+Search is a common task in every day life. While most of the applications in this package are geared toward analyzing radiologist performance as they engage in search tasks such as finding lesions in medical images, the software applies to any task involving detection and localization of targets in images. For example, the functions in `RJafroc` can be used to analyze the performance of artificial intelligence (AI) algorithms (including the field of Computer Aided Detection - CAD - which has been re-branded as AI). Two applications to AI are [here](https://dpc10ster.github.io/RJafrocFrocBook/), specifically:
 
 * Measuring AI performance relative to a group of human readers.
 * Optimizing the reporting threshold of an AI algorithm - a common task faced by an algorithm designer.
 
-In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is integral to the analyzed data.
-
-The radiological search model (RSM) is implemented. A fitting function is provided that estimates RSM parameters. These are related to search performance (not measured in standard ROC analysis) and classification performance. Search performance refers to finding lesions while simultaneously not finding non-lesion locations. Classification performance measures the ability to distinguish between cued lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or AI algorithm performance.
+In addition to performing conventional ROC analysis (localization information is ignored), the software performs FROC analysis, where lesion localization information is used.
+,
+The radiological search model (RSM), described [here](https://dpc10ster.github.io/RJafrocFrocBook/) is implemented in `RJafroc`. A fitting function `RJafroc::FitRsmRoc` is implemented that estimates RSM parameters. These are related to search and classification performances. Search performance refers to finding lesions while simultaneously minimizing finding non-lesion locations. Classification performance measures the ability to distinguish between lesion and non-lesion locations. Knowing these separate performances allows principled optimization of reader or AI algorithm performance.
 
 # Relation to Windows software
 * `RJafroc` extends [Windows `JAFROC` software](https://www.devchakraborty.com) (this URL is no longer valid).
-* Originally posted in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to `RJafroc`.
+* Originally uploaded in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes are provided to allow them to quickly transition to `RJafroc`.
 * If you still need the Windows `JAFROC` software, it is still available [here](https://github.com/dpc10ster/WindowsJafroc).
 
 # Update History
