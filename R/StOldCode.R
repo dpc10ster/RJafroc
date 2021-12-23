@@ -1110,29 +1110,6 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
 } 
 
 
-# Dec 19, 21 - double check the wAFROC AUC with non-C++ code
-# see RJafrocFrocBook numerical illustration in chapter #froc-empirical
-# this is not used anywhere, hence the stop
-AFROC_dpc  <- function(nl, ll, perCase, max_cases, max_nl, max_ll )
-{
-  nles_total <-  sum(perCase)
-
-  les <- array(0, nles_total)
-  inc <-  1
-  for (k in 1:max_cases[2]) {
-    for( l in 1:perCase[ k ]) {
-      les[ inc] <-  ll[k, l]
-      inc <- inc + 1
-    }
-  }
-  
-  fp <- apply(nl[1:max_cases[1],], 1, max)
-
-  ret <-TrapezoidalArea( fp, max_cases[1], les, nles_total ) 
-  stop
-  
-}
-
 
 
 TrapezoidalArea1 <- function(rocRatings, truth) {
