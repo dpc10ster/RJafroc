@@ -1,6 +1,22 @@
 # RJafroc 2.0.1.9000
 
 
+## TBDIF 12-26-21
+* TBDIF: To be done in future
+* Created much confusion in RJafrocFrocBook, chapter on `3-fits`
+* `RsmFormulae.R`: This file is a mess. 
+* Remove AUCs in `PlotRsmOperatingCharacteristics`?
+* Add to tests? 
+* Replace error function with Phi functions? 
+
+
+
+## Changed `RSM_yROC` to accept physical parameters 12-26-21
+* So as to be consistent with `RSM_yROC`
+* Created much confusion in RJafrocFrocBook, chapter on `3-fits`
+* Added checks for valid RSM parameters in `RsmFormulae.R` .
+* Changed all such functions in `RsmFormulae.R` to accept physical parameters.  
+
 ## Fixed `PlotRsmOperatingCharacteristics` not working for `zeta1 = -Inf`
 * Global search string "bug fix 12/7/21" to locate all changes.
 * Starting value of for-loop cannot be `-Inf`; detect it and set to -3

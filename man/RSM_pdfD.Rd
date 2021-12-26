@@ -4,16 +4,16 @@
 \alias{RSM_pdfD}
 \title{RSM predicted ROC-rating pdf for diseased cases}
 \usage{
-RSM_pdfD(z, mu, lambda, nu, lesDistr)
+RSM_pdfD(z, mu, lambdaP, nuP, lesDistr)
 }
 \arguments{
 \item{z}{The z-sample value at which to evaluate the pdf.}
 
 \item{mu}{The mu parameter of the RSM.}
 
-\item{lambda}{The (intrinsic) lambda parameter of the RSM.}
+\item{lambdaP}{The (physical) lambda prime parameter.}
 
-\item{nu}{The (intrinsic) nu parameter of the RSM.}
+\item{nuP}{The (physical) nu prime parameter.}
 
 \item{lesDistr}{The lesion distribution 1D vector.}
 }
@@ -25,7 +25,7 @@ RSM predicted ROC-rating pdf for diseased cases
 }
 \examples{
 lesDistr <- c(0.5, 0.5)
-RSM_pdfD(1,1,1,0.5, lesDistr)
+RSM_pdfD(1,1,1,0.9, lesDistr)
 lesDistr <- c(0.2, 0.3, 0.5)
 RSM_pdfD(1,1,1,0.5, lesDistr)
 

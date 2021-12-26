@@ -1,15 +1,15 @@
 #' RSM predicted ROC-rating pdf for diseased cases
 #' @param z The z-sample value at which to evaluate the pdf.
 #' @param mu The mu parameter of the RSM.
-#' @param lambda The (intrinsic) lambda parameter of the RSM. 
-#' @param nu The (intrinsic) nu parameter of the RSM.
+#' @param lambdaP The (physical) lambda prime parameter. 
+#' @param nuP The (physical) nu prime parameter.
 #' @param lesDistr The lesion distribution 1D vector.
 #' 
 #' @return pdf
 #' 
 #' @examples 
 #' lesDistr <- c(0.5, 0.5)
-#' RSM_pdfD(1,1,1,0.5, lesDistr)
+#' RSM_pdfD(1,1,1,0.9, lesDistr)
 #' lesDistr <- c(0.2, 0.3, 0.5)
 #' RSM_pdfD(1,1,1,0.5, lesDistr)
 #' 
@@ -17,10 +17,12 @@
 
 # this was the original form, simplified somewhat but otherwise
 # identical to the 2017 version
-RSM_pdfD <- function(z, mu, lambda, nu, lesDistr){
-  x <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
-  lambdaP <- x$lambdaP
-  nuP <- x$nuP
+RSM_pdfD <- function(z, mu, lambdaP, nuP, lesDistr){
+  
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
   
   pdf <- 0
   for (L in 1:length(lesDistr)){
@@ -36,8 +38,8 @@ RSM_pdfD <- function(z, mu, lambda, nu, lesDistr){
   # the max(pdf ...) is needed as this function works with an input vector for z; but this causes occasional failures
   # replaced max(pdf ...) with mean(pdf ...); median(pdf ...) might be even more resistant to outliers
   # 4/2/21 changed stop criterion from 1e-16 to 1e-15 
-  if (abs(mean(pdf - pdfD2(z, mu, lambda, nu, lesDistr))) > 1e-15) stop("Two forms disagree A")
-  if (abs(mean(pdf - pdfD3(z, mu, lambda, nu, lesDistr))) > 1e-15) stop("Two forms disagree B")
+  if (abs(mean(pdf - pdfD2(z, mu, lambdaP, nuP, lesDistr))) > 1e-15) stop("Two forms disagree A")
+  if (abs(mean(pdf - pdfD3(z, mu, lambdaP, nuP, lesDistr))) > 1e-15) stop("Two forms disagree B")
   
   return (pdf)
 }
@@ -57,6 +59,8 @@ RSM_pdfD <- function(z, mu, lambda, nu, lesDistr){
 #' 
 RSM_pdfN <- function(z, lambdaP){
 
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
   # verified using RSM_pdfN(1, 1) and (xROC(1, 1) - xROC(1 + 1e-8, 1)) / 1e-8
   # following expression is identical to book equation 17.21
   return(lambdaP * exp(-z^2/2) * exp(-lambdaP/2 * (1 - erfVect(z/sqrt(2)))) / sqrt(2 * pi))
@@ -81,8 +85,7 @@ myPlot <- function(dataPoints, dashedPoints, x, y,
 
 #' RSM predicted FROC abscissa
 #' @param z The z-sample value at which to evaluate the FROC abscissa.
-#' @param mu The mu parameter of the RSM. 
-#' @param lambda The (intrinsic) lambda parameter of the RSM. 
+#' @param lambdaP The (physical) lambda prime parameter of the RSM. 
 #' 
 #' @return xFROC
 #' 
@@ -93,10 +96,10 @@ myPlot <- function(dataPoints, dashedPoints, x, y,
 #' 
 #' 
 
-RSM_xFROC <- function(z, mu, lambda){
+RSM_xFROC <- function(z, lambdaP){
   # returns NLF, the abscissa of FROC curve
-  x <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu = 1)
-  lambdaP <- x$lambdaP
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
   NLF <- lambdaP * (1 - pnorm(z))
   return(NLF)
 }
@@ -106,7 +109,7 @@ RSM_xFROC <- function(z, mu, lambda){
 #' RSM predicted FROC ordinate
 #' @param z The z-sample value at which to evaluate the FROC ordinate.
 #' @param mu The mu parameter of the RSM. 
-#' @param nu The (intrinsic) nu parameter of the RSM. 
+#' @param nuP The (physical) nu prime parameter of the RSM. 
 #' 
 #' @return yFROC
 #' 
@@ -117,9 +120,10 @@ RSM_xFROC <- function(z, mu, lambda){
 #' 
 #' 
 
-RSM_yFROC <- function(z, mu, nu){
-  x <- UtilIntrinsic2PhysicalRSM(mu, lambda = 1, nu)
-  nuP <- x$nuP
+RSM_yFROC <- function(z, mu, nuP){
+  # bug fix 12/26/21
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
   
   # returns LLF, the ordinate of FROC, AFROC curve
   LLF <- nuP * (1 - pnorm(z - mu))
@@ -128,29 +132,33 @@ RSM_yFROC <- function(z, mu, nu){
 
 
 
-intFROC <- function(NLF, mu, lambda, nu){
-  x <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
-  lambdaP <- x$lambdaP
-  nuP <- x$nuP
+intFROC <- function(NLF, mu, lambdaP, nuP){
+  
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
   
   zeta <- qnorm(1 - NLF / lambdaP)
-  LLF <- RSM_yFROC(zeta, mu, nu) # sic!
+  LLF <- RSM_yFROC(zeta, mu, nuP) 
   return(LLF)
 }
 
 
 
 # y_AFROC_FPF is AFROC as a function of FPF + RSM parameters
-y_AFROC_FPF <- function(FPF, mu, lambda, nu){
+y_AFROC_FPF <- function(FPF, mu, lambdaP, nuP){
   # returns LLF, the ordinate of AFROC curve; takes FPF as the variable. 
   # AUC is calculated by integrating this function wrt FPF
-  x <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
-  lambdaP <- x$lambdaP
-  nuP <- x$nuP
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
+  
   tmp <- 1 / lambdaP * log(1 - FPF) + 1
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
-  LLF <- RSM_yFROC(zeta, mu, nu)
+  LLF <- RSM_yFROC(zeta, mu, nuP)
   return(LLF)
 }
 
@@ -160,12 +168,13 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
 # returns wLLF, the ordinate of wAFROC curve
 # this has working C++ version with name ywAFROC
 # this is only here for me to understand the C++ code
-ywAFROC_R <- function(zeta, mu, nu, lesDistr, lesWghtDistr){
+ywAFROC_R <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
   # zeta <- 0
   # fl is the fraction of cases with # lesions as in first column of lesDistr
   # the second column contains the fraction
-  x <- UtilIntrinsic2PhysicalRSM(mu, lambda = 1, nu)
-  nuP <- x$nuP
+  # bug fix 12/26/21
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
   
   fl <- lesDistr[, 2] / sum(lesDistr[, 2]) # redundant normalization does not hurt
   wLLF <- 0
@@ -192,12 +201,13 @@ ywAFROC_R <- function(zeta, mu, nu, lesDistr, lesWghtDistr){
 
 
 # y_wAFROC_FPF is wAFROC as a function of FPF + RSM parameters
-y_wAFROC_FPF <- function(FPF, mu, lambda, nu, lesDistr, lesWghtDistr){
+y_wAFROC_FPF <- function(FPF, mu, lambdaP, nuP, lesDistr, lesWghtDistr){
   # returns wLLF, the ordinate of AFROC curve; takes FPF as the variable. 
   # AUC is calculated by integrating this function wrt FPF
-  x <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
-  lambdaP <- x$lambdaP
-  nuP <- x$nuP
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
   
   tmp <- 1 / lambdaP * log(1 - FPF) + 1
   tmp[tmp < 0] <- pnorm(-20)
@@ -210,10 +220,11 @@ y_wAFROC_FPF <- function(FPF, mu, lambda, nu, lesDistr, lesWghtDistr){
 
 # added 12/22/20
 # alternate form using Maple, Dec 2020
-pdfD2 <- function(z, mu, lambda, nu, lesDistr){
-  x <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
-  lambdaP <- x$lambdaP
-  nuP <- x$nuP
+pdfD2 <- function(z, mu, lambdaP, nuP, lesDistr){
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
   pdf <- 0
   for (L in 1:length(lesDistr)){
     a <- 1-nuP/2+nuP/2*erfVect((z-mu)/sqrt(2))
@@ -227,38 +238,55 @@ pdfD2 <- function(z, mu, lambda, nu, lesDistr){
 
 
 # A is first term on rhs of book 17.22
-A <- function(mu,nu,z,L) 
+A <- function(mu,nuP,z,L) 
 {
-  return((1-nu/2+nu/2*erfVect((z-mu)/sqrt(2)))^L)
+  
+  # bug fix 12/26/21
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
+  
+  return((1-nuP/2+nuP/2*erfVect((z-mu)/sqrt(2)))^L)
 }
 
 # B is second term on rhs of book 17.22
-B <- function(lambda,z) 
+B <- function(lambdaP,z) 
 {
-  return(exp(-lambda/2+lambda/2*erfVect(z/sqrt(2))))
+  
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
+
+  return(exp(-lambdaP/2+lambdaP/2*erfVect(z/sqrt(2))))
 }
 
 
 #dA is deriv. of A wrt z, Maple generated
-dA <- function(mu,nu,z,L)
+dA <- function(mu,nuP,z,L)
 {
-  return((1-nu/2+nu/2*erfVect((z-mu)/sqrt(2)))^(L-1)*L*nu*exp(-(z-mu)^2/2)/sqrt(2*pi))
+  # bug fix 12/26/21
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
+  return((1-nuP/2+nuP/2*erfVect((z-mu)/sqrt(2)))^(L-1)*L*nuP*exp(-(z-mu)^2/2)/sqrt(2*pi))
 }
 
 
 #dB is deriv. of B wrt z, Maple generated
-dB <- function(lambda,z)
+dB <- function(lambdaP,z)
 {
-  return(lambda*exp(-z^2/2)*exp(-lambda/2+lambda/2*erfVect(z/sqrt(2)))/sqrt(2*pi))
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
+
+  return(lambdaP*exp(-z^2/2)*exp(-lambdaP/2+lambdaP/2*erfVect(z/sqrt(2)))/sqrt(2*pi))
 }
 
 
 # added 12/22/20
 # using Maple generated derivatives wrt z
-pdfD3 <- function(z, mu, lambda, nu, lesDistr){
-  x <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
-  lambdaP <- x$lambdaP
-  nuP <- x$nuP
+pdfD3 <- function(z, mu, lambdaP, nuP, lesDistr){
+  
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
   
   pdf <- 0
   for (L in 1:length(lesDistr)){
@@ -285,6 +313,8 @@ pdfD3 <- function(z, mu, lambda, nu, lesDistr){
 
 RSM_xROC <- function(z, lambdaP) {
   
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
+  
   return(xROCVect(z, lambdaP))
 
 }
@@ -292,25 +322,25 @@ RSM_xROC <- function(z, lambdaP) {
 #' RSM predicted ROC-ordinate as function of z
 #' 
 #' @param z The z-sample value at which to evaluate the pdf.
-#' @param mu The mu parameter of the RSM.
-#' @param lambda The (intrinsic) lambda parameter of the RSM. 
-#' @param nu The (intrinsic) nu parameter of the RSM.
+#' @param mu The mu parameter (of the RSM).
+#' @param lambdaP The (physical) lambda prime parameter. 
+#' @param nuP The (physical) nu prime parameter.
 #' @param lesDistr The 1D lesion distribution vector.
 #' 
-#' @return yROC
+#' @return yROC, the ordinate of the ROC
 #' 
 #' @examples 
 #' lesDistr1D <- c(0.1,0.3,0.6)
-#' RSM_yROC(c(-Inf,0.1,0.2,0.3), 1, 1, 1, lesDistr1D)
+#' RSM_yROC(c(-Inf,0.1,0.2,0.3), 1, 1, 0.9, lesDistr1D)
 #' 
 #' @export
 
 
-RSM_yROC <- function(z, mu, lambda, nu, lesDistr) {
-  
-  x <- UtilIntrinsic2PhysicalRSM(mu, lambda, nu)
-  lambdaP <- x$lambdaP
-  nuP <- x$nuP
+RSM_yROC <- function(z, mu, lambdaP, nuP, lesDistr) {
+  # bug fix 12/26/21
+  if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
+  if (nuP < 0) stop("Incorrect value for nuP\n")
+  if (nuP > 1) stop("Incorrect value for nuP\n")
   
   lesDistr2D <- UtilLesionDistr (lesDistr)
   return(yROCVect(z, mu, lambdaP, nuP, lesDistr2D))

@@ -224,7 +224,7 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   
   NLLFin <- ret@min
   
-  AUC <- UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 <- -Inf, lesDistr[,2])$aucROC # 11/30/20
+  AUC <- UtilAnalyticalAucsRSM(mu, lambdaP, nuP, zeta1 <- -Inf, lesDistr[,2])$aucROC # 11/30/20
   ## following checks out
   ##temp <- tempAucRSM (c(ret@coef[1], ret@coef[2], ret@coef[3]), lesDistr)  
   
