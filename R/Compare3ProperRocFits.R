@@ -41,8 +41,8 @@
 #'    
 #' A specific member, e.g., \code{allDatasetsResults[[1]][[1]]}, has the following structure:   
 #' \itemize{
-#' \item{\code{retRsm}}{ The RSM parameters following the output structure of \code{\link{FitRsmRoc}}}
-#' \item{\code{retCbm}}{ The CBM parameters following the output structure of \code{\link{FitCbmRoc}}}
+#' \item{\code{ret_R}}{ The RSM parameters following the output structure of \code{\link{FitRsmRoc}}}
+#' \item{\code{ret_C}}{ The CBM parameters following the output structure of \code{\link{FitCbmRoc}}}
 #' \item{\code{lesDistr}}{ The lesion distribution matrix}
 #' \item{\code{c1}}{ The \code{c}-parameter of PROPROC}
 #' \item{\code{da}}{ The \code{d_sub_a} parameter of PROPROC}
@@ -172,12 +172,12 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
         for (j in 1:J){
           #if (!(f == 2 && i == 2 && j == 2)) next ## investigating warnings
           AllResIndx <- AllResIndx + 1
-          retCbm <- FitCbmRoc(binnedRocData, trt = i, rdr = j)
-          retRsm <- FitRsmRoc(binnedRocData, trt = i, rdr = j, lesDistr = lesDistr[,2]) # fit to RSM, need lesDistr matrix
-          retCbm1 <- retCbm[-10] # deleting plots as they generate Notes in R CMD CHK -> file size too large
-          retRsm1 <- retRsm[-11] #   do:
+          ret_C <- FitCbmRoc(binnedRocData, trt = i, rdr = j)
+          ret_R <- FitRsmRoc(binnedRocData, trt = i, rdr = j, lesDistr = lesDistr[,2]) # fit to RSM, need lesDistr matrix
+          retCbm1 <- ret_C[-10] # deleting plots as they generate Notes in R CMD CHK -> file size too large
+          retRsm1 <- ret_R[-11] #   do:
           aucProproc <- UtilAucPROPROC(c1[i,j], da[i,j])
-          allResults[[AllResIndx]] <- list(retRsm = retRsm1, retCbm = retCbm1, lesDistr = lesDistr, 
+          allResults[[AllResIndx]] <- list(ret_R = retRsm1, ret_C = retCbm1, lesDistr = lesDistr, 
                                            c1 = c1[i, j], da = da[i, j], aucProp = aucProproc, 
                                            I = I, J = J, K1 = K1, K2 = K2)
           x <- allResults[[AllResIndx]]
@@ -259,17 +259,18 @@ Compare3ProperRocFits <- function(startIndx = 1, endIndx = 14,
 gpfPlotRsmPropCbm <- function(fileName, mu, lambdaP, nuP, lesDistr, c1, da, 
                               muCbm, alpha, fpf, tpf, i, j, K1, K2, ciIndx) {
   
-  retProproc <- gpfPropRocOperatingCharacteristic(c1,da)
-  FPFProp <- c(1, retProproc$FPF);TPFProp <- c(1, retProproc$TPF) # make sure it goes to upper-right corner
-  plotProp <- data.frame(FPF = FPFProp, TPF = TPFProp, Model = "PROP")
-  retRsm <- gpfRsmOperatingCharacteristic (mu, lambdaP, nuP, lesDistr = lesDistr[,2]) # dpc 1/1/2021
-  FPFRsm <- retRsm$FPF;TPFRsm <- retRsm$TPF
-  plotRsm <- data.frame(FPF = FPFRsm, TPF = TPFRsm, Model = "RSM")
-  dashedRsm <- data.frame(FPF = c(FPFRsm[1], 1), TPF = c(TPFRsm[1], 1), Model = "RSM")
+  ret_P <- gpfPropRocOperatingCharacteristic(c1,da)
+  FPF_P <- c(1, ret_P$FPF);TPF_P <- c(1, ret_P$TPF) # make sure it goes to upper-right corner
+  plotProp <- data.frame(FPF = FPF_P, TPF = TPF_P, Model = "PROP")
   
-  retCbm <- gpfCbmOperatingCharacteristic (muCbm, alpha)
-  FPFCbm <- retCbm$FPF;TPFCbm <- retCbm$TPF
-  plotCbm <- data.frame(FPF = FPFCbm, TPF = TPFCbm, Model = "CBM")
+  ret_R <- gpfRsmOperatingCharacteristic (mu, lambdaP, nuP, lesDistr = lesDistr[,2]) # dpc 1/1/2021
+  FPF_R <- ret_R$FPF;TPF_R <- ret_R$TPF
+  plotRsm <- data.frame(FPF = FPF_R, TPF = TPF_R, Model = "RSM")
+  dashedRsm <- data.frame(FPF = c(FPF_R[1], 1), TPF = c(TPF_R[1], 1), Model = "RSM")
+  
+  ret_C <- gpfCbmOperatingCharacteristic (muCbm, alpha)
+  FPF_C <- ret_C$FPF;TPF_C <- ret_C$TPF
+  plotCbm <- data.frame(FPF = FPF_C, TPF = TPF_C, Model = "CBM")
   
   plotCurve <- rbind(plotProp, plotCbm, plotRsm)
   plotCurve <- as.data.frame(plotCurve)
@@ -324,16 +325,16 @@ gpfPropRocOperatingCharacteristic <- function(c1, da){
   }else{
     plotZeta <- seq(-4, 10, by = 0.01)
   }
-  FPFProp <- pnorm(-(1 - c1) * plotZeta - da/2 * sqrt(1 + c1^2)) + 
+  FPF_P <- pnorm(-(1 - c1) * plotZeta - da/2 * sqrt(1 + c1^2)) + 
     pnorm(-(1 - c1) * plotZeta + da/(2*c1) * sqrt(1 + c1^2)) - ifelse(c1 >= 0, 1, 0)
-  TPFProp <- pnorm(-(1 + c1) * plotZeta + da/2 * sqrt(1 + c1^2)) + 
+  TPF_P <- pnorm(-(1 + c1) * plotZeta + da/2 * sqrt(1 + c1^2)) + 
     pnorm(-(1 + c1) * plotZeta + da/(2*c1) * sqrt(1 + c1^2)) - ifelse(c1 >= 0, 1, 0)
   if ((c1 == 1) && (da == 0)) {
-    FPFProp <- c(FPFProp, seq(0,1,length.out = length(FPFProp)))
-    TPFProp <- c(TPFProp, rep(1,length(TPFProp)))
+    FPF_P <- c(FPF_P, seq(0,1,length.out = length(FPF_P)))
+    TPF_P <- c(TPF_P, rep(1,length(TPF_P)))
   }
-  return(list(FPF = FPFProp,
-              TPF = TPFProp
+  return(list(FPF = FPF_P,
+              TPF = TPF_P
   ))
 }
 
@@ -341,25 +342,26 @@ gpfCbmOperatingCharacteristic <- function(mu, alpha){
   
   plotZeta <- seq(-4, mu+4, by = 0.1)
   
-  FPFCbm <- 1 - pnorm(plotZeta)
-  TPFCbm <- (1 - alpha) * (1 - pnorm(plotZeta)) + alpha * (1 - pnorm(plotZeta, mean = mu))
+  FPF_C <- 1 - pnorm(plotZeta)
+  TPF_C <- (1 - alpha) * (1 - pnorm(plotZeta)) + alpha * (1 - pnorm(plotZeta, mean = mu))
   
-  return(list(FPF = FPFCbm,
-              TPF = TPFCbm
+  return(list(FPF = FPF_C,
+              TPF = TPF_C
   ))
 }
 
 
 
 gpfRsmOperatingCharacteristic <- function(mu, lambdaP, nuP, lesDistr){
+  
   plotZeta <- seq(-4, mu+4, by = 0.01)
   
-  FPFRsm <- sapply(plotZeta, xROC, lambdaP = lambdaP)
-  TPFRsm <- sapply(plotZeta, yROC, mu = mu, lambdaP = lambdaP, 
+  FPF_R <- sapply(plotZeta, RSM_xROC, lambdaP = lambdaP)
+  TPF_R <- sapply(plotZeta, RSM_yROC, mu = mu, lambdaP = lambdaP, 
                    nuP = nuP, lesDistr = lesDistr)
   
-  return(list(FPF = FPFRsm,
-              TPF = TPFRsm
+  return(list(FPF = FPF_R,
+              TPF = TPF_R
   ))
 }
 
