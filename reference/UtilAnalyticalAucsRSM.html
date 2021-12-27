@@ -88,7 +88,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">UtilAnalyticalAucsRSM</span><span class="op">(</span><span class="va">mu</span>, <span class="va">lambda</span>, <span class="va">nu</span>, zeta1 <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, <span class="va">lesDistr</span>, relWeights <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">UtilAnalyticalAucsRSM</span><span class="op">(</span><span class="va">mu</span>, <span class="va">lambdaP</span>, <span class="va">nuP</span>, zeta1 <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, <span class="va">lesDistr</span>, relWeights <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -98,13 +98,13 @@
 ratings of latent LLs (continuous ratings of lesions that 
 are found by the search mechanism). The NLs are assumed to be distributed
 as N(0,1).</p></dd>
-<dt>lambda</dt>
-<dd><p>The <em>intrinsic</em> Poisson distribution parameter, 
+<dt>lambdaP</dt>
+<dd><p>The <em>physical</em> lambda prime parameter, 
 which describes 
 the random number of latent NLs (suspicious regions that do not 
 correspond to actual lesions) per case.</p></dd>
-<dt>nu</dt>
-<dd><p>The <em>intrinsic</em> <code>nu</code> parameters, 
+<dt>nuP</dt>
+<dd><p>The <em>physical</em> <code>nuP</code> parameters, 
 the success probability of the binomial distribution describing 
 the random numbers of latent LLs (suspicious regions that correspond 
 to actual lesions) per diseased case.</p></dd>
@@ -134,31 +134,31 @@ paradigm, Phys Med Biol 51, 3449-3462.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fl">1</span>;<span class="va">lambda</span> <span class="op">&lt;-</span> <span class="fl">1</span>;<span class="va">nu</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fl">1</span>;<span class="va">lambdaP</span> <span class="op">&lt;-</span> <span class="fl">1</span>;<span class="va">nuP</span> <span class="op">&lt;-</span> <span class="fl">0.9</span></span>
 <span class="r-in"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span><span class="op">)</span> </span>
 <span class="r-in"><span class="co">## i.e., 90% of dis. cases have one lesion, and 10% have two lesions</span></span>
 <span class="r-in"><span class="va">relWeights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.95</span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## i.e., lesion 1 has weight 5 percent while lesion two has weight 95 percent</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu">UtilAnalyticalAucsRSM</span><span class="op">(</span><span class="va">mu</span>, <span class="va">lambda</span>, <span class="va">nu</span>, zeta1 <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, <span class="va">lesDistr</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">UtilAnalyticalAucsRSM</span><span class="op">(</span><span class="va">mu</span>, <span class="va">lambdaP</span>, <span class="va">nuP</span>, zeta1 <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, <span class="va">lesDistr</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aucROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.72558987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.81472087</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aucAFROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.57788898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.74483642</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aucwAFROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.57788898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.74483642</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">UtilAnalyticalAucsRSM</span><span class="op">(</span><span class="va">mu</span>, <span class="va">lambda</span>, <span class="va">nu</span>, zeta1 <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, <span class="va">lesDistr</span>, <span class="va">relWeights</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">UtilAnalyticalAucsRSM</span><span class="op">(</span><span class="va">mu</span>, <span class="va">lambdaP</span>, <span class="va">nuP</span>, zeta1 <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, <span class="va">lesDistr</span>, <span class="va">relWeights</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aucROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.72558987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.81472087</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aucAFROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.57788898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.74483642</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aucwAFROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.58725776</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.78522098</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"></span>
