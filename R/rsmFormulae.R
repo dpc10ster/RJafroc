@@ -164,6 +164,26 @@ y_AFROC_FPF <- function(FPF, mu, lambdaP, nuP){
 
 
 
+# dpc 01/05/22 these comments were added while converting code to formula for chapter 21-optim-op-point
+# needed formula for wAFROC ordinate, I know this is crazy, Einstein would never have done it this way :(
+# finished see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
+# checked from Console that following two give same results with following code
+# UtilAnalyticalAucsRSM(mu = 2, lambdaP = 1, nuP = 0.9, zeta1 = -3, 
+# lesDistr = c(0.1, 0.4, 0.4, 0.1), relWeights =  c(0.2, 0.3, 0.1, 0.5))
+# $aucROC
+# [1] 0.9698827
+# $aucAFROC
+# [1] 0.8566404
+# $aucwAFROC
+# [1] 0.8448053
+# following is R implementation
+# see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
+# see test_RSM-formulae.R
+# contextStr <- "testing weights code with max 4 lesions per case: Cpp vs R"
+# contextStr <- "testing weights code with max 4 lesions per case, random values: Cpp vs R"
+# contextStr <- "testing weights code with max 10 lesions per case, random values: Cpp vs R"
+
+
 # ywAFROC_R is ordinate as a function of zeta + RSM parameters
 # returns wLLF, the ordinate of wAFROC curve
 # this has working C++ version with name ywAFROC
@@ -193,6 +213,7 @@ ywAFROC_R <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
       # wLLFTmp <- wLLFTmp + sum(lesWghtDistr[nLesion, 2:(nSuccess+1)]) * dbinom(nSuccess, nLesPerCase, nuP) 
       # the next line should work for general case
       wLLFTmp <- wLLFTmp + lesWghtDistr[nLesion, nSuccess+1] * nSuccess * dbinom(nSuccess, nLesPerCase, nuP)
+      # see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
     }
     wLLF <- wLLF +  fl[nLesion] * wLLFTmp
   }
@@ -212,6 +233,7 @@ y_wAFROC_FPF <- function(FPF, mu, lambdaP, nuP, lesDistr, lesWghtDistr){
   tmp <- 1 / lambdaP * log(1 - FPF) + 1
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
+  #wLLF <- sapply(zeta, ywAFROC_R, mu = mu, nuP = nuP, lesDistr, lesWghtDistr)
   wLLF <- sapply(zeta, ywAFROC, mu = mu, nuP = nuP, lesDistr, lesWghtDistr)
   return(wLLF)
 }

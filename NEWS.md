@@ -1,21 +1,30 @@
 # RJafroc 2.0.1.9000
 
 
+## Clarified weights matrix 1/7/22
+* See `test-RSM-formulae.R`
+* Search in code for `rsm-pred-wafroc-curve`: `rsmFormulae.R` and `UtilAnalyticalAucsRSM.R`
+* See `RJafrocFrocBook`, search for `rsm-pred-wafroc-curve`
+* Push to `developer` and `master`
+
+
 ## TBDIF 12-26-21
 * TBDIF: To be done in future
 * Created much confusion in `RJafrocFrocBook`, chapter on `3-fits`
 * `RsmFormulae.R`: This file is a mess. 
-* Remove AUCs in `PlotRsmOperatingCharacteristics`?
+* Remove AUCs in `PlotRsmOperatingCharacteristics`? - these are done in UtilAnalyticalAucsRsm
 * Add to tests? 
-* Replace error function with Phi functions? 
-
+* Replace error function with Phi functions?
+* Remove redundant column in weights matrix
+* change `lambdaP` to lambda and lambda to `lambdaI` and corresponding changes in book
 
 
 ## Changed `RSM_yROC` to accept physical parameters 12-26-21
-* So as to be consistent with `RSM_yROC`
+* So as to be consistent with `RSM_xROC`
 * Created much confusion in `RJafrocFrocBook`, chapter on `3-fits`
 * Added checks for valid RSM parameters in `RsmFormulae.R` .
 * Changed all such functions in `RsmFormulae.R` to accept physical parameters.  
+
 
 ## Fixed `PlotRsmOperatingCharacteristics` not working for `zeta1 = -Inf`
 * Global search string "bug fix 12/7/21" to locate all changes.

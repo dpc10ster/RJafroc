@@ -1,3 +1,122 @@
+contextStr <- "testing weights code with max 4 lesions per case: Cpp vs R"
+context(contextStr)
+test_that(contextStr, {
+  mu <- 2
+  nuP <- 0.9
+  lambdaP <- 1
+  zeta1 <- -3
+  maxLL <- 4
+  lesDistr <-  c(0.1, 0.4, 0.4, 0.1) 
+  relWeights <- c(0.2, 0.3, 0.1, 0.5)
+  
+  # see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
+  fn <- paste0(test_path(), "/goodValues361/RSMformulae/weights-4-lesions", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- UtilAnalyticalAucsRSM(mu = mu, 
+                                 lambdaP = lambdaP, 
+                                 nuP = nuP, 
+                                 zeta1 = zeta1, 
+                                 lesDistr = lesDistr, 
+                                 relWeights =  relWeights) # this uses Cpp code
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  
+  ret1 <- UtilAnalyticalAucsRSM(mu = mu, 
+                               lambdaP = lambdaP, 
+                               nuP = nuP, 
+                               zeta1 = zeta1, 
+                               lesDistr = lesDistr, 
+                               relWeights =  relWeights,
+                               tempTest = T) # this uses T code
+  expect_equal(ret1, ret)
+  
+})
+
+
+
+contextStr <- "testing weights code with max 4 lesions per case, random values: Cpp vs R"
+context(contextStr)
+test_that(contextStr, {
+  mu <- 2
+  nuP <- 0.9
+  lambdaP <- 1
+  zeta1 <- -3
+  maxLL <- 4
+  set.seed(100)
+  lesDistr <-  runif(maxLL); lesDistr <- lesDistr/sum(lesDistr) 
+  relWeights <- runif(maxLL); relWeights <- relWeights/sum(relWeights) 
+  
+  # see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
+  fn <- paste0(test_path(), "/goodValues361/RSMformulae/weights-4-lesions-random", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- UtilAnalyticalAucsRSM(mu = mu, 
+                                 lambdaP = lambdaP, 
+                                 nuP = nuP, 
+                                 zeta1 = zeta1, 
+                                 lesDistr = lesDistr, 
+                                 relWeights =  relWeights) # this uses Cpp code
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  
+  ret1 <- UtilAnalyticalAucsRSM(mu = mu, 
+                                lambdaP = lambdaP, 
+                                nuP = nuP, 
+                                zeta1 = zeta1, 
+                                lesDistr = lesDistr, 
+                                relWeights =  relWeights,
+                                tempTest = T) # this uses T code
+  expect_equal(ret1, ret)
+  
+})
+
+
+
+contextStr <- "testing weights code with max 10 lesions per case, random values: Cpp vs R"
+context(contextStr)
+test_that(contextStr, {
+  mu <- 2
+  nuP <- 0.9
+  lambdaP <- 1
+  zeta1 <- -3
+  set.seed(101)
+  maxLL <- 10
+  lesDistr <-  runif(maxLL); lesDistr <- lesDistr/sum(lesDistr) 
+  relWeights <- runif(maxLL); relWeights <- relWeights/sum(relWeights) 
+  
+  # see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
+  fn <- paste0(test_path(), "/goodValues361/RSMformulae/weights-10-lesions-random", ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- UtilAnalyticalAucsRSM(mu = mu, 
+                                 lambdaP = lambdaP, 
+                                 nuP = nuP, 
+                                 zeta1 = zeta1, 
+                                 lesDistr = lesDistr, 
+                                 relWeights =  relWeights) # this uses Cpp code
+    saveRDS(ret, file = fn)
+  }
+  
+  ret <- readRDS(fn)
+  
+  ret1 <- UtilAnalyticalAucsRSM(mu = mu, 
+                                lambdaP = lambdaP, 
+                                nuP = nuP, 
+                                zeta1 = zeta1, 
+                                lesDistr = lesDistr, 
+                                relWeights =  relWeights,
+                                tempTest = T) # this uses T code
+  expect_equal(ret1, ret)
+  
+})
+
+
+
 contextStr <- "RSMformulae1 - implementations of RSM using Maple generated code"
 context(contextStr)
 test_that(contextStr, {
