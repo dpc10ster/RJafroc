@@ -81,21 +81,34 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.0.1.9000" id="rjafroc-2019000">RJafroc 2.0.1.9000<a class="anchor" aria-label="anchor" href="#rjafroc-2019000"></a></h2>
 <div class="section level3">
+<h3 id="clarified-weights-matrix-2-0-1-9000">Clarified weights matrix 1/7/22<a class="anchor" aria-label="anchor" href="#clarified-weights-matrix-2-0-1-9000"></a></h3>
+<ul><li>See <code>test-RSM-formulae.R</code>
+</li>
+<li>Search in code for <code>rsm-pred-wafroc-curve</code>: <code>rsmFormulae.R</code> and <code>UtilAnalyticalAucsRSM.R</code>
+</li>
+<li>See <code>RJafrocFrocBook</code>, search for <code>rsm-pred-wafroc-curve</code>
+</li>
+<li>Push to <code>developer</code> and <code>master</code>
+</li>
+</ul></div>
+<div class="section level3">
 <h3 id="tbdif-2-0-1-9000">TBDIF 12-26-21<a class="anchor" aria-label="anchor" href="#tbdif-2-0-1-9000"></a></h3>
 <ul><li>TBDIF: To be done in future</li>
-<li>Created much confusion in RJafrocFrocBook, chapter on <code>3-fits</code>
+<li>Created much confusion in <code>RJafrocFrocBook</code>, chapter on <code>3-fits</code>
 </li>
 <li>
 <code>RsmFormulae.R</code>: This file is a mess.</li>
-<li>Remove AUCs in <code>PlotRsmOperatingCharacteristics</code>?</li>
+<li>Remove AUCs in <code>PlotRsmOperatingCharacteristics</code>? - these are done in UtilAnalyticalAucsRsm</li>
 <li>Add to tests?</li>
 <li>Replace error function with Phi functions?</li>
+<li>Remove redundant column in weights matrix</li>
+<li>change <code>lambdaP</code> to lambda and lambda to <code>lambdaI</code> and corresponding changes in book</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changed-rsm_yroc-to-accept-physical-parameters-2-0-1-9000">Changed <code>RSM_yROC</code> to accept physical parameters 12-26-21<a class="anchor" aria-label="anchor" href="#changed-rsm_yroc-to-accept-physical-parameters-2-0-1-9000"></a></h3>
-<ul><li>So as to be consistent with <code>RSM_yROC</code>
+<ul><li>So as to be consistent with <code>RSM_xROC</code>
 </li>
-<li>Created much confusion in RJafrocFrocBook, chapter on <code>3-fits</code>
+<li>Created much confusion in <code>RJafrocFrocBook</code>, chapter on <code>3-fits</code>
 </li>
 <li>Added checks for valid RSM parameters in <code>RsmFormulae.R</code> .</li>
 <li>Changed all such functions in <code>RsmFormulae.R</code> to accept physical parameters.</li>

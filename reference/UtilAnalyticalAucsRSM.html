@@ -88,7 +88,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">UtilAnalyticalAucsRSM</span><span class="op">(</span><span class="va">mu</span>, <span class="va">lambdaP</span>, <span class="va">nuP</span>, zeta1 <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, <span class="va">lesDistr</span>, relWeights <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">UtilAnalyticalAucsRSM</span><span class="op">(</span>
+  <span class="va">mu</span>,
+  <span class="va">lambdaP</span>,
+  <span class="va">nuP</span>,
+  zeta1 <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>,
+  <span class="va">lesDistr</span>,
+  relWeights <span class="op">=</span> <span class="fl">0</span>,
+  tempTest <span class="op">=</span> <span class="fl">0</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -116,6 +124,8 @@ mass function (pmf) of the numbers of lesions for diseased cases.</p></dd>
 <dt>relWeights</dt>
 <dd><p>The relative weights of the lesions; a vector of 
 length <code>maxLL</code>; if zero, the default, equal weights are assumed.</p></dd>
+<dt>tempTest</dt>
+<dd><p>Testing the cpp code, default 0, reserved for developer.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
