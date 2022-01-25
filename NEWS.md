@@ -1,6 +1,10 @@
 # RJafroc 2.0.1.9000
 
 
+## argument of St functions 1/24/22
+* `analysisOption` must be `DBM` or `OR`
+* Not "ORH"
+
 ## Clarified weights matrix 1/7/22
 * See `test-RSM-formulae.R`
 * Search in code for `rsm-pred-wafroc-curve`: `rsmFormulae.R` and `UtilAnalyticalAucsRSM.R`
@@ -417,7 +421,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 
 ## Fixing significance testing with independent calculations in `RJafrocBook`
-* Need to modify `RJafroc` to eliminate code duplication and improve style in all signficance testing functions - move this to issues
+* Need to modify `RJafroc` to eliminate code duplication and improve style in all significance testing functions - move this to issues
 * I am only getting to understand it now (as I work on `RJafrocBook`)
 * One reader case can now be handled by `StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")`
 * May not need `StSignificanceTestingSingleFixedFactor` which currently only handles `DBMH` method - add to issues
