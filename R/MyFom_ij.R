@@ -27,6 +27,7 @@ MyFom_ij <- function(nl, ll,
                 "wAFROC1" = wAFROC1(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight), 
                 #"wAFROC1" = wAFROC1_dpc (nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight),
                 "wAFROC" = wAFROC(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight),
+                #"wAFROC" = wAFROC_dpc(nl, ll, perCase, c(K1, K2), maxNL, maxLL, lesionWeight),
                 "FROC" = FROC(nl, ll, lesionID, perCase, K1, K2),
                 "ALROC" = LrocFoms(nl, ll, FPFValue)$ALroc,
                 "PCL" = LrocFoms(nl, ll, FPFValue)$PCL,
@@ -120,18 +121,19 @@ comp_phidpc <- function(a,b)
 }
 
 
-wJAFROC_dpc <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights)
+wAFROC_dpc <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights)
 {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   ret <-  0.0
-  
-  for (na in 1:max_cases[2]) {
-    for (nn in 1:max_cases[1]) {
+  cat("R...")
+  for (nn in 1:max_cases[1]) {
+    fp  <- UNINITIALIZED
+    for (nor_index in 1:max_nl)
+      if (nl[nn, nor_index] > fp ) fp = nl[nn, nor_index] ## this captures the highest value on normal case nn
+    for (na in 1:max_cases[2]) {
       for (nles in  1:n_lesions_per_image[na]) {
-        fp  <- UNINITIALIZED
-        for (nor_index in 1:max_nl)
-          if (nl[nn, nor_index] > fp ) fp = nl[nn, nor_index] ## this captures the highest value on normal case nn
-          ret  <-  ret + weights[na, nles] *  comp_phidpc( fp, ll[na, nles] ) ;
+        ret  <-  ret + weights[na, nles] *  comp_phidpc( fp, ll[na, nles] )
+        next
       }
     }
   }
@@ -144,7 +146,7 @@ wJAFROC_dpc <- function(nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, 
 wAFROC1_dpc <- function (nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll, weights)
 {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  
+  cat("R...")
   ret  <- 0.0
   for (na in 1:max_cases[2]) {
     for (nn in 1:(max_cases[1]+max_cases[2])) {

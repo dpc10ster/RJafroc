@@ -30,7 +30,9 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.}
 treatment effects are zero; the default is 0.05}
 
 \item{method}{The significance testing method to be used:
-\code{"DBM"} (the default) or \code{"OR"}, representing the Dorfman-Berbaum-Metz
+\code{"DBM"} (the default), representing the 
+Dorfman-Berbaum-Metz method or \code{"OR"}, representing the 
+Obuchowski-Rockette method.
 and the Obuchowski-Rockette significance testing methods, respectively.}
 
 \item{covEstMethod}{The covariance matrix estimation method
