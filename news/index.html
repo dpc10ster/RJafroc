@@ -81,6 +81,13 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.0.1.9000" id="rjafroc-2019000">RJafroc 2.0.1.9000<a class="anchor" aria-label="anchor" href="#rjafroc-2019000"></a></h2>
 <div class="section level3">
+<h3 id="argument-of-st-functions-2-0-1-9000">argument of St functions 1/24/22<a class="anchor" aria-label="anchor" href="#argument-of-st-functions-2-0-1-9000"></a></h3>
+<ul><li>
+<code>analysisOption</code> must be <code>DBM</code> or <code>OR</code>
+</li>
+<li>Not “ORH”</li>
+</ul></div>
+<div class="section level3">
 <h3 id="clarified-weights-matrix-2-0-1-9000">Clarified weights matrix 1/7/22<a class="anchor" aria-label="anchor" href="#clarified-weights-matrix-2-0-1-9000"></a></h3>
 <ul><li>See <code>test-RSM-formulae.R</code>
 </li>
@@ -544,7 +551,7 @@
 <div class="section level3">
 <h3 id="fixing-significance-testing-with-independent-calculations-in-rjafrocbook-2-0-1-9000">Fixing significance testing with independent calculations in <code>RJafrocBook</code>
 <a class="anchor" aria-label="anchor" href="#fixing-significance-testing-with-independent-calculations-in-rjafrocbook-2-0-1-9000"></a></h3>
-<ul><li>Need to modify <code>RJafroc</code> to eliminate code duplication and improve style in all signficance testing functions - move this to issues</li>
+<ul><li>Need to modify <code>RJafroc</code> to eliminate code duplication and improve style in all significance testing functions - move this to issues</li>
 <li>I am only getting to understand it now (as I work on <code>RJafrocBook</code>)</li>
 <li>One reader case can now be handled by <code>StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")</code>
 </li>
