@@ -39,4 +39,22 @@ Compute the chisquare goodness of fit statistic for specified ROC data fitting m
 For model = "BINORMAL" the parameters are c(a,b,zetas).
 For model = "CBM" the parameters are c(mu,alpha,zetas).
 For model = "RSM" the parameters are c(mu,lambdaP,nuP,zetas).
+Due to the sparsity of the data, in most cases the goodness of fit statistic 
+cannot be calculated as the criterion of at least 5 counts in each
+cell (TP and FP) is usually not met. An exception dataset is shown below.
+}
+\examples{
+## Test with TONY data for which chisqr can be calculated
+ds <- DfFroc2Roc(dataset01)
+fit <- FitBinormalRoc(ds, 2, 3) # trt 2 and rdr 3
+## fitted a,b and zeta parameters from preceding line were used to call the
+## function as shown below:
+fpCounts = c(119,  30,   9,  19,   7,   1)
+tpCounts = c(10, 11,  7, 16, 29, 16)
+gfit = ChisqrGoodnessOfFit(fpCounts, tpCounts, 
+parameters = c(fit$a, fit$b, fit$zetas), model="BINORMAL") 
+gfit
+
+
+
 }

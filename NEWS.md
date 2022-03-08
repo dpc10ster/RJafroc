@@ -1,6 +1,8 @@
 # RJafroc 2.0.1.9000
 
 
+## added example to ChisqrGoodnessOfFit code 3/8/22
+
 ## argument of St functions 1/24/22
 * `analysisOption` must be `DBM` or `OR`
 * Not "ORH"
