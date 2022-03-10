@@ -1,5 +1,9 @@
 # RJafroc 2.0.1.9000
 
+## fixed wAFROC1_dpc 3/11/22
+* needed to divide final value by (K * K2)
+* cpp code unaffected; this only affected R version used to debug
+* checked R code vs cpp; see `JT_R_Py_Foms.xlsx` in `PyJafrocscraps` directory
 
 ## added example to ChisqrGoodnessOfFit code 3/8/22
 

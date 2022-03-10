@@ -153,12 +153,12 @@ wAFROC1_dpc <- function (nl, ll, n_lesions_per_image, max_cases, max_nl, max_ll,
       for (nles in 1:n_lesions_per_image[na]) {
         fp <- UNINITIALIZED
         for (nor_index in 1:max_nl) if (nl[nn,nor_index] > fp ) fp  <- nl[nn, nor_index]
-        cat(na, nn, nles, "\n")
+        #cat(na, nn, nles, "\n")
         ret  <- ret + weights[na, nles] *  comp_phidpc( fp, ll[na,nles])
       }
     }
   }
-  ret <- ret / (max_cases[1] + max_cases[2])
+  ret <- ret / (max_cases[1] + max_cases[2]) / max_cases[2] # fixed 3/10/22
   
   return (ret)
 }
