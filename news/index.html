@@ -81,6 +81,18 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.0.1.9000" id="rjafroc-2019000">RJafroc 2.0.1.9000<a class="anchor" aria-label="anchor" href="#rjafroc-2019000"></a></h2>
 <div class="section level3">
+<h3 id="created-dfwriteexceldatafile-2-0-1-9000">created <code>DfWriteExcelDataFile</code> 3/15/22<a class="anchor" aria-label="anchor" href="#created-dfwriteexceldatafile-2-0-1-9000"></a></h3>
+<ul><li>needed to write Nico simulated FROC data to JAFROC format excel file</li>
+<li>removed JAFROC format writes capability from <code>DfSaveDataFile</code>; it is now in <code>DfWriteExcelDataFile</code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="fixed-wafroc1_dpc-2-0-1-9000">fixed wAFROC1_dpc 3/11/22<a class="anchor" aria-label="anchor" href="#fixed-wafroc1_dpc-2-0-1-9000"></a></h3>
+<ul><li>needed to divide final value by (K * K2)</li>
+<li>cpp code unaffected; this only affected R version used to debug</li>
+<li>checked R code vs cpp; see <code>JT_R_Py_Foms.xlsx</code> in <code>PyJafrocscraps</code> directory</li>
+</ul></div>
+<div class="section level3">
 <h3 id="added-example-to-chisqrgoodnessoffit-code-2-0-1-9000">added example to ChisqrGoodnessOfFit code 3/8/22<a class="anchor" aria-label="anchor" href="#added-example-to-chisqrgoodnessoffit-code-2-0-1-9000"></a></h3>
 </div>
 <div class="section level3">
