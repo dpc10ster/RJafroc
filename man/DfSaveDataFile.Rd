@@ -2,24 +2,23 @@
 % Please edit documentation in R/DfSaveDataFile.R
 \name{DfSaveDataFile}
 \alias{DfSaveDataFile}
-\title{Save ROC data file in a different format}
+\title{Save ROC dataset in different formats}
 \usage{
 DfSaveDataFile(
   dataset,
   fileName,
-  format = "JAFROC",
+  format = "MRMC",
   dataDescription = "RJafroc dataset converted to imrmc format"
 )
 }
 \arguments{
-\item{dataset}{{The dataset to be saved in the specified format, 
-see \code{\link{RJafroc-package}}}.}
+\item{dataset}{{The dataset to be saved.}}
 
 \item{fileName}{{The file name of the output data file. The extension 
 of the data file must match the corresponding format, see \code{\link{RJafroc-package}}}}
 
-\item{format}{{The format of the data file, which can be \code{"JAFROC"}, 
-\code{"MRMC"} or \code{"iMRMC"}, see \code{\link{RJafroc-package}}}.}
+\item{format}{{The format of the data file, which can be \code{"MRMC"} or \code{"iMRMC"}, 
+see \code{\link{RJafroc-package}}}.}
 
 \item{dataDescription}{{An optional string variable describing the data file, the 
 default value is the variable name of \code{dataset} The description appears on 
@@ -27,13 +26,11 @@ the first line of *.lrc or *imrmc data file. This parameter is not used
 when saving dataset in other formats}.}
 }
 \description{
-Save ROC data file in non-RJafroc formats so it can be analyzed 
+Save ROC dataset in other formats so it can be analyzed 
    with alternate software
 }
 \examples{
 \donttest{
-## DfSaveDataFile(dataset = dataset05, 
-##    fileName = "rocData2.xlsx", format = "JAFROC")
 ## DfSaveDataFile(dataset = dataset02, 
 ##    fileName = "rocData2.csv", format = "MRMC")
 ## DfSaveDataFile(dataset = dataset02, 

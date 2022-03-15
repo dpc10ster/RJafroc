@@ -159,7 +159,9 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
   modalityID <- as.character(sort(unique(c(NLModalityID, LLModalityID))))
   I <- length(modalityID)
   
-  readerID <- as.character(sort(unique(c(NLReaderID, LLReaderID))))
+  #readerID <- as.character(sort(unique(c(NLReaderID, LLReaderID))))
+  # to preserve ordering "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"
+  readerID <- as.character(sort(unique(as.integer(c(NLReaderID, LLReaderID)))))
   J <- length(readerID)
   
   maxNL <- 0

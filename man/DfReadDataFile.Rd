@@ -56,7 +56,14 @@ Read a disk file and create a ROC, FROC or LROC dataset object
    from it.
 }
 \note{
-The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc}) are possible, all of which are restricted to ROC data. Only the \code{iMRMC} format is actively supported, i.e, files with extension \code{.imrmc}. Other formats (\code{.csv}, \code{.txt}, \code{.lrc}) are deprecated. Such files can still be read by this function and then saved to a JAFROC format file for further analysis within this package. \bold{For non-JAFROC data file formats, the \code{readerID} and \code{modalityID} fields  must be unique integers}.
+The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file 
+   extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc}) are possible, 
+   all of which are restricted to ROC data. Only the \code{iMRMC} format is actively 
+   supported, i.e, files with extension \code{.imrmc}. Other formats (\code{.csv}, 
+   \code{.txt}, \code{.lrc}) are deprecated. Such files can still be read by this 
+   function and then saved to a JAFROC format file for further analysis within this 
+   package. \bold{For non-JAFROC data file formats, the \code{readerID} and 
+   \code{modalityID} fields  must be unique integers}.
 }
 \examples{
 fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 

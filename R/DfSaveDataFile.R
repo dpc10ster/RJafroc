@@ -1,14 +1,13 @@
-#' Save ROC data file in a different format
+#' Save ROC dataset in different formats
 #' 
-#' @description Save ROC data file in non-RJafroc formats so it can be analyzed 
+#' @description Save ROC dataset in other formats so it can be analyzed 
 #'    with alternate software
 #' 
-#' @param dataset {The dataset to be saved in the specified format, 
-#'    see \code{\link{RJafroc-package}}}.
+#' @param dataset {The dataset to be saved.}
 #' @param fileName {The file name of the output data file. The extension 
 #'    of the data file must match the corresponding format, see \code{\link{RJafroc-package}}}
-#' @param format {The format of the data file, which can be \code{"JAFROC"}, 
-#'    \code{"MRMC"} or \code{"iMRMC"}, see \code{\link{RJafroc-package}}}.
+#' @param format {The format of the data file, which can be \code{"MRMC"} or \code{"iMRMC"}, 
+#'    see \code{\link{RJafroc-package}}}.
 #' @param dataDescription {An optional string variable describing the data file, the 
 #'    default value is the variable name of \code{dataset} The description appears on 
 #'    the first line of *.lrc or *imrmc data file. This parameter is not used 
@@ -16,8 +15,6 @@
 #' 
 #' @examples
 #' \donttest{
-#' ## DfSaveDataFile(dataset = dataset05, 
-#' ##    fileName = "rocData2.xlsx", format = "JAFROC")
 #' ## DfSaveDataFile(dataset = dataset02, 
 #' ##    fileName = "rocData2.csv", format = "MRMC")
 #' ## DfSaveDataFile(dataset = dataset02, 
@@ -36,10 +33,9 @@
 #' 
 #' @export
 #' 
-DfSaveDataFile <- function(dataset, fileName, format = "JAFROC", dataDescription = "RJafroc dataset converted to imrmc format") {
-  if (format == "JAFROC") {
-    return(SaveJAFROC(dataset, fileName))
-  } else if (format == "iMRMC") {
+DfSaveDataFile <- function(dataset, fileName, format = "MRMC", 
+                           dataDescription = "RJafroc dataset converted to imrmc format") {
+  if (format == "iMRMC") {
     return(SaveImrmc(dataset, fileName, dataDescription))
   } else if (format == "MRMC") {
     if (file_ext(fileName) == "lrc") {
@@ -55,97 +51,97 @@ DfSaveDataFile <- function(dataset, fileName, format = "JAFROC", dataDescription
 
 
 
-SaveJAFROC <- function(dataset, fileName) {
-  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  fileExt <- file_ext(fileName)
-  if (!fileExt %in% c("xls", "xlsx")) {
-    stop("The extension of JAFROC file name must be *.xls or *.xlsx.")
-  }
-  NL <- dataset$ratings$NL
-  LL <- dataset$ratings$LL
-  lesionVector <- dataset$lesions$perCase
-  lesionID <- dataset$lesions$IDs
-  lesionWeight <- dataset$lesions$weights
-  maxNL <- dim(NL)[4]
-  dataType <- dataset$descriptions$type
-  modalityID <- dataset$descriptions$modalityID
-  readerID <- dataset$descriptions$readerID
-  I <- length(modalityID)
-  J <- length(readerID)
-  K <- dim(NL)[3]
-  K2 <- dim(LL)[3]
-  K1 <- K - K2
-  
-  # following several lines assign -2000 as the lowest ROC rating before writing the data file.
-  if (dataType == "ROC"){
-    NL[ , , 1:K1, ][NL[ , , 1:K1, ] == -Inf] <- -2000
-    LL[LL == -Inf][NL[ , , 1:K1, ] == -Inf] <- -2000
-  }
-  if (dataType == "ROI"){
-    NL[ , , 1:K1, ][NL[ , , 1:K1, ] == -Inf] <- -2000
-    for (i in 1:I) {
-      for (j in 1:J) {
-        for (k in 1:K2) {
-          for (l in 1:lesionVector[k]) {
-            if (LL[i, j, k, l] == UNINITIALIZED) {
-              LL[i, j, k, l] <- -2000
-            }
-          }
-        }
-      }
-    }
-  }
-  
-  # overall changes needed for openxlsx package
-  wb <- createWorkbook()
-  addWorksheet(wb, "TP")
-  addWorksheet(wb, "FP")
-  addWorksheet(wb, "TRUTH")
-  # end overall changes needed for openxlsx package
-  
-  caseIDs <- c(1:K1, rep(K1 + 1:K2, lesionVector))
-  lesionIDs <- as.vector(t(lesionID))
-  lesionIDs <- lesionIDs[lesionIDs != UNINITIALIZED]
-  lesionIDs <- c(rep(0, K1), lesionIDs)
-  lesionWeights <- as.vector(t(lesionWeight))
-  lesionWeights <- lesionWeights[lesionWeights != UNINITIALIZED]
-  lesionWeights <- c(rep(0, K1), lesionWeights)
-  dataSheet <- data.frame(CaseID = as.integer(caseIDs), LesionID = as.integer(lesionIDs), Weight = lesionWeights)
-  
-  writeData(wb, sheet = "TRUTH", x = dataSheet)
-  
-  dataSheet <- NULL
-  for (i in 1:I) {
-    for (j in 1:J) {
-      for (k in 1:K) {
-        for (l in 1:maxNL) {
-          if (NL[i, j, k, l] != UNINITIALIZED) {
-            dataSheet <- rbind(dataSheet, c(j, i, k, NL[i, j, k, l]))
-          }
-        }
-      }
-    }
-  }
-  dataSheet <- data.frame(ReaderID = readerID[dataSheet[, 1]], ModalityID = modalityID[dataSheet[, 2]], CaseID = as.integer(dataSheet[, 3]), NL_Rating = signif(dataSheet[, 4], 6))
-  writeData(wb, sheet = "FP", x = dataSheet)
-  
-  dataSheet <- NULL
-  for (i in 1:I) {
-    for (j in 1:J) {
-      for (k in 1:K2) {
-        for (l in 1:lesionVector[k]) {
-          if (LL[i, j, k, l] != UNINITIALIZED) {
-            dataSheet <- rbind(dataSheet, c(j, i, k + K1, lesionID[k, l], LL[i, j, k, l]))
-          }
-        }
-      }
-    }
-  }
-  dataSheet <- data.frame(ReaderID = readerID[dataSheet[, 1]], ModalityID = modalityID[dataSheet[, 2]], CaseID = as.integer(dataSheet[, 3]), LesionID = as.integer(dataSheet[, 4]), LL_Rating = signif(dataSheet[, 5], 6))
-  writeData(wb, sheet = "TP", x = dataSheet) # openxlsx
-  saveWorkbook(wb, fileName, overwrite = TRUE)
-} 
-
+# SaveJAFROC <- function(dataset, fileName) {
+#   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+#   fileExt <- file_ext(fileName)
+#   if (!fileExt %in% c("xls", "xlsx")) {
+#     stop("The extension of JAFROC file name must be *.xls or *.xlsx.")
+#   }
+#   NL <- dataset$ratings$NL
+#   LL <- dataset$ratings$LL
+#   lesionVector <- dataset$lesions$perCase
+#   lesionID <- dataset$lesions$IDs
+#   lesionWeight <- dataset$lesions$weights
+#   maxNL <- dim(NL)[4]
+#   dataType <- dataset$descriptions$type
+#   modalityID <- dataset$descriptions$modalityID
+#   readerID <- dataset$descriptions$readerID
+#   I <- length(modalityID)
+#   J <- length(readerID)
+#   K <- dim(NL)[3]
+#   K2 <- dim(LL)[3]
+#   K1 <- K - K2
+#   
+#   # following several lines assign -2000 as the lowest ROC rating before writing the data file.
+#   if (dataType == "ROC"){
+#     NL[ , , 1:K1, ][NL[ , , 1:K1, ] == -Inf] <- -2000
+#     LL[LL == -Inf][NL[ , , 1:K1, ] == -Inf] <- -2000
+#   }
+#   if (dataType == "ROI"){
+#     NL[ , , 1:K1, ][NL[ , , 1:K1, ] == -Inf] <- -2000
+#     for (i in 1:I) {
+#       for (j in 1:J) {
+#         for (k in 1:K2) {
+#           for (l in 1:lesionVector[k]) {
+#             if (LL[i, j, k, l] == UNINITIALIZED) {
+#               LL[i, j, k, l] <- -2000
+#             }
+#           }
+#         }
+#       }
+#     }
+#   }
+#   
+#   # overall changes needed for openxlsx package
+#   wb <- createWorkbook()
+#   addWorksheet(wb, "TP")
+#   addWorksheet(wb, "FP")
+#   addWorksheet(wb, "TRUTH")
+#   # end overall changes needed for openxlsx package
+#   
+#   caseIDs <- c(1:K1, rep(K1 + 1:K2, lesionVector))
+#   lesionIDs <- as.vector(t(lesionID))
+#   lesionIDs <- lesionIDs[lesionIDs != UNINITIALIZED]
+#   lesionIDs <- c(rep(0, K1), lesionIDs)
+#   lesionWeights <- as.vector(t(lesionWeight))
+#   lesionWeights <- lesionWeights[lesionWeights != UNINITIALIZED]
+#   lesionWeights <- c(rep(0, K1), lesionWeights)
+#   dataSheet <- data.frame(CaseID = as.integer(caseIDs), LesionID = as.integer(lesionIDs), Weight = lesionWeights)
+#   
+#   writeData(wb, sheet = "TRUTH", x = dataSheet)
+#   
+#   dataSheet <- NULL
+#   for (i in 1:I) {
+#     for (j in 1:J) {
+#       for (k in 1:K) {
+#         for (l in 1:maxNL) {
+#           if (NL[i, j, k, l] != UNINITIALIZED) {
+#             dataSheet <- rbind(dataSheet, c(j, i, k, NL[i, j, k, l]))
+#           }
+#         }
+#       }
+#     }
+#   }
+#   dataSheet <- data.frame(ReaderID = readerID[dataSheet[, 1]], ModalityID = modalityID[dataSheet[, 2]], CaseID = as.integer(dataSheet[, 3]), NL_Rating = signif(dataSheet[, 4], 6))
+#   writeData(wb, sheet = "FP", x = dataSheet)
+#   
+#   dataSheet <- NULL
+#   for (i in 1:I) {
+#     for (j in 1:J) {
+#       for (k in 1:K2) {
+#         for (l in 1:lesionVector[k]) {
+#           if (LL[i, j, k, l] != UNINITIALIZED) {
+#             dataSheet <- rbind(dataSheet, c(j, i, k + K1, lesionID[k, l], LL[i, j, k, l]))
+#           }
+#         }
+#       }
+#     }
+#   }
+#   dataSheet <- data.frame(ReaderID = readerID[dataSheet[, 1]], ModalityID = modalityID[dataSheet[, 2]], CaseID = as.integer(dataSheet[, 3]), LesionID = as.integer(dataSheet[, 4]), LL_Rating = signif(dataSheet[, 5], 6))
+#   writeData(wb, sheet = "TP", x = dataSheet) # openxlsx
+#   saveWorkbook(wb, fileName, overwrite = TRUE)
+# } 
+# 
 
 SaveLrc <- function(dataset, fileName, dataDescription) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED

@@ -147,6 +147,8 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
   modalityIDUnique <- as.character(unique(c(NLModalityIDCol, LLModalityIDCol)))
   I <- length(modalityIDUnique)
   readerIDUnique <- as.character(unique(c(NLReaderIDCol, LLReaderIDCol)))
+  # following  to preserve ordering does not work as names are prededed with Rdr
+  # readerIDUnique <- as.character(sort(unique(as.integer(c(NLReaderIDCol, LLReaderIDCol)))))
   J <- length(readerIDUnique)
   
   maxNL <- 0

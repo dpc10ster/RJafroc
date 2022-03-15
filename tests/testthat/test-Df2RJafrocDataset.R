@@ -104,3 +104,20 @@ test_that("SimulateFrocDataset", {
 
 
 
+context("ChkCadFrocExcelFile")
+test_that("ChkCadFrocExcelFile", {
+
+  fileName <- system.file(
+    "extdata", "CadFrocData.xlsx", package = "RJafroc", mustWork = TRUE)
+  
+  ds0 <- DfReadDataFile(fileName, format = "JAFROC")
+  ds1 <- datasetCadSimuFroc
+
+  expect_equal(ds1$ratings, ds0$ratings)
+  expect_equal(ds1$lesions, ds0$lesions)
+  expect_equal(unname(ds1$descriptions$modalityID), unname(ds0$descriptions$modalityID))
+  expect_equal(unname(ds1$descriptions$readerID), unname(ds0$descriptions$readerID))
+  # end of test
+  
+})
+

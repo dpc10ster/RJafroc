@@ -1,5 +1,11 @@
 # RJafroc 2.0.1.9000
 
+
+## created `DfWriteExcelDataFile` 3/15/22
+* needed to write Nico simulated FROC data to JAFROC format excel file
+* removed JAFROC format writes capability from `DfSaveDataFile`; it is now in `DfWriteExcelDataFile`
+
+
 ## fixed wAFROC1_dpc 3/11/22
 * needed to divide final value by (K * K2)
 * cpp code unaffected; this only affected R version used to debug
