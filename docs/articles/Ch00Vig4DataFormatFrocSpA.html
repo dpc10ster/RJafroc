@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -54,37 +50,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Ch00Vig1DataFormatRocFctrl.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC FCTRL</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig2DataFormatFrocFctrl.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC FCTRL</a>
-    </li>
-    <li>
       <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
     </li>
     <li>
       <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
-    </li>
-    <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
     </li>
     <li>
       <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
@@ -113,9 +85,6 @@
     <li>
       <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
     </li>
-    <li>
-      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -132,14 +101,13 @@
 
       
 
-      </header><script src="Ch00Vig4DataFormatFrocSpA_files/header-attrs-2.5/header-attrs.js"></script><script src="Ch00Vig4DataFormatFrocSpA_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Ch00Vig4DataFormatFrocSpA_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="Ch00Vig4DataFormatFrocSpA_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</h1>
-                        <h4 class="author">Dev P. Chakraborty, PhD</h4>
+                        <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-12-04</h4>
+            <h4 data-toc-skip class="date">2022-06-07</h4>
       
       
       <div class="hidden name"><code>Ch00Vig4DataFormatFrocSpA.Rmd</code></div>
@@ -148,9 +116,9 @@
 
     
     
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <ul>
 <li>This vignette explains the data format of the input Excel file for an <strong>ROC SPLIT-PLOT-A</strong> dataset.</li>
 <li>The <strong>A</strong> refers to Table VII, part (a), in <span class="citation">(Hillis 2014)</span>.</li>
@@ -160,31 +128,31 @@
 </ul>
 <p><img src="images/frocSpATruth.png" style="width:100.0%"></p>
 </div>
-<div id="the-truth-worksheet" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-truth-worksheet" class="anchor"></a>The <code>Truth</code> worksheet</h2>
+<div class="section level2">
+<h2 id="the-truth-worksheet">The <code>Truth</code> worksheet<a class="anchor" aria-label="anchor" href="#the-truth-worksheet"></a>
+</h2>
 <ul>
 <li>The <code>Truth</code> worksheet contains 6 columns: <code>CaseID</code>, <code>LesionID</code>, <code>Weight</code>, <code>ReaderID</code>, <code>ModalityID</code> and <code>Paradigm</code>.</li>
 <li>The first five columns contain <em>twice</em> as many rows as there are distinct cases in the dataset. The factor of two is coming from the two modalities.</li>
 <li>The normal cases are numbered 6,7,8,9,10; the abnormal cases are numbered 16,17,18,19,20; i.e., <code>K1</code> = <code>K2</code> = 5 and <code>K</code> = 10. The number of rows of data is 2 * K = 20.</li>
-<li>The <code>ReaderID</code> field for the first modality has <em>two values</em> <code>1, 2</code> since readers 1 and 2 interpret all cases in the first modality. The corresponding values for the second modality are ‘3, 4’.</li>
+<li>The <code>ReaderID</code> field for the first modality has <em>two values</em> <code>1, 2</code> since readers 1 and 2 interpret all cases in the first modality. The corresponding values for the second modality are ‘3, 4.’</li>
 <li>
-<code>ModalityID</code>: The first modality is labeled <code>(4)</code> and the second is ‘(2)’ . The parentheses follow standard statistical notation for nested factors. In the example readers ‘(1, 2)’ are nested within treatment ‘(4)’ and readers ‘(3, 4)’ are nested within treatment ‘(2)’. The number of readers in each treatment can differ. At least two readers are needed in each treatment.</li>
+<code>ModalityID</code>: The first modality is labeled <code>(4)</code> and the second is ‘(2)’ . The parentheses follow standard statistical notation for nested factors. In the example readers ‘(1, 2)’ are nested within treatment ‘(4)’ and readers ‘(3, 4)’ are nested within treatment ‘(2).’ The number of readers in each treatment can differ. At least two readers are needed in each treatment.</li>
 <li>
 <code>ReaderID</code>, the <code>ModalityID</code> are <em>text formatted labels</em>.</li>
 <li>
 <code>Paradigm</code>: The contents of this field are <code>ROC</code> and <code>SPLIT-PLOT-A</code> (case insensitive).</li>
 </ul>
 </div>
-<div id="the-structure-of-the-roc-split-plot-a-dataset" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-structure-of-the-roc-split-plot-a-dataset" class="anchor"></a>The structure of the ROC split-plot-A dataset</h2>
+<div class="section level2">
+<h2 id="the-structure-of-the-roc-split-plot-a-dataset">The structure of the ROC split-plot-A dataset<a class="anchor" aria-label="anchor" href="#the-structure-of-the-roc-split-plot-a-dataset"></a>
+</h2>
 <p>This code-chunk reads the data into a split plot dataset:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="va">frocSpA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"toyFiles/FROC/frocSpA.xlsx"</span>,
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">frocSpA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"toyFiles/FROC/frocSpA.xlsx"</span>,
                         package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span><span class="op">(</span><span class="va">frocSpA</span>, newExcelFileFormat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ ratings     :List of 3</span>
 <span class="co">#&gt;   ..$ NL   : num [1:2, 1:5, 1:11, 1:3] 1.5 -Inf 0.9 -Inf -Inf ...</span>
@@ -203,7 +171,7 @@
 <span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "4" "2"</span>
 <span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "4" "2"</span>
 <span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span></pre></div>
+<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span></code></pre></div>
 <ul>
 <li>Flag <code>newExcelFileFormat</code> <strong>must</strong> be set to <code>TRUE</code> to the read split plot dataset.</li>
 <li>The dataset object <code>x</code> is a <code>list</code> variable with 3 members: <code>x$ratings</code>, <code>x$lesions</code> and <code>x$descriptions</code>.</li>
@@ -214,72 +182,72 @@
 <code>x$ratings$LL</code>, a [2, 5, 5, 1] array, contains the ratings of abnormal cases.</li>
 <li>The <code>dataType</code> member is which specifies the data collection method, <code>"ROC"</code> in this example.</li>
 <li>The <code>x$modalityID</code> member is a vector with two elements <code>"4"</code> and <code>"2"</code>, naming the two modalities.</li>
-<li>The <code>x$readerID</code> member is a vector with four elements <code>"1"</code>, <code>"2"</code>, <code>"3"</code>, `“4”, labeling the four readers.</li>
+<li>The <code>x$readerID</code> member is a vector with four elements <code>"1"</code>, <code>"2"</code>, <code>"3"</code>, `“4,” labeling the four readers.</li>
 <li>The <code>x$design</code> member is ; specifies the dataset design, “SPLIT-PLOT-A” for this example.</li>
 <li>The <code>x$descriptions$truthTableStr</code> member quantifies the structure of the dataset, as explained next.</li>
 </ul>
 </div>
-<div id="the-truthtablestr-member" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-truthtablestr-member" class="anchor"></a>The truthTableStr member</h2>
+<div class="section level2">
+<h2 id="the-truthtablestr-member">The truthTableStr member<a class="anchor" aria-label="anchor" href="#the-truthtablestr-member"></a>
+</h2>
 <ul>
 <li>This is a <code>2 x 4 x 10 x 2</code> array, i.e., <code>I</code> x <code>J</code> x <code>K</code> x (maximum number of lesions per case plus 1). The <code>plus 1</code> is needed to accommodate normal cases.</li>
 <li>Each entry in this array is either <code>1</code>, meaning the corresponding interpretation exists, or <code>NA</code>, meaning the corresponding interpretation does not exist.</li>
 <li>The first reader interprets the normal cases in the first modality only:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]    1    1    1    1    1    1   NA   NA   NA    NA</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span></pre></div>
+<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span></code></pre></div>
 <ul>
 <li>The first reader interprets the abnormal cases also in the first modality only:</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">]</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span></pre></div>
+<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span></code></pre></div>
 <ul>
 <li>Likewise for the second reader:</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]    1    1    1    1    1    1   NA   NA   NA    NA</span>
 <span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
 <span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span></pre></div>
+<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span></code></pre></div>
 <ul>
 <li>The third reader interprets the cases in the second modality only:</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
 <span class="co">#&gt; [2,]    1    1    1    1    1    1   NA   NA   NA    NA</span>
 <span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span></pre></div>
+<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span></code></pre></div>
 <ul>
 <li>Likewise for the fourth reader:</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">4</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">4</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
 <span class="co">#&gt; [2,]    1    1    1    1    1    1   NA   NA   NA    NA</span>
 <span class="va">x</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">truthTableStr</span><span class="op">[</span>,<span class="fl">4</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA</span>
-<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span></pre></div>
+<span class="co">#&gt; [2,]   NA   NA   NA   NA   NA   NA    1    1    1     1</span></code></pre></div>
 </div>
-<div id="the-false-positive-fp-ratings" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-false-positive-fp-ratings" class="anchor"></a>The false positive (FP) ratings</h2>
+<div class="section level2">
+<h2 id="the-false-positive-fp-ratings">The false positive (FP) ratings<a class="anchor" aria-label="anchor" href="#the-false-positive-fp-ratings"></a>
+</h2>
 <p>These are found in the <code>FP</code> or <code>NL</code> worksheet:</p>
 <p><img src="images/frocSpAFp.png" style="width:100.0%"></p>
 <ul>
@@ -294,15 +262,15 @@
 <li>
 <code>NL_Rating</code>: the ratings of non-diseased cases.</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
 <span class="co">#&gt; [1,]  1.5  1.5  1.2  2.1  1.1  3.2  1.9    1  1.1     1</span>
-<span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf</span></pre></div>
+<span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf -Inf  -Inf</span></code></pre></div>
 </div>
-<div id="the-true-positive-tp-ratings" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-true-positive-tp-ratings" class="anchor"></a>The true positive (TP) ratings</h2>
+<div class="section level2">
+<h2 id="the-true-positive-tp-ratings">The true positive (TP) ratings<a class="anchor" aria-label="anchor" href="#the-true-positive-tp-ratings"></a>
+</h2>
 <p>These are found in the <code>TP</code> or <code>LL</code> worksheet, see below.</p>
 <p><img src="images/frocSpATp.png" style="width:100.0%"></p>
 <ul>
@@ -319,22 +287,22 @@
 <code>LL_Rating</code>: the ratings of diseased cases.</li>
 <li>The following shows that reader ‘1’ interprets all abnormal cases in the first modality, while reader ‘3’ interprets them in the second modality.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">x</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">]</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="co">#&gt; [1,]    5  5.5  4.9    4  3.7</span>
 <span class="co">#&gt; [2,] -Inf -Inf -Inf -Inf -Inf</span>
 <span class="va">x</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span><span class="op">[</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="co">#&gt; [1,] -Inf -Inf -Inf -Inf -Inf</span>
-<span class="co">#&gt; [2,]  5.6  5.1  5.2  4.9  4.7</span></pre></div>
+<span class="co">#&gt; [2,]  5.6  5.1  5.2  4.9  4.7</span></code></pre></div>
 </div>
-<div id="references" class="section level2 unnumbered">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references hanging-indent">
-<div id="ref-RN2508">
-<p>Hillis, Stephen L. 2014. “A Marginal‐mean Anova Approach for Analyzing Multireader Multicase Radiological Imaging Data.” Journal Article. <em>Statistics in Medicine</em> 33 (2): 330–60.</p>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-RN2508" class="csl-entry">
+Hillis, Stephen L. 2014. <span>“A Marginal‐mean ANOVA Approach for Analyzing Multireader Multicase Radiological Imaging Data.”</span> Journal Article. <em>Statistics in Medicine</em> 33 (2): 330–60.
 </div>
 </div>
 </div>
@@ -351,11 +319,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
+  <p></p>
+<p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -363,6 +333,8 @@
 
   
 
+
+  
 
   </body>
 </html>

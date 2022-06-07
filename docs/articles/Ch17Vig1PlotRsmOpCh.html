@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -54,37 +50,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Ch00Vig1DataFormatRocFctrl.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC FCTRL</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig2DataFormatFrocFctrl.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC FCTRL</a>
-    </li>
-    <li>
       <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
     </li>
     <li>
       <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
-    </li>
-    <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
     </li>
     <li>
       <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
@@ -113,9 +85,6 @@
     <li>
       <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
     </li>
-    <li>
-      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -132,14 +101,13 @@
 
       
 
-      </header><script src="Ch17Vig1PlotRsmOpCh_files/header-attrs-2.5/header-attrs.js"></script><script src="Ch17Vig1PlotRsmOpCh_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Ch17Vig1PlotRsmOpCh_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="Ch17Vig1PlotRsmOpCh_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</h1>
-                        <h4 class="author">Dev P. Chakraborty, PhD</h4>
+                        <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-12-04</h4>
+            <h4 data-toc-skip class="date">2022-06-07</h4>
       
       
       <div class="hidden name"><code>Ch17Vig1PlotRsmOpCh.Rmd</code></div>
@@ -148,18 +116,18 @@
 
     
     
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <ul>
 <li>The purpose of this vignette is to explain the operating characteristics predicted by the RSM. It relates to Chapter 17 in my book <span class="citation">(Chakraborty 2017)</span>.</li>
 <li>This vignette is under development …</li>
 <li>Also to explain the difference between <code>dataset</code> members (<code>lesionID</code>, <code>lesionWeight</code>) and (<code>lesDist</code>, <code>lesWghtDistr</code>), which are RSM model parameters.</li>
 </ul>
 </div>
-<div id="the-distinction-between-predicted-curves-and-empirical-curves" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-distinction-between-predicted-curves-and-empirical-curves" class="anchor"></a>The distinction between predicted curves and empirical curves</h2>
+<div class="section level2">
+<h2 id="the-distinction-between-predicted-curves-and-empirical-curves">The distinction between predicted curves and empirical curves<a class="anchor" aria-label="anchor" href="#the-distinction-between-predicted-curves-and-empirical-curves"></a>
+</h2>
 <ul>
 <li>Operating characteristics predicted by a model have zero sampling variability.<br>
 </li>
@@ -167,9 +135,9 @@
 <li>If the model is corect, as the numbers of cases in the dataset increases, the empirical operating characteristic asymptotically approaches the predicted curve.</li>
 </ul>
 </div>
-<div id="the-rsm-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-rsm-model" class="anchor"></a>The RSM model</h2>
+<div class="section level2">
+<h2 id="the-rsm-model">The RSM model<a class="anchor" aria-label="anchor" href="#the-rsm-model"></a>
+</h2>
 <ul>
 <li>The 3 RSM parameters and two additional parameters characterizing the dataset determine the wAFROC curve.</li>
 <li>The 3 RSM parameters are <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\nu\)</span>.</li>
@@ -181,41 +149,41 @@
 </li>
 <li>These parameters do not apply to individual cases; rather they refer to a large population (asymptotically infinite in size) of cases.</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dataset04</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">IDs</span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dataset04</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">IDs</span><span class="op">)</span>
 <span class="co">#&gt;  num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dataset04</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span>
-<span class="co">#&gt;  num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dataset04</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span>
+<span class="co">#&gt;  num [1:100, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span></code></pre></div>
 <ul>
 <li>Note that the first index of both arrays is the case index for the 100 abnormal cases in this dataset.</li>
 <li>With finite number of cases the empirical operating characteristic (or for that matter any fitted operating characteristic) will have sampling variability as in the following example.</li>
 </ul>
 </div>
-<div id="the-empirical-wafroc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-empirical-wafroc" class="anchor"></a>The empirical wAFROC</h2>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotEmpiricalOperatingCharacteristics.html">PlotEmpiricalOperatingCharacteristics</a></span><span class="op">(</span><span class="va">dataset04</span>, opChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span>
-<span class="va">p</span><span class="op">$</span><span class="va">Plot</span></pre></div>
+<div class="section level2">
+<h2 id="the-empirical-wafroc">The empirical wAFROC<a class="anchor" aria-label="anchor" href="#the-empirical-wafroc"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotEmpiricalOperatingCharacteristics.html">PlotEmpiricalOperatingCharacteristics</a></span><span class="op">(</span><span class="va">dataset04</span>, opChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span>
+<span class="va">p</span><span class="op">$</span><span class="va">Plot</span></code></pre></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <ul>
 <li>The piecewise linear nature of the plot, with sharp breaks, indicates that this is due to a finite dataset.</li>
 <li>In contrast the following code shows a smooth plot, because it is a model <em>predicted</em> plot.</li>
 </ul>
 </div>
-<div id="the-predicted-wafroc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-predicted-wafroc" class="anchor"></a>The predicted wAFROC</h2>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co">## Following example is for mu = 2, lambda = 1, nu = 0.6. 20% of the diseased </span>
+<div class="section level2">
+<h2 id="the-predicted-wafroc">The predicted wAFROC<a class="anchor" aria-label="anchor" href="#the-predicted-wafroc"></a>
+</h2>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Following example is for mu = 2, lambda = 1, nu = 0.6. 20% of the diseased </span>
 <span class="co">## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span>
 <span class="co">## and 30% have 4 lesions.  </span>
-<span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>
+<span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>
 
 <span class="co">## On cases with one lesion the weights are 1, on cases with 2 lesions the weights</span>
 <span class="co">## are 0.4 and 0.6, on cases with three lesions the weights are 0.2, 0.3 and 0.5, and</span>
 <span class="co">## on cases with 4 lesions the weights are 0.3, 0.4, 0.2 and 0.1: </span>
-<span class="va">relWeights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.3</span>,  <span class="fl">0.4</span>, <span class="fl">0.2</span>,  <span class="fl">0.1</span><span class="op">)</span>
+<span class="va">relWeights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>,  <span class="fl">0.4</span>, <span class="fl">0.2</span>,  <span class="fl">0.1</span><span class="op">)</span>
 <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span>
   mu <span class="op">=</span> <span class="fl">2</span>, 
   lambda <span class="op">=</span> <span class="fl">1</span>, 
@@ -223,18 +191,18 @@
   OpChType <span class="op">=</span> <span class="st">"wAFROC"</span>, 
   lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, 
   relWeights <span class="op">=</span> <span class="va">relWeights</span>, 
-  legendPosition <span class="op">=</span> <span class="st">"bottom"</span>, nlfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, llfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p</span><span class="op">$</span><span class="va">wAFROCPlot</span></pre></div>
+  legendPosition <span class="op">=</span> <span class="st">"bottom"</span>, nlfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, llfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="va">p</span><span class="op">$</span><span class="va">wAFROCPlot</span></code></pre></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
-<div id="the-distribution-of-number-of-lesions-and-weights" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-distribution-of-number-of-lesions-and-weights" class="anchor"></a>The distribution of number of lesions and weights</h2>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">lesDistr</span>
+<div class="section level2">
+<h2 id="the-distribution-of-number-of-lesions-and-weights">The distribution of number of lesions and weights<a class="anchor" aria-label="anchor" href="#the-distribution-of-number-of-lesions-and-weights"></a>
+</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lesDistr</span>
 <span class="co">#&gt; [1] 0.2 0.4 0.1 0.3</span>
 <span class="va">relWeights</span>
-<span class="co">#&gt; [1] 0.3 0.4 0.2 0.1</span></pre></div>
+<span class="co">#&gt; [1] 0.3 0.4 0.2 0.1</span></code></pre></div>
 <ul>
 <li>The <code>lesDistr</code> array 0.2, 0.4, 0.1, 0.3 specifies the fraction of diseased cases with the number of lesions corresponding to the column index. To specify a dataset with exactly 3 lesions per diseased case use <code>lesDist = c(0, 0, 1, 0)</code>.</li>
 <li>The <code>relWeights</code> array 0.3, 0.4, 0.2, 0.1 specifies the relative weights.</li>
@@ -244,15 +212,15 @@
 <li>For cases with 4 lesions, the weights are 0.3, 0.4, 0.2 and 0.1, which are in the ratio 0.3 : 0.4 : 0.2 : 0.1 and sum to unity.</li>
 </ul>
 </div>
-<div id="other-operating-characteristics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-operating-characteristics" class="anchor"></a>Other operating characteristics</h2>
+<div class="section level2">
+<h2 id="other-operating-characteristics">Other operating characteristics<a class="anchor" aria-label="anchor" href="#other-operating-characteristics"></a>
+</h2>
 <ul>
 <li>By changing <code>OpChType</code> one can generate other operating characteristics.</li>
 <li>Note that lesiion weights argument is not needed for ROC curves. It is only needed for <code>wAFROC</code> and <code>wAFROC1</code> curves.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>
 <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span>
   mu <span class="op">=</span> <span class="fl">2</span>, 
   lambda <span class="op">=</span> <span class="fl">1</span>, 
@@ -260,19 +228,19 @@
   OpChType <span class="op">=</span> <span class="st">"ROC"</span>,
   lesDistr <span class="op">=</span> <span class="va">lesDistr</span>,  
   legendPosition <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>
-<span class="va">p</span><span class="op">$</span><span class="va">ROCPlot</span></pre></div>
+<span class="va">p</span><span class="op">$</span><span class="va">ROCPlot</span></code></pre></div>
 <p><img src="Ch17Vig1PlotRsmOpCh_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
-<div id="summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h2>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
 </div>
-<div id="references" class="section level2 unnumbered">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references hanging-indent">
-<div id="ref-RN2680">
-<p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples</em>. Book. Boca Raton, FL: CRC Press.</p>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-RN2680" class="csl-entry">
+Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with r-Based Examples</em>. Book. Boca Raton, FL: CRC Press.
 </div>
 </div>
 </div>
@@ -289,11 +257,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
+  <p></p>
+<p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -301,6 +271,8 @@
 
   
 
+
+  
 
   </body>
 </html>

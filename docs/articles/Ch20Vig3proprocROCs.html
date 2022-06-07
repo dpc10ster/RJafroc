@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -54,37 +50,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Ch00Vig1DataFormatRocFctrl.html">Chapter 00, Vignette 1: JAFROC Excel file data format: ROC FCTRL</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig2DataFormatFrocFctrl.html">Chapter 00, Vignette 2: JAFROC Excel file data format: FROC FCTRL</a>
-    </li>
-    <li>
       <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
     </li>
     <li>
       <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
     </li>
     <li>
-      <a href="../articles/Ch10Vig1QuickStartDBMH.html">Chapter 10, Vignette 1: Quick Start: Running DBM-OR analysis</a>
-    </li>
-    <li>
-      <a href="../articles/Ch10Vig2QuickStartDBMHExcel.html">Chapter 10, Vignette 2: Quick Start DBM-ORH Analysis with Excel Output</a>
-    </li>
-    <li>
       <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig2SampleSize.html">Chapter 11, Vignette 2: ROC-DBM sample size from first principles</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig3SampleSize.html">Chapter 11, Vignette 3: RJafroc functions for ROC sample size estimation using DBM method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig4SampleSize.html">Chapter 11, Vignette 4: RJafroc functions for ROC sample size estimation using OR method</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig5SampleSize.html">Chapter 11, Vignette 5: On choosing a realistic effect size</a>
     </li>
     <li>
       <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
@@ -113,9 +85,6 @@
     <li>
       <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
     </li>
-    <li>
-      <a href="../articles/Ch30Vig2RoiParadigmSt.html">Chapter 30, Vignette 2: Significance testing for the ROI paradigm</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -132,14 +101,13 @@
 
       
 
-      </header><script src="Ch20Vig3proprocROCs_files/header-attrs-2.5/header-attrs.js"></script><script src="Ch20Vig3proprocROCs_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Ch20Vig3proprocROCs_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="Ch20Vig3proprocROCs_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Chapter 20, Vignette 3: PROPROC ROCs and pdfs</h1>
-                        <h4 class="author">Dev P. Chakraborty, PhD</h4>
+                        <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 class="date">2020-12-04</h4>
+            <h4 data-toc-skip class="date">2022-06-07</h4>
       
       
       <div class="hidden name"><code>Ch20Vig3proprocROCs.Rmd</code></div>
@@ -148,21 +116,21 @@
 
     
     
-<div id="helper-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#helper-functions" class="anchor"></a>Helper functions</h2>
+<div class="section level2">
+<h2 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a>
+</h2>
 </div>
-<div id="definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters" class="section level2">
-<h2 class="hasAnchor">
-<a href="#definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters" class="anchor"></a>Definitions of PROPROC parameters in terms of binormal model parameters</h2>
+<div class="section level2">
+<h2 id="definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters">Definitions of PROPROC parameters in terms of binormal model parameters<a class="anchor" aria-label="anchor" href="#definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters"></a>
+</h2>
 <p><span class="math display">\[c=\frac{b-1}{b+1};{{d}_{a}}=\frac{\sqrt{2}a}{\sqrt{1+{{b}^{2}}}}\]</span></p>
 </div>
-<div id="main-code-and-output" class="section level2">
-<h2 class="hasAnchor">
-<a href="#main-code-and-output" class="anchor"></a>Main code and output</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="va">c1Arr</span> <span class="op">&lt;-</span>   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1322804</span>, <span class="fl">0.2225588</span><span class="op">)</span>; <span class="va">daArr</span>  <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.197239</span>, <span class="fl">1.740157</span><span class="op">)</span>
-<span class="va">myLabel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>
+<div class="section level2">
+<h2 id="main-code-and-output">Main code and output<a class="anchor" aria-label="anchor" href="#main-code-and-output"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">c1Arr</span> <span class="op">&lt;-</span>   <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1322804</span>, <span class="fl">0.2225588</span><span class="op">)</span>; <span class="va">daArr</span>  <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.197239</span>, <span class="fl">1.740157</span><span class="op">)</span>
+<span class="va">myLabel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>
 <span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>
 <span class="op">{</span>
@@ -170,34 +138,34 @@
   <span class="va">da</span> <span class="op">&lt;-</span> <span class="va">daArr</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
   <span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu">Transform2ab</span><span class="op">(</span><span class="va">da</span>, <span class="va">c1</span><span class="op">)</span>
   <span class="va">a</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">a</span>;<span class="va">b</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">b</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">0</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="co"># may need to adjust limits to view detail of slope plot</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">5</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="co"># may need to adjust limits to view detail of slope plot</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">0</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="co"># may need to adjust limits to view detail of slope plot</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">5</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span> <span class="co"># may need to adjust limits to view detail of slope plot</span>
   
-  <span class="va">FPF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.0</span>, <span class="fl">1</span>, <span class="fl">0.001</span><span class="op">)</span>
+  <span class="va">FPF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.0</span>, <span class="fl">1</span>, <span class="fl">0.001</span><span class="op">)</span>
   <span class="va">TPF</span> <span class="op">&lt;-</span> <span class="fu">rocY</span><span class="op">(</span><span class="va">FPF</span>, <span class="va">a</span>, <span class="va">b</span><span class="op">)</span>
   
-  <span class="va">rocPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>FPF <span class="op">=</span> <span class="va">FPF</span>, TPF <span class="op">=</span> <span class="va">TPF</span><span class="op">)</span>
+  <span class="va">rocPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>FPF <span class="op">=</span> <span class="va">FPF</span>, TPF <span class="op">=</span> <span class="va">TPF</span><span class="op">)</span>
   <span class="va">plotRoc</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">rocPlot</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">FPF</span>, y <span class="op">=</span> <span class="va">TPF</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span>  <span class="op">+</span> 
-   <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>   <span class="op">+</span>
+   <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>   <span class="op">+</span>
     <span class="fu">ggtitle</span><span class="op">(</span><span class="va">myLabel</span><span class="op">[</span><span class="va">myLabelIndx</span><span class="op">]</span><span class="op">)</span>;<span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="va">myLabelIndx</span> <span class="op">+</span> <span class="fl">1</span>
 
-  <span class="va">slope</span> <span class="op">&lt;-</span><span class="va">b</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">a</span><span class="op">-</span><span class="va">b</span><span class="op">*</span><span class="va">z</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="op">-</span><span class="va">z</span><span class="op">)</span> <span class="co"># same as likelihood ratio</span>
+  <span class="va">slope</span> <span class="op">&lt;-</span><span class="va">b</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">a</span><span class="op">-</span><span class="va">b</span><span class="op">*</span><span class="va">z</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="op">-</span><span class="va">z</span><span class="op">)</span> <span class="co"># same as likelihood ratio</span>
   
-  <span class="va">slopePlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">z</span>, slope <span class="op">=</span> <span class="va">slope</span><span class="op">)</span>
+  <span class="va">slopePlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">z</span>, slope <span class="op">=</span> <span class="va">slope</span><span class="op">)</span>
   <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">slopePlot</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">z</span>, y <span class="op">=</span> <span class="va">slope</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span>  <span class="op">+</span> 
-    <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
+    <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
     <span class="fu">ggtitle</span><span class="op">(</span><span class="va">myLabel</span><span class="op">[</span><span class="va">myLabelIndx</span><span class="op">]</span><span class="op">)</span>;<span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="va">myLabelIndx</span> <span class="op">+</span> <span class="fl">1</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">plotRoc</span><span class="op">)</span>;<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">plotRoc</span><span class="op">)</span>;<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
 <p><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-2.png" width="700"><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-3.png" width="700"><img src="Ch20Vig3proprocROCs_files/figure-html/unnamed-chunk-2-4.png" width="700"></p>
 </div>
-<div id="discussion" class="section level2">
-<h2 class="hasAnchor">
-<a href="#discussion" class="anchor"></a>Discussion</h2>
+<div class="section level2">
+<h2 id="discussion">Discussion<a class="anchor" aria-label="anchor" href="#discussion"></a>
+</h2>
 <p>Plot A is for <code>c1</code> = -0.1322804, <code>da</code> = 1.197239 while plot C is for <code>c1</code> = 0.2225588, <code>da</code> = 1.740157. Plots B and D are the corresponding slope plots as functions of the binormal model z-sample. In plot A, the slope is infinite near the origin and the curve approaches the upper-right corner with finite slope. The situation is reversed in plot C where the slope is finite near the origin and the curve approaches the upper-right corner with zero slope.</p>
 <p>These two readers are from a clinical dataset, <code>dataset01</code>. Highest rating inferred ROC data from original FROC data, were analyzed by PROPROC and the resulting parameter values are coded here. They were chosen as they demonstrate key differences in the shapes of proper ROC plots. Plot A corresponds to a negative value of <code>c1</code>, which implies <code>b &lt; 1</code>. The slope of the proper ROC is infinite near the origin and approaches a positive constant near the upper right corner of the ROC. Plot C is for a positive value of <code>c1</code>, i.e., for <code>b &gt; 1</code>. Now the slope of the proper ROC is finite near the origin and approaches zero near the upper right corner.</p>
 <p>Considering plot D, as one “cuts” the slope axis horizontally with a sliding threshold, starting with very high values and moving downwards, the slope of the ROC curve starts at the origin with a large but finite value. This corresponds to the peak in plot D. Above the peak, there are no solutions for <code>z</code>. The slope decreases monotonically to zero, corresponding to the flattening out of the slope at zero for <code>z ~  -2</code>.</p>
@@ -216,11 +184,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Dev Chakraborty, Peter Philips, Xuetong Zhai.</p>
+  <p></p>
+<p>Developed by Dev Chakraborty, Peter Phillips, Xuetong Zhai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -228,6 +198,8 @@
 
   
 
+
+  
 
   </body>
 </html>
