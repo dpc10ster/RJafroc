@@ -1,6 +1,11 @@
 # RJafroc 2.0.1.9000
 
 
+## added `Ch19Vig1FrocSampleSize.Rmd` 6/7/22
+* this vignette got accidentally removed, perhaps because it was failing tests
+* it works now
+
+
 ## created `DfWriteExcelDataFile` 3/15/22
 * needed to write Nico simulated FROC data to JAFROC format excel file
 * removed JAFROC format writes capability from `DfSaveDataFile`; it is now in `DfWriteExcelDataFile`
