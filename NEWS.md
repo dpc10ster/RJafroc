@@ -8,6 +8,9 @@
 * Found lots of instances of four backticks, instead of 3; this is probably why some vignettes were not loading on website
 
 
+# RJafroc 2.0.1.9000
+
+
 ## created `DfWriteExcelDataFile` 3/15/22
 * needed to write Nico simulated FROC data to JAFROC format excel file
 * removed JAFROC format writes capability from `DfSaveDataFile`; it is now in `DfWriteExcelDataFile`
@@ -641,7 +644,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * `R CMD check` generates `testthat` failure when run under `RStudio`, see following output, but not when run as
 `devtools::test()`:
 
-```
+````
 * checking tests ...
  Running ‘testthat.R’ [158s/160s]
  ERROR
@@ -654,7 +657,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
    CurrentValues[[listMem]] not equal to GoodValues[[listMem]].
    Component "Source": Attributes: < Component "levels": 3 string mismatches >
    List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBMH
-```
+````
 
 
 # RJafroc 1.1.0
