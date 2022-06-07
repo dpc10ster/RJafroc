@@ -5,6 +5,7 @@
 * Added added `Ch19Vig2FrocSampleSize.Rmd` and `Ch19Vig2FrocSampleSize.Rmd`
 * These vignettes got accidentally removed, perhaps because it was failing tests
 * R CMD CHK works
+* Found lots of instances of four backticks, instead of 3; this is probably why some vignettes were not loading on website
 
 
 ## created `DfWriteExcelDataFile` 3/15/22
@@ -640,7 +641,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * `R CMD check` generates `testthat` failure when run under `RStudio`, see following output, but not when run as
 `devtools::test()`:
 
-````
+```
 * checking tests ...
  Running ‘testthat.R’ [158s/160s]
  ERROR
@@ -653,7 +654,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
    CurrentValues[[listMem]] not equal to GoodValues[[listMem]].
    Component "Source": Attributes: < Component "levels": 3 string mismatches >
    List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBMH
-````
+```
 
 
 # RJafroc 1.1.0

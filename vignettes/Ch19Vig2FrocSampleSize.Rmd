@@ -41,7 +41,7 @@ muMed <- ret$muMed
 lambdaMed <- ret$lambdaMed
 nuMed <- ret$nuMed
 scaleFactor <- ret$scaleFactor
-````
+```
 
 
 The fitting model is defined by `muMed = r muMed`,  `lambdaMed = `r lambdaMed``  and  `nuMed = `r nuMed`` and `lesionPmf`. The effect size scale factor is `r scaleFactor`.
@@ -52,7 +52,7 @@ aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed,
                                             lesDistr = lesDistr, OpChType = "ROC")$aucROC
 aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                                lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC
-````
+```
 
 The null hypothesis ROC AUC is `r aucRocNH` and the corresponding NH wAFROC AUC is `r aucwAfrocNH`. 
 
@@ -62,7 +62,7 @@ The next code block applies `StSignificanceTesting()` to `frocNhData`, using `FO
 
 ```{r}
 varCompwAFROC  <- StSignificanceTesting(frocNhData, FOM = "wAFROC", method = "DBM", analysisOption = "RRRC")$ANOVA$VarCom
-````
+```
 
 
 ## wAFROC power for specified ROC effect size, number of readers J and number of cases K
@@ -86,7 +86,7 @@ ret <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = J, K = K, analysisOp
 powerwAFROC <- ret$powerRRRC
 
 cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, ", Power-wAFROC = ", powerwAFROC, "\n")
-````
+```
 
 ## wAFROC number of cases for 80% power for a given number of readers J
 
@@ -100,7 +100,7 @@ ret2 <- SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = effectSizewAFROC
 
 cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, 
     ", K80RRRC = ", ret2$KRRRC, ", Power-wAFROC = ", ret2$powerRRRC, "\n")
-````
+```
 
 
 ## wAFROC Power for a given number of readers J and cases K
@@ -113,7 +113,7 @@ ret3 <- SsPowerGivenJK(dataset = NULL, J = 6, K = ret2$KRRRC, effectSize = effec
 
 cat("ROC-ES = ", ROC_ES, ", wAFROC-ES = ", ROC_ES * scaleFactor, 
     ", powerRRRC = ", ret3$powerRRRC, "\n")
-````
+```
 
 
 The estimated power is close to 80% as the number of cases (`ret2$KRRRC = `r ret2$KRRRC``) was chosen deliberately from the previous code block.

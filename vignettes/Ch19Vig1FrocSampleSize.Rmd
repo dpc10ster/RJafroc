@@ -59,7 +59,7 @@ frocData <- DfExtractDataset(dataset04, trts = c(1,2))
 rocData <- DfFroc2Roc(frocData)
 rocDataB <- DfBinDataset(rocData, opChType = "ROC") # unnecessary as data is already binned
 # but cant hurt
-````
+```
 
 The next code block determines `lesDistr`, the lesion distribution array, which has `Lmax` (maximum number of lesions per diseased case over the dataset) rows and two columns. The first column contains the integers 1, 2, ..., `Lmax` and the second column contains the fraction of diseased cases with the number of lesions per case specified in the first column. The second column will sum to unity. The RSM fitting algorithm needs to know how lesion-rich the dataset is, as the RSM predicted ROC-AUC depends on the lesion-richness of the dataset. For reasons that will become clear below, one also needs the distribution of the lesion weights. Note that `lesDist` is determined from the FROC dataset as the lesion-richness information is lost upon conversion to an ROC dataset. The `PlotRsmOperatingCharacteristics` function used below sets `relWeights = 0`, which ensures equally weighted lesions: on cases with one lesion the weight of the lesion is unity, on cases with two lesions the weights of each lesion is 1/2 and on cases with three lesions the weight of each lesion is 1/3, etc..
 
@@ -67,7 +67,7 @@ The next code block determines `lesDistr`, the lesion distribution array, which 
 lesDistr <- UtilLesionDistr(frocData)
 print(lesDistr)
 lesDistr <- lesDistr[,2]
-````
+```
 
 For this dataset `Lmax` is 3, and fraction `r lesDistr[1]` of diseased cases have one lesion, fraction `r lesDistr[2]` of diseased cases have two lesions and fraction `r lesDistr[3]` of diseased cases have three lesions. 
 
@@ -85,7 +85,7 @@ for (i in 1:I) {
     RsmParms[i,j,3] <- x1[[3]] # nuP
   }
 }
-````
+```
 
 
 I recommend taking the median of each of the parameters, over all treatment-reader indices, as representing the average NH dataset. The median is less sensitive to outliers than the mean.  
@@ -95,17 +95,17 @@ I recommend taking the median of each of the parameters, over all treatment-read
 muMed <- median(RsmParms[,,1]) 
 lambdaPMed <- median(RsmParms[,,2])
 nuPMed <- median(RsmParms[,,3])
-````
+```
 
 
 The defining values of the fitting model are `muMed` = `r muMed`,  `lambdaPMed` = `r lambdaPMed` and `nuPMed` = `r nuPMed`. Note that these obey the constraints `lambdaPMed > 0` and `0 < nuP < 1`. One converts the physical parameters to the intrinsic values:
 
 
-````{r}
+```{r}
 temp <- UtilPhysical2IntrinsicRSM(muMed, lambdaPMed, nuPMed)
 lambdaMed <- temp$lambda
 nuMed <- temp$nu
-````
+```
 
 In terms of intrinsic parameters, the defining values of the fitting model are `muMed` = `r muMed`,  `lambdaMed` = `r lambdaMed` and `nuMed` = `r nuMed`. We are now ready to calculate the expected NH FOMs using the ROC -AUC and the wAFROC FOM.  
 
@@ -114,7 +114,7 @@ aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed,
                                             lesDistr = lesDistr, OpChType = "ROC")$aucROC
 aucwAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed, 
                                                lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC
-````
+```
 
 
 * The plotting function `PlotRsmOperatingCharacteristics()` returns a number of other objects, most importantly the plot, but here we use only the AUC, which is obtained by numerical integration of the predicted operating characteristics. 
@@ -136,12 +136,12 @@ for (i in 1:length(deltaMu)) {
     muMed+ deltaMu[i], lambdaMed, nuMed, lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC - aucwAfrocNH
   cat("ES_ROC = ", esRoc[i], ", ES_wAFROC = ", eswAfroc[i],"\n")
 }
-````
+```
 
 Here is a plot of wAFROC effect size (y-axis) vs. ROC effect size.
 
 
-````{r, fig.show='hold', fig.align='center'}
+```{r, fig.show='hold', fig.align='center'}
 df <- data.frame(es_ROC = esRoc, es_wAFROC = eswAfroc)
 p <- ggplot(data = df, aes(x = es_ROC, y = es_wAFROC)) +
   geom_smooth(method = "lm", se = FALSE, color = "black", formula = y ~ x) +
@@ -152,7 +152,7 @@ p <- ggplot(data = df, aes(x = es_ROC, y = es_wAFROC)) +
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0)) 
 print(p)
-````             
+```             
 
 The plot is very close to linear. This makes it easy to design an interpolation function. In the following code block the first line fits `eswAfroc` vs. `esRoc` using the linear model `lm()` function constrained to pass through the origin (the minus one): `scaleFactor <- lm(eswAfroc ~ -1 + esRoc)`. One expects this constraint since for `deltaMu = 0` the effect size must be zero no matter how it is measured. 
 
@@ -160,7 +160,7 @@ The plot is very close to linear. This makes it easy to design an interpolation 
 scaleFactor<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin
 effectSizeROC <- seq(0.01, 0.1, 0.01)
 effectSizewAFROC <- effectSizeROC*scaleFactor$coefficients[1] # r2 = summary(scaleFactor)$r.squared
-````
+```
 
 
 The slope of the zero-intercept constrained straight line fit is `scaleFactor` = `r scaleFactor$coefficients[1]` and the squared correlation coefficient is `R2` = `r summary(scaleFactor)$r.squared`. Therefore, the conversion from ROC to wAFROC effect size is: `effectSizewAFROC = scaleFactor * effectSizeROC`. **The wAFROC effect size is twice the ROC effect size.** All that remains is to calculate the variance componenents using the two FOMs:
@@ -174,7 +174,7 @@ temp1 <- StSignificanceTesting(rocData, FOM = "Wilcoxon", method = "DBM", analys
 temp2 <- StSignificanceTesting(frocData, FOM = "wAFROC", method = "DBM", analysisOption = "RRRC")
 varCompROC <- temp1$ANOVA$VarCom
 varCompwAFROC <- temp2$ANOVA$VarCom
-````
+```
 
 The observed wAFROC effect-size is `r temp2$RRRC$ciDiffTrt$Estimate`. This is a very small effect size; the corresponding ROC effect-size is `r temp1$RRRC$ciDiffTrt$Estimate`; the sign does not affect the calculations, which is too small to reach 80% power. It is not surprising that the study [@RN1882] did not find a significant difference between these two treatments
 
@@ -184,7 +184,7 @@ The respective variance components are:
 ```{r}
 print(varCompROC)
 print(varCompwAFROC)
-````
+```
 
 
 Only terms involving treatment are relevant to sample size. The wAFROC `varTC` and `varError` values are slightly larger than the ROC ones - as expected because, again, the range of the wAFROC FOM is twice that of the ROC FOM. 
@@ -221,13 +221,13 @@ for (i in 1:length(effectSizeROC)) {
   cat("ROC-ES = ", effectSizeROC[i], ", wAFROC-ES = ", effectSizewAFROC[i], 
       ", Power-ROC = ", powerROC[i], ", Power-wAFROC = ", powerwAFROC[i], "\n")
 }
-````
+```
 
 
 Since the wAFROC effect size is about a factor of two larger than the ROC effect size, wAFROC power is larger than that for ROC. The effect is magnified as the effect size enters as the square in the formula for the power (this overwhelms the slight increase in variability of wAFROC-FOM relative to ROC-FOM noted previously). The following is a plot of the respective powers.
 
 
-````{r, fig.show='hold', fig.align='center'}
+```{r, fig.show='hold', fig.align='center'}
 df <- data.frame(power_ROC = powerROC, power_wAFROC = powerwAFROC)
 p <- ggplot(mapping = aes(x = power_ROC, y = power_wAFROC)) +
   geom_line(data = df, size = 2)+
@@ -237,7 +237,7 @@ p <- ggplot(mapping = aes(x = power_ROC, y = power_wAFROC)) +
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0))
 print(p)
-````             
+```             
 
 
 
