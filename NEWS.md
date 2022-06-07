@@ -8,9 +8,6 @@
 * Found lots of instances of four backticks, instead of 3; this is probably why some vignettes were not loading on website
 
 
-# RJafroc 2.0.1.9000
-
-
 ## created `DfWriteExcelDataFile` 3/15/22
 * needed to write Nico simulated FROC data to JAFROC format excel file
 * removed JAFROC format writes capability from `DfSaveDataFile`; it is now in `DfWriteExcelDataFile`
