@@ -2,8 +2,9 @@
 
 
 ## added `Ch19Vig1FrocSampleSize.Rmd` 6/7/22
-* this vignette got accidentally removed, perhaps because it was failing tests
-* it works now
+* Added added `Ch19Vig2FrocSampleSize.Rmd` and `Ch19Vig2FrocSampleSize.Rmd`
+* These vignettes got accidentally removed, perhaps because it was failing tests
+* R CMD CHK works
 
 
 ## created `DfWriteExcelDataFile` 3/15/22

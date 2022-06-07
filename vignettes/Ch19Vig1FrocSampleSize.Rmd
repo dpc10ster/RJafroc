@@ -8,7 +8,6 @@ vignette: >
   %\VignetteIndexEntry{Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-
 ---
   
 ```{r setup, include = FALSE}
