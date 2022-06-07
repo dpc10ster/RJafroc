@@ -100,6 +100,12 @@
       <a href="articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
     </li>
     <li>
+      <a href="articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
+    </li>
+    <li>
+      <a href="articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
+    </li>
+    <li>
       <a href="articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
     </li>
     <li>
@@ -118,9 +124,6 @@
       <a href="articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -146,8 +149,7 @@
 </h1>
 <ul>
 <li>This website contains four repositories describing <strong>observer performance and artificial intelligence systems modeling, analysis and validation</strong>.</li>
-<li>They are:
-<ul>
+<li>They are:<ul>
 <li>
 <code>RJafroc</code> is the software package that provides the common thread on which the other three packages depend;</li>
 <li>
@@ -216,10 +218,8 @@
 <li>The <code>developer</code> branch is for development/experimental work.</li>
 </ul>
 </div>
-<div class="section level1">
-<h1 id="installation-those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions">Installation: those already familiar with installing R packages from GitHub can ignore the following directions<a class="anchor" aria-label="anchor" href="#installation-those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions"></a>
-</h1>
-</div>
+<div class="section level1"><h1 id="installation-those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions">Installation: those already familiar with installing R packages from GitHub can ignore the following directions<a class="anchor" aria-label="anchor" href="#installation-those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions"></a>
+</h1></div>
 <div class="section level1">
 <h1 id="how-do-i-get-set-up">How do I get set up?<a class="anchor" aria-label="anchor" href="#how-do-i-get-set-up"></a>
 </h1>
@@ -241,9 +241,7 @@
 </ul>
 <pre><code><span class="va">cbmPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/PlotCbmFit.html">PlotCbmFit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cbmPlot</span><span class="op">)</span></code></pre>
-<ul>
-<li>You should see two ROC plots in the <code>Plots</code> window.</li>
-</ul>
+<ul><li>You should see two ROC plots in the <code>Plots</code> window.</li></ul>
 </div>
 <div class="section level2">
 <h2 id="2-install-from-github-using-package-devtools">2. Install from GitHub using package <code>devtools</code>
@@ -260,9 +258,7 @@
 <li>Load <code>devtools</code> as shown below:</li>
 </ul>
 <pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></code></pre>
-<ul>
-<li>Install <code>RJafroc</code> directly from <code>GitHub</code> (this is where <code>devtools</code> is used):</li>
-</ul>
+<ul><li>Install <code>RJafroc</code> directly from <code>GitHub</code> (this is where <code>devtools</code> is used):</li></ul>
 <pre><code><span class="fu">install_github</span><span class="op">(</span><span class="st">"dpc10ster/RJafroc"</span><span class="op">)</span></code></pre>
 <ul>
 <li>Hit Enter on any prompts…</li>
@@ -270,9 +266,7 @@
 <li>Load <code>RJafroc</code> as shown below:</li>
 </ul>
 <pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dpc10ster.github.io/RJafroc/" class="external-link">RJafroc</a></span><span class="op">)</span></code></pre>
-<ul>
-<li>Test the installation:</li>
-</ul>
+<ul><li>Test the installation:</li></ul>
 <pre><code><span class="va">cbmPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/PlotCbmFit.html">PlotCbmFit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cbmPlot</span><span class="op">)</span></code></pre>
 <ul>
@@ -398,7 +392,7 @@ openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, n
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
