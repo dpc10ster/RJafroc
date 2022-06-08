@@ -104,7 +104,7 @@
       <h1 data-toc-skip>Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</h1>
                         <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 data-toc-skip class="date">2022-06-07</h4>
+            <h4 data-toc-skip class="date">2022-06-08</h4>
       
       
       <div class="hidden name"><code>Ch19Vig2FrocSampleSize.Rmd</code></div>
@@ -135,13 +135,13 @@
 <span class="va">lambdaMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">lambdaMed</span>
 <span class="va">nuMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">nuMed</span>
 <span class="va">scaleFactor</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">scaleFactor</span></code></pre></div>
-<p>The fitting model is defined by <code>muMed = r muMed</code>, <code>lambdaMed = 5.5997846</code> and <code>nuMed = 0.3706373</code> and <code>lesionPmf</code>. The effect size scale factor is 2.1515468.</p>
+<p>The fitting model is defined by <code>muMed = r muMed</code>, <code>lambdaMed = 5.6140941</code> and <code>nuMed = 0.3696988</code> and <code>lesionPmf</code>. The effect size scale factor is 2.1540267.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">aucRocNH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span><span class="va">muMed</span>, <span class="va">lambdaMed</span>, <span class="va">nuMed</span>, 
                                             lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"ROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucROC</span>
 <span class="va">aucwAfrocNH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span><span class="va">muMed</span>, <span class="va">lambdaMed</span>, <span class="va">nuMed</span>, 
                                                lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucwAFROC</span></code></pre></div>
-<p>The null hypothesis ROC AUC is 0.8789423 and the corresponding NH wAFROC AUC is 0.7230667.</p>
+<p>The null hypothesis ROC AUC is 0.8790725 and the corresponding NH wAFROC AUC is 0.7232327.</p>
 </div>
 <div class="section level2">
 <h2 id="extracting-the-wafroc-variance-components">Extracting the wAFROC variance components<a class="anchor" aria-label="anchor" href="#extracting-the-wafroc-variance-components"></a>
@@ -170,7 +170,7 @@
 <span class="va">powerwAFROC</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">powerRRRC</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ROC-ES = "</span>, <span class="va">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="va">ROC_ES</span> <span class="op">*</span> <span class="va">scaleFactor</span>, <span class="st">", Power-wAFROC = "</span>, <span class="va">powerwAFROC</span>, <span class="st">"\n"</span><span class="op">)</span>
-<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10757734 , Power-wAFROC =  0.97602339</span></code></pre></div>
+<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10770134 , Power-wAFROC =  0.97627452</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="wafroc-number-of-cases-for-80-power-for-a-given-number-of-readers-j">wAFROC number of cases for 80% power for a given number of readers J<a class="anchor" aria-label="anchor" href="#wafroc-number-of-cases-for-80-power-for-a-given-number-of-readers-j"></a>
@@ -184,7 +184,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ROC-ES = "</span>, <span class="va">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="va">ROC_ES</span> <span class="op">*</span> <span class="va">scaleFactor</span>, 
     <span class="st">", K80RRRC = "</span>, <span class="va">ret2</span><span class="op">$</span><span class="va">KRRRC</span>, <span class="st">", Power-wAFROC = "</span>, <span class="va">ret2</span><span class="op">$</span><span class="va">powerRRRC</span>, <span class="st">"\n"</span><span class="op">)</span>
-<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10757734 , K80RRRC =  42 , Power-wAFROC =  0.80383627</span></code></pre></div>
+<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10770134 , K80RRRC =  42 , Power-wAFROC =  0.80472815</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="wafroc-power-for-a-given-number-of-readers-j-and-cases-k">wAFROC Power for a given number of readers J and cases K<a class="anchor" aria-label="anchor" href="#wafroc-power-for-a-given-number-of-readers-j-and-cases-k"></a>
@@ -196,7 +196,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ROC-ES = "</span>, <span class="va">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="va">ROC_ES</span> <span class="op">*</span> <span class="va">scaleFactor</span>, 
     <span class="st">", powerRRRC = "</span>, <span class="va">ret3</span><span class="op">$</span><span class="va">powerRRRC</span>, <span class="st">"\n"</span><span class="op">)</span>
-<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10757734 , powerRRRC =  0.80383627</span></code></pre></div>
+<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10770134 , powerRRRC =  0.80472815</span></code></pre></div>
 <p>The estimated power is close to 80% as the number of cases (<code>ret2$KRRRC = 42</code>) was chosen deliberately from the previous code block.</p>
 </div>
 <div class="section level2">
