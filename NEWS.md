@@ -73,7 +73,7 @@
 ## Added ability to read Excel format LROC datasets 6/11/21 - 6/14/21
 * Extended `DfReadDataFile` to accommodate LROC data; added flag `lrocForcedMark`
 * Must use `newExcelFileFormat = T` for this capability
-* Added toy LROC files: see `inst/extdata/toyFiles/LROC/lroc?.xlsx`
+* Added toy LROC files: see `inst/extdata/toyFiles/LROC/lroc*.xlsx`
 * See `ReadJAFROCNewFormat.R`, just before final `return`, for added code 
 * Added tests in `test-DfReadDataFile()`.
 
