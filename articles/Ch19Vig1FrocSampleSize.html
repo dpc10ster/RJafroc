@@ -107,7 +107,7 @@
       <h1 data-toc-skip>Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</h1>
                         <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 data-toc-skip class="date">2022-06-11</h4>
+            <h4 data-toc-skip class="date">2022-06-15</h4>
       
       
       <div class="hidden name"><code>Ch19Vig1FrocSampleSize.Rmd</code></div>
@@ -183,12 +183,12 @@
 <code class="sourceCode R"><span class="va">muMed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">RsmParms</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span> 
 <span class="va">lambdaPMed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">RsmParms</span><span class="op">[</span>,,<span class="fl">2</span><span class="op">]</span><span class="op">)</span>
 <span class="va">nuPMed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">RsmParms</span><span class="op">[</span>,,<span class="fl">3</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<p>The defining values of the fitting model are <code>muMed</code> = 3.3105557, <code>lambdaPMed</code> = 1.714368 and <code>nuPMed</code> = 0.7036567. Note that these obey the constraints <code>lambdaPMed &gt; 0</code> and <code>0 &lt; nuP &lt; 1</code>. One converts the physical parameters to the intrinsic values:</p>
+<p>The defining values of the fitting model are <code>muMed</code> = 3.3111767, <code>lambdaPMed</code> = 1.714368 and <code>nuPMed</code> = 0.7036571. Note that these obey the constraints <code>lambdaPMed &gt; 0</code> and <code>0 &lt; nuP &lt; 1</code>. One converts the physical parameters to the intrinsic values:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/UtilPhysical2IntrinsicRSM.html">UtilPhysical2IntrinsicRSM</a></span><span class="op">(</span><span class="va">muMed</span>, <span class="va">lambdaPMed</span>, <span class="va">nuPMed</span><span class="op">)</span>
 <span class="va">lambdaMed</span> <span class="op">&lt;-</span> <span class="va">temp</span><span class="op">$</span><span class="va">lambda</span>
 <span class="va">nuMed</span> <span class="op">&lt;-</span> <span class="va">temp</span><span class="op">$</span><span class="va">nu</span></code></pre></div>
-<p>In terms of intrinsic parameters, the defining values of the fitting model are <code>muMed</code> = 3.3105557, <code>lambdaMed</code> = 5.6755108 and <code>nuMed</code> = 0.3673814. We are now ready to calculate the expected NH FOMs using the ROC -AUC and the wAFROC FOM.</p>
+<p>In terms of intrinsic parameters, the defining values of the fitting model are <code>muMed</code> = 3.3111767, <code>lambdaMed</code> = 5.6765755 and <code>nuMed</code> = 0.3673129. We are now ready to calculate the expected NH FOMs using the ROC -AUC and the wAFROC FOM.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">aucRocNH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span><span class="va">muMed</span>, <span class="va">lambdaMed</span>, <span class="va">nuMed</span>, 
                                             lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"ROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucROC</span>
@@ -196,7 +196,7 @@
                                                lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucwAFROC</span></code></pre></div>
 <ul>
 <li><p>The plotting function <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> returns a number of other objects, most importantly the plot, but here we use only the AUC, which is obtained by numerical integration of the predicted operating characteristics.</p></li>
-<li><p>One has <code>aucRocNH = 0.8791301</code> and <code>aucwAfrocNH = 0.7198929</code>. Note that the wAFROC-FOM is smaller than the ROC-FOM as it includes the localization constraint.</p></li>
+<li><p>One has <code>aucRocNH = 0.8791397</code> and <code>aucwAfrocNH = 0.7199052</code>. Note that the wAFROC-FOM is smaller than the ROC-FOM as it includes the localization constraint.</p></li>
 <li><p>To induce the alternative hypothesis condition, one increments <span class="math inline">\(\mu_{NH}\)</span> by <span class="math inline">\(\Delta_{\mu}\)</span>. The resulting ROC-AUC and wAFROC-AUC are calculated, again by numerical integration of the RSM predicted ROC and wAFROC curves, leading to the corresponding effect-sizes (note that in each equation below one takes the difference between the AH value minus the NH value):</p></li>
 <li><p>The next step is to calculate the effect size (new value minus the NH value) using ROC and wAFROC FOMs for a series of specified <code>deltaMu</code> values. This generates values that can be used to interpolate a wAFROC effect size for a specified ROC effect size.</p></li>
 </ul>
@@ -210,26 +210,26 @@
     <span class="va">muMed</span><span class="op">+</span> <span class="va">deltaMu</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">lambdaMed</span>, <span class="va">nuMed</span>, lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucwAFROC</span> <span class="op">-</span> <span class="va">aucwAfrocNH</span>
   <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ES_ROC = "</span>, <span class="va">esRoc</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">", ES_wAFROC = "</span>, <span class="va">eswAfroc</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,<span class="st">"\n"</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="co">#&gt; ES_ROC =  0.0006197813 , ES_wAFROC =  0.001328972 </span>
-<span class="co">#&gt; ES_ROC =  0.001234752 , ES_wAFROC =  0.002649814 </span>
-<span class="co">#&gt; ES_ROC =  0.00184496 , ES_wAFROC =  0.003962591 </span>
-<span class="co">#&gt; ES_ROC =  0.002450451 , ES_wAFROC =  0.005267363 </span>
-<span class="co">#&gt; ES_ROC =  0.003051273 , ES_wAFROC =  0.006564192 </span>
-<span class="co">#&gt; ES_ROC =  0.003647472 , ES_wAFROC =  0.00785314 </span>
-<span class="co">#&gt; ES_ROC =  0.004239094 , ES_wAFROC =  0.009134268 </span>
-<span class="co">#&gt; ES_ROC =  0.004826184 , ES_wAFROC =  0.01040764 </span>
-<span class="co">#&gt; ES_ROC =  0.005408788 , ES_wAFROC =  0.0116733 </span>
-<span class="co">#&gt; ES_ROC =  0.00598695 , ES_wAFROC =  0.01293133 </span>
-<span class="co">#&gt; ES_ROC =  0.006560717 , ES_wAFROC =  0.01418178 </span>
-<span class="co">#&gt; ES_ROC =  0.007130131 , ES_wAFROC =  0.01542471 </span>
-<span class="co">#&gt; ES_ROC =  0.007695238 , ES_wAFROC =  0.01666018 </span>
-<span class="co">#&gt; ES_ROC =  0.00825608 , ES_wAFROC =  0.01788824 </span>
-<span class="co">#&gt; ES_ROC =  0.008812701 , ES_wAFROC =  0.01910896 </span>
-<span class="co">#&gt; ES_ROC =  0.009365145 , ES_wAFROC =  0.0203224 </span>
-<span class="co">#&gt; ES_ROC =  0.009913453 , ES_wAFROC =  0.0215286 </span>
-<span class="co">#&gt; ES_ROC =  0.01045767 , ES_wAFROC =  0.02272763 </span>
-<span class="co">#&gt; ES_ROC =  0.01099783 , ES_wAFROC =  0.02391954 </span>
-<span class="co">#&gt; ES_ROC =  0.01153399 , ES_wAFROC =  0.02510439</span></code></pre></div>
+<span class="co">#&gt; ES_ROC =  0.0006195358 , ES_wAFROC =  0.001328561 </span>
+<span class="co">#&gt; ES_ROC =  0.001234264 , ES_wAFROC =  0.002648998 </span>
+<span class="co">#&gt; ES_ROC =  0.001844232 , ES_wAFROC =  0.003961373 </span>
+<span class="co">#&gt; ES_ROC =  0.002449487 , ES_wAFROC =  0.005265747 </span>
+<span class="co">#&gt; ES_ROC =  0.003050075 , ES_wAFROC =  0.006562184 </span>
+<span class="co">#&gt; ES_ROC =  0.003646043 , ES_wAFROC =  0.007850743 </span>
+<span class="co">#&gt; ES_ROC =  0.004237436 , ES_wAFROC =  0.009131486 </span>
+<span class="co">#&gt; ES_ROC =  0.0048243 , ES_wAFROC =  0.01040447 </span>
+<span class="co">#&gt; ES_ROC =  0.005406681 , ES_wAFROC =  0.01166977 </span>
+<span class="co">#&gt; ES_ROC =  0.005984624 , ES_wAFROC =  0.01292742 </span>
+<span class="co">#&gt; ES_ROC =  0.006558173 , ES_wAFROC =  0.01417751 </span>
+<span class="co">#&gt; ES_ROC =  0.007127373 , ES_wAFROC =  0.01542007 </span>
+<span class="co">#&gt; ES_ROC =  0.007692267 , ES_wAFROC =  0.01665518 </span>
+<span class="co">#&gt; ES_ROC =  0.0082529 , ES_wAFROC =  0.01788289 </span>
+<span class="co">#&gt; ES_ROC =  0.008809315 , ES_wAFROC =  0.01910326 </span>
+<span class="co">#&gt; ES_ROC =  0.009361554 , ES_wAFROC =  0.02031634 </span>
+<span class="co">#&gt; ES_ROC =  0.009909661 , ES_wAFROC =  0.0215222 </span>
+<span class="co">#&gt; ES_ROC =  0.01045368 , ES_wAFROC =  0.02272089 </span>
+<span class="co">#&gt; ES_ROC =  0.01099365 , ES_wAFROC =  0.02391247 </span>
+<span class="co">#&gt; ES_ROC =  0.01152961 , ES_wAFROC =  0.02509699</span></code></pre></div>
 <p>Here is a plot of wAFROC effect size (y-axis) vs. ROC effect size.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>es_ROC <span class="op">=</span> <span class="va">esRoc</span>, es_wAFROC <span class="op">=</span> <span class="va">eswAfroc</span><span class="op">)</span>
@@ -248,7 +248,7 @@
 <code class="sourceCode R"><span class="va">scaleFactor</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">eswAfroc</span><span class="op">~</span><span class="op">-</span><span class="fl">1</span><span class="op">+</span><span class="va">esRoc</span><span class="op">)</span> <span class="co"># fit values to straight line thru origin</span>
 <span class="va">effectSizeROC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">0.01</span><span class="op">)</span>
 <span class="va">effectSizewAFROC</span> <span class="op">&lt;-</span> <span class="va">effectSizeROC</span><span class="op">*</span><span class="va">scaleFactor</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co"># r2 = summary(scaleFactor)$r.squared</span></code></pre></div>
-<p>The slope of the zero-intercept constrained straight line fit is <code>scaleFactor</code> = 2.1686863 and the squared correlation coefficient is <code>R2</code> = 0.9999904. Therefore, the conversion from ROC to wAFROC effect size is: <code>effectSizewAFROC = scaleFactor * effectSizeROC</code>. <strong>The wAFROC effect size is twice the ROC effect size.</strong> All that remains is to calculate the variance componenents using the two FOMs:</p>
+<p>The slope of the zero-intercept constrained straight line fit is <code>scaleFactor</code> = 2.168872 and the squared correlation coefficient is <code>R2</code> = 0.9999904. Therefore, the conversion from ROC to wAFROC effect size is: <code>effectSizewAFROC = scaleFactor * effectSizeROC</code>. <strong>The wAFROC effect size is twice the ROC effect size.</strong> All that remains is to calculate the variance componenents using the two FOMs:</p>
 </div>
 <div class="section level2">
 <h2 id="computing-the-respective-variance-components">Computing the respective variance components<a class="anchor" aria-label="anchor" href="#computing-the-respective-variance-components"></a>
@@ -312,16 +312,16 @@
   <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ROC-ES = "</span>, <span class="va">effectSizeROC</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">", wAFROC-ES = "</span>, <span class="va">effectSizewAFROC</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, 
       <span class="st">", Power-ROC = "</span>, <span class="va">powerROC</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">", Power-wAFROC = "</span>, <span class="va">powerwAFROC</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="st">"\n"</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="co">#&gt; ROC-ES =  0.01 , wAFROC-ES =  0.021686863 , Power-ROC =  0.064430457 , Power-wAFROC =  0.126619 </span>
-<span class="co">#&gt; ROC-ES =  0.02 , wAFROC-ES =  0.043373726 , Power-ROC =  0.10878897 , Power-wAFROC =  0.36052645 </span>
-<span class="co">#&gt; ROC-ES =  0.03 , wAFROC-ES =  0.065060589 , Power-ROC =  0.18471152 , Power-wAFROC =  0.66861813 </span>
-<span class="co">#&gt; ROC-ES =  0.04 , wAFROC-ES =  0.086747452 , Power-ROC =  0.29079274 , Power-wAFROC =  0.88966483 </span>
-<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10843431 , Power-ROC =  0.41954431 , Power-wAFROC =  0.9777141 </span>
-<span class="co">#&gt; ROC-ES =  0.06 , wAFROC-ES =  0.13012118 , Power-ROC =  0.55738123 , Power-wAFROC =  0.99734912 </span>
-<span class="co">#&gt; ROC-ES =  0.07 , wAFROC-ES =  0.15180804 , Power-ROC =  0.68816012 , Power-wAFROC =  0.9998169 </span>
-<span class="co">#&gt; ROC-ES =  0.08 , wAFROC-ES =  0.1734949 , Power-ROC =  0.79836108 , Power-wAFROC =  0.9999927 </span>
-<span class="co">#&gt; ROC-ES =  0.09 , wAFROC-ES =  0.19518177 , Power-ROC =  0.88095077 , Power-wAFROC =  0.99999983 </span>
-<span class="co">#&gt; ROC-ES =  0.1 , wAFROC-ES =  0.21686863 , Power-ROC =  0.93606799 , Power-wAFROC =  1</span></code></pre></div>
+<span class="co">#&gt; ROC-ES =  0.01 , wAFROC-ES =  0.02168872 , Power-ROC =  0.064430457 , Power-wAFROC =  0.12663243 </span>
+<span class="co">#&gt; ROC-ES =  0.02 , wAFROC-ES =  0.04337744 , Power-ROC =  0.10878897 , Power-wAFROC =  0.36057739 </span>
+<span class="co">#&gt; ROC-ES =  0.03 , wAFROC-ES =  0.06506616 , Power-ROC =  0.18471152 , Power-wAFROC =  0.66869184 </span>
+<span class="co">#&gt; ROC-ES =  0.04 , wAFROC-ES =  0.08675488 , Power-ROC =  0.29079274 , Power-wAFROC =  0.88971557 </span>
+<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.1084436 , Power-ROC =  0.41954431 , Power-wAFROC =  0.97773185 </span>
+<span class="co">#&gt; ROC-ES =  0.06 , wAFROC-ES =  0.13013232 , Power-ROC =  0.55738123 , Power-wAFROC =  0.99735239 </span>
+<span class="co">#&gt; ROC-ES =  0.07 , wAFROC-ES =  0.15182104 , Power-ROC =  0.68816012 , Power-wAFROC =  0.99981722 </span>
+<span class="co">#&gt; ROC-ES =  0.08 , wAFROC-ES =  0.17350976 , Power-ROC =  0.79836108 , Power-wAFROC =  0.99999272 </span>
+<span class="co">#&gt; ROC-ES =  0.09 , wAFROC-ES =  0.19519848 , Power-ROC =  0.88095077 , Power-wAFROC =  0.99999983 </span>
+<span class="co">#&gt; ROC-ES =  0.1 , wAFROC-ES =  0.2168872 , Power-ROC =  0.93606799 , Power-wAFROC =  1</span></code></pre></div>
 <p>Since the wAFROC effect size is about a factor of two larger than the ROC effect size, wAFROC power is larger than that for ROC. The effect is magnified as the effect size enters as the square in the formula for the power (this overwhelms the slight increase in variability of wAFROC-FOM relative to ROC-FOM noted previously). The following is a plot of the respective powers.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>power_ROC <span class="op">=</span> <span class="va">powerROC</span>, power_wAFROC <span class="op">=</span> <span class="va">powerwAFROC</span><span class="op">)</span>
@@ -363,7 +363,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>

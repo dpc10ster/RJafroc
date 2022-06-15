@@ -127,51 +127,86 @@
     <dl><dt>dataset</dt>
 <dd><p><strong>The dataset to be analyzed; must be single-treatment
 at least three readers, where the first reader is CAD. </strong></p></dd>
+
+
 <dt>FOM</dt>
 <dd><p>The desired FOM; for ROC data it must be <code>"Wilcoxon"</code>, for FROC data 
 it can be any valid FOM, e.g., <code>"HrAuc"</code>, <code>"wAFROC"</code>, etc; 
 for LROC data it must be <code>"Wilcoxon"</code>, or <code>"PCL"</code> or <code>"ALROC"</code>.</p></dd>
+
+
 <dt>FPFValue</dt>
 <dd><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
 where to evaluate a partial curve based figure of merit. The default is 0.2.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>The desired analysis: "1T-RRFC","1T-RRRC" (the default) or "2T-RRRC",
 see manuscript for details.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>Significance level of the test, defaults to 0.05.</p></dd>
+
+
 <dt>plots</dt>
 <dd><p>Flag, default is FALSE, i.e., a plot is not displayed. 
 If TRUE, it displays the appropriate operating characteristic for all 
 readers and CAD.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>If <code>method = "1T-RRRC"</code> the return value is a 
+    
+
+<p>If <code>method = "1T-RRRC"</code> the return value is a 
    list with the following elements:</p>
 <dl><dt>fomCAD</dt>
 <dd><p>The observed FOM for CAD.</p></dd>
+
+
 <dt>fomRAD</dt>
 <dd><p>The observed FOM array for the readers.</p></dd>
+
+
 <dt>avgRadFom</dt>
 <dd><p>The average FOM of the readers.</p></dd>
+
+
 <dt>avgDiffFom</dt>
 <dd><p>The mean of the difference FOM, RAD - CAD.</p></dd>
+
+
 <dt>ciAvgDiffFom</dt>
 <dd><p>The 95-percent CI of the average difference, RAD - CAD.</p></dd>
+
+
 <dt>varR</dt>
 <dd><p>The variance of the radiologists.</p></dd>
+
+
 <dt>varError</dt>
 <dd><p>The variance of the error term in the single-treatment 
    multiple-reader OR model.</p></dd>
+
+
 <dt>cov2</dt>
 <dd><p>The covariance of the error term.</p></dd>
+
+
 <dt>tstat</dt>
 <dd><p>The observed value of the t-statistic; it's square is 
    equivalent to an F-statistic.</p></dd>
+
+
 <dt>df</dt>
 <dd><p>The degrees of freedom of the t-statistic.</p></dd>
+
+
 <dt>pval</dt>
 <dd><p>The p-value for rejecting the NH.</p></dd>
+
+
 <dt>Plots</dt>
 <dd><p>If argument plots = TRUE, a <span class="pkg">ggplot</span> object 
    containing empirical operating characteristics  
@@ -179,48 +214,83 @@ readers and CAD.</p></dd>
    <code>"Wilcoxon"</code> an ROC plot object
    is produced where reader 1 is CAD. If an LROC FOM is selected, an LROC
    plot is displayed.</p></dd>
+
+
 </dl><p>If <code>method = "2T-RRRC"</code> the return value is a list 
    with the following elements:</p>
 <dl><dt>fomCAD</dt>
 <dd><p>The observed FOM for CAD.</p></dd>
+
+
 <dt>fomRAD</dt>
 <dd><p>The observed FOM array for the readers.</p></dd>
+
+
 <dt>avgRadFom</dt>
 <dd><p>The average FOM of the readers.</p></dd>
+
+
 <dt>avgDiffFom</dt>
 <dd><p>The mean of the difference FOM, RAD - CAD.</p></dd>
+
+
 <dt>ciDiffFom</dt>
 <dd><p>A data frame containing the statistics associated 
    with the average difference, RAD - CAD.</p></dd>
+
+
 <dt>ciAvgRdrEachTrt</dt>
 <dd><p>A data frame containing the statistics 
    associated with the average FOM in each "treatment".</p></dd>
+
+
 <dt>varR</dt>
 <dd><p>The variance of the pure reader term in the OR model.</p></dd>
+
+
 <dt>varTR</dt>
 <dd><p>The variance of the treatment-reader term error 
    term in the OR model.</p></dd>
+
+
 <dt>cov1</dt>
 <dd><p>The covariance1 of the error term - same reader, 
    different treatments.</p></dd>
+
+
 <dt>cov2</dt>
 <dd><p>The covariance2 of the error term  - 
    different readers, same treatment.</p></dd>
+
+
 <dt>cov3</dt>
 <dd><p>The covariance3 of the error term  - different readers, 
    different treatments.</p></dd>
+
+
 <dt>varError</dt>
 <dd><p>The variance of the pure error term in the OR model.</p></dd>
+
+
 <dt>FStat</dt>
 <dd><p>The observed value of the F-statistic.</p></dd>
+
+
 <dt>ndf</dt>
 <dd><p>The numerator degrees of freedom of the F-statistic.</p></dd>
+
+
 <dt>df</dt>
 <dd><p>The denominator degrees of freedom of the F-statistic.</p></dd>
+
+
 <dt>pval</dt>
 <dd><p>The p-value for rejecting the NH.</p></dd>
+
+
 <dt>Plots</dt>
 <dd><p>see above.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -334,7 +404,7 @@ Paper presented at: International Workshop on Digital Mammography, Malmo, Sweden
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

@@ -112,6 +112,8 @@
     <dl><dt>dataset</dt>
 <dd><p>The dataset object to be analyzed (<em>not the file name</em>), 
 see <code>Dataset</code> in <code><a href="RJafroc-package.html">RJafroc-package</a></code>.</p></dd>
+
+
 <dt>ReportFileBaseName</dt>
 <dd><p>The report file (with extension <code>"txt"</code> or <code>"xlsx"</code>, 
 as specified by option 
@@ -125,41 +127,62 @@ file
 is very hard to locate. This is so that the software passes CRAN checks, 
 as writing to the project directory, or any of its sub-directories, is 
 frowned upon.</p></dd>
+
+
 <dt>ReportFileExt</dt>
 <dd><p>The report file extension determines the type of output. 
 <code>"txt"</code>, the default, for 
 a text file, <code>"xlsx"</code> for an Excel file.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>The significance testing method, <code>"OR"</code> or 
 (the default) <code>"DBM"</code>.</p></dd>
+
+
 <dt>FOM</dt>
 <dd><p>The figure of merit; see <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>See <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>; the default is 0.05.</p></dd>
+
+
 <dt>covEstMethod</dt>
 <dd><p>See <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>; only needed 
 for method = <code>"OR"</code>; the default is "Jackknife".</p></dd>
+
+
 <dt>nBoots</dt>
 <dd><p>See <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>; only needed for 
 <code>"OR"</code> analysis; the default is 200.</p></dd>
+
+
 <dt>sequentialNames</dt>
 <dd><p>A logical variable: if <code>TRUE</code>, consecutive integers 
 (starting from 1) will be used as the treatment and reader IDs in the 
 output report. Otherwise, treatment and reader IDs in the original dataset 
 are used. This option is needed for aesthetics, as long names can mess
 up the output. The default is <code>FALSE.</code></p></dd>
+
+
 <dt>overWrite</dt>
 <dd><p>A <code>logical</code> variable: if <code>FALSE</code>, a warning will 
 be issued if the report file already exists and the program will wait 
 until the user inputs "y" or "n" to determine whether to overwrite the 
 existing file. If <code>TRUE</code>, the existing file will be silently overwritten. 
 The default is <code>FALSE</code>.</p></dd>
+
+
 <dt>analysisOption</dt>
 <dd><p>"RRRC", "FRRC", "RRFC or "ALL"; see <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>StResult The object returned by <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>.</p>
+    
+
+<p>StResult The object returned by <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -424,7 +447,7 @@ The default is <code>FALSE</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

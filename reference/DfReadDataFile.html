@@ -107,6 +107,8 @@
     <dl><dt>fileName</dt>
 <dd><p>A string specifying the name of the file. 
 The file-extension must match the format specified below.</p></dd>
+
+
 <dt>format</dt>
 <dd><p>A string specifying the format of the data file. 
 It can be <code>"JAFROC"</code>, the default, which requires a <code>.xlsx</code> Excel file
@@ -117,6 +119,8 @@ as specified in <a href="https://perception.radiology.uiowa.edu/" class="externa
 file extension is <code>.imrmc</code> and the format is described in 
 <a href="https://code.google.com/archive/p/imrmc/" class="external-link">https://code.google.com/archive/p/imrmc/</a>. <b>See following note for
 important information about deprecation of the <code>"MRMC"</code> format</b>.</p></dd>
+
+
 <dt>newExcelFileFormat</dt>
 <dd><p>Logical. Must be true to read LROC data. 
 This argument only applies to the <code>"JAFROC"</code> format. 
@@ -124,24 +128,33 @@ The default is <code>FALSE</code>. If <code>TRUE</code> the function accommodate
 additional columns
 in the <code>Truth</code> worksheet. If <code>FALSE</code>, the original function (as in version 
 1.2.0) is used and the three extra columns, if present, throws an error.</p></dd>
+
+
 <dt>lrocForcedMark</dt>
 <dd><p>Logical: For LROC dataset only: is a forced mark required 
 on every image? The default is <code>NA</code>. If a mark is not required, set 
 it to <code>FALSE</code> otherwise to <code>TRUE</code>.</p></dd>
+
+
 <dt>delimiter</dt>
 <dd><p>The string delimiter to be used for the <code>"MRMC"</code> 
 format ("," is the default), see <a href="http://perception.radiology.uiowa.edu/" class="external-link">http://perception.radiology.uiowa.edu/</a>.
 This parameter is not used when reading <code>"JAFROC"</code> 
 or <code>"iMRMC"</code> data files.</p></dd>
+
+
 <dt>sequentialNames</dt>
 <dd><p>A logical variable: if <code>TRUE</code>, consecutive integers 
 (starting from 1) will be used as the 
 treatment and reader IDs (i.e., names). Otherwise, treatment 
 and reader IDs in the original data file will be used.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A dataset with the structure specified in <code><a href="RJafroc-package.html">RJafroc-package</a></code>.</p>
+    
+
+<p>A dataset with the structure specified in <code><a href="RJafroc-package.html">RJafroc-package</a></code>.</p>
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -194,7 +207,7 @@ and reader IDs in the original data file will be used.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

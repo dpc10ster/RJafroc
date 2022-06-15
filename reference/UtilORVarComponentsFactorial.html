@@ -104,26 +104,41 @@
     <h2>Arguments</h2>
     <dl><dt>dataset</dt>
 <dd><p>The factorial dataset object</p></dd>
+
+
 <dt>FOM</dt>
 <dd><p>The figure of merit</p></dd>
+
+
 <dt>FPFValue</dt>
 <dd><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
 where to evaluate a partial curve based figure of merit. The default is 0.2.</p></dd>
+
+
 <dt>covEstMethod</dt>
 <dd><p>The covariance estimation method, "jackknife" 
 (the default) or "bootstrap" or "DeLong" (DeLongt is applicable only for 
 FOM = Wilcoxon).</p></dd>
+
+
 <dt>nBoots</dt>
 <dd><p>Only needed for bootstrap covariance estimation method. The number 
 of bootstraps, defaults to 200.</p></dd>
+
+
 <dt>seed</dt>
 <dd><p>Only needed for the bootstrap covariance estimation method. The initial 
 seed for the random number generator, the default is <code>NULL</code>, as if no seed 
 has been specified.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list object containing the following <code>data.frames</code>:</p><ul><li><p><code>foms</code>: the figures of merit for different treatment-reader combinations</p></li>
+    
+
+<p>A list object containing the following <code>data.frames</code>:</p>
+<p></p>
+<ul><li><p><code>foms</code>: the figures of merit for different treatment-reader combinations</p></li>
 <li><p><code>TRanova</code>: the OR treatment-reader ANOVA table</p></li>
 <li><p><code>VarCom</code>: the OR variance-components <code>Cov1</code>, <code>Cov2</code>, 
     <code>Cov3</code>, <code>Var</code> and correlations <code>rho1</code>, <code>rho2</code> and <code>rho3</code></p></li>
@@ -193,7 +208,7 @@ has been specified.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

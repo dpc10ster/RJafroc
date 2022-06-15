@@ -108,28 +108,41 @@
     <h2>Arguments</h2>
     <dl><dt>dataset</dt>
 <dd><p>Dataset object.</p></dd>
+
+
 <dt>trts</dt>
 <dd><p>List or vector: <strong>integer</strong> indices of modalities to be plotted.
 Default is 1.</p></dd>
+
+
 <dt>rdrs</dt>
 <dd><p>List or vector: <strong>integer</strong> indices of readers to be plotted.
 Default is 1.</p></dd>
+
+
 <dt>opChType</dt>
 <dd><p>Type of operating characteristic to be plotted:
 <code>"ROC"</code>, <code>"FROC"</code>, <code>"AFROC"</code>,  <code>"wAFROC"</code>,
 <code>"AFROC1"</code>, <code>"wAFROC1"</code>, or <code>"LROC"</code>.</p></dd>
+
+
 <dt>legend.position</dt>
 <dd><p>Where to position the legend. The default is c(0.8, 0.2), 
 i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).</p></dd>
+
+
 <dt>maxDiscrete</dt>
 <dd><p>maximum number of op. points in order to be considered 
 discrete and to be displayed by symbols and connecting lines; 
 any more points will be regarded as continuous and only connected by lines; 
 default is 10.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <span class="pkg">ggplot2</span> object containing the operating characteristic plot(s) 
+    
+
+<p>A <span class="pkg">ggplot2</span> object containing the operating characteristic plot(s) 
 and a data frame containing the points defining the operating characteristics.</p>
 <dl><dt>Plot</dt>
 <dd><p><span class="pkg">ggplot2</span> object. 
@@ -137,11 +150,14 @@ For continuous or averaged data, operating characteristics curves are plotted
 <strong>without</strong> showing operating points. For binned (individual) data, both operating 
 points and connecting lines are shown. To avoid clutter, if there are more than 20 
 operating points, they are not shown.</p></dd>
+
+
 <dt>Points</dt>
 <dd><p>Data frame with four columns: abscissa, ordinate, 
 <code>class</code> (which codes modality and reader names) and <code>type</code>, which 
 can be <code>"D"</code> for discrete ratings, <code>"C"</code> for continuous ratings, 
 i.e., more than 20 operating points, or <code>"A"</code>, for reader averaged.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -208,7 +224,7 @@ i.e., more than 20 operating points, or <code>"A"</code>, for reader averaged.</
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

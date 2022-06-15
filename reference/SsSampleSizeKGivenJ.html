@@ -111,39 +111,63 @@
     <dl><dt>dataset</dt>
 <dd><p>The <b>pilot</b> dataset. If set to NULL 
 then variance components must be supplied.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Optional variance components, VarTR, VarTC and VarErr. These are
 needed if dataset is not supplied.</p></dd>
+
+
 <dt>J</dt>
 <dd><p>The number of readers in the <strong>pivotal</strong> study.</p></dd>
+
+
 <dt>FOM</dt>
 <dd><p>The figure of merit. Not needed if variance components are supplied.</p></dd>
+
+
 <dt>effectSize</dt>
 <dd><p>The effect size to be used in the <strong>pivotal</strong> study.
 Default is NULL. Must be supplied if dataset is set to NULL and variance 
 components are supplied.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>"OR" (default) or "DBM".</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>The significance level of the study, default is 0.05.</p></dd>
+
+
 <dt>desiredPower</dt>
 <dd><p>The desired statistical power, default is 0.8.</p></dd>
+
+
 <dt>analysisOption</dt>
 <dd><p>Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
 (the default).</p></dd>
+
+
 <dt>LegacyCode</dt>
 <dd><p>Logical, default is <code>FALSE</code>, if <code>TRUE</code> the DBM
 method is used. Otherwise the OR method is used.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of two elements:</p>
+    
+
+<p>A list of two elements:</p>
 <dl><dt>K</dt>
 <dd><p>The minimum number of cases K in the pivotal study 
    to just achieve the desired statistical power, calculated 
    for each value of <code>analysisOption</code>.</p></dd>
+
+
 <dt>power</dt>
 <dd><p>The predicted statistical power.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -217,7 +241,7 @@ method is used. Otherwise the OR method is used.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

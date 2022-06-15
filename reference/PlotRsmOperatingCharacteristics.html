@@ -117,6 +117,8 @@
 <dd><p>Array: the mean of the Gaussian distribution for the 
 ratings of latent LLs (continuous ratings of lesions that are found by the 
 observer's search mechanism). The ratings of NLs are distributed as N(0,1).</p></dd>
+
+
 <dt>lambda</dt>
 <dd><p>Array: the <em>intrinsic</em> Poisson distribution parameter 
 which models the random numbers of latent NLs (suspicious regions that do 
@@ -124,51 +126,76 @@ not correspond to actual lesions) per case. The corresponding
 <em>physical</em> parameter is <code>lambda/mu</code>. Two conversion functions 
 are provided: <code><a href="UtilIntrinsic2PhysicalRSM.html">UtilIntrinsic2PhysicalRSM</a></code> and 
 <code><a href="UtilPhysical2IntrinsicRSM.html">UtilPhysical2IntrinsicRSM</a></code>.</p></dd>
+
+
 <dt>nu</dt>
 <dd><p>Array: the <em>intrinsic</em> parameter which models the random 
 numbers of latent LLs (suspicious regions that correspond to actual 
 lesions) per diseased case. The corresponding <em>physical</em> parameter is 
 <code>1 - exp(nu*mu)</code>, the success probability of the binomial distribution.</p></dd>
+
+
 <dt>zeta1</dt>
 <dd><p>Array, the lowest reporting threshold; if missing the default 
 is an array of -3s.</p></dd>
+
+
 <dt>lesDistr</dt>
 <dd><p>Array: the probability mass function of the 
 lesion distribution for diseased cases. See <a href="UtilLesionDistr.html">UtilLesionDistr</a>.</p></dd>
+
+
 <dt>relWeights</dt>
 <dd><p>The relative weights of the lesions; a vector of 
 length equal to <code>length(maxLL)</code>. The default is zero, in which case
 equal weights are assumed.</p></dd>
+
+
 <dt>OpChType</dt>
 <dd><p>The type of operating characteristic desired: can be "<code>ROC</code>", 
 "<code>AFROC</code>", "<code>wAFROC</code>", "<code>FROC</code>" or "<code>pdfs</code>" or "<code>ALL</code>". 
 The default is "<code>ALL</code>".</p></dd>
+
+
 <dt>legendPosition</dt>
 <dd><p>The positioning of the legend: "<code>right</code>", "<code>left</code>", 
 "<code>top</code>" or "<code>bottom</code>". Use "<code>none</code>" to suppress the legend.</p></dd>
+
+
 <dt>legendDirection</dt>
 <dd><p>Allows control on the direction of the legend; 
 <code>"horizontal"</code>, the default, or <code>"vertical"</code></p></dd>
+
+
 <dt>legendJustification</dt>
 <dd><p>Where to position the legend, default 
 is bottom right corner c(0,1)</p></dd>
+
+
 <dt>nlfRange</dt>
 <dd><p><b>This applies to FROC plot only</b>. The x-axis range, e.g., c(0,2), 
 for FROC plot. Default is "<code>NULL</code>", which means the maximum NLF range, 
 as determined by the data.</p></dd>
+
+
 <dt>llfRange</dt>
 <dd><p><b>This applies to FROC plot only</b>. The y-axis range, e.g., c(0,1), 
 for FROC plot. Default is "<code>NULL</code>", which means the maximum LLF range,
 as determined by the data.</p></dd>
+
+
 <dt>nlfAlpha</dt>
 <dd><p>Upper limit of the integrated area under the FROC plot. 
 Default is "<code>NULL</code>", which means the maximum NLF range is used 
 (i.e., lambda/mu). Attempt to integrate outside the maximum NLF will 
 generate an error.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of elements containing five <span class="pkg">ggplot2</span> objects 
+    
+
+<p>A list of elements containing five <span class="pkg">ggplot2</span> objects 
    (ROCPlot, AFROCPlot wAFROCPlot, FROCPlot and PDFPlot) and two area measures 
    (each of which can have up to two elements), the area under the search 
    model predicted ROC curves in up to two treatments, the area under the search 
@@ -254,7 +281,7 @@ Modeling, and Applications with R-Based Examples</em> (CRC Press, Boca Raton, FL
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

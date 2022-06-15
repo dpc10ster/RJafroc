@@ -97,12 +97,20 @@
     <h2>Arguments</h2>
     <dl><dt>fpCounts</dt>
 <dd><p>The FP counts table</p></dd>
+
+
 <dt>tpCounts</dt>
 <dd><p>The TP counts table</p></dd>
+
+
 <dt>parameters</dt>
 <dd><p>The parameters of the model including cutoffs, see details</p></dd>
+
+
 <dt>model</dt>
 <dd><p>The fitting model: "BINORMAL", "CBM" or "RSM</p></dd>
+
+
 <dt>lesDistr</dt>
 <dd><p>The lesion distribution matrix; not needed for "BINORMAL" 
 or "CBM" models. Array [1:maxLL,1:2]. The probability mass function of the 
@@ -111,16 +119,24 @@ actual numbers of lesions per case.
 The second column contains the fraction of diseased cases with the number 
 of lesions specified in the first column. 
 The second column must sum to unity.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The return value is a list with the following elements:</p>
+    
+
+<p>The return value is a list with the following elements:</p>
 <dl><dt>chisq</dt>
 <dd><p>The chi-square statistic</p></dd>
+
+
 <dt>pVal</dt>
 <dd><p>The p-value of the fit</p></dd>
+
+
 <dt>df</dt>
 <dd><p>The degrees of freedom</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -170,7 +186,7 @@ cell (TP and FP) is usually not met. An exception dataset is shown below.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
