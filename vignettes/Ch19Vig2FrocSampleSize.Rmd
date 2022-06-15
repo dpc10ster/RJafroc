@@ -44,7 +44,7 @@ scaleFactor <- ret$scaleFactor
 ```
 
 
-The fitting model is defined by `muMed = r muMed`,  `lambdaMed = `r lambdaMed``  and  `nuMed = `r nuMed`` and `lesionPmf`. The effect size scale factor is `r scaleFactor`.
+The fitting model is defined by `muMed` = `r muMed`,  `lambdaMed` = `r lambdaMed`  and  `nuMed` = `r nuMed` and `lesDistr`. The effect size scale factor is `r scaleFactor`.
 
 
 ```{r}
