@@ -1,4 +1,13 @@
-# RJafroc 2.0.1.9000
+# RJafroc 2.1.0
+
+
+## TEMP CRAN submission process
+* Version 2.1.0
+* This is on `cran4` branch.
+* Steps to reduce file size to less than 5 Mb:
+    + Removed `RoiData.xlsx`.
+* Otherwise identical to `developer` and `master` as of 07/7/22.
+* Not yet On CRAN
 
 
 ## added `Ch19Vig1FrocSampleSize.Rmd` 6/7/22
@@ -117,7 +126,7 @@
 * This is on `cran3` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
-    + Removed all files from `ints/MRMCRuns` except `Tony`, the one that is used in an example.
+    + Removed all files from `inst/MRMCRuns` except `Tony`, the one that is used in an example.
     + Removed `CrossedModalities.xlsx` and references to it.
     + Removed `DfReadLrocDataFile.R` and `findings.txt`. Ran `devtools::document()` to fix `NAMESPACE`.
     + Removed `RoiData.xlsx`.
