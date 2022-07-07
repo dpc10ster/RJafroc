@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -32,42 +32,15 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,50 +60,80 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">binnedRocData</span>, <span class="va">lesDistr</span>, trt <span class="op">=</span> <span class="fl">1</span>, rdr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">binnedRocData</span>, <span class="va">lesDistr</span>, trt <span class="op">=</span> <span class="fl">1</span>, rdr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>binnedRocData</dt>
 <dd><p>The <strong>binned ROC</strong> dataset containing the data</p></dd>
+
+
 <dt>lesDistr</dt>
 <dd><p>The lesion distribution 1D array.</p></dd>
+
+
 <dt>trt</dt>
 <dd><p>The selected treatment, default is 1</p></dd>
+
+
 <dt>rdr</dt>
 <dd><p>The selected reader, default is 1</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The return value is a list with the following elements:</p>
+    
+
+<p>The return value is a list with the following elements:</p>
 <dl><dt>mu</dt>
 <dd><p>The mean of the diseased distribution relative 
    to the non-diseased one</p></dd>
+
+
 <dt>lambdP</dt>
 <dd><p>The Poisson parameter describing the distribution 
    of latent NLs per case</p></dd>
+
+
 <dt>nuP</dt>
 <dd><p>The binomial success probability describing the distribution
    of latent LLs per diseased case</p></dd>
+
+
 <dt>zetas</dt>
 <dd><p>The RSM cutoffs, zetas or thresholds</p></dd>
+
+
 <dt>AUC</dt>
 <dd><p>The RSM fitted ROC-AUC</p></dd>
+
+
 <dt>StdAUC</dt>
 <dd><p>The standard deviation of AUC</p></dd>
+
+
 <dt>NLLIni</dt>
 <dd><p>The initial value of negative LL</p></dd>
+
+
 <dt>NLLFin</dt>
 <dd><p>The final value of negative LL</p></dd>
+
+
 <dt>ChisqrFitStats</dt>
 <dd><p>The chisquare goodness of fit results</p></dd>
+
+
 <dt>covMat</dt>
 <dd><p>The covariance matrix of the parameters</p></dd>
+
+
 <dt>fittedPlot</dt>
 <dd><p>A <span class="pkg">ggplot2</span> object containing the fitted 
    operating characteristic along with the empirical operating points. 
    Use <code>print</code> to display the object</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -154,50 +157,50 @@ paradigm. Phys Med Biol 51, 3449-3462.</p>
 <p>Chakraborty DP (2006) ROC Curves predicted by a model of visual search. Phys Med Biol 51, 3463--3482.</p>
 <p>Chakraborty DP (2017) <em>Observer Performance Methods for Diagnostic Imaging - Foundations, 
 Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL. 
-<a href="https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840" class="external-link">https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
+<a href="https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840" class="external-link">https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co">## Test with included ROC data (some bins have zero counts)</span></span>
-<span class="r-in"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">dataset02</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## print(retFit$fittedPlot)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Test with included degenerate ROC data</span></span>
-<span class="r-in"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">datasetDegenerate</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">datasetDegenerate</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Test with single interior point data</span></span>
-<span class="r-in"><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">binnedRocData</span> <span class="op">&lt;-</span> <span class="fu"><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></span><span class="op">(</span><span class="va">fp</span>, <span class="va">tp</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">binnedRocData</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">binnedRocData</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Test with two interior data points</span></span>
-<span class="r-in"><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">binnedRocData</span> <span class="op">&lt;-</span> <span class="fu"><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></span><span class="op">(</span><span class="va">fp</span>, <span class="va">tp</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">binnedRocData</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">binnedRocData</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Test with three interior data points</span></span>
-<span class="r-in"><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">12</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="co">#25</span></span>
-<span class="r-in"><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="co">#25</span></span>
-<span class="r-in"><span class="va">binnedRocData</span> <span class="op">&lt;-</span> <span class="fu"><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></span><span class="op">(</span><span class="va">fp</span>, <span class="va">tp</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">binnedRocData</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">binnedRocData</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## test for TONY data, i = 2 and j = 3 </span></span>
-<span class="r-in"><span class="co">## only case permitting chisqure calculation</span></span>
-<span class="r-in"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">dataset01</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">rocData</span> <span class="op">&lt;-</span> <span class="fu"><a href="DfFroc2Roc.html">DfFroc2Roc</a></span><span class="op">(</span><span class="va">dataset01</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">rocData</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, trt <span class="op">=</span> <span class="fl">2</span>, rdr <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## print(retFit$fittedPlot)</span></span>
-<span class="r-in"><span class="va">retFit</span><span class="op">$</span><span class="va">ChisqrFitStats</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co">## Test with included ROC data (some bins have zero counts)</span></span></span>
+<span class="r-in"><span><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">dataset02</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## print(retFit$fittedPlot)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Test with included degenerate ROC data</span></span></span>
+<span class="r-in"><span><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">datasetDegenerate</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">datasetDegenerate</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Test with single interior point data</span></span></span>
+<span class="r-in"><span><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">binnedRocData</span> <span class="op">&lt;-</span> <span class="fu"><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></span><span class="op">(</span><span class="va">fp</span>, <span class="va">tp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">binnedRocData</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">binnedRocData</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Test with two interior data points</span></span></span>
+<span class="r-in"><span><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">binnedRocData</span> <span class="op">&lt;-</span> <span class="fu"><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></span><span class="op">(</span><span class="va">fp</span>, <span class="va">tp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">binnedRocData</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">binnedRocData</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Test with three interior data points</span></span></span>
+<span class="r-in"><span><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">12</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="co">#25</span></span></span>
+<span class="r-in"><span><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="co">#25</span></span></span>
+<span class="r-in"><span><span class="va">binnedRocData</span> <span class="op">&lt;-</span> <span class="fu"><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></span><span class="op">(</span><span class="va">fp</span>, <span class="va">tp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">binnedRocData</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">binnedRocData</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## test for TONY data, i = 2 and j = 3 </span></span></span>
+<span class="r-in"><span><span class="co">## only case permitting chisqure calculation</span></span></span>
+<span class="r-in"><span><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilLesionDistr.html">UtilLesionDistr</a></span><span class="op">(</span><span class="va">dataset01</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rocData</span> <span class="op">&lt;-</span> <span class="fu"><a href="DfFroc2Roc.html">DfFroc2Roc</a></span><span class="op">(</span><span class="va">dataset01</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitRsmRoc</span><span class="op">(</span><span class="va">rocData</span>, <span class="va">lesDistr</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, trt <span class="op">=</span> <span class="fl">2</span>, rdr <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## print(retFit$fittedPlot)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span><span class="op">$</span><span class="va">ChisqrFitStats</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chisq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.352244</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -207,8 +210,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> $df</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -223,7 +226,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

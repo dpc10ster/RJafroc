@@ -429,7 +429,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * `mrmc_setup_w10_July_2019.exe`; VanDyke `VanDyke.lrc` dataset; `Dropobox/IowaSoftware/VanDyke.lrc`
 * `OR DBM MRMC 2.51 <beta> Build 20181028 </beta>` `miplmrmc`
 * Software only runs under Windows XP
-* Tried Windows 8 on different machines (iMac and MacBookPro) under `VmWare Fusion`; no luck, even after following directions twice on [website](https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual)
+* Tried Windows 8 on different machines (iMac and MacBookPro) under `VmWare Fusion`; no luck, even after following directions twice on [website](https://perception.lab.uiowa.edu/software/or-dbm-mrmc-251/or-dbm-mrmc-251-program-and-manual-prior-version)
 * Need to compare OR ouputs - WIP
 * Need to fix documentation on `StSignificanceTesting` - WIP
 

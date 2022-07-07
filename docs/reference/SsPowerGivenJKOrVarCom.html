@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -32,42 +32,15 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,49 +60,72 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SsPowerGivenJKOrVarCom</span><span class="op">(</span>
-  <span class="va">J</span>,
-  <span class="va">K</span>,
-  <span class="va">KStar</span>,
-  <span class="va">effectSize</span>,
-  <span class="va">VarTR</span>,
-  <span class="va">Cov1</span>,
-  <span class="va">Cov2</span>,
-  <span class="va">Cov3</span>,
-  <span class="va">Var</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  analysisOption <span class="op">=</span> <span class="st">"RRRC"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SsPowerGivenJKOrVarCom</span><span class="op">(</span></span>
+<span>  <span class="va">J</span>,</span>
+<span>  <span class="va">K</span>,</span>
+<span>  <span class="va">KStar</span>,</span>
+<span>  <span class="va">effectSize</span>,</span>
+<span>  <span class="va">VarTR</span>,</span>
+<span>  <span class="va">Cov1</span>,</span>
+<span>  <span class="va">Cov2</span>,</span>
+<span>  <span class="va">Cov3</span>,</span>
+<span>  <span class="va">Var</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  analysisOption <span class="op">=</span> <span class="st">"RRRC"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>J</dt>
 <dd><p>The number of readers in the <strong>pivotal</strong> study</p></dd>
+
+
 <dt>K</dt>
 <dd><p>The number of cases in the <strong>pivotal</strong> study</p></dd>
+
+
 <dt>KStar</dt>
 <dd><p>The number of cases in the <strong>pilot</strong> study</p></dd>
+
+
 <dt>effectSize</dt>
 <dd><p>The effect size</p></dd>
+
+
 <dt>VarTR</dt>
 <dd><p>The treatment-reader OR variance component</p></dd>
+
+
 <dt>Cov1</dt>
 <dd><p>The OR Cov1 covariance</p></dd>
+
+
 <dt>Cov2</dt>
 <dd><p>The OR Cov2 covariance</p></dd>
+
+
 <dt>Cov3</dt>
 <dd><p>The OR Cov3 covariance</p></dd>
+
+
 <dt>Var</dt>
 <dd><p>The OR pure variance term</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>The size of the test (default = 0.05)</p></dd>
+
+
 <dt>analysisOption</dt>
 <dd><p>The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list object containing the estimated power and associated statistics
+    
+
+<p>A list object containing the estimated power and associated statistics
    for each desired generalization.</p>
     </div>
     <div id="details">
@@ -140,21 +136,21 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="va">dataset02</span> <span class="co">## the pilot study</span></span>
-<span class="r-in"><span class="va">KStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">VarCom</span> <span class="op">&lt;-</span> <span class="fu"><a href="StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span><span class="va">dataset</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, </span>
-<span class="r-in">method <span class="op">=</span> <span class="st">"OR"</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span><span class="op">)</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">VarCom</span></span>
-<span class="r-in"><span class="va">VarTR</span> <span class="op">&lt;-</span> <span class="va">VarCom</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="fl">1</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">Cov1</span> <span class="op">&lt;-</span> <span class="va">VarCom</span><span class="op">[</span><span class="st">"Cov1"</span>,<span class="fl">1</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">Cov2</span> <span class="op">&lt;-</span> <span class="va">VarCom</span><span class="op">[</span><span class="st">"Cov2"</span>,<span class="fl">1</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">Cov3</span> <span class="op">&lt;-</span> <span class="va">VarCom</span><span class="op">[</span><span class="st">"Cov3"</span>,<span class="fl">1</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">Var</span> <span class="op">&lt;-</span> <span class="va">VarCom</span><span class="op">[</span><span class="st">"Var"</span>,<span class="fl">1</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu">SsPowerGivenJKOrVarCom</span> <span class="op">(</span>J <span class="op">=</span> <span class="fl">5</span>, K <span class="op">=</span> <span class="fl">100</span>, KStar <span class="op">=</span> <span class="va">KStar</span>,  </span>
-<span class="r-in">   effectSize <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">VarTR</span>, <span class="va">Cov1</span>, <span class="va">Cov2</span>, <span class="va">Cov3</span>, <span class="va">Var</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span><span class="op">)</span></span>
-<span class="r-in">    </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"RRRC power = "</span>, <span class="va">ret</span><span class="op">$</span><span class="va">powerRRRC</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="va">dataset02</span> <span class="co">## the pilot study</span></span></span>
+<span class="r-in"><span><span class="va">KStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">VarCom</span> <span class="op">&lt;-</span> <span class="fu"><a href="StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span><span class="va">dataset</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, </span></span>
+<span class="r-in"><span>method <span class="op">=</span> <span class="st">"OR"</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span><span class="op">)</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">VarCom</span></span></span>
+<span class="r-in"><span><span class="va">VarTR</span> <span class="op">&lt;-</span> <span class="va">VarCom</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">Cov1</span> <span class="op">&lt;-</span> <span class="va">VarCom</span><span class="op">[</span><span class="st">"Cov1"</span>,<span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">Cov2</span> <span class="op">&lt;-</span> <span class="va">VarCom</span><span class="op">[</span><span class="st">"Cov2"</span>,<span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">Cov3</span> <span class="op">&lt;-</span> <span class="va">VarCom</span><span class="op">[</span><span class="st">"Cov3"</span>,<span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">Var</span> <span class="op">&lt;-</span> <span class="va">VarCom</span><span class="op">[</span><span class="st">"Var"</span>,<span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu">SsPowerGivenJKOrVarCom</span> <span class="op">(</span>J <span class="op">=</span> <span class="fl">5</span>, K <span class="op">=</span> <span class="fl">100</span>, KStar <span class="op">=</span> <span class="va">KStar</span>,  </span></span>
+<span class="r-in"><span>   effectSize <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">VarTR</span>, <span class="va">Cov1</span>, <span class="va">Cov2</span>, <span class="va">Cov3</span>, <span class="va">Var</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"RRRC power = "</span>, <span class="va">ret</span><span class="op">$</span><span class="va">powerRRRC</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> RRRC power =  0.57333598</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -169,7 +165,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

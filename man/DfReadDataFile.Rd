@@ -22,7 +22,7 @@ It can be \code{"JAFROC"}, the default, which requires a \code{.xlsx} Excel file
 (\bold{not \code{.xls}}), \code{"MRMC"} or \code{"iMRMC"}. 
 For \code{"MRMC"} the format is determined by the data file extension 
 (\code{.csv} or \code{.txt} or \code{.lrc}) 
-as specified in \url{https://perception.radiology.uiowa.edu/}. For \code{"iMRMC"} the 
+as specified in \url{https://perception.lab.uiowa.edu/}. For \code{"iMRMC"} the 
 file extension is \code{.imrmc} and the format is described in 
 \url{https://code.google.com/archive/p/imrmc/}. \bold{See following note for
 important information about deprecation of the \code{"MRMC"} format}.}
@@ -39,7 +39,7 @@ on every image? The default is \code{NA}. If a mark is not required, set
 it to \code{FALSE} otherwise to \code{TRUE}.}
 
 \item{delimiter}{The string delimiter to be used for the \code{"MRMC"} 
-format ("," is the default), see \url{http://perception.radiology.uiowa.edu/}.
+format ("," is the default), see \url{https://perception.lab.uiowa.edu/}.
 This parameter is not used when reading \code{"JAFROC"} 
 or \code{"iMRMC"} data files.}
 

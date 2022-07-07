@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -32,42 +32,15 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,26 +60,35 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">UtilMeanSquares</span><span class="op">(</span><span class="va">dataset</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, FPFValue <span class="op">=</span> <span class="fl">0.2</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">UtilMeanSquares</span><span class="op">(</span><span class="va">dataset</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, FPFValue <span class="op">=</span> <span class="fl">0.2</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dataset</dt>
 <dd><p>The dataset to be analyzed, see <code><a href="RJafroc-package.html">RJafroc-package</a></code>.</p></dd>
+
+
 <dt>FOM</dt>
 <dd><p>The figure of merit to be used in the calculation. The default 
 is <code>"FOM_wAFROC"</code>. See <code><a href="UtilFigureOfMerit.html">UtilFigureOfMerit</a></code>.</p></dd>
+
+
 <dt>FPFValue</dt>
 <dd><p>Only needed for <code>LROC</code> data <strong>and</strong> FOM = "PCL" or "ALROC";
 where to evaluate a partial curve based figure of merit. The default is 0.2.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>The method, in which the mean squares are calculated. The two 
 valid choices are <code>"DBM"</code> (default) and <code>"OR"</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing all possible mean squares</p>
+    
+
+<p>A list containing all possible mean squares</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -120,7 +102,7 @@ valid choices are <code>"DBM"</code> (default) and <code>"OR"</code>.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">UtilMeanSquares</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">UtilMeanSquares</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $msT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.54676344</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -148,7 +130,7 @@ valid choices are <code>"DBM"</code> (default) and <code>"OR"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $msCSingleR</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.122249800 0.212748238 0.136533908 0.017289369 0.166052811</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">UtilMeanSquares</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">UtilMeanSquares</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $msT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.027397181</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -158,7 +140,7 @@ valid choices are <code>"DBM"</code> (default) and <code>"OR"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $msTR</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.00092775374</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -173,7 +155,7 @@ valid choices are <code>"DBM"</code> (default) and <code>"OR"</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

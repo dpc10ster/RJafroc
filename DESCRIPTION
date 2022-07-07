@@ -1,8 +1,8 @@
 Package: RJafroc
 Type: Package
 Title: Artificial Intelligence Systems and Observer Performance
-Version: 2.0.1.9000
-Date: 2020-12-31
+Version: 2.1.0
+Date: 2022-07-07
 Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "dpc10ster@gmail.com"),
              person("Peter", "Phillips", role = c("aut"), email = "peter.phillips@cumbria.ac.uk"),
              person("Xuetong", "Zhai", role = c("aut"), email = "xuetong.zhai@gmail.com"))
@@ -66,7 +66,7 @@ Description: Analyzing the performance of artificial intelligence (AI) systems/a
     achieve the desired power. Utility and data file manipulation functions allow data to be read in any of the currently used 
     input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are
     illustrated with several included datasets from the author's collaborations. This version corrects bugs, simplifies usage of 
-    the software and updates the dataset structure. All changes are noted in "NEWS.md".
+    the software and updates the dataset structure. 
 VignetteBuilder: knitr
 License: GPL-3
 LazyData: true

@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -33,42 +33,15 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,18 +62,18 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span>
-  <span class="va">dataset</span>,
-  <span class="va">...</span>,
-  <span class="va">J</span>,
-  <span class="va">FOM</span>,
-  effectSize <span class="op">=</span> <span class="cn">NULL</span>,
-  method <span class="op">=</span> <span class="st">"OR"</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  desiredPower <span class="op">=</span> <span class="fl">0.8</span>,
-  analysisOption <span class="op">=</span> <span class="st">"RRRC"</span>,
-  LegacyCode <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span></span>
+<span>  <span class="va">dataset</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">J</span>,</span>
+<span>  <span class="va">FOM</span>,</span>
+<span>  effectSize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"OR"</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  desiredPower <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  analysisOption <span class="op">=</span> <span class="st">"RRRC"</span>,</span>
+<span>  LegacyCode <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -108,39 +81,63 @@
     <dl><dt>dataset</dt>
 <dd><p>The <b>pilot</b> dataset. If set to NULL 
 then variance components must be supplied.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Optional variance components, VarTR, VarTC and VarErr. These are
 needed if dataset is not supplied.</p></dd>
+
+
 <dt>J</dt>
 <dd><p>The number of readers in the <strong>pivotal</strong> study.</p></dd>
+
+
 <dt>FOM</dt>
 <dd><p>The figure of merit. Not needed if variance components are supplied.</p></dd>
+
+
 <dt>effectSize</dt>
 <dd><p>The effect size to be used in the <strong>pivotal</strong> study.
 Default is NULL. Must be supplied if dataset is set to NULL and variance 
 components are supplied.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>"OR" (default) or "DBM".</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>The significance level of the study, default is 0.05.</p></dd>
+
+
 <dt>desiredPower</dt>
 <dd><p>The desired statistical power, default is 0.8.</p></dd>
+
+
 <dt>analysisOption</dt>
 <dd><p>Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
 (the default).</p></dd>
+
+
 <dt>LegacyCode</dt>
 <dd><p>Logical, default is <code>FALSE</code>, if <code>TRUE</code> the DBM
 method is used. Otherwise the OR method is used.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of two elements:</p>
+    
+
+<p>A list of two elements:</p>
 <dl><dt>K</dt>
 <dd><p>The minimum number of cases K in the pivotal study 
    to just achieve the desired statistical power, calculated 
    for each value of <code>analysisOption</code>.</p></dd>
+
+
 <dt>power</dt>
 <dd><p>The predicted statistical power.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -157,49 +154,49 @@ method is used. Otherwise the OR method is used.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## the following two should give identical results</span></span>
-<span class="r-in"><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, J <span class="op">=</span> <span class="fl">6</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## the following two should give identical results</span></span></span>
+<span class="r-in"><span><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, J <span class="op">=</span> <span class="fl">6</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC  powerRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.80161864</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span>
-<span class="r-in"><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>VarTR <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="fl">1</span><span class="op">]</span>, </span>
-<span class="r-in">   VarTC <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="fl">1</span><span class="op">]</span>, </span>
-<span class="r-in">   VarErr <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span></span>
+<span class="r-in"><span><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>VarTR <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="fl">1</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>   VarTC <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="fl">1</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>   VarErr <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC  powerRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.80161864</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## the following two should give identical results</span></span>
-<span class="r-in"><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, J <span class="op">=</span> <span class="fl">6</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## the following two should give identical results</span></span></span>
+<span class="r-in"><span><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, J <span class="op">=</span> <span class="fl">6</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC  powerRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.80161864</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilORVarComponentsFactorial.html">UtilORVarComponentsFactorial</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span>
-<span class="r-in"><span class="va">KStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, method <span class="op">=</span> <span class="st">"OR"</span>, </span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>KStar <span class="op">=</span> <span class="va">KStar</span>, </span>
-<span class="r-in">   VarTR <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="fl">1</span><span class="op">]</span>, </span>
-<span class="r-in">   Cov1 <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Cov1"</span>,<span class="fl">1</span><span class="op">]</span>, </span>
-<span class="r-in">   Cov2 <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Cov2"</span>,<span class="fl">1</span><span class="op">]</span>, </span>
-<span class="r-in">   Cov3 <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Cov3"</span>,<span class="fl">1</span><span class="op">]</span>, </span>
-<span class="r-in">   Var <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Var"</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilORVarComponentsFactorial.html">UtilORVarComponentsFactorial</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span></span>
+<span class="r-in"><span><span class="va">KStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, method <span class="op">=</span> <span class="st">"OR"</span>, </span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>KStar <span class="op">=</span> <span class="va">KStar</span>, </span></span>
+<span class="r-in"><span>   VarTR <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="fl">1</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>   Cov1 <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Cov1"</span>,<span class="fl">1</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>   Cov2 <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Cov2"</span>,<span class="fl">1</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>   Cov3 <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Cov3"</span>,<span class="fl">1</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>   Var <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Var"</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC  powerRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.80161864</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \donttest{ </span></span>
-<span class="r-in"><span class="kw">for</span> <span class="op">(</span><span class="va">J</span> <span class="kw">in</span> <span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"> <span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="va">J</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span><span class="op">)</span> </span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"# of readers = "</span>, <span class="va">J</span>, <span class="st">" estimated # of cases = "</span>, <span class="va">ret</span><span class="op">$</span><span class="va">K</span>, </span>
-<span class="r-in"> <span class="st">", predicted power = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">signif</a></span><span class="op">(</span><span class="va">ret</span><span class="op">$</span><span class="va">powerRRRC</span>,<span class="fl">3</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{ </span></span></span>
+<span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">J</span> <span class="kw">in</span> <span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span> <span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="va">J</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span><span class="op">)</span> </span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"# of readers = "</span>, <span class="va">J</span>, <span class="st">" estimated # of cases = "</span>, <span class="va">ret</span><span class="op">$</span><span class="va">K</span>, </span></span>
+<span class="r-in"><span> <span class="st">", predicted power = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">signif</a></span><span class="op">(</span><span class="va">ret</span><span class="op">$</span><span class="va">powerRRRC</span>,<span class="fl">3</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> # of readers = 6 estimated # of cases = 251, predicted power = 0.801</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> # of readers = 7 estimated # of cases = 211, predicted power = 0.801</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> # of readers = 8 estimated # of cases = 188, predicted power = 0.801</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> # of readers = 9 estimated # of cases = 173, predicted power = 0.801</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> # of readers = 10 estimated # of cases = 163, predicted power = 0.802</span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -214,7 +211,7 @@ method is used. Otherwise the OR method is used.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
