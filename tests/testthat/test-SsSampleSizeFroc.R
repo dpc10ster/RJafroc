@@ -6,6 +6,7 @@ test_that(contextStr, {
   skip_on_os("linux") 
   skip_on_os("solaris") 
   
+  #lesDistr <- UtilLesionDistr(c(0.7, 0.2, 0.1))
   lesDistr <- c(0.7, 0.2, 0.1)
   frocNhData <- DfExtractDataset(dataset04, trts = c(1,2))
  

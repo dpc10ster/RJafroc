@@ -13,7 +13,7 @@ paths <- rhub::platforms()
 # update cran-comments ...NOT DONE
 
 #start <- 1; end <- 5; for (i in start:end) rhub::check(platform = paths[[1]][i])
-devtools::check_win_devel()
+#devtools::check_win_devel() # OK
 #devtools::check_win_release()
 #devtools::check_win_oldrelease()
 
