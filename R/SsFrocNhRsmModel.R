@@ -52,7 +52,11 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   # if dataset is already binned, this does not hurt
   rocData <- DfBinDataset(rocData, opChType = "ROC")
   
-  if (sum(lesDistr) != 1.0) stop("The lesion distribution vector must sum to unity")
+  if (sum(lesDistr) != 1.0) {
+    cat(lesDistr)
+    for (i in 1:length(lesDistr)) cat(lesDistr[i], "\n")
+    stop("The lesion distribution vector must sum to unity")
+  }
   
   I <- dim(dataset$ratings$NL)[1]
   J <- dim(dataset$ratings$NL)[2]
