@@ -22,18 +22,21 @@ test_that(contextStr, {
   ## expect_equal(x1,x2) # this fails on other operating systems
   # see Issue #70
   # as per Peter's suggestions
-  # expect_identical(names(x1), names(x2))
-  # expect_equivalent(x1$muMed, x2$muMed, tolerance=5e-4)
-  # expect_equivalent(x1$lambdaMed, x2$lambdaMed, tolerance=5e-3)
-  # expect_equivalent(x1$nuMed, x2$nuMed, tolerance=5e-4)
-  # expect_equivalent(x1$ScaleFactor, x2$ScaleFactor, tolerance=5e-5)
-  # expect_equivalent(x1$R2, x2$R2, tolerance=1e-7)
+  # following DOES NOT work on cran4a
   expect_identical(names(x1), names(x2))
-  expect_equivalent(x1$muMed, x2$muMed, tolerance=5e-2)
+  expect_equivalent(x1$muMed, x2$muMed, tolerance=5e-4)
   expect_equivalent(x1$lambdaMed, x2$lambdaMed, tolerance=5e-3)
-  expect_equivalent(x1$nuMed, x2$nuMed, tolerance=5e-2)
+  expect_equivalent(x1$nuMed, x2$nuMed, tolerance=5e-4)
   expect_equivalent(x1$ScaleFactor, x2$ScaleFactor, tolerance=5e-5)
   expect_equivalent(x1$R2, x2$R2, tolerance=1e-7)
+  
+  # following works on cran4a Issue 75
+  # expect_identical(names(x1), names(x2))
+  # expect_equivalent(x1$muMed, x2$muMed, tolerance=5e-2) # laxer tolerance
+  # expect_equivalent(x1$lambdaMed, x2$lambdaMed, tolerance=5e-3)
+  # expect_equivalent(x1$nuMed, x2$nuMed, tolerance=5e-2) # laxer tolerance
+  # expect_equivalent(x1$ScaleFactor, x2$ScaleFactor, tolerance=5e-5)
+  # expect_equivalent(x1$R2, x2$R2, tolerance=1e-7)
   
     
 })
