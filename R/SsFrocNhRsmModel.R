@@ -52,10 +52,14 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   # if dataset is already binned, this does not hurt
   rocData <- DfBinDataset(rocData, opChType = "ROC")
   
-  if (sum(lesDistr) != 1.0) {
-    cat(lesDistr)
-    for (i in 1:length(lesDistr)) cat(lesDistr[i], "\n")
-    stop("The lesion distribution vector must sum to unity")
+  # if (sum(lesDistr) != 1.0) {
+  chk1 <- abs(sum(lesDistr) - 1.0)
+  if (chk1 > 1e-5) {
+    errMsg <- ""
+    for (i in 1:length(lesDistr)) errMsg <- paste0(errMsg, sprintf("%10.5f", lesDistr[i]))
+    errMsg <- paste0(errMsg, sprintf(".  Difference =   %10.5e", chk1))
+    errMsg <- paste0("The lesion distribution vector must sum to unity:", errMsg)
+    stop(errMsg)
   }
   
   I <- dim(dataset$ratings$NL)[1]
