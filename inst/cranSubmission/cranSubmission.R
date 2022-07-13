@@ -17,13 +17,13 @@ if (!file.exists(packagePath))
 # devtools::check_win_devel(packagePath) #OK
 # devtools::check_win_release(packagePath) #OK
 # devtools::check_win_oldrelease(packagePath) #OK
-# devtools::revdep() # NONE
+# devtools::revdep() # OK
 
 # chk1 <- rhub::check(packagePath, platform = platforms[[1]][1]) # OK
 # chk2 <- rhub::check(packagePath, platform = platforms[[1]][2]) # OK
 
-chk3 <- rhub::check(packagePath, platform = platforms[[1]][3]) # fails error in SsFrocNhRsmModel.R line 55
-# chk4 <- rhub::check(packagePath, platform = platforms[[1]][4]) # failed to download dependencies readxl, testthat kableExtra
+# chk3 <- rhub::check(packagePath, platform = platforms[[1]][3]) # fails error in SsFrocNhRsmModel.R line 55
+chk4 <- rhub::check(packagePath, platform = platforms[[1]][4]) # failed to download dependencies readxl, testthat kableExtra
 # chk5 <- rhub::check(packagePath, platform = platforms[[1]][5]) # failed to download dependencies readxl, testthat kableExtra
 
 # rhub::check_for_cran(packagePath) # Error in match_platform(platform)
