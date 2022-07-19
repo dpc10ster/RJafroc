@@ -94,14 +94,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PlotEmpiricalOperatingCharacteristics</span><span class="op">(</span>
-  <span class="va">dataset</span>,
-  trts <span class="op">=</span> <span class="fl">1</span>,
-  rdrs <span class="op">=</span> <span class="fl">1</span>,
-  <span class="va">opChType</span>,
-  legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.3</span><span class="op">)</span>,
-  maxDiscrete <span class="op">=</span> <span class="fl">10</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotEmpiricalOperatingCharacteristics</span><span class="op">(</span></span>
+<span>  <span class="va">dataset</span>,</span>
+<span>  trts <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  rdrs <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="va">opChType</span>,</span>
+<span>  legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.3</span><span class="op">)</span>,</span>
+<span>  maxDiscrete <span class="op">=</span> <span class="fl">10</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -177,39 +177,39 @@ i.e., more than 20 operating points, or <code>"A"</code>, for reader averaged.</
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Example 1</span></span>
-<span class="r-in"><span class="co">## Plot individual empirical ROC plots for all combinations of modalities</span></span>
-<span class="r-in"><span class="co">## 1 and 2 and readers 1, 2 and 3. Six operating characteristics are plotted.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu">PlotEmpiricalOperatingCharacteristics</span><span class="op">(</span>dataset <span class="op">=</span> </span>
-<span class="r-in"><span class="va">dataset02</span>, trts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>, rdrs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, opChType <span class="op">=</span> <span class="st">"ROC"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## print(ret$Plot)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 2</span></span>
-<span class="r-in"><span class="co">## Empirical wAFROC plots, consisting of</span></span>
-<span class="r-in"><span class="co">## three sub-plots:</span></span>
-<span class="r-in"><span class="co">## (1) sub-plot, red, with operating points, for the 1st modality (string ID "1") and the 2nd </span></span>
-<span class="r-in"><span class="co">## reader (string ID "3"), labeled "M:1 R:3" </span></span>
-<span class="r-in"><span class="co">## (2) sub-plot, green, no operating points, for the 2nd modality (string ID "2") AVERAGED </span></span>
-<span class="r-in"><span class="co">## over the 2nd and 3rd readers (string IDs "3" and "4"), labeled "M:2  R: 3 4" </span></span>
-<span class="r-in"><span class="co">## (3) sub-plot, blue, no operating points, AVERAGED over the first two modalities </span></span>
-<span class="r-in"><span class="co">## (string IDs "1" and "2") AND over the 1st, 2nd and 3rd readers </span></span>
-<span class="r-in"><span class="co">## (string IDs "1", "3" and "4"), labeled "M: 1 2  R: 1  3 4" </span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">plotT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">plotR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu">PlotEmpiricalOperatingCharacteristics</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset04</span>, trts <span class="op">=</span> <span class="va">plotT</span>, </span>
-<span class="r-in">   rdrs <span class="op">=</span> <span class="va">plotR</span>, opChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span>                  </span>
-<span class="r-in"><span class="co">## print(ret$Plot)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 3</span></span>
-<span class="r-in"><span class="co">## Correspondences between indices and string identifiers for modalities and </span></span>
-<span class="r-in"><span class="co">## readers in this dataset (apparently reader "2" did not complete the study).</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## names(dataset04$descriptions$readerID)</span></span>
-<span class="r-in"><span class="co">## [1] "1" "3" "4" "5"</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Example 1</span></span></span>
+<span class="r-in"><span><span class="co">## Plot individual empirical ROC plots for all combinations of modalities</span></span></span>
+<span class="r-in"><span><span class="co">## 1 and 2 and readers 1, 2 and 3. Six operating characteristics are plotted.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu">PlotEmpiricalOperatingCharacteristics</span><span class="op">(</span>dataset <span class="op">=</span> </span></span>
+<span class="r-in"><span><span class="va">dataset02</span>, trts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>, rdrs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, opChType <span class="op">=</span> <span class="st">"ROC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## print(ret$Plot)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example 2</span></span></span>
+<span class="r-in"><span><span class="co">## Empirical wAFROC plots, consisting of</span></span></span>
+<span class="r-in"><span><span class="co">## three sub-plots:</span></span></span>
+<span class="r-in"><span><span class="co">## (1) sub-plot, red, with operating points, for the 1st modality (string ID "1") and the 2nd </span></span></span>
+<span class="r-in"><span><span class="co">## reader (string ID "3"), labeled "M:1 R:3" </span></span></span>
+<span class="r-in"><span><span class="co">## (2) sub-plot, green, no operating points, for the 2nd modality (string ID "2") AVERAGED </span></span></span>
+<span class="r-in"><span><span class="co">## over the 2nd and 3rd readers (string IDs "3" and "4"), labeled "M:2  R: 3 4" </span></span></span>
+<span class="r-in"><span><span class="co">## (3) sub-plot, blue, no operating points, AVERAGED over the first two modalities </span></span></span>
+<span class="r-in"><span><span class="co">## (string IDs "1" and "2") AND over the 1st, 2nd and 3rd readers </span></span></span>
+<span class="r-in"><span><span class="co">## (string IDs "1", "3" and "4"), labeled "M: 1 2  R: 1  3 4" </span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">plotT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">plotR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu">PlotEmpiricalOperatingCharacteristics</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset04</span>, trts <span class="op">=</span> <span class="va">plotT</span>, </span></span>
+<span class="r-in"><span>   rdrs <span class="op">=</span> <span class="va">plotR</span>, opChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span>                  </span></span>
+<span class="r-in"><span><span class="co">## print(ret$Plot)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example 3</span></span></span>
+<span class="r-in"><span><span class="co">## Correspondences between indices and string identifiers for modalities and </span></span></span>
+<span class="r-in"><span><span class="co">## readers in this dataset (apparently reader "2" did not complete the study).</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## names(dataset04$descriptions$readerID)</span></span></span>
+<span class="r-in"><span><span class="co">## [1] "1" "3" "4" "5"</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -224,7 +224,7 @@ i.e., more than 20 operating points, or <code>"A"</code>, for reader averaged.</
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

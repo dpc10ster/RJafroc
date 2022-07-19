@@ -112,14 +112,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">StSignificanceTestingCadVsRad</span><span class="op">(</span>
-  <span class="va">dataset</span>,
-  <span class="va">FOM</span>,
-  FPFValue <span class="op">=</span> <span class="fl">0.2</span>,
-  method <span class="op">=</span> <span class="st">"1T-RRRC"</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  plots <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">StSignificanceTestingCadVsRad</span><span class="op">(</span></span>
+<span>  <span class="va">dataset</span>,</span>
+<span>  <span class="va">FOM</span>,</span>
+<span>  FPFValue <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"1T-RRRC"</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  plots <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -332,11 +332,11 @@ Paper presented at: International Workshop on Digital Mammography, Malmo, Sweden
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ret1M</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCadVsRad</span> <span class="op">(</span><span class="va">dataset09</span>, </span>
-<span class="r-in">FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"1T-RRRC"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">StSignificanceTestingCadVsRad</span><span class="op">(</span><span class="va">datasetCadLroc</span>, </span>
-<span class="r-in">FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"1T-RRFC"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ret1M</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCadVsRad</span> <span class="op">(</span><span class="va">dataset09</span>, </span></span>
+<span class="r-in"><span>FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"1T-RRRC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">StSignificanceTestingCadVsRad</span><span class="op">(</span><span class="va">datasetCadLroc</span>, </span></span>
+<span class="r-in"><span>FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"1T-RRFC"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fomCAD</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.81692708</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -368,28 +368,28 @@ Paper presented at: International Workshop on Digital Mammography, Malmo, Sweden
 <span class="r-out co"><span class="r-pr">#&gt;</span> $pval</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.012359088</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">retLroc1M</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCadVsRad</span> <span class="op">(</span><span class="va">datasetCadLroc</span>, </span>
-<span class="r-in">FOM <span class="op">=</span> <span class="st">"PCL"</span>, method <span class="op">=</span> <span class="st">"1T-RRRC"</span>, FPFValue <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## test with fewer readers</span></span>
-<span class="r-in"><span class="va">dataset09a</span> <span class="op">&lt;-</span> <span class="fu"><a href="DfExtractDataset.html">DfExtractDataset</a></span><span class="op">(</span><span class="va">dataset09</span>, rdrs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ret1M7</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCadVsRad</span> <span class="op">(</span><span class="va">dataset09a</span>, </span>
-<span class="r-in">FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"1T-RRRC"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">datasetCadLroc7</span> <span class="op">&lt;-</span> <span class="fu"><a href="DfExtractDataset.html">DfExtractDataset</a></span><span class="op">(</span><span class="va">datasetCadLroc</span>, rdrs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ret1MLroc7</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCadVsRad</span> <span class="op">(</span><span class="va">datasetCadLroc7</span>, </span>
-<span class="r-in">FOM <span class="op">=</span> <span class="st">"PCL"</span>, method <span class="op">=</span> <span class="st">"1T-RRRC"</span>, FPFValue <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co">## takes longer than 5 sec on OSX</span></span>
-<span class="r-in"><span class="co">## retLroc2M &lt;- StSignificanceTestingCadVsRad (datasetCadLroc, </span></span>
-<span class="r-in"><span class="co">## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ret2MLroc7 &lt;- StSignificanceTestingCadVsRad (datasetCadLroc7, </span></span>
-<span class="r-in"><span class="co">## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">retLroc1M</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCadVsRad</span> <span class="op">(</span><span class="va">datasetCadLroc</span>, </span></span>
+<span class="r-in"><span>FOM <span class="op">=</span> <span class="st">"PCL"</span>, method <span class="op">=</span> <span class="st">"1T-RRRC"</span>, FPFValue <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## test with fewer readers</span></span></span>
+<span class="r-in"><span><span class="va">dataset09a</span> <span class="op">&lt;-</span> <span class="fu"><a href="DfExtractDataset.html">DfExtractDataset</a></span><span class="op">(</span><span class="va">dataset09</span>, rdrs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ret1M7</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCadVsRad</span> <span class="op">(</span><span class="va">dataset09a</span>, </span></span>
+<span class="r-in"><span>FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"1T-RRRC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">datasetCadLroc7</span> <span class="op">&lt;-</span> <span class="fu"><a href="DfExtractDataset.html">DfExtractDataset</a></span><span class="op">(</span><span class="va">datasetCadLroc</span>, rdrs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ret1MLroc7</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCadVsRad</span> <span class="op">(</span><span class="va">datasetCadLroc7</span>, </span></span>
+<span class="r-in"><span>FOM <span class="op">=</span> <span class="st">"PCL"</span>, method <span class="op">=</span> <span class="st">"1T-RRRC"</span>, FPFValue <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co">## takes longer than 5 sec on OSX</span></span></span>
+<span class="r-in"><span><span class="co">## retLroc2M &lt;- StSignificanceTestingCadVsRad (datasetCadLroc, </span></span></span>
+<span class="r-in"><span><span class="co">## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ret2MLroc7 &lt;- StSignificanceTestingCadVsRad (datasetCadLroc7, </span></span></span>
+<span class="r-in"><span><span class="co">## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -404,7 +404,7 @@ Paper presented at: International Workshop on Digital Mammography, Malmo, Sweden
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -92,13 +92,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">StSignificanceTestingCrossedModalities</span><span class="op">(</span>
-  <span class="va">ds</span>,
-  <span class="va">avgIndx</span>,
-  FOM <span class="op">=</span> <span class="st">"wAFROC"</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  analysisOption <span class="op">=</span> <span class="st">"ALL"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">StSignificanceTestingCrossedModalities</span><span class="op">(</span></span>
+<span>  <span class="va">ds</span>,</span>
+<span>  <span class="va">avgIndx</span>,</span>
+<span>  FOM <span class="op">=</span> <span class="st">"wAFROC"</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  analysisOption <span class="op">=</span> <span class="st">"ALL"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -132,17 +132,17 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{ </span></span>
-<span class="r-in"><span class="co">## read the raw data file in extdata directory (this is included to illustrate the format)</span></span>
-<span class="r-in"><span class="va">crossedFileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"CrossedModalities.xlsx"</span>, </span>
-<span class="r-in">package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="DfReadCrossedModalities.html">DfReadCrossedModalities</a></span><span class="op">(</span><span class="va">crossedFileName</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">retCrossed1</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCrossedModalities</span><span class="op">(</span><span class="va">ds</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## read the built in dataset</span></span>
-<span class="r-in"><span class="va">retCrossed2</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCrossedModalities</span><span class="op">(</span><span class="va">datasetCrossedModality</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{ </span></span></span>
+<span class="r-in"><span><span class="co">## read the raw data file in extdata directory (this is included to illustrate the format)</span></span></span>
+<span class="r-in"><span><span class="va">crossedFileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"CrossedModalities.xlsx"</span>, </span></span>
+<span class="r-in"><span>package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="DfReadCrossedModalities.html">DfReadCrossedModalities</a></span><span class="op">(</span><span class="va">crossedFileName</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">retCrossed1</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCrossedModalities</span><span class="op">(</span><span class="va">ds</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## read the built in dataset</span></span></span>
+<span class="r-in"><span><span class="va">retCrossed2</span> <span class="op">&lt;-</span> <span class="fu">StSignificanceTestingCrossedModalities</span><span class="op">(</span><span class="va">datasetCrossedModality</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -157,7 +157,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

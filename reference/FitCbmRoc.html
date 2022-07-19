@@ -93,7 +93,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">dataset</span>, trt <span class="op">=</span> <span class="fl">1</span>, rdr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">dataset</span>, trt <span class="op">=</span> <span class="fl">1</span>, rdr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -180,35 +180,35 @@ Acad Radiol, 7:6, 427--437.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co">## CPU time 8.7 sec on Ubuntu (#13)</span></span>
-<span class="r-in"><span class="co">## Test with included ROC data</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">dataset02</span><span class="op">)</span>;<span class="co">## print(retFit$fittedPlot)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Test with included degenerate ROC data (yes! CBM can fit such data)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">datasetDegenerate</span><span class="op">)</span>;<span class="co">## print(retFit$fittedPlot)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Test with single interior point data</span></span>
-<span class="r-in"><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></span><span class="op">(</span><span class="va">fp</span>, <span class="va">tp</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>;<span class="co">## print(retFit$fittedPlot)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Test with two interior data points</span></span>
-<span class="r-in"><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></span><span class="op">(</span><span class="va">fp</span>, <span class="va">tp</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>;</span>
-<span class="r-in"><span class="co">## print(retFit$fittedPlot)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Test with included ROC data (some bins have zero counts)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">dataset02</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>;<span class="co">## print(retFit$fittedPlot)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Test with TONY data for which chisqr can be calculated</span></span>
-<span class="r-in"><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="DfFroc2Roc.html">DfFroc2Roc</a></span><span class="op">(</span><span class="va">dataset01</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">ds</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>;<span class="co">## print(retFit$fittedPlot)</span></span>
-<span class="r-in"><span class="va">retFit</span><span class="op">$</span><span class="va">ChisqrFitStats</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co">## CPU time 8.7 sec on Ubuntu (#13)</span></span></span>
+<span class="r-in"><span><span class="co">## Test with included ROC data</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">dataset02</span><span class="op">)</span>;<span class="co">## print(retFit$fittedPlot)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Test with included degenerate ROC data (yes! CBM can fit such data)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">datasetDegenerate</span><span class="op">)</span>;<span class="co">## print(retFit$fittedPlot)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Test with single interior point data</span></span></span>
+<span class="r-in"><span><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></span><span class="op">(</span><span class="va">fp</span>, <span class="va">tp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>;<span class="co">## print(retFit$fittedPlot)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Test with two interior data points</span></span></span>
+<span class="r-in"><span><span class="va">fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></span><span class="op">(</span><span class="va">fp</span>, <span class="va">tp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>;</span></span>
+<span class="r-in"><span><span class="co">## print(retFit$fittedPlot)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Test with included ROC data (some bins have zero counts)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">dataset02</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>;<span class="co">## print(retFit$fittedPlot)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Test with TONY data for which chisqr can be calculated</span></span></span>
+<span class="r-in"><span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="DfFroc2Roc.html">DfFroc2Roc</a></span><span class="op">(</span><span class="va">dataset01</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span> <span class="op">&lt;-</span> <span class="fu">FitCbmRoc</span><span class="op">(</span><span class="va">ds</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>;<span class="co">## print(retFit$fittedPlot)</span></span></span>
+<span class="r-in"><span><span class="va">retFit</span><span class="op">$</span><span class="va">ChisqrFitStats</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chisq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.449787</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -218,8 +218,8 @@ Acad Radiol, 7:6, 427--437.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $df</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -234,7 +234,7 @@ Acad Radiol, 7:6, 427--437.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

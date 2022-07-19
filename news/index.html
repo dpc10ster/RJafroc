@@ -87,6 +87,18 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.0.1.9000" id="rjafroc-2019000">RJafroc 2.0.1.9000<a class="anchor" aria-label="anchor" href="#rjafroc-2019000"></a></h2>
 <div class="section level3">
+<h3 id="extensive-changes-to-handling-of-lesdist-and-relweights-2-0-1-9000">Extensive changes to handling of <code>lesDist</code> and <code>relWeights</code> 7/19/22<a class="anchor" aria-label="anchor" href="#extensive-changes-to-handling-of-lesdist-and-relweights-2-0-1-9000"></a></h3>
+<ul><li>Removed unnecessary dimension on lesDist, it is now always 1D</li>
+<li>Affected files are <code>UtilLesDistrVector.R</code> and <code>UtilLesionWeightsMatrix.R</code>
+</li>
+<li>
+<code>lesDistr</code> and <code>relWeight</code> must have same lengths and sum to unity</li>
+<li>
+<code>relWeight = 0</code> imposes equal weights</li>
+<li>can remove a lesion by setting the corresponding lesDist entry to zero</li>
+<li>need further testing on above capability</li>
+</ul></div>
+<div class="section level3">
 <h3 id="added-ch19vig1frocsamplesizermd-2-0-1-9000">added <code>Ch19Vig1FrocSampleSize.Rmd</code> 6/7/22<a class="anchor" aria-label="anchor" href="#added-ch19vig1frocsamplesizermd-2-0-1-9000"></a></h3>
 <ul><li>Added added <code>Ch19Vig2FrocSampleSize.Rmd</code> and <code>Ch19Vig2FrocSampleSize.Rmd</code>
 </li>
@@ -259,7 +271,7 @@
 <div class="section level3">
 <h3 id="working-on-analytical-aucs-from-rsm-2-0-1-9000">Working on analytical AUCs from RSM<a class="anchor" aria-label="anchor" href="#working-on-analytical-aucs-from-rsm-2-0-1-9000"></a></h3>
 <ul><li>Motivation: could obviate the long simulations in CAD optimization chapter in book</li>
-<li>Added <code>UtilSpecifyLesionWeightsDistr()</code> which is distinct from <code><a href="../reference/UtilLesionWeightsDistr.html">UtilLesionWeightsDistr()</a></code>, as the latter works on datasets.</li>
+<li>Added <code>UtilSpecifyLesionWeightsDistr()</code> which is distinct from <code>UtilLesionWeightsDistr()</code>, as the latter works on datasets.</li>
 <li>Observed that for equal weights AFROC and wAFROC analytical AUCs are identical. Need to think this out.</li>
 <li>Changed function name from <code>UtilAucRSM()</code> to <code><a href="../reference/UtilAnalyticalAucsRSM.html">UtilAnalyticalAucsRSM()</a></code> to distinguish from <code><a href="../reference/UtilFigureOfMerit.html">UtilFigureOfMerit()</a></code> which works on datasets.</li>
 <li>Added function <code>Convert2lesDistr()</code> to save me time converting from 1D lesion distribution to 2D version which is the standard in the rest of the package. It is currently not called anywhere.</li>
@@ -298,30 +310,30 @@
 <li><p>Symptom: <code>UtilFigureOfMerit</code>, with “wAFROC1” FOM failed in C++ code in function <code>double wAFROC1()</code> with message <code>Not compatible with requested type: [type=character; target=double]</code></p></li>
 <li><p>The problem was traced to <code>ReadJAFROCOldFormat.R</code> (I was using <code>OldExcelFileFormat</code>) which was returning <code>NL</code> and <code>LL</code> as characters, not numerics.</p></li>
 <li><p>Fix: convert <code>NL</code> and <code>LL</code> from character using <code>as.numeric</code>.</p></li>
-</ul><pre><code><span class="va">NLRating</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">NLTable</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-<span class="va">LLRating</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">LLTable</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre>
-<ul><li>Then I tried <code>NewExcelFileFormat</code>, which gave following error: <code>stop("Error in reading LL/TP table")</code> Replaced code in <code>ReadJAFROCNewFormat.R</code> as follows:</li></ul><pre><code><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">tt2</span><span class="op">)</span><span class="op">)</span> <span class="kw">next</span> <span class="kw">else</span> <span class="op">{</span> <span class="co"># this is the change</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="va">tt2</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span>  <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"Error in reading LL/TP table"</span><span class="op">)</span> <span class="kw">else</span>
-  <span class="co"># the is.na() check ensures that an already recorded mark is not overwritten</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span> <span class="va">LL</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span>, <span class="va">k</span>, <span class="va">el</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="va">LL</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span>, <span class="va">k</span>, <span class="va">el</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">LLRatingCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span>
-<span class="op">}</span>
-<span class="co"># if (is.na(tt2)) stop("Error in reading LL/TP table") else {</span>
-<span class="co">#   if (tt2 != 1)  stop("Error in reading LL/TP table") else</span>
-<span class="co">#     # the is.na() check ensures that an already recorded mark is not overwritten</span>
-<span class="co">#     if (is.na( LL[i, j, k, el])) LL[i, j, k, el] &lt;- LLRatingCol[l]</span>
-<span class="co"># }</span></code></pre>
+</ul><pre><code><span><span class="va">NLRating</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">NLTable</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">LLRating</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">LLTable</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre>
+<ul><li>Then I tried <code>NewExcelFileFormat</code>, which gave following error: <code>stop("Error in reading LL/TP table")</code> Replaced code in <code>ReadJAFROCNewFormat.R</code> as follows:</li></ul><pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">tt2</span><span class="op">)</span><span class="op">)</span> <span class="kw">next</span> <span class="kw">else</span> <span class="op">{</span> <span class="co"># this is the change</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">tt2</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span>  <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"Error in reading LL/TP table"</span><span class="op">)</span> <span class="kw">else</span></span>
+<span>  <span class="co"># the is.na() check ensures that an already recorded mark is not overwritten</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span> <span class="va">LL</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span>, <span class="va">k</span>, <span class="va">el</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="va">LL</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span>, <span class="va">k</span>, <span class="va">el</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">LLRatingCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co"># if (is.na(tt2)) stop("Error in reading LL/TP table") else {</span></span>
+<span><span class="co">#   if (tt2 != 1)  stop("Error in reading LL/TP table") else</span></span>
+<span><span class="co">#     # the is.na() check ensures that an already recorded mark is not overwritten</span></span>
+<span><span class="co">#     if (is.na( LL[i, j, k, el])) LL[i, j, k, el] &lt;- LLRatingCol[l]</span></span>
+<span><span class="co"># }</span></span></code></pre>
 <p>Also replaced</p>
-<pre><code><span class="va">el</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">LesionID</span><span class="op">)</span> <span class="op">==</span> <span class="va">LLLesionIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></code></pre>
+<pre><code><span><span class="va">el</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">LesionID</span><span class="op">)</span> <span class="op">==</span> <span class="va">LLLesionIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span></code></pre>
 <p>with</p>
-<pre><code><span class="kw">if</span> <span class="op">(</span><span class="va">K1</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># this gives 0,1,2,..,max num of lesions</span>
-  <span class="co"># which includes zero, hence the minus 1</span>
-  <span class="va">el</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">LesionID</span><span class="op">)</span> <span class="op">==</span> <span class="va">LLLesionIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>
-<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-  <span class="co"># this gives 1,2,..,max num of lesions</span>
-  <span class="co"># which does not include zero, hence no minus 1</span>
-  <span class="va">el</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">LesionID</span><span class="op">)</span> <span class="op">==</span> <span class="va">LLLesionIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span>
-<span class="op">}</span></code></pre>
+<pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="va">K1</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># this gives 0,1,2,..,max num of lesions</span></span>
+<span>  <span class="co"># which includes zero, hence the minus 1</span></span>
+<span>  <span class="va">el</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">LesionID</span><span class="op">)</span> <span class="op">==</span> <span class="va">LLLesionIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="co"># this gives 1,2,..,max num of lesions</span></span>
+<span>  <span class="co"># which does not include zero, hence no minus 1</span></span>
+<span>  <span class="va">el</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">LesionID</span><span class="op">)</span> <span class="op">==</span> <span class="va">LLLesionIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre>
 <ul><li>Added a test comparing FOMs with new and old formats for wAFROC and K1 = 0 file</li>
 <li>Added a test comparing FOMs with new and old formats for wAFROC and K1 != 0 file</li>
 <li>Added to tests: file <code>test-UtilFigureOfMerit.R</code>
@@ -334,8 +346,8 @@
 <li>Fixed error in <code>DfReadDataFile.R</code> in function <code>checkTruthTable()</code>; this bug discovered in working with HUGE one reader dataset.</li>
 <li>For single reader or single modality dataset, if input is not converted to character, then error results in <code>I &lt;- length(strsplit(modalityIDCol[1], split = ",")[[1]])</code> and similar expression for <code>J</code>.</li>
 <li>Fix is to use <code>as.character</code> as in:</li>
-</ul><pre><code><span class="va">readerIDCol</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">truthTable</span><span class="op">$</span><span class="va">ReaderID</span><span class="op">)</span> <span class="co"># bug fix to avoid non-character input error below</span>
-  <span class="va">modalityIDCol</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">truthTable</span><span class="op">$</span><span class="va">ModalityID</span><span class="op">)</span> <span class="co"># do:</span></code></pre>
+</ul><pre><code><span>  <span class="va">readerIDCol</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">truthTable</span><span class="op">$</span><span class="va">ReaderID</span><span class="op">)</span> <span class="co"># bug fix to avoid non-character input error below</span></span>
+<span>  <span class="va">modalityIDCol</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">truthTable</span><span class="op">$</span><span class="va">ModalityID</span><span class="op">)</span> <span class="co"># do:</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="simplified-plotting-routines-2-0-1-9000">Simplified plotting routines<a class="anchor" aria-label="anchor" href="#simplified-plotting-routines-2-0-1-9000"></a></h3>
@@ -412,9 +424,9 @@
 <ul><li>After emails with collaborator, need for this type of analysis.</li>
 <li>Need to comment <code>DfReadDataFile.R</code> and <code>ReadJAFROCNewFormat.R</code> and add more checks in the code for illegal values.</li>
 <li>Indiscriminate sorting introduced problems; now, sorted <code>caseID</code> column is used now in only 3 places to find the correct case indices, where normal cases are ordered first, regardless of how they are entered in the <code>Truth</code> worksheet:</li>
-</ul><pre><code><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">CaseID</span><span class="op">)</span> <span class="op">==</span> <span class="va">truthTable</span><span class="op">$</span><span class="va">CaseID</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span>
-<span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">CaseID</span><span class="op">)</span> <span class="op">==</span> <span class="va">NLCaseIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span>
-<span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">CaseID</span><span class="op">)</span> <span class="op">==</span> <span class="va">LLCaseIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="va">K1</span></code></pre>
+</ul><pre><code><span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">CaseID</span><span class="op">)</span> <span class="op">==</span> <span class="va">truthTable</span><span class="op">$</span><span class="va">CaseID</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">CaseID</span><span class="op">)</span> <span class="op">==</span> <span class="va">NLCaseIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">CaseID</span><span class="op">)</span> <span class="op">==</span> <span class="va">LLCaseIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="va">K1</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="tests-for-utiloutputreport-2-0-1-9000">Tests for UtilOutputReport<a class="anchor" aria-label="anchor" href="#tests-for-utiloutputreport-2-0-1-9000"></a></h3>
@@ -901,7 +913,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -107,7 +107,7 @@
       <h1 data-toc-skip>Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</h1>
                         <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 data-toc-skip class="date">2022-06-15</h4>
+            <h4 data-toc-skip class="date">2022-07-19</h4>
       
       
       <div class="hidden name"><code>Ch30Vig1RoiParadigm.Rmd</code></div>
@@ -133,38 +133,38 @@
 </h2>
 <p>An example simulated ROI dataset is included as <code>datasetROI</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">datasetROI</span><span class="op">)</span>
-<span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ ratings     :List of 3</span>
-<span class="co">#&gt;   ..$ NL   : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span>
-<span class="co">#&gt;   ..$ LL   : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...</span>
-<span class="co">#&gt;   ..$ LL_IL: logi NA</span>
-<span class="co">#&gt;  $ lesions     :List of 3</span>
-<span class="co">#&gt;   ..$ perCase: int [1:40] 2 3 2 2 3 3 1 2 3 3 ...</span>
-<span class="co">#&gt;   ..$ IDs    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...</span>
-<span class="co">#&gt;   ..$ weights: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...</span>
-<span class="co">#&gt;  $ descriptions:List of 7</span>
-<span class="co">#&gt;   ..$ fileName     : chr "datasetROI"</span>
-<span class="co">#&gt;   ..$ type         : chr "ROI"</span>
-<span class="co">#&gt;   ..$ name         : chr "SIM-ROI"</span>
-<span class="co">#&gt;   ..$ truthTableStr: logi NA</span>
-<span class="co">#&gt;   ..$ design       : chr "FCTRL"</span>
-<span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "1" "2"</span>
-<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "1" "2"</span>
-<span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span>
-<span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="op">]</span>
-<span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,<span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1014348</span>
-<span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">51</span>,<span class="op">]</span>
-<span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span>
-<span class="va">datasetROI</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">perCase</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="op">]</span>
-<span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span>;<span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.finite</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.815513</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">datasetROI</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 3</span></span>
+<span><span class="co">#&gt;  $ ratings     :List of 3</span></span>
+<span><span class="co">#&gt;   ..$ NL   : num [1:2, 1:5, 1:90, 1:4] 0.95 0.927 0.556 0.805 1.421 ...</span></span>
+<span><span class="co">#&gt;   ..$ LL   : num [1:2, 1:5, 1:40, 1:4] 1.57 2.31 2.3 2.34 2.34 ...</span></span>
+<span><span class="co">#&gt;   ..$ LL_IL: logi NA</span></span>
+<span><span class="co">#&gt;  $ lesions     :List of 3</span></span>
+<span><span class="co">#&gt;   ..$ perCase: int [1:40] 2 3 2 2 3 3 1 2 3 3 ...</span></span>
+<span><span class="co">#&gt;   ..$ IDs    : num [1:40, 1:4] 2 1 1 1 1 2 4 1 1 1 ...</span></span>
+<span><span class="co">#&gt;   ..$ weights: num [1:40, 1:4] 0.5 0.333 0.5 0.5 0.333 ...</span></span>
+<span><span class="co">#&gt;  $ descriptions:List of 7</span></span>
+<span><span class="co">#&gt;   ..$ fileName     : chr "datasetROI"</span></span>
+<span><span class="co">#&gt;   ..$ type         : chr "ROI"</span></span>
+<span><span class="co">#&gt;   ..$ name         : chr "SIM-ROI"</span></span>
+<span><span class="co">#&gt;   ..$ truthTableStr: logi NA</span></span>
+<span><span class="co">#&gt;   ..$ design       : chr "FCTRL"</span></span>
+<span><span class="co">#&gt;   ..$ modalityID   : Named chr [1:2] "1" "2"</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:2] "1" "2"</span></span>
+<span><span class="co">#&gt;   ..$ readerID     : Named chr [1:5] "1" "2" "3" "4" ...</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:5] "1" "2" "3" "4" ...</span></span>
+<span><span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="op">]</span></span>
+<span><span class="co">#&gt; [1]  0.9498680 -0.0582497 -0.7763780  0.0120730</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">:</span><span class="fl">50</span>,<span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.1014348</span></span>
+<span><span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">51</span>,<span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 1.01867 0.34710    -Inf    -Inf</span></span>
+<span><span class="va">datasetROI</span><span class="op">$</span><span class="va">lesions</span><span class="op">$</span><span class="va">perCase</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 1.56928 2.05945    -Inf    -Inf</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">datasetROI</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">LL</span>;<span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.finite</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.815513</span></span></code></pre></div>
 <p>Examination of the output reveals that:</p>
 <ul>
 <li><p>This is a 2-treatment 5-reader dataset, with 50 non-diseased cases and 40 diseased cases, and <span class="math inline">\({{Q}_{k}}=4\)</span> for all <em>k</em>.</p></li>
@@ -178,10 +178,10 @@
 </h2>
 <p>An Excel file in JAFROC format containing simulated ROI data corresponding to <code>datasetROI</code>, is included with the distribution. The first command (below) finds the location of the file and the second command reads it and saves it to a dataset object <code>ds</code>. !!!DPC!!!</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RoiData.xlsx"</span>, package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span><span class="op">(</span><span class="va">fileName</span><span class="op">)</span>
-<span class="va">ds</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">type</span>
-<span class="co">#&gt; [1] "ROI"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">fileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RoiData.xlsx"</span>, package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfReadDataFile.html">DfReadDataFile</a></span><span class="op">(</span><span class="va">fileName</span><span class="op">)</span></span>
+<span><span class="va">ds</span><span class="op">$</span><span class="va">descriptions</span><span class="op">$</span><span class="va">type</span></span>
+<span><span class="co">#&gt; [1] "ROI"</span></span></code></pre></div>
 <p>The <code>DfReadDataFile</code> function automatically recognizes that this is an <em>ROI</em> dataset. Its structure is similar to the JAFROC format Excel file, with some important differences, noted below. It contains three worksheets:</p>
 <p><img src="images/ROI-Truth-1.png" style="width:100.0%"><img src="images/ROI-Truth-2.png" style="width:100.0%"></p>
 <ul>
@@ -256,7 +256,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

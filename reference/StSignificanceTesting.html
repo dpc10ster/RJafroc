@@ -104,17 +104,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">StSignificanceTesting</span><span class="op">(</span>
-  <span class="va">dataset</span>,
-  <span class="va">FOM</span>,
-  FPFValue <span class="op">=</span> <span class="fl">0.2</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  method <span class="op">=</span> <span class="st">"DBM"</span>,
-  covEstMethod <span class="op">=</span> <span class="st">"jackknife"</span>,
-  nBoots <span class="op">=</span> <span class="fl">200</span>,
-  analysisOption <span class="op">=</span> <span class="st">"ALL"</span>,
-  tempOrgCode <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">StSignificanceTesting</span><span class="op">(</span></span>
+<span>  <span class="va">dataset</span>,</span>
+<span>  <span class="va">FOM</span>,</span>
+<span>  FPFValue <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"DBM"</span>,</span>
+<span>  covEstMethod <span class="op">=</span> <span class="st">"jackknife"</span>,</span>
+<span>  nBoots <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  analysisOption <span class="op">=</span> <span class="st">"ALL"</span>,</span>
+<span>  tempOrgCode <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -247,7 +247,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset02</span>,FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span> </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset02</span>,FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr0       rdr1       rdr2       rdr3       rdr4</span>
@@ -366,7 +366,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> trt1 0.94083736 0.016153030  4 0.89598936 0.98568536</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset02</span>,FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset02</span>,FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr0       rdr1       rdr2       rdr3       rdr4</span>
@@ -489,8 +489,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> Trt1 0.94083736 0.016153030  4 0.89598936 0.98568536</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## following is split-plot-c analysis using a simulated split-plot-c dataset</span></span>
-<span class="r-in"><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">datasetFROCSpC</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## following is split-plot-c analysis using a simulated split-plot-c dataset</span></span></span>
+<span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">datasetFROCSpC</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr1       rdr3       rdr4       rdr5</span>
@@ -602,9 +602,9 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> Trt5 0.67971761 0.039270954  3 0.55473991 0.80469531</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6</span>
@@ -738,7 +738,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> trt2 0.84628754 0.027397484  8 0.78310883 0.90946625</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"HrAuc"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span> </span>
+<span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"HrAuc"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6</span>
@@ -872,7 +872,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> trt2 0.89897557 0.015929891  8 0.86224118 0.93570997</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"SongA1"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span> </span>
+<span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"SongA1"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6</span>
@@ -1006,7 +1006,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> trt2 0.90365117 0.015597568  8 0.86768311 0.93961923</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"SongA2"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span> </span>
+<span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"SongA2"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6</span>
@@ -1140,7 +1140,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> trt2 0.88529025 0.017577166  8 0.84475724 0.92582327</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"wAFROC1"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"wAFROC1"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6</span>
@@ -1274,7 +1274,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> trt2 0.85560138 0.024604078  8 0.79886427 0.91233849</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"AFROC1"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"AFROC1"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6</span>
@@ -1408,7 +1408,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> trt2 0.85005732 0.025252382  8 0.79182522 0.90828941</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"AFROC"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"AFROC"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr1       rdr2       rdr3       rdr4       rdr5       rdr6</span>
@@ -1542,9 +1542,9 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> trt2 0.84074074 0.027920216  8 0.77635661 0.90512487</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># } </span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># } </span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -1559,7 +1559,7 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -92,18 +92,18 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SsPowerGivenJK</span><span class="op">(</span>
-  <span class="va">dataset</span>,
-  <span class="va">...</span>,
-  <span class="va">FOM</span>,
-  <span class="va">J</span>,
-  <span class="va">K</span>,
-  effectSize <span class="op">=</span> <span class="cn">NULL</span>,
-  method <span class="op">=</span> <span class="st">"OR"</span>,
-  analysisOption <span class="op">=</span> <span class="st">"RRRC"</span>,
-  LegacyCode <span class="op">=</span> <span class="cn">FALSE</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span></span>
+<span>  <span class="va">dataset</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">FOM</span>,</span>
+<span>  <span class="va">J</span>,</span>
+<span>  <span class="va">K</span>,</span>
+<span>  effectSize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"OR"</span>,</span>
+<span>  analysisOption <span class="op">=</span> <span class="st">"RRRC"</span>,</span>
+<span>  LegacyCode <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -189,97 +189,97 @@ An Updated and Unified Approach. Acad Radiol, 18, 129--142.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## EXAMPLE 1: RRRC power </span></span>
-<span class="r-in"><span class="co">## specify 2-treatment ROC dataset and force DBM alg.</span></span>
-<span class="r-in"><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span>
-<span class="r-in">J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># RRRC is default  </span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## EXAMPLE 1: RRRC power </span></span></span>
+<span class="r-in"><span><span class="co">## specify 2-treatment ROC dataset and force DBM alg.</span></span></span>
+<span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span></span>
+<span class="r-in"><span>J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># RRRC is default  </span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerRRRC   ncpRRRC   df2RRRC     fRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.89228199 11.611453 16.127037 4.4882496</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## EXAMPLE 1A: FRRC power </span></span>
-<span class="r-in"><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span>
-<span class="r-in">J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, analysisOption <span class="op">=</span> <span class="st">"FRRC"</span><span class="op">)</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## EXAMPLE 1A: FRRC power </span></span></span>
+<span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span></span>
+<span class="r-in"><span>J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, analysisOption <span class="op">=</span> <span class="st">"FRRC"</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerFRRC   ncpFRRC df2FRRC     fFRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.98329918 16.834583     250 3.8789239</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## EXAMPLE 1B: RRFC power </span></span>
-<span class="r-in"><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span>
-<span class="r-in">J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, analysisOption <span class="op">=</span> <span class="st">"RRFC"</span><span class="op">)</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## EXAMPLE 1B: RRFC power </span></span></span>
+<span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span></span>
+<span class="r-in"><span>J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, analysisOption <span class="op">=</span> <span class="st">"RRFC"</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerRRFC   ncpRRFC df2RRFC    fRRFC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.94944491 20.853495       5 6.607891</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## EXAMPLE 2: specify NULL dataset &amp; DBM var. comp. &amp; force DBM-based alg.</span></span>
-<span class="r-in"><span class="va">vcDBM</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span>
-<span class="r-in"><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, </span>
-<span class="r-in">effectSize <span class="op">=</span> <span class="fl">0.05</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> </span>
-<span class="r-in">VarTR <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># replace rhs with actual values as in 4A</span></span>
-<span class="r-in">VarTC <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span>
-<span class="r-in">VarErr <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="st">"Estimates"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="co"># do:</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## EXAMPLE 2: specify NULL dataset &amp; DBM var. comp. &amp; force DBM-based alg.</span></span></span>
+<span class="r-in"><span><span class="va">vcDBM</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span></span>
+<span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, </span></span>
+<span class="r-in"><span>effectSize <span class="op">=</span> <span class="fl">0.05</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> </span></span>
+<span class="r-in"><span>VarTR <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># replace rhs with actual values as in 4A</span></span></span>
+<span class="r-in"><span>VarTC <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span></span>
+<span class="r-in"><span>VarErr <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="st">"Estimates"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="co"># do:</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerRRRC   ncpRRRC   df2RRRC     fRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.89228199 11.611453 16.127037 4.4882496</span>
-<span class="r-in">                     </span>
-<span class="r-in"><span class="co">## EXAMPLE 3: specify 2-treatment ROC dataset and use OR-based alg.</span></span>
-<span class="r-in"><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span>
-<span class="r-in">J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span><span class="op">)</span></span>
+<span class="r-in"><span>                     </span></span>
+<span class="r-in"><span><span class="co">## EXAMPLE 3: specify 2-treatment ROC dataset and use OR-based alg.</span></span></span>
+<span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span></span>
+<span class="r-in"><span>J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerRRRC   ncpRRRC   df2RRRC     fRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.89228199 11.611453 16.127037 4.4882496</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## EXAMPLE 4: specify NULL dataset &amp; OR var. comp. &amp; use OR-based alg.</span></span>
-<span class="r-in"><span class="va">JStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,,<span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">KStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vcOR</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilORVarComponentsFactorial.html">UtilORVarComponentsFactorial</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span>
-<span class="r-in"><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, J <span class="op">=</span> <span class="fl">6</span>, </span>
-<span class="r-in">K <span class="op">=</span> <span class="fl">251</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>JStar <span class="op">=</span> <span class="va">JStar</span>, KStar <span class="op">=</span> <span class="va">KStar</span>, </span>
-<span class="r-in">   VarTR <span class="op">=</span> <span class="va">vcOR</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># replace rhs with actual values as in 4A</span></span>
-<span class="r-in">   Cov1 <span class="op">=</span> <span class="va">vcOR</span><span class="op">[</span><span class="st">"Cov1"</span>,<span class="st">"Estimates"</span><span class="op">]</span>,   <span class="co"># do:</span></span>
-<span class="r-in">   Cov2 <span class="op">=</span> <span class="va">vcOR</span><span class="op">[</span><span class="st">"Cov2"</span>,<span class="st">"Estimates"</span><span class="op">]</span>,   <span class="co"># do:</span></span>
-<span class="r-in">   Cov3 <span class="op">=</span> <span class="va">vcOR</span><span class="op">[</span><span class="st">"Cov3"</span>,<span class="st">"Estimates"</span><span class="op">]</span>,   <span class="co"># do:</span></span>
-<span class="r-in">   Var <span class="op">=</span> <span class="va">vcOR</span><span class="op">[</span><span class="st">"Var"</span>,<span class="st">"Estimates"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## EXAMPLE 4: specify NULL dataset &amp; OR var. comp. &amp; use OR-based alg.</span></span></span>
+<span class="r-in"><span><span class="va">JStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,,<span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">KStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vcOR</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilORVarComponentsFactorial.html">UtilORVarComponentsFactorial</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span></span>
+<span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, J <span class="op">=</span> <span class="fl">6</span>, </span></span>
+<span class="r-in"><span>K <span class="op">=</span> <span class="fl">251</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>JStar <span class="op">=</span> <span class="va">JStar</span>, KStar <span class="op">=</span> <span class="va">KStar</span>, </span></span>
+<span class="r-in"><span>   VarTR <span class="op">=</span> <span class="va">vcOR</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># replace rhs with actual values as in 4A</span></span></span>
+<span class="r-in"><span>   Cov1 <span class="op">=</span> <span class="va">vcOR</span><span class="op">[</span><span class="st">"Cov1"</span>,<span class="st">"Estimates"</span><span class="op">]</span>,   <span class="co"># do:</span></span></span>
+<span class="r-in"><span>   Cov2 <span class="op">=</span> <span class="va">vcOR</span><span class="op">[</span><span class="st">"Cov2"</span>,<span class="st">"Estimates"</span><span class="op">]</span>,   <span class="co"># do:</span></span></span>
+<span class="r-in"><span>   Cov3 <span class="op">=</span> <span class="va">vcOR</span><span class="op">[</span><span class="st">"Cov3"</span>,<span class="st">"Estimates"</span><span class="op">]</span>,   <span class="co"># do:</span></span></span>
+<span class="r-in"><span>   Var <span class="op">=</span> <span class="va">vcOR</span><span class="op">[</span><span class="st">"Var"</span>,<span class="st">"Estimates"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerRRRC   ncpRRRC   df2RRRC     fRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.89228199 11.611453 16.127037 4.4882496</span>
-<span class="r-in">   </span>
-<span class="r-in"><span class="co">## EXAMPLE 4A: specify NULL dataset &amp; OR var. comp. &amp; use OR-based alg.</span></span>
-<span class="r-in"><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, J <span class="op">=</span> <span class="fl">6</span>, </span>
-<span class="r-in">K <span class="op">=</span> <span class="fl">251</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>JStar <span class="op">=</span> <span class="fl">5</span>, KStar <span class="op">=</span> <span class="fl">114</span>, </span>
-<span class="r-in">   VarTR <span class="op">=</span> <span class="fl">0.00020040252</span>,</span>
-<span class="r-in">   Cov1 <span class="op">=</span> <span class="fl">0.00034661371</span>,</span>
-<span class="r-in">   Cov2 <span class="op">=</span> <span class="fl">0.00034407483</span>,</span>
-<span class="r-in">   Cov3 <span class="op">=</span> <span class="fl">0.00023902837</span>,</span>
-<span class="r-in">   Var <span class="op">=</span> <span class="fl">0.00080228827</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span>   </span></span>
+<span class="r-in"><span><span class="co">## EXAMPLE 4A: specify NULL dataset &amp; OR var. comp. &amp; use OR-based alg.</span></span></span>
+<span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, J <span class="op">=</span> <span class="fl">6</span>, </span></span>
+<span class="r-in"><span>K <span class="op">=</span> <span class="fl">251</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>JStar <span class="op">=</span> <span class="fl">5</span>, KStar <span class="op">=</span> <span class="fl">114</span>, </span></span>
+<span class="r-in"><span>   VarTR <span class="op">=</span> <span class="fl">0.00020040252</span>,</span></span>
+<span class="r-in"><span>   Cov1 <span class="op">=</span> <span class="fl">0.00034661371</span>,</span></span>
+<span class="r-in"><span>   Cov2 <span class="op">=</span> <span class="fl">0.00034407483</span>,</span></span>
+<span class="r-in"><span>   Cov3 <span class="op">=</span> <span class="fl">0.00023902837</span>,</span></span>
+<span class="r-in"><span>   Var <span class="op">=</span> <span class="fl">0.00080228827</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerRRRC   ncpRRRC   df2RRRC     fRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.89228199 11.611453 16.127038 4.4882495</span>
-<span class="r-in">   </span>
-<span class="r-in"><span class="co">## EXAMPLE 5: specify NULL dataset &amp; DBM var. comp. &amp; use OR-based alg.</span></span>
-<span class="r-in"><span class="co">## The DBM var. comp. are converted internally to OR var. comp.</span></span>
-<span class="r-in"><span class="va">vcDBM</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span>
-<span class="r-in"><span class="va">KStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span>
-<span class="r-in">method <span class="op">=</span> <span class="st">"DBM"</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>,</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>KStar <span class="op">=</span> <span class="va">KStar</span>,                <span class="co"># replace rhs with actual values as in 5A </span></span>
-<span class="r-in">VarR <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarR"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span>
-<span class="r-in">VarC <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span>
-<span class="r-in">VarTR <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span>
-<span class="r-in">VarTC <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span>
-<span class="r-in">VarRC <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarRC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span>
-<span class="r-in">VarErr <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="st">"Estimates"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span>   </span></span>
+<span class="r-in"><span><span class="co">## EXAMPLE 5: specify NULL dataset &amp; DBM var. comp. &amp; use OR-based alg.</span></span></span>
+<span class="r-in"><span><span class="co">## The DBM var. comp. are converted internally to OR var. comp.</span></span></span>
+<span class="r-in"><span><span class="va">vcDBM</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span></span>
+<span class="r-in"><span><span class="va">KStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span></span>
+<span class="r-in"><span>method <span class="op">=</span> <span class="st">"DBM"</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>KStar <span class="op">=</span> <span class="va">KStar</span>,                <span class="co"># replace rhs with actual values as in 5A </span></span></span>
+<span class="r-in"><span>VarR <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarR"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span></span>
+<span class="r-in"><span>VarC <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span></span>
+<span class="r-in"><span>VarTR <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span></span>
+<span class="r-in"><span>VarTC <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span></span>
+<span class="r-in"><span>VarRC <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarRC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span></span>
+<span class="r-in"><span>VarErr <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="st">"Estimates"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerRRRC   ncpRRRC   df2RRRC     fRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.89228199 11.611453 16.127037 4.4882496</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## EXAMPLE 5A: specify NULL dataset &amp; DBM var. comp. &amp; use OR-based alg.</span></span>
-<span class="r-in"><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span>
-<span class="r-in">method <span class="op">=</span> <span class="st">"DBM"</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>,</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>KStar <span class="op">=</span> <span class="fl">114</span>,</span>
-<span class="r-in">VarR <span class="op">=</span> <span class="fl">0.00153499935</span>,</span>
-<span class="r-in">VarC <span class="op">=</span> <span class="fl">0.02724923428</span>,</span>
-<span class="r-in">VarTR <span class="op">=</span> <span class="fl">0.00020040252</span>,</span>
-<span class="r-in">VarTC <span class="op">=</span> <span class="fl">0.01197529621</span>,</span>
-<span class="r-in">VarRC <span class="op">=</span> <span class="fl">0.01226472859</span>,</span>
-<span class="r-in">VarErr <span class="op">=</span> <span class="fl">0.03997160319</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## EXAMPLE 5A: specify NULL dataset &amp; DBM var. comp. &amp; use OR-based alg.</span></span></span>
+<span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span></span>
+<span class="r-in"><span>method <span class="op">=</span> <span class="st">"DBM"</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>KStar <span class="op">=</span> <span class="fl">114</span>,</span></span>
+<span class="r-in"><span>VarR <span class="op">=</span> <span class="fl">0.00153499935</span>,</span></span>
+<span class="r-in"><span>VarC <span class="op">=</span> <span class="fl">0.02724923428</span>,</span></span>
+<span class="r-in"><span>VarTR <span class="op">=</span> <span class="fl">0.00020040252</span>,</span></span>
+<span class="r-in"><span>VarTC <span class="op">=</span> <span class="fl">0.01197529621</span>,</span></span>
+<span class="r-in"><span>VarRC <span class="op">=</span> <span class="fl">0.01226472859</span>,</span></span>
+<span class="r-in"><span>VarErr <span class="op">=</span> <span class="fl">0.03997160319</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerRRRC   ncpRRRC   df2RRRC     fRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.89228199 11.611453 16.127037 4.4882496</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -294,7 +294,7 @@ An Updated and Unified Approach. Acad Radiol, 18, 129--142.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

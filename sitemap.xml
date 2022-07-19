@@ -208,10 +208,10 @@
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilIntrinsic2PhysicalRSM.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilLesionDistr.html</loc>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilLesionDistrVector.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilLesionWeightsDistr.html</loc>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilLesionWeightsMatrix.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilMeanSquares.html</loc>
@@ -302,6 +302,9 @@
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/datasetROI.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/funs.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/index.html</loc>

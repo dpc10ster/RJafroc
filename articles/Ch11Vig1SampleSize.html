@@ -108,7 +108,7 @@
       <h1 data-toc-skip>Chapter 11, Vignette 1: Background on the F distribution</h1>
                         <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 data-toc-skip class="date">2022-06-15</h4>
+            <h4 data-toc-skip class="date">2022-07-19</h4>
       
       
       <div class="hidden name"><code>Ch11Vig1SampleSize.Rmd</code></div>
@@ -137,28 +137,28 @@
 <code>fCrit</code> is the critical value of the F distribution, i.e., that value such that fraction <span class="math inline">\(\alpha\)</span> of the area is to the right of the critical value, i.e., <code>fCrit</code> is identical in statistical notation to <span class="math inline">\({{F}_{1-\alpha ,ndf,ddf}}\)</span>.</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ndf</span> <span class="op">&lt;-</span> <span class="fl">2</span>;<span class="va">ddf</span> <span class="op">&lt;-</span> <span class="fl">10</span>;<span class="va">ncp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span>
-<span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fl">0.05</span>
-<span class="va">fCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">qf</a></span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">alpha</span>, <span class="va">ndf</span>,<span class="va">ddf</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">20</span>, <span class="fl">0.1</span><span class="op">)</span>
-<span class="va">myLabel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>
-<span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="va">pFgtFCrit</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ncp</span><span class="op">)</span><span class="op">)</span>
-<span class="op">{</span>
-  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">df</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">ndf</span>,<span class="va">ddf</span>,ncp<span class="op">=</span><span class="va">ncp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
-  <span class="va">pFgtFCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">pFgtFCrit</span>, <span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">pf</a></span><span class="op">(</span><span class="va">fCrit</span>, <span class="va">ndf</span>, <span class="va">ddf</span>, ncp <span class="op">=</span> <span class="va">ncp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>  
-<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ncp</span><span class="op">)</span><span class="op">)</span>
-<span class="op">{</span>
-  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">df</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">ndf</span>,<span class="va">ddf</span>,ncp<span class="op">=</span><span class="va">ncp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
-  <span class="va">curveData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, pdf <span class="op">=</span> <span class="va">y</span><span class="op">)</span>
-  <span class="va">curvePlot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">curveData</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">pdf</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu">ggtitle</span><span class="op">(</span><span class="va">myLabel</span><span class="op">[</span><span class="va">myLabelIndx</span><span class="op">]</span><span class="op">)</span>;<span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="va">myLabelIndx</span> <span class="op">+</span> <span class="fl">1</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curvePlot</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="va">fCrit_2_10</span> <span class="op">&lt;-</span> <span class="va">fCrit</span> <span class="co"># convention fCrit_ndf_ddf</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ndf</span> <span class="op">&lt;-</span> <span class="fl">2</span>;<span class="va">ddf</span> <span class="op">&lt;-</span> <span class="fl">10</span>;<span class="va">ncp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span>
+<span><span class="va">fCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">qf</a></span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">alpha</span>, <span class="va">ndf</span>,<span class="va">ddf</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">20</span>, <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="va">myLabel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span></span>
+<span><span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="va">pFgtFCrit</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ncp</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">{</span></span>
+<span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">df</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">ndf</span>,<span class="va">ddf</span>,ncp<span class="op">=</span><span class="va">ncp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">pFgtFCrit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">pFgtFCrit</span>, <span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">pf</a></span><span class="op">(</span><span class="va">fCrit</span>, <span class="va">ndf</span>, <span class="va">ddf</span>, ncp <span class="op">=</span> <span class="va">ncp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span>  </span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ncp</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">{</span></span>
+<span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">df</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">ndf</span>,<span class="va">ddf</span>,ncp<span class="op">=</span><span class="va">ncp</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">curveData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, pdf <span class="op">=</span> <span class="va">y</span><span class="op">)</span></span>
+<span>  <span class="va">curvePlot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">curveData</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">pdf</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="va">myLabel</span><span class="op">[</span><span class="va">myLabelIndx</span><span class="op">]</span><span class="op">)</span>;<span class="va">myLabelIndx</span> <span class="op">&lt;-</span> <span class="va">myLabelIndx</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curvePlot</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">fCrit_2_10</span> <span class="op">&lt;-</span> <span class="va">fCrit</span> <span class="co"># convention fCrit_ndf_ddf</span></span></code></pre></div>
 <p><img src="Ch11Vig1SampleSize_files/figure-html/unnamed-chunk-1-1.png" width="700"><img src="Ch11Vig1SampleSize_files/figure-html/unnamed-chunk-1-2.png" width="700"><img src="Ch11Vig1SampleSize_files/figure-html/unnamed-chunk-1-3.png" width="700"><img src="Ch11Vig1SampleSize_files/figure-html/unnamed-chunk-1-4.png" width="700"></p>
 <table class="table table table-striped" style="width: auto !important; ">
 <thead><tr>
@@ -992,7 +992,7 @@ fCrit
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
