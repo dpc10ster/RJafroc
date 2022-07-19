@@ -64,7 +64,7 @@
 UtilAnalyticalAucsRSM <- function (mu, lambdaP, nuP, zeta1 = -Inf, lesDistr, relWeights = 0, tempTest = 0){
   
   maxLL <- length(lesDistr)
-  lesWghtDistr <- UtilLesionWeightsDistr(maxLL, relWeights)
+  lesWghtDistr <- UtilLesionWeightsMatrixLesDistr(lesDistr, relWeights)
   
   # bug fix 12/26/21
   if (lambdaP < 0) stop("Incorrect value for lambdaP\n")
@@ -72,9 +72,8 @@ UtilAnalyticalAucsRSM <- function (mu, lambdaP, nuP, zeta1 = -Inf, lesDistr, rel
   if (nuP > 1) stop("Incorrect value for nuP\n")
 
   if (missing(lesDistr)){
-    lesDistr <- c(1, 1) # two values
-    dim(lesDistr) <- c(1, 2) # convert to 1 row and 2 columns array
-  } else lesDistr <- UtilLesionDistr(lesDistr)
+    lesDistr <- 1
+  } 
   
   aucwAFROC <- aucAFROC <- aucROC <- rep(NA, length(mu))
   

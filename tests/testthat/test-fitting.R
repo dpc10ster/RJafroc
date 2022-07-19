@@ -202,23 +202,23 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/Fitting/RsmRoc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- FitRsmRoc(dataset02, UtilLesionDistr(dataset02)[,2])[1:8]
+    ret <- FitRsmRoc(dataset02, UtilLesionDistrVector(dataset02))[1:8]
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(FitRsmRoc(dataset02, UtilLesionDistr(dataset02)[,2])[1:8], ret, tolerance = 1e-6)
+  expect_equal(FitRsmRoc(dataset02, UtilLesionDistrVector(dataset02))[1:8], ret, tolerance = 1e-6)
   # end of test
 
   fn <- paste0(test_path(), "/goodValues361/Fitting/RsmRocDegenerate", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- FitRsmRoc(datasetDegenerate, UtilLesionDistr(datasetDegenerate)[,2])[1:8]
+    ret <- FitRsmRoc(datasetDegenerate, UtilLesionDistrVector(datasetDegenerate))[1:8]
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(FitRsmRoc(datasetDegenerate, UtilLesionDistr(datasetDegenerate)[,2])[1:8], ret, tolerance = 1e-6)
+  expect_equal(FitRsmRoc(datasetDegenerate, UtilLesionDistrVector(datasetDegenerate))[1:8], ret, tolerance = 1e-6)
   # end of test
   
 })

@@ -24,7 +24,7 @@ yROC, the ordinate of the ROC
 RSM predicted ROC-ordinate as function of z
 }
 \examples{
-lesDistr1D <- c(0.1,0.3,0.6)
-RSM_yROC(c(-Inf,0.1,0.2,0.3), 1, 1, 0.9, lesDistr1D)
+lesDistr <- c(0.1,0.3,0.6)
+RSM_yROC(c(-Inf,0.1,0.2,0.3), 1, 1, 0.9, lesDistr)
 
 }

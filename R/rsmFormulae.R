@@ -195,27 +195,24 @@ ywAFROC_R <- function(zeta, mu, nuP, lesDistr, lesWghtDistr){
   # bug fix 12/26/21
   if (nuP < 0) stop("Incorrect value for nuP\n")
   if (nuP > 1) stop("Incorrect value for nuP\n")
+  maxLes <- length(lesDistr)
   
-  fl <- lesDistr[, 2] / sum(lesDistr[, 2]) # redundant normalization does not hurt
   wLLF <- 0
-  for (nLesion in 1:nrow(lesDistr)){
+  for (nLesion in 1:maxLes){
     # outer looop sums over different numbers of lesions per case
-    nLesPerCase <- lesDistr[nLesion, 1] 
-    # nLesPerCase is the first element in the nLesion row of lesDistr, 
-    # which is the number of lesions for this lesion distributions condition
     wLLFTmp <- 0
-    for (nSuccess in 1:nLesPerCase){
+    for (nSuccess in 1:nLesion){
       # inner loop sums over different numbers of nSuccess events 
       # appropriately weighted by the probability of that many successes
       # nSuccess is the number of successes
-      # nLesPerCase is the trial size
+      # nLesion is the trial size
       # the following works, but only for equal weights ?? 11/29/20
-      # wLLFTmp <- wLLFTmp + sum(lesWghtDistr[nLesion, 2:(nSuccess+1)]) * dbinom(nSuccess, nLesPerCase, nuP) 
+      # wLLFTmp <- wLLFTmp + sum(lesWghtDistr[nLesion, 2:(nSuccess+1)]) * dbinom(nSuccess, nLesion, nuP) 
       # the next line should work for general case
-      wLLFTmp <- wLLFTmp + lesWghtDistr[nLesion, nSuccess+1] * nSuccess * dbinom(nSuccess, nLesPerCase, nuP)
+      wLLFTmp <- wLLFTmp + lesWghtDistr[nLesion, nSuccess+1] * nSuccess * dbinom(nSuccess, nLesion, nuP)
       # see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
     }
-    wLLF <- wLLF +  fl[nLesion] * wLLFTmp
+    wLLF <- wLLF +  lesDistr[nLesion] * wLLFTmp
   }
   return(wLLF * (1 - pnorm(zeta - mu)))
 }
@@ -352,8 +349,8 @@ RSM_xROC <- function(z, lambdaP) {
 #' @return yROC, the ordinate of the ROC
 #' 
 #' @examples 
-#' lesDistr1D <- c(0.1,0.3,0.6)
-#' RSM_yROC(c(-Inf,0.1,0.2,0.3), 1, 1, 0.9, lesDistr1D)
+#' lesDistr <- c(0.1,0.3,0.6)
+#' RSM_yROC(c(-Inf,0.1,0.2,0.3), 1, 1, 0.9, lesDistr)
 #' 
 #' @export
 
@@ -364,8 +361,7 @@ RSM_yROC <- function(z, mu, lambdaP, nuP, lesDistr) {
   if (nuP < 0) stop("Incorrect value for nuP\n")
   if (nuP > 1) stop("Incorrect value for nuP\n")
   
-  lesDistr2D <- UtilLesionDistr (lesDistr)
-  return(yROCVect(z, mu, lambdaP, nuP, lesDistr2D))
+  return(yROCVect(z, mu, lambdaP, nuP, lesDistr))
 }
 
 

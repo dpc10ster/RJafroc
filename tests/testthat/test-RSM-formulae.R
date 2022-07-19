@@ -7,7 +7,7 @@ test_that(contextStr, {
   zeta1 <- -3
   maxLL <- 4
   lesDistr <-  c(0.1, 0.4, 0.4, 0.1) 
-  relWeights <- c(0.2, 0.3, 0.1, 0.5)
+  relWeights <- c(0.5, 0.3, 0.1, 0.1)
   
   # see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
   fn <- paste0(test_path(), "/goodValues361/RSMformulae/weights-4-lesions", ".rds")

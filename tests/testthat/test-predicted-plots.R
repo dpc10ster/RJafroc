@@ -109,7 +109,7 @@ test_that("RSM3", {
   frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormalCasesFirst.xlsx",
                                           package = "RJafroc", mustWork = TRUE)
   x <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = TRUE)
-  lesDistr <- UtilLesionDistr(x)[,2]
+  lesDistr <- UtilLesionDistrVector(x)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/Rsm3", ".rds")
   if (!file.exists(fn)) {

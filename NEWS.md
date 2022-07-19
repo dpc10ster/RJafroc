@@ -1,6 +1,14 @@
 # RJafroc 2.0.1.9000
 
 
+## Extensive changes to handling of `lesDist` and `relWeights` 7/19/22
+* Removed unnecessary dimension on lesDist, it is now always 1D
+* Affected files are `UtilLesDistrVector.R` and `UtilLesionWeightsMatrix.R`
+* `lesDistr` and `relWeight` must have same lengths and sum to unity
+* `relWeight = 0` imposes equal weights
+* can remove a lesion by setting the corresponding lesDist entry to zero
+* need further testing on above capability
+
 ## added `Ch19Vig1FrocSampleSize.Rmd` 6/7/22
 * Added added `Ch19Vig2FrocSampleSize.Rmd` and `Ch19Vig2FrocSampleSize.Rmd`
 * These vignettes got accidentally removed, perhaps because it was failing tests

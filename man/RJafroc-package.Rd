@@ -439,9 +439,7 @@
            (FOMs) for specified dataset.
         \item \code{\link{UtilIntrinsic2PhysicalRSM}}: Convert from intrinsic to 
            physical RSM parameters. 
-        \item \code{\link{UtilLesionDistr}}: Calculates the lesion distribution  
-           matrix.
-        \item \code{\link{UtilLesionWeightsDistr}}: Calculates the lesion weights  matrix.
+        \item \code{\link{UtilLesionWeightsMatrix}}: Calculates the lesion weights  matrix.
         \item \code{\link{UtilMeanSquares}}: Calculates the mean squares used in the 
            DBMH and ORH methods.  
         \item \code{\link{UtilOutputReport}}: Generate a formatted report file.
