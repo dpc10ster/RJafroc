@@ -3,27 +3,63 @@ library(rhub)
 library(RJafroc)
 
 platforms <- rhub::platforms()
-# > platforms[[1]]
-# "macos-highsierra-release"      
-# "macos-highsierra-release-cran" 
-# "macos-m1-bigsur-release"       
-# "solaris-x86-patched"          
-# "solaris-x86-patched-ods" 
+print(platforms)
+# debian-clang-devel:
+#   Debian Linux, R-devel, clang, ISO-8859-15 locale
+# debian-gcc-devel:
+#   Debian Linux, R-devel, GCC
+# debian-gcc-devel-nold:
+#   Debian Linux, R-devel, GCC, no long double
+# debian-gcc-patched:
+#   Debian Linux, R-patched, GCC
+# debian-gcc-release:
+#   Debian Linux, R-release, GCC
+# fedora-clang-devel:
+#   Fedora Linux, R-devel, clang, gfortran
+# fedora-gcc-devel:
+#   Fedora Linux, R-devel, GCC
+# linux-x86_64-rocker-gcc-san:
+#   Debian Linux, R-devel, GCC ASAN/UBSAN
+# macos-highsierra-release:
+#   macOS 10.13.6 High Sierra, R-release, brew
+# macos-highsierra-release-cran:
+#   macOS 10.13.6 High Sierra, R-release, CRAN's setup
+# macos-m1-bigsur-release:
+#   Apple Silicon (M1), macOS 11.6 Big Sur, R-release
+# solaris-x86-patched:
+#   Oracle Solaris 10, x86, 32 bit, R-release
+# solaris-x86-patched-ods:
+#   Oracle Solaris 10, x86, 32 bit, R release, Oracle Developer Studio 12.6
+# ubuntu-gcc-devel:
+#   Ubuntu Linux 20.04.1 LTS, R-devel, GCC
+# ubuntu-gcc-release:
+#   Ubuntu Linux 20.04.1 LTS, R-release, GCC
+# windows-x86_64-devel:
+#   Windows Server 2022, R-devel, 64 bit
+# windows-x86_64-oldrel:
+#   Windows Server 2022, R-oldrel, 32/64 bit
+# windows-x86_64-patched:
+#   Windows Server 2022, R-patched, 32/64 bit
+# windows-x86_64-release:
+#   Windows Server 2022, R-release, 32/64 bit
 
 packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.0.tar.gz"
 if (!file.exists(packagePath))
- packagePath <- devtools::build()
+  packagePath <- devtools::build()
 
 # devtools::check_win_devel(packagePath) #OK
 # devtools::check_win_release(packagePath) #OK
 # devtools::check_win_oldrelease(packagePath) #OK
 # devtools::revdep() # OK
 
-# chk1 <- rhub::check(packagePath, platform = platforms[[1]][1]) # OK
+for (indx in 1:5) {
+  #if (indx == 11) next
+  cat(platforms[[1]][indx]);chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx]) # OK
+}
 # chk2 <- rhub::check(packagePath, platform = platforms[[1]][2]) # OK
 
 # chk3 <- rhub::check(packagePath, platform = platforms[[1]][3]) # fails error in SsFrocNhRsmModel.R line 55
-chk4 <- rhub::check(packagePath, platform = platforms[[1]][4]) # failed to download dependencies readxl, testthat kableExtra
+# chk4 <- rhub::check(packagePath, platform = platforms[[1]][4]) # failed to download dependencies readxl, testthat kableExtra
 # chk5 <- rhub::check(packagePath, platform = platforms[[1]][5]) # failed to download dependencies readxl, testthat kableExtra
 
 # rhub::check_for_cran(packagePath) # Error in match_platform(platform)
