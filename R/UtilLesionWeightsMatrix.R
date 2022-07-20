@@ -101,7 +101,7 @@ UtilLesionWeightsMatrixDataset <- function(dataset, relWeights = 0)
 #' 
 #' 
 #' ## Example2 : dataset with *no* cases with 3 lesions per case
-#' UtilLesionWeightsMatrixLesDistr (c(0.1, 0.7, 0, 0.2), c(0.4, 0.3, 0.2, 0.1))
+#' UtilLesionWeightsMatrixLesDistr (c(0.1, 0.7, 0.0, 0.2), c(0.4, 0.3, 0.2, 0.1))
 #' 
 #' ##       [,1]  [,2]      [,3]    [,4]
 #' ##[1,]    1 1.0000000      -Inf  -Inf
