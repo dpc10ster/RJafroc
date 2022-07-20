@@ -7,20 +7,20 @@
 SsFrocNhRsmModel(dataset, lesDistr)
 }
 \arguments{
-\item{dataset}{The \strong{pilot} dataset object representing a NH 
+\item{dataset}{The \strong{pilot} dataset object representing a NH
 (ROC or FROC) dataset.}
 
-\item{lesDistr}{A 1D array containing the probability mass function of 
-number of lesions per diseased case in the \strong{pivotal FROC} 
+\item{lesDistr}{A 1D array containing the probability mass function of
+number of lesions per diseased case in the \strong{pivotal FROC}
 study.}
 }
 \value{
-A list containing: 
-   \itemize{ 
-   \item \code{muMed}, the median mu parameter of the NH model. 
-   \item \code{lambdaMed}, the median lambda parameter of the NH model.  
-   \item \code{nuMed}, the median nu parameter of the NH model. 
-   \item \code{scaleFactor}, the scaling factor that multiplies 
+A list containing:
+   \itemize{
+   \item \code{muMed}, the median mu parameter of the NH model.
+   \item \code{lambdaMed}, the median lambda parameter of the NH model.
+   \item \code{nuMed}, the median nu parameter of the NH model.
+   \item \code{scaleFactor}, the scaling factor that multiplies
       the ROC effect size to get wAFROC effect size.
    \item \code{R2}, the R2 of the fit.
 }
@@ -29,26 +29,26 @@ A list containing:
 RSM fitted model for FROC sample size
 }
 \details{
-If dataset is FROC, it is converted to an ROC dataset. The dataset 
-    is automatically binned. The search model is used to fit each 
-    treatment-reader combination. The median  value for each parameter is 
-    computed and returned by the function (3 values). These are used 
-    to compute predicted wAFROC and ROC FOMS over a range of values of deltaMu, 
+If dataset is FROC, it is converted to an ROC dataset. The dataset
+    is automatically binned. The search model is used to fit each
+    treatment-reader combination. The median  value for each parameter is
+    computed and returned by the function (3 values). These are used
+    to compute predicted wAFROC and ROC FOMS over a range of values of deltaMu,
     which are fitted by a straight line constrained to pass through the origin.
     The scale factor and R2 are returned. The scaling factor is the value
-    by which the ROC effect size must be multiplied to get the wAFROC effect size. 
-    See \url{https://dpc10ster.github.io/RJafrocQuickStart/froc-sample-size.html} 
+    by which the ROC effect size must be multiplied to get the wAFROC effect size.
+    See \url{https://dpc10ster.github.io/RJafrocQuickStart/froc-sample-size.html}
     for vignettes explaining the FROC sample size estimation procedure.
 }
 \examples{
- 
+
 \donttest{
 ## Examples with CPU or elapsed time > 5s
 ## user system elapsed
 ## SsFrocNhRsmModel 8.102  0.023   8.135
- 
+
 ## SsFrocNhRsmModel(dataset02, c(0.7, 0.2, 0.1))
-## the next one should match the vignette 
+## the next one should match the vignette
 ## SsFrocNhRsmModel(DfExtractDataset(dataset04, trts = c(1,2)), c(0.69, 0.2, 0.11))
 }
 

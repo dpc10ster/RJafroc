@@ -67,7 +67,6 @@ Description: Analyzing the performance of artificial intelligence (AI) systems/a
     input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are
     illustrated with several included datasets from the author's collaborations. This version corrects bugs, simplifies usage of 
     the software and updates the dataset structure. 
-VignetteBuilder: knitr
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/
