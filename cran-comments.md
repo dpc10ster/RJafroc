@@ -1,13 +1,15 @@
 # Reason for submission
-* This is an update to CRAN version 1.3.2 which installed with no errors, warnings, or notes (2020-03-06) on all platforms. The package is still passing all checks on all platforms (as of 2020-12-10).
-* This update (v2.0.1) includes  many improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification since the last successful submission. 
+* This is an update to CRAN version 2.0.1 which installed with no errors, warnings, or notes on all platforms. The package is still passing all checks on all platforms (as of 2022-07-20 15:50:17 CEST).
+* This update (v2.1.0) includes improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification since the last successful submission. 
 
 # Test environments
 
 ## OS X
+* R version 4.2.1 (2022-06-23)
+* Platform: x86_64-apple-darwin17.0 (64-bit)
+* Running under: macOS Catalina 10.15.7
 * iMac, 3.4GHz Quad-Core Intel Core i7
-* "x86_64-apple-darwin17.0", 
-* "R version 4.0.3 (2020-10-10)" 
+
 * `R CMD check` ran with no errors, warnings or notes
 
 ## GitHub Action
@@ -22,23 +24,9 @@ devtools::check_win_devel()
 devtools::check_win_release()
 devtools::check_win_oldrelease()
 ```
-1. check_win_devel 
-    + using log directory 'd:/RCompile/CRANguest/R-release/RJafroc.Rcheck'
-    + using R version 4.0.3 (2020-10-10)
-    + using platform: x86_64-w64-mingw32 (64-bit)
-    + One NOTE - Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>', which is expected as I am the maintainer.
-    + (Not cited as a NOTE) The check found a website in `NEWS.md` that may not be valid now - this is my internal documentation of reasons for code changes, and I would not want to delete the website, which was valid on the date that NEWS entry was made. 
-1. check_win_release
-    + using log directory 'd:/RCompile/CRANguest/R-devel/RJafroc.Rcheck'
-    + using R Under development (unstable) (2020-12-09 r79601)
-    + using platform: x86_64-w64-mingw32 (64-bit)
-    + One NOTE - Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>', which is expected as I am the maintainer.
-    + (Not cited as a NOTE) Website as in preceding check. 
-1. check_win_oldrelease
-    + using log directory 'd:/RCompile/CRANguest/R-oldrelease/RJafroc.Rcheck'
-    + using R version 3.6.3 (2020-02-29)
-    + using platform: x86_64-w64-mingw32 (64-bit)
-    + One NOTE - Maintainer: 'Dev Chakraborty <dpc10ster@gmail.com>', which is expected as I am the maintainer.
+
+These ran with no errors, warnings or notes.
+
 
 ## CRAN compatibility
 CRAN compatibility was tested using `rhub::check_for_cran()`.
@@ -47,7 +35,7 @@ CRAN compatibility was tested using `rhub::check_for_cran()`.
 * OK
 
 ## Summary of checks in all environments
-Apart from failures on 2 environments which do not appear to be among the `flavors` tested on CRAN, and 1 on which required packages were not available, the package passed all checks on the remaining 18 environments. The check details on all 21 environments follows. 
+Apart from failures on 2 environments which do not appear to be among the `flavors` tested on CRAN, and 1 on which required packages were not available, the package passed all checks on the remaining 18 environments. The check details on all 19 environments follows. 
 
 ## Details of checks in 21 environments
 ```

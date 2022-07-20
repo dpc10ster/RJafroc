@@ -52,18 +52,20 @@ if (!file.exists(packagePath))
 # devtools::check_win_oldrelease(packagePath) #OK
 # devtools::revdep() # OK
 
-for (indx in 13:16) {
+for (indx in 17:19) {
   if (indx == 11) next
   print(cat(platforms[[1]][indx]))
   chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx]) # OK
 }
+
+rhub::check_for_cran() # OK detritus file lastMiKTeXException?
+
 # chk2 <- rhub::check(packagePath, platform = platforms[[1]][2]) # OK
 
 # chk3 <- rhub::check(packagePath, platform = platforms[[1]][3]) # fails error in SsFrocNhRsmModel.R line 55
 # chk4 <- rhub::check(packagePath, platform = platforms[[1]][4]) # failed to download dependencies readxl, testthat kableExtra
 # chk5 <- rhub::check(packagePath, platform = platforms[[1]][5]) # failed to download dependencies readxl, testthat kableExtra
 
-# rhub::check_for_cran(packagePath) # Error in match_platform(platform)
 
 
 # update DESCRIPTION ...NOT DONE
