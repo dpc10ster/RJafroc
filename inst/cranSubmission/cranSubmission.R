@@ -52,9 +52,10 @@ if (!file.exists(packagePath))
 # devtools::check_win_oldrelease(packagePath) #OK
 # devtools::revdep() # OK
 
-for (indx in 1:5) {
-  #if (indx == 11) next
-  cat(platforms[[1]][indx]);chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx]) # OK
+for (indx in 13:16) {
+  if (indx == 11) next
+  print(cat(platforms[[1]][indx]))
+  chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx]) # OK
 }
 # chk2 <- rhub::check(packagePath, platform = platforms[[1]][2]) # OK
 
