@@ -497,15 +497,11 @@ test_that(contextStr, {
   theirs <- as.vector(df6)#;colnames(theirs) <- NULL;rownames(theirs) <- NULL
   mine <- OR$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)[,1]
-  # first two elements are expected to be unequal - see NEWS.md 5/26/20
-  expect_error(expect_equal(theirs[1:2], mine[1:2], tolerance = 0.00001, scale = abs(mine)))
-  #expect_equal(theirs[3:6], mine[3:6], tolerance = 0.00001, scale = abs(mine)) # original pre 7/19/22
-  expect_equal(theirs[3:6], mine[3:6], tolerance = 0.00001) # 7/19/22 weird error fixed by this change
-  # Warning message:
-  #   In abs(target - current)/(N * scale) :
-  #   longer object length is not a multiple of shorter object length
+  # fix from Peter 
+  # https://github.com/dpc10ster/RJafroc/issues/79#issuecomment-1190711314
+  expect_error(expect_equal(theirs[1:2], mine[1:2], tolerance = 0.00001, scale = abs(mine[1:2]))) 
+  expect_equal(theirs[3:6], mine[3:6], tolerance = 0.00001, scale = abs(mine[3:6]))
   
-  # cat("passed test 6\n")
   
   FindString <- " Corresponding DBM variance component and covariance estimates"
   offSet <- 4
