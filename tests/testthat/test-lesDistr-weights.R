@@ -110,14 +110,14 @@ test_that("UtilLesionWeightsMatrixLesDistr", {
   
   # third lesion has zero weight; i.e., dataset does not have any dis. cases with 3 lesions
   ret <- array(c(c(1, 2, 4), c(1, 0.5714286, 0.5), c(-Inf, 0.4285714, 0.3750000), c(-Inf, -Inf, 0.125)), dim = c(3,4)) 
-  expect_equal(UtilLesionWeightsMatrixLesDistr (c(0.1, 0.7, 0, 0.2), c(0.4, 0.3, 0.2, 0.1)), ret, tolerance = 1e-6, scale = 1)
+  expect_equal(UtilLesionWeightsMatrixLesDistr (c(0.1, 0.7, 0.0, 0.2), c(0.4, 0.3, 0.2, 0.1)), ret, tolerance = 1e-6, scale = 1)
   
   
   ret <- array(c(c(1, 2, 3, 4), c(1, 0.333333, 0.2857143, 0.2), c(-Inf, 0.6666667, 0.5714286, 0.4000000), c(-Inf, -Inf, 0.1428571,  0.1000000), c(-Inf, -Inf, -Inf,  0.3000000)), dim = c(4,5)) 
   expect_equal(UtilLesionWeightsMatrixLesDistr (c(0.6, 0.2, 0.1, 0.1), c(0.2, 0.4, 0.1, 0.3)), ret, tolerance = 1e-6, scale = 1)
   
   ret <- array(c(c(1, 2, 4), c(1, 0.5714286, 0.5), c(-Inf, 0.4285714, 0.3750000), c(-Inf, -Inf, 0.125)), dim = c(3,4)) 
-  expect_equal(UtilLesionWeightsMatrixLesDistr (c(0.1, 0.7, 0, 0.2), c(0.4, 0.3, 0.2, 0.1)), ret, tolerance = 1e-6, scale = 1)
+  expect_equal(UtilLesionWeightsMatrixLesDistr (c(0.1, 0.7, 0.0, 0.2), c(0.4, 0.3, 0.2, 0.1)), ret, tolerance = 1e-6, scale = 1)
   
 })
 

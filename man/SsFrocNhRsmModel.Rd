@@ -37,7 +37,8 @@ If dataset is FROC, it is converted to an ROC dataset. The dataset
     which are fitted by a straight line constrained to pass through the origin.
     The scale factor and R2 are returned. The scaling factor is the value
     by which the ROC effect size must be multiplied to get the wAFROC effect size. 
-    Equally weighted lesions is assumed.
+    See \url{https://dpc10ster.github.io/RJafrocQuickStart/froc-sample-size.html} 
+    for vignettes explaining the FROC sample size estimation procedure.
 }
 \examples{
  
