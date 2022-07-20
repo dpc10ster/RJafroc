@@ -25,7 +25,8 @@
 #'     which are fitted by a straight line constrained to pass through the origin.
 #'     The scale factor and R2 are returned. The scaling factor is the value
 #'     by which the ROC effect size must be multiplied to get the wAFROC effect size. 
-#'     Equally weighted lesions is assumed.
+#'     See \url{https://dpc10ster.github.io/RJafrocQuickStart/froc-sample-size.html} 
+#'     for vignettes explaining the FROC sample size estimation procedure. 
 #' 
 #' @examples
 #'  
@@ -52,7 +53,13 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   # if dataset is already binned, this does not hurt
   rocData <- DfBinDataset(rocData, opChType = "ROC")
   
-  if (sum(lesDistr) != 1) stop("The lesion distribution vector must sum to unity")
+  #if (sum(lesDistr) != 1.0) {
+  # as per Peter's suggestion 
+  # https://github.com/dpc10ster/RJafroc/issues/76#issuecomment-1189540505
+  if ( !isTRUE( all.equal( sum(lesDistr), 1.0 ) ) ) { 
+    errMsg <- "The lesion distribution vector must sum to unity:"
+    stop(errMsg)
+  }  
   
   I <- dim(dataset$ratings$NL)[1]
   J <- dim(dataset$ratings$NL)[2]
