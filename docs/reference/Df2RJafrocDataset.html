@@ -18,7 +18,7 @@ user to leverage the file I/O, plotting and analyses capabilities of RJafroc."><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -33,42 +33,15 @@ user to leverage the file I/O, plotting and analyses capabilities of RJafroc."><
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,30 +62,39 @@ user to leverage the file I/O, plotting and analyses capabilities of <span class
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Df2RJafrocDataset</span><span class="op">(</span><span class="va">NL</span>, <span class="va">LL</span>, InputIsCountsTable <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Df2RJafrocDataset</span><span class="op">(</span><span class="va">NL</span>, <span class="va">LL</span>, InputIsCountsTable <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>NL</dt>
 <dd><p>Non-lesion localizations array (or FP array for ROC data).</p></dd>
+
+
 <dt>LL</dt>
 <dd><p>Lesion localizations array (or TP array for ROC data).</p></dd>
+
+
 <dt>InputIsCountsTable</dt>
 <dd><p>If <code>TRUE</code>, the <code>NL</code> and <code>LL</code> 
 arrays are rating-counts tables, with common lengths equal to the 
 number of ratings <code>R</code>, if <code>FALSE</code>, the default, these are arrays 
 of lengths <code>K1</code>, the number of non-diseased cases, and <code>K2</code>, 
 the number of diseased cases, respectively.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other elements of <span class="pkg">RJafroc</span> dataset that may, depending on the 
 context, need to be specified. <code>perCase</code> <strong>must</strong> be specified 
    if an FROC dataset is to be returned. It is a <code>K2</code>-length array 
    specifying the numbers of lesions in each diseased case in the dataset.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A dataset with the structure described in <code><a href="RJafroc-package.html">RJafroc-package</a></code>.</p>
+    
+
+<p>A dataset with the structure described in <code><a href="RJafroc-package.html">RJafroc-package</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -128,16 +110,16 @@ Consecutive characters/integers starting with "1" are assigned to <code>IDs</cod
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Input as ratings arrays</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>;<span class="va">NL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>;<span class="va">LL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span><span class="op">*</span><span class="fl">1.5</span> <span class="op">+</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">Df2RJafrocDataset</span><span class="op">(</span><span class="va">NL</span>, <span class="va">LL</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Input as counts tables</span></span>
-<span class="r-in"><span class="va">K1t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">19</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">K2t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,  <span class="fl">6</span>, <span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">22</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">Df2RJafrocDataset</span><span class="op">(</span><span class="va">K1t</span>, <span class="va">K2t</span>, InputIsCountsTable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Input as ratings arrays</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>;<span class="va">NL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>;<span class="va">LL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span><span class="op">*</span><span class="fl">1.5</span> <span class="op">+</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">Df2RJafrocDataset</span><span class="op">(</span><span class="va">NL</span>, <span class="va">LL</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Input as counts tables</span></span></span>
+<span class="r-in"><span><span class="va">K1t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">19</span>, <span class="fl">8</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">K2t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,  <span class="fl">6</span>, <span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">22</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">Df2RJafrocDataset</span><span class="op">(</span><span class="va">K1t</span>, <span class="va">K2t</span>, InputIsCountsTable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -152,7 +134,7 @@ Consecutive characters/integers starting with "1" are assigned to <code>IDs</cod
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

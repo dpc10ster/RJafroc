@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -50,42 +50,15 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -104,7 +77,7 @@
       <h1 data-toc-skip>Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</h1>
                         <h4 data-toc-skip class="author">Dev P. Chakraborty, PhD</h4>
             
-            <h4 data-toc-skip class="date">2022-06-07</h4>
+            <h4 data-toc-skip class="date">2022-07-07</h4>
       
       
       <div class="hidden name"><code>Ch19Vig2FrocSampleSize.Rmd</code></div>
@@ -128,19 +101,19 @@
 </h2>
 <p>One starts by extracting the first two treatments from <code>dataset04</code>, which represent the NH dataset, see previous vignette. Next one constructs the NH model - note that the lesion distribution <code>lesDistr</code> can be specified here independently of that in the pilot dataset. This allows some control over selection of the diseased cases in the pivotal study.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span>
-<span class="va">frocNhData</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfExtractDataset.html">DfExtractDataset</a></span><span class="op">(</span><span class="va">dataset04</span>, trts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsFrocNhRsmModel.html">SsFrocNhRsmModel</a></span><span class="op">(</span><span class="va">frocNhData</span>, lesDistr <span class="op">=</span> <span class="va">lesDistr</span><span class="op">)</span>
-<span class="va">muMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">muMed</span>
-<span class="va">lambdaMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">lambdaMed</span>
-<span class="va">nuMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">nuMed</span>
-<span class="va">scaleFactor</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">scaleFactor</span></code></pre></div>
-<p>The fitting model is defined by <code>muMed = r muMed</code>, <code>lambdaMed = 5.6140941</code> and <code>nuMed = 0.3696988</code> and <code>lesionPmf</code>. The effect size scale factor is 2.1540267.</p>
+<code class="sourceCode R"><span><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="va">frocNhData</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DfExtractDataset.html">DfExtractDataset</a></span><span class="op">(</span><span class="va">dataset04</span>, trts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsFrocNhRsmModel.html">SsFrocNhRsmModel</a></span><span class="op">(</span><span class="va">frocNhData</span>, lesDistr <span class="op">=</span> <span class="va">lesDistr</span><span class="op">)</span></span>
+<span><span class="va">muMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">muMed</span></span>
+<span><span class="va">lambdaMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">lambdaMed</span></span>
+<span><span class="va">nuMed</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">nuMed</span></span>
+<span><span class="va">scaleFactor</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">scaleFactor</span></span></code></pre></div>
+<p>The fitting model is defined by <code>muMed</code> = 3.3159309, <code>lambdaMed</code> = 5.6140941 and <code>nuMed</code> = 0.3696988 and <code>lesDistr</code>. The effect size scale factor is 2.1540267.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">aucRocNH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span><span class="va">muMed</span>, <span class="va">lambdaMed</span>, <span class="va">nuMed</span>, 
-                                            lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"ROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucROC</span>
-<span class="va">aucwAfrocNH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span><span class="va">muMed</span>, <span class="va">lambdaMed</span>, <span class="va">nuMed</span>, 
-                                               lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucwAFROC</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">aucRocNH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span><span class="va">muMed</span>, <span class="va">lambdaMed</span>, <span class="va">nuMed</span>, </span>
+<span>                                            lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"ROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucROC</span></span>
+<span><span class="va">aucwAfrocNH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics</a></span><span class="op">(</span><span class="va">muMed</span>, <span class="va">lambdaMed</span>, <span class="va">nuMed</span>, </span>
+<span>                                               lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, OpChType <span class="op">=</span> <span class="st">"wAFROC"</span><span class="op">)</span><span class="op">$</span><span class="va">aucwAFROC</span></span></code></pre></div>
 <p>The null hypothesis ROC AUC is 0.8790725 and the corresponding NH wAFROC AUC is 0.7232327.</p>
 </div>
 <div class="section level2">
@@ -148,55 +121,55 @@
 </h2>
 <p>The next code block applies <code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code> to <code>frocNhData</code>, using <code>FOM = "wAFROC"</code> and extracts the variance components.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">varCompwAFROC</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span><span class="va">frocNhData</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span><span class="op">)</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">VarCom</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">varCompwAFROC</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span><span class="va">frocNhData</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span><span class="op">)</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">VarCom</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="wafroc-power-for-specified-roc-effect-size-number-of-readers-j-and-number-of-cases-k">wAFROC power for specified ROC effect size, number of readers J and number of cases K<a class="anchor" aria-label="anchor" href="#wafroc-power-for-specified-roc-effect-size-number-of-readers-j-and-number-of-cases-k"></a>
 </h2>
 <p>The following example is for ROC effect size = 0.05, 5 readers (<code>J</code>) and 100 cases (<code>K</code>) in the <strong>pivotal study</strong>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ROC_ES</span> <span class="op">&lt;-</span> <span class="fl">0.05</span>
-<span class="va">effectSizewAFROC</span> <span class="op">&lt;-</span> <span class="va">scaleFactor</span> <span class="op">*</span> <span class="va">ROC_ES</span>
-<span class="va">J</span> <span class="op">&lt;-</span> <span class="fl">5</span>;<span class="va">K</span> <span class="op">&lt;-</span> <span class="fl">100</span>
-
-<span class="va">varYTR</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span> 
-<span class="va">varYTC</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>
-<span class="va">varYEps</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="st">"Estimates"</span><span class="op">]</span>
-<span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="va">J</span>, K <span class="op">=</span> <span class="va">K</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span>, 
-                      effectSize <span class="op">=</span> <span class="va">effectSizewAFROC</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, 
-                      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>VarTR <span class="op">=</span> <span class="va">varYTR</span>,
-                           VarTC <span class="op">=</span> <span class="va">varYTC</span>,
-                           VarErr <span class="op">=</span> <span class="va">varYEps</span><span class="op">)</span><span class="op">)</span>
-<span class="va">powerwAFROC</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">powerRRRC</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ROC-ES = "</span>, <span class="va">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="va">ROC_ES</span> <span class="op">*</span> <span class="va">scaleFactor</span>, <span class="st">", Power-wAFROC = "</span>, <span class="va">powerwAFROC</span>, <span class="st">"\n"</span><span class="op">)</span>
-<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10770134 , Power-wAFROC =  0.97627452</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ROC_ES</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span>
+<span><span class="va">effectSizewAFROC</span> <span class="op">&lt;-</span> <span class="va">scaleFactor</span> <span class="op">*</span> <span class="va">ROC_ES</span></span>
+<span><span class="va">J</span> <span class="op">&lt;-</span> <span class="fl">5</span>;<span class="va">K</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<span></span>
+<span><span class="va">varYTR</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span> </span>
+<span><span class="va">varYTC</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="st">"Estimates"</span><span class="op">]</span></span>
+<span><span class="va">varYEps</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="st">"Estimates"</span><span class="op">]</span></span>
+<span><span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="va">J</span>, K <span class="op">=</span> <span class="va">K</span>, analysisOption <span class="op">=</span> <span class="st">"RRRC"</span>, </span>
+<span>                      effectSize <span class="op">=</span> <span class="va">effectSizewAFROC</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>VarTR <span class="op">=</span> <span class="va">varYTR</span>,</span>
+<span>                           VarTC <span class="op">=</span> <span class="va">varYTC</span>,</span>
+<span>                           VarErr <span class="op">=</span> <span class="va">varYEps</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">powerwAFROC</span> <span class="op">&lt;-</span> <span class="va">ret</span><span class="op">$</span><span class="va">powerRRRC</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ROC-ES = "</span>, <span class="va">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="va">ROC_ES</span> <span class="op">*</span> <span class="va">scaleFactor</span>, <span class="st">", Power-wAFROC = "</span>, <span class="va">powerwAFROC</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10770134 , Power-wAFROC =  0.97627452</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="wafroc-number-of-cases-for-80-power-for-a-given-number-of-readers-j">wAFROC number of cases for 80% power for a given number of readers J<a class="anchor" aria-label="anchor" href="#wafroc-number-of-cases-for-80-power-for-a-given-number-of-readers-j"></a>
 </h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">VarTR</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span> 
-<span class="va">VarTC</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>
-<span class="va">VarErr</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="st">"Estimates"</span><span class="op">]</span>
-<span class="va">ret2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, effectSize <span class="op">=</span> <span class="va">effectSizewAFROC</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>,
-                            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>VarTR <span class="op">=</span> <span class="va">VarTR</span>, VarTC <span class="op">=</span> <span class="va">VarTC</span>, VarErr <span class="op">=</span> <span class="va">VarErr</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ROC-ES = "</span>, <span class="va">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="va">ROC_ES</span> <span class="op">*</span> <span class="va">scaleFactor</span>, 
-    <span class="st">", K80RRRC = "</span>, <span class="va">ret2</span><span class="op">$</span><span class="va">KRRRC</span>, <span class="st">", Power-wAFROC = "</span>, <span class="va">ret2</span><span class="op">$</span><span class="va">powerRRRC</span>, <span class="st">"\n"</span><span class="op">)</span>
-<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10770134 , K80RRRC =  42 , Power-wAFROC =  0.80472815</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">VarTR</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span> </span>
+<span><span class="va">VarTC</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="st">"Estimates"</span><span class="op">]</span></span>
+<span><span class="va">VarErr</span> <span class="op">&lt;-</span> <span class="va">varCompwAFROC</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="st">"Estimates"</span><span class="op">]</span></span>
+<span><span class="va">ret2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsSampleSizeKGivenJ.html">SsSampleSizeKGivenJ</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, effectSize <span class="op">=</span> <span class="va">effectSizewAFROC</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>VarTR <span class="op">=</span> <span class="va">VarTR</span>, VarTC <span class="op">=</span> <span class="va">VarTC</span>, VarErr <span class="op">=</span> <span class="va">VarErr</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ROC-ES = "</span>, <span class="va">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="va">ROC_ES</span> <span class="op">*</span> <span class="va">scaleFactor</span>, </span>
+<span>    <span class="st">", K80RRRC = "</span>, <span class="va">ret2</span><span class="op">$</span><span class="va">KRRRC</span>, <span class="st">", Power-wAFROC = "</span>, <span class="va">ret2</span><span class="op">$</span><span class="va">powerRRRC</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10770134 , K80RRRC =  42 , Power-wAFROC =  0.80472815</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="wafroc-power-for-a-given-number-of-readers-j-and-cases-k">wAFROC Power for a given number of readers J and cases K<a class="anchor" aria-label="anchor" href="#wafroc-power-for-a-given-number-of-readers-j-and-cases-k"></a>
 </h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">ret3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="va">ret2</span><span class="op">$</span><span class="va">KRRRC</span>, effectSize <span class="op">=</span> <span class="va">effectSizewAFROC</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>,
-                       <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>VarTR <span class="op">=</span> <span class="va">VarTR</span>, VarTC <span class="op">=</span> <span class="va">VarTC</span>, VarErr <span class="op">=</span> <span class="va">VarErr</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ROC-ES = "</span>, <span class="va">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="va">ROC_ES</span> <span class="op">*</span> <span class="va">scaleFactor</span>, 
-    <span class="st">", powerRRRC = "</span>, <span class="va">ret3</span><span class="op">$</span><span class="va">powerRRRC</span>, <span class="st">"\n"</span><span class="op">)</span>
-<span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10770134 , powerRRRC =  0.80472815</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">ret3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SsPowerGivenJK.html">SsPowerGivenJK</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="va">ret2</span><span class="op">$</span><span class="va">KRRRC</span>, effectSize <span class="op">=</span> <span class="va">effectSizewAFROC</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                       <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>VarTR <span class="op">=</span> <span class="va">VarTR</span>, VarTC <span class="op">=</span> <span class="va">VarTC</span>, VarErr <span class="op">=</span> <span class="va">VarErr</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"ROC-ES = "</span>, <span class="va">ROC_ES</span>, <span class="st">", wAFROC-ES = "</span>, <span class="va">ROC_ES</span> <span class="op">*</span> <span class="va">scaleFactor</span>, </span>
+<span>    <span class="st">", powerRRRC = "</span>, <span class="va">ret3</span><span class="op">$</span><span class="va">powerRRRC</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ROC-ES =  0.05 , wAFROC-ES =  0.10770134 , powerRRRC =  0.80472815</span></span></code></pre></div>
 <p>The estimated power is close to 80% as the number of cases (<code>ret2$KRRRC = 42</code>) was chosen deliberately from the previous code block.</p>
 </div>
 <div class="section level2">
@@ -222,7 +195,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

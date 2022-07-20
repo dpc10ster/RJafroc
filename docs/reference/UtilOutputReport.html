@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -33,42 +33,15 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,19 +62,19 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">UtilOutputReport</span><span class="op">(</span>
-  <span class="va">dataset</span>,
-  ReportFileBaseName <span class="op">=</span> <span class="cn">NULL</span>,
-  ReportFileExt <span class="op">=</span> <span class="st">"txt"</span>,
-  method <span class="op">=</span> <span class="st">"DBM"</span>,
-  <span class="va">FOM</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  covEstMethod <span class="op">=</span> <span class="st">"jackknife"</span>,
-  nBoots <span class="op">=</span> <span class="fl">200</span>,
-  sequentialNames <span class="op">=</span> <span class="cn">FALSE</span>,
-  overWrite <span class="op">=</span> <span class="cn">FALSE</span>,
-  analysisOption <span class="op">=</span> <span class="st">"ALL"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">UtilOutputReport</span><span class="op">(</span></span>
+<span>  <span class="va">dataset</span>,</span>
+<span>  ReportFileBaseName <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ReportFileExt <span class="op">=</span> <span class="st">"txt"</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"DBM"</span>,</span>
+<span>  <span class="va">FOM</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  covEstMethod <span class="op">=</span> <span class="st">"jackknife"</span>,</span>
+<span>  nBoots <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  sequentialNames <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  overWrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  analysisOption <span class="op">=</span> <span class="st">"ALL"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -109,6 +82,8 @@
     <dl><dt>dataset</dt>
 <dd><p>The dataset object to be analyzed (<em>not the file name</em>), 
 see <code>Dataset</code> in <code><a href="RJafroc-package.html">RJafroc-package</a></code>.</p></dd>
+
+
 <dt>ReportFileBaseName</dt>
 <dd><p>The report file (with extension <code>"txt"</code> or <code>"xlsx"</code>, 
 as specified by option 
@@ -122,41 +97,62 @@ file
 is very hard to locate. This is so that the software passes CRAN checks, 
 as writing to the project directory, or any of its sub-directories, is 
 frowned upon.</p></dd>
+
+
 <dt>ReportFileExt</dt>
 <dd><p>The report file extension determines the type of output. 
 <code>"txt"</code>, the default, for 
 a text file, <code>"xlsx"</code> for an Excel file.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>The significance testing method, <code>"OR"</code> or 
 (the default) <code>"DBM"</code>.</p></dd>
+
+
 <dt>FOM</dt>
 <dd><p>The figure of merit; see <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>See <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>; the default is 0.05.</p></dd>
+
+
 <dt>covEstMethod</dt>
 <dd><p>See <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>; only needed 
 for method = <code>"OR"</code>; the default is "Jackknife".</p></dd>
+
+
 <dt>nBoots</dt>
 <dd><p>See <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>; only needed for 
 <code>"OR"</code> analysis; the default is 200.</p></dd>
+
+
 <dt>sequentialNames</dt>
 <dd><p>A logical variable: if <code>TRUE</code>, consecutive integers 
 (starting from 1) will be used as the treatment and reader IDs in the 
 output report. Otherwise, treatment and reader IDs in the original dataset 
 are used. This option is needed for aesthetics, as long names can mess
 up the output. The default is <code>FALSE.</code></p></dd>
+
+
 <dt>overWrite</dt>
 <dd><p>A <code>logical</code> variable: if <code>FALSE</code>, a warning will 
 be issued if the report file already exists and the program will wait 
 until the user inputs "y" or "n" to determine whether to overwrite the 
 existing file. If <code>TRUE</code>, the existing file will be silently overwritten. 
 The default is <code>FALSE</code>.</p></dd>
+
+
 <dt>analysisOption</dt>
 <dd><p>"RRRC", "FRRC", "RRFC or "ALL"; see <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>StResult The object returned by <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>.</p>
+    
+
+<p>StResult The object returned by <code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -166,10 +162,10 @@ The default is <code>FALSE</code>.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"> <span class="co"># text output is created in a temporary file</span></span>
-<span class="r-in"><span class="fu">UtilOutputReport</span><span class="op">(</span><span class="va">dataset03</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span> <span class="co"># text output is created in a temporary file</span></span></span>
+<span class="r-in"><span><span class="fu">UtilOutputReport</span><span class="op">(</span><span class="va">dataset03</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           rdrREADER_1 rdrREADER_2 rdrREADER_3 rdrREADER_4</span>
@@ -286,8 +282,8 @@ The default is <code>FALSE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> trtTREAT2 0.83689507 0.007771730  3 0.81216196 0.86162818</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># Excel output is created in a temporary file</span></span>
-<span class="r-in"><span class="fu">UtilOutputReport</span><span class="op">(</span><span class="va">dataset03</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, ReportFileExt <span class="op">=</span> <span class="st">"xlsx"</span><span class="op">)</span> </span>
+<span class="r-in"><span><span class="co"># Excel output is created in a temporary file</span></span></span>
+<span class="r-in"><span><span class="fu">UtilOutputReport</span><span class="op">(</span><span class="va">dataset03</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, ReportFileExt <span class="op">=</span> <span class="st">"xlsx"</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           rdrREADER_1 rdrREADER_2 rdrREADER_3 rdrREADER_4</span>
@@ -404,9 +400,9 @@ The default is <code>FALSE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> trtTREAT2 0.83689507 0.007771730  3 0.81216196 0.86162818</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in">       </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span>       </span></span>
 </code></pre></div>
     </div>
   </div>
@@ -421,7 +417,7 @@ The default is <code>FALSE</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

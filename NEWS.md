@@ -1,4 +1,13 @@
-# RJafroc 2.0.1.9000
+# RJafroc 2.1.0
+
+
+## TEMP CRAN submission process
+* Version 2.1.0
+* This is on `cran4` branch.
+* Steps to reduce file size to less than 5 Mb:
+    + Removed `RoiData.xlsx`.
+* Otherwise identical to `developer` and `master` as of 07/7/22.
+* Not yet On CRAN
 
 
 ## Extensive changes to handling of `lesDist` and `relWeights` 7/19/22
@@ -125,7 +134,7 @@
 * This is on `cran3` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
-    + Removed all files from `ints/MRMCRuns` except `Tony`, the one that is used in an example.
+    + Removed all files from `inst/MRMCRuns` except `Tony`, the one that is used in an example.
     + Removed `CrossedModalities.xlsx` and references to it.
     + Removed `DfReadLrocDataFile.R` and `findings.txt`. Ran `devtools::document()` to fix `NAMESPACE`.
     + Removed `RoiData.xlsx`.
@@ -428,7 +437,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * `mrmc_setup_w10_July_2019.exe`; VanDyke `VanDyke.lrc` dataset; `Dropobox/IowaSoftware/VanDyke.lrc`
 * `OR DBM MRMC 2.51 <beta> Build 20181028 </beta>` `miplmrmc`
 * Software only runs under Windows XP
-* Tried Windows 8 on different machines (iMac and MacBookPro) under `VmWare Fusion`; no luck, even after following directions twice on [website](https://perception.lab.uiowa.edu/OR-DBM-MRMC-program-manual)
+* Tried Windows 8 on different machines (iMac and MacBookPro) under `VmWare Fusion`; no luck, even after following directions twice on [website](https://perception.lab.uiowa.edu/software/or-dbm-mrmc-251/or-dbm-mrmc-251-program-and-manual-prior-version)
 * Need to compare OR ouputs - WIP
 * Need to fix documentation on `StSignificanceTesting` - WIP
 

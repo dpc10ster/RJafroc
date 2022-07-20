@@ -8,7 +8,7 @@ test_that(contextStr, {
   #  A string specifying the format of the data in the file.
   #  It can be "JAFROC" (the default), "MRMC" or "iMRMC".
   #  For "MRMC" the format is determined by the data file extension
-  #  as specified in http://perception.radiology.uiowa.edu/,
+  #  as specified in \url{https://perception.lab.uiowa.edu/},
   #  i.e., .csv or .txt or .lrc.
   #  For file extension .imrmc the format is described in https://code.google.com/p/imrmc/.
   #

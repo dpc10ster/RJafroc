@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -33,42 +33,15 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/Ch00Vig3DataFormatRocSpA.html">Chapter 00, Vignette 3: JAFROC Excel file data format: ROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch00Vig4DataFormatFrocSpA.html">Chapter 00, Vignette 4: JAFROC Excel file data format: FROC SPLIT-PLOT-A</a>
-    </li>
-    <li>
-      <a href="../articles/Ch11Vig1SampleSize.html">Chapter 11, Vignette 1: Background on the F distribution</a>
-    </li>
-    <li>
-      <a href="../articles/Ch17Vig1PlotRsmOpCh.html">Chapter 17, Vignette 1: RSM predicted operating characteristics: lesDist and lesWghtDistr</a>
-    </li>
-    <li>
       <a href="../articles/Ch19Vig1FrocSampleSize.html">Chapter 19, Vignette 1: FROC sample size estimation and comparison to ROC</a>
     </li>
     <li>
       <a href="../articles/Ch19Vig2FrocSampleSize.html">Chapter 19, Vignette 2: FROC sample size estimation using specified ROC effect size</a>
     </li>
-    <li>
-      <a href="../articles/Ch20Vig1improperROCs.html">Chapter 20, Vignette 1: Improper ROCs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig2degenerateROCs.html">Chapter 20, Vignette 2: Degenerate datasets in the binormal model</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig3proprocROCs.html">Chapter 20, Vignette 3: PROPROC ROCs and pdfs</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig4metzEqn36.html">Chapter 20, Vignette 4: Metz Eqn36 numerical check</a>
-    </li>
-    <li>
-      <a href="../articles/Ch20Vig5cbmPlots.html">Chapter 20, Vignette 5: CBM plots</a>
-    </li>
-    <li>
-      <a href="../articles/Ch30Vig1RoiParadigm.html">Chapter 30, Vignette 1: Analyzing data acquired according to the ROI paradigm</a>
-    </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,14 +62,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SsPowerTable</span><span class="op">(</span>
-  <span class="va">dataset</span>,
-  <span class="va">FOM</span>,
-  effectSize <span class="op">=</span> <span class="cn">NULL</span>,
-  alpha <span class="op">=</span> <span class="fl">0.05</span>,
-  desiredPower <span class="op">=</span> <span class="fl">0.8</span>,
-  analysisOption <span class="op">=</span> <span class="st">"RRRC"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SsPowerTable</span><span class="op">(</span></span>
+<span>  <span class="va">dataset</span>,</span>
+<span>  <span class="va">FOM</span>,</span>
+<span>  effectSize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  desiredPower <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  analysisOption <span class="op">=</span> <span class="st">"RRRC"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,29 +77,47 @@
     <dl><dt>dataset</dt>
 <dd><p>The <b>pilot</b> ROC dataset to be used to extrapolate 
 to the <b>pivotal</b> study.</p></dd>
+
+
 <dt>FOM</dt>
 <dd><p>The figure of merit.</p></dd>
+
+
 <dt>effectSize</dt>
 <dd><p>The effect size to be used in the <b>pivotal</b> study, 
 default value is <code>NULL</code>. See Details.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>The The size of the test, default is 0.05.</p></dd>
+
+
 <dt>desiredPower</dt>
 <dd><p>The desired statistical power, default is 0.8.</p></dd>
+
+
 <dt>analysisOption</dt>
 <dd><p>Desired generalization, "RRRC"  (the default), "FRRC", 
 "RRFC" or "ALL".</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing up to 3 (depending on <code>analysisOption</code>) dataframes. 
+    
+
+<p>A list containing up to 3 (depending on <code>analysisOption</code>) dataframes. 
     Each dataframe contains 3 arrays:</p>
 <dl><dt>numReaders</dt>
 <dd><p>The numbers of readers in the pivotal study.</p></dd>
+
+
 <dt>numCases</dt>
 <dd><p>The numbers of cases in the pivotal study.</p></dd>
+
+
 <dt>power</dt>
 <dd><p>The estimated statistical powers.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -141,15 +132,15 @@ default value is <code>NULL</code>. See Details.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co">## Examples with CPU or elapsed time &gt; 5s</span></span>
-<span class="r-in"><span class="co">##              user    system elapsed</span></span>
-<span class="r-in"><span class="co">## SsPowerTable 20.033  0.037  20.077    </span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example of sample size calculation with OR method</span></span>
-<span class="r-in"><span class="co">## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "OR")</span></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"> </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co">## Examples with CPU or elapsed time &gt; 5s</span></span></span>
+<span class="r-in"><span><span class="co">##              user    system elapsed</span></span></span>
+<span class="r-in"><span><span class="co">## SsPowerTable 20.033  0.037  20.077    </span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example of sample size calculation with OR method</span></span></span>
+<span class="r-in"><span><span class="co">## SsPowerTable(dataset02, FOM = "Wilcoxon", method = "OR")</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span> </span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -165,7 +156,7 @@ default value is <code>NULL</code>. See Details.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

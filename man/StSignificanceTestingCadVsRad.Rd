@@ -184,7 +184,7 @@ for multiple observer ROC studies, Statistics in Medicine. 26:596-619.
 
 Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
 Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
-\url{https://www.crcpress.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
+\url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 
 Hupse R, Samulski M, Lobbes M, et al (2013) Standalone computer-aided detection compared to radiologists 
 performance for the detection of mammographic masses, Eur Radiol. 23(1):93-100.
