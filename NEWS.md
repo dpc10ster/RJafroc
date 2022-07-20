@@ -2,7 +2,7 @@
 
 
 ## Extensive changes to handling of `lesDist` and `relWeights` 7/19/22
-* Removed unnecessary dimension on lesDist, it is now always 1D
+* Removed unnecessary dimension on `lesDist`, it is now always 1D
 * Affected files are `UtilLesDistrVector.R` and `UtilLesionWeightsMatrix.R`
 * `lesDistr` and `relWeight` must have same lengths and sum to unity
 * `relWeight = 0` imposes equal weights
