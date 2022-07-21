@@ -1,6 +1,7 @@
 # Reason for submission
-* This is an update to CRAN version 2.0.1. This package is passing all checks on all platforms (as of 2022-07-20 15:50:17 CEST).
-* This update (v2.1.0) includes improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification since the last successful submission. 
+* This is an update to CRAN version 2.0.1 which is passing all checks on all platforms (as of 2022-07-20 15:50:17 CEST).
+* This update (v2.1.0) includes improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification. 
+
 
 # Test environments
 
@@ -24,7 +25,7 @@
 ```
 devtools::check_win_devel()
 devtools::check_win_release()
-devtools::check_win_oldrelease()
+devtools::check_win_oldrelease() # this is failing to run with FTP load error, Failed FTP upload: 550
 ```
 
 1.   R Under development (unstable) (2022-07-19 r82607 ucrt)  OK

@@ -57,7 +57,7 @@ if (!file.exists(packagePath))
 # Next three need to be run individually in Console
 # devtools::check_win_devel() #OK
 # devtools::check_win_release() #OK
-# devtools::check_win_oldrelease() #OK
+devtools::check_win_oldrelease() #OK
 
 # rhub::check_for_cran() # OK detritus file lastMiKTeXException?
 
