@@ -2,7 +2,7 @@ Package: RJafroc
 Type: Package
 Title: Artificial Intelligence Systems and Observer Performance
 Version: 2.1.0
-Date: 2022-07-07
+Date: 2022-07-22
 Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "dpc10ster@gmail.com"),
              person("Peter", "Phillips", role = c("aut"), email = "peter.phillips@cumbria.ac.uk"),
              person("Xuetong", "Zhai", role = c("aut"), email = "xuetong.zhai@gmail.com"))
@@ -66,8 +66,8 @@ Description: Analyzing the performance of artificial intelligence (AI) systems/a
     estimates of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to 
     achieve the desired power. Utility and data file manipulation functions allow data to be read in any of the currently used 
     input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are
-    illustrated with several included datasets from the author's collaborations. This version corrects bugs and simplifies usage of 
-    the software. 
+    illustrated with several included datasets from the author's collaborations. This update includes improvements to the code, 
+    some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification. 
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/

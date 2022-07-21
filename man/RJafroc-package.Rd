@@ -45,8 +45,9 @@
     of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve the
     desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input
     formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are
-    illustrated with several included datasets from the author's collaborations. This version corrects bugs, adds new features and 
-    standardizes usage of the software. All changes are noted in \strong{NEWS.md}.
+    illustrated with several included datasets from the author's collaborations. This update includes improvements to the code, 
+    some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification. 
+    All changes are noted in \strong{NEWS.md}.
 }
 
 
@@ -55,7 +56,7 @@
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
     Version: \tab 2.1.0\cr
-    Date: \tab 2022-07-07\cr
+    Date: \tab 2022-07-22\cr
     License: \tab GPL-3\cr
     URL: \tab \url{https://dpc10ster.github.io/RJafroc/}\cr
   }
