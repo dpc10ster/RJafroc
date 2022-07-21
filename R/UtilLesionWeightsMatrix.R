@@ -134,9 +134,9 @@ UtilLesionWeightsMatrixLesDistr <- function(lesDistr, relWeights = 0)
     lesWghtDistr <- array(1, dim = c(1,2)) 
     return(lesWghtDistr)
   }
-  # maxLL > 1
-  
-  if ((sum(lesDistr) != 1) || (sum(relWeights) != 1)) stop("lesDistr and relWeights arrays must each sum to unity")
+
+  if ((!isTRUE( all.equal( sum(lesDistr), 1.0 ))) || (!isTRUE( all.equal( sum(relWeights), 1.0 )))) 
+    stop("lesDistr and relWeights arrays must each sum to unity")
   
   if (length(which(lesDistr != 0)) < length(lesDistr)) {
     lesWghtDistr <- array(-Inf, dim = c(length(which(lesDistr != 0)), length(which(lesDistr != 0))+1))
