@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dataset</dt>
-<dd><p>The <strong>pilot</strong> dataset object representing a NH 
+<dd><p>The <strong>pilot</strong> dataset object representing a NH
 (ROC or FROC) dataset.</p></dd>
 
 
 <dt>lesDistr</dt>
-<dd><p>A 1D array containing the probability mass function of 
-number of lesions per diseased case in the <strong>pivotal FROC</strong> 
+<dd><p>A 1D array containing the probability mass function of
+number of lesions per diseased case in the <strong>pivotal FROC</strong>
 study.</p></dd>
 
 </dl></div>
@@ -115,34 +115,34 @@ study.</p></dd>
 <ul><li><p><code>muMed</code>, the median mu parameter of the NH model.</p></li>
 <li><p><code>lambdaMed</code>, the median lambda parameter of the NH model.</p></li>
 <li><p><code>nuMed</code>, the median nu parameter of the NH model.</p></li>
-<li><p><code>scaleFactor</code>, the scaling factor that multiplies 
+<li><p><code>scaleFactor</code>, the scaling factor that multiplies
       the ROC effect size to get wAFROC effect size.</p></li>
 <li><p><code>R2</code>, the R2 of the fit.</p></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
-    <p>If dataset is FROC, it is converted to an ROC dataset. The dataset 
-    is automatically binned. The search model is used to fit each 
-    treatment-reader combination. The median  value for each parameter is 
-    computed and returned by the function (3 values). These are used 
-    to compute predicted wAFROC and ROC FOMS over a range of values of deltaMu, 
+    <p>If dataset is FROC, it is converted to an ROC dataset. The dataset
+    is automatically binned. The search model is used to fit each
+    treatment-reader combination. The median  value for each parameter is
+    computed and returned by the function (3 values). These are used
+    to compute predicted wAFROC and ROC FOMS over a range of values of deltaMu,
     which are fitted by a straight line constrained to pass through the origin.
     The scale factor and R2 are returned. The scaling factor is the value
-    by which the ROC effect size must be multiplied to get the wAFROC effect size. 
-    See <a href="https://dpc10ster.github.io/RJafrocQuickStart/froc-sample-size.html" class="external-link">https://dpc10ster.github.io/RJafrocQuickStart/froc-sample-size.html</a> 
+    by which the ROC effect size must be multiplied to get the wAFROC effect size.
+    See <a href="https://dpc10ster.github.io/RJafrocQuickStart/froc-sample-size.html" class="external-link">https://dpc10ster.github.io/RJafrocQuickStart/froc-sample-size.html</a>
     for vignettes explaining the FROC sample size estimation procedure.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span> </span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co">## Examples with CPU or elapsed time &gt; 5s</span></span></span>
 <span class="r-in"><span><span class="co">## user system elapsed</span></span></span>
 <span class="r-in"><span><span class="co">## SsFrocNhRsmModel 8.102  0.023   8.135</span></span></span>
-<span class="r-in"><span> </span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## SsFrocNhRsmModel(dataset02, c(0.7, 0.2, 0.1))</span></span></span>
-<span class="r-in"><span><span class="co">## the next one should match the vignette </span></span></span>
+<span class="r-in"><span><span class="co">## the next one should match the vignette</span></span></span>
 <span class="r-in"><span><span class="co">## SsFrocNhRsmModel(DfExtractDataset(dataset04, trts = c(1,2)), c(0.69, 0.2, 0.11))</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
