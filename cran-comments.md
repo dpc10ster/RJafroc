@@ -1,5 +1,5 @@
 # Reason for submission
-* This is an update to CRAN version 2.0.1 which installed with no errors, warnings, or notes on all platforms. The package is still passing all checks on all platforms (as of 2022-07-20 15:50:17 CEST).
+* This is an update to CRAN version 2.0.1. This package is passing all checks on all platforms (as of 2022-07-20 15:50:17 CEST).
 * This update (v2.1.0) includes improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification since the last successful submission. 
 
 # Test environments
@@ -34,78 +34,30 @@ CRAN compatibility was tested using `rhub::check_for_cran()`.
 * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
 * OK
 
-## Summary of checks in all environments
-Apart from failures on 2 environments which do not appear to be among the `flavors` tested on CRAN, and 1 on which required packages were not available, the package passed all checks on the remaining 18 environments. The check details on all 19 environments follows. 
+## Summary of checks in other environments
+TBA Apart from failures on 2 environments which do not appear to be among the `flavors` tested on CRAN, and 1 on which required packages were not available, the package passed all checks on the remaining 18 environments. The check details on all 19 environments follows. 
 
-## Details of checks in 21 environments
-```
-paths <- rhub::platforms()
-start <- 1; end <- 21; for (i in start:end) rhub::check(platform = paths[[1]][i]) 
-```
+## Details of checks in 18 environments implemented on `rhub`
 
-1. "debian-clang-devel", 
-    + Debian Linux, R-devel, clang, ISO-8859-15 locale: 
-    + OK
-1. "debian-gcc-devel", 
-    + Debian Linux, R-devel, GCC: 
-    + OK
-1. "debian-gcc-devel-nold", 
-    + Debian Linux, R-devel, GCC, no long double:     
-    + OK
-1. "debian-gcc-patched", 
-    + Debian Linux, R-patched, GCC:        
-    + OK
-1. "debian-gcc-release", 
-    + Debian Linux, R-release, GCC File size: 
-    + OK
-1. "fedora-clang-devel", 
-    + Fedora Linux, R-devel, clang, gfortran:
-    + OK
-1. "fedora-gcc-devel", 
-    + Fedora Linux, R-devel, GCC: 
-    + OK
-1. "linux-x86_64-centos6-epel", 
-    + CentOS 6, stock R from EPEL (not on CRAN `flavors`): 
-    + PREPERROR   
-1. "linux-x86_64-centos6-epel-rdt", 
-    + CentOS 6 with Redhat Developer Toolset, R from EPEL: 
-    + OK
-1. "linux-x86_64-rocker-gcc-san", 
-    + Debian Linux, R-devel, GCC ASAN/UBSAN:
-    + OK
-1. "macos-highsierra-release", 
-    + macOS 10.13.6 High Sierra, R-release, brew:   
-    + OK
-1. "macos-highsierra-release-cran", 
-    + macOS 10.13.6 High Sierra, R-release, CRAN's setup: 
-    + OK
-1. "solaris-x86-patched", 
-    + Oracle Solaris 10, x86, 32 bit, R-release:        
-    + OK
-1. "solaris-x86-patched-ods", 
-    + Oracle Solaris 10, x86, 32 bit, R-release, Oracle Developer Studio 12.6:  
-    + OK
-1. "ubuntu-gcc-devel", 
-    + Ubuntu Linux 16.04 LTS, R-devel, GCC:     
-    + OK
-1. "ubuntu-gcc-release", 
-    + Ubuntu Linux 16.04 LTS, R-release, GCC: 
-    + OK
-1. "ubuntu-rchk", 
-    + Ubuntu Linux 16.04 LTS, R-devel with rchk  (not on CRAN `flavors`): 
-    + ERROR too many states (abstraction error?) in function strptime_internal
-1. "windows-x86_64-devel", 
-    + Windows Server 2008 R2 SP1, R-devel, 32/64 bit 
-    + OK
-1. "windows-x86_64-oldrel", 
-    + Windows Server 2008 R2 SP1, R-oldrel, 32/64 bit:    
-    + OK
-1. "windows-x86_64-patched", 
-    + Windows Server 2008 R2 SP1, R-patched, 32/64 bit: 
-    + OK
-1. "windows-x86_64-release", 
-    + Windows Server 2008 R2 SP1, R-release, 32/64 bit: 
-    + ERROR Packages required but not available: 'readxl', 'stringr'
+1.  r-devel-linux-x86_64-debian-clang 	2.0.1 	       OK 	
+1.  Debian Linux, R-devel, clang, ISO-8859-15 locale   OK
+1.  Ubuntu Linux 20.04.1 LTS, R-devel, GCC             OK
+1.  Ubuntu Linux 20.04.1 LTS, R-release, GCC           NOTE (installed size is  5.8Mb)
+1.  Debian Linux, R-devel, GCC                         OK
+1.  Debian Linux, R-devel, GCC, no long double         OK
+1.  Debian Linux, R-release, GCC                       NOTE (installed size is  5.1Mb)
+1.  Debian Linux, R-devel, GCC ASAN/UBSAN              NOTE (PREPERROR: dependency ‘openxlsx’ not available)
+1.  Debian Linux, R-patched, GCC                       OK
+1.  Fedora Linux, R-devel, clang, gfortran             OK
+1.  Fedora Linux, R-devel, GCC                         NOTE (installed size is  5.6Mb)
+1.  Windows Server 2022, R-devel, 64 bit               OK
+1.  Windows Server 2022, R-patched, 32/64 bit          OK
+1.  Windows Server 2022, R-release, 32/64 bit          OK
+1.  Windows Server 2022, R-oldrel, 32/64 bit           NOTE (installed size is  5.3Mb)
+1.  Apple Silicon (M1), macOS 11.6 Big Sur, R-release  OK
+1.  macOS 10.13.6 High Sierra, R-release, CRAN's setup OK
+1.  macOS 10.13.6 High Sierra, R-release, brew         OK
+
 
 
 # FAILURE SUMMARY (from last attempted submission)

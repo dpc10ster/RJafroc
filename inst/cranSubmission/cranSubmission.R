@@ -47,28 +47,21 @@ packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.0.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
-for (indx in 1:8) {
-  if (indx == 11) next
-  if (indx == 12) next
-  if (indx == 13) next
-  print(cat(platforms[[1]][indx]))
-  chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx]) # OK
-}
+# for (indx in 1:8) {
+#   if (indx == 12) next
+#   if (indx == 13) next
+#   print(cat(platforms[[1]][indx]))
+#   chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx]) # OK
+# }
 
-# devtools::check_win_devel(packagePath) #OK
-# devtools::check_win_release(packagePath) #OK
-# devtools::check_win_oldrelease(packagePath) #OK
-# devtools::revdep() # OK
+# Next three need to be run individually in Console
+# devtools::check_win_devel() #OK
+# devtools::check_win_release() #OK
+# devtools::check_win_oldrelease() #OK
 
 # rhub::check_for_cran() # OK detritus file lastMiKTeXException?
 
-# chk2 <- rhub::check(packagePath, platform = platforms[[1]][2]) # OK
-
-# chk3 <- rhub::check(packagePath, platform = platforms[[1]][3]) # fails error in SsFrocNhRsmModel.R line 55
-# chk4 <- rhub::check(packagePath, platform = platforms[[1]][4]) # failed to download dependencies readxl, testthat kableExtra
-# chk5 <- rhub::check(packagePath, platform = platforms[[1]][5]) # failed to download dependencies readxl, testthat kableExtra
-
-
+# devtools::revdep() # OK
 
 # update DESCRIPTION ...NOT DONE
 # update cran-comments ...NOT DONE
