@@ -12,11 +12,13 @@
 
 * `R CMD check` ran with no errors, warnings or notes
 
-## GitHub Action
+
+## GitHub Actions
 * windows-latest (release): OK 
 * macOS-latest (release):  OK
 * ubuntu-20.04 (release): OK
 * ubuntu-20.04 (devel): OK
+
 
 ## Windows portability
 ```
@@ -25,19 +27,22 @@ devtools::check_win_release()
 devtools::check_win_oldrelease()
 ```
 
-These ran with no errors, warnings or notes.
+1.   R Under development (unstable) (2022-07-19 r82607 ucrt)  OK
+1.   R version 4.2.1 (2022-06-23 ucrt)                        OK
+
 
 
 ## CRAN compatibility
 CRAN compatibility was tested using `rhub::check_for_cran()`.
 
-* Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-* OK
+1.    Fedora Linux, R-devel, clang, gfortran          OK
+1.    Windows Server 2008 R2 SP1, R-devel, 32/64 bit           OK
+1.    Ubuntu Linux 20.04.1 LTS, R-release, GCC     NOTE (file size is 5.8Mb)
+1.    Debian Linux, R-devel, GCC ASAN/UBSAN        NOTE (PREPERROR: dependency ‘openxlsx’ not available)
 
-## Summary of checks in other environments
-TBA Apart from failures on 2 environments which do not appear to be among the `flavors` tested on CRAN, and 1 on which required packages were not available, the package passed all checks on the remaining 18 environments. The check details on all 19 environments follows. 
 
-## Details of checks in 18 environments implemented on `rhub`
+
+## Summary of checks in other environments implemented on `rhub`
 
 1.  r-devel-linux-x86_64-debian-clang 	2.0.1 	       OK 	
 1.  Debian Linux, R-devel, clang, ISO-8859-15 locale   OK
