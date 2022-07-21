@@ -28,8 +28,9 @@ devtools::check_win_release()
 devtools::check_win_oldrelease() # this is failing to run with FTP load error, Failed FTP upload: 550
 ```
 
-1.   R Under development (unstable) (2022-07-19 r82607 ucrt)  OK
-1.   R version 4.2.1 (2022-06-23 ucrt)                        OK
+1.   R Under development (unstable) (2022-07-19 r82607 ucrt)  x86_64-w64-mingw32 (64-bit)    OK
+1.   R version 4.2.1 (2022-06-23 ucrt)    x86_64-w64-mingw32 (64-bit)                        OK
+1.   ??        OK
 
 
 
@@ -63,6 +64,9 @@ CRAN compatibility was tested using `rhub::check_for_cran()`.
 1.  Apple Silicon (M1), macOS 11.6 Big Sur, R-release  OK
 1.  macOS 10.13.6 High Sierra, R-release, CRAN's setup OK
 1.  macOS 10.13.6 High Sierra, R-release, brew         OK
+
+
+The file size is typically less than 4 MB on 14 platforms, including the major ones. I would have to remove a significant number of tests and associated data files to meet the strict 5MB requirement on 4 platforms. 
 
 
 
