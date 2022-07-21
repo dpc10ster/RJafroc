@@ -1,0 +1,136 @@
+---
+title: "Chapter 20, Vignette 5: CBM plots"
+author: "Dev P. Chakraborty, PhD"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+fig_caption: yes
+fig.width: 4
+vignette: >
+  %\VignetteIndexEntry{Chapter 20, Vignette 5: CBM plots}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE}
+  knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+  )
+  library(RJafroc)
+  library(ggplot2)
+  library(mvtnorm)
+```
+
+## Helper functions
+```{r echo=FALSE}
+CbmRocY <- function (x, mu, alpha) {
+  y <- (1-alpha)*(1-pnorm(qnorm(1-x))) + alpha*(1-pnorm(qnorm(1-x)-mu))
+  return(y)
+}
+```
+
+
+## Main code and output
+  
+```{r, fig.show='hold', echo=FALSE}
+FPF <- seq(0.0, 1, 0.001)
+alphaArr <- c(0.2, 0.8);muArr <- c(1,3)
+myLabel <- c("A", "B", "C", "D")
+myLabelIndx <- 1
+for (i in 1:2)
+  for (j in 1:2) 
+  {
+    {
+      alpha <- alphaArr[i]
+      mu <- muArr[j]
+      TPF <- CbmRocY(FPF, mu, alpha)
+      rocPlot <- data.frame(FPF = FPF, TPF = TPF)
+      plotRoc <- ggplot(rocPlot, aes(x = FPF, y = TPF)) + 
+        geom_line(data = rocPlot) + 
+        scale_x_continuous(expand = c(0, 0)) + 
+        scale_y_continuous(expand = c(0, 0)) +
+      ggtitle(myLabel[myLabelIndx]);myLabelIndx <- myLabelIndx + 1
+      print(plotRoc)
+      cat("Fig.", myLabel[myLabelIndx-1], ":", "mu = ", mu, ", alpha = ", alpha, "\n")
+    }
+  }
+```             
+
+
+## Comments
+Plots A - D show ROC curves predicted by the CBM model; the corresponding values of the $mu$ and $alpha$ parameters are indicated above the plots. For small $mu$ and/or $alpha$  the curve approaches the chance diagonal, consistent with the notion that if the lesion is not visible, performance can be no better than chance level.
+
+## pdf plots
+```{r, fig.show='hold', echo=FALSE}
+FPF <- seq(0.0, 1, 0.001)
+alphaArr <- c(0.2, 0.8);muArr <- c(1,3)
+myLabel <- c("E", "F", "G", "H")
+myLabelIndx <- 1
+for (i in 1:2)
+  for (j in 1:2) 
+  {
+    {
+      alpha <- alphaArr[i]
+      mu <- muArr[j]
+      if (i == 1) {
+        z1 <- seq(-3, 3, by = 0.01)
+        z2 <- seq(-3, mu + 3, by = 0.01)
+      } else {
+        z1 <- seq(-3, 3, by = 0.01)
+        z2 <- seq(-3, mu + 3, by = 0.01)
+      }
+      Pdf1 <- dnorm(z1)
+      Pdf2 <- (1 - alpha) * dnorm(z2) + alpha * dnorm(z2, mu)
+      df <- data.frame(
+        z = c(z1, z2), pdf = c(Pdf1, Pdf2), 
+        truth = c(rep('non', length(Pdf1)), 
+                  rep('dis', length(Pdf2)))
+      )
+      
+      cbmPdfs <- ggplot(df, aes(x = z, y = pdf, color = truth)) +
+        geom_line(data = df) +
+        scale_colour_manual(values=c("black","darkgrey")) +
+        scale_x_continuous(expand = c(0, 0)) +
+        scale_y_continuous(expand = c(0, 0)) +
+        #theme(legend.position = c(0.5, 0.2)) +
+        theme(legend.position = "none") +
+        ggtitle(myLabel[myLabelIndx]);myLabelIndx <- myLabelIndx + 1
+
+      print(cbmPdfs)
+      cat("Fig.", myLabel[myLabelIndx-1], ":", "mu = ", mu, ", alpha = ", alpha, "\n")
+      next
+    }
+  }
+```  
+
+## Comments
+The dark line is the diseased distribution. The grey line is the non-diseased distribution. The bimodal diseased distribution is clearly evident in plots F and H. 
+
+## likelihood ratio plots
+```{r, fig.show='hold', echo=FALSE}
+FPF <- seq(0.0, 1, 0.001)
+alphaArr <- c(0.2, 0.8);muArr <- c(1,3)
+myLabel <- c("I", "J", "K", "L")
+myLabelIndx <- 1
+for (i in 1:2)
+  for (j in 1:2) 
+  {
+    {
+      alpha <- alphaArr[i]
+      mu <- muArr[j]
+      z <- seq(-3, 5 + mu, by = 0.01) # may need to adjust limits to view detail of slope plot near zero
+
+      slope <- ((1-alpha)*dnorm(-z) + alpha*dnorm(mu-z))/dnorm(-z) # same as likelihood ratio
+      slopePlot <- data.frame(z = z, slope = slope)
+      plotSlope <- ggplot(slopePlot, aes(x = z, y = slope)) + 
+        geom_line()  +
+        ggtitle(myLabel[myLabelIndx]);myLabelIndx <- myLabelIndx + 1
+      print(plotSlope)
+      cat("Fig.", myLabel[myLabelIndx-1], ":", "mu = ", mu, ", alpha = ", alpha, "\n")
+      next
+    }
+  }
+```  
+
+## Comments
+Close examination of the region near the flat part shows it does not plateau at zero; rather the minimum is at 1 - $alpha$, explaining the non-zero limiting slope of the predicted curve near (1, 1).
