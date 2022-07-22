@@ -50,7 +50,7 @@ Windows Server 2008 R2 SP1, R-devel, 32/64 bit              OK
 Ubuntu Linux 20.04.1 LTS, R-release, GCC                    NOTE (file size is 5.8Mb)
 Debian Linux, R-devel, GCC ASAN/UBSAN                       NOTE* (see below)
 
-`*` PREPERROR: dependency ‘openxlsx’ not available, it appears one of the packages that my package depends on is not present on this platform.
+`*` PREPERROR: dependency ‘openxlsx’ not available; it appears one of the packages that my package depends on is not available on this platform.
 
 
 ## Summary of checks in other environments implemented on `rhub`
