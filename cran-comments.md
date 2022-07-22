@@ -46,11 +46,18 @@ CRAN compatibility was tested using `rhub::check_for_cran()`.
                       Platform                                 Status
 -------------------------------------------------------   --------------------------------------------------------  
 Fedora Linux, R-devel, clang, gfortran                      OK
-Windows Server 2008 R2 SP1, R-devel, 32/64 bit              OK
-Ubuntu Linux 20.04.1 LTS, R-release, GCC                    NOTE (file size is 5.8Mb)
-Debian Linux, R-devel, GCC ASAN/UBSAN                       NOTE* (see below)
+Ubuntu Linux 20.04.1 LTS, R-release, GCC                    NOTE*** (file size is 5.8Mb, see below)
+Debian Linux, R-devel, GCC ASAN/UBSAN                       PREPERROR* (see below)
+Windows Server 2022, R-devel, 64 bit                        NOTE** (see below)
+
+`***` I would have to remove a significant number of code, tests and datasets to meet the strict 5MB requirement on this platform. 
 
 `*` PREPERROR: dependency ‘openxlsx’ not available; it appears one of the packages that my package depends on is not available on this platform.
+
+`**` checking for detritus in the temp directory ... NOTE Found the following files/directories: 'lastMiKTeXException'
+
+
+There is no such file/directory on my computer. This might be some issue with `LaTeX` that I cannot reproduce, [as others have observed](https://github.com/r-hub/rhub/issues/503). 
 
 
 ## Summary of checks in other environments implemented on `rhub`
@@ -60,18 +67,18 @@ Debian Linux, R-devel, GCC ASAN/UBSAN                       NOTE* (see below)
          r-devel-linux-x86_64-debian-clang 	2.0.1 	           OK 	
 Debian Linux, R-devel, clang, ISO-8859-15 locale               OK
 Ubuntu Linux 20.04.1 LTS, R-devel, GCC                         OK
-Ubuntu Linux 20.04.1 LTS, R-release, GCC                       NOTE (installed size is  5.8Mb)
+Ubuntu Linux 20.04.1 LTS, R-release, GCC                       NOTE** (installed size is  5.8Mb, see below)
 Debian Linux, R-devel, GCC                                     OK
 Debian Linux, R-devel, GCC, no long double                     OK
-Debian Linux, R-release, GCC                                   NOTE (installed size is  5.1Mb)
+Debian Linux, R-release, GCC                                   NOTE** (installed size is  5.1Mb, see below)
 Debian Linux, R-devel, GCC ASAN/UBSAN                          NOTE (PREPERROR: dependency ‘openxlsx’ not available)
 Debian Linux, R-patched, GCC                                   OK
 Fedora Linux, R-devel, clang, gfortran                         OK
-Fedora Linux, R-devel, GCC                                     NOTE (installed size is  5.6Mb)
+Fedora Linux, R-devel, GCC                                     NOTE** (installed size is  5.6Mb, see below)
 Windows Server 2022, R-devel, 64 bit                           NOTE* (see below)
 Windows Server 2022, R-patched, 32/64 bit                      OK
 Windows Server 2022, R-release, 32/64 bit                      OK
-Windows Server 2022, R-oldrel, 32/64 bit                       NOTE (installed size is  5.3Mb)
+Windows Server 2022, R-oldrel, 32/64 bit                       NOTE** (installed size is  5.3Mb, see below)
 Apple Silicon (M1), macOS 11.6 Big Sur, R-release              OK
 macOS 10.13.6 High Sierra, R-release, CRAN's setup             OK
 macOS 10.13.6 High Sierra, R-release, brew                     OK
@@ -79,9 +86,10 @@ macOS 10.13.6 High Sierra, R-release, brew                     OK
 
 `*` checking for detritus in the temp directory ... NOTE Found the following files/directories: 'lastMiKTeXException'
 
-There is no such file/directory on my computer. This might be some issue with `LaTeX` that I cannot reproduce, [see here](https://github.com/r-hub/rhub/issues/503). 
+There is no such file/directory on my computer. This might be some issue with `LaTeX` that I cannot reproduce, [as others have observed](https://github.com/r-hub/rhub/issues/503). 
+
   
-The file size is less than 4 MB on 14 platforms, including the major ones. I would have to remove a significant number of tests and associated data files to meet the strict 5MB requirement on 4 platforms. 
+`**` I would have to remove a significant number of code, tests and datasets to meet the strict 5MB requirement on this platform. 
 
 
 
