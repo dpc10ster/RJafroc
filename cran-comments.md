@@ -33,13 +33,11 @@ devtools::check_win_release()
 devtools::check_win_oldrelease() 
 ```
 
-                      R Version                                 Platform                          Status
--------------------------------------------------------   ----------------------------------    --------------------  
-R Under development (unstable) (2022-07-19 r82607 ucrt)     x86_64-w64-mingw32 (64-bit)            OK
-R version 4.2.1 (2022-06-23 ucrt)                           x86_64-w64-mingw32 (64-bit)            OK
-devtools::check_win_oldrelease()                            Unknown                                NOTE* (see below)
-
-* When run from console this fails with message `Failed FTP upload: 550`; uploading the package file directly using the website also fails with message: `ERROR: Access to the path 'C:\Inetpub\ftproot\R-oldrelease\RJafroc_2.1.0.tar.gz' is denied. (perhaps you uploaded already and the file has not been processed yet?)`. I could upload the package file to the other two (R-release and R-del) platforms.
+       R Version                    Platform                        Status
+-----------------------   ----------------------------------    --------------  
+R-devel                       x86_64-w64-mingw32 (64-bit)            OK
+R release                     x86_64-w64-mingw32 (64-bit)            OK
+R-oldrelease                  x86_64-w64-mingw32 (64-bit)            OK
 
 
 ## CRAN compatibility
@@ -83,7 +81,7 @@ macOS 10.13.6 High Sierra, R-release, brew                     OK
 Found the following files/directories:
   'lastMiKTeXException'
 
-There is no such file on my computer.  
+There is no such file/directory on my computer.  
   
 The file size is less than 4 MB on 14 platforms, including the major ones. I would have to remove a significant number of tests and associated data files to meet the strict 5MB requirement on 4 platforms. 
 
