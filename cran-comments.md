@@ -30,14 +30,16 @@ title: "CRAN comments"
 ```
 devtools::check_win_devel()
 devtools::check_win_release()
-devtools::check_win_oldrelease() # this is failing to run with FTP load error, Failed FTP upload: 550
+devtools::check_win_oldrelease() 
 ```
 
                       R Version                                 Platform                          Status
--------------------------------------------------------   ----------------------------------    -------------  
+-------------------------------------------------------   ----------------------------------    --------------------  
 R Under development (unstable) (2022-07-19 r82607 ucrt)     x86_64-w64-mingw32 (64-bit)            OK
 R version 4.2.1 (2022-06-23 ucrt)                           x86_64-w64-mingw32 (64-bit)            OK
+devtools::check_win_oldrelease()                            Unknown                                NOTE* (see below)
 
+* When run from console this fails with message `Failed FTP upload: 550`; uploading the package file directly using the website also fails with message: `ERROR: Access to the path 'C:\Inetpub\ftproot\R-oldrelease\RJafroc_2.1.0.tar.gz' is denied. (perhaps you uploaded already and the file has not been processed yet?)`. I could upload the package file to the other two (R-release and R-del) platforms.
 
 
 ## CRAN compatibility
@@ -48,8 +50,9 @@ CRAN compatibility was tested using `rhub::check_for_cran()`.
 Fedora Linux, R-devel, clang, gfortran                      OK
 Windows Server 2008 R2 SP1, R-devel, 32/64 bit              OK
 Ubuntu Linux 20.04.1 LTS, R-release, GCC                    NOTE (file size is 5.8Mb)
-Debian Linux, R-devel, GCC ASAN/UBSAN                       NOTE (PREPERROR: dependency ‘openxlsx’ not available)
+Debian Linux, R-devel, GCC ASAN/UBSAN                       NOTE* (see below)
 
+* PREPERROR: dependency ‘openxlsx’ not available
 
 
 ## Summary of checks in other environments implemented on `rhub`
@@ -67,7 +70,7 @@ Debian Linux, R-devel, GCC ASAN/UBSAN                          NOTE (PREPERROR: 
 Debian Linux, R-patched, GCC                                   OK
 Fedora Linux, R-devel, clang, gfortran                         OK
 Fedora Linux, R-devel, GCC                                     NOTE (installed size is  5.6Mb)
-Windows Server 2022, R-devel, 64 bit                           OK
+Windows Server 2022, R-devel, 64 bit                           NOTE* (see below)
 Windows Server 2022, R-patched, 32/64 bit                      OK
 Windows Server 2022, R-release, 32/64 bit                      OK
 Windows Server 2022, R-oldrel, 32/64 bit                       NOTE (installed size is  5.3Mb)
@@ -76,6 +79,12 @@ macOS 10.13.6 High Sierra, R-release, CRAN's setup             OK
 macOS 10.13.6 High Sierra, R-release, brew                     OK
 
 
+* checking for detritus in the temp directory ... NOTE
+Found the following files/directories:
+  'lastMiKTeXException'
+
+There is no such file on my computer.  
+  
 The file size is less than 4 MB on 14 platforms, including the major ones. I would have to remove a significant number of tests and associated data files to meet the strict 5MB requirement on 4 platforms. 
 
 
