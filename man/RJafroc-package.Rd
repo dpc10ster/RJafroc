@@ -461,8 +461,8 @@
 
 \author{
 \itemize{
-  \item Creator: Dev Chakraborty \email{dpc10ster@gmail.com}.
-  \item Contributor: Xuetong Zhai \email{xuetong.zhai@gmail.com}.
+  \item Author: Dev Chakraborty \email{dpc10ster@gmail.com}.
+  \item Author: Xuetong Zhai \email{xuetong.zhai@gmail.com}.
   \item Contributor: Peter Phillips \email{peter.phillips@cumbria.ac.uk}.
 }
 }

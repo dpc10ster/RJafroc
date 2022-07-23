@@ -64,5 +64,10 @@ for (indx in 11:11) {
 
 # devtools::revdep() # OK
 
+# After acceptance, transfer files to developer branch:
+# DESCRIPTION
+# cran-comments.md
+# cran-submission.R
+# RJafroc-package.Rd
 
 
