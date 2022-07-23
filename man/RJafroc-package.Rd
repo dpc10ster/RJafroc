@@ -463,8 +463,7 @@
 \itemize{
   \item Creator: Dev Chakraborty \email{dpc10ster@gmail.com}.
   \item Creator: Xuetong Zhai \email{xuetong.zhai@gmail.com}.
-  \item Contributor: Lucy D'Agostino McGowan \email{ld.mcgowan@vanderbilt.edu}.
-  \item Contributor: Alejandro RodriguezRuiz \email{Alejandro.RodriguezRuiz@radboudumc.nl}.
+  \item Contributor: Peter Phillips \email{peter.phillips@cumbria.ac.uk}.
 }
 }
 
