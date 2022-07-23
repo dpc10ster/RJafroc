@@ -47,18 +47,18 @@ packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.0.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
-for (indx in 11:11) {
-  if (indx != 11) next
-  if (indx == 12) next
-  if (indx == 13) next
-  print(cat(platforms[[1]][indx]))
-  chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx]) # OK
-}
+# for (indx in 11:11) {
+#   if (indx != 11) next
+#   if (indx == 12) next
+#   if (indx == 13) next
+#   print(cat(platforms[[1]][indx]))
+#   chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx]) # OK
+# }
 
 # Next three need to be run individually in Console
-# devtools::check_win_devel() #OK
-# devtools::check_win_release() #OK
-# devtools::check_win_oldrelease() #OK
+devtools::check_win_devel()
+# devtools::check_win_release()
+# devtools::check_win_oldrelease()
 
 # rhub::check_for_cran() # OK detritus file lastMiKTeXException?
 
