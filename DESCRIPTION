@@ -3,9 +3,9 @@ Type: Package
 Title: Artificial Intelligence Systems and Observer Performance
 Version: 2.1.0
 Date: 2022-07-22
-Authors@R: c(person("Dev", "Chakraborty", role = c("cre","aut","cph"), email = "dpc10ster@gmail.com"),
-             person("Peter", "Phillips", role = c("ctb"), email = "peter.phillips@cumbria.ac.uk"),
-             person("Xuetong", "Zhai", role = c("aut"), email = "xuetong.zhai@gmail.com"))
+Authors@R: c(person('Dev', 'Chakraborty', role = c('cre','aut','cph'), email = 'dpc10ster@gmail.com'),
+             person('Peter', 'Phillips', role = c('ctb'), email = 'peter.phillips@cumbria.ac.uk'),
+             person('Xuetong', 'Zhai', role = c('aut'), email = 'xuetong.zhai@gmail.com'))
 Depends:
     R (>= 3.5.0)
 Imports:
@@ -29,7 +29,7 @@ Suggests:
     rmarkdown
 LinkingTo: Rcpp
 Description: Analyzing the performance of artificial intelligence
- (AI) systems/algorithms characterized by a "search-and-report"
+ (AI) systems/algorithms characterized by a 'search-and-report'
  strategy. Historically, observer performance has dealt with
  measuring radiologists' performance in search tasks - i.e.,
  searching for lesions in medical images and reporting them.
@@ -62,7 +62,7 @@ Description: Analyzing the performance of artificial intelligence
  the binormal model (BM), the contaminated binormal model (CBM), the
  correlated contaminated binormal model (CORCBM), and the radiological
  search model (RSM). Unlike the binormal model, CBM, CORCBM and RSM
- predict "proper" ROC curves that do not inappropriately cross the
+ predict 'proper' ROC curves that do not inappropriately cross the
  chance diagonal. Additionally, RSM parameters are related to search
  performance (not measured in conventional ROC analysis) and
  classification performance. Search performance refers to finding
@@ -74,10 +74,10 @@ Description: Analyzing the performance of artificial intelligence
  alternative FROC) software V4.2.1,
  <https://github.com/dpc10ster/WindowsJafroc>. Package functions are
  organized as follows. Data file related function names are preceded
- by "Df", curve fitting functions by "Fit", included data sets by "dataset",
- plotting functions by "Plot", significance testing functions by "St",
- sample size related functions by "Ss", data simulation functions by
- "Simulate" and utility functions by "Util". Implemented are figures of
+ by 'Df', curve fitting functions by 'Fit', included data sets by 'dataset',
+ plotting functions by 'Plot', significance testing functions by 'St',
+ sample size related functions by 'Ss', data simulation functions by
+ 'Simulate' and utility functions by 'Util'. Implemented are figures of
  merit (FOMs) for quantifying performance and functions for visualizing
  empirical or fitted operating characteristics: e.g., ROC, FROC, alternative
  FROC (AFROC) and weighted AFROC (wAFROC) curves. For fully crossed study
