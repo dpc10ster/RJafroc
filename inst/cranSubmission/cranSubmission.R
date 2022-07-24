@@ -56,7 +56,7 @@ if (!file.exists(packagePath))
 # }
 
 # Next three need to be run individually in Console
-devtools::check_win_devel()
+# devtools::check_win_devel()
 # devtools::check_win_release()
 # devtools::check_win_oldrelease()
 
