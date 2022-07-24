@@ -52,7 +52,7 @@ if (!file.exists(packagePath))
 #   if (indx == 12) next
 #   if (indx == 13) next
 #   print(cat(platforms[[1]][indx]))
-#   chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx]) # OK
+#   chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx])
 # }
 
 # Next three need to be run individually in Console
@@ -60,7 +60,7 @@ if (!file.exists(packagePath))
 devtools::check_win_release()
 # devtools::check_win_oldrelease()
 
-# rhub::check_for_cran() # OK detritus file lastMiKTeXException?
+# rhub::check_for_cran()
 
 # devtools::revdep() # OK
 
