@@ -23,11 +23,11 @@ title: "CRAN comments"
 * `R CMD check` ran with no errors, warnings or notes
 
 
-## OS X TBA
+## OS X
 * R version 4.2.1 (2022-06-23)
 * Platform: x86_64-apple-darwin17.0 (64-bit)
-* Running under: macOS Catalina 10.15.7
-* iMac, 3.4GHz Quad-Core Intel Core i7
+* Running under: macOS Montery 12.4
+* Macbook Pro, 2.5 GHz Quad-Core Intel Core i7
 
 * `R CMD check` ran with no errors, warnings or notes
 
