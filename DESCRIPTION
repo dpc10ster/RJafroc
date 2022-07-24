@@ -98,6 +98,7 @@ Description: Analyzing the performance of artificial intelligence
  This update includes improvements to the code, some as a result of
  user-reported bugs and new feature requests, and others discovered during
  ongoing testing and code simplification.
+VignetteBuilder: knitr
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/
