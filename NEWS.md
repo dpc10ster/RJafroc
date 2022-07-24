@@ -2,6 +2,7 @@
 
 ## started new developer version 7/24/22
 * Version 2.1.0.9000
+* Consider deleting vignettes one by one after ensuring they exist in the online books
 
 
 ## CRAN accepted 7/24/22
