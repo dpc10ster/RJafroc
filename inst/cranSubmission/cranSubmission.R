@@ -69,5 +69,6 @@ if (!file.exists(packagePath))
 # cran-comments.md
 # cran-submission.R
 # RJafroc-package.Rd
+# NEWS.md
 
 
