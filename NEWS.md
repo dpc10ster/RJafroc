@@ -1,13 +1,15 @@
-# RJafroc 2.1.0
+# RJafroc 2.1.0.9000
+
+## started new developer version 7/24/22
+* Version 2.1.0.9000
 
 
-## TEMP CRAN submission process
+## CRAN accepted 7/24/22
 * Version 2.1.0
-* This is on `cran4` branch.
+* On `cran210` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `RoiData.xlsx`.
 * Otherwise identical to `developer` and `master` as of 07/7/22.
-* Not yet On CRAN
 
 
 ## Extensive changes to handling of `lesDist` and `relWeights` 7/19/22
