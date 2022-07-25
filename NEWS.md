@@ -132,9 +132,11 @@
 * Add `tests` for new functions `RSM_*()`
 
 
+
+# RJafroc 2.0.1
+
 ## CRAN submission process
-* Version 2.0.1
-* This is on `cran3` branch.
+* On `cran3` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
     + Removed all files from `inst/MRMCRuns` except `Tony`, the one that is used in an example.
@@ -143,7 +145,7 @@
     + Removed `RoiData.xlsx`.
 * Otherwise identical to `developer` and `master` as of 12/8/20.
 * `testthat` failure on Ubuntu developer is resolved, see `master` branch: `checkEnvironment = FALSE` in `expect_equal()` on `ggplot2` comparisons to `goodValues`.
-* On CRAN
+
 
 
 ## Simplify handling of lesion distribution and lesion weights
