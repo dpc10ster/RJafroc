@@ -5,8 +5,8 @@
 * Consider deleting vignettes one by one after ensuring they exist in the online books
 
 
-## CRAN accepted 7/24/22
-* Version 2.1.0
+# RJafroc 2.1.0
+* CRAN accepted 7/24/22
 * On `cran210` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `RoiData.xlsx`.
