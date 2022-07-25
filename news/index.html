@@ -205,10 +205,12 @@
 <li>Add <code>tests</code> for new functions <code>RSM_*()</code>
 </li>
 </ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="2.0.1" id="rjafroc-201">RJafroc 2.0.1<small>2020-12-15</small><a class="anchor" aria-label="anchor" href="#rjafroc-201"></a></h2>
 <div class="section level3">
-<h3 id="cran-submission-process-2-1-0">CRAN submission process<a class="anchor" aria-label="anchor" href="#cran-submission-process-2-1-0"></a></h3>
-<ul><li>Version 2.0.1</li>
-<li>This is on <code>cran3</code> branch.</li>
+<h3 id="cran-submission-process-2-0-1">CRAN submission process<a class="anchor" aria-label="anchor" href="#cran-submission-process-2-0-1"></a></h3>
+<ul><li>On <code>cran3</code> branch.</li>
 <li>Steps to reduce file size to less than 5 Mb:<ul><li>Removed <code>tests</code> and <code>vignettes</code> (this needs to be done on all computers I am using).</li>
 <li>Removed all files from <code>inst/MRMCRuns</code> except <code>Tony</code>, the one that is used in an example.</li>
 <li>Removed <code>CrossedModalities.xlsx</code> and references to it.</li>
@@ -218,10 +220,9 @@
 <li>Otherwise identical to <code>developer</code> and <code>master</code> as of 12/8/20.</li>
 <li>
 <code>testthat</code> failure on Ubuntu developer is resolved, see <code>master</code> branch: <code>checkEnvironment = FALSE</code> in <code>expect_equal()</code> on <code>ggplot2</code> comparisons to <code>goodValues</code>.</li>
-<li>On CRAN</li>
 </ul></div>
 <div class="section level3">
-<h3 id="simplify-handling-of-lesion-distribution-and-lesion-weights-2-1-0">Simplify handling of lesion distribution and lesion weights<a class="anchor" aria-label="anchor" href="#simplify-handling-of-lesion-distribution-and-lesion-weights-2-1-0"></a></h3>
+<h3 id="simplify-handling-of-lesion-distribution-and-lesion-weights-2-0-1">Simplify handling of lesion distribution and lesion weights<a class="anchor" aria-label="anchor" href="#simplify-handling-of-lesion-distribution-and-lesion-weights-2-0-1"></a></h3>
 <ul><li>Motivation: basically only need to specify two 1D arrays: <code>lesDistr</code> and <code>relWeights</code>.</li>
 <li>Since these are involved in the C++ calls, cannot totally eliminate the 2D arrays; and they are also useful for printouts.</li>
 <li>Eliminated two functions and much simplification:</li>
@@ -238,7 +239,7 @@
 <li>Passed tests; 12/3/20</li>
 </ul></div>
 <div class="section level3">
-<h3 id="working-on-analytical-aucs-from-rsm-2-1-0">Working on analytical AUCs from RSM<a class="anchor" aria-label="anchor" href="#working-on-analytical-aucs-from-rsm-2-1-0"></a></h3>
+<h3 id="working-on-analytical-aucs-from-rsm-2-0-1">Working on analytical AUCs from RSM<a class="anchor" aria-label="anchor" href="#working-on-analytical-aucs-from-rsm-2-0-1"></a></h3>
 <ul><li>Motivation: could obviate the long simulations in CAD optimization chapter in book</li>
 <li>Added <code>UtilSpecifyLesionWeightsDistr()</code> which is distinct from <code>UtilLesionWeightsDistr()</code>, as the latter works on datasets.</li>
 <li>Observed that for equal weights AFROC and wAFROC analytical AUCs are identical. Need to think this out.</li>
@@ -248,8 +249,8 @@
 <li>Nov 30, 2020</li>
 </ul></div>
 <div class="section level3">
-<h3 id="update-stsignificancetestingcadvsrad-2-1-0">Update <code>StSignificanceTestingCadVsRad()</code>
-<a class="anchor" aria-label="anchor" href="#update-stsignificancetestingcadvsrad-2-1-0"></a></h3>
+<h3 id="update-stsignificancetestingcadvsrad-2-0-1">Update <code>StSignificanceTestingCadVsRad()</code>
+<a class="anchor" aria-label="anchor" href="#update-stsignificancetestingcadvsrad-2-0-1"></a></h3>
 <ul><li>Shortened the name of the function as shown above</li>
 <li>Needed to standardized output to avoid klutzy code in <code>RJafrocBook</code>
 </li>
@@ -258,15 +259,15 @@
 <li>Fixed CI returned object - difference was incorrect, changed sign</li>
 </ul></div>
 <div class="section level3">
-<h3 id="modified-seed-behaviour-no-need-for-simulatefrocdatasetnoseed-2-1-0">Modified <code>seed</code> behaviour, no need for <code>SimulateFrocDatasetNoSeed()</code>
-<a class="anchor" aria-label="anchor" href="#modified-seed-behaviour-no-need-for-simulatefrocdatasetnoseed-2-1-0"></a></h3>
+<h3 id="modified-seed-behaviour-no-need-for-simulatefrocdatasetnoseed-2-0-1">Modified <code>seed</code> behaviour, no need for <code>SimulateFrocDatasetNoSeed()</code>
+<a class="anchor" aria-label="anchor" href="#modified-seed-behaviour-no-need-for-simulatefrocdatasetnoseed-2-0-1"></a></h3>
 <ul><li>Needed for compatibility with plots in <code>14-froc-meanings-xx.Rmd</code> chapter.</li>
 <li>Otherwise different random numbers are generated and it throws all the plots off.</li>
 <li>If <code>seed</code> is not supplied, then <code><a href="../reference/SimulateFrocDataset.html">SimulateFrocDataset()</a></code> behaves as before the Nov 17 change</li>
 <li>Nov 20. 2020</li>
 </ul></div>
 <div class="section level3">
-<h3 id="added-seed-to-simulatefrocdataset-2-1-0">Added <code>seed</code> to SimulateFrocDataset()<a class="anchor" aria-label="anchor" href="#added-seed-to-simulatefrocdataset-2-1-0"></a></h3>
+<h3 id="added-seed-to-simulatefrocdataset-2-0-1">Added <code>seed</code> to SimulateFrocDataset()<a class="anchor" aria-label="anchor" href="#added-seed-to-simulatefrocdataset-2-0-1"></a></h3>
 <ul><li>Ability to specify <code>seed</code> in order to reproduce FROC datasets.</li>
 <li>In book chapter 13- on effect of zeta1 on FOM and finding the zeta1 that maximizes wFROC AUC.</li>
 <li>Had to fix several <code>test</code> files.</li>
@@ -274,7 +275,7 @@
 <li>Nov 17, 2020.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="fixed-errors-reading-froc-file-with-no-non-diseased-cases-2-1-0">Fixed errors reading FROC file with no non-diseased cases<a class="anchor" aria-label="anchor" href="#fixed-errors-reading-froc-file-with-no-non-diseased-cases-2-1-0"></a></h3>
+<h3 id="fixed-errors-reading-froc-file-with-no-non-diseased-cases-2-0-1">Fixed errors reading FROC file with no non-diseased cases<a class="anchor" aria-label="anchor" href="#fixed-errors-reading-froc-file-with-no-non-diseased-cases-2-0-1"></a></h3>
 <ul><li><p>Toy file with no non-diseased cases: <code>frocLocatClass.xlsx</code>.</p></li>
 <li><p>Symptom: <code>UtilFigureOfMerit</code>, with “wAFROC1” FOM failed in C++ code in function <code>double wAFROC1()</code> with message <code>Not compatible with requested type: [type=character; target=double]</code></p></li>
 <li><p>The problem was traced to <code>ReadJAFROCOldFormat.R</code> (I was using <code>OldExcelFileFormat</code>) which was returning <code>NL</code> and <code>LL</code> as characters, not numerics.</p></li>
@@ -310,7 +311,7 @@
 <li>Ran R CMD check</li>
 </ul></div>
 <div class="section level3">
-<h3 id="fixing-non-character-input-error-2-1-0">Fixing non-character input error<a class="anchor" aria-label="anchor" href="#fixing-non-character-input-error-2-1-0"></a></h3>
+<h3 id="fixing-non-character-input-error-2-0-1">Fixing non-character input error<a class="anchor" aria-label="anchor" href="#fixing-non-character-input-error-2-0-1"></a></h3>
 <ul><li>Finished October 23, 2020.</li>
 <li>Fixed error in <code>DfReadDataFile.R</code> in function <code>checkTruthTable()</code>; this bug discovered in working with HUGE one reader dataset.</li>
 <li>For single reader or single modality dataset, if input is not converted to character, then error results in <code>I &lt;- length(strsplit(modalityIDCol[1], split = ",")[[1]])</code> and similar expression for <code>J</code>.</li>
@@ -319,7 +320,7 @@
 <span>  <span class="va">modalityIDCol</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">truthTable</span><span class="op">$</span><span class="va">ModalityID</span><span class="op">)</span> <span class="co"># do:</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="simplified-plotting-routines-2-1-0">Simplified plotting routines<a class="anchor" aria-label="anchor" href="#simplified-plotting-routines-2-1-0"></a></h3>
+<h3 id="simplified-plotting-routines-2-0-1">Simplified plotting routines<a class="anchor" aria-label="anchor" href="#simplified-plotting-routines-2-0-1"></a></h3>
 <ul><li>Finished October 2, 2020.</li>
 <li>Necessitated by work on CAD vs. RAD plots in <code>RJafrocBook</code>.</li>
 <li>
@@ -336,14 +337,14 @@
 <li>I solved it by initializing these at the very beginning of the <code>gpfPlotGenericEmpiricalOperatingCharacteristic</code> function to <code>NULL</code>s.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="added-extensive-comments-in-storsummaryfrrcr-2-1-0">Added extensive comments in StORSummaryFRRC.R<a class="anchor" aria-label="anchor" href="#added-extensive-comments-in-storsummaryfrrcr-2-1-0"></a></h3>
+<h3 id="added-extensive-comments-in-storsummaryfrrcr-2-0-1">Added extensive comments in StORSummaryFRRC.R<a class="anchor" aria-label="anchor" href="#added-extensive-comments-in-storsummaryfrrcr-2-0-1"></a></h3>
 <ul><li>Added extensive comments in StORSummaryFRRC.R on how I am calculating <code>CI</code> for individual treatments averaged over readers;</li>
 <li>The method was “reverse-engineered” from <code>inst/Iowa/VanDyke.txt</code>, as I cannot find a better reference for the equations used.</li>
 <li>This created debugging problems as break points did not work; added # at the <em>end</em> of each inserted commented line, 86-103; this seemed to solve problem;</li>
 <li>passes R CMD check</li>
 </ul></div>
 <div class="section level3">
-<h3 id="updated-package-documentation-and-ch00-vignettes-2-1-0">Updated package documentation and Ch00 Vignettes<a class="anchor" aria-label="anchor" href="#updated-package-documentation-and-ch00-vignettes-2-1-0"></a></h3>
+<h3 id="updated-package-documentation-and-ch00-vignettes-2-0-1">Updated package documentation and Ch00 Vignettes<a class="anchor" aria-label="anchor" href="#updated-package-documentation-and-ch00-vignettes-2-0-1"></a></h3>
 <ul><li>Commented out examples in <code>DfSaveDataFile.R</code> as it creates non-standard files in <code>doc</code> directory; this did not happen before the R update.</li>
 <li>Also, the ggplot output structure appears to have changed; had to regenerate goodvalues in <code>test-PlotEmpiricalOperatingCharacteristics.R</code>.</li>
 <li>Need to update documentation and DESCRIPTION.</li>
@@ -353,7 +354,7 @@
 <li>Moved description of other’s data formats to Dropbox.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="added-stats-to-oranalysissplitplota-2-1-0">Added stats to ORAnalysisSplitPlotA<a class="anchor" aria-label="anchor" href="#added-stats-to-oranalysissplitplota-2-1-0"></a></h3>
+<h3 id="added-stats-to-oranalysissplitplota-2-0-1">Added stats to ORAnalysisSplitPlotA<a class="anchor" aria-label="anchor" href="#added-stats-to-oranalysissplitplota-2-0-1"></a></h3>
 <ul><li>
 <code>ORAnalysisSplitPlotA</code> returns <code>list</code> containing <code>FOMs</code>, <code>ANOVA</code> and <code>RRRC</code>
 </li>
@@ -365,10 +366,10 @@
 <li>Updated R and RStudio</li>
 </ul></div>
 <div class="section level3">
-<h3 id="handling-of-foms-that-depend-on-single-truth-state-cases-2-1-0">Handling of FOMs that depend on single-truth-state cases<a class="anchor" aria-label="anchor" href="#handling-of-foms-that-depend-on-single-truth-state-cases-2-1-0"></a></h3>
+<h3 id="handling-of-foms-that-depend-on-single-truth-state-cases-2-0-1">Handling of FOMs that depend on single-truth-state cases<a class="anchor" aria-label="anchor" href="#handling-of-foms-that-depend-on-single-truth-state-cases-2-0-1"></a></h3>
 <ul><li>Some confusion in my mind about handlling of normal case only or abnormal case only FOMs, like <code>MaxNLF</code>, <code>MaxLLF</code>, <code>HrSe</code>, <code>HrSp</code>, etc. Resolved after studyin XZ code, StOldCode.R. The handling is shown in UtilPseudoValues.R. I believe it is now correct. For <code>MaxNLF</code>, <code>HrSp</code>, and <code>ExpTrnsfmSp</code> the relevant number of cases is <code>K1</code>, for <code>MaxLLF</code> and <code>HrSe</code> it is <code>K2</code> and for all the rest it is <code>K</code>.</li></ul></div>
 <div class="section level3">
-<h3 id="revised-utilpseudovalues-2-1-0">Revised UtilPseudoValues 8/7/20<a class="anchor" aria-label="anchor" href="#revised-utilpseudovalues-2-1-0"></a></h3>
+<h3 id="revised-utilpseudovalues-2-0-1">Revised UtilPseudoValues 8/7/20<a class="anchor" aria-label="anchor" href="#revised-utilpseudovalues-2-0-1"></a></h3>
 <ul><li>More compact code handles all FOMs - no exceptions, as before, for MaxLLF, etc. Extensive simplification to accomplish handling of different FOMs.</li>
 <li>Modified <code>FOMijk2VarCovSpA</code> and <code>FOMijk2VarCov</code> to accept a <code>varInflFactor</code> logical argument, allowing jackknife, bootstrap and DeLong - based estimates to be more compactly handled.</li>
 <li>
@@ -381,7 +382,7 @@
 <li>Corrected error in handling of <code>MaxNLFAllCases</code> FOM; see comments in <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code>; regenerated one <code>goodValue</code> file.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="read-real-split-plot-a-dataset-2-1-0">Read real SPLIT-PLOT-A dataset<a class="anchor" aria-label="anchor" href="#read-real-split-plot-a-dataset-2-1-0"></a></h3>
+<h3 id="read-real-split-plot-a-dataset-2-0-1">Read real SPLIT-PLOT-A dataset<a class="anchor" aria-label="anchor" href="#read-real-split-plot-a-dataset-2-0-1"></a></h3>
 <ul><li>Did not find any data entry errors in <code>/toyFiles/FROC/1T3Rvs4R.xlsx</code>
 </li>
 <li>Simplified <code>rdrArr</code> handling: this is done in <code>checkTruthTable</code>, where SPLIT-PLOT-A is handled separately;</li>
@@ -389,7 +390,7 @@
 <li>Note added 8/7/20: above change created problems passing tests in R CMD check, as long file names may not agree; simplified to remove all but the file base name; regenerated many <code>goodValues</code> files</li>
 </ul></div>
 <div class="section level3">
-<h3 id="update-for-reading-split-plot-a-data-files-2-1-0">Update for reading SPLIT-PLOT-A data files<a class="anchor" aria-label="anchor" href="#update-for-reading-split-plot-a-data-files-2-1-0"></a></h3>
+<h3 id="update-for-reading-split-plot-a-data-files-2-0-1">Update for reading SPLIT-PLOT-A data files<a class="anchor" aria-label="anchor" href="#update-for-reading-split-plot-a-data-files-2-0-1"></a></h3>
 <ul><li>After emails with collaborator, need for this type of analysis.</li>
 <li>Need to comment <code>DfReadDataFile.R</code> and <code>ReadJAFROCNewFormat.R</code> and add more checks in the code for illegal values.</li>
 <li>Indiscriminate sorting introduced problems; now, sorted <code>caseID</code> column is used now in only 3 places to find the correct case indices, where normal cases are ordered first, regardless of how they are entered in the <code>Truth</code> worksheet:</li>
@@ -398,14 +399,14 @@
 <span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">CaseID</span><span class="op">)</span> <span class="op">==</span> <span class="va">LLCaseIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="va">K1</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="tests-for-utiloutputreport-2-1-0">Tests for UtilOutputReport<a class="anchor" aria-label="anchor" href="#tests-for-utiloutputreport-2-1-0"></a></h3>
+<h3 id="tests-for-utiloutputreport-2-0-1">Tests for UtilOutputReport<a class="anchor" aria-label="anchor" href="#tests-for-utiloutputreport-2-0-1"></a></h3>
 <ul><li>Included tests for <code><a href="../reference/UtilOutputReport.html">UtilOutputReport()</a></code> for text output only</li>
 <li>Could not get version that compared actual outputs to work in R CMD check.</li>
 <li>Only works at command line (running tests one at a time)</li>
 <li>Failing code is commented out</li>
 </ul></div>
 <div class="section level3">
-<h3 id="renamed-sp-datasets-2-1-0">Renamed SP datasets 7/9/20<a class="anchor" aria-label="anchor" href="#renamed-sp-datasets-2-1-0"></a></h3>
+<h3 id="renamed-sp-datasets-2-0-1">Renamed SP datasets 7/9/20<a class="anchor" aria-label="anchor" href="#renamed-sp-datasets-2-0-1"></a></h3>
 <ul><li>Renamed the split plot dataset to datasetFROCSpC</li>
 <li>The C stands for Table VII Part (C) in Hillis 2014</li>
 <li>Need to distinguish between different types of split-plot datasets</li>
@@ -413,7 +414,7 @@
 <li>The new analysis requires split-plot-a</li>
 </ul></div>
 <div class="section level3">
-<h3 id="code-for-checking-for-non-sequential-lesionids-in-truth-2-1-0">Code for checking for non-sequential lesionIDs in TRUTH 7/8/20<a class="anchor" aria-label="anchor" href="#code-for-checking-for-non-sequential-lesionids-in-truth-2-1-0"></a></h3>
+<h3 id="code-for-checking-for-non-sequential-lesionids-in-truth-2-0-1">Code for checking for non-sequential lesionIDs in TRUTH 7/8/20<a class="anchor" aria-label="anchor" href="#code-for-checking-for-non-sequential-lesionids-in-truth-2-0-1"></a></h3>
 <ul><li>Updated all tests to display contexts more consistently.</li>
 <li>Moved unnecessary files from <code>inst</code> to <code>Dropbox</code>.</li>
 <li>Main work was on <code>DfReadDataFile.R</code> and testing code for non-sequential <code>lesionID</code>s in <code>TRUTH</code> worksheet.</li>
@@ -421,13 +422,13 @@
 <li>Also learning about <code>grep</code>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="implemented-extensive-testing-comparing-rjafroc-to-iowa-software-2-1-0">Implemented extensive testing comparing <code>RJafroc</code> to Iowa software<a class="anchor" aria-label="anchor" href="#implemented-extensive-testing-comparing-rjafroc-to-iowa-software-2-1-0"></a></h3>
+<h3 id="implemented-extensive-testing-comparing-rjafroc-to-iowa-software-2-0-1">Implemented extensive testing comparing <code>RJafroc</code> to Iowa software<a class="anchor" aria-label="anchor" href="#implemented-extensive-testing-comparing-rjafroc-to-iowa-software-2-0-1"></a></h3>
 <ul><li>See <code>test-StCompare2Iowa.R</code> in <code>testthat</code> directory.</li>
 <li>Does line by line comparison of <code>RJafroc</code> to results of <code>OR-DBM MRMC 2.51 Build 20181028</code> for VanDyke and Franken datasets.</li>
 <li>These, and many other tests, are run automatically every time the <code>RJafroc</code> software is checked using <code>R CMD check</code>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="note-on-discrepancy-vis-a-vis-iowa-software-2-1-0">Note on discrepancy vis-a-vis Iowa software<a class="anchor" aria-label="anchor" href="#note-on-discrepancy-vis-a-vis-iowa-software-2-1-0"></a></h3>
+<h3 id="note-on-discrepancy-vis-a-vis-iowa-software-2-0-1">Note on discrepancy vis-a-vis Iowa software<a class="anchor" aria-label="anchor" href="#note-on-discrepancy-vis-a-vis-iowa-software-2-0-1"></a></h3>
 <ul><li>Noted was a discrepancy between <code>Var(R)</code> and <code>Var(TR)</code> values reported by <code>OR-DBM MRMC 2.51 Build 20181028</code> and <code>RJafroc</code> for Franken dataset.</li>
 <li>Their code does not implement the required <code>max(Cov2 - Cov3, 0)</code> constraint while <code>RJafroc</code> does.</li>
 <li>
@@ -437,7 +438,7 @@
 <li>I am aware that these discrepancies do not affect sample size estimates, but can cause confusion for the code maintainer and the end user.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="updated-sample-size-routines-2-1-0">Updated sample size routines<a class="anchor" aria-label="anchor" href="#updated-sample-size-routines-2-1-0"></a></h3>
+<h3 id="updated-sample-size-routines-2-0-1">Updated sample size routines<a class="anchor" aria-label="anchor" href="#updated-sample-size-routines-2-0-1"></a></h3>
 <ul><li>3 Papers by Hillis et al on SS estimation for ROC studies: 2004, 2011 and 2018<ul><li>Hillis SL, Berbaum KS (2004). Power Estimation for the Dorfman-Berbaum-Metz Method. Acad Radiol, 11, 1260–1273.</li>
 <li>Hillis SL, Obuchowski NA, Berbaum KS (2011). Power Estimation for Multireader ROC Methods: An Updated and Unified Approach. Acad Radiol, 18, 129–142.</li>
 <li>Hillis SL, Schartz KM (2018). Multireader sample size program for diagnostic studies: demonstration and methodology. Journal of Medical Imaging, 5(04).</li>
@@ -451,7 +452,7 @@
 <li>The changes were merged to the <code>developer</code> branch and then to the <code>master</code> branch.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="major-reorganization-of-dataset-structure-2-1-0">Major reorganization of <code>dataset</code> structure<a class="anchor" aria-label="anchor" href="#major-reorganization-of-dataset-structure-2-1-0"></a></h3>
+<h3 id="major-reorganization-of-dataset-structure-2-0-1">Major reorganization of <code>dataset</code> structure<a class="anchor" aria-label="anchor" href="#major-reorganization-of-dataset-structure-2-0-1"></a></h3>
 <ul><li>Instead of varying lengths for ROC/FROC, LROC and SPLIT-PLOT, all <code>datasets</code> now are <code>lists</code> of length 3, with each member (<code>ratings</code>, <code>lesions</code>, <code>descriptions</code>) consisting of sub-lists:<ul><li>
 <code>ratings</code> contain 3 elements: <code>$NL</code>, <code>$LL</code> and <code>$LL_IL</code>.</li>
 <li>
@@ -466,7 +467,7 @@
 <li>The changes were merged to the <code>developer</code> branch and then to the <code>master</code> branch.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="major-simplifications-to-all-significance-testing-st-functions-2-1-0">Major simplifications to all significance testing <code>St</code> functions<a class="anchor" aria-label="anchor" href="#major-simplifications-to-all-significance-testing-st-functions-2-1-0"></a></h3>
+<h3 id="major-simplifications-to-all-significance-testing-st-functions-2-0-1">Major simplifications to all significance testing <code>St</code> functions<a class="anchor" aria-label="anchor" href="#major-simplifications-to-all-significance-testing-st-functions-2-0-1"></a></h3>
 <ul><li>Separated <code>RRRC</code> branches etc to separate files; likewise for DBM and OR branches, now the files are much shorter and easier to maintain</li>
 <li>Changed returned data structure to a <code>list</code> of <code>dataframes</code>, see next comment; this makes for much cleaner and easier printing</li>
 <li>Consistent returned objects from all <code>St</code> functions: <code>list</code> with data frames <code>FOM</code>, <code>ANOVA</code>, <code>RRRC</code>, <code>FRRC</code> and <code>RRFC</code>.</li>
@@ -483,7 +484,7 @@
 <li>Will merge this code into <code>master</code> branch if it passes Travis</li>
 </ul></div>
 <div class="section level3">
-<h3 id="replaced-stringsasfactors--false-everywhere-dataframe-is-used-except--2-1-0">Replaced stringsAsFactors = FALSE everywhere data.frame is used except …<a class="anchor" aria-label="anchor" href="#replaced-stringsasfactors--false-everywhere-dataframe-is-used-except--2-1-0"></a></h3>
+<h3 id="replaced-stringsasfactors--false-everywhere-dataframe-is-used-except--2-0-1">Replaced stringsAsFactors = FALSE everywhere data.frame is used except …<a class="anchor" aria-label="anchor" href="#replaced-stringsasfactors--false-everywhere-dataframe-is-used-except--2-0-1"></a></h3>
 <ul><li>Except in <code>PlotEmpiricalOperatingCharacteristics</code>, where <code>factors</code> and <code>levels</code> are used</li>
 <li>Must specify this anytime the variable is used in a <code>test</code> as otherwise different versions will give <code>factors</code> or <code>characters</code> and not match those in goodValues folder</li>
 <li>After old versions are phased out, this can be safely removed, as all versions will have this as the default</li>
@@ -492,7 +493,7 @@
 <li>Use <code>getOption("stringsAsFactors")</code> to determine state of this option; must restart <code>R</code> to obtain default value (<code>TRUE</code> on the release version); calling a function that sets it to <code>FALSE</code> keeps the new value after exiting from function; must restart <code>R</code> again to get proper default.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="after-repeated-travis-failures-2-1-0">After repeated Travis failures<a class="anchor" aria-label="anchor" href="#after-repeated-travis-failures-2-1-0"></a></h3>
+<h3 id="after-repeated-travis-failures-2-0-1">After repeated Travis failures<a class="anchor" aria-label="anchor" href="#after-repeated-travis-failures-2-0-1"></a></h3>
 <ul><li>same issue; have to specify <code>stringsAsFactors</code> explicitly for each <code>data.frame</code> call, due to different defaults in different verions of <code>R</code>
 </li>
 <li>Cannot set to TRUE at beginning of function, as in <code>options("stringsAsFactors" = TRUE)</code>, <strong>as this is <code>deprecated</code></strong>
@@ -501,7 +502,7 @@
 <li>passes R CMD check on OSX and Travis checks</li>
 </ul></div>
 <div class="section level3">
-<h3 id="removed-stringsasfactors-arguments-in-all-calls-except-2-1-0">Removed <code>stringsAsFactors</code> arguments in all calls except…<a class="anchor" aria-label="anchor" href="#removed-stringsasfactors-arguments-in-all-calls-except-2-1-0"></a></h3>
+<h3 id="removed-stringsasfactors-arguments-in-all-calls-except-2-0-1">Removed <code>stringsAsFactors</code> arguments in all calls except…<a class="anchor" aria-label="anchor" href="#removed-stringsasfactors-arguments-in-all-calls-except-2-0-1"></a></h3>
 <ul><li>In all calls to data.frame, except in plotting functions, <code>PlotEmpiricalOperatingCharacteristics</code>, where factors are used</li>
 <li>In current <code>R3.6.3</code> <code>option($stringsAsFactors) = TRUE</code> (<code>stringsAsFactors</code> is case sensitive!)</li>
 <li>This means that functions that don’t require factors, such as <code><a href="../reference/SsPowerTable.html">SsPowerTable()</a></code> should set <code>options(stringsAsFactors = FALSE)</code> explicitly at the beginning of the code, in order to work in current and previous version of R (i.e., release and old-release)</li>
@@ -511,17 +512,17 @@
 <li>Going to test on Travis now</li>
 </ul></div>
 <div class="section level3">
-<h3 id="return-transpose-for-foms-member-of-stsignificancetesting-return-object-2-1-0">Return <code>transpose</code> for <code>foms</code> member of <code>StSignificanceTesting</code> return object<a class="anchor" aria-label="anchor" href="#return-transpose-for-foms-member-of-stsignificancetesting-return-object-2-1-0"></a></h3>
+<h3 id="return-transpose-for-foms-member-of-stsignificancetesting-return-object-2-0-1">Return <code>transpose</code> for <code>foms</code> member of <code>StSignificanceTesting</code> return object<a class="anchor" aria-label="anchor" href="#return-transpose-for-foms-member-of-stsignificancetesting-return-object-2-0-1"></a></h3>
 <ul><li>For consistency with OR DBM MRMC 2.51, and also for cleaner output, as number of treatments is usually less than number of readers</li>
 <li>Note added 5/30/20: this was undone; transpose is no longer used</li>
 </ul></div>
 <div class="section level3">
-<h3 id="moved-official-good-value-files-to-dropbox-2-1-0">Moved official good value files to Dropbox<a class="anchor" aria-label="anchor" href="#moved-official-good-value-files-to-dropbox-2-1-0"></a></h3>
+<h3 id="moved-official-good-value-files-to-dropbox-2-0-1">Moved official good value files to Dropbox<a class="anchor" aria-label="anchor" href="#moved-official-good-value-files-to-dropbox-2-0-1"></a></h3>
 <ul><li>They generate non-portable file name warning on R CMD check</li>
 <li>Moved VanDyke results to inst/IowaResults/VanDyke.txt</li>
 </ul></div>
 <div class="section level3">
-<h3 id="compared-to-latest-official-code-2-1-0">Compared to latest official code<a class="anchor" aria-label="anchor" href="#compared-to-latest-official-code-2-1-0"></a></h3>
+<h3 id="compared-to-latest-official-code-2-0-1">Compared to latest official code<a class="anchor" aria-label="anchor" href="#compared-to-latest-official-code-2-0-1"></a></h3>
 <ul><li>
 <code>mrmc_setup_w10_July_2019.exe</code>; VanDyke <code>VanDyke.lrc</code> dataset; <code>Dropobox/IowaSoftware/VanDyke.lrc</code>
 </li>
@@ -535,14 +536,14 @@
 <li>Need to fix documentation on <code>StSignificanceTesting</code> - WIP</li>
 </ul></div>
 <div class="section level3">
-<h3 id="discovered-error-2-1-0">Discovered error<a class="anchor" aria-label="anchor" href="#discovered-error-2-1-0"></a></h3>
+<h3 id="discovered-error-2-0-1">Discovered error<a class="anchor" aria-label="anchor" href="#discovered-error-2-0-1"></a></h3>
 <ul><li>For <code>StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")</code> - done</li>
 <li>Need to put in <code>testthat</code> all combinations of <code>method</code> and <code>option</code> - done</li>
 <li>Different objects returned by <code>StSignificanceTesting</code> depending on choice of <code>option</code> - almost done</li>
 <li>Need to standardize as otherwise <code>RJafrocBook</code> is klutzy - WIP</li>
 </ul></div>
 <div class="section level3">
-<h3 id="added-seed-specification-to-utilvarcomponentor-2-1-0">Added seed specification to UtilVarComponentOR<a class="anchor" aria-label="anchor" href="#added-seed-specification-to-utilvarcomponentor-2-1-0"></a></h3>
+<h3 id="added-seed-specification-to-utilvarcomponentor-2-0-1">Added seed specification to UtilVarComponentOR<a class="anchor" aria-label="anchor" href="#added-seed-specification-to-utilvarcomponentor-2-0-1"></a></h3>
 <ul><li>Added seed specification to <code>UtilVarComponentOR</code> to allow comparison with <code>RJafrocBook</code>
 </li>
 <li>Added to tests: <code>covEstMethod</code> = <code>jackknife</code>, <code>bootstrap</code> and <code>DeLong</code> for two datasets</li>
@@ -551,8 +552,8 @@
 <li>Will merge to <code>master</code> so that <code>RJafrocBook</code> code passes Travis</li>
 </ul></div>
 <div class="section level3">
-<h3 id="fixing-significance-testing-with-independent-calculations-in-rjafrocbook-2-1-0">Fixing significance testing with independent calculations in <code>RJafrocBook</code>
-<a class="anchor" aria-label="anchor" href="#fixing-significance-testing-with-independent-calculations-in-rjafrocbook-2-1-0"></a></h3>
+<h3 id="fixing-significance-testing-with-independent-calculations-in-rjafrocbook-2-0-1">Fixing significance testing with independent calculations in <code>RJafrocBook</code>
+<a class="anchor" aria-label="anchor" href="#fixing-significance-testing-with-independent-calculations-in-rjafrocbook-2-0-1"></a></h3>
 <ul><li>Need to modify <code>RJafroc</code> to eliminate code duplication and improve style in all significance testing functions - move this to issues</li>
 <li>I am only getting to understand it now (as I work on <code>RJafrocBook</code>)</li>
 <li>One reader case can now be handled by <code>StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")</code>
@@ -562,8 +563,8 @@
 <li>Will merge to <code>master</code> so that <code>RJafrocBook</code> code passes Travis</li>
 </ul></div>
 <div class="section level3">
-<h3 id="fixed-error-with-mstc-2-1-0">Fixed error with <code>msTC</code>
-<a class="anchor" aria-label="anchor" href="#fixed-error-with-mstc-2-1-0"></a></h3>
+<h3 id="fixed-error-with-mstc-2-0-1">Fixed error with <code>msTC</code>
+<a class="anchor" aria-label="anchor" href="#fixed-error-with-mstc-2-0-1"></a></h3>
 <ul><li>Found another error in <code>msTC</code> calculation in <code>UtilMeanSquares</code>
 </li>
 <li>Was trying to be too cute for my own good (collapsing two for-loops into one)</li>
@@ -572,7 +573,7 @@
 <li>Changed <code>covEstMethod</code> argument to <code>ORH</code> method to lower case (“jackknife” or “bootstrap”)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="fixed-issue-with-optim-when-flipping-groups-2-1-0">Fixed issue with <code>optim</code> when flipping groups<a class="anchor" aria-label="anchor" href="#fixed-issue-with-optim-when-flipping-groups-2-1-0"></a></h3>
+<h3 id="fixed-issue-with-optim-when-flipping-groups-2-0-1">Fixed issue with <code>optim</code> when flipping groups<a class="anchor" aria-label="anchor" href="#fixed-issue-with-optim-when-flipping-groups-2-0-1"></a></h3>
 <ul><li>see issues #50 (closed) on <code>RJafroc/master</code>
 </li>
 <li>Allow a paramter of binormal model to be between -4 and 4</li>
