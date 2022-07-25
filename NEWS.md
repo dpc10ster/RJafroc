@@ -1,12 +1,13 @@
 # RJafroc 2.1.0.9000
 
-## started new developer version 7/24/22
+## New developer version started 7/24/22
 * Version 2.1.0.9000
-* Consider deleting vignettes one by one after ensuring they exist in the online books
+* Deleted vignettes, see issue #84. 
+* Use `master` branch for future updates to CRAN.
 
 
 # RJafroc 2.1.0
-* CRAN accepted 7/24/22
+* [CRAN](https://cran.r-project.org/web/packages/RJafroc/index.html) accepted 7/24/22
 * On `cran210` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `RoiData.xlsx`.
