@@ -1,20 +1,8 @@
 pandoc: 2.7.3
 pkgdown: 2.0.6
 pkgdown_sha: ~
-articles:
-  Ch00Vig3DataFormatRocSpA: Ch00Vig3DataFormatRocSpA.html
-  Ch00Vig4DataFormatFrocSpA: Ch00Vig4DataFormatFrocSpA.html
-  Ch11Vig1SampleSize: Ch11Vig1SampleSize.html
-  Ch17Vig1PlotRsmOpCh: Ch17Vig1PlotRsmOpCh.html
-  Ch19Vig1FrocSampleSize: Ch19Vig1FrocSampleSize.html
-  Ch19Vig2FrocSampleSize: Ch19Vig2FrocSampleSize.html
-  Ch20Vig1improperROCs: Ch20Vig1improperROCs.html
-  Ch20Vig2degenerateROCs: Ch20Vig2degenerateROCs.html
-  Ch20Vig3proprocROCs: Ch20Vig3proprocROCs.html
-  Ch20Vig4metzEqn36: Ch20Vig4metzEqn36.html
-  Ch20Vig5cbmPlots: Ch20Vig5cbmPlots.html
-  Ch30Vig1RoiParadigm: Ch30Vig1RoiParadigm.html
-last_built: 2022-07-24T21:05Z
+articles: {}
+last_built: 2022-07-25T01:47Z
 urls:
   reference: https://github.com/dpc10ster/RJafroc/reference
   article: https://github.com/dpc10ster/RJafroc/articles
