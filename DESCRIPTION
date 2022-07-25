@@ -43,7 +43,8 @@ Description: Analyzing the performance of artificial intelligence
  analysis, where lesion localization information is used. A book
  using the software has been published: Chakraborty DP: Observer
  Performance Methods for Diagnostic Imaging - Foundations, Modeling,
- and Applications with R-Based Examples, Taylor-Francis LLC; 2017.
+ and Applications with R-Based Examples, Taylor-Francis LLC; 2017:
+ <\url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}>.
  Online updates to this book, which use the software, are at
  <https://dpc10ster.github.io/RJafrocQuickStart/>,
  <https://dpc10ster.github.io/RJafrocRocBook/> and at
