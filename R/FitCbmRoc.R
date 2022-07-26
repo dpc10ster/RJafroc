@@ -24,15 +24,15 @@
 #'    Use \code{print()} to display the object}
 #'
 #' @details
-#' In  CBM ratings from diseased cases
-#'    are sampled from a mixture distribution: (1) with integrated area \eqn{alpha} 
-#'    distributed \eqn{N(\eqn{mu},1)} and (2) from a distribution with 
-#'    integrated area \eqn{1-alpha} distributed\eqn{N(0,1)}. Ratings 
-#'    for non-diseased cases are sampled from \eqn{N(0,1)}. The \code{ChisqrFitStats} 
-#'    consists of a list containing the chi-square value, the p-value and the degrees 
-#'    of freedom. 
+#' In  CBM ratings from diseased cases are sampled from a mixture distribution 
+#'    with two components: (1) distributed normal with mean \eqn{mu} and unit 
+#'    variance with integrated area \eqn{alpha}, and (2) from a unit-normal 
+#'    distribution with integrated area \eqn{1-alpha}. Ratings for non-diseased 
+#'    cases are sampled from a unit-normal distribution. The 
+#'    \code{ChisqrFitStats} consists of a list containing the chi-square value, 
+#'    the p-value and the degrees of freedom. 
 #'
-#'@note This algorithm is more robust than the binormal model.
+#'@note This algorithm is very robust, much more so than the binormal model.
 #'
 #' @examples
 #' 
