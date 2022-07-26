@@ -37,7 +37,7 @@ print(platforms)
 # windows-x86_64-devel:
 #   Windows Server 2022, R-devel, 64 bit
 # windows-x86_64-oldrel:
-#   Windows Server 2022, R-oldrel, 32/64 bit
+#  Windows Server 2022, R-oldrel, 32/64 bit
 # windows-x86_64-patched:
 #   Windows Server 2022, R-patched, 32/64 bit
 # windows-x86_64-release:
@@ -47,13 +47,13 @@ packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.0.9000.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
-# for (indx in 11:11) {
-#   if (indx != 11) next
-#   if (indx == 12) next
-#   if (indx == 13) next
-#   print(cat(platforms[[1]][indx]))
-#   chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx])
-# }
+for (indx in 2:2) {
+  # if (indx != 11) next
+  # if (indx == 12) next
+  # if (indx == 13) next
+  print(cat(platforms[[1]][indx]))
+  chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx])
+}
 
 # Next three need to be run individually in Console
 # devtools::check_win_devel()

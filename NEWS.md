@@ -1,4 +1,16 @@
+---
+title: "NEWS"
+---
+
 # RJafroc 2.1.0.9000
+
+## Fix to 2 CRAN check notes 7/26/22
+* [see](https://cran.r-project.org/web/checks/check_results_RJafroc.html) first two platforms
+* Flavor: r-devel-linux-x86_64-debian-clang
+* Flavor: r-devel-linux-x86_64-debian-gcc
+* These NOTES were not generated in my testing on these platforms.
+* Basically I removed math formulas in `FitCbmRoc.R`
+* I am bringing this change to the `developer` branch so it will fix subsequent submissions; I will fix current CRAN version is asked.
 
 ## New developer version started 7/24/22
 * Version 2.1.0.9000
