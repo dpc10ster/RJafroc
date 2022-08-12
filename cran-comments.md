@@ -4,8 +4,9 @@ title: "CRAN comments"
 
 
 # Reason for submission
-* This is an update to CRAN version 2.0.1 which is passing all checks on all platforms (as of 2022-07-20 15:50:17 CEST).
-* This update (v2.1.0) includes improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification. 
+* In response to an email from Deepayan Sarkar <deepayan.sarkar@r-project.org> and Kurt Hornik <Kurt.Hornik@wu.ac.at> requesting an update to the current CRAN version 2.1.0 of `RJafroc` which is generating 3 NOTES, one of which is file-size related. 
+* Specifically, they requested a fix to the 2 NOTES relating to the "Found the following math rendering problems" NOTEs in the "HTML version of manual" on the r-devel debian checks results and the r-devel-linux-x86 64-debian-gcc platforms. 
+* This update (v2.1.1) fixes these two NOTES. 
 
 
 # Test environments
