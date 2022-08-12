@@ -43,7 +43,7 @@ print(platforms)
 # windows-x86_64-release:
 #   Windows Server 2022, R-release, 32/64 bit
 
-packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.0.9000.tar.gz"
+packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.1.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
@@ -55,20 +55,17 @@ for (indx in 2:2) {
   chk1 <- rhub::check(packagePath, platform = platforms[[1]][indx])
 }
 
-# Next three need to be run individually in Console
 # devtools::check_win_devel()
-devtools::check_win_release()
+# devtools::check_win_release()
 # devtools::check_win_oldrelease()
 
-# rhub::check_for_cran()
+# rhub::check_for_cran() # OK detritus file lastMiKTeXException?
 
 # devtools::revdep() # OK
 
 # After acceptance, transfer files to developer branch:
 # DESCRIPTION
 # cran-comments.md
-# cran-submission.R to inst/cranSubmission
-# RJafroc-package.Rd to man
+# cran-submission.R
+# RJafroc-package.Rd
 # NEWS.md
-
-

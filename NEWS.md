@@ -1,25 +1,14 @@
----
-title: "NEWS"
----
+# RJafroc 2.1.1
 
-# RJafroc 2.1.0.9000
-
-## Fix to 2 CRAN check notes 7/26/22
-* [see](https://cran.r-project.org/web/checks/check_results_RJafroc.html) first two platforms
-* Flavor: r-devel-linux-x86_64-debian-clang
-* Flavor: r-devel-linux-x86_64-debian-gcc
-* These NOTES were not generated in my testing on these platforms.
-* Basically I removed math formulas in `FitCbmRoc.R`
-* I am bringing this change to the `developer` branch so it will fix subsequent submissions; I will fix current CRAN version is asked.
-
-## New developer version started 7/24/22
-* Version 2.1.0.9000
-* Deleted vignettes, see issue #84. 
-* Use `master` branch for future updates to CRAN.
+## CRAN resubmission 8/12/22
+* Version 2.1.1, accepted 8/12/22
+* On `cran211` branch.
+* Eliminates two html rendering notes occurring on 2.1.0.
+* Corrected 2 URL formatting errors, in DESCRIPTION and `RJafroc-package.Rd`.
 
 
-# RJafroc 2.1.0
-* [CRAN](https://cran.r-project.org/web/packages/RJafroc/index.html) accepted 7/24/22
+## CRAN accepted 7/24/22
+* Version 2.1.0
 * On `cran210` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `RoiData.xlsx`.
@@ -67,9 +56,9 @@ title: "NEWS"
 ## TBDIF 12-26-21
 * TBDIF: To be done in future
 * Created much confusion in `RJafrocFrocBook`, chapter on `3-fits`
-* `RsmFormulae.R`: This file is a mess. 
+* `RsmFormulae.R`: This file is a mess.
 * Remove AUCs in `PlotRsmOperatingCharacteristics`? - these are done in UtilAnalyticalAucsRsm
-* Add to tests? 
+* Add to tests?
 * Replace error function with Phi functions?
 * Remove redundant column in weights matrix
 * change `lambdaP` to lambda and lambda to `lambdaI` and corresponding changes in book
@@ -100,14 +89,14 @@ title: "NEWS"
 * File `DfExtracDataset.R` was also affected: the change fixes an error that did not get caught before.
 * Updated documentation and links in `StSignificanceTestingCadVsRad.R`.
 * Note that **For non-JAFROC data file formats, the `readerID` and `modalityID` fields must be unique integers**, as indicated in documentation of `DfReadDataFile()`.
-* Giving thought to removing support for all non-JAFROC formatted files; otherwise I need to maintain support for four file extensions (`*.lrc`, `*.txt`, `*.csv` and `*.imrmc`) for the simplest data structure (one rating for each modality-reader-case). This is unnecessarily complicating the code. Final resolution: **I will support only `*.imrmc`**. Other formats can still be read by `DfReadDataFile()` and then saved to a `JAFROC` format file for analysis within the `RJafroc` package. 
+* Giving thought to removing support for all non-JAFROC formatted files; otherwise I need to maintain support for four file extensions (`*.lrc`, `*.txt`, `*.csv` and `*.imrmc`) for the simplest data structure (one rating for each modality-reader-case). This is unnecessarily complicating the code. Final resolution: **I will support only `*.imrmc`**. Other formats can still be read by `DfReadDataFile()` and then saved to a `JAFROC` format file for analysis within the `RJafroc` package.
 
 
 ## Added ability to read Excel format LROC datasets 6/11/21 - 6/14/21
 * Extended `DfReadDataFile` to accommodate LROC data; added flag `lrocForcedMark`
 * Must use `newExcelFileFormat = T` for this capability
 * Added toy LROC files: see `inst/extdata/toyFiles/LROC/lroc*.xlsx`
-* See `ReadJAFROCNewFormat.R`, just before final `return`, for added code 
+* See `ReadJAFROCNewFormat.R`, just before final `return`, for added code
 * Added tests in `test-DfReadDataFile()`.
 
 
@@ -121,35 +110,33 @@ title: "NEWS"
 
 
 ## Intrinsic vs. physical RSM parameters 4/2/21
-* All C++ functions take physical parameters 
+* All C++ functions take physical parameters
 * Rest take intrinsic parameters (2 exceptions, like `RSM_xROC` and `RSM_pdfN`)
 * Cleanup:
-    + `PlotRsmOperatingCharacteristics.R`, 
-    + `UtilAnallyticalAucsRSM.R`, 
+    + `PlotRsmOperatingCharacteristics.R`,
+    + `UtilAnallyticalAucsRSM.R`,
     + `rsmFormulae.R`
     + affected related test files: `test-RSM-formulae.R` and `test-model-aucs.R`
     + Used `goodValues` to check that nothing has changed
 
 
 ## Moved to `RJafrocBook` 1/3/21
-* Vignette `Ch10Vig1QuickStart` 
+* Vignette `Ch10Vig1QuickStart`
 * Vignette `Ch10Vig2QuickStart`
 * Function `Compare3ProperRocFits.R`
 * Associated files in `inst`: `MRMCRuns` and `ANALYZED`
 
 
-## Added functions RSM_pdfN and RSM_pdfD 
+## Added functions RSM_pdfN and RSM_pdfD
 * Needed for Swets predictions in book; but of general utility.
 * Other new functions added of type `RSM_*()`
 * Need to vectorize all Cpp functions; no need to carry both scalar and vector types.
 * Add `tests` for new functions `RSM_*()`
 
 
-
-# RJafroc 2.0.1
-
 ## CRAN submission process
-* On `cran3` branch.
+* Version 2.0.1
+* This is on `cran3` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
     + Removed all files from `inst/MRMCRuns` except `Tony`, the one that is used in an example.
@@ -158,7 +145,7 @@ title: "NEWS"
     + Removed `RoiData.xlsx`.
 * Otherwise identical to `developer` and `master` as of 12/8/20.
 * `testthat` failure on Ubuntu developer is resolved, see `master` branch: `checkEnvironment = FALSE` in `expect_equal()` on `ggplot2` comparisons to `goodValues`.
-
+* On CRAN
 
 
 ## Simplify handling of lesion distribution and lesion weights
