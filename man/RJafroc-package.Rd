@@ -16,7 +16,7 @@
     characteristic (FROC) analysis, where the implicit lesion localization information is used. A book describing the 
     underlying methodology and which uses the software has been 
     published: \strong{Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications 
-    with R-Based Examples, Taylor-Francis LLC; 2017}: <\url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}>.
+    with R-Based Examples, Taylor-Francis LLC; 2017}: \url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}.
     Online updates to this book, which use the software, are at 
     \url{https://dpc10ster.github.io/RJafrocQuickStart/}, \url{https://dpc10ster.github.io/RJafrocRocBook/} and at 
     \url{https://dpc10ster.github.io/RJafrocFrocBook/}. Supported data collection paradigms are the ROC, FROC and the location ROC (LROC). 

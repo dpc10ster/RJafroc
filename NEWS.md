@@ -4,6 +4,7 @@
 * Version 2.1.1
 * On `cran211` branch.
 * Eliminates two html rendering notes occurring on 2.1.0.
+* Corrected 2 URL formatting errors, in DESCRIPTION and `RJafroc-package.Rd`.
 
 
 ## CRAN accepted 7/24/22
