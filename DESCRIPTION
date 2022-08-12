@@ -1,8 +1,8 @@
 Package: RJafroc
 Type: Package
 Title: Artificial Intelligence Systems and Observer Performance
-Version: 2.1.0.9000
-Date: 2022-07-22
+Version: 2.1.1
+Date: 2022-08-12
 Authors@R: c(person('Dev', 'Chakraborty', role = c('cre','aut','cph'), email = 'dpc10ster@gmail.com'),
              person('Peter', 'Phillips', role = c('ctb'), email = 'peter.phillips@cumbria.ac.uk'),
              person('Xuetong', 'Zhai', role = c('aut'), email = 'xuetong.zhai@gmail.com'))
@@ -43,7 +43,8 @@ Description: Analyzing the performance of artificial intelligence
  analysis, where lesion localization information is used. A book
  using the software has been published: Chakraborty DP: Observer
  Performance Methods for Diagnostic Imaging - Foundations, Modeling,
- and Applications with R-Based Examples, Taylor-Francis LLC; 2017.
+ and Applications with R-Based Examples, Taylor-Francis LLC; 2017:
+ <https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840>.
  Online updates to this book, which use the software, are at
  <https://dpc10ster.github.io/RJafrocQuickStart/>,
  <https://dpc10ster.github.io/RJafrocRocBook/> and at

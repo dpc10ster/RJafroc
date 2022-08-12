@@ -1,12 +1,14 @@
-# RJafroc 2.1.0.9000
+# RJafroc 2.1.1
 
-## started new developer version 7/24/22
-* Version 2.1.0.9000
-* Consider deleting vignettes one by one after ensuring they exist in the online books
+## CRAN resubmission 8/12/22
+* Version 2.1.1, accepted 8/12/22
+* On `cran211` branch.
+* Eliminates two html rendering notes occurring on 2.1.0.
+* Corrected 2 URL formatting errors, in DESCRIPTION and `RJafroc-package.Rd`.
 
 
-# RJafroc 2.1.0
-* CRAN accepted 7/24/22
+## CRAN accepted 7/24/22
+* Version 2.1.0
 * On `cran210` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `RoiData.xlsx`.
@@ -132,11 +134,9 @@
 * Add `tests` for new functions `RSM_*()`
 
 
-
-# RJafroc 2.0.1
-
 ## CRAN submission process
-* On `cran3` branch.
+* Version 2.0.1
+* This is on `cran3` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
     + Removed all files from `inst/MRMCRuns` except `Tony`, the one that is used in an example.
@@ -145,7 +145,7 @@
     + Removed `RoiData.xlsx`.
 * Otherwise identical to `developer` and `master` as of 12/8/20.
 * `testthat` failure on Ubuntu developer is resolved, see `master` branch: `checkEnvironment = FALSE` in `expect_equal()` on `ggplot2` comparisons to `goodValues`.
-
+* On CRAN
 
 
 ## Simplify handling of lesion distribution and lesion weights

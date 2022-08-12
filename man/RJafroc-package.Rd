@@ -16,7 +16,8 @@
     characteristic (FROC) analysis, where the implicit lesion localization information is used. A book describing the 
     underlying methodology and which uses the software has been 
     published: \strong{Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications 
-    with R-Based Examples, Taylor-Francis LLC; 2017}. Online updates to this book, which use the software, are at 
+    with R-Based Examples, Taylor-Francis LLC; 2017}: \url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}.
+    Online updates to this book, which use the software, are at 
     \url{https://dpc10ster.github.io/RJafrocQuickStart/}, \url{https://dpc10ster.github.io/RJafrocRocBook/} and at 
     \url{https://dpc10ster.github.io/RJafrocFrocBook/}. Supported data collection paradigms are the ROC, FROC and the location ROC (LROC). 
     ROC data consists of single ratings per images, where a rating is the perceived confidence level that the image is that of a 
@@ -55,8 +56,8 @@
   \tabular{ll}{
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
-    Version: \tab 2.1.0.9000\cr
-    Date: \tab 2022-07-22\cr
+    Version: \tab 2.1.1\cr
+    Date: \tab 2022-08-12\cr
     License: \tab GPL-3\cr
     URL: \tab \url{https://dpc10ster.github.io/RJafroc/}\cr
   }
