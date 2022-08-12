@@ -60,10 +60,10 @@ CRAN compatibility was tested using `rhub::check_for_cran()`. The last three mes
 
 | Platform                                 | Status                                     |
 |:-----------------------------------------|:-------------------------------------------|
-| xFedora Linux, R-devel, clang, gfortran   | NOTE\*\*\*\*                                         |
-| xUbuntu Linux 20.04.1 LTS, R-release, GCC | NOTE\*\*\* (file size is 5.8Mb, see below) |
+| Fedora Linux, R-devel, clang, gfortran   | NOTE\*\*\*\*                                         |
+| Ubuntu Linux 20.04.1 LTS, R-release, GCC | NOTE\*\*\* (file size is 5.8Mb, see below) |
 | Debian Linux, R-devel, GCC ASAN/UBSAN    | PREPERROR\* (see below)                    |
-| xWindows Server 2022, R-devel, 64 bit     | NOTE\*\* (see below)                       |
+| Windows Server 2022, R-devel, 64 bit     | NOTE\*\* (see below)                       |
 
 `****` NOTE Skipping checking HTML validation: no command 'tidy' found. I am not using `tidy` and have not turned on HTML validation.
 
