@@ -56,8 +56,8 @@
   \tabular{ll}{
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
-    Version: \tab 2.1.0\cr
-    Date: \tab 2022-07-22\cr
+    Version: \tab 2.1.1\cr
+    Date: \tab 2022-08-12\cr
     License: \tab GPL-3\cr
     URL: \tab \url{https://dpc10ster.github.io/RJafroc/}\cr
   }

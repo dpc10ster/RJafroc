@@ -4,8 +4,8 @@ title: "CRAN comments"
 
 
 # Reason for submission
-* In response to an email from Deepayan Sarkar <deepayan.sarkar@r-project.org> and Kurt Hornik <Kurt.Hornik@wu.ac.at> requesting an update to the current CRAN version 2.1.0 of `RJafroc` which is generating 3 NOTES, one of which is file-size related. 
-* Specifically, they requested a fix to the 2 NOTES relating to the "Found the following math rendering problems" NOTEs in the "HTML version of manual" on the r-devel debian checks results and the r-devel-linux-x86 64-debian-gcc platforms. 
+* In response to an email from Deepayan Sarkar <deepayan.sarkar@r-project.org> and Kurt Hornik <Kurt.Hornik@wu.ac.at> requesting an update to the current CRAN version 2.1.0 of `RJafroc` which is generating 3 NOTES, one of which is file-size related (installed size is 5.2Mb on `r-oldrel-windows-ix86+x86 64`). 
+* Specifically, they requested a fix to the 2 NOTES relating to the "Found the following math rendering problems" NOTEs in the "HTML version of manual" on the `r-devel-linux-x86 64 debian-clang` and the `r-devel-linux-x86 64-debian-gcc` platforms. 
 * This update (v2.1.1) fixes these two NOTES. 
 
 
@@ -70,36 +70,13 @@ There is no such file/directory on my computer. This might be some issue with `L
 |:---------------------------------------------------|:------------------------------------------------------|
 | r-devel-linux-x86_64-debian-clang 2.0.1            | OK                                                    |
 | Debian Linux, R-devel, clang, ISO-8859-15 locale   | OK                                                    |
-| Ubuntu Linux 20.04.1 LTS, R-devel, GCC             | OK                                                    |
-| Ubuntu Linux 20.04.1 LTS, R-release, GCC           | NOTE\*\* (installed size is 5.8Mb, see below)         |
-| Debian Linux, R-devel, GCC                         | OK                                                    |
-| Debian Linux, R-devel, GCC, no long double         | OK                                                    |
-| Debian Linux, R-release, GCC                       | NOTE\*\* (installed size is 5.1Mb, see below)         |
-| Debian Linux, R-devel, GCC ASAN/UBSAN              | NOTE (PREPERROR: dependency ‘openxlsx’ not available) |
-| Debian Linux, R-patched, GCC                       | OK                                                    |
-| Fedora Linux, R-devel, clang, gfortran             | OK                                                    |
-| Fedora Linux, R-devel, GCC                         | NOTE\*\* (installed size is 5.6Mb, see below)         |
-| Windows Server 2022, R-devel, 64 bit               | NOTE\* (see below)                                    |
-| Windows Server 2022, R-patched, 32/64 bit          | OK                                                    |
-| Windows Server 2022, R-release, 32/64 bit          | OK                                                    |
-| Windows Server 2022, R-oldrel, 32/64 bit           | NOTE\*\* (installed size is 5.3Mb, see below)         |
-| Apple Silicon (M1), macOS 11.6 Big Sur, R-release  | OK                                                    |
-| macOS 10.13.6 High Sierra, R-release, CRAN’s setup | OK                                                    |
-| macOS 10.13.6 High Sierra, R-release, brew         | OK                                                    |
 
-
-`*` checking for detritus in the temp directory ... NOTE Found the following files/directories: 'lastMiKTeXException'
-
-There is no such file/directory on my computer. This might be some issue with `LaTeX` that I cannot reproduce, [as others have observed](https://github.com/r-hub/rhub/issues/503). 
-
-  
-`**` I would have to remove a significant number of code, tests and datasets to meet the strict 5MB requirement on this platform. 
 
 
 
 # FAILURE SUMMARY (from last attempted submission)
 
-Not applicable, as previous version installed with 0 errors, 0 warnings and 0 notes.
+The previous version installed with 0 errors, 0 warnings and 3 notes, one of them file-size related. The remaining two NOTES have been corrected.
 
 # All revdep maintainers were notified of the release on release date
 

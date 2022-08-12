@@ -1,4 +1,9 @@
-# RJafroc 2.1.0
+# RJafroc 2.1.1
+
+## CRAN resubmission 8/12/22
+* Version 2.1.1
+* On `cran211` branch.
+* Eliminates two html rendering notes occurring on 2.1.0.
 
 
 ## CRAN accepted 7/24/22

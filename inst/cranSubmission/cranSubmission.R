@@ -43,11 +43,12 @@ print(platforms)
 # windows-x86_64-release:
 #   Windows Server 2022, R-release, 32/64 bit
 
-packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.0.tar.gz"
+packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.1.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
-for (indx in 1:1) {
+for (indx in 2:2) {
+  next
   # if (indx != 11) next
   # if (indx == 12) next
   # if (indx == 13) next
