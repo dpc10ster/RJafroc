@@ -2,6 +2,14 @@
 title: "NEWS"
 ---
 
+## version 2.1.1.9000
+
+---
+
+### Work post acceptance of v2.1.1
+* TBA
+
+
 ## version 2.1.1
 
 ---
