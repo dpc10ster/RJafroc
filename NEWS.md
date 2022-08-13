@@ -7,8 +7,6 @@
 * Corrected 2 URL formatting errors, in DESCRIPTION and `RJafroc-package.Rd`.
 
 
-# RJafroc 2.1.0
-
 ## CRAN accepted 7/24/22
 * Version 2.1.0
 * On `cran210` branch.
@@ -136,10 +134,8 @@
 * Add `tests` for new functions `RSM_*()`
 
 
-# RJafroc 2.0.1
-
-
 ## CRAN submission process
+* Version 2.0.1
 * This is on `cran3` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
@@ -488,6 +484,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Removed all but one dataset (`FZ_ALL.xlsx`) from `extdata/datasets` so I dont get file size error (extdata was 2.5 MB, reduced to 1.3)
 
 
+# RJafroc 1.3.2
 
 ## After work on cran2-update work
 * Copied altered files from R directory (which commented out examples which were taking lots of CPU time)
@@ -496,15 +493,12 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * This gets file size below 5 MB
 
 
-## Work post acceptance on v1.3.2, as of 3/7/20
+## Work post acceptance of v1.3.2, as of 3/7/20
 * Going back to work interrupted by having to fix the errors on R-devel, see next section below.
 * This is v1.3.2.9000.
 * Got all tests working! Resulted in fix to `StDBMHAnalysis.R` that fixed test that I had to skip on mac for `context("SignificanceTestingAllCombinations")`. Need to get this fix (lines 45-51) over to cran2 branch as I am thinking of splitting the package up by separating the `cran2` branch as the base package `RJafroc` and `depending` on `RJafroc` for new package `RJafroc2`. This would solve the file size problems that I am running into. Just an idea.
 * Current file size is 18.4 Mb!
 * Synced with `developer` branch on `GitHub` and merged with `master`.
-
-
-# RJafroc 1.3.2
 
 
 ## After email from Kurt Hornik <Kurt.Hornik@r-project.org>
