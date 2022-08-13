@@ -43,7 +43,7 @@ print(platforms)
 # windows-x86_64-release:
 #   Windows Server 2022, R-release, 32/64 bit
 
-packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.1.tar.gz"
+packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.1.9000.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 

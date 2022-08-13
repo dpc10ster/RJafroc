@@ -1,3 +1,8 @@
+
+## Work post acceptance on v2.1.1, as of 8/12/22
+* This is v2.1.1.9000.
+
+
 # RJafroc 2.1.1
 
 ## CRAN resubmission 8/12/22

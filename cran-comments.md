@@ -3,13 +3,13 @@ title: "CRAN comments"
 ---
 
 
-# Reason for submission
+# Reason for submission TBA
 * In response to an email from Deepayan Sarkar <deepayan.sarkar@r-project.org> and Kurt Hornik <Kurt.Hornik@wu.ac.at> requesting an update to the current CRAN version 2.1.0 of `RJafroc` which is generating 3 NOTES, one of which is file-size related (installed size is 5.2Mb on `r-oldrel-windows-ix86+x86 64`). 
 * Specifically, they requested a fix to the 2 NOTES relating to the "Found the following math rendering problems" NOTEs in the "HTML version of manual" on the `r-devel-linux-x86 64 debian-clang` and the `r-devel-linux-x86 64-debian-gcc` platforms. 
 * This update (v2.1.1) should fix these two NOTES. 
 
 
-# Test environments
+# Test environments TBA
 
 ## OS X
 * R version 4.2.1 (2022-06-23)
