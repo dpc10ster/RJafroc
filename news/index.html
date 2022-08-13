@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1.9000</span>
       </span>
     </div>
 
@@ -42,8 +42,8 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="2.1.1" id="rjafroc-211">RJafroc 2.1.1<a class="anchor" aria-label="anchor" href="#rjafroc-211"></a></h2>
-<div class="section level3">
+<h2 class="page-header" data-toc-text="2.1.1" id="version-211">version 2.1.1<small>2022-08-12</small><a class="anchor" aria-label="anchor" href="#version-211"></a></h2>
+<hr><div class="section level3">
 <h3 id="cran-resubmission-2-1-1">CRAN resubmission 8/12/22<a class="anchor" aria-label="anchor" href="#cran-resubmission-2-1-1"></a></h3>
 <ul><li>Version 2.1.1, accepted 8/12/22</li>
 <li>On <code>cran211</code> branch.</li>
@@ -52,8 +52,8 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="2.1.0" id="rjafroc-210">RJafroc 2.1.0<small>2022-07-24</small><a class="anchor" aria-label="anchor" href="#rjafroc-210"></a></h2>
-<div class="section level3">
+<h2 class="page-header" data-toc-text="2.1.0" id="version-210">version 2.1.0<small>2022-07-24</small><a class="anchor" aria-label="anchor" href="#version-210"></a></h2>
+<hr><div class="section level3">
 <h3 id="cran-accepted-2-1-0">CRAN accepted 7/24/22<a class="anchor" aria-label="anchor" href="#cran-accepted-2-1-0"></a></h3>
 <ul><li>Version 2.1.0</li>
 <li>On <code>cran210</code> branch.</li>
@@ -212,8 +212,8 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="2.0.1" id="rjafroc-201">RJafroc 2.0.1<small>2020-12-15</small><a class="anchor" aria-label="anchor" href="#rjafroc-201"></a></h2>
-<div class="section level3">
+<h2 class="page-header" data-toc-text="2.0.1" id="version-201">version 2.0.1<small>2020-12-15</small><a class="anchor" aria-label="anchor" href="#version-201"></a></h2>
+<hr><div class="section level3">
 <h3 id="cran-submission-process-2-0-1">CRAN submission process<a class="anchor" aria-label="anchor" href="#cran-submission-process-2-0-1"></a></h3>
 <ul><li>This is on <code>cran3</code> branch.</li>
 <li>Steps to reduce file size to less than 5 Mb:<ul><li>Removed <code>tests</code> and <code>vignettes</code> (this needs to be done on all computers I am using).</li>
@@ -587,8 +587,11 @@
 </li>
 <li>Removed all but one dataset (<code>FZ_ALL.xlsx</code>) from <code>extdata/datasets</code> so I dont get file size error (extdata was 2.5 MB, reduced to 1.3)</li>
 </ul></div>
-<div class="section level3">
-<h3 id="after-work-on-cran2-update-work-2-0-1">After work on cran2-update work<a class="anchor" aria-label="anchor" href="#after-work-on-cran2-update-work-2-0-1"></a></h3>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.3.2" id="version-132">version 1.3.2<small>2020-03-06</small><a class="anchor" aria-label="anchor" href="#version-132"></a></h2>
+<hr><div class="section level3">
+<h3 id="after-work-on-cran2-update-work-1-3-2">After work on cran2-update work<a class="anchor" aria-label="anchor" href="#after-work-on-cran2-update-work-1-3-2"></a></h3>
 <ul><li>Copied altered files from R directory (which commented out examples which were taking lots of CPU time)</li>
 <li>Includes a correction to <code>Compare3ProperRocFits.R</code>
 </li>
@@ -596,16 +599,13 @@
 <li>This gets file size below 5 MB</li>
 </ul></div>
 <div class="section level3">
-<h3 id="work-post-acceptance-on-v132-as-of-2-0-1">Work post acceptance on v1.3.2, as of 3/7/20<a class="anchor" aria-label="anchor" href="#work-post-acceptance-on-v132-as-of-2-0-1"></a></h3>
+<h3 id="work-post-acceptance-of-v132-as-of-1-3-2">Work post acceptance of v1.3.2, as of 3/7/20<a class="anchor" aria-label="anchor" href="#work-post-acceptance-of-v132-as-of-1-3-2"></a></h3>
 <ul><li>Going back to work interrupted by having to fix the errors on R-devel, see next section below.</li>
 <li>This is v1.3.2.9000.</li>
 <li>Got all tests working! Resulted in fix to <code>StDBMHAnalysis.R</code> that fixed test that I had to skip on mac for <code>context("SignificanceTestingAllCombinations")</code>. Need to get this fix (lines 45-51) over to cran2 branch as I am thinking of splitting the package up by separating the <code>cran2</code> branch as the base package <code>RJafroc</code> and <code>depending</code> on <code>RJafroc</code> for new package <code>RJafroc2</code>. This would solve the file size problems that I am running into. Just an idea.</li>
 <li>Current file size is 18.4 Mb!</li>
 <li>Synced with <code>developer</code> branch on <code>GitHub</code> and merged with <code>master</code>.</li>
 </ul></div>
-</div>
-    <div class="section level2">
-<h2 class="page-header" data-toc-text="1.3.2" id="rjafroc-132">RJafroc 1.3.2<small>2020-03-06</small><a class="anchor" aria-label="anchor" href="#rjafroc-132"></a></h2>
 <div class="section level3">
 <h3 id="after-email-from-kurt-hornik-kurthornikr-projectorg-1-3-2">After email from Kurt Hornik <a href="mailto:Kurt.Hornik@r-project.org" class="email">Kurt.Hornik@r-project.org</a>
 <a class="anchor" aria-label="anchor" href="#after-email-from-kurt-hornik-kurthornikr-projectorg-1-3-2"></a></h3>
@@ -663,8 +663,8 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.3.1" id="rjafroc-131">RJafroc 1.3.1<small>2020-01-13</small><a class="anchor" aria-label="anchor" href="#rjafroc-131"></a></h2>
-<div class="section level3">
+<h2 class="page-header" data-toc-text="1.3.1" id="version-131">version 1.3.1<small>2020-01-13</small><a class="anchor" aria-label="anchor" href="#version-131"></a></h2>
+<hr><div class="section level3">
 <h3 id="extended-dataset-object-structure-1-3-1">Extended dataset object structure<a class="anchor" aria-label="anchor" href="#extended-dataset-object-structure-1-3-1"></a></h3>
 <ul><li>Bumped version number to 1.3.1 after corrections to DESCRIPTION file</li>
 <li>Version on CRAN is 1.3.1</li>
@@ -795,8 +795,8 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.2.0" id="rjafroc-120">RJafroc 1.2.0<small>2019-07-31</small><a class="anchor" aria-label="anchor" href="#rjafroc-120"></a></h2>
-<ul><li>Corrected all references to package name to <code>RJafroc</code> (note capitalization)</li>
+<h2 class="page-header" data-toc-text="1.2.0" id="version-120">version 1.2.0<small>2019-07-31</small><a class="anchor" aria-label="anchor" href="#version-120"></a></h2>
+<hr><ul><li>Corrected all references to package name to <code>RJafroc</code> (note capitalization)</li>
 <li>Checked downstream dependencies - none as of July 23, 2019: revdep(“RJafroc”) yields character(0)</li>
 <li>Corrected error that was causing <code>Solaris</code> failure (Peter Philips)</li>
 <li>Corrected error in <code>UtilPseudoValues.R</code> that was caught by <code>testthat</code>
@@ -818,8 +818,8 @@
    List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBMH</code></pre>
 </div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.1.0" id="rjafroc-110">RJafroc 1.1.0<small>2018-11-14</small><a class="anchor" aria-label="anchor" href="#rjafroc-110"></a></h2>
-<ul><li>Added <code>travis-ci</code> testing after each push; and build passing badges, etc.</li>
+<h2 class="page-header" data-toc-text="1.1.0" id="version-110">version 1.1.0<small>2018-11-14</small><a class="anchor" aria-label="anchor" href="#version-110"></a></h2>
+<hr><ul><li>Added <code>travis-ci</code> testing after each push; and build passing badges, etc.</li>
 <li>Removed dependence on <code>caTools</code> package, which was not being supported; extracted function <code>trapz()</code> from it and inserted directly into <code>gpfMyFOM.R</code> - see comments in that file of what led to this</li>
 <li>Removed dependence on <code>xlsx</code> package, which requires <code>rJava</code> and <code>JAVA</code>, replaced with dependence on <code>openxlsx</code> package. Was having difficulty installing <code>rJava</code> correctly after each <code>OSX</code> or <code>R</code> update.</li>
 <li>Corrected errors in <code>UtilOutputReport.R</code>.</li>
@@ -839,31 +839,31 @@
 </li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.0.2" id="rjafroc-102">RJafroc 1.0.2<small>2018-05-31</small><a class="anchor" aria-label="anchor" href="#rjafroc-102"></a></h2>
-<ul><li>StSignificanceTestingCadVsRadiologists was not working for different numbers of readers. As noted by Alejandro, the number of readers was hard coded. Fixed this and extended DfExtractDataset to include LROC datasets.</li>
+<h2 class="page-header" data-toc-text="1.0.2" id="version-102">version 1.0.2<small>2018-05-31</small><a class="anchor" aria-label="anchor" href="#version-102"></a></h2>
+<hr><ul><li>StSignificanceTestingCadVsRadiologists was not working for different numbers of readers. As noted by Alejandro, the number of readers was hard coded. Fixed this and extended DfExtractDataset to include LROC datasets.</li>
 <li>Removed function <code>SsFROCPowerGivenJK</code>: FROC power is implemented in Online Appendix Chapter 19 (see email exchange with Kota Aoyagi)</li>
 <li>This version installed on SOLARIS!</li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.0.1" id="rjafroc-101">RJafroc 1.0.1<small>2018-02-18</small><a class="anchor" aria-label="anchor" href="#rjafroc-101"></a></h2>
-<ul><li>Package was not installing on Solaris - overloading errors. Changed sqrt(2) in RsmFuncs.cpp to sqrt(2.0). However, Solaris is incompatible with ggplot2; so will recommend that Solaris version not be distributed on CRAN.</li>
+<h2 class="page-header" data-toc-text="1.0.1" id="version-101">version 1.0.1<small>2018-02-18</small><a class="anchor" aria-label="anchor" href="#version-101"></a></h2>
+<hr><ul><li>Package was not installing on Solaris - overloading errors. Changed sqrt(2) in RsmFuncs.cpp to sqrt(2.0). However, Solaris is incompatible with ggplot2; so will recommend that Solaris version not be distributed on CRAN.</li>
 <li>Sorry, but I’m not sure what’s different between the CRAN Solaris machine and R-hub’s Solaris machine. You could prepare a new package submission for CRAN with the caveat that, since you do not have access to a Solaris machine, your fix is speculative and may yet fail to compile on the CRAN Solaris machine.</li>
 <li>The CRAN Repository Policy (<a href="https://cran.r-project.org/web/packages/policies.html" class="external-link uri">https://cran.r-project.org/web/packages/policies.html</a>) also states:<br><em>Package authors should make all reasonable efforts to provide cross-platform portable code. Packages will not normally be accepted that do not run on at least two of the major R platforms. Cases for Windows-only packages will be considered, but CRAN may not be the most appropriate place to host them. So you could in theory argue your case that your package does not support Solaris, and request that CRAN not distribute your package on that platform. But given that the issue you’re bumping to is (not) documented explicitly in the R manuals, I’m not sure how much success you would have.</em>
 </li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.0.0" id="rjafroc-100">RJafroc 1.0.0<small>2018-02-04</small><a class="anchor" aria-label="anchor" href="#rjafroc-100"></a></h2>
-<ul><li>Renamed functions for better organization;</li>
+<h2 class="page-header" data-toc-text="1.0.0" id="version-100">version 1.0.0<small>2018-02-04</small><a class="anchor" aria-label="anchor" href="#version-100"></a></h2>
+<hr><ul><li>Renamed functions for better organization;</li>
 <li>Removed shiny GUI interface</li>
 <li>Support for LROC datasets and cross-modality datasets</li>
 <li>CAD vs. radiologist analysis, both single modality and dual modality</li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.1.1" id="rjafroc-011">RJafroc 0.1.1<small>2015-08-14</small><a class="anchor" aria-label="anchor" href="#rjafroc-011"></a></h2>
-<ul><li>An error in the <em>p</em> value calculation that gave incorrect <em>p</em> value (possibly exceeding one) when the first modality performed better than 2nd has been fixed. Thanks to Lucy D’Agostino McGowan for pointing out the error and the fix. This error, which does not occur in Windows version of JAFROC V 4.2.1, was not noticed as in all example files the 2nd modality performed better.</li></ul></div>
+<h2 class="page-header" data-toc-text="0.1.1" id="version-011">version 0.1.1<small>2015-08-14</small><a class="anchor" aria-label="anchor" href="#version-011"></a></h2>
+<hr><ul><li>An error in the <em>p</em> value calculation that gave incorrect <em>p</em> value (possibly exceeding one) when the first modality performed better than 2nd has been fixed. Thanks to Lucy D’Agostino McGowan for pointing out the error and the fix. This error, which does not occur in Windows version of JAFROC V 4.2.1, was not noticed as in all example files the 2nd modality performed better.</li></ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.1.0" id="rjafroc-010">RJafroc 0.1.0<small>2015-07-30</small><a class="anchor" aria-label="anchor" href="#rjafroc-010"></a></h2>
-<ul><li><p>A “shiny” based GUI has been added, accessed by the function <code>RJafrocGui()</code>. This allows a user only interested in analyzing a data file to access the underlying code in a “user friendly” way. The GUI is similar in functionality to that of Windows JAFROC 4.2.1 software.</p></li>
+<h2 class="page-header" data-toc-text="0.1.0" id="version-010">version 0.1.0<small>2015-07-30</small><a class="anchor" aria-label="anchor" href="#version-010"></a></h2>
+<hr><ul><li><p>A “shiny” based GUI has been added, accessed by the function <code>RJafrocGui()</code>. This allows a user only interested in analyzing a data file to access the underlying code in a “user friendly” way. The GUI is similar in functionality to that of Windows JAFROC 4.2.1 software.</p></li>
 <li><p>For the curve plotting functions, legend position and direction are automatically decided if they are not explicityly specified.</p></li>
 <li><p>The the output number of significant digits for statistical power in power table has been set to 3.</p></li>
 <li><p>Variance and covariance calculation error for ROI data has been fixed.</p></li>
@@ -873,8 +873,8 @@
 <li><p>A bug in the plotting of AFROC curves for a dataset containing only non-diseased cases has been fixed.</p></li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.0.1" id="rjafroc-001">RJafroc 0.0.1<small>2015-04-24</small><a class="anchor" aria-label="anchor" href="#rjafroc-001"></a></h2>
-<ul><li>Original version posted to CRAN (by Xuetong Zhai)</li></ul></div>
+<h2 class="page-header" data-toc-text="0.0.1" id="version-001">version 0.0.1<small>2015-04-24</small><a class="anchor" aria-label="anchor" href="#version-001"></a></h2>
+<hr><ul><li>Original version posted to CRAN (by Xuetong Zhai)</li></ul></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
