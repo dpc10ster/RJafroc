@@ -1,15 +1,23 @@
-# RJafroc 2.1.1
+---
+title: "NEWS"
+---
 
-## CRAN resubmission 8/12/22
+## version 2.1.1
+
+---
+
+### CRAN resubmission 8/12/22
 * Version 2.1.1, accepted 8/12/22
 * On `cran211` branch.
 * Eliminates two html rendering notes occurring on 2.1.0.
 * Corrected 2 URL formatting errors, in DESCRIPTION and `RJafroc-package.Rd`.
 
 
-# RJafroc 2.1.0
+## version 2.1.0
 
-## CRAN accepted 7/24/22
+---
+
+### CRAN accepted 7/24/22
 * Version 2.1.0
 * On `cran210` branch.
 * Steps to reduce file size to less than 5 Mb:
@@ -17,7 +25,7 @@
 * Otherwise identical to `developer` and `master` as of 07/7/22.
 
 
-## Extensive changes to handling of `lesDist` and `relWeights` 7/19/22
+### Extensive changes to handling of `lesDist` and `relWeights` 7/19/22
 * Removed unnecessary dimension on `lesDist`, it is now always 1D
 * Affected files are `UtilLesDistrVector.R` and `UtilLesionWeightsMatrix.R`
 * `lesDistr` and `relWeight` must have same lengths and sum to unity
@@ -25,37 +33,37 @@
 * can remove a lesion by setting the corresponding lesDist entry to zero
 * need further testing on above capability
 
-## added `Ch19Vig1FrocSampleSize.Rmd` 6/7/22
+### added `Ch19Vig1FrocSampleSize.Rmd` 6/7/22
 * Added added `Ch19Vig2FrocSampleSize.Rmd` and `Ch19Vig2FrocSampleSize.Rmd`
 * These vignettes got accidentally removed, perhaps because it was failing tests
 * R CMD CHK works
 * Found lots of instances of four backticks, instead of 3; this is probably why some vignettes were not loading on website
 
 
-## created `DfWriteExcelDataFile` 3/15/22
+### created `DfWriteExcelDataFile` 3/15/22
 * needed to write Nico simulated FROC data to JAFROC format excel file
 * removed JAFROC format writes capability from `DfSaveDataFile`; it is now in `DfWriteExcelDataFile`
 
 
-## fixed wAFROC1_dpc 3/11/22
+### fixed wAFROC1_dpc 3/11/22
 * needed to divide final value by (K * K2)
 * cpp code unaffected; this only affected R version used to debug
 * checked R code vs cpp; see `JT_R_Py_Foms.xlsx` in `PyJafrocscraps` directory
 
-## added example to ChisqrGoodnessOfFit code 3/8/22
+### added example to ChisqrGoodnessOfFit code 3/8/22
 
-## argument of St functions 1/24/22
+### argument of St functions 1/24/22
 * `analysisOption` must be `DBM` or `OR`
 * Not "ORH"
 
-## Clarified weights matrix 1/7/22
+### Clarified weights matrix 1/7/22
 * See `test-RSM-formulae.R`
 * Search in code for `rsm-pred-wafroc-curve`: `rsmFormulae.R` and `UtilAnalyticalAucsRSM.R`
 * See `RJafrocFrocBook`, search for `rsm-pred-wafroc-curve`
 * Push to `developer` and `master`
 
 
-## TBDIF 12-26-21
+### TBDIF 12-26-21
 * TBDIF: To be done in future
 * Created much confusion in `RJafrocFrocBook`, chapter on `3-fits`
 * `RsmFormulae.R`: This file is a mess.
@@ -66,24 +74,24 @@
 * change `lambdaP` to lambda and lambda to `lambdaI` and corresponding changes in book
 
 
-## Changed `RSM_yROC` to accept physical parameters 12-26-21
+### Changed `RSM_yROC` to accept physical parameters 12-26-21
 * So as to be consistent with `RSM_xROC`
 * Created much confusion in `RJafrocFrocBook`, chapter on `3-fits`
 * Added checks for valid RSM parameters in `RsmFormulae.R` .
 * Changed all such functions in `RsmFormulae.R` to accept physical parameters.  
 
 
-## Fixed `PlotRsmOperatingCharacteristics` not working for `zeta1 = -Inf`
+### Fixed `PlotRsmOperatingCharacteristics` not working for `zeta1 = -Inf`
 * Global search string "bug fix 12/7/21" to locate all changes.
 * Starting value of for-loop cannot be `-Inf`; detect it and set to -3
 
 
-## Fixed `PlotRsmOperatingCharacteristics` returning correct plots but incorrect AUCs
+### Fixed `PlotRsmOperatingCharacteristics` returning correct plots but incorrect AUCs
 * Global search string "bug fix 11/24/21" to locate all changes.
 * Basic issue was that I was using `zeta1` = -20 instead of the supplied value.
 
 
-## Fixed Issue 73 and deprecated the MRMC file format 10-28-21 - 10-29-21
+### Fixed Issue 73 and deprecated the MRMC file format 10-28-21 - 10-29-21
 * Global search string "T1-RRRC for ROC data #73"" to locate all changes.
 * Basic issue was missing `truthTableStr` in any file `*.imrc` when read by `DfReadDataFile`.
 * See under `tests`: `StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73` for recreation of this issue.
@@ -94,7 +102,7 @@
 * Giving thought to removing support for all non-JAFROC formatted files; otherwise I need to maintain support for four file extensions (`*.lrc`, `*.txt`, `*.csv` and `*.imrmc`) for the simplest data structure (one rating for each modality-reader-case). This is unnecessarily complicating the code. Final resolution: **I will support only `*.imrmc`**. Other formats can still be read by `DfReadDataFile()` and then saved to a `JAFROC` format file for analysis within the `RJafroc` package.
 
 
-## Added ability to read Excel format LROC datasets 6/11/21 - 6/14/21
+### Added ability to read Excel format LROC datasets 6/11/21 - 6/14/21
 * Extended `DfReadDataFile` to accommodate LROC data; added flag `lrocForcedMark`
 * Must use `newExcelFileFormat = T` for this capability
 * Added toy LROC files: see `inst/extdata/toyFiles/LROC/lroc*.xlsx`
@@ -102,7 +110,7 @@
 * Added tests in `test-DfReadDataFile()`.
 
 
-## Corrected sample size vignettes 4/12/21 and 4/14/21
+### Corrected sample size vignettes 4/12/21 and 4/14/21
 * `Ch19Vig1FrocSampleSize.Rmd` and `Ch19Vig2FrocSampleSize.Rmd`
 * Fixed `SsFrocNhRsmModel.R` to not return lesion distribution and weights
 * Fixed vignettes that were using the old structure returned by sig. testing function
@@ -111,7 +119,7 @@
 * Updated `Rcpp` to 1.0.6. NOTE: version 1.0.6.6 created horrendous errors - R aborts.
 
 
-## Intrinsic vs. physical RSM parameters 4/2/21
+### Intrinsic vs. physical RSM parameters 4/2/21
 * All C++ functions take physical parameters
 * Rest take intrinsic parameters (2 exceptions, like `RSM_xROC` and `RSM_pdfN`)
 * Cleanup:
@@ -122,24 +130,25 @@
     + Used `goodValues` to check that nothing has changed
 
 
-## Moved to `RJafrocBook` 1/3/21
+### Moved to `RJafrocBook` 1/3/21
 * Vignette `Ch10Vig1QuickStart`
 * Vignette `Ch10Vig2QuickStart`
 * Function `Compare3ProperRocFits.R`
 * Associated files in `inst`: `MRMCRuns` and `ANALYZED`
 
 
-## Added functions RSM_pdfN and RSM_pdfD
+### Added functions RSM_pdfN and RSM_pdfD
 * Needed for Swets predictions in book; but of general utility.
 * Other new functions added of type `RSM_*()`
 * Need to vectorize all Cpp functions; no need to carry both scalar and vector types.
 * Add `tests` for new functions `RSM_*()`
 
 
-# RJafroc 2.0.1
+## version 2.0.1
 
+---
 
-## CRAN submission process
+### CRAN submission process
 * This is on `cran3` branch.
 * Steps to reduce file size to less than 5 Mb:
     + Removed `tests` and `vignettes` (this needs to be done on all computers I am using).
@@ -152,7 +161,7 @@
 * On CRAN
 
 
-## Simplify handling of lesion distribution and lesion weights
+### Simplify handling of lesion distribution and lesion weights
 * Motivation: basically only need to specify two 1D arrays: `lesDistr` and `relWeights`.
 * Since these are involved in the C++ calls, cannot totally eliminate the 2D arrays; and they are also useful for printouts.
 * Eliminated two functions and much simplification:
@@ -164,7 +173,7 @@
 * Basic idea is to keep the complexity of weights etc. concealed from the user
 * Passed tests; 12/3/20
 
-## Working on analytical AUCs from RSM
+### Working on analytical AUCs from RSM
 * Motivation: could obviate the long simulations in CAD optimization chapter in book
 * Added `UtilSpecifyLesionWeightsDistr()` which is distinct from `UtilLesionWeightsDistr()`, as the latter works on datasets.
 * Observed that for equal weights AFROC and wAFROC analytical AUCs are identical. Need to think this out.
@@ -173,26 +182,26 @@
 * Added `zeta1` dependence to `UtilAnalyticalAucsRSM()`.
 * Nov 30, 2020
 
-## Update `StSignificanceTestingCadVsRad()`
+### Update `StSignificanceTestingCadVsRad()`
 * Shortened the name of the function as shown above
 * Needed to standardized output to avoid klutzy code in `RJafrocBook`
 * Fixed variance components returns in `DualModalityRRRC()`
 * Fixed CI returned object - difference was incorrect, changed sign
 
-## Modified `seed` behaviour, no need for `SimulateFrocDatasetNoSeed()`
+### Modified `seed` behaviour, no need for `SimulateFrocDatasetNoSeed()`
 * Needed for compatibility with plots in `14-froc-meanings-xx.Rmd` chapter.
 * Otherwise different random numbers are generated and it throws all the plots off.
 * If `seed` is not supplied, then `SimulateFrocDataset()` behaves as before the Nov 17 change
 * Nov 20. 2020
 
-## Added `seed` to SimulateFrocDataset()
+### Added `seed` to SimulateFrocDataset()
 * Ability to specify `seed` in order to reproduce FROC datasets.
 * In book chapter 13- on effect of zeta1 on FOM and finding the zeta1 that maximizes wFROC AUC.
 * Had to fix several `test` files.
 * **Consider adding `seed` to other simulation functions.**
 * Nov 17, 2020.
 
-## Fixed errors reading FROC file with no non-diseased cases
+### Fixed errors reading FROC file with no non-diseased cases
 * Toy file with no non-diseased cases: `frocLocatClass.xlsx`.
 * Symptom: `UtilFigureOfMerit`, with "wAFROC1" FOM failed in C++ code in function `double wAFROC1()` with message `Not compatible with requested type: [type=character; target=double]`
 
@@ -244,7 +253,7 @@ if (K1 != 0) {
 * Ran R CMD check
 
 
-## Fixing non-character input error
+### Fixing non-character input error
 * Finished October 23, 2020.
 * Fixed error in `DfReadDataFile.R` in function `checkTruthTable()`; this bug discovered in working with HUGE one reader dataset.
 * For single reader or single modality dataset, if input is not converted to character, then error results in `I <- length(strsplit(modalityIDCol[1], split = ",")[[1]])` and similar expression for `J`.
@@ -255,7 +264,7 @@ if (K1 != 0) {
 ```
 
 
-## Simplified plotting routines
+### Simplified plotting routines
 * Finished October 2, 2020.
 * Necessitated by work on CAD vs. RAD plots in `RJafrocBook`.
 * `PlotEmpiricalOperatingCharacteristics.R`.
@@ -269,14 +278,14 @@ if (K1 != 0) {
 * So I assume it is a `ggplot2` related issue.
 * I solved it by initializing these at the very beginning of the `gpfPlotGenericEmpiricalOperatingCharacteristic` function to `NULL`s.
 
-## Added extensive comments in StORSummaryFRRC.R
+### Added extensive comments in StORSummaryFRRC.R
 * Added extensive comments in StORSummaryFRRC.R on how I am calculating `CI` for individual treatments averaged over readers;
 * The method was "reverse-engineered" from `inst/Iowa/VanDyke.txt`, as I cannot find a better reference for the equations used.
 * This created debugging problems as break points did not work; added # at the *end* of each inserted commented line, 86-103; this seemed to solve problem;
 * passes R CMD check
 
 
-## Updated package documentation and Ch00 Vignettes
+### Updated package documentation and Ch00 Vignettes
 * Commented out examples in `DfSaveDataFile.R` as it creates  non-standard files in `doc` directory; this did not happen before the R update.
 * Also, the ggplot output structure appears to have changed; had to regenerate goodvalues in `test-PlotEmpiricalOperatingCharacteristics.R`.
 * Need to update documentation and DESCRIPTION.
@@ -285,7 +294,7 @@ if (K1 != 0) {
 * Moved description of other's data formats to Dropbox.
 
 
-## Added stats to ORAnalysisSplitPlotA
+### Added stats to ORAnalysisSplitPlotA
 * `ORAnalysisSplitPlotA` returns `list` containing `FOMs`, `ANOVA` and `RRRC`
 * Implements formulae in Hillis 20-14 paper on page following Table VII.
 * Tested with toy file and collaborator dataset
@@ -294,11 +303,11 @@ if (K1 != 0) {
 * Updated R and RStudio
 
 
-## Handling of FOMs that depend on single-truth-state cases
+### Handling of FOMs that depend on single-truth-state cases
 * Some confusion in my mind about handlling of normal case only or abnormal case only FOMs, like `MaxNLF`, `MaxLLF`, `HrSe`, `HrSp`, etc. Resolved after studyin XZ code, StOldCode.R. The handling is shown in UtilPseudoValues.R. I believe it is now correct. For `MaxNLF`, `HrSp`, and `ExpTrnsfmSp` the relevant number of cases is `K1`, for `MaxLLF` and `HrSe` it is `K2` and for all the rest it is `K`.   
 
 
-## Revised UtilPseudoValues 8/7/20
+### Revised UtilPseudoValues 8/7/20
 * More compact code handles all FOMs - no exceptions, as before, for MaxLLF, etc. Extensive simplification to accomplish handling of different FOMs.
 * Modified `FOMijk2VarCovSpA` and `FOMijk2VarCov` to accept a `varInflFactor` logical argument, allowing jackknife, bootstrap and DeLong - based estimates to be more compactly handled.
 * `UtilPseudoValues` handles all designs without resorting to separate functions for FCTRL, SPLIT-PLOT-A and SPLIT-PLOT-C
@@ -310,14 +319,14 @@ if (K1 != 0) {
 * Corrected error in handling of `MaxNLFAllCases` FOM; see comments in `UtilMeanSquares()`; regenerated one `goodValue` file.
 
 
-## Read real SPLIT-PLOT-A dataset
+### Read real SPLIT-PLOT-A dataset
 * Did not find any data entry errors in `/toyFiles/FROC/1T3Rvs4R.xlsx`
 * Simplified `rdrArr` handling: this is done in `checkTruthTable`, where SPLIT-PLOT-A is handled separately;
 * Added source `fileName` to `descriptions$fileName` field of `DfReadDataFile()` return; this will keep a record of how the dataset was generated
 * Note added 8/7/20: above change created problems passing tests in R CMD check, as long file names may not agree; simplified to remove all but the file base name; regenerated many `goodValues` files
 
 
-## Update for reading SPLIT-PLOT-A data files
+### Update for reading SPLIT-PLOT-A data files
 * After emails with collaborator, need for this type of analysis.
 * Need to comment `DfReadDataFile.R` and `ReadJAFROCNewFormat.R` and add more checks in the code for illegal values.
 * Indiscriminate sorting introduced problems; now, sorted `caseID` column is used now in only 3 places to find the correct case indices, where normal cases are ordered first, regardless of how they are entered in the `Truth` worksheet:
@@ -328,14 +337,14 @@ k <- which(unique(truthTableSort$CaseID) == NLCaseIDCol[l])
 k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 ```
 
-## Tests for UtilOutputReport
+### Tests for UtilOutputReport
 * Included tests for `UtilOutputReport()` for text output only
 * Could not get version that compared actual outputs to work in R CMD check.
 * Only works at command line (running tests one at a time)
 * Failing code is commented out
 
 
-## Renamed SP datasets 7/9/20
+### Renamed SP datasets 7/9/20
 * Renamed the split plot dataset to datasetFROCSpC
 * The C stands for Table VII Part (C) in Hillis 2014
 * Need to distinguish between different types of split-plot datasets
@@ -343,7 +352,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * The new analysis requires split-plot-a
 
 
-## Code for checking for non-sequential lesionIDs in TRUTH 7/8/20
+### Code for checking for non-sequential lesionIDs in TRUTH 7/8/20
 * Updated all tests to display contexts more consistently.
 * Moved unnecessary files from `inst` to `Dropbox`.
 * Main work was on `DfReadDataFile.R` and testing code for non-sequential `lesionID`s in `TRUTH` worksheet.
@@ -351,13 +360,13 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Also learning about `grep`.  
 
 
-## Implemented extensive testing comparing `RJafroc` to Iowa software
+### Implemented extensive testing comparing `RJafroc` to Iowa software
 * See `test-StCompare2Iowa.R` in `testthat` directory.
 * Does line by line comparison of `RJafroc` to results of `OR-DBM MRMC 2.51 Build 20181028` for VanDyke and Franken datasets.
 * These, and many other tests, are run automatically every time the `RJafroc` software is checked using `R CMD check`.
 
 
-## Note on discrepancy vis-a-vis Iowa software
+### Note on discrepancy vis-a-vis Iowa software
 * Noted was a discrepancy between `Var(R)` and `Var(TR)` values reported by `OR-DBM MRMC 2.51 Build 20181028` and `RJafroc` for Franken dataset.
 * Their code does not implement the required `max(Cov2 - Cov3, 0)` constraint while `RJafroc` does.
 * `RJafroc` reports `VarTR` = -0.00068389146 while their code reports `VarTR` = -0.00071276.
@@ -366,7 +375,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * I am aware that these discrepancies do not affect sample size estimates, but can cause confusion for the code maintainer and the end user.
 
 
-## Updated sample size routines
+### Updated sample size routines
 * 3 Papers by Hillis et al on SS estimation for ROC studies: 2004, 2011 and 2018
    + Hillis SL, Berbaum KS (2004). Power Estimation for the Dorfman-Berbaum-Metz Method. Acad Radiol, 11, 1260--1273.
    + Hillis SL, Obuchowski NA, Berbaum KS (2011). Power Estimation for Multireader ROC Methods: An Updated and Unified Approach. Acad Radiol, 18, 129--142.
@@ -380,7 +389,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * The changes were merged to the `developer` branch and then to the `master` branch.
 
 
-## Major reorganization of `dataset` structure
+### Major reorganization of `dataset` structure
 * Instead of varying lengths for ROC/FROC, LROC and SPLIT-PLOT, all `datasets` now are `lists` of length 3, with each member (`ratings`, `lesions`, `descriptions`) consisting of sub-lists:
   + `ratings` contain 3 elements: `$NL`, `$LL` and `$LL_IL`.
   + `$lesions` contains 3 elements: `$perCase`, `$IDs` and `$weights`.
@@ -392,7 +401,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * The changes were merged to the `developer` branch and then to the `master` branch.
 
 
-## Major simplifications to all significance testing `St` functions
+### Major simplifications to all significance testing `St` functions
 * Separated `RRRC` branches etc to separate files; likewise for DBM and OR branches, now the files are much shorter and easier to maintain
 * Changed returned data structure to a `list` of `dataframes`, see next comment; this makes for much cleaner and easier printing
 * Consistent returned objects from all `St` functions: `list` with data frames `FOM`, `ANOVA`, `RRRC`, `FRRC` and `RRFC`.
@@ -408,7 +417,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Will merge this code into `master` branch if it passes Travis
 
 
-## Replaced stringsAsFactors = FALSE everywhere data.frame is used except ...
+### Replaced stringsAsFactors = FALSE everywhere data.frame is used except ...
 * Except in `PlotEmpiricalOperatingCharacteristics`, where `factors` and `levels` are used
 * Must specify this anytime the variable is used in a `test` as otherwise different versions will give `factors` or `characters` and not match those in goodValues folder
 * After old versions are phased out, this can be safely removed, as all versions will have this as the default
@@ -416,14 +425,14 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Use `getOption("stringsAsFactors")` to determine state of this option; must restart `R` to obtain default value (`TRUE` on the release version); calling a function that sets it to `FALSE` keeps the new value after exiting from function; must restart `R` again to get proper default.
 
 
-## After repeated Travis failures
+### After repeated Travis failures
 * same issue; have to specify `stringsAsFactors` explicitly for each `data.frame` call, due to different defaults in different verions of `R`
 * Cannot set to TRUE at beginning of function, as in `options("stringsAsFactors" = TRUE)`, **as this is `deprecated`**
 * Basically undid all changes in next note (see below)
 * passes R CMD check on OSX and Travis checks
 
 
-## Removed `stringsAsFactors` arguments in all calls except...
+### Removed `stringsAsFactors` arguments in all calls except...
 * In all calls to data.frame, except in plotting functions, `PlotEmpiricalOperatingCharacteristics`, where factors are used
 * In current `R3.6.3` `option($stringsAsFactors) = TRUE` (`stringsAsFactors` is case sensitive!)
 * This means that functions that don't require factors, such as `SsPowerTable()` should set   `options(stringsAsFactors = FALSE)` explicitly at the beginning of the code, in order to work in current and previous version of R (i.e., release and old-release)
@@ -432,17 +441,17 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Going to test on Travis now
 
 
-## Return `transpose` for `foms` member of `StSignificanceTesting` return object
+### Return `transpose` for `foms` member of `StSignificanceTesting` return object
 * For consistency with OR DBM MRMC 2.51, and also for cleaner output, as number of treatments is usually less than number of readers
 * Note added 5/30/20: this was undone; transpose is no longer used
 
 
-## Moved official good value files to Dropbox
+### Moved official good value files to Dropbox
 * They generate non-portable file name warning on R CMD check
 * Moved VanDyke results to inst/IowaResults/VanDyke.txt
 
 
-## Compared to latest official code
+### Compared to latest official code
 * `mrmc_setup_w10_July_2019.exe`; VanDyke `VanDyke.lrc` dataset; `Dropobox/IowaSoftware/VanDyke.lrc`
 * `OR DBM MRMC 2.51 <beta> Build 20181028 </beta>` `miplmrmc`
 * Software only runs under Windows XP
@@ -451,21 +460,21 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Need to fix documentation on `StSignificanceTesting` - WIP
 
 
-## Discovered error
+### Discovered error
 * For `StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")` - done
 * Need to put in `testthat` all combinations of `method` and `option` - done
 * Different objects returned by `StSignificanceTesting` depending on choice of `option` - almost done
 * Need to standardize as otherwise `RJafrocBook` is klutzy  - WIP
 
 
-## Added seed specification to UtilVarComponentOR
+### Added seed specification to UtilVarComponentOR
 * Added seed specification to `UtilVarComponentOR` to allow comparison with `RJafrocBook`
 * Added to tests: `covEstMethod` = `jackknife`, `bootstrap` and `DeLong` for two datasets
 * `dataset02` and `dataset04` converted to ROC
 * Will merge to `master` so that `RJafrocBook` code passes Travis
 
 
-## Fixing significance testing with independent calculations in `RJafrocBook`
+### Fixing significance testing with independent calculations in `RJafrocBook`
 * Need to modify `RJafroc` to eliminate code duplication and improve style in all significance testing functions - move this to issues
 * I am only getting to understand it now (as I work on `RJafrocBook`)
 * One reader case can now be handled by `StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")`
@@ -474,29 +483,32 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Will merge to `master` so that `RJafrocBook` code passes Travis
 
 
-## Fixed error with `msTC`
+### Fixed error with `msTC`
 * Found another error in `msTC` calculation in `UtilMeanSquares`
 * Was trying to be too cute for my own good (collapsing two for-loops into one)
 * Discoverd error while doing first principles calculation in `RJafocBook`, DBMH chapter, so there is at least one person who benefited from `RJafrocBook`
 * Changed `covEstMethod` argument to `ORH` method to lower case ("jackknife" or "bootstrap")
 
 
-## Fixed issue with `optim` when flipping groups
+### Fixed issue with `optim` when flipping groups
 * see issues #50 (closed) on `RJafroc/master`
 * Allow a paramter of binormal model to be between -4 and 4
 * Removed all vignettes; since these are now in [RJafrocBook](https://dpc10ster.github.io/RJafrocBook/)
 * Removed all but one dataset (`FZ_ALL.xlsx`) from `extdata/datasets` so I dont get file size error (extdata was 2.5 MB, reduced to 1.3)
 
 
+## version 1.3.2
 
-## After work on cran2-update work
+---
+
+### After work on cran2-update work
 * Copied altered files from R directory (which commented out examples which were taking lots of CPU time)
 * Includes a correction to `Compare3ProperRocFits.R`
 * Pulled out all vignettes (these have been moved to repository `RJafrocBook`)
 * This gets file size below 5 MB
 
 
-## Work post acceptance on v1.3.2, as of 3/7/20
+### Work post acceptance of v1.3.2, as of 3/7/20
 * Going back to work interrupted by having to fix the errors on R-devel, see next section below.
 * This is v1.3.2.9000.
 * Got all tests working! Resulted in fix to `StDBMHAnalysis.R` that fixed test that I had to skip on mac for `context("SignificanceTestingAllCombinations")`. Need to get this fix (lines 45-51) over to cran2 branch as I am thinking of splitting the package up by separating the `cran2` branch as the base package `RJafroc` and `depending` on `RJafroc` for new package `RJafroc2`. This would solve the file size problems that I am running into. Just an idea.
@@ -504,10 +516,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Synced with `developer` branch on `GitHub` and merged with `master`.
 
 
-# RJafroc 1.3.2
-
-
-## After email from Kurt Hornik <Kurt.Hornik@r-project.org>
+### After email from Kurt Hornik <Kurt.Hornik@r-project.org>
 * Created new branch off `cran2` 1.3.1 called `cran2-fix`
 * Bumped version to 1.3.2
 * RJafroc failing on Linux
@@ -526,7 +535,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * See `cran2-update/master` branch for content relating to this version
 
 
-## Modified `UtilPseudoValues.R` to work with SPLIT-PLOT data
+### Modified `UtilPseudoValues.R` to work with SPLIT-PLOT data
 * Created simulated SP datafile `inst/extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx`.
 * Created simulated SP dataset `datasetFROCSp` corresponding to modalities 4,5 of `dataset04`
 * Update vignette `Ch00Vig5SimulateSplitPlotDataset.Rmd`.
@@ -536,7 +545,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * R CMD check successful ... except for file size NOTE (18.4Mb)
 
 
-## Created split plot dataset; update all datasets; confirm truthTableStr and DfReadDataFile()
+### Created split plot dataset; update all datasets; confirm truthTableStr and DfReadDataFile()
 * v1.3.1.9000
 * created simulated split plot Excel dataset from Fed dataset: `Ch00Vig5CreateSplitPlotDataset.Rmd`; confirmed it is read without error!!
 * updated datasets - see `inst/FixRJafrocDatasets/ConvertDataset.R`; worked on `DfReadDataFile` function
@@ -553,14 +562,16 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * R CMD check successful
 
 
-# RJafroc 1.3.1
+## version 1.3.1
 
-## Extended dataset object structure
+---
+
+### Extended dataset object structure
 * Bumped version number to 1.3.1 after corrections to DESCRIPTION file
 * Version on CRAN is 1.3.1
 
 
-## Extended dataset object structure
+### Extended dataset object structure
 * Bumped version number to 1.3.0 as I am moving towards a CRAN submission
 * Lost `development` branch while using `GitHub`; decided to do `Git` manually
 * Why is `.gitignore` not working?
@@ -577,7 +588,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Included my own CPP coded wAFROC plot function. Learning a lot form Dirk's book website https://teuder.github.io/rcpp4everyone_en/.
 
 
-## Split plot dataset
+### Split plot dataset
 * Modifications to `DfReadDataFile()` to allow for split plot datasets completed.
 * Must use `newExcelFileFormat = TRUE` as otherwise the code defaults to the old Excel format.
 * The new format includes more stringent tests, IMHO, to catch data entry errors:
@@ -589,20 +600,20 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Passes R CMD check with file size note.
 
 
-## Error in MS_TC corrected
+### Error in MS_TC corrected
 * Noted by Erin Greco
 * The missing "-1": `UtilMeanSquares()` line 88 `msTC <- msTC * J/((I - 1) * (Ktemp - 1))` has been corrected
 * Reset goodValues values in `test-StSignificance-testing.R` at line 128
 
 
-## Extended plotting function to LROC data
+### Extended plotting function to LROC data
 * `PlotEmpiricalOperatingCharacteristics()` now accepts ROC, FROC **and** LROC datasets.
 * Simplified code.
 * Included in unit tests.
 * Added `legend.position` argument to allow better positioning of legend.
 
 
-## Added FROC sample size vignettes and functions
+### Added FROC sample size vignettes and functions
 * `Ch19Vig1FrocSampleSize.Rmd`: Compares FROC power to ROC power.
 * `Ch19Vig2FrocSampleSize.Rmd`: FROC power calculation for a number of situations.
 * `SsFrocNhRsmModel()`: constructs an RSM-based model, which allows one to relate an ROC effect size to a wAFROC effect size, and returns parameters of model to allow FOM estimation for ROC and wAFROC. Following functions are used to calculate the lesion distribution and lesion weights arrays:
@@ -610,7 +621,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * `UtilLesionWeightsDistr`:
 
 
-## Significance testing functions
+### Significance testing functions
 * `StSignificanceTesting()`: corrects errors affecting `method = "ORH"` and `covEstMethod = "Jackknife"`. I messed up while trying to simplify XZ code. It calls:
 * StDBMHAnalysis():
 * StORHAnalysis():
@@ -621,7 +632,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * test-St-CompareDBM2OR.R: compares current code DBM to current code OR results, when appropriate.
 
 
-## CAD and LROC
+### CAD and LROC
 * `gpfMyFOM()`: interpolation error in LROC PCL and ALROC FOMs. Hand calculations showed that the `approx` function did not work for small datasets. Wrote my own simple interpolation code. See `LrocFoms()` in `gpfMyFOM.R`. See **ChkLrocFoms.xlsx** in `inst/StSigTesting` for details on hand calculation of LROC FOMs.
 * LROC FOMs now apply to UtilFigureOfMerit() and all significance testing functions. **These changes only affected values at small `FPFValue`, 0.2 or less.**
 * Most FOM related functions now accept `FPFValue` to accommodate LROC datasets.
@@ -634,11 +645,11 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * An error in `dataset2ratings()` has been corrected.
 
 
-## Variance component input
+### Variance component input
 * `SignificanceTesting` functions now accept variance components, without having to specify a dataset.
 
 
-## Other affected functions and new functions:
+### Other affected functions and new functions:
 * `UtilVarComponentsDBM()`:
 * `UtilORVarComponentsFactorial()`:
 * `SsPowerGivenJKDbmVarComp`:
@@ -649,18 +660,21 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Ensured that `FPFValue` argument immediately follows `FOM`, where applicable.
 
 
-## Needs further testing
+### Needs further testing
 * `StSignificanceTestingSingleFixedFactor`:
 
 
-## Extensions needed
+### Extensions needed
 * The `addPlot` routine in `StSignificanceTestingCadVsRadiologists` has been renamed to `CadVsRadPlots()`. It should be deprecated in future as `PlotRsmOperatingCharacteristics()` has more consistent visual output (and capabilities like handling lists of treatments and readers).
 * Need a function that checks validity of FOM for dataset: `isValidFom`?
 * Need to compare predicted curves for LROC and FROC data: does `SimulateLrocDataset()` predict **both** flattening out of LROC plot and wAFROC going to (1,1)?
 * Split plot analysis
 
 
-# RJafroc 1.2.0
+## version 1.2.0
+
+---
+
 * Corrected all references to package name to `RJafroc` (note capitalization)
 * Checked downstream dependencies - none as of July 23, 2019: revdep("RJafroc") yields character(0)
 * Corrected error that was causing `Solaris` failure (Peter Philips)
@@ -685,7 +699,10 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 ````
 
 
-# RJafroc 1.1.0
+## version 1.1.0
+
+---
+
 * Added `travis-ci` testing after each push; and build passing badges, etc.
 * Removed dependence on `caTools` package, which was not being supported; extracted function `trapz()` from it
    and inserted directly into `gpfMyFOM.R` - see comments in that file of what led to this
@@ -709,7 +726,10 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Checked downstream dependencies - none as of Nov 11, 2018: `revdep("rjafroc")` yields `character(0)`
 
 
-# RJafroc 1.0.2
+## version 1.0.2
+
+---
+
 * StSignificanceTestingCadVsRadiologists was not working for different numbers of readers.
    As noted by Alejandro, the number of readers was hard coded. Fixed this and extended
    DfExtractDataset to include LROC datasets.
@@ -718,7 +738,10 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * This version installed on SOLARIS!
 
 
-# RJafroc 1.0.1
+## version 1.0.1
+
+---
+
 * Package was not installing on Solaris - overloading errors. Changed sqrt(2) in
    RsmFuncs.cpp to sqrt(2.0). However, Solaris is incompatible with ggplot2;
    so will recommend that Solaris version not be distributed on CRAN.
@@ -738,18 +761,27 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
    I'm not sure how much success you would have._
 
 
-# RJafroc 1.0.0
+## version 1.0.0
+
+---
+
 * Renamed functions for better organization;
 * Removed shiny GUI interface
 * Support for LROC datasets and cross-modality datasets
 * CAD vs. radiologist analysis, both single modality and dual modality
 
 
-# RJafroc 0.1.1
+## version 0.1.1
+
+---
+
 * An error in the *p* value calculation that gave incorrect *p* value (possibly exceeding one) when the first modality performed better than 2nd has been fixed. Thanks to Lucy D'Agostino McGowan for pointing out the error and the fix. This error, which does not occur in Windows version of JAFROC V 4.2.1, was not noticed as in all example files the 2nd modality performed better.
 
 
-# RJafroc 0.1.0
+## version 0.1.0
+
+---
+
 * A "shiny" based GUI has been added, accessed by the function `RJafrocGui()`. This allows a user only interested in
 analyzing a data file to access the underlying code in a "user friendly" way. The GUI is similar in functionality to
 that of Windows JAFROC 4.2.1 software.
@@ -763,5 +795,8 @@ that of Windows JAFROC 4.2.1 software.
 * A bug in the plotting of AFROC curves for a dataset containing only non-diseased cases has been fixed.
 
 
-# RJafroc 0.0.1
+## version 0.0.1
+
+---
+
 * Original version posted to CRAN (by Xuetong Zhai)
