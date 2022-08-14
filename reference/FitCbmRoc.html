@@ -19,7 +19,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -117,17 +117,17 @@
 </dl></div>
     <div id="details">
     <h2>Details</h2>
-    <p>In  CBM ratings from diseased cases are sampled from a mixture distribution 
-   with two components: (1) distributed normal with mean \(mu\) and unit 
-   variance with integrated area \(alpha\), and (2) from a unit-normal 
-   distribution with integrated area \(1-alpha\). Ratings for non-diseased 
-   cases are sampled from a unit-normal distribution. The 
-   <code>ChisqrFitStats</code> consists of a list containing the chi-square value, 
-   the p-value and the degrees of freedom.</p>
+    <p>In  CBM ratings from diseased cases
+   are sampled from a mixture distribution: (1) with integrated area \(alpha\) 
+   distributed \(N(\eqn{mu},1)\) and (2) from a distribution with 
+   integrated area \(1-alpha\) distributed\(N(0,1)\). Ratings 
+   for non-diseased cases are sampled from \(N(0,1)\). The <code>ChisqrFitStats</code> 
+   consists of a list containing the chi-square value, the p-value and the degrees 
+   of freedom.</p>
     </div>
     <div id="note">
     <h2>Note</h2>
-    <p>This algorithm is very robust, much more so than the binormal model.</p>
+    <p>This algorithm is more robust than the binormal model.</p>
     </div>
     <div id="references">
     <h2>References</h2>
