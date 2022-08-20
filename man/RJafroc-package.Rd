@@ -370,7 +370,6 @@
         \item \code{\link{DfReadCrossedModalities}}: Read a crossed-modalities
            data file.
         \item \code{\link{DfReadDataFile}}: Read a general data file.
-        \item \code{\link{DfReadLrocDataFile}}: Read a LROC data file.
         \item \code{\link{DfSaveDataFile}}: Save ROC data file in a different format.
         \item \code{\link{DfExtractCorCbmDataset}}: Extract two arms of a pairing
            from an MRMC ROC dataset suitable for using \link{FitCorCbm}.

@@ -14,21 +14,21 @@ test_that(contextStr, {
 })
   
 
-contextStr <- "DfReadLrocDataFile"
-context(contextStr)
-test_that(contextStr, {
-
-  fn <- paste0(test_path(), "/goodValues361/DfXroc2Yroc/DfReadLrocDataFile", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadLrocDataFile()
-    saveRDS(ds, file = fn)
-  }
-
-  ds <- readRDS(fn)
-  expect_equal(DfReadLrocDataFile(), ds)
-  
-})
+# contextStr <- "DfReadLrocDataFile"
+# context(contextStr)
+# test_that(contextStr, {
+# 
+#   fn <- paste0(test_path(), "/goodValues361/DfXroc2Yroc/DfReadLrocDataFile", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     ds <- DfReadLrocDataFile()
+#     saveRDS(ds, file = fn)
+#   }
+# 
+#   ds <- readRDS(fn)
+#   expect_equal(DfReadLrocDataFile(), ds)
+#   
+# })
 
 
 

@@ -27,19 +27,8 @@ two treatment factors are crossed
 }
 \details{
 The data format is  similar to the JAFROC format (see \code{\link{RJafroc-package}}). 
-   The notable difference is that there are two treatment factors. A sample crossed 
-   treatment file "CrossedModalities.xlsx" is in the \code{inst\\extdata} 
-   subdirectory of \code{RJafroc}.
-}
-\examples{
-
-\donttest{
-crossedFileName <- system.file("extdata", 
-   "CrossedModalities.xlsx", package = "RJafroc", mustWork = TRUE)
-crossedData <- DfReadCrossedModalities(crossedFileName)
-str(crossedData)
-}
-
+   The difference is that there are two treatment factors. TBA For an example see ... add
+   reference to FROC book chapter \url{https://dpc10ster.github.io/RJafrocFrocBook/}
 }
 \references{
 Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
