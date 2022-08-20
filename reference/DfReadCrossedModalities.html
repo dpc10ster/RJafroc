@@ -18,7 +18,7 @@ two treatment factors are crossed"><!-- mathjax --><script src="https://cdnjs.cl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1.9000</span>
       </span>
     </div>
 
@@ -80,9 +80,8 @@ original data file will be used. The default is <code>FALSE</code>.</p></dd>
     <div id="details">
     <h2>Details</h2>
     <p>The data format is  similar to the JAFROC format (see <code><a href="RJafroc-package.html">RJafroc-package</a></code>). 
-   The notable difference is that there are two treatment factors. A sample crossed 
-   treatment file "CrossedModalities.xlsx" is in the <code>inst\extdata</code> 
-   subdirectory of <code>RJafroc</code>.</p>
+   The difference is that there are two treatment factors. TBA For an example see ... add
+   reference to FROC book chapter <a href="https://dpc10ster.github.io/RJafrocFrocBook/" class="external-link">https://dpc10ster.github.io/RJafrocFrocBook/</a></p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -95,39 +94,6 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <a href="https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840" class="external-link">https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840</a></p>
     </div>
 
-    <div id="ref-examples">
-    <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="va">crossedFileName</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, </span></span>
-<span class="r-in"><span>   <span class="st">"CrossedModalities.xlsx"</span>, package <span class="op">=</span> <span class="st">"RJafroc"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">crossedData</span> <span class="op">&lt;-</span> <span class="fu">DfReadCrossedModalities</span><span class="op">(</span><span class="va">crossedFileName</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">crossedData</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ratings     :List of 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ NL   : num [1:2, 1:4, 1:11, 1:68, 1:5] -Inf -Inf -Inf -Inf -Inf ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ LL   : num [1:2, 1:4, 1:11, 1:34, 1:3] -Inf 1 2 8 7 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ LL_IL: logi NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ lesions     :List of 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ perCase: int [1:34] 1 2 1 1 1 1 2 2 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ IDs    : num [1:34, 1:3] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ weights: num [1:34, 1:3] 1 0.5 1 1 1 1 0.5 0.5 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ descriptions:List of 8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ fileName     : chr "DfReadCrossedModalities(CrossedModalities)"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ type         : chr "FROC"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ name         : chr "THOMPSON-X-MOD"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ truthTableStr: logi NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ design       : chr "FCTRL-X-MOD"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ modalityID1  : Named chr [1:2] "F" "I"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:2] "F" "I"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ modalityID2  : Named chr [1:4] "20" "40" "60" "80"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:4] "20" "40" "60" "80"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ readerID     : Named chr [1:11] "1" "10" "11" "2" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:11] "1" "10" "11" "2" ...</span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
-<span class="r-in"><span></span></span>
-</code></pre></div>
-    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

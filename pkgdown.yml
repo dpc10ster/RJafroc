@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-08-14T16:04Z
+last_built: 2022-08-20T23:29Z
 urls:
   reference: https://github.com/dpc10ster/RJafroc/reference
   article: https://github.com/dpc10ster/RJafroc/articles
