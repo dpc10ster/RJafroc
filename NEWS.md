@@ -7,7 +7,7 @@ title: "NEWS"
 ---
 
 ### Work post acceptance of v2.1.1 
-* changed `lambdaP` to lambda and lambda to `lambda_i` 9/19/22
+* universal change: `lambdaP` to `lambda` and `lambda` to `lambda_i` 9/19/22
 * this corresponds with revised notation in book
 * TBA
 
