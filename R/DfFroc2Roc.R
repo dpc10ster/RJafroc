@@ -35,11 +35,11 @@
 #' ## it is easy to see the process at work:
 #' 
 #' set.seed(1);K1 <- 3;K2 <- 5
-#' mu <- 1;nuP <- 0.5;lambdaP <- 2;zeta1 <- 0
-#' lambda <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$lambda
-#' nu <- UtilPhysical2IntrinsicRSM(mu,lambdaP,nuP)$nu
+#' mu <- 1;nu <- 0.5;lambda <- 2;zeta1 <- 0
+#' lambda_i <- UtilRSM2IntrinsicRSM(mu,lambda,nu)$lambda_i
+#' nu_i <- UtilRSM2IntrinsicRSM(mu,lambda,nu)$nu_i
 #' Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
-#' frocDataRaw <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 1, J = 1, 
+#' frocDataRaw <- SimulateFrocDataset(mu, lambda_i, nu_i, zeta1, I = 1, J = 1, 
 #' K1, K2, perCase = Lk2)
 #' hrData <- DfFroc2Roc(frocDataRaw)
 #' 

@@ -331,103 +331,103 @@ BEGIN_RCPP
 END_RCPP
 }
 // xROC
-double xROC(double zeta, double lambdaP);
-RcppExport SEXP _RJafroc_xROC(SEXP zetaSEXP, SEXP lambdaPSEXP) {
+double xROC(double zeta, double lambda);
+RcppExport SEXP _RJafroc_xROC(SEXP zetaSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type zeta(zetaSEXP);
-    Rcpp::traits::input_parameter< double >::type lambdaP(lambdaPSEXP);
-    rcpp_result_gen = Rcpp::wrap(xROC(zeta, lambdaP));
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    rcpp_result_gen = Rcpp::wrap(xROC(zeta, lambda));
     return rcpp_result_gen;
 END_RCPP
 }
 // xROCVect
-NumericVector xROCVect(NumericVector zeta, double lambdaP);
-RcppExport SEXP _RJafroc_xROCVect(SEXP zetaSEXP, SEXP lambdaPSEXP) {
+NumericVector xROCVect(NumericVector zeta, double lambda);
+RcppExport SEXP _RJafroc_xROCVect(SEXP zetaSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type zeta(zetaSEXP);
-    Rcpp::traits::input_parameter< double >::type lambdaP(lambdaPSEXP);
-    rcpp_result_gen = Rcpp::wrap(xROCVect(zeta, lambdaP));
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    rcpp_result_gen = Rcpp::wrap(xROCVect(zeta, lambda));
     return rcpp_result_gen;
 END_RCPP
 }
 // yROC
-double yROC(double zeta, double mu, double lambdaP, double nuP, NumericVector lesDistr);
-RcppExport SEXP _RJafroc_yROC(SEXP zetaSEXP, SEXP muSEXP, SEXP lambdaPSEXP, SEXP nuPSEXP, SEXP lesDistrSEXP) {
+double yROC(double zeta, double mu, double lambda, double nu, NumericVector lesDistr);
+RcppExport SEXP _RJafroc_yROC(SEXP zetaSEXP, SEXP muSEXP, SEXP lambdaSEXP, SEXP nuSEXP, SEXP lesDistrSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type zeta(zetaSEXP);
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< double >::type lambdaP(lambdaPSEXP);
-    Rcpp::traits::input_parameter< double >::type nuP(nuPSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< double >::type nu(nuSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type lesDistr(lesDistrSEXP);
-    rcpp_result_gen = Rcpp::wrap(yROC(zeta, mu, lambdaP, nuP, lesDistr));
+    rcpp_result_gen = Rcpp::wrap(yROC(zeta, mu, lambda, nu, lesDistr));
     return rcpp_result_gen;
 END_RCPP
 }
 // yROCVect
-NumericVector yROCVect(NumericVector zeta, double mu, double lambdaP, double nuP, NumericVector lesDistr);
-RcppExport SEXP _RJafroc_yROCVect(SEXP zetaSEXP, SEXP muSEXP, SEXP lambdaPSEXP, SEXP nuPSEXP, SEXP lesDistrSEXP) {
+NumericVector yROCVect(NumericVector zeta, double mu, double lambda, double nu, NumericVector lesDistr);
+RcppExport SEXP _RJafroc_yROCVect(SEXP zetaSEXP, SEXP muSEXP, SEXP lambdaSEXP, SEXP nuSEXP, SEXP lesDistrSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type zeta(zetaSEXP);
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< double >::type lambdaP(lambdaPSEXP);
-    Rcpp::traits::input_parameter< double >::type nuP(nuPSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< double >::type nu(nuSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type lesDistr(lesDistrSEXP);
-    rcpp_result_gen = Rcpp::wrap(yROCVect(zeta, mu, lambdaP, nuP, lesDistr));
+    rcpp_result_gen = Rcpp::wrap(yROCVect(zeta, mu, lambda, nu, lesDistr));
     return rcpp_result_gen;
 END_RCPP
 }
 // RsmInner
-double RsmInner(double mu, double lambdaP, double nuP, NumericVector lesDistr, NumericVector zeta, NumericVector fb, NumericVector tb);
-RcppExport SEXP _RJafroc_RsmInner(SEXP muSEXP, SEXP lambdaPSEXP, SEXP nuPSEXP, SEXP lesDistrSEXP, SEXP zetaSEXP, SEXP fbSEXP, SEXP tbSEXP) {
+double RsmInner(double mu, double lambda, double nu, NumericVector lesDistr, NumericVector zeta, NumericVector fb, NumericVector tb);
+RcppExport SEXP _RJafroc_RsmInner(SEXP muSEXP, SEXP lambdaSEXP, SEXP nuSEXP, SEXP lesDistrSEXP, SEXP zetaSEXP, SEXP fbSEXP, SEXP tbSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< double >::type lambdaP(lambdaPSEXP);
-    Rcpp::traits::input_parameter< double >::type nuP(nuPSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< double >::type nu(nuSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type lesDistr(lesDistrSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type zeta(zetaSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type fb(fbSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type tb(tbSEXP);
-    rcpp_result_gen = Rcpp::wrap(RsmInner(mu, lambdaP, nuP, lesDistr, zeta, fb, tb));
+    rcpp_result_gen = Rcpp::wrap(RsmInner(mu, lambda, nu, lesDistr, zeta, fb, tb));
     return rcpp_result_gen;
 END_RCPP
 }
 // y_ROC_FPF
-NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambdaP, double nuP, NumericVector lesDistr);
-RcppExport SEXP _RJafroc_y_ROC_FPF(SEXP FPFSEXP, SEXP muSEXP, SEXP lambdaPSEXP, SEXP nuPSEXP, SEXP lesDistrSEXP) {
+NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambda, double nu, NumericVector lesDistr);
+RcppExport SEXP _RJafroc_y_ROC_FPF(SEXP FPFSEXP, SEXP muSEXP, SEXP lambdaSEXP, SEXP nuSEXP, SEXP lesDistrSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type FPF(FPFSEXP);
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< double >::type lambdaP(lambdaPSEXP);
-    Rcpp::traits::input_parameter< double >::type nuP(nuPSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< double >::type nu(nuSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type lesDistr(lesDistrSEXP);
-    rcpp_result_gen = Rcpp::wrap(y_ROC_FPF(FPF, mu, lambdaP, nuP, lesDistr));
+    rcpp_result_gen = Rcpp::wrap(y_ROC_FPF(FPF, mu, lambda, nu, lesDistr));
     return rcpp_result_gen;
 END_RCPP
 }
 // ywAFROC
-double ywAFROC(double zeta, double mu, double nuP, NumericVector lesDistr, NumericMatrix lesWghtDistr);
-RcppExport SEXP _RJafroc_ywAFROC(SEXP zetaSEXP, SEXP muSEXP, SEXP nuPSEXP, SEXP lesDistrSEXP, SEXP lesWghtDistrSEXP) {
+double ywAFROC(double zeta, double mu, double nu, NumericVector lesDistr, NumericMatrix lesWghtDistr);
+RcppExport SEXP _RJafroc_ywAFROC(SEXP zetaSEXP, SEXP muSEXP, SEXP nuSEXP, SEXP lesDistrSEXP, SEXP lesWghtDistrSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type zeta(zetaSEXP);
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< double >::type nuP(nuPSEXP);
+    Rcpp::traits::input_parameter< double >::type nu(nuSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type lesDistr(lesDistrSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type lesWghtDistr(lesWghtDistrSEXP);
-    rcpp_result_gen = Rcpp::wrap(ywAFROC(zeta, mu, nuP, lesDistr, lesWghtDistr));
+    rcpp_result_gen = Rcpp::wrap(ywAFROC(zeta, mu, nu, lesDistr, lesWghtDistr));
     return rcpp_result_gen;
 END_RCPP
 }

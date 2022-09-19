@@ -24,7 +24,7 @@ The return value is a list with the following elements:
 \item{lambdP}{The Poisson parameter describing the distribution 
    of latent NLs per case}
 
-\item{nuP}{The binomial success probability describing the distribution
+\item{nu}{The binomial success probability describing the distribution
    of latent LLs per diseased case}
 
 \item{zetas}{The RSM cutoffs, zetas or thresholds}
@@ -53,9 +53,9 @@ If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. MLE
    require binned datasets. Use \code{\link{DfBinDataset}} to perform the binning prior to calling 
    this function. 
    In the RSM: (1) The (random) number of latent NLs per case is Poisson distributed 
-   with mean parameter lambdaP, and the corresponding ratings are sampled from 
+   with mean parameter lambda, and the corresponding ratings are sampled from 
    \eqn{N(0,1)}. The (2) The (random) number of latent LLs per diseased case is 
-   binomial distributed with success probability nuP and trial size equal to 
+   binomial distributed with success probability nu and trial size equal to 
    the number of lesions in the case, and the corresponding ratings are sampled from 
    N(\eqn{mu},1). (3) A latent NL or LL is actually marked if its rating exceeds 
    the lowest threshold zeta1. To avoid clutter error bars are only shown for the 

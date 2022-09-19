@@ -17,9 +17,9 @@ study.}
 \value{
 A list containing:
    \itemize{
-   \item \code{muMed}, the median mu parameter of the NH model.
-   \item \code{lambdaMed}, the median lambda parameter of the NH model.
-   \item \code{nuMed}, the median nu parameter of the NH model.
+   \item \code{mu}, the mu parameter of the NH model.
+   \item \code{lambda_i}, the intrinsic lambda_i parameter of the NH model.
+   \item \code{nu_i}, the intrinsic nu_i parameter of the NH model.
    \item \code{scaleFactor}, the scaling factor that multiplies
       the ROC effect size to get wAFROC effect size.
    \item \code{R2}, the R2 of the fit.
@@ -47,8 +47,6 @@ If dataset is FROC, it is converted to an ROC dataset. The dataset
 ## user system elapsed
 ## SsFrocNhRsmModel 8.102  0.023   8.135
 
-## SsFrocNhRsmModel(dataset02, c(0.7, 0.2, 0.1))
-## the next one should match the vignette
 ## SsFrocNhRsmModel(DfExtractDataset(dataset04, trts = c(1,2)), c(0.69, 0.2, 0.11))
 }
 

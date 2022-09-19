@@ -4,16 +4,16 @@
 \alias{RSM_yROC}
 \title{RSM predicted ROC-ordinate as function of z}
 \usage{
-RSM_yROC(z, mu, lambdaP, nuP, lesDistr)
+RSM_yROC(z, mu, lambda, nu, lesDistr)
 }
 \arguments{
 \item{z}{The z-sample value at which to evaluate the pdf.}
 
 \item{mu}{The mu parameter (of the RSM).}
 
-\item{lambdaP}{The (physical) lambda prime parameter.}
+\item{lambda}{The RSM lambda parameter.}
 
-\item{nuP}{The (physical) nu prime parameter.}
+\item{nu}{The RSM nu parameter.}
 
 \item{lesDistr}{The 1D lesion distribution vector.}
 }

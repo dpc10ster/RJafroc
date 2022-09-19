@@ -42,8 +42,8 @@ test_that("Rsm1", {
   Sys.sleep(0.2)
   
   mu <- c(2, 3)
-  lambda  <- c(1, 1.5) 
-  nu <- c(0.6, 0.8) 
+  lambda_i  <- c(1, 1.5) 
+  nu_i <- c(0.6, 0.8) 
   zeta1 <- c(-3,-3) 
   
   lesDistr <- c(0.2, 0.4, 0.1, 0.3)
@@ -53,8 +53,8 @@ test_that("Rsm1", {
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     ret <- PlotRsmOperatingCharacteristics(mu = mu, 
-                                           lambda = lambda, 
-                                           nu = nu, 
+                                           lambda_i = lambda_i, 
+                                           nu_i = nu_i, 
                                            zeta1 = zeta1, 
                                            OpChType = "wAFROC",
                                            lesDistr = lesDistr, 
@@ -64,8 +64,8 @@ test_that("Rsm1", {
   
   ret <- readRDS(fn)
   expect_equal(PlotRsmOperatingCharacteristics(mu = mu, 
-                                               lambda = lambda, 
-                                               nu = nu, 
+                                               lambda_i = lambda_i, 
+                                               nu_i = nu_i, 
                                                zeta1 = zeta1, 
                                                OpChType = "wAFROC",
                                                lesDistr = lesDistr, 
@@ -84,18 +84,18 @@ test_that("Rsm2", {
   
   maxLL <- max(lesDistr)
 
-  mu <- 10;nu <- 0.99;lambda <- 1
+  mu <- 10;nu_i <- 0.99;lambda_i <- 1
   
   fn <- paste0(test_path(), "/goodValues361/Plots/Rsm2", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- PlotRsmOperatingCharacteristics(mu, lambda, nu, OpChType = "wAFROC", 
+    ret <- PlotRsmOperatingCharacteristics(mu, lambda_i, nu_i, OpChType = "wAFROC", 
                                             lesDistr = lesDistr)
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotRsmOperatingCharacteristics(mu, lambda, nu, OpChType = "wAFROC", 
+  expect_equal(PlotRsmOperatingCharacteristics(mu, lambda_i, nu_i, OpChType = "wAFROC", 
                                                lesDistr = lesDistr), ret, check.environment = FALSE)
   
 })
@@ -115,13 +115,13 @@ test_that("RSM3", {
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     
-    ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),  zeta1 = c(-3,-3), OpChType = "wAFROC",
+    ret <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda_i = c(1, 1.5), nu_i = c(0.6, 0.8),  zeta1 = c(-3,-3), OpChType = "wAFROC",
                                            lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8), zeta1 = c(-3,-3), OpChType = "wAFROC",
+  expect_equal(PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda_i = c(1, 1.5), nu_i = c(0.6, 0.8), zeta1 = c(-3,-3), OpChType = "wAFROC",
                                                lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), ret, check.environment = FALSE)
   
 })

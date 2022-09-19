@@ -4,11 +4,11 @@ assign("UNINITIALIZED", -Inf, envir = RJafrocEnv)
 assign("minZeta", -4, envir = RJafrocEnv)
 assign("maxZeta", 4, envir = RJafrocEnv)
 
-assign("minLambdaP", 0.01, envir = RJafrocEnv)
-assign("maxLambdaP", 10, envir = RJafrocEnv)
+assign("minLambda", 0.01, envir = RJafrocEnv)
+assign("maxLambda", 10, envir = RJafrocEnv)
 
-assign("minNuP", 0.01, envir = RJafrocEnv)
-assign("maxNuP", 0.99, envir = RJafrocEnv)
+assign("minNu", 0.01, envir = RJafrocEnv)
+assign("maxNu", 0.99, envir = RJafrocEnv)
 
 assign("minMu", 0.01, envir = RJafrocEnv)
 assign("maxMu", 6, envir = RJafrocEnv)

@@ -13,7 +13,7 @@
 #'    to the non-diseased one} 
 #' @return \item{lambdP}{The Poisson parameter describing the distribution 
 #'    of latent NLs per case}
-#' @return \item{nuP}{The binomial success probability describing the distribution
+#' @return \item{nu}{The binomial success probability describing the distribution
 #'    of latent LLs per diseased case}
 #' @return \item{zetas}{The RSM cutoffs, zetas or thresholds} 
 #' @return \item{AUC}{The RSM fitted ROC-AUC} 
@@ -32,9 +32,9 @@
 #'    require binned datasets. Use \code{\link{DfBinDataset}} to perform the binning prior to calling 
 #'    this function. 
 #'    In the RSM: (1) The (random) number of latent NLs per case is Poisson distributed 
-#'    with mean parameter lambdaP, and the corresponding ratings are sampled from 
+#'    with mean parameter lambda, and the corresponding ratings are sampled from 
 #'    \eqn{N(0,1)}. The (2) The (random) number of latent LLs per diseased case is 
-#'    binomial distributed with success probability nuP and trial size equal to 
+#'    binomial distributed with success probability nu and trial size equal to 
 #'    the number of lesions in the case, and the corresponding ratings are sampled from 
 #'    N(\eqn{mu},1). (3) A latent NL or LL is actually marked if its rating exceeds 
 #'    the lowest threshold zeta1. To avoid clutter error bars are only shown for the 
@@ -113,10 +113,10 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   
   if (missing(lesDistr)) stop("FitRsmRoc needs the lesDistr argument")
  
-  maxLambdaP <- RJafrocEnv$maxLambdaP
-  minLambdaP <- RJafrocEnv$minLambdaP
-  maxNuP <- RJafrocEnv$maxNuP
-  minNuP <- RJafrocEnv$minNuP
+  maxLambda <- RJafrocEnv$maxLambda
+  minLambda <- RJafrocEnv$minLambda
+  maxNu <- RJafrocEnv$maxNu
+  minNu <- RJafrocEnv$minNu
   maxMu <- RJafrocEnv$maxRsmMu
   minMu <- RJafrocEnv$minMu
   class(lesDistr) <- "numeric"
@@ -135,16 +135,16 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   if (isDataDegenerate (fpf, tpf)) {
     if (max(tpf) > max(fpf)) { 
       mu <- maxMu # technically infinity; but then vertical line does not plot
-      lambdaP <- -log(1 - fpf[length(fpf)]) # dpc
-      nuP <- max(tpf)
-      fpfPred <- sapply(plotZeta, xROC, lambdaP = lambdaP)
-      tpfPred <- sapply(plotZeta, yROC, mu = mu, lambdaP = lambdaP,
-                        nuP = nuP, lesDistr = lesDistr)
+      lambda <- -log(1 - fpf[length(fpf)]) # dpc
+      nu <- max(tpf)
+      fpfPred <- sapply(plotZeta, xROC, lambda = lambda)
+      tpfPred <- sapply(plotZeta, yROC, mu = mu, lambda = lambda,
+                        nu = nu, lesDistr = lesDistr)
       fittedPlot <- genericPlotROC (fp, tp, fpfPred, tpfPred, method = "RSM")
       return(list(
         mu = maxMu,
-        lambdaP = minLambdaP,
-        nuP = max(tpf),
+        lambda = minLambda,
+        nu = max(tpf),
         zetas = NA,
         AUC = (1+max(tpf))/2, 
         StdAUC = 0,
@@ -156,16 +156,16 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
       ))
     } else { # right or bottom boundary of ROC
       mu <- minMu # 
-      lambdaP <- maxLambdaP # dpc
-      nuP <- minNuP
-      fpfPred <- sapply(plotZeta, xROC, lambdaP = lambdaP)
-      tpfPred <- sapply(plotZeta, yROC, mu = mu, lambdaP = lambdaP, 
-                        nuP = nuP, lesDistr = lesDistr)
+      lambda <- maxLambda # dpc
+      nu <- minNu
+      fpfPred <- sapply(plotZeta, xROC, lambda = lambda)
+      tpfPred <- sapply(plotZeta, yROC, mu = mu, lambda = lambda, 
+                        nu = nu, lesDistr = lesDistr)
       fittedPlot <- genericPlotROC (fp, tp, fpfPred, tpfPred, method = "RSM")
        return(list(
         mu = minMu,
-        lambdaP = maxLambdaP,
-        nuP = minNuP,
+        lambda = maxLambda,
+        nu = minNu,
         zetas = NA,
         AUC = (1+max(tpf))/2, 
         StdAUC = 0,
@@ -181,22 +181,22 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   retCbm <- FitCbmRoc(binnedRocData, trt = trt, rdr = rdr)
   #aucCbm <- retCbm$AUC
   muIni <- retCbm$mu
-  lambdaPIni <- -log(1 - fpf[length(fpf)]) # dpc
+  lambdaIni <- -log(1 - fpf[length(fpf)]) # dpc
   
-  nuPIni <- retCbm$alpha # dpc
+  nuIni <- retCbm$alpha # dpc
   zetasIni <- retCbm$zetas
   
-  mu <- muIni; lambdaP <- lambdaPIni;nuP <- nuPIni;zetas <- zetasIni
+  mu <- muIni; lambda <- lambdaIni;nu <- nuIni;zetas <- zetasIni
   
   # while (1){  
   muFwd <- ForwardValue(mu, minMu, maxMu)
-  lambdaPFwd <- ForwardValue(lambdaP, minLambdaP, maxLambdaP)
-  nuPFwd <- ForwardValue(nuP, minNuP, maxNuP)
+  lambdaFwd <- ForwardValue(lambda, minLambda, maxLambda)
+  nuFwd <- ForwardValue(nu, minNu, maxNu)
   zetaFwd <- ForwardZetas(zetas)
   
-  parameters <- c(muFwd, lambdaPFwd, nuPFwd, zetaFwd)
+  parameters <- c(muFwd, lambdaFwd, nuFwd, zetaFwd)
   namesVector <- paste0("zetaFwd", 1:length(zetaFwd))
-  names(parameters) <- c("muFwd" ,"lambdaPFwd", "nuPFwd", namesVector)
+  names(parameters) <- c("muFwd" ,"lambdaFwd", "nuFwd", namesVector)
   RSMNLLAdd <- AddArguments(RSMNLL, length(zetaFwd))
   
   ret <- mle2(RSMNLLAdd, start = as.list(parameters), eval.only = TRUE,
@@ -214,18 +214,18 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   vcov <- ret@vcov
   
   mu <- InverseValue(ret@coef[1], minMu, maxMu)
-  lambdaP <- InverseValue(ret@coef[2], minLambdaP, maxLambdaP)
-  nuP <- InverseValue(ret@coef[3], minNuP, maxNuP)
+  lambda <- InverseValue(ret@coef[2], minLambda, maxLambda)
+  nu <- InverseValue(ret@coef[3], minNu, maxNu)
   zetas <- InverseZetas(ret@coef[4:length(ret@coef)])
   
   # 11/30/20
-  retx <- UtilPhysical2IntrinsicRSM(mu, lambdaP, nuP)
-  lambda <- retx$lambda
-  nu <- retx$nu
+  retx <- UtilRSM2IntrinsicRSM(mu, lambda, nu)
+  lambda_i <- retx$lambda_i
+  nu_i <- retx$nu_i
   
   NLLFin <- ret@min
   
-  AUC <- UtilAnalyticalAucsRSM(mu, lambdaP, nuP, zeta1 <- -Inf, lesDistr)$aucROC # 11/30/20
+  AUC <- UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 <- -Inf, lesDistr)$aucROC # 11/30/20
   ## following checks out
   ##temp <- tempAucRSM (c(ret@coef[1], ret@coef[2], ret@coef[3]), lesDistr)  
   
@@ -233,31 +233,31 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   StdAUC <- StdDevRsmAuc(ret@coef[1], ret@coef[2], ret@coef[3], covMat, lesDistr = lesDistr) ## !!!dpc!!! looks right; can it be proved?  
   
   ChisqrFitStats <- ChisqrGoodnessOfFit(fpCounts, tpCounts,
-                                        parameters = c(mu,lambdaP,nuP,zetas), model = "RSM", lesDistr)
+                                        parameters = c(mu,lambda,nu,zetas), model = "RSM", lesDistr)
   
-  fpfPred <- sapply(plotZeta, xROC, lambdaP = lambdaP)
-  tpfPred <- sapply(plotZeta, yROC, mu = mu, lambdaP = lambdaP, 
-                    nuP = nuP, lesDistr = lesDistr)
+  fpfPred <- sapply(plotZeta, xROC, lambda = lambda)
+  tpfPred <- sapply(plotZeta, yROC, mu = mu, lambda = lambda, 
+                    nu = nu, lesDistr = lesDistr)
   fittedPlot <- genericPlotROC (fp, tp, fpfPred, tpfPred, method = "RSM")
 
   # calculate covariance matrix using un-transformed variables
-  namesVector <- c(c("mu", "lambdaP", "nuP"), paste0("zeta", 1:length(zetas)))
-  parameters <- c(list(mu, lambdaP, nuP), as.list(zetas))
+  namesVector <- c(c("mu", "lambda", "nu"), paste0("zeta", 1:length(zetas)))
+  parameters <- c(list(mu, lambda, nu), as.list(zetas))
   names(parameters) <- namesVector
   
   RSMNLLAddNoTransf <- AddArguments2(RSMNLLNoTransf, length(zetas))
   
   # ret <- mle2(RSMNLLAddNoTransf, start = parameters, 
-  #             upper = c(mu = 10, lambdaP = 20, nuP = 0.9999, zeta1 = 3, zeta2 = 3, zeta3 = 3, zeta4 = 3), 
+  #             upper = c(mu = 10, lambda = 20, nu = 0.9999, zeta1 = 3, zeta2 = 3, zeta3 = 3, zeta4 = 3), 
   #             method = "L-BFGS-B", 
   #             data = list(fb = fpCounts, tb = tpCounts, lesDistr = lesDistr))
   # 
-  # ret <- mle2(RSMNLLAddNoTransf, start = parameters, fixed = as.vector("nuP"),
+  # ret <- mle2(RSMNLLAddNoTransf, start = parameters, fixed = as.vector("nu"),
   #             method = "BFGS", 
   #             data = list(fb = fpCounts, tb = tpCounts, lesDistr = lesDistr))
   # 
   
-  if ((nuP < 0.98) && (nuP > 0.02) && (mu > 0.1)){
+  if ((nu < 0.98) && (nu > 0.02) && (mu > 0.1)){
     
     ret <- suppressWarnings(mle2(RSMNLLAddNoTransf, start = parameters, 
                                  method = "BFGS", 
@@ -280,8 +280,8 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   
   return(list(
     mu = mu,
-    lambdaP = lambdaP,
-    nuP = nuP,
+    lambda = lambda,
+    nu = nu,
     zetas = zetas,
     AUC = AUC, 
     StdAUC = StdAUC,
@@ -297,35 +297,35 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
 
 
 ###############################################################################
-RSMNLL <- function(muFwd, lambdaPFwd, nuPFwd, fb, tb, lesDistr){
-  maxLambdaP <- RJafrocEnv$maxLambdaP
-  minLambdaP <- RJafrocEnv$minLambdaP
-  maxNuP <- RJafrocEnv$maxNuP
-  minNuP <- RJafrocEnv$minNuP
+RSMNLL <- function(muFwd, lambdaFwd, nuFwd, fb, tb, lesDistr){
+  maxLambda <- RJafrocEnv$maxLambda
+  minLambda <- RJafrocEnv$minLambda
+  maxNu <- RJafrocEnv$maxNu
+  minNu <- RJafrocEnv$minNu
   maxMu <- RJafrocEnv$maxRsmMu
   minMu <- RJafrocEnv$minMu
   
   mu <- InverseValue(muFwd, minMu, maxMu)
-  lambdaP <- InverseValue(lambdaPFwd, minLambdaP, maxLambdaP)
-  nuP <- InverseValue(nuPFwd, minNuP, maxNuP)
+  lambda <- InverseValue(lambdaFwd, minLambda, maxLambda)
+  nu <- InverseValue(nuFwd, minNu, maxNu)
   allParameters <- names(formals())
   zetaPos <- grep("zetaFwd", allParameters)
   zetas <- unlist(mget(allParameters[zetaPos]))
   zetas <- InverseZetas(zetas)
   
-  return(RsmInner(mu, lambdaP, nuP, lesDistr, zetas, fb, tb))
+  return(RsmInner(mu, lambda, nu, lesDistr, zetas, fb, tb))
 }
 
 
 
 ###############################################################################
 # RSM paradigm negative of log likelihood function, without transformations
-RSMNLLNoTransf <- function (mu, lambdaP, nuP, fb, tb, lesDistr){
+RSMNLLNoTransf <- function (mu, lambda, nu, fb, tb, lesDistr){
   
   allParameters <- names(formals())
   zetaPos <- regexpr("zeta", allParameters)
   zetas <- unlist(mget(allParameters[which(zetaPos == 1)]))
-  L <- RsmInner(mu, lambdaP, nuP, lesDistr, zetas, fb, tb)
+  L <- RsmInner(mu, lambda, nu, lesDistr, zetas, fb, tb)
   return(L)
   
 }
@@ -334,9 +334,9 @@ RSMNLLNoTransf <- function (mu, lambdaP, nuP, fb, tb, lesDistr){
 
 ###############################################################################
 # inputs are transformed parameters; covMat is also wrt trans. parameters
-StdDevRsmAuc<-function(muFwd,lambdaPFwd,nuPFwd,covMatFwd, lesDistr)
+StdDevRsmAuc<-function(muFwd,lambdaFwd,nuFwd,covMatFwd, lesDistr)
 {
-  derivsFwd <- jacobian(func = tempAucRSM, c(muFwd,lambdaPFwd,nuPFwd), lesDistr = lesDistr) # this is for transformed variables
+  derivsFwd <- jacobian(func = tempAucRSM, c(muFwd,lambdaFwd,nuFwd), lesDistr = lesDistr) # this is for transformed variables
   VarAz <- derivsFwd %*% covMatFwd %*% t(derivsFwd)
   if (VarAz < 0 || is.na(VarAz)) return(NA) else return(sqrt(VarAz))
 }
@@ -345,20 +345,20 @@ StdDevRsmAuc<-function(muFwd,lambdaPFwd,nuPFwd,covMatFwd, lesDistr)
 
 ###############################################################################
 tempAucRSM <- function (forwardParms, lesDistr = lesDistr){
-  maxLambdaP <- RJafrocEnv$maxLambdaP
-  minLambdaP <- RJafrocEnv$minLambdaP
-  maxNuP <- RJafrocEnv$maxNuP
-  minNuP <- RJafrocEnv$minNuP
+  maxLambda <- RJafrocEnv$maxLambda
+  minLambda <- RJafrocEnv$minLambda
+  maxNu <- RJafrocEnv$maxNu
+  minNu <- RJafrocEnv$minNu
   maxMu <- RJafrocEnv$maxRsmMu
   minMu <- RJafrocEnv$minMu
   
   mu <- InverseValue(forwardParms[1], minMu, maxMu)
-  lambdaP <- InverseValue(forwardParms[2], minLambdaP, maxLambdaP)
-  nuP <- InverseValue(forwardParms[3], minNuP, maxNuP)
+  lambda <- InverseValue(forwardParms[2], minLambda, maxLambda)
+  nu <- InverseValue(forwardParms[3], minNu, maxNu)
   
-  maxFPF <- xROC(-20, lambdaP)
-  maxTPF <- yROC(-20, mu, lambdaP, nuP, lesDistr)
-  AUC <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu, lambdaP = lambdaP, nuP = nuP, 
+  maxFPF <- xROC(-20, lambda)
+  maxTPF <- yROC(-20, mu, lambda, nu, lesDistr)
+  AUC <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, 
                    lesDistr = lesDistr)$value
   
   AUC <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2

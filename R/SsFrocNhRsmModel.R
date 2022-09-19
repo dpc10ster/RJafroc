@@ -9,9 +9,9 @@
 #'
 #' @return A list containing:
 #'    \itemize{
-#'    \item \code{muMed}, the median mu parameter of the NH model.
-#'    \item \code{lambdaMed}, the median lambda parameter of the NH model.
-#'    \item \code{nuMed}, the median nu parameter of the NH model.
+#'    \item \code{mu}, the mu parameter of the NH model.
+#'    \item \code{lambda_i}, the intrinsic lambda_i parameter of the NH model.
+#'    \item \code{nu_i}, the intrinsic nu_i parameter of the NH model.
 #'    \item \code{scaleFactor}, the scaling factor that multiplies
 #'       the ROC effect size to get wAFROC effect size.
 #'    \item \code{R2}, the R2 of the fit.
@@ -35,8 +35,6 @@
 #' ## user system elapsed
 #' ## SsFrocNhRsmModel 8.102  0.023   8.135
 #'
-#' ## SsFrocNhRsmModel(dataset02, c(0.7, 0.2, 0.1))
-#' ## the next one should match the vignette
 #' ## SsFrocNhRsmModel(DfExtractDataset(dataset04, trts = c(1,2)), c(0.69, 0.2, 0.11))
 #' }
 #'
@@ -74,41 +72,39 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
     }
   }
 
-  muMed <- median(RsmParms[,,1])
-  lambdaPMed <- median(RsmParms[,,2]) # these are physical parameters
-  nuPMed <- median(RsmParms[,,3]) # do:
+  # use median instead of average
+  mu <- median(RsmParms[,,1])
+  lambda <- median(RsmParms[,,2]) # these are physical parameters
+  nu <- median(RsmParms[,,3]) # do:
 
-  temp <- UtilPhysical2IntrinsicRSM(muMed, lambdaPMed, nuPMed)
-  lambdaMed <- temp$lambda
-  nuMed <- temp$nu
+  # convert to intrinsic parameters
+  temp <- UtilRSM2IntrinsicRSM(mu, lambda, nu)
+  lambda_i <- temp$lambda_i
+  nu_i <- temp$nu_i
 
   # calculate NH values for ROC-AUC and wAFROC-AUC
-  aucRocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed,
+  aucRocNH <- PlotRsmOperatingCharacteristics(mu, lambda_i, nu_i,
                                               lesDistr = lesDistr, OpChType = "ROC")$aucROC
-  aucAfrocNH <- PlotRsmOperatingCharacteristics(muMed, lambdaMed, nuMed,
+  aucAfrocNH <- PlotRsmOperatingCharacteristics(mu, lambda_i, nu_i,
                                                 lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC
 
   # following calculates effect sizes: ROC-ES and wAFROC-ES
   deltaMu <- seq(0.01, 0.2, 0.01) # values of deltaMu to scan below
   esRoc <- array(dim = length(deltaMu));eswAfroc <- array(dim = length(deltaMu))
   for (i in 1:length(deltaMu)) {
-    esRoc[i] <- PlotRsmOperatingCharacteristics(muMed + deltaMu[i], lambdaMed, nuMed, lesDistr =
+    esRoc[i] <- PlotRsmOperatingCharacteristics(mu + deltaMu[i], lambda_i, nu_i, lesDistr =
                                                   lesDistr, OpChType = "ROC")$aucROC - aucRocNH
-    eswAfroc[i] <- PlotRsmOperatingCharacteristics(muMed+ deltaMu[i], lambdaMed, nuMed, lesDistr =
+    eswAfroc[i] <- PlotRsmOperatingCharacteristics(mu+ deltaMu[i], lambda_i, nu_i, lesDistr =
                                                      lesDistr, OpChType = "wAFROC")$aucwAFROC - aucAfrocNH
   }
 
-  scaleFactor<-lm(eswAfroc~-1+esRoc) # fit values to straight line thru origin
+  scaleFactor<-lm(eswAfroc~-1+esRoc) # fit values to straight line through origin
 
-  # convert to intrinsic parameters
-  temp <- UtilPhysical2IntrinsicRSM(muMed, lambdaPMed, nuPMed)
-  lambdaMed <- temp$lambda
-  nuMed <- temp$nu
 
   return(list(
-    muMed = muMed,
-    lambdaMed = lambdaMed,
-    nuMed = nuMed,
+    mu = mu,
+    lambda_i = lambda_i,
+    nu_i = nu_i,
     scaleFactor = as.numeric(scaleFactor$coefficients),
     R2 = summary(scaleFactor)$r.squared
   ))

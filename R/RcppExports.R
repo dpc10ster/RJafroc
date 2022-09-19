@@ -85,32 +85,32 @@ erfVect <- function(x) {
     .Call('_RJafroc_erfVect', PACKAGE = 'RJafroc', x)
 }
 
-xROC <- function(zeta, lambdaP) {
-    .Call('_RJafroc_xROC', PACKAGE = 'RJafroc', zeta, lambdaP)
+xROC <- function(zeta, lambda) {
+    .Call('_RJafroc_xROC', PACKAGE = 'RJafroc', zeta, lambda)
 }
 
-xROCVect <- function(zeta, lambdaP) {
-    .Call('_RJafroc_xROCVect', PACKAGE = 'RJafroc', zeta, lambdaP)
+xROCVect <- function(zeta, lambda) {
+    .Call('_RJafroc_xROCVect', PACKAGE = 'RJafroc', zeta, lambda)
 }
 
-yROC <- function(zeta, mu, lambdaP, nuP, lesDistr) {
-    .Call('_RJafroc_yROC', PACKAGE = 'RJafroc', zeta, mu, lambdaP, nuP, lesDistr)
+yROC <- function(zeta, mu, lambda, nu, lesDistr) {
+    .Call('_RJafroc_yROC', PACKAGE = 'RJafroc', zeta, mu, lambda, nu, lesDistr)
 }
 
-yROCVect <- function(zeta, mu, lambdaP, nuP, lesDistr) {
-    .Call('_RJafroc_yROCVect', PACKAGE = 'RJafroc', zeta, mu, lambdaP, nuP, lesDistr)
+yROCVect <- function(zeta, mu, lambda, nu, lesDistr) {
+    .Call('_RJafroc_yROCVect', PACKAGE = 'RJafroc', zeta, mu, lambda, nu, lesDistr)
 }
 
-RsmInner <- function(mu, lambdaP, nuP, lesDistr, zeta, fb, tb) {
-    .Call('_RJafroc_RsmInner', PACKAGE = 'RJafroc', mu, lambdaP, nuP, lesDistr, zeta, fb, tb)
+RsmInner <- function(mu, lambda, nu, lesDistr, zeta, fb, tb) {
+    .Call('_RJafroc_RsmInner', PACKAGE = 'RJafroc', mu, lambda, nu, lesDistr, zeta, fb, tb)
 }
 
-y_ROC_FPF <- function(FPF, mu, lambdaP, nuP, lesDistr) {
-    .Call('_RJafroc_y_ROC_FPF', PACKAGE = 'RJafroc', FPF, mu, lambdaP, nuP, lesDistr)
+y_ROC_FPF <- function(FPF, mu, lambda, nu, lesDistr) {
+    .Call('_RJafroc_y_ROC_FPF', PACKAGE = 'RJafroc', FPF, mu, lambda, nu, lesDistr)
 }
 
-ywAFROC <- function(zeta, mu, nuP, lesDistr, lesWghtDistr) {
-    .Call('_RJafroc_ywAFROC', PACKAGE = 'RJafroc', zeta, mu, nuP, lesDistr, lesWghtDistr)
+ywAFROC <- function(zeta, mu, nu, lesDistr, lesWghtDistr) {
+    .Call('_RJafroc_ywAFROC', PACKAGE = 'RJafroc', zeta, mu, nu, lesDistr, lesWghtDistr)
 }
 
 ForwardValue <- function(value, valueLower, valueUpper) {

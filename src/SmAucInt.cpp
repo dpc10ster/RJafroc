@@ -9,15 +9,15 @@
 // {
 // private:
 //   double mu;
-//   double lambdaP;
-//   double nuP;
+//   double lambda;
+//   double nu;
 //   Rcpp::NumericMatrix lesionDistribution;
 // public:
-//   SmAucIntFunc(double mu_, double lambdaP_, double nuP_, Rcpp::NumericMatrix lesionDistribution_) : mu(mu_), lambdaP(lambdaP_), nuP(nuP_), lesionDistribution(lesionDistribution_){}
+//   SmAucIntFunc(double mu_, double lambdaP_, double nuP_, Rcpp::NumericMatrix lesionDistribution_) : mu(mu_), lambda(lambdaP_), nu(nuP_), lesionDistribution(lesionDistribution_){}
 //   
 //   double operator()(const double& FPF) const
 //   {
-//     double temp = 1 / lambdaP * log(1 - FPF) + 1;
+//     double temp = 1 / lambda * log(1 - FPF) + 1;
 //     double zeta;
 //     if (temp <= 0){
 //       zeta = -20;
@@ -27,16 +27,16 @@
 //     // Rcpp::Rcout << "FPF is now " << FPF << std::endl;
 //     // Rcpp::Rcout << "temp is now " << temp << std::endl;
 //     // Rcpp::Rcout << "zeta is now " << zeta << std::endl;
-//     return yROC(zeta, mu, lambdaP, nuP, lesionDistribution);
+//     return yROC(zeta, mu, lambda, nu, lesionDistribution);
 //   }
 // };
 // 
 // // [[Rcpp::export]]
-// double SmAuc(double mu, double lambdaP, double nuP, NumericMatrix lesionDistribution)
+// double SmAuc(double mu, double lambda, double nu, NumericMatrix lesionDistribution)
 // {
-//   SmAucIntFunc f(mu, lambdaP, nuP, lesionDistribution);
-//   double maxFPF = xROC(R_NegInf, lambdaP);
-//   double maxTPF = yROC(R_NegInf, mu, lambdaP, nuP, lesionDistribution);
+//   SmAucIntFunc f(mu, lambda, nu, lesionDistribution);
+//   double maxFPF = xROC(R_NegInf, lambda);
+//   double maxTPF = yROC(R_NegInf, mu, lambda, nu, lesionDistribution);
 //   // Rcpp::Rcout << "maxFPF is now " << maxFPF << std::endl;
 //   // Rcpp::Rcout << "maxTPF is now " << maxTPF << std::endl;
 //   double err_est;

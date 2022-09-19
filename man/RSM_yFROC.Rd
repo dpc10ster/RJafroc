@@ -4,14 +4,14 @@
 \alias{RSM_yFROC}
 \title{RSM predicted FROC ordinate}
 \usage{
-RSM_yFROC(z, mu, nuP)
+RSM_yFROC(z, mu, nu)
 }
 \arguments{
 \item{z}{The z-sample value at which to evaluate the FROC ordinate.}
 
-\item{mu}{The mu parameter of the RSM.}
+\item{mu}{The RSM mu parameter.}
 
-\item{nuP}{The (physical) nu prime parameter of the RSM.}
+\item{nu}{The RSM nu prime parameter.}
 }
 \value{
 yFROC

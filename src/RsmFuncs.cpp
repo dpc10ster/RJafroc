@@ -18,42 +18,42 @@ NumericVector erfVect(NumericVector x){
 }
 
 // [[Rcpp::export]]
-double xROC(double zeta, double lambdaP){
-  return 1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2.0)));
+double xROC(double zeta, double lambda){
+  return 1 - exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta / sqrt(2.0)));
 }
 
 // [[Rcpp::export]]
-NumericVector xROCVect(NumericVector zeta, double lambdaP){
+NumericVector xROCVect(NumericVector zeta, double lambda){
   int l = zeta.size();
   NumericVector FPF(l);
   for (int il = 0; il < l; il ++){
-    FPF[il] = 1 - exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta[il] / sqrt(2.0)));
+    FPF[il] = 1 - exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta[il] / sqrt(2.0)));
   }
   return FPF;
 }
 
 // [[Rcpp::export]]
-double yROC(double zeta, double mu, double lambdaP, double nuP, NumericVector lesDistr){
+double yROC(double zeta, double mu, double lambda, double nu, NumericVector lesDistr){
   double TPF = 0;
   int maxLes = lesDistr.size();
     
   for (int i = 0; i < maxLes; i++){
     TPF = TPF + lesDistr[i] * (1 - 
-      pow(1 - nuP/2 + nuP/2  * erfcpp( (zeta - mu) / sqrt(2.0) ) , 
-          (i+1)) * exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta / sqrt(2.0))));
+      pow(1 - nu/2 + nu/2  * erfcpp( (zeta - mu) / sqrt(2.0) ) , 
+          (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta / sqrt(2.0))));
   }
   return TPF;
 }
 
 // [[Rcpp::export]]
-NumericVector yROCVect(NumericVector zeta, double mu, double lambdaP, double nuP, NumericVector lesDistr){
+NumericVector yROCVect(NumericVector zeta, double mu, double lambda, double nu, NumericVector lesDistr){
   int l = zeta.size();
   NumericVector TPF(l);
   int maxLes= lesDistr.size();
     
   for (int il = 0; il < l; il ++){
     for (int i = 0; i < maxLes; i++){
-      TPF[il] = TPF[il] + lesDistr[i] * (1 - pow(1 - nuP/2 + nuP/2  * erfcpp( (zeta[il] - mu) / sqrt(2.0) ) , (i+1)) * exp( (-lambdaP / 2) + 0.5 * lambdaP * erfcpp(zeta[il] / sqrt(2.0))));
+      TPF[il] = TPF[il] + lesDistr[i] * (1 - pow(1 - nu/2 + nu/2  * erfcpp( (zeta[il] - mu) / sqrt(2.0) ) , (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta[il] / sqrt(2.0))));
     }
   }
   
@@ -63,9 +63,9 @@ NumericVector yROCVect(NumericVector zeta, double mu, double lambdaP, double nuP
 
 
 // [[Rcpp::export]]
-double RsmInner(double mu, double lambdaP, double nuP, NumericVector lesDistr, NumericVector zeta, NumericVector fb, NumericVector tb){
-  NumericVector FPF = xROCVect(zeta, lambdaP);
-  NumericVector TPF = yROCVect(zeta, mu, lambdaP, nuP, lesDistr);
+double RsmInner(double mu, double lambda, double nu, NumericVector lesDistr, NumericVector zeta, NumericVector fb, NumericVector tb){
+  NumericVector FPF = xROCVect(zeta, lambda);
+  NumericVector TPF = yROCVect(zeta, mu, lambda, nu, lesDistr);
   int l = fb.size();
   NumericVector FPFBin(l), TPFBin(l);
   double L = 0;
@@ -86,12 +86,12 @@ double RsmInner(double mu, double lambdaP, double nuP, NumericVector lesDistr, N
 
 
 // [[Rcpp::export]]
-NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambdaP, double nuP, NumericVector lesDistr){
+NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambda, double nu, NumericVector lesDistr){
   int l = FPF.size();
   NumericVector zeta(l);
   double temp;
   for (int il = 0; il < l; il++){
-    temp = 1 / lambdaP * log(1 - FPF[il]) + 1;
+    temp = 1 / lambda * log(1 - FPF[il]) + 1;
     if (temp <= 0){
       zeta[il] = -20;
     }else{
@@ -102,7 +102,7 @@ NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambdaP, double nuP
   // Rcpp::Rcout << "FPF is now " << FPF << std::endl;
   // Rcpp::Rcout << "temp is now " << temp << std::endl;
   // Rcpp::Rcout << "zeta is now " << zeta << std::endl;
-  return yROCVect(zeta, mu, lambdaP, nuP, lesDistr);
+  return yROCVect(zeta, mu, lambda, nu, lesDistr);
 }
 
 
@@ -111,7 +111,7 @@ NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambdaP, double nuP
 
 
 // [[Rcpp::export]]
-double ywAFROC (double zeta, double mu, double nuP,
+double ywAFROC (double zeta, double mu, double nu,
                 NumericVector lesDistr, NumericMatrix lesWghtDistr){
   double wLLF = 0; 
   int maxLes = lesDistr.size();
@@ -120,8 +120,8 @@ double ywAFROC (double zeta, double mu, double nuP,
     double wLLFrow = 0;
     for (int col = 0; col < nLesPerCase; col++){
       wLLFrow += lesWghtDistr(row, col+1) * (col+1) *
-        R::dbinom(double(col+1), double(nLesPerCase), nuP, 0) * (1 - R::pnorm(zeta - mu, 0, 1, 1, 0));
-// above line was tricky; note difference in col indexing from R code: lesWghtDistr[row, col+1] * col * dbinom(col, nLesPerCase, nuP) * (1 - pnorm(zeta - mu))
+        R::dbinom(double(col+1), double(nLesPerCase), nu, 0) * (1 - R::pnorm(zeta - mu, 0, 1, 1, 0));
+// above line was tricky; note difference in col indexing from R code: lesWghtDistr[row, col+1] * col * dbinom(col, nLesPerCase, nu) * (1 - pnorm(zeta - mu))
 // this is due to zero-based C indexing vs. 1 based r indexing
     }
     wLLF += lesDistr[row] * wLLFrow;

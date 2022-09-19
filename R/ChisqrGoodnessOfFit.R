@@ -25,7 +25,7 @@
 #' @details
 #' For model = "BINORMAL" the parameters are c(a,b,zetas).
 #' For model = "CBM" the parameters are c(mu,alpha,zetas).
-#' For model = "RSM" the parameters are c(mu,lambdaP,nuP,zetas).
+#' For model = "RSM" the parameters are c(mu,lambda,nu,zetas).
 #' Due to the sparsity of the data, in most cases the goodness of fit statistic 
 #' cannot be calculated as the criterion of at least 5 counts in each
 #' cell (TP and FP) is usually not met. An exception dataset is shown below.
@@ -66,11 +66,11 @@ ChisqrGoodnessOfFit <- function(fpCounts, tpCounts, parameters, model,lesDistr) 
     minDfVal <- 3
   } else if (model == "RSM") {
     mu <- parameters[1]
-    lambdaP <- parameters[2]
-    nuP <- parameters[3]
+    lambda <- parameters[2]
+    nu <- parameters[3]
     zetas <- parameters[4:length(parameters)]
-    fpf1 <- xROCVect(zetas, lambdaP)
-    tpf1 <- yROCVect(zetas, mu, lambdaP, nuP, lesDistr)
+    fpf1 <- xROCVect(zetas, lambda)
+    tpf1 <- yROCVect(zetas, mu, lambda, nu, lesDistr)
     minDfVal <- 4
   } else stop("Incorrect model parameter in ChisqrGoodnessOfFit")
   

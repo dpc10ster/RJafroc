@@ -6,8 +6,8 @@
 \usage{
 UtilAnalyticalAucsRSM(
   mu,
-  lambdaP,
-  nuP,
+  lambda,
+  nu,
   zeta1 = -Inf,
   lesDistr,
   relWeights = 0,
@@ -20,15 +20,9 @@ ratings of latent LLs (continuous ratings of lesions that
 are found by the search mechanism). The NLs are assumed to be distributed
 as N(0,1).}
 
-\item{lambdaP}{The \emph{physical} lambda prime parameter, 
-which describes 
-the random number of latent NLs (suspicious regions that do not 
-correspond to actual lesions) per case.}
+\item{lambda}{The RSM lambda parameter.}
 
-\item{nuP}{The \emph{physical} \code{nuP} parameters, 
-the success probability of the binomial distribution describing 
-the random numbers of latent LLs (suspicious regions that correspond 
-to actual lesions) per diseased case.}
+\item{nu}{The RSM nu parameters.}
 
 \item{zeta1}{The lowest reporting threshold, the default is \code{-Inf}.}
 
@@ -50,14 +44,14 @@ A list containing the ROC, AFROC and wAFROC AUCs corresponding to the
    \code{\link{UtilAucBinormal}} and \code{\link{UtilAucCBM}}}
 }
 \examples{
-mu <- 1;lambdaP <- 1;nuP <- 0.9
+mu <- 1;lambda <- 1;nu <- 0.9
 lesDistr <- c(0.9, 0.1) 
 ## i.e., 90\% of dis. cases have one lesion, and 10\% have two lesions
 relWeights <- c(0.05, 0.95)
 ## i.e., lesion 1 has weight 5 percent while lesion two has weight 95 percent
 
-UtilAnalyticalAucsRSM(mu, lambdaP, nuP, zeta1 = -Inf, lesDistr)
-UtilAnalyticalAucsRSM(mu, lambdaP, nuP, zeta1 = -Inf, lesDistr, relWeights)
+UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr)
+UtilAnalyticalAucsRSM(mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights)
 
 
 }

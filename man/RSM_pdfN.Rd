@@ -4,12 +4,12 @@
 \alias{RSM_pdfN}
 \title{RSM predicted ROC-rating pdf for non-diseased cases}
 \usage{
-RSM_pdfN(z, lambdaP)
+RSM_pdfN(z, lambda)
 }
 \arguments{
 \item{z}{The z-sample value at which to evaluate the pdf.}
 
-\item{lambdaP}{The (physical) lambdaP parameter of the RSM.}
+\item{lambda}{The (physical) lambda parameter of the RSM.}
 }
 \value{
 pdf

@@ -6,7 +6,9 @@ title: "NEWS"
 
 ---
 
-### Work post acceptance of v2.1.1
+### Work post acceptance of v2.1.1 
+* changed `lambdaP` to lambda and lambda to `lambda_i` 9/19/22
+* this corresponds with revised notation in book
 * TBA
 
 
@@ -79,7 +81,6 @@ title: "NEWS"
 * Add to tests?
 * Replace error function with Phi functions?
 * Remove redundant column in weights matrix
-* change `lambdaP` to lambda and lambda to `lambdaI` and corresponding changes in book
 
 
 ### Changed `RSM_yROC` to accept physical parameters 12-26-21
