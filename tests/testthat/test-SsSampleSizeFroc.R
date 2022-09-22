@@ -33,7 +33,7 @@ test_that(contextStr, {
   expect_equivalent(x1$lambdaMed, x2$lambdaMed, tolerance=5e-3)
   expect_equivalent(x1$nuMed, x2$nuMed, tolerance=5e-2)
   expect_equivalent(x1$ScaleFactor, x2$ScaleFactor, tolerance=5e-5)
-  expect_equivalent(x1$R2, x2$R2, tolerance=1e-7)
+  expect_equivalent(x1$R2, x2$R2, tolerance=1e-5)
   
     
 })

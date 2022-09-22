@@ -19,7 +19,7 @@
 #' @return A list containing \eqn{\lambda} and \eqn{\nu}
 #' 
 #' @details RSM is the Radiological Search Model described in the book. 
-#'   See also \code{\link{UtilRSM2IntrinsicRSM}}.
+#'   See also \code{\link{UtilRSM2Intrinsic}}.
 #' 
 #' @references
 #' Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 

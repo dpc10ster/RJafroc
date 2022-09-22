@@ -18,8 +18,8 @@ study.}
 A list containing:
    \itemize{
    \item \code{mu}, the mu parameter of the NH model.
-   \item \code{lambda_i}, the intrinsic lambda_i parameter of the NH model.
-   \item \code{nu_i}, the intrinsic nu_i parameter of the NH model.
+   \item \code{lambda}, the lambda parameter of the NH model.
+   \item \code{nu}, the nu parameter of the NH model.
    \item \code{scaleFactor}, the scaling factor that multiplies
       the ROC effect size to get wAFROC effect size.
    \item \code{R2}, the R2 of the fit.

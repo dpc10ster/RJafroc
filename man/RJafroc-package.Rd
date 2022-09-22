@@ -449,7 +449,7 @@
         \item \code{\link{UtilMeanSquares}}: Calculates the mean squares used in the
            DBMH and ORH methods.
         \item \code{\link{UtilOutputReport}}: Generate a formatted report file.
-        \item \code{\link{UtilRSM2IntrinsicRSM}}: Convert from RSM parameters to
+        \item \code{\link{UtilRSM2Intrinsic}}: Convert from RSM parameters to
            intrinsic RSM parameters.
         \item \code{\link{UtilPseudoValues}}: Return jackknife pseudovalues.
         \item \code{\link{UtilVarComponentsDBM}}: Utility for Dorfman-Berbaum-Metz

@@ -9,7 +9,7 @@ title: "NEWS"
 ### Work post acceptance of v2.1.1 
 * universal change: `lambdaP` to `lambda` and `lambda` to `lambda_i` 9/19/22
 * this corresponds with revised notation in book
-* TBA
+* `PlotRsmOperatingCharacteristics` depends on RSM parameters, not intrinsic parameters 9/22/22
 
 
 ## version 2.1.1

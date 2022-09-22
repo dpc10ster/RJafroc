@@ -6,8 +6,8 @@
 \usage{
 PlotRsmOperatingCharacteristics(
   mu,
-  lambda_i,
-  nu_i,
+  lambda,
+  nu,
   zeta1,
   lesDistr,
   relWeights = 0,
@@ -23,9 +23,9 @@ PlotRsmOperatingCharacteristics(
 \arguments{
 \item{mu}{Array: the RSM mu parameter.}
 
-\item{lambda_i}{Array: the \emph{intrinsic} RSM lambda_i parameter.}
+\item{lambda}{Array: the RSM lambda parameter.}
 
-\item{nu_i}{Array: the \emph{intrinsic} RSM nu_i parameter.}
+\item{nu}{Array: the RSM nu parameter.}
 
 \item{zeta1}{Array, the lowest reporting threshold; if missing the default 
 is an array of -3s.}
@@ -101,7 +101,7 @@ RSM is the Radiological Search Model described in the book. This
 ## and 30\% have 4 lesions.  
 lesDistr <- c(0.2, 0.4, 0.1, 0.3)
 
-PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda_i = c(1, 1.5), nu_i = c(0.6, 0.8),
+PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
    lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
 
 }

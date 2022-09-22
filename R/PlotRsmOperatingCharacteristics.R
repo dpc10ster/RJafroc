@@ -6,9 +6,9 @@
 #' 
 #' @param mu Array: the RSM mu parameter.
 #' 
-#' @param lambda_i Array: the \emph{intrinsic} RSM lambda_i parameter.
+#' @param lambda Array: the RSM lambda parameter.
 #' 
-#' @param nu_i Array: the \emph{intrinsic} RSM nu_i parameter.
+#' @param nu Array: the RSM nu parameter.
 #' 
 #' @param zeta1 Array, the lowest reporting threshold; if missing the default 
 #'    is an array of -3s. 
@@ -97,14 +97,14 @@
 #' ## and 30% have 4 lesions.  
 #' lesDistr <- c(0.2, 0.4, 0.1, 0.3)
 #' 
-#' PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda_i = c(1, 1.5), nu_i = c(0.6, 0.8),
+#' PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
 #'    lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
 #' 
 #' @export
 #' 
 PlotRsmOperatingCharacteristics <- function(mu, 
-                                            lambda_i, 
-                                            nu_i,
+                                            lambda, 
+                                            nu,
                                             zeta1,
                                             lesDistr, 
                                             relWeights = 0, 
@@ -117,8 +117,12 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                             nlfAlpha = NULL){
   if (missing(zeta1)) zeta1 <- array(-3, dim = length(mu))
       
-  if (!all(c(length(mu) == length(lambda_i), length(mu) == length(nu_i), length(mu) == length(zeta1))))
-    stop("Parameters mu, lambda_i, nu_i and zeta1 have different lengths.")
+  if (!all(c(length(mu) == length(lambda), length(mu) == length(nu), length(mu) == length(zeta1))))
+    stop("Parameters mu, lambda, nu and zeta1 have different lengths.")
+  
+  x <- UtilRSM2Intrinsic(mu, lambda, nu)
+  lambda_i <- x$lambda_i
+  nu_i <- x$nu_i
   
   lesWghtDistr <- UtilLesionWeightsMatrixLesDistr(lesDistr, relWeights)
 

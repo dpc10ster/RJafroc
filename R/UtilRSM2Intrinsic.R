@@ -37,13 +37,13 @@
 #' 
 #' @examples
 #' mu <- 2;lambda <- 10;nu <- 0.9
-#' lambda_i <- UtilRSM2IntrinsicRSM(mu, lambda, nu)$lambda_i 
-#' nu_i <- UtilRSM2IntrinsicRSM(mu, lambda, nu)$nu_i 
+#' lambda_i <- UtilRSM2Intrinsic(mu, lambda, nu)$lambda_i 
+#' nu_i <- UtilRSM2Intrinsic(mu, lambda, nu)$nu_i 
 #' ## note that the physical values are only constrained to be positive, e.g., nu_i is not constrained
 #' ## to be between 0 and one.
 #' 
 #' @export
-UtilRSM2IntrinsicRSM <- function(mu, lambda, nu) {
+UtilRSM2Intrinsic<- function(mu, lambda, nu) {
   
   lambda_i <- lambda * mu
   nu_i <- -log(1-nu)/mu

@@ -21,7 +21,7 @@ The return value is a list with the following elements:
 \item{mu}{The mean of the diseased distribution relative 
    to the non-diseased one}
 
-\item{lambdP}{The Poisson parameter describing the distribution 
+\item{lambda}{The Poisson parameter describing the distribution 
    of latent NLs per case}
 
 \item{nu}{The binomial success probability describing the distribution

@@ -10,8 +10,8 @@
 #' @return A list containing:
 #'    \itemize{
 #'    \item \code{mu}, the mu parameter of the NH model.
-#'    \item \code{lambda_i}, the intrinsic lambda_i parameter of the NH model.
-#'    \item \code{nu_i}, the intrinsic nu_i parameter of the NH model.
+#'    \item \code{lambda}, the lambda parameter of the NH model.
+#'    \item \code{nu}, the nu parameter of the NH model.
 #'    \item \code{scaleFactor}, the scaling factor that multiplies
 #'       the ROC effect size to get wAFROC effect size.
 #'    \item \code{R2}, the R2 of the fit.
@@ -78,23 +78,24 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   nu <- median(RsmParms[,,3]) # do:
 
   # convert to intrinsic parameters
-  temp <- UtilRSM2IntrinsicRSM(mu, lambda, nu)
-  lambda_i <- temp$lambda_i
-  nu_i <- temp$nu_i
+  # undid this 9/22/22
+  # temp <- UtilRSM2Intrinsic(mu, lambda, nu)
+  # lambda_i <- temp$lambda_i
+  # nu_i <- temp$nu_i
 
   # calculate NH values for ROC-AUC and wAFROC-AUC
-  aucRocNH <- PlotRsmOperatingCharacteristics(mu, lambda_i, nu_i,
+  aucRocNH <- PlotRsmOperatingCharacteristics(mu, lambda, nu,
                                               lesDistr = lesDistr, OpChType = "ROC")$aucROC
-  aucAfrocNH <- PlotRsmOperatingCharacteristics(mu, lambda_i, nu_i,
+  aucAfrocNH <- PlotRsmOperatingCharacteristics(mu, lambda, nu,
                                                 lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC
 
   # following calculates effect sizes: ROC-ES and wAFROC-ES
   deltaMu <- seq(0.01, 0.2, 0.01) # values of deltaMu to scan below
   esRoc <- array(dim = length(deltaMu));eswAfroc <- array(dim = length(deltaMu))
   for (i in 1:length(deltaMu)) {
-    esRoc[i] <- PlotRsmOperatingCharacteristics(mu + deltaMu[i], lambda_i, nu_i, lesDistr =
+    esRoc[i] <- PlotRsmOperatingCharacteristics(mu + deltaMu[i], lambda, nu, lesDistr =
                                                   lesDistr, OpChType = "ROC")$aucROC - aucRocNH
-    eswAfroc[i] <- PlotRsmOperatingCharacteristics(mu+ deltaMu[i], lambda_i, nu_i, lesDistr =
+    eswAfroc[i] <- PlotRsmOperatingCharacteristics(mu+ deltaMu[i], lambda, nu, lesDistr =
                                                      lesDistr, OpChType = "wAFROC")$aucwAFROC - aucAfrocNH
   }
 
@@ -103,8 +104,9 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
 
   return(list(
     mu = mu,
-    lambda_i = lambda_i,
-    nu_i = nu_i,
+    # 9/22/22
+    lambda = lambda,
+    nu = nu,
     scaleFactor = as.numeric(scaleFactor$coefficients),
     R2 = summary(scaleFactor)$r.squared
   ))

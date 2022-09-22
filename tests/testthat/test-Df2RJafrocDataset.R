@@ -69,8 +69,8 @@ test_that("SimulateFrocDataset", {
   I <- 2;J <- 3
   K1 <- 25;K2 <- 35
   mu <- 1;nu <- 0.8;lambda <- 1;zeta1 <- 0
-  lambda_i <- UtilRSM2IntrinsicRSM(mu,lambda,nu)$lambda_i
-  nu_i <- UtilRSM2IntrinsicRSM(mu,lambda,nu)$nu_i
+  lambda_i <- UtilRSM2Intrinsic(mu,lambda,nu)$lambda_i
+  nu_i <- UtilRSM2Intrinsic(mu,lambda,nu)$nu_i
   Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
   z1 <- array(-Inf,dim = c(I,J,K1+K2,40))
   z2 <- array(-Inf,dim = c(I,J,K2,40))

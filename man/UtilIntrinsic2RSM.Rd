@@ -28,7 +28,7 @@ Convert \strong{intrinsic} RSM parameters \eqn{lambda_i} and \eqn{nu_i}
 }
 \details{
 RSM is the Radiological Search Model described in the book. 
-  See also \code{\link{UtilRSM2IntrinsicRSM}}.
+  See also \code{\link{UtilRSM2Intrinsic}}.
 }
 \examples{
 mu <- 2;lambda_i <- 20;nu_i <- 1.1512925 
