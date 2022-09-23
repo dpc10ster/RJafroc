@@ -4,14 +4,14 @@
 \alias{SimulateLrocDataset}
 \title{Simulates an uncorrelated FLROC FrocDataset using the RSM}
 \usage{
-SimulateLrocDataset(mu, lambda_i, nu_i, zeta1, I, J, K1, K2, lesionVector)
+SimulateLrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, lesionVector)
 }
 \arguments{
 \item{mu}{The mu parameter of the RSM}
 
-\item{lambda_i}{The intrinsic lambda_i parameter of the RSM}
+\item{lambda}{The RSM lambda parameter}
 
-\item{nu_i}{The intrinsic nu_i parameter of the RSM}
+\item{nu}{The RSM nu parameter}
 
 \item{zeta1}{The lowest reporting threshold}
 
@@ -42,11 +42,11 @@ See book chapters on the Radiological Search Model (RSM) for details.
   K1 <- 5
   K2 <- 5
   mu <- 2
-  lambda_i <- 1
+  lambda <- 1
   lesionVector <- rep(1, 5)
-  nu_i <- 0.8
+  nu <- 0.8
   zeta1 <- -3
-  frocData <- SimulateFrocDataset(mu, lambda_i, nu_i, zeta1, I = 2, J = 5, K1, K2, lesionVector)
+  frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, lesionVector)
   lrocData <- DfFroc2Lroc(frocData)
 
 }

@@ -4,25 +4,14 @@
 \alias{SimulateFrocDataset}
 \title{Simulates an MRMC uncorrelated FROC dataset using the RSM}
 \usage{
-SimulateFrocDataset(
-  mu,
-  lambda_i,
-  nu_i,
-  zeta1,
-  I,
-  J,
-  K1,
-  K2,
-  perCase,
-  seed = NULL
-)
+SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL)
 }
 \arguments{
 \item{mu}{The mu parameter of the RSM}
 
-\item{lambda_i}{The intrinsic lambda_i parameter of the RSM (not the physical parameter)}
+\item{lambda}{The RSM lambda parameter}
 
-\item{nu_i}{The intrinsic nu_i parameter of the RSM (not the physical parameter)}
+\item{nu}{The RSM nu parameter}
 
 \item{zeta1}{The lowest reporting threshold}
 
@@ -54,11 +43,11 @@ See book chapters on the Radiological Search Model (RSM) for details.
 set.seed(1) 
 K1 <- 5;K2 <- 7;
 maxLL <- 2;perCase <- floor(runif(K2, 1, maxLL + 1))
-mu <- 1;lambda_i <- 1;nu_i <- 1 ;zeta1 <- -1
+mu <- 1;lambda <- 1;nu <- 0.99 ;zeta1 <- -1
 I <- 2; J <- 5
 
 frocDataRaw <- SimulateFrocDataset(
-  mu = mu, lambda_i = lambda_i, nu_i = nu_i, zeta1 = zeta1,
+  mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
   I = I, J = J, K1 = K1, K2 = K2, perCase = perCase )
   
 ## plot the data

@@ -60,7 +60,7 @@ as determined by the data.}
 
 \item{nlfAlpha}{Upper limit of the integrated area under the FROC plot. 
 Default is "\code{NULL}", which means the maximum NLF range is used 
-(i.e., lambda_i/mu). Attempt to integrate outside the maximum NLF will 
+(i.e., lambda). Attempt to integrate outside the maximum NLF will 
 generate an error.}
 }
 \value{
@@ -85,7 +85,7 @@ A list of elements containing five \pkg{ggplot2} objects
 }
 \description{
 Visualize RSM predicted ROC, AFROC, wAFROC and FROC curves, and ROC pdfs, 
-   given \bold{equal-length arrays} of search model parameters: mu, lambda_i, nu_i and 
+   given \bold{equal-length arrays} of search model parameters: mu, lambda, nu and 
    zeta1.
 }
 \details{
@@ -95,14 +95,13 @@ RSM is the Radiological Search Model described in the book. This
    contain 4 lesions, set lesDistr = c(0,0,0,1).
 }
 \examples{
-## Following example is for mu = 2, lambda_i = 1, nu_i = 0.6, in one treatment and   
-## mu = 3, lambda_i = 1.5, nu_i = 0.8, in the other treatment. 20\% of the diseased 
+## Following example is for mu = 2, lambda = 1, nu = 0.6, in one treatment and   
+## mu = 3, lambda = 1.5, nu = 0.8, in the other treatment. 20\% of the diseased 
 ## cases have a single lesion, 40\% have two lesions, 10\% have 3 lesions, 
 ## and 30\% have 4 lesions.  
-lesDistr <- c(0.2, 0.4, 0.1, 0.3)
 
 PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
-   lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
+   lesDistr = c(0.2, 0.4, 0.1, 0.3), legendPosition = "bottom")
 
 }
 \references{

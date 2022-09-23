@@ -4,8 +4,8 @@
 #'    readers and treatments 
 #' 
 #' @param mu     The mu parameter of the RSM
-#' @param lambda_i The intrinsic lambda_i parameter of the RSM (not the physical parameter)
-#' @param nu_i     The intrinsic nu_i parameter of the RSM (not the physical parameter)
+#' @param lambda The RSM lambda parameter
+#' @param nu     The RSM nu parameter
 #' @param zeta1  The lowest reporting threshold
 #' @param I      The number of treatments
 #' @param J      The number of readers
@@ -24,11 +24,11 @@
 #' set.seed(1) 
 #' K1 <- 5;K2 <- 7;
 #' maxLL <- 2;perCase <- floor(runif(K2, 1, maxLL + 1))
-#' mu <- 1;lambda_i <- 1;nu_i <- 1 ;zeta1 <- -1
+#' mu <- 1;lambda <- 1;nu <- 0.99 ;zeta1 <- -1
 #' I <- 2; J <- 5
 #' 
 #' frocDataRaw <- SimulateFrocDataset(
-#'   mu = mu, lambda_i = lambda_i, nu_i = nu_i, zeta1 = zeta1,
+#'   mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1,
 #'   I = I, J = J, K1 = K1, K2 = K2, perCase = perCase )
 #'   
 #' ## plot the data
@@ -44,12 +44,10 @@
 #' 
 #' @export
 
-SimulateFrocDataset <- function(mu, lambda_i, nu_i, zeta1, I, J, K1, K2, perCase, seed = NULL){
+SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL){
   
   if (length(perCase) != K2) stop("SimulateFrocDataset: error in specification of number of lesions perCase vector.")
   if (!is.null(seed)) set.seed(seed)
-  lambda <- lambda_i/mu
-  nu <- 1-exp(-nu_i*mu)
   nNL <- rpois(I * J * (K1 + K2), lambda)
   dim(nNL) <- c(I,J,K1+K2)
   maxNL <- max(nNL)

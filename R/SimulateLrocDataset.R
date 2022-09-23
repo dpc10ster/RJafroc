@@ -4,8 +4,8 @@
 #'    readers and treatments 
 #' 
 #' @param mu     The mu parameter of the RSM
-#' @param lambda_i The intrinsic lambda_i parameter of the RSM
-#' @param nu_i     The intrinsic nu_i parameter of the RSM
+#' @param lambda The RSM lambda parameter
+#' @param nu     The RSM nu parameter
 #' @param zeta1  The lowest reporting threshold
 #' @param I      The number of treatments
 #' @param J      The number of readers
@@ -24,11 +24,11 @@
 #'   K1 <- 5
 #'   K2 <- 5
 #'   mu <- 2
-#'   lambda_i <- 1
+#'   lambda <- 1
 #'   lesionVector <- rep(1, 5)
-#'   nu_i <- 0.8
+#'   nu <- 0.8
 #'   zeta1 <- -3
-#'   frocData <- SimulateFrocDataset(mu, lambda_i, nu_i, zeta1, I = 2, J = 5, K1, K2, lesionVector)
+#'   frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, lesionVector)
 #'   lrocData <- DfFroc2Lroc(frocData)
 #' 
 #' @references 
@@ -40,9 +40,8 @@
 #' 
 #' @export
 
-SimulateLrocDataset <- function(mu, lambda_i, nu_i, zeta1, I, J, K1, K2, lesionVector){
-  lambda <- lambda_i/mu
-  nu <- 1-exp(-nu_i*mu)
+SimulateLrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, lesionVector){
+  
   nNL <- rpois(I * J * (K1 + K2), lambda)
   dim(nNL) <- c(I,J,K1+K2)
   maxNL <- max(nNL)
