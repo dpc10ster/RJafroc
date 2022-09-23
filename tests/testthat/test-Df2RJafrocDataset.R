@@ -69,8 +69,6 @@ test_that("SimulateFrocDataset", {
   I <- 2;J <- 3
   K1 <- 25;K2 <- 35
   mu <- 1;nu <- 0.8;lambda <- 1;zeta1 <- 0
-  lambda_i <- UtilRSM2Intrinsic(mu,lambda,nu)$lambda_i
-  nu_i <- UtilRSM2Intrinsic(mu,lambda,nu)$nu_i
   Lmax <- 2;Lk2 <- floor(runif(K2, 1, Lmax + 1))
   z1 <- array(-Inf,dim = c(I,J,K1+K2,40))
   z2 <- array(-Inf,dim = c(I,J,K2,40))
@@ -79,7 +77,7 @@ test_that("SimulateFrocDataset", {
   for (i in 1:I) {
     for (j in 1:J) {
       frocDataRaw <- SimulateFrocDataset(
-        mu, lambda_i, nu_i, zeta1, I = 1, J = 1, K1, K2, perCase = Lk2, seed = 1)
+        mu, lambda, nu, zeta1, I = 1, J = 1, K1, K2, perCase = Lk2, seed = 1)
       dimNL[i,j,] <- dim(drop(frocDataRaw$ratings$NL))
       dimLL[i,j,] <- dim(drop(frocDataRaw$ratings$LL))
       z1[i,j,,1:dimNL[i,j,2]] <- drop(frocDataRaw$ratings$NL) # drop the excess location indices
