@@ -9,7 +9,7 @@ PlotRsmOperatingCharacteristics(
   lambda,
   nu,
   zeta1,
-  lesDistr,
+  lesDistr = 1,
   relWeights = 0,
   OpChType = "ALL",
   legendPosition = c(1, 0),
@@ -31,7 +31,7 @@ PlotRsmOperatingCharacteristics(
 is an array of -3s.}
 
 \item{lesDistr}{Array: the probability mass function of the 
-lesion distribution for diseased cases. See \link{UtilLesionDistrVector}.}
+lesion distribution for diseased cases. The default is 1. See \link{UtilLesionDistrVector}.}
 
 \item{relWeights}{The relative weights of the lesions; a vector of 
 length equal to \code{length(maxLL)}. The default is zero, in which case
