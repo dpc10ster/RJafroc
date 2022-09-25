@@ -71,25 +71,15 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mu</dt>
-<dd><p>Array: the mean of the Gaussian distribution for the 
-ratings of latent LLs (continuous ratings of lesions that are found by the 
-observer's search mechanism). The ratings of NLs are distributed as N(0,1).</p></dd>
+<dd><p>Array: the RSM mu parameter.</p></dd>
 
 
 <dt>lambda</dt>
-<dd><p>Array: the <em>intrinsic</em> Poisson distribution parameter 
-which models the random numbers of latent NLs (suspicious regions that do 
-not correspond to actual lesions) per case. The corresponding 
-<em>physical</em> parameter is <code>lambda/mu</code>. Two conversion functions 
-are provided: <code><a href="UtilIntrinsic2PhysicalRSM.html">UtilIntrinsic2PhysicalRSM</a></code> and 
-<code><a href="UtilPhysical2IntrinsicRSM.html">UtilPhysical2IntrinsicRSM</a></code>.</p></dd>
+<dd><p>Array: the RSM lambda parameter.</p></dd>
 
 
 <dt>nu</dt>
-<dd><p>Array: the <em>intrinsic</em> parameter which models the random 
-numbers of latent LLs (suspicious regions that correspond to actual 
-lesions) per diseased case. The corresponding <em>physical</em> parameter is 
-<code>1 - exp(nu*mu)</code>, the success probability of the binomial distribution.</p></dd>
+<dd><p>Array: the RSM nu parameter.</p></dd>
 
 
 <dt>zeta1</dt>
@@ -144,7 +134,7 @@ as determined by the data.</p></dd>
 <dt>nlfAlpha</dt>
 <dd><p>Upper limit of the integrated area under the FROC plot. 
 Default is "<code>NULL</code>", which means the maximum NLF range is used 
-(i.e., lambda/mu). Attempt to integrate outside the maximum NLF will 
+(i.e., lambda). Attempt to integrate outside the maximum NLF will 
 generate an error.</p></dd>
 
 </dl></div>
@@ -192,10 +182,9 @@ Modeling, and Applications with R-Based Examples</em> (CRC Press, Boca Raton, FL
 <span class="r-in"><span><span class="co">## mu = 3, lambda = 1.5, nu = 0.8, in the other treatment. 20% of the diseased </span></span></span>
 <span class="r-in"><span><span class="co">## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span></span></span>
 <span class="r-in"><span><span class="co">## and 30% have 4 lesions.  </span></span></span>
-<span class="r-in"><span><span class="va">lesDistr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">PlotRsmOperatingCharacteristics</span><span class="op">(</span>mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, lambda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1.5</span><span class="op">)</span>, nu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.6</span>, <span class="fl">0.8</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>   lesDistr <span class="op">=</span> <span class="va">lesDistr</span>, legendPosition <span class="op">=</span> <span class="st">"bottom"</span>, nlfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, llfRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   lesDistr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>, legendPosition <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ROCPlot</span>
 <span class="r-plt img"><img src="PlotRsmOperatingCharacteristics-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -212,16 +201,16 @@ Modeling, and Applications with R-Based Examples</em> (CRC Press, Boca Raton, FL
 <span class="r-plt img"><img src="PlotRsmOperatingCharacteristics-5.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aucROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9326383 0.9866740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8898873 0.9634189</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aucAFROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7346169 0.8962339</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6324897 0.8041129</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aucwAFROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7646014 0.9293977</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6324897 0.8041129</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $aucFROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3214509 0.4463223</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5520004 1.1780432</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -163,7 +163,7 @@
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilFigureOfMerit.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilIntrinsic2PhysicalRSM.html</loc>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilIntrinsic2RSM.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilLesionDistrVector.html</loc>
@@ -184,10 +184,10 @@
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilOutputReport.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilPhysical2IntrinsicRSM.html</loc>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilPseudoValues.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilPseudoValues.html</loc>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilRSM2Intrinsic.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilVarComponentsDBM.html</loc>
