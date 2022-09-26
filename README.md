@@ -1,3 +1,9 @@
+--- 
+title: "RJafroc software"
+author: "Dev P. Chakraborty, PhD"
+date: "`r Sys.Date()`"
+---
+
 RJafroc
 =======
 
@@ -9,10 +15,10 @@ RJafroc
 
 * This website contains four repositories describing **observer performance and artificial intelligence systems modeling, analysis and validation**. 
 * They are:
-    + `RJafroc` is the software package that provides the common thread on which the other three packages depend; 
-    + `RJafrocQuickStart` is an online book for those already somewhat familiar running Windows JAFROC. The obsolete Windows program has been replaced by `RJafroc`. This book dives into how to use `RJafroc` to analyze ROC or FROC datasets.
-    + `RJafrocRocBook` is an online book providing necessary background on the ROC paradigm.  
-    + `RJafrocFrocBook` is an online book providing a detailed exposition of the FROC paradigm, particularly my contributions.
+    + [`RJafroc`](https://github.com/dpc10ster/RJafroc) is the software package that provides the common thread on which the other three online books depend; 
+    + [`RJafrocQuickStart`](https://github.com/dpc10ster/RJafrocQuickStart) is an online book for those already somewhat familiar running Windows JAFROC. The obsolete Windows program has been replaced by `RJafroc`. This book dives into how to use `RJafroc` to analyze ROC or FROC datasets.
+    + [`RJafrocRocBook`](https://github.com/dpc10ster/RJafrocRocBook) is an online book providing background on the ROC paradigm, modeling and analysis.  
+    + [`RJafrocFrocBook`](https://dpc10ster.github.io/RJafrocFrocBook/) is an online book providing a detailed exposition of the FROC paradigm, modeling and analysis.
 
 The first CRAN-posted version of `RJafroc` was used to support the R-code examples in the book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples, Taylor-Francis LLC, 2017. 
 
