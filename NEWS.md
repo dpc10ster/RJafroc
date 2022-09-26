@@ -11,7 +11,7 @@ title: "NEWS"
 * this corresponds with revised notation in book
 * `PlotRsmOperatingCharacteristics` depends on RSM parameters, not intrinsic parameters 9/22/22
 * Removed tests in `test-LROCFomCheck.R` could not resolve in time 9/22/22
-* Set default `lesDistr` = 1 in `PlotRsmOperatingCharacteristics`.
+* Set default `lesDistr` = 1 in `PlotRsmOperatingCharacteristics` as we don't want user to have to input this value when it is not needed for the requested operating characteristic (e.g., FROC or AFROC).
 
 
 ## version 2.1.1
