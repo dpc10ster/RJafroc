@@ -219,7 +219,8 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                      wLLF = c(wLLF[1], 1), 
                                                      Treatment = as.character(i), 
                                                      stringsAsFactors = FALSE))
-      maxWLLF <- ywAFROC(zeta1[i], mu[i], nu[i], lesDistr, lesWghtDistr) # bug fix 11/24/21
+      # maxWLLF <- ywAFROC(zeta1[i], mu[i], nu[i], lesDistr, lesWghtDistr) # bug fix 11/24/21
+      maxWLLF <- ywAFROC_R(zeta1[i], mu[i], nu[i], lesDistr, lesWghtDistr) # bug fix 11/24/21
       AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr, lesWghtDistr)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }
