@@ -6,6 +6,19 @@ title: "NEWS"
 
 ---
 
+### Checking all AUC related Cpp code vs. my R code 10/7/22
+* Discovered no need to replace error function with Phi function implementation; this is already done in Cpp code
+* Added `UtilAnalyticalAucsRSM_R` function which does not use Cpp code
+* Took out the `tempTest` flag in `UtilAnalyticalAucsRSM`; this uses Cpp
+* R CMD CHK
+```
+❯ checking dependencies in R code ... WARNING
+  '::' or ':::' import not declared from: ‘R’
+```
+* Why is `y_ROC_FPF_R` generating a warning? This function is not called anywhere, so I commented it out; the warning disappears
+
+
+
 ### Work post acceptance of v2.1.1 
 * universal change: `lambdaP` to `lambda` and `lambda` to `lambda_i` 9/19/22
 * this corresponds with revised notation in book
@@ -81,7 +94,6 @@ title: "NEWS"
 * `RsmFormulae.R`: This file is a mess.
 * Remove AUCs in `PlotRsmOperatingCharacteristics`? - these are done in UtilAnalyticalAucsRsm
 * Add to tests?
-* Replace error function with Phi functions?
 * Remove redundant column in weights matrix
 
 
