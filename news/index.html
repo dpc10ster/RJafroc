@@ -44,6 +44,15 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.1.1.9000" id="version-2119000">version 2.1.1.9000<a class="anchor" aria-label="anchor" href="#version-2119000"></a></h2>
 <hr><div class="section level3">
+<h3 id="checking-all-auc-related-cpp-code-vs-my-r-code-2-1-1-9000">Checking all AUC related Cpp code vs. my R code 10/7/22<a class="anchor" aria-label="anchor" href="#checking-all-auc-related-cpp-code-vs-my-r-code-2-1-1-9000"></a></h3>
+<ul><li>Discovered no need to replace error function with Phi function implementation; this is already done in Cpp code</li>
+<li>Added <code>UtilAnalyticalAucsRSM_R</code> function which does not use Cpp code</li>
+<li>Took out the <code>tempTest</code> flag in <code>UtilAnalyticalAucsRSM</code>; this uses Cpp</li>
+<li>R CMD CHK</li>
+</ul><pre><code>❯ checking dependencies in R code ... WARNING
+  '::' or ':::' import not declared from: ‘R’</code></pre>
+<ul><li>Why is <code>y_ROC_FPF_R</code> generating a warning? This function is not called anywhere, so I commented it out; the warning disappears</li></ul></div>
+<div class="section level3">
 <h3 id="work-post-acceptance-of-v211-2-1-1-9000">Work post acceptance of v2.1.1<a class="anchor" aria-label="anchor" href="#work-post-acceptance-of-v211-2-1-1-9000"></a></h3>
 <ul><li>universal change: <code>lambdaP</code> to <code>lambda</code> and <code>lambda</code> to <code>lambda_i</code> 9/19/22</li>
 <li>this corresponds with revised notation in book</li>
@@ -132,7 +141,6 @@
 <code>RsmFormulae.R</code>: This file is a mess.</li>
 <li>Remove AUCs in <code>PlotRsmOperatingCharacteristics</code>? - these are done in UtilAnalyticalAucsRsm</li>
 <li>Add to tests?</li>
-<li>Replace error function with Phi functions?</li>
 <li>Remove redundant column in weights matrix</li>
 </ul></div>
 <div class="section level3">
