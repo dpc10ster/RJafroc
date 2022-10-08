@@ -11,10 +11,6 @@ title: "NEWS"
 * Added `UtilAnalyticalAucsRSM_R` function which does not use Cpp code
 * Took out the `tempTest` flag in `UtilAnalyticalAucsRSM`; this uses Cpp
 * R CMD CHK
-```
-❯ checking dependencies in R code ... WARNING
-  '::' or ':::' import not declared from: ‘R’
-```
 * Why is `y_ROC_FPF_R` generating a warning? This function is not called anywhere, so I commented it out; the warning disappears
 
 
