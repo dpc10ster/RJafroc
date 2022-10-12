@@ -24,13 +24,12 @@ test_that(contextStr, {
   
   ret <- readRDS(fn)
   
-  ret1 <- UtilAnalyticalAucsRSM(mu = mu, 
+  ret1 <- UtilAnalyticalAucsRSM_R(mu = mu, 
                                lambda = lambda, 
                                nu = nu, 
                                zeta1 = zeta1, 
                                lesDistr = lesDistr, 
-                               relWeights =  relWeights,
-                               tempTest = T) # this uses T code
+                               relWeights =  relWeights)
   expect_equal(ret1, ret)
   
 })
@@ -64,13 +63,12 @@ test_that(contextStr, {
   
   ret <- readRDS(fn)
   
-  ret1 <- UtilAnalyticalAucsRSM(mu = mu, 
+  ret1 <- UtilAnalyticalAucsRSM_R(mu = mu, 
                                 lambda = lambda, 
                                 nu = nu, 
                                 zeta1 = zeta1, 
                                 lesDistr = lesDistr, 
-                                relWeights =  relWeights,
-                                tempTest = T) # this uses T code
+                                relWeights =  relWeights)
   expect_equal(ret1, ret)
   
 })
@@ -104,13 +102,12 @@ test_that(contextStr, {
   
   ret <- readRDS(fn)
   
-  ret1 <- UtilAnalyticalAucsRSM(mu = mu, 
+  ret1 <- UtilAnalyticalAucsRSM_R(mu = mu, 
                                 lambda = lambda, 
                                 nu = nu, 
                                 zeta1 = zeta1, 
                                 lesDistr = lesDistr, 
-                                relWeights =  relWeights,
-                                tempTest = T) # this uses T code
+                                relWeights =  relWeights)
   expect_equal(ret1, ret)
   
 })

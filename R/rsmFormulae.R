@@ -147,6 +147,7 @@ intFROC <- function(NLF, mu, lambda, nu){
 
 
 # y_AFROC_FPF is AFROC as a function of FPF + RSM parameters
+# this function does not call any Cpp code
 y_AFROC_FPF <- function(FPF, mu, lambda, nu){
   # returns LLF, the ordinate of AFROC curve; takes FPF as the variable. 
   # AUC is calculated by integrating this function wrt FPF
@@ -161,6 +162,8 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
   LLF <- RSM_yFROC(zeta, mu, nu)
   return(LLF)
 }
+
+
 
 
 
@@ -230,11 +233,57 @@ y_wAFROC_FPF <- function(FPF, mu, lambda, nu, lesDistr, lesWghtDistr){
   tmp <- 1 / lambda * log(1 - FPF) + 1
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
-  #wLLF <- sapply(zeta, ywAFROC_R, mu = mu, nu = nu, lesDistr, lesWghtDistr)
+  # Cpp code
   wLLF <- sapply(zeta, ywAFROC, mu = mu, nu = nu, lesDistr, lesWghtDistr)
   return(wLLF)
 }
 
+
+# y_wAFROC_FPF_R is wAFROC as a function of FPF + RSM parameters
+y_wAFROC_FPF_R <- function(FPF, mu, lambda, nu, lesDistr, lesWghtDistr){
+  # returns wLLF, the ordinate of AFROC curve; takes FPF as the variable. 
+  # AUC is calculated by integrating this function wrt FPF
+  # bug fix 12/26/21
+  if (lambda < 0) stop("Incorrect value for lambda\n")
+  if (nu < 0) stop("Incorrect value for nu\n")
+  if (nu > 1) stop("Incorrect value for nu\n")
+  
+  tmp <- 1 / lambda * log(1 - FPF) + 1
+  tmp[tmp < 0] <- pnorm(-20)
+  zeta <- qnorm(tmp)
+  # R code
+  wLLF <- sapply(zeta, ywAFROC_R, mu = mu, nu = nu, lesDistr, lesWghtDistr)
+  return(wLLF)
+}
+
+
+
+# yROCVect_R <- function (zeta, mu, lambda, nu, lesDistr){
+# 
+#   TPF <- array(dim = length(zeta))
+#   for (il  in 1:length(zeta)){
+#     for (i in 1:length(lesDistr)){
+#       TPF[il] = TPF[il] + lesDistr[i] * 
+#         (1 - pow(1 - nu/2 + nu/2  * erfcpp( (zeta[il] - mu) / sqrt(2.0) ) , (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta[il] / sqrt(2.0))))
+#     }
+#   }
+#   
+#   return (TPF)
+# }
+
+
+# y_ROC_FPF_R <- function (FPF, mu, lambda, nu, lesDistr){
+#   for (il in 1:length(FPF)){
+#     temp = (1 / lambda) * log(1 - FPF[il]) + 1;
+#     if (temp <= 0){
+#       zeta[il] = -20;
+#     }else{
+#       zeta[il] = R::qnorm(temp, 0, 1, 1, 0);
+#     }
+#   }
+# 
+#   return (yROCVect(zeta, mu, lambda, nu, lesDistr))
+# }
 
 
 # added 12/22/20
@@ -365,22 +414,16 @@ RSM_yROC <- function(z, mu, lambda, nu, lesDistr) {
 }
 
 
-#' RSM required error function
-#' 
-#' @param x The value at which to evaluate the function.
-#' 
-#' @return erf
-#' 
-#' @examples 
-#' RSM_erf(c(-Inf,0.1,0.2,0.3, Inf))
-#' 
-#' @export
-
+# error function
 RSM_erf <- function (x) {
   
-  return(erfVect(x))
+  return(erfVect(x)) # this implements the commented formula below
+  # return(2 * pnorm(sqrt(2) * x) - 1)
   
 }
+
+
+
 
 # 
 # xROC <- function (zeta, lambda){

@@ -12,6 +12,7 @@ NumericVector erfVect(NumericVector x){
   int l = x.size();
   NumericVector erfx(l);
   for (int il = 0; il < l; il ++){
+    // pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
     erfx[il] = 2 * R::pnorm(sqrt(2.0) * x[il], 0, 1, 1, 0) - 1;
   }
   return erfx;

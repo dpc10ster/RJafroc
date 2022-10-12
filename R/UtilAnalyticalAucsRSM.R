@@ -23,9 +23,6 @@
 #'    mass function (pmf) of the numbers of lesions for diseased cases.
 #'  
 #' 
-#' @param tempTest Testing the cpp code, default 0, reserved for developer.
-#'  
-#' 
 #' @return A list containing the ROC, AFROC and wAFROC AUCs corresponding to the 
 #'    specified parameters
 #' 
@@ -55,7 +52,7 @@
 #' 
 #' @export
 #' 
-UtilAnalyticalAucsRSM <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights = 0, tempTest = 0){
+UtilAnalyticalAucsRSM <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights = 0){
   
   maxLL <- length(lesDistr)
   lesWghtDistr <- UtilLesionWeightsMatrixLesDistr(lesDistr, relWeights)
@@ -64,7 +61,7 @@ UtilAnalyticalAucsRSM <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, relWe
   if (lambda < 0) stop("Incorrect value for lambda\n")
   if (nu < 0) stop("Incorrect value for nu\n")
   if (nu > 1) stop("Incorrect value for nu\n")
-
+  
   if (missing(lesDistr)){
     lesDistr <- 1
   } 
@@ -79,32 +76,10 @@ UtilAnalyticalAucsRSM <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, relWe
   maxLLF <- RSM_yFROC(zeta1, mu, nu)
   x <- integrate(y_AFROC_FPF, 0, maxFPF, mu = mu, lambda = lambda, nu = nu)$value
   aucAFROC <- x + (1 + maxLLF) * (1 - maxFPF) / 2
-
- 
-  if (tempTest == 1) {
-    # dpc 01/05/22 these comments were added while converting code to formula for chapter 21-optim-op-point
-    # needed formula for wAFROC ordinate, I know this is crazy, Einstein would never have done it this way :(
-    # finished see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
-    # checked from Console that following two give same results with following code
-    # UtilAnalyticalAucsRSM(mu = 2, lambda = 1, nu = 0.9, zeta1 = -3, 
-    # lesDistr = c(0.1, 0.4, 0.4, 0.1), relWeights =  c(0.2, 0.3, 0.1, 0.5))
-    # $aucROC
-    # [1] 0.9698827
-    # $aucAFROC
-    # [1] 0.8566404
-    # $aucwAFROC
-    # [1] 0.8448053
-    # following is R implementation
-    # see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
-    # see test_RSM-formulae.R
-    # contextStr <- "testing weights code with max 4 lesions per case: Cpp vs R"
-    # contextStr <- "testing weights code with max 4 lesions per case, random values: Cpp vs R"
-    # contextStr <- "testing weights code with max 10 lesions per case, random values: Cpp vs R"
-    maxwLLF <- ywAFROC_R(zeta1, mu, nu, lesDistr, lesWghtDistr)
-  } else {
-    # following is original Cpp implementation
-    maxwLLF <- ywAFROC(zeta1, mu, nu, lesDistr, lesWghtDistr)
-  }
+  
+  
+  # following is original Cpp implementation
+  maxwLLF <- ywAFROC(zeta1, mu, nu, lesDistr, lesWghtDistr)
   x <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, lesDistr, lesWghtDistr)$value
   aucwAFROC <- x + (1 + maxwLLF) * (1 - maxFPF) / 2
   
