@@ -6,6 +6,13 @@ title: "NEWS"
 
 ---
 
+### After Peter's fix to issue #85 due to changes in `ggplot` object structure 10/25/22
+* The fix just checks if object is a ggplot object, not details of the object
+* I checked that this works with the new version of `ggplot2` installed by the following line
+* `devtools::install_github('tidyverse/ggplot2@v3.4.0-rc')`
+* Ran R CMD check success and merged `developer` into `master` branch
+
+
 ### Checking all AUC related Cpp code vs. my R code 10/7/22
 * Discovered no need to replace error function with Phi function implementation; this is already done in Cpp code
 * Added `UtilAnalyticalAucsRSM_R` function which does not use Cpp code
@@ -89,12 +96,12 @@ title: "NEWS"
 
 
 ### TBDIF 12-26-21
-* TBDIF: To be done in future
+* To be done in future
 * Created much confusion in `RJafrocFrocBook`, chapter on `3-fits`
 * `RsmFormulae.R`: This file is a mess.
-* Remove AUCs in `PlotRsmOperatingCharacteristics`? - these are done in UtilAnalyticalAucsRsm
+* Remove AUCs in `PlotRsmOperatingCharacteristics`? - these are done in `UtilAnalyticalAucsRsm`
 * Add to tests?
-* Remove redundant column in weights matrix
+* Remove redundant column in weights matrix?
 
 
 ### Changed `RSM_yROC` to accept physical parameters 12-26-21
