@@ -2,11 +2,17 @@
 title: "NEWS"
 ---
 
-## version 2.1.1.9000
+## version 2.1.2
 
 ---
 
-### 11/7/22 took out cases with zeroes in `lesDistr` vector
+### After ggplot2 update
+* After `ggplot2` update to 3.4.0
+* Standardized RSM exported function names: `RSM_LLF`, `RSM_wLLF`, `RSM_FPF`, `RSM_TPF`, `RSM_NLF`. These now match the usage in `RJafrocFrocBook`
+* 11/7/22 took out dealing with zeroes in `lesDistr` vector, too complex
+* Wherever `geom_line()` occurs, check that `size` aesthetic is replaced by `linewidth`
+
+
 
 ### After Peter's fix to issue #85 due to changes in `ggplot` object structure 10/25/22
 * The fix just checks if object is a ggplot object, not details of the object

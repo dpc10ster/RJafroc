@@ -1,8 +1,8 @@
 Package: RJafroc
 Type: Package
 Title: Artificial Intelligence Systems and Observer Performance
-Version: 2.1.1.9000
-Date: 2022-08-13
+Version: 2.1.2
+Date: 2022-11-07
 Authors@R: c(person('Dev', 'Chakraborty', role = c('cre','aut','cph'), email = 'dpc10ster@gmail.com'),
              person('Peter', 'Phillips', role = c('ctb'), email = 'peter.phillips@cumbria.ac.uk'),
              person('Xuetong', 'Zhai', role = c('aut'), email = 'xuetong.zhai@gmail.com'))
