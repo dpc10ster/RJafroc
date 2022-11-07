@@ -82,19 +82,22 @@
     <loc>https://github.com/dpc10ster/RJafroc/reference/RJafroc-package.html</loc>
   </url>
   <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_LLF.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_NLF.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_pdfD.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_pdfN.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_xFROC.html</loc>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_wLLF.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_xROC.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_yFROC.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_yROC.html</loc>
@@ -257,9 +260,6 @@
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/datasetROI.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/funs.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/index.html</loc>

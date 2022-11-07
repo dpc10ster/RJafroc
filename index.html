@@ -139,7 +139,8 @@
 </h1>
 <ul>
 <li>This website contains four repositories describing <strong>observer performance and artificial intelligence systems modeling, analysis and validation</strong>.</li>
-<li>They are:<ul>
+<li>They are:
+<ul>
 <li>
 <a href="https://github.com/dpc10ster/RJafroc"><code>RJafroc</code></a> is the software package that provides the common thread on which the other three online books depend;</li>
 <li>
@@ -210,14 +211,16 @@
 <li>The <code>developer</code> branch is for development/experimental work.</li>
 </ul>
 </div>
-<div class="section level1"><h1 id="installation-those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions">Installation: those already familiar with installing R packages from GitHub can ignore the following directions<a class="anchor" aria-label="anchor" href="#installation-those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions"></a>
-</h1></div>
+<div class="section level1">
+<h1 id="installation-those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions">Installation: those already familiar with installing R packages from GitHub can ignore the following directions<a class="anchor" aria-label="anchor" href="#installation-those-already-familiar-with-installing-r-packages-from-github-can-ignore-the-following-directions"></a>
+</h1>
+</div>
 <div class="section level1">
 <h1 id="how-do-i-get-set-up">How do I get set up?<a class="anchor" aria-label="anchor" href="#how-do-i-get-set-up"></a>
 </h1>
 <p>Three options are given below in increasing order of complexity. + The first method downloads the package from CRAN. + The second downloads the package from the <code>master</code> branch on <code>GitHub</code>. + The third downloads all source files from the <code>master</code> branch on <code>GitHub</code> and then installs the software. I recommend the second method as the CRAN package is behind the <code>master</code> branch.</p>
 <div class="section level2">
-<h2 id="1-install-from-cran">1. Install from CRAN<a class="anchor" aria-label="anchor" href="#1-install-from-cran"></a>
+<h2 id="id_1-install-from-cran">1. Install from CRAN<a class="anchor" aria-label="anchor" href="#id_1-install-from-cran"></a>
 </h2>
 <ul>
 <li>Install <code>R</code> and <code>RStudio</code>.</li>
@@ -233,11 +236,13 @@
 </ul>
 <pre><code><span><span class="va">cbmPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/PlotCbmFit.html">PlotCbmFit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cbmPlot</span><span class="op">)</span></span></code></pre>
-<ul><li>You should see two ROC plots in the <code>Plots</code> window.</li></ul>
+<ul>
+<li>You should see two ROC plots in the <code>Plots</code> window.</li>
+</ul>
 </div>
 <div class="section level2">
-<h2 id="2-install-from-github-using-package-devtools">2. Install from GitHub using package <code>devtools</code>
-<a class="anchor" aria-label="anchor" href="#2-install-from-github-using-package-devtools"></a>
+<h2 id="id_2-install-from-github-using-package-devtools">2. Install from GitHub using package <code>devtools</code>
+<a class="anchor" aria-label="anchor" href="#id_2-install-from-github-using-package-devtools"></a>
 </h2>
 <ul>
 <li>Install <code>R</code> and <code>RStudio</code>.</li>
@@ -250,7 +255,9 @@
 <li>Load <code>devtools</code> as shown below:</li>
 </ul>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span></code></pre>
-<ul><li>Install <code>RJafroc</code> directly from <code>GitHub</code> (this is where <code>devtools</code> is used):</li></ul>
+<ul>
+<li>Install <code>RJafroc</code> directly from <code>GitHub</code> (this is where <code>devtools</code> is used):</li>
+</ul>
 <pre><code><span><span class="fu">install_github</span><span class="op">(</span><span class="st">"dpc10ster/RJafroc"</span><span class="op">)</span></span></code></pre>
 <ul>
 <li>Hit Enter on any prompts…</li>
@@ -258,7 +265,9 @@
 <li>Load <code>RJafroc</code> as shown below:</li>
 </ul>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dpc10ster.github.io/RJafroc/" class="external-link">RJafroc</a></span><span class="op">)</span></span></code></pre>
-<ul><li>Test the installation:</li></ul>
+<ul>
+<li>Test the installation:</li>
+</ul>
 <pre><code><span><span class="va">cbmPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/PlotCbmFit.html">PlotCbmFit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cbmPlot</span><span class="op">)</span></span></code></pre>
 <ul>
@@ -269,7 +278,7 @@
 </ul>
 </div>
 <div class="section level2">
-<h2 id="3-download-the-rjafroc-source-files-and-install-from-the-downloaded-files">3. Download the <code>RJafroc</code> source files and install from the downloaded files<a class="anchor" aria-label="anchor" href="#3-download-the-rjafroc-source-files-and-install-from-the-downloaded-files"></a>
+<h2 id="id_3-download-the-rjafroc-source-files-and-install-from-the-downloaded-files">3. Download the <code>RJafroc</code> source files and install from the downloaded files<a class="anchor" aria-label="anchor" href="#id_3-download-the-rjafroc-source-files-and-install-from-the-downloaded-files"></a>
 </h2>
 <ul>
 <li>Clone this repository to a directory anywhere on your computer. On my computer it is in <code>/Users/Dev/Downloads/RJafroc</code>. Rename the folder if necessary to match my example.</li>

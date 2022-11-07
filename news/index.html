@@ -44,6 +44,16 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.1.1.9000" id="version-2119000">version 2.1.1.9000<a class="anchor" aria-label="anchor" href="#version-2119000"></a></h2>
 <hr><div class="section level3">
+<h3 id="id_11722-took-out-cases-with-zeroes-in-lesdistr-vector-2-1-1-9000">11/7/22 took out cases with zeroes in <code>lesDistr</code> vector<a class="anchor" aria-label="anchor" href="#id_11722-took-out-cases-with-zeroes-in-lesdistr-vector-2-1-1-9000"></a></h3>
+</div>
+<div class="section level3">
+<h3 id="after-peters-fix-to-issue-due-to-changes-in-ggplot-object-structure-2-1-1-9000">After Peter’s fix to issue #85 due to changes in <code>ggplot</code> object structure 10/25/22<a class="anchor" aria-label="anchor" href="#after-peters-fix-to-issue-due-to-changes-in-ggplot-object-structure-2-1-1-9000"></a></h3>
+<ul><li>The fix just checks if object is a ggplot object, not details of the object</li>
+<li>I checked that this works with the new version of <code>ggplot2</code> installed by the following line</li>
+<li><code>devtools::install_github('tidyverse/ggplot2@v3.4.0-rc')</code></li>
+<li>Ran R CMD check success and merged <code>developer</code> into <code>master</code> branch</li>
+</ul></div>
+<div class="section level3">
 <h3 id="checking-all-auc-related-cpp-code-vs-my-r-code-2-1-1-9000">Checking all AUC related Cpp code vs. my R code 10/7/22<a class="anchor" aria-label="anchor" href="#checking-all-auc-related-cpp-code-vs-my-r-code-2-1-1-9000"></a></h3>
 <ul><li>Discovered no need to replace error function with Phi function implementation; this is already done in Cpp code</li>
 <li>Added <code>UtilAnalyticalAucsRSM_R</code> function which does not use Cpp code</li>
@@ -51,7 +61,8 @@
 <li>R CMD CHK</li>
 </ul><pre><code>❯ checking dependencies in R code ... WARNING
   '::' or ':::' import not declared from: ‘R’</code></pre>
-<ul><li>Why is <code>y_ROC_FPF_R</code> generating a warning? This function is not called anywhere, so I commented it out; the warning disappears</li></ul></div>
+<ul><li>Why is <code>y_ROC_FPF_R</code> generating a warning? This function is not called anywhere, so I commented it out; the warning disappears</li>
+</ul></div>
 <div class="section level3">
 <h3 id="work-post-acceptance-of-v211-2-1-1-9000">Work post acceptance of v2.1.1<a class="anchor" aria-label="anchor" href="#work-post-acceptance-of-v211-2-1-1-9000"></a></h3>
 <ul><li>universal change: <code>lambdaP</code> to <code>lambda</code> and <code>lambda</code> to <code>lambda_i</code> 9/19/22</li>
@@ -78,7 +89,9 @@
 <h3 id="cran-accepted-2-1-0">CRAN accepted 7/24/22<a class="anchor" aria-label="anchor" href="#cran-accepted-2-1-0"></a></h3>
 <ul><li>Version 2.1.0</li>
 <li>On <code>cran210</code> branch.</li>
-<li>Steps to reduce file size to less than 5 Mb:<ul><li>Removed <code>RoiData.xlsx</code>.</li></ul></li>
+<li>Steps to reduce file size to less than 5 Mb:
+<ul><li>Removed <code>RoiData.xlsx</code>.</li>
+</ul></li>
 <li>Otherwise identical to <code>developer</code> and <code>master</code> as of 07/7/22.</li>
 </ul></div>
 <div class="section level3">
@@ -113,7 +126,9 @@
 <li>cpp code unaffected; this only affected R version used to debug</li>
 <li>checked R code vs cpp; see <code>JT_R_Py_Foms.xlsx</code> in <code>PyJafrocscraps</code> directory</li>
 </ul></div>
-<div class="section level3"><h3 id="added-example-to-chisqrgoodnessoffit-code-2-1-0">added example to ChisqrGoodnessOfFit code 3/8/22<a class="anchor" aria-label="anchor" href="#added-example-to-chisqrgoodnessoffit-code-2-1-0"></a></h3></div>
+<div class="section level3">
+<h3 id="added-example-to-chisqrgoodnessoffit-code-2-1-0">added example to ChisqrGoodnessOfFit code 3/8/22<a class="anchor" aria-label="anchor" href="#added-example-to-chisqrgoodnessoffit-code-2-1-0"></a></h3>
+</div>
 <div class="section level3">
 <h3 id="argument-of-st-functions-2-1-0">argument of St functions 1/24/22<a class="anchor" aria-label="anchor" href="#argument-of-st-functions-2-1-0"></a></h3>
 <ul><li>
@@ -134,14 +149,15 @@
 </ul></div>
 <div class="section level3">
 <h3 id="tbdif-2-1-0">TBDIF 12-26-21<a class="anchor" aria-label="anchor" href="#tbdif-2-1-0"></a></h3>
-<ul><li>TBDIF: To be done in future</li>
+<ul><li>To be done in future</li>
 <li>Created much confusion in <code>RJafrocFrocBook</code>, chapter on <code>3-fits</code>
 </li>
 <li>
 <code>RsmFormulae.R</code>: This file is a mess.</li>
-<li>Remove AUCs in <code>PlotRsmOperatingCharacteristics</code>? - these are done in UtilAnalyticalAucsRsm</li>
+<li>Remove AUCs in <code>PlotRsmOperatingCharacteristics</code>? - these are done in <code>UtilAnalyticalAucsRsm</code>
+</li>
 <li>Add to tests?</li>
-<li>Remove redundant column in weights matrix</li>
+<li>Remove redundant column in weights matrix?</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changed-rsm_yroc-to-accept-physical-parameters-2-1-0">Changed <code>RSM_yROC</code> to accept physical parameters 12-26-21<a class="anchor" aria-label="anchor" href="#changed-rsm_yroc-to-accept-physical-parameters-2-1-0"></a></h3>
@@ -165,7 +181,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="fixed-issue-and-deprecated-the-mrmc-file-format---2-1-0">Fixed Issue 73 and deprecated the MRMC file format 10-28-21 - 10-29-21<a class="anchor" aria-label="anchor" href="#fixed-issue-and-deprecated-the-mrmc-file-format---2-1-0"></a></h3>
-<ul><li>Global search string “T1-RRRC for ROC data #73”" to locate all changes.</li>
+<ul><li>Global search string “T1-RRRC for ROC data #73”” to locate all changes.</li>
 <li>Basic issue was missing <code>truthTableStr</code> in any file <code>*.imrc</code> when read by <code>DfReadDataFile</code>.</li>
 <li>See under <code>tests</code>: <code>StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73</code> for recreation of this issue.</li>
 <li>Updated <code>R</code> and <code>RStudio</code>.</li>
@@ -199,7 +215,8 @@
 <h3 id="intrinsic-vs-physical-rsm-parameters-2-1-0">Intrinsic vs. physical RSM parameters 4/2/21<a class="anchor" aria-label="anchor" href="#intrinsic-vs-physical-rsm-parameters-2-1-0"></a></h3>
 <ul><li>All C++ functions take physical parameters</li>
 <li>Rest take intrinsic parameters (2 exceptions, like <code>RSM_xROC</code> and <code>RSM_pdfN</code>)</li>
-<li>Cleanup:<ul><li>
+<li>Cleanup:
+<ul><li>
 <code>PlotRsmOperatingCharacteristics.R</code>,</li>
 <li>
 <code>UtilAnallyticalAucsRSM.R</code>,</li>
@@ -235,7 +252,8 @@
 <hr><div class="section level3">
 <h3 id="cran-submission-process-2-0-1">CRAN submission process<a class="anchor" aria-label="anchor" href="#cran-submission-process-2-0-1"></a></h3>
 <ul><li>This is on <code>cran3</code> branch.</li>
-<li>Steps to reduce file size to less than 5 Mb:<ul><li>Removed <code>tests</code> and <code>vignettes</code> (this needs to be done on all computers I am using).</li>
+<li>Steps to reduce file size to less than 5 Mb:
+<ul><li>Removed <code>tests</code> and <code>vignettes</code> (this needs to be done on all computers I am using).</li>
 <li>Removed all files from <code>inst/MRMCRuns</code> except <code>Tony</code>, the one that is used in an example.</li>
 <li>Removed <code>CrossedModalities.xlsx</code> and references to it.</li>
 <li>Removed <code>DfReadLrocDataFile.R</code> and <code>findings.txt</code>. Ran <code>devtools::document()</code> to fix <code>NAMESPACE</code>.</li>
@@ -307,7 +325,8 @@
 <li><p>Fix: convert <code>NL</code> and <code>LL</code> from character using <code>as.numeric</code>.</p></li>
 </ul><pre><code><span><span class="va">NLRating</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">NLTable</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">LLRating</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">LLTable</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre>
-<ul><li>Then I tried <code>NewExcelFileFormat</code>, which gave following error: <code>stop("Error in reading LL/TP table")</code> Replaced code in <code>ReadJAFROCNewFormat.R</code> as follows:</li></ul><pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">tt2</span><span class="op">)</span><span class="op">)</span> <span class="kw">next</span> <span class="kw">else</span> <span class="op">{</span> <span class="co"># this is the change</span></span>
+<ul><li>Then I tried <code>NewExcelFileFormat</code>, which gave following error: <code>stop("Error in reading LL/TP table")</code> Replaced code in <code>ReadJAFROCNewFormat.R</code> as follows:</li>
+</ul><pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">tt2</span><span class="op">)</span><span class="op">)</span> <span class="kw">next</span> <span class="kw">else</span> <span class="op">{</span> <span class="co"># this is the change</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">tt2</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span>  <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"Error in reading LL/TP table"</span><span class="op">)</span> <span class="kw">else</span></span>
 <span>  <span class="co"># the is.na() check ensures that an already recorded mark is not overwritten</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span> <span class="va">LL</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span>, <span class="va">k</span>, <span class="va">el</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="va">LL</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span>, <span class="va">k</span>, <span class="va">el</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">LLRatingCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span></span>
@@ -392,7 +411,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="handling-of-foms-that-depend-on-single-truth-state-cases-2-0-1">Handling of FOMs that depend on single-truth-state cases<a class="anchor" aria-label="anchor" href="#handling-of-foms-that-depend-on-single-truth-state-cases-2-0-1"></a></h3>
-<ul><li>Some confusion in my mind about handlling of normal case only or abnormal case only FOMs, like <code>MaxNLF</code>, <code>MaxLLF</code>, <code>HrSe</code>, <code>HrSp</code>, etc. Resolved after studyin XZ code, StOldCode.R. The handling is shown in UtilPseudoValues.R. I believe it is now correct. For <code>MaxNLF</code>, <code>HrSp</code>, and <code>ExpTrnsfmSp</code> the relevant number of cases is <code>K1</code>, for <code>MaxLLF</code> and <code>HrSe</code> it is <code>K2</code> and for all the rest it is <code>K</code>.</li></ul></div>
+<ul><li>Some confusion in my mind about handlling of normal case only or abnormal case only FOMs, like <code>MaxNLF</code>, <code>MaxLLF</code>, <code>HrSe</code>, <code>HrSp</code>, etc. Resolved after studyin XZ code, StOldCode.R. The handling is shown in UtilPseudoValues.R. I believe it is now correct. For <code>MaxNLF</code>, <code>HrSp</code>, and <code>ExpTrnsfmSp</code> the relevant number of cases is <code>K1</code>, for <code>MaxLLF</code> and <code>HrSe</code> it is <code>K2</code> and for all the rest it is <code>K</code>.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="revised-utilpseudovalues-2-0-1">Revised UtilPseudoValues 8/7/20<a class="anchor" aria-label="anchor" href="#revised-utilpseudovalues-2-0-1"></a></h3>
 <ul><li>More compact code handles all FOMs - no exceptions, as before, for MaxLLF, etc. Extensive simplification to accomplish handling of different FOMs.</li>
@@ -464,7 +484,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="updated-sample-size-routines-2-0-1">Updated sample size routines<a class="anchor" aria-label="anchor" href="#updated-sample-size-routines-2-0-1"></a></h3>
-<ul><li>3 Papers by Hillis et al on SS estimation for ROC studies: 2004, 2011 and 2018<ul><li>Hillis SL, Berbaum KS (2004). Power Estimation for the Dorfman-Berbaum-Metz Method. Acad Radiol, 11, 1260–1273.</li>
+<ul><li>3 Papers by Hillis et al on SS estimation for ROC studies: 2004, 2011 and 2018
+<ul><li>Hillis SL, Berbaum KS (2004). Power Estimation for the Dorfman-Berbaum-Metz Method. Acad Radiol, 11, 1260–1273.</li>
 <li>Hillis SL, Obuchowski NA, Berbaum KS (2011). Power Estimation for Multireader ROC Methods: An Updated and Unified Approach. Acad Radiol, 18, 129–142.</li>
 <li>Hillis SL, Schartz KM (2018). Multireader sample size program for diagnostic studies: demonstration and methodology. Journal of Medical Imaging, 5(04).</li>
 </ul></li>
@@ -478,7 +499,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="major-reorganization-of-dataset-structure-2-0-1">Major reorganization of <code>dataset</code> structure<a class="anchor" aria-label="anchor" href="#major-reorganization-of-dataset-structure-2-0-1"></a></h3>
-<ul><li>Instead of varying lengths for ROC/FROC, LROC and SPLIT-PLOT, all <code>datasets</code> now are <code>lists</code> of length 3, with each member (<code>ratings</code>, <code>lesions</code>, <code>descriptions</code>) consisting of sub-lists:<ul><li>
+<ul><li>Instead of varying lengths for ROC/FROC, LROC and SPLIT-PLOT, all <code>datasets</code> now are <code>lists</code> of length 3, with each member (<code>ratings</code>, <code>lesions</code>, <code>descriptions</code>) consisting of sub-lists:
+<ul><li>
 <code>ratings</code> contain 3 elements: <code>$NL</code>, <code>$LL</code> and <code>$LL_IL</code>.</li>
 <li>
 <code>$lesions</code> contains 3 elements: <code>$perCase</code>, <code>$IDs</code> and <code>$weights</code>.</li>
@@ -631,7 +653,8 @@
 <ul><li>Created new branch off <code>cran2</code> 1.3.1 called <code>cran2-fix</code>
 </li>
 <li>Bumped version to 1.3.2</li>
-<li>RJafroc failing on Linux<ul><li>r-devel-linux-x86_64-debian-clang</li>
+<li>RJafroc failing on Linux
+<ul><li>r-devel-linux-x86_64-debian-clang</li>
 <li>r-devel-linux-x86_64-debian-gcc</li>
 <li>r-devel-linux-x86_64-fedora-clang (this showed up post email)</li>
 <li>r-devel-linux-x86_64-fedora-gcc (this showed up post email)</li>
@@ -697,7 +720,8 @@
 <li>Ann discovered bug in code: does not handle single reader properly</li>
 <li>Ann uncovered another bug in code: did not handle diseased cases first in Excel Truth sheet</li>
 <li>Both bugs have been fixed</li>
-<li>Make it easier to correlate the NL and LL values with those in the Excel file and catch data entry errors in <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code><ul><li>design = design,</li>
+<li>Make it easier to correlate the NL and LL values with those in the Excel file and catch data entry errors in <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code>
+<ul><li>design = design,</li>
 <li>normalCases = normalCases,</li>
 <li>abnormalCases = abnormalCases,</li>
 <li>truthTableStr = truthTableStr</li>
@@ -782,7 +806,8 @@
 <div class="section level3">
 <h3 id="variance-component-input-1-3-1">Variance component input<a class="anchor" aria-label="anchor" href="#variance-component-input-1-3-1"></a></h3>
 <ul><li>
-<code>SignificanceTesting</code> functions now accept variance components, without having to specify a dataset.</li></ul></div>
+<code>SignificanceTesting</code> functions now accept variance components, without having to specify a dataset.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="other-affected-functions-and-new-functions-1-3-1">Other affected functions and new functions:<a class="anchor" aria-label="anchor" href="#other-affected-functions-and-new-functions-1-3-1"></a></h3>
 <ul><li>
@@ -804,7 +829,8 @@
 <div class="section level3">
 <h3 id="needs-further-testing-1-3-1">Needs further testing<a class="anchor" aria-label="anchor" href="#needs-further-testing-1-3-1"></a></h3>
 <ul><li>
-<code>StSignificanceTestingSingleFixedFactor</code>:</li></ul></div>
+<code>StSignificanceTestingSingleFixedFactor</code>:</li>
+</ul></div>
 <div class="section level3">
 <h3 id="extensions-needed-1-3-1">Extensions needed<a class="anchor" aria-label="anchor" href="#extensions-needed-1-3-1"></a></h3>
 <ul><li>The <code>addPlot</code> routine in <code>StSignificanceTestingCadVsRadiologists</code> has been renamed to <code>CadVsRadPlots()</code>. It should be deprecated in future as <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> has more consistent visual output (and capabilities like handling lists of treatments and readers).</li>
@@ -879,7 +905,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.1" id="version-011">version 0.1.1<small>2015-08-14</small><a class="anchor" aria-label="anchor" href="#version-011"></a></h2>
-<hr><ul><li>An error in the <em>p</em> value calculation that gave incorrect <em>p</em> value (possibly exceeding one) when the first modality performed better than 2nd has been fixed. Thanks to Lucy D’Agostino McGowan for pointing out the error and the fix. This error, which does not occur in Windows version of JAFROC V 4.2.1, was not noticed as in all example files the 2nd modality performed better.</li></ul></div>
+<hr><ul><li>An error in the <em>p</em> value calculation that gave incorrect <em>p</em> value (possibly exceeding one) when the first modality performed better than 2nd has been fixed. Thanks to Lucy D’Agostino McGowan for pointing out the error and the fix. This error, which does not occur in Windows version of JAFROC V 4.2.1, was not noticed as in all example files the 2nd modality performed better.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0" id="version-010">version 0.1.0<small>2015-07-30</small><a class="anchor" aria-label="anchor" href="#version-010"></a></h2>
 <hr><ul><li><p>A “shiny” based GUI has been added, accessed by the function <code>RJafrocGui()</code>. This allows a user only interested in analyzing a data file to access the underlying code in a “user friendly” way. The GUI is similar in functionality to that of Windows JAFROC 4.2.1 software.</p></li>
@@ -893,7 +920,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.1" id="version-001">version 0.0.1<small>2015-04-24</small><a class="anchor" aria-label="anchor" href="#version-001"></a></h2>
-<hr><ul><li>Original version posted to CRAN (by Xuetong Zhai)</li></ul></div>
+<hr><ul><li>Original version posted to CRAN (by Xuetong Zhai)</li>
+</ul></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
