@@ -210,7 +210,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
     }
     
     if( OpChType == "ALL" ||  OpChType == "wAFROC"){
-      wLLF <- sapply(zeta[[i]], ywAFROC, mu[i], nu[i], lesDistr, lesWghtDistr)
+      wLLF <- sapply(zeta[[i]], ywAFROC, mu[i], nu[i], lesDistr, lesWghtDistr) # cpp code requires lesWghtDistr
       wAFROCPoints <- rbind(wAFROCPoints, data.frame(FPF = FPF, 
                                                      wLLF = wLLF, 
                                                      Treatment = as.character(i), 
@@ -220,8 +220,8 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                      Treatment = as.character(i), 
                                                      stringsAsFactors = FALSE))
       # maxWLLF <- ywAFROC(zeta1[i], mu[i], nu[i], lesDistr, lesWghtDistr) # bug fix 11/24/21
-      maxWLLF <- ywAFROC_R(zeta1[i], mu[i], nu[i], lesDistr, lesWghtDistr) # bug fix 11/24/21
-      AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr, lesWghtDistr)$value
+      maxWLLF <- ywAFROC_R(zeta1[i], mu[i], nu[i], lesDistr, relWeights) # bug fix 11/24/21
+      AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr, relWeights)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }
     

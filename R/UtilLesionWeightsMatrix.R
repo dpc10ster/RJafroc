@@ -121,12 +121,17 @@ UtilLesionWeightsMatrixDataset <- function(dataset, relWeights = 0)
 #' @export
 UtilLesionWeightsMatrixLesDistr <- function(lesDistr, relWeights = 0)
 { 
-  if (length(which(lesDistr != 0)) == 0) stop("lesDistr cannot have all zeroes")
+  # if (length(which(lesDistr != 0)) == 0) stop("lesDistr cannot have all zeroes")
   
   maxLL <- length(lesDistr)
   if (relWeights[1] == 0) {
     relWeights <- rep(1/maxLL, maxLL)
   }
+  
+  if ((!isTRUE( all.equal( sum(lesDistr), 1.0 ))) || (!isTRUE( all.equal( sum(relWeights), 1.0 )))) 
+    stop("lesDistr and relWeights arrays must each sum to unity")
+  
+  lesWghtDistr <- array(-Inf, dim = c(length(lesDistr), length(lesDistr)+1))
   
   if (maxLL == 1) {
     if ((relWeights[1] != 0) && (relWeights[1] != 1))
@@ -135,27 +140,25 @@ UtilLesionWeightsMatrixLesDistr <- function(lesDistr, relWeights = 0)
     return(lesWghtDistr)
   }
 
-  if ((!isTRUE( all.equal( sum(lesDistr), 1.0 ))) || (!isTRUE( all.equal( sum(relWeights), 1.0 )))) 
-    stop("lesDistr and relWeights arrays must each sum to unity")
+  # if (length(which(lesDistr != 0)) < length(lesDistr)) {
+  #   lesWghtDistr <- array(-Inf, dim = c(length(which(lesDistr != 0)), length(which(lesDistr != 0))+1))
+  #   lesWghtDistr[,1] <- which(lesDistr != 0)
+  # } else {
+  #   lesWghtDistr <- array(-Inf, dim = c(maxLL, maxLL+1))
+  #   lesWghtDistr[,1] <- seq(1:maxLL)
+  # }
   
-  if (length(which(lesDistr != 0)) < length(lesDistr)) {
-    lesWghtDistr <- array(-Inf, dim = c(length(which(lesDistr != 0)), length(which(lesDistr != 0))+1))
-    lesWghtDistr[,1] <- which(lesDistr != 0)
-  } else {
-    lesWghtDistr <- array(-Inf, dim = c(maxLL, maxLL+1))
-    lesWghtDistr[,1] <- seq(1:maxLL)
-  }
-  
-  # following assures equal weights
   if (relWeights[1] == 0)  {
+    # following assures equal weights
     for (i in 1:maxLL) {
       lesWghtDistr[i,2:(i+1)] <- 1/i
     }
   } else {
     #if (length(relWeights) != maxLL) stop("relWeights array must be of length maxLL")
-    relWeightsIndx <- relWeights[which(lesDistr != 0)]
+    #  relWeightsIndx <- relWeights[which(lesDistr != 0)]
     for (i in 1:nrow(lesWghtDistr)) {
-      lesWghtDistr[i,2:(i+1)] <- relWeightsIndx[(2:(i+1))-1] / sum(relWeightsIndx[(2:(i+1))-1])
+      lesWghtDistr[i,1] <- i
+      lesWghtDistr[i,2:(i+1)] <- relWeights[(2:(i+1))-1] / sum(relWeights[(2:(i+1))-1])
     }
   }
   

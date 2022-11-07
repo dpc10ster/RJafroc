@@ -616,7 +616,7 @@ LrocPlots <- function (zjk1, zjk2, doJ)
   colors <- as.character(unique(g$data[[1]]$colour))
   colors[1] <- "#000000"
   sizes <- c(2, rep(1, length(doJ)))
-  lrocPlot <- ggplot(data = lrocPlotData, aes(x = FPF, y = PCL, color = reader)) + geom_line(aes(size = reader)) + 
+  lrocPlot <- ggplot(data = lrocPlotData, aes(x = FPF, y = PCL, color = reader)) + geom_line(aes(linewidth = reader)) + 
     scale_color_manual(values = colors) + scale_size_manual(values = sizes) + 
     theme(legend.title = element_blank(), legend.position = legendPosition <- c(1, 0), legend.justification = c(1, 0))
   return(list(

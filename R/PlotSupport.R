@@ -1233,7 +1233,7 @@ genericPlotROC <- function(fp, tp, fpfPred, tpfPred, method = "ROC") {
                             stringsAsFactors = TRUE)
   
   fittedPlot <- ggplot2::ggplot(mapping = ggplot2::aes(x = fpf, y = tpf), color = "black") + 
-    ggplot2::geom_line(data = dfROCPred, size = 1) + 
+    ggplot2::geom_line(data = dfROCPred, linewidth = 1) + 
     ggplot2::geom_point(data = dfROCPoints, size = 4)
   
   if (method == "RSM"){
@@ -1244,7 +1244,7 @@ genericPlotROC <- function(fp, tp, fpfPred, tpfPred, method = "ROC") {
                               type = "D", 
                               stringsAsFactors = TRUE)
     fittedPlot <- fittedPlot +
-      ggplot2::geom_line(data = dfROCDashes, linetype = 3, size = 2)
+      ggplot2::geom_line(data = dfROCDashes, linetype = 3, linewidth = 2)
   }
   
   if (TRUE){
@@ -1312,7 +1312,7 @@ LrocPlots1 <- function (zjk1, zjk2)
   g <- ggplot_build(lrocPlot)
   colors <- as.character(unique(g$data[[1]]$colour))
   sizes <- rep(1, J)
-  lrocPlot <- ggplot2::ggplot(data = lrocPlotData, ggplot2::aes(x = FPF, y = PCL, color = reader)) + ggplot2::geom_line(ggplot2::aes(size = reader)) + 
+  lrocPlot <- ggplot2::ggplot(data = lrocPlotData, ggplot2::aes(x = FPF, y = PCL, color = reader)) + ggplot2::geom_line(ggplot2::aes(linewidth = reader)) + 
     scale_color_manual(values = colors) + scale_size_manual(values = sizes) + 
     theme(legend.title = element_blank(), legend.position = c(1, 0), legend.justification = c(1, 0)) + 
     scale_x_continuous(limits = c(0,1)) + scale_y_continuous(limits = c(0,1))

@@ -6,6 +6,8 @@ title: "NEWS"
 
 ---
 
+### 11/7/22 took out cases with zeroes in `lesDistr` vector
+
 ### After Peter's fix to issue #85 due to changes in `ggplot` object structure 10/25/22
 * The fix just checks if object is a ggplot object, not details of the object
 * I checked that this works with the new version of `ggplot2` installed by the following line

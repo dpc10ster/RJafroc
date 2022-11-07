@@ -531,12 +531,12 @@ PlotCorCbmFit <- function(retFitCorCBM){
   
   Condition <- NULL;FPF <- NULL;TPF <- NULL
   fittedPlot <- ggplot(data = plotCBM, mapping = aes(x = FPF, y = TPF, color = Condition)) +
-    geom_line(data = plotCBM, size = 1) +
+    geom_line(data = plotCBM, linewidth = 1) +
     geom_point(data = plotOpPnts, size = 4) +
     theme(legend.position = c(1, 0), legend.direction = "horizontal")
   
   fittedPlot <- fittedPlot +
-    geom_line(data = plotCBM, mapping = aes(linetype = Condition), size = 1) +
+    geom_line(data = plotCBM, mapping = aes(linetype = Condition), linewidth = 1) +
     geom_point(data = plotOpPnts, mapping = aes(shape = Condition), size = 3) +
     theme(legend.title=element_blank(),
           legend.position = c(1, 0),
@@ -596,44 +596,3 @@ PlotCorCbmFit <- function(retFitCorCBM){
 }
 
 
-# fitted <- function (muX, alphaX, muY, alphaY, FPCounts, TPCounts){
-#   
-#   K1 <- sum(FPCounts);K2 <- sum(TPCounts)
-#   plotZeta <- seq(-3, max(muX,muY)+2, by = 0.1)
-#   plotCBM <- NULL
-#   plotOpPnts <- NULL
-#   FPFX <- 1 - pnorm(plotZeta)
-#   TPFX <- (1 - alphaX) * (1 - pnorm(plotZeta)) + alphaX * (1 - pnorm(plotZeta, mean = muX))
-#   plotCBM <- rbind(plotCBM, data.frame(FPF = FPFX, TPF = TPFX, Condition = "X"))
-#   FPFX <- cumsum(rev(rowSums(FPCounts)))/K1
-#   TPFX <- cumsum(rev(rowSums(TPCounts)))/K2
-#   FPFX <- FPFX[-length(FPFX)]
-#   TPFX <- TPFX[-length(TPFX)]
-#   plotOpPnts <- rbind(plotOpPnts, data.frame(FPF = FPFX, TPF = TPFX, Condition = "X"))
-#   
-#   FPFY <- 1 - pnorm(plotZeta)
-#   TPFY <- (1 - alphaY) * (1 - pnorm(plotZeta)) + alphaY * (1 - pnorm(plotZeta, mean = muY))
-#   plotCBM <- rbind(plotCBM, data.frame(FPF = FPFY, TPF = TPFY, Condition = "Y"))
-#   FPFY <- cumsum(rev(colSums(FPCounts)))/K1
-#   TPFY <- cumsum(rev(colSums(TPCounts)))/K2
-#   FPFY <- FPFY[-length(FPFY)]
-#   TPFY <- TPFY[-length(TPFY)]
-#   plotOpPnts <- rbind(plotOpPnts, data.frame(FPF = FPFY, TPF = TPFY, Condition = "Y"))
-#   
-#   fittedPlot <- ggplot(mapping = aes(x = FPF, y = TPF, color = Condition)) +
-#     geom_line(data = plotCBM, size = 1) +
-#     geom_point(data = plotOpPnts, size = 4) +
-#     theme(legend.position = c(1, 0), legend.direction = "horizontal")
-#   
-#   return(list(
-#     fittedPlot = fittedPlot,
-#     plotCBM = plotCBM,
-#     plotOpPnts = plotOpPnts,
-#     FPFX = FPFX,
-#     TPFX = TPFX,
-#     FPFY = FPFY,
-#     TPFY = TPFY
-#   ))
-#   
-# }
-# 

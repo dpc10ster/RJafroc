@@ -35,7 +35,7 @@ PlotCbmFit <- function(mu, alpha){
     plotCBM <- rbind(plotCBM, data.frame(FPF = FPF, TPF = TPF, Treatment = as.character(i), stringsAsFactors = FALSE))
   }
   cbmROCCurve <- with(plotCBM,{
-    ggplot() + geom_line(mapping = aes(x = FPF, y = TPF, color = Treatment), data = plotCBM, size = 1)
+    ggplot() + geom_line(mapping = aes(x = FPF, y = TPF, color = Treatment), data = plotCBM, linewidth = 1)
   })
   
   return(cbmROCCurve)
