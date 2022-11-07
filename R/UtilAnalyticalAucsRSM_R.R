@@ -19,7 +19,7 @@ UtilAnalyticalAucsRSM_R <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, rel
   x <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr)$value
   aucROC <- x + (1 + maxTPF) * (1 - maxFPF) / 2
   
-  maxLLF <- RSM_yFROC(zeta1, mu, nu)
+  maxLLF <- RSM_LLF(zeta1, mu, nu)
   # y_AFROC_FPF does not call any Cpp functions
   x <- integrate(y_AFROC_FPF, 0, maxFPF, mu = mu, lambda = lambda, nu = nu)$value
   aucAFROC <- x + (1 + maxLLF) * (1 - maxFPF) / 2
@@ -43,7 +43,7 @@ UtilAnalyticalAucsRSM_R <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, rel
   # contextStr <- "testing weights code with max 4 lesions per case: Cpp vs R"
   # contextStr <- "testing weights code with max 4 lesions per case, random values: Cpp vs R"
   # contextStr <- "testing weights code with max 10 lesions per case, random values: Cpp vs R"
-  maxwLLF <- ywAFROC_R(zeta1, mu, nu, lesDistr, relWeights)
+  maxwLLF <- RSM_wLLF(zeta1, mu, nu, lesDistr, relWeights)
   x <- integrate(y_wAFROC_FPF_R, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, lesDistr, relWeights)$value
   aucwAFROC <- x + (1 + maxwLLF) * (1 - maxFPF) / 2
   

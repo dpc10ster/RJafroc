@@ -90,13 +90,13 @@ myPlot <- function(dataPoints, dashedPoints, x, y,
 #' @return xFROC
 #' 
 #' @examples 
-#' RSM_pdfN(1,1)
+#' RSM_NLF(1,1)
 #' 
 #' @export
 #' 
 #' 
 
-RSM_xFROC <- function(z, lambda){
+RSM_NLF <- function(z, lambda){
   # returns NLF, the abscissa of FROC curve
   # bug fix 12/26/21
   if (lambda < 0) stop("Incorrect value for lambda\n")
@@ -114,13 +114,13 @@ RSM_xFROC <- function(z, lambda){
 #' @return yFROC
 #' 
 #' @examples 
-#' RSM_yFROC(1,1,0.5)
+#' RSM_LLF(1,1,0.5)
 #' 
 #' @export
 #' 
 #' 
 
-RSM_yFROC <- function(z, mu, nu){
+RSM_LLF <- function(z, mu, nu){
   # bug fix 12/26/21
   if (nu < 0) stop("Incorrect value for nu\n")
   if (nu > 1) stop("Incorrect value for nu\n")
@@ -132,7 +132,7 @@ RSM_yFROC <- function(z, mu, nu){
 
 
 
-intFROC <- function(NLF, mu, lambda, nu){
+integrandFROC <- function(NLF, mu, lambda, nu){
   
   # bug fix 12/26/21
   if (lambda < 0) stop("Incorrect value for lambda\n")
@@ -140,7 +140,7 @@ intFROC <- function(NLF, mu, lambda, nu){
   if (nu > 1) stop("Incorrect value for nu\n")
   
   zeta <- qnorm(1 - NLF / lambda)
-  LLF <- RSM_yFROC(zeta, mu, nu) 
+  LLF <- RSM_LLF(zeta, mu, nu) 
   return(LLF)
 }
 
@@ -159,7 +159,7 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
   tmp <- 1 / lambda * log(1 - FPF) + 1
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
-  LLF <- RSM_yFROC(zeta, mu, nu)
+  LLF <- RSM_LLF(zeta, mu, nu)
   return(LLF)
 }
 
@@ -186,12 +186,28 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
 # contextStr <- "testing weights code with max 4 lesions per case, random values: Cpp vs R"
 # contextStr <- "testing weights code with max 10 lesions per case, random values: Cpp vs R"
 
+#' RSM predicted wAFROC ordinate
+#' @param z The z-sample value at which to evaluate the FROC ordinate.
+#' @param mu The RSM mu parameter. 
+#' @param nu The RSM nu prime parameter. 
+#' @param lesDistr Lesion distribution vector.
+#' @param relWeights Relative lesion weights vector.
+#' 
+#' @return wLLF
+#' 
+#' @examples 
+#' RSM_wLLF(1,1,0.5, lesDistr = c(0.5, 0.4, 0.1), relWeights = c(0.7, 0.2, 0.1)) 
+#'
+#' 
+#' @export
+#' 
+#' 
 
-# ywAFROC_R is ordinate as a function of zeta + RSM parameters
+# RSM_wLLF is ordinate as a function of zeta + RSM parameters
 # returns wLLF, the ordinate of wAFROC curve
 # this has working C++ version with name ywAFROC
 # this is only here for me to understand the C++ code
-ywAFROC_R <- function(zeta, mu, nu, lesDistr, relWeights){
+RSM_wLLF <- function(zeta, mu, nu, lesDistr, relWeights){
   lesWghtDistr <- UtilLesionWeightsMatrixLesDistr(lesDistr, relWeights)
   # zeta <- 0
   # fl is the fraction of cases with # lesions as in first column of lesDistr
@@ -254,7 +270,7 @@ y_wAFROC_FPF_R <- function(FPF, mu, lambda, nu, lesDistr, relWeights){
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
   # R code
-  wLLF <- sapply(zeta, ywAFROC_R, mu = mu, nu = nu, lesDistr, relWeights)
+  wLLF <- sapply(zeta, RSM_wLLF, mu = mu, nu = nu, lesDistr, relWeights)
   return(wLLF)
 }
 

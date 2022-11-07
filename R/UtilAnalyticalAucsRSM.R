@@ -73,7 +73,7 @@ UtilAnalyticalAucsRSM <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, relWe
   x <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr)$value
   aucROC <- x + (1 + maxTPF) * (1 - maxFPF) / 2
   
-  maxLLF <- RSM_yFROC(zeta1, mu, nu)
+  maxLLF <- RSM_LLF(zeta1, mu, nu)
   x <- integrate(y_AFROC_FPF, 0, maxFPF, mu = mu, lambda = lambda, nu = nu)$value
   aucAFROC <- x + (1 + maxLLF) * (1 - maxFPF) / 2
   

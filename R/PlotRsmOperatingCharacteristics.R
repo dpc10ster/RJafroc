@@ -154,8 +154,8 @@ PlotRsmOperatingCharacteristics <- function(mu,
     
     FPF <- sapply(zeta[[i]], xROC, lambda[i]) # C++ function uses lambda
     TPF <- sapply(zeta[[i]], yROC, mu = mu[i], lambda[i], nu[i], lesDistr)
-    NLF <- sapply(zeta[[i]], RSM_xFROC, lambda[i])
-    LLF <- sapply(zeta[[i]], RSM_yFROC, mu = mu[i], nu[i]) # 9/22/22
+    NLF <- sapply(zeta[[i]], RSM_NLF, lambda[i])
+    LLF <- sapply(zeta[[i]], RSM_LLF, mu = mu[i], nu[i]) # 9/22/22
 # begin bug fix
 # found bug 11/24/21 two places, here and as indicated by # bug fix 11/24/21
 # found ROC AUC did not change with zeta1 as it should   
@@ -184,11 +184,11 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                  stringsAsFactors = FALSE))
       if (is.null(nlfAlpha)){
         maxNLF <- max(NLF)
-        aucFROC[i] <- integrate(intFROC, 0, maxNLF, mu= mu[i], lambda[i], nu[i])$value
+        aucFROC[i] <- integrate(integrandFROC, 0, maxNLF, mu= mu[i], lambda[i], nu[i])$value
       }else{
         maxNLF <- max(NLF)
         if (nlfAlpha <= maxNLF){
-          aucFROC[i] <- integrate(intFROC, 0, nlfAlpha, mu= mu[i], lambda[i], nu[i])$value
+          aucFROC[i] <- integrate(integrandFROC, 0, nlfAlpha, mu= mu[i], lambda[i], nu[i])$value
         }else{
           stop("nlfAlpha cannot be greater than the maximum of NLF.")
         }
@@ -204,7 +204,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                    LLF = c(LLF[1], 1), 
                                                    Treatment = as.character(i), 
                                                    stringsAsFactors = FALSE))
-      maxLLF <- RSM_yFROC(zeta1[i], mu[i], nu[i]) # bug fix 9/22/22
+      maxLLF <- RSM_LLF(zeta1[i], mu[i], nu[i]) # bug fix 9/22/22
       AUC <- integrate(y_AFROC_FPF, 0, maxFPF, mu = mu[i], lambda[i], nu[i])$value
       aucAFROC[i] <- AUC + (1 + maxLLF) * (1 - maxFPF) / 2
     }
@@ -220,7 +220,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                      Treatment = as.character(i), 
                                                      stringsAsFactors = FALSE))
       # maxWLLF <- ywAFROC(zeta1[i], mu[i], nu[i], lesDistr, lesWghtDistr) # bug fix 11/24/21
-      maxWLLF <- ywAFROC_R(zeta1[i], mu[i], nu[i], lesDistr, relWeights) # bug fix 11/24/21
+      maxWLLF <- RSM_wLLF(zeta1[i], mu[i], nu[i], lesDistr, relWeights) # bug fix 11/24/21
       AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr, relWeights)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }
