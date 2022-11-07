@@ -47,10 +47,10 @@ devtools::check_win_oldrelease()
 | R Version    | Platform                    | Status |
 |:-------------|:----------------------------|:-------|
 | R-devel      | x86_64-w64-mingw32 (64-bit) | OK     |
-| R release    | x86_64-w64-mingw32 (64-bit) | OK     |
-| R-oldrelease | x86_64-w64-mingw32 (64-bit) | NOTE\*     |
+| R release    | x86_64-w64-mingw32 (64-bit) | OK    |
+| R-oldrelease | x86_64-w64-mingw32 (64-bit) | NOTE\*  |
 
-`*` Possibly mis-spelled words in DESCRIPTION, all of which are false positives.
+`*` Possibly mis-spelled words in DESCRIPTION all of which are false positives.
 
 
 ## CRAN compatibility

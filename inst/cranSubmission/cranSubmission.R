@@ -48,7 +48,8 @@ packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.2.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
-for (indx in 1:1) {
+for (indx in 1:1) { 
+  # indx = 1 took very long time, still running
   # if (indx != 11) next
   # if (indx == 12) next
   # if (indx == 13) next
@@ -60,13 +61,7 @@ for (indx in 1:1) {
 # devtools::check_win_release()
 # devtools::check_win_oldrelease()
 
-# rhub::check_for_cran() # OK detritus file lastMiKTeXException?
+# rhub::check_for_cran() # TBA detritus file lastMiKTeXException?
 
 # devtools::revdep() # OK
 
-# After acceptance, transfer files to developer branch:
-# DESCRIPTION
-# cran-comments.md
-# cran-submission.R
-# RJafroc-package.Rd
-# NEWS.md
