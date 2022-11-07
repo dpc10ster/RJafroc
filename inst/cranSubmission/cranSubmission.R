@@ -48,7 +48,7 @@ packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.2.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
-for (indx in 1:1) { 
+for (indx in 2:2) { 
   # indx = 1 took very long time, still running
   # if (indx != 11) next
   # if (indx == 12) next

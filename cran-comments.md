@@ -4,7 +4,7 @@ title: "CRAN comments"
 
 
 # Reason for submission TBA
-* In response to an email from Kurt Hornik <Kurt.Hornik@wu.ac.at> requesting an update to the current CRAN version 2.1.1 of `RJafroc` which is generating ERRORS, all of which are related to the recent update of `ggplot2`. 
+* In response to an email from Kurt Hornik <Kurt.Hornik@wu.ac.at> requesting an update to the current CRAN version (v2.1.1) of `RJafroc` which is generating ERRORS all of which are due to failing tests in `tests/testthat.R` related to the recent update of `ggplot2` on which my package depends. 
 * This update (v2.1.2) should fix the ERRORS. 
 
 
@@ -15,15 +15,6 @@ title: "CRAN comments"
 * Platform: x86_64-apple-darwin17.0 (64-bit)
 * Running under: macOS Catalina 10.15.7
 * iMac, 3.4GHz Quad-Core Intel Core i7
-
-* `R CMD check` ran with no errors, warnings or notes
-
-
-## OS X TBA
-* R version 4.2.1 (2022-06-23)
-* Platform: x86_64-apple-darwin17.0 (64-bit)
-* Running under: macOS Monterey 12.5
-* MacBook Pro, 2.5 GHz Quad-Core Intel Core i7
 
 * `R CMD check` ran with no errors, warnings or notes
 
@@ -86,7 +77,7 @@ CRAN compatibility was tested using `rhub::check_for_cran()`. The last three mes
 
 # FAILURE SUMMARY (from last attempted submission)
 
-The previous version installed with 0 errors, 0 warnings and 3 notes, one of them file-size related. The remaining two NOTES should be corrected by the new submission.
+The previous version installed with 0 errors, 0 warnings and 1 note (installed size is 5.2Mb). The size of the package has been reduced. 
 
 # All revdep maintainers were notified of the release on release date
 
