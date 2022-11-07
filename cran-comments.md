@@ -4,15 +4,14 @@ title: "CRAN comments"
 
 
 # Reason for submission TBA
-* In response to an email from Deepayan Sarkar <deepayan.sarkar@r-project.org> and Kurt Hornik <Kurt.Hornik@wu.ac.at> requesting an update to the current CRAN version 2.1.0 of `RJafroc` which is generating 3 NOTES, one of which is file-size related (installed size is 5.2Mb on `r-oldrel-windows-ix86+x86 64`). 
-* Specifically, they requested a fix to the 2 NOTES relating to the "Found the following math rendering problems" NOTEs in the "HTML version of manual" on the `r-devel-linux-x86 64 debian-clang` and the `r-devel-linux-x86 64-debian-gcc` platforms. 
-* This update (v2.1.1) should fix these two NOTES. 
+* In response to an email from Kurt Hornik <Kurt.Hornik@wu.ac.at> requesting an update to the current CRAN version 2.1.1 of `RJafroc` which is generating ERRORS, all of which are related to the recent update of `ggplot2`. 
+* This update (v2.1.2) should fix the ERRORS. 
 
 
 # Test environments TBA
 
 ## OS X
-* R version 4.2.1 (2022-06-23)
+* R version 4.2.2 (2022-10-31)
 * Platform: x86_64-apple-darwin17.0 (64-bit)
 * Running under: macOS Catalina 10.15.7
 * iMac, 3.4GHz Quad-Core Intel Core i7
@@ -20,7 +19,7 @@ title: "CRAN comments"
 * `R CMD check` ran with no errors, warnings or notes
 
 
-## OS X
+## OS X TBA
 * R version 4.2.1 (2022-06-23)
 * Platform: x86_64-apple-darwin17.0 (64-bit)
 * Running under: macOS Monterey 12.5
@@ -80,7 +79,7 @@ CRAN compatibility was tested using `rhub::check_for_cran()`. The last three mes
 
 | Platform                                           | Status                                                |
 |:---------------------------------------------------|:------------------------------------------------------|
-| r-devel-linux-x86_64-debian-clang 2.0.1            | OK                                                    |
+| Debian Linux, R-devel, clang, ISO-8859-15 locale   | OK                                                    |
 | Debian Linux, R-devel, clang, ISO-8859-15 locale   | OK                                                    |
 
 

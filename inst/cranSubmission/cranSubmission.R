@@ -24,8 +24,6 @@ print(platforms)
 #   macOS 10.13.6 High Sierra, R-release, brew
 # macos-highsierra-release-cran:
 #   macOS 10.13.6 High Sierra, R-release, CRAN's setup
-# macos-m1-bigsur-release:
-#   Apple Silicon (M1), macOS 11.6 Big Sur, R-release
 # solaris-x86-patched:
 #   Oracle Solaris 10, x86, 32 bit, R-release
 # solaris-x86-patched-ods:
@@ -34,20 +32,23 @@ print(platforms)
 #   Ubuntu Linux 20.04.1 LTS, R-devel, GCC
 # ubuntu-gcc-release:
 #   Ubuntu Linux 20.04.1 LTS, R-release, GCC
+# ubuntu-rchk:
+#   Ubuntu Linux 20.04.1 LTS, R-devel with rchk
 # windows-x86_64-devel:
 #   Windows Server 2022, R-devel, 64 bit
 # windows-x86_64-oldrel:
-#  Windows Server 2022, R-oldrel, 32/64 bit
+#   Windows Server 2022, R-oldrel, 32/64 bit
 # windows-x86_64-patched:
 #   Windows Server 2022, R-patched, 32/64 bit
 # windows-x86_64-release:
 #   Windows Server 2022, R-release, 32/64 bit
-
+  
+  
 packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.2.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
-for (indx in 2:2) {
+for (indx in 1:1) {
   # if (indx != 11) next
   # if (indx == 12) next
   # if (indx == 13) next
