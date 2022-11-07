@@ -7,6 +7,8 @@
 RSM_wLLF(zeta, mu, nu, lesDistr, relWeights)
 }
 \arguments{
+\item{zeta}{The zeta value at which to evaluate the FROC ordinate.}
+
 \item{mu}{The RSM mu parameter.}
 
 \item{nu}{The RSM nu prime parameter.}
@@ -14,8 +16,6 @@ RSM_wLLF(zeta, mu, nu, lesDistr, relWeights)
 \item{lesDistr}{Lesion distribution vector.}
 
 \item{relWeights}{Relative lesion weights vector.}
-
-\item{z}{The z-sample value at which to evaluate the FROC ordinate.}
 }
 \value{
 wLLF

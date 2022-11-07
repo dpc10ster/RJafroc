@@ -187,7 +187,7 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
 # contextStr <- "testing weights code with max 10 lesions per case, random values: Cpp vs R"
 
 #' RSM predicted wAFROC ordinate
-#' @param z The z-sample value at which to evaluate the FROC ordinate.
+#' @param zeta The zeta value at which to evaluate the FROC ordinate.
 #' @param mu The RSM mu parameter. 
 #' @param nu The RSM nu prime parameter. 
 #' @param lesDistr Lesion distribution vector.
