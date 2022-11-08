@@ -5,9 +5,9 @@ library(RJafroc)
 platforms <- rhub::platforms()
 print(platforms)
 # debian-clang-devel:
-#   Debian Linux, R-devel, clang, ISO-8859-15 locale
+#   Debian Linux, R-devel, clang, ISO-8859-15 locale  ##done
 # debian-gcc-devel:
-#   Debian Linux, R-devel, GCC
+#   Debian Linux, R-devel, GCC                        ##done
 # debian-gcc-devel-nold:
 #   Debian Linux, R-devel, GCC, no long double
 # debian-gcc-patched:
@@ -37,7 +37,7 @@ print(platforms)
 # windows-x86_64-devel:
 #   Windows Server 2022, R-devel, 64 bit
 # windows-x86_64-oldrel:
-#   Windows Server 2022, R-oldrel, 32/64 bit
+#   Windows Server 2022, R-oldrel, 32/64 bit        ##done
 # windows-x86_64-patched:
 #   Windows Server 2022, R-patched, 32/64 bit
 # windows-x86_64-release:
@@ -61,7 +61,7 @@ for (indx in 2:2) {
 # devtools::check_win_release()
 # devtools::check_win_oldrelease()
 
-# rhub::check_for_cran() # TBA detritus file lastMiKTeXException?
+# rhub::check_for_cran() 
 
 # devtools::revdep() # OK
 

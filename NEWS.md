@@ -6,6 +6,10 @@ title: "NEWS"
 
 ---
 
+
+### CRAN submission
+* Submitted 11/8/22 1:30 PM
+
 ### After ggplot2 update
 * After `ggplot2` update to 3.4.0
 * Standardized RSM exported function names: `RSM_LLF`, `RSM_wLLF`, `RSM_FPF`, `RSM_TPF`, `RSM_NLF`. These now match the usage in `RJafrocFrocBook`
