@@ -9,6 +9,10 @@ title: "NEWS"
 
 ### CRAN submission
 * Submitted 11/8/22 1:30 PM
+* Accepted 11/8/22 2 PM
+* Version: 2.1.2
+* Date: 2022-11-08 18:38:38 UTC
+* SHA: c3e0a0ac2eed9101ce3a0d4130103c9652930fba
 
 ### After ggplot2 update
 * After `ggplot2` update to 3.4.0
