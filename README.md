@@ -61,8 +61,8 @@ Knowing the individual performances allows principled optimization of reader or 
 # Update History
 
 * [See here](https://dpc10ster.github.io/RJafroc/news/index.html) for details.
-* Current `GitHub` version is 2.1.2 on the `master` branch.
-* Current `CRAN` version is 2.1.1.
+* Current `GitHub` version is 2.1.2.9000 on the `master` branch.
+* Current `CRAN` version is 2.1.2.
 
 # `RJafroc` branch designations
 

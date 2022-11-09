@@ -2,9 +2,13 @@
 title: "NEWS"
 ---
 
-## version 2.1.2
+## version 2.1.2.9000
 
 ---
+
+
+### Started new version
+* 2.1.2.9000
 
 
 ### CRAN submission
