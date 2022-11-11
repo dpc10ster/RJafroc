@@ -7,6 +7,12 @@ title: "NEWS"
 ---
 
 
+### Changed function names to `RSM_FPF` and `RSM_TPF`
+* Formerly `RSM_xROC` and `RSM_yROC`
+* This renaming was missed in the earlier submission
+* Further cleanup of documentation entries in `rsmFormulae.R`
+
+
 ### Started new version
 * 2.1.2.9000
 
@@ -18,8 +24,7 @@ title: "NEWS"
 * Date: 2022-11-08 18:38:38 UTC
 * SHA: c3e0a0ac2eed9101ce3a0d4130103c9652930fba
 
-### After ggplot2 update
-* After `ggplot2` update to 3.4.0
+### After ggplot2 update to 3.4.0
 * Standardized RSM exported function names: `RSM_LLF`, `RSM_wLLF`, `RSM_FPF`, `RSM_TPF`, `RSM_NLF`. These now match the usage in `RJafrocFrocBook`
 * 11/7/22 took out dealing with zeroes in `lesDistr` vector, too complex
 * Wherever `geom_line()` occurs, check that `size` aesthetic is replaced by `linewidth`

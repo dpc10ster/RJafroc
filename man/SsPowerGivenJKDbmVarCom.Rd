@@ -33,7 +33,7 @@ SsPowerGivenJKDbmVarCom(
 \item{analysisOption}{The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")}
 }
 \value{
-A list object containing the estimated power and associated statistics
+A list containing the estimated power and associated statistics
    for each desired generalization.
 }
 \description{

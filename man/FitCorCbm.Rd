@@ -10,7 +10,7 @@ FitCorCbm(dataset)
 \item{dataset}{A \strong{paired ROC} dataset}
 }
 \value{
-The return value is a list containing three objects:
+A list containing three objects:
 
 \item{fitCorCbmRet}{list(\code{FPCounts},\code{TPCounts},
 \code{muX},\code{muY},\code{alphaX},\code{alphaY},\code{rhoNor},

@@ -8,7 +8,7 @@
 #' @param rdr The selected reader, default is 1
 #' 
 #' 
-#' @return The return value is a list with the following elements:
+#' @return A list with the following elements:
 #' @return \item{mu}{The mean of the diseased distribution relative 
 #'    to the non-diseased one} 
 #' @return \item{lambda}{The Poisson parameter describing the distribution 

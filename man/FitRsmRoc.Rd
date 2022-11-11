@@ -16,7 +16,7 @@ FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)
 \item{rdr}{The selected reader, default is 1}
 }
 \value{
-The return value is a list with the following elements:
+A list with the following elements:
 
 \item{mu}{The mean of the diseased distribution relative 
    to the non-diseased one}

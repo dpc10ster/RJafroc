@@ -21,7 +21,7 @@
 #' @details The ROC data is bined to 5 bins in each condition. 
 #'    
 #'     
-#' @return The return value is the desired dataset, suitable for testing \code{\link{FitCorCbm}}.
+#' @return The desired dataset suitable for testing \code{\link{FitCorCbm}}.
 #' 
 #' 
 #' 

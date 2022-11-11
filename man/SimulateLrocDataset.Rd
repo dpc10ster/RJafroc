@@ -26,7 +26,7 @@ SimulateLrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, lesionVector)
 \item{lesionVector}{A K2 length array containing the numbers of lesions per diseased case}
 }
 \value{
-The return value is an LROC dataset.
+An LROC dataset.
 }
 \description{
 Simulates an uncorrelated LROC dataset for specified numbers of

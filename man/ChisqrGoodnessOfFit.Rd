@@ -24,7 +24,7 @@ of lesions specified in the first column.
 The second column must sum to unity.}
 }
 \value{
-The return value is a list with the following elements:
+A list with the following elements:
 
 \item{chisq}{The chi-square statistic}
 

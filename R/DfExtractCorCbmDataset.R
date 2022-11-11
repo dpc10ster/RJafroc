@@ -13,7 +13,7 @@
 #' @param rdrs A vector, maximum length 2, contains the indices of the reader or
 #' readers to be extracted
 #'
-#' @return A new dataset in which the number of treatments is one and the number of readers is two
+#' @return A 1-treatment 2-reader dataset
 #'
 #' @details The desired pairing is contained in the vectors \code{trts} and \code{rdrs}.
 #' If either has length one, the other must

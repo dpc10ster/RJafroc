@@ -24,7 +24,7 @@ StSignificanceTestingCrossedModalities(
 \item{analysisOption}{See \code{\link{StSignificanceTesting}}}
 }
 \value{
-The return list contains the same items with \code{\link{StSignificanceTesting}}.
+A list containing the same objects as \code{\link{StSignificanceTesting}}.
 }
 \description{
 Performs ORH analysis for specified crossed treatments dataset 

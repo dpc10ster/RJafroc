@@ -7,24 +7,24 @@
 RSM_wLLF(zeta, mu, nu, lesDistr, relWeights)
 }
 \arguments{
-\item{zeta}{The zeta value at which to evaluate the FROC ordinate.}
+\item{zeta}{The zeta-vector at which to evaluate the FROC ordinate.}
 
-\item{mu}{The RSM mu parameter.}
+\item{mu}{The scalar RSM mu parameter.}
 
-\item{nu}{The RSM nu prime parameter.}
+\item{nu}{The scalar RSM nu prime parameter.}
 
-\item{lesDistr}{Lesion distribution vector.}
+\item{lesDistr}{Lesion distribution 1D vector.}
 
-\item{relWeights}{Relative lesion weights vector.}
+\item{relWeights}{Relative lesion weights 1D vector.}
 }
 \value{
-wLLF
+wLLF, the ordinate of the wAFROC curve
 }
 \description{
 RSM predicted wAFROC ordinate
 }
 \examples{
-RSM_wLLF(1,1,0.5, lesDistr = c(0.5, 0.4, 0.1), relWeights = c(0.7, 0.2, 0.1)) 
+RSM_wLLF(c(1,2),1,0.5, lesDistr = c(0.5, 0.4, 0.1), relWeights = c(0.7, 0.2, 0.1)) 
 
 
 }

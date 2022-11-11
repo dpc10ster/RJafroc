@@ -13,7 +13,7 @@
 #' #' @param zeta1  The lowest reporting threshold
 #' #' @param lesionVector A K2 length array containing the numbers of lesions per diseased case
 #' #' 
-#' #' @return The return value is a list with following elements:
+#' #' @return A list with following elements:
 #' #' @return \item{dataset}{The ROI dataset.}
 #' #' 
 #' #' @details See book chapters on the Radiological Search Model (RSM) for details. 

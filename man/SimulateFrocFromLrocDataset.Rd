@@ -10,7 +10,7 @@ SimulateFrocFromLrocDataset(dataset)
 \item{dataset}{The LROC dataset to be converted to FROC.}
 }
 \value{
-The equivalent FROC dataset
+The AUC-equivalent FROC dataset
 }
 \description{
 Simulates a multiple-treatment multiple-reader 

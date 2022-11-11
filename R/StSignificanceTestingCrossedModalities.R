@@ -10,7 +10,7 @@
 #' @param alpha See \code{\link{StSignificanceTesting}}
 #' @param analysisOption See \code{\link{StSignificanceTesting}}
 #' 
-#' @return The return list contains the same items with \code{\link{StSignificanceTesting}}.
+#' @return A list containing the same objects as \code{\link{StSignificanceTesting}}.
 #' 
 #' @examples
 #' \donttest{ 

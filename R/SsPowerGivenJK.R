@@ -249,7 +249,7 @@ SsPowerGivenJK <- function(dataset,
 #' @param alpha The size of the test (default = 0.05)
 #' @param analysisOption The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")
 #' 
-#' @return A list object containing the estimated power and associated statistics
+#' @return A list containing the estimated power and associated statistics
 #'    for each desired generalization.
 #'   
 #' @details The variance components are obtained using \link{StSignificanceTesting}
@@ -355,7 +355,7 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
 #' @param alpha The size of the test (default = 0.05)
 #' @param analysisOption The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")
 #' 
-#' @return A list object containing the estimated power and associated statistics
+#' @return A list containing the estimated power and associated statistics
 #'    for each desired generalization.
 #'   
 #' @details The variance components are obtained using \link{StSignificanceTesting} 

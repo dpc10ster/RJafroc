@@ -2,6 +2,9 @@ library(devtools)
 library(rhub)
 library(RJafroc)
 
+# CRAN check flavors
+# https://cran.r-project.org/web/checks/check_flavors.html
+
 platforms <- rhub::platforms()
 print(platforms)
 # debian-clang-devel:

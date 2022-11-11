@@ -1,17 +1,15 @@
 #' RSM predicted ROC-rating pdf for diseased cases
-#' @param z The z-sample value at which to evaluate the pdf.
-#' @param mu The mu parameter of the RSM.
-#' @param lambda The RSM lambda parameter. 
-#' @param nu The RSM nu parameter.
+#' @param z The z-vector at which to evaluate the pdf.
+#' @param mu The scalar RSM mu parameter.
+#' @param lambda The scalar RSM lambda parameter. 
+#' @param nu The scalar RSM nu parameter.
 #' @param lesDistr The lesion distribution 1D vector.
 #' 
-#' @return pdf
+#' @return pdf, density function for diseased cases
 #' 
 #' @examples 
-#' lesDistr <- c(0.5, 0.5)
-#' RSM_pdfD(1,1,1,0.9, lesDistr)
-#' lesDistr <- c(0.2, 0.3, 0.5)
-#' RSM_pdfD(1,1,1,0.5, lesDistr)
+#' RSM_pdfD(c(1,2),1,1,0.9, c(0.5, 0.5))
+#' RSM_pdfD(c(1,2),1,1,0.5, c(0.2, 0.3, 0.5))
 #' 
 #' @export
 
@@ -46,13 +44,13 @@ RSM_pdfD <- function(z, mu, lambda, nu, lesDistr){
 
 
 #' RSM predicted ROC-rating pdf for non-diseased cases
-#' @param z The z-sample value at which to evaluate the pdf.
-#' @param lambda The (physical) lambda parameter of the RSM. 
+#' @param z The z-vector at which to evaluate the pdf.
+#' @param lambda The scalar RSM  lambda parameter. 
 #' 
-#' @return pdf
+#' @return pdf, density function for non-diseased cases
 #' 
 #' @examples 
-#' RSM_pdfN(1,1)
+#' RSM_pdfN(c(1,2),1)
 #' 
 #' @export
 #' 
@@ -67,30 +65,17 @@ RSM_pdfN <- function(z, lambda){
 }
 
 
-
-# for future work
-myPlot <- function(dataPoints, dashedPoints, x, y, 
-                   legendPosition, legendDirection, legendJustification) {
-  ret <- with(dataPoints, {
-    ggplot(data = dataPoints) + 
-      geom_line(aes(x = x, y = y , color = Treatment)) + 
-      geom_line(data = dashedPoints, aes(x = x, y = y, color = Treatment), linetype = 2) +       
-      theme(legend.position = legendPosition, legend.direction = legendDirection, 
-            legend.justification = legendJustification) 
-  })
-  return(ret)
-}
-
-
+################################################################################
+################################################################################
 
 #' RSM predicted FROC abscissa
-#' @param z The z-sample value at which to evaluate the FROC abscissa.
-#' @param lambda The RSM lambda parameter. 
+#' @param z The z-vector at which to evaluate the FROC abscissa.
+#' @param lambda The scalar RSM lambda parameter. 
 #' 
-#' @return xFROC
+#' @return NLF, the abscissa of the FROC curve
 #' 
 #' @examples 
-#' RSM_NLF(1,1)
+#' RSM_NLF(c(1,2),1)
 #' 
 #' @export
 #' 
@@ -105,16 +90,19 @@ RSM_NLF <- function(z, lambda){
 }
 
 
+################################################################################
+################################################################################
+
 
 #' RSM predicted FROC ordinate
-#' @param z The z-sample value at which to evaluate the FROC ordinate.
-#' @param mu The RSM mu parameter. 
-#' @param nu The RSM nu prime parameter. 
+#' @param z The z-vector value at which to evaluate the FROC ordinate.
+#' @param mu The scalar RSM mu parameter. 
+#' @param nu The scalar RSM nu prime parameter. 
 #' 
-#' @return yFROC
+#' @return LLF, the ordinate of the FROC curve
 #' 
 #' @examples 
-#' RSM_LLF(1,1,0.5)
+#' RSM_LLF(c(1,2),1,0.5)
 #' 
 #' @export
 #' 
@@ -131,6 +119,9 @@ RSM_LLF <- function(z, mu, nu){
 }
 
 
+################################################################################
+################################################################################
+
 
 integrandFROC <- function(NLF, mu, lambda, nu){
   
@@ -144,6 +135,9 @@ integrandFROC <- function(NLF, mu, lambda, nu){
   return(LLF)
 }
 
+
+################################################################################
+################################################################################
 
 
 # y_AFROC_FPF is AFROC as a function of FPF + RSM parameters
@@ -165,6 +159,8 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
 
 
 
+################################################################################
+################################################################################
 
 
 # dpc 01/05/22 these comments were added while converting code to formula for chapter 21-optim-op-point
@@ -187,16 +183,16 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
 # contextStr <- "testing weights code with max 10 lesions per case, random values: Cpp vs R"
 
 #' RSM predicted wAFROC ordinate
-#' @param zeta The zeta value at which to evaluate the FROC ordinate.
-#' @param mu The RSM mu parameter. 
-#' @param nu The RSM nu prime parameter. 
-#' @param lesDistr Lesion distribution vector.
-#' @param relWeights Relative lesion weights vector.
+#' @param zeta The zeta-vector at which to evaluate the FROC ordinate.
+#' @param mu The scalar RSM mu parameter. 
+#' @param nu The scalar RSM nu prime parameter. 
+#' @param lesDistr Lesion distribution 1D vector.
+#' @param relWeights Relative lesion weights 1D vector.
 #' 
-#' @return wLLF
+#' @return wLLF, the ordinate of the wAFROC curve
 #' 
 #' @examples 
-#' RSM_wLLF(1,1,0.5, lesDistr = c(0.5, 0.4, 0.1), relWeights = c(0.7, 0.2, 0.1)) 
+#' RSM_wLLF(c(1,2),1,0.5, lesDistr = c(0.5, 0.4, 0.1), relWeights = c(0.7, 0.2, 0.1)) 
 #'
 #' 
 #' @export
@@ -238,6 +234,60 @@ RSM_wLLF <- function(zeta, mu, nu, lesDistr, relWeights){
 }
 
 
+################################################################################
+################################################################################
+
+
+#' RSM predicted ROC-abscissa as function of z
+#' @param z The z-vector at which to evaluate the ROC-abscissa.
+#' @param lambda The scalar RSM lambda parameter. 
+#' 
+#' @return FPF, the abscissa of the ROC
+#' 
+#' @examples 
+#' RSM_FPF(c(-Inf,0.1,0.2,0.3),1)
+#' 
+#' @export
+
+RSM_FPF <- function(z, lambda) {
+  
+  if (lambda < 0) stop("Incorrect value for lambda\n")
+  
+  return(xROCVect(z, lambda))
+
+}
+
+#' RSM predicted ROC-ordinate as function of z
+#' 
+#' @param z The z-vector at which to evaluate the pdf.
+#' @param mu The scalar RSM  mu  parameter.
+#' @param lambda The scalar RSM  lambda parameter. 
+#' @param nu The scalar nu parameter.
+#' @param lesDistr The lesion distribution 1D vector.
+#' 
+#' @return TPF, the ordinate of the ROC
+#' 
+#' @examples 
+#' lesDistr <- c(0.1,0.3,0.6)
+#' RSM_TPF(c(-Inf,0.1,0.2,0.3), 1, 1, 0.9, lesDistr)
+#' 
+#' @export
+
+
+RSM_TPF <- function(z, mu, lambda, nu, lesDistr) {
+  # bug fix 12/26/21
+  if (lambda < 0) stop("Incorrect value for lambda\n")
+  if (nu < 0) stop("Incorrect value for nu\n")
+  if (nu > 1) stop("Incorrect value for nu\n")
+  
+  return(yROCVect(z, mu, lambda, nu, lesDistr))
+}
+
+
+################################################################################
+################################################################################
+
+
 # y_wAFROC_FPF is wAFROC as a function of FPF + RSM parameters
 y_wAFROC_FPF <- function(FPF, mu, lambda, nu, lesDistr, relWeights){
   lesWghtDistr <- UtilLesionWeightsMatrixLesDistr(lesDistr, relWeights)
@@ -276,32 +326,36 @@ y_wAFROC_FPF_R <- function(FPF, mu, lambda, nu, lesDistr, relWeights){
 
 
 
-# yROCVect_R <- function (zeta, mu, lambda, nu, lesDistr){
-# 
-#   TPF <- array(dim = length(zeta))
-#   for (il  in 1:length(zeta)){
-#     for (i in 1:length(lesDistr)){
-#       TPF[il] = TPF[il] + lesDistr[i] * 
-#         (1 - pow(1 - nu/2 + nu/2  * erfcpp( (zeta[il] - mu) / sqrt(2.0) ) , (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta[il] / sqrt(2.0))))
-#     }
-#   }
-#   
-#   return (TPF)
-# }
+# error function
+RSM_erf <- function (x) {
+  
+  return(erfVect(x)) # this implements the commented formula below
+  # return(2 * pnorm(sqrt(2) * x) - 1)
+  
+}
 
 
-# y_ROC_FPF_R <- function (FPF, mu, lambda, nu, lesDistr){
-#   for (il in 1:length(FPF)){
-#     temp = (1 / lambda) * log(1 - FPF[il]) + 1;
-#     if (temp <= 0){
-#       zeta[il] = -20;
-#     }else{
-#       zeta[il] = R::qnorm(temp, 0, 1, 1, 0);
-#     }
-#   }
+
+
 # 
-#   return (yROCVect(zeta, mu, lambda, nu, lesDistr))
+# xROC <- function (zeta, lambda){
+#   return (1 - exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta / sqrt(2))))
 # }
+# 
+# 
+# xROCVect <- function(zeta, lambda) {
+#     FPF = 1 - exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta / sqrt(2.0)))
+#   return (FPF);
+# }
+# 
+# 
+# R-only implementation of erf function
+# erf_R <- function(x){
+#  return (2 * pnorm(sqrt(2) * x) - 1)
+# }
+# 
+
+
 
 
 # added 12/22/20
@@ -340,7 +394,7 @@ B <- function(lambda,z)
   
   # bug fix 12/26/21
   if (lambda < 0) stop("Incorrect value for lambda\n")
-
+  
   return(exp(-lambda/2+lambda/2*erfVect(z/sqrt(2))))
 }
 
@@ -360,7 +414,7 @@ dB <- function(lambda,z)
 {
   # bug fix 12/26/21
   if (lambda < 0) stop("Incorrect value for lambda\n")
-
+  
   return(lambda*exp(-z^2/2)*exp(-lambda/2+lambda/2*erfVect(z/sqrt(2)))/sqrt(2*pi))
 }
 
@@ -386,77 +440,33 @@ pdfD3 <- function(z, mu, lambda, nu, lesDistr){
 }
 
 
-#' RSM predicted ROC-abscissa as function of z
-#' @param z The z-sample at which to evaluate the ROC-abscissa.
-#' @param lambda The (physical) lambda parameter of the RSM. 
-#' 
-#' @return xROC, the abscissa of the ROC
-#' 
-#' @examples 
-#' RSM_xROC(c(-Inf,0.1,0.2,0.3),1)
-#' 
-#' @export
-
-RSM_xROC <- function(z, lambda) {
-  
-  if (lambda < 0) stop("Incorrect value for lambda\n")
-  
-  return(xROCVect(z, lambda))
-
-}
-
-#' RSM predicted ROC-ordinate as function of z
-#' 
-#' @param z The z-sample value at which to evaluate the pdf.
-#' @param mu The mu parameter (of the RSM).
-#' @param lambda The RSM lambda parameter. 
-#' @param nu The RSM nu parameter.
-#' @param lesDistr The 1D lesion distribution vector.
-#' 
-#' @return yROC, the ordinate of the ROC
-#' 
-#' @examples 
-#' lesDistr <- c(0.1,0.3,0.6)
-#' RSM_yROC(c(-Inf,0.1,0.2,0.3), 1, 1, 0.9, lesDistr)
-#' 
-#' @export
+################################################################################
 
 
-RSM_yROC <- function(z, mu, lambda, nu, lesDistr) {
-  # bug fix 12/26/21
-  if (lambda < 0) stop("Incorrect value for lambda\n")
-  if (nu < 0) stop("Incorrect value for nu\n")
-  if (nu > 1) stop("Incorrect value for nu\n")
-  
-  return(yROCVect(z, mu, lambda, nu, lesDistr))
-}
-
-
-# error function
-RSM_erf <- function (x) {
-  
-  return(erfVect(x)) # this implements the commented formula below
-  # return(2 * pnorm(sqrt(2) * x) - 1)
-  
-}
-
-
-
-
+# yROCVect_R <- function (zeta, mu, lambda, nu, lesDistr){
 # 
-# xROC <- function (zeta, lambda){
-#   return (1 - exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta / sqrt(2))))
+#   TPF <- array(dim = length(zeta))
+#   for (il  in 1:length(zeta)){
+#     for (i in 1:length(lesDistr)){
+#       TPF[il] = TPF[il] + lesDistr[i] * 
+#         (1 - pow(1 - nu/2 + nu/2  * erfcpp( (zeta[il] - mu) / sqrt(2.0) ) , (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta[il] / sqrt(2.0))))
+#     }
+#   }
+#   
+#   return (TPF)
 # }
+
+
+# y_ROC_FPF_R <- function (FPF, mu, lambda, nu, lesDistr){
+#   for (il in 1:length(FPF)){
+#     temp = (1 / lambda) * log(1 - FPF[il]) + 1;
+#     if (temp <= 0){
+#       zeta[il] = -20;
+#     }else{
+#       zeta[il] = R::qnorm(temp, 0, 1, 1, 0);
+#     }
+#   }
 # 
-# 
-# xROCVect <- function(zeta, lambda) {
-#     FPF = 1 - exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta / sqrt(2.0)))
-#   return (FPF);
+#   return (yROCVect(zeta, mu, lambda, nu, lesDistr))
 # }
-# 
-# 
-# R-only implementation of erf function
-# erf_R <- function(x){
-#  return (2 * pnorm(sqrt(2) * x) - 1)
-# }
-# 
+

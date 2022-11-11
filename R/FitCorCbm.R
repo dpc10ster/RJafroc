@@ -10,7 +10,7 @@
 #' @param dataset A \strong{paired ROC} dataset
 #'
 #'
-#' @return The return value is a list containing three objects:
+#' @return A list containing three objects:
 #' @return \item{fitCorCbmRet}{list(\code{FPCounts},\code{TPCounts},
 #' \code{muX},\code{muY},\code{alphaX},\code{alphaY},\code{rhoNor},
 #' \code{rhoAbn2},\code{zetaX},\code{zetaY},\code{covMat},\code{fixParam})}

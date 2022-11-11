@@ -33,7 +33,7 @@ seed for the random number generator, the default is \code{NULL}, as if no seed
 has been specified.}
 }
 \value{
-A list object containing the following \code{data.frames}: 
+A list containing the following \code{data.frames}: 
     \itemize{
     \item{\code{foms}}: the figures of merit for different treatment-reader combinations 
     \item{\code{TRanova}}: the OR treatment-reader ANOVA table 

@@ -29,7 +29,7 @@ SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL)
 is \code{NULL}, as if no seed has been specified.}
 }
 \value{
-The return value is an FROC dataset.
+An FROC dataset.
 }
 \description{
 Simulates an uncorrelated MRMC FROC dataset for specified numbers of

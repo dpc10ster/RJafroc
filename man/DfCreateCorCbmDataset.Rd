@@ -40,7 +40,7 @@ DfCreateCorCbmDataset(
 visible in both conditions}
 }
 \value{
-The return value is the desired dataset, suitable for testing \code{\link{FitCorCbm}}.
+The desired dataset suitable for testing \code{\link{FitCorCbm}}.
 }
 \description{
 The paired dataset is generated using bivariate sampling; 

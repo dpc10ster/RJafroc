@@ -7,17 +7,17 @@
 RSM_pdfN(z, lambda)
 }
 \arguments{
-\item{z}{The z-sample value at which to evaluate the pdf.}
+\item{z}{The z-vector at which to evaluate the pdf.}
 
-\item{lambda}{The (physical) lambda parameter of the RSM.}
+\item{lambda}{The scalar RSM  lambda parameter.}
 }
 \value{
-pdf
+pdf, density function for non-diseased cases
 }
 \description{
 RSM predicted ROC-rating pdf for non-diseased cases
 }
 \examples{
-RSM_pdfN(1,1)
+RSM_pdfN(c(1,2),1)
 
 }

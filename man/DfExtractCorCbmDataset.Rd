@@ -16,7 +16,7 @@ or treatments to be extracted}
 readers to be extracted}
 }
 \value{
-A new dataset in which the number of treatments is one and the number of readers is two
+A 1-treatment 2-reader dataset
 }
 \description{
 Extract a paired dataset from a larger dataset. The pairing could be

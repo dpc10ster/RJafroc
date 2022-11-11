@@ -7,17 +7,17 @@
 RSM_NLF(z, lambda)
 }
 \arguments{
-\item{z}{The z-sample value at which to evaluate the FROC abscissa.}
+\item{z}{The z-vector at which to evaluate the FROC abscissa.}
 
-\item{lambda}{The RSM lambda parameter.}
+\item{lambda}{The scalar RSM lambda parameter.}
 }
 \value{
-xFROC
+NLF, the abscissa of the FROC curve
 }
 \description{
 RSM predicted FROC abscissa
 }
 \examples{
-RSM_NLF(1,1)
+RSM_NLF(c(1,2),1)
 
 }

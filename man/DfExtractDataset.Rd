@@ -16,7 +16,7 @@ DfExtractDataset(dataset, trts, rdrs)
 \strong{If this parameter is not supplied, all readers are extracted.}}
 }
 \value{
-A new dataset containing only the specified treatments and readers that were
+A dataset containing only the specified treatments and readers that were
 extracted from the original dataset
 }
 \description{

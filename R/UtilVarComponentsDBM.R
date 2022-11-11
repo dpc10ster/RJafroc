@@ -5,7 +5,7 @@
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
-#' @return A list object containing the variance components.
+#' @return A list containing the variance components.
 #'   
 #' 
 #' @examples 

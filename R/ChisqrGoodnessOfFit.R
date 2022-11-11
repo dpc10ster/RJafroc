@@ -16,7 +16,7 @@
 #'    The second column must sum to unity. 
 #'
 #'
-#' @return The return value is a list with the following elements:
+#' @return A list with the following elements:
 #' @return \item{chisq}{The chi-square statistic}
 #' @return \item{pVal}{The p-value of the fit}
 #' @return \item{df}{The degrees of freedom}

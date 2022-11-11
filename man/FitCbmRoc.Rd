@@ -15,7 +15,7 @@ FitCbmRoc(dataset, trt = 1, rdr = 1)
 \item{rdr}{The desired reader, default is 1}
 }
 \value{
-The return value is a list with the following elements:
+A list with the following elements:
 
 \item{mu}{The mean of the visible diseased distribution (the non-diseased)
    has zero mean}

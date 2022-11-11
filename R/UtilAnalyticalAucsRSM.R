@@ -23,7 +23,7 @@
 #'    mass function (pmf) of the numbers of lesions for diseased cases.
 #'  
 #' 
-#' @return A list containing the ROC, AFROC and wAFROC AUCs corresponding to the 
+#' @return The ROC, AFROC and wAFROC AUCs corresponding to the 
 #'    specified parameters
 #' 
 #' 

@@ -64,7 +64,7 @@ Default is "\code{NULL}", which means the maximum NLF range is used
 generate an error.}
 }
 \value{
-A list of elements containing five \pkg{ggplot2} objects 
+A list containing five \pkg{ggplot2} objects 
    (ROCPlot, AFROCPlot wAFROCPlot, FROCPlot and PDFPlot) and two area measures 
    (each of which can have up to two elements), the area under the search 
    model predicted ROC curves in up to two treatments, the area under the search 

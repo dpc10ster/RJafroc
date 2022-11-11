@@ -25,7 +25,7 @@ mass function (pmf) of the numbers of lesions for diseased cases.}
 length \code{maxLL}; if zero, the default, equal weights are assumed.}
 }
 \value{
-A list containing the ROC, AFROC and wAFROC AUCs corresponding to the 
+The ROC, AFROC and wAFROC AUCs corresponding to the 
    specified parameters
 }
 \description{

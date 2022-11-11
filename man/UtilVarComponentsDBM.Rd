@@ -15,7 +15,7 @@ UtilVarComponentsDBM(dataset, FOM, FPFValue = 0.2)
 where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
-A list object containing the variance components.
+A list containing the variance components.
 }
 \description{
 Utility for Dorfman-Berbaum-Metz variance components

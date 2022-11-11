@@ -7,26 +7,24 @@
 RSM_pdfD(z, mu, lambda, nu, lesDistr)
 }
 \arguments{
-\item{z}{The z-sample value at which to evaluate the pdf.}
+\item{z}{The z-vector at which to evaluate the pdf.}
 
-\item{mu}{The mu parameter of the RSM.}
+\item{mu}{The scalar RSM mu parameter.}
 
-\item{lambda}{The RSM lambda parameter.}
+\item{lambda}{The scalar RSM lambda parameter.}
 
-\item{nu}{The RSM nu parameter.}
+\item{nu}{The scalar RSM nu parameter.}
 
 \item{lesDistr}{The lesion distribution 1D vector.}
 }
 \value{
-pdf
+pdf, density function for diseased cases
 }
 \description{
 RSM predicted ROC-rating pdf for diseased cases
 }
 \examples{
-lesDistr <- c(0.5, 0.5)
-RSM_pdfD(1,1,1,0.9, lesDistr)
-lesDistr <- c(0.2, 0.3, 0.5)
-RSM_pdfD(1,1,1,0.5, lesDistr)
+RSM_pdfD(c(1,2),1,1,0.9, c(0.5, 0.5))
+RSM_pdfD(c(1,2),1,1,0.5, c(0.2, 0.3, 0.5))
 
 }

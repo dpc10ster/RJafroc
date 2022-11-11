@@ -39,7 +39,7 @@ SimulateCorCbmDataset(
 \item{rhoAbn2}{The correlation of diseased case z-samples, when disease is visible in both conditions}
 }
 \value{
-The return value is the desired dataset, suitable for testing FitCorCbm
+The desired dataset suitable for testing FitCorCbm
 }
 \description{
 Simulates single treatment 2-reader binned ROC dataset, simulated according to the CORCBM model,

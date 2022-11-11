@@ -10,7 +10,7 @@
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
-#' @return A list containing all possible mean squares
+#' @return A list containing the mean squares
 #' 
 #' @details 
 #' For \code{DBM} method, \code{msT, msTR, msTC, msTRC} will not be available 

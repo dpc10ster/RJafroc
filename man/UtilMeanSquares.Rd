@@ -19,7 +19,7 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.}
 valid choices are \code{"DBM"} (default) and \code{"OR"}.}
 }
 \value{
-A list containing all possible mean squares
+A list containing the mean squares
 }
 \description{
 Calculates the mean squares used in the DBM and ORH methods for factorial dataset

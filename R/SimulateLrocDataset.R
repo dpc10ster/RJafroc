@@ -13,7 +13,7 @@
 #' @param K2     The number of diseased cases
 #' @param lesionVector    A K2 length array containing the numbers of lesions per diseased case
 #' 
-#' @return The return value is an LROC dataset.
+#' @return An LROC dataset.
 #' 
 #' @details See book chapters on the Radiological Search Model (RSM) for details.
 #'    The approach is to first simulate an FROC dataset and then convert it to an Lroc

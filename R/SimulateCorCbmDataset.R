@@ -21,7 +21,7 @@
 #' See referenced publication.
 #'
 #'
-#' @return The return value is the desired dataset, suitable for testing FitCorCbm
+#' @return The desired dataset suitable for testing FitCorCbm
 #'
 #'
 #'

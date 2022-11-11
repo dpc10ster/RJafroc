@@ -9,7 +9,7 @@
 #' @param rdrs A vector contains the indices of the readers to be extracted. 
 #'    \strong{If this parameter is not supplied, all readers are extracted.}
 #' 
-#' @return A new dataset containing only the specified treatments and readers that were
+#' @return A dataset containing only the specified treatments and readers that were
 #' extracted from the original dataset
 #' 
 #' @details \strong{Note} that \code{trts} and \code{rdrs} are the vectors of \strong{indices} 

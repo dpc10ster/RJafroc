@@ -15,7 +15,7 @@
 #' @param seed  The initial seed for the random number generator, the default 
 #'     is \code{NULL}, as if no seed has been specified. 
 #' 
-#' @return The return value is an FROC dataset.
+#' @return An FROC dataset.
 #' 
 #' @details See book chapters on the Radiological Search Model (RSM) for details. 
 #'    In this code correlations between ratings on the same case are assumed to be zero.

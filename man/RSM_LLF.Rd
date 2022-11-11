@@ -7,19 +7,19 @@
 RSM_LLF(z, mu, nu)
 }
 \arguments{
-\item{z}{The z-sample value at which to evaluate the FROC ordinate.}
+\item{z}{The z-vector value at which to evaluate the FROC ordinate.}
 
-\item{mu}{The RSM mu parameter.}
+\item{mu}{The scalar RSM mu parameter.}
 
-\item{nu}{The RSM nu prime parameter.}
+\item{nu}{The scalar RSM nu prime parameter.}
 }
 \value{
-yFROC
+LLF, the ordinate of the FROC curve
 }
 \description{
 RSM predicted FROC ordinate
 }
 \examples{
-RSM_LLF(1,1,0.5)
+RSM_LLF(c(1,2),1,0.5)
 
 }

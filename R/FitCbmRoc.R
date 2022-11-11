@@ -8,7 +8,7 @@
 #' @param rdr The desired reader, default is 1
 #'
 #'
-#' @return The return value is a list with the following elements:
+#' @return A list with the following elements:
 #' @return \item{mu}{The mean of the visible diseased distribution (the non-diseased)
 #'    has zero mean}
 #' @return \item{alpha}{The proportion of diseased cases where the disease is visible}

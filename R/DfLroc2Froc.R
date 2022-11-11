@@ -6,7 +6,7 @@
 #' 
 #' @param dataset The LROC dataset to be converted to FROC.
 #'  
-#' @return The equivalent FROC dataset
+#' @return The AUC-equivalent FROC dataset
 #' 
 #' @details The LROC paradigm always yields a single mark per case. Therefore 
 #'    the equivalent FROC will also have only one mark per case. The NL arrays 

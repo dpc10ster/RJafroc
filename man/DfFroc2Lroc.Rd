@@ -10,7 +10,7 @@ DfFroc2Lroc(dataset)
 \item{dataset}{The FROC dataset to be converted to LROC.}
 }
 \value{
-The equivalent LROC dataset
+The AUC-equivalent LROC dataset
 }
 \description{
 Simulates a multiple-treatment multiple-reader "AUC-equivalent" 
