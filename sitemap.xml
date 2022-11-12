@@ -82,10 +82,16 @@
     <loc>https://github.com/dpc10ster/RJafroc/reference/RJafroc-package.html</loc>
   </url>
   <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_FPF.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_LLF.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_NLF.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_TPF.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_pdfD.html</loc>
@@ -95,12 +101,6 @@
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_wLLF.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_xROC.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_yROC.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/SimulateCorCbmDataset.html</loc>

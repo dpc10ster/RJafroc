@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.2.9000</span>
       </span>
     </div>
 
@@ -42,29 +42,45 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="2.1.2" id="version-212">version 2.1.2<small>2022-11-08</small><a class="anchor" aria-label="anchor" href="#version-212"></a></h2>
+<h2 class="page-header" data-toc-text="2.1.2.9000" id="version-2129000">version 2.1.2.9000<a class="anchor" aria-label="anchor" href="#version-2129000"></a></h2>
 <hr><div class="section level3">
-<h3 id="cran-submission-2-1-2">CRAN submission<a class="anchor" aria-label="anchor" href="#cran-submission-2-1-2"></a></h3>
-<ul><li>Submitted 11/8/22 1:30 PM</li>
+<h3 id="changed-function-names-to-rsm_fpf-and-rsm_tpf-2-1-2-9000">Changed function names to <code>RSM_FPF</code> and <code>RSM_TPF</code>
+<a class="anchor" aria-label="anchor" href="#changed-function-names-to-rsm_fpf-and-rsm_tpf-2-1-2-9000"></a></h3>
+<ul><li>Formerly <code>RSM_xROC</code> and <code>RSM_yROC</code>
+</li>
+<li>This renaming was missed in the earlier submission</li>
+<li>Further cleanup of documentation entries in <code>rsmFormulae.R</code>
+</li>
 </ul></div>
 <div class="section level3">
-<h3 id="after-ggplot2-update-2-1-2">After ggplot2 update<a class="anchor" aria-label="anchor" href="#after-ggplot2-update-2-1-2"></a></h3>
-<ul><li>After <code>ggplot2</code> update to 3.4.0</li>
-<li>Standardized RSM exported function names: <code>RSM_LLF</code>, <code>RSM_wLLF</code>, <code>RSM_FPF</code>, <code>RSM_TPF</code>, <code>RSM_NLF</code>. These now match the usage in <code>RJafrocFrocBook</code>
+<h3 id="started-new-version-2-1-2-9000">Started new version<a class="anchor" aria-label="anchor" href="#started-new-version-2-1-2-9000"></a></h3>
+<ul><li>2.1.2.9000</li>
+</ul></div>
+<div class="section level3">
+<h3 id="cran-submission-2-1-2-9000">CRAN submission<a class="anchor" aria-label="anchor" href="#cran-submission-2-1-2-9000"></a></h3>
+<ul><li>Submitted 11/8/22 1:30 PM</li>
+<li>Accepted 11/8/22 2 PM</li>
+<li>Version: 2.1.2</li>
+<li>Date: 2022-11-08 18:38:38 UTC</li>
+<li>SHA: c3e0a0ac2eed9101ce3a0d4130103c9652930fba</li>
+</ul></div>
+<div class="section level3">
+<h3 id="after-ggplot2-update-to-2-1-2-9000">After ggplot2 update to 3.4.0<a class="anchor" aria-label="anchor" href="#after-ggplot2-update-to-2-1-2-9000"></a></h3>
+<ul><li>Standardized RSM exported function names: <code>RSM_LLF</code>, <code>RSM_wLLF</code>, <code>RSM_FPF</code>, <code>RSM_TPF</code>, <code>RSM_NLF</code>. These now match the usage in <code>RJafrocFrocBook</code>
 </li>
 <li>11/7/22 took out dealing with zeroes in <code>lesDistr</code> vector, too complex</li>
 <li>Wherever <code>geom_line()</code> occurs, check that <code>size</code> aesthetic is replaced by <code>linewidth</code>
 </li>
 </ul></div>
 <div class="section level3">
-<h3 id="after-peters-fix-to-issue-due-to-changes-in-ggplot-object-structure-2-1-2">After Peter’s fix to issue #85 due to changes in <code>ggplot</code> object structure 10/25/22<a class="anchor" aria-label="anchor" href="#after-peters-fix-to-issue-due-to-changes-in-ggplot-object-structure-2-1-2"></a></h3>
+<h3 id="after-peters-fix-to-issue-due-to-changes-in-ggplot-object-structure-2-1-2-9000">After Peter’s fix to issue #85 due to changes in <code>ggplot</code> object structure 10/25/22<a class="anchor" aria-label="anchor" href="#after-peters-fix-to-issue-due-to-changes-in-ggplot-object-structure-2-1-2-9000"></a></h3>
 <ul><li>The fix just checks if object is a ggplot object, not details of the object</li>
 <li>I checked that this works with the new version of <code>ggplot2</code> installed by the following line</li>
 <li><code>devtools::install_github('tidyverse/ggplot2@v3.4.0-rc')</code></li>
 <li>Ran R CMD check success and merged <code>developer</code> into <code>master</code> branch</li>
 </ul></div>
 <div class="section level3">
-<h3 id="checking-all-auc-related-cpp-code-vs-my-r-code-2-1-2">Checking all AUC related Cpp code vs. my R code 10/7/22<a class="anchor" aria-label="anchor" href="#checking-all-auc-related-cpp-code-vs-my-r-code-2-1-2"></a></h3>
+<h3 id="checking-all-auc-related-cpp-code-vs-my-r-code-2-1-2-9000">Checking all AUC related Cpp code vs. my R code 10/7/22<a class="anchor" aria-label="anchor" href="#checking-all-auc-related-cpp-code-vs-my-r-code-2-1-2-9000"></a></h3>
 <ul><li>Discovered no need to replace error function with Phi function implementation; this is already done in Cpp code</li>
 <li>Added <code>UtilAnalyticalAucsRSM_R</code> function which does not use Cpp code</li>
 <li>Took out the <code>tempTest</code> flag in <code>UtilAnalyticalAucsRSM</code>; this uses Cpp</li>
@@ -74,7 +90,7 @@
 <ul><li>Why is <code>y_ROC_FPF_R</code> generating a warning? This function is not called anywhere, so I commented it out; the warning disappears</li>
 </ul></div>
 <div class="section level3">
-<h3 id="work-post-acceptance-of-v211-2-1-2">Work post acceptance of v2.1.1<a class="anchor" aria-label="anchor" href="#work-post-acceptance-of-v211-2-1-2"></a></h3>
+<h3 id="work-post-acceptance-of-v211-2-1-2-9000">Work post acceptance of v2.1.1<a class="anchor" aria-label="anchor" href="#work-post-acceptance-of-v211-2-1-2-9000"></a></h3>
 <ul><li>universal change: <code>lambdaP</code> to <code>lambda</code> and <code>lambda</code> to <code>lambda_i</code> 9/19/22</li>
 <li>this corresponds with revised notation in book</li>
 <li>

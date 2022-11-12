@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RJafroc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.2.9000</span>
       </span>
     </div>
 
@@ -53,28 +53,28 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>z</dt>
-<dd><p>The z-sample value at which to evaluate the FROC ordinate.</p></dd>
+<dd><p>The z-vector value at which to evaluate the FROC ordinate.</p></dd>
 
 
 <dt>mu</dt>
-<dd><p>The RSM mu parameter.</p></dd>
+<dd><p>The scalar RSM mu parameter.</p></dd>
 
 
 <dt>nu</dt>
-<dd><p>The RSM nu prime parameter.</p></dd>
+<dd><p>The scalar RSM nu prime parameter.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>yFROC</p>
+<p>LLF, the ordinate of the FROC curve</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">RSM_LLF</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0.5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.25</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">RSM_LLF</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,<span class="fl">1</span>,<span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.25000000 0.07932763</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
