@@ -132,72 +132,20 @@
 <div class="section level1">
 <div class="page-header"><h1 id="rjafroc">RJafroc<a class="anchor" aria-label="anchor" href="#rjafroc"></a>
 </h1></div>
-
+<p><a href="https://github.com/dpc10ster/RJafroc/actions"><img src="https://github.com/dpc10ster/RJafroc/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://codecov.io/gh/dpc10ster/rjafroc" class="external-link"><img src="https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://cran.r-project.org/package=RJafroc" class="external-link"><img src="http://www.r-pkg.org/badges/version/RJafroc" alt="CRAN_Status_Badge"></a></p>
 </div>
 <div class="section level1">
-<h1 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
+<h1 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h1>
-<ul>
-<li>This website contains four repositories describing <strong>observer performance and artificial intelligence systems modeling, analysis and validation</strong>.</li>
-<li>They are:
-<ul>
-<li>
-<a href="https://github.com/dpc10ster/RJafroc"><code>RJafroc</code></a> is the software package that provides the common thread on which the other three online books depend;</li>
-<li>
-<a href="https://github.com/dpc10ster/RJafrocQuickStart"><code>RJafrocQuickStart</code></a> is an online book for those already somewhat familiar running Windows JAFROC. The obsolete Windows program has been replaced by <code>RJafroc</code>. This book dives into how to use <code>RJafroc</code> to analyze ROC or FROC datasets.</li>
-<li>
-<a href="https://github.com/dpc10ster/RJafrocRocBook"><code>RJafrocRocBook</code></a> is an online book providing background on the ROC paradigm, modeling and analysis.<br>
-</li>
-<li>
-<a href="https://dpc10ster.github.io/RJafrocFrocBook/" class="external-link"><code>RJafrocFrocBook</code></a> is an online book providing a detailed exposition of the FROC paradigm, modeling and analysis.</li>
-</ul>
-</li>
-</ul>
-<p>The first CRAN-posted version of <code>RJafroc</code> was used to support the R-code examples in the book: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples, Taylor-Francis LLC, 2017.</p>
-<p>Since its publication in 2017 <code>RJafroc</code>, on which the <code>R</code> code examples in the print book depend, has evolved considerably, causing many of the examples to “break” if one uses the most current version of <code>RJafroc</code>. The code will still run if one uses <a href="https://cran.r-project.org/src/contrib/Archive/RJafroc/" class="external-link"><code>RJafroc</code> 0.0.1</a> but this is inconvenient and misses out on many of the software improvements made since the print book appeared.</p>
-<p>This, and other considerations, led me to conclude that an update to the book is needed. This website contains the updated software and three online books that use the software and extend the 2017-book.</p>
+<p>See <a href="https://dpc10ster.github.io/ai-froc-research/" class="external-link">this link</a> for a summary of my AI/FROC research websites.</p>
 </div>
 <div class="section level1">
-<h1 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
-</h1>
-<ul>
-<li><p>HTML documentation for <code>RJafroc</code> (functions, vignettes and update history) is <a href="https://dpc10ster.github.io/RJafroc/" class="external-link">available here</a>. The software is fairly stable and undergoing occasional updates.</p></li>
-<li><p>The HTML online book <code>RJafrocQuickStart</code> is available <a href="https://dpc10ster.github.io/RJafrocQuickStart/" class="external-link">here</a>. A link is provided there to download the pdf book. Both are being continually updated (as of December 2021).</p></li>
-<li><p>The HTML online book <code>RJafrocRocBook</code> is available <a href="https://dpc10ster.github.io/RJafrocRocBook/" class="external-link">here</a>. A link is provided there to download the pdf book. Both of them are being continually updated.</p></li>
-<li><p>The HTML online book <code>RJafrocFrocBook</code> is available <a href="https://dpc10ster.github.io/RJafrocFrocBook/" class="external-link">here</a>. A link is provided there to download the pdf book. Both are being continually updated.</p></li>
-</ul>
-</div>
-<div class="section level1">
-<h1 id="applications">Applications<a class="anchor" aria-label="anchor" href="#applications"></a>
-</h1>
-<p>While most of the applications in this package are geared toward analyzing radiologist performance in search tasks such as finding lesions in medical images, the software applies to any task involving detection and localization of targets in images. For example, the functions in <code>RJafroc</code> can be used to analyze the performance of artificial intelligence (AI) algorithms. Two applications to AI are <a href="https://dpc10ster.github.io/RJafrocFrocBook/" class="external-link">here</a>, specifically:</p>
-<ul>
-<li>Measuring AI performance.</li>
-<li>Optimizing the reporting threshold of an AI algorithm.</li>
-</ul>
-<p>The radiological search model (RSM), described <a href="https://dpc10ster.github.io/RJafrocFrocBook/" class="external-link">here</a> is implemented in <code>RJafroc</code>. A fitting function <code><a href="reference/FitRsmRoc.html">RJafroc::FitRsmRoc</a></code> estimates RSM parameters from ROC data These parameters are related to search and classification performances:</p>
-<ul>
-<li>Search performance refers to finding lesions while simultaneously minimizing finding non-lesion locations</li>
-<li>Classification performance measures ability to distinguish between lesion and non-lesion locations.</li>
-</ul>
-<p>Knowing the individual performances allows principled optimization of reader or AI algorithm performance.</p>
-</div>
-<div class="section level1">
-<h1 id="relation-to-windows-software">Relation to Windows software<a class="anchor" aria-label="anchor" href="#relation-to-windows-software"></a>
+<h1 id="rjafroc-update-history">
+<code>RJafroc</code> Update History<a class="anchor" aria-label="anchor" href="#rjafroc-update-history"></a>
 </h1>
 <ul>
 <li>
-<code>RJafroc</code> extends Windows <code>JAFROC</code> software and runs on multiple platforms.</li>
-<li>Originally uploaded in 2004, the Windows software is many generations behind the software available on this website. However, many users find it to be easy to use and useful. Vignettes in <code>RJafroc</code> and the online book available <a href="https://dpc10ster.github.io/RJafrocQuickStart/" class="external-link">here</a> should allow one to quickly transition to <code>RJafroc</code>.</li>
-<li>If you still need Windows <code>JAFROC</code> software it is still available <a href="https://github.com/dpc10ster/WindowsJafroc" class="external-link">here</a>.</li>
-</ul>
-</div>
-<div class="section level1">
-<h1 id="update-history">Update History<a class="anchor" aria-label="anchor" href="#update-history"></a>
-</h1>
-<ul>
-<li>
-<a href="https://dpc10ster.github.io/RJafroc/news/index.html" class="external-link">See here</a> for details.</li>
+<a href="https://dpc10ster.github.io/RJafroc/news/index.html" class="external-link">See here</a> for update History details.</li>
 <li>Current <code>GitHub</code> version is 2.1.2.9000 on the <code>master</code> branch.</li>
 <li>Current <code>CRAN</code> version is 2.1.2.</li>
 </ul>
@@ -373,14 +321,7 @@ openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, n
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/dpc10ster/RJafroc/actions"><img src="https://github.com/dpc10ster/RJafroc/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/dpc10ster/rjafroc" class="external-link"><img src="https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg" alt="codecov"></a></li>
-<li><a href="https://cran.r-project.org/package=RJafroc" class="external-link"><img src="http://www.r-pkg.org/badges/version/RJafroc" alt="CRAN_Status_Badge"></a></li>
-</ul>
-</div>
+
 
   </div>
 </div>
@@ -393,7 +334,7 @@ openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, n
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
