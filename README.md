@@ -13,11 +13,11 @@ RJafroc
 
 # Summary
 
-See [this link](https://dpc10ster.github.io/ai-froc-research/) for a summary of my AI/FROC research websites. 
+See [this link](https://dpc10ster.github.io/ai-froc-research/) for an important summary of my AI/FROC research websites. 
 
 # `RJafroc` Update History
 
-* [See here](https://dpc10ster.github.io/RJafroc/news/index.html) for update History details.
+* [See here](https://dpc10ster.github.io/RJafroc/news/index.html) for update history details.
 * Current `GitHub` version is 2.1.2.9000 on the `master` branch.
 * Current `CRAN` version is 2.1.2.
 
