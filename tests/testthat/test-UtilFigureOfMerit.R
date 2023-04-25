@@ -140,8 +140,7 @@ context("UtilFigureOfMerit FROC data: excessive computation time FOMs")
 test_that("FROC data: excessive computation time FOMs", {
   
   skip_on_cran()
-  skip_on_travis()
-  
+ 
   dataset <- dataset01 # FROC
   
   FOM_arr <- c("SongA2","SongA1")

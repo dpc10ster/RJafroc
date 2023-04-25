@@ -30,7 +30,7 @@ Two characteristics of an FROC dataset, apart from ratings,
    \code{lesDistr}.
 }
 \examples{
-UtilLesionDistrVector (dataset01) # FROC dataset ## [1] 0.93258427 0.06741573
-UtilLesionDistrVector (dataset02) # ROC dataset  ## 1
+UtilLesionDistrVector(dataset01)$lesDistr # FROC dataset ## [1] 0.93258427 0.06741573
+UtilLesionDistrVector(dataset02)$lesDistr # ROC dataset  ## 1
 
 }

@@ -102,5 +102,5 @@ Description: Analyzing the performance of artificial intelligence
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Encoding: UTF-8

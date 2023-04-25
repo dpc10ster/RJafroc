@@ -21,23 +21,25 @@
 #' 
 #' 
 #' @examples
-#' UtilLesionDistrVector (dataset01) # FROC dataset ## [1] 0.93258427 0.06741573
-#' UtilLesionDistrVector (dataset02) # ROC dataset  ## 1
+#' UtilLesionDistrVector(dataset01)$lesDistr # FROC dataset ## [1] 0.93258427 0.06741573
+#' UtilLesionDistrVector(dataset02)$lesDistr # ROC dataset  ## 1
 #' 
 #' @export
  
 UtilLesionDistrVector <- function(dataset)
 { 
   if (is.list(dataset) && (length(dataset) == 3)) {
-    dataset = dataset
     lesionNum <- dataset$lesions$perCase
     lesDistr <- table(lesionNum)
     if (length(lesDistr) == 1) {
-      lesDistr = 1.0
+      lesDistr <- data.frame(lesionNum = 1, Freq = 1)
     } else {
-      lesDistr <- as.vector(lesDistr)
-      lesDistr <- lesDistr/sum(lesDistr)
+      lesDistr <- as.data.frame(lesDistr)
+      lesDistr[2] <- lesDistr[2]/sum(lesDistr[2])
     }
   } else stop("Must supply dataset argument to LesionDistrVector()")
-  return(lesDistr)
+  return(list(
+    lesNum = as.integer(unlist(as.vector(lesDistr[1]))),
+    lesDistr = as.numeric(unlist(as.vector(lesDistr[2])))
+  ))
 }

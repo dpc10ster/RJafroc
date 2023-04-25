@@ -57,14 +57,14 @@ context("utils:UtilLesionDistrVector")
 test_that("UtilLesionDistrVector", {
 
   ret <- c(0.78723404, 0.17021277, 0.04255319) 
-  expect_equal(UtilLesionDistrVector (dataset05), ret)
+  expect_equal(UtilLesionDistrVector(dataset05)$lesDistr, ret)
   
   ret <- c(0.93258427, 0.06741573)
-  expect_equal(UtilLesionDistrVector (dataset01), ret)
+  expect_equal(UtilLesionDistrVector(dataset01)$lesDistr, ret)
   
-  expect_equal(UtilLesionDistrVector (datasetCadLroc), 1)
+  expect_equal(UtilLesionDistrVector(datasetCadLroc)$lesDistr, 1)
   
-  expect_equal(UtilLesionDistrVector (datasetROI), c(0.125, 0.375, 0.4, 0.1))
+  expect_equal(UtilLesionDistrVector(datasetROI)$lesDistr, c(0.125, 0.375, 0.4, 0.1))
   
 })
 
@@ -73,7 +73,7 @@ context("utils:UtilLesionWeightsMatrixDataset")
 test_that("UtilLesionWeightsMatrixDataset", {
   
   ret <- array(1, dim = c(1,2)) 
-  expect_equal(UtilLesionWeightsMatrixDataset (dataset02), ret)
+  expect_equal(UtilLesionWeightsMatrixDataset(dataset02), ret)
   
   ret <- array(c(c(1, 2), c(1, 0.5), c(-Inf, 0.5)), dim = c(2,3)) 
   expect_equal(UtilLesionWeightsMatrixDataset (dataset01), ret)

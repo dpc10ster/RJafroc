@@ -149,7 +149,7 @@ test_that("RSM3", {
   frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormalCasesFirst.xlsx",
                                           package = "RJafroc", mustWork = TRUE)
   x <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = TRUE)
-  lesDistr <- UtilLesionDistrVector(x)
+  lesDistr <- UtilLesionDistrVector(x)$lesDistr
   
   mu <- c(2, 3) 
   lambda_i <- c(1, 1.5)

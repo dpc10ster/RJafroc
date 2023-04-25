@@ -68,7 +68,7 @@ UtilLesionWeightsMatrixDataset <- function(dataset, relWeights = 0)
 { 
   if (is.list(dataset) && (length(dataset) == 3)) { 
     # a dataset has been supplied
-    lesDistr <- UtilLesionDistrVector(dataset)
+    lesDistr <- UtilLesionDistrVector(dataset)$lesDistr
     maxLL <- length(lesDistr)
     if (relWeights[1] == 0) {
       relWeights <- rep(1/maxLL, maxLL)

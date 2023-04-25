@@ -12,7 +12,6 @@
 contextStr <- "FitBinormalRoc - allow AUC less than 0.5"
 context(contextStr)
 test_that(contextStr, {
-  # skip_on_travis()
   g1 <- c(2, 3, 5, 6)
   g2 <- c(0, 4, 7, 11)
   d <- Df2RJafrocDataset(g2, g1, InputIsCountsTable = TRUE)
@@ -35,7 +34,6 @@ test_that(contextStr, {
 contextStr <- "FitBinormalRoc2"
 context(contextStr)
 test_that(contextStr, {
-  # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -53,7 +51,6 @@ test_that(contextStr, {
 contextStr <- "FitBinormalRoc3"
 context(contextStr)
 test_that(contextStr, {
-  # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/BinormalRoc05", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -74,7 +71,6 @@ test_that(contextStr, {
 contextStr <- "FitCbmRoc"
 context(contextStr)
 test_that(contextStr, {
-  # skip_on_travis()
   fn <- paste0(test_path(), "/goodValues361/Fitting/CbmRoc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -92,7 +88,6 @@ test_that(contextStr, {
 contextStr <- "FitCorCbm"
 context(contextStr)
 test_that(contextStr, {
-  skip_on_travis()
   skip_on_cran()
   skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
   
@@ -118,7 +113,6 @@ test_that(contextStr, {
 contextStr <- "FitCorCbm123"
 context(contextStr)
 test_that(contextStr, {
-  skip_on_travis()
   skip_on_cran()
   skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
   
@@ -144,7 +138,6 @@ test_that(contextStr, {
 contextStr <- "FitCorCbm124"
 context(contextStr)
 test_that(contextStr, {
-  skip_on_travis()
   skip_on_cran()
   skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
   
@@ -170,7 +163,6 @@ test_that(contextStr, {
 contextStr <- "FitCorCbm125"
 context(contextStr)
 test_that(contextStr, {
-  skip_on_travis()
   skip_on_cran()
   skip_on_os("mac") # as it is very time consuming, and I am not changing the code in this part of the pkg
   
@@ -197,28 +189,27 @@ contextStr <- "FitRsmRoc"
 context(contextStr)
 test_that(contextStr, {
   skip_on_cran()
-  skip_on_travis()
-  
+
   fn <- paste0(test_path(), "/goodValues361/Fitting/RsmRoc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- FitRsmRoc(dataset02, UtilLesionDistrVector(dataset02))[1:8]
+    ret <- FitRsmRoc(dataset02, UtilLesionDistrVector(dataset02)$lesDistr)[1:8]
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(FitRsmRoc(dataset02, UtilLesionDistrVector(dataset02))[1:8], ret, tolerance = 1e-6)
+  expect_equal(FitRsmRoc(dataset02, UtilLesionDistrVector(dataset02)$lesDistr)[1:8], ret, tolerance = 1e-6)
   # end of test
 
   fn <- paste0(test_path(), "/goodValues361/Fitting/RsmRocDegenerate", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- FitRsmRoc(datasetDegenerate, UtilLesionDistrVector(datasetDegenerate))[1:8]
+    ret <- FitRsmRoc(datasetDegenerate, UtilLesionDistrVector(datasetDegenerate)$lesDistr)[1:8]
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(FitRsmRoc(datasetDegenerate, UtilLesionDistrVector(datasetDegenerate))[1:8], ret, tolerance = 1e-6)
+  expect_equal(FitRsmRoc(datasetDegenerate, UtilLesionDistrVector(datasetDegenerate)$lesDistr)[1:8], ret, tolerance = 1e-6)
   # end of test
   
 })
