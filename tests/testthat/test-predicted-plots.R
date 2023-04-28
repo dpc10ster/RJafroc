@@ -71,7 +71,6 @@ test_that("Rsm1", {
   
   lesDistr <- c(0.2, 0.4, 0.1, 0.3)
   relWeights <- c(0.3, 0.4, 0.2,  0.1)
-  
   fn <- paste0(test_path(), "/goodValues361/Plots/Rsm1", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -84,15 +83,7 @@ test_that("Rsm1", {
                                            relWeights = relWeights)
     saveRDS(ret, file = fn)
   }
-  
   ret <- readRDS(fn)
-# expect_equal(PlotRsmOperatingCharacteristics(mu = mu, 
-#                                                lambda = lambda, 
-#                                                nu = nu, 
-#                                                zeta1 = zeta1, 
-#                                                OpChType = "wAFROC",
-#                                                lesDistr = lesDistr, 
-#                                                relWeights = relWeights), ret, check.environment = FALSE)
   t <- PlotRsmOperatingCharacteristics(mu = mu, 
                                                lambda = lambda, 
                                                nu = nu, 
@@ -111,10 +102,11 @@ test_that("Rsm2", {
   
   set.seed(1)
   K2 <- 700;Lmax <- 5;Lk2 <- floor(runif(K2, 1, Lmax + 1))
-  nLesPerCase <- unique(Lk2);lesDistr <- array(dim = length(nLesPerCase))
+  nLesPerCase <- unique(Lk2)
+  lesDistr <- as.vector(array(dim = length(nLesPerCase))) #!!
   for (i in nLesPerCase) lesDistr[i] <- sum(Lk2 == i)/K2
   
-  maxLL <- max(lesDistr)
+  maxLL <- length(lesDistr)
   
   mu <- 10;nu_i <- 0.99;lambda_i <- 1
   
@@ -131,13 +123,9 @@ test_that("Rsm2", {
   }
   
   ret <- readRDS(fn)
-# expect_equal(PlotRsmOperatingCharacteristics(mu, lambda, nu, OpChType = "wAFROC", 
-#                                              lesDistr = lesDistr), ret, check.environment = FALSE)
-  t <- PlotRsmOperatingCharacteristics(mu, lambda, nu, OpChType = "wAFROC", 
-                                               lesDistr = lesDistr)
+  t <- PlotRsmOperatingCharacteristics(mu, lambda, nu, OpChType = "wAFROC", lesDistr = lesDistr)
   expect_is(t$wAFROCPlot, "ggplot")
-  # end of test
-  
+
 })
 
 
@@ -149,7 +137,7 @@ test_that("RSM3", {
   frocCrAbnormalCasesFirst <- system.file("extdata", "toyFiles/FROC/frocCrAbnormalCasesFirst.xlsx",
                                           package = "RJafroc", mustWork = TRUE)
   x <- DfReadDataFile(frocCrAbnormalCasesFirst, newExcelFileFormat = TRUE)
-  lesDistr <- UtilLesionDistrVector(x)$lesDistr
+  lesDistr <- UtilLesDistr(x)$Freq
   
   mu <- c(2, 3) 
   lambda_i <- c(1, 1.5)

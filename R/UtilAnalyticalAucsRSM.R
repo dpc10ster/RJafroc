@@ -55,7 +55,7 @@
 UtilAnalyticalAucsRSM <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, relWeights = 0){
   
   maxLL <- length(lesDistr)
-  lesWghtDistr <- UtilLesionWeightsMatrixLesDistr(lesDistr, relWeights)
+  lesWghtDistr <- UtilLesWghtsLD(UtilLesDistr(lesDistr), relWeights)
   
   # bug fix 12/26/21
   if (lambda < 0) stop("Incorrect value for lambda\n")

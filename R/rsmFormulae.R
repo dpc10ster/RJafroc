@@ -204,7 +204,7 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
 # this has working C++ version with name ywAFROC
 # this is only here for me to understand the C++ code
 RSM_wLLF <- function(zeta, mu, nu, lesDistr, relWeights){
-  lesWghtDistr <- UtilLesionWeightsMatrixLesDistr(lesDistr, relWeights)
+  lesWghtDistr <- UtilLesWghtsLD(UtilLesDistr(lesDistr), relWeights)
   # zeta <- 0
   # fl is the fraction of cases with # lesions as in first column of lesDistr
   # the second column contains the fraction
@@ -290,7 +290,7 @@ RSM_TPF <- function(z, mu, lambda, nu, lesDistr) {
 
 # y_wAFROC_FPF is wAFROC as a function of FPF + RSM parameters
 y_wAFROC_FPF <- function(FPF, mu, lambda, nu, lesDistr, relWeights){
-  lesWghtDistr <- UtilLesionWeightsMatrixLesDistr(lesDistr, relWeights)
+  lesWghtDistr <- UtilLesWghtsLD(UtilLesDistr(lesDistr), relWeights)
   # returns wLLF, the ordinate of AFROC curve; takes FPF as the variable. 
   # AUC is calculated by integrating this function wrt FPF
   # bug fix 12/26/21

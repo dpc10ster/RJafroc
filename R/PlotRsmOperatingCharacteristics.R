@@ -14,7 +14,7 @@
 #'    is an array of -3s. 
 #'
 #' @param lesDistr Array: the probability mass function of the 
-#'    lesion distribution for diseased cases. The default is 1. See \link{UtilLesionDistrVector}. 
+#'    lesion distribution for diseased cases. The default is 1. See \link{UtilLesDistr}. 
 #' 
 #' @param relWeights The relative weights of the lesions; a vector of 
 #'    length equal to \code{length(maxLL)}. The default is zero, in which case
@@ -119,7 +119,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
   if (!all(c(length(mu) == length(lambda), length(mu) == length(nu), length(mu) == length(zeta1))))
     stop("Parameters mu, lambda, nu and zeta1 have different lengths.")
   
-  lesWghtDistr <- UtilLesionWeightsMatrixLesDistr(lesDistr, relWeights)
+  lesWghtDistr <- UtilLesWghtsLD(UtilLesDistr(lesDistr), relWeights)
 
   plotStep <- 0.01
   # begin bug fix 12/7/21

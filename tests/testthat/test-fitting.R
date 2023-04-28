@@ -193,23 +193,23 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/Fitting/RsmRoc", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- FitRsmRoc(dataset02, UtilLesionDistrVector(dataset02)$lesDistr)[1:8]
+    ret <- FitRsmRoc(dataset02, UtilLesDistr(dataset02)$Freq)[1:8]
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(FitRsmRoc(dataset02, UtilLesionDistrVector(dataset02)$lesDistr)[1:8], ret, tolerance = 1e-6)
+  expect_equal(FitRsmRoc(dataset02, UtilLesDistr(dataset02)$Freq)[1:8], ret, tolerance = 1e-6)
   # end of test
 
   fn <- paste0(test_path(), "/goodValues361/Fitting/RsmRocDegenerate", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- FitRsmRoc(datasetDegenerate, UtilLesionDistrVector(datasetDegenerate)$lesDistr)[1:8]
+    ret <- FitRsmRoc(datasetDegenerate, UtilLesDistr(datasetDegenerate)$Freq)[1:8]
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(FitRsmRoc(datasetDegenerate, UtilLesionDistrVector(datasetDegenerate)$lesDistr)[1:8], ret, tolerance = 1e-6)
+  expect_equal(FitRsmRoc(datasetDegenerate, UtilLesDistr(datasetDegenerate)$Freq)[1:8], ret, tolerance = 1e-6)
   # end of test
   
 })
