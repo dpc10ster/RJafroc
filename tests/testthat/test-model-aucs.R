@@ -1,16 +1,16 @@
-context("utils:UtilAucBinormal")
-test_that("UtilAucBinormal", {
+context("UtilAucBIN")
+test_that("UtilAucBIN", {
   a <- 2;b <- 0.7
   
   fn <- paste0(test_path(), "/goodValues361/Utils/AucBinormal", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- UtilAucBinormal(a,b)
+    ret <- UtilAucBIN(a,b)
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  expect_equal(UtilAucBinormal(a,b), ret)
+  expect_equal(UtilAucBIN(a,b), ret)
   # end of test
   
 })

@@ -18,7 +18,7 @@ CBM-predicted ROC-AUC for the specified parameters
 }
 \description{
 {Returns the CBM ROC-AUC
-See also \code{\link{UtilAnalyticalAucsRSM}}, \code{\link{UtilAucPROPROC}} and \code{\link{UtilAucBinormal}}}
+See also \code{\link{UtilAnalyticalAucsRSM}}, \code{\link{UtilAucPROPROC}} and \code{\link{UtilAucBIN}}}
 }
 \examples{
 mu <- 2;alpha <- 0.8

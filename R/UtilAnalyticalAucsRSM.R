@@ -2,7 +2,7 @@
 #' 
 #' @description {Returns the ROC, AFROC and wAFROC AUCs corresponding to 
 #'    specified RSM parameters. See also \code{\link{UtilAucPROPROC}}, 
-#'    \code{\link{UtilAucBinormal}} and \code{\link{UtilAucCBM}}}
+#'    \code{\link{UtilAucBIN}} and \code{\link{UtilAucCBM}}}
 #' 
 #' @param mu The mean of the Gaussian distribution for the 
 #'    ratings of latent LLs (continuous ratings of lesions that 

@@ -31,7 +31,7 @@ The ROC, AFROC and wAFROC AUCs corresponding to the
 \description{
 {Returns the ROC, AFROC and wAFROC AUCs corresponding to 
    specified RSM parameters. See also \code{\link{UtilAucPROPROC}}, 
-   \code{\link{UtilAucBinormal}} and \code{\link{UtilAucCBM}}}
+   \code{\link{UtilAucBIN}} and \code{\link{UtilAucCBM}}}
 }
 \examples{
 mu <- 1;lambda <- 1;nu <- 0.9

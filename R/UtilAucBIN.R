@@ -14,7 +14,7 @@
 #' 
 #' @examples
 #' a <- 2;b <- 0.7
-#' UtilAucBinormal(a,b)
+#' UtilAucBIN(a,b)
 #' 
 #' @references 
 #' Dorfman DD, Alf E (1969) Maximum-Likelihood Estimation of Parameters of Signal-Detection Theory and 
@@ -25,7 +25,7 @@
 #' 
 #' @export
 #' 
-UtilAucBinormal <- function (a, b){
+UtilAucBIN <- function (a, b){
   auc <- pnorm(a/sqrt(1+b^2))
   return (auc)
 }

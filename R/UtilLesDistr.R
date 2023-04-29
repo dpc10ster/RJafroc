@@ -30,11 +30,11 @@
 #' 
 #' @examples
 #' UtilLesDistr(dataset01) # FROC dataset
-#' ##     lesID       Freq
+#' ##    lesID       Freq
 #' ## 1      1 0.93258427
 #' ## 2      2 0.06741573 
-#' ## In the Excel input file, 93 percent of lesions have \code{lesionID} = 1 
-#' ## and the rest have \code{lesionID} = 2
+#' ## In the Excel input file, 93 percent of lesions have lesionID = 1 
+#' ## and the rest have lesionID = 2
 #' 
 #' 
 #' UtilLesDistr(dataset02) # ROC dataset
@@ -53,12 +53,12 @@
 #' ## 2        2  0.3
 #' ## 3        3  0.1
 #' ## 4        4  0.1  
-#' ## An example of array input; 50 percent of the cases have \code{lesionID} = 1, 
-#' ## 30 percent have \code{lesionID} = 2, etc.  
+#' ## An example of array input; 50 percent of the cases have lesionID = 1, 
+#' ## 30 percent have lesionID = 2, etc.  
 #' 
 #' UtilLesDistr(dataset11) ## big froc dataset
 #' ##     lesID        Freq
-#' ## 1       1   0.217391304
+#' ## 1       1 0.217391304
 #' ## 2       2 0.200000000
 #' ## 3       3 0.113043478
 #' ## 4       4 0.086956522
@@ -74,10 +74,10 @@
 #' ## 20     20 0.008695652
 #' 
 #' ## This dataset has lots of lesions (3D imaging for lung cancer). 
-#' ## The \code{lesionID}s range from 1 to 20 with a few missing, 
-#' ## e.g., \code{lesionID} = 13 is not present in any diseased case.
-#' ## Cases with \code{lesionID} = 1 have frequency 0.217, those with \code{lesionID} = 16 
-#' ## have frequency 0.174, those with \code{lesionID} = 20 have frequency 0.00870, etc.
+#' ## The lesionIDs range from 1 to 20 with a few missing, 
+#' ## e.g., lesionID = 13 is not present in any diseased case.
+#' ## Cases with lesionID = 1 have frequency 0.217, those with lesionID = 16 
+#' ## have frequency 0.174, those with lesionID = 20 have frequency 0.00870, etc.
 #' 
 #' @export
  
