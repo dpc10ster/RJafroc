@@ -8,8 +8,8 @@
 #' 
 #' @param dsOrArr A dataset object or a 1D-array. 
 #'
-#' @return LD A data frame containing the number of \code{lesionID}s per case, 
-#'   \code{lesID}, and the lesion frequency distribution of the \code{lesionID}s,
+#' @return A data frame containing the number of \code{lesionID}s per case, 
+#'   \code{lesID}, and the frequency distribution of the \code{lesionID}s,
 #'   \code{Freq}.
 #' 
 #' @details Apart from ratings two characteristics of an FROC dataset 

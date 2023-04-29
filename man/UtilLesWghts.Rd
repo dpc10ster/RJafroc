@@ -26,7 +26,7 @@ The default is zero, in which case equal lesion weights are assumed.}
 \link{UtilLesDistr} or a 1D-array.}
 }
 \value{
-LD The lesion distribution (LD) dataframe object produced by 
+The lesion distribution (LD) dataframe object produced by 
    \link{UtilLesDistr} or a 1D-array.
 }
 \description{

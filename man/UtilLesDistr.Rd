@@ -10,8 +10,8 @@ UtilLesDistr(dsOrArr)
 \item{dsOrArr}{A dataset object or a 1D-array.}
 }
 \value{
-LD A data frame containing the number of \code{lesionID}s per case, 
-  \code{lesID}, and the lesion frequency distribution of the \code{lesionID}s,
+A data frame containing the number of \code{lesionID}s per case, 
+  \code{lesID}, and the frequency distribution of the \code{lesionID}s,
   \code{Freq}.
 }
 \description{

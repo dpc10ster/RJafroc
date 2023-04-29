@@ -22,7 +22,7 @@
 #'    On cases with 4 lesions the weights are in the ratio 0.2:0.4:0.1:0.3.
 #'    The default is zero, in which case equal lesion weights are assumed.
 #'
-#' @return LD The lesion distribution (LD) dataframe object produced by 
+#' @return The lesion distribution (LD) dataframe object produced by 
 #'    \link{UtilLesDistr} or a 1D-array. 
 #' 
 #' 
