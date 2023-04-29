@@ -73,7 +73,7 @@ The default is zero, in which case equal lesion weights are assumed.</p></dd>
 
 <dt>LDOrArr</dt>
 <dd><p>The lesion distribution (LD) dataframe object produced by 
-<a href="UtilLesDistr.html">UtilLesDistr</a> or a 1D-array or a 1D-array.</p></dd>
+<a href="UtilLesDistr.html">UtilLesDistr</a> or a 1D-array.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -116,7 +116,17 @@ The default is zero, in which case equal lesion weights are assumed.</p></dd>
 <span class="r-in"><span><span class="co">##      [,1] [,2]</span></span></span>
 <span class="r-in"><span><span class="co">##[1,]    1  1</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## Example 1: dataset with 1 to 4 lesions per case, with frequency as per first argument</span></span></span>
+<span class="r-in"><span><span class="co">## Dataset with 1 to 4 lesions per case, with frequency as per first argument</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">UtilLesWghtsLD</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]       [,2]       [,3]       [,4] [,5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1 1.00000000       -Inf       -Inf -Inf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2 0.33333333 0.66666667       -Inf -Inf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3 0.28571429 0.57142857 0.14285714 -Inf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    4 0.20000000 0.40000000 0.10000000  0.3</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## OR</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">UtilLesWghtsLD</span> <span class="op">(</span><span class="fu"><a href="UtilLesDistr.html">UtilLesDistr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]       [,2]       [,3]       [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1 1.00000000       -Inf       -Inf -Inf</span>
@@ -141,8 +151,8 @@ The default is zero, in which case equal lesion weights are assumed.</p></dd>
 <span class="r-in"><span><span class="co">##[1] 0.2000000 0.4000000 0.1000000  0.3 ## (weights for cases with 4 lesions)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## Example2 : dataset with *no* cases with 3 lesions per case</span></span></span>
-<span class="r-in"><span><span class="fu">UtilLesWghtsLD</span><span class="op">(</span><span class="fu"><a href="UtilLesDistr.html">UtilLesDistr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.7</span>, <span class="fl">0.0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Dataset with *no* cases with 3 lesions per case (or lesionID = 3)</span></span></span>
+<span class="r-in"><span><span class="fu">UtilLesWghtsLD</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.7</span>, <span class="fl">0.0</span>, <span class="fl">0.2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]       [,2]       [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1 1.00000000       -Inf -Inf -Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2 0.57142857 0.42857143 -Inf -Inf</span>
@@ -152,6 +162,7 @@ The default is zero, in which case equal lesion weights are assumed.</p></dd>
 <span class="r-in"><span><span class="co">##[1,]    1 1.0000000      -Inf -Inf -Inf</span></span></span>
 <span class="r-in"><span><span class="co">##[2,]    2 0.5714286 0.4285714 -Inf -Inf</span></span></span>
 <span class="r-in"><span><span class="co">##[3,]    4 0.4000000 0.3000000  0.2  0.1</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Explanation</span></span></span>
 <span class="r-in"><span><span class="co">## The row with 3 lesions per case does not occur </span></span></span>
@@ -171,20 +182,19 @@ The default is zero, in which case equal lesion weights are assumed.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2 0.57142857 0.42857143 -Inf -Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    4 0.40000000 0.30000000  0.2  0.1</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## [,1]       [,2]       [,3] [,4] [,5]</span></span></span>
-<span class="r-in"><span><span class="co">## [1,]    1 1.00000000       -Inf -Inf -Inf</span></span></span>
-<span class="r-in"><span><span class="co">## [2,]    2 0.57142857 0.42857143 -Inf -Inf</span></span></span>
-<span class="r-in"><span><span class="co">## [3,]    4 0.40000000 0.30000000  0.2  0.1</span></span></span>
+<span class="r-in"><span><span class="co">## OR </span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">UtilLesWghtsLD</span> <span class="op">(</span><span class="va">lesDistr</span>, <span class="va">relWeights</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]       [,2]       [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1 1.00000000       -Inf -Inf -Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2 0.57142857 0.42857143 -Inf -Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    4 0.40000000 0.30000000  0.2  0.1</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## [,1]       [,2]       [,3] [,4] [,5]</span></span></span>
 <span class="r-in"><span><span class="co">## [1,]    1 1.00000000       -Inf -Inf -Inf</span></span></span>
 <span class="r-in"><span><span class="co">## [2,]    2 0.57142857 0.42857143 -Inf -Inf</span></span></span>
 <span class="r-in"><span><span class="co">## [3,]    4 0.40000000 0.30000000  0.2  0.1</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">UtilLesWghtsDS</span><span class="op">(</span><span class="va">dataset05</span>, relWeights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.78723404</span>, <span class="fl">0.17021277</span>, <span class="fl">0.04255319</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]       [,2]       [,3]       [,4]</span>
