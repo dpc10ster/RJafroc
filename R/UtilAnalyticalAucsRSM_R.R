@@ -43,7 +43,7 @@ UtilAnalyticalAucsRSM_R <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, rel
   # contextStr <- "testing weights code with max 4 lesions per case: Cpp vs R"
   # contextStr <- "testing weights code with max 4 lesions per case, random values: Cpp vs R"
   # contextStr <- "testing weights code with max 10 lesions per case, random values: Cpp vs R"
-  maxwLLF <- RSM_wLLF(zeta1, mu, nu, lesDistr, relWeights)
+  maxwLLF <- RSM_wLLF_R(zeta1, mu, nu, lesDistr, relWeights)
   x <- integrate(y_wAFROC_FPF_R, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, lesDistr, relWeights)$value
   aucwAFROC <- x + (1 + maxwLLF) * (1 - maxFPF) / 2
   

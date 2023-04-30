@@ -109,8 +109,8 @@ y_ROC_FPF <- function(FPF, mu, lambda, nu, lesDistr) {
     .Call('_RJafroc_y_ROC_FPF', PACKAGE = 'RJafroc', FPF, mu, lambda, nu, lesDistr)
 }
 
-ywAFROC <- function(zeta, mu, nu, lesDistr, lesWghtDistr) {
-    .Call('_RJafroc_ywAFROC', PACKAGE = 'RJafroc', zeta, mu, nu, lesDistr, lesWghtDistr)
+RSM_wLLF <- function(zeta, mu, nu, f_L, W) {
+    .Call('_RJafroc_RSM_wLLF', PACKAGE = 'RJafroc', zeta, mu, nu, f_L, W)
 }
 
 ForwardValue <- function(value, valueLower, valueUpper) {

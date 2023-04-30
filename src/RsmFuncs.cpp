@@ -112,21 +112,22 @@ NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambda, double nu, 
 
 
 // [[Rcpp::export]]
-double ywAFROC (double zeta, double mu, double nu,
-                NumericVector lesDistr, NumericMatrix lesWghtDistr){
+double RSM_wLLF (double zeta, double mu, double nu, NumericVector f_L, NumericMatrix W){
   double wLLF = 0; 
-  int maxLes = lesDistr.size();
+  int maxLes = f_L.size();
   for (int row = 0;row < maxLes;row++) { 
-    int nLesPerCase = row+1;
-    double wLLFrow = 0;
-    for (int col = 0; col < nLesPerCase; col++){
-      wLLFrow += lesWghtDistr(row, col+1) * (col+1) *
-        R::dbinom(double(col+1), double(nLesPerCase), nu, 0) * (1 - R::pnorm(zeta - mu, 0, 1, 1, 0));
-// above line was tricky; note difference in col indexing from R code: lesWghtDistr[row, col+1] * col * dbinom(col, nLesPerCase, nu) * (1 - pnorm(zeta - mu))
+    int L = row+1;
+    double wLLF_L = 0;
+    for (int col = 0; col < L; col++){
+      wLLF_L += W(row, col+1) * (col+1) * R::dbinom(double(col+1), double(L), nu, 0);
+// above line was tricky; note difference in col indexing from R code: 
+// W[row, col+1] * col * dbinom(col, L, nu)
 // this is due to zero-based C indexing vs. 1 based r indexing
     }
-    wLLF += lesDistr[row] * wLLFrow;
+    wLLF += f_L[row] * wLLF_L;
   }
+  wLLF = wLLF * R::pnorm(mu - zeta, 0, 1, 1, 0);
+  
   return wLLF;
 }
 

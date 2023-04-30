@@ -79,7 +79,7 @@ UtilAnalyticalAucsRSM <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, relWe
   
   
   # following is original Cpp implementation
-  maxwLLF <- ywAFROC(zeta1, mu, nu, lesDistr, lesWghtDistr)
+  maxwLLF <- RSM_wLLF(zeta1, mu, nu, lesDistr, lesWghtDistr)
   x <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, lesDistr, relWeights)$value
   aucwAFROC <- x + (1 + maxwLLF) * (1 - maxFPF) / 2
   

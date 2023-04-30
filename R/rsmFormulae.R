@@ -192,19 +192,19 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
 #' @return wLLF, the ordinate of the wAFROC curve
 #' 
 #' @examples 
-#' RSM_wLLF(c(1,2),1,0.5, lesDistr = c(0.5, 0.4, 0.1), relWeights = c(0.7, 0.2, 0.1)) 
+#' RSM_wLLF_R(c(1,2),1,0.5, lesDistr = c(0.5, 0.4, 0.1), relWeights = c(0.7, 0.2, 0.1)) 
 #'
 #' 
 #' @export
 #' 
 #' 
 
-# RSM_wLLF is ordinate as a function of zeta + RSM parameters
+# RSM_wLLF_R is ordinate as a function of zeta + RSM parameters
 # returns wLLF, the ordinate of wAFROC curve
-# this has working C++ version with name ywAFROC
-# this is only here for me to understand the C++ code
-RSM_wLLF <- function(zeta, mu, nu, lesDistr, relWeights){
-  lesWghtDistr <- UtilLesWghtsLD(UtilLesDistr(lesDistr), relWeights)
+# this has working C++ version named RSM_wLLF
+# this is only here for me to check the C++ code
+RSM_wLLF_R <- function(zeta, mu, nu, lesDistr, relWeights){
+  W <- UtilLesWghtsLD(lesDistr, relWeights)
   # zeta <- 0
   # fl is the fraction of cases with # lesions as in first column of lesDistr
   # the second column contains the fraction
@@ -214,23 +214,23 @@ RSM_wLLF <- function(zeta, mu, nu, lesDistr, relWeights){
   maxLes <- length(lesDistr)
   
   wLLF <- 0
-  for (nLesion in 1:maxLes){
-    # outer looop sums over different numbers of lesions per case
-    wLLFTmp <- 0
-    for (nSuccess in 1:nLesion){
-      # inner loop sums over different numbers of nSuccess events 
+  for (L in 1:maxLes){
+    # outer loop sums over different numbers of lesions per case
+    wLLF_L <- 0
+    for (l_2 in 1:L){
+      # inner loop sums over different numbers of l_2 events 
       # appropriately weighted by the probability of that many successes
-      # nSuccess is the number of successes
-      # nLesion is the trial size
+      # l_2 is the number of successes
+      # L is the trial size
       # the following works, but only for equal weights ?? 11/29/20
-      # wLLFTmp <- wLLFTmp + sum(lesWghtDistr[nLesion, 2:(nSuccess+1)]) * dbinom(nSuccess, nLesion, nu) 
+      # wLLF_L <- wLLF_L + sum(W[L, 2:(l_2+1)]) * dbinom(l_2, L, nu) 
       # the next line should work for general case
-      wLLFTmp <- wLLFTmp + lesWghtDistr[nLesion, nSuccess+1] * nSuccess * dbinom(nSuccess, nLesion, nu)
+      wLLF_L <- wLLF_L + W[L, l_2+1] * l_2 * dbinom(l_2, L, nu)
       # see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
     }
-    wLLF <- wLLF +  lesDistr[nLesion] * wLLFTmp
+    wLLF <- wLLF +  lesDistr[L] * wLLF_L
   }
-  return(wLLF * (1 - pnorm(zeta - mu)))
+  return(wLLF * pnorm(mu - zeta))
 }
 
 
@@ -302,7 +302,7 @@ y_wAFROC_FPF <- function(FPF, mu, lambda, nu, lesDistr, relWeights){
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
   # Cpp code
-  wLLF <- sapply(zeta, ywAFROC, mu = mu, nu = nu, lesDistr, lesWghtDistr)
+  wLLF <- sapply(zeta, RSM_wLLF, mu = mu, nu = nu, lesDistr, lesWghtDistr)
   return(wLLF)
 }
 
@@ -320,14 +320,14 @@ y_wAFROC_FPF_R <- function(FPF, mu, lambda, nu, lesDistr, relWeights){
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
   # R code
-  wLLF <- sapply(zeta, RSM_wLLF, mu = mu, nu = nu, lesDistr, relWeights)
+  wLLF <- sapply(zeta, RSM_wLLF_R, mu = mu, nu = nu, lesDistr, relWeights)
   return(wLLF)
 }
 
 
 
 # error function
-RSM_erf <- function (x) {
+erf_R <- function (x) {
   
   return(erfVect(x)) # this implements the commented formula below
   # return(2 * pnorm(sqrt(2) * x) - 1)

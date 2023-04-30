@@ -6,6 +6,11 @@ title: "NEWS"
 
 ---
 
+### Possible errors in RSM predicted TPF and other cpp implementations
+* `dataset11` has unusual lesion distribution: there are 14 elements but they range from 1 to 20 with some `lesionID`s missing
+* Added test_cpp_vs_R where I compare cpp to R implementations
+
+
 
 ### Changed function names to `RSM_FPF` and `RSM_TPF`
 * Formerly `RSM_xROC` and `RSM_yROC`

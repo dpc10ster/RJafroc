@@ -12,7 +12,7 @@ PlotRsmOperatingCharacteristics(
   lesDistr = 1,
   relWeights = 0,
   OpChType = "ALL",
-  legendPosition = c(1, 0),
+  legendPosition = "bottom",
   legendDirection = "horizontal",
   legendJustification = c(0, 1),
   nlfRange = NULL,

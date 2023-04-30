@@ -108,12 +108,14 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                             lesDistr = 1, 
                                             relWeights = 0, 
                                             OpChType = "ALL", 
-                                            legendPosition = c(1,0), 
+                                            legendPosition = "bottom", 
                                             legendDirection = "horizontal", 
                                             legendJustification = c(0,1),
                                             nlfRange = NULL, 
                                             llfRange = NULL, 
                                             nlfAlpha = NULL){
+  
+
   if (missing(zeta1)) zeta1 <- array(-3, dim = length(mu))
       
   if (!all(c(length(mu) == length(lambda), length(mu) == length(nu), length(mu) == length(zeta1))))
@@ -172,7 +174,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                stringsAsFactors = FALSE))
 #       maxTPF <- yROC(-20, mu[i], lambda, nu, lesDistr)
       maxTPF <- yROC(zeta1[i], mu[i], lambda[i], nu[i], lesDistr)
-# end bug fix
+       # end bug fix
       AUC <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr =lesDistr)$value
       aucROC[i] <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2
     }
@@ -210,7 +212,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
     }
     
     if( OpChType == "ALL" ||  OpChType == "wAFROC"){
-      wLLF <- sapply(zeta[[i]], ywAFROC, mu[i], nu[i], lesDistr, lesWghtDistr) # cpp code requires lesWghtDistr
+      wLLF <- sapply(zeta[[i]], RSM_wLLF, mu[i], nu[i], lesDistr, lesWghtDistr) # cpp code requires lesWghtDistr
       wAFROCPoints <- rbind(wAFROCPoints, data.frame(FPF = FPF, 
                                                      wLLF = wLLF, 
                                                      Treatment = as.character(i), 
@@ -219,8 +221,8 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                      wLLF = c(wLLF[1], 1), 
                                                      Treatment = as.character(i), 
                                                      stringsAsFactors = FALSE))
-      # maxWLLF <- ywAFROC(zeta1[i], mu[i], nu[i], lesDistr, lesWghtDistr) # bug fix 11/24/21
-      maxWLLF <- RSM_wLLF(zeta1[i], mu[i], nu[i], lesDistr, relWeights) # bug fix 11/24/21
+      # maxWLLF <- RSM_wLLF(zeta1[i], mu[i], nu[i], lesDistr, lesWghtDistr) # bug fix 11/24/21
+      maxWLLF <- RSM_wLLF_R(zeta1[i], mu[i], nu[i], lesDistr, relWeights) # bug fix 11/24/21
       AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr, relWeights)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }
@@ -314,3 +316,4 @@ PlotRsmOperatingCharacteristics <- function(mu,
 }
 
 is.wholenumber <- function(x)  round(x) == x
+
