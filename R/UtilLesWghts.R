@@ -2,10 +2,10 @@
 #' @aliases UtilLesWghtsDS
 #' @aliases UtilLesWghtsLD
 #' 
-#' @title Determine lesion weights distribution 2D matrix
+#' @title Lesion weights distribution matrix
 #' 
 #' @description Determine the lesion weights distribution 2D matrix of a dataset or 
-#'    manually specify the lesion weights distribution 2D matrix. 
+#'    manually specify the lesion weights distribution. 
 #'    
 #'
 #' @param dsOrArr A dataset object or a 1D-array, see \link{UtilLesDistr}. 
@@ -49,7 +49,6 @@
 #' ##      [,1] [,2]
 #' ##[1,]    1  1
 #' 
-#' @rdname UtilLesWghts
 #' 
 #' @export
 UtilLesWghtsDS <- function(dsOrArr, relWeights = 0)
@@ -73,10 +72,6 @@ UtilLesWghtsDS <- function(dsOrArr, relWeights = 0)
 #' 
 #' UtilLesWghtsLD (c(0.6, 0.2, 0.1, 0.1), c(0.2, 0.4, 0.1, 0.3))
 #' 
-#' ## OR
-#' 
-#' UtilLesWghtsLD (UtilLesDistr(c(0.6, 0.2, 0.1, 0.1)), c(0.2, 0.4, 0.1, 0.3))
-#' 
 #' ##       [,1]  [,2]      [,3]      [,4]   [,5]
 #' ##[1,]    1 1.0000000      -Inf      -Inf -Inf 
 #' ##[2,]    2 0.3333333 0.6666667      -Inf -Inf
@@ -93,38 +88,14 @@ UtilLesWghtsDS <- function(dsOrArr, relWeights = 0)
 #' ##> c(0.2, 0.4, 0.1, 0.3)/sum(c(0.2, 0.4, 0.1, 0.3))
 #' ##[1] 0.2000000 0.4000000 0.1000000  0.3 ## (weights for cases with 4 lesions)
 #' 
+#' UtilLesWghtsLD (c(0.1, 0.7, 0.0, 0.2), c(0.4, 0.3, 0.2, 0.1)) 
 #' 
-#' ## Dataset with *no* cases with 3 lesions per case (or lesionID = 3)
-#' UtilLesWghtsLD(c(0.1, 0.7, 0.0, 0.2), c(0.4, 0.3, 0.2, 0.1))
-#' 
-#' ##      [,1]      [,2]      [,3] [,4] [,5]
-#' ##[1,]    1 1.0000000      -Inf -Inf -Inf
-#' ##[2,]    2 0.5714286 0.4285714 -Inf -Inf
-#' ##[3,]    4 0.4000000 0.3000000  0.2  0.1
-#' 
-#' 
-#' ## Explanation
-#' ## The row with 3 lesions per case does not occur 
-#' 
-#' ##> c(0.4)/sum(c(0.4))
-#' ##[1] 1 ## (weights for cases with 1 lesion)
-#' ##> c(0.4, 0.3)/sum(c(0.4, 0.3))
-#' ##[1] 0.5714286 0.4285714 ## (weights for cases with 2 lesions)
-#' ##> c(0.4, 0.3, 0.2, 0.1)/sum(c(0.4, 0.3, 0.2, 0.1))
-#' ##[1] 0.4 0.3 0.2 0.1  (weights for cases with 4 lesions)
-#' 
-#' lesDistr <- c(0.1, 0.7, 0.0, 0.2)
-#' relWeights <- c(0.4, 0.3, 0.2, 0.1)
-#' UtilLesWghtsLD (UtilLesDistr(lesDistr), relWeights) 
-#'
-#'## OR 
-#' 
-#' UtilLesWghtsLD (lesDistr, relWeights) 
-#' 
-#' ## [,1]       [,2]       [,3] [,4] [,5]
-#' ## [1,]    1 1.00000000       -Inf -Inf -Inf
-#' ## [2,]    2 0.57142857 0.42857143 -Inf -Inf
-#' ## [3,]    4 0.40000000 0.30000000  0.2  0.1
+#' ## Weights are included for non-existent `lesionID` = 3 but corresponding frequency will be zero
+#' ##      [,1]       [,2]       [,3]       [,4] [,5]
+#' ## [1,]    1 1.00000000       -Inf       -Inf -Inf
+#' ## [2,]    2 0.57142857 0.42857143       -Inf -Inf
+#' ## [3,]    3 0.44444444 0.33333333 0.22222222 -Inf
+#' ## [4,]    4 0.40000000 0.30000000 0.20000000  0.1
 #' 
 #' 
 #' UtilLesWghtsDS(dataset05, relWeights = c(0.78723404, 0.17021277, 0.04255319))
@@ -169,12 +140,12 @@ UtilLesWghtsLD <- function(LDOrArr, relWeights = 0)
     }
   }
   
-  lesWghtDistr1 <- lesWghtDistr
-  for (i in maxLL:1) {
-    if (!any(is.finite(lesWghtDistr[i,]))) {
-      lesWghtDistr1 <- lesWghtDistr1[-i,]
-    }
-  }
+  # lesWghtDistr1 <- lesWghtDistr
+  # for (i in maxLL:1) {
+  #   if (!any(is.finite(lesWghtDistr[i,]))) {
+  #     lesWghtDistr1 <- lesWghtDistr1[-i,]
+  #   }
+  # }
   
-  return(lesWghtDistr1)
+  return(lesWghtDistr)
 }

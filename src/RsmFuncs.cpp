@@ -120,9 +120,10 @@ double RSM_wLLF (double zeta, double mu, double nu, NumericVector f_L, NumericMa
     double wLLF_L = 0;
     for (int col = 0; col < L; col++){
       wLLF_L += W(row, col+1) * (col+1) * R::dbinom(double(col+1), double(L), nu, 0);
-// above line was tricky; note difference in col indexing from R code: 
+// above line was tricky
+// Note difference in col indexing from following R code 
 // W[row, col+1] * col * dbinom(col, L, nu)
-// this is due to zero-based C indexing vs. 1 based r indexing
+// this is due to zero-based C indexing vs. 1-based r indexing
     }
     wLLF += f_L[row] * wLLF_L;
   }

@@ -186,8 +186,8 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
 #' @param zeta The zeta-vector at which to evaluate the FROC ordinate.
 #' @param mu The scalar RSM mu parameter. 
 #' @param nu The scalar RSM nu prime parameter. 
-#' @param lesDistr Lesion distribution 1D vector.
-#' @param relWeights Relative lesion weights 1D vector.
+#' @param lesDistr Lesion distribution vector.
+#' @param relWeights The lesion weights matrix
 #' 
 #' @return wLLF, the ordinate of the wAFROC curve
 #' 
@@ -199,38 +199,33 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
 #' 
 #' 
 
-# RSM_wLLF_R is ordinate as a function of zeta + RSM parameters
+# RSM_wLLF_R is wAFROC ordinate as a function of zeta + RSM parameters
 # returns wLLF, the ordinate of wAFROC curve
 # this has working C++ version named RSM_wLLF
 # this is only here for me to check the C++ code
 RSM_wLLF_R <- function(zeta, mu, nu, lesDistr, relWeights){
-  W <- UtilLesWghtsLD(lesDistr, relWeights)
-  # zeta <- 0
-  # fl is the fraction of cases with # lesions as in first column of lesDistr
-  # the second column contains the fraction
-  # bug fix 12/26/21
+  
   if (nu < 0) stop("Incorrect value for nu\n")
   if (nu > 1) stop("Incorrect value for nu\n")
-  maxLes <- length(lesDistr)
   
+  W <- UtilLesWghtsLD(lesDistr, relWeights)
+  f_L <- lesDistr
   wLLF <- 0
-  for (L in 1:maxLes){
-    # outer loop sums over different numbers of lesions per case
+  for (L in 1:length(lesDistr)){
+    # outer loop sums over `lesionID`, abbreviated to L
     wLLF_L <- 0
     for (l_2 in 1:L){
-      # inner loop sums over different numbers of l_2 events 
-      # appropriately weighted by the probability of that many successes
-      # l_2 is the number of successes
-      # L is the trial size
-      # the following works, but only for equal weights ?? 11/29/20
-      # wLLF_L <- wLLF_L + sum(W[L, 2:(l_2+1)]) * dbinom(l_2, L, nu) 
-      # the next line should work for general case
+      # l_2 is the number of successes/hits
+      # inner loop sums over different numbers of hits, 
+      # weighted by the probability of that many hits
+      # L is the trial size in dbinom
       wLLF_L <- wLLF_L + W[L, l_2+1] * l_2 * dbinom(l_2, L, nu)
-      # see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
     }
-    wLLF <- wLLF +  lesDistr[L] * wLLF_L
+    wLLF <- wLLF +  f_L[L] * wLLF_L
   }
-  return(wLLF * pnorm(mu - zeta))
+  wLLF <- wLLF * pnorm(mu - zeta)
+  
+  return(wLLF)
 }
 
 
@@ -307,8 +302,8 @@ y_wAFROC_FPF <- function(FPF, mu, lambda, nu, lesDistr, relWeights){
 }
 
 
-# y_wAFROC_FPF_R is wAFROC as a function of FPF + RSM parameters
-y_wAFROC_FPF_R <- function(FPF, mu, lambda, nu, lesDistr, relWeights){
+# y_wAFROC_FPF_R is wAFROC ordinate as a function of FPF + RSM parameters
+y_wAFROC_FPF_R <- function(FPF, mu, lambda, nu, lesDistr, W){
   # returns wLLF, the ordinate of AFROC curve; takes FPF as the variable. 
   # AUC is calculated by integrating this function wrt FPF
   # bug fix 12/26/21
@@ -320,7 +315,7 @@ y_wAFROC_FPF_R <- function(FPF, mu, lambda, nu, lesDistr, relWeights){
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
   # R code
-  wLLF <- sapply(zeta, RSM_wLLF_R, mu = mu, nu = nu, lesDistr, relWeights)
+  wLLF <- sapply(zeta, RSM_wLLF_R, mu = mu, nu = nu, lesDistr, W)
   return(wLLF)
 }
 
@@ -469,4 +464,3 @@ pdfD3 <- function(z, mu, lambda, nu, lesDistr){
 # 
 #   return (yROCVect(zeta, mu, lambda, nu, lesDistr))
 # }
-

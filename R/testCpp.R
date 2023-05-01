@@ -1,12 +1,16 @@
-contextStr <- "Cpp vs R: RSM_wLLF_R for dataset11"
-context(contextStr)
-test_that(contextStr, {
-  
+#' test cpp code
+#' 
+#' 
+#' @export
+#' 
+#' 
+
+testCpp <- function() {
   mu <- 2
   nu <- 0.9
   zeta <- seq(from = -3, to = max(mu)+5, by = 0.2)
   
-  ds <- dataset06 # fail Magnus; dataset11 # fail Dobbins
+  ds <- RJafroc::dataset06 # fail Magnus; dataset11 # fail Dobbins
   LD <- UtilLesDistr(ds)
   Freq <- LD$Freq
   lesID <- LD$lesID
@@ -18,4 +22,4 @@ test_that(contextStr, {
     testthat::expect_equal(ret1, ret2)
   }
   
-})
+}

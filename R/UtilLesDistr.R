@@ -16,7 +16,7 @@
 #'    affect the FOM: the distribution of \code{lesionID}s per case and the lesion 
 #'    weights. This function addresses the former. 
 #'    The latter is addressed in \link{UtilLesWghts}. 
-#'    The return value \code{LD} is a dataframe containing 2 equal length 
+#'    The return value is a dataframe containing 2 equal length 
 #'    vectors: the \code{lesionID} labels and the corresponding fractions of 
 #'    lesions per diseased case in the dataset. For ROC or LROC data this 
 #'    vector is always \code{c(1)}, since all diseased cases contain one lesion. 
@@ -73,7 +73,7 @@
 #' ## 16     16 0.017391304
 #' ## 20     20 0.008695652
 #' 
-#' ## This dataset has lots of lesions (3D imaging for lung cancer). 
+#' ## TBA!! This dataset has lots of lesions (3D imaging for lung cancer). 
 #' ## The lesionIDs range from 1 to 20 with a few missing, 
 #' ## e.g., lesionID = 13 is not present in any diseased case.
 #' ## Cases with lesionID = 1 have frequency 0.217, those with lesionID = 16 
@@ -98,7 +98,7 @@ UtilLesDistr <- function(dsOrArr)
   } else stop("Must supply dataset or 1D array argument to UtilLesDistr()")
   
   # remove all lesion IDs that do not occur in dsOrArr
-  if (length(which(LD$Freq == 0)) != 0) LD <- LD[-which(LD$Freq == 0),]
+  # if (length(which(LD$Freq == 0)) != 0) LD <- LD[-which(LD$Freq == 0),]
   
   return(LD)
 }

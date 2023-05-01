@@ -13,9 +13,9 @@ RSM_wLLF_R(zeta, mu, nu, lesDistr, relWeights)
 
 \item{nu}{The scalar RSM nu prime parameter.}
 
-\item{lesDistr}{Lesion distribution 1D vector.}
+\item{lesDistr}{Lesion distribution vector.}
 
-\item{relWeights}{Relative lesion weights 1D vector.}
+\item{relWeights}{The lesion weights matrix}
 }
 \value{
 wLLF, the ordinate of the wAFROC curve

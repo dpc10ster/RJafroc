@@ -35,8 +35,8 @@
 #' mu <- 2;lambda_i <- 20;nu_i <- 1.1512925 
 #' lambda <- UtilIntrinsic2RSM(mu, lambda_i, nu_i)$lambda 
 #' nu <- UtilIntrinsic2RSM(mu, lambda_i, nu_i)$nu 
-#' ## note that the physical values are only constrained to be positive, but the physical variable nu
-#' ## must obey 0 <= nu <= 1
+#' ## note that only the physical values are only constrained to be positive
+#' ## the physical variable nu must obey 0 <= nu <= 1
 #' 
 #' 
 #' @export
