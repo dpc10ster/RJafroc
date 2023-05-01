@@ -103,8 +103,8 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fl">2</span>;<span class="va">lambda_i</span> <span class="op">&lt;-</span> <span class="fl">20</span>;<span class="va">nu_i</span> <span class="op">&lt;-</span> <span class="fl">1.1512925</span> </span></span>
 <span class="r-in"><span><span class="va">lambda</span> <span class="op">&lt;-</span> <span class="fu">UtilIntrinsic2RSM</span><span class="op">(</span><span class="va">mu</span>, <span class="va">lambda_i</span>, <span class="va">nu_i</span><span class="op">)</span><span class="op">$</span><span class="va">lambda</span> </span></span>
 <span class="r-in"><span><span class="va">nu</span> <span class="op">&lt;-</span> <span class="fu">UtilIntrinsic2RSM</span><span class="op">(</span><span class="va">mu</span>, <span class="va">lambda_i</span>, <span class="va">nu_i</span><span class="op">)</span><span class="op">$</span><span class="va">nu</span> </span></span>
-<span class="r-in"><span><span class="co">## note that the physical values are only constrained to be positive, but the physical variable nu</span></span></span>
-<span class="r-in"><span><span class="co">## must obey 0 &lt;= nu &lt;= 1</span></span></span>
+<span class="r-in"><span><span class="co">## note that only the physical values are only constrained to be positive</span></span></span>
+<span class="r-in"><span><span class="co">## the physical variable nu must obey 0 &lt;= nu &lt;= 1</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

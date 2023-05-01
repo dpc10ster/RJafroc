@@ -100,7 +100,7 @@
     <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_pdfN.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_wLLF.html</loc>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_wLLF_R.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/SimulateCorCbmDataset.html</loc>
@@ -269,5 +269,8 @@
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/isValidDataset.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/testCpp.html</loc>
   </url>
 </urlset>

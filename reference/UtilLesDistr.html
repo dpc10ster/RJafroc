@@ -80,7 +80,7 @@
    affect the FOM: the distribution of <code>lesionID</code>s per case and the lesion 
    weights. This function addresses the former. 
    The latter is addressed in <a href="UtilLesWghts.html">UtilLesWghts</a>. 
-   The return value <code>LD</code> is a dataframe containing 2 equal length 
+   The return value is a dataframe containing 2 equal length 
    vectors: the <code>lesionID</code> labels and the corresponding fractions of 
    lesions per diseased case in the dataset. For ROC or LROC data this 
    vector is always <code>c(1)</code>, since all diseased cases contain one lesion. 
@@ -147,7 +147,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10    10 0.0260869565</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11    11 0.0260869565</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12    12 0.0260869565</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    13 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14    14 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    15 0.0000000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 16    16 0.0173913043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    17 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18    18 0.0000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19    19 0.0000000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20    20 0.0086956522</span>
 <span class="r-in"><span><span class="co">##     lesID        Freq</span></span></span>
 <span class="r-in"><span><span class="co">## 1       1 0.217391304</span></span></span>
@@ -165,7 +171,7 @@
 <span class="r-in"><span><span class="co">## 16     16 0.017391304</span></span></span>
 <span class="r-in"><span><span class="co">## 20     20 0.008695652</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## This dataset has lots of lesions (3D imaging for lung cancer). </span></span></span>
+<span class="r-in"><span><span class="co">## TBA!! This dataset has lots of lesions (3D imaging for lung cancer). </span></span></span>
 <span class="r-in"><span><span class="co">## The lesionIDs range from 1 to 20 with a few missing, </span></span></span>
 <span class="r-in"><span><span class="co">## e.g., lesionID = 13 is not present in any diseased case.</span></span></span>
 <span class="r-in"><span><span class="co">## Cases with lesionID = 1 have frequency 0.217, those with lesionID = 16 </span></span></span>
