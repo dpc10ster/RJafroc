@@ -1,4 +1,64 @@
-contextStr <- "testing weights code with max 4 lesions per case: Cpp vs R"
+yROC_R <- function(zeta, mu, lambda, nu, lesDistr, lesID) {
+  
+  maxLL <-  max(lesID)
+  
+  x <-  0
+  for (L in 1:length(lesID)){
+    x = x + lesDistr[L] * (1 - nu * pnorm(mu - zeta))^L
+  }
+  
+  TPF <- 1 - exp(-lambda*pnorm(-zeta)) * x 
+  
+  return (TPF)
+}
+
+
+
+contextStr <- "Cpp vs R: yROC for dataset11"
+context(contextStr)
+test_that(contextStr, {
+  
+  mu <- 2
+  nu <- 0.9
+  lambda <- 1
+  zeta <- seq(from = -3, to = max(mu)+5, by = 0.2)
+  
+  ds <- dataset11
+  lesDistr <- UtilLesDistr(ds)$Freq
+  lesID <- UtilLesDistr(ds)$lesID
+  
+  for (i in 1:length(zeta)) {
+    ret1 <- yROC_cpp  (zeta[i], mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr)
+    ret2 <- yROC_R(zeta[i], mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr, lesID = lesID)
+    testthat::expect_equal(ret1, ret2)
+  }
+  
+})
+
+
+contextStr <- "Cpp vs R: RSM_wLLF_R for dataset11"
+context(contextStr)
+test_that(contextStr, {
+  
+  mu <- 2
+  nu <- 0.9
+  zeta <- seq(from = -3, to = max(mu)+5, by = 0.2)
+  
+  ds <- dataset06 # fail Magnus; dataset11 # fail Dobbins
+  LD <- UtilLesDistr(ds)
+  Freq <- LD$Freq
+  lesID <- LD$lesID
+  W <- UtilLesWghtsDS(ds)
+  
+  for (i in 1:length(zeta)) {
+    ret1 <- RSM_wLLF_cpp  (zeta[i], mu = mu, nu = nu, f_L = Freq, W = W)
+    ret2 <- RSM_wLLF_R(zeta[i], mu = mu, nu = nu, lesDistr = Freq, relWeights = 0)
+    testthat::expect_equal(ret1, ret2)
+  }
+  
+})
+
+contextStr <- "Cpp vs R: testing weights code with max 4 lesions per case: Cpp vs R"
 context(contextStr)
 test_that(contextStr, {
   mu <- 2
@@ -9,7 +69,7 @@ test_that(contextStr, {
   lesDistr <-  c(0.1, 0.4, 0.4, 0.1) 
   relWeights <- c(0.5, 0.3, 0.1, 0.1)
   
-  # see RJafrocFrocBook, search for rsm-pred-wafroc-curve 1/7/22
+  # see RJafrocFrocBook, search for rsm-other-predictions-wafroc-curve 1/7/22
   fn <- paste0(test_path(), "/goodValues361/RSMformulae/weights-4-lesions", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
@@ -36,7 +96,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "testing weights code with max 4 lesions per case, random values: Cpp vs R"
+contextStr <- "Cpp vs R: testing weights code with max 4 lesions per case, random values: Cpp vs R"
 context(contextStr)
 test_that(contextStr, {
   mu <- 2
@@ -75,7 +135,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "testing weights code with max 10 lesions per case, random values: Cpp vs R"
+contextStr <- "Cpp vs R: testing weights code with max 10 lesions per case, random values: Cpp vs R"
 context(contextStr)
 test_that(contextStr, {
   mu <- 2
@@ -114,7 +174,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "RSMformulae1 - implementations of RSM using Maple generated code"
+contextStr <- "R vs Maple: RSMformulae1 - implementations of RSM using Maple generated code"
 context(contextStr)
 test_that(contextStr, {
   
@@ -137,7 +197,7 @@ test_that(contextStr, {
 })
 
 
-contextStr <- "RSMformulae2 - implementations of RSM using Maple generated code"
+contextStr <- "R vs Maple: RSMformulae2 - implementations of RSM using Maple generated code"
 context(contextStr)
 test_that(contextStr, {
   
@@ -160,7 +220,7 @@ test_that(contextStr, {
 })
 
 
-contextStr <- "RSMformulae3 - implementations of RSM using Maple generated code"
+contextStr <- "R vs Maple: RSMformulae3 - implementations of RSM using Maple generated code"
 context(contextStr)
 test_that(contextStr, {
   
