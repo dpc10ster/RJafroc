@@ -9,7 +9,7 @@ lesDistr <-  c(0.1, 0.4, 0.4, 0.1)
 relWeights <- c(0.5, 0.3, 0.1, 0.1)
 
 for (i in zeta) {
-  ret1 <- yROC  (zeta[i], mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr)
+  ret1 <- yROC_cpp  (zeta[i], mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr)
   ret2 <- yROC_R(zeta[i], mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr)
   expect_equal(ret1, ret)
 }

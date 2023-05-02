@@ -58,7 +58,7 @@ test_that(contextStr, {
   lesID <- UtilLesDistr(ds)$lesID
   
   for (i in 1:length(zeta)) {
-    ret1 <- yROC  (zeta[i], mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr)
+    ret1 <- yROC_cpp  (zeta[i], mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr)
     ret2 <- yROC_R2(zeta[i], mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr, lesID = lesID)
     testthat::expect_equal(ret1, ret2)
   }

@@ -24,8 +24,8 @@ RSM_pdfD <- function(z, mu, lambda, nu, lesDistr){
   
   pdf <- 0
   for (L in 1:length(lesDistr)){
-    a <- 1-nu/2+nu/2*erfVect((z-mu)/sqrt(2))
-    b <- exp((-lambda/2)+lambda/2*erfVect(z/sqrt(2)))
+    a <- 1-nu/2+nu/2*erf_vect_cpp((z-mu)/sqrt(2))
+    b <- exp((-lambda/2)+lambda/2*erf_vect_cpp(z/sqrt(2)))
     pdf <- pdf +
       # This is identical to the pdfD2 form below obtained using Maple, only the factoring is different
       lesDistr[L]*((a^(L-1)*b)*(L*nu/sqrt(2*pi)*exp(-(z-mu)^2/2)+a*lambda/sqrt(2*pi)*exp(-z^2/2)))
@@ -59,9 +59,9 @@ RSM_pdfN <- function(z, lambda){
 
   # bug fix 12/26/21
   if (lambda < 0) stop("Incorrect value for lambda\n")
-  # verified using RSM_pdfN(1, 1) and (xROC(1, 1) - xROC(1 + 1e-8, 1)) / 1e-8
+  # verified using RSM_pdfN(1, 1) and (xROC_cpp(1, 1) - xROC_cpp(1 + 1e-8, 1)) / 1e-8
   # following expression is identical to book equation 17.21
-  return(lambda * exp(-z^2/2) * exp(-lambda/2 * (1 - erfVect(z/sqrt(2)))) / sqrt(2 * pi))
+  return(lambda * exp(-z^2/2) * exp(-lambda/2 * (1 - erf_vect_cpp(z/sqrt(2)))) / sqrt(2 * pi))
 }
 
 
@@ -182,26 +182,10 @@ y_AFROC_FPF <- function(FPF, mu, lambda, nu){
 # contextStr <- "testing weights code with max 4 lesions per case, random values: Cpp vs R"
 # contextStr <- "testing weights code with max 10 lesions per case, random values: Cpp vs R"
 
-#' RSM predicted wAFROC ordinate
-#' @param zeta The zeta-vector at which to evaluate the FROC ordinate.
-#' @param mu The scalar RSM mu parameter. 
-#' @param nu The scalar RSM nu prime parameter. 
-#' @param lesDistr Lesion distribution vector.
-#' @param relWeights The lesion weights matrix
-#' 
-#' @return wLLF, the ordinate of the wAFROC curve
-#' 
-#' @examples 
-#' RSM_wLLF_R(c(1,2),1,0.5, lesDistr = c(0.5, 0.4, 0.1), relWeights = c(0.7, 0.2, 0.1)) 
-#'
-#' 
-#' @export
-#' 
-#' 
 
 # RSM_wLLF_R is wAFROC ordinate as a function of zeta + RSM parameters
 # returns wLLF, the ordinate of wAFROC curve
-# this has working C++ version named RSM_wLLF
+# this has working C++ version named RSM_wLLF_cpp
 # this is only here for me to check the C++ code
 RSM_wLLF_R <- function(zeta, mu, nu, lesDistr, relWeights){
   
@@ -229,6 +213,29 @@ RSM_wLLF_R <- function(zeta, mu, nu, lesDistr, relWeights){
 }
 
 
+#' RSM predicted wAFROC ordinate, cpp code
+#' @param zeta The zeta-vector at which to evaluate the FROC ordinate.
+#' @param mu The scalar RSM mu parameter. 
+#' @param nu The scalar RSM nu prime parameter. 
+#' @param lesDistr Lesion distribution vector.
+#' @param relWeights The lesion weights matrix
+#' 
+#' @return wLLF, the ordinate of the wAFROC curve
+#' 
+#' @examples 
+#' RSM_wLLF(1, 1, 0.9, lesDistr = c(0.5, 0.4, 0.1), relWeights = c(0.7, 0.2, 0.1)) 
+#' ## 0.34174
+#' 
+#' @export
+
+# This calls the C++ version named RSM_wLLF_cpp
+RSM_wLLF <- function(zeta, mu, nu, lesDistr, relWeights){
+  
+  return(RSM_wLLF_cpp(zeta, mu, nu, lesDistr, UtilLesWghtsLD(lesDistr, relWeights)))
+  
+}
+
+
 ################################################################################
 ################################################################################
 
@@ -248,7 +255,7 @@ RSM_FPF <- function(z, lambda) {
   
   if (lambda < 0) stop("Incorrect value for lambda\n")
   
-  return(xROCVect(z, lambda))
+  return(xROC_vect_cpp(z, lambda))
 
 }
 
@@ -275,7 +282,7 @@ RSM_TPF <- function(z, mu, lambda, nu, lesDistr) {
   if (nu < 0) stop("Incorrect value for nu\n")
   if (nu > 1) stop("Incorrect value for nu\n")
   
-  return(yROCVect(z, mu, lambda, nu, lesDistr))
+  return(yROC_vect_cpp(z, mu, lambda, nu, lesDistr))
 }
 
 
@@ -297,7 +304,7 @@ y_wAFROC_FPF <- function(FPF, mu, lambda, nu, lesDistr, relWeights){
   tmp[tmp < 0] <- pnorm(-20)
   zeta <- qnorm(tmp)
   # Cpp code
-  wLLF <- sapply(zeta, RSM_wLLF, mu = mu, nu = nu, lesDistr, lesWghtDistr)
+  wLLF <- sapply(zeta, RSM_wLLF_cpp, mu = mu, nu = nu, lesDistr, lesWghtDistr)
   return(wLLF)
 }
 
@@ -324,31 +331,12 @@ y_wAFROC_FPF_R <- function(FPF, mu, lambda, nu, lesDistr, W){
 # error function
 erf_R <- function (x) {
   
-  return(erfVect(x)) # this implements the commented formula below
+  return(erf_vect_cpp(x)) # this implements the commented formula below
   # return(2 * pnorm(sqrt(2) * x) - 1)
   
 }
 
 
-
-
-# 
-# xROC <- function (zeta, lambda){
-#   return (1 - exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta / sqrt(2))))
-# }
-# 
-# 
-# xROCVect <- function(zeta, lambda) {
-#     FPF = 1 - exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta / sqrt(2.0)))
-#   return (FPF);
-# }
-# 
-# 
-# R-only implementation of erf function
-# erf_R <- function(x){
-#  return (2 * pnorm(sqrt(2) * x) - 1)
-# }
-# 
 
 
 
@@ -362,8 +350,8 @@ pdfD2 <- function(z, mu, lambda, nu, lesDistr){
   if (nu > 1) stop("Incorrect value for nu\n")
   pdf <- 0
   for (L in 1:length(lesDistr)){
-    a <- 1-nu/2+nu/2*erfVect((z-mu)/sqrt(2))
-    b <- exp((-lambda/2)+lambda/2*erfVect(z/sqrt(2)))
+    a <- 1-nu/2+nu/2*erf_vect_cpp((z-mu)/sqrt(2))
+    b <- exp((-lambda/2)+lambda/2*erf_vect_cpp(z/sqrt(2)))
     pdf <- pdf + 
       lesDistr[L]*((a^(L-1))*L*nu*exp(-(z-mu)^2/2)+a^L*lambda*exp(-z^2/2))*b/sqrt(2*pi)
   }
@@ -380,7 +368,7 @@ A <- function(mu,nu,z,L)
   if (nu < 0) stop("Incorrect value for nu\n")
   if (nu > 1) stop("Incorrect value for nu\n")
   
-  return((1-nu/2+nu/2*erfVect((z-mu)/sqrt(2)))^L)
+  return((1-nu/2+nu/2*erf_vect_cpp((z-mu)/sqrt(2)))^L)
 }
 
 # B is second term on rhs of book 17.22
@@ -390,7 +378,7 @@ B <- function(lambda,z)
   # bug fix 12/26/21
   if (lambda < 0) stop("Incorrect value for lambda\n")
   
-  return(exp(-lambda/2+lambda/2*erfVect(z/sqrt(2))))
+  return(exp(-lambda/2+lambda/2*erf_vect_cpp(z/sqrt(2))))
 }
 
 
@@ -400,7 +388,7 @@ dA <- function(mu,nu,z,L)
   # bug fix 12/26/21
   if (nu < 0) stop("Incorrect value for nu\n")
   if (nu > 1) stop("Incorrect value for nu\n")
-  return((1-nu/2+nu/2*erfVect((z-mu)/sqrt(2)))^(L-1)*L*nu*exp(-(z-mu)^2/2)/sqrt(2*pi))
+  return((1-nu/2+nu/2*erf_vect_cpp((z-mu)/sqrt(2)))^(L-1)*L*nu*exp(-(z-mu)^2/2)/sqrt(2*pi))
 }
 
 
@@ -410,7 +398,7 @@ dB <- function(lambda,z)
   # bug fix 12/26/21
   if (lambda < 0) stop("Incorrect value for lambda\n")
   
-  return(lambda*exp(-z^2/2)*exp(-lambda/2+lambda/2*erfVect(z/sqrt(2)))/sqrt(2*pi))
+  return(lambda*exp(-z^2/2)*exp(-lambda/2+lambda/2*erf_vect_cpp(z/sqrt(2)))/sqrt(2*pi))
 }
 
 
@@ -444,7 +432,7 @@ pdfD3 <- function(z, mu, lambda, nu, lesDistr){
 #   for (il  in 1:length(zeta)){
 #     for (i in 1:length(lesDistr)){
 #       TPF[il] = TPF[il] + lesDistr[i] * 
-#         (1 - pow(1 - nu/2 + nu/2  * erfcpp( (zeta[il] - mu) / sqrt(2.0) ) , (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta[il] / sqrt(2.0))))
+#         (1 - pow(1 - nu/2 + nu/2  * erf_cpp( (zeta[il] - mu) / sqrt(2.0) ) , (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erf_cpp(zeta[il] / sqrt(2.0))))
 #     }
 #   }
 #   
@@ -462,5 +450,5 @@ pdfD3 <- function(z, mu, lambda, nu, lesDistr){
 #     }
 #   }
 # 
-#   return (yROCVect(zeta, mu, lambda, nu, lesDistr))
+#   return (yROC_vect_cpp(zeta, mu, lambda, nu, lesDistr))
 # }

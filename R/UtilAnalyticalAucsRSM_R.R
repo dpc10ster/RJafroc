@@ -14,9 +14,9 @@ UtilAnalyticalAucsRSM_R <- function (mu, lambda, nu, zeta1 = -Inf, lesDistr, rel
   
   aucwAFROC <- aucAFROC <- aucROC <- rep(NA, length(mu))
   
-  maxFPF <- xROC(zeta1, lambda)
-  maxTPF <- yROC(zeta1, mu, lambda, nu, lesDistr)
-  x <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr)$value
+  maxFPF <- xROC_cpp(zeta1, lambda)
+  maxTPF <- yROC_cpp(zeta1, mu, lambda, nu, lesDistr)
+  x <- integrate(y_ROC_FPF_cpp, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, lesDistr = lesDistr)$value
   aucROC <- x + (1 + maxTPF) * (1 - maxFPF) / 2
   
   maxLLF <- RSM_LLF(zeta1, mu, nu)

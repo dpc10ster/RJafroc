@@ -137,8 +137,8 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
       mu <- maxMu # technically infinity; but then vertical line does not plot
       lambda <- -log(1 - fpf[length(fpf)]) # dpc
       nu <- max(tpf)
-      fpfPred <- sapply(plotZeta, xROC, lambda = lambda)
-      tpfPred <- sapply(plotZeta, yROC, mu = mu, lambda = lambda,
+      fpfPred <- sapply(plotZeta, xROC_cpp, lambda = lambda)
+      tpfPred <- sapply(plotZeta, yROC_cpp, mu = mu, lambda = lambda,
                         nu = nu, lesDistr = lesDistr)
       fittedPlot <- genericPlotROC (fp, tp, fpfPred, tpfPred, method = "RSM")
       return(list(
@@ -158,8 +158,8 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
       mu <- minMu # 
       lambda <- maxLambda # dpc
       nu <- minNu
-      fpfPred <- sapply(plotZeta, xROC, lambda = lambda)
-      tpfPred <- sapply(plotZeta, yROC, mu = mu, lambda = lambda, 
+      fpfPred <- sapply(plotZeta, xROC_cpp, lambda = lambda)
+      tpfPred <- sapply(plotZeta, yROC_cpp, mu = mu, lambda = lambda, 
                         nu = nu, lesDistr = lesDistr)
       fittedPlot <- genericPlotROC (fp, tp, fpfPred, tpfPred, method = "RSM")
        return(list(
@@ -235,8 +235,8 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   ChisqrFitStats <- ChisqrGoodnessOfFit(fpCounts, tpCounts,
                                         parameters = c(mu,lambda,nu,zetas), model = "RSM", lesDistr)
   
-  fpfPred <- sapply(plotZeta, xROC, lambda = lambda)
-  tpfPred <- sapply(plotZeta, yROC, mu = mu, lambda = lambda, 
+  fpfPred <- sapply(plotZeta, xROC_cpp, lambda = lambda)
+  tpfPred <- sapply(plotZeta, yROC_cpp, mu = mu, lambda = lambda, 
                     nu = nu, lesDistr = lesDistr)
   fittedPlot <- genericPlotROC (fp, tp, fpfPred, tpfPred, method = "RSM")
 
@@ -356,9 +356,9 @@ tempAucRSM <- function (forwardParms, lesDistr = lesDistr){
   lambda <- InverseValue(forwardParms[2], minLambda, maxLambda)
   nu <- InverseValue(forwardParms[3], minNu, maxNu)
   
-  maxFPF <- xROC(-20, lambda)
-  maxTPF <- yROC(-20, mu, lambda, nu, lesDistr)
-  AUC <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, 
+  maxFPF <- xROC_cpp(-20, lambda)
+  maxTPF <- yROC_cpp(-20, mu, lambda, nu, lesDistr)
+  AUC <- integrate(y_ROC_FPF_cpp, 0, maxFPF, mu = mu, lambda = lambda, nu = nu, 
                    lesDistr = lesDistr)$value
   
   AUC <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2

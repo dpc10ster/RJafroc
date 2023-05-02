@@ -77,40 +77,40 @@ SongA2 <- function(ncases_nor, ncases_abn, max_nl, max_ll, n_les, nl, ll) {
     .Call('_RJafroc_SongA2', PACKAGE = 'RJafroc', ncases_nor, ncases_abn, max_nl, max_ll, n_les, nl, ll)
 }
 
-erfcpp <- function(x) {
-    .Call('_RJafroc_erfcpp', PACKAGE = 'RJafroc', x)
+erf_cpp <- function(x) {
+    .Call('_RJafroc_erf_cpp', PACKAGE = 'RJafroc', x)
 }
 
-erfVect <- function(x) {
-    .Call('_RJafroc_erfVect', PACKAGE = 'RJafroc', x)
+erf_vect_cpp <- function(x) {
+    .Call('_RJafroc_erf_vect_cpp', PACKAGE = 'RJafroc', x)
 }
 
-xROC <- function(zeta, lambda) {
-    .Call('_RJafroc_xROC', PACKAGE = 'RJafroc', zeta, lambda)
+xROC_cpp <- function(zeta, lambda) {
+    .Call('_RJafroc_xROC_cpp', PACKAGE = 'RJafroc', zeta, lambda)
 }
 
-xROCVect <- function(zeta, lambda) {
-    .Call('_RJafroc_xROCVect', PACKAGE = 'RJafroc', zeta, lambda)
+xROC_vect_cpp <- function(zeta, lambda) {
+    .Call('_RJafroc_xROC_vect_cpp', PACKAGE = 'RJafroc', zeta, lambda)
 }
 
-yROC <- function(zeta, mu, lambda, nu, lesDistr) {
-    .Call('_RJafroc_yROC', PACKAGE = 'RJafroc', zeta, mu, lambda, nu, lesDistr)
+yROC_cpp <- function(zeta, mu, lambda, nu, lesDistr) {
+    .Call('_RJafroc_yROC_cpp', PACKAGE = 'RJafroc', zeta, mu, lambda, nu, lesDistr)
 }
 
-yROCVect <- function(zeta, mu, lambda, nu, lesDistr) {
-    .Call('_RJafroc_yROCVect', PACKAGE = 'RJafroc', zeta, mu, lambda, nu, lesDistr)
+yROC_vect_cpp <- function(zeta, mu, lambda, nu, lesDistr) {
+    .Call('_RJafroc_yROC_vect_cpp', PACKAGE = 'RJafroc', zeta, mu, lambda, nu, lesDistr)
 }
 
 RsmInner <- function(mu, lambda, nu, lesDistr, zeta, fb, tb) {
     .Call('_RJafroc_RsmInner', PACKAGE = 'RJafroc', mu, lambda, nu, lesDistr, zeta, fb, tb)
 }
 
-y_ROC_FPF <- function(FPF, mu, lambda, nu, lesDistr) {
-    .Call('_RJafroc_y_ROC_FPF', PACKAGE = 'RJafroc', FPF, mu, lambda, nu, lesDistr)
+y_ROC_FPF_cpp <- function(FPF, mu, lambda, nu, lesDistr) {
+    .Call('_RJafroc_y_ROC_FPF_cpp', PACKAGE = 'RJafroc', FPF, mu, lambda, nu, lesDistr)
 }
 
-RSM_wLLF <- function(zeta, mu, nu, f_L, W) {
-    .Call('_RJafroc_RSM_wLLF', PACKAGE = 'RJafroc', zeta, mu, nu, f_L, W)
+RSM_wLLF_cpp <- function(zeta, mu, nu, f_L, W) {
+    .Call('_RJafroc_RSM_wLLF_cpp', PACKAGE = 'RJafroc', zeta, mu, nu, f_L, W)
 }
 
 ForwardValue <- function(value, valueLower, valueUpper) {

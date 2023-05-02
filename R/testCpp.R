@@ -1,4 +1,7 @@
-#' test cpp code
+#' for testing cpp code TBA!!
+#' 
+#' 
+#' @description test cpp code, temporary function, move to tests as they are done and finally delete this function
 #' 
 #' 
 #' @export
@@ -17,7 +20,7 @@ testCpp <- function() {
   W <- UtilLesWghtsDS(ds)
   
   for (i in 1:length(zeta)) {
-    ret1 <- RSM_wLLF  (zeta[i], mu = mu, nu = nu, f_L = Freq, W = W)
+    ret1 <- RSM_wLLF_cpp  (zeta[i], mu = mu, nu = nu, f_L = Freq, W = W)
     ret2 <- RSM_wLLF_R(zeta[i], mu = mu, nu = nu, lesDistr = Freq, relWeights = 0)
     testthat::expect_equal(ret1, ret2)
   }

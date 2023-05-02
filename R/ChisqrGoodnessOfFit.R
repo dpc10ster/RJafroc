@@ -69,8 +69,8 @@ ChisqrGoodnessOfFit <- function(fpCounts, tpCounts, parameters, model,lesDistr) 
     lambda <- parameters[2]
     nu <- parameters[3]
     zetas <- parameters[4:length(parameters)]
-    fpf1 <- xROCVect(zetas, lambda)
-    tpf1 <- yROCVect(zetas, mu, lambda, nu, lesDistr)
+    fpf1 <- xROC_vect_cpp(zetas, lambda)
+    tpf1 <- yROC_vect_cpp(zetas, mu, lambda, nu, lesDistr)
     minDfVal <- 4
   } else stop("Incorrect model parameter in ChisqrGoodnessOfFit")
   

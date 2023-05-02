@@ -2,10 +2,10 @@
 % Please edit documentation in R/testCpp.R
 \name{testCpp}
 \alias{testCpp}
-\title{test cpp code}
+\title{for testing cpp code TBA!!}
 \usage{
 testCpp()
 }
 \description{
-test cpp code
+test cpp code, temporary function, move to tests as they are done and finally delete this function
 }

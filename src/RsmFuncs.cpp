@@ -3,12 +3,12 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-double erfcpp(double x){
+double erf_cpp(double x){
   return 2 * R::pnorm(sqrt(2.0) * x, 0, 1, 1, 0) - 1;
 }
 
 // [[Rcpp::export]]
-NumericVector erfVect(NumericVector x){
+NumericVector erf_vect_cpp(NumericVector x){
   int l = x.size();
   NumericVector erfx(l);
   for (int il = 0; il < l; il ++){
@@ -19,42 +19,42 @@ NumericVector erfVect(NumericVector x){
 }
 
 // [[Rcpp::export]]
-double xROC(double zeta, double lambda){
-  return 1 - exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta / sqrt(2.0)));
+double xROC_cpp(double zeta, double lambda){
+  return 1 - exp( (-lambda / 2) + 0.5 * lambda * erf_cpp(zeta / sqrt(2.0)));
 }
 
 // [[Rcpp::export]]
-NumericVector xROCVect(NumericVector zeta, double lambda){
+NumericVector xROC_vect_cpp(NumericVector zeta, double lambda){
   int l = zeta.size();
   NumericVector FPF(l);
   for (int il = 0; il < l; il ++){
-    FPF[il] = 1 - exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta[il] / sqrt(2.0)));
+    FPF[il] = 1 - exp( (-lambda / 2) + 0.5 * lambda * erf_cpp(zeta[il] / sqrt(2.0)));
   }
   return FPF;
 }
 
 // [[Rcpp::export]]
-double yROC(double zeta, double mu, double lambda, double nu, NumericVector lesDistr){
+double yROC_cpp(double zeta, double mu, double lambda, double nu, NumericVector lesDistr){
   double TPF = 0;
   int maxLes = lesDistr.size();
     
   for (int i = 0; i < maxLes; i++){
     TPF = TPF + lesDistr[i] * (1 - 
-      pow(1 - nu/2 + nu/2  * erfcpp( (zeta - mu) / sqrt(2.0) ) , 
-          (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta / sqrt(2.0))));
+      pow(1 - nu/2 + nu/2  * erf_cpp( (zeta - mu) / sqrt(2.0) ) , 
+          (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erf_cpp(zeta / sqrt(2.0))));
   }
   return TPF;
 }
 
 // [[Rcpp::export]]
-NumericVector yROCVect(NumericVector zeta, double mu, double lambda, double nu, NumericVector lesDistr){
+NumericVector yROC_vect_cpp(NumericVector zeta, double mu, double lambda, double nu, NumericVector lesDistr){
   int l = zeta.size();
   NumericVector TPF(l);
   int maxLes= lesDistr.size();
     
   for (int il = 0; il < l; il ++){
     for (int i = 0; i < maxLes; i++){
-      TPF[il] = TPF[il] + lesDistr[i] * (1 - pow(1 - nu/2 + nu/2  * erfcpp( (zeta[il] - mu) / sqrt(2.0) ) , (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erfcpp(zeta[il] / sqrt(2.0))));
+      TPF[il] = TPF[il] + lesDistr[i] * (1 - pow(1 - nu/2 + nu/2  * erf_cpp( (zeta[il] - mu) / sqrt(2.0) ) , (i+1)) * exp( (-lambda / 2) + 0.5 * lambda * erf_cpp(zeta[il] / sqrt(2.0))));
     }
   }
   
@@ -65,8 +65,8 @@ NumericVector yROCVect(NumericVector zeta, double mu, double lambda, double nu, 
 
 // [[Rcpp::export]]
 double RsmInner(double mu, double lambda, double nu, NumericVector lesDistr, NumericVector zeta, NumericVector fb, NumericVector tb){
-  NumericVector FPF = xROCVect(zeta, lambda);
-  NumericVector TPF = yROCVect(zeta, mu, lambda, nu, lesDistr);
+  NumericVector FPF = xROC_vect_cpp(zeta, lambda);
+  NumericVector TPF = yROC_vect_cpp(zeta, mu, lambda, nu, lesDistr);
   int l = fb.size();
   NumericVector FPFBin(l), TPFBin(l);
   double L = 0;
@@ -87,7 +87,7 @@ double RsmInner(double mu, double lambda, double nu, NumericVector lesDistr, Num
 
 
 // [[Rcpp::export]]
-NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambda, double nu, NumericVector lesDistr){
+NumericVector y_ROC_FPF_cpp(NumericVector FPF, double mu, double lambda, double nu, NumericVector lesDistr){
   int l = FPF.size();
   NumericVector zeta(l);
   double temp;
@@ -103,7 +103,7 @@ NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambda, double nu, 
   // Rcpp::Rcout << "FPF is now " << FPF << std::endl;
   // Rcpp::Rcout << "temp is now " << temp << std::endl;
   // Rcpp::Rcout << "zeta is now " << zeta << std::endl;
-  return yROCVect(zeta, mu, lambda, nu, lesDistr);
+  return yROC_vect_cpp(zeta, mu, lambda, nu, lesDistr);
 }
 
 
@@ -112,7 +112,7 @@ NumericVector y_ROC_FPF(NumericVector FPF, double mu, double lambda, double nu, 
 
 
 // [[Rcpp::export]]
-double RSM_wLLF (double zeta, double mu, double nu, NumericVector f_L, NumericMatrix W){
+double RSM_wLLF_cpp (double zeta, double mu, double nu, NumericVector f_L, NumericMatrix W){
   double wLLF = 0; 
   int maxLes = f_L.size();
   for (int row = 0;row < maxLes;row++) { 

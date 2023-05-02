@@ -13,7 +13,7 @@ test_that(contextStr, {
   W <- UtilLesWghtsDS(ds)
   
   for (i in 1:length(zeta)) {
-    ret1 <- RSM_wLLF  (zeta[i], mu = mu, nu = nu, f_L = Freq, W = W)
+    ret1 <- RSM_wLLF_cpp  (zeta[i], mu = mu, nu = nu, f_L = Freq, W = W)
     ret2 <- RSM_wLLF_R(zeta[i], mu = mu, nu = nu, lesDistr = Freq, relWeights = 0)
     testthat::expect_equal(ret1, ret2)
   }

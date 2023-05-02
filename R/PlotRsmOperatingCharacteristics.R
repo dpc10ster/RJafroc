@@ -154,15 +154,15 @@ PlotRsmOperatingCharacteristics <- function(mu,
     if (lambda[i] < 0 ) stop("lambda must be greater than zero")
     if (nu[i] < 0 ) stop("nu must be greater than zero")
     
-    FPF <- sapply(zeta[[i]], xROC, lambda[i]) # C++ function uses lambda
-    TPF <- sapply(zeta[[i]], yROC, mu = mu[i], lambda[i], nu[i], lesDistr)
+    FPF <- sapply(zeta[[i]], xROC_cpp, lambda[i]) # C++ function uses lambda
+    TPF <- sapply(zeta[[i]], yROC_cpp, mu = mu[i], lambda[i], nu[i], lesDistr)
     NLF <- sapply(zeta[[i]], RSM_NLF, lambda[i])
     LLF <- sapply(zeta[[i]], RSM_LLF, mu = mu[i], nu[i]) # 9/22/22
 # begin bug fix
 # found bug 11/24/21 two places, here and as indicated by # bug fix 11/24/21
 # found ROC AUC did not change with zeta1 as it should   
-#    maxFPF <- xROC(-20, lambda[i]) # this is wrong
-    maxFPF <- xROC(zeta1[i], lambda[i]) # this is correct
+#    maxFPF <- xROC_cpp(-20, lambda[i]) # this is wrong
+    maxFPF <- xROC_cpp(zeta1[i], lambda[i]) # this is correct
     if( OpChType == "ALL" ||  OpChType == "ROC"){
       ROCPoints <- rbind(ROCPoints, data.frame(FPF = FPF, 
                                                TPF = TPF, 
@@ -172,10 +172,10 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                TPF = c(TPF[1], 1), 
                                                Treatment = as.character(i), 
                                                stringsAsFactors = FALSE))
-#       maxTPF <- yROC(-20, mu[i], lambda, nu, lesDistr)
-      maxTPF <- yROC(zeta1[i], mu[i], lambda[i], nu[i], lesDistr)
+#       maxTPF <- yROC_cpp(-20, mu[i], lambda, nu, lesDistr)
+      maxTPF <- yROC_cpp(zeta1[i], mu[i], lambda[i], nu[i], lesDistr)
        # end bug fix
-      AUC <- integrate(y_ROC_FPF, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr =lesDistr)$value
+      AUC <- integrate(y_ROC_FPF_cpp, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr =lesDistr)$value
       aucROC[i] <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2
     }
     
@@ -212,7 +212,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
     }
     
     if( OpChType == "ALL" ||  OpChType == "wAFROC"){
-      wLLF <- sapply(zeta[[i]], RSM_wLLF, mu[i], nu[i], lesDistr, lesWghtDistr) # cpp code requires lesWghtDistr
+      wLLF <- sapply(zeta[[i]], RSM_wLLF_cpp, mu[i], nu[i], lesDistr, lesWghtDistr) # cpp code requires lesWghtDistr
       wAFROCPoints <- rbind(wAFROCPoints, data.frame(FPF = FPF, 
                                                      wLLF = wLLF, 
                                                      Treatment = as.character(i), 
@@ -221,8 +221,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                      wLLF = c(wLLF[1], 1), 
                                                      Treatment = as.character(i), 
                                                      stringsAsFactors = FALSE))
-      # maxWLLF <- RSM_wLLF(zeta1[i], mu[i], nu[i], lesDistr, lesWghtDistr) # bug fix 11/24/21
-      maxWLLF <- RSM_wLLF_R(zeta1[i], mu[i], nu[i], lesDistr, relWeights) # bug fix 11/24/21
+      maxWLLF <- RSM_wLLF_R(zeta1[i], mu[i], nu[i], lesDistr, relWeights)
       AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr, relWeights)$value
       aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
     }
