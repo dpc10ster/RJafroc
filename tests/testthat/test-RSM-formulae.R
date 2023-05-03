@@ -14,7 +14,7 @@ yROC_R <- function(zeta, mu, lambda, nu, lesDistr, lesID) {
 
 
 
-contextStr <- "Cpp vs R: yROC for dataset11"
+contextStr <- "Cpp vs R: yROC for dataset11."
 context(contextStr)
 test_that(contextStr, {
   
@@ -36,7 +36,7 @@ test_that(contextStr, {
 })
 
 
-contextStr <- "Cpp vs R: RSM_wLLF_R for dataset11"
+contextStr <- "Cpp vs R: RSM_wLLF_R for dataset11."
 context(contextStr)
 test_that(contextStr, {
   
@@ -58,14 +58,13 @@ test_that(contextStr, {
   
 })
 
-contextStr <- "Cpp vs R: testing weights code with max 4 lesions per case: Cpp vs R"
+contextStr <- "Cpp vs R: UtilAnalyticalAucsRSM: testing weights code with max 4 lesions per case; also compare to PlotRsmOperatingCharacteristics."
 context(contextStr)
 test_that(contextStr, {
   mu <- 2
-  nu <- 0.9
   lambda <- 1
+  nu <- 0.9
   zeta1 <- -3
-  maxLL <- 4
   lesDistr <-  c(0.1, 0.4, 0.4, 0.1) 
   relWeights <- c(0.5, 0.3, 0.1, 0.1)
   
@@ -92,11 +91,38 @@ test_that(contextStr, {
                                relWeights =  relWeights)
   expect_equal(ret1, ret)
   
+
+  
+  ret1 <- UtilAnalyticalAucsRSM_R(mu = mu, 
+                                  lambda = lambda, 
+                                  nu = nu, 
+                                  zeta1 = zeta1, 
+                                  lesDistr = lesDistr, 
+                                  relWeights =  relWeights)$aucwAFROC
+  ret2 <- PlotRsmOperatingCharacteristics(mu = mu, 
+                                          lambda = lambda, 
+                                          nu = nu, 
+                                          zeta1 = zeta1, 
+                                          OpChType = "wAFROC",
+                                          lesDistr = lesDistr, 
+                                          relWeights = relWeights)$aucwAFROC
+
+  expect_equal(ret1, ret2)
+  
+  ret1 <- UtilAnalyticalAucsRSM(mu = mu, 
+                                  lambda = lambda, 
+                                  nu = nu, 
+                                  zeta1 = zeta1, 
+                                  lesDistr = lesDistr, 
+                                  relWeights =  relWeights)$aucwAFROC
+  
+  expect_equal(ret1, ret2)
+  
 })
 
 
 
-contextStr <- "Cpp vs R: testing weights code with max 4 lesions per case, random values: Cpp vs R"
+contextStr <- "Cpp vs R: testing weights code with max 4 lesions per case, random values."
 context(contextStr)
 test_that(contextStr, {
   mu <- 2
@@ -135,7 +161,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "Cpp vs R: testing weights code with max 10 lesions per case, random values: Cpp vs R"
+contextStr <- "Cpp vs R: testing weights code with max 10 lesions per case, random values."
 context(contextStr)
 test_that(contextStr, {
   mu <- 2

@@ -11,7 +11,7 @@
 #' @param nu Array: the RSM nu parameter.
 #' 
 #' @param zeta1 Array, the lowest reporting threshold; if missing the default 
-#'    is an array of -3s. 
+#'    is an array of -Inf. 
 #'
 #' @param lesDistr Array: the probability mass function of the 
 #'    lesion distribution for diseased cases. The default is 1. See \link{UtilLesDistr}. 
@@ -116,12 +116,12 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                             nlfAlpha = NULL){
   
 
-  if (missing(zeta1)) zeta1 <- array(-3, dim = length(mu))
+  if (missing(zeta1)) zeta1 <- array(-Inf, dim = length(mu))
       
   if (!all(c(length(mu) == length(lambda), length(mu) == length(nu), length(mu) == length(zeta1))))
     stop("Parameters mu, lambda, nu and zeta1 have different lengths.")
   
-  lesWghtDistr <- UtilLesWghtsLD(UtilLesDistr(lesDistr), relWeights)
+  lesWghtDistr <- UtilLesWghtsLD(lesDistr, relWeights)
 
   plotStep <- 0.01
   # begin bug fix 12/7/21
@@ -192,7 +192,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
         if (nlfAlpha <= maxNLF){
           aucFROC[i] <- integrate(integrandFROC, 0, nlfAlpha, mu= mu[i], lambda[i], nu[i])$value
         }else{
-          stop("nlfAlpha cannot be greater than the maximum of NLF.")
+          stop("nlfAlpha cannot be greater than max(NLF).")
         }
       }
     }
@@ -223,7 +223,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                                      stringsAsFactors = FALSE))
       maxWLLF <- RSM_wLLF_R(zeta1[i], mu[i], nu[i], lesDistr, relWeights)
       AUC <- integrate(y_wAFROC_FPF, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr, relWeights)$value
-      aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2
+      aucwAFROC[i] <- AUC + (1 + maxWLLF) * (1 - maxFPF) / 2 # 5/3/23 
     }
     
     if( OpChType == "ALL" ||  OpChType == "pdfs"){

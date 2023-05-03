@@ -28,7 +28,7 @@ PlotRsmOperatingCharacteristics(
 \item{nu}{Array: the RSM nu parameter.}
 
 \item{zeta1}{Array, the lowest reporting threshold; if missing the default 
-is an array of -3s.}
+is an array of -Inf.}
 
 \item{lesDistr}{Array: the probability mass function of the 
 lesion distribution for diseased cases. The default is 1. See \link{UtilLesDistr}.}
