@@ -5,7 +5,7 @@
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' @param covEstMethod The covariance estimation method, "jackknife" 
-#'     (the default) or "bootstrap" or "DeLong" (DeLongt is applicable only for 
+#'     (the default) or "bootstrap" or "DeLong" ("DeLong" is applicable only for 
 #'     FOM = Wilcoxon).
 #' @param nBoots  Only needed for bootstrap covariance estimation method. The number 
 #'     of bootstraps, defaults to 200.
@@ -23,8 +23,8 @@
 #'     \item{\code{IndividualRdr}}: the individual reader mean-squares, \code{Var} and \code{Cov1} values
 #'     }
 #'   
-#' @details The variance components are obtained using \link{StSignificanceTesting} 
-#'     with \code{method = "OR"}.
+#' @details The variance components are idential to those obtained using 
+#'     \link{StSignificanceTesting} with \code{method = "OR"}.
 #' 
 #' @examples 
 #' ## use the default jackknife for covEstMethod
