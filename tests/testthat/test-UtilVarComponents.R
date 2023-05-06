@@ -46,13 +46,13 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/JackknifeDataset02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+    ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "jackknife")
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                                  covEstMethod = "jackknife")
   
   expect_equal(good, current)
@@ -68,14 +68,14 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/bootstrapDataset02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+    ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "bootstrap", 
                               nBoots = 2000, seed = 100)
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "bootstrap", 
                               nBoots = 2000, seed = 100)
   
@@ -92,13 +92,13 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/DeLongDataset02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+    ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "DeLong")
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                                  covEstMethod = "DeLong")
   
   expect_equal(good, current)
@@ -114,13 +114,13 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/JackknifeDataset04", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+    ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "jackknife")
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                                  covEstMethod = "jackknife")
   
   expect_equal(good, current)
@@ -136,14 +136,14 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/bootstrapDataset04", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+    ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "bootstrap", 
                               nBoots = 2000, seed = 100)
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                                  covEstMethod = "bootstrap", 
                                  nBoots = 2000, seed = 100)
   
@@ -160,13 +160,13 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/DeLongDataset04", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-     ds <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+     ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "DeLong")
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilORVarComponentsFactorial(dataset, FOM = "Wilcoxon", 
+  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
                                  covEstMethod = "DeLong")
   
   expect_equal(good, current)

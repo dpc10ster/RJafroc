@@ -11,12 +11,12 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/frocCr", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    x1 <- UtilORVarComponentsFactorial(temp, FOM = "wAFROC")
+    x1 <- UtilVarComponentsOR(temp, FOM = "wAFROC")
     saveRDS(x1, file = fn)
   }
   
   x1 <- readRDS(fn)
-  x2 <- UtilORVarComponentsFactorial(temp, FOM = "wAFROC")
+  x2 <- UtilVarComponentsOR(temp, FOM = "wAFROC")
   expect_equal(x1, x2)
   
   # SPLIT-PLOT-A
@@ -28,12 +28,12 @@ test_that(contextStr, {
   # fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/frocSpA", ".rds")
   # if (!file.exists(fn)) {
   #   warning(paste0("File not found - generating new ",fn))
-  #   x1 <- UtilORVarComponentsFactorial(temp, FOM = "wAFROC")
+  #   x1 <- UtilVarComponentsOR(temp, FOM = "wAFROC")
   #   saveRDS(x1, file = fn)
   # }
   # 
   # x1 <- readRDS(fn)
-  # x2 <- UtilORVarComponentsFactorial(temp, FOM = "wAFROC")
+  # x2 <- UtilVarComponentsOR(temp, FOM = "wAFROC")
   # expect_equal(x1, x2)
   
   # SPLIT-PLOT-C
@@ -45,12 +45,12 @@ test_that(contextStr, {
   # fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/frocSpC", ".rds")
   # if (!file.exists(fn)) {
   #   warning(paste0("File not found - generating new ",fn))
-  #   x1 <- UtilORVarComponentsFactorial(temp, FOM = "wAFROC")
+  #   x1 <- UtilVarComponentsOR(temp, FOM = "wAFROC")
   #   saveRDS(x1, file = fn)
   # }
   # 
   # x1 <- readRDS(fn)
-  # x2 <- UtilORVarComponentsFactorial(temp, FOM = "wAFROC")
+  # x2 <- UtilVarComponentsOR(temp, FOM = "wAFROC")
   # expect_equal(x1, x2)
   
 })

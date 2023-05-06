@@ -95,7 +95,7 @@ J = 6, K = 251)
 ## EXAMPLE 4: specify NULL dataset & OR var. comp. & use OR-based alg.
 JStar <- length(dataset02$ratings$NL[1,,1,1])
 KStar <- length(dataset02$ratings$NL[1,1,,1])
-vcOR <- UtilORVarComponentsFactorial(dataset02, FOM = "Wilcoxon")$VarCom
+vcOR <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
 SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", effectSize = 0.05, J = 6, 
 K = 251, list(JStar = JStar, KStar = KStar, 
    VarTR = vcOR["VarTR","Estimates"], # replace rhs with actual values as in 4A

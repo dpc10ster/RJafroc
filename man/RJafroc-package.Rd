@@ -455,7 +455,7 @@
         \item \code{\link{UtilPseudoValues}}: Return jackknife pseudovalues.
         \item \code{\link{UtilVarComponentsDBM}}: Utility for Dorfman-Berbaum-Metz
            variance components.
-        \item \code{\link{UtilORVarComponentsFactorial}}: Utility for Obuchowski-Rockette
+        \item \code{\link{UtilVarComponentsOR}}: Utility for Obuchowski-Rockette
            variance components.
   }
 }

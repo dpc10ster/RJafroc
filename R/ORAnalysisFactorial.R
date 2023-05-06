@@ -12,7 +12,7 @@ ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMeth
   # `as.matrix` is NOT absolutely necessary as `mean()` function is not used
   foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   
-  ret <- UtilORVarComponentsFactorial(dataset, FOM, FPFValue, covEstMethod, nBoots)
+  ret <- UtilVarComponentsOR(dataset, FOM, FPFValue, covEstMethod, nBoots)
   
   TRanova <- ret$TRanova
   VarCom <-  ret$VarCom

@@ -28,17 +28,17 @@
 #' 
 #' @examples 
 #' ## use the default jackknife for covEstMethod
-#' vc <- UtilORVarComponentsFactorial(dataset02, FOM = "Wilcoxon")
+#' vc <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")
 #' str(vc) 
 #'
-#' UtilORVarComponentsFactorial(dataset02, FOM = "Wilcoxon", 
+#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon", 
 #'    covEstMethod = "bootstrap", nBoots = 2000, seed = 100)$VarCom 
 #' 
-#' UtilORVarComponentsFactorial(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$VarCom 
+#' UtilVarComponentsOR(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$VarCom 
 #'   
 #' @export
 #' 
-UtilORVarComponentsFactorial <- function (dataset, FOM, FPFValue = 0.2, 
+UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2, 
                                  covEstMethod = "jackknife", nBoots = 200, seed = NULL)
 {
 
