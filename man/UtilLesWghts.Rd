@@ -57,6 +57,8 @@ UtilLesWghtsDS (dataset02) # ROC data
 ##      [,1] [,2]
 ##[1,]    1  1
 
+UtilLesWghtsDS(c(0.7,0.2,0.1)) # only frequencies supplied
+## relWeights defaults to zero
 
 ## Dataset with 1 to 4 lesions per case, with frequency as per first argument
 

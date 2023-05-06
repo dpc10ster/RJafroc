@@ -49,12 +49,14 @@
 #' ##      [,1] [,2]
 #' ##[1,]    1  1
 #' 
+#' UtilLesWghtsDS(c(0.7,0.2,0.1)) # only frequencies supplied
+#' ## relWeights defaults to zero
 #' 
 #' @export
 UtilLesWghtsDS <- function(dsOrArr, relWeights = 0)
 { 
 
-  if (is.list(dsOrArr) && (length(dsOrArr) == 3) || is.vector(dsOrArr)) { 
+  if ((is.list(dsOrArr) && (length(dsOrArr) == 3)) || is.vector(dsOrArr)) { 
     # a dataset or vector object has been supplied
     LD <- UtilLesDistr(dsOrArr)
     maxLL <- max(LD$lesID)

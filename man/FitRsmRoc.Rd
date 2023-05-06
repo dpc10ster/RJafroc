@@ -7,7 +7,7 @@
 FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)
 }
 \arguments{
-\item{binnedRocData}{The \strong{binned ROC} dataset containing the data}
+\item{binnedRocData}{A \strong{binned ROC} dataset}
 
 \item{lesDistr}{The lesion distribution 1D array.}
 
