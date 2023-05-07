@@ -116,6 +116,12 @@ The default is zero, in which case equal lesion weights are assumed.</p></dd>
 <span class="r-in"><span><span class="co">##      [,1] [,2]</span></span></span>
 <span class="r-in"><span><span class="co">##[1,]    1  1</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">UtilLesWghtsDS</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.2</span>,<span class="fl">0.1</span><span class="op">)</span><span class="op">)</span> <span class="co"># only frequencies supplied</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]       [,2]       [,3]       [,4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1 1.00000000       -Inf       -Inf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2 0.50000000 0.50000000       -Inf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3 0.33333333 0.33333333 0.33333333</span>
+<span class="r-in"><span><span class="co">## relWeights defaults to zero</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Dataset with 1 to 4 lesions per case, with frequency as per first argument</span></span></span>
 <span class="r-in"><span></span></span>
