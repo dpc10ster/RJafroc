@@ -145,6 +145,12 @@
     <loc>https://github.com/dpc10ster/RJafroc/reference/StSignificanceTestingCrossedModalities.html</loc>
   </url>
   <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/Util2Intrinsic.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/dpc10ster/RJafroc/reference/Util2Physical.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilAnalyticalAucsRSM.html</loc>
   </url>
   <url>
@@ -163,9 +169,6 @@
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilFigureOfMerit.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilIntrinsic2RSM.html</loc>
-  </url>
-  <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilLesDistr.html</loc>
   </url>
   <url>
@@ -182,9 +185,6 @@
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilPseudoValues.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilRSM2Intrinsic.html</loc>
   </url>
   <url>
     <loc>https://github.com/dpc10ster/RJafroc/reference/UtilVarComponentsDBM.html</loc>
