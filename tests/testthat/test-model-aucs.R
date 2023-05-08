@@ -58,7 +58,7 @@ test_that("UtilAucPROPROC", {
 context("utils:UtilAnalyticalAucsRSM1")
 test_that("UtilAnalyticalAucsRSM zeta1 neg Inf", {
   mu <- 1;lambda_i <- 1;nu_i <- 1
-  x <- UtilIntrinsic2RSM(mu, lambda_i, nu_i)
+  x <- Util2Physical(mu, lambda_i, nu_i)
   lambda <- x$lambda
   nu <- x$nu
   lesDistr <- c(0.9, 0.1)
@@ -82,7 +82,7 @@ context("utils:UtilAnalyticalAucsRSM2")
 test_that("UtilAnalyticalAucsRSM zeta1 0", {
   mu <- 1;lambda_i <- 1;nu_i <- 1
   mu <- 1;lambda_i <- 1;nu_i <- 1
-  x <- UtilIntrinsic2RSM(mu, lambda_i, nu_i)
+  x <- Util2Physical(mu, lambda_i, nu_i)
   lambda <- x$lambda
   nu <- x$nu
   lesDistr <- c(0.9, 0.1) 
@@ -107,7 +107,7 @@ context("utils:UtilAnalyticalAucsRSMWeights")
 test_that("UtilAnalyticalAucsRSM", {
   mu <- 1;lambda_i <- 1;nu_i <- 1
   mu <- 1;lambda_i <- 1;nu_i <- 1
-  x <- UtilIntrinsic2RSM(mu, lambda_i, nu_i)
+  x <- Util2Physical(mu, lambda_i, nu_i)
   lambda <- x$lambda
   nu <- x$nu
   lesDistr <- c(0.9, 0.1) 

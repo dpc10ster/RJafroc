@@ -219,7 +219,7 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   zetas <- InverseZetas(ret@coef[4:length(ret@coef)])
   
   # 11/30/20
-  retx <- UtilRSM2Intrinsic(mu, lambda, nu)
+  retx <- Util2Intrinsic(mu, lambda, nu)
   lambda_i <- retx$lambda_i
   nu_i <- retx$nu_i
   

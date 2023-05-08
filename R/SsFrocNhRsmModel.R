@@ -73,40 +73,41 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   }
 
   # use median instead of average
-  mu <- median(RsmParms[,,1])
-  lambda <- median(RsmParms[,,2]) # these are physical parameters
-  nu <- median(RsmParms[,,3]) # do:
-
-  # convert to intrinsic parameters
-  # undid this 9/22/22
-  # temp <- UtilRSM2Intrinsic(mu, lambda, nu)
-  # lambda_i <- temp$lambda_i
-  # nu_i <- temp$nu_i
+  muNH <- median(RsmParms[,,1])
+  lambdaNH <- median(RsmParms[,,2]) # these are physical parameters
+  nuNH <- median(RsmParms[,,3]) # do:
 
   # calculate NH values for ROC-AUC and wAFROC-AUC
-  aucRocNH <- PlotRsmOperatingCharacteristics(mu, lambda, nu,
+  aucRocNH <- PlotRsmOperatingCharacteristics(muNH, lambdaNH, nuNH,
                                               lesDistr = lesDistr, OpChType = "ROC")$aucROC
-  aucAfrocNH <- PlotRsmOperatingCharacteristics(mu, lambda, nu,
+  aucwAfrocNH <- PlotRsmOperatingCharacteristics(muNH, lambdaNH, nuNH,
                                                 lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC
 
-  # following calculates effect sizes: ROC-ES and wAFROC-ES
+  # Calculate effect sizes: ROC and wAFROC
   deltaMu <- seq(0.01, 0.2, 0.01) # values of deltaMu to scan below
-  esRoc <- array(dim = length(deltaMu));eswAfroc <- array(dim = length(deltaMu))
+  esROC <- array(dim = length(deltaMu))
+  eswAFROC <- array(dim = length(deltaMu))
   for (i in 1:length(deltaMu)) {
-    esRoc[i] <- PlotRsmOperatingCharacteristics(mu + deltaMu[i], lambda, nu, lesDistr =
-                                                  lesDistr, OpChType = "ROC")$aucROC - aucRocNH
-    eswAfroc[i] <- PlotRsmOperatingCharacteristics(mu+ deltaMu[i], lambda, nu, lesDistr =
-                                                     lesDistr, OpChType = "wAFROC")$aucwAFROC - aucAfrocNH
+    # get intrinsic parameters
+    par_i <- Util2Intrinsic(muNH, lambdaNH, nuNH) # intrinsic
+    # find physical parameters for increased muNH
+    par_p <- Util2Physical(muNH + deltaMu[i], par_i$lambda_i, par_i$nu_i)  # physical
+    
+    esROC[i] <- UtilAnalyticalAucsRSM(
+      muNH + deltaMu[i], par_p$lambda, par_p$nu, lesDistr = lesDistr)$aucROC - aucRocNH
+    
+    eswAFROC[i] <- UtilAnalyticalAucsRSM(
+      muNH + deltaMu[i], par_p$lambda, par_p$nu, lesDistr = lesDistr)$aucwAFROC - aucwAfrocNH
+    
   }
 
-  scaleFactor<-lm(eswAfroc~-1+esRoc) # fit values to straight line through origin
+  scaleFactor<-lm(eswAFROC~-1+esROC) # fit values to straight line through origin
 
 
   return(list(
-    mu = mu,
-    # 9/22/22
-    lambda = lambda,
-    nu = nu,
+    mu = muNH,
+    lambda = lambdaNH,
+    nu = nuNH,
     scaleFactor = as.numeric(scaleFactor$coefficients),
     R2 = summary(scaleFactor)$r.squared
   ))

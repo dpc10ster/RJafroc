@@ -19,7 +19,7 @@
 #' @return A list containing \eqn{\lambda} and \eqn{\nu}
 #' 
 #' @details RSM is the Radiological Search Model described in the book. 
-#'   See also \code{\link{UtilRSM2Intrinsic}}.
+#'   See also \code{\link{Util2Intrinsic}}.
 #' 
 #' @references
 #' Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 
@@ -33,14 +33,14 @@
 #' 
 #' @examples
 #' mu <- 2;lambda_i <- 20;nu_i <- 1.1512925 
-#' lambda <- UtilIntrinsic2RSM(mu, lambda_i, nu_i)$lambda 
-#' nu <- UtilIntrinsic2RSM(mu, lambda_i, nu_i)$nu 
+#' lambda <- Util2Physical(mu, lambda_i, nu_i)$lambda 
+#' nu <- Util2Physical(mu, lambda_i, nu_i)$nu 
 #' ## note that only the physical values are only constrained to be positive
 #' ## the physical variable nu must obey 0 <= nu <= 1
 #' 
 #' 
 #' @export
-UtilIntrinsic2RSM <- function(mu, lambda_i, nu_i) {
+Util2Physical <- function(mu, lambda_i, nu_i) {
 
 lambda <- lambda_i / mu
 nu <- 1 - exp(-nu_i * mu)

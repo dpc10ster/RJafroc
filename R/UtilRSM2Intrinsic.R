@@ -23,7 +23,7 @@
 #' 
 #' @details RSM is the Radiological Search Model described in the book. A latent mark 
 #'    becomes an actual mark if the corresponding rating exceeds the lowest reporting 
-#'    threshold zeta1. See also \code{\link{UtilIntrinsic2RSM}}.
+#'    threshold zeta1. See also \code{\link{Util2Physical}}.
 #' 
 #' @references
 #' Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 
@@ -37,13 +37,13 @@
 #' 
 #' @examples
 #' mu <- 2;lambda <- 10;nu <- 0.9
-#' lambda_i <- UtilRSM2Intrinsic(mu, lambda, nu)$lambda_i 
-#' nu_i <- UtilRSM2Intrinsic(mu, lambda, nu)$nu_i 
+#' lambda_i <- Util2Intrinsic(mu, lambda, nu)$lambda_i 
+#' nu_i <- Util2Intrinsic(mu, lambda, nu)$nu_i 
 #' ## note that the physical values are only constrained to be positive, e.g., nu_i is not constrained
 #' ## to be between 0 and one.
 #' 
 #' @export
-UtilRSM2Intrinsic<- function(mu, lambda, nu) {
+Util2Intrinsic<- function(mu, lambda, nu) {
   
   lambda_i <- lambda * mu
   nu_i <- -log(1-nu)/mu

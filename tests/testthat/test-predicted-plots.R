@@ -46,7 +46,7 @@ UndoSearchParameterChange <- function (mu, lambda_i, nu_i)
   lambda <- lambda_i * 0
   nu <- nu_i * 0
   for (i in 1:length(lambda)) {
-    x <- UtilIntrinsic2RSM(mu[i], lambda_i[i], nu_i[i])
+    x <- Util2Physical(mu[i], lambda_i[i], nu_i[i])
     lambda[i] <- x$lambda
     nu[i] <- x$nu
   }
