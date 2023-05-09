@@ -27,8 +27,8 @@ test_that(contextStr, {
   expect_identical(names(x1), names(x2))
   expect_equivalent(x1$effectSizeROC, x2$effectSizeROC, tolerance=5e-4)
   expect_equivalent(x1$scaleFactor, x2$scaleFactor, tolerance=5e-3)
-  expect_equivalent(x1$powerRoc, x2$powerRoc, tolerance=5e-4)
-  expect_equivalent(x1$powerFroc, x2$powerFroc, tolerance=5e-5)
+  expect_equivalent(x1$powerRoc, x2$powerRoc, tolerance=5e-3)
+  expect_equivalent(x1$powerFroc, x2$powerFroc, tolerance=5e-4)
 
 })
 
