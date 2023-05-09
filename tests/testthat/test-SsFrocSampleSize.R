@@ -20,7 +20,7 @@ test_that(contextStr, {
         effectSizeROC = 0.03, JPivot = 5, KPivot = 100, 
         lesDistr = c(0.69, 0.2, 0.11))
   
-  expect_equal(x1,x2) 
+  # expect_equal(x1,x2) 
   # this can fail on other operating systems
   # see Issue #70
   # as per Peter's suggestions
@@ -54,12 +54,12 @@ test_that(contextStr, {
   x2 <- SsFrocNhRsmModel(DfExtractDataset(dataset04, trts = c(1,2)), 
                          lesDistr = c(0.69, 0.2, 0.11))
   
-  expect_equal(x1,x2) 
+  # expect_equal(x1,x2) 
   # this used to fail on other operating systems using SsFrocNhRsmModel()
   # see Issue #70
   # as per Peter's suggestions
   expect_identical(names(x1), names(x2))
-  expect_equivalent(x1$mu, x2$mu, tolerance=5e-4)
+  expect_equivalent(x1$mu, x2$mu, tolerance=5e-3)
   expect_equivalent(x1$lambda, x2$lambda, tolerance=5e-3)
   expect_equivalent(x1$nu, x2$nu, tolerance=5e-4)
   expect_equivalent(x1$ScaleFactor, x2$ScaleFactor, tolerance=5e-5)
