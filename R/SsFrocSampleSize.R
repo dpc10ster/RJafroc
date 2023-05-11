@@ -127,7 +127,7 @@ SsFrocSampleSize <- function (dataset, effectSizeROC, JPivot, KPivot, lesDistr) 
 }
 
 #'
-#' Build the RSM NH model for FROC sample size estimation
+#' Construct RSM NH model for FROC sample size estimation
 #'
 #' @param dataset The \strong{pilot} dataset.
 #' 
