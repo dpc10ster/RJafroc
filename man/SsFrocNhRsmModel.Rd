@@ -2,7 +2,7 @@
 % Please edit documentation in R/SsFrocSampleSize.R
 \name{SsFrocNhRsmModel}
 \alias{SsFrocNhRsmModel}
-\title{Build the RSM NH model for FROC sample size estimation}
+\title{Construct RSM NH model for FROC sample size estimation}
 \usage{
 SsFrocNhRsmModel(dataset, lesDistr)
 }
@@ -26,5 +26,5 @@ A list containing:
 }
 }
 \description{
-Build the RSM NH model for FROC sample size estimation
+Construct RSM NH model for FROC sample size estimation
 }
