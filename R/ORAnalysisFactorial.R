@@ -180,7 +180,7 @@ FOMijk2VarCov <- function(resampleFOMijk, varInflFactor) {
     Cov1 = Cov1,
     Cov2 = Cov2,
     Cov3 = Cov3,
-    CovMatrix <- covariances
+    CovMatrix = covariances
   ))
   
 }
