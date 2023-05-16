@@ -1,7 +1,9 @@
 library(RJafroc)
 library(testthat)
 
-ds <- dataset02
+rm(list = ls())
+
+ds <- RJafroc::dataset02
 
 st <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "OR")
 
@@ -118,7 +120,8 @@ for (i in 1:I) {
 }
 r1 <- sum/(I*J*(I-1)/2)
 covr1 <- sum2/((I*J*(I-1)-minus)/2)
-
+expect_equal(st$ANOVA$VarCom$Estimates[3], covr1)
+# but correlations are different
 
 #	ESTIMATE R_2
 sum <- 0
@@ -137,6 +140,8 @@ for (i in 1:I) {
 }
 r2 <- sum / count
 covr2 <- sum2 / count
+expect_equal(st$ANOVA$VarCom$Estimates[4], covr2)
+# but correlations are different
 
 
 #	ESTIMATE R_3
@@ -158,6 +163,8 @@ for (i in 1:I) {
 }
 r3 <- sum/count
 covr3 <- sum2/count
+expect_equal(st$ANOVA$VarCom$Estimates[5], covr3)
+# but correlations are different
 
 #	COMPARE R_2 AND R_3
 if(r3 > r2) {
