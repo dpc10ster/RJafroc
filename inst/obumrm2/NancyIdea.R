@@ -161,8 +161,6 @@ for (j in 1:J) {
   }
 }
 
-special  <- special/(I * J)
-
 # Nancy code for sum of squares etc
 correct <- 0
 totalss <- 0
@@ -200,9 +198,6 @@ readss <- readss/I - correct
 
 ss_inter <- totalss - trtsss - readss
 ms_inter <- ss_inter/((I-1)*(J-1))
-
-#	Estimate below due to Steve Hillis 09/05/2003
-v_inter <- ms_inter - (special - covr1 - covr2 + covr3)
 
 #	CALCULATE THE DENOMINATOR OF FSTAR (equation 3.13) (Random-Reader)
 sum <- 0
