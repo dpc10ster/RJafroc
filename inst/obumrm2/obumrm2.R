@@ -73,7 +73,7 @@ for (i in 1:I) {
 mean_o <- sum/I 
 expect_equal(mean_o, mean(unlist(st$FOMs$foms)) )
 
-# ESTIMATE R_1
+# ESTIMATE R_1 and Cov1
 sum <- 0
 sum2 <- 0
 minus <- 0
@@ -98,7 +98,7 @@ covr1 <- sum2/((I*J*(I-1)-minus)/2)
 expect_equal(st$ANOVA$VarCom$Estimates[3], covr1)
 # but correlations are different
 
-#	ESTIMATE R_2
+#	ESTIMATE R_2 and Cov2
 sum <- 0
 sum2 <- 0
 count <- 0
@@ -119,7 +119,7 @@ expect_equal(st$ANOVA$VarCom$Estimates[4], covr2)
 # but correlations are different
 
 
-#	ESTIMATE R_3
+#	ESTIMATE R_3 and Cov3
 sum <- 0
 sum2 <- 0
 count <- 0
