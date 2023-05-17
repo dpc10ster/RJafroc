@@ -1,47 +1,22 @@
+rm(list = ls())
+
 library(RJafroc)
 library(testthat)
 
-rm(list = ls())
+source("inst/obumrm2/covariance.R")
+
+FOM <- "Wilcoxon"
 
 ds <- RJafroc::dataset02
 
-st <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "OR")
+st <- StSignificanceTesting(ds, FOM = FOM, method = "OR")
 
-ret <- UtilPseudoValues(ds, FOM = "Wilcoxon")
+I <- dim(ds$ratings$NL)[1]
+J <- dim(ds$ratings$NL)[2]
 
-I <- dim(ret$jkFomValues)[1]
-J <- dim(ret$jkFomValues)[2]
-K <- dim(ret$jkFomValues)[3]
+COV <- covariance(ds, FOM = FOM)
 
-COV <- array(dim = c(I, I, J, J))
-
-for (i in 1:I) {
-  for (ip in 1:I) {
-    for (j in 1:J) {
-      for (jp in 1:J) {
-        COV[i, ip, j, jp] <- cov(ret$jkFomValues[i, j, ], ret$jkFomValues[ip, jp, ])
-      }
-    }
-  }
-}
-
-COV <- COV * (K - 1)^2/K  # see paper by Efron and Stein 
-
-# chk matrix is symmetric, no output if so
-for (i in 1:I) {
-  for (ip in 1:I) {
-    for (j in 1:J) {
-      for (jp in 1:J) {
-        if((ip != i) && (jp != j)) {
-          if (COV[i, ip, j, jp] != COV[ip, i, jp, j]) cat("i, ip, j, jp = ", i, ip, j, jp, "\n")
-        }
-      }
-    }
-  }
-}
-
-
-accur <- UtilFigureOfMerit(ds, FOM = "Wilcoxon")
+accur <- UtilFigureOfMerit(ds, FOM = FOM)
 
 #	COMPUTE THE P-VALUES FOR EACH READER FOR EACH MODALITY PAIR
 
@@ -95,8 +70,8 @@ sum <- 0
 for (i in 1:I) {
   sum <- sum + mean_t[i]
 }
-mean_o <- sum/I # mean(unlist(st$FOMs$foms)) OK
-
+mean_o <- sum/I 
+expect_equal(mean_o, mean(unlist(st$FOMs$foms)) )
 
 # ESTIMATE R_1
 sum <- 0
