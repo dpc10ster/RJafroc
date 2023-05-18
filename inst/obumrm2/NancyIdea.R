@@ -231,7 +231,7 @@ if((covr2-covr3) <= 0) {
   dfd <- ((ms_inter)**2)/((ms_inter**2)/((I-1)*(J-1)))
 }
 
-p_fstar_H <- 1 - pf(fstar, dfn, dfd) # OK with RJafroc, see next line
+p_fstar_H <- 1 - pf(fstar, dfn, dfd) 
 
 st1 <- StSignificanceTesting(ds1, FOM = FOM, method = "OR")
 st2 <- StSignificanceTesting(ds2, FOM = FOM, method = "OR")
