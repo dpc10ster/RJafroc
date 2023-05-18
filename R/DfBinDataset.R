@@ -194,9 +194,28 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   fileName <- paste0("DfBinDataset(", dataset$descriptions$fileName, ")")
   name <- dataset$descriptions$name
   design <- "FCTRL"
-  if (is.numeric(dataset$descriptions$truthTableStr)) { 
-    truthTableStr  <- dataset$descriptions$truthTableStr
-  } else {truthTableStr  <- NA}
+  
+  maxLL <- length(dataset$ratings$LL[1,1,1,])
+  perCase <- dataset$lesions$perCase
+  if (dataset$descriptions$type == "FROC") {
+    # added truthTableStr 5/18/2023
+    truthTableStr <- array(dim = c(I, J, K1+K2, maxLL+1))
+    truthTableStr[,,1:K1,1] <- 1
+    for (k2 in 1:K2) {
+      truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
+    }
+  } else if (dataset$descriptions$type == "ROC") {
+    # added truthTableStr 5/18/2023
+    truthTableStr <- array(dim = c(I, J, K, 2)) 
+    truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
+    truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
+  } else stop("data type must be ROC or FROC")
+  
+  # commented 5/18/2023
+  # if (is.numeric(dataset$descriptions$truthTableStr)) { 
+  #   truthTableStr  <- dataset$descriptions$truthTableStr
+  # } else {truthTableStr  <- NA}
+  
   type <- dataset$descriptions$type # sic; dataset not datasetB
   perCase <- dataset$lesions$perCase
   IDs <- dataset$lesions$IDs

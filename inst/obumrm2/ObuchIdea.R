@@ -12,20 +12,26 @@ source("inst/obumrm2/covariance.R")
 # ds1 <- DfReadDataFile(fileName1, newExcelFileFormat = T)
 # ds2 <- DfReadDataFile(fileName2, newExcelFileFormat = T)
 
-ds1 <- dataset02
-ds2 <- dataset03
+# ds1 <- RJafroc::dataset02
+# ds2 <- RJafroc::dataset03
+
+ds1 <- SimulateRocDataset(I = 2, J = 5, K1 = 25, K2 = 25, 
+                          a = 2, deltaA = 0.1, b = 0.8, seed = 201)
+ds2 <- SimulateRocDataset(I = 2, J = 5, K1 = 25, K2 = 25, 
+                          a = 2, deltaA = 0.1, b = 0.8, seed = 202)
+
 
 FOM <- "Wilcoxon"
 
-I_1 <- length(ds1$ratings$NL[,1,1,1])
-I_2 <- length(ds2$ratings$NL[,1,1,1])
+I_1 <- dim(ds1$ratings$NL)[1]
+I_2 <- dim(ds2$ratings$NL)[1]
 
 if ((I_1 !=2) && (I_1 != I_2)) stop("The two treatments must be identical.")
 
 I <- I_1
 
-J_1 <- length(ds1$ratings$NL[1,,1,1])
-J_2 <- length(ds2$ratings$NL[1,,1,1])
+J_1 <- dim(ds1$ratings$NL)[2]
+J_2 <- dim(ds2$ratings$NL)[2]
 
 J <- J_1 + J_2
 
@@ -96,7 +102,6 @@ mean_o <- sum/I
 sum <- 0
 sum2 <- 0
 minus <- 0
-count <- 0
 for (i in 1:I) {
   for (ip in 1:I) {
     if (ip > i) {
@@ -107,13 +112,12 @@ for (i in 1:I) {
         }
         sum <- sum + COV[i,ip,j,j]/sqrt(COV[i,i,j,j]*COV[ip,ip,j,j])
         sum2 <- sum2 + COV[i,ip,j,j]
-        count <- count + 1
       }
     }
   }
 }
-r1 <- sum/(I*J*(I-1)/2)
-covr1 <- sum2/((I*J*(I-1)-minus)/2)
+r1 <- sum/(I*J*(I-1)/2) # not used and does not agree with RJafroc
+covr1 <- sum2/((I*J*(I-1)-minus)/2) # agrees with RJafroc
 
 #	ESTIMATE R_2 and Cov2
 sum <- 0
@@ -130,8 +134,8 @@ for (i in 1:I) {
     }
   }
 }
-r2 <- sum / count
-covr2 <- sum2 / count
+r2 <- sum / count  # not used
+covr2 <- sum2 / count # agrees with RJafroc
 
 
 #	ESTIMATE R_3 and Cov3
@@ -151,17 +155,10 @@ for (i in 1:I) {
     }
   }
 }
-r3 <- sum/count
-covr3 <- sum2/count
+r3 <- sum/count  # not used
+covr3 <- sum2/count # agrees with RJafroc
 
-special  <- 0
-for (j in 1:J) {
-  for (i in 1:I) {
-    special <- special + COV[i,i,j,j]
-  }
-}
-
-# Nancy code for sum of squares etc
+# Code for sum of squares etc
 correct <- 0
 totalss <- 0
 for (i in 1:I) {
@@ -239,3 +236,25 @@ st2 <- StSignificanceTesting(ds2, FOM = FOM, method = "OR")
 cat("p-val first dataset = ", st1$RRRC$FTests$p[1], "\n")
 cat("p-val second dataset = ", st2$RRRC$FTests$p[1], "\n")
 cat("p-val combined dataset = ", p_fstar_H, "\n")
+# Expected output: dataset02 and dataset03
+# p-val first dataset =  0.051665686 
+# p-val second dataset =  0.11883786 
+# p-val combined dataset =  0.1963458
+# 
+# Expected output: simulation
+# ds1 <- SimulateRocDataset(I = 2, J = 5, K1 = 50, K2 = 50, 
+#                           a = 2, deltaA = 0.2, b = 0.8, seed = 201)
+# ds2 <- SimulateRocDataset(I = 2, J = 5, K1 = 50, K2 = 50, 
+#                           a = 2, deltaA = 0.2, b = 0.8, seed = 202)
+#                           
+# # p-val first dataset =  0.006590623 
+# p-val second dataset =  0.00022195508 
+# p-val combined dataset =  4.549312e-06 
+# ds1 <- SimulateRocDataset(I = 2, J = 5, K1 = 25, K2 = 25, 
+#                           a = 2, deltaA = 0.1, b = 0.8, seed = 201)
+# ds2 <- SimulateRocDataset(I = 2, J = 5, K1 = 25, K2 = 25, 
+#                           a = 2, deltaA = 0.1, b = 0.8, seed = 202)
+# > source("~/GitHub/RJafroc/inst/obumrm2/ObuchIdea.R")
+# p-val first dataset =  0.013762708 
+# p-val second dataset =  0.020637774 
+# p-val combined dataset =  9.6753196e-05 

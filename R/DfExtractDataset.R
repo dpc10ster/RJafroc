@@ -18,11 +18,11 @@
 #' 
 #' @examples 
 #' ## Extract the data corresponding to the second reader in the 
-#' ## first treatment from an included ROC dataset
+#' ## first treatment from an included FROC dataset
 #' ds1 <- DfExtractDataset(dataset05, trts = 1, rdrs = 2)
 #' 
 #' ## Extract the data of the first and third reader in all 
-#' ## treatment from the included ROC dataset
+#' ## treatment from the included FROC dataset
 #' ds2 <- DfExtractDataset(dataset05, rdrs = c(1, 3))
 #' 
 #' @export
@@ -58,6 +58,7 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
   
   K <- dim(dataset$ratings$NL)[3]
   K2 <- dim(dataset$ratings$LL)[3]
+  K1 <- K - K2 # added 5/18/2023
   
   NL <- dataset$ratings$NL[trts, rdrs, , , drop = FALSE]
   maxNL <- length(NL[1,1,1,]) # determine this from the extracted values
@@ -75,14 +76,29 @@ DfExtractDataset <- function(dataset, trts, rdrs) {
   modalityID <- dataset$descriptions$modalityID[trts]
   readerID <- dataset$descriptions$readerID[rdrs]
   
-  # start code fix issue T1-RRRC for ROC data #73 
-  # if (is.numeric(dataset$descriptions$truthTableStr)) {
+  if (dataset$descriptions$type == "FROC") {
+    # added truthTableStr 5/18/2023
+    truthTableStr <- array(dim = c(I, J, K1+K2, maxLL+1))
+    truthTableStr[,,1:K1,1] <- 1
+    for (k2 in 1:K2) {
+      truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
+    }
+  } else if (dataset$descriptions$type == "ROC") {
+    # added truthTableStr 5/18/2023
+    truthTableStr <- array(dim = c(I, J, K, 2)) 
+    truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
+    truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
+  } else stop("data type must be ROC or FROC")
+  
+  # obsolete code as result of above fix 5/18/2023
+  # # start code fix issue T1-RRRC for ROC data #73 
+  # # if (is.numeric(dataset$descriptions$truthTableStr)) {
+  # #   truthTableStr <- dataset$descriptions$truthTableStr[trts,rdrs,,,drop=FALSE]
+  # # } else truthTableStr <- NA
+  # if (!all(is.na(dataset$descriptions$truthTableStr))) {
   #   truthTableStr <- dataset$descriptions$truthTableStr[trts,rdrs,,,drop=FALSE]
   # } else truthTableStr <- NA
-  if (!all(is.na(dataset$descriptions$truthTableStr))) {
-    truthTableStr <- dataset$descriptions$truthTableStr[trts,rdrs,,,drop=FALSE]
-  } else truthTableStr <- NA
-  # end code fix issue T1-RRRC for ROC data #73 
+  # # end code fix issue T1-RRRC for ROC data #73 
   
   fileName <- paste0("DfExtractDataset(", dataset$descriptions$fileName,")")
   name <- dataset$descriptions$name

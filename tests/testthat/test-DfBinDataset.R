@@ -27,6 +27,7 @@ test_that("DfBinDataset (ROC, AFROC, etc.)", {
   for (b in 1:length(Bins)) {
     for (d in 1:length(dataset)) {
       for (t in 1:length(type)) {
+        cat("b = ", b, ", d = ", d, ", t = ", t, "\n")
         if ((type[t] == "ROC") && (Bins[b] == 1)) next
         fn <- paste0(test_path(), "/goodValues361/DfBinDataset/", dataset[d], type[t], "-", Bins[b], ".rds")
         if (!file.exists(fn)) {
