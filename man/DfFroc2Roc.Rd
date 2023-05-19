@@ -10,7 +10,7 @@ DfFroc2Roc(dataset)
 \item{dataset}{The FROC dataset to be converted, \code{\link{RJafroc-package}}.}
 }
 \value{
-An ROC dataset with \strong{finite ratings} in NL[,,1:K1,1] and LL[,,1:K2,1].
+An ROC dataset with \strong{finite} ratings in NL[,,1:K1,1] and LL[,,1:K2,1].
 }
 \description{
 Convert an FROC dataset to a highest rating inferred ROC dataset

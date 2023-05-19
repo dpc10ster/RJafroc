@@ -6,6 +6,16 @@ title: "NEWS"
 
 ---
 
+
+### Changes 05/18/2023
+* On `obumrm2` branch only
+* Added Obuchowski's idea - tested with rudimentary simulator; works!
+* `truthTableStr` is used inconsistently
+* TODO: find all occurrences of "05/18/2023" and `truthTableStr` and check code
+* TODO: `dataset11` fails RSM fitting; `mu` close to zero for several readers as needed 3 op. points are clustered into effectively two op. points
+* Fix `datasets.R`
+  
+
 ### Possible errors in RSM predicted TPF and other cpp implementations
 * `dataset11` has unusual lesion distribution: there are 14 elements but they range from 1 to 20 with some `lesionID`s missing
 * Added test_cpp_vs_R where I compare cpp to R implementations

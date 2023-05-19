@@ -5,7 +5,7 @@
 #' 
 #' @param dataset The FROC dataset to be converted, \code{\link{RJafroc-package}}.
 #' 
-#' @return An ROC dataset with \strong{finite ratings} in NL[,,1:K1,1] and LL[,,1:K2,1]. 
+#' @return An ROC dataset with \strong{finite} ratings in NL[,,1:K1,1] and LL[,,1:K2,1]. 
 #' 
 #' @details The first member of the ROC dataset is \code{NL}, whose 3rd dimension has
 #' length \code{(K1 + K2)}, the total number of cases. Ratings of cases \code{(K1 + 1)} 
@@ -158,12 +158,12 @@ DfFroc2Roc <- function (dataset) {
   # } else t <- NA # FROC truthTableStr is not available
   
   type <- "ROC"
-  dataset <- convert2dataset(NL, LL, LL_IL = NA, 
+  ds <- convert2dataset(NL, LL, LL_IL = NA, 
                              perCase, IDs, weights,
-                             fileName, type, name, truthTableStr = t, design,
+                             fileName, type, name, truthTableStr = truthTableStr, design,
                              modalityID, readerID)
   
-  return (dataset)
+  return (ds)
 }
 
 # In the following example, the highest rating comes from LLs on diseased cases for all 

@@ -4,10 +4,10 @@
 \alias{SimulateRocDataset}
 \title{Simulates a binormal model ROC dataset}
 \usage{
-SimulateRocDataset(I = 1, J = 1, K1, K2, a, b, seed = NULL)
+SimulateRocDataset(I = 1, J = 1, K1, K2, a, deltaA = 0, b, seed = NULL)
 }
 \arguments{
-\item{I}{The number of modalities, default is 1}
+\item{I}{The number of modalities, default is 1, max is 2}
 
 \item{J}{The number of readers, default is 1}
 
@@ -17,9 +17,12 @@ SimulateRocDataset(I = 1, J = 1, K1, K2, a, b, seed = NULL)
 
 \item{a}{The \eqn{a} parameter of the binormal model}
 
+\item{deltaA}{The inter-treatment increment in the \eqn{a} parameter, 
+default zero}
+
 \item{b}{The \eqn{b} parameter of the binormal model}
 
-\item{seed}{The initial seed, default is NULL, which results in a random seed}
+\item{seed}{The initial seed, default is NULL, resulting in random seed}
 }
 \value{
 An ROC dataset

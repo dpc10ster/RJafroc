@@ -27,7 +27,6 @@ test_that("DfBinDataset (ROC, AFROC, etc.)", {
   for (b in 1:length(Bins)) {
     for (d in 1:length(dataset)) {
       for (t in 1:length(type)) {
-        cat("b = ", b, ", d = ", d, ", t = ", t, "\n")
         if ((type[t] == "ROC") && (Bins[b] == 1)) next
         fn <- paste0(test_path(), "/goodValues361/DfBinDataset/", dataset[d], type[t], "-", Bins[b], ".rds")
         if (!file.exists(fn)) {
@@ -36,7 +35,10 @@ test_that("DfBinDataset (ROC, AFROC, etc.)", {
           saveRDS(ds, file = fn)
         }
         ds <- readRDS(fn)
-        expect_equal(DfBinDataset(get(dataset[d]), desiredNumBins = Bins[b], opChType = type[t]), ds)
+        ds1 <- DfBinDataset(get(dataset[d]), desiredNumBins = Bins[b], opChType = type[t])
+        expect_equal(ds$ratings,ds1$ratings)
+        expect_equal(ds$lesions,ds1$lesions)
+        expect_equal(ds,ds1)
       }
     }
   }
