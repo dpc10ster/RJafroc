@@ -2,15 +2,15 @@
 #' 
 #' @description  Simulates an uncorrelated binormal model ROC factorial dataset
 #' 
-#' @param I     The number of modalities, default is 1, max is 2
-#' @param J     The number of readers, default is 1
-#' @param K1     The number of non-diseased cases
-#' @param K2     The number of diseased cases
-#' @param a      The \eqn{a} parameter of the binormal model
-#' @param deltaA The inter-treatment increment in the \eqn{a} parameter, 
+#' @param I     Number of modalities, default 1
+#' @param J     The number of readers, default 1
+#' @param K1    Number of non-diseased cases
+#' @param K2    Number of diseased cases
+#' @param a     \eqn{a} parameter of binormal model
+#' @param deltaA Inter-treatment increment in the \eqn{a} parameter, 
 #'   default zero
-#' @param b      The \eqn{b} parameter of the binormal model
-#' @param seed  The initial seed, default is NULL, resulting in random seed
+#' @param b      \eqn{b} parameter of the binormal model
+#' @param seed  Initial seed, default is NULL, for random seed
 #'  
 #' @return An ROC dataset
 #' 
@@ -31,15 +31,17 @@
 SimulateRocDataset <- function(I = 1, J = 1, K1, K2, a, deltaA = 0, b, seed = NULL){
   # added deltaA 5/18/2023  
   if (!is.null(seed)) set.seed(seed)
-  if (I > 2) stop("Number of modalities cannot exceed 2") # added 5/18/2023  
-  
+
   NL <- array(dim = c(I, J, K1+K2, 1))
   LL <- array(dim = c(I, J, K2, 1))
   
   mu <- a/b
   sigma <- 1/b
   K <- K1 + K2
-  if (I == 2) deltaMu <- c(0, (a+deltaA)/b) else deltaMu <- (a+deltaA)/b # added 5/18/2023  
+  if (I > 1) {
+    deltaMu <- array(0, dim = I)
+    deltaMu[2] <- (a+deltaA)/b
+  } else deltaMu <- (a+deltaA)/b # added 5/18/2023  
   
   for (i in 1:I) {
     for (j in 1:J) {
@@ -64,8 +66,8 @@ SimulateRocDataset <- function(I = 1, J = 1, K1, K2, a, deltaA = 0, b, seed = NU
   modalityID <- as.character(1:I)
   readerID <- as.character(1:J)
   dataset <- convert2dataset(NL, LL, LL_IL = NA, 
-                              perCase, IDs, weights,
-                              fileName, type, name, truthTableStr, design,
-                              modalityID, readerID) 
+                             perCase, IDs, weights,
+                             fileName, type, name, truthTableStr, design,
+                             modalityID, readerID) 
   return(dataset)
 }

@@ -7,22 +7,22 @@
 SimulateRocDataset(I = 1, J = 1, K1, K2, a, deltaA = 0, b, seed = NULL)
 }
 \arguments{
-\item{I}{The number of modalities, default is 1, max is 2}
+\item{I}{Number of modalities, default 1}
 
-\item{J}{The number of readers, default is 1}
+\item{J}{The number of readers, default 1}
 
-\item{K1}{The number of non-diseased cases}
+\item{K1}{Number of non-diseased cases}
 
-\item{K2}{The number of diseased cases}
+\item{K2}{Number of diseased cases}
 
-\item{a}{The \eqn{a} parameter of the binormal model}
+\item{a}{\eqn{a} parameter of binormal model}
 
-\item{deltaA}{The inter-treatment increment in the \eqn{a} parameter, 
+\item{deltaA}{Inter-treatment increment in the \eqn{a} parameter, 
 default zero}
 
-\item{b}{The \eqn{b} parameter of the binormal model}
+\item{b}{\eqn{b} parameter of the binormal model}
 
-\item{seed}{The initial seed, default is NULL, resulting in random seed}
+\item{seed}{Initial seed, default is NULL, for random seed}
 }
 \value{
 An ROC dataset

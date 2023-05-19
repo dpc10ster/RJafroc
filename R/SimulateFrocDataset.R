@@ -3,17 +3,17 @@
 #' @description  Simulates an uncorrelated MRMC FROC dataset for specified numbers of
 #'    readers and treatments 
 #' 
-#' @param mu     The mu parameter of the RSM
-#' @param lambda The RSM lambda parameter
-#' @param nu     The RSM nu parameter
-#' @param zeta1  The lowest reporting threshold
-#' @param I      The number of treatments, default is 1, max is 2
-#' @param J      The number of readers
-#' @param K1     The number of non-diseased cases
-#' @param K2     The number of diseased cases
+#' @param mu     mu parameter of the RSM
+#' @param lambda RSM lambda parameter
+#' @param nu     RSM nu parameter
+#' @param zeta1  Lowest reporting threshold
+#' @param I      Number of treatments, default is 1
+#' @param J      Number of readers
+#' @param K1     Number of non-diseased cases
+#' @param K2     Number of diseased cases
 #' @param perCase A K2 length array containing the numbers of lesions per diseased case
-#' @param seed  The initial seed for the random number generator, the default 
-#'     is \code{NULL}, as if no seed has been specified.
+#' @param seed  Initial seed for random number generator, default 
+#'     \code{NULL}, for random seed.
 #' @param deltaMu Inter-treatment increment in mu, default zero 
 #' 
 #' @return An FROC dataset.
@@ -49,8 +49,11 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, se
   
   if (length(perCase) != K2) stop("SimulateFrocDataset: error in specification of number of lesions perCase vector.")
   
-  if (I > 2) stop("Number of modalities cannot exceed 2") # added 5/18/2023  
-  if (I == 2) deltaMu <- c(0, deltaMu) # added 5/18/2023  
+  if (I > 1) {
+    deltaMu1 <- array(0, dim = I)
+    deltaMu1[2] <- deltaMu
+    deltaMu <- deltaMu1
+  }  
   
   if (!is.null(seed)) set.seed(seed)
   
