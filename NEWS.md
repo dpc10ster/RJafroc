@@ -6,10 +6,18 @@ title: "NEWS"
 
 ---
 
+### Changes 05/19/2023
+* On `obumrm2` branch only
+* Fixed FROC simulator, easier to read code; both simulators are limited to I = 2
+* This affected `goodValues`; reinitialized affected ones.
+* Extended Obuchowski's idea - tested with rudimentary FROC simulator; works!
+* `truthTableStr` is used more consistently except for LROC and ROI paradigms
+* TODO: see below
+
 
 ### Changes 05/18/2023
 * On `obumrm2` branch only
-* Added Obuchowski's idea - tested with rudimentary simulator; works!
+* Added Obuchowski's idea - tested with rudimentary ROC simulator; works!
 * `truthTableStr` is used inconsistently
 * TODO: find all occurrences of "05/18/2023" and `truthTableStr` and check code
 * TODO: `dataset11` fails RSM fitting; `mu` close to zero for several readers as minimum 3 op. points are clustered into effectively two op. points
