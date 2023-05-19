@@ -7,13 +7,14 @@
 #' @param lambda The RSM lambda parameter
 #' @param nu     The RSM nu parameter
 #' @param zeta1  The lowest reporting threshold
-#' @param I      The number of treatments
+#' @param I      The number of treatments, default is 1, max is 2
 #' @param J      The number of readers
 #' @param K1     The number of non-diseased cases
 #' @param K2     The number of diseased cases
-#' @param perCase    A K2 length array containing the numbers of lesions per diseased case
+#' @param perCase A K2 length array containing the numbers of lesions per diseased case
 #' @param seed  The initial seed for the random number generator, the default 
-#'     is \code{NULL}, as if no seed has been specified. 
+#'     is \code{NULL}, as if no seed has been specified.
+#' @param deltaMu Inter-treatment increment in mu, default zero 
 #' 
 #' @return An FROC dataset.
 #' 
@@ -44,36 +45,60 @@
 #' 
 #' @export
 
-SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL){
+SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL, deltaMu = 0){
   
   if (length(perCase) != K2) stop("SimulateFrocDataset: error in specification of number of lesions perCase vector.")
+  
+  if (I > 2) stop("Number of modalities cannot exceed 2") # added 5/18/2023  
+  if (I == 2) deltaMu <- c(0, deltaMu) # added 5/18/2023  
+  
   if (!is.null(seed)) set.seed(seed)
-  nNL <- rpois(I * J * (K1 + K2), lambda)
-  dim(nNL) <- c(I,J,K1+K2)
+  
+  # find maxNL
+  nNL <- array(dim = c(I,J,K1+K2))
+  for (i in 1:I) {
+    # get intrinsic parameters
+    par_i <- Util2Intrinsic(mu, lambda, nu) # intrinsic
+    # find physical parameters for increased muNH
+    par_p <- Util2Physical(mu + deltaMu[i], par_i$lambda_i, par_i$nu_i)  # physical
+    for (j in 1:J) {  
+      for (k in 1:(K1 + K2)) {
+        nNL[i,j,k] <- rpois(1, par_p$lambda)
+      }
+    }
+  }
   maxNL <- max(nNL)
+  
   NL <- array(-Inf, dim = c(I, J, K1 + K2, maxNL))
   for (i in 1:I) {
     for (j in 1:J) {  
       for (k in 1:(K1 + K2)) {
-        nl <- rnorm(nNL[i,j,k])
-        nl <- nl[order(nl, decreasing = TRUE)]
-        nl[nl < zeta1] <- -Inf
-        NL[i,j,k, ] <- c(nl, rep(-Inf, maxNL - nNL[i,j,k]))
+        if (nNL[i,j,k] > 0) {
+          rNL <- rnorm(nNL[i,j,k])
+          rNL <- rNL[order(rNL, decreasing = TRUE)]
+          rNL[rNL < zeta1] <- -Inf
+          NL[i,j,k, ] <- c(rNL, rep(-Inf, maxNL - nNL[i,j,k]))
+        }
       }
     }
   }
   
   maxLL <- max(perCase)
   LL <- array(-Inf, dim = c(I,J,K2, maxLL))
-  
   for (i in 1:I) {
+    # get intrinsic parameters
+    par_i <- Util2Intrinsic(mu, lambda, nu) # intrinsic
+    # find physical parameters for increased muNH
+    par_p <- Util2Physical(mu + deltaMu[i], par_i$lambda_i, par_i$nu_i)  # physical
     for (j in 1:J) {  
       for (k in 1:K2){
-        nLL <- rbinom(1, perCase[k], nu)
-        ll <- rnorm(nLL, mu)
-        ll <- ll[order(ll, decreasing = TRUE)]
-        ll[ll < zeta1] <- -Inf
-        LL[i,j,k, ] <- c(ll, rep(-Inf, maxLL - nLL))
+        nLL <- rbinom(1, perCase[k], par_p$nu)
+        if (nLL > 0) {
+          rLL <- rnorm(nLL, mu + deltaMu[i])
+          rLL <- rLL[order(rLL, decreasing = TRUE)]
+          rLL[rLL < zeta1] <- -Inf
+          LL[i,j,k, ] <- c(rLL, rep(-Inf, maxLL - nLL))
+        }
       }
       
       IDs <- array(dim = c(K2, maxLL))

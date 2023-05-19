@@ -12,7 +12,7 @@ test_that(contextStr, {
   ds1 <- SimulateCorCbmDataset()
   expect_equal(ds1$ratings, ds$ratings)
   expect_equal(ds1$lesions, ds$lesions)
-  # expect_equal(ds1, ds) # truthTableStr fails 5/18/2023
+  expect_equal(ds1, ds)
 
 })
 

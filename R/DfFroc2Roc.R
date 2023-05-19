@@ -82,7 +82,7 @@
 
 DfFroc2Roc <- function (dataset) {
   
-  if (dataset$descriptions$type != "FROC") stop("This function requires an FROC dataset to be supplied")
+  if (dataset$descriptions$type != "FROC") stop("This function requires an FROC dataset.")
   
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   

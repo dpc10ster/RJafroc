@@ -31,7 +31,7 @@
 SimulateRocDataset <- function(I = 1, J = 1, K1, K2, a, deltaA = 0, b, seed = NULL){
   # added deltaA 5/18/2023  
   if (!is.null(seed)) set.seed(seed)
-  if (I > 2) stop("Numeber of modalities cannot exceed 2") # added 5/18/2023  
+  if (I > 2) stop("Number of modalities cannot exceed 2") # added 5/18/2023  
   
   NL <- array(dim = c(I, J, K1+K2, 1))
   LL <- array(dim = c(I, J, K2, 1))
@@ -39,7 +39,7 @@ SimulateRocDataset <- function(I = 1, J = 1, K1, K2, a, deltaA = 0, b, seed = NU
   mu <- a/b
   sigma <- 1/b
   K <- K1 + K2
-  deltaMu <- c(0, (a+deltaA)/b) # added 5/18/2023  
+  if (I == 2) deltaMu <- c(0, (a+deltaA)/b) else deltaMu <- (a+deltaA)/b # added 5/18/2023  
   
   for (i in 1:I) {
     for (j in 1:J) {
