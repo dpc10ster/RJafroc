@@ -171,12 +171,13 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   J <- dim(dataset$ratings$NL)[2]
   
   RsmParms <- array(dim = c(I,J,3))
+  temp <- array(list(), dim = c(I,J))
   for (i in 1:I) {
     for (j in 1:J)  {
-      temp <- FitRsmRoc(rocData, trt = i, rdr = j, lesDistr)
-      RsmParms[i,j,1] <- temp[[1]]
-      RsmParms[i,j,2] <- temp[[2]]
-      RsmParms[i,j,3] <- temp[[3]]
+      temp[[i,j]] <- FitRsmRoc(rocData, trt = i, rdr = j, lesDistr)
+      RsmParms[i,j,1] <- temp[[i,j]][[1]]
+      RsmParms[i,j,2] <- temp[[i,j]][[2]]
+      RsmParms[i,j,3] <- temp[[i,j]][[3]]
     }
   }
   
@@ -185,6 +186,32 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   lambdaNH <- median(RsmParms[,,2]) # these are physical parameters
   nuNH <- median(RsmParms[,,3]) # do:
   
+  auc_fit <- array(dim = c(I,J))
+  for (i in 1:I) {
+    for (j in 1:J) {
+      auc_fit[i,j] <- PlotRsmOperatingCharacteristics(
+        RsmParms[i,j,1], 
+        RsmParms[i,j,2], 
+        RsmParms[i,j,3],
+        lesDistr = lesDistr, 
+        OpChType = "ROC")$aucROC
+      cat("i = ", i, ", j = ", j, ", auc_fit = ", auc_fit[i,j], "\n")
+    }
+  }
+  
+  auc_emp <- array(dim = c(I,J))
+  for (i in 1:I) {
+    for (j in 1:J) {
+      auc_emp[i,j] <- PlotEmpiricalOperatingCharacteristics(
+        rocData, 
+        trts = i,
+        rdrs = j, opChType = "ROC")$aucROC
+      cat("i = ", i, ", j = ", j, ", auc_emp = ", auc_emp[i,j], "\n")
+    }
+  }
+  
+  
+    
   # calculate NH values for ROC-AUC and wAFROC-AUC
   aucRocNH <- PlotRsmOperatingCharacteristics(muNH, lambdaNH, nuNH,
                                               lesDistr = lesDistr, OpChType = "ROC")$aucROC

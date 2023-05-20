@@ -109,7 +109,7 @@
 ###results every time, regardless of seed, as observed.
 FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){ 
   # since the ROC dataset is sometimes derived from a FROC dataset with multiple lesions, 
-  # lesDist has to be supplied externally
+  # lesDistr has to be supplied externally
   
   if (missing(lesDistr)) stop("FitRsmRoc needs the lesDistr argument")
  
