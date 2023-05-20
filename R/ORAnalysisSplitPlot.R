@@ -77,7 +77,7 @@ ORAnalysisSplitPlotA <- function(dataset, FOM, FPFValue, alpha = 0.05, analysisO
   Var_i <- ret$Var_i
   Cov2_i <- ret$Cov2_i
   Cov3_i <- ret$Cov3_i
-  
+
   ANOVA <- data.frame("msT" = c(msT, NA),
                       "msR" = msR_i,
                       "msR_T_" = msR_T_,
@@ -185,7 +185,7 @@ ORAnalysisSplitPlotA <- function(dataset, FOM, FPFValue, alpha = 0.05, analysisO
   return(list(
     FOMs = FOMs,
     ANOVA = ANOVA,
-    RRRC = RRRC
+    RRRC = RRRC 
   ))
   
 } 

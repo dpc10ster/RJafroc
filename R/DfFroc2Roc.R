@@ -5,7 +5,7 @@
 #' 
 #' @param dataset The FROC dataset to be converted, \code{\link{RJafroc-package}}.
 #' 
-#' @return An ROC dataset with \strong{finite ratings} in NL[,,1:K1,1] and LL[,,1:K2,1]. 
+#' @return An ROC dataset with \strong{finite} ratings in NL[,,1:K1,1] and LL[,,1:K2,1]. 
 #' 
 #' @details The first member of the ROC dataset is \code{NL}, whose 3rd dimension has
 #' length \code{(K1 + K2)}, the total number of cases. Ratings of cases \code{(K1 + 1)} 
@@ -82,7 +82,7 @@
 
 DfFroc2Roc <- function (dataset) {
   
-  if (dataset$descriptions$type != "FROC") stop("This function requires an FROC dataset to be supplied")
+  if (dataset$descriptions$type != "FROC") stop("This function requires an FROC dataset.")
   
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
@@ -134,30 +134,36 @@ DfFroc2Roc <- function (dataset) {
   name <- dataset$descriptions$name
   design <- dataset$descriptions$design
   
+  # added truthTableStr 5/18/2023
+  truthTableStr <- array(dim = c(I, J, K, 2)) 
+  truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
+  truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
+  
+  # commented 5/18/2023
   # convert truthTableStr from FROC to ROC
-  truthTableStr <- dataset$descriptions$truthTableStr
-  if (!all(is.na(truthTableStr))) { # if FROC truthTableStr is available, convert it to ROC 
-    t <- array(dim=c(I,J,K,2)) # default is all NAs
-    U <- length(dataset$ratings$LL[1,1,1,]) + 1 # 4th dimension of truthTableStr
-    for (k in 1:K) {
-      if (k <= K1) {
-        t[,,k,1][!is.na(truthTableStr[,,k,1])] <- 1
-      }
-      else {
-        for (el in 2:U) {
-          t[,,k,2][!is.na(truthTableStr[,,k,el])] <- 1 # if any is not NA, then set t[,,k,2] to one
-        }
-      }
-    }
-  } else t <- NA # FROC truthTableStr is not available
+  # truthTableStr <- dataset$descriptions$truthTableStr
+  # if (!all(is.na(truthTableStr))) { # if FROC truthTableStr is available, convert it to ROC 
+  #   t <- array(dim=c(I,J,K,2)) # default is all NAs
+  #   U <- length(dataset$ratings$LL[1,1,1,]) + 1 # 4th dimension of truthTableStr
+  #   for (k in 1:K) {
+  #     if (k <= K1) {
+  #       t[,,k,1][!is.na(truthTableStr[,,k,1])] <- 1
+  #     }
+  #     else {
+  #       for (el in 2:U) {
+  #         t[,,k,2][!is.na(truthTableStr[,,k,el])] <- 1 # if any is not NA, then set t[,,k,2] to one
+  #       }
+  #     }
+  #   }
+  # } else t <- NA # FROC truthTableStr is not available
   
   type <- "ROC"
-  dataset <- convert2dataset(NL, LL, LL_IL = NA, 
+  ds <- convert2dataset(NL, LL, LL_IL = NA, 
                              perCase, IDs, weights,
-                             fileName, type, name, truthTableStr = t, design,
+                             fileName, type, name, truthTableStr = truthTableStr, design,
                              modalityID, readerID)
   
-  return (dataset)
+  return (ds)
 }
 
 # In the following example, the highest rating comes from LLs on diseased cases for all 

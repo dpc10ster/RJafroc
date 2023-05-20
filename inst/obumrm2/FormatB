@@ -1,0 +1,53 @@
+c	For FORMAT B, the inputted data must be structured as follows:
+c
+c	{The next J lines give the J x I matrix of estimated accuracies
+c	where J is the number of rows, aka readers, and I is the number
+c	of columns, aka diagnostic tests.  Note that these estimated
+c	accuracies (or a suitable transformation of them) should take on 
+c	values between zero and one.}
+c	The fixed format for these data must be specified by the user in
+c	the main body of the program.
+c		estimated accuracy for reader 1 for each of I tests
+c		estimated accuracy for reader 2 for each of I tests
+c		etc.
+c		estimated accuracy for reader J for each of I tests
+c
+c	{The next J lines give the J x J matrix of estimated 
+c	variances and covariances corresponding to modality 1.  So, the first
+c	entry is the variance of the estimated accuracy of reader 1 in 
+c	modality 1.  The second entry in that same row is the covariance of
+c	the estimated accuracies of readers 1 and 2 for modality 1.  etc.  
+c	In the J-th row, the first entry is the covariance of the estimated
+c	accuracies of readers 1 and J for modality 1.} 
+c		estimated variance and covariances for reader 1 in test 1
+c		estimated variance and covariances for reader 2 in test 1
+c		etc.
+c		estimated variances and covariances for reader J in test 1
+c
+c	{The next J lines give the J x J matrix of estimated 
+c	variances and covariances corresponding to modality 2.  So, the first
+c	entry is the variance of the estimated accuracy of reader 1 in 
+c	modality 2.  The second entry in that same row is the covariance of
+c	the estimated accuracies of readers 1 and 2 for modality 2.  etc.  
+c	In the J-th row, the first entry is the covariance of the estimated
+c	accuracies of readers 1 and J for modality 2.} 
+c		estimated variance and covariances for reader 1 in test 2
+c		estimated variance and covariances for reader 2 in test 2
+c		etc.
+c		estimated variances and covariances for reader J in test 2
+c
+c	{The next J lines give the J x J matrix of covariances
+c	corresponding to having a reader in modality 1 and a reader in
+c	modality 2.   So, the first entry is the covariance between
+c	the estimated accuracies of reader 1 in modality 1 and reader 1 in
+c	modality 2.  The second entry in that same row is the covariance of
+c	the estimated accuracies of reader 1 in modality 1 and reader 2 in
+c	modality 2, etc.  
+c	In the J-th row, the first entry is the covariance of the estimated
+c	accuracies of reader J in modality 1 and reader 1 in modality 2.} 
+c		cov for reader 1 in modality 1 with other readers in modality 2.
+c		cov for reader 2 in modality 1 with other readers in modality 2.
+c		etc.
+c		cov for reader J in modality 1 with other readers in modality 2.
+c
+c

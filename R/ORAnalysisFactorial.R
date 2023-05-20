@@ -96,6 +96,7 @@ ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMeth
 
 # 5/30/20 returning zeroes instead of NAs; simplifies handling of SPLIT-PLOT-C dataseets
 FOMijk2VarCov <- function(resampleFOMijk, varInflFactor) {
+  
   I <- dim(resampleFOMijk)[1]
   J <- dim(resampleFOMijk)[2]
   K <- dim(resampleFOMijk)[3]
@@ -110,6 +111,10 @@ FOMijk2VarCov <- function(resampleFOMijk, varInflFactor) {
         }
       }
     }
+  }
+  
+  if (varInflFactor)  {
+    covariances <- covariances * (K - 1)^2/K  # see paper by Efron and Stein 
   }
   
   Var <- 0
@@ -170,18 +175,12 @@ FOMijk2VarCov <- function(resampleFOMijk, varInflFactor) {
   }
   if (count > 0) Cov3 <- Cov3/count else Cov3 <- 0
   
-  if (varInflFactor)  {
-    Var <-  Var * (K - 1)^2/K  # see paper by Efron and Stein 
-    Cov1 <-  Cov1 * (K - 1)^2/K
-    Cov2  <-  Cov2 * (K - 1)^2/K
-    Cov3 <-  Cov3  * (K - 1)^2/K
-  }
-  
   return(list(
     Var = Var,
     Cov1 = Cov1,
     Cov2 = Cov2,
-    Cov3 = Cov3
+    Cov3 = Cov3,
+    CovMatrix = covariances
   ))
   
 }

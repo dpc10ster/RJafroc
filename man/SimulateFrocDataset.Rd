@@ -4,29 +4,43 @@
 \alias{SimulateFrocDataset}
 \title{Simulates an MRMC uncorrelated FROC dataset using the RSM}
 \usage{
-SimulateFrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL)
+SimulateFrocDataset(
+  mu,
+  lambda,
+  nu,
+  zeta1,
+  I,
+  J,
+  K1,
+  K2,
+  perCase,
+  seed = NULL,
+  deltaMu = 0
+)
 }
 \arguments{
-\item{mu}{The mu parameter of the RSM}
+\item{mu}{mu parameter of the RSM}
 
-\item{lambda}{The RSM lambda parameter}
+\item{lambda}{RSM lambda parameter}
 
-\item{nu}{The RSM nu parameter}
+\item{nu}{RSM nu parameter}
 
-\item{zeta1}{The lowest reporting threshold}
+\item{zeta1}{Lowest reporting threshold}
 
-\item{I}{The number of treatments}
+\item{I}{Number of treatments, default is 1}
 
-\item{J}{The number of readers}
+\item{J}{Number of readers}
 
-\item{K1}{The number of non-diseased cases}
+\item{K1}{Number of non-diseased cases}
 
-\item{K2}{The number of diseased cases}
+\item{K2}{Number of diseased cases}
 
 \item{perCase}{A K2 length array containing the numbers of lesions per diseased case}
 
-\item{seed}{The initial seed for the random number generator, the default 
-is \code{NULL}, as if no seed has been specified.}
+\item{seed}{Initial seed for random number generator, default 
+\code{NULL}, for random seed.}
+
+\item{deltaMu}{Inter-treatment increment in mu, default zero}
 }
 \value{
 An FROC dataset.

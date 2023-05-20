@@ -9,8 +9,11 @@ test_that(contextStr, {
   }
 
   ds <- readRDS(fn)
-  expect_equal(DfFroc2Roc(dataset05), ds)
-  
+  ds1 <- DfFroc2Roc(dataset05)
+  expect_equal(ds1$ratings, ds$ratings)
+  expect_equal(ds1$lesions, ds$lesions)
+  expect_equal(ds1, ds)
+
 })
   
 

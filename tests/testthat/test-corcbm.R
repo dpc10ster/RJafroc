@@ -10,8 +10,10 @@ test_that(contextStr, {
   }
   
   ds <- readRDS(fn)
-  expect_equal(DfCreateCorCbmDataset(), ds)
-  # end of test
+  ds1 <- DfCreateCorCbmDataset()
+  expect_equal(ds1$ratings, ds$ratings)
+  expect_equal(ds1$lesions, ds$lesions)
+  expect_equal(ds1, ds)
 
   fn <- paste0(test_path(), '/goodValues361/CORCBM/DfExtractCorCbmDataset', ".rds")
   if (!file.exists(fn)) {
@@ -21,8 +23,9 @@ test_that(contextStr, {
   }
   
   ds <- readRDS(fn)
-  expect_equal(DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3)), ds)
-  # end of test
+  ds1 <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3))
+  expect_equal(ds1, ds)
+
   
 })
 

@@ -20,7 +20,7 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
 \item{\code{descriptions$fileName}}{, chr, "dataset01", base name of dataset in `data` folder}
 \item{\code{descriptions$type}}{, chr "FROC", the data type}
 \item{\code{descriptions$name}}{, chr "TONY", the name of the dataset}
-\item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:185, 1:4] 1 1 1 1 ..., truth table structure}
+\item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:185, 1:3] 1 1 1 1 ..., truth table structure}
 \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
 \item{\code{descriptions$modalityID}}{, chr [1:2] "BT" "DM", treatment labels}
 \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}

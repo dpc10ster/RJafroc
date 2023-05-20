@@ -35,7 +35,10 @@ test_that("DfBinDataset (ROC, AFROC, etc.)", {
           saveRDS(ds, file = fn)
         }
         ds <- readRDS(fn)
-        expect_equal(DfBinDataset(get(dataset[d]), desiredNumBins = Bins[b], opChType = type[t]), ds)
+        ds1 <- DfBinDataset(get(dataset[d]), desiredNumBins = Bins[b], opChType = type[t])
+        expect_equal(ds$ratings,ds1$ratings)
+        expect_equal(ds$lesions,ds1$lesions)
+        expect_equal(ds,ds1)
       }
     }
   }
