@@ -202,10 +202,8 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   auc_emp <- array(dim = c(I,J))
   for (i in 1:I) {
     for (j in 1:J) {
-      auc_emp[i,j] <- PlotEmpiricalOperatingCharacteristics(
-        rocData, 
-        trts = i,
-        rdrs = j, opChType = "ROC")$aucROC
+      ds_ij <- DfExtractDataset(rocData, trts = i, rdrs = j)
+      auc_emp[i,j] <- as.numeric(UtilFigureOfMerit(ds_ij, FOM = "Wilcoxon"))
       cat("i = ", i, ", j = ", j, ", auc_emp = ", auc_emp[i,j], "\n")
     }
   }
