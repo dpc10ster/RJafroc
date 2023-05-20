@@ -49,41 +49,53 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SimulateFrocDataset</span><span class="op">(</span><span class="va">mu</span>, <span class="va">lambda</span>, <span class="va">nu</span>, <span class="va">zeta1</span>, <span class="va">I</span>, <span class="va">J</span>, <span class="va">K1</span>, <span class="va">K2</span>, <span class="va">perCase</span>, seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SimulateFrocDataset</span><span class="op">(</span></span>
+<span>  <span class="va">mu</span>,</span>
+<span>  <span class="va">lambda</span>,</span>
+<span>  <span class="va">nu</span>,</span>
+<span>  <span class="va">zeta1</span>,</span>
+<span>  <span class="va">I</span>,</span>
+<span>  <span class="va">J</span>,</span>
+<span>  <span class="va">K1</span>,</span>
+<span>  <span class="va">K2</span>,</span>
+<span>  <span class="va">perCase</span>,</span>
+<span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  deltaMu <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mu</dt>
-<dd><p>The mu parameter of the RSM</p></dd>
+<dd><p>mu parameter of the RSM</p></dd>
 
 
 <dt>lambda</dt>
-<dd><p>The RSM lambda parameter</p></dd>
+<dd><p>RSM lambda parameter</p></dd>
 
 
 <dt>nu</dt>
-<dd><p>The RSM nu parameter</p></dd>
+<dd><p>RSM nu parameter</p></dd>
 
 
 <dt>zeta1</dt>
-<dd><p>The lowest reporting threshold</p></dd>
+<dd><p>Lowest reporting threshold</p></dd>
 
 
 <dt>I</dt>
-<dd><p>The number of treatments</p></dd>
+<dd><p>Number of treatments, default is 1</p></dd>
 
 
 <dt>J</dt>
-<dd><p>The number of readers</p></dd>
+<dd><p>Number of readers</p></dd>
 
 
 <dt>K1</dt>
-<dd><p>The number of non-diseased cases</p></dd>
+<dd><p>Number of non-diseased cases</p></dd>
 
 
 <dt>K2</dt>
-<dd><p>The number of diseased cases</p></dd>
+<dd><p>Number of diseased cases</p></dd>
 
 
 <dt>perCase</dt>
@@ -91,8 +103,12 @@
 
 
 <dt>seed</dt>
-<dd><p>The initial seed for the random number generator, the default 
-is <code>NULL</code>, as if no seed has been specified.</p></dd>
+<dd><p>Initial seed for random number generator, default 
+<code>NULL</code>, for random seed.</p></dd>
+
+
+<dt>deltaMu</dt>
+<dd><p>Inter-treatment increment in mu, default zero</p></dd>
 
 </dl></div>
     <div id="value">

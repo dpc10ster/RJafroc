@@ -1,279 +1,279 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/404.html</loc>
+    <loc>/404.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/authors.html</loc>
+    <loc>/authors.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/index.html</loc>
+    <loc>/index.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/news/index.html</loc>
+    <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/ChisqrGoodnessOfFit.html</loc>
+    <loc>/reference/ChisqrGoodnessOfFit.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/Df2RJafrocDataset.html</loc>
+    <loc>/reference/Df2RJafrocDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfBinDataset.html</loc>
+    <loc>/reference/DfBinDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfCreateCorCbmDataset.html</loc>
+    <loc>/reference/DfCreateCorCbmDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfExtractCorCbmDataset.html</loc>
+    <loc>/reference/DfExtractCorCbmDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfExtractDataset.html</loc>
+    <loc>/reference/DfExtractDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfFroc2Lroc.html</loc>
+    <loc>/reference/DfFroc2Lroc.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfFroc2Roc.html</loc>
+    <loc>/reference/DfFroc2Roc.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfLroc2Froc.html</loc>
+    <loc>/reference/DfLroc2Froc.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfLroc2Roc.html</loc>
+    <loc>/reference/DfLroc2Roc.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfReadCrossedModalities.html</loc>
+    <loc>/reference/DfReadCrossedModalities.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfReadDataFile.html</loc>
+    <loc>/reference/DfReadDataFile.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfSaveDataFile.html</loc>
+    <loc>/reference/DfSaveDataFile.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/DfWriteExcelDataFile.html</loc>
+    <loc>/reference/DfWriteExcelDataFile.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/FitBinormalRoc.html</loc>
+    <loc>/reference/FitBinormalRoc.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/FitCbmRoc.html</loc>
+    <loc>/reference/FitCbmRoc.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/FitCorCbm.html</loc>
+    <loc>/reference/FitCorCbm.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/FitRsmRoc.html</loc>
+    <loc>/reference/FitRsmRoc.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/PlotBinormalFit.html</loc>
+    <loc>/reference/PlotBinormalFit.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/PlotCbmFit.html</loc>
+    <loc>/reference/PlotCbmFit.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/PlotEmpiricalOperatingCharacteristics.html</loc>
+    <loc>/reference/PlotEmpiricalOperatingCharacteristics.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/PlotRsmOperatingCharacteristics.html</loc>
+    <loc>/reference/PlotRsmOperatingCharacteristics.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RJafroc-package.html</loc>
+    <loc>/reference/RJafroc-package.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_FPF.html</loc>
+    <loc>/reference/RSM_FPF.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_LLF.html</loc>
+    <loc>/reference/RSM_LLF.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_NLF.html</loc>
+    <loc>/reference/RSM_NLF.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_TPF.html</loc>
+    <loc>/reference/RSM_TPF.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_pdfD.html</loc>
+    <loc>/reference/RSM_pdfD.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_pdfN.html</loc>
+    <loc>/reference/RSM_pdfN.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/RSM_wLLF.html</loc>
+    <loc>/reference/RSM_wLLF.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SimulateCorCbmDataset.html</loc>
+    <loc>/reference/SimulateCorCbmDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SimulateFrocDataset.html</loc>
+    <loc>/reference/SimulateFrocDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SimulateFrocFromLrocDataset.html</loc>
+    <loc>/reference/SimulateFrocFromLrocDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SimulateLrocDataset.html</loc>
+    <loc>/reference/SimulateLrocDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SimulateRocDataset.html</loc>
+    <loc>/reference/SimulateRocDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SsFrocNhRsmModel.html</loc>
+    <loc>/reference/SsFrocNhRsmModel.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SsFrocSampleSize.html</loc>
+    <loc>/reference/SsFrocSampleSize.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SsPowerGivenJK.html</loc>
+    <loc>/reference/SsPowerGivenJK.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SsPowerGivenJKDbmVarCom.html</loc>
+    <loc>/reference/SsPowerGivenJKDbmVarCom.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SsPowerGivenJKOrVarCom.html</loc>
+    <loc>/reference/SsPowerGivenJKOrVarCom.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SsPowerTable.html</loc>
+    <loc>/reference/SsPowerTable.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/SsSampleSizeKGivenJ.html</loc>
+    <loc>/reference/SsSampleSizeKGivenJ.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/StSignificanceTesting.html</loc>
+    <loc>/reference/StSignificanceTesting.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/StSignificanceTestingCadVsRad.html</loc>
+    <loc>/reference/StSignificanceTestingCadVsRad.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/StSignificanceTestingCrossedModalities.html</loc>
+    <loc>/reference/StSignificanceTestingCrossedModalities.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/Util2Intrinsic.html</loc>
+    <loc>/reference/Util2Intrinsic.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/Util2Physical.html</loc>
+    <loc>/reference/Util2Physical.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilAnalyticalAucsRSM.html</loc>
+    <loc>/reference/UtilAnalyticalAucsRSM.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilAucBIN.html</loc>
+    <loc>/reference/UtilAucBIN.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilAucCBM.html</loc>
+    <loc>/reference/UtilAucCBM.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilAucPROPROC.html</loc>
+    <loc>/reference/UtilAucPROPROC.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilDBM2ORVarCom.html</loc>
+    <loc>/reference/UtilDBM2ORVarCom.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilFigureOfMerit.html</loc>
+    <loc>/reference/UtilFigureOfMerit.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilLesDistr.html</loc>
+    <loc>/reference/UtilLesDistr.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilLesWghts.html</loc>
+    <loc>/reference/UtilLesWghts.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilMeanSquares.html</loc>
+    <loc>/reference/UtilMeanSquares.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilOR2DBMVarCom.html</loc>
+    <loc>/reference/UtilOR2DBMVarCom.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilOutputReport.html</loc>
+    <loc>/reference/UtilOutputReport.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilPseudoValues.html</loc>
+    <loc>/reference/UtilPseudoValues.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilVarComponentsDBM.html</loc>
+    <loc>/reference/UtilVarComponentsDBM.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/UtilVarComponentsOR.html</loc>
+    <loc>/reference/UtilVarComponentsOR.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset01.html</loc>
+    <loc>/reference/dataset01.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset02.html</loc>
+    <loc>/reference/dataset02.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset03.html</loc>
+    <loc>/reference/dataset03.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset04.html</loc>
+    <loc>/reference/dataset04.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset05.html</loc>
+    <loc>/reference/dataset05.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset06.html</loc>
+    <loc>/reference/dataset06.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset07.html</loc>
+    <loc>/reference/dataset07.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset08.html</loc>
+    <loc>/reference/dataset08.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset09.html</loc>
+    <loc>/reference/dataset09.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset10.html</loc>
+    <loc>/reference/dataset10.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset11.html</loc>
+    <loc>/reference/dataset11.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset12.html</loc>
+    <loc>/reference/dataset12.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset13.html</loc>
+    <loc>/reference/dataset13.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/dataset14.html</loc>
+    <loc>/reference/dataset14.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/datasetBinned123.html</loc>
+    <loc>/reference/datasetBinned123.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/datasetBinned124.html</loc>
+    <loc>/reference/datasetBinned124.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/datasetBinned125.html</loc>
+    <loc>/reference/datasetBinned125.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/datasetCadLroc.html</loc>
+    <loc>/reference/datasetCadLroc.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/datasetCadSimuFroc.html</loc>
+    <loc>/reference/datasetCadSimuFroc.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/datasetCrossedModality.html</loc>
+    <loc>/reference/datasetCrossedModality.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/datasetDegenerate.html</loc>
+    <loc>/reference/datasetDegenerate.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/datasetFROCSpC.html</loc>
+    <loc>/reference/datasetFROCSpC.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/datasetROI.html</loc>
+    <loc>/reference/datasetROI.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/index.html</loc>
+    <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/isBinnedDataset.html</loc>
+    <loc>/reference/isBinnedDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/isValidDataset.html</loc>
+    <loc>/reference/isValidDataset.html</loc>
   </url>
   <url>
-    <loc>https://github.com/dpc10ster/RJafroc/reference/testCpp.html</loc>
+    <loc>/reference/testCpp.html</loc>
   </url>
 </urlset>

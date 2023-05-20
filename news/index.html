@@ -44,6 +44,27 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.1.2.9000" id="version-2129000">version 2.1.2.9000<a class="anchor" aria-label="anchor" href="#version-2129000"></a></h2>
 <hr><div class="section level3">
+<h3 id="changes-2-1-2-9000">Changes 05/19/2023<a class="anchor" aria-label="anchor" href="#changes-2-1-2-9000"></a></h3>
+<ul><li>On <code>obumrm2</code> branch only</li>
+<li>Fixed FROC simulator, easier to read code; both simulators are NOT limited to I = 2.</li>
+<li>This affected <code>goodValues</code>; reinitialized affected ones.</li>
+<li>Extended Obuchowski’s idea - tested with rudimentary FROC simulator; works!</li>
+<li>
+<code>truthTableStr</code> is used more consistently except for LROC and ROI paradigms.</li>
+<li>TODO: see below</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-2-1-2-9000-1">Changes 05/18/2023<a class="anchor" aria-label="anchor" href="#changes-2-1-2-9000-1"></a></h3>
+<ul><li>On <code>obumrm2</code> branch only.</li>
+<li>Added Obuchowski’s idea - tested with rudimentary ROC simulator; works!</li>
+<li>
+<code>truthTableStr</code> is used inconsistently.</li>
+<li>TODO: find all occurrences of “05/18/2023” and <code>truthTableStr</code> and check code.</li>
+<li>TODO: <code>dataset11</code> fails RSM fitting; <code>mu</code> close to zero for several readers as minimum 3 op. points are clustered into effectively two op. points.</li>
+<li>Fix <code>datasets.R</code>
+</li>
+</ul></div>
+<div class="section level3">
 <h3 id="possible-errors-in-rsm-predicted-tpf-and-other-cpp-implementations-2-1-2-9000">Possible errors in RSM predicted TPF and other cpp implementations<a class="anchor" aria-label="anchor" href="#possible-errors-in-rsm-predicted-tpf-and-other-cpp-implementations-2-1-2-9000"></a></h3>
 <ul><li>
 <code>dataset11</code> has unusual lesion distribution: there are 14 elements but they range from 1 to 20 with some <code>lesionID</code>s missing</li>
