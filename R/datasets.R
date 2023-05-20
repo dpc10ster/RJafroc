@@ -885,8 +885,7 @@
 #'
 #' A simulated degenerated dataset. A degenerate dataset is defined as one with
 #' no interior operating points on the ROC plot. Such data tend to be observed with expert level 
-#' radiologists. This dataset is used to illustrate the robustness of two fitting models, namely
-#' CBM and RSM. The widely used binormal model and PROPROC fail on such datasets. 
+#' radiologists. This dataset is used to illustrate the robustness of CBM and RSM fitting models. 
 #' 
 #' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
 #'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
