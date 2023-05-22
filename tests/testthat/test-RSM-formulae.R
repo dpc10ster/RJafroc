@@ -99,11 +99,10 @@ test_that(contextStr, {
                                   zeta1 = zeta1, 
                                   lesDistr = lesDistr, 
                                   relWeights =  relWeights)$aucwAFROC
-  ret2 <- PlotRsmOperatingCharacteristics(mu = mu, 
+  ret2 <- UtilAnalyticalAucsRSM(mu = mu, 
                                           lambda = lambda, 
                                           nu = nu, 
                                           zeta1 = zeta1, 
-                                          OpChType = "wAFROC",
                                           lesDistr = lesDistr, 
                                           relWeights = relWeights)$aucwAFROC
 

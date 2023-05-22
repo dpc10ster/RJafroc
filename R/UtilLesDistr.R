@@ -3,7 +3,7 @@
 #' @description The \code{lesionID} distribution of a dataset \bold{or} of a supplied 
 #'   1D-array. The \code{lesionID} field is described in the format of the Excel 
 #'   input file, 
-#'   see \href{https://dpc10ster.github.io/RJafrocQuickStart/quick-start-froc.html}{QuickStart}.
+#'   see \href{https://dpc10ster.github.io/RJafrocQuickStart/quick-start-froc.html}{QuickStart}
 #'   (use Command click to view the link).
 #' 
 #' @param dsOrArr A dataset object or a 1D-array. 

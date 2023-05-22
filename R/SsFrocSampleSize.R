@@ -181,21 +181,15 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
     }
   }
   
-  # use median instead of average
-  muNH <- median(RsmParms[,,1])
-  lambdaNH <- median(RsmParms[,,2]) # these are physical parameters
-  nuNH <- median(RsmParms[,,3]) # do:
-  
   auc_fit <- array(dim = c(I,J))
   for (i in 1:I) {
     for (j in 1:J) {
-      auc_fit[i,j] <- PlotRsmOperatingCharacteristics(
+      auc_fit[i,j] <- UtilAnalyticalAucsRSM(
         RsmParms[i,j,1], 
         RsmParms[i,j,2], 
         RsmParms[i,j,3],
-        lesDistr = lesDistr, 
-        OpChType = "ROC")$aucROC
-      cat("i = ", i, ", j = ", j, ", auc_fit = ", auc_fit[i,j], "\n")
+        lesDistr = lesDistr)$aucROC
+      #cat("i = ", i, ", j = ", j, ", auc_fit = ", auc_fit[i,j], "\n")
     }
   }
   
@@ -204,17 +198,29 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
     for (j in 1:J) {
       ds_ij <- DfExtractDataset(rocData, trts = i, rdrs = j)
       auc_emp[i,j] <- as.numeric(UtilFigureOfMerit(ds_ij, FOM = "Wilcoxon"))
-      cat("i = ", i, ", j = ", j, ", auc_emp = ", auc_emp[i,j], "\n")
+      #cat("i = ", i, ", j = ", j, ", auc_emp = ", auc_emp[i,j], "\n")
     }
   }
   
+  # remove treatment-reader conditions with large variation from empirical auc
+  bad <- which(abs(auc_fit-auc_emp) > 0.05)
   
-    
+  # use median instead of average
+  if (length(bad) > 0) {
+    muNH <- median(as.vector(RsmParms[,,1])[-bad])
+    lambdaNH <- median(as.vector(RsmParms[,,2])[-bad]) # these are physical parameters
+    nuNH <- median(as.vector(RsmParms[,,3])[-bad]) 
+  } else { # do:
+    muNH <- median(as.vector(RsmParms[,,1]))
+    lambdaNH <- median(as.vector(RsmParms[,,2]))
+    nuNH <- median(as.vector(RsmParms[,,3]))
+  }
+  
   # calculate NH values for ROC-AUC and wAFROC-AUC
-  aucRocNH <- PlotRsmOperatingCharacteristics(muNH, lambdaNH, nuNH,
-                                              lesDistr = lesDistr, OpChType = "ROC")$aucROC
-  aucwAfrocNH <- PlotRsmOperatingCharacteristics(muNH, lambdaNH, nuNH,
-                                                 lesDistr = lesDistr, OpChType = "wAFROC")$aucwAFROC
+  aucRocNH <- UtilAnalyticalAucsRSM(muNH, lambdaNH, nuNH,
+                                    lesDistr = lesDistr)$aucROC
+  aucwAfrocNH <- UtilAnalyticalAucsRSM(muNH, lambdaNH, nuNH,
+                                       lesDistr = lesDistr)$aucwAFROC
   
   # Calculate effect sizes: ROC and wAFROC
   deltaMu <- seq(0.01, 0.2, 0.01) # values of deltaMu to scan below
@@ -244,4 +250,26 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
     scaleFactor = as.numeric(scaleFactor$coefficients),
     R2 = summary(scaleFactor)$r.squared
   ))
+}
+
+
+# A which for multidimensional arrays.
+# Mark van der Loo 16.09.2011
+#
+# A Array of booleans
+# returns a sum(A) x length(dim(A)) array of multi-indices where A == TRUE
+#
+multi.which <- function(A){
+  if ( is.vector(A) ) return(which(A))
+  d <- dim(A)
+  T <- which(A) - 1
+  nd <- length(d)
+  t( sapply(T, function(t){
+    I <- integer(nd)
+    I[1] <- t %% d[1]
+    sapply(2:nd, function(j){
+      I[j] <<- (t %/% prod(d[1:(j-1)])) %% d[j]
+    })
+    I
+  }) + 1 )
 }

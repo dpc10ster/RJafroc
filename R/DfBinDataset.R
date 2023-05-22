@@ -86,7 +86,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   if (opChType == "ROC") FOM <- "Wilcoxon" else if (opChType == "AFROC") 
     FOM <- "AFROC" else if (opChType == "wAFROC") FOM <- "wAFROC" 
   else if (opChType == "FROC") FOM <- "FROC" else stop("should not be here")
-
+  
   if (DEBUG) {
     fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = FOM))
     print(fomOrg)
@@ -274,6 +274,16 @@ DfFroc2Afroc <- function (dataset){
 
 isDataDegenerate <-  function (fpf, tpf) {
   
+  dist <- array(dim = choose(length(fpf),2))
+  count <- 0
+  for (i in 1:length(fpf)) {
+    for (j in 1:length(fpf)) {
+      if (j > i) {
+        count <- count + 1
+        dist[count] <- sqrt((fpf[j]-fpf[i])^2+(tpf[j]-tpf[i])^2)
+      }
+    }
+  }
   ret <- rep(FALSE, length(fpf))
   for (i in 1:length(fpf)){
     if ((fpf[i] == 0) || (tpf[i] == 0) || (fpf[i] == 1) || (tpf[i] == 1)) ret[i] <- TRUE
