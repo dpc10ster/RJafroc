@@ -203,10 +203,12 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   }
   
   # remove treatment-reader conditions with large variation from empirical auc
-  bad <- which(abs(auc_fit-auc_emp) > 0.05)
+  bad <- which(abs(auc_fit-auc_emp) > 0.1)
   
-  # use median instead of average
+  # drop bad estimates
   if (length(bad) > 0) {
+    # use median instead of average
+    cat("dropped ", length(bad), "estimates with large deviations from empirical auc\n")
     muNH <- median(as.vector(RsmParms[,,1])[-bad])
     lambdaNH <- median(as.vector(RsmParms[,,2])[-bad]) # these are physical parameters
     nuNH <- median(as.vector(RsmParms[,,3])[-bad]) 

@@ -53,7 +53,7 @@ In  CBM ratings from diseased cases are sampled from a mixture distribution
    the p-value and the degrees of freedom.
 }
 \note{
-This algorithm is very robust, much more so than the binormal model.
+This algorithm is very robust, especially compared to the binormal model.
 }
 \examples{
 

@@ -107,12 +107,15 @@
 ###Shanno. This uses function values and gradients to build up a picture of the surface to be optimized. 
 ###DPC note: this implies it does not involve random search in parameter space, so should get same 
 ###results every time, regardless of seed, as observed.
+
 FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){ 
   # since the ROC dataset is sometimes derived from a FROC dataset with multiple lesions, 
   # lesDistr has to be supplied externally
+
+  errorMsg <- ""  # keep track of any generated warnings
   
   if (missing(lesDistr)) stop("FitRsmRoc needs the lesDistr argument")
- 
+  
   maxLambda <- RJafrocEnv$maxLambda
   minLambda <- RJafrocEnv$minLambda
   maxNu <- RJafrocEnv$maxNu
@@ -130,10 +133,16 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   plotZeta <- seq(from = -3, to = 10, by = plotStep)
   
   ret1 <- UtilBinCountsOpPts(binnedRocData, trt, rdr) 
-  fpf <- ret1$fpf;tpf <- ret1$tpf;fpCounts <- ret1$fpCounts;tpCounts <- ret1$tpCounts
+  fpf <- ret1$fpf
+  tpf <- ret1$tpf
+  fpCounts <- ret1$fpCounts
+  tpCounts <- ret1$tpCounts
   # K1 <- sum(fpCounts);K2 <- sum(tpCounts)
-  if (isDataDegenerate (fpf, tpf)) {
-    if (max(tpf) > max(fpf)) { 
+  temp <- isDataDegenerate (fpf, tpf)
+  msg <- temp$msg
+  if (msg != "") errorMsg <- paste0(errorMsg, msg)
+  if (temp$ret) {
+    if (max(tpf) > max(fpf)) { # left or top boundary of ROC square
       mu <- maxMu # technically infinity; but then vertical line does not plot
       lambda <- -log(1 - fpf[length(fpf)]) # dpc
       nu <- max(tpf)
@@ -152,9 +161,10 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
         NLLFin = NA,
         ChisqrFitStats = list(NA,NA,NA),
         covMat = NA,
-        fittedPlot = fittedPlot 
+        fittedPlot = fittedPlot,
+        errorMsg = errorMsg
       ))
-    } else { # right or bottom boundary of ROC
+    } else { # right or bottom boundary of ROC square
       mu <- minMu # 
       lambda <- maxLambda # dpc
       nu <- minNu
@@ -162,7 +172,7 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
       tpfPred <- sapply(plotZeta, yROC_cpp, mu = mu, lambda = lambda, 
                         nu = nu, lesDistr = lesDistr)
       fittedPlot <- genericPlotROC (fp, tp, fpfPred, tpfPred, method = "RSM")
-       return(list(
+      return(list(
         mu = minMu,
         lambda = maxLambda,
         nu = minNu,
@@ -173,22 +183,20 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
         NLLFin = NA,
         ChisqrFitStats = list(NA,NA,NA),
         covMat = NA,
-        fittedPlot = fittedPlot 
+        fittedPlot = fittedPlot, 
+        errorMsg = errorMsg
       ))
     }
   }
-  
+
   retCbm <- FitCbmRoc(binnedRocData, trt = trt, rdr = rdr)
-  #aucCbm <- retCbm$AUC
+  aucCbm <- retCbm$AUC
   muIni <- retCbm$mu
-  lambdaIni <- -log(1 - fpf[length(fpf)]) # dpc
-  
-  nuIni <- retCbm$alpha # dpc
+  lambdaIni <- -log(1 - fpf[length(fpf)]) 
+  nuIni <- retCbm$alpha 
   zetasIni <- retCbm$zetas
-  
   mu <- muIni; lambda <- lambdaIni;nu <- nuIni;zetas <- zetasIni
   
-  # while (1){  
   muFwd <- ForwardValue(mu, minMu, maxMu)
   lambdaFwd <- ForwardValue(lambda, minLambda, maxLambda)
   nuFwd <- ForwardValue(nu, minNu, maxNu)
@@ -239,7 +247,7 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
   tpfPred <- sapply(plotZeta, yROC_cpp, mu = mu, lambda = lambda, 
                     nu = nu, lesDistr = lesDistr)
   fittedPlot <- genericPlotROC (fp, tp, fpfPred, tpfPred, method = "RSM")
-
+  
   # calculate covariance matrix using un-transformed variables
   namesVector <- c(c("mu", "lambda", "nu"), paste0("zeta", 1:length(zetas)))
   parameters <- c(list(mu, lambda, nu), as.list(zetas))
@@ -289,7 +297,8 @@ FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){
     NLLFin = NLLFin,
     ChisqrFitStats = ChisqrFitStats,
     covMat = covMat,
-    fittedPlot = fittedPlot 
+    fittedPlot = fittedPlot, 
+    errorMsg = errorMsg
   ))
 }
 

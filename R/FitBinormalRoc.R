@@ -89,6 +89,8 @@ FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
   maxB <- RJafrocEnv$maxB
   minZeta <- RJafrocEnv$minZeta 
   maxZeta <- RJafrocEnv$maxZeta 
+ 
+  errorMsg <- ""  # keep track of any generated warnings
   
   fp <- dataset$ratings$NL[trt,rdr,,1];fp <- fp[fp != -Inf]
   tp <- dataset$ratings$LL[trt,rdr,,1]
@@ -99,7 +101,10 @@ FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
   ret1 <- RawOpPtsROC2ROC(fp, tp) 
   fpCounts <- ret1$fpCounts;tpCounts <- ret1$tpCounts;fpf <- ret1$fpf;tpf <- ret1$tpf
   
-  if (isDataDegenerate(fpf, tpf)) {
+  temp <- isDataDegenerate (fpf, tpf)
+  msg <- temp$msg
+  if (msg != "") errorMsg <- paste0(errorMsg, msg)
+  if (temp$ret) {
     warning("Data is degenerate; binormal model cannot fit it unambiguously: use CBM or RSM method")
     return(list(
       mu = NA,
@@ -110,7 +115,8 @@ FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
       NLLIni = NA,
       NLLFin = NA,
       covMat = NA,
-      fittedPlot = NA
+      fittedPlot = NA,
+      errorMsg = errorMsg
     ))
   }
   
@@ -204,7 +210,8 @@ FitBinormalRoc <- function(dataset, trt = 1, rdr = 1){
     NLLFin = NLLFin,
     ChisqrFitStats = ChisqrFitStats,
     covMat = covMat,
-    fittedPlot = fittedPlot
+    fittedPlot = fittedPlot,
+    errorMsg = errorMsg
   ))
 }
 

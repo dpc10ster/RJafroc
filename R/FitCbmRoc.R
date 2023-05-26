@@ -32,7 +32,7 @@
 #'    \code{ChisqrFitStats} consists of a list containing the chi-square value, 
 #'    the p-value and the degrees of freedom. 
 #'
-#'@note This algorithm is very robust, much more so than the binormal model.
+#'@note This algorithm is very robust, especially compared to the binormal model.
 #'
 #' @examples
 #' 
@@ -94,6 +94,8 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
   maxMu <- RJafrocEnv$maxMu
   minAlpha <- RJafrocEnv$minAlpha
   maxAlpha <- RJafrocEnv$maxAlpha
+ 
+  errorMsg <- ""  # keep track of any generated warnings
   
   dataset <- DfExtractDataset(dataset, trts = trt, rdrs = rdr)
   aucArray <- UtilFigureOfMerit(dataset, FOM = "Wilcoxon")
@@ -114,7 +116,10 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
   fpf <- ret1$fpf;tpf <- ret1$tpf;fpCounts <- ret1$fpCounts;tpCounts <- ret1$tpCounts
   if (any(fpf == 0)) InfFlag <- TRUE else InfFlag <- FALSE
   
-  if (isDataDegenerate(fpf, tpf)) {
+  temp <- isDataDegenerate (fpf, tpf)
+  msg <- temp$msg
+  if (msg != "") errorMsg <- paste0(errorMsg, msg)
+  if (temp$ret) {
     if (max(fpf) >= max(tpf)) {
       mu <- 0; alpha <- 0; AUC <- 0.5
       #fpfPred <- c(0,1);tpfPred <- c(0,1)
@@ -142,7 +147,8 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
       NLLFin = NA,
       ChisqrFitStats = list(NA,NA,NA),
       covMat = NA,
-      fittedPlot = fittedPlot
+      fittedPlot = fittedPlot,
+      errorMsg = errorMsg
     ))
   }
   
@@ -296,7 +302,8 @@ FitCbmRoc <- function(dataset, trt = 1, rdr = 1){
     NLLFin = NLLFin,
     ChisqrFitStats = ChisqrFitStats,
     covMat = covMat,
-    fittedPlot = fittedPlot
+    fittedPlot = fittedPlot,
+    errorMsg = errorMsg
   ))
 }
 

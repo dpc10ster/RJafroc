@@ -274,21 +274,35 @@ DfFroc2Afroc <- function (dataset){
 
 isDataDegenerate <-  function (fpf, tpf) {
   
-  dist <- array(dim = choose(length(fpf),2))
-  count <- 0
-  for (i in 1:length(fpf)) {
-    for (j in 1:length(fpf)) {
-      if (j > i) {
-        count <- count + 1
-        dist[count] <- sqrt((fpf[j]-fpf[i])^2+(tpf[j]-tpf[i])^2)
-      }
-    }
-  }
+  # dist <- array(dim = choose(length(fpf),2))
+  # count <- 0
+  # for (i in 1:length(fpf)) {
+  #   for (j in 1:length(fpf)) {
+  #     if (j > i) {
+  #       count <- count + 1
+  #       dist[count] <- sqrt((fpf[j]-fpf[i])^2+(tpf[j]-tpf[i])^2)
+  #     }
+  #   }
+  # }
   ret <- rep(FALSE, length(fpf))
   for (i in 1:length(fpf)){
     if ((fpf[i] == 0) || (tpf[i] == 0) || (fpf[i] == 1) || (tpf[i] == 1)) ret[i] <- TRUE
   }
-  if (all(ret)) return (TRUE) else return (FALSE)
+  if (all(ret)) {
+    return (list(
+      ret = TRUE,
+      msg = "Dataset is degenerate: op.pts on boundary of ROC square.\n"
+    ))
+  } else if (max(fpf)*max(tpf) < 0.025) {
+    return (list(
+      ret = TRUE,
+      msg = "Op.pts near origin requiring large extrapolation to (1,1).\n"
+    ))
+  } else  return (list(
+    ret = FALSE,
+    msg = ""
+  ))
+  
 }
 
 
