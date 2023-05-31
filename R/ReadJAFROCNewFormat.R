@@ -41,6 +41,10 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
   if (length(nlFileIndex) == 0) stop("FP/NL table worksheet cannot be found in the Excel file.")
   NLTable <- data.frame(read_xlsx(fileName, nlFileIndex, range=cell_cols(1:4)))
   
+  # Issue 89
+  NLTable <- NLTable[order(NLTable$ModalityID, NLTable$ReaderID, NLTable$CaseID, NLTable$FP_Rating),]
+  
+  
   # grep "^\\s*$" matches blank lines; see learnGrep in desktop
   # grep("^\\s*$", "") = 1
   # grep("^\\s*$", c("","")) = 1 2 etc
@@ -81,6 +85,9 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (length(llFileIndex) == 0) stop("TP/LL table worksheet cannot be found in the Excel file.")
   LLTable <- data.frame(read_xlsx(fileName, llFileIndex, range = cell_cols(1:5) ))
+
+  # Issue 89
+  LLTable <- LLTable[order(LLTable$ModalityID, LLTable$ReaderID, LLTable$CaseID, LLTable$TP_Rating),]
   
   for (i in 1:5){
     LLTable[grep("^\\s*$", LLTable[ , i]), i] <- NA

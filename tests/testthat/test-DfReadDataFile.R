@@ -399,7 +399,8 @@ test_that(contextStr, {
   }
   
   ds <- readRDS(fn)
-  expect_equal(DfReadDataFile(fileName, newExcelFileFormat = TRUE), ds)
+  temp <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
+  expect_equal(temp, ds)
   
   fileName <- system.file(
     "extdata", "/toyFiles/FROC/bad/incorrectCaseIDsInTP.xlsx", package = "RJafroc", mustWork = TRUE)

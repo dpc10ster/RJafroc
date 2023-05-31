@@ -6,8 +6,16 @@ title: "NEWS"
 
 ---
 
+### Issue 89
+* Program expected `TP` and `FP` worksheets to obey "good" ordering. 
+* If shuffled then unexpected results can occur.
+* Added a sorting step to both worksheets: order by modality, then reader, then case and then rating.
+* Also ALWAYS use `TP_Rating` and `FP_Rating` in these sheets; do not use LL_Rating and/or NL_Rating as this will break the code.
+* Some `goodValues` had to be regenerated. 
+* TODO: Not sure about the split plot codes; these have never been used and I should consider removing them.
+
+
 ### Changes 05/19/2023
-* On `obumrm2` branch only
 * Fixed FROC simulator, easier to read code; both simulators are NOT limited to I = 2.
 * This affected `goodValues`; reinitialized affected ones.
 * Extended Obuchowski's idea - tested with rudimentary FROC simulator; works!
@@ -16,12 +24,11 @@ title: "NEWS"
 
 
 ### Changes 05/18/2023
-* On `obumrm2` branch only.
 * Added Obuchowski's idea - tested with rudimentary ROC simulator; works!
 * `truthTableStr` is used inconsistently.
 * TODO: find all occurrences of "05/18/2023" and `truthTableStr` and check code.
 * TODO: `dataset11` fails RSM fitting; `mu` close to zero for several readers as minimum 3 op. points are clustered into effectively two op. points.
-* Fix `datasets.R`
+* TODO: Fix `datasets.R`
   
 
 ### Possible errors in RSM predicted TPF and other cpp implementations
