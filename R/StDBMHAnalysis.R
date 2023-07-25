@@ -12,7 +12,6 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, analysisOption)
   
   ret <- UtilVarComponentsDBM(dataset, FOM, FPFValue)
   
-  # foms <- ret$foms
   VarCom <- ret$VarCom
   TRCanova <- ret$TRCanova
   IndividualTrt <- ret$IndividualTrt
@@ -44,45 +43,46 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, analysisOption)
                              row.names = diffTRName,
                              stringsAsFactors = FALSE) 
   
-  FOMs <- list(
+  FOMStats <- list(
     foms = foms,
     trtMeans = trtMeans,
     trtMeanDiffs = trtMeanDiffs
   )
   
   if (analysisOption == "RRRC") {
-    RRRC <- DBMSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    RRRC <- DBMSummaryRRRC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
     return(list(
-      FOMs = FOMs,
+      FOMStats = FOMStats,
       ANOVA = ANOVA,
       RRRC = RRRC
     ))
   }  
   
   if (analysisOption == "FRRC") {
-    FRRC <- DBMSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    FRRC <- DBMSummaryFRRC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
     return(list(
-      FOMs = FOMs,
+      FOMStats = FOMStats,
       ANOVA = ANOVA,
       FRRC = FRRC
     ))
   }  
   
   if (analysisOption == "RRFC") {
-    RRFC <- DBMSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    RRFC <- DBMSummaryRRFC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
     return(list(
-      FOMs = FOMs,
+      FOMStats = FOMStats,
       ANOVA = ANOVA,
       RRFC = RRFC
     ))
   }  
   
   if (analysisOption == "ALL") {
-    RRRC <- DBMSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
-    FRRC <- DBMSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
-    RRFC <- DBMSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    RRRC <- DBMSummaryRRRC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
+    FRRC <- DBMSummaryFRRC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
+    RRFC <- DBMSummaryRRFC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
+    
     return(list(
-      FOMs = FOMs,
+      FOMStats = FOMStats,
       ANOVA = ANOVA,
       RRRC = RRRC,
       FRRC = FRRC,

@@ -161,8 +161,9 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       CIRRRC <- array(dim = c(length(diffTRMeans), 2))
       for (i in 1:length(diffTRMeans)) {
         tStat[i] <- diffTRMeans[i]/stdErrRRRC
-        tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRRC, lower.tail = FALSE) # critical correction, noted by user Lucy D'Agostino McGowan
-        ci <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRRC) * stdErrRRRC, diffTRMeans[i] + qt(alpha/2, ddfRRRC) * stdErrRRRC))
+        tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRRC, lower.tail = FALSE) 
+        ci <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRRC) * stdErrRRRC, 
+                     diffTRMeans[i] + qt(alpha/2, ddfRRRC) * stdErrRRRC))
         if (length(ci) == 0){
           CIRRRC[i, ] <- c(NA, NA)
         }else{
@@ -293,8 +294,9 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
     CIFRRC <- array(dim = c(length(diffTRMeans), 2))
     for (i in 1:length(diffTRMeans)) {
       tStat[i] <- diffTRMeans[i]/stdErrFRRC
-      tPr[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
-      CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC, diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
+      tPr[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE) 
+      CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC, 
+                            diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
     }
     # for (i in (1:length(diffTRName))) {
     #   diffTRName[i] <- paste0(paste0("Row",i,"-"),diffTRName[i])
@@ -360,7 +362,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
     tPr <- vector()
     for (n in 1:length(stdErrFRRC)) {
       tStat[n] <- diffTRMeansFRRC[n]/stdErrFRRC[n]
-      tPr[n] <- 2 * pt(abs(tStat[n]), dfReaderFRRC[n], lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
+      tPr[n] <- 2 * pt(abs(tStat[n]), dfReaderFRRC[n], lower.tail = FALSE) 
       CIReaderFRRC[n, ] <- sort(c(diffTRMeansFRRC[n] - qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n], diffTRMeansFRRC[n] + qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n]))
     }
     ciDiffTrtEachRdr <- data.frame(Reader = readerNames, 
@@ -402,8 +404,9 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       CIRRFC <- array(dim = c(length(diffTRMeans), 2))
       for (i in 1:length(diffTRMeans)) {
         tStat[i] <- diffTRMeans[i]/stdErrRRFC
-        tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE)  # critical correction, noted by user Lucy D'Agostino McGowan
-        CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC, diffTRMeans[i] + qt(alpha/2, ddfRRFC) * stdErrRRFC))
+        tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE) 
+        CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC, 
+                              diffTRMeans[i] + qt(alpha/2, ddfRRFC) * stdErrRRFC))
       }
       
       # for (i in (1:length(diffTRName))) {

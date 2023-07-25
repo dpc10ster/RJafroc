@@ -2,10 +2,16 @@
 % Please edit documentation in R/testCpp.R
 \name{testCpp}
 \alias{testCpp}
-\title{for testing cpp code TBA!!}
+\title{Testing cpp code TBA!!}
 \usage{
-testCpp()
+testCpp(mu, nu)
+}
+\arguments{
+\item{mu}{The mu parameter.}
+
+\item{nu}{The nu parameter.}
 }
 \description{
 test cpp code, temporary function, move to tests as they are done and finally delete this function
 }
+\keyword{internal}

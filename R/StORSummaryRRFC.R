@@ -57,7 +57,7 @@ ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   CI <- array(dim = c(choose(I,2), 2))
   for (i in 1:choose(I,2)) {
     tStat[i] <- trtMeanDiffs[i,1]/stdErr
-    PrGTt[i] <- 2 * pt(abs(tStat[i]), ddf, lower.tail = FALSE)  # correction, noted by user Lucy D'Agostino McGowan
+    PrGTt[i] <- 2 * pt(abs(tStat[i]), ddf, lower.tail = FALSE) 
     CI[i, ] <- c(trtMeanDiffs[i,1] + qt(alpha/2, ddf) * stdErr, 
                  trtMeanDiffs[i,1] + qt(1-alpha/2, ddf) * stdErr)
   }

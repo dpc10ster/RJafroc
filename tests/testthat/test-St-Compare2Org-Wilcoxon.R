@@ -3,8 +3,8 @@ context(contextStr)
 test_that(contextStr, {
   ds <- dataset02
   
-  orgValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBM", tempOrgCode = TRUE)
-  newValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBM", tempOrgCode = FALSE)
+  orgValues <- StSignTestOldCode(ds, FOM = "Wilcoxon", method = "DBM")
+  newValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBM")
   
   #######################################  FStats ###########################################  
   orgFStatsRRRC <- c(orgValues$fRRRC, orgValues$ddfRRRC, orgValues$pRRRC)
@@ -105,8 +105,8 @@ context(contextStr)
 test_that(contextStr, {
   ds <- dataset02
   
-  orgValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "OR", tempOrgCode = TRUE)
-  newValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "OR", tempOrgCode = FALSE)
+  orgValues <- StSignTestOldCode(ds, FOM = "Wilcoxon", method = "OR")
+  newValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "OR")
   
   #######################################  FStats ###########################################  
   orgFStatsRRRC <- c(orgValues$fRRRC, orgValues$ddfRRRC, orgValues$pRRRC)

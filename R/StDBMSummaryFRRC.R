@@ -7,17 +7,24 @@
 # Iowa software and agrees for all except minor differences for FRRC (since in OR analysis the ddf is Inf instead
 # of (I-1)(K-1))
 # 
-DBMSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
+DBMSummaryFRRC <- function(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName) {
   
   readerID <- dataset$descriptions$readerID
   modalityID <- dataset$descriptions$modalityID
   I <- length(modalityID)
   J <- length(readerID)
+  K2 <- dim(dataset$ratings$LL)[3]
   K <- dim(dataset$ratings$NL)[3]
-  
-  foms <- FOMs$foms
-  trtMeans <- FOMs$trtMeans[,"Estimate"]
-  trtMeanDiffs  <-FOMs$trtMeanDiffs$Estimate
+  K1 <- K - K2
+  if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+    K <- K1
+  } else if (FOM %in% c("MaxLLF", "HrSe")) {
+    K <- K2
+  }
+
+  foms <- FOMStats$foms
+  trtMeans <- FOMStats$trtMeans[,"Estimate"]
+  trtMeanDiffs  <-FOMStats$trtMeanDiffs$Estimate
   
   TRCanova <- ANOVA$TRCanova
   IndividualRdr <- unlist(ANOVA$IndividualRdr["msTC",2:(J+1)])
@@ -40,8 +47,9 @@ DBMSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   CI <- array(dim = c(choose(I,2),2))
   for (i in 1:length(trtMeanDiffs)) {
     tStat[i] <- trtMeanDiffs[i]/stdErr
-    PrGTt[i] <- 2 * pt(abs(tStat[i]), ddf, lower.tail = FALSE)  # critical correction noted by user Lucy D'Agostino McGowan
-    CI[i, ] <- sort(c(trtMeanDiffs[i] - qt(alpha/2, ddf) * stdErr, trtMeanDiffs[i] + qt(alpha/2, ddf) * stdErr))
+    PrGTt[i] <- 2 * pt(abs(tStat[i]), ddf, lower.tail = FALSE)
+    CI[i, ] <- sort(c(trtMeanDiffs[i] - qt(alpha/2, ddf) * stdErr, 
+                      trtMeanDiffs[i] + qt(alpha/2, ddf) * stdErr))
   }
   FRRC$ciDiffTrt <- data.frame(Estimate = trtMeanDiffs, 
                                StdErr = rep(stdErr, choose(I, 2)), 

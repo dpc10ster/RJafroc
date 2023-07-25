@@ -12,8 +12,7 @@ StSignificanceTesting(
   method = "DBM",
   covEstMethod = "jackknife",
   nBoots = 200,
-  analysisOption = "ALL",
-  tempOrgCode = FALSE
+  analysisOption = "ALL"
 )
 }
 \arguments{
@@ -55,12 +54,6 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
    \item \code{"ALL"} =  outputs results of \code{"RRRC"}, \code{"FRRC"} 
    and \code{"RRFC"} analyses - this is the default.
 }}
-
-\item{tempOrgCode, }{default FALSE; if TRUE, then code from version 0.0.1 of RJafroc
-is used (see RJafroc_0.0.1.tar). This is intended to check against errors 
-that crept in subsequent to the original version as I attempted to improve 
-the organization of the code and the output. As implicit in the name of this 
-temporary flag, it will eventually be removed.}
 }
 \value{
 \strong{For \code{method = "DBM"} the returned list contains 4 dataframes:}

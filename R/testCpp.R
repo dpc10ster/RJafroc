@@ -1,14 +1,17 @@
-#' for testing cpp code TBA!!
-#' 
+#' Testing cpp code TBA!!
 #' 
 #' @description test cpp code, temporary function, move to tests as they are done and finally delete this function
 #' 
+#' @param mu The mu parameter. 
+#' 
+#' @param nu The nu parameter. 
+#' 
+#' @keywords internal
 #' 
 #' @export
-#' 
-#' 
+ 
 
-testCpp <- function() {
+testCpp <- function(mu, nu) {
   mu <- 2
   nu <- 0.9
   zeta <- seq(from = -3, to = max(mu)+5, by = 0.2)

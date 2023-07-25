@@ -47,7 +47,8 @@ ORSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   for (i in 1:length(trtMeanDiffs[,1])) {
     tStat[i] <- trtMeanDiffs[i,1]/stdErr
     PrGTt[i] <- 2*pt(abs(tStat[i]), ddf, lower.tail = FALSE)
-    ci <- sort(c(trtMeanDiffs[i,1] - qt(alpha/2, ddf) * stdErr, trtMeanDiffs[i,1] + qt(alpha/2, ddf) * stdErr))
+    ci <- sort(c(trtMeanDiffs[i,1] - qt(alpha/2, ddf) * stdErr, 
+                 trtMeanDiffs[i,1] + qt(alpha/2, ddf) * stdErr))
     if (length(ci) == 0){
       CI[i, ] <- c(NA, NA)
     }else{
