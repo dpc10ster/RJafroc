@@ -43,46 +43,46 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, analysisOption)
                              row.names = diffTRName,
                              stringsAsFactors = FALSE) 
   
-  FOMStats <- list(
+  FOMs <- list(
     foms = foms,
     trtMeans = trtMeans,
     trtMeanDiffs = trtMeanDiffs
   )
   
   if (analysisOption == "RRRC") {
-    RRRC <- DBMSummaryRRRC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
+    RRRC <- DBMSummaryRRRC(dataset, FOM, FOMs, ANOVA, alpha, diffTRName)
     return(list(
-      FOMStats = FOMStats,
+      FOMs = FOMs,
       ANOVA = ANOVA,
       RRRC = RRRC
     ))
   }  
   
   if (analysisOption == "FRRC") {
-    FRRC <- DBMSummaryFRRC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
+    FRRC <- DBMSummaryFRRC(dataset, FOM, FOMs, ANOVA, alpha, diffTRName)
     return(list(
-      FOMStats = FOMStats,
+      FOMs = FOMs,
       ANOVA = ANOVA,
       FRRC = FRRC
     ))
   }  
   
   if (analysisOption == "RRFC") {
-    RRFC <- DBMSummaryRRFC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
+    RRFC <- DBMSummaryRRFC(dataset, FOM, FOMs, ANOVA, alpha, diffTRName)
     return(list(
-      FOMStats = FOMStats,
+      FOMs = FOMs,
       ANOVA = ANOVA,
       RRFC = RRFC
     ))
   }  
   
   if (analysisOption == "ALL") {
-    RRRC <- DBMSummaryRRRC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
-    FRRC <- DBMSummaryFRRC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
-    RRFC <- DBMSummaryRRFC(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName)
+    RRRC <- DBMSummaryRRRC(dataset, FOM, FOMs, ANOVA, alpha, diffTRName)
+    FRRC <- DBMSummaryFRRC(dataset, FOM, FOMs, ANOVA, alpha, diffTRName)
+    RRFC <- DBMSummaryRRFC(dataset, FOM, FOMs, ANOVA, alpha, diffTRName)
     
     return(list(
-      FOMStats = FOMStats,
+      FOMs = FOMs,
       ANOVA = ANOVA,
       RRRC = RRRC,
       FRRC = FRRC,

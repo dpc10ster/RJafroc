@@ -17,7 +17,7 @@
 #' @param desiredPower The desired statistical power, default is 0.8.
 #' @param analysisOption Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
 #'    (the default).
-#' @param LegacyCode Logical, default is \code{FALSE}, if \code{TRUE} the DBM
+#' @param UseDBMHB2004 Logical, default is \code{FALSE}, if \code{TRUE} the DBM
 #'    method is used. Otherwise the OR method is used.
 #' 
 #' @return A list of two elements:
@@ -39,7 +39,7 @@
 #' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBM")
 #' 
 #' a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
-#' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBM", LegacyCode = TRUE,
+#' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBM", UseDBMHB2004 = TRUE,
 #'    list(VarTR = a["VarTR",1], 
 #'    VarTC = a["VarTC",1], 
 #'    VarErr = a["VarErr",1]))
@@ -71,7 +71,7 @@
 
 SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL, 
                                 method = "OR", alpha = 0.05, desiredPower = 0.8, 
-                                analysisOption = "RRRC", LegacyCode = FALSE) {
+                                analysisOption = "RRRC", UseDBMHB2004 = FALSE) {
   
   if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
   if (!(method %in% c("DBM", "OR"))) stop ("Incorrect method.")
@@ -80,11 +80,11 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
   if (!is.null(dataset) && (length(dataset$ratings$NL[,1,1,1]) != 2)) stop("dataset must have exactly two treatments")
   if (!is.null(dataset) && (dataset$descriptions$design == "FACTRL-X-MOD")) stop("cannot use cross-modality dataset")
   
-  if ((method == "DBM") && !LegacyCode) {
+  if ((method == "DBM") && !UseDBMHB2004) {
     method <- "OR"
   } 
   
-  if ((method == "DBM") && LegacyCode) {
+  if ((method == "DBM") && UseDBMHB2004) {
     if (!(is.null(dataset))) {
       ret <- StSignificanceTesting(dataset, FOM, method = "DBM")
       if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)

@@ -14,7 +14,7 @@ SsSampleSizeKGivenJ(
   alpha = 0.05,
   desiredPower = 0.8,
   analysisOption = "RRRC",
-  LegacyCode = FALSE
+  UseDBMHB2004 = FALSE
 )
 }
 \arguments{
@@ -41,7 +41,7 @@ components are supplied.}
 \item{analysisOption}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
 (the default).}
 
-\item{LegacyCode}{Logical, default is \code{FALSE}, if \code{TRUE} the DBM
+\item{UseDBMHB2004}{Logical, default is \code{FALSE}, if \code{TRUE} the DBM
 method is used. Otherwise the OR method is used.}
 }
 \value{
@@ -72,7 +72,7 @@ The procedure is valid for ROC studies only; for FROC studies see
 SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBM")
 
 a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
-SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBM", LegacyCode = TRUE,
+SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBM", UseDBMHB2004 = TRUE,
    list(VarTR = a["VarTR",1], 
    VarTC = a["VarTC",1], 
    VarErr = a["VarErr",1]))

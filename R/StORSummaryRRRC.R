@@ -2,7 +2,7 @@
 # this checks out for dataset02 and DfFroc2Roc(dataset04), i.e., VanDyke and FedRoc datasets
 # checked vs. OR-DBM MRMC 2.51 <beta> Build  20181028 </beta> output in inst/Iowa
 # 
-ORSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
+ORSummaryRRRC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
   # ===========================================================================
   #   *****    Analysis 1 (OR Analysis): Random Readers and Random Cases    *****
   # ===========================================================================
@@ -13,8 +13,8 @@ ORSummaryRRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   I <- length(modalityID)
   J <- length(readerID)
   
-  trtMeans <-  FOMs$trtMeans
-  trtMeanDiffs  <-  FOMs$trtMeanDiffs
+  trtMeans <-  FOMStats$trtMeans
+  trtMeanDiffs  <-  FOMStats$trtMeanDiffs
   
   TRanova <- ANOVA$TRanova
   VarCom <- ANOVA$VarCom

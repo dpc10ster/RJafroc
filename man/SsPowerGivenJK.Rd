@@ -13,7 +13,7 @@ SsPowerGivenJK(
   effectSize = NULL,
   method = "OR",
   analysisOption = "RRRC",
-  LegacyCode = FALSE,
+  UseDBMHB2004 = FALSE,
   alpha = 0.05
 )
 }
@@ -35,13 +35,13 @@ Default is NULL, which uses the observed effect size in the pilot dataset.
 Must be supplied if dataset is set to NULL and variance 
 components are supplied.}
 
-\item{method}{"OR" (the default) or "DBM" (but see \code{LegacyCode} option
+\item{method}{"OR" (the default) or "DBM" (but see \code{UseDBMHB2004} option
 below).}
 
 \item{analysisOption}{Desired generalization, "RRRC" (the default), "FRRC", 
 "RRFC" or "ALL". RRFC = random reader fixed case, etc.}
 
-\item{LegacyCode}{Logical, defaults to \code{FALSE}, which results in OR 
+\item{UseDBMHB2004}{Logical, defaults to \code{FALSE}, which results in OR 
 sample size method being used, even if DBM method is specified, as in 
 Hillis 2011 & 2018 papers. If \code{TRUE} the method based on 
 Hillis-Berbaum 2004 sample size paper is used.}
@@ -69,20 +69,20 @@ The procedure is valid for ROC studies only; for FROC studies see
 ## EXAMPLE 1: RRRC power 
 ## specify 2-treatment ROC dataset and force DBM alg.
 SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-J = 6, K = 251, method = "DBM", LegacyCode = TRUE) # RRRC is default  
+J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE) # RRRC is default  
 
 ## EXAMPLE 1A: FRRC power 
 SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-J = 6, K = 251, method = "DBM", LegacyCode = TRUE, analysisOption = "FRRC") 
+J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE, analysisOption = "FRRC") 
 
 ## EXAMPLE 1B: RRFC power 
 SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-J = 6, K = 251, method = "DBM", LegacyCode = TRUE, analysisOption = "RRFC") 
+J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE, analysisOption = "RRFC") 
 
 ## EXAMPLE 2: specify NULL dataset & DBM var. comp. & force DBM-based alg.
 vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
 SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = 6, K = 251, 
-effectSize = 0.05, method = "DBM", LegacyCode = TRUE, 
+effectSize = 0.05, method = "DBM", UseDBMHB2004 = TRUE, 
 list( 
 VarTR = vcDBM["VarTR","Estimates"], # replace rhs with actual values as in 4A
 VarTC = vcDBM["VarTC","Estimates"], # do:

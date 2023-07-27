@@ -15,16 +15,16 @@ test_that(contextStr, {
   expect_equal(x1,x2)
   expect_equivalent(x1$powerRRRC, 0.8004469, tolerance = 1e-8) 
   
-  fn <- paste0(test_path(), "/goodValues361/SsPower/dataset03-RRRC-LegacyCode", ".rds")
+  fn <- paste0(test_path(), "/goodValues361/SsPower/dataset03-RRRC-UseDBMHB2004", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    x1 <- SsPowerGivenJK(dataset03, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 121, method = "DBM", LegacyCode = TRUE)
+    x1 <- SsPowerGivenJK(dataset03, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 121, method = "DBM", UseDBMHB2004 = TRUE)
     saveRDS(x1, file = fn)
     
   }
   
   x1 <- readRDS(fn)
-  x2 <- SsPowerGivenJK(dataset03, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 121, method = "DBM", LegacyCode = TRUE)
+  x2 <- SsPowerGivenJK(dataset03, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 121, method = "DBM", UseDBMHB2004 = TRUE)
   expect_equal(x1,x2)
   expect_equivalent(x1$powerRRRC, 0.78574588, tolerance = 1e-8) # Legacy code gives less power
   
@@ -47,7 +47,7 @@ test_that(contextStr, {
   expect_equal(x1,x2)
   expect_equivalent(x1$powerRRRC, 0.80541995, tolerance = 1e-8) 
   
-  x3 <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon", J = 10, K = 165, method = "DBM", LegacyCode = TRUE)  
+  x3 <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon", J = 10, K = 165, method = "DBM", UseDBMHB2004 = TRUE)  
   expect_equal(x1,x3)
   
   fn <- paste0(test_path(), "/goodValues361/SsPower/dataset02-FRRC", ".rds")
@@ -85,7 +85,7 @@ test_that(contextStr, {
   
   ret1 <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBM")
   a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")
-  ret2 <- SsSampleSizeKGivenJ(NULL,LegacyCode = TRUE,
+  ret2 <- SsSampleSizeKGivenJ(NULL,UseDBMHB2004 = TRUE,
                               J = 6, effectSize = 0.05, method = "DBM",
                               list(VarTR = a$VarCom["VarTR",1],
                                    VarTC = a$VarCom["VarTC",1],
@@ -122,7 +122,7 @@ test_that(contextStr, {
                          J = 6,
                          K = 251,
                          effectSize = 0.05,
-                         method = "DBM", LegacyCode = TRUE,
+                         method = "DBM", UseDBMHB2004 = TRUE,
                          list(VarTR = a$VarCom["VarTR",1],
                               VarTC = a$VarCom["VarTC",1],
                               VarErr = a$VarCom["VarErr",1]))

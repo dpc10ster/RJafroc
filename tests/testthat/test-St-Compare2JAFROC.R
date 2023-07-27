@@ -11,6 +11,7 @@ test_that(contextStr, {
     warning(paste0("File not found - generating new ",fn))
     # these values were obtained from JAFROC output file: 
     # inst/VarCompDiscrepancy/includedFrocData_Inferred_ROC.txt
+    # in version 1.3.1
     varComp <- list(
       varR = 0.00182911,
       varC = 0.04347403,
@@ -51,6 +52,7 @@ test_that(contextStr, {
     warning(paste0("File not found - generating new ",fn))
     # these values were obtained from JAFROC output file:
     # inst/VarCompDiscrepancy/includedFrocData_Inferred_ROC.txt
+    # in version 1.3.1
     varComp <- list(
       varR = 0.00182911,
       varTR = -0.000240099,

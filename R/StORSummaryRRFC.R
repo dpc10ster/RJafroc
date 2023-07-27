@@ -2,7 +2,7 @@
 # this checks out for dataset02 and DfFroc2Roc(dataset04), i.e., VanDyke and FedRoc datasets
 # checked vs. OR-DBM MRMC 2.51 <beta> Build  20181028 </beta> output in inst/Iowa
 # 
-ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
+ORSummaryRRFC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
   # ===========================================================================
   #   *****    Analysis 3 (OR Analysis): Random Readers and Fixed Cases     *****
   # ===========================================================================
@@ -12,8 +12,8 @@ ORSummaryRRFC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   I <- length(modalityID)
   J <- length(readerID)
   
-  trtMeans <-  FOMs$trtMeans
-  trtMeanDiffs  <-  FOMs$trtMeanDiffs
+  trtMeans <-  FOMStats$trtMeans
+  trtMeanDiffs  <-  FOMStats$trtMeanDiffs
   
   # since IndividualTrt["Cov2","VarCom"] and IndividualTrt["Cov3","VarCom"] are zeroes for split-plot-c, FTests will be 
   # identical to FTestsRRRC; other values below may differ

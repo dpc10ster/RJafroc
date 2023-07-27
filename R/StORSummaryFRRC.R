@@ -2,7 +2,7 @@
 # this checks out for dataset02 and DfFroc2Roc(dataset04), i.e., VanDyke and FedRoc datasets
 # checked vs. OR-DBM MRMC 2.51 <beta> Build  20181028 </beta> output in inst/Iowa
 # 
-ORSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
+ORSummaryFRRC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
   #   ===========================================================================
   #     *****    Analysis 2 (OR Analysis): Fixed Readers and Random Cases     *****
   #   ===========================================================================
@@ -16,8 +16,8 @@ ORSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   J <- length(readerID)
   K <- dim(dataset$ratings$NL)[3]
   
-  foms <-  FOMs$foms
-  trtMeanDiffs  <-  FOMs$trtMeanDiffs
+  foms <-  FOMStats$foms
+  trtMeanDiffs  <-  FOMStats$trtMeanDiffs
   
   #  a) Chi-square test for H0: Treatments have the same AUC
   #  Note: The chi-square statistic is denoted by X2 or by X2(df), where df is its 
@@ -105,10 +105,10 @@ ORSummaryFRRC <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
     stdErr[i] <- sqrt((ANOVA$IndividualTrt[i,"varEachTrt"] + 
                          # added max() function 8/25/20
                          (J-1)*max(ANOVA$IndividualTrt[i,"cov2EachTrt"],0))/J)
-    CI[i, ] <- c(FOMs$trtMeans[i,1] + qnorm(alpha/2) * stdErr[i],
-                 FOMs$trtMeans[i,1] + qnorm(1-alpha/2) * stdErr[i])
+    CI[i, ] <- c(FOMStats$trtMeans[i,1] + qnorm(alpha/2) * stdErr[i],
+                 FOMStats$trtMeans[i,1] + qnorm(1-alpha/2) * stdErr[i])
     rowName <- paste0("trt", modalityID[i])
-    ci <- rbind(ci, data.frame(Estimate = FOMs$trtMeans[i,1], 
+    ci <- rbind(ci, data.frame(Estimate = FOMStats$trtMeans[i,1], 
                                StdErr = stdErr[i],
                                DF = df[i],
                                CILower = CI[i,1],

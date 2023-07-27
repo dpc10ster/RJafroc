@@ -15,7 +15,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
-  lesionID <- dataset$lesionID
+  lesionID <- dataset$lesions$IDs
   lesionWeight <- dataset$lesions$weights
   maxNL <- dim(NL)[4]
   dataType <- dataset$descriptions$type
@@ -587,8 +587,8 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOptio
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
-  lesionID <- dataset$lesionID
-  lesionWeight <- dataset$lesionWeight
+  lesionID <- dataset$lesions$lesionID
+  lesionWeight <- dataset$lesions$lesionWeight
   maxNL <- dim(NL)[4]
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
@@ -1237,7 +1237,7 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
     ratings <- c(fp, les)
     truth <- c(rep(0, K), rep(1, numLesTotal))
     FOM <- TrapezoidalArea1(ratings, truth)
-  } else if (fom == "JAFROC") {
+  } else if (fom == "AFROC") {
     numLesTotal <- sum(lesionNum)
     les <- as.vector(ll[lesionID != UNINITIALIZED])
     fp <- array(dim = c(K1))

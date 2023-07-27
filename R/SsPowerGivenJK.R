@@ -16,11 +16,11 @@
 #'    Default is NULL, which uses the observed effect size in the pilot dataset. 
 #'    Must be supplied if dataset is set to NULL and variance 
 #'    components are supplied.
-#' @param method "OR" (the default) or "DBM" (but see \code{LegacyCode} option
+#' @param method "OR" (the default) or "DBM" (but see \code{UseDBMHB2004} option
 #'     below).
 #' @param analysisOption Desired generalization, "RRRC" (the default), "FRRC", 
 #'    "RRFC" or "ALL". RRFC = random reader fixed case, etc.
-#' @param LegacyCode Logical, defaults to \code{FALSE}, which results in OR 
+#' @param UseDBMHB2004 Logical, defaults to \code{FALSE}, which results in OR 
 #'    sample size method being used, even if DBM method is specified, as in 
 #'    Hillis 2011 & 2018 papers. If \code{TRUE} the method based on 
 #'    Hillis-Berbaum 2004 sample size paper is used.
@@ -40,20 +40,20 @@
 #' ## EXAMPLE 1: RRRC power 
 #' ## specify 2-treatment ROC dataset and force DBM alg.
 #' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-#' J = 6, K = 251, method = "DBM", LegacyCode = TRUE) # RRRC is default  
+#' J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE) # RRRC is default  
 #' 
 #' ## EXAMPLE 1A: FRRC power 
 #' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-#' J = 6, K = 251, method = "DBM", LegacyCode = TRUE, analysisOption = "FRRC") 
+#' J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE, analysisOption = "FRRC") 
 #' 
 #' ## EXAMPLE 1B: RRFC power 
 #' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
-#' J = 6, K = 251, method = "DBM", LegacyCode = TRUE, analysisOption = "RRFC") 
+#' J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE, analysisOption = "RRFC") 
 #' 
 #' ## EXAMPLE 2: specify NULL dataset & DBM var. comp. & force DBM-based alg.
 #' vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
 #' SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = 6, K = 251, 
-#' effectSize = 0.05, method = "DBM", LegacyCode = TRUE, 
+#' effectSize = 0.05, method = "DBM", UseDBMHB2004 = TRUE, 
 #' list( 
 #' VarTR = vcDBM["VarTR","Estimates"], # replace rhs with actual values as in 4A
 #' VarTC = vcDBM["VarTC","Estimates"], # do:
@@ -132,7 +132,7 @@ SsPowerGivenJK <- function(dataset,
                            effectSize = NULL, 
                            method = "OR", 
                            analysisOption = "RRRC", 
-                           LegacyCode = FALSE,
+                           UseDBMHB2004 = FALSE,
                            alpha = 0.05) {
   
   if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
@@ -142,7 +142,7 @@ SsPowerGivenJK <- function(dataset,
   if (!is.null(dataset) && (length(dataset$ratings$NL[,1,1,1]) != 2)) stop("dataset must have exactly two treatments")
   if (!is.null(dataset) && (dataset$descriptions$design == "FACTRL-X-MOD")) stop("cannot use cross-modality dataset")
   
-  if ((method == "DBM") && (LegacyCode == TRUE)) {
+  if ((method == "DBM") && (UseDBMHB2004 == TRUE)) {
     # use original sample size formulae based on DBM variance components
     # as in 2004 paper
     if (!(is.null(dataset))) {
@@ -160,7 +160,7 @@ SsPowerGivenJK <- function(dataset,
     }
     #VarTR <- max(VarTR,0)
     ret <- SsPowerGivenJKDbmVarCom (J, K, effectSize, VarTR, VarTC, VarErr, alpha, analysisOption )
-  } else if ((method == "DBM") && (LegacyCode == FALSE)) {
+  } else if ((method == "DBM") && (UseDBMHB2004 == FALSE)) {
     if (!(is.null(dataset))) {
       # dataset is specified
       # convert DBM variance components to OR variance components 
