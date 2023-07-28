@@ -69,8 +69,7 @@
 <span>  method <span class="op">=</span> <span class="st">"DBM"</span>,</span>
 <span>  covEstMethod <span class="op">=</span> <span class="st">"jackknife"</span>,</span>
 <span>  nBoots <span class="op">=</span> <span class="fl">200</span>,</span>
-<span>  analysisOption <span class="op">=</span> <span class="st">"ALL"</span>,</span>
-<span>  tempOrgCode <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  analysisOption <span class="op">=</span> <span class="st">"ALL"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -125,14 +124,6 @@ and the Obuchowski-Rockette significance testing methods, respectively.</p></dd>
 <li><p><code>"ALL"</code> =  outputs results of <code>"RRRC"</code>, <code>"FRRC"</code> 
    and <code>"RRFC"</code> analyses - this is the default.</p></li>
 </ul></dd>
-
-
-<dt>tempOrgCode, </dt>
-<dd><p>default FALSE; if TRUE, then code from version 0.0.1 of RJafroc
-is used (see RJafroc_0.0.1.tar). This is intended to check against errors 
-that crept in subsequent to the original version as I attempted to improve 
-the organization of the code and the output. As implicit in the name of this 
-temporary flag, it will eventually be removed.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -448,6 +439,9 @@ Modeling, and Applications with R-Based Examples</em>, CRC Press, Boca Raton, FL
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## following is split-plot-c analysis using a simulated split-plot-c dataset</span></span></span>
 <span class="r-in"><span><span class="fu">StSignificanceTesting</span><span class="op">(</span><span class="va">datasetFROCSpC</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ######################################################</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> WARNING: SPLIT-PLOT-C has not been tested with a real dataset; contact the maintainer if you desire this funtionality.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ######################################################</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $FOMs$foms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            rdr1       rdr3       rdr4       rdr5</span>

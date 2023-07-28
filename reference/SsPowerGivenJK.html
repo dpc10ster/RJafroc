@@ -58,7 +58,7 @@
 <span>  effectSize <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"OR"</span>,</span>
 <span>  analysisOption <span class="op">=</span> <span class="st">"RRRC"</span>,</span>
-<span>  LegacyCode <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  UseDBMHB2004 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.05</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -95,7 +95,7 @@ components are supplied.</p></dd>
 
 
 <dt>method</dt>
-<dd><p>"OR" (the default) or "DBM" (but see <code>LegacyCode</code> option
+<dd><p>"OR" (the default) or "DBM" (but see <code>UseDBMHB2004</code> option
 below).</p></dd>
 
 
@@ -104,7 +104,7 @@ below).</p></dd>
 "RRFC" or "ALL". RRFC = random reader fixed case, etc.</p></dd>
 
 
-<dt>LegacyCode</dt>
+<dt>UseDBMHB2004</dt>
 <dd><p>Logical, defaults to <code>FALSE</code>, which results in OR 
 sample size method being used, even if DBM method is specified, as in 
 Hillis 2011 &amp; 2018 papers. If <code>TRUE</code> the method based on 
@@ -149,26 +149,26 @@ An Updated and Unified Approach. Acad Radiol, 18, 129--142.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## EXAMPLE 1: RRRC power </span></span></span>
 <span class="r-in"><span><span class="co">## specify 2-treatment ROC dataset and force DBM alg.</span></span></span>
 <span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span></span>
-<span class="r-in"><span>J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># RRRC is default  </span></span></span>
+<span class="r-in"><span>J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, UseDBMHB2004 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># RRRC is default  </span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerRRRC   ncpRRRC   df2RRRC     fRRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.89228199 11.611453 16.127037 4.4882496</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## EXAMPLE 1A: FRRC power </span></span></span>
 <span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span></span>
-<span class="r-in"><span>J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, analysisOption <span class="op">=</span> <span class="st">"FRRC"</span><span class="op">)</span> </span></span>
+<span class="r-in"><span>J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, UseDBMHB2004 <span class="op">=</span> <span class="cn">TRUE</span>, analysisOption <span class="op">=</span> <span class="st">"FRRC"</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerFRRC   ncpFRRC df2FRRC     fFRRC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.98329918 16.834583     250 3.8789239</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## EXAMPLE 1B: RRFC power </span></span></span>
 <span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, </span></span>
-<span class="r-in"><span>J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, analysisOption <span class="op">=</span> <span class="st">"RRFC"</span><span class="op">)</span> </span></span>
+<span class="r-in"><span>J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, UseDBMHB2004 <span class="op">=</span> <span class="cn">TRUE</span>, analysisOption <span class="op">=</span> <span class="st">"RRFC"</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    powerRRFC   ncpRRFC df2RRFC    fRRFC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.94944491 20.853495       5 6.607891</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## EXAMPLE 2: specify NULL dataset &amp; DBM var. comp. &amp; force DBM-based alg.</span></span></span>
 <span class="r-in"><span><span class="va">vcDBM</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span></span>
 <span class="r-in"><span><span class="fu">SsPowerGivenJK</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, J <span class="op">=</span> <span class="fl">6</span>, K <span class="op">=</span> <span class="fl">251</span>, </span></span>
-<span class="r-in"><span>effectSize <span class="op">=</span> <span class="fl">0.05</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, LegacyCode <span class="op">=</span> <span class="cn">TRUE</span>, </span></span>
+<span class="r-in"><span>effectSize <span class="op">=</span> <span class="fl">0.05</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, UseDBMHB2004 <span class="op">=</span> <span class="cn">TRUE</span>, </span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> </span></span>
 <span class="r-in"><span>VarTR <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># replace rhs with actual values as in 4A</span></span></span>
 <span class="r-in"><span>VarTC <span class="op">=</span> <span class="va">vcDBM</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="st">"Estimates"</span><span class="op">]</span>, <span class="co"># do:</span></span></span>
