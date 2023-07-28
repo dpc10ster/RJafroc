@@ -9,7 +9,7 @@ dropRowColumnNames <- function (df) {
 }
 
 #
-# [ FAIL 0 | WARN 0 | SKIP 0 | PASS 3572 ]
+# [ FAIL 0 | WARN 0 | SKIP 0 | PASS 4188 ]
 # Any errors here should be debugged in 
 # ~/GitHub/RJafroc/inst/extdata/HrIssue/debug-test-OldVsNew-DBM.R
 # 
@@ -25,34 +25,35 @@ test_that(contextStr, {
     for (f in 1:length(FOM_arr)) {
     
       dataset <- get(dataset_arr[d])
+      FOM <- FOM_arr[f]
       
-      if ((dataset$descriptions$type == "ROC") && (FOM_arr[f] != "Wilcoxon")) {
+      if ((dataset$descriptions$type == "ROC") && (FOM != "Wilcoxon")) {
       
       # for ROC data, only Wilcoxon FOM is allowed
-      expect_error(StSignificanceTesting(dataset, FOM = FOM_arr[f], method = method_arr[m]))
+      expect_error(StSignificanceTesting(dataset, FOM = FOM, method = method_arr[m]))
       
-    } else if ((dataset$descriptions$type == "FROC") && (FOM_arr[f] == "Wilcoxon")) {
+    } else if ((dataset$descriptions$type == "FROC") && (FOM == "Wilcoxon")) {
       
       # for FROC data, Wilcoxon FOM is NOT allowed
-      expect_error(StSignificanceTesting(dataset, FOM = FOM_arr[f], method = method_arr[m]))
+      expect_error(StSignificanceTesting(dataset, FOM = FOM, method = method_arr[m]))
       
     } else {
       for (f in 1:length(FOM_arr)) {
         
-        if ((dataset$descriptions$type == "ROC") && (FOM_arr[f] != "Wilcoxon")) {
+        if ((dataset$descriptions$type == "ROC") && (FOM != "Wilcoxon")) {
           
           # for ROC data, only Wilcoxon FOM is allowed
-          expect_error(StSignificanceTesting(dataset, FOM = FOM_arr[f], method = "DBM"))
+          expect_error(StSignificanceTesting(dataset, FOM = FOM, method = "DBM"))
           
-        } else if ((dataset$descriptions$type == "FROC") && (FOM_arr[f] == "Wilcoxon")) {
+        } else if ((dataset$descriptions$type == "FROC") && (FOM == "Wilcoxon")) {
           
           # for FROC data, Wilcoxon FOM is NOT allowed
-          expect_error(StSignificanceTesting(dataset, FOM = FOM_arr[f], method = "DBM"))
+          expect_error(StSignificanceTesting(dataset, FOM = FOM, method = "DBM"))
           
         } else {
           ##### RRRC  ############################
-          x1 <- StSignTestOldCode(dataset, FOM = FOM_arr[f], method = "DBM", analysisOption = "RRRC")
-          x2 <- StSignificanceTesting(dataset, FOM = FOM_arr[f], method = "DBM", analysisOption = "RRRC")
+          x1 <- SigTestOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "RRRC")
+          x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "DBM", analysisOption = "RRRC")
           
           # $fomArray
           old <- dropRowColumnNames(x1$fomArray)
@@ -100,8 +101,8 @@ test_that(contextStr, {
           expect_equal(old, new)
           
           ##### FRRC ############################
-          x1 <- StSignTestOldCode(dataset, FOM = FOM_arr[f], method = "DBM", analysisOption = "FRRC")
-          x2 <- StSignificanceTesting(dataset, FOM = FOM_arr[f], method = "DBM", analysisOption = "FRRC")
+          x1 <- SigTestOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "FRRC")
+          x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "DBM", analysisOption = "FRRC")
           
           # $fomArray
           old <- dropRowColumnNames(x1$fomArray)
@@ -162,8 +163,8 @@ test_that(contextStr, {
           expect_equal(old, new)
           
           ##### FRRC ############################
-          x1 <- StSignTestOldCode(dataset, FOM = FOM_arr[f], method = "DBM", analysisOption = "RRFC")
-          x2 <- StSignificanceTesting(dataset, FOM = FOM_arr[f], method = "DBM", analysisOption = "RRFC")
+          x1 <- SigTestOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "RRFC")
+          x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "DBM", analysisOption = "RRFC")
           
           # $fomArray
           old <- dropRowColumnNames(x1$fomArray)

@@ -32,7 +32,7 @@
 # This is intended to check the current code for errors that might creep in as 
 # I attempt to improve the organization of the code and the output.  
 # 
-StSignTestOldCode <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBM", 
+SigTestOldCode <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBM", 
                               covEstMethod = "jackknife", nBoots = 200, analysisOption = "ALL")
 {
   

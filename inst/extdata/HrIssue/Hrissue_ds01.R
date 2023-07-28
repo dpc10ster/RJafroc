@@ -1,3 +1,3 @@
 library(RJafroc)
-stNew <- StSignificanceTesting(dataset01, FOM = "HrSe", analysisOption = "RRRC")
-stOld <- StSignTestOldCode(dataset01, FOM = "HrSe", analysisOption = "RRRC")
+stNew <- SignificanceTesting(dataset01, FOM = "HrSe", analysisOption = "RRRC")
+stOld <- SignTestOldCode(dataset01, FOM = "HrSe", analysisOption = "RRRC")

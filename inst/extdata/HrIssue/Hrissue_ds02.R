@@ -2,7 +2,7 @@ library(RJafroc)
 library(testthat)
 ds <- dataset01
 
-orgValues <- StSignTestOldCode(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRRC")
+orgValues <- SigTestOldCode(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRRC")
 newValues <- StSignificanceTesting(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRRC")
 
 #####  FStats#####  
@@ -65,7 +65,7 @@ for (i in 1: length(orgciAvgRdrEachTrtRRRC)){
 }
 
 
-orgValues <- StSignTestOldCode(ds, FOM = "HrSe", method = "DBM", analysisOption = "FRRC")
+orgValues <- SigTestOldCode(ds, FOM = "HrSe", method = "DBM", analysisOption = "FRRC")
 newValues <- StSignificanceTesting(ds, FOM = "HrSe", method = "DBM", analysisOption = "FRRC")
 
 
@@ -87,7 +87,7 @@ for (i in 1: length(orgciAvgRdrEachTrtFRRC)){
 
 
 
-orgValues <- StSignTestOldCode(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRFC")
+orgValues <- SigTestOldCode(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRFC")
 newValues <- StSignificanceTesting(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRFC")
 
 

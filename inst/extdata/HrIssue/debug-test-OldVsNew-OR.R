@@ -12,6 +12,7 @@ FOM_arr <- c("Wilcoxon", "HrAuc", "wAFROC","AFROC", "wAFROC1","AFROC1",
 
 dataset_arr <- c("dataset02", "dataset05")
 
+
 for (d in 1:length(dataset_arr)) {
   for (f in 1:length(FOM_arr)) {
     cat("d = ", d, ", f = ", f, "\n")
@@ -22,37 +23,52 @@ for (d in 1:length(dataset_arr)) {
     if ((dataset$descriptions$type == "ROC") && (FOM != "Wilcoxon")) {
       
       # for ROC data, only Wilcoxon FOM is allowed
-      expect_error(StSignificanceTesting(dataset, FOM = FOM, method = "DBM"))
+      expect_error(StSignificanceTesting(dataset, FOM = FOM, method = "OR"))
       
     } else if ((dataset$descriptions$type == "FROC") && (FOM == "Wilcoxon")) {
       
       # for FROC data, Wilcoxon FOM is NOT allowed
-      expect_error(StSignificanceTesting(dataset, FOM = FOM, method = "DBM"))
+      expect_error(StSignificanceTesting(dataset, FOM = FOM, method = "OR"))
       
     } else {
-      d <- 1; f <- 1
+      
       ##### RRRC  ############################
-      x1 <- SigTestOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "RRRC")
-      x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "DBM", analysisOption = "RRRC")
+      x1 <- SigTestOldCode(dataset, FOM = FOM, method = "OR", analysisOption = "RRRC")
+      x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "OR", analysisOption = "RRRC")
       
       # $fomArray
       old <- dropRowColumnNames(x1$fomArray)
       new <- dropRowColumnNames(x2$FOMs$foms)
       expect_equal(old, new)
       
-      # $anovaY
-      old <- dropRowColumnNames(x1$anovaY[,-1])
-      new <- dropRowColumnNames(x2$ANOVA$TRCanova)
+      # $msT
+      old <- dropRowColumnNames(x1$msT)
+      new <- dropRowColumnNames(x2$ANOVA$TRanova[1,3])
       expect_equal(old, new)
       
-      # $anovaYi
-      old <- dropRowColumnNames(x1$anovaYi[,-1])
-      new <- dropRowColumnNames(x2$ANOVA$IndividualTrt)
+      # $msR
+      old <- dropRowColumnNames(x1$msR)
+      new <- dropRowColumnNames(x2$ANOVA$TRanova[2,3])
+      expect_equal(old, new)
+      
+      # $msRSingle1
+      old <- dropRowColumnNames(x1$msRSingle)[1]
+      new <- dropRowColumnNames(x2$ANOVA$IndividualTrt[1,2])
+      expect_equal(old, new)
+      
+      # $msRSingle2
+      old <- dropRowColumnNames(x1$msRSingle)[2]
+      new <- dropRowColumnNames(x2$ANOVA$IndividualTrt[2,2])
+      expect_equal(old, new)
+      
+      # $msTR
+      old <- dropRowColumnNames(x1$msTR)
+      new <- dropRowColumnNames(x2$ANOVA$TRanova[3,3])
       expect_equal(old, new)
       
       # $varComp
       old <- dropRowColumnNames(x1$varComp)
-      new <- dropRowColumnNames(x2$ANOVA$VarCom)
+      new <- dropRowColumnNames(x2$ANOVA$VarCom[-2])
       expect_equal(old, new)
       
       # $fRRRC
@@ -76,37 +92,37 @@ for (d in 1:length(dataset_arr)) {
       expect_equal(old, new)
       
       # $ciAvgRdrEachTrtRRRC
-      old <- dropRowColumnNames(x1$ciAvgRdrEachTrtRRRC[,-1])
-      new <- dropRowColumnNames(x2$RRRC$ciAvgRdrEachTrt)
+      old <- dropRowColumnNames(x1$ciAvgRdrEachTrtRRRC[-1])
+      new <- dropRowColumnNames(x2$RRRC$ciAvgRdrEachTrt[-6])
       expect_equal(old, new)
       
       ##### FRRC ############################
-      x1 <- SigTestOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "FRRC")
-      x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "DBM", analysisOption = "FRRC")
+      x1 <- SigTestOldCode(dataset, FOM = FOM, method = "OR", analysisOption = "FRRC")
+      x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "OR", analysisOption = "FRRC")
       
       # $fomArray
       old <- dropRowColumnNames(x1$fomArray)
       new <- dropRowColumnNames(x2$FOMs$foms)
       expect_equal(old, new)
       
-      # $anovaY
-      old <- dropRowColumnNames(x1$anovaY[,-1])
-      new <- dropRowColumnNames(x2$ANOVA$TRCanova)
+      # $msT
+      old <- dropRowColumnNames(x1$msT)
+      new <- dropRowColumnNames(x2$ANOVA$TRanova[1,3])
       expect_equal(old, new)
       
-      # $anovaYi
-      old <- dropRowColumnNames(x1$anovaYi[,-1])
-      new <- dropRowColumnNames(x2$ANOVA$IndividualTrt)
+      # $msTR
+      old <- dropRowColumnNames(x1$msTR)
+      new <- dropRowColumnNames(x2$ANOVA$TRanova[3,3])
       expect_equal(old, new)
       
       # $varComp
       old <- dropRowColumnNames(x1$varComp)
-      new <- dropRowColumnNames(x2$ANOVA$VarCom)
+      new <- dropRowColumnNames(x2$ANOVA$VarCom[-2])
       expect_equal(old, new)
       
       # $fFRRC
       old <- dropRowColumnNames(x1$fFRRC)
-      new <- dropRowColumnNames(x2$FRRC$FTests$FStat[1])
+      new <- dropRowColumnNames(x2$FRRC$FTests[1,2])
       expect_equal(old, new)
       
       # $ddfFRRC
@@ -120,55 +136,52 @@ for (d in 1:length(dataset_arr)) {
       expect_equal(old, new)
       
       # $ciDiffTrtFRRC
-      old <- dropRowColumnNames(x1$ciDiffTrtFRRC[,-1])
+      old <- dropRowColumnNames(x1$ciDiffTrtFRRC[,-c(1,4)])
       new <- dropRowColumnNames(x2$FRRC$ciDiffTrt)
       expect_equal(old, new)
       
       # $ciAvgRdrEachTrtFRRC
-      old <- dropRowColumnNames(x1$ciAvgRdrEachTrtFRRC[,-1])
-      new <- dropRowColumnNames(x2$FRRC$ciAvgRdrEachTrt)
-      expect_equal(old, new)
-      
-      # $ssAnovaEachRdr
-      # dont need
-      
-      # $msAnovaEachRdr
-      old <- dropRowColumnNames(x1$msAnovaEachRdr[,-1])
-      new <- dropRowColumnNames(x2$ANOVA$IndividualRdr)
+      old <- dropRowColumnNames(x1$ciAvgRdrEachTrtFRRC[,-c(1,4)])
+      new <- dropRowColumnNames(x2$FRRC$ciAvgRdrEachTrt[,-3])
       expect_equal(old, new)
       
       # $ciDiffTrtEachRdr
-      old <- dropRowColumnNames(x1$ciDiffTrtEachRdr[,-(1:2)])
-      new <- dropRowColumnNames(x2$FRRC$ciDiffTrtEachRdr)
+      old <- dropRowColumnNames(x1$ciDiffTrtEachRdr[c(3,4,6,7,8,9)])
+      new <- dropRowColumnNames(x2$FRRC$ciDiffTrtEachRdr[c(1,2,3,4,5,6)])
+      expect_equal(old, new)
+      
+      # $varCovEachRdr
+      old <- dropRowColumnNames(x1$varCovEachRdr[2])
+      new <- dropRowColumnNames(x2$ANOVA$IndividualRdr[3])
       expect_equal(old, new)
       
       ##### FRRC ############################
-      x1 <- SigTestOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "RRFC")
-      x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "DBM", analysisOption = "RRFC")
+      x1 <- SigTestOldCode(dataset, FOM = FOM, method = "OR", analysisOption = "RRFC")
+      x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "OR", analysisOption = "RRFC")
       
       # $fomArray
       old <- dropRowColumnNames(x1$fomArray)
       new <- dropRowColumnNames(x2$FOMs$foms)
       expect_equal(old, new)
       
-      # $anovaY
-      old <- dropRowColumnNames(x1$anovaY[,-1])
-      new <- dropRowColumnNames(x2$ANOVA$TRCanova)
+      # $msT
+      old <- dropRowColumnNames(x1$msT)
+      new <- dropRowColumnNames(x2$ANOVA$TRanova[1,3])
       expect_equal(old, new)
       
-      # $anovaYi
-      old <- dropRowColumnNames(x1$anovaYi[,-1])
-      new <- dropRowColumnNames(x2$ANOVA$IndividualTrt)
+      # $msTR
+      old <- dropRowColumnNames(x1$msTR)
+      new <- dropRowColumnNames(x2$ANOVA$TRanova[3,3])
       expect_equal(old, new)
       
       # $varComp
       old <- dropRowColumnNames(x1$varComp)
-      new <- dropRowColumnNames(x2$ANOVA$VarCom)
+      new <- dropRowColumnNames(x2$ANOVA$VarCom[1])
       expect_equal(old, new)
       
       # $fFRRC
       old <- dropRowColumnNames(x1$fRRFC)
-      new <- dropRowColumnNames(x2$RRFC$FTests$FStat[1])
+      new <- dropRowColumnNames(x2$RRFC$FTests$F[1])
       expect_equal(old, new)
       
       # $ddfFRRC

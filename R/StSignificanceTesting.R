@@ -126,10 +126,20 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
       
     } else if (dataset$descriptions$design == "SPLIT-PLOT-A") {
       
+      cat("######################################################\n")
+      cat("WARNING: SPLIT-PLOT-A has not been tested with a real dataset; contact the maintainer if you desire this funtionality.\n")
+      cat("######################################################\n")
+      
+      Sys.sleep(5)
       return(ORAnalysisSplitPlotA(dataset, FOM, FPFValue, alpha, analysisOption))
       
     } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
       
+      cat("######################################################\n")
+      cat("WARNING: SPLIT-PLOT-C has not been tested with a real dataset; contact the maintainer if you desire this funtionality.\n")
+      cat("######################################################\n")
+      
+      Sys.sleep(5)
       return(ORAnalysisSplitPlotC(dataset, FOM, FPFValue, alpha, analysisOption))
       
     } else stop("Invalid study design: must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C")
@@ -141,7 +151,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
 
 
 checkParameters <- function(dataset, FOM, FPFValue, alpha, method, 
-                              covEstMethod, nBoots, analysisOption)
+                            covEstMethod, nBoots, analysisOption)
 {
   
   options(stringsAsFactors = FALSE, "digits" = 8)

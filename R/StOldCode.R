@@ -36,9 +36,9 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
     stop("The analysis requires at least 2 modalities.")
   }
   
-  fomArray <- UtilFigureOfMerit(dataset, FOM)
+  fomArray <- as.matrix(UtilFigureOfMerit(dataset, FOM))
   trMeans <- rowMeans(fomArray)
-  
+
   if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
     jkFOMArray <- array(dim = c(I, J, K1))
     pseudoValues <- array(dim = c(I, J, K1))
@@ -300,7 +300,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
       ciAvgRdrEachTrtRRRC <- NA
     }
     if (analysisOption == "RRRC")
-      return(list(fomArray = fomArray, 
+      return(list(fomArray = as.data.frame(fomArray), 
                   anovaY = anovaY, 
                   anovaYi = msSingleTable, 
                   varComp = varComp, 
@@ -460,7 +460,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
                                     "CI Lower", 
                                     "CI Upper")
     if (analysisOption == "FRRC")
-      return(list(fomArray = fomArray, 
+      return(list(fomArray = as.data.frame(fomArray), 
                   anovaY = anovaY, 
                   anovaYi = msSingleTable, 
                   varComp = varComp, 
@@ -542,7 +542,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
       ciAvgRdrEachTrtRRFC <- NA
     }
     if (analysisOption == "RRFC")
-      return(list(fomArray = fomArray, 
+      return(list(fomArray = as.data.frame(fomArray), 
                   anovaY = anovaY, 
                   anovaYi = msSingleTable, 
                   varComp = varComp, 
@@ -554,7 +554,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
   }
   
   # analysisOption == "ALL"
-  return(list(fomArray = fomArray, 
+  return(list(fomArray = as.data.frame(fomArray), 
               anovaY = anovaY, 
               anovaYi = msSingleTable, 
               varComp = varComp, 
@@ -587,8 +587,8 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOptio
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
   lesionVector <- dataset$lesions$perCase
-  lesionID <- dataset$lesions$lesionID
-  lesionWeight <- dataset$lesions$lesionWeight
+  lesionID <- dataset$lesions$IDs
+  lesionWeight <- dataset$lesions$weights
   maxNL <- dim(NL)[4]
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
@@ -723,7 +723,13 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOptio
         CIRRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRRC) * stdErrRRRC, 
                               diffTRMeans[i] + qt(alpha/2, ddfRRRC) * stdErrRRRC))
       }
-      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, Estimate = diffTRMeans, StdErr = rep(stdErrRRRC, choose(I, 2)), DF = rep(ddfRRRC, choose(I, 2)), t = tStat, p = tPr, CI = CIRRRC)
+      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
+                                  Estimate = diffTRMeans, 
+                                  StdErr = rep(stdErrRRRC, choose(I, 2)), 
+                                  DF = rep(ddfRRRC, choose(I, 2)), 
+                                  t = tStat, 
+                                  p = tPr, 
+                                  CI = CIRRRC)
       colnames(ciDiffTrtRRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "Pr > t", "CI Lower", "CI Upper")
       
       dfSingleRRRC <- array(dim = I)
@@ -734,9 +740,15 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOptio
         msDenSingleRRRC[i] <- msRSingle[i] + max(J * cov2Single[i], 0)
         dfSingleRRRC[i] <- msDenSingleRRRC[i]^2/msRSingle[i]^2 * (J - 1)
         stdErrSingleRRRC[i] <- sqrt(msDenSingleRRRC[i]/J)
-        CISingleRRRC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i], trMeans[i] + qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i]))
+        CISingleRRRC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i], 
+                                    trMeans[i] + qt(alpha/2, dfSingleRRRC[i]) * stdErrSingleRRRC[i]))
       }
-      ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, Area = trMeans, StdErr = stdErrSingleRRRC, DF = dfSingleRRRC, CI = CISingleRRRC, row.names = NULL)
+      ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, 
+                                        Area = trMeans, 
+                                        StdErr = stdErrSingleRRRC, 
+                                        DF = dfSingleRRRC, 
+                                        CI = CISingleRRRC, 
+                                        row.names = NULL)
       colnames(ciAvgRdrEachTrtRRRC) <- c("Treatment", "Area", "StdErr", "DF", "CI Lower", "CI Upper")
     } else {
       fRRRC <- NA
@@ -746,8 +758,17 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOptio
       ciAvgRdrEachTrtRRRC <- NA
     }
     if (analysisOption == "RRRC"){
-      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
-                  fRRRC = fRRRC, ddfRRRC = ddfRRRC, pRRRC = pRRRC, ciDiffTrtRRRC = ciDiffTrtRRRC, ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC))
+      return(list(fomArray = as.data.frame(fomArray), 
+                  msT = msT, 
+                  msR = msR,
+                  msRSingle = msRSingle,
+                  msTR = msTR, 
+                  varComp = varComp, 
+                  fRRRC = fRRRC, 
+                  ddfRRRC = ddfRRRC, 
+                  pRRRC = pRRRC, 
+                  ciDiffTrtRRRC = ciDiffTrtRRRC, 
+                  ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC))
     }
   }
   
@@ -827,14 +848,30 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOptio
       CIReaderFRRC[i, ] <- sort(c(diffTRMeansFRRC[i] - qt(alpha/2, dfReaderFRRC[i]) * stdErrFRRC[i], 
                                   diffTRMeansFRRC[i] + qt(alpha/2, dfReaderFRRC[i]) * stdErrFRRC[i]))
     }
-    ciDiffTrtEachRdr <- data.frame(Reader = readerNames, Treatment = trNames, Estimate = diffTRMeansFRRC, StdErr = stdErrFRRC, DF = dfReaderFRRC, t = tStat, p = tPr, CI = CIReaderFRRC)
+    ciDiffTrtEachRdr <- data.frame(Reader = readerNames, 
+                                   Treatment = trNames, 
+                                   Estimate = diffTRMeansFRRC, 
+                                   StdErr = stdErrFRRC, 
+                                   DF = dfReaderFRRC, 
+                                   t = tStat, 
+                                   p = tPr, 
+                                   CI = CIReaderFRRC)
     colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "Pr > t", "CI Lower", "CI Upper")
     
     varCovEachRdr <- data.frame(readerID, varEchRder, cov1EchRder)
     colnames(varCovEachRdr) <- c("Reader", "Var", "Cov1")
     if (analysisOption == "FRRC"){
-      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
-                  fFRRC = fFRRC, ddfFRRC = ddfFRRC, pFRRC = pFRRC, ciDiffTrtFRRC = ciDiffTrtFRRC, ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, ciDiffTrtEachRdr = ciDiffTrtEachRdr, varCovEachRdr = varCovEachRdr
+      return(list(fomArray = as.data.frame(fomArray), 
+                  msT = msT, 
+                  msTR = msTR, 
+                  varComp = varComp, 
+                  fFRRC = fFRRC, 
+                  ddfFRRC = ddfFRRC, 
+                  pFRRC = pFRRC, 
+                  ciDiffTrtFRRC = ciDiffTrtFRRC, 
+                  ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
+                  ciDiffTrtEachRdr = ciDiffTrtEachRdr, 
+                  varCovEachRdr = varCovEachRdr
       ))
     }
   }
@@ -883,15 +920,39 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOptio
       ciAvgRdrEachTrtRRFC <- NA
     }
     if (analysisOption == "RRFC"){
-      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
-                  fRRFC = fRRFC, ddfRRFC = ddfRRFC, pRRFC = pRRFC, ciDiffTrtRRFC = ciDiffTrtRRFC, ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
+      return(list(fomArray = as.data.frame(fomArray), 
+                  msT = msT, 
+                  msTR = msTR, 
+                  varComp = varComp, 
+                  fRRFC = fRRFC, 
+                  ddfRRFC = ddfRRFC, 
+                  pRRFC = pRRFC, 
+                  ciDiffTrtRRFC = ciDiffTrtRRFC, 
+                  ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
     }
   }
   
-  return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
-              fRRRC = fRRRC, ddfRRRC = ddfRRRC, pRRRC = pRRRC, ciDiffTrtRRRC = ciDiffTrtRRRC, ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC, 
-              fFRRC = fFRRC, ddfFRRC = ddfFRRC, pFRRC = pFRRC, ciDiffTrtFRRC = ciDiffTrtFRRC, ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, ciDiffTrtEachRdr = ciDiffTrtEachRdr, varCovEachRdr = varCovEachRdr, 
-              fRRFC = fRRFC, ddfRRFC = ddfRRFC, pRRFC = pRRFC, ciDiffTrtRRFC = ciDiffTrtRRFC, ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
+  return(list(fomArray = as.data.frame(fomArray), 
+              msT = msT, 
+              msTR = msTR, 
+              varComp = varComp, 
+              fRRRC = fRRRC, 
+              ddfRRRC = ddfRRRC, 
+              pRRRC = pRRRC, 
+              ciDiffTrtRRRC = ciDiffTrtRRRC, 
+              ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC, 
+              fFRRC = fFRRC, 
+              ddfFRRC = ddfFRRC, 
+              pFRRC = pFRRC, 
+              ciDiffTrtFRRC = ciDiffTrtFRRC, 
+              ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
+              ciDiffTrtEachRdr = ciDiffTrtEachRdr, 
+              varCovEachRdr = varCovEachRdr, 
+              fRRFC = fRRFC, 
+              ddfRRFC = ddfRRFC, 
+              pRRFC = pRRFC, 
+              ciDiffTrtRRFC = ciDiffTrtRRFC, 
+              ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
 } 
 
 
