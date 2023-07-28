@@ -6,6 +6,11 @@ title: "NEWS"
 
 ---
 
+### Issue 90
+* See https://github.com/dpc10ster/RJafroc/issues/90
+
+
+
 ### Issue 89
 * Program expected `TP` and `FP` worksheets to obey "good" ordering. 
 * If shuffled then unexpected results can occur.
