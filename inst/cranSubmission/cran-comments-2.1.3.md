@@ -16,8 +16,8 @@ title: "CRAN comments"
 * macOS Ventura 13.4.1 (c)
 * Apple M2 Pro
 
-`R CMD check` ran with no errors, warnings or notes
-
+`R CMD check` in RStudio ran with no errors, warnings or notes
+`devtools::check()` ran with no errors, warnings or notes
 
 ## GitHub Actions
 * windows-latest (release): OK
@@ -26,18 +26,12 @@ title: "CRAN comments"
 * ubuntu-20.04 (devel): OK
 
 
+## Windows and MAC portability using `devtools`
 
-## Windows portability
-
-```
-devtools::check_win_devel(): OK
-devtools::check_win_release(): OK
-devtools::check_win_oldrelease(): OK 
-```
-
-## MAC compatibility using `devtools::check_mac_release()`
-
-
+`devtools::check_win_devel()`: OK
+`devtools::check_win_release()`: OK
+`devtools::check_win_oldrelease()`: OK 
+`devtools::check_mac_release()`: OK
 
 ## CRAN compatibility using `rhub::check_for_cran()`
 
@@ -50,11 +44,10 @@ devtools::check_win_oldrelease(): OK
 |https://builder.r-hub.io/status/RJafroc_2.1.3.tar.gz-30c816b4e9774a849aeada1e6071f967 | ERROR \**see below                                    |
 
 `*` package ‘V8’ not available on this platform.
-
 `**` Dependencies ‘openxlsx’, ‘readxl’ are not available for package ‘RJafroc’ on this platform.
 
 
-## Summary of checks in other `rhub` implemented environments
+## Summary of checks in other `rhub` implemented environments using package `rhub`
 
 
 | Platform                                           | Status                                                |
