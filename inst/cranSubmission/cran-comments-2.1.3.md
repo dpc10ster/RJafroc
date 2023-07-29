@@ -27,6 +27,16 @@ title: "CRAN comments"
 * ubuntu-20.04 (devel): OK1
 
 
+## MAC portability
+
+```
+devtools::check_win_devel(): OK
+devtools::check_win_release(): OK
+devtools::check_win_oldrelease(): OK 
+```
+
+
+
 ## Windows portability
 
 ```
@@ -40,17 +50,7 @@ devtools::check_win_oldrelease(): OK
 
 CRAN compatibility was tested using `rhub::check_for_cran()`. 
 
-
-| URL                                                                                  | Status                    |
-|:-------------------------------------------------------------------------------------|:--------------------------|
-|https://builder.r-hub.io/status/RJafroc_2.1.2.tar.gz-d304d3f79a0f4cfc978120a399369143 | OK1                        |
-|https://builder.r-hub.io/status/RJafroc_2.1.2.tar.gz-dd7cfd00b60d4876a883d7a88ca8c095 | OK1                        |
-|https://builder.r-hub.io/status/RJafroc_2.1.2.tar.gz-a314baaf4b4e415481c954855dd35c71 | OK1                        |
-|https://builder.r-hub.io/status/RJafroc_2.1.2.tar.gz-a080796f2ecc48c4827153f483397d68 | ERROR (see below)         |
-
-Dependency ‘openxlsx’ is not |available for package ‘RJafroc’; one of the packages that my package depends on is not available on this platform.
-
-## Summary of checks in other rhub implemented environments
+## Summary of checks in other `rhub` implemented environments
 
 
 | Platform                                           | Status                                                |
@@ -60,23 +60,23 @@ Dependency ‘openxlsx’ is not |available for package ‘RJafroc’; one of th
 | Windows Server 2022, R-oldrel, 32/64 bit           | OK1                                                    |
 | Windows Server 2022, R-release, 32/64 bit          | OK1                                                   |
 | Windows Server 2022, R-patched, 32/64 bit          | OK1                                                   |
-| Windows Server 2022, R-devel, 64 bit               | OK1                                                    |
+| Windows Server 2022, R-devel, 64 bit               | NOTE elapsed CPU time 6s                             |
 | Debian Linux, R-devel, clang, ISO-8859-15 locale   | OK1                                                    |
 | Debian Linux, R-devel, GCC                         | OK1                                                    |
-| Debian Linux, R-devel, GCC ASAN/UBSAN              | PREPERROR \* (missing package, see below)             |
-| Fedora Linux, R-devel, clang, gfortran             | NOTE  \*\*\* (CPU time, see below)                    |
+| Debian Linux, R-devel, GCC ASAN/UBSAN              | PREPERROR \* (missing packages)             |
+| Fedora Linux, R-devel, clang, gfortran             | NOTE elapsed CPU time 6s                   |
 | Ubuntu Linux 20.04.1 LTS, R-devel, GCC             | OK1                                                    |
-| Ubuntu Linux 20.04.1 LTS, R-release, GCC           | NOTE\*\* (file size is 5.4Mb, see below)              |
+| Ubuntu Linux 20.04.1 LTS, R-release, GCC           | NOTE installed size 6Mb              |
 
 
-`*` PREPERROR: dependency ‘openxlsx’ not available; it appears one of the packages that my package depends on is not available on this platform.
+`*` PREPERROR: dependencies ‘openxlsx’ and ‘readxl’ not available on this platform.
 
 `**` I would have to remove a significant number of code, tests and datasets to meet the 5MB requirement on this platform. 
 
 `***` I would have to remove or comment out a significant number of examples to meet the CPU time restrictions on this platform. 
 
 
-# FAILURE SUMMARY (from last attempted submission)
+# FAILURE1 SUMMARY (from last attempted submission)
 
 The previous version installed with 0 errors, 0 warnings and 1 note (installed size is 5.2Mb). The size of the package has been reduced by moving all vignettesto my `RJafroc`-based online books on GitHub. 
 
