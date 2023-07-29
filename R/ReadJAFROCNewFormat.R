@@ -40,6 +40,12 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
   nlFileIndex <- which(!is.na(match(sheetNames, c("FP", "NL"))))
   if (length(nlFileIndex) == 0) stop("FP/NL table worksheet cannot be found in the Excel file.")
   NLTable <- data.frame(read_xlsx(fileName, nlFileIndex, range=cell_cols(1:4)))
+ 
+  # check column names
+  if (is.null(NLTable$ReaderID)) stop ("Check FP or NL worksheet column names: should be ReaderID\n")
+  if (is.null(NLTable$ModalityID)) stop ("Check FP or NL worksheet column names: should be ModalityID\n")
+  if (is.null(NLTable$CaseID)) stop ("Check FP or NL worksheet column names: should be CaseID\n")
+  if (is.null(NLTable$FP_Rating)) stop ("Check FP or NL worksheet column names: should be FP_Rating\n")
   
   # Issue 89
   NLTable <- NLTable[order(NLTable$ModalityID, NLTable$ReaderID, NLTable$CaseID, NLTable$FP_Rating),]
@@ -86,6 +92,13 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
   if (length(llFileIndex) == 0) stop("TP/LL table worksheet cannot be found in the Excel file.")
   LLTable <- data.frame(read_xlsx(fileName, llFileIndex, range = cell_cols(1:5) ))
 
+  # check column names
+  if (is.null(LLTable$ReaderID)) stop ("Check TP or LL worksheet column names: should be ReaderID\n")
+  if (is.null(LLTable$ModalityID)) stop ("Check TP or LL worksheet column names: should be ModalityID\n")
+  if (is.null(LLTable$CaseID)) stop ("Check TP or LL worksheet column names: should be CaseID\n")
+  if (is.null(LLTable$LesionID)) stop ("Check TP or LL worksheet column names: should be LesionID\n")
+  if (is.null(LLTable$TP_Rating)) stop ("Check TP or LL worksheet column names: should be TP_Rating\n")
+  
   # Issue 89
   LLTable <- LLTable[order(LLTable$ModalityID, LLTable$ReaderID, LLTable$CaseID, LLTable$TP_Rating),]
   
@@ -233,7 +246,7 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
           && (all((NL[, , (K1 + 1):K, ] == UNINITIALIZED))) 
           && (all((NL[, , 1:K1, ] != UNINITIALIZED)))
           && (all((LL[, , 1:K2, ] != UNINITIALIZED))))) {
-      stop("This does not appear to be an ROC dataset.")
+      stop("This does not appear to be an ROC dataset: check TRUTH worksheet.")
     }    
   }
   
