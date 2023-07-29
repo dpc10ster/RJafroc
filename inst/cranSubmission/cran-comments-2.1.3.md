@@ -10,9 +10,8 @@ title: "CRAN comments"
 
 # Test environments
 
-## OS X
+## My machine
 * R version 4.3.0 (2023-04-21)
-
 * Platform: aarch64-apple-darwin20
 * macOS Ventura 13.4.1 (c)
 * Apple M2 Pro
@@ -21,11 +20,10 @@ title: "CRAN comments"
 
 
 ## GitHub Actions
-
-* windows-latest (release): OK1 
-* macOS-latest (release):  OK1
-* ubuntu-20.04 (release): OK1
-* ubuntu-20.04 (devel): OK1
+* windows-latest (release): OK
+* macOS-latest (release):  OK
+* ubuntu-20.04 (release): OK
+* ubuntu-20.04 (devel): OK
 
 
 
