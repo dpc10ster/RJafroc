@@ -66,24 +66,17 @@ packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.3.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
-for (indx in 1:length(indx_packages_cran)) { 
-  cat(platforms[[1]][indx_packages_cran[indx]],"\n")
-  chk1 <- rhub::check(packagePath, platforms = platforms[[1]][indx])
+for (indx in 1:length(indx_packages_cran)) {
+  indx1 <- platforms[[1]][indx_packages_cran[indx]]
+  cat(indx1,"\n")
+  chk1 <- rhub::check(packagePath, platforms = indx1)
   next
 }
 ```
 
 | Platform                                                 | Status                                                |
 |:---------------------------------------------------------|:------------------------------------------------------|
-| Debian Linux, R-devel, clang, ISO-8859-15 locale         | OK                                                    |
-| Debian Linux, R-devel, GCC                               | OK                                                    |
-| Debian Linux, R-devel, GCC, no long double               | OK                                                    |
-| Debian Linux, R-patched, GCC                             | OK                                                    |
-| Fedora Linux, R-devel, clang, gfortran                   | OK                                                    |
-| Fedora Linux, R-devel, GCC                               | NOTE installed size 5.1Mb                             |
-| Windows Server 2022, R-devel, 64 bit                     | NOTE CPU time and installed size 5.1Mb                             |
-| Debian Linux, R-release, GCC                             | NOTE installed size 5.1Mb                             |
-| Debian Linux, R-devel, GCC ASAN/UBSAN                    | PREPERROR \* I could not track the reason             |
+| Windows Server 2022, R-release, 32/64 bit                | OK                                                    |
 
 
 
