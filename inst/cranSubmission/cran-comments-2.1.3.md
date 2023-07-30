@@ -76,6 +76,7 @@ for (indx in 1:length(indx_packages_cran)) {
 
 | Platform                                                 | Status                                                |
 |:---------------------------------------------------------|:------------------------------------------------------|
+| Windows Server 2022, R-release, 32/64 bit                | OK1                                                    |
 | Windows Server 2022, R-release, 32/64 bit                | OK                                                    |
 
 
