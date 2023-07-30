@@ -13,7 +13,8 @@ packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.3.tar.gz"
 if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
-for (indx in 7:length(indx_packages_cran)) { 
+for (indx in 1:length(indx_packages_cran)) {
+  if (indx == 7) next
   indx1 <- platforms[[1]][indx_packages_cran[indx]]
   cat(indx1,"\n")
   chk1 <- rhub::check(packagePath, platforms = indx1)
