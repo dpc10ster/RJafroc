@@ -7,7 +7,6 @@ library(RJafroc)
 
 platforms <- rhub::platforms()
 
-indx_packages_cran <- c(1,2,6,7,12,8,15,13)  
 indx_packages_cran <- c(1,2,6,7,12,8,15,13)
 
 packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.3.tar.gz"
