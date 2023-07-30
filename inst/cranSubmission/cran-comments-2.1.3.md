@@ -3,9 +3,13 @@ title: "CRAN comments"
 ---
 
 
-# Reason for submission
-* In response to an email from Kurt Hornik <Kurt.Hornik@wu.ac.at> requesting an update to the current CRAN version (v2.1.1) of `RJafroc` which is generating ERRORS all of which are due to failing tests in `tests/testthat.R` related to the recent update of `ggplot2` on which my package depends. 
-* This update (v2.1.3) should fix the ERRORS. 
+# Reason for submission1
+* This submission is in response to 2 user-reported bugs documented as Issues here:
+
+    + https://github.com/dpc10ster/RJafroc/issues/89
+    + https://github.com/dpc10ster/RJafroc/issues/90
+
+* This update (v2.1.3) fixes these issues. 
 
 
 # Test environments
@@ -16,66 +20,77 @@ title: "CRAN comments"
 * macOS Ventura 13.4.1 (c)
 * Apple M2 Pro
 
-`R CMD check` in RStudio ran with no errors, warnings or notes
-`devtools::check()` ran with no errors, warnings or notes
+## Checks on my machine
 
-## GitHub Actions
+* `R CMD check` in RStudio ran with no errors, warnings or notes
+* `devtools::check()` ran with no errors, warnings or notes
+
+
+## Checks on GitHub Actions
 * windows-latest (release): OK
 * macOS-latest (release):  OK
 * ubuntu-20.04 (release): OK
 * ubuntu-20.04 (devel): OK
 
 
-## Windows and MAC portability using `devtools`
+## Windows and MAC portability checked using `devtools`
 
 `devtools::check_win_devel()`: OK
 `devtools::check_win_release()`: OK
 `devtools::check_win_oldrelease()`: OK 
 `devtools::check_mac_release()`: OK
 
-## CRAN compatibility using `rhub::check_for_cran()`
+
+## CRAN compatibility checked using `rhub::check_for_cran()`
 
 
-| URL                                                                                  | Status                                                |
-|:-------------------------------------------------------------------------------------|:------------------------------------------------------|
-|https://builder.r-hub.io/status/RJafroc_2.1.3.tar.gz-591107c09f17497da17f6c5921d42074 | NOTE Example CPU time 5.6s and \*see below            |
-|https://builder.r-hub.io/status/RJafroc_2.1.3.tar.gz-baa2cb7423724eadadac7f22e7ce9a8c | NOTE CPU time 6s & package size 6 MB \*see below      |
-|https://builder.r-hub.io/status/RJafroc_2.1.3.tar.gz-0ecbba6afcd146e1be20f9343eb1af37 | NOTE CPU time 6s and \*see below                      |
-|https://builder.r-hub.io/status/RJafroc_2.1.3.tar.gz-30c816b4e9774a849aeada1e6071f967 | ERROR \**see below                                    |
+| URL                                                                                  | Status                                                    |
+|:-------------------------------------------------------------------------------------|:----------------------------------------------------------|
+|https://builder.r-hub.io/status/RJafroc_2.1.3.tar.gz-591107c09f17497da17f6c5921d42074 | NOTE Example CPU time 5.6s and \*see below                |
+|https://builder.r-hub.io/status/RJafroc_2.1.3.tar.gz-baa2cb7423724eadadac7f22e7ce9a8c | NOTE CPU time 6s & package size 6 MB and \*see below      |
+|https://builder.r-hub.io/status/RJafroc_2.1.3.tar.gz-0ecbba6afcd146e1be20f9343eb1af37 | NOTE CPU time 6s and \*see below                          |
+|https://builder.r-hub.io/status/RJafroc_2.1.3.tar.gz-30c816b4e9774a849aeada1e6071f967 | ERROR \**see below                                        |
 
 `*` package ‘V8’ not available on this platform.
-`**` Dependencies ‘openxlsx’, ‘readxl’ are not available for package ‘RJafroc’ on this platform.
+`**` package dependencies ‘openxlsx’ and ‘readxl’ are not available on this platform.
 
 
 ## Summary of checks in other `rhub` implemented environments using package `rhub`
 
+```
+platforms <- rhub::platforms()
 
-| Platform                                           | Status                                                |
-|:---------------------------------------------------|:------------------------------------------------------|
-| macOS 10.13.6 High Sierra, R-release, brew         | OK1                                                    |
-| macOS 10.13.6 High Sierra, R-release, CRAN's setup | OK1                                                    |
-| Windows Server 2022, R-oldrel, 32/64 bit           | OK1                                                    |
-| Windows Server 2022, R-release, 32/64 bit          | OK1                                                   |
-| Windows Server 2022, R-patched, 32/64 bit          | OK1                                                   |
-| Windows Server 2022, R-devel, 64 bit               | NOTE elapsed CPU time 6s                             |
-| Debian Linux, R-devel, clang, ISO-8859-15 locale   | OK1                                                    |
-| Debian Linux, R-devel, GCC                         | OK1                                                    |
-| Debian Linux, R-devel, GCC ASAN/UBSAN              | PREPERROR \* (missing packages)             |
-| Fedora Linux, R-devel, clang, gfortran             | NOTE elapsed CPU time 6s                   |
-| Ubuntu Linux 20.04.1 LTS, R-devel, GCC             | OK1                                                    |
-| Ubuntu Linux 20.04.1 LTS, R-release, GCC           | NOTE installed size 6Mb              |
+indx_packages_cran <- c(1,2,6,7,12,8,15,13)  
+  
+packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.3.tar.gz"
+if (!file.exists(packagePath))
+  packagePath <- devtools::build()
+
+for (indx in 1:length(indx_packages_cran)) { 
+  cat(platforms[[1]][indx_packages_cran[indx]],"\n")
+  chk1 <- rhub::check(packagePath, platforms = platforms[[1]][indx])
+  next
+}
+```
+
+| Platform                                                 | Status                                                |
+|:---------------------------------------------------------|:------------------------------------------------------|
+| Debian Linux, R-devel, clang, ISO-8859-15 locale         | OK                                                    |
+| Debian Linux, R-devel, GCC                               | OK                                                    |
+| Debian Linux, R-devel, GCC, no long double               | OK                                                    |
+| Debian Linux, R-patched, GCC                             | OK                                                    |
+| Fedora Linux, R-devel, clang, gfortran                   | OK                                                    |
+| Fedora Linux, R-devel, GCC                               | NOTE installed size 5.1Mb                             |
+| Windows Server 2022, R-devel, 64 bit                     | NOTE CPU time and installed size 5.1Mb                             |
+| Debian Linux, R-release, GCC                             | NOTE installed size 5.1Mb                             |
+| Debian Linux, R-devel, GCC ASAN/UBSAN                    | PREPERROR \* I could not track the reason             |
 
 
-`*` PREPERROR: dependencies ‘openxlsx’ and ‘readxl’ not available on this platform.
 
-`**` I would have to remove a significant number of code, tests and datasets to meet the 5MB requirement on this platform. 
+# FAILURE SUMMARY (from last attempted submission)
 
-`***` I would have to remove or comment out a significant number of examples to meet the CPU time restrictions on this platform. 
+The previous version installed with 0 errors, 0 warnings and 0 notes. 
 
-
-# FAILURE1 SUMMARY (from last attempted submission)
-
-The previous version installed with 0 errors, 0 warnings and 1 note (installed size is 5.2Mb). The size of the package has been reduced by moving all vignettesto my `RJafroc`-based online books on GitHub. 
 
 # All revdep maintainers were notified of the release on release date
 
