@@ -16,7 +16,7 @@ if (!file.exists(packagePath))
 for (indx in 7:length(indx_packages_cran)) { 
   indx1 <- platforms[[1]][indx_packages_cran[indx]]
   cat(indx1,"\n")
-  chk1 <- rhub::check(packagePath, platforms = platforms[[1]][indx])
+  chk1 <- rhub::check(packagePath, platforms = indx1)
   next
 }
 
