@@ -14,7 +14,8 @@ if (!file.exists(packagePath))
   packagePath <- devtools::build()
 
 for (indx in 7:length(indx_packages_cran)) { 
-  cat(platforms[[1]][indx_packages_cran[indx]],"\n")
+  indx1 <- platforms[[1]][indx_packages_cran[indx]]
+  cat(indx1,"\n")
   chk1 <- rhub::check(packagePath, platforms = platforms[[1]][indx])
   next
 }
