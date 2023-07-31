@@ -4,7 +4,7 @@ title: "CRAN comments"
 
 
 # Reason for submission1
-* This submission is in response to 2 user-reported bugs documented as Issues here:
+* This submission is in response to two user-reported bugs documented as Issues here:
 
     + https://github.com/dpc10ster/RJafroc/issues/89
     + https://github.com/dpc10ster/RJafroc/issues/90
@@ -15,25 +15,27 @@ title: "CRAN comments"
 # Test environments
 
 ## My machine
-* R version 4.3.0 (2023-04-21)
-* Platform: aarch64-apple-darwin20
-* macOS Ventura 13.4.1 (c)
-* Apple M2 Pro
 
-## Checks on my machine
+* Apple M2 Pro
+* macOS Ventura 13.4.1 (c)
+* Platform: aarch64-apple-darwin20
+* R version 4.3.0 (2023-04-21)
+
+## R CMD checks on my machine
 
 * `R CMD check` in RStudio ran with no errors, warnings or notes
 * `devtools::check()` ran with no errors, warnings or notes
 
 
-## Checks on GitHub Actions
+## R CMD checks on GitHub Actions
+
 * windows-latest (release): OK
 * macOS-latest (release):  OK
 * ubuntu-20.04 (release): OK
 * ubuntu-20.04 (devel): OK
 
 
-## Windows and MAC portability checked using `devtools`
+## Windows and MAC portability were checked using `devtools`
 
 `devtools::check_win_devel()`: OK
 `devtools::check_win_release()`: OK
@@ -41,7 +43,7 @@ title: "CRAN comments"
 `devtools::check_mac_release()`: OK
 
 
-## CRAN compatibility checked using `rhub::check_for_cran()`
+## CRAN compatibility was checked using `rhub::check_for_cran()`
 
 
 | URL                                                                                  | Status                                                    |
@@ -55,7 +57,7 @@ title: "CRAN comments"
 `**` package dependencies ‘openxlsx’ and ‘readxl’ are not available on this platform.
 
 
-## Summary of checks in other `rhub` implemented environments using package `rhub`
+## Summary of checks on all CRAN listed environments using package `rhub`
 
 ```
 platforms <- rhub::platforms()
@@ -76,7 +78,13 @@ for (indx in 1:length(indx_packages_cran)) {
 
 | Platform                                                 | Status                                                |
 |:---------------------------------------------------------|:------------------------------------------------------|
-| Windows Server 2022, R-release, 32/64 bit                | OK1                                                    |
+| Debian Linux, R-devel, clang, ISO-8859-15 locale         | OK                                                    |
+| Debian Linux, R-devel, GCC                               | OK                                                    |
+| Fedora Linux, R-devel, clang, gfortran                   | OK                                                    |
+| Fedora Linux, R-devel, GCC                               | NOTE  installed size 5.1Mb                            |
+| Windows Server 2022, R-devel, 64 bit                     | OK                                                    |
+|          | OK1                                                    |
+|          | OK1                                                    |
 | Windows Server 2022, R-release, 32/64 bit                | OK                                                    |
 
 
