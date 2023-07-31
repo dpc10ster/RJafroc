@@ -75,17 +75,19 @@ for (indx in 1:length(indx_packages_cran)) {
   next
 }
 ```
+ Windows Server 2022 x64
+
 
 | Platform                                                 | Status                                                |
 |:---------------------------------------------------------|:------------------------------------------------------|
 | Debian Linux, R-devel, clang, ISO-8859-15 locale         | OK                                                    |
 | Debian Linux, R-devel, GCC                               | OK                                                    |
 | Fedora Linux, R-devel, clang, gfortran                   | OK                                                    |
-| Fedora Linux, R-devel, GCC                               | NOTE  installed size 5.1Mb                            |
+| Fedora Linux, R-devel, GCC                               | NOTE installed size 5.1Mb                             |
 | Windows Server 2022, R-devel, 64 bit                     | OK                                                    |
-|          | OK1                                                    |
-|          | OK1                                                    |
+| linux-x86_64-rocker-gcc-san                              | OK1                                                    |
 | Windows Server 2022, R-release, 32/64 bit                | OK                                                    |
+| Windows Server 2022, R-oldrel, 32/64 bit                 | OK                                                    |
 
 
 
