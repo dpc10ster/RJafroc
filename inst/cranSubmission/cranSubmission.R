@@ -23,9 +23,11 @@ if (!file.exists(packagePath))
 ## caffeinate -d
 ## 
 
-for (i in 1:length(indx_packages_cran)) {
-  i1 <- platf$description[indx_packages_cran[i]]
-  cat(i1,"\n")
-  #chk1 <- rhub::check(packagePath, platf = i1, email = "dpc10ster@gmail.com")
+#for (i in 1:length(indx_packages_cran)) {
+for (i in 6:7) {
+  descr <- platf$description[indx_packages_cran[i]]
+  name <- platf$name[indx_packages_cran[i]]
+  cat(descr,"\n")
+  chk1 <- rhub::check(packagePath, platf = name, email = "dpc10ster@gmail.com")
 }
 

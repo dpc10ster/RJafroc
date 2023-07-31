@@ -84,7 +84,8 @@ for (indx in 1:length(indx_packages_cran)) {
 | Fedora Linux, R-devel, clang, gfortran                   | OK                                                    |
 | Fedora Linux, R-devel, GCC                               | NOTE installed size 5.7Mb                             |
 | Windows Server 2022, R-devel, 64 bit                     | OK                                                    |
-| Debian Linux, R-devel, GCC ASAN/UBSAN                    | PREPERROR \*see below                                 |
+| Debian Linux, R-patched, GCC                    | PREPERROR1 \*see below                                 |
+| Debian Linux, R-release, GCC                    | PREPERROR1 \*see below                                 |
 | Windows Server 2022, R-release, 32/64 bit                | OK                                                    |
 | Windows Server 2022, R-oldrel, 32/64 bit                 | OK                                                    |
 
