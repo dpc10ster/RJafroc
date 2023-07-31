@@ -57,11 +57,12 @@ title: "CRAN comments"
 `**` package dependencies ‘openxlsx’ and ‘readxl’ are not available on this platform.
 
 
-## Summary of checks on all CRAN listed environments using package `rhub`
+## Summary of checks on all CRAN listed flavors using package `rhub`
 
 ```
-platforms <- rhub::platforms()
+library(rhub)
 
+platforms <- rhub::platforms()
 indx_packages_cran <- c(1,2,6,7,12,8,15,13)  
   
 packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.3.tar.gz"
@@ -70,12 +71,10 @@ if (!file.exists(packagePath))
 
 for (indx in 1:length(indx_packages_cran)) {
   indx1 <- platforms[[1]][indx_packages_cran[indx]]
-  cat(indx1,"\n")
   chk1 <- rhub::check(packagePath, platforms = indx1)
-  next
 }
 ```
- Windows Server 2022 x64
+
 
 
 | Platform                                                 | Status                                                |
@@ -83,16 +82,16 @@ for (indx in 1:length(indx_packages_cran)) {
 | Debian Linux, R-devel, clang, ISO-8859-15 locale         | OK                                                    |
 | Debian Linux, R-devel, GCC                               | OK                                                    |
 | Fedora Linux, R-devel, clang, gfortran                   | OK                                                    |
-| Fedora Linux, R-devel, GCC                               | NOTE installed size 5.1Mb                             |
+| Fedora Linux, R-devel, GCC                               | NOTE installed size 5.7Mb                             |
 | Windows Server 2022, R-devel, 64 bit                     | OK                                                    |
-| Debian Linux, R-devel, GCC ASAN/UBSAN                    | PREPERROR \*see below                                                    |
+| Debian Linux, R-devel, GCC ASAN/UBSAN                    | PREPERROR \*see below                                 |
 | Windows Server 2022, R-release, 32/64 bit                | OK                                                    |
 | Windows Server 2022, R-oldrel, 32/64 bit                 | OK                                                    |
 
 `*` package dependencies ‘openxlsx’ and ‘readxl’ are not available on this platform.
 
 
-# FAILURE SUMMARY (from last attempted submission)
+# FAILURE SUMMARY from last attempted submission
 
 The previous version installed with 0 errors, 0 warnings and 0 notes. 
 

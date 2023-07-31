@@ -6,6 +6,17 @@ title: "NEWS"
 
 ---
 
+
+
+### CRAN submission v2.1.3
+* TBA Issue 90
+* TBS Issue 89
+* Entry errors in Excel file
+* Warnings on using FOMs that depend on only non-diseased cases or only diseased cases 
+* Refer to `QuickStart`: new chapter on recommended FOMs and those to avoid at all costs
+* Just provide a brief description in code and a link to the new chapter (which is under construction)
+
+
 ### Issue 90
 * See https://github.com/dpc10ster/RJafroc/issues/90
 

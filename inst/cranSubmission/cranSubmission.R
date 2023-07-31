@@ -1,3 +1,8 @@
+#################
+## This runs more reliably on iMac, not M2
+#################
+
+
 library(devtools)
 library(rhub)
 library(RJafroc)
@@ -5,7 +10,7 @@ library(RJafroc)
 # CRAN check flavors
 # https://cran.r-project.org/web/checks/check_flavors.html
 
-platforms <- rhub::platforms()
+platf <- rhub::platforms()
 
 indx_packages_cran <- c(1,2,6,7,12,8,15,13)
 
@@ -18,11 +23,9 @@ if (!file.exists(packagePath))
 ## caffeinate -d
 ## 
 
-#for (indx in 3:length(indx_packages_cran)) {
-for (indx in 6:6) {
-  indx1 <- platforms[[1]][indx_packages_cran[indx]]
+for (indx in 1:length(indx_packages_cran)) {
+  indx1 <- platf[[1]][indx_packages_cran[indx]]
   cat(indx1,"\n")
-  chk1 <- rhub::check(packagePath, platforms = indx1)
-  next
+  chk1 <- rhub::check(packagePath, platf = indx1, email = "dpc10ster@gmail.com")
 }
 
