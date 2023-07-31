@@ -85,10 +85,11 @@ for (indx in 1:length(indx_packages_cran)) {
 | Fedora Linux, R-devel, clang, gfortran                   | OK                                                    |
 | Fedora Linux, R-devel, GCC                               | NOTE installed size 5.1Mb                             |
 | Windows Server 2022, R-devel, 64 bit                     | OK                                                    |
-| linux-x86_64-rocker-gcc-san                              | OK1                                                    |
+| Debian Linux, R-devel, GCC ASAN/UBSAN                    | PREPERROR \*see below                                                    |
 | Windows Server 2022, R-release, 32/64 bit                | OK                                                    |
 | Windows Server 2022, R-oldrel, 32/64 bit                 | OK                                                    |
 
+`*` package dependencies ‘openxlsx’ and ‘readxl’ are not available on this platform.
 
 
 # FAILURE SUMMARY (from last attempted submission)
