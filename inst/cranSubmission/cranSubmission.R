@@ -3,9 +3,7 @@
 #################
 
 
-library(devtools)
 library(rhub)
-library(RJafroc)
 
 # CRAN check flavors
 # https://cran.r-project.org/web/checks/check_flavors.html
@@ -24,10 +22,10 @@ if (!file.exists(packagePath))
 ## 
 
 #for (i in 1:length(indx_packages_cran)) {
-for (i in 6:6) {
+for (i in 1:1) {
   descr <- platf$description[indx_packages_cran[i]]
   name <- platf$name[indx_packages_cran[i]]
   cat(descr,"\n")
-  chk1 <- rhub::check(packagePath, platforms = name, email = "dpc10ster@gmail.com")
+  chk1 <- rhub::check(path = packagePath, platform = name)
 }
 

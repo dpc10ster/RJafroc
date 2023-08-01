@@ -38,7 +38,9 @@
 #'    treatment and reader IDs (i.e., names). Otherwise, treatment 
 #'    and reader IDs in the original data file will be used.
 #' 
-#' @note The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file 
+#' @note WARNING: SPLIT-PLOT-A and SPLIT-PLOT-C have not been tested with real datasets. 
+#'    Contact the maintainer if you desire this funtionality.
+#'    The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file 
 #'    extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc}) are possible, 
 #'    all of which are restricted to ROC data. Only the \code{iMRMC} format is actively 
 #'    supported, i.e, files with extension \code{.imrmc}. Other formats (\code{.csv}, 
@@ -226,12 +228,8 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
   K <- (K1 + K2)
   
   if (design == "SPLIT-PLOT-A") {
-    cat("######################################################\n")
-    cat("WARNING: SPLIT-PLOT-A has not been tested with a real dataset; contact the maintainer if you desire this funtionality.\n")
-    Sys.sleep(5)
-    cat("######################################################\n")
     
-    # for this design the length is twice what it needs to be
+   # for this design the length is twice what it needs to be
     caseIDCol <- as.integer(truthTable$CaseID)[1:(L/2)]
     # lesionIDCol <- as.integer(truthTable$LesionID)[1:(L/2)]
     weightsCol <- truthTable$Weight[1:(L/2)]
@@ -262,11 +260,6 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
       } else stop("Was expecting nested notation, using () brackets ...")
     }
   } else if (design == "SPLIT-PLOT-C") {
-    
-    cat("######################################################\n")
-    cat("WARNING: SPLIT-PLOT-C has not been tested with a real dataset; contact the maintainer if you desire this funtionality.\n")
-    Sys.sleep(5)
-    cat("######################################################\n")
     
     # preserve the strings; DO NOT convert to integers
     J <- length(strsplit(readerIDCol[1], split = ",")[[1]])

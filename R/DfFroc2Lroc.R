@@ -25,7 +25,7 @@
 #' lrocDataset <- DfFroc2Lroc(dataset05)
 #' frocHrAuc <- UtilFigureOfMerit(dataset05, FOM = "HrAuc")   
 #' lrocWilcoxonAuc <- UtilFigureOfMerit(lrocDataset, FOM = "Wilcoxon")
-#' ## expect_equal(frocHrAuc, lrocWilcoxonAuc)
+#' testthat::expect_equal(frocHrAuc, lrocWilcoxonAuc)
 #' 
 #' @export
 

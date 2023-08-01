@@ -112,21 +112,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
                                   covEstMethod = "jackknife", nBoots = 200, analysisOption = "ALL")
 {
 
-  if (FOM %in% c("HrSe", "HrSp")){
-    cat("######################################################\n")
-    cat("WARNING\n")
-    cat("Usage of FOM = HrSe or FOM = HrSp is strongly discouraged.\n")
-    cat("A serious problem occurs when one compares two readers or two treatments using either of these FOMs:\n")
-    cat("This is because a rating is a *subjective ordered label*. It need not be used consistently between readers and treatments.\n") 
-    cat("E.g., a reader using a strict reporting criteria, who only marks a lesion when he is very confident, will have smaller HrSe and larger HrSp\n") 
-    cat("than a reader who adopts a laxer criteria, even though true performance, as measured by ROC AUC or percentage correct\n")
-    cat("in 2AFC task, are identical. This is the reason why the ROC AUC was recommended by Metz, ca. 1970s, instead of sensitivity or specificity.\n") 
-    cat("A detailed explanation is in preparation and will be posted to the online `RJafrocQuickStart` book.\n")
-    cat("######################################################\n")
-    
-    Sys.sleep(60)
-  }
-  
+
   checkParameters(dataset, FOM, FPFValue, alpha, method, covEstMethod, nBoots, analysisOption)
   
   if (method == "DBM"){
@@ -141,20 +127,10 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
       
     } else if (dataset$descriptions$design == "SPLIT-PLOT-A") {
       
-      cat("######################################################\n")
-      cat("WARNING: SPLIT-PLOT-A has not been tested with a real dataset; contact the maintainer if you desire this funtionality.\n")
-      cat("######################################################\n")
-      
-      Sys.sleep(5)
-      return(ORAnalysisSplitPlotA(dataset, FOM, FPFValue, alpha, analysisOption))
+       return(ORAnalysisSplitPlotA(dataset, FOM, FPFValue, alpha, analysisOption))
       
     } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
       
-      cat("######################################################\n")
-      cat("WARNING: SPLIT-PLOT-C has not been tested with a real dataset; contact the maintainer if you desire this funtionality.\n")
-      cat("######################################################\n")
-      
-      Sys.sleep(5)
       return(ORAnalysisSplitPlotC(dataset, FOM, FPFValue, alpha, analysisOption))
       
     } else stop("Invalid study design: must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C")

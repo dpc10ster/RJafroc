@@ -94,7 +94,7 @@
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   
   dataType <- dataset$descriptions$type
-  if ((dataType == "ROC") && !(FOM %in% c("Wilcoxon","HrSe","HrSp"))) {
+  if ((dataType == "ROC") && !(FOM %in% c("Wilcoxon"))) {
     errMsg <- paste0("Must use Wilcoxon figure of merit with ROC data.")
     stop(errMsg)
   }
@@ -104,7 +104,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     FOM <- "ROI"
   }
   
-  if (!(dataType %in% c("FROC", "LROC")) && FOM == "Wilcoxon")
+  if ((dataType %in% c("FROC", "ROI")) && (FOM == "Wilcoxon"))
     stop("Cannot use `Wilcoxon` FOM with `FROC` or `ROI` data.")
   
   if ((dataType != "ROI") && (FOM == "ROI")) {

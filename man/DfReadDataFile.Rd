@@ -56,7 +56,9 @@ Read a disk file and create a ROC, FROC or LROC dataset object
    from it.
 }
 \note{
-The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file 
+WARNING: SPLIT-PLOT-A and SPLIT-PLOT-C have not been tested with real datasets. 
+   Contact the maintainer if you desire this funtionality.
+   The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file 
    extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc}) are possible, 
    all of which are restricted to ROC data. Only the \code{iMRMC} format is actively 
    supported, i.e, files with extension \code{.imrmc}. Other formats (\code{.csv}, 
