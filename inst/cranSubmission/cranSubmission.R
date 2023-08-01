@@ -24,10 +24,10 @@ if (!file.exists(packagePath))
 ## 
 
 #for (i in 1:length(indx_packages_cran)) {
-for (i in 6:7) {
+for (i in 6:6) {
   descr <- platf$description[indx_packages_cran[i]]
   name <- platf$name[indx_packages_cran[i]]
   cat(descr,"\n")
-  chk1 <- rhub::check(packagePath, platf = name, email = "dpc10ster@gmail.com")
+  chk1 <- rhub::check(packagePath, platforms = name, email = "dpc10ster@gmail.com")
 }
 
