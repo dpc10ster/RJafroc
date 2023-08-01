@@ -94,20 +94,20 @@
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   
   dataType <- dataset$descriptions$type
-  if (dataType == "ROC" && FOM != "Wilcoxon") {
+  if ((dataType == "ROC") && !(FOM %in% c("Wilcoxon","HrSe","HrSp"))) {
     errMsg <- paste0("Must use Wilcoxon figure of merit with ROC data.")
     stop(errMsg)
   }
   
-  if (dataType == "ROI" && FOM != "ROI") {
+  if ((dataType == "ROI") && (FOM != "ROI")) {
     cat("Incorrect FOM supplied for ROI data, changing to 'ROI'\n")
     FOM <- "ROI"
   }
   
-  if (!(dataType %in% c("ROC", "LROC")) && FOM == "Wilcoxon")
+  if (!(dataType %in% c("FROC", "LROC")) && FOM == "Wilcoxon")
     stop("Cannot use `Wilcoxon` FOM with `FROC` or `ROI` data.")
   
-  if (dataType != "ROI" && FOM == "ROI") {
+  if ((dataType != "ROI") && (FOM == "ROI")) {
     errMsg <- paste0("Only ROI data can be analyzed using ROI figure of merit.")
     stop(errMsg)
   }
@@ -145,7 +145,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   K2 <- dim(LL)[3]
   K1 <- K - K2  
   
-  if (K1 == 0 && !(FOM %in% c("AFROC1", "wAFROC1"))) {
+  if ((K1 == 0) && !(FOM %in% c("AFROC1", "wAFROC1"))) {
     errMsg <- paste0("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
     stop(errMsg)
   }
