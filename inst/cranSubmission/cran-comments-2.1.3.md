@@ -3,7 +3,7 @@ title: "CRAN comments"
 ---
 
 
-# Reason for submission1
+# Reason for submission
 * This submission is in response to two user-reported bugs documented as Issues here:
 
     + https://github.com/dpc10ster/RJafroc/issues/89
@@ -14,20 +14,31 @@ title: "CRAN comments"
 
 # Test environments
 
-## My machine
+## My machines
 
-* Apple M2 Pro
+### Apple M2 Pro
+
 * macOS Ventura 13.4.1 (c)
 * Platform: aarch64-apple-darwin20
 * R version 4.3.0 (2023-04-21)
 
-## R CMD checks on my machine
+### Checks on this machine
 
-* `R CMD check` in RStudio ran with no errors, warnings or notes
-* `devtools::check()` ran with no errors, warnings or notes
+* `R CMD check` in `RStudio`: OK
 
 
-## R CMD checks on GitHub Actions
+### Apple iMac
+
+* macOS Catalina 10.15.7
+* Platform: x86_64-apple-darwin17.0
+* R version 4.2.3 (2023-03-15)
+
+### Checks on this machine
+
+* `R CMD check` in `RStudio`: OK
+
+
+## Checks on GitHub Actions
 
 * windows-latest (release): OK
 * macOS-latest (release):  OK
@@ -35,7 +46,7 @@ title: "CRAN comments"
 * ubuntu-20.04 (devel): OK
 
 
-## Windows and MAC portability were checked using `devtools`
+## Windows and MAC portability were checked
 
 `devtools::check_win_devel()`: OK
 `devtools::check_win_release()`: OK
@@ -54,10 +65,11 @@ title: "CRAN comments"
 |https://builder.r-hub.io/status/RJafroc_2.1.3.tar.gz-30c816b4e9774a849aeada1e6071f967 | ERROR \**see below                                        |
 
 `*` package ‘V8’ not available on this platform.
+
 `**` package dependencies ‘openxlsx’ and ‘readxl’ are not available on this platform.
 
 
-## Summary of checks on other platform using package `rhub`
+## Checks on other platform using package `rhub`
 
 ```
 library(rhub)
@@ -75,11 +87,10 @@ rhub::check()
 | Fedora Linux, R-devel, GCC                               | NOTE installed size 5.7Mb                             |
 | Windows Server 2022, R-devel, 64 bit                     | OK                                                    |
 | Debian Linux, R-patched, GCC                             | OK                                                    |
-| Debian Linux, R-release, GCC                             | NOTE Installed size 5.1Mb                                |
+| Debian Linux, R-release, GCC                             | NOTE Installed size 5.1Mb                             |
 | Windows Server 2022, R-release, 32/64 bit                | OK                                                    |
 | Windows Server 2022, R-oldrel, 32/64 bit                 | OK                                                    |
 
-`*` package dependencies ‘openxlsx’ and ‘readxl’ are not available on this platform.
 
 
 # FAILURE SUMMARY from last attempted submission

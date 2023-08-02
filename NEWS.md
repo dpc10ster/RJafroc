@@ -9,12 +9,10 @@ title: "NEWS"
 
 
 ### CRAN submission v2.1.3
-* TBA Issue 90
-* TBS Issue 89
-* Entry errors in Excel file
-* Warnings on using FOMs that depend on only non-diseased cases or only diseased cases 
-* Refer to `QuickStart`: new chapter on recommended FOMs and those to avoid at all costs
-* Just provide a brief description in code and a link to the new chapter (which is under construction)
+* Bug fix, Issue 90, see below
+* Bug fix, Issue 89, see below
+* Fixed entry errors in Excel file (check column names and data type)
+* TODO: `QuickStart`, new chapter on recommended FOMs and those to avoid at all costs
 
 
 ### Issue 90
@@ -35,14 +33,13 @@ title: "NEWS"
 * Fixed FROC simulator, easier to read code; both simulators are NOT limited to I = 2.
 * This affected `goodValues`; reinitialized affected ones.
 * Extended Obuchowski's idea - tested with rudimentary FROC simulator; works!
-* `truthTableStr` is used more consistently except for LROC and ROI paradigms.
+* `truthTableStr` is used more consistently (except for LROC and ROI paradigms).
 * TODO: see below
 
 
 ### Changes 05/18/2023
 * Added Obuchowski's idea - tested with rudimentary ROC simulator; works!
 * `truthTableStr` is used inconsistently.
-* TODO: find all occurrences of "05/18/2023" and `truthTableStr` and check code.
 * TODO: `dataset11` fails RSM fitting; `mu` close to zero for several readers as minimum 3 op. points are clustered into effectively two op. points.
 * TODO: Fix `datasets.R`
   
