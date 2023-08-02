@@ -57,22 +57,12 @@ title: "CRAN comments"
 `**` package dependencies ‘openxlsx’ and ‘readxl’ are not available on this platform.
 
 
-## Summary of checks on all CRAN listed flavors using package `rhub`
+## Summary of checks on other platform using package `rhub`
 
 ```
 library(rhub)
-
-platforms <- rhub::platforms()
-indx_packages_cran <- c(1,2,6,7,12,8,15,13)  
-  
-packagePath <- "/Users/Dev/GitHub/RJafroc_2.1.3.tar.gz"
-if (!file.exists(packagePath))
-  packagePath <- devtools::build()
-
-for (indx in 1:length(indx_packages_cran)) {
-  indx1 <- platforms[[1]][indx_packages_cran[indx]]
-  chk1 <- rhub::check(packagePath, platforms = indx1)
-}
+rhub::validate_email()
+rhub::check()
 ```
 
 
@@ -84,8 +74,8 @@ for (indx in 1:length(indx_packages_cran)) {
 | Fedora Linux, R-devel, clang, gfortran                   | OK                                                    |
 | Fedora Linux, R-devel, GCC                               | NOTE installed size 5.7Mb                             |
 | Windows Server 2022, R-devel, 64 bit                     | OK                                                    |
-| Debian Linux, R-patched, GCC                    | PREPERROR1 \*see below                                 |
-| Debian Linux, R-release, GCC                    | PREPERROR1 \*see below                                 |
+| Debian Linux, R-patched, GCC                             | OK                                                    |
+| Debian Linux, R-release, GCC                             | NOTE Installed size 5.1Mb                                |
 | Windows Server 2022, R-release, 32/64 bit                | OK                                                    |
 | Windows Server 2022, R-oldrel, 32/64 bit                 | OK                                                    |
 
