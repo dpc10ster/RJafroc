@@ -16,7 +16,7 @@ fileNames <- c("dataset01", "dataset02", "dataset03", "dataset04", "dataset05", 
                "dataset13", "dataset14", 
                "datasetBinned123", "datasetBinned124", "datasetBinned125",
                "datasetCadLroc", "datasetCadSimuFroc", 
-               "datasetCrossedModality",
+               "datasetXModality",
                "datasetDegenerate", "datasetFROCSp", "datasetROI")
 
 binned  <- c(rep(TRUE, 4), FALSE, rep(TRUE, 3), FALSE, rep(TRUE, 8), 

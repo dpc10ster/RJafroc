@@ -15,7 +15,7 @@
 #' @examples
 #' \donttest{ 
 #' ## read the built in dataset
-#' retCrossed2 <- StSignificanceTestingCrossedModalities(datasetCrossedModality, 1)
+#' retCrossed2 <- StSignificanceTestingCrossedModalities(datasetXModality, 1)
 #' }
 #' 
 #' @export
@@ -23,6 +23,9 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
                                                    alpha = 0.05, analysisOption = "ALL"){
   
   if (ds$descriptions$design != "FCTRL-X-MOD") stop("Dataset is not factorial crossed modality")
+  
+  cat(sprintf("Averaging over modality index = %d\n\n", avgIndx))
+  
   options(stringsAsFactors = FALSE)
   NL <- ds$ratings$NL
   LL <- ds$ratings$LL
@@ -31,7 +34,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
   weights <- ds$lesions$weights
   maxNL <- dim(NL)[5]
   maxLL <- dim(LL)[5]
-  dataType <- ds$dataType
+  dataType <- ds$descriptions$type
   if(avgIndx == 1){
     modalityID <- ds$descriptions$modalityID2
   }else{

@@ -337,7 +337,7 @@
     }
   }
 
-  \subsection{Crossed modality data structure, example \code{datasetCrossedModality}}{
+  \subsection{Crossed modality data structure, example \code{datasetXModality}}{
   Only changes from the previously described structure are described below:
     \itemize{
     \item \code{ratings$NL}: a float array with dimension \code{c(I1, I2, J, K, maxNL)}

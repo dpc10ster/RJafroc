@@ -34,7 +34,8 @@ This is referred to in the book as the "FZR" dataset. It is a real ROC study,
 conducted on the same images and using the same radiologists, on treatments
 "4" and "5" of dataset04. This was compared to highest rating inferred ROC
 data from dataset04 to conclude, erroneously, that the highest rating assumption
-is invalid. See book Section 13.6.2.
+is invalid. See book Section 13.6 and run 
+"~/GitHub/RJafroc/inst/InferredVsReal/InferredVsReal.R".
 }
 \examples{
 str(dataset14)
