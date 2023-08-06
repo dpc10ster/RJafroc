@@ -27,16 +27,13 @@ StSignificanceTestingCrossedModalities(
 A list containing the same objects as \code{\link{StSignificanceTesting}}.
 }
 \description{
-Performs ORH analysis for specified crossed treatments dataset 
+Performs ORH analysis for specified crossed treatments dataset
    averaged over specified treatment factor
 }
 \examples{
-
-\donttest{ 
-##fn <- system.file("extdata", "CrossedModalitiesDataFile.xlsx", 
-##package = "RJafroc", mustWork = TRUE)
-##xds <- DfReadCrossedModalities(fn)
-##ret <- StSignificanceTestingCrossedModalities(xds, avgIndx = 1, FOM = "wAFROC")
+\donttest{
+## read the built in dataset
+retCrossed2 <- StSignificanceTestingCrossedModalities(datasetXModality, 1)
 }
 
 }

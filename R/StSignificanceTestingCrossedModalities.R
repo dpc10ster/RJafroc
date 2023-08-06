@@ -1,34 +1,31 @@
 #' Perform significance testing using crossed treatments analysis
-#' 
-#' @description  Performs ORH analysis for specified crossed treatments dataset 
+#'
+#' @description  Performs ORH analysis for specified crossed treatments dataset
 #'    averaged over specified treatment factor
-#' 
-#' 
+#'
+#'
 #' @param ds The crossed treatments dataset
 #' @param avgIndx The index of the treatment to be averaged over
 #' @param FOM See \code{\link{StSignificanceTesting}}
 #' @param alpha See \code{\link{StSignificanceTesting}}
 #' @param analysisOption See \code{\link{StSignificanceTesting}}
-#' 
+#'
 #' @return A list containing the same objects as \code{\link{StSignificanceTesting}}.
-#' 
+#'
 #' @examples
-#' 
-#' \donttest{ 
-#' ##fn <- system.file("extdata", "CrossedModalitiesDataFile.xlsx", 
-#' ##package = "RJafroc", mustWork = TRUE)
-#' ##xds <- DfReadCrossedModalities(fn)
-#' ##ret <- StSignificanceTestingCrossedModalities(xds, avgIndx = 1, FOM = "wAFROC")
+#' \donttest{
+#' ## read the built in dataset
+#' retCrossed2 <- StSignificanceTestingCrossedModalities(datasetXModality, 1)
 #' }
-#' 
+#'
 #' @export
-StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC", 
+StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
                                                    alpha = 0.05, analysisOption = "ALL"){
-  
+
   if (ds$descriptions$design != "FCTRL-X-MOD") stop("Dataset is not factorial crossed modality")
-  
+
   cat(sprintf("Averaging over modality index = %d\n\n", avgIndx))
-  
+
   options(stringsAsFactors = FALSE)
   NL <- ds$ratings$NL
   LL <- ds$ratings$LL
@@ -49,16 +46,16 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
   K <- dim(NL)[4]
   K2 <- dim(LL)[4]
   K1 <- K - K2
-  
+
   if (!analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL")){
     errMsg <- sprintf("%s is not an available analysisOption.", analysisOption)
     stop(errMsg)
-  }    
-  
+  }
+
   if (I < 2) {
     stop("The analysis requires at least 2 treatments")
   }
-  
+
   ret <- EstimateVarCovCrossed(NL, LL, perCase, IDs, weights, maxNL, maxLL, FOM, avgIndx)
   Var <- ret$Var
   Cov1 <- ret$Cov1
@@ -67,19 +64,19 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
   fomArray <- ret$fomArray  # sic! 4/29/20
   trMeans <- rowMeans(fomArray)
   fomMean <- mean(fomArray)
-  
+
   msT <- 0
   for (i in 1:I) {
     msT <- msT + (mean(fomArray[i, ]) - fomMean)^2
   }
   msT <- J * msT/(I - 1)
-  
+
   msR <- 0
   for (j in 1:J) {
     msR <- msR + (mean(fomArray[, j]) - fomMean)^2
   }
   msR <- I * msR/(J - 1)
-  
+
   msTR <- 0
   for (i in 1:I) {
     for (j in 1:J) {
@@ -87,16 +84,16 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
     }
   }
   msTR <- msTR/((J - 1) * (I - 1))
-  
+
   # TBA need citations here
   varTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0)
   varR <- (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - varTR)/I
   varCovArray <- c(varR, varTR, Cov1, Cov2, Cov3, Var)
   nameArray <- c("Var(R)", "Var(T*R)", "COV1", "COV2", "COV3", "Var(Error)")
-  varComp <- data.frame(varCov = varCovArray, 
-                        row.names = nameArray, 
+  varComp <- data.frame(varCov = varCovArray,
+                        row.names = nameArray,
                         stringsAsFactors = FALSE)
-  
+
   varSingle <- vector(length = I)
   cov2Single <- vector(length = I)
   for (i in 1:I) {
@@ -111,8 +108,8 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       dim(nl) <- c(1, length(ds$descriptions$modalityID2), J, K, maxNL)
       dim(ll) <- c(1, length(ds$descriptions$modalityID2), J, K2, max(perCase))
     }
-    
-    
+
+
     ret <- EstimateVarCovCrossed(nl, ll, perCase, IDs, weights, maxNL, maxLL, FOM, avgIndx)
     varSingle[i] <- ret$Var
     if (J > 1) {
@@ -121,7 +118,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       cov2Single[i] <- 0
     }
   }
-  
+
   varEchRder <- vector(length = J)
   cov1EchRder <- vector(length = J)
   for (j in 1:J) {
@@ -133,17 +130,17 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
     varEchRder[j] <- ret$Var
     cov1EchRder[j] <- ret$Cov1
   }
-  
+
   msRSingle <- array(0, dim = c(I))
   for (i in 1:I) {
     msRSingle[i] <- sum((fomArray[i, ] - trMeans[i])^2)/(J - 1)
   }
-  
+
   diffTRMeans <- array(dim = choose(I, 2))
   diffTRName <- array(dim = choose(I, 2))
   ii <- 1
   for (i in 1:I) {
-    if (i == I) 
+    if (i == I)
       break
     for (ip in (i + 1):I) {
       diffTRMeans[ii] <- trMeans[i] - trMeans[ip]
@@ -151,9 +148,9 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       ii <- ii + 1
     }
   }
-  
+
   msNum <- msT
-  
+
   # ************ RRRC ****************
   if (analysisOption %in% c("RRRC", "ALL")) {
     if (J > 1) {
@@ -167,8 +164,8 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       CIRRRC <- array(dim = c(length(diffTRMeans), 2))
       for (i in 1:length(diffTRMeans)) {
         tStat[i] <- diffTRMeans[i]/stdErrRRRC
-        tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRRC, lower.tail = FALSE) 
-        ci <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRRC) * stdErrRRRC, 
+        tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRRC, lower.tail = FALSE)
+        ci <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRRC) * stdErrRRRC,
                      diffTRMeans[i] + qt(alpha/2, ddfRRRC) * stdErrRRRC))
         if (length(ci) == 0){
           CIRRRC[i, ] <- c(NA, NA)
@@ -179,24 +176,24 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       # This code was failing on oldrelease R v3.5.3 under test context("StSignificanceTestingCrossedModalities")
       # The outputs for ciDiffTrtRRRC were not equal for goodvalues and currentvalues
       # forcing original order to be kept
-      
+
       for (i in (1:length(diffTRName))) {
         diffTRName[i] <- paste0(paste0("Row",i,"_"),diffTRName[i])
       }
-      
+
       attributes(diffTRName) <- NULL #statement #1a
       attributes(diffTRMeans) <- NULL #statement #1b
-      
-      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName, 
-                                  Estimate = diffTRMeans, 
-                                  StdErr = rep(stdErrRRRC, choose(I, 2)), 
-                                  DF = rep(ddfRRRC, choose(I, 2)), 
-                                  t = tStat, 
-                                  PrGTt = tPr, 
+
+      ciDiffTrtRRRC <- data.frame(Treatment = diffTRName,
+                                  Estimate = diffTRMeans,
+                                  StdErr = rep(stdErrRRRC, choose(I, 2)),
+                                  DF = rep(ddfRRRC, choose(I, 2)),
+                                  t = tStat,
+                                  PrGTt = tPr,
                                   CILower = CIRRRC[,1],
                                   CIUpper = CIRRRC[,2],
                                   stringsAsFactors = FALSE)
-      
+
       # print(attributes(ciDiffTrtRRRC))
       # print(attributes(ciDiffTrtRRRC$Treatment))
       # print(attributes(ciDiffTrtRRRC$Estimate))
@@ -207,38 +204,38 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       # Then all travis releases worked;
       # if statements #1,ab IS commented
       # $names
-      # [1] "Treatment" "Estimate"  "StdErr"    "DF"        "t"         "PrGTt"     "CILower"   "CIUpper"  
-      # 
+      # [1] "Treatment" "Estimate"  "StdErr"    "DF"        "t"         "PrGTt"     "CILower"   "CIUpper"
+      #
       # $class
       # [1] "data.frame"
-      # 
+      #
       # $row.names
       # [1] 1 2 3 4 5 6
-      # 
+      #
       # NULL
       # NULL
       # [1] "character"
-      
+
       # if statements #1,ab is NOT commented
       # $names
-      # [1] "Treatment" "Estimate"  "StdErr"    "DF"        "t"         "PrGTt"     "CILower"   "CIUpper"  
-      # 
+      # [1] "Treatment" "Estimate"  "StdErr"    "DF"        "t"         "PrGTt"     "CILower"   "CIUpper"
+      #
       # $class
       # [1] "data.frame"
-      # 
+      #
       # $row.names
       # [1] 1 2 3 4 5 6
-      # 
+      #
       # $levels
       # [1] "Row1_20-40" "Row2_20-60" "Row3_20-80" "Row4_40-60" "Row5_40-80" "Row6_60-80"
-      # 
+      #
       # $class
       # [1] "factor"
-      # 
+      #
       # NULL
-      # [1] "factor"    
+      # [1] "factor"
       ################################################################################
-      
+
       dfSingleRRRC <- array(dim = I)
       msDenSingleRRRC <- array(dim = I)
       stdErrSingleRRRC <- array(dim = I)
@@ -253,16 +250,16 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
         }else{
           CISingleRRRC[i, ] <- ci
         }
-        
+
       }
-      ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, 
-                                        Area = trMeans, 
-                                        StdErr = as.vector(stdErrSingleRRRC), 
-                                        DF = as.vector(dfSingleRRRC), 
-                                        CILower = CISingleRRRC[,1], 
-                                        CIUpper = CISingleRRRC[,2], 
+      ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID,
+                                        Area = trMeans,
+                                        StdErr = as.vector(stdErrSingleRRRC),
+                                        DF = as.vector(dfSingleRRRC),
+                                        CILower = CISingleRRRC[,1],
+                                        CIUpper = CISingleRRRC[,2],
                                         stringsAsFactors = FALSE)
-      
+
     } else {
       fRRRC <- NA
       ddfRRRC <- NA
@@ -271,19 +268,19 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       ciAvgRdrEachTrtRRRC <- NA
     }
     if (analysisOption == "RRRC"){
-      return(list(fomArray = fomArray, 
-                  msT = msT, 
-                  msTR = msTR, 
-                  varComp = varComp, 
-                  fRRRC = fRRRC, 
-                  ddfRRRC = ddfRRRC, 
-                  pRRRC = pRRRC, 
-                  ciDiffTrtRRRC = ciDiffTrtRRRC, 
+      return(list(fomArray = fomArray,
+                  msT = msT,
+                  msTR = msTR,
+                  varComp = varComp,
+                  fRRRC = fRRRC,
+                  ddfRRRC = ddfRRRC,
+                  pRRRC = pRRRC,
+                  ciDiffTrtRRRC = ciDiffTrtRRRC,
                   ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC)
       )
     }
   }
-  
+
   # ************ FRRC ****************
   if (analysisOption %in% c("FRRC", "ALL")) {
     if (J > 1) {
@@ -300,25 +297,25 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
     CIFRRC <- array(dim = c(length(diffTRMeans), 2))
     for (i in 1:length(diffTRMeans)) {
       tStat[i] <- diffTRMeans[i]/stdErrFRRC
-      tPr[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE) 
-      CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC, 
+      tPr[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE)
+      CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC,
                             diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
     }
     # for (i in (1:length(diffTRName))) {
     #   diffTRName[i] <- paste0(paste0("Row",i,"-"),diffTRName[i])
     # }
-    ciDiffTrtFRRC <- data.frame(Treatment = diffTRName, 
-                                Estimate = diffTRMeans, 
-                                StdErr = rep(stdErrFRRC, choose(I, 2)), 
-                                DF = rep(ddfFRRC, choose(I, 2)), 
-                                t = tStat, 
-                                PrGTt = tPr, 
+    ciDiffTrtFRRC <- data.frame(Treatment = diffTRName,
+                                Estimate = diffTRMeans,
+                                StdErr = rep(stdErrFRRC, choose(I, 2)),
+                                DF = rep(ddfFRRC, choose(I, 2)),
+                                t = tStat,
+                                PrGTt = tPr,
                                 CILower = CIFRRC[,1],
                                 CIUpper = CIFRRC[,2],
                                 stringsAsFactors = FALSE)
-    
+
     # colnames(ciDiffTrtFRRC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
-    
+
     dfSingleFRRC <- array(dim = I)
     msDenSingleFRRC <- array(dim = I)
     stdErrSingleFRRC <- array(dim = I)
@@ -329,22 +326,22 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J)
       CISingleFRRC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i], trMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
     }
-    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID, 
-                                      Area = trMeans, 
-                                      StdErr = as.vector(stdErrSingleFRRC), 
-                                      DF = as.vector(dfSingleFRRC), 
-                                      CILower = CISingleFRRC[,1], 
-                                      CIUpper = CISingleFRRC[,2], 
+    ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID,
+                                      Area = trMeans,
+                                      StdErr = as.vector(stdErrSingleFRRC),
+                                      DF = as.vector(dfSingleFRRC),
+                                      CILower = CISingleFRRC[,1],
+                                      CIUpper = CISingleFRRC[,2],
                                       row.names = NULL,
                                       stringsAsFactors = FALSE)
-    
+
     #colnames(ciAvgRdrEachTrtFRRC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
-    
+
     diffTRMeansFRRC <- array(dim = c(J, choose(I, 2)))
     for (j in 1:J) {
       ii <- 1
       for (i in 1:I) {
-        if (i == I) 
+        if (i == I)
           break
         for (ip in (i + 1):I) {
           diffTRMeansFRRC[j, ii] <- fomArray[i, j] - fomArray[ip, j]
@@ -352,7 +349,7 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
         }
       }
     }
-    
+
     diffTRMeansFRRC <- as.vector(t(diffTRMeansFRRC))
     stdErrFRRC <- sqrt(2 * (varEchRder - cov1EchRder))
     stdErrFRRC <- rep(stdErrFRRC, choose(I, 2))
@@ -368,35 +365,35 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
     tPr <- vector()
     for (n in 1:length(stdErrFRRC)) {
       tStat[n] <- diffTRMeansFRRC[n]/stdErrFRRC[n]
-      tPr[n] <- 2 * pt(abs(tStat[n]), dfReaderFRRC[n], lower.tail = FALSE) 
+      tPr[n] <- 2 * pt(abs(tStat[n]), dfReaderFRRC[n], lower.tail = FALSE)
       CIReaderFRRC[n, ] <- sort(c(diffTRMeansFRRC[n] - qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n], diffTRMeansFRRC[n] + qt(alpha/2, dfReaderFRRC[n]) * stdErrFRRC[n]))
     }
-    ciDiffTrtEachRdr <- data.frame(Reader = readerNames, 
-                                   Treatment = trNames, 
-                                   Estimate = diffTRMeansFRRC, 
-                                   StdErr = as.vector(stdErrFRRC), 
-                                   DF = as.vector(dfReaderFRRC), 
-                                   t = tStat, 
-                                   PrGTt = tPr, 
+    ciDiffTrtEachRdr <- data.frame(Reader = readerNames,
+                                   Treatment = trNames,
+                                   Estimate = diffTRMeansFRRC,
+                                   StdErr = as.vector(stdErrFRRC),
+                                   DF = as.vector(dfReaderFRRC),
+                                   t = tStat,
+                                   PrGTt = tPr,
                                    CILower = CIReaderFRRC[,1],
                                    CIUpper = CIReaderFRRC[,2],
                                    stringsAsFactors = FALSE)
     # 5/4/20 removing all this as I better understand data.frame()
-    
+
     #colnames(ciDiffTrtEachRdr) <- c("Reader", "Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
-    
-    varCovEachRdr <- data.frame(readerID, 
-                                varEchRder, 
+
+    varCovEachRdr <- data.frame(readerID,
+                                varEchRder,
                                 cov1EchRder,
                                 stringsAsFactors = FALSE)
     colnames(varCovEachRdr) <- c("Reader", "Var", "Cov1")
     if (analysisOption == "FRRC"){
-      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
+      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp,
                   fFRRC = fFRRC, ddfFRRC = ddfFRRC, pFRRC = pFRRC, ciDiffTrtFRRC = ciDiffTrtFRRC, ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, ciDiffTrtEachRdr = ciDiffTrtEachRdr, varCovEachRdr = varCovEachRdr
       ))
     }
   }
-  
+
   # ************ RRFC ****************
   if (analysisOption %in% c("RRFC", "ALL")) {
     if (J > 1) {
@@ -410,27 +407,27 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       CIRRFC <- array(dim = c(length(diffTRMeans), 2))
       for (i in 1:length(diffTRMeans)) {
         tStat[i] <- diffTRMeans[i]/stdErrRRFC
-        tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE) 
-        CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC, 
+        tPr[i] <- 2 * pt(abs(tStat[i]), ddfRRFC, lower.tail = FALSE)
+        CIRRFC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfRRFC) * stdErrRRFC,
                               diffTRMeans[i] + qt(alpha/2, ddfRRFC) * stdErrRRFC))
       }
-      
+
       # for (i in (1:length(diffTRName))) {
       #   diffTRName[i] <- paste0(paste0("Row",i,"-"),diffTRName[i])
       # }
-      ciDiffTrtRRFC <- data.frame(Treatment = diffTRName, 
-                                  Estimate = diffTRMeans, 
-                                  StdErr = rep(stdErrRRFC, choose(I, 2)), 
-                                  DF = rep(ddfRRFC, choose(I, 2)), 
-                                  t = tStat, 
-                                  PrGTt = tPr, 
+      ciDiffTrtRRFC <- data.frame(Treatment = diffTRName,
+                                  Estimate = diffTRMeans,
+                                  StdErr = rep(stdErrRRFC, choose(I, 2)),
+                                  DF = rep(ddfRRFC, choose(I, 2)),
+                                  t = tStat,
+                                  PrGTt = tPr,
                                   CILower = CIRRFC[,1],
                                   CIUpper = CIRRFC[,2],
                                   stringsAsFactors = FALSE)
       # 5/4/20 removing all this as I better understand data.frame()
-      
+
       #colnames(ciDiffTrtRRFC) <- c("Treatment", "Estimate", "StdErr", "DF", "t", "PrGTt", "CILower", "CIUpper")
-      
+
       dfSingleRRFC <- array(dim = I)
       msDenSingleRRFC <- array(dim = I)
       stdErrSingleRRFC <- array(dim = I)
@@ -441,15 +438,15 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
         stdErrSingleRRFC[i] <- sqrt(msDenSingleRRFC[i]/J)
         CISingleRRFC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i], trMeans[i] + qt(alpha/2, dfSingleRRFC[i]) * stdErrSingleRRFC[i]))
       }
-      ciAvgRdrEachTrtRRFC <- data.frame(Treatment = modalityID, 
-                                        Area = trMeans, 
-                                        StdErr = as.vector(stdErrSingleRRFC), 
-                                        DF = as.vector(dfSingleRRFC), 
-                                        CILower = CISingleRRFC[,1], 
-                                        CIUpper = CISingleRRFC[,2], 
+      ciAvgRdrEachTrtRRFC <- data.frame(Treatment = modalityID,
+                                        Area = trMeans,
+                                        StdErr = as.vector(stdErrSingleRRFC),
+                                        DF = as.vector(dfSingleRRFC),
+                                        CILower = CISingleRRFC[,1],
+                                        CIUpper = CISingleRRFC[,2],
                                         row.names = NULL,
                                         stringsAsFactors = FALSE)
-      
+
       #colnames(ciAvgRdrEachTrtRRFC) <- c("Treatment", "Area", "StdErr", "DF", "CILower", "CIUpper")
     } else {
       fRRFC <- NA
@@ -459,38 +456,38 @@ StSignificanceTestingCrossedModalities <- function(ds, avgIndx, FOM = "wAFROC",
       ciAvgRdrEachTrtRRFC <- NA
     }
     if (analysisOption == "RRFC"){
-      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp, 
+      return(list(fomArray = fomArray, msT = msT, msTR = msTR, varComp = varComp,
                   fRRFC = fRRFC, ddfRRFC = ddfRRFC, pRRFC = pRRFC, ciDiffTrtRRFC = ciDiffTrtRRFC, ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
     }
   }
-  
+
   return(list(
-    fomArray = fomArray, 
-    msT = msT, 
-    msTR = msTR, 
-    varComp = varComp, 
-    fRRRC = fRRRC, 
-    ddfRRRC = ddfRRRC, 
-    pRRRC = pRRRC, 
-    ciDiffTrtRRRC = ciDiffTrtRRRC, 
-    ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC, 
-    fFRRC = fFRRC, 
-    ddfFRRC = ddfFRRC, 
-    pFRRC = pFRRC, 
-    ciDiffTrtFRRC = ciDiffTrtFRRC, 
-    ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC, 
-    ciDiffTrtEachRdr = ciDiffTrtEachRdr, 
-    varCovEachRdr = varCovEachRdr, 
-    fRRFC = fRRFC, 
-    ddfRRFC = ddfRRFC, 
-    pRRFC = pRRFC, 
-    ciDiffTrtRRFC = ciDiffTrtRRFC, 
+    fomArray = fomArray,
+    msT = msT,
+    msTR = msTR,
+    varComp = varComp,
+    fRRRC = fRRRC,
+    ddfRRRC = ddfRRRC,
+    pRRRC = pRRRC,
+    ciDiffTrtRRRC = ciDiffTrtRRRC,
+    ciAvgRdrEachTrtRRRC = ciAvgRdrEachTrtRRRC,
+    fFRRC = fFRRC,
+    ddfFRRC = ddfFRRC,
+    pFRRC = pFRRC,
+    ciDiffTrtFRRC = ciDiffTrtFRRC,
+    ciAvgRdrEachTrtFRRC = ciAvgRdrEachTrtFRRC,
+    ciDiffTrtEachRdr = ciDiffTrtEachRdr,
+    varCovEachRdr = varCovEachRdr,
+    fRRFC = fRRFC,
+    ddfRRFC = ddfRRFC,
+    pRRFC = pRRFC,
+    ciDiffTrtRRFC = ciDiffTrtRRFC,
     ciAvgRdrEachTrtRRFC = ciAvgRdrEachTrtRRFC))
 }
 
 
 #' @importFrom stats cov
-#' 
+#'
 EstimateVarCovCrossed <- function(NL, LL, perCase, IDs, weights, maxNL, maxLL, FOM, avgIndx) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   I1 <- dim(NL)[1]
@@ -498,7 +495,7 @@ EstimateVarCovCrossed <- function(NL, LL, perCase, IDs, weights, maxNL, maxLL, F
   J <- dim(NL)[3]
   K <- dim(NL)[4]
   K2 <- dim(LL)[4]
-  
+
   K1 <- K - K2
   if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
     jkFOMArray <- array(dim = c(I1, I2, J, K1))
@@ -562,7 +559,7 @@ EstimateVarCovCrossed <- function(NL, LL, perCase, IDs, weights, maxNL, maxLL, F
       }
     }
   }
-  
+
   K <- length(jkFOMArray[1, 1, 1, ])
   if (avgIndx == 1){
     jkFOMArray <- apply(jkFOMArray, c(2, 3, 4), mean)
@@ -571,18 +568,18 @@ EstimateVarCovCrossed <- function(NL, LL, perCase, IDs, weights, maxNL, maxLL, F
     jkFOMArray <- apply(jkFOMArray, c(1, 3, 4), mean)
     fomArray <- apply(jkFOMArray, c(1, 2), mean)
   }
-  
+
   Cov <- FOMijk2VarCov(jkFOMArray, varInflFactor = TRUE)
   Var <- Cov$Var
   Cov1 <- Cov$Cov1
   Cov2 <- Cov$Cov2
   Cov3 <- Cov$Cov3
-  
+
   return(list(
-    Var = Var, 
-    Cov1 = Cov1, 
-    Cov2 = Cov2, 
-    Cov3 = Cov3, 
+    Var = Var,
+    Cov1 = Cov1,
+    Cov2 = Cov2,
+    Cov3 = Cov3,
     fomArray = fomArray
   ))
 }
