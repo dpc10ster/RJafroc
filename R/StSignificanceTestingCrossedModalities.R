@@ -15,7 +15,8 @@
 #' @examples
 #' 
 #' \donttest{ 
-#' ##fn <- system.file("extdata", "CrossedModalitiesDataFile.xlsx", package = "RJafroc", mustWork = TRUE)
+#' ##fn <- system.file("extdata", "CrossedModalitiesDataFile.xlsx", 
+#' ##package = "RJafroc", mustWork = TRUE)
 #' ##xds <- DfReadCrossedModalities(fn)
 #' ##ret <- StSignificanceTestingCrossedModalities(xds, avgIndx = 1, FOM = "wAFROC")
 #' }
