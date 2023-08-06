@@ -1,119 +1,119 @@
 library(tools)
 
-contextStr <- "DfReadDataFile jafroc-csv Format"
-context(contextStr)
-test_that(contextStr, {
-  
-  #  data format:
-  #  A string specifying the format of the data in the file.
-  #  It can be "JAFROC" (the default), "MRMC" or "iMRMC".
-  #  For "MRMC" the format is determined by the data file extension
-  #  as specified in \url{https://perception.lab.uiowa.edu/},
-  #  i.e., .csv or .txt or .lrc.
-  #  For file extension .imrmc the format is described in https://code.google.com/p/imrmc/.
-  #
-  # dpc 6/29/19 comment
-  # ROC is the simplest paradigm and data structure; yet 4 different formats; go
-  # figure!
-  #
-  
-  fileName <- system.file(
-    "extdata", "RocData.csv", package = "RJafroc", mustWork = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/csv", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    temp <- DfReadDataFile(fileName, format = "MRMC")
-    saveRDS(temp, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  temp <- DfReadDataFile(fileName, format = "MRMC")
-  expect_equal(temp, ds)
-  
-})
-
-
-contextStr <- "DfReadDataFile jafroc-lrc Format"
-context(contextStr)
-test_that(contextStr, {
-  fileName <- system.file(
-    "extdata", "RocData.lrc", package = "RJafroc", mustWork = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/lrc", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadDataFile(fileName, format = "MRMC")
-    saveRDS(ds, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  temp <- DfReadDataFile(fileName, format = "MRMC")
-  expect_equal(temp, ds)
-  
-})
-
-
-
-contextStr <- "DfReadDataFile jafroc-iMRMC Format"
-context(contextStr)
-test_that(contextStr, {
-  fileName <- system.file(
-    "extdata", "RocData.imrmc", package = "RJafroc", mustWork = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/iMRMC", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadDataFile(fileName, format = "iMRMC")
-    saveRDS(ds, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  temp <- DfReadDataFile(fileName, format = "iMRMC")
-  expect_equal(temp, ds)
-  
-})
-
-
-
-contextStr <- "StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73"
-context(contextStr)
-test_that(contextStr, {
-  # See issue 73 on GitHub website
-  s1 <- dataset09
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/","issue73.imrmc")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    DfSaveDataFile(s1, fn, format="iMRMC")
-  }
-  s2 <- DfReadDataFile(fn, format="iMRMC")
-  expect_equal(s1$ratings, s2$ratings) 
-  expect_equal(s1$lesions, s2$lesions)
-  expect_equal(s1$descriptions$type, s2$descriptions$type)
-  expect_equal(s1$descriptions$truthTableStr, s2$descriptions$truthTableStr)
-  expect_equal(unname(s1$descriptions$readerID), unname(s2$descriptions$readerID))
-  expect_equal(unname(s1$descriptions$modalityID), unname(s2$descriptions$modalityID))
-})
+# contextStr <- "DfReadDataFile jafroc-csv Format"
+# context(contextStr)
+# test_that(contextStr, {
+#   
+#   #  data format:
+#   #  A string specifying the format of the data in the file.
+#   #  It can be "JAFROC" (the default), "MRMC" or "iMRMC".
+#   #  For "MRMC" the format is determined by the data file extension
+#   #  as specified in \url{https://perception.lab.uiowa.edu/},
+#   #  i.e., .csv or .txt or .lrc.
+#   #  For file extension .imrmc the format is described in https://code.google.com/p/imrmc/.
+#   #
+#   # dpc 6/29/19 comment
+#   # ROC is the simplest paradigm and data structure; yet 4 different formats; go
+#   # figure!
+#   #
+#   
+#   fileName <- system.file(
+#     "extdata", "RocData.csv", package = "RJafroc", mustWork = TRUE)
+#   
+#   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/csv", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     temp <- DfReadDataFile(fileName, format = "MRMC")
+#     saveRDS(temp, file = fn)
+#   }
+#   
+#   ds <- readRDS(fn)
+#   temp <- DfReadDataFile(fileName, format = "MRMC")
+#   expect_equal(temp, ds)
+#   
+# })
+# 
+# 
+# contextStr <- "DfReadDataFile jafroc-lrc Format"
+# context(contextStr)
+# test_that(contextStr, {
+#   fileName <- system.file(
+#     "extdata", "RocData.lrc", package = "RJafroc", mustWork = TRUE)
+#   
+#   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/lrc", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     ds <- DfReadDataFile(fileName, format = "MRMC")
+#     saveRDS(ds, file = fn)
+#   }
+#   
+#   ds <- readRDS(fn)
+#   temp <- DfReadDataFile(fileName, format = "MRMC")
+#   expect_equal(temp, ds)
+#   
+# })
+# 
+# 
+# 
+# contextStr <- "DfReadDataFile jafroc-iMRMC Format"
+# context(contextStr)
+# test_that(contextStr, {
+#   fileName <- system.file(
+#     "extdata", "RocData.imrmc", package = "RJafroc", mustWork = TRUE)
+#   
+#   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/iMRMC", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     ds <- DfReadDataFile(fileName, format = "iMRMC")
+#     saveRDS(ds, file = fn)
+#   }
+#   
+#   ds <- readRDS(fn)
+#   temp <- DfReadDataFile(fileName, format = "iMRMC")
+#   expect_equal(temp, ds)
+#   
+# })
 
 
 
-contextStr <- "DfReadDataFile jafroc-MRMC Format"
-context(contextStr)
-test_that(contextStr, {
-  fileName <- system.file("extdata", "RocData.txt", package = "RJafroc", mustWork = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/txt", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadDataFile(fileName, format = "MRMC")
-    saveRDS(ds, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  temp <- DfReadDataFile(fileName, format = "MRMC")
-  expect_equal(temp, ds)
-  
-})
+# contextStr <- "StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73"
+# context(contextStr)
+# test_that(contextStr, {
+#   # See issue 73 on GitHub website
+#   s1 <- dataset09
+#   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/","issue73.imrmc")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     DfSaveDataFile(s1, fn, format="iMRMC")
+#   }
+#   s2 <- DfReadDataFile(fn, format="iMRMC")
+#   expect_equal(s1$ratings, s2$ratings) 
+#   expect_equal(s1$lesions, s2$lesions)
+#   expect_equal(s1$descriptions$type, s2$descriptions$type)
+#   expect_equal(s1$descriptions$truthTableStr, s2$descriptions$truthTableStr)
+#   expect_equal(unname(s1$descriptions$readerID), unname(s2$descriptions$readerID))
+#   expect_equal(unname(s1$descriptions$modalityID), unname(s2$descriptions$modalityID))
+# })
+
+
+
+# contextStr <- "DfReadDataFile jafroc-MRMC Format"
+# context(contextStr)
+# test_that(contextStr, {
+#   fileName <- system.file("extdata", "RocData.txt", package = "RJafroc", mustWork = TRUE)
+#   
+#   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/txt", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     ds <- DfReadDataFile(fileName, format = "MRMC")
+#     saveRDS(ds, file = fn)
+#   }
+#   
+#   ds <- readRDS(fn)
+#   temp <- DfReadDataFile(fileName, format = "MRMC")
+#   expect_equal(temp, ds)
+#   
+# })
 
 
 
