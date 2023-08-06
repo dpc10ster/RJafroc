@@ -57,6 +57,23 @@
 #' rdrArr1D <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 #'
 #' 
+#' \donttest{
+#' fileName <- system.file("extdata", "Roc.xlsx", 
+#' package = "RJafroc", mustWork = TRUE)
+#' RocDataXlsx <- DfReadDataFile(fileName)
+#' 
+#' fileName <- system.file("extdata", "RocData.csv", 
+#' package = "RJafroc", mustWork = TRUE)
+#' RocDataCsv<- DfReadDataFile(fileName, format = "MRMC")
+#' 
+#' fileName <- system.file("extdata", "RocData.imrmc", 
+#' package = "RJafroc", mustWork = TRUE)
+#' RocDataImrmc<- DfReadDataFile(fileName, format = "iMRMC")
+#' 
+#' fileName <- system.file("extdata", "Froc.xlsx", 
+#' package = "RJafroc", mustWork = TRUE)
+#' FrocDataXlsx <- DfReadDataFile(fileName, sequentialNames = TRUE)
+#' }
 #' 
 #' @importFrom tools file_ext
 #' @importFrom stringr str_trim str_length
