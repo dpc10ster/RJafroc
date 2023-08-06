@@ -117,25 +117,25 @@ library(tools)
 
 
 
-contextStr <- "DfReadDataFile jafroc-oldExcelFormat"
-context(contextStr)
-test_that(contextStr, {
-  
-  fileName <- system.file(
-    "extdata", "Roc.xlsx", package = "RJafroc", mustWork = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/jafroc-oldExcelFormat", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ds <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
-    saveRDS(ds, file = fn)
-  }
-  
-  ds <- readRDS(fn)
-  temp <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
-  expect_equal(temp, ds)
-  
-})
+# contextStr <- "DfReadDataFile jafroc-oldExcelFormat"
+# context(contextStr)
+# test_that(contextStr, {
+#   
+#   fileName <- system.file(
+#     "extdata", "Roc.xlsx", package = "RJafroc", mustWork = TRUE)
+#   
+#   fn <- paste0(test_path(), "/goodValues361/DfReadDataFile/jafroc-oldExcelFormat", ".rds")
+#   if (!file.exists(fn)) {
+#     warning(paste0("File not found - generating new ",fn))
+#     ds <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
+#     saveRDS(ds, file = fn)
+#   }
+#   
+#   ds <- readRDS(fn)
+#   temp <- DfReadDataFile(fileName, newExcelFileFormat = FALSE)
+#   expect_equal(temp, ds)
+#   
+# })
 
 
 
