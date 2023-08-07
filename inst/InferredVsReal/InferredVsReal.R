@@ -1,5 +1,4 @@
 library(RJafroc)
-library(testthat)
 
 # start with original Federica FROC dataset
 ds <- dataset04
