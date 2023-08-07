@@ -256,9 +256,6 @@
     <loc>/reference/datasetCadSimuFroc.html</loc>
   </url>
   <url>
-    <loc>/reference/datasetCrossedModality.html</loc>
-  </url>
-  <url>
     <loc>/reference/datasetDegenerate.html</loc>
   </url>
   <url>
@@ -266,6 +263,9 @@
   </url>
   <url>
     <loc>/reference/datasetROI.html</loc>
+  </url>
+  <url>
+    <loc>/reference/datasetXModality.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
