@@ -209,6 +209,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   rownames(fomArray) <- paste("trt", sep = "", modalityID)
   colnames(fomArray) <- paste("rdr", sep = "", readerID)
   return(as.data.frame(fomArray))
+  #return(data.matrix(as.data.frame(fomArray))) causes tests to fail
 } 
 
 
