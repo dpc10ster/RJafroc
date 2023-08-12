@@ -38,9 +38,7 @@
 #'    treatment and reader IDs (i.e., names). Otherwise, treatment 
 #'    and reader IDs in the original data file will be used.
 #' 
-#' @note WARNING: SPLIT-PLOT-A and SPLIT-PLOT-C have not been tested with real datasets. 
-#'    Contact the maintainer if you desire this funtionality.
-#'    The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file 
+#' @note The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file 
 #'    extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc}) are possible, 
 #'    all of which are restricted to ROC data. Only the \code{iMRMC} format is actively 
 #'    supported, i.e, files with extension \code{.imrmc}. Other formats (\code{.csv}, 
@@ -181,8 +179,8 @@ preCheck4BadEntries <- function(truthTable) {
 
 
 
-# SPLIT-PLOT-A: Reader nested within test; Hillis 2014 Table VII part (a)
-# SPLIT-PLOT-C: Case nested within reader; Hillis 2014 Table VII part (c)
+
+
 checkTruthTable <- function (truthTable, lrocForcedMark) 
 {
   
@@ -192,7 +190,7 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
   if (design == "CROSSED") design <- "FCTRL"
   if (!(type %in% c("FROC", "ROC", "LROC"))) stop("Unsupported data type: must be ROC, FROC or LROC.\n")
-  if (!(design %in% c("FCTRL", "SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C\n")
+  if (!(design %in% c("FCTRL"))) stop("Study design must be FCTRL.\n")
   
   if (type == "LROC") {
     if (is.na(lrocForcedMark)) stop("For LROC dataset one must set the lrocForcedMark flag to a logical") 
@@ -227,64 +225,7 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
   
-  if (design == "SPLIT-PLOT-A") {
-    
-   # for this design the length is twice what it needs to be
-    caseIDCol <- as.integer(truthTable$CaseID)[1:(L/2)]
-    # lesionIDCol <- as.integer(truthTable$LesionID)[1:(L/2)]
-    weightsCol <- truthTable$Weight[1:(L/2)]
-    # preserve the strings; DO NOT convert to integers
-    J <-  0 # find max number of readers, given that his data has 3 readers in one group and 4 in the other group
-    for (el in 1:length(readerIDCol)) {
-      if (length(strsplit(readerIDCol[el], split = ",")[[1]]) > J) J <- length(strsplit(readerIDCol[el], split = ",")[[1]])
-    }
-    rdrArr <- array(dim = c(L,J))
-    for (l in 1:L) {
-      val <- strsplit(readerIDCol[l], split = ",|\\s")[[1]]
-      val <- val[val != ""]
-      for (i in 1:length(val)) {
-        rdrArr[l,i] <- val[i]
-      }
-    }
-    # preserve the strings; DO NOT convert to integers
-    I <- length(strsplit(modalityIDCol[1], split = ",")[[1]])
-    trtArr <- array(dim = c(L,I))
-    for (l in 1:L) {
-      if (grep("^\\(.\\)", modalityIDCol[l]) == 1) { # match found to something like (1), i.e., one nested factor
-        val <- grep("^\\(.\\)", modalityIDCol[l], value = T)
-        val <- strsplit(val, split = "\\(|\\)")[[1]]
-        val <- val[val != ""]
-        for (i in 1:length(val)) {
-          trtArr[l] <- val[i]
-        }
-      } else stop("Was expecting nested notation, using () brackets ...")
-    }
-  } else if (design == "SPLIT-PLOT-C") {
-    
-    # preserve the strings; DO NOT convert to integers
-    J <- length(strsplit(readerIDCol[1], split = ",")[[1]])
-    rdrArr <- array(dim = c(L,J))
-    for (l in 1:L) {
-      if (grep("^\\(.\\)", readerIDCol[l]) == 1) { # match found to something like (1), i.e., one nested factor
-        val <- grep("^\\(.\\)", readerIDCol[l], value = T)
-        val <- strsplit(val, split = "\\(|\\)")[[1]]
-        val <- val[val != ""]
-        for (i in 1:length(val)) {
-          rdrArr[l] <- val[i]
-        }
-      } else stop("Was expecting nested notation, using () brackets ...")
-      # preserve the strings; DO NOT convert to integers
-      I <- length(strsplit(modalityIDCol[1], split = ",")[[1]])
-      trtArr <- array(dim = c(L,I))
-      for (l in 1:L) {
-        val <- strsplit(modalityIDCol[l], split = ",|\\s")[[1]]
-        val <- val[val != ""]
-        for (i in 1:length(val)) {
-          trtArr[l,i] <- val[i]
-        }
-      }
-    }
-  } else if (design == "FCTRL") {
+  if (design == "FCTRL") {
     # preserve the strings; DO NOT convert to integers
     J <- length(strsplit(readerIDCol[1], split = ",")[[1]]) # bug non-character input error for HUGE dataset
     rdrArr <- array(dim = c(L,J))
@@ -307,13 +248,8 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
     }
   } else stop("incorrect design value")
   
-  if (design == "SPLIT-PLOT-A") {
-    rdrArr1D <- t(unique(rdrArr)) # rdrArr is 2-dimensional; rdrArr1D is a one-dimensional array of all the readers in the study
-    rdrArr1D <- rdrArr1D[!is.na(rdrArr1D)] # this modification is needed for HYK dataset with 3 readers in one group and 4 in the other
-  } else {
     if (any(is.na(rdrArr))) stop("Illegal value in ReaderID column in Truth sheet")
     rdrArr1D <- as.vector(unique(rdrArr)) # rdrArr is 2-dimensional; rdrArr1D is a one-dimensional array of all the readers in the study
-  }
   if (any(is.na(trtArr))) stop("Illegal value in ModalityID column in Truth sheet")
   trtArr1D <- as.vector(unique(trtArr))
   
@@ -324,18 +260,7 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
   for (l in 1:L) {
     k <- which(unique(truthTableSort$CaseID) == truthTable$CaseID[l])
     el <- lesionIDCol[l] + 1
-    if (design == "SPLIT-PLOT-A") {
-      i <- which(unique(trtArr) == trtArr[l])
-      for (j1 in 1:length(rdrArr[l,])) {
-        j <- which(rdrArr1D == rdrArr[l,j1])
-        truthTableStr[i, j, k, el] <- 1
-      }
-    }
-    else if (design == "SPLIT-PLOT-C") {
-      i <- which(unique(trtArr) == trtArr[l,])
-      j <- which(rdrArr1D == rdrArr[l])
-      truthTableStr[i, j, k, el] <- 1
-    } else if (design == "FCTRL") {
+    if (design == "FCTRL") {
       i <- which(unique(trtArr) == trtArr[l,])
       j <- which(rdrArr1D == rdrArr[l,])
       truthTableStr[i, j, k, el] <- 1

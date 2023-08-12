@@ -307,12 +307,10 @@
         interpretations occurred or NAs otherwise. For abnormal cases elements
         \code{c(I, J, L, 2:(maxLL+1))} are filled with 1s if the corresponding
         interpretations occurred or NAs otherwise. This object is necessary for analyzing
-        more complex designs, e.g., split-plot, as described next.
+        more complex designs.
 
-    \item \code{descriptions$design}: a \code{character} variable: "\code{FCTRL}",
-        "\code{SPLIT-PLOT-A}" or "\code{SPLIT-PLOT-A}", corresponding to factorial,
-        split-plot-A or split-plot-C designs. The A and C refer to subparts of Table VII
-        in a Hillis 2014 publication.
+    \item \code{descriptions$design}: a \code{character} variable: "\code{FCTRL}", 
+        corresponding to factorial design. 
 
     \item \code{descriptions$modalityID}: a \code{character} vector of length \eqn{I},
         which labels/names the modalities in the dataset. For non-JAFROC data file formats,
@@ -430,8 +428,6 @@
            DBM or OR.
         \item \code{\link{StSignificanceTestingCadVsRad}}: Perform
            significance testing, CAD vs. radiologists.
-        \item \code{\link{StSignificanceTestingCrossedModalities}}: Perform
-           significance testing using crossed modalities analysis.
   }
 }
 

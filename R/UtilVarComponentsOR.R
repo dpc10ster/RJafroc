@@ -116,8 +116,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
                               cov2EachTrt = cov2EachTrt, 
                               row.names = paste0("trt", modID),
                               stringsAsFactors = FALSE)
-  # } else IndividualTrt <- NA # these are not defined for split-plot-c datasets
-  
+
   # single reader msT_j ###############################################################
   if (I > 1) {
     msT_j <- array(0, dim = J)

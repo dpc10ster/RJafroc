@@ -33,8 +33,7 @@ datasetXModality
 This is a crossed treatment dataset, see book Section 18.5. There are two treatment factors. 
 The first treatment factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
 algorithms. The second treatment factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
-represent the mAs values of the image acquisition. The factors are fully crossed. The function 
-\code{\link{StSignificanceTestingCrossedModalities}} analyzes such datasets.
+represent the mAs values of the image acquisition. The factors are fully crossed.
 }
 \examples{
 str(datasetXModality)

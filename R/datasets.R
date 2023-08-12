@@ -842,8 +842,7 @@
 #' This is a crossed treatment dataset, see book Section 18.5. There are two treatment factors. 
 #' The first treatment factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
 #' algorithms. The second treatment factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
-#' represent the mAs values of the image acquisition. The factors are fully crossed. The function 
-#' \code{\link{StSignificanceTestingCrossedModalities}} analyzes such datasets.
+#' represent the mAs values of the image acquisition. The factors are fully crossed. 
 #' 
 #' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
 #'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
@@ -916,48 +915,6 @@
 #'
 #'
 "datasetDegenerate"
-#'
-#'
-#' 
-#'
-#'
-#' Simulated FROC SPLIT-PLOT-C dataset
-#'
-#' Simulated from FED Excel dataset by successively ignoring readers 3:4, c(1,3:4), 
-#' c(1:2,4), etc.
-#' created simulated split plot Excel dataset from Fed dataset: 
-#' confirmed it is read without error 
-#'    
-#' 
-#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
-#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
-#'    contain 3 elements, \code{$perCase}, \code{$IDs} and \code{$weights} as sub-lists; \code{$descriptions}
-#'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
-#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
-#' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:100], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:100, 1:3] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:100, 1:3], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetFROCSpC", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "SIM-FROC-SPLIT-PLOT-C", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", treatment label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "3" "4" "5", reader labels}
-#' }
-#'
-#' @keywords datasets
-#'
-#' @examples
-#' str(datasetFROCSpC)
-#'
-"datasetFROCSpC"
-#'
-#'
 #'
 #'
 #' 

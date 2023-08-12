@@ -15,8 +15,6 @@
 #' @details The allowed FOMs depend on the \code{dataType} field of the 
 #'    \code{dataset} object.  
 #' 
-#'    \strong{For \code{dataset$descriptions$design = "SPLIT-PLOT-C"}, end-point based 
-#'    FOMs (e.g., "MaxLLF") are not allowed}.
 #'    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
 #'    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
 #'    \itemize{ 
@@ -90,7 +88,6 @@
 #' @importFrom dplyr between  
 #' @export
 
-# v.1.3.1.9000: added SPLIT-PLOT-C capability 
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   
   dataType <- dataset$descriptions$type
@@ -158,49 +155,13 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   fomArray <- array(dim = c(I, J))
   for (i in 1:I) {
     for (j in 1:J) {
-      if (design == "SPLIT-PLOT-A") {
-        if (all(is.na(t[i,j,,1]))) next # if t[] for all normal   cases for selected i,j are NAs, skip 
-        if (all(is.na(t[i,j,,2]))) next # if t[] for all abnormal cases for selected i,j are NAs, skip 
-        k1_ij_sub <- !is.na(t[i,j,,1]) | !is.na(t[i,j,,2]) # see comments for SPLIT-PLOT-C
-        k2_ij_sub <- !is.na(t[i,j,,2])[(K1+1):K] # ditto:
-        nl_ij <- NL[i, j, k1_ij_sub, ]
-        perCase_ij <- dataset$lesions$perCase[k2_ij_sub]
-        maxLL_ij <- max(perCase_ij)
-        ll_ij <- LL[i, j, k2_ij_sub, 1:maxLL_ij]
-        k1ij <- sum(!is.na(t[i,j,,1]))
-        k2ij <- sum(!is.na(t[i,j,,2]))
-        lID_ij <- dataset$lesions$IDs[k2_ij_sub,1:maxLL_ij, drop = FALSE]
-        lW_ij <- dataset$lesions$weights[k2_ij_sub,1:maxLL_ij, drop = FALSE]
-        dim(nl_ij) <- c(k1ij+k2ij, maxNL)
-        dim(ll_ij) <- c(k2ij, maxLL_ij)
-        fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, perCase_ij, lID_ij, lW_ij, maxNL, maxLL_ij, k1ij, k2ij, FOM, FPFValue)
-        next
-      } else if (design == "SPLIT-PLOT-C") {
-        if (all(is.na(t[i,j,,1]))) next # if t[] for all normal   cases for selected i,j are NAs, skip 
-        if (all(is.na(t[i,j,,2]))) next # if t[] for all abnormal cases for selected i,j are NAs, skip 
-        # k1 refers to normal   case k-indices
-        # k2 refers to abnormal case k-indices
-        k1_ij_sub <- !is.na(t[i,j,,1]) | !is.na(t[i,j,,2]) # k1-indices of all cases meeting the i,j criteria
-        k2_ij_sub <- !is.na(t[i,j,,2])[(K1+1):K] # k2-indices of all cases meeting the i,j criteria
-        nl_ij <- NL[i, j, k1_ij_sub, ] # NL ratings for all cases meeting the i,j criteria
-        perCase_ij <- dataset$lesions$perCase[k2_ij_sub] # perCase indices for all abnormal cases meeting the i,j criteria
-        maxLL_ij <- max(perCase_ij)
-        ll_ij <- LL[i, j, k2_ij_sub, 1:maxLL_ij]
-        k1ij <- sum(!is.na(t[i,j,,1]))
-        k2ij <- sum(!is.na(t[i,j,,2]))
-        lID_ij <- dataset$lesions$IDs[k2_ij_sub,1:maxLL_ij, drop = FALSE]
-        lW_jj <- dataset$lesions$weights[k2_ij_sub,1:maxLL_ij, drop = FALSE]
-        dim(nl_ij) <- c(k1ij+k2ij, maxNL)
-        dim(ll_ij) <- c(k2ij, maxLL_ij)
-        fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, perCase_ij, lID_ij, lW_jj, maxNL, maxLL_ij, k1ij, k2ij, FOM, FPFValue)
-        next
-      } else if (design == "FCTRL"){
+      if (design == "FCTRL"){
         nl_ij <- NL[i, j, , ]
         ll_ij <- LL[i, j, , ]
         dim(nl_ij) <- c(K, maxNL)
         dim(ll_ij) <- c(K2, maxLL)
         fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, dataset$lesions$perCase, dataset$lesions$IDs, dataset$lesions$weights, maxNL, maxLL, K1, K2, FOM, FPFValue)
-      } else stop("Incorrect design, must be SPLIT-PLOT-A, SPLIT-PLOT-C or FCTRL")
+      } else stop("Incorrect design, must beFCTRL")
     }
   }
   
@@ -209,7 +170,6 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   rownames(fomArray) <- paste("trt", sep = "", modalityID)
   colnames(fomArray) <- paste("rdr", sep = "", readerID)
   return(as.data.frame(fomArray))
-  #return(data.matrix(as.data.frame(fomArray))) causes tests to fail
-} 
+ } 
 
 

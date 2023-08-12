@@ -1,18 +1,20 @@
-ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMethod = "jackknife", 
-                                nBoots = 200, analysisOption = "ALL")  
+ORAnalysisFactorialX <- function(dsX, avgIndx, FOM, alpha, analysisOption)  
 {
   
   RRRC <- NULL
   FRRC <- NULL
   RRFC <- NULL
   
-  modalityID <- dataset$descriptions$modalityID
-  I <- length(modalityID)
+  modalityID1 <- dsX$descriptions$modalityID1
+  modalityID2 <- dsX$descriptions$modalityID2
+  
+  I1 <- length(modalityID1)
+  I2 <- length(modalityID2)
   
   # `as.matrix` is NOT absolutely necessary as `mean()` function is not used
-  foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+  foms <- UtilFigureOfMeritX(dsX, FOM)
   
-  ret <- UtilVarComponentsOR(dataset, FOM, FPFValue, covEstMethod, nBoots)
+  ret <- UtilVarComponentsORX(dsX, FOM)
   
   TRanova <- ret$TRanova
   VarCom <-  ret$VarCom
@@ -52,7 +54,7 @@ ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMeth
   )
   
   if (analysisOption == "RRRC") {
-    RRRC <- ORSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    RRRC <- ORSummaryRRRC(dsX, FOMs, ANOVA, alpha, diffTRName)
     return(list(
       FOMs = FOMs,
       ANOVA = ANOVA,
@@ -61,7 +63,7 @@ ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMeth
   }  
   
   if (analysisOption == "FRRC") {
-    FRRC <- ORSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    FRRC <- ORSummaryFRRC(dsX, FOMs, ANOVA, alpha, diffTRName)
     return(list(
       FOMs = FOMs,
       ANOVA = ANOVA,
@@ -70,7 +72,7 @@ ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMeth
   }  
   
   if (analysisOption == "RRFC") {
-    RRFC <- ORSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    RRFC <- ORSummaryRRFC(dsX, FOMs, ANOVA, alpha, diffTRName)
     return(list(
       FOMs = FOMs,
       ANOVA = ANOVA,
@@ -79,9 +81,9 @@ ORAnalysisFactorial <- function(dataset, FOM, FPFValue, alpha = 0.05, covEstMeth
   }  
   
   if (analysisOption == "ALL") {
-    RRRC <- ORSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
-    FRRC <- ORSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
-    RRFC <- ORSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+    RRRC <- ORSummaryRRRC(dsX, FOMs, ANOVA, alpha, diffTRName)
+    FRRC <- ORSummaryFRRC(dsX, FOMs, ANOVA, alpha, diffTRName)
+    RRFC <- ORSummaryRRFC(dsX, FOMs, ANOVA, alpha, diffTRName)
     return(list(
       FOMs = FOMs,
       ANOVA = ANOVA,
@@ -266,12 +268,12 @@ FOMijk2VarCovSpA <- function(resampleFOMijk, varInflFactor) {
 
 
 
-varComponentsJackknifeFactorial <- function(dataset, FOM, FPFValue) {
-  if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
+varComponentsJackknifeFactorial <- function(dsX, FOM, FPFValue) {
+  if (dsX$descriptions$design != "FCTRL") stop("This functions requires a factorial dsX")  
   
-  K <- length(dataset$ratings$NL[1,1,,1])
+  K <- length(dsX$ratings$NL[1,1,,1])
   
-  ret <- UtilPseudoValues(dataset, FOM, FPFValue)
+  ret <- UtilPseudoValues(dsX, FOM, FPFValue)
   CovTemp <- FOMijk2VarCov(ret$jkFomValues, varInflFactor = TRUE)
   Cov <- list(
     Var = CovTemp$Var,
@@ -287,16 +289,16 @@ varComponentsJackknifeFactorial <- function(dataset, FOM, FPFValue) {
 
 
 #' @importFrom stats runif
-varComponentsBootstrapFactorial <- function(dataset, FOM, FPFValue, nBoots, seed) 
+varComponentsBootstrapFactorial <- function(dsX, FOM, FPFValue, nBoots, seed) 
 {
-  if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
+  if (dsX$descriptions$design != "FCTRL") stop("This functions requires a factorial dsX")  
   
   set.seed(seed) ## added 4/28/20, to test reproducibility with RJafrocBook code
-  NL <- dataset$ratings$NL
-  LL <- dataset$ratings$LL
-  perCase <- dataset$lesions$perCase
-  IDs <- dataset$lesions$IDs
-  weights <- dataset$lesions$weights
+  NL <- dsX$ratings$NL
+  LL <- dsX$ratings$LL
+  perCase <- dsX$lesions$perCase
+  IDs <- dsX$lesions$IDs
+  weights <- dsX$lesions$weights
   
   I <- length(NL[,1,1,1])
   J <- length(NL[1,,1,1])
@@ -349,7 +351,7 @@ varComponentsBootstrapFactorial <- function(dataset, FOM, FPFValue, nBoots, seed
     }
   } else { # original code had errors; see Fadi RRRC code; Aug 9, 2017 !!dpc!!!
     ## however, following code needs checking
-    ##stop("this code needs checking; contact Dr. Chakraborty with dataset and code that lands here; 8/9/2017")
+    ##stop("this code needs checking; contact Dr. Chakraborty with dsX and code that lands here; 8/9/2017")
     fomBsArray <- array(dim = c(I, J, nBoots))
     for (b in 1:nBoots) {
       k1bs <- ceiling(runif(K1) * K1)
@@ -389,14 +391,14 @@ varComponentsBootstrapFactorial <- function(dataset, FOM, FPFValue, nBoots, seed
 
 
 
-varComponentsDeLongFactorial <- function(dataset, FOM)
+varComponentsDeLongFactorial <- function(dsX, FOM)
 {
-  if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
+  if (dsX$descriptions$design != "FCTRL") stop("This functions requires a factorial dsX")  
   
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  NL <- dataset$ratings$NL
-  LL <- dataset$ratings$LL
-  perCase <- dataset$lesions$perCase
+  NL <- dsX$ratings$NL
+  LL <- dsX$ratings$LL
+  perCase <- dsX$lesions$perCase
   
   I <- length(NL[,1,1,1])
   J <- length(NL[1,,1,1])
@@ -405,9 +407,9 @@ varComponentsDeLongFactorial <- function(dataset, FOM)
   K1 <- (K - K2)
   maxNL <- length(NL[1,1,1,])
   maxLL <- length(LL[1,1,1,])
-  # if ((maxLL != 1) || (maxLL != 1)) stop("dataset error in varComponentsDeLongFactorial")
+  # if ((maxLL != 1) || (maxLL != 1)) stop("dsX error in varComponentsDeLongFactorial")
   
-  fomArray <- UtilFigureOfMerit(dataset, FOM)
+  fomArray <- UtilFigureOfMerit(dsX, FOM)
   
   if (!FOM %in% c("Wilcoxon", "HrAuc", "ROI")) 
     stop("DeLong\"s method can only be used for trapezoidal figures of merit.")

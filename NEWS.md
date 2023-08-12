@@ -13,6 +13,7 @@ title: "NEWS"
 * Bug fix, Issue 89, see below
 * Fixed entry errors in Excel file (check column names and data type)
 * TODO: `QuickStart`, new chapter on recommended FOMs and those to avoid at all costs
+* Removed SPLIT-PLOT-A and  SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on previous versions, i.e., versions < 2.1.3.
 
 
 ### Issue 90
@@ -26,7 +27,7 @@ title: "NEWS"
 * Added a sorting step to both worksheets: order by modality, then reader, then case and then rating.
 * Also ALWAYS use `TP_Rating` and `FP_Rating` in these sheets; do not use LL_Rating and/or NL_Rating as this will break the code.
 * Some `goodValues` had to be regenerated. 
-* TODO: Not sure about the split plot codes; these have never been used and I should consider removing them.
+* TODO: Not sure about the split plot codes; these have never been used and I should consider removing them. Done: 8/11/23
 
 
 ### Changes 05/19/2023

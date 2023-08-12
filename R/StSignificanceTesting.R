@@ -1,4 +1,4 @@
-#' Performs DBM or OR significance testing for factorial or split-plot A,C datasets
+#' Performs DBM or OR significance testing for factorial datasets
 #' 
 #' @description  Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
 #'    significance testing, for specified dataset; 
@@ -11,7 +11,7 @@
 #'
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
 #'     Must have two or more treatments and two or more readers. The dataset design
-#'     can be "FCTRL", "SPLIT-PLOT-A" or "SPLIT-PLOT-C". 
+#'     can be "FCTRL" or "FCTRL-X-MOD". 
 #'     
 #' @param FOM The figure of merit, see \code{\link{UtilFigureOfMerit}}
 #' 
@@ -22,10 +22,8 @@
 #'    treatment effects are zero; the default is 0.05
 #'    
 #' @param method The significance testing method to be used:  
-#'    \code{"DBM"} (the default), representing the 
-#'    Dorfman-Berbaum-Metz method or \code{"OR"}, representing the 
-#'    Obuchowski-Rockette method.
-#'    and the Obuchowski-Rockette significance testing methods, respectively. 
+#'    \code{"DBM"} representing the Dorfman-Berbaum-Metz method or \code{"OR"}, 
+#'    the default, representing the Obuchowski-Rockette method.  
 #'    
 #' @param covEstMethod The covariance matrix estimation method
 #'    in \code{ORH} analysis (for \code{method = "DBM"} the jackknife is always used).
@@ -40,13 +38,15 @@
 #'    
 #' @param analysisOption Determines which factors are regarded as random vs. fixed:
 #' \itemize{ 
-#'    \item \code{"RRRC"} = random-reader random case, 
+#'    \item \code{"RRRC"} = random-reader random case, the default,
 #'    \item \code{"FRRC"} = fixed-reader random case, 
 #'    \item \code{"RRFC"} = random-reader fixed case, 
-#'    \item \code{"ALL"} =  outputs results of \code{"RRRC"}, \code{"FRRC"} 
-#'    and \code{"RRFC"} analyses - this is the default.
+#'    \item \code{"ALL"} =  all allowed options.
 #' }    
 #' 
+#' @param avgIndx For cross-modality analysis the modality-index to be averaged over. The 
+#'     default is "NULL", i.e., not cross-modality analysis.  
+#'     
 #' @return \strong{For \code{method = "DBM"} the returned list contains 4 dataframes:}
 #' @return \item{FOMs}{Contains \code{foms}, \code{trtMeans} and \code{trtMeanDiffs}: 
 #'    see return of \code{\link{UtilFigureOfMerit}}}
@@ -73,17 +73,10 @@
 #' @examples
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBM") 
 #' StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "OR")
-#' ## following is split-plot-c analysis using a simulated split-plot-c dataset
-#' StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
 #' 
 #' \donttest{
 #' StSignificanceTesting(dataset05, FOM = "wAFROC")
 #' StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBM") 
-#' StSignificanceTesting(dataset05, FOM = "SongA1", method = "DBM") 
-#' StSignificanceTesting(dataset05, FOM = "SongA2", method = "DBM") 
-#' StSignificanceTesting(dataset05, FOM = "wAFROC1", method = "DBM")
-#' StSignificanceTesting(dataset05, FOM = "AFROC1", method = "DBM")
-#' StSignificanceTesting(dataset05, FOM = "AFROC", method = "DBM")
 #' } 
 #'
 #' 
@@ -108,11 +101,12 @@
 #'
 #'      
 #' @export
-StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBM", 
-                                  covEstMethod = "jackknife", nBoots = 200, analysisOption = "ALL")
+StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "OR", 
+                                  covEstMethod = "jackknife", nBoots = 200, 
+                                  analysisOption = "ALL", avgIndx = NULL)
 {
-
-
+  
+  
   checkParameters(dataset, FOM, FPFValue, alpha, method, covEstMethod, nBoots, analysisOption)
   
   if (method == "DBM"){
@@ -125,15 +119,13 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
       
       return(ORAnalysisFactorial(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
       
-    } else if (dataset$descriptions$design == "SPLIT-PLOT-A") {
+    } else if (dataset$descriptions$design == "FCTRL-X-MOD") {
       
-       return(ORAnalysisSplitPlotA(dataset, FOM, FPFValue, alpha, analysisOption))
+      if (is.null(avgIndx)) stop("For cross modality analysis avgIndx must be an integer.")
       
-    } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
+      return(ORAnalysisFactorialX(dataset, avgIndx, FOM, alpha, analysisOption))
       
-      return(ORAnalysisSplitPlotC(dataset, FOM, FPFValue, alpha, analysisOption))
-      
-    } else stop("Invalid study design: must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C")
+    } else stop("Invalid study design: must be FCTRL")
   } else {
     errMsg <- sprintf("%s is not a valid analysis method.", method)
     stop(errMsg)
@@ -190,11 +182,6 @@ checkParameters <- function(dataset, FOM, FPFValue, alpha, method,
     }
   } else stop("Incorrect `method` argument: must be `DBM` or `OR`")
   
-  if (((dataset$descriptions$design == "SPLIT-PLOT-C") || (dataset$descriptions$design == "SPLIT-PLOT-A")) && method == "DBM") 
-    stop("Must use method = ORH for SPLIT-PLOT-A or SPLIT-PLOT-C dataset")
-  
-  if (((dataset$descriptions$design == "SPLIT-PLOT-C") || (dataset$descriptions$design == "SPLIT-PLOT-A")) && method == "OR" && covEstMethod != "jackknife") 
-    stop("Must use covEstMethod = jackknife for SPLIT-PLOT-A or SPLIT-PLOT-C dataset")
-  
+
 }
 

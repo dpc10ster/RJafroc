@@ -1,5 +1,5 @@
 ## ~/GitHub/RJafroc/tests/testthat/test-StSignificanceTesting.R was deleted as comparing to last good values is unnecessary as this code compares to ~/GitHub/RJafroc/R/StOldCode.R
-contextStr <- "SigTest DBM: compare to OldCode in version 0.0.1, also tests PseudoValue functions"
+contextStr <- "SigTest OR: compare to OldCode in version 0.0.1, also tests PseudoValue functions"
 context(contextStr)
 
 dropRowColumnNames <- function (df) {

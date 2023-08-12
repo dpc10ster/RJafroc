@@ -8,7 +8,7 @@ UtilPseudoValues(dataset, FOM, FPFValue = 0.2)
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}};
-must be factorial, or split-plot-a or split-plot-c.}
+must be factorial.}
 
 \item{FOM}{The figure of merit to be used in the calculation. 
 The default is \code{"FOM_wAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
@@ -23,7 +23,7 @@ A list containing two arrays containing the pseudovalues
 }
 \description{
 Returns \strong{centered} jackknife pseudovalues AND jackknife FOM values, 
-   for factorial OR split-plot-a OR split-plot-c study designs
+   for factorial study designs
 }
 \note{
 Each returned array has dimension \code{c(I,J,K)}, where \code{K} depends on the

@@ -7,14 +7,13 @@ fomStr <- c("Wilcoxon", "wAFROC")
 for (f in 1:length(fomStr)) {
   for (d in 1:length(datasetStr)) {
     for (m in 1:length(methodStr)) {
+      cat("f = ", f, ", d = ", d, ", m = ", m, "\n")
       FOM <- fomStr[f]
       method <- methodStr[m]
       dataset <- get(datasetStr[d])
-      if (dataset$descriptions$type == "ROC" &&
-          (FOM != "Wilcoxon"))
+      if (dataset$descriptions$type == "ROC" && (FOM != "Wilcoxon"))
         next
-      if (dataset$descriptions$type == "FROC" &&
-          (FOM != "wAFROC"))
+      if (dataset$descriptions$type == "FROC" && (FOM != "wAFROC"))
         next
       fn <-
         paste0(

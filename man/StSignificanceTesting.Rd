@@ -2,23 +2,24 @@
 % Please edit documentation in R/StSignificanceTesting.R
 \name{StSignificanceTesting}
 \alias{StSignificanceTesting}
-\title{Performs DBM or OR significance testing for factorial or split-plot A,C datasets}
+\title{Performs DBM or OR significance testing for factorial datasets}
 \usage{
 StSignificanceTesting(
   dataset,
   FOM,
   FPFValue = 0.2,
   alpha = 0.05,
-  method = "DBM",
+  method = "OR",
   covEstMethod = "jackknife",
   nBoots = 200,
-  analysisOption = "ALL"
+  analysisOption = "ALL",
+  avgIndx = NULL
 )
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
 Must have two or more treatments and two or more readers. The dataset design
-can be "FCTRL", "SPLIT-PLOT-A" or "SPLIT-PLOT-C".}
+can be "FCTRL" or "FCTRL-X-MOD".}
 
 \item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}}
 
@@ -29,10 +30,8 @@ where to evaluate a partial curve based figure of merit. The default is 0.2.}
 treatment effects are zero; the default is 0.05}
 
 \item{method}{The significance testing method to be used:
-\code{"DBM"} (the default), representing the 
-Dorfman-Berbaum-Metz method or \code{"OR"}, representing the 
-Obuchowski-Rockette method.
-and the Obuchowski-Rockette significance testing methods, respectively.}
+\code{"DBM"} representing the Dorfman-Berbaum-Metz method or \code{"OR"}, 
+the default, representing the Obuchowski-Rockette method.}
 
 \item{covEstMethod}{The covariance matrix estimation method
    in \code{ORH} analysis (for \code{method = "DBM"} the jackknife is always used).
@@ -48,12 +47,14 @@ and the Obuchowski-Rockette significance testing methods, respectively.}
 
 \item{analysisOption}{Determines which factors are regarded as random vs. fixed:
 \itemize{ 
-   \item \code{"RRRC"} = random-reader random case, 
+   \item \code{"RRRC"} = random-reader random case, the default,
    \item \code{"FRRC"} = fixed-reader random case, 
    \item \code{"RRFC"} = random-reader fixed case, 
-   \item \code{"ALL"} =  outputs results of \code{"RRRC"}, \code{"FRRC"} 
-   and \code{"RRFC"} analyses - this is the default.
+   \item \code{"ALL"} =  all allowed options.
 }}
+
+\item{avgIndx}{For cross-modality analysis the modality-index to be averaged over. The 
+default is "NULL", i.e., not cross-modality analysis.}
 }
 \value{
 \strong{For \code{method = "DBM"} the returned list contains 4 dataframes:}
@@ -101,17 +102,10 @@ Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR)
 \examples{
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "DBM") 
 StSignificanceTesting(dataset02,FOM = "Wilcoxon", method = "OR")
-## following is split-plot-c analysis using a simulated split-plot-c dataset
-StSignificanceTesting(datasetFROCSpC, FOM = "wAFROC", method = "OR")
 
 \donttest{
 StSignificanceTesting(dataset05, FOM = "wAFROC")
 StSignificanceTesting(dataset05, FOM = "HrAuc", method = "DBM") 
-StSignificanceTesting(dataset05, FOM = "SongA1", method = "DBM") 
-StSignificanceTesting(dataset05, FOM = "SongA2", method = "DBM") 
-StSignificanceTesting(dataset05, FOM = "wAFROC1", method = "DBM")
-StSignificanceTesting(dataset05, FOM = "AFROC1", method = "DBM")
-StSignificanceTesting(dataset05, FOM = "AFROC", method = "DBM")
 } 
 
 

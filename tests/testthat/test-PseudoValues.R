@@ -42,62 +42,7 @@ test_that(contextStr, {
 })
 
 
-contextStr <- "UtilPseudoValues: FROC SpC wAFROC"
-context(contextStr)
-test_that(contextStr, {
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/FROC/frocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
-  ds <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/UtilPseudoValues/frocSpC", "wAFROC", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- UtilPseudoValues(ds, FOM = "wAFROC", FPFValue = 0.2)
-    saveRDS(x1, file = fn)
-  }
-  
-  x1 <- readRDS(fn)
-  x2 <- UtilPseudoValues(ds, FOM = "wAFROC", FPFValue = 0.2)
-  expect_equal(x1, x2)
-  
-  # examine the jkFomValues
-  # if (any(is.na(x1$jkFomValues[,1,1:3]))) stop("failed this test: NAs present")
-  # if (!all(is.na(x1$jkFomValues[2,1:2,1:5]))) stop("failed this test: not all NAs")
-  # if (!all(is.na(x1$jkFomValues[1,3:5,1:5]))) stop("failed this test: not all NAs present")
-  # if (all(is.na(x1$jkFomValues[2,3:5,1:5]))) stop("failed this test: NAs present")
-  
-})
 
-
-
-contextStr <- "UtilPseudoValues: FROC SpA wAFROC"
-context(contextStr)
-test_that(contextStr, {
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/FROC/frocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
-  ds <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/UtilPseudoValues/frocSpA", "wAFROC", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- UtilPseudoValues(ds, FOM = "wAFROC", FPFValue = 0.2)
-    saveRDS(x1, file = fn)
-  }
-  
-  x1 <- readRDS(fn)
-  x2 <- UtilPseudoValues(ds, FOM = "wAFROC", FPFValue = 0.2)
-  expect_equal(x1, x2)
-  
-  # examine the jkFomValues
-  if (all(is.na(x1$jkFomValues[1,1:2,1:5]))) stop("failed this test: NAs present")
-  if (!all(is.na(x1$jkFomValues[2,1:2,1:5]))) stop("failed this test: not all NAs")
-  if (!all(is.na(x1$jkFomValues[1,3:5,1:5]))) stop("failed this test: not all NAs present")
-  if (all(is.na(x1$jkFomValues[2,3:5,1:5]))) stop("failed this test: NAs present")
-  
-  
-})
 
 
 
@@ -124,62 +69,8 @@ test_that(contextStr, {
 
 
 
-contextStr <- "UtilPseudoValues: FROC SpC MaxLLF"
-context(contextStr)
-test_that(contextStr, {
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/FROC/frocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
-  ds <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/UtilPseudoValues/frocSpC", "MaxLLF", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- UtilPseudoValues(ds, FOM = "MaxLLF", FPFValue = 0.2)
-    saveRDS(x1, file = fn)
-  }
-  
-  x1 <- readRDS(fn)
-  x2 <- UtilPseudoValues(ds, FOM = "MaxLLF", FPFValue = 0.2)
-  expect_equal(x1, x2)
-  
-  # examine the jkFomValues
-  # if (any(is.na(x1$jkFomValues[,1,1:3]))) stop("failed this test: NAs present")
-  # if (!all(is.na(x1$jkFomValues[2,1:2,1:5]))) stop("failed this test: not all NAs")
-  # if (!all(is.na(x1$jkFomValues[1,3:5,1:5]))) stop("failed this test: not all NAs present")
-  # if (all(is.na(x1$jkFomValues[2,3:5,1:5]))) stop("failed this test: NAs present")
-  
-})
 
 
-
-contextStr <- "UtilPseudoValues: FROC SpA MaxLLF"
-context(contextStr)
-test_that(contextStr, {
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/FROC/frocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
-  ds <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/UtilPseudoValues/frocSpA", "MaxLLF", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- UtilPseudoValues(ds, FOM = "MaxLLF", FPFValue = 0.2)
-    saveRDS(x1, file = fn)
-  }
-  
-  x1 <- readRDS(fn)
-  x2 <- UtilPseudoValues(ds, FOM = "MaxLLF", FPFValue = 0.2)
-  expect_equal(x1, x2)
-  
-  # examine the jkFomValues
-  if (all(is.na(x1$jkFomValues[1,1:2,1:5]))) stop("failed this test: NAs present")
-  if (!all(is.na(x1$jkFomValues[2,1:2,1:5]))) stop("failed this test: not all NAs")
-  if (!all(is.na(x1$jkFomValues[1,3:5,1:5]))) stop("failed this test: not all NAs present")
-  if (all(is.na(x1$jkFomValues[2,3:5,1:5]))) stop("failed this test: NAs present")
-  
-  
-})
 
 
 
@@ -207,59 +98,5 @@ test_that(contextStr, {
 
 
 
-contextStr <- "UtilPseudoValues: FROC SpC MaxNLF"
-context(contextStr)
-test_that(contextStr, {
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/FROC/frocSpC.xlsx", package = "RJafroc", mustWork = TRUE)
-  ds <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/UtilPseudoValues/frocSpC", "MaxNLF", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- UtilPseudoValues(ds, FOM = "MaxNLF", FPFValue = 0.2)
-    saveRDS(x1, file = fn)
-  }
-  
-  x1 <- readRDS(fn)
-  x2 <- UtilPseudoValues(ds, FOM = "MaxNLF", FPFValue = 0.2)
-  expect_equal(x1, x2)
-  
-  # examine the jkFomValues
-  # if (any(is.na(x1$jkFomValues[,1,1:3]))) stop("failed this test: NAs present")
-  # if (!all(is.na(x1$jkFomValues[2,1:2,1:5]))) stop("failed this test: not all NAs")
-  # if (!all(is.na(x1$jkFomValues[1,3:5,1:5]))) stop("failed this test: not all NAs present")
-  # if (all(is.na(x1$jkFomValues[2,3:5,1:5]))) stop("failed this test: NAs present")
-  
-})
 
 
-
-contextStr <- "UtilPseudoValues: FROC SpA MaxNLF"
-context(contextStr)
-test_that(contextStr, {
-  
-  fileName <- system.file(
-    "extdata", "/toyFiles/FROC/frocSpA.xlsx", package = "RJafroc", mustWork = TRUE)
-  ds <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
-  
-  fn <- paste0(test_path(), "/goodValues361/UtilPseudoValues/frocSpA", "MaxNLF", ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    x1 <- UtilPseudoValues(ds, FOM = "MaxNLF", FPFValue = 0.2)
-    saveRDS(x1, file = fn)
-  }
-  
-  x1 <- readRDS(fn)
-  x2 <- UtilPseudoValues(ds, FOM = "MaxNLF", FPFValue = 0.2)
-  expect_equal(x1, x2)
-  
-  # examine the jkFomValues
-  if (all(is.na(x1$jkFomValues[1,1:2,1:5]))) stop("failed this test: NAs present")
-  if (!all(is.na(x1$jkFomValues[2,1:2,1:5]))) stop("failed this test: not all NAs")
-  if (!all(is.na(x1$jkFomValues[1,3:5,1:5]))) stop("failed this test: not all NAs present")
-  if (all(is.na(x1$jkFomValues[2,3:5,1:5]))) stop("failed this test: NAs present")
-  
-  
-})

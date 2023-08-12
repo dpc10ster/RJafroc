@@ -173,24 +173,6 @@ for (i in 1:length(df[,1])) {
                          design = df[i,3],
                          modalityID = x$modalityID,
                          readerID = x$readerID)
-  } else if (i == 22) {
-    # simulated FROC split plot
-    ratings <- list(NL = x$NL,
-                    LL = x$LL,
-                    LL_IL = NA)
-    
-    lesions <- list(perCase = x$lesionVector,
-                    IDs = x$lesionID,
-                    weights = x$lesionWeight)
-    
-    descriptions <- list(binned = df[i,5],
-                         fileName = df[i,1],
-                         type = df[i,2],
-                         name = df[i,4],
-                         truthTableStr = x$descriptions$truthTableStr, # this is really needed here
-                         design = df[i,3],
-                         modalityID = x$modalityID,
-                         readerID = x$readerID)
   } else if (i == 23) {
     # simulated ROI
     ratings <- list(NL = x$NL,
