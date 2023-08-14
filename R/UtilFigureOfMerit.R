@@ -1,7 +1,7 @@
 #' Calculate empirical figures of merit (FOMs) for specified dataset
 #' 
 #' @description  Calculate the specified empirical figure of merit
-#'    for each treatment-reader combination in the 
+#'    for each modality-reader combination in the 
 #'    ROC, FROC, ROI or LROC dataset
 #' 
 #' @param dataset The dataset to be analyzed, \code{\link{RJafroc-package}}
@@ -13,7 +13,7 @@
 #'    treatments and column names are the \code{readerID}'s of the readers.
 #' 
 #' @details The allowed FOMs depend on the \code{dataType} field of the 
-#'    \code{dataset} object.  
+#'    \code{dataset} object. 
 #' 
 #'    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
 #'    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
@@ -38,7 +38,8 @@
 #'    The \code{"ExpTrnsfmSp"} FOM is described in the paper by Popescu. 
 #'    Given the large number of FOMs possible with FROC data, it is appropriate 
 #'    to make a recommendation: \strong{it is recommended that one use the wAFROC FOM
-#'    whenever possible.}
+#'    whenever possible. If the dataset has no non-diseased cases one should use the
+#'    the wAFROC1 FOM}.
 #'    
 #'    For \strong{\code{dataType = "ROI"} dataset only \code{FOM = "ROI"} is allowed}.
 #'    

@@ -22,7 +22,7 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
 \item{\code{descriptions$name}}{, chr "VAN-DYKE", the name of the dataset}
 \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 ..., truth table structure}
 \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-\item{\code{descriptions$modalityID}}{, chr [1:2] "0" "1", treatment labels}
+\item{\code{descriptions$modalityID}}{, chr [1:2] "0" "1", modality labels}
 \item{\code{descriptions$readerID}}{, chr [1:5] "0" "1" "2" ..., reader labels}
 }
 }
@@ -37,7 +37,7 @@ This is referred to in the book as the "VD" dataset. It consists of 114 cases,
    generates one rating per case.  Often referred to in the ROC literature as the 
    Van Dyke dataset, which, along with the Franken dataset, has been widely 
    used to illustrate advances in ROC methodology. The example below displays 
-   the ROC plot for the first treatment and first reader.
+   the ROC plot for the first modality and first reader.
 }
 \examples{
 str(dataset02)

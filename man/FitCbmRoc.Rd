@@ -2,7 +2,7 @@
 % Please edit documentation in R/FitCbmRoc.R
 \name{FitCbmRoc}
 \alias{FitCbmRoc}
-\title{Fit the contaminated binormal model (CBM) to selected treatment and 
+\title{Fit the contaminated binormal model (CBM) to selected modality and 
    reader in an ROC dataset}
 \usage{
 FitCbmRoc(dataset, trt = 1, rdr = 1)
@@ -10,7 +10,7 @@ FitCbmRoc(dataset, trt = 1, rdr = 1)
 \arguments{
 \item{dataset}{The dataset containing the data}
 
-\item{trt}{The desired treatment, default is 1}
+\item{trt}{The desired modality, default is 1}
 
 \item{rdr}{The desired reader, default is 1}
 }
@@ -41,7 +41,7 @@ A list with the following elements:
    Use \code{print()} to display the object}
 }
 \description{
-Fit the CBM-predicted ROC curve for specified treatment and reader
+Fit the CBM-predicted ROC curve for specified modality and reader
 }
 \details{
 In  CBM ratings from diseased cases are sampled from a mixture distribution 

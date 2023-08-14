@@ -45,7 +45,7 @@ ORSummaryFRRC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
     # X2 = (t-1)*MS(T)/[Var(error) - Cov1 + (r-1)*max(Cov2 - Cov3,0)]
     
     #   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
-    #   for treatment AUC differences
+    #   for modality AUC differences
     stdErr <- sqrt(2 * msDen/J)
     zStat <- vector()
     PrGTz <- vector()
@@ -69,8 +69,8 @@ ORSummaryFRRC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
   # 95% CI: difference +- z(.025) * StdErr
   
   
-  # c) Single treatment AUC 95% confidence intervals
-  # (Each analysis is based only on data for the specified treatment, i.e., on
+  # c) Single modality AUC 95% confidence intervals
+  # (Each analysis is based only on data for the specified modality, i.e., on
   #   the specific reader ANOVA of AUCs and error-variance and Cov2 estimates.)
   # 
   # Hillis 2007 5.3. not applicable here
@@ -85,8 +85,8 @@ ORSummaryFRRC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
     # TBA Need a better reference #
     # See for example, inst/Iowa/VanDyke.txt, lines 228-243; shown next: #
     # RStudio debugger buggy when I have these comments, does not stop at break points #
-    # LINE 228    c) Single treatment AUC 95% confidence intervals #
-    # (Each analysis is based only on data for the specified treatment, i.e., on #
+    # LINE 228    c) Single modality AUC 95% confidence intervals #
+    # (Each analysis is based only on data for the specified modality, i.e., on #
     # the specific reader ANOVA of AUCs and error-variance and Cov2 estimates.) #
     # 
     # Treatment      AUC      Std Error   95% Confidence Interval #
@@ -120,7 +120,7 @@ ORSummaryFRRC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
   
   if (I > 1) {
     #   d) Single-reader 95% confidence intervals and tests (H0: difference = 0) for 
-    #    treatment AUC differences.
+    #    modality AUC differences.
     #    (Each analysis is based only on data for the specified reader, i.e, on the 
     #    reader-specific AUC, error-variance and Cov1 estimates.)
     trtMeanDiffs <- array(dim = c(J, choose(I, 2)))

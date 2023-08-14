@@ -39,9 +39,9 @@
     for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC
     (AFROC) and weighted AFROC (wAFROC) curves. For fully crossed study designs significance testing of reader-averaged FOM
     differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods. Also
-    implemented are single treatment analyses, allowing comparison of performance of a group of radiologists to a specified
+    implemented are single modality analyses, allowing comparison of performance of a group of radiologists to a specified
     value, or comparison of AI to a group of radiologists/algorithms interpreting the same cases. Crossed-modality analysis is implemented
-    wherein there are two crossed treatment factors and the aim is to determined performance in each treatment factor averaged
+    wherein there are two crossed modality factors and the aim is to determined performance in each modality factor averaged
     over all levels of the second factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates
     of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve the
     desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input
@@ -73,7 +73,7 @@
     \item AFROC1 curve: plot of LLF (ordinate) vs. FPF1, where FPF1 is inferred using
        highest rating of NL marks on \strong{ALL cases}
     \item \eqn{alpha}: The significance level \eqn{\alpha} of the test of the null
-       hypothesis of no treatment effect
+       hypothesis of no modality effect
     \item AUC: area under curve; e.g., ROC-AUC = area under ROC curve, an
        example of a FOM
     \item \emph{b}: The width or "b" parameter of the conventional binormal
@@ -87,10 +87,10 @@
        bimodal, with a peak at zero and one at \eqn{\mu}, the integrated fraction
        at \eqn{\mu} is \eqn{\alpha} (not to be confused with \eqn{\alpha} of NH testing)
     \item CI: The (1-\eqn{\alpha}) confidence interval for the stated statistic
-    \item Crossed modality: a dataset containing two modality (treatment) factors, with
+    \item Crossed modality: a dataset containing two modality (modality) factors, with
        the levels of the two factors crossed, see paper by Thompson et al
     \item DBM: Dorfman-Berbaum-Metz, a significance testing method for
-       detecting a treatment effect in MRMC studies
+       detecting a modality effect in MRMC studies
     \item DBMH: Hillis' modification of the DBM method
     \item ddf: Denominator degrees of freedom of appropriate \eqn{F}-test;
        the corresponding ndf is \code{I} - 1
@@ -107,9 +107,9 @@
     \item FRRC: Analysis that treats readers as fixed and cases as random factors
     \item I: total number of modalities, indexed by \eqn{i}
     \item image/case: used interchangeably; a case can consist of several images
-       of the same patient in the same treatment
+       of the same patient in the same modality
     \item iMRMC: A text file format used for ROC data by FDA/CDRH researchers
-    \item individual: A single-treatment single-reader dataset.
+    \item individual: A single-modality single-reader dataset.
     \item Intrinsic: Used in connection with RSM; a parameter that is independent of
        the RSM \eqn{\mu} parameter, but whose meaning may not be as transparent as
        the corresponding physical parameter
@@ -137,10 +137,10 @@
     \item maxLL: maximum number of lesions per case in dataset
     \item maxNL: maximum number of NL marks per case in dataset
     \item MRMC: multiple reader multiple case (each reader interprets each case in
-       each treatment, i.e. fully crossed study design)
+       each modality, i.e. fully crossed study design)
     \item ndf: Numerator degrees of freedom of appropriate \eqn{F}-test, usually
        number of treatments minus one
-    \item NH: The null hypothesis that all treatment effects are zero; rejected
+    \item NH: The null hypothesis that all modality effects are zero; rejected
        if the \eqn{p}-value is smaller than \eqn{\alpha}
     \item NL: non-lesion localization, of which FP is a special case, i.e., a
        mark that does not correctly locate any existing localized lesion(s)
@@ -151,7 +151,7 @@
     \item Operating point: A point on an operating characteristic, e.g.,
        (FPF, TPF) represents an operating point on an ROC
     \item OR: Obuchowski-Rockette, a significance testing method for detecting
-       a treatment effect in MRMC studies
+       a modality effect in MRMC studies
     \item ORH: Hillis' modification of the OR method
     \item Physical parameter: Used in connection with RSM; a parameter whose
        meaning is more transparent than the corresponding intrinsic parameter,
@@ -161,7 +161,7 @@
        is close enough to a lesion to be counted as a LL (or correct localization);
        otherwise it is counted as a NL (or incorrect localization)
     \item p-value: the probability, under the null hypothesis, that the observed
-       treatment effects, or larger, could occur by chance
+       modality effects, or larger, could occur by chance
     \item Proper: a proper fit does not inappropriately fall below the chance
        diagonal, does not display a "hook" near the upper right corner
     \item PROPROC: Metz's binormal model based fitting of proper ROC curves

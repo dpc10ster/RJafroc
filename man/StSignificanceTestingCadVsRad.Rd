@@ -14,7 +14,7 @@ StSignificanceTestingCadVsRad(
 )
 }
 \arguments{
-\item{dataset}{\strong{The dataset to be analyzed; must be single-treatment
+\item{dataset}{\strong{The dataset to be analyzed; must be single-modality
 at least three readers, where the first reader is CAD. }}
 
 \item{FOM}{The desired FOM; for ROC data it must be \code{"Wilcoxon"}, for FROC data 
@@ -49,7 +49,7 @@ If \code{method = "1T-RRRC"} the return value is a
 
 \item{varR}{The variance of the radiologists.}
 
-\item{varError}{The variance of the error term in the single-treatment 
+\item{varError}{The variance of the error term in the single-modality 
    multiple-reader OR model.}
 
 \item{cov2}{The covariance of the error term.}
@@ -83,18 +83,18 @@ If \code{method = "2T-RRRC"} the return value is a list
    with the average difference, RAD - CAD.}
 
 \item{ciAvgRdrEachTrt}{A data frame containing the statistics 
-   associated with the average FOM in each "treatment".}
+   associated with the average FOM in each "modality".}
 
 \item{varR}{The variance of the pure reader term in the OR model.}
 
-\item{varTR}{The variance of the treatment-reader term error 
+\item{varTR}{The variance of the modality-reader term error 
    term in the OR model.}
 
 \item{cov1}{The covariance1 of the error term - same reader, 
    different treatments.}
 
 \item{cov2}{The covariance2 of the error term  - 
-   different readers, same treatment.}
+   different readers, same modality.}
 
 \item{cov3}{The covariance3 of the error term  - different readers, 
    different treatments.}
@@ -134,16 +134,16 @@ Comparing standalone CAD vs. at least two radiologists interpreting
    \item{For FOM = "ALROC" the trapezoidal area under the LROC
    from FPF = 0 to FPF = \code{FPFValue} is used.} 
    \item{If \code{method = "1T-RRRC"} the first \strong{reader} is assumed to be CAD.} 
-   \item{If \code{method = "2T-RRRC"} the first \strong{treatment} is assumed to be CAD.} 
+   \item{If \code{method = "2T-RRRC"} the first \strong{modality} is assumed to be CAD.} 
    \item{The NH is that the FOM of CAD equals the average of the readers.} 
    \item{The \code{method = "1T-RRRC"} analysis uses an adaptation of the 
-   single-treatment multiple-reader Obuchowski Rockette (OR) model described in a 
+   single-modality multiple-reader Obuchowski Rockette (OR) model described in a 
    paper by Hillis (2007), section 5.3. It is characterized by 3 parameters
    \code{VarR}, \code{Var} and \code{Cov2}, where the latter two are estimated 
    using the jackknife.} 
    \item{For \code{method = "2T-RRRC"} the analysis replicates the CAD data as many times as
-   necessary so as to form one "treatment" of an MRMC pairing, the other 
-   "treatment" being the radiologists. Then standard ORH analysis is applied. The 
+   necessary so as to form one "modality" of an MRMC pairing, the other 
+   "modality" being the radiologists. Then standard ORH analysis is applied. The 
    method is described in Kooi et al. It gives exactly the same final results 
    (F-statistic, ddf and p-value) as \code{"1T-RRRC"} but the intermediate quantities 
    are meaningless.}

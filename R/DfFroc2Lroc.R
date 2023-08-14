@@ -1,6 +1,6 @@
 #' Simulates an "AUC-equivalent" LROC dataset from an FROC dataset
 #' 
-#' @description  Simulates a multiple-treatment multiple-reader "AUC-equivalent" 
+#' @description  Simulates a multiple-modality multiple-reader "AUC-equivalent" 
 #'    LROC dataset from a supplied FROC dataset.
 #' 
 #' @param dataset The FROC dataset to be converted to LROC.

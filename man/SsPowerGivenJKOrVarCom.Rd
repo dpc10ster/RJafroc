@@ -27,7 +27,7 @@ SsPowerGivenJKOrVarCom(
 
 \item{effectSize}{The effect size}
 
-\item{VarTR}{The treatment-reader OR variance component}
+\item{VarTR}{The modality-reader OR variance component}
 
 \item{Cov1}{The OR Cov1 covariance}
 

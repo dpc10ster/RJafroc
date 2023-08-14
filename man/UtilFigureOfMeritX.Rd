@@ -2,52 +2,30 @@
 % Please edit documentation in R/UtilFigureOfMeritX.R
 \name{UtilFigureOfMeritX}
 \alias{UtilFigureOfMeritX}
-\title{Calculate empirical figures of merit for cross-modality dataset}
+\title{Empirical figures of merit for cross-modality dataset}
 \usage{
 UtilFigureOfMeritX(dsX, FOM = "wAFROC")
 }
 \arguments{
-\item{dsX}{The cross-modality dataset to be analyzed}
+\item{dsX}{The cross-modality dataset to be analyzed.}
 
 \item{FOM}{The figure of merit; the default is \code{"wAFROC"}}
 }
 \value{
-A \code{c(I1, I2, J)} data frame, where the row names are \code{modalityID}'s of the 
-   treatments and column names are the \code{readerID}'s of the readers.
+Two data frames: 
+* \code{c(I2, J)} data frame, FOMs averaged over the first modality, where the row names are modality IDS of the 
+   second modality 
+* \code{c(I1, J)} data frames, FOMs averaged over the second modality, where the row names are modality IDs of the 
+   first modality, 
+* The column names are the \code{readerID}'s.
 }
 \description{
-Calculate the specified empirical figure of merit
-   for each treatment-reader combination in the cross-modality dataset
+Calculate specified empirical figure of merit
+   for each modality-reader combination in a cross-modality dataset
 }
 \details{
 The allowed FOMs depend on the \code{dataType} field of the 
-   \code{dataset} object.  
-
-   \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
-   \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
-   \itemize{ 
-   \item \code{FOM = "AFROC1"} (use only if zero normal cases)
-   \item \code{FOM = "AFROC"} 
-   \item \code{FOM = "wAFROC1"} (use only if zero normal cases)
-   \item \code{FOM = "wAFROC"} (the default) 
-   \item \code{FOM = "HrAuc"} 
-   \item \code{FOM = "SongA1"} 
-   \item \code{FOM = "SongA2"}  
-   \item \code{FOM = "HrSe"} (an example of an end-point based FOM)
-   \item \code{FOM = "HrSp"} (another example)
-   \item \code{FOM = "MaxLLF"} (do:)
-   \item \code{FOM = "MaxNLF"} (do:)
-   \item \code{FOM = "MaxNLFAllCases"} (do:) 
-   \item \code{FOM = "ExpTrnsfmSp"}  
-   } 
-   \code{"MaxLLF"}, \code{"MaxNLF"} and \code{"MaxNLFAllCases"}
-   correspond to ordinate, and abscissa, respectively, of the highest point 
-   on the FROC operating characteristic obtained by counting all the marks. 
-   The \code{"ExpTrnsfmSp"} FOM is described in the paper by Popescu. 
-   Given the large number of FOMs possible with FROC data, it is appropriate 
-   to make a recommendation: \strong{it is recommended that one use the wAFROC FOM
-   whenever possible. If the dataset has no non-diseased cases one should use the
-   the wAFROC1 FOM}.
+   \code{dataset} object.  See \code{\link{UtilFigureOfMerit}}.
 }
 \examples{
 

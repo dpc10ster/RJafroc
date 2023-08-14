@@ -414,7 +414,7 @@ if (K1 != 0) {
 * Checked `dataset05` `MaxLLF` `MaxNLF` vs. JAFROC
 * See below, note added today relating to handling of `descriptions$fileName`. This fixed problem with `expect_equal()` failing depending on how the `goodValues` were generated - from R `command line` vs. `Run Tests`. Also, in creating a dataset object, where appropriate, `fileName` <- "NA" instead of `fileName` <- `NA`; the latter generates a `character expected` error when an attempt is made to strip path name and extension in `convert2dataset` and `convert2Xdataset`.
 * Updated and reorganized tests
-* Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use treatment-specific components, i.e. `Var_i`, `Cov2_i` and `Cov3_i`. The modified formulae reduce to Hillis' formulae when the number of readers in each group are identical. Communicated results to collaborator.
+* Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use modality-specific components, i.e. `Var_i`, `Cov2_i` and `Cov3_i`. The modified formulae reduce to Hillis' formulae when the number of readers in each group are identical. Communicated results to collaborator.
 * Corrected error in handling of `MaxNLFAllCases` FOM; see comments in `UtilMeanSquares()`; regenerated one `goodValue` file.
 
 

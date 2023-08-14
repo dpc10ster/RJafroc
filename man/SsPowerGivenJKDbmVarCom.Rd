@@ -22,9 +22,9 @@ SsPowerGivenJKDbmVarCom(
 
 \item{effectSize}{The effect size}
 
-\item{VarTR}{The treatment-reader DBM variance component}
+\item{VarTR}{The modality-reader DBM variance component}
 
-\item{VarTC}{The treatment-case DBM variance component}
+\item{VarTC}{The modality-case DBM variance component}
 
 \item{VarErr}{The error-term DBM variance component}
 

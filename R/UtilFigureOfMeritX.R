@@ -1,71 +1,40 @@
-#' Calculate empirical figures of merit for cross-modality dataset
+#' Empirical figures of merit for cross-modality dataset
 #' 
-#' @description  Calculate the specified empirical figure of merit
-#'    for each treatment-reader combination in the cross-modality dataset
+#' @description  Calculate specified empirical figure of merit
+#'    for each modality-reader combination in a cross-modality dataset
 #' 
-#' @param dsX The cross-modality dataset to be analyzed
+#' @param dsX The cross-modality dataset to be analyzed.
 #' 
 #' @param FOM The figure of merit; the default is \code{"wAFROC"}
 #' 
-#' @return A \code{c(I1, I2, J)} data frame, where the row names are \code{modalityID}'s of the 
-#'    treatments and column names are the \code{readerID}'s of the readers.
+#' @return Two data frames: 
+#' * \code{c(I2, J)} data frame, FOMs averaged over the first modality, where the row names are modality IDS of the 
+#'    second modality 
+#' * \code{c(I1, J)} data frames, FOMs averaged over the second modality, where the row names are modality IDs of the 
+#'    first modality, 
+#' * The column names are the \code{readerID}'s.
 #' 
 #' @details The allowed FOMs depend on the \code{dataType} field of the 
-#'    \code{dataset} object.  
-#' 
-#'    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
-#'    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
-#'    \itemize{ 
-#'    \item \code{FOM = "AFROC1"} (use only if zero normal cases)
-#'    \item \code{FOM = "AFROC"} 
-#'    \item \code{FOM = "wAFROC1"} (use only if zero normal cases)
-#'    \item \code{FOM = "wAFROC"} (the default) 
-#'    \item \code{FOM = "HrAuc"} 
-#'    \item \code{FOM = "SongA1"} 
-#'    \item \code{FOM = "SongA2"}  
-#'    \item \code{FOM = "HrSe"} (an example of an end-point based FOM)
-#'    \item \code{FOM = "HrSp"} (another example)
-#'    \item \code{FOM = "MaxLLF"} (do:)
-#'    \item \code{FOM = "MaxNLF"} (do:)
-#'    \item \code{FOM = "MaxNLFAllCases"} (do:) 
-#'    \item \code{FOM = "ExpTrnsfmSp"}  
-#'    } 
-#'    \code{"MaxLLF"}, \code{"MaxNLF"} and \code{"MaxNLFAllCases"}
-#'    correspond to ordinate, and abscissa, respectively, of the highest point 
-#'    on the FROC operating characteristic obtained by counting all the marks. 
-#'    The \code{"ExpTrnsfmSp"} FOM is described in the paper by Popescu. 
-#'    Given the large number of FOMs possible with FROC data, it is appropriate 
-#'    to make a recommendation: \strong{it is recommended that one use the wAFROC FOM
-#'    whenever possible. If the dataset has no non-diseased cases one should use the
-#'    the wAFROC1 FOM}.
+#'    \code{dataset} object.  See \code{\link{UtilFigureOfMerit}}.   
 #'    
 #' 
 #'
 #' @examples
 #' 
-#' ##UtilFigureOfMeritX(datasetXModality, FOM = "wAFROC")
+#' UtilFigureOfMeritX(datasetXModality, FOM = "wAFROC")
 #' 
 #' 
 #' @references
+#' Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
+#' methods and x-ray tube current-time product  on nodule detection in an 
+#' anthropomorphic thorax phantom: a crossed-modality JAFROC observer study. 
+#' Medical Physics. 43(3):1265-1274.
+#' 
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
 #' Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
 #' \url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 #' 
-#' Chakraborty DP, Berbaum KS (2004) Observer studies involving detection and localization: modeling, analysis, and validation, 
-#' Medical Physics, 31(8), 1--18.
 #' 
-#' Song T, Bandos AI, Rockette HE, Gur D (2008) On comparing methods for discriminating between actually negative and actually positive subjects 
-#' with FROC type data, Medical Physics 35 1547--1558.
-#' 
-#' Popescu LM (2011) Nonparametric signal detectability evaluation using an exponential transformation of the FROC curve, 
-#' Medical Physics, 38(10), 5690. 
-#' 
-#' Obuchowski NA, Lieber ML, Powell KA (2000) Data Analysis for Detection and Localization of Multiple Abnormalities 
-#' with Application to Mammography, Acad Radiol, 7:7 553--554.
-#' 
-#' Swensson RG (1996) Unified measurement of observer performance in detecting and localizing target objects on images, 
-#' Med Phys 23:10, 1709--1725.
-
 #' @importFrom dplyr between  
 #' @export
 
@@ -78,7 +47,7 @@ UtilFigureOfMeritX <- function(dsX, FOM = "wAFROC") {
   }
   
   if (dataType %in% c("ROI", "LROC")) {
-    stop("ROI or LROC cross-modality analysis is not supported.\n")
+    stop("ROI or LROC **cross-modality analysis** is not supported.\n")
   }
   
   if ((dataType %in% c("FROC")) && (FOM == "Wilcoxon"))
@@ -105,11 +74,20 @@ UtilFigureOfMeritX <- function(dsX, FOM = "wAFROC") {
   if (((dataType == "FROC") && 
        (FOM %in% c("HrAuc", "AFROC", "wAFROC", "AFROC1", "wAFROC1"))) || 
       ((dataType == "ROC") && (FOM %in% c("Wilcoxon")))) {
-    #  FOM = AFROC1, wAFROC1 not yet tested 8/7/23
+    
     for (i1 in 1:I1) {
       for (i2 in 1:I2) {
         for (j in 1:J) {
-          fomArray[i1, i2,j] <- MyFom_ij(NL[i1, i2, j, , ], LL[i1, i2, j, , ], perCase, IDs, weights, maxNL, maxLL, K1, K2, FOM)
+          fomArray[i1, i2, j] <- MyFom_ij(NL[i1, i2, j, , ], 
+                                          LL[i1, i2, j, , ], 
+                                          dsX$lesions$perCase, 
+                                          dsX$lesions$IDs, 
+                                          dsX$lesions$weights, 
+                                          maxNL, 
+                                          maxLL, 
+                                          K1, 
+                                          K2, 
+                                          FOM)
         }
       }
     }
@@ -118,9 +96,17 @@ UtilFigureOfMeritX <- function(dsX, FOM = "wAFROC") {
   modalityID1 <- dsX$descriptions$modalityID1
   modalityID2 <- dsX$descriptions$modalityID2
   readerID <- dsX$descriptions$readerID
-  rownames(fomArray) <- paste("trt", sep = "", c(modalityID1, modalityID2))
-  colnames(fomArray) <- paste("rdr", sep = "", readerID)
-  return(as.data.frame(fomArray))
+  fomArray1 <- apply(fomArray, c(2,3), mean) # average over first modality
+  fomArray2 <- apply(fomArray, c(1,3), mean) # average over second modality
+  rownames(fomArray1) <- paste("trt", sep = "-", c(modalityID2))
+  rownames(fomArray2) <- paste("trt", sep = "-", c(modalityID1))
+  colnames(fomArray1) <- paste("rdr", sep = "-", readerID)
+  colnames(fomArray2) <- paste("rdr", sep = "-", readerID)
+  
+  return(list(
+    avg1 = as.data.frame(fomArray1),
+    avg2 = as.data.frame(fomArray2)
+  ))
 } 
 
 

@@ -13,7 +13,7 @@ test_that(contextStr, {
     saveRDS(x1, file = fn)
   }
 
-  x1 <- readRDS(fn)
+  x1 <- readRDS(fn); x1$caseTransitions <- NULL
   x2 <- UtilPseudoValues(ds, FOM = "wAFROC", FPFValue = 0.2)
   expect_equal(x1, x2)
 
@@ -35,7 +35,7 @@ test_that(contextStr, {
     saveRDS(x1, file = fn)
   }
   
-  x1 <- readRDS(fn)
+  x1 <- readRDS(fn); x1$caseTransitions <- NULL
   x2 <- UtilPseudoValues(ds, FOM = "wAFROC1", FPFValue = 0.2)
   expect_equal(x1, x2)
   
@@ -61,7 +61,7 @@ test_that(contextStr, {
     saveRDS(x1, file = fn)
   }
   
-  x1 <- readRDS(fn)
+  x1 <- readRDS(fn); x1$caseTransitions <- NULL
   x2 <- UtilPseudoValues(ds, FOM = "MaxLLF", FPFValue = 0.2)
   expect_equal(x1, x2)
   
@@ -90,7 +90,7 @@ test_that(contextStr, {
     saveRDS(x1, file = fn)
   }
   
-  x1 <- readRDS(fn)
+  x1 <- readRDS(fn); x1$caseTransitions <- NULL
   x2 <- UtilPseudoValues(ds, FOM = "MaxNLF", FPFValue = 0.2)
   expect_equal(x1, x2)
   

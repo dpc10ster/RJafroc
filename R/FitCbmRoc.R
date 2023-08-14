@@ -1,10 +1,10 @@
-#' Fit the contaminated binormal model (CBM) to selected treatment and 
+#' Fit the contaminated binormal model (CBM) to selected modality and 
 #'    reader in an ROC dataset
 #'
-#' @description Fit the CBM-predicted ROC curve for specified treatment and reader
+#' @description Fit the CBM-predicted ROC curve for specified modality and reader
 #'
 #' @param dataset The dataset containing the data
-#' @param trt The desired treatment, default is 1
+#' @param trt The desired modality, default is 1
 #' @param rdr The desired reader, default is 1
 #'
 #'

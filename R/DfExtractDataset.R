@@ -18,11 +18,11 @@
 #' 
 #' @examples 
 #' ## Extract the data corresponding to the second reader in the 
-#' ## first treatment from an included ROC dataset
+#' ## first modality from an included ROC dataset
 #' ds1 <- DfExtractDataset(dataset05, trts = 1, rdrs = 2)
 #' 
 #' ## Extract the data of the first and third reader in all 
-#' ## treatment from the included ROC dataset
+#' ## modality from the included ROC dataset
 #' ds2 <- DfExtractDataset(dataset05, rdrs = c(1, 3))
 #' 
 #' @export

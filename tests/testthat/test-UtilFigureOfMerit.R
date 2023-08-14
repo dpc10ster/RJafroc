@@ -222,3 +222,25 @@ test_that("LROC paradigm: FOM = PCL@FPFValue", {
   
 })
 
+context("UtilFigureOfMeritX FROC")
+test_that("UtilFigureOfMeritX FROC", {
+  
+  dataset <- datasetXModality
+  FOM <- "wAFROC"
+  
+  fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritX-", FOM, ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- UtilFigureOfMeritX(dataset, FOM = FOM)
+    saveRDS(ret, file = fn)
+  }
+  
+  ret1 <- readRDS(fn)
+  ret2 <- UtilFigureOfMeritX(dataset, FOM = FOM)
+  
+  for (i in 1:2) {
+    expect_equal(ret1[[i]], ret2[[i]])
+  }
+  
+})
+

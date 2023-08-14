@@ -27,7 +27,7 @@ can be "FCTRL" or "FCTRL-X-MOD".}
 where to evaluate a partial curve based figure of merit. The default is 0.2.}
 
 \item{alpha}{The significance level of the test of the null hypothesis that all 
-treatment effects are zero; the default is 0.05}
+modality effects are zero; the default is 0.05}
 
 \item{method}{The significance testing method to be used:
 \code{"DBM"} representing the Dorfman-Berbaum-Metz method or \code{"OR"}, 

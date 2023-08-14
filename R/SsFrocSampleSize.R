@@ -202,7 +202,7 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
     }
   }
   
-  # remove treatment-reader conditions with large variation from empirical auc
+  # remove modality-reader conditions with large variation from empirical auc
   bad <- which(abs(auc_fit-auc_emp) > 0.1)
   
   # drop bad estimates

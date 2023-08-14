@@ -22,7 +22,7 @@
 #' \item{\code{descriptions$name}}{, chr "TONY", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:185, 1:3] 1 1 1 1 ..., truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "BT" "DM", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "BT" "DM", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -49,7 +49,7 @@
 #'    generates one rating per case.  Often referred to in the ROC literature as the 
 #'    Van Dyke dataset, which, along with the Franken dataset, has been widely 
 #'    used to illustrate advances in ROC methodology. The example below displays 
-#'    the ROC plot for the first treatment and first reader.
+#'    the ROC plot for the first modality and first reader.
 #' 
 #' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
 #'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
@@ -68,7 +68,7 @@
 #' \item{\code{descriptions$name}}{, chr "VAN-DYKE", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 ..., truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "0" "1", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "0" "1", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "0" "1" "2" ..., reader labels}
 #' }
 #'
@@ -113,7 +113,7 @@
 #' \item{\code{descriptions$name}}{, chr "FRANKEN", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "TREAT1" "TREAT2", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "TREAT1" "TREAT2", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", reader labels}
 #' }
 #'
@@ -160,7 +160,7 @@
 #' \item{\code{descriptions$name}}{, chr "FEDERICA", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:4, 1:200, 1:4], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:5] "1" "2" "3" "4" "5", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:5] "1" "2" "3" "4" "5", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "3" "4" "5", reader labels}
 #' }
 #'
@@ -204,7 +204,7 @@
 #' \item{\code{descriptions$name}}{, chr "THOMPSON", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:9, 1:92, 1:4], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
 #' }
 #'
@@ -248,7 +248,7 @@
 #' \item{\code{descriptions$name}}{, chr "MAGNUS", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:89, 1:16], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
 #' }
 #'
@@ -290,7 +290,7 @@
 #' \item{\code{descriptions$name}}{, chr "LUCY-WARREN", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:7, 1:162, 1:4], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, [1:5] "1" "2" "3" "4" ..., treatment labels}
+#' \item{\code{descriptions$modalityID}}{, [1:5] "1" "2" "3" "4" ..., modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:7] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -334,7 +334,7 @@
 #' \item{\code{descriptions$name}}{, chr "PENEDO", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:5, 1:112, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:5] "0" "1" "2" "3" ..., treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:5] "0" "1" "2" "3" ..., modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "0" "1" "2" "3" ..., reader labels}
 #' }
 #'
@@ -381,7 +381,7 @@
 #' \item{\code{descriptions$name}}{, chr "NICO-CAD-ROC", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1, 1:10, 1:200, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -425,7 +425,7 @@
 #' \item{\code{descriptions$name}}{, chr "RUSCHIN", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:3, 1:8, 1:90, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:3] "1" "2" "3", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:3] "1" "2" "3", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:8] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -477,7 +477,7 @@
 #' \item{\code{descriptions$name}}{, chr "DOBBINS-1", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -518,7 +518,7 @@
 #' \item{\code{descriptions$name}}{, chr "DOBBINS-2", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:152, 1:2] , truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -558,7 +558,7 @@
 #' \item{\code{descriptions$name}}{, chr "DOBBINS-3", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:158, 1:16], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -602,7 +602,7 @@
 #' \item{\code{descriptions$name}}{, chr "FEDERICA-REAL-ROC", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
 #' }
 #'
@@ -625,7 +625,7 @@
 #'
 #' A binned dataset suitable for analysis by \code{\link{FitCorCbm}}. It was generated by
 #'    \link{DfCreateCorCbmDataset} by setting the \code{seed} variable to 123. Note
-#'    the formatting of the data as a single treatment two reader dataset, even though
+#'    the formatting of the data as a single modality two reader dataset, even though
 #'    the actual pairing might be different, see \code{\link{FitCorCbm}}. The dataset is 
 #'    intentionally large so as to demonstrate the asymptotic convergence of ML estimates, 
 #'    produced by \code{\link{FitCorCbm}}, to the population values. The data was generated
@@ -650,7 +650,7 @@
 #' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-123", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
 #' }
 #'
@@ -690,7 +690,7 @@
 #' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-124", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
 #' }
 #'
@@ -730,7 +730,7 @@
 #' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-125", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
 #' }
 #'
@@ -774,7 +774,7 @@
 #' \item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -826,7 +826,7 @@
 #' \item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -837,11 +837,11 @@
 #'
 #'
 #' 
-#' John Thompson crossed treatment FROC dataset
+#' John Thompson crossed modality FROC dataset
 #'
-#' This is a crossed treatment dataset, see book Section 18.5. There are two treatment factors. 
-#' The first treatment factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
-#' algorithms. The second treatment factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
+#' This is a crossed modality dataset, see book Section 18.5. There are two modality factors. 
+#' The first modality factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
+#' algorithms. The second modality factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
 #' represent the mAs values of the image acquisition. The factors are fully crossed. 
 #' 
 #' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
@@ -861,7 +861,7 @@
 #' \item{\code{descriptions$name}}{, chr "THOMPSON-X-MOD", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "F" "I", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "F" "I", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:4] "20" "40" "60" "80", reader labels}
 #' }
 #'
@@ -869,7 +869,7 @@
 #'
 #' @references Thompson JD, Chakraborty DP, et al. (2016) Effect of reconstruction 
 #' methods and x-ray tube current-time product  on nodule detection in an 
-#' anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study. 
+#' anthropomorphic thorax phantom: a crossed-modality JAFROC observer study. 
 #' Medical Physics. 43(3):1265-1274.
 #' 
 #' @examples
@@ -904,7 +904,7 @@
 #' \item{\code{descriptions$name}}{, chr "SIM-DEGENERATE", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr "1", reader labels}
 #' }
 #'
@@ -939,7 +939,7 @@
 #' \item{\code{descriptions$name}}{, chr "SIM-ROI", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'

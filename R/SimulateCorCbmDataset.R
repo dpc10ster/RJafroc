@@ -1,6 +1,6 @@
 #' Simulate paired binned data for testing FitCorCbm
 #'
-#' @description Simulates single treatment 2-reader binned ROC dataset, simulated according to the CORCBM model,
+#' @description Simulates single modality 2-reader binned ROC dataset, simulated according to the CORCBM model,
 #' for the purpose of testing the fitting program \code{\link{FitCorCbm}}.
 #'
 #' @param seed The seed variable, default is 123; set to NULL for truly random seed

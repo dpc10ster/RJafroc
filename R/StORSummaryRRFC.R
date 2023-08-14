@@ -19,14 +19,14 @@ ORSummaryRRFC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
   #   this study)
   # 
   # These results result from using the OR model, but treating reader as a random 
-  # factor and treatment and case as fixed factors.  Because case is treated as a fixed
+  # factor and modality and case as fixed factors.  Because case is treated as a fixed
   # factor, it follows that Cov1 = Cov2 = Cov3 = 0; i.e., there is no correlation
   # between reader-performance measures (e.g, AUCs) due to reading the same
-  # cases.  Thus the OR model reduces to a conventional treatment x reader ANOVA
+  # cases.  Thus the OR model reduces to a conventional modality x reader ANOVA
   # for the reader-performance outcomes, where reader is a random factor and
-  # treatment is a fixed factor.  This is the same as a repeated measures ANOVA
-  # where treatment is the repeated measures factor, i.e., readers provide an
-  # outcome (e.g., AUC) under each treatment.
+  # modality is a fixed factor.  This is the same as a repeated measures ANOVA
+  # where modality is the repeated measures factor, i.e., readers provide an
+  # outcome (e.g., AUC) under each modality.
   # Note that the DBM and OR papers do not discuss this approach, but rather 
   # it is included here for completeness.
   # 
@@ -43,7 +43,7 @@ ORSummaryRRFC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
                             stringsAsFactors = FALSE)
   
   #   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
-  #   for treatment AUC differences
+  #   for modality AUC differences
   
   stdErr <- sqrt(2 * msDen/J)
   tStat <- vector()
@@ -71,9 +71,9 @@ ORSummaryRRFC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
   # Note: If there are only 2 treatments, this is equivalent to a paired t-test applied
   # to the AUCs
   
-  #   c) Single treatment AUC 95% confidence intervals
-  # (Each analysis is based only on data for the specified treatment, 
-  #   i.e. on the treatment-specfic reader ANOVA of AUCs
+  #   c) Single modality AUC 95% confidence intervals
+  # (Each analysis is based only on data for the specified modality, 
+  #   i.e. on the modality-specfic reader ANOVA of AUCs
   dfSingle <- array(dim = I)
   msDenSingle <- array(dim = I)
   stdErrSingle <- array(dim = I)

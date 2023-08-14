@@ -91,8 +91,8 @@
 #' \url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 #' 
 #' @examples
-#' ## Following example is for mu = 2, lambda = 1, nu = 0.6, in one treatment and   
-#' ## mu = 3, lambda = 1.5, nu = 0.8, in the other treatment. 20% of the diseased 
+#' ## Following example is for mu = 2, lambda = 1, nu = 0.6, in one modality and   
+#' ## mu = 3, lambda = 1.5, nu = 0.8, in the other modality. 20% of the diseased 
 #' ## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, 
 #' ## and 30% have 4 lesions.  
 #' 

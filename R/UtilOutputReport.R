@@ -40,8 +40,8 @@
 #'    \code{"OR"} analysis; the default is 200.
 #' 
 #' @param sequentialNames A logical variable: if \code{TRUE}, consecutive integers 
-#'    (starting from 1) will be used as the treatment and reader IDs in the 
-#'    output report. Otherwise, treatment and reader IDs in the original dataset 
+#'    (starting from 1) will be used as the modality and reader IDs in the 
+#'    output report. Otherwise, modality and reader IDs in the original dataset 
 #'    are used. This option is needed for aesthetics, as long names can mess
 #'    up the output. The default is \code{FALSE.}
 #'    
@@ -273,19 +273,19 @@ Preamble <- function(dataset, FOM, ReportFileName, method, methodTxt) {
          "--results apply to the population of readers but only for the", 
          "cases used in the study.", 
          "\nFor each analysis the null hypothesis of equal treatments is", 
-         "tested in part (a), reader-averaged treatment ", 
+         "tested in part (a), reader-averaged modality ", 
          "FOM difference(s) 95% confidence intervals", 
-         "in part (b), and reader-averaged treatment",
+         "in part (b), and reader-averaged modality",
          "FOMs 95% confidence intervals in part (c).  Parts (a) and (b) are",
-         "based on the treatment x reader x case ANOVA while part (c)",
-         "is based on the reader x case ANOVA for the specified treatment.",
+         "based on the modality x reader x case ANOVA while part (c)",
+         "is based on the reader x case ANOVA for the specified modality.",
          "Different error terms are used as indicated for parts (a), (b),",
          "and (c) according to whether readers and cases are treated as",
-         "fixed or random factors. Note that the treatment confidence",
+         "fixed or random factors. Note that the modality confidence",
          "intervals in part (c) are based only on the data for the specified",
-         "treatment, rather than the pooled data. Treatment difference 95%",
+         "modality, rather than the pooled data. Treatment difference 95%",
          "confidence intervals for each reader are in part (d) of",
-         "Analysis FRRC; each interval is based on the treatment", 
+         "Analysis FRRC; each interval is based on the modality", 
          "x case ANOVA table for the specified reader.")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   

@@ -15,11 +15,11 @@
 #'     
 #' @return A list containing the following \code{data.frames}: 
 #'     \itemize{
-#'     \item{\code{foms}}: the figures of merit for different treatment-reader combinations 
-#'     \item{\code{TRanova}}: the OR treatment-reader ANOVA table 
+#'     \item{\code{foms}}: the figures of merit for different modality-reader combinations 
+#'     \item{\code{TRanova}}: the OR modality-reader ANOVA table 
 #'     \item{\code{VarCom}}: the OR variance-components \code{Cov1}, \code{Cov2}, 
 #'     \code{Cov3}, \code{Var} and correlations \code{rho1}, \code{rho2} and \code{rho3} 
-#'     \item{\code{IndividualTrt}}: the individual treatment mean-squares, \code{Var} and \code{Cov2} values
+#'     \item{\code{IndividualTrt}}: the individual modality mean-squares, \code{Var} and \code{Cov2} values
 #'     \item{\code{IndividualRdr}}: the individual reader mean-squares, \code{Var} and \code{Cov1} values
 #'     }
 #'   
@@ -89,7 +89,7 @@ UtilVarComponentsOR <- function (dataset, FOM, FPFValue = 0.2,
                         stringsAsFactors = FALSE)  
   rownames(TRanova) <- c("T", "R", "TR")
   
-  # single treatment msR_i ############################################################
+  # single modality msR_i ############################################################
   if (J > 1) {
     msR_i <- array(0, dim = I)
     for (i in 1:I) {

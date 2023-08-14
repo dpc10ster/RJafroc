@@ -14,7 +14,7 @@
 #'    \url{https://github.com/dpc10ster/RJafrocBook/blob/gh-pages/RJafrocBook.pdf}
 #'    
 #'  
-#' @param dataset \strong{The dataset to be analyzed; must be single-treatment  
+#' @param dataset \strong{The dataset to be analyzed; must be single-modality  
 #'    at least three readers, where the first reader is CAD. }
 #' @param FOM The desired FOM; for ROC data it must be \code{"Wilcoxon"}, for FROC data 
 #'    it can be any valid FOM, e.g., \code{"HrAuc"}, \code{"wAFROC"}, etc; 
@@ -38,16 +38,16 @@
 #'    \item{For FOM = "ALROC" the trapezoidal area under the LROC
 #'    from FPF = 0 to FPF = \code{FPFValue} is used.} 
 #'    \item{If \code{method = "1T-RRRC"} the first \strong{reader} is assumed to be CAD.} 
-#'    \item{If \code{method = "2T-RRRC"} the first \strong{treatment} is assumed to be CAD.} 
+#'    \item{If \code{method = "2T-RRRC"} the first \strong{modality} is assumed to be CAD.} 
 #'    \item{The NH is that the FOM of CAD equals the average of the readers.} 
 #'    \item{The \code{method = "1T-RRRC"} analysis uses an adaptation of the 
-#'    single-treatment multiple-reader Obuchowski Rockette (OR) model described in a 
+#'    single-modality multiple-reader Obuchowski Rockette (OR) model described in a 
 #'    paper by Hillis (2007), section 5.3. It is characterized by 3 parameters
 #'    \code{VarR}, \code{Var} and \code{Cov2}, where the latter two are estimated 
 #'    using the jackknife.} 
 #'    \item{For \code{method = "2T-RRRC"} the analysis replicates the CAD data as many times as
-#'    necessary so as to form one "treatment" of an MRMC pairing, the other 
-#'    "treatment" being the radiologists. Then standard ORH analysis is applied. The 
+#'    necessary so as to form one "modality" of an MRMC pairing, the other 
+#'    "modality" being the radiologists. Then standard ORH analysis is applied. The 
 #'    method is described in Kooi et al. It gives exactly the same final results 
 #'    (F-statistic, ddf and p-value) as \code{"1T-RRRC"} but the intermediate quantities 
 #'    are meaningless.}
@@ -61,7 +61,7 @@
 #' @return \item{avgDiffFom}{The mean of the difference FOM, RAD - CAD.} 
 #' @return \item{ciAvgDiffFom}{The 95-percent CI of the average difference, RAD - CAD.}
 #' @return \item{varR}{The variance of the radiologists.}
-#' @return \item{varError}{The variance of the error term in the single-treatment 
+#' @return \item{varError}{The variance of the error term in the single-modality 
 #'    multiple-reader OR model.} 
 #' @return \item{cov2}{The covariance of the error term.}
 #' @return \item{tstat}{The observed value of the t-statistic; it's square is 
@@ -85,14 +85,14 @@
 #' @return \item{ciDiffFom}{A data frame containing the statistics associated 
 #'    with the average difference, RAD - CAD.}
 #' @return \item{ciAvgRdrEachTrt}{A data frame containing the statistics 
-#'    associated with the average FOM in each "treatment".}
+#'    associated with the average FOM in each "modality".}
 #' @return \item{varR}{The variance of the pure reader term in the OR model.}
-#' @return \item{varTR}{The variance of the treatment-reader term error 
+#' @return \item{varTR}{The variance of the modality-reader term error 
 #'    term in the OR model.} 
 #' @return \item{cov1}{The covariance1 of the error term - same reader, 
 #'    different treatments.}
 #' @return \item{cov2}{The covariance2 of the error term  - 
-#'    different readers, same treatment.}
+#'    different readers, same modality.}
 #' @return \item{cov3}{The covariance3 of the error term  - different readers, 
 #'    different treatments.}
 #' @return \item{varError}{The variance of the pure error term in the OR model.}
@@ -156,7 +156,7 @@ StSignificanceTestingCadVsRad <- function(dataset, FOM, FPFValue = 0.2, method =
 {
   options(stringsAsFactors = FALSE)
   
-  if (length(dataset$ratings$NL[,1,1,1]) != 1) stop("dataset has to be single-treatment and at least three readers with CAD as the first reader")
+  if (length(dataset$ratings$NL[,1,1,1]) != 1) stop("dataset has to be single-modality and at least three readers with CAD as the first reader")
   if ((dataset$descriptions$type == "ROC") && (FOM %in% c("PCL", "ALROC"))) stop("Cannot use LROC FOM with ROC data")
   if (length(dataset$ratings$NL[1,,1,1]) <= 2) stop("dataset has to have at least two radiologist readers")
   

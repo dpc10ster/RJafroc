@@ -1,30 +1,30 @@
-#' Read a crossed-treatment data file
+#' Read a crossed-modality data file
 #' 
-#' @description Read an crossed-treatment data file, in which the 
-#' two treatment factors are crossed
+#' @description Read an crossed-modality data file, in which the 
+#' two modality factors are crossed
 #' 
 #' @param fileName A string specifying the name of the file that contains the dataset, 
 #'    which must be an extended-JAFROC format data file containing an 
-#'    additional treatment factor.
+#'    additional modality factor.
 #' @param sequentialNames If \code{TRUE}, consecutive integers (starting from 1) will be used 
-#'    as the treatment and reader IDs. Otherwise, treatment and reader IDs in the 
+#'    as the modality and reader IDs. Otherwise, modality and reader IDs in the 
 #'    original data file will be used. The default is \code{FALSE}. 
 #' 
 #' @details The data format is  similar to the JAFROC format (see \code{\link{RJafroc-package}}). 
-#'    The difference is that there are two treatment factors. TBA For an example see ... add
+#'    The difference is that there are two modality factors. TBA For an example see ... add
 #'    reference to FROC book chapter \url{https://dpc10ster.github.io/RJafrocFrocBook/}
 #'    
 #' 
 #' @return A dataset with the specified structure, similar to a standard 
-#'    \pkg{RJafroc} dataset (see \code{\link{RJafroc-package}}). Because of the extra treatment factor, 
+#'    \pkg{RJafroc} dataset (see \code{\link{RJafroc-package}}). Because of the extra modality factor, 
 #'    \code{NL} and \code{LL} are each five dimensional arrays. There are also two 
-#'    treatment IDS: \code{modalityID1} and \code{modalityID2}.
+#'    modality IDS: \code{modalityID1} and \code{modalityID2}.
 #' 
 #' 
 #' @references 
 #' Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
 #' methods and x-ray tube current-time product  on nodule detection in an 
-#' anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study. 
+#' anthropomorphic thorax phantom: a crossed-modality JAFROC observer study. 
 #' Medical Physics. 43(3):1265-1274.
 #' 
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 

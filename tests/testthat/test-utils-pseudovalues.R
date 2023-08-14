@@ -7,6 +7,7 @@ test_that("UtilPseudoValues", {
                "ExpTrnsfmSp", "HrSp", "HrSe")
   
   for (i in 1:length(FOM_arr)) {
+    #cat("i = ", i, ", FOM_arr[i] = ", FOM_arr[i], "\n")
     
     fn <- paste0(test_path(), "/goodValues361/Utils/PseudoValues", "-", FOM_arr[i], ".rds")
     if (!file.exists(fn)) {
@@ -15,12 +16,11 @@ test_that("UtilPseudoValues", {
       saveRDS(ret, file = fn)
     }
     
-    ret <- readRDS(fn)
-    expect_equal(UtilPseudoValues(dataset, FOM = FOM_arr[i]), ret, 
-                 info = paste0("FOM = ", FOM_arr[i]))
-
+    ret1 <- readRDS(fn); ret1$caseTransitions <- NULL
+    ret2 <- UtilPseudoValues(dataset, FOM = FOM_arr[i])
+    expect_equal(ret1, ret2, info = paste0("FOM = ", FOM_arr[i]))
   }
-  
+    
 })
 
 

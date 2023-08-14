@@ -68,8 +68,6 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   
   t <- dataset$descriptions$truthTableStr
   fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-  lastCase <- 0
-  caseTransitions <- array(dim = J)
   for (i in 1:I) {
     for (j in 1:J) {
       # NOTATION
@@ -203,16 +201,12 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
           jkPseudoValues[i, j, which(k_ij_logi)] + 
           (fomArray[i, j] - mean(jkPseudoValues[i, j, which(k_ij_logi)]))
       }
-      caseTransitions[j] <- lastCase
-      lastCase <- (lastCase + K_ij) %% K
     }
   }
   
-  caseTransitions <- c(caseTransitions, K)
-  return(list(
+   return(list(
     jkPseudoValues = jkPseudoValues, 
-    jkFomValues = jkFomValues,
-    caseTransitions = caseTransitions
+    jkFomValues = jkFomValues
   ))
 }
 

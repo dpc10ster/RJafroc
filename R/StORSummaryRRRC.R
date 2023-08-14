@@ -39,7 +39,7 @@ ORSummaryRRRC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
   # Note: Df(error term) is called "ddf_H" in Hillis (2007).
   
   #   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
-  #   for treatment AUC differences
+  #   for modality AUC differences
   stdErr <- sqrt(2 * msDen/J)
   tStat <- vector()
   PrGTt <- vector()
@@ -70,9 +70,9 @@ ORSummaryRRRC <- function(dataset, FOMStats, ANOVA, alpha, diffTRName) {
   # 95% CI: Difference +- t(.025;df) * StdErr
   
   # if (dataset$descriptions$design == "FCTRL") {
-  #   c) Single-treatment 95% confidence intervals
-  # (Each analysis is based only on data for the specified treatment, i.e., 
-  #   on the treatment-specific reader ANOVA of AUCs and Cov2 estimates.)
+  #   c) Single-modality 95% confidence intervals
+  # (Each analysis is based only on data for the specified modality, i.e., 
+  #   on the modality-specific reader ANOVA of AUCs and Cov2 estimates.)
   df <- array(dim = I)
   msDenSingle <- array(dim = I)
   stdErr <- array(dim = I)

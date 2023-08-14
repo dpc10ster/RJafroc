@@ -11,7 +11,7 @@ FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)
 
 \item{lesDistr}{The lesion distribution 1D array.}
 
-\item{trt}{The selected treatment, default is 1}
+\item{trt}{The selected modality, default is 1}
 
 \item{rdr}{The selected reader, default is 1}
 }
@@ -46,7 +46,7 @@ A list with the following elements:
    Use \code{print} to display the object}
 }
 \description{
-Fit an RSM-predicted ROC curve to a \strong{binned single-treatment single-reader ROC dataset}
+Fit an RSM-predicted ROC curve to a \strong{binned single-modality single-reader ROC dataset}
 }
 \details{
 If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. MLE ROC algorithms 

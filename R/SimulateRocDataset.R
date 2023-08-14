@@ -7,7 +7,7 @@
 #' @param K1    Number of non-diseased cases
 #' @param K2    Number of diseased cases
 #' @param a     \eqn{a} parameter of binormal model
-#' @param deltaA Inter-treatment increment in the \eqn{a} parameter, 
+#' @param deltaA Inter-modality increment in the \eqn{a} parameter, 
 #'   default zero
 #' @param b      \eqn{b} parameter of the binormal model
 #' @param seed  Initial seed, default is NULL, for random seed

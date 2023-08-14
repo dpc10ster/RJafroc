@@ -40,7 +40,7 @@ xds$descriptions$readerID <- c("rdr1","rdr2","rdr3","rdr4")
 st <- StSignificanceTestingCrossedModalities(xds, avgIndx = 2, FOM <- "Wilcoxon", analysisOption = "RRRC")
 
 if (flag) {
-  # extract first level of outermost treatment
+  # extract first level of outermost modality
   
   x1 <- xds$ratings$NL[1,,,,];dim(x1) <- c(2,4,200,1)
   xds$ratings$NL <- x1
@@ -65,7 +65,7 @@ if (flag) {
   expect_equal(st_infd_xmod$RRRC, st_infd_std$RRRC)
   
 } else {
-  # extract second level of outermost treatment
+  # extract second level of outermost modality
   
   x1 <- xds$ratings$NL[2,,,,];dim(x1) <- c(2,4,200,1)
   xds$ratings$NL <- x1

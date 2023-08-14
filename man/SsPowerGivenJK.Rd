@@ -67,7 +67,7 @@ The procedure is valid for ROC studies only; for FROC studies see
 }
 \examples{
 ## EXAMPLE 1: RRRC power 
-## specify 2-treatment ROC dataset and force DBM alg.
+## specify 2-modality ROC dataset and force DBM alg.
 SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE) # RRRC is default  
 
@@ -88,7 +88,7 @@ VarTR = vcDBM["VarTR","Estimates"], # replace rhs with actual values as in 4A
 VarTC = vcDBM["VarTC","Estimates"], # do:
 VarErr = vcDBM["VarErr","Estimates"])) # do:
                      
-## EXAMPLE 3: specify 2-treatment ROC dataset and use OR-based alg.
+## EXAMPLE 3: specify 2-modality ROC dataset and use OR-based alg.
 SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 J = 6, K = 251)
 

@@ -38,7 +38,7 @@
 #' 
 #' @examples
 #' ## EXAMPLE 1: RRRC power 
-#' ## specify 2-treatment ROC dataset and force DBM alg.
+#' ## specify 2-modality ROC dataset and force DBM alg.
 #' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 #' J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE) # RRRC is default  
 #' 
@@ -59,7 +59,7 @@
 #' VarTC = vcDBM["VarTC","Estimates"], # do:
 #' VarErr = vcDBM["VarErr","Estimates"])) # do:
 #'                      
-#' ## EXAMPLE 3: specify 2-treatment ROC dataset and use OR-based alg.
+#' ## EXAMPLE 3: specify 2-modality ROC dataset and use OR-based alg.
 #' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 #' J = 6, K = 251)
 #' 
@@ -166,7 +166,7 @@ SsPowerGivenJK <- function(dataset,
       # convert DBM variance components to OR variance components 
       # and use OR variance component based sample size formulae
       # as in 2011 and 2018 papers
-      IStar <- length(dataset$ratings$NL[,1,1,1]); if (IStar != 2) stop("Must specify 2 treatment dataset")
+      IStar <- length(dataset$ratings$NL[,1,1,1]); if (IStar != 2) stop("Must specify 2 modality dataset")
       JStar <- length(dataset$ratings$NL[1,,1,1])
       KStar <- length(dataset$ratings$NL[1,1,,1])
       ret <- StSignificanceTesting(dataset, FOM, method = "DBM")
@@ -185,7 +185,7 @@ SsPowerGivenJK <- function(dataset,
       Var <- OrVarCom$Var
       VarTR <- OrVarCom$VarTR
     } else {
-      # dataset NOT specified instead dataset treatment, reader and case sizes and DBM var. comps. specified. 
+      # dataset NOT specified instead dataset modality, reader and case sizes and DBM var. comps. specified. 
       if (is.null(effectSize)) stop("When using variance components as input, effect size needs to be explicitly specified.")
       extraParms <- list(...)[[1]]
       IStar <- 2
@@ -243,8 +243,8 @@ SsPowerGivenJK <- function(dataset,
 #' @param J The number of readers
 #' @param K The number of cases
 #' @param effectSize The effect size
-#' @param VarTR The treatment-reader DBM variance component
-#' @param VarTC The treatment-case DBM variance component
+#' @param VarTR The modality-reader DBM variance component
+#' @param VarTC The modality-case DBM variance component
 #' @param VarErr The error-term DBM variance component
 #' @param alpha The size of the test (default = 0.05)
 #' @param analysisOption The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")
@@ -347,7 +347,7 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
 #' @param K The number of cases in the \strong{pivotal} study
 #' @param KStar The number of cases in the \strong{pilot} study
 #' @param effectSize The effect size
-#' @param VarTR The treatment-reader OR variance component
+#' @param VarTR The modality-reader OR variance component
 #' @param Cov1 The OR Cov1 covariance
 #' @param Cov2 The OR Cov2 covariance
 #' @param Cov3 The OR Cov3 covariance

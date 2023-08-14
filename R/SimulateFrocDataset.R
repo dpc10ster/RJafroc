@@ -14,7 +14,7 @@
 #' @param perCase A K2 length array containing the numbers of lesions per diseased case
 #' @param seed  Initial seed for random number generator, default 
 #'     \code{NULL}, for random seed.
-#' @param deltaMu Inter-treatment increment in mu, default zero 
+#' @param deltaMu Inter-modality increment in mu, default zero 
 #' 
 #' @return An FROC dataset.
 #' 

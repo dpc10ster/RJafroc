@@ -22,7 +22,7 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
 \item{\code{descriptions$name}}{, chr "FEDERICA-REAL-ROC", the name of the dataset}
 \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
 \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-\item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", treatment label(s)}
+\item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", modality label(s)}
 \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
 }
 }

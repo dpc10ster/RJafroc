@@ -53,8 +53,8 @@ for method = \code{"OR"}; the default is "Jackknife".}
 \code{"OR"} analysis; the default is 200.}
 
 \item{sequentialNames}{A logical variable: if \code{TRUE}, consecutive integers 
-(starting from 1) will be used as the treatment and reader IDs in the 
-output report. Otherwise, treatment and reader IDs in the original dataset 
+(starting from 1) will be used as the modality and reader IDs in the 
+output report. Otherwise, modality and reader IDs in the original dataset 
 are used. This option is needed for aesthetics, as long names can mess
 up the output. The default is \code{FALSE.}}
 

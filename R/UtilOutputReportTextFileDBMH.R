@@ -21,8 +21,8 @@ OutputTextFileDBMH <- function(dataset,
          "*****        ANOVA Tables (DBM analysis of pseudovalues)              *****", 
          "===========================================================================",
          "                TREATMENT X READER X CASE ANOVA",
-         "           Used for global test of equal treatment FOMs and for", 
-         "              treatment difference confidence intervals\n")
+         "           Used for global test of equal modality FOMs and for", 
+         "              modality difference confidence intervals\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   df <- DBM$ANOVA$TRCanova
@@ -30,9 +30,9 @@ OutputTextFileDBMH <- function(dataset,
   
   x <- c("\n",
          "===========================================================================", 
-         "*****          Reader Case ANOVAs for each treatment                  *****", 
+         "*****          Reader Case ANOVAs for each modality                  *****", 
          "===========================================================================",
-         "          Used for single treatment confidence intervals in ",
+         "          Used for single modality confidence intervals in ",
          "                  part (c) of the analysis.",
          "               (msR = mean square Reader, etc.)\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
@@ -42,11 +42,11 @@ OutputTextFileDBMH <- function(dataset,
   
   x <- c(
     "\nCOMMENTS:", 
-    "The first output is the treatment x reader x case DBM ANOVA table", 
+    "The first output is the modality x reader x case DBM ANOVA table", 
     "used for comparing treatments. The second output is the ",
-    "reader x case ANOVA table, one for each treatment, used for computing",
-    "single-treatment confidence intervals. For the single-treatment",
-    "confidence intervals, only data for the specific treatment are used.\n")
+    "reader x case ANOVA table, one for each modality, used for computing",
+    "single-modality confidence intervals. For the single-modality",
+    "confidence intervals, only data for the specific modality are used.\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   x <- c("\n",
@@ -81,14 +81,14 @@ OutputTextFileDBMH <- function(dataset,
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
-  cat("\nRRRC (a): Test of NH of no treatment effect\n\n")
+  cat("\nRRRC (a): Test of NH of no modality effect\n\n")
   
   df <- DBM$RRRC$FTests
   print(format(df, digits = 5, justify = "left"))
   
   if(DBM$RRRC$FTests["T","p"] < alpha){
     x <- c("\nCONCLUSION:", 
-           "The treatment FOMs are different,",
+           "The modality FOMs are different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$RRRC$FTests[2,1], 
@@ -98,7 +98,7 @@ OutputTextFileDBMH <- function(dataset,
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nCONCLUSION:", 
-           "The treatment FOMs are not significantly different,",
+           "The modality FOMs are not significantly different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$RRRC$FTests[2,1], 
@@ -120,7 +120,7 @@ OutputTextFileDBMH <- function(dataset,
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
-  cat("\nRRRC (b): Confidence intervals for reader-averaged \ninter-treatment FOM differences:\n\n")
+  cat("\nRRRC (b): Confidence intervals for reader-averaged \ninter-modality FOM differences:\n\n")
   
   df <- DBM$RRRC$ciDiffTrt
   print(format(df, digits = 5, justify = "left"))
@@ -132,7 +132,7 @@ OutputTextFileDBMH <- function(dataset,
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
-  cat("\nRRRC (c): 95% treatment confidence intervals based on reader x case ANOVAs for each treatment\n\n")
+  cat("\nRRRC (c): 95% modality confidence intervals based on reader x case ANOVAs for each modality\n\n")
   
   df <- DBM$RRRC$ciAvgRdrEachTrt
   print(format(df, digits = 5, justify = "left"))
@@ -142,9 +142,9 @@ OutputTextFileDBMH <- function(dataset,
     "\nError term: MS(R) + max[MS(C) - MS(RC), 0]",
     "StdErr = sqrt{[1/(J*K)] * [MS(R) + max[MS(C)-MS(R*C),0]]}",
     "Df = {MS(R)+ max[MS(C)-MS(R*C),0]}**2/[(MS(R)**2/(J-1)]",
-    "The CIs for each treatment are based only on data for that treatment", 
+    "The CIs for each modality are based only on data for that modality", 
     "This results in a more robust CI, since this CI does not assume equal error",
-    "variance and covariances for each treatment.\n")
+    "variance and covariances for each modality.\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   x <- c("\n",
@@ -154,14 +154,14 @@ OutputTextFileDBMH <- function(dataset,
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
-  cat("\nFRRC (a): Test of NH of no treatment effect\n\n")
+  cat("\nFRRC (a): Test of NH of no modality effect\n\n")
   
   df <- DBM$FRRC$FTests
   print(format(df, digits = 5, justify = "left"))
   
   if(DBM$FRRC$FTests["T","p"] < alpha){
     x <- c("\nCONCLUSION:", 
-           "The treatment FOMs are different,",
+           "The modality FOMs are different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$FRRC$FTests[2,1], 
@@ -171,7 +171,7 @@ OutputTextFileDBMH <- function(dataset,
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nCONCLUSION:", 
-           "The treatment FOMs are not significantly different,",
+           "The modality FOMs are not significantly different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$FRRC$FTests[2,1], 
@@ -185,7 +185,7 @@ OutputTextFileDBMH <- function(dataset,
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
-  cat("\nFRRC (b): Confidence intervals for reader-averaged \ninter-treatment FOM differences\n\n")
+  cat("\nFRRC (b): Confidence intervals for reader-averaged \ninter-modality FOM differences\n\n")
   
   df <- DBM$FRRC$ciDiffTrt
   print(format(df, digits = 5, justify = "left"))
@@ -194,10 +194,10 @@ OutputTextFileDBMH <- function(dataset,
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
-  x <- c("\nFRRC (c): Confidence intervals for reader-averaged treatment FOMs",
-         "Individual treatment confidence intervals are based on",
-         "reader x case ANOVAs for each treatment (using",
-         "only data for the specified treatment)\n\n")
+  x <- c("\nFRRC (c): Confidence intervals for reader-averaged modality FOMs",
+         "Individual modality confidence intervals are based on",
+         "reader x case ANOVAs for each modality (using",
+         "only data for the specified modality)\n\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   df <- DBM$FRRC$ciAvgRdrEachTrt
@@ -212,7 +212,7 @@ OutputTextFileDBMH <- function(dataset,
   
   cat("\n====================")
   x <- c("\nFRRC (d): Confidence intervals",
-         "For each reader and treatment pairing reader-averaged treatment FOMs",
+         "For each reader and modality pairing reader-averaged modality FOMs",
          "Treatment-by-case ANOVA CIs for each reader",
          "(each analysis is based only on data for the specified reader)\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
@@ -235,19 +235,19 @@ OutputTextFileDBMH <- function(dataset,
          "it follows that Cov1 = Cov2 = Cov3 = 0; i.e., there are", 
          "no correlations between reader-performance measures (i.e., FOMs) due", 
          "to reading the same cases. Thus the OR model reduces to a ",
-         "conventional treatment x reader ANOVA for the reader-FOMs", 
-         "where reader is a random factor and treatment is a fixed factor.") 
+         "conventional modality x reader ANOVA for the reader-FOMs", 
+         "where reader is a random factor and modality is a fixed factor.") 
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
-  cat("\nRRFC (a): Test of null hypothesis of no treatment effect\n\n")
+  cat("\nRRFC (a): Test of null hypothesis of no modality effect\n\n")
   
   df <- DBM$RRFC$FTests
   print(format(df, digits = 5, justify = "left"))
   
   if(DBM$RRFC$FTests["T","p"] < alpha){
     x <- c("\nCONCLUSION:", 
-           "The treatment FOMs are different,",
+           "The modality FOMs are different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$RRFC$FTests[2,1], 
@@ -257,7 +257,7 @@ OutputTextFileDBMH <- function(dataset,
     for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   } else {
     x <- c("\nCONCLUSION:", 
-           "The treatment FOMs are not significantly different,",
+           "The modality FOMs are not significantly different,",
            sprintf("[F(%1d,%7.4f) = %7.4f, p = %7.4f, alpha = %7.4f].",
                    I-1,
                    DBM$RRFC$FTests[2,1], 
@@ -272,7 +272,7 @@ OutputTextFileDBMH <- function(dataset,
   
   cat("\n====================")
   x <- c("\nRRFC (b):", 
-         "Confidence intervals for reader-averaged treatment differences\n\n")
+         "Confidence intervals for reader-averaged modality differences\n\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   df <- DBM$RRFC$ciDiffTrt
@@ -287,9 +287,9 @@ OutputTextFileDBMH <- function(dataset,
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   cat("\n====================")
-  x <- c("\nRRFC (c): Reader-by-case ANOVAs for each treatment",
+  x <- c("\nRRFC (c): Reader-by-case ANOVAs for each modality",
          "each analysis is based only on data for the", 
-         " selected treatment\n\n")
+         " selected modality\n\n")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   
   df <- DBM$RRFC$ciAvgRdrEachTrt

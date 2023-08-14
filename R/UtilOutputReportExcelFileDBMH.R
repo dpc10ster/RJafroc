@@ -56,15 +56,15 @@ OutputExcelFileDBMH <- function(dataset,
   
   startRow <- 1
   df <- StResult$FOMs$foms
-  hdr <- "FOMs: reader vs. treatment"
+  hdr <- "FOMs: reader vs. modality"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <- StResult$FOMs$trtMeans
-  hdr <- "treatment means"
+  hdr <- "modality means"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <- StResult$FOMs$trtMeanDiffs
-  hdr <- "treatment differences"
+  hdr <- "modality differences"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   #############################################################    
@@ -76,7 +76,7 @@ OutputExcelFileDBMH <- function(dataset,
   
   startRow <- 1
   df <- StResult$ANOVA$TRCanova
-  hdr <- "DBM treatment reader case ANOVA"
+  hdr <- "DBM modality reader case ANOVA"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <- StResult$ANOVA$VarCom
@@ -88,7 +88,7 @@ OutputExcelFileDBMH <- function(dataset,
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <-StResult$ANOVA$IndividualTrt
-  hdr <- "Reader x Case Anova for each treatment"
+  hdr <- "Reader x Case Anova for each modality"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <-StResult$ANOVA$IndividualRdr
@@ -108,11 +108,11 @@ OutputExcelFileDBMH <- function(dataset,
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <- StResult$RRRC$ciDiffTrt
-  hdr <- "(b) 95% confidence interval for treatment differences"
+  hdr <- "(b) 95% confidence interval for modality differences"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <-StResult$RRRC$ciAvgRdrEachTrt
-  hdr <- "(c) 95% confidence interval for each treatment"
+  hdr <- "(c) 95% confidence interval for each modality"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   #############################################################    
@@ -128,15 +128,15 @@ OutputExcelFileDBMH <- function(dataset,
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <- StResult$FRRC$ciDiffTrt
-  hdr <- "(b) 95% confidence interval for treatment differences"
+  hdr <- "(b) 95% confidence interval for modality differences"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <-StResult$FRRC$ciAvgRdrEachTrt
-  hdr <- "(c) 95% confidence interval for each treatment"
+  hdr <- "(c) 95% confidence interval for each modality"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <-StResult$FRRC$ciDiffTrtEachRdr
-  hdr <- "(d) 95% confidence interval treatment differences, each reader"
+  hdr <- "(d) 95% confidence interval modality differences, each reader"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   #############################################################    
@@ -152,11 +152,11 @@ OutputExcelFileDBMH <- function(dataset,
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <- StResult$RRFC$ciDiffTrt
-  hdr <- "(b) 95% confidence interval for treatment differences"
+  hdr <- "(b) 95% confidence interval for modality differences"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   df <-StResult$RRFC$ciAvgRdrEachTrt
-  hdr <- "(c) 95% confidence interval for each treatment"
+  hdr <- "(c) 95% confidence interval for each modality"
   startRow <- OutputDataFrame (wb, sheet, startRow, df, sty, hdr)
   
   #############################################################    

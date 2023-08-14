@@ -20,12 +20,12 @@ An \code{c(I, J)} dataframe, where the row names are \code{modalityID}'s of the
 }
 \description{
 Calculate the specified empirical figure of merit
-   for each treatment-reader combination in the 
+   for each modality-reader combination in the 
    ROC, FROC, ROI or LROC dataset
 }
 \details{
 The allowed FOMs depend on the \code{dataType} field of the 
-   \code{dataset} object.  
+   \code{dataset} object. 
 
    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
@@ -50,7 +50,8 @@ The allowed FOMs depend on the \code{dataType} field of the
    The \code{"ExpTrnsfmSp"} FOM is described in the paper by Popescu. 
    Given the large number of FOMs possible with FROC data, it is appropriate 
    to make a recommendation: \strong{it is recommended that one use the wAFROC FOM
-   whenever possible.}
+   whenever possible. If the dataset has no non-diseased cases one should use the
+   the wAFROC1 FOM}.
    
    For \strong{\code{dataType = "ROI"} dataset only \code{FOM = "ROI"} is allowed}.
    

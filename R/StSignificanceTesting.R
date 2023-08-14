@@ -1,12 +1,10 @@
 #' Performs DBM or OR significance testing for factorial datasets
 #' 
-#' @description  Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
-#'    significance testing, for specified dataset; 
+#' @description  Performs DBM or OR significance testing, for specified dataset; 
 #'    significance testing refers to analysis designed to assign a P-value, 
-#'    and other statistics, for 
-#'    rejecting the null hypothesis (NH) that the reader-averaged 
-#'    figure of merit (FOM) differences between treatments is zero. The results of 
-#'    the analysis are best visualized in the text or  
+#'    and other statistics, for rejecting the null hypothesis (NH) that 
+#'    the reader-averaged figure of merit (FOM) differences between treatments is zero. 
+#'    The results of each analysis are best visualized in the text or  
 #'    Excel-formatted files produced by \code{\link{UtilOutputReport}}. 
 #'
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
@@ -18,8 +16,8 @@
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #'     
-#' @param alpha The significance level of the test of the null hypothesis that all 
-#'    treatment effects are zero; the default is 0.05
+#' @param alpha The significance level (alpha) of the test of the null hypothesis 
+#' that all modality effects are zero; the default is 0.05
 #'    
 #' @param method The significance testing method to be used:  
 #'    \code{"DBM"} representing the Dorfman-Berbaum-Metz method or \code{"OR"}, 
@@ -29,11 +27,10 @@
 #'    in \code{ORH} analysis (for \code{method = "DBM"} the jackknife is always used).
 #'    \itemize{ 
 #'    \item \code{"Jackknife"}, the default, 
-#'    \item \code{"Bootstrap"}, in which case \code{nBoots} (above) is relevant, 
-#'    \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon" or "ROI" or "HrAuc"}, 
-#'    otherwise an error results.
+#'    \item \code{"Bootstrap"}, in which case \code{nBoots} is relevant, default is 200, 
+#'    \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon" or "ROI" or "HrAuc"}.
 #' }   
-#' @param nBoots The number of bootstraps (defaults to 200), relevant only if 
+#' @param nBoots The number of bootstraps (defaults to 200), relevant if 
 #'    \code{covEstMethod = "bootstrap"} and \code{method = "OR"} 
 #'    
 #' @param analysisOption Determines which factors are regarded as random vs. fixed:
@@ -41,7 +38,7 @@
 #'    \item \code{"RRRC"} = random-reader random case, the default,
 #'    \item \code{"FRRC"} = fixed-reader random case, 
 #'    \item \code{"RRFC"} = random-reader fixed case, 
-#'    \item \code{"ALL"} =  all allowed options.
+#'    \item \code{"ALL"} =  all 3 allowed options.
 #' }    
 #' 
 #' @param avgIndx For cross-modality analysis the modality-index to be averaged over. The 
@@ -90,10 +87,15 @@
 #' Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader multicase radiological imaging data, 
 #' Statistics in medicine 33, 330-360.
 #' 
+#' Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
+#' methods and x-ray tube current-time product  on nodule detection in an 
+#' anthropomorphic thorax phantom: a crossed-modality JAFROC observer study. 
+#' Medical Physics. 43(3):1265-1274.
+#' 
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
 #' Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
 #' \url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
-#'
+#' 
 #'
 #' @importFrom stats pf pt qt
 #' @importFrom Rcpp evalCpp
@@ -107,7 +109,7 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
 {
   
   
-  checkParameters(dataset, FOM, FPFValue, alpha, method, covEstMethod, nBoots, analysisOption)
+  #checkParameters(dataset, FOM, FPFValue, alpha, method, covEstMethod, nBoots, analysisOption)
   
   if (method == "DBM"){
     
@@ -117,15 +119,15 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
     
     if (dataset$descriptions$design == "FCTRL") {
       
-      return(ORAnalysisFactorial(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
+      return(StORAnalysisFactorial(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
       
     } else if (dataset$descriptions$design == "FCTRL-X-MOD") {
       
       if (is.null(avgIndx)) stop("For cross modality analysis avgIndx must be an integer.")
       
-      return(ORAnalysisFactorialX(dataset, avgIndx, FOM, alpha, analysisOption))
+      return(StORAnalysisFactorialX(dataset, avgIndx, FOM, analysisOption, alpha))
       
-    } else stop("Invalid study design: must be FCTRL")
+    } else stop("Study design must be FCTRL or FCTRL-X-MOD")
   } else {
     errMsg <- sprintf("%s is not a valid analysis method.", method)
     stop(errMsg)
@@ -137,6 +139,7 @@ checkParameters <- function(dataset, FOM, FPFValue, alpha, method,
                             covEstMethod, nBoots, analysisOption)
 {
   
+  #stop("insert check for x-mod dataset")
   options(stringsAsFactors = FALSE, "digits" = 8)
   
   if (dataset$descriptions$design != "FCTRL") {
@@ -161,16 +164,16 @@ checkParameters <- function(dataset, FOM, FPFValue, alpha, method,
     stop(errMsg)
   }    
   
-  if (length(dataset$descriptions$modalityID) < 2) {
-    analysisOption <- "FRRC"
-    ErrMsg <- paste0("This analysis requires at least 2 treatments")
-    stop(ErrMsg)
-  }
+  # if (length(dataset$descriptions$modalityID) < 2) {
+  #   analysisOption <- "FRRC"
+  #   ErrMsg <- paste0("This analysis requires at least 2 treatments")
+  #   stop(ErrMsg)
+  # }
   
-  if ((length(dataset$ratings$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
-    ErrMsg <- paste0("Must use analysisOption FRRC with 1-reader dataset")
-    stop(ErrMsg)
-  }
+  # if ((length(dataset$ratings$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
+  #   ErrMsg <- paste0("Must use analysisOption FRRC with 1-reader dataset")
+  #   stop(ErrMsg)
+  # }
   
   if (method == "DBM"){
     if (covEstMethod != "jackknife") 

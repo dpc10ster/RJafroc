@@ -8,7 +8,7 @@ test_that("UtilMeanSquaresDBM", {
     saveRDS(ret, file = fn)
   }
   
-  ret1 <- readRDS(fn)
+  ret1 <- readRDS(fn);ret1$caseTransitions <- NULL
   ret2 <- UtilPseudoValues(dataset02, FOM = "Wilcoxon")
   expect_equal(ret2, ret1)
   # end of test
