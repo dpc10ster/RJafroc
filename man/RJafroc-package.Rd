@@ -87,7 +87,7 @@
        bimodal, with a peak at zero and one at \eqn{\mu}, the integrated fraction
        at \eqn{\mu} is \eqn{\alpha} (not to be confused with \eqn{\alpha} of NH testing)
     \item CI: The (1-\eqn{\alpha}) confidence interval for the stated statistic
-    \item Crossed modality: a dataset containing two modality (modality) factors, with
+    \item Crossed-modality: a dataset containing two modality (i.e., treatment) factors, with
        the levels of the two factors crossed, see paper by Thompson et al
     \item DBM: Dorfman-Berbaum-Metz, a significance testing method for
        detecting a modality effect in MRMC studies
@@ -216,7 +216,7 @@
 }
 
 \section{Dataset}{
-  The \code{dataset} object has 3 \code{list} elements: \code{$ratings}, \code{$lesions}
+  A standard \code{dataset} object has 3 \code{list} elements: \code{$ratings}, \code{$lesions}
      and \code{$descriptions}, where:
 
      \itemize{
@@ -238,10 +238,10 @@
         the corresponding "empty" positions would be filled with
         \code{-Inf}s. \strong{Do not use \code{NA} to denote a missing rating.}
 
-    \strong{Note}: \bold{"dataset" in this package always represents
-    \code{R} object(s) with the following structure(s):}
+    \strong{Note}: A standard dataset always represents \code{R} object(s) with the 
+        following structure(s):
 
-    \subsection{General data structure, e.g., \code{dataset02}, an ROC dataset, and
+    \subsection{Data structure, e.g., \code{dataset02}, an ROC dataset, and
         \code{dataset05}, an FROC dataset.}{
     \itemize{
     \item \code{ratings$NL}: a float array with dimensions
@@ -335,20 +335,20 @@
     }
   }
 
-  \subsection{Crossed modality data structure, example \code{datasetXModality}}{
+  \subsection{Crossed-modality dataset structure, example \code{datasetXModality}}{
   Only changes from the previously described structure are described below:
     \itemize{
-    \item \code{ratings$NL}: a float array with dimension \code{c(I1, I2, J, K, maxNL)}
+    \item \code{dataset$ratings$NL}: a float array with dimension \code{c(I1, I2, J, K, maxNL)}
         containing the ratings of NL marks. Note the existence of two modality indices.
     \item \code{LL}: a float array with dimension \code{c(I1, I2, J, K2, maxLL)}
         containing the ratings of all LL marks. Note the existence of two modality indices.
-    \item \code{modalityID1}: corresponding to first modality factor.
-    \item \code{modalityID2}: corresponding to second modality factor.
+    \item \code{dataset$descriptions$modalityID1}: corresponding to first modality factor.
+    \item \code{dataset$descriptions$modalityID2}: corresponding to second modality factor.
     }
   }
 }
 
-\section{Df: Datafile Related Functions}{
+\section{Df: Datafile related functions}{
   \itemize{
         \item \code{\link{Df2RJafrocDataset}}: Convert a ratings array to a
            dataset object.
@@ -449,9 +449,9 @@
         \item \code{\link{Util2Intrinsic}}: Convert RSM physical parameters to
            intrinsic parameters.
         \item \code{\link{UtilPseudoValues}}: Return jackknife pseudovalues.
-        \item \code{\link{UtilVarComponentsDBM}}: Utility for Dorfman-Berbaum-Metz
+        \item \code{\link{UtilDBMVarComp}}: Utility for Dorfman-Berbaum-Metz
            variance components.
-        \item \code{\link{UtilVarComponentsOR}}: Utility for Obuchowski-Rockette
+        \item \code{\link{UtilOrVarCov}}: Utility for Obuchowski-Rockette
            variance components.
   }
 }

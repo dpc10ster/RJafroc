@@ -10,7 +10,7 @@ StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, analysisOption)
 
   foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   
-  ret <- UtilVarComponentsDBM(dataset, FOM, FPFValue)
+  ret <- UtilDBMVarComp(dataset, FOM, FPFValue)
   
   VarCom <- ret$VarCom
   TRCanova <- ret$TRCanova

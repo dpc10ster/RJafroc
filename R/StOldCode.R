@@ -1014,7 +1014,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
         }
       }
     }
-    Cov <- FOMijk2VarCov(jkFOMArray, varInflFactor = TRUE)
+    Cov <- FOM2VarCov(jkFOMArray, varInflFactor = TRUE)
     var <- Cov$Var
     cov1 <- Cov$Cov1
     cov2 <- Cov$Cov2
@@ -1066,7 +1066,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
         }
       }
     }
-    Cov <- FOMijk2VarCov(fomBsArray, varInflFactor = FALSE)
+    Cov <- FOM2VarCov(fomBsArray, varInflFactor = FALSE)
     var <- Cov$var
     cov1 <- Cov$cov1
     cov2 <- Cov$cov2
@@ -1175,7 +1175,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
       S <- s10/K2 + s01/K1
     }
     
-    Cov <- FOMijk2VarCov(S, varInflFactor = FALSE)
+    Cov <- FOM2VarCov(S, varInflFactor = FALSE)
     var <- Cov$var
     cov1 <- Cov$cov1
     cov2 <- Cov$cov2

@@ -133,30 +133,8 @@ DfFroc2Roc <- function (dataset) {
   name <- dataset$descriptions$name
   design <- dataset$descriptions$design
   
-  # added truthTableStr 5/18/2023
-  truthTableStr <- array(dim = c(I, J, K, 2)) 
-  truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
-  truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
-  
-  # commented 5/18/2023
-  # convert truthTableStr from FROC to ROC
-  # truthTableStr <- dataset$descriptions$truthTableStr
-  # if (!all(is.na(truthTableStr))) { # if FROC truthTableStr is available, convert it to ROC 
-  #   t <- array(dim=c(I,J,K,2)) # default is all NAs
-  #   U <- length(dataset$ratings$LL[1,1,1,]) + 1 # 4th dimension of truthTableStr
-  #   for (k in 1:K) {
-  #     if (k <= K1) {
-  #       t[,,k,1][!is.na(truthTableStr[,,k,1])] <- 1
-  #     }
-  #     else {
-  #       for (el in 2:U) {
-  #         t[,,k,2][!is.na(truthTableStr[,,k,el])] <- 1 # if any is not NA, then set t[,,k,2] to one
-  #       }
-  #     }
-  #   }
-  # } else t <- NA # FROC truthTableStr is not available
-  
   type <- "ROC"
+  truthTableStr <- AddTruthTableStr(dataset, type, perCase) # added 9/16/2023
   ds <- convert2dataset(NL, LL, LL_IL = NA, 
                              perCase, IDs, weights,
                              fileName, type, name, truthTableStr = truthTableStr, design,

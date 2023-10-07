@@ -11,7 +11,7 @@ if (flag) infd_ds <- DfExtractDataset(DfFroc2Roc(ds), trts = c(4,5)) else infd_d
 real_ds <- dataset14
 
 # load crossed modality dataset; this serves as template
-fn <- "~/GitHub/datasets/CrossedModalitiesDataFile.xlsx"
+fn <- "~/GitHub/datasets/XModDataFile.xlsx"
 xds <- DfReadCrossedModalities(fn)
 
 # fix ratings list

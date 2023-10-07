@@ -501,11 +501,11 @@ DiffFomVarCov2 <- function (dataset, FOM, FPFValue) # for difference FOM, radiol
   jkFomValuesCad <- UtilPseudoValues(dsCad, FOM, FPFValue)$jkFomValues
   jkFomValuesRad <- UtilPseudoValues(dsRad, FOM, FPFValue)$jkFomValues
   jkDiffFomValues <- array(dim = c(J-1,K))
-  # this does not work !!!DPC!!! wasted much time
-  # this does not work !!!DPC!!! wasted much time
+  # this does not work  wasted much time
+  # this does not work  wasted much time
   # jkDiffFomValues <- jkFomValuesRad[1,,] - jkFomValuesCad[1,1,] # this does not work
-  # this does not work !!!DPC!!! wasted much time
-  # this does not work !!!DPC!!! wasted much time
+  # this does not work  wasted much time
+  # this does not work  wasted much time
   
   for (j in 1:(J-1)) jkDiffFomValues[j,] <- jkFomValuesRad[1,j,] - jkFomValuesCad[1,1,]
   

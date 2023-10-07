@@ -8,7 +8,7 @@ DfReadCrossedModalities(fileName, sequentialNames = FALSE)
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file that contains the dataset, 
-which must be an extended-JAFROC format data file containing an 
+which must be an extended-JAFROC format Excel file containing an 
 additional modality factor.}
 
 \item{sequentialNames}{If \code{TRUE}, consecutive integers (starting from 1) will be used 
@@ -22,8 +22,8 @@ A dataset with the specified structure, similar to a standard
    modality IDS: \code{modalityID1} and \code{modalityID2}.
 }
 \description{
-Read an crossed-modality data file, in which the 
-two modality factors are crossed
+Read a crossed-modality data file, in which the 
+   two modality factors are crossed
 }
 \details{
 The data format is  similar to the JAFROC format (see \code{\link{RJafroc-package}}). 

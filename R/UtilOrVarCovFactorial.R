@@ -1,14 +1,15 @@
-StMeanSquaresEtcX <- function(ds, fomArray, FOM) {
+UtilOrVarCovFactorial <- function (foms, jkFomValues, VarCovALL, modalityID, readerID)
+{
   
-  fomMean <- mean(fomArray)
+  I <- dim(foms)[1]
+  J <- dim(foms)[2]
   
-  I <- dim(fomArray)[1]
-  J <- dim(fomArray)[2]
+  fomMean <- mean(foms)
   
   if (I > 1) {
     msT <- 0
     for (i in 1:I) {
-      msT <- msT + (mean(fomArray[i, ]) - fomMean)^2
+      msT <- msT + (mean(foms[i, ]) - fomMean)^2
     }
     msT <- J * msT/(I - 1)
   } else msT <- NA
@@ -16,7 +17,7 @@ StMeanSquaresEtcX <- function(ds, fomArray, FOM) {
   if (J > 1) {
     msR <- 0
     for (j in 1:J) {
-      msR <- msR + (mean(fomArray[, j]) - fomMean)^2
+      msR <- msR + (mean(foms[, j]) - fomMean)^2
     }
     msR <- I * msR/(J - 1)
   } else msR <- NA
@@ -25,7 +26,7 @@ StMeanSquaresEtcX <- function(ds, fomArray, FOM) {
     msTR <- 0
     for (i in 1:I) {
       for (j in 1:J) {
-        msTR <- msTR + (fomArray[i, j] - mean(fomArray[i, ]) - mean(fomArray[, j]) + fomMean)^2
+        msTR <- msTR + (foms[i, j] - mean(foms[i, ]) - mean(foms[, j]) + fomMean)^2
       }
     }
     msTR <- msTR/((J - 1) * (I - 1))
@@ -36,9 +37,9 @@ StMeanSquaresEtcX <- function(ds, fomArray, FOM) {
   ssArray <- msArray * dfArray
   
   TRanova <- data.frame("SS" = ssArray, 
-                         "DF" = dfArray, 
-                         "MS" = msArray,
-                         stringsAsFactors = FALSE)  
+                        "DF" = dfArray, 
+                        "MS" = msArray,
+                        stringsAsFactors = FALSE)  
   rownames(TRanova) <- c("T", "R", "TR")
   
   # single modality msR_i ############################################################
@@ -46,23 +47,16 @@ StMeanSquaresEtcX <- function(ds, fomArray, FOM) {
     msR_i <- array(0, dim = I)
     for (i in 1:I) {
       for (j in 1:J) {
-        msR_i[i] <- msR_i[i] + (fomArray[i, j] -  mean(fomArray[i,]))^2
+        msR_i[i] <- msR_i[i] + (foms[i, j] -  mean(foms[i,]))^2
       }
     }
     msR_i <- msR_i/(J - 1)
   } else msR_i <- NA
   
-  cov2EachTrt <- vector(length = I)
-  varEachTrt <- vector(length = I)
-  for (i in 1:I) {
-    dsi <- DfExtractDataset(ds, trts = i)
-    ret <- varCompJK(dsi, FOM)
-    #ret <- OrVarCov(dsi, FOM, FPFValue, nBoots, covEstMethod, seed)
-    varEachTrt[i] <- ret$Var
-    cov2EachTrt[i] <- ret$Cov2
-  }
+  varEachTrt <- VarCovALL$vcEachTrt[,1]
+  cov2EachTrt <- VarCovALL$vcEachTrt[,2]
   
-  modID <- as.vector(ds$descriptions$modalityID)
+  modID <- as.vector(modalityID)
   IndividualTrt <- data.frame(DF = rep(J-1, I), 
                               msREachTrt = msR_i, 
                               varEachTrt = varEachTrt, 
@@ -75,23 +69,16 @@ StMeanSquaresEtcX <- function(ds, fomArray, FOM) {
     msT_j <- array(0, dim = J)
     for (j in 1:J) {
       for (i in 1:I) {
-        msT_j[j] <- msT_j[j] + (mean(fomArray[i, j]) -  mean(fomArray[,j]))^2
+        msT_j[j] <- msT_j[j] + (mean(foms[i, j]) -  mean(foms[,j]))^2
       }
       msT_j[j] <- msT_j[j]/(I - 1)
     }
   } else msT_j <- NA
   
-  varEachRdr <- vector(length = J)
-  cov1EachRdr <- vector(length = J)
-  for (j in 1:J) {
-    dsj <- DfExtractDataset(ds, rdrs = j)
-    ret <- varCompJK(dsj, FOM)
-    #ret <- OrVarCov(dsj, FOM, FPFValue, nBoots, covEstMethod, seed)
-    varEachRdr[j] <- ret$Var
-    cov1EachRdr[j] <- ret$Cov1
-  }
+  varEachRdr <- VarCovALL$vcEachRdr[,1]
+  cov1EachRdr <- VarCovALL$vcEachRdr[,2]
   
-  rdrID <- as.vector(ds$descriptions$readerID)
+  rdrID <- as.vector(readerID)
   if (I > 1) {
     IndividualRdr <- data.frame(DF = rep(I-1, J), 
                                 msTEachRdr = msT_j, 
@@ -101,19 +88,17 @@ StMeanSquaresEtcX <- function(ds, fomArray, FOM) {
                                 stringsAsFactors = FALSE)
   } else IndividualRdr <- NA
   #####################################################################################
-  ret <- varCompJK(ds, FOM)
-  #ret <- OrVarCov(ds, FOM, FPFValue, nBoots, covEstMethod, seed)
-  Var <- ret$Var
-  Cov1 <- ret$Cov1
-  Cov2 <- ret$Cov2
-  Cov3 <- ret$Cov3
+  Var <- VarCovALL$vc[1]
+  Cov1 <- VarCovALL$vc[2]
+  Cov2 <- VarCovALL$vc[3]
+  Cov3 <- VarCovALL$vc[4]
   
   if (I > 1) {
     # Following equation is in marginal means paper, page 333
     # and in Hillis 2011 Eqn 9
     VarTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0)
     # NOTE on discrepancy between Var(R) and Var(TR) values reported by
-    # OR-DBM MRMC 2.51 Build 20181028 and my code for Franken ds
+    # OR-DBM MRMC 2.51 Build 20181028 and my code for Franken dataset
     # Their code does not implement the max() constraint while mine does
     # my code reports VarTR = -0.00068389146 while their code reports
     # VarTR = -0.00071276; This is shown explicitly next:
@@ -141,28 +126,3 @@ StMeanSquaresEtcX <- function(ds, fomArray, FOM) {
     IndividualRdr = IndividualRdr
   ))
 }
-
-
-
-varCompJK <- function(dataset, FOM, FPFValue) {
-  
-  if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
-  
-  ret <- UtilPseudoValues(dataset, FOM, FPFValue)
-  
-  CovTemp <- FOM2VarCov(ret$jkFomValues, varInflFactor = TRUE)
-  
-  Cov <- list(
-    Var = CovTemp$Var,
-    Cov1 = CovTemp$Cov1,
-    Cov2 = CovTemp$Cov2,
-    Cov3 = CovTemp$Cov3
-  )
-  
-  return(Cov)
-  
-}
-
-
-
-

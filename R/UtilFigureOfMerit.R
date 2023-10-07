@@ -1,16 +1,24 @@
-#' Calculate empirical figures of merit (FOMs) for specified dataset
+#' Calculate empirical figures of merit (FOMs) for factorial dataset, standard or cross-
+#'     modality
 #' 
 #' @description  Calculate the specified empirical figure of merit
-#'    for each modality-reader combination in the 
-#'    ROC, FROC, ROI or LROC dataset
+#'    for each modality-reader combination in the standard or cross-modality dataset
 #' 
 #' @param dataset The dataset to be analyzed, \code{\link{RJafroc-package}}
 #' @param FOM The figure of merit; the default is \code{"wAFROC"}
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'     where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
-#' @return An \code{c(I, J)} dataframe, where the row names are \code{modalityID}'s of the 
-#'    treatments and column names are the \code{readerID}'s of the readers.
+#' @return For standard dataset: A \code{c(I, J)} dataframe, where the row names are 
+#'    \code{modalityID}'s of the treatments and column names are the 
+#'    \code{readerID}'s of the readers.
+#'    For cross-modality dataset: Two data frames are returned: 
+#' * \code{c(I2, J)} data frame, FOMs averaged over the first modality, where the row 
+#'     names are modality IDS of the second modality 
+#' * \code{c(I1, J)} data frames, FOMs averaged over the second modality, where the row 
+#'     names are modality IDs of the first modality, 
+#' * In either case the column names are the \code{readerID}'s.
+
 #' 
 #' @details The allowed FOMs depend on the \code{dataType} field of the 
 #'    \code{dataset} object. 
@@ -18,27 +26,23 @@
 #'    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
 #'    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
 #'    \itemize{ 
-#'    \item \code{FOM = "AFROC1"} (use only if zero normal cases)
+#'    \item \code{FOM = "AFROC1"} (use only if no normal cases  are available)
 #'    \item \code{FOM = "AFROC"} 
-#'    \item \code{FOM = "wAFROC1"} (use only if zero normal cases)
+#'    \item \code{FOM = "wAFROC1"} (use only if no normal cases  are available)
 #'    \item \code{FOM = "wAFROC"} (the default) 
 #'    \item \code{FOM = "HrAuc"} 
-#'    \item \code{FOM = "SongA1"} 
-#'    \item \code{FOM = "SongA2"}  
-#'    \item \code{FOM = "HrSe"} (an example of an end-point based FOM)
-#'    \item \code{FOM = "HrSp"} (another example)
+#'    \item \code{FOM = "HrSe"} (example of an end-point based FOM)
+#'    \item \code{FOM = "HrSp"} (do:)
 #'    \item \code{FOM = "MaxLLF"} (do:)
 #'    \item \code{FOM = "MaxNLF"} (do:)
 #'    \item \code{FOM = "MaxNLFAllCases"} (do:) 
-#'    \item \code{FOM = "ExpTrnsfmSp"}  
 #'    } 
 #'    \code{"MaxLLF"}, \code{"MaxNLF"} and \code{"MaxNLFAllCases"}
 #'    correspond to ordinate, and abscissa, respectively, of the highest point 
 #'    on the FROC operating characteristic obtained by counting all the marks. 
-#'    The \code{"ExpTrnsfmSp"} FOM is described in the paper by Popescu. 
-#'    Given the large number of FOMs possible with FROC data, it is appropriate 
-#'    to make a recommendation: \strong{it is recommended that one use the wAFROC FOM
-#'    whenever possible. If the dataset has no non-diseased cases one should use the
+#'    Given the number of FOMs possible with FROC data, it is appropriate 
+#'    to make a recommendation: \strong{it is recommended the wAFROC FOM be used
+#'    whenever possible. Only if the dataset has no non-diseased cases should one use the
 #'    the wAFROC1 FOM}.
 #'    
 #'    For \strong{\code{dataType = "ROI"} dataset only \code{FOM = "ROI"} is allowed}.
@@ -51,126 +55,213 @@
 #'    }
 #'    \code{FPFValue} The FPF at which to evaluate \code{PCL} or \code{ALROC}; 
 #'       the default is 0.2; only needed for LROC data.
+#'    For cross-modality analysis ROI and LROC datasets are not supported.
 #' 
 #'
 #' @examples
 #' UtilFigureOfMerit(dataset02, FOM = "Wilcoxon") # ROC data
-#' UtilFigureOfMerit(DfFroc2Roc(dataset01), FOM = "Wilcoxon") # FROC dataset, converted to ROC
 #' UtilFigureOfMerit(dataset01) # FROC dataset, default wAFROC FOM
-#' UtilFigureOfMerit(datasetCadLroc, FOM = "Wilcoxon") #LROC data
-#' UtilFigureOfMerit(datasetCadLroc, FOM = "PCL") #LROC data
-#' UtilFigureOfMerit(datasetCadLroc, FOM = "ALROC") #LROC data
-#' UtilFigureOfMerit(datasetROI, FOM = "ROI") #ROI data
-#' \donttest{ # these are meant to illustrate conditions which will throw an error
-#' ## UtilFigureOfMerit(dataset02, FOM = "wAFROC") #error
-#' ## UtilFigureOfMerit(dataset01, FOM = "Wilcoxon") #error
-#' }
+#' UtilFigureOfMerit(datasetXModality, FOM = "wAFROC")
 #' 
 #' @references
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
 #' Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
 #' \url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 #' 
-#' Chakraborty DP, Berbaum KS (2004) Observer studies involving detection and localization: modeling, analysis, and validation, 
-#' Medical Physics, 31(8), 1--18.
-#' 
-#' Song T, Bandos AI, Rockette HE, Gur D (2008) On comparing methods for discriminating between actually negative and actually positive subjects 
-#' with FROC type data, Medical Physics 35 1547--1558.
-#' 
-#' Popescu LM (2011) Nonparametric signal detectability evaluation using an exponential transformation of the FROC curve, 
-#' Medical Physics, 38(10), 5690. 
-#' 
-#' Obuchowski NA, Lieber ML, Powell KA (2000) Data Analysis for Detection and Localization of Multiple Abnormalities 
-#' with Application to Mammography, Acad Radiol, 7:7 553--554.
-#' 
-#' Swensson RG (1996) Unified measurement of observer performance in detecting and localizing target objects on images, 
-#' Med Phys 23:10, 1709--1725.
-
 #' @importFrom dplyr between  
 #' @export
 
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
   
-  dataType <- dataset$descriptions$type
-  if ((dataType == "ROC") && !(FOM %in% c("Wilcoxon"))) {
-    errMsg <- paste0("Must use Wilcoxon figure of merit with ROC data.")
-    stop(errMsg)
-  }
+  if (!isValidDataset(dataset, FOM)) stop("Dataset-FOM combination is invalid.\n")
   
-  if ((dataType == "ROI") && (FOM != "ROI")) {
-    cat("Incorrect FOM supplied for ROI data, changing to 'ROI'\n")
-    FOM <- "ROI"
-  }
-  
-  if ((dataType %in% c("FROC", "ROI")) && (FOM == "Wilcoxon"))
-    stop("Cannot use `Wilcoxon` FOM with `FROC` or `ROI` data.")
-  
-  if ((dataType != "ROI") && (FOM == "ROI")) {
-    errMsg <- paste0("Only ROI data can be analyzed using ROI figure of merit.")
-    stop(errMsg)
-  }
-  
-  if (dataType == "LROC") {
-    if (FOM != "Wilcoxon") { 
-      if (!between(FPFValue, 0, 1)) stop("FPFValue is outside valid range")
+  if ((length(dim(dataset$ratings$NL)) == 4)
+      && (dataset$descriptions$design == "FCTRL")) { 
+    # factorial dataset, one treatment factor 
+    
+    dataType <- dataset$descriptions$type
+    
+    if ((dataType == "ROI") && (FOM != "ROI")) {
+      cat("Incorrect FOM supplied for ROI data, changing it to 'ROI'\n")
+      FOM <- "ROI"
     }
-  }
-  
-  if (dataType == "LROC") {
-    if (FOM %in% c("Wilcoxon", "ALROC", "PCL")) {
-      if (dataType != "LROC") {
-        NL <- dataset$ratings$NL
-        LL <- dataset$ratings$LL
-      } else {
-        if (FOM == "Wilcoxon"){
-          datasetRoc <- DfLroc2Roc(dataset)
-          NL <- datasetRoc$ratings$NL
-          LL <- datasetRoc$ratings$LL
-        } else if (FOM %in% c("PCL", "ALROC")){
-          NL <- dataset$ratings$NL
-          LL <- dataset$ratings$LL
-        } else stop("incorrect FOM for LROC data")
-      }
-    } else stop("Incorrect FOM specified for LROC data")
-  } else {
+    
     NL <- dataset$ratings$NL
     LL <- dataset$ratings$LL
-  }
-  
-  I <- dim(NL)[1]
-  J <- dim(NL)[2]
-  K <- dim(NL)[3]
-  K2 <- dim(LL)[3]
-  K1 <- K - K2  
-  
-  if ((K1 == 0) && !(FOM %in% c("AFROC1", "wAFROC1"))) {
-    errMsg <- paste0("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
-    stop(errMsg)
-  }
-  
-  design <- dataset$descriptions$design
-  t <- dataset$descriptions$truthTableStr
-  
-  maxNL <- dim(NL)[4]
-  maxLL <- dim(LL)[4]
-  fomArray <- array(dim = c(I, J))
-  for (i in 1:I) {
-    for (j in 1:J) {
-      if (design == "FCTRL"){
-        nl_ij <- NL[i, j, , ]
-        ll_ij <- LL[i, j, , ]
-        dim(nl_ij) <- c(K, maxNL)
-        dim(ll_ij) <- c(K2, maxLL)
-        fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, dataset$lesions$perCase, dataset$lesions$IDs, dataset$lesions$weights, maxNL, maxLL, K1, K2, FOM, FPFValue)
-      } else stop("Incorrect design, must beFCTRL")
+    
+    I <- dim(NL)[1]
+    J <- dim(NL)[2]
+    K <- dim(NL)[3]
+    K2 <- dim(LL)[3]
+    K1 <- K - K2  
+    
+    if ((K1 == 0) && !(FOM %in% c("AFROC1", "wAFROC1"))) {
+      errMsg <- paste0("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
+      stop(errMsg)
     }
+    
+    design <- dataset$descriptions$design
+    t <- dataset$descriptions$truthTableStr
+    
+    maxNL <- dim(NL)[4]
+    maxLL <- dim(LL)[4]
+    fomArray <- array(dim = c(I, J))
+    for (i in 1:I) {
+      for (j in 1:J) {
+        if (design == "FCTRL"){
+          nl_ij <- NL[i, j, , ]
+          ll_ij <- LL[i, j, , ]
+          dim(nl_ij) <- c(K, maxNL)
+          dim(ll_ij) <- c(K2, maxLL)
+          fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, 
+                                     dataset$lesions$perCase, 
+                                     dataset$lesions$IDs, 
+                                     dataset$lesions$weights, 
+                                     maxNL, 
+                                     maxLL, 
+                                     K1, 
+                                     K2, 
+                                     FOM, 
+                                     FPFValue)
+        } else stop("Incorrect study design specified: must be `FCTRL`")
+      }
+    }
+    
+    modalityID <- dataset$descriptions$modalityID
+    readerID <- dataset$descriptions$readerID
+    rownames(fomArray) <- paste("trt", sep = "", modalityID)
+    colnames(fomArray) <- paste("rdr", sep = "", readerID)
+    fomArray <- data.matrix(fomArray)
+    
+    return(fomArray)
+    
+  } else if ((length(dim(dataset$ratings$NL)) == 5) 
+             && (dataset$descriptions$design == "FCTRL-X-MOD")) { 
+    # cross-modality factorial dataset, two treatment factors
+    
+    dsX <- dataset
+    dataType <- dsX$descriptions$type
+    
+    if (dataType %in% c("ROI", "LROC")) {
+      stop("ROI or LROC cross-modality analyses is not supported.\n")
+    }
+    
+    NL <- dsX$ratings$NL
+    LL <- dsX$ratings$LL
+    
+    I1 <- dim(NL)[1]
+    I2 <- dim(NL)[2]
+    J <- dim(NL)[3]
+    K <- dim(NL)[4]
+    K2 <- dim(LL)[4]
+    K1 <- K - K2  
+    maxNL <- dim(NL)[5]
+    maxLL <- dim(LL)[5]
+    
+    if ((K1 == 0) && !(FOM %in% c("AFROC1", "wAFROC1"))) {
+      errMsg <- paste0("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
+      stop(errMsg)
+    }
+    
+    fomArr <- array(dim = c(I1, I2, J))
+    if (((dataType == "FROC") && 
+         (FOM %in% c("HrAuc", "AFROC", "wAFROC", "AFROC1", "wAFROC1"))) || 
+        ((dataType == "ROC") && (FOM %in% c("Wilcoxon")))) {
+      
+      for (i1 in 1:I1) {
+        for (i2 in 1:I2) {
+          for (j in 1:J) {
+            fomArr[i1, i2, j] <- MyFom_ij(NL[i1, i2, j, , ], 
+                                          LL[i1, i2, j, , ], 
+                                          dsX$lesions$perCase, 
+                                          dsX$lesions$IDs, 
+                                          dsX$lesions$weights, 
+                                          maxNL, 
+                                          maxLL, 
+                                          K1, 
+                                          K2, 
+                                          FOM)
+          }
+        }
+      }
+    } else stop("FOM inconsistent with data type\n")  
+    
+    modalityID1 <- dsX$descriptions$modalityID1
+    modalityID2 <- dsX$descriptions$modalityID2
+    readerID <- dsX$descriptions$readerID
+    
+    # learnApply(fomArr)
+    # https://stackoverflow.com/questions/23302072/use-apply-on-a-multi-dimension-array
+    
+    fomArray <- list()
+    modalityID <- list()
+    modalityID[[1]] <- modalityID2
+    modalityID[[2]] <- modalityID1
+    for (i in 1:2) {
+      fomArray[[i]] <- apply(fomArr, (1:3)[-i], mean) # average over first modality and all readers
+      rownames(fomArray[[i]]) <- paste("trt", sep = "-", modalityID[[i]])
+      colnames(fomArray[[i]]) <- paste("rdr", sep = "-", readerID)
+    }
+    
+    return(fomArray)
   }
+} 
+
+
+
+learnApply <- function(fomArr){
   
-  modalityID <- dataset$descriptions$modalityID
-  readerID <- dataset$descriptions$readerID
-  rownames(fomArray) <- paste("trt", sep = "", modalityID)
-  colnames(fomArray) <- paste("rdr", sep = "", readerID)
-  return(as.data.frame(fomArray))
- } 
-
-
+  ave1 <- apply(fomArr, c(1), mean)
+  # [1] 0.8672883 0.8688070
+  ave2 <- c(sum(fomArr[1,,]), sum(fomArr[2,,]))/4/11
+  testthat::expect_equal(ave2, ave1)
+  
+  ave1 <- apply(fomArr, c(2), mean)
+  # [1] 0.8354075 0.8672539 0.8780768 0.8914524
+  ave2 <- c(sum(fomArr[,1,]), sum(fomArr[,2,]), sum(fomArr[,3,]), sum(fomArr[,4,]))/2/11
+  testthat::expect_equal(ave2, ave1)
+  
+  ave1 <- apply(fomArr, c(3), mean)
+  # [1] 0.8632948 0.8270978 0.9215326 0.9070430 0.9540531 0.8864619 0.8483726 0.7668144 0.8638534 0.8208622 0.8891382
+  ave2 <- c(
+    sum(fomArr[,,1]), sum(fomArr[,,2]), sum(fomArr[,,3]), sum(fomArr[,,4]),
+    sum(fomArr[,,5]), sum(fomArr[,,6]), sum(fomArr[,,7]), sum(fomArr[,,8]),
+    sum(fomArr[,,9]), sum(fomArr[,,10]), sum(fomArr[,,11]))/2/4
+  testthat::expect_equal(ave2, ave1)
+  
+  ave1 <- apply(fomArr, c(2,3), mean)
+  #           [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]      [,8]      [,9]     [,10]     [,11]
+  # [1,] 0.7900087 0.7892157 0.8861015 0.8913279 0.9471237 0.8688725 0.8207540 0.7320141 0.8268815 0.8175822 0.8196006
+  # [2,] 0.8763336 0.8109141 0.9272275 0.9021410 0.9621540 0.8725490 0.8566176 0.7552984 0.8765499 0.7941176 0.9058896
+  # [3,] 0.9107194 0.8480392 0.9226499 0.9012039 0.9485655 0.8840830 0.8643310 0.7869449 0.8512471 0.8239259 0.9171352
+  # [4,] 0.8761174 0.8602220 0.9501514 0.9334991 0.9583694 0.9203431 0.8517878 0.7930003 0.9007353 0.8478230 0.9139273
+  ave2 <- (fomArr[1,,] + fomArr[2,,])/2
+  testthat::expect_equal(ave2, ave1)
+  
+  ave1 <- apply(fomArr, c(1,3), mean)
+  #           [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]      [,8]      [,9]     [,10]     [,11]
+  # [1,] 0.8758470 0.8313149 0.9143058 0.9029159 0.9537377 0.8811275 0.8298551 0.7573349 0.8723147 0.8274942 0.8939230
+  # [2,] 0.8507425 0.8228806 0.9287594 0.9111700 0.9543685 0.8917964 0.8668901 0.7762940 0.8553922 0.8142301 0.8843534
+  ave2 <- (fomArr[,1,] + fomArr[,2,] + fomArr[,3,] + fomArr[,4,])/4
+  testthat::expect_equal(ave2, ave1)
+  
+  ave1 <- apply(fomArr, c(1,2,3), mean)
+  # , , 1
+  #
+  # [,1]      [,2]      [,3]      [,4]
+  # [1,] 0.8365773 0.8652682 0.9189014 0.8826413
+  # [2,] 0.7434400 0.8873991 0.9025375 0.8695934
+  #  , , 2
+  # etc
+  # ending with
+  # , , 11
+  #
+  # [,1]      [,2]      [,3]      [,4]
+  # [1,] 0.8390283 0.8876874 0.9298587 0.9191176
+  # [2,] 0.8001730 0.9240917 0.9044118 0.9087370
+  ave2 <- fomArr
+  testthat::expect_equal(ave2, ave1)
+  
+  
+  stop()
+}

@@ -117,13 +117,9 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, se
   fileName <- "NA"
   name <- NA
   design <- "FCTRL"
-  # added truthTableStr 5/18/2023
-  truthTableStr <- array(dim = c(I, J, K1+K2, maxLL+1))
-  truthTableStr[,,1:K1,1] <- 1
-  for (k2 in 1:K2) {
-    truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
-  }
   type <- "FROC"
+  truthTableStr <- AddTruthTableStr(dataset, type, perCase) # added 9/16/2023
+  
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
                          fileName, type, name, truthTableStr, design,

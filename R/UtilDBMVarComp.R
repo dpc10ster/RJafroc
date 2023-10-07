@@ -9,12 +9,12 @@
 #'   
 #' 
 #' @examples 
-#' UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")
+#' UtilDBMVarComp(dataset02, FOM = "Wilcoxon")
 #'
 #'   
 #' @export
 #' 
-UtilVarComponentsDBM <- function (dataset, FOM, FPFValue = 0.2)
+UtilDBMVarComp <- function (dataset, FOM, FPFValue = 0.2)
 {
   I <- dim(dataset$ratings$NL)[1]
   J <- dim(dataset$ratings$NL)[2]

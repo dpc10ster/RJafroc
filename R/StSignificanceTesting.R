@@ -20,8 +20,8 @@
 #' that all modality effects are zero; the default is 0.05
 #'    
 #' @param method The significance testing method to be used:  
-#'    \code{"DBM"} representing the Dorfman-Berbaum-Metz method or \code{"OR"}, 
-#'    the default, representing the Obuchowski-Rockette method.  
+#'    \code{"DBM"} i.e. the Dorfman-Berbaum-Metz method or \code{"OR"}, 
+#'    the default, i.e. the Obuchowski-Rockette method.  
 #'    
 #' @param covEstMethod The covariance matrix estimation method
 #'    in \code{ORH} analysis (for \code{method = "DBM"} the jackknife is always used).
@@ -33,7 +33,7 @@
 #' @param nBoots The number of bootstraps (defaults to 200), relevant if 
 #'    \code{covEstMethod = "bootstrap"} and \code{method = "OR"} 
 #'    
-#' @param analysisOption Determines which factors are regarded as random vs. fixed:
+#' @param analysisOption Determines which factors are regarded as random and which are fixed:
 #' \itemize{ 
 #'    \item \code{"RRRC"} = random-reader random case, the default,
 #'    \item \code{"FRRC"} = fixed-reader random case, 
@@ -41,8 +41,6 @@
 #'    \item \code{"ALL"} =  all 3 allowed options.
 #' }    
 #' 
-#' @param avgIndx For cross-modality analysis the modality-index to be averaged over. The 
-#'     default is "NULL", i.e., not cross-modality analysis.  
 #'     
 #' @return \strong{For \code{method = "DBM"} the returned list contains 4 dataframes:}
 #' @return \item{FOMs}{Contains \code{foms}, \code{trtMeans} and \code{trtMeanDiffs}: 
@@ -104,87 +102,139 @@
 #'      
 #' @export
 StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "OR", 
-                                  covEstMethod = "jackknife", nBoots = 200, 
-                                  analysisOption = "ALL", avgIndx = NULL)
+                                  covEstMethod = "jackknife", nBoots = 200, analysisOption = "RRRC")
 {
   
-  
+  #if (!isValidDataset(dataset, FOM, analysisOption)) stop("Dataset-FOM combination is invalid.\n") DOES NOT WORK ???DPC???
+  if (!isValidDataset(dataset, FOM, method, analysisOption)) stop("Dataset-FOM combination is invalid.\n")
+
+  if (!isValidCovEstMethod(FOM, covEstMethod)) stop("FOM and covEstMethod are incompatible.\n")
+    
   #checkParameters(dataset, FOM, FPFValue, alpha, method, covEstMethod, nBoots, analysisOption)
   
   if (method == "DBM"){
     
-    return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, analysisOption))
+    if (dataset$descriptions$design == "FCTRL") {
+      
+      return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, analysisOption))
+      
+    } else {
+      
+      ret <- StORAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)
+      
+      return(ret)
+      
+    }
     
-  } else if (method == "OR") {
+  } else {
     
     if (dataset$descriptions$design == "FCTRL") {
       
-      return(StORAnalysisFactorial(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption))
+      ret <- StORAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)
+      return(ret)
       
-    } else if (dataset$descriptions$design == "FCTRL-X-MOD") {
+    } else {
       
-      if (is.null(avgIndx)) stop("For cross modality analysis avgIndx must be an integer.")
+      ret <- StORAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)
       
-      return(StORAnalysisFactorialX(dataset, avgIndx, FOM, analysisOption, alpha))
+      return(ret)
       
-    } else stop("Study design must be FCTRL or FCTRL-X-MOD")
-  } else {
-    errMsg <- sprintf("%s is not a valid analysis method.", method)
-    stop(errMsg)
+    } 
+    
   }
+  
 }
 
 
-checkParameters <- function(dataset, FOM, FPFValue, alpha, method, 
-                            covEstMethod, nBoots, analysisOption)
-{
+DoAllLevelsFirstModality <- function(dataset,
+                                     method,
+                                     FOM, 
+                                     FPFValue, 
+                                     alpha, 
+                                     covEstMethod, 
+                                     nBoots, 
+                                     analysisOption) {
   
-  #stop("insert check for x-mod dataset")
-  options(stringsAsFactors = FALSE, "digits" = 8)
+  modality1Levels <- dim(dataset$ratings$NL)[1]
   
-  if (dataset$descriptions$design != "FCTRL") {
-    method <- "OR"
-    covEstMethod <- "jackknife"
+  ds <- list()
+  st <- list()
+  
+  for (i in 1:modality1Levels) {
+    ds[[i]] <- DsConvertXModTo1Mod(dataset, i)
+    if (method == "DBM") {
+      st[[i]] <- StDBMHAnalysis(ds[[i]], 
+                               FOM, 
+                               FPFValue, 
+                               alpha, 
+                               analysisOption)
+    } else if (method == "OR") {
+      st[[i]] <- StORAnalysis(ds[[i]], 
+                                       FOM, 
+                                       FPFValue, 
+                                       alpha, 
+                                       covEstMethod, 
+                                       nBoots, 
+                                       analysisOption)
+    } else stop("method must be 'DBM' or 'OR'\n")
   }
   
-  I <- length(dataset$descriptions$modalityID)
-  J <- length(dataset$descriptions$readerID)
+  return(list(
+    ds = ds,
+    st = st))
   
-  if (J == 1) analysisOption <- "FRRC" else if (I == 1) analysisOption <- "RRFC"
-  
-  if (dataset$descriptions$type == "ROI") {
-    method <- "OR"
-    covEstMethod <- "DeLong" 
-    FOM <- "ROI"
-    cat("ROI dataset: forcing method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.\n")
-  }
-  
-  if (!analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL")){
-    errMsg <- sprintf("%s is not a valid analysis Option.", analysisOption)
-    stop(errMsg)
-  }    
-  
-  # if (length(dataset$descriptions$modalityID) < 2) {
-  #   analysisOption <- "FRRC"
-  #   ErrMsg <- paste0("This analysis requires at least 2 treatments")
-  #   stop(ErrMsg)
-  # }
-  
-  # if ((length(dataset$ratings$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
-  #   ErrMsg <- paste0("Must use analysisOption FRRC with 1-reader dataset")
-  #   stop(ErrMsg)
-  # }
-  
-  if (method == "DBM"){
-    if (covEstMethod != "jackknife") 
-      stop("For DBM method `covEstMethod` must be jackknife")
-  } else if (method == "OR") {
-    if (!covEstMethod %in% c("jackknife", "bootstrap", "DeLong")) {
-      errMsg <- paste0(covEstMethod, " is not an allowed covariance estimation method for ORH analysis.")
-      stop(errMsg)
-    }
-  } else stop("Incorrect `method` argument: must be `DBM` or `OR`")
-  
-
 }
 
+# checkParameters <- function(dataset, FOM, FPFValue, alpha, method, 
+#                             covEstMethod, nBoots, analysisOption)
+# {
+#   
+#   #stop("insert check for x-mod dataset")
+#   options(stringsAsFactors = FALSE, "digits" = 8)
+#   
+#   if (dataset$descriptions$design != "FCTRL") {
+#     method <- "OR"
+#     covEstMethod <- "jackknife"
+#   }
+#   
+#   I <- length(dataset$descriptions$modalityID)
+#   J <- length(dataset$descriptions$readerID)
+#   
+#   if (J == 1) analysisOption <- "FRRC" else if (I == 1) analysisOption <- "RRFC"
+#   
+#   if (dataset$descriptions$type == "ROI") {
+#     method <- "OR"
+#     covEstMethod <- "DeLong" 
+#     FOM <- "ROI"
+#     cat("ROI dataset: forcing method = `ORH`, covEstMethod = `DeLong` and FOM = `ROI`.\n")
+#   }
+#   
+#   if (!analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL")){
+#     errMsg <- sprintf("%s is not a valid analysis Option.", analysisOption)
+#     stop(errMsg)
+#   }    
+#   
+#   # if (length(dataset$descriptions$modalityID) < 2) {
+#   #   analysisOption <- "FRRC"
+#   #   ErrMsg <- paste0("This analysis requires at least 2 treatments")
+#   #   stop(ErrMsg)
+#   # }
+#   
+#   # if ((length(dataset$ratings$NL[1,,1,1]) < 2) && (analysisOption != "FRRC")) {
+#   #   ErrMsg <- paste0("Must use analysisOption FRRC with 1-reader dataset")
+#   #   stop(ErrMsg)
+#   # }
+#   
+#   if (method == "DBM"){
+#     if (covEstMethod != "jackknife") 
+#       stop("For DBM method `covEstMethod` must be jackknife")
+#   } else if (method == "OR") {
+#     if (!covEstMethod %in% c("jackknife", "bootstrap", "DeLong")) {
+#       errMsg <- paste0(covEstMethod, " is not an allowed covariance estimation method for ORH analysis.")
+#       stop(errMsg)
+#     }
+#   } else stop("Incorrect `method` argument: must be `DBM` or `OR`")
+#   
+#   
+# }
+# 

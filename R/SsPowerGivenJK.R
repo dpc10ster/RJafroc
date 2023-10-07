@@ -51,7 +51,7 @@
 #' J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE, analysisOption = "RRFC") 
 #' 
 #' ## EXAMPLE 2: specify NULL dataset & DBM var. comp. & force DBM-based alg.
-#' vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
+#' vcDBM <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")$VarCom
 #' SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = 6, K = 251, 
 #' effectSize = 0.05, method = "DBM", UseDBMHB2004 = TRUE, 
 #' list( 
@@ -66,7 +66,7 @@
 #' ## EXAMPLE 4: specify NULL dataset & OR var. comp. & use OR-based alg.
 #' JStar <- length(dataset02$ratings$NL[1,,1,1])
 #' KStar <- length(dataset02$ratings$NL[1,1,,1])
-#' vcOR <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
+#' vcOR <- UtilOrVarCov(dataset02, FOM = "Wilcoxon")$VarCom
 #' SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", effectSize = 0.05, J = 6, 
 #' K = 251, list(JStar = JStar, KStar = KStar, 
 #'    VarTR = vcOR["VarTR","Estimates"], # replace rhs with actual values as in 4A
@@ -86,7 +86,7 @@
 #'    
 #' ## EXAMPLE 5: specify NULL dataset & DBM var. comp. & use OR-based alg.
 #' ## The DBM var. comp. are converted internally to OR var. comp.
-#' vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
+#' vcDBM <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")$VarCom
 #' KStar <- length(dataset02$ratings$NL[1,1,,1])
 #' SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
 #' method = "DBM", FOM = "Wilcoxon",

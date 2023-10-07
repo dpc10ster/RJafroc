@@ -12,8 +12,7 @@ StSignificanceTesting(
   method = "OR",
   covEstMethod = "jackknife",
   nBoots = 200,
-  analysisOption = "ALL",
-  avgIndx = NULL
+  analysisOption = "RRRC"
 )
 }
 \arguments{
@@ -26,35 +25,31 @@ can be "FCTRL" or "FCTRL-X-MOD".}
 \item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 where to evaluate a partial curve based figure of merit. The default is 0.2.}
 
-\item{alpha}{The significance level of the test of the null hypothesis that all 
-modality effects are zero; the default is 0.05}
+\item{alpha}{The significance level (alpha) of the test of the null hypothesis 
+that all modality effects are zero; the default is 0.05}
 
 \item{method}{The significance testing method to be used:
-\code{"DBM"} representing the Dorfman-Berbaum-Metz method or \code{"OR"}, 
-the default, representing the Obuchowski-Rockette method.}
+\code{"DBM"} i.e. the Dorfman-Berbaum-Metz method or \code{"OR"}, 
+the default, i.e. the Obuchowski-Rockette method.}
 
 \item{covEstMethod}{The covariance matrix estimation method
    in \code{ORH} analysis (for \code{method = "DBM"} the jackknife is always used).
    \itemize{ 
    \item \code{"Jackknife"}, the default, 
-   \item \code{"Bootstrap"}, in which case \code{nBoots} (above) is relevant, 
-   \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon" or "ROI" or "HrAuc"}, 
-   otherwise an error results.
+   \item \code{"Bootstrap"}, in which case \code{nBoots} is relevant, default is 200, 
+   \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon" or "ROI" or "HrAuc"}.
 }}
 
-\item{nBoots}{The number of bootstraps (defaults to 200), relevant only if 
+\item{nBoots}{The number of bootstraps (defaults to 200), relevant if 
 \code{covEstMethod = "bootstrap"} and \code{method = "OR"}}
 
-\item{analysisOption}{Determines which factors are regarded as random vs. fixed:
+\item{analysisOption}{Determines which factors are regarded as random and which are fixed:
 \itemize{ 
    \item \code{"RRRC"} = random-reader random case, the default,
    \item \code{"FRRC"} = fixed-reader random case, 
    \item \code{"RRFC"} = random-reader fixed case, 
-   \item \code{"ALL"} =  all allowed options.
+   \item \code{"ALL"} =  all 3 allowed options.
 }}
-
-\item{avgIndx}{For cross-modality analysis the modality-index to be averaged over. The 
-default is "NULL", i.e., not cross-modality analysis.}
 }
 \value{
 \strong{For \code{method = "DBM"} the returned list contains 4 dataframes:}
@@ -90,13 +85,11 @@ default is "NULL", i.e., not cross-modality analysis.}
 \item{RRFC}{Contains results of \code{"RRFC"} analyses- ditto}
 }
 \description{
-Performs Dorfman-Berbaum-Metz (DBM) or Obuchowski-Rockette (OR) 
-   significance testing, for specified dataset; 
+Performs DBM or OR significance testing, for specified dataset; 
    significance testing refers to analysis designed to assign a P-value, 
-   and other statistics, for 
-   rejecting the null hypothesis (NH) that the reader-averaged 
-   figure of merit (FOM) differences between treatments is zero. The results of 
-   the analysis are best visualized in the text or  
+   and other statistics, for rejecting the null hypothesis (NH) that 
+   the reader-averaged figure of merit (FOM) differences between treatments is zero. 
+   The results of each analysis are best visualized in the text or  
    Excel-formatted files produced by \code{\link{UtilOutputReport}}.
 }
 \examples{
@@ -119,6 +112,11 @@ An ANOVA Approach with Dependent Observations, Communications in Statistics: Sim
 
 Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader multicase radiological imaging data, 
 Statistics in medicine 33, 330-360.
+
+Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
+methods and x-ray tube current-time product  on nodule detection in an 
+anthropomorphic thorax phantom: a crossed-modality JAFROC observer study. 
+Medical Physics. 43(3):1265-1274.
 
 Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
 Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 

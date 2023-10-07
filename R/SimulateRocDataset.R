@@ -54,13 +54,9 @@ SimulateRocDataset <- function(I = 1, J = 1, K1, K2, a, deltaA = 0, b, seed = NU
   fileName <- "NA"
   name <- NA
   design <- "FCTRL"
-  # added truthTableStr 5/18/2023
-  truthTableStr <- array(dim = c(I, J, K, 2)) 
-  truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
-  truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
   type <- "ROC"
   perCase <- rep(1,K2)
-  #IDs <- perCase; dim(perCase) <- c(K2,1) # fix 5/18/2023
+  truthTableStr <- AddTruthTableStr(dataset, type, perCase) # added 9/16/2023
   IDs <- perCase; dim(IDs) <- c(K2,1) # fix 5/18/2023
   weights <- IDs
   modalityID <- as.character(1:I)

@@ -101,12 +101,12 @@
 #' 
 #' @export
 #'
-###Why are parameter values always the same? 10/25/2018; added following comment from documentation mle2
-###Method "BFGS" is a quasi-Newton method (also known as a variable metric algorithm), 
-###specifically that published simultaneously in 1970 by Broyden, Fletcher, Goldfarb and 
-###Shanno. This uses function values and gradients to build up a picture of the surface to be optimized. 
-###DPC note: this implies it does not involve random search in parameter space, so should get same 
-###results every time, regardless of seed, as observed.
+### Why are parameter values always the same? 10/25/2018; added following comment from documentation mle2
+### Method "BFGS" is a quasi-Newton method (also known as a variable metric algorithm), 
+### specifically that published simultaneously in 1970 by Broyden, Fletcher, Goldfarb and 
+### Shanno. This uses function values and gradients to build up a picture of the surface to be optimized. 
+### Note: this implies it does not involve random search in parameter space, so should get same 
+### results every time, regardless of seed, as observed.
 
 FitRsmRoc <- function(binnedRocData, lesDistr, trt = 1, rdr = 1){ 
   # since the ROC dataset is sometimes derived from a FROC dataset with multiple lesions, 

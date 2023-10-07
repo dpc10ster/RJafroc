@@ -2,16 +2,23 @@
 % Please edit documentation in R/isValidDataset.R
 \name{isValidDataset}
 \alias{isValidDataset}
-\title{Check the validity of a dataset}
+\title{Check the validity of a dataset and FOM combination}
 \usage{
-isValidDataset(dataset)
+isValidDataset(dataset, FOM, method = "OR", analysisOption = "RRRC")
 }
 \arguments{
-\item{dataset}{The dataseet object to be checked.}
+\item{dataset}{The dataset object to be checked.}
+
+\item{FOM}{The figure of merit.}
+
+\item{method}{The analysis method, defaults to "OR".}
+
+\item{analysisOption}{The desired generalization: "RRRC", "RRFC", "FRRC" or "ALL", 
+defaults to "RRRC"}
 }
 \value{
-\code{TRUE} if dataset is valid, \code{FALSE} otherwise.
+\code{TRUE} if combination is valid, \code{FALSE} otherwise.
 }
 \description{
-Checks the validity of the dataset.
+Checks the validity of a specified dataset and FOM combination.
 }

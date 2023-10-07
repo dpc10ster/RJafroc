@@ -38,7 +38,7 @@
 #' ## the following two should give identical results
 #' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBM")
 #' 
-#' a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
+#' a <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")$VarCom
 #' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBM", UseDBMHB2004 = TRUE,
 #'    list(VarTR = a["VarTR",1], 
 #'    VarTC = a["VarTC",1], 
@@ -47,7 +47,7 @@
 #' ## the following two should give identical results
 #' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "OR")
 #' 
-#' a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
+#' a <- UtilOrVarCov(dataset02, FOM = "Wilcoxon")$VarCom
 #' KStar <- length(dataset02$ratings$NL[1,1,,1])
 #' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "OR", 
 #'    list(KStar = KStar, 

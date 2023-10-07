@@ -6,12 +6,12 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/DbmDataset02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilVarComponentsDBM(dataset, FOM = "Wilcoxon")
+    ds <- UtilDBMVarComp(dataset, FOM = "Wilcoxon")
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilVarComponentsDBM(dataset, FOM = "Wilcoxon")
+  current <- UtilDBMVarComp(dataset, FOM = "Wilcoxon")
   
   expect_equal(good, current)
   
@@ -26,12 +26,12 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/DbmDatasetwAFROC05", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilVarComponentsDBM(dataset, FOM = "wAFROC")
+    ds <- UtilDBMVarComp(dataset, FOM = "wAFROC")
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilVarComponentsDBM(dataset, FOM = "wAFROC")
+  current <- UtilDBMVarComp(dataset, FOM = "wAFROC")
   
   expect_equal(good, current)
   
@@ -46,13 +46,13 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/JackknifeDataset02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+    ds <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "jackknife")
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+  current <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                                  covEstMethod = "jackknife")
   
   expect_equal(good, current)
@@ -68,14 +68,14 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/bootstrapDataset02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+    ds <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "bootstrap", 
                               nBoots = 2000, seed = 100)
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+  current <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "bootstrap", 
                               nBoots = 2000, seed = 100)
   
@@ -92,13 +92,13 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/DeLongDataset02", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+    ds <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "DeLong")
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+  current <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                                  covEstMethod = "DeLong")
   
   expect_equal(good, current)
@@ -114,13 +114,13 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/JackknifeDataset04", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+    ds <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "jackknife")
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+  current <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                                  covEstMethod = "jackknife")
   
   expect_equal(good, current)
@@ -136,14 +136,14 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/bootstrapDataset04", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+    ds <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "bootstrap", 
                               nBoots = 2000, seed = 100)
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+  current <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                                  covEstMethod = "bootstrap", 
                                  nBoots = 2000, seed = 100)
   
@@ -160,13 +160,13 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/DeLongDataset04", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-     ds <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+     ds <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                               covEstMethod = "DeLong")
     saveRDS(ds, file = fn)
   }
   
   good <- readRDS(fn)
-  current <- UtilVarComponentsOR(dataset, FOM = "Wilcoxon", 
+  current <- UtilOrVarCov(dataset, FOM = "Wilcoxon", 
                                  covEstMethod = "DeLong")
   
   expect_equal(good, current)
@@ -188,12 +188,12 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/UtilVarComponents/frocCr", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    x1 <- UtilVarComponentsOR(temp, FOM = "wAFROC")
+    x1 <- UtilOrVarCov(temp, FOM = "wAFROC")
     saveRDS(x1, file = fn)
   }
   
   x1 <- readRDS(fn)
-  x2 <- UtilVarComponentsOR(temp, FOM = "wAFROC")
+  x2 <- UtilOrVarCov(temp, FOM = "wAFROC")
   expect_equal(x1, x2)
   
 })

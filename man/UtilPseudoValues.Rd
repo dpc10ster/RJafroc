@@ -2,19 +2,18 @@
 % Please edit documentation in R/UtilPseudoValues.R
 \name{UtilPseudoValues}
 \alias{UtilPseudoValues}
-\title{Pseudovalues for given dataset and FOM}
+\title{Pseudovalues for given dsX and FOM}
 \usage{
 UtilPseudoValues(dataset, FOM, FPFValue = 0.2)
 }
 \arguments{
-\item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}};
-must be factorial.}
-
-\item{FOM}{The figure of merit to be used in the calculation. 
-The default is \code{"FOM_wAFROC"}. See \code{\link{UtilFigureOfMerit}}.}
+\item{FOM}{The figure of merit to be used. The default is \code{"FOM_wAFROC"}. 
+See \code{\link{UtilFigureOfMerit}}.}
 
 \item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 where to evaluate a partial curve based figure of merit. The default is 0.2.}
+
+\item{dsX}{The dataset to be analyzed, see \code{\link{RJafroc-package}}.}
 }
 \value{
 A list containing two arrays containing the pseudovalues
@@ -33,5 +32,6 @@ Each returned array has dimension \code{c(I,J,K)}, where \code{K} depends on the
 }
 \examples{
 UtilPseudoValues(dataset05, FOM = "wAFROC")$jkFomValues[1,1,1:10]
+UtilPseudoValues(datasetXModality, FOM = "wAFROC")
 
 }

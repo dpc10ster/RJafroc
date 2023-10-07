@@ -1,10 +1,10 @@
 #' Read a crossed-modality data file
 #' 
-#' @description Read an crossed-modality data file, in which the 
-#' two modality factors are crossed
+#' @description Read a crossed-modality data file, in which the 
+#'    two modality factors are crossed
 #' 
 #' @param fileName A string specifying the name of the file that contains the dataset, 
-#'    which must be an extended-JAFROC format data file containing an 
+#'    which must be an extended-JAFROC format Excel file containing an 
 #'    additional modality factor.
 #' @param sequentialNames If \code{TRUE}, consecutive integers (starting from 1) will be used 
 #'    as the modality and reader IDs. Otherwise, modality and reader IDs in the 
@@ -32,7 +32,8 @@
 #' \url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 #' 
 #' 
-#' @import readxl
+#' @import readxl gtools
+#' 
 #' @export
 DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
@@ -201,13 +202,13 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
     }
   }
   
-  modalityID1 <- as.character(sort(unique(c(NLModalityID1, LLModalityID1))))
+  modalityID1 <- mixedsort(unique(c(NLModalityID1, LLModalityID1)))
   I1 <- length(modalityID1)
   
-  modalityID2 <- as.character(sort(unique(c(NLModalityID2, LLModalityID2))))
+  modalityID2 <- mixedsort(unique(c(NLModalityID2, LLModalityID2)))
   I2 <- length(modalityID2)
   
-  readerID <- as.character(sort(unique(c(NLReaderID, LLReaderID))))
+  readerID <- mixedsort(unique(c(NLReaderID, LLReaderID)))
   J <- length(readerID)
   
   maxNL <- 0

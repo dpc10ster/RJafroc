@@ -336,7 +336,7 @@ ROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   
-  I <- length(treatments2Plot) # found possible error 11/10/19 !!!DPC!!!
+  I <- length(treatments2Plot) # found possible error 11/10/19
   # I <- dim(NL)[1] # No; this gives error
   J <- dim(NL)[2]
   K <- dim(NL)[3]
@@ -419,7 +419,7 @@ AvgROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
       fpf <- ret$fpf;tpf <- ret$tpf
       FPF <- c(0,fpf,1)
       TPF <- c(0,tpf,1)
-      # note added 11/9/19 !!!DPC!!!
+      # note added 11/9/19 ???DPC???
       # since I had to remove the `approx` function for small LROC datasets,
       # this too may need "hand calculation" checking
       temp <- (approx(FPF, TPF, xout = sampledFPF, ties = min))$y
@@ -1331,7 +1331,7 @@ LROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   readerID <- dataset$descriptions$readerID
   
   
-  I <- length(treatments2Plot) # found possible error 11/10/19 !!!DPC!!!
+  I <- length(treatments2Plot) # found possible error 11/10/19
   # I <- dim(NL)[1] # No; this gives error
   J <- dim(NL)[2]
   K <- dim(NL)[3]
