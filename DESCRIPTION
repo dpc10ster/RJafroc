@@ -15,6 +15,7 @@ Imports:
     binom,
     dplyr,
     ggplot2,
+    gtools,
     mvtnorm,
     numDeriv,
     openxlsx,

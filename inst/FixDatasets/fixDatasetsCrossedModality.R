@@ -1,6 +1,6 @@
 rm(list = ls())
 
-fn <- "~/GitHub/datasets/CrossedModalitiesDataFile.xlsx"
+fn <- "~/GitHub/datasets/XModDataFile.xlsx"
 ds <- DfReadCrossedModalities(fn)
 
 datasetXModality <- ds
