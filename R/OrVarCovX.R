@@ -1,10 +1,11 @@
-UtilOrVarCovXModality <- function (dsX, FOM, FPFValue, covEstMethod, nBoots, seed)
+OrVarCovX <- function (dsX, FOM, FPFValue, covEstMethod, nBoots, seed)
 {  
   I1 <- dim(dsX$ratings$NL)[1]
   I2 <- dim(dsX$ratings$NL)[2]
   J <- dim(dsX$ratings$NL)[3]
   
-  foms <- UtilFigureOfMerit(dsX, FOM, FPFValue)
+  fomsTemp <- UtilFigureOfMerit(dsX, FOM, FPFValue)
+  foms <- FomAvgXModality(dsX, fomsTemp)
   fomMean <- mean(foms[[1]]) # same as mean(foms[[2]])
   
   I <- c(I2,I1) # average over 1st modality has number of levels equal to that of 2nd modality
@@ -20,7 +21,7 @@ UtilOrVarCovXModality <- function (dsX, FOM, FPFValue, covEstMethod, nBoots, see
   cov2EachTrt <- list()
   varEachTrt <- list()
   
-  for (avgIndx in 1:2) { # treatment index to average FOM over
+  for (avgIndx in 1:2) { # treatment index that FOM was averaged over
     if (I[avgIndx] > 1) {
       for (ii in 1:I[avgIndx]) {
         msT[avgIndx] <- msT[avgIndx] + (mean(foms[[avgIndx]][ii,]) - fomMean)^2
@@ -65,8 +66,9 @@ UtilOrVarCovXModality <- function (dsX, FOM, FPFValue, covEstMethod, nBoots, see
       msR_i[[avgIndx]][avgIndx] <- msR_i[[avgIndx]][avgIndx]/(J - 1)
     } else msR_i[[avgIndx]][ii] <- NA
     
+    # ???DPC???
     # following call gets all the needed variance and covariance components
-    VarCovALL <- OrVarCov(dsX, FOM, FPFValue, nBoots, covEstMethod, seed)
+    # VarCovALL <- OrVarCov(dsX, FOM, FPFValue, nBoots, covEstMethod, seed)
     
   }
   

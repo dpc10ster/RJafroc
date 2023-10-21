@@ -36,7 +36,7 @@ interpreted by a CAD system and nine radiologists using the
 LROC paradigm. The first reader is CAD. The highest rating was used to convert this to an ROC 
 dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this 
 data requires methods described in the book, implemented in the function  
-\code{\link{StSignificanceTestingCadVsRad}}.
+\code{\link{StCadVsRad}}.
 }
 \examples{
 str(dataset09)

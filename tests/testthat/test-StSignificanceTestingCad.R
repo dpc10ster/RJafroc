@@ -1,4 +1,4 @@
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRFC Wilcoxon"
+contextStr <- "StCadVsRad: 1T-RRFC Wilcoxon"
 context(contextStr)
 test_that(contextStr, {
 
@@ -7,12 +7,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRFC")
+    ret <- StCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRFC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRFC")
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRFC")
   
   for (i in 1:length(GoodValues))
   {
@@ -28,7 +28,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRFC PCL 0.05"
+contextStr <- "StCadVsRad: 1T-RRFC PCL 0.05"
 context(contextStr)
 test_that(contextStr, {
   
@@ -37,12 +37,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 0.05)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 0.05)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 0.05)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 0.05)
   
   for (i in 1:length(GoodValues))
   {
@@ -57,7 +57,7 @@ test_that(contextStr, {
 })
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRFC PCL 0.2"
+contextStr <- "StCadVsRad: 1T-RRFC PCL 0.2"
 context(contextStr)
 test_that(contextStr, {
   
@@ -66,12 +66,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRFC")
+    ret <- StCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRFC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRFC")
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRFC")
   
   for (i in 1:length(GoodValues))
   {
@@ -87,7 +87,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRFC PCL 1"
+contextStr <- "StCadVsRad: 1T-RRFC PCL 1"
 context(contextStr)
 test_that(contextStr, {
 
@@ -96,12 +96,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 1)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 1)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 1)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRFC", FPFValue = 1)
   
   for (i in 1:length(GoodValues))
   {
@@ -116,7 +116,7 @@ test_that(contextStr, {
 })
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRFC ALROC 0.05"
+contextStr <- "StCadVsRad: 1T-RRFC ALROC 0.05"
 context(contextStr)
 test_that(contextStr, {
   
@@ -125,12 +125,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 0.05)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 0.05)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 0.05)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 0.05)
   
   for (i in 1:length(GoodValues))
   {
@@ -146,7 +146,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRFC ALROC 0.2"
+contextStr <- "StCadVsRad: 1T-RRFC ALROC 0.2"
 context(contextStr)
 test_that(contextStr, {
 
@@ -155,12 +155,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRFC")
+    ret <- StCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRFC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRFC")
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRFC")
   
   for (i in 1:length(GoodValues))
   {
@@ -175,7 +175,7 @@ test_that(contextStr, {
 })
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRFC ALROC 1"
+contextStr <- "StCadVsRad: 1T-RRFC ALROC 1"
 context(contextStr)
 test_that(contextStr, {
   
@@ -184,12 +184,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 1)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 1)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 1)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRFC", FPFValue = 1)
   
   for (i in 1:length(GoodValues))
   {
@@ -205,7 +205,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRRC Wilcoxon"
+contextStr <- "StCadVsRad: 1T-RRRC Wilcoxon"
 context(contextStr)
 test_that(contextStr, {
 
@@ -214,12 +214,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRRC")
+    ret <- StCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRRC")
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "1T-RRRC")
   
   for (i in 1:length(GoodValues))
   {
@@ -235,7 +235,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRRC PCL 0.05"
+contextStr <- "StCadVsRad: 1T-RRRC PCL 0.05"
 context(contextStr)
 test_that(contextStr, {
 
@@ -244,12 +244,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
   
   for (i in 1:length(GoodValues))
   {
@@ -266,7 +266,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRRC PCL 0.2"
+contextStr <- "StCadVsRad: 1T-RRRC PCL 0.2"
 context(contextStr)
 test_that(contextStr, {
 
@@ -275,12 +275,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRRC")
+    ret <- StCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRRC")
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "1T-RRRC")
   
   for (i in 1:length(GoodValues))
   {
@@ -296,7 +296,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRRC PCL 1"
+contextStr <- "StCadVsRad: 1T-RRRC PCL 1"
 context(contextStr)
 test_that(contextStr, {
 
@@ -305,12 +305,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 1)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 1)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 1)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "1T-RRRC", FPFValue = 1)
   
   for (i in 1:length(GoodValues))
   {
@@ -326,7 +326,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRRC ALROC 0.05"
+contextStr <- "StCadVsRad: 1T-RRRC ALROC 0.05"
 context(contextStr)
 test_that(contextStr, {
 
@@ -335,12 +335,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 0.05)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 0.05)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 0.05)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 0.05)
   
   for (i in 1:length(GoodValues))
   {
@@ -356,7 +356,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRRC ALROC 0.2"
+contextStr <- "StCadVsRad: 1T-RRRC ALROC 0.2"
 context(contextStr)
 test_that(contextStr, {
 
@@ -365,12 +365,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRRC")
+    ret <- StCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRRC")
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "1T-RRRC")
   
   for (i in 1:length(GoodValues))
   {
@@ -386,7 +386,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRRC ALROC 1"
+contextStr <- "StCadVsRad: 1T-RRRC ALROC 1"
 context(contextStr)
 test_that(contextStr, {
 
@@ -395,12 +395,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 1)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 1)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 1)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "1T-RRRC", FPFValue = 1)
   
   for (i in 1:length(GoodValues))
   {
@@ -416,7 +416,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 2T-RRRC Wilcoxon"
+contextStr <- "StCadVsRad: 2T-RRRC Wilcoxon"
 context(contextStr)
 test_that(contextStr, {
 
@@ -425,12 +425,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "2T-RRRC")
+    ret <- StCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "2T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "2T-RRRC")
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "Wilcoxon", method = "2T-RRRC")
   
   for (i in 1:length(GoodValues))
   {
@@ -446,7 +446,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 2T-RRRC PCL 0.05"
+contextStr <- "StCadVsRad: 2T-RRRC PCL 0.05"
 context(contextStr)
 test_that(contextStr, {
 
@@ -455,12 +455,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
   
   for (i in 1:length(GoodValues))
   {
@@ -476,7 +476,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 2T-RRRC PCL 0.2"
+contextStr <- "StCadVsRad: 2T-RRRC PCL 0.2"
 context(contextStr)
 test_that(contextStr, {
 
@@ -485,12 +485,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "2T-RRRC")
+    ret <- StCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "2T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "2T-RRRC")
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "PCL", FPFValue = 0.2, method = "2T-RRRC")
   
   for (i in 1:length(GoodValues))
   {
@@ -506,7 +506,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 2T-RRRC PCL 1"
+contextStr <- "StCadVsRad: 2T-RRRC PCL 1"
 context(contextStr)
 test_that(contextStr, {
 
@@ -515,12 +515,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 1)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 1)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 1)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "PCL", method = "2T-RRRC", FPFValue = 1)
   
   for (i in 1:length(GoodValues))
   {
@@ -536,7 +536,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 2T-RRRC ALROC 0.05"
+contextStr <- "StCadVsRad: 2T-RRRC ALROC 0.05"
 context(contextStr)
 test_that(contextStr, {
 
@@ -545,12 +545,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 0.05)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 0.05)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 0.05)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 0.05)
   
   for (i in 1:length(GoodValues))
   {
@@ -566,7 +566,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 2T-RRRC ALROC 0.2"
+contextStr <- "StCadVsRad: 2T-RRRC ALROC 0.2"
 context(contextStr)
 test_that(contextStr, {
 
@@ -575,12 +575,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "2T-RRRC")
+    ret <- StCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "2T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "2T-RRRC")
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "ALROC", FPFValue = 0.2, method = "2T-RRRC")
   
   for (i in 1:length(GoodValues))
   {
@@ -596,7 +596,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 2T-RRRC ALROC 1"
+contextStr <- "StCadVsRad: 2T-RRRC ALROC 1"
 context(contextStr)
 test_that(contextStr, {
 
@@ -605,12 +605,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 1)
+    ret <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 1)
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 1)
+  CurrentValues <- StCadVsRad(datasetCadLroc, FOM = "ALROC", method = "2T-RRRC", FPFValue = 1)
   
   for (i in 1:length(GoodValues))
   {
@@ -626,7 +626,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRFC FROC HrAuc"
+contextStr <- "StCadVsRad: 1T-RRFC FROC HrAuc"
 context(contextStr)
 test_that(contextStr, {
 
@@ -635,12 +635,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRFC")
+    ret <- StCadVsRad(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRFC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRFC")
+  CurrentValues <- StCadVsRad(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRFC")
   
   for (i in 1:length(GoodValues))
   {
@@ -656,7 +656,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRFC FROC wAFROC"
+contextStr <- "StCadVsRad: 1T-RRFC FROC wAFROC"
 context(contextStr)
 test_that(contextStr, {
 
@@ -665,12 +665,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRFC")
+    ret <- StCadVsRad(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRFC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRFC")
+  CurrentValues <- StCadVsRad(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRFC")
   
   for (i in 1:length(GoodValues))
   {
@@ -686,7 +686,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRRC FROC HrAuc"
+contextStr <- "StCadVsRad: 1T-RRRC FROC HrAuc"
 context(contextStr)
 test_that(contextStr, {
 
@@ -695,12 +695,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRRC")
+    ret <- StCadVsRad(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRRC")
+  CurrentValues <- StCadVsRad(datasetCadSimuFroc, FOM = "HrAuc", method = "1T-RRRC")
   
   for (i in 1:length(GoodValues))
   {
@@ -716,7 +716,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: 1T-RRRC FROC wAFROC"
+contextStr <- "StCadVsRad: 1T-RRRC FROC wAFROC"
 context(contextStr)
 test_that(contextStr, {
 
@@ -725,12 +725,12 @@ test_that(contextStr, {
   
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- StSignificanceTestingCadVsRad(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRRC")
+    ret <- StCadVsRad(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRRC")
     saveRDS(ret, file = fn)
   }
   
   GoodValues <- readRDS(fn) # good values
-  CurrentValues <- StSignificanceTestingCadVsRad(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRRC")
+  CurrentValues <- StCadVsRad(datasetCadSimuFroc, FOM = "wAFROC", method = "1T-RRRC")
   
   for (i in 1:length(GoodValues))
   {

@@ -426,7 +426,7 @@
   \itemize{
         \item \code{\link{StSignificanceTesting}}: Perform significance testing,
            DBM or OR.
-        \item \code{\link{StSignificanceTestingCadVsRad}}: Perform
+        \item \code{\link{StCadVsRad}}: Perform
            significance testing, CAD vs. radiologists.
   }
 }

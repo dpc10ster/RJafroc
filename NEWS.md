@@ -10,6 +10,7 @@ title: "NEWS"
 ### Do global search for questionable code
 * marked as follows
 * ???DPC???
+* Renamed `StSignificanceTestingCadVsRad` to `StCadVsRad`
 
 
 ### TODOs 10/4/23

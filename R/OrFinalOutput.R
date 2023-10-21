@@ -1,4 +1,4 @@
-UtilOrVarCovFactorial <- function (foms, jkFomValues, VarCovALL, modalityID, readerID)
+OrFinalOutput <- function (foms, jkFomValues, VarCovALL, modalityID, readerID)
 {
   
   I <- dim(foms)[1]

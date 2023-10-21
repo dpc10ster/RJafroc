@@ -118,23 +118,26 @@ StSignificanceTesting <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, me
       
       return(StDBMHAnalysis(dataset, FOM, FPFValue, alpha, analysisOption))
       
-    } else {
+    } else { # XModality
       
-      ret <- StORAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)
+      # ???
+      ret <- StDBMHAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod)
       
       return(ret)
       
     }
     
-  } else {
+  } else { # method == "OR"
     
     if (dataset$descriptions$design == "FCTRL") {
       
       ret <- StORAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)
+      
       return(ret)
       
-    } else {
-      
+    } else { # XModality
+
+      # ???
       ret <- StORAnalysis(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)
       
       return(ret)

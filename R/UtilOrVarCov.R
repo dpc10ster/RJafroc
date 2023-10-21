@@ -54,20 +54,41 @@ UtilOrVarCov <- function (dataset, FOM, FPFValue = 0.2,
     
     modalityID <- dataset$descriptions$modalityID
     readerID <- dataset$descriptions$readerID
+    
     foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
     jkFomValues <- ret$jkFomValues
+    
     # following call gets all the needed variance and covariance components
     VarCovALL <- OrVarCov(jkFomValues, modalityID, readerID, covEstMethod)
     
-    ret <- UtilOrVarCovFactorial(foms, ret$jkFomValues, VarCovALL, 
-                                 dataset$descriptions$modalityID, 
-                                 dataset$descriptions$readerID)
-      
+    ret <- OrFinalOutput(foms, 
+                         ret$jkFomValues, 
+                         VarCovALL, 
+                         modalityID, 
+                         readerID)
+    
   } else {
     # cross-modality factorial dataset, two treatment factors
+    # 
+    dsX <- dataset
+    modalityID1 <- dsX$descriptions$modalityID1
+    modalityID2 <- dsX$descriptions$modalityID2
+    modalityID <- list(modalityID2, modalityID1)
+    readerID <- dsX$descriptions$readerID
     
-    ret <- UtilOrVarCovXModality(dataset, FOM, FPFValue, covEstMethod, nBoots, seed)
+    fomsTemp <- UtilFigureOfMerit(dsX, FOM, FPFValue)
+    foms <- FomAvgXModality(dsX, fomsTemp)
+    
+    ret <- UtilPseudoValues(dsX, FOM, FPFValue)
+    jkFomValues <- ret$jkFomValues
+    
+    # following call gets all the needed variance and covariance components
+    VarCovALL <- OrVarCov(jkFomValues, modalityID, readerID, covEstMethod)
+     ret <- OrFinalOutputX(foms, 
+                          VarCovALL, 
+                          modalityID, 
+                          readerID)
     
   }  
 }

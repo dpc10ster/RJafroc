@@ -19,8 +19,13 @@
 #' 
 isValidDataset <- function(dataset, FOM, method = "OR", analysisOption = "RRRC") {
   
-  if (!(analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL"))) {
-    cat("Incorrect analysisOption: must be `RRRC`, `FRRC`, `RRFC` or `ALL`")
+  return (isValidFOM(dataset, FOM)) 
+  
+  return(isValidAnalysisOption(dataset, analysisOption))
+  
+  dataType <- dataset$descriptions$type
+  if ((dataset$descriptions$design == "FCTRL-X-MOD") && (dataType %in% c("ROI", "LROC"))) {
+    cat("ROI or LROC **cross-modality** analyses is not currently supported.\n")
     return(FALSE)
   }
   
@@ -48,12 +53,34 @@ isValidDataset <- function(dataset, FOM, method = "OR", analysisOption = "RRRC")
   }
   
   if (dataset$descriptions$design == "FCTRL") {
-    if (!(length(dim(dataset$ratings$NL)) == 4) ||
-        !(length(dim(dataset$ratings$LL)) == 4)) {
+    if ((length(dim(dataset$ratings$NL)) != 4) ||
+        (length(dim(dataset$ratings$LL)) != 4)) {
       cat("Invalid NL and or LL array dimension.\n")
       return(FALSE)
     }
   } else {
+    
+    NL <- dataset$ratings$NL
+    LL <- dataset$ratings$LL
+    
+    if ((length(dim(NL)) != 5) || (length(dim(LL)) != 5)){
+      cat ("This is not a cross-modality dataset")
+      return(FALSE)
+    }
+    
+    I1 <- dim(NL)[1]
+    I2 <- dim(NL)[2]
+    J <- dim(NL)[3]
+    K <- dim(NL)[4]
+    K2 <- dim(LL)[4]
+    K1 <- K - K2  
+    
+    if ((K1 == 0) && !(FOM %in% c("AFROC1", "wAFROC1"))) {
+      cat("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
+      return(FALSE)
+    }
+    
+    
     if (!(length(dim(dataset$ratings$NL)) == 5) ||
         !(length(dim(dataset$ratings$LL)) == 5)) {
       cat("Invalid NL and or LL array dimension.\n")
@@ -66,7 +93,6 @@ isValidDataset <- function(dataset, FOM, method = "OR", analysisOption = "RRRC")
     }
     
   }
-  
   
   if ((dataType %in% c("FROC", "ROI")) && (FOM == "Wilcoxon")) {
     cat("Cannot use `Wilcoxon` FOM with `FROC` or `ROI` data.")
@@ -142,6 +168,18 @@ isValidDataset <- function(dataset, FOM, method = "OR", analysisOption = "RRRC")
   
 }
 
+isValidFOM <- function(dataset, FOM) {
+  
+  if (!(((dataset$descriptions$type == "FROC") && 
+         (FOM %in% c("HrAuc", "AFROC", "wAFROC", "AFROC1", "wAFROC1"))) || 
+        ((dataType == "ROC") && (FOM %in% c("Wilcoxon"))))) {
+    cat("FOM inconsistent with data type.\n")  
+    return(FALSE)
+  }
+  
+  return (TRUE)
+  
+}
 
 isValidCovEstMethod <- function(FOM, covEstMethod) {
   
@@ -156,5 +194,16 @@ isValidCovEstMethod <- function(FOM, covEstMethod) {
   }
   
   return (TRUE)
+  
+}
+
+isValidAnalysisOption <- function(dataset, analysisOption) {
+  
+  if (!(analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL"))) {
+    cat("Incorrect analysisOption: must be `RRRC`, `FRRC`, `RRFC` or `ALL`")
+    return(FALSE)
+  }
+  
+  return(TRUE)
   
 }

@@ -76,7 +76,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "StSignificanceTestingCadVsRad: Issue T1-RRRC for ROC data #73"
+contextStr <- "StCadVsRad: Issue T1-RRRC for ROC data #73"
 context(contextStr)
 test_that(contextStr, {
   # See issue 73 on GitHub website

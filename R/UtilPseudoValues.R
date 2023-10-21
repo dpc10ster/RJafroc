@@ -82,7 +82,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     } else stop("Illegal FOM specified")
     
     t <- dataset$descriptions$truthTableStr
-    fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+    foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
     for (i in 1:I) {
       for (j in 1:J) {
         # NOTATION
@@ -103,9 +103,9 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
         K_ij <- K1_ij + K2_ij
         lID_ij <- dataset$lesions$IDs[k2_ij_logi,1:maxLL, drop = FALSE]
         lW_ij <- dataset$lesions$weights[k2_ij_logi,1:maxLL, drop = FALSE]
-        nl_ij <- NL[i, j, k_ij_logi, 1:maxNL]; dim(nl_ij) <- c(K_ij, maxNL)
+        nl_i1i2j <- NL[i, j, k_ij_logi, 1:maxNL]; dim(nl_i1i2j) <- c(K_ij, maxNL)
         # i.e., NL ratings for all cases meeting the i,j criteria
-        ll_ij <- LL[i, j, k2_ij_logi, 1:maxLL]; dim(ll_ij) <- c(K2_ij, maxLL)
+        ll_i1i2j <- LL[i, j, k2_ij_logi, 1:maxLL]; dim(ll_i1i2j) <- c(K2_ij, maxLL)
         # i.e., LL ratings for all cases meeting the i,j criteria
         
         if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
@@ -116,8 +116,8 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
             kIndxNor <- which(k1_ij_logi)[k];if (is.na(kIndxNor)) 
               stop("Indexing error kIndxNor in UtilPseudoValues")
             # FOMs defined over NORMAL cases
-            nlij_jk <- nl_ij[-k, ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
-            llij_jk <- ll_ij;dim(llij_jk) <- c(K2_ij, maxLL)
+            nlij_jk <- nl_i1i2j[-k, ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
+            llij_jk <- ll_i1i2j;dim(llij_jk) <- c(K2_ij, maxLL)
             lV_j_jk <- perCase_ij
             lW_j_jk <- lW_ij;dim(lW_j_jk) <- c(K2_ij, maxLL)
             lID_j_jk <- lID_ij;dim(lID_j_jk) <- c(K2_ij, maxLL)
@@ -129,7 +129,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
             } else stop("overwriting jkFomValues[i, j, kIndxNor] in UtilPseudoValues")
             if (is.na(jkPseudoValues[i, j, kIndxNor])) {
               jkPseudoValues[i, j, kIndxNor] <- 
-                fomArray[i, j] * K1_ij - jkFomValues[i, j, kIndxNor] * (K1_ij - 1)
+                foms[i, j] * K1_ij - jkFomValues[i, j, kIndxNor] * (K1_ij - 1)
             } else stop("overwriting jkPseudoValues[i, j, kIndxNor] in UtilPseudoValues")
           }
         } else if (FOM %in% c("MaxLLF", "HrSe")) { 
@@ -140,8 +140,8 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
             # ranges from 1 to K2
             kIndxAbn <- which(k2_ij_logi)[k];if (is.na(kIndxAbn)) 
               stop("Indexing error kIndxAbn in UtilPseudoValues")
-            nlij_jk <- nl_ij[-(k+K1_ij), ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
-            llij_jk <- ll_ij[-k, ];dim(llij_jk) <- c(K2_ij - 1, maxLL)
+            nlij_jk <- nl_i1i2j[-(k+K1_ij), ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
+            llij_jk <- ll_i1i2j[-k, ];dim(llij_jk) <- c(K2_ij - 1, maxLL)
             lV_j_jk <- perCase_ij[-k]
             lW_j_jk <- lW_ij[-k, ];dim(lW_j_jk) <- c(K2_ij - 1, maxLL)
             lID_j_jk <- lID_ij[-k, ];dim(lID_j_jk) <- c(K2_ij - 1, maxLL)
@@ -153,7 +153,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
             } else stop("overwriting jkFomValues[i, j, kIndxAbn] in UtilPseudoValues 3")
             if (is.na(jkPseudoValues[i, j, kIndxAbn])) {
               jkPseudoValues[i, j, kIndxAbn] <- 
-                fomArray[i, j] * K2_ij - jkFomValues[i, j, kIndxAbn] * (K2_ij - 1)
+                foms[i, j] * K2_ij - jkFomValues[i, j, kIndxAbn] * (K2_ij - 1)
             } else stop("overwriting jkFomValues[i, j, kIndxAbn] in UtilPseudoValues")
           }
         } else { 
@@ -165,8 +165,8 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
             kIndxAll <- which(k_ij_logi)[k];if (is.na(kIndxAll)) 
               stop("Indexing error kIndxAll in UtilPseudoValues")
             if (k <= K1_ij) {
-              nlij_jk <- nl_ij[-k, ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
-              llij_jk <- ll_ij;dim(llij_jk) <- c(K2_ij, maxLL)
+              nlij_jk <- nl_i1i2j[-k, ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
+              llij_jk <- ll_i1i2j;dim(llij_jk) <- c(K2_ij, maxLL)
               lV_j_jk <- perCase_ij
               lID_j_jk <- lID_ij;dim(lID_j_jk) <- c(K2_ij, maxLL)
               lW_j_jk <- lW_ij;dim(lW_j_jk) <- c(K2_ij, maxLL)
@@ -178,11 +178,11 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
               } else stop("overwriting jkFomValues[i, j, kIndxAll] in UtilPseudoValues")
               if (is.na(jkPseudoValues[i, j, kIndxAll])) {
                 jkPseudoValues[i, j, kIndxAll] <- 
-                  fomArray[i, j] * K_ij - jkFomValues[i, j, kIndxAll] * (K_ij - 1)
+                  foms[i, j] * K_ij - jkFomValues[i, j, kIndxAll] * (K_ij - 1)
               } else stop("overwriting jkFomValues[i, j, kIndxAll] in UtilPseudoValues")
             } else {
-              nlij_jk <- nl_ij[-k, ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
-              llij_jk <- ll_ij[-(k - K1_ij), ];dim(llij_jk) <- c(K2_ij - 1, maxLL)
+              nlij_jk <- nl_i1i2j[-k, ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
+              llij_jk <- ll_i1i2j[-(k - K1_ij), ];dim(llij_jk) <- c(K2_ij - 1, maxLL)
               lV_j_jk <- perCase_ij[-(k - K1_ij)]
               lW_j_jk <- lW_ij[-(k - K1_ij), ];dim(lW_j_jk) <- c(K2_ij - 1, maxLL)
               lID_j_jk <- lID_ij[-(k - K1_ij), ];dim(lID_j_jk) <- c(K2_ij - 1, maxLL)
@@ -194,27 +194,27 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
               } else stop("overwriting jkFomValues[i, j, kIndxAll] in UtilPseudoValues")
               if (is.na(jkPseudoValues[i, j, kIndxAll])) {
                 jkPseudoValues[i, j, kIndxAll] <- 
-                  fomArray[i, j] * K_ij - jkFomValues[i, j, kIndxAll] * (K_ij - 1)
+                  foms[i, j] * K_ij - jkFomValues[i, j, kIndxAll] * (K_ij - 1)
               } else stop("overwriting jkFomValues[i, j, kIndxAll] in UtilPseudoValues")
             }
           }
         }
-        # center the pseudovalues 
+        # center the pseudovalues so that mean (jkPseudoValues) == mean(jkFomValues)
         if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
           # FOMs defined over NORMAL cases
           jkPseudoValues[i, j, which(k1_ij_logi)] <- 
             jkPseudoValues[i, j, which(k1_ij_logi)] + 
-            (fomArray[i, j] - mean(jkPseudoValues[i, j, which(k1_ij_logi)]))
+            (foms[i, j] - mean(jkPseudoValues[i, j, which(k1_ij_logi)]))
         }  else if (FOM %in% c("MaxLLF", "HrSe")) {
           # FOMs defined over ABNORMAL cases
           jkPseudoValues[i, j, which(k2_ij_logi)] <- 
             jkPseudoValues[i, j, which(k2_ij_logi)] + 
-            (fomArray[i, j] - mean(jkPseudoValues[i, j, which(k2_ij_logi)]))
+            (foms[i, j] - mean(jkPseudoValues[i, j, which(k2_ij_logi)]))
         } else {
           # FOMs defined over ALL cases
           jkPseudoValues[i, j, which(k_ij_logi)] <- 
             jkPseudoValues[i, j, which(k_ij_logi)] + 
-            (fomArray[i, j] - mean(jkPseudoValues[i, j, which(k_ij_logi)]))
+            (foms[i, j] - mean(jkPseudoValues[i, j, which(k_ij_logi)]))
         }
       }
     }
@@ -227,6 +227,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     # only allow "Wilcoxon", "AFROC", "AFROC1", "wAFROC1", "wAFROC" FOMs
     
     dsX <- dataset
+    
     I1 <- dim(dsX$ratings$NL)[1]
     I2 <- dim(dsX$ratings$NL)[2]
     J <- dim(dsX$ratings$NL)[3]
@@ -235,71 +236,85 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     K1 <- K - K2
     maxNL <- dim(dsX$ratings$NL)[5]
     maxLL <- dim(dsX$ratings$LL)[5]
+    perCase <- dataset$lesions$perCase 
     
     dataType <- dsX$descriptions$type
+    NL <- dsX$ratings$NL
+    LL <- dsX$ratings$LL
     
     jkFom <- list()
     jkPseudo <- list()
     
+    foms <- UtilFigureOfMerit(dsX, FOM, FPFValue)
+    # don't need the averaged FOMs here
+    #foms <- FomAvgXModality(dsX, fomsTemp)[[2]] # the raw FOMs, before averaging
+    
     jkFomValues <- array(dim = c(I1, I2, J, K))
     jkPseudoValues <- array(dim = c(I1, I2, J, K))
-    
-    fomArray <- UtilFigureOfMerit(dsX, FOM)
-    jkFomValues <- array(dim = c(I1,I2,J,K))
     
     for (i1 in 1:I1) { # first modality
       for (i2 in 1:I2) { # second modality
         for (j in 1:J) {
-          lID_ij <- dsX$lesions$IDs[,1:maxLL, drop = FALSE]
-          lW_ij <- dsX$lesions$weights[,1:maxLL, drop = FALSE]
-          nl_ij <- NL[i1, i2, j, , 1:maxNL]; dim(nl_ij) <- c(K, maxNL)
-          ll_ij <- LL[i1, i2, j, , 1:maxLL]; dim(ll_ij) <- c(K2, maxLL)
+          lID <- dsX$lesions$IDs[,1:maxLL, drop = FALSE]
+          lW <- dsX$lesions$weights[,1:maxLL, drop = FALSE]
+          nl_i1i2j <- NL[i1, i2, j, , 1:maxNL]; dim(nl_i1i2j) <- c(K, maxNL)
+          ll_i1i2j <- LL[i1, i2, j, , 1:maxLL]; dim(ll_i1i2j) <- c(K2, maxLL)
           for (k in 1:K) {
             if (k <= K1) {
-              nl_ij_jk <- nl_ij[-k, ];dim(nl_ij_jk) <- c(K - 1, maxNL)
-              ll_ij_jk <- ll_ij;dim(ll_ij_jk) <- c(K2, maxLL)
-              lV_ij_jk <- dsX$lesions$perCase
-              lID_ij_jk <- lID_ij;dim(lID_ij_jk) <- c(K2, maxLL)
-              lW_ij_jk <- lW_ij;dim(lW_ij_jk) <- c(K2, maxLL)
-              if (is.na(jkFomValues[i2, j, k])) {
+              nl_i1i2j_jk <- nl_i1i2j[-k, ];dim(nl_i1i2j_jk) <- c(K - 1, maxNL)
+              ll_i1i2j_jk <- ll_i1i2j;dim(ll_i1i2j_jk) <- c(K2, maxLL)
+              lV_i1i2j_jk <- dsX$lesions$perCase
+              lID_i1i2j_jk <- lID;dim(lID_i1i2j_jk) <- c(K2, maxLL)
+              lW_i1i2j_jk <- lW;dim(lW_i1i2j_jk) <- c(K2, maxLL)
+              if (is.na(jkFomValues[i1, i2, j, k])) {
                 jkFomValues[i1, i2, j, k] <- 
-                  MyFom_ij(nl_ij_jk, ll_ij_jk, lV_ij_jk, 
-                           lID_ij_jk, lW_ij_jk, maxNL, maxLL, 
-                           K1_ij - 1, K2, FOM, FPFValue)
+                  MyFom_ij(nl_i1i2j_jk, ll_i1i2j_jk, lV_i1i2j_jk, 
+                           lID_i1i2j_jk, lW_i1i2j_jk, maxNL, maxLL, 
+                           K1 - 1, K2, FOM, FPFValue)
               } else stop("overwriting jkFomValues[i1, i2, j, k] in UtilPseudoValues")
               if (is.na(jkPseudoValues[i1, i2, j, k])) {
                 jkPseudoValues[i1, i2, j, k] <- 
-                  fomArray[[i1]][i2, j] * K - jkFomValues[i1, i2, j, k] * (K - 1)
+                  foms[i1, i2, j] * K - jkFomValues[i1, i2, j, k] * (K - 1)
               } else stop("overwriting jkFomValues[i1, i2, j, k] in UtilPseudoValues")
             } else {
-              nl_ij_jk <- nl_ij[-k, ];dim(nl_ij_jk) <- c(K - 1, maxNL)
-              ll_ij_jk <- ll_ij[-(k - K1_ij), ];dim(ll_ij_jk) <- c(K2 - 1, maxLL)
-              lV_ij_jk <- perCase_ij[-(k - K1_ij)]
-              lW_ij_jk <- lW_ij[-(k - K1_ij), ];dim(lW_ij_jk) <- c(K2 - 1, maxLL)
-              lID_ij_jk <- lID_ij[-(k - K1_ij), ];dim(lID_ij_jk) <- c(K2 - 1, maxLL)
+              nl_i1i2j_jk <- nl_i1i2j[-k, ];dim(nl_i1i2j_jk) <- c(K - 1, maxNL)
+              ll_i1i2j_jk <- ll_i1i2j[-(k - K1), ];dim(ll_i1i2j_jk) <- c(K2 - 1, maxLL)
+              lV_i1i2j_jk <- perCase[-(k - K1)]
+              lW_i1i2j_jk <- lW[-(k - K1), ];dim(lW_i1i2j_jk) <- c(K2 - 1, maxLL)
+              lID_i1i2j_jk <- lID[-(k - K1), ];dim(lID_i1i2j_jk) <- c(K2 - 1, maxLL)
               if (is.na(jkFomValues[i1, i2, j, k])) {
                 jkFomValues[i1, i2, j, k] <- 
-                  MyFom_ij(nl_ij_jk, ll_ij_jk, lV_ij_jk, 
-                           lID_ij_jk, lW_ij_jk, maxNL, maxLL, 
-                           K1_ij, K2 - 1, FOM, FPFValue)
+                  MyFom_ij(nl_i1i2j_jk, ll_i1i2j_jk, lV_i1i2j_jk, 
+                           lID_i1i2j_jk, lW_i1i2j_jk, maxNL, maxLL, 
+                           K1, K2 - 1, FOM, FPFValue)
               } else stop("overwriting jkFomValues[i1, i2, j, k] UtilPseudoValues")
               if (is.na(jkPseudoValues[i1, i2, j, k])) {
                 jkPseudoValues[i1, i2, j, k] <- 
-                  fomArray[[i1]][i2, j] * K - jkFomValues[i1, i2, j, k] * (K - 1)
+                  foms[i1, i2, j] * K - jkFomValues[i1, i2, j, k] * (K - 1)
               } else stop("overwriting jkFomValues[i1, i2, j, k] UtilPseudoValues")
             }
           }
         }
-        # center the pseudovalues 
-        jkPseudoValues[i1, i2, j] <- 
-          jkPseudoValues[i1, i2, j] + 
-          (fomArray[[i1]][i2, j] - mean(jkPseudoValues[i1, i2, j]))
+        # center the pseudovalues so that mean (jkPseudoValues) == mean(jkFomValues)
+        jkPseudoValues[i1, i2, j, k] <- 
+          jkPseudoValues[i1, i2, j, k] + 
+          (foms[i1, i2, j] - mean(jkPseudoValues[i1, i2, j, ]))
       }
+      #    }
     }
-  }    
+  }
   return(list(
     jkPseudoValues = jkPseudoValues, 
     jkFomValues = jkFomValues
   ))
+  
+  # NOTE 
+  # mean(jkPseudoValues) == mean(jkFomValues)
+  # Browse[2]> mean(jkPseudoValues)
+  # [1] 0.8680476
+  # Browse[2]> mean(jkFomValues)
+  # [1] 0.8680476
+  # 
+  
 }
 

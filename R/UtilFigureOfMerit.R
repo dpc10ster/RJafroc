@@ -2,7 +2,7 @@
 #'     modality
 #' 
 #' @description  Calculate the specified empirical figure of merit
-#'    for each modality-reader combination in the standard or cross-modality dataset
+#'    for each modality-reader combination in a standard or cross-modality dataset
 #' 
 #' @param dataset The dataset to be analyzed, \code{\link{RJafroc-package}}
 #' @param FOM The figure of merit; the default is \code{"wAFROC"}
@@ -71,12 +71,11 @@
 #' @importFrom dplyr between  
 #' @export
 
-UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
+UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { 
   
   if (!isValidDataset(dataset, FOM)) stop("Dataset-FOM combination is invalid.\n")
   
-  if ((length(dim(dataset$ratings$NL)) == 4)
-      && (dataset$descriptions$design == "FCTRL")) { 
+  if (dataset$descriptions$design == "FCTRL") { 
     # factorial dataset, one treatment factor 
     
     dataType <- dataset$descriptions$type
@@ -105,7 +104,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     
     maxNL <- dim(NL)[4]
     maxLL <- dim(LL)[4]
-    fomArray <- array(dim = c(I, J))
+    foms <- array(dim = c(I, J))
     for (i in 1:I) {
       for (j in 1:J) {
         if (design == "FCTRL"){
@@ -113,38 +112,31 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
           ll_ij <- LL[i, j, , ]
           dim(nl_ij) <- c(K, maxNL)
           dim(ll_ij) <- c(K2, maxLL)
-          fomArray[i, j] <- MyFom_ij(nl_ij, ll_ij, 
-                                     dataset$lesions$perCase, 
-                                     dataset$lesions$IDs, 
-                                     dataset$lesions$weights, 
-                                     maxNL, 
-                                     maxLL, 
-                                     K1, 
-                                     K2, 
-                                     FOM, 
-                                     FPFValue)
+          foms[i, j] <- MyFom_ij(nl_ij, ll_ij, 
+                                 dataset$lesions$perCase, 
+                                 dataset$lesions$IDs, 
+                                 dataset$lesions$weights, 
+                                 maxNL, 
+                                 maxLL, 
+                                 K1, 
+                                 K2, 
+                                 FOM, 
+                                 FPFValue)
         } else stop("Incorrect study design specified: must be `FCTRL`")
       }
     }
     
     modalityID <- dataset$descriptions$modalityID
     readerID <- dataset$descriptions$readerID
-    rownames(fomArray) <- paste("trt", sep = "", modalityID)
-    colnames(fomArray) <- paste("rdr", sep = "", readerID)
-    fomArray <- data.matrix(fomArray)
+    rownames(foms) <- paste("trt", sep = "", modalityID)
+    colnames(foms) <- paste("rdr", sep = "", readerID)
+
+    return(data.matrix(foms))
     
-    return(fomArray)
-    
-  } else if ((length(dim(dataset$ratings$NL)) == 5) 
-             && (dataset$descriptions$design == "FCTRL-X-MOD")) { 
+  } else { 
     # cross-modality factorial dataset, two treatment factors
     
     dsX <- dataset
-    dataType <- dsX$descriptions$type
-    
-    if (dataType %in% c("ROI", "LROC")) {
-      stop("ROI or LROC cross-modality analyses is not supported.\n")
-    }
     
     NL <- dsX$ratings$NL
     LL <- dsX$ratings$LL
@@ -158,94 +150,69 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { # dpc
     maxNL <- dim(NL)[5]
     maxLL <- dim(LL)[5]
     
-    if ((K1 == 0) && !(FOM %in% c("AFROC1", "wAFROC1"))) {
-      errMsg <- paste0("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
-      stop(errMsg)
-    }
+    dataType <- dsX$descriptions$type
     
-    fomArr <- array(dim = c(I1, I2, J))
-    if (((dataType == "FROC") && 
-         (FOM %in% c("HrAuc", "AFROC", "wAFROC", "AFROC1", "wAFROC1"))) || 
-        ((dataType == "ROC") && (FOM %in% c("Wilcoxon")))) {
-      
-      for (i1 in 1:I1) {
-        for (i2 in 1:I2) {
-          for (j in 1:J) {
-            fomArr[i1, i2, j] <- MyFom_ij(NL[i1, i2, j, , ], 
-                                          LL[i1, i2, j, , ], 
-                                          dsX$lesions$perCase, 
-                                          dsX$lesions$IDs, 
-                                          dsX$lesions$weights, 
-                                          maxNL, 
-                                          maxLL, 
-                                          K1, 
-                                          K2, 
-                                          FOM)
-          }
+    foms <- array(dim = c(I1, I2, J))
+    for (i1 in 1:I1) {
+      for (i2 in 1:I2) {
+        for (j in 1:J) {
+          foms[i1, i2, j] <- MyFom_ij(NL[i1, i2, j, , ], 
+                                      LL[i1, i2, j, , ], 
+                                      dsX$lesions$perCase, 
+                                      dsX$lesions$IDs, 
+                                      dsX$lesions$weights, 
+                                      maxNL, 
+                                      maxLL, 
+                                      K1, 
+                                      K2, 
+                                      FOM)
         }
       }
-    } else stop("FOM inconsistent with data type\n")  
-    
-    modalityID1 <- dsX$descriptions$modalityID1
-    modalityID2 <- dsX$descriptions$modalityID2
-    readerID <- dsX$descriptions$readerID
-    
-    # learnApply(fomArr)
-    # https://stackoverflow.com/questions/23302072/use-apply-on-a-multi-dimension-array
-    
-    fomArray <- list()
-    modalityID <- list()
-    modalityID[[1]] <- modalityID2
-    modalityID[[2]] <- modalityID1
-    for (i in 1:2) {
-      fomArray[[i]] <- apply(fomArr, (1:3)[-i], mean) # average over first modality and all readers
-      rownames(fomArray[[i]]) <- paste("trt", sep = "-", modalityID[[i]])
-      colnames(fomArray[[i]]) <- paste("rdr", sep = "-", readerID)
     }
     
-    return(fomArray)
+    return(foms)
   }
 } 
 
 
 
-learnApply <- function(fomArr){
+learnApply <- function(foms){
   
-  ave1 <- apply(fomArr, c(1), mean)
+  ave1 <- apply(foms, c(1), mean)
   # [1] 0.8672883 0.8688070
-  ave2 <- c(sum(fomArr[1,,]), sum(fomArr[2,,]))/4/11
+  ave2 <- c(sum(foms[1,,]), sum(foms[2,,]))/4/11
   testthat::expect_equal(ave2, ave1)
   
-  ave1 <- apply(fomArr, c(2), mean)
+  ave1 <- apply(foms, c(2), mean)
   # [1] 0.8354075 0.8672539 0.8780768 0.8914524
-  ave2 <- c(sum(fomArr[,1,]), sum(fomArr[,2,]), sum(fomArr[,3,]), sum(fomArr[,4,]))/2/11
+  ave2 <- c(sum(foms[,1,]), sum(foms[,2,]), sum(foms[,3,]), sum(foms[,4,]))/2/11
   testthat::expect_equal(ave2, ave1)
   
-  ave1 <- apply(fomArr, c(3), mean)
+  ave1 <- apply(foms, c(3), mean)
   # [1] 0.8632948 0.8270978 0.9215326 0.9070430 0.9540531 0.8864619 0.8483726 0.7668144 0.8638534 0.8208622 0.8891382
   ave2 <- c(
-    sum(fomArr[,,1]), sum(fomArr[,,2]), sum(fomArr[,,3]), sum(fomArr[,,4]),
-    sum(fomArr[,,5]), sum(fomArr[,,6]), sum(fomArr[,,7]), sum(fomArr[,,8]),
-    sum(fomArr[,,9]), sum(fomArr[,,10]), sum(fomArr[,,11]))/2/4
+    sum(foms[,,1]), sum(foms[,,2]), sum(foms[,,3]), sum(foms[,,4]),
+    sum(foms[,,5]), sum(foms[,,6]), sum(foms[,,7]), sum(foms[,,8]),
+    sum(foms[,,9]), sum(foms[,,10]), sum(foms[,,11]))/2/4
   testthat::expect_equal(ave2, ave1)
   
-  ave1 <- apply(fomArr, c(2,3), mean)
+  ave1 <- apply(foms, c(2,3), mean)
   #           [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]      [,8]      [,9]     [,10]     [,11]
   # [1,] 0.7900087 0.7892157 0.8861015 0.8913279 0.9471237 0.8688725 0.8207540 0.7320141 0.8268815 0.8175822 0.8196006
   # [2,] 0.8763336 0.8109141 0.9272275 0.9021410 0.9621540 0.8725490 0.8566176 0.7552984 0.8765499 0.7941176 0.9058896
   # [3,] 0.9107194 0.8480392 0.9226499 0.9012039 0.9485655 0.8840830 0.8643310 0.7869449 0.8512471 0.8239259 0.9171352
   # [4,] 0.8761174 0.8602220 0.9501514 0.9334991 0.9583694 0.9203431 0.8517878 0.7930003 0.9007353 0.8478230 0.9139273
-  ave2 <- (fomArr[1,,] + fomArr[2,,])/2
+  ave2 <- (foms[1,,] + foms[2,,])/2
   testthat::expect_equal(ave2, ave1)
   
-  ave1 <- apply(fomArr, c(1,3), mean)
+  ave1 <- apply(foms, c(1,3), mean)
   #           [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]      [,8]      [,9]     [,10]     [,11]
   # [1,] 0.8758470 0.8313149 0.9143058 0.9029159 0.9537377 0.8811275 0.8298551 0.7573349 0.8723147 0.8274942 0.8939230
   # [2,] 0.8507425 0.8228806 0.9287594 0.9111700 0.9543685 0.8917964 0.8668901 0.7762940 0.8553922 0.8142301 0.8843534
-  ave2 <- (fomArr[,1,] + fomArr[,2,] + fomArr[,3,] + fomArr[,4,])/4
+  ave2 <- (foms[,1,] + foms[,2,] + foms[,3,] + foms[,4,])/4
   testthat::expect_equal(ave2, ave1)
   
-  ave1 <- apply(fomArr, c(1,2,3), mean)
+  ave1 <- apply(foms, c(1,2,3), mean)
   # , , 1
   #
   # [,1]      [,2]      [,3]      [,4]
@@ -259,7 +226,7 @@ learnApply <- function(fomArr){
   # [,1]      [,2]      [,3]      [,4]
   # [1,] 0.8390283 0.8876874 0.9298587 0.9191176
   # [2,] 0.8001730 0.9240917 0.9044118 0.9087370
-  ave2 <- fomArr
+  ave2 <- foms
   testthat::expect_equal(ave2, ave1)
   
   

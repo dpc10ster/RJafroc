@@ -2,7 +2,7 @@
 % Please edit documentation in R/UtilOrVarCov.R
 \name{UtilOrVarCov}
 \alias{UtilOrVarCov}
-\title{Utility for estimating Obuchowski-Rockette variance components for factorial or cross-modality datasets}
+\title{Obuchowski-Rockette variance components for dataset}
 \usage{
 UtilOrVarCov(
   dataset,
@@ -14,23 +14,23 @@ UtilOrVarCov(
 )
 }
 \arguments{
-\item{dataset}{The factorial or cross-modality dataset}
+\item{dataset}{Factorial or cross-modality dataset}
 
-\item{FOM}{The figure of merit}
+\item{FOM}{Figure of merit}
 
 \item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC":
-where to evaluate a partial curve based figure of merit. The default is 0.2.}
+the \code{FPFValue} at which to evaluate a partial curve based figure of merit. 
+The default is \code{FPFValue} = 0.2.}
 
 \item{covEstMethod}{The covariance estimation method, "jackknife" 
 (the default) or "bootstrap" or "DeLong" ("DeLong" is applicable only for 
-FOM = Wilcoxon).}
+FOM = "Wilcoxon").}
 
 \item{nBoots}{Only needed for bootstrap covariance estimation method. The number 
 of bootstraps, defaults to 200.}
 
 \item{seed}{Only needed for the bootstrap covariance estimation method. The initial 
-seed for the random number generator, the default is \code{NULL}, as if no seed 
-has been specified.}
+seed for the random number generator, the default is \code{NULL}, for random seed.}
 }
 \value{
 A list containing the following \code{data.frames}: 
@@ -44,7 +44,7 @@ A list containing the following \code{data.frames}:
     }
 }
 \description{
-Utility for estimating Obuchowski-Rockette variance components for factorial or cross-modality datasets
+Obuchowski-Rockette variance components for dataset
 }
 \details{
 The variance components are identical to those obtained using 

@@ -105,30 +105,30 @@
 #' 
 #' 
 #' @examples 
-#' ret1M <- StSignificanceTestingCadVsRad (dataset09, 
+#' ret1M <- StCadVsRad (dataset09, 
 #' FOM = "Wilcoxon", method = "1T-RRRC")
 #' 
-#' StSignificanceTestingCadVsRad(datasetCadLroc, 
+#' StCadVsRad(datasetCadLroc, 
 #' FOM = "Wilcoxon", method = "1T-RRFC")
 #' 
-#' retLroc1M <- StSignificanceTestingCadVsRad (datasetCadLroc, 
+#' retLroc1M <- StCadVsRad (datasetCadLroc, 
 #' FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
 #' 
 #' ## test with fewer readers
 #' dataset09a <- DfExtractDataset(dataset09, rdrs = seq(1:7))
-#' ret1M7 <- StSignificanceTestingCadVsRad (dataset09a, 
+#' ret1M7 <- StCadVsRad (dataset09a, 
 #' FOM = "Wilcoxon", method = "1T-RRRC")
 #' 
 #' datasetCadLroc7 <- DfExtractDataset(datasetCadLroc, rdrs = seq(1:7))
-#' ret1MLroc7 <- StSignificanceTestingCadVsRad (datasetCadLroc7, 
+#' ret1MLroc7 <- StCadVsRad (datasetCadLroc7, 
 #' FOM = "PCL", method = "1T-RRRC", FPFValue = 0.05)
 #' 
 #' \donttest{
 #' ## takes longer than 5 sec on OSX
-#' ## retLroc2M <- StSignificanceTestingCadVsRad (datasetCadLroc, 
+#' ## retLroc2M <- StCadVsRad (datasetCadLroc, 
 #' ## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
 #' 
-#' ## ret2MLroc7 <- StSignificanceTestingCadVsRad (datasetCadLroc7, 
+#' ## ret2MLroc7 <- StCadVsRad (datasetCadLroc7, 
 #' ## FOM = "PCL", method = "2T-RRRC", FPFValue = 0.05)
 #' }
 #' 
@@ -151,7 +151,7 @@
 #' @import ggplot2
 #' @importFrom stats var t.test
 #' @export
-StSignificanceTestingCadVsRad <- function(dataset, FOM, FPFValue = 0.2, method = "1T-RRRC", 
+StCadVsRad <- function(dataset, FOM, FPFValue = 0.2, method = "1T-RRRC", 
                                                    alpha = 0.05, plots = FALSE) 
 {
   options(stringsAsFactors = FALSE)

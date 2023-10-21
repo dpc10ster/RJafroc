@@ -1,4 +1,5 @@
-# dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption
+# computes fom_ij, UtilOrVarCov, TRanova, VarCom, IndividualTrt, IndividualRdr,
+# FOMs, ANOVA, RRRC, etc
 StORAnalysis <- function(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)  
 {
   
@@ -8,9 +9,6 @@ StORAnalysis <- function(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, an
     RRRC <- NULL
     FRRC <- NULL
     RRFC <- NULL
-    
-    modalityID <- dataset$descriptions$modalityID
-    I <- length(modalityID)
     
     fom_ij <- UtilFigureOfMerit(dataset, FOM, FPFValue)
     
@@ -30,6 +28,9 @@ StORAnalysis <- function(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, an
     trtMeans <- rowMeans(fom_ij)
     trtMeans <- as.data.frame(trtMeans)
     colnames(trtMeans) <- "Estimate"
+    
+    modalityID <- dataset$descriptions$modalityID
+    I <- length(modalityID)
     
     trtMeanDiffs <- array(dim = choose(I, 2))
     diffTRName <- array(dim = choose(I, 2))
@@ -99,19 +100,110 @@ StORAnalysis <- function(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, an
     RRRC <- list()
     FRRC <- list()
     RRFC <- list()
-
+    trtMeanDiffs <- list()
+    trtMeans <- list()
+    
     dsX <- dataset
     
     modalityID1 <- dsX$descriptions$modalityID1
     modalityID2 <- dsX$descriptions$modalityID2
+    modalityID <- list(modalityID1, modalityID2)
+    
     readerID <- dsX$descriptions$readerID
     I1 <- length(modalityID1)
     I2 <- length(modalityID2)
     J <- length(readerID)
     
-    fom_i1_i2_j <- UtilFigureOfMerit(dsX, FOM)
+    fomsTemp <- UtilFigureOfMerit(dsX, FOM, FPFValue)
+    foms <- FomAvgXModality(dsX, fomsTemp)
     
     ret <- UtilOrVarCov(dsX, FOM, FPFValue, covEstMethod, nBoots)
+    
+    TRanova <- ret$TRanova
+    VarCom <-  ret$VarCom
+    IndividualTrt <- ret$IndividualTrt
+    IndividualRdr <- ret$IndividualRdr
+    
+    ANOVA <- list()
+    ANOVA$TRanova <- TRanova
+    ANOVA$VarCom <- VarCom
+    ANOVA$IndividualTrt <- IndividualTrt
+    ANOVA$IndividualRdr <- IndividualRdr
+    
+    I1 <- dim(foms[[1]])[1]
+    I2 <- dim(foms[[2]])[1]
+    I <- c(I2,I1)
+    
+    for (avgIndx in 1:2) { # treatment index that FOM was averaged over
+      trtMeans1 <- rowMeans(foms[[avgIndx]])
+      trtMeans[[avgIndx]] <- as.data.frame(trtMeans1)
+      colnames(trtMeans[[avgIndx]]) <- "Estimate"
+      trtMeanDiffs1 <- array(dim = choose(I[avgIndx], 2))
+      diffTRName <- array(dim = choose(I[avgIndx], 2))
+      
+      ii <- 1
+      for (i in 1:I[avgIndx]) {
+        if (i == I[avgIndx]) 
+          break
+        for (ip in (i + 1):I[avgIndx]) {
+          trtMeanDiffs1[ii] <- trtMeans[i,1] - trtMeans[ip,1]
+          diffTRName[ii] <- paste0("trt", 
+                                   modalityID[[avgIndx]][i], 
+                                   sep = "-", "trt", 
+                                   modalityID[[avgIndx]][ip])
+          ii <- ii + 1
+        }
+      }
+    }
+    trtMeanDiffs[[avgIndx]] <- data.frame("Estimate" = trtMeanDiffs1,
+                               row.names = diffTRName,
+                               stringsAsFactors = FALSE)
+    
+    FOMs <- list(
+      foms = foms,
+      trtMeans = trtMeans,
+      trtMeanDiffs = trtMeanDiffs
+    )
+    
+    if (analysisOption == "RRRC") {
+      RRRC <- ORSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      return(list(
+        FOMs = FOMs,
+        ANOVA = ANOVA,
+        RRRC = RRRC
+      ))
+    }  
+    
+    if (analysisOption == "FRRC") {
+      FRRC <- ORSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      return(list(
+        FOMs = FOMs,
+        ANOVA = ANOVA,
+        FRRC = FRRC
+      ))
+    }  
+    
+    if (analysisOption == "RRFC") {
+      RRFC <- ORSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      return(list(
+        FOMs = FOMs,
+        ANOVA = ANOVA,
+        RRFC = RRFC
+      ))
+    }  
+    
+    if (analysisOption == "ALL") {
+      RRRC <- ORSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      FRRC <- ORSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      RRFC <- ORSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      return(list(
+        FOMs = FOMs,
+        ANOVA = ANOVA,
+        RRRC = RRRC,
+        FRRC = FRRC,
+        RRFC = RRFC
+      ))
+    } 
     
     stop("in StORAnalysis")
   } 
@@ -223,10 +315,12 @@ varCompBS <- function(dataset, FOM, FPFValue, nBoots, seed)
 
 
 
-varComponentsDeLong <- function(dataset, FOM)
+varCompDeLong <- function(dataset, FOM)
 {
-  stop("code needs fixing: varComponentsDeLong")
+  stop("code needs fixing: varCompBS")
+  
   if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
+  if (FOM != "Wilcoxon") stop("This functions requires FOM = `Wilcoxon`,\n")  
   
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   NL <- dataset$ratings$NL
@@ -240,7 +334,7 @@ varComponentsDeLong <- function(dataset, FOM)
   K1 <- (K - K2)
   maxNL <- length(NL[1,1,1,])
   maxLL <- length(LL[1,1,1,])
-  # if ((maxLL != 1) || (maxLL != 1)) stop("dataset error in varComponentsDeLong")
+  if ((maxNL != 1) || (maxLL != 1)) stop("dataset error in varCompDeLong")
   
   fomArray <- UtilFigureOfMerit(dataset, FOM)
   
