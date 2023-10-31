@@ -365,7 +365,7 @@
            "AUC-equivalent" FROC dataset from a supplied LROC dataset.
         \item \code{\link{DfFroc2Lroc}}: Simulates an
            "AUC-equivalent" LROC dataset from a supplied FROC dataset.
-        \item \code{\link{DfReadCrossedModalities}}: Read a crossed-modalities
+        \item \code{\link{DfReadXModalities}}: Read a crossed-modalities
            data file.
         \item \code{\link{DfReadDataFile}}: Read a general data file.
         \item \code{\link{DfSaveDataFile}}: Save ROC data file in a different format.
@@ -424,8 +424,8 @@
 
 \section{Significance Testing Functions}{
   \itemize{
-        \item \code{\link{StSignificanceTesting}}: Perform significance testing,
-           DBM or OR.
+        \item \code{\link{St}}: Performs significance testing,
+           DBM or OR, with factorial or crossed modalities.
         \item \code{\link{StCadVsRad}}: Perform
            significance testing, CAD vs. radiologists.
   }

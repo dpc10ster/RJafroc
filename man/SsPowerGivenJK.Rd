@@ -12,6 +12,7 @@ SsPowerGivenJK(
   K,
   effectSize = NULL,
   method = "OR",
+  covEstMethod = "jackknife",
   analysisOption = "RRRC",
   UseDBMHB2004 = FALSE,
   alpha = 0.05
@@ -21,10 +22,10 @@ SsPowerGivenJK(
 \item{dataset}{The \bold{pilot} dataset. If set to NULL 
 then variance components must be supplied.}
 
-\item{...}{Optional variance components. These are needed if \code{dataset} 
-is not supplied.}
+\item{...}{Optional variance components: \bold{needed if \code{dataset} 
+is not supplied.}}
 
-\item{FOM}{The figure of merit}
+\item{FOM}{The figure of merit.}
 
 \item{J}{The number of readers in the pivotal study.}
 
@@ -38,8 +39,11 @@ components are supplied.}
 \item{method}{"OR" (the default) or "DBM" (but see \code{UseDBMHB2004} option
 below).}
 
-\item{analysisOption}{Desired generalization, "RRRC" (the default), "FRRC", 
-"RRFC" or "ALL". RRFC = random reader fixed case, etc.}
+\item{covEstMethod}{Specify the variance covariance estimation method(s): 
+"jackknife" (the default), "bootstrap" or "DeLong" (for ROC datasets).}
+
+\item{analysisOption}{Specify the random factor(s): "RRRC" (the default), 
+"RRFC", "FRRC" or "ALL".}
 
 \item{UseDBMHB2004}{Logical, defaults to \code{FALSE}, which results in OR 
 sample size method being used, even if DBM method is specified, as in 
@@ -49,7 +53,7 @@ Hillis-Berbaum 2004 sample size paper is used.}
 \item{alpha}{The significance level, default is 0.05.}
 }
 \value{
-The expected statistical power.
+The expected statistical power in pivotal study for the given conditions and J and K.
 }
 \description{
 Calculate the statistical power for specified numbers of readers J, 

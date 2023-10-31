@@ -1,4 +1,4 @@
-OutputExcelFileDBMH <- function(dataset,
+OutputExcelDBMH <- function(dataset,
                                 method,
                                 methodTxt,
                                 ReportFileName,

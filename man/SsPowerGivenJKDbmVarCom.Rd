@@ -30,21 +30,21 @@ SsPowerGivenJKDbmVarCom(
 
 \item{alpha}{The size of the test (default = 0.05)}
 
-\item{analysisOption}{The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")}
+\item{analysisOption}{Specify the random factor(s): "RRRC", "FRRC", "RRFC", "ALL"}
 }
 \value{
 A list containing the estimated power and associated statistics
-   for each desired generalization.
+   for the specified random factor(s).
 }
 \description{
 Power given J, K and Dorfman-Berbaum-Metz variance components
 }
 \details{
-The variance components are obtained using \link{StSignificanceTesting}
+The variance components are obtained using \link{St}
    with \code{method = "DBM"}.
 }
 \examples{
-VarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBM", 
+VarCom <- St(dataset02, FOM = "Wilcoxon", method = "DBM", 
    analysisOption = "RRRC")$ANOVA$VarCom
 VarTR <- VarCom["VarTR",1]
 VarTC <- VarCom["VarTC",1]

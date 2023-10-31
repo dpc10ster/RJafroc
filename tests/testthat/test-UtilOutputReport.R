@@ -12,7 +12,7 @@ test_that(contextStr, {
   for (f in 1:length(fomStr)) {
     for (d in 1:length(datasetStr)) {
       for (m in 1:length(methodStr)) {
-        #cat("f = ", f, ", d = ", d, ", m = ", m, "\n")
+        # cat("f = ", f, ", d = ", d, ", m = ", m, "\n")
         FOM <- fomStr[f]
         method <- methodStr[m]
         dataset <- get(datasetStr[d])
@@ -29,8 +29,9 @@ test_that(contextStr, {
             methodStr[m],
             "-",
             fomStr[f],
-            "rds"
+            ".rds"
           )
+        # cat(paste0(fn, "\n"))
         if (!file.exists(fn)) {
           warning(paste0("File not found - generating new ", fn))
           x <- UtilOutputReport(dataset, FOM = FOM, method = method)

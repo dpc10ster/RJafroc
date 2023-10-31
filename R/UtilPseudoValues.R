@@ -1,9 +1,9 @@
-#' Pseudovalues for given dsX and FOM
+#' Pseudovalues for given factorial or crossed modality dataset and FOM
 #' 
 #' Returns \strong{centered} jackknife pseudovalues AND jackknife FOM values, 
 #'    for factorial study designs
 #' 
-#' @param dsX The dataset to be analyzed, see \code{\link{RJafroc-package}}.
+#' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}.
 #'    
 #' @param FOM The figure of merit to be used. The default is \code{"FOM_wAFROC"}. 
 #'     See \code{\link{UtilFigureOfMerit}}.
@@ -31,10 +31,10 @@
 
 UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
   
-  if (!isValidDataset(dataset, FOM)) stop("Dataset-FOM combination is invalid.\n")
+  isValidDataset(dataset, FOM)
   
   if (dataset$descriptions$design == "FCTRL") { 
-    # factorial dataset, one treatment factor 
+    # factorial one-treatment dataset 
     
     if (all(is.na(dataset$descriptions$truthTableStr))){
       dataset$descriptions$truthTableStr <- AddTruthTableStr(dataset, 
@@ -64,7 +64,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     K1 <- K - K2
     
     # account for 15+ FOMs  
-    if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+    if (FOM %in% c("MaxNLF", "HrSp")) {
       # FOMs defined over NORMAL cases
       jkFomValues <- array(dim = c(I, J, K1))
       jkPseudoValues <- array(dim = c(I, J, K1))
@@ -108,7 +108,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
         ll_i1i2j <- LL[i, j, k2_ij_logi, 1:maxLL]; dim(ll_i1i2j) <- c(K2_ij, maxLL)
         # i.e., LL ratings for all cases meeting the i,j criteria
         
-        if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+        if (FOM %in% c("MaxNLF", "HrSp")) {
           for (k in 1:K1_ij) {
             # NOTATION
             # kIndxNor: case index for the 3rd dimension of normal cases, 
@@ -200,7 +200,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
           }
         }
         # center the pseudovalues so that mean (jkPseudoValues) == mean(jkFomValues)
-        if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+        if (FOM %in% c("MaxNLF", "HrSp")) {
           # FOMs defined over NORMAL cases
           jkPseudoValues[i, j, which(k1_ij_logi)] <- 
             jkPseudoValues[i, j, which(k1_ij_logi)] + 
@@ -220,34 +220,32 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     }
   } else { 
     # cross-modality factorial dataset, two treatment factors
-    # take out truthTableStr, too complicated
-    # take out LROC and ROI
-    # take out normal case only FOMs
-    # take out abnormal case only FOMs
+    # took out truthTableStr, too complicated
+    # took out LROC and ROI
+    # took out normal case only FOMs
+    # took out abnormal case only FOMs
     # only allow "Wilcoxon", "AFROC", "AFROC1", "wAFROC1", "wAFROC" FOMs
     
-    dsX <- dataset
-    
-    I1 <- dim(dsX$ratings$NL)[1]
-    I2 <- dim(dsX$ratings$NL)[2]
-    J <- dim(dsX$ratings$NL)[3]
-    K <- dim(dsX$ratings$NL)[4]
-    K2 <- dim(dsX$ratings$LL)[4]
+    I1 <- dim(dataset$ratings$NL)[1]
+    I2 <- dim(dataset$ratings$NL)[2]
+    J <- dim(dataset$ratings$NL)[3]
+    K <- dim(dataset$ratings$NL)[4]
+    K2 <- dim(dataset$ratings$LL)[4]
     K1 <- K - K2
-    maxNL <- dim(dsX$ratings$NL)[5]
-    maxLL <- dim(dsX$ratings$LL)[5]
+    maxNL <- dim(dataset$ratings$NL)[5]
+    maxLL <- dim(dataset$ratings$LL)[5]
     perCase <- dataset$lesions$perCase 
     
-    dataType <- dsX$descriptions$type
-    NL <- dsX$ratings$NL
-    LL <- dsX$ratings$LL
+    dataType <- dataset$descriptions$type
+    NL <- dataset$ratings$NL
+    LL <- dataset$ratings$LL
     
     jkFom <- list()
     jkPseudo <- list()
     
-    foms <- UtilFigureOfMerit(dsX, FOM, FPFValue)
+    foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
     # don't need the averaged FOMs here
-    #foms <- FomAvgXModality(dsX, fomsTemp)[[2]] # the raw FOMs, before averaging
+    # foms <- ConvArr2List(dataset, fomsTemp)[[2]] # the raw FOMs, before averaging
     
     jkFomValues <- array(dim = c(I1, I2, J, K))
     jkPseudoValues <- array(dim = c(I1, I2, J, K))
@@ -255,15 +253,15 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     for (i1 in 1:I1) { # first modality
       for (i2 in 1:I2) { # second modality
         for (j in 1:J) {
-          lID <- dsX$lesions$IDs[,1:maxLL, drop = FALSE]
-          lW <- dsX$lesions$weights[,1:maxLL, drop = FALSE]
+          lID <- dataset$lesions$IDs[,1:maxLL, drop = FALSE]
+          lW <- dataset$lesions$weights[,1:maxLL, drop = FALSE]
           nl_i1i2j <- NL[i1, i2, j, , 1:maxNL]; dim(nl_i1i2j) <- c(K, maxNL)
           ll_i1i2j <- LL[i1, i2, j, , 1:maxLL]; dim(ll_i1i2j) <- c(K2, maxLL)
           for (k in 1:K) {
             if (k <= K1) {
               nl_i1i2j_jk <- nl_i1i2j[-k, ];dim(nl_i1i2j_jk) <- c(K - 1, maxNL)
               ll_i1i2j_jk <- ll_i1i2j;dim(ll_i1i2j_jk) <- c(K2, maxLL)
-              lV_i1i2j_jk <- dsX$lesions$perCase
+              lV_i1i2j_jk <- dataset$lesions$perCase
               lID_i1i2j_jk <- lID;dim(lID_i1i2j_jk) <- c(K2, maxLL)
               lW_i1i2j_jk <- lW;dim(lW_i1i2j_jk) <- c(K2, maxLL)
               if (is.na(jkFomValues[i1, i2, j, k])) {

@@ -9,21 +9,21 @@
 #' @param KPivot The number of cases in the pivotal study 
 #'
 #' @param lesDistr A 1D array containing the probability mass function of
-#'     number of lesions per diseased case in the \strong{pivotal FROC}
-#'     study.
+#'    number of lesions per diseased case in the \strong{pivotal FROC}
+#'    study.
 #'
 #' @return A list containing:
 #'    \itemize{
 #'    \item \code{effectSizeROC}, the specified ROC effect size.
 #'    \item \code{scaleFactor}, the factor by which the ROC effect size
-#'      must by multiplied to get the wAFROC effect size.
+#'    must by multiplied to get the wAFROC effect size.
 #'    \item \code{powerRoc}, the ROC power.
 #'    \item \code{powerFroc}, the wAFROC power.
 #'    
 #' }
 #'
 #' @details See \url{https://dpc10ster.github.io/RJafrocQuickStart/froc-sample-size.html}
-#'     for explanation of the FROC sample size estimation procedure.
+#'    for explanation of the FROC sample size estimation procedure.
 #'
 #' @examples
 #'
@@ -132,16 +132,16 @@ SsFrocSampleSize <- function (dataset, effectSizeROC, JPivot, KPivot, lesDistr) 
 #' @param dataset The \strong{pilot} dataset.
 #' 
 #' @param lesDistr A 1D array containing the probability mass function of
-#'     number of lesions per diseased case in the \strong{pivotal FROC}
-#'     study.
-#'     
+#'    number of lesions per diseased case in the \strong{pivotal FROC}
+#'    study.
+#'    
 #' @return A list containing:
 #'    \itemize{
 #'    \item \code{mu} The RSM mu parameter of the NH model.
 #'    \item \code{lambda} The RSM lambda parameter of the NH model.
 #'    \item \code{nu} The RSM nu parameter of the NH model.
 #'    \item \code{scaleFactor}, the factor by which the ROC effect size
-#'      must by multiplied to get the wAFROC effect size.
+#'    must by multiplied to get the wAFROC effect size.
 #'    \item \code{R2} The squared correlation of the wAFROC-AUC to ROC-AUC fit.
 #'    
 #' }
@@ -197,7 +197,7 @@ SsFrocNhRsmModel <- function (dataset, lesDistr) {
   for (i in 1:I) {
     for (j in 1:J) {
       ds_ij <- DfExtractDataset(rocData, trts = i, rdrs = j)
-      auc_emp[i,j] <- as.numeric(UtilFigureOfMerit(ds_ij, FOM = "Wilcoxon"))
+      auc_emp[i,j] <- UtilFigureOfMerit(ds_ij, FOM = "Wilcoxon")
       #cat("i = ", i, ", j = ", j, ", auc_emp = ", auc_emp[i,j], "\n")
     }
   }

@@ -5,4 +5,4 @@ dataset <- DfReadDataFile(fileName)
 #dataset <- DfFroc2Roc(dataset)
 #
 
-st <- StSignificanceTesting(dataset, FOM = "HrSe", analysisOption = "RRRC")
+st <- St(dataset, FOM = "HrSe", analysisOption = "RRRC")

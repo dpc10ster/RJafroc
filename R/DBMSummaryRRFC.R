@@ -16,7 +16,7 @@ DBMSummaryRRFC <- function(dataset, FOM, FOMStats, ANOVA, alpha, diffTRName) {
   K2 <- dim(dataset$ratings$LL)[3]
   K <- dim(dataset$ratings$NL)[3]
   K1 <- K - K2
-  if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+  if (FOM %in% c("MaxNLF", "HrSp")) {
     K <- K1
   } else if (FOM %in% c("MaxLLF", "HrSe")) {
     K <- K2

@@ -3,7 +3,7 @@
 \name{UtilFigureOfMerit}
 \alias{UtilFigureOfMerit}
 \title{Calculate empirical figures of merit (FOMs) for factorial dataset, standard or cross-
-    modality}
+   modality}
 \usage{
 UtilFigureOfMerit(dataset, FOM = "wAFROC", FPFValue = 0.2)
 }
@@ -20,15 +20,15 @@ For standard dataset: A \code{c(I, J)} dataframe, where the row names are
    \code{modalityID}'s of the treatments and column names are the 
    \code{readerID}'s of the readers.
    For cross-modality dataset: Two data frames are returned: 
-* \code{c(I2, J)} data frame, FOMs averaged over the first modality, where the row 
-    names are modality IDS of the second modality 
-* \code{c(I1, J)} data frames, FOMs averaged over the second modality, where the row 
-    names are modality IDs of the first modality, 
-* In either case the column names are the \code{readerID}'s.
+   * \code{c(I2, J)} data frame, FOMs averaged over the first modality, where the row 
+   names are modality IDS of the second modality 
+   * \code{c(I1, J)} data frames, FOMs averaged over the second modality, where the row 
+   names are modality IDs of the first modality, 
+   * In either case the column names are the \code{readerID}'s.
 }
 \description{
 Calculate the specified empirical figure of merit
-   for each modality-reader combination in the standard or cross-modality dataset
+   for each modality-reader combination in a standard or cross-modality dataset
 }
 \details{
 The allowed FOMs depend on the \code{dataType} field of the 
@@ -65,7 +65,7 @@ The allowed FOMs depend on the \code{dataType} field of the
    \item \code{FOM = "ALROC"} the area under the LROC from zero to specified \code{FPFValue} 
    }
    \code{FPFValue} The FPF at which to evaluate \code{PCL} or \code{ALROC}; 
-      the default is 0.2; only needed for LROC data.
+   the default is 0.2; only needed for LROC data.
    For cross-modality analysis ROI and LROC datasets are not supported.
 }
 \examples{

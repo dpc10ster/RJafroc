@@ -149,7 +149,7 @@
 #' 
 #' 
 #' @import ggplot2
-#' @importFrom stats var t.test
+#' @importFrom stats var t.test cov
 #' @export
 StCadVsRad <- function(dataset, FOM, FPFValue = 0.2, method = "1T-RRRC", 
                                                    alpha = 0.05, plots = FALSE) 
@@ -195,7 +195,7 @@ StCadVsRad <- function(dataset, FOM, FPFValue = 0.2, method = "1T-RRRC",
 SingleModalityRRFC <- function(dataset, FOM, FPFValue, alpha) {
   
   # `as.matrix` is absolutely necessary if following `mean()` function is to work
-  thetajc <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   Psijc <- thetajc[-1] - thetajc[1]
   ret <- t.test(Psijc, conf.level = 1-alpha)
   Tstat <-  as.numeric(ret$statistic)
@@ -233,7 +233,7 @@ SingleModalityRRRC <- function (dataset, FOM, FPFValue, alpha)
   
   J <- length(dataset$ratings$NL[1,,1,1]) - 1 # number of radiologists minus CAD reader
   # `as.matrix` is absolutely necessary if following `mean()` function is to work
-  thetajc <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
+  thetajc <- UtilFigureOfMerit(dataset, FOM, FPFValue)
   
   Psijc <- thetajc[1,2:(J+1)] - thetajc[1,1] # subract CAD from RAD, my Eqn. 13
   
@@ -398,7 +398,7 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
                            modalityID, readerID)
   }
   
-  stats1 <- StSignificanceTesting(datasetCombined, FOM = FOM, method = "OR", alpha = alpha, analysisOption = "RRRC", FPFValue = FPFValue)
+  stats1 <- St(datasetCombined, FOM = FOM, method = "OR", alpha = alpha, analysisOption = "RRRC", FPFValue = FPFValue)
   thetajc <- stats1$FOMs$foms
   thetajc <- as.matrix(thetajc)
   fomCAD  <-  thetajc[1,1]
@@ -419,7 +419,7 @@ DualModalityRRRC <- function(dataset, FOM, FPFValue, alpha)
   # corrected 11/26/2020; added minus sign in following ...
   ciDiffFom <- stats1$RRRC$ciDiffTrt 
   # correction needed
-  # as StSignificanceTesting returns CAD - RAD (trt1 - trt2)
+  # as St returns CAD - RAD (trt1 - trt2)
   # not RAD - CAD
   t <- ciDiffFom
   rowNames <- rownames(t)

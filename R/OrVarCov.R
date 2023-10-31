@@ -1,15 +1,22 @@
-OrVarCov <- function(jkFomValues, modalityID, readerID, covEstMethod) 
+SampledFom2ORCov <- function(jkFomValues, 
+                        modalityID, 
+                        readerID, 
+                        covEstMethod, 
+                        FPFValue, 
+                        nBoots, 
+                        seed) 
 {
   
   if (covEstMethod == "jackknife") {
     
     if (length(dim(jkFomValues)) == 3) {
-      # factorial dataset
+      # factorial one-treatment dataset
       
       I <- dim(jkFomValues)[1]
       J <- dim(jkFomValues)[2]
       
       x <- FOM2VarCov(jkFomValues, varInflFactor = TRUE, flag = "IJ")
+      # XModality Dataset
       vc <- array(dim = 4)
       vc[1] <- x$Var
       vc[2] <- x$Cov1
@@ -49,9 +56,13 @@ OrVarCov <- function(jkFomValues, modalityID, readerID, covEstMethod)
       
       for (avgIndx in 1:2) {
         
-        fomAvgArray[[avgIndx]] <- apply(jkFomValues, (1:4)[-avgIndx], mean) # average over first modality and all readers
+        # average over first modality and all readers
+        fomAvgArray[[avgIndx]] <- apply(jkFomValues, (1:4)[-avgIndx], mean) 
         
-        x <- FOM2VarCov(fomAvgArray[[avgIndx]], varInflFactor = TRUE, flag = "IJ")
+        x <- FOM2VarCov(
+          fomAvgArray[[avgIndx]], 
+          varInflFactor = TRUE, 
+          flag = "IJ")
         vc[[avgIndx]] <- array(dim = 4)
         vc[[avgIndx]][1] <- x$Var
         vc[[avgIndx]][2] <- x$Cov1
@@ -61,7 +72,10 @@ OrVarCov <- function(jkFomValues, modalityID, readerID, covEstMethod)
         
         vcEachTrt[[avgIndx]] <- array(dim = c(I[avgIndx],2))
         for (i in 1:I[avgIndx]) {
-          x <- FOM2VarCov(fomAvgArray[[avgIndx]][i,,], varInflFactor = TRUE, flag = "J")
+          x <- FOM2VarCov(
+            fomAvgArray[[avgIndx]][i,,], 
+            varInflFactor = TRUE, 
+            flag = "J")
           vcEachTrt[[avgIndx]][i,1] <- x$Var 
           vcEachTrt[[avgIndx]][i,2] <- x$Cov2    
         }
@@ -70,7 +84,10 @@ OrVarCov <- function(jkFomValues, modalityID, readerID, covEstMethod)
         
         vcEachRdr[[avgIndx]] <- array(dim = c(J,2))
         for (j in 1:J) {
-          x <- FOM2VarCov(fomAvgArray[[avgIndx]][,j,], varInflFactor = TRUE, flag = "I")
+          x <- FOM2VarCov(
+            fomAvgArray[[avgIndx]][,j,], 
+            varInflFactor = TRUE, 
+            flag = "I")
           vcEachRdr[[avgIndx]][j,1] <- x$Var
           vcEachRdr[[avgIndx]][j,2] <- x$Cov1
         }
@@ -89,15 +106,15 @@ OrVarCov <- function(jkFomValues, modalityID, readerID, covEstMethod)
   
   else if (covEstMethod == "bootstrap") {
     
-    stop("code needs fixing: OrVarCov bootstrap")
-    ret <- varCompBS (dataset, FOM, FPFValue, nBoots, seed)
+    stop("code needs fixing: SampledFom2ORCov bootstrap")
+    # ret <- varCompBS (dataset, FOM, FPFValue, nBoots, seed)
     
   } 
   
   else if (covEstMethod == "DeLong") {
     
-    stop("code needs fixing: OrVarCov DeLong")
-    ret <- varCompDeLong (dataset, FOM)
+    stop("code needs fixing: SampledFom2ORCov DeLong")
+    # ret <- varCompDeLong (dataset)
     
   } 
   

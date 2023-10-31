@@ -85,6 +85,7 @@ test_that(contextStr, {
 })
 
 
+
 contextStr <- "FitCorCbm"
 context(contextStr)
 test_that(contextStr, {

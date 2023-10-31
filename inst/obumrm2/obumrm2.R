@@ -9,7 +9,7 @@ FOM <- "Wilcoxon"
 
 ds <- RJafroc::dataset02
 
-st <- StSignificanceTesting(ds, FOM = FOM, method = "OR")
+st <- St(ds, FOM = FOM, method = "OR")
 
 I <- dim(ds$ratings$NL)[1]
 J <- dim(ds$ratings$NL)[2]

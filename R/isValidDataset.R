@@ -1,209 +1,177 @@
-#' Check the validity of a dataset and FOM combination
+#' Check the validity of a dataset for FOM and other input parameters
 #' 
-#' @description Checks the validity of a specified dataset and FOM combination. 
-#' 
+#' @description Checks the validity of a specified dataset for FOM and other 
+#'     input parameters. 
 #' 
 #' @param dataset The dataset object to be checked. 
 #' 
 #' @param FOM The figure of merit. 
 #' 
-#' @param method The analysis method, defaults to "OR".
+#' @param method The analysis method "OR" (default) or "DBM".
 #' 
-#' @param analysisOption The desired generalization: "RRRC", "RRFC", "FRRC" or "ALL", 
-#'     defaults to "RRRC" 
+#' @param covEstMethod The covariance estimation method "jackknife" (default), 
+#'     "bootstrap" or "DeLong" (for an ROC dataset).
+#' 
+#' @param analysisOption Specification of the random factor(s): "RRRC" (default), "RRFC", 
+#'     "FRRC" or "ALL". 
 #' 
 #' 
-#' @return \code{TRUE} if combination is valid, \code{FALSE} otherwise.
+#' @return None.
 #' 
 #' @export
 #' 
-isValidDataset <- function(dataset, FOM, method = "OR", analysisOption = "RRRC") {
+isValidDataset <- function(dataset, FOM, method = "OR", covEstMethod = "jackknife", analysisOption = "RRRC") {
   
-  return (isValidFOM(dataset, FOM)) 
+  isValidFOM(dataset, FOM)
+  isValidAnalysisOption(dataset, analysisOption)
+  isValidCovEstMethod(FOM, covEstMethod)
+    
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
   
-  return(isValidAnalysisOption(dataset, analysisOption))
-  
-  dataType <- dataset$descriptions$type
-  if ((dataset$descriptions$design == "FCTRL-X-MOD") && (dataType %in% c("ROI", "LROC"))) {
-    cat("ROI or LROC **cross-modality** analyses is not currently supported.\n")
-    return(FALSE)
+  if ((dataset$descriptions$design == "FCTRL-X-MOD") && 
+      (dataset$descriptions$type %in% c("ROI", "LROC"))) {
+    errMsg <- paste0("ROI or LROC **cross-modality** analyses is not currently supported.\n")
+    stop(errMsg)
   }
   
   if (!(method %in% c("DBM", "OR"))){
-    cat(sprintf("%s is not a valid analysis method.\n", method))
-    return(FALSE)
+    errMsg <- sprintf("%s is not a valid analysis method.\n", method)
+    stop(errMsg)
   }
   
-  if (typeof(dataset) != "list") return (FALSE)
-  if (!(length(dataset) == 3)) return (FALSE)
+  if ((typeof(dataset) != "list") && !(length(dataset) != 3)) {
+    errMsg <- sprintf("dataset is not a list or list has incorrect length.\n")
+    stop(errMsg)
+  }
   
-  if (!(all(names(dataset) == c("ratings", "lesions", "descriptions")))) return (FALSE)
+  if (!(all(names(dataset) == c("ratings", "lesions", "descriptions")))) {
+    errMsg <- sprintf("dataset list names are incorrect.\n")
+    stop(errMsg)
+  }
   
-  if (!(all(names(dataset$ratings) == c("NL", "LL", "LL_IL")))) return (FALSE)
-  if (!(all(names(dataset$lesions) == c("perCase", "IDs", "weights")))) return (FALSE)
+  if (!(all(names(dataset$ratings) == c("NL", "LL", "LL_IL")))) {
+    errMsg <- sprintf("dataset$ratings list names are incorrect.\n")
+    stop(errMsg)
+  }
   
-  dataType <- dataset$descriptions$type
-  if (!(dataType %in% c("ROC", "FROC", "LROC", "ROI")))  return (FALSE)
-  if ((dataType == "ROC") && !(FOM %in% c("Wilcoxon"))) return(FALSE)
-  if ((dataType %in% c("FROC")) && (FOM == "Wilcoxon")) return(FALSE)
+  if (!(all(names(dataset$lesions) == c("perCase", "IDs", "weights")))) {
+    errMsg <- sprintf("dataset$lesions list names are incorrect.\n")
+    stop(errMsg)
+  }
+  
+  if ((dataset$descriptions$design == "FCTRL") && !(all(names(dataset$descriptions) == c("fileName", "type", "name", "truthTableStr", "design", "modalityID", "readerID")))) {
+    errMsg <- sprintf("dataset$descriptions list names are incorrect for factorial one treatment dataset.\n")
+    stop(errMsg)
+  }
+  
+  if ((dataset$descriptions$design == "FCTRL-X-MOD") && !(all(names(dataset$descriptions) == c("fileName", "type", "name", "truthTableStr", "design", "modalityID1", "modalityID2", "readerID")))) {
+    errMsg <- sprintf("dataset$descriptions list names are incorrect for factorial cross modality dataset.\n")
+    stop(errMsg)
+  }
+  
+  if (!(dataset$descriptions$type %in% c("ROC", "FROC", "LROC", "ROI"))) {
+    errMsg <- sprintf("%s is not a valid dataType.\n", dataset$descriptions$type)
+    stop(errMsg)
+  }
   
   if (!(dataset$descriptions$design %in% c("FCTRL", "FCTRL-X-MOD"))) {
-    cat("Study design must be 'FCTRL' or 'FCTRL-X-MOD'")
-    return(FALSE)
+    errMsg <- sprintf("Study design must be 'FCTRL' or 'FCTRL-X-MOD'.\n")
+    stop(errMsg)
   }
   
   if (dataset$descriptions$design == "FCTRL") {
     if ((length(dim(dataset$ratings$NL)) != 4) ||
         (length(dim(dataset$ratings$LL)) != 4)) {
-      cat("Invalid NL and or LL array dimension.\n")
-      return(FALSE)
+      errMsg <- paste0("Invalid NL, LL array dimensions for FCTRL dataset.\n")
+      stop(errMsg)
     }
   } else {
-    
-    NL <- dataset$ratings$NL
-    LL <- dataset$ratings$LL
+    # cross modality dataset with two treatment factors
     
     if ((length(dim(NL)) != 5) || (length(dim(LL)) != 5)){
-      cat ("This is not a cross-modality dataset")
-      return(FALSE)
+      errMsg <- paste0("Conflict with dataset$descriptions$design = FCTRL-X-MOD: incorrect dimensions for NL or LL.\n")
+      stop(errMsg)
     }
     
-    I1 <- dim(NL)[1]
-    I2 <- dim(NL)[2]
-    J <- dim(NL)[3]
     K <- dim(NL)[4]
     K2 <- dim(LL)[4]
     K1 <- K - K2  
     
     if ((K1 == 0) && !(FOM %in% c("AFROC1", "wAFROC1"))) {
-      cat("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.")
-      return(FALSE)
-    }
-    
-    
-    if (!(length(dim(dataset$ratings$NL)) == 5) ||
-        !(length(dim(dataset$ratings$LL)) == 5)) {
-      cat("Invalid NL and or LL array dimension.\n")
-      return(FALSE)
+      errMsg <- paste0("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.\n")
+      stop(errMsg)
     }
     
     if (!(FOM %in% c("Wilcoxon", "HrAuc", "AFROC", "AFROC1", "wAFROC1", "wAFROC"))) {
-      cat("Unsupported FOM for cross-modality analysis.\n")
-      return(FALSE)
+      errMsg <- paste0("Unsupported FOM for cross-modality analysis.\n")
+      stop(errMsg)
     }
     
   }
   
-  if ((dataType %in% c("FROC", "ROI")) && (FOM == "Wilcoxon")) {
-    cat("Cannot use `Wilcoxon` FOM with `FROC` or `ROI` data.")
-    return(FALSE)
+}  
+
+isValidFOM <- function (dataset, FOM) {
+  
+  if ((dataset$descriptions$type == "ROC") && !(FOM %in% c("Wilcoxon"))) {
+    errMsg <- sprintf("For ROC data only Wilcoxon FOM is allowed.\n")
+    stop(errMsg)
   }
   
-  if ((dataType != "ROI") && (FOM == "ROI")) {
-    cat(paste0("Only ROI data can be analyzed using ROI figure of merit."))
-    return(FALSE)
+  if ((dataset$descriptions$type == "FROC") && 
+       !(FOM %in% c("HrAuc", "HrSe", "HrSp", "AFROC", "wAFROC", "AFROC1", "wAFROC1", "MaxLLF", "MaxNLF", "MaxNLFAllCases"))) {
+    errMsg <- sprintf("FOM = %s not allowed with FROC data.\n", FOM)
+    stop(errMsg)
   }
   
-  if (dataType == "LROC") {
-    if (FOM != "Wilcoxon") { 
-      if (!between(FPFValue, 0, 1)) {
-        cat("FPFValue is outside valid range")
-        return(FALSE)
-      }
-    }
+  if ((dataset$descriptions$type == "LROC") && !(FOM %in% c("Wilcoxon", "PCL", "ALROC"))) {
+    errMsg <- sprintf("FOM = %s not allowed with LROC data.\n", FOM)
+    stop(errMsg)
   }
   
-  if (dataType == "LROC") {
-    if (FOM %in% c("Wilcoxon", "ALROC", "PCL")) {
-      if (dataType != "LROC") {
-        NL <- dataset$ratings$NL
-        LL <- dataset$ratings$LL
-      } else {
-        if (FOM == "Wilcoxon"){
-          datasetRoc <- DfLroc2Roc(dataset)
-          NL <- datasetRoc$ratings$NL
-          LL <- datasetRoc$ratings$LL
-        } else if (FOM %in% c("PCL", "ALROC")){
-          NL <- dataset$ratings$NL
-          LL <- dataset$ratings$LL
-        } else {
-          cat("incorrect FOM for LROC data")
-          return(FALSE)
-        }
-      }
-    } else {
-      cat("Incorrect FOM specified for LROC data.\n")
-      return(FALSE)
-    }
+  if ((dataset$descriptions$type != "ROI") && (FOM == "ROI")) {
+    errMsg <- sprintf("non-ROI data cannot be analyzed using ROI figure of merit.\n")
+    stop(errMsg)
+  }
+  
+  if ((dataset$descriptions$type == "ROI") && (FOM != "ROI")) {
+    errMsg <- sprintf("ROI data can only be analyzed using ROI figure of merit.\n")
+    stop(errMsg)
+  }
+  
+  if ((length(dim(dataset$ratings$NL)) == 4)
+      && (dataset$descriptions$design == "FCTRL")) {
+    K <- dim(dataset$ratings$NL)[3]
+    K2 <- dim(dataset$ratings$LL)[3]
+    K1 <- K - K2  
     
-    if ((length(dim(dataset$ratings$NL)) == 4)
-        && (dataset$descriptions$design == "FCTRL")) { 
-      
-      I <- dim(NL)[1]
-      J <- dim(NL)[2]
-      K <- dim(NL)[3]
-      K2 <- dim(LL)[3]
-      K1 <- K - K2  
-      
-      if ((K1 == 0) && !(FOM %in% c("AFROC1", "wAFROC1"))) {
-        cat(paste0("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases."))
-        return(FALSE)
-      }
-      
-      if (!(all(names(dataset$descriptions) == c("fileName", "type",
-                                                 "name", "truthTableStr", "design",
-                                                 "modalityID", "readerID")))) return (FALSE)
-    } else if ((length(dim(dataset$ratings$NL)) == 5) 
-               && (dataset$descriptions$design == "FCTRL-X-MOD")) { 
-      if (!(all(names(dataset$descriptions) == c("fileName", "type",
-                                                 "name", "truthTableStr", "design",
-                                                 "modalityID1", "modalityID2", "readerID")))) return (FALSE)
-    } else {
-      cat("Incorrect study design and or NL length.\n")
-      return(FALSE)
+    if ((K1 == 0) && !(FOM %in% c("AFROC1", "wAFROC1"))) {
+      errMsg <- sprintf("Only AFROC1 or wAFROC1 FOMs are allowed for datasets with zero non-diseased cases.\n")
+      stop(errMsg)
     }
   } 
-  
-  return (TRUE)
-  
-}
-
-isValidFOM <- function(dataset, FOM) {
-  
-  if (!(((dataset$descriptions$type == "FROC") && 
-         (FOM %in% c("HrAuc", "AFROC", "wAFROC", "AFROC1", "wAFROC1"))) || 
-        ((dataType == "ROC") && (FOM %in% c("Wilcoxon"))))) {
-    cat("FOM inconsistent with data type.\n")  
-    return(FALSE)
-  }
-  
-  return (TRUE)
-  
 }
 
 isValidCovEstMethod <- function(FOM, covEstMethod) {
   
-  if (!(covEstMethod %in% c("jackknife", "bootstrap", "DeLong"))) {
-    cat("Incorrect covEstMethod: must be `jackknife`, `bootstrap` or `DeLong`,\n")
-    return(FALSE)
+  if (!(covEstMethod %in% c("jackknife", "bootstrap", "DeLong", "ALL"))) {
+    errMsg <- sprintf("Incorrect covEstMethod specified.\n")
+    stop(errMsg)
   }
   
   if ((covEstMethod == "DeLong") && (FOM != "Wilcoxong")) {
-    cat("For `DeLong` covEstMethod the FOM must be `Wilcoxon`.\n")
-    return(FALSE)
+    errMsg <- sprintf("For `DeLong` covEstMethod method the FOM must be `Wilcoxon`.\n")
+    stop(errMsg)
   }
-  
-  return (TRUE)
-  
 }
 
 isValidAnalysisOption <- function(dataset, analysisOption) {
   
   if (!(analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL"))) {
-    cat("Incorrect analysisOption: must be `RRRC`, `FRRC`, `RRFC` or `ALL`")
-    return(FALSE)
+    errMsg <- sprintf("Incorrect analysisOption: must be `RRRC`, `FRRC`, `RRFC` or `ALL`.\n")
+    stop(errMsg)
   }
   
-  return(TRUE)
-  
 }
+

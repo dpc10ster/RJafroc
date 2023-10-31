@@ -157,8 +157,7 @@ test_that(contextStr, {
   
   dataset <- dataset02
   KStar <- length(dataset$ratings$NL[1,1,,1])
-  stOR <- StSignificanceTesting(dataset, FOM = "Wilcoxon",
-                                method = "OR")
+  stOR <- St(dataset, FOM = "Wilcoxon", method = "OR")
   VarTR <- stOR$ANOVA$VarCom["VarTR",1]
   Cov1 <- stOR$ANOVA$VarCom["Cov1",1]
   Cov2 <- stOR$ANOVA$VarCom["Cov2",1]
@@ -169,8 +168,7 @@ test_that(contextStr, {
                                   effectSize = 0.05, VarTR, Cov1, Cov2, Cov3, Var)
   
   
-  VarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBM",
-                                  analysisOption = "RRRC")$ANOVA$VarCom
+  VarCom <- St(dataset02, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")$ANOVA$VarCom
   VarTR <- VarCom["VarTR",1]
   VarTC <- VarCom["VarTC",1]
   VarErr <- VarCom["VarErr",1]

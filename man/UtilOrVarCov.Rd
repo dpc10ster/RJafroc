@@ -7,8 +7,8 @@
 UtilOrVarCov(
   dataset,
   FOM,
-  FPFValue = 0.2,
   covEstMethod = "jackknife",
+  FPFValue = 0.2,
   nBoots = 200,
   seed = NULL
 )
@@ -18,16 +18,15 @@ UtilOrVarCov(
 
 \item{FOM}{Figure of merit}
 
-\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC":
-the \code{FPFValue} at which to evaluate a partial curve based figure of merit. 
-The default is \code{FPFValue} = 0.2.}
-
 \item{covEstMethod}{The covariance estimation method, "jackknife" 
 (the default) or "bootstrap" or "DeLong" ("DeLong" is applicable only for 
 FOM = "Wilcoxon").}
 
-\item{nBoots}{Only needed for bootstrap covariance estimation method. The number 
-of bootstraps, defaults to 200.}
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC":
+the \code{FPFValue} at which to evaluate a partial curve based figure of merit. 
+The default is \code{FPFValue} = 0.2.}
+
+\item{nBoots}{The number of bootstraps (default = 200).Only needed for covEstMethod = "bootstrap".}
 
 \item{seed}{Only needed for the bootstrap covariance estimation method. The initial 
 seed for the random number generator, the default is \code{NULL}, for random seed.}
@@ -48,17 +47,17 @@ Obuchowski-Rockette variance components for dataset
 }
 \details{
 The variance components are identical to those obtained using 
-    \link{StSignificanceTesting} with \code{method = "OR"}.
+    \link{St} with \code{method = "OR"}.
 }
 \examples{
 ## use the default jackknife for covEstMethod
 vc <- UtilOrVarCov(dataset02, FOM = "Wilcoxon")
 str(vc) 
 
-UtilOrVarCov(dataset02, FOM = "Wilcoxon", 
-   covEstMethod = "bootstrap", nBoots = 2000, seed = 100)$VarCom 
+##UtilOrVarCov(dataset02, FOM = "Wilcoxon", covEstMethod = "bootstrap", 
+##nBoots = 2000, seed = 100)$VarCom 
 
-UtilOrVarCov(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$VarCom
+##UtilOrVarCov(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$VarCom
 
 UtilOrVarCov(datasetXModality, FOM = "wAFROC") 
   

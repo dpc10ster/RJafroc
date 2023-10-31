@@ -3,7 +3,7 @@ context(contextStr)
 test_that(contextStr, {
 
   dataset_arr <- c("dataset02", "dataset05")
-  FOM_arr <- c("MaxNLF","HrSp", "ExpTrnsfmSp", "MaxLLF",
+  FOM_arr <- c("MaxNLF","HrSp", "MaxLLF",
                "Wilcoxon", "HrAuc", "HrSe",
                "wAFROC","AFROC", "wAFROC1","AFROC1",  
                "MaxNLFAllCases") # adding ROI and two Song FOMs a total of 15 FOMs

@@ -2,23 +2,33 @@
 % Please edit documentation in R/isValidDataset.R
 \name{isValidDataset}
 \alias{isValidDataset}
-\title{Check the validity of a dataset and FOM combination}
+\title{Check the validity of a dataset for FOM and other input parameters}
 \usage{
-isValidDataset(dataset, FOM, method = "OR", analysisOption = "RRRC")
+isValidDataset(
+  dataset,
+  FOM,
+  method = "OR",
+  covEstMethod = "jackknife",
+  analysisOption = "RRRC"
+)
 }
 \arguments{
 \item{dataset}{The dataset object to be checked.}
 
 \item{FOM}{The figure of merit.}
 
-\item{method}{The analysis method, defaults to "OR".}
+\item{method}{The analysis method "OR" (default) or "DBM".}
 
-\item{analysisOption}{The desired generalization: "RRRC", "RRFC", "FRRC" or "ALL", 
-defaults to "RRRC"}
+\item{covEstMethod}{The covariance estimation method "jackknife" (default), 
+"bootstrap" or "DeLong" (for an ROC dataset).}
+
+\item{analysisOption}{Specification of the random factor(s): "RRRC" (default), "RRFC", 
+"FRRC" or "ALL".}
 }
 \value{
-\code{TRUE} if combination is valid, \code{FALSE} otherwise.
+None.
 }
 \description{
-Checks the validity of a specified dataset and FOM combination.
+Checks the validity of a specified dataset for FOM and other 
+    input parameters.
 }

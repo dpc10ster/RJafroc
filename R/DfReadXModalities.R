@@ -35,13 +35,13 @@
 #' @import readxl gtools
 #' 
 #' @export
-DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
+DfReadXModalities <- function(fileName, sequentialNames = FALSE) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   #wb <- loadWorkbook(fileName) # openxlsx
   wb <- excel_sheets(fileName)
   sheetNames <- toupper(wb)
   
-  # DfReadCrossedModalities FCTRL-X-MOD in truth worksheet
+  # DfReadXModalities FCTRL-X-MOD in truth worksheet
   # 
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (truthFileIndex == 0) 
@@ -312,7 +312,7 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
   names(modalityID2) <- modality2Names
   names(readerID) <- readerNames
   
-  fileName <- paste0("DfReadCrossedModalities(", tools::file_path_sans_ext(basename(fileName)), ")")
+  fileName <- paste0("DfReadXModalities(", tools::file_path_sans_ext(basename(fileName)), ")")
   name <- "THOMPSON-X-MOD"
   design <- "FCTRL-X-MOD"
   truthTableStr <- NA
@@ -323,3 +323,34 @@ DfReadCrossedModalities <- function(fileName, sequentialNames = FALSE) {
                          fileName, type, name, truthTableStr, design,
                          modalityID1, modalityID2, readerID))
 } 
+
+
+convert2Xdataset <- function(NL, LL, LL_IL, 
+                             perCase, IDs, weights,
+                             fileName, type, name, truthTableStr, design,
+                             modalityID1,  modalityID2, readerID) {
+  ratings <- list(NL = NL,
+                  LL = LL,
+                  LL_IL = LL_IL)
+  
+  lesions <- list(perCase = perCase,
+                  IDs = IDs,
+                  weights = weights)
+  
+  descriptions <- list(fileName = tools::file_path_sans_ext(basename(fileName)),
+                       type = type,
+                       name = name,
+                       truthTableStr = truthTableStr,
+                       design = design,
+                       modalityID1 = modalityID1,
+                       modalityID2 = modalityID2,
+                       readerID = readerID)
+  
+  dataset <- list(ratings = ratings, 
+                  lesions = lesions, 
+                  descriptions = descriptions)
+  
+  return(dataset)
+  
+}
+

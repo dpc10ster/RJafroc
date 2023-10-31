@@ -7,6 +7,12 @@ title: "NEWS"
 ---
 
 
+
+### Commented some code 10/31/23
+* bootstrap and DeLong in `StORAnalysis`
+
+
+
 ### Do global search for questionable code
 * marked as follows
 * ???DPC???

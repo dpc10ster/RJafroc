@@ -1,23 +1,30 @@
-# computes fom_ij, UtilOrVarCov, TRanova, VarCom, IndividualTrt, IndividualRdr,
-# FOMs, ANOVA, RRRC, etc
-StORAnalysis <- function(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, analysisOption)  
+StORAnalysis <- function(dataset,
+                         FOM,
+                         method, 
+                         covEstMethod, 
+                         analysisOption,
+                         alpha,
+                         FPFValue,
+                         nBoots, 
+                         seed)  
+
 {
   
-  if (dataset$descriptions$design == "FCTRL") {
-    # factorial dataset, one treatment factor 
+  fom_ij <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+  vc <- UtilOrVarCov(dataset, FOM, covEstMethod, FPFValue, nBoots, seed)
+  
+  if (length(dim(fom_ij)) == 2) {
+    # factorial one-treatment dataset 
     
+    K <- dim(dataset$ratings$NL)[3]
     RRRC <- NULL
     FRRC <- NULL
     RRFC <- NULL
     
-    fom_ij <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-    
-    ret <- UtilOrVarCov(dataset, FOM, FPFValue, covEstMethod, nBoots)
-    
-    TRanova <- ret$TRanova
-    VarCom <-  ret$VarCom
-    IndividualTrt <- ret$IndividualTrt
-    IndividualRdr <- ret$IndividualRdr
+    TRanova <- vc$TRanova
+    VarCom <-  vc$VarCom
+    IndividualTrt <- vc$IndividualTrt
+    IndividualRdr <- vc$IndividualRdr
     
     ANOVA <- list()
     ANOVA$TRanova <- TRanova
@@ -29,7 +36,7 @@ StORAnalysis <- function(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, an
     trtMeans <- as.data.frame(trtMeans)
     colnames(trtMeans) <- "Estimate"
     
-    modalityID <- dataset$descriptions$modalityID
+    modalityID <- rownames(fom_ij)
     I <- length(modalityID)
     
     trtMeanDiffs <- array(dim = choose(I, 2))
@@ -40,7 +47,7 @@ StORAnalysis <- function(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, an
         break
       for (ip in (i + 1):I) {
         trtMeanDiffs[ii] <- trtMeans[i,1] - trtMeans[ip,1]
-        diffTRName[ii] <- paste0("trt", modalityID[i], sep = "-", "trt", modalityID[ip]) # !sic
+        diffTRName[ii] <- paste0(modalityID[i], sep = "-", modalityID[ip]) # !sic
         ii <- ii + 1
       }
     }
@@ -48,45 +55,45 @@ StORAnalysis <- function(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, an
                                row.names = diffTRName,
                                stringsAsFactors = FALSE)
     
-    FOMs <- list(
+    fomList <- list(
       foms = fom_ij,
       trtMeans = trtMeans,
       trtMeanDiffs = trtMeanDiffs
     )
     
     if (analysisOption == "RRRC") {
-      RRRC <- ORSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      RRRC <- ORSummaryRRRC(fomList, ANOVA, alpha)
       return(list(
-        FOMs = FOMs,
+        FOMs = fomList,
         ANOVA = ANOVA,
         RRRC = RRRC
       ))
     }  
     
     if (analysisOption == "FRRC") {
-      FRRC <- ORSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      FRRC <- ORSummaryFRRC(K, fomList, ANOVA, alpha)
       return(list(
-        FOMs = FOMs,
+        FOMs = fomList,
         ANOVA = ANOVA,
         FRRC = FRRC
       ))
     }  
     
     if (analysisOption == "RRFC") {
-      RRFC <- ORSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      RRFC <- ORSummaryRRFC(fomList, ANOVA, alpha)
       return(list(
-        FOMs = FOMs,
+        FOMs = fomList,
         ANOVA = ANOVA,
         RRFC = RRFC
       ))
     }  
     
     if (analysisOption == "ALL") {
-      RRRC <- ORSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
-      FRRC <- ORSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
-      RRFC <- ORSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      RRRC <- ORSummaryRRRC(fomList, ANOVA, alpha)
+      FRRC <- ORSummaryFRRC(K, fomList, ANOVA, alpha)
+      RRFC <- ORSummaryRRFC(fomList, ANOVA, alpha)
       return(list(
-        FOMs = FOMs,
+        FOMs = fomList,
         ANOVA = ANOVA,
         RRRC = RRRC,
         FRRC = FRRC,
@@ -97,32 +104,23 @@ StORAnalysis <- function(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, an
   } else {
     # cross-modality factorial dataset, two treatment factors
     
-    RRRC <- list()
-    FRRC <- list()
-    RRFC <- list()
-    trtMeanDiffs <- list()
-    trtMeans <- list()
+    modalityID1 <- dataset$descriptions$modalityID1
+    modalityID2 <- dataset$descriptions$modalityID2
+    modalityID <- list(modalityID2, modalityID1)
     
-    dsX <- dataset
-    
-    modalityID1 <- dsX$descriptions$modalityID1
-    modalityID2 <- dsX$descriptions$modalityID2
-    modalityID <- list(modalityID1, modalityID2)
-    
-    readerID <- dsX$descriptions$readerID
+    readerID <- dataset$descriptions$readerID
     I1 <- length(modalityID1)
     I2 <- length(modalityID2)
     J <- length(readerID)
+    K <- dim(dataset$ratings$NL)[4]
     
-    fomsTemp <- UtilFigureOfMerit(dsX, FOM, FPFValue)
-    foms <- FomAvgXModality(dsX, fomsTemp)
+    fom_i1i2j <- fom_ij
+    fomsAvgList <- ConvArr2List(dataset, fom_i1i2j)
     
-    ret <- UtilOrVarCov(dsX, FOM, FPFValue, covEstMethod, nBoots)
-    
-    TRanova <- ret$TRanova
-    VarCom <-  ret$VarCom
-    IndividualTrt <- ret$IndividualTrt
-    IndividualRdr <- ret$IndividualRdr
+    TRanova <- vc$TRanova
+    VarCom <-  vc$VarCom
+    IndividualTrt <- vc$IndividualTrt
+    IndividualRdr <- vc$IndividualRdr
     
     ANOVA <- list()
     ANOVA$TRanova <- TRanova
@@ -130,82 +128,89 @@ StORAnalysis <- function(dataset, FOM, FPFValue, alpha, covEstMethod, nBoots, an
     ANOVA$IndividualTrt <- IndividualTrt
     ANOVA$IndividualRdr <- IndividualRdr
     
-    I1 <- dim(foms[[1]])[1]
-    I2 <- dim(foms[[2]])[1]
+    I1 <- dim(fomsAvgList[[2]])[1]
+    I2 <- dim(fomsAvgList[[1]])[1]
     I <- c(I2,I1)
     
+    trtMeanDiffs <- list()
+    trtMeans <- list()
+    diffTRName <- list()
     for (avgIndx in 1:2) { # treatment index that FOM was averaged over
-      trtMeans1 <- rowMeans(foms[[avgIndx]])
+      trtMeans1 <- rowMeans(fomsAvgList[[avgIndx]])
       trtMeans[[avgIndx]] <- as.data.frame(trtMeans1)
       colnames(trtMeans[[avgIndx]]) <- "Estimate"
       trtMeanDiffs1 <- array(dim = choose(I[avgIndx], 2))
-      diffTRName <- array(dim = choose(I[avgIndx], 2))
-      
+      diffTRName[[avgIndx]] <- array(dim = choose(I[avgIndx], 2))
+
       ii <- 1
       for (i in 1:I[avgIndx]) {
         if (i == I[avgIndx]) 
           break
         for (ip in (i + 1):I[avgIndx]) {
-          trtMeanDiffs1[ii] <- trtMeans[i,1] - trtMeans[ip,1]
-          diffTRName[ii] <- paste0("trt", 
+          trtMeanDiffs1[ii] <- trtMeans[[avgIndx]][i,1] - trtMeans[[avgIndx]][ip,1]
+          diffTRName[[avgIndx]][ii] <- paste0("trt", 
                                    modalityID[[avgIndx]][i], 
                                    sep = "-", "trt", 
                                    modalityID[[avgIndx]][ip])
           ii <- ii + 1
         }
       }
+      
+      trtMeanDiffs[[avgIndx]] <- data.frame("Estimate" = trtMeanDiffs1,
+                                            row.names = diffTRName[[avgIndx]],
+                                            stringsAsFactors = FALSE)
     }
-    trtMeanDiffs[[avgIndx]] <- data.frame("Estimate" = trtMeanDiffs1,
-                               row.names = diffTRName,
-                               stringsAsFactors = FALSE)
     
-    FOMs <- list(
-      foms = foms,
+    names(trtMeans) <- c("AvgMod1", "AvgMod2")
+    names(trtMeanDiffs) <- c("AvgMod1", "AvgMod2")
+    
+    FOMStats <- list(
+      foms = fomsAvgList,
       trtMeans = trtMeans,
-      trtMeanDiffs = trtMeanDiffs
-    )
+      trtMeanDiffs = trtMeanDiffs)
     
+    RRRC <- list()
     if (analysisOption == "RRRC") {
-      RRRC <- ORSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      RRRC <- ORSummaryRRRC(FOMStats, ANOVA, alpha)
       return(list(
-        FOMs = FOMs,
+        FOMs = FOMStats,
         ANOVA = ANOVA,
         RRRC = RRRC
       ))
     }  
     
+    FRRC <- list()
     if (analysisOption == "FRRC") {
-      FRRC <- ORSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      FRRC <- ORSummaryFRRC(K, FOMStats, ANOVA, alpha)
       return(list(
-        FOMs = FOMs,
+        FOMs = FOMStats,
         ANOVA = ANOVA,
         FRRC = FRRC
       ))
     }  
     
+    RRFC <- list()
     if (analysisOption == "RRFC") {
-      RRFC <- ORSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      RRFC <- ORSummaryRRFC(FOMStats, ANOVA, alpha)
       return(list(
-        FOMs = FOMs,
+        FOMs = FOMStats,
         ANOVA = ANOVA,
         RRFC = RRFC
       ))
     }  
     
     if (analysisOption == "ALL") {
-      RRRC <- ORSummaryRRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
-      FRRC <- ORSummaryFRRC(dataset, FOMs, ANOVA, alpha, diffTRName)
-      RRFC <- ORSummaryRRFC(dataset, FOMs, ANOVA, alpha, diffTRName)
+      RRRC <- ORSummaryRRRC(FOMStats, ANOVA, alpha)
+      FRRC <- ORSummaryFRRC(K, FOMStats, ANOVA, alpha)
+      RRFC <- ORSummaryRRFC(FOMStats, ANOVA, alpha)
       return(list(
-        FOMs = FOMs,
+        FOMs = FOMStats,
         ANOVA = ANOVA,
         RRRC = RRRC,
         FRRC = FRRC,
         RRFC = RRFC
       ))
     } 
-    
-    stop("in StORAnalysis")
   } 
 } 
 
@@ -215,305 +220,305 @@ varCompBS <- function(dataset, FOM, FPFValue, nBoots, seed)
 {
   stop("code needs fixing: varCompBS")
   
-  if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
-  
-  set.seed(seed) ## added 4/28/20, to test reproducibility with RJafrocBook code
-  NL <- dataset$ratings$NL
-  LL <- dataset$ratings$LL
-  perCase <- dataset$lesions$perCase
-  IDs <- dataset$lesions$IDs
-  weights <- dataset$lesions$weights
-  
-  I <- length(NL[,1,1,1])
-  J <- length(NL[1,,1,1])
-  K <- length(NL[1,1,,1])
-  K2 <- length(LL[1,1,,1])
-  K1 <- (K - K2)
-  maxNL <- length(NL[1,1,1,])
-  maxLL <- length(LL[1,1,1,])
-  
-  if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
-    stop("This needs fixing")
-    fomBsArray <- array(dim = c(I, J, nBoots))
-    for (b in 1:nBoots) {
-      kBs <- ceiling(runif(K1) * K1)
-      for (i in 1:I) {
-        for (j in 1:J) {
-          NLbs <- NL[i, j, kBs, ]
-          LLbs <- LL[i, j, , ]
-          dim(NLbs) <- c(K1, maxNL)
-          dim(LLbs) <- c(K2, maxLL)
-          fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, 
-                                          perCase, IDs, 
-                                          weights, maxNL, 
-                                          maxLL, K1, K2, 
-                                          FOM, FPFValue)
-        }
-      }
-    }
-  } else if (FOM %in% c("MaxLLF", "HrSe")) {
-    stop("This needs fixing")
-    fomBsArray <- array(dim = c(I, J, nBoots))
-    for (b in 1:nBoots) {
-      kBs <- ceiling(runif(K2) * K2)
-      for (i in 1:I) {
-        for (j in 1:J) {
-          NLbs <- NL[i, j, c(1:K1, (kBs + K1)), ]
-          LLbs <- LL[i, j, kBs, ]
-          dim(NLbs) <- c(K, maxNL)
-          dim(LLbs) <- c(K2, maxLL)
-          lesionIDBs <- IDs[kBs, ]
-          dim(lesionIDBs) <- c(K2, maxLL)
-          lesionWeightBs <- weights[kBs, ]
-          dim(lesionWeightBs) <- c(K2, maxLL)
-          fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, 
-                                          perCase[kBs], lesionIDBs, 
-                                          lesionWeightBs, maxNL, maxLL, 
-                                          K1, K2, FOM, FPFValue)
-        }
-      }
-    }
-  } else { # original code had errors; see Fadi RRRC code; Aug 9, 2017 !!dpc!!!
-    ## however, following code needs checking
-    ##stop("this code needs checking; contact Dr. Chakraborty with dataset and code that lands here; 8/9/2017")
-    fomBsArray <- array(dim = c(I, J, nBoots))
-    for (b in 1:nBoots) {
-      k1bs <- ceiling(runif(K1) * K1)
-      k2bs <- ceiling(runif(K2) * K2)
-      for (i in 1:I) {
-        for (j in 1:J) {
-          NLbs <- NL[i, j, c(k1bs, k2bs + K1), ]
-          lesionVectorbs <- perCase[k2bs]            
-          LLbs <- LL[i, j, k2bs,1:max(lesionVectorbs)] 
-          dim(NLbs) <- c(K, maxNL)
-          dim(LLbs) <- c(K2, max(lesionVectorbs))  
-          lesionIDBs <- IDs[k2bs, ]
-          dim(lesionIDBs) <- c(K2, maxLL)
-          lesionWeightBs <- weights[k2bs, ]
-          dim(lesionWeightBs) <- c(K2, maxLL)
-          fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, lesionVectorbs, lesionIDBs, 
-                                          lesionWeightBs, maxNL, maxLL, K1, K2, FOM, FPFValue)
-        }
-      }
-    }
-  }
-  
-  Cov <- FOM2VarCov(fomBsArray, varInflFactor = FALSE)
-  Var <- Cov$Var
-  Cov1 <- Cov$Cov1
-  Cov2 <- Cov$Cov2
-  Cov3 <- Cov$Cov3
-  
-  return(list(
-    Var = Var, 
-    Cov1 = Cov1, 
-    Cov2 = Cov2, 
-    Cov3 = Cov3
-  ))
+  # if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
+  # 
+  # set.seed(seed) ## added 4/28/20, to test reproducibility with RJafrocBook code
+  # NL <- dataset$ratings$NL
+  # LL <- dataset$ratings$LL
+  # perCase <- dataset$lesions$perCase
+  # IDs <- dataset$lesions$IDs
+  # weights <- dataset$lesions$weights
+  # 
+  # I <- length(NL[,1,1,1])
+  # J <- length(NL[1,,1,1])
+  # K <- length(NL[1,1,,1])
+  # K2 <- length(LL[1,1,,1])
+  # K1 <- (K - K2)
+  # maxNL <- length(NL[1,1,1,])
+  # maxLL <- length(LL[1,1,1,])
+  # 
+  # if (FOM %in% c("MaxNLF", "HrSp")) {
+  #   stop("This needs fixing")
+  #   fomBsArray <- array(dim = c(I, J, nBoots))
+  #   for (b in 1:nBoots) {
+  #     kBs <- ceiling(runif(K1) * K1)
+  #     for (i in 1:I) {
+  #       for (j in 1:J) {
+  #         NLbs <- NL[i, j, kBs, ]
+  #         LLbs <- LL[i, j, , ]
+  #         dim(NLbs) <- c(K1, maxNL)
+  #         dim(LLbs) <- c(K2, maxLL)
+  #         fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, 
+  #                                         perCase, IDs, 
+  #                                         weights, maxNL, 
+  #                                         maxLL, K1, K2, 
+  #                                         FOM, FPFValue)
+  #       }
+  #     }
+  #   }
+  # } else if (FOM %in% c("MaxLLF", "HrSe")) {
+  #   stop("This needs fixing")
+  #   fomBsArray <- array(dim = c(I, J, nBoots))
+  #   for (b in 1:nBoots) {
+  #     kBs <- ceiling(runif(K2) * K2)
+  #     for (i in 1:I) {
+  #       for (j in 1:J) {
+  #         NLbs <- NL[i, j, c(1:K1, (kBs + K1)), ]
+  #         LLbs <- LL[i, j, kBs, ]
+  #         dim(NLbs) <- c(K, maxNL)
+  #         dim(LLbs) <- c(K2, maxLL)
+  #         lesionIDBs <- IDs[kBs, ]
+  #         dim(lesionIDBs) <- c(K2, maxLL)
+  #         lesionWeightBs <- weights[kBs, ]
+  #         dim(lesionWeightBs) <- c(K2, maxLL)
+  #         fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, 
+  #                                         perCase[kBs], lesionIDBs, 
+  #                                         lesionWeightBs, maxNL, maxLL, 
+  #                                         K1, K2, FOM, FPFValue)
+  #       }
+  #     }
+  #   }
+  # } else { # original code had errors; see Fadi RRRC code; Aug 9, 2017 !!dpc!!!
+  #   ## however, following code needs checking
+  #   ##stop("this code needs checking; contact Dr. Chakraborty with dataset and code that lands here; 8/9/2017")
+  #   fomBsArray <- array(dim = c(I, J, nBoots))
+  #   for (b in 1:nBoots) {
+  #     k1bs <- ceiling(runif(K1) * K1)
+  #     k2bs <- ceiling(runif(K2) * K2)
+  #     for (i in 1:I) {
+  #       for (j in 1:J) {
+  #         NLbs <- NL[i, j, c(k1bs, k2bs + K1), ]
+  #         lesionVectorbs <- perCase[k2bs]            
+  #         LLbs <- LL[i, j, k2bs,1:max(lesionVectorbs)] 
+  #         dim(NLbs) <- c(K, maxNL)
+  #         dim(LLbs) <- c(K2, max(lesionVectorbs))  
+  #         lesionIDBs <- IDs[k2bs, ]
+  #         dim(lesionIDBs) <- c(K2, maxLL)
+  #         lesionWeightBs <- weights[k2bs, ]
+  #         dim(lesionWeightBs) <- c(K2, maxLL)
+  #         fomBsArray[i, j, b] <- MyFom_ij(NLbs, LLbs, lesionVectorbs, lesionIDBs, 
+  #                                         lesionWeightBs, maxNL, maxLL, K1, K2, FOM, FPFValue)
+  #       }
+  #     }
+  #   }
+  # }
+  # 
+  # Cov <- FOM2VarCov(fomBsArray, varInflFactor = FALSE)
+  # Var <- Cov$Var
+  # Cov1 <- Cov$Cov1
+  # Cov2 <- Cov$Cov2
+  # Cov3 <- Cov$Cov3
+  # 
+  # return(list(
+  #   Var = Var, 
+  #   Cov1 = Cov1, 
+  #   Cov2 = Cov2, 
+  #   Cov3 = Cov3
+  # ))
   
 }
 
 
 
-varCompDeLong <- function(dataset, FOM)
+varCompDeLong <- function(FOM)
 {
   stop("code needs fixing: varCompBS")
   
-  if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
-  if (FOM != "Wilcoxon") stop("This functions requires FOM = `Wilcoxon`,\n")  
-  
-  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  NL <- dataset$ratings$NL
-  LL <- dataset$ratings$LL
-  perCase <- dataset$lesions$perCase
-  
-  I <- length(NL[,1,1,1])
-  J <- length(NL[1,,1,1])
-  K <- length(NL[1,1,,1])
-  K2 <- length(LL[1,1,,1])
-  K1 <- (K - K2)
-  maxNL <- length(NL[1,1,1,])
-  maxLL <- length(LL[1,1,1,])
-  if ((maxNL != 1) || (maxLL != 1)) stop("dataset error in varCompDeLong")
-  
-  fomArray <- UtilFigureOfMerit(dataset, FOM)
-  
-  if (!FOM %in% c("Wilcoxon", "HrAuc", "ROI")) 
-    stop("DeLong\"s method can only be used for trapezoidal figures of merit.")
-  
-  if (FOM == "ROI") {
-    kI01 <- which(apply((NL[1, 1, , ] != UNINITIALIZED), 1, any))
-    numKI01 <- rowSums((NL[1, 1, , ] != UNINITIALIZED))
-    I01 <- length(kI01)
-    I10 <- K2
-    N <- sum((NL[1, 1, , ] != UNINITIALIZED))
-    M <- sum(perCase)
-    V01 <- array(dim = c(I, J, I01, maxNL))
-    V10 <- array(dim = c(I, J, I10, maxLL))
-    for (i in 1:I) {
-      for (j in 1:J) {
-        for (k in 1:I10) {
-          for (el in 1:perCase[k]) {
-            V10[i, j, k, el] <- (sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) < LL[i, j, k, el]) 
-                                 + 0.5 * sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) == LL[i, j, k, el]))/N
-          }
-        }
-        for (k in 1:I01) {
-          for (el in 1:maxNL) {
-            if (NL[i, j, kI01[k], el] == UNINITIALIZED) 
-              next
-            V01[i, j, k, el] <- (sum(NL[i, j, kI01[k], el] < as.vector(LL[i, j, , ][LL[i, j, , ] != UNINITIALIZED])) 
-                                 + 0.5 * sum(NL[i, j, kI01[k], el] == as.vector(LL[i, j, , ][LL[i, j, , ] != UNINITIALIZED])))/M
-          }
-        }
-      }
-    }
-    s10 <- array(0, dim = c(I, I, J, J))
-    s01 <- array(0, dim = c(I, I, J, J))
-    s11 <- array(0, dim = c(I, I, J, J))
-    for (i in 1:I) {
-      for (ip in 1:I) {
-        for (j in 1:J) {
-          for (jp in 1:J) {
-            for (k in 1:I10) {
-              s10[i, ip, j, jp] <- (s10[i, ip, j, jp]
-                                    + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])])
-                                       - perCase[k] * fomArray[i, j])
-                                    * (sum(V10[ip, jp, k, !is.na(V10[ip, jp, k, ])]) 
-                                       - perCase[k] * fomArray[ip, jp]))
-            }
-            for (k in 1:I01) {
-              s01[i, ip, j, jp] <- (s01[i, ip, j, jp] 
-                                    + (sum(V01[i, j, k, !is.na(V01[i, j, k, ])]) 
-                                       - numKI01[kI01[k]] * fomArray[i, j]) 
-                                    * (sum(V01[ip, jp, k, !is.na(V01[ip, jp, k, ])]) 
-                                       - numKI01[kI01[k]] * fomArray[ip, jp]))
-            }
-            allAbn <- 0
-            for (k in 1:K2) {
-              if (all(NL[ip, jp, k + K1, ] == UNINITIALIZED)) {
-                allAbn <- allAbn + 1
-                next
-              }                  
-              s11[i, ip, j, jp] <- (s11[i, ip, j, jp] 
-                                    + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])]) 
-                                       - perCase[k] * fomArray[i, j]) 
-                                    * (sum(V01[ip, jp, k + K1 - allAbn, !is.na(V01[ip, jp, k + K1 - allAbn, ])]) 
-                                       - numKI01[K1 + k] * fomArray[ip, jp]))
-            }
-          }
-        }
-      }
-    }
-    s10 <- s10 * I10/(I10 - 1)/M
-    s01 <- s01 * I01/(I01 - 1)/N
-    s11 <- s11 * K/(K - 1)
-    S <- array(0, dim = c(I, I, J, J))
-    for (i in 1:I) {
-      for (ip in 1:I) {
-        for (j in 1:J) {
-          for (jp in 1:J) {
-            S[i, ip, j, jp] <- s10[i, ip, j, jp]/M + s01[i, ip, j, jp]/N + s11[i, ip, j, jp]/(M * N) + s11[ip, i, jp, j]/(M * N)
-          }
-        }
-      }
-    }
-  } else {
-    # ROC
-    V10 <- array(dim = c(I, J, K2))
-    V01 <- array(dim = c(I, J, K1))
-    for (i in 1:I) {
-      for (j in 1:J) {
-        nl <- NL[i, j, 1:K1, ]
-        ll <- cbind(NL[i, j, (K1 + 1):K, ], LL[i, j, , ])
-        dim(nl) <- c(K1, maxNL)
-        dim(ll) <- c(K2, maxNL + maxLL)
-        fp <- apply(nl, 1, max)
-        tp <- apply(ll, 1, max)
-        for (k in 1:K2) {
-          V10[i, j, k] <- (sum(fp < tp[k]) + 0.5 * sum(fp == tp[k]))/K1
-        }
-        for (k in 1:K1) {
-          V01[i, j, k] <- (sum(fp[k] < tp) + 0.5 * sum(fp[k] == tp))/K2
-        }
-      }
-    }
-    s10 <- array(dim = c(I, I, J, J))
-    s01 <- array(dim = c(I, I, J, J))
-    for (i in 1:I) {
-      for (ip in 1:I) {
-        for (j in 1:J) {
-          for (jp in 1:J) {
-            s10[i, ip, j, jp] <- sum((V10[i, j, ] - fomArray[i, j]) * (V10[ip, jp, ] - fomArray[ip, jp]))/(K2 - 1)
-            s01[i, ip, j, jp] <- sum((V01[i, j, ] - fomArray[i, j]) * (V01[ip, jp, ] - fomArray[ip, jp]))/(K1 - 1)
-          }
-        }
-      }
-    }
-    S <- s10/K2 + s01/K1
-  }
-  
-  covariances <- S
-  Var <- 0
-  count <- 0
-  for (i in 1:I) {
-    for (j in 1:J) {
-      Var <- Var + covariances[i, i, j, j]
-      count <- count + 1
-    }
-  }
-  if (count > 0) Var <- Var/count else Var <- 0
-  
-  Cov1 <- 0
-  count <- 0
-  for (i in 1:I) {
-    for (ip in 1:I) {
-      for (j in 1:J) {
-        if (ip != i) {
-          Cov1 <- Cov1 + covariances[i, ip, j, j]
-          count <- count + 1
-        }
-      }
-    }
-  }
-  if (count > 0) Cov1 <- Cov1/count else Cov1 <- 0
-  
-  Cov2 <- 0
-  count <- 0
-  for (i in 1:I) {
-    for (j in 1:J) {
-      for (jp in 1:J) {
-        if (j != jp) {
-          Cov2 <- Cov2 + covariances[i, i, j, jp]
-          count <- count + 1
-        }
-      }
-    }
-  }
-  if (count > 0) Cov2 <- Cov2/count else Cov2 <- 0
-  
-  Cov3 <- 0
-  count <- 0
-  for (i in 1:I) {
-    for (ip in 1:I) {
-      if (i != ip) {
-        for (j in 1:J) {
-          for (jp in 1:J) {
-            if (j != jp) {
-              Cov3 <- Cov3 + covariances[i, ip, j, jp]
-              count <- count + 1
-            }
-          }
-        }
-      }
-    }
-  }
-  if (count > 0) Cov3 <- Cov3/count else Cov3 <- 0
-  
-  return(list(
-    Var = Var, 
-    Cov1 = Cov1, 
-    Cov2 = Cov2, 
-    Cov3 = Cov3))
+  # if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
+  # if (FOM != "Wilcoxon") stop("This functions requires FOM = `Wilcoxon`,\n")  
+  # 
+  # UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  # NL <- dataset$ratings$NL
+  # LL <- dataset$ratings$LL
+  # perCase <- dataset$lesions$perCase
+  # 
+  # I <- length(NL[,1,1,1])
+  # J <- length(NL[1,,1,1])
+  # K <- length(NL[1,1,,1])
+  # K2 <- length(LL[1,1,,1])
+  # K1 <- (K - K2)
+  # maxNL <- length(NL[1,1,1,])
+  # maxLL <- length(LL[1,1,1,])
+  # if ((maxNL != 1) || (maxLL != 1)) stop("dataset error in varCompDeLong")
+  # 
+  # fomArray <- UtilFigureOfMerit(dataset, FOM)
+  # 
+  # if (!FOM %in% c("Wilcoxon", "HrAuc", "ROI")) 
+  #   stop("DeLong\"s method can only be used for trapezoidal figures of merit.")
+  # 
+  # if (FOM == "ROI") {
+  #   kI01 <- which(apply((NL[1, 1, , ] != UNINITIALIZED), 1, any))
+  #   numKI01 <- rowSums((NL[1, 1, , ] != UNINITIALIZED))
+  #   I01 <- length(kI01)
+  #   I10 <- K2
+  #   N <- sum((NL[1, 1, , ] != UNINITIALIZED))
+  #   M <- sum(perCase)
+  #   V01 <- array(dim = c(I, J, I01, maxNL))
+  #   V10 <- array(dim = c(I, J, I10, maxLL))
+  #   for (i in 1:I) {
+  #     for (j in 1:J) {
+  #       for (k in 1:I10) {
+  #         for (el in 1:perCase[k]) {
+  #           V10[i, j, k, el] <- (sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) < LL[i, j, k, el]) 
+  #                                + 0.5 * sum(as.vector(NL[i, j, , ][NL[i, j, , ] != UNINITIALIZED]) == LL[i, j, k, el]))/N
+  #         }
+  #       }
+  #       for (k in 1:I01) {
+  #         for (el in 1:maxNL) {
+  #           if (NL[i, j, kI01[k], el] == UNINITIALIZED) 
+  #             next
+  #           V01[i, j, k, el] <- (sum(NL[i, j, kI01[k], el] < as.vector(LL[i, j, , ][LL[i, j, , ] != UNINITIALIZED])) 
+  #                                + 0.5 * sum(NL[i, j, kI01[k], el] == as.vector(LL[i, j, , ][LL[i, j, , ] != UNINITIALIZED])))/M
+  #         }
+  #       }
+  #     }
+  #   }
+  #   s10 <- array(0, dim = c(I, I, J, J))
+  #   s01 <- array(0, dim = c(I, I, J, J))
+  #   s11 <- array(0, dim = c(I, I, J, J))
+  #   for (i in 1:I) {
+  #     for (ip in 1:I) {
+  #       for (j in 1:J) {
+  #         for (jp in 1:J) {
+  #           for (k in 1:I10) {
+  #             s10[i, ip, j, jp] <- (s10[i, ip, j, jp]
+  #                                   + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])])
+  #                                      - perCase[k] * fomArray[i, j])
+  #                                   * (sum(V10[ip, jp, k, !is.na(V10[ip, jp, k, ])]) 
+  #                                      - perCase[k] * fomArray[ip, jp]))
+  #           }
+  #           for (k in 1:I01) {
+  #             s01[i, ip, j, jp] <- (s01[i, ip, j, jp] 
+  #                                   + (sum(V01[i, j, k, !is.na(V01[i, j, k, ])]) 
+  #                                      - numKI01[kI01[k]] * fomArray[i, j]) 
+  #                                   * (sum(V01[ip, jp, k, !is.na(V01[ip, jp, k, ])]) 
+  #                                      - numKI01[kI01[k]] * fomArray[ip, jp]))
+  #           }
+  #           allAbn <- 0
+  #           for (k in 1:K2) {
+  #             if (all(NL[ip, jp, k + K1, ] == UNINITIALIZED)) {
+  #               allAbn <- allAbn + 1
+  #               next
+  #             }                  
+  #             s11[i, ip, j, jp] <- (s11[i, ip, j, jp] 
+  #                                   + (sum(V10[i, j, k, !is.na(V10[i, j, k, ])]) 
+  #                                      - perCase[k] * fomArray[i, j]) 
+  #                                   * (sum(V01[ip, jp, k + K1 - allAbn, !is.na(V01[ip, jp, k + K1 - allAbn, ])]) 
+  #                                      - numKI01[K1 + k] * fomArray[ip, jp]))
+  #           }
+  #         }
+  #       }
+  #     }
+  #   }
+  #   s10 <- s10 * I10/(I10 - 1)/M
+  #   s01 <- s01 * I01/(I01 - 1)/N
+  #   s11 <- s11 * K/(K - 1)
+  #   S <- array(0, dim = c(I, I, J, J))
+  #   for (i in 1:I) {
+  #     for (ip in 1:I) {
+  #       for (j in 1:J) {
+  #         for (jp in 1:J) {
+  #           S[i, ip, j, jp] <- s10[i, ip, j, jp]/M + s01[i, ip, j, jp]/N + s11[i, ip, j, jp]/(M * N) + s11[ip, i, jp, j]/(M * N)
+  #         }
+  #       }
+  #     }
+  #   }
+  # } else {
+  #   # ROC
+  #   V10 <- array(dim = c(I, J, K2))
+  #   V01 <- array(dim = c(I, J, K1))
+  #   for (i in 1:I) {
+  #     for (j in 1:J) {
+  #       nl <- NL[i, j, 1:K1, ]
+  #       ll <- cbind(NL[i, j, (K1 + 1):K, ], LL[i, j, , ])
+  #       dim(nl) <- c(K1, maxNL)
+  #       dim(ll) <- c(K2, maxNL + maxLL)
+  #       fp <- apply(nl, 1, max)
+  #       tp <- apply(ll, 1, max)
+  #       for (k in 1:K2) {
+  #         V10[i, j, k] <- (sum(fp < tp[k]) + 0.5 * sum(fp == tp[k]))/K1
+  #       }
+  #       for (k in 1:K1) {
+  #         V01[i, j, k] <- (sum(fp[k] < tp) + 0.5 * sum(fp[k] == tp))/K2
+  #       }
+  #     }
+  #   }
+  #   s10 <- array(dim = c(I, I, J, J))
+  #   s01 <- array(dim = c(I, I, J, J))
+  #   for (i in 1:I) {
+  #     for (ip in 1:I) {
+  #       for (j in 1:J) {
+  #         for (jp in 1:J) {
+  #           s10[i, ip, j, jp] <- sum((V10[i, j, ] - fomArray[i, j]) * (V10[ip, jp, ] - fomArray[ip, jp]))/(K2 - 1)
+  #           s01[i, ip, j, jp] <- sum((V01[i, j, ] - fomArray[i, j]) * (V01[ip, jp, ] - fomArray[ip, jp]))/(K1 - 1)
+  #         }
+  #       }
+  #     }
+  #   }
+  #   S <- s10/K2 + s01/K1
+  # }
+  # 
+  # covariances <- S
+  # Var <- 0
+  # count <- 0
+  # for (i in 1:I) {
+  #   for (j in 1:J) {
+  #     Var <- Var + covariances[i, i, j, j]
+  #     count <- count + 1
+  #   }
+  # }
+  # if (count > 0) Var <- Var/count else Var <- 0
+  # 
+  # Cov1 <- 0
+  # count <- 0
+  # for (i in 1:I) {
+  #   for (ip in 1:I) {
+  #     for (j in 1:J) {
+  #       if (ip != i) {
+  #         Cov1 <- Cov1 + covariances[i, ip, j, j]
+  #         count <- count + 1
+  #       }
+  #     }
+  #   }
+  # }
+  # if (count > 0) Cov1 <- Cov1/count else Cov1 <- 0
+  # 
+  # Cov2 <- 0
+  # count <- 0
+  # for (i in 1:I) {
+  #   for (j in 1:J) {
+  #     for (jp in 1:J) {
+  #       if (j != jp) {
+  #         Cov2 <- Cov2 + covariances[i, i, j, jp]
+  #         count <- count + 1
+  #       }
+  #     }
+  #   }
+  # }
+  # if (count > 0) Cov2 <- Cov2/count else Cov2 <- 0
+  # 
+  # Cov3 <- 0
+  # count <- 0
+  # for (i in 1:I) {
+  #   for (ip in 1:I) {
+  #     if (i != ip) {
+  #       for (j in 1:J) {
+  #         for (jp in 1:J) {
+  #           if (j != jp) {
+  #             Cov3 <- Cov3 + covariances[i, ip, j, jp]
+  #             count <- count + 1
+  #           }
+  #         }
+  #       }
+  #     }
+  #   }
+  # }
+  # if (count > 0) Cov3 <- Cov3/count else Cov3 <- 0
+  # 
+  # return(list(
+  #   Var = Var, 
+  #   Cov1 = Cov1, 
+  #   Cov2 = Cov2, 
+  #   Cov3 = Cov3))
 }
 

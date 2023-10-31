@@ -19,6 +19,7 @@ test_that(contextStr, {
     saveRDS(ds, file = fn)
   }
   
+  
   ds <- readRDS(fn)
   expect_equal(DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = c(1,3)), ds)
   # end of test

@@ -57,13 +57,14 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/SimulateDatasets/SimulateRocDataset", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- SimulateRocDataset(K1 = K1, K2 = K2,a = a, b = b)
-    saveRDS(ret, file = fn)
+    target <- SimulateRocDataset(K1 = K1, K2 = K2,a = a, b = b)
+    saveRDS(target, file = fn)
   }
   
   set.seed(1)
-  ret <- readRDS(fn)
-  expect_equal(SimulateRocDataset(K1 = K1, K2 = K2,a = a, b = b), ret)
+  target <- readRDS(fn)
+  current <- SimulateRocDataset(K1 = K1, K2 = K2,a = a, b = b)
+  expect_equal(current, target)
   
 })
 

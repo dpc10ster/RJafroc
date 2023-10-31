@@ -1,4 +1,4 @@
-OutputExcelFileORH <- function(dataset,
+OutputExcelORH <- function(dataset,
                                 method,
                                 methodTxt,
                                 ReportFileName,

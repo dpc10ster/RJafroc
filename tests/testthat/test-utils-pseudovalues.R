@@ -3,8 +3,7 @@ test_that("UtilPseudoValues", {
   
   dataset <- dataset05
   # "Wilcoxon" will generate error, skipping "SongA1" and "SongA2"
-  FOM_arr <- c("AFROC", "AFROC1", "wAFROC", "wAFROC1", "MaxNLF", "MaxLLF", "MaxNLFAllCases",
-               "ExpTrnsfmSp", "HrSp", "HrSe")
+  FOM_arr <- c("AFROC", "AFROC1", "wAFROC", "wAFROC1", "MaxNLF", "MaxLLF", "MaxNLFAllCases", "HrSp", "HrSe")
   
   for (i in 1:length(FOM_arr)) {
     #cat("i = ", i, ", FOM_arr[i] = ", FOM_arr[i], "\n")

@@ -74,16 +74,16 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
       for (j in 1:lr) {
         if (j != i){
           if (j > i) {
-            dsX <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
+            ds_X <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
           } else {
-            dsY <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
+            ds_Y <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
           }
         }
       }
     }
-    NL <- rbind(dsX$ratings$NL,dsY$ratings$NL);dim(NL) <- c(1,2,K,1)
-    LL <- rbind(dsX$ratings$LL,dsY$ratings$LL);dim(LL) <- c(1,2,K2,1)
-    ds <- dsX
+    NL <- rbind(ds_X$ratings$NL,ds_Y$ratings$NL);dim(NL) <- c(1,2,K,1)
+    LL <- rbind(ds_X$ratings$LL,ds_Y$ratings$LL);dim(LL) <- c(1,2,K2,1)
+    ds <- ds_X
     ds$ratings$NL <- NL;ds$ratings$LL <- LL
     ds$descriptions$modalityID <- "1"
     ds$descriptions$readerID <- c("1", "2")

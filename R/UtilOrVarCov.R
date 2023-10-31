@@ -4,16 +4,15 @@
 #' 
 #' @param FOM Figure of merit
 #' 
-#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC":
-#'     the \code{FPFValue} at which to evaluate a partial curve based figure of merit. 
-#'     The default is \code{FPFValue} = 0.2.
-#'     
 #' @param covEstMethod The covariance estimation method, "jackknife" 
 #'     (the default) or "bootstrap" or "DeLong" ("DeLong" is applicable only for 
 #'     FOM = "Wilcoxon").
 #'     
-#' @param nBoots  Only needed for bootstrap covariance estimation method. The number 
-#'     of bootstraps, defaults to 200.
+#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC":
+#'     the \code{FPFValue} at which to evaluate a partial curve based figure of merit. 
+#'     The default is \code{FPFValue} = 0.2.
+#'     
+#' @param nBoots  The number of bootstraps (default = 200).Only needed for covEstMethod = "bootstrap". 
 #'     
 #' @param seed  Only needed for the bootstrap covariance estimation method. The initial 
 #'     seed for the random number generator, the default is \code{NULL}, for random seed. 
@@ -29,28 +28,32 @@
 #'     }
 #'   
 #' @details The variance components are identical to those obtained using 
-#'     \link{StSignificanceTesting} with \code{method = "OR"}.
+#'     \link{St} with \code{method = "OR"}.
 #' 
 #' @examples 
 #' ## use the default jackknife for covEstMethod
 #' vc <- UtilOrVarCov(dataset02, FOM = "Wilcoxon")
 #' str(vc) 
 #'
-#' UtilOrVarCov(dataset02, FOM = "Wilcoxon", 
-#'    covEstMethod = "bootstrap", nBoots = 2000, seed = 100)$VarCom 
+#' ##UtilOrVarCov(dataset02, FOM = "Wilcoxon", covEstMethod = "bootstrap", 
+#' ##nBoots = 2000, seed = 100)$VarCom 
 #' 
-#' UtilOrVarCov(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$VarCom
+#' ##UtilOrVarCov(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$VarCom
 #' 
 #' UtilOrVarCov(datasetXModality, FOM = "wAFROC") 
 #'   
 #' @export
 #' 
-UtilOrVarCov <- function (dataset, FOM, FPFValue = 0.2, 
-                          covEstMethod = "jackknife", nBoots = 200, seed = NULL)
+UtilOrVarCov <- function (dataset, 
+                          FOM, 
+                          covEstMethod = "jackknife", 
+                          FPFValue = 0.2, 
+                          nBoots = 200, 
+                          seed = NULL)
 {
   
   if (dataset$descriptions$design == "FCTRL") { 
-    # factorial dataset, one treatment factor
+    # factorial one-treatment dataset
     
     modalityID <- dataset$descriptions$modalityID
     readerID <- dataset$descriptions$readerID
@@ -59,38 +62,50 @@ UtilOrVarCov <- function (dataset, FOM, FPFValue = 0.2,
     ret <- UtilPseudoValues(dataset, FOM, FPFValue)
     jkFomValues <- ret$jkFomValues
     
-    # following call gets all the needed variance and covariance components
-    VarCovALL <- OrVarCov(jkFomValues, modalityID, readerID, covEstMethod)
+    VarCov <- SampledFom2ORCov(jkFomValues, 
+                          modalityID, 
+                          readerID, 
+                          covEstMethod, 
+                          FPFValue, 
+                          nBoots, 
+                          seed)
     
     ret <- OrFinalOutput(foms, 
-                         ret$jkFomValues, 
-                         VarCovALL, 
+                         VarCov, 
                          modalityID, 
                          readerID)
     
   } else {
     # cross-modality factorial dataset, two treatment factors
-    # 
-    dsX <- dataset
-    modalityID1 <- dsX$descriptions$modalityID1
-    modalityID2 <- dsX$descriptions$modalityID2
+
+    modalityID1 <- dataset$descriptions$modalityID1
+    modalityID2 <- dataset$descriptions$modalityID2
     modalityID <- list(modalityID2, modalityID1)
-    readerID <- dsX$descriptions$readerID
+    readerID <- dataset$descriptions$readerID
     
-    fomsTemp <- UtilFigureOfMerit(dsX, FOM, FPFValue)
-    foms <- FomAvgXModality(dsX, fomsTemp)
+    foms_array <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+    foms <- ConvArr2List(dataset, foms_array)
     
-    ret <- UtilPseudoValues(dsX, FOM, FPFValue)
+    ret <- UtilPseudoValues(dataset, FOM, FPFValue)
     jkFomValues <- ret$jkFomValues
     
     # following call gets all the needed variance and covariance components
-    VarCovALL <- OrVarCov(jkFomValues, modalityID, readerID, covEstMethod)
-     ret <- OrFinalOutputX(foms, 
-                          VarCovALL, 
+    VarCov <- SampledFom2ORCov(jkFomValues, 
+                          modalityID, 
+                          readerID, 
+                          covEstMethod, 
+                          FPFValue, 
+                          nBoots, 
+                          seed)
+    
+    # names(VarCov) <- c("AvgMod1", "AvgMod2")
+    ret <- OrFinalOutput(foms, 
+                          VarCov, 
                           modalityID, 
                           readerID)
-    
-  }  
+
+  } 
+  return(ret)
 }
 
 

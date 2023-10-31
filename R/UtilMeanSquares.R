@@ -69,7 +69,7 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
     # The previous bad code follows (moved to RJafrocMaintenance/MovedFromRJafroc):
     # if (FOM %in% c("MaxLLF", "HrSe")) {
     #   Ktemp <- K2 # K should be # of diseased cases
-    # } else if (FOM %in% c("MaxNLF", "HrSp", "MaxNLFAllCases", "ExpTrnsfmSp")) {
+    # } else if (FOM %in% c("MaxNLF", "HrSp", "MaxNLFAllCases")) {
     #   Ktemp <- K1 # K should be # of non-diseased casesd
     # } else {
     #   Ktemp <- K # K should be # of all cases
@@ -193,7 +193,7 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
     }
     
     # `as.matrix` is absolutely necessary if following `mean()` function is to work
-    fomArray <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
+    fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
     fomMean <- mean(fomArray)
     
     if (I != 1){

@@ -24,7 +24,7 @@ A list containing:
    \itemize{
    \item \code{effectSizeROC}, the specified ROC effect size.
    \item \code{scaleFactor}, the factor by which the ROC effect size
-     must by multiplied to get the wAFROC effect size.
+   must by multiplied to get the wAFROC effect size.
    \item \code{powerRoc}, the ROC power.
    \item \code{powerFroc}, the wAFROC power.
    
@@ -35,7 +35,7 @@ RSM fitted model for FROC sample size
 }
 \details{
 See \url{https://dpc10ster.github.io/RJafrocQuickStart/froc-sample-size.html}
-    for explanation of the FROC sample size estimation procedure.
+   for explanation of the FROC sample size estimation procedure.
 }
 \examples{
 

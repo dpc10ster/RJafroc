@@ -1,4 +1,8 @@
-StDBMHAnalysis <- function(dataset, FOM, FPFValue, alpha, analysisOption) 
+StDBMHAnalysis <- function(dataset, 
+                           FOM, 
+                           analysisOption,
+                           alpha,
+                           FPFValue) 
 {
   RRRC <- NULL
   FRRC <- NULL

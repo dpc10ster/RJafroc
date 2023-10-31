@@ -1,5 +1,5 @@
 #' Calculate empirical figures of merit (FOMs) for factorial dataset, standard or cross-
-#'     modality
+#'    modality
 #' 
 #' @description  Calculate the specified empirical figure of merit
 #'    for each modality-reader combination in a standard or cross-modality dataset
@@ -7,17 +7,17 @@
 #' @param dataset The dataset to be analyzed, \code{\link{RJafroc-package}}
 #' @param FOM The figure of merit; the default is \code{"wAFROC"}
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
-#'     where to evaluate a partial curve based figure of merit. The default is 0.2.
+#'    where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
 #' @return For standard dataset: A \code{c(I, J)} dataframe, where the row names are 
 #'    \code{modalityID}'s of the treatments and column names are the 
 #'    \code{readerID}'s of the readers.
 #'    For cross-modality dataset: Two data frames are returned: 
-#' * \code{c(I2, J)} data frame, FOMs averaged over the first modality, where the row 
-#'     names are modality IDS of the second modality 
-#' * \code{c(I1, J)} data frames, FOMs averaged over the second modality, where the row 
-#'     names are modality IDs of the first modality, 
-#' * In either case the column names are the \code{readerID}'s.
+#'    * \code{c(I2, J)} data frame, FOMs averaged over the first modality, where the row 
+#'    names are modality IDS of the second modality 
+#'    * \code{c(I1, J)} data frames, FOMs averaged over the second modality, where the row 
+#'    names are modality IDs of the first modality, 
+#'    * In either case the column names are the \code{readerID}'s.
 
 #' 
 #' @details The allowed FOMs depend on the \code{dataType} field of the 
@@ -54,7 +54,7 @@
 #'    \item \code{FOM = "ALROC"} the area under the LROC from zero to specified \code{FPFValue} 
 #'    }
 #'    \code{FPFValue} The FPF at which to evaluate \code{PCL} or \code{ALROC}; 
-#'       the default is 0.2; only needed for LROC data.
+#'    the default is 0.2; only needed for LROC data.
 #'    For cross-modality analysis ROI and LROC datasets are not supported.
 #' 
 #'
@@ -73,20 +73,27 @@
 
 UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { 
   
-  if (!isValidDataset(dataset, FOM)) stop("Dataset-FOM combination is invalid.\n")
+  isValidDataset(dataset, FOM)
   
   if (dataset$descriptions$design == "FCTRL") { 
-    # factorial dataset, one treatment factor 
+    # factorial one-treatment dataset 
     
     dataType <- dataset$descriptions$type
     
-    if ((dataType == "ROI") && (FOM != "ROI")) {
-      cat("Incorrect FOM supplied for ROI data, changing it to 'ROI'\n")
-      FOM <- "ROI"
+    if (dataType == "LROC") {
+      if (FOM == "Wilcoxon"){
+        datasetRoc <- DfLroc2Roc(dataset)
+        NL <- datasetRoc$ratings$NL
+        LL <- datasetRoc$ratings$LL
+      } else if (FOM %in% c("PCL", "ALROC")){
+        NL <- dataset$ratings$NL
+        LL <- dataset$ratings$LL
+      } else stop("incorrect FOM for LROC data")
+      
+    } else {
+      NL <- dataset$ratings$NL
+      LL <- dataset$ratings$LL
     }
-    
-    NL <- dataset$ratings$NL
-    LL <- dataset$ratings$LL
     
     I <- dim(NL)[1]
     J <- dim(NL)[2]
@@ -130,16 +137,14 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) {
     readerID <- dataset$descriptions$readerID
     rownames(foms) <- paste("trt", sep = "", modalityID)
     colnames(foms) <- paste("rdr", sep = "", readerID)
-
-    return(data.matrix(foms))
+    
+    return(foms)
     
   } else { 
     # cross-modality factorial dataset, two treatment factors
     
-    dsX <- dataset
-    
-    NL <- dsX$ratings$NL
-    LL <- dsX$ratings$LL
+    NL <- dataset$ratings$NL
+    LL <- dataset$ratings$LL
     
     I1 <- dim(NL)[1]
     I2 <- dim(NL)[2]
@@ -150,7 +155,7 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) {
     maxNL <- dim(NL)[5]
     maxLL <- dim(LL)[5]
     
-    dataType <- dsX$descriptions$type
+    dataType <- dataset$descriptions$type
     
     foms <- array(dim = c(I1, I2, J))
     for (i1 in 1:I1) {
@@ -158,9 +163,9 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) {
         for (j in 1:J) {
           foms[i1, i2, j] <- MyFom_ij(NL[i1, i2, j, , ], 
                                       LL[i1, i2, j, , ], 
-                                      dsX$lesions$perCase, 
-                                      dsX$lesions$IDs, 
-                                      dsX$lesions$weights, 
+                                      dataset$lesions$perCase, 
+                                      dataset$lesions$IDs, 
+                                      dataset$lesions$weights, 
                                       maxNL, 
                                       maxLL, 
                                       K1, 
@@ -170,10 +175,23 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) {
       }
     }
     
+    # modalityID1 <- dataset$descriptions$modalityID1
+    # modalityID2 <- dataset$descriptions$modalityID2
+    # modalityID <- c(modalityID1, modalityID2)
+    # readerID <- dataset$descriptions$readerID
+    # rownames(foms) <- paste("trt", sep = "", modalityID)
+    # colnames(foms) <- paste("rdr", sep = "", readerID)
     return(foms)
   }
 } 
 
+
+
+# UtilFigureOfMeritMatrix <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { 
+#   
+#   return(as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue)))
+#   
+# }
 
 
 learnApply <- function(foms){

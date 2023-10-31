@@ -31,7 +31,7 @@
 SimulateRocDataset <- function(I = 1, J = 1, K1, K2, a, deltaA = 0, b, seed = NULL){
   # added deltaA 5/18/2023  
   if (!is.null(seed)) set.seed(seed)
-
+  
   NL <- array(dim = c(I, J, K1+K2, 1))
   LL <- array(dim = c(I, J, K2, 1))
   
@@ -56,14 +56,20 @@ SimulateRocDataset <- function(I = 1, J = 1, K1, K2, a, deltaA = 0, b, seed = NU
   design <- "FCTRL"
   type <- "ROC"
   perCase <- rep(1,K2)
-  truthTableStr <- AddTruthTableStr(dataset, type, perCase) # added 9/16/2023
   IDs <- perCase; dim(IDs) <- c(K2,1) # fix 5/18/2023
   weights <- IDs
   modalityID <- as.character(1:I)
   readerID <- as.character(1:J)
+  
+  # added truthTableStr 5/18/2023
+  truthTableStr <- array(dim = c(I, J, K, 2)) 
+  truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
+  truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
+  
   dataset <- convert2dataset(NL, LL, LL_IL = NA, 
                              perCase, IDs, weights,
-                             fileName, type, name, truthTableStr, design,
+                             fileName, type, name, truthTableStr = truthTableStr, design,
                              modalityID, readerID) 
+
   return(dataset)
 }

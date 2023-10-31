@@ -2,55 +2,51 @@
 % Please edit documentation in R/UtilOutputReport.R
 \name{UtilOutputReport}
 \alias{UtilOutputReport}
-\title{Generate a text formatted report file or an Excel file}
+\title{Generate a text- or Excel-formatted report file (one-treatment factorial datasets only)}
 \usage{
 UtilOutputReport(
   dataset,
-  ReportFileBaseName = NULL,
-  ReportFileExt = "txt",
-  method = "DBM",
   FOM,
-  alpha = 0.05,
+  method = "OR",
   covEstMethod = "jackknife",
+  analysisOption = "ALL",
+  ReportFileExt = "txt",
+  ReportFileBaseName = NULL,
+  alpha = 0.05,
   nBoots = 200,
   sequentialNames = FALSE,
-  overWrite = FALSE,
-  analysisOption = "ALL"
+  overWrite = FALSE
 )
 }
 \arguments{
-\item{dataset}{The dataset object to be analyzed (\emph{not the file name}), 
-see \code{Dataset} in \code{\link{RJafroc-package}}.}
+\item{dataset}{The dataset object to be analyzed, \emph{not the Excel input 
+file name!}, see \code{Dataset} in \code{\link{RJafroc-package}}. 
+This \code{R}-object is created by \code{\link{DfReadDataFile}}.}
 
-\item{ReportFileBaseName}{The report file (with extension \code{"txt"} or \code{"xlsx"}, 
-as specified by option 
-\code{ReportFileExt}) 
-is created \bold{in the user's directory}. 
-This argument specifies the 
-report file base name (i.e., without the extension) for the 
-desired report; the default is NULL, in which case the system generates 
-a temporary text file, whose very long name is displayed. However, the 
-file
-is very hard to locate. This is so that the software passes CRAN checks, 
-as writing to the project directory, or any of its sub-directories, is 
-frowned upon.}
+\item{FOM}{The figure of merit; see \code{\link{St}}.}
 
-\item{ReportFileExt}{The report file extension determines the type of output. 
-\code{"txt"}, the default, for 
-a text file, \code{"xlsx"} for an Excel file.}
+\item{method}{The significance testing method, \code{"DBM"} or \code{"OR"} 
+(the default).}
 
-\item{method}{The significance testing method, \code{"OR"} or 
-(the default) \code{"DBM"}.}
+\item{covEstMethod}{The default is "Jackknife"; only needed 
+for method = \code{"OR"} when "Bootstrap" or "DeLong" are possible.}
 
-\item{FOM}{The figure of merit; see \code{\link{StSignificanceTesting}}.}
+\item{analysisOption}{"RRRC", "FRRC", "RRFC or "ALL" (the default); 
+see \code{\link{St}}.}
 
-\item{alpha}{See \code{\link{StSignificanceTesting}}; the default is 0.05.}
+\item{ReportFileExt}{The file extension determines the type of output. 
+\code{"txt"} (default) for a text file or \code{"xlsx"} 
+for an Excel file.}
 
-\item{covEstMethod}{See \code{\link{StSignificanceTesting}}; only needed 
-for method = \code{"OR"}; the default is "Jackknife".}
+\item{ReportFileBaseName}{The report file \bold{base name}, i.e., without the extension (which is 
+specified by option \code{ReportFileExt})). The output file is created 
+\bold{in the user's directory}. The default is \code{NULL}, 
+see \code{details}.}
 
-\item{nBoots}{See \code{\link{StSignificanceTesting}}; only needed for 
-\code{"OR"} analysis; the default is 200.}
+\item{alpha}{See \code{\link{St}}; the default is 0.05.}
+
+\item{nBoots}{See \code{\link{St}}; only needed for \code{"OR"} analysis; 
+the default is 200.}
 
 \item{sequentialNames}{A logical variable: if \code{TRUE}, consecutive integers 
 (starting from 1) will be used as the modality and reader IDs in the 
@@ -63,19 +59,21 @@ be issued if the report file already exists and the program will wait
 until the user inputs "y" or "n" to determine whether to overwrite the 
 existing file. If \code{TRUE}, the existing file will be silently overwritten. 
 The default is \code{FALSE}.}
-
-\item{analysisOption}{"RRRC", "FRRC", "RRFC or "ALL"; see \code{\link{StSignificanceTesting}}.}
 }
 \value{
-StResult The object returned by \code{\link{StSignificanceTesting}}.
+\code{StResult}: the object returned by \code{\link{St}}.
 }
 \description{
-Generates a formatted report of the analysis 
-   and saves it to a text or an Excel file
+Generates a formatted report resulting from the analysis, for a
+   factorial dataset, and saves it to a text- or an Excel-formatted file.
 }
 \details{
-A formatted report of the data analysis is written to the output file in 
-   either text or Excel format.
+This function is available only for factorial datasets. 
+\code{ReportFileBaseName}: The report file \bold{base name}. The default value
+    \code{NULL} generates a temporary text file, whose very long name is 
+    displayed. However, the file is very hard to locate. This is so that the 
+    package passes CRAN checks, as writing to the project directory, or any 
+    of its sub-directories, is frowned upon.
 }
 \examples{
 

@@ -39,23 +39,23 @@ SsPowerGivenJKOrVarCom(
 
 \item{alpha}{The size of the test (default = 0.05)}
 
-\item{analysisOption}{The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")}
+\item{analysisOption}{Specify the random factor(s): "RRRC", "FRRC", "RRFC", "ALL"}
 }
 \value{
 A list containing the estimated power and associated statistics
-   for each desired generalization.
+   for the specified random factor(s).
 }
 \description{
 Power given J, K and Obuchowski-Rockette variance components
 }
 \details{
-The variance components are obtained using \link{StSignificanceTesting} 
+The variance components are obtained using \link{St} 
     with \code{method = "OR"}.
 }
 \examples{
 dataset <- dataset02 ## the pilot study
 KStar <- length(dataset$ratings$NL[1,1,,1])
-VarCom <- StSignificanceTesting(dataset, FOM = "Wilcoxon", 
+VarCom <- St(dataset, FOM = "Wilcoxon", 
 method = "OR", analysisOption = "RRRC")$ANOVA$VarCom
 VarTR <- VarCom["VarTR",1]
 Cov1 <- VarCom["Cov1",1]

@@ -1,7 +1,7 @@
 rm(list = ls())
 
 fn <- "~/GitHub/datasets/XModDataFile.xlsx"
-ds <- DfReadCrossedModalities(fn)
+ds <- DfReadXModalities(fn)
 
 datasetXModality <- ds
 

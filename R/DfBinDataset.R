@@ -88,7 +88,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   else if (opChType == "FROC") FOM <- "FROC" else stop("should not be here")
   
   if (DEBUG) {
-    fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = FOM))
+    fomOrg <- UtilFigureOfMerit(dataset, FOM = FOM)
     print(fomOrg)
     cat("mean, sd = ", mean(fomOrg), sd(fomOrg), "\n")
   }
@@ -206,7 +206,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
                               dataset$descriptions$modalityID, dataset$descriptions$readerID)
   
   if (DEBUG) {
-    fomFinal <- as.matrix(UtilFigureOfMerit(datasetB, FOM = FOM))
+    fomFinal <- UtilFigureOfMerit(datasetB, FOM = FOM)
     print(fomFinal)
     cat("mean, sd = ", mean(fomFinal), sd(fomFinal), "\n")
   }
