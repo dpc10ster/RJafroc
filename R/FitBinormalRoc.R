@@ -62,7 +62,7 @@
 #' ## Test with TONY data for which chisqr can be calculated
 #' ds <- DfFroc2Roc(dataset01)
 #' retFit <- FitBinormalRoc(ds, 2, 3);## print(retFit$fittedPlot)
-#' retFit$ChisqrFitStats
+#' ## retFit$ChisqrFitStats
 #'  
 #' ## Test with included degenerate ROC data
 #' retFit <- FitBinormalRoc(datasetDegenerate);## print(retFit$fittedPlot)

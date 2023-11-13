@@ -38,7 +38,7 @@ is invalid. See book Section 13.6 and run
 "~/GitHub/RJafroc/inst/InferredVsReal/InferredVsReal.R".
 }
 \examples{
-str(dataset14)
+res <- str(dataset14)
 
 
 }

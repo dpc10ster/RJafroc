@@ -41,7 +41,7 @@ A binned dataset suitable for analysis by \code{\link{FitCorCbm}}. It was genera
    alphaY = 0.7, rhoNor = 0.3, rhoAbn2 = 0.8.
 }
 \examples{
-str(datasetBinned123)
+res <- str(datasetBinned123)
 
 }
 \references{

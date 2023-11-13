@@ -44,7 +44,7 @@ with dual-energy (CXR+DE), VolumeRad digital tomosynthesis images and
 VolumeRad augmented with DE (VolumeRad+DE).
 }
 \examples{
-str(dataset11)
+res <- str(dataset11)
 
 
 }

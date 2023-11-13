@@ -1,4 +1,221 @@
-OrFinalOutput <- function (foms, VarCov, modalityID, readerID)
+#' Obuchowski-Rockette variance components for dataset
+#' 
+#' @param dataset Factorial or cross-modality dataset
+#' 
+#' @param FOM Figure of merit
+#' 
+#' @param covEstMethod The covariance estimation method, "jackknife" 
+#'     (the default) or "bootstrap" or "DeLong" ("DeLong" is applicable only for 
+#'     FOM = "Wilcoxon").
+#'     
+#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC":
+#'     the \code{FPFValue} at which to evaluate a partial curve based figure of merit. 
+#'     The default is \code{FPFValue} = 0.2.
+#'     
+#' @param nBoots  The number of bootstraps (default = 200).Only needed for covEstMethod = "bootstrap". 
+#'     
+#' @param seed  Only needed for the bootstrap covariance estimation method. The initial 
+#'     seed for the random number generator, the default is \code{NULL}, for random seed. 
+#'     
+#' @return A list containing the following \code{data.frames}: 
+#'     \itemize{
+#'     \item{\code{foms}}: the figures of merit for different modality-reader combinations 
+#'     \item{\code{TRanova}}: the OR modality-reader ANOVA table 
+#'     \item{\code{VarCom}}: the OR variance-components \code{Cov1}, \code{Cov2}, 
+#'     \code{Cov3}, \code{Var} and correlations \code{rho1}, \code{rho2} and \code{rho3} 
+#'     \item{\code{IndividualTrt}}: the individual modality mean-squares, \code{Var} and \code{Cov2} values
+#'     \item{\code{IndividualRdr}}: the individual reader mean-squares, \code{Var} and \code{Cov1} values
+#'     }
+#'   
+#' @details The variance components are identical to those obtained using 
+#'     \link{St} with \code{method = "OR"}.
+#' 
+#' @examples 
+#' ## use the default jackknife for covEstMethod
+#' vc <- UtilORVarComp(dataset02, FOM = "Wilcoxon")
+#'
+#' ##UtilORVarComp(dataset02, FOM = "Wilcoxon", covEstMethod = "bootstrap", 
+#' ##nBoots = 2000, seed = 100)$VarCom 
+#' 
+#' ##UtilORVarComp(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$VarCom
+#' 
+#' vc <- UtilORVarComp(datasetXModality, FOM = "wAFROC") 
+#'   
+#' @export
+#' 
+UtilORVarComp <- function (dataset, 
+                          FOM, 
+                          covEstMethod = "jackknife", 
+                          FPFValue = 0.2, 
+                          nBoots = 200, 
+                          seed = NULL)
+{
+  
+  if (dataset$descriptions$design == "FCTRL") { 
+    # factorial one-treatment dataset
+    
+    modalityID <- dataset$descriptions$modalityID
+    readerID <- dataset$descriptions$readerID
+    
+    foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+    jkFomValues <- UtilPseudoValues(dataset, FOM, FPFValue)$jkFomValues
+    
+    VarCovOR <- SmpldFom2ORCov(jkFomValues, 
+                          modalityID, 
+                          readerID, 
+                          covEstMethod, 
+                          FPFValue, 
+                          nBoots, 
+                          seed)
+    
+    Output <- OROutput(foms, 
+                         VarCovOR, 
+                         modalityID, 
+                         readerID)
+    
+  } else {
+    # cross-modality factorial dataset, two treatment factors
+
+    modalityID1 <- dataset$descriptions$modalityID1
+    modalityID2 <- dataset$descriptions$modalityID2
+    modalityID <- list(modalityID2, modalityID1)
+    readerID <- dataset$descriptions$readerID
+    
+    foms_array <- UtilFigureOfMerit(dataset, FOM, FPFValue)
+    foms <- ConvArr2List(dataset, foms_array)
+    
+    jkFomValues <- UtilPseudoValues(dataset, FOM, FPFValue)$jkFomValues
+    
+    VarCovOR <- SmpldFom2ORCov(jkFomValues, 
+                          modalityID, 
+                          readerID, 
+                          covEstMethod, 
+                          FPFValue, 
+                          nBoots, 
+                          seed)
+    
+    Output <- OROutput(foms, VarCovOR, modalityID, readerID)
+
+  } 
+  return(Output)
+}
+
+
+
+
+SmpldFom2ORCov <- function(jkFomValues, 
+                             modalityID, 
+                             readerID, 
+                             covEstMethod, 
+                             FPFValue, 
+                             nBoots, 
+                             seed) 
+{
+  
+  if (covEstMethod == "jackknife") {
+    
+    if (length(dim(jkFomValues)) == 3) {
+      # factorial one-treatment dataset
+      
+      I <- dim(jkFomValues)[1]
+      J <- dim(jkFomValues)[2]
+      
+      x <- FOM2ORVarComp(jkFomValues, varInflFactor = TRUE, flag = "IJ")
+      vc <- array(dim = 4)
+      vc[1] <- x$Var
+      vc[2] <- x$Cov1
+      vc[3] <- x$Cov2
+      vc[4] <- x$Cov3
+      names(vc) <- c("Var", "Cov1", "Cov2", "Cov3")
+      
+      vcEachTrt <- array(dim = c(I,2))
+      for (i in 1:I) {
+        x <- FOM2ORVarComp(jkFomValues[i,,], varInflFactor = TRUE, flag = "J")
+        vcEachTrt[i,1] <- x$Var 
+        vcEachTrt[i,2] <- x$Cov2    
+      }
+      rownames(vcEachTrt) <- paste0("trt", modalityID)
+      colnames(vcEachTrt) <- c("Var", "Cov2")
+      
+      vcEachRdr <- array(dim = c(J,2))
+      for (j in 1:J) {
+        x <- FOM2ORVarComp(jkFomValues[,j,], varInflFactor = TRUE, flag = "I")
+        vcEachRdr[j,1] <- x$Var
+        vcEachRdr[j,2] <- x$Cov1
+      }
+      rownames(vcEachRdr) <- paste0("rdr", readerID)
+      colnames(vcEachRdr) <- c("Var", "Cov1")
+      
+    } else if (length(dim(jkFomValues)) == 4) {
+      # cross-modality factorial dataset, two treatment factors
+      
+      I1 <- dim(jkFomValues)[1]
+      I2 <- dim(jkFomValues)[2]
+      J <- dim(jkFomValues)[3]
+      I <- c(I2, I1)
+      
+      fomAvgArray <- list()
+      vc <- list()
+      vcEachTrt <- list()
+      vcEachRdr <- list()
+      
+      for (avgIndx in 1:2) {
+        
+        # average over first modality and all readers
+        fomAvgArray[[avgIndx]] <- apply(jkFomValues, (1:4)[-avgIndx], mean) 
+        
+        x <- FOM2ORVarComp(fomAvgArray[[avgIndx]], varInflFactor = TRUE, flag = "IJ")
+        vc[[avgIndx]] <- array(dim = 4)
+        vc[[avgIndx]][1] <- x$Var
+        vc[[avgIndx]][2] <- x$Cov1
+        vc[[avgIndx]][3] <- x$Cov2
+        vc[[avgIndx]][4] <- x$Cov3
+        names(vc[[avgIndx]]) <- c("Var", "Cov1", "Cov2", "Cov3")
+        
+        vcEachTrt[[avgIndx]] <- array(dim = c(I[avgIndx],2))
+        for (i in 1:I[avgIndx]) {
+          x <- FOM2ORVarComp(fomAvgArray[[avgIndx]][i,,], varInflFactor = TRUE, flag = "J")
+          vcEachTrt[[avgIndx]][i,1] <- x$Var 
+          vcEachTrt[[avgIndx]][i,2] <- x$Cov2    
+        }
+        rownames(vcEachTrt[[avgIndx]]) <- modalityID[[avgIndx]]
+        colnames(vcEachTrt[[avgIndx]]) <- c("Var", "Cov2")
+        
+        vcEachRdr[[avgIndx]] <- array(dim = c(J,2))
+        for (j in 1:J) {
+          x <- FOM2ORVarComp(fomAvgArray[[avgIndx]][,j,], varInflFactor = TRUE, flag = "I")
+          vcEachRdr[[avgIndx]][j,1] <- x$Var
+          vcEachRdr[[avgIndx]][j,2] <- x$Cov1
+        }
+        rownames(vcEachRdr[[avgIndx]]) <- readerID
+        colnames(vcEachRdr[[avgIndx]]) <- c("Var", "Cov1")
+      }
+    }
+    
+    return (list(
+      vc = vc,
+      vcEachTrt = vcEachTrt,
+      vcEachRdr = vcEachRdr
+    ))
+    
+  } else if (covEstMethod == "bootstrap") {
+    
+    stop("code needs fixing: SmpldFom2ORCov bootstrap")
+    # ret <- varCompBS (dataset, FOM, FPFValue, nBoots, seed)
+    
+  } else if (covEstMethod == "DeLong") {
+    
+    stop("code needs fixing: SmpldFom2ORCov DeLong")
+    # ret <- varCompDeLong (dataset)
+    
+  } 
+  
+}  
+
+
+
+
+OROutput <- function (foms, VarCov, modalityID, readerID)
 {
   
   if (!is.list(foms)) {
@@ -131,6 +348,7 @@ OrFinalOutput <- function (foms, VarCov, modalityID, readerID)
     )  
     
   } else {
+    # cross-modality factorial dataset, two treatment factors
     
     I1 <- dim(foms[[2]])[1]
     I2 <- dim(foms[[1]])[1]
@@ -229,7 +447,7 @@ OrFinalOutput <- function (foms, VarCov, modalityID, readerID)
                                                msTEachRdr = msT_j,
                                                varEachRdr = varEachRdr,
                                                cov1EachRdr = cov1EachRdr,
-                                               row.names = paste0("rdr", rdrID),
+                                               row.names = paste0("rdr" ,rdrID),
                                                stringsAsFactors = FALSE)
       } else IndividualRdr[[avgIndx]] <- NA
       
@@ -266,3 +484,6 @@ OrFinalOutput <- function (foms, VarCov, modalityID, readerID)
   return(vc)  
   
 }
+
+
+

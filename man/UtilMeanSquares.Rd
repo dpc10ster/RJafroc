@@ -33,7 +33,7 @@ For \code{DBM} method, \code{msT, msTR, msTC, msTRC} will not be available
    modality dataset, and \code{msR} is not available for single reader dataset.
 }
 \examples{
-UtilMeanSquares(dataset02, FOM = "Wilcoxon")
-UtilMeanSquares(dataset05, FOM = "wAFROC", method = "OR")
+result <- UtilMeanSquares(dataset02, FOM = "Wilcoxon")
+result <- UtilMeanSquares(dataset05, FOM = "wAFROC", method = "OR")
 
 }

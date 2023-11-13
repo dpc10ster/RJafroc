@@ -90,8 +90,7 @@
     \item Crossed-modality: a dataset containing two modality (i.e., treatment) factors, with
        the levels of the two factors crossed, see paper by Thompson et al
     \item DBM: Dorfman-Berbaum-Metz, a significance testing method for
-       detecting a modality effect in MRMC studies
-    \item DBMH: Hillis' modification of the DBM method
+       detecting a modality effect in MRMC studies, with Hillis suggested modification to \code{ddf}. 
     \item ddf: Denominator degrees of freedom of appropriate \eqn{F}-test;
        the corresponding ndf is \code{I} - 1
     \item Empirical AUC: trapezoidal area under curve, same as the Wilcoxon
@@ -151,8 +150,7 @@
     \item Operating point: A point on an operating characteristic, e.g.,
        (FPF, TPF) represents an operating point on an ROC
     \item OR: Obuchowski-Rockette, a significance testing method for detecting
-       a modality effect in MRMC studies
-    \item ORH: Hillis' modification of the OR method
+       a modality effect in MRMC studies, with Hillis suggested modifications 
     \item Physical parameter: Used in connection with RSM; a parameter whose
        meaning is more transparent than the corresponding intrinsic parameter,
        but which depends on the RSM \eqn{\mu} parameter
@@ -444,14 +442,14 @@
         \item \code{\link{UtilLesDistr}}: Calculates the lesion distribution dataframe.
         \item \code{\link{UtilLesWghts}}: Calculates the lesion weights  matrix.
         \item \code{\link{UtilMeanSquares}}: Calculates the mean squares used in the
-           DBMH and ORH methods.
+           DBM and OR methods.
         \item \code{\link{UtilOutputReport}}: Generate a formatted report file.
         \item \code{\link{Util2Intrinsic}}: Convert RSM physical parameters to
            intrinsic parameters.
         \item \code{\link{UtilPseudoValues}}: Return jackknife pseudovalues.
         \item \code{\link{UtilDBMVarComp}}: Utility for Dorfman-Berbaum-Metz
            variance components.
-        \item \code{\link{UtilOrVarCov}}: Utility for Obuchowski-Rockette
+        \item \code{\link{UtilORVarComp}}: Utility for Obuchowski-Rockette
            variance components.
   }
 }

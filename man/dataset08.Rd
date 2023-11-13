@@ -37,8 +37,8 @@ radiologists using the FROC paradigm (the inferred ROC dataset is included; the 
 is lost).
 }
 \examples{
-str(dataset08)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset08, opChType = "ROC")$Plot
+res <- str(dataset08)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset08, opChType = "ROC")$Plot
 
 
 }

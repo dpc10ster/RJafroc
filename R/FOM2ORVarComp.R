@@ -1,16 +1,16 @@
-FOM2VarCov <- function(resampleFOM, varInflFactor, flag) {
+FOM2ORVarComp <- function(resampleFOM, varInflFactor, flag) {
   
   if ((length(dim(resampleFOM)) == 3) && (flag == "IJ")) {
     
-    ret <- FOMijk2VC(resampleFOM, varInflFactor)
+    ret <- FOMijk2ORVarComp(resampleFOM, varInflFactor)
     
   } else if ((length(dim(resampleFOM)) == 2) && (flag == "I")) {
     
-    ret <- FOMik2VC(resampleFOM, varInflFactor)
+    ret <- FOMik2ORVarComp(resampleFOM, varInflFactor)
     
   } else if ((length(dim(resampleFOM)) == 2) && (flag == "J")) {
     
-    ret <- FOMjk2VC(resampleFOM, varInflFactor)
+    ret <- FOMjk2ORVarComp(resampleFOM, varInflFactor)
     
   }   
   
@@ -20,7 +20,7 @@ FOM2VarCov <- function(resampleFOM, varInflFactor, flag) {
 
 
 
-FOMijk2VC <- function(resampleFOMijk, varInflFactor) {
+FOMijk2ORVarComp <- function(resampleFOMijk, varInflFactor) {
   
   I <- dim(resampleFOMijk)[1]
   J <- dim(resampleFOMijk)[2]
@@ -108,7 +108,7 @@ FOMijk2VC <- function(resampleFOMijk, varInflFactor) {
 }
 
 
-FOMik2VC <- function(FOMik, varInflFactor) {
+FOMik2ORVarComp <- function(FOMik, varInflFactor) {
   
   I <- dim(FOMik)[1]
   K <- dim(FOMik)[2]
@@ -153,7 +153,7 @@ FOMik2VC <- function(FOMik, varInflFactor) {
 }
 
 
-FOMjk2VC <- function(FOMjk, varInflFactor) {
+FOMjk2ORVarComp <- function(FOMjk, varInflFactor) {
   
   J <- dim(FOMjk)[1]
   K <- dim(FOMjk)[2]

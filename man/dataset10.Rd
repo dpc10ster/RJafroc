@@ -38,8 +38,8 @@ radiologists interpreted the cases using the FROC paradigm. These have been redu
 ROC data by using the highest ratings (the original FROC data is lost).
 }
 \examples{
-str(dataset10)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset10, opChType = "ROC")$Plot
+res <- str(dataset10)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset10, opChType = "ROC")$Plot
 
 
 }

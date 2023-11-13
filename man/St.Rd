@@ -93,13 +93,13 @@ needed if \code{covEstMethod = "bootstrap"} and \code{method = "OR"}}
 Performs DBM or OR significance testing for specified dataset.
 }
 \examples{
-St(dataset02,FOM = "Wilcoxon", method = "DBM") 
-St(dataset02,FOM = "Wilcoxon", method = "OR")
-St(datasetXModality, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
+result <- St(dataset02,FOM = "Wilcoxon", method = "DBM") 
+result <- St(dataset02,FOM = "Wilcoxon", method = "OR")
+result <- St(datasetXModality, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
 
 \donttest{
-St(dataset05, FOM = "wAFROC")
-St(dataset05, FOM = "HrAuc", method = "DBM") 
+result <- St(dataset05, FOM = "wAFROC")
+result <- St(dataset05, FOM = "HrAuc", method = "DBM") 
 } 
 
 

@@ -39,8 +39,8 @@ data requires methods described in the book, implemented in the function
 \code{\link{StCadVsRad}}.
 }
 \examples{
-str(dataset09)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
+res <- str(dataset09)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
 
 
 }

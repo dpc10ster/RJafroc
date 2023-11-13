@@ -174,7 +174,6 @@ title: "NEWS"
 
 ### argument of St functions 1/24/22
 * `analysisOption` must be `DBM` or `OR`
-* Not "ORH"
 
 ### Clarified weights matrix 1/7/22
 * See `test-RSM-formulae.R`
@@ -579,7 +578,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 
 ### Discovered error
-* For `StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")` - done
+* For `StSignificanceTesting(dataset02, method = "OR", option = "FRRC")` - done
 * Need to put in `testthat` all combinations of `method` and `option` - done
 * Different objects returned by `StSignificanceTesting` depending on choice of `option` - almost done
 * Need to standardize as otherwise `RJafrocBook` is klutzy  - WIP
@@ -595,8 +594,8 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 ### Fixing significance testing with independent calculations in `RJafrocBook`
 * Need to modify `RJafroc` to eliminate code duplication and improve style in all significance testing functions - move this to issues
 * I am only getting to understand it now (as I work on `RJafrocBook`)
-* One reader case can now be handled by `StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")`
-* May not need `StSignificanceTestingSingleFixedFactor` which currently only handles `DBMH` method - add to issues
+* One reader case can now be handled by `StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "OR")`
+* May not need `StSignificanceTestingSingleFixedFactor` which currently only handles `DBM` method - add to issues
 * Removed restriction of `StSignificanceTesting` to `J` > 1
 * Will merge to `master` so that `RJafrocBook` code passes Travis
 
@@ -604,8 +603,8 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 ### Fixed error with `msTC`
 * Found another error in `msTC` calculation in `UtilMeanSquares`
 * Was trying to be too cute for my own good (collapsing two for-loops into one)
-* Discoverd error while doing first principles calculation in `RJafocBook`, DBMH chapter, so there is at least one person who benefited from `RJafrocBook`
-* Changed `covEstMethod` argument to `ORH` method to lower case ("jackknife" or "bootstrap")
+* Discovered error while doing first principles calculation in `RJafocBook`, DBM chapter
+* Changed `covEstMethod` argument to `OR` method to lower case ("jackknife" or "bootstrap")
 
 
 ### Fixed issue with `optim` when flipping groups
@@ -657,7 +656,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Created simulated SP datafile `inst/extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx`.
 * Created simulated SP dataset `datasetFROCSp` corresponding to modalities 4,5 of `dataset04`
 * Update vignette `Ch00Vig5SimulateSplitPlotDataset.Rmd`.
-* Modified `StORHAnalysis.R` and to work with SP-A dataset provided `method = "ORH"` and `covEstMethod` = "jackknife" is used
+* Modified `StORHAnalysis.R` and to work with SP-A dataset provided `method = "OR"` and `covEstMethod` = "jackknife" is used
 * Corrected an error in analysis; see `~Dropbox/RJafrocChecks/StfrocSp.xlsx` for details.
 * Updated this file 2/19/20
 * R CMD check successful ... except for file size NOTE (18.4Mb)
@@ -740,7 +739,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 
 ### Significance testing functions
-* `StSignificanceTesting()`: corrects errors affecting `method = "ORH"` and `covEstMethod = "Jackknife"`. I messed up while trying to simplify XZ code. It calls:
+* `StSignificanceTesting()`: corrects errors affecting `method = "OR"` and `covEstMethod = "Jackknife"`. I messed up while trying to simplify XZ code. It calls:
 * StDBMHAnalysis():
 * StORHAnalysis():
 * Ran Windows `JAFROC` on virtual Windows 8 machine and saved results (inst/VarCompDiscrepancy/includedFrocData_Inferred_ROC.txt) to validate current significance testing functions. Included unit tests in `tests/testthat`.
@@ -808,12 +807,12 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
  Running the tests in ‘tests/testthat.R’ failed.
  Last 13 lines of output:
    Component "Source": Attributes: < Component "levels": 3 string mismatches >
-   List member = 2, Dataset = dataset02, FOM = Wilcoxon, method = DBMH
+   List member = 2, Dataset = dataset02, FOM = Wilcoxon, method = DBM
 
    ── 2. Failure: SignificanceTestingAllCombinations (@test-significance-te
    CurrentValues[[listMem]] not equal to GoodValues[[listMem]].
    Component "Source": Attributes: < Component "levels": 3 string mismatches >
-   List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBMH
+   List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBM
 ````
 
 

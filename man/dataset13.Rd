@@ -34,7 +34,7 @@ This is referred to in the code as the "DOB3" dataset. This is a subset of DOB1 
 data for lesions not-visible on CXR, but visible to truth panel on all treatments.
 }
 \examples{
-str(dataset13)
+res <- str(dataset13)
 
 
 }

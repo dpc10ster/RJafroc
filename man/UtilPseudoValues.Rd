@@ -31,7 +31,7 @@ Each returned array has dimension \code{c(I,J,K)}, where \code{K} depends on the
    abnormal cases.
 }
 \examples{
-UtilPseudoValues(dataset05, FOM = "wAFROC")$jkFomValues[1,1,1:10]
-UtilPseudoValues(datasetXModality, FOM = "wAFROC")
+result <- UtilPseudoValues(dataset05, FOM = "wAFROC")$jkFomValues[1,1,1:10]
+result <- UtilPseudoValues(datasetXModality, FOM = "wAFROC")
 
 }

@@ -66,13 +66,13 @@
 #' 
 #' 
 #' @examples
-#' St(dataset02,FOM = "Wilcoxon", method = "DBM") 
-#' St(dataset02,FOM = "Wilcoxon", method = "OR")
-#' St(datasetXModality, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
+#' result <- St(dataset02,FOM = "Wilcoxon", method = "DBM") 
+#' result <- St(dataset02,FOM = "Wilcoxon", method = "OR")
+#' result <- St(datasetXModality, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
 #' 
 #' \donttest{
-#' St(dataset05, FOM = "wAFROC")
-#' St(dataset05, FOM = "HrAuc", method = "DBM") 
+#' result <- St(dataset05, FOM = "wAFROC")
+#' result <- St(dataset05, FOM = "HrAuc", method = "DBM") 
 #' } 
 #'
 #' 
@@ -116,27 +116,14 @@ St <- function(dataset,
   isValidDataset(dataset, FOM, method, analysisOption, covEstMethod = covEstMethod)
   
   if (method == "DBM"){
-    
-    if (dataset$descriptions$design == "FCTRL") {
-      
-      return(StDBMHAnalysis(dataset, 
-                            FOM, 
-                            analysisOption,
-                            alpha,
-                            FPFValue))
-      
-    } else { # XModality
-      
-      # ???
-      ret <- StDBMHAnalysis(dataset, 
-                            FOM, 
-                            analysisOption,
-                            alpha,
-                            FPFValue)
-      
-      return(ret)
-      
-    }
+
+    ret <- StDBMAnalysis(dataset, 
+                          FOM, 
+                          analysisOption,
+                          alpha,
+                          FPFValue)
+
+    return(ret)
     
   } else { # method == "OR"
     

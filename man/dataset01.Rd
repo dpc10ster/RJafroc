@@ -35,8 +35,8 @@ This is referred to in the book as the "TONY" dataset. It consists of 185 cases,
 ("BT" = breast tomosynthesis and "DM" = digital mammography) by five radiologists using the FROC paradigm.
 }
 \examples{
-str(dataset01)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset01, opChType = "wAFROC")$Plot
+res <- str(dataset01)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset01, opChType = "wAFROC")$Plot
 
 }
 \references{

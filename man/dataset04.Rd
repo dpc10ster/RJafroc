@@ -40,8 +40,8 @@ mammogram with 3 lesions. The Excel file containing this dataset is
 cases are labeled 0:99.
 }
 \examples{
-str(dataset04)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset04, opChType = "wAFROC")$Plot
+res <- str(dataset04)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset04, opChType = "wAFROC")$Plot
 
 
 }

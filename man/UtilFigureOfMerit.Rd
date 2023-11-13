@@ -69,9 +69,9 @@ The allowed FOMs depend on the \code{dataType} field of the
    For cross-modality analysis ROI and LROC datasets are not supported.
 }
 \examples{
-UtilFigureOfMerit(dataset02, FOM = "Wilcoxon") # ROC data
-UtilFigureOfMerit(dataset01) # FROC dataset, default wAFROC FOM
-UtilFigureOfMerit(datasetXModality, FOM = "wAFROC")
+res <- UtilFigureOfMerit(dataset02, FOM = "Wilcoxon") # ROC data
+res <- UtilFigureOfMerit(dataset01) # FROC dataset, default wAFROC FOM
+res <- UtilFigureOfMerit(datasetXModality, FOM = "wAFROC")
 
 }
 \references{

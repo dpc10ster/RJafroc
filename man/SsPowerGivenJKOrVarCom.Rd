@@ -65,6 +65,6 @@ Var <- VarCom["Var",1]
 ret <- SsPowerGivenJKOrVarCom (J = 5, K = 100, KStar = KStar,  
    effectSize = 0.05, VarTR, Cov1, Cov2, Cov3, Var, analysisOption = "RRRC")
     
-cat("RRRC power = ", ret$powerRRRC)
+##cat("RRRC power = ", ret$powerRRRC)
 
 }

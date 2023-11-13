@@ -35,7 +35,7 @@ A binned dataset suitable for analysis by \code{\link{FitCorCbm}}. It was genera
    Otherwise similar to \code{\link{datasetBinned123}}.
 }
 \examples{
-str(datasetBinned124)
+res <- str(datasetBinned124)
 
 }
 \references{

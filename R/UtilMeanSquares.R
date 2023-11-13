@@ -21,17 +21,16 @@
 #'    modality dataset, and \code{msR} is not available for single reader dataset.
 #' 
 #' @examples
-#' UtilMeanSquares(dataset02, FOM = "Wilcoxon")
-#' UtilMeanSquares(dataset05, FOM = "wAFROC", method = "OR")
+#' result <- UtilMeanSquares(dataset02, FOM = "Wilcoxon")
+#' result <- UtilMeanSquares(dataset05, FOM = "wAFROC", method = "OR")
 #' 
 #' @export
 
 UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBM"){
 
-  if (dataset$descriptions$design != "FCTRL") stop("This function requires a FCTRL dataset")
+  isValidDataset(dataset, FOM, method, analysisOption = "RRRC", covEstMethod = "jackknife")
   
-  if ((dataset$descriptions$type == "ROC") && (FOM != "Wilcoxon")) stop("ROC dataset requires Wilcoxon FOM") 
-  if ((dataset$descriptions$type == "FROC") && (FOM == "Wilcoxon")) stop("FROC dataset cannot have Wilcoxon FOM") 
+  if (dataset$descriptions$design != "FCTRL") stop("This function requires a FCTRL dataset")
   
   dataType <- dataset$descriptions$type
   if (dataType != "LROC") {

@@ -79,9 +79,9 @@ This function is available only for factorial datasets.
 
 \donttest{
  # text output is created in a temporary file
-UtilOutputReport(dataset03, FOM = "Wilcoxon")
-# Excel output is created in a temporary file
-UtilOutputReport(dataset03, FOM = "Wilcoxon", ReportFileExt = "xlsx") 
+ret <- UtilOutputReport(dataset03, FOM = "Wilcoxon")
+ # Excel output is created in a temporary file
+ret <- UtilOutputReport(dataset03, FOM = "Wilcoxon", ReportFileExt = "xlsx") 
 
 }
        

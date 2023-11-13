@@ -46,7 +46,8 @@ fomStr <- c("Wilcoxon", "wAFROC")
 for (f in 1:length(fomStr)) {
   for (d in 1:length(datasetStr)) {
     for (m in 1:length(methodStr)) {
-      #cat("f = ", f, ", d = ", d, ", m = ", m, "\n")
+      if (!((f == 1) && (d == 2) && (m == 1))) next
+      cat("f = ", f, ", d = ", d, ", m = ", m, "\n")
       FOM <- fomStr[f]
       method <- methodStr[m]
       dataset <- get(datasetStr[d])
@@ -63,7 +64,7 @@ for (f in 1:length(fomStr)) {
           methodStr[m],
           "-",
           fomStr[f],
-          "rds"
+          ".rds"
         )
       if (!file.exists(fn)) {
         warning(paste0("File not found - generating new ", fn))

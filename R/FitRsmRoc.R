@@ -8,28 +8,41 @@
 #' @param rdr The selected reader, default is 1
 #' 
 #' 
-#' @return A list with the following elements:
+#' @return A list with the following elements
+#' 
 #' @return \item{mu}{The mean of the diseased distribution relative 
 #'    to the non-diseased one} 
+#'    
 #' @return \item{lambda}{The Poisson parameter describing the distribution 
 #'    of latent NLs per case}
+#'    
 #' @return \item{nu}{The binomial success probability describing the distribution
 #'    of latent LLs per diseased case}
+#'    
 #' @return \item{zetas}{The RSM cutoffs, zetas or thresholds} 
+#' 
 #' @return \item{AUC}{The RSM fitted ROC-AUC} 
+#' 
 #' @return \item{StdAUC}{The standard deviation of AUC} 
-#' @return \item{NLLIni}{The initial value of negative LL} 
-#' @return \item{NLLFin}{The final value of negative LL} 
-#' @return \item{ChisqrFitStats}{The chisquare goodness of fit results} 
-#' @return \item{covMat}{The covariance matrix of the parameters} 
+#' 
+#' @return \item{NLLIni}{The initial value of negative LL}
+#'  
+#' @return \item{NLLFin}{The final value of negative LL}
+#'  
+#' @return \item{ChisqrFitStats}{The chisquare goodness of fit results}
+#'  
+#' @return \item{covMat}{The covariance matrix of the parameters}
+#'  
 #' @return \item{fittedPlot}{A \pkg{ggplot2} object containing the fitted 
 #'    operating characteristic along with the empirical operating points. 
 #'    Use \code{print} to display the object} 
 #' 
 #' 
 #' @details 
-#' If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. MLE ROC algorithms 
-#'    require binned datasets. Use \code{\link{DfBinDataset}} to perform the binning prior to calling 
+#' If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. 
+#'    MLE ROC algorithms 
+#'    require binned datasets. Use \code{\link{DfBinDataset}} to perform the 
+#'    binning prior to calling 
 #'    this function. 
 #'    In the RSM: (1) The (random) number of latent NLs per case is Poisson distributed 
 #'    with mean parameter lambda, and the corresponding ratings are sampled from 
@@ -69,8 +82,8 @@
 #' 
 #' 
 #' ## Test with three interior data points
-#' fp <- c(rep(1,12), rep(2, 5), rep(3, 3), rep(4, 5)) #25
-#' tp <- c(rep(1,3), rep(2, 5), rep(3, 7), rep(4, 10)) #25
+#' fp <- c(rep(1,12), rep(2, 5), rep(3, 3), rep(4, 5))
+#' tp <- c(rep(1,3), rep(2, 5), rep(3, 7), rep(4, 10))
 #' binnedRocData <- Df2RJafrocDataset(fp, tp)
 #' lesDistr <- UtilLesDistr(binnedRocData)$Freq
 #' retFit <- FitRsmRoc(binnedRocData, lesDistr)
@@ -81,7 +94,7 @@
 #' rocData <- DfFroc2Roc(dataset01)
 #' retFit <- FitRsmRoc(rocData, lesDistr, trt = 2, rdr = 3)
 #' ## print(retFit$fittedPlot)
-#' retFit$ChisqrFitStats
+#' ## retFit$ChisqrFitStats
 #' }
 #' 
 #' @references 

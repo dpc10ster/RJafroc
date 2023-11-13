@@ -49,11 +49,11 @@ binned <- DfBinDataset(dataset05, opChType = "wAFROC", desiredNumBins = 3)
 dataset <- SimulateRocDataset(I = 2, J = 5, K1 = 50, K2 = 70, a = 1, b = 0.5, seed = 123)
 datasetB <- DfBinDataset(dataset, desiredNumBins = 7, opChType = "ROC")
 fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"))
-print(fomOrg)
+##print(fomOrg)
 fomBinned <- as.matrix(UtilFigureOfMerit(datasetB, FOM = "Wilcoxon"))
-print(fomBinned)
-cat("mean, sd = ", mean(fomOrg), sd(fomOrg), "\n")
-cat("mean, sd = ", mean(fomBinned), sd(fomBinned), "\n")
+##print(fomBinned)
+##cat("mean, sd = ", mean(fomOrg), sd(fomOrg), "\n")
+##cat("mean, sd = ", mean(fomBinned), sd(fomBinned), "\n")
 }
 
 

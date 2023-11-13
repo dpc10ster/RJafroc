@@ -37,7 +37,7 @@ positives where the lesions were incorrectly localized. The first reader is CAD
 and the remaining readers are radiologists.
 }
 \examples{
-str(datasetCadLroc)
+res <- str(datasetCadLroc)
 
 
 }

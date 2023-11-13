@@ -36,7 +36,7 @@ algorithms. The second modality factor \code{modalityID2} can be "20" "40"  "60"
 represent the mAs values of the image acquisition. The factors are fully crossed.
 }
 \examples{
-str(datasetXModality)
+res <- str(datasetXModality)
 
 
 }

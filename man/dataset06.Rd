@@ -36,8 +36,8 @@ interpreted in two treatments ("1" = conventional chest, "1" = chest tomosynthes
 radiologists using the FROC paradigm.
 }
 \examples{
-str(dataset06)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset06, opChType = "wAFROC")$Plot
+res <- str(dataset06)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset06, opChType = "wAFROC")$Plot
 
 
 }

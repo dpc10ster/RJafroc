@@ -40,8 +40,8 @@ This is referred to in the book as the "VD" dataset. It consists of 114 cases,
    the ROC plot for the first modality and first reader.
 }
 \examples{
-str(dataset02)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot
+res <- str(dataset02)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot
 
 
 

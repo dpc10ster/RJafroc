@@ -33,7 +33,7 @@ datasetROI
 TBA Simulated ROI dataset: assumed are 4 ROIs per case, 5 readers, 50 non-dieased and 40 diseased cases.
 }
 \examples{
-str(datasetROI)
+res <- str(datasetROI)
 
 
 }

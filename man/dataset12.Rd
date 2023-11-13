@@ -35,7 +35,7 @@ ratings, i.e., do you recommend further follow up on the patient, one a 1 (defin
 to 5 (definitely yes), effectively an ROC dataset using a 5-point rating scale.
 }
 \examples{
-str(dataset12)
+res <- str(dataset12)
 
 
 }

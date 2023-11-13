@@ -33,8 +33,8 @@
 #' PROC SPIE 7966.
 #' 
 #' @examples
-#' str(dataset01)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset01, opChType = "wAFROC")$Plot
+#' res <- str(dataset01)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset01, opChType = "wAFROC")$Plot
 #'
 "dataset01"
 #'
@@ -78,8 +78,8 @@
 #' aortic dissection. 79th RSNA Meetings. 1993.
 #' 
 #' @examples
-#' str(dataset02)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot
+#' res <- str(dataset02)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot
 #'
 #'
 #'
@@ -124,8 +124,8 @@
 #' 1992;27(9):732-737.
 #' 
 #' @examples
-#' str(dataset03)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
+#' res <- str(dataset03)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
 #'
 #'
 "dataset03"
@@ -170,8 +170,8 @@
 #' in digital mammography. Medical Physics. 2009;36(3):765-775.
 #' 
 #' @examples
-#' str(dataset04)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset04, opChType = "wAFROC")$Plot
+#' res <- str(dataset04)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset04, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset04"
@@ -216,8 +216,8 @@
 #' 
 #'  
 #' @examples
-#' str(dataset05)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset05, opChType = "wAFROC")$Plot
+#' res <- str(dataset05)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset05, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset05"
@@ -259,8 +259,8 @@
 #' Radiology. 2008;249(3):1034-1041.
 #' 
 #' @examples
-#' str(dataset06)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset06, opChType = "wAFROC")$Plot
+#' res <- str(dataset06)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset06, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset06"
@@ -301,8 +301,8 @@
 #' Medical Physics. 2012;39(6):3202-3213.
 #' 
 #' @examples
-#' str(dataset07)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset07, opChType = "wAFROC")$Plot
+#' res <- str(dataset07)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset07, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset07"
@@ -346,8 +346,8 @@
 #' Radiology. 2005;237(2):450-457.
 #' 
 #' @examples
-#' str(dataset08)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset08, opChType = "ROC")$Plot
+#' res <- str(dataset08)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset08, opChType = "ROC")$Plot
 #'
 #'
 "dataset08"
@@ -391,8 +391,8 @@
 #' performance for the detection of mammographic masses. Eur Radiol. 2013;23(1):93-100.
 #' 
 #' @examples
-#' str(dataset09)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
+#' res <- str(dataset09)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
 #'
 #'
 "dataset09"
@@ -437,8 +437,8 @@
 #' 
 #' 
 #' @examples
-#' str(dataset10)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset10, opChType = "ROC")$Plot
+#' res <- str(dataset10)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset10, opChType = "ROC")$Plot
 #'
 #'
 "dataset10"
@@ -488,7 +488,7 @@
 #' for the Detection and Management of Pulmonary Nodules. Radiology. 2016;282(1):236-250.
 #' 
 #' @examples
-#' str(dataset11)
+#' res <- str(dataset11)
 #'
 #'
 "dataset11"
@@ -529,7 +529,7 @@
 #' for the Detection and Management of Pulmonary Nodules. Radiology. 2016;282(1):236-250.
 #' 
 #' @examples
-#' str(dataset12)
+#' res <- str(dataset12)
 #'
 #'
 "dataset12"
@@ -569,7 +569,7 @@
 #' for the Detection and Management of Pulmonary Nodules. Radiology. 2016;282(1):236-250.
 #' 
 #' @examples
-#' str(dataset13)
+#' res <- str(dataset13)
 #'
 #'
 "dataset13"
@@ -614,7 +614,7 @@
 #' Med Phys. 39(10):5917-5929.
 #' 
 #' @examples
-#' str(dataset14)
+#' res <- str(dataset14)
 #'
 #'
 "dataset14"
@@ -661,7 +661,7 @@
 #'    ROC datasets. Medical Physics. 44(6):2207--2222.
 
 #' @examples
-#' str(datasetBinned123)
+#' res <- str(datasetBinned123)
 #'
 "datasetBinned123"
 #'
@@ -701,7 +701,7 @@
 #'    ROC datasets. Medical Physics. 44(6):2207--2222.
 
 #' @examples
-#' str(datasetBinned124)
+#' res <- str(datasetBinned124)
 #'
 "datasetBinned124"
 #'
@@ -741,7 +741,7 @@
 #'    ROC datasets. Medical Physics. 44(6):2207--2222.
 
 #' @examples
-#' str(datasetBinned125)
+#' res <- str(datasetBinned125)
 #'
 "datasetBinned125"
 #'
@@ -784,7 +784,7 @@
 #' performance for the detection of mammographic masses. Eur Radiol. 2013;23(1):93-100.
 #' 
 #' @examples
-#' str(datasetCadLroc)
+#' res <- str(datasetCadLroc)
 #'
 #'
 "datasetCadLroc"
@@ -873,7 +873,7 @@
 #' Medical Physics. 43(3):1265-1274.
 #' 
 #' @examples
-#' str(datasetXModality)
+#' res <- str(datasetXModality)
 #'
 #'
 "datasetXModality"
@@ -911,7 +911,7 @@
 #' @keywords datasets
 #'
 #' @examples
-#' str(datasetDegenerate)
+#' res <- str(datasetDegenerate)
 #'
 #'
 "datasetDegenerate"
@@ -947,7 +947,7 @@
 #'
 #' 
 #' @examples
-#' str(datasetROI)
+#' res <- str(datasetROI)
 #'
 #'
 "datasetROI"

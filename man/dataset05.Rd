@@ -38,8 +38,8 @@ radiographers using the FROC paradigm. Each case was a slice of an anthropomorph
 dataset was 7.
 }
 \examples{
-str(dataset05)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset05, opChType = "wAFROC")$Plot
+res <- str(dataset05)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset05, opChType = "wAFROC")$Plot
 
 
 }

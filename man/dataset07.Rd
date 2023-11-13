@@ -35,8 +35,8 @@ This is referred to in the book as the "OPT" dataset (for OptiMam). It consists 
 of acquiring the images) by seven radiologists using the FROC paradigm.
 }
 \examples{
-str(dataset07)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset07, opChType = "wAFROC")$Plot
+res <- str(dataset07)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset07, opChType = "wAFROC")$Plot
 
 
 }

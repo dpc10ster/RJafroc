@@ -38,8 +38,8 @@ Franken-dataset, which, along the the Van Dyke dataset, has been widely used to 
 advances in ROC methodology.
 }
 \examples{
-str(dataset03)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
+res <- str(dataset03)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
 
 
 }

@@ -96,7 +96,7 @@
 #' ## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, 
 #' ## and 30% have 4 lesions.  
 #' 
-#' PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
+#' res <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
 #'    lesDistr = c(0.2, 0.4, 0.1, 0.3), legendPosition = "bottom")
 #' 
 #' @export

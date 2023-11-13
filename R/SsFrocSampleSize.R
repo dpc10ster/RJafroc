@@ -63,11 +63,11 @@ SsFrocSampleSize <- function (dataset, effectSizeROC, JPivot, KPivot, lesDistr) 
   R2 <- ret$R2
   
   RocDatasetBin <- DfBinDataset(DfFroc2Roc(dataset), opChType = "ROC")
-  varComp_roc <- UtilOrVarCov(
+  varComp_roc <- UtilORVarComp(
     DfFroc2Roc(dataset), 
     FOM = "Wilcoxon")$VarCom[-2]
   
-  varComp_wafroc <- UtilOrVarCov(
+  varComp_wafroc <- UtilORVarComp(
     dataset, 
     FOM = "wAFROC")$VarCom[-2]
   

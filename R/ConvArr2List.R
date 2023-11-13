@@ -5,17 +5,14 @@ ConvArr2List <- function(dataset, foms) {
   modalityID2 <- dataset$descriptions$modalityID2
   readerID <- dataset$descriptions$readerID
   
-  # learnApply(foms)
-  # https://stackoverflow.com/questions/23302072/use-apply-on-a-multi-dimension-array
-  
   fomArray <- list()
   modalityID <- list()
   modalityID[[1]] <- modalityID2
   modalityID[[2]] <- modalityID1
   for (AvgIndx in 1:2) {
-    fomArray[[AvgIndx]] <- apply(foms, (1:3)[-AvgIndx], mean) # average over first modality and all readers
-    rownames(fomArray[[AvgIndx]]) <- paste("trt", sep = "-", modalityID[[AvgIndx]])
-    colnames(fomArray[[AvgIndx]]) <- paste("rdr", sep = "-", readerID)
+    fomArray[[AvgIndx]] <- apply(foms, (1:length(dim(foms)))[-AvgIndx], mean) # average over first modality and all readers
+    rownames(fomArray[[AvgIndx]]) <- paste0("trt", modalityID[[AvgIndx]])
+    colnames(fomArray[[AvgIndx]]) <- paste0("rdr", readerID)
   }
   names(fomArray) <- c("AvgMod1", "AvgMod2")
   

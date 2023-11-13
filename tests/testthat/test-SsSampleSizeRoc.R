@@ -95,7 +95,7 @@ test_that(contextStr, {
   
   
   ret1 <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "OR")
-  a <- UtilOrVarCov(dataset02, FOM = "Wilcoxon")
+  a <- UtilORVarComp(dataset02, FOM = "Wilcoxon")
   KStar <- length(dataset02$ratings$NL[1,1,,1])
   ret2 <- SsSampleSizeKGivenJ(NULL,
                               J = 6,
@@ -132,7 +132,7 @@ test_that(contextStr, {
   
   ret1 <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon",
                          effectSize = 0.05, J = 6, K = 251, method = "OR")
-  a <- UtilOrVarCov(dataset02, FOM = "Wilcoxon")
+  a <- UtilORVarComp(dataset02, FOM = "Wilcoxon")
   KStar <- length(dataset02$ratings$NL[1,1,,1])
   ret2 <- SsPowerGivenJK(NULL,
                          effectSize = 0.05,

@@ -24,8 +24,8 @@
 #' 
 #' 
 #' @examples
-#' UtilPseudoValues(dataset05, FOM = "wAFROC")$jkFomValues[1,1,1:10]
-#' UtilPseudoValues(datasetXModality, FOM = "wAFROC")
+#' result <- UtilPseudoValues(dataset05, FOM = "wAFROC")$jkFomValues[1,1,1:10]
+#' result <- UtilPseudoValues(datasetXModality, FOM = "wAFROC")
 #' 
 #' @export
 
@@ -294,9 +294,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
           }
         }
         # center the pseudovalues so that mean (jkPseudoValues) == mean(jkFomValues)
-        jkPseudoValues[i1, i2, j, k] <- 
-          jkPseudoValues[i1, i2, j, k] + 
-          (foms[i1, i2, j] - mean(jkPseudoValues[i1, i2, j, ]))
+        jkPseudoValues[i1, i2, j, k] <- jkPseudoValues[i1, i2, j, k] + (foms[i1, i2, j] - mean(jkPseudoValues[i1, i2, j, ]))
       }
       #    }
     }
@@ -305,14 +303,6 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     jkPseudoValues = jkPseudoValues, 
     jkFomValues = jkFomValues
   ))
-  
-  # NOTE 
-  # mean(jkPseudoValues) == mean(jkFomValues)
-  # Browse[2]> mean(jkPseudoValues)
-  # [1] 0.8680476
-  # Browse[2]> mean(jkFomValues)
-  # [1] 0.8680476
-  # 
   
 }
 

@@ -1,11 +1,13 @@
-#' Calculate empirical figures of merit (FOMs) for factorial dataset, standard or cross-
-#'    modality
+#' Calculate empirical figures of merit (FOMs) for factorial dataset, standard 
+#'     or cross-modality
 #' 
-#' @description  Calculate the specified empirical figure of merit
-#'    for each modality-reader combination in a standard or cross-modality dataset
+#' @description  Calculate the specified empirical figure of merit for each 
+#'     modality-reader combination in a standard or cross-modality dataset
 #' 
 #' @param dataset The dataset to be analyzed, \code{\link{RJafroc-package}}
+#' 
 #' @param FOM The figure of merit; the default is \code{"wAFROC"}
+#' 
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
 #'    where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
@@ -23,10 +25,11 @@
 #' @details The allowed FOMs depend on the \code{dataType} field of the 
 #'    \code{dataset} object. 
 #' 
+#' 
 #'    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
 #'    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
 #'    \itemize{ 
-#'    \item \code{FOM = "AFROC1"} (use only if no normal cases  are available)
+#'    \item \code{FOM = "AFROC1"} (use only if no normal cases are available)
 #'    \item \code{FOM = "AFROC"} 
 #'    \item \code{FOM = "wAFROC1"} (use only if no normal cases  are available)
 #'    \item \code{FOM = "wAFROC"} (the default) 
@@ -42,8 +45,8 @@
 #'    on the FROC operating characteristic obtained by counting all the marks. 
 #'    Given the number of FOMs possible with FROC data, it is appropriate 
 #'    to make a recommendation: \strong{it is recommended the wAFROC FOM be used
-#'    whenever possible. Only if the dataset has no non-diseased cases should one use the
-#'    the wAFROC1 FOM}.
+#'    whenever possible.  One should use the wAFROC1 FOM only if the dataset has 
+#'    no non-diseased cases}.
 #'    
 #'    For \strong{\code{dataType = "ROI"} dataset only \code{FOM = "ROI"} is allowed}.
 #'    
@@ -59,14 +62,18 @@
 #' 
 #'
 #' @examples
-#' UtilFigureOfMerit(dataset02, FOM = "Wilcoxon") # ROC data
-#' UtilFigureOfMerit(dataset01) # FROC dataset, default wAFROC FOM
-#' UtilFigureOfMerit(datasetXModality, FOM = "wAFROC")
+#' res <- UtilFigureOfMerit(dataset02, FOM = "Wilcoxon") # ROC data
+#' res <- UtilFigureOfMerit(dataset01) # FROC dataset, default wAFROC FOM
+#' res <- UtilFigureOfMerit(datasetXModality, FOM = "wAFROC")
+#' 
+#' 
 #' 
 #' @references
 #' Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
 #' Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
 #' \url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
+#' 
+#' 
 #' 
 #' @importFrom dplyr between  
 #' @export
@@ -175,23 +182,9 @@ UtilFigureOfMerit <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) {
       }
     }
     
-    # modalityID1 <- dataset$descriptions$modalityID1
-    # modalityID2 <- dataset$descriptions$modalityID2
-    # modalityID <- c(modalityID1, modalityID2)
-    # readerID <- dataset$descriptions$readerID
-    # rownames(foms) <- paste("trt", sep = "", modalityID)
-    # colnames(foms) <- paste("rdr", sep = "", readerID)
     return(foms)
   }
 } 
-
-
-
-# UtilFigureOfMeritMatrix <- function(dataset, FOM = "wAFROC", FPFValue = 0.2) { 
-#   
-#   return(as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue)))
-#   
-# }
 
 
 learnApply <- function(foms){

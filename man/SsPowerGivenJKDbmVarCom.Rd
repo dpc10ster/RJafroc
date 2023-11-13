@@ -51,6 +51,6 @@ VarTC <- VarCom["VarTC",1]
 VarErr <- VarCom["VarErr",1]
 ret <- SsPowerGivenJKDbmVarCom (J = 5, K = 100, effectSize = 0.05, VarTR, 
    VarTC, VarErr, analysisOption = "RRRC")
-cat("RRRC power = ", ret$powerRRRC)
+##cat("RRRC power = ", ret$powerRRRC)
   
 }

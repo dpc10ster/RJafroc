@@ -21,7 +21,7 @@ A list containing the variance components.
 Utility for Dorfman-Berbaum-Metz variance components
 }
 \examples{
-UtilDBMVarComp(dataset02, FOM = "Wilcoxon")
+result <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")
 
   
 }
