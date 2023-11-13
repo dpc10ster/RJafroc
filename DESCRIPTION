@@ -86,12 +86,12 @@ Description: Analyzing the performance of artificial intelligence
  FROC (AFROC) and weighted AFROC (wAFROC) curves. For fully crossed study
  designs significance testing of reader-averaged FOM differences between
  modalities is implemented via either Dorfman-Berbaum-Metz or the
- Obuchowski-Rockette methods. Also implemented is single treatment analysis,
+ Obuchowski-Rockette methods. Also implemented is single modality analysis,
  which allows comparison of performance of a group of radiologists to a
  specified value, or comparison of AI to a group of radiologists interpreting
  the same cases. Crossed-modality analysis is implemented wherein there are
- two crossed treatment factors and the aim is to determined performance in
- each treatment factor averaged over all levels of the second factor. Sample
+ two crossed modality factors and the aim is to determined performance in
+ each modality factor averaged over all levels of the second factor. Sample
  size estimation tools are provided for ROC and FROC studies; these use
  estimates of the relevant variances from a pilot study to predict required
  numbers of readers and cases in a pivotal study to achieve the desired power.

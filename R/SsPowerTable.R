@@ -1,30 +1,37 @@
 #' Generate a power table using the OR method
 #' 
 #' @description  Generate combinations of numbers of readers J and numbers of 
-#'    cases K for desired power and specified generalization(s)
+#'    cases K for desired power and specified random factor(s)
 #' 
 #' @param dataset The \bold{pilot} ROC dataset to be used to extrapolate 
 #'    to the \bold{pivotal} study.
+#'    
 #' @param FOM The figure of merit.
+#' 
 #' @param effectSize The effect size to be used in the \bold{pivotal} study, 
 #'    default value is \code{NULL}. See Details.
+#'    
 #' @param alpha The The size of the test, default is 0.05.
+#' 
 #' @param desiredPower The desired statistical power, default is 0.8.
-#' @param analysisOption Desired generalization, "RRRC"  (the default), "FRRC", 
-#'    "RRFC" or "ALL".
 #' 
+#' @param analysisOption Specification of random factor(s): "RRRC" (the default), 
+#'    "FRRC", "RRFC" or "ALL".
 #' 
-#' @return A list containing up to 3 (depending on \code{analysisOption}) dataframes. 
-#'     Each dataframe contains 3 arrays:
+#' @return A list containing up to 3 (depending on \code{analysisOption}) 
+#'    data frames. 
+#' 
+#'    Each dataframe contains 3 arrays:
 #' @return \item{numReaders}{The numbers of readers in the pivotal study.}  
+#' 
 #' @return \item{numCases}{The numbers of cases in the pivotal study.}
+#' 
 #' @return \item{power}{The estimated statistical powers.}
 #' 
 #' @details The default \code{effectSize} uses the observed effect size in the 
 #'    pilot study. A supplied numeric value over-rides the default value.
 #' 
-#'@note The procedure is valid for ROC studies only; for FROC studies see 
-#'   Vignettes 19.
+#'@note The procedure is valid for ROC studies only; for FROC studies see online books.
 #'
 #'
 #' @examples
@@ -50,7 +57,7 @@ SsPowerTable <- function(dataset, FOM, effectSize = NULL, alpha = 0.05,
   
   KStar <- length(dataset$ratings$NL[1,1,,1])
   
-  ret <- StSignificanceTesting(dataset, FOM, method = "OR")
+  ret <- St(dataset, FOM, method = "OR")
   if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
   VarTR <- ret$ANOVA$VarCom["VarTR",1]
   Cov1 <- ret$ANOVA$VarCom["Cov1",1]

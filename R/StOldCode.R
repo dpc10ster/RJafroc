@@ -36,10 +36,10 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
     stop("The analysis requires at least 2 modalities.")
   }
   
-  fomArray <- as.matrix(UtilFigureOfMerit(dataset, FOM))
+  fomArray <- UtilFigureOfMerit(dataset, FOM)
   trMeans <- rowMeans(fomArray)
 
-  if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+  if (FOM %in% c("MaxNLF", "HrSp")) {
     jkFOMArray <- array(dim = c(I, J, K1))
     pseudoValues <- array(dim = c(I, J, K1))
     for (i in 1:I) {
@@ -614,7 +614,7 @@ ORHAnalysis <- function(dataset, FOM, alpha, covEstMethod, nBoots, analysisOptio
     stop(errMsg)
   }
   
-  fomArray <- as.matrix(UtilFigureOfMerit(dataset, FOM))
+  fomArray <- UtilFigureOfMerit(dataset, FOM)
   trMeans <- rowMeans(fomArray)
   fomMean <- mean(fomArray)
   
@@ -966,7 +966,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
   
   K1 <- K - K2
   if (covEstMethod == "jackknife") {
-    if (fom %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+    if (fom %in% c("MaxNLF", "HrSp")) {
       jkFOMArray <- array(dim = c(I, J, K1))
       for (i in 1:I) {
         for (j in 1:J) {
@@ -1014,7 +1014,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
         }
       }
     }
-    Cov <- FOMijk2VarCov(jkFOMArray, varInflFactor = TRUE)
+    Cov <- FOM2ORVarComp(jkFOMArray, varInflFactor = TRUE)
     var <- Cov$Var
     cov1 <- Cov$Cov1
     cov2 <- Cov$Cov2
@@ -1022,7 +1022,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
   }
   
   if (covEstMethod == "bootstrap") {
-    if (fom %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
+    if (fom %in% c("MaxNLF", "HrSp")) {
       fomBsArray <- array(dim = c(I, J, nBoots))
       for (b in 1:nBoots) {
         kBs <- ceiling(runif(K1) * K1)
@@ -1066,7 +1066,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
         }
       }
     }
-    Cov <- FOMijk2VarCov(fomBsArray, varInflFactor = FALSE)
+    Cov <- FOM2ORVarComp(fomBsArray, varInflFactor = FALSE)
     var <- Cov$var
     cov1 <- Cov$cov1
     cov2 <- Cov$cov2
@@ -1175,7 +1175,7 @@ EstimateVarCov <- function(fomArray, NL, LL, lesionVector, lesionID, lesionWeigh
       S <- s10/K2 + s01/K1
     }
     
-    Cov <- FOMijk2VarCov(S, varInflFactor = FALSE)
+    Cov <- FOM2ORVarComp(S, varInflFactor = FALSE)
     var <- Cov$var
     cov1 <- Cov$cov1
     cov2 <- Cov$cov2
@@ -1340,9 +1340,6 @@ MyFOMOldCode <- function(nl, ll, lesionNum, lesionID, lesionWeight, maxNL, fom) 
   } else if (fom == "MaxNLFAllCases") {
     numMarksTotal <- sum(nl != UNINITIALIZED)
     FOM <- numMarksTotal/K
-  } else if (fom == "ExpTrnsfmSp") {
-    numMarksTotal <- sum(nl[1:K1, ] != UNINITIALIZED)
-    FOM <- exp(-numMarksTotal/K1)
   } else if (fom == "ROI") {
     nn <- 0
     ns <- sum(lesionNum)

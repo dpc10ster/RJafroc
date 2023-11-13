@@ -22,7 +22,7 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
 \item{\code{descriptions$name}}{, chr "NICO-CAD-ROC", the name of the dataset}
 \item{\code{descriptions$truthTableStr}}{, num [1, 1:10, 1:200, 1:2], truth table structure}
 \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-\item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+\item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 }
 }
@@ -36,11 +36,11 @@ interpreted by a CAD system and nine radiologists using the
 LROC paradigm. The first reader is CAD. The highest rating was used to convert this to an ROC 
 dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this 
 data requires methods described in the book, implemented in the function  
-\code{\link{StSignificanceTestingCadVsRad}}.
+\code{\link{StCadVsRad}}.
 }
 \examples{
-str(dataset09)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
+res <- str(dataset09)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
 
 
 }

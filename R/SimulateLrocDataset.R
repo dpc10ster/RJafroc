@@ -21,13 +21,7 @@
 #' 
 #' @examples
 #'   set.seed(1)
-#'   K1 <- 5
-#'   K2 <- 5
-#'   mu <- 2
-#'   lambda <- 1
-#'   lesionVector <- rep(1, 5)
-#'   nu <- 0.8
-#'   zeta1 <- -3
+#'   K1 <- 5; K2 <- 5; mu <- 2; lambda <- 1; lesionVector <- rep(1, 5); nu <- 0.8; zeta1 <- -3
 #'   frocData <- SimulateFrocDataset(mu, lambda, nu, zeta1, I = 2, J = 5, K1, K2, lesionVector)
 #'   lrocData <- DfFroc2Lroc(frocData)
 #' 

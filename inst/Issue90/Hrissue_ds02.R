@@ -3,7 +3,7 @@ library(testthat)
 ds <- dataset01
 
 orgValues <- SigTestOldCode(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRRC")
-newValues <- StSignificanceTesting(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRRC")
+newValues <- St(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRRC")
 
 #####  FStats#####  
 orgFStatsRRRC <- c(orgValues$fRRRC, orgValues$ddfRRRC, orgValues$pRRRC)
@@ -66,7 +66,7 @@ for (i in 1: length(orgciAvgRdrEachTrtRRRC)){
 
 
 orgValues <- SigTestOldCode(ds, FOM = "HrSe", method = "DBM", analysisOption = "FRRC")
-newValues <- StSignificanceTesting(ds, FOM = "HrSe", method = "DBM", analysisOption = "FRRC")
+newValues <- St(ds, FOM = "HrSe", method = "DBM", analysisOption = "FRRC")
 
 
 orgciDiffTrtFRRC <- as.numeric(as.vector(as.matrix(orgValues$ciDiffTrtFRRC))[-(1)]) # remove 0-1 vs trt0-trt1
@@ -88,7 +88,7 @@ for (i in 1: length(orgciAvgRdrEachTrtFRRC)){
 
 
 orgValues <- SigTestOldCode(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRFC")
-newValues <- StSignificanceTesting(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRFC")
+newValues <- St(ds, FOM = "HrSe", method = "DBM", analysisOption = "RRFC")
 
 
 orgciDiffTrtRRFC <- as.vector(as.matrix(orgValues$ciDiffTrtRRFC[,-1]))

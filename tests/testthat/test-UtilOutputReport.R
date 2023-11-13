@@ -1,23 +1,39 @@
 # 7/11/20: this does not test the actual output produced by UtilOutputReport
-# It just tests that the signficance testing routines run without errors
+# It just tests that the significance testing routines run without errors
 # See next test commented out that represents failed attempt at comparing actual outputs for text files only
 contextStr <- "UtilOutputReport: datasets02, 03 and 04"
 context(contextStr)
 test_that(contextStr, {
+  
   methodStr <- c("DBM", "OR")
   datasetStr <- c("dataset04", "dataset02", "dataset03")
   fomStr <- c("Wilcoxon", "wAFROC")
+  
   for (f in 1:length(fomStr)) {
     for (d in 1:length(datasetStr)) {
       for (m in 1:length(methodStr)) {
+        # cat("f = ", f, ", d = ", d, ", m = ", m, "\n")
         FOM <- fomStr[f]
         method <- methodStr[m]
         dataset <- get(datasetStr[d])
-        if (dataset$descriptions$type == "ROC" && (FOM != "Wilcoxon")) next 
-        if (dataset$descriptions$type == "FROC" && (FOM != "wAFROC")) next 
-        fn <- paste0(test_path(), "/goodValues361/UtilOutputReport/", datasetStr[d], "-", methodStr[m], "-", fomStr[f], "rds")
+        if (dataset$descriptions$type == "ROC" && (FOM != "Wilcoxon"))
+          next
+        if (dataset$descriptions$type == "FROC" && (FOM != "wAFROC"))
+          next
+        fn <-
+          paste0(
+            test_path(),
+            "/goodValues361/UtilOutputReport/",
+            datasetStr[d],
+            "-",
+            methodStr[m],
+            "-",
+            fomStr[f],
+            ".rds"
+          )
+        # cat(paste0(fn, "\n"))
         if (!file.exists(fn)) {
-          warning(paste0("File not found - generating new ",fn))
+          warning(paste0("File not found - generating new ", fn))
           x <- UtilOutputReport(dataset, FOM = FOM, method = method)
           saveRDS(x, fn)
         }
@@ -27,6 +43,7 @@ test_that(contextStr, {
       }
     }
   }
+
 })
 
 # 7/11/20: following code passes when run using Run Tests but fails when run using

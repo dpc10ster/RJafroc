@@ -41,7 +41,6 @@
 #' tpCounts = c(10, 11,  7, 16, 29, 16)
 #' gfit = ChisqrGoodnessOfFit(fpCounts, tpCounts, 
 #' parameters = c(fit$a, fit$b, fit$zetas), model="BINORMAL") 
-#' gfit
 #' 
 #' 
 #' 

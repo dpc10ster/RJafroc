@@ -14,7 +14,7 @@
 #' @param perCase A K2 length array containing the numbers of lesions per diseased case
 #' @param seed  Initial seed for random number generator, default 
 #'     \code{NULL}, for random seed.
-#' @param deltaMu Inter-treatment increment in mu, default zero 
+#' @param deltaMu Inter-modality increment in mu, default zero 
 #' 
 #' @return An FROC dataset.
 #' 
@@ -47,8 +47,9 @@
 
 SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, seed = NULL, deltaMu = 0){
   
-  if (length(perCase) != K2) stop("SimulateFrocDataset: error in specification of number of lesions perCase vector.")
+  if (length(perCase) != K2) stop("SimulateFrocDataset: error in specification of number of lesions `perCase` vector.")
   
+  K <- K1 + K2
   if (I > 1) {
     deltaMu1 <- array(0, dim = I)
     deltaMu1[2] <- deltaMu
@@ -117,13 +118,22 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, se
   fileName <- "NA"
   name <- NA
   design <- "FCTRL"
-  # added truthTableStr 5/18/2023
-  truthTableStr <- array(dim = c(I, J, K1+K2, maxLL+1))
-  truthTableStr[,,1:K1,1] <- 1
-  for (k2 in 1:K2) {
-    truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
-  }
   type <- "FROC"
+  
+  if (type == "FROC") {
+    # added truthTableStr 5/18/2023
+    truthTableStr <- array(dim = c(I, J, K, maxLL+1))
+    truthTableStr[,,1:K1,1] <- 1
+    for (k2 in 1:K2) {
+      truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
+    }
+  } else if (type == "ROC") {
+    # added truthTableStr 5/18/2023
+    truthTableStr <- array(dim = c(I, J, K, 2)) 
+    truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
+    truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
+  } else stop("data type must be ROC or FROC")
+  
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
                          fileName, type, name, truthTableStr, design,

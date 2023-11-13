@@ -8,7 +8,7 @@ test_that(contextStr, {
   
   dataset_arr <- list(dataset02, dataset05) # first is ROC second is FROC dataset object
   dataset_arr_str <- c("dataset02", "dataset05")
-  FOM_arr <- c("Wilcoxon", "HrAuc") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
+  FOM_arr <- c("Wilcoxon", "HrAuc")
   method_arr <- c("DBM", "OR")
   format_arr <- c("txt")
   ## cycle through all representative datasets, FOMs, methods 

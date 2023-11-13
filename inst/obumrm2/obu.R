@@ -37,8 +37,8 @@ obu <- function (ds1, ds2, FOM) {
     }
   }
   
-  accur1 <- as.matrix(UtilFigureOfMerit(ds1, FOM = FOM))
-  accur2 <- as.matrix(UtilFigureOfMerit(ds2, FOM = FOM))
+  accur1 <- UtilFigureOfMerit(ds1, FOM = FOM)
+  accur2 <- UtilFigureOfMerit(ds2, FOM = FOM)
   
   accur <- array(0, dim = c(I,J))
   

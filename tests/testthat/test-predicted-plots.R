@@ -129,6 +129,7 @@ test_that("Rsm2", {
 })
 
 
+
 test_that("RSM3", {
   Sys.sleep(0.2)
   # this is the small data file created by AK that gave me so much grief! Resolved two bugs; 

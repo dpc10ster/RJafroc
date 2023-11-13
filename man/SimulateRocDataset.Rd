@@ -17,7 +17,7 @@ SimulateRocDataset(I = 1, J = 1, K1, K2, a, deltaA = 0, b, seed = NULL)
 
 \item{a}{\eqn{a} parameter of binormal model}
 
-\item{deltaA}{Inter-treatment increment in the \eqn{a} parameter, 
+\item{deltaA}{Inter-modality increment in the \eqn{a} parameter, 
 default zero}
 
 \item{b}{\eqn{b} parameter of the binormal model}

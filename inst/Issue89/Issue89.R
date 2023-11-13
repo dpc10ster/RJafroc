@@ -3,7 +3,7 @@ library("readxl")
 library("xlsx")
 library(dplyr)
 x <- DfReadDataFile(fileName = "inst/Issue89/frocCr.xlsx", newExcelFileFormat = TRUE)
-ret <- StSignificanceTesting(x, FOM = "AFROC", method = "OR", analysisOption = "RRRC")
+ret <- St(x, FOM = "AFROC", method = "OR", analysisOption = "RRRC")
 ret$RRRC$ciDiffTrt
 
 
@@ -18,7 +18,7 @@ xlsx::write.xlsx(as.data.frame(fp), file = "inst/Issue89/froc1.xlsx",
 xlsx::write.xlsx(as.data.frame(truth), file = "inst/Issue89/froc1.xlsx",
            sheetName="TRUTH", append=TRUE, row.names = F)
 x <- DfReadDataFile(fileName = "inst/Issue89/froc1.xlsx", newExcelFileFormat = TRUE)
-ret1 <- StSignificanceTesting(x, FOM = "AFROC", method = "OR", analysisOption = "RRRC")
+ret1 <- St(x, FOM = "AFROC", method = "OR", analysisOption = "RRRC")
 
 #reorder tp and fp
 
@@ -34,7 +34,7 @@ xlsx::write.xlsx(as.data.frame(fp), file = "inst/Issue89/froc2.xlsx",
 xlsx::write.xlsx(as.data.frame(truth), file = "inst/Issue89/froc2.xlsx",
            sheetName="TRUTH", append=TRUE, row.names = F)
 x <- DfReadDataFile(fileName = "inst/Issue89/froc2.xlsx", newExcelFileFormat = TRUE)
-ret2 <- StSignificanceTesting(x, FOM = "AFROC", method = "OR", analysisOption = "RRRC")
+ret2 <- St(x, FOM = "AFROC", method = "OR", analysisOption = "RRRC")
 
 ret1$RRRC
 ret2$RRRC

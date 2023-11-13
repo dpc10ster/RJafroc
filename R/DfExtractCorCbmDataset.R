@@ -2,25 +2,25 @@
 #'
 #' @description Extract a paired dataset from a larger dataset. The pairing could be
 #' two readers in the same
-#' treatment, or different readers in different treatments, or the same reader
+#' modality, or different readers in different treatments, or the same reader
 #' in different treatments. If necessary
 #' The data is binned to 5 bins in each condition.
 #'
 #'
 #' @param dataset The original dataset from which the pairing is to be extracted
-#' @param trts A vector, maximum length 2, contains the indices of the treatment
+#' @param trts A vector, maximum length 2, contains the indices of the modality
 #' or treatments to be extracted
 #' @param rdrs A vector, maximum length 2, contains the indices of the reader or
 #' readers to be extracted
 #'
-#' @return A 1-treatment 2-reader dataset
+#' @return A 1-modality 2-reader dataset
 #'
 #' @details The desired pairing is contained in the vectors \code{trts} and \code{rdrs}.
 #' If either has length one, the other must
 #' have length two and the pairing is implicit. If both are length two, then the pairing
 #' is that implied by the first treatement
 #' and the second reader, which is one arm, and the other arm is that implied by the second
-#' treatment paired with the first
+#' modality paired with the first
 #' reader. Using this method any allowed pairing can be extracted and analyzed by \code{\link{FitCorCbm}}.
 #' The utility of this software is
 #' in designing a ratings simulator that is statistically matched to a real dataset.
@@ -28,7 +28,7 @@
 #' @examples
 #' 
 #' \donttest{
-#' ## Extract the paired data corresponding to the second and third readers in the first treatment
+#' ## Extract the paired data corresponding to the second and third readers in the first modality
 #' ## from the included ROC dataset
 #' dataset11_23 <- DfExtractCorCbmDataset(dataset05, trts = 1, rdrs = c(2,3))
 #'
@@ -36,8 +36,8 @@
 #' dataset12_33 <- DfExtractCorCbmDataset(dataset05, trts = c(1,2), rdrs = 3)
 #'
 #' ## Extract the data corresponding to the first reader in the first
-#' ## treatment paired with the data
-#' ## from the third reader in the second treatment
+#' ## modality paired with the data
+#' ## from the third reader in the second modality
 #' ## (the bin indices are at different positions in the two arrays)
 #' dataset12_13 <- DfExtractCorCbmDataset(dataset05,
 #' trts = c(1,2), rdrs = c(1,3))
@@ -74,16 +74,16 @@ DfExtractCorCbmDataset <- function(dataset, trts = 1, rdrs = 1){
       for (j in 1:lr) {
         if (j != i){
           if (j > i) {
-            dsX <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
+            ds_X <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
           } else {
-            dsY <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
+            ds_Y <- DfExtractDataset(dataset, trts = trts[i], rdrs = rdrs[j])
           }
         }
       }
     }
-    NL <- rbind(dsX$ratings$NL,dsY$ratings$NL);dim(NL) <- c(1,2,K,1)
-    LL <- rbind(dsX$ratings$LL,dsY$ratings$LL);dim(LL) <- c(1,2,K2,1)
-    ds <- dsX
+    NL <- rbind(ds_X$ratings$NL,ds_Y$ratings$NL);dim(NL) <- c(1,2,K,1)
+    LL <- rbind(ds_X$ratings$LL,ds_Y$ratings$LL);dim(LL) <- c(1,2,K2,1)
+    ds <- ds_X
     ds$ratings$NL <- NL;ds$ratings$LL <- LL
     ds$descriptions$modalityID <- "1"
     ds$descriptions$readerID <- c("1", "2")

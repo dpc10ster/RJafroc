@@ -8,7 +8,7 @@ dropRowColumnNames <- function (df) {
 }
 
 FOM_arr <- c("Wilcoxon", "HrAuc", "wAFROC","AFROC", "wAFROC1","AFROC1",
-             "MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
+             "MaxLLF","MaxNLF","MaxNLFAllCases", "HrSp", "HrSe")
 
 dataset_arr <- c("dataset02", "dataset05")
 
@@ -23,18 +23,18 @@ for (d in 1:length(dataset_arr)) {
     if ((dataset$descriptions$type == "ROC") && (FOM != "Wilcoxon")) {
       
       # for ROC data, only Wilcoxon FOM is allowed
-      expect_error(StSignificanceTesting(dataset, FOM = FOM, method = "OR"))
+      expect_error(St(dataset, FOM = FOM, method = "OR"))
       
     } else if ((dataset$descriptions$type == "FROC") && (FOM == "Wilcoxon")) {
       
       # for FROC data, Wilcoxon FOM is NOT allowed
-      expect_error(StSignificanceTesting(dataset, FOM = FOM, method = "OR"))
+      expect_error(St(dataset, FOM = FOM, method = "OR"))
       
     } else {
       
       ##### RRRC  ############################
       x1 <- SigTestOldCode(dataset, FOM = FOM, method = "OR", analysisOption = "RRRC")
-      x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "OR", analysisOption = "RRRC")
+      x2 <- St(dataset, FOM = FOM, method = "OR", analysisOption = "RRRC")
       
       # $fomArray
       old <- dropRowColumnNames(x1$fomArray)
@@ -98,7 +98,7 @@ for (d in 1:length(dataset_arr)) {
       
       ##### FRRC ############################
       x1 <- SigTestOldCode(dataset, FOM = FOM, method = "OR", analysisOption = "FRRC")
-      x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "OR", analysisOption = "FRRC")
+      x2 <- St(dataset, FOM = FOM, method = "OR", analysisOption = "FRRC")
       
       # $fomArray
       old <- dropRowColumnNames(x1$fomArray)
@@ -157,7 +157,7 @@ for (d in 1:length(dataset_arr)) {
       
       ##### FRRC ############################
       x1 <- SigTestOldCode(dataset, FOM = FOM, method = "OR", analysisOption = "RRFC")
-      x2 <- StSignificanceTesting(dataset, FOM = FOM, method = "OR", analysisOption = "RRFC")
+      x2 <- St(dataset, FOM = FOM, method = "OR", analysisOption = "RRFC")
       
       # $fomArray
       old <- dropRowColumnNames(x1$fomArray)

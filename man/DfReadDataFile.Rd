@@ -45,7 +45,7 @@ or \code{"iMRMC"} data files.}
 
 \item{sequentialNames}{A logical variable: if \code{TRUE}, consecutive integers 
 (starting from 1) will be used as the 
-treatment and reader IDs (i.e., names). Otherwise, treatment 
+modality and reader IDs (i.e., names). Otherwise, modality 
 and reader IDs in the original data file will be used.}
 }
 \value{
@@ -56,9 +56,7 @@ Read a disk file and create a ROC, FROC or LROC dataset object
    from it.
 }
 \note{
-WARNING: SPLIT-PLOT-A and SPLIT-PLOT-C have not been tested with real datasets. 
-   Contact the maintainer if you desire this funtionality.
-   The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file 
+The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file 
    extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc}) are possible, 
    all of which are restricted to ROC data. Only the \code{iMRMC} format is actively 
    supported, i.e, files with extension \code{.imrmc}. Other formats (\code{.csv}, 

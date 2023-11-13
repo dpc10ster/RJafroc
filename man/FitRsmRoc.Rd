@@ -11,12 +11,12 @@ FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)
 
 \item{lesDistr}{The lesion distribution 1D array.}
 
-\item{trt}{The selected treatment, default is 1}
+\item{trt}{The selected modality, default is 1}
 
 \item{rdr}{The selected reader, default is 1}
 }
 \value{
-A list with the following elements:
+A list with the following elements
 
 \item{mu}{The mean of the diseased distribution relative 
    to the non-diseased one}
@@ -46,11 +46,13 @@ A list with the following elements:
    Use \code{print} to display the object}
 }
 \description{
-Fit an RSM-predicted ROC curve to a \strong{binned single-treatment single-reader ROC dataset}
+Fit an RSM-predicted ROC curve to a \strong{binned single-modality single-reader ROC dataset}
 }
 \details{
-If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. MLE ROC algorithms 
-   require binned datasets. Use \code{\link{DfBinDataset}} to perform the binning prior to calling 
+If dataset is FROC, first convert it to ROC, using \code{\link{DfFroc2Roc}}. 
+   MLE ROC algorithms 
+   require binned datasets. Use \code{\link{DfBinDataset}} to perform the 
+   binning prior to calling 
    this function. 
    In the RSM: (1) The (random) number of latent NLs per case is Poisson distributed 
    with mean parameter lambda, and the corresponding ratings are sampled from 
@@ -89,8 +91,8 @@ retFit <- FitRsmRoc(binnedRocData, lesDistr)
 
 
 ## Test with three interior data points
-fp <- c(rep(1,12), rep(2, 5), rep(3, 3), rep(4, 5)) #25
-tp <- c(rep(1,3), rep(2, 5), rep(3, 7), rep(4, 10)) #25
+fp <- c(rep(1,12), rep(2, 5), rep(3, 3), rep(4, 5))
+tp <- c(rep(1,3), rep(2, 5), rep(3, 7), rep(4, 10))
 binnedRocData <- Df2RJafrocDataset(fp, tp)
 lesDistr <- UtilLesDistr(binnedRocData)$Freq
 retFit <- FitRsmRoc(binnedRocData, lesDistr)
@@ -101,7 +103,7 @@ lesDistr <- UtilLesDistr(dataset01)$Freq
 rocData <- DfFroc2Roc(dataset01)
 retFit <- FitRsmRoc(rocData, lesDistr, trt = 2, rdr = 3)
 ## print(retFit$fittedPlot)
-retFit$ChisqrFitStats
+## retFit$ChisqrFitStats
 }
 
 }

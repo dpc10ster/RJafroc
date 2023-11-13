@@ -22,7 +22,7 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
 \item{\code{descriptions$name}}{, chr "DOBBINS-3", the name of the dataset}
 \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:158, 1:16], truth table structure}
 \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-\item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+\item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
 \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 }
 }
@@ -34,7 +34,7 @@ This is referred to in the code as the "DOB3" dataset. This is a subset of DOB1 
 data for lesions not-visible on CXR, but visible to truth panel on all treatments.
 }
 \examples{
-str(dataset13)
+res <- str(dataset13)
 
 
 }

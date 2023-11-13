@@ -5,22 +5,31 @@
 #' 
 #' @param dataset The \bold{pilot} dataset. If set to NULL 
 #'    then variance components must be supplied.
+#'    
 #' @param ... Optional variance components, VarTR, VarTC and VarErr. These are
 #'    needed if dataset is not supplied.
+#'    
 #' @param FOM The figure of merit. Not needed if variance components are supplied.
 #' @param J The number of readers in the \strong{pivotal} study.
+#' 
 #' @param effectSize The effect size to be used in the \strong{pivotal} study.
 #'    Default is NULL. Must be supplied if dataset is set to NULL and variance 
 #'    components are supplied.
+#'    
 #' @param method "OR" (default) or "DBM".
+#' 
 #' @param alpha The significance level of the study, default is 0.05.
+#' 
 #' @param desiredPower The desired statistical power, default is 0.8.
-#' @param analysisOption Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
-#'    (the default).
-#' @param UseDBMHB2004 Logical, default is \code{FALSE}, if \code{TRUE} the DBM
+#' 
+#' @param analysisOption Specifies the random factor(s): "RRRC" (the default), 
+#'    "FRRC", "RRFC" or "ALL".
+#' 
+#' @param UseDBMHB2004 Logical, default is \code{FALSE}, if \code{TRUE} the 2004 DBM
 #'    method is used. Otherwise the OR method is used.
 #' 
 #' @return A list of two elements:
+#' 
 #' @return \item{K}{The minimum number of cases K in the pivotal study 
 #'    to just achieve the desired statistical power, calculated 
 #'    for each value of \code{analysisOption}.}
@@ -28,17 +37,16 @@
 #' 
 #' @details \code{effectSize} = NULL uses the \strong{observed} effect size in 
 #'    the pilot study. A numeric value over-rides the default value. This 
-#'    argument must be supplied if dataset = NULL and variance compenents 
+#'    argument must be supplied if dataset = NULL and variance components 
 #'    (the optional ... arguments) are supplied.
 #' 
-#'@note The procedure is valid for ROC studies only; for FROC studies see 
-#'   Vignettes 19.
+#'@note The procedure is valid for ROC studies only; for FROC studies see online books.
 #' 
 #' @examples
 #' ## the following two should give identical results
 #' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBM")
 #' 
-#' a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
+#' a <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")$VarCom
 #' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBM", UseDBMHB2004 = TRUE,
 #'    list(VarTR = a["VarTR",1], 
 #'    VarTC = a["VarTC",1], 
@@ -47,7 +55,7 @@
 #' ## the following two should give identical results
 #' SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "OR")
 #' 
-#' a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
+#' a <- UtilORVarComp(dataset02, FOM = "Wilcoxon")$VarCom
 #' KStar <- length(dataset02$ratings$NL[1,1,,1])
 #' SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "OR", 
 #'    list(KStar = KStar, 
@@ -86,7 +94,7 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
   
   if ((method == "DBM") && UseDBMHB2004) {
     if (!(is.null(dataset))) {
-      ret <- StSignificanceTesting(dataset, FOM, method = "DBM")
+      ret <- St(dataset, FOM, method = "DBM")
       if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
       VarTR <- ret$ANOVA$VarCom["VarTR",1]
       VarTC <- ret$ANOVA$VarCom["VarTC",1]
@@ -101,7 +109,7 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
     ret <- searchNumCasesDBM (J, VarTR, VarTC, VarErr, effectSize, alpha, desiredPower, analysisOption)
   } else if (method == "OR") {
     if (!(is.null(dataset))) {
-      ret <- StSignificanceTesting(dataset, FOM, method = "OR")
+      ret <- St(dataset, FOM, method = "OR")
       if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
       VarTR <- ret$ANOVA$VarCom["VarTR",1]
       Cov1 <- ret$ANOVA$VarCom["Cov1",1]

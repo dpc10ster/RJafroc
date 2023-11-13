@@ -13,7 +13,7 @@ SimulateFrocFromLrocDataset(dataset)
 The AUC-equivalent FROC dataset
 }
 \description{
-Simulates a multiple-treatment multiple-reader 
+Simulates a multiple-modality multiple-reader 
    "AUC-equivalent" FROC dataset from a supplied LROC dataset,
    e.g., \link{datasetCadLroc}.
 }

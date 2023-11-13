@@ -1,10 +1,10 @@
-#' Fit the binormal model to selected treatment and reader in an ROC dataset
+#' Fit the binormal model to selected modality and reader in an ROC dataset
 #' 
 #' @description Fit the binormal model-predicted ROC curve for a dataset. 
 #'    This is the R equivalent of ROCFIT or RSCORE
 #' 
 #' @param dataset The ROC dataset
-#' @param trt The desired treatment, default is 1
+#' @param trt The desired modality, default is 1
 #' @param rdr The desired reader, default is 1
 #' 
 #' @return The returned value is a list with the following elements:
@@ -62,7 +62,7 @@
 #' ## Test with TONY data for which chisqr can be calculated
 #' ds <- DfFroc2Roc(dataset01)
 #' retFit <- FitBinormalRoc(ds, 2, 3);## print(retFit$fittedPlot)
-#' retFit$ChisqrFitStats
+#' ## retFit$ChisqrFitStats
 #'  
 #' ## Test with included degenerate ROC data
 #' retFit <- FitBinormalRoc(datasetDegenerate);## print(retFit$fittedPlot)

@@ -22,35 +22,35 @@ SsPowerGivenJKDbmVarCom(
 
 \item{effectSize}{The effect size}
 
-\item{VarTR}{The treatment-reader DBM variance component}
+\item{VarTR}{The modality-reader DBM variance component}
 
-\item{VarTC}{The treatment-case DBM variance component}
+\item{VarTC}{The modality-case DBM variance component}
 
 \item{VarErr}{The error-term DBM variance component}
 
 \item{alpha}{The size of the test (default = 0.05)}
 
-\item{analysisOption}{The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")}
+\item{analysisOption}{Specify the random factor(s): "RRRC", "FRRC", "RRFC", "ALL"}
 }
 \value{
 A list containing the estimated power and associated statistics
-   for each desired generalization.
+   for the specified random factor(s).
 }
 \description{
 Power given J, K and Dorfman-Berbaum-Metz variance components
 }
 \details{
-The variance components are obtained using \link{StSignificanceTesting}
+The variance components are obtained using \link{St}
    with \code{method = "DBM"}.
 }
 \examples{
-VarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBM", 
+VarCom <- St(dataset02, FOM = "Wilcoxon", method = "DBM", 
    analysisOption = "RRRC")$ANOVA$VarCom
 VarTR <- VarCom["VarTR",1]
 VarTC <- VarCom["VarTC",1]
 VarErr <- VarCom["VarErr",1]
 ret <- SsPowerGivenJKDbmVarCom (J = 5, K = 100, effectSize = 0.05, VarTR, 
    VarTC, VarErr, analysisOption = "RRRC")
-cat("RRRC power = ", ret$powerRRRC)
+##cat("RRRC power = ", ret$powerRRRC)
   
 }

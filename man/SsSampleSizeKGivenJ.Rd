@@ -38,10 +38,10 @@ components are supplied.}
 
 \item{desiredPower}{The desired statistical power, default is 0.8.}
 
-\item{analysisOption}{Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
-(the default).}
+\item{analysisOption}{Specifies the random factor(s): "RRRC" (the default), 
+"FRRC", "RRFC" or "ALL".}
 
-\item{UseDBMHB2004}{Logical, default is \code{FALSE}, if \code{TRUE} the DBM
+\item{UseDBMHB2004}{Logical, default is \code{FALSE}, if \code{TRUE} the 2004 DBM
 method is used. Otherwise the OR method is used.}
 }
 \value{
@@ -60,18 +60,17 @@ Number of cases to achieve the desired power, for
 \details{
 \code{effectSize} = NULL uses the \strong{observed} effect size in 
    the pilot study. A numeric value over-rides the default value. This 
-   argument must be supplied if dataset = NULL and variance compenents 
+   argument must be supplied if dataset = NULL and variance components 
    (the optional ... arguments) are supplied.
 }
 \note{
-The procedure is valid for ROC studies only; for FROC studies see 
-  Vignettes 19.
+The procedure is valid for ROC studies only; for FROC studies see online books.
 }
 \examples{
 ## the following two should give identical results
 SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBM")
 
-a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
+a <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")$VarCom
 SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBM", UseDBMHB2004 = TRUE,
    list(VarTR = a["VarTR",1], 
    VarTC = a["VarTC",1], 
@@ -80,7 +79,7 @@ SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "DBM", Us
 ## the following two should give identical results
 SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "OR")
 
-a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
+a <- UtilORVarComp(dataset02, FOM = "Wilcoxon")$VarCom
 KStar <- length(dataset02$ratings$NL[1,1,,1])
 SsSampleSizeKGivenJ(dataset = NULL, J = 6, effectSize = 0.05, method = "OR", 
    list(KStar = KStar, 

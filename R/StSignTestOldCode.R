@@ -36,8 +36,6 @@ SigTestOldCode <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = 
                               covEstMethod = "jackknife", nBoots = 200, analysisOption = "ALL")
 {
   
-  checkParameters(dataset, FOM, FPFValue, alpha, method, covEstMethod, nBoots, analysisOption)
-  
   if (dataset$descriptions$design != "FCTRL") stop("old code requires FCTRL study design")
   
   if (method == "DBM"){

@@ -13,7 +13,7 @@ DfFroc2Lroc(dataset)
 The AUC-equivalent LROC dataset
 }
 \description{
-Simulates a multiple-treatment multiple-reader "AUC-equivalent" 
+Simulates a multiple-modality multiple-reader "AUC-equivalent" 
    LROC dataset from a supplied FROC dataset.
 }
 \details{

@@ -2,14 +2,14 @@
 % Please edit documentation in R/FitBinormalRoc.R
 \name{FitBinormalRoc}
 \alias{FitBinormalRoc}
-\title{Fit the binormal model to selected treatment and reader in an ROC dataset}
+\title{Fit the binormal model to selected modality and reader in an ROC dataset}
 \usage{
 FitBinormalRoc(dataset, trt = 1, rdr = 1)
 }
 \arguments{
 \item{dataset}{The ROC dataset}
 
-\item{trt}{The desired treatment, default is 1}
+\item{trt}{The desired modality, default is 1}
 
 \item{rdr}{The desired reader, default is 1}
 }
@@ -82,7 +82,7 @@ retFit <- FitBinormalRoc(dataset);## print(retFit$fittedPlot)
 ## Test with TONY data for which chisqr can be calculated
 ds <- DfFroc2Roc(dataset01)
 retFit <- FitBinormalRoc(ds, 2, 3);## print(retFit$fittedPlot)
-retFit$ChisqrFitStats
+## retFit$ChisqrFitStats
  
 ## Test with included degenerate ROC data
 retFit <- FitBinormalRoc(datasetDegenerate);## print(retFit$fittedPlot)

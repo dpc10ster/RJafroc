@@ -40,7 +40,7 @@ SimulateFrocDataset(
 \item{seed}{Initial seed for random number generator, default 
 \code{NULL}, for random seed.}
 
-\item{deltaMu}{Inter-treatment increment in mu, default zero}
+\item{deltaMu}{Inter-modality increment in mu, default zero}
 }
 \value{
 An FROC dataset.

@@ -16,7 +16,7 @@ CompareLists <- function(x1, x2, d = 0, i = 0, j = 0)
 
 dataset_arr <- list(dataset02, dataset05) # deparse(substitute(dataset02)) does not work below
 dataset_arr_str <- c("dataset02", "dataset05")
-FOM_arr <- c("Wilcoxon", "HrAuc") #, "wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "ExpTrnsfmSp", "HrSp", "HrSe")
+FOM_arr <- c("Wilcoxon", "HrAuc")
 method_arr <- c("DBM", "OR")
 
 i <- 2;d <- 2;j <- 1
@@ -26,11 +26,11 @@ dataset <- dataset_arr[[d]]
 fn <- paste0(test_path(), "/goodValues361/SigTest/", dataset_arr_str[d], FOM_arr[i], method_arr[j], ".rds")
 if (!file.exists(fn)) {
   warning(paste0("File not found - generating new ",fn))
-  x1 <- StSignificanceTesting(dataset, FOM = FOM_arr[i], method = method_arr[j])
+  x1 <- St(dataset, FOM = FOM_arr[i], method = method_arr[j])
   saveRDS(x1, file = fn)
 }
 
 x1 <- readRDS(fn)
-x2 <- StSignificanceTesting(dataset, FOM = FOM_arr[i],method = method_arr[j])
+x2 <- St(dataset, FOM = FOM_arr[i],method = method_arr[j])
 
 CompareLists(x1,x2, d, i, j)

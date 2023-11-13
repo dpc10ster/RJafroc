@@ -22,7 +22,7 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
 \item{\code{descriptions$name}}{, chr "SIM-DEGENERATE", the name of the dataset}
 \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-\item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+\item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 \item{\code{descriptions$readerID}}{, chr "1", reader labels}
 }
 }
@@ -35,7 +35,7 @@ no interior operating points on the ROC plot. Such data tend to be observed with
 radiologists. This dataset is used to illustrate the robustness of CBM and RSM fitting models.
 }
 \examples{
-str(datasetDegenerate)
+res <- str(datasetDegenerate)
 
 
 }

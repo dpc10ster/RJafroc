@@ -296,7 +296,7 @@ SaveOrDbmMrmc <- function(dataset, fileName) {
   K2 <- dim(LL)[3]
   K1 <- K - K2
   
-  write("reader,treatment,case,truth,rating", fileName)
+  write("reader,modality,case,truth,rating", fileName)
   for (i in 1:I) {
     for (j in 1:J) {
       for (k in 1:K1) {

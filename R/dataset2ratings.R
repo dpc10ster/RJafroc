@@ -4,13 +4,12 @@
 # third is the incorrect localizations array
 dataset2ratings <- function (dataset, FOM){
 
-  # OldFormat dataset or NewFormat FCTRL or SPLIT-PLOT-C dataset with implemented FOM
   dataType <- dataset$descriptions$type
   if (dataType != "LROC") {
     K2 <- length(dataset$ratings$LL[1,1,,1])
   } else if (dataType == "LROC") {
     K2 <- length(dataset$ratings$LL[1,1,,1])
-  } else stop("Incorrect data type") # should never get here
+  } else stop("dataset2ratings: Incorrect data type") # should never get here
   
   if (dataType == "ROC") {
     zjk1 <- drop(dataset$ratings$NL) # must retain the full length K of the  array

@@ -26,12 +26,14 @@ default value is \code{NULL}. See Details.}
 
 \item{desiredPower}{The desired statistical power, default is 0.8.}
 
-\item{analysisOption}{Desired generalization, "RRRC"  (the default), "FRRC", 
-"RRFC" or "ALL".}
+\item{analysisOption}{Specification of random factor(s): "RRRC" (the default), 
+"FRRC", "RRFC" or "ALL".}
 }
 \value{
-A list containing up to 3 (depending on \code{analysisOption}) dataframes. 
-    Each dataframe contains 3 arrays:
+A list containing up to 3 (depending on \code{analysisOption}) 
+   data frames. 
+
+   Each dataframe contains 3 arrays:
 
 \item{numReaders}{The numbers of readers in the pivotal study.}
 
@@ -41,15 +43,14 @@ A list containing up to 3 (depending on \code{analysisOption}) dataframes.
 }
 \description{
 Generate combinations of numbers of readers J and numbers of 
-   cases K for desired power and specified generalization(s)
+   cases K for desired power and specified random factor(s)
 }
 \details{
 The default \code{effectSize} uses the observed effect size in the 
    pilot study. A supplied numeric value over-rides the default value.
 }
 \note{
-The procedure is valid for ROC studies only; for FROC studies see 
-  Vignettes 19.
+The procedure is valid for ROC studies only; for FROC studies see online books.
 }
 \examples{
 \donttest{

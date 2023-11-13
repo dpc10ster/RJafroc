@@ -19,8 +19,8 @@ the number of diseased cases, respectively.}
 
 \item{...}{Other elements of \pkg{RJafroc} dataset that may, depending on the 
 context, need to be specified. \code{perCase} \strong{must} be specified 
-   if an FROC dataset is to be returned. It is a \code{K2}-length array 
-   specifying the numbers of lesions in each diseased case in the dataset.}
+if an FROC dataset is to be returned. It is a \code{K2}-length array 
+specifying the numbers of lesions in each diseased case in the dataset.}
 }
 \value{
 A dataset with the structure described in \code{\link{RJafroc-package}}.

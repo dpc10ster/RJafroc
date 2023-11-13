@@ -44,11 +44,11 @@
 #' dataset <- SimulateRocDataset(I = 2, J = 5, K1 = 50, K2 = 70, a = 1, b = 0.5, seed = 123)
 #' datasetB <- DfBinDataset(dataset, desiredNumBins = 7, opChType = "ROC")
 #' fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"))
-#' print(fomOrg)
+#' ##print(fomOrg)
 #' fomBinned <- as.matrix(UtilFigureOfMerit(datasetB, FOM = "Wilcoxon"))
-#' print(fomBinned)
-#' cat("mean, sd = ", mean(fomOrg), sd(fomOrg), "\n")
-#' cat("mean, sd = ", mean(fomBinned), sd(fomBinned), "\n")
+#' ##print(fomBinned)
+#' ##cat("mean, sd = ", mean(fomOrg), sd(fomOrg), "\n")
+#' ##cat("mean, sd = ", mean(fomBinned), sd(fomBinned), "\n")
 #' }
 #' 
 #' 
@@ -88,7 +88,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   else if (opChType == "FROC") FOM <- "FROC" else stop("should not be here")
   
   if (DEBUG) {
-    fomOrg <- as.matrix(UtilFigureOfMerit(dataset, FOM = FOM))
+    fomOrg <- UtilFigureOfMerit(dataset, FOM = FOM)
     print(fomOrg)
     cat("mean, sd = ", mean(fomOrg), sd(fomOrg), "\n")
   }
@@ -195,29 +195,9 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
   name <- dataset$descriptions$name
   design <- "FCTRL"
   
-  maxLL <- length(dataset$ratings$LL[1,1,1,])
-  perCase <- dataset$lesions$perCase
-  if (dataset$descriptions$type == "FROC") {
-    # added truthTableStr 5/18/2023
-    truthTableStr <- array(dim = c(I, J, K1+K2, maxLL+1))
-    truthTableStr[,,1:K1,1] <- 1
-    for (k2 in 1:K2) {
-      truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
-    }
-  } else if (dataset$descriptions$type == "ROC") {
-    # added truthTableStr 5/18/2023
-    truthTableStr <- array(dim = c(I, J, K, 2)) 
-    truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
-    truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
-  } else stop("data type must be ROC or FROC")
-  
-  # commented 5/18/2023
-  # if (is.numeric(dataset$descriptions$truthTableStr)) { 
-  #   truthTableStr  <- dataset$descriptions$truthTableStr
-  # } else {truthTableStr  <- NA}
-  
   type <- dataset$descriptions$type # sic; dataset not datasetB
   perCase <- dataset$lesions$perCase
+  truthTableStr <- AddTruthTableStr(dataset, type, perCase) # added 9/16/2023
   IDs <- dataset$lesions$IDs
   weights <- dataset$lesions$weights
   datasetB <- convert2dataset(NL_B, LL_B, LL_IL = NA, 
@@ -226,7 +206,7 @@ DfBinDataset <- function(dataset, desiredNumBins = 7, opChType) {
                               dataset$descriptions$modalityID, dataset$descriptions$readerID)
   
   if (DEBUG) {
-    fomFinal <- as.matrix(UtilFigureOfMerit(datasetB, FOM = FOM))
+    fomFinal <- UtilFigureOfMerit(datasetB, FOM = FOM)
     print(fomFinal)
     cat("mean, sd = ", mean(fomFinal), sd(fomFinal), "\n")
   }
@@ -384,10 +364,19 @@ isXBinned <- function(NL, LL, maxUniqeRatings = 6){
 
 #' Determine if a dataset is binned
 #' @param dataset The dataset 
-#' @param maxUniqeRatings For each treatment-reader combination, the max number of unique ratings in order to be classified as binned,  the default value for \code{maxUniqeRatings} is 6; if there are more unique ratings the treatment-reader combination is classified as not binned.
-#' @return a logical \code{[I x J]} array, TRUE if the corresponding treatment-reader combination is binned, i.e., has at most \code{maxUniqeRatings} unique ratings, FALSE otherwise.
+#' 
+#' @param maxUniqeRatings For each modality-reader combination, the max number 
+#'     of unique ratings in order to be classified as binned,  the default value
+#'     for \code{maxUniqeRatings} is 6; if there are more unique ratings the 
+#'     modality-reader combination is classified as not binned.
+#'     
+#' @return a logical \code{[I x J]} array, TRUE if the corresponding 
+#'     modality-reader combination is binned, i.e., has at most 
+#'     \code{maxUniqeRatings} unique ratings, FALSE otherwise.
 #'    
-#' @examples isBinnedDataset(dataset01)
+#' @examples 
+#' 
+#' isBinnedDataset(dataset01)
 #' 
 #' @export
 isBinnedDataset <- function(dataset, maxUniqeRatings = 6) {

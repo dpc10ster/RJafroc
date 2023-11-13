@@ -1,47 +1,41 @@
-#' Generate a text formatted report file or an Excel file
+#' Generate a text- or Excel-formatted report file (one-treatment factorial datasets only) 
 #' 
-#' @description  Generates a formatted report of the analysis 
-#'    and saves it to a text or an Excel file
+#' @description  Generates a formatted report resulting from the analysis, for a
+#'    factorial dataset, and saves it to a text- or an Excel-formatted file.
 #' 
-#' @param dataset The dataset object to be analyzed (\emph{not the file name}), 
-#' see \code{Dataset} in \code{\link{RJafroc-package}}.
+#' @param dataset The dataset object to be analyzed, \emph{not the Excel input 
+#'     file name!}, see \code{Dataset} in \code{\link{RJafroc-package}}. 
+#'     This \code{R}-object is created by \code{\link{DfReadDataFile}}.
+#'    
+#' @param FOM The figure of merit; see \code{\link{St}}.
+#' 
+#' @param method The significance testing method, \code{"DBM"} or \code{"OR"} 
+#'     (the default).
+#' 
+#' @param covEstMethod The default is "Jackknife"; only needed 
+#'     for method = \code{"OR"} when "Bootstrap" or "DeLong" are possible.
+#' 
+#' @param analysisOption "RRRC", "FRRC", "RRFC or "ALL" (the default); 
+#'     see \code{\link{St}}.
+#' 
+#' @param ReportFileExt The file extension determines the type of output. 
+#'    \code{"txt"} (default) for a text file or \code{"xlsx"} 
+#'    for an Excel file.
 #'    
 #' @param ReportFileBaseName 
-#'    The report file (with extension \code{"txt"} or \code{"xlsx"}, 
-#'    as specified by option 
-#'    \code{ReportFileExt}) 
-#'    is created \bold{in the user's directory}. 
-#'    This argument specifies the 
-#'    report file base name (i.e., without the extension) for the 
-#'    desired report; the default is NULL, in which case the system generates 
-#'    a temporary text file, whose very long name is displayed. However, the 
-#'    file
-#'    is very hard to locate. This is so that the software passes CRAN checks, 
-#'    as writing to the project directory, or any of its sub-directories, is 
-#'    frowned upon.   
+#'    The report file \bold{base name}, i.e., without the extension (which is 
+#'    specified by option \code{ReportFileExt})). The output file is created 
+#'    \bold{in the user's directory}. The default is \code{NULL}, 
+#'    see \code{details}.  
 #'    
-#' @param ReportFileExt The report file extension determines the type of output. 
-#'    \code{"txt"}, the default, for 
-#'    a text file, \code{"xlsx"} for an Excel file.
-#'    
-#' @param method The significance testing method, \code{"OR"} or 
-#'    (the default) \code{"DBM"}.
+#' @param alpha See \code{\link{St}}; the default is 0.05.
 #' 
-#' @param FOM The figure of merit; see \code{\link{StSignificanceTesting}}.
-#' 
-#' @param analysisOption "RRRC", "FRRC", "RRFC or "ALL"; see \code{\link{StSignificanceTesting}}.
-#' 
-#' @param alpha See \code{\link{StSignificanceTesting}}; the default is 0.05.
-#' 
-#' @param covEstMethod See \code{\link{StSignificanceTesting}}; only needed 
-#'     for method = \code{"OR"}; the default is "Jackknife".
-#' 
-#' @param nBoots See \code{\link{StSignificanceTesting}}; only needed for 
-#'    \code{"OR"} analysis; the default is 200.
+#' @param nBoots See \code{\link{St}}; only needed for \code{"OR"} analysis; 
+#'     the default is 200.
 #' 
 #' @param sequentialNames A logical variable: if \code{TRUE}, consecutive integers 
-#'    (starting from 1) will be used as the treatment and reader IDs in the 
-#'    output report. Otherwise, treatment and reader IDs in the original dataset 
+#'    (starting from 1) will be used as the modality and reader IDs in the 
+#'    output report. Otherwise, modality and reader IDs in the original dataset 
 #'    are used. This option is needed for aesthetics, as long names can mess
 #'    up the output. The default is \code{FALSE.}
 #'    
@@ -53,19 +47,24 @@
 #' 
 #' 
 #' @details
-#' A formatted report of the data analysis is written to the output file in 
-#'    either text or Excel format.
+#' This function is available only for factorial datasets. 
+#' \code{ReportFileBaseName}: The report file \bold{base name}. The default value
+#'     \code{NULL} generates a temporary text file, whose very long name is 
+#'     displayed. However, the file is very hard to locate. This is so that the 
+#'     package passes CRAN checks, as writing to the project directory, or any 
+#'     of its sub-directories, is frowned upon.   
+#'     
 #' 
 #' 
-#' @return StResult The object returned by \code{\link{StSignificanceTesting}}.
+#' @return \code{StResult}: the object returned by \code{\link{St}}.
 #' 
 #' @examples
 #' 
 #' \donttest{
 #'  # text output is created in a temporary file
-#' UtilOutputReport(dataset03, FOM = "Wilcoxon")
-#' # Excel output is created in a temporary file
-#' UtilOutputReport(dataset03, FOM = "Wilcoxon", ReportFileExt = "xlsx") 
+#' ret <- UtilOutputReport(dataset03, FOM = "Wilcoxon")
+#'  # Excel output is created in a temporary file
+#' ret <- UtilOutputReport(dataset03, FOM = "Wilcoxon", ReportFileExt = "xlsx") 
 #'
 #' }
 #'        
@@ -74,17 +73,23 @@
 #'     
 #' @export
 
-UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt = "txt", 
-                             method = "DBM", FOM, alpha = 0.05, 
-                             covEstMethod = "jackknife", nBoots = 200, 
-                             sequentialNames = FALSE, overWrite = FALSE, analysisOption = "ALL") {
+UtilOutputReport <- function(dataset, 
+                             FOM, 
+                             method = "OR", 
+                             covEstMethod = "jackknife", 
+                             analysisOption = "ALL",
+                             ReportFileExt = "txt", 
+                             ReportFileBaseName = NULL, 
+                             alpha = 0.05, 
+                             nBoots = 200, 
+                             sequentialNames = FALSE, 
+                             overWrite = FALSE) 
+{
+
+  isValidDataset(dataset, FOM)
   
-  if (!isValidDataset(dataset)) {
-    stop("Must specify a valid dataset object.")
-  }
-  
-  if (!isValidFom(dataset, FOM)) {
-    stop("Inconsistent dataset - FOM combination")
+  if (dataset$descriptions$design != "FCTRL") {
+    stop("This function requires a one treatment factorial dataset.\n") 
   }
   
   if (sequentialNames){
@@ -117,12 +122,13 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
     }
   }
   
+  StResult <- St(dataset, FOM, method = method, 
+                 covEstMethod = "jackknife", analysisOption = analysisOption, 
+                 alpha = 0.05, FPFValue = 0.2)
   if (method == "DBM") {
     methodTxt <- "DBM-MRMC-HILLIS SIGNIFICANCE TESTING"
-    StResult <- StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha, method, analysisOption = analysisOption)
   } else if (method == "OR") {
     methodTxt <- "OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING"
-    StResult <- StSignificanceTesting(dataset, FOM, FPFValue = 0.2, alpha, method, covEstMethod, nBoots, analysisOption = analysisOption)
   } else {
     errMsg <- paste0(method, " is not a valid analysis method.")
     stop(errMsg)
@@ -130,7 +136,7 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
   
   if (ReportFileExt == "txt"){
     if (method == "DBM") {
-      sucessfulOutput <- OutputTextFileDBMH(dataset,
+      sucessfulOutput <- OutputTextDBMH(dataset,
                                             method,
                                             methodTxt,
                                             ReportFileName,
@@ -139,7 +145,7 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
                                             analysisOption,
                                             StResult)
     } else {
-      sucessfulOutput <- OutputTextFileORH(dataset,
+      sucessfulOutput <- OutputTextORH(dataset,
                                            method,
                                            methodTxt,
                                            ReportFileName,
@@ -155,7 +161,7 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
                                   dataset$descriptions$name))
     rownames(summaryInfo) <- c("Date", "Output file", "Input Dataset")
     if (method == "DBM") {
-      sucessfulOutput <- OutputExcelFileDBMH(dataset,
+      sucessfulOutput <- OutputExcelDBMH(dataset,
                                              method,
                                              methodTxt,
                                              ReportFileName,
@@ -166,7 +172,7 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
                                              analysisOption,
                                              StResult)
     } else {
-      sucessfulOutput <- OutputExcelFileORH(dataset,
+      sucessfulOutput <- OutputExcelORH(dataset,
                                             method,
                                             methodTxt,
                                             ReportFileName,
@@ -182,6 +188,8 @@ UtilOutputReport <- function(dataset, ReportFileBaseName = NULL, ReportFileExt =
   return(StResult)
   
 } 
+
+
 
 Preamble <- function(dataset, FOM, ReportFileName, method, methodTxt) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
@@ -273,19 +281,19 @@ Preamble <- function(dataset, FOM, ReportFileName, method, methodTxt) {
          "--results apply to the population of readers but only for the", 
          "cases used in the study.", 
          "\nFor each analysis the null hypothesis of equal treatments is", 
-         "tested in part (a), reader-averaged treatment ", 
+         "tested in part (a), reader-averaged modality ", 
          "FOM difference(s) 95% confidence intervals", 
-         "in part (b), and reader-averaged treatment",
+         "in part (b), and reader-averaged modality",
          "FOMs 95% confidence intervals in part (c).  Parts (a) and (b) are",
-         "based on the treatment x reader x case ANOVA while part (c)",
-         "is based on the reader x case ANOVA for the specified treatment.",
+         "based on the modality x reader x case ANOVA while part (c)",
+         "is based on the reader x case ANOVA for the specified modality.",
          "Different error terms are used as indicated for parts (a), (b),",
          "and (c) according to whether readers and cases are treated as",
-         "fixed or random factors. Note that the treatment confidence",
+         "fixed or random factors. Note that the modality confidence",
          "intervals in part (c) are based only on the data for the specified",
-         "treatment, rather than the pooled data. Treatment difference 95%",
+         "modality, rather than the pooled data. Treatment difference 95%",
          "confidence intervals for each reader are in part (d) of",
-         "Analysis FRRC; each interval is based on the treatment", 
+         "Analysis FRRC; each interval is based on the modality", 
          "x case ANOVA table for the specified reader.")
   for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
   

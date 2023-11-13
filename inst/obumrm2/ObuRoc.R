@@ -15,8 +15,8 @@ FOM <- "Wilcoxon"
 
 p_fstar_H <- obu (ds1, ds2, FOM)
   
-st1 <- StSignificanceTesting(ds1, FOM = FOM, method = "OR")
-st2 <- StSignificanceTesting(ds2, FOM = FOM, method = "OR")
+st1 <- St(ds1, FOM = FOM, method = "OR")
+st2 <- St(ds2, FOM = FOM, method = "OR")
 
 cat("p-val first dataset = ", st1$RRRC$FTests$p[1], "\n")
 cat("p-val second dataset = ", st2$RRRC$FTests$p[1], "\n")

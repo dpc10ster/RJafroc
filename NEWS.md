@@ -8,11 +8,31 @@ title: "NEWS"
 
 
 
-### CRAN submission v2.1.3
+### Commented some code 10/31/23
+* bootstrap and DeLong in `StORAnalysis`
+
+
+
+### Do global search for questionable code
+* marked as follows
+* ???DPC???
+* Renamed `StSignificanceTestingCadVsRad` to `StCadVsRad`
+
+
+### TODOs 10/4/23
+* Insert tests for all failure brances in `isValidDataset`
+* Renamed `UtilVarComponentOR` to `UtilOrVarCov`
+* Renamed `UtilVarComponentsDBM` to `UtilDBMVarComp`
+* Shorten this log and keep details in a new file, `CodeChangesLog.md`
+
+
+
+### CRAN submission v2.1.3 - postponed
 * Bug fix, Issue 90, see below
 * Bug fix, Issue 89, see below
 * Fixed entry errors in Excel file (check column names and data type)
 * TODO: `QuickStart`, new chapter on recommended FOMs and those to avoid at all costs
+* Removed SPLIT-PLOT-A and  SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on versions < 2.1.3.
 
 
 ### Issue 90
@@ -26,7 +46,7 @@ title: "NEWS"
 * Added a sorting step to both worksheets: order by modality, then reader, then case and then rating.
 * Also ALWAYS use `TP_Rating` and `FP_Rating` in these sheets; do not use LL_Rating and/or NL_Rating as this will break the code.
 * Some `goodValues` had to be regenerated. 
-* TODO: Not sure about the split plot codes; these have never been used and I should consider removing them.
+* TODO: Not sure about the split plot codes; these have never been used and I should consider removing them. Done: 8/11/23
 
 
 ### Changes 05/19/2023
@@ -154,7 +174,6 @@ title: "NEWS"
 
 ### argument of St functions 1/24/22
 * `analysisOption` must be `DBM` or `OR`
-* Not "ORH"
 
 ### Clarified weights matrix 1/7/22
 * See `test-RSM-formulae.R`
@@ -413,7 +432,7 @@ if (K1 != 0) {
 * Checked `dataset05` `MaxLLF` `MaxNLF` vs. JAFROC
 * See below, note added today relating to handling of `descriptions$fileName`. This fixed problem with `expect_equal()` failing depending on how the `goodValues` were generated - from R `command line` vs. `Run Tests`. Also, in creating a dataset object, where appropriate, `fileName` <- "NA" instead of `fileName` <- `NA`; the latter generates a `character expected` error when an attempt is made to strip path name and extension in `convert2dataset` and `convert2Xdataset`.
 * Updated and reorganized tests
-* Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use treatment-specific components, i.e. `Var_i`, `Cov2_i` and `Cov3_i`. The modified formulae reduce to Hillis' formulae when the number of readers in each group are identical. Communicated results to collaborator.
+* Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use modality-specific components, i.e. `Var_i`, `Cov2_i` and `Cov3_i`. The modified formulae reduce to Hillis' formulae when the number of readers in each group are identical. Communicated results to collaborator.
 * Corrected error in handling of `MaxNLFAllCases` FOM; see comments in `UtilMeanSquares()`; regenerated one `goodValue` file.
 
 
@@ -559,7 +578,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 
 ### Discovered error
-* For `StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")` - done
+* For `StSignificanceTesting(dataset02, method = "OR", option = "FRRC")` - done
 * Need to put in `testthat` all combinations of `method` and `option` - done
 * Different objects returned by `StSignificanceTesting` depending on choice of `option` - almost done
 * Need to standardize as otherwise `RJafrocBook` is klutzy  - WIP
@@ -575,8 +594,8 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 ### Fixing significance testing with independent calculations in `RJafrocBook`
 * Need to modify `RJafroc` to eliminate code duplication and improve style in all significance testing functions - move this to issues
 * I am only getting to understand it now (as I work on `RJafrocBook`)
-* One reader case can now be handled by `StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")`
-* May not need `StSignificanceTestingSingleFixedFactor` which currently only handles `DBMH` method - add to issues
+* One reader case can now be handled by `StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "OR")`
+* May not need `StSignificanceTestingSingleFixedFactor` which currently only handles `DBM` method - add to issues
 * Removed restriction of `StSignificanceTesting` to `J` > 1
 * Will merge to `master` so that `RJafrocBook` code passes Travis
 
@@ -584,8 +603,8 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 ### Fixed error with `msTC`
 * Found another error in `msTC` calculation in `UtilMeanSquares`
 * Was trying to be too cute for my own good (collapsing two for-loops into one)
-* Discoverd error while doing first principles calculation in `RJafocBook`, DBMH chapter, so there is at least one person who benefited from `RJafrocBook`
-* Changed `covEstMethod` argument to `ORH` method to lower case ("jackknife" or "bootstrap")
+* Discovered error while doing first principles calculation in `RJafocBook`, DBM chapter
+* Changed `covEstMethod` argument to `OR` method to lower case ("jackknife" or "bootstrap")
 
 
 ### Fixed issue with `optim` when flipping groups
@@ -637,7 +656,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Created simulated SP datafile `inst/extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx`.
 * Created simulated SP dataset `datasetFROCSp` corresponding to modalities 4,5 of `dataset04`
 * Update vignette `Ch00Vig5SimulateSplitPlotDataset.Rmd`.
-* Modified `StORHAnalysis.R` and to work with SP-A dataset provided `method = "ORH"` and `covEstMethod` = "jackknife" is used
+* Modified `StORHAnalysis.R` and to work with SP-A dataset provided `method = "OR"` and `covEstMethod` = "jackknife" is used
 * Corrected an error in analysis; see `~Dropbox/RJafrocChecks/StfrocSp.xlsx` for details.
 * Updated this file 2/19/20
 * R CMD check successful ... except for file size NOTE (18.4Mb)
@@ -720,7 +739,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 
 ### Significance testing functions
-* `StSignificanceTesting()`: corrects errors affecting `method = "ORH"` and `covEstMethod = "Jackknife"`. I messed up while trying to simplify XZ code. It calls:
+* `StSignificanceTesting()`: corrects errors affecting `method = "OR"` and `covEstMethod = "Jackknife"`. I messed up while trying to simplify XZ code. It calls:
 * StDBMHAnalysis():
 * StORHAnalysis():
 * Ran Windows `JAFROC` on virtual Windows 8 machine and saved results (inst/VarCompDiscrepancy/includedFrocData_Inferred_ROC.txt) to validate current significance testing functions. Included unit tests in `tests/testthat`.
@@ -788,12 +807,12 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
  Running the tests in ‘tests/testthat.R’ failed.
  Last 13 lines of output:
    Component "Source": Attributes: < Component "levels": 3 string mismatches >
-   List member = 2, Dataset = dataset02, FOM = Wilcoxon, method = DBMH
+   List member = 2, Dataset = dataset02, FOM = Wilcoxon, method = DBM
 
    ── 2. Failure: SignificanceTestingAllCombinations (@test-significance-te
    CurrentValues[[listMem]] not equal to GoodValues[[listMem]].
    Component "Source": Attributes: < Component "levels": 3 string mismatches >
-   List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBMH
+   List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBM
 ````
 
 

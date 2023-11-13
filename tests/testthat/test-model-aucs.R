@@ -17,6 +17,7 @@ test_that("UtilAucBIN", {
 
 
 
+
 context("utils:UtilUtilAucCBM")
 test_that("UtilAucCBM", {
   mu <- 2;alpha <- 0.8

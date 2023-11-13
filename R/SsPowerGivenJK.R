@@ -3,30 +3,40 @@
 #' @description Calculate the statistical power for specified numbers of readers J, 
 #'    cases K, analysis method and DBM or OR variances components
 #' 
-#'   
-#'   
 #' @param dataset The \bold{pilot} dataset. If set to NULL 
 #'    then variance components must be supplied.
-#' @param ... Optional variance components. These are needed if \code{dataset} 
-#'    is not supplied.
-#' @param FOM The figure of merit
+#'    
+#' @param ... Optional variance components: \bold{needed if \code{dataset} 
+#'    is not supplied.}
+#'    
+#' @param FOM The figure of merit.
+#' 
 #' @param J The number of readers in the pivotal study.
+#' 
 #' @param K The number of cases in the pivotal study.
+#' 
 #' @param effectSize The effect size to be used in the \strong{pivotal} study.
 #'    Default is NULL, which uses the observed effect size in the pilot dataset. 
 #'    Must be supplied if dataset is set to NULL and variance 
 #'    components are supplied.
+#'    
 #' @param method "OR" (the default) or "DBM" (but see \code{UseDBMHB2004} option
 #'     below).
-#' @param analysisOption Desired generalization, "RRRC" (the default), "FRRC", 
-#'    "RRFC" or "ALL". RRFC = random reader fixed case, etc.
+#'     
+#' @param covEstMethod Specify the variance covariance estimation method(s): 
+#'     "jackknife" (the default), "bootstrap" or "DeLong" (for ROC datasets).
+#' 
+#' @param analysisOption Specify the random factor(s): "RRRC" (the default), 
+#'     "RRFC", "FRRC" or "ALL".
+#' 
 #' @param UseDBMHB2004 Logical, defaults to \code{FALSE}, which results in OR 
 #'    sample size method being used, even if DBM method is specified, as in 
 #'    Hillis 2011 & 2018 papers. If \code{TRUE} the method based on 
 #'    Hillis-Berbaum 2004 sample size paper is used.
+#'    
 #' @param alpha The significance level, default is 0.05.
 #' 
-#' @return The expected statistical power.
+#' @return The expected statistical power in pivotal study for the given conditions and J and K.
 #' 
 #' @details The default \code{effectSize} uses the observed effect size in the 
 #'    pilot study. A numeric value over-rides the default value. This argument 
@@ -38,36 +48,36 @@
 #' 
 #' @examples
 #' ## EXAMPLE 1: RRRC power 
-#' ## specify 2-treatment ROC dataset and force DBM alg.
-#' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
+#' ## specify 2-modality ROC dataset and force DBM alg.
+#' res <- SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 #' J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE) # RRRC is default  
 #' 
 #' ## EXAMPLE 1A: FRRC power 
-#' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
+#' res <- SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 #' J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE, analysisOption = "FRRC") 
 #' 
 #' ## EXAMPLE 1B: RRFC power 
-#' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
+#' res <- SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 #' J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE, analysisOption = "RRFC") 
 #' 
 #' ## EXAMPLE 2: specify NULL dataset & DBM var. comp. & force DBM-based alg.
-#' vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
-#' SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = 6, K = 251, 
+#' vcDBM <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")$VarCom
+#' res <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = 6, K = 251, 
 #' effectSize = 0.05, method = "DBM", UseDBMHB2004 = TRUE, 
 #' list( 
 #' VarTR = vcDBM["VarTR","Estimates"], # replace rhs with actual values as in 4A
 #' VarTC = vcDBM["VarTC","Estimates"], # do:
 #' VarErr = vcDBM["VarErr","Estimates"])) # do:
 #'                      
-#' ## EXAMPLE 3: specify 2-treatment ROC dataset and use OR-based alg.
-#' SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
+#' ## EXAMPLE 3: specify 2-modality ROC dataset and use OR-based alg.
+#' res <- SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 #' J = 6, K = 251)
 #' 
 #' ## EXAMPLE 4: specify NULL dataset & OR var. comp. & use OR-based alg.
 #' JStar <- length(dataset02$ratings$NL[1,,1,1])
 #' KStar <- length(dataset02$ratings$NL[1,1,,1])
-#' vcOR <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
-#' SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", effectSize = 0.05, J = 6, 
+#' vcOR <- UtilORVarComp(dataset02, FOM = "Wilcoxon")$VarCom
+#' res <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", effectSize = 0.05, J = 6, 
 #' K = 251, list(JStar = JStar, KStar = KStar, 
 #'    VarTR = vcOR["VarTR","Estimates"], # replace rhs with actual values as in 4A
 #'    Cov1 = vcOR["Cov1","Estimates"],   # do:
@@ -76,7 +86,7 @@
 #'    Var = vcOR["Var","Estimates"]))
 #'    
 #' ## EXAMPLE 4A: specify NULL dataset & OR var. comp. & use OR-based alg.
-#' SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", effectSize = 0.05, J = 6, 
+#' res <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", effectSize = 0.05, J = 6, 
 #' K = 251, list(JStar = 5, KStar = 114, 
 #'    VarTR = 0.00020040252,
 #'    Cov1 = 0.00034661371,
@@ -86,9 +96,9 @@
 #'    
 #' ## EXAMPLE 5: specify NULL dataset & DBM var. comp. & use OR-based alg.
 #' ## The DBM var. comp. are converted internally to OR var. comp.
-#' vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
+#' vcDBM <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")$VarCom
 #' KStar <- length(dataset02$ratings$NL[1,1,,1])
-#' SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
+#' res <- SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
 #' method = "DBM", FOM = "Wilcoxon",
 #' list(KStar = KStar,                # replace rhs with actual values as in 5A 
 #' VarR = vcDBM["VarR","Estimates"], # do:
@@ -99,7 +109,7 @@
 #' VarErr = vcDBM["VarErr","Estimates"]))
 #' 
 #' ## EXAMPLE 5A: specify NULL dataset & DBM var. comp. & use OR-based alg.
-#' SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
+#' res <- SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
 #' method = "DBM", FOM = "Wilcoxon",
 #' list(KStar = 114,
 #' VarR = 0.00153499935,
@@ -131,7 +141,8 @@ SsPowerGivenJK <- function(dataset,
                            K, 
                            effectSize = NULL, 
                            method = "OR", 
-                           analysisOption = "RRRC", 
+                           covEstMethod = "jackknife",
+                           analysisOption = "RRRC",
                            UseDBMHB2004 = FALSE,
                            alpha = 0.05) {
   
@@ -146,7 +157,7 @@ SsPowerGivenJK <- function(dataset,
     # use original sample size formulae based on DBM variance components
     # as in 2004 paper
     if (!(is.null(dataset))) {
-      ret <- StSignificanceTesting(dataset, FOM, method = "DBM")
+      ret <- St(dataset, FOM, method = "DBM")
       if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
       VarTR <- ret$ANOVA$VarCom["VarTR",1]
       VarTC <- ret$ANOVA$VarCom["VarTC",1]
@@ -166,10 +177,10 @@ SsPowerGivenJK <- function(dataset,
       # convert DBM variance components to OR variance components 
       # and use OR variance component based sample size formulae
       # as in 2011 and 2018 papers
-      IStar <- length(dataset$ratings$NL[,1,1,1]); if (IStar != 2) stop("Must specify 2 treatment dataset")
+      IStar <- length(dataset$ratings$NL[,1,1,1]); if (IStar != 2) stop("Must specify 2 modality dataset")
       JStar <- length(dataset$ratings$NL[1,,1,1])
       KStar <- length(dataset$ratings$NL[1,1,,1])
-      ret <- StSignificanceTesting(dataset, FOM, method = "DBM")
+      ret <- St(dataset, FOM, method = "DBM")
       if (is.null(effectSize)) effectSize <- as.numeric(ret$FOMs$trtMeanDiffs)
       MST <- ret$ANOVA$TRCanova["T", "MS"]
       MSR <- ret$ANOVA$TRCanova["R", "MS"]
@@ -185,7 +196,7 @@ SsPowerGivenJK <- function(dataset,
       Var <- OrVarCom$Var
       VarTR <- OrVarCom$VarTR
     } else {
-      # dataset NOT specified instead dataset treatment, reader and case sizes and DBM var. comps. specified. 
+      # dataset NOT specified instead dataset modality, reader and case sizes and DBM var. comps. specified. 
       if (is.null(effectSize)) stop("When using variance components as input, effect size needs to be explicitly specified.")
       extraParms <- list(...)[[1]]
       IStar <- 2
@@ -211,7 +222,7 @@ SsPowerGivenJK <- function(dataset,
   } 
   else if (method == "OR") {
     if (!(is.null(dataset))) {
-      ret <- StSignificanceTesting(dataset, FOM, method = "OR")
+      ret <- St(dataset, FOM, method = "OR", analysisOption = analysisOption, covEstMethod = covEstMethod)
       VarTR <- ret$ANOVA$VarCom["VarTR","Estimates"]
       Cov1 <- ret$ANOVA$VarCom["Cov1","Estimates"]
       Cov2 <- ret$ANOVA$VarCom["Cov2","Estimates"]
@@ -243,27 +254,27 @@ SsPowerGivenJK <- function(dataset,
 #' @param J The number of readers
 #' @param K The number of cases
 #' @param effectSize The effect size
-#' @param VarTR The treatment-reader DBM variance component
-#' @param VarTC The treatment-case DBM variance component
+#' @param VarTR The modality-reader DBM variance component
+#' @param VarTC The modality-case DBM variance component
 #' @param VarErr The error-term DBM variance component
 #' @param alpha The size of the test (default = 0.05)
-#' @param analysisOption The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")
+#' @param analysisOption Specify the random factor(s): "RRRC", "FRRC", "RRFC", "ALL"
 #' 
 #' @return A list containing the estimated power and associated statistics
-#'    for each desired generalization.
+#'    for the specified random factor(s).
 #'   
-#' @details The variance components are obtained using \link{StSignificanceTesting}
+#' @details The variance components are obtained using \link{St}
 #'    with \code{method = "DBM"}.
 #' 
 #' @examples 
-#' VarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBM", 
+#' VarCom <- St(dataset02, FOM = "Wilcoxon", method = "DBM", 
 #'    analysisOption = "RRRC")$ANOVA$VarCom
 #' VarTR <- VarCom["VarTR",1]
 #' VarTC <- VarCom["VarTC",1]
 #' VarErr <- VarCom["VarErr",1]
 #' ret <- SsPowerGivenJKDbmVarCom (J = 5, K = 100, effectSize = 0.05, VarTR, 
 #'    VarTC, VarErr, analysisOption = "RRRC")
-#' cat("RRRC power = ", ret$powerRRRC)
+#' ##cat("RRRC power = ", ret$powerRRRC)
 #'   
 #' @export
 #' 
@@ -347,24 +358,24 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
 #' @param K The number of cases in the \strong{pivotal} study
 #' @param KStar The number of cases in the \strong{pilot} study
 #' @param effectSize The effect size
-#' @param VarTR The treatment-reader OR variance component
+#' @param VarTR The modality-reader OR variance component
 #' @param Cov1 The OR Cov1 covariance
 #' @param Cov2 The OR Cov2 covariance
 #' @param Cov3 The OR Cov3 covariance
 #' @param Var The OR pure variance term
 #' @param alpha The size of the test (default = 0.05)
-#' @param analysisOption The desired generalization ("RRRC", "FRRC", "RRFC", "ALL")
+#' @param analysisOption Specify the random factor(s): "RRRC", "FRRC", "RRFC", "ALL"
 #' 
 #' @return A list containing the estimated power and associated statistics
-#'    for each desired generalization.
+#'    for the specified random factor(s).
 #'   
-#' @details The variance components are obtained using \link{StSignificanceTesting} 
+#' @details The variance components are obtained using \link{St} 
 #'     with \code{method = "OR"}.
 #' 
 #' @examples 
 #' dataset <- dataset02 ## the pilot study
 #' KStar <- length(dataset$ratings$NL[1,1,,1])
-#' VarCom <- StSignificanceTesting(dataset, FOM = "Wilcoxon", 
+#' VarCom <- St(dataset, FOM = "Wilcoxon", 
 #' method = "OR", analysisOption = "RRRC")$ANOVA$VarCom
 #' VarTR <- VarCom["VarTR",1]
 #' Cov1 <- VarCom["Cov1",1]
@@ -374,7 +385,7 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
 #' ret <- SsPowerGivenJKOrVarCom (J = 5, K = 100, KStar = KStar,  
 #'    effectSize = 0.05, VarTR, Cov1, Cov2, Cov3, Var, analysisOption = "RRRC")
 #'     
-#' cat("RRRC power = ", ret$powerRRRC)
+#' ##cat("RRRC power = ", ret$powerRRRC)
 #'
 #' @importFrom stats qchisq  
 #' @export

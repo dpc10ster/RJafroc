@@ -22,7 +22,7 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
 \item{\code{descriptions$name}}{, chr "DOBBINS-2", the name of the dataset}
 \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:152, 1:2] , truth table structure}
 \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-\item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+\item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
 \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 }
 }
@@ -35,7 +35,7 @@ ratings, i.e., do you recommend further follow up on the patient, one a 1 (defin
 to 5 (definitely yes), effectively an ROC dataset using a 5-point rating scale.
 }
 \examples{
-str(dataset12)
+res <- str(dataset12)
 
 
 }

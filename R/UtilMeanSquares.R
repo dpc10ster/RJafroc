@@ -14,24 +14,23 @@
 #' 
 #' @details 
 #' For \code{DBM} method, \code{msT, msTR, msTC, msTRC} will not be available 
-#'    if the dataset contains only one treatment. Similarly, 
+#'    if the dataset contains only one modality. Similarly, 
 #'    \code{msR, msTR, msRC, msTRC} will not be returned for single reader dataset. 
 #'    For \code{ORH} method, \code{msT, msR, msTR} will be returned for multiple 
-#'    reader multiple treatment dataset. \code{msT} is not available for single 
-#'    treatment dataset, and \code{msR} is not available for single reader dataset.
+#'    reader multiple modality dataset. \code{msT} is not available for single 
+#'    modality dataset, and \code{msR} is not available for single reader dataset.
 #' 
 #' @examples
-#' UtilMeanSquares(dataset02, FOM = "Wilcoxon")
-#' UtilMeanSquares(dataset05, FOM = "wAFROC", method = "OR")
+#' result <- UtilMeanSquares(dataset02, FOM = "Wilcoxon")
+#' result <- UtilMeanSquares(dataset05, FOM = "wAFROC", method = "OR")
 #' 
 #' @export
 
 UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBM"){
 
-  if (dataset$descriptions$design != "FCTRL") stop("This function requires a FCTRL dataset")
+  isValidDataset(dataset, FOM, method, analysisOption = "RRRC", covEstMethod = "jackknife")
   
-  if ((dataset$descriptions$type == "ROC") && (FOM != "Wilcoxon")) stop("ROC dataset requires Wilcoxon FOM") 
-  if ((dataset$descriptions$type == "FROC") && (FOM == "Wilcoxon")) stop("FROC dataset cannot have Wilcoxon FOM") 
+  if (dataset$descriptions$design != "FCTRL") stop("This function requires a FCTRL dataset")
   
   dataType <- dataset$descriptions$type
   if (dataType != "LROC") {
@@ -69,7 +68,7 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
     # The previous bad code follows (moved to RJafrocMaintenance/MovedFromRJafroc):
     # if (FOM %in% c("MaxLLF", "HrSe")) {
     #   Ktemp <- K2 # K should be # of diseased cases
-    # } else if (FOM %in% c("MaxNLF", "HrSp", "MaxNLFAllCases", "ExpTrnsfmSp")) {
+    # } else if (FOM %in% c("MaxNLF", "HrSp", "MaxNLFAllCases")) {
     #   Ktemp <- K1 # K should be # of non-diseased casesd
     # } else {
     #   Ktemp <- K # K should be # of all cases
@@ -188,12 +187,12 @@ UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = 
   } else if (method == "OR"){
     
     if (I == 1 && J == 1){
-      errMsg <- "The mean squares cannot be calculated for single reader single treatment dataset."
+      errMsg <- "The mean squares cannot be calculated for single reader single modality dataset."
       stop(errMsg)
     }
     
     # `as.matrix` is absolutely necessary if following `mean()` function is to work
-    fomArray <- as.matrix(UtilFigureOfMerit(dataset, FOM, FPFValue))
+    fomArray <- UtilFigureOfMerit(dataset, FOM, FPFValue)
     fomMean <- mean(fomArray)
     
     if (I != 1){

@@ -12,6 +12,7 @@ SsPowerGivenJK(
   K,
   effectSize = NULL,
   method = "OR",
+  covEstMethod = "jackknife",
   analysisOption = "RRRC",
   UseDBMHB2004 = FALSE,
   alpha = 0.05
@@ -21,10 +22,10 @@ SsPowerGivenJK(
 \item{dataset}{The \bold{pilot} dataset. If set to NULL 
 then variance components must be supplied.}
 
-\item{...}{Optional variance components. These are needed if \code{dataset} 
-is not supplied.}
+\item{...}{Optional variance components: \bold{needed if \code{dataset} 
+is not supplied.}}
 
-\item{FOM}{The figure of merit}
+\item{FOM}{The figure of merit.}
 
 \item{J}{The number of readers in the pivotal study.}
 
@@ -38,8 +39,11 @@ components are supplied.}
 \item{method}{"OR" (the default) or "DBM" (but see \code{UseDBMHB2004} option
 below).}
 
-\item{analysisOption}{Desired generalization, "RRRC" (the default), "FRRC", 
-"RRFC" or "ALL". RRFC = random reader fixed case, etc.}
+\item{covEstMethod}{Specify the variance covariance estimation method(s): 
+"jackknife" (the default), "bootstrap" or "DeLong" (for ROC datasets).}
+
+\item{analysisOption}{Specify the random factor(s): "RRRC" (the default), 
+"RRFC", "FRRC" or "ALL".}
 
 \item{UseDBMHB2004}{Logical, defaults to \code{FALSE}, which results in OR 
 sample size method being used, even if DBM method is specified, as in 
@@ -49,7 +53,7 @@ Hillis-Berbaum 2004 sample size paper is used.}
 \item{alpha}{The significance level, default is 0.05.}
 }
 \value{
-The expected statistical power.
+The expected statistical power in pivotal study for the given conditions and J and K.
 }
 \description{
 Calculate the statistical power for specified numbers of readers J, 
@@ -67,36 +71,36 @@ The procedure is valid for ROC studies only; for FROC studies see
 }
 \examples{
 ## EXAMPLE 1: RRRC power 
-## specify 2-treatment ROC dataset and force DBM alg.
-SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
+## specify 2-modality ROC dataset and force DBM alg.
+res <- SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE) # RRRC is default  
 
 ## EXAMPLE 1A: FRRC power 
-SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
+res <- SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE, analysisOption = "FRRC") 
 
 ## EXAMPLE 1B: RRFC power 
-SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
+res <- SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 J = 6, K = 251, method = "DBM", UseDBMHB2004 = TRUE, analysisOption = "RRFC") 
 
 ## EXAMPLE 2: specify NULL dataset & DBM var. comp. & force DBM-based alg.
-vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
-SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = 6, K = 251, 
+vcDBM <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")$VarCom
+res <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", J = 6, K = 251, 
 effectSize = 0.05, method = "DBM", UseDBMHB2004 = TRUE, 
 list( 
 VarTR = vcDBM["VarTR","Estimates"], # replace rhs with actual values as in 4A
 VarTC = vcDBM["VarTC","Estimates"], # do:
 VarErr = vcDBM["VarErr","Estimates"])) # do:
                      
-## EXAMPLE 3: specify 2-treatment ROC dataset and use OR-based alg.
-SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
+## EXAMPLE 3: specify 2-modality ROC dataset and use OR-based alg.
+res <- SsPowerGivenJK(dataset = dataset02, FOM = "Wilcoxon", effectSize = 0.05, 
 J = 6, K = 251)
 
 ## EXAMPLE 4: specify NULL dataset & OR var. comp. & use OR-based alg.
 JStar <- length(dataset02$ratings$NL[1,,1,1])
 KStar <- length(dataset02$ratings$NL[1,1,,1])
-vcOR <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")$VarCom
-SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", effectSize = 0.05, J = 6, 
+vcOR <- UtilORVarComp(dataset02, FOM = "Wilcoxon")$VarCom
+res <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", effectSize = 0.05, J = 6, 
 K = 251, list(JStar = JStar, KStar = KStar, 
    VarTR = vcOR["VarTR","Estimates"], # replace rhs with actual values as in 4A
    Cov1 = vcOR["Cov1","Estimates"],   # do:
@@ -105,7 +109,7 @@ K = 251, list(JStar = JStar, KStar = KStar,
    Var = vcOR["Var","Estimates"]))
    
 ## EXAMPLE 4A: specify NULL dataset & OR var. comp. & use OR-based alg.
-SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", effectSize = 0.05, J = 6, 
+res <- SsPowerGivenJK(dataset = NULL, FOM = "Wilcoxon", effectSize = 0.05, J = 6, 
 K = 251, list(JStar = 5, KStar = 114, 
    VarTR = 0.00020040252,
    Cov1 = 0.00034661371,
@@ -115,9 +119,9 @@ K = 251, list(JStar = 5, KStar = 114,
    
 ## EXAMPLE 5: specify NULL dataset & DBM var. comp. & use OR-based alg.
 ## The DBM var. comp. are converted internally to OR var. comp.
-vcDBM <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")$VarCom
+vcDBM <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")$VarCom
 KStar <- length(dataset02$ratings$NL[1,1,,1])
-SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
+res <- SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
 method = "DBM", FOM = "Wilcoxon",
 list(KStar = KStar,                # replace rhs with actual values as in 5A 
 VarR = vcDBM["VarR","Estimates"], # do:
@@ -128,7 +132,7 @@ VarRC = vcDBM["VarRC","Estimates"], # do:
 VarErr = vcDBM["VarErr","Estimates"]))
 
 ## EXAMPLE 5A: specify NULL dataset & DBM var. comp. & use OR-based alg.
-SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
+res <- SsPowerGivenJK(dataset = NULL, J = 6, K = 251, effectSize = 0.05, 
 method = "DBM", FOM = "Wilcoxon",
 list(KStar = 114,
 VarR = 0.00153499935,

@@ -34,7 +34,7 @@ Numextract <- function(string){
   unlist(regmatches(string,gregexpr("[[:punct:]]?[[:digit:]]+\\.*[[:digit:]]*",string)))
 }
 
-contextStr <- "StSignificanceTesting: Compare to Iowa VanDyke dataset"
+contextStr <- "St: Compare to Iowa VanDyke dataset"
 context(contextStr)
 test_that(contextStr, {
   
@@ -42,8 +42,8 @@ fn <- paste0(test_path(), "/goodValues361/Iowa/VanDyke.txt")
 # fn <- "inst/Iowa/VanDyke.txt"
 lines <- readLines(fn)
 
-DBM <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBM")
-OR <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "OR")
+DBM <- St(dataset02, FOM = "Wilcoxon", method = "DBM", analysisOption = "ALL")
+OR <- St(dataset02, FOM = "Wilcoxon", method = "OR", analysisOption = "ALL")
 
 CurrentLine <- 1
 FindString <- "TREATMENT x READER AUC ESTIMATES"
@@ -398,15 +398,15 @@ expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
 
 })
 
-contextStr <- "StSignificanceTesting: Compare to Iowa Franken dataset"
+contextStr <- "St: Compare to Iowa Franken dataset"
 context(contextStr)
 test_that(contextStr, {
 
   fn <- paste0(test_path(), "/goodValues361/Iowa/Franken1.txt")
   lines <- readLines(fn)
   
-  DBM <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "DBM")
-  OR <- StSignificanceTesting(dataset03, FOM = "Wilcoxon", method = "OR")
+  DBM <- St(dataset03, FOM = "Wilcoxon", method = "DBM", analysisOption = "ALL")
+  OR <- St(dataset03, FOM = "Wilcoxon", method = "OR", analysisOption = "ALL")
   
   CurrentLine <- 1
   FindString <- "TREATMENT x READER AUC ESTIMATES"

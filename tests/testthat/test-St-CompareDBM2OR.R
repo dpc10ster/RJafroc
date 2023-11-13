@@ -4,8 +4,8 @@ test_that(contextStr, {
 
   ds <- dataset02
 
-  dbmValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "DBM")
-  orValues <- StSignificanceTesting(ds, FOM = "Wilcoxon", method = "OR")
+  dbmValues <- St(ds, FOM = "Wilcoxon", method = "DBM", analysisOption = "ALL")
+  orValues <- St(ds, FOM = "Wilcoxon", method = "OR", analysisOption = "ALL")
 
   #######################################  fomArray  ###########################################
   dbmfomArray <- dbmValues$fomArray
@@ -109,8 +109,8 @@ test_that(contextStr, {
 
   ds <- dataset05
 
-  dbmValues <- StSignificanceTesting(ds, FOM = "HrAuc", method = "DBM")
-  orValues <- StSignificanceTesting(ds, FOM = "HrAuc", method = "OR")
+  dbmValues <- St(ds, FOM = "HrAuc", method = "DBM", analysisOption = "ALL")
+  orValues <- St(ds, FOM = "HrAuc", method = "OR", analysisOption = "ALL")
 
   #######################################  fomArray  ###########################################
   dbmfomArray <- as.vector(as.matrix(dbmValues$FOMs$foms))
@@ -208,8 +208,8 @@ test_that(contextStr, {
 
   ds <- dataset05
   
-  dbmValues <- StSignificanceTesting(ds, FOM = "wAFROC", method = "DBM")
-  orValues <- StSignificanceTesting(ds, FOM = "wAFROC", method = "OR")
+  dbmValues <- St(ds, FOM = "wAFROC", method = "DBM", analysisOption = "ALL")
+  orValues <- St(ds, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
   
   #######################################  fomArray  ###########################################  
   dbmfomArray <- dbmValues$fomArray

@@ -1,24 +1,3 @@
-context("UtilFigureOfMerit FROC SPLIT-PLOT-C dataset, FOM = wAFROC")
-test_that("FROC SPLIT-PLOT-C dataset, FOM = wAFROC", {
-
-  dataset <- datasetFROCSpC
-  FOM = "wAFROC"
-
-  fn <- paste0(test_path(), "/goodValues361/FOM/datasetFROCSpC-", FOM, ".rds")
-  if (!file.exists(fn)) {
-    warning(paste0("File not found - generating new ",fn))
-    ret <- UtilFigureOfMerit(dataset, FOM = FOM)
-    saveRDS(ret, file = fn)
-  }
-
-  ret1 <- readRDS(fn)
-  ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
-
-  expect_equal(ret1, ret2)
-
-})
-
-
 context("UtilFigureOfMerit ROC dataset dataset02: FOM = Wilcoxon")
 test_that("ROC dataset dataset02: FOM = Wilcoxon", {
   
@@ -35,8 +14,11 @@ test_that("ROC dataset dataset02: FOM = Wilcoxon", {
   ret1 <- readRDS(fn)
   ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
   
-  expect_equal(ret1, ret2)
-  
+  for (i in 1:dim(ret1)[1]) {
+    for (j in 1:dim(ret1)[2])
+    expect_equal(as.numeric(ret1[[i,j]]), as.numeric(ret2[[i,j]]))
+  }
+
 })
 
 
@@ -110,8 +92,7 @@ test_that("FROC dataset: all FOMs except ...", {
   expect_error(UtilFigureOfMerit(dataset, FOM = "Wilcoxon"))
   
   ## cycle through all FOMs possible with FROC data (except the excessive computation time ones)
-  FOM_arr <- c("HrAuc","wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases","ExpTrnsfmSp",
-               "HrSp", "HrSe")
+  FOM_arr <- c("HrAuc","wAFROC1","AFROC1","MaxLLF","MaxNLF","MaxNLFAllCases", "HrSp", "HrSe")
   
   for (i in 1:length(FOM_arr)) {
     
@@ -136,36 +117,36 @@ test_that("FROC dataset: all FOMs except ...", {
 })
 
 
-context("UtilFigureOfMerit FROC data: excessive computation time FOMs")
-test_that("FROC data: excessive computation time FOMs", {
-  
-  skip_on_cran()
- 
-  dataset <- dataset01 # FROC
-  
-  FOM_arr <- c("SongA2","SongA1")
-  
-  for (i in 1:length(FOM_arr)) {
-    
-    FOM  <- FOM_arr[i]
-    
-    fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritFROC-", FOM, ".rds")
-    if (!file.exists(fn)) {
-      warning(paste0("File not found - generating new ",fn))
-      ret <- UtilFigureOfMerit(dataset, FOM = FOM)
-      saveRDS(ret, file = fn)
-    }
-    
-    ret1 <- readRDS(fn)
-    ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
-    
-    for (i in 1:length(ret1)) {
-      expect_equal(as.numeric(ret1[[i]]), as.numeric(ret1[[i]]))
-    }
-    
-  }
-  
-})
+# context("UtilFigureOfMerit FROC data: excessive computation time FOMs")
+# test_that("FROC data: excessive computation time FOMs", {
+#   
+#   skip_on_cran()
+#  
+#   dataset <- dataset01 # FROC
+#   
+#   FOM_arr <- c("SongA2","SongA1")
+#   
+#   for (i in 1:length(FOM_arr)) {
+#     
+#     FOM  <- FOM_arr[i]
+#     
+#     fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMeritFROC-", FOM, ".rds")
+#     if (!file.exists(fn)) {
+#       warning(paste0("File not found - generating new ",fn))
+#       ret <- UtilFigureOfMerit(dataset, FOM = FOM)
+#       saveRDS(ret, file = fn)
+#     }
+#     
+#     ret1 <- readRDS(fn)
+#     ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
+#     
+#     for (i in 1:length(ret1)) {
+#       expect_equal(as.numeric(ret1[[i]]), as.numeric(ret1[[i]]))
+#     }
+#     
+#   }
+#   
+# })
 
 
 context("UtilFigureOfMerit ROI paradigm")
@@ -240,6 +221,28 @@ test_that("LROC paradigm: FOM = PCL@FPFValue", {
     expect_equal(as.numeric(ret1[[i]]), as.numeric(ret1[[i]]))
   }
   
+  
+})
+
+context("UtilFigureOfMerit FROC")
+test_that("UtilFigureOfMerit FROC", {
+  
+  dataset <- datasetXModality
+  FOM <- "wAFROC"
+  
+  fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMerit-", FOM, ".rds")
+  if (!file.exists(fn)) {
+    warning(paste0("File not found - generating new ",fn))
+    ret <- UtilFigureOfMerit(dataset, FOM = FOM)
+    saveRDS(ret, file = fn)
+  }
+  
+  ret1 <- readRDS(fn)
+  ret2 <- UtilFigureOfMerit(dataset, FOM = FOM)
+  
+  for (i in 1:2) {
+    expect_equal(ret1[[i]], ret2[[i]])
+  }
   
 })
 

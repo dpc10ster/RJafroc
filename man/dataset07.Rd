@@ -22,7 +22,7 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
 \item{\code{descriptions$name}}{, chr "LUCY-WARREN", the name of the dataset}
 \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:7, 1:162, 1:4], truth table structure}
 \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-\item{\code{descriptions$modalityID}}{, [1:5] "1" "2" "3" "4" ..., treatment labels}
+\item{\code{descriptions$modalityID}}{, [1:5] "1" "2" "3" "4" ..., modality labels}
 \item{\code{descriptions$readerID}}{, chr [1:7] "1" "2" "3" "4" ..., reader labels}
 }
 }
@@ -35,8 +35,8 @@ This is referred to in the book as the "OPT" dataset (for OptiMam). It consists 
 of acquiring the images) by seven radiologists using the FROC paradigm.
 }
 \examples{
-str(dataset07)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset07, opChType = "wAFROC")$Plot
+res <- str(dataset07)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset07, opChType = "wAFROC")$Plot
 
 
 }

@@ -9,15 +9,21 @@ isBinnedDataset(dataset, maxUniqeRatings = 6)
 \arguments{
 \item{dataset}{The dataset}
 
-\item{maxUniqeRatings}{For each treatment-reader combination, the max number of unique ratings in order to be classified as binned,  the default value for \code{maxUniqeRatings} is 6; if there are more unique ratings the treatment-reader combination is classified as not binned.}
+\item{maxUniqeRatings}{For each modality-reader combination, the max number 
+of unique ratings in order to be classified as binned,  the default value
+for \code{maxUniqeRatings} is 6; if there are more unique ratings the 
+modality-reader combination is classified as not binned.}
 }
 \value{
-a logical \code{[I x J]} array, TRUE if the corresponding treatment-reader combination is binned, i.e., has at most \code{maxUniqeRatings} unique ratings, FALSE otherwise.
+a logical \code{[I x J]} array, TRUE if the corresponding 
+    modality-reader combination is binned, i.e., has at most 
+    \code{maxUniqeRatings} unique ratings, FALSE otherwise.
 }
 \description{
 Determine if a dataset is binned
 }
 \examples{
+
 isBinnedDataset(dataset01)
 
 }

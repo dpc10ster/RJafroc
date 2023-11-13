@@ -8,7 +8,7 @@ MyFom_ij <- function(nl, ll,
   if (!FOM %in% c("Wilcoxon", "HrAuc", "HrSe", "HrSp", "SongA1", 
                   "SongA2", "AFROC1", "AFROC", "wAFROC1", "wAFROC",
                   "AFROC1", "AFROC", "wAFROC1", "wAFROC", "FROC", # dpc 
-                  "MaxLLF", "MaxNLF", "MaxNLFAllCases", "ExpTrnsfmSp", "ROI",
+                  "MaxLLF", "MaxNLF", "MaxNLFAllCases", "ROI",
                   "ALROC", "PCL")){ # dpc 
     errMsg <- paste0(FOM, " is not an available figure of merit.")
     stop(errMsg)
@@ -34,7 +34,6 @@ MyFom_ij <- function(nl, ll,
                 "MaxLLF" = MaxLLF(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
                 "MaxNLF" = MaxNLF(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
                 "MaxNLFAllCases" = MaxNLFAllCases(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
-                "ExpTrnsfmSp" = ExpTrnsfmSp(nl, ll, perCase, c(K1, K2), maxNL, maxLL),
                 "ROI" = ROI(K1, K2, maxNL, perCase, nl, ll)
   )
   return(fom)

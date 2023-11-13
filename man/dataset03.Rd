@@ -22,7 +22,7 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
 \item{\code{descriptions$name}}{, chr "FRANKEN", the name of the dataset}
 \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2], truth table structure}
 \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-\item{\code{descriptions$modalityID}}{, chr [1:2] "TREAT1" "TREAT2", treatment labels}
+\item{\code{descriptions$modalityID}}{, chr [1:2] "TREAT1" "TREAT2", modality labels}
 \item{\code{descriptions$readerID}}{, chr chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", reader labels}
 }
 }
@@ -38,8 +38,8 @@ Franken-dataset, which, along the the Van Dyke dataset, has been widely used to 
 advances in ROC methodology.
 }
 \examples{
-str(dataset03)
-PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
+res <- str(dataset03)
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
 
 
 }

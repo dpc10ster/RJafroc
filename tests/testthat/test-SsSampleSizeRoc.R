@@ -84,7 +84,7 @@ context(contextStr)
 test_that(contextStr, {
   
   ret1 <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "DBM")
-  a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")
+  a <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")
   ret2 <- SsSampleSizeKGivenJ(NULL,UseDBMHB2004 = TRUE,
                               J = 6, effectSize = 0.05, method = "DBM",
                               list(VarTR = a$VarCom["VarTR",1],
@@ -95,7 +95,7 @@ test_that(contextStr, {
   
   
   ret1 <- SsSampleSizeKGivenJ(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, method = "OR")
-  a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")
+  a <- UtilORVarComp(dataset02, FOM = "Wilcoxon")
   KStar <- length(dataset02$ratings$NL[1,1,,1])
   ret2 <- SsSampleSizeKGivenJ(NULL,
                               J = 6,
@@ -117,7 +117,7 @@ context(contextStr)
 test_that(contextStr, {
   
   ret1 <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon", effectSize = 0.05, J = 6, K = 251, method = "DBM")
-  a <- UtilVarComponentsDBM(dataset02, FOM = "Wilcoxon")
+  a <- UtilDBMVarComp(dataset02, FOM = "Wilcoxon")
   ret2 <- SsPowerGivenJK(NULL,
                          J = 6,
                          K = 251,
@@ -132,7 +132,7 @@ test_that(contextStr, {
   
   ret1 <- SsPowerGivenJK(dataset02, FOM = "Wilcoxon",
                          effectSize = 0.05, J = 6, K = 251, method = "OR")
-  a <- UtilVarComponentsOR(dataset02, FOM = "Wilcoxon")
+  a <- UtilORVarComp(dataset02, FOM = "Wilcoxon")
   KStar <- length(dataset02$ratings$NL[1,1,,1])
   ret2 <- SsPowerGivenJK(NULL,
                          effectSize = 0.05,
@@ -157,8 +157,7 @@ test_that(contextStr, {
   
   dataset <- dataset02
   KStar <- length(dataset$ratings$NL[1,1,,1])
-  stOR <- StSignificanceTesting(dataset, FOM = "Wilcoxon",
-                                method = "OR")
+  stOR <- St(dataset, FOM = "Wilcoxon", method = "OR")
   VarTR <- stOR$ANOVA$VarCom["VarTR",1]
   Cov1 <- stOR$ANOVA$VarCom["Cov1",1]
   Cov2 <- stOR$ANOVA$VarCom["Cov2",1]
@@ -169,8 +168,7 @@ test_that(contextStr, {
                                   effectSize = 0.05, VarTR, Cov1, Cov2, Cov3, Var)
   
   
-  VarCom <- StSignificanceTesting(dataset02, FOM = "Wilcoxon", method = "DBM",
-                                  analysisOption = "RRRC")$ANOVA$VarCom
+  VarCom <- St(dataset02, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")$ANOVA$VarCom
   VarTR <- VarCom["VarTR",1]
   VarTC <- VarCom["VarTC",1]
   VarErr <- VarCom["VarErr",1]

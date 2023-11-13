@@ -13,8 +13,8 @@
 #'    the number of diseased cases, respectively.
 #' @param ... Other elements of \pkg{RJafroc} dataset that may, depending on the 
 #'    context, need to be specified. \code{perCase} \strong{must} be specified 
-#'       if an FROC dataset is to be returned. It is a \code{K2}-length array 
-#'       specifying the numbers of lesions in each diseased case in the dataset.
+#'    if an FROC dataset is to be returned. It is a \code{K2}-length array 
+#'    specifying the numbers of lesions in each diseased case in the dataset.
 #' 
 #' @return A dataset with the structure described in \code{\link{RJafroc-package}}.
 #' 
@@ -268,32 +268,3 @@ convert2dataset <- function(NL, LL, LL_IL,
   
 }
 
-
-convert2Xdataset <- function(NL, LL, LL_IL, 
-                             perCase, IDs, weights,
-                             fileName, type, name, truthTableStr, design,
-                             modalityID1,  modalityID2, readerID) {
-  ratings <- list(NL = NL,
-                  LL = LL,
-                  LL_IL = LL_IL)
-  
-  lesions <- list(perCase = perCase,
-                  IDs = IDs,
-                  weights = weights)
-  
-  descriptions <- list(fileName = tools::file_path_sans_ext(basename(fileName)),
-                       type = type,
-                       name = name,
-                       truthTableStr = truthTableStr,
-                       design = design,
-                       modalityID1 = modalityID1,
-                       modalityID2 = modalityID2,
-                       readerID = readerID)
-  
-  dataset <- list(ratings = ratings, 
-                  lesions = lesions, 
-                  descriptions = descriptions)
-  
-  return(dataset)
-  
-}

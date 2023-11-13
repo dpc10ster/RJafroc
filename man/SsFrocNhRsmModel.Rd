@@ -20,7 +20,7 @@ A list containing:
    \item \code{lambda} The RSM lambda parameter of the NH model.
    \item \code{nu} The RSM nu parameter of the NH model.
    \item \code{scaleFactor}, the factor by which the ROC effect size
-     must by multiplied to get the wAFROC effect size.
+   must by multiplied to get the wAFROC effect size.
    \item \code{R2} The squared correlation of the wAFROC-AUC to ROC-AUC fit.
    
 }

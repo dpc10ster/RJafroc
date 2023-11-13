@@ -1,4 +1,4 @@
-reader,treatment,case,truth,rating
+reader,modality,case,truth,rating
 0,0,1,0,1.000000
 0,0,2,0,2.000000
 0,0,3,0,2.000000

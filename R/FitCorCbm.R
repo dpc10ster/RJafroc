@@ -3,7 +3,7 @@
 #' @description Fit the Correlated Contaminated Binormal Model (CORCBM) 
 #'    to a paired ROC dataset.
 #'    The \strong{ROC} dataset has to be formatted as a 
-#'    \strong{single treatment}, \strong{two-reader} dataset, even though the actual 
+#'    \strong{single modality}, \strong{two-reader} dataset, even though the actual 
 #'    pairing may be different, see details.
 #'
 #'
@@ -20,7 +20,7 @@
 #'    for both conditions}
 #'
 #' @details The conditions (X, Y) can be two readers interpreting images in the same 
-#'    treatment, the same reader interpreting images in different treatments, or 
+#'    modality, the same reader interpreting images in different treatments, or 
 #'    different readers interpreting images in 2 different treatments. Function 
 #'    \code{\link{DfExtractCorCbmDataset}} can be used to construct a dataset suitable for 
 #'    \code{FitCorCbm}. With reference to the returned values, and assuming R bins 

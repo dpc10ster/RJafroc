@@ -22,7 +22,7 @@
 #' \item{\code{descriptions$name}}{, chr "TONY", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:185, 1:3] 1 1 1 1 ..., truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "BT" "DM", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "BT" "DM", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -33,8 +33,8 @@
 #' PROC SPIE 7966.
 #' 
 #' @examples
-#' str(dataset01)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset01, opChType = "wAFROC")$Plot
+#' res <- str(dataset01)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset01, opChType = "wAFROC")$Plot
 #'
 "dataset01"
 #'
@@ -49,7 +49,7 @@
 #'    generates one rating per case.  Often referred to in the ROC literature as the 
 #'    Van Dyke dataset, which, along with the Franken dataset, has been widely 
 #'    used to illustrate advances in ROC methodology. The example below displays 
-#'    the ROC plot for the first treatment and first reader.
+#'    the ROC plot for the first modality and first reader.
 #' 
 #' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
 #'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
@@ -68,7 +68,7 @@
 #' \item{\code{descriptions$name}}{, chr "VAN-DYKE", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 ..., truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "0" "1", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "0" "1", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "0" "1" "2" ..., reader labels}
 #' }
 #'
@@ -78,8 +78,8 @@
 #' aortic dissection. 79th RSNA Meetings. 1993.
 #' 
 #' @examples
-#' str(dataset02)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot
+#' res <- str(dataset02)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot
 #'
 #'
 #'
@@ -113,7 +113,7 @@
 #' \item{\code{descriptions$name}}{, chr "FRANKEN", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "TREAT1" "TREAT2", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "TREAT1" "TREAT2", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", reader labels}
 #' }
 #'
@@ -124,8 +124,8 @@
 #' 1992;27(9):732-737.
 #' 
 #' @examples
-#' str(dataset03)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
+#' res <- str(dataset03)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
 #'
 #'
 "dataset03"
@@ -160,7 +160,7 @@
 #' \item{\code{descriptions$name}}{, chr "FEDERICA", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:4, 1:200, 1:4], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:5] "1" "2" "3" "4" "5", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:5] "1" "2" "3" "4" "5", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "3" "4" "5", reader labels}
 #' }
 #'
@@ -170,8 +170,8 @@
 #' in digital mammography. Medical Physics. 2009;36(3):765-775.
 #' 
 #' @examples
-#' str(dataset04)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset04, opChType = "wAFROC")$Plot
+#' res <- str(dataset04)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset04, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset04"
@@ -204,7 +204,7 @@
 #' \item{\code{descriptions$name}}{, chr "THOMPSON", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:9, 1:92, 1:4], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
 #' }
 #'
@@ -216,8 +216,8 @@
 #' 
 #'  
 #' @examples
-#' str(dataset05)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset05, opChType = "wAFROC")$Plot
+#' res <- str(dataset05)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset05, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset05"
@@ -248,7 +248,7 @@
 #' \item{\code{descriptions$name}}{, chr "MAGNUS", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:89, 1:16], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
 #' }
 #'
@@ -259,8 +259,8 @@
 #' Radiology. 2008;249(3):1034-1041.
 #' 
 #' @examples
-#' str(dataset06)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset06, opChType = "wAFROC")$Plot
+#' res <- str(dataset06)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset06, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset06"
@@ -290,7 +290,7 @@
 #' \item{\code{descriptions$name}}{, chr "LUCY-WARREN", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:7, 1:162, 1:4], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, [1:5] "1" "2" "3" "4" ..., treatment labels}
+#' \item{\code{descriptions$modalityID}}{, [1:5] "1" "2" "3" "4" ..., modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:7] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -301,8 +301,8 @@
 #' Medical Physics. 2012;39(6):3202-3213.
 #' 
 #' @examples
-#' str(dataset07)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset07, opChType = "wAFROC")$Plot
+#' res <- str(dataset07)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset07, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset07"
@@ -334,7 +334,7 @@
 #' \item{\code{descriptions$name}}{, chr "PENEDO", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:5, 1:112, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:5] "0" "1" "2" "3" ..., treatment labels}
+#' \item{\code{descriptions$modalityID}}{, chr [1:5] "0" "1" "2" "3" ..., modality labels}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "0" "1" "2" "3" ..., reader labels}
 #' }
 #'
@@ -346,8 +346,8 @@
 #' Radiology. 2005;237(2):450-457.
 #' 
 #' @examples
-#' str(dataset08)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset08, opChType = "ROC")$Plot
+#' res <- str(dataset08)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset08, opChType = "ROC")$Plot
 #'
 #'
 "dataset08"
@@ -362,7 +362,7 @@
 #' LROC paradigm. The first reader is CAD. The highest rating was used to convert this to an ROC 
 #' dataset. The original LROC data is \code{datasetCadLroc}. Analyzing this 
 #' data requires methods described in the book, implemented in the function  
-#' \code{\link{StSignificanceTestingCadVsRad}}.
+#' \code{\link{StCadVsRad}}.
 #' 
 #' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
 #'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
@@ -381,7 +381,7 @@
 #' \item{\code{descriptions$name}}{, chr "NICO-CAD-ROC", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1, 1:10, 1:200, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -391,8 +391,8 @@
 #' performance for the detection of mammographic masses. Eur Radiol. 2013;23(1):93-100.
 #' 
 #' @examples
-#' str(dataset09)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
+#' res <- str(dataset09)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
 #'
 #'
 "dataset09"
@@ -425,7 +425,7 @@
 #' \item{\code{descriptions$name}}{, chr "RUSCHIN", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:3, 1:8, 1:90, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:3] "1" "2" "3", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:3] "1" "2" "3", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:8] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -437,8 +437,8 @@
 #' 
 #' 
 #' @examples
-#' str(dataset10)
-#' PlotEmpiricalOperatingCharacteristics(dataset = dataset10, opChType = "ROC")$Plot
+#' res <- str(dataset10)
+#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset10, opChType = "ROC")$Plot
 #'
 #'
 "dataset10"
@@ -477,7 +477,7 @@
 #' \item{\code{descriptions$name}}{, chr "DOBBINS-1", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -488,7 +488,7 @@
 #' for the Detection and Management of Pulmonary Nodules. Radiology. 2016;282(1):236-250.
 #' 
 #' @examples
-#' str(dataset11)
+#' res <- str(dataset11)
 #'
 #'
 "dataset11"
@@ -518,7 +518,7 @@
 #' \item{\code{descriptions$name}}{, chr "DOBBINS-2", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:152, 1:2] , truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -529,7 +529,7 @@
 #' for the Detection and Management of Pulmonary Nodules. Radiology. 2016;282(1):236-250.
 #' 
 #' @examples
-#' str(dataset12)
+#' res <- str(dataset12)
 #'
 #'
 "dataset12"
@@ -558,7 +558,7 @@
 #' \item{\code{descriptions$name}}{, chr "DOBBINS-3", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:158, 1:16], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -569,7 +569,7 @@
 #' for the Detection and Management of Pulmonary Nodules. Radiology. 2016;282(1):236-250.
 #' 
 #' @examples
-#' str(dataset13)
+#' res <- str(dataset13)
 #'
 #'
 "dataset13"
@@ -602,7 +602,7 @@
 #' \item{\code{descriptions$name}}{, chr "FEDERICA-REAL-ROC", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
 #' }
 #'
@@ -614,7 +614,7 @@
 #' Med Phys. 39(10):5917-5929.
 #' 
 #' @examples
-#' str(dataset14)
+#' res <- str(dataset14)
 #'
 #'
 "dataset14"
@@ -625,7 +625,7 @@
 #'
 #' A binned dataset suitable for analysis by \code{\link{FitCorCbm}}. It was generated by
 #'    \link{DfCreateCorCbmDataset} by setting the \code{seed} variable to 123. Note
-#'    the formatting of the data as a single treatment two reader dataset, even though
+#'    the formatting of the data as a single modality two reader dataset, even though
 #'    the actual pairing might be different, see \code{\link{FitCorCbm}}. The dataset is 
 #'    intentionally large so as to demonstrate the asymptotic convergence of ML estimates, 
 #'    produced by \code{\link{FitCorCbm}}, to the population values. The data was generated
@@ -650,7 +650,7 @@
 #' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-123", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
 #' }
 #'
@@ -661,7 +661,7 @@
 #'    ROC datasets. Medical Physics. 44(6):2207--2222.
 
 #' @examples
-#' str(datasetBinned123)
+#' res <- str(datasetBinned123)
 #'
 "datasetBinned123"
 #'
@@ -690,7 +690,7 @@
 #' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-124", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
 #' }
 #'
@@ -701,7 +701,7 @@
 #'    ROC datasets. Medical Physics. 44(6):2207--2222.
 
 #' @examples
-#' str(datasetBinned124)
+#' res <- str(datasetBinned124)
 #'
 "datasetBinned124"
 #'
@@ -730,7 +730,7 @@
 #' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-125", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
 #' }
 #'
@@ -741,7 +741,7 @@
 #'    ROC datasets. Medical Physics. 44(6):2207--2222.
 
 #' @examples
-#' str(datasetBinned125)
+#' res <- str(datasetBinned125)
 #'
 "datasetBinned125"
 #'
@@ -774,7 +774,7 @@
 #' \item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -784,7 +784,7 @@
 #' performance for the detection of mammographic masses. Eur Radiol. 2013;23(1):93-100.
 #' 
 #' @examples
-#' str(datasetCadLroc)
+#' res <- str(datasetCadLroc)
 #'
 #'
 "datasetCadLroc"
@@ -826,7 +826,7 @@
 #' \item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -837,13 +837,12 @@
 #'
 #'
 #' 
-#' John Thompson crossed treatment FROC dataset
+#' John Thompson crossed modality FROC dataset
 #'
-#' This is a crossed treatment dataset, see book Section 18.5. There are two treatment factors. 
-#' The first treatment factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
-#' algorithms. The second treatment factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
-#' represent the mAs values of the image acquisition. The factors are fully crossed. The function 
-#' \code{\link{StSignificanceTestingCrossedModalities}} analyzes such datasets.
+#' This is a crossed modality dataset, see book Section 18.5. There are two modality factors. 
+#' The first modality factor \code{modalityID1} can be "F" or "I", which represent two CT reconstruction
+#' algorithms. The second modality factor \code{modalityID2} can be "20" "40"  "60"  "80", which 
+#' represent the mAs values of the image acquisition. The factors are fully crossed. 
 #' 
 #' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
 #'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
@@ -862,7 +861,7 @@
 #' \item{\code{descriptions$name}}{, chr "THOMPSON-X-MOD", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "F" "I", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "F" "I", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:4] "20" "40" "60" "80", reader labels}
 #' }
 #'
@@ -870,11 +869,11 @@
 #'
 #' @references Thompson JD, Chakraborty DP, et al. (2016) Effect of reconstruction 
 #' methods and x-ray tube current-time product  on nodule detection in an 
-#' anthropomorphic thorax phantom: a crossed-treatment JAFROC observer study. 
+#' anthropomorphic thorax phantom: a crossed-modality JAFROC observer study. 
 #' Medical Physics. 43(3):1265-1274.
 #' 
 #' @examples
-#' str(datasetXModality)
+#' res <- str(datasetXModality)
 #'
 #'
 "datasetXModality"
@@ -905,59 +904,17 @@
 #' \item{\code{descriptions$name}}{, chr "SIM-DEGENERATE", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr "1", reader labels}
 #' }
 #'
 #' @keywords datasets
 #'
 #' @examples
-#' str(datasetDegenerate)
+#' res <- str(datasetDegenerate)
 #'
 #'
 "datasetDegenerate"
-#'
-#'
-#' 
-#'
-#'
-#' Simulated FROC SPLIT-PLOT-C dataset
-#'
-#' Simulated from FED Excel dataset by successively ignoring readers 3:4, c(1,3:4), 
-#' c(1:2,4), etc.
-#' created simulated split plot Excel dataset from Fed dataset: 
-#' confirmed it is read without error 
-#'    
-#' 
-#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
-#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
-#'    contain 3 elements, \code{$perCase}, \code{$IDs} and \code{$weights} as sub-lists; \code{$descriptions}
-#'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
-#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
-#' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:100], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:100, 1:3] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:100, 1:3], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetFROCSpC", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "SIM-FROC-SPLIT-PLOT-C", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", treatment label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "3" "4" "5", reader labels}
-#' }
-#'
-#' @keywords datasets
-#'
-#' @examples
-#' str(datasetFROCSpC)
-#'
-"datasetFROCSpC"
-#'
-#'
 #'
 #'
 #' 
@@ -982,7 +939,7 @@
 #' \item{\code{descriptions$name}}{, chr "SIM-ROI", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
 #' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", treatment label(s)}
+#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", modality label(s)}
 #' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 #' }
 #'
@@ -990,7 +947,7 @@
 #'
 #' 
 #' @examples
-#' str(datasetROI)
+#' res <- str(datasetROI)
 #'
 #'
 "datasetROI"

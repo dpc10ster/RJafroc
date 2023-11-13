@@ -39,9 +39,9 @@
     for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC
     (AFROC) and weighted AFROC (wAFROC) curves. For fully crossed study designs significance testing of reader-averaged FOM
     differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods. Also
-    implemented are single treatment analyses, allowing comparison of performance of a group of radiologists to a specified
+    implemented are single modality analyses, allowing comparison of performance of a group of radiologists to a specified
     value, or comparison of AI to a group of radiologists/algorithms interpreting the same cases. Crossed-modality analysis is implemented
-    wherein there are two crossed treatment factors and the aim is to determined performance in each treatment factor averaged
+    wherein there are two crossed modality factors and the aim is to determined performance in each modality factor averaged
     over all levels of the second factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates
     of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve the
     desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input
@@ -73,7 +73,7 @@
     \item AFROC1 curve: plot of LLF (ordinate) vs. FPF1, where FPF1 is inferred using
        highest rating of NL marks on \strong{ALL cases}
     \item \eqn{alpha}: The significance level \eqn{\alpha} of the test of the null
-       hypothesis of no treatment effect
+       hypothesis of no modality effect
     \item AUC: area under curve; e.g., ROC-AUC = area under ROC curve, an
        example of a FOM
     \item \emph{b}: The width or "b" parameter of the conventional binormal
@@ -87,11 +87,10 @@
        bimodal, with a peak at zero and one at \eqn{\mu}, the integrated fraction
        at \eqn{\mu} is \eqn{\alpha} (not to be confused with \eqn{\alpha} of NH testing)
     \item CI: The (1-\eqn{\alpha}) confidence interval for the stated statistic
-    \item Crossed modality: a dataset containing two modality (treatment) factors, with
+    \item Crossed-modality: a dataset containing two modality (i.e., treatment) factors, with
        the levels of the two factors crossed, see paper by Thompson et al
     \item DBM: Dorfman-Berbaum-Metz, a significance testing method for
-       detecting a treatment effect in MRMC studies
-    \item DBMH: Hillis' modification of the DBM method
+       detecting a modality effect in MRMC studies, with Hillis suggested modification to \code{ddf}. 
     \item ddf: Denominator degrees of freedom of appropriate \eqn{F}-test;
        the corresponding ndf is \code{I} - 1
     \item Empirical AUC: trapezoidal area under curve, same as the Wilcoxon
@@ -107,9 +106,9 @@
     \item FRRC: Analysis that treats readers as fixed and cases as random factors
     \item I: total number of modalities, indexed by \eqn{i}
     \item image/case: used interchangeably; a case can consist of several images
-       of the same patient in the same treatment
+       of the same patient in the same modality
     \item iMRMC: A text file format used for ROC data by FDA/CDRH researchers
-    \item individual: A single-treatment single-reader dataset.
+    \item individual: A single-modality single-reader dataset.
     \item Intrinsic: Used in connection with RSM; a parameter that is independent of
        the RSM \eqn{\mu} parameter, but whose meaning may not be as transparent as
        the corresponding physical parameter
@@ -137,10 +136,10 @@
     \item maxLL: maximum number of lesions per case in dataset
     \item maxNL: maximum number of NL marks per case in dataset
     \item MRMC: multiple reader multiple case (each reader interprets each case in
-       each treatment, i.e. fully crossed study design)
+       each modality, i.e. fully crossed study design)
     \item ndf: Numerator degrees of freedom of appropriate \eqn{F}-test, usually
        number of treatments minus one
-    \item NH: The null hypothesis that all treatment effects are zero; rejected
+    \item NH: The null hypothesis that all modality effects are zero; rejected
        if the \eqn{p}-value is smaller than \eqn{\alpha}
     \item NL: non-lesion localization, of which FP is a special case, i.e., a
        mark that does not correctly locate any existing localized lesion(s)
@@ -151,8 +150,7 @@
     \item Operating point: A point on an operating characteristic, e.g.,
        (FPF, TPF) represents an operating point on an ROC
     \item OR: Obuchowski-Rockette, a significance testing method for detecting
-       a treatment effect in MRMC studies
-    \item ORH: Hillis' modification of the OR method
+       a modality effect in MRMC studies, with Hillis suggested modifications 
     \item Physical parameter: Used in connection with RSM; a parameter whose
        meaning is more transparent than the corresponding intrinsic parameter,
        but which depends on the RSM \eqn{\mu} parameter
@@ -161,7 +159,7 @@
        is close enough to a lesion to be counted as a LL (or correct localization);
        otherwise it is counted as a NL (or incorrect localization)
     \item p-value: the probability, under the null hypothesis, that the observed
-       treatment effects, or larger, could occur by chance
+       modality effects, or larger, could occur by chance
     \item Proper: a proper fit does not inappropriately fall below the chance
        diagonal, does not display a "hook" near the upper right corner
     \item PROPROC: Metz's binormal model based fitting of proper ROC curves
@@ -216,7 +214,7 @@
 }
 
 \section{Dataset}{
-  The \code{dataset} object has 3 \code{list} elements: \code{$ratings}, \code{$lesions}
+  A standard \code{dataset} object has 3 \code{list} elements: \code{$ratings}, \code{$lesions}
      and \code{$descriptions}, where:
 
      \itemize{
@@ -238,10 +236,10 @@
         the corresponding "empty" positions would be filled with
         \code{-Inf}s. \strong{Do not use \code{NA} to denote a missing rating.}
 
-    \strong{Note}: \bold{"dataset" in this package always represents
-    \code{R} object(s) with the following structure(s):}
+    \strong{Note}: A standard dataset always represents \code{R} object(s) with the 
+        following structure(s):
 
-    \subsection{General data structure, e.g., \code{dataset02}, an ROC dataset, and
+    \subsection{Data structure, e.g., \code{dataset02}, an ROC dataset, and
         \code{dataset05}, an FROC dataset.}{
     \itemize{
     \item \code{ratings$NL}: a float array with dimensions
@@ -307,12 +305,10 @@
         interpretations occurred or NAs otherwise. For abnormal cases elements
         \code{c(I, J, L, 2:(maxLL+1))} are filled with 1s if the corresponding
         interpretations occurred or NAs otherwise. This object is necessary for analyzing
-        more complex designs, e.g., split-plot, as described next.
+        more complex designs.
 
-    \item \code{descriptions$design}: a \code{character} variable: "\code{FCTRL}",
-        "\code{SPLIT-PLOT-A}" or "\code{SPLIT-PLOT-A}", corresponding to factorial,
-        split-plot-A or split-plot-C designs. The A and C refer to subparts of Table VII
-        in a Hillis 2014 publication.
+    \item \code{descriptions$design}: a \code{character} variable: "\code{FCTRL}", 
+        corresponding to factorial design. 
 
     \item \code{descriptions$modalityID}: a \code{character} vector of length \eqn{I},
         which labels/names the modalities in the dataset. For non-JAFROC data file formats,
@@ -337,20 +333,20 @@
     }
   }
 
-  \subsection{Crossed modality data structure, example \code{datasetXModality}}{
+  \subsection{Crossed-modality dataset structure, example \code{datasetXModality}}{
   Only changes from the previously described structure are described below:
     \itemize{
-    \item \code{ratings$NL}: a float array with dimension \code{c(I1, I2, J, K, maxNL)}
+    \item \code{dataset$ratings$NL}: a float array with dimension \code{c(I1, I2, J, K, maxNL)}
         containing the ratings of NL marks. Note the existence of two modality indices.
     \item \code{LL}: a float array with dimension \code{c(I1, I2, J, K2, maxLL)}
         containing the ratings of all LL marks. Note the existence of two modality indices.
-    \item \code{modalityID1}: corresponding to first modality factor.
-    \item \code{modalityID2}: corresponding to second modality factor.
+    \item \code{dataset$descriptions$modalityID1}: corresponding to first modality factor.
+    \item \code{dataset$descriptions$modalityID2}: corresponding to second modality factor.
     }
   }
 }
 
-\section{Df: Datafile Related Functions}{
+\section{Df: Datafile related functions}{
   \itemize{
         \item \code{\link{Df2RJafrocDataset}}: Convert a ratings array to a
            dataset object.
@@ -367,7 +363,7 @@
            "AUC-equivalent" FROC dataset from a supplied LROC dataset.
         \item \code{\link{DfFroc2Lroc}}: Simulates an
            "AUC-equivalent" LROC dataset from a supplied FROC dataset.
-        \item \code{\link{DfReadCrossedModalities}}: Read a crossed-modalities
+        \item \code{\link{DfReadXModalities}}: Read a crossed-modalities
            data file.
         \item \code{\link{DfReadDataFile}}: Read a general data file.
         \item \code{\link{DfSaveDataFile}}: Save ROC data file in a different format.
@@ -426,12 +422,10 @@
 
 \section{Significance Testing Functions}{
   \itemize{
-        \item \code{\link{StSignificanceTesting}}: Perform significance testing,
-           DBM or OR.
-        \item \code{\link{StSignificanceTestingCadVsRad}}: Perform
+        \item \code{\link{St}}: Performs significance testing,
+           DBM or OR, with factorial or crossed modalities.
+        \item \code{\link{StCadVsRad}}: Perform
            significance testing, CAD vs. radiologists.
-        \item \code{\link{StSignificanceTestingCrossedModalities}}: Perform
-           significance testing using crossed modalities analysis.
   }
 }
 
@@ -448,14 +442,14 @@
         \item \code{\link{UtilLesDistr}}: Calculates the lesion distribution dataframe.
         \item \code{\link{UtilLesWghts}}: Calculates the lesion weights  matrix.
         \item \code{\link{UtilMeanSquares}}: Calculates the mean squares used in the
-           DBMH and ORH methods.
+           DBM and OR methods.
         \item \code{\link{UtilOutputReport}}: Generate a formatted report file.
         \item \code{\link{Util2Intrinsic}}: Convert RSM physical parameters to
            intrinsic parameters.
         \item \code{\link{UtilPseudoValues}}: Return jackknife pseudovalues.
-        \item \code{\link{UtilVarComponentsDBM}}: Utility for Dorfman-Berbaum-Metz
+        \item \code{\link{UtilDBMVarComp}}: Utility for Dorfman-Berbaum-Metz
            variance components.
-        \item \code{\link{UtilVarComponentsOR}}: Utility for Obuchowski-Rockette
+        \item \code{\link{UtilORVarComp}}: Utility for Obuchowski-Rockette
            variance components.
   }
 }

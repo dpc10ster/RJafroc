@@ -1,4 +1,4 @@
-contextStr <- "DBM varComp vs Windows JAFROC StSignificanceTesting HrAuc"
+contextStr <- "DBM varComp vs Windows JAFROC St HrAuc"
 context(contextStr)
 test_that(contextStr, {
   # this is the same dataset that Jason Cai found the error on
@@ -26,8 +26,8 @@ test_that(contextStr, {
   goodValues <- readRDS(fn)
   goodValues <- as.numeric(as.vector(as.matrix(goodValues)))
   
-  # following tests the DBM branch of StSignificanceTesting
-  currentValues <- StSignificanceTesting(ds, FOM = "HrAuc", method = "DBM")$ANOVA$VarCom
+  # following tests the DBM branch of St
+  currentValues <- St(ds, FOM = "HrAuc", method = "DBM")$ANOVA$VarCom
   currentValues <- as.vector(as.matrix(currentValues))
   for (i in 1: length(goodValues)){
     x <- as.numeric(goodValues[[i]])
@@ -39,7 +39,7 @@ test_that(contextStr, {
 
 
 
-contextStr <- "OR varComp vs Windows JAFROC StSignificanceTesting HrAuc"
+contextStr <- "OR varComp vs Windows JAFROC St HrAuc"
 context(contextStr)
 test_that(contextStr, {
   # this is the same dataset that Jason Cai found the error on
@@ -67,8 +67,8 @@ test_that(contextStr, {
   goodValues <- readRDS(fn)
   goodValues <- as.numeric(as.vector(as.matrix(goodValues)))
   
-  # following tests the OR branch of StSignificanceTesting
-  currentValues <- StSignificanceTesting(ds, FOM = "HrAuc", method = "OR")$ANOVA$VarCom[,1]
+  # following tests the OR branch of St
+  currentValues <- St(ds, FOM = "HrAuc", method = "OR")$ANOVA$VarCom[,1]
   currentValues <- as.vector(as.matrix(currentValues))
   for (i in 1: length(goodValues)){
     x <- as.numeric(goodValues[[i]])

@@ -38,7 +38,7 @@ Apart from ratings two characteristics of an FROC dataset
    on \code{LD}.
 }
 \examples{
-UtilLesDistr(dataset01) # FROC dataset
+res <- UtilLesDistr(dataset01) # FROC dataset
 ##    lesID       Freq
 ## 1      1 0.93258427
 ## 2      2 0.06741573 
@@ -46,17 +46,17 @@ UtilLesDistr(dataset01) # FROC dataset
 ## and the rest have lesionID = 2
 
 
-UtilLesDistr(dataset02) # ROC dataset
+res <- UtilLesDistr(dataset02) # ROC dataset
 ##       lesID Freq
 ## 1         1    1
 ## In the Excel input file all dis. cases have one lesion
 
-UtilLesDistr(datasetCadLroc) # LROC dataset
+res <- UtilLesDistr(datasetCadLroc) # LROC dataset
 ##       lesID Freq
 ## 1         1    1
 ## In the Excel input file all dis. cases have one lesion
 
-UtilLesDistr(c(0.5, 0.3, 0.1, 0.1))
+res <- UtilLesDistr(c(0.5, 0.3, 0.1, 0.1))
 ##      lesID Freq
 ## 1        1  0.5
 ## 2        2  0.3
@@ -65,7 +65,7 @@ UtilLesDistr(c(0.5, 0.3, 0.1, 0.1))
 ## An example of array input; 50 percent of the cases have lesionID = 1, 
 ## 30 percent have lesionID = 2, etc.  
 
-UtilLesDistr(dataset11) ## big froc dataset
+res <- UtilLesDistr(dataset11) ## big froc dataset
 ##     lesID        Freq
 ## 1       1 0.217391304
 ## 2       2 0.200000000
