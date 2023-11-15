@@ -227,7 +227,7 @@ test_that("LROC paradigm: FOM = PCL@FPFValue", {
 context("UtilFigureOfMerit FROC")
 test_that("UtilFigureOfMerit FROC", {
   
-  dataset <- datasetXModality
+  dataset <- datasetX
   FOM <- "wAFROC"
   
   fn <- paste0(test_path(), "/goodValues361/FOM/UtilFigureOfMerit-", FOM, ".rds")

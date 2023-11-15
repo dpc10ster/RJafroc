@@ -856,7 +856,7 @@
 #' \item{\code{lesions$perCase}}{, int [1:34], number of lesions per diseased case}
 #' \item{\code{lesions$IDs}}{, num [1:34, 1:3] , numeric labels of lesions on diseased cases}
 #' \item{\code{lesions$weights}}{, num [1:34, 1:3], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetXModality", base name of dataset in `data` folder}
+#' \item{\code{descriptions$fileName}}{, chr, "datasetX", base name of dataset in `data` folder}
 #' \item{\code{descriptions$type}}{, chr "FROC", the data type}
 #' \item{\code{descriptions$name}}{, chr "THOMPSON-X-MOD", the name of the dataset}
 #' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
@@ -873,10 +873,10 @@
 #' Medical Physics. 43(3):1265-1274.
 #' 
 #' @examples
-#' res <- str(datasetXModality)
+#' res <- str(datasetX)
 #'
 #'
-"datasetXModality"
+"datasetX"
 #'
 #' 
 #' 

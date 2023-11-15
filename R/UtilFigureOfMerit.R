@@ -65,7 +65,7 @@
 #' 
 #' res <- UtilFigureOfMerit(dataset02, FOM = "Wilcoxon") # ROC data
 #' res <- UtilFigureOfMerit(dataset01) # FROC dataset, default wAFROC FOM
-#' res <- UtilFigureOfMerit(datasetXModality, FOM = "wAFROC")
+#' res <- UtilFigureOfMerit(datasetX, FOM = "wAFROC")
 #' 
 #' 
 #' 

@@ -25,7 +25,7 @@
 #' 
 #' @examples
 #' result <- UtilPseudoValues(dataset05, FOM = "wAFROC")$jkFomValues[1,1,1:10]
-#' result <- UtilPseudoValues(datasetXModality, FOM = "wAFROC")
+#' result <- UtilPseudoValues(datasetX, FOM = "wAFROC")
 #' 
 #' @export
 

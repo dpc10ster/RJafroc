@@ -60,6 +60,6 @@ vc <- UtilORVarComp(dataset02, FOM = "Wilcoxon")
 
 ##UtilORVarComp(dataset02, FOM = "Wilcoxon", covEstMethod = "DeLong")$VarCom
 
-vc <- UtilORVarComp(datasetXModality, FOM = "wAFROC") 
+vc <- UtilORVarComp(datasetX, FOM = "wAFROC") 
   
 }

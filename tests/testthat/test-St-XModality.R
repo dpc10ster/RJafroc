@@ -2,7 +2,7 @@ contextStr <- "XModality compare DBM to OR, FROC"
 context(contextStr)
 test_that(contextStr, {
   
-  ds <- datasetXModality
+  ds <- datasetX
   DBM <- St(ds, FOM = "wAFROC", method = "DBM", analysisOption = "ALL")
   OR <- St(ds, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
   
@@ -34,7 +34,7 @@ contextStr <- "XModality and dataset01 OR consistency test, FROC"
 context(contextStr)
 test_that(contextStr, {
   
-  ds <- datasetXModality
+  ds <- datasetX
   
   fn <- paste0(test_path(), "/goodValues361/SigTest/OR/XModality", ".rds")
   if (!file.exists(fn)) {
@@ -68,7 +68,7 @@ contextStr <- "XModality and dataset01 DBM consistency test, FROC"
 context(contextStr)
 test_that(contextStr, {
   
-  ds <- datasetXModality
+  ds <- datasetX
   
   fn <- paste0(test_path(), "/goodValues361/SigTest/DBM/XModality", ".rds")
   if (!file.exists(fn)) {

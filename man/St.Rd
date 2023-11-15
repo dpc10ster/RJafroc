@@ -95,7 +95,7 @@ Performs DBM or OR significance testing for specified dataset.
 \examples{
 result <- St(dataset02,FOM = "Wilcoxon", method = "DBM") 
 result <- St(dataset02,FOM = "Wilcoxon", method = "OR")
-result <- St(datasetXModality, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
+result <- St(datasetX, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
 
 \donttest{
 result <- St(dataset05, FOM = "wAFROC")

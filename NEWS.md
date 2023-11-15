@@ -9,21 +9,21 @@ title: "NEWS"
 
 
 ### Commented some code 10/31/23
-* bootstrap and DeLong in `StORAnalysis`
+* bootstrap and DeLong in `StORAnalysis` disabled for XMod analysis
 
 
 
 ### Do global search for questionable code
 * marked as follows
-* ???DPC???
+* ???DPC??? or !!!DPC!!!
 * Renamed `StSignificanceTestingCadVsRad` to `StCadVsRad`
+* Renamed `UtilVarComponentOR` to `UtilOrVarCov`
+* Renamed `UtilVarComponentsDBM` to `UtilDBMVarComp`
 
 
 ### TODOs 10/4/23
 * Insert tests for all failure branches in `isValidDataset`
-* Renamed `UtilVarComponentOR` to `UtilOrVarCov`
-* Renamed `UtilVarComponentsDBM` to `UtilDBMVarComp`
-* Shorten this log and keep details in a new file, `CodeChangesLog.md`, but this has to be outside this package directory
+* TODO: Shorten this log and keep details in a new file, `CodeChangesLog.md`, but this has to be outside the package directory
 
 
 
@@ -32,6 +32,7 @@ title: "NEWS"
 * Bug fix, Issue 89, see below
 * Fixed entry errors in Excel file (check column names and data type)
 * TODO: `QuickStart`, new chapter on recommended FOMs and those to avoid at all costs
+* TODO: `QuickStart`, explanation of St output
 * Removed SPLIT-PLOT-A and  SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on versions < 2.1.3.
 
 

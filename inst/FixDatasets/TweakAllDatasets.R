@@ -6,7 +6,7 @@ fileNames <- c("dataset01", "dataset02", "dataset03", "dataset04", "dataset05", 
                "dataset13", "dataset14", 
                "datasetBinned123", "datasetBinned124", "datasetBinned125",
                "datasetCadLroc", "datasetCadSimuFroc", 
-               "datasetXModality",
+               "datasetX",
                "datasetDegenerate", "datasetFROCSp", "datasetROI")
 
 dataTypes <- c("FROC", "ROC", "ROC", "FROC", "FROC", "FROC",

@@ -153,7 +153,6 @@ StORAnalysis <- function(dataset,
     ANOVA$IndividualTrt <- IndividualTrt
     ANOVA$IndividualRdr <- IndividualRdr
     
-    
     trtMeanDiffs <- list()
     trtMeans <- list()
     diffTRName <- list()
@@ -195,7 +194,7 @@ StORAnalysis <- function(dataset,
     if (analysisOption == "RRRC") {
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       return(list(
-        FOMs = FOMStats[-4],
+        FOMs = FOMStats[-4], # do not show diffTreatmentName
         ANOVA = ANOVA,
         RRRC = RRRC
       ))
