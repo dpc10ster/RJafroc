@@ -20,10 +20,10 @@ title: "NEWS"
 
 
 ### TODOs 10/4/23
-* Insert tests for all failure brances in `isValidDataset`
+* Insert tests for all failure branches in `isValidDataset`
 * Renamed `UtilVarComponentOR` to `UtilOrVarCov`
 * Renamed `UtilVarComponentsDBM` to `UtilDBMVarComp`
-* Shorten this log and keep details in a new file, `CodeChangesLog.md`
+* Shorten this log and keep details in a new file, `CodeChangesLog.md`, but this has to be outside this package directory
 
 
 

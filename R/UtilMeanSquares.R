@@ -8,17 +8,17 @@
 #' @param method The method, in which the mean squares are calculated. The two 
 #'    valid choices are \code{"DBM"} (default) and \code{"OR"}. 
 #' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC";
-#'     where to evaluate a partial curve based figure of merit. The default is 0.2.
+#'    where to evaluate a partial curve based figure of merit. The default is 0.2.
 #' 
 #' @return A list containing the mean squares
 #' 
 #' @details 
 #' For \code{DBM} method, \code{msT, msTR, msTC, msTRC} will not be available 
-#'    if the dataset contains only one modality. Similarly, 
-#'    \code{msR, msTR, msRC, msTRC} will not be returned for single reader dataset. 
+#'    if the dataset contains only one modality (NAs are returned). Similarly, 
+#'    \code{msR, msTR, msRC, msTRC} NAs are returned for single reader dataset. 
 #'    For \code{ORH} method, \code{msT, msR, msTR} will be returned for multiple 
 #'    reader multiple modality dataset. \code{msT} is not available for single 
-#'    modality dataset, and \code{msR} is not available for single reader dataset.
+#'    modality dataset and \code{msR} is not available for single reader dataset.
 #' 
 #' @examples
 #' result <- UtilMeanSquares(dataset02, FOM = "Wilcoxon")

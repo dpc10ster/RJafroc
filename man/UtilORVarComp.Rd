@@ -14,7 +14,7 @@ UtilORVarComp(
 )
 }
 \arguments{
-\item{dataset}{Factorial or cross-modality dataset}
+\item{dataset}{Factorial one-treatment or cross-modality two-treatment dataset}
 
 \item{FOM}{Figure of merit}
 
@@ -22,14 +22,16 @@ UtilORVarComp(
 (the default) or "bootstrap" or "DeLong" ("DeLong" is applicable only for 
 FOM = "Wilcoxon").}
 
-\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC":
-the \code{FPFValue} at which to evaluate a partial curve based figure of merit. 
-The default is \code{FPFValue} = 0.2.}
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" 
+or "ALROC": the \code{FPFValue} at which to evaluate a partial curve 
+based figure of merit. The default is 0.2.}
 
-\item{nBoots}{The number of bootstraps (default = 200).Only needed for covEstMethod = "bootstrap".}
+\item{nBoots}{The number of bootstraps (default 200).Only needed for 
+covEstMethod = "bootstrap".}
 
-\item{seed}{Only needed for the bootstrap covariance estimation method. The initial 
-seed for the random number generator, the default is \code{NULL}, for random seed.}
+\item{seed}{Only needed for the bootstrap covariance estimation method. 
+The initial seed for the random number generator, the default is 
+\code{NULL}, for random seed.}
 }
 \value{
 A list containing the following \code{data.frames}: 

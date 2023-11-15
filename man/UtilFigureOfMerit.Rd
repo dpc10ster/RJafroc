@@ -2,8 +2,8 @@
 % Please edit documentation in R/UtilFigureOfMerit.R
 \name{UtilFigureOfMerit}
 \alias{UtilFigureOfMerit}
-\title{Calculate empirical figures of merit (FOMs) for factorial dataset, standard or cross-
-   modality}
+\title{Calculate empirical figures of merit (FOMs) for factorial dataset, standard 
+    one-treatment or two-treatment cross-modality}
 \usage{
 UtilFigureOfMerit(dataset, FOM = "wAFROC", FPFValue = 0.2)
 }
@@ -16,62 +16,66 @@ UtilFigureOfMerit(dataset, FOM = "wAFROC", FPFValue = 0.2)
 where to evaluate a partial curve based figure of merit. The default is 0.2.}
 }
 \value{
-For standard dataset: A \code{c(I, J)} dataframe, where the row names are 
-   \code{modalityID}'s of the treatments and column names are the 
-   \code{readerID}'s of the readers.
-   For cross-modality dataset: Two data frames are returned: 
-   * \code{c(I2, J)} data frame, FOMs averaged over the first modality, where the row 
-   names are modality IDS of the second modality 
-   * \code{c(I1, J)} data frames, FOMs averaged over the second modality, where the row 
-   names are modality IDs of the first modality, 
-   * In either case the column names are the \code{readerID}'s.
+For standard IT dataset: A \code{c(I, J)} dataframe, where the row 
+    names are \code{modalityID}'s of the treatments and column names are the 
+    \code{readerID}'s of the readers. For cross-modality dataset: A \code{list} 
+    containing two data frames are returned: 
+    * \code{c(I2, J)} data frame, FOMs averaged over the first modality, 
+    where the row names are modality IDS of the second modality 
+    * \code{c(I1, J)} data frames, FOMs averaged over the second modality, 
+    where the row names are modality IDs of the first modality, 
+    * For either 1T or 2T the column names are the \code{readerID}'s.
 }
 \description{
-Calculate the specified empirical figure of merit
-   for each modality-reader combination in a standard or cross-modality dataset
+Calculate the specified empirical figure of merit for each 
+    modality-reader combination in a standard (1T) or cross-modality (2T) dataset
 }
 \details{
 The allowed FOMs depend on the \code{dataType} field of the 
-   \code{dataset} object. 
+    \code{dataset} object. 
 
-   \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
-   \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
-   \itemize{ 
-   \item \code{FOM = "AFROC1"} (use only if no normal cases  are available)
-   \item \code{FOM = "AFROC"} 
-   \item \code{FOM = "wAFROC1"} (use only if no normal cases  are available)
-   \item \code{FOM = "wAFROC"} (the default) 
-   \item \code{FOM = "HrAuc"} 
-   \item \code{FOM = "HrSe"} (example of an end-point based FOM)
-   \item \code{FOM = "HrSp"} (do:)
-   \item \code{FOM = "MaxLLF"} (do:)
-   \item \code{FOM = "MaxNLF"} (do:)
-   \item \code{FOM = "MaxNLFAllCases"} (do:) 
+
+    \strong{For \code{dataset$descriptions$type = "ROC"} only \code{FOM = "Wilcoxon"} is allowed}.
+    \strong{For \code{dataset$descriptions$type = "FROC"} the following FOMs are allowed}:
+    \itemize{ 
+    \item \code{FOM = "AFROC1"} (use only if no non-diseased cases are available)
+    \item \code{FOM = "AFROC"} 
+    \item \code{FOM = "wAFROC1"} (use only if no non-diseased cases  are available)
+    \item \code{FOM = "wAFROC"} (the default) 
+    \item \code{FOM = "HrAuc"} 
+    \item \code{FOM = "HrSe"} (example of an end-point based FOM)
+    \item \code{FOM = "HrSp"} (do:)
+    \item \code{FOM = "MaxLLF"} (do:)
+    \item \code{FOM = "MaxNLF"} (do:)
+    \item \code{FOM = "MaxNLFAllCases"} (do:) 
    } 
-   \code{"MaxLLF"}, \code{"MaxNLF"} and \code{"MaxNLFAllCases"}
-   correspond to ordinate, and abscissa, respectively, of the highest point 
-   on the FROC operating characteristic obtained by counting all the marks. 
-   Given the number of FOMs possible with FROC data, it is appropriate 
-   to make a recommendation: \strong{it is recommended the wAFROC FOM be used
-   whenever possible. Only if the dataset has no non-diseased cases should one use the
-   the wAFROC1 FOM}.
+    \code{"MaxLLF"}, \code{"MaxNLF"} and \code{"MaxNLFAllCases"}
+    correspond to ordinate, and abscissa, respectively, of the highest point 
+    on the FROC operating characteristic obtained by counting all the marks. 
+    Given the number of FOMs possible with FROC data, it is appropriate 
+    to make a recommendation: \strong{it is recommended the wAFROC FOM be used
+    whenever possible.  One should use the wAFROC1 FOM only if the dataset has 
+    no non-diseased cases}.
    
-   For \strong{\code{dataType = "ROI"} dataset only \code{FOM = "ROI"} is allowed}.
+    For \strong{\code{dataType = "ROI"} dataset only \code{FOM = "ROI"} is allowed}.
    
-   For \strong{\code{dataType = "LROC"}} dataset the following FOMs are allowed:
-   \itemize{
-   \item \code{FOM = "Wilcoxon"} for ROC data inferred from LROC data 
-   \item \code{FOM = "PCL"} the probability of correct localization at specified \code{FPFValue}
-   \item \code{FOM = "ALROC"} the area under the LROC from zero to specified \code{FPFValue} 
-   }
-   \code{FPFValue} The FPF at which to evaluate \code{PCL} or \code{ALROC}; 
-   the default is 0.2; only needed for LROC data.
-   For cross-modality analysis ROI and LROC datasets are not supported.
+    For \strong{\code{dataType = "LROC"}} dataset the following FOMs are allowed:
+    \itemize{
+    \item \code{FOM = "Wilcoxon"} for ROC data inferred from LROC data 
+    \item \code{FOM = "PCL"} the probability of correct localization at specified \code{FPFValue}
+    \item \code{FOM = "ALROC"} the area under the LROC from zero to specified \code{FPFValue} 
+    }
+    \code{FPFValue} The FPF at which to evaluate \code{PCL} or \code{ALROC}; 
+    the default is 0.2; only needed for LROC data.
+    For cross-modality analysis ROI and LROC datasets are not supported.
 }
 \examples{
+
 res <- UtilFigureOfMerit(dataset02, FOM = "Wilcoxon") # ROC data
 res <- UtilFigureOfMerit(dataset01) # FROC dataset, default wAFROC FOM
 res <- UtilFigureOfMerit(datasetXModality, FOM = "wAFROC")
+
+
 
 }
 \references{

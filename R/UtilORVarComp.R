@@ -1,6 +1,6 @@
 #' Obuchowski-Rockette variance components for dataset
 #' 
-#' @param dataset Factorial or cross-modality dataset
+#' @param dataset Factorial one-treatment or cross-modality two-treatment dataset
 #' 
 #' @param FOM Figure of merit
 #' 
@@ -8,14 +8,16 @@
 #'     (the default) or "bootstrap" or "DeLong" ("DeLong" is applicable only for 
 #'     FOM = "Wilcoxon").
 #'     
-#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" or "ALROC":
-#'     the \code{FPFValue} at which to evaluate a partial curve based figure of merit. 
-#'     The default is \code{FPFValue} = 0.2.
+#' @param FPFValue Only needed for \code{LROC} data \strong{and} FOM = "PCL" 
+#'     or "ALROC": the \code{FPFValue} at which to evaluate a partial curve 
+#'     based figure of merit. The default is 0.2.
 #'     
-#' @param nBoots  The number of bootstraps (default = 200).Only needed for covEstMethod = "bootstrap". 
+#' @param nBoots  The number of bootstraps (default 200).Only needed for 
+#'     covEstMethod = "bootstrap". 
 #'     
-#' @param seed  Only needed for the bootstrap covariance estimation method. The initial 
-#'     seed for the random number generator, the default is \code{NULL}, for random seed. 
+#' @param seed  Only needed for the bootstrap covariance estimation method. 
+#'     The initial seed for the random number generator, the default is 
+#'     \code{NULL}, for random seed. 
 #'     
 #' @return A list containing the following \code{data.frames}: 
 #'     \itemize{
@@ -44,11 +46,11 @@
 #' @export
 #' 
 UtilORVarComp <- function (dataset, 
-                          FOM, 
-                          covEstMethod = "jackknife", 
-                          FPFValue = 0.2, 
-                          nBoots = 200, 
-                          seed = NULL)
+                           FOM, 
+                           covEstMethod = "jackknife", 
+                           FPFValue = 0.2, 
+                           nBoots = 200, 
+                           seed = NULL)
 {
   
   if (dataset$descriptions$design == "FCTRL") { 
@@ -61,21 +63,21 @@ UtilORVarComp <- function (dataset,
     jkFomValues <- UtilPseudoValues(dataset, FOM, FPFValue)$jkFomValues
     
     VarCovOR <- SmpldFom2ORCov(jkFomValues, 
-                          modalityID, 
-                          readerID, 
-                          covEstMethod, 
-                          FPFValue, 
-                          nBoots, 
-                          seed)
+                               modalityID, 
+                               readerID, 
+                               covEstMethod, 
+                               FPFValue, 
+                               nBoots, 
+                               seed)
     
     Output <- OROutput(foms, 
-                         VarCovOR, 
-                         modalityID, 
-                         readerID)
+                       VarCovOR, 
+                       modalityID, 
+                       readerID)
     
   } else {
     # cross-modality factorial dataset, two treatment factors
-
+    
     modalityID1 <- dataset$descriptions$modalityID1
     modalityID2 <- dataset$descriptions$modalityID2
     modalityID <- list(modalityID2, modalityID1)
@@ -87,15 +89,15 @@ UtilORVarComp <- function (dataset,
     jkFomValues <- UtilPseudoValues(dataset, FOM, FPFValue)$jkFomValues
     
     VarCovOR <- SmpldFom2ORCov(jkFomValues, 
-                          modalityID, 
-                          readerID, 
-                          covEstMethod, 
-                          FPFValue, 
-                          nBoots, 
-                          seed)
+                               modalityID, 
+                               readerID, 
+                               covEstMethod, 
+                               FPFValue, 
+                               nBoots, 
+                               seed)
     
     Output <- OROutput(foms, VarCovOR, modalityID, readerID)
-
+    
   } 
   return(Output)
 }
@@ -104,12 +106,12 @@ UtilORVarComp <- function (dataset,
 
 
 SmpldFom2ORCov <- function(jkFomValues, 
-                             modalityID, 
-                             readerID, 
-                             covEstMethod, 
-                             FPFValue, 
-                             nBoots, 
-                             seed) 
+                           modalityID, 
+                           readerID, 
+                           covEstMethod, 
+                           FPFValue, 
+                           nBoots, 
+                           seed) 
 {
   
   if (covEstMethod == "jackknife") {
