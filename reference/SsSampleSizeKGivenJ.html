@@ -102,12 +102,12 @@ components are supplied.</p></dd>
 
 
 <dt>analysisOption</dt>
-<dd><p>Desired generalization, "RRRC", "FRRC", "RRFC" or "ALL" 
-(the default).</p></dd>
+<dd><p>Specifies the random factor(s): "RRRC" (the default), 
+"FRRC", "RRFC" or "ALL".</p></dd>
 
 
 <dt>UseDBMHB2004</dt>
-<dd><p>Logical, default is <code>FALSE</code>, if <code>TRUE</code> the DBM
+<dd><p>Logical, default is <code>FALSE</code>, if <code>TRUE</code> the 2004 DBM
 method is used. Otherwise the OR method is used.</p></dd>
 
 </dl></div>
@@ -130,36 +130,35 @@ method is used. Otherwise the OR method is used.</p></dd>
     <h2>Details</h2>
     <p><code>effectSize</code> = NULL uses the <strong>observed</strong> effect size in 
    the pilot study. A numeric value over-rides the default value. This 
-   argument must be supplied if dataset = NULL and variance compenents 
+   argument must be supplied if dataset = NULL and variance components 
    (the optional ... arguments) are supplied.</p>
     </div>
     <div id="note">
     <h2>Note</h2>
-    <p>The procedure is valid for ROC studies only; for FROC studies see 
-  Vignettes 19.</p>
+    <p>The procedure is valid for ROC studies only; for FROC studies see online books.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## the following two should give identical results</span></span></span>
 <span class="r-in"><span><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, J <span class="op">=</span> <span class="fl">6</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC  powerRRRC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.80161864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC powerRRRC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.8016186</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilDBMVarComp.html">UtilDBMVarComp</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span></span>
 <span class="r-in"><span><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, method <span class="op">=</span> <span class="st">"DBM"</span>, UseDBMHB2004 <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>VarTR <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarTR"</span>,<span class="fl">1</span><span class="op">]</span>, </span></span>
 <span class="r-in"><span>   VarTC <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarTC"</span>,<span class="fl">1</span><span class="op">]</span>, </span></span>
 <span class="r-in"><span>   VarErr <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"VarErr"</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC  powerRRRC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.80161864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC powerRRRC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.8016186</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## the following two should give identical results</span></span></span>
 <span class="r-in"><span><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, J <span class="op">=</span> <span class="fl">6</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC  powerRRRC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.80161864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC powerRRRC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.8016186</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilVarComponentsOR.html">UtilVarComponentsOR</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="UtilORVarComp.html">UtilORVarComp</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span><span class="op">$</span><span class="va">VarCom</span></span></span>
 <span class="r-in"><span><span class="va">KStar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dataset02</span><span class="op">$</span><span class="va">ratings</span><span class="op">$</span><span class="va">NL</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">SsSampleSizeKGivenJ</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NULL</span>, J <span class="op">=</span> <span class="fl">6</span>, effectSize <span class="op">=</span> <span class="fl">0.05</span>, method <span class="op">=</span> <span class="st">"OR"</span>, </span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>KStar <span class="op">=</span> <span class="va">KStar</span>, </span></span>
@@ -168,8 +167,8 @@ method is used. Otherwise the OR method is used.</p></dd>
 <span class="r-in"><span>   Cov2 <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Cov2"</span>,<span class="fl">1</span><span class="op">]</span>, </span></span>
 <span class="r-in"><span>   Cov3 <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Cov3"</span>,<span class="fl">1</span><span class="op">]</span>, </span></span>
 <span class="r-in"><span>   Var <span class="op">=</span> <span class="va">a</span><span class="op">[</span><span class="st">"Var"</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC  powerRRRC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.80161864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   KRRRC powerRRRC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   170 0.8016186</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{ </span></span></span>
 <span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">J</span> <span class="kw">in</span> <span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span></span>

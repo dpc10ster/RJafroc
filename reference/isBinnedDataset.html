@@ -57,19 +57,26 @@
 
 
 <dt>maxUniqeRatings</dt>
-<dd><p>For each treatment-reader combination, the max number of unique ratings in order to be classified as binned,  the default value for <code>maxUniqeRatings</code> is 6; if there are more unique ratings the treatment-reader combination is classified as not binned.</p></dd>
+<dd><p>For each modality-reader combination, the max number 
+of unique ratings in order to be classified as binned,  the default value
+for <code>maxUniqeRatings</code> is 6; if there are more unique ratings the 
+modality-reader combination is classified as not binned.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>a logical <code>[I x J]</code> array, TRUE if the corresponding treatment-reader combination is binned, i.e., has at most <code>maxUniqeRatings</code> unique ratings, FALSE otherwise.</p>
+<p>a logical <code>[I x J]</code> array, TRUE if the corresponding 
+    modality-reader combination is binned, i.e., has at most</p>
+<p></p>
+<p><code>maxUniqeRatings</code> unique ratings, FALSE otherwise.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">isBinnedDataset</span><span class="op">(</span><span class="va">dataset01</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">isBinnedDataset</span><span class="op">(</span><span class="va">dataset01</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] TRUE TRUE TRUE TRUE TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] TRUE TRUE TRUE TRUE TRUE</span>

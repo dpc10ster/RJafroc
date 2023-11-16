@@ -80,53 +80,17 @@ valid choices are <code>"DBM"</code> (default) and <code>"OR"</code>.</p></dd>
     <div id="details">
     <h2>Details</h2>
     <p>For <code>DBM</code> method, <code>msT, msTR, msTC, msTRC</code> will not be available 
-   if the dataset contains only one treatment. Similarly, 
-   <code>msR, msTR, msRC, msTRC</code> will not be returned for single reader dataset. 
+   if the dataset contains only one modality (NAs are returned). Similarly, 
+   <code>msR, msTR, msRC, msTRC</code> NAs are returned for single reader dataset. 
    For <code>ORH</code> method, <code>msT, msR, msTR</code> will be returned for multiple 
-   reader multiple treatment dataset. <code>msT</code> is not available for single 
-   treatment dataset, and <code>msR</code> is not available for single reader dataset.</p>
+   reader multiple modality dataset. <code>msT</code> is not available for single 
+   modality dataset and <code>msR</code> is not available for single reader dataset.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">UtilMeanSquares</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.54676344</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msR</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4373268</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.39686988</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msTR</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.062817491</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.099848084</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msRC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.06450106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msTRC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.039971603</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msCSingleT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.33629430 0.16042367</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msCSingleR</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.122249800 0.212748238 0.136533908 0.017289369 0.166052811</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">UtilMeanSquares</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.027397181</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msR</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.018337407</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $msTR</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.00092775374</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">UtilMeanSquares</span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">UtilMeanSquares</span><span class="op">(</span><span class="va">dataset05</span>, FOM <span class="op">=</span> <span class="st">"wAFROC"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

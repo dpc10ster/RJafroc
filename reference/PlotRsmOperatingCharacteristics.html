@@ -178,40 +178,13 @@ Modeling, and Applications with R-Based Examples</em> (CRC Press, Boca Raton, FL
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Following example is for mu = 2, lambda = 1, nu = 0.6, in one treatment and   </span></span></span>
-<span class="r-in"><span><span class="co">## mu = 3, lambda = 1.5, nu = 0.8, in the other treatment. 20% of the diseased </span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Following example is for mu = 2, lambda = 1, nu = 0.6, in one modality and   </span></span></span>
+<span class="r-in"><span><span class="co">## mu = 3, lambda = 1.5, nu = 0.8, in the other modality. 20% of the diseased </span></span></span>
 <span class="r-in"><span><span class="co">## cases have a single lesion, 40% have two lesions, 10% have 3 lesions, </span></span></span>
 <span class="r-in"><span><span class="co">## and 30% have 4 lesions.  </span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">PlotRsmOperatingCharacteristics</span><span class="op">(</span>mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, lambda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1.5</span><span class="op">)</span>, nu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.6</span>, <span class="fl">0.8</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">PlotRsmOperatingCharacteristics</span><span class="op">(</span>mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, lambda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1.5</span><span class="op">)</span>, nu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.6</span>, <span class="fl">0.8</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>   lesDistr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span><span class="op">)</span>, legendPosition <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ROCPlot</span>
-<span class="r-plt img"><img src="PlotRsmOperatingCharacteristics-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $AFROCPlot</span>
-<span class="r-plt img"><img src="PlotRsmOperatingCharacteristics-2.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $wAFROCPlot</span>
-<span class="r-plt img"><img src="PlotRsmOperatingCharacteristics-3.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $FROCPlot</span>
-<span class="r-plt img"><img src="PlotRsmOperatingCharacteristics-4.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $PDFPlot</span>
-<span class="r-plt img"><img src="PlotRsmOperatingCharacteristics-5.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $aucROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8898873 0.9634189</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $aucAFROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6323903 0.8040677</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $aucwAFROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6323903 0.8040677</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $aucFROC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5520004 1.1780432</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

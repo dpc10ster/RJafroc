@@ -85,13 +85,13 @@
         </td>
         <td><p>Convert an LROC dataset to a ROC dataset</p></td>
       </tr><tr><td>
-          <p><code><a href="DfReadCrossedModalities.html">DfReadCrossedModalities()</a></code> </p>
-        </td>
-        <td><p>Read a crossed-treatment data file</p></td>
-      </tr><tr><td>
           <p><code><a href="DfReadDataFile.html">DfReadDataFile()</a></code> </p>
         </td>
         <td><p>Read a data file</p></td>
+      </tr><tr><td>
+          <p><code><a href="DfReadXModalities.html">DfReadXModalities()</a></code> </p>
+        </td>
+        <td><p>Read a crossed-modality data file</p></td>
       </tr><tr><td>
           <p><code><a href="DfSaveDataFile.html">DfSaveDataFile()</a></code> </p>
         </td>
@@ -103,11 +103,11 @@
       </tr><tr><td>
           <p><code><a href="FitBinormalRoc.html">FitBinormalRoc()</a></code> </p>
         </td>
-        <td><p>Fit the binormal model to selected treatment and reader in an ROC dataset</p></td>
+        <td><p>Fit the binormal model to selected modality and reader in an ROC dataset</p></td>
       </tr><tr><td>
           <p><code><a href="FitCbmRoc.html">FitCbmRoc()</a></code> </p>
         </td>
-        <td><p>Fit the contaminated binormal model (CBM) to selected treatment and 
+        <td><p>Fit the contaminated binormal model (CBM) to selected modality and 
    reader in an ROC dataset</p></td>
       </tr><tr><td>
           <p><code><a href="FitCorCbm.html">FitCorCbm()</a></code> </p>
@@ -214,17 +214,13 @@
         </td>
         <td><p>Number of cases, for specified number of readers, to achieve desired power</p></td>
       </tr><tr><td>
-          <p><code><a href="StSignificanceTesting.html">StSignificanceTesting()</a></code> </p>
+          <p><code><a href="St.html">St()</a></code> </p>
         </td>
-        <td><p>Performs DBM or OR significance testing for factorial or split-plot A,C datasets</p></td>
+        <td><p>Performs DBM or OR significance testing for factorial or crossed modality datasets</p></td>
       </tr><tr><td>
-          <p><code><a href="StSignificanceTestingCadVsRad.html">StSignificanceTestingCadVsRad()</a></code> </p>
+          <p><code><a href="StCadVsRad.html">StCadVsRad()</a></code> </p>
         </td>
         <td><p>Significance testing: standalone CAD vs. radiologists</p></td>
-      </tr><tr><td>
-          <p><code><a href="StSignificanceTestingCrossedModalities.html">StSignificanceTestingCrossedModalities()</a></code> </p>
-        </td>
-        <td><p>Perform significance testing using crossed treatments analysis</p></td>
       </tr><tr><td>
           <p><code><a href="Util2Intrinsic.html">Util2Intrinsic()</a></code> </p>
         </td>
@@ -254,9 +250,14 @@
         </td>
         <td><p>Convert from DBM to OR variance components</p></td>
       </tr><tr><td>
+          <p><code><a href="UtilDBMVarComp.html">UtilDBMVarComp()</a></code> </p>
+        </td>
+        <td><p>Utility for Dorfman-Berbaum-Metz variance components</p></td>
+      </tr><tr><td>
           <p><code><a href="UtilFigureOfMerit.html">UtilFigureOfMerit()</a></code> </p>
         </td>
-        <td><p>Calculate empirical figures of merit (FOMs) for specified dataset</p></td>
+        <td><p>Calculate empirical figures of merit (FOMs) for factorial dataset, standard 
+    one-treatment or two-treatment cross-modality</p></td>
       </tr><tr><td>
           <p><code><a href="UtilLesDistr.html">UtilLesDistr()</a></code> </p>
         </td>
@@ -274,21 +275,17 @@
         </td>
         <td><p>Convert from OR to DBM variance components</p></td>
       </tr><tr><td>
+          <p><code><a href="UtilORVarComp.html">UtilORVarComp()</a></code> </p>
+        </td>
+        <td><p>Obuchowski-Rockette variance components for dataset</p></td>
+      </tr><tr><td>
           <p><code><a href="UtilOutputReport.html">UtilOutputReport()</a></code> </p>
         </td>
-        <td><p>Generate a text formatted report file or an Excel file</p></td>
+        <td><p>Generate a text- or Excel-formatted report file (one-treatment factorial datasets only)</p></td>
       </tr><tr><td>
           <p><code><a href="UtilPseudoValues.html">UtilPseudoValues()</a></code> </p>
         </td>
-        <td><p>Pseudovalues for given dataset and FOM</p></td>
-      </tr><tr><td>
-          <p><code><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM()</a></code> </p>
-        </td>
-        <td><p>Utility for Dorfman-Berbaum-Metz variance components</p></td>
-      </tr><tr><td>
-          <p><code><a href="UtilVarComponentsOR.html">UtilVarComponentsOR()</a></code> </p>
-        </td>
-        <td><p>Utility for estimating Obuchowski-Rockette variance components for factorial datasets</p></td>
+        <td><p>Pseudovalues for given factorial or crossed modality dataset and FOM</p></td>
       </tr><tr><td>
           <p><code><a href="dataset01.html">dataset01</a></code> </p>
         </td>
@@ -370,17 +367,13 @@
         </td>
         <td><p>Simulated degenerate ROC dataset (for testing purposes)</p></td>
       </tr><tr><td>
-          <p><code><a href="datasetFROCSpC.html">datasetFROCSpC</a></code> </p>
-        </td>
-        <td><p>Simulated FROC SPLIT-PLOT-C dataset</p></td>
-      </tr><tr><td>
           <p><code><a href="datasetROI.html">datasetROI</a></code> </p>
         </td>
         <td><p>Simulated ROI dataset</p></td>
       </tr><tr><td>
-          <p><code><a href="datasetXModality.html">datasetXModality</a></code> </p>
+          <p><code><a href="datasetX.html">datasetX</a></code> </p>
         </td>
-        <td><p>John Thompson crossed treatment FROC dataset</p></td>
+        <td><p>John Thompson crossed modality FROC dataset</p></td>
       </tr><tr><td>
           <p><code><a href="isBinnedDataset.html">isBinnedDataset()</a></code> </p>
         </td>
@@ -388,7 +381,7 @@
       </tr><tr><td>
           <p><code><a href="isValidDataset.html">isValidDataset()</a></code> </p>
         </td>
-        <td><p>Check the validity of a dataset</p></td>
+        <td><p>Check the validity of a dataset for FOM and other input parameters</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

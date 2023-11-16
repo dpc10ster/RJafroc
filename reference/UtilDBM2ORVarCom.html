@@ -72,25 +72,25 @@ containing VarR, VarC, VarTR, VarTC, VarRC and VarErr</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">DBMVarCom</span> <span class="op">&lt;-</span> <span class="fu"><a href="StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">VarCom</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">DBMVarCom</span> <span class="op">&lt;-</span> <span class="fu"><a href="St.html">St</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"DBM"</span><span class="op">)</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">VarCom</span></span></span>
 <span class="r-in"><span><span class="fu">UtilDBM2ORVarCom</span><span class="op">(</span><span class="fl">114</span>, <span class="va">DBMVarCom</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              VarCom       Rhos</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> VarR  0.00153499935         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> VarTR 0.00020040252         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cov1  0.00034661371 0.43203138</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cov2  0.00034407483 0.42886683</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cov3  0.00023902837 0.29793328</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Var   0.00080228827         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             VarCom      Rhos</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> VarR  0.0015349993        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> VarTR 0.0002004025        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cov1  0.0003466137 0.4320314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cov2  0.0003440748 0.4288668</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cov3  0.0002390284 0.2979333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Var   0.0008022883        NA</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">ORVarCom</span> <span class="op">&lt;-</span> <span class="fu"><a href="StSignificanceTesting.html">StSignificanceTesting</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">VarCom</span></span></span>
+<span class="r-in"><span><span class="va">ORVarCom</span> <span class="op">&lt;-</span> <span class="fu"><a href="St.html">St</a></span><span class="op">(</span><span class="va">dataset02</span>, FOM <span class="op">=</span> <span class="st">"Wilcoxon"</span>, method <span class="op">=</span> <span class="st">"OR"</span><span class="op">)</span><span class="op">$</span><span class="va">ANOVA</span><span class="op">$</span><span class="va">VarCom</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="UtilOR2DBMVarCom.html">UtilOR2DBMVarCom</a></span><span class="op">(</span><span class="fl">114</span>, <span class="va">ORVarCom</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Estimates</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> VarR   0.00153499935</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> VarC   0.02724923428</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> VarTR  0.00020040252</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> VarTC  0.01197529621</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> VarRC  0.01226472859</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> VarErr 0.03997160319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Estimates</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> VarR   0.0015349993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> VarC   0.0272492343</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> VarTR  0.0002004025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> VarTC  0.0119752962</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> VarRC  0.0122647286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> VarErr 0.0399716032</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

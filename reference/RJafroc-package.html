@@ -33,9 +33,9 @@
     for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC
     (AFROC) and weighted AFROC (wAFROC) curves. For fully crossed study designs significance testing of reader-averaged FOM
     differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods. Also
-    implemented are single treatment analyses, allowing comparison of performance of a group of radiologists to a specified
+    implemented are single modality analyses, allowing comparison of performance of a group of radiologists to a specified
     value, or comparison of AI to a group of radiologists/algorithms interpreting the same cases. Crossed-modality analysis is implemented
-    wherein there are two crossed treatment factors and the aim is to determined performance in each treatment factor averaged
+    wherein there are two crossed modality factors and the aim is to determined performance in each modality factor averaged
     over all levels of the second factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates
     of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve the
     desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input
@@ -120,9 +120,9 @@
     for quantifying performance, functions for visualizing empirical operating characteristics: e.g., ROC, FROC, alternative FROC
     (AFROC) and weighted AFROC (wAFROC) curves. For fully crossed study designs significance testing of reader-averaged FOM
     differences between modalities is implemented via both Dorfman-Berbaum-Metz and the Obuchowski-Rockette methods. Also
-    implemented are single treatment analyses, allowing comparison of performance of a group of radiologists to a specified
+    implemented are single modality analyses, allowing comparison of performance of a group of radiologists to a specified
     value, or comparison of AI to a group of radiologists/algorithms interpreting the same cases. Crossed-modality analysis is implemented
-    wherein there are two crossed treatment factors and the aim is to determined performance in each treatment factor averaged
+    wherein there are two crossed modality factors and the aim is to determined performance in each modality factor averaged
     over all levels of the second factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates
     of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve the
     desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input
@@ -145,7 +145,7 @@
 <li><p>AFROC1 curve: plot of LLF (ordinate) vs. FPF1, where FPF1 is inferred using
        highest rating of NL marks on <strong>ALL cases</strong></p></li>
 <li><p>\(alpha\): The significance level \(\alpha\) of the test of the null
-       hypothesis of no treatment effect</p></li>
+       hypothesis of no modality effect</p></li>
 <li><p>AUC: area under curve; e.g., ROC-AUC = area under ROC curve, an
        example of a FOM</p></li>
 <li><p><em>b</em>: The width or "b" parameter of the conventional binormal
@@ -159,11 +159,10 @@
        bimodal, with a peak at zero and one at \(\mu\), the integrated fraction
        at \(\mu\) is \(\alpha\) (not to be confused with \(\alpha\) of NH testing)</p></li>
 <li><p>CI: The (1-\(\alpha\)) confidence interval for the stated statistic</p></li>
-<li><p>Crossed modality: a dataset containing two modality (treatment) factors, with
+<li><p>Crossed-modality: a dataset containing two modality (i.e., treatment) factors, with
        the levels of the two factors crossed, see paper by Thompson et al</p></li>
 <li><p>DBM: Dorfman-Berbaum-Metz, a significance testing method for
-       detecting a treatment effect in MRMC studies</p></li>
-<li><p>DBMH: Hillis' modification of the DBM method</p></li>
+       detecting a modality effect in MRMC studies, with Hillis suggested modification to <code>ddf</code>.</p></li>
 <li><p>ddf: Denominator degrees of freedom of appropriate \(F\)-test;
        the corresponding ndf is <code>I</code> - 1</p></li>
 <li><p>Empirical AUC: trapezoidal area under curve, same as the Wilcoxon
@@ -179,9 +178,9 @@
 <li><p>FRRC: Analysis that treats readers as fixed and cases as random factors</p></li>
 <li><p>I: total number of modalities, indexed by \(i\)</p></li>
 <li><p>image/case: used interchangeably; a case can consist of several images
-       of the same patient in the same treatment</p></li>
+       of the same patient in the same modality</p></li>
 <li><p>iMRMC: A text file format used for ROC data by FDA/CDRH researchers</p></li>
-<li><p>individual: A single-treatment single-reader dataset.</p></li>
+<li><p>individual: A single-modality single-reader dataset.</p></li>
 <li><p>Intrinsic: Used in connection with RSM; a parameter that is independent of
        the RSM \(\mu\) parameter, but whose meaning may not be as transparent as
        the corresponding physical parameter</p></li>
@@ -209,10 +208,10 @@
 <li><p>maxLL: maximum number of lesions per case in dataset</p></li>
 <li><p>maxNL: maximum number of NL marks per case in dataset</p></li>
 <li><p>MRMC: multiple reader multiple case (each reader interprets each case in
-       each treatment, i.e. fully crossed study design)</p></li>
+       each modality, i.e. fully crossed study design)</p></li>
 <li><p>ndf: Numerator degrees of freedom of appropriate \(F\)-test, usually
        number of treatments minus one</p></li>
-<li><p>NH: The null hypothesis that all treatment effects are zero; rejected
+<li><p>NH: The null hypothesis that all modality effects are zero; rejected
        if the \(p\)-value is smaller than \(\alpha\)</p></li>
 <li><p>NL: non-lesion localization, of which FP is a special case, i.e., a
        mark that does not correctly locate any existing localized lesion(s)</p></li>
@@ -223,8 +222,7 @@
 <li><p>Operating point: A point on an operating characteristic, e.g.,
        (FPF, TPF) represents an operating point on an ROC</p></li>
 <li><p>OR: Obuchowski-Rockette, a significance testing method for detecting
-       a treatment effect in MRMC studies</p></li>
-<li><p>ORH: Hillis' modification of the OR method</p></li>
+       a modality effect in MRMC studies, with Hillis suggested modifications</p></li>
 <li><p>Physical parameter: Used in connection with RSM; a parameter whose
        meaning is more transparent than the corresponding intrinsic parameter,
        but which depends on the RSM \(\mu\) parameter</p></li>
@@ -233,7 +231,7 @@
        is close enough to a lesion to be counted as a LL (or correct localization);
        otherwise it is counted as a NL (or incorrect localization)</p></li>
 <li><p>p-value: the probability, under the null hypothesis, that the observed
-       treatment effects, or larger, could occur by chance</p></li>
+       modality effects, or larger, could occur by chance</p></li>
 <li><p>Proper: a proper fit does not inappropriately fall below the chance
        diagonal, does not display a "hook" near the upper right corner</p></li>
 <li><p>PROPROC: Metz's binormal model based fitting of proper ROC curves</p></li>
@@ -287,7 +285,7 @@
 </ul></div>
     <div id="dataset">
     <h2>Dataset</h2>
-    <p>The <code>dataset</code> object has 3 <code>list</code> elements: <code>$ratings</code>, <code>$lesions</code>
+    <p>A standard <code>dataset</code> object has 3 <code>list</code> elements: <code>$ratings</code>, <code>$lesions</code>
      and <code>$descriptions</code>, where:</p>
 <p></p><ul><li><p><code>dataset$ratings</code>: contains 3 elements as sub-lists: <code>$NL</code>,
         <code>$LL</code> and <code>$LL_IL</code>; these describe the structure of the ratings;</p></li>
@@ -302,11 +300,11 @@
         number of NLs in a dataset is 4, but some images have fewer than 4 NL marks,
         the corresponding "empty" positions would be filled with
         <code>-Inf</code>s. <strong>Do not use <code>NA</code> to denote a missing rating.</strong></p>
-<p><strong>Note</strong>: <b>"dataset" in this package always represents
-    <code>R</code> object(s) with the following structure(s):</b></p>
+<p><strong>Note</strong>: A standard dataset always represents <code>R</code> object(s) with the 
+        following structure(s):</p>
 <p></p><div class="section">
-<h3 id="general-data-structure-e-g-dataset-an-roc-dataset-and-dataset-an-froc-dataset-">General data structure, e.g., <code>dataset02</code>, an ROC dataset, and
-        <code>dataset05</code>, an FROC dataset.<a class="anchor" aria-label="anchor" href="#general-data-structure-e-g-dataset-an-roc-dataset-and-dataset-an-froc-dataset-"></a></h3>
+<h3 id="data-structure-e-g-dataset-an-roc-dataset-and-dataset-an-froc-dataset-">Data structure, e.g., <code>dataset02</code>, an ROC dataset, and
+        <code>dataset05</code>, an FROC dataset.<a class="anchor" aria-label="anchor" href="#data-structure-e-g-dataset-an-roc-dataset-and-dataset-an-froc-dataset-"></a></h3>
 <p></p><ul><li><p><code>ratings$NL</code>: a float array with dimensions
         <code>c(I, J, K, maxNL)</code>, containing the ratings of NL marks. The first
         <code>K1</code> locations of the third index corresponds to NL marks on non-diseased
@@ -361,11 +359,9 @@
         interpretations occurred or NAs otherwise. For abnormal cases elements
         <code>c(I, J, L, 2:(maxLL+1))</code> are filled with 1s if the corresponding
         interpretations occurred or NAs otherwise. This object is necessary for analyzing
-        more complex designs, e.g., split-plot, as described next.</p></li>
-<li><p><code>descriptions$design</code>: a <code>character</code> variable: "<code>FCTRL</code>",
-        "<code>SPLIT-PLOT-A</code>" or "<code>SPLIT-PLOT-A</code>", corresponding to factorial,
-        split-plot-A or split-plot-C designs. The A and C refer to subparts of Table VII
-        in a Hillis 2014 publication.</p></li>
+        more complex designs.</p></li>
+<li><p><code>descriptions$design</code>: a <code>character</code> variable: "<code>FCTRL</code>", 
+        corresponding to factorial design.</p></li>
 <li><p><code>descriptions$modalityID</code>: a <code>character</code> vector of length \(I\),
         which labels/names the modalities in the dataset. For non-JAFROC data file formats,
         they must be unique integers.</p></li>
@@ -388,19 +384,19 @@
 </div>
 
 <p></p><div class="section">
-<h3 id="crossed-modality-data-structure-example-datasetxmodality">Crossed modality data structure, example <code>datasetXModality</code><a class="anchor" aria-label="anchor" href="#crossed-modality-data-structure-example-datasetxmodality"></a></h3>
-<p>Only changes from the previously described structure are described below:</p><ul><li><p><code>ratings$NL</code>: a float array with dimension <code>c(I1, I2, J, K, maxNL)</code>
+<h3 id="crossed-modality-dataset-structure-example-datasetxmodality">Crossed-modality dataset structure, example <code>datasetXModality</code><a class="anchor" aria-label="anchor" href="#crossed-modality-dataset-structure-example-datasetxmodality"></a></h3>
+<p>Only changes from the previously described structure are described below:</p><ul><li><p><code>dataset$ratings$NL</code>: a float array with dimension <code>c(I1, I2, J, K, maxNL)</code>
         containing the ratings of NL marks. Note the existence of two modality indices.</p></li>
 <li><p><code>LL</code>: a float array with dimension <code>c(I1, I2, J, K2, maxLL)</code>
         containing the ratings of all LL marks. Note the existence of two modality indices.</p></li>
-<li><p><code>modalityID1</code>: corresponding to first modality factor.</p></li>
-<li><p><code>modalityID2</code>: corresponding to second modality factor.</p></li>
+<li><p><code>dataset$descriptions$modalityID1</code>: corresponding to first modality factor.</p></li>
+<li><p><code>dataset$descriptions$modalityID2</code>: corresponding to second modality factor.</p></li>
 </ul><p></p>
 </div>
 
     </div>
     <div id="df-datafile-related-functions">
-    <h2>Df: Datafile Related Functions</h2>
+    <h2>Df: Datafile related functions</h2>
     <p></p><ul><li><p><code><a href="Df2RJafrocDataset.html">Df2RJafrocDataset</a></code>: Convert a ratings array to a
            dataset object.</p></li>
 <li><p><code><a href="DfBinDataset.html">DfBinDataset</a></code>: Return a binned dataset.</p></li>
@@ -416,7 +412,7 @@
            "AUC-equivalent" FROC dataset from a supplied LROC dataset.</p></li>
 <li><p><code><a href="DfFroc2Lroc.html">DfFroc2Lroc</a></code>: Simulates an
            "AUC-equivalent" LROC dataset from a supplied FROC dataset.</p></li>
-<li><p><code><a href="DfReadCrossedModalities.html">DfReadCrossedModalities</a></code>: Read a crossed-modalities
+<li><p><code><a href="DfReadXModalities.html">DfReadXModalities</a></code>: Read a crossed-modalities
            data file.</p></li>
 <li><p><code><a href="DfReadDataFile.html">DfReadDataFile</a></code>: Read a general data file.</p></li>
 <li><p><code><a href="DfSaveDataFile.html">DfSaveDataFile</a></code>: Save ROC data file in a different format.</p></li>
@@ -464,12 +460,10 @@
 </ul></div>
     <div id="significance-testing-functions">
     <h2>Significance Testing Functions</h2>
-    <p></p><ul><li><p><code><a href="StSignificanceTesting.html">StSignificanceTesting</a></code>: Perform significance testing,
-           DBM or OR.</p></li>
-<li><p><code><a href="StSignificanceTestingCadVsRad.html">StSignificanceTestingCadVsRad</a></code>: Perform
+    <p></p><ul><li><p><code><a href="St.html">St</a></code>: Performs significance testing,
+           DBM or OR, with factorial or crossed modalities.</p></li>
+<li><p><code><a href="StCadVsRad.html">StCadVsRad</a></code>: Perform
            significance testing, CAD vs. radiologists.</p></li>
-<li><p><code><a href="StSignificanceTestingCrossedModalities.html">StSignificanceTestingCrossedModalities</a></code>: Perform
-           significance testing using crossed modalities analysis.</p></li>
 </ul></div>
     <div id="miscellaneous-and-utility-functions">
     <h2>Miscellaneous and Utility Functions</h2>
@@ -484,14 +478,14 @@
 <li><p><code><a href="UtilLesDistr.html">UtilLesDistr</a></code>: Calculates the lesion distribution dataframe.</p></li>
 <li><p><code><a href="UtilLesWghts.html">UtilLesWghts</a></code>: Calculates the lesion weights  matrix.</p></li>
 <li><p><code><a href="UtilMeanSquares.html">UtilMeanSquares</a></code>: Calculates the mean squares used in the
-           DBMH and ORH methods.</p></li>
+           DBM and OR methods.</p></li>
 <li><p><code><a href="UtilOutputReport.html">UtilOutputReport</a></code>: Generate a formatted report file.</p></li>
 <li><p><code><a href="Util2Intrinsic.html">Util2Intrinsic</a></code>: Convert RSM physical parameters to
            intrinsic parameters.</p></li>
 <li><p><code><a href="UtilPseudoValues.html">UtilPseudoValues</a></code>: Return jackknife pseudovalues.</p></li>
-<li><p><code><a href="UtilVarComponentsDBM.html">UtilVarComponentsDBM</a></code>: Utility for Dorfman-Berbaum-Metz
+<li><p><code><a href="UtilDBMVarComp.html">UtilDBMVarComp</a></code>: Utility for Dorfman-Berbaum-Metz
            variance components.</p></li>
-<li><p><code><a href="UtilVarComponentsOR.html">UtilVarComponentsOR</a></code>: Utility for Obuchowski-Rockette
+<li><p><code><a href="UtilORVarComp.html">UtilORVarComp</a></code>: Utility for Obuchowski-Rockette
            variance components.</p></li>
 </ul></div>
     <div id="author">

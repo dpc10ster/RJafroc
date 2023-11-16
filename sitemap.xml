@@ -43,10 +43,10 @@
     <loc>/reference/DfLroc2Roc.html</loc>
   </url>
   <url>
-    <loc>/reference/DfReadCrossedModalities.html</loc>
+    <loc>/reference/DfReadDataFile.html</loc>
   </url>
   <url>
-    <loc>/reference/DfReadDataFile.html</loc>
+    <loc>/reference/DfReadXModalities.html</loc>
   </url>
   <url>
     <loc>/reference/DfSaveDataFile.html</loc>
@@ -142,13 +142,10 @@
     <loc>/reference/SsSampleSizeKGivenJ.html</loc>
   </url>
   <url>
-    <loc>/reference/StSignificanceTesting.html</loc>
+    <loc>/reference/St.html</loc>
   </url>
   <url>
-    <loc>/reference/StSignificanceTestingCadVsRad.html</loc>
-  </url>
-  <url>
-    <loc>/reference/StSignificanceTestingCrossedModalities.html</loc>
+    <loc>/reference/StCadVsRad.html</loc>
   </url>
   <url>
     <loc>/reference/Util2Intrinsic.html</loc>
@@ -172,6 +169,9 @@
     <loc>/reference/UtilDBM2ORVarCom.html</loc>
   </url>
   <url>
+    <loc>/reference/UtilDBMVarComp.html</loc>
+  </url>
+  <url>
     <loc>/reference/UtilFigureOfMerit.html</loc>
   </url>
   <url>
@@ -187,16 +187,13 @@
     <loc>/reference/UtilOR2DBMVarCom.html</loc>
   </url>
   <url>
+    <loc>/reference/UtilORVarComp.html</loc>
+  </url>
+  <url>
     <loc>/reference/UtilOutputReport.html</loc>
   </url>
   <url>
     <loc>/reference/UtilPseudoValues.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilVarComponentsDBM.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilVarComponentsOR.html</loc>
   </url>
   <url>
     <loc>/reference/dataset01.html</loc>
@@ -259,13 +256,10 @@
     <loc>/reference/datasetDegenerate.html</loc>
   </url>
   <url>
-    <loc>/reference/datasetFROCSpC.html</loc>
-  </url>
-  <url>
     <loc>/reference/datasetROI.html</loc>
   </url>
   <url>
-    <loc>/reference/datasetXModality.html</loc>
+    <loc>/reference/datasetX.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>

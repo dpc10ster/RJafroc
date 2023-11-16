@@ -44,11 +44,34 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.1.3" id="version-213">version 2.1.3<a class="anchor" aria-label="anchor" href="#version-213"></a></h2>
 <hr><div class="section level3">
-<h3 id="cran-submission-v213-2-1-3">CRAN submission v2.1.3<a class="anchor" aria-label="anchor" href="#cran-submission-v213-2-1-3"></a></h3>
+<h3 id="commented-some-code-2-1-3">Commented some code 10/31/23<a class="anchor" aria-label="anchor" href="#commented-some-code-2-1-3"></a></h3>
+<ul><li>bootstrap and DeLong in <code>StORAnalysis</code> disabled for XMod analysis</li>
+</ul></div>
+<div class="section level3">
+<h3 id="do-global-search-for-questionable-code-2-1-3">Do global search for questionable code<a class="anchor" aria-label="anchor" href="#do-global-search-for-questionable-code-2-1-3"></a></h3>
+<ul><li>marked as follows</li>
+<li>???DPC??? or !!!DPC!!!</li>
+<li>Renamed <code>StSignificanceTestingCadVsRad</code> to <code>StCadVsRad</code>
+</li>
+<li>Renamed <code>UtilVarComponentOR</code> to <code>UtilOrVarCov</code>
+</li>
+<li>Renamed <code>UtilVarComponentsDBM</code> to <code>UtilDBMVarComp</code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="todos-2-1-3">TODOs 10/4/23<a class="anchor" aria-label="anchor" href="#todos-2-1-3"></a></h3>
+<ul><li>Insert tests for all failure branches in <code>isValidDataset</code>
+</li>
+<li>TODO: Shorten this log and keep details in a new file, <code>CodeChangesLog.md</code>, but this has to be outside the package directory</li>
+</ul></div>
+<div class="section level3">
+<h3 id="cran-submission-v213---postponed-2-1-3">CRAN submission v2.1.3 - postponed<a class="anchor" aria-label="anchor" href="#cran-submission-v213---postponed-2-1-3"></a></h3>
 <ul><li>Bug fix, Issue 90, see below</li>
 <li>Bug fix, Issue 89, see below</li>
 <li>Fixed entry errors in Excel file (check column names and data type)</li>
 <li>TODO: <code>QuickStart</code>, new chapter on recommended FOMs and those to avoid at all costs</li>
+<li>TODO: <code>QuickStart</code>, explanation of St output</li>
+<li>Removed SPLIT-PLOT-A and SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on versions &lt; 2.1.3.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="issue-2-1-3">Issue 90<a class="anchor" aria-label="anchor" href="#issue-2-1-3"></a></h3>
@@ -62,7 +85,7 @@
 <li>Added a sorting step to both worksheets: order by modality, then reader, then case and then rating.</li>
 <li>Also ALWAYS use <code>TP_Rating</code> and <code>FP_Rating</code> in these sheets; do not use LL_Rating and/or NL_Rating as this will break the code.</li>
 <li>Some <code>goodValues</code> had to be regenerated.</li>
-<li>TODO: Not sure about the split plot codes; these have never been used and I should consider removing them.</li>
+<li>TODO: Not sure about the split plot codes; these have never been used and I should consider removing them. Done: 8/11/23</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changes-2-1-3">Changes 05/19/2023<a class="anchor" aria-label="anchor" href="#changes-2-1-3"></a></h3>
@@ -205,7 +228,6 @@
 <ul><li>
 <code>analysisOption</code> must be <code>DBM</code> or <code>OR</code>
 </li>
-<li>Not “ORH”</li>
 </ul></div>
 <div class="section level3">
 <h3 id="clarified-weights-matrix-2-1-0">Clarified weights matrix 1/7/22<a class="anchor" aria-label="anchor" href="#clarified-weights-matrix-2-1-0"></a></h3>
@@ -494,7 +516,7 @@
 <li>Checked <code>dataset05</code> <code>MaxLLF</code> <code>MaxNLF</code> vs. JAFROC</li>
 <li>See below, note added today relating to handling of <code>descriptions$fileName</code>. This fixed problem with <code>expect_equal()</code> failing depending on how the <code>goodValues</code> were generated - from R <code>command line</code> vs. <code>Run Tests</code>. Also, in creating a dataset object, where appropriate, <code>fileName</code> &lt;- “NA” instead of <code>fileName</code> &lt;- <code>NA</code>; the latter generates a <code>character expected</code> error when an attempt is made to strip path name and extension in <code>convert2dataset</code> and <code>convert2Xdataset</code>.</li>
 <li>Updated and reorganized tests</li>
-<li>Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use treatment-specific components, i.e. <code>Var_i</code>, <code>Cov2_i</code> and <code>Cov3_i</code>. The modified formulae reduce to Hillis’ formulae when the number of readers in each group are identical. Communicated results to collaborator.</li>
+<li>Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use modality-specific components, i.e. <code>Var_i</code>, <code>Cov2_i</code> and <code>Cov3_i</code>. The modified formulae reduce to Hillis’ formulae when the number of readers in each group are identical. Communicated results to collaborator.</li>
 <li>Corrected error in handling of <code>MaxNLFAllCases</code> FOM; see comments in <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code>; regenerated one <code>goodValue</code> file.</li>
 </ul></div>
 <div class="section level3">
@@ -655,7 +677,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="discovered-error-2-0-1">Discovered error<a class="anchor" aria-label="anchor" href="#discovered-error-2-0-1"></a></h3>
-<ul><li>For <code>StSignificanceTesting(dataset02, method = "ORH", option = "FRRC")</code> - done</li>
+<ul><li>For <code>StSignificanceTesting(dataset02, method = "OR", option = "FRRC")</code> - done</li>
 <li>Need to put in <code>testthat</code> all combinations of <code>method</code> and <code>option</code> - done</li>
 <li>Different objects returned by <code>StSignificanceTesting</code> depending on choice of <code>option</code> - almost done</li>
 <li>Need to standardize as otherwise <code>RJafrocBook</code> is klutzy - WIP</li>
@@ -674,9 +696,9 @@
 <a class="anchor" aria-label="anchor" href="#fixing-significance-testing-with-independent-calculations-in-rjafrocbook-2-0-1"></a></h3>
 <ul><li>Need to modify <code>RJafroc</code> to eliminate code duplication and improve style in all significance testing functions - move this to issues</li>
 <li>I am only getting to understand it now (as I work on <code>RJafrocBook</code>)</li>
-<li>One reader case can now be handled by <code>StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "ORH")</code>
+<li>One reader case can now be handled by <code>StSignificanceTesting(rocData1R, FOM = "Wilcoxon", method = "OR")</code>
 </li>
-<li>May not need <code>StSignificanceTestingSingleFixedFactor</code> which currently only handles <code>DBMH</code> method - add to issues</li>
+<li>May not need <code>StSignificanceTestingSingleFixedFactor</code> which currently only handles <code>DBM</code> method - add to issues</li>
 <li>Removed restriction of <code>StSignificanceTesting</code> to <code>J</code> &gt; 1</li>
 <li>Will merge to <code>master</code> so that <code>RJafrocBook</code> code passes Travis</li>
 </ul></div>
@@ -686,9 +708,8 @@
 <ul><li>Found another error in <code>msTC</code> calculation in <code>UtilMeanSquares</code>
 </li>
 <li>Was trying to be too cute for my own good (collapsing two for-loops into one)</li>
-<li>Discoverd error while doing first principles calculation in <code>RJafocBook</code>, DBMH chapter, so there is at least one person who benefited from <code>RJafrocBook</code>
-</li>
-<li>Changed <code>covEstMethod</code> argument to <code>ORH</code> method to lower case (“jackknife” or “bootstrap”)</li>
+<li>Discovered error while doing first principles calculation in <code>RJafocBook</code>, DBM chapter</li>
+<li>Changed <code>covEstMethod</code> argument to <code>OR</code> method to lower case (“jackknife” or “bootstrap”)</li>
 </ul></div>
 <div class="section level3">
 <h3 id="fixed-issue-with-optim-when-flipping-groups-2-0-1">Fixed issue with <code>optim</code> when flipping groups<a class="anchor" aria-label="anchor" href="#fixed-issue-with-optim-when-flipping-groups-2-0-1"></a></h3>
@@ -747,7 +768,7 @@
 <li>Created simulated SP dataset <code>datasetFROCSp</code> corresponding to modalities 4,5 of <code>dataset04</code>
 </li>
 <li>Update vignette <code>Ch00Vig5SimulateSplitPlotDataset.Rmd</code>.</li>
-<li>Modified <code>StORHAnalysis.R</code> and to work with SP-A dataset provided <code>method = "ORH"</code> and <code>covEstMethod</code> = “jackknife” is used</li>
+<li>Modified <code>StORHAnalysis.R</code> and to work with SP-A dataset provided <code>method = "OR"</code> and <code>covEstMethod</code> = “jackknife” is used</li>
 <li>Corrected an error in analysis; see <code>~Dropbox/RJafrocChecks/StfrocSp.xlsx</code> for details.</li>
 <li>Updated this file 2/19/20</li>
 <li>R CMD check successful … except for file size NOTE (18.4Mb)</li>
@@ -844,7 +865,7 @@
 <div class="section level3">
 <h3 id="significance-testing-functions-1-3-1">Significance testing functions<a class="anchor" aria-label="anchor" href="#significance-testing-functions-1-3-1"></a></h3>
 <ul><li>
-<code><a href="../reference/StSignificanceTesting.html">StSignificanceTesting()</a></code>: corrects errors affecting <code>method = "ORH"</code> and <code>covEstMethod = "Jackknife"</code>. I messed up while trying to simplify XZ code. It calls:</li>
+<code>StSignificanceTesting()</code>: corrects errors affecting <code>method = "OR"</code> and <code>covEstMethod = "Jackknife"</code>. I messed up while trying to simplify XZ code. It calls:</li>
 <li>StDBMHAnalysis():</li>
 <li>StORHAnalysis():</li>
 <li>Ran Windows <code>JAFROC</code> on virtual Windows 8 machine and saved results (inst/VarCompDiscrepancy/includedFrocData_Inferred_ROC.txt) to validate current significance testing functions. Included unit tests in <code>tests/testthat</code>.</li>
@@ -882,7 +903,7 @@
 <div class="section level3">
 <h3 id="other-affected-functions-and-new-functions-1-3-1">Other affected functions and new functions:<a class="anchor" aria-label="anchor" href="#other-affected-functions-and-new-functions-1-3-1"></a></h3>
 <ul><li>
-<code><a href="../reference/UtilVarComponentsDBM.html">UtilVarComponentsDBM()</a></code>:</li>
+<code>UtilVarComponentsDBM()</code>:</li>
 <li>
 <code>UtilORVarComponentsFactorial()</code>:</li>
 <li>
@@ -926,12 +947,12 @@
  Running the tests in ‘tests/testthat.R’ failed.
  Last 13 lines of output:
    Component "Source": Attributes: &lt; Component "levels": 3 string mismatches &gt;
-   List member = 2, Dataset = dataset02, FOM = Wilcoxon, method = DBMH
+   List member = 2, Dataset = dataset02, FOM = Wilcoxon, method = DBM
 
    ── 2. Failure: SignificanceTestingAllCombinations (@test-significance-te
    CurrentValues[[listMem]] not equal to GoodValues[[listMem]].
    Component "Source": Attributes: &lt; Component "levels": 3 string mismatches &gt;
-   List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBMH</code></pre>
+   List member = 2, Dataset = dataset05, FOM = HrAuc, method = DBM</code></pre>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.0" id="version-110">version 1.1.0<small>2018-11-14</small><a class="anchor" aria-label="anchor" href="#version-110"></a></h2>

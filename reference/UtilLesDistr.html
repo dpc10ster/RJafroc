@@ -94,10 +94,7 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">UtilLesDistr</span><span class="op">(</span><span class="va">dataset01</span><span class="op">)</span> <span class="co"># FROC dataset</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   lesID       Freq</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1 0.93258427</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     2 0.06741573</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">UtilLesDistr</span><span class="op">(</span><span class="va">dataset01</span><span class="op">)</span> <span class="co"># FROC dataset</span></span></span>
 <span class="r-in"><span><span class="co">##    lesID       Freq</span></span></span>
 <span class="r-in"><span><span class="co">## 1      1 0.93258427</span></span></span>
 <span class="r-in"><span><span class="co">## 2      2 0.06741573 </span></span></span>
@@ -105,26 +102,17 @@
 <span class="r-in"><span><span class="co">## and the rest have lesionID = 2</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">UtilLesDistr</span><span class="op">(</span><span class="va">dataset02</span><span class="op">)</span> <span class="co"># ROC dataset</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   lesID Freq</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1    1</span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">UtilLesDistr</span><span class="op">(</span><span class="va">dataset02</span><span class="op">)</span> <span class="co"># ROC dataset</span></span></span>
 <span class="r-in"><span><span class="co">##       lesID Freq</span></span></span>
 <span class="r-in"><span><span class="co">## 1         1    1</span></span></span>
 <span class="r-in"><span><span class="co">## In the Excel input file all dis. cases have one lesion</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">UtilLesDistr</span><span class="op">(</span><span class="va">datasetCadLroc</span><span class="op">)</span> <span class="co"># LROC dataset</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   lesID Freq</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1    1</span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">UtilLesDistr</span><span class="op">(</span><span class="va">datasetCadLroc</span><span class="op">)</span> <span class="co"># LROC dataset</span></span></span>
 <span class="r-in"><span><span class="co">##       lesID Freq</span></span></span>
 <span class="r-in"><span><span class="co">## 1         1    1</span></span></span>
 <span class="r-in"><span><span class="co">## In the Excel input file all dis. cases have one lesion</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">UtilLesDistr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   lesID Freq</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1  0.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     2  0.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     3  0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     4  0.1</span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">UtilLesDistr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">##      lesID Freq</span></span></span>
 <span class="r-in"><span><span class="co">## 1        1  0.5</span></span></span>
 <span class="r-in"><span><span class="co">## 2        2  0.3</span></span></span>
@@ -133,28 +121,7 @@
 <span class="r-in"><span><span class="co">## An example of array input; 50 percent of the cases have lesionID = 1, </span></span></span>
 <span class="r-in"><span><span class="co">## 30 percent have lesionID = 2, etc.  </span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">UtilLesDistr</span><span class="op">(</span><span class="va">dataset11</span><span class="op">)</span> <span class="co">## big froc dataset</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    lesID         Freq</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      1 0.2173913043</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      2 0.2000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      3 0.1130434783</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      4 0.0869565217</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      5 0.0434782609</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      6 0.0956521739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7      7 0.0521739130</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8      8 0.0695652174</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9      9 0.0173913043</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    10 0.0260869565</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    11 0.0260869565</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    12 0.0260869565</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13    13 0.0000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14    14 0.0000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15    15 0.0000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16    16 0.0173913043</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17    17 0.0000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18    18 0.0000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19    19 0.0000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20    20 0.0086956522</span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">UtilLesDistr</span><span class="op">(</span><span class="va">dataset11</span><span class="op">)</span> <span class="co">## big froc dataset</span></span></span>
 <span class="r-in"><span><span class="co">##     lesID        Freq</span></span></span>
 <span class="r-in"><span><span class="co">## 1       1 0.217391304</span></span></span>
 <span class="r-in"><span><span class="co">## 2       2 0.200000000</span></span></span>
