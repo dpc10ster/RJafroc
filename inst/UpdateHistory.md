@@ -1,34 +1,73 @@
 ---
-title: "NEWS"
+title: "Update History, TODOs and Ideas"
 ---
 
-## version 2.1.3 (to be posted to CRAN)
+## version 2.1.3
 
 ---
 
 
-### CRAN submission v2.1.3 - postponed until resolved issues
-* Bug fix, Issue 90
-* Bug fix, Issue 89
-* Fixed user data-entry errors in Excel file (check column names and data type)
+
+### Do global search for questionable code
+* marked as follows
+* ???DPC??? or !!!DPC!!!
+
+
+### Research Idea(s)
+* `inst/InferredVsReal.R` cross modality analysis
+* Extended Obuchowski's idea - tested with rudimentary FROC simulator; works! Worth a new chapter.
+
+
+### TODOs 10/4/23
+* TODO: Insert tests for all failure branches in `isValidDataset`
+* TODO: `QuickStart`, new chapter on recommended FOMs and those to avoid at all costs
+* TODO: `QuickStart`, explanation of St output
+* TODO: add preamble to `St` output and identify clearly which modality FOM is being averaged over
+* TODO: `dataset11` fails RSM fitting; `mu` close to zero for several readers as minimum 3 op. points are clustered into effectively two op. points.
+
+
+### CRAN submission v2.1.3 - postponed
+* Bug fix, Issue 90, see below
+* Bug fix, Issue 89, see below
+* Fixed data-entry errors in Excel file (checking column names and data type)
+* TODO: `QuickStart`, new chapter on recommended FOMs and those to avoid at all costs
+* TODO: `QuickStart`, explanation of St output
 * Removed SPLIT-PLOT-A and  SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on versions < 2.1.3.
-* bootstrap and DeLong in `StORAnalysis` disabled for XMod analysis
-* Renamed `StSignificanceTestingCadVsRad` to `StCadVsRad`
-* Renamed `UtilVarComponentOR` to `UtilOrVarCov`
-* Renamed `UtilVarComponentsDBM` to `UtilDBMVarComp`
-* Removed SPLIT-PLOT-A and  SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on versions < 2.1.3.
+
+
+### Issue 90
+* See https://github.com/dpc10ster/RJafroc/issues/90
+
+
+
+### Issue 89
+* Program expected `TP` and `FP` worksheets to obey "good" ordering. 
+* If shuffled then unexpected results can occur.
+* Added a sorting step to both worksheets: order by modality, then reader, then case and then rating.
+* Also ALWAYS use `TP_Rating` and `FP_Rating` in these sheets; do not use LL_Rating and/or NL_Rating as this will break the code.
+* Some `goodValues` had to be regenerated. 
+* TODO: Not sure about the split plot codes; these have never been used and I should consider removing them. Done: 8/11/23
 
 
 ### Changes 05/19/2023
 * Fixed FROC simulator, easier to read code; both simulators are NOT limited to I = 2.
 * This affected `goodValues`; reinitialized affected ones.
+* Extended Obuchowski's idea - tested with rudimentary FROC simulator; works!
 * `truthTableStr` is used more consistently (except for LROC and ROI paradigms).
 * TODO: see below
 
 
+### Changes 05/18/2023
+* Added Obuchowski's idea - tested with rudimentary ROC simulator; works!
+* `truthTableStr` is used inconsistently.
+* TODO: `dataset11` fails RSM fitting; `mu` close to zero for several readers as minimum 3 op. points are clustered into effectively two op. points.
+* TODO: Fix `datasets.R`
+  
+
 ### Possible errors in RSM predicted TPF and other cpp implementations
 * `dataset11` has unusual lesion distribution: there are 14 elements but they range from 1 to 20 with some `lesionID`s missing
 * Added test_cpp_vs_R where I compare cpp to R implementations
+* Fixed
 
 
 
