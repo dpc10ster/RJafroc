@@ -14,7 +14,8 @@ St(
   alpha = 0.05,
   FPFValue = 0.2,
   nBoots = 200,
-  seed = NULL
+  seed = NULL,
+  details = 0
 )
 }
 \arguments{
@@ -57,6 +58,9 @@ or "ALROC"; where to evaluate a partial curve based figure of merit.
 
 \item{seed}{For bootstraps the seed of the RNG (default: seed = \code{NULL}), 
 only needed if \code{method = "OR"} and \code{covEstMethod = "bootstrap"}.}
+
+\item{details}{Amount of detailed explanations in output, default is 0 for no 
+explanations, 1 for intermediate explanations and 2 for most explanations.}
 }
 \value{
 A list containing the results of the analyis.
