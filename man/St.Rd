@@ -2,7 +2,8 @@
 % Please edit documentation in R/St.R
 \name{St}
 \alias{St}
-\title{Performs DBM or OR significance testing for factorial or crossed modality datasets}
+\title{Perform DBM or OR significance testing for a one treatment factorial or 
+    two-treatment crossed modality dataset}
 \usage{
 St(
   dataset,
@@ -23,74 +24,45 @@ The dataset design can be "FCTRL" or "FCTRL-X-MOD".}
 \item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}}
 
 \item{method}{The significance testing method to be used:
-\code{"DBM"} for the Dorfman-Berbaum-Metz method or \code{"OR"}, 
+\code{"DBM"} for the Dorfman-Berbaum-Metz method or \code{"OR"} 
 for the Obuchowski-Rockette method (default).}
 
-\item{covEstMethod}{The covariance matrix estimation method
-   in \code{ORH} analysis (for \code{method = "DBM"} the jackknife is always used).
+\item{covEstMethod}{The covariance matrix estimation method in \code{ORH} 
+   analysis (for \code{method = "DBM"} the jackknife is always used).
    \itemize{ 
-   \item \code{"Jackknife"}, the default, 
-   \item \code{"Bootstrap"}, in which case \code{nBoots} is relevant, default is 200, 
+   \item \code{"Jackknife"} (default), 
+   \item \code{"Bootstrap"}, in which case \code{nBoots} is relevant, default 
+   200, 
    \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon" or "ROI" or "HrAuc"}.
 }}
 
 \item{analysisOption}{Determines which factors are regarded as random and 
     which are fixed:
 \itemize{ 
-   \item \code{"RRRC"} = random-reader random case, the default,
+   \item \code{"RRRC"} = random-reader random case (default),
    \item \code{"FRRC"} = fixed-reader random case, 
    \item \code{"RRFC"} = random-reader fixed case, 
    \item \code{"ALL"} =  all 3 allowed options.
 }}
 
 \item{alpha}{The significance level (alpha) of the test of the null hypothesis 
-that all modality effects are zero; the default is 0.05}
+that all modality effects are zero (default: alpha = 0.05).}
 
 \item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" 
 or "ALROC"; where to evaluate a partial curve based figure of merit. 
-The default is 0.2.}
+(default: FPFValue = 0.2).}
 
 \item{nBoots}{The number of bootstraps (defaults to 200), only needed if 
 \code{covEstMethod = "bootstrap"} and \code{method = "OR"}}
 
-\item{seed}{For bootstraps the seed of the RNG (defaults to \code{NULL}), only 
-needed if \code{covEstMethod = "bootstrap"} and \code{method = "OR"}}
+\item{seed}{For bootstraps the seed of the RNG (default: seed = \code{NULL}), 
+only needed if \code{method = "OR"} and \code{covEstMethod = "bootstrap"}.}
 }
 \value{
-\strong{For \code{method = "DBM"} the returned list contains 4 dataframes:}
-
-\item{FOMs}{Contains \code{foms}, \code{trtMeans} and \code{trtMeanDiffs}: 
-   see return of \code{\link{UtilFigureOfMerit}}}
-
-\item{ANOVA}{Contains \code{TRCAnova}, \code{VarCom}, \code{IndividualTrt} 
-   and \code{IndividualRdr} ANOVA tables of pseudovalues}
-
-\item{RRRC}{Contains results of \code{"RRRC"} analyses: \code{FTests}, 
-   \code{ciDiffTrt}, \code{ciAvgRdrEachTrt}}
-
-\item{FRRC}{Contains results of \code{"FRRC"} analyses: \code{FTests}, 
-   \code{ciDiffTrt}, \code{ciAvgRdrEachTrt}, \code{ciDiffTrtEachRdr}}
-
-\item{RRFC}{Contains results of \code{"RRFC"} analyses: \code{FTests}, 
-   \code{ciDiffTrt}, \code{ciAvgRdrEachTrt}}
-
-\strong{For \code{method = "OR"} the return list contains 4 dataframes:}
-
-\item{FOMs}{Contains \code{foms}, \code{trtMeans} and \code{trtMeanDiffs}: 
-   \code{\link{UtilFigureOfMerit}}}
-
-\item{ANOVA}{Contains \code{TRAnova}, \code{VarCom}, \code{IndividualTrt} 
-   and \code{IndividualRdr} ANOVA tables of FOM values}
-
-\item{RRRC}{Contains results of \code{"RRRC"} analyses - same 
-   organization as DBM, see above}
-
-\item{FRRC}{Contains results of \code{"FRRC"} analyses - ditto}
-
-\item{RRFC}{Contains results of \code{"RRFC"} analyses- ditto}
+A list containing the results of the analyis.
 }
 \description{
-Performs DBM or OR significance testing for specified dataset.
+Performs DBM or OR significance testing for the dataset.
 }
 \examples{
 result <- St(dataset02,FOM = "Wilcoxon", method = "DBM") 
@@ -106,13 +78,16 @@ result <- St(dataset05, FOM = "HrAuc", method = "DBM")
 }
 \references{
 Dorfman DD, Berbaum KS, Metz CE (1992) ROC characteristic rating analysis: 
-Generalization to the Population of Readers and Patients with the Jackknife method, Invest. Radiol. 27, 723-731.
+Generalization to the Population of Readers and Patients with the Jackknife 
+method, Invest. Radiol. 27, 723-731.
 
-Obuchowski NA, Rockette HE (1995) Hypothesis Testing of the Diagnostic Accuracy for Multiple Diagnostic Tests:  
-An ANOVA Approach with Dependent Observations, Communications in Statistics: Simulation and Computation 24, 285-308.
+Obuchowski NA, Rockette HE (1995) Hypothesis Testing of the Diagnostic 
+Accuracy for Multiple Diagnostic Tests: An ANOVA Approach with Dependent 
+Observations, Communications in Statistics: Simulation and Computation 24, 
+285-308.
 
-Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader multicase radiological imaging data, 
-Statistics in medicine 33, 330-360.
+Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader 
+multicase radiological imaging data, Statistics in medicine 33, 330-360.
 
 Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
 methods and x-ray tube current-time product  on nodule detection in an 

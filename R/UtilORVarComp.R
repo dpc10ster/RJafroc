@@ -84,7 +84,7 @@ UtilORVarComp <- function (dataset,
     readerID <- dataset$descriptions$readerID
     
     foms_array <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-    foms <- ConvArr2List(dataset, foms_array)
+    foms <- Arr2List(dataset, foms_array)
     
     jkFomValues <- UtilPseudoValues(dataset, FOM, FPFValue)$jkFomValues
     

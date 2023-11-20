@@ -1,0 +1,131 @@
+
+
+                       ***  INTERPRETATION OF RESULTS ***
+  
+The numerical values in this section are for the following command:
+
+St(dataset01, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
+
+                             
+$FOMs: Figures Of merit, a list with 3 members
+
+1. $FOMs$foms: FOM values (matrix)
+
+    trtBT = breast tomosynthesis treatment
+    trtDM = digital mammography treatment
+    rdr1 = reader 1, etc.
+
+    $FOMs$foms
+               rdr1      rdr2      rdr3      rdr4      rdr5
+    trtBT 0.7602704 0.8406191 0.8171524 0.8153090 0.8278324
+    trtDM 0.6425854 0.7049977 0.7518434 0.7724426 0.6836962
+
+2. $FOMs$trtMeans: Treatment means, i.e., foms averaged over readers (vector of 
+    length equal to number of treatments):
+
+    $FOMs$trtMeans
+           Estimate
+    trtBT 0.8122367
+    trtDM 0.7111131
+
+3. $FOMs$trtMeanDiffs: Treatment mean differences, i.e., intertreament differences 
+    of foms averaged over readers (vector); for two treatments this is a
+    scalar, for 3 treatments this is a vector of length 3, for 4 treatments this 
+    is a vector of length 4; etc.
+
+    $FOMs$trtMeanDiffs
+                 Estimate
+    trtBT-trtDM 0.1011236
+
+
+$ANOVA: Analysis of variance, a list with 4 members
+
+1. $ANOVA$TRanova: treatment-reader ANOVA 
+    SS = sum of squares 
+    DF = degrees of freedom
+    MS = mean-squares
+    T = treatment
+    R = reader
+    TR = treatment-reader
+ 
+    $ANOVA$TRanova
+                SS DF           MS
+    T  0.025564954  1 0.0255649539
+    R  0.010692759  4 0.0026731896
+    TR 0.003995532  4 0.0009988829
+    
+2. $ANOVA$VarCom: variances, covariances and correlations 
+    VarR = reader variance 
+    VarTR = treatment-reader variance
+    Var = error variance 
+    Cov1 = covariance when treatments are different 
+    Cov2 = covariance when readers are different
+    Cov3 = covariance when treatments and readers are different 
+    Rhos = correlations (e.g., Rho1 = Cov1/Var, etc.)
+    
+    $ANOVA$VarCom
+             Estimates      Rhos
+    VarR  0.0008130525        NA
+    VarTR 0.0004867615        NA
+    Cov1  0.0002992351 0.2700572
+    Cov2  0.0005718211 0.5160638
+    Cov3  0.0002751342 0.2483063
+    Var   0.0011080434        NA
+
+3. $ANOVA$IndividualTrt: individual treatment mean squares, variances and Cov2's
+    DF = degrees of freedom
+    msREachTrt = reader mean square for each treatment
+    varEachTrt = reader variance for each treatment
+    cov2EachTrt = Cov2 for each treatment
+    
+    $ANOVA$IndividualTrt
+          DF  msREachTrt   varEachTrt  cov2EachTrt
+    trtBT  4 0.000945723 0.0009611449 0.0005390098
+    trtDM  4 0.002726350 0.0012549419 0.0006046324
+
+4. $ANOVA$IndividualRdr: individual reader mean square, variances and Cov1's
+    DF = degrees of freedom
+    msTEachRdr = treatment mean squares for each reader
+    varEachRdr = treatment variances for each reader
+    cov1EachRdr = Cov1 for each reader
+
+    $ANOVA$IndividualRdr
+         DF   msTEachRdr   varEachRdr  cov1EachRdr
+    rdr1  1 0.0069248708 0.0014300029 0.0001574465
+    rdr2  1 0.0091965941 0.0009953215 0.0003363709
+    rdr3  1 0.0021326320 0.0010881495 0.0003556332
+    rdr4  1 0.0009187615 0.0009068621 0.0003010110
+    rdr5  1 0.0103876273 0.0011198809 0.0003457138
+
+    
+$FRRC: random reader random case results, a list with 3 members
+
+1. $FRRC$FTests: results of F-tests
+    DF = degrees of freedom
+    MS = mean squares
+    FStat = F statistic
+    p = p values
+    Treatment = treatment factor
+    Error = error term
+
+    $FRRC$FTests
+                    DF          MS    FStat           p
+    Treatment  1.00000 0.025564954 10.29883 0.003668578
+    Error     24.70276 0.002482317       NA          NA
+
+2. $FRRC$ciDiffTrt: confidence intervals for differences of treatments
+
+    $FRRC$ciDiffTrt
+                 Estimate     StdErr       DF        t       PrGTt    CILower   CIUpper
+    trtBT-trtDM 0.1011236 0.03151074 24.70276 3.209178 0.003668578 0.03618638 0.1660608
+
+3. $FRRC$ciAvgRdrEachTrt: (1-alpha) confidence intervals for each treatment 
+    averaged over readers 
+    CILower = lower limit of confidence interval
+    CIUpper = upper limit of confidence interval
+
+    $FRRC$ciAvgRdrEachTrt
+           Estimate     StdErr       DF   CILower   CIUpper         Cov2
+    trtBT 0.8122367 0.02698434 59.28149 0.7582465 0.8662268 0.0005390098
+    trtDM 0.7111131 0.03391021 17.78930 0.6398098 0.7824163 0.0006046324
+    

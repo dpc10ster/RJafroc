@@ -196,7 +196,7 @@ UtilDBMVarComp <- function (dataset, FOM, FPFValue = 0.2)
     
     psVals <- UtilPseudoValues(dataset, FOM, FPFValue)$jkPseudoValues
     K <- length(psVals[1,1,1,])
-    PV <- ConvArr2List(dataset, psVals)
+    PV <- Arr2List(dataset, psVals)
 
     VarCom  <- list()
     TRCanova  <- list()

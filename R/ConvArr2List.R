@@ -1,6 +1,6 @@
-ConvArr2List <- function(dataset, foms) {
+Arr2List <- function(dataset, foms) {
   
-  if (length(dim(dataset$ratings$NL)) != 5) stop ("ConvArr2List: expected a crossed modality dataset")
+  if (length(dim(dataset$ratings$NL)) != 5) stop ("Arr2List: expected a crossed modality dataset")
   modalityID1 <- dataset$descriptions$modalityID1
   modalityID2 <- dataset$descriptions$modalityID2
   readerID <- dataset$descriptions$readerID

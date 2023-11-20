@@ -122,7 +122,7 @@ StDBMAnalysis <- function(dataset,
     ANOVA$IndividualRdr <- vc$IndividualRdr
     
     fom_i1i2j <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-    fomsAvgEachXModality <- ConvArr2List(dataset, fom_i1i2j)
+    fomsAvgEachXModality <- Arr2List(dataset, fom_i1i2j)
     trtMeanDiffs <- list()
     trtMeans <- list()
     diffTRName <- list()

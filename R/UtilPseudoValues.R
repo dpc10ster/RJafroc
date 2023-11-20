@@ -245,7 +245,7 @@ UtilPseudoValues <- function(dataset, FOM, FPFValue = 0.2) {
     
     foms <- UtilFigureOfMerit(dataset, FOM, FPFValue)
     # don't need the averaged FOMs here
-    # foms <- ConvArr2List(dataset, fomsTemp)[[2]] # the raw FOMs, before averaging
+    # foms <- Arr2List(dataset, fomsTemp)[[2]] # the raw FOMs, before averaging
     
     jkFomValues <- array(dim = c(I1, I2, J, K))
     jkPseudoValues <- array(dim = c(I1, I2, J, K))

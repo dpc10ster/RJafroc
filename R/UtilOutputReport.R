@@ -126,9 +126,9 @@ UtilOutputReport <- function(dataset,
                  covEstMethod = "jackknife", analysisOption = analysisOption, 
                  alpha = 0.05, FPFValue = 0.2)
   if (method == "DBM") {
-    methodTxt <- "DBM-MRMC-HILLIS SIGNIFICANCE TESTING"
+    methodTxt <- "DBM-MRMC SIGNIFICANCE TESTING"
   } else if (method == "OR") {
-    methodTxt <- "OBUCHOWSKI-ROCKETTE-HILLIS SIGNIFICANCE TESTING"
+    methodTxt <- "OBUCHOWSKI-ROCKETTE SIGNIFICANCE TESTING"
   } else {
     errMsg <- paste0(method, " is not a valid analysis method.")
     stop(errMsg)
@@ -228,7 +228,7 @@ Preamble <- function(dataset, FOM, ReportFileName, method, methodTxt) {
   K1 <- K - K2
   nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
   
-  cat(sprintf("Significance testing method:  %s\n", methodTxt))
+  cat(sprintf("Significance testing method:  %s\n", method))
   cat(sprintf("Number of Readers          :  %d\n", J))
   cat(sprintf("Number of Treatments       :  %d\n", I))
   cat(sprintf("Number of Normal Cases     :  %d\n", K1))

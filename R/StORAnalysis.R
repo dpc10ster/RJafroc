@@ -1,13 +1,13 @@
 StORAnalysis <- function(dataset,
                          FOM,
-                         method, 
                          covEstMethod, 
                          analysisOption,
                          alpha,
                          FPFValue,
                          nBoots, 
-                         seed)  
-
+                         seed,
+                         details)  
+  
 {
   
   if (length(dim(dataset$ratings$NL)) == 4) {
@@ -27,10 +27,6 @@ StORAnalysis <- function(dataset,
       K <- K2
     }
     
-    RRRC <- NULL
-    FRRC <- NULL
-    RRFC <- NULL
-    
     vc <- UtilORVarComp(dataset, FOM, covEstMethod, FPFValue, nBoots, seed)
     
     TRanova <- vc$TRanova
@@ -45,7 +41,7 @@ StORAnalysis <- function(dataset,
     ANOVA$IndividualRdr <- IndividualRdr
     
     fom_ij <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-
+    
     trtMeans <- rowMeans(fom_ij)
     trtMeans <- as.data.frame(trtMeans)
     colnames(trtMeans) <- "Estimate"
@@ -77,6 +73,7 @@ StORAnalysis <- function(dataset,
     )
     
     if (analysisOption == "RRRC") {
+      PreambleORFact(dataset, FOM, method = "OR", analysisOption = "RRRC", details)
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -86,6 +83,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "FRRC") {
+      PreambleORFact(dataset, FOM, method = "OR", analysisOption = "FRRC", details)
       FRRC <- OR_FRRC(K, FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -95,6 +93,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "RRFC") {
+      PreambleORFact(dataset, FOM, method = "OR", analysisOption = "RRFC", details)
       RRFC <- OR_RRFC(FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -104,6 +103,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "ALL") {
+      PreambleORFact(dataset, FOM, method = "OR", analysisOption = "ALL", details)
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       FRRC <- OR_FRRC(K, FOMStats, ANOVA, alpha)
       RRFC <- OR_RRFC(FOMStats, ANOVA, alpha)
@@ -139,7 +139,7 @@ StORAnalysis <- function(dataset,
     }
     
     fom_i1i2j <- UtilFigureOfMerit(dataset, FOM, FPFValue)
-    fomsAvgEachXModality <- ConvArr2List(dataset, fom_i1i2j)
+    fomsAvgEachXModality <- Arr2List(dataset, fom_i1i2j)
     
     vc <- UtilORVarComp(dataset, FOM, covEstMethod, FPFValue, nBoots, seed)
     TRanova <- vc$TRanova
@@ -162,7 +162,7 @@ StORAnalysis <- function(dataset,
       colnames(trtMeans[[avgIndx]]) <- "Estimate"
       trtMeanDiffs1 <- array(dim = choose(I[avgIndx], 2))
       diffTRName[[avgIndx]] <- array(dim = choose(I[avgIndx], 2))
-
+      
       ii <- 1
       for (i in 1:I[avgIndx]) {
         if (i == I[avgIndx]) 
@@ -170,9 +170,9 @@ StORAnalysis <- function(dataset,
         for (ip in (i + 1):I[avgIndx]) {
           trtMeanDiffs1[ii] <- trtMeans[[avgIndx]][i,1] - trtMeans[[avgIndx]][ip,1]
           diffTRName[[avgIndx]][ii] <- paste0("trt", 
-                                   modalityID[[avgIndx]][i], 
-                                   sep = "-", "trt", 
-                                   modalityID[[avgIndx]][ip])
+                                              modalityID[[avgIndx]][i], 
+                                              sep = "-", "trt", 
+                                              modalityID[[avgIndx]][ip])
           ii <- ii + 1
         }
       }
@@ -192,6 +192,7 @@ StORAnalysis <- function(dataset,
       diffTRName = diffTRName)
     
     if (analysisOption == "RRRC") {
+      PreambleORX(dataset, FOM, method = "OR", analysisOption = "ALL", details)
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4], # do not show diffTreatmentName
@@ -234,6 +235,174 @@ StORAnalysis <- function(dataset,
 } 
 
 
+OutputText <- function(myname) {
+  fn <- system.file("extdata", myname, package = "RJafroc", mustWork = TRUE)
+  x <- readLines(fn)
+  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  
+}
+
+
+PreambleORFact <- function(dataset, FOM, method, analysisOption, details) {
+  
+  OutputText("Disclaimer.txt")
+  
+  cat(paste("R version:", R.version$version.string,"\n"))
+  cat(paste("RJafroc version:", packageVersion("RJafroc"),"\n"))
+  dateTime <- paste0("Run date: ", base::format(Sys.time(), "%b %d %Y %a %X %Z"))
+  cat(paste(dateTime, "\n"))
+  
+  cat(sprintf("Input Data Set              :  %s\n", dataset$descriptions$name))
+  cat(sprintf("Data type                   :  %s\n", dataset$descriptions$type))
+  cat(sprintf("Design type                 :  %s\n", dataset$descriptions$design))
+  cat(sprintf("FOM selected                :  %s\n", FOM))
+  cat(sprintf("Analylsis Option            :  %s\n", analysisOption))
+  
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  lesionID <- dataset$lesions$IDs
+  maxNL <- dim(NL)[4]
+  dataType <- dataset$descriptions$type
+  modalityID <- dataset$descriptions$modalityID
+  I <- length(modalityID)
+  readerID <- dataset$descriptions$readerID
+  J <- length(readerID)
+  K <- dim(NL)[3]
+  K2 <- dim(LL)[3]
+  K1 <- K - K2
+  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
+  
+  if (details > 0) {
+    cat(sprintf("Significance testing method :  %s\n", toupper("Obuchowski-Rockette-Hillis")))
+    cat(sprintf("Number of Readers           :  %d\n", J))
+    cat(sprintf("Number of Treatments        :  %d\n", I))
+    cat(sprintf("Number of Normal Cases      :  %d\n", K1))
+    cat(sprintf("Number of Abnormal Cases    :  %d\n", K2))
+    cat(sprintf("Fraction of Normal Cases    :  %f\n", K1/K))
+    
+    if (dataType == "FROC") {
+      cat(sprintf("Min number of lesions per diseased case   :  %d\n", 
+                  min(nLesionPerCase)))
+      cat(sprintf("Max number of lesions per diseased case   :  %d\n", 
+                  max(nLesionPerCase)))
+      cat(sprintf("Mean number of lesions per diseased case  :  %f\n", 
+                  mean(nLesionPerCase)))
+      cat(sprintf("Total number of lesions                   :  %d\n", 
+                  sum(nLesionPerCase)))
+      
+      if (details > 1) {
+        nl <- NL[, , (K1 + 1):K, ]
+        dim(nl) <- c(I, J, K2, maxNL)
+        maxNLRating <- apply(nl, c(1, 2, 3), max)
+        maxLLRating <- apply(LL, c(1, 2, 3), max)
+        ILF <- sum(maxNLRating > maxLLRating) + 0.5 * sum(maxNLRating == maxLLRating)
+        ILF <- ILF/I/J/K2
+        cat(sprintf("Incorrect Localization Fraction                         :  %f\n", ILF))
+        cat(sprintf("Avg. number of NL marks per reader on non-diseased cases:  %f\n", 
+                    sum(NL[, , 1:K1, ] != UNINITIALIZED)/(I * J * K1)))
+        cat(sprintf("Avg. number of NL marks per reader on diseased cases    :  %f\n", 
+                    sum(NL[, , (K1 + 1):K, ] != UNINITIALIZED)/(I * J * K2)))
+        cat(sprintf("Avg. number of lesion localization marks per reader     :  %f\n", 
+                    sum(LL != UNINITIALIZED)/(I * J * K2)))
+      }
+    }
+    
+    cat(sprintf("Excel file modality IDs are :  %s\n", paste(names(modalityID), collapse = ", ")))
+    cat(sprintf("Excel file reader IDs are   :  %s\n\n", paste(names(readerID), collapse = ", ")))
+  }
+  
+  if (details > 0) {
+    OutputText("OVERVIEW.txt")
+  }
+  
+  if (details > 1) {
+    OutputText(paste0(analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
+  }
+  
+  x <- toupper("\n##########################  Results of analysis  ###############################\n\n")
+  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+}
+
+
+PreambleORX <- function(dataset, FOM, method, analysisOption, details) {
+  
+  OutputText("Disclaimer.txt")
+  
+  cat(paste("R version:", R.version$version.string,"\n"))
+  cat(paste("RJafroc version:", packageVersion("RJafroc"),"\n"))
+  dateTime <- paste0("Run date: ", base::format(Sys.time(), "%b %d %Y %a %X %Z"))
+  cat(paste(dateTime, "\n"))
+  
+  cat(sprintf("Input Data Set              :  %s\n", dataset$descriptions$name))
+  cat(sprintf("Data type                   :  %s\n", dataset$descriptions$type))
+  cat(sprintf("FOM selected                :  %s\n", FOM))
+  cat(sprintf("Analylsis Option            :  %s\n", analysisOption))
+  
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  lesionID <- dataset$lesions$IDs
+  maxNL <- dim(NL)[5]
+  dataType <- dataset$descriptions$type
+  modalityID1 <- dataset$descriptions$modalityID1
+  modalityID2 <- dataset$descriptions$modalityID2
+  modalityID <- list(modalityID2, modalityID1)
+  I <- c(I2, I1)
+  readerID <- dataset$descriptions$readerID
+  I1 <- length(modalityID1)
+  I2 <- length(modalityID2)
+  J <- length(readerID)
+  K <- dim(NL)[4]
+  K2 <- dim(LL)[4]
+  K1 <- K - K2
+  
+  cat(sprintf("Significance testing method :  %s\n", toupper("Obuchowski-Rockette-Hillis")))
+  cat(sprintf("Number of Readers           :  %d\n", J))
+  cat(sprintf("# treatments 1st modality   :  %d\n", I1))
+  cat(sprintf("# treatments 2nd modality   :  %d\n", I2))
+  cat(sprintf("Number of Normal Cases      :  %d\n", K1))
+  cat(sprintf("Number of Abnormal Cases    :  %d\n", K2))
+  cat(sprintf("Fraction of Normal Cases    :  %f\n", K1/K))
+  
+  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+  nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
+  
+  if (dataType == "FROC") {
+    cat(sprintf("Min number of lesions per diseased case   :  %d\n", 
+                min(nLesionPerCase)))
+    cat(sprintf("Max number of lesions per diseased case   :  %d\n", 
+                max(nLesionPerCase)))
+    cat(sprintf("Mean number of lesions per diseased case  :  %f\n", 
+                mean(nLesionPerCase)))
+    cat(sprintf("Total number of lesions                   :  %d\n", 
+                sum(nLesionPerCase)))
+    
+    nl <- NL[,,, (K1 + 1):K, ]
+    dim(nl) <- c(I1, I2, J, K2, maxNL)
+    maxNLRating <- apply(nl, c(1, 2, 3, 4), max)
+    maxLLRating <- apply(LL, c(1, 2, 3, 4), max)
+    ILF <- sum(maxNLRating > maxLLRating) + 0.5 * sum(maxNLRating == maxLLRating)
+    ILF <- ILF/I/J/K2
+    cat(sprintf("Incorrect Localization Fraction                         :  %f\n", ILF))
+    cat(sprintf("Avg. number of NL marks per reader on non-diseased cases:  %f\n", 
+                sum(NL[,,, 1:K1, ] != UNINITIALIZED)/(I * J * K1)))
+    cat(sprintf("Avg. number of NL marks per reader on diseased cases    :  %f\n", 
+                sum(NL[,,, (K1 + 1):K, ] != UNINITIALIZED)/(I * J * K2)))
+    cat(sprintf("Avg. number of lesion localization marks per reader     :  %f\n", 
+                sum(LL != UNINITIALIZED)/(I * J * K2)))
+  }
+  
+  cat(sprintf("Excel file modality IDs 1st treatment :  %s\n", paste(names(modalityID1), collapse = ", ")))
+  cat(sprintf("Excel file modality IDs 2nd treatment :  %s\n", paste(names(modalityID1), collapse = ", ")))
+  cat(sprintf("Excel file reader IDs are             :  %s\n", paste(names(readerID), collapse = ", ")))
+  
+  OutputText("OVERVIEW.txt")
+  OutputText(paste0(analysisOption, "-", method, "-FCTRL", ".txt"))
+  
+  x <- toupper("\n##########################  Results of analysis  ###############################\n\n")
+  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+}
+
 
 OR_RRRC<- function(FOMStats, ANOVA, alpha) {
   
@@ -275,7 +444,7 @@ OR_RRRC<- function(FOMStats, ANOVA, alpha) {
     # combination is given under the "Mean Square" column
     # Note: Df(error term) is called "ddf_H" in Hillis (2007).
     
-    #   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
+    #   b) 1-alpha confidence intervals and hypothesis tests (H0: difference = 0)
     #   for modality AUC differences
     stdErr <- sqrt(2 * msDen/J)
     tStat <- vector()
@@ -304,10 +473,10 @@ OR_RRRC<- function(FOMStats, ANOVA, alpha) {
     
     # StdErr = sqrt{(2/r)*[MS(T*R) + r*max(Cov2 - Cov3,0)]}
     # Df same as df(error term) from (a)
-    # 95% CI: Difference +- t(.025;df) * StdErr
+    # 1-alpha CI: Difference +- t(.025;df) * StdErr
     
     # if (dataset$descriptions$design == "FCTRL") {
-    #   c) Single-modality 95% confidence intervals
+    #   c) Single-modality 1-alpha confidence intervals
     # (Each analysis is based only on data for the specified modality, i.e., 
     #   on the modality-specific reader ANOVA of AUCs and Cov2 estimates.)
     df <- array(dim = I)
@@ -337,7 +506,7 @@ OR_RRRC<- function(FOMStats, ANOVA, alpha) {
     # StdErr = sqrt{1/r * [MS(R) + r*max(Cov2,0)]}
     # Df = [MS(R)+ max(r*cov2,0)]**2/[(MS(R)**2/(r-1)]
     # Note: Df is called "ddf_H_single" in Hillis (2007)
-    # 95% CI: AUC +- t(.025;df) * StdErr
+    # 1-alpha CI: AUC +- t(.025;df) * StdErr
     
     return(RRRC)
     
@@ -491,7 +660,7 @@ OR_FRRC <- function(K, FOMStats, ANOVA, alpha) {
                                 row.names = c("Treatment", "Error"),
                                 stringsAsFactors = FALSE)
       
-      #   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
+      #   b) 1-alpha confidence intervals and hypothesis tests (H0: difference = 0)
       #   for modality AUC differences
       stdErr <- sqrt(2 * msDen/J)
       zStat <- vector()
@@ -513,10 +682,10 @@ OR_FRRC <- function(K, FOMStats, ANOVA, alpha) {
                                    stringsAsFactors = FALSE)
     }
     # StdErr = sqrt{2/r * [(Var(error) - Cov1 + (r-1)*max(Cov2 - Cov3,0)]}
-    # 95% CI: difference +- z(.025) * StdErr
+    # 1-alpha CI: difference +- z(.025) * StdErr
     
     
-    # c) Single modality AUC 95% confidence intervals
+    # c) Single modality AUC 1-alpha confidence intervals
     # (Each analysis is based only on data for the specified modality, i.e., on
     #   the specific reader ANOVA of AUCs and error-variance and Cov2 estimates.)
     # 
@@ -532,11 +701,11 @@ OR_FRRC <- function(K, FOMStats, ANOVA, alpha) {
       # TBA Need a better reference #
       # See for example, inst/Iowa/VanDyke.txt, lines 228-243; shown next: #
       # RStudio debugger buggy when I have these comments, does not stop at break points #
-      # LINE 228    c) Single modality AUC 95% confidence intervals #
+      # LINE 228    c) Single modality AUC 1-alpha confidence intervals #
       # (Each analysis is based only on data for the specified modality, i.e., on #
       # the specific reader ANOVA of AUCs and error-variance and Cov2 estimates.) #
       # 
-      # Treatment      AUC      Std Error   95% Confidence Interval #
+      # Treatment      AUC      Std Error   1-alpha Confidence Interval #
       # ----------  ----------  ----------  ------------------------- #
       #   1  0.89703704  0.02428971  (0.84943008 , 0.94464399) #
       #   2  0.94083736  0.01677632  (0.90795637 , 0.97371835) #
@@ -547,7 +716,7 @@ OR_FRRC <- function(K, FOMStats, ANOVA, alpha) {
       #   2  0.00059047  0.00020419 #
       # 
       #           StdErr = sqrt{1/r * [Var(error) + (r-1)*max(Cov2,0)]} #
-      # LINE 243: 95% CI: AUC +- z(.025) * StdErr #
+      # LINE 243: 1-alpha CI: AUC +- z(.025) * StdErr #
       # the Var_i and Cov2_i values check out for dataset02 #
       stdErr[i] <- sqrt((ANOVA$IndividualTrt[i,"varEachTrt"] + 
                            # added max() function 8/25/20
@@ -566,7 +735,7 @@ OR_FRRC <- function(K, FOMStats, ANOVA, alpha) {
     FRRC$ciAvgRdrEachTrt <- ci
     
     if (I > 1) {
-      #   d) Single-reader 95% confidence intervals and tests (H0: difference = 0) for 
+      #   d) Single-reader 1-alpha confidence intervals and tests (H0: difference = 0) for 
       #    modality AUC differences.
       #    (Each analysis is based only on data for the specified reader, i.e, on the 
       #    reader-specific AUC, error-variance and Cov1 estimates.)
@@ -606,7 +775,7 @@ OR_FRRC <- function(K, FOMStats, ANOVA, alpha) {
       }
       FRRC$ciDiffTrtEachRdr <- ci
       # StdErr = sqrt[2*(Var(error) - Cov1)]
-      # 95% CI: Difference +- z(.025) * StdErr
+      # 1-alpha CI: Difference +- z(.025) * StdErr
       
       FRRC$IndividualRdrVarCov1 <- ANOVA$IndividualRdr[,3:4]
     }
@@ -791,7 +960,7 @@ OR_RRFC <- function(FOMStats, ANOVA, alpha) {
     # (Results apply to the population of readers but only for the cases used in
     #   this study)
     # 
-    # These results result from using the OR model, but treating reader as a random 
+    # These results are from using the OR sampling model, but treating reader as a random 
     # factor and modality and case as fixed factors.  Because case is treated as a fixed
     # factor, it follows that Cov1 = Cov2 = Cov3 = 0; i.e., there is no correlation
     # between reader-performance measures (e.g, AUCs) due to reading the same
@@ -816,7 +985,7 @@ OR_RRFC <- function(FOMStats, ANOVA, alpha) {
                               row.names = c("T","TR"), 
                               stringsAsFactors = FALSE)
     
-    #   b) 95% confidence intervals and hypothesis tests (H0: difference = 0)
+    #   b) 1-alpha confidence intervals and hypothesis tests (H0: difference = 0)
     #   for modality AUC differences
     
     stdErr <- sqrt(2 * msDen/J)
@@ -841,11 +1010,11 @@ OR_RRFC <- function(FOMStats, ANOVA, alpha) {
     
     # StdErr = sqrt[2/r * MS(T*R)]
     # DF = df[MS(T*R)] = (t-1)(r-1)
-    # 95% CI: Difference +- t(.025;df) * StdErr
+    # 1-alpha CI: Difference +- t(.025;df) * StdErr
     # Note: If there are only 2 treatments, this is equivalent to a paired t-test applied
     # to the AUCs
     
-    #   c) Single modality AUC 95% confidence intervals
+    #   c) Single modality AUC 1-alpha confidence intervals
     # (Each analysis is based only on data for the specified modality, 
     #   i.e. on the modality-specfic reader ANOVA of AUCs
     dfSingle <- array(dim = I)
@@ -870,7 +1039,7 @@ OR_RRFC <- function(FOMStats, ANOVA, alpha) {
     
     # StdErr = sqrt[1/r * MS(R)]
     # DF = df[MS(R)] = r-1
-    # 95% CI: AUC +- t(.025;df) * StdErr
+    # 1-alpha CI: AUC +- t(.025;df) * StdErr
     # Note: this is the conventional CI, treating the reader AUCs as a random sample.
   } else {
     
@@ -958,7 +1127,7 @@ OR_RRFC <- function(FOMStats, ANOVA, alpha) {
 #' @importFrom stats runif
 varCompBS <- function(dataset, FOM, FPFValue, nBoots, seed) 
 {
-  stop("code needs fixing: varCompBS")
+  stop("not yet implemented: varCompBS")
   
   # if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
   # 
@@ -1063,7 +1232,7 @@ varCompBS <- function(dataset, FOM, FPFValue, nBoots, seed)
 
 varCompDeLong <- function(FOM)
 {
-  stop("code needs fixing: varCompBS")
+  stop("not yet implemented: varCompDeLong")
   
   # if (dataset$descriptions$design != "FCTRL") stop("This functions requires a factorial dataset")  
   # if (FOM != "Wilcoxon") stop("This functions requires FOM = `Wilcoxon`,\n")  
