@@ -113,7 +113,7 @@ $FRRC: random reader random case results, a list with 3 members
     Treatment  1.00000 0.025564954 10.29883 0.003668578
     Error     24.70276 0.002482317       NA          NA
 
-2. $FRRC$ciDiffTrt: confidence intervals for differences of treatments
+2. $FRRC$ciDiffTrt: 1-alpha confidence intervals for differences of treatments
 
     $FRRC$ciDiffTrt
                  Estimate     StdErr       DF        t       PrGTt    CILower   CIUpper

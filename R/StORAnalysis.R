@@ -777,7 +777,7 @@ OR_FRRC <- function(K, FOMStats, ANOVA, alpha) {
                            (J-1)*max(ANOVA$IndividualTrt[i,"cov2EachTrt"],0))/J)
       CI[i, ] <- c(FOMStats$trtMeans[i,1] + qnorm(alpha/2) * stdErr[i],
                    FOMStats$trtMeans[i,1] + qnorm(1-alpha/2) * stdErr[i])
-      rowName <- paste0("trt", modalityID[i])
+      rowName <- modalityID[i]
       ci <- rbind(ci, data.frame(Estimate = FOMStats$trtMeans[i,1], 
                                  StdErr = stdErr[i],
                                  DF = df[i],

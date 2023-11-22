@@ -9,12 +9,10 @@
   
 * Example `dataset01` has two levels of the treatment, named BT and DM in 
 the Excel file. 
-* In the output I added the prefix "trt" to each of these names to denote that 
-these are treatments.
-
 * BT = breast tomosynthesis.
 * DM = digital mammography.
-
+* In the output I added the prefix "trt" to each of these names to denote that 
+these are treatments.
 * The number of readers is 5. They are named 1 thru 5 in the Excel file. 
 * In the output I have added the prefix "rdr" to each of these names to denote 
 that these are readers.
@@ -30,10 +28,6 @@ $FOMs: figures of merit, a list with 3 members
 1. $FOMs$foms: FOM values
 ******************************
 
-trtBT = breast tomosynthesis treatment
-trtDM = digital mammography treatment
-rdr1 = reader 1, etc.
-
 $FOMs$foms
            rdr1      rdr2      rdr3      rdr4      rdr5
 trtBT        xx        xx        xx        xx        xx
@@ -43,8 +37,8 @@ trtDM        xx        xx        xx        xx        xx
 2. $FOMs$trtMeans
 ******************************
 
-* Treatment means, i.e., foms averaged over readers (a vector of length equal 
-to number of treatments):
+* Treatment means, i.e., foms averaged over readers
+* vector of length equal to number of treatments
 * Estimate = observed value
 
 $FOMs$trtMeans
@@ -62,7 +56,6 @@ trtDM        xx
 this is a vector of length 3, for 4 treatments this is a vector of length 6; 
 etc.
 
-
 $FOMs$trtMeanDiffs
              Estimate
 trtBT-trtDM        xx
@@ -70,11 +63,9 @@ trtBT-trtDM        xx
 
 ********************************************************************************
 
-
 ************************************************************
 $ANOVA: analysis of variance, a list containing 4 members. 
 ************************************************************
-
 
 ******************************
 1. $ANOVA$TRanova 
@@ -93,7 +84,6 @@ $ANOVA$TRanova
 T          xx xx           xx
 R          xx xx           xx
 TR         xx xx           xx
-
     
 ******************************
 2. $ANOVA$VarCom 
@@ -149,14 +139,12 @@ rdr2  xx           xx           xx           xx
 rdr3  xx           xx           xx           xx
 rdr4  xx           xx           xx           xx
 rdr5  xx           xx           xx           xx
-
     
 ********************************************************************************    
 
 ************************************************************
 $RRRC random reader random case results, a list with 3 members
 ************************************************************
-
 
 ******************************
 1. $RRRC$FTests
@@ -179,12 +167,11 @@ Error           xx          xx       NA          NA
 2. $RRRC$ciDiffTrt
 ******************************
 
-* Confidence intervals for differences of treatments
+* 1-alpha confidence intervals for differences of treatments
 
 $RRRC$ciDiffTrt
                Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper
 trt20-trt40          xx         xx       xx         xx           xx          xx           xx
-
 
 ******************************
 3. $RRRC$ciAvgRdrEachTrt

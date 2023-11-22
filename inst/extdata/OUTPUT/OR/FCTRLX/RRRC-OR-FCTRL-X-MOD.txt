@@ -278,7 +278,7 @@ treatments, the difference is not significant.
 2. $RRRC$ciDiffTrt
 ******************************
 
-* Confidence intervals for differences of treatments
+* 1-alpha confidence intervals for differences of treatments
 
 $RRRC$ciDiffTrt$AvgMod1
                Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper
