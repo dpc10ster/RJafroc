@@ -44,8 +44,9 @@
 #'     only needed if \code{method = "OR"} and \code{covEstMethod = "bootstrap"}.
 #'    
 #'     
-#' @param details Amount of detailed explanations in output, default is 0 for no 
-#'     explanations, 1 for some explanations and 2 for most explanations.
+#' @param details Amount of explanations in output, default is 0 for no 
+#'     explanations, 1 for some explanations and 2 for most explanations (2 is
+#'     recommended for cross modality datasets).
 #'    
 #'     
 #' @return A list containing the results of the analysis.
