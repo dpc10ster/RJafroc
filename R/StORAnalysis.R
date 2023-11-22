@@ -73,7 +73,7 @@ StORAnalysis <- function(dataset,
     )
     
     if (analysisOption == "RRRC") {
-      PreambleORFact(dataset, FOM, method = "OR", analysisOption = "RRRC", details)
+      ExplanationsORFact(dataset, FOM, method = "OR", analysisOption = "RRRC", details)
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -83,7 +83,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "FRRC") {
-      PreambleORFact(dataset, FOM, method = "OR", analysisOption = "FRRC", details)
+      ExplanationsORFact(dataset, FOM, method = "OR", analysisOption = "FRRC", details)
       FRRC <- OR_FRRC(K, FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -93,7 +93,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "RRFC") {
-      PreambleORFact(dataset, FOM, method = "OR", analysisOption = "RRFC", details)
+      ExplanationsORFact(dataset, FOM, method = "OR", analysisOption = "RRFC", details)
       RRFC <- OR_RRFC(FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -103,7 +103,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "ALL") {
-      PreambleORFact(dataset, FOM, method = "OR", analysisOption = "ALL", details)
+      ExplanationsORFact(dataset, FOM, method = "OR", analysisOption = "ALL", details)
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       FRRC <- OR_FRRC(K, FOMStats, ANOVA, alpha)
       RRFC <- OR_RRFC(FOMStats, ANOVA, alpha)
@@ -192,7 +192,7 @@ StORAnalysis <- function(dataset,
       diffTRName = diffTRName)
     
     if (analysisOption == "RRRC") {
-      PreambleORX(dataset, FOM, method = "OR", analysisOption = "RRRC", details)
+      ExplanationsORX(dataset, FOM, method = "OR", analysisOption = "RRRC", details)
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4], # do not show diffTreatmentName
@@ -235,7 +235,8 @@ StORAnalysis <- function(dataset,
 } 
 
 
-OutputText <- function(fileName) {
+# this looks in `inst/extdata/OUTPUT`
+OR_Output <- function(fileName) {
   
   fn <- system.file("extdata/OUTPUT", fileName, package = "RJafroc", mustWork = TRUE)
   x <- readLines(fn)
@@ -244,7 +245,8 @@ OutputText <- function(fileName) {
 }
 
 
-OutputTextFCTRL <- function(fileName) {
+# this looks in `inst/extdata/OUTPUT/OR/FCTRL`
+OR_Output_FCTRL <- function(fileName) {
   
   fn <- system.file("extdata/OUTPUT/OR/FCTRL", fileName, package = "RJafroc", mustWork = TRUE)
   x <- readLines(fn)
@@ -253,7 +255,8 @@ OutputTextFCTRL <- function(fileName) {
 }
 
 
-OutputTextFCTRLX <- function(fileName) {
+# this looks in `inst/extdata/OUTPUT/OR/FCTRLX`
+OR_Output_FCTRL_X <- function(fileName) {
   
   fn <- system.file("extdata/OUTPUT/OR/FCTRLX", fileName, package = "RJafroc", mustWork = TRUE)
   x <- readLines(fn)
@@ -263,9 +266,9 @@ OutputTextFCTRLX <- function(fileName) {
 
 
 
-analysisSummary <- function (dataset, FOM, method, analysisOption) {
+DisclaimerSummary <- function (dataset, FOM, method, analysisOption) {
   
-  OutputText("DISCLAIMER.txt")
+  OR_Output("DISCLAIMER.txt")
   
   cat(paste("R version:", R.version$version.string,"\n"))
   cat(paste("RJafroc version:", packageVersion("RJafroc"),"\n"))
@@ -282,10 +285,10 @@ analysisSummary <- function (dataset, FOM, method, analysisOption) {
 }
 
 
-PreambleORFact <- function(dataset, FOM, method, analysisOption, details) {
+ExplanationsORFact <- function(dataset, FOM, method, analysisOption, details) {
   
   if (details > 0) {
-    analysisSummary(dataset, FOM, method, analysisOption)  
+    DisclaimerSummary(dataset, FOM, method, analysisOption)  
   }
   
   NL <- dataset$ratings$NL
@@ -350,24 +353,24 @@ PreambleORFact <- function(dataset, FOM, method, analysisOption, details) {
   if (details > 0) {
     cat(sprintf("Excel file modality IDs     :  %s\n", paste(names(modalityID), collapse = ", ")))
     cat(sprintf("Excel file reader IDs       :  %s\n\n", paste(names(readerID), collapse = ", ")))
-    OutputText("OVERVIEW.txt")
+    OR_Output("OVERVIEW.txt")
   }
   
   if (details > 1) {
-    OutputTextFCTRL(paste0(analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
+    OR_Output_FCTRL(paste0(analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
   }
   
   if (details > 0) {
-    OutputText("RESULTS.txt")
+    OR_Output("RESULTS.txt")
   }
   
 }
 
 
-PreambleORX <- function(dataset, FOM, method, analysisOption, details) {
+ExplanationsORX <- function(dataset, FOM, method, analysisOption, details) {
   
   if (details > 0) {
-    analysisSummary(dataset, FOM, method, analysisOption)  
+    DisclaimerSummary(dataset, FOM, method, analysisOption)  
   }
   
   NL <- dataset$ratings$NL
@@ -441,15 +444,15 @@ PreambleORX <- function(dataset, FOM, method, analysisOption, details) {
     cat(sprintf("Excel file modality IDs 1st treatment :  %s\n", paste(names(modalityID1), collapse = ", ")))
     cat(sprintf("Excel file modality IDs 2nd treatment :  %s\n", paste(names(modalityID2), collapse = ", ")))
     cat(sprintf("Excel file reader IDs                 :  %s\n\n", paste(names(readerID), collapse = ", ")))
-    OutputText("OVERVIEW.txt")
+    OR_Output("OVERVIEW.txt")
   }
   
   if (details > 1) {
-    OutputTextFCTRLX(paste0(analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
+    OR_Output_FCTRL_X(paste0(analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
   }
   
   if (details > 0) {
-    OutputText("RESULTS.txt")
+    OR_Output("RESULTS.txt")
   }
   
 }

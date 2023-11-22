@@ -28,7 +28,7 @@ $FOMs: Figures Of merit, a list with 3 members
     trtBT 0.8122367
     trtDM 0.7111131
 
-3. $FOMs$trtMeanDiffs: Treatment mean differences, i.e., intertreament differences 
+3. $FOMs$trtMeanDiffs: Treatment mean differences, i.e., inter-treatment differences 
     of foms averaged over readers (vector); for two treatments this is a
     scalar, for 3 treatments this is a vector of length 3, for 4 treatments this 
     is a vector of length 4; etc.

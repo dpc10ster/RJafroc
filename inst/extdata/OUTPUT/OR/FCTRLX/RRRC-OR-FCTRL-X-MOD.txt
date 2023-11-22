@@ -22,7 +22,9 @@ that these are readers.
 
 ********************************************************************************
 
+************************************************************
 $FOMs: Figures of merit 
+************************************************************
 
 * An (outer) list containing 2 (inner) lists, each with 3 members. 
 * The first inner list is named AvgMod1, meaning the foms are averaged over the 
@@ -68,11 +70,11 @@ treatments correspond to those of the first treatment, 2 in this case.
 * These are labeled trtF and trtI.
 
 ******************************
-2. $FOMs$trtMeans: Treatment means
+2. $FOMs$trtMeans
 ******************************
 
-* Foms averaged over readers (vector of length equal to number of treatments 
-in the inner list):
+* Treatment means, i.e., foms averaged over readers (vector of length equal to 
+number of treatments in the inner list):
 
 $FOMs$trtMeans$AvgMod1
        Estimate
@@ -96,7 +98,7 @@ trtI        xx
 ******************************
 
 * Treatment mean differences
-* Intertreament differences of foms averaged over readers. 
+* Inter-treatment differences of foms averaged over readers. 
 * For two treatments the number of differences is a scalar, for 3 treatments 
 this is a vector of length 3, for 4 treatments this is a vector of length 6; 
 etc.
@@ -117,9 +119,10 @@ trtF-trtI           xx
 
 ********************************************************************************
 
-$ANOVA: Analysis of variance 
+************************************************************
+$ANOVA: Analysis of variance, a list containing two lists, each with 4 members. 
+************************************************************
 
-* A list containing two lists, each with 4 members.
 
 ******************************
 1. $ANOVA$TRanova 
@@ -239,9 +242,10 @@ rdr11 xx           xx           xx           xx
 
 ********************************************************************************    
 
-$RRRC: random reader random case 
+************************************************************
+$RRRC: random reader random case, a list containing two lists, each with 3 members 
+************************************************************
 
-* A list containing two lists, each with 3 members.
 
 ******************************
 1. $RRRC$FTests: results of F-tests

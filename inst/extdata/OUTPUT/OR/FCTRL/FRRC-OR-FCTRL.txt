@@ -1,8 +1,13 @@
 
 
+################################################################################
+
                        ***  INTERPRETATION OF RESULTS ***
+
+################################################################################
+
   
-The numerical values in this section are for the following command:
+This illustration applies to the following command:
 
 St(dataset01, FOM = "wAFROC", method = "OR", analysisOption = "FRRC")
 
