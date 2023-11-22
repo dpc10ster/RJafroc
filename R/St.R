@@ -134,7 +134,5 @@ St <- function(dataset,
     
   }
 
-  OutputTextFCTRLX("Results.txt")
-  
 }
 

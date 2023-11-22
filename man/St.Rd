@@ -59,8 +59,9 @@ or "ALROC"; where to evaluate a partial curve based figure of merit.
 \item{seed}{For bootstraps the seed of the RNG (default: seed = \code{NULL}), 
 only needed if \code{method = "OR"} and \code{covEstMethod = "bootstrap"}.}
 
-\item{details}{Amount of detailed explanations in output, default is 0 for no 
-explanations, 1 for some explanations and 2 for most explanations.}
+\item{details}{Amount of explanations in output, default is 0 for no 
+explanations, 1 for some explanations and 2 for most explanations (2 is
+recommended for cross modality datasets).}
 }
 \value{
 A list containing the results of the analysis.
