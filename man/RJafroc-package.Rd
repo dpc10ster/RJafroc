@@ -443,7 +443,6 @@
         \item \code{\link{UtilLesWghts}}: Calculates the lesion weights  matrix.
         \item \code{\link{UtilMeanSquares}}: Calculates the mean squares used in the
            DBM and OR methods.
-        \item \code{\link{UtilOutputReport}}: Generate a formatted report file.
         \item \code{\link{Util2Intrinsic}}: Convert RSM physical parameters to
            intrinsic parameters.
         \item \code{\link{UtilPseudoValues}}: Return jackknife pseudovalues.

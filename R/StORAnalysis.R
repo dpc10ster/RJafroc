@@ -284,7 +284,9 @@ analysisSummary <- function (dataset, FOM, method, analysisOption) {
 
 PreambleORFact <- function(dataset, FOM, method, analysisOption, details) {
   
-  analysisSummary(dataset, FOM, method, analysisOption)  
+  if (details > 0) {
+    analysisSummary(dataset, FOM, method, analysisOption)  
+  }
   
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
@@ -343,12 +345,11 @@ PreambleORFact <- function(dataset, FOM, method, analysisOption, details) {
                     sum(LL != UNINITIALIZED)/(I * J * K2)))
       }
     }
-    
-    cat(sprintf("Excel file modality IDs     :  %s\n", paste(names(modalityID), collapse = ", ")))
-    cat(sprintf("Excel file reader IDs       :  %s\n", paste(names(readerID), collapse = ", ")))
   }
-  
+
   if (details > 0) {
+    cat(sprintf("Excel file modality IDs     :  %s\n", paste(names(modalityID), collapse = ", ")))
+    cat(sprintf("Excel file reader IDs       :  %s\n\n", paste(names(readerID), collapse = ", ")))
     OutputText("OVERVIEW.txt")
   }
   
@@ -356,13 +357,18 @@ PreambleORFact <- function(dataset, FOM, method, analysisOption, details) {
     OutputTextFCTRL(paste0(analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
   }
   
-  OutputText("RESULTS.txt")
+  if (details > 0) {
+    OutputText("RESULTS.txt")
+  }
+  
 }
 
 
 PreambleORX <- function(dataset, FOM, method, analysisOption, details) {
   
-  analysisSummary(dataset, FOM, method, analysisOption)  
+  if (details > 0) {
+    analysisSummary(dataset, FOM, method, analysisOption)  
+  }
   
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
@@ -431,11 +437,10 @@ PreambleORX <- function(dataset, FOM, method, analysisOption, details) {
     }
   }
   
-  cat(sprintf("Excel file modality IDs 1st treatment :  %s\n", paste(names(modalityID1), collapse = ", ")))
-  cat(sprintf("Excel file modality IDs 2nd treatment :  %s\n", paste(names(modalityID2), collapse = ", ")))
-  cat(sprintf("Excel file reader IDs                 :  %s\n", paste(names(readerID), collapse = ", ")))
-  
   if (details > 0) {
+    cat(sprintf("Excel file modality IDs 1st treatment :  %s\n", paste(names(modalityID1), collapse = ", ")))
+    cat(sprintf("Excel file modality IDs 2nd treatment :  %s\n", paste(names(modalityID2), collapse = ", ")))
+    cat(sprintf("Excel file reader IDs                 :  %s\n\n", paste(names(readerID), collapse = ", ")))
     OutputText("OVERVIEW.txt")
   }
   
@@ -443,7 +448,9 @@ PreambleORX <- function(dataset, FOM, method, analysisOption, details) {
     OutputTextFCTRLX(paste0(analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
   }
   
-  OutputText("RESULTS.txt")
+  if (details > 0) {
+    OutputText("RESULTS.txt")
+  }
   
 }
 

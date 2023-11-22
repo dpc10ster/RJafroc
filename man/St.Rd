@@ -60,13 +60,18 @@ or "ALROC"; where to evaluate a partial curve based figure of merit.
 only needed if \code{method = "OR"} and \code{covEstMethod = "bootstrap"}.}
 
 \item{details}{Amount of detailed explanations in output, default is 0 for no 
-explanations, 1 for intermediate explanations and 2 for most explanations.}
+explanations, 1 for some explanations and 2 for most explanations.}
 }
 \value{
-A list containing the results of the analyis.
+A list containing the results of the analysis.
 }
 \description{
 Performs DBM or OR significance testing for the dataset.
+}
+\note{
+\code{details} = 0 should suffice for factorial dataset analysis since
+    the names of the output lists are self-explanatory. For cross-modality 
+    analysis \code{details} = 2 is suggested to better understand the output.
 }
 \examples{
 result <- St(dataset02,FOM = "Wilcoxon", method = "DBM") 
@@ -77,7 +82,6 @@ result <- St(datasetX, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
 result <- St(dataset05, FOM = "wAFROC")
 result <- St(dataset05, FOM = "HrAuc", method = "DBM") 
 } 
-
 
 }
 \references{

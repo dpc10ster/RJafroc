@@ -45,10 +45,10 @@
 #'    
 #'     
 #' @param details Amount of detailed explanations in output, default is 0 for no 
-#'     explanations, 1 for intermediate explanations and 2 for most explanations.
+#'     explanations, 1 for some explanations and 2 for most explanations.
 #'    
 #'     
-#' @return A list containing the results of the analyis.
+#' @return A list containing the results of the analysis.
 #' 
 #' @examples
 #' result <- St(dataset02,FOM = "Wilcoxon", method = "DBM") 
@@ -60,6 +60,9 @@
 #' result <- St(dataset05, FOM = "HrAuc", method = "DBM") 
 #' } 
 #'
+#' @note \code{details} = 0 should suffice for factorial dataset analysis since
+#'     the names of the output lists are self-explanatory. For cross-modality 
+#'     analysis \code{details} = 2 is suggested to better understand the output. 
 #' 
 #' @references
 #' Dorfman DD, Berbaum KS, Metz CE (1992) ROC characteristic rating analysis: 

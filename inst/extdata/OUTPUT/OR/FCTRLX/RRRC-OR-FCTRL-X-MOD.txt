@@ -28,9 +28,14 @@ $FOMs: Figures of merit
 * The first inner list is named AvgMod1, meaning the foms are averaged over the 
 first treatment. 
 * The second (inner) list is named AvgMod2, meaning the foms are averaged over the 
-second treatment. 
+second treatment.
+* These conventions apply to the rest of the output.
 
-1. $FOMs$foms: FOM values (two matrices, see below)
+******************************
+1. $FOMs$foms: FOM values
+******************************
+
+* Two matrices, see below
 
 $FOMs$foms$AvgMod1
 
@@ -43,7 +48,7 @@ trt40        xx        xx        xx        xx        xx        xx        xx     
 trt60        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx
 trt80        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx
 
-* Note: When foms are averaged over the first treatment the number of remaining 
+* When foms are averaged over the first treatment the number of remaining 
 treatments correspond to those of the second treatment, 4 in this case. 
 * These are labeled trt20, trt40, trt60 and trt80, which are the row names of 
 the matrix shown above. 
@@ -62,7 +67,10 @@ trtI        xx        xx        xx        xx        xx        xx        xx      
 treatments correspond to those of the first treatment, 2 in this case. 
 * These are labeled trtF and trtI.
 
+******************************
 2. $FOMs$trtMeans: Treatment means
+******************************
+
 * Foms averaged over readers (vector of length equal to number of treatments 
 in the inner list):
 
@@ -74,17 +82,18 @@ trt60        xx
 trt80        xx
 
 * Estimate = observed value
-* Note: the number of rows equals the number of levels in the second treatment.
+* The number of rows equals the number of levels in the second treatment.
 
 $FOMs$trtMeans$AvgMod2
       Estimate
 trtF        xx
 trtI        xx
 
-* Note: the number of rows equals the number of levels in the first treatment. 
+* The number of rows equals the number of levels in the first treatment. 
 
-
+******************************
 3. $FOMs$trtMeanDiffs 
+******************************
 
 * Treatment mean differences
 * Intertreament differences of foms averaged over readers. 
@@ -110,7 +119,11 @@ trtF-trtI           xx
 
 $ANOVA: Analysis of variance 
 
+* A list containing two lists, each with 4 members.
+
+******************************
 1. $ANOVA$TRanova 
+******************************
 
 * Treatment-reader analysis of variance
 * SS = sum of squares 
@@ -133,7 +146,9 @@ R          xx xx           xx
 TR         xx xx           xx
 
     
+******************************
 2. $ANOVA$VarCom 
+******************************
 
 * Variances, covariances and correlations
 * VarR = reader variance 
@@ -162,7 +177,10 @@ Cov2            xx        xx
 Cov3            xx        xx
 Var             xx        NA
 
-3. $ANOVA$IndividualTrt 
+******************************
+3. $ANOVA$IndividualTrt
+******************************
+
 * Individual treatment mean squares, variances and Cov2's
 * msREachTrt = reader mean square for each treatment
 * varEachTrt = reader variance for each treatment
@@ -181,7 +199,10 @@ trtF xx          xx           xx           xx
 trtI xx          xx           xx           xx
 
 
-4. $ANOVA$IndividualRdr 
+******************************
+4. $ANOVA$IndividualRdr
+******************************
+
 * Individual reader mean square, variances and Cov1's
 * DF = degrees of freedom
 * msTEachRdr = treatment mean squares for each reader
@@ -219,9 +240,13 @@ rdr11 xx           xx           xx           xx
 ********************************************************************************    
 
 $RRRC: random reader random case 
-* A list containing two lists each with 3 members.
 
+* A list containing two lists, each with 3 members.
+
+******************************
 1. $RRRC$FTests: results of F-tests
+******************************
+
 * DF = degrees of freedom
 * MS = mean squares
 * FStat = F statistic
@@ -245,7 +270,10 @@ Error           xx          xx       NA          NA
 Note: When the foms are averaged over the second treatment, leaving 2 algorithm 
 treatments, the difference is not significant.
 
+******************************
 2. $RRRC$ciDiffTrt
+******************************
+
 * Confidence intervals for differences of treatments
 
 $RRRC$ciDiffTrt$AvgMod1
@@ -266,10 +294,13 @@ $RRRC$ciDiffTrt$AvgMod2
               Estimate      StdErr       DF          t     PrGTt     CILower   CIUpper
 trtF-trtI           xx          xx       xx         xx        xx           xx       xx
 
-Note: When the foms are averaged over the second treatment, the algorithm 
+* When the foms are averaged over the second treatment, the algorithm 
 treatment difference is not significant.
 
+******************************
 3. $RRRC$ciAvgRdrEachTrt
+******************************
+
 * 1-alpha confidence interval for each treatment, averaged over readers 
 * StdErr = standard error of the estimate
 
