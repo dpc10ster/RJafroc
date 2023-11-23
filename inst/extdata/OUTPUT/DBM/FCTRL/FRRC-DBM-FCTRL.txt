@@ -1,0 +1,225 @@
+
+
+################################################################################
+
+                       ***  INTERPRETATION OF RESULTS ***
+
+################################################################################
+
+  
+* Example dataset `dataset01` has two treatment levels, named BT and DM in 
+the Excel file. 
+* In the output I added the prefix "trt" to each of these names to denote that 
+these are treatments.
+* BT = breast tomosynthesis.
+* DM = digital mammography.
+* The number of readers is 5, named 1 thru 5 in the Excel file. 
+* In the output I have added the prefix "rdr" to each of these names to denote 
+that these are readers.
+
+
+********************************************************************************
+
+************************************************************
+$FOMs: figures of merit, a list with 3 members
+************************************************************
+
+******************************
+1. $FOMs$foms: FOM values
+******************************
+
+$FOMs$foms
+           rdr1      rdr2      rdr3      rdr4      rdr5
+trtBT        xx        xx        xx        xx        xx
+trtDM        xx        xx        xx        xx        xx
+
+******************************
+2. $FOMs$trtMeans
+******************************
+
+* Treatment means, i.e., foms averaged over readers
+* Vector of length equal to number of levels of the treatment
+* Estimate = observed value
+
+$FOMs$trtMeans
+       Estimate
+trtBT        xx
+trtDM        xx
+
+******************************
+3. $FOMs$trtMeanDiffs 
+******************************
+
+* Treatment mean differences
+* Inter-treatment differences of foms averaged over readers. 
+* For two treatments the number of differences is a scalar, for 3 treatments 
+this is a vector of length 3, for 4 treatments this is a vector of length 6; 
+etc.
+
+$FOMs$trtMeanDiffs
+             Estimate
+trtBT-trtDM        xx
+
+
+********************************************************************************
+
+************************************************************
+$ANOVA: analysis of variance, a list containing 4 members. 
+************************************************************
+
+******************************
+1. $ANOVA$TRanova 
+******************************
+
+* Treatment-reader analysis of variance
+* SS = sum of squares 
+* DF = degrees of freedom
+* MS = mean-squares
+* T = treatment
+* R = reader
+* TR = treatment-reader
+
+$ANOVA$TRanova
+           SS DF           MS
+T          xx xx           xx
+R          xx xx           xx
+TR         xx xx           xx
+    
+******************************
+2. $ANOVA$VarCom 
+******************************
+
+* Variances, covariances and correlations
+* VarR = reader variance 
+* VarTR = treatment-reader variance
+* Var = error variance 
+* Cov1 = covariance when treatments are different 
+* Cov2 = covariance when readers are different
+* Cov3 = covariance when treatments and readers are different 
+* Rhos = correlations (e.g., Rho1 = Cov1/Var, etc.)
+    
+$ANOVA$VarCom
+         Estimates      Rhos
+VarR            xx        NA
+VarTR           xx        NA
+Cov1            xx        xx
+Cov2            xx        xx
+Cov3            xx        xx
+Var             xx        NA
+
+******************************
+3. $ANOVA$IndividualTrt
+******************************
+
+* Individual treatment mean squares, variances and Cov2's
+* msREachTrt = reader mean square for each treatment
+* varEachTrt = reader variance for each treatment
+* cov2EachTrt = Cov2 for each treatment
+    
+$ANOVA$IndividualTrt
+      DF  msREachTrt   varEachTrt  cov2EachTrt
+trtBT xx          xx           xx           xx
+trtDM xx          xx           xx           xx
+
+
+******************************
+4. $ANOVA$IndividualRdr
+******************************
+
+* Individual reader mean square, variances and Cov1's
+* DF = degrees of freedom
+* msTEachRdr = treatment mean squares for each reader
+* varEachRdr = treatment variances for each reader
+* cov1EachRdr = Cov1 for each reader
+
+$ANOVA$IndividualRdr
+      DF   msTEachRdr   varEachRdr  cov1EachRdr
+rdr1  xx           xx           xx           xx
+rdr2  xx           xx           xx           xx
+rdr3  xx           xx           xx           xx
+rdr4  xx           xx           xx           xx
+rdr5  xx           xx           xx           xx
+
+
+********************************************************************************    
+    
+************************************************************
+$FRRC fixed reader random case results, a list with 5 members
+************************************************************
+
+******************************
+1. $FRRC$FTests
+******************************
+
+* results of F-tests (acutally a chi-square test in this case)
+* DF = degrees of freedom
+* MS = mean squares
+* Chisq - chi-square statistic
+* p = p values
+* Treatment = treatment factor
+* Error = error term
+
+$FRRC$FTests
+                   MS    Chisq DF            p
+Treatment          xx       xx xx           xx
+Error              xx       NA NA           NA
+
+******************************
+2. $FRRC$ciDiffTrt
+******************************
+
+* Confidence intervals for differences of treatments
+
+$FRRC$ciDiffTrt
+               Estimate     StdErr       z        PrGTz     CILower      CIUpper
+trtBT-trtDM          xx         xx      xx           xx          xx           xx
+
+* z = z-statistic
+* PrGTz = probability magnitude of observed value is greater than z
+
+******************************
+3. $FRRC$ciAvgRdrEachTrt
+******************************
+
+* 1-alpha confidence interval for each treatment, averaged over readers 
+* StdErr = standard error of the estimate
+
+$FRRC$ciAvgRdrEachTrt
+       Estimate     StdErr       DF   CILower   CIUpper
+trtBT       xx          xx       xx        xx        xx
+trtDM       xx          xx       xx        xx        xx
+
+
+******************************
+4. $FRRC$ciDiffTrtEachRdr
+******************************
+
+* 1-alpha confidence interval for differences of treatments for each reader
+
+$FRRC$ciDiffTrtEachRdr
+                    Estimate     StdErr        z        PrGTz      CILower   CIUpper
+rdr1::trtBT-trtDM         xx         xx       xx           xx           xx        xx
+rdr2::trtBT-trtDM         xx         xx       xx           xx           xx        xx
+rdr3::trtBT-trtDM         xx         xx       xx           xx           xx        xx
+rdr4::trtBT-trtDM         xx         xx       xx           xx           xx        xx
+rdr5::trtBT-trtDM         xx         xx       xx           xx           xx        xx
+
+* rdr1::trtBT-trtDM = BT-DM treatment difference for reader 1
+* rdr2::trtBT-trtDM = BT-DM treatment difference for reader 2
+* etc.
+
+******************************
+5. $FRRC$IndividualRdrVarCov1
+******************************
+
+* individual reader variance and Cov1
+
+$FRRC$IndividualRdrVarCov1
+       varEachRdr  cov1EachRdr
+rdr1          xx           xx
+rdr2          xx           xx
+rdr3          xx           xx
+rdr4          xx           xx
+rdr5          xx           xx
+
+
