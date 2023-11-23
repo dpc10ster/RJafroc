@@ -167,7 +167,7 @@ Error           xx          xx       NA          NA
 2. $RRRC$ciDiffTrt
 ******************************
 
-* 1-alpha confidence intervals for differences of treatments
+* 1-alpha confidence intervals for differences of treatments, averaged over readers
 
 $RRRC$ciDiffTrt
                Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper

@@ -261,7 +261,7 @@ Error           xx           xx         NA        NA
 2. $RRRC$ciDiffTrt
 ******************************
 
-* 1-alpha confidence intervals for differences of treatments
+* 1-alpha confidence intervals for differences of treatments, averaged over readers
 
 $RRRC$ciDiffTrt$AvgMod1
                Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper
@@ -323,7 +323,7 @@ Error           xx           xx         NA        NA
 2. $FRRC$ciDiffTrt
 ******************************
 
-* 1-alpha confidence intervals for differences of treatments
+* 1-alpha confidence intervals for differences of treatments, averaged over readers
 
 $FRRC$ciDiffTrt$AvgMod1
                Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper
@@ -501,7 +501,7 @@ Error           xx           xx         NA        NA
 2. $RRFC$ciDiffTrt
 ******************************
 
-* 1-alpha confidence intervals for differences of treatments
+* 1-alpha confidence intervals for differences of treatments, averaged over readers
 
 $RRFC$ciDiffTrt$AvgMod1
                Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper

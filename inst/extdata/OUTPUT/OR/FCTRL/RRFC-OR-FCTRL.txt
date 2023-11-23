@@ -172,7 +172,7 @@ TR xx           xx       NA          NA
 2. $RRFC$ciDiffTrt
 ******************************
 
-* 1-alpha confidence intervals for differences of treatments
+* 1-alpha confidence intervals for differences of treatments, averaged over readers
 
 $RRFC$ciDiffTrt
                Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper

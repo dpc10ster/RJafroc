@@ -68,28 +68,37 @@ $ANOVA: analysis of variance, a list containing 4 members.
 ************************************************************
 
 ******************************
-1. $ANOVA$TRanova 
+1. $ANOVA$TRCanova 
 ******************************
 
-* Treatment-reader analysis of variance
+* Treatment-reader-case analysis of variance
 * SS = sum of squares 
 * DF = degrees of freedom
 * MS = mean-squares
 * T = treatment
 * R = reader
+* c = case
 * TR = treatment-reader
+* TC = treatment-case
+* RC = reader-case
+* TRC = treatment-reader-case
 
-$ANOVA$TRanova
-           SS DF           MS
-T          xx xx           xx
-R          xx xx           xx
-TR         xx xx           xx
+$ANOVA$TRCanova
+               SS   DF         MS
+T              xx   xx         xx
+R              xx   xx         xx
+C              xx   xx         xx
+TR             xx   xx         xx
+TC             xx   xx         xx
+RC             xx   xx         xx
+TRC            xx   xx         xx
+Total          xx   xx         NA
     
 ******************************
 2. $ANOVA$VarCom 
 ******************************
 
-* Variances, covariances and correlations
+* DBM variance components
 * VarR = reader variance 
 * VarTR = treatment-reader variance
 * Var = error variance 
@@ -99,47 +108,44 @@ TR         xx xx           xx
 * Rhos = correlations (e.g., Rho1 = Cov1/Var, etc.)
     
 $ANOVA$VarCom
-         Estimates      Rhos
-VarR            xx        NA
-VarTR           xx        NA
-Cov1            xx        xx
-Cov2            xx        xx
-Cov3            xx        xx
-Var             xx        NA
+          Estimates
+VarR             xx
+VarC             xx
+VarTR            xx
+VarTC            xx
+VarRC            xx
+VarErr           xx
 
 ******************************
 3. $ANOVA$IndividualTrt
 ******************************
 
-* Individual treatment mean squares, variances and Cov2's
-* msREachTrt = reader mean square for each treatment
-* varEachTrt = reader variance for each treatment
-* cov2EachTrt = Cov2 for each treatment
+* Individual treatment mean squares
+* msR = mean-squares reader
+* msC = mean-squares case
+* msRC = mean-squares reader-case
     
 $ANOVA$IndividualTrt
-      DF  msREachTrt   varEachTrt  cov2EachTrt
-trtBT xx          xx           xx           xx
-trtDM xx          xx           xx           xx
-
+      DF      trtBT     trtDM
+msR   xx         xx        xx
+msC   xx         xx        xx
+msRC  xx         xx        xx
 
 ******************************
 4. $ANOVA$IndividualRdr
 ******************************
 
-* Individual reader mean square, variances and Cov1's
-* DF = degrees of freedom
-* msTEachRdr = treatment mean squares for each reader
-* varEachRdr = treatment variances for each reader
-* cov1EachRdr = Cov1 for each reader
+* Individual reader mean squares
+* msT = mean-squares treatment
+* msC = mean-squares case
+* msTC = mean-squares treatment-case
 
 $ANOVA$IndividualRdr
-      DF   msTEachRdr   varEachRdr  cov1EachRdr
-rdr1  xx           xx           xx           xx
-rdr2  xx           xx           xx           xx
-rdr3  xx           xx           xx           xx
-rdr4  xx           xx           xx           xx
-rdr5  xx           xx           xx           xx
-    
+      DF      rdr1      rdr2      rdr3      rdr4      rdr5
+msT   xx        xx        xx        xx        xx        xx
+msC   xx        xx        xx        xx        xx        xx
+msTC  xx        xx        xx        xx        xx        xx
+
 ********************************************************************************    
 
 ************************************************************
@@ -167,7 +173,7 @@ Error           xx          xx       NA          NA
 2. $RRRC$ciDiffTrt
 ******************************
 
-* 1-alpha confidence intervals for differences of treatments
+* 1-alpha confidence intervals for differences of treatments, averaged over readers
 
 $RRRC$ciDiffTrt
                Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper
@@ -186,8 +192,8 @@ trt20-trt40          xx         xx       xx         xx           xx          xx 
 * StdErr = standard error of the estimate
 
 $RRRC$ciAvgRdrEachTrt
-       Estimate     StdErr       DF   CILower   CIUpper         Cov2
-trtBT       xx          xx       xx        xx        xx           xx
-trtDM       xx          xx       xx        xx        xx           xx
+       Estimate     StdErr       DF   CILower   CIUpper
+trtBT       xx          xx       xx        xx        xx
+trtDM       xx          xx       xx        xx        xx
 
 
