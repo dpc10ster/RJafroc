@@ -7,13 +7,13 @@
 ################################################################################
 
   
-* Example `dataset01` has two levels of the treatment, named BT and DM in 
-the Excel file. 
+* Example dataset `dataset01` has two levels of the treatment, named BT and DM 
+in the Excel file. 
 * BT = breast tomosynthesis.
 * DM = digital mammography.
 * In the output I added the prefix "trt" to each of these names to denote that 
 these are treatments.
-* The number of readers is 5. They are named 1 thru 5 in the Excel file. 
+* The number of readers is 5, named 1 thru 5 in the Excel file. 
 * In the output I have added the prefix "rdr" to each of these names to denote 
 that these are readers.
 
@@ -38,7 +38,7 @@ trtDM        xx        xx        xx        xx        xx
 ******************************
 
 * Treatment means, i.e., foms averaged over readers
-* vector of length equal to number of treatments
+* Vector of length equal to number of levels of the treatment
 * Estimate = observed value
 
 $FOMs$trtMeans
@@ -172,6 +172,11 @@ Error           xx          xx       NA          NA
 $RRRC$ciDiffTrt
                Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper
 trt20-trt40          xx         xx       xx         xx           xx          xx           xx
+
+* StdErr = standard error for the estimate
+* t = t-statistic
+* CILower = lower bound of 1-alpha confidence interval
+* CIUpper = upper bound of 1-alpha confidence interval
 
 ******************************
 3. $RRRC$ciAvgRdrEachTrt

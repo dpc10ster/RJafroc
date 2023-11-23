@@ -1,131 +1,414 @@
-
+################################################################################
 
                        ***  INTERPRETATION OF RESULTS ***
-  
-The numerical values in this section are for the following command:
 
-St(dataset01, FOM = "wAFROC", method = "OR", analysisOption = "FRRC")
+################################################################################
 
+* Example dataset `datasetX` has two levels of the first treatment, named F and 
+I in the Excel file, and 4 levels of the second treatment, named 20, 40, 60 and 
+80. 
+* In the output I added the prefix "trt" to each of these names to denote that 
+these are treatments.
+* F = filtered back projection, an algorithm used to reconstruct CT data.
+* I = an iterative algorithm, another algorithm used to reconstruct CT data.
+* 20 = 20 mAs tube charge
+* 40 = 40 mAs tube charge
+* 60 = 60 mAs tube charge
+* 80 = 80 mAs tube charge
+* The number of readers is 11, named 1 thru 11 in the Excel file. 
+* In the output I have added the prefix "rdr" to each of these names to denote 
+that these are readers.
+
+********************************************************************************
                              
-$FOMs: Figures Of merit, a list with 3 members
+************************************************************
+$FOMs: Figures of merit, an outer list containing 2 inner lists, each with 3 members 
+************************************************************
 
-1. $FOMs$foms: FOM values (matrix)
+* The first inner list is named AvgMod1, meaning the foms are averaged over the 
+first treatment. 
+* The second inner list is named AvgMod2, meaning the foms are averaged over 
+the second treatment.
+* These conventions apply to the rest of the output.
 
-    trtBT = breast tomosynthesis treatment
-    trtDM = digital mammography treatment
-    rdr1 = reader 1, etc.
+******************************
+1. $FOMs$foms: FOM values
+******************************
 
-    $FOMs$foms
-               rdr1      rdr2      rdr3      rdr4      rdr5
-    trtBT 0.7602704 0.8406191 0.8171524 0.8153090 0.8278324
-    trtDM 0.6425854 0.7049977 0.7518434 0.7724426 0.6836962
+$FOMs$foms$AvgMod1
+           rdr1      rdr2      rdr3      rdr4      rdr5      rdr6      rdr7      rdr8      rdr9     rdr10     rdr11
+trt20        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx
+trt40        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx
+trt60        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx
+trt80        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx
 
-2. $FOMs$trtMeans: Treatment means, i.e., foms averaged over readers (vector of 
-    length equal to number of treatments):
+* Foms averaged over first treatment.
+* The number of levels of the remaining treatment correspond to that of the 
+second treatment, 4 in this case, labeled trt20, trt40, trt60 and trt80, 
+which are the row names of the matrix shown above. 
+* The 11 columns correspond to the 11 readers.
 
-    $FOMs$trtMeans
-           Estimate
-    trtBT 0.8122367
-    trtDM 0.7111131
+$FOMs$foms$AvgMod2
+          rdr1      rdr2      rdr3      rdr4      rdr5      rdr6      rdr7      rdr8      rdr9     rdr10     rdr11
+trtF        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx
+trtI        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx        xx
 
-3. $FOMs$trtMeanDiffs: Treatment mean differences, i.e., inter-treatment differences 
-    of foms averaged over readers (vector); for two treatments this is a
-    scalar, for 3 treatments this is a vector of length 3, for 4 treatments this 
-    is a vector of length 4; etc.
+* The foms averaged over second treatment
+* The number of levels of the remaining treatment corresponds to that of the 
+first treatment, 2 in this case, labeled trtF and trtI, which are the row names 
+of the matrix shown above.
 
-    $FOMs$trtMeanDiffs
-                 Estimate
-    trtBT-trtDM 0.1011236
+******************************
+2. $FOMs$trtMeans
+******************************
 
+* Treatment means, i.e., foms averaged over readers
+* vector of length equal to number of levels of the remaing treatment
+* Estimate = observed value
 
-$ANOVA: Analysis of variance, a list with 4 members
+$FOMs$trtMeans$AvgMod1
+       Estimate
+trt20        xx
+trt40        xx
+trt60        xx
+trt80        xx
 
-1. $ANOVA$TRanova: treatment-reader ANOVA 
-    SS = sum of squares 
-    DF = degrees of freedom
-    MS = mean-squares
-    T = treatment
-    R = reader
-    TR = treatment-reader
+* Estimate = observed value
+* The number of rows equals the number of levels in the second treatment.
+
+$FOMs$trtMeans$AvgMod2
+      Estimate
+trtF        xx
+trtI        xx
+
+* The number of rows equals the number of levels in the first treatment. 
+
+******************************
+3. $FOMs$trtMeanDiffs 
+******************************
+
+* Treatment mean differences
+* Inter-treatment differences of foms averaged over readers. 
+* For two treatments the number of differences is a scalar, for 3 treatments 
+it is a vector of length 3, for 4 treatments it is a vector of length 6; etc.
+
+$FOMs$trtMeanDiffs
+$FOMs$trtMeanDiffs$AvgMod1
+               Estimate
+trt20-trt40          xx
+trt20-trt60          xx
+trt20-trt80          xx
+trt40-trt60          xx
+trt40-trt80          xx
+trt60-trt80          xx
+
+$FOMs$trtMeanDiffs$AvgMod2
+              Estimate
+trtF-trtI           xx
+
+********************************************************************************
+
+************************************************************
+$ANOVA: Analysis of variance, a list containing two lists, each with 4 members. 
+************************************************************
+
+******************************
+1. $ANOVA$TRanova 
+******************************
+
+* Treatment-reader analysis of variance
+* SS = sum of squares 
+* DF = degrees of freedom
+* MS = mean-squares
+* T = treatment
+* R = reader
+* TR = treatment-reader
  
-    $ANOVA$TRanova
-                SS DF           MS
-    T  0.025564954  1 0.0255649539
-    R  0.010692759  4 0.0026731896
-    TR 0.003995532  4 0.0009988829
-    
-2. $ANOVA$VarCom: variances, covariances and correlations 
-    VarR = reader variance 
-    VarTR = treatment-reader variance
-    Var = error variance 
-    Cov1 = covariance when treatments are different 
-    Cov2 = covariance when readers are different
-    Cov3 = covariance when treatments and readers are different 
-    Rhos = correlations (e.g., Rho1 = Cov1/Var, etc.)
-    
-    $ANOVA$VarCom
-             Estimates      Rhos
-    VarR  0.0008130525        NA
-    VarTR 0.0004867615        NA
-    Cov1  0.0002992351 0.2700572
-    Cov2  0.0005718211 0.5160638
-    Cov3  0.0002751342 0.2483063
-    Var   0.0011080434        NA
+$ANOVA$TRanova$AvgMod1
+           SS DF           MS
+T          xx xx           xx
+R          xx xx           xx
+TR         xx xx           xx
 
-3. $ANOVA$IndividualTrt: individual treatment mean squares, variances and Cov2's
-    DF = degrees of freedom
-    msREachTrt = reader mean square for each treatment
-    varEachTrt = reader variance for each treatment
-    cov2EachTrt = Cov2 for each treatment
-    
-    $ANOVA$IndividualTrt
-          DF  msREachTrt   varEachTrt  cov2EachTrt
-    trtBT  4 0.000945723 0.0009611449 0.0005390098
-    trtDM  4 0.002726350 0.0012549419 0.0006046324
-
-4. $ANOVA$IndividualRdr: individual reader mean square, variances and Cov1's
-    DF = degrees of freedom
-    msTEachRdr = treatment mean squares for each reader
-    varEachRdr = treatment variances for each reader
-    cov1EachRdr = Cov1 for each reader
-
-    $ANOVA$IndividualRdr
-         DF   msTEachRdr   varEachRdr  cov1EachRdr
-    rdr1  1 0.0069248708 0.0014300029 0.0001574465
-    rdr2  1 0.0091965941 0.0009953215 0.0003363709
-    rdr3  1 0.0021326320 0.0010881495 0.0003556332
-    rdr4  1 0.0009187615 0.0009068621 0.0003010110
-    rdr5  1 0.0103876273 0.0011198809 0.0003457138
+$ANOVA$TRanova$AvgMod2
+           SS DF           MS
+T          xx xx           xx
+R          xx xx           xx
+TR         xx xx           xx
 
     
-$FRRC: random reader random case results, a list with 3 members
+******************************
+2. $ANOVA$VarCom 
+******************************
 
+* Variances, covariances and correlations
+* VarR = reader variance 
+* VarTR = treatment-reader variance
+* Var = error variance 
+* Cov1 = covariance when treatments are different 
+* Cov2 = covariance when readers are different
+* Cov3 = covariance when treatments and readers are different 
+* Rhos = correlations (e.g., Rho1 = Cov1/Var, etc.)
+    
+$ANOVA$VarCom$AvgMod1
+         Estimates      Rhos
+VarR            xx        NA
+VarTR           xx        NA
+Cov1            xx        xx
+Cov2            xx        xx
+Cov3            xx        xx
+Var             xx        NA
+
+$ANOVA$VarCom$AvgMod2
+         Estimates      Rhos
+VarR            xx        NA
+VarTR           xx        NA
+Cov1            xx        xx
+Cov2            xx        xx
+Cov3            xx        xx
+Var             xx        NA
+
+******************************
+3. $ANOVA$IndividualTrt
+******************************
+
+* Individual treatment mean squares, variances and Cov2's
+* msREachTrt = reader mean square for each treatment
+* varEachTrt = reader variance for each treatment
+* cov2EachTrt = Cov2 for each treatment
+    
+$ANOVA$IndividualTrt$AvgMod1
+      DF  msREachTrt   varEachTrt  cov2EachTrt
+trt20 xx          xx           xx           xx
+trt40 xx          xx           xx           xx
+trt60 xx          xx           xx           xx
+trt80 xx          xx           xx           xx
+
+$ANOVA$IndividualTrt$AvgMod2
+     DF  msREachTrt   varEachTrt  cov2EachTrt
+trtF xx          xx           xx           xx
+trtI xx          xx           xx           xx
+
+
+******************************
+4. $ANOVA$IndividualRdr
+******************************
+
+* Individual reader mean square, variances and Cov1's
+* DF = degrees of freedom
+* msTEachRdr = treatment mean squares for each reader
+* varEachRdr = treatment variances for each reader
+* cov1EachRdr = Cov1 for each reader
+
+$ANOVA$IndividualRdr$AvgMod1
+      DF   msTEachRdr   varEachRdr  cov1EachRdr
+rdr1  xx           xx           xx           xx
+rdr2  xx           xx           xx           xx
+rdr3  xx           xx           xx           xx
+rdr4  xx           xx           xx           xx
+rdr5  xx           xx           xx           xx
+rdr6  xx           xx           xx           xx
+rdr7  xx           xx           xx           xx
+rdr8  xx           xx           xx           xx
+rdr9  xx           xx           xx           xx
+rdr10 xx           xx           xx           xx
+rdr11 xx           xx           xx           xx
+
+$ANOVA$IndividualRdr$AvgMod2
+      DF   msTEachRdr   varEachRdr  cov1EachRdr
+rdr1  xx           xx           xx           xx
+rdr2  xx           xx           xx           xx
+rdr3  xx           xx           xx           xx
+rdr4  xx           xx           xx           xx
+rdr5  xx           xx           xx           xx
+rdr6  xx           xx           xx           xx
+rdr7  xx           xx           xx           xx
+rdr8  xx           xx           xx           xx
+rdr9  xx           xx           xx           xx
+rdr10 xx           xx           xx           xx
+rdr11 xx           xx           xx           xx
+
+********************************************************************************    
+
+    
+************************************************************
+$FRRC fixed reader random case results, a list with 5 members
+************************************************************
+
+************************************************************
+$FRRC fixed reader random case results, a list with 5 members
+************************************************************
+
+******************************
 1. $FRRC$FTests: results of F-tests
-    DF = degrees of freedom
-    MS = mean squares
-    FStat = F statistic
-    p = p values
-    Treatment = treatment factor
-    Error = error term
+******************************
 
-    $FRRC$FTests
-                    DF          MS    FStat           p
-    Treatment  1.00000 0.025564954 10.29883 0.003668578
-    Error     24.70276 0.002482317       NA          NA
+$FRRC$FTests$AvgMod1
+                DF          MS    FStat           p
+Treatment       xx          xx       xx          xx
+Error           xx          xx       NA          NA
 
-2. $FRRC$ciDiffTrt: 1-alpha confidence intervals for differences of treatments
+$FRRC$FTests$AvgMod2
+                DF           MS      FStat         p
+Treatment       xx           xx         xx        xx
+Error           xx           xx         NA        NA
 
-    $FRRC$ciDiffTrt
-                 Estimate     StdErr       DF        t       PrGTt    CILower   CIUpper
-    trtBT-trtDM 0.1011236 0.03151074 24.70276 3.209178 0.003668578 0.03618638 0.1660608
+******************************
+2. $FRRC$ciDiffTrt
+******************************
 
-3. $FRRC$ciAvgRdrEachTrt: (1-alpha) confidence intervals for each treatment 
-    averaged over readers 
-    CILower = lower limit of confidence interval
-    CIUpper = upper limit of confidence interval
+* 1-alpha confidence intervals for differences of treatments
 
-    $FRRC$ciAvgRdrEachTrt
-           Estimate     StdErr       DF   CILower   CIUpper         Cov2
-    trtBT 0.8122367 0.02698434 59.28149 0.7582465 0.8662268 0.0005390098
-    trtDM 0.7111131 0.03391021 17.78930 0.6398098 0.7824163 0.0006046324
+$FRRC$ciDiffTrt$AvgMod1
+               Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper
+trt20-trt40          xx         xx       xx         xx           xx          xx           xx
+trt20-trt60          xx         xx       xx         xx           xx          xx           xx
+trt20-trt80          xx         xx       xx         xx           xx          xx           xx
+trt40-trt60          xx         xx       xx         xx           xx          xx           xx
+trt40-trt80          xx         xx       xx         xx           xx          xx           xx
+trt60-trt80          xx         xx       xx         xx           xx          xx           xx
+
+$FRRC$ciDiffTrt$AvgMod2
+              Estimate      StdErr       DF          t     PrGTt     CILower   CIUpper
+trtF-trtI           xx          xx       xx         xx        xx           xx       xx
+
+******************************
+3. $FRRC$ciAvgRdrEachTrt
+******************************
+
+* 1-alpha confidence interval for each treatment, averaged over readers 
+
+$FRRC$ciAvgRdrEachTrt$AvgMod1
+       Estimate     StdErr       DF   CILower   CIUpper         Cov2
+trt20       xx          xx       xx        xx        xx           xx
+trt40       xx          xx       xx        xx        xx           xx
+trt60       xx          xx       xx        xx        xx           xx
+trt80       xx          xx       xx        xx        xx           xx
+
+$FRRC$ciAvgRdrEachTrt$AvgMod2
+      Estimate     StdErr       DF   CILower   CIUpper         Cov2
+trtF        xx         xx       xx        xx        xx           xx
+trtI        xx         xx       xx        xx        xx           xx
     
+******************************
+4. $FRRC$ciDiffTrtEachRdr
+******************************
+
+* For each reader, 1-alpha confidence interval for treatment differences
+
+$FRRC$ciDiffTrtEachRdr$AvgMod1
+                        Estimate     StdErr            z        PrGTz     CILower      CIUpper
+rdr1::trt20-trt40             xx         xx           xx           xx          xx          xx
+rdr1::trt20-trt60             xx         xx           xx           xx          xx          xx
+rdr1::trt20-trt80             xx         xx           xx           xx          xx          xx
+rdr1::trt40-trt60             xx         xx           xx           xx          xx          xx
+rdr1::trt40-trt80             xx         xx           xx           xx          xx          xx
+rdr1::trt60-trt80             xx         xx           xx           xx          xx          xx
+rdr2::trt20-trt40             xx         xx           xx           xx          xx          xx
+rdr2::trt20-trt60             xx         xx           xx           xx          xx          xx
+rdr2::trt20-trt80             xx         xx           xx           xx          xx          xx
+rdr2::trt40-trt60             xx         xx           xx           xx          xx          xx
+rdr2::trt40-trt80             xx         xx           xx           xx          xx          xx
+rdr2::trt60-trt80             xx         xx           xx           xx          xx          xx
+rdr3::trt20-trt40             xx         xx           xx           xx          xx          xx
+rdr3::trt20-trt60             xx         xx           xx           xx          xx          xx
+rdr3::trt20-trt80             xx         xx           xx           xx          xx          xx
+rdr3::trt40-trt60             xx         xx           xx           xx          xx          xx
+rdr3::trt40-trt80             xx         xx           xx           xx          xx          xx
+rdr3::trt60-trt80             xx         xx           xx           xx          xx          xx
+rdr4::trt20-trt40             xx         xx           xx           xx          xx          xx
+rdr4::trt20-trt60             xx         xx           xx           xx          xx          xx
+rdr4::trt20-trt80             xx         xx           xx           xx          xx          xx
+rdr4::trt40-trt60             xx         xx           xx           xx          xx          xx
+rdr4::trt40-trt80             xx         xx           xx           xx          xx          xx
+rdr4::trt60-trt80             xx         xx           xx           xx          xx          xx
+rdr5::trt20-trt40             xx         xx           xx           xx          xx          xx
+rdr5::trt20-trt60             xx         xx           xx           xx          xx          xx
+rdr5::trt20-trt80             xx         xx           xx           xx          xx          xx
+rdr5::trt40-trt60             xx         xx           xx           xx          xx          xx
+rdr5::trt40-trt80             xx         xx           xx           xx          xx          xx
+rdr5::trt60-trt80             xx         xx           xx           xx          xx          xx
+rdr6::trt20-trt40             xx         xx           xx           xx          xx          xx
+rdr6::trt20-trt60             xx         xx           xx           xx          xx          xx
+rdr6::trt20-trt80             xx         xx           xx           xx          xx          xx
+rdr6::trt40-trt60             xx         xx           xx           xx          xx          xx
+rdr6::trt40-trt80             xx         xx           xx           xx          xx          xx
+rdr6::trt60-trt80             xx         xx           xx           xx          xx          xx
+rdr7::trt20-trt40             xx         xx           xx           xx          xx          xx
+rdr7::trt20-trt60             xx         xx           xx           xx          xx          xx
+rdr7::trt20-trt80             xx         xx           xx           xx          xx          xx
+rdr7::trt40-trt60             xx         xx           xx           xx          xx          xx
+rdr7::trt40-trt80             xx         xx           xx           xx          xx          xx
+rdr7::trt60-trt80             xx         xx           xx           xx          xx          xx
+rdr8::trt20-trt40             xx         xx           xx           xx          xx          xx
+rdr8::trt20-trt60             xx         xx           xx           xx          xx          xx
+rdr8::trt20-trt80             xx         xx           xx           xx          xx          xx
+rdr8::trt40-trt60             xx         xx           xx           xx          xx          xx
+rdr8::trt40-trt80             xx         xx           xx           xx          xx          xx
+rdr8::trt60-trt80             xx         xx           xx           xx          xx          xx
+rdr9::trt20-trt40             xx         xx           xx           xx          xx          xx
+rdr9::trt20-trt60             xx         xx           xx           xx          xx          xx
+rdr9::trt20-trt80             xx         xx           xx           xx          xx          xx
+rdr9::trt40-trt60             xx         xx           xx           xx          xx          xx
+rdr9::trt40-trt80             xx         xx           xx           xx          xx          xx
+rdr9::trt60-trt80             xx         xx           xx           xx          xx          xx
+rdr10::trt20-trt40            xx         xx           xx           xx          xx          xx
+rdr10::trt20-trt60            xx         xx           xx           xx          xx          xx
+rdr10::trt20-trt80            xx         xx           xx           xx          xx          xx
+rdr10::trt40-trt60            xx         xx           xx           xx          xx          xx
+rdr10::trt40-trt80            xx         xx           xx           xx          xx          xx
+rdr10::trt60-trt80            xx         xx           xx           xx          xx          xx
+rdr11::trt20-trt40            xx         xx           xx           xx          xx          xx
+rdr11::trt20-trt60            xx         xx           xx           xx          xx          xx
+rdr11::trt20-trt80            xx         xx           xx           xx          xx          xx
+rdr11::trt40-trt60            xx         xx           xx           xx          xx          xx
+rdr11::trt40-trt80            xx         xx           xx           xx          xx          xx
+rdr11::trt60-trt80            xx         xx           xx           xx          xx          xx
+
+$FRRC$ciDiffTrtEachRdr$AvgMod2
+                     Estimate      StdErr           z      PrGTz     CILower      CIUpper
+rdr1::trtF-trtI            xx          xx          xx         xx          xx           xx
+rdr2::trtF-trtI            xx          xx          xx         xx          xx           xx
+rdr3::trtF-trtI            xx          xx          xx         xx          xx           xx
+rdr4::trtF-trtI            xx          xx          xx         xx          xx           xx
+rdr5::trtF-trtI            xx          xx          xx         xx          xx           xx
+rdr6::trtF-trtI            xx          xx          xx         xx          xx           xx
+rdr7::trtF-trtI            xx          xx          xx         xx          xx           xx
+rdr8::trtF-trtI            xx          xx          xx         xx          xx           xx
+rdr9::trtF-trtI            xx          xx          xx         xx          xx           xx
+rdr10::trtF-trtI           xx          xx          xx         xx          xx           xx
+rdr11::trtF-trtI           xx          xx          xx         xx          xx           xx
+
+******************************
+5. $FRRC$IndividualRdrVarCov1
+******************************
+
+* Individual reader variance and Cov1
+
+$FRRC$IndividualRdrVarCov1$AvgMod1
+        varEachRdr  cov1EachRdr
+rdr1            xx           xx
+rdr2            xx           xx
+rdr3            xx           xx
+rdr4            xx           xx
+rdr5            xx           xx
+rdr6            xx           xx
+rdr7            xx           xx
+rdr8            xx           xx
+rdr9            xx           xx
+rdr10           xx           xx
+rdr11           xx           xx
+
+$FRRC$IndividualRdrVarCov1$AvgMod2
+        varEachRdr  cov1EachRdr
+rdr1            xx           xx
+rdr2            xx           xx
+rdr3            xx           xx
+rdr4            xx           xx
+rdr5            xx           xx
+rdr6            xx           xx
+rdr7            xx           xx
+rdr8            xx           xx
+rdr9            xx           xx
+rdr10           xx           xx
+rdr11           xx           xx
