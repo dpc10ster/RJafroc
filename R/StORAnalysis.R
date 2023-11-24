@@ -73,7 +73,7 @@ StORAnalysis <- function(dataset,
     )
     
     if (analysisOption == "RRRC") {
-      ExplanationsORFact(dataset, FOM, method = "OR", analysisOption = "RRRC", details)
+      Explanations(dataset, FOM, method = "OR", analysisOption = analysisOption, details)
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -83,7 +83,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "FRRC") {
-      ExplanationsORFact(dataset, FOM, method = "OR", analysisOption = "FRRC", details)
+      Explanations(dataset, FOM, method = "OR", analysisOption = analysisOption, details)
       FRRC <- OR_FRRC(K, FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -93,7 +93,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "RRFC") {
-      ExplanationsORFact(dataset, FOM, method = "OR", analysisOption = "RRFC", details)
+      Explanations(dataset, FOM, method = "OR", analysisOption = analysisOption, details)
       RRFC <- OR_RRFC(FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -103,7 +103,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "ALL") {
-      ExplanationsORFact(dataset, FOM, method = "OR", analysisOption = "ALL", details)
+      Explanations(dataset, FOM, method = "OR", analysisOption = analysisOption, details)
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       FRRC <- OR_FRRC(K, FOMStats, ANOVA, alpha)
       RRFC <- OR_RRFC(FOMStats, ANOVA, alpha)
@@ -192,7 +192,7 @@ StORAnalysis <- function(dataset,
       diffTRName = diffTRName)
     
     if (analysisOption == "RRRC") {
-      ExplanationsORX(dataset, FOM, method = "OR", analysisOption = "RRRC", details)
+      Explanations(dataset, FOM, method = "OR", analysisOption = analysisOption, details)
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4], # do not show diffTreatmentName
@@ -202,6 +202,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "FRRC") {
+      Explanations(dataset, FOM, method = "OR", analysisOption = analysisOption, details)
       FRRC <- OR_FRRC(K, FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -211,6 +212,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "RRFC") {
+      Explanations(dataset, FOM, method = "OR", analysisOption = analysisOption, details)
       RRFC <- OR_RRFC(FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -220,6 +222,7 @@ StORAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "ALL") {
+      Explanations(dataset, FOM, method = "OR", analysisOption = analysisOption, details)
       RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
       FRRC <- OR_FRRC(K, FOMStats, ANOVA, alpha)
       RRFC <- OR_RRFC(FOMStats, ANOVA, alpha)
@@ -235,227 +238,6 @@ StORAnalysis <- function(dataset,
 } 
 
 
-# this looks in `inst/extdata/OUTPUT`
-OR_Output <- function(fileName) {
-  
-  fn <- system.file("extdata/OUTPUT", fileName, package = "RJafroc", mustWork = TRUE)
-  x <- readLines(fn)
-  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
-  
-}
-
-
-# this looks in `inst/extdata/OUTPUT/OR/FCTRL`
-OR_Output_FCTRL <- function(fileName) {
-  
-  fn <- system.file("extdata/OUTPUT/OR/FCTRL", fileName, package = "RJafroc", mustWork = TRUE)
-  x <- readLines(fn)
-  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
-  
-}
-
-
-# this looks in `inst/extdata/OUTPUT/OR/FCTRLX`
-OR_Output_FCTRL_X <- function(fileName) {
-  
-  fn <- system.file("extdata/OUTPUT/OR/FCTRLX", fileName, package = "RJafroc", mustWork = TRUE)
-  x <- readLines(fn)
-  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
-  
-}
-
-
-
-DisclaimerSummary <- function (dataset, FOM, method, analysisOption) {
-  
-  OR_Output("DISCLAIMER.txt")
-  
-  cat(paste("R version:", R.version$version.string,"\n"))
-  cat(paste("RJafroc version:", packageVersion("RJafroc"),"\n"))
-  dateTime <- paste0("Run date: ", base::format(Sys.time(), "%b %d %Y %a %X %Z"))
-  cat(paste(dateTime, "\n"))
-  
-  cat(sprintf("Input Data Set              :  %s\n", dataset$descriptions$name))
-  cat(sprintf("Data type                   :  %s\n", dataset$descriptions$type))
-  cat(sprintf("Design type                 :  %s\n", dataset$descriptions$design))
-  cat(sprintf("FOM selected                :  %s\n", FOM))
-  cat(sprintf("Analylsis Option            :  %s\n", analysisOption))
-  
-  
-}
-
-
-ExplanationsORFact <- function(dataset, FOM, method, analysisOption, details) {
-  
-  if (details > 0) {
-    DisclaimerSummary(dataset, FOM, method, analysisOption)  
-  }
-  
-  NL <- dataset$ratings$NL
-  LL <- dataset$ratings$LL
-  lesionID <- dataset$lesions$IDs
-  maxNL <- dim(NL)[4]
-  dataType <- dataset$descriptions$type
-  modalityID <- dataset$descriptions$modalityID
-  I <- length(modalityID)
-  readerID <- dataset$descriptions$readerID
-  J <- length(readerID)
-  K <- dim(NL)[3]
-  K2 <- dim(LL)[3]
-  K1 <- K - K2
-  UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-  nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
-  
-  if (details > 0) {
-    cat(sprintf("Significance testing method :  %s\n", toupper("Obuchowski-Rockette-Hillis")))
-    cat(sprintf("Number of Readers           :  %d\n", J))
-    cat(sprintf("Number of Treatments        :  %d\n", I))
-    cat(sprintf("Number of Normal Cases      :  %d\n", K1))
-    cat(sprintf("Number of Abnormal Cases    :  %d\n", K2))
-    cat(sprintf("Fraction of Normal Cases    :  %f\n", K1/K))
-    
-    if (FOM %in% c("MaxNLF", "HrSp")) { # !!!DPC!!! need to check these FOMs
-      K <- K1
-      cat(sprintf("choice of FOM means only non-diseased cases are used in the analysis\n"))
-    } else if (FOM %in% c("MaxLLF", "HrSe")) {
-      K <- K2
-      cat(sprintf("choice of FOM means only diseased cases are used in the analysis\n"))
-    }
-    
-    if (dataType == "FROC") {
-      cat(sprintf("Min number of lesions per diseased case   :  %d\n", 
-                  min(nLesionPerCase)))
-      cat(sprintf("Max number of lesions per diseased case   :  %d\n", 
-                  max(nLesionPerCase)))
-      cat(sprintf("Mean number of lesions per diseased case  :  %f\n", 
-                  mean(nLesionPerCase)))
-      cat(sprintf("Total number of lesions                   :  %d\n", 
-                  sum(nLesionPerCase)))
-      
-      if (details > 1) {
-        nl <- NL[, , (K1 + 1):K, ]
-        dim(nl) <- c(I, J, K2, maxNL)
-        maxNLRating <- apply(nl, c(1, 2, 3), max)
-        maxLLRating <- apply(LL, c(1, 2, 3), max)
-        ILF <- sum(maxNLRating > maxLLRating) + 0.5 * sum(maxNLRating == maxLLRating)
-        ILF <- ILF/I/J/K2
-        cat(sprintf("Incorrect Localization Fraction                         :  %f\n", ILF))
-        cat(sprintf("Avg. number of NL marks per reader on non-diseased cases:  %f\n", 
-                    sum(NL[, , 1:K1, ] != UNINITIALIZED)/(I * J * K1)))
-        cat(sprintf("Avg. number of NL marks per reader on diseased cases    :  %f\n", 
-                    sum(NL[, , (K1 + 1):K, ] != UNINITIALIZED)/(I * J * K2)))
-        cat(sprintf("Avg. number of lesion localization marks per reader     :  %f\n", 
-                    sum(LL != UNINITIALIZED)/(I * J * K2)))
-      }
-    }
-  }
-
-  if (details > 0) {
-    cat(sprintf("Excel file modality IDs     :  %s\n", paste(names(modalityID), collapse = ", ")))
-    cat(sprintf("Excel file reader IDs       :  %s\n\n", paste(names(readerID), collapse = ", ")))
-    OR_Output("OVERVIEW.txt")
-  }
-  
-  if (details > 1) {
-    OR_Output_FCTRL(paste0(analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
-  }
-  
-  if (details > 0) {
-    OR_Output("RESULTS.txt")
-  }
-  
-}
-
-
-ExplanationsORX <- function(dataset, FOM, method, analysisOption, details) {
-  
-  if (details > 0) {
-    DisclaimerSummary(dataset, FOM, method, analysisOption)  
-  }
-  
-  NL <- dataset$ratings$NL
-  LL <- dataset$ratings$LL
-  lesionID <- dataset$lesions$IDs
-  maxNL <- dim(NL)[5]
-  dataType <- dataset$descriptions$type
-  modalityID1 <- dataset$descriptions$modalityID1
-  modalityID2 <- dataset$descriptions$modalityID2
-  modalityID <- list(modalityID2, modalityID1)
-  I1 <- length(modalityID1)
-  I2 <- length(modalityID2)
-  I <- c(I2, I1)
-  readerID <- dataset$descriptions$readerID
-  J <- length(readerID)
-  K <- dim(NL)[4]
-  K2 <- dim(LL)[4]
-  K1 <- K - K2
-  
-  if (details > 0) {
-    cat(sprintf("Significance testing method :  %s\n", toupper("Obuchowski-Rockette-Hillis")))
-    cat(sprintf("Number of Readers           :  %d\n", J))
-    cat(sprintf("# treatments 1st modality   :  %d\n", I1))
-    cat(sprintf("# treatments 2nd modality   :  %d\n", I2))
-    cat(sprintf("Number of Normal Cases      :  %d\n", K1))
-    cat(sprintf("Number of Abnormal Cases    :  %d\n", K2))
-    cat(sprintf("Fraction of Normal Cases    :  %f\n", K1/K))
-    
-    if (FOM %in% c("MaxNLF", "HrSp")) { # !!!DPC!!! need to check these FOMs
-      K <- K1
-      cat(sprintf("choice of FOM means only non-diseased cases are used in the analysis\n"))
-    } else if (FOM %in% c("MaxLLF", "HrSe")) {
-      K <- K2
-      cat(sprintf("choice of FOM means only diseased cases are used in the analysis\n"))
-    }
-    
-    UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-    nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
-    
-    if (dataType == "FROC") {
-      cat(sprintf("Min number of lesions per diseased case   :  %d\n", 
-                  min(nLesionPerCase)))
-      cat(sprintf("Max number of lesions per diseased case   :  %d\n", 
-                  max(nLesionPerCase)))
-      cat(sprintf("Mean number of lesions per diseased case  :  %f\n", 
-                  mean(nLesionPerCase)))
-      cat(sprintf("Total number of lesions                   :  %d\n", 
-                  sum(nLesionPerCase)))
-      
-      if (details > 1) {
-        # for (avgIndx in 1:2) {
-        #   nl <- NL[,,, (K1 + 1):K, ]
-        #   dim(nl) <- c(I1, I2, J, K2, maxNL)
-        #   maxNLRating <- apply(nl, c(1, 2, 3, 4), max)
-        #   maxLLRating <- apply(LL, c(1, 2, 3, 4), max)
-        #   ILF <- sum(maxNLRating > maxLLRating) + 0.5 * sum(maxNLRating == maxLLRating)
-        #   ILF <- ILF/I/J/K2
-        #   cat(sprintf("Incorrect Localization Fraction                         :  %f\n", ILF))
-        #   cat(sprintf("Avg. number of NL marks per reader on non-diseased cases:  %f\n", 
-        #               sum(NL[,,, 1:K1, ] != UNINITIALIZED)/(I * J * K1)))
-        #   cat(sprintf("Avg. number of NL marks per reader on diseased cases    :  %f\n", 
-        #               sum(NL[,,, (K1 + 1):K, ] != UNINITIALIZED)/(I * J * K2)))
-        #   cat(sprintf("Avg. number of lesion localization marks per reader     :  %f\n", 
-        #               sum(LL != UNINITIALIZED)/(I * J * K2)))
-        # }
-      }
-    }
-  }
-  
-  if (details > 0) {
-    cat(sprintf("Excel file modality IDs 1st treatment :  %s\n", paste(names(modalityID1), collapse = ", ")))
-    cat(sprintf("Excel file modality IDs 2nd treatment :  %s\n", paste(names(modalityID2), collapse = ", ")))
-    cat(sprintf("Excel file reader IDs                 :  %s\n\n", paste(names(readerID), collapse = ", ")))
-    OR_Output("OVERVIEW.txt")
-  }
-  
-  if (details > 1) {
-    OR_Output_FCTRL_X(paste0(analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
-  }
-  
-  if (details > 0) {
-    OR_Output("RESULTS.txt")
-  }
-  
-}
 
 
 OR_RRRC<- function(FOMStats, ANOVA, alpha) {

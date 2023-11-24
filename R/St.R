@@ -109,13 +109,14 @@ St <- function(dataset,
   isValidDataset(dataset, FOM, method, analysisOption, covEstMethod = covEstMethod)
   
   if (method == "DBM"){
-
+    
     ret <- StDBMAnalysis(dataset, 
-                          FOM, 
-                          analysisOption,
-                          alpha,
-                          FPFValue)
-
+                         FOM, 
+                         analysisOption,
+                         alpha,
+                         FPFValue,
+                         details)
+    
     return(ret)
     
   } else { # method == "OR"
@@ -133,6 +134,189 @@ St <- function(dataset,
     return(ret)
     
   }
-
+  
 }
+
+
+MyOutput <- function(fileName) {
+  
+  fn <- system.file("extdata", fileName, package = "RJafroc", mustWork = TRUE)
+  x <- readLines(fn)
+  for (i in 1:length(x)) cat(sprintf("%-s\n", x[i]))
+  
+}
+
+
+DisclaimerDsSummary <- function (dataset, FOM, method, analysisOption) {
+  
+  MyOutput("OUTPUT/DISCLAIMER.txt")
+  
+  cat(paste("R version:", R.version$version.string,"\n"))
+  cat(paste("RJafroc version:", packageVersion("RJafroc"),"\n"))
+  dateTime <- paste0("Run date: ", base::format(Sys.time(), "%b %d %Y %a %X %Z"))
+  cat(paste(dateTime, "\n"))
+  
+  cat(sprintf("Input Data Set              :  %s\n", dataset$descriptions$name))
+  cat(sprintf("Data type                   :  %s\n", dataset$descriptions$type))
+  cat(sprintf("Design type                 :  %s\n", dataset$descriptions$design))
+  cat(sprintf("FOM selected                :  %s\n", FOM))
+  cat(sprintf("Analysis method             :  %s\n", method))
+  cat(sprintf("Analysis Option             :  %s\n", analysisOption))
+  
+  
+}
+
+
+Explanations <- function(dataset, FOM, method, analysisOption, details) {
+  
+  if (details > 0) {
+    DisclaimerDsSummary(dataset, FOM, method, analysisOption)  
+  }
+  
+  if (dataset$descriptions$design == "FCTRL") 
+  {
+    
+    NL <- dataset$ratings$NL
+    LL <- dataset$ratings$LL
+    lesionID <- dataset$lesions$IDs
+    maxNL <- dim(NL)[4]
+    dataType <- dataset$descriptions$type
+    modalityID <- dataset$descriptions$modalityID
+    I <- length(modalityID)
+    readerID <- dataset$descriptions$readerID
+    J <- length(readerID)
+    K <- dim(NL)[3]
+    K2 <- dim(LL)[3]
+    K1 <- K - K2
+    UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+    nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
+    
+    if (details > 0) {
+      if (method == "OR") {
+        cat(sprintf("Significance testing method :  %s\n", toupper("Obuchowski-Rockette-Hillis")))
+      } else {
+        cat(sprintf("Significance testing method :  %s\n", toupper("Dorfman-Berbaum-Metz-Hillis")))
+      } 
+      cat(sprintf("Number of Readers           :  %d\n", J))
+      cat(sprintf("# Treatments modality       :  %d\n", I))
+      cat(sprintf("Number of Normal Cases      :  %d\n", K1))
+      cat(sprintf("Number of Abnormal Cases    :  %d\n", K2))
+      cat(sprintf("Fraction of Normal Cases    :  %f\n", K1/K))
+      
+      if (FOM %in% c("MaxNLF", "HrSp")) { 
+        K <- K1
+        cat(sprintf("choice of FOM implies only non-diseased cases are used in the analysis\n"))
+      } else if (FOM %in% c("MaxLLF", "HrSe")) {
+        K <- K2
+        cat(sprintf("choice of FOM implies only diseased cases are used in the analysis\n"))
+      }
+      
+      if (dataType == "FROC") {
+        cat(sprintf("Min number of lesions per diseased case   :  %d\n", 
+                    min(nLesionPerCase)))
+        cat(sprintf("Max number of lesions per diseased case   :  %d\n", 
+                    max(nLesionPerCase)))
+        cat(sprintf("Mean number of lesions per diseased case  :  %f\n", 
+                    mean(nLesionPerCase)))
+        cat(sprintf("Total number of lesions                   :  %d\n", 
+                    sum(nLesionPerCase)))
+        
+        cat(sprintf("Excel file modality IDs     :  %s\n", paste(names(modalityID), collapse = ", ")))
+        cat(sprintf("Excel file reader IDs       :  %s\n\n", paste(names(readerID), collapse = ", ")))
+        MyOutput("OUTPUT/OVERVIEW.txt")
+      }
+    }
+    
+    if (details > 1) {
+      MyOutput(paste0("OUTPUT/OR/FCTRL/", analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
+    }
+    
+    if (details > 0) {
+      MyOutput("OUTPUT/RESULTS.txt")
+    }
+    
+  } else {
+    
+    NL <- dataset$ratings$NL
+    LL <- dataset$ratings$LL
+    lesionID <- dataset$lesions$IDs
+    maxNL <- dim(NL)[5]
+    dataType <- dataset$descriptions$type
+    modalityID1 <- dataset$descriptions$modalityID1
+    modalityID2 <- dataset$descriptions$modalityID2
+    I1 <- length(modalityID1)
+    I2 <- length(modalityID2)
+    readerID <- dataset$descriptions$readerID
+    J <- length(readerID)
+    K <- dim(NL)[4]
+    K2 <- dim(LL)[4]
+    K1 <- K - K2
+    UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+    nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
+    
+    cat(sprintf("Number of Readers           :  %d\n", J))
+    cat(sprintf("# Treatments modality 1     :  %d\n", I1))
+    cat(sprintf("# Treatments modality 2     :  %d\n", I2))
+    cat(sprintf("Number of Normal Cases      :  %d\n", K1))
+    cat(sprintf("Number of Abnormal Cases    :  %d\n", K2))
+    cat(sprintf("Fraction of Normal Cases    :  %f\n", K1/K))
+    
+    if (details > 0) {
+      if (method == "OR") {
+        cat(sprintf("Significance testing method :  %s\n", toupper("Obuchowski-Rockette-Hillis")))
+      } else {
+        cat(sprintf("Significance testing method :  %s\n", toupper("Dorfman-Berbaum-Metz-Hillis")))
+      } 
+      cat(sprintf("Number of Readers           :  %d\n", J))
+      cat(sprintf("# treatments 1st modality   :  %d\n", I1))
+      cat(sprintf("# treatments 2nd modality   :  %d\n", I2))
+      cat(sprintf("Number of Normal Cases      :  %d\n", K1))
+      cat(sprintf("Number of Abnormal Cases    :  %d\n", K2))
+      cat(sprintf("Fraction of Normal Cases    :  %f\n", K1/K))
+      
+      if (FOM %in% c("MaxNLF", "HrSp")) { # !!!DPC!!! need to check these FOMs
+        K <- K1
+        cat(sprintf("choice of FOM implies only non-diseased cases are used in the analysis\n"))
+      } else if (FOM %in% c("MaxLLF", "HrSe")) {
+        K <- K2
+        cat(sprintf("choice of FOM implies only diseased cases are used in the analysis\n"))
+      }
+      
+      UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+      nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
+      
+      if (dataType == "FROC") {
+        cat(sprintf("Min number of lesions per diseased case   :  %d\n", 
+                    min(nLesionPerCase)))
+        cat(sprintf("Max number of lesions per diseased case   :  %d\n", 
+                    max(nLesionPerCase)))
+        cat(sprintf("Mean number of lesions per diseased case  :  %f\n", 
+                    mean(nLesionPerCase)))
+        cat(sprintf("Total number of lesions                   :  %d\n", 
+                    sum(nLesionPerCase)))
+        
+      }
+    }
+    
+    if (details > 0) {
+      cat(sprintf("Excel file modality IDs 1st treatment :  %s\n", paste(names(modalityID1), collapse = ", ")))
+      cat(sprintf("Excel file modality IDs 2nd treatment :  %s\n", paste(names(modalityID2), collapse = ", ")))
+      cat(sprintf("Excel file reader IDs                 :  %s\n\n", paste(names(readerID), collapse = ", ")))
+      MyOutput("OUTPUT/OVERVIEW.txt")
+    }
+    
+    if (details > 1) {
+      MyOutput(paste0("OUTPUT/DBM/FCTRLX/", analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
+    }
+    
+    if (details > 0) {
+      MyOutput("OUTPUT/RESULTS.txt")
+    }
+  }
+}
+
+
+
+
+
 

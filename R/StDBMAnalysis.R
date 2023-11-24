@@ -2,7 +2,8 @@ StDBMAnalysis <- function(dataset,
                           FOM, 
                           analysisOption,
                           alpha,
-                          FPFValue) 
+                          FPFValue,
+                          details) 
 {
   
   if (length(dim(dataset$ratings$NL)) == 4) {
@@ -63,6 +64,7 @@ StDBMAnalysis <- function(dataset,
     }
     
     if (analysisOption == "RRRC") {
+      Explanations(dataset, FOM, method = "DBM", analysisOption = analysisOption, details)
       RRRC <- DBM_RRRC(K, FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -72,6 +74,7 @@ StDBMAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "FRRC") {
+      Explanations(dataset, FOM, method = "DBM", analysisOption = analysisOption, details)
       FRRC <- DBM_FRRC(K, FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -81,6 +84,7 @@ StDBMAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "RRFC") {
+      Explanations(dataset, FOM, method = "DBM", analysisOption = analysisOption, details)
       RRFC <- DBM_RRFC(K, FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -90,6 +94,7 @@ StDBMAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "ALL") {
+      Explanations(dataset, FOM, method = "DBM", analysisOption = analysisOption, details)
       RRRC <- DBM_RRRC(K, FOMStats, ANOVA, alpha)
       FRRC <- DBM_FRRC(K, FOMStats, ANOVA, alpha)
       RRFC <- DBM_RRFC(K, FOMStats, ANOVA, alpha)
@@ -170,6 +175,7 @@ StDBMAnalysis <- function(dataset,
     }
     
     if (analysisOption == "RRRC") {
+      Explanations(dataset, FOM, method = "DBM", analysisOption = analysisOption, details)
       RRRC <- DBM_RRRC(K, FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -179,6 +185,7 @@ StDBMAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "FRRC") {
+      Explanations(dataset, FOM, method = "DBM", analysisOption = analysisOption, details)
       FRRC <- DBM_FRRC(K, FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -188,6 +195,7 @@ StDBMAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "RRFC") {
+      Explanations(dataset, FOM, method = "DBM", analysisOption = analysisOption, details)
       RRFC <- DBM_RRFC(K, FOMStats, ANOVA, alpha)
       return(list(
         FOMs = FOMStats[-4],
@@ -197,6 +205,7 @@ StDBMAnalysis <- function(dataset,
     }  
     
     if (analysisOption == "ALL") {
+      Explanations(dataset, FOM, method = "DBM", analysisOption = analysisOption, details)
       RRRC <- DBM_RRRC(K, FOMStats, ANOVA, alpha)
       FRRC <- DBM_FRRC(K, FOMStats, ANOVA, alpha)
       RRFC <- DBM_RRFC(K, FOMStats, ANOVA, alpha)

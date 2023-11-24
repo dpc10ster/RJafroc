@@ -28,23 +28,16 @@ $FOMs: figures of merit, a list with 3 members
 1. $FOMs$foms: FOM values
 ******************************
 
-$FOMs$foms
-           rdr1      rdr2      rdr3      rdr4      rdr5
-trtBT        xx        xx        xx        xx        xx
-trtDM        xx        xx        xx        xx        xx
+* Matrix with 2 rows, named trtBT and trtDM, and five columns, named rdr1, 
+rdr2, ..., rdr5.
 
 ******************************
 2. $FOMs$trtMeans
 ******************************
 
 * Treatment means, i.e., foms averaged over readers
-* Vector of length equal to number of levels of the treatment
-* Estimate = observed value
-
-$FOMs$trtMeans
-       Estimate
-trtBT        xx
-trtDM        xx
+* Column vector of length equal to number of levels of the treatment, 2 in this
+case, named trtBT and trtDM.
 
 ******************************
 3. $FOMs$trtMeanDiffs 
@@ -52,19 +45,12 @@ trtDM        xx
 
 * Treatment mean differences
 * Inter-treatment differences of foms averaged over readers. 
-* For two treatments the number of differences is a scalar, for 3 treatments 
-this is a vector of length 3, for 4 treatments this is a vector of length 6; 
-etc.
-
-$FOMs$trtMeanDiffs
-             Estimate
-trtBT-trtDM        xx
-
+* A scalar named trtBT-trtDM.
 
 ********************************************************************************
 
 ************************************************************
-$ANOVA: analysis of variance, a list containing 4 members. 
+$ANOVA: analysis of variance, a list containing 4 members 
 ************************************************************
 
 ******************************
@@ -82,39 +68,22 @@ $ANOVA: analysis of variance, a list containing 4 members.
 * TC = treatment-case
 * RC = reader-case
 * TRC = treatment-reader-case
+* Total = sum of columns
+* Matrix with 8 rows, named T, R, C, TR, TC, RC, TRC and Total, and three 
+columns named SS, DF and MS.   
 
-$ANOVA$TRCanova
-               SS   DF         MS
-T              xx   xx         xx
-R              xx   xx         xx
-C              xx   xx         xx
-TR             xx   xx         xx
-TC             xx   xx         xx
-RC             xx   xx         xx
-TRC            xx   xx         xx
-Total          xx   xx         NA
-    
 ******************************
 2. $ANOVA$VarCom 
 ******************************
 
 * DBM variance components
 * VarR = reader variance 
+* VarC = case variance 
 * VarTR = treatment-reader variance
-* Var = error variance 
-* Cov1 = covariance when treatments are different 
-* Cov2 = covariance when readers are different
-* Cov3 = covariance when treatments and readers are different 
-* Rhos = correlations (e.g., Rho1 = Cov1/Var, etc.)
-    
-$ANOVA$VarCom
-          Estimates
-VarR             xx
-VarC             xx
-VarTR            xx
-VarTC            xx
-VarRC            xx
-VarErr           xx
+* VarTC = treatment-case variance
+* VarRC = reader-case variance
+* VarErr = error variance
+* Column vector with 6 rows, named VarR, VarC, VarTR, VarTC, VarRC and VarErr.   
 
 ******************************
 3. $ANOVA$IndividualTrt
@@ -124,13 +93,9 @@ VarErr           xx
 * msR = mean-squares reader
 * msC = mean-squares case
 * msRC = mean-squares reader-case
+* Matrix with 3 rows, named msR, msC and msRC, and threes columns named DF, 
+trtBT and trtDM.   
     
-$ANOVA$IndividualTrt
-      DF      trtBT     trtDM
-msR   xx         xx        xx
-msC   xx         xx        xx
-msRC  xx         xx        xx
-
 ******************************
 4. $ANOVA$IndividualRdr
 ******************************
@@ -139,12 +104,8 @@ msRC  xx         xx        xx
 * msT = mean-squares treatment
 * msC = mean-squares case
 * msTC = mean-squares treatment-case
-
-$ANOVA$IndividualRdr
-      DF      rdr1      rdr2      rdr3      rdr4      rdr5
-msT   xx        xx        xx        xx        xx        xx
-msC   xx        xx        xx        xx        xx        xx
-msTC  xx        xx        xx        xx        xx        xx
+* Matrix with 6 columns, named DF, rdr1, rdr2, ..., rdr5, and 3 rows named msT, 
+msC and msTC.   
 
 ********************************************************************************    
 
@@ -173,27 +134,23 @@ Error           xx          xx       NA          NA
 2. $RRRC$ciDiffTrt
 ******************************
 
-* 1-alpha confidence intervals for differences of treatments, averaged over readers
-
-$RRRC$ciDiffTrt
-               Estimate     StdErr       DF          t        PrGTt     CILower      CIUpper
-trt20-trt40          xx         xx       xx         xx           xx          xx           xx
-
-* StdErr = standard error for the estimate
-* t = t-statistic
-* CILower = lower bound of 1-alpha confidence interval
-* CIUpper = upper bound of 1-alpha confidence interval
+* 1-alpha confidence intervals for differences of treatments, averaged over 
+readers.
+* StdErr = standard error for the estimate.
+* t = t-statistic.
+* CILower = lower bound of 1-alpha confidence interval.
+* CIUpper = upper bound of 1-alpha confidence interval.
+* Row vector, named trtBT-trtDM, and 7 columns, named Estimate, StdErr, DF, t, 
+PrGTt, CILower and CIUpper.
 
 ******************************
 3. $RRRC$ciAvgRdrEachTrt
 ******************************
 
-* 1-alpha confidence interval for each treatment, averaged over readers 
-* StdErr = standard error of the estimate
+* 1-alpha confidence interval for each treatment, averaged over readers. 
+* StdErr = standard error of the estimate.
+* A matrix with 2 rows, named trtBT and trtDM, and 5 columns, named Estimate, 
+StdErr, DF, CILower and CIUpper.
 
-$RRRC$ciAvgRdrEachTrt
-       Estimate     StdErr       DF   CILower   CIUpper
-trtBT       xx          xx       xx        xx        xx
-trtDM       xx          xx       xx        xx        xx
 
 
