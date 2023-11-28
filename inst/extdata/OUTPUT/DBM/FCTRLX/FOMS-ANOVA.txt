@@ -7,9 +7,9 @@ DBM/FCTRLX/FOMs-ANOVA.txt
 ################################################################################
 
   
-* Example dataset `datasetX` has two levels of the first treatment, named F and 
-I in the Excel file, and 4 levels of the second treatment, named 20, 40, 60 and 
-80. 
+* `datasetX` has two levels of the first treatment, named F and 
+I in the Excel file, and 4 levels of the second treatment, named 20, 40, 
+60 and 80. 
 * In the output I have added the prefix "trt" to each of these names to denote 
 that these are treatments.
 * F = filtered back projection, an algorithm used to reconstruct CT data.
@@ -53,14 +53,14 @@ $FOMs$foms$AvgMod1
 * Foms averaged over the 1st treatment.
 * The number of levels of the remaining treatment correspond to that of the 
 second treatment, 4 in this case, named trt20, trt40, trt60 and trt80. 
-* Matrix with 4 rows, named trt20. trt40, trt60 and trt80, and 11 columns, 
+* Matrix with 4 rows named trt20. trt40, trt60 and trt80, and 11 columns 
 named rdr1, rdr2, ..., rdr11.
 
 $FOMs$foms$AvgMod2
 * Foms averaged over the 2nd treatment.
 * The number of levels of the remaining treatment correspond to that of the 
 second treatment, 2 in this case, named trtF and trtI. 
-* Matrix with 4 rows, named trtF and trtI, and 11 columns, named rdr1, rdr2, 
+* Matrix with 4 rows named trtF and trtI, and 11 columns named rdr1, rdr2, 
 ..., rdr11.
 
 ******************************
@@ -137,12 +137,12 @@ AvgMod2
 
 $ANOVA$TRCanova$AvgMod1
 * Foms averaged over the 1st treatment.
-* Matrix with 8 rows, named T, R, C, TR, TC, RC, TRC and Total, and three 
+* Matrix with 8 rows named T, R, C, TR, TC, RC, TRC and Total, and three 
 columns named SS, DF and MS.   
 
 $ANOVA$TRCanova$AvgMod2
 * Foms averaged over the 2nd treatment.
-* Matrix with 8 rows, named T, R, C, TR, TC, RC, TRC and Total, and three 
+* Matrix with 8 rows named T, R, C, TR, TC, RC, TRC and Total, and three 
 columns named SS, DF and MS.   
 
 ******************************
@@ -163,11 +163,11 @@ AvgMod2
 
 $ANOVA$VarCom$AvgMod1
 * Foms averaged over the 1st treatment.
-* Column vector with 6 rows, named VarR, VarC, VarTR, VarTC, VarRC and VarErr.   
+* Column vector with 6 rows named VarR, VarC, VarTR, VarTC, VarRC and VarErr.   
 
 $ANOVA$VarCom$AvgMod1
 * Foms averaged over 2nd treatment.
-* Column vector with 6 rows, named VarR, VarC, VarTR, VarTC, VarRC and VarErr.   
+* Column vector with 6 rows named VarR, VarC, VarTR, VarTC, VarRC and VarErr.   
 
 ******************************
 B3: $ANOVA$IndividualTrt: 
@@ -183,12 +183,12 @@ AvgMod2
     
 $ANOVA$IndividualTrt$AvgMod1
 * Foms averaged over the 1st treatment.
-* Matrix with 3 rows, named msR, msC and msRC, and 5 columns named DF, 
+* Matrix with 3 rows named msR, msC and msRC, and 5 columns named DF, 
 trt20, trt40, trt60 and trt80.   
 
 $ANOVA$IndividualTrt$AvgMod1
 * Foms averaged over the 2nd treatment.
-* Matrix with 3 rows, named msR, msC and msRC, and 3 columns named DF, 
+* Matrix with 3 rows named msR, msC and msRC, and 3 columns named DF, 
 trtF and trtI.   
 
 ******************************
@@ -205,12 +205,12 @@ AvgMod2
 
 $ANOVA$IndividualRdr$AvgMod1
 * Foms averaged over the 1st treatment.
-* Matrix with 3 rows named msT, msC and msTC and 12 columns, named DF, rdr1, 
+* Matrix with 3 rows named msT, msC and msTC and 12 columns named DF, rdr1, 
 rdr2, ..., rdr11.
 
 $ANOVA$IndividualRdr$AvgMod2
 * Foms averaged over the 2nd treatment.
-* Matrix with 3 rows named msT, msC and msTC and 12 columns, named DF, rdr1, 
+* Matrix with 3 rows named msT, msC and msTC and 12 columns named DF, rdr1, 
 rdr2, ..., rdr11.
 
 ********************************************************************************    

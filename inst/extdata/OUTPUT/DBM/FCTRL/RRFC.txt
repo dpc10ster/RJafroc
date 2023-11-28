@@ -21,7 +21,7 @@ F-tests
 
 $RRFC$FTests
 
-* Matrix with 2 rows, named Treatment and Error, and 4 columns, named DF, MS, 
+* Matrix with 2 rows named Treatment and Error, and 4 columns named DF, MS, 
 FStat and p. The Error row has NAs for FStat and p.
 
 ******************************
@@ -38,7 +38,7 @@ more extreme than t, i.e., p-value
 
 $RRFC$ciDiffTrt
 
-* Row vector named trtBT-trtDM, with 7 columns named Estimate, StdErr, DF, t, 
+* Row vector named trtBT-trtDM with 7 columns named Estimate, StdErr, DF, t, 
 PrGTt, CILower and CIUpper.
 
 ******************************
@@ -50,7 +50,7 @@ over readers.
 
 $RRFC$ciAvgRdrEachTrt
 
-* Matrix with 2 rows, named trtBT and trtDM, and 5 columns, named Estimate, 
+* Matrix with 2 rows named trtBT and trtDM, and 5 columns named Estimate, 
 StdErr, DF, CILower and CIUpper
 
 ********************************************************************************    

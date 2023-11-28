@@ -25,13 +25,13 @@ matrices, AvgMod1 and AvgMod2
 
 $RRFC$FTests$AvgMod1
 * Foms averaged over the 1st treatment.
-* Matrix with 2 rows, named T and TR, and 4 columns, named DF, MS, 
-F and p. The TR row has NAs for FStat and p.
+* Matrix with 2 rows named T and TR, and 4 columns named DF, MS, F and p. 
+The TR row has NAs for FStat and p.
 
 $RRFC$FTests$AvgMod2
 * Foms averaged over the 2nd treatment.
-* Matrix with 2 rows, named T and TR, and 4 columns, named DF, MS, 
-FStat and p. The TR row has NAs for FStat and p.
+* Matrix with 2 rows named T and TR, and 4 columns named DF, MS, FStat and p. 
+The TR row has NAs for FStat and p.
 
 ******************************
 C2. $RRFC$ciDiffTrt: 1-alpha 
@@ -50,14 +50,14 @@ more extreme than t, i.e., p-value
 
 $RRFC$ciDiffTrt$AvgMod1
 * Foms averaged over the 1st treatment.
-* Matrix with 6 rows, named trt20-trt40, trt20-trt60, trt20-trt80, trt40-trt60, 
+* Matrix with 6 rows named trt20-trt40, trt20-trt60, trt20-trt80, trt40-trt60, 
 trt40-trt80 and trt60-trt80 and 7 columns named Estimate, StdErr, DF, t, PrGTt,
 CILower and CIUpper.
 
 
 $RRFC$ciDiffTrt$AvgMod2
 * Foms averaged over the 2nd treatment.
-* Matrix with one row, named trtF-trtI, and 7 columns named Estimate, StdErr, 
+* Matrix with one row named trtF-trtI, and 7 columns named Estimate, StdErr, 
 DF, t, PrGTt, CILower and CIUpper.
 
 ******************************
@@ -70,8 +70,8 @@ matrices AvgMod1 and AvgMod2
 
 $RRFC$ciAvgRdrEachTrt$AvgMod1
 * Foms averaged over the 1st treatment.
-* Matrix with 4 rows, named trt20, trt40, trt60  and trt80, and 5 columns, named Estimate, 
-StdErr, DF, PrGTt, CILower and CIUpper.
+* Matrix with 4 rows named trt20, trt40, trt60  and trt80, and 5 columns 
+named Estimate, StdErr, DF, PrGTt, CILower and CIUpper.
 
 $RRFC$ciAvgRdrEachTrt$AvgMod2
 * Foms averaged over the 2nd treatment.

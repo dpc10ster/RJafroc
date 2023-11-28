@@ -25,12 +25,12 @@ matrices, AvgMod1 and AvgMod2
 
 $RRFC$FTests$AvgMod1
 * Foms averaged over the 1st treatment.
-* Matrix with 2 rows, named Treatment and Error, and 4 columns, named DF, MS, 
+* Matrix with 2 rows named Treatment and Error, and 4 columns named DF, MS, 
 FStat and p. The Error row has NAs for FStat and p.
 
 $RRFC$FTests$AvgMod2
 * Foms averaged over the 2nd treatment.
-* Matrix with 2 rows, named Treatment and Error, and 4 columns, named DF, MS, 
+* Matrix with 2 rows named Treatment and Error, and 4 columns named DF, MS, 
 FStat and p. The Error row has NAs for FStat and p.
 
 ******************************

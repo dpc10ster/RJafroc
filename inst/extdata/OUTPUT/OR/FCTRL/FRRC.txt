@@ -30,7 +30,7 @@ test in this case
 
 $FRRC$FTests
 
-* Matrix with 2 rows, named Treatment and Error, and 4 columns, named DF, MS, 
+* Matrix with 2 rows named Treatment and Error, and 4 columns named DF, MS, 
 Chisq and p. The Error row has NAs for FStat and p.
 
 ******************************
@@ -58,14 +58,15 @@ C3: $FRRC$ciAvgRdrEachTrt
 
 $FRRC$ciAvgRdrEachTrt
 
-* Matrix with 2 rows, named trtBT and trtDM, and 5 columns, named Estimate, 
+* Matrix with 2 rows named trtBT and trtDM, and 5 columns named Estimate, 
 StdErr, DF, CILower and CIUpper.
 
 ******************************
-C4: $FRRC$ciDiffTrtEachRdr, for 
-each reader, 1-alpha 
+C4: $FRRC$ciDiffTrtEachRdr, 
+for each reader, 1-alpha 
 confidence interval for all 
-distinct treatment differences.
+distinct treatment 
+differences.
 ******************************
 
 * rdr1::trtBT-trtDM = BT-DM treatment difference for reader 1
@@ -75,7 +76,7 @@ distinct treatment differences.
 $FRRC$ciDiffTrtEachRdr
 
 * A matrix with 5 rows labeled with the concatenated reader 
-name and the string "::trtBT-trtDM", and 6 columns, named Estimate, StdErr, z, 
+name and the string "::trtBT-trtDM", and 6 columns named Estimate, StdErr, z, 
 PrGTz, CILower and CIUpper.
 
 ******************************
@@ -87,5 +88,5 @@ and Cov1
 $FRRC$IndividualRdrVarCov1
 
 * Matrix with 5 rows labeled by the concatenated reader 
-name and the string "::trtBT-trtDM" and two columns, named 
+name and the string "::trtBT-trtDM" and two columns named 
 varEachRdr and cov1EachRdr.

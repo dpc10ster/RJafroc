@@ -21,7 +21,7 @@ F-tests
 
 $RRRC$FTests
 
-* Matrix with 2 rows, named Treatment and Error, and 4 columns, named DF, MS, 
+* Matrix with 2 rows named Treatment and Error, and 4 columns named DF, MS, 
 FStat and p. The Error row has NAs for FStat and p.
 
 ******************************
@@ -55,7 +55,7 @@ over readers.
 
 $RRRC$ciAvgRdrEachTrt
 
-* Matrix with 2 rows, named trtBT and trtDM, and 6 columns, named Estimate, 
+* Matrix with 2 rows named trtBT and trtDM, and 6 columns named Estimate, 
 StdErr, DF, CILower, CIUpper and Cov2.
 
 ********************************************************************************    

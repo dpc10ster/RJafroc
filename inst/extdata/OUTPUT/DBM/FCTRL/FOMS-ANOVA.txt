@@ -7,7 +7,7 @@ DBM/FCTRL/FOMs-ANOVA.txt
 ################################################################################
 
   
-* Example dataset `dataset01` has two levels of treatment, named BT and DM in 
+* `dataset01` has two levels of treatment, named BT and DM in 
 the Excel file. 
 * BT = breast tomosynthesis.
 * DM = digital mammography.
@@ -40,7 +40,7 @@ reader matrix of FOM values
 ******************************
 
 $FOMs$foms
-* Matrix with 2 rows, named trtBT and trtDM, and five columns, named rdr1, 
+* Matrix with 2 rows named trtBT and trtDM, and five columns named rdr1, 
 rdr2, rdr3, rdr4 and rdr5.
 
 ******************************
@@ -95,7 +95,7 @@ analysis of variance
 * Total = sum of columns (for SS and DF only)
 
 $ANOVA$TRCanova
-* Matrix with 8 rows, named T, R, C, TR, TC, RC, TRC and Total, and three 
+* Matrix with 8 rows named T, R, C, TR, TC, RC, TRC and Total, and three 
 columns named SS, DF and MS.   
 
 ******************************
@@ -113,7 +113,7 @@ analysis of variance
 * VarErr = error variance
 
 $ANOVA$VarCom
-* Column vector with 6 rows, named VarR, VarC, VarTR, VarTC, VarRC and VarErr.   
+* Column vector with 6 rows named VarR, VarC, VarTR, VarTC, VarRC and VarErr.   
 
 ******************************
 B3: $ANOVA$IndividualTrt: 
@@ -126,7 +126,7 @@ squares
 * msRC = mean-squares reader-case
     
 $ANOVA$IndividualTrt
-* Matrix with 3 rows, named msR, msC and msRC, and three columns named DF, 
+* Matrix with 3 rows named msR, msC and msRC, and three columns named DF, 
 trtBT and trtDM.   
 
 ******************************
@@ -139,7 +139,7 @@ Individual reader mean squares
 * msTC = mean-squares treatment-case for each reader
 
 $ANOVA$IndividualRdr
-* Matrix with 3 rows named msT, msC and msTC and 6 columns, named DF, rdr1, 
+* Matrix with 3 rows named msT, msC and msTC and 6 columns named DF, rdr1, 
 rdr2, rdr3, rdr4 and rdr5.
 
 ********************************************************************************    

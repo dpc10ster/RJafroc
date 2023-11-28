@@ -30,12 +30,12 @@ and AvgMod2
 
 $FRRC$FTests$AvgMod1
 * Foms averaged over the 1st treatment.
-* Matrix with 2 rows Treatment and Error, and 4 columns, named DF, MS, 
+* Matrix with 2 rows Treatment and Error, and 4 columns named DF, MS, 
 Chisq and p. The Error row has NAs for FStat and p.
 
 $FRRC$FTests$AvgMod2
 * Foms averaged over the 2nd treatment.
-* Matrix with 2 rows Treatment and Error, and 4 columns, named DF, MS, 
+* Matrix with 2 rows Treatment and Error, and 4 columns named DF, MS, 
 Chisq and p. The Error row has NAs for FStat and p.
 
 ******************************
@@ -75,12 +75,12 @@ and AvgMod2
 
 $FRRC$ciAvgRdrEachTrt$AvgMod1
 * Foms averaged over the 1st treatment.
-* Matrix with 2 rows, named trt20, trt40, trt60  and trt80, and 5 columns, 
+* Matrix with 2 rows named trt20, trt40, trt60  and trt80, and 5 columns 
 named Estimate, StdErr, DF, CILower and CIUpper.
 
 $FRRC$ciAvgRdrEachTrt$AvgMod2
 * Foms averaged over the 2nd treatment.
-* Matrix with 2 rows, named trtF  and trtI, and 5 columns, named Estimate, 
+* Matrix with 2 rows named trtF  and trtI, and 5 columns named Estimate, 
 StdErr, DF, CILower and CIUpper.
 
 ******************************
@@ -100,13 +100,13 @@ Notation:
 $FRRC$ciDiffTrtEachRdr$AvgMod1
 * Foms averaged over the 1st treatment.
 * A matrix with 66 (11 times 6) rows labeled with the concatenated reader 
-name and "::trtBT-trtDM", and 6 columns, named Estimate, StdErr, z, 
+name and "::trtBT-trtDM", and 6 columns named Estimate, StdErr, z, 
 PrGTz, CILower and CIUpper.
 
 $FRRC$ciDiffTrtEachRdr$AvgMod2
 * Foms averaged over the 2nd treatment.
 * A matrix with 11 rows labeled with the concatenated reader 
-names (rdr1 thru rdr11) and "::trtF-trtI", and 6 columns, named Estimate, 
+names (rdr1 thru rdr11) and "::trtF-trtI", and 6 columns named Estimate, 
 StdErr, z, PrGTz, CILower and CIUpper.
 
 ******************************
@@ -118,10 +118,10 @@ matrices AvgMod1 and AvgMod2
 
 $FRRC$IndividualRdrVarCov1$AvgMod1
 * Foms averaged over the 1st treatment.
-* Matrix with 11 rows labeled rdr1 thru rdr11 and two columns, named 
+* Matrix with 11 rows labeled rdr1 thru rdr11 and two columns named 
 varEachRdr and cov1EachRdr.
 
 $FRRC$IndividualRdrVarCov1$AvgMod2
 * Foms averaged over the 2nd treatment.
-* Matrix with 11 rows labeled rdr1 thru rdr11 and two columns, named 
+* Matrix with 11 rows labeled rdr1 thru rdr11 and two columns named 
 varEachRdr and cov1EachRdr.
