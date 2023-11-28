@@ -1,0 +1,61 @@
+OR/FCTRL/RRRC.txt
+
+************************************************************
+C. $RRRC: random reader random case, a list with 3 members,
+C1: $RRRC$FTests
+C2: $RRRC$ciDiffTrt
+C3: $RRRC$ciAvgRdrEachTrt. 
+************************************************************
+
+******************************
+C1. $RRRC$FTests: results of 
+F-tests
+******************************
+
+* DF = degrees of freedom
+* MS = mean squares
+* FStat = F statistic
+* p = p value
+* Treatment = treatment factor
+* Error = error term
+
+$RRRC$FTests
+
+* Matrix with 2 rows, named Treatment and Error, and 4 columns, named DF, MS, 
+FStat and p. The Error row has NAs for FStat and p.
+
+******************************
+C2. $RRRC$ciDiffTrt: 1-alpha 
+confidence intervals for 
+differences of treatments, 
+averaged over readers
+******************************
+
+* StdErr = standard error of the estimate
+* t = t statistic
+* PrGTt = probability greater than t, i.e., probability of observing a value 
+more extreme than t, i.e., p-value
+* CILower = lower bound of 1-alpha confidence interval
+* CIUpper = upper bound of 1-alpha confidence interval
+
+$RRRC$ciDiffTrt
+
+* Row vector with 1 row named trtBT-trtDM, and 7 columns named Estimate, 
+StdErr, DF, t, PrGTt, CILower and CIUpper.
+
+******************************
+C3. $RRRC$ciAvgRdrEachTrt: 
+1-alpha confidence interval 
+for each treatment, averaged 
+over readers.
+******************************
+
+* 1-alpha confidence interval for each treatment, averaged over readers 
+* StdErr = standard error of the estimate
+
+$RRRC$ciAvgRdrEachTrt
+
+* Matrix with 2 rows, named trtBT and trtDM, and 6 columns, named Estimate, 
+StdErr, DF, CILower, CIUpper and Cov2.
+
+********************************************************************************    

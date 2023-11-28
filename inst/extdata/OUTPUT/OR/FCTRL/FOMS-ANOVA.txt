@@ -1,0 +1,142 @@
+OR/FCTRL/FOMs-ANOVA.txt
+
+################################################################################
+
+                                EXPLANATION
+
+################################################################################
+
+  
+* Example dataset `dataset01` has two levels of the treatment, named BT and DM 
+in the Excel file. 
+* BT = breast tomosynthesis.
+* DM = digital mammography.
+* In the output I added the prefix "trt" to each of these names to denote that 
+these are treatments.
+* The number of readers is 5, named 1 thru 5 in the Excel file. 
+* In the output I have added the prefix "rdr" to each of these names to denote 
+that these are readers.
+
+
+********************************************************************************
+                             
+* The output consists of 3 lists, 
+A: FOMs 
+B: ANOVA 
+C: RRRC or FRRC or RRFC (as specified by analysisOption)
+
+********************************************************************************
+
+************************************************************
+A: $FOMs: figures of merit, a list with 3 members, 
+A1: $FOMs$foms 
+A2: $FOMs$trtMeans 
+A3: $FOMs$trtMeanDiffs
+************************************************************
+
+******************************
+A1: $FOMs$foms: treatment- 
+reader matrix of FOM values
+******************************
+
+$FOMs$foms
+* Matrix with 2 rows, named trtBT and trtDM, and five columns, named rdr1, rdr2,
+rdr3, rdr4 and rdr5.
+
+******************************
+A2: $FOMs$trtMeans: reader- 
+averaged treatment means
+******************************
+
+* $FOMs$trtMeans
+* Column vector with row names trtBT and trtDM.
+
+******************************
+A3: $FOMs$trtMeanDiffs: 
+FOM differences for each
+treatment averaged over 
+readers.
+******************************
+
+* For two treatments the number of differences is a scalar, for 3 treatments 
+this is a vector of length 3, for 4 treatments this is a vector of length 6; 
+etc.
+
+$FOMs$trtMeanDiffs
+* Scalar named trtBT-trtDM.
+
+********************************************************************************
+
+************************************************************
+B: $ANOVA: treatment-reader analysis of variance, a list 
+with 4 members,
+B1: $ANOVA$TRanova
+B2: $ANOVA$VarCom
+B3: $ANOVA$IndividualTrt
+B4: $ANOVA$IndividualRdr
+************************************************************
+
+******************************
+B1: $ANOVA$TRanova: OR mean 
+squares, treatment-reader 
+analysis of variance 
+******************************
+
+* SS = sum of squares 
+* DF = degrees of freedom
+* MS = mean-squares
+* T = treatment
+* R = reader
+* TR = treatment-reader
+
+$ANOVA$TRanova
+* Matrix with 3 rows, named T, R, and TR, and three columns named SS, DF and MS.   
+
+******************************
+B2: $ANOVA$VarCom: OR variance 
+components, covariances and 
+correlations treatment-
+reader analysis of variance
+******************************
+
+* VarR = reader variance 
+* VarTR = treatment-reader variance
+* Var = error variance 
+* Cov1 = covariance when treatments are different 
+* Cov2 = covariance when readers are different
+* Cov3 = covariance when treatments and readers are different 
+* Rhos = correlations (e.g., Rho1 = Cov1/Var, etc.)
+    
+$ANOVA$VarCom
+* Matrix with 6 rows, named VarR, VarTR, Cov1, Cov2, Cov3 and Var, and two 
+columns, named Estimates and Rhos.
+
+******************************
+B3: $ANOVA$IndividualTrt
+******************************
+
+* Individual treatment mean squares, variances and Cov2's
+* msREachTrt = reader mean square for each treatment
+* varEachTrt = reader variance for each treatment
+* cov2EachTrt = Cov2 for each treatment
+    
+$ANOVA$IndividualTrt
+* Matrix with two rows, named trtBT and trtDM, and 4 columns, named DF, 
+msREachTrt, varEachTrt and cov2EachTrt. 
+
+******************************
+B4: $ANOVA$IndividualRdr
+******************************
+
+* Individual reader mean square, variances and Cov1's
+* DF = degrees of freedom
+* msTEachRdr = treatment mean squares for each reader
+* varEachRdr = treatment variances for each reader
+* cov1EachRdr = Cov1 for each reader
+
+$ANOVA$IndividualRdr
+* Matrix with 5 rows, named rdr1, rdr2, rdr3, rdr4 and rdr5, and 4 columns,
+named DF, msTEachRdr, varEachRdr and cov1EachRdr.
+
+********************************************************************************    
+

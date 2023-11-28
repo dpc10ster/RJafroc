@@ -45,8 +45,7 @@
 #'    
 #'     
 #' @param details Amount of explanations in output, default is 0 for no 
-#'     explanations, 1 for some explanations and 2 for most explanations (2 is
-#'     recommended for cross modality datasets).
+#'     explanations and 1 for explanations.
 #'    
 #'     
 #' @return A list containing the results of the analysis.
@@ -221,18 +220,24 @@ Explanations <- function(dataset, FOM, method, analysisOption, details) {
         cat(sprintf("Total number of lesions                   :  %d\n", 
                     sum(nLesionPerCase)))
         
-        cat(sprintf("Excel file modality IDs     :  %s\n", paste(names(modalityID), collapse = ", ")))
-        cat(sprintf("Excel file reader IDs       :  %s\n\n", paste(names(readerID), collapse = ", ")))
-        MyOutput("OUTPUT/OVERVIEW.txt")
       }
-    }
-    
-    if (details > 1) {
-      MyOutput(paste0("OUTPUT/OR/FCTRL/", analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
+      
+      cat(sprintf("Excel file modality IDs     :  %s\n", paste(names(modalityID), collapse = ", ")))
+      cat(sprintf("Excel file reader IDs       :  %s\n\n", paste(names(readerID), collapse = ", ")))
+      MyOutput("OUTPUT/OVERVIEW.txt")
+      
     }
     
     if (details > 0) {
-      MyOutput("OUTPUT/RESULTS.txt")
+      if (method == "OR") {
+        MyOutput(paste0("OUTPUT/OR/FCTRL/", "FOMS-ANOVA", ".txt"))
+        MyOutput(paste0("OUTPUT/OR/FCTRL/", analysisOption, ".txt"))
+        MyOutput("OUTPUT/RESULTS.txt")
+      } else {
+        MyOutput(paste0("OUTPUT/DBM/FCTRL/", "FOMS-ANOVA", ".txt"))
+        MyOutput(paste0("OUTPUT/DBM/FCTRL/", analysisOption, ".txt"))
+        MyOutput("OUTPUT/RESULTS.txt")
+      }
     }
     
   } else {
@@ -254,13 +259,6 @@ Explanations <- function(dataset, FOM, method, analysisOption, details) {
     UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
     nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
     
-    cat(sprintf("Number of Readers           :  %d\n", J))
-    cat(sprintf("# Treatments modality 1     :  %d\n", I1))
-    cat(sprintf("# Treatments modality 2     :  %d\n", I2))
-    cat(sprintf("Number of Normal Cases      :  %d\n", K1))
-    cat(sprintf("Number of Abnormal Cases    :  %d\n", K2))
-    cat(sprintf("Fraction of Normal Cases    :  %f\n", K1/K))
-    
     if (details > 0) {
       if (method == "OR") {
         cat(sprintf("Significance testing method :  %s\n", toupper("Obuchowski-Rockette-Hillis")))
@@ -274,16 +272,13 @@ Explanations <- function(dataset, FOM, method, analysisOption, details) {
       cat(sprintf("Number of Abnormal Cases    :  %d\n", K2))
       cat(sprintf("Fraction of Normal Cases    :  %f\n", K1/K))
       
-      if (FOM %in% c("MaxNLF", "HrSp")) { # !!!DPC!!! need to check these FOMs
+      if (FOM %in% c("MaxNLF", "HrSp")) { 
         K <- K1
         cat(sprintf("choice of FOM implies only non-diseased cases are used in the analysis\n"))
       } else if (FOM %in% c("MaxLLF", "HrSe")) {
         K <- K2
         cat(sprintf("choice of FOM implies only diseased cases are used in the analysis\n"))
       }
-      
-      UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
-      nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
       
       if (dataType == "FROC") {
         cat(sprintf("Min number of lesions per diseased case   :  %d\n", 
@@ -295,23 +290,36 @@ Explanations <- function(dataset, FOM, method, analysisOption, details) {
         cat(sprintf("Total number of lesions                   :  %d\n", 
                     sum(nLesionPerCase)))
         
+        cat(sprintf("Excel file modality IDs 1st treatment :  %s\n", paste(names(modalityID1), collapse = ", ")))
+        cat(sprintf("Excel file modality IDs 2nd treatment :  %s\n", paste(names(modalityID2), collapse = ", ")))
+        cat(sprintf("Excel file reader IDs                 :  %s\n\n", paste(names(readerID), collapse = ", ")))
+        MyOutput("OUTPUT/OVERVIEW.txt")
+        
+        UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
+        nLesionPerCase <- rowSums(lesionID != UNINITIALIZED)
+        
+        if (dataType == "FROC") {
+          cat(sprintf("Min number of lesions per diseased case   :  %d\n", 
+                      min(nLesionPerCase)))
+          cat(sprintf("Max number of lesions per diseased case   :  %d\n", 
+                      max(nLesionPerCase)))
+          cat(sprintf("Mean number of lesions per diseased case  :  %f\n", 
+                      mean(nLesionPerCase)))
+          cat(sprintf("Total number of lesions                   :  %d\n", 
+                      sum(nLesionPerCase)))
+          
+        }
       }
     }
     
     if (details > 0) {
-      cat(sprintf("Excel file modality IDs 1st treatment :  %s\n", paste(names(modalityID1), collapse = ", ")))
-      cat(sprintf("Excel file modality IDs 2nd treatment :  %s\n", paste(names(modalityID2), collapse = ", ")))
-      cat(sprintf("Excel file reader IDs                 :  %s\n\n", paste(names(readerID), collapse = ", ")))
-      MyOutput("OUTPUT/OVERVIEW.txt")
-    }
-    
-    if (details > 1) {
       MyOutput(paste0("OUTPUT/DBM/FCTRLX/", analysisOption, "-", method, "-", dataset$descriptions$design, ".txt"))
     }
     
     if (details > 0) {
       MyOutput("OUTPUT/RESULTS.txt")
     }
+    
   }
 }
 

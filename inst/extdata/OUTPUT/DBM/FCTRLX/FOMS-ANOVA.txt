@@ -1,0 +1,216 @@
+DBM/FCTRLX/FOMs-ANOVA.txt
+
+################################################################################
+
+                                EXPLANATION
+
+################################################################################
+
+  
+* Example dataset `datasetX` has two levels of the first treatment, named F and 
+I in the Excel file, and 4 levels of the second treatment, named 20, 40, 60 and 
+80. 
+* In the output I have added the prefix "trt" to each of these names to denote 
+that these are treatments.
+* F = filtered back projection, an algorithm used to reconstruct CT data.
+* I = an iterative algorithm used to reconstruct CT data.
+* 20 = 20 mAs tube charge
+* 40 = 40 mAs tube charge
+* 60 = 60 mAs tube charge
+* 80 = 80 mAs tube charge
+* The number of readers is 11, named 1 thru 11 in the Excel file. 
+* In the output I have added the prefix "rdr" to each of these names to denote 
+that these are readers.
+
+
+********************************************************************************
+                             
+* The output consists of 3 lists, 
+A: FOMs 
+B: ANOVA 
+C: RRRC or FRRC or RRFC (as specified by analysisOption)
+Each contains two matrices:
+* AvgMod1, the foms are averaged over the 1st treatment 
+* AvgMod2, the foms are averaged over the 2nd treatment
+
+********************************************************************************
+
+************************************************************
+A: $FOMs: figures of merit, a list with 3 members, 
+A1: $FOMs$foms 
+A2: $FOMs$trtMeans 
+A3: $FOMs$trtMeanDiffs
+************************************************************
+
+******************************
+A1: $FOMs$foms: treatment- 
+reader list of FOM values; 
+contains two matrices, 
+AvgMod1 and AvgMod2
+******************************
+
+$FOMs$foms$AvgMod1
+* Foms averaged over the 1st treatment.
+* The number of levels of the remaining treatment correspond to that of the 
+second treatment, 4 in this case, named trt20, trt40, trt60 and trt80. 
+* Matrix with 4 rows, named trt20. trt40, trt60 and trt80, and 11 columns, 
+named rdr1, rdr2, ..., rdr11.
+
+$FOMs$foms$AvgMod2
+* Foms averaged over the 2nd treatment.
+* The number of levels of the remaining treatment correspond to that of the 
+second treatment, 2 in this case, named trtF and trtI. 
+* Matrix with 4 rows, named trtF and trtI, and 11 columns, named rdr1, rdr2, 
+..., rdr11.
+
+******************************
+A2: $FOMs$trtMeans: reader- 
+averaged treatment means; 
+contains two matrices; 
+AvgMod1 and AvgMod2
+******************************
+
+$FOMs$trtMeans$AvgMod1
+* Foms averaged over the 1st treatment.
+* Vector of length equal to number of levels of the 2nd treatment, trt20, 
+trt40, trt60 and trt80
+* Column vector with 4 rows named trt20, trt40, trt60 and trt80
+
+$FOMs$trtMeans$AvgMod2
+* Foms averaged over the 2nd treatment.
+* Vector of length equal to number of levels of the 1st treatment
+* Column vector with 2 rows named trtF and trtI
+
+******************************
+A3: $FOMs$trtMeanDiffs: 
+FOM differences for each
+treatment averaged over 
+readers; contains two 
+matrices, AvgMod1 and AvgMod2
+******************************
+
+* For two treatments the number of differences is a scalar, for 3 treatments 
+it is a vector of length 3, for 4 treatments it is a vector of length 6; etc.
+
+$FOMs$trtMeanDiffs$AvgMod1
+* Foms averaged over the 1st treatment.
+* Column vector with 6 rows named trt20-trt40, trt20-trt60, trt20-trt80, 
+trt40-trt60, trt40-trt80, and trt60-trt80.
+
+$FOMs$trtMeanDiffs$AvgMod2
+* Foms averaged over the 2nd treatment.
+* Scalar named trtF-trtI.
+
+********************************************************************************
+
+************************************************************
+B: $ANOVA: treatment-reader analysis of variance, a list 
+with 4 members,
+B1: $ANOVA$TRCanova
+B2: $ANOVA$VarCom
+B3: $ANOVA$IndividualTrt
+B4: $ANOVA$IndividualRdr
+Each contains two matrices:
+* AvgMod1, the foms are averaged over the 1st treatment 
+* AvgMod2, the foms are averaged over the 2nd treatment
+************************************************************
+
+******************************
+B1: $ANOVA$TRCanova: DBM mean 
+squares, treatment-reader-case 
+analysis of variance; contains 
+two matrices, AvgMod1 and 
+AvgMod2 
+******************************
+
+* SS = sum of squares 
+* DF = degrees of freedom
+* MS = mean-squares
+* T = treatment
+* R = reader
+* C = case
+* TR = treatment-reader
+* TC = treatment-case
+* RC = reader-case
+* TRC = treatment-reader-case
+* Total = sum of columns (for SS and DF only)
+
+$ANOVA$TRCanova$AvgMod1
+* Foms averaged over the 1st treatment.
+* Matrix with 8 rows, named T, R, C, TR, TC, RC, TRC and Total, and three 
+columns named SS, DF and MS.   
+
+$ANOVA$TRCanova$AvgMod2
+* Foms averaged over the 2nd treatment.
+* Matrix with 8 rows, named T, R, C, TR, TC, RC, TRC and Total, and three 
+columns named SS, DF and MS.   
+
+******************************
+B2: $ANOVA$VarCom: DBM 
+variance components, 
+treatment-reader-case 
+analysis of variance; contains 
+two matrices, AvgMod1 and 
+AvgMod2
+******************************
+
+* VarR = reader variance 
+* VarC = case variance 
+* VarTR = treatment-reader variance
+* VarTC = treatment-case variance
+* VarRC = reader-case variance
+* VarErr = error variance
+
+$ANOVA$VarCom$AvgMod1
+* Foms averaged over the 1st treatment.
+* Column vector with 6 rows, named VarR, VarC, VarTR, VarTC, VarRC and VarErr.   
+
+$ANOVA$VarCom$AvgMod1
+* Foms averaged over 2nd treatment.
+* Column vector with 6 rows, named VarR, VarC, VarTR, VarTC, VarRC and VarErr.   
+
+******************************
+B3: $ANOVA$IndividualTrt: 
+Individual treatment mean 
+squares; contains 
+two matrices, AvgMod1 and 
+AvgMod2
+******************************
+
+* msR = mean-squares reader
+* msC = mean-squares case
+* msRC = mean-squares reader-case
+    
+$ANOVA$IndividualTrt$AvgMod1
+* Foms averaged over the 1st treatment.
+* Matrix with 3 rows, named msR, msC and msRC, and 5 columns named DF, 
+trt20, trt40, trt60 and trt80.   
+
+$ANOVA$IndividualTrt$AvgMod1
+* Foms averaged over the 2nd treatment.
+* Matrix with 3 rows, named msR, msC and msRC, and 3 columns named DF, 
+trtF and trtI.   
+
+******************************
+B4: $ANOVA$IndividualRdr: 
+Individual reader mean 
+squares; contains 
+two matrices, AvgMod1 and 
+AvgMod2
+******************************
+
+* msT = mean-squares treatment for each reader
+* msC = mean-squares case for each reader
+* msTC = mean-squares treatment-case for each reader
+
+$ANOVA$IndividualRdr$AvgMod1
+* Foms averaged over the 1st treatment.
+* Matrix with 3 rows named msT, msC and msTC and 12 columns, named DF, rdr1, 
+rdr2, ..., rdr11.
+
+$ANOVA$IndividualRdr$AvgMod2
+* Foms averaged over the 2nd treatment.
+* Matrix with 3 rows named msT, msC and msTC and 12 columns, named DF, rdr1, 
+rdr2, ..., rdr11.
+
+********************************************************************************    

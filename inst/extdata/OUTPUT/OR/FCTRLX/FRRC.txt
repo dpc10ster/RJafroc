@@ -1,0 +1,127 @@
+OR/FCTRLX/FRRC.txt
+
+************************************************************
+D: $FRRC fixed reader random case results, a list with 
+5 members, 
+D1: $FRRC$FTests
+D2: $FRRC$ciDiffTrt
+D3: $FRRC$ciAvgRdrEachTrt
+D4: $FRRC$ciDiffTrtEachRdr
+D5: $FRRC$IndividualRdrVarCov1
+Each contains two matrices:
+* AvgMod1, the foms are averaged over the 1st treatment 
+* AvgMod2, the foms are averaged over the 2nd treatment 
+************************************************************
+
+******************************
+D1: $FRRC$FTests, results of 
+F-tests, acutally a 
+chi-square test in this case; 
+contains two matrices AvgMod1 
+and AvgMod2
+******************************
+
+* DF = degrees of freedom
+* MS = mean squares
+* Chisq - chi-square statistic
+* p = p value
+* Treatment = treatment factor
+* Error = error term
+
+$FRRC$FTests$AvgMod1
+* Foms averaged over the 1st treatment.
+* Matrix with 2 rows Treatment and Error, and 4 columns, named DF, MS, 
+Chisq and p. The Error row has NAs for FStat and p.
+
+$FRRC$FTests$AvgMod2
+* Foms averaged over the 2nd treatment.
+* Matrix with 2 rows Treatment and Error, and 4 columns, named DF, MS, 
+Chisq and p. The Error row has NAs for FStat and p.
+
+******************************
+D2: $FRRC$ciDiffTrt, 1-alpha 
+confidence intervals for 
+differences of treatments,
+averaged over readers; 
+contains two matrices AvgMod1 
+and AvgMod2
+******************************
+
+* StdErr = standard error of the estimate
+* z = z-statistic
+* PrGTz = probability of observing a value more extreme than z
+* CILower = lower bound of 1-alpha confidence interval
+* CIUpper = upper bound of 1-alpha confidence interval
+
+$FRRC$ciDiffTrt$AvgMod1
+* Foms averaged over the 1st treatment.
+* Row vector with row name trtBT-trtDM and 6 columns named Estimate, StdErr, 
+z, PrGTz, CILower and CIUpper
+
+$FRRC$ciDiffTrt$AvgMod2
+
+* Foms averaged over the 2nd treatment.
+* Row vector with row name trtF-trtI and 6 columns named Estimate, StdErr, z, 
+PrGTz, CILower and CIUpper
+
+******************************
+D3: $FRRC$ciAvgRdrEachTrt; 
+1-alpha confidence intervals 
+for each treatment FOM, 
+averaged over readers; 
+contains two matrices AvgMod1 
+and AvgMod2
+******************************
+
+$FRRC$ciAvgRdrEachTrt$AvgMod1
+* Foms averaged over the 1st treatment.
+* Matrix with 2 rows, named trt20, trt40, trt60  and trt80, and 5 columns, 
+named Estimate, StdErr, DF, CILower and CIUpper.
+
+$FRRC$ciAvgRdrEachTrt$AvgMod2
+* Foms averaged over the 2nd treatment.
+* Matrix with 2 rows, named trtF  and trtI, and 5 columns, named Estimate, 
+StdErr, DF, CILower and CIUpper.
+
+******************************
+D4: $FRRC$ciDiffTrtEachRdr, 
+1-alpha confidence interval 
+for all distinct treatment 
+differences for each reader; 
+contains two matrices AvgMod1 
+and AvgMod2.
+******************************
+
+Notation:
+* rdr1::trtBT-trtDM = BT-DM treatment difference for reader 1
+* rdr2::trtBT-trtDM = BT-DM treatment difference for reader 2
+* Etc.
+
+$FRRC$ciDiffTrtEachRdr$AvgMod1
+* Foms averaged over the 1st treatment.
+* A matrix with 66 (11 times 6) rows labeled with the concatenated reader 
+name and "::trtBT-trtDM", and 6 columns, named Estimate, StdErr, z, 
+PrGTz, CILower and CIUpper.
+
+$FRRC$ciDiffTrtEachRdr$AvgMod2
+* Foms averaged over the 2nd treatment.
+* A matrix with 11 rows labeled with the concatenated reader 
+names (rdr1 thru rdr11) and "::trtF-trtI", and 6 columns, named Estimate, 
+StdErr, z, PrGTz, CILower and CIUpper.
+
+******************************
+D5: $FRRC$IndividualRdrVarCov1,
+individual reader variance 
+and Cov1; contains two 
+matrices AvgMod1 and AvgMod2
+******************************
+
+$FRRC$IndividualRdrVarCov1$AvgMod1
+* Foms averaged over the 1st treatment.
+* Matrix with 11 rows labeled rdr1 thru rdr11 and two columns, named 
+varEachRdr and cov1EachRdr.
+
+$FRRC$IndividualRdrVarCov1$AvgMod2
+* Foms averaged over the 2nd treatment.
+* Matrix with 11 rows labeled rdr1 thru rdr11 and two columns, named 
+varEachRdr and cov1EachRdr.

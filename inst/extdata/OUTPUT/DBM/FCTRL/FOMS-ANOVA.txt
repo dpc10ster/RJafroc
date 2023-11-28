@@ -1,0 +1,146 @@
+DBM/FCTRL/FOMs-ANOVA.txt
+
+################################################################################
+
+                                EXPLANATION
+
+################################################################################
+
+  
+* Example dataset `dataset01` has two levels of treatment, named BT and DM in 
+the Excel file. 
+* BT = breast tomosynthesis.
+* DM = digital mammography.
+* In the output I have added the prefix "trt" to each of these names to denote 
+that these are treatments.
+* The number of readers is 5, named 1 thru 5 in the Excel file. 
+* In the output I have added the prefix "rdr" to each of these names to denote 
+that these are readers.
+
+
+********************************************************************************
+                             
+* The output consists of 3 lists, 
+A: FOMs 
+B: ANOVA 
+C: RRRC or FRRC or RRFC (as specified by analysisOption)
+
+********************************************************************************
+
+************************************************************
+A: $FOMs: figures of merit, a list with 3 members, 
+A1: $FOMs$foms 
+A2: $FOMs$trtMeans 
+A3: $FOMs$trtMeanDiffs
+************************************************************
+
+******************************
+A1: $FOMs$foms: treatment- 
+reader matrix of FOM values
+******************************
+
+$FOMs$foms
+* Matrix with 2 rows, named trtBT and trtDM, and five columns, named rdr1, 
+rdr2, rdr3, rdr4 and rdr5.
+
+******************************
+A2: $FOMs$trtMeans: reader- 
+averaged treatment means
+******************************
+
+* $FOMs$trtMeans
+* Column vector with row names trtBT and trtDM.
+
+******************************
+A3: $FOMs$trtMeanDiffs: 
+FOM differences for each
+treatment averaged over 
+readers. 
+******************************
+
+* For two treatments the number of differences is a scalar, for 3 treatments 
+it is a vector of length 3, for 4 treatments it is a vector of length 6; 
+etc.
+
+$FOMs$trtMeanDiffs
+* Scalar named trtBT-trtDM.
+
+********************************************************************************
+
+************************************************************
+B: $ANOVA: treatment-reader analysis of variance, a list 
+with 4 members,
+B1: $ANOVA$TRCanova
+B2: $ANOVA$VarCom
+B3: $ANOVA$IndividualTrt
+B4: $ANOVA$IndividualRdr
+************************************************************
+
+******************************
+B1: $ANOVA$TRCanova: DBM mean 
+squares, treatment-reader-case 
+analysis of variance 
+******************************
+
+* SS = sum of squares 
+* DF = degrees of freedom
+* MS = mean-squares
+* T = treatment
+* R = reader
+* C = case
+* TR = treatment-reader
+* TC = treatment-case
+* RC = reader-case
+* TRC = treatment-reader-case
+* Total = sum of columns (for SS and DF only)
+
+$ANOVA$TRCanova
+* Matrix with 8 rows, named T, R, C, TR, TC, RC, TRC and Total, and three 
+columns named SS, DF and MS.   
+
+******************************
+B2: $ANOVA$VarCom: DBM 
+variance components, 
+treatment-reader-case 
+analysis of variance
+******************************
+
+* VarR = reader variance 
+* VarC = case variance 
+* VarTR = treatment-reader variance
+* VarTC = treatment-case variance
+* VarRC = reader-case variance
+* VarErr = error variance
+
+$ANOVA$VarCom
+* Column vector with 6 rows, named VarR, VarC, VarTR, VarTC, VarRC and VarErr.   
+
+******************************
+B3: $ANOVA$IndividualTrt: 
+Individual treatment mean 
+squares
+******************************
+
+* msR = mean-squares reader
+* msC = mean-squares case
+* msRC = mean-squares reader-case
+    
+$ANOVA$IndividualTrt
+* Matrix with 3 rows, named msR, msC and msRC, and three columns named DF, 
+trtBT and trtDM.   
+
+******************************
+B4: $ANOVA$IndividualRdr: 
+Individual reader mean squares
+******************************
+
+* msT = mean-squares treatment for each reader
+* msC = mean-squares case for each reader
+* msTC = mean-squares treatment-case for each reader
+
+$ANOVA$IndividualRdr
+* Matrix with 3 rows named msT, msC and msTC and 6 columns, named DF, rdr1, 
+rdr2, rdr3, rdr4 and rdr5.
+
+********************************************************************************    
+

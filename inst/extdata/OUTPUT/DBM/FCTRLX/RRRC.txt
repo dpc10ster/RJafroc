@@ -1,0 +1,82 @@
+DBM/FCTRLX/RRRC.txt
+
+************************************************************
+C: $RRRC fixed reader random case results, a list with 
+3 members, 
+C1: $RRRC$FTests
+C2: $RRRC$ciDiffTrt
+C3: $RRRC$ciAvgRdrEachTrt
+Each contains two matrices:
+* AvgMod1, the foms are averaged over the 1st treatment 
+* AvgMod2, the foms are averaged over the 2nd treatment 
+************************************************************
+
+******************************
+C1: $FRRC$FTests, results of 
+F-tests; contains two 
+matrices AvgMod1 and AvgMod2
+******************************
+
+* DF = degrees of freedom
+* MS = mean squares
+* FStat = F statistic
+* p = p value
+* Treatment = treatment factor
+* Error = error term
+
+$FRRC$FTests$AvgMod1
+* Foms averaged over the 1st treatment.
+* Matrix with 2 rows Treatment and Error, and 4 columns, named DF, MS, 
+FStat and p. The Error row has NAs for FStat and p.
+
+$FRRC$FTests$AvgMod2
+* Foms averaged over the 2nd treatment.
+* Matrix with 2 rows Treatment and Error, and 4 columns, named DF, MS, 
+FStat and p. The Error row has NAs for FStat and p.
+
+******************************
+C2. $RRRC$ciDiffTrt, 1-alpha 
+confidence intervals for 
+differences of treatments,
+averaged over readers; 
+contains two matrices AvgMod1 
+and AvgMod2
+******************************
+
+* StdErr = standard error of the estimate
+* t = t statistic
+* PrGTt = probability greater than t, i.e., probability of observing a value 
+more extreme than t, i.e., p-value
+* CILower = lower bound of 1-alpha confidence interval
+* CIUpper = upper bound of 1-alpha confidence interval
+
+$RRRC$ciDiffTrt$AvgMod1
+* Foms averaged over the 1st treatment.
+* Matrix with 6 rows named trt20-trt40, trt20-trt60, trt20-trt80, 
+trt40-trt60, trt40-trt80 and trt60-trt80, and 7 columns named Estimate, 
+StdErr, DF, t, PrGTt, CILower and CIUpper.
+
+$RRRC$ciDiffTrt$AvgMod2
+* Foms averaged over the 2nd treatment.
+* Row vector with row named trtF-trtI, and 7 columns named Estimate, 
+StdErr, DF, t, PrGTt, CILower and CIUpper.
+
+******************************
+C3. $RRRC$ciAvgRdrEachTrt: 
+1-alpha confidence interval 
+for each treatment, averaged 
+over readers; contains two 
+matrices AvgMod1 and AvgMod2
+******************************
+
+$RRRC$ciAvgRdrEachTrt$AvgMod1
+* Foms averaged over the 1st treatment.
+* Matrix with 4 rows, named trt20, trt40, trt60 and trt80, and 6 columns, 
+named Estimate, StdErr, DF, CILower, CIUpper and Cov2.
+
+$RRRC$ciAvgRdrEachTrt$AvgMod2
+* Foms averaged over the 2nd treatment.
+* Matrix with 2 rows, named trtF and trtI, and 6 columns, 
+named Estimate, StdErr, DF, CILower, CIUpper and Cov2.
+
+********************************************************************************    
