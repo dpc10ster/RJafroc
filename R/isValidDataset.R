@@ -13,7 +13,7 @@
 #'     "bootstrap" or "DeLong" (for an ROC dataset).
 #' 
 #' @param analysisOption Specification of the random factor(s): "RRRC" (default), "RRFC", 
-#'     "FRRC" or "ALL". 
+#'     or "FRRC. 
 #' 
 #' 
 #' @return None.
@@ -155,7 +155,7 @@ isValidFOM <- function (dataset, FOM) {
 
 isValidCovEstMethod <- function(FOM, covEstMethod) {
   
-  if (!(covEstMethod %in% c("jackknife", "bootstrap", "DeLong", "ALL"))) {
+  if (!(covEstMethod %in% c("jackknife", "bootstrap", "DeLong"))) {
     errMsg <- sprintf("Incorrect covEstMethod specified.\n")
     stop(errMsg)
   }
@@ -168,7 +168,7 @@ isValidCovEstMethod <- function(FOM, covEstMethod) {
 
 isValidAnalysisOption <- function(dataset, analysisOption) {
   
-  if (!(analysisOption %in% c("RRRC", "FRRC", "RRFC", "ALL"))) {
+  if (!(analysisOption %in% c("RRRC", "FRRC", "RRFC"))) {
     errMsg <- sprintf("Incorrect analysisOption: must be `RRRC`, `FRRC`, `RRFC` or `ALL`.\n")
     stop(errMsg)
   }

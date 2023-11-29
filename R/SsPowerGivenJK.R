@@ -27,7 +27,7 @@
 #'     "jackknife" (the default), "bootstrap" or "DeLong" (for ROC datasets).
 #' 
 #' @param analysisOption Specify the random factor(s): "RRRC" (the default), 
-#'     "RRFC", "FRRC" or "ALL".
+#'     "RRFC or FRRC".
 #' 
 #' @param UseDBMHB2004 Logical, defaults to \code{FALSE}, which results in OR 
 #'    sample size method being used, even if DBM method is specified, as in 
@@ -146,7 +146,7 @@ SsPowerGivenJK <- function(dataset,
                            UseDBMHB2004 = FALSE,
                            alpha = 0.05) {
   
-  if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
+  if (!(analysisOption %in% c("RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
   if (!(method %in% c("DBM", "OR"))) stop ("Incorrect method.")
   if (!is.null(dataset) && (dataset$descriptions$type != "ROC")) stop("Must specify an ROC dataset, not LROC or FROC")
   if (!is.null(dataset) && (length(list(...)) > 0)) stop("dataset and variance components cannot both be supplied as arguments")
@@ -258,7 +258,7 @@ SsPowerGivenJK <- function(dataset,
 #' @param VarTC The modality-case DBM variance component
 #' @param VarErr The error-term DBM variance component
 #' @param alpha The size of the test (default = 0.05)
-#' @param analysisOption Specify the random factor(s): "RRRC", "FRRC", "RRFC", "ALL"
+#' @param analysisOption Specify the random factor(s): "RRRC", "FRRC", "RRFC"
 #' 
 #' @return A list containing the estimated power and associated statistics
 #'    for the specified random factor(s).
@@ -280,7 +280,7 @@ SsPowerGivenJK <- function(dataset,
 #' 
 SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alpha = 0.05, analysisOption = "RRRC"){
   
-  if (analysisOption == "RRRC" || analysisOption == "ALL") {
+  if (analysisOption == "RRRC") {
     # background on following equations ...
     # ignoring the max() constraints that I put in, my
     # denom = VarTR + (VarErr + J * VarTC) / K
@@ -300,7 +300,7 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
     powerRRRC <- pf(fvalueRRRC, 1, df2RRRC, ncp = deltaRRRC, FALSE)
   }
   
-  if (analysisOption == "FRRC" || analysisOption == "ALL") {
+  if (analysisOption == "FRRC") {
     # set VarTR = 0 in RRRC formulae
     den <- (VarErr + J * max(VarTC, 0)) / K
     deltaFRRC <- ((effectSize)^2 * J/2) / den
@@ -309,7 +309,7 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
     powerFRRC <- pf(fvalueFRRC, 1, df2FRRC, ncp = deltaFRRC, FALSE)
   }
   
-  if (analysisOption == "RRFC" || analysisOption == "ALL") {
+  if (analysisOption == "RRFC") {
     # set VarTC = 0 in RRRC formulae
     den <- max(VarTR, 0) + VarErr/K
     deltaRRFC <- ((effectSize)^2 * J/2) / den
@@ -318,20 +318,7 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
     powerRRFC <- pf(fvalueRRFC, 1, df2RRFC, ncp = deltaRRFC, FALSE)
   }
   
-  if (analysisOption == "ALL"){
-    return(data.frame(powerRRRC = powerRRRC, 
-                      ncpRRRC = deltaRRRC, 
-                      df2RRRC = df2RRRC, 
-                      fRRRC = fvalueRRRC, 
-                      powerFRRC = powerFRRC, 
-                      ncpFRRC = deltaFRRC, 
-                      df2FRRC = df2FRRC, 
-                      fFRRC = fvalueFRRC, 
-                      powerRRFC = powerRRFC, 
-                      ncpRRFC = deltaRRFC, 
-                      df2RRFC = df2RRFC, 
-                      fRRFC = fvalueRRFC))
-  } else if (analysisOption == "RRRC"){
+  if (analysisOption == "RRRC"){
     return(data.frame(powerRRRC = powerRRRC, 
                       ncpRRRC = deltaRRRC, 
                       df2RRRC = df2RRRC, 
@@ -364,7 +351,7 @@ SsPowerGivenJKDbmVarCom <- function(J, K, effectSize, VarTR, VarTC, VarErr, alph
 #' @param Cov3 The OR Cov3 covariance
 #' @param Var The OR pure variance term
 #' @param alpha The size of the test (default = 0.05)
-#' @param analysisOption Specify the random factor(s): "RRRC", "FRRC", "RRFC", "ALL"
+#' @param analysisOption Specify the random factor(s): "RRRC", "FRRC", "RRFC"
 #' 
 #' @return A list containing the estimated power and associated statistics
 #'    for the specified random factor(s).
@@ -394,7 +381,7 @@ SsPowerGivenJKOrVarCom <- function(J, K, KStar, effectSize, VarTR, Cov1, Cov2, C
 
   VarTR <- max(VarTR,0) # TBA this is a big question mark for me
   
-  if (analysisOption == "RRRC" || analysisOption == "ALL") {
+  if (analysisOption == "RRRC") {
     # following equations are from Hillis et al Academic Radiology, Vol 18, No 2, February 2011
     den <- VarTR + (KStar / K) * (Var - Cov1 + (J - 1) * max(Cov2 - Cov3, 0)) # Eqn. 10
     df2RRRC <- den^2/((VarTR + (KStar / K) * (Var - Cov1 - max(Cov2 - Cov3, 0)))^2 / (J - 1)) # Eqn. 10
@@ -403,7 +390,7 @@ SsPowerGivenJKOrVarCom <- function(J, K, KStar, effectSize, VarTR, Cov1, Cov2, C
     powerRRRC <- pf(fvalueRRRC, 1, df2RRRC, ncp = deltaRRRC, FALSE)
   }
   
-  if (analysisOption == "FRRC" || analysisOption == "ALL") {
+  if (analysisOption == "FRRC") {
     # den <- (KStar / K * (Var - Cov1 + (J - 1) * max(Cov2 - Cov3, 0)))
     # deltaFRRC <- ((effectSize)^2 * J/2) / den
     # df2FRRC <- K - 1
@@ -416,7 +403,7 @@ SsPowerGivenJKOrVarCom <- function(J, K, KStar, effectSize, VarTR, Cov1, Cov2, C
     powerFRRC <- pchisq(chsqFRRC, 1, ncp = deltaFRRC, FALSE)
   }
   
-  if (analysisOption == "RRFC" || analysisOption == "ALL") {
+  if (analysisOption == "RRFC") {
     den <- (VarTR + KStar / K * (Var - Cov1 - max(Cov2 - Cov3, 0)))
     df2RRFC <- J - 1
     deltaRRFC <- ((effectSize)^2 * J/2) / den
@@ -424,20 +411,7 @@ SsPowerGivenJKOrVarCom <- function(J, K, KStar, effectSize, VarTR, Cov1, Cov2, C
     powerRRFC <- pf(fvalueRRFC, 1, df2RRFC, ncp = deltaRRFC, FALSE)
   }
   
-  if (analysisOption == "ALL"){
-    return(data.frame(powerRRRC = powerRRRC, 
-                      ncpRRRC = deltaRRRC, 
-                      df2RRRC = df2RRRC, 
-                      fRRRC = fvalueRRRC, 
-                      powerFRRC = powerFRRC, 
-                      ncpFRRC = deltaFRRC, 
-                      df2FRRC = df2FRRC, 
-                      chsqFRRC = chsqFRRC, 
-                      powerRRFC = powerRRFC, 
-                      ncpRRFC = deltaRRFC, 
-                      df2RRFC = df2RRFC, 
-                      fRRFC = fvalueRRFC))
-  } else if (analysisOption == "RRRC"){
+  if (analysisOption == "RRRC"){
     return(data.frame(powerRRRC = powerRRRC, 
                       ncpRRRC = deltaRRRC, 
                       df2RRRC = df2RRRC, 

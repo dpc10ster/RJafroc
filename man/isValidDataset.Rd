@@ -23,7 +23,7 @@ isValidDataset(
 "bootstrap" or "DeLong" (for an ROC dataset).}
 
 \item{analysisOption}{Specification of the random factor(s): "RRRC" (default), "RRFC", 
-"FRRC" or "ALL".}
+or "FRRC.}
 }
 \value{
 None.

@@ -102,20 +102,6 @@ StORAnalysis <- function(dataset,
       ))
     }  
     
-    if (analysisOption == "ALL") {
-      Explanations(dataset, FOM, method = "OR", analysisOption = analysisOption, details)
-      RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
-      FRRC <- OR_FRRC(K, FOMStats, ANOVA, alpha)
-      RRFC <- OR_RRFC(FOMStats, ANOVA, alpha)
-      return(list(
-        FOMs = FOMStats[-4],
-        ANOVA = ANOVA,
-        RRRC = RRRC,
-        FRRC = FRRC,
-        RRFC = RRFC
-      ))
-    } 
-    
   } else {
     # cross-modality factorial dataset, two treatment factors
     
@@ -221,19 +207,6 @@ StORAnalysis <- function(dataset,
       ))
     }  
     
-    if (analysisOption == "ALL") {
-      Explanations(dataset, FOM, method = "OR", analysisOption = analysisOption, details)
-      RRRC <- OR_RRRC(FOMStats, ANOVA, alpha)
-      FRRC <- OR_FRRC(K, FOMStats, ANOVA, alpha)
-      RRFC <- OR_RRFC(FOMStats, ANOVA, alpha)
-      return(list(
-        FOMs = FOMStats[-4],
-        ANOVA = ANOVA,
-        RRRC = RRRC,
-        FRRC = FRRC,
-        RRFC = RRFC
-      ))
-    } 
   } 
 } 
 

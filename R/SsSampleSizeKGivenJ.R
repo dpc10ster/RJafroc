@@ -23,7 +23,7 @@
 #' @param desiredPower The desired statistical power, default is 0.8.
 #' 
 #' @param analysisOption Specifies the random factor(s): "RRRC" (the default), 
-#'    "FRRC", "RRFC" or "ALL".
+#'    "FRRC", or "RRFC".
 #' 
 #' @param UseDBMHB2004 Logical, default is \code{FALSE}, if \code{TRUE} the 2004 DBM
 #'    method is used. Otherwise the OR method is used.
@@ -81,7 +81,7 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
                                 method = "OR", alpha = 0.05, desiredPower = 0.8, 
                                 analysisOption = "RRRC", UseDBMHB2004 = FALSE) {
   
-  if (!(analysisOption %in% c("ALL", "RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
+  if (!(analysisOption %in% c("RRRC", "FRRC", "RRFC"))) stop ("Incorrect analysisOption.")
   if (!(method %in% c("DBM", "OR"))) stop ("Incorrect method.")
   if (!is.null(dataset) && (length(list(...)) > 0)) stop("dataset and variance components cannot both be supplied as arguments")
   if (!is.null(dataset) && (dataset$descriptions$type != "ROC")) stop("Must specify an ROC dataset, not LROC or FROC")
@@ -137,7 +137,7 @@ SsSampleSizeKGivenJ <- function(dataset, ..., J, FOM, effectSize = NULL,
 searchNumCasesDBM <- function(J, VarTR, VarTC, VarErr, effectSize, alpha, desiredPower, analysisOption)
 {
   
-  if (analysisOption == "RRRC" || analysisOption == "ALL"){
+  if (analysisOption == "RRRC"){
     K <- 1
     power <- 0
     while (power <= desiredPower) {
@@ -152,7 +152,7 @@ searchNumCasesDBM <- function(J, VarTR, VarTC, VarErr, effectSize, alpha, desire
     KRRRC <- K
   }
   
-  if (analysisOption == "FRRC" || analysisOption == "ALL") {
+  if (analysisOption == "FRRC") {
     K <- 1
     power <- 0
     while (power < desiredPower) {
@@ -167,7 +167,7 @@ searchNumCasesDBM <- function(J, VarTR, VarTC, VarErr, effectSize, alpha, desire
     KFRRC <- K
   } 
   
-  if (analysisOption == "RRFC" || analysisOption == "ALL") {
+  if (analysisOption == "RRFC") {
     K <- 1
     power <- 0
     while (power < desiredPower) {
@@ -182,21 +182,14 @@ searchNumCasesDBM <- function(J, VarTR, VarTC, VarErr, effectSize, alpha, desire
     KRRFC <- K
   } 
   
-  if (analysisOption == "ALL"){
-    return(data.frame(KRRRC = KRRRC, 
-                      powerRRRC = powerRRRC,
-                      KFRRC = KFRRC, 
-                      powerFRRC = powerFRRC, 
-                      KRRFC = KRRFC, 
-                      powerRRFC = powerRRFC))
-  }else if (analysisOption == "RRRC"){
+  if (analysisOption == "RRRC"){
     return(data.frame(KRRRC = KRRRC, 
                       powerRRRC = powerRRRC
     ))
-  }else if (analysisOption == "FRRC"){
+  } else if (analysisOption == "FRRC"){
     return(data.frame(KFRRC = KFRRC, 
                       powerFRRC = powerFRRC))
-  }else if (analysisOption == "RRFC"){
+  } else if (analysisOption == "RRFC"){
     return(data.frame(KRRFC = KRRFC, 
                       powerRRFC = powerRRFC))
   }
@@ -210,7 +203,7 @@ searchNumCasesOR <- function(J, VarTR, Cov1, Cov2, Cov3, Var, effectSize, alpha,
   
   K <- 1
   power <- 0
-  if (analysisOption == "RRRC" || analysisOption == "ALL"){
+  if (analysisOption == "RRRC"){
     K <- 1
     power <- 0
     while (power <= desiredPower) {
@@ -224,7 +217,7 @@ searchNumCasesOR <- function(J, VarTR, Cov1, Cov2, Cov3, Var, effectSize, alpha,
     powerRRRC <- power
     KRRRC <- K
   }
-  if (analysisOption == "FRRC" || analysisOption == "ALL") {
+  if (analysisOption == "FRRC") {
     K <- 1
     power <- 0
     while (power < desiredPower) {
@@ -238,7 +231,7 @@ searchNumCasesOR <- function(J, VarTR, Cov1, Cov2, Cov3, Var, effectSize, alpha,
     powerFRRC <- power
     KFRRC <- K
   } 
-  if (analysisOption == "RRFC" || analysisOption == "ALL") {
+  if (analysisOption == "RRFC") {
     K <- 1
     power <- 0
     while (power < desiredPower) {
@@ -253,21 +246,14 @@ searchNumCasesOR <- function(J, VarTR, Cov1, Cov2, Cov3, Var, effectSize, alpha,
     KRRFC <- K
   } 
   
-  if (analysisOption == "ALL"){
-    return(data.frame(KRRRC = KRRRC, 
-                      powerRRRC = powerRRRC,
-                      KFRRC = KFRRC, 
-                      powerFRRC = powerFRRC, 
-                      KRRFC = KRRFC, 
-                      powerRRFC = powerRRFC))
-  }else if (analysisOption == "RRRC"){
+  else if (analysisOption == "RRRC"){
     return(data.frame(KRRRC = KRRRC, 
                       powerRRRC = powerRRRC
     ))
-  }else if (analysisOption == "FRRC"){
+  } else if (analysisOption == "FRRC"){
     return(data.frame(KFRRC = KFRRC, 
                       powerFRRC = powerFRRC))
-  }else if (analysisOption == "RRFC"){
+  } else if (analysisOption == "RRFC"){
     return(data.frame(KRRFC = KRRFC, 
                       powerRRFC = powerRRFC))
   }

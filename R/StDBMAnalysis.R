@@ -93,21 +93,6 @@ StDBMAnalysis <- function(dataset,
       ))
     }  
     
-    if (analysisOption == "ALL") {
-      Explanations(dataset, FOM, method = "DBM", analysisOption = analysisOption, details)
-      RRRC <- DBM_RRRC(K, FOMStats, ANOVA, alpha)
-      FRRC <- DBM_FRRC(K, FOMStats, ANOVA, alpha)
-      RRFC <- DBM_RRFC(K, FOMStats, ANOVA, alpha)
-      
-      return(list(
-        FOMs = FOMStats[-4],
-        ANOVA = ANOVA,
-        RRRC = RRRC,
-        FRRC = FRRC,
-        RRFC = RRFC
-      ))
-    }  else stop("Incorrect analysisOption: must be `RRRC`, `FRRC`, `RRFC` or `ALL`")
-    
   } else {
     # cross-modality factorial dataset, two treatment factors
     
@@ -203,20 +188,6 @@ StDBMAnalysis <- function(dataset,
         RRFC = RRFC
       ))
     }  
-    
-    if (analysisOption == "ALL") {
-      Explanations(dataset, FOM, method = "DBM", analysisOption = analysisOption, details)
-      RRRC <- DBM_RRRC(K, FOMStats, ANOVA, alpha)
-      FRRC <- DBM_FRRC(K, FOMStats, ANOVA, alpha)
-      RRFC <- DBM_RRFC(K, FOMStats, ANOVA, alpha)
-      return(list(
-        FOMs = FOMStats[-4],
-        ANOVA = ANOVA,
-        RRRC = RRRC,
-        FRRC = FRRC,
-        RRFC = RRFC
-      ))
-    } 
   } 
 } 
 

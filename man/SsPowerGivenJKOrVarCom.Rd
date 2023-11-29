@@ -39,7 +39,7 @@ SsPowerGivenJKOrVarCom(
 
 \item{alpha}{The size of the test (default = 0.05)}
 
-\item{analysisOption}{Specify the random factor(s): "RRRC", "FRRC", "RRFC", "ALL"}
+\item{analysisOption}{Specify the random factor(s): "RRRC", "FRRC", "RRFC"}
 }
 \value{
 A list containing the estimated power and associated statistics

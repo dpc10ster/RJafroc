@@ -39,11 +39,14 @@ context(contextStr)
 test_that(contextStr, {
   
 fn <- paste0(test_path(), "/goodValues361/Iowa/VanDyke.txt")
-# fn <- "inst/Iowa/VanDyke.txt"
 lines <- readLines(fn)
 
-DBM <- St(dataset02, FOM = "Wilcoxon", method = "DBM", analysisOption = "ALL")
-OR <- St(dataset02, FOM = "Wilcoxon", method = "OR", analysisOption = "ALL")
+DBM_RRRC <- St(dataset02, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")
+OR_RRRC <- St(dataset02, FOM = "Wilcoxon", method = "OR", analysisOption = "RRRC")
+DBM_FRRC <- St(dataset02, FOM = "Wilcoxon", method = "DBM", analysisOption = "FRRC")
+OR_FRRC <- St(dataset02, FOM = "Wilcoxon", method = "OR", analysisOption = "FRRC")
+DBM_RRFC <- St(dataset02, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRFC")
+OR_RRFC <- St(dataset02, FOM = "Wilcoxon", method = "OR", analysisOption = "RRFC")
 
 CurrentLine <- 1
 FindString <- "TREATMENT x READER AUC ESTIMATES"
@@ -56,7 +59,7 @@ CurrentLine <- ret$CurrentLine
 df1 <- ret$df
 
 theirs <- df1;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- t(DBM$FOMs$foms);colnames(mine) <- NULL;rownames(mine) <- NULL
+mine <- t(DBM_RRRC$FOMs$foms);colnames(mine) <- NULL;rownames(mine) <- NULL
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
 FindString <- " TREATMENT AUC MEANS (averaged across readers)"
@@ -69,7 +72,7 @@ CurrentLine <- ret$CurrentLine
 df2 <- ret$df
 
 theirs <- df2;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- as.matrix(DBM$FOMs$trtMeans);colnames(mine) <- NULL;rownames(mine) <- NULL
+mine <- as.matrix(DBM_RRRC$FOMs$trtMeans);colnames(mine) <- NULL;rownames(mine) <- NULL
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
 # cat("passed test 2\n")
@@ -84,7 +87,7 @@ CurrentLine <- ret$CurrentLine
 df3 <- ret$df
 
 theirs <- df3;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- as.matrix(DBM$FOMs$trtMeanDiffs);colnames(mine) <- NULL;rownames(mine) <- NULL
+mine <- as.matrix(DBM_RRRC$FOMs$trtMeanDiffs);colnames(mine) <- NULL;rownames(mine) <- NULL
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
 # cat("passed test 3\n")
@@ -99,7 +102,7 @@ CurrentLine <- ret$CurrentLine
 df4 <- ret$df
 
 theirs <- df4;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$ANOVA$TRanova;colnames(mine) <- NULL;rownames(mine) <- NULL
+mine <- OR_RRRC$ANOVA$TRanova;colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
@@ -115,7 +118,7 @@ CurrentLine <- ret$CurrentLine
 df5<- ret$df
 
 theirs <- df5[2:3];colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$ANOVA$IndividualTrt[,2];colnames(mine) <- NULL;rownames(mine) <- NULL
+mine <- OR_RRRC$ANOVA$IndividualTrt[,2];colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.vector(mine)
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
@@ -132,7 +135,7 @@ CurrentLine <- ret$CurrentLine
 df6<- ret$df
 
 theirs <- as.vector(df6)#;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
+mine <- OR_RRRC$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)[,1]
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
@@ -149,7 +152,7 @@ CurrentLine <- ret$CurrentLine
 df7<- ret$df
 
 theirs <- as.vector(df7)#;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- DBM$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
+mine <- DBM_RRRC$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)[,1]
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
@@ -166,7 +169,7 @@ CurrentLine <- ret$CurrentLine
 df8<- ret$df
 
 theirs <- as.matrix(df8);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$RRRC$FTests[1,];colnames(mine) <- NULL;rownames(mine) <- NULL
+mine <- OR_RRRC$RRRC$FTests[1,];colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.01, scale = abs(mine))
@@ -184,7 +187,7 @@ CurrentLine <- ret$CurrentLine
 df9<- ret$df
 
 theirs <- as.matrix(df9);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$RRRC$FTests[2,][1:2];colnames(mine) <- NULL;rownames(mine) <- NULL
+mine <- OR_RRRC$RRRC$FTests[2,][1:2];colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
@@ -202,7 +205,7 @@ CurrentLine <- ret$CurrentLine
 df10<- ret$df
 
 theirs <- as.matrix(df10);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$RRRC$ciDiffTrt
+mine <- OR_RRRC$RRRC$ciDiffTrt
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 # their program does not print out as many decimal places
@@ -221,7 +224,7 @@ CurrentLine <- ret$CurrentLine
 df11<- ret$df
 
 theirs <- as.matrix(df11);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$RRRC$ciAvgRdrEachTrt
+mine <- OR_RRRC$RRRC$ciAvgRdrEachTrt
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 # their program does not print out as many decimal places
@@ -240,7 +243,7 @@ CurrentLine <- ret$CurrentLine
 df12<- ret$df
 
 theirs <- as.matrix(df12);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$FRRC$FTests[1,2:4]
+mine <- OR_FRRC$FRRC$FTests[1,2:4]
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 # their program does not print out as many decimal places
@@ -259,7 +262,7 @@ CurrentLine <- ret$CurrentLine
 df13<- ret$df
 
 theirs <- as.matrix(df13);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$FRRC$ciDiffTrt
+mine <- OR_FRRC$FRRC$ciDiffTrt
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 # their program does not print out as many decimal places
@@ -278,7 +281,7 @@ CurrentLine <- ret$CurrentLine
 df14<- ret$df
 
 theirs <- as.matrix(df14);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$FRRC$ciAvgRdrEachTrt[,-3] # drop DF
+mine <- OR_FRRC$FRRC$ciAvgRdrEachTrt[,-3] # drop DF
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
@@ -296,7 +299,7 @@ CurrentLine <- ret$CurrentLine
 df15<- ret$df
 
 theirs <- as.matrix(df15);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$ANOVA$IndividualTrt[,-c(1,2)] # drop DF and msREachTrt
+mine <- OR_RRRC$ANOVA$IndividualTrt[,-c(1,2)] # drop DF and msREachTrt
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
@@ -314,7 +317,7 @@ CurrentLine <- ret$CurrentLine
 df16<- ret$df
 
 theirs <- as.matrix(df16);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$FRRC$ciDiffTrtEachRdr
+mine <- OR_FRRC$FRRC$ciDiffTrtEachRdr
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 # insufficient decimal places in theirs
@@ -333,7 +336,7 @@ CurrentLine <- ret$CurrentLine
 df17<- ret$df
 
 theirs <- as.matrix(df17);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$RRFC$FTests[1,]
+mine <- OR_RRFC$RRFC$FTests[1,]
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 # insufficient decimal places in theirs
@@ -352,7 +355,7 @@ CurrentLine <- ret$CurrentLine
 df18<- ret$df
 
 theirs <- as.vector(df18[1:2]);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$RRFC$FTests[2,1:2]
+mine <- OR_RRFC$RRFC$FTests[2,1:2]
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.numeric(mine)
 expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
@@ -370,7 +373,7 @@ CurrentLine <- ret$CurrentLine
 df19<- ret$df
 
 theirs <- as.vector(df19);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$RRFC$ciDiffTrt
+mine <- OR_RRFC$RRFC$ciDiffTrt
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.numeric(mine)
 # insufficient precision printout in theirs
@@ -389,7 +392,7 @@ CurrentLine <- ret$CurrentLine
 df20<- ret$df
 
 theirs <- as.matrix(df20[,-2]);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-mine <- OR$RRFC$ciAvgRdrEachTrt
+mine <- OR_RRFC$RRFC$ciAvgRdrEachTrt
 colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
@@ -405,8 +408,12 @@ test_that(contextStr, {
   fn <- paste0(test_path(), "/goodValues361/Iowa/Franken1.txt")
   lines <- readLines(fn)
   
-  DBM <- St(dataset03, FOM = "Wilcoxon", method = "DBM", analysisOption = "ALL")
-  OR <- St(dataset03, FOM = "Wilcoxon", method = "OR", analysisOption = "ALL")
+  DBM_RRRC <- St(dataset03, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")
+  OR_RRRC <- St(dataset03, FOM = "Wilcoxon", method = "OR", analysisOption = "RRRC")
+  DBM_FRRC <- St(dataset03, FOM = "Wilcoxon", method = "DBM", analysisOption = "FRRC")
+  OR_FRRC <- St(dataset03, FOM = "Wilcoxon", method = "OR", analysisOption = "FRRC")
+  DBM_RRFC <- St(dataset03, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRFC")
+  OR_RRFC <- St(dataset03, FOM = "Wilcoxon", method = "OR", analysisOption = "RRFC")
   
   CurrentLine <- 1
   FindString <- "TREATMENT x READER AUC ESTIMATES"
@@ -419,7 +426,7 @@ test_that(contextStr, {
   df1 <- ret$df
   
   theirs <- df1;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- t(DBM$FOMs$foms);colnames(mine) <- NULL;rownames(mine) <- NULL
+  mine <- t(DBM_RRRC$FOMs$foms);colnames(mine) <- NULL;rownames(mine) <- NULL
   expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
   
   FindString <- " TREATMENT AUC MEANS (averaged across readers)"
@@ -432,7 +439,7 @@ test_that(contextStr, {
   df2 <- ret$df
   
   theirs <- df2;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- as.matrix(DBM$FOMs$trtMeans);colnames(mine) <- NULL;rownames(mine) <- NULL
+  mine <- as.matrix(DBM_RRRC$FOMs$trtMeans);colnames(mine) <- NULL;rownames(mine) <- NULL
   expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
   
   # cat("passed test 2\n")
@@ -447,7 +454,7 @@ test_that(contextStr, {
   df3 <- ret$df
   
   theirs <- df3;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- as.matrix(DBM$FOMs$trtMeanDiffs);colnames(mine) <- NULL;rownames(mine) <- NULL
+  mine <- as.matrix(DBM_RRRC$FOMs$trtMeanDiffs);colnames(mine) <- NULL;rownames(mine) <- NULL
   expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
   
   # cat("passed test 3\n")
@@ -462,7 +469,7 @@ test_that(contextStr, {
   df4 <- ret$df
   
   theirs <- df4;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$ANOVA$TRanova;colnames(mine) <- NULL;rownames(mine) <- NULL
+  mine <- OR_RRRC$ANOVA$TRanova;colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
   
@@ -478,7 +485,7 @@ test_that(contextStr, {
   df5<- ret$df
   
   theirs <- df5[2:3];colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$ANOVA$IndividualTrt[,2];colnames(mine) <- NULL;rownames(mine) <- NULL
+  mine <- OR_RRRC$ANOVA$IndividualTrt[,2];colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.vector(mine)
   expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
   
@@ -495,7 +502,7 @@ test_that(contextStr, {
   df6<- ret$df
   
   theirs <- as.vector(df6)#;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
+  mine <- OR_RRRC$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)[,1]
   # fix from Peter 
   # https://github.com/dpc10ster/RJafroc/issues/79#issuecomment-1190711314
@@ -514,7 +521,7 @@ test_that(contextStr, {
   df7<- ret$df
   
   theirs <- as.vector(df7)#;colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- DBM$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
+  mine <- DBM_RRRC$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)[,1]
   expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
   
@@ -531,7 +538,7 @@ test_that(contextStr, {
   df8<- ret$df
   
   theirs <- as.matrix(df8);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$RRRC$FTests[1,];colnames(mine) <- NULL;rownames(mine) <- NULL
+  mine <- OR_RRRC$RRRC$FTests[1,];colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   # their program does not print out as many decimal places
   expect_equal(theirs, mine, tolerance = 0.01, scale = abs(mine))
@@ -549,7 +556,7 @@ test_that(contextStr, {
   df9<- ret$df
   
   theirs <- as.matrix(df9);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$RRRC$FTests[2,][1:2];colnames(mine) <- NULL;rownames(mine) <- NULL
+  mine <- OR_RRRC$RRRC$FTests[2,][1:2];colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   # their program does not print out as many decimal places
   expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
@@ -567,7 +574,7 @@ test_that(contextStr, {
   df10<- ret$df
   
   theirs <- as.matrix(df10);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$RRRC$ciDiffTrt
+  mine <- OR_RRRC$RRRC$ciDiffTrt
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   # their program does not print out as many decimal places
@@ -586,7 +593,7 @@ test_that(contextStr, {
   df11<- ret$df
   
   theirs <- as.matrix(df11);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$RRRC$ciAvgRdrEachTrt
+  mine <- OR_RRRC$RRRC$ciAvgRdrEachTrt
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   # their program does not print out as many decimal places
@@ -605,7 +612,7 @@ test_that(contextStr, {
   df12<- ret$df
   
   theirs <- as.matrix(df12);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$FRRC$FTests[1,2:4]
+  mine <- OR_FRRC$FRRC$FTests[1,2:4]
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   # their program does not print out as many decimal places
@@ -624,7 +631,7 @@ test_that(contextStr, {
   df13<- ret$df
   
   theirs <- as.matrix(df13);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$FRRC$ciDiffTrt
+  mine <- OR_FRRC$FRRC$ciDiffTrt
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   # their program does not print out as many decimal places
@@ -643,7 +650,7 @@ test_that(contextStr, {
   df14<- ret$df
   
   theirs <- as.matrix(df14);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$FRRC$ciAvgRdrEachTrt[,-3] # drop DF
+  mine <- OR_FRRC$FRRC$ciAvgRdrEachTrt[,-3] # drop DF
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
@@ -661,7 +668,7 @@ test_that(contextStr, {
   df15<- ret$df
   
   theirs <- as.matrix(df15);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$ANOVA$IndividualTrt[,-c(1,2)] # drop DF and msREachTrt
+  mine <- OR_RRRC$ANOVA$IndividualTrt[,-c(1,2)] # drop DF and msREachTrt
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
@@ -679,7 +686,7 @@ test_that(contextStr, {
   df16<- ret$df
   
   theirs <- as.matrix(df16);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$FRRC$ciDiffTrtEachRdr
+  mine <- OR_FRRC$FRRC$ciDiffTrtEachRdr
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   # insufficient decimal places in theirs
@@ -698,7 +705,7 @@ test_that(contextStr, {
   df17<- ret$df
   
   theirs <- as.matrix(df17);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$RRFC$FTests[1,]
+  mine <- OR_RRFC$RRFC$FTests[1,]
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   # insufficient decimal places in theirs
@@ -717,7 +724,7 @@ test_that(contextStr, {
   df18<- ret$df
   
   theirs <- as.vector(df18[1:2]);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$RRFC$FTests[2,1:2]
+  mine <- OR_RRFC$RRFC$FTests[2,1:2]
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.numeric(mine)
   expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
@@ -735,7 +742,7 @@ test_that(contextStr, {
   df19<- ret$df
   
   theirs <- as.vector(df19);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$RRFC$ciDiffTrt
+  mine <- OR_RRFC$RRFC$ciDiffTrt
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.numeric(mine)
   # insufficient precision printout in theirs
@@ -754,7 +761,7 @@ test_that(contextStr, {
   df20<- ret$df
   
   theirs <- as.matrix(df20[,-2]);colnames(theirs) <- NULL;rownames(theirs) <- NULL
-  mine <- OR$RRFC$ciAvgRdrEachTrt
+  mine <- OR_RRFC$RRFC$ciAvgRdrEachTrt
   colnames(mine) <- NULL;rownames(mine) <- NULL
   mine <- as.matrix(mine)
   expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))

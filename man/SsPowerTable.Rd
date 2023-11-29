@@ -27,7 +27,7 @@ default value is \code{NULL}. See Details.}
 \item{desiredPower}{The desired statistical power, default is 0.8.}
 
 \item{analysisOption}{Specification of random factor(s): "RRRC" (the default), 
-"FRRC", "RRFC" or "ALL".}
+"FRRC", or "RRFC".}
 }
 \value{
 A list containing up to 3 (depending on \code{analysisOption}) 

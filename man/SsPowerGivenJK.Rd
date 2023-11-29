@@ -43,7 +43,7 @@ below).}
 "jackknife" (the default), "bootstrap" or "DeLong" (for ROC datasets).}
 
 \item{analysisOption}{Specify the random factor(s): "RRRC" (the default), 
-"RRFC", "FRRC" or "ALL".}
+"RRFC or FRRC".}
 
 \item{UseDBMHB2004}{Logical, defaults to \code{FALSE}, which results in OR 
 sample size method being used, even if DBM method is specified, as in 

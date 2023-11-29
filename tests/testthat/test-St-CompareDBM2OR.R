@@ -4,21 +4,20 @@ test_that(contextStr, {
 
   ds <- dataset02
 
-  dbmValues <- St(ds, FOM = "Wilcoxon", method = "DBM", analysisOption = "ALL")
-  orValues <- St(ds, FOM = "Wilcoxon", method = "OR", analysisOption = "ALL")
+  ############################  RRRC
+  DBM_RRRC <- St(ds, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")
+  OR_RRRC <- St(ds, FOM = "Wilcoxon", method = "OR", analysisOption = "RRRC")
 
-  #######################################  fomArray  ###########################################
-  dbmfomArray <- dbmValues$fomArray
-  orfomArray <- orValues$fomArray
+  dbmfomArray <- DBM_RRRC$fomArray
+  orfomArray <- OR_RRRC$fomArray
   for (i in 1: length(dbmfomArray)){
     x <- as.numeric(dbmfomArray[[i]])
     y <- as.numeric(orfomArray[[i]])
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  #######################################  FStats ###########################################
-  dbmFStatsRRRC <- as.matrix(dbmValues$RRRC$FTests)[1,4] # check p values only
-  orFStatsRRRC <- as.matrix(orValues$RRRC$FTests)[1,4]
+  dbmFStatsRRRC <- as.matrix(DBM_RRRC$RRRC$FTests)[1,4] # check p values only
+  orFStatsRRRC <- as.matrix(OR_RRRC$RRRC$FTests)[1,4]
   names(orFStatsRRRC) <- NULL
   for (i in 1: length(dbmFStatsRRRC)){
       x <- as.numeric(dbmFStatsRRRC[[i]])
@@ -26,17 +25,60 @@ test_that(contextStr, {
       expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmFStatsFRRC <- as.matrix(dbmValues$FRRC$FTests)[1,4] # check p values only
-  orFStatsFRRC <- as.matrix(orValues$FRRC$FTests)[1,4]
+  dbmciDiffTrtRRRC <- as.vector(unlist(DBM_RRRC$RRRC$ciDiffTrt[,-1])) # remove 0-1 vs trt0-trt1
+  orciDiffTrtRRRC <-  as.vector(unlist(OR_RRRC$RRRC$ciDiffTrt[,-1]))
+  for (i in 1: length(dbmciDiffTrtRRRC)){
+    x <- dbmciDiffTrtRRRC[i]
+    y <- orciDiffTrtRRRC[i]
+    expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
+  }
+  
+  dbmciAvgRdrEachTrtRRRC <- as.vector(unlist(DBM_RRRC$RRRC$ciAvgRdrEachTrt[,-1]))
+  orciAvgRdrEachTrtRRRC <- as.vector(unlist(OR_RRRC$RRRC$ciAvgRdrEachTrt[,-1]))
+  for (i in 1: length(dbmciAvgRdrEachTrtRRRC)){
+    x <- dbmciAvgRdrEachTrtRRRC[i]
+    y <- orciAvgRdrEachTrtRRRC[i]
+    expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
+  }
+  
+  ############################  FRRC
+  DBM_FRRC <- St(ds, FOM = "Wilcoxon", method = "DBM", analysisOption = "FRRC")
+  OR_FRRC <- St(ds, FOM = "Wilcoxon", method = "OR", analysisOption = "FRRC")
+  
+  dbmFStatsFRRC <- as.matrix(DBM_FRRC$FRRC$FTests)[1,4] # check p values only
+  orFStatsFRRC <- as.matrix(OR_FRRC$FRRC$FTests)[1,4]
   names(orFStatsFRRC) <- NULL
   for (i in 1: length(dbmFStatsFRRC)){
     x <- as.numeric(dbmFStatsFRRC[[i]])
     y <- as.numeric(orFStatsFRRC[[i]])
     expect_equal(x, y, tolerance = 0.01, scale = abs(x)) # not exact match
   }
-
-  dbmFStatsRRFC <- as.matrix(dbmValues$RRFC$FTests)[1,4]# check p values only
-  orFStatsRRFC <- as.matrix(orValues$RRFC$FTests)[1,4]
+  
+  dbmciDiffTrtFRRC <- as.vector(as.matrix(DBM_FRRC$FRRC$ciDiffTrt))[-c(3,4,5)]
+  orciDiffTrtFRRC <- as.vector(as.matrix(OR_FRRC$FRRC$ciDiffTrt))[-c(3,4)]
+  for (i in 1: length(dbmciDiffTrtFRRC)){
+    if (i == 3) next # skip infinity
+    x <- dbmciDiffTrtFRRC[i]
+    y <- orciDiffTrtFRRC[i]
+    expect_equal(x, y, tolerance = 0.01, scale = abs(x)) # values are not exactly equal; tolerance found by trial and error
+  }
+  
+  dbmciAvgRdrEachTrtFRRC <- as.vector(as.matrix(DBM_FRRC$FRRC$ciAvgRdrEachTrt))
+  orciAvgRdrEachTrtFRRC <- as.vector(as.matrix(OR_FRRC$FRRC$ciAvgRdrEachTrt))
+  for (i in 1: length(dbmciAvgRdrEachTrtFRRC)){
+    if (i == 5) next # skip infinity
+    if (i == 6) next # skip infinity
+    x <- dbmciAvgRdrEachTrtFRRC[i]
+    y <- orciAvgRdrEachTrtFRRC[i]
+    expect_equal(x, y, tolerance = 0.001, scale = abs(x))  # values are not exactly equal
+  }
+  
+  ############################  RRFC
+  DBM_RRFC <- St(ds, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRFC")
+  OR_RRFC <- St(ds, FOM = "Wilcoxon", method = "OR", analysisOption = "RRFC")
+  
+  dbmFStatsRRFC <- as.matrix(DBM_RRFC$RRFC$FTests)[1,4]# check p values only
+  orFStatsRRFC <- as.matrix(OR_RRFC$RRFC$FTests)[1,4]
   names(orFStatsRRFC) <- NULL
   for (i in 1: length(dbmFStatsRRFC)){
     x <- as.numeric(dbmFStatsRRFC[[i]])
@@ -46,52 +88,16 @@ test_that(contextStr, {
 
   # VarComp are not expected to be equal
 
-  ##################################  diff and avg confidence intervals  #####################
-  dbmciDiffTrtRRRC <- as.vector(unlist(dbmValues$RRRC$ciDiffTrt[,-1])) # remove 0-1 vs trt0-trt1
-  orciDiffTrtRRRC <-  as.vector(unlist(orValues$RRRC$ciDiffTrt[,-1]))
-  for (i in 1: length(dbmciDiffTrtRRRC)){
-    x <- dbmciDiffTrtRRRC[i]
-    y <- orciDiffTrtRRRC[i]
-    expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
-  }
-
-  dbmciAvgRdrEachTrtRRRC <- as.vector(unlist(dbmValues$RRRC$ciAvgRdrEachTrt[,-1]))
-  orciAvgRdrEachTrtRRRC <- as.vector(unlist(orValues$RRRC$ciAvgRdrEachTrt[,-1]))
-  for (i in 1: length(dbmciAvgRdrEachTrtRRRC)){
-    x <- dbmciAvgRdrEachTrtRRRC[i]
-    y <- orciAvgRdrEachTrtRRRC[i]
-    expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
-  }
-
-  dbmciDiffTrtFRRC <- as.vector(as.matrix(dbmValues$FRRC$ciDiffTrt))[-c(3,4,5)]
-  orciDiffTrtFRRC <- as.vector(as.matrix(orValues$FRRC$ciDiffTrt))[-c(3,4)]
-  for (i in 1: length(dbmciDiffTrtFRRC)){
-    if (i == 3) next # skip infinity
-    x <- dbmciDiffTrtFRRC[i]
-    y <- orciDiffTrtFRRC[i]
-    expect_equal(x, y, tolerance = 0.01, scale = abs(x)) # values are not exactly equal; tolerance found by trial and error
-  }
-
-  dbmciAvgRdrEachTrtFRRC <- as.vector(as.matrix(dbmValues$FRRC$ciAvgRdrEachTrt))
-  orciAvgRdrEachTrtFRRC <- as.vector(as.matrix(orValues$FRRC$ciAvgRdrEachTrt))
-  for (i in 1: length(dbmciAvgRdrEachTrtFRRC)){
-    if (i == 5) next # skip infinity
-    if (i == 6) next # skip infinity
-    x <- dbmciAvgRdrEachTrtFRRC[i]
-    y <- orciAvgRdrEachTrtFRRC[i]
-    expect_equal(x, y, tolerance = 0.001, scale = abs(x))  # values are not exactly equal
-  }
-
-  dbmciDiffTrtRRFC <- as.vector(as.matrix(dbmValues$RRFC$ciDiffTrt))
-  orciDiffTrtRRFC <- as.vector(as.matrix(orValues$RRFC$ciDiffTrt))
+  dbmciDiffTrtRRFC <- as.vector(as.matrix(DBM_RRFC$RRFC$ciDiffTrt))
+  orciDiffTrtRRFC <- as.vector(as.matrix(OR_RRFC$RRFC$ciDiffTrt))
   for (i in 1: length(dbmciDiffTrtRRFC)){
     x <- dbmciDiffTrtRRFC[i]
     y <- orciDiffTrtRRFC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmciAvgRdrEachTrtRRFC <- as.vector(as.matrix(dbmValues$RRFC$ciAvgRdrEachTrt))
-  orciAvgRdrEachTrtRRFC <- as.vector(as.matrix(orValues$RRFC$ciAvgRdrEachTrt))
+  dbmciAvgRdrEachTrtRRFC <- as.vector(as.matrix(DBM_RRFC$RRFC$ciAvgRdrEachTrt))
+  orciAvgRdrEachTrtRRFC <- as.vector(as.matrix(OR_RRFC$RRFC$ciAvgRdrEachTrt))
   for (i in 1: length(dbmciAvgRdrEachTrtRRFC)){
     x <- dbmciAvgRdrEachTrtRRFC[i]
     y <- orciAvgRdrEachTrtRRFC[i]
@@ -109,12 +115,12 @@ test_that(contextStr, {
 
   ds <- dataset05
 
-  dbmValues <- St(ds, FOM = "HrAuc", method = "DBM", analysisOption = "ALL")
-  orValues <- St(ds, FOM = "HrAuc", method = "OR", analysisOption = "ALL")
+  DBM_RRRC <- St(ds, FOM = "HrAuc", method = "DBM", analysisOption = "RRRC")
+  OR_RRRC <- St(ds, FOM = "HrAuc", method = "OR", analysisOption = "RRRC")
 
   #######################################  fomArray  ###########################################
-  dbmfomArray <- as.vector(as.matrix(dbmValues$FOMs$foms))
-  orfomArray <- as.vector(as.matrix(orValues$FOMs$foms))
+  dbmfomArray <- as.vector(as.matrix(DBM_RRRC$FOMs$foms))
+  orfomArray <- as.vector(as.matrix(OR_RRRC$FOMs$foms))
   for (i in 1: length(dbmfomArray)){
     x <- dbmfomArray[i]
     y <- orfomArray[i]
@@ -122,24 +128,30 @@ test_that(contextStr, {
   }
 
   #######################################  FStats ###########################################
-  dbmFStatsRRRC <- as.vector(as.matrix(dbmValues$RRRC$FTests))[-c(3,4,6,8)]
-  orFStatsRRRC <- as.vector(as.matrix(orValues$RRRC$FTests))[-c(3,4,6,8)]
+  dbmFStatsRRRC <- as.vector(as.matrix(DBM_RRRC$RRRC$FTests))[-c(3,4,6,8)]
+  orFStatsRRRC <- as.vector(as.matrix(OR_RRRC$RRRC$FTests))[-c(3,4,6,8)]
   for (i in 1: length(dbmFStatsRRRC)){
     x <- as.numeric(dbmFStatsRRRC[[i]])
     y <- as.numeric(orFStatsRRRC[[i]])
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmFStatsFRRC <- dbmValues$FRRC$FTests[1,4] # check p values only
-  orFStatsFRRC <- orValues$FRRC$FTests[1,4]
+  DBM_FRRC <- St(ds, FOM = "HrAuc", method = "DBM", analysisOption = "FRRC")
+  OR_FRRC <- St(ds, FOM = "HrAuc", method = "OR", analysisOption = "FRRC")
+  
+  dbmFStatsFRRC <- DBM_FRRC$FRRC$FTests[1,4] # check p values only
+  orFStatsFRRC <- OR_FRRC$FRRC$FTests[1,4]
   for (i in 1: length(dbmFStatsFRRC)){
     x <- dbmFStatsFRRC[i]
     y <- orFStatsFRRC[i]
     expect_equal(x, y, tolerance = 0.01, scale = abs(x))
   }
 
-  dbmFStatsRRFC <- dbmValues$RRFC$FTests[1,4]
-  orFStatsRRFC <- orValues$RRFC$FTests[1,4]
+  DBM_RRFC <- St(ds, FOM = "HrAuc", method = "DBM", analysisOption = "RRFC")
+  OR_RRFC <- St(ds, FOM = "HrAuc", method = "OR", analysisOption = "RRFC")
+  
+  dbmFStatsRRFC <- DBM_RRFC$RRFC$FTests[1,4]
+  orFStatsRRFC <- OR_RRFC$RRFC$FTests[1,4]
   for (i in 1: length(dbmFStatsRRFC)){
     x <- as.numeric(dbmFStatsRRFC[[i]])
     y <- as.numeric(orFStatsRRFC[[i]])
@@ -150,48 +162,48 @@ test_that(contextStr, {
   #######################################  VarComp ###########################################
 
   ##################################  diff and avg confidence intervals  #####################
-  dbmciDiffTrtRRRC <- as.vector(as.matrix(dbmValues$RRRC$ciDiffTrt))  
-  orciDiffTrtRRRC <- as.vector(as.matrix(orValues$RRRC$ciDiffTrt))
+  dbmciDiffTrtRRRC <- as.vector(as.matrix(DBM_RRRC$RRRC$ciDiffTrt))  
+  orciDiffTrtRRRC <- as.vector(as.matrix(OR_RRRC$RRRC$ciDiffTrt))
   for (i in 1: length(dbmciDiffTrtRRRC)){
     x <- dbmciDiffTrtRRRC[i]
     y <- orciDiffTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmciAvgRdrEachTrtRRRC <- as.vector(as.matrix(dbmValues$RRRC$ciAvgRdrEachTrt)) 
-  orciAvgRdrEachTrtRRRC <- as.vector(as.matrix(orValues$RRRC$ciAvgRdrEachTrt))[-(11:12)] # remove var comp
+  dbmciAvgRdrEachTrtRRRC <- as.vector(as.matrix(DBM_RRRC$RRRC$ciAvgRdrEachTrt)) 
+  orciAvgRdrEachTrtRRRC <- as.vector(as.matrix(OR_RRRC$RRRC$ciAvgRdrEachTrt))[-(11:12)] # remove var comp
   for (i in 1: length(dbmciAvgRdrEachTrtRRRC)){
     x <- dbmciAvgRdrEachTrtRRRC[i]
     y <- orciAvgRdrEachTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmciDiffTrtFRRC <- as.vector(as.matrix(dbmValues$FRRC$ciDiffTrt))[-3] # remove DF 0-1 vs trt0-trt1
-  orciDiffTrtFRRC <- as.vector(as.matrix(orValues$FRRC$ciDiffTrt))#[-1])
+  dbmciDiffTrtFRRC <- as.vector(as.matrix(DBM_FRRC$FRRC$ciDiffTrt))[-3] # remove DF 0-1 vs trt0-trt1
+  orciDiffTrtFRRC <- as.vector(as.matrix(OR_FRRC$FRRC$ciDiffTrt))#[-1])
   for (i in 1: length(dbmciDiffTrtFRRC)){
     x <- dbmciDiffTrtFRRC[i]
     y <- orciDiffTrtFRRC[i]
     expect_equal(x, y, tolerance = 0.01, scale = abs(x)) # values are not exactly equal; tolerance found by trial and error
   }
 
-  dbmciAvgRdrEachTrtFRRC <- as.vector(as.matrix(dbmValues$FRRC$ciAvgRdrEachTrt))
-  orciAvgRdrEachTrtFRRC <- as.vector(as.matrix(orValues$FRRC$ciAvgRdrEachTrt))
+  dbmciAvgRdrEachTrtFRRC <- as.vector(as.matrix(DBM_FRRC$FRRC$ciAvgRdrEachTrt))
+  orciAvgRdrEachTrtFRRC <- as.vector(as.matrix(OR_FRRC$FRRC$ciAvgRdrEachTrt))
   for (i in 1: length(dbmciAvgRdrEachTrtFRRC)){
     x <- dbmciAvgRdrEachTrtFRRC[i]
     y <- orciAvgRdrEachTrtFRRC[i]
     expect_equal(x, y, tolerance = 0.001, scale = abs(x))  # values are not exactly equal
   }
 
-  dbmciDiffTrtRRFC <- as.vector(as.matrix(dbmValues$RRFC$ciDiffTrt))
-  orciDiffTrtRRFC <- as.vector(as.matrix(orValues$RRFC$ciDiffTrt))
+  dbmciDiffTrtRRFC <- as.vector(as.matrix(DBM_RRFC$RRFC$ciDiffTrt))
+  orciDiffTrtRRFC <- as.vector(as.matrix(OR_RRFC$RRFC$ciDiffTrt))
   for (i in 1: length(dbmciDiffTrtRRFC)){
     x <- dbmciDiffTrtRRFC[i]
     y <- orciDiffTrtRRFC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
 
-  dbmciAvgRdrEachTrtRRFC <- as.vector(as.matrix(dbmValues$RRFC$ciAvgRdrEachTrt))
-  orciAvgRdrEachTrtRRFC <- as.vector(as.matrix(orValues$RRFC$ciAvgRdrEachTrt))
+  dbmciAvgRdrEachTrtRRFC <- as.vector(as.matrix(DBM_RRFC$RRFC$ciAvgRdrEachTrt))
+  orciAvgRdrEachTrtRRFC <- as.vector(as.matrix(OR_RRFC$RRFC$ciAvgRdrEachTrt))
   for (i in 1: length(dbmciAvgRdrEachTrtRRFC)){
     x <- dbmciAvgRdrEachTrtRRFC[i]
     y <- orciAvgRdrEachTrtRRFC[i]
@@ -207,97 +219,97 @@ context(contextStr)
 test_that(contextStr, {
 
   ds <- dataset05
+
+  DBM_RRRC <- St(ds, FOM = "wAFROC", method = "DBM", analysisOption = "RRRC")
+  OR_RRRC <- St(ds, FOM = "wAFROC", method = "OR", analysisOption = "RRRC")
+  DBM_FRRC <- St(ds, FOM = "wAFROC", method = "DBM", analysisOption = "FRRC")
+  OR_FRRC <- St(ds, FOM = "wAFROC", method = "OR", analysisOption = "FRRC")
+  DBM_RRFC <- St(ds, FOM = "wAFROC", method = "DBM", analysisOption = "RRFC")
+  OR_RRFC <- St(ds, FOM = "wAFROC", method = "OR", analysisOption = "RRFC")
   
-  dbmValues <- St(ds, FOM = "wAFROC", method = "DBM", analysisOption = "ALL")
-  orValues <- St(ds, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
-  
-  #######################################  fomArray  ###########################################  
-  dbmfomArray <- dbmValues$fomArray
-  orfomArray <- orValues$fomArray
+  dbmfomArray <- DBM_RRRC$fomArray
+  orfomArray <- OR_RRRC$fomArray
   for (i in 1: length(dbmfomArray)){
     x <- as.numeric(dbmfomArray[[i]])
     y <- as.numeric(orfomArray[[i]])
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
-  
-  #######################################  FStats ###########################################  
-  dbmFStatsRRRC <- as.vector(as.matrix(dbmValues$RRRC$FTests))[-c(3,4,6,8)]
-  orFStatsRRRC <- as.vector(as.matrix(orValues$RRRC$FTests))[-c(3,4,6,8)]
+
+  dbmFStatsRRRC <- as.vector(as.matrix(DBM_RRRC$RRRC$FTests))[-c(3,4,6,8)]
+  orFStatsRRRC <- as.vector(as.matrix(OR_RRRC$RRRC$FTests))[-c(3,4,6,8)]
   names(orFStatsRRRC) <- NULL
   for (i in 1: length(dbmFStatsRRRC)){
     x <- as.numeric(dbmFStatsRRRC[[i]])
     y <- as.numeric(orFStatsRRRC[[i]])
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
-  
-  dbmFStatsFRRC <- dbmValues$FRRC$FTests[1,4] # only check p-values
-  orFStatsFRRC <- orValues$FRRC$FTests[1,4]
+
+  dbmFStatsFRRC <- DBM_FRRC$FRRC$FTests[1,4] # only check p-values
+  orFStatsFRRC <- OR_FRRC$FRRC$FTests[1,4]
   names(orFStatsFRRC) <- NULL
   for (i in 1: length(dbmFStatsFRRC)){
     x <- as.numeric(dbmFStatsFRRC[[i]])
     y <- as.numeric(orFStatsFRRC[[i]])
     expect_equal(x, y, tolerance = 0.01, scale = abs(x))
   }
-  
-  dbmFStatsRRFC <- dbmValues$RRFC$FTests[1,4] # only check p-values
-  orFStatsRRFC <- orValues$RRFC$FTests[1,4]
+
+  dbmFStatsRRFC <- DBM_RRFC$RRFC$FTests[1,4] # only check p-values
+  orFStatsRRFC <- OR_RRFC$RRFC$FTests[1,4]
   names(orFStatsRRFC) <- NULL
   for (i in 1: length(dbmFStatsRRFC)){
     x <- as.numeric(dbmFStatsRRFC[[i]])
     y <- as.numeric(orFStatsRRFC[[i]])
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
-  
+
   # VarComp are not expected to be equal
 
-  ##################################  diff and avg confidence intervals  #####################
-  dbmciDiffTrtRRRC <- as.vector(as.matrix(dbmValues$RRRC$ciDiffTrt)) # remove 0-1 vs trt0-trt1
-  orciDiffTrtRRRC <- as.vector(as.matrix(orValues$RRRC$ciDiffTrt))
+  dbmciDiffTrtRRRC <- as.vector(as.matrix(DBM_RRRC$RRRC$ciDiffTrt)) # remove 0-1 vs trt0-trt1
+  orciDiffTrtRRRC <- as.vector(as.matrix(OR_RRRC$RRRC$ciDiffTrt))
   for (i in 1: length(dbmciDiffTrtRRRC)){
     x <- dbmciDiffTrtRRRC[i]
     y <- orciDiffTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
-  
-  dbmciAvgRdrEachTrtRRRC <- as.vector(as.matrix(dbmValues$RRRC$ciAvgRdrEachTrt))
-  orciAvgRdrEachTrtRRRC <- as.vector(as.matrix(orValues$RRRC$ciAvgRdrEachTrt))[-c(11,12)]  # remove var comp
+
+  dbmciAvgRdrEachTrtRRRC <- as.vector(as.matrix(DBM_RRRC$RRRC$ciAvgRdrEachTrt))
+  orciAvgRdrEachTrtRRRC <- as.vector(as.matrix(OR_RRRC$RRRC$ciAvgRdrEachTrt))[-c(11,12)]  # remove var comp
   for (i in 1: length(dbmciAvgRdrEachTrtRRRC)){
     x <- dbmciAvgRdrEachTrtRRRC[i]
     y <- orciAvgRdrEachTrtRRRC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
-  
-  dbmciDiffTrtFRRC <- as.vector(as.matrix(dbmValues$FRRC$ciDiffTrt))[-c(3,4)]#[-c(1,2,4)] # remove DF and t values
-  orciDiffTrtFRRC <- as.vector(as.matrix(orValues$FRRC$ciDiffTrt))[-3] # remove z
+
+  dbmciDiffTrtFRRC <- as.vector(as.matrix(DBM_FRRC$FRRC$ciDiffTrt))[-c(3,4)]#[-c(1,2,4)] # remove DF and t values
+  orciDiffTrtFRRC <- as.vector(as.matrix(OR_FRRC$FRRC$ciDiffTrt))[-3] # remove z
   for (i in 1: length(dbmciDiffTrtFRRC)){
     x <- dbmciDiffTrtFRRC[i]
     y <- orciDiffTrtFRRC[i]
     expect_equal(x, y, tolerance = 0.01, scale = abs(x)) # values are not exactly equal; tolerance found by trial and error
   }
-  
-  dbmciAvgRdrEachTrtFRRC <- as.vector(as.matrix(dbmValues$FRRC$ciAvgRdrEachTrt)) #[-c(1,2,7,8)])) # remove 0-1 vs trt0-trt1
-  orciAvgRdrEachTrtFRRC <- as.vector(as.matrix(orValues$FRRC$ciAvgRdrEachTrt)) #[-c(1,2,7,8)]))
+
+  dbmciAvgRdrEachTrtFRRC <- as.vector(as.matrix(DBM_FRRC$FRRC$ciAvgRdrEachTrt)) #[-c(1,2,7,8)])) # remove 0-1 vs trt0-trt1
+  orciAvgRdrEachTrtFRRC <- as.vector(as.matrix(OR_FRRC$FRRC$ciAvgRdrEachTrt)) #[-c(1,2,7,8)]))
   for (i in 1: length(dbmciAvgRdrEachTrtFRRC)){
     x <- dbmciAvgRdrEachTrtFRRC[i]
     y <- orciAvgRdrEachTrtFRRC[i]
     expect_equal(x, y, tolerance = 0.001, scale = abs(x))  # values are not exactly equal
   }
-  
-  dbmciDiffTrtRRFC <- as.vector(as.matrix(dbmValues$RRFC$ciDiffTrt))
-  orciDiffTrtRRFC <- as.vector(as.matrix(orValues$RRFC$ciDiffTrt))
+
+  dbmciDiffTrtRRFC <- as.vector(as.matrix(DBM_RRFC$RRFC$ciDiffTrt))
+  orciDiffTrtRRFC <- as.vector(as.matrix(OR_RRFC$RRFC$ciDiffTrt))
   for (i in 1: length(dbmciDiffTrtRRFC)){
     x <- dbmciDiffTrtRRFC[i]
     y <- orciDiffTrtRRFC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
-  
-  dbmciAvgRdrEachTrtRRFC <- as.vector(as.matrix(dbmValues$RRFC$ciAvgRdrEachTrt)) #[-c(1,2)]) # remove 0-1 vs trt0-trt1
-  orciAvgRdrEachTrtRRFC <- as.vector(as.matrix(orValues$RRFC$ciAvgRdrEachTrt)) #[-c(1,2)])
+
+  dbmciAvgRdrEachTrtRRFC <- as.vector(as.matrix(DBM_RRFC$RRFC$ciAvgRdrEachTrt)) #[-c(1,2)]) # remove 0-1 vs trt0-trt1
+  orciAvgRdrEachTrtRRFC <- as.vector(as.matrix(OR_RRFC$RRFC$ciAvgRdrEachTrt)) #[-c(1,2)])
   for (i in 1: length(dbmciAvgRdrEachTrtRRFC)){
     x <- dbmciAvgRdrEachTrtRRFC[i]
     y <- orciAvgRdrEachTrtRRFC[i]
     expect_equal(x, y, tolerance = 0.00001, scale = abs(x))
   }
-  
-  
+
 })

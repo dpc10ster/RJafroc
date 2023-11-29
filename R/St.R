@@ -27,7 +27,6 @@
 #'    \item \code{"RRRC"} = random-reader random case (default),
 #'    \item \code{"FRRC"} = fixed-reader random case, 
 #'    \item \code{"RRFC"} = random-reader fixed case, 
-#'    \item \code{"ALL"} =  all 3 allowed options.
 #' }    
 #' 
 #' @param alpha The significance level (alpha) of the test of the null hypothesis 
@@ -52,7 +51,7 @@
 #' @examples
 #' result <- St(dataset02,FOM = "Wilcoxon", method = "DBM") 
 #' result <- St(dataset02,FOM = "Wilcoxon", method = "OR")
-#' result <- St(datasetX, FOM = "wAFROC", method = "OR", analysisOption = "ALL")
+#' result <- St(datasetX, FOM = "wAFROC", method = "OR", analysisOption = "RRRC")
 #' 
 #' \donttest{
 #' result <- St(dataset05, FOM = "wAFROC")

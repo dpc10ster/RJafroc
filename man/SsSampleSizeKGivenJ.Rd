@@ -39,7 +39,7 @@ components are supplied.}
 \item{desiredPower}{The desired statistical power, default is 0.8.}
 
 \item{analysisOption}{Specifies the random factor(s): "RRRC" (the default), 
-"FRRC", "RRFC" or "ALL".}
+"FRRC", or "RRFC".}
 
 \item{UseDBMHB2004}{Logical, default is \code{FALSE}, if \code{TRUE} the 2004 DBM
 method is used. Otherwise the OR method is used.}

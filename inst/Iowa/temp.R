@@ -39,8 +39,8 @@ fn <- paste0(test_path(), "/goodValues361/Iowa/VanDyke.txt")
 # fn <- "inst/Iowa/VanDyke.txt"
 lines <- readLines(fn)
 
-DBM <- St(dataset02, FOM = "Wilcoxon", method = "DBM", analysisOption = "ALL")
-OR <- St(dataset02, FOM = "Wilcoxon", method = "OR", analysisOption = "ALL")
+DBM <- St(dataset02, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")
+OR <- St(dataset02, FOM = "Wilcoxon", method = "OR", analysisOption = "RRRC")
 
 CurrentLine <- 1
 FindString <- "TREATMENT x READER AUC ESTIMATES"
@@ -69,7 +69,7 @@ theirs <- df2;colnames(theirs) <- NULL;rownames(theirs) <- NULL
 mine <- as.matrix(DBM$FOMs$trtMeans);colnames(mine) <- NULL;rownames(mine) <- NULL
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 2\n")
+# cat("passed test 2\n")
 
 FindString <- " TREATMENT AUC MEAN DIFFERENCES"
 offSet <- 2
@@ -84,7 +84,7 @@ theirs <- df3;colnames(theirs) <- NULL;rownames(theirs) <- NULL
 mine <- as.matrix(DBM$FOMs$trtMeanDiffs);colnames(mine) <- NULL;rownames(mine) <- NULL
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 3\n")
+# cat("passed test 3\n")
 
 FindString <- " TREATMENT X READER ANOVA of AUCs"
 offSet <- 6
@@ -100,7 +100,7 @@ mine <- OR$ANOVA$TRanova;colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 4\n")
+# cat("passed test 4\n")
 
 FindString <- " READER ANOVAs of AUCs for each treatment"
 offSet <- 7
@@ -116,7 +116,7 @@ mine <- OR$ANOVA$IndividualTrt[,2];colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.vector(mine)
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 5\n")
+# cat("passed test 5\n")
 
 FindString <- " *****        Variance component and error-covariance estimates        *****"
 offSet <- 9
@@ -133,7 +133,7 @@ mine <- OR$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)[,1]
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 6\n")
+# cat("passed test 6\n")
 
 FindString <- " Corresponding DBM variance component and covariance estimates"
 offSet <- 4
@@ -150,7 +150,7 @@ mine <- DBM$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)[,1]
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 7\n")
+# cat("passed test 7\n")
 
 FindString <- " *****    Analysis 1 (OR Analysis): Random Readers and Random Cases    *****"
 offSet <- 9
@@ -168,7 +168,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.01, scale = abs(mine))
 
-cat("passed test 8\n")
+# cat("passed test 8\n")
 
 FindString <- ""
 offSet <- 0
@@ -186,7 +186,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
 
-cat("passed test 9\n")
+# cat("passed test 9\n")
 
 FindString <- "    b) 95% confidence intervals and hypothesis tests (H0: difference = 0)"
 offSet <- 6
@@ -205,7 +205,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
 
-cat("passed test 10\n")
+# cat("passed test 10\n")
 
 FindString <- "    c) Single-treatment 95% confidence intervals"
 offSet <- 6
@@ -224,7 +224,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
 
-cat("passed test 11\n")
+# cat("passed test 11\n")
 
 FindString <- "    a) Chi-square test for H0: Treatments have the same AUC"
 offSet <- 7
@@ -243,7 +243,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
 
-cat("passed test 12\n")
+# cat("passed test 12\n")
 
 FindString <- "    b) 95% confidence intervals and hypothesis tests (H0: difference = 0)"
 offSet <- 6
@@ -262,7 +262,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
 
-cat("passed test 13\n")
+# cat("passed test 13\n")
 
 FindString <- "    c) Single treatment AUC 95% confidence intervals"
 offSet <- 6
@@ -280,7 +280,7 @@ colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 14\n")
+# cat("passed test 14\n")
 
 FindString <- "  Treatment  Var(Error)     Cov2   "
 offSet <- 2
@@ -298,7 +298,7 @@ colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
 
-cat("passed test 15\n")
+# cat("passed test 15\n")
 
 FindString <- "    d) Single-reader 95% confidence intervals and tests (H0: difference = 0) for "
 offSet <- 8
@@ -317,7 +317,7 @@ mine <- as.matrix(mine)
 # insufficient decimal places in theirs
 expect_equal(theirs, mine, tolerance = 0.01, scale = abs(mine))
 
-cat("passed test 16\n")
+# cat("passed test 16\n")
 
 FindString <- " Source        DF    Mean Square      F value  Pr > F "
 offSet <- 2
@@ -336,7 +336,7 @@ mine <- as.matrix(mine)
 # insufficient decimal places in theirs
 expect_equal(theirs, mine, tolerance = 0.005, scale = abs(mine))
 
-cat("passed test 17\n")
+# cat("passed test 17\n")
 
 FindString <- ""
 offSet <- 0
@@ -354,7 +354,7 @@ colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.numeric(mine)
 expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
 
-cat("passed test 18\n")
+# cat("passed test 18\n")
 
 FindString <- "    b) 95% confidence intervals and hypothesis tests (H0: difference = 0)"
 offSet <- 6
@@ -373,7 +373,7 @@ mine <- as.numeric(mine)
 # insufficient precision printout in theirs
 expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
 
-cat("passed test 19\n")
+# cat("passed test 19\n")
 
 FindString <- "    c) Single treatment AUC 95% confidence intervals"
 offSet <- 6
@@ -391,14 +391,14 @@ colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
 
-cat("passed test 20\n")
+# cat("passed test 20\n")
 
 
 fn <- paste0(test_path(), "/goodValues361/Iowa/Franken1.txt")
 lines <- readLines(fn)
 
-DBM <- St(dataset03, FOM = "Wilcoxon", method = "DBM", analysisOption = "ALL")
-OR <- St(dataset03, FOM = "Wilcoxon", method = "OR", analysisOption = "ALL")
+DBM <- St(dataset03, FOM = "Wilcoxon", method = "DBM", analysisOption = "RRRC")
+OR <- St(dataset03, FOM = "Wilcoxon", method = "OR", analysisOption = "RRRC")
 
 CurrentLine <- 1
 FindString <- "TREATMENT x READER AUC ESTIMATES"
@@ -427,7 +427,7 @@ theirs <- df2;colnames(theirs) <- NULL;rownames(theirs) <- NULL
 mine <- as.matrix(DBM$FOMs$trtMeans);colnames(mine) <- NULL;rownames(mine) <- NULL
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 2\n")
+# cat("passed test 2\n")
 
 FindString <- " TREATMENT AUC MEAN DIFFERENCES"
 offSet <- 2
@@ -442,7 +442,7 @@ theirs <- df3;colnames(theirs) <- NULL;rownames(theirs) <- NULL
 mine <- as.matrix(DBM$FOMs$trtMeanDiffs);colnames(mine) <- NULL;rownames(mine) <- NULL
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 3\n")
+# cat("passed test 3\n")
 
 FindString <- " TREATMENT X READER ANOVA of AUCs"
 offSet <- 6
@@ -458,7 +458,7 @@ mine <- OR$ANOVA$TRanova;colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 4\n")
+# cat("passed test 4\n")
 
 FindString <- " READER ANOVAs of AUCs for each treatment"
 offSet <- 7
@@ -474,7 +474,7 @@ mine <- OR$ANOVA$IndividualTrt[,2];colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.vector(mine)
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 5\n")
+# cat("passed test 5\n")
 
 FindString <- " *****        Variance component and error-covariance estimates        *****"
 offSet <- 9
@@ -510,7 +510,7 @@ mine <- DBM$ANOVA$VarCom;colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)[,1]
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 7\n")
+# cat("passed test 7\n")
 
 FindString <- " *****    Analysis 1 (OR Analysis): Random Readers and Random Cases    *****"
 offSet <- 9
@@ -528,7 +528,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.01, scale = abs(mine))
 
-cat("passed test 8\n")
+# cat("passed test 8\n")
 
 FindString <- ""
 offSet <- 0
@@ -546,7 +546,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
 
-cat("passed test 9\n")
+# cat("passed test 9\n")
 
 FindString <- "    b) 95% confidence intervals and hypothesis tests (H0: difference = 0)"
 offSet <- 6
@@ -565,7 +565,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.004, scale = abs(mine))
 
-cat("passed test 10\n")
+# cat("passed test 10\n")
 
 FindString <- "    c) Single-treatment 95% confidence intervals"
 offSet <- 6
@@ -584,7 +584,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
 
-cat("passed test 11\n")
+# cat("passed test 11\n")
 
 FindString <- "    a) Chi-square test for H0: Treatments have the same AUC"
 offSet <- 7
@@ -603,7 +603,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.001, scale = abs(mine))
 
-cat("passed test 12\n")
+# cat("passed test 12\n")
 
 FindString <- "    b) 95% confidence intervals and hypothesis tests (H0: difference = 0)"
 offSet <- 6
@@ -622,7 +622,7 @@ mine <- as.matrix(mine)
 # their program does not print out as many decimal places
 expect_equal(theirs, mine, tolerance = 0.004, scale = abs(mine))
 
-cat("passed test 13\n")
+# cat("passed test 13\n")
 
 FindString <- "    c) Single treatment AUC 95% confidence intervals"
 offSet <- 6
@@ -640,7 +640,7 @@ colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.00001, scale = abs(mine))
 
-cat("passed test 14\n")
+# cat("passed test 14\n")
 
 FindString <- "  Treatment  Var(Error)     Cov2   "
 offSet <- 2
@@ -658,7 +658,7 @@ colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
 
-cat("passed test 15\n")
+# cat("passed test 15\n")
 
 FindString <- "    d) Single-reader 95% confidence intervals and tests (H0: difference = 0) for "
 offSet <- 8
@@ -677,7 +677,7 @@ mine <- as.matrix(mine)
 # insufficient decimal places in theirs
 expect_equal(theirs, mine, tolerance = 0.01, scale = abs(mine))
 
-cat("passed test 16\n")
+# cat("passed test 16\n")
 
 FindString <- " Source        DF    Mean Square      F value  Pr > F "
 offSet <- 2
@@ -696,7 +696,7 @@ mine <- as.matrix(mine)
 # insufficient decimal places in theirs
 expect_equal(theirs, mine, tolerance = 0.005, scale = abs(mine))
 
-cat("passed test 17\n")
+# cat("passed test 17\n")
 
 FindString <- ""
 offSet <- 0
@@ -714,7 +714,7 @@ colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.numeric(mine)
 expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
 
-cat("passed test 18\n")
+# cat("passed test 18\n")
 
 FindString <- "    b) 95% confidence intervals and hypothesis tests (H0: difference = 0)"
 offSet <- 6
@@ -733,7 +733,7 @@ mine <- as.numeric(mine)
 # insufficient precision printout in theirs
 expect_equal(theirs, mine, tolerance = 0.004, scale = abs(mine))
 
-cat("passed test 19\n")
+# cat("passed test 19\n")
 
 FindString <- "    c) Single treatment AUC 95% confidence intervals"
 offSet <- 6
@@ -751,6 +751,6 @@ colnames(mine) <- NULL;rownames(mine) <- NULL
 mine <- as.matrix(mine)
 expect_equal(theirs, mine, tolerance = 0.000001, scale = abs(mine))
 
-cat("passed test 20\n")
+# cat("passed test 20\n")
 
 
