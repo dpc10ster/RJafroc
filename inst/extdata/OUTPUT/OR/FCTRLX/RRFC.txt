@@ -1,17 +1,17 @@
 OR/FCTRLX/RRFC.txt
 
 ************************************************************
-C. $RRFC: random reader random case, a list with 3 members,
-C1: $RRFC$FTests
-C2: $RRFC$ciDiffTrt
-C3: $RRFC$ciAvgRdrEachTrt. 
+E. $RRFC: random reader random case, a list with 3 members,
+E1: $RRFC$FTests
+E2: $RRFC$ciDiffTrt
+E3: $RRFC$ciAvgRdrEachTrt 
 Each contains two matrices:
 * AvgMod1, the foms are averaged over the 1st treatment 
 * AvgMod2, the foms are averaged over the 2nd treatment 
 ************************************************************
 
 ******************************
-C1. $RRFC$FTests: results of 
+E1. $RRFC$FTests: results of 
 F-tests; contains two 
 matrices, AvgMod1 and AvgMod2
 ******************************
@@ -34,7 +34,7 @@ $RRFC$FTests$AvgMod2
 The TR row has NAs for FStat and p.
 
 ******************************
-C2. $RRFC$ciDiffTrt: 1-alpha 
+E2. $RRFC$ciDiffTrt: 1-alpha 
 confidence intervals for 
 differences of treatments, 
 averaged over readers; 
@@ -61,7 +61,7 @@ $RRFC$ciDiffTrt$AvgMod2
 DF, t, PrGTt, CILower and CIUpper.
 
 ******************************
-C3. $RRRC$ciAvgRdrEachTrt: 
+E3. $RRRC$ciAvgRdrEachTrt: 
 1-alpha confidence interval 
 for each treatment, averaged 
 over readers; contains two 

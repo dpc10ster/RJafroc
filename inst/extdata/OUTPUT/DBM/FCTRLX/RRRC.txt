@@ -12,7 +12,7 @@ Each contains two matrices:
 ************************************************************
 
 ******************************
-C1: $FRRC$FTests, results of 
+C1: $RRRC$FTests, results of 
 F-tests; contains two 
 matrices AvgMod1 and AvgMod2
 ******************************
@@ -24,12 +24,12 @@ matrices AvgMod1 and AvgMod2
 * Treatment = treatment factor
 * Error = error term
 
-$FRRC$FTests$AvgMod1
+$RRRC$FTests$AvgMod1
 * Foms averaged over the 1st treatment.
 * Matrix with 2 rows Treatment and Error, and 4 columns named DF, MS, 
 FStat and p. The Error row has NAs for FStat and p.
 
-$FRRC$FTests$AvgMod2
+$RRRC$FTests$AvgMod2
 * Foms averaged over the 2nd treatment.
 * Matrix with 2 rows Treatment and Error, and 4 columns named DF, MS, 
 FStat and p. The Error row has NAs for FStat and p.

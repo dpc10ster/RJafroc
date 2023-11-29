@@ -36,7 +36,7 @@ Each contains two matrices:
 ********************************************************************************
 
 ************************************************************
-A: $FOMs: figures of merit, a list with 3 members, 
+A. $FOMs: figures of merit, a list with 3 members, 
 A1: $FOMs$foms 
 A2: $FOMs$trtMeans 
 A3: $FOMs$trtMeanDiffs
@@ -104,7 +104,7 @@ $FOMs$trtMeanDiffs$AvgMod2
 ********************************************************************************
 
 ************************************************************
-B: $ANOVA: treatment-reader analysis of variance, a list 
+B. $ANOVA: treatment-reader analysis of variance, a list 
 with 4 members,
 B1: $ANOVA$TRCanova
 B2: $ANOVA$VarCom

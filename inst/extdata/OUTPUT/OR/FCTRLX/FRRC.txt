@@ -1,7 +1,7 @@
 OR/FCTRLX/FRRC.txt
 
 ************************************************************
-D: $FRRC fixed reader random case results, a list with 
+D. $FRRC fixed reader random case results, a list with 
 5 members, 
 D1: $FRRC$FTests
 D2: $FRRC$ciDiffTrt

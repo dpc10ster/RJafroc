@@ -1,22 +1,22 @@
 OR/FCTRL/FRRC.txt
 
 ************************************************************
-C: $FRRC fixed reader random case results, a list with 
+D: $FRRC fixed reader random case results, a list with 
 5 members, 
-C1: $FRRC$FTests
-C2: $FRRC$ciDiffTrt
-C3: $FRRC$ciAvgRdrEachTrt
-C4: $FRRC$ciDiffTrtEachRdr
-C5: $FRRC$IndividualRdrVarCov1
+D1: $FRRC$FTests
+D2: $FRRC$ciDiffTrt
+D3: $FRRC$ciAvgRdrEachTrt
+D4: $FRRC$ciDiffTrtEachRdr
+D5: $FRRC$IndividualRdrVarCov1
 ************************************************************
 
 ************************************************************
-C: $FRRC fixed reader random case results, a list with 
-5 members, C1 thru C5
+D: $FRRC fixed reader random case results, a list with 
+5 members, D1 thru D5
 ************************************************************
 
 ******************************
-C1: $FRRC$FTests, results of F
+D1: $FRRC$FTests, results of F
 tests, acutally a chi-square 
 test in this case
 ******************************
@@ -34,7 +34,7 @@ $FRRC$FTests
 Chisq and p. The Error row has NAs for FStat and p.
 
 ******************************
-C2: $FRRC$ciDiffTrt, 1 - alpha 
+D2: $FRRC$ciDiffTrt, 1 - alpha 
 confidence intervals for 
 differences of treatments
 ******************************
@@ -51,7 +51,7 @@ $FRRC$ciDiffTrt
 PrGTz, CILower and CIUpper
 
 ******************************
-C3: $FRRC$ciAvgRdrEachTrt
+D3: $FRRC$ciAvgRdrEachTrt
 ******************************
 
 * 1-alpha confidence interval for each treatment, averaged over readers 
@@ -62,7 +62,7 @@ $FRRC$ciAvgRdrEachTrt
 StdErr, DF, CILower and CIUpper.
 
 ******************************
-C4: $FRRC$ciDiffTrtEachRdr, 
+D4: $FRRC$ciDiffTrtEachRdr, 
 for each reader, 1-alpha 
 confidence interval for all 
 distinct treatment 
@@ -80,7 +80,7 @@ name and the string "::trtBT-trtDM", and 6 columns named Estimate, StdErr, z,
 PrGTz, CILower and CIUpper.
 
 ******************************
-C5: $FRRC$IndividualRdrVarCov1,
+D5: $FRRC$IndividualRdrVarCov1,
 individual reader variance 
 and Cov1
 ******************************

@@ -1,21 +1,16 @@
 DBM/FCTRL/FRRC.txt
 
 ************************************************************
-C: $FRRC fixed reader random case results, a list with 
-4 members, 
-C1: $FRRC$FTests
-C2: $FRRC$ciDiffTrt
-C3: $FRRC$ciAvgRdrEachTrt
-C4: $FRRC$ciDiffTrtEachRdr
-************************************************************
-
-************************************************************
-C: $FRRC fixed reader random case results, a list with 
-5 members, C1 thru C5
+D: $FRRC fixed reader random case results, a list with 4 
+members, 
+D1: $FRRC$FTests
+D2: $FRRC$ciDiffTrt
+D3: $FRRC$ciAvgRdrEachTrt
+D4: $FRRC$ciDiffTrtEachRdr
 ************************************************************
 
 ******************************
-C1: $FRRC$FTests, results of F
+D1: $FRRC$FTests, results of F
 tests, acutally a chi-square 
 test in this case
 ******************************
@@ -28,12 +23,11 @@ test in this case
 * Error = error term
 
 $FRRC$FTests
-
 * Matrix with 2 rows named Treatment and Error, and 4 columns named DF, MS, 
 Chisq and p. The Error row has NAs for FStat and p.
 
 ******************************
-C2: $FRRC$ciDiffTrt, 1-alpha 
+D2: $FRRC$ciDiffTrt, 1-alpha 
 confidence intervals for 
 differences of treatments, 
 averaged over readers
@@ -46,24 +40,22 @@ averaged over readers
 * CIUpper = upper bound of 1-alpha confidence interval
 
 $FRRC$ciDiffTrt
-
 * Row vector with row name trtBT-trtDM and 7 columns named Estimate, StdErr, 
 DF, t, PrGTt, CILower and CIUpper
 
 ******************************
-C3: $FRRC$ciAvgRdrEachTrt, 
+D3: $FRRC$ciAvgRdrEachTrt, 
 1-alpha confidence interval 
 for each treatment, averaged 
 over readers
 ******************************
 
 $FRRC$ciAvgRdrEachTrt
-
 * Matrix with 2 rows named trtBT and trtDM, and 5 columns named Estimate, 
 StdErr, DF, CILower and CIUpper.
 
 ******************************
-C4: $FRRC$ciDiffTrtEachRdr, 
+D4: $FRRC$ciDiffTrtEachRdr, 
 for each reader, 1-alpha 
 confidence interval for all 
 distinct treatment 
@@ -77,7 +69,6 @@ differences.
 * rdr5::trtBT-trtDM = BT-DM treatment difference for reader 5
 
 $FRRC$ciDiffTrtEachRdr
-
 * A matrix with 5 rows labeled with the concatenated reader 
 name and the string "::trtBT-trtDM", as shown above, and 7 columns named 
 Estimate, StdErr, DF, t, PrGTt, CILower and CIUpper.

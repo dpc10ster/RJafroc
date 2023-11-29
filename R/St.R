@@ -43,7 +43,6 @@
 #' @param seed For bootstraps the seed of the RNG (default: seed = \code{NULL}), 
 #'     only needed if \code{method = "OR"} and \code{covEstMethod = "bootstrap"}.
 #'    
-#'     
 #' @param details Amount of explanations in output, default is 0 for no 
 #'     explanations and 1 for explanations.
 #'    

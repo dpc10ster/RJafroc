@@ -1,14 +1,14 @@
 DBM/FCTRL/RRFC.txt
 
 ************************************************************
-C: $RRFC: random reader fixed case, a list with 3 members,
-C1: $RRFC$FTests 
-C2: $RRFC$ciDiffTrt
-C3: $RRFC$ciAvgRdrEachTrt. 
+E: $RRFC: random reader fixed case, a list with 3 members,
+E1: $RRFC$FTests 
+E2: $RRFC$ciDiffTrt
+E3: $RRFC$ciAvgRdrEachTrt. 
 ************************************************************
 
 ******************************
-C1: $RRFC$FTests: results of 
+E1: $RRFC$FTests: results of 
 F-tests
 ******************************
 
@@ -20,12 +20,11 @@ F-tests
 * Error = error term
 
 $RRFC$FTests
-
 * Matrix with 2 rows named Treatment and Error, and 4 columns named DF, MS, 
 FStat and p. The Error row has NAs for FStat and p.
 
 ******************************
-C2: $RRFC$ciDiffTrt: 1-alpha 
+E2: $RRFC$ciDiffTrt: 1-alpha 
 confidence intervals for 
 differences of treatments, 
 averaged over readers
@@ -37,19 +36,17 @@ averaged over readers
 more extreme than t, i.e., p-value
 
 $RRFC$ciDiffTrt
-
 * Row vector named trtBT-trtDM with 7 columns named Estimate, StdErr, DF, t, 
 PrGTt, CILower and CIUpper.
 
 ******************************
-C3: $RRFC$ciAvgRdrEachTrt: 
+E3: $RRFC$ciAvgRdrEachTrt: 
 1-alpha confidence interval 
 for each treatment, averaged 
 over readers.
 ******************************
 
 $RRFC$ciAvgRdrEachTrt
-
 * Matrix with 2 rows named trtBT and trtDM, and 5 columns named Estimate, 
 StdErr, DF, CILower and CIUpper
 
