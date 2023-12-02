@@ -1,10 +1,11 @@
-#' Performs DBM or OR significance testing for SPLIT-PLOT A,C datasets
+#' Performs OR significance testing for SPLIT-PLOT A or C datasets
 #' 
-#' @description  Performs Obuchowski-Rockette (OR) significance testing for specified dataset. 
+#' @description  Performs Obuchowski-Rockette (OR) significance testing for 
+#'    specified dataset. 
 #'
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
 #'     Must have two or more treatments and two or more readers. The dataset design
-#'     can be "SPLIT-PLOT-A" or "SPLIT-PLOT-C".
+#'     must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C".
 #'      
 #' @param FOM The figure of merit
 #' 

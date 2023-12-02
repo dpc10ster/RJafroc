@@ -2,14 +2,14 @@
 % Please edit documentation in R/StSP.R
 \name{StSP}
 \alias{StSP}
-\title{Performs DBM or OR significance testing for SPLIT-PLOT A,C datasets}
+\title{Performs OR significance testing for SPLIT-PLOT A or C datasets}
 \usage{
 StSP(dataset, FOM, alpha = 0.05, analysisOption = "RRRC")
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
 Must have two or more treatments and two or more readers. The dataset design
-can be "SPLIT-PLOT-A" or "SPLIT-PLOT-C".}
+must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C".}
 
 \item{FOM}{The figure of merit}
 
@@ -26,7 +26,8 @@ can be "SPLIT-PLOT-A" or "SPLIT-PLOT-C".}
 Results of the analysis
 }
 \description{
-Performs Obuchowski-Rockette (OR) significance testing for specified dataset.
+Performs Obuchowski-Rockette (OR) significance testing for 
+   specified dataset.
 }
 \examples{
 fileName <- system.file("extdata", "/toyFiles/ROC/rocSpAZP.xlsx", 
