@@ -7,7 +7,7 @@
 DfReadDataFile(
   fileName,
   format = "JAFROC",
-  newExcelFileFormat = TRUE,
+  newExcelFileFormat = FALSE,
   lrocForcedMark = NA,
   delimiter = ",",
   sequentialNames = FALSE
@@ -64,6 +64,9 @@ The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file
    function and then saved to a JAFROC format file for further analysis within this 
    package. \bold{For non-JAFROC data file formats, the \code{readerID} and 
    \code{modalityID} fields must be unique integers}.
+
+This function is used only for factorial datasets. For SPLIT-PLOT 
+   datasets use function \link{DfReadSP}.
 }
 \examples{
 fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 

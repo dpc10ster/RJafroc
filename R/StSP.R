@@ -24,7 +24,7 @@
 #' @examples
 #' fileName <- system.file("extdata", "/toyFiles/ROC/rocSpAZP.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
-#' dsSpA <- DFReadSP(fileName)
+#' dsSpA <- DfReadSP(fileName)
 #' ret <- StSP(dsSpA, FOM = "Wilcoxon")
 #' 
 #' ret <- StSP(datasetFROCSpC, FOM = "wAFROC")
@@ -1426,20 +1426,18 @@ MyFom_ij_SP <- function(nl, ll,
 
 
 
-#' Read a SPLIT PLOT data file 
+#' Read a SPLIT PLOT data file (not factorial)
 #' 
-#' @description Read a disk file and create a ROC or FROC dataset object 
-#'    from it.
+#' @description Read a disk file and create an ROC or FROC dataset object 
 #' 
 #' @param fileName A string specifying the name of the file. 
-#'    The file-extension must match the format specified below.
 #'    
 #' @return A dataset with the structure specified in \code{\link{RJafroc-package}}.
 #' 
 #' @examples
 #' fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
-#' rdrArr1D <- DFReadSP(fileName)
+#' ds <- DfReadSP(fileName)
 #'
 #' 
 #' @importFrom tools file_ext
@@ -1447,7 +1445,7 @@ MyFom_ij_SP <- function(nl, ll,
 #' @importFrom readxl excel_sheets
 #' @export
 
-DFReadSP <- function (fileName) 
+DfReadSP <- function (fileName) 
 {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   wb <- readxl::excel_sheets(fileName)   # readxl

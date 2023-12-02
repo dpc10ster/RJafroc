@@ -49,6 +49,9 @@
 #' 
 #' @return A dataset with the structure specified in \code{\link{RJafroc-package}}.
 #' 
+#' @note This function is used only for factorial datasets. For SPLIT-PLOT 
+#'    datasets use function \link{DfReadSP}. 
+#' 
 #' @examples
 #' fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
@@ -78,7 +81,7 @@
 #' @export
 
 DfReadDataFile <- function (fileName, format = "JAFROC", 
-                            newExcelFileFormat = TRUE, 
+                            newExcelFileFormat = FALSE, 
                             lrocForcedMark = NA,
                             delimiter = ",", 
                             sequentialNames = FALSE) 

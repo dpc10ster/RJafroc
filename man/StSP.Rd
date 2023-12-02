@@ -32,7 +32,7 @@ Performs Obuchowski-Rockette (OR) significance testing for
 \examples{
 fileName <- system.file("extdata", "/toyFiles/ROC/rocSpAZP.xlsx", 
 package = "RJafroc", mustWork = TRUE)
-dsSpA <- DFReadSP(fileName)
+dsSpA <- DfReadSP(fileName)
 ret <- StSP(dsSpA, FOM = "Wilcoxon")
 
 ret <- StSP(datasetFROCSpC, FOM = "wAFROC")
