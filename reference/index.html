@@ -49,6 +49,10 @@
         </td>
         <td><p>Compute the chisquare goodness of fit statistic for ROC fitting model</p></td>
       </tr><tr><td>
+          <p><code><a href="DFReadSP.html">DfReadSP()</a></code> </p>
+        </td>
+        <td><p>Read a SPLIT PLOT data file (not factorial)</p></td>
+      </tr><tr><td>
           <p><code><a href="Df2RJafrocDataset.html">Df2RJafrocDataset()</a></code> </p>
         </td>
         <td><p>Convert ratings arrays to an RJafroc dataset</p></td>
@@ -87,7 +91,7 @@
       </tr><tr><td>
           <p><code><a href="DfReadDataFile.html">DfReadDataFile()</a></code> </p>
         </td>
-        <td><p>Read a data file</p></td>
+        <td><p>Read a factorial data file (not split-plot)</p></td>
       </tr><tr><td>
           <p><code><a href="DfReadXModalities.html">DfReadXModalities()</a></code> </p>
         </td>
@@ -216,11 +220,16 @@
       </tr><tr><td>
           <p><code><a href="St.html">St()</a></code> </p>
         </td>
-        <td><p>Performs DBM or OR significance testing for factorial or crossed modality datasets</p></td>
+        <td><p>Perform DBM or OR significance testing for a one treatment factorial or 
+    two-treatment crossed modality factorial dataset (not SPLIT_PLOT)</p></td>
       </tr><tr><td>
           <p><code><a href="StCadVsRad.html">StCadVsRad()</a></code> </p>
         </td>
         <td><p>Significance testing: standalone CAD vs. radiologists</p></td>
+      </tr><tr><td>
+          <p><code><a href="StSP.html">StSP()</a></code> </p>
+        </td>
+        <td><p>Performs OR significance testing for SPLIT-PLOT A or C datasets</p></td>
       </tr><tr><td>
           <p><code><a href="Util2Intrinsic.html">Util2Intrinsic()</a></code> </p>
         </td>
@@ -278,10 +287,6 @@
           <p><code><a href="UtilORVarComp.html">UtilORVarComp()</a></code> </p>
         </td>
         <td><p>Obuchowski-Rockette variance components for dataset</p></td>
-      </tr><tr><td>
-          <p><code><a href="UtilOutputReport.html">UtilOutputReport()</a></code> </p>
-        </td>
-        <td><p>Generate a text- or Excel-formatted report file (one-treatment factorial datasets only)</p></td>
       </tr><tr><td>
           <p><code><a href="UtilPseudoValues.html">UtilPseudoValues()</a></code> </p>
         </td>
@@ -366,6 +371,10 @@
           <p><code><a href="datasetDegenerate.html">datasetDegenerate</a></code> </p>
         </td>
         <td><p>Simulated degenerate ROC dataset (for testing purposes)</p></td>
+      </tr><tr><td>
+          <p><code><a href="datasetFROCSpC.html">datasetFROCSpC</a></code> </p>
+        </td>
+        <td><p>#' Simulated FROC SPLIT-PLOT-C dataset</p></td>
       </tr><tr><td>
           <p><code><a href="datasetROI.html">datasetROI</a></code> </p>
         </td>

@@ -16,6 +16,9 @@
     <loc>/reference/ChisqrGoodnessOfFit.html</loc>
   </url>
   <url>
+    <loc>/reference/DFReadSP.html</loc>
+  </url>
+  <url>
     <loc>/reference/Df2RJafrocDataset.html</loc>
   </url>
   <url>
@@ -148,6 +151,9 @@
     <loc>/reference/StCadVsRad.html</loc>
   </url>
   <url>
+    <loc>/reference/StSP.html</loc>
+  </url>
+  <url>
     <loc>/reference/Util2Intrinsic.html</loc>
   </url>
   <url>
@@ -188,9 +194,6 @@
   </url>
   <url>
     <loc>/reference/UtilORVarComp.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilOutputReport.html</loc>
   </url>
   <url>
     <loc>/reference/UtilPseudoValues.html</loc>
@@ -254,6 +257,9 @@
   </url>
   <url>
     <loc>/reference/datasetDegenerate.html</loc>
+  </url>
+  <url>
+    <loc>/reference/datasetFROCSpC.html</loc>
   </url>
   <url>
     <loc>/reference/datasetROI.html</loc>

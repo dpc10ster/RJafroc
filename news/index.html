@@ -50,6 +50,8 @@
 <li>Fixed user data-entry errors in Excel file (check column names and data type)</li>
 <li>Removed SPLIT-PLOT-A and SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on versions &lt; 2.1.3.</li>
 <li>bootstrap and DeLong in <code>StORAnalysis</code> disabled for XMod analysis</li>
+<li>Renamed <code>StSignificanceTesting</code> to <code>St</code>
+</li>
 <li>Renamed <code>StSignificanceTestingCadVsRad</code> to <code>StCadVsRad</code>
 </li>
 <li>Renamed <code>UtilVarComponentOR</code> to <code>UtilOrVarCov</code>
@@ -57,6 +59,8 @@
 <li>Renamed <code>UtilVarComponentsDBM</code> to <code>UtilDBMVarComp</code>
 </li>
 <li>Removed SPLIT-PLOT-A and SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on versions &lt; 2.1.3.</li>
+<li>Removed <code>UtilOutputReport.R</code> as <code>St</code> output has been updated so this function is no longer needed.</li>
+<li>Added SPLIT-PLOT analysis back; one function <code>StSP</code> Dec 1,23</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changes-2-1-3">Changes 05/19/2023<a class="anchor" aria-label="anchor" href="#changes-2-1-3"></a></h3>
@@ -499,7 +503,7 @@
 </div>
 <div class="section level3">
 <h3 id="tests-for-utiloutputreport-2-0-1">Tests for UtilOutputReport<a class="anchor" aria-label="anchor" href="#tests-for-utiloutputreport-2-0-1"></a></h3>
-<ul><li>Included tests for <code><a href="../reference/UtilOutputReport.html">UtilOutputReport()</a></code> for text output only</li>
+<ul><li>Included tests for <code>UtilOutputReport()</code> for text output only</li>
 <li>Could not get version that compared actual outputs to work in R CMD check.</li>
 <li>Only works at command line (running tests one at a time)</li>
 <li>Failing code is commented out</li>
