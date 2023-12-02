@@ -20,7 +20,8 @@
 #' 
 #' @export
 #' 
-isValidDataset <- function(dataset, FOM, method = "OR", covEstMethod = "jackknife", analysisOption = "RRRC") {
+isValidDataset <- function(dataset, FOM, method = "OR", covEstMethod = "jackknife", analysisOption = "RRRC")
+{
   
   isValidFOM(dataset, FOM)
   isValidAnalysisOption(dataset, analysisOption)

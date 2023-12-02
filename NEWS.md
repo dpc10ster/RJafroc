@@ -19,7 +19,7 @@ title: "NEWS"
 * Renamed `UtilVarComponentsDBM` to `UtilDBMVarComp`
 * Removed SPLIT-PLOT-A and  SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on versions < 2.1.3.
 * Removed `UtilOutputReport.R` as `St` output has been updated so this function is no longer needed.
-
+* Added SPLIT-PLOT analysis back; one function `StSP` Dec 1,23
 
 ### Changes 05/19/2023
 * Fixed FROC simulator, easier to read code; both simulators are NOT limited to I = 2.

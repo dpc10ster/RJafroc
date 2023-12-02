@@ -1,5 +1,5 @@
 #' Perform DBM or OR significance testing for a one treatment factorial or 
-#'     two-treatment crossed modality dataset
+#'     two-treatment crossed modality factorial dataset (not SPLIT_PLOT)
 #' 
 #' @description  Performs DBM or OR significance testing for the dataset. 
 #'
@@ -60,7 +60,7 @@
 #'
 #' @note \code{details} = 0 should suffice for factorial dataset analysis since
 #'     the names of the output lists are self-explanatory. For cross-modality 
-#'     analysis \code{details} = 2 is suggested to better understand the output. 
+#'     analysis \code{details} = 1 is suggested to better understand the output. 
 #' 
 #' @references
 #' Dorfman DD, Berbaum KS, Metz CE (1992) ROC characteristic rating analysis: 
@@ -103,7 +103,7 @@ St <- function(dataset,
                details = 0)
 {
   
-  isValidDataset(dataset, FOM, method, analysisOption, covEstMethod = covEstMethod)
+  isValidDataset(dataset, FOM, method, covEstMethod, analysisOption)
   
   if (method == "DBM"){
     

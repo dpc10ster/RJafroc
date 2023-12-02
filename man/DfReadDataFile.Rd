@@ -2,20 +2,20 @@
 % Please edit documentation in R/DfReadDataFile.R
 \name{DfReadDataFile}
 \alias{DfReadDataFile}
-\title{Read a data file}
+\title{Read a factorial data file (not split-plot)}
 \usage{
 DfReadDataFile(
   fileName,
   format = "JAFROC",
-  newExcelFileFormat = FALSE,
+  newExcelFileFormat = TRUE,
   lrocForcedMark = NA,
   delimiter = ",",
   sequentialNames = FALSE
 )
 }
 \arguments{
-\item{fileName}{A string specifying the name of the file. 
-The file-extension must match the format specified below.}
+\item{fileName}{A string specifying the name of the file. The file-extension 
+must match the format specified below.}
 
 \item{format}{A string specifying the format of the data file. 
 It can be \code{"JAFROC"}, the default, which requires a \code{.xlsx} Excel file
@@ -29,10 +29,10 @@ important information about deprecation of the \code{"MRMC"} format}.}
 
 \item{newExcelFileFormat}{Logical. Must be true to read LROC data. 
 This argument only applies to the \code{"JAFROC"} format. 
-The default is \code{FALSE}. If \code{TRUE} the function accommodates 3 
-additional columns
-in the \code{Truth} worksheet. If \code{FALSE}, the original function (as in version 
-1.2.0) is used and the three extra columns, if present, throws an error.}
+The default is \code{TRUE}. If \code{TRUE} the function accommodates 3 
+additional columns in the \code{Truth} worksheet. If \code{FALSE}, 
+the original function (as in version 1.2.0) is used and the three extra 
+columns, if present, throw an error.}
 
 \item{lrocForcedMark}{Logical: For LROC dataset only: is a forced mark required 
 on every image? The default is \code{NA}. If a mark is not required, set 
@@ -52,7 +52,7 @@ and reader IDs in the original data file will be used.}
 A dataset with the structure specified in \code{\link{RJafroc-package}}.
 }
 \description{
-Read a disk file and create a ROC, FROC or LROC dataset object 
+Read a disk file and create an ROC, FROC or LROC dataset object 
    from it.
 }
 \note{

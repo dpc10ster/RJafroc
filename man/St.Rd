@@ -3,7 +3,7 @@
 \name{St}
 \alias{St}
 \title{Perform DBM or OR significance testing for a one treatment factorial or 
-    two-treatment crossed modality dataset}
+    two-treatment crossed modality factorial dataset (not SPLIT_PLOT)}
 \usage{
 St(
   dataset,
@@ -70,7 +70,7 @@ Performs DBM or OR significance testing for the dataset.
 \note{
 \code{details} = 0 should suffice for factorial dataset analysis since
     the names of the output lists are self-explanatory. For cross-modality 
-    analysis \code{details} = 2 is suggested to better understand the output.
+    analysis \code{details} = 1 is suggested to better understand the output.
 }
 \examples{
 result <- St(dataset02,FOM = "Wilcoxon", method = "DBM") 

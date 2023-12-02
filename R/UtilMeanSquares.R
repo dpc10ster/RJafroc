@@ -28,7 +28,7 @@
 
 UtilMeanSquares <- function(dataset, FOM = "Wilcoxon", FPFValue = 0.2, method = "DBM"){
   
-  isValidDataset(dataset, FOM, method, analysisOption = "RRRC", covEstMethod = "jackknife")
+  isValidDataset(dataset, FOM, method, covEstMethod = "jackknife", analysisOption = "RRRC")
   
   if (dataset$descriptions$design == "FCTRL") {
     # factorial one-treatment dataset 

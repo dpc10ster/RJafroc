@@ -26,6 +26,7 @@ Imports:
     tools,
     utils
 Suggests:
+    rcmdcheck,
     testthat,
     knitr,
     kableExtra,

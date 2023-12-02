@@ -1,10 +1,10 @@
-#' Read a data file 
+#' Read a factorial data file (not split-plot) 
 #' 
-#' @description Read a disk file and create a ROC, FROC or LROC dataset object 
+#' @description Read a disk file and create an ROC, FROC or LROC dataset object 
 #'    from it.
 #' 
-#' @param fileName A string specifying the name of the file. 
-#'    The file-extension must match the format specified below.
+#' @param fileName A string specifying the name of the file. The file-extension 
+#'    must match the format specified below.
 #'    
 #' @param format A string specifying the format of the data file. 
 #'    It can be \code{"JAFROC"}, the default, which requires a \code{.xlsx} Excel file
@@ -19,10 +19,10 @@
 #'    
 #' @param newExcelFileFormat Logical. Must be true to read LROC data. 
 #'    This argument only applies to the \code{"JAFROC"} format. 
-#'    The default is \code{FALSE}. If \code{TRUE} the function accommodates 3 
-#'    additional columns
-#'    in the \code{Truth} worksheet. If \code{FALSE}, the original function (as in version 
-#'    1.2.0) is used and the three extra columns, if present, throws an error.  
+#'    The default is \code{TRUE}. If \code{TRUE} the function accommodates 3 
+#'    additional columns in the \code{Truth} worksheet. If \code{FALSE}, 
+#'    the original function (as in version 1.2.0) is used and the three extra 
+#'    columns, if present, throw an error.  
 #'    
 #' @param lrocForcedMark Logical: For LROC dataset only: is a forced mark required 
 #'    on every image? The default is \code{NA}. If a mark is not required, set 
@@ -78,7 +78,7 @@
 #' @export
 
 DfReadDataFile <- function (fileName, format = "JAFROC", 
-                            newExcelFileFormat = FALSE, 
+                            newExcelFileFormat = TRUE, 
                             lrocForcedMark = NA,
                             delimiter = ",", 
                             sequentialNames = FALSE) 
@@ -190,7 +190,7 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
   if (design == "CROSSED") design <- "FCTRL"
   if (!(type %in% c("FROC", "ROC", "LROC"))) stop("Unsupported data type: must be ROC, FROC or LROC.\n")
-  if (!(design %in% c("FCTRL"))) stop("Study design must be FCTRL.\n")
+  # if (!(design %in% c("FCTRL"))) stop("Study design must be FCTRL.\n")
   
   if (type == "LROC") {
     if (is.na(lrocForcedMark)) stop("For LROC dataset one must set the lrocForcedMark flag to a logical") 
