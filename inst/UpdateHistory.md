@@ -34,6 +34,7 @@ title: "Update History, TODO's and Ideas"
 * TODO: `QuickStart`, new chapter on recommended FOMs and those to avoid at all costs
 * TODO: `QuickStart`, explanation of St output
 * Removed SPLIT-PLOT-A and  SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on versions < 2.1.3.
+* Added it back after inquiry from Zhemin Pan
 
 
 ### Issue 90
