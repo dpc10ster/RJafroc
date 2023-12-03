@@ -2,7 +2,7 @@
 % Please edit documentation in R/DfReadDataFile.R
 \name{DfReadDataFile}
 \alias{DfReadDataFile}
-\title{Read a factorial data file (not split-plot)}
+\title{Read a factorial data file (not SPLIT-PLOT)}
 \usage{
 DfReadDataFile(
   fileName,
@@ -15,17 +15,18 @@ DfReadDataFile(
 }
 \arguments{
 \item{fileName}{A string specifying the name of the file. The file-extension 
-must match the format specified below.}
+must match the \code{format} specified below.}
 
 \item{format}{A string specifying the format of the data file. 
-It can be \code{"JAFROC"}, the default, which requires a \code{.xlsx} Excel file
-(\bold{not \code{.xls}}), \code{"MRMC"} or \code{"iMRMC"}. 
+It can be \code{"JAFROC"}, the default, which requires an \code{.xlsx} 
+Excel file (\bold{not \code{.xls}}), \code{"MRMC"} or \code{"iMRMC"}. 
 For \code{"MRMC"} the format is determined by the data file extension 
 (\code{.csv} or \code{.txt} or \code{.lrc}) 
-as specified in \url{https://perception.lab.uiowa.edu/}. For \code{"iMRMC"} the 
-file extension is \code{.imrmc} and the format is described in 
-\url{https://code.google.com/archive/p/imrmc/}. \bold{See following note for
-important information about deprecation of the \code{"MRMC"} format}.}
+as specified in \url{https://perception.lab.uiowa.edu/}. For 
+\code{"iMRMC"} the file extension is \code{.imrmc} and the format is 
+described in \url{https://code.google.com/archive/p/imrmc/}. 
+\bold{See note for important information about deprecation of the 
+\code{"MRMC"} format}.}
 
 \item{newExcelFileFormat}{Logical. Must be true to read LROC data. 
 This argument only applies to the \code{"JAFROC"} format. 
@@ -52,17 +53,18 @@ and reader IDs in the original data file will be used.}
 A dataset with the structure specified in \code{\link{RJafroc-package}}.
 }
 \description{
-Read a disk file and create an ROC, FROC or LROC dataset object 
-   from it.
+Read an Excel file and create an ROC, FROC or LROC dataset 
+   object from it.
 }
 \note{
-The \code{"MRMC"} format is deprecated. For non-JAFROC formats four file 
-   extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc}) are possible, 
-   all of which are restricted to ROC data. Only the \code{iMRMC} format is actively 
-   supported, i.e, files with extension \code{.imrmc}. Other formats (\code{.csv}, 
-   \code{.txt}, \code{.lrc}) are deprecated. Such files can still be read by this 
-   function and then saved to a JAFROC format file for further analysis within this 
-   package. \bold{For non-JAFROC data file formats, the \code{readerID} and 
+The \code{"MRMC"} format is deprecated. For non-JAFROC formats four 
+   file extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc}) 
+   are possible, all of which are restricted to ROC data. Only \code{iMRMC} 
+   format is now supported, i.e, files with extension \code{.imrmc}. Other 
+   formats (\code{.csv}, \code{.txt}, \code{.lrc}) are deprecated. Such 
+   files can still be read by this function and then saved to a JAFROC 
+   format file for further analysis within this package. 
+   \bold{For non-JAFROC data file formats, the \code{readerID} and 
    \code{modalityID} fields must be unique integers}.
 
 This function is used only for factorial datasets. For SPLIT-PLOT 

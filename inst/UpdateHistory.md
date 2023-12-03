@@ -1,5 +1,5 @@
 ---
-title: "Update History, TODOs and Ideas"
+title: "Update History, TODO's and Ideas"
 ---
 
 ## version 2.1.3
@@ -13,9 +13,10 @@ title: "Update History, TODOs and Ideas"
 * ???DPC??? or !!!DPC!!!
 
 
-### Research Idea(s)
-* `inst/InferredVsReal.R` cross modality analysis
-* Extended Obuchowski's idea - tested with rudimentary FROC simulator; works! Worth a new chapter.
+### Research Idea(s) as of 12/03/2023
+* Reanalyze real vs. inferred Federica datasets using cross modality method; `inst/InferredVsReal.R` cross modality analysis
+* Extended Obuchowski's idea to combining two FROC datasets - tested with rudimentary FROC simulator; works! Worth a new chapter.
+* Extend Obuchowski's idea to SPLIT-PLOT analyses
 
 
 ### TODOs 10/4/23
