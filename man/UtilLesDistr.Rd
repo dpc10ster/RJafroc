@@ -7,7 +7,8 @@
 UtilLesDistr(dsOrArr)
 }
 \arguments{
-\item{dsOrArr}{A dataset object or a 1D-array.}
+\item{dsOrArr}{A dataset object from which the lesion distribution is 
+extracted or a 1D-array specifying the lesion distribution.}
 }
 \value{
 A data frame containing the number of \code{lesionID}s per case, 
@@ -16,26 +17,23 @@ A data frame containing the number of \code{lesionID}s per case,
 }
 \description{
 The \code{lesionID} distribution of a dataset \bold{or} of a supplied 
-  1D-array. The \code{lesionID} field is described in the format of the Excel 
-  input file, 
-  see \href{https://dpc10ster.github.io/RJafrocQuickStart/quick-start-froc.html}{QuickStart}
-  (use Command click to view the link).
+   1D-array. The \code{lesionID} field is described in the format of the Excel 
+   input file, see \href{https://dpc10ster.github.io/RJafrocQuickStart/quick-start-froc.html}{QuickStart}
+   (use Command click to view the link).
 }
 \details{
 Apart from ratings two characteristics of an FROC dataset 
    affect the FOM: the distribution of \code{lesionID}s per case and the lesion 
-   weights. This function addresses the former. 
-   The latter is addressed in \link{UtilLesWghts}. 
-   The return value is a dataframe containing 2 equal length 
-   vectors: the \code{lesionID} labels and the corresponding fractions of 
+   weights. This function addresses the former. The latter is addressed in 
+   \link{UtilLesWghts}. The return value is a dataframe containing 2 equal 
+   length vectors: the \code{lesionID} labels and the corresponding fractions of 
    lesions per diseased case in the dataset. For ROC or LROC data this 
    vector is always \code{c(1)}, since all diseased cases contain one lesion. 
-   For FROC data the first element of the dataframe, i.e., \code{lesID}, contains 
-   the numbers of lesions per diseased case. The second element, i.e., 
-   \code{Freq}, contains the fraction of dis. cases containing one lesion, 
-   the fraction containing two lesions, etc. 
-   See \link{PlotRsmOperatingCharacteristics} for a function that depends 
-   on \code{LD}.
+   For FROC data the first element of the dataframe, i.e., \code{lesID}, 
+   contains the numbers of lesions per diseased case. The second element, 
+   i.e., \code{Freq}, contains the fraction of dis. cases containing one lesion, 
+   the fraction containing two lesions, etc. See \link{PlotRsmOperatingCharacteristics} 
+   for a function that depends on \code{LD}.
 }
 \examples{
 res <- UtilLesDistr(dataset01) # FROC dataset

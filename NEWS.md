@@ -17,7 +17,7 @@ title: "NEWS"
 * Renamed `UtilVarComponentOR` to `UtilOrVarCov`
 * Renamed `UtilVarComponentsDBM` to `UtilDBMVarComp`
 * Removed `UtilOutputReport.R` as `St` output has been updated so this function is no longer needed.
-* All SPLIT-PLOT analyses is now in one function: `StSP`, implemented Dec 1, 2023
+* SPLIT-PLOT (A & C) analyses is now in one function: `StSP`, implemented Dec 1, 2023
 
 ### Changes 05/19/2023
 * Fixed FROC simulator, easier to read code; both simulators are NOT limited to I = 2.

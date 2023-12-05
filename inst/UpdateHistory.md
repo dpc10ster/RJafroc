@@ -2,12 +2,6 @@
 title: "Update History, TODO's and Ideas"
 ---
 
-## version 2.1.3
-
----
-
-
-
 ### Do global search for questionable code
 * marked as follows
 * ???DPC??? or !!!DPC!!!
@@ -27,14 +21,17 @@ title: "Update History, TODO's and Ideas"
 * TODO: `dataset11` fails RSM fitting; `mu` close to zero for several readers as minimum 3 op. points are clustered into effectively two op. points.
 
 
-### CRAN submission v2.1.3 - postponed
-* Bug fix, Issue 90, see below
-* Bug fix, Issue 89, see below
-* Fixed data-entry errors in Excel file (checking column names and data type)
-* TODO: `QuickStart`, new chapter on recommended FOMs and those to avoid at all costs
-* TODO: `QuickStart`, explanation of St output
-* Removed SPLIT-PLOT-A and  SPLIT-PLOT-C analyses: no one is using it and I have no dataset or statistician involvement to validate the implementation. It is still available on versions < 2.1.3.
-* Added it back after inquiry from Zhemin Pan
+### CRAN submission v2.1.3 - postponed until Jan 01, 2024
+* Bug fix, Issue 90
+* Bug fix, Issue 89
+* Fixed user data-entry errors in Excel file (check column names and data type)
+* bootstrap and DeLong in `StORAnalysis` disabled for XMod analysis
+* Renamed `StSignificanceTesting` to `St`
+* Renamed `StSignificanceTestingCadVsRad` to `StCadVsRad`
+* Renamed `UtilVarComponentOR` to `UtilOrVarCov`
+* Renamed `UtilVarComponentsDBM` to `UtilDBMVarComp`
+* Removed `UtilOutputReport.R` as `St` output has been updated so this function is no longer needed.
+* SPLIT-PLOT (A & C) analyses is now in one function: `StSP`, implemented Dec 1, 2023
 
 
 ### Issue 90
@@ -60,7 +57,8 @@ title: "Update History, TODO's and Ideas"
 
 
 ### Changes 05/18/2023
-* Added Obuchowski's idea - tested with rudimentary ROC simulator; works!
+* Combining two independent datasets
+* Added Obuchowski's idea (`inst/obumrm2`) - tested with rudimentary ROC simulator; works!
 * `truthTableStr` is used inconsistently.
 * TODO: `dataset11` fails RSM fitting; `mu` close to zero for several readers as minimum 3 op. points are clustered into effectively two op. points.
 * TODO: Fix `datasets.R`

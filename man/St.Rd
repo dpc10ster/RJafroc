@@ -2,7 +2,7 @@
 % Please edit documentation in R/St.R
 \name{St}
 \alias{St}
-\title{Perform DBM or OR significance testing for a one treatment factorial or 
+\title{DBM or OR significance testing for a one treatment factorial or 
     two-treatment crossed modality factorial dataset (not SPLIT_PLOT)}
 \usage{
 St(
