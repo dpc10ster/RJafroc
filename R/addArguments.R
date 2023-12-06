@@ -1,6 +1,6 @@
 #
 # AddArguments1 <- function(f,n){
-#   # adds n arguments to a function f; returns that new function 
+#   # adds n arguments to a function f; returns that new function
 #   t <- paste("arg <- alist(", paste(names(formals(f)), collapse="=, "), "=, ",
 #              paste(sapply(1:n, function(i) paste("zeta", i, "=", sep = "")), collapse = ", "),
 #              ")", sep= "")

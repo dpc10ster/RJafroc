@@ -7,40 +7,42 @@
 UtilLesDistr(dsOrArr)
 }
 \arguments{
-\item{dsOrArr}{A dataset object from which the lesion distribution is 
+\item{dsOrArr}{A dataset object from which the lesion distribution is
 extracted or a 1D-array specifying the lesion distribution.}
 }
 \value{
-A data frame containing the number of \code{lesionID}s per case, 
+A data frame containing the number of \code{lesionID}s per case,
   \code{lesID}, and the frequency distribution of the \code{lesionID}s,
   \code{Freq}.
 }
 \description{
-The \code{lesionID} distribution of a dataset \bold{or} of a supplied 
-   1D-array. The \code{lesionID} field is described in the format of the Excel 
-   input file, see \href{https://dpc10ster.github.io/RJafrocQuickStart/quick-start-froc.html}{QuickStart}
-   (use Command click to view the link).
+The \code{lesionID} distribution of a dataset \bold{or} of a
+  supplied 1D-array. The \code{lesionID} field is described in the format of
+  the Excel input file, see
+  \href{https://dpc10ster.github.io/RJafrocQuickStart/quick-start-froc.html}{QuickStart}
+  (use Command click to view the link).
 }
 \details{
-Apart from ratings two characteristics of an FROC dataset 
-   affect the FOM: the distribution of \code{lesionID}s per case and the lesion 
-   weights. This function addresses the former. The latter is addressed in 
-   \link{UtilLesWghts}. The return value is a dataframe containing 2 equal 
-   length vectors: the \code{lesionID} labels and the corresponding fractions of 
-   lesions per diseased case in the dataset. For ROC or LROC data this 
-   vector is always \code{c(1)}, since all diseased cases contain one lesion. 
-   For FROC data the first element of the dataframe, i.e., \code{lesID}, 
-   contains the numbers of lesions per diseased case. The second element, 
-   i.e., \code{Freq}, contains the fraction of dis. cases containing one lesion, 
-   the fraction containing two lesions, etc. See \link{PlotRsmOperatingCharacteristics} 
-   for a function that depends on \code{LD}.
+Apart from ratings two characteristics of an FROC dataset affect the
+  FOM: the distribution of \code{lesionID}s per case and the lesion weights.
+  This function addresses the former. The latter is addressed in
+  \link{UtilLesWghts}. The return value is a dataframe containing 2 equal
+  length vectors: the \code{lesionID} labels and the corresponding fractions
+  of lesions per diseased case in the dataset. For ROC or LROC data this
+  vector is always \code{c(1)}, since all diseased cases contain one lesion.
+  For FROC data the first element of the dataframe, i.e., \code{lesID},
+  contains the numbers of lesions per diseased case. The second element,
+  i.e., \code{Freq}, contains the fraction of dis. cases containing one
+  lesion, the fraction containing two lesions, etc. See
+  \link{PlotRsmOperatingCharacteristics} for a function that depends on
+  \code{LD}.
 }
 \examples{
 res <- UtilLesDistr(dataset01) # FROC dataset
 ##    lesID       Freq
 ## 1      1 0.93258427
-## 2      2 0.06741573 
-## In the Excel input file, 93 percent of lesions have lesionID = 1 
+## 2      2 0.06741573
+## In the Excel input file, 93 percent of lesions have lesionID = 1
 ## and the rest have lesionID = 2
 
 
@@ -59,9 +61,9 @@ res <- UtilLesDistr(c(0.5, 0.3, 0.1, 0.1))
 ## 1        1  0.5
 ## 2        2  0.3
 ## 3        3  0.1
-## 4        4  0.1  
-## An example of array input; 50 percent of the cases have lesionID = 1, 
-## 30 percent have lesionID = 2, etc.  
+## 4        4  0.1
+## An example of array input; 50 percent of the cases have lesionID = 1,
+## 30 percent have lesionID = 2, etc.
 
 res <- UtilLesDistr(dataset11) ## big froc dataset
 ##     lesID        Freq
@@ -80,10 +82,10 @@ res <- UtilLesDistr(dataset11) ## big froc dataset
 ## 16     16 0.017391304
 ## 20     20 0.008695652
 
-## TBA!! This dataset has lots of lesions (3D imaging for lung cancer). 
-## The lesionIDs range from 1 to 20 with a few missing, 
+## TBA!! This dataset has lots of lesions (3D imaging for lung cancer).
+## The lesionIDs range from 1 to 20 with a few missing,
 ## e.g., lesionID = 13 is not present in any diseased case.
-## Cases with lesionID = 1 have frequency 0.217, those with lesionID = 16 
+## Cases with lesionID = 1 have frequency 0.217, those with lesionID = 16
 ## have frequency 0.174, those with lesionID = 20 have frequency 0.00870, etc.
 
 }

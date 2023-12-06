@@ -14,82 +14,83 @@ DfReadDataFile(
 )
 }
 \arguments{
-\item{fileName}{A string specifying the name of the file. The file-extension 
+\item{fileName}{A string specifying the name of the file. The file-extension
 must match the \code{format} specified below.}
 
-\item{format}{A string specifying the format of the data file. 
-It can be \code{"JAFROC"}, the default, which requires an \code{.xlsx} 
-Excel file (\bold{not \code{.xls}}), \code{"MRMC"} or \code{"iMRMC"}. 
-For \code{"MRMC"} the format is determined by the data file extension 
-(\code{.csv} or \code{.txt} or \code{.lrc}) 
-as specified in \url{https://perception.lab.uiowa.edu/}. For 
-\code{"iMRMC"} the file extension is \code{.imrmc} and the format is 
-described in \url{https://code.google.com/archive/p/imrmc/}. 
-\bold{See note for important information about deprecation of the 
-\code{"MRMC"} format}.}
+\item{format}{A string specifying the format of the data file. It can be
+\code{"JAFROC"}, the default, which requires an \code{.xlsx} Excel file
+(\bold{not \code{.xls}}), \code{"MRMC"} or \code{"iMRMC"}. For
+\code{"MRMC"} the format is determined by the data file extension
+(\code{.csv} or \code{.txt} or \code{.lrc}) as specified in
+\url{https://perception.lab.uiowa.edu/}. For \code{"iMRMC"} the file
+extension is \code{.imrmc} and the format is described in
+\url{https://code.google.com/archive/p/imrmc/}.
+ \bold{See note for important information about deprecation of the
+ \code{"MRMC"} format}.}
 
-\item{newExcelFileFormat}{Logical. Must be true to read LROC data. 
-This argument only applies to the \code{"JAFROC"} format. 
-The default is \code{TRUE}. If \code{TRUE} the function accommodates 3 
-additional columns in the \code{Truth} worksheet. If \code{FALSE}, 
-the original function (as in version 1.2.0) is used and the three extra 
-columns, if present, throw an error.}
+\item{newExcelFileFormat}{Logical. Must be true to read LROC data. This
+argument only applies to the \code{"JAFROC"} format. The default is
+\code{TRUE}. If \code{TRUE} the function accommodates 3 additional columns
+in the \code{Truth} worksheet. If \code{FALSE}, the original function (as
+in version 1.2.0) is used and the three extra columns, if present, throw an
+error.}
 
-\item{lrocForcedMark}{Logical: For LROC dataset only: is a forced mark required 
-on every image? The default is \code{NA}. If a mark is not required, set 
-it to \code{FALSE} otherwise to \code{TRUE}.}
+\item{lrocForcedMark}{Logical: For LROC dataset only: is a forced mark
+required on every image? The default is \code{NA}. If a mark is not
+required, set it to \code{FALSE} otherwise to \code{TRUE}.}
 
-\item{delimiter}{The string delimiter to be used for the \code{"MRMC"} 
-format ("," is the default), see \url{https://perception.lab.uiowa.edu/}.
-This parameter is not used when reading \code{"JAFROC"} 
-or \code{"iMRMC"} data files.}
+\item{delimiter}{The string delimiter to be used for the \code{"MRMC"} format
+("," is the default), see \url{https://perception.lab.uiowa.edu/}. This
+parameter is not used when reading \code{"JAFROC"} or \code{"iMRMC"} data
+files.}
 
-\item{sequentialNames}{A logical variable: if \code{TRUE}, consecutive integers 
-(starting from 1) will be used as the 
-modality and reader IDs (i.e., names). Otherwise, modality 
-and reader IDs in the original data file will be used.}
+\item{sequentialNames}{A logical variable: if \code{TRUE}, consecutive
+integers (starting from 1) will be used as the modality and reader IDs
+(i.e., names). Otherwise, modality and reader IDs in the original data file
+will be used.}
 }
 \value{
-A dataset with the structure specified in \code{\link{RJafroc-package}}.
+A dataset with the structure specified in
+  \code{\link{RJafroc-package}}.
 }
 \description{
-Read an Excel file and create an ROC, FROC or LROC dataset 
-   object from it.
+Read an Excel file and create an ROC, FROC or LROC dataset
+  object from it.
 }
 \note{
-The \code{"MRMC"} format is deprecated. For non-JAFROC formats four 
-   file extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc}) 
-   are possible, all of which are restricted to ROC data. Only \code{iMRMC} 
-   format is now supported, i.e, files with extension \code{.imrmc}. Other 
-   formats (\code{.csv}, \code{.txt}, \code{.lrc}) are deprecated. Such 
-   files can still be read by this function and then saved to a JAFROC 
-   format file for further analysis within this package. 
-   \bold{For non-JAFROC data file formats, the \code{readerID} and 
+The \code{"MRMC"} format is deprecated. For non-JAFROC formats four
+  file extensions (\code{.csv}, \code{.txt}, \code{.lrc} and \code{.imrmc})
+  are possible, all of which are restricted to ROC data. Only \code{iMRMC}
+  format is now supported, i.e, files with extension \code{.imrmc}. Other
+  formats (\code{.csv}, \code{.txt}, \code{.lrc}) are deprecated. Such files
+  can still be read by this function and then saved to a JAFROC format file
+  for further analysis within this package.
+   \bold{For non-JAFROC data file formats, the \code{readerID} and
    \code{modalityID} fields must be unique integers}.
 
-This function is used only for factorial datasets. For SPLIT-PLOT 
-   datasets use function \link{DfReadSP}.
+This function is used only for factorial datasets. For SPLIT-PLOT
+  datasets use function \link{DfReadSP}.
 }
 \examples{
-fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 
+fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",
 package = "RJafroc", mustWork = TRUE)
 rdrArr1D <- DfReadDataFile(fileName, newExcelFileFormat = TRUE)
 
 
 \donttest{
-fileName <- system.file("extdata", "Roc.xlsx", 
+fileName <- system.file("extdata", "Roc.xlsx",
 package = "RJafroc", mustWork = TRUE)
 RocDataXlsx <- DfReadDataFile(fileName)
 
-fileName <- system.file("extdata", "RocData.csv", 
+fileName <- system.file("extdata", "RocData.csv",
 package = "RJafroc", mustWork = TRUE)
 RocDataCsv<- DfReadDataFile(fileName, format = "MRMC")
 
-fileName <- system.file("extdata", "RocData.imrmc", 
+fileName <- system.file("extdata", "RocData.imrmc",
 package = "RJafroc", mustWork = TRUE)
 RocDataImrmc<- DfReadDataFile(fileName, format = "iMRMC")
 
-fileName <- system.file("extdata", "Froc.xlsx", 
+fileName <- system.file("extdata", "Froc.xlsx",
 package = "RJafroc", mustWork = TRUE)
 FrocDataXlsx <- DfReadDataFile(fileName, sequentialNames = TRUE)
 }

@@ -11,38 +11,41 @@ Df2RJafrocDataset(NL, LL, InputIsCountsTable = FALSE, ...)
 
 \item{LL}{Lesion localizations array (or TP array for ROC data).}
 
-\item{InputIsCountsTable}{If \code{TRUE}, the \code{NL} and \code{LL} 
-arrays are rating-counts tables, with common lengths equal to the 
-number of ratings \code{R}, if \code{FALSE}, the default, these are arrays 
-of lengths \code{K1}, the number of non-diseased cases, and \code{K2}, 
-the number of diseased cases, respectively.}
+\item{InputIsCountsTable}{If \code{TRUE}, the \code{NL} and \code{LL} arrays
+are rating-counts tables, with common lengths equal to the number of
+ratings \code{R}, if \code{FALSE}, the default, these are arrays of lengths
+\code{K1}, the number of non-diseased cases, and \code{K2}, the number of
+diseased cases, respectively.}
 
-\item{...}{Other elements of \pkg{RJafroc} dataset that may, depending on the 
-context, need to be specified. \code{perCase} \strong{must} be specified 
-if an FROC dataset is to be returned. It is a \code{K2}-length array 
+\item{...}{Other elements of \pkg{RJafroc} dataset that may, depending on the
+context, need to be specified. \code{perCase} \strong{must} be specified if
+an FROC dataset is to be returned. It is a \code{K2}-length array
 specifying the numbers of lesions in each diseased case in the dataset.}
 }
 \value{
-A dataset with the structure described in \code{\link{RJafroc-package}}.
+A dataset with the structure described in
+  \code{\link{RJafroc-package}}.
 }
 \description{
-Converts ratings arrays, ROC or FROC, \emph{but not LROC}, to an \pkg{RJafroc} dataset, thereby allowing the 
-user to leverage the file I/O, plotting and analyses capabilities of \pkg{RJafroc}.
+Converts ratings arrays, ROC or FROC, \emph{but not LROC}, to an
+  \pkg{RJafroc} dataset, thereby allowing the user to leverage the file I/O,
+  plotting and analyses capabilities of \pkg{RJafroc}.
 }
 \details{
-The function "senses" the data type (ROC or FROC) from the the absence 
-   or presence of \code{perCase}.
+The function "senses" the data type (ROC or FROC) from the the
+  absence or presence of \code{perCase}.
 \itemize{
-\item{ROC data can be \code{NL[1:K1]} and \code{LL[1:K2]} or \code{NL[1:I,1:J,1:K1]} 
+\item{ROC data can be \code{NL[1:K1]} and \code{LL[1:K2]} or \code{NL[1:I,1:J,1:K1]}
    and \code{LL[1:I,1:J,1:K2]}.}
-\item{FROC data can be \code{NL[1:K1,1:maxNL]} and \code{LL[1:K2, 1:maxLL]} or 
+\item{FROC data can be \code{NL[1:K1,1:maxNL]} and \code{LL[1:K2, 1:maxLL]} or
    \code{NL[1:I,1:J,1:K1,1:maxNL]} and  \code{LL[1:I,1:J,1:K2,1:maxLL]}.}
-} 
- 
- 
-Here \code{maxNL/maxLL} = maximum numbers of NLs/LLs, per case, over entire dataset.  
-Equal weights are assigned to every lesion (FROC data). 
-Consecutive characters/integers starting with "1" are assigned to \code{IDs}, \code{modalityID} and \code{readerID}.
+}
+
+
+  Here \code{maxNL/maxLL} = maximum numbers of NLs/LLs, per case, over entire
+  dataset. Equal weights are assigned to every lesion (FROC data).
+  Consecutive characters/integers starting with "1" are assigned to
+  \code{IDs}, \code{modalityID} and \code{readerID}.
 }
 \examples{
 ## Input as ratings arrays

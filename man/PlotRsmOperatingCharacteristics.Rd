@@ -27,50 +27,51 @@ PlotRsmOperatingCharacteristics(
 
 \item{nu}{Array: the RSM nu parameter.}
 
-\item{zeta1}{Array, the lowest reporting threshold; if missing the default 
-is an array of -Inf.}
+\item{zeta1}{Array, the lowest reporting threshold; if missing the default is
+an array of -Inf.}
 
-\item{lesDistr}{Array: the probability mass function of the 
-lesion distribution for diseased cases. The default is 1. See \link{UtilLesDistr}.}
+\item{lesDistr}{Array: the probability mass function of the lesion
+distribution for diseased cases. The default is 1. See \link{UtilLesDistr}.}
 
-\item{relWeights}{The relative weights of the lesions; a vector of 
-length equal to \code{length(maxLL)}. The default is zero, in which case
-equal weights are assumed.}
+\item{relWeights}{The relative weights of the lesions; a vector of length
+equal to \code{length(maxLL)}. The default is zero, in which case equal
+weights are assumed.}
 
-\item{OpChType}{The type of operating characteristic desired: can be "\code{ROC}", 
-"\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or "\code{pdfs}" or "\code{ALL}". 
-The default is "\code{ALL}".}
+\item{OpChType}{The type of operating characteristic desired: can be
+"\code{ROC}", "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or
+"\code{pdfs}" or "\code{ALL}". The default is "\code{ALL}".}
 
-\item{legendPosition}{The positioning of the legend: "\code{right}", "\code{left}", 
-"\code{top}" or "\code{bottom}". Use "\code{none}" to suppress the legend.}
+\item{legendPosition}{The positioning of the legend: "\code{right}",
+"\code{left}", "\code{top}" or "\code{bottom}". Use "\code{none}" to
+suppress the legend.}
 
-\item{legendDirection}{Allows control on the direction of the legend; 
+\item{legendDirection}{Allows control on the direction of the legend;
 \code{"horizontal"}, the default, or \code{"vertical"}}
 
-\item{legendJustification}{Where to position the legend, default 
-is bottom right corner c(0,1)}
+\item{legendJustification}{Where to position the legend, default is bottom
+right corner c(0,1)}
 
-\item{nlfRange}{\bold{This applies to FROC plot only}. The x-axis range, e.g., c(0,2), 
-for FROC plot. Default is "\code{NULL}", which means the maximum NLF range, 
-as determined by the data.}
+\item{nlfRange}{\bold{This applies to FROC plot only}. The x-axis range,
+e.g., c(0,2), for FROC plot. Default is "\code{NULL}", which means the
+maximum NLF range, as determined by the data.}
 
-\item{llfRange}{\bold{This applies to FROC plot only}. The y-axis range, e.g., c(0,1), 
-for FROC plot. Default is "\code{NULL}", which means the maximum LLF range,
-as determined by the data.}
+\item{llfRange}{\bold{This applies to FROC plot only}. The y-axis range,
+e.g., c(0,1), for FROC plot. Default is "\code{NULL}", which means the
+maximum LLF range, as determined by the data.}
 
-\item{nlfAlpha}{Upper limit of the integrated area under the FROC plot. 
-Default is "\code{NULL}", which means the maximum NLF range is used 
-(i.e., lambda). Attempt to integrate outside the maximum NLF will 
-generate an error.}
+\item{nlfAlpha}{Upper limit of the integrated area under the FROC plot.
+Default is "\code{NULL}", which means the maximum NLF range is used (i.e.,
+lambda). Attempt to integrate outside the maximum NLF will generate an
+error.}
 }
 \value{
-A list containing five \pkg{ggplot2} objects 
-   (ROCPlot, AFROCPlot wAFROCPlot, FROCPlot and PDFPlot) and two area measures 
-   (each of which can have up to two elements), the area under the search 
-   model predicted ROC curves in up to two treatments, the area under the search 
-   model predicted AFROC curves in up to two treatments, the area under the 
-   search model predicted wAFROC curves in up to two treatments, the area under 
-   the search model predicted FROC curves in up to two treatments.
+A list containing five \pkg{ggplot2} objects (ROCPlot, AFROCPlot
+  wAFROCPlot, FROCPlot and PDFPlot) and two area measures (each of which can
+  have up to two elements), the area under the search model predicted ROC
+  curves in up to two treatments, the area under the search model predicted
+  AFROC curves in up to two treatments, the area under the search model
+  predicted wAFROC curves in up to two treatments, the area under the search
+  model predicted FROC curves in up to two treatments.
 \itemize{
 \item{\code{ROCPlot}}   {The predicted ROC plots}
 \item{\code{AFROCPlot}}     {The predicted AFROC plots}
@@ -84,35 +85,39 @@ A list containing five \pkg{ggplot2} objects
 }
 }
 \description{
-Visualize RSM predicted ROC, AFROC, wAFROC and FROC curves, and ROC pdfs, 
-   given \bold{equal-length arrays} of search model parameters: mu, lambda, nu and 
-   zeta1.
+Visualize RSM predicted ROC, AFROC, wAFROC and FROC curves, and
+  ROC pdfs, given \bold{equal-length arrays} of search model parameters: mu,
+  lambda, nu and zeta1.
 }
 \details{
-RSM is the Radiological Search Model described in the book. This 
-   function is vectorized with respect to the first 4 arguments. For 
-   \code{lesDistr} the sum must be one. To indicate that all dis. cases
-   contain 4 lesions, set lesDistr = c(0,0,0,1).
+RSM is the Radiological Search Model described in the book. This
+  function is vectorized with respect to the first 4 arguments. For
+  \code{lesDistr} the sum must be one. To indicate that all dis. cases
+  contain 4 lesions, set lesDistr = c(0,0,0,1).
 }
 \examples{
-## Following example is for mu = 2, lambda = 1, nu = 0.6, in one modality and   
-## mu = 3, lambda = 1.5, nu = 0.8, in the other modality. 20\% of the diseased 
-## cases have a single lesion, 40\% have two lesions, 10\% have 3 lesions, 
-## and 30\% have 4 lesions.  
+## Following example is for mu = 2, lambda = 1, nu = 0.6, in one modality and
+## mu = 3, lambda = 1.5, nu = 0.8, in the other modality. 20\% of the diseased
+## cases have a single lesion, 40\% have two lesions, 10\% have 3 lesions,
+## and 30\% have 4 lesions.
 
 res <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
    lesDistr = c(0.2, 0.4, 0.1, 0.3), legendPosition = "bottom")
 
 }
 \references{
-Chakraborty DP (2006) A search model and figure of merit for observer data acquired according to the free-response 
-paradigm, Phys Med Biol 51, 3449-3462.
+Chakraborty DP (2006) A search model and figure of merit for
+  observer data acquired according to the free-response paradigm, Phys Med
+  Biol 51, 3449-3462.
 
-Chakraborty DP (2006) ROC Curves predicted by a model of visual search, Phys Med Biol 51, 3463--3482.
+  Chakraborty DP (2006) ROC Curves predicted by a model of visual search,
+  Phys Med Biol 51, 3463--3482.
 
-Chakraborty, DP, Yoon, HJ (2008) Operating characteristics predicted by models for diagnostic tasks involving lesion localization, Med Phys, 35:2, 435.
+  Chakraborty, DP, Yoon, HJ (2008) Operating characteristics predicted by
+  models for diagnostic tasks involving lesion localization, Med Phys, 35:2,
+  435.
 
-Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
-Modeling, and Applications with R-Based Examples} (CRC Press, Boca Raton, FL). 
-\url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
+Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations,
+Modeling, and Applications with R-Based Examples} (CRC Press, Boca Raton, FL).
+  \url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 }

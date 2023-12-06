@@ -2,8 +2,8 @@
 % Please edit documentation in R/St.R
 \name{St}
 \alias{St}
-\title{DBM or OR significance testing for a one treatment factorial or 
-    two-treatment crossed modality factorial dataset (not SPLIT_PLOT)}
+\title{DBM or OR significance testing for a one treatment factorial or
+  two-treatment crossed modality factorial dataset (not SPLIT_PLOT)}
 \usage{
 St(
   dataset,
@@ -19,46 +19,46 @@ St(
 )
 }
 \arguments{
-\item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
+\item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}.
 The dataset design can be "FCTRL" or "FCTRL-X-MOD".}
 
 \item{FOM}{The figure of merit, see \code{\link{UtilFigureOfMerit}}}
 
-\item{method}{The significance testing method to be used:
-\code{"DBM"} for the Dorfman-Berbaum-Metz method or \code{"OR"} 
-for the Obuchowski-Rockette method (default).}
+\item{method}{The significance testing method to be used: \code{"DBM"} for
+the Dorfman-Berbaum-Metz method or \code{"OR"} for the Obuchowski-Rockette
+method (default).}
 
-\item{covEstMethod}{The covariance matrix estimation method in \code{ORH} 
-   analysis (for \code{method = "DBM"} the jackknife is always used).
-   \itemize{ 
-   \item \code{"Jackknife"} (default), 
-   \item \code{"Bootstrap"}, in which case \code{nBoots} is relevant, default 
-   200, 
+\item{covEstMethod}{The covariance matrix estimation method in \code{ORH}
+  analysis (for \code{method = "DBM"} the jackknife is always used).
+   \itemize{
+   \item \code{"Jackknife"} (default),
+   \item \code{"Bootstrap"}, in which case \code{nBoots} is relevant, default
+   200,
    \item \code{"DeLong"}; requires \code{FOM = "Wilcoxon" or "ROI" or "HrAuc"}.
 }}
 
-\item{analysisOption}{Determines which factors are regarded as random and 
-    which are fixed:
-\itemize{ 
+\item{analysisOption}{Determines which factors are regarded as random and
+  which are fixed:
+\itemize{
    \item \code{"RRRC"} = random-reader random case (default),
-   \item \code{"FRRC"} = fixed-reader random case, 
-   \item \code{"RRFC"} = random-reader fixed case, 
+   \item \code{"FRRC"} = fixed-reader random case,
+   \item \code{"RRFC"} = random-reader fixed case,
 }}
 
-\item{alpha}{The significance level (alpha) of the test of the null hypothesis 
-that all modality effects are zero (default: alpha = 0.05).}
+\item{alpha}{The significance level (alpha) of the test of the null
+hypothesis that all modality effects are zero (default: alpha = 0.05).}
 
-\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" 
-or "ALROC"; where to evaluate a partial curve based figure of merit. 
-(default: FPFValue = 0.2).}
+\item{FPFValue}{Only needed for \code{LROC} data \strong{and} FOM = "PCL" or
+"ALROC"; where to evaluate a partial curve based figure of merit. (default:
+FPFValue = 0.2).}
 
-\item{nBoots}{The number of bootstraps (defaults to 200), only needed if 
+\item{nBoots}{The number of bootstraps (defaults to 200), only needed if
 \code{covEstMethod = "bootstrap"} and \code{method = "OR"}}
 
-\item{seed}{For bootstraps the seed of the RNG (default: seed = \code{NULL}), 
+\item{seed}{For bootstraps the seed of the RNG (default: seed = \code{NULL}),
 only needed if \code{method = "OR"} and \code{covEstMethod = "bootstrap"}.}
 
-\item{details}{Amount of explanations in output, default is 0 for no 
+\item{details}{Amount of explanations in output, default is 0 for no
 explanations and 1 for explanations.}
 }
 \value{
@@ -69,39 +69,39 @@ Performs DBM or OR significance testing for the dataset.
 }
 \note{
 \code{details} = 0 should suffice for factorial dataset analysis since
-    the names of the output lists are self-explanatory. For cross-modality 
-    analysis \code{details} = 1 is suggested to better understand the output.
+  the names of the output lists are self-explanatory. For cross-modality
+  analysis \code{details} = 1 is suggested to better understand the output.
 }
 \examples{
-result <- St(dataset02,FOM = "Wilcoxon", method = "DBM") 
+result <- St(dataset02,FOM = "Wilcoxon", method = "DBM")
 result <- St(dataset02,FOM = "Wilcoxon", method = "OR")
 result <- St(datasetX, FOM = "wAFROC", method = "OR", analysisOption = "RRRC")
 
 \donttest{
 result <- St(dataset05, FOM = "wAFROC")
-result <- St(dataset05, FOM = "HrAuc", method = "DBM") 
-} 
+result <- St(dataset05, FOM = "HrAuc", method = "DBM")
+}
 
 }
 \references{
-Dorfman DD, Berbaum KS, Metz CE (1992) ROC characteristic rating analysis: 
-Generalization to the Population of Readers and Patients with the Jackknife 
-method, Invest. Radiol. 27, 723-731.
+Dorfman DD, Berbaum KS, Metz CE (1992) ROC characteristic rating
+analysis: Generalization to the Population of Readers and Patients with the
+Jackknife method, Invest. Radiol. 27, 723-731.
 
-Obuchowski NA, Rockette HE (1995) Hypothesis Testing of the Diagnostic 
-Accuracy for Multiple Diagnostic Tests: An ANOVA Approach with Dependent 
-Observations, Communications in Statistics: Simulation and Computation 24, 
+Obuchowski NA, Rockette HE (1995) Hypothesis Testing of the Diagnostic
+Accuracy for Multiple Diagnostic Tests: An ANOVA Approach with Dependent
+Observations, Communications in Statistics: Simulation and Computation 24,
 285-308.
 
-Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader 
+Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader
 multicase radiological imaging data, Statistics in medicine 33, 330-360.
 
-Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of reconstruction 
-methods and x-ray tube current-time product  on nodule detection in an 
-anthropomorphic thorax phantom: a crossed-modality JAFROC observer study. 
-Medical Physics. 43(3):1265-1274.
+Thompson JD, Chakraborty DP, Szczepura K, et al. (2016) Effect of
+reconstruction methods and x-ray tube current-time product  on nodule
+detection in an anthropomorphic thorax phantom: a crossed-modality JAFROC
+observer study. Medical Physics. 43(3):1265-1274.
 
-Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations, 
-Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL. 
+Chakraborty DP (2017) \emph{Observer Performance Methods for Diagnostic Imaging - Foundations,
+Modeling, and Applications with R-Based Examples}, CRC Press, Boca Raton, FL.
 \url{https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840}
 }

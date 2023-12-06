@@ -1427,19 +1427,20 @@ MyFom_ij_SP <- function(nl, ll,
 
 
 #' Read a SPLIT PLOT data file (not factorial)
-#' 
-#' @description Read a disk file and create an ROC or FROC dataset object 
-#' 
-#' @param fileName A string specifying the name of the file. 
-#'    
-#' @return A dataset with the structure specified in \code{\link{RJafroc-package}}.
-#' 
+#'
+#' @description Read a disk file and create an ROC or FROC dataset object
+#'
+#' @param fileName A string specifying the name of the file.
+#'
+#' @return A dataset with the structure specified in
+#'   \code{\link{RJafroc-package}}.
+#'
 #' @examples
-#' fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 
+#' fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",
 #' package = "RJafroc", mustWork = TRUE)
 #' ds <- DfReadSP(fileName)
 #'
-#' 
+#'
 #' @importFrom tools file_ext
 #' @importFrom stringr str_trim str_length
 #' @importFrom readxl excel_sheets

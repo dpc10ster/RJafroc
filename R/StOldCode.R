@@ -1,3 +1,59 @@
+#' Performs DBM or OR significance testing for factorial dataset Old Code
+#'
+#' @description  (DBM) or Obuchowski-Rockette (OR) significance testing, for
+#'   specified dataset.
+#'
+#' @param dataset The dataset to be analyzed.
+#'
+#' @param FOM The figure of merit
+#'
+#' @param FPFValue Only needed for \code{LROC} data.
+#'
+#' @param alpha The significance level of the test; the default is 0.05
+#'
+#' @param method The testing method to be used: \code{"DBM"} (the default),
+#'   representing the Dorfman-Berbaum-Metz method or \code{"OR"}, representing
+#'   the Obuchowski-Rockette method.
+#'
+#' @param covEstMethod The covariance matrix estimation method
+#'
+#' @param nBoots The number of bootstraps (defaults to 200)
+#'
+#' @param analysisOption Determines which factors are regarded as random vs.
+#'   fixed:
+#'
+#' @keywords internal
+#'
+#' @export
+
+# 
+# Code from version 0.0.1 of RJafroc (see RJafroc_0.0.1.tar) 
+# with corrections that fixes the Lucy McGowan found bug in version 0.0.1. 
+# This is intended to check the current code for errors that might creep in as 
+# I attempt to improve the organization of the code and the output.  
+# 
+StOldCode <- function(dataset, FOM, FPFValue = 0.2, alpha = 0.05, method = "DBM", 
+                              covEstMethod = "jackknife", nBoots = 200, analysisOption = "ALL")
+{
+  
+  if (dataset$descriptions$design != "FCTRL") stop("old code requires FCTRL study design")
+  
+  if (method == "DBM"){
+    
+    return(DBMHAnalysis(dataset, FOM, alpha, analysisOption)) # original code: StOldCode.R
+    
+  } else if (method == "OR"){
+    
+    return(ORHAnalysis(dataset, FOM, alpha, covEstMethod, nBoots, analysisOption)) # original code: StOldCode.R
+    
+  } else {
+    errMsg <- sprintf("analysis method must be `DBM` or `OR`", method)
+    stop(errMsg)
+  }
+}
+
+
+
 # Old Code from 0.0.1 (the first version on CRAN)
 # One error in p-value (noted by Lucy D'Agostino McGowan) was corrected prior to 7/27/2023
 # Lots of other similar errors were corrected on 7/27/2023
@@ -38,7 +94,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
   
   fomArray <- UtilFigureOfMerit(dataset, FOM)
   trMeans <- rowMeans(fomArray)
-
+  
   if (FOM %in% c("MaxNLF", "HrSp")) {
     jkFOMArray <- array(dim = c(I, J, K1))
     pseudoValues <- array(dim = c(I, J, K1))
@@ -276,9 +332,9 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
         dfSingleRRRC[i] <- msDenSingleRRRC[i]^2/msRSingle[i]^2 * (J - 1)
         stdErrSingleRRRC[i] <- sqrt(msDenSingleRRRC[i]/J/K)
         CISingleRRRC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, 
-                                    dfSingleRRRC[i]) * stdErrSingleRRRC[i], 
+                                                    dfSingleRRRC[i]) * stdErrSingleRRRC[i], 
                                     trMeans[i] + qt(alpha/2, 
-                                    dfSingleRRRC[i]) * stdErrSingleRRRC[i]))
+                                                    dfSingleRRRC[i]) * stdErrSingleRRRC[i]))
       }
       ciAvgRdrEachTrtRRRC <- data.frame(Treatment = modalityID, 
                                         Area = trMeans, 
@@ -329,7 +385,7 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
       tPr[i] <- 2 * pt(abs(tStat[i]), ddfFRRC, lower.tail = FALSE)
       ################################################################################ 
       CIFRRC[i, ] <- sort(c(diffTRMeans[i] - qt(alpha/2, ddfFRRC) * stdErrFRRC, 
-                          diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
+                            diffTRMeans[i] + qt(alpha/2, ddfFRRC) * stdErrFRRC))
     }
     ciDiffTrtFRRC <- data.frame(Treatment = diffTRName, 
                                 Estimate = diffTRMeans, 
@@ -356,8 +412,8 @@ DBMHAnalysis <- function(dataset, FOM, alpha, analysisOption)
       dfSingleFRRC[i] <- (K - 1)
       stdErrSingleFRRC[i] <- sqrt(msDenSingleFRRC[i]/J/K)
       CISingleFRRC[i, ] <- sort(c(trMeans[i] - qt(alpha/2, 
-                                dfSingleFRRC[i]) * stdErrSingleFRRC[i], 
-                                trMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
+                                                  dfSingleFRRC[i]) * stdErrSingleFRRC[i], 
+                                  trMeans[i] + qt(alpha/2, dfSingleFRRC[i]) * stdErrSingleFRRC[i]))
     }
     ciAvgRdrEachTrtFRRC <- data.frame(Treatment = modalityID, Area = trMeans, StdErr = stdErrSingleFRRC, DF = dfSingleFRRC, CI = CISingleFRRC, row.names = NULL)
     colnames(ciAvgRdrEachTrtFRRC) <- c("Treatment", 

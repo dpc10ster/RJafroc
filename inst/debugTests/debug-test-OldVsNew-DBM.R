@@ -32,7 +32,7 @@ for (d in 1:length(dataset_arr)) {
     } else {
       d <- 1; f <- 1
       ##### RRRC  ############################
-      x1 <- SigTestOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "RRRC")
+      x1 <- StOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "RRRC")
       x2 <- St(dataset, FOM = FOM, method = "DBM", analysisOption = "RRRC")
       
       # $fomArray
@@ -81,7 +81,7 @@ for (d in 1:length(dataset_arr)) {
       expect_equal(old, new)
       
       ##### FRRC ############################
-      x1 <- SigTestOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "FRRC")
+      x1 <- StOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "FRRC")
       x2 <- St(dataset, FOM = FOM, method = "DBM", analysisOption = "FRRC")
       
       # $fomArray
@@ -143,7 +143,7 @@ for (d in 1:length(dataset_arr)) {
       expect_equal(old, new)
       
       ##### FRRC ############################
-      x1 <- SigTestOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "RRFC")
+      x1 <- StOldCode(dataset, FOM = FOM, method = "DBM", analysisOption = "RRFC")
       x2 <- St(dataset, FOM = FOM, method = "DBM", analysisOption = "RRFC")
       
       # $fomArray

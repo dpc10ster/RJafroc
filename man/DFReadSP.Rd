@@ -10,13 +10,14 @@ DfReadSP(fileName)
 \item{fileName}{A string specifying the name of the file.}
 }
 \value{
-A dataset with the structure specified in \code{\link{RJafroc-package}}.
+A dataset with the structure specified in
+  \code{\link{RJafroc-package}}.
 }
 \description{
 Read a disk file and create an ROC or FROC dataset object
 }
 \examples{
-fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx", 
+fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",
 package = "RJafroc", mustWork = TRUE)
 ds <- DfReadSP(fileName)
 
