@@ -106,9 +106,6 @@
     <loc>/reference/RSM_wLLF.html</loc>
   </url>
   <url>
-    <loc>/reference/SigTestOldCode.html</loc>
-  </url>
-  <url>
     <loc>/reference/SimulateCorCbmDataset.html</loc>
   </url>
   <url>
@@ -149,6 +146,9 @@
   </url>
   <url>
     <loc>/reference/StCadVsRad.html</loc>
+  </url>
+  <url>
+    <loc>/reference/StOldCode.html</loc>
   </url>
   <url>
     <loc>/reference/StSP.html</loc>
