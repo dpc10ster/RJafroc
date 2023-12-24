@@ -121,7 +121,7 @@ isValidFOM <- function (dataset, FOM) {
   }
   
   if ((dataset$descriptions$type == "FROC") && 
-       !(FOM %in% c("HrAuc", "HrSe", "HrSp", "AFROC", "wAFROC", "AFROC1", "wAFROC1", "MaxLLF", "MaxNLF", "MaxNLFAllCases"))) {
+       !(FOM %in% c("HrAuc", "HrSe", "HrSp", "AFROC", "wAFROC", "AFROC1", "wAFROC1", "MaxLLF", "MaxNLF", "MaxNLFAllCases", "FROC"))) {
     errMsg <- sprintf("FOM = %s not allowed with FROC data.\n", FOM)
     stop(errMsg)
   }
