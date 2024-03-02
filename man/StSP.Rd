@@ -2,20 +2,19 @@
 % Please edit documentation in R/StSP.R
 \name{StSP}
 \alias{StSP}
-\title{Performs OR significance testing for SPLIT-PLOT A or C datasets}
+\title{Perform significance testing for split-plot datasets}
 \usage{
 StSP(dataset, FOM, alpha = 0.05, analysisOption = "RRRC")
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-Must have two or more treatments and two or more readers. The dataset design
-must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C".}
+The dataset design must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C" (see Note).}
 
 \item{FOM}{The figure of merit}
 
 \item{alpha}{The significance level of the test, default is 0.05}
 
-\item{analysisOption}{Determines which factors are regarded as random vs. fixed:
+\item{analysisOption}{Factors regarded as random vs. those regarded as fixed:
 \itemize{ 
    \item \code{"RRRC"} = random-reader random case, the default,
    \item \code{"FRRC"} = fixed-reader random case, 
@@ -26,16 +25,33 @@ must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C".}
 Results of the analysis
 }
 \description{
-Performs Obuchowski-Rockette (OR) significance testing for 
-   specified dataset.
+Performs Obuchowski-Rockette significance testing for 
+   split-plot datasets as described in Hillis 2014.
+}
+\note{
+Two split-plot designs are supported; these are described in 
+     Table VII in Hillis 2014:
+\itemize{ 
+   \item SPLIT-PLOT-A = {Reader nested within test, labeled (a) in Table VII;
+   see for example \code{rocSpA.xlsx}}
+   \item SPLIT-PLOT-C = {Case nested within reader, labeled (c) in Table VII;
+   see for example \code{rocSpC.xlsx}}
+}
+The included toy ROC datasets are in directory \code{inst/extdata/toyFiles/ROC}.
 }
 \examples{
-fileName <- system.file("extdata", "/toyFiles/ROC/rocSpAZP.xlsx", 
+## Analyze included dataset 
+fileName <- system.file("extdata", "/toyFiles/ROC/rocSpA.xlsx", 
 package = "RJafroc", mustWork = TRUE)
 dsSpA <- DfReadSP(fileName)
 ret <- StSP(dsSpA, FOM = "Wilcoxon")
 
+## Analyze embedded dataset 
 ret <- StSP(datasetFROCSpC, FOM = "wAFROC")
 
 
+}
+\references{
+Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader
+multicase radiological imaging data, Statistics in medicine 33, 330-360.
 }

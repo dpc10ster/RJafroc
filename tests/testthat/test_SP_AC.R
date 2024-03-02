@@ -2,7 +2,7 @@ contextStr <- "StSP_A"
 context(contextStr)
 test_that(contextStr, {
   
-  fileName <- system.file("extdata", "/toyFiles/ROC/rocSpAZP.xlsx", 
+  fileName <- system.file("extdata", "/toyFiles/ROC/rocSpA.xlsx", 
                           package = "RJafroc", mustWork = TRUE)
   dsSpA <- DfReadSP(fileName)
   

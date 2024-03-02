@@ -2,7 +2,7 @@
 % Please edit documentation in R/StSP.R
 \name{DfReadSP}
 \alias{DfReadSP}
-\title{Read a SPLIT PLOT data file (not factorial)}
+\title{Read a split plot data file (not factorial)}
 \usage{
 DfReadSP(fileName)
 }
@@ -17,7 +17,7 @@ A dataset with the structure specified in
 Read a disk file and create an ROC or FROC dataset object
 }
 \examples{
-fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",
+fileName <- system.file("extdata", "toyFiles/ROC/rocSpA.xlsx",
 package = "RJafroc", mustWork = TRUE)
 ds <- DfReadSP(fileName)
 

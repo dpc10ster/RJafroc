@@ -1,17 +1,16 @@
-#' Performs OR significance testing for SPLIT-PLOT A or C datasets
+#' Perform significance testing for split-plot datasets
 #' 
-#' @description  Performs Obuchowski-Rockette (OR) significance testing for 
-#'    specified dataset. 
+#' @description  Performs Obuchowski-Rockette significance testing for 
+#'    split-plot datasets as described in Hillis 2014. 
 #'
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-#'     Must have two or more treatments and two or more readers. The dataset design
-#'     must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C".
+#'     The dataset design must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C" (see Note).
 #'      
 #' @param FOM The figure of merit
 #' 
 #' @param alpha The significance level of the test, default is 0.05
 #'    
-#' @param analysisOption Determines which factors are regarded as random vs. fixed:
+#' @param analysisOption Factors regarded as random vs. those regarded as fixed:
 #' \itemize{ 
 #'    \item \code{"RRRC"} = random-reader random case, the default,
 #'    \item \code{"FRRC"} = fixed-reader random case, 
@@ -22,13 +21,32 @@
 #' 
 #' 
 #' @examples
-#' fileName <- system.file("extdata", "/toyFiles/ROC/rocSpAZP.xlsx", 
+#' ## Analyze included dataset 
+#' fileName <- system.file("extdata", "/toyFiles/ROC/rocSpA.xlsx", 
 #' package = "RJafroc", mustWork = TRUE)
 #' dsSpA <- DfReadSP(fileName)
 #' ret <- StSP(dsSpA, FOM = "Wilcoxon")
 #' 
+#' ## Analyze embedded dataset 
 #' ret <- StSP(datasetFROCSpC, FOM = "wAFROC")
 #' 
+#' 
+#' @note Two split-plot designs are supported; these are described in 
+#'      Table VII in Hillis 2014:
+#' \itemize{ 
+#'    \item SPLIT-PLOT-A = {Reader nested within test, labeled (a) in Table VII;
+#'    see for example \code{rocSpA.xlsx}}
+#'    \item SPLIT-PLOT-C = {Case nested within reader, labeled (c) in Table VII;
+#'    see for example \code{rocSpC.xlsx}}
+#' }
+#' The included toy ROC datasets are in directory \code{inst/extdata/toyFiles/ROC}.
+#' 
+#' 
+#' @references 
+#' Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader
+#' multicase radiological imaging data, Statistics in medicine 33, 330-360.
+#' 
+#'
 #'
 #' @importFrom stats pf pt qt cov pchisq pnorm qnorm
 #' @importFrom Rcpp evalCpp
@@ -1426,7 +1444,7 @@ MyFom_ij_SP <- function(nl, ll,
 
 
 
-#' Read a SPLIT PLOT data file (not factorial)
+#' Read a split plot data file (not factorial)
 #'
 #' @description Read a disk file and create an ROC or FROC dataset object
 #'
@@ -1436,7 +1454,7 @@ MyFom_ij_SP <- function(nl, ll,
 #'   \code{\link{RJafroc-package}}.
 #'
 #' @examples
-#' fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",
+#' fileName <- system.file("extdata", "toyFiles/ROC/rocSpA.xlsx",
 #' package = "RJafroc", mustWork = TRUE)
 #' ds <- DfReadSP(fileName)
 #'
