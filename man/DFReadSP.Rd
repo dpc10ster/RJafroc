@@ -2,19 +2,19 @@
 % Please edit documentation in R/StSP.R
 \name{DfReadSP}
 \alias{DfReadSP}
-\title{Read a split plot data file (not factorial)}
+\title{Read a split plot data file}
 \usage{
 DfReadSP(fileName)
 }
 \arguments{
-\item{fileName}{A string specifying the name of the file.}
+\item{fileName}{String specifying the name of the file.}
 }
 \value{
 A dataset with the structure specified in
   \code{\link{RJafroc-package}}.
 }
 \description{
-Read a disk file and create an ROC or FROC dataset object
+Read disk file and create a dataset object
 }
 \examples{
 fileName <- system.file("extdata", "toyFiles/ROC/rocSpA.xlsx",

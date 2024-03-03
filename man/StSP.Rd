@@ -8,7 +8,12 @@ StSP(dataset, FOM, alpha = 0.05, analysisOption = "RRRC")
 }
 \arguments{
 \item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-The dataset design must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C" (see Note).}
+    The dataset design must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C". 
+\itemize{ 
+    \item SPLIT-PLOT-A = Reader nested within test; Hillis 2014 Table VII part (a). 
+    \item SPLIT-PLOT-C = Case nested within reader; Hillis 2014 Table VII part (c). 
+    \item See Note.
+}}
 
 \item{FOM}{The figure of merit}
 

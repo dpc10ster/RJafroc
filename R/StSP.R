@@ -4,8 +4,12 @@
 #'    split-plot datasets as described in Hillis 2014. 
 #'
 #' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-#'     The dataset design must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C" (see Note).
-#'      
+#'     The dataset design must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C". 
+#' \itemize{ 
+#'     \item SPLIT-PLOT-A = Reader nested within test; Hillis 2014 Table VII part (a). 
+#'     \item SPLIT-PLOT-C = Case nested within reader; Hillis 2014 Table VII part (c). 
+#'     \item See Note.
+#' }     
 #' @param FOM The figure of merit
 #' 
 #' @param alpha The significance level of the test, default is 0.05
@@ -1444,11 +1448,11 @@ MyFom_ij_SP <- function(nl, ll,
 
 
 
-#' Read a split plot data file (not factorial)
+#' Read a split plot data file
 #'
-#' @description Read a disk file and create an ROC or FROC dataset object
+#' @description Read disk file and create a dataset object
 #'
-#' @param fileName A string specifying the name of the file.
+#' @param fileName String specifying the name of the file.
 #'
 #' @return A dataset with the structure specified in
 #'   \code{\link{RJafroc-package}}.
@@ -1812,16 +1816,16 @@ checkTruthTableSP <- function (truthTable)
     # lesionIDCol <- as.integer(truthTable$LesionID)[1:(L/2)]
     weightsCol <- truthTable$Weight[1:(L/2)]
     # preserve the strings; DO NOT convert to integers
-    J <-  0 # find max number of readers, given that his data has 3 readers in one group and 4 in the other group
+    J <-  length(strsplit(readerIDCol[1], split = ",")[[1]])
     for (el in 1:length(readerIDCol)) {
-      if (length(strsplit(readerIDCol[el], split = ",")[[1]]) > J) J <- length(strsplit(readerIDCol[el], split = ",")[[1]])
+      if (length(strsplit(readerIDCol[el], split = ",")[[1]]) != J) stop("Error in ReaderID column; number of readers nested in each modality must be the same.\n")
     }
     rdrArr <- array(dim = c(L,J))
-    for (l in 1:L) {
-      val <- strsplit(readerIDCol[l], split = ",|\\s")[[1]]
+    for (el in 1:L) {
+      val <- strsplit(readerIDCol[el], split = ",|\\s")[[1]]
       val <- val[val != ""]
       for (i in 1:length(val)) {
-        rdrArr[l,i] <- val[i]
+        rdrArr[el,i] <- val[i]
       }
     }
     # preserve the strings; DO NOT convert to integers
@@ -1861,28 +1865,7 @@ checkTruthTableSP <- function (truthTable)
         }
       }
     }
-  } else if (design == "FCTRL") {
-    # preserve the strings; DO NOT convert to integers
-    J <- length(strsplit(readerIDCol[1], split = ",")[[1]]) # bug non-character input error for HUGE dataset
-    rdrArr <- array(dim = c(L,J))
-    for (l in 1:L) {
-      val <- strsplit(readerIDCol[l], split = ",|\\s")[[1]]
-      val <- val[val != ""]
-      for (i in 1:length(val)) {
-        rdrArr[l,i] <- val[i]
-      }
-      # preserve the strings; DO NOT convert to integers
-      I <- length(strsplit(modalityIDCol[1], split = ",")[[1]])
-      trtArr <- array(dim = c(L,I))
-      for (l in 1:L) {
-        val <- strsplit(modalityIDCol[l], split = ",|\\s")[[1]]
-        val <- val[val != ""]
-        for (i in 1:length(val)) {
-          trtArr[l,i] <- val[i]
-        }
-      }
-    }
-  } else stop("incorrect design value")
+  } else stop("incorrect study design: must be SPLIT-PLOT-A or SPLIT-PLOT-C")
   
   if (design == "SPLIT-PLOT-A") {
     rdrArr1D <- t(unique(rdrArr)) # rdrArr is 2-dimensional; rdrArr1D is a one-dimensional array of all the readers in the study
@@ -1916,7 +1899,7 @@ checkTruthTableSP <- function (truthTable)
       i <- which(unique(trtArr) == trtArr[l,])
       j <- which(rdrArr1D == rdrArr[l,])
       truthTableStr[i, j, k, el] <- 1
-    } else stop("incorrect study design")
+    } else stop("incorrect study design: must be SPLIT-PLOT-A or SPLIT-PLOT-C")
   }
   
   perCase <- as.vector(table(caseIDCol[caseIDCol %in% abnormalCases]))
