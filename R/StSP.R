@@ -1,18 +1,20 @@
-#' Perform significance testing for split-plot datasets
+#' Significance testing for split-plot datasets
 #' 
-#' @description  Performs Obuchowski-Rockette significance testing for 
+#' @description  Obuchowski-Rockette significance testing for balanced
 #'    split-plot datasets as described in Hillis 2014. 
 #'
-#' @param dataset The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-#'     The dataset design must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C". 
-#' \itemize{ 
+#' @param dataset 
+#'      
+#' \itemize{
+#'     \item The dataset, see \code{\link{RJafroc-package}}. 
+#'     \item \code{dataset$descriptions$design} must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C". 
 #'     \item SPLIT-PLOT-A = Reader nested within test; Hillis 2014 Table VII part (a). 
 #'     \item SPLIT-PLOT-C = Case nested within reader; Hillis 2014 Table VII part (c). 
-#'     \item See Note.
-#' }     
+#' }
+#'      
 #' @param FOM The figure of merit
 #' 
-#' @param alpha The significance level of the test, default is 0.05
+#' @param alpha The significance level of the test, default 0.05
 #'    
 #' @param analysisOption Factors regarded as random vs. those regarded as fixed:
 #' \itemize{ 
@@ -24,6 +26,20 @@
 #' @return Results of the analysis
 #' 
 #' 
+#' @note Two toy split-plot ROC datasets are in directory 
+#'   \code{inst/extdata/toyFiles/ROC}:
+#' \itemize{ 
+#'    \item SPLIT-PLOT-A dataset \code{rocSpA.xlsx}
+#'    \item SPLIT-PLOT-C dataset \code{rocSpC.xlsx}
+#' }
+#' 
+#' 
+#' @references 
+#' Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader
+#' multicase radiological imaging data, Statistics in medicine 33, 330-360.
+#' 
+#'
+#'
 #' @examples
 #' ## Analyze included dataset 
 #' fileName <- system.file("extdata", "/toyFiles/ROC/rocSpA.xlsx", 
@@ -35,22 +51,6 @@
 #' ret <- StSP(datasetFROCSpC, FOM = "wAFROC")
 #' 
 #' 
-#' @note Two split-plot designs are supported; these are described in 
-#'      Table VII in Hillis 2014:
-#' \itemize{ 
-#'    \item SPLIT-PLOT-A = {Reader nested within test, labeled (a) in Table VII;
-#'    see for example \code{rocSpA.xlsx}}
-#'    \item SPLIT-PLOT-C = {Case nested within reader, labeled (c) in Table VII;
-#'    see for example \code{rocSpC.xlsx}}
-#' }
-#' The included toy ROC datasets are in directory \code{inst/extdata/toyFiles/ROC}.
-#' 
-#' 
-#' @references 
-#' Hillis SL (2014) A marginal-mean ANOVA approach for analyzing multireader
-#' multicase radiological imaging data, Statistics in medicine 33, 330-360.
-#' 
-#'
 #'
 #' @importFrom stats pf pt qt cov pchisq pnorm qnorm
 #' @importFrom Rcpp evalCpp
@@ -58,6 +58,7 @@
 #'
 #'      
 #' @export
+
 StSP <- function(dataset, FOM, alpha = 0.05, analysisOption = "RRRC")
 {
   
@@ -69,481 +70,8 @@ StSP <- function(dataset, FOM, alpha = 0.05, analysisOption = "RRRC")
     
     return(OR_SP_C(dataset, FOM, alpha, analysisOption))
     
-  }
+  } else stop("StSP() function requires a split plot A or C design")
 }
-
-
-
-# Implement formulae in Hillis 2014 modified for unequal numbers of readers 
-# In different treatments; this code assumes two treatments
-OR_SP_A <- function(dataset, FOM, alpha , analysisOption)  
-{
-  
-  I <- dim(dataset$ratings$NL)[1]; if (I != 2) stop(" ORAnalysisSplitPlotA assumes two treatments")
-  J <- dim(dataset$ratings$NL)[2]
-  modalityID <- dataset$descriptions$modalityID
-  
-  theta_ij <- as.matrix(FOM_SP(dataset, FOM))
-  
-  theta_i_dot <- array(dim = I) # average over readers, the indices are i followed by j
-  J_i <- array(dim = I) # number of readers in treatment i
-  for (i in 1:I) {
-    J_i[i] <- length(theta_ij[i,][!is.na(theta_ij[i,])])
-    theta_i_dot[i] <- mean(theta_ij[i,][!is.na(theta_ij[i,])])
-  }
-  theta_dot_dot <- mean(theta_i_dot) # average over rdrs and trts
-  
-  trtMeanDiffs <- theta_i_dot[1] - theta_i_dot[2] # restricted to two modalities for now
-  diffTRName <- paste0("trt", modalityID[1], sep = "-", "trt", modalityID[2])
-  trtMeanDiffs_df <- data.frame("Estimate" = trtMeanDiffs,
-                                row.names = diffTRName,
-                                stringsAsFactors = FALSE)
-  
-  FOMs <- list(
-    foms = theta_ij,
-    trtMeans = theta_i_dot,
-    trtMeanDiffs = trtMeanDiffs_df
-  )
-  
-  # msT denotes MS(T), in Hillis 2014 p 344
-  msT <- 0
-  for (i in 1:I) {
-    # adapted from Hillis 2014, definition of MS(T), just after Eqn. 4
-    # move the treatment specific J_i[i] inside the i-summation showed there
-    msT <- msT + J_i[i]*(mean(theta_i_dot[i]) - theta_dot_dot)^2
-  }
-  msT <- msT/(I - 1) # the common J used to appear here: J*msT/(I - 1)
-  
-  # following is needed for CI on avg. FOM, see below
-  # MS(R)_i = sum_j(theta_dot_j - theta_dot_dot)^2/(J_i-1)
-  msR_i <- array(0, dim = I)
-  for (i in 1:I) {
-    for (j in 1:J_i[i]) {
-      msR_i[i] <- msR_i[i] + 
-        (mean(theta_ij[,j][!is.na(theta_ij[,j])]) - theta_dot_dot)^2
-      # first term on rhs is theta_dot_j
-    }
-    msR_i <- msR_i / (J_i[i] - 1 )
-  }
-  
-  # msR_T_ denotes MS[R(T)], in Hillis 2014 p 344, where R(T) is reader nested within treatment
-  # adapted from Hillis 2014, definition of MS[R(T)], last line on page 344
-  # move the treatment specific J_i[i] inside the i-summation showed there
-  msR_T_ <- 0
-  msR_T_i <- rep(0,I)
-  for (i in 1:I) {
-    for (j in 1:J) {
-      if (is.na(theta_ij[i, j])) next
-      msR_T_i[i] <- msR_T_i[i] + (theta_ij[i, j] - theta_i_dot[i])^2 / (J_i[i] - 1)
-    }
-  }
-  msR_T_ <- sum(msR_T_i) / I
-  
-  trtNames <- NULL
-  for (i in 1:I) {
-    trtNames <- c(trtNames, paste0("trt", modalityID[i]))
-  }
-  
-  ret1 <- Pseudovalues(dataset, FOM)
-  ret <- FOMijk2VarCovSpA(ret1$jkFomValues, varInflFactor = TRUE)
-  Var_i <- ret$Var_i
-  Cov2_i <- ret$Cov2_i
-  Cov3_i <- ret$Cov3_i
-  
-  ANOVA <- data.frame("msT" = c(msT, NA),
-                      "msR" = msR_i,
-                      "msR_T_" = msR_T_,
-                      "Var_i" = Var_i,
-                      "Cov2_i" = Cov2_i,
-                      "Cov3_i" = Cov3_i,
-                      stringsAsFactors = FALSE)  
-  rownames(ANOVA) <- trtNames
-  
-  # now do the F_OR statistic; den = denominator of last equation on page 344
-  # minus the MS[R(T)] term
-  # the contributions of the two reader groups have been separately added
-  den <- 0
-  for (i in 1:I) den <- den + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0)
-  F_OR <- msT/(msR_T_ + den) # add the the MS[R(T)] term to den
-  # Note: above expression reduces to equal-reader form
-  
-  # now implement the df3 formula on page 345
-  # Assumption: degrees of freedom for each treatment can be added
-  df2 <- 0
-  for (i in 1:I) { 
-    # temp = num. of expression on r.h.s. of Eqn. 27, 
-    # separated into contribution from each treatment
-    temp <- (msR_T_i[i] +  J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))^2
-    # divide by the denominator and multiply by (J_i[i]-1)
-    # The I term is not needed, as we are summing contribution from each treatment
-    temp <- temp /(msR_T_i[i]^2)*(J_i[i]-1)
-    # cat("df2 for modality = ", temp, "\n")
-    # Add to df2
-    df2 <- df2 + temp
-  } 
-  # above expression reduces to equal-reader form 
-  # note absence of I-factor on rhs
-  # because it is effectively "in there" due to the summation over i
-  
-  # compute the p-value
-  pValue <- 1 - pf(F_OR, I - 1, df2)
-  # F_OR_num_den = array with two elements, the numerator of the expression for
-  # F_OR followed by the denominator
-  # DF = degrees of freedom array, numerator followed by denominator
-  RRRC <- list()
-  RRRC$FTests <- data.frame(DF = c((I-1),df2),
-                            "F_OR_num_den" = c(msT, msR_T_ + den),
-                            FStat = c(F_OR, NA),
-                            p = c(pValue, NA),
-                            row.names = c("Treatment", "Error"),
-                            stringsAsFactors = FALSE)
-  
-  # confidence intervals for difference FOM, trtMeanDiffs, 
-  # as on page 346, first para; note that trtMeanDiffs = theta_1_dot - theta_2_dot
-  # l_1 = 1; l_2 = - 1
-  # Note to myself: Hillis does not state a constraint on the l_i, namely they 
-  # should sum to zero; otherwise one could use l_1 = l_2 = 1/2 and compute the CI
-  # on the average FOM using the very same method, which is not right
-  V_hat <- 0
-  for (i in 1:I) {
-    V_hat <- V_hat + 
-      (1 / J_i[i]) * 2 * (msR_T_i[i] + J_i[i] * max(Cov2_i[i]-Cov3_i[i],0))
-  }
-  stdErr <- sqrt(V_hat)
-  
-  # again, this is restricted to two modalities  
-  alpha <- 0.05
-  CI <- sort(c(trtMeanDiffs - qt(alpha/2, df2) * stdErr, 
-               trtMeanDiffs + qt(alpha/2, df2) * stdErr))
-  RRRC$ciDiffTrt <- data.frame(Estimate = trtMeanDiffs, 
-                               StdErr = stdErr, 
-                               DF = df2, 
-                               CILower = CI[1],
-                               CIUpper = CI[2], 
-                               row.names = "trt1-trt2", 
-                               stringsAsFactors = FALSE)
-  
-  # confidence intervals for average FOM, as on page 346, first para
-  # second method, using only data from each modality
-  V_hat_i <- array(0, dim = I)
-  df2_i <- array(dim = I)
-  stdErr_i <- array(dim = I)
-  ciAvgRdrEachTrt <- array(dim = c(I,2))
-  ci <- data.frame()
-  for (i in 1:I) {
-    V_hat_i[i] <- {
-      V_hat_i[i] + 
-        # this is the formula for V_hat_i[i] in the text area in the middle of page 346
-        # after we account for the different number of readers in each treatment
-        (1 / J_i[i]) * (msR_i[i] + J_i[i] * max(Cov2_i[i],0))
-    }
-    # this is the formula for df2_i[i] in the text area in the middle of page 346
-    # after we account for the different number of readers in each treatment
-    df2_i[i] <- (msR_i[i] +  J_i[i] * max(Cov2_i[i],0))^2/(msR_i[i]^2)*(J_i[i]-1)
-    stdErr_i[i] <- sqrt(V_hat_i[i])
-    ciAvgRdrEachTrt[i,] <- sort(c(theta_i_dot[i] - qt(alpha/2, df2_i[i]) * stdErr_i[i], 
-                                  theta_i_dot[i] + qt(alpha/2, df2_i[i]) * stdErr_i[i]))
-    rowName <- paste0("trt", modalityID[i])
-    ci <- rbind(ci, data.frame(Estimate = theta_i_dot[i], 
-                               StdErr = stdErr_i[i],
-                               DF = df2_i[i],
-                               CILower = ciAvgRdrEachTrt[i,1],
-                               CIUpper = ciAvgRdrEachTrt[i,2],
-                               row.names = rowName,
-                               stringsAsFactors = FALSE))
-  }
-  RRRC$ciAvgRdrEachTrt <- ci  
-  
-  return(list(
-    FOMs = FOMs,
-    ANOVA = ANOVA,
-    RRRC = RRRC
-  ))
-  
-} 
-
-
-
-OR_SP_C <- function(dataset, FOM, alpha, analysisOption)  
-{
-  
-  RRRC <- NULL
-  FRRC <- NULL
-  RRFC <- NULL
-  
-  modalityID <- dataset$descriptions$modalityID
-  I <- length(modalityID)
-  
-  # `as.matrix` is NOT absolutely necessary as `mean()` function is not used
-  foms <- FOM_SP(dataset, FOM)
-  
-  ret <- ORVarComponentsSpC(dataset, FOM)
-  
-  TRanova <- ret$TRanova
-  VarCom <-  ret$VarCom
-  IndividualTrt <- ret$IndividualTrt
-  IndividualRdr <- ret$IndividualRdr
-  
-  ANOVA <- list()
-  ANOVA$TRanova <- TRanova
-  ANOVA$VarCom <- VarCom
-  ANOVA$IndividualTrt <- IndividualTrt
-  ANOVA$IndividualRdr <- IndividualRdr
-  
-  trtMeans <- rowMeans(foms)
-  trtMeans <- as.data.frame(trtMeans)
-  colnames(trtMeans) <- "Estimate"
-  
-  trtMeanDiffs <- array(dim = choose(I, 2))
-  diffTrtName <- array(dim = choose(I, 2))
-  ii <- 1
-  for (i in 1:I) {
-    if (i == I) 
-      break
-    for (ip in (i + 1):I) {
-      trtMeanDiffs[ii] <- trtMeans[i,1] - trtMeans[ip,1]
-      diffTrtName[ii] <- paste0("trt", modalityID[i], sep = "-", "trt", modalityID[ip]) # !sic
-      ii <- ii + 1
-    }
-  }
-  trtMeanDiffs <- data.frame("Estimate" = trtMeanDiffs,
-                             row.names = diffTrtName,
-                             stringsAsFactors = FALSE)
-  
-  FOMs <- list(
-    foms = foms,
-    trtMeans = trtMeans,
-    trtMeanDiffs = trtMeanDiffs
-  )
-  
-  if (analysisOption == "RRRC") {
-    RRRC <- OR_RRRC_SP(dataset, FOMs, ANOVA, alpha, diffTrtName)
-    return(list(
-      FOMs = FOMs,
-      ANOVA = ANOVA,
-      RRRC = RRRC
-    ))
-  }  
-  
-  if (analysisOption == "FRRC") {
-    FRRC <- OR_FRRC_SP(dataset, FOMs, ANOVA, alpha, diffTrtName)
-    return(list(
-      FOMs = FOMs,
-      ANOVA = ANOVA,
-      FRRC = FRRC
-    ))
-  }  
-  
-  if (analysisOption == "RRFC") {
-    RRFC <- OR_RRFC_SP(dataset, FOMs, ANOVA, alpha, diffTrtName)
-    return(list(
-      FOMs = FOMs,
-      ANOVA = ANOVA,
-      RRFC = RRFC
-    ))
-  }  
-  
-  if (analysisOption == "ALL") {
-    RRRC <- OR_RRRC_SP(dataset, FOMs, ANOVA, alpha, diffTrtName)
-    FRRC <- OR_FRRC_SP(dataset, FOMs, ANOVA, alpha, diffTrtName)
-    RRFC <- OR_RRFC_SP(dataset, FOMs, ANOVA, alpha, diffTrtName)
-    return(list(
-      FOMs = FOMs,
-      ANOVA = ANOVA,
-      RRRC = RRRC,
-      FRRC = FRRC,
-      RRFC = RRFC
-    ))
-  }  else stop("Incorrect analysisOption: must be `RRRC`, `FRRC`, `RRFC` or `ALL`")
-  
-} 
-
-
-
-ORVarComponentsSpC <- function (dataset, FOM)
-{
-  
-  if (dataset$descriptions$design != "SPLIT-PLOT-C") stop("This functions requires a SPLIT-PLOT-C dataset")  
-  
-  I <- dim(dataset$ratings$NL)[1]
-  J <- dim(dataset$ratings$NL)[2]
-  
-  theta_ij <- as.matrix(FOM_SP(dataset, FOM))
-  
-  theta_dot_dot <- mean(theta_ij[,]) # this fails if `theta_ij` is a dataframe; true for `mean` and `median`
-  
-  if (I > 1) {
-    msT <- 0
-    for (i in 1:I) {
-      msT <- msT + (mean(theta_ij[i, ]) - theta_dot_dot)^2
-    }
-    msT <- J * msT/(I - 1)
-  } else msT <- NA
-  
-  if (J > 1) {
-    msR <- 0
-    for (j in 1:J) {
-      msR <- msR + (mean(theta_ij[, j]) - theta_dot_dot)^2
-    }
-    msR <- I * msR/(J - 1)
-  } else msR <- NA
-  
-  if ((I > 1) && (J > 1)) {
-    msTR <- 0
-    for (i in 1:I) {
-      for (j in 1:J) {
-        msTR <- msTR + (theta_ij[i, j] - mean(theta_ij[i, ]) - mean(theta_ij[, j]) + theta_dot_dot)^2
-      }
-    }
-    msTR <- msTR/((J - 1) * (I - 1))
-  } else msTR <- NA
-  
-  msArray <- c(msT, msR, msTR)
-  dfArray <- c(I - 1, J - 1, (I - 1) * (J - 1))
-  ssArray <- msArray * dfArray
-  
-  TRanova <- data.frame("SS" = ssArray, 
-                        "DF" = dfArray, 
-                        "MS" = msArray,
-                        stringsAsFactors = FALSE)  
-  rownames(TRanova) <- c("T", "R", "TR")
-  
-  # single treatment msR_i ############################################################
-  if (J > 1) {
-    msR_i <- array(0, dim = I)
-    for (i in 1:I) {
-      for (j in 1:J) {
-        msR_i[i] <- msR_i[i] + (theta_ij[i, j] -  mean(theta_ij[i,]))^2
-      }
-    }
-    msR_i <- msR_i/(J - 1)
-  } else msR_i <- NA
-  
-  cov2EachTrt <- vector(length = I)
-  varEachTrt <- vector(length = I)
-  for (i in 1:I) {
-    dsi <- DfExtractDataset(dataset, trts = i)
-    ret <- OrVarCovMatrixSpC(dsi, FOM)
-    varEachTrt[i] <- ret$Var
-    cov2EachTrt[i] <- ret$Cov2
-  }
-  
-  modID <- as.vector(dataset$descriptions$modalityID)
-  IndividualTrt <- data.frame(DF = rep(J-1, I), 
-                              msREachTrt = msR_i, 
-                              varEachTrt = varEachTrt, 
-                              cov2EachTrt = cov2EachTrt, 
-                              row.names = paste0("trt", modID),
-                              stringsAsFactors = FALSE)
-  # } else IndividualTrt <- NA # these are not defined for split-plot-c datasets
-  
-  # single reader msT_j ###############################################################
-  if (I > 1) {
-    msT_j <- array(0, dim = J)
-    for (j in 1:J) {
-      for (i in 1:I) {
-        msT_j[j] <- msT_j[j] + (mean(theta_ij[i, j]) -  mean(theta_ij[,j]))^2
-      }
-      msT_j[j] <- msT_j[j]/(I - 1)
-    }
-  } else msT_j <- NA
-  
-  varEachRdr <- vector(length = J)
-  cov1EachRdr <- vector(length = J)
-  for (j in 1:J) {
-    dsj <- DfExtractDataset(dataset, rdrs = j)
-    ret <- OrVarCovMatrixSpC(dsj, FOM)
-    varEachRdr[j] <- ret$Var
-    cov1EachRdr[j] <- ret$Cov1
-  }
-  
-  rdrID <- as.vector(dataset$descriptions$readerID)
-  if (I > 1) {
-    IndividualRdr <- data.frame(DF = rep(I-1, J), 
-                                msTEachRdr = msT_j, 
-                                varEachRdr = varEachRdr, 
-                                cov1EachRdr = cov1EachRdr, 
-                                row.names = paste0("rdr", rdrID),
-                                stringsAsFactors = FALSE)
-  } else IndividualRdr <- NA
-  #####################################################################################
-  ret <- OrVarCovMatrixSpC(dataset, FOM)
-  Var <- ret$Var
-  Cov1 <- ret$Cov1
-  Cov2 <- ret$Cov2
-  Cov3 <- ret$Cov3
-  
-  if (I > 1) {
-    # Following equation is in marginal means paper, page 333
-    # and in Hillis 2011 Eqn 9
-    VarTR <- msTR - Var + Cov1 + max(Cov2 - Cov3, 0)
-    # NOTE on discrepancy between Var(R) and Var(TR) values reported by
-    # OR-DBM MRMC 2.51 Build 20181028 and my code for Franken dataset
-    # Their code does not implement the max() constraint while mine does
-    # my code reports VarTR = -0.00068389146 while their code reports
-    # VarTR = -0.00071276; This is shown explicitly next:
-    # msTR - Var + Cov1 + max(Cov2 - Cov3, 0) = -0.00068389146 
-    # msTR - Var + Cov1 +     Cov2 - Cov3     = -0.00071276 
-    # This also affects the VarR values calculated next (see next block of comments)
-    # Cov1, Cov2, Cov3 and Var are the same between both codes
-  } else VarTR <- NA
-  
-  # See Hillis 2006 Table 1 2nd eauation
-  VarR <- (msR - VarTR - Var + Cov2 - (I-1)*(Cov1 - Cov3))/I
-  # Their code reports: VarR = 0.00003766 
-  # my code reports: VarR = 2.3319942e-05
-  # This is shown explicitly next:
-  # (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - (-0.00071276))/I = 3.7754211e-05
-  # (msR - Var - (I - 1) * Cov1 + Cov2 + (I - 1) * Cov3 - VarTR)/I = 2.3319942e-05
-  VarCom <- data.frame(Estimates = c(VarR, VarTR, Cov1, Cov2, Cov3, Var), 
-                       Rhos = c(NA, NA, Cov1/Var, Cov2/Var, Cov3/Var, NA),
-                       row.names = c("VarR", "VarTR", "Cov1", "Cov2", "Cov3", "Var"),
-                       stringsAsFactors = FALSE)
-  return(list(
-    TRanova = TRanova,
-    VarCom = VarCom,
-    IndividualTrt = IndividualTrt,
-    IndividualRdr = IndividualRdr
-  ))
-  
-}
-
-
-
-OrVarCovMatrixSpC <- function(dataset, FOM) 
-{
-  if (dataset$descriptions$design != "SPLIT-PLOT-C") stop("This functions requires a split plot C dataset")  
-  
-  I <- length(dataset$ratings$NL[,1,1,1])
-  J <- length(dataset$ratings$NL[1,,1,1])
-  
-  ret <- Pseudovalues(dataset, FOM)
-  Var <- array(dim = J)
-  Cov1 <- array(dim = J)
-  caseTransitions <- ret$caseTransitions
-  for (j in 1:J) {
-    jkFOMs <- ret$jkFomValues[,j,(caseTransitions[j]+1):(caseTransitions[j+1]), drop = FALSE]
-    kj <- length(jkFOMs)/I
-    dim(jkFOMs) <- c(I,1,kj)
-    x <- FOMijk2VarCov(jkFOMs, varInflFactor = FALSE)
-    # not sure which way to go: was doing this until 2/18/20
-    # Var[j]  <-  x$Var * (K-1)^2/K
-    # Cov1[j]  <-  x$Cov1 * (K-1)^2/K
-    # following seems more reasonable as reader j only interprets kj cases
-    # updated file ~Dropbox/RJafrocChecks/StfrocSp.xlsx
-    Var[j]  <-  x$Var * (kj-1)^2/kj
-    Cov1[j]  <-  x$Cov1 * (kj-1)^2/kj
-  }
-  Cov <- list(
-    Var = mean(Var),
-    Cov1 = mean(Cov1),
-    Cov2 = 0,
-    Cov3 = 0
-  )
-  
-  return(Cov)
-  
-}  
 
 
 
@@ -634,89 +162,6 @@ FOMijk2VarCov <- function(resampleFOMijk, varInflFactor) {
     Cov1 = Cov1,
     Cov2 = Cov2,
     Cov3 = Cov3
-  ))
-  
-}
-
-
-
-FOMijk2VarCovSpA <- function(resampleFOMijk, varInflFactor) {
-  
-  I <- dim(resampleFOMijk)[1]
-  J <- dim(resampleFOMijk)[2]
-  K <- dim(resampleFOMijk)[3]
-  
-  covariances <- array(dim = c(I, I, J, J))
-  for (i in 1:I) {
-    for (ip in 1:I) {
-      for (j in 1:J) {
-        for (jp in 1:J) {
-          if (any(is.na(resampleFOMijk[i, j, ])) || any(is.na(resampleFOMijk[ip, jp, ]))) next
-          covariances[i, ip, j, jp] <- cov(resampleFOMijk[i, j, ], resampleFOMijk[ip, jp, ])
-        }
-      }
-    }
-  }
-  
-  # See dropbox/RjafrocMaintenance/SpAMethods/Cov2Cov3Str.xlsx for hand calculations
-  Var_i <- rep(0,I)
-  count_i <- rep(0,I)
-  for (i in 1:I) {
-    rdr_i <- which(!is.na(resampleFOMijk[i,,1]))
-    for (j in 1:length(rdr_i)) {
-      if (is.na(covariances[i, i, rdr_i[j], rdr_i[j]])) next
-      Var_i[i] <- Var_i[i] + covariances[i, i, rdr_i[j], rdr_i[j]]
-      count_i[i] <- count_i[i] + 1
-    }
-    if (count_i[i] > 0) Var_i[i] <- Var_i[i]/count_i[i] else Var_i[i] <- 0
-  }
-  
-  Cov2_i <- rep(0,I)
-  count_i <- rep(0,I)
-  for (i in 1:I) {
-    rdr_i <- which(!is.na(resampleFOMijk[i,,1]))
-    for (j in 1:length(rdr_i)) {
-      for (jp in 1:length(rdr_i)) {
-        if (rdr_i[j] != rdr_i[jp]) {
-          if (is.na(covariances[i, i, rdr_i[j], rdr_i[jp]])) next
-          Cov2_i[i] <- Cov2_i[i] + covariances[i, i, rdr_i[j], rdr_i[jp]]
-          count_i[i] <- count_i[i] + 1
-        }
-      }
-    }
-    if (count_i[i] > 0) Cov2_i[i] <- Cov2_i[i]/count_i[i] else Cov2_i[i] <- 0
-  }
-  
-  Cov3_i <- rep(0,I)
-  count_i <- rep(0,I)
-  for (i in 1:I) {
-    for (ip in 1:I) {
-      rdr_i <- which(!is.na(resampleFOMijk[i,,1]))
-      rdr_ip <- which(!is.na(resampleFOMijk[ip,,1]))
-      if (i != ip) {
-        for (j in 1:length(rdr_i)) {
-          for (jp in 1:length(rdr_ip)) {
-            if (rdr_i[j] != rdr_ip[jp]) {
-              if (is.na(covariances[i, ip, rdr_i[j], rdr_ip[jp]])) next
-              Cov3_i[i] <- Cov3_i[i] + covariances[i, ip, rdr_i[j], rdr_ip[jp]]
-              count_i[i] <- count_i[i] + 1
-            }
-          }
-        }
-      }
-    }
-    if (count_i[i] > 0) Cov3_i[i] <- Cov3_i[i]/count_i[i] else Cov3_i[i] <- 0
-  }
-  
-  if (varInflFactor)  {
-    Var_i <-  Var_i * (K - 1)^2/K  # see paper by Efron and Stein 
-    Cov2_i  <-  Cov2_i * (K - 1)^2/K
-    Cov3_i <-  Cov3_i  * (K - 1)^2/K
-  }
-  
-  return(list(Var_i = Var_i,
-              Cov2_i = Cov2_i,
-              Cov3_i = Cov3_i
   ))
   
 }
@@ -1064,7 +509,6 @@ OR_RRRC_SP <- function(dataset, FOMs, ANOVA, alpha, diffTRName) {
   # Df same as df(error term) from (a)
   # 95% CI: Difference +- t(.025;df) * StdErr
   
-  # if (dataset$descriptions$design == "FCTRL") {
   #   c) Single-treatment 95% confidence intervals
   # (Each analysis is based only on data for the specified treatment, i.e., 
   #   on the treatment-specific reader ANOVA of AUCs and Cov2 estimates.)
@@ -1135,25 +579,25 @@ convert2dataset <- function(NL, LL, LL_IL,
 
 FOM_SP <- function(dataset, FOM = "wAFROC") { # dpc
   
-  dataType <- dataset$descriptions$type
-  if (dataType == "ROC" && FOM != "Wilcoxon") {
-    errMsg <- paste0("Must use Wilcoxon figure of merit with ROC data.")
-    stop(errMsg)
-  }
-  
-  if (dataType == "ROI" && FOM != "ROI") {
-    cat("Incorrect FOM supplied for ROI data, changing to 'ROI'\n")
-    FOM <- "ROI"
-  }
-  
-  if (!(dataType %in% c("ROC", "LROC")) && FOM == "Wilcoxon")
-    stop("Cannot use `Wilcoxon` FOM with `FROC` or `ROI` data.")
-  
-  if (dataType != "ROI" && FOM == "ROI") {
-    errMsg <- paste0("Only ROI data can be analyzed using ROI figure of merit.")
-    stop(errMsg)
-  }
-  
+  # dataType <- dataset$descriptions$type
+  # if (dataType == "ROC" && FOM != "Wilcoxon") {
+  #   errMsg <- paste0("Must use Wilcoxon figure of merit with ROC data.")
+  #   stop(errMsg)
+  # }
+  # 
+  # if (dataType == "ROI" && FOM != "ROI") {
+  #   cat("Incorrect FOM supplied for ROI data, changing to 'ROI'\n")
+  #   FOM <- "ROI"
+  # }
+  # 
+  # if (!(dataType %in% c("ROC", "LROC")) && FOM == "Wilcoxon")
+  #   stop("Cannot use `Wilcoxon` FOM with `FROC` or `ROI` data.")
+  # 
+  # if (dataType != "ROI" && FOM == "ROI") {
+  #   errMsg <- paste0("Only ROI data can be analyzed using ROI figure of merit.")
+  #   stop(errMsg)
+  # }
+  # 
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
   
@@ -1173,11 +617,12 @@ FOM_SP <- function(dataset, FOM = "wAFROC") { # dpc
   
   maxNL <- dim(NL)[4]
   maxLL <- dim(LL)[4]
-  fomArray <- array(dim = c(I, J))
-  for (i in 1:I) {
-    for (j in 1:J) {
-      if (design == "SPLIT-PLOT-A") {
-        if (all(is.na(t[i,j,,1]))) next # if t[] for all normal   cases for selected i,j are NAs, skip 
+  fomArray <- array(dim = c(I, J/I))
+  if (design == "SPLIT-PLOT-A") {
+    for (i in 1:I) {
+      for (j in (J/I*(i-1)+1):(J/I*i)) {
+        j1 <- j-J/I*(i-1) 
+        if (all(is.na(t[i,j,,1]))) next # if t[] for all normal cases for selected i,j are NAs, skip 
         if (all(is.na(t[i,j,,2]))) next # if t[] for all abnormal cases for selected i,j are NAs, skip 
         k1_ij_sub <- !is.na(t[i,j,,1]) | !is.na(t[i,j,,2]) # see comments for SPLIT-PLOT-C
         k2_ij_sub <- !is.na(t[i,j,,2])[(K1+1):K] # ditto:
@@ -1191,39 +636,37 @@ FOM_SP <- function(dataset, FOM = "wAFROC") { # dpc
         lW_ij <- dataset$lesions$weights[k2_ij_sub,1:maxLL_ij, drop = FALSE]
         dim(nl_ij) <- c(k1ij+k2ij, maxNL)
         dim(ll_ij) <- c(k2ij, maxLL_ij)
-        fomArray[i, j] <- MyFom_ij_SP(nl_ij, ll_ij, perCase_ij, lID_ij, lW_ij, maxNL, maxLL_ij, k1ij, k2ij, FOM)
+        fomArray[i, j1] <- MyFom_ij_SP(nl_ij, ll_ij, perCase_ij, lID_ij, lW_ij, maxNL, maxLL_ij, k1ij, k2ij, FOM)
         next
-      } else if (design == "SPLIT-PLOT-C") {
-        if (all(is.na(t[i,j,,1]))) next # if t[] for all normal   cases for selected i,j are NAs, skip 
-        if (all(is.na(t[i,j,,2]))) next # if t[] for all abnormal cases for selected i,j are NAs, skip 
-        # k1 refers to normal   case k-indices
-        # k2 refers to abnormal case k-indices
-        k1_ij_sub <- !is.na(t[i,j,,1]) | !is.na(t[i,j,,2]) # k1-indices of all cases meeting the i,j criteria
-        k2_ij_sub <- !is.na(t[i,j,,2])[(K1+1):K] # k2-indices of all cases meeting the i,j criteria
-        nl_ij <- NL[i, j, k1_ij_sub, ] # NL ratings for all cases meeting the i,j criteria
-        perCase_ij <- dataset$lesions$perCase[k2_ij_sub] # perCase indices for all abnormal cases meeting the i,j criteria
-        maxLL_ij <- max(perCase_ij)
-        ll_ij <- LL[i, j, k2_ij_sub, 1:maxLL_ij]
-        k1ij <- sum(!is.na(t[i,j,,1]))
-        k2ij <- sum(!is.na(t[i,j,,2]))
-        lID_ij <- dataset$lesions$IDs[k2_ij_sub,1:maxLL_ij, drop = FALSE]
-        lW_jj <- dataset$lesions$weights[k2_ij_sub,1:maxLL_ij, drop = FALSE]
-        dim(nl_ij) <- c(k1ij+k2ij, maxNL)
-        dim(ll_ij) <- c(k2ij, maxLL_ij)
-        fomArray[i, j] <- MyFom_ij_SP(nl_ij, ll_ij, perCase_ij, lID_ij, lW_jj, maxNL, maxLL_ij, k1ij, k2ij, FOM)
-        next
-      } else if (design == "FCTRL"){
-        nl_ij <- NL[i, j, , ]
-        ll_ij <- LL[i, j, , ]
-        dim(nl_ij) <- c(K, maxNL)
-        dim(ll_ij) <- c(K2, maxLL)
-        fomArray[i, j] <- MyFom_ij_SP(nl_ij, ll_ij, dataset$lesions$perCase, dataset$lesions$IDs, dataset$lesions$weights, maxNL, maxLL, K1, K2, FOM)
-      } else stop("Incorrect design, must be SPLIT-PLOT-A, SPLIT-PLOT-C or FCTRL")
-    }
-  }
+      }
+    }  
+  } 
+  # else { # design == "SPLIT-PLOT-C") 
+  #   if (all(is.na(t[i,j,,1]))) next # if t[] for all normal   cases for selected i,j are NAs, skip 
+  #   if (all(is.na(t[i,j,,2]))) next # if t[] for all abnormal cases for selected i,j are NAs, skip 
+  #   # k1 refers to normal   case k-indices
+  #   # k2 refers to abnormal case k-indices
+  #   k1_ij_sub <- !is.na(t[i,j,,1]) | !is.na(t[i,j,,2]) # k1-indices of all cases meeting the i,j criteria
+  #   k2_ij_sub <- !is.na(t[i,j,,2])[(K1+1):K] # k2-indices of all cases meeting the i,j criteria
+  #   nl_ij <- NL[i, j, k1_ij_sub, ] # NL ratings for all cases meeting the i,j criteria
+  #   perCase_ij <- dataset$lesions$perCase[k2_ij_sub] # perCase indices for all abnormal cases meeting the i,j criteria
+  #   maxLL_ij <- max(perCase_ij)
+  #   ll_ij <- LL[i, j, k2_ij_sub, 1:maxLL_ij]
+  #   k1ij <- sum(!is.na(t[i,j,,1]))
+  #   k2ij <- sum(!is.na(t[i,j,,2]))
+  #   lID_ij <- dataset$lesions$IDs[k2_ij_sub,1:maxLL_ij, drop = FALSE]
+  #   lW_jj <- dataset$lesions$weights[k2_ij_sub,1:maxLL_ij, drop = FALSE]
+  #   dim(nl_ij) <- c(k1ij+k2ij, maxNL)
+  #   dim(ll_ij) <- c(k2ij, maxLL_ij)
+  #   fomArray[i, j] <- MyFom_ij_SP(nl_ij, ll_ij, perCase_ij, lID_ij, lW_jj, maxNL, maxLL_ij, k1ij, k2ij, FOM)
+  #   next
+  # }
   
   modalityID <- dataset$descriptions$modalityID
-  readerID <- dataset$descriptions$readerID
+  # readers in other treatments can have same names as there is not need to 
+  # distinguish between them - by definition readers with same names in 
+  # different treatments are different readers
+  readerID <- dataset$descriptions$readerID[1:(J/2)]
   rownames(fomArray) <- paste("trt", sep = "", modalityID)
   colnames(fomArray) <- paste("rdr", sep = "", readerID)
   return(as.data.frame(fomArray))
@@ -1233,7 +676,8 @@ FOM_SP <- function(dataset, FOM = "wAFROC") { # dpc
 
 
 
-Pseudovalues <- function(dataset, FOM) {
+PseudovaluesSP_A <- function(dataset, FOM) {
+  
   dataType <- dataset$descriptions$type
   NL <- dataset$ratings$NL
   LL <- dataset$ratings$LL
@@ -1248,49 +692,51 @@ Pseudovalues <- function(dataset, FOM) {
   # account for 15+ FOMs  
   if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
     # FOMs defined over NORMAL cases
-    jkFomValues <- array(dim = c(I, J, K1))
-    jkPseudoValues <- array(dim = c(I, J, K1))
+    jkFomValues <- array(dim = c(I, J/I, K1)) # index reader with j1 defined below
+    jkPseudoValues <- array(dim = c(I, J/I, K1)) # index reader with j1 defined below
   }  else if (FOM %in% c("MaxLLF", "HrSe")) { # after checking StOldCode.R, HrSe belongs in this group, depends only on abnormal cases
     # FOMs defined over ABNORMAL cases
-    jkFomValues <- array(dim = c(I, J, K2))
-    jkPseudoValues <- array(dim = c(I, J, K2))
+    jkFomValues <- array(dim = c(I, J/I, K2))  # index reader with j1 defined below
+    jkPseudoValues <- array(dim = c(I, J/I, K2))  # index reader with j1 defined below
   } else if (FOM %in% c("Wilcoxon", "HrAuc", "SongA1", 
                         "AFROC", "AFROC1", "wAFROC1", "wAFROC",
                         "MaxNLFAllCases", "ROI", "SongA2",
                         "PCL", "ALROC")) { # TBA may not handle ROI correctly
     # FOMs defined over ALL cases
-    jkFomValues <- array(dim = c(I, J, K))
-    jkPseudoValues <- array(dim = c(I, J, K))
+    jkFomValues <- array(dim = c(I, J/I, K))  # index reader with j1 defined below
+    jkPseudoValues <- array(dim = c(I, J/I, K))  # index reader with j1 defined below
   } else stop("Illegal FOM specified")
   
   t <- dataset$descriptions$truthTableStr
-  fomArray <- FOM_SP(dataset, FOM)
+  fomArray <- FOM_SP(dataset, FOM) # I X I matrix with no NAs
   lastCase <- 0
   caseTransitions <- array(dim = J)
   for (i in 1:I) {
-    for (j in 1:J) {
+    for (j in (J/I*(i-1)+1):(J/I*i)) {
+      # for indexing smaller I X I fomArray matrix with no NAs
+      # for indexing smaller I X J/I X K jkFomValues matrix with no NAs
+      # for indexing smaller I X J/I X K jkPseudoValues matrix with no NAs
+      j1 <- j-J/I*(i-1) 
       # NOTATION
       # k1_ij_logi = logical array of NORMAL cases meeting the i,j criteria, length K1 
-      # k2_ij_logi = logical array of ABNORMAL cases meeting the i,j criteria, length K2 
-      # k_ij_logi = logical array of ALL cases meeting the i,j criteria, length K 
       k1_ij_logi <- !is.na(t[i,j,,1])
-      # i.e., indices of normal cases meeting the i,j criteria
+      # k2_ij_logi = logical array of ABNORMAL cases meeting the i,j criteria, length K2 
       k2_ij_logi <- !is.na(t[i,j,,2])[(K1+1):K]
-      # i.e., indices of abnormal cases meeting the i,j criteria
+      # k_ij_logi = logical array of ALL cases meeting the i,j criteria, length K 
       k_ij_logi <- !is.na(t[i,j,,1]) | !is.na(t[i,j,,2]) 
-      # i.e., indices of all cases meeting the i,j criteria
       if (sum(k_ij_logi) == 0) next
+      
+      # perCase_ij = indices for all abnormal cases meeting the i,j criteria
       perCase_ij <- dataset$lesions$perCase[k2_ij_logi] 
-      # i.e., perCase indices for all abnormal cases meeting the i,j criteria
       K1_ij <- sum(!is.na(t[i,j,,1]))
       K2_ij <- sum(!is.na(t[i,j,,2]))
       K_ij <- K1_ij + K2_ij
       lID_ij <- dataset$lesions$IDs[k2_ij_logi,1:maxLL, drop = FALSE]
       lW_ij <- dataset$lesions$weights[k2_ij_logi,1:maxLL, drop = FALSE]
+      # nl_ij = NL ratings for all cases meeting the i,j criteria
       nl_ij <- NL[i, j, k_ij_logi, 1:maxNL]; dim(nl_ij) <- c(K_ij, maxNL)
-      # i.e., NL ratings for all cases meeting the i,j criteria
+      # ll_ij = LL ratings for all cases meeting the i,j criteria
       ll_ij <- LL[i, j, k2_ij_logi, 1:maxLL]; dim(ll_ij) <- c(K2_ij, maxLL)
-      # i.e., LL ratings for all cases meeting the i,j criteria
       
       if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
         for (k in 1:K1_ij) {
@@ -1305,15 +751,15 @@ Pseudovalues <- function(dataset, FOM) {
           lV_j_jk <- perCase_ij
           lW_j_jk <- lW_ij;dim(lW_j_jk) <- c(K2_ij, maxLL)
           lID_j_jk <- lID_ij;dim(lID_j_jk) <- c(K2_ij, maxLL)
-          if (is.na(jkFomValues[i, j, kIndxNor])) {
-            jkFomValues[i, j, kIndxNor] <- 
+          if (is.na(jkFomValues[i, j1, kIndxNor])) {
+            jkFomValues[i, j1, kIndxNor] <- 
               MyFom_ij_SP(nlij_jk, llij_jk, lV_j_jk, 
-                       lID_j_jk, lW_j_jk, maxNL, maxLL, 
-                       K1_ij - 1, K2_ij, FOM)
+                          lID_j_jk, lW_j_jk, maxNL, maxLL, 
+                          K1_ij - 1, K2_ij, FOM)
           } else stop("overwriting Pseudovalues")
-          if (is.na(jkPseudoValues[i, j, kIndxNor])) {
-            jkPseudoValues[i, j, kIndxNor] <- 
-              fomArray[i, j] * K1_ij - jkFomValues[i, j, kIndxNor] * (K1_ij - 1)
+          if (is.na(jkPseudoValues[i, j1, kIndxNor])) {
+            jkPseudoValues[i, j1, kIndxNor] <- 
+              fomArray[i, j1] * K1_ij - jkFomValues[i, j1, kIndxNor] * (K1_ij - 1)
           } else stop("overwriting Pseudovalues")
         }
       } else if (FOM %in% c("MaxLLF", "HrSe")) { 
@@ -1329,40 +775,37 @@ Pseudovalues <- function(dataset, FOM) {
           lV_j_jk <- perCase_ij[-k]
           lW_j_jk <- lW_ij[-k, ];dim(lW_j_jk) <- c(K2_ij - 1, maxLL)
           lID_j_jk <- lID_ij[-k, ];dim(lID_j_jk) <- c(K2_ij - 1, maxLL)
-          if (is.na(jkFomValues[i, j, kIndxAbn])) {
-            jkFomValues[i, j, kIndxAbn] <- 
+          if (is.na(jkFomValues[i, j1, kIndxAbn])) {
+            jkFomValues[i, j1, kIndxAbn] <- 
               MyFom_ij_SP(nlij_jk, llij_jk, lV_j_jk, 
-                       lID_j_jk, lW_j_jk, maxNL, maxLL, 
-                       K1_ij, K2_ij - 1, FOM)
+                          lID_j_jk, lW_j_jk, maxNL, maxLL, 
+                          K1_ij, K2_ij - 1, FOM)
           } else stop("overwriting Pseudovalues 3")
-          if (is.na(jkPseudoValues[i, j, kIndxAbn])) {
-            jkPseudoValues[i, j, kIndxAbn] <- 
-              fomArray[i, j] * K2_ij - jkFomValues[i, j, kIndxAbn] * (K2_ij - 1)
+          if (is.na(jkPseudoValues[i, j1, kIndxAbn])) {
+            jkPseudoValues[i, j1, kIndxAbn] <- 
+              fomArray[i, j1] * K2_ij - jkFomValues[i, j1, kIndxAbn] * (K2_ij - 1)
           } else stop("overwriting Pseudovalues")
         }
       } else { 
         # FOMs defined over ALL cases
         for (k in 1:K_ij) {
-          # NOTATION
-          # kIndxAll: case index for the 3rd dimension of all cases, 
-          # ranges from 1 to K
-          kIndxAll <- which(k_ij_logi)[k];if (is.na(kIndxAll)) 
-            stop("Indexing error in Pseudovalues")
+          # kIndxAll: case index for the 3rd dimension of all cases, range 1:K
+          kIndxAll <- which(k_ij_logi)[k]
+          if (is.na(kIndxAll)) stop("Indexing error in Pseudovalues() in StSp.R")
           if (k <= K1_ij) {
             nlij_jk <- nl_ij[-k, ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
             llij_jk <- ll_ij;dim(llij_jk) <- c(K2_ij, maxLL)
-            lV_j_jk <- perCase_ij
             lID_j_jk <- lID_ij;dim(lID_j_jk) <- c(K2_ij, maxLL)
             lW_j_jk <- lW_ij;dim(lW_j_jk) <- c(K2_ij, maxLL)
-            if (is.na(jkFomValues[i, j, kIndxAll])) {
-              jkFomValues[i, j, kIndxAll] <- 
-                MyFom_ij_SP(nlij_jk, llij_jk, lV_j_jk, 
-                         lID_j_jk, lW_j_jk, maxNL, maxLL, 
-                         K1_ij - 1, K2_ij, FOM)
+            if (is.na(jkFomValues[i, j1, kIndxAll])) {
+              jkFomValues[i, j1, kIndxAll] <- 
+                MyFom_ij_SP(nlij_jk, llij_jk, perCase_ij, 
+                            lID_j_jk, lW_j_jk, maxNL, maxLL, 
+                            K1_ij - 1, K2_ij, FOM)
             } else stop("overwriting Pseudovalues")
-            if (is.na(jkPseudoValues[i, j, kIndxAll])) {
-              jkPseudoValues[i, j, kIndxAll] <- 
-                fomArray[i, j] * K_ij - jkFomValues[i, j, kIndxAll] * (K_ij - 1)
+            if (is.na(jkPseudoValues[i, j1, kIndxAll])) {
+              jkPseudoValues[i, j1, kIndxAll] <- 
+                fomArray[i, j1] * K_ij - jkFomValues[i, j1, kIndxAll] * (K_ij - 1)
             } else stop("overwriting Pseudovalues")
           } else {
             nlij_jk <- nl_ij[-k, ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
@@ -1370,15 +813,15 @@ Pseudovalues <- function(dataset, FOM) {
             lV_j_jk <- perCase_ij[-(k - K1_ij)]
             lW_j_jk <- lW_ij[-(k - K1_ij), ];dim(lW_j_jk) <- c(K2_ij - 1, maxLL)
             lID_j_jk <- lID_ij[-(k - K1_ij), ];dim(lID_j_jk) <- c(K2_ij - 1, maxLL)
-            if (is.na(jkFomValues[i, j, kIndxAll])) {
-              jkFomValues[i, j, kIndxAll] <- 
+            if (is.na(jkFomValues[i, j1, kIndxAll])) {
+              jkFomValues[i, j1, kIndxAll] <- 
                 MyFom_ij_SP(nlij_jk, llij_jk, lV_j_jk, 
-                         lID_j_jk, lW_j_jk, maxNL, maxLL, 
-                         K1_ij, K2_ij - 1, FOM)
+                            lID_j_jk, lW_j_jk, maxNL, maxLL, 
+                            K1_ij, K2_ij - 1, FOM)
             } else stop("overwriting Pseudovalues")
-            if (is.na(jkPseudoValues[i, j, kIndxAll])) {
-              jkPseudoValues[i, j, kIndxAll] <- 
-                fomArray[i, j] * K_ij - jkFomValues[i, j, kIndxAll] * (K_ij - 1)
+            if (is.na(jkPseudoValues[i, j1, kIndxAll])) {
+              jkPseudoValues[i, j1, kIndxAll] <- 
+                fomArray[i, j1] * K_ij - jkFomValues[i, j1, kIndxAll] * (K_ij - 1)
             } else stop("overwriting Pseudovalues")
           }
         }
@@ -1386,24 +829,32 @@ Pseudovalues <- function(dataset, FOM) {
       # center the pseudovalues 
       if (FOM %in% c("MaxNLF", "ExpTrnsfmSp", "HrSp")) {
         # FOMs defined over NORMAL cases
-        jkPseudoValues[i, j, which(k1_ij_logi)] <- 
-          jkPseudoValues[i, j, which(k1_ij_logi)] + 
-          (fomArray[i, j] - mean(jkPseudoValues[i, j, which(k1_ij_logi)]))
+        jkPseudoValues[i, j1, which(k1_ij_logi)] <- 
+          jkPseudoValues[i, j1, which(k1_ij_logi)] + 
+          (fomArray[i, j1] - mean(jkPseudoValues[i, j1, which(k1_ij_logi)]))
       }  else if (FOM %in% c("MaxLLF", "HrSe")) {
         # FOMs defined over ABNORMAL cases
-        jkPseudoValues[i, j, which(k2_ij_logi)] <- 
-          jkPseudoValues[i, j, which(k2_ij_logi)] + 
-          (fomArray[i, j] - mean(jkPseudoValues[i, j, which(k2_ij_logi)]))
+        jkPseudoValues[i, j1, which(k2_ij_logi)] <- 
+          jkPseudoValues[i, j1, which(k2_ij_logi)] + 
+          (fomArray[i, j1] - mean(jkPseudoValues[i, j1, which(k2_ij_logi)]))
       } else {
         # FOMs defined over ALL cases
-        jkPseudoValues[i, j, which(k_ij_logi)] <- 
-          jkPseudoValues[i, j, which(k_ij_logi)] + 
-          (fomArray[i, j] - mean(jkPseudoValues[i, j, which(k_ij_logi)]))
+        jkPseudoValues[i, j1, which(k_ij_logi)] <- 
+          jkPseudoValues[i, j1, which(k_ij_logi)] + 
+          (fomArray[i, j1] - mean(jkPseudoValues[i, j1, which(k_ij_logi)]))
       }
       caseTransitions[j] <- lastCase
       lastCase <- (lastCase + K_ij) %% K
     }
   }
+  
+  # there should not be any NAs in each of the following arrays
+  # any(is.na(jkPseudoValues))
+  # [1] FALSE
+  # any(is.na(jkFomValues))
+  # [1] FALSE
+  # any(is.na(fomArray))
+  # [1] FALSE
   
   caseTransitions <- c(caseTransitions, K)
   return(list(
@@ -1418,9 +869,9 @@ Pseudovalues <- function(dataset, FOM) {
 
 #' @importFrom stats approx
 MyFom_ij_SP <- function(nl, ll, 
-                     perCase, lesionID, 
-                     lesionWeight, maxNL, 
-                     maxLL, K1, K2, FOM) {
+                        perCase, lesionID, 
+                        lesionWeight, maxNL, 
+                        maxLL, K1, K2, FOM) {
   if (!FOM %in% c("Wilcoxon", "HrAuc", "HrSe", "HrSp", 
                   "AFROC1", "AFROC", 
                   "wAFROC1", "wAFROC", 
@@ -1690,15 +1141,6 @@ DfReadSP <- function (fileName)
   weights[is.na(weights)] <- UNINITIALIZED
   lesionIDCol[is.na(lesionIDCol)] <- UNINITIALIZED
   
-  if (type == "ROC" && design == "FCTRL") {
-    if (!(((max(table(truthCaseID)) == 1) && (maxNL == 1)) 
-          && (all((NL[, , (K1 + 1):K, ] == UNINITIALIZED))) 
-          && (all((NL[, , 1:K1, ] != UNINITIALIZED)))
-          && (all((LL[, , 1:K2, ] != UNINITIALIZED))))) {
-      stop("This does not appear to be an ROC dataset.")
-    }    
-  }
-  
   modalityNames <- modalityIDUnique
   readerNames <- readerIDUnique
   
@@ -1706,9 +1148,7 @@ DfReadSP <- function (fileName)
   names(readerIDUnique) <- readerNames; readerID <- readerIDUnique
   
   name <- NA
-  if ((design == "FCTRL") || (design == "CROSSED")) design <- "FCTRL"
-  
-  # return the ROC or FROC dataset object
+  # return the dataset object
   return(convert2dataset(NL, LL, LL_IL = NA, 
                          perCase, IDs, weights,
                          fileName, type, name, truthTableStr, design,
@@ -1779,9 +1219,8 @@ checkTruthTableSP <- function (truthTable)
   
   type <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[1]
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
-  if (design == "CROSSED") design <- "FCTRL"
   if (!(type %in% c("FROC", "ROC", "LROC"))) stop("Unsupported data type: must be ROC, FROC or LROC.\n")
-  if (!(design %in% c("FCTRL", "SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be FCTRL, SPLIT-PLOT-A or SPLIT-PLOT-C\n")
+  if (!(design %in% c("SPLIT-PLOT-A", "SPLIT-PLOT-C"))) stop("Study design must be SPLIT-PLOT-A or SPLIT-PLOT-C\n")
   
   df <- truthTable[1:5]
   df["caseLevelTruth"] <- (truthTable$LesionID > 0)
@@ -1811,7 +1250,7 @@ checkTruthTableSP <- function (truthTable)
   K <- (K1 + K2)
   
   if (design == "SPLIT-PLOT-A") {
-    # for this design the length is twice what it needs to be
+    # for this design length L is twice the number of cases
     caseIDCol <- as.integer(truthTable$CaseID)[1:(L/2)]
     # lesionIDCol <- as.integer(truthTable$LesionID)[1:(L/2)]
     weightsCol <- truthTable$Weight[1:(L/2)]
@@ -1828,9 +1267,9 @@ checkTruthTableSP <- function (truthTable)
         rdrArr[el,i] <- val[i]
       }
     }
+    if (!all(table(rdrArr) == L/2)) stop("Non-unique reader IDs")
     # preserve the strings; DO NOT convert to integers
-    I <- length(strsplit(modalityIDCol[1], split = ",")[[1]])
-    trtArr <- array(dim = c(L,I))
+    trtArr <- array(dim = c(L))
     for (l in 1:L) {
       if (grep("^\\(.\\)", modalityIDCol[l]) == 1) { # match found to something like (1), i.e., one nested factor
         val <- grep("^\\(.\\)", modalityIDCol[l], value = T)
@@ -1868,9 +1307,9 @@ checkTruthTableSP <- function (truthTable)
   } else stop("incorrect study design: must be SPLIT-PLOT-A or SPLIT-PLOT-C")
   
   if (design == "SPLIT-PLOT-A") {
-    rdrArr1D <- t(unique(rdrArr)) # rdrArr is 2-dimensional; rdrArr1D is a one-dimensional array of all the readers in the study
-    rdrArr1D <- rdrArr1D[!is.na(rdrArr1D)] # this modification is needed for HYK dataset with 3 readers in one group and 4 in the other
-  } else {
+    rdrArr1D <- t(unique(rdrArr))
+    rdrArr1D <- rdrArr1D[!is.na(rdrArr1D)]  # rdrArr is 2-dimensional; rdrArr1D is a one-dimensional array of all readers in the study
+  } else { # design == "SPLIT-PLOT-C"
     if (any(is.na(rdrArr))) stop("Illegal value in ReaderID column in Truth sheet")
     rdrArr1D <- as.vector(unique(rdrArr)) # rdrArr is 2-dimensional; rdrArr1D is a one-dimensional array of all the readers in the study
   }
@@ -1890,16 +1329,11 @@ checkTruthTableSP <- function (truthTable)
         j <- which(rdrArr1D == rdrArr[l,j1])
         truthTableStr[i, j, k, el] <- 1
       }
-    }
-    else if (design == "SPLIT-PLOT-C") {
+    } else { # design == "SPLIT-PLOT-C"
       i <- which(unique(trtArr) == trtArr[l,])
       j <- which(rdrArr1D == rdrArr[l])
       truthTableStr[i, j, k, el] <- 1
-    } else if (design == "FCTRL") {
-      i <- which(unique(trtArr) == trtArr[l,])
-      j <- which(rdrArr1D == rdrArr[l,])
-      truthTableStr[i, j, k, el] <- 1
-    } else stop("incorrect study design: must be SPLIT-PLOT-A or SPLIT-PLOT-C")
+    }
   }
   
   perCase <- as.vector(table(caseIDCol[caseIDCol %in% abnormalCases]))

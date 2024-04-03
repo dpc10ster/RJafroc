@@ -2,22 +2,21 @@
 % Please edit documentation in R/StSP.R
 \name{StSP}
 \alias{StSP}
-\title{Perform significance testing for split-plot datasets}
+\title{Significance testing for split-plot datasets}
 \usage{
 StSP(dataset, FOM, alpha = 0.05, analysisOption = "RRRC")
 }
 \arguments{
-\item{dataset}{The dataset to be analyzed, see \code{\link{RJafroc-package}}. 
-    The dataset design must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C". 
-\itemize{ 
+\item{dataset}{\itemize{
+    \item The dataset, see \code{\link{RJafroc-package}}. 
+    \item \code{dataset$descriptions$design} must be "SPLIT-PLOT-A" or "SPLIT-PLOT-C". 
     \item SPLIT-PLOT-A = Reader nested within test; Hillis 2014 Table VII part (a). 
     \item SPLIT-PLOT-C = Case nested within reader; Hillis 2014 Table VII part (c). 
-    \item See Note.
 }}
 
 \item{FOM}{The figure of merit}
 
-\item{alpha}{The significance level of the test, default is 0.05}
+\item{alpha}{The significance level of the test, default 0.05}
 
 \item{analysisOption}{Factors regarded as random vs. those regarded as fixed:
 \itemize{ 
@@ -30,19 +29,16 @@ StSP(dataset, FOM, alpha = 0.05, analysisOption = "RRRC")
 Results of the analysis
 }
 \description{
-Performs Obuchowski-Rockette significance testing for 
+Obuchowski-Rockette significance testing for balanced
    split-plot datasets as described in Hillis 2014.
 }
 \note{
-Two split-plot designs are supported; these are described in 
-     Table VII in Hillis 2014:
+Two toy split-plot ROC datasets are in directory 
+  \code{inst/extdata/toyFiles/ROC}:
 \itemize{ 
-   \item SPLIT-PLOT-A = {Reader nested within test, labeled (a) in Table VII;
-   see for example \code{rocSpA.xlsx}}
-   \item SPLIT-PLOT-C = {Case nested within reader, labeled (c) in Table VII;
-   see for example \code{rocSpC.xlsx}}
+   \item SPLIT-PLOT-A dataset \code{rocSpA.xlsx}
+   \item SPLIT-PLOT-C dataset \code{rocSpC.xlsx}
 }
-The included toy ROC datasets are in directory \code{inst/extdata/toyFiles/ROC}.
 }
 \examples{
 ## Analyze included dataset 
@@ -53,6 +49,7 @@ ret <- StSP(dsSpA, FOM = "Wilcoxon")
 
 ## Analyze embedded dataset 
 ret <- StSP(datasetFROCSpC, FOM = "wAFROC")
+
 
 
 }
