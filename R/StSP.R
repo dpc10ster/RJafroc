@@ -64,7 +64,8 @@ StSP <- function(dataset, FOM, alpha = 0.05, analysisOption = "RRRC")
   
   if (dataset$descriptions$design == "SPLIT-PLOT-A") {
     
-    return(OR_SP_A(dataset, FOM, alpha, analysisOption))
+    #return(OR_SP_A(dataset, FOM, alpha, analysisOption))
+    return(OR_SP_A_UNB(dataset, FOM, alpha, analysisOption))
     
   } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
     
