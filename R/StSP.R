@@ -578,7 +578,7 @@ convert2dataset <- function(NL, LL, LL_IL,
 
 
 
-FOM_SP <- function(dataset, FOM = "wAFROC") { # dpc
+FOM_SP <- function(dataset, FOM) {
   
   # dataType <- dataset$descriptions$type
   # if (dataType == "ROC" && FOM != "Wilcoxon") {
@@ -665,9 +665,9 @@ FOM_SP <- function(dataset, FOM = "wAFROC") { # dpc
   
   modalityID <- dataset$descriptions$modalityID
   # readers in other treatments can have same names as there is not need to 
-  # distinguish between them - by definition readers with same names in 
+  # distinguish between them as, readers with same names in 
   # different treatments are different readers
-  readerID <- dataset$descriptions$readerID[1:(J/2)]
+  readerID <- dataset$descriptions$readerID[1:(J/I)]
   rownames(fomArray) <- paste("trt", sep = "", modalityID)
   colnames(fomArray) <- paste("rdr", sep = "", readerID)
   return(as.data.frame(fomArray))
@@ -677,7 +677,7 @@ FOM_SP <- function(dataset, FOM = "wAFROC") { # dpc
 
 
 
-PseudovaluesSP_A <- function(dataset, FOM) {
+PseudovaluesSP_A1 <- function(dataset, FOM) {
   
   dataType <- dataset$descriptions$type
   NL <- dataset$ratings$NL
@@ -808,7 +808,7 @@ PseudovaluesSP_A <- function(dataset, FOM) {
               jkPseudoValues[i, j1, kIndxAll] <- 
                 fomArray[i, j1] * K_ij - jkFomValues[i, j1, kIndxAll] * (K_ij - 1)
             } else stop("overwriting Pseudovalues")
-          } else {
+          } else { # (k > K1_ij)
             nlij_jk <- nl_ij[-k, ];dim(nlij_jk) <- c(K_ij - 1, maxNL)
             llij_jk <- ll_ij[-(k - K1_ij), ];dim(llij_jk) <- c(K2_ij - 1, maxLL)
             lV_j_jk <- perCase_ij[-(k - K1_ij)]
