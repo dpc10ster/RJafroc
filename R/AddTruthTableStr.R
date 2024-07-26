@@ -20,7 +20,12 @@ AddTruthTableStr <- function(dataset, type, perCase) {
     truthTableStr <- array(dim = c(I, J, K, 2)) 
     truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
     truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
-  } else stop("data type must be ROC or FROC")
+  } else if (type == "LROC") {
+    # added truthTableStr 7/26/2024
+    truthTableStr <- array(dim = c(I, J, K, 2)) 
+    truthTableStr[1:I, 1:J, 1:K1, 1] <- 1
+    truthTableStr[1:I, 1:J, (K1+1):K, 2] <- 1
+  } else stop("data type must be ROC or FROC or LROC")
   
   return(truthTableStr)
 }
