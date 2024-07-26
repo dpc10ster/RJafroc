@@ -86,8 +86,8 @@ DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctio
   fileName <- paste0("DfFroc2Lroc(", dataset$descriptions$fileName, ")")
   name <- dataset$descriptions$name
   design <- "FCTRL"
-  truthTableStr <- NA
   type <- "LROC"
+  truthTableStr <- AddTruthTableStr(dataset, type, perCase)
   modalityID <- dataset$descriptions$modalityID
   readerID <- dataset$descriptions$readerID
   return(convert2dataset(NL, LL, LL_IL, 
