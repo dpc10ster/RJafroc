@@ -6,90 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Artificial Intelligence Systems and Observer Performance • RJafroc</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Artificial Intelligence Systems and Observer Performance">
-<meta property="og:description" content="Analyzing the performance of artificial intelligence
- (AI) systems/algorithms characterized by a search-and-report
- strategy. Historically observer performance has dealt with
- measuring radiologists performances in search tasks, e.g., searching
- for lesions in medical images and reporting them, but the implicit
- location information has been ignored. The implemented methods apply
- to analyzing the absolute and relative performances of AI systems,
- comparing AI performance to a group of human readers or optimizing the
- reporting threshold of an AI system. In addition to performing historical
- receiver operating receiver operating characteristic (ROC) analysis
- (localization information ignored), the software also performs
- free-response receiver operating characteristic (FROC)
- analysis, where lesion localization information is used. A book
- using the software has been published: Chakraborty DP: Observer
- Performance Methods for Diagnostic Imaging - Foundations, Modeling,
- and Applications with R-Based Examples, Taylor-Francis LLC; 2017:
- &lt;https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840&gt;.
- Online updates to this book, which use the software, are at
- &lt;https://dpc10ster.github.io/RJafrocQuickStart/&gt;,
- &lt;https://dpc10ster.github.io/RJafrocRocBook/&gt; and at
- &lt;https://dpc10ster.github.io/RJafrocFrocBook/&gt;. Supported data
- collection paradigms are the ROC, FROC and the location ROC (LROC).
- ROC data consists of single ratings per images, where a rating is
- the perceived confidence level that the image is that of a diseased
- patient. An ROC curve is a plot of true positive fraction vs. false
- positive fraction. FROC data consists of a variable number (zero or
- more) of mark-rating pairs per image, where a mark is the location
- of a reported suspicious region and the rating is the confidence
- level that it is a real lesion. LROC data consists of a rating and a
- location of the most suspicious region, for every image. Four models
- of observer performance, and curve-fitting software, are implemented:
- the binormal model (BM), the contaminated binormal model (CBM), the
- correlated contaminated binormal model (CORCBM), and the radiological
- search model (RSM). Unlike the binormal model, CBM, CORCBM and RSM
- predict proper ROC curves that do not inappropriately cross the
- chance diagonal. Additionally, RSM parameters are related to search
- performance (not measured in conventional ROC analysis) and
- classification performance. Search performance refers to finding
- lesions, i.e., true positives, while simultaneously not finding false
- positive locations. Classification performance measures the ability to
- distinguish between true and false positive locations. Knowing these
- separate performances allows principled optimization of reader or AI
- system performance. This package supersedes Windows JAFROC (jackknife
- alternative FROC) software V4.2.1,
- &lt;https://github.com/dpc10ster/WindowsJafroc&gt;. Package functions are
- organized as follows. Data file related function names are preceded
- by Df, curve fitting functions by Fit, included data sets by dataset,
- plotting functions by Plot, significance testing functions by St,
- sample size related functions by Ss, data simulation functions by
- Simulate and utility functions by Util. Implemented are figures of
- merit (FOMs) for quantifying performance and functions for visualizing
- empirical or fitted operating characteristics: e.g., ROC, FROC, alternative
- FROC (AFROC) and weighted AFROC (wAFROC) curves. For fully crossed study
- designs significance testing of reader-averaged FOM differences between
- modalities is implemented via either Dorfman-Berbaum-Metz or the
- Obuchowski-Rockette methods. Also implemented is single modality analysis,
- which allows comparison of performance of a group of radiologists to a
- specified value, or comparison of AI to a group of radiologists interpreting
- the same cases. Crossed-modality analysis is implemented wherein there are
- two crossed modality factors and the aim is to determined performance in
- each modality factor averaged over all levels of the second factor. Sample
- size estimation tools are provided for ROC and FROC studies; these use
- estimates of the relevant variances from a pilot study to predict required
- numbers of readers and cases in a pivotal study to achieve the desired power.
- Utility and data file manipulation functions allow data to be read in any of
- the currently used input formats, including Excel, and the results of the
- analysis can be viewed in text or Excel output files. The methods are
- illustrated with several included datasets from the authors collaborations.
- This update includes improvements to the code, some as a result of
- user-reported bugs and new feature requests, and others discovered during
- ongoing testing and code simplification.">
+<meta property="og:description" content="Analyzing the performance of artificial intelligence (AI) systems/algorithms characterized by a search-and-report strategy. Historically observer performance has dealt with measuring radiologists performances in search tasks, e.g., searching for lesions in medical images and reporting them, but the implicit location information has been ignored. The implemented methods apply to analyzing the absolute and relative performances of AI systems, comparing AI performance to a group of human readers or optimizing the reporting threshold of an AI system. In addition to performing historical receiver operating receiver operating characteristic (ROC) analysis (localization information ignored), the software also performs free-response receiver operating characteristic (FROC) analysis, where lesion localization information is used. A book using the software has been published: Chakraborty DP: Observer Performance Methods for Diagnostic Imaging - Foundations, Modeling, and Applications with R-Based Examples, Taylor-Francis LLC; 2017: &lt;https://www.routledge.com/Observer-Performance-Methods-for-Diagnostic-Imaging-Foundations-Modeling/Chakraborty/p/book/9781482214840&gt;. Online updates to this book, which use the software, are at &lt;https://dpc10ster.github.io/RJafrocQuickStart/&gt;, &lt;https://dpc10ster.github.io/RJafrocRocBook/&gt; and at &lt;https://dpc10ster.github.io/RJafrocFrocBook/&gt;. Supported data collection paradigms are the ROC, FROC and the location ROC (LROC). ROC data consists of single ratings per images, where a rating is the perceived confidence level that the image is that of a diseased patient. An ROC curve is a plot of true positive fraction vs. false positive fraction. FROC data consists of a variable number (zero or more) of mark-rating pairs per image, where a mark is the location of a reported suspicious region and the rating is the confidence level that it is a real lesion. LROC data consists of a rating and a location of the most suspicious region, for every image. Four models of observer performance, and curve-fitting software, are implemented: the binormal model (BM), the contaminated binormal model (CBM), the correlated contaminated binormal model (CORCBM), and the radiological search model (RSM). Unlike the binormal model, CBM, CORCBM and RSM predict proper ROC curves that do not inappropriately cross the chance diagonal. Additionally, RSM parameters are related to search performance (not measured in conventional ROC analysis) and classification performance. Search performance refers to finding lesions, i.e., true positives, while simultaneously not finding false positive locations. Classification performance measures the ability to distinguish between true and false positive locations. Knowing these separate performances allows principled optimization of reader or AI system performance. This package supersedes Windows JAFROC (jackknife alternative FROC) software V4.2.1, &lt;https://github.com/dpc10ster/WindowsJafroc&gt;. Package functions are organized as follows. Data file related function names are preceded by Df, curve fitting functions by Fit, included data sets by dataset, plotting functions by Plot, significance testing functions by St, sample size related functions by Ss, data simulation functions by Simulate and utility functions by Util. Implemented are figures of merit (FOMs) for quantifying performance and functions for visualizing empirical or fitted operating characteristics: e.g., ROC, FROC, alternative FROC (AFROC) and weighted AFROC (wAFROC) curves. For fully crossed study designs significance testing of reader-averaged FOM differences between modalities is implemented via either Dorfman-Berbaum-Metz or the Obuchowski-Rockette methods. Also implemented is single modality analysis, which allows comparison of performance of a group of radiologists to a specified value, or comparison of AI to a group of radiologists interpreting the same cases. Crossed-modality analysis is implemented wherein there are two crossed modality factors and the aim is to determined performance in each modality factor averaged over all levels of the second factor. Sample size estimation tools are provided for ROC and FROC studies; these use estimates of the relevant variances from a pilot study to predict required numbers of readers and cases in a pivotal study to achieve the desired power. Utility and data file manipulation functions allow data to be read in any of the currently used input formats, including Excel, and the results of the analysis can be viewed in text or Excel output files. The methods are illustrated with several included datasets from the authors collaborations. This update includes improvements to the code, some as a result of user-reported bugs and new feature requests, and others discovered during ongoing testing and code simplification.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -124,7 +54,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="contents col-md-9">
@@ -132,7 +62,7 @@
 <div class="section level1">
 <div class="page-header"><h1 id="rjafroc">RJafroc<a class="anchor" aria-label="anchor" href="#rjafroc"></a>
 </h1></div>
-<p><a href="https://github.com/dpc10ster/RJafroc/actions" class="external-link"><img src="https://github.com/dpc10ster/RJafroc/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://codecov.io/gh/dpc10ster/rjafroc" class="external-link"><img src="https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://cran.r-project.org/package=RJafroc" class="external-link"><img src="http://www.r-pkg.org/badges/version/RJafroc" alt="CRAN_Status_Badge"></a></p>
+<p><a href="https://github.com/dpc10ster/RJafroc/actions" class="external-link"><img src="https://github.com/dpc10ster/RJafroc/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://codecov.io/gh/dpc10ster/rjafroc" class="external-link"><img src="https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://cran.r-project.org/package=RJafroc" class="external-link"><img src="https://www.r-pkg.org/badges/version/RJafroc" alt="CRAN_Status_Badge"></a></p>
 </div>
 <div class="section level1">
 <h1 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
@@ -334,16 +264,16 @@ openxlsx, ggplot2, stringr, tools, utils, stats, bbmle, binom, mvtnorm, dplyr, n
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

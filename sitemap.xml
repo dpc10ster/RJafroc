@@ -1,282 +1,96 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ChisqrGoodnessOfFit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DFReadSP.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Df2RJafrocDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfBinDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfCreateCorCbmDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfExtractCorCbmDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfExtractDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfFroc2Lroc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfFroc2Roc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfLroc2Froc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfLroc2Roc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfReadDataFile.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfReadXModalities.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfSaveDataFile.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DfWriteExcelDataFile.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FitBinormalRoc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FitCbmRoc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FitCorCbm.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FitRsmRoc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/PlotBinormalFit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/PlotCbmFit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/PlotEmpiricalOperatingCharacteristics.html</loc>
-  </url>
-  <url>
-    <loc>/reference/PlotRsmOperatingCharacteristics.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RJafroc-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RSM_FPF.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RSM_LLF.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RSM_NLF.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RSM_TPF.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RSM_pdfD.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RSM_pdfN.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RSM_wLLF.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SimulateCorCbmDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SimulateFrocDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SimulateFrocFromLrocDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SimulateLrocDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SimulateRocDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SsFrocNhRsmModel.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SsFrocSampleSize.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SsPowerGivenJK.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SsPowerGivenJKDbmVarCom.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SsPowerGivenJKOrVarCom.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SsPowerTable.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SsSampleSizeKGivenJ.html</loc>
-  </url>
-  <url>
-    <loc>/reference/St.html</loc>
-  </url>
-  <url>
-    <loc>/reference/StCadVsRad.html</loc>
-  </url>
-  <url>
-    <loc>/reference/StOldCode.html</loc>
-  </url>
-  <url>
-    <loc>/reference/StSP.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Util2Intrinsic.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Util2Physical.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilAnalyticalAucsRSM.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilAucBIN.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilAucCBM.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilAucPROPROC.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilDBM2ORVarCom.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilDBMVarComp.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilFigureOfMerit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilLesDistr.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilLesWghts.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilMeanSquares.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilOR2DBMVarCom.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilORVarComp.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UtilPseudoValues.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset01.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset02.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset03.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset04.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset05.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset06.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset07.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset08.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset09.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset10.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset11.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset12.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset13.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataset14.html</loc>
-  </url>
-  <url>
-    <loc>/reference/datasetBinned123.html</loc>
-  </url>
-  <url>
-    <loc>/reference/datasetBinned124.html</loc>
-  </url>
-  <url>
-    <loc>/reference/datasetBinned125.html</loc>
-  </url>
-  <url>
-    <loc>/reference/datasetCadLroc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/datasetCadSimuFroc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/datasetDegenerate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/datasetFROCSpC.html</loc>
-  </url>
-  <url>
-    <loc>/reference/datasetROI.html</loc>
-  </url>
-  <url>
-    <loc>/reference/datasetX.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/isBinnedDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/isValidDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/testCpp.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/ChisqrGoodnessOfFit.html</loc></url>
+<url><loc>/reference/DFReadSP.html</loc></url>
+<url><loc>/reference/Df2RJafrocDataset.html</loc></url>
+<url><loc>/reference/DfBinDataset.html</loc></url>
+<url><loc>/reference/DfCreateCorCbmDataset.html</loc></url>
+<url><loc>/reference/DfExtractCorCbmDataset.html</loc></url>
+<url><loc>/reference/DfExtractDataset.html</loc></url>
+<url><loc>/reference/DfFroc2Lroc.html</loc></url>
+<url><loc>/reference/DfFroc2Roc.html</loc></url>
+<url><loc>/reference/DfLroc2Froc.html</loc></url>
+<url><loc>/reference/DfLroc2Roc.html</loc></url>
+<url><loc>/reference/DfReadDataFile.html</loc></url>
+<url><loc>/reference/DfReadXModalities.html</loc></url>
+<url><loc>/reference/DfSaveDataFile.html</loc></url>
+<url><loc>/reference/DfWriteExcelDataFile.html</loc></url>
+<url><loc>/reference/FitBinormalRoc.html</loc></url>
+<url><loc>/reference/FitCbmRoc.html</loc></url>
+<url><loc>/reference/FitCorCbm.html</loc></url>
+<url><loc>/reference/FitRsmRoc.html</loc></url>
+<url><loc>/reference/PlotBinormalFit.html</loc></url>
+<url><loc>/reference/PlotCbmFit.html</loc></url>
+<url><loc>/reference/PlotEmpiricalOperatingCharacteristics.html</loc></url>
+<url><loc>/reference/PlotRsmOperatingCharacteristics.html</loc></url>
+<url><loc>/reference/RJafroc-package.html</loc></url>
+<url><loc>/reference/RSM_FPF.html</loc></url>
+<url><loc>/reference/RSM_LLF.html</loc></url>
+<url><loc>/reference/RSM_NLF.html</loc></url>
+<url><loc>/reference/RSM_TPF.html</loc></url>
+<url><loc>/reference/RSM_pdfD.html</loc></url>
+<url><loc>/reference/RSM_pdfN.html</loc></url>
+<url><loc>/reference/RSM_wLLF.html</loc></url>
+<url><loc>/reference/SimulateCorCbmDataset.html</loc></url>
+<url><loc>/reference/SimulateFrocDataset.html</loc></url>
+<url><loc>/reference/SimulateFrocFromLrocDataset.html</loc></url>
+<url><loc>/reference/SimulateLrocDataset.html</loc></url>
+<url><loc>/reference/SimulateRocDataset.html</loc></url>
+<url><loc>/reference/SsFrocNhRsmModel.html</loc></url>
+<url><loc>/reference/SsFrocSampleSize.html</loc></url>
+<url><loc>/reference/SsPowerGivenJK.html</loc></url>
+<url><loc>/reference/SsPowerGivenJKDbmVarCom.html</loc></url>
+<url><loc>/reference/SsPowerGivenJKOrVarCom.html</loc></url>
+<url><loc>/reference/SsPowerTable.html</loc></url>
+<url><loc>/reference/SsSampleSizeKGivenJ.html</loc></url>
+<url><loc>/reference/St.html</loc></url>
+<url><loc>/reference/StCadVsRad.html</loc></url>
+<url><loc>/reference/StOldCode.html</loc></url>
+<url><loc>/reference/StSP.html</loc></url>
+<url><loc>/reference/Util2Intrinsic.html</loc></url>
+<url><loc>/reference/Util2Physical.html</loc></url>
+<url><loc>/reference/UtilAnalyticalAucsRSM.html</loc></url>
+<url><loc>/reference/UtilAucBIN.html</loc></url>
+<url><loc>/reference/UtilAucCBM.html</loc></url>
+<url><loc>/reference/UtilAucPROPROC.html</loc></url>
+<url><loc>/reference/UtilDBM2ORVarCom.html</loc></url>
+<url><loc>/reference/UtilDBMVarComp.html</loc></url>
+<url><loc>/reference/UtilFigureOfMerit.html</loc></url>
+<url><loc>/reference/UtilLesDistr.html</loc></url>
+<url><loc>/reference/UtilLesWghts.html</loc></url>
+<url><loc>/reference/UtilMeanSquares.html</loc></url>
+<url><loc>/reference/UtilOR2DBMVarCom.html</loc></url>
+<url><loc>/reference/UtilORVarComp.html</loc></url>
+<url><loc>/reference/UtilPseudoValues.html</loc></url>
+<url><loc>/reference/dataset01.html</loc></url>
+<url><loc>/reference/dataset02.html</loc></url>
+<url><loc>/reference/dataset03.html</loc></url>
+<url><loc>/reference/dataset04.html</loc></url>
+<url><loc>/reference/dataset05.html</loc></url>
+<url><loc>/reference/dataset06.html</loc></url>
+<url><loc>/reference/dataset07.html</loc></url>
+<url><loc>/reference/dataset08.html</loc></url>
+<url><loc>/reference/dataset09.html</loc></url>
+<url><loc>/reference/dataset10.html</loc></url>
+<url><loc>/reference/dataset11.html</loc></url>
+<url><loc>/reference/dataset12.html</loc></url>
+<url><loc>/reference/dataset13.html</loc></url>
+<url><loc>/reference/dataset14.html</loc></url>
+<url><loc>/reference/datasetBinned123.html</loc></url>
+<url><loc>/reference/datasetBinned124.html</loc></url>
+<url><loc>/reference/datasetBinned125.html</loc></url>
+<url><loc>/reference/datasetCadLroc.html</loc></url>
+<url><loc>/reference/datasetCadSimuFroc.html</loc></url>
+<url><loc>/reference/datasetDegenerate.html</loc></url>
+<url><loc>/reference/datasetFROCSpC.html</loc></url>
+<url><loc>/reference/datasetROI.html</loc></url>
+<url><loc>/reference/datasetX.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/isBinnedDataset.html</loc></url>
+<url><loc>/reference/isValidDataset.html</loc></url>
+<url><loc>/reference/testCpp.html</loc></url>
 </urlset>
+
