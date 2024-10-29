@@ -9,7 +9,7 @@ RJafroc
 
 [![R build status](https://github.com/dpc10ster/RJafroc/workflows/R-CMD-check/badge.svg)](https://github.com/dpc10ster/RJafroc/actions)
 [![codecov](https://codecov.io/gh/dpc10ster/rjafroc/branch/master/graph/badge.svg)](https://codecov.io/gh/dpc10ster/rjafroc)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/RJafroc)](https://cran.r-project.org/package=RJafroc)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/RJafroc)](https://cran.r-project.org/package=RJafroc)
 
 # Summary
 
