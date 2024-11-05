@@ -1,4 +1,4 @@
-#' Significance testing for split-plot datasets
+#' Significance testing for balanced split-plot datasets
 #' 
 #' @description  Obuchowski-Rockette significance testing for balanced
 #'    split-plot datasets as described in Hillis 2014. 
@@ -26,7 +26,7 @@
 #' @return Results of the analysis
 #' 
 #' 
-#' @note Two toy split-plot ROC datasets are in directory 
+#' @note Two toy balanced split-plot ROC datasets are in directory 
 #'   \code{inst/extdata/toyFiles/ROC}:
 #' \itemize{ 
 #'    \item SPLIT-PLOT-A dataset \code{rocSpA.xlsx}
@@ -59,13 +59,14 @@
 #'      
 #' @export
 
+# 11/5/2024 focus for now on balanced split plot A dataset
 StSP <- function(dataset, FOM, alpha = 0.05, analysisOption = "RRRC")
 {
   
   if (dataset$descriptions$design == "SPLIT-PLOT-A") {
     
-    #return(OR_SP_A(dataset, FOM, alpha, analysisOption))
-    return(OR_SP_A_UNB(dataset, FOM, alpha, analysisOption))
+    return(OR_SP_A_BAL(dataset, FOM, alpha, analysisOption))
+    #return(OR_SP_A_UNB(dataset, FOM, alpha, analysisOption))
     
   } else if (dataset$descriptions$design == "SPLIT-PLOT-C") {
     

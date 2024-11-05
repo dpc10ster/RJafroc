@@ -1,6 +1,6 @@
-# Implement SP_A formulae in Hillis 2014 for balance design
-# total number of readers, split equally between all treatments
-OR_SP_A <- function(dataset, FOM, alpha, analysisOption)
+# Implement SP_A formulae in Hillis 2014 for balanced split plot A design
+# identical number of readers in each treatment
+OR_SP_A_BAL <- function(dataset, FOM, alpha, analysisOption)
 {
 
   I <- dim(dataset$ratings$NL)[1]
@@ -11,7 +11,7 @@ OR_SP_A <- function(dataset, FOM, alpha, analysisOption)
 
   # no need to have different reader names in different treatments
   modalityID <- dataset$descriptions$modalityID
-  readerID <- dataset$descriptions$readerID[1:J/I]
+  readerID <- dataset$descriptions$readerID[1:J] # 11/5/25 fixed error DPC
 
   ##############################################################################
   # get figures of merit etc for each modality i and reader j
