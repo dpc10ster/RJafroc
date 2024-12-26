@@ -4,7 +4,7 @@ test_that(contextStr, {
   
   fileName <- system.file("extdata", "/toyFiles/ROC/rocSpA.xlsx", 
                           package = "RJafroc", mustWork = TRUE)
-  dsSpA <- DfReadSP(fileName)
+  dsSpA <- DfReadSP_A(fileName)
   
   fn <- paste0(test_path(), "/goodValues361/StSP/StSP_A", ".rds")
   if (!file.exists(fn)) {

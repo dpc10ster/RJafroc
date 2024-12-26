@@ -53,7 +53,7 @@
 #'   \code{\link{RJafroc-package}}.
 #'
 #' @note This function is used only for factorial datasets. For SPLIT-PLOT
-#'   datasets use function \link{DfReadSP}.
+#'   datasets use function \link{DfReadSP_A} or \link{DfReadSP_C}.
 #'
 #' @examples
 #' fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",

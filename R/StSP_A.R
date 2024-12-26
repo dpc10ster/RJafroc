@@ -170,13 +170,15 @@ OR_SP_A_UNB <- function(dataset, FOM, alpha, analysisOption)
 
   I <- dim(dataset$ratings$NL)[1]
 
-  # J is the number of readers in each treatment; as clarified in Hillis
-  # 2023 paper;
-  J <- dim(dataset$ratings$NL)[2]/I
+  # J_i is the number of readers in treatment i; as clarified in Hillis
+  # 2023 paper; Proc SPIE Int Soc Opt Eng. 2023 February
+  # 12467: doi:10.1117/12.2655190.
+  J_i <- array(dim = I)
+  for (i in 1:I) J_i[i] <- dim(dataset$ratings$NL)[i]
 
   # no need to have different reader names in different treatments
   modalityID <- dataset$descriptions$modalityID
-  readerID <- dataset$descriptions$readerID[1:J/I]
+  readerID <- dataset$descriptions$readerID[1:J] # 11/5/25 fixed error DPC
 
   ##############################################################################
   # get figures of merit etc for each modality i and reader j

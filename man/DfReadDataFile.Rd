@@ -69,7 +69,7 @@ The \code{"MRMC"} format is deprecated. For non-JAFROC formats four
    \code{modalityID} fields must be unique integers}.
 
 This function is used only for factorial datasets. For SPLIT-PLOT
-  datasets use function \link{DfReadSP}.
+  datasets use function \link{DfReadSP_A} or \link{DfReadSP_C}.
 }
 \examples{
 fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",

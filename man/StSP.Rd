@@ -2,7 +2,7 @@
 % Please edit documentation in R/StSP.R
 \name{StSP}
 \alias{StSP}
-\title{Significance testing for split-plot datasets}
+\title{Significance testing for unbalanced split-plot datasets}
 \usage{
 StSP(dataset, FOM, alpha = 0.05, analysisOption = "RRRC")
 }
@@ -33,7 +33,7 @@ Obuchowski-Rockette significance testing for balanced
    split-plot datasets as described in Hillis 2014.
 }
 \note{
-Two toy split-plot ROC datasets are in directory 
+Two toy balanced split-plot ROC datasets are in directory 
   \code{inst/extdata/toyFiles/ROC}:
 \itemize{ 
    \item SPLIT-PLOT-A dataset \code{rocSpA.xlsx}
@@ -44,7 +44,7 @@ Two toy split-plot ROC datasets are in directory
 ## Analyze included dataset 
 fileName <- system.file("extdata", "/toyFiles/ROC/rocSpA.xlsx", 
 package = "RJafroc", mustWork = TRUE)
-dsSpA <- DfReadSP(fileName)
+dsSpA <- DfReadSP_A(fileName)
 ret <- StSP(dsSpA, FOM = "Wilcoxon")
 
 ## Analyze embedded dataset 
