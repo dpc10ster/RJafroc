@@ -25,8 +25,8 @@ preCheck4BadEntries_SP_A <- function(truthTable) {
     }
   if (errorMsg != "") stop(errorMsg)
   
-  if (any(!is.wholenumber(as.numeric(truthTable[[1]])))) stop("Non-integer values in Truth worksheet column 1")
-  if (any(!is.wholenumber(as.numeric(truthTable[[2]])))) stop("Non-integer values in Truth worksheet column 2")
+  if (any(!FRACTION::is.wholenumber(as.numeric(truthTable[[1]])))) stop("Non-integer values in Truth worksheet column 1")
+  if (any(!FRACTION::is.wholenumber(as.numeric(truthTable[[2]])))) stop("Non-integer values in Truth worksheet column 2")
   if (any(!is.double(as.numeric(truthTable[[3]])))) stop("Non-floating point values in Truth worksheet column 3")
   
   # code to check for sequential lesionIDs in Truth sheet: 0,0,1,2,0,1,2,3,0,1 etc
@@ -48,6 +48,7 @@ preCheck4BadEntries_SP_A <- function(truthTable) {
   if (errorMsg != "") stop(errorMsg)
   
 }
+
 
 # SPLIT-PLOT-A: Reader nested within test; Hillis 2014 Table VII part (a)
 chkExcelFileSP_A <- function (fileName) 
@@ -75,6 +76,12 @@ chkExcelFileSP_A <- function (fileName)
   if (!(type %in% c("FROC", "ROC", "LROC"))) stop("Data must be ROC, FROC or LROC.\n")
   if (design != "SPLIT-PLOT-A") stop("Study design must be SPLIT-PLOT-A\n")
   
+  df <- truthTable[1:5]
+  df["caseLevelTruth"] <- (truthTable$LesionID > 0)
+  # sort the TRUTH worksheet of the Excel file on the lesionID field
+  # this puts normal cases first, regardless of how they are entered in Excel worksheet
+  truthTableSort <- df[order(df$caseLevelTruth),]
+  
   L <- length(truthTable$CaseID) # column length in the Truth Excel worksheet
   # L is an even integer
   # need to cast as.integer as values are numerics
@@ -87,10 +94,10 @@ chkExcelFileSP_A <- function (fileName)
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
-  
+
   if (!is.character(truthTable$ReaderID) || (!is.character(truthTable$ModalityID))) stop("ReaderID and ModalityID columns must be characters\n")
-  readerIDCol <- as.character(truthTable$ReaderID) 
-  modalityIDCol <- as.character(truthTable$ModalityID)
+  readerIDCol <- truthTable$ReaderID 
+  modalityIDCol <- truthTable$ModalityID
   trtArr <- array(dim = L)
   
   # grep "^\\s*$" matches blank lines; see learnGrep in desktop
@@ -119,6 +126,14 @@ chkExcelFileSP_A <- function (fileName)
   if (!is.vector(J_i))  stop("J_i: expecting a vector")
   if (length(J_i) != I) stop("length of J_i must equal I")
   J <- sum(J_i)
+  
+  truthTableStr <- array(dim = c(I, J, K, max(lesionIDCol)+1)) 
+  for (i in 1:I) {
+    for (j in 1:J_i[i]) {
+      if (i == 1) truthTableStr[i,j,,] <- 1
+      if (i == 2) truthTableStr[i,J_i[1]+j,,] <- 1
+    }
+  }
   
   # CHECK weights
   perCase <- as.vector(table(caseIDCol[caseIDCol %in% abnormalCases]))
@@ -153,6 +168,10 @@ chkExcelFileSP_A <- function (fileName)
   NLCaseIDCol <- as.integer(NLTable$CaseID)
   NLModalityIDCol <- as.character(NLTable$ModalityID)
   NLReaderIDCol <- as.character(NLTable$ReaderID)
+  # allow for worksheet name to be either NL_Rating or FP_Rating
+  if (is.null(NLTable$FP_Rating)) NLRatingCol <- NLTable$NL_Rating else NLRatingCol <- NLTable$FP_Rating
+  NLRatingCol <- as.numeric(NLRatingCol)
+  if(any(is.na(NLRatingCol))) stop ("found NAs in NLRatingCol in NL/FP sheet")
   
   naRows <- colSums(is.na(NLTable))
   if (max(naRows) > 0) {
@@ -188,10 +207,8 @@ chkExcelFileSP_A <- function (fileName)
   if (is.null(LLTable$TP_Rating)) LLRatingCol <- LLTable$LL_Rating else LLRatingCol <- LLTable$TP_Rating
   
   modalityIDUnique <- as.character(unique(c(NLModalityIDCol, LLModalityIDCol)))
-  # I <- length(modalityIDUnique)
   readerIDUnique <- as.character(unique(c(NLReaderIDCol, LLReaderIDCol)))
-  # J <- length(readerIDUnique)
-  
+
   maxNL <- 0
   for (i in modalityIDUnique) {
     for (j in readerIDUnique) {
@@ -202,24 +219,88 @@ chkExcelFileSP_A <- function (fileName)
     }
   }
   
-  L_NL <- length(NLModalityIDCol)
+  len_NL <- length(NLModalityIDCol)
   NL <- array(dim = c(I, J, K, maxNL))
   
-  return (list(
-    I = I,
-    J_i = J_i,
-    trtArr1D = trtArr1D,
-    type = type,
-    design = design,
-    caseID = caseIDCol,
-    perCase = perCase,
-    lesionIDCol = lesionIDCol,
-    IDs = IDs,
-    weights = weights,
-    normalCases = normalCases,
-    abnormalCases = abnormalCases,
-    NLTable = NLTable
-  ))
+  ############################ INIT NL ARRAY ################################
+  for (l in 1:len_NL) {
+    i <- which(trtArr1D == NLModalityIDCol[l])
+    j <- which(J_i == NLReaderIDCol[l])
+    k <- which(unique(truthTableSort$CaseID) == NLCaseIDCol[l])
+    nMatches <- which((NLCaseIDCol == NLCaseIDCol[l]) & (NLModalityIDCol == NLModalityIDCol[l]) & (NLReaderIDCol == NLReaderIDCol[l]))
+    if (NLCaseIDCol[l] %in% normalCases) tt2 <- truthTableStr[i,j,k,1] else tt2 <- truthTableStr[i,j,k,2] 
+    if (is.na(tt2)) stop("Error in reading NL/FP worksheet: is.na(tt2)") else {
+      if (tt2 != 1)  stop("Error in reading NL/FP worksheet: tt2 != 1") else 
+        for (el in 1:length(nMatches)) {
+          # if a modality-reader-case has multiple marks, then enter the corresponding ratings
+          # the is.na() check ensures that an already recorded mark is not overwritten
+          # CANNOT determine el as in the LL case, see below, since the number of FROC NL marks is potentially unlimited
+          # The first rating comes from l, the next from l+1, etc.
+          if (is.na( NL[i, j, k, el])) NL[i, j, k, el] <- NLRatingCol[l+el-1]
+        }
+    }
+  }
+  NL[is.na(NL)] <- UNINITIALIZED
+
+  ############################ INIT LL ARRAY ################################
+  L <- length(LLModalityIDCol)
+  LL <- array(dim = c(I, J, K2, max(perCase)))
+  LLRatingCol <- as.numeric(LLRatingCol)
+  if(any(is.na(LLRatingCol))) stop ("found NAs in LLRatingCol in LL/TP sheet")
+  for (l in 1:L) {
+    i <- which(trtArr1D == LLModalityIDCol[l])
+    j <- which(rdrArr1D == LLReaderIDCol[l])
+    k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1 # offset into abnormal cases
+    # CAN determine el since the number of FROC LL marks is LIMITED to number of lesions in case
+    if (K1 != 0) {
+      # this gives 0,1,2,..,max num of lesions
+      # which includes zero, hence the minus 1
+      el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l]) - 1
+    } else {
+      # this gives 1,2,..,max num of lesions
+      # which does not include zero, hence no minus 1
+      el <- which(unique(truthTableSort$LesionID) == LLLesionIDCol[l])
+    }
+    tt2 <- truthTableStr[i,j,k+K1,el+1]
+    if (is.na(tt2)) next else {
+      if (tt2 != 1)  stop("Error in reading LL/TP worksheet") else 
+        # the is.na() check ensures that an already recorded mark is not overwritten
+        if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
+    }
+  }
+  
+  LL[is.na(LL)] <- UNINITIALIZED
+  weights[is.na(weights)] <- UNINITIALIZED
+  lesionIDCol[is.na(lesionIDCol)] <- UNINITIALIZED
+  
+  modalityNames <- modalityIDUnique
+  readerNames <- readerIDUnique
+  
+  names(modalityIDUnique) <- modalityNames; modalityID <- modalityIDUnique
+  names(readerIDUnique) <- readerNames; readerID <- readerIDUnique
+  
+  name <- NA
+  # return the dataset object
+  return(convert2dataset(NL, LL, LL_IL = NA, 
+                         perCase, IDs, weights,
+                         fileName, type, name, truthTableStr, design,
+                         modalityID, readerID))
+  
+  # return (list(
+  #   I = I,
+  #   J_i = J_i,
+  #   trtArr1D = trtArr1D,
+  #   type = type,
+  #   design = design,
+  #   caseID = caseIDCol,
+  #   perCase = perCase,
+  #   lesionIDCol = lesionIDCol,
+  #   IDs = IDs,
+  #   weights = weights,
+  #   normalCases = normalCases,
+  #   abnormalCases = abnormalCases,
+  #   NLTable = NLTable
+  # ))
   
 }
 

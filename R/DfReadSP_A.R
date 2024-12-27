@@ -22,7 +22,7 @@ DfReadSP_A <- function (fileName)
 {
   
   temp <- chkExcelFileSP_A(fileName)
-
+  stop("code here\n")
   I <- temp$I 
   J_i <- temp$J_i
   trtArr1D <- temp$trtArr1D
@@ -108,10 +108,11 @@ DfReadSP_A <- function (fileName)
   
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   
-  L_NL <- length(NLModalityIDCol)
+  len_NL <- length(NLModalityIDCol)
   NL <- array(dim = c(I, J, K, maxNL))
+  
   ############################ INIT NL ARRAY ################################
-  for (l in 1:L_NL) {
+  for (l in 1:len_NL) {
     i <- which(trtArr1D == NLModalityIDCol[l])
     j <- which(J_i == NLReaderIDCol[l])
     k <- which(unique(truthTableSort$CaseID) == NLCaseIDCol[l])
