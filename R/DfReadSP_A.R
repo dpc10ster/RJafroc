@@ -21,7 +21,7 @@
 DfReadSP_A <- function (fileName) 
 {
   
-  temp <- chkExcelFileSP_A(fileName)
+  temp <- chkExcelSP_A(fileName)
   stop("code here\n")
   I <- temp$I 
   J_i <- temp$J_i

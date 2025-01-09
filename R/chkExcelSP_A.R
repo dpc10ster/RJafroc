@@ -51,7 +51,7 @@ preCheck4BadEntries_SP_A <- function(truthTable) {
 
 
 # SPLIT-PLOT-A: Reader nested within test; Hillis 2014 Table VII part (a)
-chkExcelFileSP_A <- function (fileName) 
+chkExcelSP_A <- function (fileName) 
 {
   
   wb <- readxl::excel_sheets(fileName)
@@ -94,7 +94,7 @@ chkExcelFileSP_A <- function (fileName)
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
-
+  
   if (!is.character(truthTable$ReaderID) || (!is.character(truthTable$ModalityID))) stop("ReaderID and ModalityID columns must be characters\n")
   readerIDCol <- truthTable$ReaderID 
   modalityIDCol <- truthTable$ModalityID
@@ -126,6 +126,16 @@ chkExcelFileSP_A <- function (fileName)
   if (!is.vector(J_i))  stop("J_i: expecting a vector")
   if (length(J_i) != I) stop("length of J_i must equal I")
   J <- sum(J_i)
+  
+  rdrArr <- array(dim = c(L,J))
+  for (l in 1:L) {
+    val <- strsplit(readerIDCol[l], split = ",|\\s")[[1]]
+    val <- val[val != ""]
+    for (i in 1:length(val)) {
+      rdrArr[l,i] <- val[i]
+    }
+  }
+  rdrArr <- unique(rdrArr)
   
   truthTableStr <- array(dim = c(I, J, K, max(lesionIDCol)+1)) 
   for (i in 1:I) {
@@ -208,7 +218,7 @@ chkExcelFileSP_A <- function (fileName)
   
   modalityIDUnique <- as.character(unique(c(NLModalityIDCol, LLModalityIDCol)))
   readerIDUnique <- as.character(unique(c(NLReaderIDCol, LLReaderIDCol)))
-
+  
   maxNL <- 0
   for (i in modalityIDUnique) {
     for (j in readerIDUnique) {
@@ -241,7 +251,7 @@ chkExcelFileSP_A <- function (fileName)
     }
   }
   NL[is.na(NL)] <- UNINITIALIZED
-
+  
   ############################ INIT LL ARRAY ################################
   L <- length(LLModalityIDCol)
   LL <- array(dim = c(I, J, K2, max(perCase)))

@@ -22,7 +22,7 @@ DfReadSP_C <- function (fileName)
 {
   stop("Need code here\n")
   ########################## CHECK ALL WORKSHEETS ##############################
-  cTT <- chkExcelFileSP_A(fileName)
+  cTT <- chkExcelSP_A(fileName)
   
   truthTableSort <- cTT$truthTableSort 
   J_i <- cTT$J_i

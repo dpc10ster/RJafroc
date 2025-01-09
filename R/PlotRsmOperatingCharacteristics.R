@@ -318,5 +318,4 @@ PlotRsmOperatingCharacteristics <- function(mu,
   ))
 }
 
-#is.wholenumber <- function(x)  round(x) == x
 
