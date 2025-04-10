@@ -467,18 +467,18 @@ CadVsRadPlots <- function(dataset, FOM) {
   type <- dataset$descriptions$type
   if (type == "ROC") {
     # fixed one of hard coding errors noticed by Alejandro
-    genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
+    genericPlot <- PlotEmpOpChr(dataset, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
   } else if ((type == "LROC") && ((FOM == "PCL") || (FOM == "ALROC")))  {
     if (type == "LROC") genericPlot <- LrocPlots (zjk1, zjk2, seq(1,length(zjk1[,1])-1))$lrocPlot
   } else if ((type == "LROC") && (FOM == "Wilcoxon"))  {
     if (type == "LROC") {
       datasetRoc <- DfLroc2Roc(dataset)
-      genericPlot <- PlotEmpiricalOperatingCharacteristics(datasetRoc, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
+      genericPlot <- PlotEmpOpChr(datasetRoc, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
     }
   } else if ((type == "FROC") && (FOM %in% c("HrAuc", "AFROC", "wAFROC")))  {
-    if (FOM == "HrAuc") genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
-    if (FOM == "AFROC") genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "AFROC")$Plot
-    if (FOM == "wAFROC") genericPlot <- PlotEmpiricalOperatingCharacteristics(dataset, rdrs = 1:length(zjk1[,1]), opChType = "wAFROC")$Plot
+    if (FOM == "HrAuc") genericPlot <- PlotEmpOpChr(dataset, rdrs = 1:length(zjk1[,1]), opChType = "ROC")$Plot
+    if (FOM == "AFROC") genericPlot <- PlotEmpOpChr(dataset, rdrs = 1:length(zjk1[,1]), opChType = "AFROC")$Plot
+    if (FOM == "wAFROC") genericPlot <- PlotEmpOpChr(dataset, rdrs = 1:length(zjk1[,1]), opChType = "wAFROC")$Plot
   }else stop("data type has to be ROC, FROC or LROC")
   
   return(genericPlot)
@@ -618,7 +618,8 @@ LrocPlots <- function (zjk1, zjk2, doJ)
   sizes <- c(2, rep(1, length(doJ)))
   lrocPlot <- ggplot(data = lrocPlotData, aes(x = FPF, y = PCL, color = reader)) + geom_line(aes(linewidth = reader)) + 
     scale_color_manual(values = colors) + scale_size_manual(values = sizes) + 
-    theme(legend.title = element_blank(), legend.position = legendPosition <- c(1, 0), legend.justification = c(1, 0))
+    theme(legend.title = element_blank(), legend.justification = c(1, 0)) + 
+    theme(legend.position = "inside", legend.position.inside = c(1,0))
   return(list(
     lrocPlot = lrocPlot,
     afrocPlot = NULL)

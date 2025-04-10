@@ -57,7 +57,7 @@
     Package: \tab RJafroc\cr
     Type: \tab Package\cr
     Version: \tab 2.1.3\cr
-    Date: \tab 2023-07-31\cr
+    Date: \tab 2025-04-09\cr
     License: \tab GPL-3\cr
     URL: \tab \url{https://dpc10ster.github.io/RJafroc/}\cr
   }
@@ -392,9 +392,9 @@
   \itemize{
         \item \code{\link{PlotBinormalFit}}: Plot binormal-predicted ROC curve with
            provided BM parameters.
-        \item \code{\link{PlotEmpiricalOperatingCharacteristics}}: Plot empirical
+        \item \code{\link{PlotEmpOpChr}}: Plot empirical
            operating characteristics for specified dataset.
-        \item \code{\link{PlotRsmOperatingCharacteristics}}: Plot RSM-fitted ROC curves.
+        \item \code{\link{PlotRsmOpCht}}: Plot RSM-fitted ROC curves.
   }
 }
 
@@ -406,7 +406,6 @@
            model ROC dataset.
         \item \code{\link{SimulateCorCbmDataset}}: Simulates an uncorrelated binormal
            model ROC dataset.
-        \item \code{\link{SimulateLrocDataset}}: Simulates an uncorrelated LROC dataset.
   }
 }
 

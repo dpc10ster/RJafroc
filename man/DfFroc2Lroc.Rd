@@ -19,16 +19,16 @@ Simulates a multiple-modality multiple-reader "AUC-equivalent"
 \details{
 The FROC paradigm can have 0 or more marks per case. However, 
    LROC is restricted to \bold{exactly one mark per case}. For the NL array 
-   of the LROC data, for non-disesed cases, the \bold{highest} rating of the 
-   FROC marks, or -Inf if there are no marks, is copied to case index 
+   of the LROC data, for non-diseased cases the \bold{highest} rating of the 
+   FROC marks, or -Inf if there are no marks. And -Inf is copied to case index 
    k1 = 1 to k1 = K1 of the LROC dataset. For each diseased case, if the 
-   max LL rating exceeds the max NL rating, then the max LL rating is copied 
+   max LL rating exceeds the max NL rating, the max LL rating is copied 
    to the LL array, otherwise the max NL rating is copied to the LL_IL array. 
-   The max NL rating on each diseased case is then set to -Inf (since the LROC
-   paradigm only allows one mark. The equivalent FROC dataset has the same 
-   HrAuc as the original LROC dataset. See example. The main use of this 
-   function is to test the Significance testing functions using MRMC LROC 
-   datasets, which I currently don't have.
+   The max NL rating on each diseased case is set to -Inf (since the LROC
+   paradigm only allows one mark). The equivalent FROC dataset has the same 
+   HrAuc as the original LROC dataset. See example and test-LrocDfConvFuncs.R in tests. 
+   The main use of this function is to test the Significance testing functions 
+   using MRMC LROC datasets, which I currently don't have.
 }
 \examples{
 

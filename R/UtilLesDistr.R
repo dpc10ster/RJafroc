@@ -24,7 +24,7 @@
 #'   contains the numbers of lesions per diseased case. The second element,
 #'   i.e., \code{Freq}, contains the fraction of dis. cases containing one
 #'   lesion, the fraction containing two lesions, etc. See
-#'   \link{PlotRsmOperatingCharacteristics} for a function that depends on
+#'   \link{PlotRsmOpChr} for a function that depends on
 #'   \code{LD}.
 #'
 #'

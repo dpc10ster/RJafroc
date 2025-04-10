@@ -11,19 +11,19 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 \itemize{
-\item{\code{rating$NL}}{, num [1:2, 1:5, 1:185, 1:3], ratings of non-lesion localizations, NLs}
-\item{\code{rating$LL}}{, num [1:2, 1:5, 1:89, 1:2], ratings of lesion localizations, LLs}
-\item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-\item{\code{lesions$perCase}}{, int [1:89], number of lesions per diseased case}
-\item{\code{lesions$IDs}}{, num [1:89, 1:2], numeric labels of lesions on diseased cases}
-\item{\code{lesions$weights}}{, num [1:89, 1:2], weights (or clinical importances) of lesions}
-\item{\code{descriptions$fileName}}{, chr, "dataset01", base name of dataset in `data` folder}
-\item{\code{descriptions$type}}{, chr "FROC", the data type}
-\item{\code{descriptions$name}}{, chr "TONY", the name of the dataset}
-\item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:185, 1:3] 1 1 1 1 ..., truth table structure}
-\item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-\item{\code{descriptions$modalityID}}{, chr [1:2] "BT" "DM", modality labels}
-\item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+\item\code{rating$NL} num Array[1:2, 1:5, 1:185, 1:3] ratings of non-lesion localizations NLs
+\item\code{rating$LL} num Array [1:2, 1:5, 1:89, 1:2] ratings of lesion localizations LLs
+\item\code{rating$LL_IL}  NA This placeholder is used only for LROC data
+\item\code{lesions$perCase} int Array[1:89], number of lesions per diseased case
+\item\code{lesions$IDs} num Array[1:89, 1:2], numeric labels of lesions on diseased cases
+\item\code{lesions$weights}  num Array[1:89, 1:2], weights (or clinical importance) of lesions
+\item\code{descriptions$fileName} chr "dataset01", base name of dataset in `data` folder
+\item\code{descriptions$type} chr "FROC", the data type
+\item\code{descriptions$name} chr "TONY", the name of the dataset
+\item\code{descriptions$truthTableStr} num Array[1:2, 1:5, 1:185, 1:3] Truth table structure
+\item\code{descriptions$design} chr "FCTRL" study design factorial dataset
+\item\code{descriptions$modalityID} chr Array[1:2] "BT" "DM" modality labels
+\item\code{descriptions$readerID} chr Array[1:5] Reader labels
 }
 }
 \usage{
@@ -36,7 +36,7 @@ This is referred to in the book as the "TONY" dataset. It consists of 185 cases,
 }
 \examples{
 res <- str(dataset01)
-## PlotEmpiricalOperatingCharacteristics(dataset = dataset01, opChType = "wAFROC")$Plot
+## PlotEmpOpChr(dataset = dataset01, opChType = "wAFROC")$Plot
 
 }
 \references{

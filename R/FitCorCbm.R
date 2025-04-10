@@ -73,21 +73,21 @@ FitCorCbm <- function(dataset){
   if (dataset$descriptions$type != "ROC") {
     stop("This program requires an ROC dataset")
   }
-
+  
   minMu <- RJafrocEnv$minMu
   maxMu <- RJafrocEnv$maxMu
   minAlpha <- RJafrocEnv$minAlpha
   maxAlpha <- RJafrocEnv$maxAlpha
   minRho <- RJafrocEnv$minRho
   maxRho <- RJafrocEnv$maxRho
-
+  
   # `as.matrix` is NOT absolutely necessary as `mean()` function is not used here
   aucArray <- UtilFigureOfMerit(dataset, FOM = "Wilcoxon")
   maxAUC <- max(aucArray)
   while (pnorm(maxMu / sqrt(2)) <= maxAUC){
     maxMu <- qnorm(maxAUC) * sqrt(2) + 0.5
   }
-
+  
   I <- length(dataset$ratings$NL[,1,1,1])
   J <- length(dataset$ratings$NL[1,,1,1])
   K <- length(dataset$ratings$NL[1,1,,1])
@@ -95,23 +95,23 @@ FitCorCbm <- function(dataset){
   K1 <- K - K2
   FP <- dataset$ratings$NL[1,,1:K1,1]
   TP <- dataset$ratings$LL[1,,,1]
-
+  
   z1X <- FP[1, ];z1Y <- FP[2, ]
   z2X <- TP[1, ];z2Y <- TP[2, ]
-
+  
   rhoNor <- cor(z1X, z1Y)
   rhoAbn <- cor(z2X, z2Y)
-
+  
   iniParamX <- FitCbmRoc(dataset, 1, 1) # arm X of pairing
   muX <- iniParamX$mu
   zetaX <- iniParamX$zetas
   alphaX <- iniParamX$alpha
-
+  
   iniParamY <- FitCbmRoc(dataset, 1, 2) # arm Y of pairing
   muY <- iniParamY$mu
   zetaY <- iniParamY$zetas
   alphaY <- iniParamY$alpha
-
+  
   muXFwd <- ForwardValue(muX, minMu, maxMu)
   muYFwd <- ForwardValue(muY, minMu, maxMu)
   alphaXFwd <- ForwardValue(alphaX, minAlpha, maxAlpha)
@@ -120,39 +120,39 @@ FitCorCbm <- function(dataset){
   rhoAbn2Fwd <- ForwardValue(rhoAbn, minRho, maxRho)
   zetaXFwd <- ForwardZetas(zetaX)
   zetaYFwd <- ForwardZetas(zetaY)
-
+  
   parameters <- c(list(muXFwd, muYFwd, alphaXFwd, alphaYFwd, rhoNorFwd, rhoAbn2Fwd),
                   as.list(zetaXFwd), as.list(zetaYFwd))
   namesVector <- c("muXFwd", "muYFwd", "alphaXFwd", "alphaYFwd","rhoNorFwd", "rhoAbn2Fwd")
   namesVector <- c(namesVector, paste0("zetaXFwd", 1:length(zetaXFwd)))
   namesVector <- c(namesVector, paste0("zetaYFwd", 1:length(zetaYFwd)))
   names(parameters) <- namesVector
-
+  
   nBinsX <- length(unique(c(FP[1,], TP[1,])))
   nBinsY <- length(unique(c(FP[2,], TP[2,])))
-
+  
   FPCounts <- array(dim = c(nBinsX, nBinsY))
   TPCounts <- array(dim = c(nBinsX, nBinsY))
-
+  
   for (bX in 1:nBinsX){
     for (bY in 1:nBinsY){
       FPCounts[bX, bY] <- sum((z1X == bX & z1Y == bY))
       TPCounts[bX, bY] <- sum((z2X == bX & z2Y == bY))
     }
   }
-
+  
   nLLCorCBMAdd <- AddZetaXFwd(nLLCorCBM, length(zetaX))
   nLLCorCBMAdd <- AddZetaYFwd(nLLCorCBMAdd, length(zetaY))
-
+  
   ret <- mle2(nLLCorCBMAdd, start = parameters, eval.only = TRUE,
               method = "BFGS", data = list(FPCounts = FPCounts, TPCounts = TPCounts, maxMu = maxMu))
-
+  
   NLLIni <- as.numeric(ret@min)
   
   ret <- mle2(nLLCorCBMAdd, start = parameters,
               method = "BFGS", data = list(FPCounts = FPCounts, TPCounts = TPCounts, maxMu = maxMu))
   NLLFin <- as.numeric(ret@min)
-
+  
   allCoef1 <- ret@coef
   muX <- InverseValue(allCoef1[1], minMu, maxMu)
   muY <- InverseValue(allCoef1[2], minMu, maxMu)
@@ -162,10 +162,10 @@ FitCorCbm <- function(dataset){
   rhoAbn2 <- InverseValue(allCoef1[6], minRho, maxRho)
   zetaX <- InverseZetas(allCoef1[7:(6 + length(zetaX))])
   zetaY <- InverseZetas(allCoef1[(7 + length(zetaX)):length(allCoef1)])
-
+  
   CorCBMLLNoTrnsAdd <- AddZetaX(nLLCorCBMNoTrns, length(zetaX))
   CorCBMLLNoTrnsAdd <- AddZetaY(CorCBMLLNoTrnsAdd, length(zetaY))
-
+  
   param <- c(muX, muY, alphaX, alphaY, rhoNor, rhoAbn2, zetaX, zetaY)
   fixParam <- c(which(param[1:2] > (maxMu - 0.01)),
                 2+which(param[3:4] > (maxAlpha - 0.01)),
@@ -209,7 +209,7 @@ FitCorCbm <- function(dataset){
     rhoAbn2Fwd <- ForwardValue(rhoAbn2, minRho, maxRho)
     zetaXFwd <- ForwardZetas(zetaX)
     zetaYFwd <- ForwardZetas(zetaY)
-
+    
     parameters <- c(list(muXFwd, muYFwd, alphaXFwd, alphaYFwd, rhoNorFwd, rhoAbn2Fwd),
                     as.list(zetaXFwd), as.list(zetaYFwd))
     namesVector <- c("muXFwd", "muYFwd", "alphaXFwd", "alphaYFwd","rhoNorFwd", "rhoAbn2Fwd")
@@ -232,14 +232,14 @@ FitCorCbm <- function(dataset){
     rhoAbn2 <- InverseValue(allCoef2[6], minRho, maxRho)
     zetaX <- InverseZetas(allCoef2[7:(6 + length(zetaX))])
     zetaY <- InverseZetas(allCoef2[(7 + length(zetaX)):length(allCoef2)])
-
+    
     parameters <- c(list(muX, muY, alphaX, alphaY, rhoNor, rhoAbn2),
                     as.list(zetaX), as.list(zetaY))
     namesVector <- c("muX", "muY", "alphaX", "alphaY","rhoNor", "rhoAbn2")
     namesVector <- c(namesVector, paste0("zetaX", 1:length(zetaX)))
     namesVector <- c(namesVector, paste0("zetaY", 1:length(zetaY)))
     names(parameters) <- namesVector
-
+    
     ret3 <- mle2(CorCBMLLNoTrnsAdd, start = parameters, method = "BFGS", fixed = parameters[fixParam],
                  data = list(FPCounts = FPCounts, TPCounts = TPCounts))
   } else {
@@ -254,19 +254,19 @@ FitCorCbm <- function(dataset){
     rhoAbn2 <- InverseValue(allCoef2[6], minRho, maxRho)
     zetaX <- InverseZetas(allCoef2[7:(6 + length(zetaX))])
     zetaY <- InverseZetas(allCoef2[(7 + length(zetaX)):length(allCoef2)])
-
+    
     parameters <- c(list(muX, muY, alphaX, alphaY, rhoNor, rhoAbn2),
                     as.list(zetaX), as.list(zetaY))
     namesVector <- c("muX", "muY", "alphaX", "alphaY","rhoNor", "rhoAbn2")
     namesVector <- c(namesVector, paste0("zetaX", 1:length(zetaX)))
     namesVector <- c(namesVector, paste0("zetaY", 1:length(zetaY)))
     names(parameters) <- namesVector
-
+    
     ret3 <- mle2(CorCBMLLNoTrnsAdd, start = parameters, method = "BFGS",
                  data = list(FPCounts = FPCounts, TPCounts = TPCounts))
   }
   covMat <- ret3@vcov
-
+  
   fittedPlot <- PlotCorCbmFit(
     list(
       FPCounts = FPCounts,
@@ -281,7 +281,7 @@ FitCorCbm <- function(dataset){
       zetaY = zetaY
     )
   )
-
+  
   fitCorCbmRet <- list(
     FPCounts = FPCounts,
     TPCounts = TPCounts,
@@ -295,10 +295,10 @@ FitCorCbm <- function(dataset){
     zetaY = zetaY,
     covMat = covMat,
     fixParam = fixParam
-    )
-
+  )
+  
   stats <- StatsCorCbm(fitCorCbmRet)
-
+  
   return(list(
     fitCorCbmRet = fitCorCbmRet,
     stats = stats,
@@ -321,21 +321,21 @@ StatsCorCbm <- function(fitCorCbmRet) {
   TPCounts <- fitCorCbmRet$TPCounts
   covMat <- fitCorCbmRet$covMat
   fixParam <- fitCorCbmRet$fixParam
-
+  
   vars <- diag(covMat)
   stdErr <- sqrt(vars)
   dMuX <- alphaX * dnorm(muX / sqrt(2)) / sqrt(2)
   dAlphaX <- -1 / 2 + pnorm(muX / sqrt(2))
   stdAucX <-
     sqrt(vars[1] * dMuX ^ 2 + vars[3] * dAlphaX ^ 2 + dMuX * dAlphaX * covMat[1, 3])
-
+  
   dMuY <- alphaY * dnorm(muY / sqrt(2)) / sqrt(2)
   dAlphaY <- -1 / 2 + pnorm(muY / sqrt(2))
   stdAucY <-
     sqrt(vars[2] * dMuY ^ 2 + vars[4] * dAlphaY ^ 2 + dMuY * dAlphaY * covMat[2, 4])
-
+  
   stdErr <- c(stdErr, stdAucX, stdAucY)
-
+  
   if (length(fixParam) > 0) {
     for (p in fixParam) {
       stdErr <- append(stdErr, NA, after = p - 1)
@@ -352,12 +352,12 @@ StatsCorCbm <- function(fitCorCbmRet) {
     stdErr <- as.numeric(stdErr)
   }
   stdErr[2:3] <- stdErr[3:2] # switch the position of alphaX and muY
-
+  
   aucX <- (1 - alphaX) * 0.5 + alphaX * pnorm(muX / sqrt(2))
   aucY <- (1 - alphaY) * 0.5 + alphaY * pnorm(muY / sqrt(2))
-
+  
   aucDiff <- aucX - aucY
-
+  
   varDiff <- 0
   derivs <- c(dMuX,-dMuY, dAlphaX,-dAlphaY)
   for (k in 1:4) {
@@ -368,7 +368,7 @@ StatsCorCbm <- function(fitCorCbmRet) {
   stdDiff <- sqrt(varDiff)
   areaStat <- abs(aucDiff) / stdDiff
   areaPval <- 1 - pnorm(areaStat)
-
+  
   return(
     list(
       aucX = aucX,
@@ -394,26 +394,26 @@ nLLCorCBM <- function(muXFwd, muYFwd, alphaXFwd, alphaYFwd, rhoNorFwd, rhoAbn2Fw
   maxAlpha <- RJafrocEnv$maxAlpha
   minRho <- RJafrocEnv$minRho
   maxRho <- RJafrocEnv$maxRho
-
+  
   allParameters <- names(formals())
   zetaXPos <- regexpr("zetaX", allParameters)
   zetaXFwd <- unlist(mget(allParameters[which(zetaXPos == 1)]))
   zetaYPos <- regexpr("zetaY", allParameters)
   zetaYFwd <- unlist(mget(allParameters[which(zetaYPos == 1)]))
-
+  
   muX <- InverseValue(muXFwd, minMu, maxMu)
   muY <- InverseValue(muYFwd, minMu, maxMu)
   alphaX <- InverseValue(alphaXFwd, minAlpha, maxAlpha)
   alphaY <- InverseValue(alphaYFwd, minAlpha, maxAlpha)
-
+  
   rhoNor <- InverseValue(rhoNorFwd, minRho, maxRho)
   rhoAbn <- InverseValue(rhoAbn2Fwd, minRho, maxRho)
-
+  
   zetaX <- InverseZetas(zetaXFwd)
   zetaY <- InverseZetas(zetaYFwd)
-
+  
   LL <- LLCorCBM (muX, muY, alphaX, alphaY, rhoNor, rhoAbn, zetaX, zetaY, FPCounts, TPCounts)
-
+  
   return(-LL)
 }
 
@@ -425,9 +425,9 @@ nLLCorCBMNoTrns <- function(muX, muY, alphaX, alphaY, rhoNor, rhoAbn2, FPCounts,
   zetaX <- unlist(mget(allParameters[which(zetaXPos == 1)]))
   zetaYPos <- regexpr("zetaY", allParameters)
   zetaY <- unlist(mget(allParameters[which(zetaYPos == 1)]))
-
+  
   LL <- LLCorCBM (muX, muY, alphaX, alphaY, rhoNor, rhoAbn2, zetaX, zetaY, FPCounts, TPCounts)
-
+  
   return(-LL)
 }
 
@@ -452,13 +452,13 @@ LLCorCBM <- function(muX, muY, alphaX, alphaY, rhoNor, rhoAbn, zetaX, zetaY, FPC
   rhoAbn2 <- rhoAbn
   rhoAbn12 <- mean(c(rhoAbn1, rhoAbn2))
   rhoAbn4 <- rhoAbn12
-
+  
   sigmaNor <- rbind(c(1, rhoNor), c(rhoNor, 1))
   sigmaAbn1 <- rbind(c(1, rhoAbn1), c(rhoAbn1, 1))
   sigmaAbn2 <- rbind(c(1, rhoAbn2), c(rhoAbn2, 1))
   sigmaAbn3 <- rbind(c(1, rhoAbn12), c(rhoAbn12, 1))
   sigmaAbn4 <- rbind(c(1, rhoAbn4), c(rhoAbn4, 1))
-
+  
   LLNor <- 0
   LLAbn <- 0
   nBinsX <- dim(FPCounts)[1]
@@ -512,7 +512,7 @@ PlotCorCbmFit <- function(retFitCorCBM){
   plotOpPnts <- NULL
   FPFX <- 1 - pnorm(plotZeta)
   TPFX <- (1 - alphaX) * (1 - pnorm(plotZeta)) + alphaX * (1 - pnorm(plotZeta, mean = muX))
-
+  
   plotCBM <- rbind(plotCBM, data.frame(FPF = FPFX, TPF = TPFX, Condition = "X"))
   FPFX <- cumsum(rev(rowSums(FPCounts)))/K1
   TPFX <- cumsum(rev(rowSums(TPCounts)))/K2
@@ -533,17 +533,17 @@ PlotCorCbmFit <- function(retFitCorCBM){
   fittedPlot <- ggplot(data = plotCBM, mapping = aes(x = FPF, y = TPF, color = Condition)) +
     geom_line(data = plotCBM, linewidth = 1) +
     geom_point(data = plotOpPnts, size = 4) +
-    theme(legend.position = c(1, 0), legend.direction = "horizontal")
+    theme(legend.direction = "horizontal") + 
+    theme(legend.position = "inside", legend.position.inside = c(1, 0))
   
   fittedPlot <- fittedPlot +
     geom_line(data = plotCBM, mapping = aes(linetype = Condition), linewidth = 1) +
     geom_point(data = plotOpPnts, mapping = aes(shape = Condition), size = 3) +
     theme(legend.title=element_blank(),
-          legend.position = c(1, 0),
           legend.direction = "horizontal",
           legend.justification = c(1, 0),
-          legend.key.size = unit(1, "cm")) #+
-  # scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))
+          legend.key.size = unit(1, "cm")) + 
+    theme(legend.position = "inside", legend.position.inside = c(1, 0))
   
   ciIndxX <- c(1, length(FPFX))
   FPF <- FPFX[ciIndxX]

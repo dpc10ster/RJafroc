@@ -90,13 +90,13 @@ CadVsRad <- function(muCad, muRad, zeta1Cad, zeta1Rad, K1, K2, Lmax, initSeed) {
     perCase = Lk2)
   frocComb$descriptions$readerID <- c("CAD", "RAD")
   
-  froc <- PlotEmpiricalOperatingCharacteristics(
+  froc <- PlotEmpOpChr(
     frocComb,
     trts= 1,
     rdrs = c(1, 2),
     opChType = "FROC", maxDiscrete = 25)
   
-  wafroc <- PlotEmpiricalOperatingCharacteristics(
+  wafroc <- PlotEmpOpChr(
     frocComb,
     trts= 1,
     rdrs = c(1, 2),

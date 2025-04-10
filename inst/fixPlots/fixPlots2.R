@@ -42,7 +42,7 @@ for (i in 1:4) {
     zeta1 = zeta1)
   
   
-  froc <- PlotEmpiricalOperatingCharacteristics(
+  froc <- PlotEmpOpChr(
     frocCad,
     trts = seq(1:I),
     rdrs= seq(1:J),
