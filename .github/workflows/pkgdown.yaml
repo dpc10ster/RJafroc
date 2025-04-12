@@ -20,17 +20,17 @@ jobs:
       isPush: ${{ github.event_name == 'push' }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - uses: r-lib/actions/setup-tinytex@v4
+      - uses: r-lib/actions/setup-tinytex@v3
 
-      - uses: r-lib/actions/setup-pandoc@v4
+      - uses: r-lib/actions/setup-pandoc@v3
 
-      - uses: r-lib/actions/setup-r@v4
+      - uses: r-lib/actions/setup-r@v3
         with:
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v4
+      - uses: r-lib/actions/setup-r-dependencies@v3
         with:
           extra-packages: any::pkgdown, local::.
           needs: website
