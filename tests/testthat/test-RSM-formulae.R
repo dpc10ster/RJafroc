@@ -59,7 +59,7 @@ test_that(contextStr, {
 })
 
 
-contextStr <- "Cpp vs R: UtilAnalyticalAucsRSM: testing weights code with max 4 lesions per case; also compare to PlotRsmOpChr"
+contextStr <- "Cpp vs R: UtilAnalyticalAucsRSM: testing weights code with max 4 lesions per case; also compare to PlotRsmOperatingCharacteristics."
 context(contextStr)
 test_that(contextStr, {
   mu <- 2

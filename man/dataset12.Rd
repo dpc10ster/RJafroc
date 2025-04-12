@@ -11,19 +11,19 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 \itemize{
-\item\code{rating$NL} num Array[1:4, 1:5, 1:152, 1] ratings of non-lesion localizations NLs
-\item\code{rating$LL} num Array[1:4, 1:5, 1:88, 1] ratings of lesion localizations LLs
-\item\code{rating$LL_IL} NA This placeholder is used only for LROC data
-\item\code{lesions$perCase} int Array[1:88], number of lesions per diseased case
-\item\code{lesions$IDs} num Array[1:88, 1], numeric labels of lesions on diseased cases
-\item\code{lesions$weights} num Array[1:88, 1], weights (or clinical importance) of lesions
-\item\code{descriptions$fileName} chr "dataset12", base name of dataset in `data` folder
-\item\code{descriptions$type} chr "ROC" the data type
-\item\code{descriptions$name} chr "DOBBINS-2", the name of the dataset
-\item\code{descriptions$truthTableStr} num Array[1:4, 1:5, 1:152, 1:2] truth table structure
-\item\code{descriptions$design} chr "FCTRL", study design factorial dataset
-\item\code{descriptions$modalityID} chr Array[1:4] modality label(s)
-\item\code{descriptions$readerID} chr Array[1:5] reader labels
+\item{\code{rating$NL}}{, num [1:4, 1:5, 1:152, 1], ratings of non-lesion localizations, NLs}
+\item{\code{rating$LL}}{, num [1:4, 1:5, 1:88, 1], ratings of lesion localizations, LLs}
+\item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+\item{\code{lesions$perCase}}{, int [1:88], number of lesions per diseased case}
+\item{\code{lesions$IDs}}{, num [1:88, 1], numeric labels of lesions on diseased cases}
+\item{\code{lesions$weights}}{, num [1:88, 1], weights (or clinical importances) of lesions}
+\item{\code{descriptions$fileName}}{, chr, "dataset12", base name of dataset in `data` folder}
+\item{\code{descriptions$type}}{, chr "ROC", the data type}
+\item{\code{descriptions$name}}{, chr "DOBBINS-2", the name of the dataset}
+\item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:152, 1:2] , truth table structure}
+\item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+\item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
+\item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
 }
 }
 \usage{

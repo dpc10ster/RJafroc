@@ -6,13 +6,13 @@
 #'
 #' @param dataset Dataset object.
 #' @param trts List or vector: \strong{integer} indices of modalities to be
-#'   plotted. Default is 1, i.e., only first treatment is plotted.
+#'   plotted. Default is 1.
 #' @param rdrs List or vector: \strong{integer} indices of readers to be
-#'   plotted. Default is 1, i.e., only first reader is plotted.
+#'   plotted. Default is 1.
 #' @param opChType Type of operating characteristic to be plotted: \code{"ROC"},
 #'   \code{"FROC"}, \code{"AFROC"},  \code{"wAFROC"}, \code{"AFROC1"},
 #'   \code{"wAFROC1"}, or \code{"LROC"}.
-#' @param legendPosition Where to position the legend. The default is c(0.8,
+#' @param legend.position Where to position the legend. The default is c(0.8,
 #'   0.2), i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).
 #' @param maxDiscrete maximum number of op. points in order to be considered
 #'   discrete and to be displayed by symbols and connecting lines; any more
@@ -58,7 +58,7 @@
 #' ## Plot individual empirical ROC plots for all combinations of modalities
 #' ## 1 and 2 and readers 1, 2 and 3. Six operating characteristics are plotted.
 #'
-#' ret <- PlotEmpOpChr(dataset =
+#' ret <- PlotEmpiricalOperatingCharacteristics(dataset =
 #' dataset02, trts = c(1:2), rdrs = c(1:3), opChType = "ROC")
 #' ## print(ret$Plot)
 #'
@@ -76,7 +76,7 @@
 #' plotT <- list(1, 2, c(1:2))
 #' plotR <- list(2, c(2:3), c(1:3))
 #'
-#' ret <- PlotEmpOpChr(dataset = dataset04, trts = plotT,
+#' ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT,
 #'    rdrs = plotR, opChType = "wAFROC")
 #' ## print(ret$Plot)
 #'
@@ -91,7 +91,7 @@
 #' @export
 
 ####################################################################################################################
-PlotEmpOpChr <- function(dataset, trts = 1, rdrs = 1, opChType, legendPosition = c(0.8, 0.3), maxDiscrete = 10) 
+PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, opChType, legend.position = c(0.8, 0.3), maxDiscrete = 10) 
 {
   
   if (dataset$descriptions$type == "ROI") stop("No operating characteristics are defined for an ROI dataset")
@@ -109,8 +109,7 @@ PlotEmpOpChr <- function(dataset, trts = 1, rdrs = 1, opChType, legendPosition =
     stop(errMsg)
   }
   
-  # gpfGenEmpOpChr = general purpose function generic empirical operating characteristic
-  ret <- gpfGenEmpOpChr(ds, trts, rdrs, opChType = opChType, legendPosition, maxDiscrete)
+  ret <- gpfPlotGenericEmpiricalOperatingCharacteristic(ds, trts, rdrs, opChType = opChType, legend.position, maxDiscrete)
   
   return(ret)
 } 

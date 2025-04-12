@@ -11,19 +11,19 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 \itemize{
-\item\code{rating$NL} num Array[1, 1:10, 1:200, 1] ratings of localizations on normal cases
-\item\code{rating$LL} num Array[1, 1:10, 1:80, 1] ratings of correct localizations on abnormal cases
-\item\code{rating$LL_IL} num Array[1, 1:10, 1:80, 1], ratings of incorrect localizations on abnormal cases
-\item\code{lesions$perCase} int Array[1:80], number of lesions per diseased case
-\item\code{lesions$IDs} num Array[1:80, 1] , numeric labels of lesions on diseased cases
-\item\code{lesions$weights} num Array[1:80, 1], weights (or clinical importance) of lesions
-\item\code{descriptions$fileName} chr "datasetCadLroc", base name of dataset in `data` folder
-\item\code{descriptions$type} chr "LROC" the data type
-\item\code{descriptions$name} chr "NICO-CAD-LROC", the name of the dataset
-\item\code{descriptions$truthTableStr} num Array[1:2, 1:4, 1:200, 1:2] truth table structure
-\item\code{descriptions$design} chr "FCTRL", study design factorial dataset
-\item\code{descriptions$modalityID} chr "1" modality label
-\item\code{descriptions$readerID} chr Array[1:10] "1" "2" "3" "4" ..., reader labels
+\item{\code{rating$NL}}{, num [1, 1:10, 1:200, 1], ratings of localizations on normal cases}
+\item{\code{rating$LL}}{, num [1, 1:10, 1:80, 1], ratings of correct localizations on abnormal cases}
+\item{\code{rating$LL_IL}}{num [1, 1:10, 1:80, 1], ratings of incorrect localizations on abnormal cases}
+\item{\code{lesions$perCase}}{, int [1:80], number of lesions per diseased case}
+\item{\code{lesions$IDs}}{, num [1:80, 1] , numeric labels of lesions on diseased cases}
+\item{\code{lesions$weights}}{, num [1:80, 1], weights (or clinical importances) of lesions}
+\item{\code{descriptions$fileName}}{, chr, "datasetCadLroc", base name of dataset in `data` folder}
+\item{\code{descriptions$type}}{, chr "LROC", the data type}
+\item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
+\item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
+\item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+\item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
+\item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
 }
 }
 \usage{

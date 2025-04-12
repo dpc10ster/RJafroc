@@ -37,7 +37,8 @@ SimulateFrocDataset(
 
 \item{perCase}{A K2 length array containing the numbers of lesions per diseased case}
 
-\item{seed}{Initial seed for RNG, default \code{NULL} for random seed.}
+\item{seed}{Initial seed for random number generator, default 
+\code{NULL}, for random seed.}
 
 \item{deltaMu}{Inter-modality increment in mu, default zero}
 }
@@ -50,7 +51,7 @@ Simulates an uncorrelated MRMC FROC dataset for specified numbers of
 }
 \details{
 See book chapters on the Radiological Search Model (RSM) for details. 
-   Correlations between ratings on the same case are assumed to be zero.
+   In this code correlations between ratings on the same case are assumed to be zero.
 }
 \examples{
 set.seed(1) 
@@ -64,7 +65,7 @@ frocDataRaw <- SimulateFrocDataset(
   I = I, J = J, K1 = K1, K2 = K2, perCase = perCase )
   
 ## plot the data
-ret <- PlotEmpOpChr(frocDataRaw, opChType = "FROC")
+ret <- PlotEmpiricalOperatingCharacteristics(frocDataRaw, opChType = "FROC")
 ## print(ret$Plot)
 
 }

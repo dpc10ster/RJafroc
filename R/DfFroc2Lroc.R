@@ -9,16 +9,16 @@
 #' 
 #' @details The FROC paradigm can have 0 or more marks per case. However, 
 #'    LROC is restricted to \bold{exactly one mark per case}. For the NL array 
-#'    of the LROC data, for non-diseased cases the \bold{highest} rating of the 
-#'    FROC marks, or -Inf if there are no marks. And -Inf is copied to case index 
+#'    of the LROC data, for non-disesed cases, the \bold{highest} rating of the 
+#'    FROC marks, or -Inf if there are no marks, is copied to case index 
 #'    k1 = 1 to k1 = K1 of the LROC dataset. For each diseased case, if the 
-#'    max LL rating exceeds the max NL rating, the max LL rating is copied 
+#'    max LL rating exceeds the max NL rating, then the max LL rating is copied 
 #'    to the LL array, otherwise the max NL rating is copied to the LL_IL array. 
-#'    The max NL rating on each diseased case is set to -Inf (since the LROC
-#'    paradigm only allows one mark). The equivalent FROC dataset has the same 
-#'    HrAuc as the original LROC dataset. See example and test-LrocDfConvFuncs.R in tests. 
-#'    The main use of this function is to test the Significance testing functions 
-#'    using MRMC LROC datasets, which I currently don't have.
+#'    The max NL rating on each diseased case is then set to -Inf (since the LROC
+#'    paradigm only allows one mark. The equivalent FROC dataset has the same 
+#'    HrAuc as the original LROC dataset. See example. The main use of this 
+#'    function is to test the Significance testing functions using MRMC LROC 
+#'    datasets, which I currently don't have.
 #' 
 #' @examples 
 #' 
@@ -36,9 +36,9 @@ DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctio
   K <- length(dataset$ratings$NL[1,1,,1])
   K2 <- length(dataset$ratings$LL[1,1,,1])
   K1 <- K - K2
-  #  For the NL array of the LROC data, for non-diseased cases, the highest rating of the 
+  #  For the NL array of the LROC data, for non-disesed cases, the highest rating of the 
   #  FROC marks, or a minimum rating value (less than lowest finite rating, see below) 
-  #  if there are no marks, -Inf is copied to case index k1 = 1 to k1 = K1 of the LROC dataset.   
+  #  if there are no marks, is copied to case index k1 = 1 to k1 = K1 of the LROC dataset.   
 
   NL <- apply(dataset$ratings$NL, c(1, 2, 3), max)# keep max NL rating; 
   dim(NL) <- c(dim(NL), 1) # add the fourth "unnecessary" dimension

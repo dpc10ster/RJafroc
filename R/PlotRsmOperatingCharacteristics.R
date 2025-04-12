@@ -56,15 +56,15 @@
 #'   predicted wAFROC curves in up to two treatments, the area under the search
 #'   model predicted FROC curves in up to two treatments.
 #' \itemize{
-#' \item\code{ROCPlot}   The predicted ROC plots
-#' \item\code{AFROCPlot}     The predicted AFROC plots
-#' \item\code{wAFROCPlot}    The predicted wAFROC plots
-#' \item\code{FROCPlot}  The predicted FROC plots
-#' \item\code{PDFPlot}   The predicted ROC pdf plots, highest rating generated
-#' \item\code{aucROC}    The predicted ROC AUCs, highest rating generated
-#' \item\code{aucAFROC}  The predicted AFROC AUCs
-#' \item\code{aucwAFROC} The predicted wAFROC AUCs
-#' \item\code{aucFROC}   The predicted FROC AUCs
+#' \item{\code{ROCPlot}}   {The predicted ROC plots}
+#' \item{\code{AFROCPlot}}     {The predicted AFROC plots}
+#' \item{\code{wAFROCPlot}}    {The predicted wAFROC plots}
+#' \item{\code{FROCPlot}}  {The predicted FROC plots}
+#' \item{\code{PDFPlot}}   {The predicted ROC pdf plots, highest rating generated}
+#' \item{\code{aucROC}}    {The predicted ROC AUCs, highest rating generated}
+#' \item{\code{aucAFROC}}  {The predicted AFROC AUCs}
+#' \item{\code{aucwAFROC}} {The predicted wAFROC AUCs}
+#' \item{\code{aucFROC}}   {The predicted FROC AUCs}
 #' }
 #'
 #' @details RSM is the Radiological Search Model described in the book. This
@@ -100,12 +100,12 @@
 #' ## cases have a single lesion, 40% have two lesions, 10% have 3 lesions,
 #' ## and 30% have 4 lesions.
 #'
-#' res <- PlotRsmOpCht(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
+#' res <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
 #'    lesDistr = c(0.2, 0.4, 0.1, 0.3), legendPosition = "bottom")
 #'
 #' @export
 #' 
-PlotRsmOpChr <- function(mu, 
+PlotRsmOperatingCharacteristics <- function(mu, 
                                             lambda, 
                                             nu,
                                             zeta1,
@@ -119,14 +119,14 @@ PlotRsmOpChr <- function(mu,
                                             llfRange = NULL, 
                                             nlfAlpha = NULL){
   
-  
+
   if (missing(zeta1)) zeta1 <- array(-Inf, dim = length(mu))
-  
+      
   if (!all(c(length(mu) == length(lambda), length(mu) == length(nu), length(mu) == length(zeta1))))
     stop("Parameters mu, lambda, nu and zeta1 have different lengths.")
   
   lesWghtDistr <- UtilLesWghtsLD(lesDistr, relWeights)
-  
+
   plotStep <- 0.01
   # begin bug fix 12/7/21
   # plotStep <- 0.1 # delete after debug
@@ -162,10 +162,10 @@ PlotRsmOpChr <- function(mu,
     TPF <- sapply(zeta[[i]], yROC_cpp, mu = mu[i], lambda[i], nu[i], lesDistr)
     NLF <- sapply(zeta[[i]], RSM_NLF, lambda[i])
     LLF <- sapply(zeta[[i]], RSM_LLF, mu = mu[i], nu[i]) # 9/22/22
-    # begin bug fix
-    # found bug 11/24/21 two places, here and as indicated by # bug fix 11/24/21
-    # found ROC AUC did not change with zeta1 as it should   
-    #    maxFPF <- xROC_cpp(-20, lambda[i]) # this is wrong
+# begin bug fix
+# found bug 11/24/21 two places, here and as indicated by # bug fix 11/24/21
+# found ROC AUC did not change with zeta1 as it should   
+#    maxFPF <- xROC_cpp(-20, lambda[i]) # this is wrong
     maxFPF <- xROC_cpp(zeta1[i], lambda[i]) # this is correct
     if( OpChType == "ALL" ||  OpChType == "ROC"){
       ROCPoints <- rbind(ROCPoints, data.frame(FPF = FPF, 
@@ -176,9 +176,9 @@ PlotRsmOpChr <- function(mu,
                                                TPF = c(TPF[1], 1), 
                                                Treatment = as.character(i), 
                                                stringsAsFactors = FALSE))
-      #       maxTPF <- yROC_cpp(-20, mu[i], lambda, nu, lesDistr)
+#       maxTPF <- yROC_cpp(-20, mu[i], lambda, nu, lesDistr)
       maxTPF <- yROC_cpp(zeta1[i], mu[i], lambda[i], nu[i], lesDistr)
-      # end bug fix
+       # end bug fix
       AUC <- integrate(y_ROC_FPF_cpp, 0, maxFPF, mu = mu[i], lambda[i], nu[i], lesDistr =lesDistr)$value
       aucROC[i] <- AUC + (1 + maxTPF) * (1 - maxFPF) / 2
     }
@@ -257,8 +257,7 @@ PlotRsmOpChr <- function(mu,
       ggplot(data = ROCPoints) + 
         geom_line(aes(x = FPF, y = TPF, color = Treatment))  +       
         geom_line(data = ROCDashes, aes(x = FPF, y = TPF, color = Treatment), linetype = 2) +       
-        theme(legend.direction = legendDirection, legend.justification = c(1, 0)) + 
-        theme(legend.position = "inside", legend.position.inside = legendPosition)
+        theme(legend.position = legendPosition, legend.direction = legendDirection, legend.justification = c(1, 0)) 
     })
   }
   
@@ -268,8 +267,7 @@ PlotRsmOpChr <- function(mu,
         geom_line(aes(x = NLF, y = LLF, color = Treatment))  +       
         scale_x_continuous(expand = c(0, 0), limits = nlfRange) + 
         scale_y_continuous(expand = c(0, 0), limits = llfRange) + 
-        theme(legend.direction = legendDirection, legend.justification = c(1, 0)) +
-        theme(legend.position = "inside", legend.position.inside = legendPosition)
+        theme(legend.position = legendPosition, legend.direction = legendDirection, legend.justification = c(1, 0)) 
     })
   }
   
@@ -278,8 +276,7 @@ PlotRsmOpChr <- function(mu,
       ggplot(data = AFROCPoints) + 
         geom_line(aes(x = FPF, y = LLF , color = Treatment)) + 
         geom_line(data = AFROCDashes, aes(x = FPF, y = LLF, color = Treatment), linetype = 2) +       
-        theme(legend.direction = legendDirection, legend.justification = c(1, 0)) + 
-        theme(legend.position = "inside", legend.position.inside = legendPosition)
+        theme(legend.position = legendPosition, legend.direction = legendDirection, legend.justification = c(1, 0)) 
     }
     )
   }
@@ -289,9 +286,7 @@ PlotRsmOpChr <- function(mu,
       ggplot(data = wAFROCPoints) + 
         geom_line(aes(x = FPF, y = wLLF , color = Treatment)) + 
         geom_line(data = wAFROCDashes, aes(x = FPF, y = wLLF, color = Treatment), linetype = 2) +       
-        theme(legend.direction = legendDirection, legend.justification = c(1, 0)) + 
-        theme(legend.position = "inside", legend.position.inside = legendPosition)
-      
+         theme(legend.position = legendPosition, legend.direction = legendDirection, legend.justification = c(1, 0)) 
     })
   }
   
@@ -305,9 +300,8 @@ PlotRsmOpChr <- function(mu,
     PDFPlot <- with(PDFPoints, {
       ggplot(data = PDFPoints, 
              aes(x = highestZSample, y = pdf, color = Treatment, linetype = class)) + 
-        geom_line()  + theme(legend.box = legendDirection) + 
-        theme(legend.position = "inside", legend.position.inside = legendPosition)
-      labs(x = "Highest Z Sample") 
+        geom_line()  + theme(legend.position = legendPosition, legend.box = legendDirection) + 
+        labs(x = "Highest Z Sample") 
     })
   }
   

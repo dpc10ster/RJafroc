@@ -1,5 +1,5 @@
 ####################################################################################################################
-gpfGenEmpOpChr <- function(dataset, treatments2Plot, readers2Plot, opChType, legendPosition, maxDiscrete) 
+gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2Plot, readers2Plot, opChType, legend.position, maxDiscrete) 
 { 
   # these silly statements are needed to avoid a NOTE on R CMD check
   genAbscissa <- NULL
@@ -136,10 +136,11 @@ gpfGenEmpOpChr <- function(dataset, treatments2Plot, readers2Plot, opChType, leg
   
   genPlot <- genPlot  + scale_x_continuous(limits = c(0,xLim)) + scale_y_continuous(limits = c(0,yLim))
   
-  genPlot <- genPlot + 
-    theme(legend.position = "inside", legend.position.inside = legendPosition)  
+  genPlot <- genPlot + theme(legend.position = legend.position)
+  
   return(list(Plot = genPlot, Points = pts))
 }
+
 
 
 
@@ -175,7 +176,6 @@ GetLimits <- function (pts, opChType) {
     yLim = yLim
   ))
 }
-
 
 
 
@@ -217,7 +217,6 @@ genPoints <- function(dataset, treatments2Plot, rdrs2Plot, opChType) {
 
 
 
-
 ####################################################################################################################
 genAvgPoints <- function(dataset, treatments2Plot, rdrs2Plot, opChType) {
   
@@ -254,8 +253,6 @@ genAvgPoints <- function(dataset, treatments2Plot, rdrs2Plot, opChType) {
 
 
 
-
-
 # converts fp and tp arrays to counts table, operating points and zetas
 # no information is lost (combining bins loses information) but there could be lots of zeroes
 # and ones in the op. pts.
@@ -283,7 +280,6 @@ RawOpPtsROC2ROC <- function (fp, tp) {
     zetas = zetas
   ))
 }
-
 
 
 
@@ -323,11 +319,6 @@ RawOpPtsROC2ROC <- function (fp, tp) {
 #     zetas = zetas
 #   ))
 # }
-
-
-
-
-
 
 
 
@@ -390,12 +381,6 @@ ROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
 
 
 #' @importFrom stats approx
-
-
-
-
-
-
 ####################################################################################################################
 AvgROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   
@@ -452,11 +437,6 @@ AvgROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
 
 # counterpart of RawOpPtsROC2ROC for FROC data; since denominators are different from ROC, a different function
 # is needed; could be combined with previous function
-
-
-
-
-
 ####################################################################################################################
 RawOpPtsFROC2FROC <- function (nl, ll, sumLL, K) {
   zetas <- sort(unique(c(nl, ll)))
@@ -477,11 +457,6 @@ RawOpPtsFROC2FROC <- function (nl, ll, sumLL, K) {
     zetas = zetas
   ))
 }
-
-
-
-
-
 
 
 
@@ -543,8 +518,6 @@ FROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
     genOrdinate = FROCPoints$LLF, class = class, type = "D", stringsAsFactors = TRUE)
   return(FROCPoints)
 }
-
-
 
 
 
@@ -627,11 +600,6 @@ AvgFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
 
 
 # along the lines of RawOpPtsROC2ROC and RawOpPtsFROC2FROC ...
-
-
-
-
-
 ####################################################################################################################
 FROC2AFROC <- function (fp, ll, sumLL, K1) {
   zetas <- sort(unique(c(fp, ll)))
@@ -652,7 +620,6 @@ FROC2AFROC <- function (fp, ll, sumLL, K1) {
     zetas = zetas
   ))
 }
-
 
 
 
@@ -678,8 +645,6 @@ FROC2AFROC1 <- function (fp, ll, sumLL, K) {
     zetas = zetas
   ))
 }
-
-
 
 
 
@@ -741,6 +706,7 @@ AFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
     stringsAsFactors = TRUE)
   return(AFROCPoints)
 }
+
 
 
 
@@ -814,7 +780,6 @@ AvgAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
 
 
 
-
 ####################################################################################################################
 FROC2wAFROC <- function (fp, ll, weights, K1, K2) {
   zetas <- sort(unique(c(fp, ll)))
@@ -838,9 +803,6 @@ FROC2wAFROC <- function (fp, ll, weights, K1, K2) {
 }
 
 
-
-
-
 ####################################################################################################################
 FROC2wAFROC1 <- function (fp, ll, weights, K1, K2) {
   zetas <- sort(unique(c(fp, ll)))
@@ -862,9 +824,6 @@ FROC2wAFROC1 <- function (fp, ll, weights, K1, K2) {
     zetas = zetas
   ))
 }
-
-
-
 
 
 ####################################################################################################################
@@ -922,8 +881,6 @@ AFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
                             stringsAsFactors = TRUE)
   return(AFROCPoints)
 }
-
-
 
 
 
@@ -994,7 +951,6 @@ AvgAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
 
 
 
-
 ####################################################################################################################
 wAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
@@ -1054,7 +1010,6 @@ wAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
                              stringsAsFactors = TRUE)
   return(wAFROCPoints)
 }
-
 
 
 
@@ -1126,9 +1081,6 @@ AvgwAFROCPoints <- function(dataset, treatments2Plot, rdrs2Plot) {
 }
 
 
-
-
-
 ####################################################################################################################
 wAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
@@ -1187,7 +1139,6 @@ wAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
                               stringsAsFactors = TRUE)
   return(wAFROC1Points)
 }
-
 
 
 
@@ -1255,7 +1206,6 @@ AvgwAFROC1Points <- function(dataset, treatments2Plot, rdrs2Plot) {
                               stringsAsFactors = TRUE)
   return(wAFROC1Points)
 }
-
 
 
 
@@ -1344,79 +1294,64 @@ genericPlotROC <- function(fp, tp, fpfPred, tpfPred, method = "ROC") {
 
 
 
-
-# 04/05/2025
-RawOpPtsLROC2LROC <- function (fp, cl) { # arguments are ratings of fp and cl events
-  zetas <- sort(unique(c(fp, cl)))
-  nBins <- length(zetas)
-  fpCounts <- rep(NA, nBins)
-  clCounts <- fpCounts
-  for (b in 1:nBins){
-    fpCounts[b] <- sum(fp == zetas[b])
-    clCounts[b] <- sum(cl == zetas[b])
+LrocPlots1 <- function (zjk1, zjk2) 
+{
+  J <- length(zjk1[,1])
+  lrocPlotData <- NULL
+  for (j in 1:J) {
+    zjk1Temp <- zjk1[j,]
+    zk2Temp <- zjk2[j,]    
+    lroc <- LrocOperatingPointsFromRatings( zjk1Temp, zk2Temp )
+    FPF <- lroc$FPF
+    PCL <- lroc$PCL
+    reader = paste0("R-", as.character(j))
+    lrocPlotData <- rbind(lrocPlotData, data.frame(FPF = FPF, PCL = PCL, reader = reader, stringsAsFactors = TRUE))
   }
-  K1 <- length(fp)  # !sic!
-  K2 <- length(cl)
-  fpf <- cumsum(rev(fpCounts)) / K1
-  pcl <- cumsum(rev(clCounts)) / K2
-  fpf <- fpf[-length(fpf)]
-  pcl <- pcl[-length(pcl)]
+  
+  lrocPlot <- ggplot2::ggplot(data = lrocPlotData, ggplot2::aes(x = FPF, y = PCL, color = reader)) + ggplot2::geom_line()
+  g <- ggplot_build(lrocPlot)
+  colors <- as.character(unique(g$data[[1]]$colour))
+  sizes <- rep(1, J)
+  lrocPlot <- ggplot2::ggplot(data = lrocPlotData, ggplot2::aes(x = FPF, y = PCL, color = reader)) + ggplot2::geom_line(ggplot2::aes(linewidth = reader)) + 
+    scale_color_manual(values = colors) + scale_size_manual(values = sizes) + 
+    theme(legend.title = element_blank(), legend.position = c(1, 0), legend.justification = c(1, 0)) + 
+    scale_x_continuous(limits = c(0,1)) + scale_y_continuous(limits = c(0,1))
   return(list(
-    fpCounts = fpCounts,
-    clCounts = clCounts,
-    fpf = fpf,
-    pcl = pcl,
-    zetas = zetas
+    lrocPlot = lrocPlot
   ))
 }
 
-
-
-
-
-# 04/05/2025
-# this simpler version breaks the tests
-RawOpPtsLROC2LROCTemp <- function (fp, cl) { # arguments are ratings of fp and cl events
-  zetas <- c(sort(unique(c(fp, cl))))
-  nBins <- length(zetas)
-  fpf <- array(dim = nBins)
-  pcl <- array(dim = nBins)
-  K1 <- length(fp)  # !sic!
-  K2 <- length(cl)
-  for (b in 1:nBins) {
-    fpf[b] <- length(fp[fp>zetas[b]])/K1
-    pcl[b] <- length(cl[cl>zetas[b]])/K2
-  }
-  fpf <- rev(fpf)
-  pcl <- rev(pcl)
-  return(list(
-    fpf = fpf,
-    pcl = pcl
-  ))
-}
-
-
-
-
-
-# 04/05/2025
+###WIP###
 ####################################################################################################################
 LROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   
-  NL <- dataset$ratings$NL[treatments2Plot, readers2Plot,,]
-  LL <- dataset$ratings$LL[treatments2Plot, readers2Plot,,]
-  modalityID <- dataset$descriptions$modalityID[treatments2Plot]
-  readerID <- dataset$descriptions$readerID[readers2Plot]
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   
-  I <- length(treatments2Plot)
-  J <- length(readers2Plot)
-  K <- length(dataset$ratings$NL[1,1,,1])
-  K2 <- length(dataset$ratings$LL[1,1,,1])
+  
+  I <- length(treatments2Plot) # found possible error 11/10/19
+  # I <- dim(NL)[1] # No; this gives error
+  J <- dim(NL)[2]
+  K <- dim(NL)[3]
+  K2 <- dim(LL)[3]
   K1 <- K - K2
   
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, 1)
   dim(LL) <- c(I, J, K2, 1)
-
+  modalityID <- modalityID[treatments2Plot]
+  
+  J <- length(readers2Plot)
+  
+  NL <- NL[, readers2Plot, , ]
+  LL <- LL[, readers2Plot, , ]
+  dim(NL) <- c(I, J, K, 1)
+  dim(LL) <- c(I, J, K2, 1)
+  readerID <- readerID[readers2Plot]
+  
   LROCPoints <- data.frame(FPF = NULL, PCL = NULL, stringsAsFactors = TRUE)
   for (i in 1:I) {
     for (j in 1:J) {
@@ -1444,23 +1379,58 @@ LROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
 
 
 
+RawOpPtsLROC2LROC <- function (fp, cl) {
+  zetas <- sort(unique(c(fp, cl)))
+  nBins <- length(zetas)
+  fpCounts <- rep(NA, nBins)
+  clCounts <- fpCounts
+  for (b in 1:nBins){
+    fpCounts[b] <- sum(fp == zetas[b])
+    clCounts[b] <- sum(cl == zetas[b])
+  }
+  K1 <- length(fp)  # !sic!
+  K2 <- length(cl)
+  fpf <- cumsum(rev(fpCounts)) / K1
+  pcl <- cumsum(rev(clCounts)) / K2
+  fpf <- fpf[-length(fpf)]
+  pcl <- pcl[-length(pcl)]
+  return(list(
+    fpCounts = fpCounts,
+    clCounts = clCounts,
+    fpf = fpf,
+    pcl = pcl,
+    zetas = zetas
+  ))
+}
+
+
 
 ####################################################################################################################
 AvgLROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
   
-  NL <- dataset$ratings$NL[treatments2Plot, readers2Plot, , ]
-  LL <- dataset$ratings$LL[treatments2Plot, readers2Plot, , ]
-  modalityID <- dataset$descriptions$modalityID[treatments2Plot]
-  readerID <- dataset$descriptions$readerID[readers2Plot]
+  NL <- dataset$ratings$NL
+  LL <- dataset$ratings$LL
+  modalityID <- dataset$descriptions$modalityID
+  readerID <- dataset$descriptions$readerID
   
   I <- length(treatments2Plot)
-  J <- length(readers2Plot)
-  K <- dim(dataset$ratings$NL)[3]
-  K2 <- dim(dataset$ratings$LL)[3]
+  J <- dim(NL)[2]
+  K <- dim(NL)[3]
+  K2 <- dim(LL)[3]
   K1 <- K - K2
   
+  NL <- NL[treatments2Plot, , , ]
+  LL <- LL[treatments2Plot, , , ]
   dim(NL) <- c(I, J, K, 1)
   dim(LL) <- c(I, J, K2, 1)
+  modalityID <- modalityID[treatments2Plot]
+  
+  J <- length(readers2Plot)
+  NL <- NL[, readers2Plot, , ]
+  LL <- LL[, readers2Plot, , ]
+  dim(NL) <- c(I, J, K, 1)
+  dim(LL) <- c(I, J, K2, 1)
+  readerID <- readerID[readers2Plot]
   
   abscissaStep <- 0.01
   sampledFPF <- seq(0, 1, abscissaStep)
@@ -1477,7 +1447,7 @@ AvgLROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
     }
   }
   avgPCL <- avgPCL/(I * J)
-  avgPCL <- c(0,avgPCL);sampledFPF <- c(0,sampledFPF) # does not hurt to add this line; forces 0,0 to be an op. pt.
+  avgPCL <- c(0,avgPCL);sampledFPF <- c(0,sampledFPF)
   class <- paste(paste("M: "), paste(modalityID, collapse = " "), "\n", paste("R: "), paste(readerID, collapse = " "), sep = "")
   LROCPoints <- data.frame(genAbscissa = sampledFPF, 
                            genOrdinate = avgPCL, 
@@ -1486,7 +1456,5 @@ AvgLROCPoints <- function(dataset, treatments2Plot, readers2Plot) {
                            stringsAsFactors = TRUE)
   return(LROCPoints)
 }
-
-
 
 

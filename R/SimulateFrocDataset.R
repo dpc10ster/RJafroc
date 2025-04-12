@@ -12,13 +12,14 @@
 #' @param K1     Number of non-diseased cases
 #' @param K2     Number of diseased cases
 #' @param perCase A K2 length array containing the numbers of lesions per diseased case
-#' @param seed  Initial seed for RNG, default \code{NULL} for random seed.
+#' @param seed  Initial seed for random number generator, default 
+#'     \code{NULL}, for random seed.
 #' @param deltaMu Inter-modality increment in mu, default zero 
 #' 
 #' @return An FROC dataset.
 #' 
 #' @details See book chapters on the Radiological Search Model (RSM) for details. 
-#'    Correlations between ratings on the same case are assumed to be zero.
+#'    In this code correlations between ratings on the same case are assumed to be zero.
 #' 
 #' @examples
 #' set.seed(1) 
@@ -32,7 +33,7 @@
 #'   I = I, J = J, K1 = K1, K2 = K2, perCase = perCase )
 #'   
 #' ## plot the data
-#' ret <- PlotEmpOpChr(frocDataRaw, opChType = "FROC")
+#' ret <- PlotEmpiricalOperatingCharacteristics(frocDataRaw, opChType = "FROC")
 #' ## print(ret$Plot)
 #' 
 #' @references 
@@ -50,9 +51,9 @@ SimulateFrocDataset <- function(mu, lambda, nu, zeta1, I, J, K1, K2, perCase, se
   
   K <- K1 + K2
   if (I > 1) {
-    temp <- array(0, dim = I)
-    temp[2:I] <- deltaMu
-    deltaMu <- temp
+    deltaMu1 <- array(0, dim = I)
+    deltaMu1[2] <- deltaMu
+    deltaMu <- deltaMu1
   }  
   
   if (!is.null(seed)) set.seed(seed)

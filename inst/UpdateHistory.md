@@ -118,9 +118,9 @@ title: "Update History, TODO's and Ideas"
 ### Work post acceptance of v2.1.1 
 * universal change: `lambdaP` to `lambda` and `lambda` to `lambda_i` 9/19/22
 * this corresponds with revised notation in book
-* `PlotRsmOpChr` depends on RSM parameters, not intrinsic parameters 9/22/22
+* `PlotRsmOperatingCharacteristics` depends on RSM parameters, not intrinsic parameters 9/22/22
 * Removed tests in `test-LROCFomCheck.R` could not resolve in time 9/22/22
-* Set default `lesDistr` = 1 in `PlotRsmOpChr` as we don't want user to have to input this value when it is not needed for the requested operating characteristic (e.g., FROC or AFROC).
+* Set default `lesDistr` = 1 in `PlotRsmOperatingCharacteristics` as we don't want user to have to input this value when it is not needed for the requested operating characteristic (e.g., FROC or AFROC).
 
 
 ## version 2.1.1
@@ -187,7 +187,7 @@ title: "Update History, TODO's and Ideas"
 * To be done in future
 * Created much confusion in `RJafrocFrocBook`, chapter on `3-fits`
 * `RsmFormulae.R`: This file is a mess.
-* Remove AUCs in `PlotRsmOpChr`? - these are done in `UtilAnalyticalAucsRsm`
+* Remove AUCs in `PlotRsmOperatingCharacteristics`? - these are done in `UtilAnalyticalAucsRsm`
 * Add to tests?
 * Remove redundant column in weights matrix?
 
@@ -199,12 +199,12 @@ title: "Update History, TODO's and Ideas"
 * Changed all such functions in `RsmFormulae.R` to accept physical parameters.  
 
 
-### Fixed `PlotRsmOpChr` not working for `zeta1 = -Inf`
+### Fixed `PlotRsmOperatingCharacteristics` not working for `zeta1 = -Inf`
 * Global search string "bug fix 12/7/21" to locate all changes.
 * Starting value of for-loop cannot be `-Inf`; detect it and set to -3
 
 
-### Fixed `PlotRsmOpChr` returning correct plots but incorrect AUCs
+### Fixed `PlotRsmOperatingCharacteristics` returning correct plots but incorrect AUCs
 * Global search string "bug fix 11/24/21" to locate all changes.
 * Basic issue was that I was using `zeta1` = -20 instead of the supplied value.
 
@@ -241,7 +241,7 @@ title: "Update History, TODO's and Ideas"
 * All C++ functions take physical parameters
 * Rest take intrinsic parameters (2 exceptions, like `RSM_xROC` and `RSM_pdfN`)
 * Cleanup:
-    + `PlotRsmOpChr.R`,
+    + `PlotRsmOperatingCharacteristics.R`,
     + `UtilAnallyticalAucsRSM.R`,
     + `rsmFormulae.R`
     + affected related test files: `test-RSM-formulae.R` and `test-model-aucs.R`
@@ -391,8 +391,8 @@ if (K1 != 0) {
 * I am following the help page of `ggplot2`
 * Did away with `with` function usage in this function: hard to tell what is going on and the help page on this function seems to discourage this type of usage in packages
 * But, get silly NOTE about undefined global variables: `genAbscissa`, `genOrdinate`, `Reader`, `Modality`.
-* These are members of a `dataframe`, so I dont see why they are visible at global level.
-* Does not happen with the other `dataframe`s in this packages.
+* These are members of a dataframe, so I dont see why they are visible at global level.
+* Does not happen with the other dataframes in this packages.
 * So I assume it is a `ggplot2` related issue.
 * I solved it by initializing these at the very beginning of the `gpfPlotGenericEmpiricalOperatingCharacteristic` function to `NULL`s.
 
@@ -554,7 +554,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * In all calls to data.frame, except in plotting functions, `PlotEmpiricalOperatingCharacteristics`, where factors are used
 * In current `R3.6.3` `option($stringsAsFactors) = TRUE` (`stringsAsFactors` is case sensitive!)
 * This means that functions that don't require factors, such as `SsPowerTable()` should set   `options(stringsAsFactors = FALSE)` explicitly at the beginning of the code, in order to work in current and previous version of R (i.e., release and old-release)
-* Functions that do use factors/levels such as plotting functions (`PlotRsmOpChr` and `FitCorCbmRoc`) should set `options(stringsAsFactors = TRUE)` in order to work in `developer` version of R, where default is `options("stringsAsFactors") = FALSE`
+* Functions that do use factors/levels such as plotting functions (`PlotRsmOperatingCharacteristics` and `FitCorCbmRoc`) should set `options(stringsAsFactors = TRUE)` in order to work in `developer` version of R, where default is `options("stringsAsFactors") = FALSE`
 * This is all very confusing as I am having to dive into code written 6 years ago by someone else
 * Going to test on Travis now
 
@@ -756,7 +756,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Most FOM related functions now accept `FPFValue` to accommodate LROC datasets.
 * `StSignificanceTestingCadVsRadiologists()`: CAD results updated (only values for `FPFValue` 0.2 or less were affected); see `CadFunctionTests.R` in `inst/CadTesting`. See **CadTestingNicoData.xlsx** in `inst/CadTesting`. Included unit tests in `tests/testthat`.
 * `StSignificanceTestingCadVsRadiologists()`: cleaned up and now runs all FOMs.
-* `SimulateLrocDataset()`: FROC to LROC simulator based on RSM. Could be used for NH testing. RSM can now predict all paradigm data. This was removed 4/9/25
+* `SimulateLrocDataset()`: FROC to LROC simulator based on RSM. Could be used for NH testing. RSM can now predict all paradigm data.
 * `DfFroc2Lroc`(): Simulates an "AUC-equivalent" LROC dataset from an FROC dataset. This is neat!
 * `DfLroc2Froc`(): Simulates an "AUC-equivalent" FROC dataset from an LROC dataset.
 * `DfLroc2Roc`(): convert LROC dataset to ROC dataset.
@@ -783,9 +783,9 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 
 ### Extensions needed
-* The `addPlot` routine in `StSignificanceTestingCadVsRadiologists` has been renamed to `CadVsRadPlots()`. It should be deprecated in future as `PlotRsmOpChr()` has more consistent visual output (and capabilities like handling lists of treatments and readers).
+* The `addPlot` routine in `StSignificanceTestingCadVsRadiologists` has been renamed to `CadVsRadPlots()`. It should be deprecated in future as `PlotRsmOperatingCharacteristics()` has more consistent visual output (and capabilities like handling lists of treatments and readers).
 * Need a function that checks validity of FOM for dataset: `isValidFom`?
-* Need to compare predicted curves for LROC and FROC data: does one predict **both** flattening out of LROC plot and wAFROC going to (1,1)?  
+* Need to compare predicted curves for LROC and FROC data: does `SimulateLrocDataset()` predict **both** flattening out of LROC plot and wAFROC going to (1,1)?
 * Split plot analysis
 
 

@@ -31,7 +31,7 @@
 #'    distribution of lesion weights. This function addresses the weights. 
 #'    The distribution of lesions is addressed in \link{UtilLesDistr}. 
 #'    See 
-#'    \link{PlotRsmOpChr} for a function that depends on 
+#'    \link{PlotRsmOperatingCharacteristics} for a function that depends on 
 #'    \code{lesWghtDistr}. 
 #'    The underlying assumption is that lesion 1 is the same type across all 
 #'    diseased cases, lesion 2 is the same type across all diseased cases, 

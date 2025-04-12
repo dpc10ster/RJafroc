@@ -17,14 +17,14 @@
 #' no marks, a \strong{finite ROC rating, guaranteed to be smaller than the rating on 
 #' any marked case}, is assigned to it. The dataset structure is shown below:
 #' \itemize{
-#' \item\code{NL}      Ratings array [1:I, 1:J, 1:(K1+K2), 1], of false positives FPs
-#' \item\code{LL}      Ratings array [1:I, 1:J, 1:K2, 1], of true positives, TPs
-#' \item\code{perCase} Array [1:K2] number of lesions per diseased case
-#' \item\code{IDs}     Array [1:K2, 1], labels of lesions on diseased cases
-#' \item\code{weights} Array [1:K2, 1], weights (or clinical importance) of lesions
-#' \item\code{dataType} "ROC", the data type
-#' \item\code{modalityID} Array[1:I] inherited modality labels
-#' \item\code{readerID}  Array[1:J] inherited reader labels
+#' \item{\code{NL}}{ Ratings array [1:I, 1:J, 1:(K1+K2), 1], of false positives, FPs}
+#' \item{\code{LL}}{ Ratings array [1:I, 1:J, 1:K2, 1], of true positives, TPs}
+#' \item{\code{perCase}}{ array [1:K2], number of lesions per diseased case}
+#' \item{\code{IDs}}{ array [1:K2, 1], labels of lesions on diseased cases}
+#' \item{\code{weights}}{ array [1:K2, 1], weights (or clinical importances) of lesions}
+#' \item{\code{dataType}}{ "ROC", the data type}
+#' \item{\code{modalityID}}{ [1:I] inherited modality labels}
+#' \item{\code{readerID}}{ [1:J] inherited reader labels}
 #' } 
 #'
 #' @examples

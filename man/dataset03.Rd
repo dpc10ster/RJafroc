@@ -11,19 +11,19 @@ A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions
    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 \itemize{
-\item\code{rating$NL} num Array[1:2, 1:4, 1:100, 1] ratings of non-lesion localizations NLs
-\item\code{rating$LL} num Array[1:2, 1:4, 1:67, 1] ratings of lesion localizations LLs
-\item\code{rating$LL_IL} NA This placeholder is used only for LROC data
-\item\code{lesions$perCase} int Array[1:67] number of lesions per diseased case
-\item\code{lesions$IDs} num Array[1:67, 1] numeric labels of lesions on diseased cases
-\item\code{lesions$weights} num Array[1:67, 1], weights (or clinical importance) of lesions
-\item\code{descriptions$fileName} chr "dataset03" base name of dataset in `data` folder
-\item\code{descriptions$type} chr "ROC", the data type
-\item\code{descriptions$name} chr "FRANKEN", the name of the dataset
-\item\code{descriptions$truthTableStr} num Array[1:2, 1:4, 1:100, 1:2] truth table structure
-\item\code{descriptions$design} chr "FCTRL" study design factorial dataset
-\item\code{descriptions$modalityID} chr Array[1:2] the modality labels
-\item\code{descriptions$readerID} chr Array[1:4] the reader labels
+\item{\code{rating$NL}}{, num [1:2, 1:4, 1:100, 1], ratings of non-lesion localizations, NLs}
+\item{\code{rating$LL}}{, num [1:2, 1:4, 1:67, 1], ratings of lesion localizations, LLs}
+\item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
+\item{\code{lesions$perCase}}{, int [1:67], number of lesions per diseased case}
+\item{\code{lesions$IDs}}{, num [1:67, 1], numeric labels of lesions on diseased cases}
+\item{\code{lesions$weights}}{, num [1:67, 1], weights (or clinical importances) of lesions}
+\item{\code{descriptions$fileName}}{, chr, "dataset03", base name of dataset in `data` folder}
+\item{\code{descriptions$type}}{, chr "ROC", the data type}
+\item{\code{descriptions$name}}{, chr "FRANKEN", the name of the dataset}
+\item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2], truth table structure}
+\item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
+\item{\code{descriptions$modalityID}}{, chr [1:2] "TREAT1" "TREAT2", modality labels}
+\item{\code{descriptions$readerID}}{, chr chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", reader labels}
 }
 }
 \usage{
@@ -39,7 +39,7 @@ advances in ROC methodology.
 }
 \examples{
 res <- str(dataset03)
-## PlotEmpOpChr(dataset = dataset03, opChType = "ROC")$Plot
+## PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
 
 
 }
