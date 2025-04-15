@@ -19,32 +19,32 @@ A list containing three objects:
 \item{stats}{list(\code{aucX},\code{aucX},\code{stdAucX},
 \code{stdAucY},\code{stdErr},\code{areaStat},\code{areaPval})}
 
-\item{fittedPlot}{The fitted plot with operating points, error bars, 
+\item{fittedPlot}{The fitted plot with operating points, error bars,
    for both conditions}
 }
 \description{
-Fit the Correlated Contaminated Binormal Model (CORCBM) 
+Fit the Correlated Contaminated Binormal Model (CORCBM)
    to a paired ROC dataset.
-   The \strong{ROC} dataset has to be formatted as a 
-   \strong{single modality}, \strong{two-reader} dataset, even though the actual 
+   The \strong{ROC} dataset has to be formatted as a
+   \strong{single modality}, \strong{two-reader} dataset, even though the actual
    pairing may be different, see details.
 }
 \details{
-The conditions (X, Y) can be two readers interpreting images in the same 
-   modality, the same reader interpreting images in different treatments, or 
-   different readers interpreting images in 2 different treatments. Function 
-   \code{\link{DfExtractCorCbmDataset}} can be used to construct a dataset suitable for 
-   \code{FitCorCbm}. With reference to the returned values, and assuming R bins 
-   in condition X and L bins in conditon Y, 
-   \code{FPCounts} is the R x L matrix containing the counts for non-diseased cases, 
-   \code{TPCounts} is the R x L matrix containing the counts for diseased cases; 
-   \code{muX},\code{muY},\code{alphaX},\code{alphaY},\code{rhoNor},\code{rhoAbn2} are 
-   the CORCBM parameters; \code{aucX},\code{aucX} are the AUCs in the two conditions; 
-   \code{stdAucX},\code{stdAucY} are the corresponding standard errors;\code{stdErr} 
-   contains the standard errors of the parameters of the model; \code{areaStat}, 
-   \code{areaPval},\code{covMat} are the area-statistic, the p-value and the covariance 
-   matrix of the parameters. If a parameter approaches a limit, e.g., \code{rhoNor} 
-   = 0.9999, it is held constant at near the limiting value and the covariance matrix 
+The conditions (X, Y) can be two readers interpreting images in the same
+   modality, the same reader interpreting images in different treatments, or
+   different readers interpreting images in 2 different treatments. Function
+   \code{\link{DfExtractCorCbmDataset}} can be used to construct a dataset suitable for
+   \code{FitCorCbm}. With reference to the returned values, and assuming R bins
+   in condition X and L bins in conditon Y,
+   \code{FPCounts} is the R x L matrix containing the counts for non-diseased cases,
+   \code{TPCounts} is the R x L matrix containing the counts for diseased cases;
+   \code{muX},\code{muY},\code{alphaX},\code{alphaY},\code{rhoNor},\code{rhoAbn2} are
+   the CORCBM parameters; \code{aucX},\code{aucX} are the AUCs in the two conditions;
+   \code{stdAucX},\code{stdAucY} are the corresponding standard errors;\code{stdErr}
+   contains the standard errors of the parameters of the model; \code{areaStat},
+   \code{areaPval},\code{covMat} are the area-statistic, the p-value and the covariance
+   matrix of the parameters. If a parameter approaches a limit, e.g., \code{rhoNor}
+   = 0.9999, it is held constant at near the limiting value and the covariance matrix
    has one less dimension (along each edge) for each parameter that is held constant.
    The indices of the parameters held fixed are in \code{fitCorCbmRet$fixParam}.
 }
