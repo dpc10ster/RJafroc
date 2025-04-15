@@ -9,7 +9,7 @@ PlotEmpiricalOperatingCharacteristics(
   trts = 1,
   rdrs = 1,
   opChType,
-  legend.position = c(0.8, 0.3),
+  legPos = c(0.8, 0.3),
   maxDiscrete = 10
 )
 }
@@ -26,7 +26,7 @@ plotted. Default is 1.}
 \code{"FROC"}, \code{"AFROC"},  \code{"wAFROC"}, \code{"AFROC1"},
 \code{"wAFROC1"}, or \code{"LROC"}.}
 
-\item{legend.position}{Where to position the legend. The default is c(0.8,
+\item{legPos}{Where to position the legend. The default is c(0.8,
 0.2), i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).}
 
 \item{maxDiscrete}{maximum number of op. points in order to be considered

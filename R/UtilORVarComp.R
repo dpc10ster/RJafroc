@@ -21,12 +21,12 @@
 #'     
 #' @return A list containing the following \code{data.frames}: 
 #'     \itemize{
-#'     \item{\code{foms}}: the figures of merit for different modality-reader combinations 
-#'     \item{\code{TRanova}}: the OR modality-reader ANOVA table 
-#'     \item{\code{VarCom}}: the OR variance-components \code{Cov1}, \code{Cov2}, 
+#'     \item\code{foms}: the figures of merit for different modality-reader combinations 
+#'     \item\code{TRanova}: the OR modality-reader ANOVA table 
+#'     \item\code{VarCom}: the OR variance-components \code{Cov1}, \code{Cov2}, 
 #'     \code{Cov3}, \code{Var} and correlations \code{rho1}, \code{rho2} and \code{rho3} 
-#'     \item{\code{IndividualTrt}}: the individual modality mean-squares, \code{Var} and \code{Cov2} values
-#'     \item{\code{IndividualRdr}}: the individual reader mean-squares, \code{Var} and \code{Cov1} values
+#'     \item\code{IndividualTrt}: the individual modality mean-squares, \code{Var} and \code{Cov2} values
+#'     \item\code{IndividualRdr}: the individual reader mean-squares, \code{Var} and \code{Cov1} values
 #'     }
 #'   
 #' @details The variance components are identical to those obtained using 
