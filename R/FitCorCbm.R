@@ -1,9 +1,9 @@
 #' Fit CORCBM to a paired ROC dataset
 #'
-#' @description Fit the Correlated Contaminated Binormal Model (CORCBM) 
+#' @description Fit the Correlated Contaminated Binormal Model (CORCBM)
 #'    to a paired ROC dataset.
-#'    The \strong{ROC} dataset has to be formatted as a 
-#'    \strong{single modality}, \strong{two-reader} dataset, even though the actual 
+#'    The \strong{ROC} dataset has to be formatted as a
+#'    \strong{single modality}, \strong{two-reader} dataset, even though the actual
 #'    pairing may be different, see details.
 #'
 #'
@@ -16,28 +16,28 @@
 #' \code{rhoAbn2},\code{zetaX},\code{zetaY},\code{covMat},\code{fixParam})}
 #' @return \item{stats}{list(\code{aucX},\code{aucX},\code{stdAucX},
 #' \code{stdAucY},\code{stdErr},\code{areaStat},\code{areaPval})}
-#' @return \item{fittedPlot}{The fitted plot with operating points, error bars, 
+#' @return \item{fittedPlot}{The fitted plot with operating points, error bars,
 #'    for both conditions}
 #'
-#' @details The conditions (X, Y) can be two readers interpreting images in the same 
-#'    modality, the same reader interpreting images in different treatments, or 
-#'    different readers interpreting images in 2 different treatments. Function 
-#'    \code{\link{DfExtractCorCbmDataset}} can be used to construct a dataset suitable for 
-#'    \code{FitCorCbm}. With reference to the returned values, and assuming R bins 
-#'    in condition X and L bins in conditon Y, 
-#'    \code{FPCounts} is the R x L matrix containing the counts for non-diseased cases, 
-#'    \code{TPCounts} is the R x L matrix containing the counts for diseased cases; 
-#'    \code{muX},\code{muY},\code{alphaX},\code{alphaY},\code{rhoNor},\code{rhoAbn2} are 
-#'    the CORCBM parameters; \code{aucX},\code{aucX} are the AUCs in the two conditions; 
-#'    \code{stdAucX},\code{stdAucY} are the corresponding standard errors;\code{stdErr} 
-#'    contains the standard errors of the parameters of the model; \code{areaStat}, 
-#'    \code{areaPval},\code{covMat} are the area-statistic, the p-value and the covariance 
-#'    matrix of the parameters. If a parameter approaches a limit, e.g., \code{rhoNor} 
-#'    = 0.9999, it is held constant at near the limiting value and the covariance matrix 
+#' @details The conditions (X, Y) can be two readers interpreting images in the same
+#'    modality, the same reader interpreting images in different treatments, or
+#'    different readers interpreting images in 2 different treatments. Function
+#'    \code{\link{DfExtractCorCbmDataset}} can be used to construct a dataset suitable for
+#'    \code{FitCorCbm}. With reference to the returned values, and assuming R bins
+#'    in condition X and L bins in conditon Y,
+#'    \code{FPCounts} is the R x L matrix containing the counts for non-diseased cases,
+#'    \code{TPCounts} is the R x L matrix containing the counts for diseased cases;
+#'    \code{muX},\code{muY},\code{alphaX},\code{alphaY},\code{rhoNor},\code{rhoAbn2} are
+#'    the CORCBM parameters; \code{aucX},\code{aucX} are the AUCs in the two conditions;
+#'    \code{stdAucX},\code{stdAucY} are the corresponding standard errors;\code{stdErr}
+#'    contains the standard errors of the parameters of the model; \code{areaStat},
+#'    \code{areaPval},\code{covMat} are the area-statistic, the p-value and the covariance
+#'    matrix of the parameters. If a parameter approaches a limit, e.g., \code{rhoNor}
+#'    = 0.9999, it is held constant at near the limiting value and the covariance matrix
 #'    has one less dimension (along each edge) for each parameter that is held constant.
 #'    The indices of the parameters held fixed are in \code{fitCorCbmRet$fixParam}.
 #'
-## following examples generate excessive CPU time NOTES on devtools::check_win_xx() 
+## following examples generate excessive CPU time NOTES on devtools::check_win_xx()
 ## but it is instructive to execute them independently
 ## see also the publication referenced below
 ##
@@ -46,8 +46,8 @@
 ## print(ret$fitCorCbmRet)
 ## print(ret$stats)
 ## print(ret$fittedPlot)
-## 
-## 
+##
+##
 ## ret <- FitCorCbm(datasetBinned123)
 ## print(ret$fitCorCbmRet)
 ## print(ret$stats)
@@ -69,7 +69,7 @@
 #'
 #'
 FitCorCbm <- function(dataset){
-  
+
   if (dataset$descriptions$type != "ROC") {
     stop("This program requires an ROC dataset")
   }
@@ -148,7 +148,7 @@ FitCorCbm <- function(dataset){
               method = "BFGS", data = list(FPCounts = FPCounts, TPCounts = TPCounts, maxMu = maxMu))
 
   NLLIni <- as.numeric(ret@min)
-  
+
   ret <- mle2(nLLCorCBMAdd, start = parameters,
               method = "BFGS", data = list(FPCounts = FPCounts, TPCounts = TPCounts, maxMu = maxMu))
   NLLFin <- as.numeric(ret@min)
@@ -498,7 +498,7 @@ LLCorCBM <- function(muX, muY, alphaX, alphaY, rhoNor, rhoAbn, zetaX, zetaY, FPC
 
 #' @import ggplot2
 PlotCorCbmFit <- function(retFitCorCBM){
-  
+
   muX <- retFitCorCBM$muX
   muY <- retFitCorCBM$muY
   alphaX <- retFitCorCBM$alphaX
@@ -506,7 +506,7 @@ PlotCorCbmFit <- function(retFitCorCBM){
   FPCounts <- retFitCorCBM$FPCounts
   TPCounts <- retFitCorCBM$TPCounts
   K1 <- sum(FPCounts);K2 <- sum(TPCounts)
-  
+
   plotZeta <- seq(-3, max(muX,muY)+2, by = 0.1)
   plotCBM <- NULL
   plotOpPnts <- NULL
@@ -519,7 +519,7 @@ PlotCorCbmFit <- function(retFitCorCBM){
   FPFX <- FPFX[-length(FPFX)]
   TPFX <- TPFX[-length(TPFX)]
   plotOpPnts <- rbind(plotOpPnts, data.frame(FPF = FPFX, TPF = TPFX, Condition = "X"))
-  
+
   FPFY <- 1 - pnorm(plotZeta)
   TPFY <- (1 - alphaY) * (1 - pnorm(plotZeta)) + alphaY * (1 - pnorm(plotZeta, mean = muY))
   plotCBM <- rbind(plotCBM, data.frame(FPF = FPFY, TPF = TPFY, Condition = "Y"))
@@ -528,24 +528,24 @@ PlotCorCbmFit <- function(retFitCorCBM){
   FPFY <- FPFY[-length(FPFY)]
   TPFY <- TPFY[-length(TPFY)]
   plotOpPnts <- rbind(plotOpPnts, data.frame(FPF = FPFY, TPF = TPFY, Condition = "Y"))
-  
+
   Condition <- NULL;FPF <- NULL;TPF <- NULL
   fittedPlot <- ggplot(data = plotCBM, mapping = aes(x = FPF, y = TPF, color = Condition)) +
     geom_line(data = plotCBM, linewidth = 1) +
     geom_point(data = plotOpPnts, size = 4) +
-    theme(legend.position = "inside", legend.position.inside = c(1,0)) + 
+    theme(legend.position = "inside", legend.position.inside = c(1,0)) +
     theme(legend.direction = "horizontal")
-  
+
   fittedPlot <- fittedPlot +
     geom_line(data = plotCBM, mapping = aes(linetype = Condition), linewidth = 1) +
     geom_point(data = plotOpPnts, mapping = aes(shape = Condition), size = 3) +
-    theme(legend.position = "inside", legend.position.inside = c(1,0)) + 
+    theme(legend.position = "inside", legend.position.inside = c(1,0)) +
     theme(legend.title=element_blank(),
           legend.direction = "horizontal",
           legend.justification = c(1, 0),
           legend.key.size = unit(1, "cm")) #+
   # scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))
-  
+
   ciIndxX <- c(1, length(FPFX))
   FPF <- FPFX[ciIndxX]
   TPF <- TPFX[ciIndxX]
@@ -569,7 +569,7 @@ PlotCorCbmFit <- function(retFitCorCBM){
       geom_line(data = barUp, aes(x = FPF, y = TPF), color = "black") +
       geom_line(data = barBtm, aes(x = FPF, y = TPF), color = "black")
   }
-  
+
   ciIndxY <- c(1, length(FPFY))
   FPF <- FPFY[ciIndxY]
   TPF <- TPFY[ciIndxY]
@@ -595,5 +595,3 @@ PlotCorCbmFit <- function(retFitCorCBM){
   }
   return(fittedPlot)
 }
-
-
