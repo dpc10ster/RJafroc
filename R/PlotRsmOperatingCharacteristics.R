@@ -24,7 +24,7 @@
 #'   "\code{ROC}", "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or
 #'   "\code{pdfs}" or "\code{ALL}". The default is "\code{ALL}".
 #'
-#' @param legendPosition The positioning of the legend: "\code{right}",
+#' @param legPos The positioning of the legend: "\code{right}",
 #'   "\code{left}", "\code{top}" or "\code{bottom}". Use "\code{none}" to
 #'   suppress the legend.
 #'
@@ -56,15 +56,15 @@
 #'   predicted wAFROC curves in up to two treatments, the area under the search
 #'   model predicted FROC curves in up to two treatments.
 #' \itemize{
-#' \item{\code{ROCPlot}}   {The predicted ROC plots}
-#' \item{\code{AFROCPlot}}     {The predicted AFROC plots}
-#' \item{\code{wAFROCPlot}}    {The predicted wAFROC plots}
-#' \item{\code{FROCPlot}}  {The predicted FROC plots}
-#' \item{\code{PDFPlot}}   {The predicted ROC pdf plots, highest rating generated}
-#' \item{\code{aucROC}}    {The predicted ROC AUCs, highest rating generated}
-#' \item{\code{aucAFROC}}  {The predicted AFROC AUCs}
-#' \item{\code{aucwAFROC}} {The predicted wAFROC AUCs}
-#' \item{\code{aucFROC}}   {The predicted FROC AUCs}
+#' \item\code{ROCPlot}   The predicted ROC plots
+#' \item\code{AFROCPlot} The predicted AFROC plots
+#' \item\code{wAFROCPlot}The predicted wAFROC plots
+#' \item\code{FROCPlot}  The predicted FROC plots
+#' \item\code{PDFPlot}   The predicted ROC pdf plots, highest rating generated
+#' \item\code{aucROC}    The predicted ROC AUCs, highest rating generated
+#' \item\code{aucAFROC}  The predicted AFROC AUCs
+#' \item\code{aucwAFROC} The predicted wAFROC AUCs
+#' \item\code{aucFROC}   The predicted FROC AUCs
 #' }
 #'
 #' @details RSM is the Radiological Search Model described in the book. This
@@ -101,7 +101,7 @@
 #' ## and 30% have 4 lesions.
 #'
 #' res <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
-#'    lesDistr = c(0.2, 0.4, 0.1, 0.3), legendPosition = "bottom")
+#'    lesDistr = c(0.2, 0.4, 0.1, 0.3), legPos = "bottom")
 #'
 #' @export
 #' 
@@ -112,7 +112,7 @@ PlotRsmOperatingCharacteristics <- function(mu,
                                             lesDistr = 1, 
                                             relWeights = 0, 
                                             OpChType = "ALL", 
-                                            legendPosition = "bottom", 
+                                            legPos = "bottom", 
                                             legendDirection = "horizontal", 
                                             legendJustification = c(0,1),
                                             nlfRange = NULL, 
@@ -257,7 +257,8 @@ PlotRsmOperatingCharacteristics <- function(mu,
       ggplot(data = ROCPoints) + 
         geom_line(aes(x = FPF, y = TPF, color = Treatment))  +       
         geom_line(data = ROCDashes, aes(x = FPF, y = TPF, color = Treatment), linetype = 2) +       
-        theme(legend.position = legendPosition, legend.direction = legendDirection, legend.justification = c(1, 0)) 
+        theme(legend.position = "inside", legend.position.inside = legPos) + 
+        theme(legend.direction = legendDirection, legend.justification = c(1, 0)) 
     })
   }
   
@@ -267,7 +268,8 @@ PlotRsmOperatingCharacteristics <- function(mu,
         geom_line(aes(x = NLF, y = LLF, color = Treatment))  +       
         scale_x_continuous(expand = c(0, 0), limits = nlfRange) + 
         scale_y_continuous(expand = c(0, 0), limits = llfRange) + 
-        theme(legend.position = legendPosition, legend.direction = legendDirection, legend.justification = c(1, 0)) 
+        theme(legend.position = "inside", legend.position.inside = legPos) + 
+        theme(legend.direction = legendDirection, legend.justification = c(1, 0)) 
     })
   }
   
@@ -276,7 +278,8 @@ PlotRsmOperatingCharacteristics <- function(mu,
       ggplot(data = AFROCPoints) + 
         geom_line(aes(x = FPF, y = LLF , color = Treatment)) + 
         geom_line(data = AFROCDashes, aes(x = FPF, y = LLF, color = Treatment), linetype = 2) +       
-        theme(legend.position = legendPosition, legend.direction = legendDirection, legend.justification = c(1, 0)) 
+        theme(legend.position = "inside", legend.position.inside = legPos) + 
+        theme(legend.direction = legendDirection, legend.justification = c(1, 0)) 
     }
     )
   }
@@ -286,12 +289,13 @@ PlotRsmOperatingCharacteristics <- function(mu,
       ggplot(data = wAFROCPoints) + 
         geom_line(aes(x = FPF, y = wLLF , color = Treatment)) + 
         geom_line(data = wAFROCDashes, aes(x = FPF, y = wLLF, color = Treatment), linetype = 2) +       
-         theme(legend.position = legendPosition, legend.direction = legendDirection, legend.justification = c(1, 0)) 
+        theme(legend.position = "inside", legend.position.inside = legPos) + 
+        theme(legend.direction = legendDirection, legend.justification = c(1, 0)) 
     })
   }
   
   if( OpChType == "ALL" ||  OpChType == "pdfs"){
-    if (legendPosition == "top" || legendPosition == "bottom"){
+    if (legPos == "top" || legPos == "bottom"){
       legendDirection = "horizontal"
     }else{
       legendDirection = "vertical"
@@ -300,7 +304,9 @@ PlotRsmOperatingCharacteristics <- function(mu,
     PDFPlot <- with(PDFPoints, {
       ggplot(data = PDFPoints, 
              aes(x = highestZSample, y = pdf, color = Treatment, linetype = class)) + 
-        geom_line()  + theme(legend.position = legendPosition, legend.box = legendDirection) + 
+        geom_line()  + 
+        theme(legend.position = "inside", legend.position.inside = legPos) + 
+        theme(legend.box = legendDirection) + 
         labs(x = "Highest Z Sample") 
     })
   }

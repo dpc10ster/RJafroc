@@ -3,7 +3,7 @@
 \name{St}
 \alias{St}
 \title{DBM or OR significance testing for a one treatment factorial or
-  two-treatment crossed modality factorial dataset (not SPLIT_PLOT)}
+  two-treatment crossed modality factorial dataset}
 \usage{
 St(
   dataset,

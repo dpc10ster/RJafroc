@@ -153,13 +153,13 @@ test_that("RSM3", {
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     
-    ret <- PlotRsmOperatingCharacteristics(mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
+    ret <- PlotRsmOperatingCharacteristics(mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legPos = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-# expect_equal(PlotRsmOperatingCharacteristics(mu = mu, lambda = lambda, nu = nu,  zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), ret, check.environment = FALSE)
-  t <- PlotRsmOperatingCharacteristics(mu = mu, lambda = lambda, nu = nu,  zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legendPosition = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
+# expect_equal(PlotRsmOperatingCharacteristics(mu = mu, lambda = lambda, nu = nu,  zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legPos = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), ret, check.environment = FALSE)
+  t <- PlotRsmOperatingCharacteristics(mu = mu, lambda = lambda, nu = nu,  zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legPos = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
   expect_is(t$wAFROCPlot, "ggplot")
 
 })

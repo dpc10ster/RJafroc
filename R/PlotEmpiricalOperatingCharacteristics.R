@@ -12,7 +12,7 @@
 #' @param opChType Type of operating characteristic to be plotted: \code{"ROC"},
 #'   \code{"FROC"}, \code{"AFROC"},  \code{"wAFROC"}, \code{"AFROC1"},
 #'   \code{"wAFROC1"}, or \code{"LROC"}.
-#' @param legend.position Where to position the legend. The default is c(0.8,
+#' @param legPos Where to position the legend. The default is c(0.8,
 #'   0.2), i.e., 0.8 rightward and 0.2 upward (the plot is a unit square).
 #' @param maxDiscrete maximum number of op. points in order to be considered
 #'   discrete and to be displayed by symbols and connecting lines; any more
@@ -91,7 +91,7 @@
 #' @export
 
 ####################################################################################################################
-PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, opChType, legend.position = c(0.8, 0.3), maxDiscrete = 10) 
+PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, opChType, legPos = c(0.8, 0.3), maxDiscrete = 10) 
 {
   
   if (dataset$descriptions$type == "ROI") stop("No operating characteristics are defined for an ROI dataset")
@@ -109,7 +109,7 @@ PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, o
     stop(errMsg)
   }
   
-  ret <- gpfPlotGenericEmpiricalOperatingCharacteristic(ds, trts, rdrs, opChType = opChType, legend.position, maxDiscrete)
+  ret <- gpfPlotGenericEmpiricalOperatingCharacteristic(ds, trts, rdrs, opChType = opChType, legPos, maxDiscrete)
   
   return(ret)
 } 

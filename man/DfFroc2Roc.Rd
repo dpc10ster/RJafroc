@@ -20,20 +20,20 @@ The first member of the ROC dataset is \code{NL}, whose 3rd dimension has
 length \code{(K1 + K2)}, the total number of cases. Ratings of cases \code{(K1 + 1)} 
 through \code{(K1 + K2)} are \code{-Inf}. \strong{This is because in an ROC dataset 
 FPs are only possible on non-diseased cases.}The second member of the list is \code{LL}. 
-Its 3rd dimension has length K2, the number of diseased cases.  \strong{This is 
+Its 3rd dimension has length K2, the number of diseased cases. \strong{This is 
 because TPs are only possible on diseased cases}. For each case the  
 inferred ROC rating is the highest of all FROC ratings on that case. If a case has 
 no marks, a \strong{finite ROC rating, guaranteed to be smaller than the rating on 
 any marked case}, is assigned to it. The dataset structure is shown below:
 \itemize{
-\item{\code{NL}}{ Ratings array [1:I, 1:J, 1:(K1+K2), 1], of false positives, FPs}
-\item{\code{LL}}{ Ratings array [1:I, 1:J, 1:K2, 1], of true positives, TPs}
-\item{\code{perCase}}{ array [1:K2], number of lesions per diseased case}
-\item{\code{IDs}}{ array [1:K2, 1], labels of lesions on diseased cases}
-\item{\code{weights}}{ array [1:K2, 1], weights (or clinical importances) of lesions}
-\item{\code{dataType}}{ "ROC", the data type}
-\item{\code{modalityID}}{ [1:I] inherited modality labels}
-\item{\code{readerID}}{ [1:J] inherited reader labels}
+\item\code{NL} Ratings array [1:I, 1:J, 1:(K1+K2), 1], of false positives, FPs
+\item\code{LL} Ratings array [1:I, 1:J, 1:K2, 1], of true positives, TPs
+\item\code{perCase} array [1:K2], number of lesions per diseased case
+\item\code{IDs} array [1:K2, 1], labels of lesions on diseased cases
+\item\code{weights} array [1:K2, 1], weights (or clinical importance) of lesions
+\item\code{dataType} "ROC", the data type
+\item\code{modalityID} [1:I] inherited modality labels
+\item\code{readerID} [1:J] inherited reader labels
 }
 }
 \examples{

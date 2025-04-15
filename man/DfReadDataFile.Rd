@@ -2,7 +2,7 @@
 % Please edit documentation in R/DfReadDataFile.R
 \name{DfReadDataFile}
 \alias{DfReadDataFile}
-\title{Read a factorial data file (not SPLIT-PLOT)}
+\title{Read a factorial data file}
 \usage{
 DfReadDataFile(
   fileName,
@@ -68,8 +68,7 @@ The \code{"MRMC"} format is deprecated. For non-JAFROC formats four
    \bold{For non-JAFROC data file formats, the \code{readerID} and
    \code{modalityID} fields must be unique integers}.
 
-This function is used only for factorial datasets. For SPLIT-PLOT
-  datasets use function \link{DfReadSP}.
+This function is used only for factorial datasets.
 }
 \examples{
 fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",

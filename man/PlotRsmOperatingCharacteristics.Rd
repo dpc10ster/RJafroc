@@ -12,7 +12,7 @@ PlotRsmOperatingCharacteristics(
   lesDistr = 1,
   relWeights = 0,
   OpChType = "ALL",
-  legendPosition = "bottom",
+  legPos = "bottom",
   legendDirection = "horizontal",
   legendJustification = c(0, 1),
   nlfRange = NULL,
@@ -41,7 +41,7 @@ weights are assumed.}
 "\code{ROC}", "\code{AFROC}", "\code{wAFROC}", "\code{FROC}" or
 "\code{pdfs}" or "\code{ALL}". The default is "\code{ALL}".}
 
-\item{legendPosition}{The positioning of the legend: "\code{right}",
+\item{legPos}{The positioning of the legend: "\code{right}",
 "\code{left}", "\code{top}" or "\code{bottom}". Use "\code{none}" to
 suppress the legend.}
 
@@ -73,15 +73,15 @@ A list containing five \pkg{ggplot2} objects (ROCPlot, AFROCPlot
   predicted wAFROC curves in up to two treatments, the area under the search
   model predicted FROC curves in up to two treatments.
 \itemize{
-\item{\code{ROCPlot}}   {The predicted ROC plots}
-\item{\code{AFROCPlot}}     {The predicted AFROC plots}
-\item{\code{wAFROCPlot}}    {The predicted wAFROC plots}
-\item{\code{FROCPlot}}  {The predicted FROC plots}
-\item{\code{PDFPlot}}   {The predicted ROC pdf plots, highest rating generated}
-\item{\code{aucROC}}    {The predicted ROC AUCs, highest rating generated}
-\item{\code{aucAFROC}}  {The predicted AFROC AUCs}
-\item{\code{aucwAFROC}} {The predicted wAFROC AUCs}
-\item{\code{aucFROC}}   {The predicted FROC AUCs}
+\item\code{ROCPlot}   The predicted ROC plots
+\item\code{AFROCPlot} The predicted AFROC plots
+\item\code{wAFROCPlot}The predicted wAFROC plots
+\item\code{FROCPlot}  The predicted FROC plots
+\item\code{PDFPlot}   The predicted ROC pdf plots, highest rating generated
+\item\code{aucROC}    The predicted ROC AUCs, highest rating generated
+\item\code{aucAFROC}  The predicted AFROC AUCs
+\item\code{aucwAFROC} The predicted wAFROC AUCs
+\item\code{aucFROC}   The predicted FROC AUCs
 }
 }
 \description{
@@ -102,7 +102,7 @@ RSM is the Radiological Search Model described in the book. This
 ## and 30\% have 4 lesions.
 
 res <- PlotRsmOperatingCharacteristics(mu = c(2, 3), lambda = c(1, 1.5), nu = c(0.6, 0.8),
-   lesDistr = c(0.2, 0.4, 0.1, 0.3), legendPosition = "bottom")
+   lesDistr = c(0.2, 0.4, 0.1, 0.3), legPos = "bottom")
 
 }
 \references{

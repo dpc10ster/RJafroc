@@ -533,13 +533,14 @@ PlotCorCbmFit <- function(retFitCorCBM){
   fittedPlot <- ggplot(data = plotCBM, mapping = aes(x = FPF, y = TPF, color = Condition)) +
     geom_line(data = plotCBM, linewidth = 1) +
     geom_point(data = plotOpPnts, size = 4) +
-    theme(legend.position = c(1, 0), legend.direction = "horizontal")
+    theme(legend.position = "inside", legend.position.inside = c(1,0)) + 
+    theme(legend.direction = "horizontal")
   
   fittedPlot <- fittedPlot +
     geom_line(data = plotCBM, mapping = aes(linetype = Condition), linewidth = 1) +
     geom_point(data = plotOpPnts, mapping = aes(shape = Condition), size = 3) +
+    theme(legend.position = "inside", legend.position.inside = c(1,0)) + 
     theme(legend.title=element_blank(),
-          legend.position = c(1, 0),
           legend.direction = "horizontal",
           legend.justification = c(1, 0),
           legend.key.size = unit(1, "cm")) #+

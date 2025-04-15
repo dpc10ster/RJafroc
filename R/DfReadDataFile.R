@@ -1,4 +1,4 @@
-#' Read a factorial data file (not SPLIT-PLOT)
+#' Read a factorial data file
 #'
 #' @description Read an Excel file and create an ROC, FROC or LROC dataset
 #'   object from it.
@@ -52,8 +52,7 @@
 #' @return A dataset with the structure specified in
 #'   \code{\link{RJafroc-package}}.
 #'
-#' @note This function is used only for factorial datasets. For SPLIT-PLOT
-#'   datasets use function \link{DfReadSP}.
+#' @note This function is used only for factorial datasets.
 #'
 #' @examples
 #' fileName <- system.file("extdata", "toyFiles/ROC/rocCr.xlsx",

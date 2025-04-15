@@ -11,19 +11,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:5, 1:185, 1:3], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:5, 1:89, 1:2], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:89], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:89, 1:2], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:89, 1:2], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset01", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "TONY", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:185, 1:3] 1 1 1 1 ..., truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "BT" "DM", modality labels}
-#' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+#' \item\code{rating$NL} num Array[1:2, 1:5, 1:185, 1:3] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array [1:2, 1:5, 1:89, 1:2] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL}  NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:89], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:89, 1:2], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights}  num Array[1:89, 1:2], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset01", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "FROC", the data type
+#' \item\code{descriptions$name} chr "TONY", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:2, 1:5, 1:185, 1:3] Truth table structure
+#' \item\code{descriptions$design} chr "FCTRL" study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:2] "BT" "DM" modality labels
+#' \item\code{descriptions$readerID} chr Array[1:5] Reader labels
 #' }
 #'
 #' @keywords datasets
@@ -34,7 +34,7 @@
 #' 
 #' @examples
 #' res <- str(dataset01)
-#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset01, opChType = "wAFROC")$Plot
+#' ## PlotEmpOpChr(dataset = dataset01, opChType = "wAFROC")$Plot
 #'
 "dataset01"
 #'
@@ -57,19 +57,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:5, 1:114, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:5, 1:45, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:45], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:45, 1], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:45, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset02", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "VAN-DYKE", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 ..., truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "0" "1", modality labels}
-#' \item{\code{descriptions$readerID}}{, chr [1:5] "0" "1" "2" ..., reader labels}
+#' \item\code{rating$NL}   num Array[1:2, 1:5, 1:114, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL}   num Array[1:2, 1:5, 1:45, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:45], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:45, 1], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:45, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset02" base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC" the data type
+#' \item\code{descriptions$name} chr "VAN-DYKE", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:2, 1:5, 1:114, 1:2] Truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:2] "0" "1", modality labels
+#' \item\code{descriptions$readerID} chr Array[1:5] the reader labels
 #' }
 #'
 #' @keywords datasets
@@ -79,7 +79,7 @@
 #' 
 #' @examples
 #' res <- str(dataset02)
-#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot
+#' ## PlotEmpOpChr(dataset = dataset02, opChType = "ROC")$Plot
 #'
 #'
 #'
@@ -102,19 +102,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:100, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:67, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:67], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:67, 1], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:67, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset03", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "FRANKEN", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:100, 1:2], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "TREAT1" "TREAT2", modality labels}
-#' \item{\code{descriptions$readerID}}{, chr chr [1:4] "READER_1" "READER_2" "READER_3" "READER_4", reader labels}
+#' \item\code{rating$NL} num Array[1:2, 1:4, 1:100, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:2, 1:4, 1:67, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:67] number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:67, 1] numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:67, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset03" base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC", the data type
+#' \item\code{descriptions$name} chr "FRANKEN", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:2, 1:4, 1:100, 1:2] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL" study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:2] the modality labels
+#' \item\code{descriptions$readerID} chr Array[1:4] the reader labels
 #' }
 #'
 #' @keywords datasets
@@ -125,7 +125,7 @@
 #' 
 #' @examples
 #' res <- str(dataset03)
-#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset03, opChType = "ROC")$Plot
+#' ## PlotEmpOpChr(dataset = dataset03, opChType = "ROC")$Plot
 #'
 #'
 "dataset03"
@@ -149,19 +149,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:5, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:5, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:100], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:100, 1:3], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:100, 1:3], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset04", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "FEDERICA", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:4, 1:200, 1:4], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:5] "1" "2" "3" "4" "5", modality labels}
-#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "3" "4" "5", reader labels}
+#' \item\code{rating$NL} num Array[1:5, 1:4, 1:200, 1:7] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL}num Array[1:5, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:100], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:100, 1:3], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:100, 1:3], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName}  chr "dataset04" base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "FROC" the data type
+#' \item\code{descriptions$name} chr "FEDERICA" the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:5, 1:4, 1:200, 1:4] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:5] "1" "2" "3" "4" "5", modality labels
+#' \item\code{descriptions$readerID} chr Array[1:4] the reader labels
 #' }
 #'
 #' @keywords datasets
@@ -171,7 +171,7 @@
 #' 
 #' @examples
 #' res <- str(dataset04)
-#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset04, opChType = "wAFROC")$Plot
+#' ## PlotEmpOpChr(dataset = dataset04, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset04"
@@ -193,19 +193,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:9, 1:92, 1:7], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:9, 1:47, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:47], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:47, 1:3], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:47, 1:3], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset05", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "THOMPSON", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:9, 1:92, 1:4], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", modality labels}
-#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
+#' \item\code{rating$NL} num Array[1:2, 1:9, 1:92, 1:7] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:2, 1:9, 1:47, 1:3] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA, This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:47], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:47, 1:3], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:47, 1:3], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset05" base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "FROC" the data type
+#' \item\code{descriptions$name} chr "THOMPSON", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:2, 1:9, 1:92, 1:4] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL" study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:2] "1" "2", modality labels
+#' \item\code{descriptions$readerID} chr Array[1:4] the reader labels
 #' }
 #'
 #' @keywords datasets
@@ -217,7 +217,7 @@
 #'  
 #' @examples
 #' res <- str(dataset05)
-#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset05, opChType = "wAFROC")$Plot
+#' ## PlotEmpOpChr(dataset = dataset05, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset05"
@@ -237,19 +237,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:89, 1:17], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:42, 1:15], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:42], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:42, 1:15], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:42, 1:15], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset06", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "MAGNUS", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:89, 1:16], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", modality labels}
-#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
+#' \item\code{rating$NL} num Array[1:2, 1:4, 1:89, 1:17] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:2, 1:4, 1:42, 1:15] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:42], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:42, 1:15], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:42, 1:15], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset06", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "FROC" the data type
+#' \item\code{descriptions$name} chr "MAGNUS", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:2, 1:4, 1:89, 1:16] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:2] "1" "2", modality labels
+#' \item\code{descriptions$readerID} chr Array[1:4] "1" "2" "3" "4", reader labels
 #' }
 #'
 #' @keywords datasets
@@ -260,7 +260,7 @@
 #' 
 #' @examples
 #' res <- str(dataset06)
-#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset06, opChType = "wAFROC")$Plot
+#' ## PlotEmpOpChr(dataset = dataset06, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset06"
@@ -279,19 +279,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:5, 1:7, 1:162, 1:4], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:5, 1:7, 1:81, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:81], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:81, 1:3], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:81, 1:3], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset07", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "LUCY-WARREN", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:7, 1:162, 1:4], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, [1:5] "1" "2" "3" "4" ..., modality labels}
-#' \item{\code{descriptions$readerID}}{, chr [1:7] "1" "2" "3" "4" ..., reader labels}
+#' \item\code{rating$NL} num Array[1:5, 1:7, 1:162, 1:4] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:5, 1:7, 1:81, 1:3] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:81], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:81, 1:3], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:81, 1:3], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset07", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "FROC" the data type
+#' \item\code{descriptions$name} chr "LUCY-WARREN", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:5, 1:7, 1:162, 1:4] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID}[1:5] "1" "2" "3" "4" ..., modality labels
+#' \item\code{descriptions$readerID} chr Array[1:7] "1" "2" "3" "4" ..., reader labels
 #' }
 #'
 #' @keywords datasets
@@ -302,7 +302,7 @@
 #' 
 #' @examples
 #' res <- str(dataset07)
-#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset07, opChType = "wAFROC")$Plot
+#' ## PlotEmpOpChr(dataset = dataset07, opChType = "wAFROC")$Plot
 #'
 #'
 "dataset07"
@@ -323,19 +323,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:5, 1:5, 1:112, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:5, 1:5, 1:64, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:64], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:64, 1], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:64, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset08", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "PENEDO", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:5, 1:5, 1:112, 1:2], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:5] "0" "1" "2" "3" ..., modality labels}
-#' \item{\code{descriptions$readerID}}{, chr [1:5] "0" "1" "2" "3" ..., reader labels}
+#' \item\code{rating$NL} num Array[1:5, 1:5, 1:112, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:5, 1:5, 1:64, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:64], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:64, 1], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:64, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset08", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC" the data type
+#' \item\code{descriptions$name} chr "PENEDO", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:5, 1:5, 1:112, 1:2] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:5] "0" "1" "2" "3" ..., modality labels
+#' \item\code{descriptions$readerID} chr Array[1:5] "0" "1" "2" "3" ..., reader labels
 #' }
 #'
 #' @keywords datasets
@@ -347,7 +347,7 @@
 #' 
 #' @examples
 #' res <- str(dataset08)
-#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset08, opChType = "ROC")$Plot
+#' ## PlotEmpOpChr(dataset = dataset08, opChType = "ROC")$Plot
 #'
 #'
 "dataset08"
@@ -370,19 +370,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1, 1:10, 1:200, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1, 1:10, 1:80, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:80], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:80, 1], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:80, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset09", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "NICO-CAD-ROC", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1, 1:10, 1:200, 1:2], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
+#' \item\code{rating$NL} num Array[1, 1:10, 1:200, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1, 1:10, 1:80, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:80], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:80, 1], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:80, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset09", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC" the data type
+#' \item\code{descriptions$name} chr "NICO-CAD-ROC", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1, 1:10, 1:200, 1:2] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr "1" modality label
+#' \item\code{descriptions$readerID} chr Array[1:10] "1" "2" "3" "4" ..., reader labels
 #' }
 #'
 #' @keywords datasets
@@ -392,7 +392,7 @@
 #' 
 #' @examples
 #' res <- str(dataset09)
-#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
+#' ## PlotEmpOpChr(dataset = dataset09, rdrs = 1:10, opChType = "ROC")$Plot
 #'
 #'
 "dataset09"
@@ -414,19 +414,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:3, 1:8, 1:90, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:3, 1:8, 1:40, 1] , ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:40], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:40, 1], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:40, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset10", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "RUSCHIN", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:3, 1:8, 1:90, 1:2], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:3] "1" "2" "3", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:8] "1" "2" "3" "4" ..., reader labels}
+#' \item\code{rating$NL} num Array[1:3, 1:8, 1:90, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:3, 1:8, 1:40, 1] , ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:40], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:40, 1], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:40, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset10", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC" the data type
+#' \item\code{descriptions$name} chr "RUSCHIN", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:3, 1:8, 1:90, 1:2] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:3] "1" "2" "3", modality label(s)
+#' \item\code{descriptions$readerID} chr Array[1:8] "1" "2" "3" "4" ..., reader labels
 #' }
 #'
 #' @keywords datasets
@@ -438,7 +438,7 @@
 #' 
 #' @examples
 #' res <- str(dataset10)
-#' ## PlotEmpiricalOperatingCharacteristics(dataset = dataset10, opChType = "ROC")$Plot
+#' ## PlotEmpOpChr(dataset = dataset10, opChType = "ROC")$Plot
 #'
 #'
 "dataset10"
@@ -466,19 +466,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:4, 1:5, 1:115, 1:20], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:115], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:115, 1:20], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:115, 1:20], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset11", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "DOBBINS-1", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:158, 1:21], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+#' \item\code{rating$NL} num Array[1:4, 1:5, 1:158, 1:4] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:4, 1:5, 1:115, 1:20] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:115], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:115, 1:20], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:115, 1:20], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset11", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "FROC" the data type
+#' \item\code{descriptions$name} chr "DOBBINS-1", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:4, 1:5, 1:158, 1:21] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:4] "1" "2" "3" "4", modality label(s)
+#' \item\code{descriptions$readerID} chr Array[1:5] "1" "2" "3" "4" ..., reader labels
 #' }
 #'
 #' @keywords datasets
@@ -507,19 +507,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:4, 1:5, 1:152, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:4, 1:5, 1:88, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:88], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:88, 1], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:88, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset12", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "DOBBINS-2", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:152, 1:2] , truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+#' \item\code{rating$NL} num Array[1:4, 1:5, 1:152, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:4, 1:5, 1:88, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:88], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:88, 1], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:88, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset12", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC" the data type
+#' \item\code{descriptions$name} chr "DOBBINS-2", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:4, 1:5, 1:152, 1:2] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:4] modality label(s)
+#' \item\code{descriptions$readerID} chr Array[1:5] reader labels
 #' }
 #'
 #' @keywords datasets
@@ -547,19 +547,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:4, 1:5, 1:158, 1:4], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:4, 1:5, 1:106, 1:15], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:106], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:106, 1:15], numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:106, 1:15], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset13", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "DOBBINS-3", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:4, 1:5, 1:158, 1:16], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:4] "1" "2" "3" "4", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+#' \item\code{rating$NL} num Array[1:4, 1:5, 1:158, 1:4] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:4, 1:5, 1:106, 1:15] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:106], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:106, 1:15], numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:106, 1:15], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset13", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "FROC" the data type
+#' \item\code{descriptions$name} chr "DOBBINS-3", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:4, 1:5, 1:158, 1:16] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:4] modality label(s)
+#' \item\code{descriptions$readerID} chr Array[1:5] reader labels
 #' }
 #'
 #' @keywords datasets
@@ -591,19 +591,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:200, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:100, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:100], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:100, 1] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:100, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "dataset14", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "FEDERICA-REAL-ROC", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "2" "3" "4", reader labels}
+#' \item\code{rating$NL} num Array[1:2, 1:4, 1:200, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:2, 1:4, 1:100, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:100], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:100, 1] , numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:100, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "dataset14", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC" the data type
+#' \item\code{descriptions$name} chr "FEDERICA-REAL-ROC", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:2, 1:4, 1:200, 1:2] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:2] modality label(s)
+#' \item\code{descriptions$readerID} chr Array[1:4] reader labels
 #' }
 #'
 #' @keywords datasets
@@ -620,37 +620,6 @@
 "dataset14"
 #'
 #' 
-#'
-#'
-#'#' Simulated FROC SPLIT-PLOT-C dataset
-#' 
-#' @format A list with 3 elements: \code{$ratings}, \code{$lesions} and \code{$descriptions}; \code{$ratings}
-#'    contain 3 elements, \code{$NL}, \code{$LL} and \code{$LL_IL} as sub-lists; \code{$lesions}
-#'    contain 3 elements, \code{$perCase}, \code{$IDs} and \code{$weights} as sub-lists; \code{$descriptions}
-#'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
-#'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
-#' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:200, 1:7], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:100, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:100], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:100, 1:3] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:100, 1:3], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetFROCSpC", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "SIM-FROC-SPLIT-PLOT-C", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "4" "5", treatment label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:4] "1" "3" "4" "5", reader labels}
-#' }
-#'
-#' @keywords datasets
-#'
-#'
-"datasetFROCSpC"
-#'
-#'
 #' 
 #' Binned dataset suitable for checking \code{\link{FitCorCbm}}; seed = 123
 #'
@@ -670,19 +639,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:5000], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:5000, 1] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:5000, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetBinned123", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-123", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
+#' \item\code{rating$NL} num Array[1, 1:2, 1:10000, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1, 1:2, 1:5000, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:5000], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:5000, 1] , numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:5000, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "datasetBinned123", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC" the data type
+#' \item\code{descriptions$name} chr "SIM-CORCBM-SEED-123", the name of the dataset
+#' \item\code{descriptions$truthTableStr} NA truth table structure
+#' \item\code{descriptions$design} chr "FCTRL-X-MOD", study design factorial dataset
+#' \item\code{descriptions$modalityID}  chr "1" modality label
+#' \item\code{descriptions$readerID} chr Array[1:2] reader labels
 #' }
 #'
 #' @keywords datasets
@@ -710,19 +679,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:5000], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:5000, 1] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:5000, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetBinned124", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-124", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
+#' \item\code{rating$NL} num Array[1, 1:2, 1:10000, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1, 1:2, 1:5000, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:5000], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:5000, 1] , numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:5000, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "datasetBinned124", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC" the data type
+#' \item\code{descriptions$name} chr "SIM-CORCBM-SEED-124", the name of the dataset
+#' \item\code{descriptions$truthTableStr} NA truth table structure
+#' \item\code{descriptions$design} chr "FCTRL-X-MOD", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr "1" modality label
+#' \item\code{descriptions$readerID} chr Array[1:2] "1" "2" reader labels
 #' }
 #'
 #' @keywords datasets
@@ -750,19 +719,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:5000], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:5000, 1] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:5000, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetBinned125", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "SIM-CORCBM-SEED-125", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:2] "1" "2", reader labels}
+#' \item\code{rating$NL} num Array[1, 1:2, 1:10000, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1, 1:2, 1:5000, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:5000], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:5000, 1] , numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:5000, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "datasetBinned125", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC" the data type
+#' \item\code{descriptions$name} chr "SIM-CORCBM-SEED-125", the name of the dataset
+#' \item\code{descriptions$truthTableStr} NA truth table structure
+#' \item\code{descriptions$design} chr "FCTRL-X-MOD", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr "1" modality label
+#' \item\code{descriptions$readerID} chr Array[1:2] "1" "2", reader labels
 #' }
 #'
 #' @keywords datasets
@@ -794,19 +763,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1, 1:10, 1:200, 1], ratings of localizations on normal cases}
-#' \item{\code{rating$LL}}{, num [1, 1:10, 1:80, 1], ratings of correct localizations on abnormal cases}
-#' \item{\code{rating$LL_IL}}{num [1, 1:10, 1:80, 1], ratings of incorrect localizations on abnormal cases}
-#' \item{\code{lesions$perCase}}{, int [1:80], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:80, 1] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:80, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetCadLroc", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "LROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
+#' \item\code{rating$NL} num Array[1, 1:10, 1:200, 1] ratings of localizations on normal cases
+#' \item\code{rating$LL} num Array[1, 1:10, 1:80, 1] ratings of correct localizations on abnormal cases
+#' \item\code{rating$LL_IL} num Array[1, 1:10, 1:80, 1], ratings of incorrect localizations on abnormal cases
+#' \item\code{lesions$perCase} int Array[1:80], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:80, 1] , numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:80, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "datasetCadLroc", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "LROC" the data type
+#' \item\code{descriptions$name} chr "NICO-CAD-LROC", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:2, 1:4, 1:200, 1:2] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr "1" modality label
+#' \item\code{descriptions$readerID} chr Array[1:10] "1" "2" "3" "4" ..., reader labels
 #' }
 #'
 #' @keywords datasets
@@ -846,19 +815,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1, 1:10, 1:200, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1, 1:10, 1:80, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:80], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:80, 1] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:80, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetCadSimuFroc", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "LROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "NICO-CAD-LROC", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, num [1:2, 1:4, 1:200, 1:2], truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:10] "1" "2" "3" "4" ..., reader labels}
+#' \item\code{rating$NL} num Array[1, 1:10, 1:200, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1, 1:10, 1:80, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:80], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:80, 1] , numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:80, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "datasetCadSimuFroc", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "LROC" the data type
+#' \item\code{descriptions$name} chr "NICO-CAD-LROC", the name of the dataset
+#' \item\code{descriptions$truthTableStr} num Array[1:2, 1:4, 1:200, 1:2] truth table structure
+#' \item\code{descriptions$design} chr "FCTRL", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr "1" modality label
+#' \item\code{descriptions$readerID} chr Array[1:10] reader labels
 #' }
 #'
 #' @keywords datasets
@@ -881,19 +850,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:4, 1:11, 1:68, 1:5], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:4, 1:11, 1:34, 1:3], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:34], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:34, 1:3] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:34, 1:3], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetX", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "FROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "THOMPSON-X-MOD", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "F" "I", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:4] "20" "40" "60" "80", reader labels}
+#' \item\code{rating$NL} num Array[1:2, 1:4, 1:11, 1:68, 1:5] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:2, 1:4, 1:11, 1:34, 1:3] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:34], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:34, 1:3] , numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:34, 1:3], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "datasetX", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "FROC" the data type
+#' \item\code{descriptions$name} chr "THOMPSON-X-MOD", the name of the dataset
+#' \item\code{descriptions$truthTableStr} NA truth table structure
+#' \item\code{descriptions$design} chr "FCTRL-X-MOD", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:2] "F" "I", modality label(s)
+#' \item\code{descriptions$readerID} chr Array[1:4] "20" "40" "60" "80", reader labels
 #' }
 #'
 #' @keywords datasets
@@ -924,19 +893,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1, 1, 1:15, 1], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1, 1, 1:10, 1], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:10], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:10, 1] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:10, 1], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetDegenerate", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROC", the data type}
-#' \item{\code{descriptions$name}}{, chr "SIM-DEGENERATE", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr "1", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr "1", reader labels}
+#' \item\code{rating$NL} num Array[1, 1, 1:15, 1] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1, 1, 1:10, 1] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:10], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:10, 1] , numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:10, 1], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "datasetDegenerate", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROC" the data type
+#' \item\code{descriptions$name} chr "SIM-DEGENERATE", the name of the dataset
+#' \item\code{descriptions$truthTableStr} NA truth table structure
+#' \item\code{descriptions$design} chr "FCTRL-X-MOD", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr "1" modality label
+#' \item\code{descriptions$readerID} chr "1", reader labels
 #' }
 #'
 #' @keywords datasets
@@ -959,19 +928,19 @@
 #'    contain 7 elements, \code{$fileName}, \code{$type}, \code{$name},
 #'    \code{$truthTableStr}, \code{$design}, \code{$modalityID} and \code{$readerID} as sub-lists;
 #' \itemize{
-#' \item{\code{rating$NL}}{, num [1:2, 1:5, 1:90, 1:4], ratings of non-lesion localizations, NLs}
-#' \item{\code{rating$LL}}{, num [1:2, 1:5, 1:40, 1:4], ratings of lesion localizations, LLs}
-#' \item{\code{rating$LL_IL}}{NA, this placeholder is used only for LROC data}
-#' \item{\code{lesions$perCase}}{, int [1:40], number of lesions per diseased case}
-#' \item{\code{lesions$IDs}}{, num [1:40, 1:4] , numeric labels of lesions on diseased cases}
-#' \item{\code{lesions$weights}}{, num [1:40, 1:4], weights (or clinical importances) of lesions}
-#' \item{\code{descriptions$fileName}}{, chr, "datasetROI", base name of dataset in `data` folder}
-#' \item{\code{descriptions$type}}{, chr "ROI", the data type}
-#' \item{\code{descriptions$name}}{, chr "SIM-ROI", the name of the dataset}
-#' \item{\code{descriptions$truthTableStr}}{, NA, truth table structure}
-#' \item{\code{descriptions$design}}{, chr "FCTRL-X-MOD", study design, factorial dataset}
-#' \item{\code{descriptions$modalityID}}{, chr [1:2] "1" "2", modality label(s)}
-#' \item{\code{descriptions$readerID}}{, chr [1:5] "1" "2" "3" "4" ..., reader labels}
+#' \item\code{rating$NL} num Array[1:2, 1:5, 1:90, 1:4] ratings of non-lesion localizations NLs
+#' \item\code{rating$LL} num Array[1:2, 1:5, 1:40, 1:4] ratings of lesion localizations LLs
+#' \item\code{rating$LL_IL} NA This placeholder is used only for LROC data
+#' \item\code{lesions$perCase} int Array[1:40], number of lesions per diseased case
+#' \item\code{lesions$IDs} num Array[1:40, 1:4] , numeric labels of lesions on diseased cases
+#' \item\code{lesions$weights} num Array[1:40, 1:4], weights (or clinical importance) of lesions
+#' \item\code{descriptions$fileName} chr "datasetROI", base name of dataset in `data` folder
+#' \item\code{descriptions$type} chr "ROI" the data type
+#' \item\code{descriptions$name} chr "SIM-ROI" the name of the dataset
+#' \item\code{descriptions$truthTableStr} NA truth table structure
+#' \item\code{descriptions$design} chr "FCTRL-X-MOD", study design factorial dataset
+#' \item\code{descriptions$modalityID} chr Array[1:2] "1" "2", modality label(s)
+#' \item\code{descriptions$readerID} chr Array[1:5] "1" "2" "3" "4" ..., reader labels
 #' }
 #'
 #' @keywords datasets

@@ -2,12 +2,10 @@ Package: RJafroc
 Type: Package
 Title: Artificial Intelligence Systems and Observer Performance
 Version: 2.1.3
-Date: 2023-07-31
+Date: 2025-04-15
 Authors@R: c(person('Dev', 'Chakraborty', role = c('cre','aut','cph'), email = 'dpc10ster@gmail.com'),
              person('Peter', 'Phillips', role = c('ctb'), email = 'peter.phillips@cumbria.ac.uk'),
-             person('Xuetong', 'Zhai', role = c('aut'), email = 'xuetong.zhai@gmail.com'),
-             person("Lucy","D'Agostino McGowan", role = c("ctb"), email = "ld.mcgowan@vanderbilt.edu"),
-             person("Alejandro","RodriguezRuiz", role = c("ctb"), email = "Alejandro.RodriguezRuiz@radboudumc.nl"))
+             person('Xuetong', 'Zhai', role = c('aut'), email = 'xuetong.zhai@gmail.com'))
 Depends:
     R (>= 3.5.0)
 Imports:
@@ -106,5 +104,5 @@ Description: Analyzing the performance of artificial intelligence
 License: GPL-3
 LazyData: true
 URL: https://dpc10ster.github.io/RJafroc/
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Encoding: UTF-8

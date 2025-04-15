@@ -1,5 +1,5 @@
 ####################################################################################################################
-gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2Plot, readers2Plot, opChType, legend.position, maxDiscrete) 
+gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2Plot, readers2Plot, opChType, legPos, maxDiscrete) 
 { 
   # these silly statements are needed to avoid a NOTE on R CMD check
   genAbscissa <- NULL
@@ -136,8 +136,8 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2P
   
   genPlot <- genPlot  + scale_x_continuous(limits = c(0,xLim)) + scale_y_continuous(limits = c(0,yLim))
   
-  genPlot <- genPlot + theme(legend.position = legend.position)
-  
+  genPlot <- genPlot + theme(legend.position = "inside", legend.position.inside = legPos)  
+    
   return(list(Plot = genPlot, Points = pts))
 }
 
@@ -1314,7 +1314,8 @@ LrocPlots1 <- function (zjk1, zjk2)
   sizes <- rep(1, J)
   lrocPlot <- ggplot2::ggplot(data = lrocPlotData, ggplot2::aes(x = FPF, y = PCL, color = reader)) + ggplot2::geom_line(ggplot2::aes(linewidth = reader)) + 
     scale_color_manual(values = colors) + scale_size_manual(values = sizes) + 
-    theme(legend.title = element_blank(), legend.position = c(1, 0), legend.justification = c(1, 0)) + 
+    theme(legend.position = "inside", legend.position.inside = c(1,0)) + 
+    theme(legend.title = element_blank(), legend.justification = c(1, 0)) + 
     scale_x_continuous(limits = c(0,1)) + scale_y_continuous(limits = c(0,1))
   return(list(
     lrocPlot = lrocPlot

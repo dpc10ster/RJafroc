@@ -17,7 +17,6 @@ title: "NEWS"
 * Renamed `UtilVarComponentOR` to `UtilOrVarCov`
 * Renamed `UtilVarComponentsDBM` to `UtilDBMVarComp`
 * Removed `UtilOutputReport.R` as `St` output has been updated so this function is no longer needed.
-* SPLIT-PLOT (A & C) analyses is now in one function: `StSP`, implemented Dec 1, 2023
 
 ### Changes 05/19/2023
 * Fixed FROC simulator, easier to read code; both simulators are NOT limited to I = 2.
@@ -369,17 +368,6 @@ if (K1 != 0) {
 * Also, the ggplot output structure appears to have changed; had to regenerate goodvalues in `test-PlotEmpiricalOperatingCharacteristics.R`.
 * Need to update documentation and DESCRIPTION.
 * Need to use artificial intelligence instead of CAD as this is the new thing.
-* Moved split-plot vignettes to Dropbox; cleaned up Ch00 vignettes - `RocFctrl`, `FrocFctrl`, `RocSpA` and `FrocSpA`
-* Moved description of other's data formats to Dropbox.
-
-
-### Added stats to ORAnalysisSplitPlotA
-* `ORAnalysisSplitPlotA` returns `list` containing `FOMs`, `ANOVA` and `RRRC`
-* Implements formulae in Hillis 20-14 paper on page following Table VII.
-* Tested with toy file and collaborator dataset
-* Merged to `developer` branch and deleted `SplitPlotA` branch
-* ran `pkgdown::build_site()`
-* Updated R and RStudio
 
 
 ### Handling of FOMs that depend on single-truth-state cases
@@ -389,32 +377,11 @@ if (K1 != 0) {
 ### Revised UtilPseudoValues 8/7/20
 * More compact code handles all FOMs - no exceptions, as before, for MaxLLF, etc. Extensive simplification to accomplish handling of different FOMs.
 * Modified `FOMijk2VarCovSpA` and `FOMijk2VarCov` to accept a `varInflFactor` logical argument, allowing jackknife, bootstrap and DeLong - based estimates to be more compactly handled.
-* `UtilPseudoValues` handles all designs without resorting to separate functions for FCTRL, SPLIT-PLOT-A and SPLIT-PLOT-C
-* Modified `frocSpA` toy dataset to stress code (unequal numbers of abnormal and normal cases, multiple marks on NL and LL worksheets, etc)
 * Checked `dataset05` `MaxLLF` `MaxNLF` vs. JAFROC
 * See below, note added today relating to handling of `descriptions$fileName`. This fixed problem with `expect_equal()` failing depending on how the `goodValues` were generated - from R `command line` vs. `Run Tests`. Also, in creating a dataset object, where appropriate, `fileName` <- "NA" instead of `fileName` <- `NA`; the latter generates a `character expected` error when an attempt is made to strip path name and extension in `convert2dataset` and `convert2Xdataset`.
 * Updated and reorganized tests
-* Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use modality-specific components, i.e. `Var_i`, `Cov2_i` and `Cov3_i`. The modified formulae reduce to Hillis' formulae when the number of readers in each group are identical. Communicated results to collaborator.
 * Corrected error in handling of `MaxNLFAllCases` FOM; see comments in `UtilMeanSquares()`; regenerated one `goodValue` file.
 
-
-### Read real SPLIT-PLOT-A dataset
-* Did not find any data entry errors in `/toyFiles/FROC/1T3Rvs4R.xlsx`
-* Simplified `rdrArr` handling: this is done in `checkTruthTable`, where SPLIT-PLOT-A is handled separately;
-* Added source `fileName` to `descriptions$fileName` field of `DfReadDataFile()` return; this will keep a record of how the dataset was generated
-* Note added 8/7/20: above change created problems passing tests in R CMD check, as long file names may not agree; simplified to remove all but the file base name; regenerated many `goodValues` files
-
-
-### Update for reading SPLIT-PLOT-A data files
-* After emails with collaborator, need for this type of analysis.
-* Need to comment `DfReadDataFile.R` and `ReadJAFROCNewFormat.R` and add more checks in the code for illegal values.
-* Indiscriminate sorting introduced problems; now, sorted `caseID` column is used now in only 3 places to find the correct case indices, where normal cases are ordered first, regardless of how they are entered in the `Truth` worksheet:
-
-```
-k <- which(unique(truthTableSort$CaseID) == truthTable$CaseID[l])
-k <- which(unique(truthTableSort$CaseID) == NLCaseIDCol[l])
-k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
-```
 
 ### Tests for UtilOutputReport
 * Included tests for `UtilOutputReport()` for text output only
@@ -423,19 +390,10 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Failing code is commented out
 
 
-### Renamed SP datasets 7/9/20
-* Renamed the split plot dataset to datasetFROCSpC
-* The C stands for Table VII Part (C) in Hillis 2014
-* Need to distinguish between different types of split-plot datasets
-* What I was doing so far was split-plot-c
-* The new analysis requires split-plot-a
-
-
 ### Code for checking for non-sequential lesionIDs in TRUTH 7/8/20
 * Updated all tests to display contexts more consistently.
 * Moved unnecessary files from `inst` to `Dropbox`.
 * Main work was on `DfReadDataFile.R` and testing code for non-sequential `lesionID`s in `TRUTH` worksheet.
-* Thinking about modifications to handle split-plot data along the lines of HYK datasets
 * Also learning about `grep`.  
 
 
@@ -469,7 +427,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 
 
 ### Major reorganization of `dataset` structure
-* Instead of varying lengths for ROC/FROC, LROC and SPLIT-PLOT, all `datasets` now are `lists` of length 3, with each member (`ratings`, `lesions`, `descriptions`) consisting of sub-lists:
+* Instead of varying lengths for ROC, FROC, LROC, all `datasets` now are `lists` of length 3, with each member (`ratings`, `lesions`, `descriptions`) consisting of sub-lists:
   + `ratings` contain 3 elements: `$NL`, `$LL` and `$LL_IL`.
   + `$lesions` contains 3 elements: `$perCase`, `$IDs` and `$weights`.
   + `$descriptions` contains 7 elements: `$fileName`, `$type`, `$name`, `$truthTableStr`, `$design`, `$modalityID` and `$readerID`.
@@ -488,7 +446,6 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Ran detailed comparison to OR-DBM MRMC 2.51 and coded the checks in  `tests/testthat/test-St-Compare2Iowa.R` for VanDyke dataset
 * Also visually compared `RJafroc` results against OR-DBM MRMC 2.51 for `dataset04` converted to ROC (see Iowa code results in `inst/Iowa/FedRoc.txt`);
 * Shortened `UtilOutputReport` *considerably*, by using `print(dataframe)` instead of reading values from `list` or `dataframe` variables and then using `sprintf` with unreadable C-style format codes
-* Shortened `SPLIT-PLOT` analysis by returning `Cov2` = `Cov3` = 0 instead of `NA`
 * Confirmed that this gives same results as the version in `master` branch
 * Added vignettes back, rebuilt website
 * Passes all OSX checks except for file size NOTE: checking installed package size ... NOTE installed size is 16.7Mb; sub-directories of 1Mb or more:doc 12.7Mb;extdata 1.3Mb
@@ -614,31 +571,6 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * See `cran2-update/master` branch for content relating to this version
 
 
-### Modified `UtilPseudoValues.R` to work with SPLIT-PLOT data
-* Created simulated SP datafile `inst/extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx`.
-* Created simulated SP dataset `datasetFROCSp` corresponding to modalities 4,5 of `dataset04`
-* Update vignette `Ch00Vig5SimulateSplitPlotDataset.Rmd`.
-* Modified `StORHAnalysis.R` and to work with SP-A dataset provided `method = "OR"` and `covEstMethod` = "jackknife" is used
-* Corrected an error in analysis; see `~Dropbox/RJafrocChecks/StfrocSp.xlsx` for details.
-* Updated this file 2/19/20
-* R CMD check successful ... except for file size NOTE (18.4Mb)
-
-
-### Created split plot dataset; update all datasets; confirm truthTableStr and DfReadDataFile()
-* v1.3.1.9000
-* created simulated split plot Excel dataset from Fed dataset: `Ch00Vig5CreateSplitPlotDataset.Rmd`; confirmed it is read without error!!
-* updated datasets - see `inst/FixRJafrocDatasets/ConvertDataset.R`; worked on `DfReadDataFile` function
-* **Discoverd that `.xls` input does not work***; took it out as an allowed option; probably has to do with `openxlsx`
-* checked `truthTableStr` with a data file that has only 1 and 3 lesions per case; was concerned about 4th dimension of `truthTableStr`; see `Dropbox/RJafrocChecks/truthTableStr.xlsx` for results of checks; note that fourth dimension will be 4, even though there are no cases with 2 lesions
-* I think I need a separate vignette on `truthTableStr` - more for my sake
-* added raw excel file datasets corresponding to included datasets to `inst/extdata/datasets`; found missing file `SimulateFrocFromLrocDataset.R` - not sure why I took it out;
-* Added sheet AnnK to `truthTableStr` in `Dropbox/RJafrocChecks`
-* Also tests that `OldFormat` file when read creates identical dataset to that created by `NewFormat`: basically two Excel fiies are identical except old format lacks the three extra columns; see `checkDfReadDataFile.R`
-* Modified `UtilFigureOfMerit` to accomodate split plot dataset with varying number of cases for each reader
-* Created a datafile `inst/extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx` that really exercises the `DfReadDataFile` function (case index is unsorted); resorted to data frames and sorting to successfully read it (it is used in three places - truthTableStr, NL and LL). See `inst/extdata/testUtilFigureOfMerit/*.R` for exercising files
-* Need to include this file in `tests`
-* Updated this file 2/10/20
-* R CMD check successful
 
 
 ## version 1.3.1
@@ -667,18 +599,6 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * Included my own CPP coded wAFROC plot function. Learning a lot form Dirk's book website https://teuder.github.io/rcpp4everyone_en/.
 
 
-### Split plot dataset
-* Modifications to `DfReadDataFile()` to allow for split plot datasets completed.
-* Must use `newExcelFileFormat = TRUE` as otherwise the code defaults to the old Excel format.
-* The new format includes more stringent tests, IMHO, to catch data entry errors:
-* `TruthTableStr` is created in `checkTruthTable()` which is used in subsequent read NL and LL worksheets.
-* Work to be done to include split plot in significance testing.
-* Corrected `dataset03` which had `-Inf`s for 1-ratings; need to check other ROC data files.
-* Added vignettes describing data format using toyFiles and use of `DfReadDataFile()`.
-* Corrected error in old DfReadDataFile function.
-* Passes R CMD check with file size note.
-
-
 ### Error in MS_TC corrected
 * Noted by Erin Greco
 * The missing "-1": `UtilMeanSquares()` line 88 `msTC <- msTC * J/((I - 1) * (Ktemp - 1))` has been corrected
@@ -689,7 +609,7 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * `PlotEmpiricalOperatingCharacteristics()` now accepts ROC, FROC **and** LROC datasets.
 * Simplified code.
 * Included in unit tests.
-* Added `legend.position` argument to allow better positioning of legend.
+* Added `legPos` argument to allow better positioning of legend.
 
 
 ### Added FROC sample size vignettes and functions
@@ -747,7 +667,6 @@ k <- which(unique(truthTableSort$CaseID) == LLCaseIDCol[l]) - K1
 * The `addPlot` routine in `StSignificanceTestingCadVsRadiologists` has been renamed to `CadVsRadPlots()`. It should be deprecated in future as `PlotRsmOperatingCharacteristics()` has more consistent visual output (and capabilities like handling lists of treatments and readers).
 * Need a function that checks validity of FOM for dataset: `isValidFom`?
 * Need to compare predicted curves for LROC and FROC data: does `SimulateLrocDataset()` predict **both** flattening out of LROC plot and wAFROC going to (1,1)?
-* Split plot analysis
 
 
 ## version 1.2.0

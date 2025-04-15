@@ -618,7 +618,8 @@ LrocPlots <- function (zjk1, zjk2, doJ)
   sizes <- c(2, rep(1, length(doJ)))
   lrocPlot <- ggplot(data = lrocPlotData, aes(x = FPF, y = PCL, color = reader)) + geom_line(aes(linewidth = reader)) + 
     scale_color_manual(values = colors) + scale_size_manual(values = sizes) + 
-    theme(legend.title = element_blank(), legend.position = legendPosition <- c(1, 0), legend.justification = c(1, 0))
+    theme(legend.position = "inside", legend.position.inside = c(1,0)) + 
+    theme(legend.title = element_blank(), legend.justification = c(1, 0))
   return(list(
     lrocPlot = lrocPlot,
     afrocPlot = NULL)
