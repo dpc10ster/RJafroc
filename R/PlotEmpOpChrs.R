@@ -58,7 +58,7 @@
 #' ## Plot individual empirical ROC plots for all combinations of modalities
 #' ## 1 and 2 and readers 1, 2 and 3. Six operating characteristics are plotted.
 #'
-#' ret <- PlotEmpiricalOperatingCharacteristics(dataset =
+#' ret <- PlotEmpOpChrs(dataset =
 #' dataset02, trts = c(1:2), rdrs = c(1:3), opChType = "ROC")
 #' ## print(ret$Plot)
 #'
@@ -76,7 +76,7 @@
 #' plotT <- list(1, 2, c(1:2))
 #' plotR <- list(2, c(2:3), c(1:3))
 #'
-#' ret <- PlotEmpiricalOperatingCharacteristics(dataset = dataset04, trts = plotT,
+#' ret <- PlotEmpOpChrs(dataset = dataset04, trts = plotT,
 #'    rdrs = plotR, opChType = "wAFROC")
 #' ## print(ret$Plot)
 #'
@@ -91,7 +91,7 @@
 #' @export
 
 ####################################################################################################################
-PlotEmpiricalOperatingCharacteristics <- function(dataset, trts = 1, rdrs = 1, opChType, legPos = c(0.8, 0.3), maxDiscrete = 10) 
+PlotEmpOpChrs <- function(dataset, trts = 1, rdrs = 1, opChType, legPos = c(0.8, 0.3), maxDiscrete = 10) 
 {
   
   if (dataset$descriptions$type == "ROI") stop("No operating characteristics are defined for an ROI dataset")

@@ -36,11 +36,12 @@ DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctio
   K <- length(dataset$ratings$NL[1,1,,1])
   K2 <- length(dataset$ratings$LL[1,1,,1])
   K1 <- K - K2
-  #  For the NL array of the LROC data, for non-disesed cases, the highest rating of the 
-  #  FROC marks, or a minimum rating value (less than lowest finite rating, see below) 
+
+  #  For the NL array of the LROC data, for non-diseased cases, the highest rating of the 
+  #  FROC marks, or a minimum value (lower than lowest finite rating, see below) 
   #  if there are no marks, is copied to case index k1 = 1 to k1 = K1 of the LROC dataset.   
 
-  NL <- apply(dataset$ratings$NL, c(1, 2, 3), max)# keep max NL rating; 
+  NL <- apply(dataset$ratings$NL, c(1, 2, 3), max) # extract the max NL rating 
   dim(NL) <- c(dim(NL), 1) # add the fourth "unnecessary" dimension
   
   LL <- dataset$ratings$LL
@@ -49,7 +50,7 @@ DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctio
   # increased from one to ten to make it stand out
   
   # the entries for diseased cases are set to -Inf below ...
-  # after assigning to LL_IL array (if it excees the max LL rating)
+  # after assigning to LL_IL array (if it exceeds the max LL rating)
   
   LL <- array(lowestRating - 10, dim = c(I,J,K2,1)) # ensure a finite LL rating on each case
   LL_IL <- array(lowestRating - 10, dim = c(I,J,K2,1)) # ensure a finite LL_IL rating on each case
@@ -78,7 +79,7 @@ DfFroc2Lroc <- function(dataset) #  !!!in tests!!!  test-LrocDfConversionFunctio
     }
   }
   
-  perCase <- array(1, dim = c(K2))
+  perCase <- array(1, dim = c(K2)) # LROC paradigm allows only 1 lesion per dis. case
   IDs <- array(1, dim = c(K2,1))
   weights <- array(1, dim = c(K2,1))
   weights[,1] <- 1

@@ -7,7 +7,7 @@ title: "NEWS"
 ---
 
 
-### CRAN submission v2.1.3 - postponed until Jan 01, 2024
+### CRAN submission v2.1.3 - postponed until July 31, 2025
 * Bug fix, Issue 90
 * Bug fix, Issue 89
 * Fixed user data-entry errors in Excel file (check column names and data type)

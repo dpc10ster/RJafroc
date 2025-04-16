@@ -2,7 +2,7 @@
 % Please edit documentation in R/SimulateLrocDataset.R
 \name{SimulateLrocDataset}
 \alias{SimulateLrocDataset}
-\title{Simulates an uncorrelated FLROC FrocDataset using the RSM}
+\title{Simulates an uncorrelated LROC dataset using the RSM}
 \usage{
 SimulateLrocDataset(mu, lambda, nu, zeta1, I, J, K1, K2, lesionVector)
 }

@@ -1,14 +1,14 @@
-context("PlotEmpiricalOperatingCharacteristics: ROC & FROC & vectors & lists")
+context("PlotEmpOpChrs: ROC & FROC & vectors & lists")
 test_that("ROC & FROC & vectors & lists", {
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-ROC-vectors", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p1 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = seq(1,5), rdrs = seq(1,4), opChType = "wAFROC")
+    p1 <- PlotEmpOpChrs(dataset04, trts = seq(1,5), rdrs = seq(1,4), opChType = "wAFROC")
     saveRDS(p1, file = fn)
   }
   p1 <- readRDS(fn)
-  p2 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = seq(1,5), rdrs = seq(1,4), opChType = "wAFROC")
+  p2 <- PlotEmpOpChrs(dataset04, trts = seq(1,5), rdrs = seq(1,4), opChType = "wAFROC")
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
   
@@ -17,66 +17,66 @@ test_that("ROC & FROC & vectors & lists", {
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-ROC-lists", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p1 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "ROC")
+    p1 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "ROC")
     saveRDS(p1, file = fn)
   }
   p1 <- readRDS(fn)
-  p2 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "ROC")
+  p2 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "ROC")
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-FROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p1 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "FROC")
+    p1 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "FROC")
     saveRDS(p1, file = fn)
   }
   p1 <- readRDS(fn)
-  p2 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "FROC")
+  p2 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "FROC")
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-AFROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p1 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC")
+    p1 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC")
     saveRDS(p1, file = fn)
   }
   p1 <- readRDS(fn)
-  p2 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC")
+  p2 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC")
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-wAFROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p1 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC")
+    p1 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC")
     saveRDS(p1, file = fn)
   }
   p1 <- readRDS(fn)
-  p2 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC")
+  p2 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC")
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-AFROC1", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p1 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC1")
+    p1 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC1")
     saveRDS(p1, file = fn)
   }
   p1 <- readRDS(fn)
-  p2 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC1")
+  p2 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "AFROC1")
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/ds04-wAFROC1", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p1 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC1")
+    p1 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC1")
     saveRDS(p1, file = fn)
   }
   p1 <- readRDS(fn)
-  p2 <- PlotEmpiricalOperatingCharacteristics(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC1")
+  p2 <- PlotEmpOpChrs(dataset04, trts = plotT, rdrs = plotR, opChType = "wAFROC1")
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
 
@@ -85,7 +85,7 @@ test_that("ROC & FROC & vectors & lists", {
 
 
 
-context("PlotEmpiricalOperatingCharacteristics: LROC")
+context("PlotEmpOpChrs: LROC")
 test_that("PlotOperatingCharacteristics-LROC", {
   
   K1 <- 10;K2 <- 10;mu <- 1;lambda <- 1;nu <- 0.8;zeta1 <- -3;perCase <- rep(1, K2)
@@ -94,22 +94,22 @@ test_that("PlotOperatingCharacteristics-LROC", {
   fn <- paste0(test_path(), "/goodValues361/Plots/lrocData-ROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p <- PlotEmpiricalOperatingCharacteristics(lrocData, opChType = "ROC" )
+    p <- PlotEmpOpChrs(lrocData, opChType = "ROC" )
     saveRDS(p, file = fn)
   }
   p1 <- readRDS(fn)
-  p2 <- PlotEmpiricalOperatingCharacteristics(lrocData, opChType = "ROC" )
+  p2 <- PlotEmpOpChrs(lrocData, opChType = "ROC" )
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points,check.environment = FALSE)
 
   fn <- paste0(test_path(), "/goodValues361/Plots/lrocData-LROC", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p <- PlotEmpiricalOperatingCharacteristics(lrocData, opChType = "LROC" )
+    p <- PlotEmpOpChrs(lrocData, opChType = "LROC" )
     saveRDS(p, file = fn)
   }
   p1 <- readRDS(fn)
-  p2<-PlotEmpiricalOperatingCharacteristics(lrocData, opChType = "LROC" )
+  p2<-PlotEmpOpChrs(lrocData, opChType = "LROC" )
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
   
@@ -118,11 +118,11 @@ test_that("PlotOperatingCharacteristics-LROC", {
   fn <- paste0(test_path(), "/goodValues361/Plots/lrocData-ROC-lists", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p <- PlotEmpiricalOperatingCharacteristics(lrocData, trts = plotT, rdrs = plotR,  opChType = "ROC")
+    p <- PlotEmpOpChrs(lrocData, trts = plotT, rdrs = plotR,  opChType = "ROC")
     saveRDS(p, file = fn)
   }
   p1 <- readRDS(fn)
-  p2 <- PlotEmpiricalOperatingCharacteristics(lrocData, trts = plotT, rdrs = plotR,  opChType = "ROC")
+  p2 <- PlotEmpOpChrs(lrocData, trts = plotT, rdrs = plotR,  opChType = "ROC")
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
   
@@ -130,22 +130,22 @@ test_that("PlotOperatingCharacteristics-LROC", {
   fn <- paste0(test_path(), "/goodValues361/Plots/lrocData-LROC-lists", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p <- PlotEmpiricalOperatingCharacteristics(lrocData, trts = plotT, rdrs = plotR,  opChType = "LROC")
+    p <- PlotEmpOpChrs(lrocData, trts = plotT, rdrs = plotR,  opChType = "LROC")
     saveRDS(p, file = fn)
   }
   p1 <- readRDS(fn)
-  p2<-PlotEmpiricalOperatingCharacteristics(lrocData, trts = plotT, rdrs = plotR,  opChType = "LROC")
+  p2<-PlotEmpOpChrs(lrocData, trts = plotT, rdrs = plotR,  opChType = "LROC")
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
   
   fn <- paste0(test_path(), "/goodValues361/Plots/lrocData-LROC-vectors", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    p <- PlotEmpiricalOperatingCharacteristics(lrocData, trts = c(1,2), rdrs = seq(1,5),  opChType = "LROC")
+    p <- PlotEmpOpChrs(lrocData, trts = c(1,2), rdrs = seq(1,5),  opChType = "LROC")
     saveRDS(p, file = fn)
   }
   p1 <- readRDS(fn)
-  p2<- PlotEmpiricalOperatingCharacteristics(lrocData, trts = c(1,2), rdrs = seq(1,5),  opChType = "LROC")
+  p2<- PlotEmpOpChrs(lrocData, trts = c(1,2), rdrs = seq(1,5),  opChType = "LROC")
   expect_is(p2$Plot, "ggplot")
   expect_equal(p2$Points, p1$Points, check.environment = FALSE)
   

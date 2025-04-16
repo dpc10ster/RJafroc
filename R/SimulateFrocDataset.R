@@ -33,7 +33,7 @@
 #'   I = I, J = J, K1 = K1, K2 = K2, perCase = perCase )
 #'   
 #' ## plot the data
-#' ret <- PlotEmpiricalOperatingCharacteristics(frocDataRaw, opChType = "FROC")
+#' ret <- PlotEmpOpChrs(frocDataRaw, opChType = "FROC")
 #' ## print(ret$Plot)
 #' 
 #' @references 

@@ -392,9 +392,9 @@
   \itemize{
         \item \code{\link{PlotBinormalFit}}: Plot binormal-predicted ROC curve with
            provided BM parameters.
-        \item \code{\link{PlotEmpiricalOperatingCharacteristics}}: Plot empirical
+        \item \code{\link{PlotEmpOpChrs}}: Plot empirical
            operating characteristics for specified dataset.
-        \item \code{\link{PlotRsmOperatingCharacteristics}}: Plot RSM-fitted ROC curves.
+        \item \code{\link{PlotRsmOpChrs}}: Plot RSM-fitted ROC curves.
   }
 }
 

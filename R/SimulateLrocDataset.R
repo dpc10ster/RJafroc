@@ -1,4 +1,4 @@
-#' Simulates an uncorrelated FLROC FrocDataset using the RSM
+#' Simulates an uncorrelated LROC dataset using the RSM
 #' 
 #' @description  Simulates an uncorrelated LROC dataset for specified numbers of
 #'    readers and treatments 

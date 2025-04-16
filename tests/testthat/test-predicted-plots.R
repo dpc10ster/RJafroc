@@ -74,7 +74,7 @@ test_that("Rsm1", {
   fn <- paste0(test_path(), "/goodValues361/Plots/Rsm1", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- PlotRsmOperatingCharacteristics(mu = mu, 
+    ret <- PlotRsmOpChrs(mu = mu, 
                                            lambda = lambda, 
                                            nu = nu, 
                                            zeta1 = zeta1, 
@@ -84,7 +84,7 @@ test_that("Rsm1", {
     saveRDS(ret, file = fn)
   }
   ret <- readRDS(fn)
-  t <- PlotRsmOperatingCharacteristics(mu = mu, 
+  t <- PlotRsmOpChrs(mu = mu, 
                                                lambda = lambda, 
                                                nu = nu, 
                                                zeta1 = zeta1, 
@@ -117,13 +117,13 @@ test_that("Rsm2", {
   fn <- paste0(test_path(), "/goodValues361/Plots/Rsm2", ".rds")
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
-    ret <- PlotRsmOperatingCharacteristics(mu, lambda, nu, OpChType = "wAFROC", 
+    ret <- PlotRsmOpChrs(mu, lambda, nu, OpChType = "wAFROC", 
                                            lesDistr = lesDistr)
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-  t <- PlotRsmOperatingCharacteristics(mu, lambda, nu, OpChType = "wAFROC", lesDistr = lesDistr)
+  t <- PlotRsmOpChrs(mu, lambda, nu, OpChType = "wAFROC", lesDistr = lesDistr)
   expect_is(t$wAFROCPlot, "ggplot")
 
 })
@@ -153,13 +153,13 @@ test_that("RSM3", {
   if (!file.exists(fn)) {
     warning(paste0("File not found - generating new ",fn))
     
-    ret <- PlotRsmOperatingCharacteristics(mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legPos = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
+    ret <- PlotRsmOpChrs(mu = mu, lambda = lambda, nu = nu, zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legPos = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
     saveRDS(ret, file = fn)
   }
   
   ret <- readRDS(fn)
-# expect_equal(PlotRsmOperatingCharacteristics(mu = mu, lambda = lambda, nu = nu,  zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legPos = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), ret, check.environment = FALSE)
-  t <- PlotRsmOperatingCharacteristics(mu = mu, lambda = lambda, nu = nu,  zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legPos = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
+# expect_equal(PlotRsmOpChrs(mu = mu, lambda = lambda, nu = nu,  zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legPos = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1)), ret, check.environment = FALSE)
+  t <- PlotRsmOpChrs(mu = mu, lambda = lambda, nu = nu,  zeta1 = zeta1, OpChType = "wAFROC", lesDistr = lesDistr, legPos = "bottom", nlfRange = c(0, 1), llfRange = c(0, 1))
   expect_is(t$wAFROCPlot, "ggplot")
 
 })
