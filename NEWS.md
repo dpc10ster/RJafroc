@@ -8,6 +8,15 @@ title: "NEWS"
 
 
 ### CRAN submission v2.1.3 - postponed until July 31, 2025
+
+
+
+### Split plot analysis removed 04/16/2025
+* Split plot analysis has been removed as I do not have confidence in my previous implementation.
+* Plus, this capability may be available in `R` package [MRMCaov](https://cran.r-project.org/web/packages/MRMCaov/index.html).
+
+
+### Other Fixes and renamed functions
 * Bug fix, Issue 90
 * Bug fix, Issue 89
 * Fixed user data-entry errors in Excel file (check column names and data type)
@@ -18,23 +27,25 @@ title: "NEWS"
 * Renamed `UtilVarComponentsDBM` to `UtilDBMVarComp`
 * Removed `UtilOutputReport.R` as `St` output has been updated so this function is no longer needed.
 
+
+
 ### Changes 05/19/2023
-* Fixed FROC simulator, easier to read code; both simulators are NOT limited to I = 2.
+* Fixed FROC simulator, easier to read code; simulators is NOT limited to I = 2.
 * This affected `goodValues`; reinitialized affected ones.
-* `truthTableStr` is used more consistently (except for LROC and ROI paradigms).
+* `truthTableStr` is used more consistently (except for LROC and ROI paradigms where this is set to `NA`).
 * TODO: see below
 
 
 ### Possible errors in RSM predicted TPF and other cpp implementations
 * `dataset11` has unusual lesion distribution: there are 14 elements but they range from 1 to 20 with some `lesionID`s missing
-* Added test_cpp_vs_R where I compare cpp to R implementations
+* Need to add `test_cpp_vs_R` where I compare `cpp` to `R` implementations; TODO
 
 
 
 ### Changed function names to `RSM_FPF` and `RSM_TPF`
 * Formerly `RSM_xROC` and `RSM_yROC`
 * This renaming was missed in the earlier submission
-* Further cleanup of documentation entries in `rsmFormulae.R`
+* Cleaned up other documentation in `rsmFormulae.R`
 
 
 ### Started new version
