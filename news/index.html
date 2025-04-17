@@ -44,7 +44,15 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.1.3" id="version-213">version 2.1.3<a class="anchor" aria-label="anchor" href="#version-213"></a></h2>
 <hr><div class="section level3">
-<h3 id="cran-submission-v213---postponed-until-jan-2-1-3">CRAN submission v2.1.3 - postponed until Jan 01, 2024<a class="anchor" aria-label="anchor" href="#cran-submission-v213---postponed-until-jan-2-1-3"></a></h3>
+<h3 id="cran-submission-v213---postponed-until-july-2-1-3">CRAN submission v2.1.3 - postponed until July 31, 2025<a class="anchor" aria-label="anchor" href="#cran-submission-v213---postponed-until-july-2-1-3"></a></h3>
+</div>
+<div class="section level3">
+<h3 id="split-plot-analysis-removed-2-1-3">Split plot analysis removed 04/16/2025<a class="anchor" aria-label="anchor" href="#split-plot-analysis-removed-2-1-3"></a></h3>
+<ul><li>Split plot analysis has been removed as I do not have confidence in my previous implementation.</li>
+<li>Plus, this capability may be available in <code>R</code> package <a href="https://cran.r-project.org/web/packages/MRMCaov/index.html" class="external-link">MRMCaov</a>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="other-fixes-and-renamed-functions-2-1-3">Other Fixes and renamed functions<a class="anchor" aria-label="anchor" href="#other-fixes-and-renamed-functions-2-1-3"></a></h3>
 <ul><li>Bug fix, Issue 90</li>
 <li>Bug fix, Issue 89</li>
 <li>Fixed user data-entry errors in Excel file (check column names and data type)</li>
@@ -58,21 +66,20 @@
 <li>Renamed <code>UtilVarComponentsDBM</code> to <code>UtilDBMVarComp</code>
 </li>
 <li>Removed <code>UtilOutputReport.R</code> as <code>St</code> output has been updated so this function is no longer needed.</li>
-<li>SPLIT-PLOT (A &amp; C) analyses is now in one function: <code>StSP</code>, implemented Dec 1, 2023</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changes-2-1-3">Changes 05/19/2023<a class="anchor" aria-label="anchor" href="#changes-2-1-3"></a></h3>
-<ul><li>Fixed FROC simulator, easier to read code; both simulators are NOT limited to I = 2.</li>
+<ul><li>Fixed FROC simulator, easier to read code; simulators is NOT limited to I = 2.</li>
 <li>This affected <code>goodValues</code>; reinitialized affected ones.</li>
 <li>
-<code>truthTableStr</code> is used more consistently (except for LROC and ROI paradigms).</li>
+<code>truthTableStr</code> is used more consistently (except for LROC and ROI paradigms where this is set to <code>NA</code>).</li>
 <li>TODO: see below</li>
 </ul></div>
 <div class="section level3">
 <h3 id="possible-errors-in-rsm-predicted-tpf-and-other-cpp-implementations-2-1-3">Possible errors in RSM predicted TPF and other cpp implementations<a class="anchor" aria-label="anchor" href="#possible-errors-in-rsm-predicted-tpf-and-other-cpp-implementations-2-1-3"></a></h3>
 <ul><li>
 <code>dataset11</code> has unusual lesion distribution: there are 14 elements but they range from 1 to 20 with some <code>lesionID</code>s missing</li>
-<li>Added test_cpp_vs_R where I compare cpp to R implementations</li>
+<li>Need to add <code>test_cpp_vs_R</code> where I compare <code>cpp</code> to <code>R</code> implementations; TODO</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changed-function-names-to-rsm_fpf-and-rsm_tpf-2-1-3">Changed function names to <code>RSM_FPF</code> and <code>RSM_TPF</code>
@@ -80,7 +87,7 @@
 <ul><li>Formerly <code>RSM_xROC</code> and <code>RSM_yROC</code>
 </li>
 <li>This renaming was missed in the earlier submission</li>
-<li>Further cleanup of documentation entries in <code>rsmFormulae.R</code>
+<li>Cleaned up other documentation in <code>rsmFormulae.R</code>
 </li>
 </ul></div>
 <div class="section level3">
@@ -449,21 +456,6 @@
 <li>Also, the ggplot output structure appears to have changed; had to regenerate goodvalues in <code>test-PlotEmpiricalOperatingCharacteristics.R</code>.</li>
 <li>Need to update documentation and DESCRIPTION.</li>
 <li>Need to use artificial intelligence instead of CAD as this is the new thing.</li>
-<li>Moved split-plot vignettes to Dropbox; cleaned up Ch00 vignettes - <code>RocFctrl</code>, <code>FrocFctrl</code>, <code>RocSpA</code> and <code>FrocSpA</code>
-</li>
-<li>Moved description of other’s data formats to Dropbox.</li>
-</ul></div>
-<div class="section level3">
-<h3 id="added-stats-to-oranalysissplitplota-2-0-1">Added stats to ORAnalysisSplitPlotA<a class="anchor" aria-label="anchor" href="#added-stats-to-oranalysissplitplota-2-0-1"></a></h3>
-<ul><li>
-<code>ORAnalysisSplitPlotA</code> returns <code>list</code> containing <code>FOMs</code>, <code>ANOVA</code> and <code>RRRC</code>
-</li>
-<li>Implements formulae in Hillis 20-14 paper on page following Table VII.</li>
-<li>Tested with toy file and collaborator dataset</li>
-<li>Merged to <code>developer</code> branch and deleted <code>SplitPlotA</code> branch</li>
-<li>ran <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code>
-</li>
-<li>Updated R and RStudio</li>
 </ul></div>
 <div class="section level3">
 <h3 id="handling-of-foms-that-depend-on-single-truth-state-cases-2-0-1">Handling of FOMs that depend on single-truth-state cases<a class="anchor" aria-label="anchor" href="#handling-of-foms-that-depend-on-single-truth-state-cases-2-0-1"></a></h3>
@@ -473,32 +465,11 @@
 <h3 id="revised-utilpseudovalues-2-0-1">Revised UtilPseudoValues 8/7/20<a class="anchor" aria-label="anchor" href="#revised-utilpseudovalues-2-0-1"></a></h3>
 <ul><li>More compact code handles all FOMs - no exceptions, as before, for MaxLLF, etc. Extensive simplification to accomplish handling of different FOMs.</li>
 <li>Modified <code>FOMijk2VarCovSpA</code> and <code>FOMijk2VarCov</code> to accept a <code>varInflFactor</code> logical argument, allowing jackknife, bootstrap and DeLong - based estimates to be more compactly handled.</li>
-<li>
-<code>UtilPseudoValues</code> handles all designs without resorting to separate functions for FCTRL, SPLIT-PLOT-A and SPLIT-PLOT-C</li>
-<li>Modified <code>frocSpA</code> toy dataset to stress code (unequal numbers of abnormal and normal cases, multiple marks on NL and LL worksheets, etc)</li>
 <li>Checked <code>dataset05</code> <code>MaxLLF</code> <code>MaxNLF</code> vs. JAFROC</li>
 <li>See below, note added today relating to handling of <code>descriptions$fileName</code>. This fixed problem with <code>expect_equal()</code> failing depending on how the <code>goodValues</code> were generated - from R <code>command line</code> vs. <code>Run Tests</code>. Also, in creating a dataset object, where appropriate, <code>fileName</code> &lt;- “NA” instead of <code>fileName</code> &lt;- <code>NA</code>; the latter generates a <code>character expected</code> error when an attempt is made to strip path name and extension in <code>convert2dataset</code> and <code>convert2Xdataset</code>.</li>
 <li>Updated and reorganized tests</li>
-<li>Implemented SPLIT-PLOT-A analysis for unequal numbers of readers in the two groups. The formulae (from Hillis 2014) are modified to use modality-specific components, i.e. <code>Var_i</code>, <code>Cov2_i</code> and <code>Cov3_i</code>. The modified formulae reduce to Hillis’ formulae when the number of readers in each group are identical. Communicated results to collaborator.</li>
 <li>Corrected error in handling of <code>MaxNLFAllCases</code> FOM; see comments in <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code>; regenerated one <code>goodValue</code> file.</li>
 </ul></div>
-<div class="section level3">
-<h3 id="read-real-split-plot-a-dataset-2-0-1">Read real SPLIT-PLOT-A dataset<a class="anchor" aria-label="anchor" href="#read-real-split-plot-a-dataset-2-0-1"></a></h3>
-<ul><li>Did not find any data entry errors in <code>/toyFiles/FROC/1T3Rvs4R.xlsx</code>
-</li>
-<li>Simplified <code>rdrArr</code> handling: this is done in <code>checkTruthTable</code>, where SPLIT-PLOT-A is handled separately;</li>
-<li>Added source <code>fileName</code> to <code>descriptions$fileName</code> field of <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> return; this will keep a record of how the dataset was generated</li>
-<li>Note added 8/7/20: above change created problems passing tests in R CMD check, as long file names may not agree; simplified to remove all but the file base name; regenerated many <code>goodValues</code> files</li>
-</ul></div>
-<div class="section level3">
-<h3 id="update-for-reading-split-plot-a-data-files-2-0-1">Update for reading SPLIT-PLOT-A data files<a class="anchor" aria-label="anchor" href="#update-for-reading-split-plot-a-data-files-2-0-1"></a></h3>
-<ul><li>After emails with collaborator, need for this type of analysis.</li>
-<li>Need to comment <code>DfReadDataFile.R</code> and <code>ReadJAFROCNewFormat.R</code> and add more checks in the code for illegal values.</li>
-<li>Indiscriminate sorting introduced problems; now, sorted <code>caseID</code> column is used now in only 3 places to find the correct case indices, where normal cases are ordered first, regardless of how they are entered in the <code>Truth</code> worksheet:</li>
-</ul><pre><code><span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">CaseID</span><span class="op">)</span> <span class="op">==</span> <span class="va">truthTable</span><span class="op">$</span><span class="va">CaseID</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">CaseID</span><span class="op">)</span> <span class="op">==</span> <span class="va">NLCaseIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">truthTableSort</span><span class="op">$</span><span class="va">CaseID</span><span class="op">)</span> <span class="op">==</span> <span class="va">LLCaseIDCol</span><span class="op">[</span><span class="va">l</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="va">K1</span></span></code></pre>
-</div>
 <div class="section level3">
 <h3 id="tests-for-utiloutputreport-2-0-1">Tests for UtilOutputReport<a class="anchor" aria-label="anchor" href="#tests-for-utiloutputreport-2-0-1"></a></h3>
 <ul><li>Included tests for <code>UtilOutputReport()</code> for text output only</li>
@@ -507,19 +478,10 @@
 <li>Failing code is commented out</li>
 </ul></div>
 <div class="section level3">
-<h3 id="renamed-sp-datasets-2-0-1">Renamed SP datasets 7/9/20<a class="anchor" aria-label="anchor" href="#renamed-sp-datasets-2-0-1"></a></h3>
-<ul><li>Renamed the split plot dataset to datasetFROCSpC</li>
-<li>The C stands for Table VII Part (C) in Hillis 2014</li>
-<li>Need to distinguish between different types of split-plot datasets</li>
-<li>What I was doing so far was split-plot-c</li>
-<li>The new analysis requires split-plot-a</li>
-</ul></div>
-<div class="section level3">
 <h3 id="code-for-checking-for-non-sequential-lesionids-in-truth-2-0-1">Code for checking for non-sequential lesionIDs in TRUTH 7/8/20<a class="anchor" aria-label="anchor" href="#code-for-checking-for-non-sequential-lesionids-in-truth-2-0-1"></a></h3>
 <ul><li>Updated all tests to display contexts more consistently.</li>
 <li>Moved unnecessary files from <code>inst</code> to <code>Dropbox</code>.</li>
 <li>Main work was on <code>DfReadDataFile.R</code> and testing code for non-sequential <code>lesionID</code>s in <code>TRUTH</code> worksheet.</li>
-<li>Thinking about modifications to handle split-plot data along the lines of HYK datasets</li>
 <li>Also learning about <code>grep</code>.</li>
 </ul></div>
 <div class="section level3">
@@ -555,7 +517,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="major-reorganization-of-dataset-structure-2-0-1">Major reorganization of <code>dataset</code> structure<a class="anchor" aria-label="anchor" href="#major-reorganization-of-dataset-structure-2-0-1"></a></h3>
-<ul><li>Instead of varying lengths for ROC/FROC, LROC and SPLIT-PLOT, all <code>datasets</code> now are <code>lists</code> of length 3, with each member (<code>ratings</code>, <code>lesions</code>, <code>descriptions</code>) consisting of sub-lists:
+<ul><li>Instead of varying lengths for ROC, FROC, LROC, all <code>datasets</code> now are <code>lists</code> of length 3, with each member (<code>ratings</code>, <code>lesions</code>, <code>descriptions</code>) consisting of sub-lists:
 <ul><li>
 <code>ratings</code> contain 3 elements: <code>$NL</code>, <code>$LL</code> and <code>$LL_IL</code>.</li>
 <li>
@@ -578,8 +540,6 @@
 <li>Ran detailed comparison to OR-DBM MRMC 2.51 and coded the checks in <code>tests/testthat/test-St-Compare2Iowa.R</code> for VanDyke dataset</li>
 <li>Also visually compared <code>RJafroc</code> results against OR-DBM MRMC 2.51 for <code>dataset04</code> converted to ROC (see Iowa code results in <code>inst/Iowa/FedRoc.txt</code>);</li>
 <li>Shortened <code>UtilOutputReport</code> <em>considerably</em>, by using <code>print(dataframe)</code> instead of reading values from <code>list</code> or <code>dataframe</code> variables and then using <code>sprintf</code> with unreadable C-style format codes</li>
-<li>Shortened <code>SPLIT-PLOT</code> analysis by returning <code>Cov2</code> = <code>Cov3</code> = 0 instead of <code>NA</code>
-</li>
 <li>Confirmed that this gives same results as the version in <code>master</code> branch</li>
 <li>Added vignettes back, rebuilt website</li>
 <li>Passes all OSX checks except for file size NOTE: checking installed package size … NOTE installed size is 16.7Mb; sub-directories of 1Mb or more:doc 12.7Mb;extdata 1.3Mb</li>
@@ -725,39 +685,6 @@
 <li>Accepted by CRAN</li>
 <li>See <code>cran2-update/master</code> branch for content relating to this version</li>
 </ul></div>
-<div class="section level3">
-<h3 id="modified-utilpseudovaluesr-to-work-with-split-plot-data-1-3-2">Modified <code>UtilPseudoValues.R</code> to work with SPLIT-PLOT data<a class="anchor" aria-label="anchor" href="#modified-utilpseudovaluesr-to-work-with-split-plot-data-1-3-2"></a></h3>
-<ul><li>Created simulated SP datafile <code>inst/extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx</code>.</li>
-<li>Created simulated SP dataset <code>datasetFROCSp</code> corresponding to modalities 4,5 of <code>dataset04</code>
-</li>
-<li>Update vignette <code>Ch00Vig5SimulateSplitPlotDataset.Rmd</code>.</li>
-<li>Modified <code>StORHAnalysis.R</code> and to work with SP-A dataset provided <code>method = "OR"</code> and <code>covEstMethod</code> = “jackknife” is used</li>
-<li>Corrected an error in analysis; see <code>~Dropbox/RJafrocChecks/StfrocSp.xlsx</code> for details.</li>
-<li>Updated this file 2/19/20</li>
-<li>R CMD check successful … except for file size NOTE (18.4Mb)</li>
-</ul></div>
-<div class="section level3">
-<h3 id="created-split-plot-dataset-update-all-datasets-confirm-truthtablestr-and-dfreaddatafile-1-3-2">Created split plot dataset; update all datasets; confirm truthTableStr and DfReadDataFile()<a class="anchor" aria-label="anchor" href="#created-split-plot-dataset-update-all-datasets-confirm-truthtablestr-and-dfreaddatafile-1-3-2"></a></h3>
-<ul><li>v1.3.1.9000</li>
-<li>created simulated split plot Excel dataset from Fed dataset: <code>Ch00Vig5CreateSplitPlotDataset.Rmd</code>; confirmed it is read without error!!</li>
-<li>updated datasets - see <code>inst/FixRJafrocDatasets/ConvertDataset.R</code>; worked on <code>DfReadDataFile</code> function</li>
-<li>
-<strong>Discoverd that <code>.xls</code> input does not work</strong>*; took it out as an allowed option; probably has to do with <code>openxlsx</code>
-</li>
-<li>checked <code>truthTableStr</code> with a data file that has only 1 and 3 lesions per case; was concerned about 4th dimension of <code>truthTableStr</code>; see <code>Dropbox/RJafrocChecks/truthTableStr.xlsx</code> for results of checks; note that fourth dimension will be 4, even though there are no cases with 2 lesions</li>
-<li>I think I need a separate vignette on <code>truthTableStr</code> - more for my sake</li>
-<li>added raw excel file datasets corresponding to included datasets to <code>inst/extdata/datasets</code>; found missing file <code>SimulateFrocFromLrocDataset.R</code> - not sure why I took it out;</li>
-<li>Added sheet AnnK to <code>truthTableStr</code> in <code>Dropbox/RJafrocChecks</code>
-</li>
-<li>Also tests that <code>OldFormat</code> file when read creates identical dataset to that created by <code>NewFormat</code>: basically two Excel fiies are identical except old format lacks the three extra columns; see <code>checkDfReadDataFile.R</code>
-</li>
-<li>Modified <code>UtilFigureOfMerit</code> to accomodate split plot dataset with varying number of cases for each reader</li>
-<li>Created a datafile <code>inst/extdata/toyFiles/FROC/FrocDataSpVaryK1K2.xlsx</code> that really exercises the <code>DfReadDataFile</code> function (case index is unsorted); resorted to data frames and sorting to successfully read it (it is used in three places - truthTableStr, NL and LL). See <code>inst/extdata/testUtilFigureOfMerit/*.R</code> for exercising files</li>
-<li>Need to include this file in <code>tests</code>
-</li>
-<li>Updated this file 2/10/20</li>
-<li>R CMD check successful</li>
-</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.1" id="version-131">version 1.3.1<small>2020-01-13</small><a class="anchor" aria-label="anchor" href="#version-131"></a></h2>
@@ -785,19 +712,6 @@
 <li>Included my own CPP coded wAFROC plot function. Learning a lot form Dirk’s book website <a href="https://teuder.github.io/rcpp4everyone_en/" class="external-link uri">https://teuder.github.io/rcpp4everyone_en/</a>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="split-plot-dataset-1-3-1">Split plot dataset<a class="anchor" aria-label="anchor" href="#split-plot-dataset-1-3-1"></a></h3>
-<ul><li>Modifications to <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code> to allow for split plot datasets completed.</li>
-<li>Must use <code>newExcelFileFormat = TRUE</code> as otherwise the code defaults to the old Excel format.</li>
-<li>The new format includes more stringent tests, IMHO, to catch data entry errors:</li>
-<li>
-<code>TruthTableStr</code> is created in <code>checkTruthTable()</code> which is used in subsequent read NL and LL worksheets.</li>
-<li>Work to be done to include split plot in significance testing.</li>
-<li>Corrected <code>dataset03</code> which had <code>-Inf</code>s for 1-ratings; need to check other ROC data files.</li>
-<li>Added vignettes describing data format using toyFiles and use of <code><a href="../reference/DfReadDataFile.html">DfReadDataFile()</a></code>.</li>
-<li>Corrected error in old DfReadDataFile function.</li>
-<li>Passes R CMD check with file size note.</li>
-</ul></div>
-<div class="section level3">
 <h3 id="error-in-ms_tc-corrected-1-3-1">Error in MS_TC corrected<a class="anchor" aria-label="anchor" href="#error-in-ms_tc-corrected-1-3-1"></a></h3>
 <ul><li>Noted by Erin Greco</li>
 <li>The missing “-1”: <code><a href="../reference/UtilMeanSquares.html">UtilMeanSquares()</a></code> line 88 <code>msTC &lt;- msTC * J/((I - 1) * (Ktemp - 1))</code> has been corrected</li>
@@ -806,10 +720,10 @@
 <div class="section level3">
 <h3 id="extended-plotting-function-to-lroc-data-1-3-1">Extended plotting function to LROC data<a class="anchor" aria-label="anchor" href="#extended-plotting-function-to-lroc-data-1-3-1"></a></h3>
 <ul><li>
-<code><a href="../reference/PlotEmpiricalOperatingCharacteristics.html">PlotEmpiricalOperatingCharacteristics()</a></code> now accepts ROC, FROC <strong>and</strong> LROC datasets.</li>
+<code>PlotEmpiricalOperatingCharacteristics()</code> now accepts ROC, FROC <strong>and</strong> LROC datasets.</li>
 <li>Simplified code.</li>
 <li>Included in unit tests.</li>
-<li>Added <code>legend.position</code> argument to allow better positioning of legend.</li>
+<li>Added <code>legPos</code> argument to allow better positioning of legend.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="added-froc-sample-size-vignettes-and-functions-1-3-1">Added FROC sample size vignettes and functions<a class="anchor" aria-label="anchor" href="#added-froc-sample-size-vignettes-and-functions-1-3-1"></a></h3>
@@ -888,10 +802,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="extensions-needed-1-3-1">Extensions needed<a class="anchor" aria-label="anchor" href="#extensions-needed-1-3-1"></a></h3>
-<ul><li>The <code>addPlot</code> routine in <code>StSignificanceTestingCadVsRadiologists</code> has been renamed to <code>CadVsRadPlots()</code>. It should be deprecated in future as <code><a href="../reference/PlotRsmOperatingCharacteristics.html">PlotRsmOperatingCharacteristics()</a></code> has more consistent visual output (and capabilities like handling lists of treatments and readers).</li>
+<ul><li>The <code>addPlot</code> routine in <code>StSignificanceTestingCadVsRadiologists</code> has been renamed to <code>CadVsRadPlots()</code>. It should be deprecated in future as <code>PlotRsmOperatingCharacteristics()</code> has more consistent visual output (and capabilities like handling lists of treatments and readers).</li>
 <li>Need a function that checks validity of FOM for dataset: <code>isValidFom</code>?</li>
 <li>Need to compare predicted curves for LROC and FROC data: does <code><a href="../reference/SimulateLrocDataset.html">SimulateLrocDataset()</a></code> predict <strong>both</strong> flattening out of LROC plot and wAFROC going to (1,1)?</li>
-<li>Split plot analysis</li>
 </ul></div>
 </div>
     <div class="section level2">

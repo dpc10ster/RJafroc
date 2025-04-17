@@ -4,7 +4,6 @@
 <url><loc>/index.html</loc></url>
 <url><loc>/news/index.html</loc></url>
 <url><loc>/reference/ChisqrGoodnessOfFit.html</loc></url>
-<url><loc>/reference/DFReadSP.html</loc></url>
 <url><loc>/reference/Df2RJafrocDataset.html</loc></url>
 <url><loc>/reference/DfBinDataset.html</loc></url>
 <url><loc>/reference/DfCreateCorCbmDataset.html</loc></url>
@@ -24,8 +23,8 @@
 <url><loc>/reference/FitRsmRoc.html</loc></url>
 <url><loc>/reference/PlotBinormalFit.html</loc></url>
 <url><loc>/reference/PlotCbmFit.html</loc></url>
-<url><loc>/reference/PlotEmpiricalOperatingCharacteristics.html</loc></url>
-<url><loc>/reference/PlotRsmOperatingCharacteristics.html</loc></url>
+<url><loc>/reference/PlotEmpOpChrs.html</loc></url>
+<url><loc>/reference/PlotRsmOpChrs.html</loc></url>
 <url><loc>/reference/RJafroc-package.html</loc></url>
 <url><loc>/reference/RSM_FPF.html</loc></url>
 <url><loc>/reference/RSM_LLF.html</loc></url>
@@ -49,7 +48,6 @@
 <url><loc>/reference/St.html</loc></url>
 <url><loc>/reference/StCadVsRad.html</loc></url>
 <url><loc>/reference/StOldCode.html</loc></url>
-<url><loc>/reference/StSP.html</loc></url>
 <url><loc>/reference/Util2Intrinsic.html</loc></url>
 <url><loc>/reference/Util2Physical.html</loc></url>
 <url><loc>/reference/UtilAnalyticalAucsRSM.html</loc></url>
@@ -85,7 +83,6 @@
 <url><loc>/reference/datasetCadLroc.html</loc></url>
 <url><loc>/reference/datasetCadSimuFroc.html</loc></url>
 <url><loc>/reference/datasetDegenerate.html</loc></url>
-<url><loc>/reference/datasetFROCSpC.html</loc></url>
 <url><loc>/reference/datasetROI.html</loc></url>
 <url><loc>/reference/datasetX.html</loc></url>
 <url><loc>/reference/index.html</loc></url>

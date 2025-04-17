@@ -62,19 +62,19 @@ represent the mAs values of the image acquisition. The factors are fully crossed
    contain 3 elements, <code>$NL</code>, <code>$LL</code> and <code>$LL_IL</code> as sub-lists; <code>$lesions</code>
    contain 3 elements, <code>$perCase</code>, <code>$IDs</code> and <code>$weights</code> as sub-lists; <code>$descriptions</code>
    contain 7 elements, <code>$fileName</code>, <code>$type</code>, <code>$name</code>,
-   <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> and <code>$readerID</code> as sub-lists;</p><ul><li><p><code>rating$NL</code>, num [1:2, 1:4, 1:11, 1:68, 1:5], ratings of non-lesion localizations, NLs</p></li>
-<li><p><code>rating$LL</code>, num [1:2, 1:4, 1:11, 1:34, 1:3], ratings of lesion localizations, LLs</p></li>
-<li><p><code>rating$LL_IL</code>NA, this placeholder is used only for LROC data</p></li>
-<li><p><code>lesions$perCase</code>, int [1:34], number of lesions per diseased case</p></li>
-<li><p><code>lesions$IDs</code>, num [1:34, 1:3] , numeric labels of lesions on diseased cases</p></li>
-<li><p><code>lesions$weights</code>, num [1:34, 1:3], weights (or clinical importances) of lesions</p></li>
-<li><p><code>descriptions$fileName</code>, chr, "datasetX", base name of dataset in `data` folder</p></li>
-<li><p><code>descriptions$type</code>, chr "FROC", the data type</p></li>
-<li><p><code>descriptions$name</code>, chr "THOMPSON-X-MOD", the name of the dataset</p></li>
-<li><p><code>descriptions$truthTableStr</code>, NA, truth table structure</p></li>
-<li><p><code>descriptions$design</code>, chr "FCTRL-X-MOD", study design, factorial dataset</p></li>
-<li><p><code>descriptions$modalityID</code>, chr [1:2] "F" "I", modality label(s)</p></li>
-<li><p><code>descriptions$readerID</code>, chr [1:4] "20" "40" "60" "80", reader labels</p></li>
+   <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> and <code>$readerID</code> as sub-lists;</p><ul><li><p><code>rating$NL</code> num Array[1:2, 1:4, 1:11, 1:68, 1:5] ratings of non-lesion localizations NLs</p></li>
+<li><p><code>rating$LL</code> num Array[1:2, 1:4, 1:11, 1:34, 1:3] ratings of lesion localizations LLs</p></li>
+<li><p><code>rating$LL_IL</code> NA This placeholder is used only for LROC data</p></li>
+<li><p><code>lesions$perCase</code> int Array[1:34], number of lesions per diseased case</p></li>
+<li><p><code>lesions$IDs</code> num Array[1:34, 1:3] , numeric labels of lesions on diseased cases</p></li>
+<li><p><code>lesions$weights</code> num Array[1:34, 1:3], weights (or clinical importance) of lesions</p></li>
+<li><p><code>descriptions$fileName</code> chr "datasetX", base name of dataset in `data` folder</p></li>
+<li><p><code>descriptions$type</code> chr "FROC" the data type</p></li>
+<li><p><code>descriptions$name</code> chr "THOMPSON-X-MOD", the name of the dataset</p></li>
+<li><p><code>descriptions$truthTableStr</code> NA truth table structure</p></li>
+<li><p><code>descriptions$design</code> chr "FCTRL-X-MOD", study design factorial dataset</p></li>
+<li><p><code>descriptions$modalityID</code> chr Array[1:2] "F" "I", modality label(s)</p></li>
+<li><p><code>descriptions$readerID</code> chr Array[1:4] "20" "40" "60" "80", reader labels</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>

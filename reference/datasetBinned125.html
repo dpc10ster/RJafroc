@@ -60,19 +60,19 @@
    contain 3 elements, <code>$NL</code>, <code>$LL</code> and <code>$LL_IL</code> as sub-lists; <code>$lesions</code>
    contain 3 elements, <code>$perCase</code>, <code>$IDs</code> and <code>$weights</code> as sub-lists; <code>$descriptions</code>
    contain 7 elements, <code>$fileName</code>, <code>$type</code>, <code>$name</code>,
-   <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> and <code>$readerID</code> as sub-lists;</p><ul><li><p><code>rating$NL</code>, num [1, 1:2, 1:10000, 1], ratings of non-lesion localizations, NLs</p></li>
-<li><p><code>rating$LL</code>, num [1, 1:2, 1:5000, 1], ratings of lesion localizations, LLs</p></li>
-<li><p><code>rating$LL_IL</code>NA, this placeholder is used only for LROC data</p></li>
-<li><p><code>lesions$perCase</code>, int [1:5000], number of lesions per diseased case</p></li>
-<li><p><code>lesions$IDs</code>, num [1:5000, 1] , numeric labels of lesions on diseased cases</p></li>
-<li><p><code>lesions$weights</code>, num [1:5000, 1], weights (or clinical importances) of lesions</p></li>
-<li><p><code>descriptions$fileName</code>, chr, "datasetBinned125", base name of dataset in `data` folder</p></li>
-<li><p><code>descriptions$type</code>, chr "ROC", the data type</p></li>
-<li><p><code>descriptions$name</code>, chr "SIM-CORCBM-SEED-125", the name of the dataset</p></li>
-<li><p><code>descriptions$truthTableStr</code>, NA, truth table structure</p></li>
-<li><p><code>descriptions$design</code>, chr "FCTRL-X-MOD", study design, factorial dataset</p></li>
-<li><p><code>descriptions$modalityID</code>, chr "1", modality label(s)</p></li>
-<li><p><code>descriptions$readerID</code>, chr [1:2] "1" "2", reader labels</p></li>
+   <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> and <code>$readerID</code> as sub-lists;</p><ul><li><p><code>rating$NL</code> num Array[1, 1:2, 1:10000, 1] ratings of non-lesion localizations NLs</p></li>
+<li><p><code>rating$LL</code> num Array[1, 1:2, 1:5000, 1] ratings of lesion localizations LLs</p></li>
+<li><p><code>rating$LL_IL</code> NA This placeholder is used only for LROC data</p></li>
+<li><p><code>lesions$perCase</code> int Array[1:5000], number of lesions per diseased case</p></li>
+<li><p><code>lesions$IDs</code> num Array[1:5000, 1] , numeric labels of lesions on diseased cases</p></li>
+<li><p><code>lesions$weights</code> num Array[1:5000, 1], weights (or clinical importance) of lesions</p></li>
+<li><p><code>descriptions$fileName</code> chr "datasetBinned125", base name of dataset in `data` folder</p></li>
+<li><p><code>descriptions$type</code> chr "ROC" the data type</p></li>
+<li><p><code>descriptions$name</code> chr "SIM-CORCBM-SEED-125", the name of the dataset</p></li>
+<li><p><code>descriptions$truthTableStr</code> NA truth table structure</p></li>
+<li><p><code>descriptions$design</code> chr "FCTRL-X-MOD", study design factorial dataset</p></li>
+<li><p><code>descriptions$modalityID</code> chr "1" modality label</p></li>
+<li><p><code>descriptions$readerID</code> chr Array[1:2] "1" "2", reader labels</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>

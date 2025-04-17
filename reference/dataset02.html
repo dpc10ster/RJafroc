@@ -70,19 +70,19 @@
    contain 3 elements, <code>$NL</code>, <code>$LL</code> and <code>$LL_IL</code> as sub-lists; <code>$lesions</code>
    contain 3 elements, <code>$perCase</code>, <code>$IDs</code> and <code>$weights</code> as sub-lists; <code>$descriptions</code>
    contain 7 elements, <code>$fileName</code>, <code>$type</code>, <code>$name</code>,
-   <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> and <code>$readerID</code> as sub-lists;</p><ul><li><p><code>rating$NL</code>, num [1:2, 1:5, 1:114, 1], ratings of non-lesion localizations, NLs</p></li>
-<li><p><code>rating$LL</code>, num [1:2, 1:5, 1:45, 1], ratings of lesion localizations, LLs</p></li>
-<li><p><code>rating$LL_IL</code>NA, this placeholder is used only for LROC data</p></li>
-<li><p><code>lesions$perCase</code>, int [1:45], number of lesions per diseased case</p></li>
-<li><p><code>lesions$IDs</code>, num [1:45, 1], numeric labels of lesions on diseased cases</p></li>
-<li><p><code>lesions$weights</code>, num [1:45, 1], weights (or clinical importances) of lesions</p></li>
-<li><p><code>descriptions$fileName</code>, chr, "dataset02", base name of dataset in `data` folder</p></li>
-<li><p><code>descriptions$type</code>, chr "ROC", the data type</p></li>
-<li><p><code>descriptions$name</code>, chr "VAN-DYKE", the name of the dataset</p></li>
-<li><p><code>descriptions$truthTableStr</code>, num [1:2, 1:5, 1:114, 1:2] 1 1 1 1 ..., truth table structure</p></li>
-<li><p><code>descriptions$design</code>, chr "FCTRL", study design, factorial dataset</p></li>
-<li><p><code>descriptions$modalityID</code>, chr [1:2] "0" "1", modality labels</p></li>
-<li><p><code>descriptions$readerID</code>, chr [1:5] "0" "1" "2" ..., reader labels</p></li>
+   <code>$truthTableStr</code>, <code>$design</code>, <code>$modalityID</code> and <code>$readerID</code> as sub-lists;</p><ul><li><p><code>rating$NL</code>   num Array[1:2, 1:5, 1:114, 1] ratings of non-lesion localizations NLs</p></li>
+<li><p><code>rating$LL</code>   num Array[1:2, 1:5, 1:45, 1] ratings of lesion localizations LLs</p></li>
+<li><p><code>rating$LL_IL</code> NA This placeholder is used only for LROC data</p></li>
+<li><p><code>lesions$perCase</code> int Array[1:45], number of lesions per diseased case</p></li>
+<li><p><code>lesions$IDs</code> num Array[1:45, 1], numeric labels of lesions on diseased cases</p></li>
+<li><p><code>lesions$weights</code> num Array[1:45, 1], weights (or clinical importance) of lesions</p></li>
+<li><p><code>descriptions$fileName</code> chr "dataset02" base name of dataset in `data` folder</p></li>
+<li><p><code>descriptions$type</code> chr "ROC" the data type</p></li>
+<li><p><code>descriptions$name</code> chr "VAN-DYKE", the name of the dataset</p></li>
+<li><p><code>descriptions$truthTableStr</code> num Array[1:2, 1:5, 1:114, 1:2] Truth table structure</p></li>
+<li><p><code>descriptions$design</code> chr "FCTRL", study design factorial dataset</p></li>
+<li><p><code>descriptions$modalityID</code> chr Array[1:2] "0" "1", modality labels</p></li>
+<li><p><code>descriptions$readerID</code> chr Array[1:5] the reader labels</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>
@@ -112,7 +112,7 @@ aortic dissection. 79th RSNA Meetings. 1993.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:2] "0" "1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ readerID     : Named chr [1:5] "0" "1" "2" "3" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:5] "0" "1" "2" "3" ...</span>
-<span class="r-in"><span><span class="co">## PlotEmpiricalOperatingCharacteristics(dataset = dataset02, opChType = "ROC")$Plot</span></span></span>
+<span class="r-in"><span><span class="co">## PlotEmpOpChr(dataset = dataset02, opChType = "ROC")$Plot</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
