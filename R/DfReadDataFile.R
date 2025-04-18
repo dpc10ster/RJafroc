@@ -88,7 +88,7 @@ DfReadDataFile <- function (fileName, format = "JAFROC",
                             delimiter = ",",
                             sequentialNames = FALSE)
 {
-
+  
   if (format == "JAFROC") {
     # handle JAFROC format Excel files
     if (!(file_ext(fileName) == "xlsx"))
@@ -120,7 +120,7 @@ DfReadDataFile <- function (fileName, format = "JAFROC",
 
 
 preCheck4BadEntries <- function(truthTable) {
-
+  
   # START not sure what this does
   # for (i in 1:3){
   #   truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
@@ -133,7 +133,7 @@ preCheck4BadEntries <- function(truthTable) {
   #   }
   # }
   # END not sure what this does
-
+  
   # check for blank cells in Truth worksheet
   errorMsg <- ""
   for (i in 1:5) {
@@ -146,7 +146,7 @@ preCheck4BadEntries <- function(truthTable) {
     }
   }
   if (errorMsg != "") stop(errorMsg)
-
+  
   for (i in 1:3)
     if (any(is.na(suppressWarnings(as.numeric(as.character(truthTable[, i])))))) {
       suppressWarnings({naLines <- which(is.na(as.numeric(as.character(truthTable[, i])))) + 1})
@@ -158,11 +158,11 @@ preCheck4BadEntries <- function(truthTable) {
                                      "\nThere are non-numeric values(s) for Weights at line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
     }
   if (errorMsg != "") stop(errorMsg)
-
+  
   if (any(!FRACTION::is.wholenumber(as.numeric(truthTable[[1]])))) stop("Non-integer values in Truth worksheet column 1")
   if (any(!FRACTION::is.wholenumber(as.numeric(truthTable[[2]])))) stop("Non-integer values in Truth worksheet column 2")
   if (any(!is.double(as.numeric(truthTable[[3]])))) stop("Non-floating point values in Truth worksheet column 3")
-
+  
   # code to check for sequential lesionIDs in Truth sheet: 0,0,1,2,0,1,2,3,0,1 etc
   # normal case lesionIDS are all 0
   # for each abnormal case, the lesionID starts from 1 and works up, sequentially, to number of lesions on the case
@@ -180,7 +180,7 @@ preCheck4BadEntries <- function(truthTable) {
     }
   }
   if (errorMsg != "") stop(errorMsg)
-
+  
 }
 
 
@@ -189,21 +189,21 @@ preCheck4BadEntries <- function(truthTable) {
 
 checkTruthTable <- function (truthTable, lrocForcedMark)
 {
-
+  
   preCheck4BadEntries (truthTable)
-
+  
   type <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[1]
   design <- (toupper(truthTable[,6][which(!is.na(truthTable[,6]))]))[2]
   if (design == "CROSSED") design <- "FCTRL"
   if (!(type %in% c("FROC", "ROC", "LROC"))) stop("Unsupported data type: must be ROC, FROC or LROC.\n")
   # if (!(design %in% c("FCTRL"))) stop("Study design must be FCTRL.\n")
-
+  
   if (type == "LROC") {
     if (is.na(lrocForcedMark)) stop("For LROC dataset one must set the lrocForcedMark flag to a logical")
   } else {
     if (!is.na(lrocForcedMark)) stop("For non-LROC dataset one cannot set the lrocForcedMark flag to a logical")
   }
-
+  
   df <- truthTable[1:5]
   df["caseLevelTruth"] <- (truthTable$LesionID > 0)
   ########################################################
@@ -211,7 +211,7 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
   # this puts normal cases first, regardless of how they are entered
   ########################################################
   truthTableSort <- df[order(df$caseLevelTruth),]
-
+  
   caseIDCol <- as.integer(truthTable$CaseID)
   # TBA need a note on use of indx, why it is not used for readerID, etc.
   lesionIDCol <- as.integer(truthTable$LesionID)
@@ -224,13 +224,13 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
   #
   L <- length(truthTable$CaseID) # length in the Excel sheet
   for (i in 1:5) if ((length(truthTable[[i]])) != L) stop("Cols of unequal length in Truth Excel worksheet")
-
+  
   normalCases <- sort(unique(caseIDCol[lesionIDCol == 0]))
   abnormalCases <- sort(unique(caseIDCol[lesionIDCol > 0]))
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
-
+  
   if (design == "FCTRL") {
     # preserve the strings; DO NOT convert to integers
     J <- length(strsplit(readerIDCol[1], split = ",")[[1]]) # bug non-character input error for HUGE dataset
@@ -253,15 +253,15 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
       }
     }
   } else stop("incorrect design value")
-
-    if (any(is.na(rdrArr))) stop("Illegal value in ReaderID column in Truth sheet")
-    rdrArr1D <- as.vector(unique(rdrArr)) # rdrArr is 2-dimensional; rdrArr1D is a one-dimensional array of all the readers in the study
+  
+  if (any(is.na(rdrArr))) stop("Illegal value in ReaderID column in Truth sheet")
+  rdrArr1D <- as.vector(unique(rdrArr)) # rdrArr is 2-dimensional; rdrArr1D is a one-dimensional array of all the readers in the study
   if (any(is.na(trtArr))) stop("Illegal value in ModalityID column in Truth sheet")
   trtArr1D <- as.vector(unique(trtArr))
-
+  
   I <- length(trtArr1D)
   J <- length(rdrArr1D)
-
+  
   truthTableStr <- array(dim = c(I, J, K, max(lesionIDCol)+1))
   for (l in 1:L) {
     k <- which(unique(truthTableSort$CaseID) == truthTable$CaseID[l])
@@ -272,11 +272,11 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
       truthTableStr[i, j, k, el] <- 1
     } else stop("incorrect study design")
   }
-
+  
   perCase <- as.vector(table(caseIDCol[caseIDCol %in% abnormalCases]))
   weights <- array(dim = c(K2, max(perCase)))
   IDs <- array(dim = c(K2, max(perCase)))
-
+  
   UNINITIALIZED <- RJafrocEnv$UNINITIALIZED
   for (k2 in 1:K2) {
     k <- which(caseIDCol == abnormalCases[k2])
@@ -298,7 +298,7 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
       }
     }
   }
-
+  
   return (list(
     rdrArr1D = rdrArr1D,
     trtArr1D = trtArr1D,
@@ -314,7 +314,7 @@ checkTruthTable <- function (truthTable, lrocForcedMark)
     normalCases = normalCases,
     abnormalCases = abnormalCases
   ))
-
+  
 }
 
 
@@ -331,7 +331,7 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
   if (!(temp[2] %in% c("TP", "LL"))) stop("TP or LL sheet not found\n")
   if (!(temp[3] %in% c("TRUTH"))) stop("Truth sheet not found\n")
   sheetNames <- toupper(wb)
-
+  
   ########################## CHECK TRUTH TABLE ##############################
   # find the position of the TRUTH worksheet
   # this way it does not matter where it is, i.e., 1st, 2nd or 3rd tab position in the workbook
@@ -340,7 +340,7 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
   truthTable <- data.frame( read_xlsx(fileName, truthFileIndex, range = cell_cols(1:6) ) )
   if (length(truthTable) != 6) stop("Old Excel format file encountered; cannot use newExcelFileFormat = TRUE")
   cTT <- checkTruthTable(truthTable, lrocForcedMark) # cTT = checkTruthTable
-
+  
   truthTableSort <- cTT$truthTableSort
   rdrArr1D <- cTT$rdrArr1D
   trtArr1D <- cTT$trtArr1D
@@ -354,26 +354,26 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
   lesionIDCol <- cTT$lesionIDCol
   normalCases <- cTT$normalCases
   abnormalCases <- unique(cTT$abnormalCases)
-
+  
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
-
+  
   ########################### CHECK NL TABLE ################################
   nlFileIndex <- which(!is.na(match(sheetNames, c("FP", "NL"))))
   if (length(nlFileIndex) == 0) stop("FP/NL table worksheet cannot be found in the Excel file.")
   NLTable <- data.frame(read_xlsx(fileName, nlFileIndex, range=cell_cols(1:4)))
-
+  
   # check column names
   if (is.null(NLTable$ReaderID)) stop ("Check FP or NL worksheet column names: should be ReaderID\n")
   if (is.null(NLTable$ModalityID)) stop ("Check FP or NL worksheet column names: should be ModalityID\n")
   if (is.null(NLTable$CaseID)) stop ("Check FP or NL worksheet column names: should be CaseID\n")
   if (is.null(NLTable$FP_Rating)) stop ("Check FP or NL worksheet column names: should be FP_Rating\n")
-
+  
   # Issue 89
   NLTable <- NLTable[order(NLTable$ModalityID, NLTable$ReaderID, NLTable$CaseID, NLTable$FP_Rating),]
-
-
+  
+  
   # grep "^\\s*$" matches blank lines; see learnGrep in desktop
   # grep("^\\s*$", "") = 1
   # grep("^\\s*$", c("","")) = 1 2 etc
@@ -382,14 +382,14 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
   # for (i in 1:4){
   #   NLTable[grep("^\\s*$", NLTable[ , i]), i] <- NA
   # }
-
+  
   naRows <- colSums(is.na(NLTable))
   if (max(naRows) > 0) {
     if (max(naRows) == min(naRows)) {
       NLTable <- NLTable[1:(nrow(NLTable) - max(naRows)), ]
     }
   }
-
+  
   for (i in 3:4) {
     if (any(is.na(as.numeric(as.character(NLTable[, i]))))) {
       naLines <- which(is.na(as.numeric(as.character(NLTable[, i])))) + 1
@@ -397,45 +397,45 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
       stop(errorMsg)
     }
   }
-
+  
   NLReaderIDCol <- as.character(NLTable$ReaderID)
   NLModalityIDCol <- as.character(NLTable$ModalityID)
   NLCaseIDCol <- NLTable$CaseID
   if (is.null(NLTable$FP_Rating)) NLRatingCol <- NLTable$NL_Rating else NLRatingCol <- NLTable$FP_Rating
-
+  
   if (any(!(NLCaseIDCol %in% truthCaseID))) {
     naCases <- NLCaseIDCol[which(!(NLCaseIDCol %in% truthCaseID))]
     errorMsg <- paste0("Case(s) ", paste(unique(naCases), collapse = ", "),
                        " in the FP table cannot be found in TRUTH table.")
     stop(errorMsg)
   }
-
+  
   ########################### CHECK LL TABLE ################################
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (length(llFileIndex) == 0) stop("TP/LL table worksheet cannot be found in the Excel file.")
   LLTable <- data.frame(read_xlsx(fileName, llFileIndex, range = cell_cols(1:5) ))
-
+  
   # check column names
   if (is.null(LLTable$ReaderID)) stop ("Check TP or LL worksheet column names: should be ReaderID\n")
   if (is.null(LLTable$ModalityID)) stop ("Check TP or LL worksheet column names: should be ModalityID\n")
   if (is.null(LLTable$CaseID)) stop ("Check TP or LL worksheet column names: should be CaseID\n")
   if (is.null(LLTable$LesionID)) stop ("Check TP or LL worksheet column names: should be LesionID\n")
   if (is.null(LLTable$TP_Rating)) stop ("Check TP or LL worksheet column names: should be TP_Rating\n")
-
+  
   # Issue 89
   LLTable <- LLTable[order(LLTable$ModalityID, LLTable$ReaderID, LLTable$CaseID, LLTable$TP_Rating),]
-
+  
   for (i in 1:5){
     LLTable[grep("^\\s*$", LLTable[ , i]), i] <- NA
   }
-
+  
   naRows <- colSums(is.na(LLTable))
   if (max(naRows) > 0) {
     if (max(naRows) == min(naRows)) {
       LLTable <- LLTable[1:(nrow(LLTable) - max(naRows)), ]
     }
   }
-
+  
   for (i in 3:5) {
     if (any(is.na(as.numeric(as.character(LLTable[, i]))))) {
       naLines <- which(is.na(as.numeric(as.character(LLTable[, i])))) + 1
@@ -444,13 +444,13 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
       stop(errorMsg)
     }
   }
-
+  
   LLReaderIDCol <- as.character(LLTable$ReaderID)
   LLModalityIDCol <- as.character(LLTable$ModalityID)
   LLCaseIDCol <- LLTable$CaseID
   LLLesionIDCol <- LLTable$LesionID
   if (is.null(LLTable$TP_Rating)) LLRatingCol <- LLTable$LL_Rating else LLRatingCol <- LLTable$TP_Rating
-
+  
   for (i in 1:nrow(LLTable)) {
     lineNum <- which((truthCaseID == LLCaseIDCol[i]) & (lesionIDCol == LLLesionIDCol[i]))
     if (!length(lineNum)) {
@@ -461,12 +461,12 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
       stop(errorMsg)
     }
   }
-
+  
   if (any(LLCaseIDCol %in% normalCases)) {
     errorMsg <- paste0("Normal case(s) found in TP table.")
     stop(errorMsg)
   }
-
+  
   for (i in 1:nrow(LLTable)) {
     lineNum <- which((truthCaseID == LLCaseIDCol[i]) & (lesionIDCol == LLLesionIDCol[i]))
     if (!length(lineNum)) {
@@ -476,7 +476,7 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
       stop(errorMsg)
     }
   }
-
+  
   if (anyDuplicated(LLTable[, 1:4])) {
     naLines <- which(duplicated(LLTable[, 1:4]))
     errorMsg <- paste0("Modality ", paste(LLTable[naLines, 2], collapse = ", "),
@@ -486,14 +486,14 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
                        " have multiple ratings in TP table .")
     stop(errorMsg)
   }
-
+  
   modalityIDUnique <- as.character(unique(c(NLModalityIDCol, LLModalityIDCol)))
   I <- length(modalityIDUnique)
   readerIDUnique <- as.character(unique(c(NLReaderIDCol, LLReaderIDCol)))
   # following  to preserve ordering does not work as names are prededed with Rdr
   # readerIDUnique <- as.character(sort(unique(as.integer(c(NLReaderIDCol, LLReaderIDCol)))))
   J <- length(readerIDUnique)
-
+  
   maxNL <- 0
   for (i in modalityIDUnique) {
     for (j in readerIDUnique) {
@@ -503,7 +503,7 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
       maxNL <- max(maxNL, max(table(NLCaseIDCol[casePresent_ij])))
     }
   }
-
+  
   L <- length(NLModalityIDCol)
   NL <- array(dim = c(I, J, K, maxNL))
   NLRatingCol <- as.numeric(NLRatingCol)
@@ -527,7 +527,7 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
     }
   }
   NL[is.na(NL)] <- UNINITIALIZED
-
+  
   ############################ INIT LL ARRAY ################################
   L <- length(LLModalityIDCol)
   LL <- array(dim = c(I, J, K2, max(perCase)))
@@ -559,11 +559,11 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
     #     if (is.na( LL[i, j, k, el])) LL[i, j, k, el] <- LLRatingCol[l]
     # }
   }
-
+  
   LL[is.na(LL)] <- UNINITIALIZED
   weights[is.na(weights)] <- UNINITIALIZED
   lesionIDCol[is.na(lesionIDCol)] <- UNINITIALIZED
-
+  
   if (type == "ROC" && design == "FCTRL") {
     if (!(((max(table(truthCaseID)) == 1) && (maxNL == 1))
           && (all((NL[, , (K1 + 1):K, ] == UNINITIALIZED)))
@@ -572,21 +572,21 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
       stop("This does not appear to be an ROC dataset: check TRUTH worksheet.")
     }
   }
-
+  
   modalityNames <- modalityIDUnique
   readerNames <- readerIDUnique
-
+  
   if (sequentialNames){
     modalityIDUnique <- 1:I
     readerIDUnique <- 1:J
   }
-
+  
   names(modalityIDUnique) <- modalityNames; modalityID <- modalityIDUnique
   names(readerIDUnique) <- readerNames; readerID <- readerIDUnique
-
+  
   name <- NA
   if ((design == "FCTRL") || (design == "CROSSED")) design <- "FCTRL"
-
+  
   if (type != "LROC") {
     # return the ROC or FROC dataset object
     return(convert2dataset(NL, LL, LL_IL = NA,
@@ -606,9 +606,13 @@ ReadJAFROCNewFormat <- function(fileName, lrocForcedMark, sequentialNames)
     # LROC paradigm; if it is not forced, then it is possible for a mark to not
     # appear in either TP or FP sheet, in which case the check is bypassed
     if (lrocForcedMark) {
-      x1 <- LL_IL
-      x2 <- LL
-      if (any(which(x1 != -Inf) != which(x2 == -Inf))) stop("Error in LROC file")
+      for (i in 1:I) {
+        for (j in 1:J) {
+          for (k in 1:K2) {
+            if ((LL[i,j,k,1] != -Inf) == (LL_IL[i,j,k,1] != -Inf)) stop("Error in LROC file: check that every dis. case mark appears in either TP or FP sheet\n")
+          }
+        }
+      }
     }
     # return the LROC dataset object
     return(convert2dataset(NL, LL, LL_IL,
@@ -625,23 +629,23 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
   # wb <- loadWorkbook(fileName)  # openxlsx
   wb <- excel_sheets(fileName)    # readxl
   sheetNames <- toupper(wb)
-
+  
   truthFileIndex <- which(!is.na(match(sheetNames, "TRUTH")))
   if (truthFileIndex == 0)
     stop("TRUTH table cannot be found in the dataset.")
   truthTable <- data.frame( read_xlsx(fileName, truthFileIndex, range = cell_cols(1:3) ) )
-
+  
   for (i in 1:3){
     truthTable[grep("^\\s*$", truthTable[ , i]), i] <- NA
   }
-
+  
   naRows <- colSums(is.na(truthTable))
   if (max(naRows) > 0) {
     if (max(naRows) == min(naRows)) {
       truthTable <- truthTable[1:(nrow(truthTable) - max(naRows)), ]
     }
   }
-
+  
   for (i in 1:2) {
     if (any((as.numeric(as.character(truthTable[, i]))) %% 1 != 0 )) {
       naLines <- which(!is.integer(as.numeric(as.character(truthTable[, i])))) + 1
@@ -649,46 +653,46 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       stop(errorMsg)
     }
   }
-
+  
   if (any(is.na(as.numeric(as.character(truthTable[, 3]))))) {
     naLines <- which(is.na(as.numeric(as.character(truthTable[, 3])))) + 1
     errorMsg <- paste0("There are non-numeric values(s) for weights at the line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table.")
     stop(errorMsg)
   }
-
+  
   caseIDColumn <- as.integer(truthTable[[1]])  # all 3 have same lenghts
   lesionIDColumn <- as.integer(truthTable[[2]])
   weightsColumn <- truthTable[[3]]
-
+  
   normalCases <- sort(unique(caseIDColumn[lesionIDColumn == 0]))
   abnormalCases <- sort(unique(caseIDColumn[lesionIDColumn > 0]))
   allCases <- c(normalCases, abnormalCases)
   K1 <- length(normalCases)
   K2 <- length(abnormalCases)
   K <- (K1 + K2)
-
+  
   if (anyDuplicated(cbind(caseIDColumn, lesionIDColumn))) {
     naLines <- which(duplicated(cbind(caseIDColumn, lesionIDColumn))) + 1
     errorMsg <- paste0("Line(s) ", paste(naLines, collapse = ", "), " in the TRUTH table are duplicated with previous line(s) .")
     stop(errorMsg)
   }
-
+  
   nlFileIndex <- which(!is.na(match(sheetNames, c("FP", "NL"))))
   if (nlFileIndex == 0)
     stop("FP table cannot be found in the dataset.")
   NLTable <- data.frame( read_xlsx(fileName, nlFileIndex, range = cell_cols(1:4) ) )
-
+  
   for (i in 1:4){
     NLTable[grep("^\\s*$", NLTable[ , i]), i] <- NA
   }
-
+  
   naRows <- colSums(is.na(NLTable))
   if (max(naRows) > 0) {
     if (max(naRows) == min(naRows)) {
       NLTable <- NLTable[1:(nrow(NLTable) - max(naRows)), ]
     }
   }
-
+  
   for (i in 3:4) {
     if (any(is.na(as.numeric(as.character(NLTable[, i]))))) {
       naLines <- which(is.na(as.numeric(as.character(NLTable[, i])))) + 1
@@ -696,34 +700,34 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       stop(errorMsg)
     }
   }
-
+  
   NLReaderID <- as.character(NLTable[[1]])
   NLModalityID <- as.character(NLTable[[2]])
   NLCaseID <- NLTable[[3]]
-
+  
   if (any(!(NLCaseID %in% caseIDColumn))) {
     naCases <- NLCaseID[which(!(NLCaseID %in% caseIDColumn))]
     errorMsg <- paste0("Case(s) ", paste(unique(naCases), collapse = ", "), " in the FP table cannot be found in TRUTH table.")
     stop(errorMsg)
   }
   NLRating <- as.numeric(NLTable[[4]])
-
+  
   llFileIndex <- which(!is.na(match(sheetNames, c("TP", "LL"))))
   if (llFileIndex == 0)
     stop("TP table cannot be found in the dataset.")
   LLTable <- data.frame( read_xlsx(fileName, llFileIndex, range = cell_cols(1:5) ) )
-
+  
   for (i in 1:5){
     LLTable[grep("^\\s*$", LLTable[ , i]), i] <- NA
   }
-
+  
   naRows <- colSums(is.na(LLTable))
   if (max(naRows) > 0) {
     if (max(naRows) == min(naRows)) {
       LLTable <- LLTable[1:(nrow(LLTable) - max(naRows)), ]
     }
   }
-
+  
   for (i in 3:5) {
     if (any(is.na(as.numeric(as.character(LLTable[, i]))))) {
       naLines <- which(is.na(as.numeric(as.character(LLTable[, i])))) + 1
@@ -731,12 +735,12 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       stop(errorMsg)
     }
   }
-
+  
   LLReaderID <- as.character(LLTable[[1]])
   LLModalityID <- as.character(LLTable[[2]])
   LLCaseID <- LLTable[[3]]
   LLLesionID <- LLTable[[4]]
-
+  
   for (i in 1:nrow(LLTable)) {
     lineNum <- which((caseIDColumn == LLCaseID[i]) & (lesionIDColumn == LLLesionID[i]))
     if (!length(lineNum)) {
@@ -744,21 +748,21 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       stop(errorMsg)
     }
   }
-
+  
   LLRating <- as.numeric(LLTable[[5]])
-
+  
   if (anyDuplicated(LLTable[, 1:4])) {
     naLines <- which(duplicated(LLTable[, 1:4]))
     errorMsg <- paste0("Modality ", paste(LLTable[naLines, 2], collapse = ", "), " Reader(s) ", paste(LLTable[naLines, 1], collapse = ", "), " Case(s) ", paste(LLTable[naLines, 3], collapse = ", "), " Lesion(s) ",
                        paste(LLTable[naLines, 4], collapse = ", "), " have multiple ratings in TP table .")
     stop(errorMsg)
   }
-
+  
   perCase  <- as.vector(table(caseIDColumn[caseIDColumn %in% abnormalCases]))
-
+  
   weights <- array(dim = c(length(abnormalCases), max(perCase )))
   IDs <- array(dim = c(length(abnormalCases), max(perCase )))
-
+  
   for (k2 in 1:length(abnormalCases)) {
     k <- which(caseIDColumn == abnormalCases[k2])
     IDs[k2, ] <- c(sort(lesionIDColumn[k]), rep(UNINITIALIZED, max(perCase ) - length(k)))
@@ -777,15 +781,15 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       }
     }
   }
-
+  
   modalityID <- as.character(sort(unique(c(NLModalityID, LLModalityID))))
   I <- length(modalityID)
-
+  
   #readerID <- as.character(sort(unique(c(NLReaderID, LLReaderID))))
   # to preserve ordering "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"
   readerID <- as.character(sort(unique(as.integer(c(NLReaderID, LLReaderID)))))
   J <- length(readerID)
-
+  
   maxNL <- 0
   for (i in modalityID) {
     for (j in readerID) {
@@ -795,7 +799,7 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       maxNL <- max(maxNL, max(table(NLCaseID[k])))
     }
   }
-
+  
   NL <- array(dim = c(I, J, K, maxNL))
   for (i in 1:I) {
     for (j in 1:J) {
@@ -811,7 +815,7 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       }
     }
   }
-
+  
   LL <- array(dim = c(I, J, K2, max(perCase )))
   for (i in 1:I) {
     for (j in 1:J) {
@@ -829,12 +833,12 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       }
     }
   }
-
+  
   weights[is.na(weights)] <- UNINITIALIZED
   IDs[is.na(IDs)] <- UNINITIALIZED
   NL[is.na(NL)] <- UNINITIALIZED
   LL[is.na(LL)] <- UNINITIALIZED
-
+  
   isROI <- TRUE
   for (i in 1:I) {
     for (j in 1:J) {
@@ -856,7 +860,7 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       }
     }
   }
-
+  
   if ((max(table(caseIDColumn)) == 1) && (maxNL == 1) && (all((NL[, , (K1 + 1):K, ] == UNINITIALIZED))) && (all((NL[, , 1:K1, ] != UNINITIALIZED)))) {
     type <- "ROC"
   } else {
@@ -866,18 +870,18 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
       type <- "FROC"
     }
   }
-
+  
   modalityNames <- modalityID
   readerNames <- readerID
-
+  
   if (renumber){
     modalityID <- 1:I
     readerID <- 1:J
   }
-
+  
   names(modalityID) <- modalityNames
   names(readerID) <- readerNames
-
+  
   truthTableStr <- array(dim = c(I, J, K, (max(lesionIDColumn)+1)))
   truthTableStr[,,1:K1,1] <- 1
   for (k2 in 1:K2) {
@@ -887,12 +891,12 @@ ReadJAFROCOldFormat <- function(fileName, renumber) {
     # 3 lesions. See RJafrocChecks/truthTableStr.xlsx, OldFormat.
     truthTableStr[,,k2+K1,(1:perCase[k2])+1] <- 1
   }
-
+  
   name <- NA
   design <- "FCTRL" # default when using old read function
   return(convert2dataset(NL, LL, LL_IL = NA,
                          perCase, IDs, weights,
                          fileName, type, name, truthTableStr, design,
                          modalityID, readerID))
-
+  
 }

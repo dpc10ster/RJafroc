@@ -416,7 +416,7 @@ test_that(contextStr, {
   expect_equal(temp, ds)
   
   # cannot set lrocForcedMark flag with this dataset  
-  expect_warning(expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE, lrocForcedMark = TRUE)))
+  expect_error(DfReadDataFile(fileName, newExcelFileFormat = TRUE, lrocForcedMark = TRUE))
   
   # cannot set LROC flag with FROC or ROC data  
   {
