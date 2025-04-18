@@ -1,5 +1,5 @@
 ####################################################################################################################
-gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2Plot, readers2Plot, opChType, legPos, maxDiscrete)
+gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2Plot, readers2Plot, opChType, legPos = c(0.8, 0.3), maxDiscrete)
 {
   # these silly statements are needed to avoid a NOTE on R CMD check
   genAbscissa <- NULL
@@ -136,7 +136,10 @@ gpfPlotGenericEmpiricalOperatingCharacteristic <- function(dataset, treatments2P
 
   genPlot <- genPlot  + scale_x_continuous(limits = c(0,xLim)) + scale_y_continuous(limits = c(0,yLim))
 
-  genPlot <- genPlot + theme(legend.position = "inside", legend.position.inside = legPos)
+  # if(length(legPos) != 2)
+  #   genPlot <- genPlot + theme(legend.position = "none")
+  # else
+  genPlot <- genPlot + theme(legend.position.inside = legPos)
 
   return(list(Plot = genPlot, Points = pts))
 }
