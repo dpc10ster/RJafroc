@@ -119,6 +119,11 @@ PlotRsmOpChrs <- function(mu,
                                             llfRange = NULL,
                                             nlfAlpha = NULL){
 
+  # PWEPFIX: This will provide a valid position to the legend.position.inside parameter.
+  #      The value matches the legPos default for PlotEmpOpChrs()
+  #      In this current function legPos should be a valid value for the ggplot2 legend.position parameter
+  legPosLoc <- c(0.8,0.3)
+
 
   if (missing(zeta1)) zeta1 <- array(-Inf, dim = length(mu))
 
@@ -257,7 +262,7 @@ PlotRsmOpChrs <- function(mu,
       ggplot(data = ROCPoints) +
         geom_line(aes(x = FPF, y = TPF, color = Treatment))  +
         geom_line(data = ROCDashes, aes(x = FPF, y = TPF, color = Treatment), linetype = 2) +
-        theme(legend.position = "inside", legend.position.inside = legPos) +
+        theme(legend.position = legPos, legend.position.inside = legPosLoc) +
         theme(legend.direction = legendDirection, legend.justification = c(1, 0))
     })
   }
@@ -268,7 +273,7 @@ PlotRsmOpChrs <- function(mu,
         geom_line(aes(x = NLF, y = LLF, color = Treatment))  +
         scale_x_continuous(expand = c(0, 0), limits = nlfRange) +
         scale_y_continuous(expand = c(0, 0), limits = llfRange) +
-        theme(legend.position = "inside", legend.position.inside = legPos) +
+        theme(legend.position = legPos, legend.position.inside = legPosLoc) +
         theme(legend.direction = legendDirection, legend.justification = c(1, 0))
     })
   }
@@ -278,7 +283,7 @@ PlotRsmOpChrs <- function(mu,
       ggplot(data = AFROCPoints) +
         geom_line(aes(x = FPF, y = LLF , color = Treatment)) +
         geom_line(data = AFROCDashes, aes(x = FPF, y = LLF, color = Treatment), linetype = 2) +
-        theme(legend.position = "inside", legend.position.inside = legPos) +
+        theme(legend.position = legPos, legend.position.inside = legPosLoc) +
         theme(legend.direction = legendDirection, legend.justification = c(1, 0))
     }
     )
@@ -289,7 +294,7 @@ PlotRsmOpChrs <- function(mu,
       ggplot(data = wAFROCPoints) +
         geom_line(aes(x = FPF, y = wLLF , color = Treatment)) +
         geom_line(data = wAFROCDashes, aes(x = FPF, y = wLLF, color = Treatment), linetype = 2) +
-        theme(legend.position = "inside", legend.position.inside = legPos) +
+        theme(legend.position = legPos, legend.position.inside = legPosLoc) +
         theme(legend.direction = legendDirection, legend.justification = c(1, 0))
     })
   }
@@ -305,7 +310,7 @@ PlotRsmOpChrs <- function(mu,
       ggplot(data = PDFPoints,
              aes(x = highestZSample, y = pdf, color = Treatment, linetype = class)) +
         geom_line()  +
-        theme(legend.position = "inside", legend.position.inside = legPos) +
+        theme(legend.position = legPos, legend.position.inside = legPosLoc) +
         theme(legend.box = legendDirection) +
         labs(x = "Highest Z Sample")
     })
